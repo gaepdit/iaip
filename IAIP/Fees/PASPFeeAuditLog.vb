@@ -2231,7 +2231,7 @@ Public Class PASPFeeAuditLog
         End Try
     End Sub
 
-    Private Sub btnAddFSAdmin_Click(sender As System.Object, e As System.EventArgs) Handles btnAddFSAdmin.Click
+    Private Sub btnAddFSAdmin_Click(sender As Object, e As EventArgs) Handles btnAddFSAdmin.Click
         Try
             If (mtbAirsNumber.Text <> AirsNumber.FormattedString) OrElse (FeeYearsComboBox.SelectedItem.ToString <> FeeYear) Then
                 MessageBox.Show("The selected AIRS number or fee year don't match the displayed information. " &
@@ -2241,11 +2241,11 @@ Public Class PASPFeeAuditLog
                 Exit Sub
             End If
 
-            If Insert_FS_Admin(Me.FeeYear, Me.AirsNumber.ShortString,
+            If Insert_FS_Admin(Me.FeeYear, Me.AirsNumber,
                           rdbEnrolledTrue.Checked,
-                          dtpEnrollmentDate.Text, rdbMailoutTrue.Checked,
-                          rdbLetterMailedTrue.Checked, dtpLetterMailed.Text,
-                          rdbSubmittalTrue.Checked, dtpSubmittalDate.Text,
+                          dtpEnrollmentDate.Value, rdbMailoutTrue.Checked,
+                          rdbLetterMailedTrue.Checked, dtpLetterMailed.Value,
+                          rdbSubmittalTrue.Checked, dtpSubmittalDate.Value,
                           txtFSAdminComments.Text) = True Then
 
                 MsgBox("Save completed", MsgBoxStyle.Information, Me.Text)
@@ -2253,11 +2253,11 @@ Public Class PASPFeeAuditLog
                 MsgBox("Did not Save", MsgBoxStyle.Information, Me.Text)
             End If
 
-
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub btnGECOViewPastContacts_Click(sender As System.Object, e As System.EventArgs) Handles btnGECOViewPastContacts.Click
         Try
             Dim query As String = "Select * " &
@@ -4801,144 +4801,76 @@ Public Class PASPFeeAuditLog
 #Region " CodeFile "
     ' Code that was formerly in CodeFile.vb but is only used in this form anyway
 
-    Function Insert_FS_Admin(FeeYear As String, AIRSNumber As String,
-                         Enrolled As String,
-                         DateEnrolled As String, InitialMailOut As String,
-                         MailoutSent As String, DateMailOutSent As String,
-                         Submittal As String, DateSubmittal As String,
+    Function Insert_FS_Admin(FeeYear As String, AIRSNumber As Apb.ApbFacilityId,
+                         Enrolled As Boolean,
+                         DateEnrolled As Date, InitialMailOut As Boolean,
+                         MailoutSent As Boolean, DateMailOutSent As Date,
+                         Submittal As Boolean, DateSubmittal As Date,
                          Comment As String) As Boolean
         Try
-            Dim AdminCheck As String = "0"
-
-            If IsDBNull(FeeYear) Then
+            If String.IsNullOrEmpty(FeeYear) Then
                 Return False
             End If
-            If IsDBNull(AIRSNumber) Then
+            If AIRSNumber Is Nothing Then
                 Return False
             End If
 
             Dim SQL As String = "Select " &
-            "count(*) as AdminCount " &
-            "from FS_Admin " &
-            "where numFeeYear = '" & FeeYear & "' " &
-            "and strAIRSNumber = '0413" & AIRSNumber & "' "
+                "count(*)  " &
+                "from FS_Admin " &
+                "where numFeeYear = @FeeYear " &
+                "and strAIRSNumber = @AIRSNumber "
+            Dim params As SqlParameter() = {
+                New SqlParameter("@FeeYear", FeeYear),
+                New SqlParameter("@AIRSNumber", AIRSNumber.DbFormattedString)
+            }
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                If IsDBNull(dr.Item("AdminCount")) Then
-                    AdminCheck = "0"
-                Else
-                    AdminCheck = dr.Item("AdminCount")
-                End If
-            End While
-            dr.Close()
-
-            If AdminCheck <> "0" Then
+            If DB.GetSingleValue(Of Integer)(SQL, params) > 0 Then
                 Return False
             End If
 
-            If IsDBNull(Enrolled) Then
-                Enrolled = "0"
-            Else
-                If Enrolled = False Then
-                    Enrolled = "0"
-                Else
-                    Enrolled = "1"
-                End If
-            End If
-            If IsDBNull(InitialMailOut) Then
-                InitialMailOut = "0"
-            Else
-                If InitialMailOut = False Then
-                    InitialMailOut = "0"
-                Else
-                    InitialMailOut = "1"
-                End If
-            End If
-            If IsDate(MailoutSent) Then
-                MailoutSent = "0"
-            Else
-                If MailoutSent = False Then
-                    MailoutSent = "0"
-                Else
-                    MailoutSent = "1"
-                End If
-            End If
-            If IsDBNull(Submittal) Then
-                Submittal = "0"
-            Else
-                If Submittal = False Then
-                    Submittal = "0"
-                Else
-                    Submittal = "1"
-                End If
-            End If
-
             SQL = "Insert into FS_Admin " &
-            "values " &
-            "(" & FeeYear & ", '0413" & AIRSNumber & "', " &
-            "'" & Enrolled & "', '', " &
-            "'" & DateEnrolled & "', '" & InitialMailOut & "', " &
-            "'" & MailoutSent & "', '" & DateMailOutSent & "', " &
-            "'" & Submittal & "', '" & DateSubmittal & "', " &
-            "'1', '" & OracleDate & "', " &
-            "'" & Replace(Comment, "'", "''") & "', '1', " &
-            "'IAIP||" & CurrentUser.AlphaName & "', '" & OracleDate & "', " &
-            "'" & OracleDate & "') "
+                "(NUMFEEYEAR, STRAIRSNUMBER, STRENROLLED, DATINITIALENROLLMENT, DATENROLLMENT, STRINITIALMAILOUT, " &
+                "STRMAILOUTSENT, DATMAILOUTSENT, INTSUBMITTAL, DATSUBMITTAL, NUMCURRENTSTATUS, DATSTATUSDATE, STRCOMMENT, " &
+                "ACTIVE, UPDATEUSER, UPDATEDATETIME, CREATEDATETIME) " &
+                "values " &
+                "(@NUMFEEYEAR, @STRAIRSNUMBER, @STRENROLLED, '', @DATENROLLMENT, @STRINITIALMAILOUT, " &
+                "@STRMAILOUTSENT, @DATMAILOUTSENT, @INTSUBMITTAL, @DATSUBMITTAL, 1, getdate(), @STRCOMMENT, " &
+                "1, @UPDATEUSER, getdate(), getdate() ) "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
+            Dim params2 As SqlParameter() = {
+                New SqlParameter("@NUMFEEYEAR", FeeYear),
+                New SqlParameter("@STRAIRSNUMBER", AIRSNumber.DbFormattedString),
+                New SqlParameter("@STRENROLLED", Convert.ToInt32(Enrolled)),
+                New SqlParameter("@DATENROLLMENT", DateEnrolled),
+                New SqlParameter("@STRINITIALMAILOUT", Convert.ToInt32(InitialMailOut)),
+                New SqlParameter("@STRMAILOUTSENT", Convert.ToInt32(MailoutSent)),
+                New SqlParameter("@DATMAILOUTSENT", DateMailOutSent),
+                New SqlParameter("@INTSUBMITTAL", Convert.ToInt32(Submittal)),
+                New SqlParameter("@DATSUBMITTAL", DateSubmittal),
+                New SqlParameter("@STRCOMMENT", Comment),
+                New SqlParameter("@UPDATEUSER", "IAIP||" & CurrentUser.AlphaName),
+            }
+            DB.RunCommand(SQL, params2)
 
             SQL = "Update FS_Admin set " &
-           "datInitialEnrollment = datEnrollment " &
-           "where numFeeYear = '" & FeeYear & "' " &
-           "and strAIRSnumber = '0413" & AIRSNumber & "' " &
-           "and datInitialEnrollment is null "
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
+               "datInitialEnrollment = datEnrollment " &
+               "where numFeeYear = @FeeYear " &
+               "and strAIRSnumber = @AIRSNumber " &
+               "and datInitialEnrollment is null "
+            DB.RunCommand(SQL, params)
 
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            cmd = New SqlCommand("PD_FEE_MAILOUT", CurrentConnection)
-            cmd.CommandType = CommandType.StoredProcedure
+            DB.SPRunCommand("PD_FEE_MAILOUT", params)
+            DB.SPRunCommand("PD_FEE_DATA", params)
 
-            cmd.Parameters.Add(New SqlParameter("@FeeYear", SqlDbType.Decimal)).Value = FeeYear
-            cmd.Parameters.Add(New SqlParameter("@AIRSNumber", SqlDbType.VarChar)).Value = "0413" & AIRSNumber
-
-            cmd.ExecuteNonQuery()
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            cmd = New SqlCommand("PD_FEE_DATA", CurrentConnection)
-            cmd.CommandType = CommandType.StoredProcedure
-
-            cmd.Parameters.Add(New SqlParameter("@FeeYear", SqlDbType.Decimal)).Value = FeeYear
-            cmd.Parameters.Add(New SqlParameter("@AIRSNumber", SqlDbType.VarChar)).Value = "0413" & AIRSNumber
-
-            cmd.ExecuteNonQuery()
-
-            If Not DAL.Update_FS_Admin_Status(FeeYear, AIRSNumber) Then
+            If Not DAL.Update_FS_Admin_Status(FeeYear, AIRSNumber.ToString) Then
                 MessageBox.Show("There was an error updating the database", "Database error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End If
 
             Return True
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Function
 
