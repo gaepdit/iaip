@@ -2408,36 +2408,25 @@ Public Class PASPFeeAuditLog
         End Try
     End Sub
 
-    Function InvoiceCheck() As Boolean
-        Try
-            If IsNumeric(txtInvoiceID.Text) Then
-                SQL = "Select " &
-                "InvoiceID " &
-                "from FS_FeeInvoice " &
-                "where invoiceID = '" & txtInvoiceID.Text & "' " &
-                "and strAIRSNumber = '" & Me.AirsNumber.DbFormattedString & "' " &
-                "and numFeeyear = '" & txtYear.Text & "' "
-
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-                dr.Close()
-
-                If recExist = True Then
-                    Return True
-                Else
-                    Return False
-                End If
-            Else
-                Return False
-            End If
-
-        Catch ex As Exception
+    Private Function InvoiceCheck() As Boolean
+        If Not IsNumeric(txtInvoiceID.Text) Then
             Return False
-        End Try
+        End If
+
+        Dim SQL As String = "Select " &
+           "InvoiceID " &
+           "from FS_FeeInvoice " &
+           "where invoiceID = @invoiceID " &
+           "and strAIRSNumber = @airs " &
+           "and numFeeyear = @year "
+
+        Dim p2 As SqlParameter() = {
+            New SqlParameter("@year", FeeYear),
+            New SqlParameter("@airs", AirsNumber.DbFormattedString),
+            New SqlParameter("@invoiceID", txtInvoiceID.Text)
+        }
+
+        Return DB.ValueExists(SQL, p2)
     End Function
 
     Private Sub btnTransactionNew_Click(sender As Object, e As EventArgs) Handles btnTransactionNew.Click
@@ -2475,62 +2464,71 @@ Public Class PASPFeeAuditLog
                 Exit Sub
             End If
 
-            If txtInvoiceID.Text <> "" Then
-                SQL = "Insert into FS_Transactions " &
-                "values " &
-                "((seq_fs_transactions.nextVal), " &
-                "'" & Replace(txtInvoiceID.Text, "'", "''") & "', " &
-                "'" & Replace(cboTransactionType.SelectedValue, "'", "''") & "', '" & dtpTransactionDate.Text & "', " &
-                "'" & Replace(Replace(Replace(txtTransactionAmount.Text, "'", "''"), ",", ""), "$", "") & "', " &
-                "'" & Replace(txtTransactionCheckNo.Text, "'", "''") & "', " &
-                "'" & Replace(txtDepositNo.Text, "'", "''") & "', '" & Replace(txtBatchNo.Text, "'", "''") & "', " &
-                "'" & CurrentUser.UserID & "', '" & Replace(txtAPBComments.Text, "'", "''") & "', " &
-                "'1', '" & CurrentUser.UserID & "', " &
-                "'" & OracleDate & "', '" & OracleDate & "', " &
-                "'" & Me.AirsNumber.DbFormattedString & "', " &
-                "'" & Me.FeeYear & "', '" & Replace(txtTransactionCreditCardNo.Text, "'", "''") & "') "
-            Else
-                SQL = "Insert into FS_Transactions " &
-               "values " &
-               "((seq_fs_transactions.nextVal), " &
-               "'', " &
-               "'" & Replace(cboTransactionType.SelectedValue, "'", "''") & "', '" & dtpTransactionDate.Text & "', " &
-               "'" & Replace(Replace(Replace(txtTransactionAmount.Text, "'", "''"), ",", ""), "$", "") & "', " &
-               "'" & Replace(txtTransactionCheckNo.Text, "'", "''") & "', " &
-               "'" & Replace(txtDepositNo.Text, "'", "''") & "', '" & Replace(txtBatchNo.Text, "'", "''") & "', " &
-               "'" & CurrentUser.UserID & "', '" & Replace(txtAPBComments.Text, "'", "''") & "', " &
-               "'1', '" & CurrentUser.UserID & "', " &
-               "'" & OracleDate & "', '" & OracleDate & "', " &
-               "'" & Me.AirsNumber.DbFormattedString & "', " &
-               "'" & Me.FeeYear & "', '" & Replace(txtTransactionCreditCardNo.Text, "'", "''") & "') "
-            End If
+            Dim SQL As String = "Insert into FS_Transactions " &
+                    "(TRANSACTIONID, INVOICEID, TRANSACTIONTYPECODE, DATTRANSACTIONDATE, " &
+                    "NUMPAYMENT, STRCHECKNO, STRDEPOSITNO, STRBATCHNO, " &
+                    "STRENTRYPERSON, STRCOMMENT, ACTIVE, UPDATEUSER, " &
+                    "UPDATEDATETIME, CREATEDATETIME, STRAIRSNUMBER, NUMFEEYEAR, " &
+                    "STRCREDITCARDNO) " &
+                    " values " &
+                    "(NEXT VALUE FOR SEQ_FS_TRANSACTIONS, @INVOICEID, @TRANSACTIONTYPECODE, @DATTRANSACTIONDATE, " &
+                    "@NUMPAYMENT, @STRCHECKNO, @STRDEPOSITNO, @STRBATCHNO, " &
+                    "@STRENTRYPERSON, @STRCOMMENT, '1', @UPDATEUSER, " &
+                    "getdate(), getdate(), @STRAIRSNUMBER, @NUMFEEYEAR, " &
+                    "@STRCREDITCARDNO) "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
+
+            If txtInvoiceID.Text <> "" Then
+                Dim params As SqlParameter() = {
+                    New SqlParameter("@INVOICEID", txtInvoiceID.Text),
+                    New SqlParameter("@TRANSACTIONTYPECODE", cboTransactionType.SelectedValue),
+                    New SqlParameter("@DATTRANSACTIONDATE", dtpTransactionDate.Value),
+                    New SqlParameter("@NUMPAYMENT", Replace(Replace(txtTransactionAmount.Text, ",", ""), "$", "")),
+                    New SqlParameter("@STRCHECKNO", txtTransactionCheckNo.Text),
+                    New SqlParameter("@STRDEPOSITNO", txtDepositNo.Text),
+                    New SqlParameter("@STRBATCHNO", txtBatchNo.Text),
+                    New SqlParameter("@STRENTRYPERSON", CurrentUser.UserID),
+                    New SqlParameter("@STRCOMMENT", txtAPBComments.Text),
+                    New SqlParameter("@UPDATEUSER", CurrentUser.UserID),
+                    New SqlParameter("@STRAIRSNUMBER", AirsNumber.DbFormattedString),
+                    New SqlParameter("@NUMFEEYEAR", FeeYear),
+                    New SqlParameter("@STRCREDITCARDNO", txtTransactionCreditCardNo.Text)
+                }
+
+                DB.RunCommand(SQL, params)
+            Else
+                Dim params As SqlParameter() = {
+                    New SqlParameter("@INVOICEID", ""),
+                    New SqlParameter("@TRANSACTIONTYPECODE", cboTransactionType.SelectedValue),
+                    New SqlParameter("@DATTRANSACTIONDATE", dtpTransactionDate.Value),
+                    New SqlParameter("@NUMPAYMENT", Replace(Replace(txtTransactionAmount.Text, ",", ""), "$", "")),
+                    New SqlParameter("@STRCHECKNO", txtTransactionCheckNo.Text),
+                    New SqlParameter("@STRDEPOSITNO", txtDepositNo.Text),
+                    New SqlParameter("@STRBATCHNO", txtBatchNo.Text),
+                    New SqlParameter("@STRENTRYPERSON", CurrentUser.UserID),
+                    New SqlParameter("@STRCOMMENT", txtAPBComments.Text),
+                    New SqlParameter("@UPDATEUSER", CurrentUser.UserID),
+                    New SqlParameter("@STRAIRSNUMBER", AirsNumber.DbFormattedString),
+                    New SqlParameter("@NUMFEEYEAR", FeeYear),
+                    New SqlParameter("@STRCREDITCARDNO", txtTransactionCreditCardNo.Text)
+                }
+
+                DB.RunCommand(SQL, params)
             End If
-            dr = cmd.ExecuteReader
-            dr.Close()
 
             SQL = "Select max(TransactionID) " &
             "from FS_TRANSACTIONS "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
+            Dim dr As DataRow = DB.GetDataRow(SQL)
+
+            If dr Is Nothing OrElse IsDBNull(dr.Item(0)) Then
+                txtTransactionID.Text = "Error"
+            Else
+                txtTransactionID.Text = dr.Item(0)
             End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                If IsDBNull(dr.Item(0)) Then
-                    txtTransactionID.Text = "Error"
-                Else
-                    txtTransactionID.Text = dr.Item(0)
-                End If
-            End While
-            dr.Close()
 
             InvoiceStatusCheck(txtInvoiceID.Text)
-            If Not DAL.Update_FS_Admin_Status(Me.FeeYear, Me.AirsNumber.ShortString) Then
+            If Not DAL.Update_FS_Admin_Status(FeeYear, AirsNumber.ShortString) Then
                 MessageBox.Show("There was an error updating the database", "Database error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End If
 
@@ -2542,6 +2540,7 @@ Public Class PASPFeeAuditLog
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub dgvTransactions_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvTransactions.MouseUp
         Try
 
@@ -2629,46 +2628,39 @@ Public Class PASPFeeAuditLog
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub btnClearTransactions_Click(sender As Object, e As EventArgs) Handles btnClearTransactions.Click
-        Try
-            txtTransactionID.Clear()
-            txtInvoiceID.Clear()
-            txtDepositNo.Clear()
-            txtBatchNo.Clear()
-            txtTransactionCreatedBy.Clear()
-            cboTransactionType.SelectedValue = 0
-            dtpTransactionDate.Text = OracleDate
-            txtTransactionAmount.Clear()
-            txtTransactionCheckNo.Clear()
-            txtTransactionCreditCardNo.Clear()
-            txtAPBComments.Clear()
-            txtTransactionUpdated.Clear()
-            dtpTransactionUpdated.Text = OracleDate
-            dtpTransactionCreated.Text = OracleDate
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        txtTransactionID.Clear()
+        txtInvoiceID.Clear()
+        txtDepositNo.Clear()
+        txtBatchNo.Clear()
+        txtTransactionCreatedBy.Clear()
+        cboTransactionType.SelectedValue = 0
+        dtpTransactionDate.Value = Today
+        txtTransactionAmount.Clear()
+        txtTransactionCheckNo.Clear()
+        txtTransactionCreditCardNo.Clear()
+        txtAPBComments.Clear()
+        txtTransactionUpdated.Clear()
+        dtpTransactionUpdated.Value = Today
+        dtpTransactionCreated.Value = Today
     End Sub
+
     Private Sub btnClearEditableTransactionData_Click(sender As Object, e As EventArgs) Handles btnClearEditableTransactionData.Click
-        Try
-            txtDepositNo.Clear()
-            txtBatchNo.Clear()
-            txtTransactionCreatedBy.Clear()
-            cboTransactionType.SelectedValue = 0
-            dtpTransactionDate.Text = OracleDate
-            txtTransactionAmount.Clear()
-            txtTransactionCheckNo.Clear()
-            txtTransactionCreditCardNo.Clear()
-            txtAPBComments.Clear()
-            txtTransactionUpdated.Clear()
-            dtpTransactionUpdated.Text = OracleDate
-            dtpTransactionCreated.Text = OracleDate
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        txtDepositNo.Clear()
+        txtBatchNo.Clear()
+        txtTransactionCreatedBy.Clear()
+        cboTransactionType.SelectedValue = 0
+        dtpTransactionDate.Value = Today
+        txtTransactionAmount.Clear()
+        txtTransactionCheckNo.Clear()
+        txtTransactionCreditCardNo.Clear()
+        txtAPBComments.Clear()
+        txtTransactionUpdated.Clear()
+        dtpTransactionUpdated.Value = Today
+        dtpTransactionCreated.Value = Today
     End Sub
+
     Private Sub btnTransactionUpdate_Click(sender As Object, e As EventArgs) Handles btnTransactionUpdate.Click
         Try
 
@@ -2695,29 +2687,39 @@ Public Class PASPFeeAuditLog
                 Exit Sub
             End If
 
-            SQL = "Update FS_Transactions set " &
-            "invoiceid = '" & txtInvoiceID.Text & "', " &
-            "TransactionTypecode = '" & cboTransactionType.SelectedValue & "', " &
-            "datTransactionDate = '" & dtpTransactionDate.Text & "', " &
-            "numPayment = '" & Replace(Replace(Replace(txtTransactionAmount.Text, "'", "''"), ",", ""), "$", "") & "', " &
-            "strCheckNo = '" & txtTransactionCheckNo.Text & "', " &
-            "strDepositNo = '" & txtDepositNo.Text & "', " &
-            "strBatchNo = '" & txtBatchNo.Text & "', " &
-            "strComment = '" & txtAPBComments.Text & "', " &
+            Dim SQL As String = "Update FS_Transactions set " &
+            "invoiceid = @invoiceid, " &
+            "TransactionTypecode = @TransactionTypecode, " &
+            "datTransactionDate = @datTransactionDate, " &
+            "numPayment = @numPayment, " &
+            "strCheckNo = @strCheckNo, " &
+            "strDepositNo = @strDepositNo, " &
+            "strBatchNo = @strBatchNo, " &
+            "strComment = @strComment, " &
             "active = '1', " &
-            "updateUser = '" & CurrentUser.UserID & "', " &
-            "updateDateTime = sysdate, " &
-            "strCreditCardNo = '" & txtTransactionCreditCardNo.Text & "' " &
-            "where TransactionID = '" & txtTransactionID.Text & "' "
+            "updateUser = @updateUser, " &
+            "updateDateTime = getdate(), " &
+            "strCreditCardNo = @strCreditCardNo " &
+            "where TransactionID = @TransactionID "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
+            Dim p As SqlParameter() = {
+                New SqlParameter("@invoiceid", txtInvoiceID.Text),
+                New SqlParameter("@TransactionTypecode", cboTransactionType.SelectedValue),
+                New SqlParameter("@datTransactionDate", dtpTransactionDate.Text),
+                New SqlParameter("@numPayment", Replace(Replace(txtTransactionAmount.Text, ",", ""), "$", "")),
+                New SqlParameter("@strCheckNo", txtTransactionCheckNo.Text),
+                New SqlParameter("@strDepositNo", txtDepositNo.Text),
+                New SqlParameter("@strBatchNo", txtBatchNo.Text),
+                New SqlParameter("@strComment", txtAPBComments.Text),
+                New SqlParameter("@updateUser", CurrentUser.UserID),
+                New SqlParameter("@strCreditCardNo", txtTransactionCreditCardNo.Text),
+                New SqlParameter("@TransactionID", txtTransactionID.Text)
+            }
+
+            DB.RunCommand(SQL, p)
 
             InvoiceStatusCheck(txtInvoiceID.Text)
+
             If Not DAL.Update_FS_Admin_Status(Me.FeeYear, Me.AirsNumber.ShortString) Then
                 MessageBox.Show("There was an error updating the database", "Database error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End If
@@ -2729,6 +2731,7 @@ Public Class PASPFeeAuditLog
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub btnTransactionDelete_Click(sender As Object, e As EventArgs) Handles btnTransactionDelete.Click
         Try
 
@@ -2750,18 +2753,18 @@ Public Class PASPFeeAuditLog
                 Exit Sub
             End If
 
-            SQL = "Update FS_Transactions set " &
+            Dim SQL As String = "Update FS_Transactions set " &
             "active = '0', " &
-            "updateUser = '" & CurrentUser.UserID & "', " &
-            "updateDateTime = sysdate " &
-            "where TransactionID = '" & txtTransactionID.Text & "' "
+            "updateUser = @updateUser, " &
+            "updateDateTime = getdate() " &
+            "where TransactionID = @TransactionID "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
+            Dim p As SqlParameter() = {
+                New SqlParameter("@updateUser", CurrentUser.UserID),
+                New SqlParameter("@TransactionID", txtTransactionID.Text)
+            }
+
+            DB.RunCommand(SQL, p)
 
             InvoiceStatusCheck(txtInvoiceID.Text)
             If Not DAL.Update_FS_Admin_Status(Me.FeeYear, Me.AirsNumber.ShortString) Then
@@ -2775,14 +2778,17 @@ Public Class PASPFeeAuditLog
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub InvoiceStatusCheck(invoiceID As String)
+
+    Private Sub InvoiceStatusCheck(invoiceID As String)
         Try
-            SQL = "select " &
+            Dim temp As String
+
+            Dim SQL As String = "select " &
             "(invoiceTotal - PaymentTotal) as Balance " &
             "from (select " &
             "sum(numAmount) as InvoiceTotal " &
             "from FS_Feeinvoice " &
-            "where invoiceid = '" & invoiceID & "' " &
+            "where invoiceId = @invoiceId " &
             "and Active = '1' ) INVOICED, " &
             "(select " &
             "case " &
@@ -2790,48 +2796,39 @@ Public Class PASPFeeAuditLog
             "else sum(numPayment) " &
             "End PaymentTotal " &
             "from FS_TRANSACTIONS " &
-            "where invoiceid = '" & invoiceID & "' " &
+            "where invoiceId = @invoiceId " &
             "and Active = '1' ) Payments "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
+            Dim p As New SqlParameter("@invoiceId", invoiceID)
 
-            dr = cmd.ExecuteReader
-            While dr.Read
-                If IsDBNull(dr.Item("Balance")) Then
-                    temp = "1"
-                Else
-                    temp = dr.Item("Balance")
-                End If
-            End While
-            dr.Close()
+            Dim dr As DataRow = DB.GetDataRow(SQL, p)
+
+            If dr Is Nothing OrElse IsDBNull(dr.Item("Balance")) Then
+                temp = "1"
+            Else
+                temp = dr.Item("Balance")
+            End If
 
             If temp <> "0" Then
                 'Not Paid in full
                 SQL = "Update FS_FeeInvoice set " &
                 "strInvoicestatus = '0' " &
-                "where invoiceId = '" & invoiceID & "' "
+                "where invoiceId = @invoiceId "
             Else
                 'Paid in Full 
                 SQL = "Update FS_FeeInvoice set " &
                 "strInvoicestatus = '1' " &
-                "where invoiceId = '" & invoiceID & "' "
+                "where invoiceId = @invoiceId "
             End If
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
+            DB.RunCommand(SQL, p)
 
             LoadFeeInvoiceData()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub btnSaveFeeAudit_Click(sender As Object, e As EventArgs) Handles btnSaveNewFeeAudit.Click
         Try
             Dim OpStatus As String = ""
@@ -4570,92 +4567,31 @@ Public Class PASPFeeAuditLog
             If rdbCurrentFeeyear.Checked = True Then
                 LoadTransactionData()
             Else
-                SQL = "select " &
-         "TRANSACTIONID,  INVOICES.INVOICEID, DATTRANSACTIONDATE, " &
-         "NUMPAYMENT, STRCHECKNO, STRDEPOSITNO, STRBATCHNO, " &
-         "ENTRYPERSON, " &
-         "STRCOMMENT, STRCREDITCARDNO, TRANSACTIONTYPECODE, " &
-         "case " &
-         "when TRANSACTIONS.UPDATEUSER is not null then (STRLASTNAME||', '||STRFIRSTNAME) " &
-         "else '' " &
-         "end  UpdateUser, " &
-         "TRANSACTIONS.UPDATEDATETIME, " &
-         "TRANSACTIONS.CREATEDATETIME, TRANSACTIONS.numFeeYear " &
-         " from " &
-         "(select " &
-         "TRANSACTIONID,  INVOICEID, DATTRANSACTIONDATE, " &
-         "NUMPAYMENT, STRCHECKNO, STRDEPOSITNO, STRBATCHNO, " &
-         "(STRLASTNAME||', '||STRFIRSTNAME) as ENTRYPERSON, " &
-         "STRCOMMENT, strCreditcardno, " &
-         "transactiontypecode, " &
-         "UPDATEUSER, UPDATEDATETIME, " &
-         "createDateTime, strairsnumber, numfeeyear  " &
-         "from FS_TRANSACTIONS, EPDUSERPROFILES " &
-         "where FS_TRANSACTIONS.STRENTRYPERSON = EPDUSERPROFILES.NUMUSERID " &
-         "and FS_TRANSACTIONS.STRAIRSNUMBER = '" & Me.AirsNumber.DbFormattedString & "' " &
-         "and active = 1) TRANSACTIONS,  " &
-         "(select " &
-         "0, INVOICEID, " &
-         "sysdate, 1, '', '', " &
-         "'', '', '', '', 2, " &
-         "UPDATEUSER, UPDATEDATETIME, " &
-         "CREATEDATETIME, STRAIRSNUMBER, NUMFEEYEAR   " &
-         "from FS_feeINVOICE " &
-         "where STRAIRSNUMBER = '" & Me.AirsNumber.DbFormattedString & "' " &
-         "and FS_feeINVOICE.Active = '1' ) INVOICES, " &
-         "EPDUSERPROFILES " &
-         "where TRANSACTIONS.STRAIRSNUMBER  =  INVOICES.STRAIRSNUMBER (+) " &
-         "and TRANSACTIONS.NUMFEEYEAR  =  INVOICES.NUMFEEYEAR  (+) " &
-         "and TRANSACTIONS.INVOICEID  =  INVOICES.INVOICEID (+) " &
-         "and TRANSACTIONS.UPDATEUSER  = epduserProfiles.numUserID   (+) " &
-         " union " &
-         "select " &
-         "TRANSACTIONID,  INVOICES.INVOICEID, DATTRANSACTIONDATE, " &
-         "NUMPAYMENT, STRCHECKNO, STRDEPOSITNO, STRBATCHNO, " &
-         "ENTRYPERSON, " &
-         "STRCOMMENT, STRCREDITCARDNO, TRANSACTIONTYPECODE, " &
-         "case " &
-         "when TRANSACTIONS.UPDATEUSER is not null then (STRLASTNAME||', '||STRFIRSTNAME) " &
-         "else '' " &
-         "end  UpdateUser, " &
-         "TRANSACTIONS.UPDATEDATETIME, " &
-         "TRANSACTIONS.CREATEDATETIME, TRANSACTIONS.numFeeYear  " &
-         " from " &
-         "(select " &
-         "TRANSACTIONID,  INVOICEID, DATTRANSACTIONDATE, " &
-         "NUMPAYMENT, STRCHECKNO, STRDEPOSITNO, STRBATCHNO, " &
-         "(STRLASTNAME||', '||STRFIRSTNAME) as ENTRYPERSON, " &
-         "STRCOMMENT, strCreditcardno, " &
-         "transactiontypecode, " &
-         "UPDATEUSER, UPDATEDATETIME, " &
-         "createDateTime, strairsnumber, numfeeyear  " &
-         "from FS_TRANSACTIONS, EPDUSERPROFILES " &
-         "where FS_TRANSACTIONS.STRENTRYPERSON = EPDUSERPROFILES.NUMUSERID " &
-         "and FS_TRANSACTIONS.STRAIRSNUMBER = '" & Me.AirsNumber.DbFormattedString & "' " &
-         "and active = 1) TRANSACTIONS,  " &
-         "(select " &
-         "0, INVOICEID, " &
-         "sysdate, 1, '', '', " &
-         "'', '', '', '', 2, " &
-         "UPDATEUSER, UPDATEDATETIME, " &
-         "CREATEDATETIME, STRAIRSNUMBER, NUMFEEYEAR   " &
-         "from FS_feeINVOICE " &
-         "where STRAIRSNUMBER = '" & Me.AirsNumber.DbFormattedString & "' " &
-         "and FS_feeINVOICE.Active = '1') INVOICES, " &
-         "EPDUSERPROFILES " &
-         "where  INVOICES.STRAIRSNUMBER  = TRANSACTIONS.STRAIRSNUMBER (+) " &
-         "and INVOICES.NUMFEEYEAR  =  TRANSACTIONS.NUMFEEYEAR  (+) " &
-         "and INVOICES.INVOICEID  =  TRANSACTIONS.INVOICEID (+) " &
-         "and TRANSACTIONS.UPDATEUSER  = epduserProfiles.numUserID (+) "
+                Dim SQL As String = "SELECT tr.TRANSACTIONID, inv.INVOICEID, tr.DATTRANSACTIONDATE, tr.NUMPAYMENT, tr.STRCHECKNO, tr.STRDEPOSITNO, tr.STRBATCHNO, tr.ENTRYPERSON, tr.STRCOMMENT, tr.STRCREDITCARDNO, tr.TRANSACTIONTYPECODE, " &
+                    "CASE WHEN tr.UPDATEUSER IS NOT NULL THEN u.STRLASTNAME+', '+u.STRFIRSTNAME ELSE '' END AS UpdateUser, tr.UPDATEDATETIME, tr.CREATEDATETIME, tr.NUMFEEYEAR " &
+                    "FROM (SELECT t.TRANSACTIONID, t.INVOICEID, t.DATTRANSACTIONDATE, t.NUMPAYMENT, t.STRCHECKNO, t.STRDEPOSITNO, t.STRBATCHNO, p.STRLASTNAME+', '+p.STRFIRSTNAME AS ENTRYPERSON, t.STRCOMMENT, t.STRCREDITCARDNO, t.TRANSACTIONTYPECODE, t.UPDATEUSER, t.UPDATEDATETIME, t.CREATEDATETIME, t.STRAIRSNUMBER, t.NUMFEEYEAR " &
+                    "FROM FS_TRANSACTIONS AS t " &
+                    "INNER JOIN EPDUSERPROFILES AS p ON t.STRENTRYPERSON = p.NUMUSERID " &
+                    "WHERE t.STRAIRSNUMBER = @airs AND t.ACTIVE = 1) AS tr " &
+                    "LEFT JOIN (SELECT i.INVOICEID, i.UPDATEUSER, i.UPDATEDATETIME, i.CREATEDATETIME, i.STRAIRSNUMBER, i.NUMFEEYEAR " &
+                    "FROM FS_feeINVOICE AS i " &
+                    "WHERE i.STRAIRSNUMBER = @airs AND i.ACTIVE = '1') AS inv ON tr.INVOICEID = inv.INVOICEID AND tr.STRAIRSNUMBER = inv.STRAIRSNUMBER AND tr.NUMFEEYEAR = inv.NUMFEEYEAR " &
+                    "LEFT JOIN EPDUSERPROFILES AS u ON tr.UPDATEUSER = u.NUMUSERID " &
+                    "UNION " &
+                    "SELECT tr.TRANSACTIONID, inv.INVOICEID, tr.DATTRANSACTIONDATE, tr.NUMPAYMENT, tr.STRCHECKNO, tr.STRDEPOSITNO, tr.STRBATCHNO, tr.ENTRYPERSON, tr.STRCOMMENT, tr.STRCREDITCARDNO, tr.TRANSACTIONTYPECODE, " &
+                    "CASE WHEN tr.UPDATEUSER IS NOT NULL THEN p.STRLASTNAME+', '+p.STRFIRSTNAME ELSE '' END AS UpdateUser, tr.UPDATEDATETIME, tr.CREATEDATETIME, tr.NUMFEEYEAR " &
+                    "FROM (SELECT t.TRANSACTIONID, t.INVOICEID, t.DATTRANSACTIONDATE, t.NUMPAYMENT, t.STRCHECKNO, t.STRDEPOSITNO, t.STRBATCHNO, p.STRLASTNAME+', '+p.STRFIRSTNAME AS ENTRYPERSON, t.STRCOMMENT, t.STRCREDITCARDNO, t.TRANSACTIONTYPECODE, t.UPDATEUSER, t.UPDATEDATETIME, t.CREATEDATETIME, t.STRAIRSNUMBER, t.NUMFEEYEAR " &
+                    "FROM FS_TRANSACTIONS AS t " &
+                    "INNER JOIN EPDUSERPROFILES AS p ON t.STRENTRYPERSON = p.NUMUSERID " &
+                    "WHERE t.STRAIRSNUMBER = @airs AND t.ACTIVE = 1) AS tr " &
+                    "LEFT JOIN EPDUSERPROFILES AS p ON tr.UPDATEUSER = p.NUMUSERID " &
+                    "RIGHT JOIN (SELECT i.INVOICEID, i.UPDATEUSER, i.UPDATEDATETIME, i.CREATEDATETIME, i.STRAIRSNUMBER, i.NUMFEEYEAR " &
+                    "FROM FS_feeINVOICE AS i " &
+                    "WHERE i.STRAIRSNUMBER = @airs AND i.ACTIVE = '1') AS inv ON inv.INVOICEID = tr.INVOICEID AND inv.STRAIRSNUMBER = tr.STRAIRSNUMBER AND inv.NUMFEEYEAR = tr.NUMFEEYEAR "
 
-                ds = New DataSet
-                da = New SqlDataAdapter(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                da.Fill(ds, "Transactions")
-                dgvTransactions.DataSource = ds
-                dgvTransactions.DataMember = "Transactions"
+                Dim p As New SqlParameter("@airs", AirsNumber.DbFormattedString)
+
+                dgvTransactions.DataSource = DB.GetDataTable(SQL, p)
 
                 dgvTransactions.RowHeadersVisible = False
                 dgvTransactions.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
