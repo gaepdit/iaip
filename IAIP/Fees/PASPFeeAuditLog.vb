@@ -4,50 +4,36 @@ Imports CrystalDecisions.CrystalReports.Engine
 Imports Iaip.Apb.Facilities
 
 Public Class PASPFeeAuditLog
-    Dim SQL As String
-    Dim ds As DataSet
-    Dim da As SqlDataAdapter
-    Dim tempContact As Contact
-    Dim tempFacility As Facility
 
 #Region " Properties "
 
+    Private Property tempContact As Contact
+    Private Property tempFacility As Facility
+
     Public Property FeeYear() As String
-
     Public Property AirsNumber() As Apb.ApbFacilityId
-
-    Public ReadOnly Property ExpandedAirsNumber() As String
-        Get
-            Return Me.AirsNumber.DbFormattedString
-        End Get
-    End Property
 
 #End Region
 
-    Private Sub PASPFeeAuditLog_Load(sender As Object, e As System.EventArgs) Handles Me.Load
+    Private Sub PASPFeeAuditLog_Load(sender As Object, e As EventArgs) Handles Me.Load
+        LoadSelectedNSPSExemptions()
+        LoadTransactionTypes()
+        LoadPayTypes()
+        LoadStaff()
+        LoadFeeYears()
 
-        Try
-            LoadSelectedNSPSExemptions()
-            LoadTransactionTypes()
-            LoadPayTypes()
-            LoadStaff()
-            LoadFeeYears()
+        PopulateComboBoxes()
 
-            PopulateComboBoxes()
+        DTPAuditStart.Value = Today
+        DTPAuditEnd.Value = Today
+        DTPDateCollectionsCeased.Value = Today
+        cboStaffResponsible.SelectedValue = CurrentUser.UserID
 
-            DTPAuditStart.Text = OracleDate
-            DTPAuditEnd.Text = OracleDate
-            DTPDateCollectionsCeased.Text = OracleDate
-            cboStaffResponsible.SelectedValue = CurrentUser.UserID
+        pnlInvoiceData.Enabled = False
+        pnlFacilityData.Enabled = False
+        pnlFacilityData2.Enabled = False
 
-            pnlInvoiceData.Enabled = False
-            pnlFacilityData.Enabled = False
-            pnlFacilityData2.Enabled = False
-
-            ParseParameters()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        ParseParameters()
     End Sub
 
 #Region "Subs and Functions"
@@ -55,10 +41,10 @@ Public Class PASPFeeAuditLog
     Private Sub PopulateComboBoxes()
 
         ' Operational Status
-        cboInitialOpStatus.BindToDictionary(Apb.Facilities.FacilityOperationalStatusDescriptions)
+        cboInitialOpStatus.BindToDictionary(FacilityOperationalStatusDescriptions)
 
         ' Classification
-        cboInitialClassification.BindToDictionary(Of FacilityClassification)(Apb.Facilities.FacilityClassificationDescriptions)
+        cboInitialClassification.BindToDictionary(FacilityClassificationDescriptions)
 
         cboEditClassification.Items.Add("")
         cboEditClassification.Items.Add("A")
@@ -117,34 +103,28 @@ Public Class PASPFeeAuditLog
         FeeYearsComboBox.DataSource = DAL.GetAllFeeYears().AddBlankRowToList("Select…")
     End Sub
 
-    Sub LoadPayTypes()
+    Private Sub LoadPayTypes()
         Try
             Dim dtPayTypes As New DataTable
             Dim drDSRow As DataRow
             Dim drNewRow As DataRow
 
-            SQL = "select " &
+            Dim SQL As String = "select " &
             "numPayTypeID, strPayTypeDesc " &
             "from FSLK_PayType " &
             "order by numPayTypeID "
 
-            ds = New DataSet
-            da = New SqlDataAdapter(SQL, CurrentConnection)
+            Dim dt As DataTable = DB.GetDataTable(SQL)
 
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            da.Fill(ds, "PayTypes")
-
-            dtPayTypes.Columns.Add("numPayTypeID", GetType(System.String))
-            dtPayTypes.Columns.Add("strPayTypeDesc", GetType(System.String))
+            dtPayTypes.Columns.Add("numPayTypeID", GetType(String))
+            dtPayTypes.Columns.Add("strPayTypeDesc", GetType(String))
 
             drNewRow = dtPayTypes.NewRow()
             drNewRow("numPayTypeID") = ""
             drNewRow("strPayTypeDesc") = ""
             dtPayTypes.Rows.Add(drNewRow)
 
-            For Each drDSRow In ds.Tables("PayTypes").Rows()
+            For Each drDSRow In dt.Rows()
                 drNewRow = dtPayTypes.NewRow()
                 drNewRow("numPayTypeID") = drDSRow("numPayTypeID")
                 drNewRow("strPayTypeDesc") = drDSRow("strPayTypeDesc")
@@ -159,26 +139,21 @@ Public Class PASPFeeAuditLog
             End With
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Sub LoadTransactionTypes()
+    Private Sub LoadTransactionTypes()
         Try
             Dim dtTransactions As New DataTable
             Dim drDSRow As DataRow
             Dim drNewRow As DataRow
 
-            SQL = "Select " &
+            Dim SQL As String = "Select " &
             "transactionTypeCode, Description " &
             "from FSLK_TransactionType " &
             "order by description "
-            ds = New DataSet
-            da = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            da.Fill(ds, "Transactions")
+            Dim dt As DataTable = DB.GetDataTable(SQL)
 
             dtTransactions.Columns.Add("transactionTypeCode", GetType(System.String))
             dtTransactions.Columns.Add("Description", GetType(System.String))
@@ -188,7 +163,7 @@ Public Class PASPFeeAuditLog
             drNewRow("Description") = ""
             dtTransactions.Rows.Add(drNewRow)
 
-            For Each drDSRow In ds.Tables("Transactions").Rows()
+            For Each drDSRow In dt.Rows()
                 drNewRow = dtTransactions.NewRow()
                 drNewRow("transactionTypeCode") = drDSRow("transactionTypeCode")
                 drNewRow("Description") = drDSRow("Description")
@@ -203,10 +178,11 @@ Public Class PASPFeeAuditLog
             End With
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub LoadSelectedNSPSExemptions()
+
+    Private Sub LoadSelectedNSPSExemptions()
         Try
             dgvEditExemptions.RowHeadersVisible = False
             dgvEditExemptions.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -219,47 +195,44 @@ Public Class PASPFeeAuditLog
 
             Dim colWrite As New DataGridViewCheckBoxColumn
             dgvEditExemptions.Columns.Add(colWrite)
-            ' dgvEditExemptions.Columns(0).HeaderText = "NSPS ID"
-            dgvEditExemptions.Columns(0).Width = (dgvEditExemptions.Width * 0.1)
 
             dgvEditExemptions.Columns.Add("NSPSReasonCode", "NSPS ID")
             dgvEditExemptions.Columns("NSPSReasonCode").DisplayIndex = 1
-            dgvEditExemptions.Columns("NSPSReasonCode").Width = (dgvEditExemptions.Width * 0.15)
             dgvEditExemptions.Columns("NSPSReasonCode").ReadOnly = True
             dgvEditExemptions.Columns("NSPSReasonCode").Visible = False
 
             dgvEditExemptions.Columns.Add("Description", "NSPS Exemption Reason")
             dgvEditExemptions.Columns("Description").DisplayIndex = 2
-            dgvEditExemptions.Columns("Description").Width = (dgvEditExemptions.Width * 0.9)
             dgvEditExemptions.Columns("Description").ReadOnly = True
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub ClearAdminData()
+
+    Private Sub ClearAdminData()
         Try
             txtFeeAdminFacilityName.Clear()
             rdbEnrolledTrue.Checked = False
             rdbEnrolledFalse.Checked = False
-            dtpEnrollmentDate.Text = OracleDate
-            dtpEnrollmentInitial.Text = OracleDate
+            dtpEnrollmentDate.Value = Today
+            dtpEnrollmentInitial.Value = Today
             rdbMailoutTrue.Checked = False
             rdbMailoutFalse.Checked = False
             rdbSubmittalTrue.Checked = False
             rdbSubmittalFalse.Checked = False
-            dtpSubmittalDate.Text = OracleDate
+            dtpSubmittalDate.Value = Today
             txtFSAdminComments.Clear()
             txtIAIPAdminStatus.Clear()
             txtGECOAdminStatus.Clear()
-            dtpFeeAdminStatusDate.Text = OracleDate
+            dtpFeeAdminStatusDate.Value = Today
             rdbActiveAdmin.Checked = False
             rdbInactiveStatus.Checked = False
             txtFSAdminUpdatingUser.Clear()
-            dtpFSAdminUpdate.Text = OracleDate
-            dtpFSAdminCreateDateTime.Text = OracleDate
+            dtpFSAdminUpdate.Value = Today
+            dtpFSAdminCreateDateTime.Value = Today
             rdbLetterMailedTrue.Checked = False
             rdbLetterMailedFalse.Checked = False
-            dtpLetterMailed.Text = OracleDate
+            dtpLetterMailed.Value = Today
 
             txtContactFirstName.Clear()
             txtContactLastName.Clear()
@@ -286,9 +259,10 @@ Public Class PASPFeeAuditLog
             txtInitialFacilityComment.Clear()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub LoadAdminData()
         If Me.AirsNumber.ToString Is Nothing OrElse Me.FeeYear Is Nothing Then
             Exit Sub
@@ -327,7 +301,7 @@ Public Class PASPFeeAuditLog
             MailoutReplaceContactWithFeeContactButton.Enabled = False
             MailoutReplaceFacilityInfoButton.Enabled = False
 
-            SQL = "Select " &
+            Dim SQL As String = "Select " &
             "strEnrolled, datInitialEnrollment, " &
             "datEnrollment, strInitialMailOut, " &
             "strMailOutSent, datMailOutSent, " &
@@ -340,17 +314,19 @@ Public Class PASPFeeAuditLog
             "FS_Admin.updateUser, " &
             "FS_Admin.updateDateTime, " &
             "FS_Admin.CreateDateTime " &
-            "From FS_Admin, FSLK_ADMIN_Status  " &
-            "where FS_Admin.numCurrentStatus = FSLK_Admin_Status.ID (+) " &
-            "and numFeeYear = '" & Me.FeeYear & "' " &
-            "and strAIRSNumber = '" & Me.ExpandedAirsNumber & "' "
+            "From FS_Admin left join FSLK_ADMIN_Status  " &
+            "on FS_Admin.numCurrentStatus = FSLK_Admin_Status.ID " &
+            "and numFeeYear = @numFeeYear " &
+            "and strAIRSNumber = @strAIRSNumber "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
+            Dim params As SqlParameter() = {
+                New SqlParameter("@numFeeYear", Me.FeeYear),
+                New SqlParameter("@strAIRSNumber", AirsNumber.DbFormattedString)
+            }
+
+            Dim dr As DataRow = DB.GetDataRow(SQL, params)
+
+            If dr IsNot Nothing Then
                 If IsDBNull(dr.Item("strEnrolled")) Then
                     rdbEnrolledTrue.Checked = False
                     rdbEnrolledFalse.Checked = False
@@ -362,12 +338,12 @@ Public Class PASPFeeAuditLog
                     End If
                 End If
                 If IsDBNull(dr.Item("datInitialEnrollment")) Then
-                    dtpEnrollmentInitial.Text = OracleDate
+                    dtpEnrollmentInitial.Value = Today
                 Else
                     dtpEnrollmentInitial.Text = dr.Item("datInitialEnrollment")
                 End If
                 If IsDBNull(dr.Item("datEnrollment")) Then
-                    dtpEnrollmentDate.Text = OracleDate
+                    dtpEnrollmentDate.Value = Today
                 Else
                     dtpEnrollmentDate.Text = dr.Item("datEnrollment")
                 End If
@@ -392,7 +368,7 @@ Public Class PASPFeeAuditLog
                     End If
                 End If
                 If IsDBNull(dr.Item("datMailOutSent")) Then
-                    dtpLetterMailed.Text = OracleDate
+                    dtpLetterMailed.Value = Today
                 Else
                     dtpLetterMailed.Text = dr.Item("datMailOutSent")
                 End If
@@ -407,7 +383,7 @@ Public Class PASPFeeAuditLog
                     End If
                 End If
                 If IsDBNull(dr.Item("datSubmittal")) Then
-                    dtpSubmittalDate.Text = OracleDate
+                    dtpSubmittalDate.Value = Today
                 Else
                     dtpSubmittalDate.Text = dr.Item("datSubmittal")
                 End If
@@ -422,7 +398,7 @@ Public Class PASPFeeAuditLog
                     txtGECOAdminStatus.Text = dr.Item("strGECODesc")
                 End If
                 If IsDBNull(dr.Item("datStatusDate")) Then
-                    dtpFeeAdminStatusDate.Text = OracleDate
+                    dtpFeeAdminStatusDate.Value = Today
                 Else
                     dtpFeeAdminStatusDate.Text = dr.Item("datStatusDate")
                 End If
@@ -447,17 +423,16 @@ Public Class PASPFeeAuditLog
                     txtFSAdminUpdatingUser.Text = Replace(Replace(dr.Item("UpDateUser"), "IAIP||", "IAIP - "), "GECO||", "GECO - ")
                 End If
                 If IsDBNull(dr.Item("updateDateTime")) Then
-                    dtpFSAdminUpdate.Text = OracleDate
+                    dtpFSAdminUpdate.Value = Today
                 Else
                     dtpFSAdminUpdate.Text = dr.Item("UpDateDateTime")
                 End If
                 If IsDBNull(dr.Item("CreateDateTime")) Then
-                    dtpFSAdminCreateDateTime.Text = OracleDate
+                    dtpFSAdminCreateDateTime.Value = Today
                 Else
                     dtpFSAdminCreateDateTime.Text = dr.Item("CreateDateTime")
                 End If
-            End While
-            dr.Close()
+            End If
 
             SQL = "Select " &
             "strFirstName, strLastName, " &
@@ -474,16 +449,12 @@ Public Class PASPFeeAuditLog
             "datShutDownDate, " &
             "Active " &
             "from FS_MailOut " &
-            "where numFeeYear = '" & Me.FeeYear & "' " &
-            "and strAIRSNumber = '" & Me.ExpandedAirsNumber & "' "
+            "where numFeeYear = @numFeeYear " &
+            "and strAIRSNumber = @strAIRSNumber "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
+            dr = DB.GetDataRow(SQL, params)
 
+            If dr IsNot Nothing Then
                 MailoutEditContactButton.Enabled = True
                 MailoutEditFacilityButton.Enabled = True
                 MailoutReplaceContactWithFeeContactButton.Enabled = True
@@ -640,8 +611,7 @@ Public Class PASPFeeAuditLog
                     dtpInitialShutDownDate.Value = dr.Item("datShutDownDate")
                 End If
 
-            End While
-            dr.Close()
+            End If
 
             txtContactFirstName.Enabled = False
             txtContactLastName.Enabled = False
@@ -674,17 +644,12 @@ Public Class PASPFeeAuditLog
             "strContactFaxNumber, strContactEmail, " &
             "strComment " &
             "from FS_ContactInfo " &
-            "where numfeeyear = '" & Me.FeeYear & "' " &
-            "and strAIRSnumber = '" & Me.ExpandedAirsNumber & "' "
+            "where numFeeYear = @numFeeYear " &
+            "and strAIRSNumber = @strAIRSNumber "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
+            dr = DB.GetDataRow(SQL, params)
 
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            dr = cmd.ExecuteReader
-            While dr.Read
+            If dr IsNot Nothing Then
                 If IsDBNull(dr.Item("strContactFirstName")) Then
                     txtGECOContactFirstName.Clear()
                 Else
@@ -751,19 +716,20 @@ Public Class PASPFeeAuditLog
                 Else
                     txtGECOContactComments.Text = dr.Item("strComment")
                 End If
-            End While
-            dr.Close()
+            End If
 
             LoadFeeInvoiceData()
             LoadTransactionData()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub LoadFeeInvoiceData()
+
+    Private Sub LoadFeeInvoiceData()
+        Dim temp As String
         Try
-            SQL = "select " &
+            Dim SQL As String = "select " &
             "FS_FEEDATA.NUMFEEYEAR, " &
             "FS_FEEDATA.STRAIRSNUMBER, " &
             "STRSYNTHETICMINOR, NUMSMFEE, " &
@@ -782,16 +748,18 @@ Public Class PASPFeeAuditLog
             "updateUser, " &
             "UpdateDateTime, CreateDateTime " &
             "from FS_FEEDATA " &
-            "where STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "' " &
-            "and NUMFEEYEAR = '" & Me.FeeYear & "' "
+            "where numFeeYear = @numFeeYear " &
+            "and strAIRSNumber = @strAIRSNumber "
+
+            Dim params As SqlParameter() = {
+                New SqlParameter("@numFeeYear", Me.FeeYear),
+                New SqlParameter("@strAIRSNumber", AirsNumber.DbFormattedString)
+            }
+
+            Dim dr As DataRow = DB.GetDataRow(SQL, params)
 
             txtGECOExceptions.Clear()
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
+            If dr IsNot Nothing Then
                 If IsDBNull(dr.Item("strClass")) Then
                     txtInvoiceClassification.Clear()
                     txtGECOClass.Clear()
@@ -982,12 +950,12 @@ Public Class PASPFeeAuditLog
                     txtInvoiceDataUpdate.Text = dr.Item("UpdateUser")
                 End If
                 If IsDBNull(dr.Item("updateDateTime")) Then
-                    dtpInvoiceDataDateUpdated.Text = OracleDate
+                    dtpInvoiceDataDateUpdated.Value = Today
                 Else
                     dtpInvoiceDataDateUpdated.Text = dr.Item("UpdateDateTime")
                 End If
                 If IsDBNull(dr.Item("CreateDateTime")) Then
-                    dtpInvoiceDataCreatedDate.Text = OracleDate
+                    dtpInvoiceDataCreatedDate.Value = Today
                 Else
                     dtpInvoiceDataCreatedDate.Text = dr.Item("CreateDateTime")
                 End If
@@ -996,8 +964,7 @@ Public Class PASPFeeAuditLog
                 Else
                     txtGECOShutDown.Text = dr.Item("DATSHUTDOWN")
                 End If
-            End While
-            dr.Close()
+            End If
 
             Dim SQLLine As String = ""
             If txtGECOExceptions.Text <> "" Then
@@ -1017,22 +984,11 @@ Public Class PASPFeeAuditLog
 
                 SQL = "Select Description " &
                 "from FSLK_NSPSReason " &
-                "where " &
-                SQLLine
-
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
+                "where " & SQLLine
+                Dim desc As String = DB.GetSingleValue(Of String)(SQL)
+                If Not String.IsNullOrEmpty(desc) Then
+                    txtGECOExceptions.Text = txtGECOExceptions.Text & "- " & desc & vbCrLf & vbCrLf
                 End If
-                dr = cmd.ExecuteReader
-                While dr.Read
-                    If IsDBNull(dr.Item("Description")) Then
-                        txtGECOExceptions.Text = txtGECOExceptions.Text
-                    Else
-                        txtGECOExceptions.Text = txtGECOExceptions.Text & "- " & dr.Item("Description") & vbCrLf & vbCrLf
-                    End If
-                End While
-                dr.Close()
             End If
 
             SQLLine = ""
@@ -1040,31 +996,23 @@ Public Class PASPFeeAuditLog
             SQL = "Select " &
             "strNonAttainment " &
             "from LookUpCountyInformation " &
-            "where strCountyCode = '" & Mid(Me.AirsNumber.ToString, 1, 3) & "' "
+            "where strCountyCode = @strCountyCode "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                If IsDBNull(dr.Item("strNonAttainment")) Then
-                    chbInvoicedataNonAttainment.Checked = False
+            Dim param As New SqlParameter("@strCountyCode", AirsNumber.CountySubstring)
+
+            temp = DB.GetSingleValue(Of String)(SQL, param)
+            If String.IsNullOrEmpty(temp) Then
+                chbInvoicedataNonAttainment.Checked = False
+            Else
+                If Mid(temp, 2, 1) = "1" Then
+                    chbInvoicedataNonAttainment.Checked = True
                 Else
-                    temp = dr.Item("strNonAttainment")
-                    If Mid(dr.Item("strNonAttainment").ToString, 2, 1) = "1" Then
-                        chbInvoicedataNonAttainment.Checked = True
-                    Else
-                        chbInvoicedataNonAttainment.Checked = False
-                    End If
+                    chbInvoicedataNonAttainment.Checked = False
                 End If
-            End While
-            dr.Close()
+            End If
 
-            ' Dim SQLLine As String = ""
             Dim NSPStemp As String = ""
 
-            ds = New DataSet
             If chbInvoiceDataNSPSExempt.Checked = True And txtInvoiceDataNSPSExempts.Text <> "" Then
                 NSPStemp = txtInvoiceDataNSPSExempts.Text
                 Do While NSPStemp <> ""
@@ -1084,17 +1032,9 @@ Public Class PASPFeeAuditLog
 
                 SQL = "Select Description " &
                 "from FSLK_NSPSReason " &
-                "where " &
-                SQLLine
+                "where " & SQLLine
 
-                da = New SqlDataAdapter(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                da.Fill(ds, "InvoiceData")
-
-                dgvInvoiceDataNSPSExemptions.DataSource = ds
-                dgvInvoiceDataNSPSExemptions.DataMember = "InvoiceData"
+                dgvInvoiceDataNSPSExemptions.DataSource = DB.GetDataTable(SQL)
 
                 dgvInvoiceDataNSPSExemptions.RowHeadersVisible = False
                 dgvInvoiceDataNSPSExemptions.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -1107,8 +1047,7 @@ Public Class PASPFeeAuditLog
                 dgvInvoiceDataNSPSExemptions.Columns("Description").DisplayIndex = 0
                 dgvInvoiceDataNSPSExemptions.Columns("Description").Width = dgvInvoiceDataNSPSExemptions.Width
             Else
-                dgvInvoiceDataNSPSExemptions.DataMember = ""
-                dgvInvoiceDataNSPSExemptions.DataSource = ds
+                dgvInvoiceDataNSPSExemptions.DataSource = Nothing
             End If
 
             SQL = "Select " &
@@ -1118,22 +1057,14 @@ Public Class PASPFeeAuditLog
             "case " &
             "when strInvoiceStatus = '1' then 'Paid' " &
             "else 'Unpaid' " &
-            "end InvoiceStatus " &
-            "from FS_FeeInvoice, FSLK_PayType " &
-            "where FS_FeeInvoice.strPaytype = FSLK_PayType.numpaytypeid " &
-            "and strAIRSNumber = '" & Me.ExpandedAirsNumber & "' " &
-            "and numFeeYear = '" & Me.FeeYear & "' " &
+            "end as InvoiceStatus " &
+            "from FS_FeeInvoice inner join FSLK_PayType " &
+            "on FS_FeeInvoice.strPaytype = FSLK_PayType.numpaytypeid " &
+            "where numFeeYear = @numFeeYear " &
+            "and strAIRSNumber = @strAIRSNumber " &
             "and FS_FeeInvoice.Active = '1' "
 
-            ds = New DataSet
-            da = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            da.Fill(ds, "FeeInvoice")
-            dgvInvoiceData.DataSource = ds
-            dgvInvoiceData.DataMember = "FeeInvoice"
+            dgvInvoiceData.DataSource = DB.GetDataTable(SQL, params)
 
             dgvInvoiceData.RowHeadersVisible = False
             dgvInvoiceData.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -1178,18 +1109,19 @@ Public Class PASPFeeAuditLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub LoadTransactionData()
+
+    Private Sub LoadTransactionData()
         Try
-            SQL = "select " &
+            Dim SQL As String = "select " &
             "TRANSACTIONID,  INVOICES.INVOICEID, DATTRANSACTIONDATE, " &
             "NUMPAYMENT, STRCHECKNO, STRDEPOSITNO, STRBATCHNO, " &
             "ENTRYPERSON, " &
             "STRCOMMENT, STRCREDITCARDNO, TRANSACTIONTYPECODE, " &
             "case " &
-            "when TRANSACTIONS.UPDATEUSER is not null then (STRLASTNAME||', '||STRFIRSTNAME) " &
+            "when TRANSACTIONS.UPDATEUSER is not null then (STRLASTNAME+', '+STRFIRSTNAME) " &
             "else '' " &
             "end  UpdateUser, " &
             "TRANSACTIONS.UPDATEDATETIME, " &
@@ -1199,32 +1131,30 @@ Public Class PASPFeeAuditLog
             "(select " &
             "TRANSACTIONID,  INVOICEID, DATTRANSACTIONDATE, " &
             "NUMPAYMENT, STRCHECKNO, STRDEPOSITNO, STRBATCHNO, " &
-            "(STRLASTNAME||', '||STRFIRSTNAME) as ENTRYPERSON, " &
+            "(STRLASTNAME+', '+STRFIRSTNAME) as ENTRYPERSON, " &
             "STRCOMMENT, strCreditcardno, " &
             "transactiontypecode, " &
             "UPDATEUSER, UPDATEDATETIME, " &
-            "createDateTime, strairsnumber, numfeeyear, ''  " &
-            "from FS_TRANSACTIONS, EPDUSERPROFILES " &
-            "where FS_TRANSACTIONS.STRENTRYPERSON = EPDUSERPROFILES.NUMUSERID (+) " &
-            "and FS_TRANSACTIONS.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "' " &
-            "and FS_TRANSACTIONS.NUMFEEYEAR = '" & Me.FeeYear & "' " &
-            "and active = 1) TRANSACTIONS,  " &
+            "createDateTime, strairsnumber, numfeeyear " &
+            "from FS_TRANSACTIONS left join EPDUSERPROFILES " &
+            "on FS_TRANSACTIONS.STRENTRYPERSON = EPDUSERPROFILES.NUMUSERID " &
+            "where FS_TRANSACTIONS.STRAIRSNUMBER = @airs " &
+            "and FS_TRANSACTIONS.NUMFEEYEAR = @year " &
+            "and active = 1) as TRANSACTIONS left join  " &
             "(select " &
-            "0, INVOICEID, " &
-            "sysdate, 1, '', '', " &
-            "'', '', '', '', 2, " &
+            "INVOICEID, " &
             "FS_feeINVOICE.UPDATEUSER, FS_feeINVOICE.UPDATEDATETIME, " &
             "FS_feeINVOICE.CREATEDATETIME, STRAIRSNUMBER, NUMFEEYEAR, strpaytypedesc " &
-            "from FS_feeINVOICE, FSLK_PayType " &
-            "where FS_FeeInvoice.strPayType = FSLK_PayType.numPayTypeID " &
-            "and STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "' " &
-            "and NUMFEEYEAR = '" & Me.FeeYear & "' " &
-            "and FS_feeINVOICE.Active = '1' ) INVOICES, " &
-            "EPDUSERPROFILES " &
-            "where TRANSACTIONS.STRAIRSNUMBER  =  INVOICES.STRAIRSNUMBER (+) " &
-            "and TRANSACTIONS.NUMFEEYEAR  =  INVOICES.NUMFEEYEAR  (+) " &
-            "and TRANSACTIONS.INVOICEID  =  INVOICES.INVOICEID (+) " &
-            "and TRANSACTIONS.UPDATEUSER  = epduserProfiles.numUserID   (+) " &
+            "from FS_feeINVOICE inner join FSLK_PayType " &
+            "on FS_FeeInvoice.strPayType = FSLK_PayType.numPayTypeID " &
+            "where STRAIRSNUMBER = @airs " &
+            "and NUMFEEYEAR = @year " &
+            "and FS_feeINVOICE.Active = '1' ) as INVOICES " &
+            "on TRANSACTIONS.STRAIRSNUMBER  =  INVOICES.STRAIRSNUMBER " &
+            "and TRANSACTIONS.NUMFEEYEAR  =  INVOICES.NUMFEEYEAR  " &
+            "and TRANSACTIONS.INVOICEID  =  INVOICES.INVOICEID  " &
+            "left join EPDUSERPROFILES " &
+            "on TRANSACTIONS.UPDATEUSER  = epduserProfiles.numUserID   " &
             " union " &
             "select " &
             "TRANSACTIONID,  INVOICES.INVOICEID, DATTRANSACTIONDATE, " &
@@ -1232,7 +1162,7 @@ Public Class PASPFeeAuditLog
             "ENTRYPERSON, " &
             "STRCOMMENT, STRCREDITCARDNO, TRANSACTIONTYPECODE, " &
             "case " &
-            "when TRANSACTIONS.UPDATEUSER is not null then (STRLASTNAME||', '||STRFIRSTNAME) " &
+            "when TRANSACTIONS.UPDATEUSER is not null then (STRLASTNAME+', '+STRFIRSTNAME) " &
             "else '' " &
             "end  UpdateUser, " &
             "TRANSACTIONS.UPDATEDATETIME, " &
@@ -1241,41 +1171,37 @@ Public Class PASPFeeAuditLog
             "(select " &
             "TRANSACTIONID,  INVOICEID, DATTRANSACTIONDATE, " &
             "NUMPAYMENT, STRCHECKNO, STRDEPOSITNO, STRBATCHNO, " &
-            "(STRLASTNAME||', '||STRFIRSTNAME) as ENTRYPERSON, " &
+            "(STRLASTNAME+', '+STRFIRSTNAME) as ENTRYPERSON, " &
             "STRCOMMENT, strCreditcardno, " &
             "transactiontypecode, " &
             "UPDATEUSER, UPDATEDATETIME, " &
-            "createDateTime, strairsnumber, numfeeyear, ''  " &
-            "from FS_TRANSACTIONS, EPDUSERPROFILES " &
-            "where FS_TRANSACTIONS.STRENTRYPERSON = EPDUSERPROFILES.NUMUSERID (+) " &
-            "and FS_TRANSACTIONS.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "' " &
-            "and FS_TRANSACTIONS.NUMFEEYEAR = '" & Me.FeeYear & "' " &
-            "and active = 1) TRANSACTIONS,  " &
+            "createDateTime, strairsnumber, numfeeyear " &
+            "from FS_TRANSACTIONS left join EPDUSERPROFILES " &
+            "on FS_TRANSACTIONS.STRENTRYPERSON = EPDUSERPROFILES.NUMUSERID " &
+            "and FS_TRANSACTIONS.STRAIRSNUMBER = @airs " &
+            "and FS_TRANSACTIONS.NUMFEEYEAR = @year " &
+            "and active = 1) as TRANSACTIONS right join  " &
             "(select " &
-            "0, INVOICEID, " &
-            "sysdate, 1, '', '', " &
-            "'', '', '', '', 2, " &
+            "INVOICEID, " &
             "FS_feeINVOICE.UPDATEUSER, FS_feeINVOICE.UPDATEDATETIME, " &
             "FS_feeINVOICE.CREATEDATETIME, STRAIRSNUMBER, NUMFEEYEAR, strPayTypeDesc " &
             "from FS_feeINVOICE, fsLK_Paytype " &
             "where FS_feeINVOICE.strPayType = fsLK_Paytype.numPayTypeID " &
-            "and STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "' " &
-            "and NUMFEEYEAR = '" & Me.FeeYear & "' " &
-            "and FS_feeINVOICE.Active = '1') INVOICES, " &
-            "EPDUSERPROFILES " &
-            "where  INVOICES.STRAIRSNUMBER  = TRANSACTIONS.STRAIRSNUMBER (+) " &
-            "and INVOICES.NUMFEEYEAR  =  TRANSACTIONS.NUMFEEYEAR  (+) " &
-            "and INVOICES.INVOICEID  =  TRANSACTIONS.INVOICEID (+) " &
-            "and TRANSACTIONS.UPDATEUSER  = epduserProfiles.numUserID (+) "
+            "and STRAIRSNUMBER = @airs " &
+            "and NUMFEEYEAR = @year " &
+            "and FS_feeINVOICE.Active = '1') as INVOICES " &
+            "on INVOICES.STRAIRSNUMBER  = TRANSACTIONS.STRAIRSNUMBER " &
+            "and INVOICES.NUMFEEYEAR  =  TRANSACTIONS.NUMFEEYEAR  " &
+            "and INVOICES.INVOICEID  =  TRANSACTIONS.INVOICEID " &
+            "left join EPDUSERPROFILES " &
+            "on TRANSACTIONS.UPDATEUSER  = epduserProfiles.numUserID "
 
-            ds = New DataSet
-            da = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            da.Fill(ds, "Transactions")
-            dgvTransactions.DataSource = ds
-            dgvTransactions.DataMember = "Transactions"
+            Dim params As SqlParameter() = {
+                New SqlParameter("@airs", AirsNumber.DbFormattedString),
+                New SqlParameter("@year", FeeYear)
+            }
+
+            dgvTransactions.DataSource = DB.GetDataTable(SQL, params)
 
             dgvTransactions.RowHeadersVisible = False
             dgvTransactions.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -1322,602 +1248,127 @@ Public Class PASPFeeAuditLog
             dgvTransactions.Columns("CREATEDATETIME").DisplayIndex = 14
             dgvTransactions.Columns("CREATEDATETIME").DefaultCellStyle.Format = "dd-MMM-yyyy"
 
-
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub LoadAuditedData()
+
+    Private Sub LoadAuditedData()
         If Me.AirsNumber.ToString Is Nothing OrElse Me.FeeYear Is Nothing Then
             Exit Sub
         End If
 
         Try
-            SQL = "select * " &
-            "from ( " &
+            Dim SQL As String = "WITH cte AS " &
+            "(SELECT * FROM FS_FEEAMENDMENT WHERE STRAIRSNUMBER = @airs AND NUMFEEYEAR = @year) " &
             "SELECT " &
-            "  case  " &
-            "when (select  " &
-            "STRSYNTHETICMINOR  " &
-            "from FS_FEEAMENDMENT  " &
-            "where AuditID =  " &
-            "(select max(AuditID) MAXID  " &
-            "from FS_FEEAMENDMENT  " &
-            "where FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
-            "and FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'   " &
-            "and STRSYNTHETICMINOR is not null )) is not null then (select  " &
-            "STRSYNTHETICMINOR  " &
-            "from FS_FEEAMENDMENT  " &
-            "where AuditID =  " &
-            "(select max(AuditID) MAXID  " &
-            "from FS_FEEAMENDMENT  " &
-            "where FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
-            "and FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'  " &
-            "and STRSYNTHETICMINOR is not null ) ) " &
-            "else null  " &
-            "end STRSYNTHETICMINOR  " &
-            "from FS_FEEDATA    " &
-            "where FS_FEEDATA.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
-            "and FS_FEEDATA.NUMFEEYEAR = '" & Me.FeeYear & "'  ),  " &
-            "(SELECT " &
-            "  case  " &
-            "when (select  " &
-            "NUMsmfEE  " &
-            "from FS_FEEAMENDMENT  " &
-            "where AuditID =  " &
-            "(select max(AuditID) MAXID  " &
-            "from FS_FEEAMENDMENT  " &
-            "where FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
-            "and FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'   " &
-            "and NUMsmfEE is not null )) is not null then (select  " &
-            "NUMsmfEE  " &
-            "from FS_FEEAMENDMENT  " &
-            "where AuditID =  " &
-            "(select max(AuditID) MAXID  " &
-            "from FS_FEEAMENDMENT  " &
-            "where FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
-            "and FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'  " &
-            "and NUMSMFEE is not null ) ) " &
-            "else null  " &
-            "end  NUMsmfEE " &
-            "from FS_FEEDATA    " &
-            "where FS_FEEDATA.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
-            "and FS_FEEDATA.NUMFEEYEAR = '" & Me.FeeYear & "'  ),   " &
-            "(SELECT " &
-            "  case  " &
-            "when (select  " &
-            "STRPART70  " &
-            "from FS_FEEAMENDMENT  " &
-            "where AuditID =  " &
-            "(select max(AuditID) MAXID  " &
-            "from FS_FEEAMENDMENT  " &
-            "where FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
-            "and FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'   " &
-            "and STRPART70 is not null )) is not null then (select  " &
-            "STRPART70  " &
-            "from FS_FEEAMENDMENT  " &
-            "where AuditID =  " &
-            "(select max(AuditID) MAXID  " &
-            "from FS_FEEAMENDMENT  " &
-            "where FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
-            "and FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'  " &
-            "and STRPART70 is not null ) ) " &
-                "else null  " &
-                "end  STRPART70  " &
-                "from FS_FEEDATA    " &
-                "where FS_FEEDATA.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
-                "and FS_FEEDATA.NUMFEEYEAR = '" & Me.FeeYear & "'  ),  " &
-                "(SELECT " &
-                "  case  " &
-                "when (select  " &
-                "numPart70Fee  " &
-                "from FS_FEEAMENDMENT  " &
-                "where AuditID =  " &
-                "(select max(AuditID) MAXID  " &
-                "from FS_FEEAMENDMENT  " &
-                "where FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
-                "and FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'   " &
-                "and numPart70Fee is not null )) is not null then (select  " &
-                "numPart70Fee  " &
-                "from FS_FEEAMENDMENT  " &
-                "where AuditID =  " &
-                "(select max(AuditID) MAXID  " &
-                "from FS_FEEAMENDMENT  " &
-                "where FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
-                "and FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'  " &
-                "and numPart70Fee is not null ) ) " &
-                "else null  " &
-                "end  numPart70Fee " &
-                "from FS_FEEDATA    " &
-                "where FS_FEEDATA.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
-                "and FS_FEEDATA.NUMFEEYEAR = '" & Me.FeeYear & "'  ),  " &
-                "(SELECT " &
-                "  case  " &
-                "when (select  " &
-                "INtVOCTONS  " &
-                "from FS_FEEAMENDMENT  " &
-                "where AuditID =  " &
-                "(select max(AuditID) MAXID  " &
-                "from FS_FEEAMENDMENT  " &
-                "where FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
-                "and FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'   " &
-                "and INtVOCTONS is not null )) is not null then (select  " &
-                "INtVOCTONS  " &
-                "from FS_FEEAMENDMENT  " &
-                "where AuditID =  " &
-                "(select max(AuditID) MAXID  " &
-                "from FS_FEEAMENDMENT  " &
-                "where FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
-                "and FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'  " &
-                "and INtVOCTONS is not null ) ) " &
-                "else null " &
-                "end  INtVOCTONS  " &
-                "from FS_FEEDATA    " &
-                "where FS_FEEDATA.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
-                "and FS_FEEDATA.NUMFEEYEAR = '" & Me.FeeYear & "'  ),  " &
-                "(SELECT " &
-                "  case  " &
-                "when (select  " &
-                "intpmtons  " &
-                "from FS_FEEAMENDMENT  " &
-                "where AuditID =  " &
-                "(select max(AuditID) MAXID  " &
-                "from FS_FEEAMENDMENT  " &
-                "where FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
-                "and FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'  " &
-                "and intpmtons is not null )) is not null then (select  " &
-                "intpmtons  " &
-                "from FS_FEEAMENDMENT  " &
-                "where AuditID =  " &
-                "(select max(AuditID) MAXID  " &
-                "from FS_FEEAMENDMENT  " &
-                "where FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
-                "and FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'  " &
-                "and INTPMTONS is not null ) ) " &
-                "else null  " &
-                "end intpmtons  " &
-                "from FS_FEEDATA    " &
-                "where FS_FEEDATA.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
-                "and FS_FEEDATA.NUMFEEYEAR = '" & Me.FeeYear & "'  ),  " &
-                "(SELECT " &
-                "  case  " &
-                "when (select  " &
-                "intSO2Tons  " &
-                "from FS_FEEAMENDMENT  " &
-                "where AuditID =  " &
-                "(select max(AuditID) MAXID  " &
-                "from FS_FEEAMENDMENT  " &
-                "where FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
-                "and FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'   " &
-                "and intSO2Tons is not null )) is not null then (select  " &
-                "intSO2Tons  " &
-                "from FS_FEEAMENDMENT  " &
-                "where AuditID =  " &
-                "(select max(AuditID) MAXID  " &
-                "from FS_FEEAMENDMENT  " &
-                "where FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
-                "and FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'  " &
-                "and INTSO2TONS is not null ) ) " &
-                "else null " &
-                "end  INTSO2TONS  " &
-                "from FS_FEEDATA    " &
-                "where FS_FEEDATA.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
-                "and FS_FEEDATA.NUMFEEYEAR = '" & Me.FeeYear & "'  ),  " &
-                "(SELECT " &
-                "  case  " &
-                "when (select  " &
-                "INTNOXTONS  " &
-                "from FS_FEEAMENDMENT  " &
-                "where AuditID =  " &
-                "(select max(AuditID) MAXID  " &
-                "from FS_FEEAMENDMENT  " &
-                "where FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
-                "and FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'  " &
-                "and INTNOXTONS is not null )) is not null then (select  " &
-                "INTNOXTONS  " &
-                "from FS_FEEAMENDMENT  " &
-                "where AuditID =  " &
-                "(select max(AuditID) MAXID  " &
-                "from FS_FEEAMENDMENT  " &
-                "where FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
-                "and FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'  " &
-                "and INTNOXTONS is not null ) ) " &
-                "else null  " &
-                "end INTNOXTONS  " &
-                "from FS_FEEDATA    " &
-                "where FS_FEEDATA.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
-                "and FS_FEEDATA.NUMFEEYEAR = '" & Me.FeeYear & "'  ),  " &
-                "(SELECT " &
-                "  case  " &
-                "when (select  " &
-                "numcalculatedFee  " &
-                "from FS_FEEAMENDMENT  " &
-                "where AuditID =  " &
-                "(select max(AuditID) MAXID  " &
-                "from FS_FEEAMENDMENT  " &
-                "where FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
-                "and FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'   " &
-                "and numcalculatedFee is not null )) is not null then (select  " &
-                "numcalculatedFee  " &
-                "from FS_FEEAMENDMENT  " &
-                "where AuditID =  " &
-                "(select max(AuditID) MAXID  " &
-                "from FS_FEEAMENDMENT  " &
-                "where FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
-                "and FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'  " &
-                "and numcalculatedFee is not null ) ) " &
-                "else null " &
-                "end  numcalculatedFee  " &
-                "from FS_FEEDATA    " &
-                "where FS_FEEDATA.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
-                "and FS_FEEDATA.NUMFEEYEAR = '" & Me.FeeYear & "'  ),  " &
-                "(SELECT " &
-                "  case  " &
-                "when (select  " &
-                "numFeeRate  " &
-                "from FS_FEEAMENDMENT  " &
-                "where AuditID =  " &
-                "(select max(AuditID) MAXID  " &
-                "from FS_FEEAMENDMENT  " &
-                "where FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
-                "and FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'   " &
-                "and numFeeRate is not null )) is not null then (select  " &
-                "numFeeRate  " &
-                "from FS_FEEAMENDMENT  " &
-                "where AuditID =  " &
-                "(select max(AuditID) MAXID  " &
-                "from FS_FEEAMENDMENT  " &
-                "where FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
-                "and FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'  " &
-                "and NUMFEERATE is not null ) ) " &
-                "else null  " &
-                "end  numFeeRate  " &
-                "from FS_FEEDATA    " &
-                "where FS_FEEDATA.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
-                "and FS_FEEDATA.NUMFEEYEAR = '" & Me.FeeYear & "'  ), " &
-                "(SELECT " &
-                "  case  " &
-                "when (select  " &
-                "strNSPS  " &
-                "from FS_FEEAMENDMENT  " &
-                "where AuditID =  " &
-                "(select max(AuditID) MAXID  " &
-                "from FS_FEEAMENDMENT  " &
-                "where FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
-                "and FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'   " &
-                "and strNSPS is not null )) is not null then (select  " &
-                "strNSPS  " &
-                "from FS_FEEAMENDMENT  " &
-                "where AuditID =  " &
-                "(select max(AuditID) MAXID  " &
-                "from FS_FEEAMENDMENT  " &
-                "where FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
-                "and FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'  " &
-                "and strNSPS is not null ) ) " &
-                "else FS_FEEDATA.strNSPS " &
-                "end  strNSPS  " &
-                "from FS_FEEDATA    " &
-                "where FS_FEEDATA.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
-                "and FS_FEEDATA.NUMFEEYEAR = '" & Me.FeeYear & "' ),  " &
-                "(SELECT " &
-                "  case  " &
-                "when (select  " &
-                "numNSPSFee  " &
-                "from FS_FEEAMENDMENT  " &
-                "where AuditID =  " &
-                "(select max(AuditID) MAXID  " &
-                "from FS_FEEAMENDMENT  " &
-                "where FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
-                "and FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'   " &
-                "and numNSPSFee is not null )) is not null then (select  " &
-                "numNSPSFee  " &
-                "from FS_FEEAMENDMENT  " &
-                "where AuditID =  " &
-                "(select max(AuditID) MAXID  " &
-                "from FS_FEEAMENDMENT  " &
-                "where FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
-                "and FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'  " &
-                "and NUMNSPSFEE is not null ) ) " &
-                "else null  " &
-                "end  numNSPSFee  " &
-                "from FS_FEEDATA    " &
-                "where FS_FEEDATA.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
-                "and FS_FEEDATA.NUMFEEYEAR = '" & Me.FeeYear & "'  ),  " &
-                "(SELECT " &
-                "  case  " &
-                "when (select  " &
-                "strNSPSExempt  " &
-                "from FS_FEEAMENDMENT  " &
-                "where AuditID =  " &
-                "(select max(AuditID) MAXID  " &
-                "from FS_FEEAMENDMENT  " &
-                "where FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
-                "and FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'   " &
-                "and strNSPSExempt is not null )) is not null then (select  " &
-                "strNSPSExempt  " &
-                "from FS_FEEAMENDMENT  " &
-                "where AuditID =  " &
-                "(select max(AuditID) MAXID  " &
-                "from FS_FEEAMENDMENT  " &
-                "where FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
-                "and FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'  " &
-                "and STRNSPSEXEMPT is not null ) ) " &
-                "else null " &
-                "end  strNSPSExempt  " &
-                "from FS_FEEDATA    " &
-                "where FS_FEEDATA.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
-                "and FS_FEEDATA.NUMFEEYEAR = '" & Me.FeeYear & "'  ),  " &
-                "(SELECT " &
-                "  case  " &
-                "when (select  " &
-                "strNSPSExemptReason  " &
-                "from FS_FEEAMENDMENT  " &
-                "where AuditID =  " &
-                "(select max(AuditID) MAXID  " &
-                "from FS_FEEAMENDMENT  " &
-                "where FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
-                "and FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'   " &
-                "and strNSPSExemptReason is not null )) is not null then (select  " &
-                "strNSPSExemptReason  " &
-                "from FS_FEEAMENDMENT  " &
-                "where AuditID =  " &
-                "(select max(AuditID) MAXID  " &
-                "from FS_FEEAMENDMENT  " &
-                "where FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
-                "and FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'  " &
-                "and STRNSPSEXEMPTREASON is not null ) ) " &
-                "else null  " &
-                "end  strNSPSExemptReason  " &
-                "from FS_FEEDATA    " &
-                "where FS_FEEDATA.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
-                "and FS_FEEDATA.NUMFEEYEAR = '" & Me.FeeYear & "'  ),  " &
-                "(SELECT " &
-                "  case  " &
-                "when (select  " &
-                "NUMADMINFEE  " &
-                "from FS_FEEAMENDMENT  " &
-                "where AuditID =  " &
-                "(select max(AuditID) MAXID  " &
-                "from FS_FEEAMENDMENT  " &
-                "where FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
-                "and FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'   " &
-                "and NUMADMINFEE is not null )) is not null then (select " &
-                "NUMADMINFEE  " &
-                "from FS_FEEAMENDMENT  " &
-                "where AuditID =  " &
-                "(select max(AuditID) MAXID  " &
-                "from FS_FEEAMENDMENT  " &
-                "where FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
-                "and FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'  " &
-                "and NUMADMINFEE is not null ) ) " &
-                "else null " &
-                "end  NUMADMINFEE  " &
-                "from FS_FEEDATA    " &
-                "where FS_FEEDATA.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
-                "and FS_FEEDATA.NUMFEEYEAR = '" & Me.FeeYear & "'  ),  " &
-                "(SELECT " &
-                "  case  " &
-                "when (select  " &
-                "numTotalFee  " &
-                "from FS_FEEAMENDMENT  " &
-                "where AuditID =  " &
-                "(select max(AuditID) MAXID  " &
-                "from FS_FEEAMENDMENT  " &
-                "where FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
-                "and FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'   " &
-                "and numTotalFee is not null )) is not null then (select  " &
-                "numTotalFee  " &
-                "from FS_FEEAMENDMENT  " &
-                "where AuditID =  " &
-                "(select max(AuditID) MAXID  " &
-                "from FS_FEEAMENDMENT  " &
-                "where FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
-                "and FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'  " &
-                "and NUMTOTALFEE is not null ) ) " &
-                "else null  " &
-                "end  numTotalFee  " &
-                "from FS_FEEDATA    " &
-                "where FS_FEEDATA.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
-                "and FS_FEEDATA.NUMFEEYEAR = '" & Me.FeeYear & "'  ),  " &
-                "(SELECT " &
-                "  case  " &
-                "when (select  " &
-                "strClass  " &
-                "from FS_FEEAMENDMENT  " &
-                "where AuditID =  " &
-                "(select max(AuditID) MAXID  " &
-                "from FS_FEEAMENDMENT  " &
-                "where FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
-                "and FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'   " &
-                "and strClass is not null )) is not null then (select  " &
-                "strClass  " &
-                "from FS_FEEAMENDMENT  " &
-                "where AuditID =  " &
-                "(select max(AuditID) MAXID  " &
-                "from FS_FEEAMENDMENT  " &
-                "where FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
-                "and FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'  " &
-                "and strClass is not null ) ) " &
-                "else null  " &
-                "end  strClass  " &
-                "from FS_FEEDATA    " &
-                "where FS_FEEDATA.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
-                "and FS_FEEDATA.NUMFEEYEAR = '" & Me.FeeYear & "'  ),  " &
-                "(SELECT " &
-                "  case  " &
-                "when (select  " &
-                "strOperate  " &
-                "from FS_FEEAMENDMENT  " &
-                "where AuditID =  " &
-                "(select max(AuditID) MAXID  " &
-                "from FS_FEEAMENDMENT  " &
-                "where FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
-                "and FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'   " &
-                "and strOperate is not null )) is not null then (select  " &
-                "strOperate  " &
-                "from FS_FEEAMENDMENT  " &
-                "where AuditID =  " &
-                "(select max(AuditID) MAXID  " &
-                "from FS_FEEAMENDMENT  " &
-                "where FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
-                "and FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'  " &
-                "and STROPERATE is not null ) ) " &
-                "else null  " &
-                "end  strOperate  " &
-                "from FS_FEEDATA    " &
-                "where FS_FEEDATA.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
-                "and FS_FEEDATA.NUMFEEYEAR = '" & Me.FeeYear & "'  ),  " &
-                " (SELECT " &
-                "  case  " &
-                "when (select  " &
-                "datShutDown  " &
-                "from FS_FEEAMENDMENT  " &
-                "where AuditID =  " &
-                "(select max(AuditID) MAXID  " &
-                "from FS_FEEAMENDMENT  " &
-                "where FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
-                "and FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'   " &
-                "and datShutDown is not null )) is not null then (select  " &
-                "datShutDown  " &
-                "from FS_FEEAMENDMENT  " &
-                "where AuditID =  " &
-                "(select max(AuditID) MAXID  " &
-                "from FS_FEEAMENDMENT  " &
-                "where FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
-                "and FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'  " &
-                "and datShutDown is not null ) ) " &
-                "else null  " &
-                "end  datShutDown  " &
-                "from FS_FEEDATA    " &
-                "where FS_FEEDATA.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
-                "and FS_FEEDATA.NUMFEEYEAR = '" & Me.FeeYear & "'  ),  " &
-                "(SELECT " &
-                "  case  " &
-                "when (select  " &
-                "strOfficialName  " &
-                "from FS_FEEAMENDMENT  " &
-                "where AuditID =  " &
-                "(select max(AuditID) MAXID  " &
-                "from FS_FEEAMENDMENT  " &
-                "where FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
-                "and FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'   " &
-                "and strOfficialName is not null )) is not null then (select  " &
-                "strOfficialName  " &
-                "from FS_FEEAMENDMENT  " &
-                "where AuditID =  " &
-                "(select max(AuditID) MAXID  " &
-                "from FS_FEEAMENDMENT  " &
-                "where FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
-                "and FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'  " &
-                "and strOfficialName is not null ) ) " &
-                "else null  " &
-                "end  strOfficialName  " &
-                "from FS_FEEDATA    " &
-                "where FS_FEEDATA.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
-                "and FS_FEEDATA.NUMFEEYEAR = '" & Me.FeeYear & "'  ),  " &
-                "(SELECT " &
-                "  case  " &
-                "when (select  " &
-                "strOfficialTitle  " &
-                "from FS_FEEAMENDMENT  " &
-                "where AuditID =  " &
-                "(select max(AuditID) MAXID  " &
-                "from FS_FEEAMENDMENT  " &
-                "where FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
-                "and FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'   " &
-                "and strOfficialTitle is not null )) is not null then (select  " &
-                "strOfficialTitle  " &
-                "from FS_FEEAMENDMENT  " &
-                "where AuditID =  " &
-                "(select max(AuditID) MAXID  " &
-                "from FS_FEEAMENDMENT  " &
-                "where FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
-                "and FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'  " &
-                "and strOfficialTitle is not null ) ) " &
-                "else null  " &
-                "end  strOfficialTitle  " &
-                "from FS_FEEDATA    " &
-                "where FS_FEEDATA.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
-                "and FS_FEEDATA.NUMFEEYEAR = '" & Me.FeeYear & "'  ),  " &
-                "(SELECT " &
-                "  case  " &
-                "when (select  " &
-                "STRPAYMENTPLAN  " &
-                "from FS_FEEAMENDMENT  " &
-                "where AuditID =  " &
-                "(select max(AuditID) MAXID  " &
-                "from FS_FEEAMENDMENT  " &
-                "where FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
-                "and FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'   " &
-                "and STRPAYMENTPLAN is not null )) is not null then (select  " &
-                "STRPAYMENTPLAN  " &
-                "from FS_FEEAMENDMENT  " &
-                "where AuditID =  " &
-                "(select max(AuditID) MAXID  " &
-                "from FS_FEEAMENDMENT  " &
-                "where FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
-                "and FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'  " &
-                "and STRPAYMENTPLAN is not null ) ) " &
-                "else null  " &
-                "end  STRPAYMENTPLAN  " &
-                "from FS_FEEDATA    " &
-                "where FS_FEEDATA.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
-                "and FS_FEEDATA.NUMFEEYEAR = '" & Me.FeeYear & "'  ),  " &
-                "(SELECT " &
-                "  case  " &
-                "when (select  " &
-                "ACTIVE  " &
-                "from FS_FEEAMENDMENT  " &
-                "where AuditID =  " &
-                "(select max(AuditID) MAXID  " &
-                "from FS_FEEAMENDMENT  " &
-                "where FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
-                "and FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'   " &
-                "and ACTIVE is not null )) is not null then (select  " &
-                "ACTIVE  " &
-                "from FS_FEEAMENDMENT  " &
-                "where AuditID =  " &
-                "(select max(AuditID) MAXID  " &
-                "from FS_FEEAMENDMENT  " &
-                "where FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
-                "and FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'  " &
-                "and ACTIVE is not null ) ) " &
-                "else null  " &
-                "end  ACTIVE  " &
-                "from FS_FEEDATA    " &
-                "where FS_FEEDATA.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
-                "and FS_FEEDATA.NUMFEEYEAR = '" & Me.FeeYear & "'  ),  " &
-                "(SELECT " &
-                "  case  " &
-                "when (select  " &
-                "updateUser  " &
-                "from FS_FEEAMENDMENT  " &
-                "where AuditID =  " &
-                "(select max(AuditID) MAXID  " &
-                "from FS_FEEAMENDMENT  " &
-                "where FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
-                "and FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'   " &
-                "and updateUser is not null )) is not null then (select  " &
-                "updateUser  " &
-                "from FS_FEEAMENDMENT  " &
-                "where AuditID =  " &
-                "(select max(AuditID) MAXID  " &
-                "from FS_FEEAMENDMENT  " &
-                "where FS_FEEAMENDMENT.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
-                "and FS_FEEAMENDMENT.NUMFEEYEAR = '" & Me.FeeYear & "'  " &
-                "and updateUser is not null ) ) " &
-                "else null  " &
-                "end  updateUser  " &
-                "from FS_FEEDATA    " &
-                "where FS_FEEDATA.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "'  " &
-                "and FS_FEEDATA.NUMFEEYEAR = '" & Me.FeeYear & "'  ) "
+            "(SELECT TOP 1 STRSYNTHETICMINOR " &
+            "FROM cte " &
+            "WHERE STRSYNTHETICMINOR IS NOT NULL " &
+            "ORDER BY AuditID DESC " &
+            ") AS STRSYNTHETICMINOR, " &
+            "(SELECT TOP 1 NUMSMFEE " &
+            "FROM cte " &
+            "WHERE NUMSMFEE IS NOT NULL " &
+            "ORDER BY AuditID DESC " &
+            ") AS NUMSMFEE, " &
+            "(SELECT TOP 1 STRPART70 " &
+            "FROM cte " &
+            "WHERE STRPART70 IS NOT NULL " &
+            ") AS STRPART70, " &
+            "(SELECT TOP 1 NUMPART70FEE " &
+            "FROM cte " &
+            "WHERE numPart70Fee IS NOT NULL " &
+            ") AS NUMPART70FEE, " &
+            "(SELECT TOP 1 INTVOCTONS " &
+            "FROM cte " &
+            "WHERE INtVOCTONS IS NOT NULL " &
+            ") AS INTVOCTONS, " &
+            "(SELECT TOP 1 INTPMTONS " &
+            "FROM cte " &
+            "WHERE INTPMTONS IS NOT NULL " &
+            ") AS INTPMTONS, " &
+            "(SELECT TOP 1 INTSO2TONS " &
+            "FROM cte " &
+            "WHERE intSO2Tons IS NOT NULL " &
+            ") AS INTSO2TONS, " &
+            "(SELECT TOP 1 INTNOXTONS " &
+            "FROM cte " &
+            "WHERE INTNOXTONS IS NOT NULL " &
+            ") AS INTNOXTONS, " &
+            "(SELECT TOP 1 NUMCALCULATEDFEE " &
+            "FROM cte " &
+            "WHERE numcalculatedFee IS NOT NULL " &
+            ") AS NUMCALCULATEDFEE, " &
+            "(SELECT TOP 1 NUMFEERATE " &
+            "FROM cte " &
+            "WHERE numFeeRate IS NOT NULL " &
+            ") AS NUMFEERATE, " &
+            "(SELECT TOP 1 STRNSPS " &
+            "FROM cte " &
+            "WHERE strNSPS IS NOT NULL " &
+            ") AS STRNSPS, " &
+            "(SELECT TOP 1 NUMNSPSFEE " &
+            "FROM cte " &
+            "WHERE numNSPSFee IS NOT NULL " &
+            ") AS NUMNSPSFEE, " &
+            "(SELECT TOP 1 STRNSPSEXEMPT " &
+            "FROM cte " &
+            "WHERE strNSPSExempt IS NOT NULL " &
+            ") AS STRNSPSEXEMPT, " &
+            "(SELECT TOP 1 STRNSPSEXEMPTREASON " &
+            "FROM cte " &
+            "WHERE strNSPSExemptReason IS NOT NULL " &
+            ") AS STRNSPSEXEMPTREASON, " &
+            "(SELECT TOP 1 NUMADMINFEE " &
+            "FROM cte " &
+            "WHERE NUMADMINFEE IS NOT NULL " &
+            ") AS NUMADMINFEE, " &
+            "(SELECT TOP 1 NUMTOTALFEE " &
+            "FROM cte " &
+            "WHERE numTotalFee IS NOT NULL " &
+            ") AS NUMTOTALFEE, " &
+            "(SELECT TOP 1 STRCLASS " &
+            "FROM cte " &
+            "WHERE strClass IS NOT NULL " &
+            ") AS STRCLASS, " &
+            "(SELECT TOP 1 STROPERATE " &
+            "FROM cte " &
+            "WHERE strOperate IS NOT NULL " &
+            ") AS STROPERATE, " &
+            "(SELECT TOP 1 DATSHUTDOWN " &
+            "FROM cte " &
+            "WHERE datShutDown IS NOT NULL " &
+            ") AS DATSHUTDOWN, " &
+            "(SELECT TOP 1 STROFFICIALNAME " &
+            "FROM cte " &
+            "WHERE strOfficialName IS NOT NULL " &
+            ") AS STROFFICIALNAME, " &
+            "(SELECT TOP 1 STROFFICIALTITLE " &
+            "FROM cte " &
+            "WHERE strOfficialTitle IS NOT NULL " &
+            ") AS STROFFICIALTITLE, " &
+            "(SELECT TOP 1 STRPAYMENTPLAN " &
+            "FROM cte " &
+            "WHERE STRPAYMENTPLAN IS NOT NULL " &
+            ") AS STRPAYMENTPLAN, " &
+            "(SELECT TOP 1 ACTIVE " &
+            "FROM cte " &
+            "WHERE ACTIVE IS NOT NULL " &
+            ") AS ACTIVE, " &
+            "(SELECT TOP 1 UPDATEUSER " &
+            "FROM cte " &
+            "WHERE UPDATEUSER IS NOT NULL " &
+            ") AS UPDATEUSER "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
+            Dim params As SqlParameter() = {
+                New SqlParameter("@airs", AirsNumber.DbFormattedString),
+                New SqlParameter("@year", FeeYear)
+            }
+
+            Dim dr As DataRow = DB.GetDataRow(SQL, params)
+
+            If dr IsNot Nothing Then
                 If IsDBNull(dr.Item("strSyntheticMinor")) Then
                     txtAuditedSM.Clear()
                 Else
@@ -2055,8 +1506,7 @@ Public Class PASPFeeAuditLog
                 Else
                     txtAuditedPaymentType.Text = dr.Item("strPaymentPlan")
                 End If
-            End While
-            dr.Close()
+            End If
 
             Dim SQLLine As String = ""
             If txtAuditedExemptions.Text <> "" Then
@@ -2076,25 +1526,13 @@ Public Class PASPFeeAuditLog
 
                 SQL = "Select Description " &
                 "from FSLK_NSPSReason " &
-                "where " &
-                SQLLine
+                "where " & SQLLine
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
+                Dim desc As String = DB.GetSingleValue(Of String)(SQL)
+                If Not String.IsNullOrEmpty(desc) Then
+                    txtAuditedExemptions.Text = txtAuditedExemptions.Text & "- " & desc & vbCrLf & vbCrLf
                 End If
-                dr = cmd.ExecuteReader
-                While dr.Read
-                    If IsDBNull(dr.Item("Description")) Then
-                        txtAuditedExemptions.Text = txtAuditedExemptions.Text
-                    Else
-                        txtAuditedExemptions.Text = txtAuditedExemptions.Text & "- " & dr.Item("Description") & vbCrLf & vbCrLf
-                    End If
-                End While
-                dr.Close()
             End If
-
-            SQLLine = ""
 
             SQL = "Select " &
             "FS_FeeAudit.AuditID, " &
@@ -2121,24 +1559,17 @@ Public Class PASPFeeAuditLog
             "strClass, strOperate, " &
             "datShutdown, strOfficialname, " &
             "strOfficialTitle, strPaymentPlan, " &
-            "(strLastName||', '||strFirstName) as IAIPUpdate, " &
+            "(strLastName+', '+strFirstName) as IAIPUpdate, " &
             "FS_FeeAudit.UpdateDateTime, FS_FeeAudit.CreateDateTime " &
-            "from FS_FeeAmendment, EPDUserProfiles, " &
-            "FS_FeeAudit " &
-            "where FS_FeeAudit.UpdateUser = EPDUserProfiles.numUserID " &
-            "and FS_FeeAudit.AuditID = FS_FeeAmendment.AuditID (+) " &
-            "and FS_FeeAudit.strAIRSNumber = '" & Me.ExpandedAirsNumber & "' " &
-            "and FS_FeeAudit.numFeeyear  = '" & Me.FeeYear & "' " &
-            "and FS_FeeAudit.Active = '1' "
+            "from FS_FeeAmendment " &
+            "left join FS_FeeAudit " &
+            "on FS_FeeAudit.AuditID = FS_FeeAmendment.AuditID " &
+            "inner join EPDUserProfiles " &
+            "on FS_FeeAudit.UpdateUser = EPDUserProfiles.numUserID " &
+            "where FS_FeeAudit.strAIRSNumber = @airs " &
+            "and FS_FeeAudit.numFeeyear  = @year "
 
-            ds = New DataSet
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            da = New SqlDataAdapter(SQL, CurrentConnection)
-            da.Fill(ds, "AuditHistory")
-            dgvAuditHistory.DataSource = ds
-            dgvAuditHistory.DataMember = "AuditHistory"
+            dgvAuditHistory.DataSource = DB.GetDataTable(SQL, params)
 
             dgvAuditHistory.RowHeadersVisible = False
             dgvAuditHistory.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -2240,58 +1671,52 @@ Public Class PASPFeeAuditLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub RefreshAdminStatus()
+
+    Private Sub RefreshAdminStatus()
         Try
             If Me.AirsNumber.ToString IsNot Nothing AndAlso Me.FeeYear IsNot Nothing Then
-                SQL = "select " &
+                Dim SQL As String = "select " &
                 "strIAIPDesc " &
-                "From FS_Admin, FSLK_ADMIN_Status " &
-                "where FS_Admin.numCurrentStatus = FSLK_Admin_Status.ID (+) " &
-                "and numFeeYear = '" & Me.FeeYear & "' " &
-                "and strAIRSNumber = '" & Me.ExpandedAirsNumber & "'  "
+                "From FS_Admin " &
+                "left join FSLK_ADMIN_Status " &
+                "on FS_Admin.numCurrentStatus = FSLK_Admin_Status.ID " &
+                "and numFeeYear = @year " &
+                "and strAIRSNumber = @airs "
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                While dr.Read
+                Dim p As SqlParameter() = {
+                    New SqlParameter("@year", FeeYear),
+                    New SqlParameter("@airs", AirsNumber.DbFormattedString)
+                }
+
+                Dim dr As DataRow = DB.GetDataRow(SQL, p)
+
+                If dr IsNot Nothing Then
                     If IsDBNull(dr.Item("strIAIPDesc")) Then
                         txtIAIPAdminStatus.Clear()
                     Else
                         txtIAIPAdminStatus.Text = dr.Item("strIAIPDesc")
                     End If
-                End While
-                dr.Close()
-
+                End If
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub LoadStaff()
+
+    Private Sub LoadStaff()
         Try
             Dim dtStaff As New DataTable
             Dim drDSRow As DataRow
             Dim drNewRow As DataRow
 
-            SQL = "Select " &
-            "numUserID, " &
-            "(strLastName||', '||strFirstName) as Staff " &
-            "from EPDUserProfiles " &
-            "where numBranch = '1' " &
-            "and numProgram = '2' " &
-            "and numUnit = '9' " &
-            "and numEmployeeStatus = '1' "
-
-            SQL = "select * " &
+            Dim SQL As String = "select * " &
             "from " &
             "(select " &
-            "(strLastName||', '||strFirstName) as Staff, " &
+            "(strLastName+', '+strFirstName) as Staff, " &
             "numUserID " &
             "from EPDUserProfiles " &
             "where numbranch = '1' " &
@@ -2300,29 +1725,23 @@ Public Class PASPFeeAuditLog
             "and numEmployeeStatus = '1' " &
             "union " &
             "select distinct " &
-            "(strLastName||', '||strFirstName) as Staff, " &
+            "(strLastName+', '+strFirstName) as Staff, " &
             "numUserID " &
-            "from EPDUserProfiles, FS_FeeAmendment  " &
-            "where EPDUserProfiles.nuMUserID = FS_FeeAmendment.UpdateUser ) " &
+            "from EPDUserProfiles inner join FS_FeeAmendment  " &
+            "on EPDUserProfiles.nuMUserID = FS_FeeAmendment.UpdateUser ) as t1 " &
             "order by staff "
 
-            ds = New DataSet
-            da = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
+            Dim dt As DataTable = DB.GetDataTable(SQL)
 
-            da.Fill(ds, "StaffResponsible")
-
-            dtStaff.Columns.Add("numUserID", GetType(System.String))
-            dtStaff.Columns.Add("Staff", GetType(System.String))
+            dtStaff.Columns.Add("numUserID", GetType(String))
+            dtStaff.Columns.Add("Staff", GetType(String))
 
             drNewRow = dtStaff.NewRow()
             drNewRow("numUserID") = ""
             drNewRow("Staff") = ""
             dtStaff.Rows.Add(drNewRow)
 
-            For Each drDSRow In ds.Tables("StaffResponsible").Rows()
+            For Each drDSRow In dt.Rows()
                 drNewRow = dtStaff.NewRow()
                 drNewRow("numUserID") = drDSRow("numUserID")
                 drNewRow("Staff") = drDSRow("Staff")
@@ -2337,18 +1756,19 @@ Public Class PASPFeeAuditLog
             End With
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
 #End Region
 
 #Region " Mailout Information tab "
 
-    Private Sub MailoutEnableEditingButton_Click(sender As System.Object, e As System.EventArgs) Handles MailoutEditContactButton.Click
+    Private Sub MailoutEnableEditingButton_Click(sender As Object, e As EventArgs) Handles MailoutEditContactButton.Click
         MailoutEditingToggle(True)
     End Sub
 
-    Private Sub MailoutEditFacilityButton_Click(sender As System.Object, e As System.EventArgs) Handles MailoutEditFacilityButton.Click
+    Private Sub MailoutEditFacilityButton_Click(sender As Object, e As EventArgs) Handles MailoutEditFacilityButton.Click
         MailoutEditingToggle(True, False)
     End Sub
 
@@ -2432,7 +1852,6 @@ Public Class PASPFeeAuditLog
 
             MailoutEditContactButton.Enabled = Not (enable)
             MailoutEditContactButton.Visible = Not (enable)
-            'MailoutReplaceContactWithFeeContactButton.Enabled = Not (enable)
             MailoutCancelEditingContactButton.Enabled = enable
             MailoutCancelEditingContactButton.Visible = enable
             MailoutSaveContactButton.Enabled = enable
@@ -2456,7 +1875,6 @@ Public Class PASPFeeAuditLog
 
             MailoutEditFacilityButton.Enabled = Not (enable)
             MailoutEditFacilityButton.Visible = Not (enable)
-            'MailoutReplaceFacilityInfoButton.Enabled = Not (enable)
             MailoutCancelEditFacilityButton.Enabled = enable
             MailoutCancelEditFacilityButton.Visible = enable
             MailoutSaveFacilityButton.Enabled = enable
@@ -2465,13 +1883,13 @@ Public Class PASPFeeAuditLog
         End If
     End Sub
 
-    Private Sub MailoutCancelEditingContactButton_Click(sender As System.Object, e As System.EventArgs) Handles MailoutCancelEditingContactButton.Click
+    Private Sub MailoutCancelEditingContactButton_Click(sender As Object, e As EventArgs) Handles MailoutCancelEditingContactButton.Click
         MailoutFillContactFrom(tempContact)
         tempContact = Nothing
         MailoutEditingToggle(False)
     End Sub
 
-    Private Sub MailoutCancelEditFacilityButton_Click(sender As System.Object, e As System.EventArgs) Handles MailoutCancelEditFacilityButton.Click
+    Private Sub MailoutCancelEditFacilityButton_Click(sender As Object, e As EventArgs) Handles MailoutCancelEditFacilityButton.Click
         MailoutFillFacilityFrom(tempFacility)
         tempFacility = Nothing
         MailoutEditingToggle(False, False)
@@ -2517,13 +1935,13 @@ Public Class PASPFeeAuditLog
         End With
     End Sub
 
-    Private Sub MailoutReplaceContactWithFeeContactButton_Click(sender As System.Object, e As System.EventArgs) Handles MailoutReplaceContactWithFeeContactButton.Click
+    Private Sub MailoutReplaceContactWithFeeContactButton_Click(sender As Object, e As EventArgs) Handles MailoutReplaceContactWithFeeContactButton.Click
         MailoutEditingToggle(True)
         Dim contact As Contact = DAL.GetCurrentContact(AirsNumber, DAL.ContactKey.Fees)
         MailoutFillContactFrom(contact)
     End Sub
 
-    Private Sub MailoutReplaceFacilityInfoButton_Click(sender As System.Object, e As System.EventArgs) Handles MailoutReplaceFacilityInfoButton.Click
+    Private Sub MailoutReplaceFacilityInfoButton_Click(sender As Object, e As EventArgs) Handles MailoutReplaceFacilityInfoButton.Click
         Try
 
             MailoutEditingToggle(True, False)
@@ -2536,7 +1954,7 @@ Public Class PASPFeeAuditLog
         End Try
     End Sub
 
-    Private Sub MailoutSaveContactButton_Click(sender As System.Object, e As System.EventArgs) Handles MailoutSaveContactButton.Click
+    Private Sub MailoutSaveContactButton_Click(sender As Object, e As EventArgs) Handles MailoutSaveContactButton.Click
         If (mtbAirsNumber.Text <> AirsNumber.FormattedString) OrElse (FeeYearsComboBox.SelectedItem.ToString <> FeeYear) Then
             MessageBox.Show("The selected AIRS number or fee year don't match the displayed information. " &
                             "Please double-check and try again." &
@@ -2552,7 +1970,7 @@ Public Class PASPFeeAuditLog
         End If
 
         Dim contact As Contact = MailoutGetContactFromForm()
-        Dim result As Boolean = DAL.UpdateFeeMailoutContact(contact, ExpandedAirsNumber, FeeYear)
+        Dim result As Boolean = DAL.UpdateFeeMailoutContact(contact, AirsNumber.DbFormattedString, FeeYear)
 
         If result Then
             tempContact = Nothing
@@ -2563,7 +1981,7 @@ Public Class PASPFeeAuditLog
         End If
     End Sub
 
-    Private Sub MailoutSaveFacilityButton_Click(sender As System.Object, e As System.EventArgs) Handles MailoutSaveFacilityButton.Click
+    Private Sub MailoutSaveFacilityButton_Click(sender As Object, e As EventArgs) Handles MailoutSaveFacilityButton.Click
         If (mtbAirsNumber.Text <> AirsNumber.FormattedString) OrElse (FeeYearsComboBox.SelectedItem.ToString <> FeeYear) Then
             MessageBox.Show("The selected AIRS number or fee year don't match the displayed information. " &
                             "Please double-check and try again." &
@@ -2579,7 +1997,7 @@ Public Class PASPFeeAuditLog
         End If
 
         Dim facility As Facility = MailoutGetFacilityFromForm()
-        Dim result As Boolean = DAL.UpdateFeeMailoutFacility(facility, ExpandedAirsNumber, FeeYear)
+        Dim result As Boolean = DAL.UpdateFeeMailoutFacility(facility, AirsNumber.DbFormattedString, FeeYear)
 
         If result Then
             tempFacility = Nothing
@@ -2592,7 +2010,7 @@ Public Class PASPFeeAuditLog
 
 #End Region
 
-    Private Sub EditContactsButton_Click(sender As System.Object, e As System.EventArgs) Handles EditContactsButton.Click
+    Private Sub EditContactsButton_Click(sender As Object, e As EventArgs) Handles EditContactsButton.Click
         If AirsNumber.ToString Is Nothing OrElse (mtbAirsNumber.Text <> AirsNumber.FormattedString) Then
             MessageBox.Show("Please select a valid AIRS number first.",
                             "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
@@ -2606,7 +2024,7 @@ Public Class PASPFeeAuditLog
         OpenMultiForm(IAIPEditContacts, AirsNumber.ToString, parameters)
     End Sub
 
-    Private Sub ReloadButton_Click(sender As System.Object, e As System.EventArgs) Handles ReloadButton.Click
+    Private Sub ReloadButton_Click(sender As Object, e As EventArgs) Handles ReloadButton.Click
         Try
             If FeeYearsComboBox.SelectedIndex = 0 Then
                 MessageBox.Show("Please select a Fee Year", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -2622,9 +2040,7 @@ Public Class PASPFeeAuditLog
 
             ClearForm()
 
-            ds = New DataSet
-            dgvInvoices.DataMember = ""
-            dgvInvoices.DataSource = ds
+            dgvInvoices.DataSource = Nothing
 
             ClearInvoices()
             ClearAuditData()
@@ -2638,10 +2054,11 @@ Public Class PASPFeeAuditLog
             LoadAuditedData()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub ClearForm()
+
+    Private Sub ClearForm()
         Try
             ClearAdminData()
 
@@ -2665,21 +2082,18 @@ Public Class PASPFeeAuditLog
             txtInvoiceDataNSPSFee.Clear()
             txtInvoiceDataAdminFee.Clear()
             txtInvoiceDataTotalFees.Clear()
-            dtpInvoiceDataDateInvoiced.Text = OracleDate
+            dtpInvoiceDataDateInvoiced.Value = Today
             chbInvoiceDataNSPSExempt.Checked = False
             txtInvoiceDataNSPSExempts.Clear()
-            ds = New DataSet
-            dgvInvoiceDataNSPSExemptions.DataMember = ""
-            dgvInvoiceDataNSPSExemptions.DataSource = ds
+            dgvInvoiceDataNSPSExemptions.DataSource = Nothing
 
             txtInvoiceDataOfficialName.Clear()
             txtInvoiceDataOfficialTitle.Clear()
             txtInvoiceDataConfirmationNumber.Clear()
             txtInvoiceDataUpdate.Clear()
-            dtpInvoiceDataDateUpdated.Text = OracleDate
-            dtpInvoiceDataCreatedDate.Text = OracleDate
-            dgvInvoiceData.DataMember = ""
-            dgvInvoiceData.DataSource = ds
+            dtpInvoiceDataDateUpdated.Value = Today
+            dtpInvoiceDataCreatedDate.Value = Today
+            dgvInvoiceData.DataSource = Nothing
 
             txtGECOContactSalutation.Clear()
             txtGECOContactFirstName.Clear()
@@ -2695,8 +2109,7 @@ Public Class PASPFeeAuditLog
             txtGECOContactEmail.Clear()
             txtGECOContactComments.Clear()
 
-            dgvGECOFeeContacts.DataMember = ""
-            dgvGECOFeeContacts.DataSource = ds
+            dgvGECOFeeContacts.DataSource = Nothing
 
             txtTransactionID.Clear()
             txtInvoiceID.Clear()
@@ -2704,17 +2117,16 @@ Public Class PASPFeeAuditLog
             txtBatchNo.Clear()
             txtTransactionCreatedBy.Clear()
             cboTransactionType.SelectedValue = 0
-            dtpTransactionDate.Text = OracleDate
+            dtpTransactionDate.Value = Today
             txtTransactionAmount.Clear()
             txtTransactionCheckNo.Clear()
             txtTransactionCreditCardNo.Clear()
             txtAPBComments.Clear()
             txtTransactionUpdated.Clear()
-            dtpTransactionUpdated.Text = OracleDate
-            dtpTransactionCreated.Text = OracleDate
+            dtpTransactionUpdated.Value = Today
+            dtpTransactionCreated.Value = Today
 
-            dgvTransactions.DataMember = ""
-            dgvTransactions.DataSource = ds
+            dgvTransactions.DataSource = Nothing
 
             txtGECOContactSalutation.ReadOnly = True
             txtGECOContactFirstName.ReadOnly = True
@@ -2734,10 +2146,11 @@ Public Class PASPFeeAuditLog
             ClearEditData()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnUpdateFSAdmin_Click(sender As System.Object, e As System.EventArgs) Handles btnUpdateFSAdmin.Click
+
+    Private Sub btnUpdateFSAdmin_Click(sender As Object, e As EventArgs) Handles btnUpdateFSAdmin.Click
         Try
             Dim ResultDoc As DialogResult
 
@@ -2763,35 +2176,31 @@ Public Class PASPFeeAuditLog
 
             Dim query As String = "SELECT '" & Boolean.TrueString & "' " &
                 " FROM FS_ADMIN " &
-                " WHERE RowNum = 1 " &
-                " AND strAIRSnumber = @pAirsNumber " &
+                " WHERE strAIRSnumber = @pAirsNumber " &
                 " AND numFeeYear = @pFeeYear "
             Dim parameters As SqlParameter() = {
-                New SqlParameter("@pAirsNumber", Me.ExpandedAirsNumber),
+                New SqlParameter("@pAirsNumber", Me.AirsNumber.DbFormattedString),
                 New SqlParameter("@pFeeYear", Me.FeeYear)
             }
             Dim result As Boolean = DB.GetBoolean(query, parameters)
 
             If Not result Then
-                MsgBox("The faciltiy is not currently in the Fee universe for the selected year." & vbCrLf &
+                MsgBox("The facility is not currently in the Fee universe for the selected year." & vbCrLf &
                        "Use the Add New Facility to Year." & vbCrLf & vbCrLf & "NO DATA SAVED", MsgBoxStyle.Information, Me.Text)
                 Exit Sub
             End If
 
-
-            If Update_FS_Admin(Me.FeeYear, Me.AirsNumber.ShortString,
+            If Update_FS_Admin(Me.FeeYear, Me.AirsNumber,
                              rdbEnrolledTrue.Checked,
-                             dtpEnrollmentDate.Text, rdbMailoutTrue.Checked,
-                             rdbLetterMailedTrue.Checked, dtpLetterMailed.Text,
-                             rdbSubmittalTrue.Checked, dtpSubmittalDate.Text,
+                             dtpEnrollmentDate.Value, rdbMailoutTrue.Checked,
+                             rdbLetterMailedTrue.Checked, dtpLetterMailed.Value,
+                             rdbSubmittalTrue.Checked, dtpSubmittalDate.Value,
                              txtFSAdminComments.Text, rdbActiveAdmin.Checked) = True Then
 
                 If rdbInactiveStatus.Checked = True Then
                     ClearForm()
 
-                    ds = New DataSet
-                    dgvInvoices.DataMember = ""
-                    dgvInvoices.DataSource = ds
+                    dgvInvoices.DataSource = Nothing
 
                     ClearInvoices()
                     ClearAuditData()
@@ -2806,10 +2215,11 @@ Public Class PASPFeeAuditLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnAddFSAdmin_Click(sender As System.Object, e As System.EventArgs) Handles btnAddFSAdmin.Click
+
+    Private Sub btnAddFSAdmin_Click(sender As Object, e As EventArgs) Handles btnAddFSAdmin.Click
         Try
             If (mtbAirsNumber.Text <> AirsNumber.FormattedString) OrElse (FeeYearsComboBox.SelectedItem.ToString <> FeeYear) Then
                 MessageBox.Show("The selected AIRS number or fee year don't match the displayed information. " &
@@ -2819,11 +2229,11 @@ Public Class PASPFeeAuditLog
                 Exit Sub
             End If
 
-            If Insert_FS_Admin(Me.FeeYear, Me.AirsNumber.ShortString,
+            If Insert_FS_Admin(Me.FeeYear, Me.AirsNumber,
                           rdbEnrolledTrue.Checked,
-                          dtpEnrollmentDate.Text, rdbMailoutTrue.Checked,
-                          rdbLetterMailedTrue.Checked, dtpLetterMailed.Text,
-                          rdbSubmittalTrue.Checked, dtpSubmittalDate.Text,
+                          dtpEnrollmentDate.Value, rdbMailoutTrue.Checked,
+                          rdbLetterMailedTrue.Checked, dtpLetterMailed.Value,
+                          rdbSubmittalTrue.Checked, dtpSubmittalDate.Value,
                           txtFSAdminComments.Text) = True Then
 
                 MsgBox("Save completed", MsgBoxStyle.Information, Me.Text)
@@ -2831,27 +2241,21 @@ Public Class PASPFeeAuditLog
                 MsgBox("Did not Save", MsgBoxStyle.Information, Me.Text)
             End If
 
-
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnGECOViewPastContacts_Click(sender As System.Object, e As System.EventArgs) Handles btnGECOViewPastContacts.Click
+
+    Private Sub btnGECOViewPastContacts_Click(sender As Object, e As EventArgs) Handles btnGECOViewPastContacts.Click
         Try
-            SQL = "Select * " &
+            Dim query As String = "Select * " &
             "from FS_ContactInfo " &
-            "where strAIRSnumber = '" & Me.ExpandedAirsNumber & "' " &
+            "where strAIRSnumber = @strAIRSnumber " &
             "order by numFeeYear desc "
 
-            ds = New DataSet
-            da = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
+            Dim parameter As New SqlParameter("@strAIRSnumber", AirsNumber.DbFormattedString)
 
-            da.Fill(ds, "GECOContacts")
-            dgvGECOFeeContacts.DataSource = ds
-            dgvGECOFeeContacts.DataMember = "GECOContacts"
+            dgvGECOFeeContacts.DataSource = DB.GetDataTable(query, parameter)
 
             dgvGECOFeeContacts.RowHeadersVisible = False
             dgvGECOFeeContacts.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -2890,7 +2294,6 @@ Public Class PASPFeeAuditLog
             dgvGECOFeeContacts.Columns("strContactEmail").DisplayIndex = 12
             dgvGECOFeeContacts.Columns("strComment").HeaderText = "Comments"
             dgvGECOFeeContacts.Columns("strComment").DisplayIndex = 13
-            'dgvGECOFeeContacts.Columns("datFeePeriodStart").DefaultCellStyle.Format = "dd-MMM-yyyy"
             dgvGECOFeeContacts.Columns("strAIRSnumber").HeaderText = "AIRS #"
             dgvGECOFeeContacts.Columns("strAIRSNumber").DisplayIndex = 14
             dgvGECOFeeContacts.Columns("strAIRSnumber").Visible = False
@@ -2908,10 +2311,11 @@ Public Class PASPFeeAuditLog
             dgvGECOFeeContacts.Columns("CreateDateTime").DefaultCellStyle.Format = "dd-MMM-yyyy"
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub dgvGECOFeeContacts_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles dgvGECOFeeContacts.MouseUp
+
+    Private Sub dgvGECOFeeContacts_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvGECOFeeContacts.MouseUp
         Try
             Dim hti As DataGridView.HitTestInfo = dgvGECOFeeContacts.HitTest(e.X, e.Y)
             If dgvGECOFeeContacts.RowCount > 0 And hti.RowIndex <> -1 Then
@@ -2988,43 +2392,32 @@ Public Class PASPFeeAuditLog
 
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Function InvoiceCheck() As Boolean
-        Try
-            If IsNumeric(txtInvoiceID.Text) Then
-                SQL = "Select " &
-                "InvoiceID " &
-                "from FS_FeeInvoice " &
-                "where invoiceID = '" & txtInvoiceID.Text & "' " &
-                "and strAIRSNumber = '" & Me.AirsNumber.DbFormattedString & "' " &
-                "and numFeeyear = '" & txtYear.Text & "' "
-
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-                dr.Close()
-
-                If recExist = True Then
-                    Return True
-                Else
-                    Return False
-                End If
-            Else
-                Return False
-            End If
-
-        Catch ex As Exception
+    Private Function InvoiceCheck() As Boolean
+        If Not IsNumeric(txtInvoiceID.Text) Then
             Return False
-        End Try
+        End If
+
+        Dim SQL As String = "Select " &
+           "InvoiceID " &
+           "from FS_FeeInvoice " &
+           "where invoiceID = @invoiceID " &
+           "and strAIRSNumber = @airs " &
+           "and numFeeyear = @year "
+
+        Dim p2 As SqlParameter() = {
+            New SqlParameter("@year", FeeYear),
+            New SqlParameter("@airs", AirsNumber.DbFormattedString),
+            New SqlParameter("@invoiceID", txtInvoiceID.Text)
+        }
+
+        Return DB.ValueExists(SQL, p2)
     End Function
 
-    Private Sub btnTransactionNew_Click(sender As System.Object, e As System.EventArgs) Handles btnTransactionNew.Click
+    Private Sub btnTransactionNew_Click(sender As Object, e As EventArgs) Handles btnTransactionNew.Click
         Try
 
             If (mtbAirsNumber.Text <> Me.AirsNumber.FormattedString) _
@@ -3059,62 +2452,71 @@ Public Class PASPFeeAuditLog
                 Exit Sub
             End If
 
-            If txtInvoiceID.Text <> "" Then
-                SQL = "Insert into FS_Transactions " &
-                "values " &
-                "((seq_fs_transactions.nextVal), " &
-                "'" & Replace(txtInvoiceID.Text, "'", "''") & "', " &
-                "'" & Replace(cboTransactionType.SelectedValue, "'", "''") & "', '" & dtpTransactionDate.Text & "', " &
-                "'" & Replace(Replace(Replace(txtTransactionAmount.Text, "'", "''"), ",", ""), "$", "") & "', " &
-                "'" & Replace(txtTransactionCheckNo.Text, "'", "''") & "', " &
-                "'" & Replace(txtDepositNo.Text, "'", "''") & "', '" & Replace(txtBatchNo.Text, "'", "''") & "', " &
-                "'" & CurrentUser.UserID & "', '" & Replace(txtAPBComments.Text, "'", "''") & "', " &
-                "'1', '" & CurrentUser.UserID & "', " &
-                "'" & OracleDate & "', '" & OracleDate & "', " &
-                "'" & Me.ExpandedAirsNumber & "', " &
-                "'" & Me.FeeYear & "', '" & Replace(txtTransactionCreditCardNo.Text, "'", "''") & "') "
-            Else
-                SQL = "Insert into FS_Transactions " &
-               "values " &
-               "((seq_fs_transactions.nextVal), " &
-               "'', " &
-               "'" & Replace(cboTransactionType.SelectedValue, "'", "''") & "', '" & dtpTransactionDate.Text & "', " &
-               "'" & Replace(Replace(Replace(txtTransactionAmount.Text, "'", "''"), ",", ""), "$", "") & "', " &
-               "'" & Replace(txtTransactionCheckNo.Text, "'", "''") & "', " &
-               "'" & Replace(txtDepositNo.Text, "'", "''") & "', '" & Replace(txtBatchNo.Text, "'", "''") & "', " &
-               "'" & CurrentUser.UserID & "', '" & Replace(txtAPBComments.Text, "'", "''") & "', " &
-               "'1', '" & CurrentUser.UserID & "', " &
-               "'" & OracleDate & "', '" & OracleDate & "', " &
-               "'" & Me.ExpandedAirsNumber & "', " &
-               "'" & Me.FeeYear & "', '" & Replace(txtTransactionCreditCardNo.Text, "'", "''") & "') "
-            End If
+            Dim SQL As String = "Insert into FS_Transactions " &
+                    "(TRANSACTIONID, INVOICEID, TRANSACTIONTYPECODE, DATTRANSACTIONDATE, " &
+                    "NUMPAYMENT, STRCHECKNO, STRDEPOSITNO, STRBATCHNO, " &
+                    "STRENTRYPERSON, STRCOMMENT, ACTIVE, UPDATEUSER, " &
+                    "UPDATEDATETIME, CREATEDATETIME, STRAIRSNUMBER, NUMFEEYEAR, " &
+                    "STRCREDITCARDNO) " &
+                    " values " &
+                    "(NEXT VALUE FOR SEQ_FS_TRANSACTIONS, @INVOICEID, @TRANSACTIONTYPECODE, @DATTRANSACTIONDATE, " &
+                    "@NUMPAYMENT, @STRCHECKNO, @STRDEPOSITNO, @STRBATCHNO, " &
+                    "@STRENTRYPERSON, @STRCOMMENT, '1', @UPDATEUSER, " &
+                    "getdate(), getdate(), @STRAIRSNUMBER, @NUMFEEYEAR, " &
+                    "@STRCREDITCARDNO) "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
+
+            If txtInvoiceID.Text <> "" Then
+                Dim params As SqlParameter() = {
+                    New SqlParameter("@INVOICEID", txtInvoiceID.Text),
+                    New SqlParameter("@TRANSACTIONTYPECODE", cboTransactionType.SelectedValue),
+                    New SqlParameter("@DATTRANSACTIONDATE", dtpTransactionDate.Value),
+                    New SqlParameter("@NUMPAYMENT", Replace(Replace(txtTransactionAmount.Text, ",", ""), "$", "")),
+                    New SqlParameter("@STRCHECKNO", txtTransactionCheckNo.Text),
+                    New SqlParameter("@STRDEPOSITNO", txtDepositNo.Text),
+                    New SqlParameter("@STRBATCHNO", txtBatchNo.Text),
+                    New SqlParameter("@STRENTRYPERSON", CurrentUser.UserID),
+                    New SqlParameter("@STRCOMMENT", txtAPBComments.Text),
+                    New SqlParameter("@UPDATEUSER", CurrentUser.UserID),
+                    New SqlParameter("@STRAIRSNUMBER", AirsNumber.DbFormattedString),
+                    New SqlParameter("@NUMFEEYEAR", FeeYear),
+                    New SqlParameter("@STRCREDITCARDNO", txtTransactionCreditCardNo.Text)
+                }
+
+                DB.RunCommand(SQL, params)
+            Else
+                Dim params As SqlParameter() = {
+                    New SqlParameter("@INVOICEID", ""),
+                    New SqlParameter("@TRANSACTIONTYPECODE", cboTransactionType.SelectedValue),
+                    New SqlParameter("@DATTRANSACTIONDATE", dtpTransactionDate.Value),
+                    New SqlParameter("@NUMPAYMENT", Replace(Replace(txtTransactionAmount.Text, ",", ""), "$", "")),
+                    New SqlParameter("@STRCHECKNO", txtTransactionCheckNo.Text),
+                    New SqlParameter("@STRDEPOSITNO", txtDepositNo.Text),
+                    New SqlParameter("@STRBATCHNO", txtBatchNo.Text),
+                    New SqlParameter("@STRENTRYPERSON", CurrentUser.UserID),
+                    New SqlParameter("@STRCOMMENT", txtAPBComments.Text),
+                    New SqlParameter("@UPDATEUSER", CurrentUser.UserID),
+                    New SqlParameter("@STRAIRSNUMBER", AirsNumber.DbFormattedString),
+                    New SqlParameter("@NUMFEEYEAR", FeeYear),
+                    New SqlParameter("@STRCREDITCARDNO", txtTransactionCreditCardNo.Text)
+                }
+
+                DB.RunCommand(SQL, params)
             End If
-            dr = cmd.ExecuteReader
-            dr.Close()
 
             SQL = "Select max(TransactionID) " &
             "from FS_TRANSACTIONS "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
+            Dim dr As DataRow = DB.GetDataRow(SQL)
+
+            If dr Is Nothing OrElse IsDBNull(dr.Item(0)) Then
+                txtTransactionID.Text = "Error"
+            Else
+                txtTransactionID.Text = dr.Item(0)
             End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                If IsDBNull(dr.Item(0)) Then
-                    txtTransactionID.Text = "Error"
-                Else
-                    txtTransactionID.Text = dr.Item(0)
-                End If
-            End While
-            dr.Close()
 
             InvoiceStatusCheck(txtInvoiceID.Text)
-            If Not DAL.Update_FS_Admin_Status(Me.FeeYear, Me.AirsNumber.ShortString) Then
+            If Not DAL.Update_FS_Admin_Status(FeeYear, AirsNumber.ShortString) Then
                 MessageBox.Show("There was an error updating the database", "Database error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End If
 
@@ -3123,10 +2525,11 @@ Public Class PASPFeeAuditLog
             LoadTransactionData()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub dgvTransactions_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles dgvTransactions.MouseUp
+
+    Private Sub dgvTransactions_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvTransactions.MouseUp
         Try
 
             Dim hti As DataGridView.HitTestInfo = dgvTransactions.HitTest(e.X, e.Y)
@@ -3145,7 +2548,7 @@ Public Class PASPFeeAuditLog
                     txtInvoiceID.Text = dgvTransactions(1, hti.RowIndex).Value
                 End If
                 If IsDBNull(dgvTransactions(2, hti.RowIndex).Value) Then
-                    dtpTransactionDate.Text = OracleDate
+                    dtpTransactionDate.Value = Today
                 Else
                     dtpTransactionDate.Text = dgvTransactions(2, hti.RowIndex).Value
                 End If
@@ -3197,12 +2600,12 @@ Public Class PASPFeeAuditLog
                     txtTransactionUpdated.Text = dgvTransactions(11, hti.RowIndex).Value
                 End If
                 If IsDBNull(dgvTransactions(12, hti.RowIndex).Value) Then
-                    dtpTransactionUpdated.Text = OracleDate
+                    dtpTransactionUpdated.Value = Today
                 Else
                     dtpTransactionUpdated.Text = dgvTransactions(12, hti.RowIndex).Value
                 End If
                 If IsDBNull(dgvTransactions(13, hti.RowIndex).Value) Then
-                    dtpTransactionCreated.Text = OracleDate
+                    dtpTransactionCreated.Value = Today
                 Else
                     dtpTransactionCreated.Text = dgvTransactions(13, hti.RowIndex).Value
                 End If
@@ -3210,50 +2613,43 @@ Public Class PASPFeeAuditLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnClearTransactions_Click(sender As System.Object, e As System.EventArgs) Handles btnClearTransactions.Click
-        Try
-            txtTransactionID.Clear()
-            txtInvoiceID.Clear()
-            txtDepositNo.Clear()
-            txtBatchNo.Clear()
-            txtTransactionCreatedBy.Clear()
-            cboTransactionType.SelectedValue = 0
-            dtpTransactionDate.Text = OracleDate
-            txtTransactionAmount.Clear()
-            txtTransactionCheckNo.Clear()
-            txtTransactionCreditCardNo.Clear()
-            txtAPBComments.Clear()
-            txtTransactionUpdated.Clear()
-            dtpTransactionUpdated.Text = OracleDate
-            dtpTransactionCreated.Text = OracleDate
 
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+    Private Sub btnClearTransactions_Click(sender As Object, e As EventArgs) Handles btnClearTransactions.Click
+        txtTransactionID.Clear()
+        txtInvoiceID.Clear()
+        txtDepositNo.Clear()
+        txtBatchNo.Clear()
+        txtTransactionCreatedBy.Clear()
+        cboTransactionType.SelectedValue = 0
+        dtpTransactionDate.Value = Today
+        txtTransactionAmount.Clear()
+        txtTransactionCheckNo.Clear()
+        txtTransactionCreditCardNo.Clear()
+        txtAPBComments.Clear()
+        txtTransactionUpdated.Clear()
+        dtpTransactionUpdated.Value = Today
+        dtpTransactionCreated.Value = Today
     End Sub
-    Private Sub btnClearEditableTransactionData_Click(sender As System.Object, e As System.EventArgs) Handles btnClearEditableTransactionData.Click
-        Try
-            txtDepositNo.Clear()
-            txtBatchNo.Clear()
-            txtTransactionCreatedBy.Clear()
-            cboTransactionType.SelectedValue = 0
-            dtpTransactionDate.Text = OracleDate
-            txtTransactionAmount.Clear()
-            txtTransactionCheckNo.Clear()
-            txtTransactionCreditCardNo.Clear()
-            txtAPBComments.Clear()
-            txtTransactionUpdated.Clear()
-            dtpTransactionUpdated.Text = OracleDate
-            dtpTransactionCreated.Text = OracleDate
 
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+    Private Sub btnClearEditableTransactionData_Click(sender As Object, e As EventArgs) Handles btnClearEditableTransactionData.Click
+        txtDepositNo.Clear()
+        txtBatchNo.Clear()
+        txtTransactionCreatedBy.Clear()
+        cboTransactionType.SelectedValue = 0
+        dtpTransactionDate.Value = Today
+        txtTransactionAmount.Clear()
+        txtTransactionCheckNo.Clear()
+        txtTransactionCreditCardNo.Clear()
+        txtAPBComments.Clear()
+        txtTransactionUpdated.Clear()
+        dtpTransactionUpdated.Value = Today
+        dtpTransactionCreated.Value = Today
     End Sub
-    Private Sub btnTransactionUpdate_Click(sender As System.Object, e As System.EventArgs) Handles btnTransactionUpdate.Click
+
+    Private Sub btnTransactionUpdate_Click(sender As Object, e As EventArgs) Handles btnTransactionUpdate.Click
         Try
 
             If (mtbAirsNumber.Text <> Me.AirsNumber.FormattedString) _
@@ -3279,29 +2675,39 @@ Public Class PASPFeeAuditLog
                 Exit Sub
             End If
 
-            SQL = "Update FS_Transactions set " &
-            "invoiceid = '" & txtInvoiceID.Text & "', " &
-            "TransactionTypecode = '" & cboTransactionType.SelectedValue & "', " &
-            "datTransactionDate = '" & dtpTransactionDate.Text & "', " &
-            "numPayment = '" & Replace(Replace(Replace(txtTransactionAmount.Text, "'", "''"), ",", ""), "$", "") & "', " &
-            "strCheckNo = '" & txtTransactionCheckNo.Text & "', " &
-            "strDepositNo = '" & txtDepositNo.Text & "', " &
-            "strBatchNo = '" & txtBatchNo.Text & "', " &
-            "strComment = '" & txtAPBComments.Text & "', " &
+            Dim SQL As String = "Update FS_Transactions set " &
+            "invoiceid = @invoiceid, " &
+            "TransactionTypecode = @TransactionTypecode, " &
+            "datTransactionDate = @datTransactionDate, " &
+            "numPayment = @numPayment, " &
+            "strCheckNo = @strCheckNo, " &
+            "strDepositNo = @strDepositNo, " &
+            "strBatchNo = @strBatchNo, " &
+            "strComment = @strComment, " &
             "active = '1', " &
-            "updateUser = '" & CurrentUser.UserID & "', " &
-            "updateDateTime = sysdate, " &
-            "strCreditCardNo = '" & txtTransactionCreditCardNo.Text & "' " &
-            "where TransactionID = '" & txtTransactionID.Text & "' "
+            "updateUser = @updateUser, " &
+            "updateDateTime = getdate(), " &
+            "strCreditCardNo = @strCreditCardNo " &
+            "where TransactionID = @TransactionID "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
+            Dim p As SqlParameter() = {
+                New SqlParameter("@invoiceid", txtInvoiceID.Text),
+                New SqlParameter("@TransactionTypecode", cboTransactionType.SelectedValue),
+                New SqlParameter("@datTransactionDate", dtpTransactionDate.Text),
+                New SqlParameter("@numPayment", Replace(Replace(txtTransactionAmount.Text, ",", ""), "$", "")),
+                New SqlParameter("@strCheckNo", txtTransactionCheckNo.Text),
+                New SqlParameter("@strDepositNo", txtDepositNo.Text),
+                New SqlParameter("@strBatchNo", txtBatchNo.Text),
+                New SqlParameter("@strComment", txtAPBComments.Text),
+                New SqlParameter("@updateUser", CurrentUser.UserID),
+                New SqlParameter("@strCreditCardNo", txtTransactionCreditCardNo.Text),
+                New SqlParameter("@TransactionID", txtTransactionID.Text)
+            }
+
+            DB.RunCommand(SQL, p)
 
             InvoiceStatusCheck(txtInvoiceID.Text)
+
             If Not DAL.Update_FS_Admin_Status(Me.FeeYear, Me.AirsNumber.ShortString) Then
                 MessageBox.Show("There was an error updating the database", "Database error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End If
@@ -3310,10 +2716,11 @@ Public Class PASPFeeAuditLog
             LoadTransactionData()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnTransactionDelete_Click(sender As System.Object, e As System.EventArgs) Handles btnTransactionDelete.Click
+
+    Private Sub btnTransactionDelete_Click(sender As Object, e As EventArgs) Handles btnTransactionDelete.Click
         Try
 
             If (mtbAirsNumber.Text <> Me.AirsNumber.FormattedString) _
@@ -3334,18 +2741,18 @@ Public Class PASPFeeAuditLog
                 Exit Sub
             End If
 
-            SQL = "Update FS_Transactions set " &
+            Dim SQL As String = "Update FS_Transactions set " &
             "active = '0', " &
-            "updateUser = '" & CurrentUser.UserID & "', " &
-            "updateDateTime = sysdate " &
-            "where TransactionID = '" & txtTransactionID.Text & "' "
+            "updateUser = @updateUser, " &
+            "updateDateTime = getdate() " &
+            "where TransactionID = @TransactionID "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
+            Dim p As SqlParameter() = {
+                New SqlParameter("@updateUser", CurrentUser.UserID),
+                New SqlParameter("@TransactionID", txtTransactionID.Text)
+            }
+
+            DB.RunCommand(SQL, p)
 
             InvoiceStatusCheck(txtInvoiceID.Text)
             If Not DAL.Update_FS_Admin_Status(Me.FeeYear, Me.AirsNumber.ShortString) Then
@@ -3356,17 +2763,20 @@ Public Class PASPFeeAuditLog
             LoadTransactionData()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub InvoiceStatusCheck(invoiceID As String)
+
+    Private Sub InvoiceStatusCheck(invoiceID As String)
         Try
-            SQL = "select " &
+            Dim temp As String
+
+            Dim SQL As String = "select " &
             "(invoiceTotal - PaymentTotal) as Balance " &
             "from (select " &
             "sum(numAmount) as InvoiceTotal " &
             "from FS_Feeinvoice " &
-            "where invoiceid = '" & invoiceID & "' " &
+            "where invoiceId = @invoiceId " &
             "and Active = '1' ) INVOICED, " &
             "(select " &
             "case " &
@@ -3374,50 +2784,42 @@ Public Class PASPFeeAuditLog
             "else sum(numPayment) " &
             "End PaymentTotal " &
             "from FS_TRANSACTIONS " &
-            "where invoiceid = '" & invoiceID & "' " &
+            "where invoiceId = @invoiceId " &
             "and Active = '1' ) Payments "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
+            Dim p As New SqlParameter("@invoiceId", invoiceID)
 
-            dr = cmd.ExecuteReader
-            While dr.Read
-                If IsDBNull(dr.Item("Balance")) Then
-                    temp = "1"
-                Else
-                    temp = dr.Item("Balance")
-                End If
-            End While
-            dr.Close()
+            Dim dr As DataRow = DB.GetDataRow(SQL, p)
+
+            If dr Is Nothing OrElse IsDBNull(dr.Item("Balance")) Then
+                temp = "1"
+            Else
+                temp = dr.Item("Balance")
+            End If
 
             If temp <> "0" Then
                 'Not Paid in full
                 SQL = "Update FS_FeeInvoice set " &
                 "strInvoicestatus = '0' " &
-                "where invoiceId = '" & invoiceID & "' "
+                "where invoiceId = @invoiceId "
             Else
                 'Paid in Full 
                 SQL = "Update FS_FeeInvoice set " &
                 "strInvoicestatus = '1' " &
-                "where invoiceId = '" & invoiceID & "' "
+                "where invoiceId = @invoiceId "
             End If
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
+            DB.RunCommand(SQL, p)
 
             LoadFeeInvoiceData()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnSaveFeeAudit_Click(sender As System.Object, e As System.EventArgs) Handles btnSaveNewFeeAudit.Click
+
+    Private Sub btnSaveFeeAudit_Click(sender As Object, e As EventArgs) Handles btnSaveNewFeeAudit.Click
         Try
+            Dim SQL As String
             Dim OpStatus As String = ""
             Dim ShutDown As String = ""
             Dim Classification As String = ""
@@ -3442,7 +2844,7 @@ Public Class PASPFeeAuditLog
             Dim NSPSExemptions As String = ""
             Dim StaffResponsible As String = ""
             Dim AuditLevel As String = ""
-            Dim AuditEnforcement As String = ""
+            Dim AuditEnforcement As Integer = 0
             Dim AuditComments As String = ""
             Dim AuditStart As String = ""
             Dim AuditEnd As String = ""
@@ -3465,11 +2867,6 @@ Public Class PASPFeeAuditLog
                     OpStatus = "0"
                 End If
             End If
-            'If chbEditOpStatus.Checked = True Then
-            '    OpStatus = "1"
-            'Else
-            '    OpStatus = "0"
-            'End If
             If dtpEditShutDownDate.Checked = True Then
                 ShutDown = dtpEditShutDownDate.Text
             Else
@@ -3601,40 +2998,34 @@ Public Class PASPFeeAuditLog
 
             SQL = "select count(*) as DataCheck " &
             "From FS_FeeData " &
-            "where strAIRSNumber = '" & Me.ExpandedAirsNumber & "' " &
-            "and numFeeYear = '" & Me.FeeYear & "' "
+            "where strAIRSNumber = @airs " &
+            "and numFeeYear = @year "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                If IsDBNull(dr.Item("DataCheck")) Then
-                    temp = "0"
-                Else
-                    temp = dr.Item("DataCheck")
-                End If
-            End While
-            dr.Close()
+            Dim p2 As SqlParameter() = {
+                New SqlParameter("@year", FeeYear),
+                New SqlParameter("@airs", AirsNumber.DbFormattedString)
+            }
 
-            If temp = "0" Then
+            If DB.GetSingleValue(Of Integer)(SQL, p2) = 0 Then
                 SQL = "insert into FS_FeeData " &
                 "(numfeeyear, strairsnumber, " &
                 "strComment, Active, " &
                 "UpdateUser, UpdateDateTime, " &
                 "CreateDateTime) " &
                 "values " &
-                "('" & Me.FeeYear & "', '" & Me.ExpandedAirsNumber & "', " &
-                "'Add Via IAIP Audit Process', '1', " &
-                "'IAIP||" & CurrentUser.AlphaName & "', sysdate, " &
-                "sysdate) "
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                dr.Close()
+                "(@numfeeyear, @strairsnumber, " &
+                "@strComment, '1', " &
+                "@UpdateUser, getdate(), " &
+                "getdate() ) "
+
+                Dim p As SqlParameter() = {
+                    New SqlParameter("@numfeeyear", FeeYear),
+                    New SqlParameter("@strairsnumber", AirsNumber.DbFormattedString),
+                    New SqlParameter("@strComment", "Add Via IAIP Audit Process"),
+                    New SqlParameter("@UpdateUser", "IAIP||" & CurrentUser.AlphaName)
+                }
+
+                DB.RunCommand(SQL, p)
             End If
 
             If cboStaffResponsible.SelectedValue <> "" Then
@@ -3660,9 +3051,7 @@ Public Class PASPFeeAuditLog
                     AuditLevel = "4"
             End Select
 
-            If txtAuditEnforcementNumber.Text <> "" Then
-                AuditEnforcement = txtAuditEnforcementNumber.Text
-            End If
+            Integer.TryParse(txtAuditEnforcementNumber.Text, AuditEnforcement)
             If txtAuditComment.Text <> "" Then
                 AuditComments = txtAuditComment.Text
             End If
@@ -3680,113 +3069,122 @@ Public Class PASPFeeAuditLog
             End If
 
             SQL = "Insert into FS_FeeAudit " &
-            "values " &
-            "((select " &
-            "case " &
-            "when max(AuditID) is null then 1 " &
-            "when Max(AuditID) is not null then max(AuditID) + 1 " &
-            "else 1 " &
-            "end AuditID " &
-            "from FS_FeeAudit), " &
-            "'" & StaffResponsible & "', " &
-            "'" & AuditLevel & "', '" & AuditEnforcement & "', " &
-            "'" & Replace(AuditComments, "'", "''") & "', " &
-            "'" & AuditStart & "', '" & AuditEnd & "', " &
-            "'" & EndCollections & "', '" & CollectionsDate & "', " &
-            "'1', '" & CurrentUser.UserID & "', " &
-            "'" & OracleDate & "', '" & OracleDate & "', " &
-            "'" & Me.ExpandedAirsNumber & "', '" & Me.FeeYear & "' )  "
-
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
+                "( AUDITID, NUMSTAFFRESPONSIBLE, STRAUDITLEVEL, NUMENFORCEMENT, " &
+                "STRCOMMENTS, DATAUDITSTART, DATAUDITEND, STRENDCOLLECTIONS, " &
+                "DATCOLLECTIONSENDED, ACTIVE, UPDATEUSER, UPDATEDATETIME, " &
+                "CREATEDATETIME, STRAIRSNUMBER, NUMFEEYEAR) " &
+                "values " &
+                "( " &
+                "(SELECT CASE " &
+                "WHEN MAX(AuditID) IS NULL " &
+                "THEN 1 " &
+                "ELSE MAX(AuditID) + 1 " &
+                "END AS AuditID " &
+                "FROM FS_FeeAudit), " &
+                "@NUMSTAFFRESPONSIBLE, @STRAUDITLEVEL, @NUMENFORCEMENT, " &
+                "@STRCOMMENTS, @DATAUDITSTART, @DATAUDITEND, @STRENDCOLLECTIONS, " &
+                "@DATCOLLECTIONSENDED, '1', @UPDATEUSER, getdate(), " &
+                "getdate(), @STRAIRSNUMBER, @NUMFEEYEAR) "
+            Dim p3 As SqlParameter() = {
+                New SqlParameter("@NUMSTAFFRESPONSIBLE", StaffResponsible),
+                New SqlParameter("@STRAUDITLEVEL", AuditLevel),
+                New SqlParameter("@NUMENFORCEMENT", If(AuditEnforcement = 0, DBNull.Value, AuditEnforcement)),
+                New SqlParameter("@STRCOMMENTS", AuditComments),
+                New SqlParameter("@DATAUDITSTART", AuditStart),
+                New SqlParameter("@DATAUDITEND", AuditEnd),
+                New SqlParameter("@STRENDCOLLECTIONS", EndCollections),
+                New SqlParameter("@DATCOLLECTIONSENDED", CollectionsDate),
+                New SqlParameter("@UPDATEUSER", CurrentUser.UserID),
+                New SqlParameter("@STRAIRSNUMBER", AirsNumber.DbFormattedString),
+                New SqlParameter("@NUMFEEYEAR", FeeYear)
+            }
+            DB.RunCommand(SQL, p3)
 
             SQL = "select max(AuditID) as AuditID " &
             "from  FS_FeeAudit "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            dr = cmd.ExecuteReader
-            While dr.Read
-                If IsDBNull(dr.Item("AuditID")) Then
-                    txtAuditID.Clear()
-                Else
-                    txtAuditID.Text = dr.Item("AuditID")
-                End If
-            End While
-            dr.Close()
+            txtAuditID.Text = DB.GetSingleValue(Of Integer)(SQL)
 
             If chbMakeEdits.Checked = True Then
-                SQL = "Insert into FS_FeeAmendment " &
-                "values " &
-                "('" & txtAuditID.Text & "',  " &
-                "'" & Me.ExpandedAirsNumber & "', '" & Me.FeeYear & "', " &
-                "'" & Replace(SM, "'", "''") & "', '" & Replace(SMFee, "'", "''") & "', " &
-                "'" & Replace(Part70, "'", "''") & "', '" & Replace(Part70Fee, "'", "''") & "', " &
-                "'" & Replace(VOCTons, "'", "''") & "', '" & Replace(PMTons, "'", "''") & "',  " &
-                "'" & Replace(SO2Tons, "'", "''") & "', '" & Replace(NOxTons, "'", "''") & "', " &
-                "'" & Replace(CalculatedFee, "'", "''") & "', '" & Replace(FeeRate, "'", "''") & "', " &
-                "'" & Replace(NSPS, "'", "''") & "', '" & Replace(NSPSFee, "'", "''") & "', " &
-                "'" & Replace(NSPSExempt, "'", "''") & "', '" & Replace(NSPSExemptions, "'", "''") & "', " &
-                "'" & Replace(AdminFee, "'", "''") & "', '" & Replace(TotalFee, "'", "''") & "', " &
-                "'" & Replace(Classification, "'", "''") & "', '" & Replace(OpStatus, "'", "''") & "', " &
-                "'" & Replace(ShutDown, "'", "''") & "', '" & Replace(OfficialName, "'", "''") & "', " &
-                "'" & Replace(OfficialTitle, "'", "''") & "', '" & Replace(PaymentType, "'", "''") & "', " &
-                "'1', '" & CurrentUser.UserID & "', " &
-                "sysdate, sysdate) "
+                SQL = "INSERT INTO FS_FEEAMENDMENT " &
+                    "( AUDITID, STRAIRSNUMBER, NUMFEEYEAR, STRSYNTHETICMINOR, " &
+                    "NUMSMFEE, STRPART70, NUMPART70FEE, INTVOCTONS, " &
+                    "INTPMTONS, INTSO2TONS, INTNOXTONS, NUMCALCULATEDFEE, " &
+                    "NUMFEERATE, STRNSPS, NUMNSPSFEE, STRNSPSEXEMPT, " &
+                    "STRNSPSEXEMPTREASON, NUMADMINFEE, NUMTOTALFEE, STRCLASS, " &
+                    "STROPERATE, DATSHUTDOWN, STROFFICIALNAME, STROFFICIALTITLE, " &
+                    "STRPAYMENTPLAN, ACTIVE, UPDATEUSER, UPDATEDATETIME, CREATEDATETIME ) " &
+                    "VALUES " &
+                    "( @AUDITID, @STRAIRSNUMBER, @NUMFEEYEAR, @STRSYNTHETICMINOR, " &
+                    "@NUMSMFEE, @STRPART70, @NUMPART70FEE, @INTVOCTONS, " &
+                    "@INTPMTONS, @INTSO2TONS, @INTNOXTONS, @NUMCALCULATEDFEE, " &
+                    "@NUMFEERATE, @STRNSPS, @NUMNSPSFEE, @STRNSPSEXEMPT, " &
+                    "@STRNSPSEXEMPTREASON, @NUMADMINFEE, @NUMTOTALFEE, @STRCLASS, " &
+                    "@STROPERATE, @DATSHUTDOWN, @STROFFICIALNAME, @STROFFICIALTITLE, " &
+                    "@STRPAYMENTPLAN, @ACTIVE, @UPDATEUSER, getdate(), getdate() "
+                Dim p4 As SqlParameter() = {
+                    New SqlParameter("@AUDITID", txtAuditID.Text),
+                    New SqlParameter("@STRAIRSNUMBER", AirsNumber.DbFormattedString),
+                    New SqlParameter("@NUMFEEYEAR", FeeYear),
+                    New SqlParameter("@STRSYNTHETICMINOR", SM),
+                    New SqlParameter("@NUMSMFEE", If(SMFee = "", DBNull.Value, SMFee)),
+                    New SqlParameter("@STRPART70", Part70),
+                    New SqlParameter("@NUMPART70FEE", If(Part70Fee = "", DBNull.Value, Part70Fee)),
+                    New SqlParameter("@INTVOCTONS", If(VOCTons = "", DBNull.Value, VOCTons)),
+                    New SqlParameter("@INTPMTONS", If(PMTons = "", DBNull.Value, PMTons)),
+                    New SqlParameter("@INTSO2TONS", If(SO2Tons = "", DBNull.Value, SO2Tons)),
+                    New SqlParameter("@INTNOXTONS", If(NOxTons = "", DBNull.Value, NOxTons)),
+                    New SqlParameter("@NUMCALCULATEDFEE", If(CalculatedFee = "", DBNull.Value, CalculatedFee)),
+                    New SqlParameter("@NUMFEERATE", If(FeeRate = "", DBNull.Value, FeeRate)),
+                    New SqlParameter("@STRNSPS", NSPS),
+                    New SqlParameter("@NUMNSPSFEE", If(NSPSFee = "", DBNull.Value, NSPSFee)),
+                    New SqlParameter("@STRNSPSEXEMPT", NSPSExempt),
+                    New SqlParameter("@STRNSPSEXEMPTREASON", NSPSExemptions),
+                    New SqlParameter("@NUMADMINFEE", If(AdminFee = "", DBNull.Value, AdminFee)),
+                    New SqlParameter("@NUMTOTALFEE", If(TotalFee = "", DBNull.Value, TotalFee)),
+                    New SqlParameter("@STRCLASS", Classification),
+                    New SqlParameter("@STROPERATE", OpStatus),
+                    New SqlParameter("@DATSHUTDOWN", ShutDown),
+                    New SqlParameter("@STROFFICIALNAME", OfficialName),
+                    New SqlParameter("@STROFFICIALTITLE", OfficialTitle),
+                    New SqlParameter("@STRPAYMENTPLAN", PaymentType),
+                    New SqlParameter("@ACTIVE", "1"),
+                    New SqlParameter("@UPDATEUSER", CurrentUser.UserID)
+                }
+                DB.RunCommand(SQL, p4)
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                dr.Close()
-
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                cmd = New SqlCommand("PD_FeeAmendment", CurrentConnection)
-                cmd.CommandType = CommandType.StoredProcedure
-
-                Dim aN As Apb.ApbFacilityId = mtbAirsNumber.Text
-                cmd.Parameters.Add(New SqlParameter("@AIRSNumber", SqlDbType.VarChar)).Value = aN.DbFormattedString
-                cmd.Parameters.Add(New SqlParameter("@FeeYear", SqlDbType.Decimal)).Value = FeeYear
-
-                cmd.ExecuteNonQuery()
+                Dim p5 As SqlParameter() = {
+                    New SqlParameter("@AIRSNumber", AirsNumber.DbFormattedString),
+                    New SqlParameter("@FeeYear", FeeYear)
+                }
+                DB.SPRunCommand("PD_FeeAmendment", p5)
             End If
 
             If EndCollections = "True" Then
                 SQL = "update FS_Admin set " &
                 "numCurrentStatus = '12' " &
-                "where numFeeYear = '" & Me.FeeYear & "' " &
-                "and strAIRSNumber = '" & Me.ExpandedAirsNumber & "' "
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                cmd.ExecuteReader()
-
+                "where numFeeYear = @AIRSNumber " &
+                "and strAIRSNumber = @FeeYear "
+                Dim p6 As SqlParameter() = {
+                    New SqlParameter("@AIRSNumber", AirsNumber.DbFormattedString),
+                    New SqlParameter("@FeeYear", FeeYear)
+                }
+                DB.RunCommand(SQL, p6)
             End If
-            '  ClearEditData()
+
             LoadAuditedData()
             MsgBox("Audit Data Added", MsgBoxStyle.Information, Me.Text)
 
         Catch ex As Exception
-            ErrorReport(ex, SQL, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub ClearEditData()
+
+    Private Sub ClearEditData()
         Try
             rdbEditOpStatusTrue.Checked = False
             rdbEditOpStatusFalse.Checked = False
-            'chbEditOpStatus.Checked = False
-            dtpEditShutDownDate.Text = OracleDate
+            dtpEditShutDownDate.Value = Today
             dtpEditShutDownDate.Checked = False
             cboEditClassification.Text = ""
             txtEditVOCTons.Clear()
@@ -3815,10 +3213,11 @@ Public Class PASPFeeAuditLog
             dgvEditExemptions.Rows.Clear()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub rdbEditNSPSExemptTrue_CheckedChanged(sender As Object, e As System.EventArgs) Handles rdbEditNSPSExemptTrue.CheckedChanged
+
+    Private Sub rdbEditNSPSExemptTrue_CheckedChanged(sender As Object, e As EventArgs) Handles rdbEditNSPSExemptTrue.CheckedChanged
         Try
             Dim dgvRow As New DataGridViewRow
 
@@ -3826,34 +3225,31 @@ Public Class PASPFeeAuditLog
                 Exit Sub
             End If
 
-            SQL = "select " &
+            Dim SQL As String = "select " &
             "FSLK_NspsReason.NSPSREasonCode , Description " &
-            "from FSLK_NSPSReason, fslk_NSPSReasonYear " &
-            "where FSLK_NspsReason.NSPSREasonCode = FSLK_NSPSREasonYear.nspsreasoncode  " &
-            "and numFeeYear = 2009 " &
+            "from FSLK_NSPSReason inner join fslk_NSPSReasonYear " &
+            "on FSLK_NspsReason.NSPSREasonCode = FSLK_NSPSREasonYear.nspsreasoncode  " &
+            "where numFeeYear = 2009 " &
             "order by displayorder "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
+            Dim dt As DataTable = DB.GetDataTable(SQL)
+
             dgvEditExemptions.Rows.Clear()
 
-            While dr.Read
+            For Each dr As DataRow In dt.Rows
                 dgvRow = New DataGridViewRow
                 dgvRow.CreateCells(dgvEditExemptions)
                 dgvRow.Cells(0).Value = 0
                 dgvRow.Cells(1).Value = dr.Item("NSPSReasonCode")
                 dgvRow.Cells(2).Value = dr.Item("description")
                 dgvEditExemptions.Rows.Add(dgvRow)
-            End While
-            dr.Close()
+            Next
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub dgvEditExemptions_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles dgvEditExemptions.MouseUp
+
+    Private Sub dgvEditExemptions_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvEditExemptions.MouseUp
         Try
             Dim hti As DataGridView.HitTestInfo = dgvEditExemptions.HitTest(e.X, e.Y)
             Dim i As Integer = 0
@@ -3873,55 +3269,56 @@ Public Class PASPFeeAuditLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
-    Private Sub btnGenerateInvoice_Click(sender As System.Object, e As System.EventArgs) Handles btnViewPrintableInvoice.Click
+
+    Private Sub btnGenerateInvoice_Click(sender As Object, e As EventArgs) Handles btnViewPrintableInvoice.Click
         Try
             Dim rpt As New ReportClass
             Dim Director As String = DAL.GetEpdManagerName(DAL.EpdManagementTypes.EpdDirector)
             Dim Commissioner As String = DAL.GetEpdManagerName(DAL.EpdManagementTypes.DnrCommissioner)
             Dim TotalEmissionFees As String = ""
-            Dim InvoiceDate As String = ""
+            Dim InvoiceDate As Date = Today
             Dim PayType As String = ""
             Dim PayTypeID As String = ""
             Dim TotalInvoiceAmount As String = ""
             Dim TotalFee As String = ""
             Dim AdminFee As String = ""
-            Dim DueDate As String = OracleDate
+            Dim DueDate As Date = Today
             Dim VOIDStatus As String = ""
-            Dim ParameterFields As CrystalDecisions.Shared.ParameterFields
-            Dim ParameterField As CrystalDecisions.Shared.ParameterField
-            Dim spValue As CrystalDecisions.Shared.ParameterDiscreteValue
+            Dim ParameterFields As ParameterFields
+            Dim ParameterField As ParameterField
+            Dim spValue As ParameterDiscreteValue
 
             If txtInvoice.Text = "" Then
                 MsgBox("Please select an existing invoice to Print.", MsgBoxStyle.Exclamation, Me.Text)
                 Exit Sub
             End If
 
-            SQL = "Select " &
+            Dim SQL As String = "Select " &
             "numAmount, datInvoiceDate, " &
             "strPayType, strPayTypeDesc, " &
             "FS_FeeInvoice.CreateDateTime, " &
             "FS_FeeInvoice.Active " &
-            "from FS_FeeInvoice, " &
-            "FSLK_PayType " &
-            "where FS_FeeInvoice.strPayType = " &
+            "from FS_FeeInvoice " &
+            "inner join FSLK_PayType " &
+            "on FS_FeeInvoice.strPayType = " &
                "FSLK_PayType.numPayTypeID " &
-               "and InvoiceID = '" & txtInvoice.Text & "' " &
-               "and strAIRSNumber = '" & Me.ExpandedAirsNumber & "' " &
-               "and numFeeYear = '" & Me.FeeYear & "' "
+               "where InvoiceID = @InvoiceID " &
+               "and strAIRSNumber = @strAIRSNumber " &
+               "and numFeeYear = @numFeeYear "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                If IsDBNull(dr.Item("datInvoiceDate")) Then
-                    DueDate = OracleDate
-                Else
+            Dim p As SqlParameter() = {
+                New SqlParameter("@InvoiceID", txtInvoice.Text),
+                New SqlParameter("@strAIRSNumber", AirsNumber.DbFormattedString),
+                New SqlParameter("@numFeeYear", FeeYear)
+            }
+
+            Dim dr As DataRow = DB.GetDataRow(SQL, p)
+            If dr IsNot Nothing Then
+                If Not IsDBNull(dr.Item("datInvoiceDate")) Then
                     DueDate = dr.Item("datInvoiceDate")
                 End If
                 If IsDBNull(dr.Item("strPayTypeDesc")) Then
@@ -3939,9 +3336,7 @@ Public Class PASPFeeAuditLog
                 Else
                     PayTypeID = dr.Item("strPayType")
                 End If
-                If IsDBNull(dr.Item("CreateDateTime")) Then
-                    InvoiceDate = OracleDate
-                Else
+                If Not IsDBNull(dr.Item("CreateDateTime")) Then
                     InvoiceDate = dr.Item("CreateDateTime")
                 End If
                 If IsDBNull(dr.Item("Active")) Then
@@ -3949,72 +3344,62 @@ Public Class PASPFeeAuditLog
                 Else
                     VOIDStatus = dr.Item("Active")
                 End If
-            End While
-            dr.Close()
+            End If
 
             SQL = "Select " &
             "numTotalFee, numAdminFee, " &
             "(numTotalFee - numAdminFee) as TotalEmissionFees " &
             "from FS_FeeAuditedData " &
-            "where numFeeYear = '" & Me.FeeYear & "' " &
-            "and strAIRSNumber = '" & Me.ExpandedAirsNumber & "' "
+            "where numFeeYear = @year " &
+            "and strAIRSNumber = @airs "
+            Dim p2 As SqlParameter() = {
+                New SqlParameter("@year", FeeYear),
+                New SqlParameter("@airs", AirsNumber.DbFormattedString)
+            }
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                If IsDBNull(dr.Item("TotalEmissionFees")) Then
+            Dim dr2 As DataRow = DB.GetDataRow(SQL, p2)
+            If dr2 IsNot Nothing Then
+                If IsDBNull(dr2.Item("TotalEmissionFees")) Then
                     TotalEmissionFees = "0"
                 Else
-                    TotalEmissionFees = Format(dr.Item("TotalEmissionFees"), "c")
+                    TotalEmissionFees = Format(dr2.Item("TotalEmissionFees"), "c")
                 End If
-                If IsDBNull(dr.Item("numTotalFee")) Then
+                If IsDBNull(dr2.Item("numTotalFee")) Then
                     TotalFee = "0"
                 Else
                     If PayTypeID = "2" Or PayTypeID = "3" Or PayTypeID = "4" Or PayTypeID = "5" Then
-                        TotalFee = Format(dr.Item("numTotalFee") / 4, "c")
+                        TotalFee = Format(dr2.Item("numTotalFee") / 4, "c")
                     Else
-                        TotalFee = Format(dr.Item("numTotalFee"), "c")
+                        TotalFee = Format(dr2.Item("numTotalFee"), "c")
                     End If
                 End If
-                If IsDBNull(dr.Item("numAdminFee")) Then
+                If IsDBNull(dr2.Item("numAdminFee")) Then
                     AdminFee = "$0.00"
                 Else
-                    AdminFee = Format(dr.Item("numAdminFee"), "c")
+                    AdminFee = Format(dr2.Item("numAdminFee"), "c")
                 End If
-            End While
-            dr.Close()
+            End If
 
             SQL = "Select " &
             "datTransactionDate, numPayment, " &
             "strCheckNo, strCreditCardNo, " &
             "strDepositNo " &
             "From FS_Transactions " &
-            "where strAIRSNumber = '" & Me.ExpandedAirsNumber & "' " &
-            "and numFeeYear = '" & Me.FeeYear & "' " &
+            "where strAIRSNumber = @airs  " &
+            "and numFeeYear = @year " &
             "and Active = '1' "
 
-            ds = New DataSet
-
-            da = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            ds.EnforceConstraints = False
-            da.Fill(ds, "FS_Transactions")
-
+            Dim dt As DataTable = DB.GetDataTable(SQL, p2)
 
             rpt = New crFS_Invoice
             monitor.TrackFeature("Report." & rpt.ResourceName)
 
             'Do this just once at the start
-            ParameterFields = New CrystalDecisions.Shared.ParameterFields
+            ParameterFields = New ParameterFields
 
             'Do this at the beginning of every new entry 
-            ParameterField = New CrystalDecisions.Shared.ParameterField
-            spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+            ParameterField = New ParameterField
+            spValue = New ParameterDiscreteValue
 
             ParameterField.ParameterFieldName = "Director"
             spValue.Value = Director
@@ -4022,8 +3407,8 @@ Public Class PASPFeeAuditLog
             ParameterFields.Add(ParameterField)
 
             'Do this at the beginning of every new entry 
-            ParameterField = New CrystalDecisions.Shared.ParameterField
-            spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+            ParameterField = New ParameterField
+            spValue = New ParameterDiscreteValue
 
             ParameterField.ParameterFieldName = "Commissioner"
             spValue.Value = Commissioner
@@ -4031,8 +3416,8 @@ Public Class PASPFeeAuditLog
             ParameterFields.Add(ParameterField)
 
             'Do this at the beginning of every new entry 
-            ParameterField = New CrystalDecisions.Shared.ParameterField
-            spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+            ParameterField = New ParameterField
+            spValue = New ParameterDiscreteValue
 
             ParameterField.ParameterFieldName = "AIRSNumber"
             spValue.Value = mtbAirsNumber.Text
@@ -4040,8 +3425,8 @@ Public Class PASPFeeAuditLog
             ParameterFields.Add(ParameterField)
 
             'Do this at the beginning of every new entry 
-            ParameterField = New CrystalDecisions.Shared.ParameterField
-            spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+            ParameterField = New ParameterField
+            spValue = New ParameterDiscreteValue
 
             ParameterField.ParameterFieldName = "FeeYear"
             spValue.Value = Me.FeeYear
@@ -4049,8 +3434,8 @@ Public Class PASPFeeAuditLog
             ParameterFields.Add(ParameterField)
 
             'Do this at the beginning of every new entry 
-            ParameterField = New CrystalDecisions.Shared.ParameterField
-            spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+            ParameterField = New ParameterField
+            spValue = New ParameterDiscreteValue
 
             ParameterField.ParameterFieldName = "TotalEmissionFees"
             spValue.Value = TotalEmissionFees
@@ -4058,17 +3443,17 @@ Public Class PASPFeeAuditLog
             ParameterFields.Add(ParameterField)
 
             'Do this at the beginning of every new entry 
-            ParameterField = New CrystalDecisions.Shared.ParameterField
-            spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+            ParameterField = New ParameterField
+            spValue = New ParameterDiscreteValue
 
             ParameterField.ParameterFieldName = "datInvoiceDate"
-            spValue.Value = InvoiceDate
+            spValue.Value = Format(InvoiceDate, DateFormat)
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
 
             'Do this at the beginning of every new entry 
-            ParameterField = New CrystalDecisions.Shared.ParameterField
-            spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+            ParameterField = New ParameterField
+            spValue = New ParameterDiscreteValue
 
             ParameterField.ParameterFieldName = "PaymentType"
             spValue.Value = PayType
@@ -4076,8 +3461,8 @@ Public Class PASPFeeAuditLog
             ParameterFields.Add(ParameterField)
 
             'Do this at the beginning of every new entry 
-            ParameterField = New CrystalDecisions.Shared.ParameterField
-            spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+            ParameterField = New ParameterField
+            spValue = New ParameterDiscreteValue
 
             ParameterField.ParameterFieldName = "TotalInvoiceAmount"
             spValue.Value = TotalInvoiceAmount
@@ -4085,8 +3470,8 @@ Public Class PASPFeeAuditLog
             ParameterFields.Add(ParameterField)
 
             'Do this at the beginning of every new entry 
-            ParameterField = New CrystalDecisions.Shared.ParameterField
-            spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+            ParameterField = New ParameterField
+            spValue = New ParameterDiscreteValue
 
             ParameterField.ParameterFieldName = "TotalFee"
             spValue.Value = TotalFee
@@ -4094,8 +3479,8 @@ Public Class PASPFeeAuditLog
             ParameterFields.Add(ParameterField)
 
             'Do this at the beginning of every new entry 
-            ParameterField = New CrystalDecisions.Shared.ParameterField
-            spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+            ParameterField = New ParameterField
+            spValue = New ParameterDiscreteValue
 
             ParameterField.ParameterFieldName = "AdminFee"
             spValue.Value = AdminFee
@@ -4103,8 +3488,8 @@ Public Class PASPFeeAuditLog
             ParameterFields.Add(ParameterField)
 
             'Do this at the beginning of every new entry 
-            ParameterField = New CrystalDecisions.Shared.ParameterField
-            spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+            ParameterField = New ParameterField
+            spValue = New ParameterDiscreteValue
 
             ParameterField.ParameterFieldName = "InvoiceNumber"
             spValue.Value = txtInvoice.Text
@@ -4112,25 +3497,24 @@ Public Class PASPFeeAuditLog
             ParameterFields.Add(ParameterField)
 
             'Do this at the beginning of every new entry 
-            ParameterField = New CrystalDecisions.Shared.ParameterField
-            spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+            ParameterField = New ParameterField
+            spValue = New ParameterDiscreteValue
 
             ParameterField.ParameterFieldName = "DueDate"
-            spValue.Value = DueDate
+            spValue.Value = Format(DueDate, DateFormat)
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
 
             'Do this at the beginning of every new entry 
-            ParameterField = New CrystalDecisions.Shared.ParameterField
-            spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+            ParameterField = New ParameterField
+            spValue = New ParameterDiscreteValue
 
             ParameterField.ParameterFieldName = "VOIDStatus"
             spValue.Value = VOIDStatus
             ParameterField.CurrentValues.Add(spValue)
             ParameterFields.Add(ParameterField)
 
-
-            rpt.SetDataSource(ds)
+            rpt.SetDataSource(dt)
 
             'Load Variables into the Fields
             crFeeStatsAndInvoices.ParameterFieldInfo = ParameterFields
@@ -4140,13 +3524,14 @@ Public Class PASPFeeAuditLog
             crFeeStatsAndInvoices.Refresh()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
     End Sub
-    Sub ViewAllInvoices()
+
+    Private Sub ViewAllInvoices()
         Try
-            SQL = "select distinct " &
+            Dim SQL As String = "select distinct " &
             "FS_FeeInvoice.InvoiceID, " &
             "FS_FeeInvoice.numAmount, " &
             "datInvoiceDate, " &
@@ -4161,22 +3546,19 @@ Public Class PASPFeeAuditLog
             "when strInvoicestatus = '0' then 'Unpaid' " &
             "end PayStatus, " &
             "FS_FeeInvoice.strComment " &
-            "from FS_FeeInvoice, FSLK_PayType, " &
-            "FS_Transactions " &
-            "where FS_FeeInvoice.strPayType = FSLK_PayType.nuMPayTypeID " &
-            "and FS_FeeInvoice.InvoiceID = FS_Transactions.InvoiceID (+) " &
-            "and FS_FeeInvoice.strAIRSNumber = '" & Me.ExpandedAirsNumber & "' " &
-            "and FS_FeeInvoice.numFeeYear = '" & Me.FeeYear & "' "
+            "from FS_FeeInvoice " &
+            "inner join FSLK_PayType " &
+            "on FS_FeeInvoice.strPayType = FSLK_PayType.nuMPayTypeID " &
+            "left join FS_Transactions " &
+            "on FS_FeeInvoice.InvoiceID = FS_Transactions.InvoiceID " &
+            "where FS_FeeInvoice.strAIRSNumber = @airs " &
+            "and FS_FeeInvoice.numFeeYear = @year "
+            Dim params As SqlParameter() = {
+                New SqlParameter("@airs", AirsNumber.DbFormattedString),
+                New SqlParameter("@year", FeeYear)
+            }
 
-            ds = New DataSet
-
-            da = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            da.Fill(ds, "Invoices")
-            dgvInvoices.DataSource = ds
-            dgvInvoices.DataMember = "Invoices"
+            dgvInvoices.DataSource = DB.GetDataTable(SQL, params)
 
             dgvInvoices.RowHeadersVisible = False
             dgvInvoices.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -4207,17 +3589,15 @@ Public Class PASPFeeAuditLog
             dgvInvoices.Columns("strComment").DisplayIndex = 6
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnViewInvoices_Click(sender As System.Object, e As System.EventArgs) Handles btnViewInvoices.Click
-        Try
-            ViewAllInvoices()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+
+    Private Sub btnViewInvoices_Click(sender As Object, e As EventArgs) Handles btnViewInvoices.Click
+        ViewAllInvoices()
     End Sub
-    Private Sub dgvInvoices_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles dgvInvoices.MouseUp
+
+    Private Sub dgvInvoices_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvInvoices.MouseUp
         Try
             Dim hti As DataGridView.HitTestInfo = dgvInvoices.HitTest(e.X, e.Y)
             If dgvInvoices.RowCount > 0 And hti.RowIndex <> -1 Then
@@ -4232,7 +3612,7 @@ Public Class PASPFeeAuditLog
                     txtAmount.Text = Format(dgvInvoices(1, hti.RowIndex).Value, "c")
                 End If
                 If IsDBNull(dgvInvoices(2, hti.RowIndex).Value) Then
-                    DTPInvoiceDate.Text = OracleDate
+                    DTPInvoiceDate.Value = Today
                 Else
                     DTPInvoiceDate.Text = dgvInvoices(2, hti.RowIndex).Value
                 End If
@@ -4262,10 +3642,11 @@ Public Class PASPFeeAuditLog
 
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnAddNewInvoice_Click(sender As System.Object, e As System.EventArgs) Handles btnAddNewInvoice.Click
+
+    Private Sub btnAddNewInvoice_Click(sender As Object, e As EventArgs) Handles btnAddNewInvoice.Click
         Try
             Dim InvoiceStatus As String = "0"
 
@@ -4289,21 +3670,31 @@ Public Class PASPFeeAuditLog
                 Exit Sub
             End If
 
-            SQL = "Insert into FS_FeeINvoice " &
-            "values " &
-            "(FeeInvoice_ID.nextVal, " &
-            "'" & Me.ExpandedAirsNumber & "', '" & Me.FeeYear & "', " &
-            "'" & Replace(Replace(txtAmount.Text, "$", ""), ",", "") & "', '" & Format(DTPInvoiceDate.Value, "dd-MMM-yyyy") & "', " &
-            "'" & Replace(txtInvoiceComments.Text, "'", "''") & "', " &
-            "'1', 'IAIP||" & CurrentUser.AlphaName & "', '" & OracleDate & "', " &
-            "'" & OracleDate & "', '" & cboInvoiceType.SelectedValue & "', " &
-            "'" & InvoiceStatus & "') "
+            Dim SQL As String = "Insert into FS_FeeINvoice " &
+                "(INVOICEID, STRAIRSNUMBER, NUMFEEYEAR, NUMAMOUNT, " &
+                " DATINVOICEDATE, STRCOMMENT, ACTIVE, UPDATEUSER, " &
+                " UPDATEDATETIME, CREATEDATETIME, STRPAYTYPE, STRINVOICESTATUS) " &
+                " values " &
+                "( NEXT VALUE FOR FEEINVOICE_ID, @STRAIRSNUMBER, @NUMFEEYEAR, @NUMAMOUNT, " &
+                " @DATINVOICEDATE, @STRCOMMENT, '1', @UPDATEUSER, " &
+                " @UPDATEDATETIME, @CREATEDATETIME, @STRPAYTYPE, @STRINVOICESTATUS) "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            dr = cmd.ExecuteReader
-            dr.Close()
+            Dim p As SqlParameter() = {
+                New SqlParameter("@STRAIRSNUMBER", AirsNumber.DbFormattedString),
+                New SqlParameter("@NUMFEEYEAR", FeeYear),
+                New SqlParameter("@NUMAMOUNT", Replace(Replace(txtAmount.Text, "$", ""), ",", "")),
+                New SqlParameter("@DATINVOICEDATE", DTPInvoiceDate.Value),
+                New SqlParameter("@STRCOMMENT", txtInvoiceComments.Text),
+                New SqlParameter("@UPDATEUSER", "IAIP||" & CurrentUser.AlphaName),
+                New SqlParameter("@UPDATEDATETIME", Today),
+                New SqlParameter("@CREATEDATETIME", Today),
+                New SqlParameter("@STRPAYTYPE", cboInvoiceType.SelectedValue),
+                New SqlParameter("@STRINVOICESTATUS", InvoiceStatus)
+            }
 
-            If Not DAL.Update_FS_Admin_Status(Me.FeeYear, Me.AirsNumber.ToString) Then
+            DB.RunCommand(SQL, p)
+
+            If Not DAL.Update_FS_Admin_Status(FeeYear, AirsNumber.ToString) Then
                 MessageBox.Show("There was an error updating the database", "Database error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End If
 
@@ -4316,10 +3707,11 @@ Public Class PASPFeeAuditLog
             MsgBox("New Invoice Added", MsgBoxStyle.Information, Me.Text)
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnVOIDInvoice_Click(sender As System.Object, e As System.EventArgs) Handles btnVOIDInvoice.Click
+
+    Private Sub btnVOIDInvoice_Click(sender As Object, e As EventArgs) Handles btnVOIDInvoice.Click
         Try
             Dim Payment As String = "0"
 
@@ -4331,25 +3723,22 @@ Public Class PASPFeeAuditLog
                 Exit Sub
             End If
 
-            SQL = "Select " &
+            Dim SQL As String = "Select " &
             "numPayment " &
             "from FS_Transactions " &
-            "where invoiceID = '" & txtInvoice.Text & "' " &
+            "where invoiceID = @invoiceID " &
             "and Active <> '0' "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
+            Dim p As New SqlParameter("@invoiceID", txtInvoice.Text)
+
+            Dim dr As DataRow = DB.GetDataRow(SQL, p)
+            If dr IsNot Nothing Then
                 If IsDBNull(dr.Item("numPayment")) Then
                     Payment = "0"
                 Else
                     Payment = dr.Item("numPayment")
                 End If
-            End While
-            dr.Close()
+            End If
 
             If Payment <> "0" Then
                 MsgBox("There already exists a transaction for this invoice." & vbCrLf &
@@ -4357,25 +3746,24 @@ Public Class PASPFeeAuditLog
                          MsgBoxStyle.Exclamation, Me.Text)
                 Exit Sub
             End If
+
             SQL = "Update FS_FeeInvoice set " &
             "Active = '0' " &
-            "where InvoiceID = '" & txtInvoice.Text & "' "
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
+            "where invoiceID = @invoiceID "
+
+            DB.RunCommand(SQL, p)
+
             ViewAllInvoices()
             LoadTransactionData()
 
             MsgBox("Invoice VOIDED", MsgBoxStyle.Information, Me.Text)
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnVOIDAllUnpaid_Click(sender As System.Object, e As System.EventArgs) Handles btnVOIDAllUnpaid.Click
+
+    Private Sub btnVOIDAllUnpaid_Click(sender As Object, e As EventArgs) Handles btnVOIDAllUnpaid.Click
         Try
             Dim InvoiceID As String = ""
 
@@ -4387,21 +3775,23 @@ Public Class PASPFeeAuditLog
                 Exit Sub
             End If
 
-            SQL = "Select distinct " &
+            Dim SQL As String = "Select distinct " &
             "FS_FeeInvoice.InvoiceID " &
-            "from FS_FeeInvoice, FS_Transactions " &
-            "where FS_FeeInvoice.invoiceid = FS_Transactions.InvoiceID (+) " &
-            "and FS_FeeInvoice.Active = '1' " &
-            "and FS_FeeInvoice.strAIRSNumber = '" & Me.ExpandedAirsNumber & "' " &
-            "and FS_FeeInvoice.numFeeYear = '" & Me.FeeYear & "' " &
+            "from FS_FeeInvoice " &
+            "left join FS_Transactions " &
+            "on FS_FeeInvoice.invoiceid = FS_Transactions.InvoiceID " &
+            "where FS_FeeInvoice.Active = '1' " &
+            "and FS_FeeInvoice.strAIRSNumber = @airs " &
+            "and FS_FeeInvoice.numFeeYear = @year " &
             "and (numPayment is null or numPayment = '0' ) "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
+            Dim params As SqlParameter() = {
+                New SqlParameter("@airs", AirsNumber.DbFormattedString),
+                New SqlParameter("@year", FeeYear)
+            }
+
+            Dim dr As DataRow = DB.GetDataRow(SQL, params)
+            If dr IsNot Nothing Then
                 If IsDBNull(dr.Item("InvoiceID")) Then
                     InvoiceID = ""
                 Else
@@ -4411,25 +3801,23 @@ Public Class PASPFeeAuditLog
                 If InvoiceID <> "" Then
                     SQL = "Update FS_FeeInvoice set " &
                     "Active = '0' " &
-                    "where invoiceID = '" & InvoiceID & "' "
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr2 = cmd.ExecuteReader
-                    dr2.Close()
+                    "where invoiceID = @invoiceID "
+
+                    Dim p As New SqlParameter("@invoiceID", InvoiceID)
+
+                    DB.RunCommand(SQL, p)
                 End If
-            End While
-            dr.Close()
+            End If
 
             ViewAllInvoices()
             LoadTransactionData()
             MsgBox("All unpaid Invoices have been VOIDED.", MsgBoxStyle.Exclamation, Me.Text)
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnRemoveVOID_Click(sender As System.Object, e As System.EventArgs) Handles btnRemoveVOID.Click
+
+    Private Sub btnRemoveVOID_Click(sender As Object, e As EventArgs) Handles btnRemoveVOID.Click
         Try
             If (mtbAirsNumber.Text <> AirsNumber.FormattedString) OrElse (FeeYearsComboBox.SelectedItem.ToString <> FeeYear) Then
                 MessageBox.Show("The selected AIRS number or fee year don't match the displayed information. " &
@@ -4440,15 +3828,12 @@ Public Class PASPFeeAuditLog
             End If
 
             If txtInvoice.Text <> "" Then
-                SQL = "Update FS_FeeInvoice set " &
+                Dim SQL As String = "Update FS_FeeInvoice set " &
                 "Active = '1' " &
-                "where invoiceID = '" & txtInvoice.Text & "' "
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                dr.Close()
+                "where invoiceID = @invoiceID "
+                Dim p As New SqlParameter("@invoiceID", txtInvoice.Text)
+                DB.RunCommand(SQL, p)
+
                 txtStatus.Text = "Active"
 
                 ViewAllInvoices()
@@ -4456,10 +3841,11 @@ Public Class PASPFeeAuditLog
                 MsgBox("Invoice VOID Status Removed.", MsgBoxStyle.Information, Me.Text)
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub chbEndFeeCollectoins_CheckStateChanged(sender As Object, e As System.EventArgs) Handles chbEndFeeCollectoins.CheckStateChanged
+
+    Private Sub chbEndFeeCollectoins_CheckStateChanged(sender As Object, e As EventArgs) Handles chbEndFeeCollectoins.CheckStateChanged
         Try
             'DTPDateCollectionsCeased
             If chbEndFeeCollectoins.Checked = True Then
@@ -4469,11 +3855,13 @@ Public Class PASPFeeAuditLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnEditFeeAudit_Click(sender As System.Object, e As System.EventArgs) Handles btnEditFeeAudit.Click
+
+    Private Sub btnEditFeeAudit_Click(sender As Object, e As EventArgs) Handles btnEditFeeAudit.Click
         Try
+            Dim SQL As String
             Dim OpStatus As String = ""
             Dim ShutDown As String = ""
             Dim Classification As String = ""
@@ -4526,11 +3914,6 @@ Public Class PASPFeeAuditLog
                 End If
             End If
 
-            'If chbEditOpStatus.Checked = True Then
-            '    OpStatus = "1"
-            'Else
-            '    OpStatus = "0"
-            'End If
             If dtpEditShutDownDate.Checked = True Then
                 ShutDown = dtpEditShutDownDate.Text
             Else
@@ -4662,86 +4045,124 @@ Public Class PASPFeeAuditLog
 
             If chbMakeEdits.Checked = True Then
                 SQL = "select updateuser " &
-                "from FS_FeeAmendment " &
-                "where numfeeyear = '" & FeeYear & "' " &
-                "and strAIRSNumber = '" & Me.ExpandedAirsNumber & "' " &
-                "and auditID = '" & txtAuditID.Text & "' "
+                    "from FS_FeeAmendment " &
+                    "where numfeeyear = @year " &
+                    "and strAIRSNumber = @airs " &
+                    "and auditID = @auditID "
+                Dim p2 As SqlParameter() = {
+                    New SqlParameter("@year", FeeYear),
+                    New SqlParameter("@airs", AirsNumber.DbFormattedString),
+                    New SqlParameter("@auditID", txtAuditID.Text)
+                }
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-                dr.Close()
-
-                If recExist = True Then
+                If DB.ValueExists(SQL, p2) Then
                     SQL = "Update FS_FeeAmendment set " &
-                    "strSyntheticMinor = '" & SM & "', " &
-                    "numSMFee = '" & SMFee & "',  " &
-                    "strPart70 = '" & Part70 & "', " &
-                    "numPart70Fee = '" & Part70Fee & "', " &
-                    "intVOCTons = '" & VOCTons & "', " &
-                    "intPMTons = '" & PMTons & "', " &
-                    "intSO2Tons = '" & SO2Tons & "', " &
-                    "intNOxTons = '" & NOxTons & "', " &
-                    "numCalculatedFee = '" & CalculatedFee & "', " &
-                    "numFeeRate = '" & FeeRate & "', " &
-                    "strNSPS = '" & NSPS & "', " &
-                    "nuMNSPSFee = '" & NSPSFee & "', " &
-                    "strNSPSExempt = '" & NSPSExempt & "', " &
-                    "strNSPSExemptReason = '" & NSPSExemptions & "', " &
-                    "numAdminFee = '" & AdminFee & "', " &
-                    "numTotalFee = '" & TotalFee & "', " &
-                    "strClass = '" & Classification & "', " &
-                    "strOperate = '" & OpStatus & "', " &
-                    "datShutDown = '" & ShutDown & "', " &
-                    "strOfficialName = '" & OfficialName & "', " &
-                    "strOfficialTitle = '" & OfficialTitle & "', " &
-                    "strPaymentPlan = '" & PaymentType & "', " &
-                    "UpdateUser = '" & CurrentUser.UserID & "', " &
-                    "updateDateTime = sysdate " &
-                    "where AuditID = '" & txtAuditID.Text & "' "
+                        "strSyntheticMinor = @strSyntheticMinor, " &
+                        "numSMFee = @numSMFee, " &
+                        "strPart70 = @strPart70, " &
+                        "numPart70Fee = @numPart70Fee, " &
+                        "intVOCTons = @intVOCTons, " &
+                        "intPMTons = @intPMTons, " &
+                        "intSO2Tons = @intSO2Tons, " &
+                        "intNOxTons = @intNOxTons, " &
+                        "numCalculatedFee = @numCalculatedFee, " &
+                        "numFeeRate = @numFeeRate, " &
+                        "strNSPS = @strNSPS, " &
+                        "nuMNSPSFee = @nuMNSPSFee, " &
+                        "strNSPSExempt = @strNSPSExempt, " &
+                        "strNSPSExemptReason = @strNSPSExemptReason, " &
+                        "numAdminFee = @numAdminFee, " &
+                        "numTotalFee = @numTotalFee, " &
+                        "strClass = @strClass, " &
+                        "strOperate = @strOperate, " &
+                        "datShutDown = @datShutDown, " &
+                        "strOfficialName = @strOfficialName, " &
+                        "strOfficialTitle = @strOfficialTitle, " &
+                        "strPaymentPlan = @strPaymentPlan, " &
+                        "UpdateUser = @UpdateUser, " &
+                        "updateDateTime = getdate() " &
+                        "where AuditID = @AuditID "
+                    Dim p1 As SqlParameter() = {
+                        New SqlParameter("@strSyntheticMinor", SM),
+                        New SqlParameter("@numSMFee", If(SMFee = "", DBNull.Value, SMFee)),
+                        New SqlParameter("@strPart70", Part70),
+                        New SqlParameter("@numPart70Fee", If(Part70Fee = "", DBNull.Value, Part70Fee)),
+                        New SqlParameter("@intVOCTons", If(VOCTons = "", DBNull.Value, VOCTons)),
+                        New SqlParameter("@intPMTons", If(PMTons = "", DBNull.Value, PMTons)),
+                        New SqlParameter("@intSO2Tons", If(SO2Tons = "", DBNull.Value, SO2Tons)),
+                        New SqlParameter("@intNOxTons", If(NOxTons = "", DBNull.Value, NOxTons)),
+                        New SqlParameter("@numCalculatedFee", If(CalculatedFee = "", DBNull.Value, CalculatedFee)),
+                        New SqlParameter("@numFeeRate", If(FeeRate = "", DBNull.Value, FeeRate)),
+                        New SqlParameter("@strNSPS", NSPS),
+                        New SqlParameter("@nuMNSPSFee", If(NSPSFee = "", DBNull.Value, NSPSFee)),
+                        New SqlParameter("@strNSPSExempt", NSPSExempt),
+                        New SqlParameter("@strNSPSExemptReason", NSPSExemptions),
+                        New SqlParameter("@numAdminFee", If(AdminFee = "", DBNull.Value, AdminFee)),
+                        New SqlParameter("@numTotalFee", If(TotalFee = "", DBNull.Value, TotalFee)),
+                        New SqlParameter("@strClass", Classification),
+                        New SqlParameter("@strOperate", OpStatus),
+                        New SqlParameter("@datShutDown", ShutDown),
+                        New SqlParameter("@strOfficialName", OfficialName),
+                        New SqlParameter("@strOfficialTitle", OfficialTitle),
+                        New SqlParameter("@strPaymentPlan", PaymentType),
+                        New SqlParameter("@UpdateUser", CurrentUser.UserID),
+                        New SqlParameter("@AuditID", txtAuditID.Text)
+                    }
+                    DB.RunCommand(SQL, p1)
                 Else
-                    SQL = "Insert into FS_FeeAmendment " &
-                    "values " &
-                    "('" & txtAuditID.Text & "',  " &
-                    "'" & Me.ExpandedAirsNumber & "', '" & Me.FeeYear & "', " &
-                    "'" & Replace(SM, "'", "''") & "', '" & Replace(SMFee, "'", "''") & "', " &
-                    "'" & Replace(Part70, "'", "''") & "', '" & Replace(Part70Fee, "'", "''") & "', " &
-                    "'" & Replace(VOCTons, "'", "''") & "', '" & Replace(PMTons, "'", "''") & "',  " &
-                    "'" & Replace(SO2Tons, "'", "''") & "', '" & Replace(NOxTons, "'", "''") & "', " &
-                    "'" & Replace(CalculatedFee, "'", "''") & "', '" & Replace(FeeRate, "'", "''") & "', " &
-                    "'" & Replace(NSPS, "'", "''") & "', '" & Replace(NSPSFee, "'", "''") & "', " &
-                    "'" & Replace(NSPSExempt, "'", "''") & "', '" & Replace(NSPSExemptions, "'", "''") & "', " &
-                    "'" & Replace(AdminFee, "'", "''") & "', '" & Replace(TotalFee, "'", "''") & "', " &
-                    "'" & Replace(Classification, "'", "''") & "', '" & Replace(OpStatus, "'", "''") & "', " &
-                    "'" & Replace(ShutDown, "'", "''") & "', '" & Replace(OfficialName, "'", "''") & "', " &
-                    "'" & Replace(OfficialTitle, "'", "''") & "', '" & Replace(PaymentType, "'", "''") & "', " &
-                    "'1', '" & CurrentUser.UserID & "', " &
-                    "sysdate, sysdate) "
+                    SQL = "INSERT INTO FS_FEEAMENDMENT " &
+                        "( AUDITID, STRAIRSNUMBER, NUMFEEYEAR, STRSYNTHETICMINOR, " &
+                        "NUMSMFEE, STRPART70, NUMPART70FEE, INTVOCTONS, " &
+                        "INTPMTONS, INTSO2TONS, INTNOXTONS, NUMCALCULATEDFEE, " &
+                        "NUMFEERATE, STRNSPS, NUMNSPSFEE, STRNSPSEXEMPT, " &
+                        "STRNSPSEXEMPTREASON, NUMADMINFEE, NUMTOTALFEE, STRCLASS, " &
+                        "STROPERATE, DATSHUTDOWN, STROFFICIALNAME, STROFFICIALTITLE, " &
+                        "STRPAYMENTPLAN, ACTIVE, UPDATEUSER, UPDATEDATETIME, CREATEDATETIME ) " &
+                        "VALUES " &
+                        "( @AUDITID, @STRAIRSNUMBER, @NUMFEEYEAR, @STRSYNTHETICMINOR, " &
+                        "@NUMSMFEE, @STRPART70, @NUMPART70FEE, @INTVOCTONS, " &
+                        "@INTPMTONS, @INTSO2TONS, @INTNOXTONS, @NUMCALCULATEDFEE, " &
+                        "@NUMFEERATE, @STRNSPS, @NUMNSPSFEE, @STRNSPSEXEMPT, " &
+                        "@STRNSPSEXEMPTREASON, @NUMADMINFEE, @NUMTOTALFEE, @STRCLASS, " &
+                        "@STROPERATE, @DATSHUTDOWN, @STROFFICIALNAME, @STROFFICIALTITLE, " &
+                        "@STRPAYMENTPLAN, @ACTIVE, @UPDATEUSER, getdate(), getdate() )"
+                    Dim p4 As SqlParameter() = {
+                        New SqlParameter("@AUDITID", txtAuditID.Text),
+                        New SqlParameter("@STRAIRSNUMBER", AirsNumber.DbFormattedString),
+                        New SqlParameter("@NUMFEEYEAR", If(FeeYear = "", DBNull.Value, FeeYear)),
+                        New SqlParameter("@STRSYNTHETICMINOR", SM),
+                        New SqlParameter("@NUMSMFEE", If(SMFee = "", DBNull.Value, SMFee)),
+                        New SqlParameter("@STRPART70", Part70),
+                        New SqlParameter("@NUMPART70FEE", If(Part70Fee = "", DBNull.Value, Part70Fee)),
+                        New SqlParameter("@INTVOCTONS", If(VOCTons = "", DBNull.Value, VOCTons)),
+                        New SqlParameter("@INTPMTONS", If(PMTons = "", DBNull.Value, PMTons)),
+                        New SqlParameter("@INTSO2TONS", If(SO2Tons = "", DBNull.Value, SO2Tons)),
+                        New SqlParameter("@INTNOXTONS", If(NOxTons = "", DBNull.Value, NOxTons)),
+                        New SqlParameter("@NUMCALCULATEDFEE", If(CalculatedFee = "", DBNull.Value, CalculatedFee)),
+                        New SqlParameter("@NUMFEERATE", If(FeeRate = "", DBNull.Value, FeeRate)),
+                        New SqlParameter("@STRNSPS", NSPS),
+                        New SqlParameter("@NUMNSPSFEE", If(NSPSFee = "", DBNull.Value, NSPSFee)),
+                        New SqlParameter("@STRNSPSEXEMPT", NSPSExempt),
+                        New SqlParameter("@STRNSPSEXEMPTREASON", NSPSExemptions),
+                        New SqlParameter("@NUMADMINFEE", If(AdminFee = "", DBNull.Value, AdminFee)),
+                        New SqlParameter("@NUMTOTALFEE", If(TotalFee = "", DBNull.Value, TotalFee)),
+                        New SqlParameter("@STRCLASS", Classification),
+                        New SqlParameter("@STROPERATE", OpStatus),
+                        New SqlParameter("@DATSHUTDOWN", ShutDown),
+                        New SqlParameter("@STROFFICIALNAME", OfficialName),
+                        New SqlParameter("@STROFFICIALTITLE", OfficialTitle),
+                        New SqlParameter("@STRPAYMENTPLAN", PaymentType),
+                        New SqlParameter("@ACTIVE", "1"),
+                        New SqlParameter("@UPDATEUSER", CurrentUser.UserID)
+                    }
+                    DB.RunCommand(SQL, p4)
                 End If
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                dr.Close()
-
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                cmd = New SqlCommand("PD_FeeAmendment", CurrentConnection)
-                cmd.CommandType = CommandType.StoredProcedure
-
-                cmd.Parameters.Add(New SqlParameter("@AIRSNumber", SqlDbType.VarChar)).Value = Me.ExpandedAirsNumber
-                cmd.Parameters.Add(New SqlParameter("@FeeYear", SqlDbType.Decimal)).Value = Me.FeeYear
-
-                cmd.ExecuteNonQuery()
-
-
-
+                Dim p5 As SqlParameter() = {
+                    New SqlParameter("@AIRSNumber", AirsNumber.DbFormattedString),
+                    New SqlParameter("@FeeYear", FeeYear)
+                }
+                DB.SPRunCommand("PD_FeeAmendment", p5)
             End If
 
             If cboStaffResponsible.SelectedValue <> "" Then
@@ -4786,71 +4207,71 @@ Public Class PASPFeeAuditLog
             End If
 
             SQL = "Update FS_FeeAudit set " &
-            "numStaffResponsible = '" & StaffResponsible & "', " &
-            "strAuditLevel = '" & AuditLevel & "', " &
-            "numENFORCEMENT = '" & AuditENFORCEMENT & "', " &
-            "strComments = '" & Replace(AuditComments, "'", "''") & "', " &
-            "datAuditStart = '" & AuditStart & "', " &
-            "datAuditEnd = '" & AuditEnd & "', " &
-            "strEndCollections = '" & EndCollections & "', " &
-            "datCollectionsEnded = '" & CollectionsDate & "', " &
-            "updateuser = '" & CurrentUser.UserID & "', " &
-            "updateDateTime = sysdate " &
-            "where AuditID = '" & txtAuditID.Text & "' "
-
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
+                "numStaffResponsible = @numStaffResponsible, " &
+                "strAuditLevel = @strAuditLevel, " &
+                "numENFORCEMENT = @numENFORCEMENT, " &
+                "strComments = @strComments, " &
+                "datAuditStart = @datAuditStart, " &
+                "datAuditEnd = @datAuditEnd, " &
+                "strEndCollections = @strEndCollections, " &
+                "datCollectionsEnded = @datCollectionsEnded, " &
+                "updateuser = @updateuser, " &
+                "updateDateTime = getdate() " &
+                "where AuditID = @AuditID "
+            Dim p3 As SqlParameter() = {
+                New SqlParameter("@numStaffResponsible", StaffResponsible),
+                New SqlParameter("@strAuditLevel", AuditLevel),
+                New SqlParameter("@numENFORCEMENT", If(AuditENFORCEMENT = "", DBNull.Value, AuditENFORCEMENT)),
+                New SqlParameter("@strComments", AuditComments),
+                New SqlParameter("@datAuditStart", AuditStart),
+                New SqlParameter("@datAuditEnd", AuditEnd),
+                New SqlParameter("@strEndCollections", EndCollections),
+                New SqlParameter("@datCollectionsEnded", CollectionsDate),
+                New SqlParameter("@updateuser", CurrentUser.UserID),
+                New SqlParameter("@AuditID", txtAuditID.Text)
+            }
+            DB.RunCommand(SQL, p3)
 
             If EndCollections = "True" Then
                 SQL = "update FS_Admin set " &
-                "numCurrentStatus = '12' " &
-                "where numFeeYear = '" & Me.FeeYear & "' " &
-                "and strAIRSNumber = '" & Me.ExpandedAirsNumber & "' "
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                cmd.ExecuteReader()
-
+                    "numCurrentStatus = '12' " &
+                    "where numFeeYear = @year " &
+                    "and strAIRSNumber = @airs "
+                Dim p2 As SqlParameter() = {
+                    New SqlParameter("@year", FeeYear),
+                    New SqlParameter("@airs", AirsNumber.DbFormattedString)
+                }
+                DB.RunCommand(SQL, p2)
             End If
 
-            '    ClearEditData()
             LoadAuditedData()
 
             MsgBox("Audit Data Saved", MsgBoxStyle.Information, Me.Text)
         Catch ex As Exception
-            ErrorReport(ex, SQL, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnSelectAuditToEdit_Click(sender As System.Object, e As System.EventArgs) Handles btnSelectAuditToEdit.Click
+
+    Private Sub btnSelectAuditToEdit_Click(sender As Object, e As EventArgs) Handles btnSelectAuditToEdit.Click
         Try
             Dim AuditLevel As String = ""
             Dim NSPSExempt As String = ""
             Dim NSPSExemptions As String = ""
 
-            If dgvAuditHistory.CurrentRow IsNot Nothing Then
-            Else
+            If dgvAuditHistory.CurrentRow Is Nothing Then
                 Exit Sub
             End If
             ClearAuditData()
 
             txtAuditID.Text = dgvAuditHistory(0, dgvAuditHistory.CurrentRow.Index).Value
 
-            SQL = "Select * " &
+            Dim SQL As String = "Select * " &
             "From FS_FeeAudit " &
-            "where AuditID = '" & txtAuditID.Text & "' "
+            "where AuditID = @AuditID "
+            Dim p As New SqlParameter("@AuditID", txtAuditID.Text)
+            Dim dr As DataRow = DB.GetDataRow(SQL, p)
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            dr = cmd.ExecuteReader
-            While dr.Read
+            If dr IsNot Nothing Then
                 If IsDBNull(dr.Item("numStaffResponsible")) Then
                     cboStaffResponsible.Text = ""
                 Else
@@ -4872,7 +4293,7 @@ Public Class PASPFeeAuditLog
                     txtAuditComment.Text = dr.Item("strComments")
                 End If
                 If IsDBNull(dr.Item("datAuditStart")) Then
-                    DTPAuditStart.Text = OracleDate
+                    DTPAuditStart.Value = Today
                 Else
                     DTPAuditStart.Text = dr.Item("datAuditStart")
                 End If
@@ -4889,14 +4310,14 @@ Public Class PASPFeeAuditLog
                     chbEndFeeCollectoins.Checked = dr.Item("strEndCollections")
                 End If
                 If IsDBNull(dr.Item("datCollectionsEnded")) Then
-                    DTPDateCollectionsCeased.Text = OracleDate
+                    DTPDateCollectionsCeased.Value = Today
                     DTPDateCollectionsCeased.Checked = False
                 Else
                     DTPDateCollectionsCeased.Text = dr.Item("datCollectionsEnded")
                     DTPDateCollectionsCeased.Checked = True
                 End If
-            End While
-            dr.Close()
+            End If
+
             Select Case AuditLevel
                 Case "0"
                     cboAuditType.Text = "Facility Self Amendment"
@@ -4914,14 +4335,11 @@ Public Class PASPFeeAuditLog
 
             SQL = "select * " &
             "from FS_FeeAmendment " &
-            "where auditID = '" & txtAuditID.Text & "' "
+            "where auditID = @AuditID "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
+            dr = DB.GetDataRow(SQL, p)
+
+            If dr IsNot Nothing Then
                 If IsDBNull(dr.Item("strSyntheticMinor")) Then
                     rdbEditSMTrue.Checked = False
                     rdbEditSMFalse.Checked = False
@@ -5026,18 +4444,15 @@ Public Class PASPFeeAuditLog
                 If IsDBNull(dr.Item("strOperate")) Then
                     rdbEditOpStatusTrue.Checked = False
                     rdbEditOpStatusFalse.Checked = False
-                    'chbEditOpStatus.Checked = False
                 Else
                     If dr.Item("strOperate") = "1" Then
                         rdbEditOpStatusTrue.Checked = True
-                        'chbEditOpStatus.Checked = True
                     Else
                         rdbEditOpStatusFalse.Checked = True
-                        'chbEditOpStatus.Checked = False
                     End If
                 End If
                 If IsDBNull(dr.Item("datShutDown")) Then
-                    dtpEditShutDownDate.Text = OracleDate
+                    dtpEditShutDownDate.Value = Today
                     dtpEditShutDownDate.Checked = False
                 Else
                     dtpEditShutDownDate.Text = dr.Item("datShutDown")
@@ -5059,8 +4474,7 @@ Public Class PASPFeeAuditLog
                     cboEditPaymentType.Text = dr.Item("strPaymentPlan")
                 End If
 
-            End While
-            dr.Close()
+            End If
 
             If NSPSExempt = "0" Then
                 rdbEditNSPSExemptFalse.Checked = True
@@ -5087,176 +4501,103 @@ Public Class PASPFeeAuditLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Private Sub btnExportAuditToExcel_Click(sender As System.Object, e As System.EventArgs) Handles btnExportAuditToExcel.Click
-        dgvAuditHistory.ExportToExcel(Me)
-    End Sub
-    Private Sub btnClearAuditData_Click(sender As System.Object, e As System.EventArgs) Handles btnClearAuditData.Click
-        Try
-            ClearAuditData()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Sub ClearAuditData()
-        Try
-            txtAuditID.Clear()
-            cboStaffResponsible.Text = ""
-            cboAuditType.Text = ""
-            txtAuditComment.Clear()
-            txtAuditEnforcementNumber.Clear()
-            DTPAuditStart.Text = OracleDate
-            DTPAuditEnd.Text = OracleDate
-            DTPAuditEnd.Checked = False
-            DTPDateCollectionsCeased.Text = OracleDate
-            chbEndFeeCollectoins.Checked = False
-            rdbEditOpStatusTrue.Checked = False
-            rdbEditOpStatusFalse.Checked = False
-            'chbEditOpStatus.Checked = False
-            dtpEditShutDownDate.Text = OracleDate
-            dtpEditShutDownDate.Checked = False
-            cboEditClassification.Text = ""
-            txtEditVOCTons.Clear()
-            txtEditPMTons.Clear()
-            txtEditSO2Tons.Clear()
-            txtEditNOxTons.Clear()
-            txtEditFeeRate.Clear()
-            txtEditCalculatedFee.Clear()
-            txtEditPart70Fee.Clear()
-            txtEditSMFee.Clear()
-            txtEditNSPSFee.Clear()
-            txtEditAdminFee.Clear()
-            txtEditTotalFees.Clear()
-            rdbEditSMTrue.Checked = False
-            rdbEditSMFalse.Checked = False
-            rdbEditPart70True.Checked = False
-            rdbEditPart70False.Checked = False
-            rdbEditNSPSTrue.Checked = False
-            rdbEditNSPSFalse.Checked = False
-            cboEditPaymentType.Text = ""
-            txtEditOfficialName.Clear()
-            txtEditOfficialTitle.Clear()
-            rdbEditNSPSExemptTrue.Checked = False
-            rdbEditNSPSExemptFalse.Checked = False
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+    Private Sub btnExportAuditToExcel_Click(sender As Object, e As EventArgs) Handles btnExportAuditToExcel.Click
+        dgvAuditHistory.ExportToExcel(Me)
     End Sub
-    Private Sub btnClearInvoiceData_Click(sender As System.Object, e As System.EventArgs) Handles btnClearInvoiceData.Click
-        Try
-            ClearInvoices()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+
+    Private Sub btnClearAuditData_Click(sender As Object, e As EventArgs) Handles btnClearAuditData.Click
+        ClearAuditData()
     End Sub
-    Sub ClearInvoices()
-        Try
-            txtInvoice.Clear()
-            txtAmount.Clear()
-            DTPInvoiceDate.Text = OracleDate
-            txtStatus.Clear()
-            cboInvoiceType.Text = ""
-            txtPayStatus.Clear()
-            txtInvoiceComments.Clear()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+
+    Private Sub ClearAuditData()
+        txtAuditID.Clear()
+        cboStaffResponsible.Text = ""
+        cboAuditType.Text = ""
+        txtAuditComment.Clear()
+        txtAuditEnforcementNumber.Clear()
+        DTPAuditStart.Value = Today
+        DTPAuditEnd.Value = Today
+        DTPAuditEnd.Checked = False
+        DTPDateCollectionsCeased.Value = Today
+        chbEndFeeCollectoins.Checked = False
+        rdbEditOpStatusTrue.Checked = False
+        rdbEditOpStatusFalse.Checked = False
+        dtpEditShutDownDate.Value = Today
+        dtpEditShutDownDate.Checked = False
+        cboEditClassification.Text = ""
+        txtEditVOCTons.Clear()
+        txtEditPMTons.Clear()
+        txtEditSO2Tons.Clear()
+        txtEditNOxTons.Clear()
+        txtEditFeeRate.Clear()
+        txtEditCalculatedFee.Clear()
+        txtEditPart70Fee.Clear()
+        txtEditSMFee.Clear()
+        txtEditNSPSFee.Clear()
+        txtEditAdminFee.Clear()
+        txtEditTotalFees.Clear()
+        rdbEditSMTrue.Checked = False
+        rdbEditSMFalse.Checked = False
+        rdbEditPart70True.Checked = False
+        rdbEditPart70False.Checked = False
+        rdbEditNSPSTrue.Checked = False
+        rdbEditNSPSFalse.Checked = False
+        cboEditPaymentType.Text = ""
+        txtEditOfficialName.Clear()
+        txtEditOfficialTitle.Clear()
+        rdbEditNSPSExemptTrue.Checked = False
+        rdbEditNSPSExemptFalse.Checked = False
     End Sub
-    Private Sub btnFindTransactions4_Click(sender As System.Object, e As System.EventArgs) Handles btnFindTransactions.Click
+
+    Private Sub btnClearInvoiceData_Click(sender As Object, e As EventArgs) Handles btnClearInvoiceData.Click
+        ClearInvoices()
+    End Sub
+
+    Private Sub ClearInvoices()
+        txtInvoice.Clear()
+        txtAmount.Clear()
+        DTPInvoiceDate.Value = Today
+        txtStatus.Clear()
+        cboInvoiceType.Text = ""
+        txtPayStatus.Clear()
+        txtInvoiceComments.Clear()
+    End Sub
+
+    Private Sub btnFindTransactions4_Click(sender As Object, e As EventArgs) Handles btnFindTransactions.Click
         Try
 
             If rdbCurrentFeeyear.Checked = True Then
                 LoadTransactionData()
             Else
-                SQL = "select " &
-         "TRANSACTIONID,  INVOICES.INVOICEID, DATTRANSACTIONDATE, " &
-         "NUMPAYMENT, STRCHECKNO, STRDEPOSITNO, STRBATCHNO, " &
-         "ENTRYPERSON, " &
-         "STRCOMMENT, STRCREDITCARDNO, TRANSACTIONTYPECODE, " &
-         "case " &
-         "when TRANSACTIONS.UPDATEUSER is not null then (STRLASTNAME||', '||STRFIRSTNAME) " &
-         "else '' " &
-         "end  UpdateUser, " &
-         "TRANSACTIONS.UPDATEDATETIME, " &
-         "TRANSACTIONS.CREATEDATETIME, TRANSACTIONS.numFeeYear " &
-         " from " &
-         "(select " &
-         "TRANSACTIONID,  INVOICEID, DATTRANSACTIONDATE, " &
-         "NUMPAYMENT, STRCHECKNO, STRDEPOSITNO, STRBATCHNO, " &
-         "(STRLASTNAME||', '||STRFIRSTNAME) as ENTRYPERSON, " &
-         "STRCOMMENT, strCreditcardno, " &
-         "transactiontypecode, " &
-         "UPDATEUSER, UPDATEDATETIME, " &
-         "createDateTime, strairsnumber, numfeeyear  " &
-         "from FS_TRANSACTIONS, EPDUSERPROFILES " &
-         "where FS_TRANSACTIONS.STRENTRYPERSON = EPDUSERPROFILES.NUMUSERID " &
-         "and FS_TRANSACTIONS.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "' " &
-         "and active = 1) TRANSACTIONS,  " &
-         "(select " &
-         "0, INVOICEID, " &
-         "sysdate, 1, '', '', " &
-         "'', '', '', '', 2, " &
-         "UPDATEUSER, UPDATEDATETIME, " &
-         "CREATEDATETIME, STRAIRSNUMBER, NUMFEEYEAR   " &
-         "from FS_feeINVOICE " &
-         "where STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "' " &
-         "and FS_feeINVOICE.Active = '1' ) INVOICES, " &
-         "EPDUSERPROFILES " &
-         "where TRANSACTIONS.STRAIRSNUMBER  =  INVOICES.STRAIRSNUMBER (+) " &
-         "and TRANSACTIONS.NUMFEEYEAR  =  INVOICES.NUMFEEYEAR  (+) " &
-         "and TRANSACTIONS.INVOICEID  =  INVOICES.INVOICEID (+) " &
-         "and TRANSACTIONS.UPDATEUSER  = epduserProfiles.numUserID   (+) " &
-         " union " &
-         "select " &
-         "TRANSACTIONID,  INVOICES.INVOICEID, DATTRANSACTIONDATE, " &
-         "NUMPAYMENT, STRCHECKNO, STRDEPOSITNO, STRBATCHNO, " &
-         "ENTRYPERSON, " &
-         "STRCOMMENT, STRCREDITCARDNO, TRANSACTIONTYPECODE, " &
-         "case " &
-         "when TRANSACTIONS.UPDATEUSER is not null then (STRLASTNAME||', '||STRFIRSTNAME) " &
-         "else '' " &
-         "end  UpdateUser, " &
-         "TRANSACTIONS.UPDATEDATETIME, " &
-         "TRANSACTIONS.CREATEDATETIME, TRANSACTIONS.numFeeYear  " &
-         " from " &
-         "(select " &
-         "TRANSACTIONID,  INVOICEID, DATTRANSACTIONDATE, " &
-         "NUMPAYMENT, STRCHECKNO, STRDEPOSITNO, STRBATCHNO, " &
-         "(STRLASTNAME||', '||STRFIRSTNAME) as ENTRYPERSON, " &
-         "STRCOMMENT, strCreditcardno, " &
-         "transactiontypecode, " &
-         "UPDATEUSER, UPDATEDATETIME, " &
-         "createDateTime, strairsnumber, numfeeyear  " &
-         "from FS_TRANSACTIONS, EPDUSERPROFILES " &
-         "where FS_TRANSACTIONS.STRENTRYPERSON = EPDUSERPROFILES.NUMUSERID " &
-         "and FS_TRANSACTIONS.STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "' " &
-         "and active = 1) TRANSACTIONS,  " &
-         "(select " &
-         "0, INVOICEID, " &
-         "sysdate, 1, '', '', " &
-         "'', '', '', '', 2, " &
-         "UPDATEUSER, UPDATEDATETIME, " &
-         "CREATEDATETIME, STRAIRSNUMBER, NUMFEEYEAR   " &
-         "from FS_feeINVOICE " &
-         "where STRAIRSNUMBER = '" & Me.ExpandedAirsNumber & "' " &
-         "and FS_feeINVOICE.Active = '1') INVOICES, " &
-         "EPDUSERPROFILES " &
-         "where  INVOICES.STRAIRSNUMBER  = TRANSACTIONS.STRAIRSNUMBER (+) " &
-         "and INVOICES.NUMFEEYEAR  =  TRANSACTIONS.NUMFEEYEAR  (+) " &
-         "and INVOICES.INVOICEID  =  TRANSACTIONS.INVOICEID (+) " &
-         "and TRANSACTIONS.UPDATEUSER  = epduserProfiles.numUserID (+) "
+                Dim SQL As String = "SELECT tr.TRANSACTIONID, inv.INVOICEID, tr.DATTRANSACTIONDATE, tr.NUMPAYMENT, tr.STRCHECKNO, tr.STRDEPOSITNO, tr.STRBATCHNO, tr.ENTRYPERSON, tr.STRCOMMENT, tr.STRCREDITCARDNO, tr.TRANSACTIONTYPECODE, " &
+                    "CASE WHEN tr.UPDATEUSER IS NOT NULL THEN u.STRLASTNAME+', '+u.STRFIRSTNAME ELSE '' END AS UpdateUser, tr.UPDATEDATETIME, tr.CREATEDATETIME, tr.NUMFEEYEAR " &
+                    "FROM (SELECT t.TRANSACTIONID, t.INVOICEID, t.DATTRANSACTIONDATE, t.NUMPAYMENT, t.STRCHECKNO, t.STRDEPOSITNO, t.STRBATCHNO, p.STRLASTNAME+', '+p.STRFIRSTNAME AS ENTRYPERSON, t.STRCOMMENT, t.STRCREDITCARDNO, t.TRANSACTIONTYPECODE, t.UPDATEUSER, t.UPDATEDATETIME, t.CREATEDATETIME, t.STRAIRSNUMBER, t.NUMFEEYEAR " &
+                    "FROM FS_TRANSACTIONS AS t " &
+                    "INNER JOIN EPDUSERPROFILES AS p ON t.STRENTRYPERSON = p.NUMUSERID " &
+                    "WHERE t.STRAIRSNUMBER = @airs AND t.ACTIVE = 1) AS tr " &
+                    "LEFT JOIN (SELECT i.INVOICEID, i.UPDATEUSER, i.UPDATEDATETIME, i.CREATEDATETIME, i.STRAIRSNUMBER, i.NUMFEEYEAR " &
+                    "FROM FS_feeINVOICE AS i " &
+                    "WHERE i.STRAIRSNUMBER = @airs AND i.ACTIVE = '1') AS inv ON tr.INVOICEID = inv.INVOICEID AND tr.STRAIRSNUMBER = inv.STRAIRSNUMBER AND tr.NUMFEEYEAR = inv.NUMFEEYEAR " &
+                    "LEFT JOIN EPDUSERPROFILES AS u ON tr.UPDATEUSER = u.NUMUSERID " &
+                    "UNION " &
+                    "SELECT tr.TRANSACTIONID, inv.INVOICEID, tr.DATTRANSACTIONDATE, tr.NUMPAYMENT, tr.STRCHECKNO, tr.STRDEPOSITNO, tr.STRBATCHNO, tr.ENTRYPERSON, tr.STRCOMMENT, tr.STRCREDITCARDNO, tr.TRANSACTIONTYPECODE, " &
+                    "CASE WHEN tr.UPDATEUSER IS NOT NULL THEN p.STRLASTNAME+', '+p.STRFIRSTNAME ELSE '' END AS UpdateUser, tr.UPDATEDATETIME, tr.CREATEDATETIME, tr.NUMFEEYEAR " &
+                    "FROM (SELECT t.TRANSACTIONID, t.INVOICEID, t.DATTRANSACTIONDATE, t.NUMPAYMENT, t.STRCHECKNO, t.STRDEPOSITNO, t.STRBATCHNO, p.STRLASTNAME+', '+p.STRFIRSTNAME AS ENTRYPERSON, t.STRCOMMENT, t.STRCREDITCARDNO, t.TRANSACTIONTYPECODE, t.UPDATEUSER, t.UPDATEDATETIME, t.CREATEDATETIME, t.STRAIRSNUMBER, t.NUMFEEYEAR " &
+                    "FROM FS_TRANSACTIONS AS t " &
+                    "INNER JOIN EPDUSERPROFILES AS p ON t.STRENTRYPERSON = p.NUMUSERID " &
+                    "WHERE t.STRAIRSNUMBER = @airs AND t.ACTIVE = 1) AS tr " &
+                    "LEFT JOIN EPDUSERPROFILES AS p ON tr.UPDATEUSER = p.NUMUSERID " &
+                    "RIGHT JOIN (SELECT i.INVOICEID, i.UPDATEUSER, i.UPDATEDATETIME, i.CREATEDATETIME, i.STRAIRSNUMBER, i.NUMFEEYEAR " &
+                    "FROM FS_feeINVOICE AS i " &
+                    "WHERE i.STRAIRSNUMBER = @airs AND i.ACTIVE = '1') AS inv ON inv.INVOICEID = tr.INVOICEID AND inv.STRAIRSNUMBER = tr.STRAIRSNUMBER AND inv.NUMFEEYEAR = tr.NUMFEEYEAR "
 
-                ds = New DataSet
-                da = New SqlDataAdapter(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                da.Fill(ds, "Transactions")
-                dgvTransactions.DataSource = ds
-                dgvTransactions.DataMember = "Transactions"
+                Dim p As New SqlParameter("@airs", AirsNumber.DbFormattedString)
+
+                dgvTransactions.DataSource = DB.GetDataTable(SQL, p)
 
                 dgvTransactions.RowHeadersVisible = False
                 dgvTransactions.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -5304,28 +4645,23 @@ Public Class PASPFeeAuditLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub chbMakeEdits_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chbMakeEdits.CheckedChanged
-        Try
-            If chbMakeEdits.Checked = True Then
-                pnlInvoiceData.Enabled = True
-                pnlFacilityData.Enabled = True
-                pnlFacilityData2.Enabled = True
-            Else
-                pnlInvoiceData.Enabled = False
-                pnlFacilityData.Enabled = False
-                pnlFacilityData2.Enabled = False
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+    Private Sub chbMakeEdits_CheckedChanged(sender As Object, e As EventArgs) Handles chbMakeEdits.CheckedChanged
+        If chbMakeEdits.Checked = True Then
+            pnlInvoiceData.Enabled = True
+            pnlFacilityData.Enabled = True
+            pnlFacilityData2.Enabled = True
+        Else
+            pnlInvoiceData.Enabled = False
+            pnlFacilityData.Enabled = False
+            pnlFacilityData2.Enabled = False
+        End If
     End Sub
 
-
-    Private Sub btnCalculateDays_Click(sender As System.Object, e As System.EventArgs) Handles btnCalculateDays.Click
+    Private Sub btnCalculateDays_Click(sender As Object, e As EventArgs) Handles btnCalculateDays.Click
         Try
             Dim TotalFee As String = "0"
             Dim Days As String = "0"
@@ -5349,14 +4685,15 @@ Public Class PASPFeeAuditLog
             lblAdminFee.Text = "$" & AdminAmount & " - Admin Fee, Total Due - $ " & CDbl(TotalFee) + CDbl(AdminAmount)
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnCheckInvoices_Click(sender As System.Object, e As System.EventArgs) Handles btnCheckInvoices.Click
-        Validate_FS_Invoices(Me.FeeYear, Me.AirsNumber.ShortString)
+
+    Private Sub btnCheckInvoices_Click(sender As Object, e As EventArgs) Handles btnCheckInvoices.Click
+        Validate_FS_Invoices(Me.FeeYear, Me.AirsNumber)
     End Sub
 
-    Private Sub chbChangeInvoiceNumber_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chbChangeInvoiceNumber.CheckedChanged
+    Private Sub chbChangeInvoiceNumber_CheckedChanged(sender As Object, e As EventArgs) Handles chbChangeInvoiceNumber.CheckedChanged
         Try
             If chbChangeInvoiceNumber.Checked = True Then
                 txtInvoiceID.ReadOnly = False
@@ -5365,19 +4702,19 @@ Public Class PASPFeeAuditLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub LoadPanel_Enter(sender As System.Object, e As System.EventArgs) Handles LoadPanel.Enter
+    Private Sub LoadPanel_Enter(sender As Object, e As EventArgs) Handles LoadPanel.Enter
         Me.AcceptButton = ReloadButton
     End Sub
 
-    Private Sub LoadPanel_Leave(sender As System.Object, e As System.EventArgs) Handles LoadPanel.Leave
+    Private Sub LoadPanel_Leave(sender As Object, e As EventArgs) Handles LoadPanel.Leave
         Me.AcceptButton = Nothing
     End Sub
 
-    Private Sub ClearFormButton_Click(sender As System.Object, e As System.EventArgs) Handles ClearFormButton.Click
+    Private Sub ClearFormButton_Click(sender As Object, e As EventArgs) Handles ClearFormButton.Click
         ClearForm()
         ClearAdminData()
         ClearAuditData()
@@ -5385,305 +4722,184 @@ Public Class PASPFeeAuditLog
         FeeYearsComboBox.SelectedIndex = 0
     End Sub
 
-#Region " CodeFile "
-    ' Code that was formerly in CodeFile.vb but is only used in this form anyway
-
-    Function Insert_FS_Admin(FeeYear As String, AIRSNumber As String,
-                         Enrolled As String,
-                         DateEnrolled As String, InitialMailOut As String,
-                         MailoutSent As String, DateMailOutSent As String,
-                         Submittal As String, DateSubmittal As String,
+    Private Function Insert_FS_Admin(FeeYear As String, AIRSNumber As Apb.ApbFacilityId,
+                         Enrolled As Boolean,
+                         DateEnrolled As Date, InitialMailOut As Boolean,
+                         MailoutSent As Boolean, DateMailOutSent As Date,
+                         Submittal As Boolean, DateSubmittal As Date,
                          Comment As String) As Boolean
         Try
-            Dim AdminCheck As String = "0"
-
-            If IsDBNull(FeeYear) Then
+            If String.IsNullOrEmpty(FeeYear) Then
                 Return False
             End If
-            If IsDBNull(AIRSNumber) Then
+            If AIRSNumber Is Nothing Then
                 Return False
             End If
 
             Dim SQL As String = "Select " &
-            "count(*) as AdminCount " &
-            "from FS_Admin " &
-            "where numFeeYear = '" & FeeYear & "' " &
-            "and strAIRSNumber = '0413" & AIRSNumber & "' "
+                "count(*)  " &
+                "from FS_Admin " &
+                "where numFeeYear = @FeeYear " &
+                "and strAIRSNumber = @AIRSNumber "
+            Dim params As SqlParameter() = {
+                New SqlParameter("@FeeYear", FeeYear),
+                New SqlParameter("@AIRSNumber", AIRSNumber.DbFormattedString)
+            }
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                If IsDBNull(dr.Item("AdminCount")) Then
-                    AdminCheck = "0"
-                Else
-                    AdminCheck = dr.Item("AdminCount")
-                End If
-            End While
-            dr.Close()
-
-            If AdminCheck <> "0" Then
+            If DB.GetSingleValue(Of Integer)(SQL, params) > 0 Then
                 Return False
             End If
 
-            If IsDBNull(Enrolled) Then
-                Enrolled = "0"
-            Else
-                If Enrolled = False Then
-                    Enrolled = "0"
-                Else
-                    Enrolled = "1"
-                End If
-            End If
-            If IsDBNull(InitialMailOut) Then
-                InitialMailOut = "0"
-            Else
-                If InitialMailOut = False Then
-                    InitialMailOut = "0"
-                Else
-                    InitialMailOut = "1"
-                End If
-            End If
-            If IsDate(MailoutSent) Then
-                MailoutSent = "0"
-            Else
-                If MailoutSent = False Then
-                    MailoutSent = "0"
-                Else
-                    MailoutSent = "1"
-                End If
-            End If
-            If IsDBNull(Submittal) Then
-                Submittal = "0"
-            Else
-                If Submittal = False Then
-                    Submittal = "0"
-                Else
-                    Submittal = "1"
-                End If
-            End If
-
             SQL = "Insert into FS_Admin " &
-            "values " &
-            "(" & FeeYear & ", '0413" & AIRSNumber & "', " &
-            "'" & Enrolled & "', '', " &
-            "'" & DateEnrolled & "', '" & InitialMailOut & "', " &
-            "'" & MailoutSent & "', '" & DateMailOutSent & "', " &
-            "'" & Submittal & "', '" & DateSubmittal & "', " &
-            "'1', '" & OracleDate & "', " &
-            "'" & Replace(Comment, "'", "''") & "', '1', " &
-            "'IAIP||" & CurrentUser.AlphaName & "', '" & OracleDate & "', " &
-            "'" & OracleDate & "') "
+                "(NUMFEEYEAR, STRAIRSNUMBER, STRENROLLED, DATINITIALENROLLMENT, DATENROLLMENT, STRINITIALMAILOUT, " &
+                "STRMAILOUTSENT, DATMAILOUTSENT, INTSUBMITTAL, DATSUBMITTAL, NUMCURRENTSTATUS, DATSTATUSDATE, STRCOMMENT, " &
+                "ACTIVE, UPDATEUSER, UPDATEDATETIME, CREATEDATETIME) " &
+                "values " &
+                "(@NUMFEEYEAR, @STRAIRSNUMBER, @STRENROLLED, '', @DATENROLLMENT, @STRINITIALMAILOUT, " &
+                "@STRMAILOUTSENT, @DATMAILOUTSENT, @INTSUBMITTAL, @DATSUBMITTAL, 1, getdate(), @STRCOMMENT, " &
+                "1, @UPDATEUSER, getdate(), getdate() ) "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
+            Dim params2 As SqlParameter() = {
+                New SqlParameter("@NUMFEEYEAR", FeeYear),
+                New SqlParameter("@STRAIRSNUMBER", AIRSNumber.DbFormattedString),
+                New SqlParameter("@STRENROLLED", Convert.ToInt32(Enrolled)),
+                New SqlParameter("@DATENROLLMENT", DateEnrolled),
+                New SqlParameter("@STRINITIALMAILOUT", Convert.ToInt32(InitialMailOut)),
+                New SqlParameter("@STRMAILOUTSENT", Convert.ToInt32(MailoutSent)),
+                New SqlParameter("@DATMAILOUTSENT", DateMailOutSent),
+                New SqlParameter("@INTSUBMITTAL", Convert.ToInt32(Submittal)),
+                New SqlParameter("@DATSUBMITTAL", DateSubmittal),
+                New SqlParameter("@STRCOMMENT", Comment),
+                New SqlParameter("@UPDATEUSER", "IAIP||" & CurrentUser.AlphaName)
+            }
+            DB.RunCommand(SQL, params2)
 
             SQL = "Update FS_Admin set " &
-           "datInitialEnrollment = datEnrollment " &
-           "where numFeeYear = '" & FeeYear & "' " &
-           "and strAIRSnumber = '0413" & AIRSNumber & "' " &
-           "and datInitialEnrollment is null "
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
+               "datInitialEnrollment = datEnrollment " &
+               "where numFeeYear = @FeeYear " &
+               "and strAIRSnumber = @AIRSNumber " &
+               "and datInitialEnrollment is null "
+            DB.RunCommand(SQL, params)
 
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            cmd = New SqlCommand("PD_FEE_MAILOUT", CurrentConnection)
-            cmd.CommandType = CommandType.StoredProcedure
+            DB.SPRunCommand("PD_FEE_MAILOUT", params)
+            DB.SPRunCommand("PD_FEE_DATA", params)
 
-            cmd.Parameters.Add(New SqlParameter("@FeeYear", SqlDbType.Decimal)).Value = FeeYear
-            cmd.Parameters.Add(New SqlParameter("@AIRSNumber", SqlDbType.VarChar)).Value = "0413" & AIRSNumber
-
-            cmd.ExecuteNonQuery()
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            cmd = New SqlCommand("PD_FEE_DATA", CurrentConnection)
-            cmd.CommandType = CommandType.StoredProcedure
-
-            cmd.Parameters.Add(New SqlParameter("@FeeYear", SqlDbType.Decimal)).Value = FeeYear
-            cmd.Parameters.Add(New SqlParameter("@AIRSNumber", SqlDbType.VarChar)).Value = "0413" & AIRSNumber
-
-            cmd.ExecuteNonQuery()
-
-            If Not DAL.Update_FS_Admin_Status(FeeYear, AIRSNumber) Then
+            If Not DAL.Update_FS_Admin_Status(FeeYear, AIRSNumber.ToString) Then
                 MessageBox.Show("There was an error updating the database", "Database error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End If
 
             Return True
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Function
 
-    Function Update_FS_Admin(FeeYear As String, AIRSNumber As String,
-                             Enrolled As String,
-                             DateEnrolled As String, InitialMailOut As String,
-                             MailoutSent As String, DateMailOutSent As String,
-                             Submittal As String, DateSubmittal As String,
-                             Comment As String, Active As String) As Boolean
+    Private Function Update_FS_Admin(FeeYear As String, AIRSNumber As Apb.ApbFacilityId,
+                             Enrolled As Boolean,
+                             DateEnrolled As Date, InitialMailOut As Boolean,
+                             MailoutSent As Boolean, DateMailOutSent As Date,
+                             Submittal As Boolean, DateSubmittal As Date,
+                             Comment As String, Active As Boolean) As Boolean
         Try
-            Dim SQL As String = ""
-            If IsDBNull(Enrolled) Or Enrolled = "" Then
-            Else
-                If Enrolled = False Then
-                    SQL = SQL & "strEnrolled = '0', " &
-                    "datEnrollment = '', "
-                    If IsDBNull(Active) Then
-                    Else
-                        If Active = False Then
-                            SQL = SQL & "Active = '0', "
-                        Else
-                            SQL = SQL & "Active = '1', "
-                        End If
-                    End If
-                Else
-                    SQL = SQL & "strEnrolled = '1', "
-                    If IsDBNull(DateEnrolled) Then
-                    Else
-                        SQL = SQL & "datEnrollment = '" & DateEnrolled & "', "
-                    End If
+            If AIRSNumber Is Nothing OrElse Not IsNumeric(FeeYear) Then
+                Return False
+            End If
 
-                    If Active = False Then
-                        SQL = SQL & "Active = '0', "
-                    Else
-                        SQL = SQL & "Active = '1', "
-                    End If
-                End If
-            End If
-            If IsDBNull(InitialMailOut) Then
+            Dim SQL As String = ""
+
+            If Enrolled = False Then
+                SQL = SQL & "strEnrolled = '0', " &
+                "datEnrollment = '', "
             Else
-                If InitialMailOut = False Then
-                    SQL = SQL & "strInitialMailOut = '0', "
-                Else
-                    SQL = SQL & "strInitialMailOut = '1', "
-                End If
+                SQL = SQL & "strEnrolled = '1', "
+                SQL = SQL & "datEnrollment = @datEnrollment, "
             End If
-            If IsDBNull(MailoutSent) Then
+
+            If Active = False Then
+                SQL = SQL & "Active = '0', "
             Else
-                If MailoutSent = False Then
-                    SQL = SQL & "strMailOutsent = '0', " &
-                    "datMailOutSent = '', "
-                Else
-                    SQL = SQL & "strMailOutSent = '1', "
-                    If IsDBNull(DateMailOutSent) Then
-                    Else
-                        SQL = SQL & "datMailOutSent = '" & DateMailOutSent & "', "
-                    End If
-                End If
+                SQL = SQL & "Active = '1', "
             End If
-            If IsDBNull(Submittal) Then
+
+            If InitialMailOut = False Then
+                SQL = SQL & "strInitialMailOut = '0', "
             Else
-                If Submittal = False Then
-                    SQL = SQL & "intSubmittal = '0', " &
-                    "datSubmittal = '', "
-                Else
-                    SQL = SQL & "intsubmittal = '1', "
-                    If IsDBNull(DateSubmittal) Then
-                    Else
-                        SQL = SQL & "datSubmittal = '" & DateSubmittal & "', "
-                    End If
-                End If
+                SQL = SQL & "strInitialMailOut = '1', "
             End If
-            If IsDBNull(Comment) Then
+
+            If MailoutSent = False Then
+                SQL = SQL & "strMailOutsent = '0', " &
+                "datMailOutSent = '', "
             Else
-                SQL = SQL & "strComment = '" & Replace(Comment, "'", "''") & "', "
+                SQL = SQL & "strMailOutSent = '1', "
+                SQL = SQL & "datMailOutSent = @datMailOutSent, "
             End If
+
+            If Submittal = False Then
+                SQL = SQL & "intSubmittal = '0', " &
+                "datSubmittal = '', "
+            Else
+                SQL = SQL & "intsubmittal = '1', "
+                SQL = SQL & "datSubmittal = @datSubmittal, "
+            End If
+
+            SQL = SQL & "strComment = @strComment, "
 
             If SQL = "" Then
                 Return False
             Else
                 SQL = SQL &
-                "updateUser = 'IAIP||" & CurrentUser.AlphaName & "', " &
-                "updateDateTime = '" & OracleDate & "' "
+                "updateUser = @updateUser, " &
+                "updateDateTime = getdate() "
             End If
 
             SQL = "Update FS_Admin set " & SQL &
-            "where numFeeYear = '" & FeeYear & "' " &
-            "and strAIRSNumber = '0413" & AIRSNumber & "' "
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
+            "where numFeeYear = @year " &
+            "and strAIRSNumber = @airs "
 
-            If IsDBNull(FeeYear) Or FeeYear = "" Then
-            Else
-                If IsNumeric(FeeYear) Then
-                Else
-                    Return False
-                End If
-            End If
+            Dim params As SqlParameter() = {
+                New SqlParameter("@airs", AIRSNumber.DbFormattedString),
+                New SqlParameter("@year", FeeYear),
+                New SqlParameter("@datEnrollment", DateEnrolled),
+                New SqlParameter("@datMailOutSent", DateMailOutSent),
+                New SqlParameter("@datSubmittal", DateSubmittal),
+                New SqlParameter("@strComment", Comment),
+                New SqlParameter("@updateUser", "IAIP||" & CurrentUser.AlphaName)
+            }
 
-            If IsDBNull(AIRSNumber) Or AIRSNumber = "" Then
-            Else
-                If IsNumeric(AIRSNumber) Then
-                Else
-                    Return False
-                End If
-            End If
+            DB.RunCommand(SQL, params)
 
             SQL = "Update FS_Admin set " &
             "datInitialEnrollment = datEnrollment " &
-            "where numFeeYear = '" & FeeYear & "' " &
-            "and strAIRSnumber = '0413" & AIRSNumber & "' " &
+            "where numFeeYear = @FeeYear " &
+            "and strAIRSnumber = @AIRSNumber " &
             "and datInitialEnrollment is null "
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
 
+            Dim params2 As SqlParameter() = {
+                New SqlParameter("@FeeYear", SqlDbType.Decimal) With {.Value = FeeYear},
+                New SqlParameter("@AIRSNumber", SqlDbType.VarChar) With {.Value = AIRSNumber.DbFormattedString}
+            }
 
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            cmd = New SqlCommand("PD_FEE_MAILOUT", CurrentConnection)
-            cmd.CommandType = CommandType.StoredProcedure
+            DB.RunCommand(SQL, params2)
+            Dim spName As String = "PD_FEE_MAILOUT"
+            DB.SPRunCommand(spName, params2)
 
-            cmd.Parameters.Add(New SqlParameter("@FeeYear", SqlDbType.Decimal)).Value = FeeYear
-            cmd.Parameters.Add(New SqlParameter("@AIRSNumber", SqlDbType.VarChar)).Value = "0413" & AIRSNumber
+            spName = "PD_FEE_DATA"
+            DB.SPRunCommand(spName, params2)
 
-            cmd.ExecuteNonQuery()
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            cmd = New SqlCommand("PD_FEE_DATA", CurrentConnection)
-            cmd.CommandType = CommandType.StoredProcedure
-
-            cmd.Parameters.Add(New SqlParameter("@FeeYear", SqlDbType.Decimal)).Value = FeeYear
-            cmd.Parameters.Add(New SqlParameter("@AIRSNumber", SqlDbType.VarChar)).Value = "0413" & AIRSNumber
-
-            cmd.ExecuteNonQuery()
-
-            If Not DAL.Update_FS_Admin_Status(FeeYear, AIRSNumber) Then
+            If Not DAL.Update_FS_Admin_Status(FeeYear, AIRSNumber.ShortString) Then
                 MessageBox.Show("There was an error updating the database", "Database error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End If
 
             Return True
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Function
 
-    Sub Validate_FS_Invoices(FeeYear As String, AirsNumber As String)
+    Private Sub Validate_FS_Invoices(FeeYear As String, AirsNumber As Apb.ApbFacilityId)
         Try
             Dim SQL As String = "Update FS_FeeInvoice set " &
             "strInvoiceStatus = '1', " &
@@ -5698,22 +4914,20 @@ Public Class PASPFeeAuditLog
             Dim parameters As SqlParameter() = New SqlParameter() {
                 New SqlParameter("@Username", CurrentUser.AlphaName),
                 New SqlParameter("@FeeYear", FeeYear),
-                New SqlParameter("@AirsNumber", AirsNumber)
+                New SqlParameter("@AirsNumber", AirsNumber.DbFormattedString)
             }
 
             If Not DB.RunCommand(SQL, parameters) Then
                 MessageBox.Show("There was an error updating the database", "Database error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Else
-                If Not DAL.Update_FS_Admin_Status(FeeYear, AirsNumber) Then
+                If Not DAL.Update_FS_Admin_Status(FeeYear, AirsNumber.ToString) Then
                     MessageBox.Show("There was an error updating the database", "Database error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 End If
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-
-#End Region
 
 End Class
