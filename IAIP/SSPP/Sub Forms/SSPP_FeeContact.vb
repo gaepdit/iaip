@@ -5,7 +5,7 @@ Public Class SSPP_FeeContact
     Dim cmd As SqlCommand
     Dim dr As SqlDataReader
 
-    Private Sub SSPP_FeeContact_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
+    Private Sub SSPP_FeeContact_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
     End Sub
     Sub LoadCurrentFeeContact()
@@ -127,17 +127,17 @@ Public Class SSPP_FeeContact
                 End While
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub txtAIRSNumber_TextChanged(sender As Object, e As System.EventArgs) Handles txtAIRSNumber.TextChanged
+    Private Sub txtAIRSNumber_TextChanged(sender As Object, e As EventArgs) Handles txtAIRSNumber.TextChanged
         Try
             LoadCurrentFeeContact()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnClear_Click(sender As System.Object, e As System.EventArgs) Handles btnClear.Click
+    Private Sub btnClear_Click(sender As Object, e As EventArgs) Handles btnClear.Click
         Try
             txtSocialTitle.Clear()
             txtFirstName.Clear()
@@ -156,10 +156,10 @@ Public Class SSPP_FeeContact
             txtDescription.Clear()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnLoadDefaultDescription_Click(sender As System.Object, e As System.EventArgs) Handles btnLoadDefaultDescription.Click
+    Private Sub btnLoadDefaultDescription_Click(sender As Object, e As EventArgs) Handles btnLoadDefaultDescription.Click
         Try
             txtDescription.Clear()
             txtDescription.Text = "Fee Contact. " & vbCrLf &
@@ -168,10 +168,10 @@ Public Class SSPP_FeeContact
             "Via Application # " & txtApplicationNumber.Text
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnSaveFeeContact_Click(sender As System.Object, e As System.EventArgs) Handles btnSaveFeeContact.Click
+    Private Sub btnSaveFeeContact_Click(sender As Object, e As EventArgs) Handles btnSaveFeeContact.Click
         Try
             If txtAIRSNumber.Text <> "" Then
                 SQL = "Select " &
@@ -232,7 +232,7 @@ Public Class SSPP_FeeContact
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 

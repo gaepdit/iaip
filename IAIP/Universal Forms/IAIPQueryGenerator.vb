@@ -25,7 +25,7 @@ Public Class IAIPQueryGenerator
 
     Private SubmittedQuery As Generic.KeyValuePair(Of String, Integer)
 
-    Private Sub QueryGenerator_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
+    Private Sub QueryGenerator_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         lblQueryCount.Text = ""
         Try
@@ -4226,7 +4226,7 @@ Public Class IAIPQueryGenerator
     End Sub
 #End Region
 #Region "Declarations"
-    Private Sub btnRunSearch_Click(sender As System.Object, e As System.EventArgs) Handles btnRunSearch.Click
+    Private Sub btnRunSearch_Click(sender As Object, e As EventArgs) Handles btnRunSearch.Click
         Try
             '  GenerateSQL()
             GenerateSQL2()
@@ -4245,7 +4245,7 @@ Public Class IAIPQueryGenerator
 
         End Try
     End Sub
-    Private Sub btnReset_Click(sender As System.Object, e As System.EventArgs) Handles btnReset.Click
+    Private Sub btnReset_Click(sender As Object, e As EventArgs) Handles btnReset.Click
         Try
             ResetForm()
         Catch ex As Exception
@@ -4254,10 +4254,10 @@ Public Class IAIPQueryGenerator
 
         End Try
     End Sub
-    Private Sub mmiClose_Click(sender As System.Object, e As System.EventArgs) Handles mmiClose.Click
+    Private Sub mmiClose_Click(sender As Object, e As EventArgs) Handles mmiClose.Click
         Me.Close()
     End Sub
-    Private Sub tsbReSizeFilterOptions_Click(sender As System.Object, e As System.EventArgs) Handles tsbReSizeFilterOptions.Click
+    Private Sub tsbReSizeFilterOptions_Click(sender As Object, e As EventArgs) Handles tsbReSizeFilterOptions.Click
         Try
 
             ResizeFilter()
@@ -4288,11 +4288,11 @@ Public Class IAIPQueryGenerator
         End Try
     End Sub
 
-    Private Sub tsbExport_Click(sender As System.Object, e As System.EventArgs) Handles tsbExport.Click
+    Private Sub tsbExport_Click(sender As Object, e As EventArgs) Handles tsbExport.Click
         ExportToExcel()
     End Sub
 
-    Private Sub tsbSearchQuery_Click(sender As System.Object, e As System.EventArgs) Handles tsbSearchQuery.Click, OpenSavedSearchToolStripMenuItem.Click
+    Private Sub tsbSearchQuery_Click(sender As Object, e As EventArgs) Handles tsbSearchQuery.Click, OpenSavedSearchToolStripMenuItem.Click
         Try
             LoadDefaults()
         Catch ex As Exception
@@ -4302,7 +4302,7 @@ Public Class IAIPQueryGenerator
         End Try
     End Sub
 
-    Private Sub tsbSaveQuery_Click(sender As System.Object, e As System.EventArgs) Handles tsbSaveQuery.Click, SaveSearchQueryToolStripMenuItem.Click
+    Private Sub tsbSaveQuery_Click(sender As Object, e As EventArgs) Handles tsbSaveQuery.Click, SaveSearchQueryToolStripMenuItem.Click
         Try
             UpdateDefaultSearch()
         Catch ex As Exception
@@ -4312,11 +4312,11 @@ Public Class IAIPQueryGenerator
         End Try
     End Sub
 
-    Private Sub mmiOnlineHelp_Click(sender As System.Object, e As System.EventArgs) Handles mmiOnlineHelp.Click
+    Private Sub mmiOnlineHelp_Click(sender As Object, e As EventArgs) Handles mmiOnlineHelp.Click
         OpenDocumentationUrl(Me)
     End Sub
 
-    Private Sub btnRunPermitContact_Click(sender As System.Object, e As System.EventArgs) Handles btnRunPermitContact.Click
+    Private Sub btnRunPermitContact_Click(sender As Object, e As EventArgs) Handles btnRunPermitContact.Click
         Try
             SQL = "select " &
             "substr(strAIRSNumber, 5) as AIRSNumber, " &
@@ -4432,15 +4432,15 @@ Public Class IAIPQueryGenerator
             lblQueryCount.Text = dgvQueryGenerator.RowCount.ToString
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub mmiExport_Click(sender As System.Object, e As System.EventArgs) Handles mmiExport.Click
+    Private Sub mmiExport_Click(sender As Object, e As EventArgs) Handles mmiExport.Click
         ExportToExcel()
     End Sub
 
-    Private Sub LoggingBackgroundWorker_DoWork(sender As System.Object, e As System.ComponentModel.DoWorkEventArgs) Handles LoggingBackgroundWorker.DoWork
+    Private Sub LoggingBackgroundWorker_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles LoggingBackgroundWorker.DoWork
         If Me.SubmittedQuery.Key.Length > 4000 Then
             Me.SubmittedQuery = New Generic.KeyValuePair(Of String, Integer)("-- Truncated: " & Me.SubmittedQuery.Key.Substring(0, 3985), Me.SubmittedQuery.Value)
         End If

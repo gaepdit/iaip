@@ -148,7 +148,7 @@ Public Class DMUEisGecoTool
             dgvUserFacilities.Columns(5).HeaderText = "ES Access"
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -1672,7 +1672,7 @@ Public Class DMUEisGecoTool
 
             clearESData()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -1852,7 +1852,7 @@ Public Class DMUEisGecoTool
             txtConfirmationNbr.Text = ""
             txtFirstConfirmedDate.Text = ""
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -2649,7 +2649,7 @@ Public Class DMUEisGecoTool
         End Try
     End Sub
 
-    Private Sub lblviewextraNonresponse_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblviewextraNonresponse.LinkClicked
+    Private Sub lblviewextraNonresponse_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblviewextraNonresponse.LinkClicked
         txtESYear.Text = cboYear.SelectedItem
         Try
 
@@ -2691,7 +2691,7 @@ Public Class DMUEisGecoTool
             txtRecordNumber.Text = dgvESDataCount.RowCount.ToString
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -3858,7 +3858,7 @@ Public Class DMUEisGecoTool
     End Sub
 
 
-    Private Sub btnViewEISStats_Click(sender As System.Object, e As System.EventArgs) Handles btnViewEISStats.Click
+    Private Sub btnViewEISStats_Click(sender As Object, e As EventArgs) Handles btnViewEISStats.Click
         ViewEISStats()
     End Sub
 
@@ -4177,7 +4177,7 @@ Public Class DMUEisGecoTool
         End Try
     End Sub
 
-    Private Sub dgvEISStats_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles dgvEISStats.MouseUp
+    Private Sub dgvEISStats_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvEISStats.MouseUp
         Try
             Dim CurrentTabPage As TabPage = TCEISStats.SelectedTab
             Dim hti As DataGridView.HitTestInfo = dgvEISStats.HitTest(e.X, e.Y)
@@ -4337,7 +4337,7 @@ Public Class DMUEisGecoTool
             End If
             dgvEISStats.Enabled = True
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnSaveEISStatMailout_Click(sender As Object, e As EventArgs) Handles btnSaveEISStatMailout.Click
@@ -4904,7 +4904,7 @@ Public Class DMUEisGecoTool
             MsgBox("New Facility Added", MsgBoxStyle.Information, Me.Text)
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -5194,7 +5194,7 @@ Public Class DMUEisGecoTool
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -5296,7 +5296,7 @@ Public Class DMUEisGecoTool
             MsgBox("Data updated", MsgBoxStyle.Information, Me.Text)
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -5853,7 +5853,7 @@ Public Class DMUEisGecoTool
         ViewPollutantThresholds()
     End Sub
 
-    Private Sub dgvThresholdPollutants_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles dgvThresholdPollutants.MouseUp
+    Private Sub dgvThresholdPollutants_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvThresholdPollutants.MouseUp
         Dim hti As DataGridView.HitTestInfo = dgvThresholdPollutants.HitTest(e.X, e.Y)
 
         Try
@@ -5880,7 +5880,7 @@ Public Class DMUEisGecoTool
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -6016,7 +6016,7 @@ Public Class DMUEisGecoTool
         dgvEISYear.Columns("datDeadLine").DefaultCellStyle.Format = "dd-MMM-yyyy"
     End Sub
 
-    Private Sub dgvEISYear_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles dgvEISYear.MouseUp
+    Private Sub dgvEISYear_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvEISYear.MouseUp
         Dim hti As DataGridView.HitTestInfo = dgvEISYear.HitTest(e.X, e.Y)
 
         Try
@@ -6050,7 +6050,7 @@ Public Class DMUEisGecoTool
                 dtpEISDeadline.Value = Today
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub llbClearEISYear_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbClearEISYear.LinkClicked
@@ -6459,7 +6459,7 @@ Public Class DMUEisGecoTool
             txtEISStatsCount.Text = dgvEISStats.RowCount.ToString
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub btnViewMailoutData_Click(sender As Object, e As EventArgs) Handles btnViewMailoutData.Click
@@ -6838,7 +6838,7 @@ Public Class DMUEisGecoTool
 
 #Region " Accept Button "
 
-    Private Sub AcceptButton_Leave(sender As System.Object, e As System.EventArgs) _
+    Private Sub AcceptButton_Leave(sender As Object, e As EventArgs) _
     Handles mtbEILogAIRSNumber.Leave,
     txtEIModifyFacilityName.Leave,
     txtEIModifyLocation.Leave, txtEIModifyCity.Leave, mtbEIModifyZipCode.Leave,
@@ -6847,27 +6847,27 @@ Public Class DMUEisGecoTool
         Me.AcceptButton = Nothing
     End Sub
 
-    Private Sub mtbEILogAIRSNumber_Enter(sender As System.Object, e As System.EventArgs) _
+    Private Sub mtbEILogAIRSNumber_Enter(sender As Object, e As EventArgs) _
     Handles mtbEILogAIRSNumber.Enter
         Me.AcceptButton = btnReloadFSData
     End Sub
 
-    Private Sub txtEIModifyFacilityName_Enter(sender As System.Object, e As System.EventArgs) _
+    Private Sub txtEIModifyFacilityName_Enter(sender As Object, e As EventArgs) _
     Handles txtEIModifyFacilityName.Enter
         Me.AcceptButton = btnEIModifyUpdateName
     End Sub
 
-    Private Sub EIModifyLocation_Enter(sender As System.Object, e As System.EventArgs) _
+    Private Sub EIModifyLocation_Enter(sender As Object, e As EventArgs) _
     Handles txtEIModifyLocation.Enter, txtEIModifyCity.Enter, mtbEIModifyZipCode.Enter
         Me.AcceptButton = btnEIModifyUpdateLocation
     End Sub
 
-    Private Sub EIModifyMailing_Enter(sender As System.Object, e As System.EventArgs) _
+    Private Sub EIModifyMailing_Enter(sender As Object, e As EventArgs) _
     Handles txtEIModifyMLocation.Enter, txtEIModifyMCity.Enter, mtbEIModifyMZipCode.Enter
         Me.AcceptButton = btnEIModifyUpdateMailing
     End Sub
 
-    Private Sub EIModifyLatitudeLongitude_Enter(sender As System.Object, e As System.EventArgs) _
+    Private Sub EIModifyLatitudeLongitude_Enter(sender As Object, e As EventArgs) _
     Handles mtbEIModifyLatitude.Enter, mtbEIModifyLongitude.Enter
         Me.AcceptButton = btnUpdateLatLong
     End Sub

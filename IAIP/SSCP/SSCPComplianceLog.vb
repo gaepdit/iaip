@@ -18,7 +18,7 @@ Public Class SSCPComplianceLog
     Dim daDistrictUnit As SqlDataAdapter
     Dim dtStaff As DataTable
 
-    Private Sub DevWorkEntry_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
+    Private Sub DevWorkEntry_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         Try
             Panel1.Text = "Select a Function..."
@@ -61,7 +61,7 @@ Public Class SSCPComplianceLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
     End Sub
@@ -116,7 +116,7 @@ Public Class SSCPComplianceLog
             dtStaff = GetSharedData(SharedTable.AllComplianceStaff)
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub LoadComboBoxes()
@@ -209,7 +209,7 @@ Public Class SSCPComplianceLog
             End With
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
     End Sub
@@ -263,7 +263,7 @@ Public Class SSCPComplianceLog
             txtFacilityInformation.Clear()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
     End Sub
@@ -698,7 +698,7 @@ Public Class SSCPComplianceLog
 
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
     End Sub
@@ -798,7 +798,7 @@ Public Class SSCPComplianceLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
 
@@ -1347,7 +1347,7 @@ Public Class SSCPComplianceLog
             End Select
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
     End Sub
@@ -1384,7 +1384,7 @@ Public Class SSCPComplianceLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
     End Sub
@@ -1396,7 +1396,7 @@ Public Class SSCPComplianceLog
 #End Region
 
 #Region "Declarations"
-    Private Sub cboEvent_Leave(sender As Object, e As System.EventArgs) Handles cboEvent.Leave
+    Private Sub cboEvent_Leave(sender As Object, e As EventArgs) Handles cboEvent.Leave
         Dim dtActivity As New DataTable
 
         Try
@@ -1432,11 +1432,11 @@ Public Class SSCPComplianceLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
     End Sub
-    Private Sub cboEvent_SelectedValueChanged(sender As Object, e As System.EventArgs) Handles cboEvent.SelectedValueChanged
+    Private Sub cboEvent_SelectedValueChanged(sender As Object, e As EventArgs) Handles cboEvent.SelectedValueChanged
         Dim dtActivity As New DataTable
 
         Try
@@ -1468,12 +1468,12 @@ Public Class SSCPComplianceLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
 
     End Sub
-    Private Sub chbEnforcementDates_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chbFilterDates.CheckedChanged
+    Private Sub chbEnforcementDates_CheckedChanged(sender As Object, e As EventArgs) Handles chbFilterDates.CheckedChanged
         Try
 
 
@@ -1486,14 +1486,14 @@ Public Class SSCPComplianceLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
     End Sub
-    Private Sub btnRunFilter_Click(sender As System.Object, e As System.EventArgs) Handles btnRunFilter.Click
+    Private Sub btnRunFilter_Click(sender As Object, e As EventArgs) Handles btnRunFilter.Click
         LoaddgvWork()
     End Sub
-    Private Sub dgvWork_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles dgvWork.MouseUp
+    Private Sub dgvWork_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvWork.MouseUp
         Dim hti As DataGridView.HitTestInfo = dgvWork.HitTest(e.X, e.Y)
 
         Try
@@ -1508,11 +1508,11 @@ Public Class SSCPComplianceLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
     End Sub
-    Private Sub txtAIRSNumber_TextChanged(sender As Object, e As System.EventArgs) Handles txtAIRSNumber.TextChanged
+    Private Sub txtAIRSNumber_TextChanged(sender As Object, e As EventArgs) Handles txtAIRSNumber.TextChanged
         Try
 
 
@@ -1543,11 +1543,11 @@ Public Class SSCPComplianceLog
                 dr.Close()
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
     End Sub
-    Private Sub btnSelectWork_Click(sender As System.Object, e As System.EventArgs) Handles btnSelectWork.Click
+    Private Sub btnSelectWork_Click(sender As Object, e As EventArgs) Handles btnSelectWork.Click
         Try
             If txtTestType.Text <> "" Then
                 If InStr(txtTestType.Text, "Enforcement") > 0 Then
@@ -1559,17 +1559,17 @@ Public Class SSCPComplianceLog
                 End If
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub txtNewAIRSNumber_TextChanged(sender As Object, e As System.EventArgs) Handles txtNewAIRSNumber.TextChanged
+    Private Sub txtNewAIRSNumber_TextChanged(sender As Object, e As EventArgs) Handles txtNewAIRSNumber.TextChanged
         txtFacilityInformation.Text = ""
         If Apb.ApbFacilityId.IsValidAirsNumberFormat(txtNewAIRSNumber.Text) Then
             Dim fac As Apb.Facilities.Facility = DAL.FacilityData.GetFacility(txtNewAIRSNumber.Text)
             If fac IsNot Nothing Then txtFacilityInformation.Text = fac.LongDisplay
         End If
     End Sub
-    Private Sub rdbPerformanceTest_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles rdbPerformanceTest.CheckedChanged
+    Private Sub rdbPerformanceTest_CheckedChanged(sender As Object, e As EventArgs) Handles rdbPerformanceTest.CheckedChanged
         Try
 
 
@@ -1596,11 +1596,11 @@ Public Class SSCPComplianceLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
     End Sub
-    Private Sub rdbOther_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles rdbOther.CheckedChanged
+    Private Sub rdbOther_CheckedChanged(sender As Object, e As EventArgs) Handles rdbOther.CheckedChanged
         Try
 
 
@@ -1611,11 +1611,11 @@ Public Class SSCPComplianceLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
     End Sub
-    Private Sub btnAddNewEnTry_Click(sender As System.Object, e As System.EventArgs) Handles btnAddNewEntry.Click
+    Private Sub btnAddNewEnTry_Click(sender As Object, e As EventArgs) Handles btnAddNewEntry.Click
         Try
             If Apb.ApbFacilityId.IsValidAirsNumberFormat(txtNewAIRSNumber.Text) Then
                 AddNewEvent()
@@ -1624,7 +1624,7 @@ Public Class SSCPComplianceLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
     End Sub
@@ -1648,13 +1648,13 @@ Public Class SSCPComplianceLog
                 Me.ValueFromFacilityLookUp2 = facilityLookupDialog.SelectedFacilityName
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub FacilitySearch()
         OpenFacilityLookupTool()
     End Sub
-    Private Sub TBWork_EnTry_ButtonClick(sender As System.Object, e As System.Windows.Forms.ToolBarButtonClickEventArgs) Handles TBWork_EnTry.ButtonClick
+    Private Sub TBWork_EnTry_ButtonClick(sender As Object, e As ToolBarButtonClickEventArgs) Handles TBWork_EnTry.ButtonClick
         Try
 
             Select Case TBWork_EnTry.Buttons.IndexOf(e.Button)
@@ -1667,17 +1667,17 @@ Public Class SSCPComplianceLog
                 Case Else
             End Select
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
     End Sub
-    Private Sub btnDeleteWork_Click(sender As System.Object, e As System.EventArgs) Handles btnDeleteWork.Click
+    Private Sub btnDeleteWork_Click(sender As Object, e As EventArgs) Handles btnDeleteWork.Click
         DeleteWork()
     End Sub
-    Private Sub btnUndeleteWork_Click(sender As System.Object, e As System.EventArgs) Handles btnUndeleteWork.Click
+    Private Sub btnUndeleteWork_Click(sender As Object, e As EventArgs) Handles btnUndeleteWork.Click
         UnDeleteWork()
     End Sub
-    Private Sub txtWorkNumber_Leave(sender As Object, e As System.EventArgs) Handles txtWorkNumber.Leave
+    Private Sub txtWorkNumber_Leave(sender As Object, e As EventArgs) Handles txtWorkNumber.Leave
         Try
 
             If txtWorkNumber.Text = "" Then
@@ -1690,16 +1690,16 @@ Public Class SSCPComplianceLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnOpenSummary_Click(sender As System.Object, e As System.EventArgs) Handles btnOpenSummary.Click
+    Private Sub btnOpenSummary_Click(sender As Object, e As EventArgs) Handles btnOpenSummary.Click
         OpenFormFacilitySummary(txtAIRSNumber.Text)
     End Sub
 
 #End Region
 
-    Private Sub chbNotifications_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chbNotifications.CheckedChanged
+    Private Sub chbNotifications_CheckedChanged(sender As Object, e As EventArgs) Handles chbNotifications.CheckedChanged
         Try
             If chbNotifications.Checked = True Then
                 GBNotifications.Enabled = True
@@ -1710,11 +1710,11 @@ Public Class SSCPComplianceLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub rdbIgnoreEngineer_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles rdbIgnoreEngineer.CheckedChanged
+    Private Sub rdbIgnoreEngineer_CheckedChanged(sender As Object, e As EventArgs) Handles rdbIgnoreEngineer.CheckedChanged
         Try
             If rdbIgnoreEngineer.Checked = True Then
                 chbEngineer.Enabled = False
@@ -1729,11 +1729,11 @@ Public Class SSCPComplianceLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub rdbUseEngineer_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles rdbUseEngineer.CheckedChanged
+    Private Sub rdbUseEngineer_CheckedChanged(sender As Object, e As EventArgs) Handles rdbUseEngineer.CheckedChanged
         Try
             If rdbUseEngineer.Checked = True Then
                 chbEngineer.Enabled = True
@@ -1747,11 +1747,11 @@ Public Class SSCPComplianceLog
                 clbAirBranchUnits.Enabled = False
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub rdbUseUnits_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles rdbUseUnits.CheckedChanged
+    Private Sub rdbUseUnits_CheckedChanged(sender As Object, e As EventArgs) Handles rdbUseUnits.CheckedChanged
         Try
             If rdbUseUnits.Checked = True Then
                 chbEngineer.Enabled = False
@@ -1765,43 +1765,43 @@ Public Class SSCPComplianceLog
                 clbAirBranchUnits.Enabled = False
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
 #Region "Menu"
-    Private Sub mmiClose_Click(sender As System.Object, e As System.EventArgs) Handles mmiClose.Click
+    Private Sub mmiClose_Click(sender As Object, e As EventArgs) Handles mmiClose.Click
         Me.Close()
     End Sub
 
-    Private Sub mmiOnlineHelp_Click(sender As System.Object, e As System.EventArgs) Handles mmiOnlineHelp.Click
+    Private Sub mmiOnlineHelp_Click(sender As Object, e As EventArgs) Handles mmiOnlineHelp.Click
         OpenDocumentationUrl(Me)
     End Sub
 
-    Private Sub mmiExport_Click(sender As System.Object, e As System.EventArgs) Handles mmiExport.Click
+    Private Sub mmiExport_Click(sender As Object, e As EventArgs) Handles mmiExport.Click
         dgvWork.ExportToExcel()
     End Sub
 
-    Private Sub mmiClear_Click(sender As System.Object, e As System.EventArgs) Handles mmiClear.Click
+    Private Sub mmiClear_Click(sender As Object, e As EventArgs) Handles mmiClear.Click
         LoadDefaultSettings()
     End Sub
 
-    Private Sub mmiSearch_Click(sender As System.Object, e As System.EventArgs) Handles mmiSearch.Click
+    Private Sub mmiSearch_Click(sender As Object, e As EventArgs) Handles mmiSearch.Click
         FacilitySearch()
     End Sub
 
-    Private Sub mmiRunFilter_Click(sender As System.Object, e As System.EventArgs) Handles mmiRunFilter.Click
+    Private Sub mmiRunFilter_Click(sender As Object, e As EventArgs) Handles mmiRunFilter.Click
         LoaddgvWork()
     End Sub
 #End Region
 
 #Region "Change Accept Button"
 
-    Private Sub pnlFilterPanel_Enter(sender As System.Object, e As System.EventArgs) Handles pnlFilterPanel.Enter
+    Private Sub pnlFilterPanel_Enter(sender As Object, e As EventArgs) Handles pnlFilterPanel.Enter
         Me.AcceptButton = btnRunFilter
     End Sub
 
-    Private Sub btnRunFilter_Leave(sender As System.Object, e As System.EventArgs) Handles btnRunFilter.Leave
+    Private Sub btnRunFilter_Leave(sender As Object, e As EventArgs) Handles btnRunFilter.Leave
         Me.AcceptButton = Nothing
     End Sub
 

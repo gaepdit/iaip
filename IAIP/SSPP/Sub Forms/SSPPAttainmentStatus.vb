@@ -12,7 +12,7 @@ Public Class SSPPAttainmentStatus
     Dim daCounty As SqlDataAdapter
 
 
-    Private Sub SSPPAttainmentStatus_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
+    Private Sub SSPPAttainmentStatus_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         Try
 
@@ -25,7 +25,7 @@ Public Class SSPPAttainmentStatus
             Panel3.Text = OracleDate
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -55,7 +55,7 @@ Public Class SSPPAttainmentStatus
             cboNonAttainmentStatus.Text = cboNonAttainmentStatus.Items.Item(0)
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -113,7 +113,7 @@ Public Class SSPPAttainmentStatus
             End With
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -258,7 +258,7 @@ Public Class SSPPAttainmentStatus
 
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -276,7 +276,7 @@ Public Class SSPPAttainmentStatus
             rdbEightHourNo.Checked = True
             rdbPMFineNo.Checked = True
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -374,7 +374,7 @@ Public Class SSPPAttainmentStatus
             dr.Close()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -471,7 +471,7 @@ Public Class SSPPAttainmentStatus
 
             dr.Close()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -590,7 +590,7 @@ Public Class SSPPAttainmentStatus
 
             dr.Close()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -599,20 +599,20 @@ Public Class SSPPAttainmentStatus
 
 #End Region
 #Region "Declarations"
-    Private Sub btnViewSelectedData_Click(sender As System.Object, e As System.EventArgs) Handles btnViewSelectedData.Click
+    Private Sub btnViewSelectedData_Click(sender As Object, e As EventArgs) Handles btnViewSelectedData.Click
         Try
 
 
             ViewSelectedData()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub btnViewCountyInfo_Click(sender As System.Object, e As System.EventArgs) Handles btnViewCountyInfo.Click
+    Private Sub btnViewCountyInfo_Click(sender As Object, e As EventArgs) Handles btnViewCountyInfo.Click
         Try
 
 
@@ -620,13 +620,13 @@ Public Class SSPPAttainmentStatus
 
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub dgvAttainmentStatus_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles dgvAttainmentStatus.MouseUp
+    Private Sub dgvAttainmentStatus_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvAttainmentStatus.MouseUp
         Dim hti As DataGridView.HitTestInfo = dgvAttainmentStatus.HitTest(e.X, e.Y)
 
         Try
@@ -640,7 +640,7 @@ Public Class SSPPAttainmentStatus
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -648,19 +648,19 @@ Public Class SSPPAttainmentStatus
 
 
     End Sub
-    Private Sub btnClear_Click(sender As System.Object, e As System.EventArgs) Handles btnClear.Click
+    Private Sub btnClear_Click(sender As Object, e As EventArgs) Handles btnClear.Click
         Try
 
             ClearForm()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
 
     End Sub
-    Private Sub btnSaveChanges_Click(sender As System.Object, e As System.EventArgs) Handles btnSaveChanges.Click
+    Private Sub btnSaveChanges_Click(sender As Object, e As EventArgs) Handles btnSaveChanges.Click
         Try
 
 
@@ -670,49 +670,49 @@ Public Class SSPPAttainmentStatus
 
             MsgBox("Done", MsgBoxStyle.Information, "Attainment Status Update")
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub btnOneHourChanges_Click(sender As System.Object, e As System.EventArgs) Handles btnOneHourChanges.Click
+    Private Sub btnOneHourChanges_Click(sender As Object, e As EventArgs) Handles btnOneHourChanges.Click
         Try
 
             SaveOneHourChanges()
             MsgBox("Done", MsgBoxStyle.Information, "Attainment Status Update")
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub btnEightHourChanges_Click(sender As System.Object, e As System.EventArgs) Handles btnEightHourChanges.Click
+    Private Sub btnEightHourChanges_Click(sender As Object, e As EventArgs) Handles btnEightHourChanges.Click
         Try
 
             SaveEightHourChanges()
             MsgBox("Done", MsgBoxStyle.Information, "Attainment Status Update")
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub btnPMFineChanges_Click(sender As System.Object, e As System.EventArgs) Handles btnPMFineChanges.Click
+    Private Sub btnPMFineChanges_Click(sender As Object, e As EventArgs) Handles btnPMFineChanges.Click
         Try
 
             SavePMFineChanges()
             MsgBox("Done", MsgBoxStyle.Information, "Attainment Status Update")
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub TBAttainmentStatus_ButtonClick(sender As System.Object, e As System.Windows.Forms.ToolBarButtonClickEventArgs) Handles TBAttainmentStatus.ButtonClick
+    Private Sub TBAttainmentStatus_ButtonClick(sender As Object, e As ToolBarButtonClickEventArgs) Handles TBAttainmentStatus.ButtonClick
         Try
 
             Select Case TBAttainmentStatus.Buttons.IndexOf(e.Button)
@@ -728,7 +728,7 @@ Public Class SSPPAttainmentStatus
             End Select
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -737,7 +737,7 @@ Public Class SSPPAttainmentStatus
 #End Region
 
 
-    Private Sub MmiHelp_Click(sender As System.Object, e As System.EventArgs) Handles MmiHelp.Click
+    Private Sub MmiHelp_Click(sender As Object, e As EventArgs) Handles MmiHelp.Click
         OpenDocumentationUrl(Me)
     End Sub
 End Class

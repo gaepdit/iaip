@@ -11,7 +11,7 @@ Public Class SBEAPPhoneLog
         End Set
     End Property
 
-    Private Sub SBEAPPhoneLog_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
+    Private Sub SBEAPPhoneLog_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         Try
 
@@ -25,7 +25,7 @@ Public Class SBEAPPhoneLog
 
             cboStaffResponsible.SelectedValue = CurrentUser.UserID
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
     End Sub
@@ -54,7 +54,7 @@ Public Class SBEAPPhoneLog
             txtPhoneCallNotes.Clear()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub LoadComboBoxes()
@@ -107,7 +107,7 @@ Public Class SBEAPPhoneLog
             End With
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 #End Region
@@ -197,7 +197,7 @@ Public Class SBEAPPhoneLog
             dr.Close()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub SavePhoneLog()
@@ -405,12 +405,12 @@ Public Class SBEAPPhoneLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
 #End Region
-    Private Sub rdbExistingClient_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles rdbExistingClient.CheckedChanged
+    Private Sub rdbExistingClient_CheckedChanged(sender As Object, e As EventArgs) Handles rdbExistingClient.CheckedChanged
         Try
             pnlClientInfo.Visible = True
             pnlExistingClient.Visible = True
@@ -419,10 +419,10 @@ Public Class SBEAPPhoneLog
             pnlDetails.Visible = True
             pnlDetails.BringToFront()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub rdbNewClient_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles rdbNewClient.CheckedChanged
+    Private Sub rdbNewClient_CheckedChanged(sender As Object, e As EventArgs) Handles rdbNewClient.CheckedChanged
         Try
             pnlClientInfo.Visible = True
             pnlNewClient.Visible = True
@@ -431,10 +431,10 @@ Public Class SBEAPPhoneLog
             pnlDetails.Visible = True
             pnlDetails.BringToFront()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnNewCall_Click(sender As System.Object, e As System.EventArgs) Handles btnNewCall.Click
+    Private Sub btnNewCall_Click(sender As Object, e As EventArgs) Handles btnNewCall.Click
         Try
             rdbNewClient.Checked = False
             rdbExistingClient.Checked = False
@@ -444,11 +444,11 @@ Public Class SBEAPPhoneLog
             pnlClientInfo.Visible = False
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub btnRefreshClient_Click(sender As System.Object, e As System.EventArgs) Handles btnRefreshClient.Click
+    Private Sub btnRefreshClient_Click(sender As Object, e As EventArgs) Handles btnRefreshClient.Click
         Try
             If txtClientID.Text <> "" Then
                 LoadClientInfo()
@@ -459,10 +459,10 @@ Public Class SBEAPPhoneLog
                 txtOutstandingCases.Clear()
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnCreateNewClient_Click(sender As System.Object, e As System.EventArgs) Handles btnCreateNewClient.Click
+    Private Sub btnCreateNewClient_Click(sender As Object, e As EventArgs) Handles btnCreateNewClient.Click
         Try
             If ClientSummary Is Nothing Then
 
@@ -472,19 +472,19 @@ Public Class SBEAPPhoneLog
             ClientSummary = New SBEAPClientSummary
             ClientSummary.Show()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub tsbSave_Click(sender As System.Object, e As System.EventArgs) Handles tsbSave.Click
+    Private Sub tsbSave_Click(sender As Object, e As EventArgs) Handles tsbSave.Click
         Try
             SavePhoneLog()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub tsbClientSearch_Click(sender As System.Object, e As System.EventArgs) Handles tsbClientSearch.Click
+    Private Sub tsbClientSearch_Click(sender As Object, e As EventArgs) Handles tsbClientSearch.Click
         Try
             Dim clientSearchDialog As New SBEAPClientSearchTool
             clientSearchDialog.ShowDialog()
@@ -493,21 +493,21 @@ Public Class SBEAPPhoneLog
                 LoadClientInfo()
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub mmiClearCaseID_Click(sender As System.Object, e As System.EventArgs) Handles mmiClearCaseID.Click
+    Private Sub mmiClearCaseID_Click(sender As Object, e As EventArgs) Handles mmiClearCaseID.Click
         Try
             txtCaseID.Clear()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
 
 
-    Private Sub chbOnetimeAssist_CheckStateChanged(sender As Object, e As System.EventArgs) Handles chbOnetimeAssist.CheckStateChanged
+    Private Sub chbOnetimeAssist_CheckStateChanged(sender As Object, e As EventArgs) Handles chbOnetimeAssist.CheckStateChanged
         Try
             If chbOnetimeAssist.Checked = True Then
                 btnCreateNewClient.Visible = False
@@ -515,7 +515,7 @@ Public Class SBEAPPhoneLog
                 btnCreateNewClient.Visible = True
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 End Class

@@ -13,7 +13,7 @@ Public Class SBEAPReports
     Dim dsAction As DataSet
     Dim daAction As SqlDataAdapter
 
-    Private Sub SBEAPReports_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
+    Private Sub SBEAPReports_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         Try
             DTPReportStartDate.Text = Format(Date.Today.AddMonths(-3), "dd-MMM-yyyy")
@@ -234,7 +234,7 @@ Public Class SBEAPReports
         End Try
     End Sub
 #End Region
-    Private Sub btnViewCase_Click(sender As System.Object, e As System.EventArgs) Handles btnViewCase.Click
+    Private Sub btnViewCase_Click(sender As Object, e As EventArgs) Handles btnViewCase.Click
         Try
             If txtCaseID.Text <> "" Then
                 If CaseWork Is Nothing Then
@@ -251,14 +251,14 @@ Public Class SBEAPReports
             ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnRunSBEAPReport_Click(sender As System.Object, e As System.EventArgs) Handles btnRunSBEAPReport.Click
+    Private Sub btnRunSBEAPReport_Click(sender As Object, e As EventArgs) Handles btnRunSBEAPReport.Click
         Try
             RunReport()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub llbViewNewClient_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbViewNewClient.LinkClicked
+    Private Sub llbViewNewClient_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewNewClient.LinkClicked
         Try
             SQL = "select " &
             "SBEAPClients.ClientID, strCompanyName, " &
@@ -301,7 +301,7 @@ Public Class SBEAPReports
             ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub llbClientsAssisted_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbClientsAssisted.LinkClicked
+    Private Sub llbClientsAssisted_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbClientsAssisted.LinkClicked
         Try
             SQL = "select " &
             "distinct(SBEAPActionLog.numCaseID) as CaseID, " &
@@ -364,7 +364,7 @@ Public Class SBEAPReports
         End Try
     End Sub
 
-    Private Sub llbNewCases_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbNewCases.LinkClicked
+    Private Sub llbNewCases_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbNewCases.LinkClicked
         Try
             SQL = "select SBEAPCaseLog.numCaseID, " &
             "SBEAPClients.ClientID, strCompanyName, " &
@@ -414,7 +414,7 @@ Public Class SBEAPReports
             ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub llbExistingCases_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbExistingCases.LinkClicked
+    Private Sub llbExistingCases_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbExistingCases.LinkClicked
         Try
             SQL = "select distinct(SBEAPCaseLog.numCaseID), " &
             "SBEAPClients.ClientID, strCompanyName, " &
@@ -481,7 +481,7 @@ Public Class SBEAPReports
             ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub llbTotalCases_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbTotalCases.LinkClicked
+    Private Sub llbTotalCases_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbTotalCases.LinkClicked
         Try
             SQL = "select SBEAPCaseLog.numCaseID, " &
             "SBEAPClients.ClientID, strCompanyName, " &
@@ -556,7 +556,7 @@ Public Class SBEAPReports
             ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub llbCasesClosed_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbCasesClosed.LinkClicked
+    Private Sub llbCasesClosed_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbCasesClosed.LinkClicked
         Try
             SQL = "select " &
             "distinct(SBEAPCaseLog.numCaseID), " &
@@ -612,7 +612,7 @@ Public Class SBEAPReports
             ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub llbFrontDestCalls_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbFrontDestCalls.LinkClicked
+    Private Sub llbFrontDestCalls_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbFrontDestCalls.LinkClicked
         Try
             SQL = "select " &
            "distinct(SBEAPActionLog.numActionID), " &
@@ -676,7 +676,7 @@ Public Class SBEAPReports
             ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub llbTotalActions_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbTotalActions.LinkClicked
+    Private Sub llbTotalActions_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbTotalActions.LinkClicked
         Try
             SQL = "select " &
             "distinct(SBEAPActionLog.numActionID), " &
@@ -734,7 +734,7 @@ Public Class SBEAPReports
             ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub llbViewOther_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbActionTypes.LinkClicked
+    Private Sub llbViewOther_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbActionTypes.LinkClicked
         Try
             If txtActionTypeCount.Text <> "" And txtActionTypeCount.Text <> "0" And txtActionTypeCount.Text <> " " Then
                 SQL = "select " &
@@ -819,7 +819,7 @@ Public Class SBEAPReports
             ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub dgvCaseWork_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles dgvCaseWork.MouseUp
+    Private Sub dgvCaseWork_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvCaseWork.MouseUp
         Try
             Dim hti As DataGridView.HitTestInfo = dgvCaseWork.HitTest(e.X, e.Y)
             If dgvCaseWork.RowCount > 0 And hti.RowIndex <> -1 Then
@@ -836,10 +836,10 @@ Public Class SBEAPReports
             ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnExportToExcel_Click(sender As System.Object, e As System.EventArgs) Handles btnExportToExcel.Click
+    Private Sub btnExportToExcel_Click(sender As Object, e As EventArgs) Handles btnExportToExcel.Click
         dgvCaseWork.ExportToExcel(Me)
     End Sub
-    Private Sub Button1_Click(sender As System.Object, e As System.EventArgs) Handles Button1.Click
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         Try
             Dim cmd2 As SqlCommand
             Dim dr2 As SqlDataReader
@@ -875,7 +875,7 @@ Public Class SBEAPReports
 
         End Try
     End Sub
-    Private Sub cboActionTypes_TextChanged(sender As Object, e As System.EventArgs) Handles cboActionTypes.TextChanged
+    Private Sub cboActionTypes_TextChanged(sender As Object, e As EventArgs) Handles cboActionTypes.TextChanged
         Try
             If txtTotalActionCount.Text <> "" And txtTotalActionCount.Text <> "0" Then
                 If cboActionTypes.SelectedValue <> " " Then

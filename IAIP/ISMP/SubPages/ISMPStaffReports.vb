@@ -16,7 +16,7 @@ Public Class ISMPStaffReports
     Dim dr, dr2, dr3 As SqlDataReader
     Dim dr4, dr5, dr6 As SqlDataReader
 
-    Private Sub ISMPStaffReports_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
+    Private Sub ISMPStaffReports_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         Try
 
@@ -25,15 +25,15 @@ Public Class ISMPStaffReports
 
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub llbRunEngineerStatReport_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbRunEngineerStatReport.LinkClicked
+    Private Sub llbRunEngineerStatReport_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbRunEngineerStatReport.LinkClicked
         Try
             EngineerUnitStats()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -44,7 +44,7 @@ Public Class ISMPStaffReports
             RunUnitEngineerStatistics(CurrentUser.UserID)
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -501,7 +501,7 @@ Public Class ISMPStaffReports
                     End While
 
                 Catch ex As Exception
-                    ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+                    ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
                 Finally
 
                 End Try
@@ -611,14 +611,14 @@ Public Class ISMPStaffReports
             txtEngineerStatistics.Text = txtEngineerStatistics.Text & Statement
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
 
-    Private Sub llbExportStatsToWord_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbExportStatsToWord.LinkClicked
+    Private Sub llbExportStatsToWord_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbExportStatsToWord.LinkClicked
         Dim WordText As String
         'Dim WordApp As New Word.ApplicationClass
         'Dim wordDoc As Word.DocumentClass
@@ -633,13 +633,13 @@ Public Class ISMPStaffReports
             WordApp.Selection.TypeText(WordText)
             WordApp.Visible = True
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub mmiHelp_Click(sender As System.Object, e As System.EventArgs) Handles mmiHelp.Click
+    Private Sub mmiHelp_Click(sender As Object, e As EventArgs) Handles mmiHelp.Click
         OpenDocumentationUrl(Me)
     End Sub
 End Class

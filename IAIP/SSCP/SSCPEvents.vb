@@ -25,7 +25,7 @@ Public Class SSCPEvents
 
 #Region " Form load "
 
-    Private Sub SSCP_Reports_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
+    Private Sub SSCP_Reports_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         Try
             btnPrint.Visible = False
@@ -45,11 +45,11 @@ Public Class SSCPEvents
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub SSCPEvents_Shown(sender As Object, e As System.EventArgs) Handles Me.Shown
+    Private Sub SSCPEvents_Shown(sender As Object, e As EventArgs) Handles Me.Shown
         Try
             ShowCorrectTab()
         Catch ex As Exception
@@ -74,7 +74,7 @@ Public Class SSCPEvents
             End With
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub ShowCorrectTab()
@@ -371,7 +371,7 @@ Public Class SSCPEvents
             dr.Close()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -695,7 +695,7 @@ Public Class SSCPEvents
     End Sub
 #End Region
 
-    Private Sub cboReportSchedule_SelectedValueChanged(sender As System.Object, e As System.EventArgs) Handles cboReportSchedule.SelectedIndexChanged
+    Private Sub cboReportSchedule_SelectedValueChanged(sender As Object, e As EventArgs) Handles cboReportSchedule.SelectedIndexChanged
         Dim today As Date = Date.Today
         Dim year As String = today.Year
 
@@ -767,7 +767,7 @@ Public Class SSCPEvents
                 OpenSingleForm(SSCPEnforcementSelector, parameters:=parameters, closeFirst:=True)
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -817,7 +817,7 @@ Public Class SSCPEvents
 
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -1021,7 +1021,7 @@ Public Class SSCPEvents
                 End If 'If recExist = False Then
             End If ' MsgBox("Data not saved")
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -1402,7 +1402,7 @@ Public Class SSCPEvents
             End If  'Warnings Check
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -1516,7 +1516,7 @@ Public Class SSCPEvents
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -1622,7 +1622,7 @@ Public Class SSCPEvents
 
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -1946,7 +1946,7 @@ Public Class SSCPEvents
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -2100,7 +2100,7 @@ Public Class SSCPEvents
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -2135,7 +2135,7 @@ Public Class SSCPEvents
             dgrReportResubmittal.DataMember = "Reports"
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -2184,7 +2184,7 @@ Public Class SSCPEvents
             dgrReportResubmittal.ColumnHeadersVisible = True
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -2258,7 +2258,7 @@ Public Class SSCPEvents
             End If   'If txtTrackingNumber.Text <> "" Then
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -2484,7 +2484,7 @@ Public Class SSCPEvents
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -2696,7 +2696,7 @@ Public Class SSCPEvents
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -2730,7 +2730,7 @@ Public Class SSCPEvents
             DGRACCResubmittal.DataMember = "ACCs"
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -2778,7 +2778,7 @@ Public Class SSCPEvents
             DGRACCResubmittal.ColumnHeadersVisible = True
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -2898,7 +2898,7 @@ Public Class SSCPEvents
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -3076,95 +3076,95 @@ Public Class SSCPEvents
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
 #Region "Validate"
 #Region "Reports"
-    Private Sub cboReportSchedule_Validating(sender As System.Object, e As System.ComponentModel.CancelEventArgs) Handles cboReportSchedule.Validating
+    Private Sub cboReportSchedule_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cboReportSchedule.Validating
         Try
 
             ValidatecboReportSchedule()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub rdbReportCompleteYes_Validating(sender As System.Object, e As System.ComponentModel.CancelEventArgs) Handles rdbReportCompleteYes.Validating
+    Private Sub rdbReportCompleteYes_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles rdbReportCompleteYes.Validating
         Try
 
             ValidateReportComplete()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub rdbReportCompleteNo_Validating(sender As System.Object, e As System.ComponentModel.CancelEventArgs) Handles rdbReportCompleteNo.Validating
+    Private Sub rdbReportCompleteNo_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles rdbReportCompleteNo.Validating
         Try
 
             ValidateReportComplete()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub rdbReportDeviationYes_Validating(sender As System.Object, e As System.ComponentModel.CancelEventArgs) Handles rdbReportDeviationYes.Validating
+    Private Sub rdbReportDeviationYes_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles rdbReportDeviationYes.Validating
         Try
 
             ValidateShowDeviation()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub rdbReportDeviationNo_Validating(sender As System.Object, e As System.ComponentModel.CancelEventArgs) Handles rdbReportDeviationNo.Validating
+    Private Sub rdbReportDeviationNo_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles rdbReportDeviationNo.Validating
         Try
 
             ValidateShowDeviation()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub rdbReportEnforcementYes_Validating(sender As System.Object, e As System.ComponentModel.CancelEventArgs) Handles rdbReportEnforcementYes.Validating
+    Private Sub rdbReportEnforcementYes_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles rdbReportEnforcementYes.Validating
         Try
 
             ValidateEnforcementNeeded()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub rdbReportEnforcementNo_Validating(sender As System.Object, e As System.ComponentModel.CancelEventArgs) Handles rdbReportEnforcementNo.Validating
+    Private Sub rdbReportEnforcementNo_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles rdbReportEnforcementNo.Validating
         Try
 
             ValidateEnforcementNeeded()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub NUPSubmittal_Validating(sender As System.Object, e As System.ComponentModel.CancelEventArgs) Handles NUPReportSubmittal.Validating
+    Private Sub NUPSubmittal_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles NUPReportSubmittal.Validating
         Try
 
             ValidateSubmittalNumber()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -3177,7 +3177,7 @@ Public Class SSCPEvents
 
             ValidatecboInspectionComplianceStatus()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -3188,7 +3188,7 @@ Public Class SSCPEvents
 
             ValidateFacilityOperating()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -3199,7 +3199,7 @@ Public Class SSCPEvents
 
             ValidateFacilityOperating()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -3210,7 +3210,7 @@ Public Class SSCPEvents
 
             ValidateDTPInspectionDates()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -3221,7 +3221,7 @@ Public Class SSCPEvents
 
             ValidateDTPInspectionDates()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -3235,7 +3235,7 @@ Public Class SSCPEvents
 
             ValidateTitleVConditions()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -3246,7 +3246,7 @@ Public Class SSCPEvents
 
             ValidateTitleVConditions()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -3257,7 +3257,7 @@ Public Class SSCPEvents
 
             ValidateCorrectACCForms()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -3268,7 +3268,7 @@ Public Class SSCPEvents
 
             ValidateCorrectACCForms()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -3279,7 +3279,7 @@ Public Class SSCPEvents
 
             ValidateCorrectlyFilledOut()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -3290,7 +3290,7 @@ Public Class SSCPEvents
 
             ValidateCorrectlyFilledOut()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -3301,7 +3301,7 @@ Public Class SSCPEvents
 
             ValidateReportedDeviations()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -3312,7 +3312,7 @@ Public Class SSCPEvents
 
             ValidateReportedDeviations()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -3323,7 +3323,7 @@ Public Class SSCPEvents
 
             ValidateACCEnforcementNeeded()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -3334,7 +3334,7 @@ Public Class SSCPEvents
         Try
             ValidateACCAllDeviationsReported()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub rdbACCResubmittalRequested_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) _
@@ -3342,7 +3342,7 @@ Public Class SSCPEvents
         Try
             ValidateACCResubmittalRequested()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub rdbACCEnforcementNeededNo_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles rdbACCEnforcementNeededNo.Validating
@@ -3350,7 +3350,7 @@ Public Class SSCPEvents
 
             ValidateACCEnforcementNeeded()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -3362,7 +3362,7 @@ Public Class SSCPEvents
             ValidatePostmarkDate()
             'ValidateDatePostmarked()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -3374,7 +3374,7 @@ Public Class SSCPEvents
             ValidatePostmarkDate()
             ValidateDatePostmarked()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -3385,7 +3385,7 @@ Public Class SSCPEvents
 
             ValidatePreviouslyReportedDeviations()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -3396,7 +3396,7 @@ Public Class SSCPEvents
 
             ValidatePreviouslyReportedDeviations()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -3407,7 +3407,7 @@ Public Class SSCPEvents
 
             ValidateROSigned()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -3418,7 +3418,7 @@ Public Class SSCPEvents
 
             ValidateROSigned()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -3429,7 +3429,7 @@ Public Class SSCPEvents
 
             ValidateNUPACCSubmittal()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -3453,7 +3453,7 @@ Public Class SSCPEvents
             ValidateEnforcementNeeded()
             ValidateSubmittalNumber()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -3468,7 +3468,7 @@ Public Class SSCPEvents
                 wrnReportPeriod.Visible = False
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -3483,7 +3483,7 @@ Public Class SSCPEvents
                 wrnCompleteReport.Visible = False
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -3498,7 +3498,7 @@ Public Class SSCPEvents
                 wrnShowDeviation.Visible = False
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -3513,7 +3513,7 @@ Public Class SSCPEvents
                 wrnEnforcementNeeded.Visible = False
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -3528,7 +3528,7 @@ Public Class SSCPEvents
                 wrnReportSubmittal.Visible = False
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -3543,7 +3543,7 @@ Public Class SSCPEvents
             ValidateFacilityOperating()
             ValidateDTPInspectionDates()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -3559,7 +3559,7 @@ Public Class SSCPEvents
                 wrnInspectionComplianceStatus.Visible = False
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -3574,7 +3574,7 @@ Public Class SSCPEvents
                 wrnInspectionOperating.Visible = False
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -3590,7 +3590,7 @@ Public Class SSCPEvents
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -3618,7 +3618,7 @@ Public Class SSCPEvents
             ValidateACCAllDeviationsReported()
             ValidateACCResubmittalRequested()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -3633,7 +3633,7 @@ Public Class SSCPEvents
                 wrnACCSubmittal.Visible = False
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -3648,7 +3648,7 @@ Public Class SSCPEvents
                 wrnACCPostmark.Visible = False
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -3663,7 +3663,7 @@ Public Class SSCPEvents
                 wrnACCRO.Visible = False
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -3678,7 +3678,7 @@ Public Class SSCPEvents
                 wrnACCCorrectACC.Visible = False
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -3693,7 +3693,7 @@ Public Class SSCPEvents
                 wrnACCConditions.Visible = False
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -3708,7 +3708,7 @@ Public Class SSCPEvents
                 wrnACCCorrect.Visible = False
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -3723,7 +3723,7 @@ Public Class SSCPEvents
                 wrnACCDeviationsReported.Visible = False
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -3738,7 +3738,7 @@ Public Class SSCPEvents
                 wrnACCPreviousDeviations.Visible = False
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -3753,7 +3753,7 @@ Public Class SSCPEvents
                 wrnACCEnforcementNeeded.Visible = False
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -3772,7 +3772,7 @@ Public Class SSCPEvents
                 End If
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub ValidateACCResubmittalRequested()
@@ -3788,7 +3788,7 @@ Public Class SSCPEvents
                 End If
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub ValidateDatePostmarked()
@@ -3828,7 +3828,7 @@ Public Class SSCPEvents
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -3838,7 +3838,7 @@ Public Class SSCPEvents
 #End Region
 #End Region
 
-    Private Sub dgrReportResubmittal_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles dgrReportResubmittal.MouseUp
+    Private Sub dgrReportResubmittal_MouseUp(sender As Object, e As MouseEventArgs) Handles dgrReportResubmittal.MouseUp
         Dim hti As DataGrid.HitTestInfo = dgrReportResubmittal.HitTest(e.X, e.Y)
         Try
 
@@ -3856,13 +3856,13 @@ Public Class SSCPEvents
                 End If
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub DGRACCResubmittal_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles DGRACCResubmittal.MouseUp
+    Private Sub DGRACCResubmittal_MouseUp(sender As Object, e As MouseEventArgs) Handles DGRACCResubmittal.MouseUp
         Dim hti As DataGrid.HitTestInfo = DGRACCResubmittal.HitTest(e.X, e.Y)
         Try
 
@@ -3880,13 +3880,13 @@ Public Class SSCPEvents
                 End If
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub chbTestReportChangeDueDate_CheckedChanged(sender As Object, e As System.EventArgs) Handles chbTestReportChangeDueDate.CheckedChanged
+    Private Sub chbTestReportChangeDueDate_CheckedChanged(sender As Object, e As EventArgs) Handles chbTestReportChangeDueDate.CheckedChanged
         Try
 
             If chbTestReportChangeDueDate.Checked = False Then
@@ -3895,27 +3895,27 @@ Public Class SSCPEvents
                 DTPTestReportDueDate.Visible = True
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub DTPTestReportDueDate_TextChanged(sender As Object, e As System.EventArgs) Handles DTPTestReportDueDate.TextChanged
+    Private Sub DTPTestReportDueDate_TextChanged(sender As Object, e As EventArgs) Handles DTPTestReportDueDate.TextChanged
         Try
 
             If chbTestReportChangeDueDate.Checked = True Then
                 txtTestReportDueDate.Text = DTPTestReportDueDate.Text
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
 
-    Private Sub cboNotificationType_SelectedIndexChanged(sender As Object, e As System.EventArgs) Handles cboNotificationType.SelectedIndexChanged
+    Private Sub cboNotificationType_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboNotificationType.SelectedIndexChanged
         Try
 
             Select Case cboNotificationType.Text
@@ -3953,7 +3953,7 @@ Public Class SSCPEvents
             End Select
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -3961,7 +3961,7 @@ Public Class SSCPEvents
     End Sub
 
 
-    Private Sub chbEventComplete_CheckedChanged(sender As Object, e As System.EventArgs) Handles chbEventComplete.CheckedChanged
+    Private Sub chbEventComplete_CheckedChanged(sender As Object, e As EventArgs) Handles chbEventComplete.CheckedChanged
         Try
 
             If AccountFormAccess(49, 1) = "1" Or AccountFormAccess(49, 2) = "1" Or AccountFormAccess(49, 3) = "1" Or AccountFormAccess(49, 4) = "1" Then
@@ -3972,16 +3972,16 @@ Public Class SSCPEvents
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub btnEnforcementProcess_Click(sender As System.Object, e As System.EventArgs) Handles btnEnforcementProcess.Click
+    Private Sub btnEnforcementProcess_Click(sender As Object, e As EventArgs) Handles btnEnforcementProcess.Click
         OpenEnforcement()
     End Sub
-    Private Sub btnReportMoreOptions_Click(sender As System.Object, e As System.EventArgs) Handles btnReportMoreOptions.Click
+    Private Sub btnReportMoreOptions_Click(sender As Object, e As EventArgs) Handles btnReportMoreOptions.Click
         Dim tempWidth As String
         Dim tempHeight As String
 
@@ -3996,13 +3996,13 @@ Public Class SSCPEvents
                 dgrReportResubmittal.Size = New System.Drawing.Size(10, tempHeight)
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub btnViewTestReport_Click(sender As System.Object, e As System.EventArgs) Handles btnViewTestReport.Click
+    Private Sub btnViewTestReport_Click(sender As Object, e As EventArgs) Handles btnViewTestReport.Click
         Try
 
             If txtISMPReferenceNumber.Text <> "N/A" Then
@@ -4013,13 +4013,13 @@ Public Class SSCPEvents
                 PrintOut.Show()
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub btnACCSubmittals_Click(sender As System.Object, e As System.EventArgs) Handles btnACCSubmittals.Click
+    Private Sub btnACCSubmittals_Click(sender As Object, e As EventArgs) Handles btnACCSubmittals.Click
         Dim tempWidth As String
         Dim tempHeight As String
 
@@ -4034,13 +4034,13 @@ Public Class SSCPEvents
                 DGRACCResubmittal.Size = New System.Drawing.Size(10, tempHeight)
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub chbReportReceivedByAPB_CheckedChanged(sender As Object, e As System.EventArgs) Handles chbReportReceivedByAPB.CheckedChanged
+    Private Sub chbReportReceivedByAPB_CheckedChanged(sender As Object, e As EventArgs) Handles chbReportReceivedByAPB.CheckedChanged
         Try
             If chbReportReceivedByAPB.Checked = True Then
                 DTPReportReceivedDate.Enabled = True
@@ -4049,12 +4049,12 @@ Public Class SSCPEvents
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
     End Sub
-    Private Sub chbISMPTestReportReceivedByAPB_CheckedChanged(sender As Object, e As System.EventArgs) Handles chbISMPTestReportReceivedByAPB.CheckedChanged
+    Private Sub chbISMPTestReportReceivedByAPB_CheckedChanged(sender As Object, e As EventArgs) Handles chbISMPTestReportReceivedByAPB.CheckedChanged
         Try
             If chbISMPTestReportReceivedByAPB.Checked = True Then
                 DTPTestReportReceivedDate.Enabled = True
@@ -4063,12 +4063,12 @@ Public Class SSCPEvents
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
     End Sub
-    Private Sub chbNotificationReceivedByAPB_CheckedChanged(sender As Object, e As System.EventArgs) Handles chbNotificationReceivedByAPB.CheckedChanged
+    Private Sub chbNotificationReceivedByAPB_CheckedChanged(sender As Object, e As EventArgs) Handles chbNotificationReceivedByAPB.CheckedChanged
         Try
             If chbNotificationReceivedByAPB.Checked = True Then
                 DTPNotificationReceived.Enabled = True
@@ -4077,12 +4077,12 @@ Public Class SSCPEvents
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
     End Sub
-    Private Sub chbACCReceivedByAPB_CheckedChanged(sender As Object, e As System.EventArgs) Handles chbACCReceivedByAPB.CheckedChanged
+    Private Sub chbACCReceivedByAPB_CheckedChanged(sender As Object, e As EventArgs) Handles chbACCReceivedByAPB.CheckedChanged
         Try
             If chbACCReceivedByAPB.Checked = True Then
                 DTPACCReceivedDate.Enabled = True
@@ -4091,7 +4091,7 @@ Public Class SSCPEvents
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -4112,7 +4112,7 @@ Public Class SSCPEvents
             Dim crv As New CRViewerForm(New CR.Reports.AccMemo, dataTable, title:=title)
             crv.Show()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 

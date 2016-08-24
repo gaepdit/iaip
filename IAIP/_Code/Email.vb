@@ -39,7 +39,7 @@
 
             Return result
         Catch ex As Exception
-            ErrorReport(ex, System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
     End Function

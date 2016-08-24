@@ -15,7 +15,7 @@ Public Class ISMPAddPollutants
     Dim daPollutant As SqlDataAdapter
 
 
-    Private Sub ISMPAddPollutants_Load(sender As Object, e As System.EventArgs) Handles MyBase.Load
+    Private Sub ISMPAddPollutants_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         Try
 
@@ -24,7 +24,7 @@ Public Class ISMPAddPollutants
             LoadDataSet()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -63,7 +63,7 @@ Public Class ISMPAddPollutants
             Me.Controls.Add(statusBar1)
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -89,7 +89,7 @@ Public Class ISMPAddPollutants
             dgrPollutants.DataMember = "Pollutant"
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -134,7 +134,7 @@ Public Class ISMPAddPollutants
             dgrPollutants.ColumnHeadersVisible = True
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -188,7 +188,7 @@ Public Class ISMPAddPollutants
                 MsgBox("You must add a pollutant", MsgBoxStyle.Information, "ISMP Add Pollutant")
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -202,7 +202,7 @@ Public Class ISMPAddPollutants
             txtPollutantCode.Clear()
             chbDeletePollutant.Checked = False
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -215,7 +215,7 @@ Public Class ISMPAddPollutants
             ISMPAddPollutant = Nothing
             Me.Close()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -277,7 +277,7 @@ Public Class ISMPAddPollutants
             txtPollutantCode.Text = PollutantCode
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -285,7 +285,7 @@ Public Class ISMPAddPollutants
     End Sub
 #End Region
 
-    Private Sub TBAddPollutant_ButtonClick(sender As System.Object, e As System.Windows.Forms.ToolBarButtonClickEventArgs) Handles TBAddPollutant.ButtonClick
+    Private Sub TBAddPollutant_ButtonClick(sender As Object, e As ToolBarButtonClickEventArgs) Handles TBAddPollutant.ButtonClick
         Try
 
             Select Case TBAddPollutant.Buttons.IndexOf(e.Button)
@@ -297,13 +297,13 @@ Public Class ISMPAddPollutants
                     Back()
             End Select
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub dgrPollutants_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles dgrPollutants.MouseUp
+    Private Sub dgrPollutants_MouseUp(sender As Object, e As MouseEventArgs) Handles dgrPollutants.MouseUp
         Dim hti As DataGrid.HitTestInfo = dgrPollutants.HitTest(e.X, e.Y)
 
         Try
@@ -320,7 +320,7 @@ Public Class ISMPAddPollutants
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -332,7 +332,7 @@ Public Class ISMPAddPollutants
 
             ISMPAddPollutant = Nothing
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -340,84 +340,84 @@ Public Class ISMPAddPollutants
     End Sub
 
 #Region "Main Menu Item"
-    Private Sub MmiSave_Click(sender As System.Object, e As System.EventArgs) Handles MmiSave.Click
+    Private Sub MmiSave_Click(sender As Object, e As EventArgs) Handles MmiSave.Click
         Try
 
             Save()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiBack_Click(sender As System.Object, e As System.EventArgs) Handles MmiBack.Click
+    Private Sub MmiBack_Click(sender As Object, e As EventArgs) Handles MmiBack.Click
         Try
 
             Back()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub mmiCut_Click(sender As System.Object, e As System.EventArgs) Handles mmiCut.Click
+    Private Sub mmiCut_Click(sender As Object, e As EventArgs) Handles mmiCut.Click
         Try
 
             SendKeys.Send("(^X)")
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub mmiCopy_Click(sender As System.Object, e As System.EventArgs) Handles mmiCopy.Click
+    Private Sub mmiCopy_Click(sender As Object, e As EventArgs) Handles mmiCopy.Click
         Try
 
             SendKeys.Send("(^C)")
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub mmiPaste_Click(sender As System.Object, e As System.EventArgs) Handles mmiPaste.Click
+    Private Sub mmiPaste_Click(sender As Object, e As EventArgs) Handles mmiPaste.Click
         Try
 
             SendKeys.Send("(^V)")
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub mmiClear_Click(sender As System.Object, e As System.EventArgs) Handles mmiClear.Click
+    Private Sub mmiClear_Click(sender As Object, e As EventArgs) Handles mmiClear.Click
         Try
 
             Clear()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub mmiHelp_Click(sender As System.Object, e As System.EventArgs) Handles mmiHelp.Click
+    Private Sub mmiHelp_Click(sender As Object, e As EventArgs) Handles mmiHelp.Click
         OpenDocumentationUrl(Me)
     End Sub
 #End Region
 
 
-    Private Sub llbGetNextValue_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbGetNextValue.LinkClicked
+    Private Sub llbGetNextValue_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbGetNextValue.LinkClicked
         Try
 
             GetNextPollutantCode()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try

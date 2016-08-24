@@ -37,7 +37,7 @@ Public Class DmuEdtErrorMessageDetail
 
 #Region " Load "
 
-    Private Sub DmuEdtErrorMessageDetail_Load(sender As Object, e As System.EventArgs) Handles Me.Load
+    Private Sub DmuEdtErrorMessageDetail_Load(sender As Object, e As EventArgs) Handles Me.Load
 
         AddDisplayOptionHandlers()
         PrepUserComboBoxes()
@@ -54,7 +54,7 @@ Public Class DmuEdtErrorMessageDetail
 
 #Region " Form resize "
 
-    Private Sub DmuEdtErrorMessageDetail_ResizeEnd(sender As System.Object, e As System.EventArgs) Handles MyBase.ResizeEnd
+    Private Sub DmuEdtErrorMessageDetail_ResizeEnd(sender As Object, e As EventArgs) Handles MyBase.ResizeEnd
         ErrorMessageDisplay.MaximumSize = New Size(ErrorMessageDisplayContainer.Size.Width - 30, 0)
         BusinessRuleDisplay.MaximumSize = New Size(BusinessRuleDisplayContainer.Size.Width - 30, 0)
     End Sub
@@ -77,7 +77,7 @@ Public Class DmuEdtErrorMessageDetail
 
 #Region " Get Data "
 
-    Private Sub ReloadButton_Click(sender As Object, e As System.EventArgs) Handles ReloadButton.Click
+    Private Sub ReloadButton_Click(sender As Object, e As EventArgs) Handles ReloadButton.Click
         If headerSuccess Then
             GetTableData()
         End If
@@ -192,7 +192,7 @@ Public Class DmuEdtErrorMessageDetail
 
     End Sub
 
-    Private Sub EdtErrorMessageGrid_CellFormatting(sender As System.Object, e As System.Windows.Forms.DataGridViewCellFormattingEventArgs) _
+    Private Sub EdtErrorMessageGrid_CellFormatting(sender As Object, e As DataGridViewCellFormattingEventArgs) _
     Handles EdtErrorMessageGrid.CellFormatting
 
         If TypeOf e.CellStyle.FormatProvider Is ICustomFormatter Then
@@ -224,7 +224,7 @@ Public Class DmuEdtErrorMessageDetail
         EdtErrorCountDisplay.Text = shownCount.ToString & " error" & If(shownCount = 1, "", "s") & " shown / " & totalCount.ToString & " total"
     End Sub
 
-    Private Sub DisplayOptionsChanged(sender As Object, e As System.EventArgs)
+    Private Sub DisplayOptionsChanged(sender As Object, e As EventArgs)
         SetGridFilter()
     End Sub
 
@@ -245,41 +245,41 @@ Public Class DmuEdtErrorMessageDetail
         edtErrorDetail.EdtErrorID = errorID
     End Sub
 
-    Private Sub EdtErrorMessageGrid_CellClick(sender As Object, e As System.Windows.Forms.DataGridViewCellEventArgs) Handles EdtErrorMessageGrid.CellClick
+    Private Sub EdtErrorMessageGrid_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles EdtErrorMessageGrid.CellClick
         ' Only within the cell content of first column
         If e.RowIndex <> -1 And e.RowIndex < EdtErrorMessageGrid.RowCount And e.ColumnIndex = 0 Then
             OpenEdtErrorDetail(EdtErrorMessageGrid.Rows(e.RowIndex).Cells(0).Value)
         End If
     End Sub
 
-    Private Sub EdtErrorMessageGrid_CellDoubleClick(sender As Object, e As System.Windows.Forms.DataGridViewCellEventArgs) Handles EdtErrorMessageGrid.CellDoubleClick
+    Private Sub EdtErrorMessageGrid_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles EdtErrorMessageGrid.CellDoubleClick
         'Double-click within the cell content (but exclude first column to avoid double-firing)
         If e.RowIndex <> -1 And e.RowIndex < EdtErrorMessageGrid.RowCount And e.ColumnIndex <> 0 Then
             OpenEdtErrorDetail(EdtErrorMessageGrid.Rows(e.RowIndex).Cells(0).Value)
         End If
     End Sub
 
-    Private Sub EdtErrorMessageGrid_CellMouseEnter(sender As Object, e As System.Windows.Forms.DataGridViewCellEventArgs) Handles EdtErrorMessageGrid.CellMouseEnter
+    Private Sub EdtErrorMessageGrid_CellMouseEnter(sender As Object, e As DataGridViewCellEventArgs) Handles EdtErrorMessageGrid.CellMouseEnter
         ' Change cursor and text color when hovering over first column (treats text like a hyperlink)
         If e.RowIndex <> -1 And e.RowIndex < EdtErrorMessageGrid.RowCount And e.ColumnIndex = 0 Then
             EdtErrorMessageGrid.MakeCellLookLikeHoveredLink(e.RowIndex, e.ColumnIndex, True)
         End If
     End Sub
 
-    Private Sub EdtErrorMessageGrid_CellMouseLeave(sender As Object, e As System.Windows.Forms.DataGridViewCellEventArgs) Handles EdtErrorMessageGrid.CellMouseLeave
+    Private Sub EdtErrorMessageGrid_CellMouseLeave(sender As Object, e As DataGridViewCellEventArgs) Handles EdtErrorMessageGrid.CellMouseLeave
         ' Reset cursor and text color when mouse leaves (un-hovers) a cell
         If e.RowIndex <> -1 And e.RowIndex < EdtErrorMessageGrid.RowCount And e.ColumnIndex = 0 Then
             EdtErrorMessageGrid.MakeCellLookLikeHoveredLink(e.RowIndex, e.ColumnIndex, False)
         End If
     End Sub
 
-    Private Sub EdtErrorMessageGrid_KeyUp(sender As Object, e As System.Windows.Forms.KeyEventArgs) Handles EdtErrorMessageGrid.KeyUp
+    Private Sub EdtErrorMessageGrid_KeyUp(sender As Object, e As KeyEventArgs) Handles EdtErrorMessageGrid.KeyUp
         If e.KeyCode = Keys.Enter Then
             OpenEdtErrorDetail(EdtErrorMessageGrid.CurrentRow.Cells(0).Value)
         End If
     End Sub
 
-    Private Sub OpenEdtError_Click(sender As System.Object, e As System.EventArgs) Handles OpenEdtError.Click
+    Private Sub OpenEdtError_Click(sender As Object, e As EventArgs) Handles OpenEdtError.Click
         If EdtErrorMessageGrid.RowCount > 0 AndAlso EdtErrorMessageGrid.SelectedRows.Count = 1 Then
             OpenEdtErrorDetail(EdtErrorMessageGrid.SelectedRows(0).Cells(0).Value)
         End If
@@ -289,7 +289,7 @@ Public Class DmuEdtErrorMessageDetail
 
 #Region " Grid Selection "
 
-    Private Sub EdtErrorMessageGrid_SelectionChanged(sender As System.Object, e As System.EventArgs) Handles EdtErrorMessageGrid.SelectionChanged
+    Private Sub EdtErrorMessageGrid_SelectionChanged(sender As Object, e As EventArgs) Handles EdtErrorMessageGrid.SelectionChanged
         OpenEdtError.Enabled = (EdtErrorMessageGrid.SelectedRows.Count = 1)
         GridSelectionActionPanel.Enabled = (EdtErrorMessageGrid.SelectedRows.Count > 0)
         DetermineSelectedRowStatuses()
@@ -346,7 +346,7 @@ Public Class DmuEdtErrorMessageDetail
 
 #Region " Update data "
 
-    Private Sub AssignDefaultUser_Click(sender As System.Object, e As System.EventArgs) Handles AssignDefaultUser.Click
+    Private Sub AssignDefaultUser_Click(sender As Object, e As EventArgs) Handles AssignDefaultUser.Click
         If DAL.Dmu.SetDefaultUser(EdtErrorCode, UserAsDefault.SelectedValue) Then
             MessageBox.Show("Default user set.", "Success", MessageBoxButtons.OK)
         Else
@@ -354,7 +354,7 @@ Public Class DmuEdtErrorMessageDetail
         End If
     End Sub
 
-    Private Sub AssignSelectedToUser_Click(sender As System.Object, e As System.EventArgs) Handles AssignSelectedToUser.Click
+    Private Sub AssignSelectedToUser_Click(sender As Object, e As EventArgs) Handles AssignSelectedToUser.Click
         Dim idArray As Integer() = GetSelectedIDs()
         Dim result As Boolean = False
 
@@ -383,7 +383,7 @@ Public Class DmuEdtErrorMessageDetail
         SetCountDisplay()
     End Sub
 
-    Private Sub ChangeStatusForSelectedRows_Click(sender As System.Object, e As System.EventArgs) Handles ChangeStatusForSelectedRows.Click
+    Private Sub ChangeStatusForSelectedRows_Click(sender As Object, e As EventArgs) Handles ChangeStatusForSelectedRows.Click
         If statusOfSelectedRows = SelectedRowsState.AllOpen Or statusOfSelectedRows = SelectedRowsState.AllResolved Then
             Dim idArray As Integer() = GetSelectedIDs()
             Dim result As Boolean = False

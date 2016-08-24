@@ -10,7 +10,7 @@ Public Class ISMPConfidentialData
     Dim DocumentType As String
 
 
-    Private Sub DEVConfidentialData_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
+    Private Sub DEVConfidentialData_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         Try
             Panel1.Text = "Mark field to be redacted..."
@@ -20,7 +20,7 @@ Public Class ISMPConfidentialData
             LoadData()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -30,7 +30,7 @@ Public Class ISMPConfidentialData
             ISMPConfidential = Nothing
             Me.Dispose()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -2415,7 +2415,7 @@ Public Class ISMPConfidentialData
 
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -4575,57 +4575,57 @@ Public Class ISMPConfidentialData
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
     End Sub
 
-    Private Sub tsbSave_Click(sender As System.Object, e As System.EventArgs) Handles tsbSave.Click
+    Private Sub tsbSave_Click(sender As Object, e As EventArgs) Handles tsbSave.Click
         Try
 
             SaveConfidentialData()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
     End Sub
-    Private Sub mmiSave_Click(sender As System.Object, e As System.EventArgs) Handles mmiSave.Click
+    Private Sub mmiSave_Click(sender As Object, e As EventArgs) Handles mmiSave.Click
         Try
 
             SaveConfidentialData()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
     End Sub
-    Private Sub mmiBack_Click(sender As System.Object, e As System.EventArgs) Handles mmiBack.Click
+    Private Sub mmiBack_Click(sender As Object, e As EventArgs) Handles mmiBack.Click
         Try
             ISMPConfidential = Nothing
             Me.Dispose()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
     End Sub
-    Private Sub tsbBack_Click(sender As System.Object, e As System.EventArgs) Handles tsbBack.Click
+    Private Sub tsbBack_Click(sender As Object, e As EventArgs) Handles tsbBack.Click
         Try
             ISMPConfidential = Nothing
             Me.Dispose()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
     End Sub
 
 
-    Private Sub mmiHelp_Click(sender As System.Object, e As System.EventArgs) Handles mmiHelp.Click
+    Private Sub mmiHelp_Click(sender As Object, e As EventArgs) Handles mmiHelp.Click
         OpenDocumentationUrl(Me)
     End Sub
 End Class

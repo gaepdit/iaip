@@ -120,7 +120,7 @@ Public Class CRViewerForm
 
 #Region " Form events "
 
-    Private Sub CrystalReportViewerForm_FormClosed(sender As Object, e As System.Windows.Forms.FormClosedEventArgs) Handles Me.FormClosed
+    Private Sub CrystalReportViewerForm_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
         CRViewerControl.ReportSource = Nothing
         If CRReportDocument IsNot Nothing Then
             CRReportDocument.Close()
@@ -128,7 +128,7 @@ Public Class CRViewerForm
         End If
     End Sub
 
-    Private Sub CrystalReportViewerForm_Load(sender As Object, e As System.EventArgs) Handles Me.Load
+    Private Sub CrystalReportViewerForm_Load(sender As Object, e As EventArgs) Handles Me.Load
         monitor.TrackFeature("Report." & CRReportDocument.ResourceName)
 
         If Me.CRReportDocument IsNot Nothing Then

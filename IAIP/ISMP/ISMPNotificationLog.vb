@@ -11,7 +11,7 @@ Public Class ISMPNotificationLog
     Dim dsStaffResponsible As DataSet
     Dim daStaffResponsible As SqlDataAdapter
 
-    Private Sub DevNotificationLog_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
+    Private Sub DevNotificationLog_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         Try
             Panel1.Text = "Select a Function..."
@@ -34,7 +34,7 @@ Public Class ISMPNotificationLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -129,7 +129,7 @@ Public Class ISMPNotificationLog
             cboStaffResponsible.SelectedValue = CurrentUser.UserID
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
 
         End Try
     End Sub
@@ -319,7 +319,7 @@ Public Class ISMPNotificationLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
 
@@ -347,7 +347,7 @@ Public Class ISMPNotificationLog
             dr.Close()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 #End Region
@@ -516,7 +516,7 @@ Public Class ISMPNotificationLog
                 MsgBox("You do not have sufficent permissions to save.", MsgBoxStyle.Information, "Notification Log")
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
 
         End Try
     End Sub
@@ -539,7 +539,7 @@ Public Class ISMPNotificationLog
             dr.Close()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -552,11 +552,11 @@ Public Class ISMPNotificationLog
             Me.Dispose()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
     End Sub
-    Private Sub bbtSave_Click(sender As System.Object, e As System.EventArgs) Handles bbtSave.Click
+    Private Sub bbtSave_Click(sender As Object, e As EventArgs) Handles bbtSave.Click
         Try
             If txtTestNotificationNumber.Text <> "" Then
                 SaveNotification()
@@ -565,28 +565,28 @@ Public Class ISMPNotificationLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub tsbBack_Click(sender As System.Object, e As System.EventArgs) Handles tsbBack.Click
+    Private Sub tsbBack_Click(sender As Object, e As EventArgs) Handles tsbBack.Click
         Try
 
             ISMPNotificationLogForm = Nothing
             Me.Dispose()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnNewTestNotification_Click(sender As System.Object, e As System.EventArgs) Handles btnNewTestNotification.Click
+    Private Sub btnNewTestNotification_Click(sender As Object, e As EventArgs) Handles btnNewTestNotification.Click
         Try
             SelectNewTestNotifcationNumber()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
     End Sub
-    Private Sub SaveToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles SaveToolStripMenuItem.Click
+    Private Sub SaveToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SaveToolStripMenuItem.Click
         Try
             If txtTestNotificationNumber.Text <> "" Then
                 SaveNotification()
@@ -595,47 +595,47 @@ Public Class ISMPNotificationLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub BackToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles BackToolStripMenuItem.Click
+    Private Sub BackToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles BackToolStripMenuItem.Click
         Try
 
             ISMPNotificationLogForm = Nothing
             Me.Dispose()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub CutToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles CutToolStripMenuItem.Click
+    Private Sub CutToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CutToolStripMenuItem.Click
         Try
 
             SendKeys.Send("(^X)")
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
     End Sub
-    Private Sub CopyToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles CopyToolStripMenuItem.Click
+    Private Sub CopyToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CopyToolStripMenuItem.Click
         Try
 
             SendKeys.Send("(^C)")
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
     End Sub
-    Private Sub PasteToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles PasteToolStripMenuItem.Click
+    Private Sub PasteToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PasteToolStripMenuItem.Click
         Try
 
             SendKeys.Send("(^V)")
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
     End Sub
-    Private Sub rdbTestPlanAvailable_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles rdbTestPlanAvailable.CheckedChanged
+    Private Sub rdbTestPlanAvailable_CheckedChanged(sender As Object, e As EventArgs) Handles rdbTestPlanAvailable.CheckedChanged
         Try
             If rdbTestPlanAvailable.Checked = True Then
                 DTPTestPlanReceived.Visible = True
@@ -646,7 +646,7 @@ Public Class ISMPNotificationLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
 
         End Try
     End Sub
@@ -656,7 +656,7 @@ Public Class ISMPNotificationLog
 
 
 
-    Private Sub HelpToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles HelpToolStripMenuItem.Click
+    Private Sub HelpToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem.Click
         OpenDocumentationUrl(Me)
     End Sub
 End Class

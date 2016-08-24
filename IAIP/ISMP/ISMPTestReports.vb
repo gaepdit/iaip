@@ -52,7 +52,7 @@ Public Class ISMPTestReports
         End Set
     End Property
 
-    Private Sub ISMPTestReports_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
+    Private Sub ISMPTestReports_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         Try
             txtReferenceNumber.Text = Me.ReferenceNumber
@@ -92,7 +92,7 @@ Public Class ISMPTestReports
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -252,7 +252,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
 
 
         Catch ex As Exception
-            ErrorReport(ex, SQL, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, SQL, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -2003,7 +2003,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
             End With
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -2060,7 +2060,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
             TCDocumentTypes.TabPages.Add(TPSSCPWork)
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -2482,7 +2482,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
             dr.Close()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -3274,7 +3274,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
             End Select
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -4465,7 +4465,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
             dr.Close()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -4653,7 +4653,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
             End Select
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -4893,7 +4893,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
             dr.Close()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -5133,7 +5133,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
             dr.Close()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -5318,7 +5318,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
             dr.Close()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -5705,7 +5705,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
             dr.Close()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -5910,7 +5910,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
             dr.Close()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -6313,7 +6313,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
             dr.Close()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -6411,7 +6411,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
             dr.Close()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -9368,7 +9368,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -9397,7 +9397,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
             dr.Close()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -9539,7 +9539,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -9570,7 +9570,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
 
@@ -9674,7 +9674,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
             dr.Close()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -9751,7 +9751,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -10270,7 +10270,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
             DefaultTabs()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -10636,7 +10636,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
 
@@ -11662,7 +11662,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -11856,7 +11856,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
             MsgBox("SSCP Work Save Complete", MsgBoxStyle.Information, "SSCP Work")
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -12491,7 +12491,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
             dr.Close()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -13313,7 +13313,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
             dr.Close()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -13527,7 +13527,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
             dr.Close()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -13770,7 +13770,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
             dr.Close()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -14012,7 +14012,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
             dr = cmd.ExecuteReader
             dr.Close()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -14197,7 +14197,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
             dr.Close()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -14565,7 +14565,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
             dr.Close()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -14733,7 +14733,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
             dr.Close()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -15130,7 +15130,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
             dr.Close()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -15141,7 +15141,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
             If txtTrackingNumber.Text <> "" Then parameters(FormParameter.TrackingNumber) = txtTrackingNumber.Text
             OpenSingleForm(SSCPEnforcementSelector, parameters:=parameters, closeFirst:=True)
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub LoadConfidentialData(ConfidentialData As String)
@@ -17407,12 +17407,12 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
 
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
 #End Region
-    Private Sub chbEventComplete_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chbEventComplete.CheckedChanged
+    Private Sub chbEventComplete_CheckedChanged(sender As Object, e As EventArgs) Handles chbEventComplete.CheckedChanged
         Try
             If chbEventComplete.Checked = True Then
                 DTPEventCompleteDate.Enabled = True
@@ -17423,12 +17423,12 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
 
     End Sub
-    Private Sub chbTestReportChangeDueDate_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chbTestReportChangeDueDate.CheckedChanged
+    Private Sub chbTestReportChangeDueDate_CheckedChanged(sender As Object, e As EventArgs) Handles chbTestReportChangeDueDate.CheckedChanged
         Try
             If chbTestReportChangeDueDate.Checked = True Then
                 DTPTestReportDueDate.Visible = True
@@ -17437,12 +17437,12 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
 
     End Sub
-    Private Sub chbAcknoledgmentLetterSent_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chbAcknoledgmentLetterSent.CheckedChanged
+    Private Sub chbAcknoledgmentLetterSent_CheckedChanged(sender As Object, e As EventArgs) Handles chbAcknoledgmentLetterSent.CheckedChanged
         Try
             If chbAcknoledgmentLetterSent.Checked = True Then
                 DTPAcknoledgmentLetterSent.Visible = True
@@ -17451,13 +17451,13 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
 
     End Sub
 #Region "Tool Strip Buttons"
-    Private Sub tsbSave_Click(sender As System.Object, e As System.EventArgs) Handles tsbSave.Click
+    Private Sub tsbSave_Click(sender As Object, e As EventArgs) Handles tsbSave.Click
         Try
             If AccountFormAccess(69, 3) = "1" Then
                 SaveStackTest()
@@ -17473,11 +17473,11 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
-    Private Sub tsbSearch_Click(sender As System.Object, e As System.EventArgs) Handles tsbSearch.Click
+    Private Sub tsbSearch_Click(sender As Object, e As EventArgs) Handles tsbSearch.Click
         Try
 
             Dim result As String
@@ -17512,21 +17512,21 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
                 End If
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
 
     End Sub
-    Private Sub tsbPrePopulate_Click(sender As System.Object, e As System.EventArgs) Handles tsbPrePopulate.Click
+    Private Sub tsbPrePopulate_Click(sender As Object, e As EventArgs) Handles tsbPrePopulate.Click
         Try
             PrePopulate()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
 
     End Sub
-    Private Sub tsbPrint_Click(sender As System.Object, e As System.EventArgs) Handles tsbPrint.Click
+    Private Sub tsbPrint_Click(sender As Object, e As EventArgs) Handles tsbPrint.Click
         Try
             PrintOut = Nothing
             If PrintOut Is Nothing Then PrintOut = New IAIPPrintOut
@@ -17534,38 +17534,38 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
             PrintOut.txtReferenceNumber.Text = Me.txtReferenceNumber.Text
             PrintOut.Show()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
-    Private Sub tsbClear_Click(sender As System.Object, e As System.EventArgs) Handles tsbClear.Click
+    Private Sub tsbClear_Click(sender As Object, e As EventArgs) Handles tsbClear.Click
         Try
 
             ClearAll()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
 
     End Sub
-    Private Sub tsbResize_Click(sender As System.Object, e As System.EventArgs) Handles tsbResize.Click
+    Private Sub tsbResize_Click(sender As Object, e As EventArgs) Handles tsbResize.Click
         Try
             SCTestReports.ToggleSplitterDistance(190, 385)
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub tsbMemo_Click(sender As System.Object, e As System.EventArgs) Handles tsbMemo.Click
+    Private Sub tsbMemo_Click(sender As Object, e As EventArgs) Handles tsbMemo.Click
         Try
             OpenMemo()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
 
     End Sub
-    Private Sub tsbTestLogLink_Click(sender As System.Object, e As System.EventArgs) Handles tsbTestLogLink.Click
+    Private Sub tsbTestLogLink_Click(sender As Object, e As EventArgs) Handles tsbTestLogLink.Click
         Try
             If Not IsNothing(ISMPNotificationLogForm) Then
                 ISMPNotificationLogForm.txtTestNotificationNumber.Text = cboTestNotificationNumber.Text
@@ -17578,21 +17578,21 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
             End If
             ISMPNotificationLogForm.LoadTestNotification()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
-    Private Sub tsbDelete_Click(sender As System.Object, e As System.EventArgs) Handles tsbDelete.Click
+    Private Sub tsbDelete_Click(sender As Object, e As EventArgs) Handles tsbDelete.Click
         Try
             ClearTestReportData()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
 #End Region
 #Region "Main Menu"
-    Private Sub mmiSave_Click(sender As System.Object, e As System.EventArgs) Handles mmiSave.Click
+    Private Sub mmiSave_Click(sender As Object, e As EventArgs) Handles mmiSave.Click
         Try
             If AccountFormAccess(69, 3) = "1" Then
                 SaveStackTest()
@@ -17608,14 +17608,14 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
-    Private Sub mmiBack_Click(sender As System.Object, e As System.EventArgs) Handles mmiClose.Click
+    Private Sub mmiBack_Click(sender As Object, e As EventArgs) Handles mmiClose.Click
         Me.Dispose()
     End Sub
-    Private Sub mmiOpenTestLogNotification_Click(sender As System.Object, e As System.EventArgs) Handles mmiOpenTestLogNotification.Click
+    Private Sub mmiOpenTestLogNotification_Click(sender As Object, e As EventArgs) Handles mmiOpenTestLogNotification.Click
         Try
             If Not IsNothing(ISMPNotificationLogForm) Then
                 ISMPNotificationLogForm.txtTestNotificationNumber.Text = cboTestNotificationNumber.Text
@@ -17628,22 +17628,22 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
             End If
             ISMPNotificationLogForm.LoadTestNotification()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
-    Private Sub mmiPrePopulate_Click(sender As System.Object, e As System.EventArgs) Handles mmiPrePopulate.Click
+    Private Sub mmiPrePopulate_Click(sender As Object, e As EventArgs) Handles mmiPrePopulate.Click
         Try
             PrePopulate()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
 
     End Sub
 #End Region
 #Region "Math Functions"
-    Private Sub txtPollConcOneStackTwoRun1A_Leave(sender As Object, e As System.EventArgs) Handles txtPollConcOneStackTwoRun1A.Leave
+    Private Sub txtPollConcOneStackTwoRun1A_Leave(sender As Object, e As EventArgs) Handles txtPollConcOneStackTwoRun1A.Leave
         Try
             Dim temp As Decimal = 0
             Dim x As Integer = 0
@@ -17671,7 +17671,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
         Finally
         End Try
     End Sub
-    Private Sub txtPollConcOneStackTwoRun1B_Leave(sender As Object, e As System.EventArgs) Handles txtPollConcOneStackTwoRun1B.Leave
+    Private Sub txtPollConcOneStackTwoRun1B_Leave(sender As Object, e As EventArgs) Handles txtPollConcOneStackTwoRun1B.Leave
         Try
             Dim temp As Decimal = 0
             Dim x As Integer = 0
@@ -17699,7 +17699,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
         Finally
         End Try
     End Sub
-    Private Sub txtEmissRateOneStackTwoRun1A_Leave(sender As Object, e As System.EventArgs) Handles txtEmissRateOneStackTwoRun1A.Leave
+    Private Sub txtEmissRateOneStackTwoRun1A_Leave(sender As Object, e As EventArgs) Handles txtEmissRateOneStackTwoRun1A.Leave
         Try
             Dim temp As Decimal = 0
             Dim x As Integer = 0
@@ -17725,7 +17725,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
 
         End Try
     End Sub
-    Private Sub txtEmissRateOneStackTwoRun1B_Leave(sender As Object, e As System.EventArgs) Handles txtEmissRateOneStackTwoRun1B.Leave
+    Private Sub txtEmissRateOneStackTwoRun1B_Leave(sender As Object, e As EventArgs) Handles txtEmissRateOneStackTwoRun1B.Leave
         Try
             Dim temp As Decimal = 0
             Dim x As Integer = 0
@@ -17751,7 +17751,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
 
         End Try
     End Sub
-    Private Sub txtPollConcOneStackThreeRun1A_Leave(sender As Object, e As System.EventArgs) Handles txtPollConcOneStackThreeRun1A.Leave
+    Private Sub txtPollConcOneStackThreeRun1A_Leave(sender As Object, e As EventArgs) Handles txtPollConcOneStackThreeRun1A.Leave
         Try
             Dim temp As Decimal = 0
             Dim x As Integer = 0
@@ -17803,7 +17803,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
         Finally
         End Try
     End Sub
-    Private Sub txtPollConcOneStackThreeRun1B_Leave(sender As Object, e As System.EventArgs) Handles txtPollConcOneStackThreeRun1B.Leave
+    Private Sub txtPollConcOneStackThreeRun1B_Leave(sender As Object, e As EventArgs) Handles txtPollConcOneStackThreeRun1B.Leave
         Try
             Dim temp As Decimal = 0
             Dim x As Integer = 0
@@ -17856,7 +17856,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
         Finally
         End Try
     End Sub
-    Private Sub txtPollConcOneStackThreeRun1C_Leave(sender As Object, e As System.EventArgs) Handles txtPollConcOneStackThreeRun1C.Leave
+    Private Sub txtPollConcOneStackThreeRun1C_Leave(sender As Object, e As EventArgs) Handles txtPollConcOneStackThreeRun1C.Leave
         Try
             Dim temp As Decimal = 0
             Dim x As Integer = 0
@@ -17908,7 +17908,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
         Finally
         End Try
     End Sub
-    Private Sub txtEmissRateOneStackThreeRun1A_Leave(sender As Object, e As System.EventArgs) Handles txtEmissRateOneStackThreeRun1A.Leave
+    Private Sub txtEmissRateOneStackThreeRun1A_Leave(sender As Object, e As EventArgs) Handles txtEmissRateOneStackThreeRun1A.Leave
         Try
             Dim temp As Decimal = 0
             Dim x As Integer = 0
@@ -17958,7 +17958,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
 
         End Try
     End Sub
-    Private Sub txtEmissRateOneStackThreeRun1B_Leave(sender As Object, e As System.EventArgs) Handles txtEmissRateOneStackThreeRun1B.Leave
+    Private Sub txtEmissRateOneStackThreeRun1B_Leave(sender As Object, e As EventArgs) Handles txtEmissRateOneStackThreeRun1B.Leave
         Try
             Dim temp As Decimal = 0
             Dim x As Integer = 0
@@ -18008,7 +18008,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
 
         End Try
     End Sub
-    Private Sub txtEmissRateOneStackThreeRun1C_Leave(sender As Object, e As System.EventArgs) Handles txtEmissRateOneStackThreeRun1C.Leave
+    Private Sub txtEmissRateOneStackThreeRun1C_Leave(sender As Object, e As EventArgs) Handles txtEmissRateOneStackThreeRun1C.Leave
         Try
             Dim temp As Decimal = 0
             Dim x As Integer = 0
@@ -18058,7 +18058,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
 
         End Try
     End Sub
-    Private Sub txtPollConcOneStackFourRun1A_Leave(sender As Object, e As System.EventArgs) Handles txtPollConcOneStackFourRun1A.Leave
+    Private Sub txtPollConcOneStackFourRun1A_Leave(sender As Object, e As EventArgs) Handles txtPollConcOneStackFourRun1A.Leave
         Try
             Dim temp As Decimal = 0
             Dim x As Integer = 0
@@ -18160,7 +18160,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
         Finally
         End Try
     End Sub
-    Private Sub txtPollConcOneStackFourRun1B_Leave(sender As Object, e As System.EventArgs) Handles txtPollConcOneStackFourRun1B.Leave
+    Private Sub txtPollConcOneStackFourRun1B_Leave(sender As Object, e As EventArgs) Handles txtPollConcOneStackFourRun1B.Leave
         Try
             Dim temp As Decimal = 0
             Dim x As Integer = 0
@@ -18262,7 +18262,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
         Finally
         End Try
     End Sub
-    Private Sub txtPollConcOneStackFourRun1C_Leave(sender As Object, e As System.EventArgs) Handles txtPollConcOneStackFourRun1C.Leave
+    Private Sub txtPollConcOneStackFourRun1C_Leave(sender As Object, e As EventArgs) Handles txtPollConcOneStackFourRun1C.Leave
         Try
             Dim temp As Decimal = 0
             Dim x As Integer = 0
@@ -18364,7 +18364,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
         Finally
         End Try
     End Sub
-    Private Sub txtPollConcOneStackFourRun1D_Leave(sender As Object, e As System.EventArgs) Handles txtPollConcOneStackFourRun1D.Leave
+    Private Sub txtPollConcOneStackFourRun1D_Leave(sender As Object, e As EventArgs) Handles txtPollConcOneStackFourRun1D.Leave
         Try
             Dim temp As Decimal = 0
             Dim x As Integer = 0
@@ -18466,7 +18466,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
         Finally
         End Try
     End Sub
-    Private Sub txtEmissRateOneStackFourRun1A_Leave(sender As Object, e As System.EventArgs) Handles txtEmissRateOneStackFourRun1A.Leave
+    Private Sub txtEmissRateOneStackFourRun1A_Leave(sender As Object, e As EventArgs) Handles txtEmissRateOneStackFourRun1A.Leave
         Try
             Dim temp As Decimal = 0
             Dim x As Integer = 0
@@ -18571,7 +18571,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
 
         End Try
     End Sub
-    Private Sub txtEmissRateOneStackFourRun1B_Leave(sender As Object, e As System.EventArgs) Handles txtEmissRateOneStackFourRun1B.Leave
+    Private Sub txtEmissRateOneStackFourRun1B_Leave(sender As Object, e As EventArgs) Handles txtEmissRateOneStackFourRun1B.Leave
         Try
             Dim temp As Decimal = 0
             Dim x As Integer = 0
@@ -18676,7 +18676,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
 
         End Try
     End Sub
-    Private Sub txtEmissRateOneStackFourRun1C_Leave(sender As Object, e As System.EventArgs) Handles txtEmissRateOneStackFourRun1C.Leave
+    Private Sub txtEmissRateOneStackFourRun1C_Leave(sender As Object, e As EventArgs) Handles txtEmissRateOneStackFourRun1C.Leave
         Try
             Dim temp As Decimal = 0
             Dim x As Integer = 0
@@ -18781,7 +18781,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
 
         End Try
     End Sub
-    Private Sub txtEmissRateOneStackFourRun1D_Leave(sender As Object, e As System.EventArgs) Handles txtEmissRateOneStackFourRun1D.Leave
+    Private Sub txtEmissRateOneStackFourRun1D_Leave(sender As Object, e As EventArgs) Handles txtEmissRateOneStackFourRun1D.Leave
         Try
             Dim temp As Decimal = 0
             Dim x As Integer = 0
@@ -18886,7 +18886,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
 
         End Try
     End Sub
-    Private Sub txtPollConcPond1A_Leave(sender As Object, e As System.EventArgs) Handles txtPollConcPond1A.Leave
+    Private Sub txtPollConcPond1A_Leave(sender As Object, e As EventArgs) Handles txtPollConcPond1A.Leave
         Try
             Dim temp As Decimal = 0
             Dim x As Integer = 0
@@ -18930,7 +18930,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
 
         End Try
     End Sub
-    Private Sub txtPollConcPond1B_Leave(sender As Object, e As System.EventArgs) Handles txtPollConcPond1B.Leave
+    Private Sub txtPollConcPond1B_Leave(sender As Object, e As EventArgs) Handles txtPollConcPond1B.Leave
         Try
             Dim temp As Decimal = 0
             Dim x As Integer = 0
@@ -18974,7 +18974,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
 
         End Try
     End Sub
-    Private Sub txtPollConcPond1C_Leave(sender As Object, e As System.EventArgs) Handles txtPollConcPond1C.Leave
+    Private Sub txtPollConcPond1C_Leave(sender As Object, e As EventArgs) Handles txtPollConcPond1C.Leave
         Try
             Dim temp As Decimal = 0
             Dim x As Integer = 0
@@ -19018,7 +19018,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
 
         End Try
     End Sub
-    Private Sub txtTreatmentRatePond1A_Leave(sender As Object, e As System.EventArgs) Handles txtTreatmentRatePond1A.Leave
+    Private Sub txtTreatmentRatePond1A_Leave(sender As Object, e As EventArgs) Handles txtTreatmentRatePond1A.Leave
         Try
             Dim temp As Decimal = 0
             Dim x As Integer = 0
@@ -19064,7 +19064,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
 
         End Try
     End Sub
-    Private Sub txtTreatmentRatePond1B_Leave(sender As Object, e As System.EventArgs) Handles txtTreatmentRatePond1B.Leave
+    Private Sub txtTreatmentRatePond1B_Leave(sender As Object, e As EventArgs) Handles txtTreatmentRatePond1B.Leave
         Try
             Dim temp As Decimal = 0
             Dim x As Integer = 0
@@ -19110,7 +19110,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
 
         End Try
     End Sub
-    Private Sub txtTreatmentRatePond1C_Leave(sender As Object, e As System.EventArgs) Handles txtTreatmentRatePond1C.Leave
+    Private Sub txtTreatmentRatePond1C_Leave(sender As Object, e As EventArgs) Handles txtTreatmentRatePond1C.Leave
         Try
             Dim temp As Decimal = 0
             Dim x As Integer = 0
@@ -19156,7 +19156,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
 
         End Try
     End Sub
-    Private Sub txtTreatmentRateAvgPond_TextChanged(sender As Object, e As System.EventArgs) Handles txtTreatmentRateAvgPond.TextChanged
+    Private Sub txtTreatmentRateAvgPond_TextChanged(sender As Object, e As EventArgs) Handles txtTreatmentRateAvgPond.TextChanged
         Try
             Dim temp As Decimal = 0
             Dim x As Integer = 0
@@ -19174,7 +19174,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
 
         End Try
     End Sub
-    Private Sub txtPollConcAvgPond_TextChanged(sender As Object, e As System.EventArgs) Handles txtPollConcAvgPond.TextChanged
+    Private Sub txtPollConcAvgPond_TextChanged(sender As Object, e As EventArgs) Handles txtPollConcAvgPond.TextChanged
         Try
             Dim temp As Decimal = 0
             Dim x As Integer = 0
@@ -19192,7 +19192,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
 
         End Try
     End Sub
-    Private Sub txtPollConcGas1A_Leave(sender As Object, e As System.EventArgs) Handles txtPollConcGas1A.Leave
+    Private Sub txtPollConcGas1A_Leave(sender As Object, e As EventArgs) Handles txtPollConcGas1A.Leave
         Try
             Dim temp As Decimal = 0
             Dim x As Integer = 0
@@ -19240,7 +19240,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
 
         End Try
     End Sub
-    Private Sub txtPollConcGas1B_Leave(sender As Object, e As System.EventArgs) Handles txtPollConcGas1B.Leave
+    Private Sub txtPollConcGas1B_Leave(sender As Object, e As EventArgs) Handles txtPollConcGas1B.Leave
         Try
             Dim temp As Decimal = 0
             Dim x As Integer = 0
@@ -19288,7 +19288,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
 
         End Try
     End Sub
-    Private Sub txtPollConcGas1C_Leave(sender As Object, e As System.EventArgs) Handles txtPollConcGas1C.Leave
+    Private Sub txtPollConcGas1C_Leave(sender As Object, e As EventArgs) Handles txtPollConcGas1C.Leave
         Try
             Dim temp As Decimal = 0
             Dim x As Integer = 0
@@ -19336,7 +19336,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
 
         End Try
     End Sub
-    Private Sub txtEmissRateGas1A_Leave(sender As Object, e As System.EventArgs) Handles txtEmissRateGas1A.Leave
+    Private Sub txtEmissRateGas1A_Leave(sender As Object, e As EventArgs) Handles txtEmissRateGas1A.Leave
         Try
             Dim temp As Decimal = 0
             Dim x As Integer = 0
@@ -19384,7 +19384,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
 
         End Try
     End Sub
-    Private Sub txtEmissRateGas1B_Leave(sender As Object, e As System.EventArgs) Handles txtEmissRateGas1B.Leave
+    Private Sub txtEmissRateGas1B_Leave(sender As Object, e As EventArgs) Handles txtEmissRateGas1B.Leave
         Try
             Dim temp As Decimal = 0
             Dim x As Integer = 0
@@ -19432,7 +19432,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
 
         End Try
     End Sub
-    Private Sub txtEmissRateGas1C_Leave(sender As Object, e As System.EventArgs) Handles txtEmissRateGas1C.Leave
+    Private Sub txtEmissRateGas1C_Leave(sender As Object, e As EventArgs) Handles txtEmissRateGas1C.Leave
         Try
             Dim temp As Decimal = 0
             Dim x As Integer = 0
@@ -19480,7 +19480,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
 
         End Try
     End Sub
-    Private Sub txtHeatingValue1AFlare_Leave(sender As Object, e As System.EventArgs) Handles txtHeatingValue1AFlare.Leave
+    Private Sub txtHeatingValue1AFlare_Leave(sender As Object, e As EventArgs) Handles txtHeatingValue1AFlare.Leave
         Try
             Dim temp As Decimal = 0
             Dim x As Integer = 0
@@ -19528,7 +19528,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
 
         End Try
     End Sub
-    Private Sub txtHeatingValue1BFlare_Leave(sender As Object, e As System.EventArgs) Handles txtHeatingValue1BFlare.Leave
+    Private Sub txtHeatingValue1BFlare_Leave(sender As Object, e As EventArgs) Handles txtHeatingValue1BFlare.Leave
         Try
             Dim temp As Decimal = 0
             Dim x As Integer = 0
@@ -19576,7 +19576,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
 
         End Try
     End Sub
-    Private Sub txtHeatingValue1CFlare_Leave(sender As Object, e As System.EventArgs) Handles txtHeatingValue1CFlare.Leave
+    Private Sub txtHeatingValue1CFlare_Leave(sender As Object, e As EventArgs) Handles txtHeatingValue1CFlare.Leave
         Try
             Dim temp As Decimal = 0
             Dim x As Integer = 0
@@ -19624,7 +19624,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
 
         End Try
     End Sub
-    Private Sub txtVelocity1AFlare_Leave(sender As Object, e As System.EventArgs) Handles txtVelocity1AFlare.Leave
+    Private Sub txtVelocity1AFlare_Leave(sender As Object, e As EventArgs) Handles txtVelocity1AFlare.Leave
         Try
             Dim temp As Decimal = 0
             Dim x As Integer = 0
@@ -19672,7 +19672,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
 
         End Try
     End Sub
-    Private Sub txtVelocity1BFlare_Leave(sender As Object, e As System.EventArgs) Handles txtVelocity1BFlare.Leave
+    Private Sub txtVelocity1BFlare_Leave(sender As Object, e As EventArgs) Handles txtVelocity1BFlare.Leave
         Try
             Dim temp As Decimal = 0
             Dim x As Integer = 0
@@ -19720,7 +19720,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
 
         End Try
     End Sub
-    Private Sub txtVelocity1CFlare_Leave(sender As Object, e As System.EventArgs) Handles txtVelocity1CFlare.Leave
+    Private Sub txtVelocity1CFlare_Leave(sender As Object, e As EventArgs) Handles txtVelocity1CFlare.Leave
         Try
             Dim temp As Decimal = 0
             Dim x As Integer = 0
@@ -20058,7 +20058,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
 
         End Try
     End Sub
-    Private Sub txtRefMethodRata1_Leave(sender As Object, e As System.EventArgs) Handles txtRefMethodRata1.Leave
+    Private Sub txtRefMethodRata1_Leave(sender As Object, e As EventArgs) Handles txtRefMethodRata1.Leave
         Try
 
             RATACalc()
@@ -20067,7 +20067,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
 
         End Try
     End Sub
-    Private Sub txtRefMethodRata2_Leave(sender As Object, e As System.EventArgs) Handles txtRefMethodRata2.Leave
+    Private Sub txtRefMethodRata2_Leave(sender As Object, e As EventArgs) Handles txtRefMethodRata2.Leave
         Try
 
             RATACalc()
@@ -20076,7 +20076,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
 
         End Try
     End Sub
-    Private Sub txtRefMethodRata3_Leave(sender As Object, e As System.EventArgs) Handles txtRefMethodRata3.Leave
+    Private Sub txtRefMethodRata3_Leave(sender As Object, e As EventArgs) Handles txtRefMethodRata3.Leave
         Try
 
             RATACalc()
@@ -20085,7 +20085,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
 
         End Try
     End Sub
-    Private Sub txtRefMethodRata4_Leave(sender As Object, e As System.EventArgs) Handles txtRefMethodRata4.Leave
+    Private Sub txtRefMethodRata4_Leave(sender As Object, e As EventArgs) Handles txtRefMethodRata4.Leave
         Try
 
             RATACalc()
@@ -20094,7 +20094,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
 
         End Try
     End Sub
-    Private Sub txtRefMethodRata5_Leave(sender As Object, e As System.EventArgs) Handles txtRefMethodRata5.Leave
+    Private Sub txtRefMethodRata5_Leave(sender As Object, e As EventArgs) Handles txtRefMethodRata5.Leave
         Try
 
             RATACalc()
@@ -20103,7 +20103,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
 
         End Try
     End Sub
-    Private Sub txtRefMethodRata6_Leave(sender As Object, e As System.EventArgs) Handles txtRefMethodRata6.Leave
+    Private Sub txtRefMethodRata6_Leave(sender As Object, e As EventArgs) Handles txtRefMethodRata6.Leave
         Try
 
             RATACalc()
@@ -20112,7 +20112,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
 
         End Try
     End Sub
-    Private Sub txtRefMethodRata7_Leave(sender As Object, e As System.EventArgs) Handles txtRefMethodRata7.Leave
+    Private Sub txtRefMethodRata7_Leave(sender As Object, e As EventArgs) Handles txtRefMethodRata7.Leave
         Try
 
             RATACalc()
@@ -20121,7 +20121,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
 
         End Try
     End Sub
-    Private Sub txtRefMethodRata8_Leave(sender As Object, e As System.EventArgs) Handles txtRefMethodRata8.Leave
+    Private Sub txtRefMethodRata8_Leave(sender As Object, e As EventArgs) Handles txtRefMethodRata8.Leave
         Try
 
             RATACalc()
@@ -20130,7 +20130,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
 
         End Try
     End Sub
-    Private Sub txtRefMethodRata9_Leave(sender As Object, e As System.EventArgs) Handles txtRefMethodRata9.Leave
+    Private Sub txtRefMethodRata9_Leave(sender As Object, e As EventArgs) Handles txtRefMethodRata9.Leave
         Try
 
             RATACalc()
@@ -20139,7 +20139,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
 
         End Try
     End Sub
-    Private Sub txtRefMethodRata10_Leave(sender As Object, e As System.EventArgs) Handles txtRefMethodRata10.Leave
+    Private Sub txtRefMethodRata10_Leave(sender As Object, e As EventArgs) Handles txtRefMethodRata10.Leave
         Try
 
             RATACalc()
@@ -20148,7 +20148,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
 
         End Try
     End Sub
-    Private Sub txtRefMethodRata11_Leave(sender As Object, e As System.EventArgs) Handles txtRefMethodRata11.Leave
+    Private Sub txtRefMethodRata11_Leave(sender As Object, e As EventArgs) Handles txtRefMethodRata11.Leave
         Try
 
             RATACalc()
@@ -20157,7 +20157,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
 
         End Try
     End Sub
-    Private Sub txtRefMethodRata12_Leave(sender As Object, e As System.EventArgs) Handles txtRefMethodRata12.Leave
+    Private Sub txtRefMethodRata12_Leave(sender As Object, e As EventArgs) Handles txtRefMethodRata12.Leave
         Try
 
             RATACalc()
@@ -20166,7 +20166,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
 
         End Try
     End Sub
-    Private Sub txtCMSRata1_Leave(sender As Object, e As System.EventArgs) Handles txtCMSRata1.Leave
+    Private Sub txtCMSRata1_Leave(sender As Object, e As EventArgs) Handles txtCMSRata1.Leave
         Try
 
             RATACalc()
@@ -20175,7 +20175,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
 
         End Try
     End Sub
-    Private Sub txtCMSRata2_Leave(sender As Object, e As System.EventArgs) Handles txtCMSRata2.Leave
+    Private Sub txtCMSRata2_Leave(sender As Object, e As EventArgs) Handles txtCMSRata2.Leave
         Try
 
             RATACalc()
@@ -20184,7 +20184,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
 
         End Try
     End Sub
-    Private Sub txtCMSRata3_Leave(sender As Object, e As System.EventArgs) Handles txtCMSRata3.Leave
+    Private Sub txtCMSRata3_Leave(sender As Object, e As EventArgs) Handles txtCMSRata3.Leave
         Try
 
             RATACalc()
@@ -20193,7 +20193,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
 
         End Try
     End Sub
-    Private Sub txtCMSRata4_Leave(sender As Object, e As System.EventArgs) Handles txtCMSRata4.Leave
+    Private Sub txtCMSRata4_Leave(sender As Object, e As EventArgs) Handles txtCMSRata4.Leave
         Try
 
             RATACalc()
@@ -20202,7 +20202,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
 
         End Try
     End Sub
-    Private Sub txtCMSRata5_Leave(sender As Object, e As System.EventArgs) Handles txtCMSRata5.Leave
+    Private Sub txtCMSRata5_Leave(sender As Object, e As EventArgs) Handles txtCMSRata5.Leave
         Try
 
             RATACalc()
@@ -20211,7 +20211,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
 
         End Try
     End Sub
-    Private Sub txtCMSRata6_Leave(sender As Object, e As System.EventArgs) Handles txtCMSRata6.Leave
+    Private Sub txtCMSRata6_Leave(sender As Object, e As EventArgs) Handles txtCMSRata6.Leave
         Try
 
             RATACalc()
@@ -20220,7 +20220,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
 
         End Try
     End Sub
-    Private Sub txtCMSRata7_Leave(sender As Object, e As System.EventArgs) Handles txtCMSRata7.Leave
+    Private Sub txtCMSRata7_Leave(sender As Object, e As EventArgs) Handles txtCMSRata7.Leave
         Try
 
             RATACalc()
@@ -20229,7 +20229,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
 
         End Try
     End Sub
-    Private Sub txtCMSRata8_Leave(sender As Object, e As System.EventArgs) Handles txtCMSRata8.Leave
+    Private Sub txtCMSRata8_Leave(sender As Object, e As EventArgs) Handles txtCMSRata8.Leave
         Try
 
             RATACalc()
@@ -20238,7 +20238,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
 
         End Try
     End Sub
-    Private Sub txtCMSRata9_Leave(sender As Object, e As System.EventArgs) Handles txtCMSRata9.Leave
+    Private Sub txtCMSRata9_Leave(sender As Object, e As EventArgs) Handles txtCMSRata9.Leave
         Try
 
             RATACalc()
@@ -20247,7 +20247,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
 
         End Try
     End Sub
-    Private Sub txtCMSRata10_Leave(sender As Object, e As System.EventArgs) Handles txtCMSRata10.Leave
+    Private Sub txtCMSRata10_Leave(sender As Object, e As EventArgs) Handles txtCMSRata10.Leave
         Try
 
             RATACalc()
@@ -20256,7 +20256,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
 
         End Try
     End Sub
-    Private Sub txtCMSRata11_Leave(sender As Object, e As System.EventArgs) Handles txtCMSRata11.Leave
+    Private Sub txtCMSRata11_Leave(sender As Object, e As EventArgs) Handles txtCMSRata11.Leave
         Try
 
             RATACalc()
@@ -20265,7 +20265,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
 
         End Try
     End Sub
-    Private Sub txtCMSRata12_Leave(sender As Object, e As System.EventArgs) Handles txtCMSRata12.Leave
+    Private Sub txtCMSRata12_Leave(sender As Object, e As EventArgs) Handles txtCMSRata12.Leave
         Try
 
             RATACalc()
@@ -20274,7 +20274,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
 
         End Try
     End Sub
-    Private Sub chbOmitRunRata1_CheckedChanged(sender As Object, e As System.EventArgs) Handles chbOmitRunRata1.CheckedChanged
+    Private Sub chbOmitRunRata1_CheckedChanged(sender As Object, e As EventArgs) Handles chbOmitRunRata1.CheckedChanged
         Try
 
             RATACalc()
@@ -20283,7 +20283,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
 
         End Try
     End Sub
-    Private Sub chbOmitRunRata2_CheckedChanged(sender As Object, e As System.EventArgs) Handles chbOmitRunRata2.CheckedChanged
+    Private Sub chbOmitRunRata2_CheckedChanged(sender As Object, e As EventArgs) Handles chbOmitRunRata2.CheckedChanged
         Try
 
             RATACalc()
@@ -20292,7 +20292,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
 
         End Try
     End Sub
-    Private Sub chbOmitRunRata3_CheckedChanged(sender As Object, e As System.EventArgs) Handles chbOmitRunRata3.CheckedChanged
+    Private Sub chbOmitRunRata3_CheckedChanged(sender As Object, e As EventArgs) Handles chbOmitRunRata3.CheckedChanged
         Try
 
             RATACalc()
@@ -20301,7 +20301,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
 
         End Try
     End Sub
-    Private Sub chbOmitRunRata4_CheckedChanged(sender As Object, e As System.EventArgs) Handles chbOmitRunRata4.CheckedChanged
+    Private Sub chbOmitRunRata4_CheckedChanged(sender As Object, e As EventArgs) Handles chbOmitRunRata4.CheckedChanged
         Try
 
             RATACalc()
@@ -20310,7 +20310,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
 
         End Try
     End Sub
-    Private Sub chbOmitRunRata5_CheckedChanged(sender As Object, e As System.EventArgs) Handles chbOmitRunRata5.CheckedChanged
+    Private Sub chbOmitRunRata5_CheckedChanged(sender As Object, e As EventArgs) Handles chbOmitRunRata5.CheckedChanged
         Try
 
             RATACalc()
@@ -20319,7 +20319,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
 
         End Try
     End Sub
-    Private Sub chbOmitRunRata6_CheckedChanged(sender As Object, e As System.EventArgs) Handles chbOmitRunRata6.CheckedChanged
+    Private Sub chbOmitRunRata6_CheckedChanged(sender As Object, e As EventArgs) Handles chbOmitRunRata6.CheckedChanged
         Try
 
             RATACalc()
@@ -20328,7 +20328,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
 
         End Try
     End Sub
-    Private Sub chbOmitRunRata7_CheckedChanged(sender As Object, e As System.EventArgs) Handles chbOmitRunRata7.CheckedChanged
+    Private Sub chbOmitRunRata7_CheckedChanged(sender As Object, e As EventArgs) Handles chbOmitRunRata7.CheckedChanged
         Try
 
             RATACalc()
@@ -20337,7 +20337,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
 
         End Try
     End Sub
-    Private Sub chbOmitRunRata8_CheckedChanged(sender As Object, e As System.EventArgs) Handles chbOmitRunRata8.CheckedChanged
+    Private Sub chbOmitRunRata8_CheckedChanged(sender As Object, e As EventArgs) Handles chbOmitRunRata8.CheckedChanged
         Try
 
             RATACalc()
@@ -20346,7 +20346,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
 
         End Try
     End Sub
-    Private Sub chbOmitRunRata9_CheckedChanged(sender As Object, e As System.EventArgs) Handles chbOmitRunRata9.CheckedChanged
+    Private Sub chbOmitRunRata9_CheckedChanged(sender As Object, e As EventArgs) Handles chbOmitRunRata9.CheckedChanged
         Try
 
             RATACalc()
@@ -20355,7 +20355,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
 
         End Try
     End Sub
-    Private Sub chbOmitRunRata10_CheckedChanged(sender As Object, e As System.EventArgs) Handles chbOmitRunRata10.CheckedChanged
+    Private Sub chbOmitRunRata10_CheckedChanged(sender As Object, e As EventArgs) Handles chbOmitRunRata10.CheckedChanged
         Try
 
             RATACalc()
@@ -20364,7 +20364,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
 
         End Try
     End Sub
-    Private Sub chbOmitRunRata11_CheckedChanged(sender As Object, e As System.EventArgs) Handles chbOmitRunRata11.CheckedChanged
+    Private Sub chbOmitRunRata11_CheckedChanged(sender As Object, e As EventArgs) Handles chbOmitRunRata11.CheckedChanged
         Try
 
             RATACalc()
@@ -20373,7 +20373,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
 
         End Try
     End Sub
-    Private Sub chbOmitRunRata12_CheckedChanged(sender As Object, e As System.EventArgs) Handles chbOmitRunRata12.CheckedChanged
+    Private Sub chbOmitRunRata12_CheckedChanged(sender As Object, e As EventArgs) Handles chbOmitRunRata12.CheckedChanged
         Try
 
             RATACalc()
@@ -20382,7 +20382,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
 
         End Try
     End Sub
-    Private Sub txtPollConcTwoStackStandard1A_Leave(sender As Object, e As System.EventArgs) Handles txtPollConcTwoStackStandard1A.Leave
+    Private Sub txtPollConcTwoStackStandard1A_Leave(sender As Object, e As EventArgs) Handles txtPollConcTwoStackStandard1A.Leave
         Try
             Dim temp As Decimal = 0
             Dim x As Integer = 0
@@ -20437,7 +20437,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
         Finally
         End Try
     End Sub
-    Private Sub txtPollConcTwoStackStandard1B_Leave(sender As Object, e As System.EventArgs) Handles txtPollConcTwoStackStandard1B.Leave
+    Private Sub txtPollConcTwoStackStandard1B_Leave(sender As Object, e As EventArgs) Handles txtPollConcTwoStackStandard1B.Leave
         Try
             Dim temp As Decimal = 0
             Dim x As Integer = 0
@@ -20492,7 +20492,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
         Finally
         End Try
     End Sub
-    Private Sub txtPollConcTwoStackStandard1C_Leave(sender As Object, e As System.EventArgs) Handles txtPollConcTwoStackStandard1C.Leave
+    Private Sub txtPollConcTwoStackStandard1C_Leave(sender As Object, e As EventArgs) Handles txtPollConcTwoStackStandard1C.Leave
         Try
             Dim temp As Decimal = 0
             Dim x As Integer = 0
@@ -20547,7 +20547,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
         Finally
         End Try
     End Sub
-    Private Sub txtPollConcTwoStackStandard2A_Leave(sender As Object, e As System.EventArgs) Handles txtPollConcTwoStackStandard2A.Leave
+    Private Sub txtPollConcTwoStackStandard2A_Leave(sender As Object, e As EventArgs) Handles txtPollConcTwoStackStandard2A.Leave
         Try
             Dim temp As Decimal = 0
             Dim x As Integer = 0
@@ -20603,7 +20603,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
 
         End Try
     End Sub
-    Private Sub txtPollConcTwoStackStandard2B_Leave(sender As Object, e As System.EventArgs) Handles txtPollConcTwoStackStandard2B.Leave
+    Private Sub txtPollConcTwoStackStandard2B_Leave(sender As Object, e As EventArgs) Handles txtPollConcTwoStackStandard2B.Leave
         Try
             Dim temp As Decimal = 0
             Dim x As Integer = 0
@@ -20659,7 +20659,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
 
         End Try
     End Sub
-    Private Sub txtPollConcTwoStackStandard2C_Leave(sender As Object, e As System.EventArgs) Handles txtPollConcTwoStackStandard2C.Leave
+    Private Sub txtPollConcTwoStackStandard2C_Leave(sender As Object, e As EventArgs) Handles txtPollConcTwoStackStandard2C.Leave
         Try
             Dim temp As Decimal = 0
             Dim x As Integer = 0
@@ -20715,7 +20715,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
 
         End Try
     End Sub
-    Private Sub txtEmissRateTwoStackStandard1A_Leave(sender As Object, e As System.EventArgs) Handles txtEmissRateTwoStackStandard1A.Leave
+    Private Sub txtEmissRateTwoStackStandard1A_Leave(sender As Object, e As EventArgs) Handles txtEmissRateTwoStackStandard1A.Leave
         Try
             Dim temp As Decimal = 0
             Dim x As Integer = 0
@@ -20832,7 +20832,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
 
         End Try
     End Sub
-    Private Sub txtEmissRateTwoStackStandard1B_Leave(sender As Object, e As System.EventArgs) Handles txtEmissRateTwoStackStandard1B.Leave
+    Private Sub txtEmissRateTwoStackStandard1B_Leave(sender As Object, e As EventArgs) Handles txtEmissRateTwoStackStandard1B.Leave
         Try
             Dim temp As Decimal = 0
             Dim x As Integer = 0
@@ -20948,7 +20948,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
 
         End Try
     End Sub
-    Private Sub txtEmissRateTwoStackStandard1C_Leave(sender As Object, e As System.EventArgs) Handles txtEmissRateTwoStackStandard1C.Leave
+    Private Sub txtEmissRateTwoStackStandard1C_Leave(sender As Object, e As EventArgs) Handles txtEmissRateTwoStackStandard1C.Leave
         Try
             Dim temp As Decimal = 0
             Dim x As Integer = 0
@@ -21064,7 +21064,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
 
         End Try
     End Sub
-    Private Sub txtEmissRateTwoStackStandard2A_Leave(sender As Object, e As System.EventArgs) Handles txtEmissRateTwoStackStandard2A.Leave
+    Private Sub txtEmissRateTwoStackStandard2A_Leave(sender As Object, e As EventArgs) Handles txtEmissRateTwoStackStandard2A.Leave
         Try
             Dim temp As Decimal = 0
             Dim x As Integer = 0
@@ -21180,7 +21180,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
 
         End Try
     End Sub
-    Private Sub txtEmissRateTwoStackStandard2B_Leave(sender As Object, e As System.EventArgs) Handles txtEmissRateTwoStackStandard2B.Leave
+    Private Sub txtEmissRateTwoStackStandard2B_Leave(sender As Object, e As EventArgs) Handles txtEmissRateTwoStackStandard2B.Leave
         Try
             Dim temp As Decimal = 0
             Dim x As Integer = 0
@@ -21296,7 +21296,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
 
         End Try
     End Sub
-    Private Sub txtEmissRateTwoStackStandard2C_Leave(sender As Object, e As System.EventArgs) Handles txtEmissRateTwoStackStandard2C.Leave
+    Private Sub txtEmissRateTwoStackStandard2C_Leave(sender As Object, e As EventArgs) Handles txtEmissRateTwoStackStandard2C.Leave
         Try
             Dim temp As Decimal = 0
             Dim x As Integer = 0
@@ -21412,7 +21412,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
 
         End Try
     End Sub
-    Private Sub txtEmissRateTotalTwoStackStandard1_Leave(sender As Object, e As System.EventArgs) Handles txtEmissRateTotalTwoStackStandard1.Leave
+    Private Sub txtEmissRateTotalTwoStackStandard1_Leave(sender As Object, e As EventArgs) Handles txtEmissRateTotalTwoStackStandard1.Leave
         Try
             Dim temp As Decimal = 0
             Dim x As Integer = 0
@@ -21463,7 +21463,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
 
         End Try
     End Sub
-    Private Sub txtEmissRateTotalTwoStackStandard2_Leave(sender As Object, e As System.EventArgs) Handles txtEmissRateTotalTwoStackStandard2.Leave
+    Private Sub txtEmissRateTotalTwoStackStandard2_Leave(sender As Object, e As EventArgs) Handles txtEmissRateTotalTwoStackStandard2.Leave
         Try
             Dim temp As Decimal = 0
             Dim x As Integer = 0
@@ -21514,7 +21514,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
 
         End Try
     End Sub
-    Private Sub txtEmissRateTotalTwoStackStandard3_Leave(sender As Object, e As System.EventArgs) Handles txtEmissRateTotalTwoStackStandard3.Leave
+    Private Sub txtEmissRateTotalTwoStackStandard3_Leave(sender As Object, e As EventArgs) Handles txtEmissRateTotalTwoStackStandard3.Leave
         Try
             Dim temp As Decimal = 0
             Dim x As Integer = 0
@@ -21565,7 +21565,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
 
         End Try
     End Sub
-    Private Sub txtPollConcTwoStackDRE1A_Leave(sender As Object, e As System.EventArgs) Handles txtPollConcTwoStackDRE1A.Leave
+    Private Sub txtPollConcTwoStackDRE1A_Leave(sender As Object, e As EventArgs) Handles txtPollConcTwoStackDRE1A.Leave
         Try
             Dim temp As Decimal = 0
             Dim x As Integer = 0
@@ -21668,7 +21668,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
 
         End Try
     End Sub
-    Private Sub txtPollConcTwoStackDRE1B_Leave(sender As Object, e As System.EventArgs) Handles txtPollConcTwoStackDRE1B.Leave
+    Private Sub txtPollConcTwoStackDRE1B_Leave(sender As Object, e As EventArgs) Handles txtPollConcTwoStackDRE1B.Leave
         Try
             Dim temp As Decimal = 0
             Dim x As Integer = 0
@@ -21771,7 +21771,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
 
         End Try
     End Sub
-    Private Sub txtPollConcTwoStackDRE1C_Leave(sender As Object, e As System.EventArgs) Handles txtPollConcTwoStackDRE1C.Leave
+    Private Sub txtPollConcTwoStackDRE1C_Leave(sender As Object, e As EventArgs) Handles txtPollConcTwoStackDRE1C.Leave
         Try
             Dim temp As Decimal = 0
             Dim x As Integer = 0
@@ -21874,7 +21874,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
 
         End Try
     End Sub
-    Private Sub txtPollConcTwoStackDRE2A_Leave(sender As Object, e As System.EventArgs) Handles txtPollConcTwoStackDRE2A.Leave
+    Private Sub txtPollConcTwoStackDRE2A_Leave(sender As Object, e As EventArgs) Handles txtPollConcTwoStackDRE2A.Leave
         Try
             Dim temp As Decimal = 0
             Dim x As Integer = 0
@@ -21977,7 +21977,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
 
         End Try
     End Sub
-    Private Sub txtPollConcTwoStackDRE2B_Leave(sender As Object, e As System.EventArgs) Handles txtPollConcTwoStackDRE2B.Leave
+    Private Sub txtPollConcTwoStackDRE2B_Leave(sender As Object, e As EventArgs) Handles txtPollConcTwoStackDRE2B.Leave
         Try
             Dim temp As Decimal = 0
             Dim x As Integer = 0
@@ -22080,7 +22080,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
 
         End Try
     End Sub
-    Private Sub txtPollConcTwoStackDRE2C_Leave(sender As Object, e As System.EventArgs) Handles txtPollConcTwoStackDRE2C.Leave
+    Private Sub txtPollConcTwoStackDRE2C_Leave(sender As Object, e As EventArgs) Handles txtPollConcTwoStackDRE2C.Leave
         Try
             Dim temp As Decimal = 0
             Dim x As Integer = 0
@@ -22183,7 +22183,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
 
         End Try
     End Sub
-    Private Sub txtEmissRateTwoStackDRE1A_Leave(sender As Object, e As System.EventArgs) Handles txtEmissRateTwoStackDRE1A.Leave
+    Private Sub txtEmissRateTwoStackDRE1A_Leave(sender As Object, e As EventArgs) Handles txtEmissRateTwoStackDRE1A.Leave
         Try
             Dim temp As Decimal = 0
             Dim x As Integer = 0
@@ -22232,7 +22232,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
 
         End Try
     End Sub
-    Private Sub txtEmissRateTwoStackDRE1B_Leave(sender As Object, e As System.EventArgs) Handles txtEmissRateTwoStackDRE1B.Leave
+    Private Sub txtEmissRateTwoStackDRE1B_Leave(sender As Object, e As EventArgs) Handles txtEmissRateTwoStackDRE1B.Leave
         Try
             Dim temp As Decimal = 0
             Dim x As Integer = 0
@@ -22281,7 +22281,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
 
         End Try
     End Sub
-    Private Sub txtEmissRateTwoStackDRE1C_Leave(sender As Object, e As System.EventArgs) Handles txtEmissRateTwoStackDRE1C.Leave
+    Private Sub txtEmissRateTwoStackDRE1C_Leave(sender As Object, e As EventArgs) Handles txtEmissRateTwoStackDRE1C.Leave
         Try
             Dim temp As Decimal = 0
             Dim x As Integer = 0
@@ -22330,7 +22330,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
 
         End Try
     End Sub
-    Private Sub txtEmissRateTwoStackDRE2A_Leave(sender As Object, e As System.EventArgs) Handles txtEmissRateTwoStackDRE2A.Leave
+    Private Sub txtEmissRateTwoStackDRE2A_Leave(sender As Object, e As EventArgs) Handles txtEmissRateTwoStackDRE2A.Leave
         Try
             Dim temp As Decimal = 0
             Dim x As Integer = 0
@@ -22379,7 +22379,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
 
         End Try
     End Sub
-    Private Sub txtEmissRateTwoStackDRE2B_Leave(sender As Object, e As System.EventArgs) Handles txtEmissRateTwoStackDRE2B.Leave
+    Private Sub txtEmissRateTwoStackDRE2B_Leave(sender As Object, e As EventArgs) Handles txtEmissRateTwoStackDRE2B.Leave
         Try
             Dim temp As Decimal = 0
             Dim x As Integer = 0
@@ -22428,7 +22428,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
 
         End Try
     End Sub
-    Private Sub txtEmissRateTwoStackDRE2C_Leave(sender As Object, e As System.EventArgs) Handles txtEmissRateTwoStackDRE2C.Leave
+    Private Sub txtEmissRateTwoStackDRE2C_Leave(sender As Object, e As EventArgs) Handles txtEmissRateTwoStackDRE2C.Leave
         Try
             Dim temp As Decimal = 0
             Dim x As Integer = 0
@@ -22478,7 +22478,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
         End Try
     End Sub
 #End Region
-    Private Sub txtRefMethodPercentRata_TextChanged(sender As Object, e As System.EventArgs) Handles txtRefMethodPercentRata.TextChanged
+    Private Sub txtRefMethodPercentRata_TextChanged(sender As Object, e As EventArgs) Handles txtRefMethodPercentRata.TextChanged
         Try
 
             If txtRefMethodPercentRata.Text <> "" Then
@@ -22501,13 +22501,13 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
                 lblRATAPart75.Visible = True
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub txtApplicableStandardPercentRata_TextChanged(sender As Object, e As System.EventArgs) Handles txtApplicableStandardPercentRata.TextChanged
+    Private Sub txtApplicableStandardPercentRata_TextChanged(sender As Object, e As EventArgs) Handles txtApplicableStandardPercentRata.TextChanged
         Try
 
             If txtApplicableStandardPercentRata.Text <> "" Then
@@ -22530,12 +22530,12 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
                 lblRATAPart75.Visible = True
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
 
     End Sub
-    Private Sub cboDiluentRata_SelectedValueChanged(sender As Object, e As System.EventArgs) Handles cboDiluentRata.SelectedValueChanged
+    Private Sub cboDiluentRata_SelectedValueChanged(sender As Object, e As EventArgs) Handles cboDiluentRata.SelectedValueChanged
         Try
 
             If cboDiluentRata.Text = "" Or cboDiluentRata.Text = " " Then
@@ -22558,12 +22558,12 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
                 lblRATAPart75.Visible = False
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
 
     End Sub
-    Private Sub txtPart75Statement_TextChanged(sender As Object, e As System.EventArgs) Handles txtPart75Statement.TextChanged
+    Private Sub txtPart75Statement_TextChanged(sender As Object, e As EventArgs) Handles txtPart75Statement.TextChanged
         Try
 
             If txtPart75Statement.Text <> "" Then
@@ -22586,12 +22586,12 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
                 lblRATAPart75.Visible = True
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
 
     End Sub
-    Private Sub cboDiluentRata_MouseDown(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles cboDiluentRata.MouseDown
+    Private Sub cboDiluentRata_MouseDown(sender As Object, e As MouseEventArgs) Handles cboDiluentRata.MouseDown
         Try
 
             If ReportStatus = True Then
@@ -22601,12 +22601,12 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
             End If
             cboDiluentRata.Enabled = True
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
 
     End Sub
-    Private Sub cboDiluentRata_KeyDown(sender As Object, e As System.Windows.Forms.KeyEventArgs) Handles cboDiluentRata.KeyDown
+    Private Sub cboDiluentRata_KeyDown(sender As Object, e As KeyEventArgs) Handles cboDiluentRata.KeyDown
         Try
 
             If ReportStatus = True Then
@@ -22616,12 +22616,12 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
             End If
             cboDiluentRata.Enabled = True
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
 
     End Sub
-    Private Sub cboDiluentRata_GotFocus(sender As Object, e As System.EventArgs) Handles cboDiluentRata.GotFocus
+    Private Sub cboDiluentRata_GotFocus(sender As Object, e As EventArgs) Handles cboDiluentRata.GotFocus
         Try
 
             If ReportStatus = True Then
@@ -22631,33 +22631,33 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
             End If
             cboDiluentRata.Enabled = True
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
 
     End Sub
-    Private Sub btnSaveSSCPData_Click(sender As System.Object, e As System.EventArgs) Handles btnSaveSSCPData.Click
+    Private Sub btnSaveSSCPData_Click(sender As Object, e As EventArgs) Handles btnSaveSSCPData.Click
         Try
             If AccountFormAccess(69, 4) = "1" Then
                 SaveSSCPWork()
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
-    Private Sub btnEnforcementProcess_Click(sender As System.Object, e As System.EventArgs) Handles btnEnforcementProcess.Click
+    Private Sub btnEnforcementProcess_Click(sender As Object, e As EventArgs) Handles btnEnforcementProcess.Click
         Try
 
             OpenEnforcement()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
 
     End Sub
-    Private Sub llbTestNotifiactionNumber_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbTestNotifiactionNumber.LinkClicked
+    Private Sub llbTestNotifiactionNumber_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbTestNotifiactionNumber.LinkClicked
         Try
             If cboTestNotificationNumber.Text <> "" Then
                 If Not IsNothing(ISMPNotificationLogForm) Then
@@ -22672,11 +22672,11 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
                 ISMPNotificationLogForm.LoadTestNotification()
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
-    Private Sub tsbConfidentialData_Click(sender As System.Object, e As System.EventArgs) Handles tsbConfidentialData.Click
+    Private Sub tsbConfidentialData_Click(sender As Object, e As EventArgs) Handles tsbConfidentialData.Click
         Try
             If txtReferenceNumber.Text <> "" Then
                 If Me.TCDocumentTypes.TabPages.Count < 4 Then
@@ -22695,20 +22695,20 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
-    Private Sub mmiDefaultCompliance_Click(sender As System.Object, e As System.EventArgs) Handles mmiDefaultCompliance.Click
+    Private Sub mmiDefaultCompliance_Click(sender As Object, e As EventArgs) Handles mmiDefaultCompliance.Click
         Try
             LoadDefaultComplianceManager()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
-    Private Sub mmiPrintNonConf_Click(sender As System.Object, e As System.EventArgs) Handles mmiPrintNonConf.Click
+    Private Sub mmiPrintNonConf_Click(sender As Object, e As EventArgs) Handles mmiPrintNonConf.Click
         Try
             PrintOut = Nothing
             If PrintOut Is Nothing Then PrintOut = New IAIPPrintOut
@@ -22717,28 +22717,28 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
             PrintOut.txtOther.Text = "ToFile"
             PrintOut.Show()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
 
-    Private Sub cboISMPUnit_SelectedValueChanged(sender As Object, e As System.EventArgs) Handles cboISMPUnit.SelectedValueChanged
+    Private Sub cboISMPUnit_SelectedValueChanged(sender As Object, e As EventArgs) Handles cboISMPUnit.SelectedValueChanged
         Try
             txtUnitManager.Text = "N/A"
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub mmiHelp_Click(sender As System.Object, e As System.EventArgs) Handles mmiHelp.Click
+    Private Sub mmiHelp_Click(sender As Object, e As EventArgs) Handles mmiHelp.Click
         OpenDocumentationUrl(Me)
     End Sub
 
-    Private Sub mmiOpenMemo_Click(sender As System.Object, e As System.EventArgs) Handles mmiOpenMemo.Click
+    Private Sub mmiOpenMemo_Click(sender As Object, e As EventArgs) Handles mmiOpenMemo.Click
         Try
             OpenMemo()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub

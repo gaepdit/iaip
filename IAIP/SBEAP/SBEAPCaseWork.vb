@@ -19,7 +19,7 @@ Public Class SBEAPCaseWork
         End Set
     End Property
 
-    Private Sub SBEAPCaseLog_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
+    Private Sub SBEAPCaseLog_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         Try
             If IsNumeric(txtCaseID.Text) = True Then
@@ -44,7 +44,7 @@ Public Class SBEAPCaseWork
             TCCaseSpecificData.Visible = False
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -174,7 +174,7 @@ Public Class SBEAPCaseWork
             cboTechAssistType.Items.Add("3 - Hard")
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub FormStatus(Status As String)
@@ -214,7 +214,7 @@ Public Class SBEAPCaseWork
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 #End Region
@@ -303,7 +303,7 @@ Public Class SBEAPCaseWork
             dr.Close()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub LoadCaseLogData()
@@ -485,7 +485,7 @@ Public Class SBEAPCaseWork
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub LoadActionLog()
@@ -544,7 +544,7 @@ Public Class SBEAPCaseWork
 
             txtActionCount.Text = dgvActionLog.RowCount.ToString
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub LoadActionTab()
@@ -620,7 +620,7 @@ Public Class SBEAPCaseWork
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub LoadAttendingStaff()
@@ -661,7 +661,7 @@ Public Class SBEAPCaseWork
                 .ValueMember = "NumUserID"
             End With
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub LoadComplianceAssist()
@@ -773,7 +773,7 @@ Public Class SBEAPCaseWork
             dr.Close()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub LoadTechnicalAssist()
@@ -1022,7 +1022,7 @@ Public Class SBEAPCaseWork
                 chbPollOther.Checked = False
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub LoadPhoneCall()
@@ -1080,7 +1080,7 @@ Public Class SBEAPCaseWork
             dr.Close()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub LoadConference()
@@ -1182,7 +1182,7 @@ Public Class SBEAPCaseWork
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub LoadOther()
@@ -1207,7 +1207,7 @@ Public Class SBEAPCaseWork
             dr.Close()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub UpdateCaseLog(Origin As String)
@@ -1394,7 +1394,7 @@ Public Class SBEAPCaseWork
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, SQL, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, SQL, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
     End Sub
@@ -1439,7 +1439,7 @@ Public Class SBEAPCaseWork
             End Select
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub SaveComplianceAssist()
@@ -1546,7 +1546,7 @@ Public Class SBEAPCaseWork
 
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub SaveTechnicalAssist()
@@ -1783,7 +1783,7 @@ Public Class SBEAPCaseWork
             dr.Close()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub SavePhoneCall()
@@ -1860,7 +1860,7 @@ Public Class SBEAPCaseWork
             dr.Close()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub SaveConference()
@@ -1977,7 +1977,7 @@ Public Class SBEAPCaseWork
             dr.Close()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub SaveOther()
@@ -2022,7 +2022,7 @@ Public Class SBEAPCaseWork
             dr.Close()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub ClearForm()
@@ -2054,7 +2054,7 @@ Public Class SBEAPCaseWork
             chbCaseClosureLetter.Checked = False
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub ClearActions()
@@ -2134,7 +2134,7 @@ Public Class SBEAPCaseWork
             txtComplianceAssistanceComments.Clear()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub LoadMultiClientList()
@@ -2201,19 +2201,19 @@ Public Class SBEAPCaseWork
 
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 #End Region
-    Private Sub tsbSave_Click(sender As System.Object, e As System.EventArgs) Handles tsbSave.Click
+    Private Sub tsbSave_Click(sender As Object, e As EventArgs) Handles tsbSave.Click
         Try
             UpdateCaseLog("Non Action")
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub tsbClientSearch_Click(sender As System.Object, e As System.EventArgs) Handles tsbClientSearch.Click
+    Private Sub tsbClientSearch_Click(sender As Object, e As EventArgs) Handles tsbClientSearch.Click
         Try
             Dim clientSearchDialog As New SBEAPClientSearchTool
             clientSearchDialog.ShowDialog()
@@ -2222,10 +2222,10 @@ Public Class SBEAPCaseWork
                 LoadClientInfo()
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnRefreshClient_Click(sender As System.Object, e As System.EventArgs) Handles btnRefreshClient.Click
+    Private Sub btnRefreshClient_Click(sender As Object, e As EventArgs) Handles btnRefreshClient.Click
         Try
             If txtClientID.Text <> "" Then
                 LoadClientInfo()
@@ -2236,10 +2236,10 @@ Public Class SBEAPCaseWork
                 txtOutstandingCases.Clear()
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub DTPCaseClosed_ValueChanged(sender As System.Object, e As System.EventArgs) Handles DTPCaseClosed.ValueChanged
+    Private Sub DTPCaseClosed_ValueChanged(sender As Object, e As EventArgs) Handles DTPCaseClosed.ValueChanged
         Try
             If temp <> "Data Load" Then
                 If DTPCaseClosed.Checked = True Then
@@ -2251,10 +2251,10 @@ Public Class SBEAPCaseWork
                 End If
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnAddNewAction_Click(sender As System.Object, e As System.EventArgs) Handles btnAddNewAction.Click
+    Private Sub btnAddNewAction_Click(sender As Object, e As EventArgs) Handles btnAddNewAction.Click
         Try
             If cboActionType.Text <> "" And cboActionType.SelectedIndex > 0 Then
                 ClearActions()
@@ -2313,10 +2313,10 @@ Public Class SBEAPCaseWork
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub txtCaseID_TextChanged(sender As Object, e As System.EventArgs) Handles txtCaseID.TextChanged
+    Private Sub txtCaseID_TextChanged(sender As Object, e As EventArgs) Handles txtCaseID.TextChanged
         Try
             If IsNumeric(txtCaseID.Text) = True Then
                 btnAddNewAction.Enabled = True
@@ -2326,10 +2326,10 @@ Public Class SBEAPCaseWork
                 btnViewActionType.Enabled = False
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub dgvActionLog_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles dgvActionLog.MouseUp
+    Private Sub dgvActionLog_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvActionLog.MouseUp
         Try
             Dim hti As DataGridView.HitTestInfo = dgvActionLog.HitTest(e.X, e.Y)
             If dgvActionLog.RowCount > 0 And hti.RowIndex <> -1 Then
@@ -2346,19 +2346,19 @@ Public Class SBEAPCaseWork
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
-    Private Sub btnViewActionType_Click(sender As System.Object, e As System.EventArgs) Handles btnViewActionType.Click
+    Private Sub btnViewActionType_Click(sender As Object, e As EventArgs) Handles btnViewActionType.Click
         Try
             LoadActionTab()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnClearActions_Click(sender As System.Object, e As System.EventArgs) Handles btnClearActions.Click
+    Private Sub btnClearActions_Click(sender As Object, e As EventArgs) Handles btnClearActions.Click
         Try
             ClearActions()
             txtActionID.Clear()
@@ -2367,18 +2367,18 @@ Public Class SBEAPCaseWork
             TCCaseSpecificData.Visible = False
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub tsbBack_Click(sender As System.Object, e As System.EventArgs) Handles tsbBack.Click
+    Private Sub tsbBack_Click(sender As Object, e As EventArgs) Handles tsbBack.Click
         Try
             CaseWork = Nothing
             Me.Close()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnDeleteAction_Click(sender As System.Object, e As System.EventArgs) Handles btnDeleteAction.Click
+    Private Sub btnDeleteAction_Click(sender As Object, e As EventArgs) Handles btnDeleteAction.Click
         Try
             Dim Result As DialogResult
             If txtActionID.Text <> "" Then
@@ -2434,10 +2434,10 @@ Public Class SBEAPCaseWork
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub mmiAddNewClient_Click(sender As System.Object, e As System.EventArgs) Handles mmiAddNewClient.Click
+    Private Sub mmiAddNewClient_Click(sender As Object, e As EventArgs) Handles mmiAddNewClient.Click
         Try
             If ClientSummary Is Nothing Then
 
@@ -2447,18 +2447,18 @@ Public Class SBEAPCaseWork
             ClientSummary = New SBEAPClientSummary
             ClientSummary.Show()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub tsbClearFrom_Click(sender As System.Object, e As System.EventArgs) Handles tsbClearFrom.Click
+    Private Sub tsbClearFrom_Click(sender As Object, e As EventArgs) Handles tsbClearFrom.Click
         Try
 
             ClearForm()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub rdbSingleClient_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles rdbSingleClient.CheckedChanged
+    Private Sub rdbSingleClient_CheckedChanged(sender As Object, e As EventArgs) Handles rdbSingleClient.CheckedChanged
         Try
             If rdbSingleClient.Checked = True Then
                 pnlSingleClient.Visible = True
@@ -2473,10 +2473,10 @@ Public Class SBEAPCaseWork
                 End If
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub rdbMultiClient_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles rdbMultiClient.CheckedChanged
+    Private Sub rdbMultiClient_CheckedChanged(sender As Object, e As EventArgs) Handles rdbMultiClient.CheckedChanged
         Try
             If rdbMultiClient.Checked = True Then
                 pnlMultiClient.Visible = True
@@ -2491,10 +2491,10 @@ Public Class SBEAPCaseWork
                 End If
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnAddClients_Click(sender As System.Object, e As System.EventArgs) Handles btnAddClients.Click
+    Private Sub btnAddClients_Click(sender As Object, e As EventArgs) Handles btnAddClients.Click
         Try
             Dim Client As String = ""
 
@@ -2515,10 +2515,10 @@ Public Class SBEAPCaseWork
             txtAddMultiClient.Clear()
             LoadMultiClientList()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnRemoveClient_Click(sender As System.Object, e As System.EventArgs) Handles btnRemoveClient.Click
+    Private Sub btnRemoveClient_Click(sender As Object, e As EventArgs) Handles btnRemoveClient.Click
         Try
             If txtDeleteClient.Text.Length = 8 Then
                 txtMultiClientList.Text = Replace(txtMultiClientList.Text, (txtDeleteClient.Text & vbCrLf), "")
@@ -2528,7 +2528,7 @@ Public Class SBEAPCaseWork
             txtDeleteClient.Clear()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub DeleteCase()
@@ -2718,10 +2718,10 @@ Public Class SBEAPCaseWork
                 Exit Sub
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub tsmDeleteCaseWork_Click(sender As System.Object, e As System.EventArgs) Handles tsmDeleteCaseWork.Click
+    Private Sub tsmDeleteCaseWork_Click(sender As Object, e As EventArgs) Handles tsmDeleteCaseWork.Click
         Try
 
             If txtCaseID.Text <> "" Then
@@ -2729,11 +2729,11 @@ Public Class SBEAPCaseWork
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    'Private Sub tsbPrint_Click(sender As System.Object, e As System.EventArgs) Handles tsbPrint.Click
+    'Private Sub tsbPrint_Click(sender As Object, e As EventArgs) Handles tsbPrint.Click
     '    Try
 
     '        If PrintForm Is Nothing Then
@@ -2746,7 +2746,7 @@ Public Class SBEAPCaseWork
     '        PrintForm.Show()
 
     '    Catch ex As Exception
-    '        ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+    '        ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
     '    End Try
     'End Sub
 End Class

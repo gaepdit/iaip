@@ -15,7 +15,7 @@ Public Class ISMPAddTestingFirms
     Dim daTestingFirms As SqlDataAdapter
 
 
-    Private Sub ISMPAddTestingFirms_Load(sender As Object, e As System.EventArgs) Handles MyBase.Load
+    Private Sub ISMPAddTestingFirms_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         Try
 
@@ -23,7 +23,7 @@ Public Class ISMPAddTestingFirms
             LoadDataSet()
             FormatdgrTestingFirms()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -61,7 +61,7 @@ Public Class ISMPAddTestingFirms
             ' Add the StatusBar to the form.
             Me.Controls.Add(statusBar1)
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -92,7 +92,7 @@ Public Class ISMPAddTestingFirms
             dgrTestingFirms.DataMember = "TestingFirms"
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -200,7 +200,7 @@ Public Class ISMPAddTestingFirms
             dgrTestingFirms.CaptionText = "Testing Firm(s)"
             dgrTestingFirms.ColumnHeadersVisible = True
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -272,7 +272,7 @@ Public Class ISMPAddTestingFirms
             Next
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -335,7 +335,7 @@ Public Class ISMPAddTestingFirms
             txtTestingFirmKey.Text = TestingFirmKey
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -494,7 +494,7 @@ Public Class ISMPAddTestingFirms
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -519,7 +519,7 @@ Public Class ISMPAddTestingFirms
             txtTestingFirmEmail.Clear()
             chbDeleteTestingFirm.Checked = False
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -531,7 +531,7 @@ Public Class ISMPAddTestingFirms
             ISMPAddTestingFirm = Nothing
             Me.Close()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -543,13 +543,13 @@ Public Class ISMPAddTestingFirms
 
             ISMPAddTestingFirm = Nothing
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub dgrTestingFirms_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles dgrTestingFirms.MouseUp
+    Private Sub dgrTestingFirms_MouseUp(sender As Object, e As MouseEventArgs) Handles dgrTestingFirms.MouseUp
         Dim hti As DataGrid.HitTestInfo = dgrTestingFirms.HitTest(e.X, e.Y)
 
         Try
@@ -588,20 +588,20 @@ Public Class ISMPAddTestingFirms
                 End If
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub txtTestingFirmKey_TextChanged(sender As Object, e As System.EventArgs) Handles txtTestingFirmKey.TextChanged
+    Private Sub txtTestingFirmKey_TextChanged(sender As Object, e As EventArgs) Handles txtTestingFirmKey.TextChanged
         Try
 
             If txtTestingFirmKey.Text <> "" Then
                 LoadTestingFirmInfo()
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -609,78 +609,78 @@ Public Class ISMPAddTestingFirms
     End Sub
 
 #Region "Main Menu Item"
-    Private Sub MmiSave_Click(sender As System.Object, e As System.EventArgs) Handles MmiSave.Click
+    Private Sub MmiSave_Click(sender As Object, e As EventArgs) Handles MmiSave.Click
         Try
 
             Save()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiBack_Click(sender As System.Object, e As System.EventArgs) Handles MmiBack.Click
+    Private Sub MmiBack_Click(sender As Object, e As EventArgs) Handles MmiBack.Click
         Try
 
             Back()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub mmiCut_Click(sender As System.Object, e As System.EventArgs) Handles mmiCut.Click
+    Private Sub mmiCut_Click(sender As Object, e As EventArgs) Handles mmiCut.Click
         Try
 
             SendKeys.Send("(^X)")
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub mmiCopy_Click(sender As System.Object, e As System.EventArgs) Handles mmiCopy.Click
+    Private Sub mmiCopy_Click(sender As Object, e As EventArgs) Handles mmiCopy.Click
         Try
 
             SendKeys.Send("(^C)")
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub mmiPaste_Click(sender As System.Object, e As System.EventArgs) Handles mmiPaste.Click
+    Private Sub mmiPaste_Click(sender As Object, e As EventArgs) Handles mmiPaste.Click
         Try
 
             SendKeys.Send("(^V)")
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub mmiClear_Click(sender As System.Object, e As System.EventArgs) Handles mmiClear.Click
+    Private Sub mmiClear_Click(sender As Object, e As EventArgs) Handles mmiClear.Click
         Try
 
             Clear()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub mmiHelp_Click(sender As System.Object, e As System.EventArgs) Handles mmiHelp.Click
+    Private Sub mmiHelp_Click(sender As Object, e As EventArgs) Handles mmiHelp.Click
         OpenDocumentationUrl(Me)
     End Sub
 #End Region
 
-    Private Sub TBAddTestingFirm_ButtonClick(sender As System.Object, e As System.Windows.Forms.ToolBarButtonClickEventArgs) Handles TBAddTestingFirm.ButtonClick
+    Private Sub TBAddTestingFirm_ButtonClick(sender As Object, e As ToolBarButtonClickEventArgs) Handles TBAddTestingFirm.ButtonClick
         Try
 
             Select Case TBAddTestingFirm.Buttons.IndexOf(e.Button)
@@ -692,7 +692,7 @@ Public Class ISMPAddTestingFirms
                     Back()
             End Select
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try

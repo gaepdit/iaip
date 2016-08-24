@@ -10,7 +10,7 @@ Public Class SSPPApplicationTrackingLog
     Dim dtFacAppHistory As DataTable
     Dim dtFacInfoHistory As DataTable
 
-    Private Sub SSPPPermitTrackingLog_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
+    Private Sub SSPPPermitTrackingLog_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         
         Try
 
@@ -35,7 +35,7 @@ Public Class SSPPApplicationTrackingLog
             LoadSubPartData()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -203,7 +203,7 @@ Public Class SSPPApplicationTrackingLog
             DTPPNExpires.Text = OracleDate
             DTPPNExpires.Checked = False
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub LoadComboBoxes()
@@ -368,7 +368,7 @@ Public Class SSPPApplicationTrackingLog
             End With
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -2339,7 +2339,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub LoadFacilityApplicationHistory()
@@ -2435,7 +2435,7 @@ Public Class SSPPApplicationTrackingLog
             dgvFacilityAppHistory.Columns("strApplicationTypeDesc").DisplayIndex = 7
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub LoadInformationRequestedHistory()
@@ -2497,7 +2497,7 @@ Public Class SSPPApplicationTrackingLog
             dgvInformationRequested.Columns("strApplicationNumber").Visible = False
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub LoadSubPartData()
@@ -2536,7 +2536,7 @@ Public Class SSPPApplicationTrackingLog
             End With
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -3197,7 +3197,7 @@ Public Class SSPPApplicationTrackingLog
                 txtDistrict.BackColor = Color.Tomato
             End If
         Catch ex As Exception
-            ErrorReport(ex, txtAIRSNumber.Text, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, txtAIRSNumber.Text, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub LoadMiscData()
@@ -3251,7 +3251,7 @@ Public Class SSPPApplicationTrackingLog
             End Select
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub LoadContactData()
@@ -3366,7 +3366,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub LoadApplicationData()
@@ -4150,7 +4150,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, temp, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, temp, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub ReLoadBasicFacilityInfo()
@@ -4621,7 +4621,7 @@ Public Class SSPPApplicationTrackingLog
             End Select
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub CheckOpenApplications()
@@ -4636,7 +4636,7 @@ Public Class SSPPApplicationTrackingLog
             If txtOutstandingApplication.Text = "" Then txtOutstandingApplication.Text = "0"
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub CheckForLinks()
@@ -4712,7 +4712,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub SaveApplicationData()
@@ -5448,7 +5448,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -5609,7 +5609,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub DeleteInformationRequest()
@@ -5639,7 +5639,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub SaveApplicationSubmitForReview()
@@ -5687,7 +5687,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -5734,7 +5734,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -5781,7 +5781,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub SaveApplicationContact()
@@ -6180,7 +6180,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub CloseOutApplication(Status As String)
@@ -6347,7 +6347,7 @@ Public Class SSPPApplicationTrackingLog
             End Select
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub LinkApplications()
@@ -6424,7 +6424,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, txtAIRSNumber.Text, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, txtAIRSNumber.Text, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -6457,7 +6457,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub SaveWebPublisherData()
@@ -6607,7 +6607,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub GenerateAFSEntry()
@@ -6680,7 +6680,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub UpdateAPBTables()
@@ -6967,7 +6967,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, query & vbCrLf & txtAIRSNumber.Text & vbCrLf & txtApplicationNumber.Text, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, query & vbCrLf & txtAIRSNumber.Text & vbCrLf & txtApplicationNumber.Text, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -7131,7 +7131,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -7198,7 +7198,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -7490,7 +7490,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub DownloadFile(fileName As String, fileType As String)
@@ -7543,7 +7543,7 @@ Public Class SSPPApplicationTrackingLog
 
             sfd.Dispose()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -7563,7 +7563,7 @@ Public Class SSPPApplicationTrackingLog
             cboApplicationUnit.SelectedIndex = 0
             cboApplicationType.SelectedIndex = 0
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub ClearApplicationTab()
@@ -7618,7 +7618,7 @@ Public Class SSPPApplicationTrackingLog
             txtComments.Clear()
             txtSignificantComments.Clear()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub ClearFacilityApplicationHistoryTab()
@@ -7628,7 +7628,7 @@ Public Class SSPPApplicationTrackingLog
             txtHistoryAppComments.Clear()
             txtHistoryComments.Clear()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub ClearInformationRequestedTab()
@@ -7640,7 +7640,7 @@ Public Class SSPPApplicationTrackingLog
             txtInformationRequested.Clear()
             txtInformationReceived.Clear()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub ClearReviewTab()
@@ -7658,12 +7658,12 @@ Public Class SSPPApplicationTrackingLog
             rdbISMPNo.Checked = False
             txtISMPComments.Clear()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 #End Region
 #Region "Check Box Changes"
-    Private Sub chbClosedOut_CheckedChanged(sender As Object, e As System.EventArgs) Handles chbClosedOut.CheckedChanged
+    Private Sub chbClosedOut_CheckedChanged(sender As Object, e As EventArgs) Handles chbClosedOut.CheckedChanged
         Try
 
             If chbClosedOut.Checked = True Then
@@ -7675,13 +7675,13 @@ Public Class SSPPApplicationTrackingLog
                 DTPFinalizedDate.Visible = False
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 #End Region
 #Region "Delarations"
 
-    Private Sub txtPermitNumber_TextChanged(sender As Object, e As System.EventArgs) Handles txtPermitNumber.TextChanged
+    Private Sub txtPermitNumber_TextChanged(sender As Object, e As EventArgs) Handles txtPermitNumber.TextChanged
         Dim PermitNumber As String
         Dim SICCode As String
         Dim AIRSNumber As String
@@ -7743,26 +7743,26 @@ Public Class SSPPApplicationTrackingLog
 
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnSaveInformationRequest_Click(sender As System.Object, e As System.EventArgs) Handles btnSaveInformationRequest.Click
+    Private Sub btnSaveInformationRequest_Click(sender As Object, e As EventArgs) Handles btnSaveInformationRequest.Click
         Try
 
             SaveInformationRequest()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnDeleteInformationRequest_Click(sender As System.Object, e As System.EventArgs) Handles btnDeleteInformationRequest.Click
+    Private Sub btnDeleteInformationRequest_Click(sender As Object, e As EventArgs) Handles btnDeleteInformationRequest.Click
         Try
 
             DeleteInformationRequest()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnClearInformationRequest_Click(sender As System.Object, e As System.EventArgs) Handles btnClearInformationRequest.Click
+    Private Sub btnClearInformationRequest_Click(sender As Object, e As EventArgs) Handles btnClearInformationRequest.Click
         Try
 
             txtInformationRequestedKey.Clear()
@@ -7773,10 +7773,10 @@ Public Class SSPPApplicationTrackingLog
             DTPInformationReceived.Checked = False
             txtInformationReceived.Clear()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub rdbSSCPYes_CheckedChanged(sender As Object, e As System.EventArgs) Handles rdbSSCPYes.CheckedChanged
+    Private Sub rdbSSCPYes_CheckedChanged(sender As Object, e As EventArgs) Handles rdbSSCPYes.CheckedChanged
         Try
 
             If rdbSSCPYes.Checked = True Then
@@ -7787,10 +7787,10 @@ Public Class SSPPApplicationTrackingLog
                 txtSSCPComments.ReadOnly = True
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub rdbSSCPNo_CheckedChanged(sender As Object, e As System.EventArgs) Handles rdbSSCPNo.CheckedChanged
+    Private Sub rdbSSCPNo_CheckedChanged(sender As Object, e As EventArgs) Handles rdbSSCPNo.CheckedChanged
         Try
 
             If rdbSSCPNo.Checked = True Then
@@ -7801,10 +7801,10 @@ Public Class SSPPApplicationTrackingLog
                 txtSSCPComments.ReadOnly = False
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub rdbISMPYes_CheckedChanged(sender As Object, e As System.EventArgs) Handles rdbISMPYes.CheckedChanged
+    Private Sub rdbISMPYes_CheckedChanged(sender As Object, e As EventArgs) Handles rdbISMPYes.CheckedChanged
         Try
 
             If rdbISMPYes.Checked = True Then
@@ -7815,10 +7815,10 @@ Public Class SSPPApplicationTrackingLog
                 txtISMPComments.ReadOnly = True
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub rdbISMPNo_CheckedChanged(sender As Object, e As System.EventArgs) Handles rdbISMPNo.CheckedChanged
+    Private Sub rdbISMPNo_CheckedChanged(sender As Object, e As EventArgs) Handles rdbISMPNo.CheckedChanged
         Try
 
             If rdbISMPNo.Checked = True Then
@@ -7829,10 +7829,10 @@ Public Class SSPPApplicationTrackingLog
                 txtISMPComments.ReadOnly = False
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnAddApplicationToList_Click(sender As System.Object, e As System.EventArgs) Handles btnAddApplicationToList.Click
+    Private Sub btnAddApplicationToList_Click(sender As Object, e As EventArgs) Handles btnAddApplicationToList.Click
         Try
 
             If txtApplicationNumberHistory.Text <> "" And chbClosedOutHistory.Checked = False Then
@@ -7845,10 +7845,10 @@ Public Class SSPPApplicationTrackingLog
                 End If
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnClearList_Click(sender As System.Object, e As System.EventArgs) Handles btnClearList.Click
+    Private Sub btnClearList_Click(sender As Object, e As EventArgs) Handles btnClearList.Click
         Try
 
             lbLinkApplications.Items.Clear()
@@ -7856,18 +7856,18 @@ Public Class SSPPApplicationTrackingLog
             txtMasterAppLock.Clear()
             txtApplicationCount.Clear()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnLinkApplications_Click(sender As System.Object, e As System.EventArgs) Handles btnLinkApplications.Click
+    Private Sub btnLinkApplications_Click(sender As Object, e As EventArgs) Handles btnLinkApplications.Click
         Try
 
             LinkApplications()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnClearLinks_Click(sender As System.Object, e As System.EventArgs) Handles btnClearLinks.Click
+    Private Sub btnClearLinks_Click(sender As Object, e As EventArgs) Handles btnClearLinks.Click
         Try
 
             ClearApplicationLinks()
@@ -7876,10 +7876,10 @@ Public Class SSPPApplicationTrackingLog
                 lbLinkApplications.Items.Add(txtApplicationNumber.Text)
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub lbLinkApplications_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles lbLinkApplications.MouseUp
+    Private Sub lbLinkApplications_MouseUp(sender As Object, e As MouseEventArgs) Handles lbLinkApplications.MouseUp
         Try
 
             If txtMasterAppLock.Text = "" Then
@@ -7890,10 +7890,10 @@ Public Class SSPPApplicationTrackingLog
                 txtMasterApp.Text = txtMasterAppLock.Text
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnLoadFacilityApplicationHistory_Click(sender As System.Object, e As System.EventArgs) Handles btnLoadFacilityApplicationHistory.Click
+    Private Sub btnLoadFacilityApplicationHistory_Click(sender As Object, e As EventArgs) Handles btnLoadFacilityApplicationHistory.Click
         Try
 
             LoadFacilityApplicationHistory()
@@ -7907,25 +7907,25 @@ Public Class SSPPApplicationTrackingLog
 
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnViewInformationRequests_Click(sender As System.Object, e As System.EventArgs) Handles btnViewInformationRequests.Click
+    Private Sub btnViewInformationRequests_Click(sender As Object, e As EventArgs) Handles btnViewInformationRequests.Click
         Try
 
 
             LoadInformationRequestedHistory()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnSaveWebPublisher_Click(sender As System.Object, e As System.EventArgs) Handles btnSaveWebPublisher.Click
+    Private Sub btnSaveWebPublisher_Click(sender As Object, e As EventArgs) Handles btnSaveWebPublisher.Click
         Try
 
             SaveWebPublisherData()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -7970,13 +7970,13 @@ Public Class SSPPApplicationTrackingLog
         MsgBox("Application Information Saved.", MsgBoxStyle.Information, "Application Tracking Log")
     End Sub
 
-    Private Sub mmiSave_Click(sender As System.Object, e As System.EventArgs) Handles mmiSave.Click
+    Private Sub mmiSave_Click(sender As Object, e As EventArgs) Handles mmiSave.Click
         PreSaveCheckThenSave()
     End Sub
-    Private Sub mmiClose_Click(sender As System.Object, e As System.EventArgs) Handles mmiClose.Click
+    Private Sub mmiClose_Click(sender As Object, e As EventArgs) Handles mmiClose.Click
         Me.Close()
     End Sub
-    Private Sub DTPReviewSubmitted_ValueChanged(sender As System.Object, e As System.EventArgs) Handles DTPReviewSubmitted.ValueChanged
+    Private Sub DTPReviewSubmitted_ValueChanged(sender As Object, e As EventArgs) Handles DTPReviewSubmitted.ValueChanged
         Try
             If DTPReviewSubmitted.Checked = True Then
                 cboSSCPUnits.Enabled = True
@@ -7986,10 +7986,10 @@ Public Class SSPPApplicationTrackingLog
                 cboISMPUnits.Enabled = False
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub DTPISMPReview_ValueChanged(sender As System.Object, e As System.EventArgs) Handles DTPISMPReview.ValueChanged
+    Private Sub DTPISMPReview_ValueChanged(sender As Object, e As EventArgs) Handles DTPISMPReview.ValueChanged
         Try
             If DTPISMPReview.Checked = True Then
                 cboISMPStaff.Enabled = True
@@ -8003,10 +8003,10 @@ Public Class SSPPApplicationTrackingLog
                 txtISMPComments.Enabled = False
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub DTPSSCPReview_ValueChanged(sender As System.Object, e As System.EventArgs) Handles DTPSSCPReview.ValueChanged
+    Private Sub DTPSSCPReview_ValueChanged(sender As Object, e As EventArgs) Handles DTPSSCPReview.ValueChanged
         Try
             If DTPSSCPReview.Checked = True Then
                 cboSSCPStaff.Enabled = True
@@ -8020,10 +8020,10 @@ Public Class SSPPApplicationTrackingLog
                 txtSSCPComments.Enabled = False
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub dgrFacilityAppHistory_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles dgvFacilityAppHistory.MouseUp
+    Private Sub dgrFacilityAppHistory_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvFacilityAppHistory.MouseUp
 
         Dim hti As DataGridView.HitTestInfo = dgvFacilityAppHistory.HitTest(e.X, e.Y)
         Dim temp As String = ""
@@ -8050,10 +8050,10 @@ Public Class SSPPApplicationTrackingLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub dgvInformationRequested_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles dgvInformationRequested.MouseUp
+    Private Sub dgvInformationRequested_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvInformationRequested.MouseUp
         Dim hti As DataGridView.HitTestInfo = dgvInformationRequested.HitTest(e.X, e.Y)
         Dim temp As String = ""
 
@@ -8085,25 +8085,25 @@ Public Class SSPPApplicationTrackingLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub mmiNewApplication_Click(sender As System.Object, e As System.EventArgs) Handles mmiNewApplication.Click
+    Private Sub mmiNewApplication_Click(sender As Object, e As EventArgs) Handles mmiNewApplication.Click
         Try
             Dim query As String = "Select SSPPApplicationKey.nextval from dual "
             txtApplicationNumber.Text = DB.GetSingleValue(Of Integer)(query)
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub cboClassification_TextChanged(sender As Object, e As System.EventArgs) Handles cboClassification.TextChanged
+    Private Sub cboClassification_TextChanged(sender As Object, e As EventArgs) Handles cboClassification.TextChanged
         If cboClassification.Text = "A - MAJOR" Then
             GBOther.Visible = True
         Else
             GBOther.Visible = False
         End If
     End Sub
-    Private Sub cboApplicationType_SelectedValueChanged(sender As Object, e As System.EventArgs) Handles cboApplicationType.SelectedValueChanged
+    Private Sub cboApplicationType_SelectedValueChanged(sender As Object, e As EventArgs) Handles cboApplicationType.SelectedValueChanged
         Try
 
 
@@ -8421,10 +8421,10 @@ Public Class SSPPApplicationTrackingLog
             End Select
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub chb112_CheckedChanged(sender As Object, e As System.EventArgs) Handles chb112g.CheckedChanged
+    Private Sub chb112_CheckedChanged(sender As Object, e As EventArgs) Handles chb112g.CheckedChanged
         Try
 
             If cboApplicationType.Text = "SIP" Then
@@ -8442,10 +8442,10 @@ Public Class SSPPApplicationTrackingLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub chbPSD_CheckedChanged(sender As Object, e As System.EventArgs) Handles chbPSD.CheckedChanged
+    Private Sub chbPSD_CheckedChanged(sender As Object, e As EventArgs) Handles chbPSD.CheckedChanged
         Try
 
             If cboApplicationType.Text = "SIP" Then
@@ -8464,10 +8464,10 @@ Public Class SSPPApplicationTrackingLog
 
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub chbNAANSR_CheckedChanged(sender As Object, e As System.EventArgs) Handles chbNAANSR.CheckedChanged
+    Private Sub chbNAANSR_CheckedChanged(sender As Object, e As EventArgs) Handles chbNAANSR.CheckedChanged
         Try
 
             If cboApplicationType.Text = "SIP" Then
@@ -8485,10 +8485,10 @@ Public Class SSPPApplicationTrackingLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub cboPublicAdvisory_TextChanged(sender As Object, e As System.EventArgs) Handles cboPublicAdvisory.TextChanged
+    Private Sub cboPublicAdvisory_TextChanged(sender As Object, e As EventArgs) Handles cboPublicAdvisory.TextChanged
         Try
             If cboPublicAdvisory.Text = "PA Not Needed" Then
                 chbPAReady.Checked = False
@@ -8504,7 +8504,7 @@ Public Class SSPPApplicationTrackingLog
                 End If
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -8557,19 +8557,19 @@ Public Class SSPPApplicationTrackingLog
             LoadSSPPMACTSubPartInformation()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnRefreshAppNo_Click(sender As System.Object, e As System.EventArgs) Handles btnRefreshAppNo.Click
+    Private Sub btnRefreshAppNo_Click(sender As Object, e As EventArgs) Handles btnRefreshAppNo.Click
         Try
 
             LoadApplication()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnRefreshAIRSNo_Click(sender As System.Object, e As System.EventArgs) Handles btnRefreshAIRSNo.Click
+    Private Sub btnRefreshAIRSNo_Click(sender As Object, e As EventArgs) Handles btnRefreshAIRSNo.Click
         Try
             If txtAIRSNumber.Text.Length = 8 Then
                 FormStatus = "Loading"
@@ -8585,10 +8585,10 @@ Public Class SSPPApplicationTrackingLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub rdbTitleVPermit_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles rdbTitleVPermit.CheckedChanged
+    Private Sub rdbTitleVPermit_CheckedChanged(sender As Object, e As EventArgs) Handles rdbTitleVPermit.CheckedChanged
         Try
             Dim TVNarrative As String = ""
             Dim TVDraft As String = ""
@@ -8637,10 +8637,10 @@ Public Class SSPPApplicationTrackingLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub rdbPSDPermit_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles rdbPSDPermit.CheckedChanged
+    Private Sub rdbPSDPermit_CheckedChanged(sender As Object, e As EventArgs) Handles rdbPSDPermit.CheckedChanged
         Try
             Dim PSDAppSummary As String = ""
             Dim PSDPrelimDet As String = ""
@@ -8719,10 +8719,10 @@ Public Class SSPPApplicationTrackingLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub rdbOtherPermit_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles rdbOtherPermit.CheckedChanged
+    Private Sub rdbOtherPermit_CheckedChanged(sender As Object, e As EventArgs) Handles rdbOtherPermit.CheckedChanged
         Try
             Dim OtherNarrative As String = ""
             Dim OtherPermit As String = ""
@@ -8759,10 +8759,10 @@ Public Class SSPPApplicationTrackingLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub chbTVNarrative_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chbTVNarrative.CheckedChanged
+    Private Sub chbTVNarrative_CheckedChanged(sender As Object, e As EventArgs) Handles chbTVNarrative.CheckedChanged
         Try
 
             If chbTVNarrative.Checked = True And MasterApp <> "" Then
@@ -8881,10 +8881,10 @@ Public Class SSPPApplicationTrackingLog
 
         Catch ex As Exception
             MsgBox(ex.ToString())
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub chbTVDraft_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chbTVDraft.CheckedChanged
+    Private Sub chbTVDraft_CheckedChanged(sender As Object, e As EventArgs) Handles chbTVDraft.CheckedChanged
         Try
 
             If chbTVDraft.Checked = True And MasterApp <> "" Then
@@ -9001,10 +9001,10 @@ Public Class SSPPApplicationTrackingLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub chbTVPublicNotice_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chbTVPublicNotice.CheckedChanged
+    Private Sub chbTVPublicNotice_CheckedChanged(sender As Object, e As EventArgs) Handles chbTVPublicNotice.CheckedChanged
         Try
 
             If chbTVPublicNotice.Checked = True And MasterApp <> "" Then
@@ -9122,10 +9122,10 @@ Public Class SSPPApplicationTrackingLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub chbTVFinal_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chbTVFinal.CheckedChanged
+    Private Sub chbTVFinal_CheckedChanged(sender As Object, e As EventArgs) Handles chbTVFinal.CheckedChanged
         Try
 
             If chbTVFinal.Checked = True And MasterApp <> "" Then
@@ -9242,10 +9242,10 @@ Public Class SSPPApplicationTrackingLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub chbPSDApplicationSummary_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chbPSDApplicationSummary.CheckedChanged
+    Private Sub chbPSDApplicationSummary_CheckedChanged(sender As Object, e As EventArgs) Handles chbPSDApplicationSummary.CheckedChanged
         Try
 
             If chbPSDApplicationSummary.Checked = True And MasterApp <> "" Then
@@ -9361,10 +9361,10 @@ Public Class SSPPApplicationTrackingLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub chbPSDPrelimDet_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chbPSDPrelimDet.CheckedChanged
+    Private Sub chbPSDPrelimDet_CheckedChanged(sender As Object, e As EventArgs) Handles chbPSDPrelimDet.CheckedChanged
         Try
 
             If chbPSDPrelimDet.Checked = True And MasterApp <> "" Then
@@ -9480,10 +9480,10 @@ Public Class SSPPApplicationTrackingLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub chbPSDNarrative_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chbPSDNarrative.CheckedChanged
+    Private Sub chbPSDNarrative_CheckedChanged(sender As Object, e As EventArgs) Handles chbPSDNarrative.CheckedChanged
         Try
 
             If chbPSDNarrative.Checked = True And MasterApp <> "" Then
@@ -9599,10 +9599,10 @@ Public Class SSPPApplicationTrackingLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub chbPSDDraftPermit_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chbPSDDraftPermit.CheckedChanged
+    Private Sub chbPSDDraftPermit_CheckedChanged(sender As Object, e As EventArgs) Handles chbPSDDraftPermit.CheckedChanged
         Try
 
             If chbPSDDraftPermit.Checked = True And MasterApp <> "" Then
@@ -9718,10 +9718,10 @@ Public Class SSPPApplicationTrackingLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub chbPSDPublicNotice_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chbPSDPublicNotice.CheckedChanged
+    Private Sub chbPSDPublicNotice_CheckedChanged(sender As Object, e As EventArgs) Handles chbPSDPublicNotice.CheckedChanged
         Try
 
             If chbPSDPublicNotice.Checked = True And MasterApp <> "" Then
@@ -9837,10 +9837,10 @@ Public Class SSPPApplicationTrackingLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub chbPSDHearingNotice_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chbPSDHearingNotice.CheckedChanged
+    Private Sub chbPSDHearingNotice_CheckedChanged(sender As Object, e As EventArgs) Handles chbPSDHearingNotice.CheckedChanged
         Try
 
             If chbPSDHearingNotice.Checked = True And MasterApp <> "" Then
@@ -9956,10 +9956,10 @@ Public Class SSPPApplicationTrackingLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub chbPSDFinalDet_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chbPSDFinalDet.CheckedChanged
+    Private Sub chbPSDFinalDet_CheckedChanged(sender As Object, e As EventArgs) Handles chbPSDFinalDet.CheckedChanged
         Try
 
             If chbPSDFinalDet.Checked = True And MasterApp <> "" Then
@@ -10075,10 +10075,10 @@ Public Class SSPPApplicationTrackingLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub chbPSDFinalPermit_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chbPSDFinalPermit.CheckedChanged
+    Private Sub chbPSDFinalPermit_CheckedChanged(sender As Object, e As EventArgs) Handles chbPSDFinalPermit.CheckedChanged
         Try
 
             If chbPSDFinalPermit.Checked = True And MasterApp <> "" Then
@@ -10194,10 +10194,10 @@ Public Class SSPPApplicationTrackingLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub chbOtherNarrative_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chbOtherNarrative.CheckedChanged
+    Private Sub chbOtherNarrative_CheckedChanged(sender As Object, e As EventArgs) Handles chbOtherNarrative.CheckedChanged
         Try
             If chbOtherNarrative.Checked = True And MasterApp <> "" Then
                 txtOtherNarrativeDoc.Visible = True
@@ -10313,10 +10313,10 @@ Public Class SSPPApplicationTrackingLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub chbOtherPermit_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chbOtherPermit.CheckedChanged
+    Private Sub chbOtherPermit_CheckedChanged(sender As Object, e As EventArgs) Handles chbOtherPermit.CheckedChanged
         Try
 
             If chbOtherPermit.Checked = True And MasterApp <> "" Then
@@ -10432,10 +10432,10 @@ Public Class SSPPApplicationTrackingLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnOtherNarrativeDownload_Click(sender As System.Object, e As System.EventArgs) Handles btnOtherNarrativeDownload.Click
+    Private Sub btnOtherNarrativeDownload_Click(sender As Object, e As EventArgs) Handles btnOtherNarrativeDownload.Click
         Try
             Dim Result As String = ""
 
@@ -10466,10 +10466,10 @@ Public Class SSPPApplicationTrackingLog
 
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnOtherPermitDownload_Click(sender As System.Object, e As System.EventArgs) Handles btnOtherPermitDownload.Click
+    Private Sub btnOtherPermitDownload_Click(sender As Object, e As EventArgs) Handles btnOtherPermitDownload.Click
         Try
             Dim Result As String = ""
 
@@ -10498,10 +10498,10 @@ Public Class SSPPApplicationTrackingLog
                 End If
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnTVNarrativeDownload_Click(sender As System.Object, e As System.EventArgs) Handles btnTVNarrativeDownload.Click
+    Private Sub btnTVNarrativeDownload_Click(sender As Object, e As EventArgs) Handles btnTVNarrativeDownload.Click
         Try
             Dim Result As String = ""
 
@@ -10530,10 +10530,10 @@ Public Class SSPPApplicationTrackingLog
                 End If
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnTVDraftDownload_Click(sender As System.Object, e As System.EventArgs) Handles btnTVDraftDownload.Click
+    Private Sub btnTVDraftDownload_Click(sender As Object, e As EventArgs) Handles btnTVDraftDownload.Click
         Try
             Dim Result As String = ""
 
@@ -10562,10 +10562,10 @@ Public Class SSPPApplicationTrackingLog
                 End If
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnTVPublicNoticeDownload_Click(sender As System.Object, e As System.EventArgs) Handles btnTVPublicNoticeDownload.Click
+    Private Sub btnTVPublicNoticeDownload_Click(sender As Object, e As EventArgs) Handles btnTVPublicNoticeDownload.Click
         Try
             Dim Result As String = ""
 
@@ -10594,10 +10594,10 @@ Public Class SSPPApplicationTrackingLog
                 End If
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnTVFinalDownload_Click(sender As System.Object, e As System.EventArgs) Handles btnTVFinalDownload.Click
+    Private Sub btnTVFinalDownload_Click(sender As Object, e As EventArgs) Handles btnTVFinalDownload.Click
         Try
             Dim Result As String = ""
 
@@ -10626,10 +10626,10 @@ Public Class SSPPApplicationTrackingLog
                 End If
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnPSDAppSummaryDownload_Click(sender As System.Object, e As System.EventArgs) Handles btnPSDAppSummaryDownload.Click
+    Private Sub btnPSDAppSummaryDownload_Click(sender As Object, e As EventArgs) Handles btnPSDAppSummaryDownload.Click
         Try
             Dim Result As String = ""
 
@@ -10658,10 +10658,10 @@ Public Class SSPPApplicationTrackingLog
                 End If
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnPSDPrelimDetDownload_Click(sender As System.Object, e As System.EventArgs) Handles btnPSDPrelimDetDownload.Click
+    Private Sub btnPSDPrelimDetDownload_Click(sender As Object, e As EventArgs) Handles btnPSDPrelimDetDownload.Click
         Try
             Dim Result As String = ""
 
@@ -10690,10 +10690,10 @@ Public Class SSPPApplicationTrackingLog
                 End If
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnPSDNarrativeDownload_Click(sender As System.Object, e As System.EventArgs) Handles btnPSDNarrativeDownload.Click
+    Private Sub btnPSDNarrativeDownload_Click(sender As Object, e As EventArgs) Handles btnPSDNarrativeDownload.Click
         Try
             Dim Result As String = ""
 
@@ -10722,10 +10722,10 @@ Public Class SSPPApplicationTrackingLog
                 End If
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnPSDDraftPermitDownload_Click(sender As System.Object, e As System.EventArgs) Handles btnPSDDraftPermitDownload.Click
+    Private Sub btnPSDDraftPermitDownload_Click(sender As Object, e As EventArgs) Handles btnPSDDraftPermitDownload.Click
         Try
             Dim Result As String = ""
 
@@ -10754,10 +10754,10 @@ Public Class SSPPApplicationTrackingLog
                 End If
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnPSDPublicNoticeDownload_Click(sender As System.Object, e As System.EventArgs) Handles btnPSDPublicNoticeDownload.Click
+    Private Sub btnPSDPublicNoticeDownload_Click(sender As Object, e As EventArgs) Handles btnPSDPublicNoticeDownload.Click
         Try
             Dim Result As String = ""
 
@@ -10786,10 +10786,10 @@ Public Class SSPPApplicationTrackingLog
                 End If
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnPSDHearingNoticeDownload_Click(sender As System.Object, e As System.EventArgs) Handles btnPSDHearingNoticeDownload.Click
+    Private Sub btnPSDHearingNoticeDownload_Click(sender As Object, e As EventArgs) Handles btnPSDHearingNoticeDownload.Click
         Try
             Dim Result As String = ""
 
@@ -10818,10 +10818,10 @@ Public Class SSPPApplicationTrackingLog
                 End If
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnPSDFinalDetDownload_Click(sender As System.Object, e As System.EventArgs) Handles btnPSDFinalDetDownload.Click
+    Private Sub btnPSDFinalDetDownload_Click(sender As Object, e As EventArgs) Handles btnPSDFinalDetDownload.Click
         Try
             Dim Result As String = ""
 
@@ -10850,10 +10850,10 @@ Public Class SSPPApplicationTrackingLog
                 End If
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnPSDFinalPermitDownload_Click(sender As System.Object, e As System.EventArgs) Handles btnPSDFinalPermitDownload.Click
+    Private Sub btnPSDFinalPermitDownload_Click(sender As Object, e As EventArgs) Handles btnPSDFinalPermitDownload.Click
         Try
             Dim Result As String = ""
 
@@ -10883,10 +10883,10 @@ Public Class SSPPApplicationTrackingLog
 
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub llbPermitNumber_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbPermitNumber.LinkClicked
+    Private Sub llbPermitNumber_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbPermitNumber.LinkClicked
         Try
             Dim URL As String = ""
             Dim PDFFile As String = ""
@@ -10951,10 +10951,10 @@ Public Class SSPPApplicationTrackingLog
             If URL <> "" Then OpenUri(New Uri(URL), Me)
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnGetCurrentPermittingContact_Click(sender As System.Object, e As System.EventArgs) Handles btnGetCurrentPermittingContact.Click
+    Private Sub btnGetCurrentPermittingContact_Click(sender As Object, e As EventArgs) Handles btnGetCurrentPermittingContact.Click
         Try
 
             Dim query As String = "Select " &
@@ -11064,10 +11064,10 @@ Public Class SSPPApplicationTrackingLog
             End Using
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnAcknowledgementLetter_Click(sender As System.Object, e As System.EventArgs) Handles btnAcknowledgementLetter.Click
+    Private Sub btnAcknowledgementLetter_Click(sender As Object, e As EventArgs) Handles btnAcknowledgementLetter.Click
         If txtContactSocialTitle.Text = "" Or txtContactSocialTitle.Text = "N/A" Or txtContactSocialTitle.Text = " " Then
             MessageBox.Show("Invalid Social Title" & vbCrLf & "Please correct.", "SSPP Application Tracking Log",
                             MessageBoxButtons.OK)
@@ -11082,7 +11082,7 @@ Public Class SSPPApplicationTrackingLog
             PrintOut.Show()
         End If
     End Sub
-    Private Sub btnEmailAcknowledgmentLetter_Click(sender As System.Object, e As System.EventArgs) Handles btnEmailAcknowledgmentLetter.Click
+    Private Sub btnEmailAcknowledgmentLetter_Click(sender As Object, e As EventArgs) Handles btnEmailAcknowledgmentLetter.Click
         Try
             Dim EmailAddress As String = ""
             Dim Subject As String = ""
@@ -11162,7 +11162,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             Me.Cursor = Nothing
         End Try
@@ -11529,10 +11529,10 @@ Public Class SSPPApplicationTrackingLog
             End Using
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnSIPDelete_Click(sender As System.Object, e As System.EventArgs) Handles btnSIPDelete.Click
+    Private Sub btnSIPDelete_Click(sender As Object, e As EventArgs) Handles btnSIPDelete.Click
         Try
             Dim dgvRow As New DataGridViewRow
             Dim i As Integer = 0
@@ -11596,10 +11596,10 @@ Public Class SSPPApplicationTrackingLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnSIPUndelete_Click(sender As System.Object, e As System.EventArgs) Handles btnSIPUndelete.Click
+    Private Sub btnSIPUndelete_Click(sender As Object, e As EventArgs) Handles btnSIPUndelete.Click
         Try
             Dim temp2 As String = ""
             Dim Subpart As String = ""
@@ -11624,10 +11624,10 @@ Public Class SSPPApplicationTrackingLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnSIPDeleteAll_Click(sender As System.Object, e As System.EventArgs) Handles btnSIPDeleteAll.Click
+    Private Sub btnSIPDeleteAll_Click(sender As Object, e As EventArgs) Handles btnSIPDeleteAll.Click
         Try
             Dim dgvRow As New DataGridViewRow
             Dim i As Integer = 0
@@ -11676,10 +11676,10 @@ Public Class SSPPApplicationTrackingLog
             Exit Sub
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnSIPUndeleteAll_Click(sender As System.Object, e As System.EventArgs) Handles btnSIPUndeleteAll.Click
+    Private Sub btnSIPUndeleteAll_Click(sender As Object, e As EventArgs) Handles btnSIPUndeleteAll.Click
         Try
             Dim temp2 As String = ""
             Dim Subpart As String = ""
@@ -11698,10 +11698,10 @@ Public Class SSPPApplicationTrackingLog
             dgvSIPSubPartDelete.Rows.Clear()
             Exit Sub
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnClearSIPDeletes_Click(sender As System.Object, e As System.EventArgs) Handles btnClearSIPDeletes.Click
+    Private Sub btnClearSIPDeletes_Click(sender As Object, e As EventArgs) Handles btnClearSIPDeletes.Click
         Try
             Dim temp2 As String = ""
             Dim Subpart As String = ""
@@ -11720,10 +11720,10 @@ Public Class SSPPApplicationTrackingLog
             dgvSIPSubPartDelete.Rows.Clear()
             Exit Sub
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnAddNewSIPSubpart_Click(sender As System.Object, e As System.EventArgs) Handles btnAddNewSIPSubpart.Click
+    Private Sub btnAddNewSIPSubpart_Click(sender As Object, e As EventArgs) Handles btnAddNewSIPSubpart.Click
         Try
             Dim Subpart As String = ""
             Dim Desc As String = ""
@@ -11822,10 +11822,10 @@ Public Class SSPPApplicationTrackingLog
 
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnSIPEdit_Click(sender As System.Object, e As System.EventArgs) Handles btnSIPEdit.Click
+    Private Sub btnSIPEdit_Click(sender As Object, e As EventArgs) Handles btnSIPEdit.Click
         Try
             Dim dgvRow As New DataGridViewRow
             Dim i As Integer = 0
@@ -11892,10 +11892,10 @@ Public Class SSPPApplicationTrackingLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnSIPUnedit_Click(sender As System.Object, e As System.EventArgs) Handles btnSIPUnedit.Click
+    Private Sub btnSIPUnedit_Click(sender As Object, e As EventArgs) Handles btnSIPUnedit.Click
         Try
             Dim temp2 As String = ""
             Dim Subpart As String = ""
@@ -11923,10 +11923,10 @@ Public Class SSPPApplicationTrackingLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnSIPEditAll_Click(sender As System.Object, e As System.EventArgs) Handles btnSIPEditAll.Click
+    Private Sub btnSIPEditAll_Click(sender As Object, e As EventArgs) Handles btnSIPEditAll.Click
         Try
             Dim dgvRow As New DataGridViewRow
             Dim temp2 As String = ""
@@ -11975,10 +11975,10 @@ Public Class SSPPApplicationTrackingLog
             Exit Sub
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnSIPUneditAll_Click(sender As System.Object, e As System.EventArgs) Handles btnSIPUneditAll.Click
+    Private Sub btnSIPUneditAll_Click(sender As Object, e As EventArgs) Handles btnSIPUneditAll.Click
         Try
             Dim i As Integer
             Dim Subpart As String = ""
@@ -12009,10 +12009,10 @@ Public Class SSPPApplicationTrackingLog
             Exit Sub
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnClearAddModifiedSIPs_Click(sender As System.Object, e As System.EventArgs) Handles btnClearAddModifiedSIPs.Click
+    Private Sub btnClearAddModifiedSIPs_Click(sender As Object, e As EventArgs) Handles btnClearAddModifiedSIPs.Click
         Try
             Dim temp2 As String = ""
             Dim Subpart As String = ""
@@ -12042,7 +12042,7 @@ Public Class SSPPApplicationTrackingLog
             Exit Sub
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub SaveSIPSubpart()
@@ -12073,10 +12073,10 @@ Public Class SSPPApplicationTrackingLog
             LoadSSPPSIPSubPartInformation()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnSaveSIPSubpart_Click(sender As System.Object, e As System.EventArgs) Handles btnSaveSIPSubpart.Click
+    Private Sub btnSaveSIPSubpart_Click(sender As Object, e As EventArgs) Handles btnSaveSIPSubpart.Click
         Try
             If chbCDS_0.Checked = False Then
                 MsgBox("WARNING DATA NOT SAVED:" & vbCrLf &
@@ -12091,7 +12091,7 @@ Public Class SSPPApplicationTrackingLog
             MsgBox("SIP Updated", MsgBoxStyle.Information, "Application Tracking Log")
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 #End Region
@@ -12463,10 +12463,10 @@ Public Class SSPPApplicationTrackingLog
             End Using
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnNSPSDelete_Click(sender As System.Object, e As System.EventArgs) Handles btnNSPSDelete.Click
+    Private Sub btnNSPSDelete_Click(sender As Object, e As EventArgs) Handles btnNSPSDelete.Click
         Try
             Dim dgvRow As New DataGridViewRow
             Dim i As Integer = 0
@@ -12530,10 +12530,10 @@ Public Class SSPPApplicationTrackingLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnNSPSUndelete_Click(sender As System.Object, e As System.EventArgs) Handles btnNSPSUndelete.Click
+    Private Sub btnNSPSUndelete_Click(sender As Object, e As EventArgs) Handles btnNSPSUndelete.Click
         Try
             Dim temp2 As String = ""
             Dim Subpart As String = ""
@@ -12558,10 +12558,10 @@ Public Class SSPPApplicationTrackingLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnNSPSDeleteAll_Click(sender As System.Object, e As System.EventArgs) Handles btnNSPSDeleteAll.Click
+    Private Sub btnNSPSDeleteAll_Click(sender As Object, e As EventArgs) Handles btnNSPSDeleteAll.Click
         Try
             Dim dgvRow As New DataGridViewRow
             Dim i As Integer = 0
@@ -12610,10 +12610,10 @@ Public Class SSPPApplicationTrackingLog
             Exit Sub
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnNSPSUndeleteAll_Click(sender As System.Object, e As System.EventArgs) Handles btnNSPSUndeleteAll.Click
+    Private Sub btnNSPSUndeleteAll_Click(sender As Object, e As EventArgs) Handles btnNSPSUndeleteAll.Click
         Try
             Dim temp2 As String = ""
             Dim Subpart As String = ""
@@ -12632,10 +12632,10 @@ Public Class SSPPApplicationTrackingLog
             dgvNSPSSubPartDelete.Rows.Clear()
             Exit Sub
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnClearNSPSDeletes_Click(sender As System.Object, e As System.EventArgs) Handles btnClearNSPSDeletes.Click
+    Private Sub btnClearNSPSDeletes_Click(sender As Object, e As EventArgs) Handles btnClearNSPSDeletes.Click
         Try
             Dim temp2 As String = ""
             Dim Subpart As String = ""
@@ -12654,10 +12654,10 @@ Public Class SSPPApplicationTrackingLog
             dgvNSPSSubPartDelete.Rows.Clear()
             Exit Sub
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnAddNewNSPSSubpart_Click(sender As System.Object, e As System.EventArgs) Handles btnAddNewNSPSSubpart.Click
+    Private Sub btnAddNewNSPSSubpart_Click(sender As Object, e As EventArgs) Handles btnAddNewNSPSSubpart.Click
         Try
             Dim Subpart As String = ""
             Dim Desc As String = ""
@@ -12756,10 +12756,10 @@ Public Class SSPPApplicationTrackingLog
 
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnNSPSEdit_Click(sender As System.Object, e As System.EventArgs) Handles btnNSPSEdit.Click
+    Private Sub btnNSPSEdit_Click(sender As Object, e As EventArgs) Handles btnNSPSEdit.Click
         Try
             Dim dgvRow As New DataGridViewRow
             Dim i As Integer = 0
@@ -12826,10 +12826,10 @@ Public Class SSPPApplicationTrackingLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnNSPSUnedit_Click(sender As System.Object, e As System.EventArgs) Handles btnNSPSUnedit.Click
+    Private Sub btnNSPSUnedit_Click(sender As Object, e As EventArgs) Handles btnNSPSUnedit.Click
         Try
             Dim temp2 As String = ""
             Dim Subpart As String = ""
@@ -12857,10 +12857,10 @@ Public Class SSPPApplicationTrackingLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnNSPSEditAll_Click(sender As System.Object, e As System.EventArgs) Handles btnNSPSEditAll.Click
+    Private Sub btnNSPSEditAll_Click(sender As Object, e As EventArgs) Handles btnNSPSEditAll.Click
         Try
             Dim dgvRow As New DataGridViewRow
             Dim temp2 As String = ""
@@ -12909,10 +12909,10 @@ Public Class SSPPApplicationTrackingLog
             Exit Sub
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnNSPSUneditAll_Click(sender As System.Object, e As System.EventArgs) Handles btnNSPSUneditAll.Click
+    Private Sub btnNSPSUneditAll_Click(sender As Object, e As EventArgs) Handles btnNSPSUneditAll.Click
         Try
             Dim i As Integer = 0
             Dim Subpart As String = ""
@@ -12939,10 +12939,10 @@ Public Class SSPPApplicationTrackingLog
             Loop
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnClearAddModifiedNSPSs_Click(sender As System.Object, e As System.EventArgs) Handles btnClearAddModifiedNSPSs.Click
+    Private Sub btnClearAddModifiedNSPSs_Click(sender As Object, e As EventArgs) Handles btnClearAddModifiedNSPSs.Click
         Try
             Dim i As Integer = 0
             Dim temp2 As String = ""
@@ -12973,7 +12973,7 @@ Public Class SSPPApplicationTrackingLog
             Exit Sub
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -13035,7 +13035,7 @@ Public Class SSPPApplicationTrackingLog
             LoadSSPPNSPSSubPartInformation()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub SaveNSPSSubpart2()
@@ -13308,10 +13308,10 @@ Public Class SSPPApplicationTrackingLog
             MsgBox("NSPS Updated", MsgBoxStyle.Information, "Application Tracking Log")
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnSaveNSPSSubpart_Click(sender As System.Object, e As System.EventArgs) Handles btnSaveNSPSSubpart.Click
+    Private Sub btnSaveNSPSSubpart_Click(sender As Object, e As EventArgs) Handles btnSaveNSPSSubpart.Click
         Try
             If chbCDS_9.Checked = False Then
                 MsgBox("WARNING DATA NOT SAVED:" & vbCrLf &
@@ -13324,7 +13324,7 @@ Public Class SSPPApplicationTrackingLog
             MsgBox("NSPS Updated", MsgBoxStyle.Information, "Application Tracking Log")
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 #End Region
@@ -13695,10 +13695,10 @@ Public Class SSPPApplicationTrackingLog
             End Using
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnNESHAPDelete_Click(sender As System.Object, e As System.EventArgs) Handles btnNESHAPDelete.Click
+    Private Sub btnNESHAPDelete_Click(sender As Object, e As EventArgs) Handles btnNESHAPDelete.Click
         Try
             Dim dgvRow As New DataGridViewRow
             Dim i As Integer = 0
@@ -13762,10 +13762,10 @@ Public Class SSPPApplicationTrackingLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnNESHAPUndelete_Click(sender As System.Object, e As System.EventArgs) Handles btnNESHAPUndelete.Click
+    Private Sub btnNESHAPUndelete_Click(sender As Object, e As EventArgs) Handles btnNESHAPUndelete.Click
         Try
             Dim temp2 As String = ""
             Dim Subpart As String = ""
@@ -13790,10 +13790,10 @@ Public Class SSPPApplicationTrackingLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnNESHAPDeleteAll_Click(sender As System.Object, e As System.EventArgs) Handles btnNESHAPDeleteAll.Click
+    Private Sub btnNESHAPDeleteAll_Click(sender As Object, e As EventArgs) Handles btnNESHAPDeleteAll.Click
         Try
             Dim dgvRow As New DataGridViewRow
             Dim i As Integer = 0
@@ -13842,10 +13842,10 @@ Public Class SSPPApplicationTrackingLog
             Exit Sub
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnNESHAPUndeleteAll_Click(sender As System.Object, e As System.EventArgs) Handles btnNESHAPUndeleteAll.Click
+    Private Sub btnNESHAPUndeleteAll_Click(sender As Object, e As EventArgs) Handles btnNESHAPUndeleteAll.Click
         Try
             Dim i As Integer = 0
             Dim temp2 As String = ""
@@ -13865,10 +13865,10 @@ Public Class SSPPApplicationTrackingLog
             dgvNESHAPSubPartDelete.Rows.Clear()
             Exit Sub
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnClearNESHAPDeletes_Click(sender As System.Object, e As System.EventArgs) Handles btnClearNESHAPDeletes.Click
+    Private Sub btnClearNESHAPDeletes_Click(sender As Object, e As EventArgs) Handles btnClearNESHAPDeletes.Click
         Try
             Dim i As Integer = 0
             Dim temp2 As String = ""
@@ -13888,10 +13888,10 @@ Public Class SSPPApplicationTrackingLog
             dgvNESHAPSubPartDelete.Rows.Clear()
             Exit Sub
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnAddNewNESHAPSubpart_Click(sender As System.Object, e As System.EventArgs) Handles btnAddNewNESHAPSubpart.Click
+    Private Sub btnAddNewNESHAPSubpart_Click(sender As Object, e As EventArgs) Handles btnAddNewNESHAPSubpart.Click
         Try
             Dim Subpart As String = ""
             Dim Desc As String = ""
@@ -13991,10 +13991,10 @@ Public Class SSPPApplicationTrackingLog
 
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnNESHAPEdit_Click(sender As System.Object, e As System.EventArgs) Handles btnNESHAPEdit.Click
+    Private Sub btnNESHAPEdit_Click(sender As Object, e As EventArgs) Handles btnNESHAPEdit.Click
         Try
             Dim dgvRow As New DataGridViewRow
             Dim i As Integer = 0
@@ -14061,10 +14061,10 @@ Public Class SSPPApplicationTrackingLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnNESHAPUnedit_Click(sender As System.Object, e As System.EventArgs) Handles btnNESHAPUnedit.Click
+    Private Sub btnNESHAPUnedit_Click(sender As Object, e As EventArgs) Handles btnNESHAPUnedit.Click
         Try
             Dim temp2 As String = ""
             Dim Subpart As String = ""
@@ -14092,10 +14092,10 @@ Public Class SSPPApplicationTrackingLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnNESHAPEditAll_Click(sender As System.Object, e As System.EventArgs) Handles btnNESHAPEditAll.Click
+    Private Sub btnNESHAPEditAll_Click(sender As Object, e As EventArgs) Handles btnNESHAPEditAll.Click
         Try
             Dim dgvRow As New DataGridViewRow
             Dim i As Integer = 0
@@ -14145,10 +14145,10 @@ Public Class SSPPApplicationTrackingLog
             Exit Sub
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnNESHAPUneditAll_Click(sender As System.Object, e As System.EventArgs) Handles btnNESHAPUneditAll.Click
+    Private Sub btnNESHAPUneditAll_Click(sender As Object, e As EventArgs) Handles btnNESHAPUneditAll.Click
         Try
             Dim i As Integer = 0
             Dim Subpart As String = ""
@@ -14175,10 +14175,10 @@ Public Class SSPPApplicationTrackingLog
             Loop
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnClearAddModifiedNESHAPs_Click(sender As System.Object, e As System.EventArgs) Handles btnClearAddModifiedNESHAPs.Click
+    Private Sub btnClearAddModifiedNESHAPs_Click(sender As Object, e As EventArgs) Handles btnClearAddModifiedNESHAPs.Click
         Try
             Dim i As Integer = 0
             Dim temp2 As String = ""
@@ -14209,7 +14209,7 @@ Public Class SSPPApplicationTrackingLog
             Exit Sub
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub SaveNESHAPSubpart()
@@ -14240,10 +14240,10 @@ Public Class SSPPApplicationTrackingLog
             LoadSSPPNESHAPSubPartInformation()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnSaveNESHAPSubpart_Click(sender As System.Object, e As System.EventArgs) Handles btnSaveNESHAPSubpart.Click
+    Private Sub btnSaveNESHAPSubpart_Click(sender As Object, e As EventArgs) Handles btnSaveNESHAPSubpart.Click
         Try
             If chbCDS_8.Checked = False Then
                 MsgBox("WARNING DATA NOT SAVED:" & vbCrLf &
@@ -14257,7 +14257,7 @@ Public Class SSPPApplicationTrackingLog
             MsgBox("NESHAP Updated", MsgBoxStyle.Information, "Application Tracking Log")
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 #End Region
@@ -14628,10 +14628,10 @@ Public Class SSPPApplicationTrackingLog
             End Using
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnMACTDelete_Click(sender As System.Object, e As System.EventArgs) Handles btnMACTDelete.Click
+    Private Sub btnMACTDelete_Click(sender As Object, e As EventArgs) Handles btnMACTDelete.Click
         Try
             Dim dgvRow As New DataGridViewRow
             Dim i As Integer = 0
@@ -14695,10 +14695,10 @@ Public Class SSPPApplicationTrackingLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnMACTUndelete_Click(sender As System.Object, e As System.EventArgs) Handles btnMACTUndelete.Click
+    Private Sub btnMACTUndelete_Click(sender As Object, e As EventArgs) Handles btnMACTUndelete.Click
         Try
             Dim temp2 As String = ""
             Dim Subpart As String = ""
@@ -14723,10 +14723,10 @@ Public Class SSPPApplicationTrackingLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnMACTDeleteAll_Click(sender As System.Object, e As System.EventArgs) Handles btnMACTDeleteAll.Click
+    Private Sub btnMACTDeleteAll_Click(sender As Object, e As EventArgs) Handles btnMACTDeleteAll.Click
         Try
             Dim dgvRow As New DataGridViewRow
             Dim i As Integer = 0
@@ -14775,10 +14775,10 @@ Public Class SSPPApplicationTrackingLog
             Exit Sub
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnMACTUndeleteAll_Click(sender As System.Object, e As System.EventArgs) Handles btnMACTUndeleteAll.Click
+    Private Sub btnMACTUndeleteAll_Click(sender As Object, e As EventArgs) Handles btnMACTUndeleteAll.Click
         Try
             Dim i As Integer = 0
             Dim temp2 As String = ""
@@ -14798,10 +14798,10 @@ Public Class SSPPApplicationTrackingLog
             dgvMACTSubPartDelete.Rows.Clear()
             Exit Sub
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnClearMACTDeletes_Click(sender As System.Object, e As System.EventArgs) Handles btnClearMACTDeletes.Click
+    Private Sub btnClearMACTDeletes_Click(sender As Object, e As EventArgs) Handles btnClearMACTDeletes.Click
         Try
             Dim i As Integer = 0
             Dim temp2 As String = ""
@@ -14821,10 +14821,10 @@ Public Class SSPPApplicationTrackingLog
             dgvMACTSubPartDelete.Rows.Clear()
             Exit Sub
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnAddNewMACTSubpart_Click(sender As System.Object, e As System.EventArgs) Handles btnAddNewMACTSubpart.Click
+    Private Sub btnAddNewMACTSubpart_Click(sender As Object, e As EventArgs) Handles btnAddNewMACTSubpart.Click
         Try
             Dim Subpart As String = ""
             Dim Desc As String = ""
@@ -14923,10 +14923,10 @@ Public Class SSPPApplicationTrackingLog
 
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnMACTEdit_Click(sender As System.Object, e As System.EventArgs) Handles btnMACTEdit.Click
+    Private Sub btnMACTEdit_Click(sender As Object, e As EventArgs) Handles btnMACTEdit.Click
         Try
             Dim dgvRow As New DataGridViewRow
             Dim i As Integer = 0
@@ -14993,10 +14993,10 @@ Public Class SSPPApplicationTrackingLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnMACTUnedit_Click(sender As System.Object, e As System.EventArgs) Handles btnMACTUnedit.Click
+    Private Sub btnMACTUnedit_Click(sender As Object, e As EventArgs) Handles btnMACTUnedit.Click
         Try
             Dim temp2 As String = ""
             Dim Subpart As String = ""
@@ -15024,10 +15024,10 @@ Public Class SSPPApplicationTrackingLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnMACTEditAll_Click(sender As System.Object, e As System.EventArgs) Handles btnMACTEditAll.Click
+    Private Sub btnMACTEditAll_Click(sender As Object, e As EventArgs) Handles btnMACTEditAll.Click
         Try
             Dim dgvRow As New DataGridViewRow
             Dim i As Integer = 0
@@ -15077,10 +15077,10 @@ Public Class SSPPApplicationTrackingLog
             Exit Sub
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnMACTUneditAll_Click(sender As System.Object, e As System.EventArgs) Handles btnMACTUneditAll.Click
+    Private Sub btnMACTUneditAll_Click(sender As Object, e As EventArgs) Handles btnMACTUneditAll.Click
         Try
             Dim i As Integer = 0
             Dim Subpart As String = ""
@@ -15107,10 +15107,10 @@ Public Class SSPPApplicationTrackingLog
             Loop
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnClearAddModifiedMACTs_Click(sender As System.Object, e As System.EventArgs) Handles btnClearAddModifiedMACTs.Click
+    Private Sub btnClearAddModifiedMACTs_Click(sender As Object, e As EventArgs) Handles btnClearAddModifiedMACTs.Click
         Try
             Dim temp2 As String = ""
             Dim Subpart As String = ""
@@ -15140,7 +15140,7 @@ Public Class SSPPApplicationTrackingLog
             Exit Sub
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub SaveMACTSubpart()
@@ -15171,10 +15171,10 @@ Public Class SSPPApplicationTrackingLog
             LoadSSPPMACTSubPartInformation()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnSaveMACTSubpart_Click(sender As System.Object, e As System.EventArgs) Handles btnSaveMACTSubpart.Click
+    Private Sub btnSaveMACTSubpart_Click(sender As Object, e As EventArgs) Handles btnSaveMACTSubpart.Click
         Try
             If chbCDS_M.Checked = False Then
                 MsgBox("WARNING DATA NOT SAVED:" & vbCrLf &
@@ -15187,11 +15187,11 @@ Public Class SSPPApplicationTrackingLog
             MsgBox("MACT Updated", MsgBoxStyle.Information, "Application Tracking Log")
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 #End Region
-    Private Sub chbCDS_0_CheckedChanged(sender As Object, e As System.EventArgs) Handles chbCDS_0.CheckedChanged
+    Private Sub chbCDS_0_CheckedChanged(sender As Object, e As EventArgs) Handles chbCDS_0.CheckedChanged
         Try
             Dim dgvRow As New DataGridViewRow
             Dim i As Integer = 0
@@ -15272,10 +15272,10 @@ Public Class SSPPApplicationTrackingLog
                 End If
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub chbCDS_8_CheckedChanged(sender As Object, e As System.EventArgs) Handles chbCDS_8.CheckedChanged
+    Private Sub chbCDS_8_CheckedChanged(sender As Object, e As EventArgs) Handles chbCDS_8.CheckedChanged
         Try
             Dim dgvRow As New DataGridViewRow
             Dim i As Integer = 0
@@ -15357,10 +15357,10 @@ Public Class SSPPApplicationTrackingLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub chbCDS_9_CheckedChanged(sender As Object, e As System.EventArgs) Handles chbCDS_9.CheckedChanged
+    Private Sub chbCDS_9_CheckedChanged(sender As Object, e As EventArgs) Handles chbCDS_9.CheckedChanged
         Try
             Dim dgvRow As New DataGridViewRow
             Dim i As Integer = 0
@@ -15444,10 +15444,10 @@ Public Class SSPPApplicationTrackingLog
 
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub chbCDS_M_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chbCDS_M.CheckedChanged
+    Private Sub chbCDS_M_CheckedChanged(sender As Object, e As EventArgs) Handles chbCDS_M.CheckedChanged
         Try
             Dim dgvRow As New DataGridViewRow
             Dim i As Integer = 0
@@ -15531,10 +15531,10 @@ Public Class SSPPApplicationTrackingLog
 
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnUpdateFeeContact_Click(sender As System.Object, e As System.EventArgs) Handles btnGoToFeeContact.Click
+    Private Sub btnUpdateFeeContact_Click(sender As Object, e As EventArgs) Handles btnGoToFeeContact.Click
         Try
             FeeContact = Nothing
             If FeeContact Is Nothing Then FeeContact = New SSPP_FeeContact
@@ -15543,7 +15543,7 @@ Public Class SSPPApplicationTrackingLog
             FeeContact.txtApplicationNumber.Text = txtApplicationNumber.Text
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 

@@ -9,7 +9,7 @@ Public Class SSCPWorkEnTry
     Dim dsCompliance As DataSet
     Dim daCompliance As SqlDataAdapter
 
-    Private Sub SSCPWorkEnTry_Load(sender As Object, e As System.EventArgs) Handles MyBase.Load
+    Private Sub SSCPWorkEnTry_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         Try
 
@@ -17,7 +17,7 @@ Public Class SSCPWorkEnTry
             LoadDataSets()
             LoadComboBox()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -49,7 +49,7 @@ Public Class SSCPWorkEnTry
             daCompliance.Fill(dsCompliance, "ComplianceActivity")
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -85,7 +85,7 @@ Public Class SSCPWorkEnTry
             End With
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -133,7 +133,7 @@ Public Class SSCPWorkEnTry
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -147,7 +147,7 @@ Public Class SSCPWorkEnTry
             cboEvent.Text = " "
             txtTrackingNumber.Clear()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -158,7 +158,7 @@ Public Class SSCPWorkEnTry
     End Sub
 #End Region
 
-    Private Sub TBComplianceEvents_ButtonClick(sender As System.Object, e As System.Windows.Forms.ToolBarButtonClickEventArgs) Handles TBComplianceEvents.ButtonClick
+    Private Sub TBComplianceEvents_ButtonClick(sender As Object, e As ToolBarButtonClickEventArgs) Handles TBComplianceEvents.ButtonClick
         Try
 
             Select Case TBComplianceEvents.Buttons.IndexOf(e.Button)
@@ -170,13 +170,13 @@ Public Class SSCPWorkEnTry
                     Back()
             End Select
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub cboEvent_SelectedValueChanged(sender As Object, e As System.EventArgs) Handles cboEvent.SelectedValueChanged
+    Private Sub cboEvent_SelectedValueChanged(sender As Object, e As EventArgs) Handles cboEvent.SelectedValueChanged
         Dim dtActivity As New DataTable
 
         Try
@@ -202,13 +202,13 @@ Public Class SSCPWorkEnTry
                 LabEventDescription.Visible = False
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub cboEvent_Leave(sender As Object, e As System.EventArgs) Handles cboEvent.Leave
+    Private Sub cboEvent_Leave(sender As Object, e As EventArgs) Handles cboEvent.Leave
         Dim dtActivity As New DataTable
 
         Try
@@ -234,7 +234,7 @@ Public Class SSCPWorkEnTry
                 LabEventDescription.Visible = False
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try

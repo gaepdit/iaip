@@ -20,7 +20,7 @@ Public Class SSCPEnforcementChecklist
 
 #Region " Page Load "
 
-    Private Sub SSCPEnforcementChecklist_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
+    Private Sub SSCPEnforcementChecklist_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         If Not Me.Modal Then Me.Close()
 
@@ -91,7 +91,7 @@ Public Class SSCPEnforcementChecklist
             dgrComplianceEvents.ColumnHeadersVisible = True
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -193,11 +193,11 @@ Public Class SSCPEnforcementChecklist
         End If
     End Sub
 
-    Private Sub btnRunFilter_Click(sender As System.Object, e As System.EventArgs) Handles btnRunFilter.Click
+    Private Sub btnRunFilter_Click(sender As Object, e As EventArgs) Handles btnRunFilter.Click
         FilterWork()
     End Sub
 
-    Private Sub chbFilterDates_CheckedChanged(sender As Object, e As System.EventArgs) Handles chbFilterDates.CheckedChanged
+    Private Sub chbFilterDates_CheckedChanged(sender As Object, e As EventArgs) Handles chbFilterDates.CheckedChanged
         If chbFilterDates.Checked = True Then
             DTPStartDate.Enabled = True
             DTPEndDate.Enabled = True
@@ -207,7 +207,7 @@ Public Class SSCPEnforcementChecklist
         End If
     End Sub
 
-    Private Sub dgrComplianceEvents_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles dgrComplianceEvents.MouseUp
+    Private Sub dgrComplianceEvents_MouseUp(sender As Object, e As MouseEventArgs) Handles dgrComplianceEvents.MouseUp
         Dim hti As DataGrid.HitTestInfo = dgrComplianceEvents.HitTest(e.X, e.Y)
         If hti.Type = DataGrid.HitTestType.Cell AndAlso Not IsDBNull(dgrComplianceEvents(hti.Row, 0)) Then
             TrackingNumberDisplay.Text = dgrComplianceEvents(hti.Row, 0)

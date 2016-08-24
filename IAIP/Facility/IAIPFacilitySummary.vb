@@ -1012,7 +1012,7 @@ Public Class IAIPFacilitySummary
 
 #Region " Permitting data "
 
-    Private Sub PermitsLink_LinkClicked(sender As Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles PermitsLink.LinkClicked
+    Private Sub PermitsLink_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles PermitsLink.LinkClicked
         OpenPermitSearchUrl(Me.AirsNumber, Me)
     End Sub
 

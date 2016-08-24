@@ -8,7 +8,7 @@ Public Class IAIPFacilityCreator
     Dim cmd As SqlCommand
     Dim dr As SqlDataReader
 
-    Private Sub IAIPFacilityCreator_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
+    Private Sub IAIPFacilityCreator_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         Try
             LoadCounty()
@@ -34,7 +34,7 @@ Public Class IAIPFacilityCreator
 
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
     End Sub
@@ -93,7 +93,7 @@ Public Class IAIPFacilityCreator
             'cboCDSClassCode.Items.Add("U - UNDEFINED")
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -251,7 +251,7 @@ Public Class IAIPFacilityCreator
             txtCountFacilities.Text = dgvVerifyNewFacilities.RowCount.ToString
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub FindRegion(Region As String, AIRSNumber As String)
@@ -283,14 +283,14 @@ Public Class IAIPFacilityCreator
             txtCDSRegionCode.Text = Region
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
 
     End Sub
-    Private Sub btnSaveNewFacility_Click(sender As System.Object, e As System.EventArgs) Handles btnSaveNewFacility.Click
+    Private Sub btnSaveNewFacility_Click(sender As Object, e As EventArgs) Handles btnSaveNewFacility.Click
         Try
             Dim AIRSNumber As String = ""
             Dim FacilityName As String = ""
@@ -748,10 +748,10 @@ Public Class IAIPFacilityCreator
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnPreLoadNewFacility_Click(sender As System.Object, e As System.EventArgs) Handles btnPreLoadNewFacility.Click
+    Private Sub btnPreLoadNewFacility_Click(sender As Object, e As EventArgs) Handles btnPreLoadNewFacility.Click
         Try
             If txtApplicationNumber.Text <> "App No." Then
                 SQL = "select " &
@@ -990,10 +990,10 @@ Public Class IAIPFacilityCreator
 
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub llbOpenWebpage_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbOpenWebpage.LinkClicked
+    Private Sub llbOpenWebpage_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbOpenWebpage.LinkClicked
         Try
             Dim MappingAddress As String = txtCDSStreetAddress.Text & ", " & txtCDSCity.Text & ", GA," & mtbCDSZipCode.Text
             Clipboard.SetDataObject(MappingAddress, True)
@@ -1001,10 +1001,10 @@ Public Class IAIPFacilityCreator
             OpenUri(New Uri("http://mapper.acme.com/"), Me)
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub dgvVerifyNewFacilities_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles dgvVerifyNewFacilities.MouseUp
+    Private Sub dgvVerifyNewFacilities_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvVerifyNewFacilities.MouseUp
         Dim hti As DataGridView.HitTestInfo = dgvVerifyNewFacilities.HitTest(e.X, e.Y)
         Try
             txtNewFacilityName.Clear()
@@ -1078,11 +1078,11 @@ Public Class IAIPFacilityCreator
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
     End Sub
-    Private Sub btnViewFacility_Click(sender As System.Object, e As System.EventArgs) Handles btnViewFacility.Click
+    Private Sub btnViewFacility_Click(sender As Object, e As EventArgs) Handles btnViewFacility.Click
         Try
             If txtNewAIRSNumber.Text = "" Then
                 Exit Sub
@@ -1356,10 +1356,10 @@ Public Class IAIPFacilityCreator
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnSubmitFacilityToAFS_Click(sender As System.Object, e As System.EventArgs) Handles btnSubmitFacilityToAFS.Click
+    Private Sub btnSubmitFacilityToAFS_Click(sender As Object, e As EventArgs) Handles btnSubmitFacilityToAFS.Click
         Try
             Dim SSCPSignOff As String = ""
             Dim SSPPSignOff As String = ""
@@ -1458,10 +1458,10 @@ Public Class IAIPFacilityCreator
                 MsgBox("Both SSCP and SSPP have to sign off on the new facility before it can be sent to EPA.", MsgBoxStyle.Information, Me.Text)
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnRemoveFromPlatform_Click(sender As System.Object, e As System.EventArgs) Handles btnRemoveFromPlatform.Click
+    Private Sub btnRemoveFromPlatform_Click(sender As Object, e As EventArgs) Handles btnRemoveFromPlatform.Click
         Try
             If Not Apb.ApbFacilityId.IsValidAirsNumberFormat(txtNewAIRSNumber.Text) Then
                 MessageBox.Show("AIRS number is not valid", "Invalid AIRS number", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -1491,10 +1491,10 @@ Public Class IAIPFacilityCreator
             ClearNewFacility()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnSaveSSCPApproval_Click(sender As System.Object, e As System.EventArgs) Handles btnSaveSSCPApproval.Click
+    Private Sub btnSaveSSCPApproval_Click(sender As Object, e As EventArgs) Handles btnSaveSSCPApproval.Click
         Try
             If chbSSCPSignOff.Checked = False Then
                 MsgBox("Please check the SSCP Approve box.", MsgBoxStyle.Information, Me.Text)
@@ -1519,10 +1519,10 @@ Public Class IAIPFacilityCreator
             MsgBox("Approval Saved.", MsgBoxStyle.Information, Me.Text)
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnSaveSSPPApproval_Click(sender As System.Object, e As System.EventArgs) Handles btnSaveSSPPApproval.Click
+    Private Sub btnSaveSSPPApproval_Click(sender As Object, e As EventArgs) Handles btnSaveSSPPApproval.Click
         Try
             If chbSSPPSignOff.Checked = False Then
                 MsgBox("Please check the SSPP Approve box.", MsgBoxStyle.Information, Me.Text)
@@ -1547,10 +1547,10 @@ Public Class IAIPFacilityCreator
             MsgBox("Approval Saved.", MsgBoxStyle.Information, Me.Text)
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnValidateFacility_Click(sender As System.Object, e As System.EventArgs) Handles btnValidateFacility.Click
+    Private Sub btnValidateFacility_Click(sender As Object, e As EventArgs) Handles btnValidateFacility.Click
         Try
             Dim FacilityName As String
             Dim FacilityAddress As String
@@ -1628,15 +1628,15 @@ Public Class IAIPFacilityCreator
             txtValidationCount.Text = dgvValidatingAIRS.RowCount.ToString
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub tspClear_Click(sender As System.Object, e As System.EventArgs) Handles tspClear.Click
+    Private Sub tspClear_Click(sender As Object, e As EventArgs) Handles tspClear.Click
         Try
             ClearValidator()
             ClearNewFacility()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub ClearNewFacility()
@@ -1683,7 +1683,7 @@ Public Class IAIPFacilityCreator
             txtFacilityComments.Clear()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub ClearValidator()
@@ -1706,17 +1706,17 @@ Public Class IAIPFacilityCreator
             txtValidationCount.Clear()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnClearAIRSNumber_Click(sender As System.Object, e As System.EventArgs) Handles btnClearAIRSNumber.Click
+    Private Sub btnClearAIRSNumber_Click(sender As Object, e As EventArgs) Handles btnClearAIRSNumber.Click
         Try
             txtCDSAIRSNumber.Clear()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnEditFacilityData_Click(sender As System.Object, e As System.EventArgs) Handles btnEditFacilityData.Click
+    Private Sub btnEditFacilityData_Click(sender As Object, e As EventArgs) Handles btnEditFacilityData.Click
         Try
             Dim AIRSNumber As String = ""
             Dim FacilityName As String = ""
@@ -2018,11 +2018,11 @@ Public Class IAIPFacilityCreator
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub chbFilterNewFacilities_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chbFilterNewFacilities.CheckedChanged
+    Private Sub chbFilterNewFacilities_CheckedChanged(sender As Object, e As EventArgs) Handles chbFilterNewFacilities.CheckedChanged
         Try
             If chbFilterNewFacilities.Checked = True Then
                 dtpStartFilter.Enabled = True
@@ -2036,21 +2036,21 @@ Public Class IAIPFacilityCreator
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub btnFilterNewFacilities_Click(sender As System.Object, e As System.EventArgs) Handles btnFilterNewFacilities.Click
+    Private Sub btnFilterNewFacilities_Click(sender As Object, e As EventArgs) Handles btnFilterNewFacilities.Click
         Try
 
             LoadPendingFacilities()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub DeleteAirsNumber_Click(sender As System.Object, e As System.EventArgs) Handles DeleteAirsNumber.Click
+    Private Sub DeleteAirsNumber_Click(sender As Object, e As EventArgs) Handles DeleteAirsNumber.Click
         Try
             If Not Apb.ApbFacilityId.IsValidAirsNumberFormat(AirsNumberToDelete.Text) Then
                 MessageBox.Show("AIRS number is not valid", "Invalid AIRS number", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -2077,11 +2077,11 @@ Public Class IAIPFacilityCreator
                 MessageBox.Show("There was an error when attempting to remove the facility from the database." & vbNewLine & vbNewLine & "Facility has not been removed.", "Error", MessageBoxButtons.OK)
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub AirsNumberToDelete_TextChanged(sender As System.Object, e As System.EventArgs) Handles AirsNumberToDelete.TextChanged
+    Private Sub AirsNumberToDelete_TextChanged(sender As Object, e As EventArgs) Handles AirsNumberToDelete.TextChanged
         FacilityLongDisplay.Text = ""
         If Apb.ApbFacilityId.IsValidAirsNumberFormat(AirsNumberToDelete.Text) Then
             Dim fac As Apb.Facilities.Facility = DAL.FacilityData.GetFacility(AirsNumberToDelete.Text)

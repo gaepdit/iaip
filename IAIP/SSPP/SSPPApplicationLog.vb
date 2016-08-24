@@ -58,7 +58,7 @@ Public Class SSPPApplicationLog
 #End Region
 
 #Region "Page load/unload procedures"
-    Private Sub SSPPApplicationLog_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
+    Private Sub SSPPApplicationLog_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         Try
 
@@ -80,7 +80,7 @@ Public Class SSPPApplicationLog
             RunSearch()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -647,7 +647,7 @@ Public Class SSPPApplicationLog
             End With
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -723,7 +723,7 @@ Public Class SSPPApplicationLog
                 mmiNewApplication.Visible = True
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -785,7 +785,7 @@ Public Class SSPPApplicationLog
                 bgwApplicationLog.RunWorkerAsync()
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub CancelSearch()
@@ -1965,7 +1965,7 @@ Public Class SSPPApplicationLog
             End Using
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If bgwApplicationLog.CancellationPending Then e.Cancel = True
         End Try
@@ -2156,7 +2156,7 @@ Public Class SSPPApplicationLog
                 MessageBox.Show("You do not have sufficient permissions to start a new application.")
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub OpenApplication(applicationNumber As String)
@@ -2165,7 +2165,7 @@ Public Class SSPPApplicationLog
 #End Region
 
 #Region "Events"
-    Private Sub cboFieldType1_SelectedIndexChanged(sender As System.Object, e As System.EventArgs) Handles cboFieldType1.SelectedIndexChanged
+    Private Sub cboFieldType1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboFieldType1.SelectedIndexChanged
         Try
 
             Select Case cboFieldType1.Text
@@ -2832,11 +2832,11 @@ Public Class SSPPApplicationLog
                     cboMACT1.Visible = False
             End Select
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
     End Sub
-    Private Sub cboFieldType2_TextChanged(sender As Object, e As System.EventArgs) Handles cboFieldType2.SelectedIndexChanged
+    Private Sub cboFieldType2_TextChanged(sender As Object, e As EventArgs) Handles cboFieldType2.SelectedIndexChanged
         Try
 
             Select Case cboFieldType2.Text
@@ -3504,7 +3504,7 @@ Public Class SSPPApplicationLog
                     cboMACT2.Visible = False
             End Select
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
     End Sub
@@ -3513,7 +3513,7 @@ Public Class SSPPApplicationLog
 
 #Region " DataGridView Events "
 
-    Private Sub dgvApplicationLog_CellMouseEnter(sender As System.Object, e As System.Windows.Forms.DataGridViewCellEventArgs) _
+    Private Sub dgvApplicationLog_CellMouseEnter(sender As Object, e As DataGridViewCellEventArgs) _
     Handles dgvApplicationLog.CellMouseEnter
         ' Change cursor and text color when hovering over first column (treats text like a hyperlink)
 
@@ -3522,7 +3522,7 @@ Public Class SSPPApplicationLog
         End If
     End Sub
 
-    Private Sub dgvApplicationLog_CellMouseLeave(sender As System.Object, e As System.Windows.Forms.DataGridViewCellEventArgs) _
+    Private Sub dgvApplicationLog_CellMouseLeave(sender As Object, e As DataGridViewCellEventArgs) _
     Handles dgvApplicationLog.CellMouseLeave
         ' Reset cursor and text color when mouse leaves (un-hovers) a cell
         If e.ColumnIndex = dgvApplicationLog.Columns("strApplicationNumber").Index And e.RowIndex <> -1 Then
@@ -3530,7 +3530,7 @@ Public Class SSPPApplicationLog
         End If
     End Sub
 
-    Private Sub dgvApplicationLog_CellClick(sender As System.Object, e As System.Windows.Forms.DataGridViewCellEventArgs) _
+    Private Sub dgvApplicationLog_CellClick(sender As Object, e As DataGridViewCellEventArgs) _
     Handles dgvApplicationLog.CellClick
 
         ' Anywhere in any cell in any non-header row in grid
@@ -3547,7 +3547,7 @@ Public Class SSPPApplicationLog
         End If
     End Sub
 
-    Private Sub dgvApplicationLog_CellDoubleClick(sender As System.Object, e As System.Windows.Forms.DataGridViewCellEventArgs) _
+    Private Sub dgvApplicationLog_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) _
     Handles dgvApplicationLog.CellDoubleClick
         'Double-click within the cell content (exclude first column to avoid double-firing)
         If e.RowIndex <> -1 And e.RowIndex < dgvApplicationLog.RowCount _
@@ -3556,7 +3556,7 @@ Public Class SSPPApplicationLog
         End If
     End Sub
 
-    Private Sub dgvApplicationLog_CellEnter(sender As System.Object, e As System.Windows.Forms.DataGridViewCellEventArgs) _
+    Private Sub dgvApplicationLog_CellEnter(sender As Object, e As DataGridViewCellEventArgs) _
     Handles dgvApplicationLog.CellEnter
         If e.RowIndex <> -1 And e.RowIndex < dgvApplicationLog.RowCount Then
             selectedApp = dgvApplicationLog.Rows(e.RowIndex).Cells("strApplicationNumber").Value
@@ -3568,25 +3568,25 @@ Public Class SSPPApplicationLog
 #End Region
 
 #Region "Menu, buttons, and toolbar"
-    Private Sub NewApplication_Click(sender As System.Object, e As System.EventArgs) Handles mmiNewApplication.Click
+    Private Sub NewApplication_Click(sender As Object, e As EventArgs) Handles mmiNewApplication.Click
         StartNewApplication()
     End Sub
-    Private Sub mmiClose_Click(sender As System.Object, e As System.EventArgs) Handles mmiClose.Click
+    Private Sub mmiClose_Click(sender As Object, e As EventArgs) Handles mmiClose.Click
         Me.Close()
     End Sub
-    Private Sub mmiOpenHelp_Click(sender As System.Object, e As System.EventArgs) Handles mmiOnlineHelp.Click
+    Private Sub mmiOpenHelp_Click(sender As Object, e As EventArgs) Handles mmiOnlineHelp.Click
         OpenDocumentationUrl(Me)
     End Sub
-    Private Sub mmiOpen_Click(sender As System.Object, e As System.EventArgs) Handles mmiOpen.Click, btnOpen.Click
+    Private Sub mmiOpen_Click(sender As Object, e As EventArgs) Handles mmiOpen.Click, btnOpen.Click
         If selectedApp <> "" Then OpenApplication(selectedApp)
     End Sub
-    Private Sub mmiReset_Click(sender As System.Object, e As System.EventArgs) Handles mmiResetSearch.Click, btnResetSearch.Click
+    Private Sub mmiReset_Click(sender As Object, e As EventArgs) Handles mmiResetSearch.Click, btnResetSearch.Click
         LoadDefaults()
     End Sub
-    Private Sub mmiExport_Click(sender As System.Object, e As System.EventArgs) Handles mmiExport.Click, btnExport.Click
+    Private Sub mmiExport_Click(sender As Object, e As EventArgs) Handles mmiExport.Click, btnExport.Click
         ExportToExcel()
     End Sub
-    Private Sub btnFind_Click(sender As System.Object, e As System.EventArgs) Handles btnFind.Click
+    Private Sub btnFind_Click(sender As Object, e As EventArgs) Handles btnFind.Click
         RunSearch()
     End Sub
 #End Region

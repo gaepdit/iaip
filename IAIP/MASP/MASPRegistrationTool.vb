@@ -17,7 +17,7 @@ Public Class MASPRegistrationTool
 
 #Region "Form events"
 
-    Private Sub MASPRegistrationTool_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
+    Private Sub MASPRegistrationTool_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
 
         LoadComboBoxes()
@@ -32,7 +32,7 @@ Public Class MASPRegistrationTool
 
     End Sub
 
-    Private Sub MASPRegistrationTool_Shown(sender As Object, e As System.EventArgs) Handles Me.Shown
+    Private Sub MASPRegistrationTool_Shown(sender As Object, e As EventArgs) Handles Me.Shown
         AddHandler rdbEventsFilterFuture.CheckedChanged, AddressOf rdbEventsFilter_CheckedChanged
         AddHandler rdbEventsFilterPast.CheckedChanged, AddressOf rdbEventsFilter_CheckedChanged
         AddHandler rdbEventsFilterAll.CheckedChanged, AddressOf rdbEventsFilter_CheckedChanged
@@ -112,7 +112,7 @@ Public Class MASPRegistrationTool
             FormatEventsList()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -151,12 +151,12 @@ Public Class MASPRegistrationTool
         End With
     End Sub
 
-    Private Sub rdbEventsFilter_CheckedChanged(sender As System.Object, e As System.EventArgs)
+    Private Sub rdbEventsFilter_CheckedChanged(sender As Object, e As EventArgs)
         RemoveHandler dgvEvents.SelectionChanged, AddressOf dgvEvents_SelectionChanged
         LoadEvent()
     End Sub
 
-    Private Sub dgvEvents_DataBindingComplete(sender As System.Object, e As System.Windows.Forms.DataGridViewBindingCompleteEventArgs) Handles dgvEvents.DataBindingComplete
+    Private Sub dgvEvents_DataBindingComplete(sender As Object, e As DataGridViewBindingCompleteEventArgs) Handles dgvEvents.DataBindingComplete
         With dgvEvents
             .SanelyResizeColumns()
             .ClearSelection()
@@ -164,7 +164,7 @@ Public Class MASPRegistrationTool
         AddHandler dgvEvents.SelectionChanged, AddressOf dgvEvents_SelectionChanged
     End Sub
 
-    Private Sub dgvEvents_SelectionChanged(sender As System.Object, e As System.EventArgs)
+    Private Sub dgvEvents_SelectionChanged(sender As Object, e As EventArgs)
         Try
             If dgvEvents.SelectedCells.Count > 0 Then
                 Dim selectedRow As DataGridViewRow = dgvEvents.Rows(dgvEvents.CurrentCell.RowIndex)
@@ -188,7 +188,7 @@ Public Class MASPRegistrationTool
 
 #Region "Load Individual Event Data"
 
-    Private Sub btnViewDetails_Click(sender As System.Object, e As System.EventArgs) Handles btnViewDetails.Click
+    Private Sub btnViewDetails_Click(sender As Object, e As EventArgs) Handles btnViewDetails.Click
         If selectedEventId IsNot Nothing Then
             selectedEvent = New ResEvent(selectedEventId)
             LoadEventOverview()
@@ -232,7 +232,7 @@ Public Class MASPRegistrationTool
             FormatEventOverviewRegistrants()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -296,7 +296,7 @@ Public Class MASPRegistrationTool
         txtOvWaitingList.Text = numWaiting.ToString
     End Sub
 
-    Private Sub dgvOverviewRegistrants_DataBindingComplete(sender As System.Object, e As System.Windows.Forms.DataGridViewBindingCompleteEventArgs) Handles dgvOverviewRegistrants.DataBindingComplete
+    Private Sub dgvOverviewRegistrants_DataBindingComplete(sender As Object, e As DataGridViewBindingCompleteEventArgs) Handles dgvOverviewRegistrants.DataBindingComplete
         With dgvOverviewRegistrants
             .SanelyResizeColumns()
             .ClearSelection()
@@ -445,7 +445,7 @@ Public Class MASPRegistrationTool
             dr.Close()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub LoadRegistrationManagement()
@@ -542,7 +542,7 @@ Public Class MASPRegistrationTool
             'dgvRegistrationManagement.Columns("strComments").HeaderText = "Comments"
             'dgvRegistrationManagement.Columns("strComments").DisplayIndex = 19
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub LoadReports()
@@ -550,13 +550,13 @@ Public Class MASPRegistrationTool
 
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 #End Region
 
 #Region "Events Management"
-    Private Sub btnSaveNewEvent_Click(sender As System.Object, e As System.EventArgs) Handles btnSaveNewEvent.Click
+    Private Sub btnSaveNewEvent_Click(sender As Object, e As EventArgs) Handles btnSaveNewEvent.Click
         Try
             If chbEventPasscode.Checked AndAlso chbEventPasscode.Text = "Error" Then
                 MsgBox("Passcode is invalid; please fix.", MsgBoxStyle.Exclamation, "Error")
@@ -589,10 +589,10 @@ Public Class MASPRegistrationTool
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnUpdateEvent_Click(sender As System.Object, e As System.EventArgs) Handles btnUpdateEvent.Click
+    Private Sub btnUpdateEvent_Click(sender As Object, e As EventArgs) Handles btnUpdateEvent.Click
         Try
             If chbEventPasscode.Checked AndAlso chbEventPasscode.Text = "Error" Then
                 MsgBox("Passcode is invalid; please fix.", MsgBoxStyle.Exclamation, "Error")
@@ -619,10 +619,10 @@ Public Class MASPRegistrationTool
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnDeleteEvent_Click(sender As System.Object, e As System.EventArgs) Handles btnDeleteEvent.Click
+    Private Sub btnDeleteEvent_Click(sender As Object, e As EventArgs) Handles btnDeleteEvent.Click
         Try
             If Update_RES_Event(selectedEventId,
                                 "", "", "",
@@ -638,11 +638,11 @@ Public Class MASPRegistrationTool
 
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub chbEventPasscode_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chbEventPasscode.CheckedChanged
+    Private Sub chbEventPasscode_CheckedChanged(sender As Object, e As EventArgs) Handles chbEventPasscode.CheckedChanged
         Try
             If chbEventPasscode.Checked = True Then
                 btnGeneratePasscode.Visible = True
@@ -651,7 +651,7 @@ Public Class MASPRegistrationTool
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -665,16 +665,16 @@ Public Class MASPRegistrationTool
                 Return passcode
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
         Return "Error"
     End Function
 
-    Private Sub btnGeneratePasscode_Click(sender As System.Object, e As System.EventArgs) Handles btnGeneratePasscode.Click
+    Private Sub btnGeneratePasscode_Click(sender As Object, e As EventArgs) Handles btnGeneratePasscode.Click
         chbEventPasscode.Text = GeneratePasscode()
     End Sub
 
-    Private Sub btnClearEventManagement_Click(sender As System.Object, e As System.EventArgs) Handles btnClearEventManagement.Click
+    Private Sub btnClearEventManagement_Click(sender As Object, e As EventArgs) Handles btnClearEventManagement.Click
         ClearEventSelection()
     End Sub
     Private Sub ClearEventSelection()
@@ -706,7 +706,7 @@ Public Class MASPRegistrationTool
 
 #End Region
 #Region "Registration Management"
-    Private Sub dgvRegistrationManagement_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles dgvRegistrationManagement.MouseUp
+    Private Sub dgvRegistrationManagement_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvRegistrationManagement.MouseUp
         Try
             Dim hti As DataGridView.HitTestInfo = dgvRegistrationManagement.HitTest(e.X, e.Y)
 
@@ -819,7 +819,7 @@ Public Class MASPRegistrationTool
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -828,13 +828,13 @@ Public Class MASPRegistrationTool
 #End Region
 
 
-    'Private Sub cboEventWebContact_Leave(sender As Object, e As System.EventArgs) Handles cboEventWebContact.Leave
+    'Private Sub cboEventWebContact_Leave(sender As Object, e As EventArgs) Handles cboEventWebContact.Leave
     '    If cboEventWebContact.Items.Contains(cboEventWebContact.Text) = False Then
     '        cboEventWebContact.SelectedIndex = 0
     '    End If
     'End Sub
 
-    Private Sub btnModifyRegistration_Click(sender As System.Object, e As System.EventArgs) Handles btnModifyRegistration.Click
+    Private Sub btnModifyRegistration_Click(sender As Object, e As EventArgs) Handles btnModifyRegistration.Click
         Try
 
             If Update_RES_Registration(txtRegID.Text, txtRegConfirmationNum.Text,
@@ -851,7 +851,7 @@ Public Class MASPRegistrationTool
         End Try
     End Sub
 
-    Private Sub btnMapEventLocation_Click(sender As System.Object, e As System.EventArgs) Handles btnMapEventLocation.Click
+    Private Sub btnMapEventLocation_Click(sender As Object, e As EventArgs) Handles btnMapEventLocation.Click
         Try
 
 
@@ -877,7 +877,7 @@ Public Class MASPRegistrationTool
             OpenMapUrl(mapString, Me)
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -887,7 +887,7 @@ Public Class MASPRegistrationTool
     End Sub
 
 
-    Private Sub btnExportRegistrantsToExcel_Click(sender As System.Object, e As System.EventArgs) Handles btnExportRegistrantsToExcel.Click
+    Private Sub btnExportRegistrantsToExcel_Click(sender As Object, e As EventArgs) Handles btnExportRegistrantsToExcel.Click
         dgvOverviewRegistrants.ExportToExcel()
     End Sub
 
@@ -925,15 +925,15 @@ Public Class MASPRegistrationTool
         Return recipients
     End Function
 
-    Private Sub btnEmailAll_Click(sender As System.Object, e As System.EventArgs) Handles btnEmailAll.Click
+    Private Sub btnEmailAll_Click(sender As Object, e As EventArgs) Handles btnEmailAll.Click
         SendEmail()
     End Sub
 
-    Private Sub btnEmailRegistrants_Click(sender As System.Object, e As System.EventArgs) Handles btnEmailRegistrants.Click
+    Private Sub btnEmailRegistrants_Click(sender As Object, e As EventArgs) Handles btnEmailRegistrants.Click
         SendEmail("Confirmed")
     End Sub
 
-    Private Sub btnEmailWaitList_Click(sender As System.Object, e As System.EventArgs) Handles btnEmailWaitList.Click
+    Private Sub btnEmailWaitList_Click(sender As Object, e As EventArgs) Handles btnEmailWaitList.Click
         SendEmail("Waiting List")
     End Sub
 
@@ -1039,7 +1039,7 @@ Public Class MASPRegistrationTool
             Return EventID
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
         Return ""
     End Function
@@ -1204,7 +1204,7 @@ Public Class MASPRegistrationTool
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Function
 
@@ -1226,7 +1226,7 @@ Public Class MASPRegistrationTool
             dr.Close()
             Return True
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Function
 

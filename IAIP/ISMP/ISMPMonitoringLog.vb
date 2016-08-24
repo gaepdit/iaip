@@ -17,7 +17,7 @@ Public Class ISMPMonitoringLog
     Dim dsPollutants As DataSet
     Dim daPollutants As SqlDataAdapter
 
-    Private Sub ISMPMonitoringLog_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
+    Private Sub ISMPMonitoringLog_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         Try
 
@@ -38,7 +38,7 @@ Public Class ISMPMonitoringLog
             SCMonitoringLog.SanelySetSplitterDistance(500)
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -75,7 +75,7 @@ Public Class ISMPMonitoringLog
             daEngineer.Fill(dsEngineer, "Engineers")
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -123,7 +123,7 @@ Public Class ISMPMonitoringLog
             End With
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -172,7 +172,7 @@ Public Class ISMPMonitoringLog
             'End With
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -892,7 +892,7 @@ Public Class ISMPMonitoringLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -923,7 +923,7 @@ Public Class ISMPMonitoringLog
                 MsgBox("Reference number is not in the system.", MsgBoxStyle.Information, Me.Text)
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub ResetOptions()
@@ -953,7 +953,7 @@ Public Class ISMPMonitoringLog
             txtFacilityCounty.Clear()
             txtPollutant.Clear()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -964,94 +964,94 @@ Public Class ISMPMonitoringLog
         Try
             Me.Dispose()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub LLSelectReport_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles LLSelectReport.LinkClicked
+    Private Sub LLSelectReport_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LLSelectReport.LinkClicked
         Try
 
             SelectTestReport()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub btnRunFilter_Click(sender As System.Object, e As System.EventArgs) Handles btnRunFilter.Click
+    Private Sub btnRunFilter_Click(sender As Object, e As EventArgs) Handles btnRunFilter.Click
         Try
 
             LoadDataSet()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiReset_Click(sender As System.Object, e As System.EventArgs) Handles mmiReset.Click
+    Private Sub MmiReset_Click(sender As Object, e As EventArgs) Handles mmiReset.Click
         Try
 
             ResetOptions()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub mmiCut_Click(sender As System.Object, e As System.EventArgs)
+    Private Sub mmiCut_Click(sender As Object, e As EventArgs)
         Try
 
             SendKeys.Send("^(x)")
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiPaste_Click(sender As System.Object, e As System.EventArgs)
+    Private Sub MmiPaste_Click(sender As Object, e As EventArgs)
         Try
 
             SendKeys.Send("^(v)")
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiCopy_Click(sender As System.Object, e As System.EventArgs)
+    Private Sub MmiCopy_Click(sender As Object, e As EventArgs)
         Try
 
             SendKeys.Send("^(c)")
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiHelp_Click(sender As System.Object, e As System.EventArgs) Handles mmiHelp.Click
+    Private Sub MmiHelp_Click(sender As Object, e As EventArgs) Handles mmiHelp.Click
         OpenDocumentationUrl(Me)
     End Sub
-    Private Sub MmiBack_Click(sender As System.Object, e As System.EventArgs) Handles mmiBack.Click
+    Private Sub MmiBack_Click(sender As Object, e As EventArgs) Handles mmiBack.Click
         Try
 
             Me.Close()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub dgvTestReportViewer_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles dgvTestReportViewer.MouseUp
+    Private Sub dgvTestReportViewer_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvTestReportViewer.MouseUp
         Dim hti As DataGridView.HitTestInfo = dgvTestReportViewer.HitTest(e.X, e.Y)
 
         Try
@@ -1097,13 +1097,13 @@ Public Class ISMPMonitoringLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub dgvTestFirmComments_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles dgvTestFirmComments.MouseUp
+    Private Sub dgvTestFirmComments_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvTestFirmComments.MouseUp
         Dim hti As DataGridView.HitTestInfo = dgvTestFirmComments.HitTest(e.X, e.Y)
 
         Try
@@ -1157,21 +1157,21 @@ Public Class ISMPMonitoringLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
 
     End Sub
-    Private Sub tsbResize_Click(sender As System.Object, e As System.EventArgs) Handles tsbResize.Click
+    Private Sub tsbResize_Click(sender As Object, e As EventArgs) Handles tsbResize.Click
         Try
             SCMonitoringLog.ToggleSplitterDistance(235, 500)
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub dgvNotificationLog_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles dgvNotificationLog.MouseUp
+    Private Sub dgvNotificationLog_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvNotificationLog.MouseUp
         Dim hti As DataGridView.HitTestInfo = dgvNotificationLog.HitTest(e.X, e.Y)
 
         Try
@@ -1219,13 +1219,13 @@ Public Class ISMPMonitoringLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub llbSelectTestLog_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbSelectTestLog.LinkClicked
+    Private Sub llbSelectTestLog_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbSelectTestLog.LinkClicked
         Try
             If Not IsNothing(ISMPNotificationLogForm) Then
                 ISMPNotificationLogForm.txtTestNotificationNumber.Text = txtTestLogNumber.Text
@@ -1238,13 +1238,13 @@ Public Class ISMPMonitoringLog
             End If
             ISMPNotificationLogForm.LoadTestNotification()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub llbOpenComments_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbOpenComments.LinkClicked
+    Private Sub llbOpenComments_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbOpenComments.LinkClicked
         Try
 
             If TestFirmComments Is Nothing Then
@@ -1272,18 +1272,18 @@ Public Class ISMPMonitoringLog
             TestFirmComments.LoadTestFirmComments()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
     End Sub
 
-    Private Sub tsbBack_Click(sender As System.Object, e As System.EventArgs) Handles tsbBack.Click
+    Private Sub tsbBack_Click(sender As Object, e As EventArgs) Handles tsbBack.Click
         Try
 
             Me.Dispose()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -1304,15 +1304,15 @@ Public Class ISMPMonitoringLog
                 Me.ValueFromFacilityLookUp = facilityLookupDialog.SelectedAirsNumber
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub tsbFacilitySearch_Click(sender As System.Object, e As System.EventArgs) Handles tsbFacilitySearch.Click
+    Private Sub tsbFacilitySearch_Click(sender As Object, e As EventArgs) Handles tsbFacilitySearch.Click
         OpenFacilityLookupTool()
     End Sub
 
-    Private Sub tsbExportToExcel_Click(sender As System.Object, e As System.EventArgs) Handles tsbExportToExcel.Click
+    Private Sub tsbExportToExcel_Click(sender As Object, e As EventArgs) Handles tsbExportToExcel.Click
         dgvTestReportViewer.ExportToExcel(Me)
     End Sub
     Sub LoadCompliaceColor()
@@ -1338,15 +1338,15 @@ Public Class ISMPMonitoringLog
         End Try
     End Sub
 
-    Private Sub dgvTestReportViewer_Sorted(sender As Object, e As System.EventArgs) Handles dgvTestReportViewer.Sorted
+    Private Sub dgvTestReportViewer_Sorted(sender As Object, e As EventArgs) Handles dgvTestReportViewer.Sorted
         Try
             LoadCompliaceColor()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub mmiReports_Click(sender As System.Object, e As System.EventArgs) Handles mmiReports.Click
+    Private Sub mmiReports_Click(sender As Object, e As EventArgs) Handles mmiReports.Click
         Try
             If StaffReports Is Nothing Then
                 If StaffReports Is Nothing Then StaffReports = New ISMPStaffReports
@@ -1358,7 +1358,7 @@ Public Class ISMPMonitoringLog
             StaffReports.Show()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 

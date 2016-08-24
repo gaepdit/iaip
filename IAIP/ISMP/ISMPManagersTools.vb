@@ -44,7 +44,7 @@ Public Class ISMPManagersTools
     Dim daMethods As SqlDataAdapter
 
 
-    Private Sub ISMPManagersTools_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
+    Private Sub ISMPManagersTools_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         Try
             CreateStatusBar()
@@ -75,7 +75,7 @@ Public Class ISMPManagersTools
             dtpAddTestReportDateReceived.Text = OracleDate
             DTPAddTestReportDateCompleted.Text = OracleDate
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -110,7 +110,7 @@ Public Class ISMPManagersTools
             ' Add the StatusBar to the form.
             Me.Controls.Add(statusBar1)
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -159,7 +159,7 @@ Public Class ISMPManagersTools
                 End If
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
     End Sub
@@ -196,7 +196,7 @@ Public Class ISMPManagersTools
                     PanelAll.Visible = True
             End Select
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -239,7 +239,7 @@ Public Class ISMPManagersTools
             daCity.Fill(dsCity, "City")
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -328,7 +328,7 @@ Public Class ISMPManagersTools
                 cboCity.Items.Add(row("City"))
             Next
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -395,7 +395,7 @@ Public Class ISMPManagersTools
             daTestreportAssignments.Fill(dsTestReportAssignments, "TestReportAssignment")
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -444,7 +444,7 @@ Public Class ISMPManagersTools
             Next row
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -526,7 +526,7 @@ Public Class ISMPManagersTools
             dgrEngineersFacilityList.CaptionText = "Engineer Test Reports"
             dgrEngineersFacilityList.ColumnHeadersVisible = True
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -577,7 +577,7 @@ Public Class ISMPManagersTools
             dgrTestSummary.CaptionText = "Source Test Summary"
             dgrTestSummary.ColumnHeadersVisible = True
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -608,7 +608,7 @@ Public Class ISMPManagersTools
             dgrExcelFiles.DataMember = "ExcelFiles"
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -647,7 +647,7 @@ Public Class ISMPManagersTools
             dgrExcelFiles.CaptionText = "Excel Files Currently Saved"
             dgrExcelFiles.ColumnHeadersVisible = True
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -776,7 +776,7 @@ Public Class ISMPManagersTools
             End While
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -816,7 +816,7 @@ Public Class ISMPManagersTools
             dgvMethods.Columns("strMethodDesc").Width = 500
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -880,7 +880,7 @@ Public Class ISMPManagersTools
             daTestreportAssignments.Fill(dsTestReportAssignments, "TestReportAssignment")
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -943,7 +943,7 @@ Public Class ISMPManagersTools
 
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -1008,7 +1008,7 @@ Public Class ISMPManagersTools
             daTestreportAssignments.Fill(dsTestReportAssignments, "TestReportAssignment")
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -1073,7 +1073,7 @@ Public Class ISMPManagersTools
             daTestreportAssignments.Fill(dsTestReportAssignments, "TestReportAssignment")
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -1138,7 +1138,7 @@ Public Class ISMPManagersTools
             daTestreportAssignments.Fill(dsTestReportAssignments, "TestReportAssignment")
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -1202,7 +1202,7 @@ Public Class ISMPManagersTools
             daTestreportAssignments.Fill(dsTestReportAssignments, "TestReportAssignment")
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -1269,7 +1269,7 @@ Public Class ISMPManagersTools
             daTestreportAssignments.Fill(dsTestReportAssignments, "TestReportAssignment")
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -1336,7 +1336,7 @@ Public Class ISMPManagersTools
             daTestreportAssignments.Fill(dsTestReportAssignments, "TestReportAssignment")
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -1403,7 +1403,7 @@ Public Class ISMPManagersTools
             daTestreportAssignments.Fill(dsTestReportAssignments, "TestReportAssignment")
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -1469,7 +1469,7 @@ Public Class ISMPManagersTools
             daTestreportAssignments.Fill(dsTestReportAssignments, "TestReportAssignment")
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -1478,13 +1478,13 @@ Public Class ISMPManagersTools
     End Sub
 
 #End Region
-    Private Sub LVTestReportAssignment_ColumnClick(sender As Object, e As System.Windows.Forms.ColumnClickEventArgs) Handles LVTestReportAssignment.ColumnClick
+    Private Sub LVTestReportAssignment_ColumnClick(sender As Object, e As ColumnClickEventArgs) Handles LVTestReportAssignment.ColumnClick
         Try
 
             LVTestReportAssignment.ListViewItemSorter = New ListViewItemComparer(e.Column)
             LVTestReportAssignment.Sort()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -1494,7 +1494,7 @@ Public Class ISMPManagersTools
         Try
             Me.Dispose()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
     End Sub
@@ -1567,7 +1567,7 @@ Public Class ISMPManagersTools
                 MsgBox("Select an Engineer to Assign these Test Reports to first.")
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -1817,7 +1817,7 @@ Public Class ISMPManagersTools
             dr = cmd.ExecuteReader
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -1863,7 +1863,7 @@ Public Class ISMPManagersTools
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -1971,7 +1971,7 @@ Public Class ISMPManagersTools
                     FacilityOpen = dr.Item("Count")
                 End While
             Catch ex As Exception
-                ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+                ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
             Finally
 
             End Try
@@ -2344,7 +2344,7 @@ Public Class ISMPManagersTools
             txtCSNotInComplianceOpenDays.Text = CSFacilityOpenDays5
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -2683,7 +2683,7 @@ Public Class ISMPManagersTools
             txtClosedTotal.Text = FacilityClosed4
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -3205,7 +3205,7 @@ Public Class ISMPManagersTools
                     End While
 
                 Catch ex As Exception
-                    ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+                    ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
                 Finally
 
                 End Try
@@ -3318,7 +3318,7 @@ Public Class ISMPManagersTools
             txtEngineerStatistics.Text = txtEngineerStatistics.Text & Statement
 
         Catch ex As Exception
-            ErrorReport(ex, SQL, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, SQL, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -3352,7 +3352,7 @@ Public Class ISMPManagersTools
                 RunUnitEngineerStatistics(EngineerGCode)
             Next
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -3373,7 +3373,7 @@ Public Class ISMPManagersTools
             WordApp.Selection.TypeText(WordText)
             WordApp.Visible = True
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -3460,7 +3460,7 @@ Public Class ISMPManagersTools
             dgrEngineersFacilityList.DataMember = "EngineerGrid"
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -3684,7 +3684,7 @@ Public Class ISMPManagersTools
             txtReportText.Text = Text
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -3756,14 +3756,14 @@ Public Class ISMPManagersTools
             txtOutOfComplianceReport.Text = Report
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub ClearPage()
         Try
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -3780,7 +3780,7 @@ Public Class ISMPManagersTools
             LoadTestReportAssignmentDataSet()
             LoadLVTestReportAssignment()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -3798,7 +3798,7 @@ Public Class ISMPManagersTools
             WordApp.Selection.TypeText(txtReportText.Text & vbCrLf & vbCrLf & txtOutOfComplianceReport.Text)
             WordApp.Visible = True
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -3902,7 +3902,7 @@ Public Class ISMPManagersTools
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -3934,7 +3934,7 @@ Public Class ISMPManagersTools
                 MsgBox("First Select a file from the Datagrid")
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -3998,7 +3998,7 @@ Public Class ISMPManagersTools
             dgrTestSummary.DataMember = "Test Summary"
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -4052,7 +4052,7 @@ Public Class ISMPManagersTools
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -4127,7 +4127,7 @@ Public Class ISMPManagersTools
             If ex.ToString.Contains("RPC_E_CALL_REJECTED") Then
                 MsgBox("Error in exporting data." & vbCrLf & "Please run the export again.")
             Else
-                ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+                ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
             End If
         Finally
 
@@ -4163,7 +4163,7 @@ Public Class ISMPManagersTools
             dr.Close()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -4181,7 +4181,7 @@ Public Class ISMPManagersTools
             WordApp.Selection.TypeText(txtISMPApplicationReport.Text)
             WordApp.Visible = True
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -4406,13 +4406,13 @@ Public Class ISMPManagersTools
             txtUnitStatReferenceNumber.Clear()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
     End Sub
 #End Region
-    'Private Sub txtAIRSNumber_TextChanged(sender As System.Object, e As System.EventArgs)
+    'Private Sub txtAIRSNumber_TextChanged(sender As Object, e As EventArgs)
     '    Try
 
     '        If txtAIRSNumber.Text <> "" Then
@@ -4431,12 +4431,12 @@ Public Class ISMPManagersTools
     '        End If
 
     '    Catch ex As Exception
-    '        ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+    '        ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
     '    Finally
     '    End Try
 
     'End Sub
-    Private Sub TBManagersTools_ButtonClick(sender As System.Object, e As System.Windows.Forms.ToolBarButtonClickEventArgs) Handles TBManagersTools.ButtonClick
+    Private Sub TBManagersTools_ButtonClick(sender As Object, e As ToolBarButtonClickEventArgs) Handles TBManagersTools.ButtonClick
         Try
 
             Select Case TBManagersTools.Buttons.IndexOf(e.Button)
@@ -4476,67 +4476,67 @@ Public Class ISMPManagersTools
             End Select
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
 #Region "Menu Items"
-    Private Sub MmiSave_Click(sender As System.Object, e As System.EventArgs) Handles MmiSave.Click
+    Private Sub MmiSave_Click(sender As Object, e As EventArgs) Handles MmiSave.Click
         Try
 
             If TPReportAssignment.Focus = True Then
                 SaveTestReportsAssignments()
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiBack_Click(sender As System.Object, e As System.EventArgs) Handles MmiBack.Click
+    Private Sub MmiBack_Click(sender As Object, e As EventArgs) Handles MmiBack.Click
         Try
 
             Me.Close()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiExit_Click(sender As System.Object, e As System.EventArgs) Handles MmiExit.Click
+    Private Sub MmiExit_Click(sender As Object, e As EventArgs) Handles MmiExit.Click
         Try
 
             Me.Close()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiClear_Click(sender As System.Object, e As System.EventArgs) Handles MmiClear.Click
+    Private Sub MmiClear_Click(sender As Object, e As EventArgs) Handles MmiClear.Click
         Try
 
             ClearTestReportAssignmentTab()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiClearTab_Click(sender As System.Object, e As System.EventArgs) Handles MmiClearTab.Click
+    Private Sub MmiClearTab_Click(sender As Object, e As EventArgs) Handles MmiClearTab.Click
         Try
 
             If TPReportAssignment.Focus = True Then
                 ClearTestReportAssignmentTab()
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -4545,7 +4545,7 @@ Public Class ISMPManagersTools
 
     End Sub
 #Region "Viewing Options"
-    Private Sub MmiViewTestReports_Click(sender As System.Object, e As System.EventArgs) Handles MmiViewTestReports.Click
+    Private Sub MmiViewTestReports_Click(sender As Object, e As EventArgs) Handles MmiViewTestReports.Click
         Try
 
             If TPReportAssignment.Focus = True Then
@@ -4556,13 +4556,13 @@ Public Class ISMPManagersTools
                 LoadLVTestReportAssignment()
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiUnassignedTestReports_Click(sender As System.Object, e As System.EventArgs) Handles MmiUnassignedTestReports.Click
+    Private Sub MmiUnassignedTestReports_Click(sender As Object, e As EventArgs) Handles MmiUnassignedTestReports.Click
         Try
 
             If TPReportAssignment.Focus = True Then
@@ -4573,13 +4573,13 @@ Public Class ISMPManagersTools
                 LoadLVTestReportAssignment()
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiAssignedTestReports_Click(sender As System.Object, e As System.EventArgs) Handles MmiAssignedTestReports.Click
+    Private Sub MmiAssignedTestReports_Click(sender As Object, e As EventArgs) Handles MmiAssignedTestReports.Click
         Try
 
             If TPReportAssignment.Focus = True Then
@@ -4590,13 +4590,13 @@ Public Class ISMPManagersTools
                 LoadLVTestReportAssignment()
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiShowDeletedRecords_Click(sender As System.Object, e As System.EventArgs) Handles MmiShowDeletedRecords.Click
+    Private Sub MmiShowDeletedRecords_Click(sender As Object, e As EventArgs) Handles MmiShowDeletedRecords.Click
         Try
 
             If TPReportAssignment.Focus = True Then
@@ -4607,7 +4607,7 @@ Public Class ISMPManagersTools
                 LoadLVTestReportAssignment()
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -4624,11 +4624,11 @@ Public Class ISMPManagersTools
                 Me.ValueFromFacilityLookUp2 = facilityLookupDialog.SelectedFacilityName
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub MmiViewByFacility_Click(sender As System.Object, e As System.EventArgs) Handles MmiViewByFacility.Click
+    Private Sub MmiViewByFacility_Click(sender As Object, e As EventArgs) Handles MmiViewByFacility.Click
         If TPReportAssignment.Focus = True Then
             OpenFacilityLookupTool()
         End If
@@ -4644,19 +4644,19 @@ Public Class ISMPManagersTools
             txtFacility.Text = Value2
         End Set
     End Property
-    Private Sub MmiByEngineer_Click(sender As System.Object, e As System.EventArgs) Handles MmiByEngineer.Click
+    Private Sub MmiByEngineer_Click(sender As Object, e As EventArgs) Handles MmiByEngineer.Click
         Try
 
             'Must have all engineers loaded some how
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
 
     End Sub
-    Private Sub MmiAllByUnit_Click(sender As System.Object, e As System.EventArgs) Handles MmiAllByUnit.Click
+    Private Sub MmiAllByUnit_Click(sender As Object, e As EventArgs) Handles MmiAllByUnit.Click
         Try
 
             If TPReportAssignment.Focus = True Then
@@ -4667,13 +4667,13 @@ Public Class ISMPManagersTools
                 LoadLVTestReportAssignment()
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiUnassignedByUnit_Click(sender As System.Object, e As System.EventArgs) Handles MmiUnassignedByUnit.Click
+    Private Sub MmiUnassignedByUnit_Click(sender As Object, e As EventArgs) Handles MmiUnassignedByUnit.Click
         Try
 
             If TPReportAssignment.Focus = True Then
@@ -4684,13 +4684,13 @@ Public Class ISMPManagersTools
                 LoadLVTestReportAssignment()
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiAssignedByUnit_Click(sender As System.Object, e As System.EventArgs) Handles MmiAssignedByUnit.Click
+    Private Sub MmiAssignedByUnit_Click(sender As Object, e As EventArgs) Handles MmiAssignedByUnit.Click
         Try
 
             If TPReportAssignment.Focus = True Then
@@ -4701,14 +4701,14 @@ Public Class ISMPManagersTools
                 LoadLVTestReportAssignment()
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
 #Region "By Test Report-Unassigned"
-    Private Sub MmiUnassigned_Click(sender As System.Object, e As System.EventArgs) Handles MmiUnassigned.Click
+    Private Sub MmiUnassigned_Click(sender As Object, e As EventArgs) Handles MmiUnassigned.Click
         Try
 
             Dim ReportType As String
@@ -4719,13 +4719,13 @@ Public Class ISMPManagersTools
             LoadByTestReportTestReportAssignmentDataSet(ReportType)
             LoadLVTestReportAssignment()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiOneStackTwoRun_Click(sender As System.Object, e As System.EventArgs) Handles MmiOneStackTwoRun.Click
+    Private Sub MmiOneStackTwoRun_Click(sender As Object, e As EventArgs) Handles MmiOneStackTwoRun.Click
         Try
 
             Dim ReportType As String
@@ -4736,13 +4736,13 @@ Public Class ISMPManagersTools
             LoadByTestReportTestReportAssignmentDataSet(ReportType)
             LoadLVTestReportAssignment()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiOneStackThreeRun_Click(sender As System.Object, e As System.EventArgs) Handles MmiOneStackThreeRun.Click
+    Private Sub MmiOneStackThreeRun_Click(sender As Object, e As EventArgs) Handles MmiOneStackThreeRun.Click
         Try
 
             Dim ReportType As String
@@ -4753,13 +4753,13 @@ Public Class ISMPManagersTools
             LoadByTestReportTestReportAssignmentDataSet(ReportType)
             LoadLVTestReportAssignment()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiOneStackFourRun_Click(sender As System.Object, e As System.EventArgs) Handles MmiOneStackFourRun.Click
+    Private Sub MmiOneStackFourRun_Click(sender As Object, e As EventArgs) Handles MmiOneStackFourRun.Click
         Try
 
             Dim ReportType As String
@@ -4770,13 +4770,13 @@ Public Class ISMPManagersTools
             LoadByTestReportTestReportAssignmentDataSet(ReportType)
             LoadLVTestReportAssignment()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiTwoStackStandard_Click(sender As System.Object, e As System.EventArgs) Handles MmiTwoStackStandard.Click
+    Private Sub MmiTwoStackStandard_Click(sender As Object, e As EventArgs) Handles MmiTwoStackStandard.Click
         Try
 
             Dim ReportType As String
@@ -4787,13 +4787,13 @@ Public Class ISMPManagersTools
             LoadByTestReportTestReportAssignmentDataSet(ReportType)
             LoadLVTestReportAssignment()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiTwoStackDRE_Click(sender As System.Object, e As System.EventArgs) Handles MmiTwoStackDRE.Click
+    Private Sub MmiTwoStackDRE_Click(sender As Object, e As EventArgs) Handles MmiTwoStackDRE.Click
         Try
 
             Dim ReportType As String
@@ -4804,13 +4804,13 @@ Public Class ISMPManagersTools
             LoadByTestReportTestReportAssignmentDataSet(ReportType)
             LoadLVTestReportAssignment()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiLoadingRack_Click(sender As System.Object, e As System.EventArgs) Handles MmiLoadingRack.Click
+    Private Sub MmiLoadingRack_Click(sender As Object, e As EventArgs) Handles MmiLoadingRack.Click
         Try
 
             Dim ReportType As String
@@ -4821,13 +4821,13 @@ Public Class ISMPManagersTools
             LoadByTestReportTestReportAssignmentDataSet(ReportType)
             LoadLVTestReportAssignment()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiFlare_Click(sender As System.Object, e As System.EventArgs) Handles MmiFlare.Click
+    Private Sub MmiFlare_Click(sender As Object, e As EventArgs) Handles MmiFlare.Click
         Try
 
             Dim ReportType As String
@@ -4838,13 +4838,13 @@ Public Class ISMPManagersTools
             LoadByTestReportTestReportAssignmentDataSet(ReportType)
             LoadLVTestReportAssignment()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiPondTreatment_Click(sender As System.Object, e As System.EventArgs) Handles MmiPondTreatment.Click
+    Private Sub MmiPondTreatment_Click(sender As Object, e As EventArgs) Handles MmiPondTreatment.Click
         Try
 
             Dim ReportType As String
@@ -4855,13 +4855,13 @@ Public Class ISMPManagersTools
             LoadByTestReportTestReportAssignmentDataSet(ReportType)
             LoadLVTestReportAssignment()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiGasConcentration_Click(sender As System.Object, e As System.EventArgs) Handles MmiGasConcentration.Click
+    Private Sub MmiGasConcentration_Click(sender As Object, e As EventArgs) Handles MmiGasConcentration.Click
         Try
 
             Dim ReportType As String
@@ -4872,13 +4872,13 @@ Public Class ISMPManagersTools
             LoadByTestReportTestReportAssignmentDataSet(ReportType)
             LoadLVTestReportAssignment()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiRata_Click(sender As System.Object, e As System.EventArgs) Handles MmiRata.Click
+    Private Sub MmiRata_Click(sender As Object, e As EventArgs) Handles MmiRata.Click
         Try
 
             Dim ReportType As String
@@ -4889,13 +4889,13 @@ Public Class ISMPManagersTools
             LoadByTestReportTestReportAssignmentDataSet(ReportType)
             LoadLVTestReportAssignment()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiPEMS_Click(sender As System.Object, e As System.EventArgs) Handles MmiPEMS.Click
+    Private Sub MmiPEMS_Click(sender As Object, e As EventArgs) Handles MmiPEMS.Click
         Try
 
             Dim ReportType As String
@@ -4906,13 +4906,13 @@ Public Class ISMPManagersTools
             LoadByTestReportTestReportAssignmentDataSet(ReportType)
             LoadLVTestReportAssignment()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiMemoStandard_Click(sender As System.Object, e As System.EventArgs) Handles MmiMemoStandard.Click
+    Private Sub MmiMemoStandard_Click(sender As Object, e As EventArgs) Handles MmiMemoStandard.Click
         Try
 
             Dim ReportType As String
@@ -4923,13 +4923,13 @@ Public Class ISMPManagersTools
             LoadByTestReportTestReportAssignmentDataSet(ReportType)
             LoadLVTestReportAssignment()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiMemoToFile_Click(sender As System.Object, e As System.EventArgs) Handles MmiMemoToFile.Click
+    Private Sub MmiMemoToFile_Click(sender As Object, e As EventArgs) Handles MmiMemoToFile.Click
         Try
 
             Dim ReportType As String
@@ -4940,13 +4940,13 @@ Public Class ISMPManagersTools
             LoadByTestReportTestReportAssignmentDataSet(ReportType)
             LoadLVTestReportAssignment()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiMemoPTE_Click(sender As System.Object, e As System.EventArgs) Handles MmiMemoPTE.Click
+    Private Sub MmiMemoPTE_Click(sender As Object, e As EventArgs) Handles MmiMemoPTE.Click
         Try
 
             Dim ReportType As String
@@ -4957,13 +4957,13 @@ Public Class ISMPManagersTools
             LoadByTestReportTestReportAssignmentDataSet(ReportType)
             LoadLVTestReportAssignment()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiMethod9Single_Click(sender As System.Object, e As System.EventArgs) Handles MmiMethod9Single.Click
+    Private Sub MmiMethod9Single_Click(sender As Object, e As EventArgs) Handles MmiMethod9Single.Click
         Try
 
             Dim ReportType As String
@@ -4974,13 +4974,13 @@ Public Class ISMPManagersTools
             LoadByTestReportTestReportAssignmentDataSet(ReportType)
             LoadLVTestReportAssignment()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiMethod9Multi_Click(sender As System.Object, e As System.EventArgs) Handles MmiMethod9Multi.Click
+    Private Sub MmiMethod9Multi_Click(sender As Object, e As EventArgs) Handles MmiMethod9Multi.Click
         Try
 
             Dim ReportType As String
@@ -4991,13 +4991,13 @@ Public Class ISMPManagersTools
             LoadByTestReportTestReportAssignmentDataSet(ReportType)
             LoadLVTestReportAssignment()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiMethod22_Click(sender As System.Object, e As System.EventArgs) Handles MmiMethod22.Click
+    Private Sub MmiMethod22_Click(sender As Object, e As EventArgs) Handles MmiMethod22.Click
         Try
 
             Dim ReportType As String
@@ -5008,7 +5008,7 @@ Public Class ISMPManagersTools
             LoadByTestReportTestReportAssignmentDataSet(ReportType)
             LoadLVTestReportAssignment()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -5016,7 +5016,7 @@ Public Class ISMPManagersTools
     End Sub
 #End Region
 #Region "By Test Report-Assigned"
-    Private Sub MmiAssignedNoDocument_Click(sender As System.Object, e As System.EventArgs) Handles MmiAssignedNoDocument.Click
+    Private Sub MmiAssignedNoDocument_Click(sender As Object, e As EventArgs) Handles MmiAssignedNoDocument.Click
         Try
 
             Dim ReportType As String
@@ -5027,13 +5027,13 @@ Public Class ISMPManagersTools
             LoadByTestReportAssignedTestReportAssignmentDataSet(ReportType)
             LoadLVTestReportAssignment()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiAssignedOneStackTwoRuns_Click(sender As System.Object, e As System.EventArgs) Handles MmiAssignedOneStackTwoRuns.Click
+    Private Sub MmiAssignedOneStackTwoRuns_Click(sender As Object, e As EventArgs) Handles MmiAssignedOneStackTwoRuns.Click
         Try
 
             Dim ReportType As String
@@ -5044,13 +5044,13 @@ Public Class ISMPManagersTools
             LoadByTestReportAssignedTestReportAssignmentDataSet(ReportType)
             LoadLVTestReportAssignment()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiAssignedOneStackThreeRuns_Click(sender As System.Object, e As System.EventArgs) Handles MmiAssignedOneStackThreeRuns.Click
+    Private Sub MmiAssignedOneStackThreeRuns_Click(sender As Object, e As EventArgs) Handles MmiAssignedOneStackThreeRuns.Click
         Try
 
             Dim ReportType As String
@@ -5061,13 +5061,13 @@ Public Class ISMPManagersTools
             LoadByTestReportAssignedTestReportAssignmentDataSet(ReportType)
             LoadLVTestReportAssignment()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiAssignedOneStackFourRuns_Click(sender As System.Object, e As System.EventArgs) Handles MmiAssignedOneStackFourRuns.Click
+    Private Sub MmiAssignedOneStackFourRuns_Click(sender As Object, e As EventArgs) Handles MmiAssignedOneStackFourRuns.Click
         Try
 
             Dim ReportType As String
@@ -5078,13 +5078,13 @@ Public Class ISMPManagersTools
             LoadByTestReportAssignedTestReportAssignmentDataSet(ReportType)
             LoadLVTestReportAssignment()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiAssignedTwoStackStandard_Click(sender As System.Object, e As System.EventArgs) Handles MmiAssignedTwoStackStandard.Click
+    Private Sub MmiAssignedTwoStackStandard_Click(sender As Object, e As EventArgs) Handles MmiAssignedTwoStackStandard.Click
         Try
 
             Dim ReportType As String
@@ -5095,13 +5095,13 @@ Public Class ISMPManagersTools
             LoadByTestReportAssignedTestReportAssignmentDataSet(ReportType)
             LoadLVTestReportAssignment()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiAssignedTwoStackDRE_Click(sender As System.Object, e As System.EventArgs) Handles MmiAssignedTwoStackDRE.Click
+    Private Sub MmiAssignedTwoStackDRE_Click(sender As Object, e As EventArgs) Handles MmiAssignedTwoStackDRE.Click
         Try
 
             Dim ReportType As String
@@ -5112,13 +5112,13 @@ Public Class ISMPManagersTools
             LoadByTestReportAssignedTestReportAssignmentDataSet(ReportType)
             LoadLVTestReportAssignment()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiAssignedLoadingRack_Click(sender As System.Object, e As System.EventArgs) Handles MmiAssignedLoadingRack.Click
+    Private Sub MmiAssignedLoadingRack_Click(sender As Object, e As EventArgs) Handles MmiAssignedLoadingRack.Click
         Try
 
             Dim ReportType As String
@@ -5129,13 +5129,13 @@ Public Class ISMPManagersTools
             LoadByTestReportAssignedTestReportAssignmentDataSet(ReportType)
             LoadLVTestReportAssignment()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiAssignedFlare_Click(sender As System.Object, e As System.EventArgs) Handles MmiAssignedFlare.Click
+    Private Sub MmiAssignedFlare_Click(sender As Object, e As EventArgs) Handles MmiAssignedFlare.Click
         Try
 
             Dim ReportType As String
@@ -5146,13 +5146,13 @@ Public Class ISMPManagersTools
             LoadByTestReportAssignedTestReportAssignmentDataSet(ReportType)
             LoadLVTestReportAssignment()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiAssignedPondTreatment_Click(sender As System.Object, e As System.EventArgs) Handles MmiAssignedPondTreatment.Click
+    Private Sub MmiAssignedPondTreatment_Click(sender As Object, e As EventArgs) Handles MmiAssignedPondTreatment.Click
         Try
 
             Dim ReportType As String
@@ -5163,13 +5163,13 @@ Public Class ISMPManagersTools
             LoadByTestReportAssignedTestReportAssignmentDataSet(ReportType)
             LoadLVTestReportAssignment()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiAssignedGasConcentration_Click(sender As System.Object, e As System.EventArgs) Handles MmiAssignedGasConcentration.Click
+    Private Sub MmiAssignedGasConcentration_Click(sender As Object, e As EventArgs) Handles MmiAssignedGasConcentration.Click
         Try
 
             Dim ReportType As String
@@ -5180,13 +5180,13 @@ Public Class ISMPManagersTools
             LoadByTestReportAssignedTestReportAssignmentDataSet(ReportType)
             LoadLVTestReportAssignment()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiAssignedRata_Click(sender As System.Object, e As System.EventArgs) Handles MmiAssignedRata.Click
+    Private Sub MmiAssignedRata_Click(sender As Object, e As EventArgs) Handles MmiAssignedRata.Click
         Try
 
             Dim ReportType As String
@@ -5197,13 +5197,13 @@ Public Class ISMPManagersTools
             LoadByTestReportAssignedTestReportAssignmentDataSet(ReportType)
             LoadLVTestReportAssignment()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiAssignedPEMS_Click(sender As System.Object, e As System.EventArgs) Handles MmiAssignedPEMS.Click
+    Private Sub MmiAssignedPEMS_Click(sender As Object, e As EventArgs) Handles MmiAssignedPEMS.Click
         Try
 
             Dim ReportType As String
@@ -5214,13 +5214,13 @@ Public Class ISMPManagersTools
             LoadByTestReportAssignedTestReportAssignmentDataSet(ReportType)
             LoadLVTestReportAssignment()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiAssignedMemoStandard_Click(sender As System.Object, e As System.EventArgs) Handles MmiAssignedMemoStandard.Click
+    Private Sub MmiAssignedMemoStandard_Click(sender As Object, e As EventArgs) Handles MmiAssignedMemoStandard.Click
         Try
 
             Dim ReportType As String
@@ -5231,13 +5231,13 @@ Public Class ISMPManagersTools
             LoadByTestReportAssignedTestReportAssignmentDataSet(ReportType)
             LoadLVTestReportAssignment()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiAssignedMemoToFile_Click(sender As System.Object, e As System.EventArgs) Handles MmiAssignedMemoToFile.Click
+    Private Sub MmiAssignedMemoToFile_Click(sender As Object, e As EventArgs) Handles MmiAssignedMemoToFile.Click
         Try
 
             Dim ReportType As String
@@ -5248,13 +5248,13 @@ Public Class ISMPManagersTools
             LoadByTestReportAssignedTestReportAssignmentDataSet(ReportType)
             LoadLVTestReportAssignment()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiAssignedMemoPTE_Click(sender As System.Object, e As System.EventArgs) Handles MmiAssignedMemoPTE.Click
+    Private Sub MmiAssignedMemoPTE_Click(sender As Object, e As EventArgs) Handles MmiAssignedMemoPTE.Click
         Try
 
             Dim ReportType As String
@@ -5265,13 +5265,13 @@ Public Class ISMPManagersTools
             LoadByTestReportAssignedTestReportAssignmentDataSet(ReportType)
             LoadLVTestReportAssignment()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiAssignedMethod9Single_Click(sender As System.Object, e As System.EventArgs) Handles MmiAssignedMethod9Single.Click
+    Private Sub MmiAssignedMethod9Single_Click(sender As Object, e As EventArgs) Handles MmiAssignedMethod9Single.Click
         Try
 
             Dim ReportType As String
@@ -5282,13 +5282,13 @@ Public Class ISMPManagersTools
             LoadByTestReportAssignedTestReportAssignmentDataSet(ReportType)
             LoadLVTestReportAssignment()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiAssignedMethod9Multi_Click(sender As System.Object, e As System.EventArgs) Handles MmiAssignedMethod9Multi.Click
+    Private Sub MmiAssignedMethod9Multi_Click(sender As Object, e As EventArgs) Handles MmiAssignedMethod9Multi.Click
         Try
 
             Dim ReportType As String
@@ -5299,13 +5299,13 @@ Public Class ISMPManagersTools
             LoadByTestReportAssignedTestReportAssignmentDataSet(ReportType)
             LoadLVTestReportAssignment()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiAssignedMethod22_Click(sender As System.Object, e As System.EventArgs) Handles MmiAssignedMethod22.Click
+    Private Sub MmiAssignedMethod22_Click(sender As Object, e As EventArgs) Handles MmiAssignedMethod22.Click
         Try
 
             Dim ReportType As String
@@ -5316,7 +5316,7 @@ Public Class ISMPManagersTools
             LoadByTestReportAssignedTestReportAssignmentDataSet(ReportType)
             LoadLVTestReportAssignment()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -5324,7 +5324,7 @@ Public Class ISMPManagersTools
     End Sub
 #End Region
 #Region "By Test Report-All"
-    Private Sub MmiAllNoDoc_Click(sender As System.Object, e As System.EventArgs) Handles MmiAllNoDoc.Click
+    Private Sub MmiAllNoDoc_Click(sender As Object, e As EventArgs) Handles MmiAllNoDoc.Click
         Try
 
             Dim ReportType As String
@@ -5335,13 +5335,13 @@ Public Class ISMPManagersTools
             LoadByTestReportAssignedTestReportAssignmentDataSet(ReportType)
             LoadLVTestReportAssignment()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiAllOneStackTwoRuns_Click(sender As System.Object, e As System.EventArgs) Handles MmiAllOneStackTwoRuns.Click
+    Private Sub MmiAllOneStackTwoRuns_Click(sender As Object, e As EventArgs) Handles MmiAllOneStackTwoRuns.Click
         Try
 
             Dim ReportType As String
@@ -5352,13 +5352,13 @@ Public Class ISMPManagersTools
             LoadByTestReportAssignedTestReportAssignmentDataSet(ReportType)
             LoadLVTestReportAssignment()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiAllOneStackThreeRuns_Click(sender As System.Object, e As System.EventArgs) Handles MmiAllOneStackThreeRuns.Click
+    Private Sub MmiAllOneStackThreeRuns_Click(sender As Object, e As EventArgs) Handles MmiAllOneStackThreeRuns.Click
         Try
 
             Dim ReportType As String
@@ -5369,13 +5369,13 @@ Public Class ISMPManagersTools
             LoadByTestReportAssignedTestReportAssignmentDataSet(ReportType)
             LoadLVTestReportAssignment()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiAllOneStackFourRuns_Click(sender As System.Object, e As System.EventArgs) Handles MmiAllOneStackFourRuns.Click
+    Private Sub MmiAllOneStackFourRuns_Click(sender As Object, e As EventArgs) Handles MmiAllOneStackFourRuns.Click
         Try
 
             Dim ReportType As String
@@ -5386,13 +5386,13 @@ Public Class ISMPManagersTools
             LoadByTestReportAssignedTestReportAssignmentDataSet(ReportType)
             LoadLVTestReportAssignment()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiAllTwoStackStandard_Click(sender As System.Object, e As System.EventArgs) Handles MmiAllTwoStackStandard.Click
+    Private Sub MmiAllTwoStackStandard_Click(sender As Object, e As EventArgs) Handles MmiAllTwoStackStandard.Click
         Try
 
             Dim ReportType As String
@@ -5403,13 +5403,13 @@ Public Class ISMPManagersTools
             LoadByTestReportAssignedTestReportAssignmentDataSet(ReportType)
             LoadLVTestReportAssignment()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiAllTwoStackDRE_Click(sender As System.Object, e As System.EventArgs) Handles MmiAllTwoStackDRE.Click
+    Private Sub MmiAllTwoStackDRE_Click(sender As Object, e As EventArgs) Handles MmiAllTwoStackDRE.Click
         Try
 
             Dim ReportType As String
@@ -5420,13 +5420,13 @@ Public Class ISMPManagersTools
             LoadByTestReportAssignedTestReportAssignmentDataSet(ReportType)
             LoadLVTestReportAssignment()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiAllLoadingRack_Click(sender As System.Object, e As System.EventArgs) Handles MmiAllLoadingRack.Click
+    Private Sub MmiAllLoadingRack_Click(sender As Object, e As EventArgs) Handles MmiAllLoadingRack.Click
         Try
 
             Dim ReportType As String
@@ -5437,13 +5437,13 @@ Public Class ISMPManagersTools
             LoadByTestReportAssignedTestReportAssignmentDataSet(ReportType)
             LoadLVTestReportAssignment()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiAllFlare_Click(sender As System.Object, e As System.EventArgs) Handles MmiAllFlare.Click
+    Private Sub MmiAllFlare_Click(sender As Object, e As EventArgs) Handles MmiAllFlare.Click
         Try
 
             Dim ReportType As String
@@ -5454,13 +5454,13 @@ Public Class ISMPManagersTools
             LoadByTestReportAssignedTestReportAssignmentDataSet(ReportType)
             LoadLVTestReportAssignment()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiAllPondTreatment_Click(sender As System.Object, e As System.EventArgs) Handles MmiAllPondTreatment.Click
+    Private Sub MmiAllPondTreatment_Click(sender As Object, e As EventArgs) Handles MmiAllPondTreatment.Click
         Try
 
             Dim ReportType As String
@@ -5471,13 +5471,13 @@ Public Class ISMPManagersTools
             LoadByTestReportAssignedTestReportAssignmentDataSet(ReportType)
             LoadLVTestReportAssignment()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiAllGasConcentration_Click(sender As System.Object, e As System.EventArgs) Handles MmiAllGasConcentration.Click
+    Private Sub MmiAllGasConcentration_Click(sender As Object, e As EventArgs) Handles MmiAllGasConcentration.Click
         Try
 
             Dim ReportType As String
@@ -5488,13 +5488,13 @@ Public Class ISMPManagersTools
             LoadByTestReportAssignedTestReportAssignmentDataSet(ReportType)
             LoadLVTestReportAssignment()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiAllRata_Click(sender As System.Object, e As System.EventArgs) Handles MmiAllRata.Click
+    Private Sub MmiAllRata_Click(sender As Object, e As EventArgs) Handles MmiAllRata.Click
         Try
 
             Dim ReportType As String
@@ -5505,13 +5505,13 @@ Public Class ISMPManagersTools
             LoadByTestReportAssignedTestReportAssignmentDataSet(ReportType)
             LoadLVTestReportAssignment()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiAllPEMS_Click(sender As System.Object, e As System.EventArgs) Handles MmiAllPEMS.Click
+    Private Sub MmiAllPEMS_Click(sender As Object, e As EventArgs) Handles MmiAllPEMS.Click
         Try
 
             Dim ReportType As String
@@ -5522,13 +5522,13 @@ Public Class ISMPManagersTools
             LoadByTestReportAssignedTestReportAssignmentDataSet(ReportType)
             LoadLVTestReportAssignment()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiAllMemoStandard_Click(sender As System.Object, e As System.EventArgs) Handles MmiAllMemoStandard.Click
+    Private Sub MmiAllMemoStandard_Click(sender As Object, e As EventArgs) Handles MmiAllMemoStandard.Click
         Try
 
             Dim ReportType As String
@@ -5539,13 +5539,13 @@ Public Class ISMPManagersTools
             LoadByTestReportAssignedTestReportAssignmentDataSet(ReportType)
             LoadLVTestReportAssignment()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiAllMemoToFile_Click(sender As System.Object, e As System.EventArgs) Handles MmiAllMemoToFile.Click
+    Private Sub MmiAllMemoToFile_Click(sender As Object, e As EventArgs) Handles MmiAllMemoToFile.Click
         Try
 
             Dim ReportType As String
@@ -5556,13 +5556,13 @@ Public Class ISMPManagersTools
             LoadByTestReportAssignedTestReportAssignmentDataSet(ReportType)
             LoadLVTestReportAssignment()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiAllMemoPTE_Click(sender As System.Object, e As System.EventArgs) Handles MmiAllMemoPTE.Click
+    Private Sub MmiAllMemoPTE_Click(sender As Object, e As EventArgs) Handles MmiAllMemoPTE.Click
         Try
 
             Dim ReportType As String
@@ -5573,13 +5573,13 @@ Public Class ISMPManagersTools
             LoadByTestReportAssignedTestReportAssignmentDataSet(ReportType)
             LoadLVTestReportAssignment()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiAllMethod9Single_Click(sender As System.Object, e As System.EventArgs) Handles MmiAllMethod9Single.Click
+    Private Sub MmiAllMethod9Single_Click(sender As Object, e As EventArgs) Handles MmiAllMethod9Single.Click
         Try
 
             Dim ReportType As String
@@ -5590,13 +5590,13 @@ Public Class ISMPManagersTools
             LoadByTestReportAssignedTestReportAssignmentDataSet(ReportType)
             LoadLVTestReportAssignment()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiAllMethod9Multi_Click(sender As System.Object, e As System.EventArgs) Handles MmiAllMethod9Multi.Click
+    Private Sub MmiAllMethod9Multi_Click(sender As Object, e As EventArgs) Handles MmiAllMethod9Multi.Click
         Try
 
             Dim ReportType As String
@@ -5607,13 +5607,13 @@ Public Class ISMPManagersTools
             LoadByTestReportAssignedTestReportAssignmentDataSet(ReportType)
             LoadLVTestReportAssignment()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiAllMethod22_Click(sender As System.Object, e As System.EventArgs) Handles MmiAllMethod22.Click
+    Private Sub MmiAllMethod22_Click(sender As Object, e As EventArgs) Handles MmiAllMethod22.Click
         Try
 
             Dim ReportType As String
@@ -5624,7 +5624,7 @@ Public Class ISMPManagersTools
             LoadByTestReportAssignedTestReportAssignmentDataSet(ReportType)
             LoadLVTestReportAssignment()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -5635,7 +5635,7 @@ Public Class ISMPManagersTools
 
 
 #End Region
-    Private Sub LVTestReportAssignment_ItemCheck(sender As Object, e As System.Windows.Forms.ItemCheckEventArgs) Handles LVTestReportAssignment.ItemCheck
+    Private Sub LVTestReportAssignment_ItemCheck(sender As Object, e As ItemCheckEventArgs) Handles LVTestReportAssignment.ItemCheck
         Try
 
             Dim count As Integer = txtTestReportCount.Text
@@ -5649,33 +5649,33 @@ Public Class ISMPManagersTools
             End If
             txtTestReportCount.Text = count
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub LLRunFacilityReport_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles LLRunFacilityReport.LinkClicked
+    Private Sub LLRunFacilityReport_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LLRunFacilityReport.LinkClicked
         Try
 
             RunFacilityStatistics()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub LLFaciltiySearch_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles LLFaciltiySearch.LinkClicked
+    Private Sub LLFaciltiySearch_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LLFaciltiySearch.LinkClicked
         If TPTestReportStatistics.Focus = True Then
             OpenFacilityLookupTool()
         End If
     End Sub
-    Private Sub MmiCut_Click(sender As System.Object, e As System.EventArgs) Handles MmiCut.Click
+    Private Sub MmiCut_Click(sender As Object, e As EventArgs) Handles MmiCut.Click
         Try
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -5740,24 +5740,24 @@ Public Class ISMPManagersTools
             Next row
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub LLBAllFacilities_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles LLBAllFacilities.LinkClicked
+    Private Sub LLBAllFacilities_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LLBAllFacilities.LinkClicked
         Try
 
             FillFacilitiesDataGrid()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub LVFacilities_ColumnClick(sender As Object, e As System.Windows.Forms.ColumnClickEventArgs) Handles LVFacilities.ColumnClick
+    Private Sub LVFacilities_ColumnClick(sender As Object, e As ColumnClickEventArgs) Handles LVFacilities.ColumnClick
         Try
 
             ' Set the ListViewItemSorter property to a new ListViewItemComparer object.
@@ -5765,13 +5765,13 @@ Public Class ISMPManagersTools
             ' Call the sort method to manually sort the column based on the ListViewItemComparer implementation.
             LVFacilities.Sort()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub LVFacilities_ItemCheck(sender As Object, e As System.Windows.Forms.ItemCheckEventArgs) Handles LVFacilities.ItemCheck
+    Private Sub LVFacilities_ItemCheck(sender As Object, e As ItemCheckEventArgs) Handles LVFacilities.ItemCheck
         Try
 
             If LVFacilities.Items.Item(e.Index).Checked = True Then
@@ -5780,51 +5780,51 @@ Public Class ISMPManagersTools
                 lsbFacilities.Items.Add(LVFacilities.Items.Item(e.Index).Text)
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub llbRunMonthlyReport_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbRunMonthlyReport.LinkClicked
+    Private Sub llbRunMonthlyReport_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbRunMonthlyReport.LinkClicked
         Try
 
             RunMonthlyReport()
             GetOutOfComplianceReport()
             RunSummaryReport()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub llbPrintMonthlyReport_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbPrintMonthlyReport.LinkClicked
+    Private Sub llbPrintMonthlyReport_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbPrintMonthlyReport.LinkClicked
         Try
 
             ExportToWord()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub LlbUnitStatistics_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles LlbUnitStatistics.LinkClicked
+    Private Sub LlbUnitStatistics_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LlbUnitStatistics.LinkClicked
         Try
 
 
             RunUnitStatistics()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
 
     End Sub
-    Private Sub txtDaysOpen_TextChanged(sender As Object, e As System.EventArgs) Handles txtDaysOpen.TextChanged
+    Private Sub txtDaysOpen_TextChanged(sender As Object, e As EventArgs) Handles txtDaysOpen.TextChanged
         Try
 
             If txtDaysOpen2.ReadOnly = True Then
@@ -5833,13 +5833,13 @@ Public Class ISMPManagersTools
                 txtDaysOpen4.Text = txtDaysOpen.Text
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub txtDaysOpen2_TextChanged(sender As Object, e As System.EventArgs) Handles txtDaysOpen2.TextChanged
+    Private Sub txtDaysOpen2_TextChanged(sender As Object, e As EventArgs) Handles txtDaysOpen2.TextChanged
         Try
 
             If txtDaysOpen.ReadOnly = True Then
@@ -5848,25 +5848,25 @@ Public Class ISMPManagersTools
                 txtDaysOpen4.Text = txtDaysOpen2.Text
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub llbEngineerTestReports_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbEngineerTestReports.LinkClicked
+    Private Sub llbEngineerTestReports_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbEngineerTestReports.LinkClicked
         Try
 
             EngineerTestReport()
             EngineerOpenTestReports()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub dgrEngineersFacilityList_MouseUp(sender As System.Object, e As System.Windows.Forms.MouseEventArgs) Handles dgrEngineersFacilityList.MouseUp
+    Private Sub dgrEngineersFacilityList_MouseUp(sender As Object, e As MouseEventArgs) Handles dgrEngineersFacilityList.MouseUp
         Dim hti As DataGrid.HitTestInfo = dgrEngineersFacilityList.HitTest(e.X, e.Y)
 
         Try
@@ -5902,68 +5902,68 @@ Public Class ISMPManagersTools
                 End If
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub llbViewReport_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbViewReport.LinkClicked
+    Private Sub llbViewReport_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewReport.LinkClicked
         Try
             Dim id As String = txtReferenceNumber.Text
             If DAL.Ismp.StackTestExists(id) Then OpenMultiForm(ISMPTestReports, id)
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub llbExportToExcel_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbExportToExcel.LinkClicked
+    Private Sub llbExportToExcel_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbExportToExcel.LinkClicked
         dsEngineerGrid.Tables(0).ExportToExcel(Me)
     End Sub
-    Private Sub llbRunSummaryReport_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs)
+    Private Sub llbRunSummaryReport_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs)
         Try
 
             RunSummaryReport()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub llbPrintSummaryReport_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs)
+    Private Sub llbPrintSummaryReport_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs)
         Try
 
             PrintSummaryReport()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub llbAddExcelFile_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbAddExcelFile.LinkClicked
+    Private Sub llbAddExcelFile_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbAddExcelFile.LinkClicked
         Try
 
             AddExcelFile()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub llbRemoveFile_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbRemoveFile.LinkClicked
+    Private Sub llbRemoveFile_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbRemoveFile.LinkClicked
         Try
 
             RemoveExcelFile()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub dgrExcelFiles_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles dgrExcelFiles.MouseUp
+    Private Sub dgrExcelFiles_MouseUp(sender As Object, e As MouseEventArgs) Handles dgrExcelFiles.MouseUp
         Dim hti As DataGrid.HitTestInfo = dgrExcelFiles.HitTest(e.X, e.Y)
 
         Try
@@ -5978,92 +5978,92 @@ Public Class ISMPManagersTools
                 End If
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub llbPrintSummaryReport_LinkClicked_1(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbPrintSummaryReport.LinkClicked
+    Private Sub llbPrintSummaryReport_LinkClicked_1(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbPrintSummaryReport.LinkClicked
         Try
 
             PrintSummaryReport()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub llbRunEngineerStatReport_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbRunEngineerStatReport.LinkClicked
+    Private Sub llbRunEngineerStatReport_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbRunEngineerStatReport.LinkClicked
         Try
 
 
             EngineerUnitStats()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub llbExportStatsToWord_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbExportStatsToWord.LinkClicked
+    Private Sub llbExportStatsToWord_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbExportStatsToWord.LinkClicked
         Try
 
             PrintEngineerUnitStats()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub llbDownloadExcelFiles_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbDownloadExcelFiles.LinkClicked
+    Private Sub llbDownloadExcelFiles_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbDownloadExcelFiles.LinkClicked
         Try
 
             DownloadExcelFiles()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub btnRunApplicationReport_Click(sender As System.Object, e As System.EventArgs) Handles btnRunApplicationReport.Click
+    Private Sub btnRunApplicationReport_Click(sender As Object, e As EventArgs) Handles btnRunApplicationReport.Click
         Try
 
             RunApplicationReport()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub btnApplicationReport_Click(sender As System.Object, e As System.EventArgs) Handles btnApplicationReport.Click
+    Private Sub btnApplicationReport_Click(sender As Object, e As EventArgs) Handles btnApplicationReport.Click
         Try
 
             PrintApplicationReport()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub btnRunUnitStatsReport_Click(sender As System.Object, e As System.EventArgs) Handles btnRunUnitStatsReport.Click
+    Private Sub btnRunUnitStatsReport_Click(sender As Object, e As EventArgs) Handles btnRunUnitStatsReport.Click
         Try
 
             RunUnitStatistics2()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
     End Sub
-    Private Sub lblTotalTests_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblTotalTests.LinkClicked
+    Private Sub lblTotalTests_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblTotalTests.LinkClicked
         Try
             SQL = "select strReferenceNumber, " &
             "(strLastName|| ', ' ||strFirstName) as Engineer,  " &
@@ -6117,12 +6117,12 @@ Public Class ISMPManagersTools
             txtUnitStatsCount.Text = dgvUnitStats.RowCount.ToString
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
     End Sub
-    Private Sub lblChemTests_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblChemTests.LinkClicked
+    Private Sub lblChemTests_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblChemTests.LinkClicked
         Try
             SQL = "select strReferenceNumber, " &
             "(strLastName|| ', ' ||strFirstName) as Engineer,  " &
@@ -6180,12 +6180,12 @@ Public Class ISMPManagersTools
             txtUnitStatsCount.Text = dgvUnitStats.RowCount.ToString
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
     End Sub
-    Private Sub lblComTests_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblComTests.LinkClicked
+    Private Sub lblComTests_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblComTests.LinkClicked
         Try
             SQL = "select strReferenceNumber, " &
            "(strLastName|| ', ' ||strFirstName) as Engineer,  " &
@@ -6243,12 +6243,12 @@ Public Class ISMPManagersTools
             txtUnitStatsCount.Text = dgvUnitStats.RowCount.ToString
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
     End Sub
-    Private Sub dgvUnitStats_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles dgvUnitStats.MouseUp
+    Private Sub dgvUnitStats_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvUnitStats.MouseUp
         Dim hti As DataGridView.HitTestInfo = dgvUnitStats.HitTest(e.X, e.Y)
 
         Try
@@ -6259,20 +6259,20 @@ Public Class ISMPManagersTools
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
     End Sub
-    Private Sub btnViewTestReport_Click(sender As System.Object, e As System.EventArgs) Handles btnViewTestReport.Click
+    Private Sub btnViewTestReport_Click(sender As Object, e As EventArgs) Handles btnViewTestReport.Click
         Try
             Dim id As String = txtUnitStatReferenceNumber.Text
             If DAL.Ismp.StackTestExists(id) Then OpenMultiForm(ISMPTestReports, id)
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub dgvMethods_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles dgvMethods.MouseUp
+    Private Sub dgvMethods_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvMethods.MouseUp
         Dim hti As DataGridView.HitTestInfo = dgvMethods.HitTest(e.X, e.Y)
 
         Try
@@ -6281,12 +6281,12 @@ Public Class ISMPManagersTools
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
     End Sub
-    Private Sub txtMethodCode_TextChanged(sender As Object, e As System.EventArgs) Handles txtMethodCode.TextChanged
+    Private Sub txtMethodCode_TextChanged(sender As Object, e As EventArgs) Handles txtMethodCode.TextChanged
         Try
             Dim temp As String = ""
 
@@ -6318,13 +6318,13 @@ Public Class ISMPManagersTools
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
     End Sub
 
-    Private Sub btnUpdateMethods_Click(sender As System.Object, e As System.EventArgs) Handles btnUpdateMethods.Click
+    Private Sub btnUpdateMethods_Click(sender As Object, e As EventArgs) Handles btnUpdateMethods.Click
         Try
             Dim temp As String = ""
 
@@ -6457,18 +6457,18 @@ Public Class ISMPManagersTools
 
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
     End Sub
 
 
-    Private Sub MmiHelp_Click(sender As System.Object, e As System.EventArgs) Handles MmiHelp.Click
+    Private Sub MmiHelp_Click(sender As Object, e As EventArgs) Handles MmiHelp.Click
         OpenDocumentationUrl(Me)
     End Sub
 
-    Private Sub btnAddTestReport_Click(sender As System.Object, e As System.EventArgs) Handles btnAddTestReport.Click
+    Private Sub btnAddTestReport_Click(sender As Object, e As EventArgs) Handles btnAddTestReport.Click
         Try
             Dim RefNum As String
             Dim AIRSNumber As String
@@ -6595,11 +6595,11 @@ Public Class ISMPManagersTools
 
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub btnClearAddTestReport_Click(sender As System.Object, e As System.EventArgs) Handles btnClearAddTestReport.Click
+    Private Sub btnClearAddTestReport_Click(sender As Object, e As EventArgs) Handles btnClearAddTestReport.Click
         Try
             txtAddTestReportRefNum.Clear()
             txtAddTestReportRefNum.BackColor = Color.White
@@ -6618,11 +6618,11 @@ Public Class ISMPManagersTools
 
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub btnCloseHistoricTestReport_Click(sender As System.Object, e As System.EventArgs) Handles btnCloseHistoricTestReport.Click
+    Private Sub btnCloseHistoricTestReport_Click(sender As Object, e As EventArgs) Handles btnCloseHistoricTestReport.Click
         Try
             If txtCloseTestReportRefNum.Text <> "" Then
                 SQL = "Select " &
@@ -6652,11 +6652,11 @@ Public Class ISMPManagersTools
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub btnReOpenHistoricTestReport_Click(sender As System.Object, e As System.EventArgs) Handles btnReOpenHistoricTestReport.Click
+    Private Sub btnReOpenHistoricTestReport_Click(sender As Object, e As EventArgs) Handles btnReOpenHistoricTestReport.Click
         Try
             If txtCloseTestReportRefNum.Text <> "" Then
                 SQL = "Select " &
@@ -6686,7 +6686,7 @@ Public Class ISMPManagersTools
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 

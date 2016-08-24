@@ -129,11 +129,11 @@ Public Class DmuEdtErrorDetail
 
 #Region " Form resize "
 
-    Private Sub DmuEdtErrorDetail_Load(sender As Object, e As System.EventArgs) Handles Me.Load
+    Private Sub DmuEdtErrorDetail_Load(sender As Object, e As EventArgs) Handles Me.Load
         
     End Sub
 
-    Private Sub DmuEdtErrorDetail_Resize(sender As System.Object, e As System.EventArgs) Handles MyBase.Resize
+    Private Sub DmuEdtErrorDetail_Resize(sender As Object, e As EventArgs) Handles MyBase.Resize
         GenericErrorMessageDisplay.MaximumSize = New Size(GenericErrorMessageDisplayContainer.Size.Width - 30, 0)
         BusinessRuleDisplay.MaximumSize = New Size(BusinessRuleDisplayContainer.Size.Width - 30, 0)
         ErrorMessageDisplay.MaximumSize = New Size(ErrorMessageDisplayContainer.Size.Width - 30, 0)
@@ -143,7 +143,7 @@ Public Class DmuEdtErrorDetail
 
 #Region " Actions "
 
-    Private Sub AssignSelectedToUser_Click(sender As System.Object, e As System.EventArgs) Handles AssignSelectedToUser.Click
+    Private Sub AssignSelectedToUser_Click(sender As Object, e As EventArgs) Handles AssignSelectedToUser.Click
 
         If DAL.Dmu.AssignErrorToUser(UserAssigned.SelectedValue, Me.EdtErrorID) Then
             MessageBox.Show("User assigned.", "Success", MessageBoxButtons.OK)
@@ -152,7 +152,7 @@ Public Class DmuEdtErrorDetail
         End If
     End Sub
 
-    Private Sub ChangeStatus_Click(sender As System.Object, e As System.EventArgs) Handles ChangeStatus.Click
+    Private Sub ChangeStatus_Click(sender As Object, e As EventArgs) Handles ChangeStatus.Click
         Dim result As Boolean = False
         Dim resolving As Boolean = Not edtErrorDetails.Resolved
 

@@ -8,7 +8,7 @@ Public Class ISMPMemo
     Dim panel2 As New StatusBarPanel
     Dim panel3 As New StatusBarPanel
 
-    Private Sub ISMPMemo_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
+    Private Sub ISMPMemo_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         Try
             TCISMPMemo.TabPages.Remove(TPFuturePrintOption)
@@ -21,7 +21,7 @@ Public Class ISMPMemo
                 MmiSave.Visible = False
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -60,7 +60,7 @@ Public Class ISMPMemo
             ' Add the StatusBar to the form.
             Me.Controls.Add(statusBar1)
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -121,7 +121,7 @@ Public Class ISMPMemo
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -152,40 +152,40 @@ Public Class ISMPMemo
 
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiCopy_Click(sender As System.Object, e As System.EventArgs) Handles MmiCopy.Click
+    Private Sub MmiCopy_Click(sender As Object, e As EventArgs) Handles MmiCopy.Click
         Try
 
             SendKeys.Send("^(c)")
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiCut_Click(sender As System.Object, e As System.EventArgs) Handles MmiCut.Click
+    Private Sub MmiCut_Click(sender As Object, e As EventArgs) Handles MmiCut.Click
         Try
 
             SendKeys.Send("^(x)")
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiPaste_Click(sender As System.Object, e As System.EventArgs) Handles MmiPaste.Click
+    Private Sub MmiPaste_Click(sender As Object, e As EventArgs) Handles MmiPaste.Click
         Try
 
             SendKeys.Send("^(v)")
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -196,24 +196,24 @@ Public Class ISMPMemo
 
             Me.Hide()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiClose_Click(sender As System.Object, e As System.EventArgs) Handles MmiClose.Click
+    Private Sub MmiClose_Click(sender As Object, e As EventArgs) Handles MmiClose.Click
         Try
 
             Me.Hide()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub TBMemo_ButtonClick(sender As System.Object, e As System.Windows.Forms.ToolBarButtonClickEventArgs) Handles TBMemo.ButtonClick
+    Private Sub TBMemo_ButtonClick(sender As Object, e As ToolBarButtonClickEventArgs) Handles TBMemo.ButtonClick
         Try
 
             Select Case TBMemo.Buttons.IndexOf(e.Button)
@@ -226,13 +226,13 @@ Public Class ISMPMemo
                     Me.Hide()
             End Select
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiSave_Click(sender As System.Object, e As System.EventArgs) Handles MmiSave.Click
+    Private Sub MmiSave_Click(sender As Object, e As EventArgs) Handles MmiSave.Click
         Try
 
             SaveMemo()
@@ -240,7 +240,7 @@ Public Class ISMPMemo
             LoadMemo()
             txtMemoIN.Clear()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -248,7 +248,7 @@ Public Class ISMPMemo
     End Sub
 
 
-    Private Sub MenuItem5_Click(sender As System.Object, e As System.EventArgs) Handles MenuItem5.Click
+    Private Sub MenuItem5_Click(sender As Object, e As EventArgs) Handles MenuItem5.Click
         OpenDocumentationUrl(Me)
     End Sub
 End Class

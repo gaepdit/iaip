@@ -45,7 +45,7 @@ Public Class IAIPEditContacts
 
 #Region "Page Load"
 
-    Private Sub APBAddContacts_Load(sender As Object, e As System.EventArgs) Handles MyBase.Load
+    Private Sub APBAddContacts_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         ParseParameters()
         LoadContactsDataset()
@@ -188,7 +188,7 @@ Public Class IAIPEditContacts
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
     End Sub
@@ -337,11 +337,11 @@ Public Class IAIPEditContacts
 
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub dgrContacts_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles ContactsDataGrid.MouseUp
+    Private Sub dgrContacts_MouseUp(sender As Object, e As MouseEventArgs) Handles ContactsDataGrid.MouseUp
         Dim hti As DataGridView.HitTestInfo = ContactsDataGrid.HitTest(e.X, e.Y)
 
         Try
@@ -353,7 +353,7 @@ Public Class IAIPEditContacts
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
     End Sub
@@ -362,7 +362,7 @@ Public Class IAIPEditContacts
 
 #Region "Buttons"
 
-    Private Sub btnNewClear_Click(sender As System.Object, e As System.EventArgs) Handles btnNewClear.Click
+    Private Sub btnNewClear_Click(sender As Object, e As EventArgs) Handles btnNewClear.Click
         txtNewAddress.Clear()
         txtNewCity.Clear()
         txtNewCompany.Clear()
@@ -381,7 +381,7 @@ Public Class IAIPEditContacts
         Key = ContactKey.None
     End Sub
 
-    Private Sub btnNewUpdate_Click(sender As System.Object, e As System.EventArgs) Handles btnNewUpdate.Click
+    Private Sub btnNewUpdate_Click(sender As Object, e As EventArgs) Handles btnNewUpdate.Click
         Try
             Dim newKey As String = ""
 
@@ -477,11 +477,11 @@ Public Class IAIPEditContacts
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub btnNewSave_Click(sender As System.Object, e As System.EventArgs) Handles btnNewSave.Click
+    Private Sub btnNewSave_Click(sender As Object, e As EventArgs) Handles btnNewSave.Click
         Try
             Dim newKey As String = ""
 
@@ -611,7 +611,7 @@ Public Class IAIPEditContacts
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 

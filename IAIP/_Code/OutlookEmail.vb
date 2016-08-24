@@ -43,7 +43,7 @@ Module OutlookEmail
 
             Return True
         Catch ex As Exception
-            ErrorReport(ex, System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Reflection.MethodBase.GetCurrentMethod.Name)
             Return False
         Finally
             If outlookApp IsNot Nothing Then Marshal.ReleaseComObject(outlookApp)
@@ -62,7 +62,7 @@ Module OutlookEmail
             recipient.Type = toType
 
         Catch ex As Exception
-            ErrorReport(ex, System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If Not IsNothing(recipient) Then Marshal.ReleaseComObject(recipient)
             If Not IsNothing(recipients) Then Marshal.ReleaseComObject(recipients)

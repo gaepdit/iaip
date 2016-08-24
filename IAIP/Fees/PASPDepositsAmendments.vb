@@ -7,7 +7,7 @@ Public Class PASPDepositsAmendments
 
 #Region "Page Load Functions"
 
-    Private Sub PASPDepositsAmendments_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
+    Private Sub PASPDepositsAmendments_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         dtpBatchDepositDate.Text = Date.Today
         dtpDepositReportStartDate.Text = Format(CDate(Date.Today).AddMonths(-1), "dd-MMM-yyyy")
@@ -155,7 +155,7 @@ Public Class PASPDepositsAmendments
             DTPBatchDepositDateField.Text = Date.Today
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub ViewInvoices()
@@ -229,7 +229,7 @@ Public Class PASPDepositsAmendments
         dtInvoice = DB.GetDataTable(query, param)
     End Sub
 
-    Private Sub btnSearchDeposits_Click(sender As System.Object, e As System.EventArgs) Handles btnSearchDeposits.Click
+    Private Sub btnSearchDeposits_Click(sender As Object, e As EventArgs) Handles btnSearchDeposits.Click
         btnSearchDeposits.Enabled = False
 
         bgwDeposits.WorkerReportsProgress = True
@@ -237,7 +237,7 @@ Public Class PASPDepositsAmendments
         bgwDeposits.RunWorkerAsync()
     End Sub
 
-    Private Sub lblViewInvoices_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblViewInvoices.LinkClicked
+    Private Sub lblViewInvoices_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblViewInvoices.LinkClicked
         lblAIRSNumber.Text = "AIRS #"
         lblFacilityName.Text = "Facility Name"
         mtbFeeYear2.Clear()
@@ -263,7 +263,7 @@ Public Class PASPDepositsAmendments
         End If
     End Sub
 
-    Private Sub dgvDeposits_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles dgvDeposits.MouseUp
+    Private Sub dgvDeposits_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvDeposits.MouseUp
         Try
             Dim hti As DataGridView.HitTestInfo = dgvDeposits.HitTest(e.X, e.Y)
 
@@ -351,11 +351,11 @@ Public Class PASPDepositsAmendments
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub dgvInvoices_MouseUp(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles dgvInvoices.MouseUp
+    Private Sub dgvInvoices_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvInvoices.MouseUp
         Try
             Dim hti As DataGridView.HitTestInfo = dgvInvoices.HitTest(e.X, e.Y)
 
@@ -437,11 +437,11 @@ Public Class PASPDepositsAmendments
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub btnAddNewCheckDeposit_Click(sender As System.Object, e As System.EventArgs) Handles btnAddNewCheckDeposit.Click
+    Private Sub btnAddNewCheckDeposit_Click(sender As Object, e As EventArgs) Handles btnAddNewCheckDeposit.Click
         Try
             If ValidateData() Then
                 If txtTransactionID.Text = "" Then
@@ -508,7 +508,7 @@ Public Class PASPDepositsAmendments
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -544,11 +544,11 @@ Public Class PASPDepositsAmendments
             End If
             DB.RunCommand(query, param)
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub btnUpdateExistingDeposit_Click(sender As System.Object, e As System.EventArgs) Handles btnUpdateExistingDeposit.Click
+    Private Sub btnUpdateExistingDeposit_Click(sender As Object, e As EventArgs) Handles btnUpdateExistingDeposit.Click
         Try
             If txtTransactionID.Text <> "" Then
                 If ValidateData() Then
@@ -609,11 +609,11 @@ Public Class PASPDepositsAmendments
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub btnDeleteCheckDeposit_Click(sender As System.Object, e As System.EventArgs) Handles btnDeleteCheckDeposit.Click
+    Private Sub btnDeleteCheckDeposit_Click(sender As Object, e As EventArgs) Handles btnDeleteCheckDeposit.Click
         Try
             If txtTransactionID.Text = "" Then
                 MsgBox("Select a transaction first.", MsgBoxStyle.Information, Me.Text)
@@ -659,11 +659,11 @@ Public Class PASPDepositsAmendments
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub btnDeleteInventoryRecords_Click(sender As System.Object, e As System.EventArgs) Handles btnDeleteInventoryRecords.Click
+    Private Sub btnDeleteInventoryRecords_Click(sender As Object, e As EventArgs) Handles btnDeleteInventoryRecords.Click
         If txtTransactionID.Text <> "" Then
             DeleteInvoice()
         End If
@@ -720,7 +720,7 @@ Public Class PASPDepositsAmendments
             btnSearchDeposits.Enabled = True
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -792,7 +792,7 @@ Public Class PASPDepositsAmendments
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -813,7 +813,7 @@ Public Class PASPDepositsAmendments
         txtCreditCardNo.Clear()
     End Sub
 
-    Private Sub btnClearEntryInformation_Click(sender As System.Object, e As System.EventArgs) Handles btnClearEntryInformation.Click
+    Private Sub btnClearEntryInformation_Click(sender As Object, e As EventArgs) Handles btnClearEntryInformation.Click
         ClearForm()
 
         lblViewInvoices.Enabled = False
@@ -825,7 +825,7 @@ Public Class PASPDepositsAmendments
 
 #End Region
 
-    Private Sub btnClearForm_Click(sender As System.Object, e As System.EventArgs) Handles btnClearForm.Click
+    Private Sub btnClearForm_Click(sender As Object, e As EventArgs) Handles btnClearForm.Click
         Try
             ClearForm()
             txtBatchNumber.Clear()
@@ -844,11 +844,11 @@ Public Class PASPDepositsAmendments
             bgwInvoices.RunWorkerAsync()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub llbSearchForCheck_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbSearchForCheck.LinkClicked
+    Private Sub llbSearchForCheck_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbSearchForCheck.LinkClicked
         Try
             lblAIRSNumber.Text = "AIRS #"
             lblFacilityName.Text = "Facility Name"
@@ -873,11 +873,11 @@ Public Class PASPDepositsAmendments
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub llbSearchForInvoice_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbSearchForInvoice.LinkClicked
+    Private Sub llbSearchForInvoice_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbSearchForInvoice.LinkClicked
         Dim query As String
         Dim param As SqlParameter()
 
@@ -1038,7 +1038,7 @@ Public Class PASPDepositsAmendments
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 

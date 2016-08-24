@@ -16,7 +16,7 @@ Public Class SSPPTitleVTools
     Dim Startdate As String
     Dim EndDate As String
 
-    Private Sub DMUTitleVTools_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
+    Private Sub DMUTitleVTools_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         Try
 
@@ -29,7 +29,7 @@ Public Class SSPPTitleVTools
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -169,7 +169,7 @@ Public Class SSPPTitleVTools
 
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -239,7 +239,7 @@ Public Class SSPPTitleVTools
             dgrWebPublisher.CaptionText = "Web Publisher Active Title V Applications"
             dgrWebPublisher.ColumnHeadersVisible = True
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -301,7 +301,7 @@ Public Class SSPPTitleVTools
                 lbLinkApplications.Items.Add(txtWebPublisherApplicationNumber.Text)
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -340,7 +340,7 @@ Public Class SSPPTitleVTools
 
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -365,7 +365,7 @@ Public Class SSPPTitleVTools
 
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -485,7 +485,7 @@ Public Class SSPPTitleVTools
 
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -640,7 +640,7 @@ Public Class SSPPTitleVTools
                 MsgBox("Web Information Saved", MsgBoxStyle.Information, "Application Tracking Log")
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -768,7 +768,7 @@ Public Class SSPPTitleVTools
             dr.Close()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -832,7 +832,7 @@ Public Class SSPPTitleVTools
 
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -929,7 +929,7 @@ Public Class SSPPTitleVTools
             txtEmailType.Text = "AppReceived"
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -1047,7 +1047,7 @@ Public Class SSPPTitleVTools
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -1245,7 +1245,7 @@ Public Class SSPPTitleVTools
             txtEmailType.Text = "DraftOnWeb"
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -1466,7 +1466,7 @@ Public Class SSPPTitleVTools
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -1677,7 +1677,7 @@ Public Class SSPPTitleVTools
 
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -1894,7 +1894,7 @@ Public Class SSPPTitleVTools
             txtEmailType.Text = "MinorOnWeb"
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -2100,7 +2100,7 @@ Public Class SSPPTitleVTools
 
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -2303,7 +2303,7 @@ Public Class SSPPTitleVTools
 
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -2504,7 +2504,7 @@ Public Class SSPPTitleVTools
             txtEmailType.Text = "FinalOnWeb"
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -2733,7 +2733,7 @@ Public Class SSPPTitleVTools
 
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -3061,7 +3061,7 @@ Public Class SSPPTitleVTools
             End Select
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -3072,27 +3072,27 @@ Public Class SSPPTitleVTools
         Try
             Me.Dispose()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub btnViewApplication_Click(sender As System.Object, e As System.EventArgs) Handles btnViewApplication.Click
+    Private Sub btnViewApplication_Click(sender As Object, e As EventArgs) Handles btnViewApplication.Click
         OpenFormPermitApplication(txtWebPublisherApplicationNumber.Text)
     End Sub
-    Private Sub btnReloadGrid_Click(sender As System.Object, e As System.EventArgs) Handles btnReloadGrid.Click
+    Private Sub btnReloadGrid_Click(sender As Object, e As EventArgs) Handles btnReloadGrid.Click
         Try
 
             LoadWebPublisherDataGrid("Load")
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub dgrWebPublisher_MouseUp(sender As System.Object, e As System.Windows.Forms.MouseEventArgs) Handles dgrWebPublisher.MouseUp
+    Private Sub dgrWebPublisher_MouseUp(sender As Object, e As MouseEventArgs) Handles dgrWebPublisher.MouseUp
         Dim hti As DataGrid.HitTestInfo = dgrWebPublisher.HitTest(e.X, e.Y)
         Try
 
@@ -3107,27 +3107,27 @@ Public Class SSPPTitleVTools
                 End If
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub txtWebPublisherApplicationNumber_TextChanged(sender As Object, e As System.EventArgs) Handles txtWebPublisherApplicationNumber.TextChanged
+    Private Sub txtWebPublisherApplicationNumber_TextChanged(sender As Object, e As EventArgs) Handles txtWebPublisherApplicationNumber.TextChanged
         Try
 
             'If txtWebPublisherApplicationNumber.Text <> "" Then
             '    LoadWebPublisherApplicationData()
             'End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
 #Region "Checkbox Changes"
-    Private Sub chbNotifiedAppReceived_CheckedChanged(sender As Object, e As System.EventArgs) Handles chbNotifiedAppReceived.CheckedChanged
+    Private Sub chbNotifiedAppReceived_CheckedChanged(sender As Object, e As EventArgs) Handles chbNotifiedAppReceived.CheckedChanged
         Try
 
             If chbNotifiedAppReceived.Checked = True Then
@@ -3136,13 +3136,13 @@ Public Class SSPPTitleVTools
                 DTPNotifiedAppReceived.Visible = False
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub chbDraftOnWeb_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chbDraftOnWeb.CheckedChanged
+    Private Sub chbDraftOnWeb_CheckedChanged(sender As Object, e As EventArgs) Handles chbDraftOnWeb.CheckedChanged
         Try
 
             If chbDraftOnWeb.Checked = True Then
@@ -3151,13 +3151,13 @@ Public Class SSPPTitleVTools
                 DTPDraftOnWeb.Visible = False
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub chbPNExpires_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chbPNExpires.CheckedChanged
+    Private Sub chbPNExpires_CheckedChanged(sender As Object, e As EventArgs) Handles chbPNExpires.CheckedChanged
         Try
 
             If chbPNExpires.Checked = True Then
@@ -3166,13 +3166,13 @@ Public Class SSPPTitleVTools
                 DTPPNExpires.Visible = False
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub chbEPAandStatesNotified_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chbEPAandStatesNotified.CheckedChanged
+    Private Sub chbEPAandStatesNotified_CheckedChanged(sender As Object, e As EventArgs) Handles chbEPAandStatesNotified.CheckedChanged
         Try
 
             If chbEPAandStatesNotified.Checked = True Then
@@ -3181,13 +3181,13 @@ Public Class SSPPTitleVTools
                 DTPEPAStatesNotified.Visible = False
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub chbFinalOnWeb_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chbFinalOnWeb.CheckedChanged
+    Private Sub chbFinalOnWeb_CheckedChanged(sender As Object, e As EventArgs) Handles chbFinalOnWeb.CheckedChanged
         Try
 
             If chbFinalOnWeb.Checked = True Then
@@ -3196,13 +3196,13 @@ Public Class SSPPTitleVTools
                 DTPFinalOnWeb.Visible = False
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub chbEPANotifiedPermitOnWeb_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chbEPANotifiedPermitOnWeb.CheckedChanged
+    Private Sub chbEPANotifiedPermitOnWeb_CheckedChanged(sender As Object, e As EventArgs) Handles chbEPANotifiedPermitOnWeb.CheckedChanged
         Try
 
             If chbEPANotifiedPermitOnWeb.Checked = True Then
@@ -3211,13 +3211,13 @@ Public Class SSPPTitleVTools
                 DTPEPANotifiedPermitOnWeb.Visible = False
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub chbEffectiveDateOfPermit_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles chbEffectiveDateOfPermit.CheckedChanged
+    Private Sub chbEffectiveDateOfPermit_CheckedChanged(sender As Object, e As EventArgs) Handles chbEffectiveDateOfPermit.CheckedChanged
         Try
 
             If chbEffectiveDateOfPermit.Checked = True Then
@@ -3226,13 +3226,13 @@ Public Class SSPPTitleVTools
                 DTPEffectiveDateofPermit.Visible = False
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub chbExperationDate_CheckedChanged(sender As Object, e As System.EventArgs) Handles chbExpirationDate.CheckedChanged
+    Private Sub chbExperationDate_CheckedChanged(sender As Object, e As EventArgs) Handles chbExpirationDate.CheckedChanged
         Try
 
             If chbExpirationDate.Checked = True Then
@@ -3241,25 +3241,25 @@ Public Class SSPPTitleVTools
                 DTPExperationDate.Visible = False
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
 #End Region
-    Private Sub btnSaveWebPublisher_Click(sender As System.Object, e As System.EventArgs) Handles btnSaveWebPublisher.Click
+    Private Sub btnSaveWebPublisher_Click(sender As Object, e As EventArgs) Handles btnSaveWebPublisher.Click
         Try
 
             SaveWebPublisherData()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub btnClear_Click(sender As System.Object, e As System.EventArgs) Handles btnClear.Click
+    Private Sub btnClear_Click(sender As Object, e As EventArgs) Handles btnClear.Click
         Try
 
             chbDraftOnWeb.Checked = False
@@ -3284,13 +3284,13 @@ Public Class SSPPTitleVTools
 
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub btnSearchForApplication_Click(sender As System.Object, e As System.EventArgs) Handles btnSearchForApplication.Click
+    Private Sub btnSearchForApplication_Click(sender As Object, e As EventArgs) Handles btnSearchForApplication.Click
         Try
 
 
@@ -3298,7 +3298,7 @@ Public Class SSPPTitleVTools
             LoadWebPublishingFacilityInformation()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -3347,7 +3347,7 @@ Public Class SSPPTitleVTools
             Return dtairs
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
             Return Nothing
         Finally
 
@@ -3359,7 +3359,7 @@ Public Class SSPPTitleVTools
 
             Me.Hide()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -3405,7 +3405,7 @@ Public Class SSPPTitleVTools
             cmd.ExecuteNonQuery()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
     End Sub
@@ -3417,7 +3417,7 @@ Public Class SSPPTitleVTools
 
             Me.Dispose()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -3425,7 +3425,7 @@ Public Class SSPPTitleVTools
     End Sub
 
 #End Region
-    Private Sub txtWebPublisherApplicationNumber_Leave(sender As Object, e As System.EventArgs) Handles txtWebPublisherApplicationNumber.Leave
+    Private Sub txtWebPublisherApplicationNumber_Leave(sender As Object, e As EventArgs) Handles txtWebPublisherApplicationNumber.Leave
         Try
 
             If txtWebPublisherApplicationNumber.Text <> "" Then
@@ -3433,13 +3433,13 @@ Public Class SSPPTitleVTools
                 LoadWebPublishingFacilityInformation()
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub txtWebPublisherApplicationNumber_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs) Handles txtWebPublisherApplicationNumber.KeyPress
+    Private Sub txtWebPublisherApplicationNumber_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtWebPublisherApplicationNumber.KeyPress
         Try
 
             If e.KeyChar = Microsoft.VisualBasic.ChrW(13) Then
@@ -3448,24 +3448,24 @@ Public Class SSPPTitleVTools
                 End If
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub btnRunTitleVReport_Click(sender As System.Object, e As System.EventArgs) Handles btnRunTitleVReport.Click
+    Private Sub btnRunTitleVReport_Click(sender As Object, e As EventArgs) Handles btnRunTitleVReport.Click
         Try
 
             RunTitleVRenewalReport()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub btnPrintRenewalLetters_Click(sender As System.Object, e As System.EventArgs) Handles btnPrintRenewalLetters.Click
+    Private Sub btnPrintRenewalLetters_Click(sender As Object, e As EventArgs) Handles btnPrintRenewalLetters.Click
         Try
 
             Dim SQLLine As String = "*"
@@ -3480,13 +3480,13 @@ Public Class SSPPTitleVTools
                 PrintOut.Show()
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub btnPreviewESNReceived_Click(sender As System.Object, e As System.EventArgs) Handles btnPreviewESNReceived.Click
+    Private Sub btnPreviewESNReceived_Click(sender As Object, e As EventArgs) Handles btnPreviewESNReceived.Click
         Try
 
 
@@ -3495,13 +3495,13 @@ Public Class SSPPTitleVTools
             txtApplicationCount.Text = clbTitleVEmailList.Items.Count
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub btnPreviewESNReceived_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs) Handles btnPreviewESNReceived.KeyPress
+    Private Sub btnPreviewESNReceived_KeyPress(sender As Object, e As KeyPressEventArgs) Handles btnPreviewESNReceived.KeyPress
         Try
 
             If e.KeyChar = Microsoft.VisualBasic.ChrW(13) Then
@@ -3511,13 +3511,13 @@ Public Class SSPPTitleVTools
 
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub btnPreviewDraftOnWeb_Click(sender As System.Object, e As System.EventArgs) Handles btnPreviewDraftOnWeb.Click
+    Private Sub btnPreviewDraftOnWeb_Click(sender As Object, e As EventArgs) Handles btnPreviewDraftOnWeb.Click
         Try
 
 
@@ -3526,13 +3526,13 @@ Public Class SSPPTitleVTools
             txtApplicationCount.Text = clbTitleVEmailList.Items.Count
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub btnPreviewDraftOnWeb_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs) Handles btnPreviewDraftOnWeb.KeyPress
+    Private Sub btnPreviewDraftOnWeb_KeyPress(sender As Object, e As KeyPressEventArgs) Handles btnPreviewDraftOnWeb.KeyPress
         Try
 
             If e.KeyChar = Microsoft.VisualBasic.ChrW(13) Then
@@ -3541,13 +3541,13 @@ Public Class SSPPTitleVTools
                 txtApplicationCount.Text = clbTitleVEmailList.Items.Count
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub btnPreviewMinorMod_Click(sender As System.Object, e As System.EventArgs) Handles btnPreviewMinorMod.Click
+    Private Sub btnPreviewMinorMod_Click(sender As Object, e As EventArgs) Handles btnPreviewMinorMod.Click
         Try
 
 
@@ -3556,13 +3556,13 @@ Public Class SSPPTitleVTools
             txtApplicationCount.Text = clbTitleVEmailList.Items.Count
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub btnPreviewMinorMod_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs) Handles btnPreviewMinorMod.KeyPress
+    Private Sub btnPreviewMinorMod_KeyPress(sender As Object, e As KeyPressEventArgs) Handles btnPreviewMinorMod.KeyPress
         Try
 
             If e.KeyChar = Microsoft.VisualBasic.ChrW(13) Then
@@ -3572,13 +3572,13 @@ Public Class SSPPTitleVTools
 
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub btnPreviewFinalOnWeb_Click(sender As System.Object, e As System.EventArgs) Handles btnPreviewFinalOnWeb.Click
+    Private Sub btnPreviewFinalOnWeb_Click(sender As Object, e As EventArgs) Handles btnPreviewFinalOnWeb.Click
         Try
 
 
@@ -3587,13 +3587,13 @@ Public Class SSPPTitleVTools
             txtApplicationCount.Text = clbTitleVEmailList.Items.Count
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub btnPreviewFinalOnWeb_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs) Handles btnPreviewFinalOnWeb.KeyPress
+    Private Sub btnPreviewFinalOnWeb_KeyPress(sender As Object, e As KeyPressEventArgs) Handles btnPreviewFinalOnWeb.KeyPress
         Try
 
             If e.KeyChar = Microsoft.VisualBasic.ChrW(13) Then
@@ -3602,26 +3602,26 @@ Public Class SSPPTitleVTools
                 txtApplicationCount.Text = clbTitleVEmailList.Items.Count
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub btnEmailESNReceived_Click(sender As System.Object, e As System.EventArgs) Handles btnEmailESNReceived.Click
+    Private Sub btnEmailESNReceived_Click(sender As Object, e As EventArgs) Handles btnEmailESNReceived.Click
         Try
 
 
             GenerateAppReceivedEmail()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub btnEmailESNReceived_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs) Handles btnEmailESNReceived.KeyPress
+    Private Sub btnEmailESNReceived_KeyPress(sender As Object, e As KeyPressEventArgs) Handles btnEmailESNReceived.KeyPress
         Try
 
             If e.KeyChar = Microsoft.VisualBasic.ChrW(13) Then
@@ -3629,128 +3629,128 @@ Public Class SSPPTitleVTools
 
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub btnEmailDraftOnWeb_Click(sender As System.Object, e As System.EventArgs) Handles btnEmailDraftOnWeb.Click
+    Private Sub btnEmailDraftOnWeb_Click(sender As Object, e As EventArgs) Handles btnEmailDraftOnWeb.Click
         Try
 
 
             GenerateDraftOnWebEmail()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub btnEmailDraftOnWeb_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs) Handles btnEmailDraftOnWeb.KeyPress
+    Private Sub btnEmailDraftOnWeb_KeyPress(sender As Object, e As KeyPressEventArgs) Handles btnEmailDraftOnWeb.KeyPress
         Try
 
             If e.KeyChar = Microsoft.VisualBasic.ChrW(13) Then
                 GenerateDraftOnWebEmail()
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub btnEmailDraftOnWebState_Click(sender As System.Object, e As System.EventArgs) Handles btnEmailDraftOnWebState.Click
+    Private Sub btnEmailDraftOnWebState_Click(sender As Object, e As EventArgs) Handles btnEmailDraftOnWebState.Click
         Try
 
             GenerateDraftOnWebState()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub btnEmailDraftOnWebState_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs) Handles btnEmailDraftOnWebState.KeyPress
+    Private Sub btnEmailDraftOnWebState_KeyPress(sender As Object, e As KeyPressEventArgs) Handles btnEmailDraftOnWebState.KeyPress
         Try
 
             If e.KeyChar = Microsoft.VisualBasic.ChrW(13) Then
                 GenerateDraftOnWebState()
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub btnMinorModOnWebEPD_Click(sender As System.Object, e As System.EventArgs) Handles btnMinorModOnWebEPD.Click
+    Private Sub btnMinorModOnWebEPD_Click(sender As Object, e As EventArgs) Handles btnMinorModOnWebEPD.Click
         Try
 
 
             GenerateMinorOnWebEmail()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub btnMinorModOnWebEPD_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs) Handles btnMinorModOnWebEPD.KeyPress
+    Private Sub btnMinorModOnWebEPD_KeyPress(sender As Object, e As KeyPressEventArgs) Handles btnMinorModOnWebEPD.KeyPress
         Try
 
             If e.KeyChar = Microsoft.VisualBasic.ChrW(13) Then
                 GenerateMinorOnWebEmail()
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub btnMinorModOnWebState_Click(sender As System.Object, e As System.EventArgs) Handles btnMinorModOnWebState.Click
+    Private Sub btnMinorModOnWebState_Click(sender As Object, e As EventArgs) Handles btnMinorModOnWebState.Click
         Try
 
 
             GenerateMinorOnWebState()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub btnMinorModOnWebState_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs) Handles btnMinorModOnWebState.KeyPress
+    Private Sub btnMinorModOnWebState_KeyPress(sender As Object, e As KeyPressEventArgs) Handles btnMinorModOnWebState.KeyPress
         Try
 
             If e.KeyChar = Microsoft.VisualBasic.ChrW(13) Then
                 GenerateMinorOnWebState()
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub btnEmailFinalOnWeb_Click(sender As System.Object, e As System.EventArgs) Handles btnEmailFinalOnWeb.Click
+    Private Sub btnEmailFinalOnWeb_Click(sender As Object, e As EventArgs) Handles btnEmailFinalOnWeb.Click
         Try
 
             GenerateFinalOnWeb()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub btnEmailFinalOnWeb_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs) Handles btnEmailFinalOnWeb.KeyPress
+    Private Sub btnEmailFinalOnWeb_KeyPress(sender As Object, e As KeyPressEventArgs) Handles btnEmailFinalOnWeb.KeyPress
         Try
 
             If e.KeyChar = Microsoft.VisualBasic.ChrW(13) Then
@@ -3759,13 +3759,13 @@ Public Class SSPPTitleVTools
 
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub btnAddApplicationToList_Click(sender As System.Object, e As System.EventArgs) Handles btnAddApplicationToList.Click
+    Private Sub btnAddApplicationToList_Click(sender As Object, e As EventArgs) Handles btnAddApplicationToList.Click
         Try
 
             AddAppToList()
@@ -3773,13 +3773,13 @@ Public Class SSPPTitleVTools
             txtApplicationCount.Text = clbTitleVEmailList.Items.Count
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub txtApplicationNumberToAdd_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs) Handles txtApplicationNumberToAdd.KeyPress
+    Private Sub txtApplicationNumberToAdd_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtApplicationNumberToAdd.KeyPress
         Try
 
             If e.KeyChar = Microsoft.VisualBasic.ChrW(13) Then
@@ -3788,26 +3788,26 @@ Public Class SSPPTitleVTools
                 txtApplicationCount.Text = clbTitleVEmailList.Items.Count
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub txtEmailLetter_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs) Handles txtEmailLetter.KeyPress
+    Private Sub txtEmailLetter_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtEmailLetter.KeyPress
         Try
 
             If e.KeyChar = Microsoft.VisualBasic.ChrW(1) Then
                 txtEmailLetter.SelectAll()
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub btnPrintSingleTitleVRenewal_Click(sender As System.Object, e As System.EventArgs) Handles btnPrintSingleTitleVRenewal.Click
+    Private Sub btnPrintSingleTitleVRenewal_Click(sender As Object, e As EventArgs) Handles btnPrintSingleTitleVRenewal.Click
         Try
 
             Dim SQLLine As String = "*"
@@ -3829,13 +3829,13 @@ Public Class SSPPTitleVTools
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub btnLoadAppContact_Click(sender As System.Object, e As System.EventArgs) Handles btnLoadAppContact.Click
+    Private Sub btnLoadAppContact_Click(sender As Object, e As EventArgs) Handles btnLoadAppContact.Click
         Try
             If txtApplicationNumber.Text <> "" Then
                 LoadContactData()
@@ -3844,7 +3844,7 @@ Public Class SSPPTitleVTools
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub LoadContactData()
@@ -3988,13 +3988,13 @@ Public Class SSPPTitleVTools
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub btnGetCurrentPermittingContact_Click(sender As System.Object, e As System.EventArgs) Handles btnGetCurrentPermittingContact.Click
+    Private Sub btnGetCurrentPermittingContact_Click(sender As Object, e As EventArgs) Handles btnGetCurrentPermittingContact.Click
         Try
 
             SQL = "Select " &
@@ -4098,12 +4098,12 @@ Public Class SSPPTitleVTools
             End While
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
     End Sub
-    Private Sub btnSaveContactApp_Click(sender As System.Object, e As System.EventArgs) Handles btnSaveContactApp.Click
+    Private Sub btnSaveContactApp_Click(sender As Object, e As EventArgs) Handles btnSaveContactApp.Click
         Try
             If txtApplicationNumber.Text <> "" And txtContactFirstName.Text <> "" And txtContactLastName.Text <> "" Then
                 SaveApplicationContact()
@@ -4113,7 +4113,7 @@ Public Class SSPPTitleVTools
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Sub SaveApplicationContact()
@@ -4266,7 +4266,7 @@ Public Class SSPPTitleVTools
             dr.Close()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -4394,12 +4394,12 @@ Public Class SSPPTitleVTools
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
     End Sub
-    Private Sub btnLoadFromWarehouse_Click(sender As System.Object, e As System.EventArgs) Handles btnLoadFromWarehouse.Click
+    Private Sub btnLoadFromWarehouse_Click(sender As Object, e As EventArgs) Handles btnLoadFromWarehouse.Click
         Try
             Dim GATVConn As Object = ""
             Dim GATVcmd As Object = ""
@@ -4663,7 +4663,7 @@ Public Class SSPPTitleVTools
 
         Catch ex As Exception
             txtContactDescription.Text = ex.ToString
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -4710,7 +4710,7 @@ Public Class SSPPTitleVTools
             Return True
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
     End Function
@@ -4818,7 +4818,7 @@ Public Class SSPPTitleVTools
             Return True
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
     End Function
