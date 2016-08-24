@@ -4,13 +4,11 @@ Imports CrystalDecisions.CrystalReports.Engine
 Imports Iaip.Apb.Facilities
 
 Public Class PASPFeeAuditLog
-    Dim SQL As String
-    Dim ds As DataSet
-    Dim da As SqlDataAdapter
-    Dim tempContact As Contact
-    Dim tempFacility As Facility
 
 #Region " Properties "
+
+    Private Property tempContact As Contact
+    Private Property tempFacility As Facility
 
     Public Property FeeYear() As String
     Public Property AirsNumber() As Apb.ApbFacilityId
@@ -340,12 +338,12 @@ Public Class PASPFeeAuditLog
                     End If
                 End If
                 If IsDBNull(dr.Item("datInitialEnrollment")) Then
-                    dtpEnrollmentInitial.Text = OracleDate
+                    dtpEnrollmentInitial.Value = Today
                 Else
                     dtpEnrollmentInitial.Text = dr.Item("datInitialEnrollment")
                 End If
                 If IsDBNull(dr.Item("datEnrollment")) Then
-                    dtpEnrollmentDate.Text = OracleDate
+                    dtpEnrollmentDate.Value = Today
                 Else
                     dtpEnrollmentDate.Text = dr.Item("datEnrollment")
                 End If
@@ -370,7 +368,7 @@ Public Class PASPFeeAuditLog
                     End If
                 End If
                 If IsDBNull(dr.Item("datMailOutSent")) Then
-                    dtpLetterMailed.Text = OracleDate
+                    dtpLetterMailed.Value = Today
                 Else
                     dtpLetterMailed.Text = dr.Item("datMailOutSent")
                 End If
@@ -385,7 +383,7 @@ Public Class PASPFeeAuditLog
                     End If
                 End If
                 If IsDBNull(dr.Item("datSubmittal")) Then
-                    dtpSubmittalDate.Text = OracleDate
+                    dtpSubmittalDate.Value = Today
                 Else
                     dtpSubmittalDate.Text = dr.Item("datSubmittal")
                 End If
@@ -400,7 +398,7 @@ Public Class PASPFeeAuditLog
                     txtGECOAdminStatus.Text = dr.Item("strGECODesc")
                 End If
                 If IsDBNull(dr.Item("datStatusDate")) Then
-                    dtpFeeAdminStatusDate.Text = OracleDate
+                    dtpFeeAdminStatusDate.Value = Today
                 Else
                     dtpFeeAdminStatusDate.Text = dr.Item("datStatusDate")
                 End If
@@ -425,12 +423,12 @@ Public Class PASPFeeAuditLog
                     txtFSAdminUpdatingUser.Text = Replace(Replace(dr.Item("UpDateUser"), "IAIP||", "IAIP - "), "GECO||", "GECO - ")
                 End If
                 If IsDBNull(dr.Item("updateDateTime")) Then
-                    dtpFSAdminUpdate.Text = OracleDate
+                    dtpFSAdminUpdate.Value = Today
                 Else
                     dtpFSAdminUpdate.Text = dr.Item("UpDateDateTime")
                 End If
                 If IsDBNull(dr.Item("CreateDateTime")) Then
-                    dtpFSAdminCreateDateTime.Text = OracleDate
+                    dtpFSAdminCreateDateTime.Value = Today
                 Else
                     dtpFSAdminCreateDateTime.Text = dr.Item("CreateDateTime")
                 End If
@@ -952,12 +950,12 @@ Public Class PASPFeeAuditLog
                     txtInvoiceDataUpdate.Text = dr.Item("UpdateUser")
                 End If
                 If IsDBNull(dr.Item("updateDateTime")) Then
-                    dtpInvoiceDataDateUpdated.Text = OracleDate
+                    dtpInvoiceDataDateUpdated.Value = Today
                 Else
                     dtpInvoiceDataDateUpdated.Text = dr.Item("UpdateDateTime")
                 End If
                 If IsDBNull(dr.Item("CreateDateTime")) Then
-                    dtpInvoiceDataCreatedDate.Text = OracleDate
+                    dtpInvoiceDataCreatedDate.Value = Today
                 Else
                     dtpInvoiceDataCreatedDate.Text = dr.Item("CreateDateTime")
                 End If
@@ -1115,7 +1113,7 @@ Public Class PASPFeeAuditLog
         End Try
     End Sub
 
-    Sub LoadTransactionData()
+    Private Sub LoadTransactionData()
         Try
             Dim SQL As String = "select " &
             "TRANSACTIONID,  INVOICES.INVOICEID, DATTRANSACTIONDATE, " &
@@ -1249,7 +1247,6 @@ Public Class PASPFeeAuditLog
             dgvTransactions.Columns("CREATEDATETIME").HeaderText = "Create Time"
             dgvTransactions.Columns("CREATEDATETIME").DisplayIndex = 14
             dgvTransactions.Columns("CREATEDATETIME").DefaultCellStyle.Format = "dd-MMM-yyyy"
-
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -2043,9 +2040,7 @@ Public Class PASPFeeAuditLog
 
             ClearForm()
 
-            ds = New DataSet
-            dgvInvoices.DataMember = ""
-            dgvInvoices.DataSource = ds
+            dgvInvoices.DataSource = Nothing
 
             ClearInvoices()
             ClearAuditData()
@@ -2062,7 +2057,8 @@ Public Class PASPFeeAuditLog
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub ClearForm()
+
+    Private Sub ClearForm()
         Try
             ClearAdminData()
 
@@ -2086,21 +2082,18 @@ Public Class PASPFeeAuditLog
             txtInvoiceDataNSPSFee.Clear()
             txtInvoiceDataAdminFee.Clear()
             txtInvoiceDataTotalFees.Clear()
-            dtpInvoiceDataDateInvoiced.Text = OracleDate
+            dtpInvoiceDataDateInvoiced.Value = Today
             chbInvoiceDataNSPSExempt.Checked = False
             txtInvoiceDataNSPSExempts.Clear()
-            ds = New DataSet
-            dgvInvoiceDataNSPSExemptions.DataMember = ""
-            dgvInvoiceDataNSPSExemptions.DataSource = ds
+            dgvInvoiceDataNSPSExemptions.DataSource = Nothing
 
             txtInvoiceDataOfficialName.Clear()
             txtInvoiceDataOfficialTitle.Clear()
             txtInvoiceDataConfirmationNumber.Clear()
             txtInvoiceDataUpdate.Clear()
-            dtpInvoiceDataDateUpdated.Text = OracleDate
-            dtpInvoiceDataCreatedDate.Text = OracleDate
-            dgvInvoiceData.DataMember = ""
-            dgvInvoiceData.DataSource = ds
+            dtpInvoiceDataDateUpdated.Value = Today
+            dtpInvoiceDataCreatedDate.Value = Today
+            dgvInvoiceData.DataSource = Nothing
 
             txtGECOContactSalutation.Clear()
             txtGECOContactFirstName.Clear()
@@ -2116,8 +2109,7 @@ Public Class PASPFeeAuditLog
             txtGECOContactEmail.Clear()
             txtGECOContactComments.Clear()
 
-            dgvGECOFeeContacts.DataMember = ""
-            dgvGECOFeeContacts.DataSource = ds
+            dgvGECOFeeContacts.DataSource = Nothing
 
             txtTransactionID.Clear()
             txtInvoiceID.Clear()
@@ -2125,17 +2117,16 @@ Public Class PASPFeeAuditLog
             txtBatchNo.Clear()
             txtTransactionCreatedBy.Clear()
             cboTransactionType.SelectedValue = 0
-            dtpTransactionDate.Text = OracleDate
+            dtpTransactionDate.Value = Today
             txtTransactionAmount.Clear()
             txtTransactionCheckNo.Clear()
             txtTransactionCreditCardNo.Clear()
             txtAPBComments.Clear()
             txtTransactionUpdated.Clear()
-            dtpTransactionUpdated.Text = OracleDate
-            dtpTransactionCreated.Text = OracleDate
+            dtpTransactionUpdated.Value = Today
+            dtpTransactionCreated.Value = Today
 
-            dgvTransactions.DataMember = ""
-            dgvTransactions.DataSource = ds
+            dgvTransactions.DataSource = Nothing
 
             txtGECOContactSalutation.ReadOnly = True
             txtGECOContactFirstName.ReadOnly = True
@@ -2209,9 +2200,7 @@ Public Class PASPFeeAuditLog
                 If rdbInactiveStatus.Checked = True Then
                     ClearForm()
 
-                    ds = New DataSet
-                    dgvInvoices.DataMember = ""
-                    dgvInvoices.DataSource = ds
+                    dgvInvoices.DataSource = Nothing
 
                     ClearInvoices()
                     ClearAuditData()
@@ -2325,6 +2314,7 @@ Public Class PASPFeeAuditLog
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub dgvGECOFeeContacts_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvGECOFeeContacts.MouseUp
         Try
             Dim hti As DataGridView.HitTestInfo = dgvGECOFeeContacts.HitTest(e.X, e.Y)
@@ -2558,7 +2548,7 @@ Public Class PASPFeeAuditLog
                     txtInvoiceID.Text = dgvTransactions(1, hti.RowIndex).Value
                 End If
                 If IsDBNull(dgvTransactions(2, hti.RowIndex).Value) Then
-                    dtpTransactionDate.Text = OracleDate
+                    dtpTransactionDate.Value = Today
                 Else
                     dtpTransactionDate.Text = dgvTransactions(2, hti.RowIndex).Value
                 End If
@@ -2610,12 +2600,12 @@ Public Class PASPFeeAuditLog
                     txtTransactionUpdated.Text = dgvTransactions(11, hti.RowIndex).Value
                 End If
                 If IsDBNull(dgvTransactions(12, hti.RowIndex).Value) Then
-                    dtpTransactionUpdated.Text = OracleDate
+                    dtpTransactionUpdated.Value = Today
                 Else
                     dtpTransactionUpdated.Text = dgvTransactions(12, hti.RowIndex).Value
                 End If
                 If IsDBNull(dgvTransactions(13, hti.RowIndex).Value) Then
-                    dtpTransactionCreated.Text = OracleDate
+                    dtpTransactionCreated.Value = Today
                 Else
                     dtpTransactionCreated.Text = dgvTransactions(13, hti.RowIndex).Value
                 End If
@@ -3186,16 +3176,15 @@ Public Class PASPFeeAuditLog
             MsgBox("Audit Data Added", MsgBoxStyle.Information, Me.Text)
 
         Catch ex As Exception
-            ErrorReport(ex, SQL, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Sub ClearEditData()
+    Private Sub ClearEditData()
         Try
             rdbEditOpStatusTrue.Checked = False
             rdbEditOpStatusFalse.Checked = False
-            'chbEditOpStatus.Checked = False
-            dtpEditShutDownDate.Text = OracleDate
+            dtpEditShutDownDate.Value = Today
             dtpEditShutDownDate.Checked = False
             cboEditClassification.Text = ""
             txtEditVOCTons.Clear()
@@ -3623,7 +3612,7 @@ Public Class PASPFeeAuditLog
                     txtAmount.Text = Format(dgvInvoices(1, hti.RowIndex).Value, "c")
                 End If
                 If IsDBNull(dgvInvoices(2, hti.RowIndex).Value) Then
-                    DTPInvoiceDate.Text = OracleDate
+                    DTPInvoiceDate.Value = Today
                 Else
                     DTPInvoiceDate.Text = dgvInvoices(2, hti.RowIndex).Value
                 End If
@@ -4259,7 +4248,7 @@ Public Class PASPFeeAuditLog
 
             MsgBox("Audit Data Saved", MsgBoxStyle.Information, Me.Text)
         Catch ex As Exception
-            ErrorReport(ex, SQL, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -4304,7 +4293,7 @@ Public Class PASPFeeAuditLog
                     txtAuditComment.Text = dr.Item("strComments")
                 End If
                 If IsDBNull(dr.Item("datAuditStart")) Then
-                    DTPAuditStart.Text = OracleDate
+                    DTPAuditStart.Value = Today
                 Else
                     DTPAuditStart.Text = dr.Item("datAuditStart")
                 End If
@@ -4321,7 +4310,7 @@ Public Class PASPFeeAuditLog
                     chbEndFeeCollectoins.Checked = dr.Item("strEndCollections")
                 End If
                 If IsDBNull(dr.Item("datCollectionsEnded")) Then
-                    DTPDateCollectionsCeased.Text = OracleDate
+                    DTPDateCollectionsCeased.Value = Today
                     DTPDateCollectionsCeased.Checked = False
                 Else
                     DTPDateCollectionsCeased.Text = dr.Item("datCollectionsEnded")
@@ -4463,7 +4452,7 @@ Public Class PASPFeeAuditLog
                     End If
                 End If
                 If IsDBNull(dr.Item("datShutDown")) Then
-                    dtpEditShutDownDate.Text = OracleDate
+                    dtpEditShutDownDate.Value = Today
                     dtpEditShutDownDate.Checked = False
                 Else
                     dtpEditShutDownDate.Text = dr.Item("datShutDown")
@@ -4733,10 +4722,7 @@ Public Class PASPFeeAuditLog
         FeeYearsComboBox.SelectedIndex = 0
     End Sub
 
-#Region " CodeFile "
-    ' Code that was formerly in CodeFile.vb but is only used in this form anyway
-
-    Function Insert_FS_Admin(FeeYear As String, AIRSNumber As Apb.ApbFacilityId,
+    Private Function Insert_FS_Admin(FeeYear As String, AIRSNumber As Apb.ApbFacilityId,
                          Enrolled As Boolean,
                          DateEnrolled As Date, InitialMailOut As Boolean,
                          MailoutSent As Boolean, DateMailOutSent As Date,
@@ -4943,7 +4929,5 @@ Public Class PASPFeeAuditLog
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-
-#End Region
 
 End Class
