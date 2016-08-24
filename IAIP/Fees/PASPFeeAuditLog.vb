@@ -1855,7 +1855,6 @@ Public Class PASPFeeAuditLog
 
             MailoutEditContactButton.Enabled = Not (enable)
             MailoutEditContactButton.Visible = Not (enable)
-            'MailoutReplaceContactWithFeeContactButton.Enabled = Not (enable)
             MailoutCancelEditingContactButton.Enabled = enable
             MailoutCancelEditingContactButton.Visible = enable
             MailoutSaveContactButton.Enabled = enable
@@ -1879,7 +1878,6 @@ Public Class PASPFeeAuditLog
 
             MailoutEditFacilityButton.Enabled = Not (enable)
             MailoutEditFacilityButton.Visible = Not (enable)
-            'MailoutReplaceFacilityInfoButton.Enabled = Not (enable)
             MailoutCancelEditFacilityButton.Enabled = enable
             MailoutCancelEditFacilityButton.Visible = enable
             MailoutSaveFacilityButton.Enabled = enable
