@@ -2,15 +2,13 @@
 Imports System.Collections.Generic
 
 Public Class PASPFeeManagement
-    Dim SQL As String
     Dim ds As DataSet
     Dim da As SqlDataAdapter
 
     Private Sub PASPFeeManagement_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
         Try
-            LoadFeeRates("1")
-            LoadNSPSExemptions("1")
+            LoadFeeRates()
+            LoadNSPSExemptions()
             LoadNSPSExemptions2("1")
             LoadFeeYears()
             LoadSelectedNSPSExemptions()
@@ -34,10 +32,10 @@ Public Class PASPFeeManagement
         End Try
     End Sub
 
-#Region "Subs and Functions"
-
-    Sub LoadFeeRates(ActiveStatus As String)
+    Private Sub LoadFeeRates()
         Try
+            Dim SQL As String
+
             SQL = "Select " &
             "numFeeRateID, " &
             "numFeeYear, " &
@@ -51,17 +49,10 @@ Public Class PASPFeeManagement
             "strComments, " &
             "numAAThres, numNAThres " &
             "from FS_FeeRate " &
-            "where Active = '" & ActiveStatus & "' " &
+            "where Active = '1' " &
             "order by numFeeYear desc "
 
-            ds = New DataSet
-            da = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            da.Fill(ds, "FeeRates")
-            dgvFeeRates.DataSource = ds
-            dgvFeeRates.DataMember = "FeeRates"
+            dgvFeeRates.DataSource = DB.GetDataTable(SQL)
 
             dgvFeeRates.RowHeadersVisible = False
             dgvFeeRates.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -108,8 +99,6 @@ Public Class PASPFeeManagement
             dgvFeeRates.Columns("numNAThres").DisplayIndex = 9
             dgvFeeRates.Columns("numNAThres").Width = 75
 
-
-
             dgvFeeRates.Columns("datFeeDueDate").HeaderText = "Due Date"
             dgvFeeRates.Columns("datFeeDueDate").DisplayIndex = 10
             dgvFeeRates.Columns("datFeeDueDate").Width = 75
@@ -117,7 +106,6 @@ Public Class PASPFeeManagement
             dgvFeeRates.Columns("numAdminFeeRate").HeaderText = "Admin Fee"
             dgvFeeRates.Columns("numAdminFeeRate").DisplayIndex = 11
             dgvFeeRates.Columns("numAdminFeeRate").Width = 75
-            '  dgvFeeRates.Columns("numAdminFeeRate").DefaultCellStyle.Format = "p2"
             dgvFeeRates.Columns("datAdminApplicable").HeaderText = "Admin. Fee Applicable"
             dgvFeeRates.Columns("datAdminApplicable").DisplayIndex = 12
             dgvFeeRates.Columns("datAdminApplicable").Width = 75
@@ -148,48 +136,40 @@ Public Class PASPFeeManagement
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub ClearFeeData()
-        Try
-            txtFeeID.Clear()
-            txtFeeYear.Clear()
-            dtpFeePeriodStart.Text = OracleDate
-            dtpFeePeriodEnd.Text = OracleDate
-            txtTitleVfee.Clear()
-            txtAnnualSMFee.Clear()
-            txtAnnualNSPSFee.Clear()
-            txtperTonRate.Clear()
-            dtpFeeDueDate.Text = OracleDate
-            txtAdminFeePercent.Clear()
-            dtpAdminApplicable.Text = OracleDate
-            txtFeeNotes.Clear()
 
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+    Private Sub ClearFeeData()
+        txtFeeID.Clear()
+        txtFeeYear.Clear()
+        dtpFeePeriodStart.Value = Today
+        dtpFeePeriodEnd.Value = Today
+        txtTitleVfee.Clear()
+        txtAnnualSMFee.Clear()
+        txtAnnualNSPSFee.Clear()
+        txtperTonRate.Clear()
+        dtpFeeDueDate.Value = Today
+        txtAdminFeePercent.Clear()
+        dtpAdminApplicable.Value = Today
+        txtFeeNotes.Clear()
     End Sub
-    Sub LoadNSPSExemptions(ActiveStatus As String)
+
+    Private Sub LoadNSPSExemptions()
         Try
+            Dim SQL As String
+
             SQL = "Select " &
             "NSPSReasonCode, Description, " &
-            "(strLastName||', '||strFirstName) as UpdatingUser, " &
+            "(strLastName+', '+strFirstName) as UpdatingUser, " &
             "UpdateDateTime, CreateDateTime, " &
             "case " &
             "when Active = '0' then 'Flagged as deleted' " &
             "else 'Active' " &
             "end ActiveStatus " &
-            "from FSLK_NSPSReason, EPDUserProfiles " &
-            "where FSLK_NSPSReason.UpdateUser = EPDUserProfiles.numUserID " &
-            "and Active = '" & ActiveStatus & "' " &
+            "from FSLK_NSPSReason inner join EPDUserProfiles " &
+            "on FSLK_NSPSReason.UpdateUser = EPDUserProfiles.numUserID " &
+            "where Active = '1' " &
             "order by NSPSReasonCode "
 
-            ds = New DataSet
-            da = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            da.Fill(ds, "NSPSExemptions")
-            dgvNSPSExemptions.DataSource = ds
-            dgvNSPSExemptions.DataMember = "NSPSExemptions"
+            dgvNSPSExemptions.DataSource = DB.GetDataTable(SQL)
 
             dgvNSPSExemptions.RowHeadersVisible = False
             dgvNSPSExemptions.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -200,7 +180,6 @@ Public Class PASPFeeManagement
             dgvNSPSExemptions.AllowUserToOrderColumns = True
             dgvNSPSExemptions.Columns("NSPSReasonCode").HeaderText = "ID"
             dgvNSPSExemptions.Columns("NSPSReasonCode").DisplayIndex = 0
-            '  dgvNSPSExemptions.Columns("NSPSReasonCode").Visible = False
             dgvNSPSExemptions.Columns("Description").HeaderText = "NSPS Exemption Reason"
             dgvNSPSExemptions.Columns("Description").DisplayIndex = 1
             dgvNSPSExemptions.Columns("UpdatingUser").HeaderText = "Updating User"
@@ -220,30 +199,27 @@ Public Class PASPFeeManagement
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub LoadNSPSExemptions2(ActiveStatus As String)
+
+    Private Sub LoadNSPSExemptions2(ActiveStatus As String)
         Try
+            Dim SQL As String
+
             SQL = "Select " &
             "NSPSReasonCode, Description, " &
-            "(strLastName||', '||strFirstName) as UpdatingUser, " &
+            "(strLastName+', '+strFirstName) as UpdatingUser, " &
             "UpdateDateTime, CreateDateTime, " &
             "case " &
             "when Active = '0' then 'Flagged as deleted' " &
             "else 'Active' " &
             "end ActiveStatus " &
-            "from FSLK_NSPSReason, EPDUserProfiles " &
-            "where FSLK_NSPSReason.UpdateUser = EPDUserProfiles.numUserID " &
-            "and Active = '" & ActiveStatus & "' " &
+            "from FSLK_NSPSReason inner join EPDUserProfiles " &
+            "on FSLK_NSPSReason.UpdateUser = EPDUserProfiles.numUserID " &
+            "where Active = @Active " &
             "order by NSPSReasonCode "
 
-            ds = New DataSet
-            da = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            da.Fill(ds, "NSPSExemptions")
+            Dim p As New SqlParameter("@Active", ActiveStatus)
 
-            dgvExistingExemptions.DataSource = ds
-            dgvExistingExemptions.DataMember = "NSPSExemptions"
+            dgvExistingExemptions.DataSource = DB.GetDataTable(SQL, p)
 
             dgvExistingExemptions.RowHeadersVisible = False
             dgvExistingExemptions.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -270,8 +246,6 @@ Public Class PASPFeeManagement
             dgvExistingExemptions.AutoResizeColumns()
             dgvExistingExemptions.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells
 
-
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -286,7 +260,8 @@ Public Class PASPFeeManagement
         cboAvailableFeeYears.Items.Clear()
         cboAvailableFeeYears.DataSource = allFeeYears
     End Sub
-    Sub LoadSelectedNSPSExemptions()
+
+    Private Sub LoadSelectedNSPSExemptions()
         Try
             dgvNSPSExemptionsByYear.RowHeadersVisible = False
             dgvNSPSExemptionsByYear.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -321,15 +296,10 @@ Public Class PASPFeeManagement
         End Try
     End Sub
 
-#End Region
-
     Private Sub btnClearFeeData_Click(sender As Object, e As EventArgs) Handles btnClearFeeData.Click
-        Try
-            ClearFeeData()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        ClearFeeData()
     End Sub
+
     Private Sub dgvFeeRates_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvFeeRates.MouseUp
         Try
             Dim hti As DataGridView.HitTestInfo = dgvFeeRates.HitTest(e.X, e.Y)
@@ -348,12 +318,12 @@ Public Class PASPFeeManagement
                     txtFeeYear.Text = dgvFeeRates(1, hti.RowIndex).Value
                 End If
                 If IsDBNull(dgvFeeRates(2, hti.RowIndex).Value) Then
-                    dtpFeePeriodStart.Text = OracleDate
+                    dtpFeePeriodStart.Value = Today
                 Else
                     dtpFeePeriodStart.Text = dgvFeeRates(2, hti.RowIndex).Value
                 End If
                 If IsDBNull(dgvFeeRates(3, hti.RowIndex).Value) Then
-                    dtpFeePeriodEnd.Text = OracleDate
+                    dtpFeePeriodEnd.Value = Today
                 Else
                     dtpFeePeriodEnd.Text = dgvFeeRates(3, hti.RowIndex).Value
                 End If
@@ -363,7 +333,7 @@ Public Class PASPFeeManagement
                     txtTitleVfee.Text = dgvFeeRates(4, hti.RowIndex).Value
                 End If
                 If IsDBNull(dgvFeeRates(5, hti.RowIndex).Value) Then
-                    txtAnnualSMFee.Clear() 'this was missing for some reason on 3/19/2012 -Mfloyd
+                    txtAnnualSMFee.Clear()
                 Else
                     txtAnnualSMFee.Text = dgvFeeRates(5, hti.RowIndex).Value
                 End If
@@ -389,7 +359,7 @@ Public Class PASPFeeManagement
                 End If
 
                 If IsDBNull(dgvFeeRates(8, hti.RowIndex).Value) Then
-                    dtpFeeDueDate.Text = OracleDate
+                    dtpFeeDueDate.Value = Today
                 Else
                     dtpFeeDueDate.Text = dgvFeeRates(8, hti.RowIndex).Value
                 End If
@@ -399,28 +369,28 @@ Public Class PASPFeeManagement
                     txtAdminFeePercent.Text = dgvFeeRates(9, hti.RowIndex).Value
                 End If
                 If IsDBNull(dgvFeeRates(10, hti.RowIndex).Value) Then
-                    dtpAdminApplicable.Text = OracleDate
+                    dtpAdminApplicable.Value = Today
                 Else
                     dtpAdminApplicable.Text = dgvFeeRates(10, hti.RowIndex).Value
                 End If
 
                 If IsDBNull(dgvFeeRates(11, hti.RowIndex).Value) Then
-                    dtpFirstQrtDue.Text = OracleDate
+                    dtpFirstQrtDue.Value = Today
                 Else
                     dtpFirstQrtDue.Text = dgvFeeRates(11, hti.RowIndex).Value
                 End If
                 If IsDBNull(dgvFeeRates(12, hti.RowIndex).Value) Then
-                    dtpSecondQrtDue.Text = OracleDate
+                    dtpSecondQrtDue.Value = Today
                 Else
                     dtpSecondQrtDue.Text = dgvFeeRates(12, hti.RowIndex).Value
                 End If
                 If IsDBNull(dgvFeeRates(13, hti.RowIndex).Value) Then
-                    dtpThirdQrtDue.Text = OracleDate
+                    dtpThirdQrtDue.Value = Today
                 Else
                     dtpThirdQrtDue.Text = dgvFeeRates(13, hti.RowIndex).Value
                 End If
                 If IsDBNull(dgvFeeRates(14, hti.RowIndex).Value) Then
-                    dtpFourthQrtDue.Text = OracleDate
+                    dtpFourthQrtDue.Value = Today
                 Else
                     dtpFourthQrtDue.Text = dgvFeeRates(14, hti.RowIndex).Value
                 End If
@@ -431,35 +401,12 @@ Public Class PASPFeeManagement
                     txtFeeNotes.Text = dgvFeeRates(15, hti.RowIndex).Value
                 End If
 
-
-
-
             End If
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnsaveRate_Click(sender As Object, e As EventArgs) Handles btnsaveRate.Click
-        Try
-            If Insert_FS_FeeRate(txtFeeYear.Text, dtpFeePeriodStart.Text, dtpFeePeriodEnd.Text,
-                               txtTitleVfee.Text, txtAnnualSMFee.Text, txtperTonRate.Text, txtAnnualNSPSFee.Text,
-                               dtpFeeDueDate.Text, txtAdminFeePercent.Text, dtpAdminApplicable.Text,
-                               txtFeeNotes.Text, dtpFirstQrtDue.Text, dtpSecondQrtDue.Text,
-                               dtpThirdQrtDue.Text, dtpFourthQrtDue.Text, txtAttainmentThreshold.Text,
-                               txtNonAttainmentThreshold.Text) = True Then
 
-                LoadFeeRates("1")
-                MsgBox("Save completed", MsgBoxStyle.Information, Me.Text)
-            Else
-                MsgBox("Did not Save", MsgBoxStyle.Information, Me.Text)
-            End If
-
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
     Private Sub btnUpdateFeeData_Click(sender As Object, e As EventArgs) Handles btnUpdateFeeData.Click
         Try
             If txtFeeID.Text <> "" Then
@@ -470,7 +417,7 @@ Public Class PASPFeeManagement
                                          dtpThirdQrtDue.Text, dtpFourthQrtDue.Text, txtAttainmentThreshold.Text,
                                          txtNonAttainmentThreshold.Text) = True Then
 
-                    LoadFeeRates("1")
+                    LoadFeeRates()
                     ClearFeeData()
                     MsgBox("Update completed", MsgBoxStyle.Information, Me.Text)
                 Else
@@ -482,43 +429,15 @@ Public Class PASPFeeManagement
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnDeleteFeeRate_Click(sender As Object, e As EventArgs) Handles btnDeleteFeeRate.Click
-        Try
-            If txtFeeID.Text <> "" Then
-                If Update_FS_FeeRate(txtFeeID.Text, txtFeeYear.Text, dtpFeePeriodStart.Text, dtpFeePeriodEnd.Text,
-                                         txtTitleVfee.Text, txtAnnualSMFee.Text, txtperTonRate.Text, txtAnnualNSPSFee.Text,
-                                         dtpFeeDueDate.Text, txtAdminFeePercent.Text, dtpAdminApplicable.Text,
-                                         txtFeeNotes.Text, "0", dtpFirstQrtDue.Text, dtpSecondQrtDue.Text,
-                                         dtpThirdQrtDue.Text, dtpFourthQrtDue.Text, txtAttainmentThreshold.Text,
-                                         txtNonAttainmentThreshold.Text) = True Then
 
-                    LoadFeeRates("1")
-                    MsgBox("Delete completed", MsgBoxStyle.Information, Me.Text)
-                Else
-                    MsgBox("Did not Delete", MsgBoxStyle.Information, Me.Text)
-                End If
-            End If
-        Catch ex As Exception
-
-        End Try
-    End Sub
-    Private Sub btnViewDeletedFeeRates_Click(sender As Object, e As EventArgs) Handles btnViewDeletedFeeRates.Click
-        Try
-
-            LoadFeeRates("0")
-
-        Catch ex As Exception
-
-        End Try
-    End Sub
-    Sub LoadNSPSExemptionByYear()
+    Private Sub LoadNSPSExemptionByYear()
         Try
             Dim NSPStemp As String = ""
             Dim ReasonID As String = ""
             Dim DisplayOrder As String = ""
             Dim dgvRow As New DataGridViewRow
             Dim i As Integer = 1
-
+            Dim SQL As String
 
             SQL = "Select " &
             "NSPSReasonCode, DisplayOrder " &
@@ -534,7 +453,6 @@ Public Class PASPFeeManagement
             dr = cmd.ExecuteReader
             While dr.Read
                 If IsDBNull(dr.Item("NSPSReasonCode")) Then
-                    'NSPStemp = NSPStemp
                 Else
                     NSPStemp = NSPStemp & dr.Item("NSPSReasonCode")
                     If IsDBNull(dr.Item("DisplayOrder")) Then
@@ -628,6 +546,7 @@ Public Class PASPFeeManagement
         Finally
         End Try
     End Sub
+
     Private Sub btnViewNSPSExemptionsByYear_Click(sender As Object, e As EventArgs) Handles btnViewNSPSExemptionsByYear.Click
         Try
             If cboNSPSExemptionYear.Text <> "" Then
@@ -638,6 +557,7 @@ Public Class PASPFeeManagement
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub btnSelectAllForms_Click(sender As Object, e As EventArgs) Handles btnSelectAllForms.Click
         Try
             Dim dgvRow As New DataGridViewRow
@@ -659,9 +579,11 @@ Public Class PASPFeeManagement
         Finally
         End Try
     End Sub
+
     Private Sub btnUnselectForm_Click(sender As Object, e As EventArgs) Handles btnUnselectForm.Click
         Try
             Dim ReasonID As String = ""
+            Dim SQL As String
 
             If dgvNSPSExemptionsByYear.RowCount > 0 Then
                 ReasonID = dgvNSPSExemptionsByYear(1, dgvNSPSExemptionsByYear.CurrentRow.Index).Value
@@ -692,17 +614,17 @@ Public Class PASPFeeManagement
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub btnUnselectAllForms_Click(sender As Object, e As EventArgs) Handles btnUnselectAllForms.Click
         Try
             Dim ReasonID As String = ""
             Dim i As Integer = 0
+            Dim SQL As String
 
             If dgvNSPSExemptionsByYear.RowCount > 0 Then
-                'dgvNSPSExemptionsByYear.Rows.Clear()
 
                 i = 0
                 While i < dgvNSPSExemptionsByYear.RowCount
-                    ' For i = 0 To dgvNSPSExemptionsByYear.RowCount - 1
 
                     dgvNSPSExemptionsByYear.Rows(i).Selected = True
                     ReasonID = dgvNSPSExemptionsByYear(1, i).Value
@@ -728,13 +650,13 @@ Public Class PASPFeeManagement
                         dgvNSPSExemptionsByYear.Rows(i).Selected = False
                     End If
                 End While
-                'Next
 
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub btnUpdateNSPSbyYear_Click(sender As Object, e As EventArgs) Handles btnUpdateNSPSbyYear.Click
         If cboNSPSExemptionYear.Text = "" OrElse Not IsNumeric(cboNSPSExemptionYear.Text) Then
             MessageBox.Show("Please select a Fee Year first.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -747,6 +669,7 @@ Public Class PASPFeeManagement
             Dim Order As String
             Dim temp As String = ""
             Dim ExistingID As String = ""
+            Dim SQL As String
 
             SQL = "Select " &
             "NSPSReasonCode " &
@@ -760,7 +683,6 @@ Public Class PASPFeeManagement
             dr = cmd.ExecuteReader
             While dr.Read
                 If IsDBNull(dr.Item("NSPSReasonCode")) Then
-                    'ExistingID = ExistingID
                 Else
                     ExistingID = ExistingID & "(" & dr.Item("NSPSReasonCode") & ")"
                 End If
@@ -829,11 +751,12 @@ Public Class PASPFeeManagement
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub btnAddNSPSExemption_Click(sender As Object, e As EventArgs) Handles btnAddNSPSExemption.Click
         Try
             If Insert_FSLK_NSPSReason(txtNSPSExemption.Text) = True Then
                 txtNSPSExemption.Clear()
-                LoadNSPSExemptions("1")
+                LoadNSPSExemptions()
                 MsgBox("Save completed", MsgBoxStyle.Information, Me.Text)
 
                 Dim maxRow As Integer
@@ -842,7 +765,7 @@ Public Class PASPFeeManagement
                     dgvNSPSExemptions.FirstDisplayedScrollingRowIndex = maxRow
                     dgvNSPSExemptions.Rows(maxRow).Selected = True
                 End If
-                LoadNSPSExemptions("1")
+                LoadNSPSExemptions()
                 LoadNSPSExemptions2("1")
             Else
                 MsgBox("Did not Save", MsgBoxStyle.Information, Me.Text)
@@ -852,14 +775,14 @@ Public Class PASPFeeManagement
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub btnDeleteNSPSExemption_Click(sender As Object, e As EventArgs) Handles btnDeleteNSPSExemption.Click
         Try
-            'Update_FSLK_NSPSReason
             If txtDeleteNSPSExemptions.Text <> "" Then
                 If Update_FSLK_NSPSReason(txtDeleteNSPSExemptions.Text, "", "0") = True Then
                     txtDeleteNSPSExemptions.Clear()
                     txtNSPSExemption.Clear()
-                    LoadNSPSExemptions("1")
+                    LoadNSPSExemptions()
                     LoadNSPSExemptions2("1")
                     MsgBox("Exemption Deleted", MsgBoxStyle.Information, Me.Text)
                 End If
@@ -870,6 +793,7 @@ Public Class PASPFeeManagement
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub btnViewDeletedNSPS_Click(sender As Object, e As EventArgs) Handles btnViewDeletedNSPS.Click
         Try
             LoadNSPSExemptions2("0")
@@ -878,37 +802,14 @@ Public Class PASPFeeManagement
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub dgvNSPSExemptions_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvNSPSExemptions.MouseUp
-        Try
-            'Dim hti As DataGridView.HitTestInfo = dgvNSPSExemptions.HitTest(e.X, e.Y)
 
-            'If dgvNSPSExemptions.RowCount > 0 And hti.RowIndex <> -1 Then
-
-            '    txtDeleteNSPSExemptions.Clear()
-            '    txtNSPSExemption.Clear()
-            '    If IsDBNull(dgvNSPSExemptions(0, hti.RowIndex).Value) Then
-            '        Exit Sub
-            '    Else
-            '        txtDeleteNSPSExemptions.Text = dgvNSPSExemptions(0, hti.RowIndex).Value
-            '    End If
-            '    If IsDBNull(dgvNSPSExemptions(1, hti.RowIndex).Value) Then
-            '        txtNSPSExemption.Clear()
-            '    Else
-            '        txtNSPSExemption.Text = dgvNSPSExemptions(1, hti.RowIndex).Value
-            '    End If
-            'End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
     Private Sub btnUpdateNSPSExemption_Click(sender As Object, e As EventArgs) Handles btnUpdateNSPSExemption.Click
         Try
             If txtDeleteNSPSExemptions.Text <> "" Then
                 If Update_FSLK_NSPSReason(txtDeleteNSPSExemptions.Text, txtNSPSExemption.Text, "1") = True Then
                     txtDeleteNSPSExemptions.Clear()
                     txtNSPSExemption.Clear()
-                    LoadNSPSExemptions("1")
+                    LoadNSPSExemptions()
                     LoadNSPSExemptions2("1")
 
                     MsgBox("Exemption Updated", MsgBoxStyle.Information, Me.Text)
@@ -919,15 +820,11 @@ Public Class PASPFeeManagement
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub btnReloadFeeRate_Click(sender As Object, e As EventArgs) Handles btnReloadFeeRate.Click
-        Try
-
-            LoadFeeRates("1")
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        LoadFeeRates()
     End Sub
+
     Private Sub btnViewEnrolledFacilities_Click(sender As Object, e As EventArgs) Handles btnViewEnrolledFacilities.Click
         Try
 
@@ -937,9 +834,11 @@ Public Class PASPFeeManagement
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub btnFirstEnrollment_Click(sender As Object, e As EventArgs) Handles btnFirstEnrollment.Click
         Try
             Dim EnrollCheck As String = ""
+            Dim SQL As String
 
             If cboAvailableFeeYears.Text = "" Then
                 MsgBox("NO FACILITIES ENROLLED." & vbCrLf & "Select a fee year first.", MsgBoxStyle.Exclamation, Me.Text)
@@ -976,7 +875,7 @@ Public Class PASPFeeManagement
             "strEnrolled = '1', " &
             "datEnrollment = sysdate, " &
             "updateUser = 'IAIP||" & CurrentUser.AlphaName & "', " &
-            "UpdateDateTime = '" & OracleDate & "', " &
+            "UpdateDateTime = getdate(), " &
              "numCurrentStatus = 3 " &
             "where numFeeYear = '" & cboAvailableFeeYears.Text & "' " &
             "and ACTIVE = '1' "
@@ -1019,8 +918,11 @@ Public Class PASPFeeManagement
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub btnUnenrollFeeYear_Click(sender As Object, e As EventArgs) Handles btnUnenrollFeeYear.Click
         Try
+            Dim SQL As String
+
             If cboAvailableFeeYears.Text = "" Then
                 MsgBox("NO FACILITIES ENROLLED." & vbCrLf & "Select a fee year first.", MsgBoxStyle.Exclamation, Me.Text)
                 Exit Sub
@@ -1049,7 +951,7 @@ Public Class PASPFeeManagement
             "datEnrollment = '', " &
             "datInitialEnrollment = '', " &
             "updateUser = 'IAIP||" & CurrentUser.AlphaName & "', " &
-            "UpdateDateTime = '" & OracleDate & "' " &
+            "UpdateDateTime = getdate() " &
             "where numFeeYear = '" & cboAvailableFeeYears.Text & "' " &
             "and ACTIVE = '1' "
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -1067,8 +969,11 @@ Public Class PASPFeeManagement
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub ViewEnrolledFacilities()
+
+    Private Sub ViewEnrolledFacilities()
         Try
+            Dim SQL As String
+
             SQL = "Select " &
             "substr(fS_Admin.strAIRSnumber, 5) as AIRSNumber,  " &
             "strFacilityname,  " &
@@ -1167,11 +1072,15 @@ Public Class PASPFeeManagement
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub btnViewMailout_Click(sender As Object, e As EventArgs) Handles btnViewMailout.Click
         ViewMailOut()
     End Sub
+
     Private Sub btnGenerateMailoutList_Click(sender As Object, e As EventArgs) Handles btnGenerateMailoutList.Click
         Try
+            Dim SQL As String
+
             If cboAvailableFeeYears.Text = "" OrElse Not IsNumeric(cboAvailableFeeYears.Text) Then
                 MsgBox("Select a valid fee year first.", MsgBoxStyle.Exclamation, Me.Text)
                 Exit Sub
@@ -1241,8 +1150,11 @@ Public Class PASPFeeManagement
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub ViewMailOut()
+
+    Private Sub ViewMailOut()
         Try
+            Dim SQL As String
+
             SQL = "Select " &
             "substr(fS_Admin.strAIRSnumber, 5) as AIRSNumber,  " &
             "strFacilityname,  " &
@@ -1340,6 +1252,7 @@ Public Class PASPFeeManagement
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub btnUpdateContactData_Click(sender As Object, e As EventArgs) Handles btnUpdateContactData.Click
         ' Warn user
         Dim confirm As DialogResult = MessageBox.Show("This will replace mailout contact data with the current " & vbNewLine &
@@ -1363,6 +1276,7 @@ Public Class PASPFeeManagement
             Dim ContactCity As String = ""
             Dim ContactState As String = ""
             Dim ContactZipCode As String = ""
+            Dim SQL As String
 
             SQL = "Select " &
             "strAIRSNumber " &
@@ -1513,6 +1427,7 @@ Public Class PASPFeeManagement
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub btnRefreshNSPSExemptions_Click(sender As Object, e As EventArgs) Handles btnRefreshNSPSExemptions.Click
         Try
             LoadNSPSExemptions2("1")
@@ -1520,6 +1435,7 @@ Public Class PASPFeeManagement
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub btnClearNSPSExemptions_Click(sender As Object, e As EventArgs) Handles btnClearNSPSExemptions.Click
         Try
             txtDeleteNSPSExemptions.Clear()
@@ -1528,8 +1444,11 @@ Public Class PASPFeeManagement
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub btnViewFacilitiesSubjectToFees_Click(sender As Object, e As EventArgs) Handles btnViewFacilitiesSubjectToFees.Click
         Try
+            Dim SQL As String
+
             SQL = "Select " &
           "substr(fS_Admin.strAIRSnumber, 5) as AIRSNumber,  " &
           "strFacilityname,  " &
@@ -1624,6 +1543,7 @@ Public Class PASPFeeManagement
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub btnSetMailoutDate_Click(sender As Object, e As EventArgs) Handles btnSetMailoutDate.Click
         Dim confirm As DialogResult = MessageBox.Show("Are you sure you want to set the initial mailout date for all sources in the mailout list?",
             "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1)
@@ -1632,6 +1552,8 @@ Public Class PASPFeeManagement
         End If
 
         Try
+            Dim SQL As String
+
             SQL = "Update FS_Admin set " &
             " datMailoutSent = '" & dtpDateMailoutSent.Text & "', " &
             " numcurrentstatus = 4, " &
@@ -1656,7 +1578,7 @@ Public Class PASPFeeManagement
         End Try
     End Sub
 
-    Sub FormatWebUsers()
+    Private Sub FormatWebUsers()
         Try
             dgvUsers.RowHeadersVisible = False
             dgvUsers.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -1734,6 +1656,7 @@ Public Class PASPFeeManagement
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub llbViewUserData_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewUserData.LinkClicked
         Try
             ViewFacilitySpecificUsers()
@@ -1741,9 +1664,11 @@ Public Class PASPFeeManagement
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub ViewFacilitySpecificUsers()
+
+    Private Sub ViewFacilitySpecificUsers()
         Try
             Dim dgvRow As New DataGridViewRow
+            Dim SQL As String
 
             If mtbAIRSNumber.Text.Length <> 8 Then
                 MsgBox("Please enter a complete 8 digit AIRS #.", MsgBoxStyle.Information, "Error")
@@ -1857,9 +1782,11 @@ Public Class PASPFeeManagement
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub btnAddUser_Click(sender As Object, e As EventArgs) Handles btnAddUser.Click
         Try
             Dim userID As Integer
+            Dim SQL As String
 
             SQL = "Select numUserId " &
             "from olapuserlogin " &
@@ -1896,8 +1823,11 @@ Public Class PASPFeeManagement
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub btnDelete_Click(sender As Object, e As EventArgs) Handles btnDelete.Click
         Try
+            Dim SQL As String
+
             SQL = "DELETE OlapUserAccess " &
             "WHERE numUserID = '" & cboUsers.SelectedValue & "' " &
             "and strAirsNumber = '0413" & mtbAIRSNumber.Text & "' "
@@ -1915,12 +1845,14 @@ Public Class PASPFeeManagement
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub btnUpdate_Click(sender As Object, e As EventArgs) Handles btnUpdate.Click
         Try
             Dim adminaccess As String
             Dim feeaccess As String
             Dim eiaccess As String
             Dim esaccess As String
+            Dim SQL As String
 
             For i As Integer = 0 To dgvUsers.Rows.Count - 1
                 If dgvUsers(3, i).Value = True Then
@@ -1966,6 +1898,7 @@ Public Class PASPFeeManagement
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub lblViewEmailData_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblViewEmailData.LinkClicked
         Try
             LoadUserInfo(txtWebUserEmail.Text)
@@ -1975,8 +1908,11 @@ Public Class PASPFeeManagement
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub LoadUserInfo(UserData As String)
+
+    Private Sub LoadUserInfo(UserData As String)
         Try
+            Dim SQL As String
+
             SQL = "Select " &
             "OLAPUserProfile.numUserID, " &
             "strfirstname, strlastname, " &
@@ -2109,9 +2045,11 @@ Public Class PASPFeeManagement
         End Try
 
     End Sub
-    Sub LoadUserFacilityInfo(EmailLoc As String)
+
+    Private Sub LoadUserFacilityInfo(EmailLoc As String)
         Try
             Dim dgvRow As New DataGridViewRow
+            Dim SQL As String
 
             SQL = "SELECT substr(strairsnumber, 5) as strAIRSNumber, strfacilityname, " &
              "Case When intAdminAccess = 0 Then 'False' When intAdminAccess = 1 Then 'True' End as intAdminAccess, " &
@@ -2186,6 +2124,7 @@ Public Class PASPFeeManagement
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub btnEditUserData_Click(sender As Object, e As EventArgs) Handles btnEditUserData.Click
         Try
             txtEditFirstName.Visible = True
@@ -2208,6 +2147,7 @@ Public Class PASPFeeManagement
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub btnSaveEditedData_Click(sender As Object, e As EventArgs) Handles btnSaveEditedData.Click
         Try
             Dim FirstName As String = " "
@@ -2220,6 +2160,7 @@ Public Class PASPFeeManagement
             Dim Zip As String = " "
             Dim PhoneNumber As String = " "
             Dim FaxNumber As String = " "
+            Dim SQL As String
 
             If txtWebUserID.Text <> "" Then
                 If txtEditFirstName.Text <> "" Then
@@ -2298,10 +2239,12 @@ Public Class PASPFeeManagement
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub btnUpdatePassword_Click(sender As Object, e As EventArgs) Handles btnUpdatePassword.Click
         Try
+            Dim SQL As String
+
             If txtWebUserID.Text <> "" And txtEditUserPassword.Text <> "" Then
-                'New password change code 6/30/2010
                 SQL = "Update OLAPUserLogIN set " &
                 "strUserPassword = '" & getMd5Hash(txtEditUserPassword.Text) & "' " &
                 "where numUserID = '" & txtWebUserID.Text & "' "
@@ -2334,8 +2277,11 @@ Public Class PASPFeeManagement
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub btnChangeEmailAddress_Click(sender As Object, e As EventArgs) Handles btnChangeEmailAddress.Click
         Try
+            Dim SQL As String
+
             If txtWebUserID.Text <> "" Then
                 If IsValidEmailAddress(txtEditEmail.Text) Then
                     SQL = "Select " &
@@ -2379,7 +2325,6 @@ Public Class PASPFeeManagement
                     cboUserEmail.Text = ""
                     txtWebUserEmail.Text = txtEditEmail.Text
 
-                    '  LoadDataGridFacility(txtWebUserEmail.Text)
                     LoadUserInfo(txtWebUserEmail.Text)
 
                     If txtWebUserID.Text = "" Then
@@ -2398,8 +2343,11 @@ Public Class PASPFeeManagement
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub btnAddFacilitytoUser_Click(sender As Object, e As EventArgs) Handles btnAddFacilitytoUser.Click
         Try
+            Dim SQL As String
+
             If txtWebUserID.Text <> "" And mtbFacilityToAdd.Text <> "" Then
                 SQL = "Select " &
                 "numUserId " &
@@ -2442,9 +2390,10 @@ Public Class PASPFeeManagement
         End Try
     End Sub
 
-
     Private Sub btnDeleteFacilityUser_Click(sender As Object, e As EventArgs) Handles btnDeleteFacilityUser.Click
         Try
+            Dim SQL As String
+
             If txtWebUserID.Text <> "" And cboFacilityToDelete.Text <> "" Then
                 SQL = "DELETE OlapUserAccess " &
                 "WHERE numUserID = '" & txtWebUserID.Text & "' " &
@@ -2472,6 +2421,7 @@ Public Class PASPFeeManagement
             Dim feeaccess As String
             Dim eiaccess As String
             Dim esaccess As String
+            Dim SQL As String
 
             For i As Integer = 0 To dgvUserFacilities.Rows.Count - 1
                 If dgvUserFacilities(2, i).Value = True Then
@@ -2553,10 +2503,7 @@ Public Class PASPFeeManagement
         End If
     End Sub
 
-#Region " CodeFile "
-    ' Code that was formerly in CodeFile.vb but is only used in this form anyway
-
-    Function Insert_FS_FeeRate(FeeYear As String, PeriodStart As String,
+    Private Function Insert_FS_FeeRate(FeeYear As String, PeriodStart As String,
                           PeriodEnd As String, Part70Fee As String, SMFee As String,
                           PerTonRate As String, NSPSFee As String, FeeDueDate As String,
                           AdminFee As String, AdminApplicable As String, Comments As String,
@@ -2659,7 +2606,7 @@ Public Class PASPFeeManagement
         End Try
     End Function
 
-    Function Update_FS_FeeRate(FeeRateID As String, FeeYear As String, PeriodStart As String,
+    Private Function Update_FS_FeeRate(FeeRateID As String, FeeYear As String, PeriodStart As String,
                           PeriodEnd As String, Part70Fee As String, SMFee As String,
                           PerTonRate As String, NSPSFee As String, FeeDueDate As String,
                           AdminFee As String, AdminApplicable As String, Comments As String,
@@ -2736,49 +2683,65 @@ Public Class PASPFeeManagement
             End If
 
             Dim SQL As String = "Update FS_FeeRate set " &
-            "numFeeYear = '" & FeeYear & "', " &
-            "datFeePeriodStart = '" & PeriodStart & "', " &
-            "datFeePeriodEnd = '" & PeriodEnd & "', " &
-            "numPart70Fee = '" & Part70Fee & "', " &
-            "numSMFee = '" & SMFee & "', " &
-            "numPerTonRate = '" & PerTonRate & "', " &
-            "numNSPSFee = '" & NSPSFee & "', " &
-            "datFeeDueDate = '" & FeeDueDate & "', " &
-            "numAdminFeeRate = '" & AdminFee & "', " &
-            "datAdminApplicable = '" & AdminApplicable & "', " &
-            "strComments = '" & Replace(Comments, "'", "''") & "', " &
-            "Active = '" & Active & "', " &
-            "UpdateUser = '" & CurrentUser.UserID & "', " &
-            "upDateDateTime = (to_char(sysdate, 'DD-Mon-YY HH12:MI:SS')), " &
-            "datFirstQrtDue = '" & FirstQrtDue & "', " &
-            "datSecondQrtDue = '" & SecondQrtDue & "', " &
-            "datThirdQrtDue = '" & ThridQrtDue & "', " &
-            "datFourthQrtDue = '" & FourthQrtDue & "',  " &
-            "numAAThres = '" & AAThres & "', " &
-            "numNAThres = '" & NAThres & "' " &
-            "where numFeeRateID = '" & FeeRateID & "' "
+            "numFeeYear = @numFeeYear, " &
+            "datFeePeriodStart = @datFeePeriodStart, " &
+            "datFeePeriodEnd = @datFeePeriodEnd, " &
+            "numPart70Fee = @numPart70Fee, " &
+            "numSMFee = @numSMFee, " &
+            "numPerTonRate = @numPerTonRate, " &
+            "numNSPSFee = @numNSPSFee, " &
+            "datFeeDueDate = @datFeeDueDate, " &
+            "numAdminFeeRate = @numAdminFeeRate, " &
+            "datAdminApplicable = @datAdminApplicable, " &
+            "strComments = @strComments, " &
+            "Active = @Active, " &
+            "UpdateUser = @UpdateUser, " &
+            "upDateDateTime = getdate(), " &
+            "datFirstQrtDue = @datFirstQrtDue, " &
+            "datSecondQrtDue = @datSecondQrtDue, " &
+            "datThirdQrtDue = @datThirdQrtDue, " &
+            "datFourthQrtDue = @datFourthQrtDue, " &
+            "numAAThres = @numAAThres, " &
+            "numNAThres = @numNAThres " &
+            "where numFeeRateID = @numFeeRateID "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
+            Dim p As SqlParameter() = {
+                New SqlParameter("@numFeeYear", FeeYear),
+                New SqlParameter("@datFeePeriodStart", PeriodStart),
+                New SqlParameter("@datFeePeriodEnd", PeriodEnd),
+                New SqlParameter("@numPart70Fee", Part70Fee),
+                New SqlParameter("@numSMFee", SMFee),
+                New SqlParameter("@numPerTonRate", PerTonRate),
+                New SqlParameter("@numNSPSFee", NSPSFee),
+                New SqlParameter("@datFeeDueDate", FeeDueDate),
+                New SqlParameter("@numAdminFeeRate", AdminFee),
+                New SqlParameter("@datAdminApplicable", AdminApplicable),
+                New SqlParameter("@strComments", Comments),
+                New SqlParameter("@Active", Active),
+                New SqlParameter("@UpdateUser", CurrentUser.UserID),
+                New SqlParameter("@datFirstQrtDue", FirstQrtDue),
+                New SqlParameter("@datSecondQrtDue", SecondQrtDue),
+                New SqlParameter("@datThirdQrtDue", ThridQrtDue),
+                New SqlParameter("@datFourthQrtDue", FourthQrtDue),
+                New SqlParameter("@numAAThres", AAThres),
+                New SqlParameter("@numNAThres", NAThres),
+                New SqlParameter("@numFeeRateID", FeeRateID)
+            }
 
-            Return True
+            Return DB.RunCommand(SQL, p)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Function
 
-    Function Insert_FSLK_NSPSReason(Description As String) As Boolean
+    Private Function Insert_FSLK_NSPSReason(Description As String) As Boolean
         Try
             Dim SQL As String = "Insert into FSLK_NSPSReason " &
             "Values " &
             "((select max(NSPSReasonCode) + 1 from FSLK_NSPSReason), " &
             "'" & Replace(Description, "'", "''") & "', " &
             "'1', '" & CurrentUser.UserID & "', " &
-            "'" & OracleDate & "', '" & OracleDate & "') "
+            " getdate(), getdate() ) "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -2794,21 +2757,22 @@ Public Class PASPFeeManagement
         End Try
     End Function
 
-    Function Update_FSLK_NSPSReason(NSPSReasonCode As String, Description As String, ActiveStatus As String) As Boolean
+    Private Function Update_FSLK_NSPSReason(NSPSReasonCode As String, Description As String, ActiveStatus As String) As Boolean
         Try
             Dim SQL As String
+
             If Description = "" Then
                 SQL = "Update FSLK_NSPSReason set " &
                 "Active = '" & ActiveStatus & "', " &
                 "updateUser = '" & CurrentUser.UserID & "', " &
-                "UpdateDateTime = '" & OracleDate & "' " &
+                "UpdateDateTime = getdate() " &
                 "where NSPSReasonCode = '" & NSPSReasonCode & "' "
             Else
                 SQL = "Update FSLK_NSPSReason set " &
                 "Description = '" & Replace(Description, "'", "''") & "', " &
                 "Active = '" & ActiveStatus & "', " &
                 "updateUser = '" & CurrentUser.UserID & "', " &
-                "UpdateDateTime = '" & OracleDate & "' " &
+                "UpdateDateTime = getdate() " &
                 "where NSPSReasonCode = '" & NSPSReasonCode & "' "
             End If
 
@@ -2826,14 +2790,14 @@ Public Class PASPFeeManagement
         End Try
     End Function
 
-    Function Insert_FSLK_NSPSReasonYear(numFeeYear As String, NSPSReasonCode As String, DisplayOrder As String) As Boolean
+    Private Function Insert_FSLK_NSPSReasonYear(numFeeYear As String, NSPSReasonCode As String, DisplayOrder As String) As Boolean
         Try
             Dim SQL As String = "Insert into FSLK_NSPSReasonYear " &
             "values " &
             "('" & numFeeYear & "', '" & NSPSReasonCode & "', " &
             "'" & DisplayOrder & "', '1', " &
-            "'" & CurrentUser.UserID & "', '" & OracleDate & "', " &
-            "'" & OracleDate & "') "
+            "'" & CurrentUser.UserID & "', getdate() , " &
+            " getdate() ) "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -2846,7 +2810,7 @@ Public Class PASPFeeManagement
         End Try
     End Function
 
-    Function Update_FSLK_NSPSReasonYear(numFeeYear As String, NSPSReasonCode As String, DisplayOrder As String,
+    Private Function Update_FSLK_NSPSReasonYear(numFeeYear As String, NSPSReasonCode As String, DisplayOrder As String,
                                        ActiveStatus As String) As Boolean
         Try
             Dim SQL As String = "Update FSLK_NSPSReasonYear set " &
@@ -2854,7 +2818,7 @@ Public Class PASPFeeManagement
             "DisplayOrder = '" & DisplayOrder & "', " &
             "Active = '" & ActiveStatus & "', " &
             "updateUser = '" & CurrentUser.UserID & "', " &
-            "updateDateTime = '" & OracleDate & "' " &
+            "updateDateTime = getdate() " &
             "where numFeeYear = '" & numFeeYear & "' " &
             "and NSPSReasonCode = '" & NSPSReasonCode & "' "
 
@@ -2869,7 +2833,5 @@ Public Class PASPFeeManagement
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Function
-
-#End Region
 
 End Class
