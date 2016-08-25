@@ -95,6 +95,7 @@ Public Class IaipCreateUser
         If result Then
             Dim msg As String = String.Format("User account {0} successfully created. " &
                                               "An email with login details has been sent to {1}. " &
+                                              vbNewLine & vbNewLine &
                                               "Please set permissions on the next screen.",
                                               Username.Text, EmailAddress.Text)
             MessageBox.Show(msg, "Success")
