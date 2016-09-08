@@ -167,10 +167,9 @@ Namespace DAL
         End Function
 
         Public Function GetAllFeeFacilities() As DataTable
-            Dim query As String = "SELECT DISTINCT SUBSTR(fa.STRAIRSNUMBER, 5) AS STRAIRSNUMBER, " &
-                "  SUBSTR(fa.STRAIRSNUMBER, 5, 3) || '-' || SUBSTR( " &
-                "  fa.STRAIRSNUMBER, 8) AS ""AIRS Number"", fi.STRFACILITYNAME " &
-                "  AS ""Facility Name"" " &
+            Dim query As String = "SELECT DISTINCT substring(fa.STRAIRSNUMBER, 5, 8) AS STRAIRSNUMBER, " &
+                "  substring(fa.STRAIRSNUMBER, 5, 3) + '-' + substring(fa.STRAIRSNUMBER, 8, 5) AS [AIRS Number], " &
+                "  fi.STRFACILITYNAME AS [Facility Name] " &
                 "FROM FS_ADMIN fa " &
                 "INNER JOIN APBFACILITYINFORMATION fi ON " &
                 "  fa.STRAIRSNUMBER = fi.STRAIRSNUMBER " &

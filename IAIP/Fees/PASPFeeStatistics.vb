@@ -19,19 +19,19 @@ Public Class PASPFeeStatistics
 
     Private Sub DEVFeeStatistics_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
-
             Me.Cursor = Cursors.WaitCursor
             pnlDetails.Dock = DockStyle.None
 
             If AccountFormAccess(12, 3) <> "1" Then
                 TCMailoutAndStats.TabPages.Remove(TPNonRespondersReport)
             End If
+
             loadDepositAndPayment()
 
-            dtpStartDepositDate.Text = Format(CDate(Date.Today).AddMonths(-1), "dd-MMM-yyyy")
-            dtpEndDepositDate.Text = Date.Today
-            dtpDepositReportStartDate.Text = Format(CDate(Date.Today).AddMonths(-1), "dd-MMM-yyyy")
-            dtpDepositReportEndDate.Text = Date.Today
+            dtpStartDepositDate.Value = Today.AddMonths(-1)
+            dtpEndDepositDate.Value = Today
+            dtpDepositReportStartDate.Value = Today.AddMonths(-1)
+            dtpDepositReportEndDate.Value = Today
             dtpStartDepositDate.Enabled = False
             dtpEndDepositDate.Enabled = False
             chbDepositDateSearch.Checked = False
@@ -39,7 +39,7 @@ Public Class PASPFeeStatistics
 
             LoadComboBoxesF()
 
-            mtbFacilityBalanceYear.Text = Date.Today.Year
+            mtbFacilityBalanceYear.Text = Today.Year.ToString
 
             cboFeeStatYear.Text = cboFeeStatYear.Items.Item(0)
 
@@ -53,28 +53,24 @@ Public Class PASPFeeStatistics
         Finally
             Me.Cursor = Cursors.Default
         End Try
-
     End Sub
-    Sub loadDepositAndPayment()
+
+    Private Sub loadDepositAndPayment()
         Try
             Dim Year As String
 
-            Year = Now.Year
-            SQL = "Select distinct(numFeeYear) as FeeYear " &
+            Dim SQL As String = "Select distinct(numFeeYear) as FeeYear " &
             "from FS_Admin " &
             "order by numFeeYear desc "
+            Dim dt As DataTable = DB.GetDataTable(SQL)
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
+            For Each dr As DataRow In dt.Rows
                 If IsDBNull(dr.Item("FeeYear")) Then
-                    Year = Now.Year
+                    Year = Today.Year.ToString
                 Else
                     Year = dr.Item("FeeYear")
                 End If
+
                 If cboStatYear.Items.Contains(Year) Then
                 Else
                     cboStatYear.Items.Add(Year)
@@ -84,11 +80,11 @@ Public Class PASPFeeStatistics
                 Else
                     cboFeeStatYear.Items.Add(Year)
                 End If
+
                 If TCMailoutAndStats.TabPages.Contains(TPNonRespondersReport) Then
                     cboFeeYear.Items.Add(Year)
                 End If
-            End While
-            dr.Close()
+            Next
 
             cboStatPayType.Items.Add("ALL")
             cboStatPayType.Items.Add("ALL QUARTERS")
@@ -97,16 +93,11 @@ Public Class PASPFeeStatistics
             "from FSLK_PayType " &
             "where Active = '1' " &
             "order by numPaytypeID "
+            Dim dt2 As DataTable = DB.GetDataTable(SQL)
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
+            For Each dr As DataRow In dt2.Rows
                 cboStatPayType.Items.Add(dr.Item("strPayTypeDesc"))
-            End While
-            dr.Close()
+            Next
 
             cboStatYear.Text = cboStatYear.Items.Item(0)
             cboStatPayType.Text = cboStatPayType.Items.Item(0)
@@ -1555,6 +1546,7 @@ Public Class PASPFeeStatistics
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub btnViewSelectedFeeData_Click(sender As Object, e As EventArgs) Handles btnViewSelectedFeeData.Click
         Try
             If pnlDetails.Dock = DockStyle.None Then
@@ -1571,7 +1563,8 @@ Public Class PASPFeeStatistics
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub LoadSelectedFeeData()
+
+    Private Sub LoadSelectedFeeData()
         Try
             SQL = "select " &
             "strAIRSNUmber, nuMFeeYear, " &
@@ -1891,6 +1884,7 @@ Public Class PASPFeeStatistics
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub dgvDepositsAndPayments_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvDepositsAndPayments.MouseUp
         Dim hti As DataGridView.HitTestInfo = dgvDepositsAndPayments.HitTest(e.X, e.Y)
         Try
@@ -1905,6 +1899,7 @@ Public Class PASPFeeStatistics
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub btnHideResults_Click(sender As Object, e As EventArgs) Handles btnHideResults.Click
         Try
             If pnlDetails.Dock = DockStyle.None Then
@@ -1917,15 +1912,10 @@ Public Class PASPFeeStatistics
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub btnExportToExcel_Click(sender As Object, e As EventArgs) Handles btnExportToExcel.Click
         dgvDepositsAndPayments.ExportToExcel(Me)
     End Sub
-
-
-#Region "Late Fee Payer Report"
-
-
-#End Region
 
     Private Sub btnRunLateFeeReport_Click(sender As Object, e As EventArgs) Handles btnRunLateFeeReport.Click
         Try
@@ -2323,6 +2313,7 @@ Public Class PASPFeeStatistics
             ' ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub btnRunReport_Click(sender As Object, e As EventArgs) Handles btnRunReport.Click
         Try
             SQL = "select " &
@@ -2392,6 +2383,7 @@ Public Class PASPFeeStatistics
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub btnCheckforFeesPaid_Click(sender As Object, e As EventArgs) Handles btnCheckforFeesPaid.Click
         Try
             If rdbHasPaidFee.Checked = True Then
@@ -2538,6 +2530,7 @@ Public Class PASPFeeStatistics
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub btnRemovePaidFacilities_Click(sender As Object, e As EventArgs) Handles btnRemovePaidFacilities.Click
         Try
             Dim AIRSNumber As String = ""
@@ -2608,6 +2601,7 @@ Public Class PASPFeeStatistics
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub btnViewUnenrolled_Click(sender As Object, e As EventArgs) Handles btnViewUnenrolled.Click
         Try
             SQL = "select " &
@@ -2646,6 +2640,7 @@ Public Class PASPFeeStatistics
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub dgvLateFeeReport_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvLateFeeReport.MouseUp
         Try
             Dim hti As DataGridView.HitTestInfo = dgvLateFeeReport.HitTest(e.X, e.Y)
@@ -2678,7 +2673,8 @@ Public Class PASPFeeStatistics
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub LoadFeeData()
+
+    Private Sub LoadFeeData()
         Try
             Dim AIRSNumber As String
             Dim ComplianceDate As String = ""
@@ -2973,9 +2969,11 @@ Public Class PASPFeeStatistics
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub btnFeeFacilitySummary_Click(sender As Object, e As EventArgs) Handles btnFeeFacilitySummary.Click
         OpenFormFacilitySummary(txtFeeAIRSNumber.Text)
     End Sub
+
     Private Sub btnFeeViewComplianceEvent_Click(sender As Object, e As EventArgs) Handles btnFeeViewComplianceEvent.Click
         Try
             If txtFeeComplianceEvent.Text <> "" Then
@@ -2992,12 +2990,15 @@ Public Class PASPFeeStatistics
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub btnFeeViewPermittingEvent_Click(sender As Object, e As EventArgs) Handles btnFeeViewPermittingEvent.Click
         OpenFormPermitApplication(txtFeePermittingEvent.Text)
     End Sub
+
     Private Sub btnFeePendingPermittingEvent_Click(sender As Object, e As EventArgs) Handles btnFeePendingPermittingEvent.Click
         OpenFormPermitApplication(txtFeePendingPermit.Text)
     End Sub
+
     Private Sub btnViewData_Click(sender As Object, e As EventArgs) Handles btnViewData.Click
         Try
             If txtFeeAIRSNumber.Text <> "" Then
@@ -3007,9 +3008,11 @@ Public Class PASPFeeStatistics
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub btnExportFeeReport_Click(sender As Object, e As EventArgs) Handles btnExportFeeReport.Click
         dgvLateFeeReport.ExportToExcel(Me)
     End Sub
+
     Private Sub chbDepositDateSearch_CheckedChanged(sender As Object, e As EventArgs) Handles chbDepositDateSearch.CheckedChanged
         Try
             If chbDepositDateSearch.Checked = True Then
@@ -3104,8 +3107,10 @@ Public Class PASPFeeStatistics
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
 #Region "Fee Reports "
-    Sub LoadComboBoxesF()
+
+    Private Sub LoadComboBoxesF()
         With cboAirsNo
             .DataSource = GetSharedData(SharedTable.AllFeeFacilities)
             .DisplayMember = "AIRS Number"
@@ -3120,12 +3125,14 @@ Public Class PASPFeeStatistics
             .SelectedIndex = 0
         End With
     End Sub
-    Sub LoadComboBoxesD()
-        Dim query As String = "Select distinct substr(strairsnumber,5) as strairsnumber " &
+
+    Private Sub LoadComboBoxesD()
+        Dim query As String = "Select distinct substring(strairsnumber, 5, 8) as strairsnumber " &
             "from FS_Transactions order by strairsnumber"
         cboAirs.DataSource = DB.GetDataTable(query)
         cboAirs.DisplayMember = "strairsnumber"
     End Sub
+
     Private Sub tabReport_SelectedIndexChanged(sender As Object, e As EventArgs) Handles tabReport.SelectedIndexChanged
         If tabReport.SelectedTab Is TPDeposits AndAlso cboAirs.Items.Count = 0 Then
             LoadComboBoxesD()
@@ -3210,6 +3217,7 @@ Public Class PASPFeeStatistics
             Me.Cursor = Cursors.Default
         End Try
     End Sub
+
     Private Sub btnClassification_Click(sender As Object, e As EventArgs) Handles btnClassification.Click
         Try
             Me.Cursor = Cursors.WaitCursor
@@ -3501,6 +3509,7 @@ Public Class PASPFeeStatistics
         End Try
 
     End Sub
+
     Private Sub lblNSPS2_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblNSPS2.LinkClicked
         Try
             Me.Cursor = Cursors.WaitCursor
@@ -3529,6 +3538,7 @@ Public Class PASPFeeStatistics
         End Try
 
     End Sub
+
     Private Sub lblNSPS3_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblNSPS3.LinkClicked
         Try
             Me.Cursor = Cursors.WaitCursor
@@ -5185,7 +5195,6 @@ Public Class PASPFeeStatistics
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-
 
     Private Sub llbDetailFeeUniverse_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbDetailFeeUniverse.LinkClicked
         Try
@@ -8238,8 +8247,6 @@ Public Class PASPFeeStatistics
         End Try
     End Sub
 
-
-
     Private Sub btnExportFeeStats_Click(sender As Object, e As EventArgs) Handles btnExportFeeStats.Click
         dgvFeeStats.ExportToExcel(Me)
     End Sub
@@ -8824,28 +8831,6 @@ Public Class PASPFeeStatistics
             dgvDepositsAndPayments.Columns("AmountDue").DefaultCellStyle.Format = "c"
             dgvDepositsAndPayments.Columns("numFeeYear").HeaderText = "Year"
             dgvDepositsAndPayments.Columns("numFeeYear").DisplayIndex = 4
-
-            'dgvDepositsAndPayments.Columns("strClass").HeaderText = "Classification"
-            'dgvDepositsAndPayments.Columns("strClass").DisplayIndex = 5
-
-            'dgvDepositsAndPayments.Columns("numPart70Fee").HeaderText = "Part 70 Fee"
-            'dgvDepositsAndPayments.Columns("numPart70Fee").DisplayIndex = 6
-            'dgvDepositsAndPayments.Columns("numPart70Fee").DefaultCellStyle.Format = "c"
-            'dgvDepositsAndPayments.Columns("numSMFee").HeaderText = "SM Fee"
-            'dgvDepositsAndPayments.Columns("numSMFee").DisplayIndex = 7
-            'dgvDepositsAndPayments.Columns("numSMFee").DefaultCellStyle.Format = "c"
-            'dgvDepositsAndPayments.Columns("numNSPSFee").HeaderText = "NSPS Fee"
-            'dgvDepositsAndPayments.Columns("numNSPSFee").DisplayIndex = 8
-            'dgvDepositsAndPayments.Columns("numNSPSFee").DefaultCellStyle.Format = "c"
-            'dgvDepositsAndPayments.Columns("numTotalFee").HeaderText = "Fees Total"
-            'dgvDepositsAndPayments.Columns("numTotalFee").DisplayIndex = 9
-            'dgvDepositsAndPayments.Columns("numTotalFee").DefaultCellStyle.Format = "c"
-
-            'dgvDepositsAndPayments.Columns("numAdminFee").HeaderText = "Admin Fees"
-            'dgvDepositsAndPayments.Columns("numAdminFee").DisplayIndex = 10
-            'dgvDepositsAndPayments.Columns("numAdminFee").DefaultCellStyle.Format = "c"
-
-
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
