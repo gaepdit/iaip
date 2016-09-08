@@ -797,13 +797,7 @@ Public Class PASPFeeManagement
     End Sub
 
     Private Sub btnViewEnrolledFacilities_Click(sender As Object, e As EventArgs) Handles btnViewEnrolledFacilities.Click
-        Try
-
-            ViewEnrolledFacilities()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        ViewEnrolledFacilities()
     End Sub
 
     Private Sub btnFirstEnrollment_Click(sender As Object, e As EventArgs) Handles btnFirstEnrollment.Click
@@ -819,23 +813,19 @@ Public Class PASPFeeManagement
             SQL = "Select " &
             "count(*) as EnrollCheck " &
             "from FS_Admin " &
-            "where numFeeYear = '" & cboAvailableFeeYears.Text & "' " &
+            "where numFeeYear = @year " &
             "and strEnrolled = '1' " &
             "and ACTIVE = '1' "
+            Dim p As New SqlParameter("@year", cboAvailableFeeYears.Text)
+            Dim dr As DataRow = DB.GetDataRow(SQL, p)
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
+            If dr IsNot Nothing Then
                 If IsDBNull(dr.Item("EnrollCheck")) Then
                     EnrollCheck = "0"
                 Else
                     EnrollCheck = dr.Item("EnrollCheck")
                 End If
-            End While
-            dr.Close()
+            End If
             If EnrollCheck > 0 Then
                 MsgBox("NO FACILITIES ENROLLED." & vbCrLf & "There are already facilities enrolled for this fee year.",
                         MsgBoxStyle.Exclamation, Me.Text)
@@ -844,42 +834,30 @@ Public Class PASPFeeManagement
 
             SQL = "Update FS_Admin set " &
             "strEnrolled = '1', " &
-            "datEnrollment = sysdate, " &
-            "updateUser = 'IAIP||" & CurrentUser.AlphaName & "', " &
+            "datEnrollment = getdate(), " &
+            "updateUser = @user , " &
             "UpdateDateTime = getdate(), " &
              "numCurrentStatus = 3 " &
-            "where numFeeYear = '" & cboAvailableFeeYears.Text & "' " &
+            "where numFeeYear = @year " &
             "and ACTIVE = '1' "
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
+            Dim p2 As SqlParameter() = {
+                New SqlParameter("@user", "IAIP||" & CurrentUser.AlphaName),
+                New SqlParameter("@year", cboAvailableFeeYears.Text)
+            }
+            DB.RunCommand(SQL, p2)
 
             SQL = "Update FS_Admin set " &
             "datInitialEnrollment = datEnrollment " &
-            "where numFeeYear = '" & cboAvailableFeeYears.Text & "' " &
+            "where numFeeYear = @year " &
             "and datInitialEnrollment is null " &
             "and ACTIVE = '1' "
+            DB.RunCommand(SQL, p)
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            cmd = New SqlCommand("PD_FEE_DATA", CurrentConnection)
-            cmd.CommandType = CommandType.StoredProcedure
-
-            cmd.Parameters.Add(New SqlParameter("@FeeYear", SqlDbType.Decimal)).Value = cboAvailableFeeYears.Text
-            cmd.Parameters.Add(New SqlParameter("@AIRSNumber", SqlDbType.VarChar)).Value = ""
-
-            cmd.ExecuteNonQuery()
+            Dim p3 As SqlParameter() = {
+                    New SqlParameter("@FeeYear", SqlDbType.Decimal) With {.Value = cboAvailableFeeYears.Text},
+                    New SqlParameter("@AIRSNumber", "")
+                }
+            DB.SPRunCommand("PD_FEE_DATA", p3)
 
             ViewEnrolledFacilities()
 
@@ -921,16 +899,15 @@ Public Class PASPFeeManagement
             "strEnrolled = '0', " &
             "datEnrollment = '', " &
             "datInitialEnrollment = '', " &
-            "updateUser = 'IAIP||" & CurrentUser.AlphaName & "', " &
+            "updateUser = @user, " &
             "UpdateDateTime = getdate() " &
-            "where numFeeYear = '" & cboAvailableFeeYears.Text & "' " &
+            "where numFeeYear = @year " &
             "and ACTIVE = '1' "
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
+            Dim p2 As SqlParameter() = {
+                New SqlParameter("@user", "IAIP||" & CurrentUser.AlphaName),
+                New SqlParameter("@year", cboAvailableFeeYears.Text)
+            }
+            DB.RunCommand(SQL, p2)
 
             ViewEnrolledFacilities()
 
@@ -943,49 +920,41 @@ Public Class PASPFeeManagement
 
     Private Sub ViewEnrolledFacilities()
         Try
-            Dim SQL As String
+            Dim SQL As String = "Select " &
+                "substring(fS_Admin.strAIRSnumber, 5, 8) as AIRSNumber,  " &
+                "strFacilityname,  " &
+                "strFacilityAddress1, strFacilityCity,  " &
+                "strFacilityZipCode,  " &
+                "strFirstName, strLastName, " &
+                "strContactCoName, strContactAddress1,  " &
+                "strContactCity, strcontactState,  " &
+                "strContactZipCode, strGECOUserEmail,  " &
+                "case " &
+                "when strOperationalStatus = '1' then 'Yes' " &
+                "when strOperationalStatus = '0' then 'No' " &
+                "else 'No' " &
+                "end strOperationalStatus, " &
+                "strClass,  " &
+                "case " &
+                "when strNSPS = '1' then 'Yes' " &
+                "when strNSPS = '0' then 'No' " &
+                "else 'No' " &
+                "end strNSPS, " &
+                "case " &
+                "when strPart70 = '1' then 'Yes' " &
+                "when strPart70 = '0' then 'No' " &
+                "else 'No' " &
+                "end strPart70, " &
+                "datShutdowndate  " &
+                "From FS_Admin inner join FS_MailOut  " &
+                "on FS_Admin.strAIRSnumber = FS_MailOut.strAIRSnumber  " &
+                "and FS_Admin.numFeeYear = FS_MailOut.numFeeYear  " &
+                "where FS_Admin.numFeeYear = @year " &
+                "and (strEnrolled = '1')  " &
+                "AND FS_Admin.Active = '1' "
+            Dim p As New SqlParameter("@year", cboAvailableFeeYears.Text)
 
-            SQL = "Select " &
-            "substr(fS_Admin.strAIRSnumber, 5) as AIRSNumber,  " &
-            "strFacilityname,  " &
-            "strFacilityAddress1, strFacilityCity,  " &
-            "strFacilityZipCode,  " &
-            "strFirstName, strLastName, " &
-            "strContactCoName, strContactAddress1,  " &
-            "strContactCity, strcontactState,  " &
-            "strContactZipCode, strGECOUserEmail,  " &
-            "case " &
-            "when strOperationalStatus = '1' then 'Yes' " &
-            "when strOperationalStatus = '0' then 'No' " &
-            "else 'No' " &
-            "end strOperationalStatus, " &
-            "strClass,  " &
-            "case " &
-            "when strNSPS = '1' then 'Yes' " &
-            "when strNSPS = '0' then 'No' " &
-            "else 'No' " &
-            "end strNSPS, " &
-            "case " &
-            "when strPart70 = '1' then 'Yes' " &
-            "when strPart70 = '0' then 'No' " &
-            "else 'No' " &
-            "end strPart70, " &
-            "datShutdowndate  " &
-            "From FS_Admin, FS_MailOut  " &
-            "where FS_Admin.strAIRSnumber = FS_MailOut.strAIRSnumber  " &
-            "and FS_Admin.numFeeYear = FS_MailOut.numFeeYear  " &
-            "and  FS_Admin.numFeeYear = '" & cboAvailableFeeYears.Text & "'  " &
-            "and (strEnrolled = '1')  " &
-            "AND FS_Admin.Active = '1' "
-
-            ds = New DataSet
-            da = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            da.Fill(ds, "MailOutList")
-            dgvFeeManagementLists.DataSource = ds
-            dgvFeeManagementLists.DataMember = "MailOutList"
+            dgvFeeManagementLists.DataSource = DB.GetDataTable(SQL, p)
 
             dgvFeeManagementLists.RowHeadersVisible = False
             dgvFeeManagementLists.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -1058,61 +1027,34 @@ Public Class PASPFeeManagement
             End If
 
             SQL = "select count(*) as ContactTotals " &
-            "from FS_MailOut " &
-            "where numfeeyear = '" & cboAvailableFeeYears.Text & "' "
-
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
+                "from FS_MailOut " &
+                "where numfeeyear = @year "
+            Dim p As New SqlParameter("@year", cboAvailableFeeYears.Text)
+            Dim dr As DataRow = DB.GetDataRow(SQL, p)
+            If dr IsNot Nothing Then
                 If IsDBNull(dr.Item("ContactTotals")) Then
                     temp = "0"
                 Else
                     temp = dr.Item("ContactTotals")
                 End If
-            End While
-            dr.Close()
+            End If
 
             If temp < 1 Then
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                cmd = New SqlCommand("PD_FEE_MAILOUT", CurrentConnection)
-                cmd.CommandType = CommandType.StoredProcedure
-
-                cmd.Parameters.Add(New SqlParameter("@FeeYear", SqlDbType.Decimal)).Value = cboAvailableFeeYears.Text
-                cmd.Parameters.Add(New SqlParameter("@AIRSNumber", SqlDbType.VarChar)).Value = ""
-
-                cmd.ExecuteNonQuery()
-
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                cmd = New SqlCommand("PD_FEE_DATA", CurrentConnection)
-                cmd.CommandType = CommandType.StoredProcedure
-
-                cmd.Parameters.Add(New SqlParameter("@FeeYear", SqlDbType.Decimal)).Value = cboAvailableFeeYears.Text
-                cmd.Parameters.Add(New SqlParameter("@AIRSNumber", SqlDbType.VarChar)).Value = ""
-
-                cmd.ExecuteNonQuery()
+                Dim p2 As SqlParameter() = {
+                    New SqlParameter("@FeeYear", SqlDbType.Decimal) With {.Value = cboAvailableFeeYears.Text},
+                    New SqlParameter("@AIRSNumber", "")
+                }
+                DB.SPRunCommand("PD_FEE_MAILOUT", p2)
+                DB.SPRunCommand("PD_FEE_DATA", p2)
 
                 SQL = "Update FS_Admin set " &
-                "numCurrentStatus = 2, " &
-                "strInitialMailout = '1'  " &
-                "where numFeeYear = '" & cboAvailableFeeYears.Text & "' " &
-                "and strInitialMailout ='0' " &
-                "and strMailoutSent <> '0' " &
-                "and numCurrentStatus < 5 "
-
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                dr.Close()
-
+                    "numCurrentStatus = 2, " &
+                    "strInitialMailout = '1'  " &
+                    "where numFeeYear = @year " &
+                    "and strInitialMailout ='0' " &
+                    "and strMailoutSent <> '0' " &
+                    "and numCurrentStatus < 5 "
+                DB.RunCommand(SQL, p)
             End If
 
             ViewMailOut()
@@ -1124,48 +1066,40 @@ Public Class PASPFeeManagement
 
     Private Sub ViewMailOut()
         Try
-            Dim SQL As String
+            Dim SQL As String = "Select " &
+                "substring(fS_Admin.strAIRSnumber, 5, 8) as AIRSNumber,  " &
+                "strFacilityname,  " &
+                "strFacilityAddress1, strFacilityCity,  " &
+                "strFacilityZipCode,  " &
+                "strFirstName, strLastName, " &
+                "strContactCoName, strContactAddress1,  " &
+                "strContactCity, strcontactState,  " &
+                "strContactZipCode, strGECOUserEmail,  " &
+                "case " &
+                "when strOperationalStatus = '1' then 'Yes' " &
+                "when strOperationalStatus = 'X' then 'No' " &
+                "else 'Yes' " &
+                "end strOperationalStatus, " &
+                "strClass, " &
+                "case " &
+                "when strNSPS = '1' then 'Yes' " &
+                "when strNSPS = '0' then 'No' " &
+                "else 'No' " &
+                "end strNSPS, " &
+                "case " &
+                "when strPart70 = '1' then 'Yes'" &
+                "when strPart70 = '0' then 'No' " &
+                "else 'No' " &
+                "end strPart70, " &
+                "datShutdowndate  " &
+                "From FS_Admin inner join FS_MailOut " &
+                "on FS_Admin.strAIRSnumber = FS_MailOut.strAIRSnumber " &
+                "and FS_Admin.numFeeYear = FS_MailOut.numFeeYear  " &
+                "where FS_Admin.numFeeYear = @year " &
+                "AND FS_Admin.Active = '1' "
+            Dim p As New SqlParameter("@year", cboAvailableFeeYears.Text)
 
-            SQL = "Select " &
-            "substr(fS_Admin.strAIRSnumber, 5) as AIRSNumber,  " &
-            "strFacilityname,  " &
-            "strFacilityAddress1, strFacilityCity,  " &
-            "strFacilityZipCode,  " &
-            "strFirstName, strLastName, " &
-            "strContactCoName, strContactAddress1,  " &
-            "strContactCity, strcontactState,  " &
-            "strContactZipCode, strGECOUserEmail,  " &
-            "case " &
-            "when strOperationalStatus = '1' then 'Yes' " &
-            "when strOperationalStatus = 'X' then 'No' " &
-            "else 'Yes' " &
-            "end strOperationalStatus, " &
-            "strClass, " &
-            "case " &
-            "when strNSPS = '1' then 'Yes' " &
-            "when strNSPS = '0' then 'No' " &
-            "else 'No' " &
-            "end strNSPS, " &
-            "case " &
-            "when strPart70 = '1' then 'Yes'" &
-            "when strPart70 = '0' then 'No' " &
-            "else 'No' " &
-            "end strPart70, " &
-            "datShutdowndate  " &
-            "From FS_Admin, FS_MailOut   " &
-            "where FS_Admin.strAIRSnumber = FS_MailOut.strAIRSnumber  " &
-            "and FS_Admin.numFeeYear = FS_MailOut.numFeeYear  " &
-            "and  FS_Admin.numFeeYear = '" & cboAvailableFeeYears.Text & "'  " &
-            "AND FS_Admin.Active = '1' "
-
-            ds = New DataSet
-            da = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            da.Fill(ds, "MailOutList")
-            dgvFeeManagementLists.DataSource = ds
-            dgvFeeManagementLists.DataMember = "MailOutList"
+            dgvFeeManagementLists.DataSource = DB.GetDataTable(SQL, p)
 
             dgvFeeManagementLists.RowHeadersVisible = False
             dgvFeeManagementLists.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -1247,19 +1181,15 @@ Public Class PASPFeeManagement
             Dim ContactCity As String = ""
             Dim ContactState As String = ""
             Dim ContactZipCode As String = ""
-            Dim SQL As String
 
-            SQL = "Select " &
-            "strAIRSNumber " &
-            "from FS_Admin " &
-            "where numFeeYear = '" & cboAvailableFeeYears.Text & "' "
+            Dim SQL As String = "Select " &
+                "strAIRSNumber " &
+                "from FS_Admin " &
+                "where numFeeYear = @year "
+            Dim p As New SqlParameter("@year", cboAvailableFeeYears.Text)
+            Dim dr As DataRow = DB.GetDataRow(SQL, p)
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
+            If dr IsNot Nothing Then
                 If IsDBNull(dr.Item("strAIRSNumber")) Then
                     AIRSNumber = ""
                 Else
@@ -1267,16 +1197,13 @@ Public Class PASPFeeManagement
                 End If
                 If AIRSNumber <> "" Then
                     SQL = "Select * " &
-                    "from APBContactInformation " &
-                    "where strAIRSNumber = '" & AIRSNumber & "' " &
-                    "and strKey = '40' "
+                        "from APBContactInformation " &
+                        "where strAIRSNumber = @airs " &
+                        "and strKey = '40' "
+                    Dim p2 As New SqlParameter("@airs", AIRSNumber)
+                    Dim dr2 As DataRow = DB.GetDataRow(SQL, p2)
 
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr2 = cmd.ExecuteReader
-                    While dr2.Read
+                    If dr2 IsNot Nothing Then
                         If IsDBNull(dr2.Item("strContactFirstname")) Then
                             ContactFirstName = ""
                         Else
@@ -1327,25 +1254,24 @@ Public Class PASPFeeManagement
                         Else
                             ContactZipCode = dr2.Item("strContactZipCode")
                         End If
-                    End While
-                    dr2.Close()
+                    End If
 
                     SQL = "Update FS_MailOut set " &
-                    "strFirstName = @ContactFirstName, " &
-                    "strLastName = @ContactLastName, " &
-                    "strPrefix = @ContactPrefix,  " &
-                    "strTitle = @ContactSuffix, " &
-                    "strContactCoName = @ContactCompanyName, " &
-                    "strContactAddress1 = @ContactAddress1, " &
-                    "strContactAddress2 = @ContactAddress2, " &
-                    "strContactCity = @ContactCity, " &
-                    "strContactState = @ContactState, " &
-                    "strcontactZipCode = @ContactZipCode " &
-                    "where strAIRSNumber = @AIRSNumber " &
-                    "and numFeeYear = @AvailableFeeYears "
+                        "strFirstName = @ContactFirstName, " &
+                        "strLastName = @ContactLastName, " &
+                        "strPrefix = @ContactPrefix,  " &
+                        "strTitle = @ContactSuffix, " &
+                        "strContactCoName = @ContactCompanyName, " &
+                        "strContactAddress1 = @ContactAddress1, " &
+                        "strContactAddress2 = @ContactAddress2, " &
+                        "strContactCity = @ContactCity, " &
+                        "strContactState = @ContactState, " &
+                        "strcontactZipCode = @ContactZipCode " &
+                        "where strAIRSNumber = @AIRSNumber " &
+                        "and numFeeYear = @AvailableFeeYears "
 
                     Dim parameters As SqlParameter()
-                    parameters = New SqlParameter() {
+                        parameters = New SqlParameter() {
                         New SqlParameter("@ContactFirstName", ContactFirstName),
                         New SqlParameter("@ContactLastName", ContactLastName),
                         New SqlParameter("@ContactPrefix", ContactPrefix),
@@ -1359,11 +1285,10 @@ Public Class PASPFeeManagement
                         New SqlParameter("@AIRSNumber", AIRSNumber),
                         New SqlParameter("@AvailableFeeYears", cboAvailableFeeYears.Text)
                     }
-                    DB.RunCommand(SQL, parameters)
+                        DB.RunCommand(SQL, parameters)
 
+                    End If
                 End If
-            End While
-            dr.Close()
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -1414,52 +1339,44 @@ Public Class PASPFeeManagement
 
     Private Sub btnViewFacilitiesSubjectToFees_Click(sender As Object, e As EventArgs) Handles btnViewFacilitiesSubjectToFees.Click
         Try
-            Dim SQL As String
+            Dim SQL As String = "Select " &
+                "substring(fS_Admin.strAIRSnumber, 5, 8) as AIRSNumber,  " &
+                "strFacilityname,  " &
+                "strFacilityStreet1, strFacilityCity,  " &
+                "strFacilityZipCode,  " &
+                "strOperationalStatus, strClass,  " &
+                "case " &
+                "when substring(strAIRProgramCodes, 8, 1) = '1' then 'Yes' " &
+                "else 'No' " &
+                "end strNSPS, " &
+                "case " &
+                "when substring(strAIRProgramCodes, 13, 1) = '1' then 'Yes' " &
+                "else 'No' " &
+                "end strPArt70, " &
+                "case " &
+                "when strOperationalStatus = 'X' then datShutDownDate " &
+                "end datShutdowndate,  " &
+                "case " &
+                "when strEnrolled = '1' then 'Yes' " &
+                "else 'No' " &
+                "end strEnrolled, " &
+                "case " &
+                "when strInitialMailout = '1' then 'Yes' " &
+                "else 'No' " &
+                "end strInitialMailout, " &
+                "case " &
+                "when strMailoutSent = '1' then 'Yes' " &
+                "else 'No' " &
+                "end strMailoutSent " &
+                "From FS_Admin inner join APBFacilityInformation " &
+                "on FS_Admin.strAIRSnumber = APBFacilityInformation.strAIRSnumber " &
+                "inner join APBHeaderData " &
+                "on FS_admin.strAIRSNumber = APBheaderData.strAIRSNumber " &
+                "where FS_Admin.numFeeYear = @year " &
+                "AND FS_Admin.Active = '1' "
+            Dim p As New SqlParameter("@year", cboAvailableFeeYears.Text)
 
-            SQL = "Select " &
-          "substr(fS_Admin.strAIRSnumber, 5) as AIRSNumber,  " &
-          "strFacilityname,  " &
-          "strFacilityStreet1, strFacilityCity,  " &
-          "strFacilityZipCode,  " &
-          "strOperationalStatus, strClass,  " &
-          "case " &
-          "when substr(strAIRProgramCodes, 8, 1) = '1' then 'Yes' " &
-          "else 'No' " &
-          "end strNSPS, " &
-          "case " &
-          "when substr(strAIRProgramCodes, 13, 1) = '1' then 'Yes' " &
-          "else 'No' " &
-          "end strPArt70, " &
-          "case " &
-          "when strOperationalStatus = 'X' then datShutDownDate " &
-          "end datShutdowndate,  " &
-          "case " &
-          "when strEnrolled = '1' then 'Yes' " &
-          "else 'No' " &
-          "end strEnrolled, " &
-          "case " &
-          "when strInitialMailout = '1' then 'Yes' " &
-          "else 'No' " &
-          "end strInitialMailout, " &
-          "case " &
-          "when strMailoutSent = '1' then 'Yes' " &
-          "else 'No' " &
-          "end strMailoutSent " &
-          "From FS_Admin, APBFacilityInformation,  " &
-          "APBHeaderData " &
-          "where FS_Admin.strAIRSnumber = APBFacilityInformation.strAIRSnumber  " &
-          "and FS_admin.strAIRSNumber = APBheaderData.strAIRSNumber " &
-          "and  FS_Admin.numFeeYear = '" & cboAvailableFeeYears.Text & "'  " &
-          "AND FS_Admin.Active = '1' "
-
-            ds = New DataSet
-            da = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            da.Fill(ds, "MailOutList")
-            dgvFeeManagementLists.DataSource = ds
-            dgvFeeManagementLists.DataMember = "MailOutList"
+            dgvFeeManagementLists.DataSource = DB.GetDataTable(SQL, p)
 
             dgvFeeManagementLists.RowHeadersVisible = False
             dgvFeeManagementLists.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -1519,24 +1436,20 @@ Public Class PASPFeeManagement
         End If
 
         Try
-            Dim SQL As String
-
-            SQL = "Update FS_Admin set " &
-            " datMailoutSent = '" & dtpDateMailoutSent.Text & "', " &
+            Dim SQL As String = "Update FS_Admin set " &
+            " datMailoutSent = @date, " &
             " numcurrentstatus = 4, " &
             " STRINITIALMAILOUT = '1' , " &
             " strMailOutSent = '1' " &
-            " where numFeeYear = '" & cboAvailableFeeYears.Text & "' " &
+            " where numFeeYear = @year " &
             " and datMailoutSent is null " &
             " and strEnrolled = '1' " &
             " and active = '1' "
-
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
+            Dim p As SqlParameter() = {
+                New SqlParameter("@date", dtpDateMailoutSent.Value),
+                New SqlParameter("@year", cboAvailableFeeYears.Text)
+            }
+            DB.RunCommand(SQL, p)
 
             MsgBox("Mailout Sent date set.", MsgBoxStyle.Information, Me.Text)
 
@@ -2454,7 +2367,7 @@ Public Class PASPFeeManagement
     End Sub
 
     Private Sub btnOpenFeesLog_Click(sender As Object, e As EventArgs) Handles btnOpenFeesLog.Click
-        Dim parameters As New Generic.Dictionary(Of BaseForm.FormParameter, String)
+        Dim parameters As New Dictionary(Of FormParameter, String)
         If Apb.ApbFacilityId.IsValidAirsNumberFormat(mtbCheckAIRSNumber.Text) Then
             parameters(FormParameter.AirsNumber) = mtbCheckAIRSNumber.Text
         End If
@@ -2553,8 +2466,8 @@ Public Class PASPFeeManagement
             "'" & AdminFee & "', " &
             "'" & AdminApplicable & "', '" & Replace(Comments, "'", "''") & "', " &
             "'1', '" & CurrentUser.UserID & "', " &
-            "(to_char(sysdate, 'DD-mon-YY HH12:MI:SS')), " &
-            "(to_char(sysdate, 'DD-mon-YY HH12:MI:SS')), " &
+            "getdate(), " &
+            "getdate(), " &
             "'" & FirstQrtDue & "', '" & SecondQrtDue & "', " &
             "'" & ThirdQrtDue & "', '" & FourthQrtDue & "', " &
             "'', '" & AAThres & "', '" & NAThres & "') "
