@@ -14,8 +14,6 @@ Public Class PASPFeeManagement
             LoadSelectedNSPSExemptions()
 
             FormatWebUsers()
-            TabControl3.TabPages.Remove(TPActivate)
-            TabControl3.TabPages.Remove(TPFeeFacility)
 
             btnGenerateMailoutList.Enabled = False
             btnFirstEnrollment.Enabled = False
@@ -1271,7 +1269,7 @@ Public Class PASPFeeManagement
                         "and numFeeYear = @AvailableFeeYears "
 
                     Dim parameters As SqlParameter()
-                        parameters = New SqlParameter() {
+                    parameters = New SqlParameter() {
                         New SqlParameter("@ContactFirstName", ContactFirstName),
                         New SqlParameter("@ContactLastName", ContactLastName),
                         New SqlParameter("@ContactPrefix", ContactPrefix),
@@ -1285,10 +1283,10 @@ Public Class PASPFeeManagement
                         New SqlParameter("@AIRSNumber", AIRSNumber),
                         New SqlParameter("@AvailableFeeYears", cboAvailableFeeYears.Text)
                     }
-                        DB.RunCommand(SQL, parameters)
+                    DB.RunCommand(SQL, parameters)
 
-                    End If
                 End If
+            End If
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -1538,11 +1536,7 @@ Public Class PASPFeeManagement
     End Sub
 
     Private Sub llbViewUserData_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewUserData.LinkClicked
-        Try
-            ViewFacilitySpecificUsers()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        ViewFacilitySpecificUsers()
     End Sub
 
     Private Sub ViewFacilitySpecificUsers()
@@ -1557,20 +1551,17 @@ Public Class PASPFeeManagement
 
                 SQL = "Select strFacilityName " &
                 "from APBFacilityInformation " &
-                "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' "
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                While dr.Read
-                    If IsDBNull(dr.Item("strFacilityName")) Then
+                "where strAIRSNumber = @airs "
+                Dim p As New SqlParameter("@airs", "0413" & mtbAIRSNumber.Text)
+                Dim dr2 As DataRow = DB.GetDataRow(SQL, p)
+
+                If dr2 IsNot Nothing Then
+                    If IsDBNull(dr2.Item("strFacilityName")) Then
                         lblFaciltyName.Text = " - "
                     Else
-                        lblFaciltyName.Text = Apb.Facilities.Facility.SanitizeFacilityNameForDb(dr.Item("strFacilityName"))
+                        lblFaciltyName.Text = Apb.Facilities.Facility.SanitizeFacilityNameForDb(dr2.Item("strFacilityName"))
                     End If
-                End While
-                dr.Close()
+                End If
 
                 SQL = "SELECT " &
                 "OlapUserAccess.NumUserID as ID, OlapUserLogin.numuserid, " &
@@ -1591,19 +1582,13 @@ Public Class PASPFeeManagement
                 "When intESAccess = 0 Then 'False' " &
                 "When intESAccess = 1 Then 'True' " &
                 "End as intESAccess " &
-                "FROM OlapUserAccess, OlapUserLogin " &
-                "WHERE OLAPUserAccess.NumUserId = OlapUserLogin.NumUserID " &
-                "AND OlapUserAccess.strAirsNumber = '0413" & mtbAIRSNumber.Text & "' order by email"
+                "FROM OlapUserAccess inner join OlapUserLogin " &
+                "on OLAPUserAccess.NumUserId = OlapUserLogin.NumUserID " &
+                "where OlapUserAccess.strAirsNumber = @airs order by email"
 
                 dgvUsers.Rows.Clear()
-                ds = New DataSet
-
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                While dr.Read
+                Dim dt As DataTable = DB.GetDataTable(SQL, p)
+                For Each dr As DataRow In dt.Rows
                     dgvRow = New DataGridViewRow
                     dgvRow.CreateCells(dgvUsers)
                     If IsDBNull(dr.Item("ID")) Then
@@ -1643,16 +1628,9 @@ Public Class PASPFeeManagement
                         dgvRow.Cells(6).Value = dr.Item("intESAccess")
                     End If
                     dgvUsers.Rows.Add(dgvRow)
-                End While
-                dr.Close()
+                Next
 
-                da = New SqlDataAdapter(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                da.Fill(ds, "FacilityUsers")
-
-                cboUsers.DataSource = ds.Tables("FacilityUsers")
+                cboUsers.DataSource = dt
                 cboUsers.DisplayMember = "Email"
                 cboUsers.ValueMember = "ID"
                 cboUsers.Text = ""
@@ -1666,29 +1644,25 @@ Public Class PASPFeeManagement
     Private Sub btnAddUser_Click(sender As Object, e As EventArgs) Handles btnAddUser.Click
         Try
             Dim userID As Integer
-            Dim SQL As String
-
-            SQL = "Select numUserId " &
+            Dim SQL As String = "Select numUserId " &
             "from olapuserlogin " &
-            "where struseremail = '" & Replace(UCase(txtEmail.Text), "'", "''") & "' "
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            recExist = dr.Read
+            "where struseremail = @email "
+            Dim p As New SqlParameter("@email", txtEmail.Text)
+            Dim dr As DataRow = DB.GetDataRow(SQL, p)
 
-            If recExist = True Then 'Email address is registered
+            If dr IsNot Nothing Then 'Email address is registered
                 userID = dr.Item("numUserId")
-                Dim InsertString As String = "Insert into OlapUserAccess " &
-                "(numUserId, strAirsNumber, strFacilityName) values( " &
-                "'" & userID & "', '0413" & mtbAIRSNumber.Text & "', '" & Replace(lblFaciltyName.Text, "'", "''") & "') "
 
-                Dim cmd1 As New SqlCommand(InsertString, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                cmd1.ExecuteNonQuery()
+                Dim InsertString As String = "Insert into OlapUserAccess " &
+                "(numUserId, strAirsNumber, strFacilityName) values " &
+                "(@numUserId, @strAirsNumber, @strFacilityName) "
+
+                Dim p2 As SqlParameter() = {
+                    New SqlParameter("@numUserId", userID),
+                    New SqlParameter("@strAirsNumber", "0413" & mtbAIRSNumber.Text),
+                    New SqlParameter("@strFacilityName", lblFaciltyName.Text)
+                }
+                DB.RunCommand(InsertString, p2)
 
                 ViewFacilitySpecificUsers()
 
@@ -1697,8 +1671,6 @@ Public Class PASPFeeManagement
                 MsgBox("This Email Address is not registered", MsgBoxStyle.OkOnly, "Insert Failed!")
             End If
 
-            If dr.IsClosed = False Then dr.Close()
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -1706,17 +1678,14 @@ Public Class PASPFeeManagement
 
     Private Sub btnDelete_Click(sender As Object, e As EventArgs) Handles btnDelete.Click
         Try
-            Dim SQL As String
-
-            SQL = "DELETE OlapUserAccess " &
-            "WHERE numUserID = '" & cboUsers.SelectedValue & "' " &
-            "and strAirsNumber = '0413" & mtbAIRSNumber.Text & "' "
-
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            cmd.ExecuteNonQuery()
+            Dim SQL As String = "DELETE OlapUserAccess " &
+            "WHERE numUserID = @user " &
+            "and strAirsNumber = @airs "
+            Dim p As SqlParameter() = {
+                New SqlParameter("@user", cboUsers.SelectedValue),
+                New SqlParameter("@airs", "0413" & mtbAIRSNumber.Text)
+            }
+            DB.RunCommand(SQL, p)
 
             ViewFacilitySpecificUsers()
             MsgBox("The User has been removed for this facility", MsgBoxStyle.Information, "User Removed!")
@@ -1757,18 +1726,21 @@ Public Class PASPFeeManagement
                 End If
 
                 SQL = "UPDATE OlapUserAccess " &
-                "SET intadminaccess = '" & adminaccess & "', " &
-                "intFeeAccess = '" & feeaccess & "', " &
-                "intEIAccess = '" & eiaccess & "', " &
-                "intESAccess = '" & esaccess & "' " &
-                "WHERE numUserID = '" & dgvUsers(1, i).Value & "' " &
-                "and strAirsNumber = '0413" & mtbAIRSNumber.Text & "' "
-
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                cmd.ExecuteNonQuery()
+                    "SET intadminaccess = @intadminaccess, " &
+                    "intFeeAccess = @intFeeAccess, " &
+                    "intEIAccess = @intEIAccess, " &
+                    "intESAccess = @intESAccess " &
+                    "WHERE numUserID = @numUserID " &
+                    "and strAirsNumber = @strAirsNumber "
+                Dim p As SqlParameter() = {
+                    New SqlParameter("@intadminaccess", adminaccess),
+                    New SqlParameter("@intFeeAccess", feeaccess),
+                    New SqlParameter("@intEIAccess", eiaccess),
+                    New SqlParameter("@intESAccess", esaccess),
+                    New SqlParameter("@numUserID", dgvUsers(1, i).Value),
+                    New SqlParameter("@strAirsNumber", "0413" & mtbAIRSNumber.Text)
+                }
+                DB.RunCommand(SQL, p)
             Next
 
             ViewFacilitySpecificUsers()
@@ -1780,20 +1752,13 @@ Public Class PASPFeeManagement
     End Sub
 
     Private Sub lblViewEmailData_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblViewEmailData.LinkClicked
-        Try
-            LoadUserInfo(txtWebUserEmail.Text)
-            LoadUserFacilityInfo(txtWebUserEmail.Text)
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        LoadUserInfo(txtWebUserEmail.Text)
+        LoadUserFacilityInfo(txtWebUserEmail.Text)
     End Sub
 
     Private Sub LoadUserInfo(UserData As String)
         Try
-            Dim SQL As String
-
-            SQL = "Select " &
+            Dim SQL As String = "Select " &
             "OLAPUserProfile.numUserID, " &
             "strfirstname, strlastname, " &
             "strtitle, strcompanyname, " &
@@ -1802,18 +1767,13 @@ Public Class PASPFeeManagement
             "strphonenumber, strfaxnumber, " &
             "datLastLogIn, strConfirm, " &
             "strUserEmail " &
-            "from OlapUserProfile, OLAPUserLogIn " &
-            "where OLAPUserProfile.numUserID = OLAPUserLogIn.numuserid " &
-            "and strUserEmail = upper('" & UserData & "') "
+            "from OlapUserProfile inner join OLAPUserLogIn " &
+            "on OLAPUserProfile.numUserID = OLAPUserLogIn.numuserid " &
+            "where strUserEmail = @email "
+            Dim p As New SqlParameter("@email", UserData)
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            dr = cmd.ExecuteReader
-            recExist = dr.Read
-            If recExist = True Then
+            Dim dr As DataRow = DB.GetDataRow(SQL, p)
+            If dr IsNot Nothing Then
                 If IsDBNull(dr.Item("numUserID")) Then
                     txtWebUserID.Clear()
                 Else
@@ -1931,25 +1891,21 @@ Public Class PASPFeeManagement
             Dim dgvRow As New DataGridViewRow
             Dim SQL As String
 
-            SQL = "SELECT substr(strairsnumber, 5) as strAIRSNumber, strfacilityname, " &
+            SQL = "SELECT substring(strairsnumber, 5, 8) as strAIRSNumber, strfacilityname, " &
              "Case When intAdminAccess = 0 Then 'False' When intAdminAccess = 1 Then 'True' End as intAdminAccess, " &
              "Case When intFeeAccess = 0 Then 'False' When intFeeAccess = 1 Then 'True' End as intFeeAccess, " &
              "Case When intEIAccess = 0 Then 'False' When intEIAccess = 1 Then 'True' End as intEIAccess, " &
              "Case When intESAccess = 0 Then 'False' When intESAccess = 1 Then 'True' End as intESAccess " &
              "FROM OlapUserAccess, OLAPUserLogIn  " &
              "WHERE OlapUserAccess.numUserId = OLAPUserLogIn.numUserId " &
-             "and  strUserEmail = upper('" & EmailLoc & "') " &
+             "and  strUserEmail = @email " &
              "order by strfacilityname"
+            Dim p As New SqlParameter("@email", EmailLoc)
+            Dim dt As DataTable = DB.GetDataTable(SQL, p)
 
             dgvUserFacilities.Rows.Clear()
-            ds = New DataSet
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
+            For Each dr As DataRow In dt.Rows
                 dgvRow = New DataGridViewRow
                 dgvRow.CreateCells(dgvUserFacilities)
                 If IsDBNull(dr.Item("strAIRSNumber")) Then
@@ -1985,20 +1941,12 @@ Public Class PASPFeeManagement
                     dgvRow.Cells(5).Value = dr.Item("intESAccess")
                 End If
                 dgvUserFacilities.Rows.Add(dgvRow)
-            End While
-            dr.Close()
+            Next
 
-            da = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            da.Fill(ds, "FacilityUsers")
-
-            cboFacilityToDelete.DataSource = ds.Tables("FacilityUsers")
+            cboFacilityToDelete.DataSource = dt
             cboFacilityToDelete.DisplayMember = "strfacilityname"
             cboFacilityToDelete.ValueMember = "strairsnumber"
             cboFacilityToDelete.Text = ""
-
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -2044,48 +1992,55 @@ Public Class PASPFeeManagement
 
             If txtWebUserID.Text <> "" Then
                 If txtEditFirstName.Text <> "" Then
-                    FirstName = " strFirstName = '" & Replace(txtEditFirstName.Text, "'", "''") & "', "
+                    FirstName = " strFirstName = @strFirstName, "
                 End If
                 If txtEditLastName.Text <> "" Then
-                    LastName = " strLastName = '" & Replace(txtEditLastName.Text, "'", "''") & "', "
+                    LastName = " strLastName = @strLastName, "
                 End If
                 If txtEditTitle.Text <> "" Then
-                    Title = " strTitle = '" & Replace(txtEditTitle.Text, "'", "''") & "', "
+                    Title = " strTitle = @strTitle, "
                 End If
                 If txtEditCompany.Text <> "" Then
-                    Company = " strCompanyName = '" & Replace(txtEditCompany.Text, "'", "''") & "', "
+                    Company = " strCompanyName = @strCompanyName, "
                 End If
                 If txtEditAddress.Text <> "" Then
-                    Address = " strAddress = '" & Replace(txtEditAddress.Text, "'", "''") & "', "
+                    Address = " strAddress = @strAddress, "
                 End If
                 If txtEditCity.Text <> "" Then
-                    City = " strCity = '" & Replace(txtEditCity.Text, "'", "''") & "', "
+                    City = " strCity = @strCity, "
                 End If
                 If mtbEditState.Text <> "" Then
-                    State = " strState = '" & Replace(mtbEditState.Text, "'", "''") & "', "
+                    State = " strState = @strState, "
                 End If
                 If mtbEditZipCode.Text <> "" Then
-                    Zip = " strZip = '" & Replace(mtbEditZipCode.Text, "'", "''") & "', "
+                    Zip = " strZip = @strZip, "
                 End If
                 If mtbEditPhoneNumber.Text <> "" Then
-                    PhoneNumber = " strPhoneNumber = '" & Replace(mtbEditPhoneNumber.Text, "'", "''") & "', "
+                    PhoneNumber = " strPhoneNumber = @strPhoneNumber, "
                 End If
                 If mtbEditFaxNumber.Text <> "" Then
-                    FaxNumber = " strFaxNumber = '" & Replace(mtbEditFaxNumber.Text, "'", "''") & "', "
+                    FaxNumber = " strFaxNumber = @strFaxNumber, "
                 End If
 
                 SQL = "Update OLAPUserProfile set " &
-                FirstName & LastName & Title & Company & Address &
-                City & State & Zip & PhoneNumber & FaxNumber &
-                "numUserID = '" & txtWebUserID.Text & "' " &
-                "where numUserID = '" & txtWebUserID.Text & "' "
-
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                dr.Close()
+                    FirstName & LastName & Title & Company & Address &
+                    City & State & Zip & PhoneNumber & FaxNumber &
+                    "numUserID = @user " &
+                    "where numUserID = @user "
+                Dim p As SqlParameter() = {
+                    New SqlParameter("@strFirstName", txtEditFirstName.Text),
+                    New SqlParameter("@strLastName", txtEditLastName.Text),
+                    New SqlParameter("@strTitle", txtEditTitle.Text),
+                    New SqlParameter("@strCompanyName", txtEditCompany.Text),
+                    New SqlParameter("@strAddress", txtEditAddress.Text),
+                    New SqlParameter("@strCity", txtEditCity.Text),
+                    New SqlParameter("@strState", mtbEditState.Text),
+                    New SqlParameter("@strZip", mtbEditZipCode.Text),
+                    New SqlParameter("@strPhoneNumber", mtbEditPhoneNumber.Text),
+                    New SqlParameter("@strFaxNumber", mtbEditFaxNumber.Text),
+                    New SqlParameter("@user", txtWebUserID.Text)
+                }
+                DB.RunCommand(SQL, p)
 
                 lblFName.Text = "First Name: " & txtEditFirstName.Text
                 lblLName.Text = "Last Name: " & txtEditLastName.Text
@@ -2111,8 +2066,6 @@ Public Class PASPFeeManagement
                 btnChangeEmailAddress.Visible = False
                 txtEditEmail.Visible = False
                 btnUpdatePassword.Visible = False
-            Else
-
             End If
 
         Catch ex As Exception
@@ -2126,15 +2079,13 @@ Public Class PASPFeeManagement
 
             If txtWebUserID.Text <> "" And txtEditUserPassword.Text <> "" Then
                 SQL = "Update OLAPUserLogIN set " &
-                "strUserPassword = '" & getMd5Hash(txtEditUserPassword.Text) & "' " &
-                "where numUserID = '" & txtWebUserID.Text & "' "
-
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                dr.Close()
+                "strUserPassword = @pass " &
+                "where numUserID = @user "
+                Dim p As SqlParameter() = {
+                    New SqlParameter("@pass", getMd5Hash(txtEditUserPassword.Text)),
+                    New SqlParameter("@user", txtWebUserID.Text)
+                }
+                DB.RunCommand(SQL, p)
 
                 txtEditUserPassword.Clear()
                 txtEditFirstName.Visible = False
@@ -2165,44 +2116,32 @@ Public Class PASPFeeManagement
             If txtWebUserID.Text <> "" Then
                 If IsValidEmailAddress(txtEditEmail.Text) Then
                     SQL = "Select " &
-                    "numUserID, strUserPassword " &
-                    "from OLAPUserLogIN " &
-                    "where upper(strUserEmail) = '" & Replace(txtEditEmail.Text.ToUpper, "'", "''") & "' "
+                        "numUserID " &
+                        "from OLAPUserLogIN " &
+                        "where strUserEmail = @email "
+                    Dim p As New SqlParameter("@email", txtEditEmail.Text)
+                    Dim dr As DataRow = DB.GetDataRow(SQL, p)
 
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    recExist = dr.Read
-                    dr.Close()
-                    If recExist = True Then
-                        dr = cmd.ExecuteReader
-                        While dr.Read
-                            If IsDBNull(dr.Item("numUserID")) Then
-                            Else
-                                If txtWebUserID.Text <> dr.Item("numUserID") Then
-                                    MsgBox("Another user already has this email address and it would violate a unique constraint if you were " &
+                    If dr IsNot Nothing Then
+                        If IsDBNull(dr.Item("numUserID")) Then
+                        Else
+                            If txtWebUserID.Text <> dr.Item("numUserID") Then
+                                MsgBox("Another user already has this email address and it would violate a unique constraint if you were " &
                                            "to add this email to this user.", MsgBoxStyle.Exclamation, "Mailout and Stats")
-                                    Exit Sub
-                                End If
+                                Exit Sub
                             End If
-                        End While
-                        dr.Close()
+                        End If
                     End If
 
                     SQL = "Update OLAPUserLogIn set " &
-                    "strUserEmail = '" & Replace(txtEditEmail.Text.ToUpper, "'", "''") & "' " &
-                    "where numUserID = '" & txtWebUserID.Text & "' "
+                        "strUserEmail = @email " &
+                        "where numUserID = @user "
+                    Dim p2 As SqlParameter() = {
+                        p,
+                        New SqlParameter("@user", txtWebUserID.Text)
+                    }
+                    DB.RunCommand(SQL, p2)
 
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    dr.Close()
-
-                    cboUserEmail.Text = ""
                     txtWebUserEmail.Text = txtEditEmail.Text
 
                     LoadUserInfo(txtWebUserEmail.Text)
@@ -2232,31 +2171,23 @@ Public Class PASPFeeManagement
                 SQL = "Select " &
                 "numUserId " &
                 "from OlapUserAccess " &
-                "where numUserId = '" & txtWebUserID.Text & "' " &
-                "and strAirsNumber = '0413" & mtbFacilityToAdd.Text & "' "
+                "where numUserId = @user " &
+                "and strAirsNumber = @airs "
+                Dim p As SqlParameter() = {
+                    New SqlParameter("@user", txtWebUserID.Text),
+                    New SqlParameter("@airs", "0413" & mtbFacilityToAdd.Text)
+                }
+                Dim recExist As Boolean = DB.ValueExists(SQL, p)
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-                dr.Close()
-
-                If recExist = False Then
+                If Not recExist Then
                     SQL = "Insert into OlapUserAccess " &
-                     "(numUserId, strAirsNumber, strFacilityName) " &
-                     "values " &
-                     "('" & txtWebUserID.Text & "', '0413" & mtbFacilityToAdd.Text & "', " &
-                     "(select strFacilityName " &
-                     "from APBFacilityInformation " &
-                     "where strAIRSnumber = '0413" & mtbFacilityToAdd.Text & "')) "
-
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    cmd.ExecuteNonQuery()
+                        "(numUserId, strAirsNumber, strFacilityName) " &
+                        "values " &
+                        "(@user, @airs, " &
+                        " (select strFacilityName " &
+                        " from APBFacilityInformation " &
+                        " where strAIRSnumber = @airs)) "
+                    DB.RunCommand(SQL, p)
 
                     LoadUserFacilityInfo(txtWebUserEmail.Text)
                     MsgBox("The facility has beed added to this user", MsgBoxStyle.Information, "Insert Success!")
@@ -2276,18 +2207,16 @@ Public Class PASPFeeManagement
 
             If txtWebUserID.Text <> "" And cboFacilityToDelete.Text <> "" Then
                 SQL = "DELETE OlapUserAccess " &
-                "WHERE numUserID = '" & txtWebUserID.Text & "' " &
-                "and strAirsNumber = '0413" & cboFacilityToDelete.SelectedValue & "' "
-
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                cmd.ExecuteNonQuery()
+                    "WHERE numUserID = @user " &
+                    "and strAirsNumber = @airs "
+                Dim p As SqlParameter() = {
+                    New SqlParameter("@user", txtWebUserID.Text),
+                    New SqlParameter("@airs", "0413" & cboFacilityToDelete.SelectedValue)
+                }
+                DB.RunCommand(SQL, p)
 
                 LoadUserFacilityInfo(txtWebUserEmail.Text)
                 MsgBox("The facility has been removed for this user", MsgBoxStyle.Information, "Facility Removed!")
-
             End If
 
         Catch ex As Exception
@@ -2326,18 +2255,22 @@ Public Class PASPFeeManagement
                 End If
 
                 SQL = "UPDATE OlapUserAccess " &
-                "SET intadminaccess = '" & adminaccess & "', " &
-                "intFeeAccess = '" & feeaccess & "', " &
-                "intEIAccess = '" & eiaccess & "', " &
-                "intESAccess = '" & esaccess & "' " &
-                "WHERE numUserID = '" & txtWebUserID.Text & "' " &
-                "and strAirsNumber = '0413" & dgvUserFacilities(0, i).Value & "' "
+                    "SET intadminaccess = @intadminaccess, " &
+                    "intFeeAccess = @intFeeAccess, " &
+                    "intEIAccess = @intEIAccess, " &
+                    "intESAccess = @intESAccess " &
+                    "WHERE numUserID = @numUserID " &
+                    "and strAirsNumber = @strAirsNumber "
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                cmd.ExecuteNonQuery()
+                Dim p As SqlParameter() = {
+                    New SqlParameter("@intadminaccess", adminaccess),
+                    New SqlParameter("@intFeeAccess", feeaccess),
+                    New SqlParameter("@intEIAccess", eiaccess),
+                    New SqlParameter("@intESAccess", esaccess),
+                    New SqlParameter("@numUserID", txtWebUserID.Text),
+                    New SqlParameter("@strAirsNumber", "0413" & dgvUserFacilities(0, i).Value)
+                }
+                DB.RunCommand(SQL, p)
             Next
 
             LoadUserFacilityInfo(txtWebUserEmail.Text)

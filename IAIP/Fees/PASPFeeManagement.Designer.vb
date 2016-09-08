@@ -183,20 +183,6 @@ Partial Class PASPFeeManagement
         Me.lblViewEmailData = New System.Windows.Forms.LinkLabel()
         Me.Label39 = New System.Windows.Forms.Label()
         Me.txtWebUserEmail = New System.Windows.Forms.TextBox()
-        Me.cboUserEmail = New System.Windows.Forms.ComboBox()
-        Me.lblViewFacility = New System.Windows.Forms.LinkLabel()
-        Me.Label52 = New System.Windows.Forms.Label()
-        Me.TPActivate = New System.Windows.Forms.TabPage()
-        Me.btnActivateUser = New System.Windows.Forms.Button()
-        Me.Label54 = New System.Windows.Forms.Label()
-        Me.txtEmailAddress = New System.Windows.Forms.TextBox()
-        Me.TPFeeFacility = New System.Windows.Forms.TabPage()
-        Me.mtbyear = New System.Windows.Forms.MaskedTextBox()
-        Me.mtbFeeAirsNumber = New System.Windows.Forms.MaskedTextBox()
-        Me.btnRemoveFacility = New System.Windows.Forms.Button()
-        Me.Label74 = New System.Windows.Forms.Label()
-        Me.Label72 = New System.Windows.Forms.Label()
-        Me.btnAddFacility = New System.Windows.Forms.Button()
         Me.FeeManagementTabControl.SuspendLayout()
         Me.TPFeeAdminTools.SuspendLayout()
         Me.TabControl2.SuspendLayout()
@@ -229,8 +215,6 @@ Partial Class PASPFeeManagement
         CType(Me.dgvUserFacilities, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.pnlUserInfo.SuspendLayout()
         Me.pnlUserEmail.SuspendLayout()
-        Me.TPActivate.SuspendLayout()
-        Me.TPFeeFacility.SuspendLayout()
         Me.SuspendLayout()
         '
         'FeeManagementTabControl
@@ -1313,8 +1297,6 @@ Partial Class PASPFeeManagement
         '
         Me.TabControl3.Controls.Add(Me.TPWebUsers)
         Me.TabControl3.Controls.Add(Me.TPWebUsers1)
-        Me.TabControl3.Controls.Add(Me.TPActivate)
-        Me.TabControl3.Controls.Add(Me.TPFeeFacility)
         Me.TabControl3.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TabControl3.Location = New System.Drawing.Point(0, 0)
         Me.TabControl3.Name = "TabControl3"
@@ -1883,9 +1865,6 @@ Partial Class PASPFeeManagement
         Me.pnlUserEmail.Controls.Add(Me.lblViewEmailData)
         Me.pnlUserEmail.Controls.Add(Me.Label39)
         Me.pnlUserEmail.Controls.Add(Me.txtWebUserEmail)
-        Me.pnlUserEmail.Controls.Add(Me.cboUserEmail)
-        Me.pnlUserEmail.Controls.Add(Me.lblViewFacility)
-        Me.pnlUserEmail.Controls.Add(Me.Label52)
         Me.pnlUserEmail.Dock = System.Windows.Forms.DockStyle.Top
         Me.pnlUserEmail.Location = New System.Drawing.Point(0, 0)
         Me.pnlUserEmail.Name = "pnlUserEmail"
@@ -1920,147 +1899,6 @@ Partial Class PASPFeeManagement
         Me.txtWebUserEmail.Name = "txtWebUserEmail"
         Me.txtWebUserEmail.Size = New System.Drawing.Size(196, 20)
         Me.txtWebUserEmail.TabIndex = 287
-        '
-        'cboUserEmail
-        '
-        Me.cboUserEmail.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
-        Me.cboUserEmail.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cboUserEmail.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cboUserEmail.Location = New System.Drawing.Point(618, 9)
-        Me.cboUserEmail.Name = "cboUserEmail"
-        Me.cboUserEmail.Size = New System.Drawing.Size(244, 21)
-        Me.cboUserEmail.TabIndex = 1
-        '
-        'lblViewFacility
-        '
-        Me.lblViewFacility.AutoSize = True
-        Me.lblViewFacility.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblViewFacility.Location = New System.Drawing.Point(868, 13)
-        Me.lblViewFacility.Name = "lblViewFacility"
-        Me.lblViewFacility.Size = New System.Drawing.Size(56, 13)
-        Me.lblViewFacility.TabIndex = 143
-        Me.lblViewFacility.TabStop = True
-        Me.lblViewFacility.Text = "View Data"
-        '
-        'Label52
-        '
-        Me.Label52.AutoSize = True
-        Me.Label52.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label52.Location = New System.Drawing.Point(511, 13)
-        Me.Label52.Name = "Label52"
-        Me.Label52.Size = New System.Drawing.Size(101, 13)
-        Me.Label52.TabIndex = 106
-        Me.Label52.Text = "User Email Address:"
-        Me.Label52.TextAlign = System.Drawing.ContentAlignment.BottomLeft
-        '
-        'TPActivate
-        '
-        Me.TPActivate.Controls.Add(Me.btnActivateUser)
-        Me.TPActivate.Controls.Add(Me.Label54)
-        Me.TPActivate.Controls.Add(Me.txtEmailAddress)
-        Me.TPActivate.Location = New System.Drawing.Point(4, 22)
-        Me.TPActivate.Name = "TPActivate"
-        Me.TPActivate.Size = New System.Drawing.Size(985, 640)
-        Me.TPActivate.TabIndex = 3
-        Me.TPActivate.Text = "Activate User Account"
-        Me.TPActivate.UseVisualStyleBackColor = True
-        '
-        'btnActivateUser
-        '
-        Me.btnActivateUser.AutoSize = True
-        Me.btnActivateUser.Location = New System.Drawing.Point(361, 12)
-        Me.btnActivateUser.Name = "btnActivateUser"
-        Me.btnActivateUser.Size = New System.Drawing.Size(61, 23)
-        Me.btnActivateUser.TabIndex = 2
-        Me.btnActivateUser.Text = "Activate"
-        Me.btnActivateUser.UseVisualStyleBackColor = True
-        '
-        'Label54
-        '
-        Me.Label54.AutoSize = True
-        Me.Label54.Location = New System.Drawing.Point(4, 17)
-        Me.Label54.Name = "Label54"
-        Me.Label54.Size = New System.Drawing.Size(101, 13)
-        Me.Label54.TabIndex = 1
-        Me.Label54.Text = "User Email Address:"
-        '
-        'txtEmailAddress
-        '
-        Me.txtEmailAddress.Location = New System.Drawing.Point(111, 14)
-        Me.txtEmailAddress.Name = "txtEmailAddress"
-        Me.txtEmailAddress.Size = New System.Drawing.Size(244, 20)
-        Me.txtEmailAddress.TabIndex = 0
-        '
-        'TPFeeFacility
-        '
-        Me.TPFeeFacility.Controls.Add(Me.mtbyear)
-        Me.TPFeeFacility.Controls.Add(Me.mtbFeeAirsNumber)
-        Me.TPFeeFacility.Controls.Add(Me.btnRemoveFacility)
-        Me.TPFeeFacility.Controls.Add(Me.Label74)
-        Me.TPFeeFacility.Controls.Add(Me.Label72)
-        Me.TPFeeFacility.Controls.Add(Me.btnAddFacility)
-        Me.TPFeeFacility.Location = New System.Drawing.Point(4, 22)
-        Me.TPFeeFacility.Name = "TPFeeFacility"
-        Me.TPFeeFacility.Size = New System.Drawing.Size(985, 640)
-        Me.TPFeeFacility.TabIndex = 4
-        Me.TPFeeFacility.Text = "Add/Remove Fee Facility"
-        Me.TPFeeFacility.UseVisualStyleBackColor = True
-        '
-        'mtbyear
-        '
-        Me.mtbyear.Location = New System.Drawing.Point(260, 14)
-        Me.mtbyear.Mask = "0000"
-        Me.mtbyear.Name = "mtbyear"
-        Me.mtbyear.Size = New System.Drawing.Size(39, 20)
-        Me.mtbyear.TabIndex = 9
-        Me.mtbyear.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'mtbFeeAirsNumber
-        '
-        Me.mtbFeeAirsNumber.Location = New System.Drawing.Point(88, 14)
-        Me.mtbFeeAirsNumber.Mask = "000-00000"
-        Me.mtbFeeAirsNumber.Name = "mtbFeeAirsNumber"
-        Me.mtbFeeAirsNumber.Size = New System.Drawing.Size(76, 20)
-        Me.mtbFeeAirsNumber.TabIndex = 8
-        Me.mtbFeeAirsNumber.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.mtbFeeAirsNumber.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals
-        '
-        'btnRemoveFacility
-        '
-        Me.btnRemoveFacility.AutoSize = True
-        Me.btnRemoveFacility.Location = New System.Drawing.Point(449, 12)
-        Me.btnRemoveFacility.Name = "btnRemoveFacility"
-        Me.btnRemoveFacility.Size = New System.Drawing.Size(155, 23)
-        Me.btnRemoveFacility.TabIndex = 7
-        Me.btnRemoveFacility.Text = "Remove Facility from Fee List"
-        Me.btnRemoveFacility.UseVisualStyleBackColor = True
-        '
-        'Label74
-        '
-        Me.Label74.AutoSize = True
-        Me.Label74.Location = New System.Drawing.Point(219, 17)
-        Me.Label74.Name = "Label74"
-        Me.Label74.Size = New System.Drawing.Size(35, 13)
-        Me.Label74.TabIndex = 6
-        Me.Label74.Text = "Year: "
-        '
-        'Label72
-        '
-        Me.Label72.AutoSize = True
-        Me.Label72.Location = New System.Drawing.Point(4, 17)
-        Me.Label72.Name = "Label72"
-        Me.Label72.Size = New System.Drawing.Size(78, 13)
-        Me.Label72.TabIndex = 2
-        Me.Label72.Text = "AIRS Number: "
-        '
-        'btnAddFacility
-        '
-        Me.btnAddFacility.AutoSize = True
-        Me.btnAddFacility.Location = New System.Drawing.Point(320, 12)
-        Me.btnAddFacility.Name = "btnAddFacility"
-        Me.btnAddFacility.Size = New System.Drawing.Size(123, 23)
-        Me.btnAddFacility.TabIndex = 1
-        Me.btnAddFacility.Text = "Add Facility to Fee List"
         '
         'PASPFeeManagement
         '
@@ -2111,10 +1949,6 @@ Partial Class PASPFeeManagement
         Me.pnlUserInfo.PerformLayout()
         Me.pnlUserEmail.ResumeLayout(False)
         Me.pnlUserEmail.PerformLayout()
-        Me.TPActivate.ResumeLayout(False)
-        Me.TPActivate.PerformLayout()
-        Me.TPFeeFacility.ResumeLayout(False)
-        Me.TPFeeFacility.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -2257,20 +2091,6 @@ Partial Class PASPFeeManagement
     Friend WithEvents lblViewEmailData As System.Windows.Forms.LinkLabel
     Friend WithEvents Label39 As System.Windows.Forms.Label
     Friend WithEvents txtWebUserEmail As System.Windows.Forms.TextBox
-    Friend WithEvents cboUserEmail As System.Windows.Forms.ComboBox
-    Friend WithEvents lblViewFacility As System.Windows.Forms.LinkLabel
-    Friend WithEvents Label52 As System.Windows.Forms.Label
-    Friend WithEvents TPActivate As System.Windows.Forms.TabPage
-    Friend WithEvents btnActivateUser As System.Windows.Forms.Button
-    Friend WithEvents Label54 As System.Windows.Forms.Label
-    Friend WithEvents txtEmailAddress As System.Windows.Forms.TextBox
-    Friend WithEvents TPFeeFacility As System.Windows.Forms.TabPage
-    Friend WithEvents mtbyear As System.Windows.Forms.MaskedTextBox
-    Friend WithEvents mtbFeeAirsNumber As System.Windows.Forms.MaskedTextBox
-    Friend WithEvents btnRemoveFacility As System.Windows.Forms.Button
-    Friend WithEvents Label74 As System.Windows.Forms.Label
-    Friend WithEvents Label72 As System.Windows.Forms.Label
-    Friend WithEvents btnAddFacility As System.Windows.Forms.Button
     Friend WithEvents dgvUsers As System.Windows.Forms.DataGridView
     Friend WithEvents lblFacility As System.Windows.Forms.Label
     Friend WithEvents lblFaciltyName As System.Windows.Forms.Label
