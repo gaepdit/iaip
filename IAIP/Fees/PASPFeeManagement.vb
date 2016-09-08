@@ -253,11 +253,7 @@ Public Class PASPFeeManagement
 
     Private Sub LoadFeeYears()
         Dim allFeeYears As List(Of String) = DAL.GetAllFeeYears().AddBlankRowToList()
-
-        cboNSPSExemptionYear.Items.Clear()
         cboNSPSExemptionYear.DataSource = allFeeYears
-
-        cboAvailableFeeYears.Items.Clear()
         cboAvailableFeeYears.DataSource = allFeeYears
     End Sub
 
@@ -442,16 +438,13 @@ Public Class PASPFeeManagement
             SQL = "Select " &
             "NSPSReasonCode, DisplayOrder " &
             "from FSLK_NSPSReasonYear " &
-            "where numFeeYear = '" & cboNSPSExemptionYear.Text & "' " &
+            "where numFeeYear = @year " &
             " and active = '1' " &
             "order by NSPSReasonCode "
+            Dim p As New SqlParameter("@year", cboNSPSExemptionYear.Text)
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
+            Dim dt As DataTable = DB.GetDataTable(SQL, p)
+            For Each dr As DataRow In dt.Rows
                 If IsDBNull(dr.Item("NSPSReasonCode")) Then
                 Else
                     NSPStemp = NSPStemp & dr.Item("NSPSReasonCode")
@@ -465,8 +458,7 @@ Public Class PASPFeeManagement
                         End If
                     End If
                 End If
-            End While
-            dr.Close()
+            Next
 
             dgvNSPSExemptionsByYear.Rows.Clear()
 
@@ -498,9 +490,9 @@ Public Class PASPFeeManagement
                                 dgvNSPSExemptionsByYear.Rows.Add(dgvRow)
                             End If
                         End If
-                        System.Math.Min(System.Threading.Interlocked.Increment(y), y - 1)
+                        Math.Min(Threading.Interlocked.Increment(y), y - 1)
                     End While
-                    System.Math.Min(System.Threading.Interlocked.Increment(x), x - 1)
+                    Math.Min(Threading.Interlocked.Increment(x), x - 1)
                 End While
             Loop
 
@@ -508,6 +500,7 @@ Public Class PASPFeeManagement
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub btnSelectForm_Click(sender As Object, e As EventArgs) Handles btnSelectForm.Click
         Try
             Dim dgvRow As New DataGridViewRow
@@ -543,19 +536,13 @@ Public Class PASPFeeManagement
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
     End Sub
 
     Private Sub btnViewNSPSExemptionsByYear_Click(sender As Object, e As EventArgs) Handles btnViewNSPSExemptionsByYear.Click
-        Try
-            If cboNSPSExemptionYear.Text <> "" Then
-                LoadNSPSExemptionByYear()
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        If cboNSPSExemptionYear.Text <> "" Then
+            LoadNSPSExemptionByYear()
+        End If
     End Sub
 
     Private Sub btnSelectAllForms_Click(sender As Object, e As EventArgs) Handles btnSelectAllForms.Click
@@ -576,39 +563,35 @@ Public Class PASPFeeManagement
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
     End Sub
 
     Private Sub btnUnselectForm_Click(sender As Object, e As EventArgs) Handles btnUnselectForm.Click
         Try
-            Dim ReasonID As String = ""
-            Dim SQL As String
-
             If dgvNSPSExemptionsByYear.RowCount > 0 Then
-                ReasonID = dgvNSPSExemptionsByYear(1, dgvNSPSExemptionsByYear.CurrentRow.Index).Value
+                Dim ReasonID As String = dgvNSPSExemptionsByYear(1, dgvNSPSExemptionsByYear.CurrentRow.Index).Value
 
-                SQL = "Select " &
-                "strNSPSReason " &
-                "from FSCalculations " &
-                "where intYear = '" & dgvNSPSExemptionsByYear(0, dgvNSPSExemptionsByYear.CurrentRow.Index).Value & "' " &
-                "and (strNSPSReason like '%" & ReasonID & ",' or strNSPSReason = '" & ReasonID & "' or strNSPSReason like '%," & ReasonID & "') "
+                Dim SQL As String = "SELECT COUNT(*) " &
+                    "FROM FSCALCULATIONS " &
+                    "WHERE INTYEAR = @year " &
+                    "AND (STRNSPSREASON LIKE @reason1 " &
+                    "OR STRNSPSREASON = @reason2 " &
+                    "OR STRNSPSREASON LIKE @reason3 " &
+                    "OR STRNSPSREASON LIKE @reason4) "
+                Dim p As SqlParameter() = {
+                    New SqlParameter("@year", dgvNSPSExemptionsByYear(0, dgvNSPSExemptionsByYear.CurrentRow.Index).Value),
+                    New SqlParameter("@reason1", ReasonID & ",%"),
+                    New SqlParameter("@reason2", ReasonID),
+                    New SqlParameter("@reason3", "%," & ReasonID),
+                    New SqlParameter("@reason4", "%," & ReasonID & ",%")
+                }
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-                dr.Close()
-                If recExist = True Then
+                If DB.GetSingleValue(Of Integer)(SQL, p) > 0 Then
                     MessageBox.Show("Unable to Remove this exemption from this year because this exemption has been used.")
-                    Exit Sub
                 Else
                     dgvNSPSExemptionsByYear.Rows.Remove(dgvNSPSExemptionsByYear.CurrentRow)
                 End If
             End If
-
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -619,7 +602,13 @@ Public Class PASPFeeManagement
         Try
             Dim ReasonID As String = ""
             Dim i As Integer = 0
-            Dim SQL As String
+            Dim SQL As String = "SELECT COUNT(*) " &
+                "FROM FSCALCULATIONS " &
+                "WHERE INTYEAR = @year " &
+                "AND (STRNSPSREASON LIKE @reason1 " &
+                "OR STRNSPSREASON = @reason2 " &
+                "OR STRNSPSREASON LIKE @reason3 " &
+                "OR STRNSPSREASON LIKE @reason4) "
 
             If dgvNSPSExemptionsByYear.RowCount > 0 Then
 
@@ -628,23 +617,18 @@ Public Class PASPFeeManagement
 
                     dgvNSPSExemptionsByYear.Rows(i).Selected = True
                     ReasonID = dgvNSPSExemptionsByYear(1, i).Value
-                    SQL = "Select " &
-                    "strNSPSReason " &
-                    "from FSCalculations " &
-                    "where intYear = '" & dgvNSPSExemptionsByYear(0, dgvNSPSExemptionsByYear.CurrentRow.Index).Value & "' " &
-                    "and (strNSPSReason like '%" & ReasonID & ",' or strNSPSReason = '" & ReasonID & "' or strNSPSReason like '%," & ReasonID & "') "
 
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    recExist = dr.Read
-                    dr.Close()
-                    If recExist = True Then
+                    Dim p As SqlParameter() = {
+                        New SqlParameter("@year", dgvNSPSExemptionsByYear(0, dgvNSPSExemptionsByYear.CurrentRow.Index).Value),
+                        New SqlParameter("@reason1", ReasonID & ",%"),
+                        New SqlParameter("@reason2", ReasonID),
+                        New SqlParameter("@reason3", "%," & ReasonID),
+                        New SqlParameter("@reason4", "%," & ReasonID & ",%")
+                    }
+
+                    If DB.GetSingleValue(Of Integer)(SQL, p) > 0 Then
                         i += 1
                     Else
-
                         dgvNSPSExemptionsByYear.Rows(i).Selected = True
                         dgvNSPSExemptionsByYear.Rows.Remove(dgvNSPSExemptionsByYear.CurrentRow)
                         dgvNSPSExemptionsByYear.Rows(i).Selected = False
@@ -674,20 +658,16 @@ Public Class PASPFeeManagement
             SQL = "Select " &
             "NSPSReasonCode " &
             "from FSLK_NSPSReasonYear " &
-            "where numFeeYear = '" & cboNSPSExemptionYear.Text & "' "
+            "where numFeeYear = @year "
+            Dim p As New SqlParameter("@year", cboNSPSExemptionYear.Text)
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
+            Dim dt As DataTable = DB.GetDataTable(SQL, p)
+            For Each dr As DataRow In dt.Rows
                 If IsDBNull(dr.Item("NSPSReasonCode")) Then
                 Else
                     ExistingID = ExistingID & "(" & dr.Item("NSPSReasonCode") & ")"
                 End If
-            End While
-            dr.Close()
+            Next
 
             While x < dgvNSPSExemptionsByYear.Rows.Count
                 ReasonID = dgvNSPSExemptionsByYear(1, x).Value
@@ -697,22 +677,20 @@ Public Class PASPFeeManagement
                 SQL = "Select " &
                 "DisplayOrder " &
                 "from FSLK_NSPSReasonYear " &
-                "where numFeeYear = '" & cboNSPSExemptionYear.Text & "' " &
-                "and NSPSReasonCode = '" & ReasonID & "' "
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                temp = ""
-                While dr.Read
+                "where numFeeYear = @year " &
+                "and NSPSReasonCode = @reasoncode "
+                Dim p2 As SqlParameter() = {
+                    New SqlParameter("@year", cboNSPSExemptionYear.Text),
+                    New SqlParameter("@reasoncode", ReasonID)
+                }
+                Dim dr As DataRow = DB.GetDataRow(SQL, p2)
+                If dr IsNot Nothing Then
                     If IsDBNull(dr.Item("DisplayOrder")) Then
                         temp = "NULL"
                     Else
                         temp = dr.Item("DisplayOrder")
                     End If
-                End While
-                dr.Close()
+                End If
 
                 If temp <> Order Then
                     Select Case temp
@@ -759,8 +737,7 @@ Public Class PASPFeeManagement
                 LoadNSPSExemptions()
                 MsgBox("Save completed", MsgBoxStyle.Information, Me.Text)
 
-                Dim maxRow As Integer
-                maxRow = dgvNSPSExemptions.RowCount - 1
+                Dim maxRow As Integer = dgvNSPSExemptions.RowCount - 1
                 If dgvNSPSExemptions.Rows.Count >= maxRow AndAlso maxRow >= 1 Then
                     dgvNSPSExemptions.FirstDisplayedScrollingRowIndex = maxRow
                     dgvNSPSExemptions.Rows(maxRow).Selected = True
@@ -788,19 +765,13 @@ Public Class PASPFeeManagement
                 End If
             End If
 
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
     Private Sub btnViewDeletedNSPS_Click(sender As Object, e As EventArgs) Handles btnViewDeletedNSPS.Click
-        Try
-            LoadNSPSExemptions2("0")
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        LoadNSPSExemptions2("0")
     End Sub
 
     Private Sub btnUpdateNSPSExemption_Click(sender As Object, e As EventArgs) Handles btnUpdateNSPSExemption.Click
@@ -1437,12 +1408,8 @@ Public Class PASPFeeManagement
     End Sub
 
     Private Sub btnClearNSPSExemptions_Click(sender As Object, e As EventArgs) Handles btnClearNSPSExemptions.Click
-        Try
-            txtDeleteNSPSExemptions.Clear()
-            txtNSPSExemption.Clear()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        txtDeleteNSPSExemptions.Clear()
+        txtNSPSExemption.Clear()
     End Sub
 
     Private Sub btnViewFacilitiesSubjectToFees_Click(sender As Object, e As EventArgs) Handles btnViewFacilitiesSubjectToFees.Click
@@ -2736,22 +2703,14 @@ Public Class PASPFeeManagement
 
     Private Function Insert_FSLK_NSPSReason(Description As String) As Boolean
         Try
-            Dim SQL As String = "Insert into FSLK_NSPSReason " &
-            "Values " &
-            "((select max(NSPSReasonCode) + 1 from FSLK_NSPSReason), " &
-            "'" & Replace(Description, "'", "''") & "', " &
-            "'1', '" & CurrentUser.UserID & "', " &
-            " getdate(), getdate() ) "
-
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
-
+            Dim SQL As String = "INSERT INTO FSLK_NSPSREASON (NSPSREASONCODE, DESCRIPTION, ACTIVE, UPDATEUSER, UPDATEDATETIME, CREATEDATETIME)" &
+                "VALUES ((SELECT MAX(NSPSREASONCODE) + 1 FROM FSLK_NSPSREASON), @DESCRIPTION, '1', @UPDATEUSER, getdate(), getdate() )"
+            Dim p As SqlParameter() = {
+                New SqlParameter("@DESCRIPTION", Description),
+                New SqlParameter("@UPDATEUSER", CurrentUser.UserID)
+            }
+            DB.RunCommand(SQL, p)
             Return True
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -2763,28 +2722,32 @@ Public Class PASPFeeManagement
 
             If Description = "" Then
                 SQL = "Update FSLK_NSPSReason set " &
-                "Active = '" & ActiveStatus & "', " &
-                "updateUser = '" & CurrentUser.UserID & "', " &
+                "Active = @active , " &
+                "updateUser = @user , " &
                 "UpdateDateTime = getdate() " &
-                "where NSPSReasonCode = '" & NSPSReasonCode & "' "
+                "where NSPSReasonCode = @reason "
+                Dim p As SqlParameter() = {
+                    New SqlParameter("@active", ActiveStatus),
+                    New SqlParameter("@user", CurrentUser.UserID),
+                    New SqlParameter("@reason", NSPSReasonCode)
+                }
+                DB.RunCommand(SQL, p)
             Else
                 SQL = "Update FSLK_NSPSReason set " &
-                "Description = '" & Replace(Description, "'", "''") & "', " &
-                "Active = '" & ActiveStatus & "', " &
-                "updateUser = '" & CurrentUser.UserID & "', " &
+                "Description = @description , " &
+                "Active = @active , " &
+                "updateUser = @user , " &
                 "UpdateDateTime = getdate() " &
-                "where NSPSReasonCode = '" & NSPSReasonCode & "' "
+                "where NSPSReasonCode = @reason "
+                Dim p As SqlParameter() = {
+                    New SqlParameter("@description", Description),
+                    New SqlParameter("@active", ActiveStatus),
+                    New SqlParameter("@user", CurrentUser.UserID),
+                    New SqlParameter("@reason", NSPSReasonCode)
+                }
+                DB.RunCommand(SQL, p)
             End If
-
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
-
             Return True
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -2793,18 +2756,17 @@ Public Class PASPFeeManagement
     Private Function Insert_FSLK_NSPSReasonYear(numFeeYear As String, NSPSReasonCode As String, DisplayOrder As String) As Boolean
         Try
             Dim SQL As String = "Insert into FSLK_NSPSReasonYear " &
-            "values " &
-            "('" & numFeeYear & "', '" & NSPSReasonCode & "', " &
-            "'" & DisplayOrder & "', '1', " &
-            "'" & CurrentUser.UserID & "', getdate() , " &
-            " getdate() ) "
-
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
+                " ( NUMFEEYEAR, NSPSREASONCODE, DISPLAYORDER, ACTIVE, UPDATEUSER, UPDATEDATETIME, CREATEDATETIME ) " &
+                " values " &
+                " ( @NUMFEEYEAR, @NSPSREASONCODE, @DISPLAYORDER, 1, @UPDATEUSER, getdate(), getdate() ) "
+            Dim p As SqlParameter() = {
+                New SqlParameter("NUMFEEYEAR", numFeeYear),
+                New SqlParameter("NSPSREASONCODE", NSPSReasonCode),
+                New SqlParameter("DISPLAYORDER", DisplayOrder),
+                New SqlParameter("UPDATEUSER", CurrentUser.UserID)
+            }
+            DB.RunCommand(SQL, p)
+            Return True
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -2814,20 +2776,21 @@ Public Class PASPFeeManagement
                                        ActiveStatus As String) As Boolean
         Try
             Dim SQL As String = "Update FSLK_NSPSReasonYear set " &
-            "NSPSReasonCode = '" & NSPSReasonCode & "', " &
-            "DisplayOrder = '" & DisplayOrder & "', " &
-            "Active = '" & ActiveStatus & "', " &
-            "updateUser = '" & CurrentUser.UserID & "', " &
-            "updateDateTime = getdate() " &
-            "where numFeeYear = '" & numFeeYear & "' " &
-            "and NSPSReasonCode = '" & NSPSReasonCode & "' "
+                "DisplayOrder = @DisplayOrder, " &
+                "Active = @Active, " &
+                "updateUser = @updateUser, " &
+                "updateDateTime = getdate() " &
+                "where numFeeYear = @numFeeYear " &
+                "and NSPSReasonCode = @NSPSReasonCode "
+            Dim p As SqlParameter() = {
+                New SqlParameter("@DisplayOrder", DisplayOrder),
+                New SqlParameter("@Active", ActiveStatus),
+                New SqlParameter("@updateUser", CurrentUser.UserID),
+                New SqlParameter("@numFeeYear", numFeeYear),
+                New SqlParameter("@NSPSReasonCode", NSPSReasonCode)
+            }
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
+            DB.RunCommand(SQL, p)
             Return True
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
