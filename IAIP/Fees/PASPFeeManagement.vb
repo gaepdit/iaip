@@ -2,8 +2,6 @@
 Imports System.Collections.Generic
 
 Public Class PASPFeeManagement
-    Dim ds As DataSet
-    Dim da As SqlDataAdapter
 
     Private Sub PASPFeeManagement_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
@@ -2315,109 +2313,6 @@ Public Class PASPFeeManagement
             mtbCheckAIRSNumber.Text = dgvFeeManagementLists.CurrentRow.Cells("AIRSNumber").Value.ToString
         End If
     End Sub
-
-    Private Function Insert_FS_FeeRate(FeeYear As String, PeriodStart As String,
-                          PeriodEnd As String, Part70Fee As String, SMFee As String,
-                          PerTonRate As String, NSPSFee As String, FeeDueDate As String,
-                          AdminFee As String, AdminApplicable As String, Comments As String,
-                           FirstQrtDue As String, SecondQrtDue As String,
-                          ThirdQrtDue As String, FourthQrtDue As String, AAThres As String,
-                          NAThres As String) As Boolean
-        Try
-            If IsDBNull(FeeYear) Or FeeYear = "" Then
-                Return False
-            Else
-                If IsNumeric(FeeYear) Then
-                Else
-                    Return False
-                End If
-            End If
-
-            If IsDBNull(Part70Fee) Or Part70Fee = "" Then
-            Else
-                If IsNumeric(Part70Fee) Then
-                Else
-                    Return False
-                End If
-            End If
-
-            If IsDBNull(SMFee) Or SMFee = "" Then
-            Else
-                If IsNumeric(SMFee) Then
-                Else
-                    Return False
-                End If
-            End If
-
-            If IsDBNull(PerTonRate) Or PerTonRate = "" Then
-            Else
-                If IsNumeric(PerTonRate) Then
-                Else
-                    Return False
-                End If
-            End If
-
-            If IsDBNull(NSPSFee) Or NSPSFee = "" Then
-            Else
-                If IsNumeric(NSPSFee) Then
-                Else
-                    Return False
-                End If
-            End If
-
-            If IsDBNull(AdminFee) Or AdminFee = "" Then
-            Else
-                If IsNumeric(AdminFee) Then
-                Else
-                    Return False
-                End If
-            End If
-
-            If IsDBNull(AAThres) Or AAThres = "" Then
-            Else
-                If IsNumeric(AAThres) Then
-                Else
-                    Return False
-                End If
-            End If
-
-            If IsDBNull(NAThres) Or NAThres = "" Then
-            Else
-                If IsNumeric(NAThres) Then
-                Else
-                    Return False
-                End If
-            End If
-
-            Dim SQL As String = "Insert into FS_FeeRate " &
-            "values " &
-            "((Select max(numFeeRateID) + 1 from FS_FeeRate), " &
-            "'" & FeeYear & "', '" & PeriodStart & "', " &
-            "'" & PeriodEnd & "', '" & Part70Fee & "', " &
-            "'" & SMFee & "', '" & PerTonRate & "', " &
-            "'" & NSPSFee & "', '" & FeeDueDate & "', " &
-            "'" & AdminFee & "', " &
-            "'" & AdminApplicable & "', '" & Replace(Comments, "'", "''") & "', " &
-            "'1', '" & CurrentUser.UserID & "', " &
-            "getdate(), " &
-            "getdate(), " &
-            "'" & FirstQrtDue & "', '" & SecondQrtDue & "', " &
-            "'" & ThirdQrtDue & "', '" & FourthQrtDue & "', " &
-            "'', '" & AAThres & "', '" & NAThres & "') "
-
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
-
-            Return True
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Function
 
     Private Function Update_FS_FeeRate(FeeRateID As String, FeeYear As String, PeriodStart As String,
                           PeriodEnd As String, Part70Fee As String, SMFee As String,
