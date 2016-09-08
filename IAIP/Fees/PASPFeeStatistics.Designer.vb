@@ -108,7 +108,6 @@ Partial Class PASPFeeStatistics
         Me.btnViewSelectedFeeData = New System.Windows.Forms.Button()
         Me.Label56 = New System.Windows.Forms.Label()
         Me.txtCount = New System.Windows.Forms.TextBox()
-        Me.btnViewBalance = New System.Windows.Forms.Button()
         Me.bntViewTotalPaid = New System.Windows.Forms.Button()
         Me.btnViewPaymentDue = New System.Windows.Forms.Button()
         Me.txtBalance = New System.Windows.Forms.TextBox()
@@ -923,7 +922,6 @@ Partial Class PASPFeeStatistics
         Me.Panel1.Controls.Add(Me.btnViewSelectedFeeData)
         Me.Panel1.Controls.Add(Me.Label56)
         Me.Panel1.Controls.Add(Me.txtCount)
-        Me.Panel1.Controls.Add(Me.btnViewBalance)
         Me.Panel1.Controls.Add(Me.bntViewTotalPaid)
         Me.Panel1.Controls.Add(Me.btnViewPaymentDue)
         Me.Panel1.Controls.Add(Me.txtBalance)
@@ -1200,23 +1198,11 @@ Partial Class PASPFeeStatistics
         Me.txtCount.Size = New System.Drawing.Size(72, 20)
         Me.txtCount.TabIndex = 17
         '
-        'btnViewBalance
-        '
-        Me.btnViewBalance.AutoSize = True
-        Me.btnViewBalance.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnViewBalance.Location = New System.Drawing.Point(838, 18)
-        Me.btnViewBalance.Name = "btnViewBalance"
-        Me.btnViewBalance.Size = New System.Drawing.Size(82, 23)
-        Me.btnViewBalance.TabIndex = 15
-        Me.btnViewBalance.Text = "View Balance"
-        Me.btnViewBalance.UseVisualStyleBackColor = True
-        Me.btnViewBalance.Visible = False
-        '
         'bntViewTotalPaid
         '
         Me.bntViewTotalPaid.AutoSize = True
         Me.bntViewTotalPaid.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.bntViewTotalPaid.Location = New System.Drawing.Point(623, 56)
+        Me.bntViewTotalPaid.Location = New System.Drawing.Point(623, 43)
         Me.bntViewTotalPaid.Name = "bntViewTotalPaid"
         Me.bntViewTotalPaid.Size = New System.Drawing.Size(91, 23)
         Me.bntViewTotalPaid.TabIndex = 14
@@ -1244,7 +1230,7 @@ Partial Class PASPFeeStatistics
         '
         'txtTotalPaid
         '
-        Me.txtTotalPaid.Location = New System.Drawing.Point(623, 32)
+        Me.txtTotalPaid.Location = New System.Drawing.Point(623, 20)
         Me.txtTotalPaid.Name = "txtTotalPaid"
         Me.txtTotalPaid.ReadOnly = True
         Me.txtTotalPaid.Size = New System.Drawing.Size(88, 20)
@@ -3409,7 +3395,6 @@ Partial Class PASPFeeStatistics
     Friend WithEvents btnViewSelectedFeeData As System.Windows.Forms.Button
     Friend WithEvents Label56 As System.Windows.Forms.Label
     Friend WithEvents txtCount As System.Windows.Forms.TextBox
-    Friend WithEvents btnViewBalance As System.Windows.Forms.Button
     Friend WithEvents bntViewTotalPaid As System.Windows.Forms.Button
     Friend WithEvents btnViewPaymentDue As System.Windows.Forms.Button
     Friend WithEvents txtBalance As System.Windows.Forms.TextBox
