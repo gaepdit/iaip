@@ -4,7 +4,6 @@ Imports CrystalDecisions.CrystalReports.Engine
 Imports Iaip.SharedData
 
 Public Class PASPFeeStatistics
-    Dim SQL, SQL2 As String
     Dim cmd As SqlCommand
     Dim dr, dr2 As SqlDataReader
     Dim dsViewCount As DataSet
@@ -17,7 +16,7 @@ Public Class PASPFeeStatistics
     Dim crParameterDiscreteValue As New ParameterDiscreteValue
     Dim rpt As ReportClass
 
-    Private Sub DEVFeeStatistics_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub PASPFeeStatistics_Load(sender As Object, e As EventArgs) Handles Me.Load
         Try
             Me.Cursor = Cursors.WaitCursor
             pnlDetails.Dock = DockStyle.None
@@ -431,6 +430,8 @@ Public Class PASPFeeStatistics
 
     Private Sub btnViewPaymentDue_Click(sender As Object, e As EventArgs) Handles btnViewPaymentDue.Click
         Try
+            Dim SQL As String = ""
+
             Select Case cboStatPayType.Text
 
                 Case "ALL"
@@ -580,6 +581,7 @@ Public Class PASPFeeStatistics
 
     Private Sub bntViewTotalPaid_Click(sender As Object, e As EventArgs) Handles bntViewTotalPaid.Click
         Try
+            Dim SQL As String = ""
 
             Select Case cboStatPayType.Text
 
@@ -823,7 +825,7 @@ Public Class PASPFeeStatistics
                         "and numPayTypeID = '7' "
 
                 Case Else
-                    SQL = "select " &
+                    Sql = "select " &
                         "substring(APBFacilityInformation.strAIRSNumber, 5, 8) as AIRSNumber, " &
                         "strFacilityName, " &
                         "strPaymentPlan, strPayTypedesc, numPayment, strDepositNo, " &
@@ -848,7 +850,7 @@ Public Class PASPFeeStatistics
 
             Dim p As New SqlParameter("@year", cboStatYear.Text)
 
-            dgvDepositsAndPayments.DataSource = DB.GetDataTable(SQL, p)
+            dgvDepositsAndPayments.DataSource = DB.GetDataTable(Sql, p)
 
             dgvDepositsAndPayments.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
             dgvDepositsAndPayments.AllowUserToResizeColumns = True
@@ -927,10 +929,9 @@ Public Class PASPFeeStatistics
 
     Private Sub LoadSelectedFeeData()
         Try
-            Dim SQL As String
             Dim SQL2 As String = ""
 
-            SQL = "SELECT fa.STRAIRSNUMBER, fa.NUMFEEYEAR, fa.INTSUBMITTAL, fa.DATSUBMITTAL, fa.STRCOMMENT, st.STRIAIPDESC " &
+            Dim SQL As String = "SELECT fa.STRAIRSNUMBER, fa.NUMFEEYEAR, fa.INTSUBMITTAL, fa.DATSUBMITTAL, fa.STRCOMMENT, st.STRIAIPDESC " &
                 "FROM FS_Admin AS fa " &
                 "INNER JOIN fslk_admin_status AS st ON fa.NUMCURRENTSTATUS = st.ID " &
                 "WHERE fa.STRAIRSNUMBER = @airs AND fa.NUMFEEYEAR = @year "
@@ -1164,7 +1165,7 @@ Public Class PASPFeeStatistics
                     End If
                 Next
             Else
-                    txtNSPSExemptReason.Clear()
+                txtNSPSExemptReason.Clear()
             End If
 
             SQL = "select " &
@@ -1298,7 +1299,7 @@ Public Class PASPFeeStatistics
             dgvLateFeePayerReport.Columns.Add("PendingPermit", "Pending Permit")
 
 
-            SQL = "select " &
+            Dim SQL As String = "select " &
             "substr(FSPayAndSubmit.strAIRSNumber, 5) as AIRSNumber, " &
             "strFacilityName, strCountyName, " &
             "strClass, " &
@@ -1657,7 +1658,7 @@ Public Class PASPFeeStatistics
 
     Private Sub btnRunReport_Click(sender As Object, e As EventArgs) Handles btnRunReport.Click
         Try
-            SQL = "select " &
+            Dim SQL As String = "select " &
             "substr(FSPayAndSubmit.strAIRSNumber, 5) as AIRSNumber, " &
             "strFacilityName, strCountyName, " &
             "strClass, " &
@@ -1683,7 +1684,6 @@ Public Class PASPFeeStatistics
             "and intYear = '" & cboFeeYear.Text & "' " &
             "and intSubmittal = '0' "
 
-            ds = New DataSet
             da = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -1728,7 +1728,7 @@ Public Class PASPFeeStatistics
     Private Sub btnCheckforFeesPaid_Click(sender As Object, e As EventArgs) Handles btnCheckforFeesPaid.Click
         Try
             If rdbHasPaidFee.Checked = True Then
-                SQL = "select  " &
+                Dim SQL As String = "select  " &
                 "substr(FSPayAndSubmit.strAIRSNumber, 5) as AIRSNumber,   " &
                 "strFacilityName, strCountyName,   " &
                 "strClass,  " &
@@ -1761,7 +1761,6 @@ Public Class PASPFeeStatistics
                 "strClass, strOperationalStatus, datShutDownDate, strSICCode, strAirProgramCodes  " &
                 "order by AIRSNumber "
 
-                ds = New DataSet
                 da = New SqlDataAdapter(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
@@ -1798,7 +1797,7 @@ Public Class PASPFeeStatistics
                 dgvLateFeeReport.Columns("FeeYear").HeaderText = "Fee Year"
                 dgvLateFeeReport.Columns("FeeYear").DisplayIndex = 9
             Else
-                SQL = "select " &
+                Dim SQL As String = "select " &
                 "substr(FSPayAndSubmit.strAIRSNumber, 5) as AIRSNumber, " &
                 "strFacilityName, strCountyName, " &
                 "strClass, " &
@@ -1828,7 +1827,6 @@ Public Class PASPFeeStatistics
                 "and FSPayAndSubmit.intYear = FSAddPaid.intYear) " &
                 "order by AIRSNumber "
 
-                ds = New DataSet
                 da = New SqlDataAdapter(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
@@ -1883,7 +1881,7 @@ Public Class PASPFeeStatistics
                     For i = 0 To dgvLateFeeReport.RowCount.ToString - 1
                         AIRSNumber = dgvLateFeeReport(0, i).Value
 
-                        SQL = "update FSPayAndSubmit set " &
+                        Dim SQL As String = "update FSPayAndSubmit set " &
                         "intSubmittal = '1' " &
                         "where strAIRSnumber = '0413" & AIRSNumber & "' " &
                         "and intYear = '" & cboFeeYear.Text & "' "
@@ -1945,7 +1943,7 @@ Public Class PASPFeeStatistics
 
     Private Sub btnViewUnenrolled_Click(sender As Object, e As EventArgs) Handles btnViewUnenrolled.Click
         Try
-            SQL = "select " &
+            Dim SQL As String = "select " &
             "substr(FEEMailOut.strAIRSNumber, 5) as AIRSNumber, " &
             "strFacilityName " &
             "from FeeMailout " &
@@ -1954,7 +1952,6 @@ Public Class PASPFeeStatistics
             "where FeeMailOut.strAIRSnumber = FSPayAndSubmit.strAIRSnumber " &
             "and FeeMailOut.intYear = FSPayAndSubmit.intYear) "
 
-            ds = New DataSet
             da = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -2030,7 +2027,7 @@ Public Class PASPFeeStatistics
 
             AIRSNumber = txtFeeAIRSNumber.Text
 
-            SQL = "select " &
+            Dim SQL As String = "select " &
             "max(datReceiveddate) as MaxDate " &
             "from SSCPItemMaster " &
             "where strAIRSNumber = '0413" & AIRSNumber & "' "
@@ -2483,10 +2480,9 @@ Public Class PASPFeeStatistics
     Private Sub btnViewFacilitySpecificData_Click(sender As Object, e As EventArgs) Handles btnViewFacilitySpecificData.Click
         Try
             Me.Cursor = Cursors.WaitCursor
-            ds = New DataSet
             rpt = New FacilityFee10
             monitor.TrackFeature("Report." & rpt.ResourceName)
-            SQL = "Select * from VW_Facility_Fee " &
+            Dim SQL As String = "Select * from VW_Facility_Fee " &
             "where strAIRSNumber = '0413" & cboAirsNo.SelectedValue & "' "
 
             da = New SqlDataAdapter(SQL, CurrentConnection)
@@ -2520,13 +2516,10 @@ Public Class PASPFeeStatistics
     Private Sub btnFeesandEmissions_Click(sender As Object, e As EventArgs) Handles btnFeesandEmissions.Click
         Try
             Me.Cursor = Cursors.WaitCursor
-            ds = New DataSet
             rpt = New TotalFee10
             monitor.TrackFeature("Report." & rpt.ResourceName)
 
-            SQL = "Select * from VW_Total_fee "
-
-            SQL = "SELECT  intYear, sum(intVOCTons) as intvoctons, " &
+            Dim SQL As String = "SELECT  intYear, sum(intVOCTons) as intvoctons, " &
             "sum(intPMTons) as intPMTons, " &
             "sum(intSO2Tons) as intSO2Tons, " &
             "sum(intNOXtons) as intNOXTons, " &
@@ -2560,12 +2553,10 @@ Public Class PASPFeeStatistics
     Private Sub btnClassification_Click(sender As Object, e As EventArgs) Handles btnClassification.Click
         Try
             Me.Cursor = Cursors.WaitCursor
-            ds = New DataSet
             rpt = New FacilityClassification10
             monitor.TrackFeature("Report." & rpt.ResourceName)
 
-            SQL = "Select * from FSCalculations "
-            SQL = "Select * from VW_Facility_Class_Counts "
+            Dim SQL As String = "Select * from VW_Facility_Class_Counts "
 
             da = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -2602,8 +2593,6 @@ Public Class PASPFeeStatistics
             Dim ParameterField As CrystalDecisions.Shared.ParameterField
             Dim spValue As CrystalDecisions.Shared.ParameterDiscreteValue
 
-            ds = New DataSet
-
             If chbFacilityBalance.Checked = False Then
                 rpt = New FacilityBalance10
             Else
@@ -2611,7 +2600,7 @@ Public Class PASPFeeStatistics
             End If
             monitor.TrackFeature("Report." & rpt.ResourceName)
 
-            SQL = "SELECT " &
+            Dim SQL As String = "SELECT " &
         "strFacilityName, " &
         "FeeDetails.strAIRSNumber, " &
         "FeeDetails.intyear, " &
@@ -2676,10 +2665,9 @@ Public Class PASPFeeStatistics
     Private Sub btnPayment_Click(sender As Object, e As EventArgs) Handles btnPayment.Click
         Try
             Me.Cursor = Cursors.Default
-            ds = New DataSet
             rpt = New TotalPayment10
             monitor.TrackFeature("Report." & rpt.ResourceName)
-            SQL = "Select * from VW_Total_PAYMENT "
+            Dim SQL As String = "Select * from VW_Total_PAYMENT "
             da = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -2703,10 +2691,9 @@ Public Class PASPFeeStatistics
     Private Sub btnFeeByYear_Click(sender As Object, e As EventArgs) Handles btnFeeByYear.Click
         Try
             Me.Cursor = Cursors.WaitCursor
-            ds = New DataSet
             rpt = New feeByYear10
             monitor.TrackFeature("Report." & rpt.ResourceName)
-            SQL = "Select * from FeesDue "
+            Dim SQL As String = "Select * from FeesDue "
 
             da = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -2791,11 +2778,10 @@ Public Class PASPFeeStatistics
     Private Sub btnClassChange_Click(sender As Object, e As EventArgs) Handles btnClassChange.Click
         Try
             Me.Cursor = Cursors.WaitCursor
-            ds = New DataSet
             rpt = New ClassChanged10
             monitor.TrackFeature("Report." & rpt.ResourceName)
 
-            SQL = "select * from VW_Class_Changed"
+            Dim SQL As String = "select * from VW_Class_Changed"
 
             da = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -2821,9 +2807,8 @@ Public Class PASPFeeStatistics
     Private Sub lblNSPS1_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblNSPS1.LinkClicked
         Try
             Me.Cursor = Cursors.WaitCursor
-            ds = New DataSet
 
-            SQL = "Select * " &
+            Dim SQL As String = "Select * " &
             "from VW_NSPS_Status " &
             "where strnsps = 'YES' " &
             "and STRnspsexempt = '1'"
@@ -2852,10 +2837,9 @@ Public Class PASPFeeStatistics
     Private Sub lblNSPS2_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblNSPS2.LinkClicked
         Try
             Me.Cursor = Cursors.WaitCursor
-            ds = New DataSet
             rpt = New NSPSStatus1_10
             monitor.TrackFeature("Report." & rpt.ResourceName)
-            SQL = "Select * " &
+            Dim SQL As String = "Select * " &
             "from VW_NSPS_Status " &
             "where Strnsps1 = 'YES' " &
             "and strnsps = 'NO'"
@@ -2881,10 +2865,9 @@ Public Class PASPFeeStatistics
     Private Sub lblNSPS3_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblNSPS3.LinkClicked
         Try
             Me.Cursor = Cursors.WaitCursor
-            ds = New DataSet
             rpt = New NSPSStatus2_10
             monitor.TrackFeature("Report." & rpt.ResourceName)
-            SQL = "Select * " &
+            Dim SQL As String = "Select * " &
             "from VW_NSPS_Status " &
             "where strnsps = 'YES' " &
             "and STRoperate <> 'YES'"
@@ -2910,10 +2893,9 @@ Public Class PASPFeeStatistics
     Private Sub btnNoOperate_Click(sender As Object, e As EventArgs) Handles btnNoOperate.Click
         Try
             Me.Cursor = Cursors.WaitCursor
-            ds = New DataSet
             rpt = New NoOperate10
             monitor.TrackFeature("Report." & rpt.ResourceName)
-            SQL = "Select * from VW_No_Operate "
+            Dim SQL As String = "Select * from VW_No_Operate "
 
             da = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -2940,11 +2922,10 @@ Public Class PASPFeeStatistics
     Private Sub btnFacInfoChange_Click(sender As Object, e As EventArgs) Handles btnFacInfoChange.Click
         Try
             Me.Cursor = Cursors.WaitCursor
-            ds = New DataSet
             rpt = New FacilityInfo10
             monitor.TrackFeature("Report." & rpt.ResourceName)
 
-            SQL = "Select * from VW_Facility_Info "
+            Dim SQL As String = "Select * from VW_Facility_Info "
 
             da = New SqlDataAdapter(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -2971,205 +2952,46 @@ Public Class PASPFeeStatistics
     Private Sub btnViewStats_Click(sender As Object, e As EventArgs) Handles btnViewStats.Click
         Try
 
-            SQL = "select * from " &
-"(select  " &
-"count(*) as FeeUniverse  " &
-"from FS_Admin  " &
-"where numFeeyear = '" & cboFeeStatYear.Text & "'  " &
-"and Active = '1' ),  " &
-"(select  " &
-"count(*) as UnEnrolled  " &
-"from FS_Admin  " &
-"where numFeeyear = '" & cboFeeStatYear.Text & "'  " &
-"and (strEnrolled = '0' or strEnrolled is null)  " &
-"and Active = '1' ),  " &
-"(select  " &
-"count(*) as CeaseCollections  " &
-"from FS_Admin  " &
-"where numFeeyear = '" & cboFeeStatYear.Text & "' " &
-"and numCurrentStatus = '12'  " &
-"and strEnrolled = '1'  " &
-"and Active = '1' ),  " &
-"(select  " &
-"count(*) as Enrolled  " &
-"from FS_Admin  " &
-"where numFeeyear = '" & cboFeeStatYear.Text & "'  " &
-"and numCurrentStatus <> '12'  " &
-"and strEnrolled = '1'  " &
-"and Active = '1'),  " &
-"(select  " &
-"count(*) as MailOUt  " &
-"from FS_Admin  " &
-"where numFeeyear = '" & cboFeeStatYear.Text & "'  " &
-"and numCurrentStatus <> '12'  " &
-"and strEnrolled = '1'  " &
-"and strInitialMailout = '1'  " &
-"and Active = '1'),   " &
-"(select  " &
-"count(*) as AddOnMailOut  " &
-"from FS_Admin  " &
-"where numFeeyear = '" & cboFeeStatYear.Text & "'  " &
-"and numCurrentStatus <> '12'  " &
-"and strEnrolled = '1'  " &
-"and strInitialMailout = '0'  " &
-"and Active = '1' ),   " &
-"(select  " &
-"count(*) as NotReported  " &
-"from FS_Admin  " &
-"where numFeeyear = '" & cboFeeStatYear.Text & "'  " &
-"and numcurrentstatus < '5'  " &
-"and strEnrolled = '1'  " &
-"and Active = '1' ) ,   " &
-"(select  " &
-"count(*) as InProgress  " &
-"from FS_Admin  " &
-"where numFeeyear = '" & cboFeeStatYear.Text & "'  " &
-"and numcurrentstatus > '4' " &
-"and numCurrentStatus < '8' " &
-"and strEnrolled = '1'  " &
-"and Active = '1' )  ,   " &
-"(select  " &
-"count(*) as Finalized  " &
-"from FS_Admin  " &
-"where numFeeyear = '" & cboFeeStatYear.Text & "'  " &
-"and numcurrentstatus > '7' " &
-"and strEnrolled = '1'  " &
-"and Active = '1' " &
-"and not exists (select * " &
-"from fs_feeAudit " &
-"where fs_admin.strairsnumber = fs_feeAudit.strAIRSnumber " &
-"and fs_admin.numfeeyear = fs_feeAudit.numfeeyear " &
-"and fs_feeAudit.numfeeyear = '" & cboFeeStatYear.Text & "' " &
-"and fs_feeAudit.strendcollections = 'True')) ,   " &
-"(select  " &
-"count(*) as OnTime  " &
-"from FS_Admin  " &
-"where numFeeyear = '" & cboFeeStatYear.Text & "'  " &
-"and numcurrentstatus > '4' " &
-"and numcurrentstatus < '12'  " &
-"and datSubmittal <= (select datFeeDueDate from FS_FeeRate where numFeeyear = '" & cboFeeStatYear.Text & "')   " &
-"and Intsubmittal = '1' " &
-"and strEnrolled = '1'  " &
-"and Active = '1' ) ,   " &
-"(select  " &
-"count(*) as LateNoFees   " &
-"from FS_Admin  " &
-"where numFeeyear = '" & cboFeeStatYear.Text & "'  " &
-"and numcurrentstatus > '4' " &
-"and numcurrentstatus < '12'  " &
-"and datSubmittal > (select datFeeDueDate from FS_FeeRate where numFeeyear = '" & cboFeeStatYear.Text & "')  " &
-"and datSubmittal <= (select datAdminApplicable from FS_FeeRate where numFeeyear = '" & cboFeeStatYear.Text & "')   " &
-"and Intsubmittal = '1' " &
-"and strEnrolled = '1'  " &
-"and Active = '1' ) ,   " &
-"(select  " &
-"count(*) as LateWithFees   " &
-"from FS_Admin  " &
-"where numFeeyear = '" & cboFeeStatYear.Text & "'  " &
-"and numcurrentstatus > '4' " &
-"and numcurrentstatus < '12'  " &
-"and datSubmittal > (select datAdminApplicable from FS_FeeRate where numFeeyear = '" & cboFeeStatYear.Text & "')   " &
-"and Intsubmittal = '1' " &
-"and strEnrolled = '1'  " &
-"and Active = '1' ) ,  " &
-"(select  " &
-"count(*) as NotPaid  " &
-"from FS_Admin  " &
-"where numfeeyear = '" & cboFeeStatYear.Text & "'  " &
-"and (strEnrolled = '1' or strEnrolled is null)  " &
-"and active = '1'  " &
-"and numcurrentstatus <= '8'),  " &
-"(select  " &
-"count(*) as OutOfBalance   " &
-"from FS_Admin  " &
-"where numfeeyear = '" & cboFeeStatYear.Text & "'  " &
-"and (strEnrolled = '1' or strEnrolled is null)  " &
-"and active = '1'  " &
-"and (numcurrentstatus = '9' or numcurrentstatus = '11' )),  " &
-                        "(select " &
-"count(*) as UnderPaid " &
-"from (select " &
-"(numTotalFee) - sum(numAmount) as TotalPaid " &
-"from FS_Admin, " &
-"FS_FeeAuditedData, " &
-"FS_FeeInvoice " &
-"where  FS_Admin.strAIRSNumber = FS_FeeAuditedData.strAIRSnumber " &
-"and FS_Admin.numFeeYear = FS_FeeAuditedData.numFeeyear " &
-"and FS_Admin.strAIRSNumber = FS_FeeInvoice.strAIRSNumber " &
-"and FS_Admin.numFeeYear = FS_FeeInvoice.numFeeyear " &
-"and FS_Admin.numfeeyear = '" & cboFeeStatYear.Text & "' " &
-"and (strEnrolled = '1' or strEnrolled is null)  " &
-"and FS_Admin.active = '1' " &
-"and numcurrentstatus = '9' " &
-"group by numtotalfee ) " &
-"where totalpaid > 0 ), " &
-"(select " &
-"count(*) as OverPaid " &
-"from (select " &
-"FS_Admin.strAIRSNumber " &
-"from FS_Admin, " &
-"FS_FeeAuditedData, " &
-"FS_FeeInvoice " &
-"where  FS_Admin.strAIRSNumber = FS_FeeAuditedData.strAIRSnumber " &
-"and FS_Admin.numFeeYear = FS_FeeAuditedData.numFeeyear " &
-"and FS_Admin.strAIRSNumber = FS_FeeInvoice.strAIRSNumber " &
-"and FS_Admin.numFeeYear = FS_FeeInvoice.numFeeyear " &
-"and FS_Admin.numfeeyear = '" & cboFeeStatYear.Text & "' " &
-"and (strEnrolled = '1' or strEnrolled is null)  " &
-"and FS_Admin.active = '1' " &
-"and (numcurrentstatus = '9' or numcurrentstatus = '11' )) " &
-" ), " &
-"(select  " &
-"count(*) as OutOfBalanceAnnual  " &
-"from FS_Admin, fs_feeAuditedData   " &
-"where fs_admin.strAIRSNumber = FS_FeeAuditedData.strAIRSNumber " &
-"and fs_admin.nuMFeeYear  = FS_FeeAuditedData.nuMFeeYear  " &
-"and FS_Admin.numfeeyear = '" & cboFeeStatYear.Text & "'  " &
-"and (strEnrolled = '1' or strEnrolled is null)  " &
-"and FS_Admin.active = '1'  " &
-"and numcurrentstatus = '9' " &
-"and (strPaymentPlan = 'Entire Annual Year' or strPaymentPlan is null) ),  " &
-"(select  " &
-"count(*) as OutOfBalanceQuarterly " &
-"from FS_Admin, fs_feeAuditedData   " &
-"where fs_admin.strAIRSNumber = FS_FeeAuditedData.strAIRSNumber " &
-"and fs_admin.nuMFeeYear  = FS_FeeAuditedData.nuMFeeYear  " &
-"and FS_Admin.numfeeyear = '" & cboFeeStatYear.Text & "'  " &
-"and (strEnrolled = '1' or strEnrolled is null)  " &
-"and FS_Admin.active = '1'  " &
-"and numcurrentstatus = '9' " &
-"and strPaymentPlan = 'Four Quarterly Payments'),  " &
-"(select  " &
-"count(*) as PaidInFull   " &
-"from FS_Admin  " &
-"where numfeeyear = '" & cboFeeStatYear.Text & "'  " &
-"and (strEnrolled = '1' or strEnrolled is null)  " &
-"and active = '1'  " &
-"and numcurrentstatus = '10'),  " &
-"(select  " &
-"count(*) as FinalPaid     " &
-"from FS_Admin  " &
-"where numfeeyear = '" & cboFeeStatYear.Text & "'  " &
-"and (strEnrolled = '1' or strEnrolled is null)  " &
-"and active = '1'  " &
-"and numcurrentstatus = '10' " &
-"and intSubmittal = '1' ) ,  " &
-"(select  " &
-"count(*) as NotFinalPaid     " &
-"from FS_Admin  " &
-"where numfeeyear = '" & cboFeeStatYear.Text & "'  " &
-"and (strEnrolled = '1' or strEnrolled is null)  " &
-"and active = '1'  " &
-"and numcurrentstatus = '10' " &
-"and (intSubmittal = '0' or intsubmittal is null))    "
+            Dim SQL As String = "SELECT (SELECT COUNT(*) FROM FS_Admin " &
+                "WHERE numFeeyear = @year AND Active = '1') AS FeeUniverse, (SELECT COUNT(*) FROM FS_Admin " &
+                "WHERE numFeeyear = @year AND (strEnrolled = '0' OR strEnrolled IS NULL) AND Active = '1') AS UnEnrolled, (SELECT COUNT(*) FROM FS_Admin " &
+                "WHERE numFeeyear = @year AND numCurrentStatus = '12' AND strEnrolled = '1' AND Active = '1') AS CeaseCollections, (SELECT COUNT(*) FROM FS_Admin " &
+                "WHERE numFeeyear = @year AND numCurrentStatus <> '12' AND strEnrolled = '1' AND Active = '1') AS Enrolled, (SELECT COUNT(*) FROM FS_Admin " &
+                "WHERE numFeeyear = @year AND numCurrentStatus <> '12' AND strEnrolled = '1' AND strInitialMailout = '1' AND Active = '1') AS MailOUt, (SELECT COUNT(*) FROM FS_Admin " &
+                "WHERE numFeeyear = @year AND numCurrentStatus <> '12' AND strEnrolled = '1' AND strInitialMailout = '0' AND Active = '1') AS AddOnMailOut, (SELECT COUNT(*) FROM FS_Admin " &
+                "WHERE numFeeyear = @year AND numcurrentstatus < '5' AND strEnrolled = '1' AND Active = '1') AS NotReported, (SELECT COUNT(*) FROM FS_Admin " &
+                "WHERE numFeeyear = @year AND numcurrentstatus > '4' AND numCurrentStatus < '8' AND strEnrolled = '1' AND Active = '1') AS InProgress, (SELECT COUNT(*) FROM FS_Admin " &
+                "WHERE numFeeyear = @year AND numcurrentstatus > '7' AND strEnrolled = '1' AND Active = '1' AND NOT EXISTS (SELECT * FROM fs_feeAudit " &
+                "WHERE fs_admin.strairsnumber = fs_feeAudit.strAIRSnumber AND fs_admin.numfeeyear = fs_feeAudit.numfeeyear AND fs_feeAudit.numfeeyear = @year AND fs_feeAudit.strendcollections = 'True') ) AS Finalized, (SELECT COUNT(*) FROM FS_Admin " &
+                "WHERE numFeeyear = @year AND numcurrentstatus > '4' AND numcurrentstatus < '12' AND datSubmittal <= (SELECT datFeeDueDate FROM FS_FeeRate " &
+                "WHERE numFeeyear = @year) AND Intsubmittal = '1' AND strEnrolled = '1' AND Active = '1') AS OnTime, (SELECT COUNT(*) FROM FS_Admin " &
+                "WHERE numFeeyear = @year AND numcurrentstatus > '4' AND numcurrentstatus < '12' AND datSubmittal > (SELECT datFeeDueDate FROM FS_FeeRate " &
+                "WHERE numFeeyear = @year) AND datSubmittal <= (SELECT datAdminApplicable FROM FS_FeeRate " &
+                "WHERE numFeeyear = @year) AND Intsubmittal = '1' AND strEnrolled = '1' AND Active = '1') AS LateNoFees, (SELECT COUNT(*) FROM FS_Admin " &
+                "WHERE numFeeyear = @year AND numcurrentstatus > '4' AND numcurrentstatus < '12' AND datSubmittal > (SELECT datAdminApplicable FROM FS_FeeRate " &
+                "WHERE numFeeyear = @year) AND Intsubmittal = '1' AND strEnrolled = '1' AND Active = '1') AS LateWithFees, (SELECT COUNT(*) FROM FS_Admin " &
+                "WHERE numfeeyear = @year AND (strEnrolled = '1' OR strEnrolled IS NULL) AND active = '1' AND numcurrentstatus <= '8') AS NotPaid, (SELECT COUNT(*) FROM FS_Admin " &
+                "WHERE numfeeyear = @year AND (strEnrolled = '1' OR strEnrolled IS NULL) AND active = '1' AND (numcurrentstatus = '9' OR numcurrentstatus = '11') ) AS OutOfBalance, (SELECT COUNT(*) FROM (SELECT numTotalFee - SUM(numAmount) AS TotalPaid FROM FS_Admin " &
+                "INNER JOIN FS_FeeAuditedData ON FS_Admin.strAIRSNumber = FS_FeeAuditedData.strAIRSnumber AND FS_Admin.numFeeYear = FS_FeeAuditedData.numFeeyear " &
+                "INNER JOIN FS_FeeInvoice ON FS_Admin.strAIRSNumber = FS_FeeInvoice.strAIRSNumber AND FS_Admin.numFeeYear = FS_FeeInvoice.numFeeyear " &
+                "WHERE FS_Admin.numfeeyear = @year AND (strEnrolled = '1' OR strEnrolled IS NULL) AND FS_Admin.active = '1' AND numcurrentstatus = '9' " &
+                "GROUP BY numtotalfee) AS t " &
+                "WHERE totalpaid > 0) AS UnderPaid, (SELECT COUNT(*) FROM FS_Admin " &
+                "INNER JOIN FS_FeeAuditedData ON FS_Admin.strAIRSNumber = FS_FeeAuditedData.strAIRSnumber AND FS_Admin.numFeeYear = FS_FeeAuditedData.numFeeyear " &
+                "INNER JOIN FS_FeeInvoice ON FS_Admin.strAIRSNumber = FS_FeeInvoice.strAIRSNumber AND FS_Admin.numFeeYear = FS_FeeInvoice.numFeeyear " &
+                "WHERE FS_Admin.numfeeyear = @year AND (strEnrolled = '1' OR strEnrolled IS NULL) AND FS_Admin.active = '1' AND (numcurrentstatus = '9' OR numcurrentstatus = '11') ) AS OverPaid, (SELECT COUNT(*) FROM FS_Admin " &
+                "INNER JOIN fs_feeAuditedData ON fs_admin.strAIRSNumber = FS_FeeAuditedData.strAIRSNumber AND fs_admin.nuMFeeYear = FS_FeeAuditedData.nuMFeeYear " &
+                "WHERE FS_Admin.numfeeyear = @year AND (strEnrolled = '1' OR strEnrolled IS NULL) AND FS_Admin.active = '1' AND numcurrentstatus = '9' AND (strPaymentPlan = 'Entire Annual Year' OR strPaymentPlan IS NULL) ) AS OutOfBalanceAnnual, (SELECT COUNT(*) FROM FS_Admin " &
+                "INNER JOIN fs_feeAuditedData ON fs_admin.strAIRSNumber = FS_FeeAuditedData.strAIRSNumber AND fs_admin.nuMFeeYear = FS_FeeAuditedData.nuMFeeYear " &
+                "WHERE FS_Admin.numfeeyear = @year AND (strEnrolled = '1' OR strEnrolled IS NULL) AND FS_Admin.active = '1' AND numcurrentstatus = '9' AND strPaymentPlan = 'Four Quarterly Payments') AS OutOfBalanceQuarterly, (SELECT COUNT(*) FROM FS_Admin " &
+                "WHERE numfeeyear = @year AND (strEnrolled = '1' OR strEnrolled IS NULL) AND active = '1' AND numcurrentstatus = '10') AS PaidInFull, (SELECT COUNT(*) FROM FS_Admin " &
+                "WHERE numfeeyear = @year AND (strEnrolled = '1' OR strEnrolled IS NULL) AND active = '1' AND numcurrentstatus = '10' AND intSubmittal = '1') AS FinalPaid, (SELECT COUNT(*) FROM FS_Admin " &
+                "WHERE numfeeyear = @year AND (strEnrolled = '1' OR strEnrolled IS NULL) AND active = '1' AND numcurrentstatus = '10' AND (intSubmittal = '0' OR intsubmittal IS NULL) ) AS NotFinalPaid "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
+            Dim p As New SqlParameter("@year", cboFeeStatYear.Text)
 
-            dr = cmd.ExecuteReader
-            While dr.Read
+            Dim dr As DataRow = DB.GetDataRow(SQL, p)
+            If dr IsNot Nothing Then
                 If IsDBNull(dr.Item("feeUniverse")) Then
                     txtFSFeeUniverse.Text = ""
                 Else
@@ -3276,9 +3098,7 @@ Public Class PASPFeeStatistics
                     txtFSPaidNotFinalized.Text = dr.Item("NotFinalPaid")
                 End If
 
-            End While
-            dr.Close()
-
+            End If
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -3289,29 +3109,21 @@ Public Class PASPFeeStatistics
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
-                ds = New DataSet
-                dgvFeeStats.DataSource = ds
                 Exit Sub
             End If
 
-            SQL = "Select  " &
-            "substr(FS_Admin.strAIRSNumber, 5) as strAIRSNumber, strFacilityName, strIAIPDesc, strComment  " &
-            "from FS_Admin, APBFacilityInformation, " &
-            "FSLK_Admin_Status " &
-            "where FS_Admin.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
-            "and FS_Admin.numcurrentstatus = FSLK_Admin_Status.id " &
-            "and numFeeyear = '" & cboFeeStatYear.Text & "'  " &
+            Dim SQL As String = "Select  " &
+            "substring(FS_Admin.strAIRSNumber, 5, 8) as strAIRSNumber, strFacilityName, strIAIPDesc, strComment  " &
+            "from FS_Admin inner join APBFacilityInformation " &
+            "on FS_Admin.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
+            "inner join FSLK_Admin_Status " &
+            "on FS_Admin.numcurrentstatus = FSLK_Admin_Status.id " &
+            "where numFeeyear = @year " &
             "and FS_Admin.Active = '1' " &
             "order by strAIRSNumber "
+            Dim p As New SqlParameter("@year", cboFeeStatYear.Text)
 
-            dsViewCount = New DataSet
-            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daViewCount.Fill(dsViewCount, "ViewCount")
-            dgvFeeStats.DataSource = dsViewCount
-            dgvFeeStats.DataMember = "ViewCount"
+            dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
 
             dgvFeeStats.RowHeadersVisible = False
             dgvFeeStats.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -3345,30 +3157,23 @@ Public Class PASPFeeStatistics
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
-                ds = New DataSet
-                dgvFeeStats.DataSource = ds
                 Exit Sub
             End If
 
-            SQL = "Select  " &
-            "substr(FS_Admin.strAIRSNumber, 5) as strAIRSNumber, strFacilityName, strIAIPDesc, strComment  " &
-            "from FS_Admin, APBFacilityInformation, " &
-            "FSLK_Admin_Status " &
-            "where FS_Admin.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
-                        "and FS_Admin.numcurrentstatus = FSLK_Admin_Status.id " &
-            "and numFeeyear = '" & cboFeeStatYear.Text & "'  " &
+            Dim SQL As String = "Select  " &
+            "substring(FS_Admin.strAIRSNumber, 5, 8) as strAIRSNumber, strFacilityName, strIAIPDesc, strComment  " &
+            "from FS_Admin inner join APBFacilityInformation " &
+            "on FS_Admin.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
+            " inner join FSLK_Admin_Status " &
+            "on FS_Admin.numcurrentstatus = FSLK_Admin_Status.id " &
+            "where numFeeyear = @year " &
             "and (strEnrolled = '0' or strEnrolled is null)  " &
             "and FS_Admin.Active = '1' " &
             "order by strAIRSNumber "
 
-            dsViewCount = New DataSet
-            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daViewCount.Fill(dsViewCount, "ViewCount")
-            dgvFeeStats.DataSource = dsViewCount
-            dgvFeeStats.DataMember = "ViewCount"
+            Dim p As New SqlParameter("@year", cboFeeStatYear.Text)
+
+            dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
 
             dgvFeeStats.RowHeadersVisible = False
             dgvFeeStats.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -3402,31 +3207,24 @@ Public Class PASPFeeStatistics
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
-                ds = New DataSet
-                dgvFeeStats.DataSource = ds
                 Exit Sub
             End If
 
-            SQL = "Select  " &
-            "substr(FS_Admin.strAIRSNumber, 5) as strAIRSNumber, strFacilityName, strIAIPDesc, strComment  " &
+            Dim SQL As String = "Select  " &
+            "substring(FS_Admin.strAIRSNumber, 5, 8) as strAIRSNumber, strFacilityName, strIAIPDesc, strComment  " &
             "from FS_Admin, APBFacilityInformation, " &
             "FSLK_Admin_Status " &
             "where FS_Admin.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
                         "and FS_Admin.numcurrentstatus = FSLK_Admin_Status.id " &
-            "and numFeeyear = '" & cboFeeStatYear.Text & "'  " &
+            "and numFeeyear = @year " &
             "and numCurrentStatus = '12'  " &
             "and strEnrolled = '1'  " &
             "and FS_Admin.Active = '1' " &
             "order by strAIRSNumber "
 
-            dsViewCount = New DataSet
-            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daViewCount.Fill(dsViewCount, "ViewCount")
-            dgvFeeStats.DataSource = dsViewCount
-            dgvFeeStats.DataMember = "ViewCount"
+            Dim p As New SqlParameter("@year", cboFeeStatYear.Text)
+
+            dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
 
             dgvFeeStats.RowHeadersVisible = False
             dgvFeeStats.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -3460,31 +3258,24 @@ Public Class PASPFeeStatistics
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
-                ds = New DataSet
-                dgvFeeStats.DataSource = ds
                 Exit Sub
             End If
 
-            SQL = "Select  " &
-            "substr(FS_Admin.strAIRSNumber, 5) as strAIRSNumber, strFacilityName, strIAIPDesc, strComment  " &
-            "from FS_Admin, APBFacilityInformation, " &
-            "FSLK_Admin_Status " &
-            "where FS_Admin.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
-                        "and FS_Admin.numcurrentstatus = FSLK_Admin_Status.id " &
-            "and numFeeyear = '" & cboFeeStatYear.Text & "'  " &
+            Dim SQL As String = "Select  " &
+            "substring(FS_Admin.strAIRSNumber, 5, 8) as strAIRSNumber, strFacilityName, strIAIPDesc, strComment  " &
+            "from FS_Admin inner join APBFacilityInformation " &
+            "on FS_Admin.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
+            " inner join FSLK_Admin_Status " &
+            "on FS_Admin.numcurrentstatus = FSLK_Admin_Status.id " &
+            "where numFeeyear = @year " &
             "and numCurrentStatus <> '12'  " &
             "and strEnrolled = '1'  " &
             "and FS_Admin.Active = '1' " &
             "order by strAIRSNumber "
 
-            dsViewCount = New DataSet
-            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daViewCount.Fill(dsViewCount, "ViewCount")
-            dgvFeeStats.DataSource = dsViewCount
-            dgvFeeStats.DataMember = "ViewCount"
+            Dim p As New SqlParameter("@year", cboFeeStatYear.Text)
+
+            dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
 
             dgvFeeStats.RowHeadersVisible = False
             dgvFeeStats.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -3518,32 +3309,25 @@ Public Class PASPFeeStatistics
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
-                ds = New DataSet
-                dgvFeeStats.DataSource = ds
                 Exit Sub
             End If
 
-            SQL = "Select  " &
-            "substr(FS_Admin.strAIRSNumber, 5) as strAIRSNumber, strFacilityName, strIAIPDesc, strComment  " &
-            "from FS_Admin, APBFacilityInformation, " &
-            "FSLK_Admin_Status " &
-            "where FS_Admin.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
-                        "and FS_Admin.numcurrentstatus = FSLK_Admin_Status.id " &
-            "and numFeeyear = '" & cboFeeStatYear.Text & "'  " &
+            Dim SQL As String = "Select  " &
+            "substring(FS_Admin.strAIRSNumber, 5, 8) as strAIRSNumber, strFacilityName, strIAIPDesc, strComment  " &
+            "from FS_Admin inner join APBFacilityInformation " &
+            "on FS_Admin.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
+            " inner join FSLK_Admin_Status " &
+            "on FS_Admin.numcurrentstatus = FSLK_Admin_Status.id " &
+            "where numFeeyear = @year " &
             "and numCurrentStatus <> '12'  " &
             "and strEnrolled = '1'  " &
             "and strInitialMailout = '1'  " &
             "and FS_Admin.Active = '1' " &
             "order by strAIRSNumber "
 
-            dsViewCount = New DataSet
-            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daViewCount.Fill(dsViewCount, "ViewCount")
-            dgvFeeStats.DataSource = dsViewCount
-            dgvFeeStats.DataMember = "ViewCount"
+            Dim p As New SqlParameter("@year", cboFeeStatYear.Text)
+
+            dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
 
             dgvFeeStats.RowHeadersVisible = False
             dgvFeeStats.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -3577,32 +3361,25 @@ Public Class PASPFeeStatistics
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
-                ds = New DataSet
-                dgvFeeStats.DataSource = ds
                 Exit Sub
             End If
 
-            SQL = "Select  " &
-            "substr(FS_Admin.strAIRSNumber, 5) as strAIRSNumber, strFacilityName, strIAIPDesc, strComment  " &
-            "from FS_Admin, APBFacilityInformation, " &
-            "FSLK_Admin_Status " &
-            "where FS_Admin.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
-                        "and FS_Admin.numcurrentstatus = FSLK_Admin_Status.id " &
-            "and numFeeyear = '" & cboFeeStatYear.Text & "'  " &
+            Dim SQL As String = "Select  " &
+            "substring(FS_Admin.strAIRSNumber, 5, 8) as strAIRSNumber, strFacilityName, strIAIPDesc, strComment  " &
+            "from FS_Admin inner join APBFacilityInformation " &
+            "on FS_Admin.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
+            " inner join FSLK_Admin_Status " &
+            "on FS_Admin.numcurrentstatus = FSLK_Admin_Status.id " &
+            "where numFeeyear = @year " &
             "and numCurrentStatus <> '12'  " &
             "and strEnrolled = '1'  " &
             "and strInitialMailout = '0'  " &
             "and FS_Admin.Active = '1' " &
             "order by strAIRSNumber "
 
-            dsViewCount = New DataSet
-            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daViewCount.Fill(dsViewCount, "ViewCount")
-            dgvFeeStats.DataSource = dsViewCount
-            dgvFeeStats.DataMember = "ViewCount"
+            Dim p As New SqlParameter("@year", cboFeeStatYear.Text)
+
+            dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
 
             dgvFeeStats.RowHeadersVisible = False
             dgvFeeStats.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -3636,31 +3413,24 @@ Public Class PASPFeeStatistics
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
-                ds = New DataSet
-                dgvFeeStats.DataSource = ds
                 Exit Sub
             End If
 
-            SQL = "Select  " &
-            "substr(FS_Admin.strAIRSNumber, 5) as strAIRSNumber, strFacilityName, strIAIPDesc, strComment  " &
-            "from FS_Admin, APBFacilityInformation, " &
-            "FSLK_Admin_Status " &
-            "where FS_Admin.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
-                        "and FS_Admin.numcurrentstatus = FSLK_Admin_Status.id " &
-            "and numFeeyear = '" & cboFeeStatYear.Text & "'  " &
+            Dim SQL As String = "Select  " &
+            "substring(FS_Admin.strAIRSNumber, 5, 8) as strAIRSNumber, strFacilityName, strIAIPDesc, strComment  " &
+            "from FS_Admin inner join APBFacilityInformation " &
+            "on FS_Admin.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
+            " inner join FSLK_Admin_Status " &
+            "on FS_Admin.numcurrentstatus = FSLK_Admin_Status.id " &
+            "where numFeeyear = @year " &
             "and numcurrentstatus < '5'  " &
             "and strEnrolled = '1'  " &
             "and FS_Admin.Active = '1' " &
             "order by strAIRSNumber "
 
-            dsViewCount = New DataSet
-            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daViewCount.Fill(dsViewCount, "ViewCount")
-            dgvFeeStats.DataSource = dsViewCount
-            dgvFeeStats.DataMember = "ViewCount"
+            Dim p As New SqlParameter("@year", cboFeeStatYear.Text)
+
+            dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
 
             dgvFeeStats.RowHeadersVisible = False
             dgvFeeStats.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -3694,32 +3464,25 @@ Public Class PASPFeeStatistics
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
-                ds = New DataSet
-                dgvFeeStats.DataSource = ds
                 Exit Sub
             End If
 
-            SQL = "Select  " &
-            "substr(FS_Admin.strAIRSNumber, 5) as strAIRSNumber, strFacilityName, strIAIPDesc, strComment  " &
-            "from FS_Admin, APBFacilityInformation, " &
-            "FSLK_Admin_Status " &
-            "where FS_Admin.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
-                        "and FS_Admin.numcurrentstatus = FSLK_Admin_Status.id " &
-            "and numFeeyear = '" & cboFeeStatYear.Text & "'  " &
+            Dim SQL As String = "Select  " &
+            "substring(FS_Admin.strAIRSNumber, 5, 8) as strAIRSNumber, strFacilityName, strIAIPDesc, strComment  " &
+            "from FS_Admin inner join APBFacilityInformation " &
+            "on FS_Admin.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
+            " inner join FSLK_Admin_Status " &
+            "on FS_Admin.numcurrentstatus = FSLK_Admin_Status.id " &
+            "where numFeeyear = @year " &
             "and numcurrentstatus > '4' " &
             "and numCurrentStatus < '8' " &
             "and strEnrolled = '1'  " &
             "and FS_Admin.Active = '1' " &
             "order by strAIRSNumber "
 
-            dsViewCount = New DataSet
-            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daViewCount.Fill(dsViewCount, "ViewCount")
-            dgvFeeStats.DataSource = dsViewCount
-            dgvFeeStats.DataMember = "ViewCount"
+            Dim p As New SqlParameter("@year", cboFeeStatYear.Text)
+
+            dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
 
             dgvFeeStats.RowHeadersVisible = False
             dgvFeeStats.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -3753,18 +3516,16 @@ Public Class PASPFeeStatistics
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
-                ds = New DataSet
-                dgvFeeStats.DataSource = ds
                 Exit Sub
             End If
 
-            SQL = "Select  " &
-            "substr(FS_Admin.strAIRSNumber, 5) as strAIRSNumber, strFacilityName, strIAIPDesc, strComment  " &
-            "from FS_Admin, APBFacilityInformation, " &
-            "FSLK_Admin_Status " &
-            "where FS_Admin.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
-                        "and FS_Admin.numcurrentstatus = FSLK_Admin_Status.id " &
-            "and numFeeyear = '" & cboFeeStatYear.Text & "'  " &
+            Dim SQL As String = "Select  " &
+            "substring(FS_Admin.strAIRSNumber, 5, 8) as strAIRSNumber, strFacilityName, strIAIPDesc, strComment  " &
+            "from FS_Admin inner join APBFacilityInformation " &
+            "on FS_Admin.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
+            " inner join FSLK_Admin_Status " &
+            "on FS_Admin.numcurrentstatus = FSLK_Admin_Status.id " &
+            "where numFeeyear = @year " &
             "and numcurrentstatus > '7' " &
             "and strEnrolled = '1'  " &
             "and FS_Admin.Active = '1' " &
@@ -3772,18 +3533,13 @@ Public Class PASPFeeStatistics
                 "from fs_feeAudit " &
                 "where fs_admin.strairsnumber = fs_feeAudit.strAIRSnumber " &
                 "and fs_admin.numfeeyear = fs_feeAudit.numfeeyear " &
-                "and fs_feeAudit.numfeeyear = '" & cboFeeStatYear.Text & "' " &
+                "and fs_feeAudit.numfeeyear = @year " &
                 "and fs_feeAudit.strendcollections = 'True')" &
                 "order by strAIRSNumber "
 
-            dsViewCount = New DataSet
-            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daViewCount.Fill(dsViewCount, "ViewCount")
-            dgvFeeStats.DataSource = dsViewCount
-            dgvFeeStats.DataMember = "ViewCount"
+            Dim p As New SqlParameter("@year", cboFeeStatYear.Text)
+
+            dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
 
             dgvFeeStats.RowHeadersVisible = False
             dgvFeeStats.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -3817,34 +3573,27 @@ Public Class PASPFeeStatistics
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
-                ds = New DataSet
-                dgvFeeStats.DataSource = ds
                 Exit Sub
             End If
 
-            SQL = "Select  " &
-            "substr(FS_Admin.strAIRSNumber, 5) as strAIRSNumber, strFacilityName, strIAIPDesc, strComment  " &
-            "from FS_Admin, APBFacilityInformation, " &
-            "FSLK_Admin_Status " &
-            "where FS_Admin.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
-                        "and FS_Admin.numcurrentstatus = FSLK_Admin_Status.id " &
-            "and numFeeyear = '" & cboFeeStatYear.Text & "'  " &
+            Dim SQL As String = "Select  " &
+            "substring(FS_Admin.strAIRSNumber, 5, 8) as strAIRSNumber, strFacilityName, strIAIPDesc, strComment  " &
+            "from FS_Admin inner join APBFacilityInformation " &
+            "on FS_Admin.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
+            " inner join FSLK_Admin_Status " &
+            "on FS_Admin.numcurrentstatus = FSLK_Admin_Status.id " &
+            "where numFeeyear = @year " &
             "and numcurrentstatus > '4' " &
             "and numcurrentstatus < '12'  " &
-            "and datSubmittal <= (select datFeeDueDate from FS_FeeRate where numFeeyear = '" & cboFeeStatYear.Text & "')   " &
+            "and datSubmittal <= (select datFeeDueDate from FS_FeeRate where numFeeyear = @year) " &
             "and Intsubmittal = '1' " &
             "and strEnrolled = '1'  " &
             "and FS_Admin.Active = '1' " &
             "order by strAIRSNumber "
 
-            dsViewCount = New DataSet
-            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daViewCount.Fill(dsViewCount, "ViewCount")
-            dgvFeeStats.DataSource = dsViewCount
-            dgvFeeStats.DataMember = "ViewCount"
+            Dim p As New SqlParameter("@year", cboFeeStatYear.Text)
+
+            dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
 
             dgvFeeStats.RowHeadersVisible = False
             dgvFeeStats.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -3878,35 +3627,28 @@ Public Class PASPFeeStatistics
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
-                ds = New DataSet
-                dgvFeeStats.DataSource = ds
                 Exit Sub
             End If
 
-            SQL = "Select  " &
-            "substr(FS_Admin.strAIRSNumber, 5) as strAIRSNumber, strFacilityName, strIAIPDesc, strComment  " &
-            "from FS_Admin, APBFacilityInformation, " &
-            "FSLK_Admin_Status " &
-            "where FS_Admin.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
-                        "and FS_Admin.numcurrentstatus = FSLK_Admin_Status.id " &
-            "and numFeeyear = '" & cboFeeStatYear.Text & "'  " &
+            Dim SQL As String = "Select  " &
+            "substring(FS_Admin.strAIRSNumber, 5, 8) as strAIRSNumber, strFacilityName, strIAIPDesc, strComment  " &
+            "from FS_Admin inner join APBFacilityInformation " &
+            "on FS_Admin.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
+            " inner join FSLK_Admin_Status " &
+            "on FS_Admin.numcurrentstatus = FSLK_Admin_Status.id " &
+            "where numFeeyear = @year " &
            "and numcurrentstatus > '4' " &
             "and numcurrentstatus < '12'  " &
-            "and datSubmittal > (select datFeeDueDate from FS_FeeRate where numFeeyear = '" & cboFeeStatYear.Text & "')  " &
-            "and datSubmittal <= (select datAdminApplicable from FS_FeeRate where numFeeyear = '" & cboFeeStatYear.Text & "')   " &
+            "and datSubmittal > (select datFeeDueDate from FS_FeeRate where numFeeyear = @year) " &
+            "and datSubmittal <= (select datAdminApplicable from FS_FeeRate where numFeeyear = @year) " &
             "and Intsubmittal = '1' " &
             "and strEnrolled = '1'  " &
             "and FS_Admin.Active = '1' " &
             "order by strAIRSNumber "
 
-            dsViewCount = New DataSet
-            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daViewCount.Fill(dsViewCount, "ViewCount")
-            dgvFeeStats.DataSource = dsViewCount
-            dgvFeeStats.DataMember = "ViewCount"
+            Dim p As New SqlParameter("@year", cboFeeStatYear.Text)
+
+            dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
 
             dgvFeeStats.RowHeadersVisible = False
             dgvFeeStats.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -3940,34 +3682,27 @@ Public Class PASPFeeStatistics
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
-                ds = New DataSet
-                dgvFeeStats.DataSource = ds
                 Exit Sub
             End If
 
-            SQL = "Select  " &
-            "substr(FS_Admin.strAIRSNumber, 5) as strAIRSNumber, strFacilityName, strIAIPDesc, strComment  " &
-            "from FS_Admin, APBFacilityInformation, " &
-            "FSLK_Admin_Status " &
-            "where FS_Admin.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
-                        "and FS_Admin.numcurrentstatus = FSLK_Admin_Status.id " &
-            "and numFeeyear = '" & cboFeeStatYear.Text & "'  " &
+            Dim SQL As String = "Select  " &
+            "substring(FS_Admin.strAIRSNumber, 5, 8) as strAIRSNumber, strFacilityName, strIAIPDesc, strComment  " &
+            "from FS_Admin inner join APBFacilityInformation " &
+            "on FS_Admin.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
+            " inner join FSLK_Admin_Status " &
+            "on FS_Admin.numcurrentstatus = FSLK_Admin_Status.id " &
+            "where numFeeyear = @year " &
             "and numcurrentstatus > '4' " &
             "and numcurrentstatus < '12'  " &
-            "and datSubmittal > (select datAdminApplicable from FS_FeeRate where numFeeyear = '" & cboFeeStatYear.Text & "')   " &
+            "and datSubmittal > (select datAdminApplicable from FS_FeeRate where numFeeyear = @year) " &
             "and Intsubmittal = '1' " &
             "and strEnrolled = '1'  " &
             "and FS_Admin.Active = '1' " &
             "order by strAIRSNumber "
 
-            dsViewCount = New DataSet
-            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daViewCount.Fill(dsViewCount, "ViewCount")
-            dgvFeeStats.DataSource = dsViewCount
-            dgvFeeStats.DataMember = "ViewCount"
+            Dim p As New SqlParameter("@year", cboFeeStatYear.Text)
+
+            dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
 
             dgvFeeStats.RowHeadersVisible = False
             dgvFeeStats.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -4001,31 +3736,24 @@ Public Class PASPFeeStatistics
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
-                ds = New DataSet
-                dgvFeeStats.DataSource = ds
                 Exit Sub
             End If
 
-            SQL = "Select  " &
-            "substr(FS_Admin.strAIRSNumber, 5) as strAIRSNumber, strFacilityName, strIAIPDesc, strComment  " &
-            "from FS_Admin, APBFacilityInformation, " &
-            "FSLK_Admin_Status " &
-            "where FS_Admin.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
-                        "and FS_Admin.numcurrentstatus = FSLK_Admin_Status.id " &
-            "and numFeeyear = '" & cboFeeStatYear.Text & "'  " &
+            Dim SQL As String = "Select  " &
+            "substring(FS_Admin.strAIRSNumber, 5, 8) as strAIRSNumber, strFacilityName, strIAIPDesc, strComment  " &
+            "from FS_Admin inner join APBFacilityInformation " &
+            "on FS_Admin.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
+            " inner join FSLK_Admin_Status " &
+            "on FS_Admin.numcurrentstatus = FSLK_Admin_Status.id " &
+            "where numFeeyear = @year " &
             "and (strEnrolled = '1' or strEnrolled is null)  " &
             "and numcurrentstatus <= '8' " &
             "and FS_Admin.Active = '1' " &
             "order by strAIRSNumber "
 
-            dsViewCount = New DataSet
-            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daViewCount.Fill(dsViewCount, "ViewCount")
-            dgvFeeStats.DataSource = dsViewCount
-            dgvFeeStats.DataMember = "ViewCount"
+            Dim p As New SqlParameter("@year", cboFeeStatYear.Text)
+
+            dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
 
             dgvFeeStats.RowHeadersVisible = False
             dgvFeeStats.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -4062,274 +3790,24 @@ Public Class PASPFeeStatistics
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
-                ds = New DataSet
-                dgvFeeStats.DataSource = ds
                 Exit Sub
             End If
 
-            SQL = "Select  " &
-            "substr(FS_Admin.strAIRSNumber, 5) as strAIRSNumber, strFacilityName, strIAIPDesc, strComment  " &
-            "from FS_Admin, APBFacilityInformation, " &
-            "FSLK_Admin_Status " &
-            "where FS_Admin.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
-                        "and FS_Admin.numcurrentstatus = FSLK_Admin_Status.id " &
-            "and numFeeyear = '" & cboFeeStatYear.Text & "'  " &
+            Dim SQL As String = "Select  " &
+            "substring(FS_Admin.strAIRSNumber, 5, 8) as strAIRSNumber, strFacilityName, strIAIPDesc, strComment  " &
+            "from FS_Admin inner join APBFacilityInformation " &
+            "on FS_Admin.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
+            " inner join FSLK_Admin_Status " &
+            "on FS_Admin.numcurrentstatus = FSLK_Admin_Status.id " &
+            "where numFeeyear = @year " &
             "and (strEnrolled = '1' or strEnrolled is null)  " &
             "and (numcurrentstatus = '9' or numcurrentstatus = '11' ) " &
             "and FS_Admin.Active = '1' " &
             "order by strAIRSNumber "
 
-            dsViewCount = New DataSet
-            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daViewCount.Fill(dsViewCount, "ViewCount")
-            dgvFeeStats.DataSource = dsViewCount
-            dgvFeeStats.DataMember = "ViewCount"
+            Dim p As New SqlParameter("@year", cboFeeStatYear.Text)
 
-            dgvFeeStats.RowHeadersVisible = False
-            dgvFeeStats.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvFeeStats.AllowUserToResizeColumns = True
-            dgvFeeStats.AllowUserToAddRows = False
-            dgvFeeStats.AllowUserToDeleteRows = False
-            dgvFeeStats.AllowUserToOrderColumns = True
-            dgvFeeStats.AllowUserToResizeRows = True
-
-            dgvFeeStats.Columns("STRAIRSNUMBER").HeaderText = "Airs No."
-            dgvFeeStats.Columns("STRAIRSNUMBER").DisplayIndex = 0
-            dgvFeeStats.Columns("STRAIRSNUMBER").Width = dgvFeeStats.Width * 0.2
-            dgvFeeStats.Columns("strFacilityName").HeaderText = "Facility Name"
-            dgvFeeStats.Columns("strFacilityName").DisplayIndex = 1
-            dgvFeeStats.Columns("strFacilityName").Width = dgvFeeStats.Width * 0.8
-            dgvFeeStats.Columns("strIAIPDesc").HeaderText = "Fee Status"
-            dgvFeeStats.Columns("strIAIPDesc").DisplayIndex = 2
-            dgvFeeStats.Columns("strIAIPDesc").Width = dgvFeeStats.Width * 0.5
-            dgvFeeStats.Columns("strComment").HeaderText = "Fee Statistics Comment"
-            dgvFeeStats.Columns("strComment").DisplayIndex = 3
-            dgvFeeStats.Columns("strComment").Width = dgvFeeStats.Width * 0.5
-
-            txtFeeStatsCount.Text = dgvFeeStats.RowCount.ToString
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-
-    Private Sub llbFSSummaryPartial_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbFSSummaryPartial.LinkClicked
-        Try
-            If cboFeeStatYear.Text <> "" Then
-            Else
-                ds = New DataSet
-                dgvFeeStats.DataSource = ds
-                Exit Sub
-            End If
-
-
-            SQL = "Select  " &
-            "substr(FSUnderPaid.strAIRSNumber, 5) as strAIRSNumber, strFacilityName, strIAIPDesc  " &
-"from (select " &
-"(numTotalFee) - sum(numAmount) as TotalPaid, FS_Admin.strairsnumber " &
-"from FS_Admin, FS_FeeAuditedData, " &
-"FS_FeeInvoice , " &
-            "FSLK_Admin_Status " &
-"where  FS_Admin.strAIRSNumber = FS_FeeAuditedData.strAIRSnumber " &
-            "and FS_Admin.numcurrentstatus = FSLK_Admin_Status.id " &
-"and FS_Admin.numFeeYear = FS_FeeAuditedData.numFeeyear " &
-"and FS_Admin.strAIRSNumber = FS_FeeInvoice.strAIRSNumber " &
-"and FS_Admin.numFeeYear = FS_FeeInvoice.numFeeyear " &
-"and FS_Admin.numfeeyear = '" & cboFeeStatYear.Text & "' " &
-"and (strEnrolled = '1' or strEnrolled is null)  " &
-"and FS_Admin.active = '1' " &
-"and numcurrentstatus = '9' " &
-"group by numtotalfee )FSUnderPaid, APBFacilityInformation " &
-"where totalpaid > 0   " &
-"and FSUnderPaid.strAIRSNumber = APBFacilityInformation.strAIRSNumber "
-
-
-            dsViewCount = New DataSet
-            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daViewCount.Fill(dsViewCount, "ViewCount")
-            dgvFeeStats.DataSource = dsViewCount
-            dgvFeeStats.DataMember = "ViewCount"
-
-            dgvFeeStats.RowHeadersVisible = False
-            dgvFeeStats.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvFeeStats.AllowUserToResizeColumns = True
-            dgvFeeStats.AllowUserToAddRows = False
-            dgvFeeStats.AllowUserToDeleteRows = False
-            dgvFeeStats.AllowUserToOrderColumns = True
-            dgvFeeStats.AllowUserToResizeRows = True
-
-            dgvFeeStats.Columns("STRAIRSNUMBER").HeaderText = "Airs No."
-            dgvFeeStats.Columns("STRAIRSNUMBER").DisplayIndex = 0
-            dgvFeeStats.Columns("STRAIRSNUMBER").Width = dgvFeeStats.Width * 0.2
-            dgvFeeStats.Columns("strFacilityName").HeaderText = "Facility Name"
-            dgvFeeStats.Columns("strFacilityName").DisplayIndex = 1
-            dgvFeeStats.Columns("strFacilityName").Width = dgvFeeStats.Width * 0.8
-            dgvFeeStats.Columns("strIAIPDesc").HeaderText = "Fee Status"
-            dgvFeeStats.Columns("strIAIPDesc").DisplayIndex = 2
-            dgvFeeStats.Columns("strIAIPDesc").Width = dgvFeeStats.Width * 0.5
-
-            txtFeeStatsCount.Text = dgvFeeStats.RowCount.ToString
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-
-    Private Sub llbFSSummaryAnnual_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbFSSummaryAnnual.LinkClicked
-        Try
-            If cboFeeStatYear.Text <> "" Then
-            Else
-                ds = New DataSet
-                dgvFeeStats.DataSource = ds
-                Exit Sub
-            End If
-
-            SQL = "Select  " &
-          "substr(FS_Admin.strAIRSNumber, 5) as strAIRSNumber, strFacilityName, strIAIPDesc, strComment  " &
-          "from FS_Admin, APBFacilityInformation, " &
-            "FSLK_Admin_Status " &
-          "where FS_Admin.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
-                      "and FS_Admin.numcurrentstatus = FSLK_Admin_Status.id " &
-          "and numFeeyear = '" & cboFeeStatYear.Text & "'  " &
-          "and (strEnrolled = '1' or strEnrolled is null)  " &
-          "and numcurrentstatus = '9' " &
-          "and (strPaymentPlan = 'Entire Annual Year' or strPaymentPlan is null) " &
-          "and FS_Admin.Active = '1' " &
-          "order by strAIRSNumber "
-
-            dsViewCount = New DataSet
-            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daViewCount.Fill(dsViewCount, "ViewCount")
-            dgvFeeStats.DataSource = dsViewCount
-            dgvFeeStats.DataMember = "ViewCount"
-
-            dgvFeeStats.RowHeadersVisible = False
-            dgvFeeStats.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvFeeStats.AllowUserToResizeColumns = True
-            dgvFeeStats.AllowUserToAddRows = False
-            dgvFeeStats.AllowUserToDeleteRows = False
-            dgvFeeStats.AllowUserToOrderColumns = True
-            dgvFeeStats.AllowUserToResizeRows = True
-
-            dgvFeeStats.Columns("STRAIRSNUMBER").HeaderText = "Airs No."
-            dgvFeeStats.Columns("STRAIRSNUMBER").DisplayIndex = 0
-            dgvFeeStats.Columns("STRAIRSNUMBER").Width = dgvFeeStats.Width * 0.2
-            dgvFeeStats.Columns("strFacilityName").HeaderText = "Facility Name"
-            dgvFeeStats.Columns("strFacilityName").DisplayIndex = 1
-            dgvFeeStats.Columns("strFacilityName").Width = dgvFeeStats.Width * 0.8
-            dgvFeeStats.Columns("strIAIPDesc").HeaderText = "Fee Status"
-            dgvFeeStats.Columns("strIAIPDesc").DisplayIndex = 2
-            dgvFeeStats.Columns("strIAIPDesc").Width = dgvFeeStats.Width * 0.5
-            dgvFeeStats.Columns("strComment").HeaderText = "Fee Statistics Comment"
-            dgvFeeStats.Columns("strComment").DisplayIndex = 3
-            dgvFeeStats.Columns("strComment").Width = dgvFeeStats.Width * 0.5
-
-            txtFeeStatsCount.Text = dgvFeeStats.RowCount.ToString
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-
-    Private Sub llbFSSummaryQuarterly_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbFSSummaryQuarterly.LinkClicked
-        Try
-            If cboFeeStatYear.Text <> "" Then
-            Else
-                ds = New DataSet
-                dgvFeeStats.DataSource = ds
-                Exit Sub
-            End If
-
-            SQL = "Select  " &
-          "substr(FS_Admin.strAIRSNumber, 5) as strAIRSNumber, strFacilityName, strIAIPDesc, strComment  " &
-          "from FS_Admin, APBFacilityInformation, " &
-            "FSLK_Admin_Status " &
-          "where FS_Admin.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
-                      "and FS_Admin.numcurrentstatus = FSLK_Admin_Status.id " &
-          "and numFeeyear = '" & cboFeeStatYear.Text & "'  " &
-          "and (strEnrolled = '1' or strEnrolled is null)  " &
-          "and numcurrentstatus = '9' " &
-          "and strPaymentPlan = 'Four Quarterly Payments' " &
-          "and FS_Admin.Active = '1' " &
-          "order by strAIRSNumber "
-
-            dsViewCount = New DataSet
-            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daViewCount.Fill(dsViewCount, "ViewCount")
-            dgvFeeStats.DataSource = dsViewCount
-            dgvFeeStats.DataMember = "ViewCount"
-
-            dgvFeeStats.RowHeadersVisible = False
-            dgvFeeStats.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvFeeStats.AllowUserToResizeColumns = True
-            dgvFeeStats.AllowUserToAddRows = False
-            dgvFeeStats.AllowUserToDeleteRows = False
-            dgvFeeStats.AllowUserToOrderColumns = True
-            dgvFeeStats.AllowUserToResizeRows = True
-
-            dgvFeeStats.Columns("STRAIRSNUMBER").HeaderText = "Airs No."
-            dgvFeeStats.Columns("STRAIRSNUMBER").DisplayIndex = 0
-            dgvFeeStats.Columns("STRAIRSNUMBER").Width = dgvFeeStats.Width * 0.2
-            dgvFeeStats.Columns("strFacilityName").HeaderText = "Facility Name"
-            dgvFeeStats.Columns("strFacilityName").DisplayIndex = 1
-            dgvFeeStats.Columns("strFacilityName").Width = dgvFeeStats.Width * 0.8
-            dgvFeeStats.Columns("strIAIPDesc").HeaderText = "Fee Status"
-            dgvFeeStats.Columns("strIAIPDesc").DisplayIndex = 2
-            dgvFeeStats.Columns("strIAIPDesc").Width = dgvFeeStats.Width * 0.5
-            dgvFeeStats.Columns("strComment").HeaderText = "Fee Statistics Comment"
-            dgvFeeStats.Columns("strComment").DisplayIndex = 3
-            dgvFeeStats.Columns("strComment").Width = dgvFeeStats.Width * 0.5
-
-            txtFeeStatsCount.Text = dgvFeeStats.RowCount.ToString
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-
-    Private Sub llbFSSummaryOverpaid_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbFSSummaryOverpaid.LinkClicked
-        Try
-            If cboFeeStatYear.Text <> "" Then
-            Else
-                ds = New DataSet
-                dgvFeeStats.DataSource = ds
-                Exit Sub
-            End If
-
-
-            SQL = "Select  " &
-          "substr(FS_Admin.strAIRSNumber, 5) as strAIRSNumber, strFacilityName, strIAIPDesc, strComment  " &
-          "from FS_Admin, APBFacilityInformation, " &
-            "FSLK_Admin_Status " &
-          "where FS_Admin.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
-                      "and FS_Admin.numcurrentstatus = FSLK_Admin_Status.id " &
-          "and numFeeyear = '" & cboFeeStatYear.Text & "'  " &
-          "and (strEnrolled = '1' or strEnrolled is null)  " &
-          "and (numcurrentstatus = '9' or numcurrentstatus = '11' ) " &
-          "and strPaymentPlan = 'Four Quarterly Payments' " &
-          "and FS_Admin.Active = '1' " &
-          "order by strAIRSNumber "
-
-            dsViewCount = New DataSet
-            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daViewCount.Fill(dsViewCount, "ViewCount")
-            dgvFeeStats.DataSource = dsViewCount
-            dgvFeeStats.DataMember = "ViewCount"
+            dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
 
             dgvFeeStats.RowHeadersVisible = False
             dgvFeeStats.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -4363,31 +3841,24 @@ Public Class PASPFeeStatistics
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
-                ds = New DataSet
-                dgvFeeStats.DataSource = ds
                 Exit Sub
             End If
 
-            SQL = "Select  " &
-            "substr(FS_Admin.strAIRSNumber, 5) as strAIRSNumber, strFacilityName, strIAIPDesc, strComment  " &
-            "from FS_Admin, APBFacilityInformation, " &
-            "FSLK_Admin_Status " &
-            "where FS_Admin.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
-                        "and FS_Admin.numcurrentstatus = FSLK_Admin_Status.id " &
-            "and numFeeyear = '" & cboFeeStatYear.Text & "'  " &
+            Dim SQL As String = "Select  " &
+            "substring(FS_Admin.strAIRSNumber, 5, 8) as strAIRSNumber, strFacilityName, strIAIPDesc, strComment  " &
+            "from FS_Admin inner join APBFacilityInformation " &
+            "on FS_Admin.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
+            " inner join FSLK_Admin_Status " &
+            "on FS_Admin.numcurrentstatus = FSLK_Admin_Status.id " &
+            "where numFeeyear = @year " &
             "and (strEnrolled = '1' or strEnrolled is null)  " &
             "and numcurrentstatus = '10' " &
             "and FS_Admin.Active = '1' " &
             "order by strAIRSNumber "
 
-            dsViewCount = New DataSet
-            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daViewCount.Fill(dsViewCount, "ViewCount")
-            dgvFeeStats.DataSource = dsViewCount
-            dgvFeeStats.DataMember = "ViewCount"
+            Dim p As New SqlParameter("@year", cboFeeStatYear.Text)
+
+            dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
 
             dgvFeeStats.RowHeadersVisible = False
             dgvFeeStats.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -4421,32 +3892,25 @@ Public Class PASPFeeStatistics
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
-                ds = New DataSet
-                dgvFeeStats.DataSource = ds
                 Exit Sub
             End If
 
-            SQL = "Select  " &
-          "substr(FS_Admin.strAIRSNumber, 5) as strAIRSNumber, strFacilityName, strIAIPDesc, strComment  " &
-          "from FS_Admin, APBFacilityInformation, " &
-            "FSLK_Admin_Status " &
-          "where FS_Admin.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
-                      "and FS_Admin.numcurrentstatus = FSLK_Admin_Status.id " &
-          "and numFeeyear = '" & cboFeeStatYear.Text & "'  " &
+            Dim SQL As String = "Select  " &
+          "substring(FS_Admin.strAIRSNumber, 5, 8) as strAIRSNumber, strFacilityName, strIAIPDesc, strComment  " &
+            "from FS_Admin inner join APBFacilityInformation " &
+            "on FS_Admin.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
+            " inner join FSLK_Admin_Status " &
+            "on FS_Admin.numcurrentstatus = FSLK_Admin_Status.id " &
+            "where numFeeyear = @year " &
           "and (strEnrolled = '1' or strEnrolled is null)  " &
           "and numcurrentstatus = '10' " &
           "and intSubmittal = '1' " &
           "and FS_Admin.Active = '1' " &
           "order by strAIRSNumber "
 
-            dsViewCount = New DataSet
-            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daViewCount.Fill(dsViewCount, "ViewCount")
-            dgvFeeStats.DataSource = dsViewCount
-            dgvFeeStats.DataMember = "ViewCount"
+            Dim p As New SqlParameter("@year", cboFeeStatYear.Text)
+
+            dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
 
             dgvFeeStats.RowHeadersVisible = False
             dgvFeeStats.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -4480,32 +3944,25 @@ Public Class PASPFeeStatistics
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
-                ds = New DataSet
-                dgvFeeStats.DataSource = ds
                 Exit Sub
             End If
 
-            SQL = "Select  " &
-          "substr(FS_Admin.strAIRSNumber, 5) as strAIRSNumber, strFacilityName, strIAIPDesc, strComment  " &
-          "from FS_Admin, APBFacilityInformation, " &
-            "FSLK_Admin_Status " &
-          "where FS_Admin.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
-                      "and FS_Admin.numcurrentstatus = FSLK_Admin_Status.id " &
-          "and numFeeyear = '" & cboFeeStatYear.Text & "'  " &
+            Dim SQL As String = "Select  " &
+          "substring(FS_Admin.strAIRSNumber, 5, 8) as strAIRSNumber, strFacilityName, strIAIPDesc, strComment  " &
+            "from FS_Admin inner join APBFacilityInformation " &
+            "on FS_Admin.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
+            " inner join FSLK_Admin_Status " &
+            "on FS_Admin.numcurrentstatus = FSLK_Admin_Status.id " &
+            "where numFeeyear = @year " &
           "and (strEnrolled = '1' or strEnrolled is null)  " &
           "and numcurrentstatus = '10' " &
           "and (intSubmittal = '0' or intsubmittal is null) " &
           "and FS_Admin.Active = '1' " &
           "order by strAIRSNumber "
 
-            dsViewCount = New DataSet
-            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daViewCount.Fill(dsViewCount, "ViewCount")
-            dgvFeeStats.DataSource = dsViewCount
-            dgvFeeStats.DataMember = "ViewCount"
+            Dim p As New SqlParameter("@year", cboFeeStatYear.Text)
+
+            dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
 
             dgvFeeStats.RowHeadersVisible = False
             dgvFeeStats.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -4539,71 +3996,11 @@ Public Class PASPFeeStatistics
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
-                ds = New DataSet
-                dgvFeeStats.DataSource = ds
                 Exit Sub
             End If
 
-            SQL = "Select  " &
-            "substr(FS_Admin.strAIRSNumber, 5) as strAIRSNumber, strFacilityName, strIAIPDesc, FS_Admin.strComment, " &
-            "FS_ContactInfo.STRCONTACTFIRSTNAME, " &
-            "FS_ContactInfo.STRCONTACTLASTNAME, " &
-            "FS_ContactInfo.STRContactCOMPANYNAME, " &
-            "FS_ContactInfo.STRCONTACTADDRESS, " &
-            "FS_ContactInfo.STRCONTACTCITY, " &
-            "FS_ContactInfo.STRCONTACTSTATE, " &
-            "FS_ContactInfo.STRCONTACTZIPCODE, " &
-            "APBFACILITYINFORMATION.STRFACILITYSTREET1, " &
-            "APBFACILITYINFORMATION.STRFACILITYCITY, " &
-            "APBFACILITYINFORMATION.STRFACILITYZIPCODE, " &
-            "FS_ContactInfo.STRCONTACTEMAIL, " &
-            "FS_ContactInfo.strContactPhoneNumber, " &
-            "datShutDown, strClass, " &
-            "case " &
-            "when strOperate = '1' then 'Operating' " &
-            "else 'Not Operating' " &
-            "end Operating, " &
-            "case " &
-            "when strPart70 = '1' then 'True' " &
-            "else 'False' " &
-            "end Part70, " &
-            "case " &
-            "when strNSPS = '1' then 'True' " &
-            "else 'False' " &
-            "end NSPS, " &
-            "numTotalFee, sum(numPayment) as TotalPaid " &
-            "from FS_Admin, APBFacilityInformation, " &
-            "FSLK_Admin_Status,  " &
-            "FS_ContactInfo, FS_FeeAuditedData, " &
-            "FS_Transactions " &
-            "where FS_Admin.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
-            "and FS_Admin.strAIRSNumber = FS_FeeAuditedData.strAIRSNumber (+) " &
-            "and FS_Admin.strAIRSNumber = FS_ContactInfo.strAIRSNumber (+) " &
-            "and FS_Admin.strAIRSNumber = FS_Transactions.strAIRSNumber (+) " &
-            "and FS_Admin.numFeeYear = FS_FeeAuditedData.numFeeYear (+) " &
-            "and FS_Admin.numFeeYear = FS_ContactInfo.numFeeYear (+) " &
-            "and FS_Admin.numFeeYear = FS_Transactions.numFeeYear (+) " &
-            "and FS_Admin.numcurrentstatus = FSLK_Admin_Status.id " &
-            "and FS_Admin.numFeeyear = '" & cboFeeStatYear.Text & "'  " &
-            "and FS_Admin.Active = '1' " &
-            "group by FS_Admin.strAIRSNumber , strFacilityName, " &
-            "strIAIPDesc, FS_ContactInfo.STRCONTACTFIRSTNAME, " &
-            "FS_ContactInfo.STRCONTACTLASTNAME, FS_ContactInfo.STRContactCOMPANYNAME, " &
-            "FS_ContactInfo.STRCONTACTADDRESS, FS_ContactInfo.STRCONTACTCITY, " &
-            "FS_ContactInfo.STRCONTACTSTATE, FS_ContactInfo.STRCONTACTZIPCODE, " &
-            "APBFACILITYINFORMATION.STRFACILITYSTREET1, APBFACILITYINFORMATION.STRFACILITYCITY, " &
-            "APBFACILITYINFORMATION.STRFACILITYZIPCODE, FS_ContactInfo.STRCONTACTEMAIL, " &
-            "FS_ContactInfo.strContactPhoneNumber, datShutDown, strClass, " &
-            "StrOperate, " &
-            "strPart70," &
-            "strNSPS, " &
-            "numTotalFee, FS_Admin.strComment " &
-            "order by strAIRSNumber "
-
-
-
-            SQL = "Select  " &
-            "substr(FS_Admin.strAIRSNumber, 5) as strAIRSNumber, " &
+            Dim SQL As String = "Select  " &
+            "substring(FS_Admin.strAIRSNumber, 5, 8) as strAIRSNumber, " &
             "APBFacilityInformation.strFacilityName, strIAIPDesc, FS_Admin.strComment,  " &
             "FS_Mailout.STRFIRSTNAME as strContactFirstName,  " &
             "FS_Mailout.STRLASTNAME as strContactLastName,  " &
@@ -4631,20 +4028,22 @@ Public Class PASPFeeStatistics
             "else 'False'  " &
             "end NSPS,  " &
             "numTotalFee, sum(numPayment) as TotalPaid  " &
-            "from FS_Admin, APBFacilityInformation,  " &
-            "FSLK_Admin_Status,   " &
-            "FS_Mailout, FS_FeeAuditedData,  " &
-            "FS_Transactions  " &
-            "where FS_Admin.strAIRSNumber = APBFacilityInformation.strAIRSNumber  " &
-            "and FS_Admin.strAIRSNumber = FS_FeeAuditedData.strAIRSNumber (+)  " &
-            "and FS_Admin.strAIRSNumber = FS_Mailout.strAIRSNumber (+)  " &
-            "and FS_Admin.strAIRSNumber = FS_Transactions.strAIRSNumber (+)  " &
-            "and FS_Admin.numFeeYear = FS_FeeAuditedData.numFeeYear (+)  " &
-            "and FS_Admin.numFeeYear = FS_Mailout.numFeeYear (+)  " &
-            "and FS_Admin.numFeeYear = FS_Transactions.numFeeYear (+)  " &
-            "and FS_Admin.numcurrentstatus = FSLK_Admin_Status.id  " &
-            "and FS_Admin.numFeeyear = '" & cboFeeStatYear.Text & "'    " &
-            "and FS_Admin.Active = '1' GROUP BY substr(FS_Admin.strAIRSNumber, 5), APBFacilityInformation.strFacilityName, strIAIPDesc, FS_Mailout.STRFIRSTNAME, FS_Mailout.STRLASTNAME, FS_Mailout.STRContactCONAME, FS_Mailout.STRCONTACTADDRESS1, FS_Mailout.STRCONTACTCITY, FS_Mailout.STRCONTACTSTATE, FS_Mailout.STRCONTACTZIPCODE, APBFACILITYINFORMATION.STRFACILITYSTREET1, APBFACILITYINFORMATION.STRFACILITYCITY, APBFACILITYINFORMATION.STRFACILITYZIPCODE, FS_Mailout.strGecoUserEmail, '', datShutDown, FS_Admin.strComment,  FS_Mailout.strClass, case  " &
+            "from FS_Admin " &
+            "inner join APBFacilityInformation " &
+            "on FS_Admin.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
+            "inner join FSLK_Admin_Status " &
+            "on FS_Admin.numcurrentstatus = FSLK_Admin_Status.id  " &
+            "left join FS_Mailout " &
+            "on FS_Admin.strAIRSNumber = FS_Mailout.strAIRSNumber " &
+            "and FS_Admin.numFeeYear = FS_Mailout.numFeeYear " &
+            "left join FS_FeeAuditedData " &
+            "on FS_Admin.strAIRSNumber = FS_FeeAuditedData.strAIRSNumber " &
+            "and FS_Admin.numFeeYear = FS_FeeAuditedData.numFeeYear " &
+            "left join FS_Transactions " &
+            "on FS_Admin.strAIRSNumber = FS_Transactions.strAIRSNumber " &
+            "and FS_Admin.numFeeYear = FS_Transactions.numFeeYear " &
+            "where FS_Admin.numFeeyear = @year " &
+            "and FS_Admin.Active = '1' GROUP BY substring(FS_Admin.strAIRSNumber, 5, 8), APBFacilityInformation.strFacilityName, strIAIPDesc, FS_Mailout.STRFIRSTNAME, FS_Mailout.STRLASTNAME, FS_Mailout.STRContactCONAME, FS_Mailout.STRCONTACTADDRESS1, FS_Mailout.STRCONTACTCITY, FS_Mailout.STRCONTACTSTATE, FS_Mailout.STRCONTACTZIPCODE, APBFACILITYINFORMATION.STRFACILITYSTREET1, APBFACILITYINFORMATION.STRFACILITYCITY, APBFACILITYINFORMATION.STRFACILITYZIPCODE, FS_Mailout.strGecoUserEmail, datShutDown, FS_Admin.strComment,  FS_Mailout.strClass, case  " &
             "when strOperate = '1' then 'Operating'  " &
             "else 'Not Operating'  " &
             "end, case  " &
@@ -4655,14 +4054,9 @@ Public Class PASPFeeStatistics
             "else 'False'  " &
             "end, numTotalFee "
 
-            dsViewCount = New DataSet
-            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daViewCount.Fill(dsViewCount, "ViewCount")
-            dgvFeeStats.DataSource = dsViewCount
-            dgvFeeStats.DataMember = "ViewCount"
+            Dim p As New SqlParameter("@year", cboFeeStatYear.Text)
+
+            dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
 
             dgvFeeStats.RowHeadersVisible = False
             dgvFeeStats.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -4739,13 +4133,11 @@ Public Class PASPFeeStatistics
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
-                ds = New DataSet
-                dgvFeeStats.DataSource = ds
                 Exit Sub
             End If
 
-            SQL = "Select  " &
-            "substr(FS_Admin.strAIRSNumber, 5) as strAIRSNumber, strFacilityName, strIAIPDesc, FS_Admin.strComment,  " &
+            Dim SQL As String = "Select  " &
+            "substring(FS_Admin.strAIRSNumber, 5, 8) as strAIRSNumber, strFacilityName, strIAIPDesc, FS_Admin.strComment,  " &
             "FS_ContactInfo.STRCONTACTFIRSTNAME, " &
             "FS_ContactInfo.STRCONTACTLASTNAME, " &
             "FS_ContactInfo.STRContactCOMPANYNAME, " &
@@ -4772,19 +4164,21 @@ Public Class PASPFeeStatistics
             "else 'False' " &
             "end NSPS, " &
             "numTotalFee, sum(numPayment) as TotalPaid " &
-            "from FS_Admin, APBFacilityInformation, " &
-            "FSLK_Admin_Status,  " &
-            "FS_ContactInfo, FS_FeeAuditedData, " &
-            "FS_Transactions " &
-            "where FS_Admin.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
-            "and FS_Admin.strAIRSNumber = FS_FeeAuditedData.strAIRSNumber (+) " &
-            "and FS_Admin.strAIRSNumber = FS_ContactInfo.strAIRSNumber (+) " &
-            "and FS_Admin.strAIRSNumber = FS_Transactions.strAIRSNumber (+) " &
-            "and FS_Admin.numFeeYear = FS_FeeAuditedData.numFeeYear (+) " &
-            "and FS_Admin.numFeeYear = FS_ContactInfo.numFeeYear (+) " &
-            "and FS_Admin.numFeeYear = FS_Transactions.numFeeYear (+) " &
-            "and FS_Admin.numcurrentstatus = FSLK_Admin_Status.id " &
-            "and FS_Admin.numFeeyear = '" & cboFeeStatYear.Text & "'  " &
+            "from FS_Admin " &
+            "inner join APBFacilityInformation " &
+            "on FS_Admin.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
+            "inner join FSLK_Admin_Status " &
+            "on FS_Admin.numcurrentstatus = FSLK_Admin_Status.id " &
+            "left join FS_ContactInfo " &
+            "on FS_Admin.strAIRSNumber = FS_ContactInfo.strAIRSNumber " &
+            "and FS_Admin.numFeeYear = FS_ContactInfo.numFeeYear " &
+            "left join FS_FeeAuditedData " &
+            "on FS_Admin.strAIRSNumber = FS_FeeAuditedData.strAIRSNumber " &
+            "and FS_Admin.numFeeYear = FS_FeeAuditedData.numFeeYear " &
+            "left join FS_Transactions " &
+            "on FS_Admin.strAIRSNumber = FS_Transactions.strAIRSNumber " &
+            "and FS_Admin.numFeeYear = FS_Transactions.numFeeYear " &
+            "where FS_Admin.numFeeyear = @year " &
             "and (strEnrolled = '0' or strEnrolled is null)  " &
             "and FS_Admin.Active = '1' " &
             "group by FS_Admin.strAIRSNumber , strFacilityName, " &
@@ -4801,14 +4195,9 @@ Public Class PASPFeeStatistics
             "numTotalFee, FS_Admin.strComment " &
             "order by strAIRSNumber "
 
-            dsViewCount = New DataSet
-            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daViewCount.Fill(dsViewCount, "ViewCount")
-            dgvFeeStats.DataSource = dsViewCount
-            dgvFeeStats.DataMember = "ViewCount"
+            Dim p As New SqlParameter("@year", cboFeeStatYear.Text)
+
+            dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
 
             dgvFeeStats.RowHeadersVisible = False
             dgvFeeStats.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -4886,13 +4275,11 @@ Public Class PASPFeeStatistics
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
-                ds = New DataSet
-                dgvFeeStats.DataSource = ds
                 Exit Sub
             End If
 
-            SQL = "Select  " &
-            "substr(FS_Admin.strAIRSNumber, 5) as strAIRSNumber, strFacilityName, strIAIPDesc, FS_Admin.strComment,  " &
+            Dim SQL As String = "Select  " &
+            "substring(FS_Admin.strAIRSNumber, 5, 8) as strAIRSNumber, strFacilityName, strIAIPDesc, FS_Admin.strComment,  " &
             "FS_ContactInfo.STRCONTACTFIRSTNAME, " &
             "FS_ContactInfo.STRCONTACTLASTNAME, " &
             "FS_ContactInfo.STRContactCOMPANYNAME, " &
@@ -4919,19 +4306,21 @@ Public Class PASPFeeStatistics
             "else 'False' " &
             "end NSPS, " &
             "numTotalFee, sum(numPayment) as TotalPaid " &
-            "from FS_Admin, APBFacilityInformation, " &
-            "FSLK_Admin_Status,  " &
-            "FS_ContactInfo, FS_FeeAuditedData, " &
-            "FS_Transactions " &
-            "where FS_Admin.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
-            "and FS_Admin.strAIRSNumber = FS_FeeAuditedData.strAIRSNumber (+) " &
-            "and FS_Admin.strAIRSNumber = FS_ContactInfo.strAIRSNumber (+) " &
-            "and FS_Admin.strAIRSNumber = FS_Transactions.strAIRSNumber (+) " &
-            "and FS_Admin.numFeeYear = FS_FeeAuditedData.numFeeYear (+) " &
-            "and FS_Admin.numFeeYear = FS_ContactInfo.numFeeYear (+) " &
-            "and FS_Admin.numFeeYear = FS_Transactions.numFeeYear (+) " &
-            "and FS_Admin.numcurrentstatus = FSLK_Admin_Status.id " &
-            "and FS_Admin.numFeeyear = '" & cboFeeStatYear.Text & "'  " &
+            "from FS_Admin " &
+            "inner join APBFacilityInformation " &
+            "on FS_Admin.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
+            "inner join FSLK_Admin_Status " &
+            "on FS_Admin.numcurrentstatus = FSLK_Admin_Status.id " &
+            "left join FS_ContactInfo " &
+            "on FS_Admin.strAIRSNumber = FS_ContactInfo.strAIRSNumber " &
+            "and FS_Admin.numFeeYear = FS_ContactInfo.numFeeYear " &
+            "left join FS_FeeAuditedData " &
+            "on FS_Admin.strAIRSNumber = FS_FeeAuditedData.strAIRSNumber " &
+            "and FS_Admin.numFeeYear = FS_FeeAuditedData.numFeeYear " &
+            "left join FS_Transactions " &
+            "on FS_Admin.strAIRSNumber = FS_Transactions.strAIRSNumber " &
+            "and FS_Admin.numFeeYear = FS_Transactions.numFeeYear " &
+            "where FS_Admin.numFeeyear = @year " &
             "and numCurrentStatus = '12'  " &
             "and strEnrolled = '1'  " &
             "and FS_Admin.Active = '1' " &
@@ -4949,14 +4338,9 @@ Public Class PASPFeeStatistics
             "numTotalFee, FS_Admin.strComment " &
             "order by strAIRSNumber "
 
-            dsViewCount = New DataSet
-            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daViewCount.Fill(dsViewCount, "ViewCount")
-            dgvFeeStats.DataSource = dsViewCount
-            dgvFeeStats.DataMember = "ViewCount"
+            Dim p As New SqlParameter("@year", cboFeeStatYear.Text)
+
+            dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
 
             dgvFeeStats.RowHeadersVisible = False
             dgvFeeStats.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -5034,13 +4418,11 @@ Public Class PASPFeeStatistics
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
-                ds = New DataSet
-                dgvFeeStats.DataSource = ds
                 Exit Sub
             End If
 
-            SQL = "Select  " &
-            "substr(FS_Admin.strAIRSNumber, 5) as strAIRSNumber, strFacilityName, strIAIPDesc, FS_Admin.strComment,  " &
+            Dim SQL As String = "Select  " &
+            "substring(FS_Admin.strAIRSNumber, 5, 8) as strAIRSNumber, strFacilityName, strIAIPDesc, FS_Admin.strComment,  " &
             "FS_ContactInfo.STRCONTACTFIRSTNAME, " &
             "FS_ContactInfo.STRCONTACTLASTNAME, " &
             "FS_ContactInfo.STRContactCOMPANYNAME, " &
@@ -5067,19 +4449,21 @@ Public Class PASPFeeStatistics
             "else 'False' " &
             "end NSPS, " &
             "numTotalFee, sum(numPayment) as TotalPaid " &
-            "from FS_Admin, APBFacilityInformation, " &
-            "FSLK_Admin_Status,  " &
-            "FS_ContactInfo, FS_FeeAuditedData, " &
-            "FS_Transactions " &
-            "where FS_Admin.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
-            "and FS_Admin.strAIRSNumber = FS_FeeAuditedData.strAIRSNumber (+) " &
-            "and FS_Admin.strAIRSNumber = FS_ContactInfo.strAIRSNumber (+) " &
-            "and FS_Admin.strAIRSNumber = FS_Transactions.strAIRSNumber (+) " &
-            "and FS_Admin.numFeeYear = FS_FeeAuditedData.numFeeYear (+) " &
-            "and FS_Admin.numFeeYear = FS_ContactInfo.numFeeYear (+) " &
-            "and FS_Admin.numFeeYear = FS_Transactions.numFeeYear (+) " &
-            "and FS_Admin.numcurrentstatus = FSLK_Admin_Status.id " &
-            "and FS_Admin.numFeeyear = '" & cboFeeStatYear.Text & "'  " &
+            "from FS_Admin " &
+            "inner join APBFacilityInformation " &
+            "on FS_Admin.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
+            "inner join FSLK_Admin_Status " &
+            "on FS_Admin.numcurrentstatus = FSLK_Admin_Status.id " &
+            "left join FS_ContactInfo " &
+            "on FS_Admin.strAIRSNumber = FS_ContactInfo.strAIRSNumber " &
+            "and FS_Admin.numFeeYear = FS_ContactInfo.numFeeYear " &
+            "left join FS_FeeAuditedData " &
+            "on FS_Admin.strAIRSNumber = FS_FeeAuditedData.strAIRSNumber " &
+            "and FS_Admin.numFeeYear = FS_FeeAuditedData.numFeeYear " &
+            "left join FS_Transactions " &
+            "on FS_Admin.strAIRSNumber = FS_Transactions.strAIRSNumber " &
+            "and FS_Admin.numFeeYear = FS_Transactions.numFeeYear " &
+            "where FS_Admin.numFeeyear = @year " &
                   "and numCurrentStatus <> '12'  " &
           "and strEnrolled = '1'  " &
             "and FS_Admin.Active = '1' " &
@@ -5097,14 +4481,9 @@ Public Class PASPFeeStatistics
             "numTotalFee, FS_Admin.strComment " &
             "order by strAIRSNumber "
 
-            dsViewCount = New DataSet
-            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daViewCount.Fill(dsViewCount, "ViewCount")
-            dgvFeeStats.DataSource = dsViewCount
-            dgvFeeStats.DataMember = "ViewCount"
+            Dim p As New SqlParameter("@year", cboFeeStatYear.Text)
+
+            dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
 
             dgvFeeStats.RowHeadersVisible = False
             dgvFeeStats.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -5182,13 +4561,11 @@ Public Class PASPFeeStatistics
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
-                ds = New DataSet
-                dgvFeeStats.DataSource = ds
                 Exit Sub
             End If
 
-            SQL = "Select  " &
-            "substr(FS_Admin.strAIRSNumber, 5) as strAIRSNumber, strFacilityName, strIAIPDesc, FS_Admin.strComment,  " &
+            Dim SQL As String = "Select  " &
+            "substring(FS_Admin.strAIRSNumber, 5, 8) as strAIRSNumber, strFacilityName, strIAIPDesc, FS_Admin.strComment,  " &
             "FS_ContactInfo.STRCONTACTFIRSTNAME, " &
             "FS_ContactInfo.STRCONTACTLASTNAME, " &
             "FS_ContactInfo.STRContactCOMPANYNAME, " &
@@ -5215,19 +4592,21 @@ Public Class PASPFeeStatistics
             "else 'False' " &
             "end NSPS, " &
             "numTotalFee, sum(numPayment) as TotalPaid " &
-            "from FS_Admin, APBFacilityInformation, " &
-            "FSLK_Admin_Status,  " &
-            "FS_ContactInfo, FS_FeeAuditedData, " &
-            "FS_Transactions " &
-            "where FS_Admin.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
-            "and FS_Admin.strAIRSNumber = FS_FeeAuditedData.strAIRSNumber (+) " &
-            "and FS_Admin.strAIRSNumber = FS_ContactInfo.strAIRSNumber (+) " &
-            "and FS_Admin.strAIRSNumber = FS_Transactions.strAIRSNumber (+) " &
-            "and FS_Admin.numFeeYear = FS_FeeAuditedData.numFeeYear (+) " &
-            "and FS_Admin.numFeeYear = FS_ContactInfo.numFeeYear (+) " &
-            "and FS_Admin.numFeeYear = FS_Transactions.numFeeYear (+) " &
-            "and FS_Admin.numcurrentstatus = FSLK_Admin_Status.id " &
-            "and FS_Admin.numFeeyear = '" & cboFeeStatYear.Text & "'  " &
+            "from FS_Admin " &
+            "inner join APBFacilityInformation " &
+            "on FS_Admin.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
+            "inner join FSLK_Admin_Status " &
+            "on FS_Admin.numcurrentstatus = FSLK_Admin_Status.id " &
+            "left join FS_ContactInfo " &
+            "on FS_Admin.strAIRSNumber = FS_ContactInfo.strAIRSNumber " &
+            "and FS_Admin.numFeeYear = FS_ContactInfo.numFeeYear " &
+            "left join FS_FeeAuditedData " &
+            "on FS_Admin.strAIRSNumber = FS_FeeAuditedData.strAIRSNumber " &
+            "and FS_Admin.numFeeYear = FS_FeeAuditedData.numFeeYear " &
+            "left join FS_Transactions " &
+            "on FS_Admin.strAIRSNumber = FS_Transactions.strAIRSNumber " &
+            "and FS_Admin.numFeeYear = FS_Transactions.numFeeYear " &
+            "where FS_Admin.numFeeyear = @year " &
               "and numCurrentStatus <> '12'  " &
           "and strEnrolled = '1'  " &
           "and strInitialMailout = '1'  " &
@@ -5246,14 +4625,9 @@ Public Class PASPFeeStatistics
             "numTotalFee, FS_Admin.strComment " &
             "order by strAIRSNumber "
 
-            dsViewCount = New DataSet
-            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daViewCount.Fill(dsViewCount, "ViewCount")
-            dgvFeeStats.DataSource = dsViewCount
-            dgvFeeStats.DataMember = "ViewCount"
+            Dim p As New SqlParameter("@year", cboFeeStatYear.Text)
+
+            dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
 
             dgvFeeStats.RowHeadersVisible = False
             dgvFeeStats.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -5331,13 +4705,11 @@ Public Class PASPFeeStatistics
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
-                ds = New DataSet
-                dgvFeeStats.DataSource = ds
                 Exit Sub
             End If
 
-            SQL = "Select  " &
-            "substr(FS_Admin.strAIRSNumber, 5) as strAIRSNumber, strFacilityName, strIAIPDesc, FS_Admin.strComment,  " &
+            Dim SQL As String = "Select  " &
+            "substring(FS_Admin.strAIRSNumber, 5, 8) as strAIRSNumber, strFacilityName, strIAIPDesc, FS_Admin.strComment,  " &
             "FS_ContactInfo.STRCONTACTFIRSTNAME, " &
             "FS_ContactInfo.STRCONTACTLASTNAME, " &
             "FS_ContactInfo.STRContactCOMPANYNAME, " &
@@ -5364,19 +4736,21 @@ Public Class PASPFeeStatistics
             "else 'False' " &
             "end NSPS, " &
             "numTotalFee, sum(numPayment) as TotalPaid " &
-            "from FS_Admin, APBFacilityInformation, " &
-            "FSLK_Admin_Status,  " &
-            "FS_ContactInfo, FS_FeeAuditedData, " &
-            "FS_Transactions " &
-            "where FS_Admin.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
-            "and FS_Admin.strAIRSNumber = FS_FeeAuditedData.strAIRSNumber (+) " &
-            "and FS_Admin.strAIRSNumber = FS_ContactInfo.strAIRSNumber (+) " &
-            "and FS_Admin.strAIRSNumber = FS_Transactions.strAIRSNumber (+) " &
-            "and FS_Admin.numFeeYear = FS_FeeAuditedData.numFeeYear (+) " &
-            "and FS_Admin.numFeeYear = FS_ContactInfo.numFeeYear (+) " &
-            "and FS_Admin.numFeeYear = FS_Transactions.numFeeYear (+) " &
-            "and FS_Admin.numcurrentstatus = FSLK_Admin_Status.id " &
-            "and FS_Admin.numFeeyear = '" & cboFeeStatYear.Text & "'  " &
+            "from FS_Admin " &
+            "inner join APBFacilityInformation " &
+            "on FS_Admin.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
+            "inner join FSLK_Admin_Status " &
+            "on FS_Admin.numcurrentstatus = FSLK_Admin_Status.id " &
+            "left join FS_ContactInfo " &
+            "on FS_Admin.strAIRSNumber = FS_ContactInfo.strAIRSNumber " &
+            "and FS_Admin.numFeeYear = FS_ContactInfo.numFeeYear " &
+            "left join FS_FeeAuditedData " &
+            "on FS_Admin.strAIRSNumber = FS_FeeAuditedData.strAIRSNumber " &
+            "and FS_Admin.numFeeYear = FS_FeeAuditedData.numFeeYear " &
+            "left join FS_Transactions " &
+            "on FS_Admin.strAIRSNumber = FS_Transactions.strAIRSNumber " &
+            "and FS_Admin.numFeeYear = FS_Transactions.numFeeYear " &
+            "where FS_Admin.numFeeyear = @year " &
                   "and numCurrentStatus <> '12'  " &
             "and strEnrolled = '1'  " &
             "and strInitialMailout = '0'  " &
@@ -5395,14 +4769,9 @@ Public Class PASPFeeStatistics
             "numTotalFee, FS_Admin.strComment " &
             "order by strAIRSNumber "
 
-            dsViewCount = New DataSet
-            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daViewCount.Fill(dsViewCount, "ViewCount")
-            dgvFeeStats.DataSource = dsViewCount
-            dgvFeeStats.DataMember = "ViewCount"
+            Dim p As New SqlParameter("@year", cboFeeStatYear.Text)
+
+            dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
 
             dgvFeeStats.RowHeadersVisible = False
             dgvFeeStats.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -5479,13 +4848,11 @@ Public Class PASPFeeStatistics
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
-                ds = New DataSet
-                dgvFeeStats.DataSource = ds
                 Exit Sub
             End If
 
-            SQL = "Select  " &
-            "substr(FS_Admin.strAIRSNumber, 5) as strAIRSNumber, FS_Admin.strcomment, " &
+            Dim SQL As String = "Select  " &
+            "substring(FS_Admin.strAIRSNumber, 5, 8) as strAIRSNumber, FS_Admin.strcomment, " &
             "APBFacilityInformation.strFacilityName, strIAIPDesc,  " &
             "FS_Mailout.STRFIRSTNAME, " &
             "FS_Mailout.STRLASTNAME, " &
@@ -5511,19 +4878,20 @@ Public Class PASPFeeStatistics
             "else 'False' " &
             "end NSPS, " &
             "numTotalFee, sum(numPayment) as TotalPaid " &
-            "from FS_Admin, APBFacilityInformation, " &
-            "FSLK_Admin_Status,  " &
-            "FS_Mailout, FS_FeeAuditedData, " &
-            "FS_Transactions " &
-            "where FS_Admin.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
-            "and FS_Admin.strAIRSNumber = FS_FeeAuditedData.strAIRSNumber (+) " &
-            "and FS_Admin.strAIRSNumber = FS_Mailout.strAIRSNumber (+) " &
-            "and FS_Admin.strAIRSNumber = FS_Transactions.strAIRSNumber (+) " &
-            "and FS_Admin.numFeeYear = FS_FeeAuditedData.numFeeYear (+) " &
-            "and FS_Admin.numFeeYear = FS_Mailout.numFeeYear (+) " &
-            "and FS_Admin.numFeeYear = FS_Transactions.numFeeYear (+) " &
-            "and FS_Admin.numcurrentstatus = FSLK_Admin_Status.id " &
-            "and FS_Admin.numFeeyear = '" & cboFeeStatYear.Text & "'  " &
+            "from FS_Admin inner join APBFacilityInformation " &
+            "on FS_Admin.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
+            "inner join FSLK_Admin_Status  " &
+            "on FS_Admin.numcurrentstatus = FSLK_Admin_Status.id " &
+            "left join FS_Mailout " &
+            "on FS_Admin.strAIRSNumber = FS_Mailout.strAIRSNumber " &
+            "and FS_Admin.numFeeYear = FS_Mailout.numFeeYear " &
+            "left join FS_FeeAuditedData " &
+            "on FS_Admin.strAIRSNumber = FS_FeeAuditedData.strAIRSNumber " &
+            "and FS_Admin.numFeeYear = FS_FeeAuditedData.numFeeYear " &
+            "left join FS_Transactions " &
+            "on FS_Admin.strAIRSNumber = FS_Transactions.strAIRSNumber " &
+            "and FS_Admin.numFeeYear = FS_Transactions.numFeeYear " &
+            "where FS_Admin.numFeeyear = @year " &
               "and numcurrentstatus < '5'  " &
             "and strEnrolled = '1'  " &
             "and FS_Admin.Active = '1' " &
@@ -5541,14 +4909,9 @@ Public Class PASPFeeStatistics
             "numTotalFee, FS_Admin.strComment " &
             "order by strAIRSNumber "
 
-            dsViewCount = New DataSet
-            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daViewCount.Fill(dsViewCount, "ViewCount")
-            dgvFeeStats.DataSource = dsViewCount
-            dgvFeeStats.DataMember = "ViewCount"
+            Dim p As New SqlParameter("@year", cboFeeStatYear.Text)
+
+            dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
 
             dgvFeeStats.RowHeadersVisible = False
             dgvFeeStats.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -5626,13 +4989,11 @@ Public Class PASPFeeStatistics
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
-                ds = New DataSet
-                dgvFeeStats.DataSource = ds
                 Exit Sub
             End If
 
-            SQL = "Select  " &
-            "substr(FS_Admin.strAIRSNumber, 5) as strAIRSNumber, strFacilityName, strIAIPDesc, FS_Admin.strComment,  " &
+            Dim SQL As String = "Select  " &
+            "substring(FS_Admin.strAIRSNumber, 5, 8) as strAIRSNumber, strFacilityName, strIAIPDesc, FS_Admin.strComment,  " &
             "FS_ContactInfo.STRCONTACTFIRSTNAME, " &
             "FS_ContactInfo.STRCONTACTLASTNAME, " &
             "FS_ContactInfo.STRContactCOMPANYNAME, " &
@@ -5659,19 +5020,21 @@ Public Class PASPFeeStatistics
             "else 'False' " &
             "end NSPS, " &
             "numTotalFee, sum(numPayment) as TotalPaid " &
-            "from FS_Admin, APBFacilityInformation, " &
-            "FSLK_Admin_Status,  " &
-            "FS_ContactInfo, FS_FeeAuditedData, " &
-            "FS_Transactions " &
-            "where FS_Admin.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
-            "and FS_Admin.strAIRSNumber = FS_FeeAuditedData.strAIRSNumber (+) " &
-            "and FS_Admin.strAIRSNumber = FS_ContactInfo.strAIRSNumber (+) " &
-            "and FS_Admin.strAIRSNumber = FS_Transactions.strAIRSNumber (+) " &
-            "and FS_Admin.numFeeYear = FS_FeeAuditedData.numFeeYear (+) " &
-            "and FS_Admin.numFeeYear = FS_ContactInfo.numFeeYear (+) " &
-            "and FS_Admin.numFeeYear = FS_Transactions.numFeeYear (+) " &
-            "and FS_Admin.numcurrentstatus = FSLK_Admin_Status.id " &
-            "and FS_Admin.numFeeyear = '" & cboFeeStatYear.Text & "'  " &
+            "from FS_Admin " &
+            "inner join APBFacilityInformation " &
+            "on FS_Admin.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
+            "inner join FSLK_Admin_Status " &
+            "on FS_Admin.numcurrentstatus = FSLK_Admin_Status.id " &
+            "left join FS_ContactInfo " &
+            "on FS_Admin.strAIRSNumber = FS_ContactInfo.strAIRSNumber " &
+            "and FS_Admin.numFeeYear = FS_ContactInfo.numFeeYear " &
+            "left join FS_FeeAuditedData " &
+            "on FS_Admin.strAIRSNumber = FS_FeeAuditedData.strAIRSNumber " &
+            "and FS_Admin.numFeeYear = FS_FeeAuditedData.numFeeYear " &
+            "left join FS_Transactions " &
+            "on FS_Admin.strAIRSNumber = FS_Transactions.strAIRSNumber " &
+            "and FS_Admin.numFeeYear = FS_Transactions.numFeeYear " &
+            "where FS_Admin.numFeeyear = @year " &
               "and numcurrentstatus > '4' " &
          "and numCurrentStatus < '8' " &
          "and strEnrolled = '1'  " &
@@ -5690,14 +5053,9 @@ Public Class PASPFeeStatistics
             "numTotalFee, FS_Admin.strComment " &
             "order by strAIRSNumber "
 
-            dsViewCount = New DataSet
-            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daViewCount.Fill(dsViewCount, "ViewCount")
-            dgvFeeStats.DataSource = dsViewCount
-            dgvFeeStats.DataMember = "ViewCount"
+            Dim p As New SqlParameter("@year", cboFeeStatYear.Text)
+
+            dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
 
             dgvFeeStats.RowHeadersVisible = False
             dgvFeeStats.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -5774,13 +5132,11 @@ Public Class PASPFeeStatistics
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
-                ds = New DataSet
-                dgvFeeStats.DataSource = ds
                 Exit Sub
             End If
 
-            SQL = "Select  " &
-            "substr(FS_Admin.strAIRSNumber, 5) as strAIRSNumber, strFacilityName, strIAIPDesc, FS_Admin.strComment,  " &
+            Dim SQL As String = "Select  " &
+            "substring(FS_Admin.strAIRSNumber, 5, 8) as strAIRSNumber, strFacilityName, strIAIPDesc, FS_Admin.strComment,  " &
             "FS_ContactInfo.STRCONTACTFIRSTNAME, " &
             "FS_ContactInfo.STRCONTACTLASTNAME, " &
             "FS_ContactInfo.STRContactCOMPANYNAME, " &
@@ -5807,19 +5163,21 @@ Public Class PASPFeeStatistics
             "else 'False' " &
             "end NSPS, " &
             "numTotalFee, sum(numPayment) as TotalPaid " &
-            "from FS_Admin, APBFacilityInformation, " &
-            "FSLK_Admin_Status,  " &
-            "FS_ContactInfo, FS_FeeAuditedData, " &
-            "FS_Transactions " &
-            "where FS_Admin.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
-            "and FS_Admin.strAIRSNumber = FS_FeeAuditedData.strAIRSNumber (+) " &
-            "and FS_Admin.strAIRSNumber = FS_ContactInfo.strAIRSNumber (+) " &
-            "and FS_Admin.strAIRSNumber = FS_Transactions.strAIRSNumber (+) " &
-            "and FS_Admin.numFeeYear = FS_FeeAuditedData.numFeeYear (+) " &
-            "and FS_Admin.numFeeYear = FS_ContactInfo.numFeeYear (+) " &
-            "and FS_Admin.numFeeYear = FS_Transactions.numFeeYear (+) " &
-            "and FS_Admin.numcurrentstatus = FSLK_Admin_Status.id " &
-            "and FS_Admin.numFeeyear = '" & cboFeeStatYear.Text & "'  " &
+            "from FS_Admin " &
+            "inner join APBFacilityInformation " &
+            "on FS_Admin.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
+            "inner join FSLK_Admin_Status " &
+            "on FS_Admin.numcurrentstatus = FSLK_Admin_Status.id " &
+            "left join FS_ContactInfo " &
+            "on FS_Admin.strAIRSNumber = FS_ContactInfo.strAIRSNumber " &
+            "and FS_Admin.numFeeYear = FS_ContactInfo.numFeeYear " &
+            "left join FS_FeeAuditedData " &
+            "on FS_Admin.strAIRSNumber = FS_FeeAuditedData.strAIRSNumber " &
+            "and FS_Admin.numFeeYear = FS_FeeAuditedData.numFeeYear " &
+            "left join FS_Transactions " &
+            "on FS_Admin.strAIRSNumber = FS_Transactions.strAIRSNumber " &
+            "and FS_Admin.numFeeYear = FS_Transactions.numFeeYear " &
+            "where FS_Admin.numFeeyear = @year " &
               "and numcurrentstatus > '7' " &
             "and strEnrolled = '1'  " &
             "and FS_Admin.Active = '1' " &
@@ -5827,7 +5185,7 @@ Public Class PASPFeeStatistics
                 "from fs_feeAudit " &
                 "where fs_admin.strairsnumber = fs_feeAudit.strAIRSnumber " &
                 "and fs_admin.numfeeyear = fs_feeAudit.numfeeyear " &
-                "and fs_feeAudit.numfeeyear = '" & cboFeeStatYear.Text & "' " &
+                "and fs_feeAudit.numfeeyear = @year " &
                 "and fs_feeAudit.strendcollections = 'True')" &
             "group by FS_Admin.strAIRSNumber , strFacilityName, " &
             "strIAIPDesc, FS_ContactInfo.STRCONTACTFIRSTNAME, " &
@@ -5843,17 +5201,9 @@ Public Class PASPFeeStatistics
             "numTotalFee, FS_Admin.strComment " &
             "order by strAIRSNumber "
 
+            Dim p As New SqlParameter("@year", cboFeeStatYear.Text)
 
-
-
-            dsViewCount = New DataSet
-            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daViewCount.Fill(dsViewCount, "ViewCount")
-            dgvFeeStats.DataSource = dsViewCount
-            dgvFeeStats.DataMember = "ViewCount"
+            dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
 
             dgvFeeStats.RowHeadersVisible = False
             dgvFeeStats.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -5932,13 +5282,11 @@ Public Class PASPFeeStatistics
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
-                ds = New DataSet
-                dgvFeeStats.DataSource = ds
                 Exit Sub
             End If
 
-            SQL = "Select  " &
-            "substr(FS_Admin.strAIRSNumber, 5) as strAIRSNumber, strFacilityName, strIAIPDesc, FS_Admin.strComment,  " &
+            Dim SQL As String = "Select  " &
+            "substring(FS_Admin.strAIRSNumber, 5, 8) as strAIRSNumber, strFacilityName, strIAIPDesc, FS_Admin.strComment,  " &
             "FS_ContactInfo.STRCONTACTFIRSTNAME, " &
             "FS_ContactInfo.STRCONTACTLASTNAME, " &
             "FS_ContactInfo.STRContactCOMPANYNAME, " &
@@ -5965,23 +5313,25 @@ Public Class PASPFeeStatistics
             "else 'False' " &
             "end NSPS, " &
             "numTotalFee, sum(numPayment) as TotalPaid " &
-            "from FS_Admin, APBFacilityInformation, " &
-            "FSLK_Admin_Status,  " &
-            "FS_ContactInfo, FS_FeeAuditedData, " &
-            "FS_Transactions " &
-            "where FS_Admin.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
-            "and FS_Admin.strAIRSNumber = FS_FeeAuditedData.strAIRSNumber (+) " &
-            "and FS_Admin.strAIRSNumber = FS_ContactInfo.strAIRSNumber (+) " &
-            "and FS_Admin.strAIRSNumber = FS_Transactions.strAIRSNumber (+) " &
-            "and FS_Admin.numFeeYear = FS_FeeAuditedData.numFeeYear (+) " &
-            "and FS_Admin.numFeeYear = FS_ContactInfo.numFeeYear (+) " &
-            "and FS_Admin.numFeeYear = FS_Transactions.numFeeYear (+) " &
-            "and FS_Admin.numcurrentstatus = FSLK_Admin_Status.id " &
-            "and FS_Admin.numFeeyear = '" & cboFeeStatYear.Text & "'  " &
+            "from FS_Admin " &
+            "inner join APBFacilityInformation " &
+            "on FS_Admin.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
+            "inner join FSLK_Admin_Status " &
+            "on FS_Admin.numcurrentstatus = FSLK_Admin_Status.id " &
+            "left join FS_ContactInfo " &
+            "on FS_Admin.strAIRSNumber = FS_ContactInfo.strAIRSNumber " &
+            "and FS_Admin.numFeeYear = FS_ContactInfo.numFeeYear " &
+            "left join FS_FeeAuditedData " &
+            "on FS_Admin.strAIRSNumber = FS_FeeAuditedData.strAIRSNumber " &
+            "and FS_Admin.numFeeYear = FS_FeeAuditedData.numFeeYear " &
+            "left join FS_Transactions " &
+            "on FS_Admin.strAIRSNumber = FS_Transactions.strAIRSNumber " &
+            "and FS_Admin.numFeeYear = FS_Transactions.numFeeYear " &
+            "where FS_Admin.numFeeyear = @year " &
             "and numcurrentstatus > '4' " &
             "and numcurrentstatus < '12'  " &
-            "and datSubmittal > (select datFeeDueDate from FS_FeeRate where numFeeyear = '" & cboFeeStatYear.Text & "')  " &
-            "and datSubmittal <= (select datAdminApplicable from FS_FeeRate where numFeeyear = '" & cboFeeStatYear.Text & "')   " &
+            "and datSubmittal > (select datFeeDueDate from FS_FeeRate where numFeeyear = @year) " &
+            "and datSubmittal <= (select datAdminApplicable from FS_FeeRate where numFeeyear = @year) " &
             "and Intsubmittal = '1' " &
             "and strEnrolled = '1'  " &
             "and FS_Admin.Active = '1' " &
@@ -5999,14 +5349,9 @@ Public Class PASPFeeStatistics
             "numTotalFee, FS_Admin.strComment " &
             "order by strAIRSNumber "
 
-            dsViewCount = New DataSet
-            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daViewCount.Fill(dsViewCount, "ViewCount")
-            dgvFeeStats.DataSource = dsViewCount
-            dgvFeeStats.DataMember = "ViewCount"
+            Dim p As New SqlParameter("@year", cboFeeStatYear.Text)
+
+            dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
 
             dgvFeeStats.RowHeadersVisible = False
             dgvFeeStats.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -6085,13 +5430,11 @@ Public Class PASPFeeStatistics
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
-                ds = New DataSet
-                dgvFeeStats.DataSource = ds
                 Exit Sub
             End If
 
-            SQL = "Select  " &
-            "substr(FS_Admin.strAIRSNumber, 5) as strAIRSNumber, strFacilityName, strIAIPDesc, FS_Admin.strComment,  " &
+            Dim SQL As String = "Select  " &
+            "substring(FS_Admin.strAIRSNumber, 5, 8) as strAIRSNumber, strFacilityName, strIAIPDesc, FS_Admin.strComment,  " &
             "FS_ContactInfo.STRCONTACTFIRSTNAME, " &
             "FS_ContactInfo.STRCONTACTLASTNAME, " &
             "FS_ContactInfo.STRContactCOMPANYNAME, " &
@@ -6118,22 +5461,24 @@ Public Class PASPFeeStatistics
             "else 'False' " &
             "end NSPS, " &
             "numTotalFee, sum(numPayment) as TotalPaid " &
-            "from FS_Admin, APBFacilityInformation, " &
-            "FSLK_Admin_Status,  " &
-            "FS_ContactInfo, FS_FeeAuditedData, " &
-            "FS_Transactions " &
-            "where FS_Admin.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
-            "and FS_Admin.strAIRSNumber = FS_FeeAuditedData.strAIRSNumber (+) " &
-            "and FS_Admin.strAIRSNumber = FS_ContactInfo.strAIRSNumber (+) " &
-            "and FS_Admin.strAIRSNumber = FS_Transactions.strAIRSNumber (+) " &
-            "and FS_Admin.numFeeYear = FS_FeeAuditedData.numFeeYear (+) " &
-            "and FS_Admin.numFeeYear = FS_ContactInfo.numFeeYear (+) " &
-            "and FS_Admin.numFeeYear = FS_Transactions.numFeeYear (+) " &
-            "and FS_Admin.numcurrentstatus = FSLK_Admin_Status.id " &
-            "and FS_Admin.numFeeyear = '" & cboFeeStatYear.Text & "'  " &
+            "from FS_Admin " &
+            "inner join APBFacilityInformation " &
+            "on FS_Admin.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
+            "inner join FSLK_Admin_Status " &
+            "on FS_Admin.numcurrentstatus = FSLK_Admin_Status.id " &
+            "left join FS_ContactInfo " &
+            "on FS_Admin.strAIRSNumber = FS_ContactInfo.strAIRSNumber " &
+            "and FS_Admin.numFeeYear = FS_ContactInfo.numFeeYear " &
+            "left join FS_FeeAuditedData " &
+            "on FS_Admin.strAIRSNumber = FS_FeeAuditedData.strAIRSNumber " &
+            "and FS_Admin.numFeeYear = FS_FeeAuditedData.numFeeYear " &
+            "left join FS_Transactions " &
+            "on FS_Admin.strAIRSNumber = FS_Transactions.strAIRSNumber " &
+            "and FS_Admin.numFeeYear = FS_Transactions.numFeeYear " &
+            "where FS_Admin.numFeeyear = @year " &
             "and numcurrentstatus > '4' " &
            "and numcurrentstatus < '12'  " &
-          "and datSubmittal > (select datAdminApplicable from FS_FeeRate where numFeeyear = '" & cboFeeStatYear.Text & "')   " &
+          "and datSubmittal > (select datAdminApplicable from FS_FeeRate where numFeeyear = @year) " &
           "and Intsubmittal = '1' " &
           "and strEnrolled = '1'  " &
             "and FS_Admin.Active = '1' " &
@@ -6152,14 +5497,9 @@ Public Class PASPFeeStatistics
             "order by strAIRSNumber "
 
 
-            dsViewCount = New DataSet
-            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daViewCount.Fill(dsViewCount, "ViewCount")
-            dgvFeeStats.DataSource = dsViewCount
-            dgvFeeStats.DataMember = "ViewCount"
+            Dim p As New SqlParameter("@year", cboFeeStatYear.Text)
+
+            dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
 
             dgvFeeStats.RowHeadersVisible = False
             dgvFeeStats.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -6237,12 +5577,10 @@ Public Class PASPFeeStatistics
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
-                ds = New DataSet
-                dgvFeeStats.DataSource = ds
                 Exit Sub
             End If
 
-            SQL = "SELECT   SUBSTR(AD.STRAIRSNUMBER, 5) AS strAIRSNumber, " &
+            Dim SQL As String = "SELECT   SUBSTRing(AD.STRAIRSNUMBER, 5, 8) AS strAIRSNumber, " &
             "    FI.STRFACILITYNAME, " &
             "    LK_AS.STRIAIPDESC, " &
             "    AD.STRCOMMENT, " &
@@ -6277,22 +5615,22 @@ Public Class PASPFeeStatistics
             "    END NSPS, " &
             "    FAD.NUMTOTALFEE, " &
             "    SUM(TRX.NUMPAYMENT) AS TotalPaid " &
-            "  FROM FS_Admin AD, " &
-            "    APBFacilityInformation FI, " &
-            "    FSLK_Admin_Status LK_AS, " &
-            "    FS_ContactInfo CI, " &
-            "    FS_FeeAuditedData FAD, " &
-            "    (SELECT * FROM FS_Transactions TR WHERE TR.ACTIVE = '1' " &
-            "    ) TRX " &
-            "  WHERE AD.STRAIRSNUMBER     = FI.STRAIRSNUMBER " &
-            "    AND AD.STRAIRSNUMBER     = FAD.STRAIRSNUMBER(+) " &
-            "    AND AD.STRAIRSNUMBER     = CI.STRAIRSNUMBER(+) " &
-            "    AND AD.STRAIRSNUMBER     = TRX.STRAIRSNUMBER(+) " &
-            "    AND AD.NUMFEEYEAR        = FAD.NUMFEEYEAR(+) " &
-            "    AND AD.NUMFEEYEAR        = CI.NUMFEEYEAR(+) " &
-            "    AND AD.NUMFEEYEAR        = TRX.NUMFEEYEAR(+) " &
-            "    AND AD.NUMCURRENTSTATUS  = LK_AS.ID " &
-            "    AND AD.NUMFEEYEAR        = '" & cboFeeStatYear.Text & "' " &
+            "  FROM FS_Admin AD " &
+            "  inner join APBFacilityInformation FI " &
+            "  on AD.STRAIRSNUMBER     = FI.STRAIRSNUMBER " &
+            "  inner join FSLK_Admin_Status LK_AS " &
+            "    on AD.NUMCURRENTSTATUS  = LK_AS.ID " &
+            "    left join FS_ContactInfo CI " &
+            "    on AD.NUMFEEYEAR        = CI.NUMFEEYEAR " &
+            "    AND AD.STRAIRSNUMBER     = CI.STRAIRSNUMBER " &
+            "    left join FS_FeeAuditedData FAD " &
+            "    on AD.STRAIRSNUMBER     = FAD.STRAIRSNUMBER " &
+            "    AND AD.NUMFEEYEAR        = FAD.NUMFEEYEAR " &
+            "    left join (SELECT * FROM FS_Transactions TR WHERE TR.ACTIVE = '1' " &
+            "    ) as TRX " &
+            "    on AD.STRAIRSNUMBER     = TRX.STRAIRSNUMBER " &
+            "    AND AD.NUMFEEYEAR        = TRX.NUMFEEYEAR " &
+            "    where AD.NUMFEEYEAR        = @year " &
             "    AND (AD.STRENROLLED      = '1' " &
             "    OR AD.STRENROLLED       IS NULL) " &
             "    AND AD.NUMCURRENTSTATUS <= '8' " &
@@ -6321,14 +5659,9 @@ Public Class PASPFeeStatistics
             "    FAD.STRNSPS " &
             "  ORDER BY strAIRSNumber"
 
-            dsViewCount = New DataSet
-            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daViewCount.Fill(dsViewCount, "ViewCount")
-            dgvFeeStats.DataSource = dsViewCount
-            dgvFeeStats.DataMember = "ViewCount"
+            Dim p As New SqlParameter("@year", cboFeeStatYear.Text)
+
+            dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
 
             dgvFeeStats.RowHeadersVisible = False
             dgvFeeStats.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -6406,13 +5739,11 @@ Public Class PASPFeeStatistics
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
-                ds = New DataSet
-                dgvFeeStats.DataSource = ds
                 Exit Sub
             End If
 
-            SQL = "Select  " &
-            "substr(FS_Admin.strAIRSNumber, 5) as strAIRSNumber, strFacilityName, strIAIPDesc, FS_Admin.strComment,  " &
+            Dim SQL As String = "Select  " &
+            "substring(FS_Admin.strAIRSNumber, 5, 8) as strAIRSNumber, strFacilityName, strIAIPDesc, FS_Admin.strComment,  " &
             "FS_ContactInfo.STRCONTACTFIRSTNAME, " &
             "FS_ContactInfo.STRCONTACTLASTNAME, " &
             "FS_ContactInfo.STRContactCOMPANYNAME, " &
@@ -6439,19 +5770,21 @@ Public Class PASPFeeStatistics
             "else 'False' " &
             "end NSPS, " &
             "numTotalFee, sum(numPayment) as TotalPaid " &
-            "from FS_Admin, APBFacilityInformation, " &
-            "FSLK_Admin_Status,  " &
-            "FS_ContactInfo, FS_FeeAuditedData, " &
-            "FS_Transactions " &
-            "where FS_Admin.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
-            "and FS_Admin.strAIRSNumber = FS_FeeAuditedData.strAIRSNumber (+) " &
-            "and FS_Admin.strAIRSNumber = FS_ContactInfo.strAIRSNumber (+) " &
-            "and FS_Admin.strAIRSNumber = FS_Transactions.strAIRSNumber (+) " &
-            "and FS_Admin.numFeeYear = FS_FeeAuditedData.numFeeYear (+) " &
-            "and FS_Admin.numFeeYear = FS_ContactInfo.numFeeYear (+) " &
-            "and FS_Admin.numFeeYear = FS_Transactions.numFeeYear (+) " &
-            "and FS_Admin.numcurrentstatus = FSLK_Admin_Status.id " &
-            "and FS_Admin.numFeeyear = '" & cboFeeStatYear.Text & "'  " &
+            "from FS_Admin " &
+            "inner join APBFacilityInformation " &
+            "on FS_Admin.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
+            "inner join FSLK_Admin_Status " &
+            "on FS_Admin.numcurrentstatus = FSLK_Admin_Status.id " &
+            "left join FS_ContactInfo " &
+            "on FS_Admin.strAIRSNumber = FS_ContactInfo.strAIRSNumber " &
+            "and FS_Admin.numFeeYear = FS_ContactInfo.numFeeYear " &
+            "left join FS_FeeAuditedData " &
+            "on FS_Admin.strAIRSNumber = FS_FeeAuditedData.strAIRSNumber " &
+            "and FS_Admin.numFeeYear = FS_FeeAuditedData.numFeeYear " &
+            "left join FS_Transactions " &
+            "on FS_Admin.strAIRSNumber = FS_Transactions.strAIRSNumber " &
+            "and FS_Admin.numFeeYear = FS_Transactions.numFeeYear " &
+            "where FS_Admin.numFeeyear = @year " &
              "and (strEnrolled = '1' or strEnrolled is null)  " &
             "and (numcurrentstatus = '9' or numcurrentstatus = '11' ) " &
             "and FS_Admin.Active = '1' " &
@@ -6469,600 +5802,9 @@ Public Class PASPFeeStatistics
             "numTotalFee, FS_Admin.strComment " &
             "order by strAIRSNumber "
 
+            Dim p As New SqlParameter("@year", cboFeeStatYear.Text)
 
-
-            dsViewCount = New DataSet
-            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daViewCount.Fill(dsViewCount, "ViewCount")
-            dgvFeeStats.DataSource = dsViewCount
-            dgvFeeStats.DataMember = "ViewCount"
-
-            dgvFeeStats.RowHeadersVisible = False
-            dgvFeeStats.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvFeeStats.AllowUserToResizeColumns = True
-            dgvFeeStats.AllowUserToAddRows = False
-            dgvFeeStats.AllowUserToDeleteRows = False
-            dgvFeeStats.AllowUserToOrderColumns = True
-            dgvFeeStats.AllowUserToResizeRows = True
-
-            dgvFeeStats.Columns("STRAIRSNUMBER").HeaderText = "Airs No."
-            dgvFeeStats.Columns("STRAIRSNUMBER").DisplayIndex = 0
-            dgvFeeStats.Columns("STRAIRSNUMBER").Width = dgvFeeStats.Width * 0.2
-            dgvFeeStats.Columns("strFacilityName").HeaderText = "Facility Name"
-            dgvFeeStats.Columns("strFacilityName").DisplayIndex = 1
-            dgvFeeStats.Columns("strFacilityName").Width = dgvFeeStats.Width * 0.8
-            dgvFeeStats.Columns("strIAIPDesc").HeaderText = "Fee Status"
-            dgvFeeStats.Columns("strIAIPDesc").DisplayIndex = 2
-            dgvFeeStats.Columns("strIAIPDesc").Width = dgvFeeStats.Width * 0.5
-            dgvFeeStats.Columns("strComment").HeaderText = "Fee Statistics Comment"
-            dgvFeeStats.Columns("strComment").DisplayIndex = 3
-            dgvFeeStats.Columns("strComment").Width = dgvFeeStats.Width * 0.5
-
-            dgvFeeStats.Columns("STRCONTACTFIRSTNAME").HeaderText = "Contact First Name"
-            dgvFeeStats.Columns("STRCONTACTFIRSTNAME").DisplayIndex = 4
-            dgvFeeStats.Columns("STRCONTACTLASTNAME").HeaderText = "Contact Last Name"
-            dgvFeeStats.Columns("STRCONTACTLASTNAME").DisplayIndex = 5
-            dgvFeeStats.Columns("STRContactCOMPANYNAME").HeaderText = "Contact Company"
-            dgvFeeStats.Columns("STRContactCOMPANYNAME").DisplayIndex = 6
-            dgvFeeStats.Columns("STRCONTACTADDRESS").HeaderText = "Address"
-            dgvFeeStats.Columns("STRCONTACTADDRESS").DisplayIndex = 7
-            dgvFeeStats.Columns("STRCONTACTCITY").HeaderText = "City"
-            dgvFeeStats.Columns("STRCONTACTCITY").DisplayIndex = 8
-            dgvFeeStats.Columns("STRCONTACTSTATE").HeaderText = "State"
-            dgvFeeStats.Columns("STRCONTACTSTATE").DisplayIndex = 9
-            dgvFeeStats.Columns("STRCONTACTZIPCODE").HeaderText = "Zip"
-            dgvFeeStats.Columns("STRCONTACTZIPCODE").DisplayIndex = 10
-            dgvFeeStats.Columns("STRFACILITYSTREET1").HeaderText = "Facility Street"
-            dgvFeeStats.Columns("STRFACILITYSTREET1").DisplayIndex = 11
-            dgvFeeStats.Columns("STRFACILITYCITY").HeaderText = "Facility City"
-            dgvFeeStats.Columns("STRFACILITYCITY").DisplayIndex = 12
-            dgvFeeStats.Columns("STRFACILITYZIPCODE").HeaderText = "Facility Zip Code"
-            dgvFeeStats.Columns("STRFACILITYZIPCODE").DisplayIndex = 13
-            dgvFeeStats.Columns("STRCONTACTEMAIL").HeaderText = "Contact Email"
-            dgvFeeStats.Columns("STRCONTACTEMAIL").DisplayIndex = 14
-            dgvFeeStats.Columns("STRCONTACTPhoneNumber").HeaderText = "Contact Phone Number"
-            dgvFeeStats.Columns("STRCONTACTPhoneNumber").DisplayIndex = 15
-            dgvFeeStats.Columns("datShutDown").HeaderText = "Date Shut Down"
-            dgvFeeStats.Columns("datShutDown").DisplayIndex = 16
-            dgvFeeStats.Columns("datShutDown").DefaultCellStyle.Format = "dd-MMM-yyyy"
-            dgvFeeStats.Columns("strClass").HeaderText = "Classification"
-            dgvFeeStats.Columns("strClass").DisplayIndex = 17
-            dgvFeeStats.Columns("Operating").HeaderText = "Operating"
-            dgvFeeStats.Columns("Operating").DisplayIndex = 18
-            dgvFeeStats.Columns("Part70").HeaderText = "Part 70"
-            dgvFeeStats.Columns("Part70").DisplayIndex = 19
-            dgvFeeStats.Columns("NSPS").HeaderText = "NSPS"
-            dgvFeeStats.Columns("NSPS").DisplayIndex = 20
-
-            dgvFeeStats.Columns("numTotalFee").HeaderText = "Total Fees"
-            dgvFeeStats.Columns("numTotalFee").DisplayIndex = 21
-            dgvFeeStats.Columns("numTotalFee").DefaultCellStyle.Format = "c"
-            dgvFeeStats.Columns("TotalPaid").HeaderText = "Total Paid"
-            dgvFeeStats.Columns("TotalPaid").DisplayIndex = 22
-            dgvFeeStats.Columns("TotalPaid").DefaultCellStyle.Format = "c"
-
-
-            txtFeeStatsCount.Text = dgvFeeStats.RowCount.ToString
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-
-    Private Sub llbDetailPartial_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbDetailPartial.LinkClicked
-        Try
-            If cboFeeStatYear.Text <> "" Then
-            Else
-                ds = New DataSet
-                dgvFeeStats.DataSource = ds
-                Exit Sub
-            End If
-
-            SQL = "Select  " &
-            "substr(FS_Admin.strAIRSNumber, 5) as strAIRSNumber, strFacilityName, strIAIPDesc, FS_Admin.strComment,  " &
-            "FS_ContactInfo.STRCONTACTFIRSTNAME, " &
-            "FS_ContactInfo.STRCONTACTLASTNAME, " &
-            "FS_ContactInfo.STRContactCOMPANYNAME, " &
-            "FS_ContactInfo.STRCONTACTADDRESS, " &
-            "FS_ContactInfo.STRCONTACTCITY, " &
-            "FS_ContactInfo.STRCONTACTSTATE, " &
-            "FS_ContactInfo.STRCONTACTZIPCODE, " &
-            "APBFACILITYINFORMATION.STRFACILITYSTREET1, " &
-            "APBFACILITYINFORMATION.STRFACILITYCITY, " &
-            "APBFACILITYINFORMATION.STRFACILITYZIPCODE, " &
-            "FS_ContactInfo.STRCONTACTEMAIL, " &
-            "FS_ContactInfo.strContactPhoneNumber, " &
-            "datShutDown, strClass, " &
-            "case " &
-            "when strOperate = '1' then 'Operating' " &
-            "else 'Not Operating' " &
-            "end Operating, " &
-            "case " &
-            "when strPart70 = '1' then 'True' " &
-            "else 'False' " &
-            "end Part70, " &
-            "case " &
-            "when strNSPS = '1' then 'True' " &
-            "else 'False' " &
-            "end NSPS, " &
-            "numTotalFee, sum(numPayment) as TotalPaid " &
-            "from FS_Admin, APBFacilityInformation, " &
-            "FSLK_Admin_Status,  " &
-            "FS_ContactInfo, FS_FeeAuditedData, " &
-            "FS_Transactions " &
-            "where FS_Admin.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
-            "and FS_Admin.strAIRSNumber = FS_FeeAuditedData.strAIRSNumber (+) " &
-            "and FS_Admin.strAIRSNumber = FS_ContactInfo.strAIRSNumber (+) " &
-            "and FS_Admin.strAIRSNumber = FS_Transactions.strAIRSNumber (+) " &
-            "and FS_Admin.numFeeYear = FS_FeeAuditedData.numFeeYear (+) " &
-            "and FS_Admin.numFeeYear = FS_ContactInfo.numFeeYear (+) " &
-            "and FS_Admin.numFeeYear = FS_Transactions.numFeeYear (+) " &
-            "and FS_Admin.numcurrentstatus = FSLK_Admin_Status.id " &
-            "and FS_Admin.numFeeyear = '" & cboFeeStatYear.Text & "'  " &
-            "and FS_Admin.Active = '1' " &
-            "group by FS_Admin.strAIRSNumber , strFacilityName, " &
-            "strIAIPDesc, FS_ContactInfo.STRCONTACTFIRSTNAME, " &
-            "FS_ContactInfo.STRCONTACTLASTNAME, FS_ContactInfo.STRContactCOMPANYNAME, " &
-            "FS_ContactInfo.STRCONTACTADDRESS, FS_ContactInfo.STRCONTACTCITY, " &
-            "FS_ContactInfo.STRCONTACTSTATE, FS_ContactInfo.STRCONTACTZIPCODE, " &
-            "APBFACILITYINFORMATION.STRFACILITYSTREET1, APBFACILITYINFORMATION.STRFACILITYCITY, " &
-            "APBFACILITYINFORMATION.STRFACILITYZIPCODE, FS_ContactInfo.STRCONTACTEMAIL, " &
-            "FS_ContactInfo.strContactPhoneNumber, datShutDown, strClass, " &
-            "StrOperate, " &
-            "strPart70," &
-            "strNSPS, " &
-            "numTotalFee, FS_Admin.strComment " &
-            "order by strAIRSNumber "
-
-            dsViewCount = New DataSet
-            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daViewCount.Fill(dsViewCount, "ViewCount")
-            dgvFeeStats.DataSource = dsViewCount
-            dgvFeeStats.DataMember = "ViewCount"
-
-            dgvFeeStats.RowHeadersVisible = False
-            dgvFeeStats.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvFeeStats.AllowUserToResizeColumns = True
-            dgvFeeStats.AllowUserToAddRows = False
-            dgvFeeStats.AllowUserToDeleteRows = False
-            dgvFeeStats.AllowUserToOrderColumns = True
-            dgvFeeStats.AllowUserToResizeRows = True
-
-            dgvFeeStats.Columns("STRAIRSNUMBER").HeaderText = "Airs No."
-            dgvFeeStats.Columns("STRAIRSNUMBER").DisplayIndex = 0
-            dgvFeeStats.Columns("STRAIRSNUMBER").Width = dgvFeeStats.Width * 0.2
-            dgvFeeStats.Columns("strFacilityName").HeaderText = "Facility Name"
-            dgvFeeStats.Columns("strFacilityName").DisplayIndex = 1
-            dgvFeeStats.Columns("strFacilityName").Width = dgvFeeStats.Width * 0.8
-            dgvFeeStats.Columns("strIAIPDesc").HeaderText = "Fee Status"
-            dgvFeeStats.Columns("strIAIPDesc").DisplayIndex = 2
-            dgvFeeStats.Columns("strIAIPDesc").Width = dgvFeeStats.Width * 0.5
-            dgvFeeStats.Columns("strComment").HeaderText = "Fee Statistics Comment"
-            dgvFeeStats.Columns("strComment").DisplayIndex = 3
-            dgvFeeStats.Columns("strComment").Width = dgvFeeStats.Width * 0.5
-
-            dgvFeeStats.Columns("STRCONTACTFIRSTNAME").HeaderText = "Contact First Name"
-            dgvFeeStats.Columns("STRCONTACTFIRSTNAME").DisplayIndex = 4
-            dgvFeeStats.Columns("STRCONTACTLASTNAME").HeaderText = "Contact Last Name"
-            dgvFeeStats.Columns("STRCONTACTLASTNAME").DisplayIndex = 5
-            dgvFeeStats.Columns("STRContactCOMPANYNAME").HeaderText = "Contact Company"
-            dgvFeeStats.Columns("STRContactCOMPANYNAME").DisplayIndex = 6
-            dgvFeeStats.Columns("STRCONTACTADDRESS").HeaderText = "Address"
-            dgvFeeStats.Columns("STRCONTACTADDRESS").DisplayIndex = 7
-            dgvFeeStats.Columns("STRCONTACTCITY").HeaderText = "City"
-            dgvFeeStats.Columns("STRCONTACTCITY").DisplayIndex = 8
-            dgvFeeStats.Columns("STRCONTACTSTATE").HeaderText = "State"
-            dgvFeeStats.Columns("STRCONTACTSTATE").DisplayIndex = 9
-            dgvFeeStats.Columns("STRCONTACTZIPCODE").HeaderText = "Zip"
-            dgvFeeStats.Columns("STRCONTACTZIPCODE").DisplayIndex = 10
-            dgvFeeStats.Columns("STRFACILITYSTREET1").HeaderText = "Facility Street"
-            dgvFeeStats.Columns("STRFACILITYSTREET1").DisplayIndex = 11
-            dgvFeeStats.Columns("STRFACILITYCITY").HeaderText = "Facility City"
-            dgvFeeStats.Columns("STRFACILITYCITY").DisplayIndex = 12
-            dgvFeeStats.Columns("STRFACILITYZIPCODE").HeaderText = "Facility Zip Code"
-            dgvFeeStats.Columns("STRFACILITYZIPCODE").DisplayIndex = 13
-            dgvFeeStats.Columns("STRCONTACTEMAIL").HeaderText = "Contact Email"
-            dgvFeeStats.Columns("STRCONTACTEMAIL").DisplayIndex = 14
-            dgvFeeStats.Columns("STRCONTACTPhoneNumber").HeaderText = "Contact Phone Number"
-            dgvFeeStats.Columns("STRCONTACTPhoneNumber").DisplayIndex = 15
-            dgvFeeStats.Columns("datShutDown").HeaderText = "Date Shut Down"
-            dgvFeeStats.Columns("datShutDown").DisplayIndex = 16
-            dgvFeeStats.Columns("datShutDown").DefaultCellStyle.Format = "dd-MMM-yyyy"
-            dgvFeeStats.Columns("strClass").HeaderText = "Classification"
-            dgvFeeStats.Columns("strClass").DisplayIndex = 17
-            dgvFeeStats.Columns("Operating").HeaderText = "Operating"
-            dgvFeeStats.Columns("Operating").DisplayIndex = 18
-            dgvFeeStats.Columns("Part70").HeaderText = "Part 70"
-            dgvFeeStats.Columns("Part70").DisplayIndex = 19
-            dgvFeeStats.Columns("NSPS").HeaderText = "NSPS"
-            dgvFeeStats.Columns("NSPS").DisplayIndex = 20
-
-            dgvFeeStats.Columns("numTotalFee").HeaderText = "Total Fees"
-            dgvFeeStats.Columns("numTotalFee").DisplayIndex = 21
-            dgvFeeStats.Columns("numTotalFee").DefaultCellStyle.Format = "c"
-            dgvFeeStats.Columns("TotalPaid").HeaderText = "Total Paid"
-            dgvFeeStats.Columns("TotalPaid").DisplayIndex = 22
-            dgvFeeStats.Columns("TotalPaid").DefaultCellStyle.Format = "c"
-
-
-            txtFeeStatsCount.Text = dgvFeeStats.RowCount.ToString
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-
-    Private Sub llbDetailAnnual_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbDetailAnnual.LinkClicked
-        Try
-            If cboFeeStatYear.Text <> "" Then
-            Else
-                ds = New DataSet
-                dgvFeeStats.DataSource = ds
-                Exit Sub
-            End If
-
-            SQL = "Select  " &
-            "substr(FS_Admin.strAIRSNumber, 5) as strAIRSNumber, strFacilityName, strIAIPDesc, FS_Admin.strComment,  " &
-            "FS_ContactInfo.STRCONTACTFIRSTNAME, " &
-            "FS_ContactInfo.STRCONTACTLASTNAME, " &
-            "FS_ContactInfo.STRContactCOMPANYNAME, " &
-            "FS_ContactInfo.STRCONTACTADDRESS, " &
-            "FS_ContactInfo.STRCONTACTCITY, " &
-            "FS_ContactInfo.STRCONTACTSTATE, " &
-            "FS_ContactInfo.STRCONTACTZIPCODE, " &
-            "APBFACILITYINFORMATION.STRFACILITYSTREET1, " &
-            "APBFACILITYINFORMATION.STRFACILITYCITY, " &
-            "APBFACILITYINFORMATION.STRFACILITYZIPCODE, " &
-            "FS_ContactInfo.STRCONTACTEMAIL, " &
-            "FS_ContactInfo.strContactPhoneNumber, " &
-            "datShutDown, strClass, " &
-            "case " &
-            "when strOperate = '1' then 'Operating' " &
-            "else 'Not Operating' " &
-            "end Operating, " &
-            "case " &
-            "when strPart70 = '1' then 'True' " &
-            "else 'False' " &
-            "end Part70, " &
-            "case " &
-            "when strNSPS = '1' then 'True' " &
-            "else 'False' " &
-            "end NSPS, " &
-            "numTotalFee, sum(numPayment) as TotalPaid " &
-            "from FS_Admin, APBFacilityInformation, " &
-            "FSLK_Admin_Status,  " &
-            "FS_ContactInfo, FS_FeeAuditedData, " &
-            "FS_Transactions " &
-            "where FS_Admin.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
-            "and FS_Admin.strAIRSNumber = FS_FeeAuditedData.strAIRSNumber (+) " &
-            "and FS_Admin.strAIRSNumber = FS_ContactInfo.strAIRSNumber (+) " &
-            "and FS_Admin.strAIRSNumber = FS_Transactions.strAIRSNumber (+) " &
-            "and FS_Admin.numFeeYear = FS_FeeAuditedData.numFeeYear (+) " &
-            "and FS_Admin.numFeeYear = FS_ContactInfo.numFeeYear (+) " &
-            "and FS_Admin.numFeeYear = FS_Transactions.numFeeYear (+) " &
-            "and FS_Admin.numcurrentstatus = FSLK_Admin_Status.id " &
-            "and FS_Admin.numFeeyear = '" & cboFeeStatYear.Text & "'  " &
-            "and FS_Admin.Active = '1' " &
-            "group by FS_Admin.strAIRSNumber , strFacilityName, " &
-            "strIAIPDesc, FS_ContactInfo.STRCONTACTFIRSTNAME, " &
-            "FS_ContactInfo.STRCONTACTLASTNAME, FS_ContactInfo.STRContactCOMPANYNAME, " &
-            "FS_ContactInfo.STRCONTACTADDRESS, FS_ContactInfo.STRCONTACTCITY, " &
-            "FS_ContactInfo.STRCONTACTSTATE, FS_ContactInfo.STRCONTACTZIPCODE, " &
-            "APBFACILITYINFORMATION.STRFACILITYSTREET1, APBFACILITYINFORMATION.STRFACILITYCITY, " &
-            "APBFACILITYINFORMATION.STRFACILITYZIPCODE, FS_ContactInfo.STRCONTACTEMAIL, " &
-            "FS_ContactInfo.strContactPhoneNumber, datShutDown, strClass, " &
-            "StrOperate, " &
-            "strPart70," &
-            "strNSPS, " &
-            "numTotalFee, FS_Admin.strComment " &
-            "order by strAIRSNumber "
-
-            dsViewCount = New DataSet
-            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daViewCount.Fill(dsViewCount, "ViewCount")
-            dgvFeeStats.DataSource = dsViewCount
-            dgvFeeStats.DataMember = "ViewCount"
-
-            dgvFeeStats.RowHeadersVisible = False
-            dgvFeeStats.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvFeeStats.AllowUserToResizeColumns = True
-            dgvFeeStats.AllowUserToAddRows = False
-            dgvFeeStats.AllowUserToDeleteRows = False
-            dgvFeeStats.AllowUserToOrderColumns = True
-            dgvFeeStats.AllowUserToResizeRows = True
-
-            dgvFeeStats.Columns("STRAIRSNUMBER").HeaderText = "Airs No."
-            dgvFeeStats.Columns("STRAIRSNUMBER").DisplayIndex = 0
-            dgvFeeStats.Columns("STRAIRSNUMBER").Width = dgvFeeStats.Width * 0.2
-            dgvFeeStats.Columns("strFacilityName").HeaderText = "Facility Name"
-            dgvFeeStats.Columns("strFacilityName").DisplayIndex = 1
-            dgvFeeStats.Columns("strFacilityName").Width = dgvFeeStats.Width * 0.8
-            dgvFeeStats.Columns("strIAIPDesc").HeaderText = "Fee Status"
-            dgvFeeStats.Columns("strIAIPDesc").DisplayIndex = 2
-            dgvFeeStats.Columns("strIAIPDesc").Width = dgvFeeStats.Width * 0.5
-            dgvFeeStats.Columns("strComment").HeaderText = "Fee Statistics Comment"
-            dgvFeeStats.Columns("strComment").DisplayIndex = 3
-            dgvFeeStats.Columns("strComment").Width = dgvFeeStats.Width * 0.5
-
-            dgvFeeStats.Columns("STRCONTACTFIRSTNAME").HeaderText = "Contact First Name"
-            dgvFeeStats.Columns("STRCONTACTFIRSTNAME").DisplayIndex = 4
-            dgvFeeStats.Columns("STRCONTACTLASTNAME").HeaderText = "Contact Last Name"
-            dgvFeeStats.Columns("STRCONTACTLASTNAME").DisplayIndex = 5
-            dgvFeeStats.Columns("STRContactCOMPANYNAME").HeaderText = "Contact Company"
-            dgvFeeStats.Columns("STRContactCOMPANYNAME").DisplayIndex = 6
-            dgvFeeStats.Columns("STRCONTACTADDRESS").HeaderText = "Address"
-            dgvFeeStats.Columns("STRCONTACTADDRESS").DisplayIndex = 7
-            dgvFeeStats.Columns("STRCONTACTCITY").HeaderText = "City"
-            dgvFeeStats.Columns("STRCONTACTCITY").DisplayIndex = 8
-            dgvFeeStats.Columns("STRCONTACTSTATE").HeaderText = "State"
-            dgvFeeStats.Columns("STRCONTACTSTATE").DisplayIndex = 9
-            dgvFeeStats.Columns("STRCONTACTZIPCODE").HeaderText = "Zip"
-            dgvFeeStats.Columns("STRCONTACTZIPCODE").DisplayIndex = 10
-            dgvFeeStats.Columns("STRFACILITYSTREET1").HeaderText = "Facility Street"
-            dgvFeeStats.Columns("STRFACILITYSTREET1").DisplayIndex = 11
-            dgvFeeStats.Columns("STRFACILITYCITY").HeaderText = "Facility City"
-            dgvFeeStats.Columns("STRFACILITYCITY").DisplayIndex = 12
-            dgvFeeStats.Columns("STRFACILITYZIPCODE").HeaderText = "Facility Zip Code"
-            dgvFeeStats.Columns("STRFACILITYZIPCODE").DisplayIndex = 13
-            dgvFeeStats.Columns("STRCONTACTEMAIL").HeaderText = "Contact Email"
-            dgvFeeStats.Columns("STRCONTACTEMAIL").DisplayIndex = 14
-            dgvFeeStats.Columns("STRCONTACTPhoneNumber").HeaderText = "Contact Phone Number"
-            dgvFeeStats.Columns("STRCONTACTPhoneNumber").DisplayIndex = 15
-            dgvFeeStats.Columns("datShutDown").HeaderText = "Date Shut Down"
-            dgvFeeStats.Columns("datShutDown").DisplayIndex = 16
-            dgvFeeStats.Columns("datShutDown").DefaultCellStyle.Format = "dd-MMM-yyyy"
-            dgvFeeStats.Columns("strClass").HeaderText = "Classification"
-            dgvFeeStats.Columns("strClass").DisplayIndex = 17
-            dgvFeeStats.Columns("Operating").HeaderText = "Operating"
-            dgvFeeStats.Columns("Operating").DisplayIndex = 18
-            dgvFeeStats.Columns("Part70").HeaderText = "Part 70"
-            dgvFeeStats.Columns("Part70").DisplayIndex = 19
-            dgvFeeStats.Columns("NSPS").HeaderText = "NSPS"
-            dgvFeeStats.Columns("NSPS").DisplayIndex = 20
-
-            dgvFeeStats.Columns("numTotalFee").HeaderText = "Total Fees"
-            dgvFeeStats.Columns("numTotalFee").DisplayIndex = 21
-            dgvFeeStats.Columns("numTotalFee").DefaultCellStyle.Format = "c"
-            dgvFeeStats.Columns("TotalPaid").HeaderText = "Total Paid"
-            dgvFeeStats.Columns("TotalPaid").DisplayIndex = 22
-            dgvFeeStats.Columns("TotalPaid").DefaultCellStyle.Format = "c"
-
-
-            txtFeeStatsCount.Text = dgvFeeStats.RowCount.ToString
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-
-    Private Sub llbDetailQuarterly_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbDetailQuarterly.LinkClicked
-        Try
-            If cboFeeStatYear.Text <> "" Then
-            Else
-                ds = New DataSet
-                dgvFeeStats.DataSource = ds
-                Exit Sub
-            End If
-
-            SQL = "Select  " &
-            "substr(FS_Admin.strAIRSNumber, 5) as strAIRSNumber, strFacilityName, strIAIPDesc, FS_Admin.strComment,  " &
-            "FS_ContactInfo.STRCONTACTFIRSTNAME, " &
-            "FS_ContactInfo.STRCONTACTLASTNAME, " &
-            "FS_ContactInfo.STRContactCOMPANYNAME, " &
-            "FS_ContactInfo.STRCONTACTADDRESS, " &
-            "FS_ContactInfo.STRCONTACTCITY, " &
-            "FS_ContactInfo.STRCONTACTSTATE, " &
-            "FS_ContactInfo.STRCONTACTZIPCODE, " &
-            "APBFACILITYINFORMATION.STRFACILITYSTREET1, " &
-            "APBFACILITYINFORMATION.STRFACILITYCITY, " &
-            "APBFACILITYINFORMATION.STRFACILITYZIPCODE, " &
-            "FS_ContactInfo.STRCONTACTEMAIL, " &
-            "FS_ContactInfo.strContactPhoneNumber, " &
-            "datShutDown, strClass, " &
-            "case " &
-            "when strOperate = '1' then 'Operating' " &
-            "else 'Not Operating' " &
-            "end Operating, " &
-            "case " &
-            "when strPart70 = '1' then 'True' " &
-            "else 'False' " &
-            "end Part70, " &
-            "case " &
-            "when strNSPS = '1' then 'True' " &
-            "else 'False' " &
-            "end NSPS, " &
-            "numTotalFee, sum(numPayment) as TotalPaid " &
-            "from FS_Admin, APBFacilityInformation, " &
-            "FSLK_Admin_Status,  " &
-            "FS_ContactInfo, FS_FeeAuditedData, " &
-            "FS_Transactions " &
-            "where FS_Admin.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
-            "and FS_Admin.strAIRSNumber = FS_FeeAuditedData.strAIRSNumber (+) " &
-            "and FS_Admin.strAIRSNumber = FS_ContactInfo.strAIRSNumber (+) " &
-            "and FS_Admin.strAIRSNumber = FS_Transactions.strAIRSNumber (+) " &
-            "and FS_Admin.numFeeYear = FS_FeeAuditedData.numFeeYear (+) " &
-            "and FS_Admin.numFeeYear = FS_ContactInfo.numFeeYear (+) " &
-            "and FS_Admin.numFeeYear = FS_Transactions.numFeeYear (+) " &
-            "and FS_Admin.numcurrentstatus = FSLK_Admin_Status.id " &
-            "and FS_Admin.numFeeyear = '" & cboFeeStatYear.Text & "'  " &
-            "and FS_Admin.Active = '1' " &
-            "group by FS_Admin.strAIRSNumber , strFacilityName, " &
-            "strIAIPDesc, FS_ContactInfo.STRCONTACTFIRSTNAME, " &
-            "FS_ContactInfo.STRCONTACTLASTNAME, FS_ContactInfo.STRContactCOMPANYNAME, " &
-            "FS_ContactInfo.STRCONTACTADDRESS, FS_ContactInfo.STRCONTACTCITY, " &
-            "FS_ContactInfo.STRCONTACTSTATE, FS_ContactInfo.STRCONTACTZIPCODE, " &
-            "APBFACILITYINFORMATION.STRFACILITYSTREET1, APBFACILITYINFORMATION.STRFACILITYCITY, " &
-            "APBFACILITYINFORMATION.STRFACILITYZIPCODE, FS_ContactInfo.STRCONTACTEMAIL, " &
-            "FS_ContactInfo.strContactPhoneNumber, datShutDown, strClass, " &
-            "StrOperate, " &
-            "strPart70," &
-            "strNSPS, " &
-            "numTotalFee, FS_Admin.strComment " &
-            "order by strAIRSNumber "
-
-            dsViewCount = New DataSet
-            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daViewCount.Fill(dsViewCount, "ViewCount")
-            dgvFeeStats.DataSource = dsViewCount
-            dgvFeeStats.DataMember = "ViewCount"
-
-            dgvFeeStats.RowHeadersVisible = False
-            dgvFeeStats.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvFeeStats.AllowUserToResizeColumns = True
-            dgvFeeStats.AllowUserToAddRows = False
-            dgvFeeStats.AllowUserToDeleteRows = False
-            dgvFeeStats.AllowUserToOrderColumns = True
-            dgvFeeStats.AllowUserToResizeRows = True
-
-            dgvFeeStats.Columns("STRAIRSNUMBER").HeaderText = "Airs No."
-            dgvFeeStats.Columns("STRAIRSNUMBER").DisplayIndex = 0
-            dgvFeeStats.Columns("STRAIRSNUMBER").Width = dgvFeeStats.Width * 0.2
-            dgvFeeStats.Columns("strFacilityName").HeaderText = "Facility Name"
-            dgvFeeStats.Columns("strFacilityName").DisplayIndex = 1
-            dgvFeeStats.Columns("strFacilityName").Width = dgvFeeStats.Width * 0.8
-            dgvFeeStats.Columns("strIAIPDesc").HeaderText = "Fee Status"
-            dgvFeeStats.Columns("strIAIPDesc").DisplayIndex = 2
-            dgvFeeStats.Columns("strIAIPDesc").Width = dgvFeeStats.Width * 0.5
-            dgvFeeStats.Columns("strComment").HeaderText = "Fee Statistics Comment"
-            dgvFeeStats.Columns("strComment").DisplayIndex = 3
-            dgvFeeStats.Columns("strComment").Width = dgvFeeStats.Width * 0.5
-
-            dgvFeeStats.Columns("STRCONTACTFIRSTNAME").HeaderText = "Contact First Name"
-            dgvFeeStats.Columns("STRCONTACTFIRSTNAME").DisplayIndex = 4
-            dgvFeeStats.Columns("STRCONTACTLASTNAME").HeaderText = "Contact Last Name"
-            dgvFeeStats.Columns("STRCONTACTLASTNAME").DisplayIndex = 5
-            dgvFeeStats.Columns("STRContactCOMPANYNAME").HeaderText = "Contact Company"
-            dgvFeeStats.Columns("STRContactCOMPANYNAME").DisplayIndex = 6
-            dgvFeeStats.Columns("STRCONTACTADDRESS").HeaderText = "Address"
-            dgvFeeStats.Columns("STRCONTACTADDRESS").DisplayIndex = 7
-            dgvFeeStats.Columns("STRCONTACTCITY").HeaderText = "City"
-            dgvFeeStats.Columns("STRCONTACTCITY").DisplayIndex = 8
-            dgvFeeStats.Columns("STRCONTACTSTATE").HeaderText = "State"
-            dgvFeeStats.Columns("STRCONTACTSTATE").DisplayIndex = 9
-            dgvFeeStats.Columns("STRCONTACTZIPCODE").HeaderText = "Zip"
-            dgvFeeStats.Columns("STRCONTACTZIPCODE").DisplayIndex = 10
-            dgvFeeStats.Columns("STRFACILITYSTREET1").HeaderText = "Facility Street"
-            dgvFeeStats.Columns("STRFACILITYSTREET1").DisplayIndex = 11
-            dgvFeeStats.Columns("STRFACILITYCITY").HeaderText = "Facility City"
-            dgvFeeStats.Columns("STRFACILITYCITY").DisplayIndex = 12
-            dgvFeeStats.Columns("STRFACILITYZIPCODE").HeaderText = "Facility Zip Code"
-            dgvFeeStats.Columns("STRFACILITYZIPCODE").DisplayIndex = 13
-            dgvFeeStats.Columns("STRCONTACTEMAIL").HeaderText = "Contact Email"
-            dgvFeeStats.Columns("STRCONTACTEMAIL").DisplayIndex = 14
-            dgvFeeStats.Columns("STRCONTACTPhoneNumber").HeaderText = "Contact Phone Number"
-            dgvFeeStats.Columns("STRCONTACTPhoneNumber").DisplayIndex = 15
-            dgvFeeStats.Columns("datShutDown").HeaderText = "Date Shut Down"
-            dgvFeeStats.Columns("datShutDown").DisplayIndex = 16
-            dgvFeeStats.Columns("datShutDown").DefaultCellStyle.Format = "dd-MMM-yyyy"
-            dgvFeeStats.Columns("strClass").HeaderText = "Classification"
-            dgvFeeStats.Columns("strClass").DisplayIndex = 17
-            dgvFeeStats.Columns("Operating").HeaderText = "Operating"
-            dgvFeeStats.Columns("Operating").DisplayIndex = 18
-            dgvFeeStats.Columns("Part70").HeaderText = "Part 70"
-            dgvFeeStats.Columns("Part70").DisplayIndex = 19
-            dgvFeeStats.Columns("NSPS").HeaderText = "NSPS"
-            dgvFeeStats.Columns("NSPS").DisplayIndex = 20
-
-            dgvFeeStats.Columns("numTotalFee").HeaderText = "Total Fees"
-            dgvFeeStats.Columns("numTotalFee").DisplayIndex = 21
-            dgvFeeStats.Columns("numTotalFee").DefaultCellStyle.Format = "c"
-            dgvFeeStats.Columns("TotalPaid").HeaderText = "Total Paid"
-            dgvFeeStats.Columns("TotalPaid").DisplayIndex = 22
-            dgvFeeStats.Columns("TotalPaid").DefaultCellStyle.Format = "c"
-
-
-            txtFeeStatsCount.Text = dgvFeeStats.RowCount.ToString
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-
-    Private Sub llbDetailOverpaid_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbDetailOverpaid.LinkClicked
-        Try
-            If cboFeeStatYear.Text <> "" Then
-            Else
-                ds = New DataSet
-                dgvFeeStats.DataSource = ds
-                Exit Sub
-            End If
-
-            SQL = "Select  " &
-            "substr(FS_Admin.strAIRSNumber, 5) as strAIRSNumber, strFacilityName, strIAIPDesc, FS_Admin.strComment,  " &
-            "FS_ContactInfo.STRCONTACTFIRSTNAME, " &
-            "FS_ContactInfo.STRCONTACTLASTNAME, " &
-            "FS_ContactInfo.STRContactCOMPANYNAME, " &
-            "FS_ContactInfo.STRCONTACTADDRESS, " &
-            "FS_ContactInfo.STRCONTACTCITY, " &
-            "FS_ContactInfo.STRCONTACTSTATE, " &
-            "FS_ContactInfo.STRCONTACTZIPCODE, " &
-            "APBFACILITYINFORMATION.STRFACILITYSTREET1, " &
-            "APBFACILITYINFORMATION.STRFACILITYCITY, " &
-            "APBFACILITYINFORMATION.STRFACILITYZIPCODE, " &
-            "FS_ContactInfo.STRCONTACTEMAIL, " &
-            "FS_ContactInfo.strContactPhoneNumber, " &
-            "datShutDown, strClass, " &
-            "case " &
-            "when strOperate = '1' then 'Operating' " &
-            "else 'Not Operating' " &
-            "end Operating, " &
-            "case " &
-            "when strPart70 = '1' then 'True' " &
-            "else 'False' " &
-            "end Part70, " &
-            "case " &
-            "when strNSPS = '1' then 'True' " &
-            "else 'False' " &
-            "end NSPS, " &
-            "numTotalFee, sum(numPayment) as TotalPaid " &
-            "from FS_Admin, APBFacilityInformation, " &
-            "FSLK_Admin_Status,  " &
-            "FS_ContactInfo, FS_FeeAuditedData, " &
-            "FS_Transactions " &
-            "where FS_Admin.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
-            "and FS_Admin.strAIRSNumber = FS_FeeAuditedData.strAIRSNumber (+) " &
-            "and FS_Admin.strAIRSNumber = FS_ContactInfo.strAIRSNumber (+) " &
-            "and FS_Admin.strAIRSNumber = FS_Transactions.strAIRSNumber (+) " &
-            "and FS_Admin.numFeeYear = FS_FeeAuditedData.numFeeYear (+) " &
-            "and FS_Admin.numFeeYear = FS_ContactInfo.numFeeYear (+) " &
-            "and FS_Admin.numFeeYear = FS_Transactions.numFeeYear (+) " &
-            "and FS_Admin.numcurrentstatus = FSLK_Admin_Status.id " &
-            "and FS_Admin.numFeeyear = '" & cboFeeStatYear.Text & "'  " &
-            "and FS_Admin.Active = '1' " &
-            "group by FS_Admin.strAIRSNumber , strFacilityName, " &
-            "strIAIPDesc, FS_ContactInfo.STRCONTACTFIRSTNAME, " &
-            "FS_ContactInfo.STRCONTACTLASTNAME, FS_ContactInfo.STRContactCOMPANYNAME, " &
-            "FS_ContactInfo.STRCONTACTADDRESS, FS_ContactInfo.STRCONTACTCITY, " &
-            "FS_ContactInfo.STRCONTACTSTATE, FS_ContactInfo.STRCONTACTZIPCODE, " &
-            "APBFACILITYINFORMATION.STRFACILITYSTREET1, APBFACILITYINFORMATION.STRFACILITYCITY, " &
-            "APBFACILITYINFORMATION.STRFACILITYZIPCODE, FS_ContactInfo.STRCONTACTEMAIL, " &
-            "FS_ContactInfo.strContactPhoneNumber, datShutDown, strClass, " &
-            "StrOperate, " &
-            "strPart70," &
-            "strNSPS, " &
-            "numTotalFee, FS_Admin.strComment " &
-            "order by strAIRSNumber "
-
-            dsViewCount = New DataSet
-            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daViewCount.Fill(dsViewCount, "ViewCount")
-            dgvFeeStats.DataSource = dsViewCount
-            dgvFeeStats.DataMember = "ViewCount"
+            dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
 
             dgvFeeStats.RowHeadersVisible = False
             dgvFeeStats.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -7140,13 +5882,11 @@ Public Class PASPFeeStatistics
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
-                ds = New DataSet
-                dgvFeeStats.DataSource = ds
                 Exit Sub
             End If
 
-            SQL = "Select  " &
-            "substr(FS_Admin.strAIRSNumber, 5) as strAIRSNumber, strFacilityName, strIAIPDesc, FS_Admin.strComment,  " &
+            Dim SQL As String = "Select  " &
+            "substring(FS_Admin.strAIRSNumber, 5, 8) as strAIRSNumber, strFacilityName, strIAIPDesc, FS_Admin.strComment,  " &
             "FS_ContactInfo.STRCONTACTFIRSTNAME, " &
             "FS_ContactInfo.STRCONTACTLASTNAME, " &
             "FS_ContactInfo.STRContactCOMPANYNAME, " &
@@ -7173,19 +5913,21 @@ Public Class PASPFeeStatistics
             "else 'False' " &
             "end NSPS, " &
             "numTotalFee, sum(numPayment) as TotalPaid " &
-            "from FS_Admin, APBFacilityInformation, " &
-            "FSLK_Admin_Status,  " &
-            "FS_ContactInfo, FS_FeeAuditedData, " &
-            "FS_Transactions " &
-            "where FS_Admin.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
-            "and FS_Admin.strAIRSNumber = FS_FeeAuditedData.strAIRSNumber (+) " &
-            "and FS_Admin.strAIRSNumber = FS_ContactInfo.strAIRSNumber (+) " &
-            "and FS_Admin.strAIRSNumber = FS_Transactions.strAIRSNumber (+) " &
-            "and FS_Admin.numFeeYear = FS_FeeAuditedData.numFeeYear (+) " &
-            "and FS_Admin.numFeeYear = FS_ContactInfo.numFeeYear (+) " &
-            "and FS_Admin.numFeeYear = FS_Transactions.numFeeYear (+) " &
-            "and FS_Admin.numcurrentstatus = FSLK_Admin_Status.id " &
-            "and FS_Admin.numFeeyear = '" & cboFeeStatYear.Text & "'  " &
+            "from FS_Admin " &
+            "inner join APBFacilityInformation " &
+            "on FS_Admin.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
+            "inner join FSLK_Admin_Status " &
+            "on FS_Admin.numcurrentstatus = FSLK_Admin_Status.id " &
+            "left join FS_ContactInfo " &
+            "on FS_Admin.strAIRSNumber = FS_ContactInfo.strAIRSNumber " &
+            "and FS_Admin.numFeeYear = FS_ContactInfo.numFeeYear " &
+            "left join FS_FeeAuditedData " &
+            "on FS_Admin.strAIRSNumber = FS_FeeAuditedData.strAIRSNumber " &
+            "and FS_Admin.numFeeYear = FS_FeeAuditedData.numFeeYear " &
+            "left join FS_Transactions " &
+            "on FS_Admin.strAIRSNumber = FS_Transactions.strAIRSNumber " &
+            "and FS_Admin.numFeeYear = FS_Transactions.numFeeYear " &
+            "where FS_Admin.numFeeyear = @year " &
                  "and (strEnrolled = '1' or strEnrolled is null)  " &
             "and numcurrentstatus = '10' " &
             "and FS_Admin.Active = '1' " &
@@ -7204,14 +5946,9 @@ Public Class PASPFeeStatistics
             "order by strAIRSNumber "
 
 
-            dsViewCount = New DataSet
-            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daViewCount.Fill(dsViewCount, "ViewCount")
-            dgvFeeStats.DataSource = dsViewCount
-            dgvFeeStats.DataMember = "ViewCount"
+            Dim p As New SqlParameter("@year", cboFeeStatYear.Text)
+
+            dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
 
             dgvFeeStats.RowHeadersVisible = False
             dgvFeeStats.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -7289,13 +6026,11 @@ Public Class PASPFeeStatistics
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
-                ds = New DataSet
-                dgvFeeStats.DataSource = ds
                 Exit Sub
             End If
 
-            SQL = "Select  " &
-            "substr(FS_Admin.strAIRSNumber, 5) as strAIRSNumber, strFacilityName, strIAIPDesc, " &
+            Dim SQL As String = "Select  " &
+            "substring(FS_Admin.strAIRSNumber, 5, 8) as strAIRSNumber, strFacilityName, strIAIPDesc, " &
             "FS_Admin.strComment,  " &
             "FS_ContactInfo.STRCONTACTFIRSTNAME, " &
             "FS_ContactInfo.STRCONTACTLASTNAME, " &
@@ -7323,19 +6058,21 @@ Public Class PASPFeeStatistics
             "else 'False' " &
             "end NSPS, " &
             "numTotalFee, sum(numPayment) as TotalPaid " &
-            "from FS_Admin, APBFacilityInformation, " &
-            "FSLK_Admin_Status,  " &
-            "FS_ContactInfo, FS_FeeAuditedData, " &
-            "FS_Transactions " &
-            "where FS_Admin.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
-            "and FS_Admin.strAIRSNumber = FS_FeeAuditedData.strAIRSNumber (+) " &
-            "and FS_Admin.strAIRSNumber = FS_ContactInfo.strAIRSNumber (+) " &
-            "and FS_Admin.strAIRSNumber = FS_Transactions.strAIRSNumber (+) " &
-            "and FS_Admin.numFeeYear = FS_FeeAuditedData.numFeeYear (+) " &
-            "and FS_Admin.numFeeYear = FS_ContactInfo.numFeeYear (+) " &
-            "and FS_Admin.numFeeYear = FS_Transactions.numFeeYear (+) " &
-            "and FS_Admin.numcurrentstatus = FSLK_Admin_Status.id " &
-            "and FS_Admin.numFeeyear = '" & cboFeeStatYear.Text & "'  " &
+            "from FS_Admin " &
+            "inner join APBFacilityInformation " &
+            "on FS_Admin.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
+            "inner join FSLK_Admin_Status " &
+            "on FS_Admin.numcurrentstatus = FSLK_Admin_Status.id " &
+            "left join FS_ContactInfo " &
+            "on FS_Admin.strAIRSNumber = FS_ContactInfo.strAIRSNumber " &
+            "and FS_Admin.numFeeYear = FS_ContactInfo.numFeeYear " &
+            "left join FS_FeeAuditedData " &
+            "on FS_Admin.strAIRSNumber = FS_FeeAuditedData.strAIRSNumber " &
+            "and FS_Admin.numFeeYear = FS_FeeAuditedData.numFeeYear " &
+            "left join FS_Transactions " &
+            "on FS_Admin.strAIRSNumber = FS_Transactions.strAIRSNumber " &
+            "and FS_Admin.numFeeYear = FS_Transactions.numFeeYear " &
+            "where FS_Admin.numFeeyear = @year " &
             "and (strEnrolled = '1' or strEnrolled is null)  " &
             "and numcurrentstatus = '10' " &
             "and intSubmittal = '1' " &
@@ -7354,14 +6091,9 @@ Public Class PASPFeeStatistics
             "numTotalFee, FS_Admin.strComment " &
             "order by strAIRSNumber "
 
-            dsViewCount = New DataSet
-            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daViewCount.Fill(dsViewCount, "ViewCount")
-            dgvFeeStats.DataSource = dsViewCount
-            dgvFeeStats.DataMember = "ViewCount"
+            Dim p As New SqlParameter("@year", cboFeeStatYear.Text)
+
+            dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
 
             dgvFeeStats.RowHeadersVisible = False
             dgvFeeStats.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -7440,13 +6172,11 @@ Public Class PASPFeeStatistics
         Try
             If cboFeeStatYear.Text <> "" Then
             Else
-                ds = New DataSet
-                dgvFeeStats.DataSource = ds
                 Exit Sub
             End If
 
-            SQL = "Select  " &
-            "substr(FS_Admin.strAIRSNumber, 5) as strAIRSNumber, strFacilityName, strIAIPDesc, " &
+            Dim SQL As String = "Select  " &
+            "substring(FS_Admin.strAIRSNumber, 5, 8) as strAIRSNumber, strFacilityName, strIAIPDesc, " &
             "FS_Admin.strComment,  " &
             "FS_ContactInfo.STRCONTACTFIRSTNAME, " &
             "FS_ContactInfo.STRCONTACTLASTNAME, " &
@@ -7474,19 +6204,21 @@ Public Class PASPFeeStatistics
             "else 'False' " &
             "end NSPS, " &
             "numTotalFee, sum(numPayment) as TotalPaid " &
-            "from FS_Admin, APBFacilityInformation, " &
-            "FSLK_Admin_Status,  " &
-            "FS_ContactInfo, FS_FeeAuditedData, " &
-            "FS_Transactions " &
-            "where FS_Admin.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
-            "and FS_Admin.strAIRSNumber = FS_FeeAuditedData.strAIRSNumber (+) " &
-            "and FS_Admin.strAIRSNumber = FS_ContactInfo.strAIRSNumber (+) " &
-            "and FS_Admin.strAIRSNumber = FS_Transactions.strAIRSNumber (+) " &
-            "and FS_Admin.numFeeYear = FS_FeeAuditedData.numFeeYear (+) " &
-            "and FS_Admin.numFeeYear = FS_ContactInfo.numFeeYear (+) " &
-            "and FS_Admin.numFeeYear = FS_Transactions.numFeeYear (+) " &
-            "and FS_Admin.numcurrentstatus = FSLK_Admin_Status.id " &
-            "and FS_Admin.numFeeyear = '" & cboFeeStatYear.Text & "'  " &
+            "from FS_Admin " &
+            "inner join APBFacilityInformation " &
+            "on FS_Admin.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
+            "inner join FSLK_Admin_Status " &
+            "on FS_Admin.numcurrentstatus = FSLK_Admin_Status.id " &
+            "left join FS_ContactInfo " &
+            "on FS_Admin.strAIRSNumber = FS_ContactInfo.strAIRSNumber " &
+            "and FS_Admin.numFeeYear = FS_ContactInfo.numFeeYear " &
+            "left join FS_FeeAuditedData " &
+            "on FS_Admin.strAIRSNumber = FS_FeeAuditedData.strAIRSNumber " &
+            "and FS_Admin.numFeeYear = FS_FeeAuditedData.numFeeYear " &
+            "left join FS_Transactions " &
+            "on FS_Admin.strAIRSNumber = FS_Transactions.strAIRSNumber " &
+            "and FS_Admin.numFeeYear = FS_Transactions.numFeeYear " &
+            "where FS_Admin.numFeeyear = @year " &
             "and (strEnrolled = '1' or strEnrolled is null)  " &
             "and numcurrentstatus = '10' " &
             "and (intSubmittal = '0' or intsubmittal is null) " &
@@ -7505,14 +6237,9 @@ Public Class PASPFeeStatistics
             "numTotalFee, FS_Admin.strcomment " &
             "order by strAIRSNumber "
 
-            dsViewCount = New DataSet
-            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daViewCount.Fill(dsViewCount, "ViewCount")
-            dgvFeeStats.DataSource = dsViewCount
-            dgvFeeStats.DataMember = "ViewCount"
+            Dim p As New SqlParameter("@year", cboFeeStatYear.Text)
+
+            dgvFeeStats.DataSource = DB.GetDataTable(SQL, p)
 
             dgvFeeStats.RowHeadersVisible = False
             dgvFeeStats.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -7614,7 +6341,7 @@ Public Class PASPFeeStatistics
                 Dim query As String = "Update FS_FeeInvoice set " &
                 "strInvoiceStatus = '1', " &
                 "UpdateUser = @Username,  " &
-                "updateDateTime = sysdate " &
+                "updateDateTime = getdate() " &
                 "where numFeeYear = @FeeYear " &
                 "and numAmount = '0' " &
                 "and strInvoiceStatus = '0' " &
@@ -7639,23 +6366,13 @@ Public Class PASPFeeStatistics
                 "and updateUser = @Username " &
                 "and numFeeyear = @FeeYear "
 
-                Using connection As New SqlConnection(CurrentConnectionString)
-                    Using cmd As SqlCommand = connection.CreateCommand
-                        cmd.CommandType = CommandType.Text
-                        cmd.CommandText = query
+                Dim dt As DataTable = DB.GetDataTable(query, parameters)
 
-                        cmd.Parameters.AddRange(parameters)
-                        cmd.Connection.Open()
-                        dr = cmd.ExecuteReader
-                        While dr.Read
-                            If Not IsDBNull(dr.Item("strAIRSNumber")) Then
-                                DAL.Update_FS_Admin_Status(cboFeeStatYear.Text, dr.Item("strAIRSNumber"))
-                            End If
-                        End While
-                        dr.Close()
-                        cmd.Connection.Close()
-                    End Using
-                End Using
+                For Each row As DataRow In dt.Rows
+                    If Not IsDBNull(dr.Item("strAIRSNumber")) Then
+                        DAL.Update_FS_Admin_Status(cboFeeStatYear.Text, dr.Item("strAIRSNumber"))
+                    End If
+                Next
 
                 MsgBox("Fee Invoices validated.", MsgBoxStyle.Information, Me.Text)
             End If
@@ -8004,12 +6721,12 @@ Public Class PASPFeeStatistics
 
     Private Sub btnViewInvoicedBalance_Click(sender As Object, e As EventArgs) Handles btnViewInvoicedBalance.Click
         Try
-            Dim sql As String
+            Dim SQL As String = ""
 
             Select Case cboStatPayType.Text
 
                 Case "ALL"
-                    sql = "SELECT SUBSTRING(allData.STRAIRSNUMBER, 5, 8) AS strAIRSNumber, allData.STRFACILITYNAME, allData.NUMFEEYEAR, allData.Payment, allData.AmountOwed, allData.Balance, allData.PayType, allData.FeeReported " &
+                    SQL = "SELECT SUBSTRING(allData.STRAIRSNUMBER, 5, 8) AS strAIRSNumber, allData.STRFACILITYNAME, allData.NUMFEEYEAR, allData.Payment, allData.AmountOwed, allData.Balance, allData.PayType, allData.FeeReported " &
                         "FROM (SELECT Invoices.STRAIRSNUMBER, af.STRFACILITYNAME, Transactions.Payment, Invoices.AmountOwed, Invoices.NUMFEEYEAR, Reported.NUMTOTALFEE AS FeeReported, " &
                         "CASE WHEN Invoices.AmountOwed - Transactions.Payment = 0 THEN 0 WHEN Invoices.AmountOwed - Transactions.Payment IS NULL THEN Invoices.AmountOwed ELSE Invoices.AmountOwed - Transactions.Payment END AS Balance, Invoices.PayType " &
                         "FROM (SELECT ft.STRAIRSNUMBER, SUM(ft.NUMPAYMENT) AS Payment " &
@@ -8029,7 +6746,7 @@ Public Class PASPFeeStatistics
                         "ORDER BY strairsnumber "
 
                 Case "ANNUAL"
-                    sql = "SELECT SUBSTRING(allData.STRAIRSNUMBER, 5, 8) AS strAIRSNumber, allData.STRFACILITYNAME, allData.NUMFEEYEAR, allData.Payment, allData.AmountOwed, allData.Balance, allData.PayType, allData.FeeReported " &
+                    SQL = "SELECT SUBSTRING(allData.STRAIRSNUMBER, 5, 8) AS strAIRSNumber, allData.STRFACILITYNAME, allData.NUMFEEYEAR, allData.Payment, allData.AmountOwed, allData.Balance, allData.PayType, allData.FeeReported " &
                         "FROM (SELECT Invoices.STRAIRSNUMBER, af.STRFACILITYNAME, Transactions.Payment, Invoices.AmountOwed, Invoices.NUMFEEYEAR, Reported.NUMTOTALFEE AS FeeReported, " &
                         "CASE WHEN (Invoices.AmountOwed - Transactions.Payment) = 0 THEN 0 WHEN (Invoices.AmountOwed - Transactions.Payment) IS NULL THEN Invoices.AmountOwed ELSE (Invoices.AmountOwed - Transactions.Payment) END AS Balance, Invoices.PayType " &
                         "FROM (SELECT ft.STRAIRSNUMBER, SUM(ft.NUMPAYMENT) AS Payment " &
@@ -8049,7 +6766,7 @@ Public Class PASPFeeStatistics
                         "ORDER BY strairsnumber "
 
                 Case "ALL QUARTERS"
-                    sql = "SELECT SUBSTRING(allData.STRAIRSNUMBER, 5, 8) AS strAIRSNumber, allData.STRFACILITYNAME, allData.NUMFEEYEAR, allData.Payment, allData.AmountOwed, allData.Balance, allData.PayType, allData.FeeReported " &
+                    SQL = "SELECT SUBSTRING(allData.STRAIRSNUMBER, 5, 8) AS strAIRSNumber, allData.STRFACILITYNAME, allData.NUMFEEYEAR, allData.Payment, allData.AmountOwed, allData.Balance, allData.PayType, allData.FeeReported " &
                         "FROM (SELECT Invoices.STRAIRSNUMBER, APBfacilityInformation.STRFACILITYNAME, Transactions.Payment, Invoices.AmountOwed, Invoices.NUMFEEYEAR, Reported.NUMTOTALFEE AS FeeReported, " &
                         "CASE WHEN (Invoices.AmountOwed - Transactions.Payment) = 0 THEN 0 WHEN (Invoices.AmountOwed - Transactions.Payment) IS NULL THEN Invoices.AmountOwed ELSE (Invoices.AmountOwed - Transactions.Payment) END AS Balance, Invoices.PayType " &
                         "FROM (SELECT ft.STRAIRSNUMBER, SUM(ft.NUMPAYMENT) AS Payment " &
@@ -8069,7 +6786,7 @@ Public Class PASPFeeStatistics
                         "ORDER BY strairsnumber "
 
                 Case "QUARTER ONE"
-                    sql = "SELECT SUBSTRING(allData.STRAIRSNUMBER, 5, 8) AS strAIRSNumber, allData.STRFACILITYNAME, allData.NUMFEEYEAR, allData.Payment, allData.AmountOwed, allData.Balance, allData.PayType, allData.FeeReported " &
+                    SQL = "SELECT SUBSTRING(allData.STRAIRSNUMBER, 5, 8) AS strAIRSNumber, allData.STRFACILITYNAME, allData.NUMFEEYEAR, allData.Payment, allData.AmountOwed, allData.Balance, allData.PayType, allData.FeeReported " &
                         "FROM (SELECT Invoices.STRAIRSNUMBER, af.STRFACILITYNAME, Transactions.Payment, Invoices.AmountOwed, Invoices.NUMFEEYEAR, Reported.NUMTOTALFEE AS FeeReported, " &
                         "CASE WHEN (Invoices.AmountOwed - Transactions.Payment) = 0 THEN 0 WHEN (Invoices.AmountOwed - Transactions.Payment) IS NULL THEN Invoices.AmountOwed ELSE (Invoices.AmountOwed - Transactions.Payment) END AS Balance, Invoices.PayType " &
                         "FROM (SELECT ft.STRAIRSNUMBER, SUM(ft.NUMPAYMENT) AS Payment " &
@@ -8090,7 +6807,7 @@ Public Class PASPFeeStatistics
                         "ORDER BY strairsnumber "
 
                 Case "QUARTER TWO"
-                    sql = "SELECT SUBSTRING(allData.STRAIRSNUMBER, 5, 8) AS strAIRSNumber, allData.STRFACILITYNAME, allData.NUMFEEYEAR, allData.Payment, allData.AmountOwed, allData.Balance, allData.PayType, allData.FeeReported " &
+                    SQL = "SELECT SUBSTRING(allData.STRAIRSNUMBER, 5, 8) AS strAIRSNumber, allData.STRFACILITYNAME, allData.NUMFEEYEAR, allData.Payment, allData.AmountOwed, allData.Balance, allData.PayType, allData.FeeReported " &
                         "FROM (SELECT Invoices.STRAIRSNUMBER, af.STRFACILITYNAME, Transactions.Payment, Invoices.AmountOwed, Invoices.NUMFEEYEAR, Reported.NUMTOTALFEE AS FeeReported, " &
                         "CASE WHEN (Invoices.AmountOwed - Transactions.Payment) = 0 THEN 0 WHEN (Invoices.AmountOwed - Transactions.Payment) IS NULL THEN Invoices.AmountOwed ELSE (Invoices.AmountOwed - Transactions.Payment) END AS Balance, Invoices.PayType " &
                         "FROM (SELECT ft.STRAIRSNUMBER, SUM(ft.NUMPAYMENT) AS Payment " &
@@ -8111,7 +6828,7 @@ Public Class PASPFeeStatistics
                         "ORDER BY strairsnumber "
 
                 Case "QUARTER THREE"
-                    sql = "SELECT SUBSTRING(allData.STRAIRSNUMBER, 5, 8) AS strAIRSNumber, allData.STRFACILITYNAME, allData.NUMFEEYEAR, allData.Payment, allData.AmountOwed, allData.Balance, allData.PayType, allData.FeeReported " &
+                    SQL = "SELECT SUBSTRING(allData.STRAIRSNUMBER, 5, 8) AS strAIRSNumber, allData.STRFACILITYNAME, allData.NUMFEEYEAR, allData.Payment, allData.AmountOwed, allData.Balance, allData.PayType, allData.FeeReported " &
                         "FROM (SELECT Invoices.STRAIRSNUMBER, af.STRFACILITYNAME, Transactions.Payment, Invoices.AmountOwed, Invoices.NUMFEEYEAR, Reported.NUMTOTALFEE AS FeeReported, " &
                         "CASE WHEN (Invoices.AmountOwed - Transactions.Payment) = 0 THEN 0 WHEN (Invoices.AmountOwed - Transactions.Payment) IS NULL THEN Invoices.AmountOwed ELSE (Invoices.AmountOwed - Transactions.Payment) END AS Balance, Invoices.PayType " &
                         "FROM (SELECT ft.STRAIRSNUMBER, SUM(ft.NUMPAYMENT) AS Payment " &
@@ -8132,7 +6849,7 @@ Public Class PASPFeeStatistics
                         "ORDER BY strairsnumber "
 
                 Case "QUARTER FOUR"
-                    sql = "SELECT SUBSTRING(allData.STRAIRSNUMBER, 5, 8) AS strAIRSNumber, allData.STRFACILITYNAME, allData.NUMFEEYEAR, allData.Payment, allData.AmountOwed, allData.Balance, allData.PayType, allData.FeeReported " &
+                    SQL = "SELECT SUBSTRING(allData.STRAIRSNUMBER, 5, 8) AS strAIRSNumber, allData.STRFACILITYNAME, allData.NUMFEEYEAR, allData.Payment, allData.AmountOwed, allData.Balance, allData.PayType, allData.FeeReported " &
                         "FROM (SELECT Invoices.STRAIRSNUMBER, af.STRFACILITYNAME, Transactions.Payment, Invoices.AmountOwed, Invoices.NUMFEEYEAR, Reported.NUMTOTALFEE AS FeeReported, " &
                         "CASE WHEN (Invoices.AmountOwed - Transactions.Payment) = 0 THEN 0 WHEN (Invoices.AmountOwed - Transactions.Payment) IS NULL THEN Invoices.AmountOwed ELSE (Invoices.AmountOwed - Transactions.Payment) END AS Balance, Invoices.PayType " &
                         "FROM (SELECT ft.STRAIRSNUMBER, SUM(ft.NUMPAYMENT) AS Payment " &
@@ -8153,7 +6870,7 @@ Public Class PASPFeeStatistics
                         "ORDER BY strairsnumber "
 
                 Case Else
-                    sql = "SELECT SUBSTRING(allData.STRAIRSNUMBER, 5, 8) AS strAIRSNumber, allData.STRFACILITYNAME, allData.NUMFEEYEAR, allData.Payment, allData.AmountOwed, allData.Balance, allData.PayType, allData.FeeReported " &
+                    SQL = "SELECT SUBSTRING(allData.STRAIRSNUMBER, 5, 8) AS strAIRSNumber, allData.STRFACILITYNAME, allData.NUMFEEYEAR, allData.Payment, allData.AmountOwed, allData.Balance, allData.PayType, allData.FeeReported " &
                         "FROM (SELECT Invoices.STRAIRSNUMBER, af.STRFACILITYNAME, Transactions.Payment, Invoices.AmountOwed, Invoices.NUMFEEYEAR, Reported.NUMTOTALFEE AS FeeReported, " &
                         "CASE WHEN (Invoices.AmountOwed - Transactions.Payment) = 0 THEN 0 WHEN (Invoices.AmountOwed - Transactions.Payment) IS NULL THEN Invoices.AmountOwed ELSE (Invoices.AmountOwed - Transactions.Payment) END AS Balance, Invoices.PayType " &
                         "FROM (SELECT ft.STRAIRSNUMBER, SUM(ft.NUMPAYMENT) AS Payment " &
@@ -8175,7 +6892,7 @@ Public Class PASPFeeStatistics
             End Select
 
             If chbNonZeroBalance.Checked = True Then
-                sql = sql & " where balance <> 0   "
+                SQL = SQL & " where balance <> 0   "
             End If
 
             Dim p As New SqlParameter("@year", cboStatYear.Text)

@@ -148,22 +148,14 @@ Partial Class PASPFeeStatistics
         Me.llbFSSummaryOnTime = New System.Windows.Forms.LinkLabel()
         Me.llbDetailLateResponse = New System.Windows.Forms.LinkLabel()
         Me.Label58 = New System.Windows.Forms.Label()
-        Me.llbFSSummaryQuarterly = New System.Windows.Forms.LinkLabel()
         Me.Label54 = New System.Windows.Forms.Label()
         Me.txtFSQuarterly = New System.Windows.Forms.TextBox()
-        Me.llbDetailQuarterly = New System.Windows.Forms.LinkLabel()
-        Me.llbFSSummaryAnnual = New System.Windows.Forms.LinkLabel()
         Me.Label53 = New System.Windows.Forms.Label()
         Me.txtFSAnnual = New System.Windows.Forms.TextBox()
-        Me.llbDetailAnnual = New System.Windows.Forms.LinkLabel()
-        Me.llbFSSummaryOverpaid = New System.Windows.Forms.LinkLabel()
         Me.Label52 = New System.Windows.Forms.Label()
         Me.txtFSOverPaid = New System.Windows.Forms.TextBox()
-        Me.llbDetailOverpaid = New System.Windows.Forms.LinkLabel()
-        Me.llbFSSummaryPartial = New System.Windows.Forms.LinkLabel()
         Me.Label51 = New System.Windows.Forms.Label()
         Me.txtFSPartial = New System.Windows.Forms.TextBox()
-        Me.llbDetailPartial = New System.Windows.Forms.LinkLabel()
         Me.llbFSSummaryPaidInFull = New System.Windows.Forms.LinkLabel()
         Me.Label31 = New System.Windows.Forms.Label()
         Me.txtFSPaidInFull = New System.Windows.Forms.TextBox()
@@ -1387,22 +1379,14 @@ Partial Class PASPFeeStatistics
         Me.Panel10.Controls.Add(Me.llbFSSummaryOnTime)
         Me.Panel10.Controls.Add(Me.llbDetailLateResponse)
         Me.Panel10.Controls.Add(Me.Label58)
-        Me.Panel10.Controls.Add(Me.llbFSSummaryQuarterly)
         Me.Panel10.Controls.Add(Me.Label54)
         Me.Panel10.Controls.Add(Me.txtFSQuarterly)
-        Me.Panel10.Controls.Add(Me.llbDetailQuarterly)
-        Me.Panel10.Controls.Add(Me.llbFSSummaryAnnual)
         Me.Panel10.Controls.Add(Me.Label53)
         Me.Panel10.Controls.Add(Me.txtFSAnnual)
-        Me.Panel10.Controls.Add(Me.llbDetailAnnual)
-        Me.Panel10.Controls.Add(Me.llbFSSummaryOverpaid)
         Me.Panel10.Controls.Add(Me.Label52)
         Me.Panel10.Controls.Add(Me.txtFSOverPaid)
-        Me.Panel10.Controls.Add(Me.llbDetailOverpaid)
-        Me.Panel10.Controls.Add(Me.llbFSSummaryPartial)
         Me.Panel10.Controls.Add(Me.Label51)
         Me.Panel10.Controls.Add(Me.txtFSPartial)
-        Me.Panel10.Controls.Add(Me.llbDetailPartial)
         Me.Panel10.Controls.Add(Me.llbFSSummaryPaidInFull)
         Me.Panel10.Controls.Add(Me.Label31)
         Me.Panel10.Controls.Add(Me.txtFSPaidInFull)
@@ -1671,18 +1655,6 @@ Partial Class PASPFeeStatistics
         Me.Label58.TabIndex = 202
         Me.Label58.Text = "Timeliness Status"
         '
-        'llbFSSummaryQuarterly
-        '
-        Me.llbFSSummaryQuarterly.AutoSize = True
-        Me.llbFSSummaryQuarterly.Enabled = False
-        Me.llbFSSummaryQuarterly.Location = New System.Drawing.Point(328, 623)
-        Me.llbFSSummaryQuarterly.Name = "llbFSSummaryQuarterly"
-        Me.llbFSSummaryQuarterly.Size = New System.Drawing.Size(53, 17)
-        Me.llbFSSummaryQuarterly.TabIndex = 194
-        Me.llbFSSummaryQuarterly.TabStop = True
-        Me.llbFSSummaryQuarterly.Text = "Summary"
-        Me.llbFSSummaryQuarterly.UseCompatibleTextRendering = True
-        '
         'Label54
         '
         Me.Label54.AutoSize = True
@@ -1698,30 +1670,6 @@ Partial Class PASPFeeStatistics
         Me.txtFSQuarterly.Name = "txtFSQuarterly"
         Me.txtFSQuarterly.Size = New System.Drawing.Size(100, 20)
         Me.txtFSQuarterly.TabIndex = 193
-        '
-        'llbDetailQuarterly
-        '
-        Me.llbDetailQuarterly.AutoSize = True
-        Me.llbDetailQuarterly.Enabled = False
-        Me.llbDetailQuarterly.Location = New System.Drawing.Point(413, 623)
-        Me.llbDetailQuarterly.Name = "llbDetailQuarterly"
-        Me.llbDetailQuarterly.Size = New System.Drawing.Size(33, 17)
-        Me.llbDetailQuarterly.TabIndex = 195
-        Me.llbDetailQuarterly.TabStop = True
-        Me.llbDetailQuarterly.Text = "Detail"
-        Me.llbDetailQuarterly.UseCompatibleTextRendering = True
-        '
-        'llbFSSummaryAnnual
-        '
-        Me.llbFSSummaryAnnual.AutoSize = True
-        Me.llbFSSummaryAnnual.Enabled = False
-        Me.llbFSSummaryAnnual.Location = New System.Drawing.Point(328, 597)
-        Me.llbFSSummaryAnnual.Name = "llbFSSummaryAnnual"
-        Me.llbFSSummaryAnnual.Size = New System.Drawing.Size(53, 17)
-        Me.llbFSSummaryAnnual.TabIndex = 190
-        Me.llbFSSummaryAnnual.TabStop = True
-        Me.llbFSSummaryAnnual.Text = "Summary"
-        Me.llbFSSummaryAnnual.UseCompatibleTextRendering = True
         '
         'Label53
         '
@@ -1739,30 +1687,6 @@ Partial Class PASPFeeStatistics
         Me.txtFSAnnual.Size = New System.Drawing.Size(100, 20)
         Me.txtFSAnnual.TabIndex = 189
         '
-        'llbDetailAnnual
-        '
-        Me.llbDetailAnnual.AutoSize = True
-        Me.llbDetailAnnual.Enabled = False
-        Me.llbDetailAnnual.Location = New System.Drawing.Point(413, 597)
-        Me.llbDetailAnnual.Name = "llbDetailAnnual"
-        Me.llbDetailAnnual.Size = New System.Drawing.Size(33, 17)
-        Me.llbDetailAnnual.TabIndex = 191
-        Me.llbDetailAnnual.TabStop = True
-        Me.llbDetailAnnual.Text = "Detail"
-        Me.llbDetailAnnual.UseCompatibleTextRendering = True
-        '
-        'llbFSSummaryOverpaid
-        '
-        Me.llbFSSummaryOverpaid.AutoSize = True
-        Me.llbFSSummaryOverpaid.Enabled = False
-        Me.llbFSSummaryOverpaid.Location = New System.Drawing.Point(328, 656)
-        Me.llbFSSummaryOverpaid.Name = "llbFSSummaryOverpaid"
-        Me.llbFSSummaryOverpaid.Size = New System.Drawing.Size(53, 17)
-        Me.llbFSSummaryOverpaid.TabIndex = 186
-        Me.llbFSSummaryOverpaid.TabStop = True
-        Me.llbFSSummaryOverpaid.Text = "Summary"
-        Me.llbFSSummaryOverpaid.UseCompatibleTextRendering = True
-        '
         'Label52
         '
         Me.Label52.AutoSize = True
@@ -1779,30 +1703,6 @@ Partial Class PASPFeeStatistics
         Me.txtFSOverPaid.Size = New System.Drawing.Size(100, 20)
         Me.txtFSOverPaid.TabIndex = 185
         '
-        'llbDetailOverpaid
-        '
-        Me.llbDetailOverpaid.AutoSize = True
-        Me.llbDetailOverpaid.Enabled = False
-        Me.llbDetailOverpaid.Location = New System.Drawing.Point(413, 656)
-        Me.llbDetailOverpaid.Name = "llbDetailOverpaid"
-        Me.llbDetailOverpaid.Size = New System.Drawing.Size(33, 17)
-        Me.llbDetailOverpaid.TabIndex = 187
-        Me.llbDetailOverpaid.TabStop = True
-        Me.llbDetailOverpaid.Text = "Detail"
-        Me.llbDetailOverpaid.UseCompatibleTextRendering = True
-        '
-        'llbFSSummaryPartial
-        '
-        Me.llbFSSummaryPartial.AutoSize = True
-        Me.llbFSSummaryPartial.Enabled = False
-        Me.llbFSSummaryPartial.Location = New System.Drawing.Point(328, 565)
-        Me.llbFSSummaryPartial.Name = "llbFSSummaryPartial"
-        Me.llbFSSummaryPartial.Size = New System.Drawing.Size(53, 17)
-        Me.llbFSSummaryPartial.TabIndex = 182
-        Me.llbFSSummaryPartial.TabStop = True
-        Me.llbFSSummaryPartial.Text = "Summary"
-        Me.llbFSSummaryPartial.UseCompatibleTextRendering = True
-        '
         'Label51
         '
         Me.Label51.AutoSize = True
@@ -1818,18 +1718,6 @@ Partial Class PASPFeeStatistics
         Me.txtFSPartial.Name = "txtFSPartial"
         Me.txtFSPartial.Size = New System.Drawing.Size(100, 20)
         Me.txtFSPartial.TabIndex = 181
-        '
-        'llbDetailPartial
-        '
-        Me.llbDetailPartial.AutoSize = True
-        Me.llbDetailPartial.Enabled = False
-        Me.llbDetailPartial.Location = New System.Drawing.Point(413, 565)
-        Me.llbDetailPartial.Name = "llbDetailPartial"
-        Me.llbDetailPartial.Size = New System.Drawing.Size(33, 17)
-        Me.llbDetailPartial.TabIndex = 183
-        Me.llbDetailPartial.TabStop = True
-        Me.llbDetailPartial.Text = "Detail"
-        Me.llbDetailPartial.UseCompatibleTextRendering = True
         '
         'llbFSSummaryPaidInFull
         '
@@ -3534,22 +3422,14 @@ Partial Class PASPFeeStatistics
     Friend WithEvents txtFSNotPaid As System.Windows.Forms.TextBox
     Friend WithEvents llbDetailNotPaid As System.Windows.Forms.LinkLabel
     Friend WithEvents Label50 As System.Windows.Forms.Label
-    Friend WithEvents llbFSSummaryQuarterly As System.Windows.Forms.LinkLabel
     Friend WithEvents Label54 As System.Windows.Forms.Label
     Friend WithEvents txtFSQuarterly As System.Windows.Forms.TextBox
-    Friend WithEvents llbDetailQuarterly As System.Windows.Forms.LinkLabel
-    Friend WithEvents llbFSSummaryAnnual As System.Windows.Forms.LinkLabel
     Friend WithEvents Label53 As System.Windows.Forms.Label
     Friend WithEvents txtFSAnnual As System.Windows.Forms.TextBox
-    Friend WithEvents llbDetailAnnual As System.Windows.Forms.LinkLabel
-    Friend WithEvents llbFSSummaryOverpaid As System.Windows.Forms.LinkLabel
     Friend WithEvents Label52 As System.Windows.Forms.Label
     Friend WithEvents txtFSOverPaid As System.Windows.Forms.TextBox
-    Friend WithEvents llbDetailOverpaid As System.Windows.Forms.LinkLabel
-    Friend WithEvents llbFSSummaryPartial As System.Windows.Forms.LinkLabel
     Friend WithEvents Label51 As System.Windows.Forms.Label
     Friend WithEvents txtFSPartial As System.Windows.Forms.TextBox
-    Friend WithEvents llbDetailPartial As System.Windows.Forms.LinkLabel
     Friend WithEvents llbFSSummaryLateWithFee As System.Windows.Forms.LinkLabel
     Friend WithEvents Label15 As System.Windows.Forms.Label
     Friend WithEvents txtFSLateFee As System.Windows.Forms.TextBox
