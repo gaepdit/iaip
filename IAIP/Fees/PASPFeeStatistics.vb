@@ -4,17 +4,6 @@ Imports CrystalDecisions.CrystalReports.Engine
 Imports Iaip.SharedData
 
 Public Class PASPFeeStatistics
-    Dim cmd As SqlCommand
-    Dim dr, dr2 As SqlDataReader
-    Dim dsViewCount As DataSet
-    Dim daViewCount As SqlDataAdapter
-    Dim ds As DataSet
-    Dim da As SqlDataAdapter
-    Dim crParameterFieldDefinitions As ParameterFieldDefinitions
-    Dim crParameterFieldDefinition As ParameterFieldDefinition
-    Dim crParameterValues As New ParameterValues
-    Dim crParameterDiscreteValue As New ParameterDiscreteValue
-    Dim rpt As ReportClass
 
     Private Sub PASPFeeStatistics_Load(sender As Object, e As EventArgs) Handles Me.Load
         Try
@@ -1300,37 +1289,38 @@ Public Class PASPFeeStatistics
 
 
             Dim SQL As String = "select " &
-            "substr(FSPayAndSubmit.strAIRSNumber, 5) as AIRSNumber, " &
+            "substring(FSPayAndSubmit.strAIRSNumber, 5,8) as AIRSNumber, " &
             "strFacilityName, strCountyName, " &
             "strClass, " &
             "case " &
-            "when strOperationalStatus = 'X' then 'X - ' ||datShutDownDate " &
+            "when strOperationalStatus = 'X' then concat('X - ', datShutDownDate) " &
             "else strOperationalStatus " &
             "End strOperationalStatus, " &
             "strSICCode, " &
             "case " &
-            "when substr(strAirProgramCodes, 8, 1) = '1' then 'Yes' " &
+            "when substring(strAirProgramCodes, 8, 1) = '1' then 'Yes' " &
             "else 'No' " &
             "end NSPSStatus, " &
             "case " &
-            "when substr(strAirProgramCodes, 13, 1) = '1' then 'Yes' " &
+            "when substring(strAirProgramCodes, 13, 1) = '1' then 'Yes' " &
             "else 'No' " &
             "end TVStatus, " &
-            "'" & cboFeeYear.Text & "' as FeeYear " &
-            "from FSPayAndSubmit, APBFacilityInformation, " &
-            "LookUpCountyInformation, APBHeaderData " &
-            "where FSPayAndSubmit.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
-            "and FSPayAndSubmit.strAIRSNumber = APBHeaderData.strAIRSNumber " &
-            "and substr(FSPayAndSubmit.strAIRSNumber,5, 3) = LookUpCountyInformation.strCountyCode " &
-            "and intYear = '" & cboFeeYear.Text & "' " &
+            "intyear as FeeYear " &
+            "from FSPayAndSubmit " &
+            "inner join APBFacilityInformation " &
+            "on FSPayAndSubmit.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
+            "inner join LookUpCountyInformation " &
+            "on substring(FSPayAndSubmit.strAIRSNumber,5, 3) = LookUpCountyInformation.strCountyCode " &
+            "inner join APBHeaderData " &
+            "on FSPayAndSubmit.strAIRSNumber = APBHeaderData.strAIRSNumber " &
+            "where intYear = @year " &
             "and intSubmittal = '0' "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
+            Dim p As New SqlParameter("@year", cboFeeYear.Text)
+
+            Dim dt As DataTable = DB.GetDataTable(SQL, p)
+
+            For Each dr As DataRow In dt.Rows
                 AIRSNumber = ""
                 FacilityName = ""
                 County = ""
@@ -1394,45 +1384,40 @@ Public Class PASPFeeStatistics
                 End If
 
                 SQL = "select " &
-                "max(to_number(SSPPApplicationMaster.strApplicationNumber)) as LastApp " &
+                "max(convert(int,SSPPApplicationMaster.strApplicationNumber)) as LastApp " &
                 "from SSPPApplicationMaster " &
-                "where strAIRSNumber = '0413" & AIRSNumber & "' " &
+                "where strAIRSNumber = @airs " &
                 "and datFinalizedDate is not null"
+                Dim p2 As New SqlParameter("@airs", "0413" & AIRSNumber)
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr2 = cmd.ExecuteReader
-                While dr2.Read
+                Dim dr2 As DataRow = DB.GetDataRow(SQL, p2)
+                If dr2 IsNot Nothing Then
                     If IsDBNull(dr2.Item("LastApp")) Then
                         LastApp = ""
                     Else
                         LastApp = dr2.Item("LastApp")
                     End If
-                End While
-                dr2.Close()
+                End If
 
                 If LastApp <> "" Then
                     SQL = "select " &
                     "strApplicationTypeDesc, strPermitNumber, " &
                     "case " &
-                    "when datPermitIssued is null then to_char(datFinalizedDate, 'dd-Mon-yyyy') " &
-                    "else to_char(datPermitIssued, 'dd-Mon-yyyy') " &
+                    "when datPermitIssued is null then datFinalizedDate " &
+                    "else datPermitIssued " &
                     "end FinalDate " &
-                    "from SSPPApplicationMaster, LookUpApplicationTypes, " &
-                    "SSPPApplicationTracking, SSPPApplicationData  " &
-                    "where SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode (+) " &
-                    "and SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber (+) " &
-                    "and SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber (+) " &
-                    "and SSPPApplicationMaster.strApplicationNumber = '" & LastApp & "' "
+                    "from SSPPApplicationMaster " &
+                    "left join LookUpApplicationTypes " &
+                    "on SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode " &
+                    "left join SSPPApplicationTracking " &
+                    "on SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber " &
+                    "left join SSPPApplicationData  " &
+                    "on SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber " &
+                    "where SSPPApplicationMaster.strApplicationNumber = @LastApp "
+                    Dim p3 As New SqlParameter("@LastApp", LastApp)
 
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr2 = cmd.ExecuteReader
-                    While dr2.Read
+                    dr2 = DB.GetDataRow(SQL, p3)
+                    If dr2 IsNot Nothing Then
                         If IsDBNull(dr2.Item("strApplicationTypeDesc")) Then
                             LastApp = LastApp
                         Else
@@ -1455,56 +1440,46 @@ Public Class PASPFeeStatistics
                                 End If
                             End If
                         End If
-                    End While
-                    dr2.Close()
+                    End If
                 End If
 
                 SQL = "select " &
                 "strApplicationNumber " &
                 "from SSPPApplicationMaster " &
                 "where datfinalizedDate Is null " &
-                "and strAIRSNumber = '0413" & AIRSNumber & "' "
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr2 = cmd.ExecuteReader
+                "and strAIRSNumber = @airs "
+                dr2 = DB.GetDataRow(SQL, p2)
                 PendingApp = "No"
-                While dr2.Read
+                If dr2 IsNot Nothing Then
                     If IsDBNull(dr2.Item("strApplicationNumber")) Then
                         PendingApp = "No"
                     Else
                         PendingApp = dr2.Item("strApplicationNumber")
                     End If
-                End While
-                dr2.Close()
+                End If
 
                 SQL = "select " &
                 "max(datReceiveddate) as MaxDate " &
                 "from SSCPItemMaster " &
-                "where strAIRSNumber = '0413" & AIRSNumber & "' "
-
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                dr2 = cmd.ExecuteReader
-                While dr2.Read
+                "where strAIRSNumber = @airs "
+                dr2 = DB.GetDataRow(SQL, p2)
+                If dr2 IsNot Nothing Then
                     If IsDBNull(dr2.Item("MaxDate")) Then
                         ComplianceDate = ""
                     Else
                         ComplianceDate = dr2.Item("MaxDate")
                         LastCompliance = "Item"
                     End If
-                End While
-                dr2.Close()
+                End If
 
                 SQL = "select " &
                 "max(datFCECompleted) as MaxDate " &
-                "from SSCPFCEMaster, SSCPFCE  " &
-                "where SSCPFCEMaster.strFCENumber = SSCPFCE.strFCENumber " &
-                "and strAIRSnumber = '0413" & AIRSNumber & "' "
+                "from SSCPFCEMaster inner join SSCPFCE  " &
+                "on SSCPFCEMaster.strFCENumber = SSCPFCE.strFCENumber " &
+                "where strAIRSnumber = @airs "
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                dr2 = cmd.ExecuteReader
-                While dr2.Read
+                dr2 = DB.GetDataRow(SQL, p2)
+                If dr2 IsNot Nothing Then
                     If IsDBNull(dr2.Item("MaxDate")) Then
                         ComplianceDate = ""
                     Else
@@ -1518,17 +1493,15 @@ Public Class PASPFeeStatistics
                             LastCompliance = "FCE"
                         End If
                     End If
-                End While
-                dr2.Close()
+                End If
 
                 SQL = "select " &
                 "max(datEnforcementFinalized) as MaxDate " &
                 "from SSCP_AuditedEnforcement " &
-                "where strAIRSnumber = '0413" & AIRSNumber & "'"
+                "where strAIRSnumber = @airs "
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                dr2 = cmd.ExecuteReader
-                While dr2.Read
+                dr2 = DB.GetDataRow(SQL, p2)
+                If dr2 IsNot Nothing Then
                     If IsDBNull(dr2.Item("MaxDate")) Then
                         ComplianceDate = ""
                     Else
@@ -1542,25 +1515,20 @@ Public Class PASPFeeStatistics
                             LastCompliance = "Enforcement"
                         End If
                     End If
-                End While
-                dr2.Close()
+                End If
 
                 Select Case LastCompliance
                     Case "Item"
                         SQL = "select strTrackingNumber, datCompleteDate, " &
                         "strActivityName " &
-                        "from SSCPItemMaster, LookupComplianceActivities  " &
-                        "where SSCPItemMaster.strEventType = LookUpComplianceActivities.strActivityType  " &
-                        "and strAIRSNumber = '0413" & AIRSNumber & "' " &
+                        "from SSCPItemMaster inner join LookupComplianceActivities  " &
+                        "on SSCPItemMaster.strEventType = LookUpComplianceActivities.strActivityType  " &
+                        "where strAIRSNumber = @airs " &
                         "and datCompleteDate = (select max(datCompleteDate) from SSCPItemMaster " &
-                        "where strAIRSNumber = '0413" & AIRSNumber & "') "
+                        "where strAIRSNumber = @airs ) "
 
-                        cmd = New SqlCommand(SQL, CurrentConnection)
-                        If CurrentConnection.State = ConnectionState.Closed Then
-                            CurrentConnection.Open()
-                        End If
-                        dr2 = cmd.ExecuteReader
-                        While dr2.Read
+                        dr2 = DB.GetDataRow(SQL, p2)
+                        If dr2 IsNot Nothing Then
                             If IsDBNull(dr2.Item("strTrackingNumber")) Then
                                 LastCompliance = ""
                             Else
@@ -1576,25 +1544,22 @@ Public Class PASPFeeStatistics
                             Else
                                 ComplianceDate = dr2.Item("datCompleteDate")
                             End If
-                        End While
+                        End If
+
                     Case "FCE"
                         SQL = "select " &
                         "SSCPFCE.strFCENumber, datFCECompleted " &
-                        "from SSCPFCE, SSCPFCEMaster  " &
-                        "where SSCPFCEMaster.strFCENumber = SSCPFCE.strFCENumber " &
-                        "and strAIRSNumber = '0413" & AIRSNumber & "' " &
+                        "from SSCPFCE inner join SSCPFCEMaster  " &
+                        "on SSCPFCEMaster.strFCENumber = SSCPFCE.strFCENumber " &
+                        "where strAIRSNumber = @airs " &
                         "and SSCPFCE.datFCECompleted = (select " &
                         "max(datFCECompleted) " &
-                        "from SSCPFCEMaster, SSCPFCE  " &
-                        "where SSCPFCEMaster.strFCENumber = SSCPFCE.strFCENumber " &
-                        "and strAIRSnumber = '0413" & AIRSNumber & "') "
+                        "from SSCPFCEMaster inner join SSCPFCE  " &
+                        "on SSCPFCEMaster.strFCENumber = SSCPFCE.strFCENumber " &
+                        "where strAIRSnumber = @airs ) "
 
-                        cmd = New SqlCommand(SQL, CurrentConnection)
-                        If CurrentConnection.State = ConnectionState.Closed Then
-                            CurrentConnection.Open()
-                        End If
-                        dr2 = cmd.ExecuteReader
-                        While dr2.Read
+                        dr2 = DB.GetDataRow(SQL, p2)
+                        If dr2 IsNot Nothing Then
                             If IsDBNull(dr2.Item("strFCENumber")) Then
                                 LastCompliance = ""
                             Else
@@ -1605,24 +1570,20 @@ Public Class PASPFeeStatistics
                             Else
                                 ComplianceDate = dr2.Item("datFCECompleted")
                             End If
-                        End While
-                        dr2.Close()
+                        End If
+
                     Case "Enforcement"
                         SQL = "select " &
                         "strEnforcementNumber, datEnforcementFinalized " &
                         "from SSCP_AuditedEnforcement " &
-                        "where strAIRSNumber = '0413" & AIRSNumber & "' " &
+                        "where strAIRSNumber = @airs " &
                         "and datEnforcementFinalized = (Select " &
                         "max(datEnforcementFinalized) " &
                         "from SSCP_AuditedEnforcement " &
-                        "where strairsnumber = '0413" & AIRSNumber & "') "
+                        "where strairsnumber = @airs ) "
 
-                        cmd = New SqlCommand(SQL, CurrentConnection)
-                        If CurrentConnection.State = ConnectionState.Closed Then
-                            CurrentConnection.Open()
-                        End If
-                        dr2 = cmd.ExecuteReader
-                        While dr2.Read
+                        dr2 = DB.GetDataRow(SQL, p2)
+                        If dr2 IsNot Nothing Then
                             If IsDBNull(dr2.Item("strEnforcementNumber")) Then
                                 LastCompliance = ""
                             Else
@@ -1633,65 +1594,56 @@ Public Class PASPFeeStatistics
                             Else
                                 ComplianceDate = dr2.Item("datEnforcementFinalized")
                             End If
-                        End While
-                        dr2.Close()
+                        End If
                     Case Else
                 End Select
 
                 dgvLateFeePayerReport.Rows.Add(AIRSNumber, FacilityName, County, Classification,
                                                OperationalStatus, SIC, NSPS, TV, FeeYear, LastCompliance, ComplianceDate,
                                                LastApp, AppDate, PermitNumber, PendingApp)
-            End While
-            dr.Close()
+            Next
 
             txtFeeCount.Text = dgvLateFeePayerReport.RowCount.ToString
             dgvLateFeePayerReport.Columns("PermittingDate").DefaultCellStyle.Format = "dd-MMM-yyyy"
 
-
         Catch ex As Exception
-
-
-
-            ' ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
     Private Sub btnRunReport_Click(sender As Object, e As EventArgs) Handles btnRunReport.Click
         Try
             Dim SQL As String = "select " &
-            "substr(FSPayAndSubmit.strAIRSNumber, 5) as AIRSNumber, " &
+            "substring(FSPayAndSubmit.strAIRSNumber, 5, 8) as AIRSNumber, " &
             "strFacilityName, strCountyName, " &
             "strClass, " &
             "case " &
-            "when strOperationalStatus = 'X' then 'X - ' ||datShutDownDate " &
+            "when strOperationalStatus = 'X' then concat('X - ', datShutDownDate) " &
             "else strOperationalStatus " &
             "End strOperationalStatus, " &
             "strSICCode, " &
             "case " &
-            "when substr(strAirProgramCodes, 8, 1) = '1' then 'Yes' " &
+            "when substring(strAirProgramCodes, 8, 1) = '1' then 'Yes' " &
             "else 'No' " &
             "end NSPSStatus, " &
             "case " &
-            "when substr(strAirProgramCodes, 13, 1) = '1' then 'Yes' " &
+            "when substring(strAirProgramCodes, 13, 1) = '1' then 'Yes' " &
             "else 'No' " &
             "end TVStatus, " &
-            "'" & cboFeeYear.Text & "' as FeeYear " &
-            "from FSPayAndSubmit, APBFacilityInformation, " &
-            "LookUpCountyInformation, APBHeaderData " &
-            "where FSPayAndSubmit.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
-            "and FSPayAndSubmit.strAIRSNumber = APBHeaderData.strAIRSNumber " &
-            "and substr(FSPayAndSubmit.strAIRSNumber,5, 3) = LookUpCountyInformation.strCountyCode " &
-            "and intYear = '" & cboFeeYear.Text & "' " &
+            "intyear as FeeYear " &
+            "from FSPayAndSubmit " &
+            "inner join APBFacilityInformation " &
+            "on FSPayAndSubmit.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
+            "inner join LookUpCountyInformation " &
+            "on substring(FSPayAndSubmit.strAIRSNumber,5, 3) = LookUpCountyInformation.strCountyCode " &
+            "inner join APBHeaderData " &
+            "on FSPayAndSubmit.strAIRSNumber = APBHeaderData.strAIRSNumber " &
+            "where intYear = @year " &
             "and intSubmittal = '0' "
 
-            da = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            da.Fill(ds, "LateFeeReport")
+            Dim p As New SqlParameter("@year", cboFeeYear.Text)
 
-            dgvLateFeeReport.DataSource = ds
-            dgvLateFeeReport.DataMember = "LateFeeReport"
+            dgvLateFeeReport.DataSource = DB.GetDataTable(SQL, p)
 
             dgvLateFeeReport.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
             dgvLateFeeReport.AllowUserToResizeColumns = True
@@ -1729,46 +1681,43 @@ Public Class PASPFeeStatistics
         Try
             If rdbHasPaidFee.Checked = True Then
                 Dim SQL As String = "select  " &
-                "substr(FSPayAndSubmit.strAIRSNumber, 5) as AIRSNumber,   " &
+                "substring(FSPayAndSubmit.strAIRSNumber, 5,8) as AIRSNumber,   " &
                 "strFacilityName, strCountyName,   " &
                 "strClass,  " &
                 "case   " &
-                "when strOperationalStatus = 'X' then 'X - ' ||datShutDownDate   " &
+                "when strOperationalStatus = 'X' then concat('X - ',datShutDownDate) " &
                 "else strOperationalStatus   " &
                 "End strOperationalStatus,  " &
                 "strSICCode,  " &
                 "case   " &
-                "when substr(strAirProgramCodes, 8, 1) = '1' then 'Yes'   " &
+                "when substring(strAirProgramCodes, 8, 1) = '1' then 'Yes'   " &
                 "else 'No'   " &
                 "end NSPSStatus, " &
                 "case " &
-                "when substr(strAirProgramCodes, 13, 1) = '1' then 'Yes' " &
+                "when substring(strAirProgramCodes, 13, 1) = '1' then 'Yes' " &
                 "else 'No' " &
                 "end TVStatus, " &
                 "sum(numPayment) TotalPaid, " &
-                 "'" & cboFeeYear.Text & "' as FeeYear " &
-                "from FSPayAndSubmit, APBFacilityInformation,   " &
-                "LookUpCountyInformation, APBHeaderData,  " &
-                "FSAddPaid  " &
-                "where FSPayAndSubmit.strAIRSNumber = APBFacilityInformation.strAIRSNumber   " &
-                "and FSPayAndSubmit.strAIRSNumber = APBHeaderData.strAIRSNumber   " &
-                "and FSPayAndSubmit.strAIRSNumber = FSAddPaid.strAIRSnumber   " &
+                 "FSPayAndSubmit.intYear as FeeYear " &
+                "from FSPayAndSubmit " &
+                "inner join APBFacilityInformation " &
+                "on FSPayAndSubmit.strAIRSNumber = APBFacilityInformation.strAIRSNumber   " &
+                "inner join LookUpCountyInformation " &
+                "on substring(FSPayAndSubmit.strAIRSNumber,5, 3) = LookUpCountyInformation.strCountyCode   " &
+                "inner join APBHeaderData " &
+                "on FSPayAndSubmit.strAIRSNumber = APBHeaderData.strAIRSNumber   " &
+                "inner join FSAddPaid  " &
+                "on FSPayAndSubmit.strAIRSNumber = FSAddPaid.strAIRSnumber   " &
                 "and FSPayAndSubmit.intYear = FSAddPaid.intYear  " &
-                "and substr(FSPayAndSubmit.strAIRSNumber,5, 3) = LookUpCountyInformation.strCountyCode   " &
-                "and FSPayAndSubmit.intYear = '" & cboFeeYear.Text & "'   " &
+                "where FSPayAndSubmit.intYear = @year " &
                 "and intSubmittal = '0'   " &
                 "group by FSPayAndSubmit.strAIRSNumber, strFacilityName, strCountyName,   " &
-                "strClass, strOperationalStatus, datShutDownDate, strSICCode, strAirProgramCodes  " &
+                "strClass, strOperationalStatus, datShutDownDate, strSICCode, strAirProgramCodes, FSPayAndSubmit.intYear " &
                 "order by AIRSNumber "
 
-                da = New SqlDataAdapter(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                da.Fill(ds, "LateFeeReport")
+                Dim p As New SqlParameter("@year", cboFeeYear.Text)
 
-                dgvLateFeeReport.DataSource = ds
-                dgvLateFeeReport.DataMember = "LateFeeReport"
+                dgvLateFeeReport.DataSource = DB.GetDataTable(SQL, p)
 
                 dgvLateFeeReport.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
                 dgvLateFeeReport.AllowUserToResizeColumns = True
@@ -1798,43 +1747,40 @@ Public Class PASPFeeStatistics
                 dgvLateFeeReport.Columns("FeeYear").DisplayIndex = 9
             Else
                 Dim SQL As String = "select " &
-                "substr(FSPayAndSubmit.strAIRSNumber, 5) as AIRSNumber, " &
+                "substring(FSPayAndSubmit.strAIRSNumber, 5,8) as AIRSNumber, " &
                 "strFacilityName, strCountyName, " &
                 "strClass, " &
                 "case " &
-                "when strOperationalStatus = 'X' then 'X - ' ||datShutDownDate " &
+                "when strOperationalStatus = 'X' then concat('X - ',datShutDownDate) " &
                 "else strOperationalStatus " &
                 "End strOperationalStatus, " &
                 "strSICCode, " &
                 "case " &
-                "when substr(strAirProgramCodes, 8, 1) = '1' then 'Yes' " &
+                "when substring(strAirProgramCodes, 8, 1) = '1' then 'Yes' " &
                 "else 'No' " &
                 "end NSPSStatus, " &
                 "case " &
-                "when substr(strAirProgramCodes, 13, 1) = '1' then 'Yes' " &
+                "when substring(strAirProgramCodes, 13, 1) = '1' then 'Yes' " &
                 "else 'No' " &
                 "end TVStatus, " &
-                 "'" & cboFeeYear.Text & "' as FeeYear " &
-                "from FSPayAndSubmit, APBFacilityInformation, " &
-                "LookUpCountyInformation, APBHeaderData " &
-                "where FSPayAndSubmit.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
-                "and FSPayAndSubmit.strAIRSNumber = APBHeaderData.strAIRSNumber " &
-                "and substr(FSPayAndSubmit.strAIRSNumber,5, 3) = LookUpCountyInformation.strCountyCode " &
-                "and intYear = '" & cboFeeYear.Text & "' " &
+                 "intyear as FeeYear " &
+                "from FSPayAndSubmit " &
+                "inner join APBFacilityInformation " &
+                "on FSPayAndSubmit.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
+                "inner join LookUpCountyInformation " &
+                "on substring(FSPayAndSubmit.strAIRSNumber,5, 3) = LookUpCountyInformation.strCountyCode " &
+                "inner join APBHeaderData " &
+                "on FSPayAndSubmit.strAIRSNumber = APBHeaderData.strAIRSNumber " &
+                "where intYear = @year " &
                 "and intSubmittal = '0' " &
                 "and not exists (select * from FSAddPaid " &
                 "where FSPayAndSubmit.strAIRSnumber = FSAddPaid.strAIRSnumber " &
                 "and FSPayAndSubmit.intYear = FSAddPaid.intYear) " &
                 "order by AIRSNumber "
 
-                da = New SqlDataAdapter(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                da.Fill(ds, "LateFeeReport")
+                Dim p As New SqlParameter("@year", cboFeeYear.Text)
 
-                dgvLateFeeReport.DataSource = ds
-                dgvLateFeeReport.DataMember = "LateFeeReport"
+                dgvLateFeeReport.DataSource = DB.GetDataTable(SQL, p)
 
                 dgvLateFeeReport.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
                 dgvLateFeeReport.AllowUserToResizeColumns = True
@@ -1864,7 +1810,6 @@ Public Class PASPFeeStatistics
 
             txtFeeCount.Text = dgvLateFeeReport.RowCount.ToString
 
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -1883,52 +1828,51 @@ Public Class PASPFeeStatistics
 
                         Dim SQL As String = "update FSPayAndSubmit set " &
                         "intSubmittal = '1' " &
-                        "where strAIRSnumber = '0413" & AIRSNumber & "' " &
-                        "and intYear = '" & cboFeeYear.Text & "' "
+                        "where strAIRSnumber = @airs " &
+                        "and intYear = @year "
 
-                        cmd = New SqlCommand(SQL, CurrentConnection)
-                        If CurrentConnection.State = ConnectionState.Connecting Then
-                            CurrentConnection.Close()
-                        End If
-                        dr = cmd.ExecuteReader
-                        dr.Close()
+                        Dim p As SqlParameter() = {
+                            New SqlParameter("@airs", "0413" & AIRSNumber),
+                            New SqlParameter("@year", cboFeeYear.Text)
+                        }
+
+                        DB.RunCommand(SQL, p)
 
                         temp = "0"
 
                         SQL = "Select " &
                         "count(*) as FSCalc " &
                         "from FSCalculations " &
-                        "where strAIRSNumber = '0413" & AIRSNumber & "' " &
-                        "and intYear = '" & cboFeeYear.Text & "' "
-                        cmd = New SqlCommand(SQL, CurrentConnection)
-                        If CurrentConnection.State = ConnectionState.Closed Then
-                            CurrentConnection.Open()
-                        End If
-                        dr = cmd.ExecuteReader
-                        While dr.Read
+                        "where strAIRSnumber = @airs " &
+                        "and intYear = @year "
+
+                        Dim dr As DataRow = DB.GetDataRow(SQL, p)
+
+                        If dr IsNot Nothing Then
                             If IsDBNull(dr.Item("FSCalc")) Then
                                 temp = "0"
                             Else
                                 temp = dr.Item("FSCalc")
                             End If
-                        End While
-                        dr.Close()
+                        End If
+
                         If temp = "0" Then
                             SQL = "Insert into FSCalculations " &
+                                "(STRAIRSNUMBER, INTYEAR, " &
+                                "INTVOCTONS, INTPMTONS, INTSO2TONS, INTNOXTONS, " &
+                                "NUMPART70FEE, NUMSMFEE, NUMNSPSFEE, NUMTOTALFEE, " &
+                                "STRNSPSEXEMPT, STRNSPSREASON, STROPERATE, NUMFEERATE, " &
+                                "STRNSPSEXEMPTREASON, STRPART70, STRSYNTHETICMINOR, NUMCALCULATEDFEE, " &
+                                "STRCLASS1, STRNSPS1, SHUTDATE, VARIANCECHECK, VARIANCECOMMENTS, NUMADMINFEE ) " &
                             "values " &
-                            "('0413" & AIRSNumber & "', '" & cboFeeYear.Text & "', " &
+                            "(@airs, @year, " &
                             "'0', '0', '0', '0', " &
                             "'0', '0', '0', '0', " &
                             "'NO', '0', 'YES', '33.0', " &
                             "'', 'No', 'No', '0', " &
                             "'', '', '', '', '', '0') "
 
-                            cmd = New SqlCommand(SQL, CurrentConnection)
-                            If CurrentConnection.State = ConnectionState.Closed Then
-                                CurrentConnection.Open()
-                            End If
-                            dr = cmd.ExecuteReader
-                            dr.Close()
+                            DB.RunCommand(SQL, p)
                         End If
                     Next
 
@@ -1944,22 +1888,17 @@ Public Class PASPFeeStatistics
     Private Sub btnViewUnenrolled_Click(sender As Object, e As EventArgs) Handles btnViewUnenrolled.Click
         Try
             Dim SQL As String = "select " &
-            "substr(FEEMailOut.strAIRSNumber, 5) as AIRSNumber, " &
+            "substring(FEEMailOut.strAIRSNumber, 5,8) as AIRSNumber, " &
             "strFacilityName " &
             "from FeeMailout " &
-            "where intYear = '" & cboFeeYear.Text & "' " &
+            "where intYear = @year " &
             "and not exists (select * from FSPayAndSubmit " &
             "where FeeMailOut.strAIRSnumber = FSPayAndSubmit.strAIRSnumber " &
             "and FeeMailOut.intYear = FSPayAndSubmit.intYear) "
 
-            da = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            da.Fill(ds, "LateFeeReport")
+            Dim p As New SqlParameter("@year", cboFeeYear.Text)
 
-            dgvLateFeeReport.DataSource = ds
-            dgvLateFeeReport.DataMember = "LateFeeReport"
+            dgvLateFeeReport.DataSource = DB.GetDataTable(SQL, p)
 
             dgvLateFeeReport.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
             dgvLateFeeReport.AllowUserToResizeColumns = True
@@ -2030,29 +1969,30 @@ Public Class PASPFeeStatistics
             Dim SQL As String = "select " &
             "max(datReceiveddate) as MaxDate " &
             "from SSCPItemMaster " &
-            "where strAIRSNumber = '0413" & AIRSNumber & "' "
+            "where strAIRSNumber = @airs "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            dr2 = cmd.ExecuteReader
-            While dr2.Read
+            Dim p As New SqlParameter("@airs", "0413" & AIRSNumber)
+
+            Dim dr2 As DataRow = DB.GetDataRow(SQL, p)
+
+            If dr2 IsNot Nothing Then
                 If IsDBNull(dr2.Item("MaxDate")) Then
                     ComplianceDate = ""
                 Else
                     ComplianceDate = dr2.Item("MaxDate")
                     ComplianceType = "Item"
                 End If
-            End While
-            dr2.Close()
+            End If
 
             SQL = "select " &
             "max(datFCECompleted) as MaxDate " &
             "from SSCPFCEMaster, SSCPFCE  " &
             "where SSCPFCEMaster.strFCENumber = SSCPFCE.strFCENumber " &
-            "and strAIRSnumber = '0413" & AIRSNumber & "' "
+            "and strAIRSnumber = @airs "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            dr2 = cmd.ExecuteReader
-            While dr2.Read
+            dr2 = DB.GetDataRow(SQL, p)
+
+            If dr2 IsNot Nothing Then
                 If IsDBNull(dr2.Item("MaxDate")) Then
                     ComplianceDate = ""
                 Else
@@ -2066,17 +2006,16 @@ Public Class PASPFeeStatistics
                         ComplianceType = "FCE"
                     End If
                 End If
-            End While
-            dr2.Close()
+            End If
 
             SQL = "select " &
             "max(datEnforcementFinalized) as MaxDate " &
             "from SSCP_AuditedEnforcement " &
-            "where strAIRSnumber = '0413" & AIRSNumber & "'"
+            "where strAIRSnumber = @airs "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            dr2 = cmd.ExecuteReader
-            While dr2.Read
+            dr2 = DB.GetDataRow(SQL, p)
+
+            If dr2 IsNot Nothing Then
                 If IsDBNull(dr2.Item("MaxDate")) Then
                     ComplianceDate = ""
                 Else
@@ -2090,8 +2029,7 @@ Public Class PASPFeeStatistics
                         ComplianceType = "Enforcement"
                     End If
                 End If
-            End While
-            dr2.Close()
+            End If
 
             Select Case ComplianceType
                 Case "Item"
@@ -2099,16 +2037,13 @@ Public Class PASPFeeStatistics
                     "strActivityName " &
                     "from SSCPItemMaster, LookupComplianceActivities  " &
                     "where SSCPItemMaster.strEventType = LookUpComplianceActivities.strActivityType  " &
-                    "and strAIRSNumber = '0413" & AIRSNumber & "' " &
+                    "and strAIRSNumber = @airs " &
                     "and datCompleteDate = (select max(datCompleteDate) from SSCPItemMaster " &
-                    "where strAIRSNumber = '0413" & AIRSNumber & "') "
+                    "where strAIRSNumber = @airs) "
 
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr2 = cmd.ExecuteReader
-                    While dr2.Read
+                    dr2 = DB.GetDataRow(SQL, p)
+
+                    If dr2 IsNot Nothing Then
                         If IsDBNull(dr2.Item("strTrackingNumber")) Then
                             LastCompliance = ""
                         Else
@@ -2124,26 +2059,25 @@ Public Class PASPFeeStatistics
                         Else
                             ComplianceDate = Format(dr2.Item("datCompleteDate"), "dd-MMM-yyyy")
                         End If
-                    End While
+                    End If
+
                     lblComplianceDate.Text = "Date Completed"
+
                 Case "FCE"
                     SQL = "select " &
                     "SSCPFCE.strFCENumber, datFCECompleted " &
                     "from SSCPFCE, SSCPFCEMaster  " &
                     "where SSCPFCEMaster.strFCENumber = SSCPFCE.strFCENumber " &
-                    "and strAIRSNumber = '0413" & AIRSNumber & "' " &
+                    "and strAIRSNumber = @airs " &
                     "and SSCPFCE.datFCECompleted = (select " &
                     "max(datFCECompleted) " &
                     "from SSCPFCEMaster, SSCPFCE  " &
                     "where SSCPFCEMaster.strFCENumber = SSCPFCE.strFCENumber " &
-                    "and strAIRSnumber = '0413" & AIRSNumber & "') "
+                    "and strAIRSnumber = @airs) "
 
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr2 = cmd.ExecuteReader
-                    While dr2.Read
+                    dr2 = DB.GetDataRow(SQL, p)
+
+                    If dr2 IsNot Nothing Then
                         ComplianceType = "FCE"
                         If IsDBNull(dr2.Item("strFCENumber")) Then
                             LastCompliance = ""
@@ -2155,25 +2089,23 @@ Public Class PASPFeeStatistics
                         Else
                             ComplianceDate = Format(dr2.Item("datFCECompleted"), "dd-MMM-yyyy")
                         End If
-                    End While
-                    dr2.Close()
+                    End If
+
                     lblComplianceDate.Text = "Date FCE Completed"
+
                 Case "Enforcement"
                     SQL = "select " &
                     "strEnforcementNumber, datEnforcementFinalized " &
                     "from SSCP_AuditedEnforcement " &
-                    "where strAIRSNumber = '0413" & AIRSNumber & "' " &
+                    "where strAIRSNumber = @airs " &
                     "and datEnforcementFinalized = (Select " &
                     "max(datEnforcementFinalized) " &
                     "from SSCP_AuditedEnforcement " &
-                    "where strairsnumber = '0413" & AIRSNumber & "') "
+                    "where strairsnumber = @airs) "
 
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr2 = cmd.ExecuteReader
-                    While dr2.Read
+                    dr2 = DB.GetDataRow(SQL, p)
+
+                    If dr2 IsNot Nothing Then
                         ComplianceType = "Enforcement"
                         If IsDBNull(dr2.Item("strEnforcementNumber")) Then
                             LastCompliance = ""
@@ -2185,11 +2117,13 @@ Public Class PASPFeeStatistics
                         Else
                             ComplianceDate = Format(dr2.Item("datEnforcementFinalized"), "dd-MMM-yyyy")
                         End If
-                    End While
-                    dr2.Close()
+                    End If
+
                     lblComplianceDate.Text = "Date Enforcement Finalized"
+
                 Case Else
                     lblComplianceDate.Text = "Date"
+
             End Select
 
             txtFeeComplianceEvent.Text = LastCompliance
@@ -2197,45 +2131,42 @@ Public Class PASPFeeStatistics
             txtFeeLastComplianceEvent.Text = ComplianceDate
 
             SQL = "select " &
-            "max(to_number(SSPPApplicationMaster.strApplicationNumber)) as LastApp " &
+            "max(convert(int,SSPPApplicationMaster.strApplicationNumber)) as LastApp " &
             "from SSPPApplicationMaster " &
-            "where strAIRSNumber = '0413" & AIRSNumber & "' " &
+            "where strAIRSNumber = @airs " &
             "and datFinalizedDate is not null"
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr2 = cmd.ExecuteReader
-            While dr2.Read
+            dr2 = DB.GetDataRow(SQL, p)
+
+            If dr2 IsNot Nothing Then
                 If IsDBNull(dr2.Item("LastApp")) Then
                     LastApp = ""
                 Else
                     LastApp = dr2.Item("LastApp")
                 End If
-            End While
-            dr2.Close()
+            End If
 
             If LastApp <> "" Then
                 SQL = "select " &
                 "strApplicationTypeDesc, strPermitNumber, " &
                 "case " &
-                "when datPermitIssued is null then to_char(datFinalizedDate, 'dd-Mon-yyyy') " &
-                "else to_char(datPermitIssued, 'dd-Mon-yyyy') " &
+                "when datPermitIssued is null then datFinalizedDate " &
+                "else datPermitIssued " &
                 "end FinalDate " &
-                "from SSPPApplicationMaster, LookUpApplicationTypes, " &
-                "SSPPApplicationTracking, SSPPApplicationData  " &
-                "where SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode (+) " &
-                "and SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber (+) " &
-                "and SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber (+) " &
-                "and SSPPApplicationMaster.strApplicationNumber = '" & LastApp & "' "
+                "from SSPPApplicationMaster " &
+                "left join LookUpApplicationTypes " &
+                "on SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode " &
+                "left join SSPPApplicationTracking " &
+                "on SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber " &
+                "left join SSPPApplicationData  " &
+                "on SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber " &
+                "where SSPPApplicationMaster.strApplicationNumber = @LastApp "
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr2 = cmd.ExecuteReader
-                While dr2.Read
+                Dim p2 As New SqlParameter("@LastApp", LastApp)
+
+                dr2 = DB.GetDataRow(SQL, p2)
+
+                If dr2 IsNot Nothing Then
                     If IsDBNull(dr2.Item("strApplicationTypeDesc")) Then
                         AppType = ""
                     Else
@@ -2258,8 +2189,7 @@ Public Class PASPFeeStatistics
                             End If
                         End If
                     End If
-                End While
-                dr2.Close()
+                End If
             End If
 
             txtFeePermittingEvent.Text = LastApp
@@ -2267,26 +2197,18 @@ Public Class PASPFeeStatistics
             txtFeePermittingDate.Text = AppDate
             txtFeePermitNumber.Text = PermitNumber
 
-            SQL = "select " &
-            "strApplicationNumber " &
-            "from SSPPApplicationMaster " &
-            "where datfinalizedDate Is null " &
-            "and strAIRSNumber = '0413" & AIRSNumber & "' "
+            PendingApp = "No"
 
             SQL = "select " &
             "strApplicationNumber, strApplicationTypeDesc " &
-            "from SSPPApplicationMaster, LookUpApplicationTypes " &
-            "where SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode (+) " &
-            "and datfinalizedDate Is null " &
-            "and strAIRSNumber = '0413" & AIRSNumber & "' "
+            "from SSPPApplicationMaster left join LookUpApplicationTypes " &
+            "on SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode " &
+            "where datfinalizedDate Is null " &
+            "and strAIRSNumber = @airs "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr2 = cmd.ExecuteReader
-            PendingApp = "No"
-            While dr2.Read
+            dr2 = DB.GetDataRow(SQL, p)
+
+            If dr2 IsNot Nothing Then
                 If IsDBNull(dr2.Item("strApplicationNumber")) Then
                     PendingApp = "No"
                 Else
@@ -2297,8 +2219,7 @@ Public Class PASPFeeStatistics
                 Else
                     PendingAppType = dr2.Item("strApplicationTypeDesc")
                 End If
-            End While
-            dr2.Close()
+            End If
 
             txtFeePendingPermit.Text = PendingApp
             txtFeePendingPermitType.Text = PendingAppType
@@ -2480,23 +2401,21 @@ Public Class PASPFeeStatistics
     Private Sub btnViewFacilitySpecificData_Click(sender As Object, e As EventArgs) Handles btnViewFacilitySpecificData.Click
         Try
             Me.Cursor = Cursors.WaitCursor
-            rpt = New FacilityFee10
+            Dim rpt As ReportClass = New FacilityFee10
             monitor.TrackFeature("Report." & rpt.ResourceName)
+
             Dim SQL As String = "Select * from VW_Facility_Fee " &
-            "where strAIRSNumber = '0413" & cboAirsNo.SelectedValue & "' "
+            "where strAIRSNumber = @airs "
 
-            da = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            ds.EnforceConstraints = False
-            da.Fill(ds, "VW_Facility_Fee")
-            rpt.SetDataSource(ds)
+            Dim p As New SqlParameter("@airs", "0413" & cboAirsNo.SelectedValue)
 
+            rpt.SetDataSource(DB.GetDataTable(SQL, p))
+
+            Dim crParameterDiscreteValue As New ParameterDiscreteValue
             crParameterDiscreteValue.Value = "0413" & cboAirsNo.SelectedValue
-            crParameterFieldDefinitions = rpt.DataDefinition.ParameterFields
-            crParameterFieldDefinition = crParameterFieldDefinitions.Item("AirsNo")
-            crParameterValues = crParameterFieldDefinition.CurrentValues
+            Dim crParameterFieldDefinitions As ParameterFieldDefinitions = rpt.DataDefinition.ParameterFields
+            Dim crParameterFieldDefinition As ParameterFieldDefinition = crParameterFieldDefinitions.Item("AirsNo")
+            Dim crParameterValues As ParameterValues = crParameterFieldDefinition.CurrentValues
             crParameterValues.Clear()
             crParameterValues.Add(crParameterDiscreteValue)
             crParameterFieldDefinition.ApplyCurrentValues(crParameterValues)
@@ -2516,7 +2435,7 @@ Public Class PASPFeeStatistics
     Private Sub btnFeesandEmissions_Click(sender As Object, e As EventArgs) Handles btnFeesandEmissions.Click
         Try
             Me.Cursor = Cursors.WaitCursor
-            rpt = New TotalFee10
+            Dim rpt As ReportClass = New TotalFee10
             monitor.TrackFeature("Report." & rpt.ResourceName)
 
             Dim SQL As String = "SELECT  intYear, sum(intVOCTons) as intvoctons, " &
@@ -2526,20 +2445,13 @@ Public Class PASPFeeStatistics
             "sum(numSMFee) as numSMFee, " &
             "sum(numNSPSFee) as numNSPSFee, " &
             "sum(numTotalFee) as numTotalFee, " &
-            "round(avg(numFeeRate)) as numFeeRate, " &
-            "Round(avg(titlevminfee)) as titlevminfee, " &
-            "round(avg(titlevfee)) as titlevfee  " &
+            "round(avg(numFeeRate),0) as numFeeRate, " &
+            "Round(avg(titlevminfee),0) as titlevminfee, " &
+            "round(avg(titlevfee),0) as titlevfee  " &
             "from vw_total_fee " &
             "group by intyear "
 
-            da = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            ds.EnforceConstraints = False
-            da.Fill(ds, "VW_Total_Fee")
-
-            rpt.SetDataSource(ds)
+            rpt.SetDataSource(DB.GetDataTable(SQL))
 
             SetUpCrystalReportViewer(rpt, CRFeesReports, "Annual Emission and Fee")
 
@@ -2553,19 +2465,12 @@ Public Class PASPFeeStatistics
     Private Sub btnClassification_Click(sender As Object, e As EventArgs) Handles btnClassification.Click
         Try
             Me.Cursor = Cursors.WaitCursor
-            rpt = New FacilityClassification10
+            Dim rpt As ReportClass = New FacilityClassification10
             monitor.TrackFeature("Report." & rpt.ResourceName)
 
             Dim SQL As String = "Select * from VW_Facility_Class_Counts "
 
-            da = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            ds.EnforceConstraints = False
-            da.Fill(ds, "VW_Facility_Class_Counts")
-
-            rpt.SetDataSource(ds)
+            rpt.SetDataSource(DB.GetDataTable(SQL))
 
             SetUpCrystalReportViewer(rpt, CRFeesReports, "Facility Classification Totals")
 
@@ -2589,10 +2494,11 @@ Public Class PASPFeeStatistics
                 mtbFacilityBalanceYear.Text = Date.Today.Year
             End If
 
-            Dim ParameterFields As CrystalDecisions.Shared.ParameterFields
-            Dim ParameterField As CrystalDecisions.Shared.ParameterField
-            Dim spValue As CrystalDecisions.Shared.ParameterDiscreteValue
+            Dim ParameterFields As ParameterFields
+            Dim ParameterField As ParameterField
+            Dim spValue As ParameterDiscreteValue
 
+            Dim rpt As ReportClass
             If chbFacilityBalance.Checked = False Then
                 rpt = New FacilityBalance10
             Else
@@ -2611,32 +2517,28 @@ Public Class PASPFeeStatistics
         "strContactCity, strContactState, " &
         "strContactZipCode, strSICCode, " &
         "numPayment, PaidYear   " &
-        "FROM APBFacilityInformation, " &
-        "FeeDetails, FeesContact, " &
-        "APBHeaderData, FS_Transactions  " &
-        "WHERE APBFacilityInformation.strAIRSNumber = FeeDetails.strAIRSNumber " &
-        "AND APBFacilityInformation.strAIRSNumber = FeesContact.strAIRSnumber " &
-        "AND APBFacilityInformation.strAIRSnumber = APBHeaderData.strAIRSNumber " &
-        "AND APBFacilityInformation.strAIRSNumber = FS_Transactions.strAIRSNumber " &
+        "FROM APBFacilityInformation " &
+        "inner join FeeDetails " &
+        "on APBFacilityInformation.strAIRSNumber = FeeDetails.strAIRSNumber " &
+        "inner join FeesContact " &
+        "on APBFacilityInformation.strAIRSNumber = FeesContact.strAIRSnumber " &
+        "inner join APBHeaderData " &
+        "on APBFacilityInformation.strAIRSnumber = APBHeaderData.strAIRSNumber " &
+        "inner join FS_Transactions  " &
+        "on APBFacilityInformation.strAIRSNumber = FS_Transactions.strAIRSNumber " &
         "and feedetails.intyear = FS_Transactions.numFeeYear " &
-        "and feedetails.intyear = '" & selectedYear.ToString & "' " &
+        "where feedetails.intyear = @year " &
         "order by strairsnumber "
+            Dim p As New SqlParameter("@year", selectedYear.ToString)
 
-            da = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            ds.EnforceConstraints = False
-            da.Fill(ds, "VW_Facility_Balance")
-
-            rpt.SetDataSource(ds)
+            rpt.SetDataSource(DB.GetDataTable(SQL, p))
 
             'Do this just once at the start
-            ParameterFields = New CrystalDecisions.Shared.ParameterFields
+            ParameterFields = New ParameterFields
 
             'Do this at the beginning of every new entry 
-            ParameterField = New CrystalDecisions.Shared.ParameterField
-            spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+            ParameterField = New ParameterField
+            spValue = New ParameterDiscreteValue
 
             ParameterField.ParameterFieldName = "Year"
             spValue.Value = selectedYear.ToString
@@ -2665,17 +2567,11 @@ Public Class PASPFeeStatistics
     Private Sub btnPayment_Click(sender As Object, e As EventArgs) Handles btnPayment.Click
         Try
             Me.Cursor = Cursors.Default
-            rpt = New TotalPayment10
+            Dim rpt As ReportClass = New TotalPayment10
             monitor.TrackFeature("Report." & rpt.ResourceName)
             Dim SQL As String = "Select * from VW_Total_PAYMENT "
-            da = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            ds.EnforceConstraints = False
-            da.Fill(ds, "VW_Total_PAYMENT")
 
-            rpt.SetDataSource(ds)
+            rpt.SetDataSource(DB.GetDataTable(SQL))
 
             SetUpCrystalReportViewer(rpt, CRFeesReports, "Overall Fee Balance")
             CRFeesReports.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None
@@ -2691,17 +2587,11 @@ Public Class PASPFeeStatistics
     Private Sub btnFeeByYear_Click(sender As Object, e As EventArgs) Handles btnFeeByYear.Click
         Try
             Me.Cursor = Cursors.WaitCursor
-            rpt = New feeByYear10
+            Dim rpt As ReportClass = New feeByYear10
             monitor.TrackFeature("Report." & rpt.ResourceName)
             Dim SQL As String = "Select * from FeesDue "
 
-            da = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            ds.EnforceConstraints = False
-            da.Fill(ds, "FeesDue")
-            rpt.SetDataSource(ds)
+            rpt.SetDataSource(DB.GetDataTable(SQL))
 
             SetUpCrystalReportViewer(rpt, CRFeesReports, "Total Fee by Year")
 
@@ -2733,14 +2623,9 @@ Public Class PASPFeeStatistics
             New SqlParameter("@EndDate", dtpDepositReportEndDate.Value)
         }
 
-        Dim ds As New DataSet
-        Dim dt As DataTable = DB.GetDataTable(query, parameters)
-        dt.TableName = "FS_Transactions"
-        ds.Tables.Add(dt)
-
-        rpt = New DepositQA11
+        Dim rpt As ReportClass = New DepositQA11
         monitor.TrackFeature("Report." & rpt.ResourceName & ".byDate")
-        rpt.SetDataSource(ds)
+        rpt.SetDataSource(DB.GetDataTable(query, parameters))
 
         SetUpCrystalReportViewer(rpt, CRFeesReports, "Deposits")
         Me.Cursor = Cursors.Default
@@ -2758,14 +2643,9 @@ Public Class PASPFeeStatistics
                 "ORDER BY NUMFEEYEAR DESC"
             Dim parameter As New SqlParameter("@airs", "0413" & cboAirs.Text)
 
-            Dim ds As New DataSet
-            Dim dt As DataTable = DB.GetDataTable(query, parameter)
-            dt.TableName = "FS_Transactions"
-            ds.Tables.Add(dt)
-
-            rpt = New DepositQA11
+            Dim rpt As ReportClass = New DepositQA11
             monitor.TrackFeature("Report." & rpt.ResourceName & ".byAirs")
-            rpt.SetDataSource(ds)
+            rpt.SetDataSource(DB.GetDataTable(query, parameter))
 
             SetUpCrystalReportViewer(rpt, CRFeesReports, "Deposits")
         End If
@@ -2778,30 +2658,19 @@ Public Class PASPFeeStatistics
     Private Sub btnClassChange_Click(sender As Object, e As EventArgs) Handles btnClassChange.Click
         Try
             Me.Cursor = Cursors.WaitCursor
-            rpt = New ClassChanged10
+            Dim rpt As ReportClass = New ClassChanged10
             monitor.TrackFeature("Report." & rpt.ResourceName)
 
             Dim SQL As String = "select * from VW_Class_Changed"
 
-            da = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            ds.EnforceConstraints = False
-            da.Fill(ds, "VW_Class_Changed")
-            rpt.SetDataSource(ds)
+            rpt.SetDataSource(DB.GetDataTable(SQL))
 
-            CRFeesReports.ReportSource = rpt
-            CRFeesReports.ToolPanelView = CrystalDecisions.Windows.Forms.ToolPanelViewType.None
-            CRFeesReports.ShowGroupTreeButton = True
-            CRFeesReports.Refresh()
-
+            SetUpCrystalReportViewer(rpt, CRFeesReports, "Deposits")
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             Me.Cursor = Cursors.Default
         End Try
-
     End Sub
 
     Private Sub lblNSPS1_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblNSPS1.LinkClicked
@@ -2813,97 +2682,66 @@ Public Class PASPFeeStatistics
             "where strnsps = 'YES' " &
             "and STRnspsexempt = '1'"
 
-            da = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            ds.EnforceConstraints = False
-            da.Fill(ds, "VW_NSPS_Status")
-
-            rpt = New NSPSStatus10
+            Dim rpt As ReportClass = New NSPSStatus10
             monitor.TrackFeature("Report." & rpt.ResourceName)
-            rpt.SetDataSource(ds)
+            rpt.SetDataSource(DB.GetDataTable(SQL))
 
             SetUpCrystalReportViewer(rpt, CRFeesReports, "NSPS Exempt - Subject but exempt")
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             Me.Cursor = Cursors.Default
         End Try
-
     End Sub
 
     Private Sub lblNSPS2_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblNSPS2.LinkClicked
         Try
             Me.Cursor = Cursors.WaitCursor
-            rpt = New NSPSStatus1_10
+            Dim rpt As ReportClass = New NSPSStatus1_10
             monitor.TrackFeature("Report." & rpt.ResourceName)
             Dim SQL As String = "Select * " &
             "from VW_NSPS_Status " &
             "where Strnsps1 = 'YES' " &
             "and strnsps = 'NO'"
 
-            da = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            ds.EnforceConstraints = False
-            da.Fill(ds, "VW_NSPS_Status")
-            rpt.SetDataSource(ds)
+            rpt.SetDataSource(DB.GetDataTable(SQL))
 
             SetUpCrystalReportViewer(rpt, CRFeesReports, "NSPS Subject - Not subject")
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             Me.Cursor = Cursors.Default
         End Try
-
     End Sub
 
     Private Sub lblNSPS3_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblNSPS3.LinkClicked
         Try
             Me.Cursor = Cursors.WaitCursor
-            rpt = New NSPSStatus2_10
+            Dim rpt As ReportClass = New NSPSStatus2_10
             monitor.TrackFeature("Report." & rpt.ResourceName)
             Dim SQL As String = "Select * " &
             "from VW_NSPS_Status " &
             "where strnsps = 'YES' " &
             "and STRoperate <> 'YES'"
 
-            da = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            ds.EnforceConstraints = False
-            da.Fill(ds, "VW_NSPS_Status")
-            rpt.SetDataSource(ds)
+            rpt.SetDataSource(DB.GetDataTable(SQL))
 
             SetUpCrystalReportViewer(rpt, CRFeesReports, "NSPS, Did not Operate")
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             Me.Cursor = Cursors.Default
         End Try
-
     End Sub
 
     Private Sub btnNoOperate_Click(sender As Object, e As EventArgs) Handles btnNoOperate.Click
         Try
             Me.Cursor = Cursors.WaitCursor
-            rpt = New NoOperate10
+            Dim rpt As ReportClass = New NoOperate10
             monitor.TrackFeature("Report." & rpt.ResourceName)
             Dim SQL As String = "Select * from VW_No_Operate "
 
-            da = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            ds.EnforceConstraints = False
-            da.Fill(ds, "VW_No_Operate")
-            rpt.SetDataSource(ds)
+            rpt.SetDataSource(DB.GetDataTable(SQL))
 
             SetUpCrystalReportViewer(rpt, CRFeesReports, "Did Not Operate")
 
@@ -2922,27 +2760,19 @@ Public Class PASPFeeStatistics
     Private Sub btnFacInfoChange_Click(sender As Object, e As EventArgs) Handles btnFacInfoChange.Click
         Try
             Me.Cursor = Cursors.WaitCursor
-            rpt = New FacilityInfo10
+            Dim rpt As ReportClass = New FacilityInfo10
             monitor.TrackFeature("Report." & rpt.ResourceName)
 
             Dim SQL As String = "Select * from VW_Facility_Info "
 
-            da = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            ds.EnforceConstraints = False
-            da.Fill(ds, "VW_Facility_Info")
-            rpt.SetDataSource(ds)
+            rpt.SetDataSource(DB.GetDataTable(SQL))
 
             SetUpCrystalReportViewer(rpt, CRFeesReports, "Facility Info")
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             Me.Cursor = Cursors.Default
         End Try
-
     End Sub
 
 #End Region
