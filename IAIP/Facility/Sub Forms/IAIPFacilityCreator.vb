@@ -2,14 +2,8 @@ Imports System.Data.SqlClient
 Imports Iaip.Apb.Facilities
 
 Public Class IAIPFacilityCreator
-    Dim ds As New DataSet
-    Dim da As SqlDataAdapter
-    Dim SQL As String
-    Dim cmd As SqlCommand
-    Dim dr As SqlDataReader
 
     Private Sub IAIPFacilityCreator_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
         Try
             LoadCounty()
             TCFacilityTools.TabPages.Remove(TPApproveNewFacility)
@@ -20,10 +14,10 @@ Public Class IAIPFacilityCreator
                 If AccountFormAccess(138, 0) = "138" Then
                     If AccountFormAccess(138, 3) = "1" Or AccountFormAccess(138, 4) = "1" Then
                         TCFacilityTools.TabPages.Add(TPApproveNewFacility)
-                        dtpStartFilter.Text = OracleDate
-                        dtpEndFilter.Text = OracleDate
-                        DTPSSCPApproveDate.Text = OracleDate
-                        DTPSSPPApproveDate.Text = OracleDate
+                        dtpStartFilter.Value = Today
+                        dtpEndFilter.Value = Today
+                        DTPSSCPApproveDate.Value = Today
+                        DTPSSPPApproveDate.Value = Today
 
                         TCFacilityTools.TabPages.Add(TPDeleteFacility)
 
@@ -32,50 +26,23 @@ Public Class IAIPFacilityCreator
                 End If
             End If
 
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
-
     End Sub
-    Sub LoadCounty()
-        Try
-            Dim dtCounty As New DataTable
-            Dim drNewRow As DataRow
-            Dim drDSRow As DataRow
 
-            SQL = "Select " &
+    Private Sub LoadCounty()
+        Try
+            Dim SQL As String = "Select " &
             "strCountyCode, strCountyName " &
             "from lookUpCountyInformation " &
             "order by strCountyName "
 
-            ds = New DataSet
-            da = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            da.Fill(ds, "CountyData")
-
-            dtCounty.Columns.Add("strCountyCode", GetType(System.String))
-            dtCounty.Columns.Add("strCountyName", GetType(System.String))
-
-            drNewRow = dtCounty.NewRow()
-            drNewRow("strCountyCode") = " "
-            drNewRow("strCountyName") = ""
-            dtCounty.Rows.Add(drNewRow)
-
-            For Each drDSRow In ds.Tables("CountyData").Rows()
-                drNewRow = dtCounty.NewRow
-                drNewRow("strCountyCode") = drDSRow("strCountyCode")
-                drNewRow("strCountyName") = drDSRow("strCountyName")
-                dtCounty.Rows.Add(drNewRow)
-            Next
-
             With cboCounty
-                .DataSource = dtCounty
+                .DataSource = DB.GetDataTable(SQL)
                 .DisplayMember = "strCountyName"
                 .ValueMember = "strCountyCode"
-                .SelectedIndex = 0
+                .SelectedIndex = -1
             End With
 
             cboCDSOperationalStatus.Items.Add("O - Operating")
@@ -90,116 +57,127 @@ Public Class IAIPFacilityCreator
             cboCDSClassCode.Items.Add("C - UNKNOWN")
             cboCDSClassCode.Items.Add("SM - SYNTHETIC MINOR")
             cboCDSClassCode.Items.Add("PR - PERMIT BY RULE")
-            'cboCDSClassCode.Items.Add("U - UNDEFINED")
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Sub LoadPendingFacilities()
+    Private Sub LoadPendingFacilities()
+        Dim SQL As String
         Try
             If chbIncludeApproved.Checked = True Then
                 SQL = "select " &
-         "FUllData.AIRSNumber, strFacilityName, " &
-         "DateCreated, strComments, " &
-         "SSCPApprover, datApproveDateSSCP, strCommentSSCP, " &
-         "SSPPApprover, datApproveDateSSPP, strCommentSSPP, " &
-         "strfacilityStreet1 " &
-         "from " &
-         "(select substr(APBMasterAIRS.strAIRSNumber, 5) as AIRSNumber, " &
-         "strFacilityName, AFSFacilityData.datModifingDate as dateCreated, " &
-         "APBHeaderData.strComments,  " &
-         "datApproveDateSSCP, strCommentSSCP, " &
-         "datApproveDateSSPP, strCommentSSPP, " &
-         "strfacilityStreet1 " &
-         "from AFSFacilityData, APBFacilityInformation,  " &
-         "APBMasterAIRS, APBHeaderData, APBSupplamentalData " &
-         "where AFSFacilityData.strAIRSNumber = APBFacilityInformation.strAIRSnumber  " &
-         "and AFSFacilityData.strAIRSNumber = APBMasterAIRS.strAIRSnumber  " &
-         "and AFSFacilityData.strAIRSnumber = APBHeaderData.strAIRSNumber " &
-         "and AFSFacilityData.strAIRSNumber = APBSupplamentalData.strAIRSNumber " &
-         " ) FullData,   " &
-         "(select substr(AFSFacilityData.strAIRSNumber, 5) as AIRSNumber, " &
-         "case " &
-         "when numApprovingSSCP is not null then (strLastName||', '||strFirstName) " &
-         "else '' " &
-         "end SSCPApprover " &
-         "from AFSFacilityData, APBSupplamentalData, " &
-         "EPDUserProfiles " &
-         "where  AFSFacilityData.strAIRSNumber = APBSupplamentalData.strAIRSNumber " &
-         "and APBSupplamentalData.numApprovingSSCP = EPDUserProfiles.numUserID (+) " &
-         " )SSCPStaff, " &
-         "(select substr(AFSFacilityData.strAIRSNumber, 5) as AIRSNumber, " &
-         "case " &
-         "when numApprovingSSPP is not null then (strLastName||', '||strFirstName) " &
-         "else '' " &
-         "end SSPPApprover " &
-         "from AFSFacilityData, APBSupplamentalData, " &
-         "EPDUserProfiles " &
-         "where  AFSFacilityData.strAIRSNumber = APBSupplamentalData.strAIRSNumber " &
-         "and APBSupplamentalData.numApprovingSSPP = EPDUserProfiles.numUserID (+) " &
-         " )SSPPStaff " &
-         "where FullData.AIRSNumber = SSCPStaff.AIRSNumber (+) " &
-         "and FullData.AIRSNumber = SSPPStaff.AIRSNumber (+) "
+                    "FUllData.AIRSNumber, strFacilityName, " &
+                    "DateCreated, strComments, " &
+                    "SSCPApprover, datApproveDateSSCP, strCommentSSCP, " &
+                    "SSPPApprover, datApproveDateSSPP, strCommentSSPP, " &
+                    "strfacilityStreet1 " &
+                    "from " &
+                    "(select substring(APBMasterAIRS.strAIRSNumber, 5, 8) as AIRSNumber, " &
+                    "strFacilityName, AFSFacilityData.datModifingDate as dateCreated, " &
+                    "APBHeaderData.strComments,  " &
+                    "datApproveDateSSCP, strCommentSSCP, " &
+                    "datApproveDateSSPP, strCommentSSPP, " &
+                    "strfacilityStreet1 " &
+                    "from AFSFacilityData " &
+                    "inner join APBFacilityInformation " &
+                    "on AFSFacilityData.strAIRSNumber = APBFacilityInformation.strAIRSnumber  " &
+                    "inner join APBMasterAIRS " &
+                    "on AFSFacilityData.strAIRSNumber = APBMasterAIRS.strAIRSnumber  " &
+                    "inner join APBHeaderData " &
+                    "on AFSFacilityData.strAIRSnumber = APBHeaderData.strAIRSNumber " &
+                    "inner join APBSupplamentalData " &
+                    "on AFSFacilityData.strAIRSNumber = APBSupplamentalData.strAIRSNumber " &
+                    " ) FullData " &
+                    "left join " &
+                    "(select substring(AFSFacilityData.strAIRSNumber, 5, 8) as AIRSNumber, " &
+                    "case " &
+                    "when numApprovingSSCP is not null then concat(strLastName, ', ', strFirstName) " &
+                    "else '' " &
+                    "end SSCPApprover " &
+                    "from AFSFacilityData " &
+                    "inner join APBSupplamentalData " &
+                    "on AFSFacilityData.strAIRSNumber = APBSupplamentalData.strAIRSNumber " &
+                    "left join EPDUserProfiles " &
+                    "on APBSupplamentalData.numApprovingSSCP = EPDUserProfiles.numUserID " &
+                    " ) SSCPStaff " &
+                    "on FullData.AIRSNumber = SSCPStaff.AIRSNumber " &
+                    " left join " &
+                    "(select substring(AFSFacilityData.strAIRSNumber, 5, 8) as AIRSNumber, " &
+                    "case " &
+                    "when numApprovingSSPP is not null then concat(strLastName, ', ', strFirstName) " &
+                    "else '' " &
+                    "end SSPPApprover " &
+                    "from AFSFacilityData, APBSupplamentalData, " &
+                    "EPDUserProfiles " &
+                    "where  AFSFacilityData.strAIRSNumber = APBSupplamentalData.strAIRSNumber " &
+                    "and APBSupplamentalData.numApprovingSSPP = EPDUserProfiles.numUserID " &
+                    " ) SSPPStaff " &
+                    "on FullData.AIRSNumber = SSPPStaff.AIRSNumber "
 
             Else
                 SQL = "select " &
-         "FUllData.AIRSNumber, strFacilityName, " &
-         "DateCreated, strComments, " &
-         "SSCPApprover, datApproveDateSSCP, strCommentSSCP, " &
-         "SSPPApprover, datApproveDateSSPP, strCommentSSPP, " &
-         "strfacilityStreet1 " &
-         "from " &
-         "(select substr(APBMasterAIRS.strAIRSNumber, 5) as AIRSNumber, " &
-         "strFacilityName, AFSFacilityData.datModifingDate as dateCreated, " &
-         "APBHeaderData.strComments,  " &
-         "datApproveDateSSCP, strCommentSSCP, " &
-         "datApproveDateSSPP, strCommentSSPP, " &
-         "strfacilityStreet1 " &
-         "from AFSFacilityData, APBFacilityInformation,  " &
-         "APBMasterAIRS, APBHeaderData, APBSupplamentalData " &
-         "where AFSFacilityData.strAIRSNumber = APBFacilityInformation.strAIRSnumber  " &
-         "and AFSFacilityData.strAIRSNumber = APBMasterAIRS.strAIRSnumber  " &
-         "and AFSFacilityData.strAIRSnumber = APBHeaderData.strAIRSNumber " &
-         "and AFSFacilityData.strAIRSNumber = APBSupplamentalData.strAIRSNumber " &
-         "and strUpdateStatus = 'H') FullData,   " &
-         "(select substr(AFSFacilityData.strAIRSNumber, 5) as AIRSNumber, " &
-         "case " &
-         "when numApprovingSSCP is not null then (strLastName||', '||strFirstName) " &
-         "else '' " &
-         "end SSCPApprover " &
-         "from AFSFacilityData, APBSupplamentalData, " &
-         "EPDUserProfiles " &
-         "where  AFSFacilityData.strAIRSNumber = APBSupplamentalData.strAIRSNumber " &
-         "and APBSupplamentalData.numApprovingSSCP = EPDUserProfiles.numUserID (+) " &
-         "and strUpdateStatus = 'H')SSCPStaff, " &
-         "(select substr(AFSFacilityData.strAIRSNumber, 5) as AIRSNumber, " &
-         "case " &
-         "when numApprovingSSPP is not null then (strLastName||', '||strFirstName) " &
-         "else '' " &
-         "end SSPPApprover " &
-         "from AFSFacilityData, APBSupplamentalData, " &
-         "EPDUserProfiles " &
-         "where  AFSFacilityData.strAIRSNumber = APBSupplamentalData.strAIRSNumber " &
-         "and APBSupplamentalData.numApprovingSSPP = EPDUserProfiles.numUserID (+) " &
-         "and strUpdateStatus = 'H')SSPPStaff " &
-         "where FullData.AIRSNumber = SSCPStaff.AIRSNumber (+) " &
-         "and FullData.AIRSNumber = SSPPStaff.AIRSNumber (+) "
+                    "FUllData.AIRSNumber, strFacilityName, " &
+                    "DateCreated, strComments, " &
+                    "SSCPApprover, datApproveDateSSCP, strCommentSSCP, " &
+                    "SSPPApprover, datApproveDateSSPP, strCommentSSPP, " &
+                    "strfacilityStreet1 " &
+                    "from " &
+                    "(select substring(APBMasterAIRS.strAIRSNumber, 5, 8) as AIRSNumber, " &
+                    "strFacilityName, AFSFacilityData.datModifingDate as dateCreated, " &
+                    "APBHeaderData.strComments,  " &
+                    "datApproveDateSSCP, strCommentSSCP, " &
+                    "datApproveDateSSPP, strCommentSSPP, " &
+                    "strfacilityStreet1 " &
+                    "from AFSFacilityData " &
+                    "inner join APBFacilityInformation " &
+                    "on AFSFacilityData.strAIRSNumber = APBFacilityInformation.strAIRSnumber  " &
+                    "inner join APBMasterAIRS " &
+                    "on AFSFacilityData.strAIRSNumber = APBMasterAIRS.strAIRSnumber  " &
+                    "inner join APBHeaderData " &
+                    "on AFSFacilityData.strAIRSnumber = APBHeaderData.strAIRSNumber " &
+                    "inner join APBSupplamentalData " &
+                    "on AFSFacilityData.strAIRSNumber = APBSupplamentalData.strAIRSNumber " &
+                    "where strUpdateStatus = 'H') FullData " &
+                    " left join " &
+                    "(select substring(AFSFacilityData.strAIRSNumber, 5, 8) as AIRSNumber, " &
+                    "case " &
+                    "when numApprovingSSCP is not null then concat(strLastName, ', ', strFirstName) " &
+                    "else '' " &
+                    "end SSCPApprover " &
+                    "from AFSFacilityData " &
+                    "inner join APBSupplamentalData " &
+                    "on AFSFacilityData.strAIRSNumber = APBSupplamentalData.strAIRSNumber " &
+                    "left join EPDUserProfiles " &
+                    "on APBSupplamentalData.numApprovingSSCP = EPDUserProfiles.numUserID " &
+                    "where strUpdateStatus = 'H') SSCPStaff " &
+                    "on FullData.AIRSNumber = SSCPStaff.AIRSNumber " &
+                    " left join " &
+                    "(select substring(AFSFacilityData.strAIRSNumber, 5, 8) as AIRSNumber, " &
+                    "case " &
+                    "when numApprovingSSPP is not null then concat(strLastName, ', ', strFirstName) " &
+                    "else '' " &
+                    "end SSPPApprover " &
+                    "from AFSFacilityData " &
+                    "inner join APBSupplamentalData " &
+                    "on AFSFacilityData.strAIRSNumber = APBSupplamentalData.strAIRSNumber " &
+                    "left join EPDUserProfiles " &
+                    "on APBSupplamentalData.numApprovingSSPP = EPDUserProfiles.numUserID " &
+                    "where strUpdateStatus = 'H') SSPPStaff " &
+                    "on FullData.AIRSNumber = SSPPStaff.AIRSNumber "
             End If
 
             If chbFilterNewFacilities.Checked = True Then
-                SQL = SQL & "and dateCreated between '" & dtpStartFilter.Text & "' and '" & dtpEndFilter.Text & "' "
+                SQL = SQL & " where dateCreated between @datestart and @dateend"
             End If
 
-            ds = New DataSet
-            da = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            da.Fill(ds, "PendingAIRS")
-            dgvVerifyNewFacilities.DataSource = ds
-            dgvVerifyNewFacilities.DataMember = "PendingAIRS"
+            Dim p As SqlParameter() = {
+                New SqlParameter("@datestart", dtpStartFilter.Value),
+                New SqlParameter("@dateend", dtpEndFilter.Value)
+            }
+
+            dgvVerifyNewFacilities.DataSource = DB.GetDataTable(SQL, p)
 
             dgvVerifyNewFacilities.RowHeadersVisible = False
             dgvVerifyNewFacilities.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -254,24 +232,20 @@ Public Class IAIPFacilityCreator
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub FindRegion(Region As String, AIRSNumber As String)
+
+    Private Sub FindRegion(Region As String, AIRSNumber As String)
         Try
-
             If Len(AIRSNumber) = 8 And IsNumeric(AIRSNumber) Then
-                SQL = "Select (LookUPDistricts.strDistrictcode|| '-'||strDistrictName) as District " &
-                "from LookUPDistricts, LookUPDistrictInformation " &
-                "where LookUPDistricts.strDistrictCode = LookUPDistrictInformation.strDistrictCode " &
-                "and strDistrictCounty = '" & Mid(AIRSNumber, 1, 3) & "' "
+                Dim SQL As String = "Select concat(LookUPDistricts.strDistrictcode, '-', strDistrictName) as District " &
+                "from LookUPDistricts inner join LookUPDistrictInformation " &
+                "on LookUPDistricts.strDistrictCode = LookUPDistrictInformation.strDistrictCode " &
+                "where strDistrictCounty = @county "
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
+                Dim p As New SqlParameter("@county", Mid(AIRSNumber, 1, 3))
 
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
+                Dim dr As DataRow = DB.GetDataRow(SQL, p)
 
-                If recExist Then
+                If dr IsNot Nothing Then
                     Region = dr.Item("District")
                 Else
                     Region = "WARNING"
@@ -284,14 +258,12 @@ Public Class IAIPFacilityCreator
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
-
     End Sub
+
     Private Sub btnSaveNewFacility_Click(sender As Object, e As EventArgs) Handles btnSaveNewFacility.Click
         Try
+            Dim SQL As String
             Dim AIRSNumber As String = ""
             Dim FacilityName As String = ""
             Dim FacilityStreet As String = ""
@@ -340,47 +312,41 @@ Public Class IAIPFacilityCreator
                 "No Data saved.", MsgBoxStyle.Information, Me.Name)
                 Exit Sub
             End If
-            If Not DAL.FacilityHeaderDataData.NaicsCodeIsValid(mtbCDSNAICSCode.Text) Then
+            If Not DAL.NaicsCodeIsValid(mtbCDSNAICSCode.Text) Then
                 MsgBox("The NAICS Code is not valid and must be fixed before proceeding." &
                   "No Data saved.", MsgBoxStyle.Information, Me.Name)
                 Exit Sub
             End If
-            If Not DAL.FacilityHeaderDataData.SicCodeIsValid(mtbCDSSICCode.Text) Then
+            If Not DAL.SicCodeIsValid(mtbCDSSICCode.Text) Then
                 MsgBox("The SIC Code is not valid and must be fixed before proceeding." &
                 "No Data saved.", MsgBoxStyle.Information, Me.Name)
                 Exit Sub
             End If
 
-            SQL = "Insert into APBMasterAIRS " &
-            "values " &
-            "((select '0413'||substr((max(strAIRSNumber) + 1), 4) " &
-            "from APBMasterAIRS " &
-            "where substr(strAIRSNumber, 1, 7) = '0413" & cboCounty.SelectedValue & "'), " &
-            "'" & CurrentUser.UserID & "', '" & OracleDate & "' ) "
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
+            SQL = "INSERT INTO APBMASTERAIRS " &
+                "( STRAIRSNUMBER " &
+                ", STRMODIFINGPERSON " &
+                ", DATMODIFINGDATE " &
+                ") " &
+                "SELECT CONCAT('0', MAX(CONVERT( decimal(12, 0), strAIRSNumber)) + 1) " &
+                "     , @user " &
+                "     , GETDATE() " &
+                "FROM   APBMasterAIRS " &
+                "WHERE  SUBSTRING(strAIRSNumber, 5, 3) = @cty "
 
-            SQL = "select (substr((max(strAIRSNumber)), 5)) as AIRSNumber " &
-            "from APBMasterAIRS " &
-            "where substr(strAIRSNumber, 1, 7) = '0413" & cboCounty.SelectedValue & "' "
+            Dim p As SqlParameter() = {
+                New SqlParameter("@cty", cboCounty.SelectedValue),
+                New SqlParameter("@user", CurrentUser.UserID)
+            }
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                If IsDBNull(dr.Item("AIRSNumber")) Then
-                    txtCDSAIRSNumber.Text = ""
-                Else
-                    txtCDSAIRSNumber.Text = dr.Item("AIRSNumber")
-                End If
-            End While
-            dr.Close()
+            DB.RunCommand(SQL, p)
+
+            SQL = "SELECT SUBSTRING(MAX(strAIRSNumber), 5, 8) AS AIRSNumber " &
+                "FROM   APBMasterAIRS " &
+                "WHERE  SUBSTRING(strAIRSNumber, 5, 3) = @cty "
+
+            txtCDSAIRSNumber.Text = DB.GetSingleValue(Of String)(SQL, p)
+
             FindRegion(txtCDSRegionCode.Text, txtCDSAIRSNumber.Text)
 
             If txtCDSAIRSNumber.Text = "" Then
@@ -392,7 +358,7 @@ Public Class IAIPFacilityCreator
             If txtCDSFacilityName.Text = "" Then
                 FacilityName = "N/A"
             Else
-                txtCDSFacilityName.Text = Apb.Facilities.Facility.SanitizeFacilityNameForDb(txtCDSFacilityName.Text)
+                txtCDSFacilityName.Text = Facility.SanitizeFacilityNameForDb(txtCDSFacilityName.Text)
                 FacilityName = txtCDSFacilityName.Text
             End If
             If txtCDSStreetAddress.Text <> "" Then
@@ -566,96 +532,106 @@ Public Class IAIPFacilityCreator
             End If
 
             SQL = "Insert into APBFacilityInformation " &
-            "(strAIRSNumber, strFacilityName, " &
-            "strFacilityStreet1, strFacilityStreet2, " &
-            "strFacilityCity, strFacilityState, " &
-            "strFacilityZipCode, strModifingPerson, " &
-            "datModifingDate, numFacilityLongitude, " &
-            "numFacilityLatitude, strHorizontalCollectionCode, " &
-            "strHorizontalAccuracyMeasure, strHorizontalReferenceCode, " &
-            "strModifingLocation ) " &
-            "values " &
-            "('" & AIRSNumber & "', '" & Replace(FacilityName, "'", "''") & "', " &
-            "'" & Replace(FacilityStreet, "'", "''") & "', 'N/A', " &
-            "'" & Replace(FacilityCity, "'", "''") & "', 'GA', " &
-            "'" & Replace(FacilityZipCode, "-", "") & "', '" & CurrentUser.UserID & "', " &
-            "'" & OracleDate & "', " & FacilityLongitude & ", " &
-            "" & FacilityLatitude & ", '007', " &
-            "'25', '002', '4' ) "
+                "(strAIRSNumber, strFacilityName, " &
+                "strFacilityStreet1, strFacilityStreet2, " &
+                "strFacilityCity, strFacilityState, " &
+                "strFacilityZipCode, strModifingPerson, " &
+                "datModifingDate, numFacilityLongitude, " &
+                "numFacilityLatitude, strHorizontalCollectionCode, " &
+                "strHorizontalAccuracyMeasure, strHorizontalReferenceCode, " &
+                "strModifingLocation ) " &
+                "values " &
+                "(@strAIRSNumber, @strFacilityName, " &
+                "@strFacilityStreet1, @strFacilityStreet2, " &
+                "@strFacilityCity, @strFacilityState, " &
+                "@strFacilityZipCode, @strModifingPerson, " &
+                "getdate(), @numFacilityLongitude, " &
+                "@numFacilityLatitude, @strHorizontalCollectionCode, " &
+                "@strHorizontalAccuracyMeasure, @strHorizontalReferenceCode, " &
+                "@strModifingLocation ) "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
+            Dim p2 As SqlParameter() = {
+                New SqlParameter("@strAIRSNumber", AIRSNumber),
+                New SqlParameter("@strFacilityName", FacilityName),
+                New SqlParameter("@strFacilityStreet1", FacilityStreet),
+                New SqlParameter("@strFacilityStreet2", "N/A"),
+                New SqlParameter("@strFacilityCity", FacilityCity),
+                New SqlParameter("@strFacilityState", "GA"),
+                New SqlParameter("@strFacilityZipCode", FacilityZipCode),
+                New SqlParameter("@strModifingPerson", CurrentUser.UserID),
+                New SqlParameter("@numFacilityLongitude", FacilityLongitude),
+                New SqlParameter("@numFacilityLatitude", FacilityLatitude),
+                New SqlParameter("@strHorizontalCollectionCode", "007"),
+                New SqlParameter("@strHorizontalAccuracyMeasure", "25"),
+                New SqlParameter("@strHorizontalReferenceCode", "002"),
+                New SqlParameter("@strModifingLocation", "4")
+            }
+
+            DB.RunCommand(SQL, p2)
 
             Dim AttainmentStatus As String = ""
 
             SQL = "select " &
-            "strNonAttainment " &
-            "from LookUpCountyInformation " &
-            "where strCountyCode = '" & Mid(AIRSNumber, 5, 3) & "' "
+                "strNonAttainment " &
+                "from LookUpCountyInformation " &
+                "where strCountyCode = @cty "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
+            Dim p3 As New SqlParameter("@cty", Mid(AIRSNumber, 5, 3))
+
+            Dim dr As DataRow = DB.GetDataRow(SQL, p3)
+            If dr IsNot Nothing Then
                 If IsDBNull(dr.Item("strNonAttainment")) Then
                     AttainmentStatus = "00000"
                 Else
                     AttainmentStatus = dr.Item("strNonAttainment")
                 End If
-            End While
-            dr.Close()
-
-            SQL = "Insert into APBHeaderData " &
-            "(strAIRSNumber, strOperationalStatus, " &
-            "strClass, " &
-            "strAIRProgramCodes, strSICCode, " &
-            "strFEINumber, strModifingPerson, " &
-            "datModifingDate, datStartUpDate, " &
-            "datShutDownDate, strComments, " &
-            "strPlantDescription, strAttainmentStatus, " &
-            "strNAICSCode, strModifingLocation) " &
-            "values " &
-            "('" & AIRSNumber & "', '" & OperatingStatus & "', " &
-            "'" & Classification & "', " &
-            "'" & AirProgramCode & "', '" & SICCode & "', " &
-            "'N/A', '" & CurrentUser.UserID & "', " &
-            "'" & OracleDate & "', '', '', " &
-            "'" & Replace(Comments, "'", "''") & "', " &
-            "'" & Replace(PlantDesc, "'", "''") & "', '" & AttainmentStatus & "', " &
-            "'" & Replace(NAICSCode, "'", "''") & "', '4' ) "
-
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
             End If
 
-            dr = cmd.ExecuteReader
-            dr.Close()
+            SQL = "INSERT INTO APBHEADERDATA " &
+                "( STRAIRSNUMBER, STROPERATIONALSTATUS, STRCLASS, STRAIRPROGRAMCODES " &
+                ", STRSICCODE, STRFEINUMBER, STRMODIFINGPERSON, DATMODIFINGDATE " &
+                ", STRCOMMENTS, STRPLANTDESCRIPTION " &
+                ", STRATTAINMENTSTATUS, STRMODIFINGLOCATION, STRNAICSCODE) " &
+                "VALUES " &
+                "( @STRAIRSNUMBER, @STROPERATIONALSTATUS, @STRCLASS, @STRAIRPROGRAMCODES " &
+                ", @STRSICCODE, @STRFEINUMBER, @STRMODIFINGPERSON, getdate() " &
+                ", @STRCOMMENTS, @STRPLANTDESCRIPTION " &
+                ", @STRATTAINMENTSTATUS, @STRMODIFINGLOCATION, @STRNAICSCODE) "
 
-            SQL = "Insert into APBSupplamentalData " &
-            "(strAIRSNumber, datSSCPTestReportDue, " &
-            "strModifingPerson, DatModifingDate, " &
-            "strDistrictOffice, strCMSMember, " &
-            "strAFSActionNumber, STRRMPID) " &
-            "values " &
-             "('" & AIRSNumber & "', '', " &
-             "'" & CurrentUser.UserID & "', '" & OracleDate & "', " &
-             "'" & DistrictOffice & "', '', " &
-             "'00001', '" & Replace(RMPNumber, "'", "''") & "' ) "
+            Dim p4 As SqlParameter() = {
+                New SqlParameter("@STRAIRSNUMBER", AIRSNumber),
+                New SqlParameter("@STROPERATIONALSTATUS", OperatingStatus),
+                New SqlParameter("@STRCLASS", Classification),
+                New SqlParameter("@STRAIRPROGRAMCODES", AirProgramCode),
+                New SqlParameter("@STRSICCODE", SICCode),
+                New SqlParameter("@STRFEINUMBER", "N/A"),
+                New SqlParameter("@STRMODIFINGPERSON", CurrentUser.UserID),
+                New SqlParameter("@STRCOMMENTS", Comments),
+                New SqlParameter("@STRPLANTDESCRIPTION", PlantDesc),
+                New SqlParameter("@STRATTAINMENTSTATUS", AttainmentStatus),
+                New SqlParameter("@STRMODIFINGLOCATION", "4"),
+                New SqlParameter("@STRNAICSCODE", NAICSCode)
+            }
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
+            DB.RunCommand(SQL, p4)
 
-            dr = cmd.ExecuteReader
-            dr.Close()
+            SQL = "INSERT INTO APBSUPPLAMENTALDATA " &
+                "( STRAIRSNUMBER, DATSSCPTESTREPORTDUE, STRMODIFINGPERSON, DATMODIFINGDATE " &
+                ", STRDISTRICTOFFICE, STRCMSMEMBER, STRAFSACTIONNUMBER, STRRMPID) " &
+                "VALUES " &
+                "( @STRAIRSNUMBER, '', @STRMODIFINGPERSON, getdate() " &
+                ", @STRDISTRICTOFFICE, @STRCMSMEMBER, @STRAFSACTIONNUMBER, @STRRMPID) "
+
+            Dim p5 As SqlParameter() = {
+                New SqlParameter("@STRAIRSNUMBER", AIRSNumber),
+                New SqlParameter("@STRMODIFINGPERSON", CurrentUser.UserID),
+                New SqlParameter("@STRDISTRICTOFFICE", DistrictOffice),
+                New SqlParameter("@STRCMSMEMBER", ""),
+                New SqlParameter("@STRAFSACTIONNUMBER", "00001"),
+                New SqlParameter("@STRRMPID", RMPNumber)
+            }
+
+            DB.RunCommand(SQL, p5)
 
             SQL = "insert into APBContactInformation " &
             "(strContactKey, strAIRSNumber, strKey, " &
@@ -669,24 +645,40 @@ Public Class IAIPFacilityCreator
             "strContactZipCode, strModifingPerson, " &
             "datModifingDate) " &
             "values " &
-            "('" & AIRSNumber & "30', '" & AIRSNumber & "', '30', " &
-            "'" & Replace(ContactFirstName, "'", "''") & "', '" & Replace(ContactLastName, "'", "''") & "', " &
-            "'" & ContactPrefix & "', '" & ContactSuffix & "', " &
-            "'" & Replace(ContactTitle, "'", "''") & "', 'N/A', " &
-            "'" & ContactPhoneNumber & "', 'N/A', " &
-            "'N/A', 'N/A', " &
-            "'" & Replace(MailingStreet, "'", "''") & "', 'N/A', " &
-            "'" & Replace(MailingCity, "'", "''") & "', '" & MailingState & "', " &
-            "'" & Replace(MailingZipCode, "-", "") & "', '" & CurrentUser.UserID & "', " &
-            "'" & OracleDate & "') "
+            "(@strContactKey, @strAIRSNumber, @strKey, " &
+            "@strContactFirstName, @strContactLastName, " &
+            "@strContactPrefix, @strContactSuffix, " &
+            "@strContactTitle, @strContactCompanyName, " &
+            "@strContactPhoneNumber1, @strContactPhoneNumber2, " &
+            "@strContactFaxNumber, @strContactEmail, " &
+            "@strContactAddress1, @strContactAddress2, " &
+            "@strContactCity, @strContactState, " &
+            "@strContactZipCode, @strModifingPerson, " &
+            "getdate() ) "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
+            Dim p6 As SqlParameter() = {
+                    New SqlParameter("@strContactKey", AIRSNumber & "30"),
+                    New SqlParameter("@strAIRSNumber", AIRSNumber),
+                    New SqlParameter("@strKey", "30"),
+                    New SqlParameter("@strContactFirstName", ContactFirstName),
+                    New SqlParameter("@strContactLastName", ContactLastName),
+                    New SqlParameter("@strContactPrefix", ContactPrefix),
+                    New SqlParameter("@strContactSuffix", ContactSuffix),
+                    New SqlParameter("@strContactTitle", ContactTitle),
+                    New SqlParameter("@strContactCompanyName", "N/A"),
+                    New SqlParameter("@strContactPhoneNumber1", ContactPhoneNumber),
+                    New SqlParameter("@strContactPhoneNumber2", "N/A"),
+                    New SqlParameter("@strContactFaxNumber", "N/A"),
+                    New SqlParameter("@strContactEmail", "N/A"),
+                    New SqlParameter("@strContactAddress1", MailingStreet),
+                    New SqlParameter("@strContactAddress2", "N/A"),
+                    New SqlParameter("@strContactCity", MailingCity),
+                    New SqlParameter("@strContactState", MailingState),
+                    New SqlParameter("@strContactZipCode", MailingZipCode),
+                    New SqlParameter("@strModifingPerson", CurrentUser.UserID)
+            }
 
-            dr = cmd.ExecuteReader
-            dr.Close()
+            DB.RunCommand(SQL, p6)
 
             Dim os As FacilityOperationalStatus = [Enum].Parse(GetType(FacilityOperationalStatus), OperatingStatus)
 
@@ -731,15 +723,13 @@ Public Class IAIPFacilityCreator
             End If
 
             SQL = "Insert into SSCPDistrictResponsible " &
-            "values " &
-            "('" & AIRSNumber & "', 'False', " &
-            "'1', sysdate) "
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
+                "( STRAIRSNUMBER, STRDISTRICTRESPONSIBLE, STRASSIGNINGMANAGER, DATASSIGNINGDATE) " &
+                "values " &
+                "(@airs, 'False', '1', getdate()) "
+
+            Dim p7 As New SqlParameter("@airs", AIRSNumber)
+
+            DB.RunCommand(SQL, p7)
 
             MsgBox("Facility Added to Integrated Air Information Platform", MsgBoxStyle.Information, Me.Text)
 
@@ -751,8 +741,10 @@ Public Class IAIPFacilityCreator
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub btnPreLoadNewFacility_Click(sender As Object, e As EventArgs) Handles btnPreLoadNewFacility.Click
         Try
+            Dim SQL As String
             If txtApplicationNumber.Text <> "App No." Then
                 SQL = "select " &
                 "strFacilityName, strFacilityStreet1, " &
@@ -764,17 +756,16 @@ Public Class IAIPFacilityCreator
                 "strContactLastName, strContactpreFix, " &
                 "strContactSuffix, strContactTitle, " &
                 "strContactPhoneNumber1 " &
-                "from SSPPApplicationdata, " &
+                "from SSPPApplicationdata inner join " &
                 "SSPPApplicationContact " &
-                "where SSPPApplicationData.strApplicationNumber = SSPPApplicationContact.strApplicationNumber " &
-                "and SSPPApplicationData.strApplicationNumber = '" & txtApplicationNumber.Text & "' "
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-                If recExist = True Then
+                "on SSPPApplicationData.strApplicationNumber = SSPPApplicationContact.strApplicationNumber " &
+                "where SSPPApplicationData.strApplicationNumber = @app "
+
+                Dim p As New SqlParameter("@app", txtApplicationNumber.Text)
+
+                Dim dr As DataRow = DB.GetDataRow(SQL, p)
+
+                If dr IsNot Nothing Then
                     If IsDBNull(dr.Item("strFacilityName")) Then
                         txtCDSFacilityName.Clear()
                     Else
@@ -821,13 +812,7 @@ Public Class IAIPFacilityCreator
                             Case Else
                                 cboCDSOperationalStatus.Text = " "
                         End Select
-                        '  cboCDSOperationalStatus.SelectedText = dr.Item("stroperationalStatus")
                     End If
-                    'If IsDBNull(dr.Item("strClass")) Then
-                    '    cboCDSClassCode.Text = ""
-                    'Else
-                    '    cboCDSClassCode.Text = dr.Item("strClass")
-                    'End If
                     If IsDBNull(dr.Item("strClass")) Then
                         cboCDSClassCode.Text = ""
                     Else
@@ -846,7 +831,6 @@ Public Class IAIPFacilityCreator
                             Case Else
                                 cboCDSClassCode.Text = "C - UNKNOWN"
                         End Select
-                        'cboCDSClassCode.Text = dr.Item("strClass")
                     End If
                     If IsDBNull(dr.Item("strAirProgramCodes")) Then
                         chbCDS_1.Checked = False
@@ -985,14 +969,13 @@ Public Class IAIPFacilityCreator
                         mtbContactNumberExtension.Text = Mid(dr.Item("strcontactPhoneNumber1"), 11)
                     End If
                 End If
-                dr.Close()
             End If
-
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub llbOpenWebpage_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbOpenWebpage.LinkClicked
         Try
             Dim MappingAddress As String = txtCDSStreetAddress.Text & ", " & txtCDSCity.Text & ", GA," & mtbCDSZipCode.Text
@@ -1004,16 +987,17 @@ Public Class IAIPFacilityCreator
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub dgvVerifyNewFacilities_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvVerifyNewFacilities.MouseUp
         Dim hti As DataGridView.HitTestInfo = dgvVerifyNewFacilities.HitTest(e.X, e.Y)
         Try
             txtNewFacilityName.Clear()
             txtNewAIRSNumber.Clear()
             txtSSCPApprover.Clear()
-            DTPSSCPApproveDate.Text = OracleDate
+            DTPSSCPApproveDate.Value = Today
             txtSSCPComments.Clear()
             txtSSPPApprover.Clear()
-            DTPSSPPApproveDate.Text = OracleDate
+            DTPSSPPApproveDate.Value = Today
             txtSSPPComments.Clear()
             chbSSCPSignOff.Checked = False
             chbSSPPSignOff.Checked = False
@@ -1043,7 +1027,7 @@ Public Class IAIPFacilityCreator
                         txtSSCPApprover.Text = dgvVerifyNewFacilities(4, hti.RowIndex).Value
                     End If
                     If IsDBNull(dgvVerifyNewFacilities(5, hti.RowIndex).Value) Then
-                        DTPSSCPApproveDate.Text = OracleDate
+                        DTPSSCPApproveDate.Value = Today
                     Else
                         DTPSSCPApproveDate.Text = dgvVerifyNewFacilities(5, hti.RowIndex).Value
                     End If
@@ -1059,7 +1043,7 @@ Public Class IAIPFacilityCreator
                         txtSSPPApprover.Text = dgvVerifyNewFacilities(7, hti.RowIndex).Value
                     End If
                     If IsDBNull(dgvVerifyNewFacilities(8, hti.RowIndex).Value) Then
-                        DTPSSPPApproveDate.Text = OracleDate
+                        DTPSSPPApproveDate.Value = Today
                     Else
                         DTPSSPPApproveDate.Text = dgvVerifyNewFacilities(8, hti.RowIndex).Value
                     End If
@@ -1068,7 +1052,6 @@ Public Class IAIPFacilityCreator
                     Else
                         txtSSPPComments.Text = dgvVerifyNewFacilities(9, hti.RowIndex).Value
                     End If
-                    'txtStreetAddress
                     If IsDBNull(dgvVerifyNewFacilities(10, hti.RowIndex).Value) Then
                         txtStreetAddress.Clear()
                     Else
@@ -1080,8 +1063,8 @@ Public Class IAIPFacilityCreator
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
-
     End Sub
+
     Private Sub btnViewFacility_Click(sender As Object, e As EventArgs) Handles btnViewFacility.Click
         Try
             If txtNewAIRSNumber.Text = "" Then
@@ -1091,7 +1074,7 @@ Public Class IAIPFacilityCreator
             txtCDSAIRSNumber.Text = txtNewAIRSNumber.Text
             FindRegion(txtCDSRegionCode.Text, txtCDSAIRSNumber.Text)
 
-            SQL = "select " &
+            Dim SQL As String = "select " &
             "strFacilityName, strFacilityStreet1, " &
             "strFacilityCity, strFacilityState, " &
             "strFacilityZipCode, " &
@@ -1106,21 +1089,21 @@ Public Class IAIPFacilityCreator
             "strPlantDescription, " &
             "APBHeaderData.strComments, " &
             "strNAICSCode, strRMPID " &
-            "from APBFacilityInformation, APBHeaderData, " &
-            "APBContactInformation, APBSupplamentalData  " &
-            "where APBFacilityInformation.strAIRSNumber = APBHeaderData.strAIRSNumber " &
-            "and APBFacilityInformation.strAIRSNumber = APBSupplamentalData.strAIRSNumber " &
-            "and APBFacilityInformation.strAIRSNumber = APBContactInformation.strAIRSNumber " &
-            "and strkey = '30' " &
-            "and APBFacilityInformation.strAIRSNumber = '0413" & txtNewAIRSNumber.Text & "'"
+            "from APBFacilityInformation " &
+            "inner join APBHeaderData " &
+            "on APBFacilityInformation.strAIRSNumber = APBHeaderData.strAIRSNumber " &
+            "inner join APBContactInformation " &
+            "on APBFacilityInformation.strAIRSNumber = APBContactInformation.strAIRSNumber " &
+            "inner join APBSupplamentalData  " &
+            "on APBFacilityInformation.strAIRSNumber = APBSupplamentalData.strAIRSNumber " &
+            "where strkey = '30' " &
+            "and APBFacilityInformation.strAIRSNumber = @airs "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            recExist = dr.Read
-            If recExist = True Then
+            Dim p As New SqlParameter("@airs", "0413" & txtNewAIRSNumber.Text)
+
+            Dim dr As DataRow = DB.GetDataRow(SQL, p)
+
+            If dr IsNot Nothing Then
                 If IsDBNull(dr.Item("strComments")) Then
                     txtFacilityComments.Clear()
                 Else
@@ -1172,7 +1155,6 @@ Public Class IAIPFacilityCreator
                         Case Else
                             cboCDSOperationalStatus.Text = " "
                     End Select
-                    '  cboCDSOperationalStatus.SelectedText = dr.Item("stroperationalStatus")
                 End If
                 If IsDBNull(dr.Item("strClass")) Then
                     cboCDSClassCode.Text = ""
@@ -1192,7 +1174,6 @@ Public Class IAIPFacilityCreator
                         Case Else
                             cboCDSClassCode.Text = "C - UNKNOWN"
                     End Select
-                    'cboCDSClassCode.Text = dr.Item("strClass")
                 End If
                 If IsDBNull(dr.Item("strAirProgramCodes")) Then
                     chbCDS_1.Checked = False
@@ -1346,12 +1327,10 @@ Public Class IAIPFacilityCreator
                     mtbRiskManagementNumber.Text = dr.Item("strRMPID")
                 End If
             End If
-            dr.Close()
 
             cboCounty.SelectedValue = Mid(txtCDSAIRSNumber.Text, 1, 3)
 
             If TCFacilityTools.TabPages.Contains(TPCreateNewFacility) Then
-                '                TPCreateNewFacility.Focus = True
                 TCFacilityTools.SelectedIndex = 1
             End If
 
@@ -1359,22 +1338,24 @@ Public Class IAIPFacilityCreator
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub btnSubmitFacilityToAFS_Click(sender As Object, e As EventArgs) Handles btnSubmitFacilityToAFS.Click
         Try
             Dim SSCPSignOff As String = ""
             Dim SSPPSignOff As String = ""
+            Dim SQL As String
 
             If chbSSCPSignOff.Checked = True And chbSSPPSignOff.Checked = True Then
                 SQL = "Select " &
                 "numApprovingSSCP, numApprovingSSPP " &
                 "from APBSupplamentalData " &
-                "where strAIRSNumber = '0413" & txtNewAIRSNumber.Text & "' "
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                While dr.Read
+                "where strAIRSNumber = @airs "
+
+                Dim p As New SqlParameter("@airs", "0413" & txtNewAIRSNumber.Text)
+
+                Dim dr As DataRow = DB.GetDataRow(SQL, p)
+
+                If dr IsNot Nothing Then
                     If IsDBNull(dr.Item("numApprovingSSCP")) Then
                         SSCPSignOff = ""
                     Else
@@ -1385,72 +1366,75 @@ Public Class IAIPFacilityCreator
                     Else
                         SSPPSignOff = dr.Item("numApprovingSSPP")
                     End If
-                End While
-                dr.Close()
+                End If
 
                 If SSCPSignOff = "" And SSPPSignOff = "" Then
                     SQL = "Update APBSupplamentalData set " &
-                    "numApprovingSSCP = '" & CurrentUser.UserID & "', " &
-                    "datApproveDateSSCP = '" & DTPSSCPApproveDate.Text & "', " &
-                    "strCommentSSCP = '" & txtSSCPComments.Text & "', " &
-                     "numApprovingSSPP = '" & CurrentUser.UserID & "', " &
-                    "datApproveDateSSPP = '" & DTPSSCPApproveDate.Text & "', " &
-                    "strCommentSSPP = '" & txtSSCPComments.Text & "' " &
-                    "where strAIRSnumber = '0413" & txtNewAIRSNumber.Text & "' "
+                        "numApprovingSSCP = @numApprovingSSCP " &
+                        ", datApproveDateSSCP = @datApproveDateSSCP " &
+                        ", strCommentSSCP = @strCommentSSCP " &
+                        ", numApprovingSSPP = @numApprovingSSPP " &
+                        ", datApproveDateSSPP = @datApproveDateSSPP " &
+                        ", strCommentSSPP = @strCommentSSPP " &
+                        "where strAIRSnumber = @strAIRSnumber "
 
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
+                    Dim p2 As SqlParameter() = {
+                        New SqlParameter("@numApprovingSSCP", CurrentUser.UserID),
+                        New SqlParameter("@datApproveDateSSCP", DTPSSCPApproveDate.Text),
+                        New SqlParameter("@strCommentSSCP", txtSSCPComments.Text),
+                        New SqlParameter("@numApprovingSSPP", CurrentUser.UserID),
+                        New SqlParameter("@datApproveDateSSPP", DTPSSCPApproveDate.Text),
+                        New SqlParameter("@strCommentSSPP", txtSSCPComments.Text),
+                        New SqlParameter("@strAIRSnumber", "0413" & txtNewAIRSNumber.Text)
+                    }
 
-                    dr = cmd.ExecuteReader
-                    dr.Close()
+                    DB.RunCommand(SQL, p2)
                 Else
                     If SSCPSignOff = "" Then
                         SQL = "Update APBSupplamentalData set " &
-                         "numApprovingSSCP = '" & CurrentUser.UserID & "', " &
-                         "datApproveDateSSCP = '" & DTPSSCPApproveDate.Text & "', " &
-                         "strCommentSSCP = '" & txtSSCPComments.Text & "' " &
-                         "where strAIRSnumber = '0413" & txtNewAIRSNumber.Text & "' "
+                            "numApprovingSSCP = @numApprovingSSCP " &
+                            ", datApproveDateSSCP = @datApproveDateSSCP " &
+                            ", strCommentSSCP = @strCommentSSCP " &
+                            "where strAIRSnumber = @strAIRSnumber "
 
-                        cmd = New SqlCommand(SQL, CurrentConnection)
-                        If CurrentConnection.State = ConnectionState.Closed Then
-                            CurrentConnection.Open()
-                        End If
+                        Dim p3 As SqlParameter() = {
+                            New SqlParameter("@numApprovingSSCP", CurrentUser.UserID),
+                            New SqlParameter("@datApproveDateSSCP", DTPSSCPApproveDate.Text),
+                            New SqlParameter("@strCommentSSCP", txtSSCPComments.Text),
+                            New SqlParameter("@strAIRSnumber", "0413" & txtNewAIRSNumber.Text)
+                        }
 
-                        dr = cmd.ExecuteReader
-                        dr.Close()
+                        DB.RunCommand(SQL, p3)
                     End If
                     If SSPPSignOff = "" Then
                         SQL = "Update APBSupplamentalData set " &
-                        "numApprovingSSPP = '" & CurrentUser.UserID & "', " &
-                        "datApproveDateSSPP = '" & DTPSSCPApproveDate.Text & "', " &
-                        "strCommentSSPP = '" & txtSSCPComments.Text & "' " &
-                        "where strAIRSnumber = '0413" & txtNewAIRSNumber.Text & "' "
+                            "numApprovingSSPP = @numApprovingSSPP " &
+                            ", datApproveDateSSPP = @datApproveDateSSPP " &
+                            ", strCommentSSPP = @strCommentSSPP " &
+                            "where strAIRSnumber = @strAIRSnumber "
 
-                        cmd = New SqlCommand(SQL, CurrentConnection)
-                        If CurrentConnection.State = ConnectionState.Closed Then
-                            CurrentConnection.Open()
-                        End If
+                        Dim p3 As SqlParameter() = {
+                            New SqlParameter("@numApprovingSSPP", CurrentUser.UserID),
+                            New SqlParameter("@datApproveDateSSPP", DTPSSCPApproveDate.Text),
+                            New SqlParameter("@strCommentSSPP", txtSSCPComments.Text),
+                            New SqlParameter("@strAIRSnumber", "0413" & txtNewAIRSNumber.Text)
+                        }
 
-                        dr = cmd.ExecuteReader
-                        dr.Close()
+                        DB.RunCommand(SQL, p3)
                     End If
                 End If
 
                 SQL = "Update AFSFacilityData set " &
-                "strUpdateStatus = 'A' " &
-                "where strAIRSNumber = '0413" & txtNewAIRSNumber.Text & "' " &
-                "and strUpdateStatus = 'H' "
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                dr.Close()
+                    "strUpdateStatus = 'A' " &
+                    "where strAIRSNumber = @airs " &
+                    "and strUpdateStatus = 'H' "
 
-                MsgBox(txtNewFacilityName.Text & " (" & txtNewAIRSNumber.Text &
-                       ") has been approved", MsgBoxStyle.Information, Me.Text)
+                Dim p4 As New SqlParameter("@airs", "0413" & txtNewAIRSNumber.Text)
+
+                DB.RunCommand(SQL, p4)
+
+                MsgBox(txtNewFacilityName.Text & " (" & txtNewAIRSNumber.Text & ") has been approved", MsgBoxStyle.Information, Me.Text)
+
                 LoadPendingFacilities()
                 ClearValidator()
                 ClearNewFacility()
@@ -1461,6 +1445,7 @@ Public Class IAIPFacilityCreator
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub btnRemoveFromPlatform_Click(sender As Object, e As EventArgs) Handles btnRemoveFromPlatform.Click
         Try
             If Not Apb.ApbFacilityId.IsValidAirsNumberFormat(txtNewAIRSNumber.Text) Then
@@ -1468,7 +1453,7 @@ Public Class IAIPFacilityCreator
                 Exit Sub
             End If
 
-            If DAL.FacilityData.FacilityHasBeenApproved(txtNewAIRSNumber.Text) Then
+            If DAL.FacilityHasBeenApproved(txtNewAIRSNumber.Text) Then
                 MessageBox.Show("Facility has already been approved.", "Can't delete", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Exit Sub
             End If
@@ -1480,7 +1465,7 @@ Public Class IAIPFacilityCreator
                 Exit Sub
             End If
 
-            If DAL.FacilityData.DeleteFacility(txtNewAIRSNumber.Text) Then
+            If DAL.DeleteFacility(txtNewAIRSNumber.Text) Then
                 MessageBox.Show("Facility removed from the database", "Gone", MessageBoxButtons.OK)
             Else
                 MessageBox.Show("There was an error when attempting to remove the facility from the database." & vbNewLine & vbNewLine & "Facility has not been removed.", "Error", MessageBoxButtons.OK)
@@ -1494,6 +1479,7 @@ Public Class IAIPFacilityCreator
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub btnSaveSSCPApproval_Click(sender As Object, e As EventArgs) Handles btnSaveSSCPApproval.Click
         Try
             If chbSSCPSignOff.Checked = False Then
@@ -1501,27 +1487,29 @@ Public Class IAIPFacilityCreator
                 Exit Sub
             End If
 
-            SQL = "Update APBSupplamentalData set " &
-            "numApprovingSSCP = '" & CurrentUser.UserID & "', " &
-            "datApproveDateSSCP = '" & DTPSSCPApproveDate.Text & "', " &
-            "strCommentSSCP = '" & txtSSCPComments.Text & "' " &
-            "where strAIRSnumber = '0413" & txtNewAIRSNumber.Text & "' "
+            Dim SQL As String = "Update APBSupplamentalData set " &
+                "numApprovingSSCP = @numApprovingSSCP " &
+                ", datApproveDateSSCP = @datApproveDateSSCP " &
+                ", strCommentSSCP = @strCommentSSCP " &
+                "where strAIRSnumber = @strAIRSnumber "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
+            Dim p3 As SqlParameter() = {
+                New SqlParameter("@numApprovingSSCP", CurrentUser.UserID),
+                New SqlParameter("@datApproveDateSSCP", DTPSSCPApproveDate.Text),
+                New SqlParameter("@strCommentSSCP", txtSSCPComments.Text),
+                New SqlParameter("@strAIRSnumber", "0413" & txtNewAIRSNumber.Text)
+            }
 
-            dr = cmd.ExecuteReader
-            dr.Close()
+            DB.RunCommand(SQL, p3)
+
             LoadPendingFacilities()
             txtSSCPApprover.Text = CurrentUser.AlphaName
             MsgBox("Approval Saved.", MsgBoxStyle.Information, Me.Text)
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub btnSaveSSPPApproval_Click(sender As Object, e As EventArgs) Handles btnSaveSSPPApproval.Click
         Try
             If chbSSPPSignOff.Checked = False Then
@@ -1529,27 +1517,29 @@ Public Class IAIPFacilityCreator
                 Exit Sub
             End If
 
-            SQL = "Update APBSupplamentalData set " &
-            "numApprovingSSpp = '" & CurrentUser.UserID & "', " &
-            "datApproveDateSSpP = '" & DTPSSPPApproveDate.Text & "', " &
-            "strCommentSSpP = '" & txtSSPPComments.Text & "' " &
-            "where strAIRSnumber = '0413" & txtNewAIRSNumber.Text & "' "
+            Dim SQL As String = "Update APBSupplamentalData set " &
+                "numApprovingSSPP = @numApprovingSSPP " &
+                ", datApproveDateSSPP = @datApproveDateSSPP " &
+                ", strCommentSSPP = @strCommentSSPP " &
+                "where strAIRSnumber = @strAIRSnumber "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
+            Dim p3 As SqlParameter() = {
+                New SqlParameter("@numApprovingSSPP", CurrentUser.UserID),
+                New SqlParameter("@datApproveDateSSPP", DTPSSCPApproveDate.Text),
+                New SqlParameter("@strCommentSSPP", txtSSCPComments.Text),
+                New SqlParameter("@strAIRSnumber", "0413" & txtNewAIRSNumber.Text)
+            }
 
-            dr = cmd.ExecuteReader
-            dr.Close()
+            DB.RunCommand(SQL, p3)
+
             LoadPendingFacilities()
             txtSSPPApprover.Text = CurrentUser.AlphaName
             MsgBox("Approval Saved.", MsgBoxStyle.Information, Me.Text)
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub btnValidateFacility_Click(sender As Object, e As EventArgs) Handles btnValidateFacility.Click
         Try
             Dim FacilityName As String
@@ -1566,40 +1556,38 @@ Public Class IAIPFacilityCreator
                 FacilityAddress = ""
             End If
 
-            SQL = "Select " &
-            "strFacilityName, " &
-            "substr(strAIRSNumber, 5) as AIRSNumber, " &
-            "strFacilityStreet1, strFacilityCity, " &
-            "strFacilityZipCode " &
-            "from APBFacilityInformation " &
-            "where Upper(strFacilityName) Like Upper('%" & Replace(FacilityName.ToUpper, "'", "''") & "%')" &
-            "or upper(strFacilityStreet1) like '%" & FacilityAddress.ToUpper & "%' " &
-            "Union " &
-            "Select " &
-            "distinct(strFacilityName) as strFacilityName, " &
-            "substr(strAIRSNumber, 5) as shortAIRS, " &
-            "strFacilityStreet1, strFacilityCity,  strFacilityZipCode " &
-            "from HB_APBFacilityInformation " &
-            "where Upper(strFacilityName) Like Upper('%" & Replace(FacilityName.ToUpper, "'", "''") & "%')" &
-            "or upper(strFacilityStreet1) like '%" & FacilityAddress.ToUpper & "%' " &
-            "Union " &
-            "select " &
-            "Distinct(strFacilityname) as strFacilityname,  " &
-            "substr(strAIRSNumber, 5) as shortAIRS,  " &
-            "strFacilityStreet1, strFacilityCity, strFacilityZipCode  " &
-            "from SSPPApplicationData, SSPPApplicationMaster   " &
-            "where SSPPApplicationData.strApplicationNumber = SSPPApplicationMaster.strApplicationNumber " &
-            "and (upper(strFacilityname) like Upper('%" & Replace(FacilityName.ToUpper, "'", "''") & "%') " &
-            "or upper(strFacilityStreet1) like '%" & FacilityAddress.ToUpper & "%') "
+            Dim SQL As String = "Select " &
+                "strFacilityName, " &
+                "substring(strAIRSNumber, 5, 8) as AIRSNumber, " &
+                "strFacilityStreet1, strFacilityCity, " &
+                "strFacilityZipCode " &
+                "from APBFacilityInformation " &
+                "where strFacilityName Like @name " &
+                "or strFacilityStreet1 like @address " &
+                "Union " &
+                "Select " &
+                "distinct(strFacilityName) as strFacilityName, " &
+                "substring(strAIRSNumber, 5, 8) as shortAIRS, " &
+                "strFacilityStreet1, strFacilityCity,  strFacilityZipCode " &
+                "from HB_APBFacilityInformation " &
+                "where strFacilityName Like @name " &
+                "or strFacilityStreet1 like @address " &
+                "Union " &
+                "select " &
+                "Distinct(strFacilityname) as strFacilityname,  " &
+                "substring(strAIRSNumber, 5, 8) as shortAIRS,  " &
+                "strFacilityStreet1, strFacilityCity, strFacilityZipCode  " &
+                "from SSPPApplicationData inner join SSPPApplicationMaster   " &
+                "on SSPPApplicationData.strApplicationNumber = SSPPApplicationMaster.strApplicationNumber " &
+                "where strFacilityname like @name " &
+                "or strFacilityStreet1 like @address "
 
-            ds = New DataSet
-            da = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            da.Fill(ds, "Validate")
-            dgvValidatingAIRS.DataSource = ds
-            dgvValidatingAIRS.DataMember = "Validate"
+            Dim p As SqlParameter() = {
+                New SqlParameter("@name", "%" & FacilityName & "%"),
+                New SqlParameter("@address", "%" & FacilityAddress & "%")
+            }
+
+            dgvValidatingAIRS.DataSource = DB.GetDataTable(SQL, p)
 
             dgvValidatingAIRS.RowHeadersVisible = False
             dgvValidatingAIRS.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -1631,6 +1619,7 @@ Public Class IAIPFacilityCreator
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub tspClear_Click(sender As Object, e As EventArgs) Handles tspClear.Click
         Try
             ClearValidator()
@@ -1639,7 +1628,8 @@ Public Class IAIPFacilityCreator
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub ClearNewFacility()
+
+    Private Sub ClearNewFacility()
         Try
             cboCounty.SelectedValue = 0
             txtApplicationNumber.Text = "App No."
@@ -1654,6 +1644,7 @@ Public Class IAIPFacilityCreator
             txtMailingState.Text = "GA"
             mtbMailingZipCode.Clear()
             mtbCDSSICCode.Clear()
+            mtbCDSNAICSCode.Clear()
             cboCDSOperationalStatus.Text = ""
             cboCDSClassCode.Text = ""
             txtFacilityDescription.Clear()
@@ -1686,7 +1677,8 @@ Public Class IAIPFacilityCreator
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub ClearValidator()
+
+    Private Sub ClearValidator()
         Try
 
             txtNewAIRSNumber.Clear()
@@ -1695,29 +1687,27 @@ Public Class IAIPFacilityCreator
             txtApprovialComments.Clear()
             chbSSCPSignOff.Checked = False
             txtSSCPApprover.Clear()
-            DTPSSCPApproveDate.Text = OracleDate
+            DTPSSCPApproveDate.Value = Today
             txtSSCPComments.Clear()
             chbSSPPSignOff.Checked = False
             txtSSPPApprover.Clear()
-            DTPSSPPApproveDate.Text = OracleDate
+            DTPSSPPApproveDate.Value = Today
             txtSSPPComments.Clear()
-            ds = New DataSet
-            dgvValidatingAIRS.DataSource = ds
+            dgvValidatingAIRS.DataSource = Nothing
             txtValidationCount.Clear()
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub btnClearAIRSNumber_Click(sender As Object, e As EventArgs) Handles btnClearAIRSNumber.Click
-        Try
-            txtCDSAIRSNumber.Clear()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        txtCDSAIRSNumber.Clear()
     End Sub
+
     Private Sub btnEditFacilityData_Click(sender As Object, e As EventArgs) Handles btnEditFacilityData.Click
         Try
+            Dim SQL As String
             Dim AIRSNumber As String = ""
             Dim FacilityName As String = ""
             Dim FacilityStreet As String = ""
@@ -1749,7 +1739,7 @@ Public Class IAIPFacilityCreator
                        MsgBoxStyle.Information, Me.Text)
                 Exit Sub
             End If
-            If DAL.FacilityHeaderDataData.NaicsCodeIsValid(mtbCDSNAICSCode.Text) = False Then
+            If DAL.NaicsCodeIsValid(mtbCDSNAICSCode.Text) = False Then
                 MsgBox("The NACIS Code is not valid." &
                   "No Data saved.", MsgBoxStyle.Information, Me.Name)
                 Exit Sub
@@ -1760,7 +1750,7 @@ Public Class IAIPFacilityCreator
             If txtCDSFacilityName.Text = "" Then
                 FacilityName = "N/A"
             Else
-                txtCDSFacilityName.Text = Apb.Facilities.Facility.SanitizeFacilityNameForDb(txtCDSFacilityName.Text)
+                txtCDSFacilityName.Text = Facility.SanitizeFacilityNameForDb(txtCDSFacilityName.Text)
                 FacilityName = txtCDSFacilityName.Text
             End If
 
@@ -1924,92 +1914,115 @@ Public Class IAIPFacilityCreator
                 MailingZipCode = "00000"
             End If
             If txtFacilityComments.Text = "" Then
-                Comments = "Created with Facility Creator tool by " & CurrentUser.AlphaName & " on " & OracleDate & vbCrLf
+                Comments = "Created with Facility Creator tool by " & CurrentUser.AlphaName & " on " & Format(Today, DateFormat) & vbCrLf
             End If
 
-            If txtFacilityComments.Text.Contains("Created by Facility Creator by " & CurrentUser.AlphaName & " on " & OracleDate) Then
+            If txtFacilityComments.Text.Contains("Created by Facility Creator by " & CurrentUser.AlphaName & " on " & Format(Today, DateFormat)) Then
             Else
-                Comments = "Created with Facility Creator tool by " & CurrentUser.AlphaName & " on " & OracleDate &
+                Comments = "Created with Facility Creator tool by " & CurrentUser.AlphaName & " on " & Format(Today, DateFormat) &
                                vbCrLf & txtFacilityComments.Text & vbCrLf
             End If
-            If txtApplicationNumber.Text <> "App No." And
-                        txtFacilityComments.Text.Contains(txtApplicationNumber.Text) = False Then
+            If txtApplicationNumber.Text <> "App No." And txtFacilityComments.Text.Contains(txtApplicationNumber.Text) = False Then
                 Comments = Comments & "Pre-loaded with Application " & txtApplicationNumber.Text
             End If
 
             SQL = "update APBFacilityInformation set " &
-            "strFacilityName = '" & Replace(FacilityName, "'", "''") & "', " &
-            "strFacilityStreet1 = '" & Replace(FacilityStreet, "'", "''") & "', " &
-            "strFacilityCity = '" & Replace(FacilityCity, "'", "''") & "', " &
-            "strFacilityZipCode = '" & Replace(FacilityZipCode, "'", "''") & "', " &
-            "strModifingPerson = '" & CurrentUser.UserID & "', " &
-            "datModifingdate = '" & OracleDate & "', " &
-            "numfacilitylongitude = '" & Replace(FacilityLongitude, "'", "''") & "', " &
-            "numFacilityLatitude = '" & Replace(FacilityLatitude, "'", "''") & "' " &
-            "where strAirsnumber = '" & AIRSNumber & "' "
+                "strFacilityName = @strFacilityName, " &
+                "strFacilityStreet1 = @strFacilityStreet1, " &
+                "strFacilityCity = @strFacilityCity, " &
+                "strFacilityZipCode = @strFacilityZipCode, " &
+                "strModifingPerson = @strModifingPerson, " &
+                "datModifingdate = getdate(), " &
+                "numfacilitylongitude = @numfacilitylongitude, " &
+                "numFacilityLatitude = @numFacilityLatitude " &
+                "where strAirsnumber = @strAirsnumber "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
+            Dim p As SqlParameter() = {
+                New SqlParameter("@strFacilityName", FacilityName),
+                New SqlParameter("@strFacilityStreet1", FacilityStreet),
+                New SqlParameter("@strFacilityCity", FacilityCity),
+                New SqlParameter("@strFacilityZipCode", FacilityZipCode),
+                New SqlParameter("@strModifingPerson", CurrentUser.UserID),
+                New SqlParameter("@numfacilitylongitude", FacilityLongitude),
+                New SqlParameter("@numFacilityLatitude", FacilityLatitude),
+                New SqlParameter("@strAirsnumber", AIRSNumber)
+            }
+
+            DB.RunCommand(SQL, p)
 
             SQL = "Update APBHeaderData set " &
-            "strOperationalStatus = '" & Replace(OperatingStatus, "'", "''") & "', " &
-            "strClass = '" & Replace(Classification, "'", "''") & "', " &
-            "strAIRProgramCodes = '" & Replace(AirProgramCode, "'", "''") & "', " &
-            "strSICCode = '" & Replace(SICCode, "'", "''") & "', " &
-            "strNAICSCode = '" & Replace(NAICSCode, "'", "''") & "', " &
-            "strPlantDescription = '" & Replace(PlantDesc, "'", "''") & "', " &
-            "strComments = '" & Replace(Comments, "'", "''") & "', " &
-            "strModifingPerson = '" & CurrentUser.UserID & "', " &
-            "datModifingDate = '" & OracleDate & "' " &
-            "where strAIRSNumber = '" & AIRSNumber & "' "
+                "strOperationalStatus = @strOperationalStatus, " &
+                "strClass = @strClass, " &
+                "strAIRProgramCodes = @strAIRProgramCodes, " &
+                "strSICCode = @strSICCode, " &
+                "strNAICSCode = @strNAICSCode, " &
+                "strPlantDescription = @strPlantDescription, " &
+                "strComments = @strComments, " &
+                "strModifingPerson = @strModifingPerson, " &
+                "datModifingDate = getdate() " &
+                "where strAIRSNumber = @strAIRSNumber "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
+            Dim p2 As SqlParameter() = {
+                New SqlParameter("@strOperationalStatus", OperatingStatus),
+                New SqlParameter("@strClass", Classification),
+                New SqlParameter("@strAIRProgramCodes", AirProgramCode),
+                New SqlParameter("@strSICCode", SICCode),
+                New SqlParameter("@strNAICSCode", NAICSCode),
+                New SqlParameter("@strPlantDescription", PlantDesc),
+                New SqlParameter("@strComments", Comments),
+                New SqlParameter("@strModifingPerson", CurrentUser.UserID),
+                New SqlParameter("@strAIRSNumber", AIRSNumber)
+            }
+
+            DB.RunCommand(SQL, p2)
 
             SQL = "Update APBSupplamentalData set " &
-            "strDistrictOffice = '" & Replace(DistrictOffice, "'", "''") & "', " &
-            "strModifingPerson = '" & CurrentUser.UserID & "', " &
-            "datModifingDate = '" & OracleDate & "' " &
-            "where strAIRSNumber = '" & AIRSNumber & "' "
+                "strDistrictOffice = @strDistrictOffice, " &
+                "strModifingPerson = @strModifingPerson, " &
+                "datModifingDate = getdate() " &
+                "where strAIRSNumber = @strAIRSNumber "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
+            Dim p3 As SqlParameter() = {
+                New SqlParameter("@strDistrictOffice", DistrictOffice),
+                New SqlParameter("@strModifingPerson", CurrentUser.UserID),
+                New SqlParameter("@strAIRSNumber", AIRSNumber)
+            }
+
+            DB.RunCommand(SQL, p3)
 
             SQL = "update APBContactInformation set " &
-            "strContactAddress1 = '" & Replace(MailingStreet, "'", "''") & "', " &
-            "strContactCity = '" & Replace(MailingCity, "'", "''") & "', " &
-            "strContactState = '" & Replace(MailingState, "'", "''") & "', " &
-            "strContactZipCode = '" & Replace(MailingZipCode, "'", "''") & "', " &
-            "strContactFirstName = '" & Replace(ContactFirstName, "'", "''") & "', " &
-            "strContactLastName = '" & Replace(ContactLastName, "'", "''") & "', " &
-            "strContactPrefix = '" & Replace(ContactPrefix, "'", "''") & "', " &
-            "strContactSuffix = '" & Replace(ContactSuffix, "'", "''") & "', " &
-            "strContactTitle = '" & Replace(ContactTitle, "'", "''") & "', " &
-            "strContactPhoneNumber1 = '" & Replace(ContactPhoneNumber, "'", "''") & "', " &
-            "strModifingPerson = '" & CurrentUser.UserID & "', " &
-            "datModifingDate = '" & OracleDate & "' " &
-            "where strAIRSNumber = '" & AIRSNumber & "' " &
-            "and strContactKey = '" & AIRSNumber & "30' " &
-            "and strKey = '30' "
+                "strContactAddress1 = @strContactAddress1, " &
+                "strContactCity = @strContactCity, " &
+                "strContactState = @strContactState, " &
+                "strContactZipCode = @strContactZipCode, " &
+                "strContactFirstName = @strContactFirstName, " &
+                "strContactLastName = @strContactLastName, " &
+                "strContactPrefix = @strContactPrefix, " &
+                "strContactSuffix = @strContactSuffix, " &
+                "strContactTitle = @strContactTitle, " &
+                "strContactPhoneNumber1 = @strContactPhoneNumber1, " &
+                "strModifingPerson = @strModifingPerson, " &
+                "datModifingDate = getdate() " &
+                "where strAIRSNumber = @strAIRSNumber " &
+                "and strContactKey = @strContactKey " &
+                "and strKey = '30' "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
+            Dim p4 As SqlParameter() = {
+                New SqlParameter("@strContactAddress1", MailingStreet),
+                New SqlParameter("@strContactCity", MailingCity),
+                New SqlParameter("@strContactState", MailingState),
+                New SqlParameter("@strContactZipCode", MailingZipCode),
+                New SqlParameter("@strContactFirstName", ContactFirstName),
+                New SqlParameter("@strContactLastName", ContactLastName),
+                New SqlParameter("@strContactPrefix", ContactPrefix),
+                New SqlParameter("@strContactSuffix", ContactSuffix),
+                New SqlParameter("@strContactTitle", ContactTitle),
+                New SqlParameter("@strContactPhoneNumber1", ContactPhoneNumber),
+                New SqlParameter("@strModifingPerson", CurrentUser.UserID),
+                New SqlParameter("@strAIRSNumber", AIRSNumber)
+            }
+
+            DB.RunCommand(SQL, p4)
 
             MsgBox("Facility has been updated", MsgBoxStyle.Information, Me.Text)
 
@@ -2041,13 +2054,7 @@ Public Class IAIPFacilityCreator
     End Sub
 
     Private Sub btnFilterNewFacilities_Click(sender As Object, e As EventArgs) Handles btnFilterNewFacilities.Click
-        Try
-
-            LoadPendingFacilities()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        LoadPendingFacilities()
     End Sub
 
     Private Sub DeleteAirsNumber_Click(sender As Object, e As EventArgs) Handles DeleteAirsNumber.Click
@@ -2059,7 +2066,7 @@ Public Class IAIPFacilityCreator
 
             Dim airsNumberDeleting As New Apb.ApbFacilityId(AirsNumberToDelete.Text)
 
-            If Not DAL.FacilityData.FacilityHasBeenApproved(airsNumberDeleting) Then
+            If Not DAL.FacilityHasBeenApproved(airsNumberDeleting) Then
                 MessageBox.Show("Facility has not been approved yet. Remove facility using the ""Approve New Facilities"" tab.", "Can't delete", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Exit Sub
             End If
@@ -2071,7 +2078,7 @@ Public Class IAIPFacilityCreator
                 Exit Sub
             End If
 
-            If DAL.FacilityData.DeleteFacility(airsNumberDeleting) Then
+            If DAL.DeleteFacility(airsNumberDeleting) Then
                 MessageBox.Show("Facility removed from the database", "Gone", MessageBoxButtons.OK)
             Else
                 MessageBox.Show("There was an error when attempting to remove the facility from the database." & vbNewLine & vbNewLine & "Facility has not been removed.", "Error", MessageBoxButtons.OK)
@@ -2084,9 +2091,9 @@ Public Class IAIPFacilityCreator
     Private Sub AirsNumberToDelete_TextChanged(sender As Object, e As EventArgs) Handles AirsNumberToDelete.TextChanged
         FacilityLongDisplay.Text = ""
         If Apb.ApbFacilityId.IsValidAirsNumberFormat(AirsNumberToDelete.Text) Then
-            Dim fac As Apb.Facilities.Facility = DAL.FacilityData.GetFacility(AirsNumberToDelete.Text)
+            Dim fac As Facility = DAL.GetFacility(AirsNumberToDelete.Text)
             If fac IsNot Nothing Then
-                fac.HeaderData = DAL.FacilityHeaderDataData.GetFacilityHeaderData(AirsNumberToDelete.Text)
+                fac.HeaderData = DAL.GetFacilityHeaderData(AirsNumberToDelete.Text)
                 If fac.HeaderData IsNot Nothing Then FacilityLongDisplay.Text = fac.LongDisplay
             End If
         End If

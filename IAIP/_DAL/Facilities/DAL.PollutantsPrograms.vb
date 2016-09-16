@@ -1,13 +1,12 @@
 ﻿Imports Iaip.Apb
 Imports Iaip.Apb.Facilities
-Imports Iaip.Apb.Sscp
 Imports System.Data.SqlClient
 
 Namespace DAL
 
     Module PollutantsPrograms
 
-        Public Function GetFacilityPollutants(airsNumber As Apb.ApbFacilityId) As DataTable
+        Public Function GetFacilityPollutants(airsNumber As ApbFacilityId) As DataTable
             Dim query As String = "SELECT DISTINCT(poll.STRPOLLUTANTKEY), " &
                 "  lkpoll.STRPOLLUTANTDESCRIPTION " &
                 "FROM APBAIRPROGRAMPOLLUTANTS poll " &
@@ -20,7 +19,7 @@ Namespace DAL
             Return dt
         End Function
 
-        Public Function GetFacilityAirPrograms(airsNumber As Apb.ApbFacilityId) As AirProgram
+        Public Function GetFacilityAirPrograms(airsNumber As ApbFacilityId) As AirProgram
             Dim query As String = "SELECT STRAIRPROGRAMCODES FROM APBHEADERDATA WHERE STRAIRSNUMBER = @airsNumber"
             Dim parameter As New SqlParameter("@airsNumber", airsNumber.DbFormattedString)
             Dim apc As String = DB.GetSingleValue(Of String)(query, parameter)
@@ -32,7 +31,7 @@ Namespace DAL
             End If
         End Function
 
-        Public Function GetFacilityAirProgramsAsDataTable(airsNumber As Apb.ApbFacilityId, Stringify As Boolean) As DataTable
+        Public Function GetFacilityAirProgramsAsDataTable(airsNumber As ApbFacilityId, Stringify As Boolean) As DataTable
             Dim airPrograms As AirProgram = GetFacilityAirPrograms(airsNumber)
 
             If (airPrograms = AirProgram.None) Then Return Nothing
@@ -57,20 +56,20 @@ Namespace DAL
         End Function
 
         Public Function GetFacilityProgramPollutantStatuses(airsNumber As ApbFacilityId) As DataTable
-            Dim query As String = "SELECT SUBSTR(app.STRAIRPOLLUTANTKEY, 13, 1) AS " &
-                "  ""Air Program Code"", lkpl.STRPOLLUTANTCODE AS " &
-                "  ""Pollutant Code"", lkpl.STRPOLLUTANTDESCRIPTION AS " &
-                "  ""Pollutant"", app.STROPERATIONALSTATUS AS " &
-                "  ""Operating Status Code"", app.DATMODIFINGDATE AS " &
-                "  ""Date Modified"",(up.STRLASTNAME || ', ' || up.STRFIRSTNAME) " &
-                "  AS ""Modified By"" " &
+            Dim query As String = "SELECT SUBSTRING(app.STRAIRPOLLUTANTKEY, 13, 1) AS " &
+                "  [Air Program Code], lkpl.STRPOLLUTANTCODE AS " &
+                "  [Pollutant Code], lkpl.STRPOLLUTANTDESCRIPTION AS " &
+                "  [Pollutant], app.STROPERATIONALSTATUS AS " &
+                "  [Operating Status Code], app.DATMODIFINGDATE AS " &
+                "  [Date Modified], CONCAT(up.STRLASTNAME, ', ', up.STRFIRSTNAME) " &
+                "  AS [Modified By] " &
                 "FROM APBAirProgramPollutants app " &
                 "INNER JOIN LookUPPollutants lkpl ON " &
                 "  app.STRPOLLUTANTKEY = lkpl.STRPOLLUTANTCODE " &
                 "INNER JOIN EPDUserProfiles up ON " &
                 "  app.STRMODIFINGPERSON = up.NUMUSERID " &
                 "WHERE app.STRAIRSNUMBER = @airsNumber " &
-                "ORDER BY ""Air Program Code"", ""Pollutant Code"""
+                "ORDER BY [Air Program Code], [Pollutant Code]"
             Dim parameter As New SqlParameter("@airsNumber", airsNumber.DbFormattedString)
             Return DB.GetDataTable(query, parameter)
         End Function
@@ -105,7 +104,7 @@ Namespace DAL
                 "  ( " &
                 "    @STRAIRSNUMBER, @STRAIRPOLLUTANTKEY, @STRPOLLUTANTKEY, " &
                 "    @STROPERATIONALSTATUS, " &
-                "    @STRMODIFINGPERSON, sysdate " &
+                "    @STRMODIFINGPERSON, getdate() " &
                 "  )"
 
             Dim parameters As SqlParameter() = {
@@ -128,7 +127,7 @@ Namespace DAL
             Dim query As String = "UPDATE APBAIRPROGRAMPOLLUTANTS " &
                 "SET STROPERATIONALSTATUS = @STROPERATIONALSTATUS, " &
                 "  STRMODIFINGPERSON = @STRMODIFINGPERSON, " &
-                "  DATMODIFINGDATE = sysdate " &
+                "  DATMODIFINGDATE = getdate() " &
                 "WHERE STRAIRPOLLUTANTKEY = @STRAIRPOLLUTANTKEY AND " &
                 "  STRPOLLUTANTKEY = @STRPOLLUTANTKEY "
 
@@ -161,8 +160,8 @@ Namespace DAL
         End Function
 
         Public Function GetPollutantsTable() As DataTable
-            Dim query As String = "SELECT STRPOLLUTANTCODE AS ""Pollutant Code"", " &
-                "  STRPOLLUTANTDESCRIPTION AS ""Pollutant"" " &
+            Dim query As String = "SELECT STRPOLLUTANTCODE AS [Pollutant Code], " &
+                "  STRPOLLUTANTDESCRIPTION AS [Pollutant] " &
                 "FROM LOOKUPPOLLUTANTS " &
                 "WHERE STRAFSCODE = 'True' " &
                 "ORDER BY STRPOLLUTANTDESCRIPTION"
