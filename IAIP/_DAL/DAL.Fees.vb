@@ -174,7 +174,9 @@ Namespace DAL
                 "INNER JOIN APBFACILITYINFORMATION fi ON " &
                 "  fa.STRAIRSNUMBER = fi.STRAIRSNUMBER " &
                 "ORDER BY fi.STRFACILITYNAME"
-            Return DB.GetDataTable(query)
+            Dim dt As DataTable = DB.GetDataTable(query)
+            dt.PrimaryKey = New DataColumn() {dt.Columns("STRAIRSNUMBER")}
+            Return dt
         End Function
 
     End Module

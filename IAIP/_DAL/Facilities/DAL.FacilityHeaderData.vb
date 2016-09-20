@@ -53,7 +53,7 @@ Namespace DAL
         ''' <returns>DataRow containing header data for the specified facility</returns>
         ''' <remarks>Data retrieved from VW_FACILITY_HEADERDATA view.</remarks>
         Public Function GetFacilityHeaderDataAsDataRow(airsNumber As ApbFacilityId) As DataRow
-            Dim spName As String = "IAIP_FACILITY.GetFacilityHeaderData"
+            Dim spName As String = "iaip_facility.GetFacilityHeaderData"
             Dim parameter As New SqlParameter("@AirsNumber", airsNumber.DbFormattedString)
             Return DB.SPGetDataRow(spName, parameter)
         End Function
@@ -106,7 +106,7 @@ Namespace DAL
         ''' <returns>A DataTable of historical header data for the specified facility</returns>
         ''' <remarks>Data retrieved from VW_HB_APBHEADERDATA view.</remarks>
         Public Function GetFacilityHeaderDataHistoryAsDataTable(airsNumber As ApbFacilityId) As DataTable
-            Dim spName As String = "IAIP_FACILITY.GetFacilityHeaderDataHistory"
+            Dim spName As String = "iaip_facility.GetFacilityHeaderDataHistory"
             Dim parameter As New SqlParameter("@AirsNumber", airsNumber.DbFormattedString)
             Return DB.SPGetDataTable(spName, parameter)
         End Function

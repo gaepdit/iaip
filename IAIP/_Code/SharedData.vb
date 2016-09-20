@@ -1,4 +1,5 @@
 ﻿Imports System.Collections.Generic
+Imports Iaip.Apb.Facilities
 
 Public Class SharedData
     Private Shared _initLock As Object = New Object()
@@ -25,6 +26,7 @@ Public Class SharedData
     ''' </summary>
     Public Enum SharedDataSet
         EpdOrganization
+        RuleSubparts
     End Enum
 
     ''' <summary>
@@ -49,22 +51,18 @@ Public Class SharedData
 
                 Case SharedTable.ViolationTypes
                     dt = DAL.Sscp.GetViolationTypes()
-                    dt.PrimaryKey = New DataColumn() {dt.Columns("AIRVIOLATIONTYPECODE")}
 
                 Case SharedTable.AllComplianceStaff
-                    dt = DAL.StaffData.GetComplianceStaff()
+                    dt = DAL.GetComplianceStaff()
 
                 Case SharedTable.Pollutants
                     dt = DAL.GetPollutantsTable()
-                    dt.PrimaryKey = New DataColumn() {dt.Columns("Pollutant Code")}
 
                 Case SharedTable.IaipAccountRoles
-                    dt = DAL.GetIaipAccountRoles
-                    dt.PrimaryKey = New DataColumn() {dt.Columns("RoleCode")}
+                    dt = DAL.GetIaipAccountRoles()
 
                 Case SharedTable.AllFeeFacilities
-                    dt = DAL.GetAllFeeFacilities
-                    dt.PrimaryKey = New DataColumn() {dt.Columns("STRAIRSNUMBER")}
+                    dt = DAL.GetAllFeeFacilities()
 
                 Case SharedTable.EpdManagers
                     dt = DAL.GetEpdManagersAsDataTable
@@ -101,6 +99,20 @@ Public Class SharedData
                     ds.Tables.Add(DAL.GetEpdUnitsAsDataTable)
                     ds.Tables(2).TableName = "Units"
                     ds.Tables(2).Rows.Add({0})
+
+                Case SharedDataSet.RuleSubparts
+
+                    ds.Tables.Add(DAL.GetRuleSubpartsAsDataTable(RulePart.NSPS))
+                    ds.Tables(0).TableName = RulePart.NSPS.ToString
+
+                    ds.Tables.Add(DAL.GetRuleSubpartsAsDataTable(RulePart.NESHAP))
+                    ds.Tables(1).TableName = RulePart.NESHAP.ToString
+
+                    ds.Tables.Add(DAL.GetRuleSubpartsAsDataTable(RulePart.MACT))
+                    ds.Tables(2).TableName = RulePart.MACT.ToString
+
+                    ds.Tables.Add(DAL.GetRuleSubpartsAsDataTable(RulePart.SIP))
+                    ds.Tables(3).TableName = RulePart.SIP.ToString
 
             End Select
 

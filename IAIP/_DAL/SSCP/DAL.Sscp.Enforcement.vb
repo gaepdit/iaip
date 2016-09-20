@@ -567,8 +567,6 @@ Namespace DAL.Sscp
 
 #Region " Lookup table "
 
-        ' TODO: Move this to a data service
-
         Public Function GetViolationTypes() As DataTable
             Dim query As String =
                 "SELECT AIRVIOLATIONTYPECODE, VIOLATIONTYPEDESC, SEVERITYCODE " &
@@ -583,6 +581,7 @@ Namespace DAL.Sscp
             emptyRow("SEVERITYCODE") = "BLANK"
             dt.Rows.Add(emptyRow)
 
+            dt.PrimaryKey = New DataColumn() {dt.Columns("AIRVIOLATIONTYPECODE")}
             Return dt
         End Function
 

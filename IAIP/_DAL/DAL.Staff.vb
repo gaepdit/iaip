@@ -13,13 +13,14 @@ Namespace DAL
                 " AND NUMBRANCH           = @branch " &
                 " ORDER BY STRLASTNAME, STRFIRSTNAME "
             Dim parameter As New SqlParameter("@branch", branch)
-
             Return DB.GetDataTable(query, parameter)
         End Function
 
         Public Function GetComplianceStaff() As DataTable
             Dim query As String = "SELECT NUMUSERID, STAFF, STRLASTNAME FROM VW_COMPLIANCESTAFF"
-            Return DB.GetDataTable(query)
+            Dim dt As DataTable = DB.GetDataTable(query)
+            dt.PrimaryKey = New DataColumn() {dt.Columns("NUMUSERID")}
+            Return dt
         End Function
 
     End Module

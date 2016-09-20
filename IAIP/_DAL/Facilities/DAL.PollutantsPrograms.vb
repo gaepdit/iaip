@@ -165,7 +165,9 @@ Namespace DAL
                 "FROM LOOKUPPOLLUTANTS " &
                 "WHERE STRAFSCODE = 'True' " &
                 "ORDER BY STRPOLLUTANTDESCRIPTION"
-            Return DB.GetDataTable(query)
+            Dim dt As DataTable = DB.GetDataTable(query)
+            dt.PrimaryKey = New DataColumn() {dt.Columns("Pollutant Code")}
+            Return dt
         End Function
 
     End Module
