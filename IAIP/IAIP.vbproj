@@ -929,10 +929,10 @@
     <Compile Include="Facility\Sub Forms\IAIPEditHeaderData.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Facility\Sub Forms\IAIPEditSubParts.Designer.vb">
-      <DependentUpon>IAIPEditSubParts.vb</DependentUpon>
+    <Compile Include="Facility\Sub Forms\IAIPEditSubparts.Designer.vb">
+      <DependentUpon>IAIPEditSubparts.vb</DependentUpon>
     </Compile>
-    <Compile Include="Facility\Sub Forms\IAIPEditSubParts.vb">
+    <Compile Include="Facility\Sub Forms\IAIPEditSubparts.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Facility\Sub Forms\IAIPEditContacts.Designer.vb">
@@ -1435,9 +1435,9 @@
       <SubType>Designer</SubType>
       <DependentUpon>IAIPEditHeaderData.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Facility\Sub Forms\IAIPEditSubParts.resx">
+    <EmbeddedResource Include="Facility\Sub Forms\IAIPEditSubparts.resx">
       <SubType>Designer</SubType>
-      <DependentUpon>IAIPEditSubParts.vb</DependentUpon>
+      <DependentUpon>IAIPEditSubparts.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Facility\Sub Forms\IAIPEditContacts.resx">
       <SubType>Designer</SubType>

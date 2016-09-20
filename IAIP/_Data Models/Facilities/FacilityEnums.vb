@@ -157,6 +157,16 @@ Namespace Apb.Facilities
             <Description("HAPs Major")> HapMajor = 2
         End Enum
 
+        ''' <summary>
+        ''' Air Programs (Rules) that have subparts
+        ''' </summary>
+        Public Enum RulePart
+            SIP
+            NSPS
+            NESHAP
+            MACT
+        End Enum
+
 #End Region
 
 #Region " Header data "

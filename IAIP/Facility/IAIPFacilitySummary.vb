@@ -444,7 +444,7 @@ Public Class IAIPFacilitySummary
 
     Private Sub EditSubpartsButton_Click(sender As Object, e As EventArgs) Handles EditSubpartsButton.Click
         Dim editSubParts As IAIPEditSubParts = OpenMultiForm(IAIPEditSubParts, Me.AirsNumber.GetHashCode)
-        editSubParts.txtAIRSNumber.Text = Me.AirsNumber.ToString
+        editSubParts.AirsNumber = AirsNumber
     End Sub
 
     Private Sub EditHeaderDataButton_Click(sender As Object, e As EventArgs) Handles EditHeaderDataButton.Click

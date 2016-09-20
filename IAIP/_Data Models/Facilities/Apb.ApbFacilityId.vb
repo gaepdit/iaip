@@ -120,7 +120,7 @@
         <DebuggerStepThrough()> _
         Public Shared Function IsValidAirsNumberFormat(airsNumber As String) As Boolean
             If airsNumber Is Nothing Then Return False
-            Return System.Text.RegularExpressions.Regex.IsMatch(airsNumber, AirsNumberPattern)
+            Return Text.RegularExpressions.Regex.IsMatch(airsNumber, AirsNumberPattern)
         End Function
 
         ''' <summary>
