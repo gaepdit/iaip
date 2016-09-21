@@ -9717,7 +9717,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
             "LookUpDistrictInformation   " &
             "where strDistrictResponsible = 'True'  " &
             "and LookUpDistricts.strDistrictCode = LookUpDistrictInformation.strDistrictCode   " &
-            "and LookUpDistrictInformation.strDistrictCounty = substr(SSCPDistrictResponsible.strAIRSNumber, 5, 3) " &
+            "and LookUpDistrictInformation.strDistrictCounty = SUBSTRING(SSCPDistrictResponsible.strAIRSNumber, 5, 3) " &
             "and SSCPDistrictResponsible.strAIRSNumber = '0413" & txtAirsNumber.Text & "' "
 
             cmd = New SqlCommand(SQL, CurrentConnection)

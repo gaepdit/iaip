@@ -770,7 +770,7 @@ Public Class IAIPQueryGenerator
                     '  SQLFrom = SQLFrom
                 Else
                     SQLFrom = SQLFrom & " LookUpCountyInformation, "
-                    SQLWhere = SQLWhere & " and substr(APBMasterAIRS.strAIRSNumber, 5, 3) = " &
+                    SQLWhere = SQLWhere & " and SUBSTRING(APBMasterAIRS.strAIRSNumber, 5, 3) = " &
                     "LookUpCountyInformation.strCountyCode "
                 End If
             End If
@@ -783,7 +783,7 @@ Public Class IAIPQueryGenerator
                     'SQLFrom = SQLFrom
                 Else
                     SQLFrom = SQLFrom & " LookUpDistricts, LookUpDistrictInformation, "
-                    SQLWhere = SQLWhere & " and substr(APBMasterAIRS.strAIRSNumber, 5, 3) = " &
+                    SQLWhere = SQLWhere & " and SUBSTRING(APBMasterAIRS.strAIRSNumber, 5, 3) = " &
                     "LookUpDistrictInformation.strDistrictCounty " &
                     " and LookUpDistrictInformation.strDistrictCode = LookUpDistricts.strDistrictCode "
                 End If
@@ -902,48 +902,48 @@ Public Class IAIPQueryGenerator
 
             If chbAttainmentStatus.Checked = True Then
                 SQLSelect = SQLSelect & "case " &
-                "when substr(APBHeaderData.strAttainmentStatus, 2, 1) is Null then '' " &
-                "when substr(APBHeaderData.strAttainmentStatus, 2, 1) = '1' then '1-Hr Yes' " &
+                "when SUBSTRING(APBHeaderData.strAttainmentStatus, 2, 1) is Null then '' " &
+                "when SUBSTRING(APBHeaderData.strAttainmentStatus, 2, 1) = '1' then '1-Hr Yes' " &
                 "Else '' end OneHrYes, " &
                 "case " &
-                "when substr(APBHeaderData.strAttainmentStatus, 2, 1) is Null then '' " &
-                "when substr(APBHeaderData.strAttainmentStatus, 2, 1) = '2' then '1-Hr Contribute' " &
+                "when SUBSTRING(APBHeaderData.strAttainmentStatus, 2, 1) is Null then '' " &
+                "when SUBSTRING(APBHeaderData.strAttainmentStatus, 2, 1) = '2' then '1-Hr Contribute' " &
                 "Else '' end OneHrContribute, " &
                 "case " &
-                "when substr(APBHeaderData.strAttainmentStatus, 2, 1) is Null then '' " &
-                "when substr(APBHeaderData.strAttainmentStatus, 2, 1) = '0' then '1-Hr No' " &
+                "when SUBSTRING(APBHeaderData.strAttainmentStatus, 2, 1) is Null then '' " &
+                "when SUBSTRING(APBHeaderData.strAttainmentStatus, 2, 1) = '0' then '1-Hr No' " &
                 "Else '' End OneHrNo, " &
                 "case " &
-                "when substr(APBHeaderData.strAttainmentStatus, 2, 1) is Null then '' " &
-                "when substr(APBHeaderData.strAttainmentStatus, 3, 1) = '1' then '8-Hr Atlanta' " &
+                "when SUBSTRING(APBHeaderData.strAttainmentStatus, 2, 1) is Null then '' " &
+                "when SUBSTRING(APBHeaderData.strAttainmentStatus, 3, 1) = '1' then '8-Hr Atlanta' " &
                 "else '' end EightHrAtlanta, " &
                 "case " &
-                "when substr(APBHeaderData.strAttainmentStatus, 2, 1) is Null then '' " &
-                "when substr(APBHeaderData.strAttainmentStatus, 3, 1) = '2' then '8-Hr Macon' " &
+                "when SUBSTRING(APBHeaderData.strAttainmentStatus, 2, 1) is Null then '' " &
+                "when SUBSTRING(APBHeaderData.strAttainmentStatus, 3, 1) = '2' then '8-Hr Macon' " &
                 "else '' end EightHrMacon, " &
                 "case " &
-                "when substr(APBHeaderData.strAttainmentStatus, 2, 1) is Null then '' " &
-                "when substr(APBHeaderData.strAttainmentStatus, 3, 1) = '0' then '8-Hr No' " &
+                "when SUBSTRING(APBHeaderData.strAttainmentStatus, 2, 1) is Null then '' " &
+                "when SUBSTRING(APBHeaderData.strAttainmentStatus, 3, 1) = '0' then '8-Hr No' " &
                 "else '' end EightHrNo, " &
                 "case " &
-                "when substr(APBHeaderData.strAttainmentStatus, 2, 1) is Null then '' " &
-                "when substr(APBHeaderData.strAttainmentStatus, 4, 1) = '1' then 'PM-2.5 Atlanta' " &
+                "when SUBSTRING(APBHeaderData.strAttainmentStatus, 2, 1) is Null then '' " &
+                "when SUBSTRING(APBHeaderData.strAttainmentStatus, 4, 1) = '1' then 'PM-2.5 Atlanta' " &
                 "else '' end PMAtlanta, " &
                 "case " &
-                "when substr(APBHeaderData.strAttainmentStatus, 2, 1) is Null then '' " &
-                "when substr(APBHeaderData.strAttainmentStatus, 4, 1) = '2' then 'PM-2.5 Chattanooga' " &
+                "when SUBSTRING(APBHeaderData.strAttainmentStatus, 2, 1) is Null then '' " &
+                "when SUBSTRING(APBHeaderData.strAttainmentStatus, 4, 1) = '2' then 'PM-2.5 Chattanooga' " &
                 "else '' end PMChattanooga, " &
                 "case " &
-                "when substr(APBHeaderData.strAttainmentStatus, 2, 1) is Null then '' " &
-                "when substr(APBHeaderData.strAttainmentStatus, 4, 1) = '3' then 'PM-2.5 Floyd' " &
+                "when SUBSTRING(APBHeaderData.strAttainmentStatus, 2, 1) is Null then '' " &
+                "when SUBSTRING(APBHeaderData.strAttainmentStatus, 4, 1) = '3' then 'PM-2.5 Floyd' " &
                 "else '' end PMFloyd, " &
                 "case " &
-                "when substr(APBHeaderData.strAttainmentStatus, 2, 1) is Null then '' " &
-                "when substr(APBHeaderData.strAttainmentStatus, 4, 1) = '4' then 'PM-2.5 Macon' " &
+                "when SUBSTRING(APBHeaderData.strAttainmentStatus, 2, 1) is Null then '' " &
+                "when SUBSTRING(APBHeaderData.strAttainmentStatus, 4, 1) = '4' then 'PM-2.5 Macon' " &
                 "else '' end PMMacon, " &
                 "case " &
-                "when substr(APBHeaderData.strAttainmentStatus, 2, 1) is Null then '' " &
-                "when substr(APBHeaderData.strAttainmentStatus, 4, 1) = '0' then 'PM-2.5 No' " &
+                "when SUBSTRING(APBHeaderData.strAttainmentStatus, 2, 1) is Null then '' " &
+                "when SUBSTRING(APBHeaderData.strAttainmentStatus, 4, 1) = '0' then 'PM-2.5 No' " &
                 "else '' end PMNo, "
 
                 If SQLFrom.IndexOf("APBHeaderData") <> -1 Then
@@ -955,8 +955,8 @@ Public Class IAIPQueryGenerator
             Else
                 If chb1HrYes.Checked = True Then
                     SQLSelect = SQLSelect & "case " &
-                    "when substr(APBHeaderData.strAttainmentStatus, 2, 1) is Null then '' " &
-                    "when substr(APBHeaderData.strAttainmentStatus, 2, 1) = '1' then '1-Hr Yes' " &
+                    "when SUBSTRING(APBHeaderData.strAttainmentStatus, 2, 1) is Null then '' " &
+                    "when SUBSTRING(APBHeaderData.strAttainmentStatus, 2, 1) = '1' then '1-Hr Yes' " &
                     "Else '' end OneHrYes, "
 
                     If SQLFrom.IndexOf("APBHeaderData") <> -1 Then
@@ -969,8 +969,8 @@ Public Class IAIPQueryGenerator
                 If chb1HrNo.Checked = True Then
                     SQLSelect = SQLSelect &
                     "case " &
-                    "when substr(APBHeaderData.strAttainmentStatus, 2, 1) is Null then '' " &
-                    "when substr(APBHeaderData.strAttainmentStatus, 2, 1) = '0' then '1-Hr No' " &
+                    "when SUBSTRING(APBHeaderData.strAttainmentStatus, 2, 1) is Null then '' " &
+                    "when SUBSTRING(APBHeaderData.strAttainmentStatus, 2, 1) = '0' then '1-Hr No' " &
                     "Else '' End OneHrNo, "
 
                     If SQLFrom.IndexOf("APBHeaderData") <> -1 Then
@@ -983,8 +983,8 @@ Public Class IAIPQueryGenerator
                 If chb1HrContribute.Checked = True Then
                     SQLSelect = SQLSelect &
                     "case " &
-                    "when substr(APBHeaderData.strAttainmentStatus, 2, 1) is Null then '' " &
-                    "when substr(APBHeaderData.strAttainmentStatus, 2, 1) = '2' then '1-Hr Contribute' " &
+                    "when SUBSTRING(APBHeaderData.strAttainmentStatus, 2, 1) is Null then '' " &
+                    "when SUBSTRING(APBHeaderData.strAttainmentStatus, 2, 1) = '2' then '1-Hr Contribute' " &
                     "Else '' end OneHrContribute, "
 
                     If SQLFrom.IndexOf("APBHeaderData") <> -1 Then
@@ -997,8 +997,8 @@ Public Class IAIPQueryGenerator
                 If chb8HrAtlanta.Checked = True Then
                     SQLSelect = SQLSelect &
                     "case " &
-                    "when substr(APBHeaderData.strAttainmentStatus, 2, 1) is Null then '' " &
-                    "when substr(APBHeaderData.strAttainmentStatus, 3, 1) = '1' then '8-Hr Atlanta' " &
+                    "when SUBSTRING(APBHeaderData.strAttainmentStatus, 2, 1) is Null then '' " &
+                    "when SUBSTRING(APBHeaderData.strAttainmentStatus, 3, 1) = '1' then '8-Hr Atlanta' " &
                     "else '' end EightHrAtlanta, "
 
                     If SQLFrom.IndexOf("APBHeaderData") <> -1 Then
@@ -1011,8 +1011,8 @@ Public Class IAIPQueryGenerator
                 If chb8HrMacon.Checked = True Then
                     SQLSelect = SQLSelect &
                     "case " &
-                    "when substr(APBHeaderData.strAttainmentStatus, 2, 1) is Null then '' " &
-                    "when substr(APBHeaderData.strAttainmentStatus, 3, 1) = '2' then '8-Hr Macon' " &
+                    "when SUBSTRING(APBHeaderData.strAttainmentStatus, 2, 1) is Null then '' " &
+                    "when SUBSTRING(APBHeaderData.strAttainmentStatus, 3, 1) = '2' then '8-Hr Macon' " &
                     "else '' end EightHrMacon, "
 
                     If SQLFrom.IndexOf("APBHeaderData") <> -1 Then
@@ -1025,8 +1025,8 @@ Public Class IAIPQueryGenerator
                 If chb8HrNo.Checked = True Then
                     SQLSelect = SQLSelect &
                     "case " &
-                    "when substr(APBHeaderData.strAttainmentStatus, 2, 1) is Null then '' " &
-                    "when substr(APBHeaderData.strAttainmentStatus, 3, 1) = '0' then '8-Hr No' " &
+                    "when SUBSTRING(APBHeaderData.strAttainmentStatus, 2, 1) is Null then '' " &
+                    "when SUBSTRING(APBHeaderData.strAttainmentStatus, 3, 1) = '0' then '8-Hr No' " &
                     "else '' end EightHrNo, "
 
                     If SQLFrom.IndexOf("APBHeaderData") <> -1 Then
@@ -1039,8 +1039,8 @@ Public Class IAIPQueryGenerator
                 If chbPMAtlanta.Checked = True Then
                     SQLSelect = SQLSelect &
                     "case " &
-                    "when substr(APBHeaderData.strAttainmentStatus, 2, 1) is Null then '' " &
-                    "when substr(APBHeaderData.strAttainmentStatus, 4, 1) = '1' then 'PM-2.5 Atlanta' " &
+                    "when SUBSTRING(APBHeaderData.strAttainmentStatus, 2, 1) is Null then '' " &
+                    "when SUBSTRING(APBHeaderData.strAttainmentStatus, 4, 1) = '1' then 'PM-2.5 Atlanta' " &
                     "else '' end PMAtlanta, "
 
                     If SQLFrom.IndexOf("APBHeaderData") <> -1 Then
@@ -1053,8 +1053,8 @@ Public Class IAIPQueryGenerator
                 If chbPMChattanooga.Checked = True Then
                     SQLSelect = SQLSelect &
                     "case " &
-                    "when substr(APBHeaderData.strAttainmentStatus, 2, 1) is Null then '' " &
-                    "when substr(APBHeaderData.strAttainmentStatus, 4, 1) = '2' then 'PM-2.5 Chattanooga' " &
+                    "when SUBSTRING(APBHeaderData.strAttainmentStatus, 2, 1) is Null then '' " &
+                    "when SUBSTRING(APBHeaderData.strAttainmentStatus, 4, 1) = '2' then 'PM-2.5 Chattanooga' " &
                     "else '' end PMChattanooga, "
 
                     If SQLFrom.IndexOf("APBHeaderData") <> -1 Then
@@ -1067,8 +1067,8 @@ Public Class IAIPQueryGenerator
                 If chbPMFloyd.Checked = True Then
                     SQLSelect = SQLSelect &
                     "case " &
-                    "when substr(APBHeaderData.strAttainmentStatus, 2, 1) is Null then '' " &
-                    "when substr(APBHeaderData.strAttainmentStatus, 4, 1) = '3' then 'PM-2.5 Floyd' " &
+                    "when SUBSTRING(APBHeaderData.strAttainmentStatus, 2, 1) is Null then '' " &
+                    "when SUBSTRING(APBHeaderData.strAttainmentStatus, 4, 1) = '3' then 'PM-2.5 Floyd' " &
                     "else '' end PMFloyd, "
 
                     If SQLFrom.IndexOf("APBHeaderData") <> -1 Then
@@ -1081,8 +1081,8 @@ Public Class IAIPQueryGenerator
                 If chbPMMacon.Checked = True Then
                     SQLSelect = SQLSelect &
                     "case " &
-                    "when substr(APBHeaderData.strAttainmentStatus, 2, 1) is Null then '' " &
-                    "when substr(APBHeaderData.strAttainmentStatus, 4, 1) = '4' then 'PM-2.5 Macon' " &
+                    "when SUBSTRING(APBHeaderData.strAttainmentStatus, 2, 1) is Null then '' " &
+                    "when SUBSTRING(APBHeaderData.strAttainmentStatus, 4, 1) = '4' then 'PM-2.5 Macon' " &
                     "else '' end PMMacon, "
 
                     If SQLFrom.IndexOf("APBHeaderData") <> -1 Then
@@ -1095,8 +1095,8 @@ Public Class IAIPQueryGenerator
                 If chbPMNo.Checked = True Then
                     SQLSelect = SQLSelect &
                     "case " &
-                    "when substr(APBHeaderData.strAttainmentStatus, 2, 1) is Null then '' " &
-                    "when substr(APBHeaderData.strAttainmentStatus, 4, 1) = '0' then 'PM-2.5 No' " &
+                    "when SUBSTRING(APBHeaderData.strAttainmentStatus, 2, 1) is Null then '' " &
+                    "when SUBSTRING(APBHeaderData.strAttainmentStatus, 4, 1) = '0' then 'PM-2.5 No' " &
                     "else '' end PMNo, "
 
                     If SQLFrom.IndexOf("APBHeaderData") <> -1 Then
@@ -1109,12 +1109,12 @@ Public Class IAIPQueryGenerator
             End If
             If chbStateProgramCodes.Checked = True Then
                 SQLSelect = SQLSelect & "case " &
-                "when substr(strStateProgramCodes, 1, 1) is null then '' " &
-                "when substr(strStateProgramCodes, 1, 1) = '1' then 'NSR/PSD Major' " &
+                "when SUBSTRING(strStateProgramCodes, 1, 1) is null then '' " &
+                "when SUBSTRING(strStateProgramCodes, 1, 1) = '1' then 'NSR/PSD Major' " &
                 "Else '' end NSRPSD, " &
                 "case " &
-                "when substr(strStateProgramCodes, 2, 1) is Null then '' " &
-                "when substr(strStateProgramCodes, 2, 1) = '1' then 'HAPs Major' " &
+                "when SUBSTRING(strStateProgramCodes, 2, 1) is Null then '' " &
+                "when SUBSTRING(strStateProgramCodes, 2, 1) = '1' then 'HAPs Major' " &
                 "Else '' end HAP, "
 
                 If SQLFrom.IndexOf("APBHeaderData") <> -1 Then
@@ -1127,8 +1127,8 @@ Public Class IAIPQueryGenerator
                 If chbNSRPSDMajor.Checked = True Then
                     SQLSelect = SQLSelect &
                     "case " &
-                    "when substr(strStateProgramCodes, 1, 1) is null then '' " &
-                    "when substr(strStateProgramCodes, 1, 1) = '1' then 'NSR/PSD Major' " &
+                    "when SUBSTRING(strStateProgramCodes, 1, 1) is null then '' " &
+                    "when SUBSTRING(strStateProgramCodes, 1, 1) = '1' then 'NSR/PSD Major' " &
                     "Else '' end NSRPSD, "
 
                     If SQLFrom.IndexOf("APBHeaderData") <> -1 Then
@@ -1142,8 +1142,8 @@ Public Class IAIPQueryGenerator
                 If chbHAPMajor.Checked = True Then
                     SQLSelect = SQLSelect &
                     "case " &
-                    "when substr(strStateProgramCodes, 2, 1) is Null then '' " &
-                    "when substr(strStateProgramCodes, 2, 1) = '1' then 'HAPs Major' " &
+                    "when SUBSTRING(strStateProgramCodes, 2, 1) is Null then '' " &
+                    "when SUBSTRING(strStateProgramCodes, 2, 1) = '1' then 'HAPs Major' " &
                     "Else '' end HAP, "
 
                     If SQLFrom.IndexOf("APBHeaderData") <> -1 Then
@@ -1158,44 +1158,44 @@ Public Class IAIPQueryGenerator
             If chbViewAirPrograms.Checked = True Then
                 SQLSelect = SQLSelect &
                 "case " &
-                "when substr(strAirProgramCodes, 1, 1) = '0' then '' " &
-                "when substr(strAirProgramCodes, 1, 1) = '1' then '0 - SIP' " &
+                "when SUBSTRING(strAirProgramCodes, 1, 1) = '0' then '' " &
+                "when SUBSTRING(strAirProgramCodes, 1, 1) = '1' then '0 - SIP' " &
                 "Else '' end APC0, " &
-                "case when substr(strAirProgramCodes, 2, 1) = '0' then '' " &
-                "when substr(strAirProgramCodes, 2, 1) = '1' then '1 - Federal SIP' " &
+                "case when SUBSTRING(strAirProgramCodes, 2, 1) = '0' then '' " &
+                "when SUBSTRING(strAirProgramCodes, 2, 1) = '1' then '1 - Federal SIP' " &
                 "Else '' end APC1, " &
-                "case when substr(strAirProgramCodes, 3, 1) = '0' then '' " &
-                "when substr(strAirProgramCodes, 3, 1) = '1' then '3 - Non-Fed' " &
+                "case when SUBSTRING(strAirProgramCodes, 3, 1) = '0' then '' " &
+                "when SUBSTRING(strAirProgramCodes, 3, 1) = '1' then '3 - Non-Fed' " &
                 "Else '' end APC3, " &
-                "case when substr(strAirProgramCodes, 4, 1) = '0' then '' " &
-                "when substr(strAirProgramCodes, 4, 1) = '1' then '4 - CFC Tracking' " &
+                "case when SUBSTRING(strAirProgramCodes, 4, 1) = '0' then '' " &
+                "when SUBSTRING(strAirProgramCodes, 4, 1) = '1' then '4 - CFC Tracking' " &
                 "Else '' end APC4, " &
-                "case when substr(strAirProgramCodes, 5, 1) = '0' then '' " &
-                "when substr(strAirProgramCodes, 5, 1) = '1' then '6 - PSD' " &
+                "case when SUBSTRING(strAirProgramCodes, 5, 1) = '0' then '' " &
+                "when SUBSTRING(strAirProgramCodes, 5, 1) = '1' then '6 - PSD' " &
                 "Else '' end APC6, " &
-                "case when substr(strAirProgramCodes, 6, 1) = '0' then '' " &
-                "when substr(strAirProgramCodes, 6, 1) = '1' then '7 - NSR' " &
+                "case when SUBSTRING(strAirProgramCodes, 6, 1) = '0' then '' " &
+                "when SUBSTRING(strAirProgramCodes, 6, 1) = '1' then '7 - NSR' " &
                 "Else '' end APC7, " &
-                "case when substr(strAirProgramCodes, 7, 1) = '0' then '' " &
-                "when substr(strAirProgramCodes, 7, 1) = '1' then '8 - NESHAP' " &
+                "case when SUBSTRING(strAirProgramCodes, 7, 1) = '0' then '' " &
+                "when SUBSTRING(strAirProgramCodes, 7, 1) = '1' then '8 - NESHAP' " &
                 "Else '' end APC8, " &
-                "case when substr(strAirProgramCodes, 8, 1) = '0' then '' " &
-                "when substr(strAirProgramCodes, 8, 1) = '1' then '9 - NSPS' " &
+                "case when SUBSTRING(strAirProgramCodes, 8, 1) = '0' then '' " &
+                "when SUBSTRING(strAirProgramCodes, 8, 1) = '1' then '9 - NSPS' " &
                 "Else '' end APC9, " &
-                "case when substr(strAirProgramCodes, 9, 1) = '0' then '' " &
-                "when substr(strAirProgramCodes, 9, 1) = '1' then 'A - Acid Percipitation' " &
+                "case when SUBSTRING(strAirProgramCodes, 9, 1) = '0' then '' " &
+                "when SUBSTRING(strAirProgramCodes, 9, 1) = '1' then 'A - Acid Percipitation' " &
                 "Else '' end APCA, " &
-                "case when substr(strAirProgramCodes, 10, 1) = '0' then '' " &
-                "when substr(strAirProgramCodes, 10, 1) = '1' then 'F - FESHOP' " &
+                "case when SUBSTRING(strAirProgramCodes, 10, 1) = '0' then '' " &
+                "when SUBSTRING(strAirProgramCodes, 10, 1) = '1' then 'F - FESHOP' " &
                 "Else '' end APCF, " &
-                "case when substr(strAirProgramCodes, 11, 1) = '0' then '' " &
-                "when substr(strAirProgramCodes, 11, 1) = '1' then 'I - Native American' " &
+                "case when SUBSTRING(strAirProgramCodes, 11, 1) = '0' then '' " &
+                "when SUBSTRING(strAirProgramCodes, 11, 1) = '1' then 'I - Native American' " &
                 "Else '' end APCI, " &
-                "case when substr(strAirProgramCodes, 12, 1) = '0' then '' " &
-                "when substr(strAirProgramCodes, 12, 1) = '1' then 'M - MACT' " &
+                "case when SUBSTRING(strAirProgramCodes, 12, 1) = '0' then '' " &
+                "when SUBSTRING(strAirProgramCodes, 12, 1) = '1' then 'M - MACT' " &
                 "Else '' end APCM, " &
-                "case when substr(strAirProgramCodes, 13, 1) = '0' then '' " &
-                "when substr(strAirProgramCodes, 13, 1) = '1' then 'V - Title V' " &
+                "case when SUBSTRING(strAirProgramCodes, 13, 1) = '0' then '' " &
+                "when SUBSTRING(strAirProgramCodes, 13, 1) = '1' then 'V - Title V' " &
                 "Else '' end APCV, "
 
                 If SQLFrom.IndexOf("APBHeaderData") <> -1 Then
@@ -1208,8 +1208,8 @@ Public Class IAIPQueryGenerator
                 If chbAPC0.Checked = True Then
                     SQLSelect = SQLSelect &
                     "case " &
-                    "when substr(strAirProgramCodes, 1, 1) = '0' then '' " &
-                    "when substr(strAirProgramCodes, 1, 1) = '1' then '0 - SIP' " &
+                    "when SUBSTRING(strAirProgramCodes, 1, 1) = '0' then '' " &
+                    "when SUBSTRING(strAirProgramCodes, 1, 1) = '1' then '0 - SIP' " &
                     "Else '' end APC0, "
 
                     If SQLFrom.IndexOf("APBHeaderData") <> -1 Then
@@ -1222,8 +1222,8 @@ Public Class IAIPQueryGenerator
                 If chbAPC1.Checked = True Then
                     SQLSelect = SQLSelect &
                     "case " &
-                    "when substr(strAirProgramCodes, 2, 1) = '0' then '' " &
-                    "when substr(strAirProgramCodes, 2, 1) = '1' then '1 - Federal SIP' " &
+                    "when SUBSTRING(strAirProgramCodes, 2, 1) = '0' then '' " &
+                    "when SUBSTRING(strAirProgramCodes, 2, 1) = '1' then '1 - Federal SIP' " &
                     "Else '' end APC1, "
 
                     If SQLFrom.IndexOf("APBHeaderData") <> -1 Then
@@ -1236,8 +1236,8 @@ Public Class IAIPQueryGenerator
                 If chbAPC3.Checked = True Then
                     SQLSelect = SQLSelect &
                     "case " &
-                    "when substr(strAirProgramCodes, 3, 1) = '0' then '' " &
-                    "when substr(strAirProgramCodes, 3, 1) = '1' then '3 - Non-Fed' " &
+                    "when SUBSTRING(strAirProgramCodes, 3, 1) = '0' then '' " &
+                    "when SUBSTRING(strAirProgramCodes, 3, 1) = '1' then '3 - Non-Fed' " &
                     "Else '' end APC3, "
 
                     If SQLFrom.IndexOf("APBHeaderData") <> -1 Then
@@ -1250,8 +1250,8 @@ Public Class IAIPQueryGenerator
                 If chbAPC4.Checked = True Then
                     SQLSelect = SQLSelect &
                     "case " &
-                    "when substr(strAirProgramCodes, 4, 1) = '0' then '' " &
-                    "when substr(strAirProgramCodes, 4, 1) = '1' then '4 - CFC Tracking' " &
+                    "when SUBSTRING(strAirProgramCodes, 4, 1) = '0' then '' " &
+                    "when SUBSTRING(strAirProgramCodes, 4, 1) = '1' then '4 - CFC Tracking' " &
                     "Else '' end APC4, "
 
                     If SQLFrom.IndexOf("APBHeaderData") <> -1 Then
@@ -1263,8 +1263,8 @@ Public Class IAIPQueryGenerator
                 End If
                 If chbAPC6.Checked = True Then
                     SQLSelect = SQLSelect &
-                    "case when substr(strAirProgramCodes, 5, 1) = '0' then '' " &
-                                    "when substr(strAirProgramCodes, 5, 1) = '1' then '6 - PSD' " &
+                    "case when SUBSTRING(strAirProgramCodes, 5, 1) = '0' then '' " &
+                                    "when SUBSTRING(strAirProgramCodes, 5, 1) = '1' then '6 - PSD' " &
                                     "Else '' end APC6, "
 
                     If SQLFrom.IndexOf("APBHeaderData") <> -1 Then
@@ -1277,8 +1277,8 @@ Public Class IAIPQueryGenerator
                 If chbAPC7.Checked = True Then
                     SQLSelect = SQLSelect &
                     "case " &
-                    "when substr(strAirProgramCodes, 6, 1) = '0' then '' " &
-                    "when substr(strAirProgramCodes, 6, 1) = '1' then '7 - NSR' " &
+                    "when SUBSTRING(strAirProgramCodes, 6, 1) = '0' then '' " &
+                    "when SUBSTRING(strAirProgramCodes, 6, 1) = '1' then '7 - NSR' " &
                     "Else '' end APC7, "
 
                     If SQLFrom.IndexOf("APBHeaderData") <> -1 Then
@@ -1291,8 +1291,8 @@ Public Class IAIPQueryGenerator
                 If chbAPC8.Checked = True Then
                     SQLSelect = SQLSelect &
                     "case " &
-                    "when substr(strAirProgramCodes, 7, 1) = '0' then '' " &
-                    "when substr(strAirProgramCodes, 7, 1) = '1' then '8 - NESHAP' " &
+                    "when SUBSTRING(strAirProgramCodes, 7, 1) = '0' then '' " &
+                    "when SUBSTRING(strAirProgramCodes, 7, 1) = '1' then '8 - NESHAP' " &
                     "Else '' end APC8, "
 
                     If SQLFrom.IndexOf("APBHeaderData") <> -1 Then
@@ -1305,8 +1305,8 @@ Public Class IAIPQueryGenerator
                 If chbAPC9.Checked = True Then
                     SQLSelect = SQLSelect &
                     "case " &
-                    "when substr(strAirProgramCodes, 8, 1) = '0' then '' " &
-                    "when substr(strAirProgramCodes, 8, 1) = '1' then '9 - NSPS' " &
+                    "when SUBSTRING(strAirProgramCodes, 8, 1) = '0' then '' " &
+                    "when SUBSTRING(strAirProgramCodes, 8, 1) = '1' then '9 - NSPS' " &
                     "Else '' end APC9, "
 
                     If SQLFrom.IndexOf("APBHeaderData") <> -1 Then
@@ -1319,8 +1319,8 @@ Public Class IAIPQueryGenerator
                 If chbAPCA.Checked = True Then
                     SQLSelect = SQLSelect &
                     "case " &
-                    "when substr(strAirProgramCodes, 9, 1) = '0' then '' " &
-                    "when substr(strAirProgramCodes, 9, 1) = '1' then 'A - Acid Percipitation' " &
+                    "when SUBSTRING(strAirProgramCodes, 9, 1) = '0' then '' " &
+                    "when SUBSTRING(strAirProgramCodes, 9, 1) = '1' then 'A - Acid Percipitation' " &
                     "Else '' end APCA, "
 
                     If SQLFrom.IndexOf("APBHeaderData") <> -1 Then
@@ -1333,8 +1333,8 @@ Public Class IAIPQueryGenerator
                 If chbAPCF.Checked = True Then
                     SQLSelect = SQLSelect &
                     "case " &
-                    "when substr(strAirProgramCodes, 10, 1) = '0' then '' " &
-                    "when substr(strAirProgramCodes, 10, 1) = '1' then 'F - FESHOP' " &
+                    "when SUBSTRING(strAirProgramCodes, 10, 1) = '0' then '' " &
+                    "when SUBSTRING(strAirProgramCodes, 10, 1) = '1' then 'F - FESHOP' " &
                     "Else '' end APCF, "
 
                     If SQLFrom.IndexOf("APBHeaderData") <> -1 Then
@@ -1347,8 +1347,8 @@ Public Class IAIPQueryGenerator
                 If chbAPCI.Checked = True Then
                     SQLSelect = SQLSelect &
                     "case " &
-                    "when substr(strAirProgramCodes, 11, 1) = '0' then '' " &
-                    "when substr(strAirProgramCodes, 11, 1) = '1' then 'I - Native American' " &
+                    "when SUBSTRING(strAirProgramCodes, 11, 1) = '0' then '' " &
+                    "when SUBSTRING(strAirProgramCodes, 11, 1) = '1' then 'I - Native American' " &
                     "Else '' end APCI, "
 
                     If SQLFrom.IndexOf("APBHeaderData") <> -1 Then
@@ -1361,8 +1361,8 @@ Public Class IAIPQueryGenerator
                 If chbAPCM.Checked = True Then
                     SQLSelect = SQLSelect &
                     "case " &
-                    "when substr(strAirProgramCodes, 12, 1) = '0' then '' " &
-                    "when substr(strAirProgramCodes, 12, 1) = '1' then 'M - MACT' " &
+                    "when SUBSTRING(strAirProgramCodes, 12, 1) = '0' then '' " &
+                    "when SUBSTRING(strAirProgramCodes, 12, 1) = '1' then 'M - MACT' " &
                     "Else '' end APCM, "
 
                     If SQLFrom.IndexOf("APBHeaderData") <> -1 Then
@@ -1375,8 +1375,8 @@ Public Class IAIPQueryGenerator
                 If chbAPCV.Checked = True Then
                     SQLSelect = SQLSelect &
                     "case " &
-                    "when substr(strAirProgramCodes, 13, 1) = '0' then '' " &
-                    "when substr(strAirProgramCodes, 13, 1) = '1' then 'V - Title V' " &
+                    "when SUBSTRING(strAirProgramCodes, 13, 1) = '0' then '' " &
+                    "when SUBSTRING(strAirProgramCodes, 13, 1) = '1' then 'V - Title V' " &
                     "Else '' end APCV, "
 
                     If SQLFrom.IndexOf("APBHeaderData") <> -1 Then
@@ -1391,16 +1391,16 @@ Public Class IAIPQueryGenerator
             If chbAllSubparts.Checked = True Then
                 SQLSelect = SQLSelect &
                    " case " &
-                   "when substr(strSubPartKey, 13, 1) = '0' then strSubPart " &
+                   "when SUBSTRING(strSubPartKey, 13, 1) = '0' then strSubPart " &
                    "end GASIP, " &
                    "case " &
-                   "when substr(strSubPartKey, 13, 1) = '8' then strSubPart " &
+                   "when SUBSTRING(strSubPartKey, 13, 1) = '8' then strSubPart " &
                    "end Part61, " &
                    "case " &
-                   "when substr(strSubPartKey, 13, 1) = '9' then strSubPart " &
+                   "when SUBSTRING(strSubPartKey, 13, 1) = '9' then strSubPart " &
                    "end Part60, " &
                    "case " &
-                   "when substr(strSubPartKey, 13, 1) = 'M' then strSubPart " &
+                   "when SUBSTRING(strSubPartKey, 13, 1) = 'M' then strSubPart " &
                    "End Part63, "
 
                 If SQLFrom.IndexOf("APBSubPartData") <> -1 Then
@@ -1415,7 +1415,7 @@ Public Class IAIPQueryGenerator
                 If chbSIP.Checked = True Then
                     SQLSelect = SQLSelect &
                     " case " &
-                    "when substr(strSubPartKey, 13, 1) = '0' then strSubPart " &
+                    "when SUBSTRING(strSubPartKey, 13, 1) = '0' then strSubPart " &
                     "end GASIP, "
 
                     If SQLFrom.IndexOf("APBSubPartData") <> -1 Then
@@ -1430,7 +1430,7 @@ Public Class IAIPQueryGenerator
                 If chbPart61Subpart.Checked = True Then
                     SQLSelect = SQLSelect &
                     " case " &
-                    "when substr(strSubPartKey, 13, 1) = '8' then strSubPart " &
+                    "when SUBSTRING(strSubPartKey, 13, 1) = '8' then strSubPart " &
                     "end Part61, "
 
                     If SQLFrom.IndexOf("APBSubPartData") <> -1 Then
@@ -1445,7 +1445,7 @@ Public Class IAIPQueryGenerator
                 If chbPart60Subpart.Checked = True Then
                     SQLSelect = SQLSelect &
                     " case " &
-                    "when substr(strSubPartKey, 13, 1) = '9' then strSubPart " &
+                    "when SUBSTRING(strSubPartKey, 13, 1) = '9' then strSubPart " &
                     "end Part60, "
 
                     If SQLFrom.IndexOf("APBSubPartData") <> -1 Then
@@ -1460,7 +1460,7 @@ Public Class IAIPQueryGenerator
                 If chbPart63Subpart.Checked = True Then
                     SQLSelect = SQLSelect &
                     " case " &
-                    "when substr(strSubPartKey, 13, 1) = 'M' then strSubPart " &
+                    "when SUBSTRING(strSubPartKey, 13, 1) = 'M' then strSubPart " &
                     "end Part63, "
 
                     If SQLFrom.IndexOf("APBSubPartData") <> -1 Then
@@ -1703,14 +1703,14 @@ Public Class IAIPQueryGenerator
                     SQLWhereCase2 = " Not Like "
                 End If
                 If cboCountySearch1.SelectedIndex <> -1 And cboCountySearch1.SelectedIndex <> 0 Then
-                    SQLWhere = SQLWhere & " and (substr(APBMasterAIRS.strAIRSNumber, 5, 3) " & SQLWhereCase2 & " '" & cboCountySearch1.SelectedValue & "') "
+                    SQLWhere = SQLWhere & " and (SUBSTRING(APBMasterAIRS.strAIRSNumber, 5, 3) " & SQLWhereCase2 & " '" & cboCountySearch1.SelectedValue & "') "
                 End If
                 If cboCountySearch2.SelectedIndex <> -1 And cboCountySearch2.SelectedIndex <> 0 Then
                     If cboCountySearch1.SelectedIndex <> -1 And cboCountySearch1.SelectedIndex <> 0 Then
                         SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 2)) &
-                        " " & SQLWhereCase1 & " substr(APBMasterAIRS.strAIRSNumber, 5, 3) " & SQLWhereCase2 & " '" & cboCountySearch2.SelectedValue & "' ) "
+                        " " & SQLWhereCase1 & " SUBSTRING(APBMasterAIRS.strAIRSNumber, 5, 3) " & SQLWhereCase2 & " '" & cboCountySearch2.SelectedValue & "' ) "
                     Else
-                        SQLWhere = SQLWhere & " and (substr(APBMasterAIRS.strAIRSNumber, 5, 3) " & SQLWhereCase2 & " '" & cboCountySearch2.SelectedValue & "') "
+                        SQLWhere = SQLWhere & " and (SUBSTRING(APBMasterAIRS.strAIRSNumber, 5, 3) " & SQLWhereCase2 & " '" & cboCountySearch2.SelectedValue & "') "
                     End If
                 End If
             End If

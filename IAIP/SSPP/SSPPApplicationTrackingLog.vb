@@ -2588,8 +2588,8 @@ Public Class SSPPApplicationTrackingLog
             "LookUpDistrictInformation, LookUPDistricts, " &
             "APBSupplamentalData, SSCPDistrictResponsible " &
             "where APBFacilityInformation.strAIRSNumber = APBHeaderData.strAIRSNumber " &
-            "and substr(APBFacilityInformation.strAIRSNumber, 5, 3) = LookUpCountyInformation.strCountyCode " &
-            "and substr(APBFacilityInformation.strAIRSNumber, 5, 3) = LookUpDistrictInformation.strDistrictCounty " &
+            "and SUBSTRING(APBFacilityInformation.strAIRSNumber, 5, 3) = LookUpCountyInformation.strCountyCode " &
+            "and SUBSTRING(APBFacilityInformation.strAIRSNumber, 5, 3) = LookUpDistrictInformation.strDistrictCounty " &
             "and LookUpDistrictinformation.strDistrictCode = LooKUPDistrictOffice.strDistrictCode " &
             "and LookUpDistrictInformation.strDistrictCode = LookUPDistricts.strDistrictCode " &
             "and APBFacilityInformation.strAIRSNumber = APBSupplamentalData.strAIRSNumber " &
@@ -4197,8 +4197,8 @@ Public Class SSPPApplicationTrackingLog
             "LookUpDistrictOffice, LookUpDistricts,  " &
             "LookUpDistrictInformation  " &
             "where APBFacilityInformation.strAIRSnumber = APBHeaderData.strAIRSnumber " &
-            "and substr(APBFacilityInformation.strAIRSNumber, 5, 3) = LookUpCountyInformation.strCountyCode  " &
-            "and substr(APBFacilityInformation.strAIRSNumber, 5, 3) = LookUpDistrictInformation.strDistrictCounty  " &
+            "and SUBSTRING(APBFacilityInformation.strAIRSNumber, 5, 3) = LookUpCountyInformation.strCountyCode  " &
+            "and SUBSTRING(APBFacilityInformation.strAIRSNumber, 5, 3) = LookUpDistrictInformation.strDistrictCounty  " &
             "and LookUpDistrictInformation.strDistrictCode = LookUpDistrictOffice.strDistrictCode  " &
             "and LookUpDistrictInformation.strDistrictCode = LookUpDistrictOffice.strDistrictCode  " &
             "and LookUpDistrictInformation.strDistrictCode = LookUpDistricts.strDistrictCode  " &
@@ -5995,7 +5995,7 @@ Public Class SSPPApplicationTrackingLog
                     query = "select Max(strKey) as MaxKey " &
                     "from APBContactInformation " &
                     "where strAIRSNumber = @airs " &
-                    "and substr(strkey, 1, 1) = '3' "
+                    "and SUBSTRING(strkey, 1, 1) = '3' "
                     params = {New SqlParameter("@airs", "0413" & txtAIRSNumber.Text)}
 
                     MaxKey = DB.GetSingleValue(Of String)(query, params)
@@ -11282,7 +11282,7 @@ Public Class SSPPApplicationTrackingLog
                     "from SSPPApplicationMaster, SSPPSubpartData   " &
                     "where SSPPSubpartData.strApplicationNumber = SSPPApplicationMaster.strApplicationNumber  " &
                     "and strAIRSnumber = @airs " &
-                    "and substr(strSubpartkey, 6,1) = '0'  " &
+                    "and SUBSTRING(strSubpartkey, 6,1) = '0'  " &
                     "and strSubpart = @SubPart " &
                     "and SSPPSubpartData.strApplicationNumber  = @appnum " &
                     "order by createdatetime "
@@ -12210,7 +12210,7 @@ Public Class SSPPApplicationTrackingLog
                     "from SSPPApplicationMaster, SSPPSubpartData   " &
                     "where SSPPSubpartData.strApplicationNumber = SSPPApplicationMaster.strApplicationNumber  " &
                     "and strAIRSnumber = @airsnum " &
-                    "and substr(strSubpartkey, 6,1) = '9'  " &
+                    "and SUBSTRING(strSubpartkey, 6,1) = '9'  " &
                     "and strSubpart = @SubPart " &
                     "and SSPPSubpartData.strApplicationNumber  = @appnum " &
                     "order by createdatetime "
@@ -13443,7 +13443,7 @@ Public Class SSPPApplicationTrackingLog
                     "from SSPPApplicationMaster, SSPPSubpartData   " &
                     "where SSPPSubpartData.strApplicationNumber = SSPPApplicationMaster.strApplicationNumber  " &
                     "and strAIRSnumber = @airsnum " &
-                    "and substr(strSubpartkey, 6,1) = '8'  " &
+                    "and SUBSTRING(strSubpartkey, 6,1) = '8'  " &
                     "and strSubpart = @SubPart " &
                     "and SSPPSubpartData.strApplicationNumber  = @appnum " &
                     "order by createdatetime "
@@ -14376,7 +14376,7 @@ Public Class SSPPApplicationTrackingLog
                     "from SSPPApplicationMaster, SSPPSubpartData   " &
                     "where SSPPSubpartData.strApplicationNumber = SSPPApplicationMaster.strApplicationNumber  " &
                     "and strAIRSnumber = @airs " &
-                    "and substr(strSubpartkey, 6,1) = 'M'  " &
+                    "and SUBSTRING(strSubpartkey, 6,1) = 'M'  " &
                     "and strSubpart = @SubPart " &
                     "and SSPPSubpartData.strApplicationNumber  = @appnum " &
                     "order by createdatetime "

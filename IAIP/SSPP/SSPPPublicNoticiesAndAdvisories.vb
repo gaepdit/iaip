@@ -69,7 +69,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
             "LookUpCountyInformation " &
             "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber " &
             "and SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber " &
-            "and substr(SSPPApplicationMaster.strAIRSNumber, 5, 3) = LookUpCountyInformation.strCountyCode " &
+            "and SUBSTRING(SSPPApplicationMaster.strAIRSNumber, 5, 3) = LookUpCountyInformation.strCountyCode " &
             "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode (+) " &
             "and datFinalizedDate is Null " &
             "And strPAPosted Is null And strPNPosted Is null " &
@@ -197,7 +197,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
             "LookUpApplicationTypes, LookUpCountyInformation  " &
              "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber  " &
             "and SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
-            "and substr(SSPPApplicationMaster.strAIRSNumber, 5, 3) = LookUpCountyInformation.strCountyCode  " &
+            "and SUBSTRING(SSPPApplicationMaster.strAIRSNumber, 5, 3) = LookUpCountyInformation.strCountyCode  " &
             "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode (+)  " &
             "and strPAReady = 'True' " &
             "and strPAPosted is Null " &
@@ -228,7 +228,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
             "LookUpApplicationTypes, LookUpCountyInformation  " &
             "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber  " &
             "and SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
-            "and substr(SSPPApplicationMaster.strAIRSNumber, 5, 3) = LookUpCountyInformation.strCountyCode  " &
+            "and SUBSTRING(SSPPApplicationMaster.strAIRSNumber, 5, 3) = LookUpCountyInformation.strCountyCode  " &
             "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode (+)  " &
             "and strPNPosted is Null " &
             "and (strApplicationType = '14' or strApplicationType = '16' " &
@@ -269,7 +269,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
                 "LookUpApplicationTypes, LookUpCountyInformation  " &
                 "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber  " &
                 "and SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
-                "and substr(SSPPApplicationMaster.strAIRSNumber, 5, 3) = LookUpCountyInformation.strCountyCode  " &
+                "and SUBSTRING(SSPPApplicationMaster.strAIRSNumber, 5, 3) = LookUpCountyInformation.strCountyCode  " &
                 "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode (+)  " &
                 SIPAppNumbers &
                 "order by strCountyName "
@@ -374,7 +374,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
                 "LookUpApplicationTypes, LookUpCountyInformation  " &
                 "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber  " &
                 "and SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
-                "and substr(SSPPApplicationMaster.strAIRSNumber, 5, 3) = LookUpCountyInformation.strCountyCode  " &
+                "and SUBSTRING(SSPPApplicationMaster.strAIRSNumber, 5, 3) = LookUpCountyInformation.strCountyCode  " &
                 "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode (+)  " &
                 TVAppNumbers &
                 "order by strCountyName "
@@ -493,7 +493,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
             "LookUpApplicationTypes, LookUpCountyInformation  " &
             "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber  " &
             "and SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
-            "and substr(SSPPApplicationMaster.strAIRSNumber, 5, 3) = LookUpCountyInformation.strCountyCode  " &
+            "and SUBSTRING(SSPPApplicationMaster.strAIRSNumber, 5, 3) = LookUpCountyInformation.strCountyCode  " &
             "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode (+)  " &
             "and SSPPApplicationMaster.strApplicationNumber = '" & txtApplicationNumberEditor.Text & "' "
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -618,7 +618,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
             "LookUpApplicationTypes, LookUpCountyInformation  " &
             "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber  " &
             "and SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
-            "and substr(SSPPApplicationMaster.strAIRSNumber, 5, 3) = LookUpCountyInformation.strCountyCode  " &
+            "and SUBSTRING(SSPPApplicationMaster.strAIRSNumber, 5, 3) = LookUpCountyInformation.strCountyCode  " &
             "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode (+)  " &
             "and SSPPApplicationMaster.strApplicationNumber = '" & txtApplicationNumberEditor.Text & "' "
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -774,7 +774,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
                 "SSPPApplicationMaster, LookUpCountyInformation " &
                 "where SSPPApplicationData.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber " &
                 "and SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicatioNNumber " &
-                "and substr(SSPPApplicationMaster.strAIRSNumber, 5, 3) = LookUpCountyInformation.strCountyCode " &
+                "and SUBSTRING(SSPPApplicationMaster.strAIRSNumber, 5, 3) = LookUpCountyInformation.strCountyCode " &
                 SQLLine &
                 "order by strCountyName "
 
@@ -852,7 +852,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
                 "from SSPPApplicationData, SSPPApplicationMaster, " &
                 "LookUpCountyInformation, SSPPApplicationTracking " &
                 "where SSPPApplicationMaster.strApplicationnumber = SSPPApplicationData.strApplicationNumber   " &
-                "and substr(SSPPApplicationMaster.strAIRSNumber, 5, 3) = LookUpCountyInformation.strCountyCode  " &
+                "and SUBSTRING(SSPPApplicationMaster.strAIRSNumber, 5, 3) = LookUpCountyInformation.strCountyCode  " &
                 "and SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber " &
                 "and strApplicationType = '14'  " &
                 SQLLine &
@@ -932,7 +932,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
                 "from SSPPApplicationData, SSPPApplicationMaster,   " &
                 "LookUpCountyInformation, SSPPApplicationTracking " &
                 "where SSPPApplicationMaster.strApplicationnumber = SSPPApplicationData.strApplicationNumber   " &
-                "and substr(SSPPApplicationMaster.strAIRSNumber, 5, 3) = LookUpCountyInformation.strCountyCode  " &
+                "and SUBSTRING(SSPPApplicationMaster.strAIRSNumber, 5, 3) = LookUpCountyInformation.strCountyCode  " &
                 "and SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber " &
                 SQLLine &
                 "and strApplicationType = '16'  " &
@@ -1013,7 +1013,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
                 "from SSPPApplicationData, SSPPApplicationMaster,   " &
                 "LookUpCountyInformation, SSPPApplicationTracking " &
                 "where SSPPApplicationMaster.strApplicationnumber = SSPPApplicationData.strApplicationNumber   " &
-                "and substr(SSPPApplicationMaster.strAIRSNumber, 5, 3) = LookUpCountyInformation.strCountyCode  " &
+                "and SUBSTRING(SSPPApplicationMaster.strAIRSNumber, 5, 3) = LookUpCountyInformation.strCountyCode  " &
                 "and SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber " &
                 SQLLine &
                 "and (strApplicationType = '21' or strApplicationType = '22')  " &

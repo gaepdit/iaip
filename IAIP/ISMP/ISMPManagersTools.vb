@@ -1958,7 +1958,7 @@ Public Class ISMPManagersTools
             "and ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
             "and Upper(APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " &
             "and ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " &
-            "and subStr(ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
+            "and SUBSTRING(ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
             "and " & DateBias & " "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -1986,7 +1986,7 @@ Public Class ISMPManagersTools
             "and ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
             "and Upper(APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " &
             "and ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " &
-            "and subStr(ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
+            "and SUBSTRING(ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
             "and " & DateBias & " "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -2005,7 +2005,7 @@ Public Class ISMPManagersTools
             "and ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
             "and Upper(APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " &
             "and ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " &
-            "and subStr(ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
+            "and SUBSTRING(ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
             "and (to_date('" & OracleDate & "', 'dd-Mon-yyyy') - datReceivedDate) >= '" & txtDaysOpenFacility.Text & "' " &
             "and " & DateBias & " "
 
@@ -2027,7 +2027,7 @@ Public Class ISMPManagersTools
             "and ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
             "and Upper(APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " &
             "and ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " &
-            "and subStr(ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
+            "and SUBSTRING(ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
             "and " & DateBias & " "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -2047,7 +2047,7 @@ Public Class ISMPManagersTools
             "and ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
             "and Upper(APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " &
             "and ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " &
-            "and subStr(ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
+            "and SUBSTRING(ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
             "and " & DateBias & " "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -2067,7 +2067,7 @@ Public Class ISMPManagersTools
             "and ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
             "and Upper(APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " &
             "and ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " &
-            "and subStr(ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
+            "and SUBSTRING(ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
             "and " & DateBias & " "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -2087,7 +2087,7 @@ Public Class ISMPManagersTools
             "and ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
             "and Upper(APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " &
             "and ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " &
-            "and subStr(ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
+            "and SUBSTRING(ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
             "and " & DateBias & " "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -2107,7 +2107,7 @@ Public Class ISMPManagersTools
             "and ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
             "and Upper(APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " &
             "and ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " &
-            "and subStr(ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
+            "and SUBSTRING(ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
             "and " & DateBias & " "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -2128,7 +2128,7 @@ Public Class ISMPManagersTools
             "and ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
             "and Upper(APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " &
             "and ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " &
-            "and subStr(ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
+            "and SUBSTRING(ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
             "and " & DateBias & " "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -2148,7 +2148,7 @@ Public Class ISMPManagersTools
             "and ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
             "and Upper(APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " &
             "and ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " &
-            "and subStr(ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
+            "and SUBSTRING(ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
             "and " & DateBias & " "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -2168,7 +2168,7 @@ Public Class ISMPManagersTools
             "and ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
             "and Upper(APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " &
             "and ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " &
-            "and subStr(ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
+            "and SUBSTRING(ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
             "and " & DateBias & " "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -2188,7 +2188,7 @@ Public Class ISMPManagersTools
             "and ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
             "and Upper(APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " &
             "and ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " &
-            "and subStr(ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
+            "and SUBSTRING(ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
             "and " & DateBias & " "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -2208,7 +2208,7 @@ Public Class ISMPManagersTools
             "and ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
             "and Upper(APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " &
             "and ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " &
-            "and subStr(ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
+            "and SUBSTRING(ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
             "and " & DateBias & " "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -2229,7 +2229,7 @@ Public Class ISMPManagersTools
             "and ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
             "and Upper(APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " &
             "and ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " &
-            "and subStr(ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
+            "and SUBSTRING(ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
             "and (to_date('" & OracleDate & "', 'dd-Mon-yyyy') - datReceivedDate) >= '" & txtDaysOpenFacility.Text & "' " &
             "and " & DateBias & " "
 
@@ -2250,7 +2250,7 @@ Public Class ISMPManagersTools
             "and ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
             "and Upper(APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " &
             "and ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " &
-            "and subStr(ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
+            "and SUBSTRING(ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
             "and (to_date('" & OracleDate & "', 'dd-Mon-yyyy') - datReceivedDate) >= '" & txtDaysOpenFacility.Text & "' " &
             "and " & DateBias & " "
 
@@ -2271,7 +2271,7 @@ Public Class ISMPManagersTools
             "and ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
             "and Upper(APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " &
             "and ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " &
-            "and subStr(ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
+            "and SUBSTRING(ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
             "and (to_date('" & OracleDate & "', 'dd-Mon-yyyy') - datReceivedDate) >= '" & txtDaysOpenFacility.Text & "' " &
             "and " & DateBias & " "
 
@@ -2292,7 +2292,7 @@ Public Class ISMPManagersTools
            "and ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
            "and Upper(APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " &
            "and ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " &
-           "and subStr(ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
+           "and SUBSTRING(ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
            "and (to_date('" & OracleDate & "', 'dd-Mon-yyyy') - datReceivedDate) >= '" & txtDaysOpenFacility.Text & "' " &
            "and " & DateBias & " "
 
@@ -2313,7 +2313,7 @@ Public Class ISMPManagersTools
            "and ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
            "and Upper(APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " &
            "and ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " &
-           "and subStr(ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
+           "and SUBSTRING(ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
            "and (to_date('" & OracleDate & "', 'dd-Mon-yyyy') - datReceivedDate) >= '" & txtDaysOpenFacility.Text & "' " &
            "and " & DateBias & " "
 
@@ -6336,7 +6336,7 @@ Public Class ISMPManagersTools
                 SQL = "Select " &
                 "strMethodCode " &
                 "From LookUpISMPMethods " &
-                "where substr(strMethodDesc, 1, instr(strMethodDesc,'-')-2)  = 'Method " & Replace(txtMethodNumber.Text.ToUpper, "'", "''") & "' "
+                "where SUBSTRING(strMethodDesc, 1, instr(strMethodDesc,'-')-2)  = 'Method " & Replace(txtMethodNumber.Text.ToUpper, "'", "''") & "' "
                 cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()

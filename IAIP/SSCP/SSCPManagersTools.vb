@@ -1810,20 +1810,20 @@ Public Class SSCPManagersTools
             "  fi.STRFACILITYNAME ,( pp.STRCOMPLIANCESTATUS || ' - ' || " &
             "  lc.STRCOMPLIANCEDESC ) AS PollutantStatus , " &
             "  lp.STRPOLLUTANTDESCRIPTION , CASE                    WHEN " &
-            "      SUBSTR( strAirPollutantKey, 13, 1 ) = '0'         THEN 'SIP'     WHEN " &
-            "      SUBSTR( strAirPollutantKey, 13, 1 ) = '1'         THEN 'Fed SIP' WHEN " &
-            "      SUBSTR( strAirPollutantKey, 13, 1 ) = '3' THEN " &
-            "      'Non-Fed SIP'                WHEN SUBSTR( strAirPollutantKey, 13, 1 ) = " &
-            "      '4'                                       THEN 'CFC'       WHEN SUBSTR( strAirPollutantKey, 13, 1 ) = " &
-            "      '6'                                       THEN 'PSD'       WHEN SUBSTR( strAirPollutantKey, 13, 1 ) = " &
-            "      '7'                                       THEN 'NSR'       WHEN SUBSTR( strAirPollutantKey, 13, 1 ) = " &
-            "      '8'                                       THEN 'NESHAP'    WHEN SUBSTR( strAirPollutantKey, 13, 1 ) = " &
-            "      '9'                                       THEN 'NSPS'      WHEN SUBSTR( strAirPollutantKey, 13, 1 ) = " &
-            "      'A'                                       THEN 'Acid Rain' WHEN SUBSTR( strAirPollutantKey, 13, 1 ) = " &
+            "      SUBSTRING( strAirPollutantKey, 13, 1 ) = '0'         THEN 'SIP'     WHEN " &
+            "      SUBSTRING( strAirPollutantKey, 13, 1 ) = '1'         THEN 'Fed SIP' WHEN " &
+            "      SUBSTRING( strAirPollutantKey, 13, 1 ) = '3' THEN " &
+            "      'Non-Fed SIP'                WHEN SUBSTRING( strAirPollutantKey, 13, 1 ) = " &
+            "      '4'                                       THEN 'CFC'       WHEN SUBSTRING( strAirPollutantKey, 13, 1 ) = " &
+            "      '6'                                       THEN 'PSD'       WHEN SUBSTRING( strAirPollutantKey, 13, 1 ) = " &
+            "      '7'                                       THEN 'NSR'       WHEN SUBSTRING( strAirPollutantKey, 13, 1 ) = " &
+            "      '8'                                       THEN 'NESHAP'    WHEN SUBSTRING( strAirPollutantKey, 13, 1 ) = " &
+            "      '9'                                       THEN 'NSPS'      WHEN SUBSTRING( strAirPollutantKey, 13, 1 ) = " &
+            "      'A'                                       THEN 'Acid Rain' WHEN SUBSTRING( strAirPollutantKey, 13, 1 ) = " &
             "      'F'                                       THEN 'FESOP'     WHEN " &
-            "      SUBSTR( strAirPollutantKey, 13, 1 ) = 'I' THEN " &
-            "      'Native American'   WHEN SUBSTR( strAirPollutantKey, 13, 1 ) " &
-            "      = 'M'   THEN 'MACT' WHEN SUBSTR( strAirPollutantKey, 13, 1 ) " &
+            "      SUBSTRING( strAirPollutantKey, 13, 1 ) = 'I' THEN " &
+            "      'Native American'   WHEN SUBSTRING( strAirPollutantKey, 13, 1 ) " &
+            "      = 'M'   THEN 'MACT' WHEN SUBSTRING( strAirPollutantKey, 13, 1 ) " &
             "      = 'V' THEN 'Title V' ELSE '' END AirProgram " &
             "FROM APBAIRPROGRAMPOLLUTANTS pp " &
             "INNER JOIN LOOKUPCOMPLIANCESTATUS lc " &
@@ -5610,7 +5610,7 @@ Public Class SSCPManagersTools
             "  AND tAM.STRAPPLICATIONNUMBER   = tAT.STRAPPLICATIONNUMBER " &
             "  AND tAD.STRPERMITNUMBER LIKE '%V__0' " &
             "  AND tHD.STROPERATIONALSTATUS             <> 'X' " &
-            "  AND SUBSTR(tHD.STRAIRPROGRAMCODES, 13, 1) = '1' " &
+            "  AND SUBSTRING(tHD.STRAIRPROGRAMCODES, 13, 1) = '1' " &
             "  AND ((tAT.DATPERMITISSUED                IS NOT NULL " &
             "  AND tAT.DATPERMITISSUED                   < add_months(SysDate, -51)) " &
             "  OR (tAT.DATEFFECTIVE                     IS NOT NULL " &

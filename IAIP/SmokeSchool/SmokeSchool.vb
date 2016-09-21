@@ -3694,7 +3694,7 @@ Public Class SmokeSchool
 
     Public Function GetSmokeSchoolPassingGradesByTerm(year As String, season As String) As DataTable
         Dim query As String = "SELECT strLastName, strFirstName, strLocationTerm, " &
-            " SUBSTR(strlocationterm, instr(strlocationterm, '-', 1, 1)+2) strLocation, " &
+            " SUBSTRING(strlocationterm, instr(strlocationterm, '-', 1, 1)+2) strLocation, " &
             " row_number () over (partition BY strlocationterm order by strlastname, strfirstname DESC) CertId " &
             " FROM SmokeSchoolScores " &
             " WHERE strLocationTerm LIKE @pTerm " &

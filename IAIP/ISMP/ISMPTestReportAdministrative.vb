@@ -602,7 +602,7 @@ Public Class ISMPTestReportAdministrative
            "and SSCPINSPECTIONSREQUIRED.INTYEAR = MAXRESULTS.MAXYEAR) Table1 " &
            "WHERE LOOKUPDISTRICTINFORMATION.strDistrictCode = LookUPDistricts.strDistrictCode (+) " &
            "AND SSCPDistrictResponsible.strAIRSNumber = Table1.strAIRSnumber (+) " &
-           "AND SUBSTR(SSCPDistrictResponsible.strAIRSNumber, 5, 3) = strDistrictCounty (+) " &
+           "AND SUBSTRING(SSCPDistrictResponsible.strAIRSNumber, 5, 3) = strDistrictCounty (+) " &
            "and SSCPDISTRICTRESPONSIBLE.STRAIRSNUMBER = '0413" & cboAIRSNumber.Text & "'), " &
            "'" & DTPTestDateStart.Text & "', '" & DTPTestDateEnd.Text & "', " &
            "'" & DTPDateReceived.Text & "', " &
@@ -631,7 +631,7 @@ Public Class ISMPTestReportAdministrative
             "and SSCPINSPECTIONSREQUIRED.INTYEAR = MAXRESULTS.MAXYEAR) Table1 " &
            "WHERE LOOKUPDISTRICTINFORMATION.strDistrictCode = LookUPDistricts.strDistrictCode (+) " &
            "AND SSCPDistrictResponsible.strAIRSNumber = Table1.strAIRSnumber (+) " &
-           "AND SUBSTR(SSCPDistrictResponsible.strAIRSNumber, 5, 3) = strDistrictCounty (+) " &
+           "AND SUBSTRING(SSCPDistrictResponsible.strAIRSNumber, 5, 3) = strDistrictCounty (+) " &
            "AND SSCPDistrictResponsible.strAIRSNumber = '0413" & cboAIRSNumber.Text & "'), " &
            "'" & CurrentUser.UserID & "', '" & OracleDate & "', " &
            "'N/A', '', '')"

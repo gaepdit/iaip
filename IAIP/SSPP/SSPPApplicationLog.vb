@@ -808,9 +808,9 @@ Public Class SSPPApplicationLog
                 "   End as datReceivedDate,  " &
                 "   case   " &
                 "when strPermitNumber is NULL then ''   " &
-                " else substr(strPermitNumber, 1, 4)|| '-' ||substr(strPermitNumber, 5, 3)|| '-'   " &
-                "||substr(strPermitNumber, 8, 4)|| '-' ||substr(strPermitNumber, 12, 1)|| '-' " &
-                "||substr(strPermitNumber, 13, 2)|| '-' ||substr(strPermitNumber, 15, 1)  " &
+                " else SUBSTRING(strPermitNumber, 1, 4)|| '-' ||SUBSTRING(strPermitNumber, 5, 3)|| '-'   " &
+                "||SUBSTRING(strPermitNumber, 8, 4)|| '-' ||SUBSTRING(strPermitNumber, 12, 1)|| '-' " &
+                "||SUBSTRING(strPermitNumber, 13, 2)|| '-' ||SUBSTRING(strPermitNumber, 15, 1)  " &
                 "   end As strPermitNumber,  " &
                 "   case  " &
                 "   	when datPermitIssued is Null then ''  " &
@@ -966,23 +966,23 @@ Public Class SSPPApplicationLog
                 "   End as strOfficeName,  " &
                 "   case  " &
                 "   	     when APBHeaderData.strAttainmentStatus is Null then ''  " &
-                "when substr(APBHeaderData.strAttainmentstatus, 2, 1) = '0' then 'No'  " &
-                "when substr(APBHeaderData.strAttainmentstatus, 2, 1) = '1' then '1-hr Ozone'  " &
-                "when substr(APBHeaderData.strAttainmentstatus, 2, 1) = '2' then '1-hr Ozone Contribute'  " &
+                "when SUBSTRING(APBHeaderData.strAttainmentstatus, 2, 1) = '0' then 'No'  " &
+                "when SUBSTRING(APBHeaderData.strAttainmentstatus, 2, 1) = '1' then '1-hr Ozone'  " &
+                "when SUBSTRING(APBHeaderData.strAttainmentstatus, 2, 1) = '2' then '1-hr Ozone Contribute'  " &
                 "   end as OneHrOzone,  " &
                 "   case  " &
                 "   	     when APBHeaderData.strAttainmentStatus is Null then ''  " &
-                "when substr(APBHeaderData.strAttainmentstatus, 3, 1) = '0' then 'No'  " &
-                "when substr(APBHeaderData.strAttainmentstatus, 3, 1) = '1' then '8-hr Ozone Atlanta'  " &
-                "when substr(APBHeaderData.strAttainmentstatus, 3, 1) = '2' then '8-hr Ozone Macon'  " &
+                "when SUBSTRING(APBHeaderData.strAttainmentstatus, 3, 1) = '0' then 'No'  " &
+                "when SUBSTRING(APBHeaderData.strAttainmentstatus, 3, 1) = '1' then '8-hr Ozone Atlanta'  " &
+                "when SUBSTRING(APBHeaderData.strAttainmentstatus, 3, 1) = '2' then '8-hr Ozone Macon'  " &
                 "   end as EightHrOzone,  " &
                 "   case  " &
                 "   	     when APBHeaderData.strAttainmentStatus is Null then ''  " &
-                "when substr(APBHeaderData.strAttainmentstatus, 4, 1) = '0' then 'No'  " &
-                "when substr(APBHeaderData.strAttainmentstatus, 4, 1) = '1' then 'PM - Atlanta'  " &
-                "when substr(APBHeaderData.strAttainmentstatus, 4, 1) = '2' then 'PM - Chattanooga'  " &
-                "when substr(APBHeaderData.strAttainmentstatus, 4, 1) = '3' then 'PM - Floyd'  " &
-                "when substr(APBHeaderData.strAttainmentstatus, 4, 1) = '4' then 'PM - Macon'  " &
+                "when SUBSTRING(APBHeaderData.strAttainmentstatus, 4, 1) = '0' then 'No'  " &
+                "when SUBSTRING(APBHeaderData.strAttainmentstatus, 4, 1) = '1' then 'PM - Atlanta'  " &
+                "when SUBSTRING(APBHeaderData.strAttainmentstatus, 4, 1) = '2' then 'PM - Chattanooga'  " &
+                "when SUBSTRING(APBHeaderData.strAttainmentstatus, 4, 1) = '3' then 'PM - Floyd'  " &
+                "when SUBSTRING(APBHeaderData.strAttainmentstatus, 4, 1) = '4' then 'PM - Macon'  " &
                 "   end as PMFine,  " &
                 "   case  " &
                 "      when strPAReady is Null then ''   " &
@@ -1012,11 +1012,11 @@ Public Class SSPPApplicationLog
                 "   end as datToDirector,  " &
                 "   case  " &
                 "        when APBHeaderData.strStateProgramCodes is Null then ''  " &
-                "        when substr(APBHeaderData.strStateProgramCodes, 1, 1) = '1' then 'NSR/PSD Major'  " &
+                "        when SUBSTRING(APBHeaderData.strStateProgramCodes, 1, 1) = '1' then 'NSR/PSD Major'  " &
                 "   End as NSRMajor,  " &
                 "   Case  " &
                 "        when APBHeaderData.strStateProgramCodes is Null then ''  " &
-                "        when substr(APBHeaderData.strStateProgramCodes, 2, 1) = '1' then 'HAPs Major'  " &
+                "        when SUBSTRING(APBHeaderData.strStateProgramCodes, 2, 1) = '1' then 'HAPs Major'  " &
                 "   End as HAPsMajor,  " &
                 "   case   " &
                 "   when datPermitIssued is Not Null then to_char(datPermitIssued, 'RRRR-MM-dd')     " &
@@ -1034,38 +1034,38 @@ Public Class SSPPApplicationLog
                 "   else to_char(datAssignedToEngineer, 'RRRR-MM-dd')     " &
                 "   end as StatusDate,   " &
                 "   case  " &
-                "   when substr(strTrackedRules, 1, 1) = '1' then 'PSD - Rule'  " &
+                "   when SUBSTRING(strTrackedRules, 1, 1) = '1' then 'PSD - Rule'  " &
                 "   else ' '  " &
                 "   end PSDRule,  " &
                 "   case   " &
-                "   when substr(strTrackedRules, 2, 1) = '1' then 'NAA - Rule'   " &
+                "   when SUBSTRING(strTrackedRules, 2, 1) = '1' then 'NAA - Rule'   " &
                 "   else ' '   " &
                 "   end NAARule,   " &
                 "   case   " &
-                "   when substr(strTrackedRules, 3, 1) = '1' then '112(g) - Rule'   " &
+                "   when SUBSTRING(strTrackedRules, 3, 1) = '1' then '112(g) - Rule'   " &
                 "   else ' '   " &
                 "   end gRule,   " &
                 "   case   " &
-                "   when substr(strTrackedRules, 4, 1) = '1' then 'Rule (tt) RACT'   " &
+                "   when SUBSTRING(strTrackedRules, 4, 1) = '1' then 'Rule (tt) RACT'   " &
                 "   else ' '  " &
                 "   end ttRACT,  " &
                 "   case   " &
-                "   when substr(strTrackedRules, 5, 1) = '1' then 'Rule (yy) RACT'   " &
+                "   when SUBSTRING(strTrackedRules, 5, 1) = '1' then 'Rule (yy) RACT'   " &
                 "   else ' '   " &
                 "   end yyRACT,   " &
                 "   case   " &
-                "   when substr(strTrackedRules, 6, 1) = '1' then 'Actual PAL Rule'   " &
+                "   when SUBSTRING(strTrackedRules, 6, 1) = '1' then 'Actual PAL Rule'   " &
                 "   else ' '   " &
                 "   end PALRule, " &
                 "   case   " &
-                "   when substr(strTrackedRules, 7, 1) = '1' then 'Expedited Permit'   " &
+                "   when SUBSTRING(strTrackedRules, 7, 1) = '1' then 'Expedited Permit'   " &
                 "   else ' '   " &
                 "   end ExpeditedPermitRule,   " &
                 "   case   " &
-                "   when substr(strTrackedRules, 8, 1) = '1' then 'Confidential information submitted'   " &
+                "   when SUBSTRING(strTrackedRules, 8, 1) = '1' then 'Confidential information submitted'   " &
                 "   else ' '   " &
                 "   end ConfInfoRule,   " &
-                " (substr(SSPPSubpartData.strSubpartKey, -1, 1) ||' - '||SSPPSubpartData.strSubpart) as strSubpart " &
+                " (SUBSTRING(SSPPSubpartData.strSubpartKey, -1, 1) ||' - '||SSPPSubpartData.strSubpart) as strSubpart " &
                 "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
                 "  SSPPApplicationData, LookUpApplicationTypes, LookUpPermitTypes, " &
                 "  LookUpCountyInformation, LookUPDistrictInformation, " &
@@ -1077,7 +1077,7 @@ Public Class SSPPApplicationLog
                 "and SSPPApplicationMaster.strApplicationType = LookUpAPplicationTypes.strApplicationTypeCode (+) " &
                 "and SSPPApplicationMaster.strPermitType = LookUpPermitTypes.strPermitTypeCode (+)     " &
                 "and SSPPApplicationMaster.strAIRSNumber = APBHeaderData.strAIRSNumber (+)     " &
-                "and substr(SSPPApplicationMaster.strAIRSNumber, 5, 3) = LookUpCountyInformation.strCountyCode (+) " &
+                "and SUBSTRING(SSPPApplicationMaster.strAIRSNumber, 5, 3) = LookUpCountyInformation.strCountyCode (+) " &
                 "and LookUpCountyInformation.strCountyCode = LookUpDistrictInformation.strDistrictCounty (+)  " &
                 "and LookUpDistrictInformation.strDistrictCode = LookUPDistricts.strDistrictCode (+)  " &
                 "and LookUPDistricts.strDistrictCode = LooKUPDistrictOffice.strDistrictCode (+)  " &
@@ -1097,9 +1097,9 @@ Public Class SSPPApplicationLog
                     " End as datReceivedDate,   " &
                     " case    " &
                     "         when strPermitNumber is NULL then ''    " &
-                    "          else substr(strPermitNumber, 1, 4)|| '-' ||substr(strPermitNumber, 5, 3)|| '-'    " &
-                    "         ||substr(strPermitNumber, 8, 4)|| '-' ||substr(strPermitNumber, 12, 1)|| '-'   " &
-                    "         ||substr(strPermitNumber, 13, 2)|| '-' ||substr(strPermitNumber, 15, 1)   " &
+                    "          else SUBSTRING(strPermitNumber, 1, 4)|| '-' ||SUBSTRING(strPermitNumber, 5, 3)|| '-'    " &
+                    "         ||SUBSTRING(strPermitNumber, 8, 4)|| '-' ||SUBSTRING(strPermitNumber, 12, 1)|| '-'   " &
+                    "         ||SUBSTRING(strPermitNumber, 13, 2)|| '-' ||SUBSTRING(strPermitNumber, 15, 1)   " &
                     " end As strPermitNumber,   " &
                     " case   " &
                     " 	when datPermitIssued is Null then ''   " &
@@ -1168,7 +1168,7 @@ Public Class SSPPApplicationLog
                     "and SSPPApplicationMaster.strApplicationType = LookUpAPplicationTypes.strApplicationTypeCode (+) " &
                     "and SSPPApplicationMaster.strPermitType = LookUpPermitTypes.strPermitTypeCode (+)      " &
                     "and SSPPApplicationMaster.strAIRSNumber = APBHeaderData.strAIRSNumber (+)      " &
-                    "and substr(SSPPApplicationMaster.strAIRSNumber, 5, 3) = LookUpCountyInformation.strCountyCode (+)  " &
+                    "and SUBSTRING(SSPPApplicationMaster.strAIRSNumber, 5, 3) = LookUpCountyInformation.strCountyCode (+)  " &
                     "and LookUpCountyInformation.strCountyCode = LookUpDistrictInformation.strDistrictCounty (+)   " &
                     "and LookUpDistrictInformation.strDistrictCode = LookUPDistricts.strDistrictCode (+)   " &
                     "and LookUPDistricts.strDistrictCode = LooKUPDistrictOffice.strDistrictCode (+)   " &
@@ -1190,21 +1190,21 @@ Public Class SSPPApplicationLog
                         Case "Any Rule"
                             SQLSearch1 = " SSPPApplicationData.strTrackedRules <> '0000000000' "
                         Case "PSD"
-                            SQLSearch1 = " substr(SSPPApplicationData.strTrackedRules, 1, 1) = '1' "
+                            SQLSearch1 = " SUBSTRING(SSPPApplicationData.strTrackedRules, 1, 1) = '1' "
                         Case "NAA NSR"
-                            SQLSearch1 = " substr(SSPPApplicationData.strTrackedRules, 2, 1) = '1' "
+                            SQLSearch1 = " SUBSTRING(SSPPApplicationData.strTrackedRules, 2, 1) = '1' "
                         Case "112(g)"
-                            SQLSearch1 = " substr(SSPPApplicationData.strTrackedRules, 3, 1) = '1' "
+                            SQLSearch1 = " SUBSTRING(SSPPApplicationData.strTrackedRules, 3, 1) = '1' "
                         Case "Rule (tt) RACT"
-                            SQLSearch1 = " substr(SSPPApplicationData.strTrackedRules, 4, 1) = '1' "
+                            SQLSearch1 = " SUBSTRING(SSPPApplicationData.strTrackedRules, 4, 1) = '1' "
                         Case "Rule (yy) RACT"
-                            SQLSearch1 = " substr(SSPPApplicationData.strTrackedRules, 5, 1) = '1' "
+                            SQLSearch1 = " SUBSTRING(SSPPApplicationData.strTrackedRules, 5, 1) = '1' "
                         Case "Actuals PAL"
-                            SQLSearch1 = " substr(SSPPApplicationData.strTrackedRules, 6, 1) = '1' "
+                            SQLSearch1 = " SUBSTRING(SSPPApplicationData.strTrackedRules, 6, 1) = '1' "
                         Case "Expedited Permit"
-                            SQLSearch1 = " substr(SSPPApplicationData.strTrackedRules, 7, 1) = '1' "
+                            SQLSearch1 = " SUBSTRING(SSPPApplicationData.strTrackedRules, 7, 1) = '1' "
                         Case "Confidential information submitted"
-                            SQLSearch1 = " substr(SSPPApplicationData.strTrackedRules, 8, 1) = '1' "
+                            SQLSearch1 = " SUBSTRING(SSPPApplicationData.strTrackedRules, 8, 1) = '1' "
                         Case Else
                             SQLSearch1 = " "
                     End Select
@@ -1404,16 +1404,16 @@ Public Class SSPPApplicationLog
                     SQLSearch1 = " SSPPApplicationData.strSICCode like '%" & Replace(SearchText1, "'", "''") & "%' "
                 Case "Subpart - 0-SIP"
                     SQLSearch1 = " ( SSPPSubpartData.strSubpart = '" & SubpartSIP1 & "' " &
-                    "and substr(SSPPSubpartData.strSubpartKey, -1, 1) = '0' ) "
+                    "and SUBSTRING(SSPPSubpartData.strSubpartKey, -1, 1) = '0' ) "
                 Case "Subpart - 8-NESHAP (Part 61)"
                     SQLSearch1 = " ( SSPPSubpartData.strSubpart = '" & SubpartNESHAP1 & "' " &
-                    "and substr(SSPPSubpartData.strSubpartKey, -1, 1) = '8' ) "
+                    "and SUBSTRING(SSPPSubpartData.strSubpartKey, -1, 1) = '8' ) "
                 Case "Subpart - 9-NSPS (Part 60)"
                     SQLSearch1 = " ( SSPPSubpartData.strSubpart = '" & SubpartNSPS1 & "' " &
-                    "and substr(SSPPSubpartData.strSubpartKey, -1, 1) = '9' ) "
+                    "and SUBSTRING(SSPPSubpartData.strSubpartKey, -1, 1) = '9' ) "
                 Case "Subpart - M-MACT (Part 63)"
                     SQLSearch1 = " ( SSPPSubpartData.strSubpart = '" & SubpartMACT1 & "' " &
-                    "and substr(SSPPSubpartData.strSubpartKey, -1, 1) = 'M' ) "
+                    "and SUBSTRING(SSPPSubpartData.strSubpartKey, -1, 1) = 'M' ) "
             End Select
 
             Select Case FieldType2
@@ -1424,21 +1424,21 @@ Public Class SSPPApplicationLog
                         Case "Any Rule"
                             SQLSearch2 = " SSPPApplicationData.strTrackedRules <> '0000000000' "
                         Case "PSD"
-                            SQLSearch2 = " substr(SSPPApplicationData.strTrackedRules, 1, 1) = '1' "
+                            SQLSearch2 = " SUBSTRING(SSPPApplicationData.strTrackedRules, 1, 1) = '1' "
                         Case "NAA NSR"
-                            SQLSearch2 = " substr(SSPPApplicationData.strTrackedRules, 2, 1) = '1' "
+                            SQLSearch2 = " SUBSTRING(SSPPApplicationData.strTrackedRules, 2, 1) = '1' "
                         Case "112(g)"
-                            SQLSearch2 = " substr(SSPPApplicationData.strTrackedRules, 3, 1) = '1' "
+                            SQLSearch2 = " SUBSTRING(SSPPApplicationData.strTrackedRules, 3, 1) = '1' "
                         Case "Rule (tt) RACT"
-                            SQLSearch2 = " substr(SSPPApplicationData.strTrackedRules, 4, 1) = '1' "
+                            SQLSearch2 = " SUBSTRING(SSPPApplicationData.strTrackedRules, 4, 1) = '1' "
                         Case "Rule (yy) RACT"
-                            SQLSearch2 = " substr(SSPPApplicationData.strTrackedRules, 5, 1) = '1' "
+                            SQLSearch2 = " SUBSTRING(SSPPApplicationData.strTrackedRules, 5, 1) = '1' "
                         Case "Actuals PAL"
-                            SQLSearch2 = " substr(SSPPApplicationData.strTrackedRules, 6, 1) = '1' "
+                            SQLSearch2 = " SUBSTRING(SSPPApplicationData.strTrackedRules, 6, 1) = '1' "
                         Case "Expedited Permit"
-                            SQLSearch2 = " substr(SSPPApplicationData.strTrackedRules, 7, 1) = '1' "
+                            SQLSearch2 = " SUBSTRING(SSPPApplicationData.strTrackedRules, 7, 1) = '1' "
                         Case "Confidential information submitted"
-                            SQLSearch2 = " substr(SSPPApplicationData.strTrackedRules, 8, 1) = '1' "
+                            SQLSearch2 = " SUBSTRING(SSPPApplicationData.strTrackedRules, 8, 1) = '1' "
                         Case Else
                             SQLSearch2 = " "
                     End Select
@@ -1637,16 +1637,16 @@ Public Class SSPPApplicationLog
                     SQLSearch2 = " StatusDate between '" & SearchDate2 & "' and '" & SearchDate2b & "' "
                 Case "Subpart - 0-SIP"
                     SQLSearch2 = " ( SSPPSubpartData.strSubpart = '" & SubpartSIP2 & "' " &
-                    "and substr(SSPPSubpartData.strSubpartKey, -1, 1) = '0' ) "
+                    "and SUBSTRING(SSPPSubpartData.strSubpartKey, -1, 1) = '0' ) "
                 Case "Subpart - 8-NESHAP (Part 61)"
                     SQLSearch2 = " ( SSPPSubpartData.strSubpart = '" & SubpartNESHAP2 & "' " &
-                    "and substr(SSPPSubpartData.strSubpartKey, -1, 1) = '8' ) "
+                    "and SUBSTRING(SSPPSubpartData.strSubpartKey, -1, 1) = '8' ) "
                 Case "Subpart - 9-NSPS (Part 60)"
                     SQLSearch2 = " ( SSPPSubpartData.strSubpart = '" & SubpartNSPS2 & "' " &
-                    "and substr(SSPPSubpartData.strSubpartKey, -1, 1) = '9' ) "
+                    "and SUBSTRING(SSPPSubpartData.strSubpartKey, -1, 1) = '9' ) "
                 Case "Subpart - M-MACT (Part 63)"
                     SQLSearch2 = " ( SSPPSubpartData.strSubpart = '" & SubpartMACT2 & "' " &
-                    "and substr(SSPPSubpartData.strSubpartKey, -1, 1) = 'M' ) "
+                    "and SUBSTRING(SSPPSubpartData.strSubpartKey, -1, 1) = 'M' ) "
             End Select
 
             If FieldType1 = FieldType2 Then

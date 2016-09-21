@@ -1520,7 +1520,7 @@ Public Class SSCPComplianceLog
                 SQL = "Select " &
                 "strFacilityCity, strCountyName " &
                 "from APBFacilityInformation, LookUpCountyInformation " &
-                "where substr(strAIRSNumber, 5, 3) = strCountyCode " &
+                "where SUBSTRING(strAIRSNumber, 5, 3) = strCountyCode " &
                 "and strAIRSnumber = '0413" & txtAIRSNumber.Text & "' "
 
                 cmd = New SqlCommand(SQL, CurrentConnection)

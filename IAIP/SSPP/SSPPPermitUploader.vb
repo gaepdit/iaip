@@ -102,7 +102,7 @@ Public Class SSPPPermitUploader
                 "EPDUserProfiles " &
                 "where SSPPApplicationMaster.strApplicationNumber  = SSPPApplicationTracking.strApplicationNumber (+) " &
                 "and SSPPApplicationMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber  " &
-                "and substr(SSPPApplicationMaster.strAIRSnumber, 5, 3)  = LookUpCountyInformation.strCountyCode (+) " &
+                "and SUBSTRING(SSPPApplicationMaster.strAIRSnumber, 5, 3)  = LookUpCountyInformation.strCountyCode (+) " &
                 "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode (+) " &
                 "and SSPPApplicationMaster.strPermitType = LookUpPermitTypes.strPermitTypeCode (+) " &
                 "and SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
@@ -3345,9 +3345,9 @@ Public Class SSPPPermitUploader
             If FileType <> "00" Then
                 SQL = "select strApplicationNumber, " &
                 "strPermitNumber,  " &
-                "(substr(strPermitNumber,1, 4) ||'-'||substr(strPermitNumber, 5,3) " &
-                "   ||'-'||substr(strPermitNumber, 8,4)||'-'||substr(strPermitNumber, 12, 1)  " &
-                "   ||'-'||substr(strPermitNumber, 13, 2) ||'-'||substr(strPermitNumber, 15,1)) as PermitNumber " &
+                "(SUBSTRING(strPermitNumber,1, 4) ||'-'||SUBSTRING(strPermitNumber, 5,3) " &
+                "   ||'-'||SUBSTRING(strPermitNumber, 8,4)||'-'||SUBSTRING(strPermitNumber, 12, 1)  " &
+                "   ||'-'||SUBSTRING(strPermitNumber, 13, 2) ||'-'||SUBSTRING(strPermitNumber, 15,1)) as PermitNumber " &
                 "from SSPPApplicationData  " &
                 "where strApplicationNumber like '" & MasterApp & "' "
 

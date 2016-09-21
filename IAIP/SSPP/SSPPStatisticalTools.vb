@@ -881,7 +881,7 @@ Public Class SSPPStatisticalTools
             "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
             "and SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
             "and SSPPApplicationMaster.strApplicatioNNumber = SSPPApplicationData.strApplicationNumber  " &
-            "and substr(strTrackedRules, 1, 1) = '1'  " &
+            "and SUBSTRING(strTrackedRules, 1, 1) = '1'  " &
             "and DatPermitIssued > '" & FirstDay & "' and datPermitissued < '" & LastDay & "'  " &
             "and strPermitType <> '9' " &
             "and strPermitType <> '10' " &
@@ -906,7 +906,7 @@ Public Class SSPPStatisticalTools
                     "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
                     "and SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
                     "and SSPPApplicationMaster.strApplicatioNNumber = SSPPApplicationData.strApplicationNumber  " &
-                    "and substr(strTrackedRules, 1, 1) = '1'  " &
+                    "and SUBSTRING(strTrackedRules, 1, 1) = '1'  " &
                     "and DatPermitIssued > '" & FirstDay & "' and datPermitissued < '" & LastDay & "' " &
                     "and strPermitType <> '9' " &
                     "and strPermitType <> '10' " &
@@ -1542,7 +1542,7 @@ Public Class SSPPStatisticalTools
             "(select count(*) as EPA2aa " &
             "from APBHeaderData, APBSupplamentalData  " &
             "where APBHeaderData.strAIRSNumber = APBSupplamentalData.strAIRSNumber " &
-            "AND (substr(strAirProgramCodes, 13, 1) = '1'  " &
+            "AND (SUBSTRING(strAirProgramCodes, 13, 1) = '1'  " &
             "and (strEPATOPSExcluded is null or strEPATOPSExcluded = 'False')  " &
             "and strOperationalStatus = 'O')) EPA2a1,  " &
             "(select count(*) as EPA2ab " &
@@ -1551,7 +1551,7 @@ Public Class SSPPStatisticalTools
             "where APBHeaderData.strAIRSNumber = APBSupplamentalData.strAIRSNumber " &
             "and APBHeaderData.strAIRSNumber = SSPPApplicationMaster.strAIRSNumber (+)  " &
             "and SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strAPplicationNumber  " &
-            "AND (substr(strAirProgramCodes, 13, 1) <> '1'  " &
+            "AND (SUBSTRING(strAirProgramCodes, 13, 1) <> '1'  " &
             "and datPermitIssued is null  " &
             "and strApplicationType = '14'  " &
             "and datFinalizeddate is null " &
@@ -1574,14 +1574,14 @@ Public Class SSPPStatisticalTools
             "from " &
             "(select count(*) as EPA2da " &
             "from APBHeaderData  " &
-            "where (substr(strAirProgramCodes, 13, 1) = '1' " &
+            "where (SUBSTRING(strAirProgramCodes, 13, 1) = '1' " &
             "and strOperationalStatus = 'O')) EPA2d1,  " &
             "(select count(*) as EPA2db " &
             "from APBHeaderData, " &
             "SSPPApplicationMaster, SSPPApplicationTracking  " &
             "where APBHeaderData.strAIRSNumber = SSPPApplicationMaster.strAIRSNumber (+) " &
             "and SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strAPplicationNumber  " &
-            "AND (substr(strAirProgramCodes, 13, 1) <> '1'  " &
+            "AND (SUBSTRING(strAirProgramCodes, 13, 1) <> '1'  " &
             "and datPermitIssued is null  " &
             "and strApplicationType = '14'  " &
             "and datFinalizeddate is null )) EPA2d2 "
@@ -1598,7 +1598,7 @@ Public Class SSPPStatisticalTools
 
             SQL = "select count(*) as EPA3a " &
             "from APBHeaderData " &
-            "where substr(strAirProgramCodes, 13, 1) = '1'  " &
+            "where SUBSTRING(strAirProgramCodes, 13, 1) = '1'  " &
             "and strOperationalStatus = 'O' "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -1710,7 +1710,7 @@ Public Class SSPPStatisticalTools
             "and MaxDate = SSPPApplicationTracking.datEffective " &
             "and maxDate < add_months('" & EndDate & "', -54) " &
             "and strOperationalStatus = 'O'  " &
-            "and substr(strAirProgramCodes, 13, 1) = '1'  " &
+            "and SUBSTRING(strAirProgramCodes, 13, 1) = '1'  " &
             "and SSPPApplicationMaster.strAIRSNumber = PermitRequests.AIRSNumber) "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -1754,7 +1754,7 @@ Public Class SSPPStatisticalTools
             "and MaxDate = SSPPApplicationTracking.datEffective " &
             "and maxDate < add_months('" & EndDate & "', -54) " &
             "and strOperationalStatus = 'O'  " &
-            "and substr(strAirProgramCodes, 13, 1) = '1'  " &
+            "and SUBSTRING(strAirProgramCodes, 13, 1) = '1'  " &
             "and SSPPApplicationMaster.strAIRSNumber = PermitRequests.AIRSNumber)  "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -1794,7 +1794,7 @@ Public Class SSPPStatisticalTools
 "and MaxDate = SSPPApplicationTracking.datEffective  " &
 "and maxDate < add_months('" & EndDate & "', -54) " &
 "and strOperationalStatus = 'O'   " &
-"and substr(strAirProgramCodes, 13, 1) = '1'  " &
+"and SUBSTRING(strAirProgramCodes, 13, 1) = '1'  " &
 "and SSPPApplicationMaster.strAIRSNumber = PermitRequests.AIRSNumber))  EPA6A " &
 "where not exists  " &
 "(select * from (Select *   " &
@@ -1815,7 +1815,7 @@ Public Class SSPPStatisticalTools
  "and SSPPApplicationMaster.strAIRSNumber = Effect.strAIRSnumber  " &
  "and MaxDate = SSPPApplicationTracking.datEffective  " &
 "and maxDate < add_months('" & EndDate & "', -54)  " &
-"and strOperationalStatus = 'O'  and substr(strAirProgramCodes, 13, 1) = '1'   " &
+"and strOperationalStatus = 'O'  and SUBSTRING(strAirProgramCodes, 13, 1) = '1'   " &
 "and SSPPApplicationMaster.strAIRSNumber = PermitRequests.AIRSNumber)  ) EPA6b where  EPA6A.airsnumber = EPA6b.airsNumber) "
 
 
@@ -3226,7 +3226,7 @@ Public Class SSPPStatisticalTools
                 "and SSPPApplicationMaster.strApplicatioNNumber = SSPPApplicationData.strApplicationNumber  " &
                 "and SSPPApplicationMaster.strApplicatioNnumber = SSPPApplicationLinking.strApplicationNumber (+) " &
                 "and LookUpApplicationTypes.strApplicationTypeCode = strApplicationType  " &
-                "and substr(strTrackedRules, 1, 1) = '1'  " &
+                "and SUBSTRING(strTrackedRules, 1, 1) = '1'  " &
                 "and DatPermitIssued > '" & FirstDay & "' and datPermitissued < '" & LastDay & "'  " &
                 "and strPermitType <> '9' " &
                 "and strPermitType <> '10' " &
@@ -5486,7 +5486,7 @@ Public Class SSPPStatisticalTools
                 "distinct(SUBSTRING(APBFacilityInformation.strAIRSNumber, 5,8)) as AIRSNumber,  " &
                 "APBFacilityInformation.strFacilityName,  " &
                 "case  " &
-                "   when substr(strAirprogramCodes, 13, 1) = '1' then 'Title V'  " &
+                "   when SUBSTRING(strAirprogramCodes, 13, 1) = '1' then 'Title V'  " &
                 "Else 'Non Title V'  " &
                 "End TVStatus,  " &
                 "case  " &
@@ -5497,7 +5497,7 @@ Public Class SSPPStatisticalTools
                 "(select APBHeaderData.strAIRSnumber as AIRSNumber1 " &
                 "from APBHeaderData, APBSupplamentalData " &
                 "where APBHeaderData.strAIRSNumber = APBSupplamentalData.strAIRSNumber  " &
-                "AND substr(strAirProgramCodes, 13, 1) = '1'  " &
+                "AND SUBSTRING(strAirProgramCodes, 13, 1) = '1'  " &
                 "and (strEPATOPSExcluded is null or strEPATOPSExcluded = 'False')   " &
                 "and strOperationalStatus = 'O') EPA1,  " &
                 "(select APBHeaderData.strAIRSNumber as AIRSNumber2 " &
@@ -5506,7 +5506,7 @@ Public Class SSPPStatisticalTools
                 "where APBHeaderData.strAIRSNumber = APBSupplamentalData.strAIRSNumber  " &
                 "and APBHeaderData.strAIRSNumber = SSPPApplicationMaster.strAIRSNumber (+)   " &
                 "and SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strAPplicationNumber   " &
-                "AND substr(strAirProgramCodes, 13, 1) <> '1'   " &
+                "AND SUBSTRING(strAirProgramCodes, 13, 1) <> '1'   " &
                 "and datPermitIssued is null   " &
                 "and strApplicationType = '14'   " &
                 "and datFinalizeddate is null  " &
@@ -5560,7 +5560,7 @@ Public Class SSPPStatisticalTools
                 "distinct(SUBSTRING(APBFacilityInformation.strAIRSNumber, 5,8)) as AIRSNumber,   " &
                 "APBFacilityInformation.strFacilityName,   " &
                 "case      " &
-                "   when substr(strAirprogramCodes, 13, 1) = '1' then 'Title V'   " &
+                "   when SUBSTRING(strAirprogramCodes, 13, 1) = '1' then 'Title V'   " &
                 "Else 'Non Title V'   " &
                 "End TVStatus,   " &
                 "case      " &
@@ -5578,7 +5578,7 @@ Public Class SSPPStatisticalTools
                 "(select APBHeaderData.strAIRSnumber as AIRSNumber1  " &
                 "from APBHeaderData, APBSupplamentalData  " &
                 "where APBHeaderData.strAIRSNumber = APBSupplamentalData.strAIRSNumber   " &
-                "AND substr(strAirProgramCodes, 13, 1) = '1'   " &
+                "AND SUBSTRING(strAirProgramCodes, 13, 1) = '1'   " &
                 "and strOperationalStatus = 'O') EPA1,   " &
                 "(select APBHeaderData.strAIRSNumber as AIRSNumber2  " &
                 "from APBHeaderData, APBSupplamentalData,    " &
@@ -5586,7 +5586,7 @@ Public Class SSPPStatisticalTools
                 "where APBHeaderData.strAIRSNumber = APBSupplamentalData.strAIRSNumber   " &
                 "and APBHeaderData.strAIRSNumber = SSPPApplicationMaster.strAIRSNumber (+)    " &
                 "and SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strAPplicationNumber    " &
-                "AND substr(strAirProgramCodes, 13, 1) <> '1'    " &
+                "AND SUBSTRING(strAirProgramCodes, 13, 1) <> '1'    " &
                 "and datPermitIssued is null    " &
                 "and strApplicationType = '14'   " &
                 "and datFinalizeddate is null) EPA2   " &
@@ -5642,7 +5642,7 @@ Public Class SSPPStatisticalTools
                 "SUBSTRING(APBFacilityInformation.strAIRSNumber, 5,8) as AIRSNumber,  " &
                 "strFacilityName,  " &
                 "case  " &
-                " when substr(strAirprogramCodes, 13, 1) = '1' then 'Title V'  " &
+                " when SUBSTRING(strAirprogramCodes, 13, 1) = '1' then 'Title V'  " &
                 "else 'Non Title V'  " &
                 "end TVStatus,  " &
                 "case  " &
@@ -5651,7 +5651,7 @@ Public Class SSPPStatisticalTools
                 "end strOperationalStatus  " &
                 "from APBHeaderData, APBFacilityInformation  " &
                 "where APBHeaderData.strAIRSNumber = APBFacilityInformation.strAIRSNumber  " &
-                "and substr(strAirProgramCodes, 13, 1) = '1'  " &
+                "and SUBSTRING(strAirProgramCodes, 13, 1) = '1'  " &
                 "and strOPerationalStatus = 'O'  "
 
                 dsViewCount = New DataSet
@@ -6004,7 +6004,7 @@ Public Class SSPPStatisticalTools
                 "and MaxDate = SSPPApplicationTracking.datEffective " &
                 "and maxDate < add_months('" & EndDate & "', -54) " &
                 "and strOperationalStatus = 'O'  " &
-                "and substr(strAirProgramCodes, 13, 1) = '1'  " &
+                "and SUBSTRING(strAirProgramCodes, 13, 1) = '1'  " &
                 "and SSPPApplicationMaster.strAIRSNumber = PermitRequests.AIRSNumber "
 
                 dsViewCount = New DataSet
@@ -6088,7 +6088,7 @@ Public Class SSPPStatisticalTools
             "and MaxDate = SSPPApplicationTracking.datEffective " &
             "and maxDate < add_months('" & EndDate & "', -54) " &
             "and strOperationalStatus = 'O'  " &
-            "and substr(strAirProgramCodes, 13, 1) = '1'  " &
+            "and SUBSTRING(strAirProgramCodes, 13, 1) = '1'  " &
             "and SSPPApplicationMaster.strAIRSNumber = PermitRequests.AIRSNumber  " &
             "order by AIRSNumber "
 
@@ -6174,7 +6174,7 @@ Public Class SSPPStatisticalTools
                 "and MaxDate = SSPPApplicationTracking.datEffective  " &
                 "and maxDate < add_months('" & EndDate & "', -54) " &
                 "and strOperationalStatus = 'O'   " &
-                "and substr(strAirProgramCodes, 13, 1) = '1'  " &
+                "and SUBSTRING(strAirProgramCodes, 13, 1) = '1'  " &
                 "and SSPPApplicationMaster.strAIRSNumber = PermitRequests.AIRSNumber))  EPA6A " &
                 "where not exists  " &
                 "(select * from (Select *   " &
@@ -6195,7 +6195,7 @@ Public Class SSPPStatisticalTools
                 "and SSPPApplicationMaster.strAIRSNumber = Effect.strAIRSnumber  " &
                 "and MaxDate = SSPPApplicationTracking.datEffective  " &
                 "and maxDate < add_months('" & EndDate & "', -54)  " &
-                "and strOperationalStatus = 'O'  and substr(strAirProgramCodes, 13, 1) = '1'   " &
+                "and strOperationalStatus = 'O'  and SUBSTRING(strAirProgramCodes, 13, 1) = '1'   " &
                 "and SSPPApplicationMaster.strAIRSNumber = PermitRequests.AIRSNumber)  ) EPA6b where  EPA6A.airsnumber = EPA6b.airsNumber) "
 
                 dsViewCount = New DataSet

@@ -64,9 +64,9 @@ Public Class SSPPTitleVTools
             "strFacilityName, " &
             "case  " &
             "        when strPermitNumber is NULL then ' '  " &
-            "         else substr(strPermitNumber, 1, 4)|| '-' ||substr(strPermitNumber, 5, 3)|| '-'  " &
-            "        ||substr(strPermitNumber, 8, 4)|| '-' ||substr(strPermitNumber, 12, 1)|| '-'           " &
-            "        ||substr(strPermitNumber, 13, 2)|| '-' ||substr(strPermitNumber, 15, 1) " &
+            "         else SUBSTRING(strPermitNumber, 1, 4)|| '-' ||SUBSTRING(strPermitNumber, 5, 3)|| '-'  " &
+            "        ||SUBSTRING(strPermitNumber, 8, 4)|| '-' ||SUBSTRING(strPermitNumber, 12, 1)|| '-'           " &
+            "        ||SUBSTRING(strPermitNumber, 13, 2)|| '-' ||SUBSTRING(strPermitNumber, 15, 1) " &
             "end As strPermitNumber, " &
             "Case " &
             "when datFinalizedDate is Null then ' ' " &
@@ -102,9 +102,9 @@ Public Class SSPPTitleVTools
             "strFacilityName,  " &
             "CASE   " &
             "   WHEN strPermitNumber IS NULL THEN ' '   " &
-            "   ELSE SUBSTR(strPermitNumber, 1, 4)|| '-' ||SUBSTR(strPermitNumber, 5, 3)|| '-'   " &
-            "    ||SUBSTR(strPermitNumber, 8, 4)|| '-' ||SUBSTR(strPermitNumber, 12, 1)|| '-'         " &
-            "    ||SUBSTR(strPermitNumber, 13, 2)|| '-' ||SUBSTR(strPermitNumber, 15, 1)  " &
+            "   ELSE SUBSTRING(strPermitNumber, 1, 4)|| '-' ||SUBSTRING(strPermitNumber, 5, 3)|| '-'   " &
+            "    ||SUBSTRING(strPermitNumber, 8, 4)|| '-' ||SUBSTRING(strPermitNumber, 12, 1)|| '-'         " &
+            "    ||SUBSTRING(strPermitNumber, 13, 2)|| '-' ||SUBSTRING(strPermitNumber, 15, 1)  " &
             "END AS strPermitNumber,  " &
             "CASE  " &
             "   WHEN datFinalizedDate IS NULL THEN ' '  " &
@@ -141,7 +141,7 @@ Public Class SSPPTitleVTools
             "strApplicationType = '2' " &
             "OR " &
             "strApplicationType = '11' " &
-            "and substr(strTrackedRules, 1, 1) = '1' " &
+            "and SUBSTRING(strTrackedRules, 1, 1) = '1' " &
             ") " &
             "and datFinalizedDate is Null " & SQLLine &
             " order by ApplicationNumber Desc "
@@ -683,12 +683,12 @@ Public Class SSPPTitleVTools
             SQL =
             "SELECT am.STRAPPLICATIONNUMBER , SUBSTRING( fi.STRAIRSNUMBER, 5,8 ) " &
             "  AS AIRSNumber , fi.STRFACILITYNAME ,( " &
-            "  SUBSTR( ad.STRPERMITNUMBER, 1, 4 ) || '-' ||  " &
-            "  SUBSTR( ad.STRPERMITNUMBER, 5, 3 ) || '-' ||  " &
-            "  SUBSTR( ad.STRPERMITNUMBER, 8, 4 ) || '-' ||  " &
-            "  SUBSTR( ad.STRPERMITNUMBER, 12, 1 ) || '-' ||  " &
-            "  SUBSTR( ad.STRPERMITNUMBER, 13, 2 ) || '-' ||  " &
-            "  SUBSTR( ad.STRPERMITNUMBER, 15 ) ) AS PermitNumber , TO_CHAR( " &
+            "  SUBSTRING( ad.STRPERMITNUMBER, 1, 4 ) || '-' ||  " &
+            "  SUBSTRING( ad.STRPERMITNUMBER, 5, 3 ) || '-' ||  " &
+            "  SUBSTRING( ad.STRPERMITNUMBER, 8, 4 ) || '-' ||  " &
+            "  SUBSTRING( ad.STRPERMITNUMBER, 12, 1 ) || '-' ||  " &
+            "  SUBSTRING( ad.STRPERMITNUMBER, 13, 2 ) || '-' ||  " &
+            "  SUBSTRING( ad.STRPERMITNUMBER, 15 ) ) AS PermitNumber , TO_CHAR( " &
             "  at.DATPERMITISSUED, 'dd-Mon-yyyy' ) AS PermitIssued , TO_CHAR " &
             "  ( at.DATEFFECTIVE, 'dd-Mon-yyyy' ) AS EffectiveDate " &
             "FROM SSPPApplicationMaster am " &
@@ -702,7 +702,7 @@ Public Class SSPPTitleVTools
             "ON fi.STRAIRSNUMBER = am.STRAIRSNUMBER " &
             "WHERE ad.STRPERMITNUMBER LIKE '%V__0' AND " &
             "  hd.STROPERATIONALSTATUS <> 'X' AND " &
-            "  SUBSTR( hd.STRAIRPROGRAMCODES, 13, 1 ) = '1' AND at.DATEFFECTIVE " &
+            "  SUBSTRING( hd.STRAIRPROGRAMCODES, 13, 1 ) = '1' AND at.DATEFFECTIVE " &
             "  BETWEEN @Startdate AND @EndDate AND( am.STRAPPLICATIONTYPE = " &
             "  '14' OR am.STRAPPLICATIONTYPE = '16' OR am.STRAPPLICATIONTYPE " &
             "  = '27' )"
@@ -961,7 +961,7 @@ Public Class SSPPTitleVTools
                 "LookUpApplicationTypes, LookUpCountyInformation   " &
                 "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber  " &
                 "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode  " &
-                "and substr(strAIRSNumber, 5, 3) = strCountyCode  "
+                "and SUBSTRING(strAIRSNumber, 5, 3) = strCountyCode  "
 
                 SQL2 = "Update SSPPApplicationData set " &
                 "strAppReceivedNotification = 'True' where "
@@ -1305,7 +1305,7 @@ Public Class SSPPTitleVTools
                     "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber  " &
                     "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode  " &
                     "and SSPPApplicationmaster.strAPplicationNumber = SSPPApplicationTracking.strApplicationNumber (+) " &
-                    "and substr(strAIRSNumber, 5, 3) = strCountyCode " &
+                    "and SUBSTRING(strAIRSNumber, 5, 3) = strCountyCode " &
                     "and SSPPApplicationMaster.strApplicationNumber = '" & temp & "' "
 
                     cmd = New SqlCommand(SQL, CurrentConnection)
@@ -1522,7 +1522,7 @@ Public Class SSPPTitleVTools
                     "LookUpCountyInformation, LookUpApplicationTypes " &
                     "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber  " &
                     "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode  " &
-                    "and substr(strAIRSNumber, 5, 3) = strCountyCode " &
+                    "and SUBSTRING(strAIRSNumber, 5, 3) = strCountyCode " &
                     "and SSPPApplicationMaster.strApplicationNumber = '" & temp & "' "
 
                     cmd = New SqlCommand(SQL, CurrentConnection)
@@ -1950,7 +1950,7 @@ Public Class SSPPTitleVTools
                     "LookUpCountyInformation, LookUpApplicationTypes " &
                     "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber  " &
                     "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode  " &
-                    "and substr(strAIRSNumber, 5, 3) = strCountyCode " &
+                    "and SUBSTRING(strAIRSNumber, 5, 3) = strCountyCode " &
                     "and SSPPApplicationMaster.strApplicationNumber = '" & temp & "' "
 
                     cmd = New SqlCommand(SQL, CurrentConnection)
@@ -2156,7 +2156,7 @@ Public Class SSPPTitleVTools
                     "LookUpCountyInformation, LookUpApplicationTypes " &
                     "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber  " &
                     "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode  " &
-                    "and substr(strAIRSNumber, 5, 3) = strCountyCode " &
+                    "and SUBSTRING(strAIRSNumber, 5, 3) = strCountyCode " &
                     "and SSPPApplicationMaster.strApplicationNumber = '" & temp & "' "
 
                     cmd = New SqlCommand(SQL, CurrentConnection)
@@ -2565,7 +2565,7 @@ Public Class SSPPTitleVTools
                     "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber  " &
                     "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode  " &
                     "and SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber (+) " &
-                    "and substr(strAIRSNumber, 5, 3) = strCountyCode " &
+                    "and SUBSTRING(strAIRSNumber, 5, 3) = strCountyCode " &
                     "and SSPPApplicationMaster.strApplicationNumber = '" & temp & "' "
 
                     cmd = New SqlCommand(SQL, CurrentConnection)
@@ -4734,7 +4734,7 @@ Public Class SSPPTitleVTools
             End If
 
             Dim SQL As String = "Select " &
-            "substr(max(strKey) + 1, 2, 1) as NewKey " &
+            "SUBSTRING(max(strKey) + 1, 2, 1) as NewKey " &
             "from APBContactInformation " &
             "where strAIRSNumber = '0413" & AIRSNumber & "' " &
             "and strKey like '" & Mid(Key, 1, 1) & "%' "

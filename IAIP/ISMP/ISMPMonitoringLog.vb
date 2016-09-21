@@ -227,7 +227,7 @@ Public Class ISMPMonitoringLog
                 "and ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSnumber " &
                 "and ISMPREportInformation.strReviewingEngineer = EPDUserProfiles.numUserID (+)  " &
                 "and ISMPREportINformation.strReportType = ISMPREportType.strKey " &
-                "and substr(ISMPMaster.strAIRSNumber, 5, 3) = LookupCountyInformation.strCountyCode  " &
+                "and SUBSTRING(ISMPMaster.strAIRSNumber, 5, 3) = LookupCountyInformation.strCountyCode  " &
                 "and ISMPReportInformation.strpollutant = LookUpPollutants.strPollutantCode (+)  " &
                 "and ISMPREportINformation.strDocumentType = ISMPDocumentType.strKey (+)  " &
                 "and ISMPReportInformation.strComplianceStatus = LookUpISMPComplianceStatus.strComplianceKey (+) " &
@@ -558,7 +558,7 @@ Public Class ISMPMonitoringLog
                "LookUpCountyInformation, LookUpEPDUnits  " &
                "where  ISMPTestNotification.strTestLogNumber = ISMPTestLogLink.strTestLognumber (+)    " &
                "and ISMPTestNotification.strAIRSNumber = APBFacilityInformation.strAIRSNumber (+) " &
-               "and substr(ISMPTestNotification.strAIRSNumber, 5, 3) = LookUpCountyInformation.strcountycode (+)  " &
+               "and SUBSTRING(ISMPTestNotification.strAIRSNumber, 5, 3) = LookUpCountyInformation.strcountycode (+)  " &
                "and EPDUserProfiles.numUnit = LookUpEPDUnits.numUnitCode (+) " &
                "and strStaffResponsible = EPDUserProfiles.numUserID (+)  "
 
@@ -711,7 +711,7 @@ Public Class ISMPMonitoringLog
                "where ISMPTestFirmComments.strTestingFirmKey = LooKUpTestingFirms.strTestingFirmKey " &
                "and ISMPTestFirmComments.strAIRSnumber = APBFacilityInformation.strAIRSNumber (+) " &
                "and ISMPTestFirmComments.strStaffResponsible = EPDUserProfiles.numUserID (+) " &
-               "and substr(ISMPTestFirmComments.strAIRSNUmber, 5, 3)  = LookUpCountyInformation.strCountycode (+) " &
+               "and SUBSTRING(ISMPTestFirmComments.strAIRSNUmber, 5, 3)  = LookUpCountyInformation.strCountycode (+) " &
                "and ismptestfirmcomments.strtestlognumber = ismptestnotification.strtestlognumber (+) "
 
 
@@ -846,7 +846,7 @@ Public Class ISMPMonitoringLog
                 "from APBFacilityINformation, ISMPTestNotification,  " &
                 "LookUpCountyInformation  " &
                 "where '0413'||ISMPTestNotification.strAIRSnumber = APBFacilityInformation.strAIRSNumber (+) " &
-                "and substr(ISMPTestNotification.strAIRSNumber, 1, 3) = LookUpCountyInformation.strCountyCode (+)  " &
+                "and SUBSTRING(ISMPTestNotification.strAIRSNumber, 1, 3) = LookUpCountyInformation.strCountyCode (+)  " &
                 "and strTestLogNumber = '" & txtTestLogNumber.Text & "' "
 
                 cmd = New SqlCommand(SQL, CurrentConnection)

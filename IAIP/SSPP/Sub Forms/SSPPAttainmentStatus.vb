@@ -326,7 +326,7 @@ Public Class SSPPAttainmentStatus
 
             SQL = "Select strAttainmentStatus, strAIRSNumber " &
             "from APBHeaderData " &
-            "where substr(strAIRSNumber, 5, 3) = '" & cboCounty.SelectedValue & "' "
+            "where SUBSTRING(strAIRSNumber, 5, 3) = '" & cboCounty.SelectedValue & "' "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -424,7 +424,7 @@ Public Class SSPPAttainmentStatus
 
             SQL = "Select strAttainmentStatus, strAIRSNumber " &
             "from APBHeaderData " &
-            "where substr(strAIRSNumber, 5, 3) = '" & cboCounty.SelectedValue & "' "
+            "where SUBSTRING(strAIRSNumber, 5, 3) = '" & cboCounty.SelectedValue & "' "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -527,7 +527,7 @@ Public Class SSPPAttainmentStatus
 
             SQL = "Select strAttainmentStatus, strAIRSNumber " &
             "from APBHeaderData " &
-            "where substr(strAIRSNumber, 5, 3) = '" & cboCounty.SelectedValue & "' "
+            "where SUBSTRING(strAIRSNumber, 5, 3) = '" & cboCounty.SelectedValue & "' "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then

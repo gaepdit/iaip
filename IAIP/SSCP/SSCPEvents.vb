@@ -284,7 +284,7 @@ Public Class SSCPEvents
             "from APBFacilityInformation, LookUpCountyInformation,  " &
             "APBHeaderData, EPDUserProfiles, SSCPItemMaster  " &
             "where APBFacilityInformation.strAIRSNUMBER = APBHeaderData.strAIRSNUmber " &
-            "and LookUpCountyInformation.strCountyCode = substr(APBFacilityInformation.strAIRSNumber, 5, 3)  " &
+            "and LookUpCountyInformation.strCountyCode = SUBSTRING(APBFacilityInformation.strAIRSNumber, 5, 3)  " &
             "and APBFacilityInformation.strAIRSNumber = SSCPItemMaster.strAIRSNumber  " &
             "and EPDUserProfiles.numUserID = SSCPItemMaster.strResponsibleStaff  " &
             "and SSCPItemMaster.strTrackingNumber = '" & txtTrackingNumber.Text & "' "
