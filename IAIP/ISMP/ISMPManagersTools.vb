@@ -4242,8 +4242,8 @@ Public Class ISMPManagersTools
             "(select  " &
             "strReviewingEngineer,  " &
             "case  " &
-            "when strClosed = 'True' then (datCompleteDate - datReceivedDate)  " &
-            "when strClosed = 'False' then (round(GETDATE(), 'DDD') - datReceivedDate) " &
+            "when strClosed = 'True' then DATEDIFF(d, datReceivedDate, datCompleteDate)  " &
+            "when strClosed = 'False' then DATEDIFF(d, datReceivedDate, GETDATE()) " &
             "END DayIn " &
             "from ISMPReportInformation " &
             "where datCompleteDate between '" & DTPUnitStatsStartDate.Text & "' and '" & DTPUnitStatsEndDate.Text & "'  " &
@@ -4257,8 +4257,8 @@ Public Class ISMPManagersTools
             "(select  " &
             "strReviewingEngineer,  " &
             "case  " &
-            "when strClosed = 'True' then (datCompleteDate - datReceivedDate)  " &
-            "when strClosed = 'False' then (round(GETDATE(), 'DDD') - datReceivedDate) " &
+            "when strClosed = 'True' then DATEDIFF(d, datReceivedDate, datCompleteDate)  " &
+            "when strClosed = 'False' then DATEDIFF(d, datReceivedDate, GETDATE()) " &
             "END DaysIn " &
             "from ISMPReportInformation " &
             "where datCompleteDate between '" & DTPUnitStatsStartDate.Text & "' and '" & DTPUnitStatsEndDate.Text & "'  " &
