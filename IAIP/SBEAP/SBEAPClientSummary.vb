@@ -2033,7 +2033,7 @@ Public Class SBEAPClientSummary
             "where EPDUserProfiles.numUnit = LookUpEPDUnits.numUnitCode (+) " &
             "and numUserID = strStaffResponsible  " &
             "and SSPPApplicationMaster.strApplicationNumber =  " &
-            "(select distinct(max(to_number(strApplicationNumber))) as GreatestApplication  " &
+            "(select distinct(max(CONVERT(int, strApplicationNumber))) as GreatestApplication  " &
             "from SSPPApplicationMaster   " &
             "where SSPPApplicationMaster.strAIRSNumber = '0413" & mtbAIRSNumber.Text & "')  " &
             "and SSPPApplicationMaster.strAIRSnumber = '0413" & mtbAIRSNumber.Text & "'  "

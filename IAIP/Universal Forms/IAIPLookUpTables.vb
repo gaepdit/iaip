@@ -10,7 +10,7 @@ Public Class IAIPLookUpTables
     Sub LoadApplicationTypes()
         Try
             SQL = "Select " &
-            "to_number(strApplicationTypeCode) as strApplicationTypeCode, " &
+            "CONVERT(int, strApplicationTypeCode) as strApplicationTypeCode, " &
             "strApplicationTypeDesc, " &
             "strApplicationTypeUsed " &
             "From LookUpApplicationTypes " &
@@ -102,7 +102,7 @@ Public Class IAIPLookUpTables
 
                 SQL = "Insert into LookUpApplicationTypes " &
                 "values " &
-                "((Select max(to_Number(strApplicationTypeCode)) + 1 as MaxID " &
+                "((Select max(CONVERT(int, strApplicationTypeCode)) + 1 as MaxID " &
                 "from LookUpApplicationTypes), " &
                 "'" & txtApplicationDesc.Text & "', '" & AppStatus & "') "
                 cmd = New SqlCommand(SQL, CurrentConnection)
@@ -112,7 +112,7 @@ Public Class IAIPLookUpTables
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL = "Select max(to_Number(strApplicationTypeCode)) + 1 as MaxID " &
+                SQL = "Select max(CONVERT(int, strApplicationTypeCode)) + 1 as MaxID " &
                 "from LookUpApplicationTypes "
                 cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -384,7 +384,7 @@ Public Class IAIPLookUpTables
             "datEndDate, strCurrentContact " &
             "from LookUpAPBManagementType " &
             "where strCurrentContact = '1' " &
-            "order by to_number(strKey) "
+            "order by CONVERT(int, strKey) "
 
             ds = New DataSet
             da = New SqlDataAdapter(SQL, CurrentConnection)

@@ -522,7 +522,7 @@ Public Class ISMPNotificationLog
     End Sub
     Sub SelectNewTestNotifcationNumber()
         Try
-            SQL = "Select max(to_number(strTestLogNumber)) + 1 as TestNum " &
+            SQL = "Select max(convert(int, strTestLogNumber)) + 1 as TestNum " &
             "From ISMPTestnotification "
             cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then

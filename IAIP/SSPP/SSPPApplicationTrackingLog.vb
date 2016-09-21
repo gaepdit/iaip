@@ -2358,7 +2358,7 @@ Public Class SSPPApplicationTrackingLog
 
             If String.IsNullOrEmpty(AIRSNumber) Then AIRSNumber = txtAIRSNumber.Text
 
-            query = "Select to_Number(SSPPApplicationMaster.strApplicationNumber) as strApplicationNumber, " &
+            query = "Select CONVERT(int, SSPPApplicationMaster.strApplicationNumber) as strApplicationNumber, " &
             "case " &
             "    when strApplicationTypeDesc is Null then ' ' " &
             "Else strApplicationTypeDesc " &

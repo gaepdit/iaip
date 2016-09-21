@@ -441,8 +441,8 @@ Public Class ISMPTestReportAdministrative
 
 
             SQL = "select " &
-            "case when max(strReferenceNumber) is null then to_char(GETDATE(), 'YYYY')||'00001'  " &
-            "else to_char(max(to_number(strReferenceNumber) + 1 )) " &
+            "case when max(strReferenceNumber) is null then CONCAT(YEAR(GETDATE()), '00001')  " &
+            "else max(convert(int, strReferenceNumber) + 1 ) " &
             "end MaxRefNum  " &
             "from ISMPMaster  " &
             "where strReferenceNumber like '" & RefYear & "%' "

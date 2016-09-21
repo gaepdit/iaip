@@ -48,7 +48,7 @@ Public Class SSPPTitleVTools
             End If
 
             SQL = "select " &
-            "to_Number(SSPPApplicationMaster.strApplicationNumber) as ApplicationNumber, " &
+            "CONVERT(int, SSPPApplicationMaster.strApplicationNumber) as ApplicationNumber, " &
             "case " &
             "When datDraftIssued is Null then ' ' " &
             "ELSE to_char(datDraftIssued, 'RRRR-MM-dd') " &
@@ -86,7 +86,7 @@ Public Class SSPPTitleVTools
             " or strApplicationType = '20' or strApplicationType = '22' or strApplicationType = '21')" & SQLLine
 
             SQL = "SELECT " &
-            "TO_NUMBER(SSPPApplicationMaster.strApplicationNumber) AS ApplicationNumber,  " &
+            "CONVERT(int, SSPPApplicationMaster.strApplicationNumber) AS ApplicationNumber,  " &
             "CASE  " &
             "   WHEN datDraftIssued IS NULL THEN ' '  " &
             "   ELSE TO_CHAR(datDraftIssued, 'RRRR-MM-dd') " &

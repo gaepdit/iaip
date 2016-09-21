@@ -3694,7 +3694,7 @@ Public Class SSCPManagersTools
     Sub EnforcementTotals()
         Try
             SQL = "select " &
-            "'$'||to_number((CoPenalty + Stipulated), '99999999.99') as TotalPen  " &
+            "CONCAT('$', CONVERT(decimal(12, 2), CoPenalty + Stipulated)) as TotalPen  " &
             "from  " &
             "(select  " &
             "sum(SSCP_AuditedEnforcement.strCOPenaltyAmount) as COPenalty " &
@@ -3708,7 +3708,7 @@ Public Class SSCPManagersTools
 
             If chbUseEnforcementDateRange.Checked = True Then
                 SQL = "select " &
-                "'$'||to_number((CoPenalty + Stipulated), '99999999.99') as TotalPen  " &
+                "CONCAT('$', CONVERT(decimal(12, 2), CoPenalty + Stipulated)) as TotalPen  " &
                 "from  " &
                 "(select  " &
                 "sum(SSCP_AuditedEnforcement.strCOPenaltyAmount) as COPenalty " &
@@ -3759,8 +3759,8 @@ Public Class SSCPManagersTools
                 "strFacilityName, " &
                 "SUBSTRING(SSCP_AuditedEnforcement.strAIRSNumber, 5,8) as AIRSNumber, " &
                 "SSCP_AuditedEnforcement.strEnforcementNumber, " &
-                "'$'||to_number(SSCP_AuditedEnforcement.strCOPenaltyAmount, '99999999.99') as COPenalty, " &
-                "'$'||to_number(SSCPEnforcementStipulated.strStipulatedPenalty, '99999999.99') as StipulatedPenalty, " &
+                " CONCAT('$', CONVERT(decimal(12, 2), SSCP_AuditedEnforcement.strCOPenaltyAmount)) as COPenalty, " &
+                " CONCAT('$', CONVERT(decimal(12, 2), SSCPEnforcementStipulated.strStipulatedPenalty)) as StipulatedPenalty, " &
                 "to_char(datDiscoveryDate, 'dd-Mon-yyyy') as datDiscoveryDate " &
                 "from SSCP_AuditedEnforcement, " &
                 "SSCPEnforcementStipulated, APBFacilityInformation  " &
@@ -3773,8 +3773,8 @@ Public Class SSCPManagersTools
                     "strFacilityName, " &
                     "SUBSTRING(SSCP_AuditedEnforcement.strAIRSNumber, 5,8) as AIRSNumber, " &
                     "SSCP_AuditedEnforcement.strEnforcementNumber, " &
-                    "'$'||to_number(SSCP_AuditedEnforcement.strCOPenaltyAmount, '99999999.99') as COPenalty, " &
-                    "'$'||to_number(SSCPEnforcementStipulated.strStipulatedPenalty, '99999999.99') as StipulatedPenalty, " &
+                    "CONCAT('$', CONVERT(decimal(12, 2), SSCP_AuditedEnforcement.strCOPenaltyAmount)) as COPenalty, " &
+                    "CONCAT('$', CONVERT(decimal(12, 2), SSCPEnforcementStipulated.strStipulatedPenalty)) as StipulatedPenalty, " &
                     "to_char(datDiscoveryDate, 'dd-Mon-yyyy') as datDiscoveryDate " &
                     "from SSCP_AuditedEnforcement, " &
                     "SSCPEnforcementStipulated, APBFacilityInformation " &

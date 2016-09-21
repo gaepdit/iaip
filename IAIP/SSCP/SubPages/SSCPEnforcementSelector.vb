@@ -217,7 +217,7 @@ Public Class SSCPEnforcementSelector
 
             Select Case Source
                 Case "All"
-                    SQL = "Select distinct(to_number(SSCP_AuditedEnforcement.strEnforcementNumber)) as strEnforcementNumber, " &
+                    SQL = "Select distinct(CONVERT(int, SSCP_AuditedEnforcement.strEnforcementNumber)) as strEnforcementNumber, " &
                        "Case  " &
                        "	when datDiscoveryDate is Null then '' " &
                        "	else to_char(datDiscoveryDate, 'dd-Mon-yyyy') " &
@@ -250,7 +250,7 @@ Public Class SSCPEnforcementSelector
                 Case "AllOpen"
                     'txtAIRSNumber.Clear()
                     'txtEnforcementNumber.Clear()
-                    SQL = "Select distinct(to_number(SSCP_AuditedEnforcement.strEnforcementNumber)) as strEnforcementNumber, " &
+                    SQL = "Select distinct(CONVERT(int, SSCP_AuditedEnforcement.strEnforcementNumber)) as strEnforcementNumber, " &
                     "Case  " &
                     "	when datDiscoveryDate is Null then '' " &
                     "	else to_char(datDiscoveryDate, 'dd-Mon-yyyy') " &
@@ -282,7 +282,7 @@ Public Class SSCPEnforcementSelector
                     "and datEnforcementFinalized IS Null " &
                     "order by strENforcementNumber DESC "
                 Case "Single"
-                    SQL = "Select distinct(to_number(SSCP_AuditedEnforcement.strEnforcementNumber)) as strEnforcementNumber, " &
+                    SQL = "Select distinct(CONVERT(int, SSCP_AuditedEnforcement.strEnforcementNumber)) as strEnforcementNumber, " &
                     "Case  " &
                     "	when datDiscoveryDate is Null then '' " &
                     "	else to_char(datDiscoveryDate, 'dd-Mon-yyyy') " &
@@ -316,7 +316,7 @@ Public Class SSCPEnforcementSelector
                 Case "ByUnit"
                     If cboComplianceUnits.Text = "Unassigned" Then
                         SQL = "Select " &
-                        "to_number(SSCP_AuditedEnforcement.strEnforcementNumber) as strEnforcementNumber, " &
+                        "CONVERT(int, SSCP_AuditedEnforcement.strEnforcementNumber) as strEnforcementNumber, " &
                         "case  " &
                         "   when datEnforcementFinalized is Not Null then '4 - Closed Out' " &
                         "   when strAFSKeyActionNumber is Not Null then '3 - Submitted to EPA'  " &
@@ -350,7 +350,7 @@ Public Class SSCPEnforcementSelector
                         "and EPDUserProfiles.numUserID = '0'  " &
                         "order by strENforcementNumber DESC "
                     Else
-                        SQL = "Select to_number(SSCP_AuditedEnforcement.strEnforcementNumber) as strEnforcementNumber, " &
+                        SQL = "Select CONVERT(int, SSCP_AuditedEnforcement.strEnforcementNumber) as strEnforcementNumber, " &
                         "case  " &
                         "   when datEnforcementFinalized is Not Null then '4 - Closed Out' " &
                         "   when strAFSKeyActionNumber is Not Null then '3 - Submitted to EPA'  " &

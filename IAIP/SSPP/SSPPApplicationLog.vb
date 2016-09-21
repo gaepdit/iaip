@@ -797,7 +797,7 @@ Public Class SSPPApplicationLog
         Try
             If chbShowAll.Checked = True Then
                 SQL = "Select  " &
-                "  distinct(to_Number(SSPPApplicationMaster.strApplicationNumber)) as strApplicationNumber,  " &
+                "  distinct(CONVERT(int, SSPPApplicationMaster.strApplicationNumber)) as strApplicationNumber,  " &
                 "   case  " &
                 "   	when strApplicationTypeDesc IS Null then ''  " &
                 "   Else strApplicationTypeDesc  " &
@@ -1086,7 +1086,7 @@ Public Class SSPPApplicationLog
                 "and SSPPApplicationMaster.strApplicationNumber = SSPPSubpartData.strApplicationNumber (+) "
             Else
                 SQL = "Select  " &
-                    "  distinct(to_Number(SSPPApplicationMaster.strApplicationNumber)) as strApplicationNumber,  " &
+                    "  distinct(CONVERT(int, SSPPApplicationMaster.strApplicationNumber)) as strApplicationNumber,  " &
                     "  case   " &
                     " 	when strApplicationTypeDesc IS Null then ''   " &
                     " Else strApplicationTypeDesc   " &

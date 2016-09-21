@@ -547,7 +547,7 @@ Public Class ISMPMonitoringLog
                "APBFacilityInformation.strFacilityName,  " &
                "strFacilityCity,  " &
                "strCountyName,  " &
-               "to_number(ISMPTestNotification.strTestLogNumber) as strTestLogNumber,    " &
+               "convert(int, ISMPTestNotification.strTestLogNumber) as strTestLogNumber,    " &
                "strEmissionUnit,  datProposedStartDate,    " &
                "(strLastName|| ', ' ||strFirstName) as StaffResponsible,   " &
                "strUnitDesc, " &
