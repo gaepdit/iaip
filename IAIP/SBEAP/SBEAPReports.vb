@@ -262,7 +262,7 @@ Public Class SBEAPReports
         Try
             SQL = "select " &
             "SBEAPClients.ClientID, strCompanyName, " &
-            "to_date(datCompanyCreated, 'dd-Mon-RRRR') as datCompanyCreated, STRCLIENTDESCRIPTION " &
+            "datCompanyCreated as datCompanyCreated, STRCLIENTDESCRIPTION " &
             "from SBEAPClients, SBEAPCLientData " &
             "where SBEAPClients.ClientID = SBEAPClientData.ClientID " &
             "and datCompanyCreated between '" & DTPReportStartDate.Text & "' and '" & DTPReportEndDate.Text & "' "
@@ -312,8 +312,8 @@ Public Class SBEAPReports
             "when datActionOccured between '" & DTPReportStartDate.Text & "' and '" & DTPReportEndDate.Text & "' then 'Action Occured' " &
             "end CountReason, " &
             "case " &
-            "when datCaseOpened between '" & DTPReportStartDate.Text & "' and '" & DTPReportEndDate.Text & "' then to_date(datCaseOpened, 'dd-Mon-RRRR') " &
-            "when datCaseClosed between '" & DTPReportStartDate.Text & "' and '" & DTPReportEndDate.Text & "' then to_date(datCaseClosed, 'dd-Mon-RRRR') " &
+            "when datCaseOpened between '" & DTPReportStartDate.Text & "' and '" & DTPReportEndDate.Text & "' then datCaseOpened " &
+            "when datCaseClosed between '" & DTPReportStartDate.Text & "' and '" & DTPReportEndDate.Text & "' then datCaseClosed " &
             "else null   " &
             "end CountDate, strCaseSummary " &
             "from SBEAPActionLog, SBEAPCaseLog, " &
@@ -369,7 +369,7 @@ Public Class SBEAPReports
             SQL = "select SBEAPCaseLog.numCaseID, " &
             "SBEAPClients.ClientID, strCompanyName, " &
             "strCaseSummary, " &
-            "to_date(datCaseOpened, 'dd-Mon-RRRR') as datCaseOpened, " &
+            "datCaseOpened as datCaseOpened, " &
             "(strLastName|| ', ' ||strFirstName) as StaffResponsible " &
             "from SBEAPCaseLog, SBEAPClients, " &
             "SBEAPCaseLogLink, EPDUserProfiles " &
@@ -423,7 +423,7 @@ Public Class SBEAPReports
             "when datActionOccured between '" & DTPReportStartDate.Text & "' and '" & DTPReportEndDate.Text & "' then 'Action Occured' " &
             "when datCaseClosed between '" & DTPReportStartDate.Text & "' and '" & DTPReportEndDate.Text & "' then 'Case Closed' " &
             "end CountReason, " &
-            "to_date(datCaseOpened, 'dd-Mon-RRRR') as datCaseOpened, " &
+            "datCaseOpened as datCaseOpened, " &
             "(strLastName|| ', ' ||strFirstName) as StaffResponsible,  " &
             "case " &
             "when strComplaintBased = 'True' then 'True' " &
@@ -486,7 +486,7 @@ Public Class SBEAPReports
             SQL = "select SBEAPCaseLog.numCaseID, " &
             "SBEAPClients.ClientID, strCompanyName, " &
             "strCaseSummary, " &
-            "to_date(datCaseOpened, 'dd-Mon-RRRR') as datCaseOpened, " &
+            "datCaseOpened as datCaseOpened, " &
             "'Case Opened' as CountReason,  " &
             "(strLastName|| ', ' ||strFirstName) as StaffResponsible  " &
             "from SBEAPCaseLog, SBEAPClients, " &
@@ -561,7 +561,7 @@ Public Class SBEAPReports
             SQL = "select " &
             "distinct(SBEAPCaseLog.numCaseID), " &
             "SBEAPClients.clientID, strCompanyName, " &
-            "to_date(datCaseOpened, 'dd-Mon-RRRR') as datCaseOpened, " &
+            "datCaseOpened as datCaseOpened, " &
             "strCaseSummary, " &
             "(strLastName|| ', ' ||strFirstName) as StaffResponsible, " &
             "datCaseClosed " &
@@ -619,7 +619,7 @@ Public Class SBEAPReports
            "sbeapCaseLog.numCaseID, " &
            "SBEAPClients.ClientID, " &
            "strCompanyName, strWorkDescription, " &
-           "to_date(datActionOccured, 'dd-Mon-RRRR') as datActionOccured, " &
+           "datActionOccured as datActionOccured, " &
            "(strLastName|| ', ' ||strFirstName) as StaffResponsible     " &
            "from SBEAPActionLog, LookUpSBEAPCaseWork, " &
            "SBEAPCaseLog, SBEAPCaseLogLink, " &
@@ -683,7 +683,7 @@ Public Class SBEAPReports
             "sbeapCaseLog.numCaseID, " &
             "SBEAPClients.ClientID, " &
             "strCompanyName, strWorkDescription, " &
-            "to_date(datActionOccured, 'dd-Mon-RRRR') as datActionOccured, " &
+            "datActionOccured as datActionOccured, " &
             "(strLastName|| ', ' ||strFirstName) as StaffResponsible     " &
             "from SBEAPActionLog, LookUpSBEAPCaseWork, " &
             "SBEAPCaseLog, SBEAPCaseLogLink, " &
@@ -742,7 +742,7 @@ Public Class SBEAPReports
                 "sbeapCaseLog.numCaseID, " &
                 "SBEAPClients.ClientID, " &
                 "strCompanyName, strWorkDescription, " &
-                "to_date(datActionOccured, 'dd-Mon-RRRR') as datActionOccured, " &
+                "datActionOccured as datActionOccured, " &
                 "(strLastName|| ', ' ||strFirstName) as StaffResponsible, " &
                 "strCaseSummary " &
                 "from SBEAPActionLog, LookUpSBEAPCaseWork, " &
@@ -761,7 +761,7 @@ Public Class SBEAPReports
               "sbeapCaseLog.numCaseID, " &
               "SBEAPClients.ClientID, " &
               "strCompanyName, strWorkDescription, " &
-              "to_date(datActionOccured, 'dd-Mon-RRRR') as datActionOccured, " &
+              "datActionOccured, " &
               "(strLastName|| ', ' ||strFirstName) as StaffResponsible, " &
               "strCaseSummary " &
               "from SBEAPActionLog, LookUpSBEAPCaseWork, " &

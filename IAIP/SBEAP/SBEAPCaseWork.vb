@@ -497,8 +497,8 @@ Public Class SBEAPCaseWork
             "when SBEAPActionLog.numActionType is null then ' ' " &
             "else strWorkDescription " &
             "end ActionDescription, " &
-            "to_date(datCreationDate, 'dd-Mon-RRRR') as CreationDate,  " &
-            "to_date(datActionOccured, 'dd-Mon-RRRR') as OccuredDate " &
+            "datCreationDate as CreationDate,  " &
+            "datActionOccured as OccuredDate " &
             "from SBEAPActionLog, LookUpSBEAPCaseWork " &
             "where SBEAPActionLog.numActionType = LookUpSBEAPCaseWork.numActionType (+)  " &
             "and SBEAPActionLog.numCaseID = '" & txtCaseID.Text & "' " &

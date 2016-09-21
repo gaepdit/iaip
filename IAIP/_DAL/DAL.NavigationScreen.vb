@@ -100,7 +100,7 @@ Namespace DAL
                             LEFT JOIN ISMPTESTLOGLINK AS lnk ON notif.STRTESTLOGNUMBER = lnk.STRTESTLOGNUMBER
                             LEFT JOIN EPDUSERPROFILES AS prof ON notif.STRSTAFFRESPONSIBLE = prof.NUMUSERID
                             LEFT JOIN APBFACILITYINFORMATION AS fac ON notif.STRAIRSNUMBER = fac.STRAIRSNUMBER
-                            WHERE lnk.STRREFERENCENUMBER IS NULL AND notif.DATPROPOSEDSTARTDATE > DATEADD(D, -180, SYSDATETIME())"
+                            WHERE lnk.STRREFERENCENUMBER IS NULL AND notif.DATPROPOSEDSTARTDATE > DATEADD(day, -180, SYSDATETIME())"
 
                 Case NavWorkListContext.MonitoringTestReports
                     query = "SELECT rep.STRREFERENCENUMBER AS [Reference #], ismp.STRAIRSNUMBER AS [AIRS #], fac.STRFACILITYNAME AS Facility, fac.STRFACILITYCITY AS City, rep.STREMISSIONSOURCE AS [Emission Source], lkp.STRPOLLUTANTDESCRIPTION AS Pollutant, dt.STRDOCUMENTTYPE AS [Document Type], prof.STRLASTNAME+', '+prof.STRFIRSTNAME AS [Reviewing Engineer], rep.DATTESTDATESTART AS [Test Date],

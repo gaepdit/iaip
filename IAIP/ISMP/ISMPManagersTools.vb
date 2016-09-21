@@ -2006,7 +2006,7 @@ Public Class ISMPManagersTools
             "and Upper(APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " &
             "and ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " &
             "and SUBSTRING(ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
-            "and (to_date('" & OracleDate & "', 'dd-Mon-yyyy') - datReceivedDate) >= '" & txtDaysOpenFacility.Text & "' " &
+            "and DATEDIFF(day, datReceivedDate, GETDATE()) >= '" & txtDaysOpenFacility.Text & "' " &
             "and " & DateBias & " "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -2230,7 +2230,7 @@ Public Class ISMPManagersTools
             "and Upper(APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " &
             "and ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " &
             "and SUBSTRING(ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
-            "and (to_date('" & OracleDate & "', 'dd-Mon-yyyy') - datReceivedDate) >= '" & txtDaysOpenFacility.Text & "' " &
+            "and DATEDIFF(day, datReceivedDate, GETDATE()) >= '" & txtDaysOpenFacility.Text & "' " &
             "and " & DateBias & " "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -2251,7 +2251,7 @@ Public Class ISMPManagersTools
             "and Upper(APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " &
             "and ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " &
             "and SUBSTRING(ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
-            "and (to_date('" & OracleDate & "', 'dd-Mon-yyyy') - datReceivedDate) >= '" & txtDaysOpenFacility.Text & "' " &
+            "and DATEDIFF(day, datReceivedDate, GETDATE()) >= '" & txtDaysOpenFacility.Text & "' " &
             "and " & DateBias & " "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -2272,7 +2272,7 @@ Public Class ISMPManagersTools
             "and Upper(APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " &
             "and ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " &
             "and SUBSTRING(ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
-            "and (to_date('" & OracleDate & "', 'dd-Mon-yyyy') - datReceivedDate) >= '" & txtDaysOpenFacility.Text & "' " &
+            "and DATEDIFF(day, datReceivedDate, GETDATE()) >= '" & txtDaysOpenFacility.Text & "' " &
             "and " & DateBias & " "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -2293,7 +2293,7 @@ Public Class ISMPManagersTools
            "and Upper(APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " &
            "and ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " &
            "and SUBSTRING(ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
-           "and (to_date('" & OracleDate & "', 'dd-Mon-yyyy') - datReceivedDate) >= '" & txtDaysOpenFacility.Text & "' " &
+           "and DATEDIFF(day, datReceivedDate, GETDATE()) >= '" & txtDaysOpenFacility.Text & "' " &
            "and " & DateBias & " "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -2314,7 +2314,7 @@ Public Class ISMPManagersTools
            "and Upper(APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " &
            "and ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " &
            "and SUBSTRING(ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
-           "and (to_date('" & OracleDate & "', 'dd-Mon-yyyy') - datReceivedDate) >= '" & txtDaysOpenFacility.Text & "' " &
+           "and DATEDIFF(day, datReceivedDate, GETDATE()) >= '" & txtDaysOpenFacility.Text & "' " &
            "and " & DateBias & " "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -2432,7 +2432,7 @@ Public Class ISMPManagersTools
                     "where " &
                     "strDelete is NULL " &
                     "and strReviewingEngineer = '" & EngineerGCode & "' " &
-                    "and (to_date('" & OracleDate & "', 'dd-Mon-yyyy') - datReceivedDate) >= '" & txtDaysOpen.Text & "' " &
+                    "and DATEDIFF(day, datReceivedDate, GETDATE()) >= '" & txtDaysOpen.Text & "' " &
                     "and " & DateBias & " "
 
                     cmd = New SqlCommand(SQL, CurrentConnection)
@@ -2501,7 +2501,7 @@ Public Class ISMPManagersTools
                     "where " &
                     "strDelete is NULL " &
                     "and strReviewingEngineer = '" & EngineerGCode & "' " &
-                    "and (to_date('" & OracleDate & "', 'dd-Mon-yyyy') - datReceivedDate) >= '" & txtDaysOpen2.Text & "' " &
+                    "and DATEDIFF(day, datReceivedDate, GETDATE()) >= '" & txtDaysOpen2.Text & "' " &
                     "and " & DateBias & " "
 
                     cmd = New SqlCommand(SQL, CurrentConnection)
@@ -2563,7 +2563,7 @@ Public Class ISMPManagersTools
             "where " &
             "strDelete is NULL " &
             "and strReviewingEngineer = '0' " &
-            "and (to_date('" & OracleDate & "', 'dd-Mon-yyyy') - datReceivedDate) >= '" & txtDaysOpen3.Text & "' " &
+            "and DATEDIFF(day, datReceivedDate, GETDATE()) >= '" & txtDaysOpen3.Text & "' " &
             "and " & DateBias & " "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -2621,7 +2621,7 @@ Public Class ISMPManagersTools
             "from ISMPReportInformation " &
             "where " &
             "strDelete is NULL " &
-            "and (to_date('" & OracleDate & "', 'dd-Mon-yyyy') - datReceivedDate) >= '" & txtDaysOpen4.Text & "' " &
+            "and DATEDIFF(day, datReceivedDate, GETDATE()) >= '" & txtDaysOpen4.Text & "' " &
             "and " & DateBias & " "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -2862,8 +2862,8 @@ Public Class ISMPManagersTools
                 "count(*) as GreaterByDate " &
                 "from ISMPReportInformation  " &
                 "where strDelete is NULL  " &
-                "and datReceivedDate < Decode(strClosed, 'False', (trunc(GETDATE()) - 50), " &
-                "                                        'True', (-50 + datCompleteDate)) " &
+                "and datReceivedDate < if strClosed = 'False' then DATEADD(day, -50, GETDATE()), " &
+                "                                        else DATEADD(day, -50, datCompleteDate) end " &
                 "and " & DateBias & " " &
                 "Group by strReviewingEngineer) GreaterByDates,  " &
                 "(select strReviewingEngineer,  " &
@@ -3497,7 +3497,7 @@ Public Class ISMPManagersTools
             "and ISMPReportInformation.strReferenceNumber = ISMPMaster.strReferenceNumber) as ReviewingEngineer, " &
             "ISMPReportInformation.strReferenceNumber, strFacilityName, " &
             "to_char(datReceivedDate, 'dd-Mon-yyyy') as ForDatReceivedDate, " &
-            "(to_date('" & OracleDate & "', 'dd-Mon-yyyy') - datReceivedDate) as Days " &
+            "DATEDIFF(day, datReceivedDate, GETDATE()) as Days " &
             "from ISMPReportInformation, ISMPMaster, APBFacilityInformation " &
             "where " &
             "ISMPReportInformation.strReferenceNumber = ISMPMaster.strReferenceNumber " &
@@ -4242,8 +4242,8 @@ Public Class ISMPManagersTools
             "(select  " &
             "strReviewingEngineer,  " &
             "case  " &
-            "when strClosed = 'True' then DATEDIFF(d, datReceivedDate, datCompleteDate)  " &
-            "when strClosed = 'False' then DATEDIFF(d, datReceivedDate, GETDATE()) " &
+            "when strClosed = 'True' then DATEDIFF(day, datReceivedDate, datCompleteDate)  " &
+            "when strClosed = 'False' then DATEDIFF(day, datReceivedDate, GETDATE()) " &
             "END DayIn " &
             "from ISMPReportInformation " &
             "where datCompleteDate between '" & DTPUnitStatsStartDate.Text & "' and '" & DTPUnitStatsEndDate.Text & "'  " &
@@ -4257,8 +4257,8 @@ Public Class ISMPManagersTools
             "(select  " &
             "strReviewingEngineer,  " &
             "case  " &
-            "when strClosed = 'True' then DATEDIFF(d, datReceivedDate, datCompleteDate)  " &
-            "when strClosed = 'False' then DATEDIFF(d, datReceivedDate, GETDATE()) " &
+            "when strClosed = 'True' then DATEDIFF(day, datReceivedDate, datCompleteDate)  " &
+            "when strClosed = 'False' then DATEDIFF(day, datReceivedDate, GETDATE()) " &
             "END DaysIn " &
             "from ISMPReportInformation " &
             "where datCompleteDate between '" & DTPUnitStatsStartDate.Text & "' and '" & DTPUnitStatsEndDate.Text & "'  " &

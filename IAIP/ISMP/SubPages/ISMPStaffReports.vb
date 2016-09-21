@@ -222,8 +222,8 @@ Public Class ISMPStaffReports
                 "count(*) as GreaterByDate " &
                 "from ISMPReportInformation  " &
                 "where strDelete is NULL  " &
-                "and datReceivedDate < Decode(strClosed, 'False', (trunc(GETDATE()) - 50), " &
-                "                                        'True', (-50 + datCompleteDate)) " &
+                "and datReceivedDate < if strClosed = 'False' then DATEADD(day, -50, GETDATE()), " &
+                "                                        else DATEADD(day, -50, datCompleteDate) end " &
                 "and " & DateBias & " " &
                 "Group by strReviewingEngineer) GreaterByDates,  " &
                 "(select strReviewingEngineer,  " &

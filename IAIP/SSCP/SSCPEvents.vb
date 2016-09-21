@@ -1103,8 +1103,8 @@ Public Class SSCPEvents
                     "datModifingDate) " &
                     "values " &
                     "('" & txtTrackingNumber.Text & "', " &
-                    "to_date('" & InspectionTimeStart & "', 'dd.mm.yyyy HH24:mi:ss'), " &
-                    "to_date('" & InspectionTimeEnd & "', 'dd.mm.yyyy HH24:mi:ss'), " &
+                    "'" & InspectionTimeStart & "', " &
+                    "'" & InspectionTimeEnd & "', " &
                     "'" & Replace(InspectionReason, "'", "''") & "', " &
                     "'" & Replace(WeatherCondition, "'", "''") & "', '" & Replace(InspectionGuide, "'", "''") & "', " &
                     "'" & Replace(OperatingStatus, "'", "''") & "', '" & cboInspectionComplianceStatus.Text & "', " &
@@ -1113,8 +1113,8 @@ Public Class SSCPEvents
                     "'" & OracleDate & "')"
                 Else
                     SQL = "Update SSCPInspections set " &
-                    "DatInspectionDateStart = to_date('" & InspectionTimeStart & "', 'dd.mm.yyyy HH24:mi:ss'), " &
-                    "datinspectionDateEnd = to_date('" & InspectionTimeEnd & "', 'dd.mm.yyyy HH24:mi:ss'), " &
+                    "DatInspectionDateStart = '" & InspectionTimeStart & "', " &
+                    "datinspectionDateEnd = '" & InspectionTimeEnd & "', " &
                     "strInspectionReason = '" & Replace(InspectionReason, "'", "''") & "', " &
                     "strWeatherConditions = '" & Replace(WeatherCondition, "'", "''") & "', " &
                     "strInspectionGuide = '" & Replace(InspectionGuide, "'", "''") & "', " &

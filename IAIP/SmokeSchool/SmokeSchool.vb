@@ -1154,7 +1154,7 @@ Public Class SmokeSchool
                           "'" & Replace(lecture, "'", "''") & "', " &
                           "'" & Replace(ConfirmNbr, "'", "''") & "', " &
                           "'" & Replace(LocationTerm, "'", "''") & "', " &
-                          "to_date('" & TransactionDate & "', 'dd-mon-yyyy hh24:mi:ss')) "
+                          "'" & TransactionDate & ") "
 
                     cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then

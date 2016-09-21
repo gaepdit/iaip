@@ -1909,7 +1909,7 @@ Public Class IAIPQueryGenerator
                         SQLWhereCase1 = DTPLastFCESearch1.Text
                         SQLWhereCase2 = DTPLastFCESearch2.Text
                     End If
-                    SQLWhere = SQLWhere & " and to_date(LastFCE) between '" & SQLWhereCase1 & "' and '" & SQLWhereCase2 & "' "
+                    SQLWhere = SQLWhere & " and LastFCE between '" & SQLWhereCase1 & "' and '" & SQLWhereCase2 & "' "
                 End If
             End If
 

@@ -2695,8 +2695,8 @@ Public Class SBEAPClientSummary
             "when numStaffResponsible is Null then '' " &
             "Else (strLastName||', '||strFirstName) " &
             "END StaffResponsible, " &
-            "to_date(datCaseOpened, 'dd-Mon-RRRR') as CaseOpened, " &
-            "to_date(datCaseClosed, 'dd-Mon-RRRR') as CaseClosed, " &
+            "datCaseOpened as CaseOpened, " &
+            "datCaseClosed as CaseClosed, " &
             "strCompanyName, strCaseSummary, " &
             "SBEAPCaseLogLink.ClientID " &
             "from SBEAPCaseLog, EPDUserProfiles, " &

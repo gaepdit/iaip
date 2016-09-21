@@ -13077,7 +13077,7 @@ Public Class SSPPApplicationTrackingLog
                                     query = "Update APBSubpartData set " &
                                         "Active = '9', " &
                                         "updateUser = @UserGCode , " &
-                                        "updateDateTime = (to_date(GETDATE(), 'DD-Mon-YY HH12:MI:SS')) " &
+                                        "updateDateTime = GETDATE() " &
                                         "where strSubpartKey = @pKey " &
                                         "and strSubpart = @Subpart "
                                     parameter = {
@@ -13123,7 +13123,7 @@ Public Class SSPPApplicationTrackingLog
                     query = "Update APBSubpartData set " &
                     "Active = '1', " &
                     "updateUser = @UserGCode " &
-                    "updateDateTime = (to_date(GETDATE(), 'DD-Mon-YY HH12:MI:SS')) " &
+                    "updateDateTime = GETDATE() " &
                     "where strSubpartKey = @pKey " &
                     "and strSubpart = @Subpart "
                 Else
@@ -13132,8 +13132,8 @@ Public Class SSPPApplicationTrackingLog
                     "    UPDATEDATETIME, ACTIVE, CREATEDATETIME " &
                     "  ) VALUES " &
                     "(@airsnum, @pKey, @Subpart, @UserGCode, " &
-                    "(to_date(GETDATE(), 'DD-Mon-YY HH12:MI:SS')), '1', " &
-                    "(to_date(GETDATE(), 'DD-Mon-YY HH12:MI:SS')))"
+                    "GETDATE(), '1', " &
+                    "GETDATE() )"
                 End If
                 DB.RunCommand(query, parameter)
             Next
@@ -13151,7 +13151,7 @@ Public Class SSPPApplicationTrackingLog
                 query = "Update APBSubpartData set " &
                     "Active = '9', " &
                     "updateUser = @UserGCode , " &
-                    "updateDateTime = (to_date(GETDATE(), 'DD-Mon-YY HH12:MI:SS')) " &
+                    "updateDateTime = GETDATE() " &
                     "where strSubpartKey = @pKey " &
                     "and strSubpart = @Subpart "
                 parameter = {

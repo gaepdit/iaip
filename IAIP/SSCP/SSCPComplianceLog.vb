@@ -284,15 +284,15 @@ Public Class SSCPComplianceLog
             "ALLDATA.AIRSNUMBER, STRFACILITYNAME, " &
             "STRCLASS, WORKEVENT, " &
             "StaffResponsible, UniqueNumber, " &
-            "TO_DATE(RECEIVEDDATE, 'dd-Mon-YY') as RECEIVEDDATE, " &
-            "TO_DATE(INSPECTIONDATE, 'dd-Mon-YY') as INSPECTIONDATE, " &
-            "TO_DATE(FCEDATE, 'dd-Mon-YY') as FCEDATE, " &
-            "TO_DATE(DISCOVERYDATE, 'dd-Mon-YY') as DISCOVERYDATE, " &
+            "RECEIVEDDATE as RECEIVEDDATE, " &
+            "INSPECTIONDATE as INSPECTIONDATE, " &
+            "FCEDATE as FCEDATE, " &
+            "DISCOVERYDATE as DISCOVERYDATE, " &
             "NUMUSERID, FLAG, COMPLETESTATUS, " &
             "CURRENTSTATUS, " &
-            "to_date(INSDATE, 'dd-Mon-YY') as InsDate, " &
+            "INSDATE as InsDate, " &
             "strNotificationType, " &
-            "TO_DATE(LASTMODIFIED) as LASTMODIFIED " &
+            "LASTMODIFIED as LASTMODIFIED " &
             "from " &
             "(select " &
             "SUBSTRING(SSCPITEMMASTER.STRAIRSNUMBER, 5,8) as AIRSNUMBER, " &
@@ -478,40 +478,40 @@ Public Class SSCPComplianceLog
 
             If chbFilterDates.Checked = True Then
                 If chbAllWork.Checked = True Then
-                    SQLLine = " and (to_date(ReceivedDate) between '" & DTPFilterStart.Text & "' and '" & DTPFilterEnd.Text & "' " &
-                    "or to_date(InspectionDate) between '" & DTPFilterStart.Text & "' and '" & DTPFilterEnd.Text & "' " &
-                    "or to_date(FCEDate) between '" & DTPFilterStart.Text & "' and '" & DTPFilterEnd.Text & "' " &
-                    "or to_date(discoverydate) between '" & DTPFilterStart.Text & "' and '" & DTPFilterEnd.Text & "' " &
-                    "or to_date(LASTMODIFIED) between '" & DTPFilterStart.Text & "' and '" & DTPFilterEnd.Text & "') "
+                    SQLLine = " and (ReceivedDate between '" & DTPFilterStart.Text & "' and '" & DTPFilterEnd.Text & "' " &
+                    "or InspectionDate between '" & DTPFilterStart.Text & "' and '" & DTPFilterEnd.Text & "' " &
+                    "or FCEDate between '" & DTPFilterStart.Text & "' and '" & DTPFilterEnd.Text & "' " &
+                    "or discoverydate between '" & DTPFilterStart.Text & "' and '" & DTPFilterEnd.Text & "' " &
+                    "or LASTMODIFIED between '" & DTPFilterStart.Text & "' and '" & DTPFilterEnd.Text & "') "
                 Else
                     If chbACCs.Checked = True Then
-                        SQLLine = SQLLine & " to_date(ReceivedDate) between '" & DTPFilterStart.Text & "' and '" & DTPFilterEnd.Text & "' or "
+                        SQLLine = SQLLine & " ReceivedDate between '" & DTPFilterStart.Text & "' and '" & DTPFilterEnd.Text & "' or "
                     End If
                     If chbEnforcement.Checked = True Then
-                        SQLLine = SQLLine & " to_date(discoverydate) between '" & DTPFilterStart.Text & "' and '" & DTPFilterEnd.Text & "' or "
+                        SQLLine = SQLLine & " discoverydate between '" & DTPFilterStart.Text & "' and '" & DTPFilterEnd.Text & "' or "
                     End If
                     If chbFCE.Checked = True Then
-                        SQLLine = SQLLine & " to_date(FCEDate) between '" & DTPFilterStart.Text & "' and '" & DTPFilterEnd.Text & "' or "
+                        SQLLine = SQLLine & " FCEDate between '" & DTPFilterStart.Text & "' and '" & DTPFilterEnd.Text & "' or "
                     End If
                     If chbInspections.Checked = True Then
-                        SQLLine = SQLLine & " to_date(InspectionDate) between '" & DTPFilterStart.Text & "' and '" & DTPFilterEnd.Text & "'or "
+                        SQLLine = SQLLine & " InspectionDate between '" & DTPFilterStart.Text & "' and '" & DTPFilterEnd.Text & "'or "
                     End If
                     If chbNotifications.Checked = True Then
-                        SQLLine = SQLLine & " to_date(ReceivedDate) between '" & DTPFilterStart.Text & "' and '" & DTPFilterEnd.Text & "'or "
+                        SQLLine = SQLLine & " ReceivedDate between '" & DTPFilterStart.Text & "' and '" & DTPFilterEnd.Text & "'or "
                     End If
                     If chbPerformanceTests.Checked = True Then
-                        SQLLine = SQLLine & " to_date(ReceivedDate) between '" & DTPFilterStart.Text & "' and '" & DTPFilterEnd.Text & "'or "
+                        SQLLine = SQLLine & " ReceivedDate between '" & DTPFilterStart.Text & "' and '" & DTPFilterEnd.Text & "'or "
                     End If
                     If chbReports.Checked = True Then
-                        SQLLine = SQLLine & " to_date(ReceivedDate) between '" & DTPFilterStart.Text & "' and '" & DTPFilterEnd.Text & "'or "
+                        SQLLine = SQLLine & " ReceivedDate between '" & DTPFilterStart.Text & "' and '" & DTPFilterEnd.Text & "'or "
                     End If
                     If chbRMPInspections.Checked = True Then
-                        SQLLine = SQLLine & " to_date(ReceivedDate) between '" & DTPFilterStart.Text & "' and '" & DTPFilterEnd.Text & "'or "
+                        SQLLine = SQLLine & " ReceivedDate between '" & DTPFilterStart.Text & "' and '" & DTPFilterEnd.Text & "'or "
                     End If
                     If chbLastModifiedDate.Checked = True Then
                         If SQLLine <> "" Then
                             SQLLine = " and ( " & Mid(SQLLine, 1, (SQLLine.Length) - 3) &
-                            " or to_date(LASTMODIFIED) between '" & DTPFilterStart.Text & "' and '" & DTPFilterEnd.Text & "' ) "
+                            " or LASTMODIFIED between '" & DTPFilterStart.Text & "' and '" & DTPFilterEnd.Text & "' ) "
                         End If
                     Else
                         SQLLine = " and ( " & Mid(SQLLine, 1, (SQLLine.Length) - 3) & " ) "

@@ -588,7 +588,7 @@ Public Class ISMPMonitoringLog
                 End If
 
                 If chbOpen.Checked = True Then
-                    SQLWhere = SQLWhere & " and to_date(datproposedstartdate) > to_date(GETDATE() - 90) "
+                    SQLWhere = SQLWhere & " and datproposedstartdate > DATEADD(day, -90, GETDATE()) "
                 End If
                 If txtAIRSNumberFilter.Text <> "" Then
                     SQLWhere = SQLWhere & " and ISMPTestNotification.strAIRSnumber like '%" & txtAIRSNumberFilter.Text & "%' "
