@@ -681,14 +681,14 @@ Public Class SSPPTitleVTools
 
 
             SQL =
-            "SELECT am.STRAPPLICATIONNUMBER , SUBSTR( fi.STRAIRSNUMBER, 5 ) " &
-            "  AS AIRSNumber , fi.STRFACILITYNAME ,( SUBSTR( " &
-            "  ad.STRPERMITNUMBER, 1, 4 ) || '-' || SUBSTR( " &
-            "  ad.STRPERMITNUMBER, 5, 3 ) || '-' || SUBSTR( " &
-            "  ad.STRPERMITNUMBER, 8, 4 ) || '-' || SUBSTR( " &
-            "  ad.STRPERMITNUMBER, 12, 1 ) || '-' || SUBSTR( " &
-            "  ad.STRPERMITNUMBER, 13, 2 ) || '-' || SUBSTR( " &
-            "  ad.STRPERMITNUMBER, 15 ) ) AS PermitNumber , TO_CHAR( " &
+            "SELECT am.STRAPPLICATIONNUMBER , SUBSTRING( fi.STRAIRSNUMBER, 5,8 ) " &
+            "  AS AIRSNumber , fi.STRFACILITYNAME ,( " &
+            "  SUBSTR( ad.STRPERMITNUMBER, 1, 4 ) || '-' ||  " &
+            "  SUBSTR( ad.STRPERMITNUMBER, 5, 3 ) || '-' ||  " &
+            "  SUBSTR( ad.STRPERMITNUMBER, 8, 4 ) || '-' ||  " &
+            "  SUBSTR( ad.STRPERMITNUMBER, 12, 1 ) || '-' ||  " &
+            "  SUBSTR( ad.STRPERMITNUMBER, 13, 2 ) || '-' ||  " &
+            "  SUBSTR( ad.STRPERMITNUMBER, 15 ) ) AS PermitNumber , TO_CHAR( " &
             "  at.DATPERMITISSUED, 'dd-Mon-yyyy' ) AS PermitIssued , TO_CHAR " &
             "  ( at.DATEFFECTIVE, 'dd-Mon-yyyy' ) AS EffectiveDate " &
             "FROM SSPPApplicationMaster am " &
@@ -701,8 +701,8 @@ Public Class SSPPTitleVTools
             "INNER JOIN APBFacilityInformation fi " &
             "ON fi.STRAIRSNUMBER = am.STRAIRSNUMBER " &
             "WHERE ad.STRPERMITNUMBER LIKE '%V__0' AND " &
-            "  hd.STROPERATIONALSTATUS <> 'X' AND SUBSTR( " &
-            "  hd.STRAIRPROGRAMCODES, 13, 1 ) = '1' AND at.DATEFFECTIVE " &
+            "  hd.STROPERATIONALSTATUS <> 'X' AND " &
+            "  SUBSTR( hd.STRAIRPROGRAMCODES, 13, 1 ) = '1' AND at.DATEFFECTIVE " &
             "  BETWEEN @Startdate AND @EndDate AND( am.STRAPPLICATIONTYPE = " &
             "  '14' OR am.STRAPPLICATIONTYPE = '16' OR am.STRAPPLICATIONTYPE " &
             "  = '27' )"
@@ -3314,7 +3314,7 @@ Public Class SSPPTitleVTools
         Try
 
 
-            SQL = "Select DISTINCT substr(strairsnumber, 5) as strairsnumber, " _
+            SQL = "Select DISTINCT SUBSTRING(strairsnumber, 5,8) as strairsnumber, " _
             + "strfacilityname " _
             + "from APBFacilityInformation " _
             + "Order by strAIRSNumber "
@@ -3862,7 +3862,7 @@ Public Class SSPPTitleVTools
             dr.Close()
             If recExist = True Then
                 SQL = "Select " &
-                "substr(SSPPApplicationMaster.strAIRSNumber, 5) as AIRSNumber, " &
+                "SUBSTRING(SSPPApplicationMaster.strAIRSNumber, 5,8) as AIRSNumber, " &
                 "strContactFirstName, " &
                 "strContactLastName, " &
                 "strContactPrefix, " &

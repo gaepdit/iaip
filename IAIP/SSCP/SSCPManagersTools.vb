@@ -1806,25 +1806,25 @@ Public Class SSCPManagersTools
             End If
 
             SQL =
-            "SELECT SUBSTR( pp.STRAIRSNUMBER, 5 ) AS AIRSNumber , " &
+            "SELECT SUBSTRING( pp.STRAIRSNUMBER, 5,8 ) AS AIRSNumber , " &
             "  fi.STRFACILITYNAME ,( pp.STRCOMPLIANCESTATUS || ' - ' || " &
             "  lc.STRCOMPLIANCEDESC ) AS PollutantStatus , " &
-            "  lp.STRPOLLUTANTDESCRIPTION , CASE                    WHEN SUBSTR( " &
-            "      strAirPollutantKey, 13, 1 ) = '0'         THEN 'SIP'     WHEN SUBSTR( " &
-            "      strAirPollutantKey, 13, 1 ) = '1'         THEN 'Fed SIP' WHEN " &
+            "  lp.STRPOLLUTANTDESCRIPTION , CASE                    WHEN " &
+            "      SUBSTR( strAirPollutantKey, 13, 1 ) = '0'         THEN 'SIP'     WHEN " &
+            "      SUBSTR( strAirPollutantKey, 13, 1 ) = '1'         THEN 'Fed SIP' WHEN " &
             "      SUBSTR( strAirPollutantKey, 13, 1 ) = '3' THEN " &
             "      'Non-Fed SIP'                WHEN SUBSTR( strAirPollutantKey, 13, 1 ) = " &
             "      '4'                                       THEN 'CFC'       WHEN SUBSTR( strAirPollutantKey, 13, 1 ) = " &
             "      '6'                                       THEN 'PSD'       WHEN SUBSTR( strAirPollutantKey, 13, 1 ) = " &
             "      '7'                                       THEN 'NSR'       WHEN SUBSTR( strAirPollutantKey, 13, 1 ) = " &
-            "      '8'                                       THEN 'NESHAP'    WHEN SUBSTR( strAirPollutantKey, 13, 1 " &
-            "      ) = '9'                                   THEN 'NSPS'      WHEN SUBSTR( strAirPollutantKey, 13 " &
-            "      , 1 ) = 'A'                               THEN 'Acid Rain' WHEN SUBSTR( " &
-            "      strAirPollutantKey, 13, 1 ) = 'F'         THEN 'FESOP'     WHEN " &
+            "      '8'                                       THEN 'NESHAP'    WHEN SUBSTR( strAirPollutantKey, 13, 1 ) = " &
+            "      '9'                                       THEN 'NSPS'      WHEN SUBSTR( strAirPollutantKey, 13, 1 ) = " &
+            "      'A'                                       THEN 'Acid Rain' WHEN SUBSTR( strAirPollutantKey, 13, 1 ) = " &
+            "      'F'                                       THEN 'FESOP'     WHEN " &
             "      SUBSTR( strAirPollutantKey, 13, 1 ) = 'I' THEN " &
-            "      'Native American'   WHEN SUBSTR( strAirPollutantKey, 13, 1 " &
-            "      ) = 'M'   THEN 'MACT' WHEN SUBSTR( strAirPollutantKey, 13, " &
-            "      1 ) = 'V' THEN 'Title V' ELSE '' END AirProgram " &
+            "      'Native American'   WHEN SUBSTR( strAirPollutantKey, 13, 1 ) " &
+            "      = 'M'   THEN 'MACT' WHEN SUBSTR( strAirPollutantKey, 13, 1 ) " &
+            "      = 'V' THEN 'Title V' ELSE '' END AirProgram " &
             "FROM APBAIRPROGRAMPOLLUTANTS pp " &
             "INNER JOIN LOOKUPCOMPLIANCESTATUS lc " &
             "ON lc.STRCOMPLIANCECODE = pp.STRCOMPLIANCESTATUS " &
@@ -2509,7 +2509,7 @@ Public Class SSCPManagersTools
             '---Total Facilities assigned to Unit
 
             SQL = "select " &
-            "SUBSTR(TABLE1.STRAIRSNUMBER, 5) as AIRSNUMBER, " &
+            "SUBSTRING(TABLE1.STRAIRSNUMBER, 5,8) as AIRSNUMBER, " &
             "STRFACILITYNAME, " &
             "(strLastName||', '||strFirstName) as UserName " &
             "from " &
@@ -2588,7 +2588,7 @@ Public Class SSCPManagersTools
 
             '---Total Facilities reporting ACC's
             SQL = "select " &
-                "substr(APBFacilityInformation.strAIRSnumber, 5) as AIRSNumber,  " &
+                "SUBSTRING(APBFacilityInformation.strAIRSnumber, 5,8) as AIRSNumber,  " &
                 "strFacilityName,  " &
                 "(strLastname||', '||strFirstName) as UserName,  " &
                 "strTrackingNumber " &
@@ -2668,7 +2668,7 @@ Public Class SSCPManagersTools
 
             '---Requiring resubmittals
             SQL = "select " &
-                "substr(APBFacilityInformation.strAIRSnumber, 5) as AIRSNumber,   " &
+                "SUBSTRING(APBFacilityInformation.strAIRSnumber, 5,8) as AIRSNumber,   " &
                 "strFacilityName,   " &
                 "(strLastName||', '||strFirstName) as UserName,   " &
                 "SSCPItemMaster.strTrackingNumber  " &
@@ -2751,7 +2751,7 @@ Public Class SSCPManagersTools
 
             '---Submitted Late
             SQL = "select " &
-           "substr(APBFacilityInformation.strAIRSnumber, 5) as AIRSNumber,   " &
+           "SUBSTRING(APBFacilityInformation.strAIRSnumber, 5,8) as AIRSNumber,   " &
            "strFacilityName,   " &
            "(strLastName||', '||strFirstName) as UserName,   " &
            "SSCPItemMaster.strTrackingNumber  " &
@@ -2835,7 +2835,7 @@ Public Class SSCPManagersTools
 
             '---Devations Reported in first Submittal
             SQL = "select " &
-                "substr(APBFacilityInformation.strAIRSnumber, 5) as AIRSNumber,   " &
+                "SUBSTRING(APBFacilityInformation.strAIRSnumber, 5,8) as AIRSNumber,   " &
                 "strFacilityName,   " &
                 "(strLastName||', '||strFirstName) as UserName,   " &
                 "SSCPItemMaster.strTrackingNumber  " &
@@ -2921,7 +2921,7 @@ Public Class SSCPManagersTools
             '---No Deviations Reported in first Submittal
             '   ---Correctly 
             SQL = "select " &
-                "substr(APBFacilityInformation.strAIRSnumber, 5) as AIRSNumber,   " &
+                "SUBSTRING(APBFacilityInformation.strAIRSnumber, 5,8) as AIRSNumber,   " &
                 "strFacilityName,   " &
                 "(strLastName||', '||strFirstName) as UserName,   " &
                 "SSCPItemMaster.strTrackingNumber  " &
@@ -3009,7 +3009,7 @@ Public Class SSCPManagersTools
             '---No Deviations Reported in first Submittal
             '   ---Incorrectly
             SQL = "select " &
-                "substr(APBFacilityInformation.strAIRSnumber, 5) as AIRSNumber,   " &
+                "SUBSTRING(APBFacilityInformation.strAIRSnumber, 5,8) as AIRSNumber,   " &
                 "strFacilityName,   " &
                 "(strLastName||', '||strFirstName) as UserName,   " &
                 "SSCPItemMaster.strTrackingNumber  " &
@@ -3095,7 +3095,7 @@ Public Class SSCPManagersTools
 
             '---Deviations Reported in Final Report 
             SQL = "select " &
-            "substr(APBFacilityInformation.strAIRSnumber, 5) as AIRSNumber,   " &
+            "SUBSTRING(APBFacilityInformation.strAIRSnumber, 5,8) as AIRSNumber,   " &
             "strFacilityName,   " &
             "(strLastname||', '||strFirstName) as UserName,   " &
             "SSCPItemMaster.strTrackingNumber  " &
@@ -3179,7 +3179,7 @@ Public Class SSCPManagersTools
 
             '---Deviations Not Previously Report
             SQL = "select " &
-            "substr(APBFacilityInformation.strAIRSnumber, 5) as AIRSNumber,   " &
+            "SUBSTRING(APBFacilityInformation.strAIRSnumber, 5,8) as AIRSNumber,   " &
             "strFacilityName,   " &
             "(strLastName||', '||strFirstName) as UserName,   " &
             "SSCPItemMaster.strTrackingNumber  " &
@@ -3262,7 +3262,7 @@ Public Class SSCPManagersTools
 
             '---Enforcement Action Taken 
             SQL = "select " &
-                "substr(APBFacilityInformation.strAIRSnumber, 5) as AIRSNumber,   " &
+                "SUBSTRING(APBFacilityInformation.strAIRSnumber, 5,8) as AIRSNumber,   " &
                 "strFacilityName,   " &
                 "(strLastName||', '||strFirstName) as UserName,   " &
                 "SSCPItemMaster.strTrackingNumber,  " &
@@ -3349,7 +3349,7 @@ Public Class SSCPManagersTools
 
             '---CO 
             SQL = "select " &
-            "substr(APBFacilityInformation.strAIRSnumber, 5) as AIRSNumber,   " &
+            "SUBSTRING(APBFacilityInformation.strAIRSnumber, 5,8) as AIRSNumber,   " &
             "strFacilityName,   " &
             "(strLastName||', '||strFirstName) as UserName,   " &
             "SSCPItemMaster.strTrackingNumber,  " &
@@ -3434,7 +3434,7 @@ Public Class SSCPManagersTools
 
             '---NOV 
             SQL = "select " &
-            "substr(APBFacilityInformation.strAIRSnumber, 5) as AIRSNumber,   " &
+            "SUBSTRING(APBFacilityInformation.strAIRSnumber, 5,8) as AIRSNumber,   " &
             "strFacilityName,   " &
             "(strLastName||', '||strFirstName) as UserName,   " &
             "SSCPItemMaster.strTrackingNumber,  " &
@@ -3519,7 +3519,7 @@ Public Class SSCPManagersTools
 
             '    ---LON
             SQL = "select " &
-            "substr(APBFacilityInformation.strAIRSnumber, 5) as AIRSNumber,   " &
+            "SUBSTRING(APBFacilityInformation.strAIRSnumber, 5,8) as AIRSNumber,   " &
             "strFacilityName,   " &
             "(strLastName||', '||strFirstName) as UserName,   " &
             "SSCPItemMaster.strTrackingNumber,  " &
@@ -3757,7 +3757,7 @@ Public Class SSCPManagersTools
             If txtEnforcementAIRSNumber.Text <> "" Then
                 SQL = "select " &
                 "strFacilityName, " &
-                "substr(SSCP_AuditedEnforcement.strAIRSNumber, 5) as AIRSNumber, " &
+                "SUBSTRING(SSCP_AuditedEnforcement.strAIRSNumber, 5,8) as AIRSNumber, " &
                 "SSCP_AuditedEnforcement.strEnforcementNumber, " &
                 "'$'||to_number(SSCP_AuditedEnforcement.strCOPenaltyAmount, '99999999.99') as COPenalty, " &
                 "'$'||to_number(SSCPEnforcementStipulated.strStipulatedPenalty, '99999999.99') as StipulatedPenalty, " &
@@ -3771,7 +3771,7 @@ Public Class SSCPManagersTools
                 If chbUseEnforcementDateRange.Checked = True Then
                     SQL = "select " &
                     "strFacilityName, " &
-                    "substr(SSCP_AuditedEnforcement.strAIRSNumber, 5) as AIRSNumber, " &
+                    "SUBSTRING(SSCP_AuditedEnforcement.strAIRSNumber, 5,8) as AIRSNumber, " &
                     "SSCP_AuditedEnforcement.strEnforcementNumber, " &
                     "'$'||to_number(SSCP_AuditedEnforcement.strCOPenaltyAmount, '99999999.99') as COPenalty, " &
                     "'$'||to_number(SSCPEnforcementStipulated.strStipulatedPenalty, '99999999.99') as StipulatedPenalty, " &
@@ -3982,7 +3982,7 @@ Public Class SSCPManagersTools
             End If
 
             SQL = "select " &
-            "distinct(substr(APBAirProgramPollutants.strAIRSNumber, 5)) as AIRSNumber, " &
+            "distinct(SUBSTRING(APBAirProgramPollutants.strAIRSNumber, 5,8)) as AIRSNumber, " &
             "strFacilityName, strPollutantDescription, " &
             "(strComplianceStatus||' - '||strComplianceDesc) as ComplianceStatus " &
             "from APBAirProgramPollutants, APBFacilityInformation, " &
@@ -4036,7 +4036,7 @@ Public Class SSCPManagersTools
 
             If chbIgnoreFiscalYear.Checked = True Then
                 SQL = "Select " &
-                "substr(VW_SSCP_MT_FacilityAssignment.strAIRSNumber, 5) as AIRSNumber, strFacilityName, " &
+                "SUBSTRING(VW_SSCP_MT_FacilityAssignment.strAIRSNumber, 5,8) as AIRSNumber, strFacilityName, " &
                 "strFacilityCity, " &
                 "strCMSMember, " &
                 "strClass, strOperationalStatus, " &
@@ -4062,7 +4062,7 @@ Public Class SSCPManagersTools
 
             Else
                 SQL = "Select " &
-              "substr(VW_SSCP_MT_FacilityAssignment.strAIRSNumber, 5) as AIRSNumber, strFacilityName, " &
+              "SUBSTRING(VW_SSCP_MT_FacilityAssignment.strAIRSNumber, 5,8) as AIRSNumber, strFacilityName, " &
               "strFacilityCity, " &
               "strCMSMember, " &
               " strClass, strOperationalStatus, " &
@@ -5588,7 +5588,7 @@ Public Class SSCPManagersTools
 
     Private Sub btnRunTitleVSearch_Click(sender As Object, e As EventArgs) Handles btnRunTitleVSearch.Click
         Try
-            SQL = "SELECT DISTINCT SUBSTR(FI.STRAIRSNUMBER, 5) AS AIRSNumber, " &
+            SQL = "SELECT DISTINCT SUBSTRING(FI.STRAIRSNUMBER, 5,8) AS AIRSNumber, " &
             "  FI.STRFACILITYNAME, " &
             "  HD.STROPERATIONALSTATUS, " &
             "  (UP.STRLASTNAME " &
@@ -5598,7 +5598,7 @@ Public Class SSCPManagersTools
             "  APBHeaderdata HD, " &
             "  EPDUserProfiles UP, " &
             "  SSCPINSPECTIONSREQUIRED IR, " &
-            "  (SELECT DISTINCT SUBSTR(tFI.STRAIRSNUMBER, 5) AS AIRSNumber " &
+            "  (SELECT DISTINCT SUBSTRING(tFI.STRAIRSNUMBER, 5,8) AS AIRSNumber " &
             "  FROM APBHeaderData tHD, " &
             "    APBFacilityInformation tFI, " &
             "    SSPPApplicationMaster tAM, " &
@@ -5616,7 +5616,7 @@ Public Class SSCPManagersTools
             "  OR (tAT.DATEFFECTIVE                     IS NOT NULL " &
             "  AND tAT.DATEFFECTIVE                      < add_months(SysDate, -51))) " &
             "  MINUS " &
-            "    (SELECT DISTINCT SUBSTR(tAM.STRAIRSNUMBER, 5) AS AIRSNumber " &
+            "    (SELECT DISTINCT SUBSTRING(tAM.STRAIRSNUMBER, 5,8) AS AIRSNumber " &
             "    FROM SSPPApplicationMaster tAM, " &
             "      SSPPApplicationData tAD, " &
             "      SSPPApplicationTracking tAT, " &
@@ -5683,7 +5683,7 @@ Public Class SSCPManagersTools
         Try
             SQL = "select " &
 "SSCP_AuditedEnforcement.strEnforcementnumber,  " &
-"substr(apbheaderdata.strairsnumber,  5) as AIRSNumber,  " &
+"SUBSTRING(apbheaderdata.strairsnumber,  5,8) as AIRSNumber,  " &
 "APBFacilityInformation.strfacilityname,  " &
 "apbheaderdata.strclass,  " &
 "case " &

@@ -49,7 +49,7 @@ Public Class ISMPNotificationLog
             Dim drNewRow As DataRow
 
             SQL = "select " &
-            "substr(strAIRSNumber, 5) as AIRSNumber, " &
+            "SUBSTRING(strAIRSNumber, 5,8) as AIRSNumber, " &
             "strFacilityname " &
             "from APBFacilityInformation " &
             "order by strFacilityname "
@@ -141,7 +141,7 @@ Public Class ISMPNotificationLog
 
             If txtTestNotificationNumber.Text <> "" Then
                 SQL = "select " &
-                "substr(ISMPTestNotification.strAIRSNumber, 5) as AIRSNumber,  " &
+                "SUBSTRING(ISMPTestNotification.strAIRSNumber, 5,8) as AIRSNumber,  " &
                 "strFacilityStreet1, " &
                 "strFacilityCity, strFacilityZipCode,  " &
                 "strEmissionUnit,  " &

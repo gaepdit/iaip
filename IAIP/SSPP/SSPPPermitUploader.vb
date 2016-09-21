@@ -90,7 +90,7 @@ Public Class SSPPPermitUploader
             dr.Close()
             If recExist = True Then
                 SQL = "Select " &
-                "substr(SSPPApplicationMaster.strAIRSNumber, 5) as strAIRSnumber, " &
+                "SUBSTRING(SSPPApplicationMaster.strAIRSNumber, 5,8) as strAIRSnumber, " &
                 "APBFacilityInformation.strFacilityName, APBFacilityInformation.strFacilityStreet1, " &
                 "APBFacilityInformation.strFacilityCity, APBFacilityInformation.strFacilityZipCode, " &
                 "datFinalizedDate, strCountyName, strApplicationTypeDesc, strPermitTypeDescription, " &
@@ -232,7 +232,7 @@ Public Class SSPPPermitUploader
             SQL = "select " &
             "distinct(APBPermits.strFileName)  " &
             "from APBpermits, SSPPApplicationLinking " &
-            "where substr(APBpermits.strFileName, 4) = SSPPAPPlicationLinking.strmasterapplication (+) " &
+            "where SUBSTRING(APBpermits.strFileName, 4,10) = SSPPAPPlicationLinking.strmasterapplication (+) " &
             "and (SSPPApplicationLinking.strApplicationNumber = '" & MasterApp & "' " &
             "or APBPermits.strFileName like '%-" & MasterApp & "') "
 

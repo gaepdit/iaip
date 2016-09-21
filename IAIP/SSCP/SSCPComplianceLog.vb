@@ -295,7 +295,7 @@ Public Class SSCPComplianceLog
             "TO_DATE(LASTMODIFIED) as LASTMODIFIED " &
             "from " &
             "(select " &
-            "SUBSTR(SSCPITEMMASTER.STRAIRSNUMBER, 5) as AIRSNUMBER, " &
+            "SUBSTRING(SSCPITEMMASTER.STRAIRSNUMBER, 5,8) as AIRSNUMBER, " &
             "STRFACILITYNAME, STRCLASS, " &
             "case " &
             "when STREVENTTYPE = '05' then (strActivityName||'-'||strNotificationDesc) " &
@@ -356,7 +356,7 @@ Public Class SSCPComplianceLog
             "and SSCPITEMMASTER.STRTRACKINGNUMBER = SSCPTESTREPORTS.STRTRACKINGNUMBER (+) " &
             "union " &
             "select " &
-            "SUBSTR(APBFACILITYINFORMATION.STRAIRSNUMBER, 5) as AIRSNUMBER, " &
+            "SUBSTRING(APBFACILITYINFORMATION.STRAIRSNUMBER, 5,8) as AIRSNUMBER, " &
             "strFacilityName, strClass, " &
             "'Full Compliance Evaluation' as WorkEvent, " &
             "(strLastName|| ', ' ||strFirstName) as StaffResponsible, " &
@@ -384,7 +384,7 @@ Public Class SSCPComplianceLog
             "and SSCPFCEMaster.strFCENumber = SSCPFCE.strFCENumber  " &
             "union " &
             "select " &
-            "SUBSTR(APBFACILITYINFORMATION.STRAIRSNUMBER, 5) as AIRSNUMBER, " &
+            "SUBSTRING(APBFACILITYINFORMATION.STRAIRSNUMBER, 5,8) as AIRSNUMBER, " &
             "STRFACILITYNAME, STRCLASS, " &
             "'Enforcement-'||stractiontype as WorkEvent, " &
             "(strLastName|| ', ' ||strFirstName) as StaffResponsible, " &
@@ -408,7 +408,7 @@ Public Class SSCPComplianceLog
             "and EPDUserProfiles.numUserID = SSCP_AuditedEnforcement.numStaffResponsible " &
             "and APBFacilityInformation.strAIRSNumber = APBHeaderData.strAIRSNumber) AllData " &
             "left join (select " &
-            "SUBSTR(SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER, 5) as AIRSNUMBER, " &
+            "SUBSTRING(SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER, 5,8) as AIRSNUMBER, " &
             "NUMSSCPENGINEER " &
             "from SSCPINSPECTIONSREQUIREd, " &
             "(select " &

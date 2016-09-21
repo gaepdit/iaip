@@ -2070,7 +2070,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
             Dim ConfidentialData As String = "0"
 
             SQL =
-            "SELECT mas.STRREFERENCENUMBER , SUBSTR( mas.STRAIRSNUMBER, 5 ) " &
+            "SELECT mas.STRREFERENCENUMBER , SUBSTRING( mas.STRAIRSNUMBER, 5,8 ) " &
             "  AS AIRSNumber , fac.STRFACILITYNAME , fac.STRFACILITYCITY , " &
             "  fac.STRFACILITYSTATE , rep.STRPOLLUTANT , " &
             "  rep.STREMISSIONSOURCE , rep.STRREPORTTYPE , " &
@@ -10310,7 +10310,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
 
                     SQL = "Select " &
                   "ISMPMaster.strReferenceNumber,  " &
-                  "substr(ISMpMaster.strAIRSnumber, 5) as AIRSNumber,  " &
+                  "SUBSTRING(ISMpMaster.strAIRSnumber, 5,8) as AIRSNumber,  " &
                   "APBFacilityInformation.strFacilityName,  " &
                   "strFacilityCity, strFacilityState,  " &
                   "strPollutant, strEmissionSource,  " &

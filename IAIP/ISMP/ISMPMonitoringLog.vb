@@ -189,7 +189,7 @@ Public Class ISMPMonitoringLog
                 SQLWhere = ""
                 SQL = "select " &
                 "ISMPMaster.strReferenceNumber,  " &
-                "substr(ISMPMaster.strAIRSNumber, 5) as strAIRSNumber,  " &
+                "SUBSTRING(ISMPMaster.strAIRSNumber, 5,8) as strAIRSNumber,  " &
                 "APBFacilityInformation.strFacilityName,  " &
                 "APBFacilityInformation.strFacilityCity,  " &
                 "LookupCountyInformation.strCountyName,  " &
@@ -543,7 +543,7 @@ Public Class ISMPMonitoringLog
             If Me.chbNotifications.Checked = True Then
                 SQLWhere = ""
                 SQL = "select distinct " &
-               "substr(ISMPTEstNotification.strAIRSNumber, 5) as AIRSNumber, " &
+               "SUBSTRING(ISMPTEstNotification.strAIRSNumber, 5,8) as AIRSNumber, " &
                "APBFacilityInformation.strFacilityName,  " &
                "strFacilityCity,  " &
                "strCountyName,  " &
@@ -691,7 +691,7 @@ Public Class ISMPMonitoringLog
 
                 SQL = "select " &
                "numcommentsID, strTestingFirm, " &
-               "substr(ISMPTestFirmComments.strAIRSNumber, 5) as AIRSNumber, " &
+               "SUBSTRING(ISMPTestFirmComments.strAIRSNumber, 5,8) as AIRSNumber, " &
                "strFacilityName, " &
                "ISMPTestFirmComments.strTestLogNumber, strReferenceNumber, " &
                "case " &
@@ -838,7 +838,7 @@ Public Class ISMPMonitoringLog
                 SQL = "Select " &
                 "strTestLogNumber,  " &
                 "APBFacilityInformation.strFacilityName,  " &
-                "substr(APBFacilityInformation.strAIRSnumber, 5) as AIRSNumber,  " &
+                "SUBSTRING(APBFacilityInformation.strAIRSnumber, 5,8) as AIRSNumber,  " &
                 "strEmissionUnit,  " &
                 "APBFacilityInformation.strFacilityCity,  " &
                 "strCountyName,  " &

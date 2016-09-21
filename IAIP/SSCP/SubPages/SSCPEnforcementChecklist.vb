@@ -103,7 +103,7 @@ Public Class SSCPEnforcementChecklist
         Dim SQLLine As String = ""
         Dim SQLCount As Integer = 0
 
-        Dim SQL As String = "Select substr(SSCPItemMaster.strAIrsnumber, 5) as AIRSNumber, strfacilityName, " &
+        Dim SQL As String = "Select SUBSTRING(SSCPItemMaster.strAIrsnumber, 5,8) as AIRSNumber, strfacilityName, " &
         "strActivityName, " &
         "to_char(datReceivedDate, 'yyyy-MM-dd') as ReceivedDate, " &
         "strTrackingNumber, (strLastName|| ', ' ||strFirstName) as Staff " &

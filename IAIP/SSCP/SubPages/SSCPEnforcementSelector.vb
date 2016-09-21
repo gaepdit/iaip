@@ -239,7 +239,7 @@ Public Class SSCPEnforcementSelector
                        "	when datEnforcementFinalized is NUll then 'Open' " &
                        "Else 'Open' " &
                        "End as Status, " &
-                       "substr(SSCP_AuditedEnforcement.strAIRSNumber, 5) as AIRSNumber, " &
+                       "SUBSTRING(SSCP_AuditedEnforcement.strAIRSNumber, 5,8) as AIRSNumber, " &
                         "(strLastName|| ', ' ||strFirstName) as Staff,  " &
                        "strFacilityName  " &
                        "from SSCP_AuditedEnforcement,  " &
@@ -272,7 +272,7 @@ Public Class SSCPEnforcementSelector
                     "	when datEnforcementFinalized is NUll then 'Open' " &
                     "Else 'Open' " &
                     "End as Status, " &
-                    "substr(SSCP_AuditedEnforcement.strAIRSNumber, 5) as AIRSNumber, " &
+                    "SUBSTRING(SSCP_AuditedEnforcement.strAIRSNumber, 5,8) as AIRSNumber, " &
                      "(strLastName|| ', ' ||strFirstName) as Staff,  " &
                     "strFacilityName  " &
                     "from SSCP_AuditedEnforcement,   " &
@@ -304,7 +304,7 @@ Public Class SSCPEnforcementSelector
                     "	when datEnforcementFinalized is NUll then 'Open' " &
                     "Else 'Open' " &
                     "End as Status, " &
-                    "substr(SSCP_AuditedEnforcement.strAIRSNumber, 5) as AIRSNumber, " &
+                    "SUBSTRING(SSCP_AuditedEnforcement.strAIRSNumber, 5,8) as AIRSNumber, " &
                      "(strLastName|| ', ' ||strFirstName) as Staff,  " &
                     "strFacilityName " &
                     "from SSCP_AuditedEnforcement, " &
@@ -338,7 +338,7 @@ Public Class SSCPEnforcementSelector
                         " 	when datEnforcementFinalized is NUll then 'Open'  " &
                         "Else 'Open'  " &
                         "End as Status,  " &
-                         "substr(SSCP_AuditedEnforcement.strAIRSNumber, 5) as AIRSNumber,  " &
+                         "SUBSTRING(SSCP_AuditedEnforcement.strAIRSNumber, 5,8) as AIRSNumber,  " &
                         "strFacilityName,  " &
                         "(strLastName|| ', ' ||strFirstName) as Staff  " &
                         "from SSCP_AuditedEnforcement,   " &
@@ -372,7 +372,7 @@ Public Class SSCPEnforcementSelector
                         " 	when datEnforcementFinalized is NUll then 'Open'  " &
                         "Else 'Open'  " &
                         "End as Status,  " &
-                         "substr(SSCP_AuditedEnforcement.strAIRSNumber, 5) as AIRSNumber,  " &
+                         "SUBSTRING(SSCP_AuditedEnforcement.strAIRSNumber, 5,8) as AIRSNumber,  " &
                         "strFacilityName,  " &
                         "(strLastName|| ', ' ||strFirstName) as Staff  " &
                         "from SSCP_AuditedEnforcement, " &

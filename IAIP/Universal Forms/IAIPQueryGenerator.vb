@@ -665,7 +665,7 @@ Public Class IAIPQueryGenerator
             Dim j As Integer = 0
 
             SQLSelect = "Select " &
-            "substr(APBFacilityInformation.strAIRSNumber, 5) as AIRSNumber, " &
+            "SUBSTRING(APBFacilityInformation.strAIRSNumber, 5,8) as AIRSNumber, " &
             "APBFacilityInformation.strFacilityName, "
 
             SQLFrom = " From APBMasterAIRS, APBFacilityInformation, "
@@ -4319,7 +4319,7 @@ Public Class IAIPQueryGenerator
     Private Sub btnRunPermitContact_Click(sender As Object, e As EventArgs) Handles btnRunPermitContact.Click
         Try
             SQL = "select " &
-            "substr(strAIRSNumber, 5) as AIRSNumber, " &
+            "SUBSTRING(strAIRSNumber, 5,8) as AIRSNumber, " &
             "strFacilityName, strFacilityStreet1, " &
             "strFacilityStreet2, strFacilityCity, " &
             "strFacilityState, strFacilityZipCode, " &

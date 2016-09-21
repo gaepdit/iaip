@@ -828,7 +828,7 @@ Public Class SSPPApplicationLog
                 "   case  " &
                 "   	when SSPPApplicationMaster.strAIRSNumber is Null then ''  " &
                 "   	when SSPPApplicationMaster.strAIRSNumber = '0413' then ''  " &
-                "   else substr(SSPPApplicationMaster.strAIRSNumber, 5)  " &
+                "   else SUBSTRING(SSPPApplicationMaster.strAIRSNumber, 5,8)  " &
                 "   end as strAIRSNumber,  " &
                 "     case  " &
                 "   when datPermitIssued is Not Null OR datFinalizedDate IS NOT NULL then '11 - Closed Out'  " &
@@ -1117,7 +1117,7 @@ Public Class SSPPApplicationLog
                     " case   " &
                     " 	when SSPPApplicationMaster.strAIRSNumber is Null then ''   " &
                     " 	when SSPPApplicationMaster.strAIRSNumber = '0413' then ''   " &
-                    " else substr(SSPPApplicationMaster.strAIRSNumber, 5)   " &
+                    " else SUBSTRING(SSPPApplicationMaster.strAIRSNumber, 5,8)   " &
                     " end as strAIRSNumber,   " &
                     "case   " &
                     "when datPermitIssued is Not Null OR datFinalizedDate IS NOT NULL then '11 - Closed Out'   " &

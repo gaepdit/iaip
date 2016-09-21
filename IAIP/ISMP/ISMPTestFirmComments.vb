@@ -328,7 +328,7 @@ Public Class ISMPTestFirmComments
             Select Case RefreshType
                 Case "AIRS Number"
                     SQL = "select " &
-                    "substr(APBFacilityInformation.strAIRSnumber, 5) as strAIRSnumber, " &
+                    "SUBSTRING(APBFacilityInformation.strAIRSnumber, 5,8) as strAIRSnumber, " &
                     "strFacilityName " &
                     "from APBFacilityInformation " &
                     "where strAIRSnumber = '0413" & txtAIRSNumber.Text & "'"
@@ -348,7 +348,7 @@ Public Class ISMPTestFirmComments
                     dr.Close()
                 Case "Notification"
                     SQL = "select " &
-                    "substr(APBFacilityInformation.strAIRSNumber, 5) as strAIRSNumber, " &
+                    "SUBSTRING(APBFacilityInformation.strAIRSNumber, 5,8) as strAIRSNumber, " &
                     "strFacilityName, " &
                     "strTestLogNumber " &
                     "from APBFacilityInformation, ISMPTestNotification " &
@@ -375,7 +375,7 @@ Public Class ISMPTestFirmComments
                 Case "Test Report"
                     SQL = "select " &
                     "ISMPMaster.strReferenceNumber,  " &
-                    "substr(APBFacilityInformation.strAIRSnumber, 5) as strAIRSNUmber, " &
+                    "SUBSTRING(APBFacilityInformation.strAIRSnumber, 5,8) as strAIRSNUmber, " &
                     "strFacilityName,  strTestLogNumber,  " &
                     "to_char(datTestDateStart, 'dd-Mon-yyyy') as datTestDateStart, " &
                     "to_char(datTestDateEnd, 'dd-Mon-yyyy') as datTestDateEnd " &

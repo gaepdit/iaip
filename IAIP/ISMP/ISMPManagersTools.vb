@@ -3426,7 +3426,7 @@ Public Class ISMPManagersTools
             End If
 
             SQL = "Select ISMPReportInformation.strReferenceNumber, strFacilityName, " &
-            "substr(ISMPMaster.strAIRSNumber, 5) as AIRSNumber, strClosed, " &
+            "SUBSTRING(ISMPMaster.strAIRSNumber, 5,8) as AIRSNumber, strClosed, " &
             "to_char(datTestDateStart, 'dd-Mon-yyyy') as ForDatTestDateStart, " &
             "to_char(datReceivedDate, 'dd-Mon-yyyy') as ForDatReceivedDate, " &
             "to_char(datCompleteDate, 'dd-Mon-yyyy') as ForDatCompleteDate, " &
@@ -3712,7 +3712,7 @@ Public Class ISMPManagersTools
 
             SQL = "Select ISMPReportInformation.strReferenceNumber, strEmissionSource, strPollutantDescription, " &
             "to_char(datTestDateStart, 'dd-Mon-yyyy') as fordatTestDateStart, to_char(datTestDateEnd, 'dd-Mon-yyyy') as fordatTestDateEnd, " &
-            "substr(ISMPMaster.strAIRSNumber, 5) as AIRSNumber, strFacilityName, strFacilityCity, strFacilityState, " &
+            "SUBSTRING(ISMPMaster.strAIRSNumber, 5,8) as AIRSNumber, strFacilityName, strFacilityCity, strFacilityState, " &
             "ISMPReportType.strReportType " &
             "from ISMPReportInformation, LookUPPollutants, ISMPMaster, APBFacilityInformation, " &
             "ISMPReportType " &
@@ -4142,7 +4142,7 @@ Public Class ISMPManagersTools
             "SSPPApplicationMaster.strApplicationNumber, " &
             "strISMPUnit, strISMPReviewer, datISMPReviewDate,  " &
             "strISMPComments,  " &
-            "substr(SSPPApplicationMaster.strAIRSNumber, 5) as AIRSNumber, " &
+            "SUBSTRING(SSPPApplicationMaster.strAIRSNumber, 5,8) as AIRSNumber, " &
             "APBFacilityinformation.strFacilityName " &
             "from APBFacilityInformation, SSPPApplicationMaster,  " &
             "SSPPApplicationTracking, SSPPApplicationData " &
@@ -5686,7 +5686,7 @@ Public Class ISMPManagersTools
 
             dsFacilityList = New DataSet
 
-            SQL = "Select strFacilityName, substr(APBFacilityInformation.strAIRSnumber, 5) as StrAIRSNumber, " &
+            SQL = "Select strFacilityName, SUBSTRING(APBFacilityInformation.strAIRSnumber, 5,8) as StrAIRSNumber, " &
             "CASE " &
             "when strISMPUnit = 'H' then 'Chemical and VOC' " &
             "when strISMPUnit = 'I' then 'Combustion and Mineral' " &

@@ -1727,7 +1727,7 @@ Public Class SSPPStatisticalTools
             SQL = "Select Count(*) as EPA6b " &
             "From " &
             "(select " &
-            "distinct(substr(SSPPApplicationMaster.strAIRSnumber, 5) ) as AIRSNumber,  " &
+            "distinct(SUBSTRING(SSPPApplicationMaster.strAIRSnumber, 5,8) ) as AIRSNumber,  " &
             "strFacilityName, " &
             "MaxDate " &
             "from SSPPApplicationMaster,  " &
@@ -1772,7 +1772,7 @@ Public Class SSPPStatisticalTools
             SQL = "select count(*) as EPA6C " &
 "from (Select *  From  " &
 "(select  " &
-"distinct(substr(SSPPApplicationMaster.strAIRSnumber, 5)) as AIRSNumber,   " &
+"distinct(SUBSTRING(SSPPApplicationMaster.strAIRSnumber, 5,8)) as AIRSNumber,   " &
 "MaxDate  " &
 "from SSPPApplicationMaster,  SSPPApplicationTracking,  " &
 "APBHeaderData,   " &
@@ -1798,7 +1798,7 @@ Public Class SSPPStatisticalTools
 "and SSPPApplicationMaster.strAIRSNumber = PermitRequests.AIRSNumber))  EPA6A " &
 "where not exists  " &
 "(select * from (Select *   " &
-"From (select distinct(substr(SSPPApplicationMaster.strAIRSnumber, 5) ) as AIRSNumber,   " &
+"From (select distinct(SUBSTRING(SSPPApplicationMaster.strAIRSnumber, 5,8) ) as AIRSNumber,   " &
 "strFacilityName, MaxDate from SSPPApplicationMaster,  SSPPApplicationTracking, APBHeaderData,   " &
 "APBFacilityInformation,   (select  strAIRSNumber,  max(datEffective) as MaxDate  from SSPPApplicationMaster,  " &
 "SSPPApplicationTracking   " &
@@ -5483,7 +5483,7 @@ Public Class SSPPStatisticalTools
 
             If txtEPA2a.Text <> "" Then
                 SQL = "Select " &
-                "distinct(substr(APBFacilityInformation.strAIRSNumber, 5)) as AIRSNumber,  " &
+                "distinct(SUBSTRING(APBFacilityInformation.strAIRSNumber, 5,8)) as AIRSNumber,  " &
                 "APBFacilityInformation.strFacilityName,  " &
                 "case  " &
                 "   when substr(strAirprogramCodes, 13, 1) = '1' then 'Title V'  " &
@@ -5557,7 +5557,7 @@ Public Class SSPPStatisticalTools
 
             If txtEPA2d.Text <> "" Then
                 SQL = "Select " &
-                "distinct(substr(APBFacilityInformation.strAIRSNumber, 5)) as AIRSNumber,   " &
+                "distinct(SUBSTRING(APBFacilityInformation.strAIRSNumber, 5,8)) as AIRSNumber,   " &
                 "APBFacilityInformation.strFacilityName,   " &
                 "case      " &
                 "   when substr(strAirprogramCodes, 13, 1) = '1' then 'Title V'   " &
@@ -5639,7 +5639,7 @@ Public Class SSPPStatisticalTools
 
             If txtEPA3a.Text <> "" Then
                 SQL = "Select " &
-                "substr(APBFacilityInformation.strAIRSNumber, 5) as AIRSNumber,  " &
+                "SUBSTRING(APBFacilityInformation.strAIRSNumber, 5,8) as AIRSNumber,  " &
                 "strFacilityName,  " &
                 "case  " &
                 " when substr(strAirprogramCodes, 13, 1) = '1' then 'Title V'  " &
@@ -5976,7 +5976,7 @@ Public Class SSPPStatisticalTools
 
             If txtEPA6a.Text <> "" Then
                 SQL = "select " &
-                "distinct(substr(SSPPApplicationMaster.strAIRSnumber, 5)) as AIRSNumber,  " &
+                "distinct(SUBSTRING(SSPPApplicationMaster.strAIRSnumber, 5,8)) as AIRSNumber,  " &
                 "strFacilityName,  " &
                 "to_char(MaxDate, 'RRRR-MM-dd') as MaxDate " &
                 "from SSPPApplicationMaster,  " &
@@ -6061,7 +6061,7 @@ Public Class SSPPStatisticalTools
 
             If txtEPA6b.Text <> "" Then
                 SQL = "select " &
-            "distinct(substr(SSPPApplicationMaster.strAIRSnumber, 5) ) as AIRSNumber,  " &
+            "distinct(SUBSTRING(SSPPApplicationMaster.strAIRSnumber, 5,8) ) as AIRSNumber,  " &
             "strFacilityName, " &
             "to_char(MaxDate, 'RRRR-MM-dd') as MaxDate " &
             "from SSPPApplicationMaster,  " &
@@ -6151,7 +6151,7 @@ Public Class SSPPStatisticalTools
                 SQL = "select * " &
                 "from (Select *  From  " &
                 "(select  " &
-                "distinct(substr(SSPPApplicationMaster.strAIRSnumber, 5)) as AIRSNumber,   " &
+                "distinct(SUBSTRING(SSPPApplicationMaster.strAIRSnumber, 5,8)) as AIRSNumber,   " &
                 "strFacilityName, MaxDate  " &
                 "from SSPPApplicationMaster,  SSPPApplicationTracking,  " &
                 "APBHeaderData, APBFacilityInformation,  " &
@@ -6178,7 +6178,7 @@ Public Class SSPPStatisticalTools
                 "and SSPPApplicationMaster.strAIRSNumber = PermitRequests.AIRSNumber))  EPA6A " &
                 "where not exists  " &
                 "(select * from (Select *   " &
-                "From (select distinct(substr(SSPPApplicationMaster.strAIRSnumber, 5) ) as AIRSNumber,   " &
+                "From (select distinct(SUBSTRING(SSPPApplicationMaster.strAIRSnumber, 5,8) ) as AIRSNumber,   " &
                 "strFacilityName, MaxDate from SSPPApplicationMaster,  SSPPApplicationTracking, APBHeaderData,   " &
                 "APBFacilityInformation,   (select  strAIRSNumber,  max(datEffective) as MaxDate  from SSPPApplicationMaster,  " &
                 "SSPPApplicationTracking   " &

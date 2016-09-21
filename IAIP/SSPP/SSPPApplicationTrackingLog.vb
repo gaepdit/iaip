@@ -7158,7 +7158,7 @@ Public Class SSPPApplicationTrackingLog
             query = "select " &
             "distinct(APBPermits.strFileName)  " &
             "from APBpermits, SSPPApplicationLinking " &
-            "where substr(APBpermits.strFileName, 4) = SSPPAPPlicationLinking.strmasterapplication (+) " &
+            "where SUBSTRING(APBpermits.strFileName, 4,10) = SSPPAPPlicationLinking.strmasterapplication (+) " &
             "and (SSPPApplicationLinking.strApplicationNumber = @MasterApp " &
             "or APBPermits.strFileName like @MasterAppFn ) "
             parameter = {
@@ -10895,7 +10895,7 @@ Public Class SSPPApplicationTrackingLog
             "distinct(APBPermits.strFileName),  " &
             "strDocFileSize, strPDFFileSize " &
             "from APBpermits, SSPPApplicationLinking " &
-            "where substr(APBpermits.strFileName, 4) = " &
+            "where SUBSTRING(APBpermits.strFileName, 4,10) = " &
             "SSPPAPPlicationLinking.strmasterapplication (+) " &
             "and (SSPPApplicationLinking.strApplicationNumber = @MasterApp " &
             "or APBPermits.strFileName like @MasterAppFn ) "
