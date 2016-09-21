@@ -203,8 +203,8 @@ Public Class ISMPMonitoringLog
                 "(ISMPREportINformation.datReceivedDate - " &
                 "ISMPReportInformation.datTestDateEnd) as daysToReceived, " &
                 "case " &
-                "when strClosed <> 'True' then trunc(abs(GETDATE() - ISMPREportInformation.datReceivedDate), 0) " &
-                "else trunc(abs(ISMPReportInformation.datCompleteDate - ISMPReportInformation.datReceivedDate)) " &
+                "when strClosed <> 'True' then ROUND( DATEDIFF(day, ISMPREportInformation.datReceivedDate, GETDATE() ), 0) " &
+                "else ROUND(abs(DATEDIFF(day, ISMPReportInformation.datCompleteDate, ISMPReportInformation.datReceivedDate)), 0) " &
                 "End daysInAPB, " &
                 "case " &
                 "when ISMPReportInformation.datCompleteDate = '04-Jul-1776' then Null " &

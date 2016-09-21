@@ -2871,7 +2871,7 @@ Public Class ISMPManagersTools
                 "from ISMPReportInformation  " &
                 "where strDelete is NULL  " &
                 "and strClosed = 'False'  " &
-                "and datReceivedDate < (trunc(GETDATE()) - 50)  " &
+                "and datReceivedDate < DATEADD(day, -50, GETDATE())  " &
                 "and " & DateBias & " " &
                 "Group by strReviewingEngineer) OpenGreaterByDates,  " &
                 "(select strReviewingEngineer,  " &
@@ -2928,7 +2928,7 @@ Public Class ISMPManagersTools
 
                 SQL2 = "Select " &
                 "(strLastName|| ', ' ||strFirstName) as Staff, " &
-                "(trunc(GETDATE()) - datReceivedDate) as DaysOpenByDate " &
+                "DATEDIFF(day, datReceivedDate, GETDATE() ) as DaysOpenByDate " &
                 "from EPDUserProfiles, ISMPReportInformation " &
                 "where EPDUserProfiles.numUserID = ISMPReportInformation.strReviewingEngineer  " &
                 "and strClosed = 'False' " &
@@ -3034,7 +3034,7 @@ Public Class ISMPManagersTools
                 "from ISMPReportInformation  " &
                 "where strDelete is NULL  " &
                 "and strClosed = 'False'  " &
-                "and datReceivedDate < (trunc(GETDATE()) - 50)  " &
+                "and datReceivedDate < DATEADD(day, -50, GETDATE() )  " &
                 "Group by strReviewingEngineer) OpenGreaterTotals, " &
                 "(select strReviewingEngineer, count(*) as ClosedGreaterTotal " &
                 "from ISMPReportInformation  " &
@@ -3056,7 +3056,7 @@ Public Class ISMPManagersTools
 
                 SQL5 = "Select " &
                 "(strLastName|| ', ' ||strFirstName) as Staff, " &
-                "(trunc(GETDATE()) - datReceivedDate) as DaysOpen " &
+                "DATEDIFF(day, datReceivedDate, GETDATE() ) as DaysOpen " &
                 "from EPDUSerProfiles, ISMPReportInformation " &
                 "where EPDUserProfiles.numUserID = ISMPReportInformation.strReviewingEngineer  " &
                 "and strClosed = 'False' " &
@@ -3970,13 +3970,13 @@ Public Class ISMPManagersTools
              "    FROM EPDUserProfiles, ISMPReportInformation " &
              "    WHERE (ISMPReportInformation.STRCLOSED = 'True' ) " &
              "    and EPDUSerProfiles.numUserID = ISMPReportInformation.strReviewingEngineer " &
-             "    and datCompleteDate Between Trunc(GETDATE()) - 60 and Trunc(GETDATE()) " &
+             "    and datCompleteDate Between DATEADD(day, -60, GETDATE()) and GETDATE() " &
              "Group by strfirstname) ClosedReport, " &
              "(SELECT EPDUSerProfiles.STRFIRSTNAME as Engineer, Count(*) as OpenFiftys " &
              "    FROM EPDUSerProfiles, ISMPReportInformation " &
              "    WHERE (ISMPReportInformation.STRCLOSED = 'False' ) " &
              "    and EPDUserProfiles.numUserID = ISMPReportInformation.strReviewingEngineer " &
-             "    and datReceivedDate <= (Trunc(GETDATE()) - 50) " &
+             "    and datReceivedDate <= DATEADD(day, -50, GETDATE() ) " &
              "Group by strfirstname) OLdOpen, " &
              "EPDUserProfiles " &
              "where strFirstname = OpenReport.Engineer (+) " &

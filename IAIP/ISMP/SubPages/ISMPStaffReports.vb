@@ -231,7 +231,7 @@ Public Class ISMPStaffReports
                 "from ISMPReportInformation  " &
                 "where strDelete is NULL  " &
                 "and strClosed = 'False'  " &
-                "and datReceivedDate < (trunc(GETDATE()) - 50)  " &
+                "and datReceivedDate < DATEADD(day, -50, GETDATE() ) " &
                 "and " & DateBias & " " &
                 "Group by strReviewingEngineer) OpenGreaterByDates,  " &
                 "(select strReviewingEngineer,  " &
@@ -282,7 +282,7 @@ Public Class ISMPStaffReports
 
                 SQL2 = "Select " &
                 "(strLastName|| ', ' ||strFirstName) as Staff, " &
-                "(trunc(GETDATE()) - datReceivedDate) as DaysOpenByDate " &
+                "DATEDIFF(day, datReceivedDate, GETDATE() ) as DaysOpenByDate " &
                 "from EPDUserProfiles, ISMPReportInformation " &
                 "where EPDUserProfiles.numUserID = ISMPReportInformation.strReviewingEngineer  " &
                 "and strClosed = 'False' " &
@@ -388,7 +388,7 @@ Public Class ISMPStaffReports
                 "from ISMPReportInformation  " &
                 "where strDelete is NULL  " &
                 "and strClosed = 'False'  " &
-                "and datReceivedDate < (trunc(GETDATE()) - 50)  " &
+                "and datReceivedDate < DATEADD(day, -50, GETDATE() )  " &
                 "Group by strReviewingEngineer) OpenGreaterTotals, " &
                 "(select strReviewingEngineer, count(*) as ClosedGreaterTotal " &
                 "from ISMPReportInformation  " &
@@ -410,7 +410,7 @@ Public Class ISMPStaffReports
 
                 SQL5 = "Select " &
                 "(strLastName|| ', ' ||strFirstName) as Staff, " &
-                "(trunc(GETDATE()) - datReceivedDate) as DaysOpen " &
+                "DATEDIFF(day, datReceivedDate, GETDATE() ) as DaysOpen " &
                 "from EPDUSerProfiles, ISMPReportInformation " &
                 "where EPDUserProfiles.numUserID = ISMPReportInformation.strReviewingEngineer  " &
                 "and strClosed = 'False' " &

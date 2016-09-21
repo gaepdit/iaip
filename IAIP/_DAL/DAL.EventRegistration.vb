@@ -53,9 +53,9 @@ Namespace DAL
             '        "     RES_EVENT.STRNOTES " &
             '        " FROM RES_EVENT " &
             '        " WHERE RES_EVENT.DATSTARTDATE       IS NOT NULL " &
-            '        " AND (TRUNC(RES_EVENT.DATSTARTDATE) >= TRUNC(@pFromDate) " &
+            '        " AND (RES_EVENT.DATSTARTDATE >= @pFromDate " &
             '        " OR @pFromDate                                IS NULL) " &
-            '        " AND (TRUNC(RES_EVENT.DATSTARTDATE) <= TRUNC(@pToDate) " &
+            '        " AND (RES_EVENT.DATSTARTDATE <= @pToDate " &
             '        " OR @pToDate                                  IS NULL) " &
             '        " AND RES_EVENT.ACTIVE                = '1' " &
             '        " ORDER BY RES_EVENT.DATSTARTDATE "
