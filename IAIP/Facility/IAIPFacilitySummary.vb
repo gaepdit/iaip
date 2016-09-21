@@ -216,7 +216,7 @@ Public Class IAIPFacilitySummary
         InfoClassDisplay.Text = ""
         InfoOperStatusDisplay.Text = ""
         CmsDisplay.Text = ""
-        CmsDisplay.BackColor = SystemColors.ControlLightLight
+        CmsDisplay.BackColor = Color.Empty
         ComplianceStatusDisplay.Text = ""
         ComplianceStatusDisplay.BackColor = SystemColors.ControlLightLight
         ComplianceStatusDisplay.BorderStyle = BorderStyle.None
@@ -366,9 +366,9 @@ Public Class IAIPFacilitySummary
                 Case > 0
                     .BackColor = IaipColors.WarningBackColor
                     .ForeColor = IaipColors.WarningForeColor
-                    .BorderStyle = BorderStyle.FixedSingle
+                    .BorderStyle = BorderStyle.None
                 Case Else
-                    .BackColor = Color.Empty
+                    .BackColor = SystemColors.ControlLightLight
                     .ForeColor = Color.Empty
                     .BorderStyle = BorderStyle.None
             End Select
@@ -379,9 +379,11 @@ Public Class IAIPFacilitySummary
         With ThisFacility.HeaderData
             If (.CmsMember = FacilityCmsMember.A And .Classification <> FacilityClassification.A) _
             OrElse (.CmsMember = FacilityCmsMember.S And .Classification <> FacilityClassification.SM) Then
-                CmsDisplay.BackColor = Color.Pink
+                CmsDisplay.BackColor = IaipColors.WarningBackColor
+                CmsDisplay.ForeColor = IaipColors.WarningForeColor
             Else
                 CmsDisplay.BackColor = SystemColors.ControlLightLight
+                CmsDisplay.ForeColor = Color.Empty
             End If
         End With
     End Sub
