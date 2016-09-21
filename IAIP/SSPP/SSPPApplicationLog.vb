@@ -836,8 +836,8 @@ Public Class SSPPApplicationLog
                 "   when datToBranchCheif is Not Null and datFinalizedDate is Null  " &
                 "   and datToDirector is Null and (datDraftIssued is Null or datDraftIssued < datToBranchCheif) then '09 - Administrative Review'  " &
                 "   when datEPAEnds is not Null then '08 - EPA 45-day Review'  " &
-                "   when datPNExpires is Not Null and datPNExpires < sysdate then '07 - Public Notice Expired'  " &
-                "   when datPNExpires is Not Null and datPNExpires >= sysdate then '06 - Public Notice'   " &
+                "   when datPNExpires is Not Null and datPNExpires < GETDATE() then '07 - Public Notice Expired'  " &
+                "   when datPNExpires is Not Null and datPNExpires >= GETDATE() then '06 - Public Notice'   " &
                 "   when datDraftIssued is Not Null and datPNExpires is Null then '05 - Draft Issued'   " &
                 "   when dattoPMII is Not Null then '04 - AT PM'   " &
                 "   when dattoPMI is Not Null then '03 - At UC'   " &
@@ -1024,8 +1024,8 @@ Public Class SSPPApplicationLog
                 "   when datToDirector is Not Null and datFinalizedDate is Null and (datDraftIssued is Null or datDraftIssued < datToDirector) then to_char(datToDirector, 'RRRR-MM-dd')  " &
                 "   when datToBranchCheif is Not Null and datFinalizedDate is Null and datToDirector is Null and (datDraftIssued is Null or datDraftIssued < datToBranchCheif) then to_char(DatTOBranchCheif, 'RRRR-MM-dd')   " &
                 "   when datEPAEnds is not Null then to_char(datEPAEnds, 'RRRR-MM-dd')    " &
-                "   when datPNExpires is Not Null and datPNExpires < sysdate then to_char(datPNExpires, 'RRRR-MM-dd')    " &
-                "   when datPNExpires is Not Null and datPNExpires >= sysdate then to_char(datPNExpires, 'RRRR-MM-dd')     " &
+                "   when datPNExpires is Not Null and datPNExpires < GETDATE() then to_char(datPNExpires, 'RRRR-MM-dd')    " &
+                "   when datPNExpires is Not Null and datPNExpires >= GETDATE() then to_char(datPNExpires, 'RRRR-MM-dd')     " &
                 "   when datDraftIssued is Not Null and datPNExpires is Null then to_char(datDraftIssued, 'RRRR-MM-dd')     " &
                 "   when dattoPMII is Not Null then to_char(datToPMII, 'RRRR-MM-dd')     " &
                 "   when dattoPMI is Not Null then to_char(datToPMI, 'RRRR-MM-dd')     " &
@@ -1125,8 +1125,8 @@ Public Class SSPPApplicationLog
                     "when datToBranchCheif is Not Null and datFinalizedDate is Null   " &
                     "and datToDirector is Null and (datDraftIssued is Null or datDraftIssued < datToBranchCheif) then '09 - Administrative Review'   " &
                     "when datEPAEnds is not Null then '08 - EPA 45-day Review'   " &
-                    "when datPNExpires is Not Null and datPNExpires < sysdate then '07 - Public Notice Expired'   " &
-                    "when datPNExpires is Not Null and datPNExpires >= sysdate then '06 - Public Notice'    " &
+                    "when datPNExpires is Not Null and datPNExpires < GETDATE() then '07 - Public Notice Expired'   " &
+                    "when datPNExpires is Not Null and datPNExpires >= GETDATE() then '06 - Public Notice'    " &
                     "when datDraftIssued is Not Null and datPNExpires is Null then '05 - Draft Issued'    " &
                     "when dattoPMII is Not Null then '04 - AT PM'    " &
                     "when dattoPMI is Not Null then '03 - At UC'    " &
@@ -1146,8 +1146,8 @@ Public Class SSPPApplicationLog
                     "when datToBranchCheif is Not Null and datFinalizedDate is Null   " &
                     "and datToDirector is Null and (datDraftIssued is Null or datDraftIssued < datToBranchCheif) then to_char(DatTOBranchCheif, 'RRRR-MM-dd')    " &
                     "when datEPAEnds is not Null then to_char(datEPAEnds, 'RRRR-MM-dd')     " &
-                    "when datPNExpires is Not Null and datPNExpires < sysdate then to_char(datPNExpires, 'RRRR-MM-dd')     " &
-                    "when datPNExpires is Not Null and datPNExpires >= sysdate then to_char(datPNExpires, 'RRRR-MM-dd')      " &
+                    "when datPNExpires is Not Null and datPNExpires < GETDATE() then to_char(datPNExpires, 'RRRR-MM-dd')     " &
+                    "when datPNExpires is Not Null and datPNExpires >= GETDATE() then to_char(datPNExpires, 'RRRR-MM-dd')      " &
                     "when datDraftIssued is Not Null and datPNExpires is Null then to_char(datDraftIssued, 'RRRR-MM-dd')      " &
                     "when dattoPMII is Not Null then to_char(datToPMII, 'RRRR-MM-dd')      " &
                     "when dattoPMI is Not Null then to_char(datToPMI, 'RRRR-MM-dd')      " &
@@ -1225,9 +1225,9 @@ Public Class SSPPApplicationLog
                         Case "5 - Draft Issued"
                             SQLSearch1 = "  datDraftIssued is Not Null and datPNExpires is Null and datFinalizedDate is Null and datToBranchCheif is Null and datToDirector is Null "
                         Case "6 - Public Notice"
-                            SQLSearch1 = " datPNExpires is Not Null and datPNExpires >= sysdate and datFinalizedDate is Null and datEPAEnds is Null "
+                            SQLSearch1 = " datPNExpires is Not Null and datPNExpires >= GETDATE() and datFinalizedDate is Null and datEPAEnds is Null "
                         Case "7 - Public Notice Expired"
-                            SQLSearch1 = " datPNExpires is Not Null and datPNExpires < sysdate and datToDirector is Null and datFinalizedDate is Null and datToBranchCheif is Null and datToDirector is Null "
+                            SQLSearch1 = " datPNExpires is Not Null and datPNExpires < GETDATE() and datToDirector is Null and datFinalizedDate is Null and datToBranchCheif is Null and datToDirector is Null "
                         Case "8 - EPA 45-day Review"
                             SQLSearch1 = " datEPAEnds is not Null and datFinalizedDate is Null and datDraftIssued is Not Null "
                         Case "9 - Administrative Review"
@@ -1459,9 +1459,9 @@ Public Class SSPPApplicationLog
                         Case "5 - Draft Issued"
                             SQLSearch2 = "  datDraftIssued is Not Null and datPNExpires is Null and datFinalizedDate is Null and datToBranchCheif is Null and datToDirector is Null "
                         Case "6 - Public Notice"
-                            SQLSearch2 = " datPNExpires is Not Null and datPNExpires >= sysdate and datFinalizedDate is Null and datEPAEnds is Null "
+                            SQLSearch2 = " datPNExpires is Not Null and datPNExpires >= GETDATE() and datFinalizedDate is Null and datEPAEnds is Null "
                         Case "7 - Public Notice Expired"
-                            SQLSearch2 = " datPNExpires is Not Null and datPNExpires < sysdate and datToDirector is Null and datFinalizedDate is Null and datToBranchCheif is Null and datToDirector is Null "
+                            SQLSearch2 = " datPNExpires is Not Null and datPNExpires < GETDATE() and datToDirector is Null and datFinalizedDate is Null and datToBranchCheif is Null and datToDirector is Null "
                         Case "8 - EPA 45-day Review"
                             SQLSearch2 = " datEPAEnds is not Null and datFinalizedDate is Null and datDraftIssued is Not Null "
                         Case "9 - Administrative Review"

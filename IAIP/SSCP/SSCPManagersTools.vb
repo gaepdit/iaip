@@ -5612,9 +5612,9 @@ Public Class SSCPManagersTools
             "  AND tHD.STROPERATIONALSTATUS             <> 'X' " &
             "  AND SUBSTRING(tHD.STRAIRPROGRAMCODES, 13, 1) = '1' " &
             "  AND ((tAT.DATPERMITISSUED                IS NOT NULL " &
-            "  AND tAT.DATPERMITISSUED                   < add_months(SysDate, -51)) " &
+            "  AND tAT.DATPERMITISSUED                   < add_months(GETDATE(), -51)) " &
             "  OR (tAT.DATEFFECTIVE                     IS NOT NULL " &
-            "  AND tAT.DATEFFECTIVE                      < add_months(SysDate, -51))) " &
+            "  AND tAT.DATEFFECTIVE                      < add_months(GETDATE(), -51))) " &
             "  MINUS " &
             "    (SELECT DISTINCT SUBSTRING(tAM.STRAIRSNUMBER, 5,8) AS AIRSNumber " &
             "    FROM SSPPApplicationMaster tAM, " &
@@ -5628,9 +5628,9 @@ Public Class SSCPManagersTools
             "    OR tAM.STRAPPLICATIONTYPE      = '16' " &
             "    OR tAM.STRAPPLICATIONTYPE      = '27') " &
             "    OR (tAD.STRPERMITNUMBER LIKE '%V__0')) " &
-            "    AND ((tAT.DATPERMITISSUED BETWEEN add_months(SysDate, -51) AND SysDate " &
-            "    AND tAT.DATEFFECTIVE BETWEEN add_months(SysDate,      -51) AND SysDate) " &
-            "    OR (tAT.DATRECEIVEDDATE BETWEEN add_months(SysDate,   -51) AND SysDate)) " &
+            "    AND ((tAT.DATPERMITISSUED BETWEEN add_months(GETDATE(), -51) AND GETDATE() " &
+            "    AND tAT.DATEFFECTIVE BETWEEN add_months(GETDATE(),      -51) AND GETDATE()) " &
+            "    OR (tAT.DATRECEIVEDDATE BETWEEN add_months(GETDATE(),   -51) AND GETDATE())) " &
             "    ) " &
             "  ) TVFacilities, " &
             "  (SELECT MAX(SSCPINSPECTIONSREQUIRED.INTYEAR) AS maxyear " &

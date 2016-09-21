@@ -4531,7 +4531,7 @@ Public Class DMUEisGecoTool
                 Dim query1 As String = "Update EIS_Admin set " &
                     "EISAccessCode = '2', " &
                     "EISStatusCode = '4', " &
-                    "datEISstatus = sysdate, " &
+                    "datEISstatus = GETDATE(), " &
                     "UpdateUser = @updateuser, " &
                     "updatedatetime = getdate() " &
                     "where strOptOut = '0' " &
@@ -5210,7 +5210,7 @@ Public Class DMUEisGecoTool
                 " SET STRFACILITYSITESTATUSCODE = @statuscode " &
                 " , STRFACILITYSITECOMMENT = @sitecomment " &
                 " , UPDATEUSER = @updateuser " &
-                " , UPDATEDATETIME = sysdate " &
+                " , UPDATEDATETIME = GETDATE() " &
                 " WHERE FACILITYSITEID = @siteid "
 
             Dim parameters As SqlParameter() = New SqlParameter() {
@@ -6203,7 +6203,7 @@ Public Class DMUEisGecoTool
                 Dim sql2 As String = "Update EIS_Admin set " &
                   "EISAccessCode = '2', " &
                   "EISStatusCode = '3', " &
-                  "datEISstatus = sysdate, " &
+                  "datEISstatus = GETDATE(), " &
                   "UpdateUser = '" & Replace(CurrentUser.AlphaName, "'", "''") & "', " &
                   "updatedatetime = getdate() " &
                   "where inventoryYear = '" & EISConfirm & "' " &

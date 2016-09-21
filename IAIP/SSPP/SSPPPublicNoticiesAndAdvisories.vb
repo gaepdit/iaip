@@ -233,7 +233,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
             "and strPNPosted is Null " &
             "and (strApplicationType = '14' or strApplicationType = '16' " &
             "or strApplicationType = '21' or strApplicationType = '22') " &
-            "and (datPNExpires > (sysdate + 24) and datPNExpires < (sysdate + 37)) " &
+            "and (datPNExpires > (GETDATE() + 24) and datPNExpires < (GETDATE() + 37)) " &
              AppNumbers
 
             cmd = New SqlCommand(SQL, CurrentConnection)

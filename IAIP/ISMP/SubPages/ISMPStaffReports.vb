@@ -222,7 +222,7 @@ Public Class ISMPStaffReports
                 "count(*) as GreaterByDate " &
                 "from ISMPReportInformation  " &
                 "where strDelete is NULL  " &
-                "and datReceivedDate < Decode(strClosed, 'False', (trunc(sysdate) - 50), " &
+                "and datReceivedDate < Decode(strClosed, 'False', (trunc(GETDATE()) - 50), " &
                 "                                        'True', (-50 + datCompleteDate)) " &
                 "and " & DateBias & " " &
                 "Group by strReviewingEngineer) GreaterByDates,  " &
@@ -231,7 +231,7 @@ Public Class ISMPStaffReports
                 "from ISMPReportInformation  " &
                 "where strDelete is NULL  " &
                 "and strClosed = 'False'  " &
-                "and datReceivedDate < (trunc(sysdate) - 50)  " &
+                "and datReceivedDate < (trunc(GETDATE()) - 50)  " &
                 "and " & DateBias & " " &
                 "Group by strReviewingEngineer) OpenGreaterByDates,  " &
                 "(select strReviewingEngineer,  " &
@@ -282,7 +282,7 @@ Public Class ISMPStaffReports
 
                 SQL2 = "Select " &
                 "(strLastName|| ', ' ||strFirstName) as Staff, " &
-                "(trunc(sysdate) - datReceivedDate) as DaysOpenByDate " &
+                "(trunc(GETDATE()) - datReceivedDate) as DaysOpenByDate " &
                 "from EPDUserProfiles, ISMPReportInformation " &
                 "where EPDUserProfiles.numUserID = ISMPReportInformation.strReviewingEngineer  " &
                 "and strClosed = 'False' " &
@@ -388,7 +388,7 @@ Public Class ISMPStaffReports
                 "from ISMPReportInformation  " &
                 "where strDelete is NULL  " &
                 "and strClosed = 'False'  " &
-                "and datReceivedDate < (trunc(sysdate) - 50)  " &
+                "and datReceivedDate < (trunc(GETDATE()) - 50)  " &
                 "Group by strReviewingEngineer) OpenGreaterTotals, " &
                 "(select strReviewingEngineer, count(*) as ClosedGreaterTotal " &
                 "from ISMPReportInformation  " &
@@ -410,7 +410,7 @@ Public Class ISMPStaffReports
 
                 SQL5 = "Select " &
                 "(strLastName|| ', ' ||strFirstName) as Staff, " &
-                "(trunc(sysdate) - datReceivedDate) as DaysOpen " &
+                "(trunc(GETDATE()) - datReceivedDate) as DaysOpen " &
                 "from EPDUSerProfiles, ISMPReportInformation " &
                 "where EPDUserProfiles.numUserID = ISMPReportInformation.strReviewingEngineer  " &
                 "and strClosed = 'False' " &

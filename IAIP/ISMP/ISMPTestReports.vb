@@ -2088,10 +2088,10 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
             "  rep.STRCOMPLIANCESTATUS , rep.STRCC , TO_CHAR( " &
             "  rep.DATRECEIVEDDATE - rep.DATTESTDATEEND ) AS DaysFromTest , " &
             "  CASE WHEN rep.DATCOMPLETEDATE = '04-Jul-1776' THEN TO_CHAR( " &
-            "      SysDate - rep.DATRECEIVEDDATE ) ELSE TO_CHAR( " &
+            "      GETDATE() - rep.DATRECEIVEDDATE ) ELSE TO_CHAR( " &
             "      rep.DATCOMPLETEDATE - rep.DATRECEIVEDDATE ) END APBDays , " &
             "  CASE WHEN rep.DATCOMPLETEDATE = '04-Jul-1776' THEN TO_CHAR( " &
-            "      SysDate - rep.DATREVIEWEDBYUNITMANAGER ) ELSE TO_CHAR( " &
+            "      GETDATE() - rep.DATREVIEWEDBYUNITMANAGER ) ELSE TO_CHAR( " &
             "      rep.DATCOMPLETEDATE - rep.DATREVIEWEDBYUNITMANAGER ) END " &
             "  EngineerDays , rep.STRDETERMINATIONMETHOD , " &
             "  rep.STRCONTROLEQUIPMENTDATA , rep.STROTHERWITNESSINGENG , " &
@@ -10330,11 +10330,11 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
                   "strComplianceStatus, strCC,  " &
                   "(ISMPReportInformation.datReceivedDate - ISMPReportInformation.datTestDateEnd) as DaysFromTest,  " &
                   "case  " &
-                  "when datCompleteDate = '04-Jul-1776' then to_char(sysdate-datReceivedDate)  " &
+                  "when datCompleteDate = '04-Jul-1776' then to_char(GETDATE()-datReceivedDate)  " &
                   "else to_char(datCompleteDate - datReceivedDate)  " &
                   "End APBDays,  " &
                   "Case " &
-                  "when datCompleteDate = '04-Jul-1776' then to_char(sysdate-datReviewedByUnitManager)  " &
+                  "when datCompleteDate = '04-Jul-1776' then to_char(GETDATE()-datReviewedByUnitManager)  " &
                   "else to_char(datCompleteDate - datReviewedByUnitManager)  " &
                   "End EngineerDays,  " &
                   "strDeterminationMethod, strControlEquipmentData,  " &

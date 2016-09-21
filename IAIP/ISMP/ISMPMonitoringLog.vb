@@ -203,7 +203,7 @@ Public Class ISMPMonitoringLog
                 "(ISMPREportINformation.datReceivedDate - " &
                 "ISMPReportInformation.datTestDateEnd) as daysToReceived, " &
                 "case " &
-                "when strClosed <> 'True' then trunc(abs(sysdate - ISMPREportInformation.datReceivedDate), 0) " &
+                "when strClosed <> 'True' then trunc(abs(GETDATE() - ISMPREportInformation.datReceivedDate), 0) " &
                 "else trunc(abs(ISMPReportInformation.datCompleteDate - ISMPReportInformation.datReceivedDate)) " &
                 "End daysInAPB, " &
                 "case " &
@@ -588,7 +588,7 @@ Public Class ISMPMonitoringLog
                 End If
 
                 If chbOpen.Checked = True Then
-                    SQLWhere = SQLWhere & " and to_date(datproposedstartdate) > to_date(sysdate - 90) "
+                    SQLWhere = SQLWhere & " and to_date(datproposedstartdate) > to_date(GETDATE() - 90) "
                 End If
                 If txtAIRSNumberFilter.Text <> "" Then
                     SQLWhere = SQLWhere & " and ISMPTestNotification.strAIRSnumber like '%" & txtAIRSNumberFilter.Text & "%' "

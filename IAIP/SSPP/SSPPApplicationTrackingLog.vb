@@ -4879,7 +4879,7 @@ Public Class SSPPApplicationTrackingLog
                     "APBUnit = @unit, " &
                     "datFinalizedDate = @datefinalized, " &
                     "strModifingperson = @updateuser, " &
-                    "datModifingdate = sysdate " &
+                    "datModifingdate = GETDATE() " &
                     "where strApplicationNumber = @appnumber "
                 parameters = {
                     New SqlParameter("@airsnumber", "0413" & txtAIRSNumber.Text),
@@ -7027,7 +7027,7 @@ Public Class SSPPApplicationTrackingLog
             queryList.Add("Update APBSubpartData set " &
                           "Active = '0', " &
                           "updateUser = @UserGCode , " &
-                          "updateDateTime = sysdate " &
+                          "updateDateTime = GETDATE() " &
                           "where strSubpartKey = @pKey ")
             paramsList.Add(
                 {
@@ -7039,7 +7039,7 @@ Public Class SSPPApplicationTrackingLog
                 queryList.Add("Update APBSubpartData set " &
                               "Active = '0', " &
                               "updateUser = @UserGCode , " &
-                              "updateDateTime = sysdate " &
+                              "updateDateTime = GETDATE() " &
                               "where strSubpartKey = @pKey " &
                               "and strSubpart = @Subpart ")
                 paramsList.Add(
@@ -7074,7 +7074,7 @@ Public Class SSPPApplicationTrackingLog
                 query = "Update APBSubpartData set " &
                     "Active = '1', " &
                     "updateUser = @UserGCode , " &
-                    "updateDateTime = sysdate " &
+                    "updateDateTime = GETDATE() " &
                     "where strSubpartKey = @pKey " &
                     "and strSubpart = @subpart "
                 params = {
@@ -7088,7 +7088,7 @@ Public Class SSPPApplicationTrackingLog
                     "    UPDATEDATETIME, ACTIVE, CREATEDATETIME " &
                     "  ) VALUES " &
                     "(@airs, @pKey, @subpart, @UserGCode , " &
-                    "sysdate, '1', sysdate)"
+                    "GETDATE(), '1', GETDATE())"
                 params = {
                     New SqlParameter("@airs", "0413" & txtAIRSNumber.Text),
                     New SqlParameter("@pKey", pKey),
@@ -12994,7 +12994,7 @@ Public Class SSPPApplicationTrackingLog
             "  ) " &
             "  VALUES " &
             "  ( " &
-            "    @appnum, @pKey, @subpart, @activity, @pUser, sysdate, sysdate " &
+            "    @appnum, @pKey, @subpart, @activity, @pUser, GETDATE(), GETDATE() " &
             "  ) "
 
         Dim parameters As SqlParameter() = {
@@ -13077,7 +13077,7 @@ Public Class SSPPApplicationTrackingLog
                                     query = "Update APBSubpartData set " &
                                         "Active = '9', " &
                                         "updateUser = @UserGCode , " &
-                                        "updateDateTime = (to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')) " &
+                                        "updateDateTime = (to_date(GETDATE(), 'DD-Mon-YY HH12:MI:SS')) " &
                                         "where strSubpartKey = @pKey " &
                                         "and strSubpart = @Subpart "
                                     parameter = {
@@ -13123,7 +13123,7 @@ Public Class SSPPApplicationTrackingLog
                     query = "Update APBSubpartData set " &
                     "Active = '1', " &
                     "updateUser = @UserGCode " &
-                    "updateDateTime = (to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')) " &
+                    "updateDateTime = (to_date(GETDATE(), 'DD-Mon-YY HH12:MI:SS')) " &
                     "where strSubpartKey = @pKey " &
                     "and strSubpart = @Subpart "
                 Else
@@ -13132,8 +13132,8 @@ Public Class SSPPApplicationTrackingLog
                     "    UPDATEDATETIME, ACTIVE, CREATEDATETIME " &
                     "  ) VALUES " &
                     "(@airsnum, @pKey, @Subpart, @UserGCode, " &
-                    "(to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')), '1', " &
-                    "(to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')))"
+                    "(to_date(GETDATE(), 'DD-Mon-YY HH12:MI:SS')), '1', " &
+                    "(to_date(GETDATE(), 'DD-Mon-YY HH12:MI:SS')))"
                 End If
                 DB.RunCommand(query, parameter)
             Next
@@ -13151,7 +13151,7 @@ Public Class SSPPApplicationTrackingLog
                 query = "Update APBSubpartData set " &
                     "Active = '9', " &
                     "updateUser = @UserGCode , " &
-                    "updateDateTime = (to_date(sysdate, 'DD-Mon-YY HH12:MI:SS')) " &
+                    "updateDateTime = (to_date(GETDATE(), 'DD-Mon-YY HH12:MI:SS')) " &
                     "where strSubpartKey = @pKey " &
                     "and strSubpart = @Subpart "
                 parameter = {
@@ -13177,7 +13177,7 @@ Public Class SSPPApplicationTrackingLog
                     query = "Update SSPPSubpartData set " &
                         "strApplicationActivity = '9', " &
                         "updateUser = @UserGCode , " &
-                        "updateDateTime = (to_char(sysdate, 'DD-Mon-YY HH12:MI:SS')) " &
+                        "updateDateTime = (to_char(GETDATE(), 'DD-Mon-YY HH12:MI:SS')) " &
                         "where strApplicationNumber = @appnum " &
                         "and strSubPartKey = @pKey " &
                         "and strSubPart = @Subpart "
@@ -13190,7 +13190,7 @@ Public Class SSPPApplicationTrackingLog
                         "  ) " &
                         "  VALUES " &
                         "  ( " &
-                        "    @appnum, @pKey, @Subpart, '9', @UserGCode, sysdate, sysdate " &
+                        "    @appnum, @pKey, @Subpart, '9', @UserGCode, GETDATE(), GETDATE() " &
                         "  ) "
                 End If
                 DB.RunCommand(query, parameter)
@@ -13219,7 +13219,7 @@ Public Class SSPPApplicationTrackingLog
                             query = "Update SSPPSubpartData set " &
                                 "strApplicationActivity = '1', " &
                                 "updateUser = @UserGCode , " &
-                                "updateDateTime = (to_char(sysdate, 'DD-Mon-YY HH12:MI:SS')) " &
+                                "updateDateTime = (to_char(GETDATE(), 'DD-Mon-YY HH12:MI:SS')) " &
                                 "where strApplicationNumber = @appnum " &
                                 "and strSubPartKey = @pKey " &
                                 "and strSubPart = @Subpart "
@@ -13232,7 +13232,7 @@ Public Class SSPPApplicationTrackingLog
                                 "  ) " &
                                 "  VALUES " &
                                 "  ( " &
-                                "    @appnum, @pKey, @Subpart, '1', @UserGCode, sysdate, sysdate " &
+                                "    @appnum, @pKey, @Subpart, '1', @UserGCode, GETDATE(), GETDATE() " &
                                 "  ) "
                         End If
                     Case "Modify"
@@ -13240,7 +13240,7 @@ Public Class SSPPApplicationTrackingLog
                             query = "Update SSPPSubpartData set " &
                                 "strApplicationActivity = '2', " &
                                 "updateUser = @UserGCode , " &
-                                "updateDateTime = (to_char(sysdate, 'DD-Mon-YY HH12:MI:SS')) " &
+                                "updateDateTime = (to_char(GETDATE(), 'DD-Mon-YY HH12:MI:SS')) " &
                                 "where strApplicationNumber = @appnum " &
                                 "and strSubPartKey = @pKey " &
                                 "and strSubPart = @Subpart "
@@ -13253,7 +13253,7 @@ Public Class SSPPApplicationTrackingLog
                                 "  ) " &
                                 "  VALUES " &
                                 "  ( " &
-                                "    @appnum, @pKey, @Subpart, '2', @UserGCode, sysdate, sysdate " &
+                                "    @appnum, @pKey, @Subpart, '2', @UserGCode, GETDATE(), GETDATE() " &
                                 "  ) "
                         End If
                     Case Else
@@ -13291,7 +13291,7 @@ Public Class SSPPApplicationTrackingLog
                 "  VALUES" &
                 "(@airsnum, @pKey, " &
                 "'OT', '3', " &
-                "@UserGCode, sysdate, " &
+                "@UserGCode, GETDATE(), " &
                 "'O') "
                 DB.RunCommand(query, parameter)
 
@@ -13299,7 +13299,7 @@ Public Class SSPPApplicationTrackingLog
                 "values " &
                 "(@airsnum, @pKey, " &
                 "'OT', 'A', " &
-                "@UserGCode, sysdate) "
+                "@UserGCode, GETDATE()) "
                 DB.RunCommand(query, parameter)
             End If
 

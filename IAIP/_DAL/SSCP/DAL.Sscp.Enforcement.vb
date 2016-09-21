@@ -317,7 +317,7 @@ Namespace DAL.Sscp
                         "    @STRAFSNOVRESOLVEDNUMBER, @STRAFSCOPROPOSEDNUMBER, " &
                         "    @STRAFSCOEXECUTEDNUMBER, @STRAFSCORESOLVEDNUMBER, " &
                         "    @STRAFSAOTOAGNUMBER, @STRAFSCIVILCOURTNUMBER, " &
-                        "    @STRAFSAORESOLVEDNUMBER, @STRMODIFINGPERSON, sysdate " &
+                        "    @STRAFSAORESOLVEDNUMBER, @STRMODIFINGPERSON, GETDATE() " &
                         "  ) ")
 
                 parametersList.Add(New SqlParameter() {
@@ -488,7 +488,7 @@ Namespace DAL.Sscp
                         "  VALUES " &
                         "  ( " &
                         "    @enforcementId, @enfKey, @penalty, @penaltyComment, " &
-                        "    @afsKey, @userid, sysdate " &
+                        "    @afsKey, @userid, GETDATE() " &
                         "  ) ")
             parameters.Add(New SqlParameter() {
                 New SqlParameter("@enforcementId", enforcementId),
@@ -506,7 +506,7 @@ Namespace DAL.Sscp
             Dim query As String = "UPDATE SSCPENFORCEMENTSTIPULATED " &
                 "SET STRSTIPULATEDPENALTY = @penalty, " &
                 "  STRSTIPULATEDPENALTYCOMMENTS = @penaltyComment, " &
-                "  STRMODIFINGPERSON = @userid, DATMODIFINGDATE = SYSDATE " &
+                "  STRMODIFINGPERSON = @userid, DATMODIFINGDATE = GETDATE() " &
                 "WHERE STRENFORCEMENTNUMBER = @enforcementId AND " &
                 "  STRENFORCEMENTKEY = @enfKey"
             Dim parameters As SqlParameter() = {

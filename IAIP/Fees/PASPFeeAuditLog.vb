@@ -4904,7 +4904,7 @@ Public Class PASPFeeAuditLog
             Dim SQL As String = "Update FS_FeeInvoice set " &
             "strInvoiceStatus = '1', " &
             "UpdateUser = @Username,  " &
-            "updateDateTime = sysdate " &
+            "updateDateTime = GETDATE() " &
             "where numFeeYear = @FeeYear " &
             "and strAIRSNumber = @AirsNumber " &
             "and numAmount = '0' " &

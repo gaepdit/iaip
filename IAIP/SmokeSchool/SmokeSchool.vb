@@ -3637,7 +3637,7 @@ Public Class SmokeSchool
             dr.Close()
             If recExist = True Then
                 Dim updateString As String = "UPDATE OlapUserLogin " &
-                          "SET strconfirm = to_char(sysdate, 'yyyy/mm/dd hh:mi:ss') " &
+                          "SET strconfirm = to_char(GETDATE(), 'yyyy/mm/dd hh:mi:ss') " &
                           "WHERE struseremail = '" & Replace(UCase(txtEmailAddress.Text), "'", "''") & "' "
                 cmd = New SqlCommand(updateString, CurrentConnection)
 

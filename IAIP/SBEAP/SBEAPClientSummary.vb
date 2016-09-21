@@ -706,8 +706,8 @@ Public Class SBEAPClientSummary
                 "'" & Replace(State, "'", "''") & "', " &
                 "'" & Replace(ZipCode, "'", "''") & "', " &
                 "'" & CurrentUser.UserID & "', " &
-                "sysdate, '" & CurrentUser.UserID & "', " &
-                "sysdate) "
+                "GETDATE(), '" & CurrentUser.UserID & "', " &
+                "GETDATE()) "
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -745,7 +745,7 @@ Public Class SBEAPClientSummary
                 "strClientState = '" & Replace(State, "'", "''") & "', " &
                 "strClientZipCode = '" & Replace(ZipCode, "'", "''") & "', " &
                 "strModifingPerson = '" & CurrentUser.UserID & "', " &
-                "datModifingDate = sysdate " &
+                "datModifingDate = GETDATE() " &
                 "where ClientContactID = '" & txtContactID.Text & "' "
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
@@ -920,8 +920,8 @@ Public Class SBEAPClientSummary
                 "'" & Replace(State, "'", "''") & "', " &
                 "'" & Replace(ZipCode, "'", "''") & "', " &
                 "'" & CurrentUser.UserID & "', " &
-                "sysdate, '" & CurrentUser.UserID & "', " &
-                "sysdate, '" & Replace(ContactNotes, "'", "''") & "') "
+                "GETDATE(), '" & CurrentUser.UserID & "', " &
+                "GETDATE(), '" & Replace(ContactNotes, "'", "''") & "') "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -1118,7 +1118,7 @@ Public Class SBEAPClientSummary
                 "strClientState = '" & Replace(State, "'", "''") & "', " &
                 "strClientZipCode = '" & Replace(ZipCode, "'", "''") & "', " &
                 "strModifingPerson = '" & CurrentUser.UserID & "', " &
-                "datModifingDate = sysdate, " &
+                "datModifingDate = GETDATE(), " &
                 "strContactNotes = '" & Replace(ContactNotes, "'", "''") & "' " &
                 "where ClientContactID = '" & txtContactID.Text & "' "
 
@@ -1701,7 +1701,7 @@ Public Class SBEAPClientSummary
                     "'" & Replace(MailingState, "'", "''") & "', " &
                     "'" & Replace(MailingZipCode, "'", "''") & "', " &
                     "'" & Replace(ClientCreator, "'", "''") & "', " &
-                    "sysdate, '" & CurrentUser.UserID & "', sysdate, '') "
+                    "GETDATE(), '" & CurrentUser.UserID & "', GETDATE(), '') "
 
                     cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -1730,7 +1730,7 @@ Public Class SBEAPClientSummary
                     "'" & NAICS & "', '" & Employees & "', " &
                     "'" & AIRSNumber & "', '" & AirCodes & "', " &
                     "'" & StateCodes & "', " &
-                    "'" & CurrentUser.UserID & "', sysdate, '', " &
+                    "'" & CurrentUser.UserID & "', GETDATE(), '', " &
                     "'" & Replace(AIRPermit, "'", "''") & "', '" & Replace(SSCPEngineer, "'", "''") & "', " &
                     "'" & Replace(SSCPUnit, "'", "''") & "', '" & Replace(SSPPEngineer, "'", "''") & "', " &
                     "'" & Replace(SSPPUnit, "'", "''") & "', '" & Replace(ISMPEngineer, "'", "''") & "', " &
@@ -1763,7 +1763,7 @@ Public Class SBEAPClientSummary
                 "strMailingState = '" & Replace(MailingState, "'", "''") & "', " &
                 "strMailingZipCode = '" & Replace(MailingZipCode, "'", "''") & "', " &
                 "strModifingPerson = '" & CurrentUser.UserID & "', " &
-                "datModifingDate = sysdate " &
+                "datModifingDate = GETDATE() " &
                 "where ClientID = '" & txtClientID.Text & "' "
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
@@ -1783,7 +1783,7 @@ Public Class SBEAPClientSummary
                 "strAirProgramCodes = '" & AirCodes & "', " &
                 "strStateProgramCodes = '" & StateCodes & "', " &
                 "strModifingperson = '" & CurrentUser.UserID & "', " &
-                "datModifingDate = sysdate, " &
+                "datModifingDate = GETDATE(), " &
                 "strAIRPermitNumber = '" & Replace(AIRPermit, "'", "''") & "', " &
                 "strSSCPEngineer = '" & Replace(SSCPEngineer, "'", "''") & "', " &
                 "strSSCPUnit = '" & Replace(SSCPUnit, "'", "''") & "', " &

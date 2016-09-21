@@ -1002,8 +1002,8 @@ Public Class MASPRegistrationTool
                      "'" & Replace(Capacity, "'", "''") & "', '" & Replace(Notes, "'", "''") & "', " &
                      "'', " &
                      "'" & Active & "', " &
-                     "sysdate, '" & CurrentUser.UserID & "', " &
-                     "sysdate, '" & LogInRequired & "', " &
+                     "GETDATE(), '" & CurrentUser.UserID & "', " &
+                     "GETDATE(), '" & LogInRequired & "', " &
                      "'" & Replace(PassCode, "'", "''") & "', '" & Replace(Address, "'", "''") & "', " &
                      "'" & Replace(City, "'", "''") & "', '" & Replace(State, "'", "''") & "',  " &
                      "'" & ZipCode & "', '" & APBContact & "', " &

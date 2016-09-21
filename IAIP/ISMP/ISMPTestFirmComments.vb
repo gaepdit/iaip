@@ -275,9 +275,9 @@ Public Class ISMPTestFirmComments
                     "'" & TestFirmKey & "', " &
                     "'" & AIRSNum & "', '" & TestLogNum & "', " &
                     "'" & RefNum & "', '" & SaveType & "', " &
-                    "'" & CurrentUser.UserID & "', sysdate, " &
+                    "'" & CurrentUser.UserID & "', GETDATE(), " &
                     "'" & Replace(Comment, "'", "''") & "', '" & CurrentUser.UserID & "', " &
-                    "sysdate) "
+                    "GETDATE()) "
                 Else
                     SQL = "Update ISMPTestFirmComments set " &
                     "strTestingFirmKey = '" & TestFirmKey & "', " &
@@ -286,10 +286,10 @@ Public Class ISMPTestFirmComments
                     "strReferenceNumber = '" & RefNum & "', " &
                     "strCommentType = '" & SaveType & "', " &
                     "strStaffresponsible = '" & CurrentUser.UserID & "', " &
-                    "datCommentDate = sysdate, " &
+                    "datCommentDate = GETDATE(), " &
                     "strComment = '" & Replace(Comment, "'", "''") & "', " &
                     "strModifingPerson = '" & CurrentUser.UserID & "', " &
-                    "datModifingdate = sysdate " &
+                    "datModifingdate = GETDATE() " &
                     "where numcommentsID = '" & CommentID & "' "
                 End If
                 cmd = New SqlCommand(SQL, CurrentConnection)
@@ -470,7 +470,7 @@ Public Class ISMPTestFirmComments
                     "strTestLogNumber = '" & TestLogNum & "', " &
                     "strReferenceNumber = '" & RefNum & "', " &
                     "strModifingPerson = '" & CurrentUser.UserID & "', " &
-                    "datModifingdate = sysdate " &
+                    "datModifingdate = GETDATE() " &
                     "where numcommentsID = '" & CommentID & "' "
                     cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -650,9 +650,9 @@ Public Class ISMPTestFirmComments
                 "strReferenceNumber = '" & RefNum & "', " &
                 "strComment = '" & Replace(txtAddComments.Text, "'", "''") & "', " &
                 "strStaffresponsible = '" & CurrentUser.UserID & "', " &
-                "datCommentDate = sysdate, " &
+                "datCommentDate = GETDATE(), " &
                 "strModifingPerson = '" & CurrentUser.UserID & "', " &
-                "datModifingDate = sysdate " &
+                "datModifingDate = GETDATE() " &
                 "where numCommentsID = '" & CommentID & "' "
 
                 cmd = New SqlCommand(SQL, CurrentConnection)

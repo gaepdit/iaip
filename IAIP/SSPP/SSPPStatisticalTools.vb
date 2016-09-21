@@ -1077,7 +1077,7 @@ Public Class SSPPStatisticalTools
             "where datFinalizedDate is Null  " &
             "and SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
             "and SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
-            "and datPNExpires is Not Null and datPNExpires < sysdate " &
+            "and datPNExpires is Not Null and datPNExpires < GETDATE() " &
             "and datEPAEnds is Null  " &
                     EngineerLine
 
@@ -1097,7 +1097,7 @@ Public Class SSPPStatisticalTools
             "where datFinalizedDate is Null  " &
             "and SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
             "and SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
-            "and ((datPNExpires is Not Null and datPNExpires >= sysdate)  " &
+            "and ((datPNExpires is Not Null and datPNExpires >= GETDATE())  " &
             "or (datDraftIssued is not Null and datPNExpires is Null))  " &
             "and datToBranchCheif is Null  " &
             "and datToDirector is Null  " &
@@ -1269,7 +1269,7 @@ Public Class SSPPStatisticalTools
             "and (strApplicationType = '14' or strApplicationType = '16'   " &
             "or strApplicationType = '27' or strApplicationType = '17') " &
             "and datFinalizedDate is NUll  " &
-            "and datReceivedDate > add_months(sysdate, -12)  " &
+            "and datReceivedDate > add_months(GETDATE(), -12)  " &
                 EngineerLine
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -1290,8 +1290,8 @@ Public Class SSPPStatisticalTools
             "and (strApplicationType = '14' or strApplicationType = '16'   " &
             "or strApplicationType = '27' or strApplicationType = '17') " &
             "and datFinalizedDate is NUll  " &
-            "and datReceivedDate >= add_months(sysdate, -18) " &
-            "and datReceivedDate < add_months(sysdate, -12) " &
+            "and datReceivedDate >= add_months(GETDATE(), -18) " &
+            "and datReceivedDate < add_months(GETDATE(), -12) " &
                 EngineerLine
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -1312,7 +1312,7 @@ Public Class SSPPStatisticalTools
             "and (strApplicationType = '14' or strApplicationType = '16'   " &
             "or strApplicationType = '27' or strApplicationType = '17') " &
             "and datFinalizedDate is NUll  " &
-            "and datReceivedDate < add_months(sysdate, -18)" &
+            "and datReceivedDate < add_months(GETDATE(), -18)" &
                 EngineerLine
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -1407,7 +1407,7 @@ Public Class SSPPStatisticalTools
             "and strApplicationType <> '16' and strApplicationType <> '14' " &
             "and strApplicationType <> '17' and strApplicationType <> '27' " &
             "and datFinalizedDate is NUll  " &
-            "and datReceivedDate >= add_months(sysdate, -3)  " &
+            "and datReceivedDate >= add_months(GETDATE(), -3)  " &
                 EngineerLine
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -1428,8 +1428,8 @@ Public Class SSPPStatisticalTools
             "and strApplicationType <> '16' and strApplicationType <> '14' " &
             "and strApplicationType <> '17' and strApplicationType <> '27' " &
             "and datFinalizedDate is NUll  " &
-            "and datReceivedDate >= add_months(sysdate, -6) " &
-            "and datReceivedDate < add_months(sysdate, -3) " &
+            "and datReceivedDate >= add_months(GETDATE(), -6) " &
+            "and datReceivedDate < add_months(GETDATE(), -3) " &
                 EngineerLine
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -1450,8 +1450,8 @@ Public Class SSPPStatisticalTools
             "and strApplicationType <> '16' and strApplicationType <> '14' " &
             "and strApplicationType <> '17' and strApplicationType <> '27' " &
             "and datFinalizedDate is NUll  " &
-            "and datReceivedDate >= add_months(sysdate, -9) " &
-            "and datReceivedDate < add_months(sysdate, -6) " &
+            "and datReceivedDate >= add_months(GETDATE(), -9) " &
+            "and datReceivedDate < add_months(GETDATE(), -6) " &
                 EngineerLine
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -1472,8 +1472,8 @@ Public Class SSPPStatisticalTools
             "and strApplicationType <> '16' and strApplicationType <> '14' " &
             "and strApplicationType <> '17' and strApplicationType <> '27' " &
             "and datFinalizedDate is NUll  " &
-            "and datReceivedDate >= add_months(sysdate, -12) " &
-            "and datReceivedDate < add_months(sysdate, -9) " &
+            "and datReceivedDate >= add_months(GETDATE(), -12) " &
+            "and datReceivedDate < add_months(GETDATE(), -9) " &
                 EngineerLine
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -1494,7 +1494,7 @@ Public Class SSPPStatisticalTools
             "and strApplicationType <> '16' and strApplicationType <> '14' " &
             "and strApplicationType <> '17' and strApplicationType <> '27' " &
             "and datFinalizedDate is NUll  " &
-            "and datReceivedDate < add_months(sysdate, -12)" &
+            "and datReceivedDate < add_months(GETDATE(), -12)" &
                 EngineerLine
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -3344,8 +3344,8 @@ Public Class SSPPStatisticalTools
                 "when datToDirector is Not Null and datFinalizedDate is Null and (datDraftIssued is Null or datDraftIssued < datToDirector) then '10 - To DO'       " &
                 "when datToBranchCheif is Not Null and datFinalizedDate is Null and datToDirector is Null and (datDraftIssued is Null or datDraftIssued < datToBranchCheif) then '09 - To BC'       " &
                 "when datEPAEnds is not Null then '08 - EPA 45-day Review'       " &
-                "when datPNExpires is Not Null and datPNExpires < sysdate then '07 - Public Notice Expired'       " &
-                "when datPNExpires is Not Null and datPNExpires >= sysdate then '06 - Public Notice'        " &
+                "when datPNExpires is Not Null and datPNExpires < GETDATE() then '07 - Public Notice Expired'       " &
+                "when datPNExpires is Not Null and datPNExpires >= GETDATE() then '06 - Public Notice'        " &
                 "when datDraftIssued is Not Null and datPNExpires is Null then '05 - Draft Issued'        " &
                 "when dattoPMII is Not Null then '04 - AT PM'        " &
                 "when dattoPMI is Not Null then '03 - At UC'        " &
@@ -3458,8 +3458,8 @@ Public Class SSPPStatisticalTools
                 "when datToDirector is Not Null and datFinalizedDate is Null and (datDraftIssued is Null or datDraftIssued < datToDirector) then '10 - To DO'       " &
                 "when datToBranchCheif is Not Null and datFinalizedDate is Null and datToDirector is Null and (datDraftIssued is Null or datDraftIssued < datToBranchCheif) then '09 - To BC'       " &
                 "when datEPAEnds is not Null then '08 - EPA 45-day Review'       " &
-                "when datPNExpires is Not Null and datPNExpires < sysdate then '07 - Public Notice Expired'       " &
-                "when datPNExpires is Not Null and datPNExpires >= sysdate then '06 - Public Notice'        " &
+                "when datPNExpires is Not Null and datPNExpires < GETDATE() then '07 - Public Notice Expired'       " &
+                "when datPNExpires is Not Null and datPNExpires >= GETDATE() then '06 - Public Notice'        " &
                 "when datDraftIssued is Not Null and datPNExpires is Null then '05 - Draft Issued'        " &
                 "when dattoPMII is Not Null then '04 - AT PM'        " &
                 "when dattoPMI is Not Null then '03 - At UC'        " &
@@ -3574,8 +3574,8 @@ Public Class SSPPStatisticalTools
                 "when datToDirector is Not Null and datFinalizedDate is Null and (datDraftIssued is Null or datDraftIssued < datToDirector) then '10 - To DO'       " &
                 "when datToBranchCheif is Not Null and datFinalizedDate is Null and datToDirector is Null and (datDraftIssued is Null or datDraftIssued < datToBranchCheif) then '09 - To BC'       " &
                 "when datEPAEnds is not Null then '08 - EPA 45-day Review'       " &
-                "when datPNExpires is Not Null and datPNExpires < sysdate then '07 - Public Notice Expired'       " &
-                "when datPNExpires is Not Null and datPNExpires >= sysdate then '06 - Public Notice'        " &
+                "when datPNExpires is Not Null and datPNExpires < GETDATE() then '07 - Public Notice Expired'       " &
+                "when datPNExpires is Not Null and datPNExpires >= GETDATE() then '06 - Public Notice'        " &
                 "when datDraftIssued is Not Null and datPNExpires is Null then '05 - Draft Issued'        " &
                 "when dattoPMII is Not Null then '04 - AT PM'        " &
                 "when dattoPMI is Not Null then '03 - At UC'        " &
@@ -3690,8 +3690,8 @@ Public Class SSPPStatisticalTools
                 "when datToDirector is Not Null and datFinalizedDate is Null and (datDraftIssued is Null or datDraftIssued < datToDirector) then '10 - To DO'       " &
                 "when datToBranchCheif is Not Null and datFinalizedDate is Null and datToDirector is Null and (datDraftIssued is Null or datDraftIssued < datToBranchCheif) then '09 - To BC'       " &
                 "when datEPAEnds is not Null then '08 - EPA 45-day Review'       " &
-                "when datPNExpires is Not Null and datPNExpires < sysdate then '07 - Public Notice Expired'       " &
-                "when datPNExpires is Not Null and datPNExpires >= sysdate then '06 - Public Notice'        " &
+                "when datPNExpires is Not Null and datPNExpires < GETDATE() then '07 - Public Notice Expired'       " &
+                "when datPNExpires is Not Null and datPNExpires >= GETDATE() then '06 - Public Notice'        " &
                 "when datDraftIssued is Not Null and datPNExpires is Null then '05 - Draft Issued'        " &
                 "when dattoPMII is Not Null then '04 - AT PM'        " &
                 "when dattoPMI is Not Null then '03 - At UC'        " &
@@ -3708,7 +3708,7 @@ Public Class SSPPStatisticalTools
                 "and SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber  " &
                 "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode  " &
                 "and datFinalizedDate is Null " &
-                "and datPNExpires is Not Null and datPNExpires < sysdate " &
+                "and datPNExpires is Not Null and datPNExpires < GETDATE() " &
                 "and datEPAEnds is Null " &
                 EngineerLine
 
@@ -3806,8 +3806,8 @@ Public Class SSPPStatisticalTools
                 "when datToDirector is Not Null and datFinalizedDate is Null and (datDraftIssued is Null or datDraftIssued < datToDirector) then '10 - To DO'       " &
                 "when datToBranchCheif is Not Null and datFinalizedDate is Null and datToDirector is Null and (datDraftIssued is Null or datDraftIssued < datToBranchCheif) then '09 - To BC'       " &
                 "when datEPAEnds is not Null then '08 - EPA 45-day Review'       " &
-                "when datPNExpires is Not Null and datPNExpires < sysdate then '07 - Public Notice Expired'       " &
-                "when datPNExpires is Not Null and datPNExpires >= sysdate then '06 - Public Notice'        " &
+                "when datPNExpires is Not Null and datPNExpires < GETDATE() then '07 - Public Notice Expired'       " &
+                "when datPNExpires is Not Null and datPNExpires >= GETDATE() then '06 - Public Notice'        " &
                 "when datDraftIssued is Not Null and datPNExpires is Null then '05 - Draft Issued'        " &
                 "when dattoPMII is Not Null then '04 - AT PM'        " &
                 "when dattoPMI is Not Null then '03 - At UC'        " &
@@ -3824,7 +3824,7 @@ Public Class SSPPStatisticalTools
                 "and SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber  " &
                 "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode  " &
                 "and datFinalizedDate is Null " &
-                "and ((datPNExpires is Not Null and datPNExpires >= sysdate)  " &
+                "and ((datPNExpires is Not Null and datPNExpires >= GETDATE())  " &
                 "or (datDraftIssued is not Null and datPNExpires is Null))  " &
                 "and datToBranchCheif is Null  " &
                 "and datToDirector is Null  " &
@@ -3926,8 +3926,8 @@ Public Class SSPPStatisticalTools
                 "when datToDirector is Not Null and datFinalizedDate is Null and (datDraftIssued is Null or datDraftIssued < datToDirector) then '10 - To DO'       " &
                 "when datToBranchCheif is Not Null and datFinalizedDate is Null and datToDirector is Null and (datDraftIssued is Null or datDraftIssued < datToBranchCheif) then '09 - To BC'       " &
                 "when datEPAEnds is not Null then '08 - EPA 45-day Review'       " &
-                "when datPNExpires is Not Null and datPNExpires < sysdate then '07 - Public Notice Expired'       " &
-                "when datPNExpires is Not Null and datPNExpires >= sysdate then '06 - Public Notice'        " &
+                "when datPNExpires is Not Null and datPNExpires < GETDATE() then '07 - Public Notice Expired'       " &
+                "when datPNExpires is Not Null and datPNExpires >= GETDATE() then '06 - Public Notice'        " &
                 "when datDraftIssued is Not Null and datPNExpires is Null then '05 - Draft Issued'        " &
                 "when dattoPMII is Not Null then '04 - AT PM'        " &
                 "when dattoPMI is Not Null then '03 - At UC'        " &
@@ -4047,8 +4047,8 @@ Public Class SSPPStatisticalTools
                 "when datToDirector is Not Null and datFinalizedDate is Null and (datDraftIssued is Null or datDraftIssued < datToDirector) then '10 - To DO'       " &
                 "when datToBranchCheif is Not Null and datFinalizedDate is Null and datToDirector is Null and (datDraftIssued is Null or datDraftIssued < datToBranchCheif) then '09 - To BC'       " &
                 "when datEPAEnds is not Null then '08 - EPA 45-day Review'       " &
-                "when datPNExpires is Not Null and datPNExpires < sysdate then '07 - Public Notice Expired'       " &
-                "when datPNExpires is Not Null and datPNExpires >= sysdate then '06 - Public Notice'        " &
+                "when datPNExpires is Not Null and datPNExpires < GETDATE() then '07 - Public Notice Expired'       " &
+                "when datPNExpires is Not Null and datPNExpires >= GETDATE() then '06 - Public Notice'        " &
                 "when datDraftIssued is Not Null and datPNExpires is Null then '05 - Draft Issued'        " &
                 "when dattoPMII is Not Null then '04 - AT PM'        " &
                 "when dattoPMI is Not Null then '03 - At UC'        " &
@@ -4169,8 +4169,8 @@ Public Class SSPPStatisticalTools
                 "when datToDirector is Not Null and datFinalizedDate is Null and (datDraftIssued is Null or datDraftIssued < datToDirector) then '10 - To DO'       " &
                 "when datToBranchCheif is Not Null and datFinalizedDate is Null and datToDirector is Null and (datDraftIssued is Null or datDraftIssued < datToBranchCheif) then '09 - To BC'       " &
                 "when datEPAEnds is not Null then '08 - EPA 45-day Review'       " &
-                "when datPNExpires is Not Null and datPNExpires < sysdate then '07 - Public Notice Expired'       " &
-                "when datPNExpires is Not Null and datPNExpires >= sysdate then '06 - Public Notice'        " &
+                "when datPNExpires is Not Null and datPNExpires < GETDATE() then '07 - Public Notice Expired'       " &
+                "when datPNExpires is Not Null and datPNExpires >= GETDATE() then '06 - Public Notice'        " &
                 "when datDraftIssued is Not Null and datPNExpires is Null then '05 - Draft Issued'        " &
                 "when dattoPMII is Not Null then '04 - AT PM'        " &
                 "when dattoPMI is Not Null then '03 - At UC'        " &
@@ -4303,8 +4303,8 @@ Public Class SSPPStatisticalTools
                 "when datToDirector is Not Null and datFinalizedDate is Null and (datDraftIssued is Null or datDraftIssued < datToDirector) then '10 - To DO'       " &
                 "when datToBranchCheif is Not Null and datFinalizedDate is Null and datToDirector is Null and (datDraftIssued is Null or datDraftIssued < datToBranchCheif) then '09 - To BC'       " &
                 "when datEPAEnds is not Null then '08 - EPA 45-day Review'       " &
-                "when datPNExpires is Not Null and datPNExpires < sysdate then '07 - Public Notice Expired'       " &
-                "when datPNExpires is Not Null and datPNExpires >= sysdate then '06 - Public Notice'        " &
+                "when datPNExpires is Not Null and datPNExpires < GETDATE() then '07 - Public Notice Expired'       " &
+                "when datPNExpires is Not Null and datPNExpires >= GETDATE() then '06 - Public Notice'        " &
                 "when datDraftIssued is Not Null and datPNExpires is Null then '05 - Draft Issued'        " &
                 "when dattoPMII is Not Null then '04 - AT PM'        " &
                 "when dattoPMI is Not Null then '03 - At UC'        " &
@@ -4422,8 +4422,8 @@ Public Class SSPPStatisticalTools
                 "when datToDirector is Not Null and datFinalizedDate is Null and (datDraftIssued is Null or datDraftIssued < datToDirector) then '10 - To DO'       " &
                 "when datToBranchCheif is Not Null and datFinalizedDate is Null and datToDirector is Null and (datDraftIssued is Null or datDraftIssued < datToBranchCheif) then '09 - To BC'       " &
                 "when datEPAEnds is not Null then '08 - EPA 45-day Review'       " &
-                "when datPNExpires is Not Null and datPNExpires < sysdate then '07 - Public Notice Expired'       " &
-                "when datPNExpires is Not Null and datPNExpires >= sysdate then '06 - Public Notice'        " &
+                "when datPNExpires is Not Null and datPNExpires < GETDATE() then '07 - Public Notice Expired'       " &
+                "when datPNExpires is Not Null and datPNExpires >= GETDATE() then '06 - Public Notice'        " &
                 "when datDraftIssued is Not Null and datPNExpires is Null then '05 - Draft Issued'        " &
                 "when dattoPMII is Not Null then '04 - AT PM'        " &
                 "when dattoPMI is Not Null then '03 - At UC'        " &
@@ -4442,7 +4442,7 @@ Public Class SSPPStatisticalTools
                 "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode (+) " &
                 "and datFinalizedDate is Null " &
                 "and (strApplicationType = '14' or strApplicationType = '16') " &
-                "and datReceivedDate > add_months(sysdate, -12)  " &
+                "and datReceivedDate > add_months(GETDATE(), -12)  " &
                 EngineerLine
 
 
@@ -4542,8 +4542,8 @@ Public Class SSPPStatisticalTools
                 "when datToDirector is Not Null and datFinalizedDate is Null and (datDraftIssued is Null or datDraftIssued < datToDirector) then '10 - To DO'       " &
                 "when datToBranchCheif is Not Null and datFinalizedDate is Null and datToDirector is Null and (datDraftIssued is Null or datDraftIssued < datToBranchCheif) then '09 - To BC'       " &
                 "when datEPAEnds is not Null then '08 - EPA 45-day Review'       " &
-                "when datPNExpires is Not Null and datPNExpires < sysdate then '07 - Public Notice Expired'       " &
-                "when datPNExpires is Not Null and datPNExpires >= sysdate then '06 - Public Notice'        " &
+                "when datPNExpires is Not Null and datPNExpires < GETDATE() then '07 - Public Notice Expired'       " &
+                "when datPNExpires is Not Null and datPNExpires >= GETDATE() then '06 - Public Notice'        " &
                 "when datDraftIssued is Not Null and datPNExpires is Null then '05 - Draft Issued'        " &
                 "when dattoPMII is Not Null then '04 - AT PM'        " &
                 "when dattoPMI is Not Null then '03 - At UC'        " &
@@ -4562,8 +4562,8 @@ Public Class SSPPStatisticalTools
                 "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode (+) " &
                 "and datFinalizedDate is Null " &
                 "and (strApplicationType = '14' or strApplicationType = '16') " &
-                "and datReceivedDate >= add_months(sysdate, -18) " &
-                "and datReceivedDate < add_months(sysdate, -12) " &
+                "and datReceivedDate >= add_months(GETDATE(), -18) " &
+                "and datReceivedDate < add_months(GETDATE(), -12) " &
                 EngineerLine
 
                 dsViewCount = New DataSet
@@ -4662,8 +4662,8 @@ Public Class SSPPStatisticalTools
                 "when datToDirector is Not Null and datFinalizedDate is Null and (datDraftIssued is Null or datDraftIssued < datToDirector) then '10 - To DO'       " &
                 "when datToBranchCheif is Not Null and datFinalizedDate is Null and datToDirector is Null and (datDraftIssued is Null or datDraftIssued < datToBranchCheif) then '09 - To BC'       " &
                 "when datEPAEnds is not Null then '08 - EPA 45-day Review'       " &
-                "when datPNExpires is Not Null and datPNExpires < sysdate then '07 - Public Notice Expired'       " &
-                "when datPNExpires is Not Null and datPNExpires >= sysdate then '06 - Public Notice'        " &
+                "when datPNExpires is Not Null and datPNExpires < GETDATE() then '07 - Public Notice Expired'       " &
+                "when datPNExpires is Not Null and datPNExpires >= GETDATE() then '06 - Public Notice'        " &
                 "when datDraftIssued is Not Null and datPNExpires is Null then '05 - Draft Issued'        " &
                 "when dattoPMII is Not Null then '04 - AT PM'        " &
                 "when dattoPMI is Not Null then '03 - At UC'        " &
@@ -4682,7 +4682,7 @@ Public Class SSPPStatisticalTools
                 "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode (+) " &
                 "and datFinalizedDate is Null " &
                 "and (strApplicationType = '14' or strApplicationType = '16') " &
-                "and datReceivedDate < add_months(sysdate, -18)" &
+                "and datReceivedDate < add_months(GETDATE(), -18)" &
                 EngineerLine
 
                 dsViewCount = New DataSet
@@ -4794,8 +4794,8 @@ Public Class SSPPStatisticalTools
                 "when datToDirector is Not Null and datFinalizedDate is Null and (datDraftIssued is Null or datDraftIssued < datToDirector) then '10 - To DO'       " &
                 "when datToBranchCheif is Not Null and datFinalizedDate is Null and datToDirector is Null and (datDraftIssued is Null or datDraftIssued < datToBranchCheif) then '09 - To BC'       " &
                 "when datEPAEnds is not Null then '08 - EPA 45-day Review'       " &
-                "when datPNExpires is Not Null and datPNExpires < sysdate then '07 - Public Notice Expired'       " &
-                "when datPNExpires is Not Null and datPNExpires >= sysdate then '06 - Public Notice'        " &
+                "when datPNExpires is Not Null and datPNExpires < GETDATE() then '07 - Public Notice Expired'       " &
+                "when datPNExpires is Not Null and datPNExpires >= GETDATE() then '06 - Public Notice'        " &
                 "when datDraftIssued is Not Null and datPNExpires is Null then '05 - Draft Issued'        " &
                 "when dattoPMII is Not Null then '04 - AT PM'        " &
                 "when dattoPMI is Not Null then '03 - At UC'        " &
@@ -4913,8 +4913,8 @@ Public Class SSPPStatisticalTools
                 "when datToDirector is Not Null and datFinalizedDate is Null and (datDraftIssued is Null or datDraftIssued < datToDirector) then '10 - To DO'       " &
                 "when datToBranchCheif is Not Null and datFinalizedDate is Null and datToDirector is Null and (datDraftIssued is Null or datDraftIssued < datToBranchCheif) then '09 - To BC'       " &
                 "when datEPAEnds is not Null then '08 - EPA 45-day Review'       " &
-                "when datPNExpires is Not Null and datPNExpires < sysdate then '07 - Public Notice Expired'       " &
-                "when datPNExpires is Not Null and datPNExpires >= sysdate then '06 - Public Notice'        " &
+                "when datPNExpires is Not Null and datPNExpires < GETDATE() then '07 - Public Notice Expired'       " &
+                "when datPNExpires is Not Null and datPNExpires >= GETDATE() then '06 - Public Notice'        " &
                 "when datDraftIssued is Not Null and datPNExpires is Null then '05 - Draft Issued'        " &
                 "when dattoPMII is Not Null then '04 - AT PM'        " &
                 "when dattoPMI is Not Null then '03 - At UC'        " &
@@ -4934,7 +4934,7 @@ Public Class SSPPStatisticalTools
                 "and datFinalizedDate is Null " &
                 "and strApplicationType <> '16' and strApplicationType <> '14' " &
                 "and strApplicationType <> '17' and strApplicationType <> '27' " &
-                "and datReceivedDate >= add_months(sysdate, -3)  " &
+                "and datReceivedDate >= add_months(GETDATE(), -3)  " &
                 EngineerLine
 
                 dsViewCount = New DataSet
@@ -5033,8 +5033,8 @@ Public Class SSPPStatisticalTools
                 "when datToDirector is Not Null and datFinalizedDate is Null and (datDraftIssued is Null or datDraftIssued < datToDirector) then '10 - To DO'       " &
                 "when datToBranchCheif is Not Null and datFinalizedDate is Null and datToDirector is Null and (datDraftIssued is Null or datDraftIssued < datToBranchCheif) then '09 - To BC'       " &
                 "when datEPAEnds is not Null then '08 - EPA 45-day Review'       " &
-                "when datPNExpires is Not Null and datPNExpires < sysdate then '07 - Public Notice Expired'       " &
-                "when datPNExpires is Not Null and datPNExpires >= sysdate then '06 - Public Notice'        " &
+                "when datPNExpires is Not Null and datPNExpires < GETDATE() then '07 - Public Notice Expired'       " &
+                "when datPNExpires is Not Null and datPNExpires >= GETDATE() then '06 - Public Notice'        " &
                 "when datDraftIssued is Not Null and datPNExpires is Null then '05 - Draft Issued'        " &
                 "when dattoPMII is Not Null then '04 - AT PM'        " &
                 "when dattoPMI is Not Null then '03 - At UC'        " &
@@ -5054,8 +5054,8 @@ Public Class SSPPStatisticalTools
                 "and datFinalizedDate is Null " &
                 "and strApplicationType <> '16' and strApplicationType <> '14' " &
                 "and strApplicationType <> '17' and strApplicationType <> '27' " &
-                "and datReceivedDate >= add_months(sysdate, -6) " &
-                "and datReceivedDate < add_months(sysdate, -3) " &
+                "and datReceivedDate >= add_months(GETDATE(), -6) " &
+                "and datReceivedDate < add_months(GETDATE(), -3) " &
                 EngineerLine
 
                 dsViewCount = New DataSet
@@ -5154,8 +5154,8 @@ Public Class SSPPStatisticalTools
                 "when datToDirector is Not Null and datFinalizedDate is Null and (datDraftIssued is Null or datDraftIssued < datToDirector) then '10 - To DO'       " &
                 "when datToBranchCheif is Not Null and datFinalizedDate is Null and datToDirector is Null and (datDraftIssued is Null or datDraftIssued < datToBranchCheif) then '09 - To BC'       " &
                 "when datEPAEnds is not Null then '08 - EPA 45-day Review'       " &
-                "when datPNExpires is Not Null and datPNExpires < sysdate then '07 - Public Notice Expired'       " &
-                "when datPNExpires is Not Null and datPNExpires >= sysdate then '06 - Public Notice'        " &
+                "when datPNExpires is Not Null and datPNExpires < GETDATE() then '07 - Public Notice Expired'       " &
+                "when datPNExpires is Not Null and datPNExpires >= GETDATE() then '06 - Public Notice'        " &
                 "when datDraftIssued is Not Null and datPNExpires is Null then '05 - Draft Issued'        " &
                 "when dattoPMII is Not Null then '04 - AT PM'        " &
                 "when dattoPMI is Not Null then '03 - At UC'        " &
@@ -5175,8 +5175,8 @@ Public Class SSPPStatisticalTools
                 "and datFinalizedDate is Null " &
                 "and strApplicationType <> '16' and strApplicationType <> '14' " &
                 "and strApplicationType <> '17' and strApplicationType <> '27' " &
-                "and datReceivedDate >= add_months(sysdate, -9) " &
-                "and datReceivedDate < add_months(sysdate, -6) " &
+                "and datReceivedDate >= add_months(GETDATE(), -9) " &
+                "and datReceivedDate < add_months(GETDATE(), -6) " &
                 EngineerLine
 
                 dsViewCount = New DataSet
@@ -5275,8 +5275,8 @@ Public Class SSPPStatisticalTools
                 "when datToDirector is Not Null and datFinalizedDate is Null and (datDraftIssued is Null or datDraftIssued < datToDirector) then '10 - To DO'       " &
                 "when datToBranchCheif is Not Null and datFinalizedDate is Null and datToDirector is Null and (datDraftIssued is Null or datDraftIssued < datToBranchCheif) then '09 - To BC'       " &
                 "when datEPAEnds is not Null then '08 - EPA 45-day Review'       " &
-                "when datPNExpires is Not Null and datPNExpires < sysdate then '07 - Public Notice Expired'       " &
-                "when datPNExpires is Not Null and datPNExpires >= sysdate then '06 - Public Notice'        " &
+                "when datPNExpires is Not Null and datPNExpires < GETDATE() then '07 - Public Notice Expired'       " &
+                "when datPNExpires is Not Null and datPNExpires >= GETDATE() then '06 - Public Notice'        " &
                 "when datDraftIssued is Not Null and datPNExpires is Null then '05 - Draft Issued'        " &
                 "when dattoPMII is Not Null then '04 - AT PM'        " &
                 "when dattoPMI is Not Null then '03 - At UC'        " &
@@ -5296,8 +5296,8 @@ Public Class SSPPStatisticalTools
                 "and datFinalizedDate is Null " &
                 "and strApplicationType <> '16' and strApplicationType <> '14' " &
                 "and strApplicationType <> '17' and strApplicationType <> '27' " &
-                "and datReceivedDate >= add_months(sysdate, -12) " &
-                "and datReceivedDate < add_months(sysdate, -9) " &
+                "and datReceivedDate >= add_months(GETDATE(), -12) " &
+                "and datReceivedDate < add_months(GETDATE(), -9) " &
                 EngineerLine
 
                 dsViewCount = New DataSet
@@ -5396,8 +5396,8 @@ Public Class SSPPStatisticalTools
                 "when datToDirector is Not Null and datFinalizedDate is Null and (datDraftIssued is Null or datDraftIssued < datToDirector) then '10 - To DO'       " &
                 "when datToBranchCheif is Not Null and datFinalizedDate is Null and datToDirector is Null and (datDraftIssued is Null or datDraftIssued < datToBranchCheif) then '09 - To BC'       " &
                 "when datEPAEnds is not Null then '08 - EPA 45-day Review'       " &
-                "when datPNExpires is Not Null and datPNExpires < sysdate then '07 - Public Notice Expired'       " &
-                "when datPNExpires is Not Null and datPNExpires >= sysdate then '06 - Public Notice'        " &
+                "when datPNExpires is Not Null and datPNExpires < GETDATE() then '07 - Public Notice Expired'       " &
+                "when datPNExpires is Not Null and datPNExpires >= GETDATE() then '06 - Public Notice'        " &
                 "when datDraftIssued is Not Null and datPNExpires is Null then '05 - Draft Issued'        " &
                 "when dattoPMII is Not Null then '04 - AT PM'        " &
                 "when dattoPMI is Not Null then '03 - At UC'        " &
@@ -5417,7 +5417,7 @@ Public Class SSPPStatisticalTools
                 "and datFinalizedDate is Null " &
                 "and strApplicationType <> '16' and strApplicationType <> '14' " &
                 "and strApplicationType <> '17' and strApplicationType <> '27' " &
-                "and datReceivedDate < add_months(sysdate, -12)" &
+                "and datReceivedDate < add_months(GETDATE(), -12)" &
                 EngineerLine
 
                 dsViewCount = New DataSet
@@ -5718,8 +5718,8 @@ Public Class SSPPStatisticalTools
                 "when datToDirector is Not Null and datFinalizedDate is Null and (datDraftIssued is Null or datDraftIssued < datToDirector) then '10 - To DO'       " &
                 "when datToBranchCheif is Not Null and datFinalizedDate is Null and datToDirector is Null and (datDraftIssued is Null or datDraftIssued < datToBranchCheif) then '09 - To BC'       " &
                 "when datEPAEnds is not Null then '08 - EPA 45-day Review'       " &
-                "when datPNExpires is Not Null and datPNExpires < sysdate then '07 - Public Notice Expired'       " &
-                "when datPNExpires is Not Null and datPNExpires >= sysdate then '06 - Public Notice'        " &
+                "when datPNExpires is Not Null and datPNExpires < GETDATE() then '07 - Public Notice Expired'       " &
+                "when datPNExpires is Not Null and datPNExpires >= GETDATE() then '06 - Public Notice'        " &
                 "when datDraftIssued is Not Null and datPNExpires is Null then '05 - Draft Issued'        " &
                 "when dattoPMII is Not Null then '04 - AT PM'        " &
                 "when dattoPMI is Not Null then '03 - At UC'        " &
@@ -5808,8 +5808,8 @@ Public Class SSPPStatisticalTools
                 "when datToDirector is Not Null and datFinalizedDate is Null and (datDraftIssued is Null or datDraftIssued < datToDirector) then '10 - To DO'       " &
                 "when datToBranchCheif is Not Null and datFinalizedDate is Null and datToDirector is Null and (datDraftIssued is Null or datDraftIssued < datToBranchCheif) then '09 - To BC'       " &
                 "when datEPAEnds is not Null then '08 - EPA 45-day Review'       " &
-                "when datPNExpires is Not Null and datPNExpires < sysdate then '07 - Public Notice Expired'       " &
-                "when datPNExpires is Not Null and datPNExpires >= sysdate then '06 - Public Notice'        " &
+                "when datPNExpires is Not Null and datPNExpires < GETDATE() then '07 - Public Notice Expired'       " &
+                "when datPNExpires is Not Null and datPNExpires >= GETDATE() then '06 - Public Notice'        " &
                 "when datDraftIssued is Not Null and datPNExpires is Null then '05 - Draft Issued'        " &
                 "when dattoPMII is Not Null then '04 - AT PM'        " &
                 "when dattoPMI is Not Null then '03 - At UC'        " &
@@ -5899,8 +5899,8 @@ Public Class SSPPStatisticalTools
                 "when datToDirector is Not Null and datFinalizedDate is Null and (datDraftIssued is Null or datDraftIssued < datToDirector) then '10 - To DO'       " &
                 "when datToBranchCheif is Not Null and datFinalizedDate is Null and datToDirector is Null and (datDraftIssued is Null or datDraftIssued < datToBranchCheif) then '09 - To BC'       " &
                 "when datEPAEnds is not Null then '08 - EPA 45-day Review'       " &
-                "when datPNExpires is Not Null and datPNExpires < sysdate then '07 - Public Notice Expired'       " &
-                "when datPNExpires is Not Null and datPNExpires >= sysdate then '06 - Public Notice'        " &
+                "when datPNExpires is Not Null and datPNExpires < GETDATE() then '07 - Public Notice Expired'       " &
+                "when datPNExpires is Not Null and datPNExpires >= GETDATE() then '06 - Public Notice'        " &
                 "when datDraftIssued is Not Null and datPNExpires is Null then '05 - Draft Issued'        " &
                 "when dattoPMII is Not Null then '04 - AT PM'        " &
                 "when dattoPMI is Not Null then '03 - At UC'        " &
@@ -6264,8 +6264,8 @@ Public Class SSPPStatisticalTools
                 "when datToDirector is Not Null and datFinalizedDate is Null and (datDraftIssued is Null or datDraftIssued < datToDirector) then '10 - To DO'       " &
                 "when datToBranchCheif is Not Null and datFinalizedDate is Null and datToDirector is Null and (datDraftIssued is Null or datDraftIssued < datToBranchCheif) then '09 - To BC'       " &
                 "when datEPAEnds is not Null then '08 - EPA 45-day Review'       " &
-                "when datPNExpires is Not Null and datPNExpires < sysdate then '07 - Public Notice Expired'       " &
-                "when datPNExpires is Not Null and datPNExpires >= sysdate then '06 - Public Notice'        " &
+                "when datPNExpires is Not Null and datPNExpires < GETDATE() then '07 - Public Notice Expired'       " &
+                "when datPNExpires is Not Null and datPNExpires >= GETDATE() then '06 - Public Notice'        " &
                 "when datDraftIssued is Not Null and datPNExpires is Null then '05 - Draft Issued'        " &
                 "when dattoPMII is Not Null then '04 - AT PM'        " &
                 "when dattoPMI is Not Null then '03 - At UC'        " &
@@ -6354,8 +6354,8 @@ Public Class SSPPStatisticalTools
                 "when datToDirector is Not Null and datFinalizedDate is Null and (datDraftIssued is Null or datDraftIssued < datToDirector) then '10 - To DO'       " &
                 "when datToBranchCheif is Not Null and datFinalizedDate is Null and datToDirector is Null and (datDraftIssued is Null or datDraftIssued < datToBranchCheif) then '09 - To BC'       " &
                 "when datEPAEnds is not Null then '08 - EPA 45-day Review'       " &
-                "when datPNExpires is Not Null and datPNExpires < sysdate then '07 - Public Notice Expired'       " &
-                "when datPNExpires is Not Null and datPNExpires >= sysdate then '06 - Public Notice'        " &
+                "when datPNExpires is Not Null and datPNExpires < GETDATE() then '07 - Public Notice Expired'       " &
+                "when datPNExpires is Not Null and datPNExpires >= GETDATE() then '06 - Public Notice'        " &
                 "when datDraftIssued is Not Null and datPNExpires is Null then '05 - Draft Issued'        " &
                 "when dattoPMII is Not Null then '04 - AT PM'        " &
                 "when dattoPMI is Not Null then '03 - At UC'        " &
@@ -6445,8 +6445,8 @@ Public Class SSPPStatisticalTools
                 "when datToDirector is Not Null and datFinalizedDate is Null and (datDraftIssued is Null or datDraftIssued < datToDirector) then '10 - To DO'       " &
                 "when datToBranchCheif is Not Null and datFinalizedDate is Null and datToDirector is Null and (datDraftIssued is Null or datDraftIssued < datToBranchCheif) then '09 - To BC'       " &
                 "when datEPAEnds is not Null then '08 - EPA 45-day Review'       " &
-                "when datPNExpires is Not Null and datPNExpires < sysdate then '07 - Public Notice Expired'       " &
-                "when datPNExpires is Not Null and datPNExpires >= sysdate then '06 - Public Notice'        " &
+                "when datPNExpires is Not Null and datPNExpires < GETDATE() then '07 - Public Notice Expired'       " &
+                "when datPNExpires is Not Null and datPNExpires >= GETDATE() then '06 - Public Notice'        " &
                 "when datDraftIssued is Not Null and datPNExpires is Null then '05 - Draft Issued'        " &
                 "when dattoPMII is Not Null then '04 - AT PM'        " &
                 "when dattoPMI is Not Null then '03 - At UC'        " &
@@ -6535,8 +6535,8 @@ Public Class SSPPStatisticalTools
                 "when datToDirector is Not Null and datFinalizedDate is Null and (datDraftIssued is Null or datDraftIssued < datToDirector) then '10 - To DO'       " &
                 "when datToBranchCheif is Not Null and datFinalizedDate is Null and datToDirector is Null and (datDraftIssued is Null or datDraftIssued < datToBranchCheif) then '09 - To BC'       " &
                 "when datEPAEnds is not Null then '08 - EPA 45-day Review'       " &
-                "when datPNExpires is Not Null and datPNExpires < sysdate then '07 - Public Notice Expired'       " &
-                "when datPNExpires is Not Null and datPNExpires >= sysdate then '06 - Public Notice'        " &
+                "when datPNExpires is Not Null and datPNExpires < GETDATE() then '07 - Public Notice Expired'       " &
+                "when datPNExpires is Not Null and datPNExpires >= GETDATE() then '06 - Public Notice'        " &
                 "when datDraftIssued is Not Null and datPNExpires is Null then '05 - Draft Issued'        " &
                 "when dattoPMII is Not Null then '04 - AT PM'        " &
                 "when dattoPMI is Not Null then '03 - At UC'        " &
