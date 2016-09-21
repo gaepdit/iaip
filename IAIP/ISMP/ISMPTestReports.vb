@@ -2239,14 +2239,14 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
                     txtReceivedByAPB.Text = dr.Item("datReceivedDate")
                 End If
                 If IsDBNull(dr.Item("datTestDateStart")) Then
-                    DTPTestDateStart.Value = OracleDate
+                    DTPTestDateStart.Value = Today
                     DTPTestDateStart.Checked = False
                 Else
                     DTPTestDateStart.Value = dr.Item("datTestDateStart")
                     DTPTestDateStart.Checked = True
                 End If
                 If IsDBNull(dr.Item("datTestDateEnd")) Then
-                    DTPTestDateComplete.Value = OracleDate
+                    DTPTestDateComplete.Value = Today
                     DTPTestDateComplete.Checked = False
                 Else
                     DTPTestDateComplete.Value = dr.Item("datTestDateEnd")
@@ -9428,7 +9428,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
                     End If
                     If IsDBNull(dr.Item("datTestReportDue")) Then
                         txtTestReportDueDate.Text = ""
-                        DTPTestReportDueDate.Text = OracleDate
+                        DTPTestReportDueDate.Value = Today
                     Else
                         txtTestReportDueDate.Text = Format(dr.Item("datTestReportDue"), "dd-MMM-yyyy")
                         DTPTestReportDueDate.Text = Format(dr.Item("datTestReportDue"), "dd-MMM-yyyy")
@@ -9527,12 +9527,12 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
                 RecExist = dr.Read
                 If RecExist = True Then
                     If IsDBNull(dr.Item("datSSCPTestReportDue")) Then
-                        DTPTestReportNewDueDate.Text = OracleDate
+                        DTPTestReportNewDueDate.Value = Today
                     Else
                         DTPTestReportNewDueDate.Text = Format(dr.Item("datSSCPTestReportDue"), "dd-MMM-yyyy")
                     End If
                 Else
-                    DTPTestReportNewDueDate.Text = OracleDate
+                    DTPTestReportNewDueDate.Value = Today
                 End If
                 dr.Close()
 
@@ -9783,8 +9783,8 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
                 Next
             End If
             cboISMPUnit.SelectedValue = 0
-            DTPTestDateStart.Text = OracleDate
-            DTPTestDateComplete.Text = OracleDate
+            DTPTestDateStart.Value = Today
+            DTPTestDateComplete.Value = Today
             txtDaysInAPB.Clear()
             txtDaysAssigned.Clear()
             cboComplianceManager.SelectedValue = 0
@@ -10251,15 +10251,15 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
             txtControlEquipmentOperatingDataMemorandumPTE.Clear()
             txtMemorandumPTE.Clear()
 
-            DTPEventCompleteDate.Text = OracleDate
+            DTPEventCompleteDate.Value = Today
             txtTrackingNumber.Clear()
             txtEnforcementNumber.Clear()
             cboStaffResponsible.SelectedValue = 0
-            DTPAcknoledgmentLetterSent.Text = OracleDate
+            DTPAcknoledgmentLetterSent.Value = Today
             txtTestReportReceivedbySSCPDate.Clear()
             txtTestReportDueDate.Clear()
-            DTPTestReportDueDate.Text = OracleDate
-            DTPTestReportNewDueDate.Text = OracleDate
+            DTPTestReportDueDate.Value = Today
+            DTPTestReportNewDueDate.Value = Today
             txtTestReportComments.Clear()
             rdbTestReportFollowUpYes.Checked = False
             rdbTestReportFollowUpNo.Checked = False
@@ -10430,14 +10430,14 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
                             txtReceivedByAPB.Text = dr.Item("datReceivedDate")
                         End If
                         If IsDBNull(dr.Item("datTestDateStart")) Then
-                            DTPTestDateStart.Value = OracleDate
+                            DTPTestDateStart.Value = Today
                             DTPTestDateStart.Checked = False
                         Else
                             DTPTestDateStart.Value = dr.Item("datTestDateStart")
                             DTPTestDateStart.Checked = True
                         End If
                         If IsDBNull(dr.Item("datTestDateEnd")) Then
-                            DTPTestDateComplete.Value = OracleDate
+                            DTPTestDateComplete.Value = Today
                             DTPTestDateComplete.Checked = False
                         Else
                             DTPTestDateComplete.Value = dr.Item("datTestDateEnd")
@@ -10780,7 +10780,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
                 OtherWitnessing = "0"
             End If
             If txtAssignedToEngineer.Text = "04-Jul-1776" Then
-                AssignedDate = OracleDate
+                AssignedDate = TodayFormatted
             Else
                 AssignedDate = txtAssignedToEngineer.Text
             End If
@@ -11342,7 +11342,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
             "strControlEquipmentData = '" & Replace(ControlEquip, "'", "''") & "', " &
             "strDeterminationMethod = '" & DetMethod & "', " &
             "strModifingPerson = '" & CurrentUser.UserID & "', " &
-            "datModifingDate = '" & OracleDate & "', "
+            "datModifingDate =  GETDATE() , "
             If UnitManager <> "" Then
                 SQL = SQL & "numReviewingManager = '" & UnitManager & "', "
             End If
@@ -11669,10 +11669,10 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
     Sub SaveSSCPWork()
         Try
             Dim StaffResponsible As String = CurrentUser.UserID
-            Dim CompleteDate As String = OracleDate
-            Dim AckLetter As String = OracleDate
-            Dim TestDue As String = OracleDate
-            Dim NextTest As String = OracleDate
+            Dim CompleteDate As String = TodayFormatted
+            Dim AckLetter As String = TodayFormatted
+            Dim TestDue As String = TodayFormatted
+            Dim NextTest As String = TodayFormatted
             Dim ReportComments As String = " "
             Dim FollowUp As String = "False"
 
@@ -11700,7 +11700,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
                 If txtTestReportDueDate.Text <> "" Then
                     NextTest = Format(CDate(txtTestReportDueDate.Text).AddYears(1), "dd-MMM-yyyy")
                 Else
-                    NextTest = Format(CDate(OracleDate).AddYears(1), "dd-MMM-yyyy")
+                    NextTest = Format(Today.AddYears(1), "dd-MMM-yyyy")
                 End If
             End If
             If chbTestReportChangeDueDate.Checked = True Then
@@ -11731,9 +11731,9 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
                 "strModifingPerson, datModifingDate) " &
                 "values " &
                 "(SSCPTrackingNumber.nextval, '0413" & txtAirsNumber.Text & "', " &
-                "'" & OracleDate & "', '03', " &
+                " GETDATE() , '03', " &
                 "'" & StaffResponsible & "', '', " &
-                "'" & CurrentUser.UserID & "', '" & OracleDate & "')"
+                "'" & CurrentUser.UserID & "',  GETDATE() )"
                 cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
@@ -11760,9 +11760,9 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
                 "strModifingPerson, datModifingDate) " &
                 "Values " &
                 "('" & txtTrackingNumber.Text & "', '" & txtReferenceNumber.Text & "', " &
-                "'" & OracleDate & "', " &
+                " GETDATE() , " &
                 "' ', 'False', " &
-                "'" & CurrentUser.UserID & "', '" & OracleDate & "') "
+                "'" & CurrentUser.UserID & "',  GETDATE() ) "
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -11790,7 +11790,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
                     "datCompleteDate = '" & CompleteDate & "', " &
                     "datAcknoledgmentLetterSent = '" & AckLetter & "', " &
                     "strModifingPerson = '" & CurrentUser.UserID & "', " &
-                    "datModifingDate = '" & OracleDate & "' " &
+                    "datModifingDate =  GETDATE()  " &
                     "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
                     cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -11814,7 +11814,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
                         "strTestReportComments = '" & Replace(ReportComments, "'", "''") & "', " &
                         "strTestReportFollowUp = '" & FollowUp & "', " &
                         "strModifingPerson = '" & CurrentUser.UserID & "', " &
-                        "datModifingDate = '" & OracleDate & "' " &
+                        "datModifingDate =  GETDATE()  " &
                         "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
                         cmd = New SqlCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -11838,7 +11838,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
                             SQL = "Update APBSupplamentalData set " &
                             "DatSSCPTestReportDue = '" & NextTest & "', " &
                             "strModifingPerson = '" & CurrentUser.UserID & "', " &
-                            "datModifingdate = '" & OracleDate & "' " &
+                            "datModifingdate =  GETDATE()  " &
                             "where strAIRSnumber = '0413" & txtAirsNumber.Text & "' "
                             cmd = New SqlCommand(SQL, CurrentConnection)
                             If CurrentConnection.State = ConnectionState.Closed Then

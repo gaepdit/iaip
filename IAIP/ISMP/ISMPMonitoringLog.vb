@@ -22,11 +22,11 @@ Public Class ISMPMonitoringLog
         Try
 
             DTPStartDate.Text = Format(Date.Today.AddDays(-30), "dd-MMM-yyyy")
-            DTPEndDate.Text = OracleDate
+            DTPEndDate.Value = Today
 
             Panel1.Text = "Select a Function..."
             Panel2.Text = CurrentUser.AlphaName
-            Panel3.Text = OracleDate
+            Panel3.Text = TodayFormatted
 
             chbReviewingEngineer.Text = CurrentUser.AlphaName
             chbWitnessingEngineer.Text = CurrentUser.AlphaName
@@ -931,7 +931,7 @@ Public Class ISMPMonitoringLog
 
             rdbFacilityDateReceived.Checked = True
             DTPStartDate.Text = Format(Date.Today.AddDays(-30), "dd-MMM-yyyy")
-            DTPEndDate.Text = OracleDate
+            DTPEndDate.Value = Today
             chbUnitOption1.Checked = False
             chbUnitOption2.Checked = False
             chbOpen.Checked = False

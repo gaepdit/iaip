@@ -37,7 +37,7 @@ Public Class SBEAPCaseWork
 
             Label1.Text = "Enter Case Work data..."
             Label2.Text = CurrentUser.AlphaName
-            Label3.Text = OracleDate
+            Label3.Text = TodayFormatted
 
             FormStatus("Enable")
 
@@ -338,13 +338,13 @@ Public Class SBEAPCaseWork
                         cboStaffResponsible.SelectedValue = dr.Item("numStaffResponsible")
                     End If
                     If IsDBNull(dr.Item("datCaseOpened")) Then
-                        DTPCaseOpened.Text = OracleDate
+                        DTPCaseOpened.Value = Today
                     Else
                         DTPCaseOpened.Text = dr.Item("datCaseOpened")
                     End If
                     If IsDBNull(dr.Item("datCaseClosed")) Then
                         temp = "Data Load"
-                        DTPCaseClosed.Text = OracleDate
+                        DTPCaseClosed.Value = Today
                         DTPCaseClosed.Checked = False
                         temp = ""
                     Else
@@ -357,7 +357,7 @@ Public Class SBEAPCaseWork
                         txtLastModifingStaff.Text = dr.Item("ModifingStaff")
                     End If
                     If IsDBNull(dr.Item("datModifingDate")) Then
-                        DTPLastModified.Text = OracleDate
+                        DTPLastModified.Value = Today
                     Else
                         DTPLastModified.Text = dr.Item("datModifingDate")
                     End If
@@ -377,7 +377,7 @@ Public Class SBEAPCaseWork
                         txtReferralInformation.Text = dr.Item("strReferralComments")
                     End If
                     If IsDBNull(dr.Item("datReferralDate")) Then
-                        DTPReferralDate.Text = OracleDate
+                        DTPReferralDate.Value = Today
                         DTPReferralDate.Checked = False
                     Else
                         DTPReferralDate.Text = dr.Item("datReferralDate")
@@ -800,21 +800,21 @@ Public Class SBEAPCaseWork
                     cboTechAssistType.Text = dr.Item("strTEchnicalAssistType")
                 End If
                 If IsDBNull(dr.Item("datInitialContactDate")) Then
-                    DTPTechAssistInitialContact.Text = OracleDate
+                    DTPTechAssistInitialContact.Value = Today
                     DTPTechAssistInitialContact.Checked = False
                 Else
                     DTPTechAssistInitialContact.Text = dr.Item("datInitialContactDate")
                     DTPTechAssistInitialContact.Checked = True
                 End If
                 If IsDBNull(dr.Item("datAssistStartDate")) Then
-                    DTPTechAssistStart.Text = OracleDate
+                    DTPTechAssistStart.Value = Today
                     DTPTechAssistStart.Checked = False
                 Else
                     DTPTechAssistStart.Text = dr.Item("datAssistStartDate")
                     DTPTechAssistStart.Checked = True
                 End If
                 If IsDBNull(dr.Item("datAssistEndDate")) Then
-                    DTPTechAssistEnd.Text = OracleDate
+                    DTPTechAssistEnd.Value = Today
                     DTPTechAssistEnd.Checked = False
                 Else
                     DTPTechAssistEnd.Text = dr.Item("datAssistEndDate")
@@ -1123,12 +1123,12 @@ Public Class SBEAPCaseWork
                     txtConferenceAttendees.Text = dr.Item("strAttendees")
                 End If
                 If IsDBNull(dr.Item("datConferenceStarted")) Then
-                    DTPConferenceStart.Text = OracleDate
+                    DTPConferenceStart.Value = Today
                 Else
                     DTPConferenceStart.Text = dr.Item("datConferenceStarted")
                 End If
                 If IsDBNull(dr.Item("datConferenceEnded")) Then
-                    DTPConferenceEnd.Text = OracleDate
+                    DTPConferenceEnd.Value = Today
                 Else
                     DTPConferenceEnd.Text = dr.Item("datConferenceEnded")
                 End If
@@ -1270,7 +1270,7 @@ Public Class SBEAPCaseWork
                 "'" & Staff & "', '" & DTPCaseOpened.Text & "', " &
                 "'" & Replace(txtCaseDescription.Text, "'", "''") & "', " &
                 "'', '" & CloseDate & "', " &
-                "'" & CurrentUser.UserID & "', '" & OracleDate & "', " &
+                "'" & CurrentUser.UserID & "',  GETDATE() , " &
                 "'" & Replace(InterAgency, "'", "''") & "', '" & Replace(ReferralComments, "'", "''") & "', " &
                 "'" & ReferralDate & "', '" & ComplaintBased & "', " &
                 "'" & CaseClosedLetter & "') "
@@ -1283,7 +1283,7 @@ Public Class SBEAPCaseWork
                 "strCaseSummary = '" & Replace(txtCaseDescription.Text, "'", "''") & "', " &
                 "datCaseClosed = '" & CloseDate & "', " &
                 "numModifingStaff = '" & CurrentUser.UserID & "', " &
-                "datModifingDate = '" & OracleDate & "', " &
+                "datModifingDate =  GETDATE() , " &
                 "strInterAgency = '" & Replace(InterAgency, "'", "''") & "', " &
                 "strReferralComments = '" & Replace(ReferralComments, "'", "''") & "', " &
                 "datReferralDate = '" & ReferralDate & "', " &
@@ -1521,7 +1521,7 @@ Public Class SBEAPCaseWork
                 "'" & Replace(LeadAssist, "'", "''") & "', " &
                 "'" & Replace(OtherAssist, "'", "''") & "', " &
                 "'" & Replace(Comments, "'", "''") & "', " &
-                "'" & CurrentUser.UserID & "', '" & OracleDate & "') "
+                "'" & CurrentUser.UserID & "',  GETDATE() ) "
             Else
                 SQL = "Update SBEAPComplianceAssist set " &
                 "strAirAssist = '" & Replace(AirAssist, "'", "''") & "', " &
@@ -1534,7 +1534,7 @@ Public Class SBEAPCaseWork
                 "strOtherAssist = '" & Replace(OtherAssist, "'", "''") & "', " &
                 "strComment =  '" & Replace(Comments, "'", "''") & "', " &
                 "strModifingStaff = '" & CurrentUser.UserID & "', " &
-                "datModifingDate = '" & OracleDate & "' " &
+                "datModifingDate =  GETDATE()  " &
                 "where numActionID = '" & txtActionID.Text & "' "
             End If
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -1761,7 +1761,7 @@ Public Class SBEAPCaseWork
                 "'" & AssistEnd & "', '" & AssistRequest & "', " &
                 "'" & Replace(AIRSNumber, "'", "''") & "', " &
                 "'" & Replace(TechnicalAssistComments, "'", "''") & "', " &
-                "'" & CurrentUser.UserID & "', '" & OracleDate & "') "
+                "'" & CurrentUser.UserID & "',  GETDATE() ) "
             Else
                 SQL = "Update SBEAPTechnicalAssist set " &
                 "strTechnicalAssistType = '" & Replace(AssistType, "'", "''") & "', " &
@@ -1772,7 +1772,7 @@ Public Class SBEAPCaseWork
                 "strAIRSNumber = '" & Replace(AIRSNumber, "'", "''") & "', " &
                 "strTechnicalAssistNotes = '" & Replace(TechnicalAssistComments, "'", "''") & "', " &
                 "strModifingStaff = '" & CurrentUser.UserID & "', " &
-                "datModifingDate = '" & OracleDate & "' " &
+                "datModifingDate =  GETDATE()  " &
                 "where numActionID = '" & txtActionID.Text & "' "
             End If
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -1840,7 +1840,7 @@ Public Class SBEAPCaseWork
                 "'" & Replace(CallerPhone, "'", "''") & "', " &
                 "'" & Replace(PhoneCallNotes, "'", "''") & "', " &
                 "'" & OneTimeAssist & "', '" & FrontDeskCall & "', " &
-                "'" & CurrentUser.UserID & "', '" & OracleDate & "') "
+                "'" & CurrentUser.UserID & "',  GETDATE() ) "
             Else
                 SQL = "Update SBEAPPhoneLog set " &
                 "strCallerInformation = '" & Replace(CallerInfo, "'", "''") & "', " &
@@ -1849,7 +1849,7 @@ Public Class SBEAPCaseWork
                 "strOneTimeAssist = '" & OneTimeAssist & "', " &
                 "strFrontDeskCall = '" & FrontDeskCall & "', " &
                 "strModifingStaff = '" & CurrentUser.UserID & "', " &
-                "datModifingDate = '" & OracleDate & "' " &
+                "datModifingDate =  GETDATE()  " &
                 "where numActionID = '" & txtActionID.Text & "' "
             End If
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -1951,7 +1951,7 @@ Public Class SBEAPCaseWork
                 "'" & Replace(Attendees, "'", "''") & "', '" & Replace(ConferenceStart, "'", "''") & "', " &
                 "'" & Replace(ConferenceEnd, "'", "'''") & "', '" & Replace(SBEAPPresentation, "'", "''") & "', " &
                 "'" & Replace(ListofBusinesses, "'", "''") & "', '" & Replace(FollowUp, "'", "''") & "', " &
-                "'" & StaffAttendies & "', '" & CurrentUser.UserID & "', '" & OracleDate & "') "
+                "'" & StaffAttendies & "', '" & CurrentUser.UserID & "',  GETDATE() ) "
             Else
                 SQL = "Update SBEAPConferenceLog set " &
                 "strConferenceAttended = '" & Replace(ConferenceAttended, "'", "''") & "', " &
@@ -1965,7 +1965,7 @@ Public Class SBEAPCaseWork
                 "strConferenceFollowUp = '" & Replace(FollowUp, "'", "''") & "', " &
                 "strStaffAttending = '" & StaffAttendies & "', " &
                 "strModifingStaff = '" & CurrentUser.UserID & "', " &
-                "datModifingDate = '" & OracleDate & "' " &
+                "datModifingDate =  GETDATE()  " &
                 "where numActionID = '" & txtActionID.Text & "' "
             End If
 
@@ -2006,12 +2006,12 @@ Public Class SBEAPCaseWork
                 SQL = "Insert into SBEAPOtherLog " &
                 "values " &
                 "('" & txtActionID.Text & "', '" & Replace(CaseNotes, "'", "''") & "', " &
-                "'" & CurrentUser.UserID & "', '" & OracleDate & "') "
+                "'" & CurrentUser.UserID & "',  GETDATE() ) "
             Else
                 SQL = "Update SBEAPOtherLog set " &
                 "strCaseNotes = '" & Replace(CaseNotes, "'", "''") & "', " &
                 "strModifingStaff = '" & CurrentUser.UserID & "', " &
-                "datModifingDate = '" & OracleDate & "' " &
+                "datModifingDate =  GETDATE()  " &
                 "where numActionID = '" & txtActionID.Text & "' "
             End If
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -2037,14 +2037,14 @@ Public Class SBEAPCaseWork
             dsActionLog = New DataSet
             dgvActionLog.DataSource = dsActionLog
             txtActionCount.Clear()
-            DTPReferralDate.Text = OracleDate
+            DTPReferralDate.Value = Today
             DTPReferralDate.Checked = False
             txtReferralInformation.Clear()
             cboInteragency.Text = ""
             cboStaffResponsible.SelectedValue = CurrentUser.UserID
-            DTPCaseClosed.Text = OracleDate
+            DTPCaseClosed.Value = Today
             DTPCaseClosed.Checked = False
-            DTPCaseOpened.Text = OracleDate
+            DTPCaseOpened.Value = Today
             txtCaseDescription.Clear()
             txtClientInformation.Clear()
             txtOutstandingCases.Clear()
@@ -2068,8 +2068,8 @@ Public Class SBEAPCaseWork
             txtPhoneCallNotes.Clear()
             txtConferenceAttended.Clear()
             txtConferenceLocation.Clear()
-            DTPConferenceStart.Text = OracleDate
-            DTPConferenceEnd.Text = OracleDate
+            DTPConferenceStart.Value = Today
+            DTPConferenceEnd.Value = Today
             txtListOfBusinessSectors.Clear()
             txtConferenceTopic.Clear()
             For i = 0 To clbStaffAttending.Items.Count - 1
@@ -2080,11 +2080,11 @@ Public Class SBEAPCaseWork
             rdbSBEAPPresentationNo.Checked = False
             txtConferenceAttendees.Clear()
             txtConferenceFollowUp.Clear()
-            'DTPReferralDate.Text = OracleDate
+            'DTPReferralDate.Value = Today
             cboTechAssistType.Text = ""
-            DTPTechAssistInitialContact.Text = OracleDate
-            DTPTechAssistStart.Text = OracleDate
-            DTPTechAssistEnd.Text = OracleDate
+            DTPTechAssistInitialContact.Value = Today
+            DTPTechAssistStart.Value = Today
+            DTPTechAssistEnd.Value = Today
             txtTechnicalAssistNotes.Clear()
             chbAirAppPrep.Checked = False
             chbAirEmissInv.Checked = False
@@ -2262,7 +2262,7 @@ Public Class SBEAPCaseWork
                     UpdateCaseLog("New Action")
                 Else
                     SQL = "Update SBEAPCaseLog set " &
-                    "datModifingDate = '" & OracleDate & "' " &
+                    "datModifingDate =  GETDATE()  " &
                     "where numCaseID = '" & txtCaseID.Text & "' "
 
                     cmd = New SqlCommand(SQL, CurrentConnection)
@@ -2298,8 +2298,8 @@ Public Class SBEAPCaseWork
                 "values " &
                 "('" & txtActionID.Text & "', '" & txtCaseID.Text & "', " &
                 "'" & cboActionType.SelectedValue & "', '" & CurrentUser.UserID & "', " &
-                "'" & OracleDate & "', '" & CurrentUser.UserID & "', " &
-                "'" & OracleDate & "', '" & DTPActionOccured.Text & "') "
+                " GETDATE() , '" & CurrentUser.UserID & "', " &
+                " GETDATE() , '" & DTPActionOccured.Text & "') "
                 cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
@@ -2338,7 +2338,7 @@ Public Class SBEAPCaseWork
                     txtActionType.Text = dgvActionLog(2, hti.RowIndex).Value
                     txtCreationDate.Text = Format(dgvActionLog(3, hti.RowIndex).Value, "dd-MMM-yyyy")
                     If IsDBNull(dgvActionLog(4, hti.RowIndex).Value) Then
-                        DTPActionOccured.Text = OracleDate
+                        DTPActionOccured.Value = Today
                     Else
                         DTPActionOccured.Text = Format(dgvActionLog(4, hti.RowIndex).Value, "dd-MMM-yyyy")
                     End If

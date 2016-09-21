@@ -45,8 +45,8 @@ Public Class SBEAPPhoneLog
 
             chbFrontDeskCall.Checked = False
             cboStaffResponsible.Text = ""
-            DTPCaseOpened.Text = OracleDate
-            DTPCaseClosed.Text = OracleDate
+            DTPCaseOpened.Value = Today
+            DTPCaseClosed.Value = Today
             chbOnetimeAssist.Checked = False
             DTPCaseClosed.Checked = False
             txtCaseSummary.Clear()
@@ -289,7 +289,7 @@ Public Class SBEAPPhoneLog
                     "'" & Staff & "', '" & DTPCaseOpened.Text & "', " &
                     "'" & Replace(txtCaseSummary.Text, "'", "''") & "', " &
                     "'" & Replace(ClientID, "'", "''") & "', '" & CloseDate & "', " &
-                    "'" & CurrentUser.UserID & "', '" & OracleDate & "', '', " &
+                    "'" & CurrentUser.UserID & "',  GETDATE() , '', " &
                     "'" & Replace(ReferralInformation, "'", "''") & "', '', '', '') "
 
                     SQL2 = "Select max(numCaseID) as CaseID from SBEAPCaseLog "
@@ -301,7 +301,7 @@ Public Class SBEAPPhoneLog
                     "ClientID = '" & Replace(ClientID, "'", "''") & "', " &
                     "datCaseClosed = '" & CloseDate & "', " &
                     "numModifingStaff = '" & CurrentUser.UserID & "', " &
-                    "datModifingDate = '" & OracleDate & "', " &
+                    "datModifingDate =  GETDATE() , " &
                     "strReferralComments = '" & Replace(ReferralInformation, "'", "''") & "' " &
                     "where numCaseID = '" & txtCaseID.Text & "' "
 
@@ -357,8 +357,8 @@ Public Class SBEAPPhoneLog
                     "values " &
                     "('" & txtActionID.Text & "', '" & txtCaseID.Text & "', " &
                     "'6', '" & CurrentUser.UserID & "', " &
-                    "'" & OracleDate & "', '" & CurrentUser.UserID & "', " &
-                    "'" & OracleDate & "', '" & OracleDate & "') "
+                    " GETDATE() , '" & CurrentUser.UserID & "', " &
+                    " GETDATE() ,  GETDATE() ) "
                     cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
@@ -372,7 +372,7 @@ Public Class SBEAPPhoneLog
                     "'" & Replace(CallerPhone, "'", "''") & "', " &
                     "'" & Replace(PhoneCallNotes, "'", "''") & "', " &
                     "'" & OneTimeAssist & "', '" & FrontDeskCall & "', " &
-                    "'" & CurrentUser.UserID & "', '" & OracleDate & "') "
+                    "'" & CurrentUser.UserID & "',  GETDATE() ) "
 
                     cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -388,7 +388,7 @@ Public Class SBEAPPhoneLog
                     "strOneTimeAssist = '" & OneTimeAssist & "', " &
                     "strFrontDeskCall = '" & FrontDeskCall & "', " &
                     "strModifingStaff = '" & CurrentUser.UserID & "', " &
-                    "datModifingDate = '" & OracleDate & "' " &
+                    "datModifingDate =  GETDATE()  " &
                     "where numActionID = '" & txtActionID.Text & "' "
 
                     cmd = New SqlCommand(SQL, CurrentConnection)

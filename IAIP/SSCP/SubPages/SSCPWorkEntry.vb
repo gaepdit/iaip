@@ -106,7 +106,7 @@ Public Class SSCPWorkEnTry
                 "strModifingPerson, datModifingDate) values " &
                 "(SSCPTrackingNumber.nextval, '0413" & txtAIRSNumber.Text & "', '" & DateReceived & "', " &
                 "(Select strActivityType from LookUPComplianceActivities where strActivityName = '" & cboEvent.Text & "'), " &
-                "'" & CurrentUser.UserID & "', '" & OracleDate & "')"
+                "'" & CurrentUser.UserID & "',  GETDATE() )"
 
                 SQL2 = "Select SSCPTrackingNumber.Currval from Dual"
 

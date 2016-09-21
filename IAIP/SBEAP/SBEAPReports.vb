@@ -17,7 +17,7 @@ Public Class SBEAPReports
 
         Try
             DTPReportStartDate.Text = Format(Date.Today.AddMonths(-3), "dd-MMM-yyyy")
-            DTPReportEndDate.Text = OracleDate
+            DTPReportEndDate.Value = Today
 
             LoadComboBoxes()
 

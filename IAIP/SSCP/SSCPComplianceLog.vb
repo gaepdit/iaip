@@ -23,15 +23,15 @@ Public Class SSCPComplianceLog
         Try
             Panel1.Text = "Select a Function..."
             Panel2.Text = CurrentUser.AlphaName
-            Panel3.Text = OracleDate
-            DTPDateReceived.Text = OracleDate
+            Panel3.Text = TodayFormatted
+            DTPDateReceived.Value = Today
 
             chbEngineer.Text = CurrentUser.AlphaName
 
             DTPFilterStart.Enabled = False
             DTPFilterEnd.Enabled = False
-            DTPFilterStart.Text = Format(CDate(OracleDate).AddMonths(-1), "dd-MMM-yyyy")
-            DTPFilterEnd.Text = OracleDate
+            DTPFilterStart.Value = Today.AddMonths(-1)
+            DTPFilterEnd.Value = Today
 
             LoadDefaultSettings()
             LoadDataSets()
@@ -245,8 +245,8 @@ Public Class SSCPComplianceLog
             chbDeletedWork.Checked = False
 
             txtWorkNumber.Clear()
-            DTPFilterStart.Text = OracleDate
-            DTPFilterEnd.Text = OracleDate
+            DTPFilterStart.Value = Today
+            DTPFilterEnd.Value = Today
             chbFilterDates.Checked = False
 
             'lblWorkType.Text = ""
@@ -751,7 +751,7 @@ Public Class SSCPComplianceLog
                     "'" & DTPDateReceived.Text & "', " &
                     "'" & cboEvent.SelectedValue & "', " &
                     "'" & CurrentUser.UserID & "', '', " &
-                    "'" & CurrentUser.UserID & "', '" & OracleDate & "')"
+                    "'" & CurrentUser.UserID & "',  GETDATE() )"
 
                     If cboEvent.SelectedValue = "04" Then
                         SQL2 = "Insert into SSCPItemMaster " &
@@ -764,7 +764,7 @@ Public Class SSCPComplianceLog
                         "'" & DTPDateReceived.Text & "', " &
                         "'06', " &
                         "'" & CurrentUser.UserID & "', '" & DTPDateReceived.Text & "', " &
-                        "'" & CurrentUser.UserID & "', '" & OracleDate & "')"
+                        "'" & CurrentUser.UserID & "',  GETDATE() )"
                     Else
                         SQL2 = ""
                     End If
@@ -952,7 +952,7 @@ Public Class SSCPComplianceLog
                                 "from AFSDeletions), " &
                                 "'" & tempAIRS & "', " &
                                 "'" & Replace(SQL, "'", "''") & "', 'True', " &
-                                "'" & OracleDate & "', '', " &
+                                " GETDATE() , '', " &
                                 "'') "
 
                                 cmd = New SqlCommand(SQL2, CurrentConnection)
@@ -981,7 +981,7 @@ Public Class SSCPComplianceLog
                                "from AFSDeletions), " &
                                "'" & tempAIRS & "', " &
                                "'" & Replace(SQL, "'", "''") & "', 'True', " &
-                               "'" & OracleDate & "', '', " &
+                               " GETDATE() , '', " &
                                "'') "
 
                                 cmd = New SqlCommand(SQL2, CurrentConnection)
@@ -1012,7 +1012,7 @@ Public Class SSCPComplianceLog
                                "from AFSDeletions), " &
                                "'" & tempAIRS & "', " &
                                "'" & Replace(SQL, "'", "''") & "', 'True', " &
-                               "'" & OracleDate & "', '', " &
+                               " GETDATE() , '', " &
                                "'') "
 
                                 cmd = New SqlCommand(SQL2, CurrentConnection)
@@ -1032,7 +1032,7 @@ Public Class SSCPComplianceLog
                                "from AFSDeletions), " &
                                "'" & tempAIRS & "', " &
                                "'" & Replace(SQL, "'", "''") & "', 'True', " &
-                               "'" & OracleDate & "', '', " &
+                               " GETDATE() , '', " &
                                "'') "
 
                                 cmd = New SqlCommand(SQL2, CurrentConnection)
@@ -1061,7 +1061,7 @@ Public Class SSCPComplianceLog
                                "from AFSDeletions), " &
                                "'" & tempAIRS & "', " &
                                "'" & Replace(SQL, "'", "''") & "', 'True', " &
-                               "'" & OracleDate & "', '', " &
+                               " GETDATE() , '', " &
                                "'') "
 
                                 cmd = New SqlCommand(SQL2, CurrentConnection)
@@ -1148,7 +1148,7 @@ Public Class SSCPComplianceLog
                                "from AFSDeletions), " &
                                "'" & tempAIRS & "', " &
                                "'" & Replace(SQL, "'", "''") & "', 'True', " &
-                               "'" & OracleDate & "', '', " &
+                               " GETDATE() , '', " &
                                "'') "
 
                                 cmd = New SqlCommand(SQL2, CurrentConnection)
@@ -1177,7 +1177,7 @@ Public Class SSCPComplianceLog
                                "from AFSDeletions), " &
                                "'" & tempAIRS & "', " &
                                "'" & Replace(SQL, "'", "''") & "', 'True', " &
-                               "'" & OracleDate & "', '', " &
+                               " GETDATE() , '', " &
                                "'') "
 
                                 cmd = New SqlCommand(SQL2, CurrentConnection)
@@ -1206,7 +1206,7 @@ Public Class SSCPComplianceLog
                                "from AFSDeletions), " &
                                "'" & tempAIRS & "', " &
                                "'" & Replace(SQL, "'", "''") & "', 'True', " &
-                               "'" & OracleDate & "', '', " &
+                               " GETDATE() , '', " &
                                "'') "
 
                                 cmd = New SqlCommand(SQL2, CurrentConnection)

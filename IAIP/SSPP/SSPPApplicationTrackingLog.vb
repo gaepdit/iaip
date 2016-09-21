@@ -72,39 +72,39 @@ Public Class SSPPApplicationTrackingLog
             cboClassification.Items.Clear()
             cboPublicAdvisory.Items.Clear()
             cboPermitAction.Items.Clear()
-            DTPFinalizedDate.Text = OracleDate
+            DTPFinalizedDate.Value = Today
             DTPFinalizedDate.Checked = False
-            DTPDateSent.Text = OracleDate
+            DTPDateSent.Value = Today
             DTPDateSent.Checked = False
-            DTPDateReceived.Text = OracleDate
+            DTPDateReceived.Value = Today
             DTPDateReceived.Checked = False
-            DTPDateAssigned.Text = OracleDate
+            DTPDateAssigned.Value = Today
             DTPDateAssigned.Checked = False
-            DTPDateReassigned.Text = OracleDate
+            DTPDateReassigned.Value = Today
             DTPDateReassigned.Checked = False
-            DTPDateAcknowledge.Text = OracleDate
+            DTPDateAcknowledge.Value = Today
             DTPDateAcknowledge.Checked = False
-            DTPDatePAExpires.Text = OracleDate
+            DTPDatePAExpires.Value = Today
             DTPDatePAExpires.Checked = False
-            DTPDateToUC.Text = OracleDate
+            DTPDateToUC.Value = Today
             DTPDateToUC.Checked = False
-            DTPDateToPM.Text = OracleDate
+            DTPDateToPM.Value = Today
             DTPDateToPM.Checked = False
-            DTPDraftIssued.Text = OracleDate
+            DTPDraftIssued.Value = Today
             DTPDraftIssued.Checked = False
-            DTPDatePNExpires.Text = OracleDate
+            DTPDatePNExpires.Value = Today
             DTPDatePNExpires.Checked = False
-            DTPEPAWaived.Text = OracleDate
+            DTPEPAWaived.Value = Today
             DTPEPAWaived.Checked = False
-            DTPEPAEnds.Text = OracleDate
+            DTPEPAEnds.Value = Today
             DTPEPAEnds.Checked = False
-            DTPDateToBC.Text = OracleDate
+            DTPDateToBC.Value = Today
             DTPDateToBC.Checked = False
-            DTPDateToDO.Text = OracleDate
+            DTPDateToDO.Value = Today
             DTPDateToDO.Checked = False
-            DTPFinalAction.Text = OracleDate
+            DTPFinalAction.Value = Today
             DTPFinalAction.Checked = False
-            DTPDeadline.Text = OracleDate
+            DTPDeadline.Value = Today
             DTPDeadline.Checked = False
             chbClosedOut.Checked = False
             chbPAReady.Checked = False
@@ -151,11 +151,11 @@ Public Class SSPPApplicationTrackingLog
             cboSSCPStaff.Enabled = False
             cboISMPStaff.Items.Clear()
             cboISMPStaff.Enabled = False
-            DTPReviewSubmitted.Text = OracleDate
+            DTPReviewSubmitted.Value = Today
             DTPReviewSubmitted.Checked = False
-            DTPISMPReview.Text = OracleDate
+            DTPISMPReview.Value = Today
             DTPISMPReview.Checked = False
-            DTPSSCPReview.Text = OracleDate
+            DTPSSCPReview.Value = Today
             DTPSSCPReview.Checked = False
             rdbSSCPYes.Checked = False
             rdbSSCPNo.Checked = False
@@ -177,30 +177,30 @@ Public Class SSPPApplicationTrackingLog
             txtInformationRequested.Clear()
             txtInformationReceived.Clear()
             txtInformationRequestedKey.Clear()
-            DTPInformationRequested.Text = OracleDate
+            DTPInformationRequested.Value = Today
             DTPInformationRequested.Checked = False
-            DTPInformationReceived.Text = OracleDate
+            DTPInformationReceived.Value = Today
             DTPInformationReceived.Checked = False
 
             'Web Publisher Tab
             txtEPATargetedComments.Clear()
 
-            DTPNotifiedAppReceived.Text = OracleDate
+            DTPNotifiedAppReceived.Value = Today
             DTPNotifiedAppReceived.Checked = False
-            DTPDraftOnWeb.Text = OracleDate
+            DTPDraftOnWeb.Value = Today
             DTPDraftOnWeb.Checked = False
-            DTPEPAStatesNotified.Text = OracleDate
+            DTPEPAStatesNotified.Value = Today
             DTPEPAStatesNotified.Checked = False
-            DTPFinalOnWeb.Text = OracleDate
+            DTPFinalOnWeb.Value = Today
             DTPFinalOnWeb.Checked = False
-            DTPEPANotifiedPermitOnWeb.Text = OracleDate
+            DTPEPANotifiedPermitOnWeb.Value = Today
             DTPEPANotifiedPermitOnWeb.Checked = False
-            DTPEffectiveDateofPermit.Text = OracleDate
+            DTPEffectiveDateofPermit.Value = Today
             DTPEffectiveDateofPermit.Checked = False
-            DTPExperationDate.Text = OracleDate
+            DTPExperationDate.Value = Today
             DTPExperationDate.Checked = False
             DTPPNExpires.Checked = False
-            DTPPNExpires.Text = OracleDate
+            DTPPNExpires.Value = Today
             DTPPNExpires.Checked = False
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -3559,7 +3559,7 @@ Public Class SSPPApplicationTrackingLog
                                         cboApplicationUnit.SelectedValue = dr.Item("APBUnit")
                                     End If
                                     If IsDBNull(dr.Item("datFinalizedDate")) Then
-                                        DTPFinalizedDate.Text = OracleDate
+                                        DTPFinalizedDate.Value = Today
                                         chbClosedOut.Checked = False
                                     Else
                                         DTPFinalizedDate.Text = dr.Item("datFinalizedDate")
@@ -3756,24 +3756,24 @@ Public Class SSPPApplicationTrackingLog
                                         CloseOut = "True"
                                     End If
                                     If IsDBNull(dr.Item("datReceivedDate")) Then
-                                        DTPDateReceived.Text = OracleDate
+                                        DTPDateReceived.Value = Today
                                     Else
                                         DTPDateReceived.Text = dr.Item("datReceivedDate")
                                     End If
                                     If IsDBNull(dr.Item("datSentByFacility")) Then
-                                        DTPDateSent.Text = OracleDate
+                                        DTPDateSent.Value = Today
                                     Else
                                         DTPDateSent.Text = dr.Item("datSentByFacility")
                                     End If
                                     If IsDBNull(dr.Item("datAssignedToEngineer")) Then
-                                        DTPDateAssigned.Text = OracleDate
+                                        DTPDateAssigned.Value = Today
                                         DTPDateAssigned.Checked = False
                                     Else
                                         DTPDateAssigned.Text = dr.Item("datAssignedToEngineer")
                                         DTPDateAssigned.Checked = True
                                     End If
                                     If IsDBNull(dr.Item("datReassignedToEngineer")) Then
-                                        DTPDateReassigned.Text = OracleDate
+                                        DTPDateReassigned.Value = Today
                                         DTPDateReassigned.Checked = False
                                     Else
                                         DTPDateReassigned.Text = dr.Item("datReassignedToEngineer")
@@ -3781,7 +3781,7 @@ Public Class SSPPApplicationTrackingLog
                                     End If
 
                                     If IsDBNull(dr.Item("datAcknowledgementLetterSent")) Then
-                                        DTPDateAcknowledge.Text = OracleDate
+                                        DTPDateAcknowledge.Value = Today
                                         DTPDateAcknowledge.Checked = False
                                     Else
                                         DTPDateAcknowledge.Text = dr.Item("datAcknowledgementLetterSent")
@@ -3803,49 +3803,49 @@ Public Class SSPPApplicationTrackingLog
                                         End Select
                                     End If
                                     If IsDBNull(dr.Item("datToPMI")) Then
-                                        DTPDateToUC.Text = OracleDate
+                                        DTPDateToUC.Value = Today
                                         DTPDateToUC.Checked = False
                                     Else
                                         DTPDateToUC.Text = dr.Item("datToPMI")
                                         DTPDateToUC.Checked = True
                                     End If
                                     If IsDBNull(dr.Item("datToPMII")) Then
-                                        DTPDateToPM.Text = OracleDate
+                                        DTPDateToPM.Value = Today
                                         DTPDateToPM.Checked = False
                                     Else
                                         DTPDateToPM.Text = dr.Item("datToPMII")
                                         DTPDateToPM.Checked = True
                                     End If
                                     If IsDBNull(dr.Item("datPermitIssued")) Then
-                                        DTPFinalAction.Text = OracleDate
+                                        DTPFinalAction.Value = Today
                                         DTPFinalAction.Checked = False
                                     Else
                                         DTPFinalAction.Text = dr.Item("datPermitIssued")
                                         DTPFinalAction.Checked = True
                                     End If
                                     If IsDBNull(dr.Item("datApplicationDeadLine")) Then
-                                        DTPDeadline.Text = OracleDate
+                                        DTPDeadline.Value = Today
                                         DTPDeadline.Checked = False
                                     Else
                                         DTPDeadline.Text = dr.Item("datApplicationDeadline")
                                         DTPDeadline.Checked = True
                                     End If
                                     If IsDBNull(dr.Item("datDraftIssued")) Then
-                                        DTPDraftIssued.Text = OracleDate
+                                        DTPDraftIssued.Value = Today
                                         DTPDraftIssued.Checked = False
                                     Else
                                         DTPDraftIssued.Text = dr.Item("datDraftIssued")
                                         DTPDraftIssued.Checked = True
                                     End If
                                     If IsDBNull(dr.Item("datPAExpires")) Then
-                                        DTPDatePAExpires.Text = OracleDate
+                                        DTPDatePAExpires.Value = Today
                                         DTPDatePAExpires.Checked = False
                                     Else
                                         DTPDatePAExpires.Text = dr.Item("datPAExpires")
                                         DTPDatePAExpires.Checked = True
                                     End If
                                     If IsDBNull(dr.Item("datPNExpires")) Then
-                                        DTPDatePNExpires.Text = OracleDate
+                                        DTPDatePNExpires.Value = Today
                                         DTPDatePNExpires.Checked = False
                                     Else
                                         DTPDatePNExpires.Text = dr.Item("datPNExpires")
@@ -3870,28 +3870,28 @@ Public Class SSPPApplicationTrackingLog
                                         End If
                                     End If
                                     If IsDBNull(dr.Item("datEPAWaived")) Then
-                                        DTPEPAWaived.Text = OracleDate
+                                        DTPEPAWaived.Value = Today
                                         DTPEPAWaived.Checked = False
                                     Else
                                         DTPEPAWaived.Text = dr.Item("datEPAWaived")
                                         DTPEPAWaived.Checked = True
                                     End If
                                     If IsDBNull(dr.Item("datEPAEnds")) Then
-                                        DTPEPAEnds.Text = OracleDate
+                                        DTPEPAEnds.Value = Today
                                         DTPEPAEnds.Checked = False
                                     Else
                                         DTPEPAEnds.Text = dr.Item("datEPAEnds")
                                         DTPEPAEnds.Checked = True
                                     End If
                                     If IsDBNull(dr.Item("datToBranchCheif")) Then
-                                        DTPDateToBC.Text = OracleDate
+                                        DTPDateToBC.Value = Today
                                         DTPDateToBC.Checked = False
                                     Else
                                         DTPDateToBC.Text = dr.Item("datToBranchCheif")
                                         DTPDateToBC.Checked = True
                                     End If
                                     If IsDBNull(dr.Item("datToDirector")) Then
-                                        DTPDateToDO.Text = OracleDate
+                                        DTPDateToDO.Value = Today
                                         DTPDateToDO.Checked = False
                                     Else
                                         DTPDateToDO.Text = dr.Item("datToDirector")
@@ -3966,7 +3966,7 @@ Public Class SSPPApplicationTrackingLog
                                 recExist = dr.Read
                                 If recExist = True Then
                                     If IsDBNull(dr.Item("datReviewsubmitted")) Then
-                                        DTPReviewSubmitted.Text = OracleDate
+                                        DTPReviewSubmitted.Value = Today
                                         DTPReviewSubmitted.Checked = False
                                     Else
                                         DTPReviewSubmitted.Text = dr.Item("datReviewsubmitted")
@@ -3983,7 +3983,7 @@ Public Class SSPPApplicationTrackingLog
                                         cboISMPUnits.SelectedValue = dr.Item("strISMPUnit")
                                     End If
                                     If IsDBNull(dr.Item("datSSCPReviewDate")) Then
-                                        DTPSSCPReview.Text = OracleDate
+                                        DTPSSCPReview.Value = Today
                                         DTPSSCPReview.Checked = False
                                     Else
                                         DTPSSCPReview.Text = dr.Item("datSSCPReviewDate")
@@ -4008,7 +4008,7 @@ Public Class SSPPApplicationTrackingLog
                                     End If
 
                                     If IsDBNull(dr.Item("datISMPReviewDate")) Then
-                                        DTPISMPReview.Text = OracleDate
+                                        DTPISMPReview.Value = Today
                                         DTPISMPReview.Checked = False
                                     Else
                                         DTPISMPReview.Text = dr.Item("datISMPReviewDate")
@@ -4071,49 +4071,49 @@ Public Class SSPPApplicationTrackingLog
                                 recExist = dr.Read
                                 If recExist = True Then
                                     If IsDBNull(dr.Item("datEPAStatesNotifiedAppRec")) Then
-                                        DTPNotifiedAppReceived.Text = OracleDate
+                                        DTPNotifiedAppReceived.Value = Today
                                         DTPNotifiedAppReceived.Checked = False
                                     Else
                                         DTPNotifiedAppReceived.Text = dr.Item("datEPAStatesNotifiedAppRec")
                                         DTPNotifiedAppReceived.Checked = True
                                     End If
                                     If IsDBNull(dr.Item("datDraftOnWeb")) Then
-                                        DTPDraftOnWeb.Text = OracleDate
+                                        DTPDraftOnWeb.Value = Today
                                         DTPDraftOnWeb.Checked = False
                                     Else
                                         DTPDraftOnWeb.Text = dr.Item("datDraftOnWeb")
                                         DTPDraftOnWeb.Checked = True
                                     End If
                                     If IsDBNull(dr.Item("datEPAStatesNotified")) Then
-                                        DTPEPAStatesNotified.Text = OracleDate
+                                        DTPEPAStatesNotified.Value = Today
                                         DTPEPAStatesNotified.Checked = False
                                     Else
                                         DTPEPAStatesNotified.Text = dr.Item("datEPAStatesNotified")
                                         DTPEPAStatesNotified.Checked = True
                                     End If
                                     If IsDBNull(dr.Item("datFinalOnWeb")) Then
-                                        DTPFinalOnWeb.Text = OracleDate
+                                        DTPFinalOnWeb.Value = Today
                                         DTPFinalOnWeb.Checked = False
                                     Else
                                         DTPFinalOnWeb.Text = dr.Item("datFinalOnWeb")
                                         DTPFinalOnWeb.Checked = True
                                     End If
                                     If IsDBNull(dr.Item("DatEPANotified")) Then
-                                        DTPEPANotifiedPermitOnWeb.Text = OracleDate
+                                        DTPEPANotifiedPermitOnWeb.Value = Today
                                         DTPEPANotifiedPermitOnWeb.Checked = False
                                     Else
                                         DTPEPANotifiedPermitOnWeb.Text = dr.Item("DatEPANotified")
                                         DTPEPANotifiedPermitOnWeb.Checked = True
                                     End If
                                     If IsDBNull(dr.Item("DatEffective")) Then
-                                        DTPEffectiveDateofPermit.Text = OracleDate
+                                        DTPEffectiveDateofPermit.Value = Today
                                         DTPEffectiveDateofPermit.Checked = False
                                     Else
                                         DTPEffectiveDateofPermit.Text = dr.Item("datEffective")
                                         DTPEffectiveDateofPermit.Checked = True
                                     End If
                                     If IsDBNull(dr.Item("datExperationDate")) Then
-                                        DTPExperationDate.Text = OracleDate
+                                        DTPExperationDate.Value = Today
                                         DTPExperationDate.Checked = False
                                     Else
                                         DTPExperationDate.Checked = True
@@ -4125,7 +4125,7 @@ Public Class SSPPApplicationTrackingLog
                                         txtEPATargetedComments.Text = dr.Item("strTargeted")
                                     End If
                                     If IsDBNull(dr.Item("datPNExpires")) Then
-                                        DTPPNExpires.Text = OracleDate
+                                        DTPPNExpires.Value = Today
                                         DTPPNExpires.Checked = False
                                     Else
                                         DTPPNExpires.Checked = True
@@ -4783,28 +4783,25 @@ Public Class SSPPApplicationTrackingLog
                     queriesList.Add("Insert into SSPPApplicationMaster " &
                                     "(strApplicationNumber, strAIRSNumber, " &
                                     "strModifingPerson, datModifingDate) " &
-                                    "values (@appnumber, @airsnumber, @updateuser, @updatedate) ")
+                                    "values (@appnumber, @airsnumber, @updateuser, GETDATE() ) ")
                     parametersList.Add({New SqlParameter("@appnumber", txtApplicationNumber.Text),
                                         New SqlParameter("@airsnumber", "0413" & txtAIRSNumber.Text),
-                                        New SqlParameter("@updateuser", CurrentUser.UserID),
-                                        New SqlParameter("@updatedate", OracleDate)})
+                                        New SqlParameter("@updateuser", CurrentUser.UserID)})
 
                     queriesList.Add("Insert into SSPPApplicationData " &
                                     "(strApplicationNumber, strModifingPerson, " &
                                     "datModifingDate) " &
-                                    "values (@appnumber, @updateuser, @updatedate) ")
+                                    "values (@appnumber, @updateuser, GETDATE() ) ")
                     parametersList.Add({New SqlParameter("@appnumber", txtApplicationNumber.Text),
-                                        New SqlParameter("@updateuser", CurrentUser.UserID),
-                                        New SqlParameter("@updatedate", OracleDate)})
+                                        New SqlParameter("@updateuser", CurrentUser.UserID)})
 
                     queriesList.Add("Insert into SSPPApplicationTracking " &
                                     "(strApplicationNumber, strSubmittalNumber, " &
                                     " strModifingPerson, datModifingDate) " &
-                                    "values (@appnumber, @submittalnumber, @updateuser, @updatedate) ")
+                                    "values (@appnumber, @submittalnumber, @updateuser, GETDATE() ) ")
                     parametersList.Add({New SqlParameter("@appnumber", txtApplicationNumber.Text),
                                         New SqlParameter("@submittalnumber", "1"),
-                                        New SqlParameter("@updateuser", CurrentUser.UserID),
-                                        New SqlParameter("@updatedate", OracleDate)})
+                                        New SqlParameter("@updateuser", CurrentUser.UserID)})
 
                     DB.RunCommand(queriesList, parametersList)
                 End If
@@ -4866,7 +4863,7 @@ Public Class SSPPApplicationTrackingLog
                     Unit = cboApplicationUnit.SelectedValue
                 End If
                 If chbClosedOut.Checked = True Then
-                    DateFinalized = OracleDate
+                    DateFinalized = TodayFormatted
                 Else
                     DateFinalized = ""
                 End If
@@ -5113,7 +5110,7 @@ Public Class SSPPApplicationTrackingLog
                 "STRSIGNIFICANTCOMMENTS = @SignificantComments, " &
                 "strPublicInvolvement = @PublicInvolved, " &
                 "strModifingperson = @UserGCode, " &
-                "datModifingdate = @OracleDate " &
+                "datModifingdate = GETDATE() " &
                 "where strApplicationNumber = @txtApplicationNumber "
                 parameters = {
                     New SqlParameter("@FacilityName", FacilityName),
@@ -5136,7 +5133,6 @@ Public Class SSPPApplicationTrackingLog
                     New SqlParameter("@SignificantComments", SignificantComments),
                     New SqlParameter("@PublicInvolved", PublicInvolved),
                     New SqlParameter("@UserGCode", CurrentUser.UserID),
-                    New SqlParameter("@OracleDate", OracleDate),
                     New SqlParameter("@txtApplicationNumber", txtApplicationNumber.Text)
                 }
                 DB.RunCommand(query, parameters)
@@ -5231,7 +5227,7 @@ Public Class SSPPApplicationTrackingLog
                 "datWithdrawn = @Withdrawn, " &
                 "datDraftIssued = @DraftIssued, " &
                 "strModifingPerson = @UserGCode, " &
-                "datModifingDate = @OracleDate, " &
+                "datModifingDate = GETDATE() , " &
                 "datEPAWaived = @EPAWaived, " &
                 "datEPAEnds = @EPAEnds, " &
                 "datToBranchCheif = @ToBC, " &
@@ -5254,7 +5250,6 @@ Public Class SSPPApplicationTrackingLog
                     New SqlParameter("@Withdrawn", Withdrawn),
                     New SqlParameter("@DraftIssued", DraftIssued),
                     New SqlParameter("@UserGCode", CurrentUser.UserID),
-                    New SqlParameter("@OracleDate", OracleDate),
                     New SqlParameter("@EPAWaived", EPAWaived),
                     New SqlParameter("@EPAEnds", EPAEnds),
                     New SqlParameter("@ToBC", ToBC),
@@ -5284,13 +5279,12 @@ Public Class SSPPApplicationTrackingLog
                             "datFinalizedDate = @DateFinalized, " &
                             "strPermitType = @PermitType, " &
                             "strModifingperson = @UserGCode, " &
-                            "datModifingdate = @OracleDate " &
+                            "datModifingdate = GETDATE() " &
                             "where strApplicationNumber = @LinkedApplication ")
                             parametersList.Add({
                                 New SqlParameter("@DateFinalized", DateFinalized),
                                 New SqlParameter("@PermitType", PermitType),
                                 New SqlParameter("@UserGCode", CurrentUser.UserID),
-                                New SqlParameter("@OracleDate", OracleDate),
                                 New SqlParameter("@LinkedApplication", LinkedApplication)
                             })
 
@@ -5307,7 +5301,7 @@ Public Class SSPPApplicationTrackingLog
                            "strSignificantComments = @SignificantComments, " &
                            "strPublicInvolvement = @PublicInvolved, " &
                            "strModifingperson = @UserGCode , " &
-                           "datModifingdate = @OracleDate  " &
+                           "datModifingdate = GETDATE() " &
                            "where strApplicationNumber = @LinkedApplication ")
                             parametersList.Add({
                                                New SqlParameter("@OperationalStatus", OperationalStatus),
@@ -5322,7 +5316,6 @@ Public Class SSPPApplicationTrackingLog
                                                New SqlParameter("@SignificantComments", SignificantComments),
                                                New SqlParameter("@PublicInvolved", PublicInvolved),
                                                New SqlParameter("@UserGCode", CurrentUser.UserID),
-                                               New SqlParameter("@OracleDate", OracleDate),
                                                New SqlParameter("@LinkedApplication", LinkedApplication)
                                            })
 
@@ -5336,7 +5329,7 @@ Public Class SSPPApplicationTrackingLog
                             "datToBranchCheif = @ToBC , " &
                             "datToDirector = @ToDO , " &
                             "strModifingPerson = @UserGCode , " &
-                            "datModifingDate = @OracleDate  " &
+                            "datModifingDate = GETDATE() " &
                             "where strApplicationNumber = @LinkedApplication  ")
                             parametersList.Add({
                                                New SqlParameter("@PermitIssued", PermitIssued),
@@ -5348,7 +5341,6 @@ Public Class SSPPApplicationTrackingLog
                                                New SqlParameter("@ToBC", ToBC),
                                                New SqlParameter("@ToDO", ToDO),
                                                New SqlParameter("@UserGCode", CurrentUser.UserID),
-                                               New SqlParameter("@OracleDate", OracleDate),
                                                New SqlParameter("@LinkedApplication", LinkedApplication)
                                            })
 
@@ -5561,7 +5553,7 @@ Public Class SSPPApplicationTrackingLog
                         "datInformationReceived = @DateInfoReceived , " &
                         "strInformationReceived = @InformationReceived , " &
                         "strModifingPerson = @UserGCode , " &
-                        "datModifingDate = @OracleDate  " &
+                        "datModifingDate = GETDATE() " &
                         "where strApplicationNumber = @txtApplicationNumber " &
                         "and strRequestKey = @InformationRequestKey  "
                         parameter = {
@@ -5570,7 +5562,6 @@ Public Class SSPPApplicationTrackingLog
                             New SqlParameter("@DateInfoReceived", DateInfoReceived),
                             New SqlParameter("@InformationReceived", InformationReceived),
                             New SqlParameter("@UserGCode", CurrentUser.UserID),
-                            New SqlParameter("@OracleDate", OracleDate),
                             New SqlParameter("@txtApplicationNumber", txtApplicationNumber.Text),
                             New SqlParameter("@InformationRequestKey", InformationRequestKey)
                         }
@@ -5585,7 +5576,7 @@ Public Class SSPPApplicationTrackingLog
                         "(@txtApplicationNumber, @InformationRequestKey , " &
                         "@DateInfoRequested , @InformationRequested , " &
                         "@DateInfoReceived , @InformationReceived , " &
-                        "@UserGCode , @OracleDate ) "
+                        "@UserGCode , GETDATE() ) "
                         parameter = {
                             New SqlParameter("@txtApplicationNumber", txtApplicationNumber.Text),
                             New SqlParameter("@InformationRequestKey", InformationRequestKey),
@@ -5593,8 +5584,7 @@ Public Class SSPPApplicationTrackingLog
                             New SqlParameter("@InformationRequested", InformationRequested),
                             New SqlParameter("@DateInfoReceived", DateInfoReceived),
                             New SqlParameter("@InformationReceived", InformationReceived),
-                            New SqlParameter("@UserGCode", CurrentUser.UserID),
-                            New SqlParameter("@OracleDate", OracleDate)
+                            New SqlParameter("@UserGCode", CurrentUser.UserID)
                         }
                     End If
                     DB.RunCommand(query, parameter)
@@ -5630,9 +5620,9 @@ Public Class SSPPApplicationTrackingLog
                 DB.RunCommand(query, parameter)
 
                 txtInformationRequestedKey.Clear()
-                DTPInformationRequested.Text = OracleDate
+                DTPInformationRequested.Value = Today
                 txtInformationRequested.Clear()
-                DTPInformationReceived.Text = OracleDate
+                DTPInformationReceived.Value = Today
                 txtInformationReceived.Clear()
                 LoadInformationRequestedHistory()
 
@@ -5643,7 +5633,7 @@ Public Class SSPPApplicationTrackingLog
         End Try
     End Sub
     Sub SaveApplicationSubmitForReview()
-        Dim DateReviewSubmitted As String = OracleDate
+        Dim DateReviewSubmitted As String = TodayFormatted
 
         Try
 
@@ -5651,7 +5641,7 @@ Public Class SSPPApplicationTrackingLog
                 If DTPReviewSubmitted.Checked = True Then
                     DateReviewSubmitted = DTPReviewSubmitted.Text
                 Else
-                    DateReviewSubmitted = OracleDate
+                    DateReviewSubmitted = TodayFormatted
                 End If
 
                 If DAL.Sspp.ApplicationExists(txtApplicationNumber.Text) Then
@@ -6656,13 +6646,12 @@ Public Class SSPPApplicationTrackingLog
                     "values " &
                     "(@txtApplicationNumber, @ActionNumber , " &
                     "@UpdateStatus , @UserGCode , " &
-                    "@OracleDate ) "
+                    " GETDATE() ) "
                 params = {
                     New SqlParameter("@txtApplicationNumber", txtApplicationNumber.Text),
                     New SqlParameter("@ActionNumber", ActionNumber),
                     New SqlParameter("@UpdateStatus", UpdateStatus),
-                    New SqlParameter("@UserGCode", CurrentUser.UserID),
-                    New SqlParameter("@OracleDate", OracleDate)
+                    New SqlParameter("@UserGCode", CurrentUser.UserID)
                 }
                 DB.RunCommand(query, params)
 
@@ -6803,7 +6792,7 @@ Public Class SSPPApplicationTrackingLog
             "strComments = @Comments , " &
             "strModifingLocation = '1', " &
             "strModifingPerson = @UserGCode , " &
-            "datModifingdate = @OracleDate  " &
+            "datModifingdate = GETDATE() " &
             "where strAIRSNumber = @airs ")
             paramsList.Add(
                 {New SqlParameter("@FacilityName", FacilityName),
@@ -6813,7 +6802,6 @@ Public Class SSPPApplicationTrackingLog
                  New SqlParameter("@ZipCode", ZipCode),
                  New SqlParameter("@Comments", "Updated by " & CurrentUser.AlphaName & ", through Permitting Action."),
                  New SqlParameter("@UserGCode", CurrentUser.UserID),
-                 New SqlParameter("@OracleDate", OracleDate),
                  New SqlParameter("@airs", "0413" & txtAIRSNumber.Text)
                 })
 
@@ -6836,7 +6824,7 @@ Public Class SSPPApplicationTrackingLog
             "strComments = @Comments , " &
             "strModifingLocation = '1', " &
             "strModifingPerson = @UserGCode , " &
-            "datModifingDate = @OracleDate  " &
+            "datModifingDate = GETDATE() " &
             "where strAIRSNumber = @airs ")
             paramsList.Add(
                 {New SqlParameter("@OpStatus", OpStatus),
@@ -6848,7 +6836,6 @@ Public Class SSPPApplicationTrackingLog
                  New SqlParameter("@StateProgramCodes", StateProgramCodes),
                  New SqlParameter("@Comments", "Updated by " & CurrentUser.AlphaName & ", through Permitting Action."),
                  New SqlParameter("@UserGCode", CurrentUser.UserID),
-                 New SqlParameter("@OracleDate", OracleDate),
                  New SqlParameter("@airs", "0413" & txtAIRSNumber.Text)
                 })
             DB.RunCommand(queryList, paramsList)
@@ -6992,13 +6979,12 @@ Public Class SSPPApplicationTrackingLog
              "values " &
              "(@airs, @pKey, " &
              "'OT', 'C', " &
-             "@UserGCode , @OracleDate , " &
+             "@UserGCode , GETDATE() , " &
              "'O')"
             params = {
                 New SqlParameter("@airs", "0413" & txtAIRSNumber.Text),
                 New SqlParameter("@pKey", pKey),
-                New SqlParameter("@UserGCode", CurrentUser.UserID),
-                New SqlParameter("@OracleDate", OracleDate)
+                New SqlParameter("@UserGCode", CurrentUser.UserID)
             }
             DB.RunCommand(query, params)
         Else
@@ -7472,12 +7458,12 @@ Public Class SSPPApplicationTrackingLog
                             row("docPermitData") = rawData
                             row("strDocFileSize") = rawData.Length
                             row("strDocModifingPerson") = CurrentUser.UserID
-                            row("datDocModifingDate") = OracleDate
+                            row("datDocModifingDate") = TodayFormatted
                         Else
                             row("pdfPermitData") = rawData
                             row("strPDFFileSize") = rawData.Length
                             row("strPDFModifingPerson") = CurrentUser.UserID
-                            row("datPDFModifingDate") = OracleDate
+                            row("datPDFModifingDate") = TodayFormatted
                         End If
                         ds.Tables("PDF").Rows.Add(row)
                         da.Update(ds, "PDF")
@@ -7556,7 +7542,7 @@ Public Class SSPPApplicationTrackingLog
             txtAIRSNumber.Clear()
             txtOutstandingApplication.Clear()
             chbClosedOut.Checked = False
-            DTPFinalizedDate.Text = OracleDate
+            DTPFinalizedDate.Value = Today
             DTPFinalizedDate.Visible = False
             rtbFacilityInformation.Clear()
             cboEngineer.SelectedIndex = 0
@@ -7589,28 +7575,28 @@ Public Class SSPPApplicationTrackingLog
             chbCDS_RMP.Checked = False
 
             txtPlantDescription.Clear()
-            DTPDateSent.Text = OracleDate
-            DTPDateReceived.Text = OracleDate
+            DTPDateSent.Value = Today
+            DTPDateReceived.Value = Today
             DTPDateAssigned.Checked = False
-            DTPDateAssigned.Text = OracleDate
+            DTPDateAssigned.Value = Today
             DTPDateReassigned.Checked = False
-            DTPDateReassigned.Text = OracleDate
+            DTPDateReassigned.Value = Today
             DTPDateAcknowledge.Checked = False
-            DTPDateAcknowledge.Text = OracleDate
+            DTPDateAcknowledge.Value = Today
             DTPDatePAExpires.Checked = False
-            DTPDatePAExpires.Text = OracleDate
+            DTPDatePAExpires.Value = Today
             DTPDatePNExpires.Checked = False
-            DTPDatePNExpires.Text = OracleDate
+            DTPDatePNExpires.Value = Today
             DTPDeadline.Checked = False
-            DTPDeadline.Text = OracleDate
+            DTPDeadline.Value = Today
             DTPDateToUC.Checked = False
-            DTPDateToUC.Text = OracleDate
+            DTPDateToUC.Value = Today
             DTPDateToPM.Checked = False
-            DTPDateToPM.Text = OracleDate
+            DTPDateToPM.Value = Today
             DTPFinalAction.Checked = False
-            DTPFinalAction.Text = OracleDate
+            DTPFinalAction.Value = Today
             DTPDraftIssued.Checked = False
-            DTPDraftIssued.Text = OracleDate
+            DTPDraftIssued.Value = Today
             txtPermitNumber.Clear()
             cboPermitAction.SelectedIndex = 0
             cboPublicAdvisory.Text = ""
@@ -7635,8 +7621,8 @@ Public Class SSPPApplicationTrackingLog
         Try
 
             'dgrInformationRequested()
-            DTPInformationRequested.Text = OracleDate
-            DTPInformationReceived.Text = OracleDate
+            DTPInformationRequested.Value = Today
+            DTPInformationReceived.Value = Today
             txtInformationRequested.Clear()
             txtInformationReceived.Clear()
         Catch ex As Exception
@@ -7646,14 +7632,14 @@ Public Class SSPPApplicationTrackingLog
     Sub ClearReviewTab()
         Try
 
-            DTPReviewSubmitted.Text = OracleDate
+            DTPReviewSubmitted.Value = Today
             cboSSCPStaff.SelectedIndex = 0
-            DTPSSCPReview.Text = OracleDate
+            DTPSSCPReview.Value = Today
             rdbSSCPYes.Checked = False
             rdbSSCPNo.Checked = False
             txtSSCPComments.Clear()
             cboISMPStaff.SelectedIndex = 0
-            DTPISMPReview.Text = OracleDate
+            DTPISMPReview.Value = Today
             rdbISMPYes.Checked = False
             rdbISMPNo.Checked = False
             txtISMPComments.Clear()
@@ -7668,7 +7654,7 @@ Public Class SSPPApplicationTrackingLog
 
             If chbClosedOut.Checked = True Then
                 CloseOutApplication("True")
-                DTPFinalizedDate.Text = OracleDate
+                DTPFinalizedDate.Value = Today
                 DTPFinalizedDate.Visible = False
             Else
                 CloseOutApplication("False")
@@ -7766,10 +7752,10 @@ Public Class SSPPApplicationTrackingLog
         Try
 
             txtInformationRequestedKey.Clear()
-            DTPInformationRequested.Text = OracleDate
+            DTPInformationRequested.Value = Today
             DTPInformationRequested.Checked = False
             txtInformationRequested.Clear()
-            DTPInformationReceived.Text = OracleDate
+            DTPInformationReceived.Value = Today
             DTPInformationReceived.Checked = False
             txtInformationReceived.Clear()
         Catch ex As Exception
@@ -8065,7 +8051,7 @@ Public Class SSPPApplicationTrackingLog
                     txtInformationRequestedKey.Text = dgvInformationRequested(1, hti.RowIndex).Value
                     temp = dgvInformationRequested(2, hti.RowIndex).Value
                     If temp = " " Then
-                        DTPInformationRequested.Text = OracleDate
+                        DTPInformationRequested.Value = Today
                         DTPInformationRequested.Checked = False
                     Else
                         DTPInformationRequested.Text = temp
@@ -8074,7 +8060,7 @@ Public Class SSPPApplicationTrackingLog
                     txtInformationRequested.Text = dgvInformationRequested(3, hti.RowIndex).Value
                     temp = dgvInformationRequested(4, hti.RowIndex).Value
                     If temp = " " Then
-                        DTPInformationReceived.Text = OracleDate
+                        DTPInformationReceived.Value = Today
                         DTPInformationReceived.Checked = False
                     Else
                         DTPInformationReceived.Text = temp
@@ -8493,7 +8479,7 @@ Public Class SSPPApplicationTrackingLog
             If cboPublicAdvisory.Text = "PA Not Needed" Then
                 chbPAReady.Checked = False
                 chbPAReady.Visible = False
-                DTPDatePAExpires.Text = OracleDate
+                DTPDatePAExpires.Value = Today
                 DTPDatePAExpires.Visible = False
                 lblDatePAExpires.Visible = False
             Else
@@ -8541,9 +8527,9 @@ Public Class SSPPApplicationTrackingLog
                 txtInformationRequested.Clear()
                 txtInformationReceived.Clear()
                 txtInformationRequestedKey.Clear()
-                DTPInformationRequested.Text = OracleDate
+                DTPInformationRequested.Value = Today
                 DTPInformationRequested.Checked = False
-                DTPInformationReceived.Text = OracleDate
+                DTPInformationReceived.Value = Today
                 DTPInformationReceived.Checked = False
                 dgvInformationRequested.DataSource = Nothing
             End If
@@ -11759,7 +11745,7 @@ Public Class SSPPApplicationTrackingLog
                 dgvRow.Cells(0).Value = txtApplicationNumber.Text
                 dgvRow.Cells(1).Value = Subpart
                 dgvRow.Cells(2).Value = Desc
-                dgvRow.Cells(3).Value = OracleDate
+                dgvRow.Cells(3).Value = TodayFormatted
                 dgvRow.Cells(4).Value = "Added"
                 dgvSIPSubParts.Rows.Add(dgvRow)
                 i = dgvSIPSubParts.Rows.Count - 1
@@ -11780,7 +11766,7 @@ Public Class SSPPApplicationTrackingLog
                 dgvRow.CreateCells(dgvSIPSubpartAddEdit)
                 dgvRow.Cells(0).Value = Subpart
                 dgvRow.Cells(1).Value = Desc
-                dgvRow.Cells(2).Value = OracleDate
+                dgvRow.Cells(2).Value = TodayFormatted
                 dgvRow.Cells(3).Value = "Added"
                 dgvSIPSubpartAddEdit.Rows.Add(dgvRow)
                 i = dgvSIPSubpartAddEdit.Rows.Count - 1
@@ -12693,7 +12679,7 @@ Public Class SSPPApplicationTrackingLog
                 dgvRow.Cells(0).Value = txtApplicationNumber.Text
                 dgvRow.Cells(1).Value = Subpart
                 dgvRow.Cells(2).Value = Desc
-                dgvRow.Cells(3).Value = OracleDate
+                dgvRow.Cells(3).Value = TodayFormatted
                 dgvRow.Cells(4).Value = "Added"
                 dgvNSPSSubParts.Rows.Add(dgvRow)
                 i = dgvNSPSSubParts.Rows.Count - 1
@@ -12714,7 +12700,7 @@ Public Class SSPPApplicationTrackingLog
                 dgvRow.CreateCells(dgvNSPSSubpartAddEdit)
                 dgvRow.Cells(0).Value = Subpart
                 dgvRow.Cells(1).Value = Desc
-                dgvRow.Cells(2).Value = OracleDate
+                dgvRow.Cells(2).Value = TodayFormatted
                 dgvRow.Cells(3).Value = "Added"
                 dgvNSPSSubpartAddEdit.Rows.Add(dgvRow)
                 i = dgvNSPSSubpartAddEdit.Rows.Count - 1
@@ -13928,7 +13914,7 @@ Public Class SSPPApplicationTrackingLog
                 dgvRow.Cells(0).Value = txtApplicationNumber.Text
                 dgvRow.Cells(1).Value = Subpart
                 dgvRow.Cells(2).Value = Desc
-                dgvRow.Cells(3).Value = OracleDate
+                dgvRow.Cells(3).Value = TodayFormatted
                 dgvRow.Cells(4).Value = "Added"
                 dgvNESHAPSubParts.Rows.Add(dgvRow)
                 i = dgvNESHAPSubParts.Rows.Count - 1
@@ -13949,7 +13935,7 @@ Public Class SSPPApplicationTrackingLog
                 dgvRow.CreateCells(dgvNESHAPSubpartAddEdit)
                 dgvRow.Cells(0).Value = Subpart
                 dgvRow.Cells(1).Value = Desc
-                dgvRow.Cells(2).Value = OracleDate
+                dgvRow.Cells(2).Value = TodayFormatted
                 dgvRow.Cells(3).Value = "Added"
                 dgvNESHAPSubpartAddEdit.Rows.Add(dgvRow)
                 i = dgvNESHAPSubpartAddEdit.Rows.Count - 1
@@ -14860,7 +14846,7 @@ Public Class SSPPApplicationTrackingLog
                 dgvRow.Cells(0).Value = txtApplicationNumber.Text
                 dgvRow.Cells(1).Value = Subpart
                 dgvRow.Cells(2).Value = Desc
-                dgvRow.Cells(3).Value = OracleDate
+                dgvRow.Cells(3).Value = TodayFormatted
                 dgvRow.Cells(4).Value = "Added"
                 dgvMACTSubParts.Rows.Add(dgvRow)
                 i = dgvMACTSubParts.Rows.Count - 1
@@ -14881,7 +14867,7 @@ Public Class SSPPApplicationTrackingLog
                 dgvRow.CreateCells(dgvMACTSubpartAddEdit)
                 dgvRow.Cells(0).Value = Subpart
                 dgvRow.Cells(1).Value = Desc
-                dgvRow.Cells(2).Value = OracleDate
+                dgvRow.Cells(2).Value = TodayFormatted
                 dgvRow.Cells(3).Value = "Added"
                 dgvMACTSubpartAddEdit.Rows.Add(dgvRow)
                 i = dgvMACTSubpartAddEdit.Rows.Count - 1

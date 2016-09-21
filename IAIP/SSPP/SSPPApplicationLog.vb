@@ -670,10 +670,10 @@ Public Class SSPPApplicationLog
                 cboEngineer.SelectedIndex = 0
             End If
 
-            DTPSearchDate1.Text = OracleDate
-            DTPSearchDate1b.Text = OracleDate
-            DTPSearchDate2.Text = OracleDate
-            DTPSearchDate2b.Text = OracleDate
+            DTPSearchDate1.Value = Today
+            DTPSearchDate1b.Value = Today
+            DTPSearchDate2.Value = Today
+            DTPSearchDate2b.Value = Today
             txtSearchText1.Clear()
             txtSearchText2.Clear()
 

@@ -51,6 +51,12 @@ Module AppVariables
     Friend Const DisplayZeroAsBlank As String = "0;; "
     Friend Const DisplayZeroAsNA As String = "0;;N/A"
 
+    Friend ReadOnly Property TodayFormatted As String
+        Get
+            Return Format(Today, DateFormat)
+        End Get
+    End Property
+
 #End Region
 
 #Region " Regional constants "
@@ -72,10 +78,6 @@ Module AppVariables
 
 #Region " Old public variables "
     ' TODO: Destroy these
-
-    ' Replace in SQL Server with GETDATE() (and check for parameter data types)
-    ' Replace in code with Today
-    Public OracleDate As String = Format(Today, DateFormat)
 
     Public AccountFormAccess(150, 4) As String
 

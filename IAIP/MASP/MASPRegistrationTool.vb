@@ -354,12 +354,12 @@ Public Class MASPRegistrationTool
                     txtEventDescription.Text = dr.Item("strDescription")
                 End If
                 If IsDBNull(dr.Item("datStartDate")) Then
-                    DTPEventDate.Text = OracleDate
+                    DTPEventDate.Value = Today
                 Else
                     DTPEventDate.Text = dr.Item("datStartDate")
                 End If
                 If IsDBNull(dr.Item("datEndDate")) Then
-                    DTPEventEndDate.Text = OracleDate
+                    DTPEventEndDate.Value = Today
                     DTPEventEndDate.Checked = False
                 Else
                     DTPEventEndDate.Text = dr.Item("datEndDate")
@@ -684,8 +684,8 @@ Public Class MASPRegistrationTool
     Private Sub ClearEventManagementForm()
         txtEventTitle.Clear()
         txtEventDescription.Clear()
-        DTPEventDate.Text = OracleDate
-        DTPEventEndDate.Text = OracleDate
+        DTPEventDate.Value = Today
+        DTPEventEndDate.Value = Today
         DTPEventEndDate.Checked = False
         txtEventTime.Clear()
         txtEventEndTime.Clear()
@@ -1192,7 +1192,7 @@ Public Class MASPRegistrationTool
             If SQL <> "" Then
                 SQL = "Update Res_Event set " &
                 SQL & "updateUser = '" & CurrentUser.UserID & "', " &
-                "updateDateTime = '" & OracleDate & "' " &
+                "updateDateTime =  GETDATE()  " &
                 "where numRes_EventID = '" & Res_EventID & "' "
                 cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then

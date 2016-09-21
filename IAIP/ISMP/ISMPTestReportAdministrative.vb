@@ -33,7 +33,7 @@ Public Class ISMPTestReportAdministrative
 
             Panel1.Text = "Select a Function..."
             Panel2.Text = CurrentUser.AlphaName
-            Panel3.Text = OracleDate
+            Panel3.Text = TodayFormatted
 
             'These two were commented out to speed up the loading of this form
             'FillFacilityDataSet()
@@ -47,8 +47,8 @@ Public Class ISMPTestReportAdministrative
             bgw1.WorkerSupportsCancellation = True
             bgw1.RunWorkerAsync()
 
-            dtpAddTestReportDateReceived.Text = OracleDate
-            DTPAddTestReportDateCompleted.Text = OracleDate
+            dtpAddTestReportDateReceived.Value = Today
+            DTPAddTestReportDateCompleted.Value = Today
 
 
         Catch ex As Exception
@@ -560,7 +560,7 @@ Public Class ISMPTestReportAdministrative
                 Else
                     SQL = "Insert into ISMPMaster values ('" & txtReferenceNumber.Text & "', " &
                     "'0413" & AIRSNumber & "', '" & CurrentUser.UserID & "', " &
-                    "'" & OracleDate & "')"
+                    " GETDATE() )"
 
                     'This SQl statement was changed on 15-Oct-09 when LookUpAPBManagementType was created. MFloyd
 
@@ -633,7 +633,7 @@ Public Class ISMPTestReportAdministrative
            "AND SSCPDistrictResponsible.strAIRSNumber = Table1.strAIRSnumber (+) " &
            "AND SUBSTRING(SSCPDistrictResponsible.strAIRSNumber, 5, 3) = strDistrictCounty (+) " &
            "AND SSCPDistrictResponsible.strAIRSNumber = '0413" & cboAIRSNumber.Text & "'), " &
-           "'" & CurrentUser.UserID & "', '" & OracleDate & "', " &
+           "'" & CurrentUser.UserID & "', GETDATE() , " &
            "'N/A', '', '')"
 
                 End If
@@ -781,7 +781,7 @@ Public Class ISMPTestReportAdministrative
                                     "values " &
                                     "('" & RefNum & "', '" & AFSActionNumber & "', " &
                                     "'A', '" & CurrentUser.UserID & "', " &
-                                    "'" & OracleDate & "') "
+                                    " GETDATE() ) "
 
                                     cmd = New SqlCommand(SQL, CurrentConnection)
                                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -928,7 +928,7 @@ Public Class ISMPTestReportAdministrative
                         DTPTestDateStart.Text = dr.Item("forDatTestDateStart")
                         DTPTestDateEnd.Text = dr.Item("forDatTestDateEnd")
                         If dr.Item("forDateComplete") = "04-Jul-1776" Then
-                            txtDaysInAPB.Text = DateDiff(DateInterval.Day, CDate(dr.Item("forDatReceivedDate")), CDate(OracleDate))
+                            txtDaysInAPB.Text = DateDiff(DateInterval.Day, CDate(dr.Item("forDatReceivedDate")), Today)
                         Else
                             txtDaysInAPB.Text = DateDiff(DateInterval.Day, CDate(dr.Item("forDatReceivedDate")), CDate(dr.Item("forDateComplete")))
                         End If
@@ -945,7 +945,7 @@ Public Class ISMPTestReportAdministrative
                         If dr.Item("forDateComplete") <> "04-Jul-1776" Then
                             DTPDateClosed.Text = dr.Item("forDateComplete")
                         Else
-                            DTPDateClosed.Text = OracleDate
+                            DTPDateClosed.Value = Today
                         End If
                     End While
                     dr.Close()
@@ -985,16 +985,16 @@ Public Class ISMPTestReportAdministrative
             txtFacilityCity.Clear()
             txtFacilityState.Clear()
             txtFacilityZipCode.Clear()
-            DTPDateReceived.Value = OracleDate
-            DTPTestDateStart.Value = OracleDate
-            DTPTestDateEnd.Value = OracleDate
+            DTPDateReceived.Value = Today
+            DTPTestDateStart.Value = Today
+            DTPTestDateEnd.Value = Today
             txtEmissionSource.Clear()
             cboTestingFirms.Text = ""
             cboPollutant.Text = ""
             txtDaysInAPB.Clear()
             rdbOpenReport.Checked = True
             rdbCloseReport.Checked = False
-            DTPDateClosed.Text = OracleDate
+            DTPDateClosed.Value = Today
             TBFacilityInfo.Buttons.Item(0).Enabled = True
             If cboTestingFirms.SelectedIndex > -1 Then
                 cboTestingFirms.SelectedIndex = 0
@@ -1144,7 +1144,7 @@ Public Class ISMPTestReportAdministrative
                 "(SSCPTrackingNumber.nextval, '0413" & cboAIRSNumber.Text & "', " &
                 "'" & DTPDateClosed.Text & "', '03', " &
                 "'" & StaffResponsible & "', '', " &
-                "'" & CurrentUser.UserID & "', '" & OracleDate & "')"
+                "'" & CurrentUser.UserID & "',  GETDATE() )"
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -1174,7 +1174,7 @@ Public Class ISMPTestReportAdministrative
                 "('" & TrackingNumber & "', '" & RefNum & "', " &
                 "'" & TestReportDue & "', " &
                 "' ', 'False', " &
-                "'" & CurrentUser.UserID & "', '" & OracleDate & "') "
+                "'" & CurrentUser.UserID & "',  GETDATE() ) "
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -2495,7 +2495,7 @@ Public Class ISMPTestReportAdministrative
                 SQL = "Insert into ISMPMaster " &
                 "values " &
                 "('" & RefNum & "', '0413" & AIRSNumber & "', " &
-                "'" & CurrentUser.UserID & "', '" & OracleDate & "') "
+                "'" & CurrentUser.UserID & "',  GETDATE() ) "
                 cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
@@ -2518,7 +2518,7 @@ Public Class ISMPTestReportAdministrative
                 "'False', '" & Replace(Commissioner, "'", "''") & "', " &
                 "'" & Replace(Director, "'", "''") & "', '" & Replace(ProgramManager, "'", "''") & "', " &
                 "'01', '0', " &
-                "'" & CurrentUser.UserID & "', '" & OracleDate & "', " &
+                "'" & CurrentUser.UserID & "',  GETDATE() , " &
                 "'N/A', '', " &
                 "'', '', " &
                 "'', '', '') "
@@ -2560,9 +2560,9 @@ Public Class ISMPTestReportAdministrative
             txtAddTestReportProgramManager.BackColor = Color.White
             mtbAddTestReportAIRSNumber.Clear()
             mtbAddTestReportAIRSNumber.BackColor = Color.White
-            dtpAddTestReportDateReceived.Text = OracleDate
+            dtpAddTestReportDateReceived.Value = Today
             dtpAddTestReportDateReceived.BackColor = Color.White
-            DTPAddTestReportDateCompleted.Text = OracleDate
+            DTPAddTestReportDateCompleted.Value = Today
             DTPAddTestReportDateCompleted.BackColor = Color.White
 
 

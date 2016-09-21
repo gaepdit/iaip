@@ -15,7 +15,7 @@ Public Class ISMPConfidentialData
         Try
             Panel1.Text = "Mark field to be redacted..."
             Panel2.Text = CurrentUser.AlphaName
-            Panel3.Text = OracleDate
+            Panel3.Text = TodayFormatted
 
             LoadData()
 

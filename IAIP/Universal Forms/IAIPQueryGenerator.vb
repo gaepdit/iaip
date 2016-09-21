@@ -31,7 +31,7 @@ Public Class IAIPQueryGenerator
         Try
             Panel1.Text = "Select Filter options...."
             Panel2.Text = CurrentUser.AlphaName
-            Panel3.Text = OracleDate
+            Panel3.Text = TodayFormatted
 
             cboCountySearch1.Visible = False
             cboCountySearch2.Visible = False
@@ -60,17 +60,17 @@ Public Class IAIPQueryGenerator
                 bgwQueryGenerator.RunWorkerAsync()
             End If
 
-            DTPStartUpDateSearch1.Text = OracleDate
+            DTPStartUpDateSearch1.Value = Today
             DTPStartUpDateSearch1.Checked = False
-            DTPStartUpDateSearch2.Text = OracleDate
+            DTPStartUpDateSearch2.Value = Today
             DTPStartUpDateSearch2.Checked = False
-            DTPShutDownDateSearch1.Text = OracleDate
+            DTPShutDownDateSearch1.Value = Today
             DTPShutDownDateSearch1.Checked = False
-            DTPShutDownDateSearch2.Text = OracleDate
+            DTPShutDownDateSearch2.Value = Today
             DTPShutDownDateSearch2.Checked = False
-            DTPLastFCESearch1.Text = OracleDate
+            DTPLastFCESearch1.Value = Today
             DTPLastFCESearch1.Checked = False
-            DTPLastFCESearch2.Text = OracleDate
+            DTPLastFCESearch2.Value = Today
             DTPLastFCESearch2.Checked = False
 
             TCQuerryOptions.Size = New Drawing.Size(TCQuerryOptions.Size.Width, 389)
@@ -3183,17 +3183,17 @@ Public Class IAIPQueryGenerator
 
             chbStartUpDate.Checked = False
             DTPStartUpDateSearch1.Checked = False
-            DTPStartUpDateSearch1.Text = OracleDate
+            DTPStartUpDateSearch1.Value = Today
             DTPStartUpDateSearch2.Checked = False
-            DTPStartUpDateSearch2.Text = OracleDate
+            DTPStartUpDateSearch2.Value = Today
             rdbStartUpDateBetween.Checked = True
             txtStartUpDateOrder.Clear()
 
             chbShutDownDate.Checked = False
             DTPShutDownDateSearch1.Checked = False
-            DTPShutDownDateSearch1.Text = OracleDate
+            DTPShutDownDateSearch1.Value = Today
             DTPShutDownDateSearch2.Checked = False
-            DTPShutDownDateSearch2.Text = OracleDate
+            DTPShutDownDateSearch2.Value = Today
             rdbShutDownDateBetween.Checked = True
             txtShutDownDateOrder.Clear()
 

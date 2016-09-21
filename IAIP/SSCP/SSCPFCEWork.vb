@@ -29,7 +29,7 @@ Public Class SSCPFCEWork
 
         Try
 
-            DTPFCECompleteDate.Text = OracleDate
+            DTPFCECompleteDate.Value = Today
             LoadHeaderData()
             LoadFCEDataset()
             FillFCEData()
@@ -1353,7 +1353,7 @@ Public Class SSCPFCEWork
                 'rdbFCEIncomplete.Checked = False
                 rdbFCEOnSite.Checked = False
                 rdbFCENoOnsite.Checked = False
-                DTPFCECompleteDate.Text = OracleDate
+                DTPFCECompleteDate.Value = Today
                 txtFCEComments.Clear()
             Else
                 SQL = "select " &
@@ -1377,7 +1377,7 @@ Public Class SSCPFCEWork
                 recExist = dr.Read
                 If recExist = True Then
                     If IsDBNull(dr.Item("datFCECompleted")) Then
-                        DTPFCECompleteDate.Text = OracleDate
+                        DTPFCECompleteDate.Value = Today
                     Else
                         DTPFCECompleteDate.Text = dr.Item("datFCECompleted")
                     End If
@@ -1818,7 +1818,7 @@ Public Class SSCPFCEWork
                     "strModifingPerson, datModifingDate) " &
                     "values " &
                     "('" & FCENumber & "', '0413" & txtAirsNumber.Text & "', " &
-                    "'" & CurrentUser.UserID & "', '" & OracleDate & "') "
+                    "'" & CurrentUser.UserID & "',  GETDATE() ) "
 
                     cmd = New SqlCommand(SQL, CurrentConnection)
                     dr = cmd.ExecuteReader
@@ -1830,7 +1830,7 @@ Public Class SSCPFCEWork
                     "values " &
                     "('" & FCENumber & "', '" & FCEStatus & "',  '" & StaffResponsible & "', " &
                     "'" & FCECompleteDate & "', '" & FCEComments & "', '" & CurrentUser.UserID & "', " &
-                    "'" & OracleDate & "', '" & FCEOnSite & "', '" & FCEYear & "') "
+                    " GETDATE() , '" & FCEOnSite & "', '" & FCEYear & "') "
 
                     cmd = New SqlCommand(SQL, CurrentConnection)
                     dr = cmd.ExecuteReader
@@ -1857,7 +1857,7 @@ Public Class SSCPFCEWork
                         "values " &
                         "('" & FCENumber & "', '" & ActionNumber & "', " &
                         "'A', '" & CurrentUser.UserID & "', " &
-                        "'" & OracleDate & "') "
+                        " GETDATE() ) "
                         cmd = New SqlCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
                             CurrentConnection.Open()
@@ -1894,7 +1894,7 @@ Public Class SSCPFCEWork
                     If recExist = True Then
                         SQL = "Update SSCPFCEMaster set " &
                         "strModifingPerson = '" & CurrentUser.UserID & "', " &
-                        "datModifingDate = '" & OracleDate & "' " &
+                        "datModifingDate =  GETDATE()  " &
                         "where strFCENumber = '" & FCENumber & "' "
 
                         cmd = New SqlCommand(SQL, CurrentConnection)
@@ -1906,7 +1906,7 @@ Public Class SSCPFCEWork
                         "DatFCECompleted = '" & FCECompleteDate & "', " &
                         "strFCEComments = '" & FCEComments & "', " &
                         "strModifingPerson = '" & CurrentUser.UserID & "', " &
-                        "datModifingDate = '" & OracleDate & "', " &
+                        "datModifingDate =  GETDATE() , " &
                         "strSiteInspection = '" & FCEOnSite & "', " &
                         "strFCEYear = '" & FCEYear & "' " &
                         "where strFCENumber = '" & FCENumber & "'"
@@ -1934,7 +1934,7 @@ Public Class SSCPFCEWork
     End Sub
     Sub Clear()
         Try
-            DTPFCECompleteDate.Text = OracleDate
+            DTPFCECompleteDate.Value = Today
             DTPFCECompleteDate.Checked = False
             txtFCEComments.Clear()
 

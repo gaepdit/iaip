@@ -29,7 +29,7 @@ Public Class SBEAPClientSummary
         Try
             pnl1.Text = "Client Summary"
             pnl2.Text = CurrentUser.AlphaName
-            pnl3.Text = OracleDate
+            pnl3.Text = TodayFormatted
 
             LoadDataSets()
             LoadComboBoxes()
@@ -390,7 +390,7 @@ Public Class SBEAPClientSummary
 
             txtCompanyName.Text = CompanyName
             If StartDate = "" Then
-                dtpStartDate.Text = OracleDate
+                dtpStartDate.Value = Today
             Else
                 Me.dtpStartDate.Text = StartDate
             End If
@@ -728,7 +728,7 @@ Public Class SBEAPClientSummary
                 End While
                 dr.Close()
 
-                txtContactCreationInfo.Text = CurrentUser.AlphaName & " - " & OracleDate
+                txtContactCreationInfo.Text = CurrentUser.AlphaName & " - " & TodayFormatted
             Else
                 SQL = "Update SBEAPClientContacts set " &
                 "strClientFirstName = '" & Replace(Firstname, "'", "''") & "', " &
@@ -756,7 +756,7 @@ Public Class SBEAPClientSummary
                 dr.Close()
             End If
 
-            txtContactLastModified.Text = CurrentUser.AlphaName & " - " & OracleDate
+            txtContactLastModified.Text = CurrentUser.AlphaName & " - " & TodayFormatted
 
             SQL = "Select " &
             "ClientID " &
@@ -942,8 +942,8 @@ Public Class SBEAPClientSummary
             End While
             dr.Close()
 
-            txtContactCreationInfo.Text = CurrentUser.AlphaName & " - " & OracleDate
-            txtContactLastModified.Text = CurrentUser.AlphaName & " - " & OracleDate
+            txtContactCreationInfo.Text = CurrentUser.AlphaName & " - " & TodayFormatted
+            txtContactLastModified.Text = CurrentUser.AlphaName & " - " & TodayFormatted
 
             SQL = "Select " &
             "ClientID " &
@@ -1129,7 +1129,7 @@ Public Class SBEAPClientSummary
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                txtContactLastModified.Text = CurrentUser.AlphaName & " - " & OracleDate
+                txtContactLastModified.Text = CurrentUser.AlphaName & " - " & TodayFormatted
 
                 SQL = "Select " &
                 "ClientID " &
@@ -2608,7 +2608,7 @@ Public Class SBEAPClientSummary
         Try
             txtCompanyName.Clear()
             txtClientID.Clear()
-            dtpStartDate.Text = OracleDate
+            dtpStartDate.Value = Today
             txtStreetAddress.Clear()
             txtStreetAddress2.Clear()
             txtCity.Clear()

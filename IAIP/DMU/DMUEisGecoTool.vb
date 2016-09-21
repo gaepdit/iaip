@@ -2280,7 +2280,7 @@ Public Class DMUEisGecoTool
                     "values (" &
                     "@STRAIRSNUMBER, " &
                     "@STRFACILITYNAME, " &
-                    "@DATTRANSACTION, " &
+                    " GETDATE() , " &
                     "@INTESYEAR, " &
                     "'3', " &
                     "@STRAIRSYEAR) "
@@ -2288,7 +2288,6 @@ Public Class DMUEisGecoTool
                     Dim params As SqlParameter() = {
                         New SqlParameter("@STRAIRSNUMBER", AirsNo),
                         New SqlParameter("@STRFACILITYNAME", FacilityName),
-                        New SqlParameter("@DATTRANSACTION", OracleDate),
                         New SqlParameter("@INTESYEAR", ESYear),
                         New SqlParameter("@STRAIRSYEAR", airsYear)
                     }
@@ -4739,10 +4738,10 @@ Public Class DMUEisGecoTool
 
             If dtpDeadlineEIS.Checked = True Then
                 Dim DeadLineComments As String = ""
-                If txtAllEISDeadlineComment.Text.Contains(dtpDeadlineEIS.Text & "(deadline)- " & CurrentUser.AlphaName & " - " & OracleDate & vbCrLf &
+                If txtAllEISDeadlineComment.Text.Contains(dtpDeadlineEIS.Text & "(deadline)- " & CurrentUser.AlphaName & " - " & TodayFormatted & vbCrLf &
                 txtEISDeadlineComment.Text) Then
                 Else
-                    DeadLineComments = dtpDeadlineEIS.Text & "(deadline)- " & CurrentUser.AlphaName & " - " & OracleDate & vbCrLf &
+                    DeadLineComments = dtpDeadlineEIS.Text & "(deadline)- " & CurrentUser.AlphaName & " - " & TodayFormatted & vbCrLf &
                     txtEISDeadlineComment.Text &
                     vbCrLf & vbCrLf & txtAllEISDeadlineComment.Text
 
@@ -4788,7 +4787,7 @@ Public Class DMUEisGecoTool
                     QAComplete = ""
                 End If
                 QAStatusCode = cboEISQAStatus.SelectedValue
-                QAStatusDate = OracleDate
+                QAStatusDate = TodayFormatted
                 StaffResponsible = cboEISQAStaff.Text
                 If txtQAComments.Text = "" Then
                     If txtAllQAComments.Text = "" Then
@@ -4798,9 +4797,9 @@ Public Class DMUEisGecoTool
                     End If
                 Else
                     If txtAllQAComments.Text = "" Then
-                        QAComments = CurrentUser.AlphaName & " - " & OracleDate & vbCrLf & txtQAComments.Text
+                        QAComments = CurrentUser.AlphaName & " - " & TodayFormatted & vbCrLf & txtQAComments.Text
                     Else
-                        QAComments = CurrentUser.AlphaName & " - " & OracleDate & vbCrLf & txtQAComments.Text & vbCrLf & vbCrLf &
+                        QAComments = CurrentUser.AlphaName & " - " & TodayFormatted & vbCrLf & txtQAComments.Text & vbCrLf & vbCrLf &
                              txtAllQAComments.Text
                     End If
                 End If
@@ -4812,9 +4811,9 @@ Public Class DMUEisGecoTool
                     End If
                 Else
                     If txtAllFITrackingNumbers.Text = "" Then
-                        FITracking = CurrentUser.AlphaName & " - " & OracleDate & vbCrLf & txtFITrackingNumber.Text
+                        FITracking = CurrentUser.AlphaName & " - " & TodayFormatted & vbCrLf & txtFITrackingNumber.Text
                     Else
-                        FITracking = CurrentUser.AlphaName & " - " & OracleDate & vbCrLf & txtFITrackingNumber.Text & vbCrLf & vbCrLf &
+                        FITracking = CurrentUser.AlphaName & " - " & TodayFormatted & vbCrLf & txtFITrackingNumber.Text & vbCrLf & vbCrLf &
                                     txtAllFITrackingNumbers.Text
                     End If
                 End If
@@ -4831,9 +4830,9 @@ Public Class DMUEisGecoTool
                     End If
                 Else
                     If txtAllPointTrackingNumbers.Text = "" Then
-                        pointTracking = CurrentUser.AlphaName & " - " & OracleDate & vbCrLf & txtPointTrackingNumber.Text
+                        pointTracking = CurrentUser.AlphaName & " - " & TodayFormatted & vbCrLf & txtPointTrackingNumber.Text
                     Else
-                        pointTracking = CurrentUser.AlphaName & " - " & OracleDate & vbCrLf & txtPointTrackingNumber.Text & vbCrLf & vbCrLf &
+                        pointTracking = CurrentUser.AlphaName & " - " & TodayFormatted & vbCrLf & txtPointTrackingNumber.Text & vbCrLf & vbCrLf &
                                 txtAllPointTrackingNumbers.Text
                     End If
                 End If

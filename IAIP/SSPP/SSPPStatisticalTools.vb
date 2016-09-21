@@ -27,8 +27,8 @@ Public Class SSPPStatisticalTools
     Private Sub SSPPStatisticalTools_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         Try
-            DTPPermitCountStart.Text = OracleDate
-            DTPPermitCountEnd.Text = OracleDate
+            DTPPermitCountStart.Value = Today
+            DTPPermitCountEnd.Value = Today
 
             SetDateRange()
             LoadEPAReportYear()
@@ -92,8 +92,8 @@ Public Class SSPPStatisticalTools
                     DTPPermitCountStart.Text = "01-Dec-" & Year
                     DTPPermitCountEnd.Text = "31-Dec-" & Year
                 Case Else
-                    DTPPermitCountStart.Text = OracleDate
-                    DTPPermitCountEnd.Text = OracleDate
+                    DTPPermitCountStart.Value = Today
+                    DTPPermitCountEnd.Value = Today
             End Select
 
         Catch ex As Exception

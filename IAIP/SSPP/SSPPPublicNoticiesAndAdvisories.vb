@@ -15,7 +15,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
         Try
             Panel1.Text = "Public Advisories Letter Generator"
             Panel2.Text = CurrentUser.AlphaName
-            Panel3.Text = OracleDate
+            Panel3.Text = TodayFormatted
 
             'Me.WindowState = FormWindowState.Maximized
 
@@ -1541,9 +1541,9 @@ Public Class SSPPPublicNoticiesAndAdvisories
                 Else
                     FileName = FileName
                     ReviewingManager = CurrentUser.UserID
-                    ReviewedDate = OracleDate
+                    ReviewedDate = TodayFormatted
                     PublishingStaff = CurrentUser.UserID
-                    PublishedDate = OracleDate
+                    PublishedDate = TodayFormatted
                     CommentsDate = Format(CDate(DTPPADeadline.Text), "dd-MMM-yyyy").ToString
                 End If
                 dr.Close()
@@ -1551,7 +1551,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
                 If DTPPADeadline.Checked = True Then
                     CommentsDate = Format(CDate(DTPPADeadline.Text), "dd-MMM-yyyy").ToString
                 Else
-                    CommentsDate = OracleDate
+                    CommentsDate = TodayFormatted
                 End If
 
                 If FileName <> "" Then
@@ -1731,7 +1731,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
                 lblPAPNDocumentName.Visible = True
 
                 If IsDBNull(dr.Item("datCommentsDate")) Then
-                    lblPAPNExpiresDate2.Text = OracleDate
+                    lblPAPNExpiresDate2.Text = TodayFormatted
                     lblPAPNExpiresDate2.Visible = False
                 Else
                     lblPAPNExpiresDate2.Text = Format(CDate(dr.Item("datCommentsdate")), "MMMM dd, yyyy").ToString
@@ -2046,7 +2046,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
                         ReviewingManager = dr.Item("strReviewingManager")
                     End If
                     If IsDBNull(dr.Item("datReviewed")) Then
-                        ReviewedDate = OracleDate
+                        ReviewedDate = TodayFormatted
                     Else
                         ReviewedDate = Format(dr.Item("datReviewed"), "dd-MMM-yyyy")
                     End If
@@ -2056,22 +2056,22 @@ Public Class SSPPPublicNoticiesAndAdvisories
                         PublishingStaff = dr.Item("strPublishingStaff")
                     End If
                     If IsDBNull(dr.Item("datPublishedDate")) Then
-                        PublishedDate = OracleDate
+                        PublishedDate = TodayFormatted
                     Else
                         PublishedDate = Format(dr.Item("datPublishedDate"), "dd-MMM-yyyy")
                     End If
                     If IsDBNull(dr.Item("datCommentsDate")) Then
-                        CommentsDate = OracleDate
+                        CommentsDate = TodayFormatted
                     Else
                         CommentsDate = Format(dr.Item("datCommentsDate"), "dd-MMM-yyyy")
                     End If
                 Else
                     FileName = FileName
                     ReviewingManager = CurrentUser.UserID
-                    ReviewedDate = OracleDate
+                    ReviewedDate = TodayFormatted
                     PublishingStaff = CurrentUser.UserID
-                    PublishedDate = OracleDate
-                    CommentsDate = OracleDate
+                    PublishedDate = TodayFormatted
+                    CommentsDate = TodayFormatted
                 End If
                 dr.Close()
 

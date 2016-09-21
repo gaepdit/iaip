@@ -660,7 +660,7 @@ Public Class IAIPLookUpTables
                 Else
                     SQL = "Update LookUpAPBManagementType set " &
                     "strCurrentContact = '0', " &
-                    "datEndDate = '" & OracleDate & "' " &
+                    "datEndDate =  GETDATE()  " &
                     "where numId = '" & dr.Item("numID") & "' "
                     cmd2 = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -675,7 +675,7 @@ Public Class IAIPLookUpTables
             SQL = "Insert into LookUpAPBManagementType " &
             "values " &
             "((select max(numId) + 1 from LookUpAPBManagementType), '" & ManagementType & "', " &
-            "'" & Replace(ManagementName, "'", "''") & "', '" & OracleDate & "', " &
+            "'" & Replace(ManagementName, "'", "''") & "',  GETDATE() , " &
             "'', '1') "
             cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then

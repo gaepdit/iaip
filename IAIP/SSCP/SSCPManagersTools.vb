@@ -58,9 +58,9 @@ Public Class SSCPManagersTools
             LoadComboBoxes()
 
             DTPStartDate.Value = Format(Date.Today.AddDays(-30), "dd-MMM-yyyy")
-            DTPEndDate.Value = OracleDate
-            dtpEnforcementStartDate.Value = OracleDate
-            dtpEnforcementEndDate.Value = OracleDate
+            DTPEndDate.Value = Today
+            dtpEnforcementStartDate.Value = Today
+            dtpEnforcementEndDate.Value = Today
             dtpEnforcementStartDate.Enabled = False
             dtpEnforcementEndDate.Enabled = False
 
@@ -84,7 +84,7 @@ Public Class SSCPManagersTools
 
             LoadStatisticalLists()
             DTPSearchDateStart.Text = Format(Date.Today.AddYears(-1), "dd-MMM-yyyy")
-            DTPSearchDateEnd.Text = OracleDate
+            DTPSearchDateEnd.Value = Today
 
             cboFilterEngineer1.Visible = False
             cboFilterEngineer2.Visible = False
@@ -1463,28 +1463,28 @@ Public Class SSCPManagersTools
                 If rdbNext60Days.Checked = True Then
                     Select Case cboCMSWarningFrequency.Text
                         Case "A"
-                            StartCMSA = Format(CDate(OracleDate).AddDays(-670), "yyyy-MM-dd")
-                            EndCMSA = Format(CDate(OracleDate).AddDays(-610), "yyyy-MM-dd")
+                            StartCMSA = Format(Today.AddDays(-670), "yyyy-MM-dd")
+                            EndCMSA = Format(Today.AddDays(-610), "yyyy-MM-dd")
 
                             CMSStatus = " and strCMSMember = 'A' and LastFCE  between '" & StartCMSA & "' and '" & EndCMSA & "' "
                         Case "S"
-                            StartCMSS = Format(CDate(OracleDate).AddDays(-1765), "yyyy-MM-dd")
-                            EndCMSS = Format(CDate(OracleDate).AddDays(-1705), "yyyy-MM-dd")
+                            StartCMSS = Format(Today.AddDays(-1765), "yyyy-MM-dd")
+                            EndCMSS = Format(Today.AddDays(-1705), "yyyy-MM-dd")
 
                             CMSStatus = " and strCMSMember = 'S' and LastFCE  between '" & StartCMSS & "' and '" & EndCMSS & "' "
                         Case "A & S"
-                            StartCMSA = Format(CDate(OracleDate).AddDays(-670), "yyyy-MM-dd")
-                            EndCMSA = Format(CDate(OracleDate).AddDays(-610), "yyyy-MM-dd")
-                            StartCMSS = Format(CDate(OracleDate).AddDays(-1765), "yyyy-MM-dd")
-                            EndCMSS = Format(CDate(OracleDate).AddDays(-1705), "yyyy-MM-dd")
+                            StartCMSA = Format(Today.AddDays(-670), "yyyy-MM-dd")
+                            EndCMSA = Format(Today.AddDays(-610), "yyyy-MM-dd")
+                            StartCMSS = Format(Today.AddDays(-1765), "yyyy-MM-dd")
+                            EndCMSS = Format(Today.AddDays(-1705), "yyyy-MM-dd")
 
                             CMSStatus = " and ((strCMSMember = 'A' and lastFCE between '" & StartCMSA & "' and '" & EndCMSA & "') " &
                             "or (strCMSMember = 'S' and LastFCE between '" & StartCMSS & "' and '" & EndCMSS & "')) "
                         Case Else
-                            StartCMSA = Format(CDate(OracleDate).AddDays(-670), "yyyy-MM-dd")
-                            EndCMSA = Format(CDate(OracleDate).AddDays(-610), "yyyy-MM-dd")
-                            StartCMSS = Format(CDate(OracleDate).AddDays(-1765), "yyyy-MM-dd")
-                            EndCMSS = Format(CDate(OracleDate).AddDays(-1705), "yyyy-MM-dd")
+                            StartCMSA = Format(Today.AddDays(-670), "yyyy-MM-dd")
+                            EndCMSA = Format(Today.AddDays(-610), "yyyy-MM-dd")
+                            StartCMSS = Format(Today.AddDays(-1765), "yyyy-MM-dd")
+                            EndCMSS = Format(Today.AddDays(-1705), "yyyy-MM-dd")
 
                             CMSStatus = " and ((strCMSMember = 'A' and lastFCE between '" & StartCMSA & "' and '" & EndCMSA & "') " &
                             "or (strCMSMember = 'S' and LastFCE between '" & StartCMSS & "' and '" & EndCMSS & "')) "
@@ -1493,28 +1493,28 @@ Public Class SSCPManagersTools
                 If rdbNext90Days.Checked = True Then
                     Select Case cboCMSWarningFrequency.Text
                         Case "A"
-                            StartCMSA = Format(CDate(OracleDate).AddDays(-640), "yyyy-MM-dd")
-                            EndCMSA = Format(CDate(OracleDate).AddDays(-550), "yyyy-MM-dd")
+                            StartCMSA = Format(Today.AddDays(-640), "yyyy-MM-dd")
+                            EndCMSA = Format(Today.AddDays(-550), "yyyy-MM-dd")
 
                             CMSStatus = " and strCMSMember = 'A' and LastFCE  between '" & StartCMSA & "' and '" & EndCMSA & "' "
                         Case "S"
-                            StartCMSS = Format(CDate(OracleDate).AddDays(-1735), "yyyy-MM-dd")
-                            EndCMSS = Format(CDate(OracleDate).AddDays(-1645), "yyyy-MM-dd")
+                            StartCMSS = Format(Today.AddDays(-1735), "yyyy-MM-dd")
+                            EndCMSS = Format(Today.AddDays(-1645), "yyyy-MM-dd")
 
                             CMSStatus = " and strCMSMember = 'S' and LastFCE  between '" & StartCMSS & "' and '" & EndCMSS & "' "
                         Case "A & S"
-                            StartCMSA = Format(CDate(OracleDate).AddDays(-640), "yyyy-MM-dd")
-                            EndCMSA = Format(CDate(OracleDate).AddDays(-550), "yyyy-MM-dd")
-                            StartCMSS = Format(CDate(OracleDate).AddDays(-1735), "yyyy-MM-dd")
-                            EndCMSS = Format(CDate(OracleDate).AddDays(-1645), "yyyy-MM-dd")
+                            StartCMSA = Format(Today.AddDays(-640), "yyyy-MM-dd")
+                            EndCMSA = Format(Today.AddDays(-550), "yyyy-MM-dd")
+                            StartCMSS = Format(Today.AddDays(-1735), "yyyy-MM-dd")
+                            EndCMSS = Format(Today.AddDays(-1645), "yyyy-MM-dd")
 
                             CMSStatus = " and ((strCMSMember = 'A' and lastFCE between '" & StartCMSA & "' and '" & EndCMSA & "') " &
                             "or (strCMSMember = 'S' and LastFCE between '" & StartCMSS & "' and '" & EndCMSS & "')) "
                         Case Else
-                            StartCMSA = Format(CDate(OracleDate).AddDays(-640), "yyyy-MM-dd")
-                            EndCMSA = Format(CDate(OracleDate).AddDays(-550), "yyyy-MM-dd")
-                            StartCMSS = Format(CDate(OracleDate).AddDays(-1735), "yyyy-MM-dd")
-                            EndCMSS = Format(CDate(OracleDate).AddDays(-1645), "yyyy-MM-dd")
+                            StartCMSA = Format(Today.AddDays(-640), "yyyy-MM-dd")
+                            EndCMSA = Format(Today.AddDays(-550), "yyyy-MM-dd")
+                            StartCMSS = Format(Today.AddDays(-1735), "yyyy-MM-dd")
+                            EndCMSS = Format(Today.AddDays(-1645), "yyyy-MM-dd")
 
                             CMSStatus = " and ((strCMSMember = 'A' and lastFCE between '" & StartCMSA & "' and '" & EndCMSA & "') " &
                             "or (strCMSMember = 'S' and LastFCE between '" & StartCMSS & "' and '" & EndCMSS & "')) "
@@ -1523,28 +1523,28 @@ Public Class SSCPManagersTools
                 If rdbNext120Days.Checked = True Then
                     Select Case cboCMSWarningFrequency.Text
                         Case "A"
-                            StartCMSA = Format(CDate(OracleDate).AddDays(-610), "yyyy-MM-dd")
-                            EndCMSA = Format(CDate(OracleDate).AddDays(-490), "yyyy-MM-dd")
+                            StartCMSA = Format(Today.AddDays(-610), "yyyy-MM-dd")
+                            EndCMSA = Format(Today.AddDays(-490), "yyyy-MM-dd")
 
                             CMSStatus = " and strCMSMember = 'A' and LastFCE  between '" & StartCMSA & "' and '" & EndCMSA & "' "
                         Case "S"
-                            StartCMSS = Format(CDate(OracleDate).AddDays(-1705), "yyyy-MM-dd")
-                            EndCMSS = Format(CDate(OracleDate).AddDays(-1585), "yyyy-MM-dd")
+                            StartCMSS = Format(Today.AddDays(-1705), "yyyy-MM-dd")
+                            EndCMSS = Format(Today.AddDays(-1585), "yyyy-MM-dd")
 
                             CMSStatus = " and strCMSMember = 'S' and LastFCE  between '" & StartCMSS & "' and '" & EndCMSS & "' "
                         Case "A & S"
-                            StartCMSA = Format(CDate(OracleDate).AddDays(-610), "yyyy-MM-dd")
-                            EndCMSA = Format(CDate(OracleDate).AddDays(-490), "yyyy-MM-dd")
-                            StartCMSS = Format(CDate(OracleDate).AddDays(-1705), "yyyy-MM-dd")
-                            EndCMSS = Format(CDate(OracleDate).AddDays(-1585), "yyyy-MM-dd")
+                            StartCMSA = Format(Today.AddDays(-610), "yyyy-MM-dd")
+                            EndCMSA = Format(Today.AddDays(-490), "yyyy-MM-dd")
+                            StartCMSS = Format(Today.AddDays(-1705), "yyyy-MM-dd")
+                            EndCMSS = Format(Today.AddDays(-1585), "yyyy-MM-dd")
 
                             CMSStatus = " and ((strCMSMember = 'A' and lastFCE between '" & StartCMSA & "' and '" & EndCMSA & "') " &
                             "or (strCMSMember = 'S' and LastFCE between '" & StartCMSS & "' and '" & EndCMSS & "')) "
                         Case Else
-                            StartCMSA = Format(CDate(OracleDate).AddDays(-610), "yyyy-MM-dd")
-                            EndCMSA = Format(CDate(OracleDate).AddDays(-490), "yyyy-MM-dd")
-                            StartCMSS = Format(CDate(OracleDate).AddDays(-1705), "yyyy-MM-dd")
-                            EndCMSS = Format(CDate(OracleDate).AddDays(-1585), "yyyy-MM-dd")
+                            StartCMSA = Format(Today.AddDays(-610), "yyyy-MM-dd")
+                            EndCMSA = Format(Today.AddDays(-490), "yyyy-MM-dd")
+                            StartCMSS = Format(Today.AddDays(-1705), "yyyy-MM-dd")
+                            EndCMSS = Format(Today.AddDays(-1585), "yyyy-MM-dd")
 
                             CMSStatus = " and ((strCMSMember = 'A' and lastFCE between '" & StartCMSA & "' and '" & EndCMSA & "') " &
                             "or (strCMSMember = 'S' and LastFCE between '" & StartCMSS & "' and '" & EndCMSS & "')) "
@@ -1553,28 +1553,28 @@ Public Class SSCPManagersTools
                 If rdbNextYear.Checked = True Then
                     Select Case cboCMSWarningFrequency.Text
                         Case "A"
-                            StartCMSA = Format(CDate(OracleDate).AddDays(-365), "yyyy-MM-dd")
-                            EndCMSA = Format(CDate(OracleDate).AddDays(-0), "yyyy-MM-dd")
+                            StartCMSA = Format(Today.AddDays(-365), "yyyy-MM-dd")
+                            EndCMSA = Format(Today.AddDays(-0), "yyyy-MM-dd")
 
                             CMSStatus = " and strCMSMember = 'A' and LastFCE  between '" & StartCMSA & "' and '" & EndCMSA & "' "
                         Case "S"
-                            StartCMSS = Format(CDate(OracleDate).AddDays(-1825), "yyyy-MM-dd")
-                            EndCMSS = Format(CDate(OracleDate).AddDays(-1460), "yyyy-MM-dd")
+                            StartCMSS = Format(Today.AddDays(-1825), "yyyy-MM-dd")
+                            EndCMSS = Format(Today.AddDays(-1460), "yyyy-MM-dd")
 
                             CMSStatus = " and strCMSMember = 'S' and LastFCE  between '" & StartCMSS & "' and '" & EndCMSS & "' "
                         Case "A & S"
-                            StartCMSA = Format(CDate(OracleDate).AddDays(-365), "yyyy-MM-dd")
-                            EndCMSA = Format(CDate(OracleDate).AddDays(-0), "yyyy-MM-dd")
-                            StartCMSS = Format(CDate(OracleDate).AddDays(-1825), "yyyy-MM-dd")
-                            EndCMSS = Format(CDate(OracleDate).AddDays(-1460), "yyyy-MM-dd")
+                            StartCMSA = Format(Today.AddDays(-365), "yyyy-MM-dd")
+                            EndCMSA = Format(Today.AddDays(-0), "yyyy-MM-dd")
+                            StartCMSS = Format(Today.AddDays(-1825), "yyyy-MM-dd")
+                            EndCMSS = Format(Today.AddDays(-1460), "yyyy-MM-dd")
 
                             CMSStatus = " and ((strCMSMember = 'A' and lastFCE between '" & StartCMSA & "' and '" & EndCMSA & "') " &
                             "or (strCMSMember = 'S' and LastFCE between '" & StartCMSS & "' and '" & EndCMSS & "')) "
                         Case Else
-                            StartCMSA = Format(CDate(OracleDate).AddDays(-365), "yyyy-MM-dd")
-                            EndCMSA = Format(CDate(OracleDate).AddDays(-0), "yyyy-MM-dd")
-                            StartCMSS = Format(CDate(OracleDate).AddDays(-1825), "yyyy-MM-dd")
-                            EndCMSS = Format(CDate(OracleDate).AddDays(-1460), "yyyy-MM-dd")
+                            StartCMSA = Format(Today.AddDays(-365), "yyyy-MM-dd")
+                            EndCMSA = Format(Today.AddDays(-0), "yyyy-MM-dd")
+                            StartCMSS = Format(Today.AddDays(-1825), "yyyy-MM-dd")
+                            EndCMSS = Format(Today.AddDays(-1460), "yyyy-MM-dd")
 
                             CMSStatus = " and ((strCMSMember = 'A' and lastFCE between '" & StartCMSA & "' and '" & EndCMSA & "') " &
                             "or (strCMSMember = 'S' and LastFCE between '" & StartCMSS & "' and '" & EndCMSS & "')) "
@@ -1583,22 +1583,22 @@ Public Class SSCPManagersTools
                 If rdbFCEOverdue.Checked = True Then
                     Select Case cboCMSWarningFrequency.Text
                         Case "A"
-                            StartCMSA = Format(CDate(OracleDate).AddDays(-730), "yyyy-MM-dd")
+                            StartCMSA = Format(Today.AddDays(-730), "yyyy-MM-dd")
 
                             CMSStatus = " and strCMSMember = 'A' and LastFCE  < '" & StartCMSA & "' "
                         Case "S"
-                            StartCMSS = Format(CDate(OracleDate).AddDays(-1825), "yyyy-MM-dd")
+                            StartCMSS = Format(Today.AddDays(-1825), "yyyy-MM-dd")
 
                             CMSStatus = " and strCMSMember = 'S' and LastFCE  < '" & StartCMSS & "' "
                         Case "A & S"
-                            StartCMSA = Format(CDate(OracleDate).AddDays(-730), "yyyy-MM-dd")
-                            StartCMSS = Format(CDate(OracleDate).AddDays(-1825), "yyyy-MM-dd")
+                            StartCMSA = Format(Today.AddDays(-730), "yyyy-MM-dd")
+                            StartCMSS = Format(Today.AddDays(-1825), "yyyy-MM-dd")
 
                             CMSStatus = " and ((strCMSMember = 'A' and lastFCE < '" & StartCMSA & "') " &
                             "or (strCMSMember = 'S' and LastFCE < '" & StartCMSS & "')) "
                         Case Else
-                            StartCMSA = Format(CDate(OracleDate).AddDays(-730), "yyyy-MM-dd")
-                            StartCMSS = Format(CDate(OracleDate).AddDays(-1825), "yyyy-MM-dd")
+                            StartCMSA = Format(Today.AddDays(-730), "yyyy-MM-dd")
+                            StartCMSS = Format(Today.AddDays(-1825), "yyyy-MM-dd")
 
                             CMSStatus = " and ((strCMSMember = 'A' and lastFCE < '" & StartCMSA & "') " &
                           "or (strCMSMember = 'S' and LastFCE < '" & StartCMSS & "')) "
@@ -1608,28 +1608,28 @@ Public Class SSCPManagersTools
                 If rdbFCEPerformedWithinYear.Checked = True Then
                     Select Case cboCMSWarningFrequency.Text
                         Case "A"
-                            StartCMSA = Format(CDate(OracleDate), "yyyy-MM-dd")
-                            EndCMSA = Format(CDate(OracleDate).AddDays(-365), "yyyy-MM-dd")
+                            StartCMSA = Format(Today, "yyyy-MM-dd")
+                            EndCMSA = Format(Today.AddDays(-365), "yyyy-MM-dd")
 
                             CMSStatus = " and strCMSMember = 'A' and LastFCE  between '" & StartCMSA & "' and '" & EndCMSA & "' "
                         Case "S"
-                            StartCMSS = Format(CDate(OracleDate), "yyyy-MM-dd")
-                            EndCMSS = Format(CDate(OracleDate).AddDays(-365), "yyyy-MM-dd")
+                            StartCMSS = Format(Today, "yyyy-MM-dd")
+                            EndCMSS = Format(Today.AddDays(-365), "yyyy-MM-dd")
 
                             CMSStatus = " and strCMSMember = 'S' and LastFCE  between '" & StartCMSS & "' and '" & EndCMSS & "' "
                         Case "A & S"
-                            StartCMSA = Format(CDate(OracleDate), "yyyy-MM-dd")
-                            EndCMSA = Format(CDate(OracleDate).AddDays(-365), "yyyy-MM-dd")
-                            StartCMSS = Format(CDate(OracleDate), "yyyy-MM-dd")
-                            EndCMSS = Format(CDate(OracleDate).AddDays(-365), "yyyy-MM-dd")
+                            StartCMSA = Format(Today, "yyyy-MM-dd")
+                            EndCMSA = Format(Today.AddDays(-365), "yyyy-MM-dd")
+                            StartCMSS = Format(Today, "yyyy-MM-dd")
+                            EndCMSS = Format(Today.AddDays(-365), "yyyy-MM-dd")
 
                             CMSStatus = " and ((strCMSMember = 'A' and lastFCE between '" & StartCMSA & "' and '" & EndCMSA & "') " &
                             "or (strCMSMember = 'S' and LastFCE between '" & StartCMSS & "' and '" & EndCMSS & "')) "
                         Case Else
-                            StartCMSA = Format(CDate(OracleDate), "yyyy-MM-dd")
-                            EndCMSA = Format(CDate(OracleDate).AddDays(-365), "yyyy-MM-dd")
-                            StartCMSS = Format(CDate(OracleDate), "yyyy-MM-dd")
-                            EndCMSS = Format(CDate(OracleDate).AddDays(-365), "yyyy-MM-dd")
+                            StartCMSA = Format(Today, "yyyy-MM-dd")
+                            EndCMSA = Format(Today.AddDays(-365), "yyyy-MM-dd")
+                            StartCMSS = Format(Today, "yyyy-MM-dd")
+                            EndCMSS = Format(Today.AddDays(-365), "yyyy-MM-dd")
 
                             CMSStatus = " and ((strCMSMember = 'A' and lastFCE between '" & StartCMSA & "' and '" & EndCMSA & "') " &
                             "or (strCMSMember = 'S' and LastFCE between '" & StartCMSS & "' and '" & EndCMSS & "')) "
@@ -4833,7 +4833,7 @@ Public Class SSCPManagersTools
                     SQL = "Update SSCPInspectionsRequired set " &
                     "numSSCPEngineer = '" & Eng & "', " &
                     "strAssigningManager = '" & CurrentUser.UserID & "', " &
-                    "DATASSIGNINGDATE = '" & OracleDate & "' " &
+                    "DATASSIGNINGDATE =  GETDATE()  " &
                     "where strAIRSNumber = '0413" & AIRSNum & "' " &
                     "and sscpinspectionsrequired.intYear = '" & cboFiscalYear.Text & "' "
                 Else
@@ -4844,7 +4844,7 @@ Public Class SSCPManagersTools
                     "((select max(numKey) + 1 from SSCPInspectionsRequired), " &
                     "'0413" & AIRSNum & "', '" & cboFiscalYear.Text & "', " &
                     "'" & Eng & "', '" & CurrentUser.UserID & "', " &
-                    "'" & OracleDate & "') "
+                    " GETDATE() ) "
                 End If
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
@@ -4894,7 +4894,7 @@ Public Class SSCPManagersTools
                     SQL = "Update SSCPInspectionsRequired set " &
                     "numSSCPUnit = '" & cboSSCPUnit2.SelectedValue & "' , " &
                     "strAssigningManager = '" & CurrentUser.UserID & "', " &
-                    "DATASSIGNINGDATE = '" & OracleDate & "' " &
+                    "DATASSIGNINGDATE =  GETDATE()  " &
                     "where strAIRSNumber = '0413" & AIRSNum & "'" &
                     "and intYear = '" & cboFiscalYear.Text & "' "
                 Else
@@ -4906,7 +4906,7 @@ Public Class SSCPManagersTools
                     "'0413" & AIRSNum & "', '" & cboFiscalYear.Text & "', " &
                     "'" & cboSSCPUnit2.SelectedValue & "', " &
                     "'" & CurrentUser.UserID & "', " &
-                    "'" & OracleDate & "') "
+                    " GETDATE() ) "
                 End If
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
@@ -4961,13 +4961,13 @@ Public Class SSCPManagersTools
                     SQL = "Update SSCPDistrictResponsible set " &
                     "strDistrictResponsible = '" & DistResp & "', " &
                     "strAssigningManager = '" & CurrentUser.UserID & "', " &
-                    "datAssigningDate = '" & OracleDate & "' " &
+                    "datAssigningDate =  GETDATE()  " &
                     "where strAIRSNumber = '0413" & AIRSNum & "' "
                 Else
                     SQL = "Insert into SSCPDistrictResponsible " &
                     "values " &
                     "('0413" & AIRSNum & ", '" & DistResp & "', " &
-                    "'" & CurrentUser.UserID & "', '" & OracleDate & "') "
+                    "'" & CurrentUser.UserID & "',  GETDATE() ) "
                 End If
                 cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -5024,7 +5024,7 @@ Public Class SSCPManagersTools
                     SQL = "Update SSCPInspectionsRequired set " &
                     "strInspectionRequired = '" & InspectionRequired & "', " &
                     "strAssigningManager = '" & CurrentUser.UserID & "', " &
-                    "datAssigningDate = '" & OracleDate & "' " &
+                    "datAssigningDate =  GETDATE()  " &
                     "where strAIRSNumber = '0413" & AIRSNum & "' " &
                     "and intYear = '" & cboFiscalYear.Text & "' "
                 Else
@@ -5035,7 +5035,7 @@ Public Class SSCPManagersTools
                     "((select max(numKey) + 1 from SSCPInspectionsRequired), " &
                     "'0413" & AIRSNum & "', '" & cboFiscalYear.Text & "', " &
                     "'" & InspectionRequired & "', " &
-                    "'" & CurrentUser.UserID & "', '" & OracleDate & "') "
+                    "'" & CurrentUser.UserID & "',  GETDATE() ) "
                 End If
                 cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -5094,7 +5094,7 @@ Public Class SSCPManagersTools
                     SQL = "Update SSCPInspectionsRequired set " &
                     "strFCERequired = '" & FCERequired & "', " &
                     "strAssigningManager = '" & CurrentUser.UserID & "', " &
-                    "datAssigningDate = '" & OracleDate & "' " &
+                    "datAssigningDate =  GETDATE()  " &
                     "where strAIRSNumber = '0413" & AIRSNum & "' " &
                     "and intYear = '" & cboFiscalYear.Text & "' "
                 Else
@@ -5104,7 +5104,7 @@ Public Class SSCPManagersTools
                    "values " &
                    "((select max(numKey) + 1 from SSCPInspectionsRequired), " &
                    "'0413" & AIRSNum & "', '" & cboFiscalYear.Text & "', " &
-                   "'" & FCERequired & "', '" & CurrentUser.UserID & "', '" & OracleDate & "') "
+                   "'" & FCERequired & "', '" & CurrentUser.UserID & "',  GETDATE() ) "
                 End If
                 cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -5179,7 +5179,7 @@ Public Class SSCPManagersTools
                     "strInspectionRequired = '" & InspectionRequired & "', " &
                     "strFCERequired = '" & FCERequired & "', " &
                     "STRASSIGNINGMANAGER = '" & CurrentUser.UserID & "', " &
-                    "DATASSIGNINGDATE = '" & OracleDate & "' " &
+                    "DATASSIGNINGDATE =  GETDATE()  " &
                     "where strAIRSNumber = '0413" & AIRSNum & "' " &
                     "and intyear = '" & cboFiscalYear.Text & "' "
                 Else
@@ -5193,7 +5193,7 @@ Public Class SSCPManagersTools
                     "'0413" & AIRSNum & "', '" & cboFiscalYear.Text & "', " &
                     "'" & Eng & "', '" & cboSSCPUnit2.SelectedValue & "', " &
                     "'" & InspectionRequired & "', '" & FCERequired & "', " &
-                    "'" & CurrentUser.UserID & "', '" & OracleDate & "') "
+                    "'" & CurrentUser.UserID & "',  GETDATE() ) "
                 End If
                 cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -5217,13 +5217,13 @@ Public Class SSCPManagersTools
                     SQL = "Update SSCPDistrictResponsible set " &
                     "strDistrictResponsible = '" & DistResp & "', " &
                     "strAssigningManager = '" & CurrentUser.UserID & "', " &
-                    "datAssigningDate = '" & OracleDate & "' " &
+                    "datAssigningDate =  GETDATE()  " &
                     "where strAIRSNumber = '0413" & AIRSNum & "' "
                 Else
                     SQL = "Insert into SSCPDistrictResponsible " &
                     "values " &
                     "('0413" & AIRSNum & ", '" & DistResp & "', " &
-                    "'" & CurrentUser.UserID & "', '" & OracleDate & "') "
+                    "'" & CurrentUser.UserID & "',  GETDATE() ) "
                 End If
                 cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -5360,7 +5360,7 @@ Public Class SSCPManagersTools
                     SQL = "Update SSCPInspectionsRequired set " &
                     "numSSCPEngineer = '', " &
                     "strAssigningManager = '" & CurrentUser.UserID & "', " &
-                    "DATASSIGNINGDATE = '" & OracleDate & "' " &
+                    "DATASSIGNINGDATE =  GETDATE()  " &
                     "where strAIRSNumber = '0413" & AIRSNum & "' " &
                     "and intYear = '" & cboFiscalYear.Text & "' "
                 Else
@@ -5371,7 +5371,7 @@ Public Class SSCPManagersTools
                     "((select max(numKey) + 1 from SSCPInspectionsRequired), " &
                     "'0413" & AIRSNum & "', '" & cboFiscalYear.Text & "', " &
                     "'', '" & CurrentUser.UserID & "', " &
-                    "'" & OracleDate & "') "
+                    " GETDATE() ) "
                 End If
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
@@ -5418,7 +5418,7 @@ Public Class SSCPManagersTools
                     SQL = "Update SSCPInspectionsRequired set " &
                     "numSSCPUnit = '', " &
                     "strAssigningManager = '" & CurrentUser.UserID & "', " &
-                  "DATASSIGNINGDATE = '" & OracleDate & "' " &
+                  "DATASSIGNINGDATE =  GETDATE()  " &
                   "where strAIRSNumber = '0413" & AIRSNum & "'" &
                   "and intYear = '" & cboFiscalYear.Text & "' "
                 Else
@@ -5430,7 +5430,7 @@ Public Class SSCPManagersTools
                  "'0413" & AIRSNum & "', '" & cboFiscalYear.Text & "', " &
                     "'', " &
                     "'" & CurrentUser.UserID & "', " &
-                    "'" & OracleDate & "') "
+                    " GETDATE() ) "
                 End If
 
                 cmd = New SqlCommand(SQL, CurrentConnection)

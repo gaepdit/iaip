@@ -35,7 +35,7 @@ Public Class ISMPMemo
 
             panel1.Text = "Enter memo in the bottom box (limit 4000 characters)..."
             panel2.Text = CurrentUser.AlphaName
-            panel3.Text = OracleDate
+            panel3.Text = TodayFormatted
 
             panel1.AutoSize = StatusBarPanelAutoSize.Spring
             panel2.AutoSize = StatusBarPanelAutoSize.Contents
@@ -99,7 +99,7 @@ Public Class ISMPMemo
                     dr = cmd.ExecuteReader
                     recExist = dr.Read
 
-                    txtMemoIN.Text = OracleDate + vbCrLf + txtMemoIN.Text + vbCrLf + CurrentUser.AlphaName + vbCrLf + dashes + vbCrLf
+                    txtMemoIN.Text = TodayFormatted + vbCrLf + txtMemoIN.Text + vbCrLf + CurrentUser.AlphaName + vbCrLf + dashes + vbCrLf
 
                     If recExist = True Then
                         MemoTemp = dr.Item("StrMemorandumField")

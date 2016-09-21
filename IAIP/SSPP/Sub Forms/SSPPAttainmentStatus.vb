@@ -22,7 +22,7 @@ Public Class SSPPAttainmentStatus
 
             Panel1.Text = "Select a county...."
             Panel2.Text = CurrentUser.AlphaName
-            Panel3.Text = OracleDate
+            Panel3.Text = TodayFormatted
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)

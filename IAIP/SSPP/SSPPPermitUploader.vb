@@ -177,7 +177,7 @@ Public Class SSPPPermitUploader
                         Status = dr.Item("datFinalizedDate")
                     End If
                     If IsDBNull(dr.Item("datFinalOnWeb")) Then
-                        DTPFinalOnWeb.Text = OracleDate
+                        DTPFinalOnWeb.Value = Today
                         DTPFinalOnWeb.Visible = False
                         lblFinalOnWeb.Visible = False
                     Else
@@ -632,19 +632,19 @@ Public Class SSPPPermitUploader
                         row("docPermitData") = rawData
                         row("strDocFileSize") = rawData.Length
                         row("strDocModifingPerson") = CurrentUser.UserID
-                        row("datDocModifingDate") = OracleDate
+                        row("datDocModifingDate") = TodayFormatted
                     Else
                         row("pdfPermitData") = rawData
                         row("strPDFFileSize") = rawData.Length
                         row("strPDFModifingPerson") = CurrentUser.UserID
-                        row("datPDFModifingDate") = OracleDate
+                        row("datPDFModifingDate") = TodayFormatted
                     End If
                     ds.Tables("PDF").Rows.Add(row)
                     da.Update(ds, "PDF")
 
                     If Mid(FileName, 1, 2) = "OP" Then
                         SQL = "Update SSPPApplicationTracking set " &
-                        "datFinalOnWeb = '" & OracleDate & "' " &
+                        "datFinalOnWeb =  GETDATE()  " &
                         "where strApplicationNumber = '" & MasterApp & "' "
                         cmd = New SqlCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -657,7 +657,7 @@ Public Class SSPPPermitUploader
 
                 If Mid(FileName, 1, 2) = "OP" Then
                     SQL = "Update SSPPApplicationTracking set " &
-                    "datFinalOnWeb = '" & OracleDate & "' " &
+                    "datFinalOnWeb =  GETDATE()  " &
                     "where strApplicationNumber = '" & MasterApp & "' "
                     cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -820,7 +820,7 @@ Public Class SSPPPermitUploader
                     dr.Close()
                     If recExist = False Then
                         SQL = "Update SSPPApplicationTracking set " &
-                        "datFinalOnWeb = '" & OracleDate & "' "
+                        "datFinalOnWeb =  GETDATE()  "
                         cmd = New SqlCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
                             CurrentConnection.Open()
@@ -1092,7 +1092,7 @@ Public Class SSPPPermitUploader
                     dr.Close()
                     If recExist = False Then
                         SQL = "Update SSPPApplicationTracking set " &
-                        "datFinalOnWeb = '" & OracleDate & "' "
+                        "datFinalOnWeb =  GETDATE()  "
                         cmd = New SqlCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
                             CurrentConnection.Open()
@@ -1177,7 +1177,7 @@ Public Class SSPPPermitUploader
                         dr.Close()
                         If recExist = False Then
                             SQL = "Update SSPPApplicationTracking set " &
-                            "datFinalOnWeb = '" & OracleDate & "' "
+                            "datFinalOnWeb =  GETDATE()  "
                             cmd = New SqlCommand(SQL, CurrentConnection)
                             If CurrentConnection.State = ConnectionState.Closed Then
                                 CurrentConnection.Open()

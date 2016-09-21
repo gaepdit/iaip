@@ -513,12 +513,12 @@ Public Class IAIPFacilityCreator
                 MailingZipCode = "00000"
             End If
             If txtFacilityComments.Text = "" Then
-                Comments = "Created with Facility Creator tool by " & CurrentUser.AlphaName & " on " & OracleDate & vbCrLf
+                Comments = "Created with Facility Creator tool by " & CurrentUser.AlphaName & " on " & TodayFormatted & vbCrLf
             End If
 
-            If txtFacilityComments.Text.Contains("Created by Facility Creator by " & CurrentUser.AlphaName & " on " & OracleDate) Then
+            If txtFacilityComments.Text.Contains("Created by Facility Creator by " & CurrentUser.AlphaName & " on " & TodayFormatted) Then
             Else
-                Comments = "Created with Facility Creator tool by " & CurrentUser.AlphaName & " on " & OracleDate &
+                Comments = "Created with Facility Creator tool by " & CurrentUser.AlphaName & " on " & TodayFormatted &
                                vbCrLf & txtFacilityComments.Text & vbCrLf
             End If
             If txtApplicationNumber.Text <> "App No." And

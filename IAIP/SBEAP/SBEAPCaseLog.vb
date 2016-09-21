@@ -23,7 +23,7 @@ Public Class SBEAPCaseLog
         Try
             label1.Text = "Select Case Work"
             Label2.Text = CurrentUser.AlphaName
-            Label3.Text = OracleDate
+            Label3.Text = TodayFormatted
 
             LoadDataSets()
             FormLoad()
@@ -388,8 +388,8 @@ Public Class SBEAPCaseLog
 
             txtSearchText1.Clear()
             cboSearchText1.Text = ""
-            DTPSearchDate1.Value = OracleDate
-            DTPSearchDate2.Value = OracleDate
+            DTPSearchDate1.Value = Today
+            DTPSearchDate2.Value = Today
 
             Select Case cboFieldType1.Text
                 Case "Action Type"
@@ -499,8 +499,8 @@ Public Class SBEAPCaseLog
 
             txtSearchText2.Clear()
             cboSearchText2.Text = ""
-            DTPSearchDate3.Value = OracleDate
-            DTPSearchDate4.Value = OracleDate
+            DTPSearchDate3.Value = Today
+            DTPSearchDate4.Value = Today
 
             Select Case cboFieldType2.Text
                 Case "Action Type"

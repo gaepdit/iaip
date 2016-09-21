@@ -164,7 +164,7 @@ Public Class SSPP_FeeContact
             txtDescription.Clear()
             txtDescription.Text = "Fee Contact. " & vbCrLf &
             "Modified by: " & CurrentUser.AlphaName & vbCrLf &
-            "Modified on: " & OracleDate & vbCrLf &
+            "Modified on: " & TodayFormatted & vbCrLf &
             "Via Application # " & txtApplicationNumber.Text
 
         Catch ex As Exception
@@ -218,7 +218,7 @@ Public Class SSPP_FeeContact
                 "strContactState = '" & Replace(txtState.Text, "'", "''") & "', " &
                 "strContactZipCode = '" & Replace(mtbZipCode.Text, "'", "''") & "', " &
                 "strModifingPerson = '" & CurrentUser.UserID & "', " &
-                "datModifingDate = '" & OracleDate & "', " &
+                "datModifingDate =  GETDATE() , " &
                 "strContactDescription = '" & Replace(txtDescription.Text, "'", "''") & "' " &
                 "where strContactKey = '0413" & txtAIRSNumber.Text & "40' "
                 cmd = New SqlCommand(SQL, CurrentConnection)

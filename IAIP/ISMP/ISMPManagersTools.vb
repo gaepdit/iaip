@@ -58,22 +58,22 @@ Public Class ISMPManagersTools
             FormatExcelDataGrid()
             LoadExcelDataSet()
 
-            DTPUnitStatsStartDate.Value = Format(Date.Today.AddDays(-30), "dd-MMM-yyyy")
-            DTPUnitStatsEndDate.Value = OracleDate
-            DTPMonthlyStart.Value = Format(Date.Today.AddDays(-30), "dd-MMM-yyyy")
-            DTPMonthlyEnd.Value = OracleDate
-            DTPUnitStart.Value = Format(Date.Today.AddDays(-30), "dd-MMM-yyyy")
-            DTPUnitEnd.Value = OracleDate
-            DTPEngineerTestReportStart.Text = Format(Date.Today.AddDays(-30), "dd-MMM-yyyy")
-            DTPEngineerTestReportEnd.Text = OracleDate
-            DTPAppStartDate.Text = Format(Date.Today.AddDays(-30), "dd-MMM-yyyy")
-            DTPAppEndDate.Text = OracleDate
-            DTPStartDateFacility.Value = OracleDate
-            DTPEndDateFacility.Value = OracleDate
+            DTPUnitStatsStartDate.Value = Date.Today.AddDays(-30)
+            DTPUnitStatsEndDate.Value = Today
+            DTPMonthlyStart.Value = Date.Today.AddDays(-30)
+            DTPMonthlyEnd.Value = Today
+            DTPUnitStart.Value = Date.Today.AddDays(-30)
+            DTPUnitEnd.Value = Today
+            DTPEngineerTestReportStart.Text = Date.Today.AddDays(-30)
+            DTPEngineerTestReportEnd.Value = Today
+            DTPAppStartDate.Text = Date.Today.AddDays(-30)
+            DTPAppEndDate.Value = Today
+            DTPStartDateFacility.Value = Today
+            DTPEndDateFacility.Value = Today
 
             LoadMethods()
-            dtpAddTestReportDateReceived.Text = OracleDate
-            DTPAddTestReportDateCompleted.Text = OracleDate
+            dtpAddTestReportDateReceived.Value = Today
+            DTPAddTestReportDateCompleted.Value = Today
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -85,7 +85,7 @@ Public Class ISMPManagersTools
 
             panel1.Text = "Select a Function..."
             panel2.Text = CurrentUser.AlphaName
-            panel3.Text = OracleDate
+            panel3.Text = TodayFormatted
 
             panel1.AutoSize = StatusBarPanelAutoSize.Spring
             panel2.AutoSize = StatusBarPanelAutoSize.Contents
@@ -1538,7 +1538,7 @@ Public Class ISMPManagersTools
                         AssignDate = dr.Item("ReviewedByUnitManager")
                     End While
                     If AssignDate = "04-Jul-1776" Then
-                        AssignDate = OracleDate
+                        AssignDate = TodayFormatted
                     Else
                         'AssignDate = AssignDate
                     End If
@@ -4025,7 +4025,7 @@ Public Class ISMPManagersTools
                 Dim line As String = "________________________________________________________________________"
 
                 WordText = vbTab & vbTab & vbTab & vbTab & vbTab & "ISMP" &
-                 vbCrLf & line & vbCrLf & "Source Test Summary" & vbTab & vbTab & vbTab & vbTab & vbTab & vbTab & "Print Date: " & OracleDate &
+                 vbCrLf & line & vbCrLf & "Source Test Summary" & vbTab & vbTab & vbTab & vbTab & vbTab & vbTab & "Print Date: " & TodayFormatted &
                   vbCrLf & line & vbCrLf & "Staff" & vbTab & vbTab & "# of Open" & vbTab & vbTab & "Reports Open" & vbTab & vbTab & "Reports Close" &
                   vbCrLf & vbTab & vbTab & "Reports" & vbTab & vbTab & ">50 days" & vbTab & vbTab & "Last 60 days" &
                   vbCrLf & line &
@@ -6551,7 +6551,7 @@ Public Class ISMPManagersTools
                 SQL = "Insert into ISMPMaster " &
                 "values " &
                 "('" & RefNum & "', '0413" & AIRSNumber & "', " &
-                "'" & CurrentUser.UserID & "', '" & OracleDate & "') "
+                "'" & CurrentUser.UserID & "', GETDATE() ) "
                 cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()
@@ -6573,7 +6573,7 @@ Public Class ISMPManagersTools
                 "'False', '" & Replace(Commissioner, "'", "''") & "', " &
                 "'" & Replace(Director, "'", "''") & "', '" & Replace(ProgramManager, "'", "''") & "', " &
                 "'01', '0', " &
-                "'" & CurrentUser.UserID & "', '" & OracleDate & "', " &
+                "'" & CurrentUser.UserID & "', GETDATE(), " &
                 "'N/A', '', " &
                 "'', '', " &
                 "'', '') "
@@ -6611,9 +6611,9 @@ Public Class ISMPManagersTools
             txtAddTestReportProgramManager.BackColor = Color.White
             mtbAddTestReportAIRSNumber.Clear()
             mtbAddTestReportAIRSNumber.BackColor = Color.White
-            dtpAddTestReportDateReceived.Text = OracleDate
+            dtpAddTestReportDateReceived.Value = Today
             dtpAddTestReportDateReceived.BackColor = Color.White
-            DTPAddTestReportDateCompleted.Text = OracleDate
+            DTPAddTestReportDateCompleted.Value = Today
             DTPAddTestReportDateCompleted.BackColor = Color.White
 
 

@@ -325,18 +325,18 @@ Public Class SSPPTitleVTools
                 LoadWebPublisherDataGrid("Load")
                 FormatWebPublisherDataGrid()
 
-                DTPNotifiedAppReceived.Text = OracleDate
-                DTPDraftOnWeb.Text = OracleDate
-                DTPEffectiveDateofPermit.Text = OracleDate
-                DTPEPANotifiedPermitOnWeb.Text = OracleDate
-                DTPEPAStatesNotified.Text = OracleDate
-                DTPFinalOnWeb.Text = OracleDate
-                DTPTitleVRenewalStart.Text = OracleDate
-                DTPTitleVRenewalEnd.Text = OracleDate
-                DTPTitleVRenewalStart.Text = OracleDate
-                DTPPNExpires.Text = OracleDate
-                DTPExperationDate.Text = OracleDate
-                DTPTitleVRenewalEnd.Text = Format(CDate(OracleDate).AddMonths(1), "dd-MMM-yyyy")
+                DTPNotifiedAppReceived.Value = Today
+                DTPDraftOnWeb.Value = Today
+                DTPEffectiveDateofPermit.Value = Today
+                DTPEPANotifiedPermitOnWeb.Value = Today
+                DTPEPAStatesNotified.Value = Today
+                DTPFinalOnWeb.Value = Today
+                DTPTitleVRenewalStart.Value = Today
+                DTPTitleVRenewalEnd.Value = Today
+                DTPTitleVRenewalStart.Value = Today
+                DTPPNExpires.Value = Today
+                DTPExperationDate.Value = Today
+                DTPTitleVRenewalEnd.Text = Format(Today.AddMonths(1), "dd-MMM-yyyy")
 
             End If
         Catch ex As Exception
@@ -443,7 +443,7 @@ Public Class SSPPTitleVTools
                 End If
                 If IsDBNull(dr.Item("datExperationDate")) Then
                     chbExpirationDate.Checked = False
-                    DTPExperationDate.Text = OracleDate
+                    DTPExperationDate.Value = Today
                 Else
                     chbExpirationDate.Checked = True
                     DTPExperationDate.Text = dr.Item("datExperationDate")
@@ -469,7 +469,7 @@ Public Class SSPPTitleVTools
                 End If
                 If IsDBNull(dr.Item("datPNExpires")) Then
                     chbPNExpires.Checked = False
-                    DTPPNExpires.Text = OracleDate
+                    DTPPNExpires.Value = Today
                 Else
                     chbPNExpires.Checked = True
                     DTPPNExpires.Text = dr.Item("datPNExpires")
@@ -3263,24 +3263,24 @@ Public Class SSPPTitleVTools
         Try
 
             chbDraftOnWeb.Checked = False
-            DTPDraftOnWeb.Text = OracleDate
+            DTPDraftOnWeb.Value = Today
             chbEPAandStatesNotified.Checked = False
-            DTPEPAStatesNotified.Text = OracleDate
+            DTPEPAStatesNotified.Value = Today
             chbFinalOnWeb.Checked = False
-            DTPFinalOnWeb.Text = OracleDate
+            DTPFinalOnWeb.Value = Today
             chbEPANotifiedPermitOnWeb.Checked = False
-            DTPEPANotifiedPermitOnWeb.Text = OracleDate
+            DTPEPANotifiedPermitOnWeb.Value = Today
             chbEffectiveDateOfPermit.Checked = False
-            DTPEffectiveDateofPermit.Text = OracleDate
+            DTPEffectiveDateofPermit.Value = Today
             txtEPATargetedComments.Clear()
             txtWebPublisherApplicationNumber.Clear()
-            DTPExperationDate.Text = OracleDate
+            DTPExperationDate.Value = Today
             chbExpirationDate.Checked = False
             txtFacilityInformation.Clear()
             chbNotifiedAppReceived.Checked = False
-            DTPNotifiedAppReceived.Text = OracleDate
+            DTPNotifiedAppReceived.Value = Today
             chbPNExpires.Checked = False
-            DTPPNExpires.Text = OracleDate
+            DTPPNExpires.Value = Today
 
 
         Catch ex As Exception
@@ -4697,7 +4697,7 @@ Public Class SSPPTitleVTools
              "'" & Replace(ContactEmail, "'", "''") & "', '" & Replace(ContactAddress1, "'", "''") & "', " &
              "'', '" & Replace(ContactCity, "'", "''") & "', " &
              "'" & Replace(ContactState, "'", "''") & "', '" & Replace(ContactZipCode, "'", "''") & "', " &
-             "'" & CurrentUser.UserID & "', '" & OracleDate & "', " &
+             "'" & CurrentUser.UserID & "',  GETDATE() , " &
              "'" & Replace(ContactDescription, "'", "''") & "') "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -4805,7 +4805,7 @@ Public Class SSPPTitleVTools
             "'" & Replace(ContactState, "'", "''") & "', " &
             "'" & Replace(ContactZipCode, "'", "''") & "', " &
             "'" & CurrentUser.UserID & "', " &
-            "'" & OracleDate & "', " &
+            " GETDATE() , " &
             "'" & Replace(ContactDescription, "'", "''") & "') "
 
             cmd = New SqlCommand(SQL, CurrentConnection)

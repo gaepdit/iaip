@@ -98,7 +98,7 @@ Public Class SSCPEvents
                 EventTypeDbString = dr.Item("strEventType")
             End If
             If IsDBNull(dr.Item("DatReceivedDate")) Then
-                ReceivedDate = OracleDate
+                ReceivedDate = TodayFormatted
             Else
                 ReceivedDate = Format(dr.Item("DatReceivedDate"), "dd-MMM-yyyy")
             End If
@@ -110,7 +110,7 @@ Public Class SSCPEvents
                 AIRSNumber = txtAIRSNumber.Text
             End If
             If IsDBNull(dr.Item("datAcknoledgmentLetterSent")) Then
-                DTPAcknowledgmentLetterSent.Text = OracleDate
+                DTPAcknowledgmentLetterSent.Value = Today
                 DTPAcknowledgmentLetterSent.Checked = False
             Else
                 DTPAcknowledgmentLetterSent.Text = Format(dr.Item("datAcknoledgmentlettersent"), "dd-MMM-yyyy")
@@ -155,7 +155,7 @@ Public Class SSCPEvents
                 TCItems.TabPages.Clear()
                 TCItems.TabPages.Add(TPACC)
                 DTPACCReceivedDate.Text = ReceivedDate
-                DTPACCPostmarked.Text = OracleDate
+                DTPACCPostmarked.Value = Today
                 dtpAccReportingYear.Value = DateTime.Today.AddYears(-1)
                 dtpAccReportingYear.Checked = True
                 LoadHeader()
@@ -432,13 +432,13 @@ Public Class SSCPEvents
     End Sub
     Sub DefaultDateTimePickers()
 
-        DTPAcknowledgmentLetterSent.Value = OracleDate
-        DTPReportPeriodStart.Value = OracleDate
-        DTPReportPeriodEnd.Value = OracleDate
-        dtpDueDate.Value = OracleDate
-        DTPSentDate.Value = OracleDate
-        DTPInspectionDateStart.Value = OracleDate
-        DTPInspectionDateEnd.Value = OracleDate
+        DTPAcknowledgmentLetterSent.Value = Today
+        DTPReportPeriodStart.Value = Today
+        DTPReportPeriodEnd.Value = Today
+        dtpDueDate.Value = Today
+        DTPSentDate.Value = Today
+        DTPInspectionDateStart.Value = Today
+        DTPInspectionDateEnd.Value = Today
         dtpInspectionTimeStart.Text = "8:00:00 AM"
         dtpInspectionTimeEnd.Text = "12:00:00 PM"
 
@@ -472,7 +472,7 @@ Public Class SSCPEvents
 
         If Completedate = "" Then
             chbEventComplete.Checked = False
-            DTPEventCompleteDate.Text = OracleDate
+            DTPEventCompleteDate.Value = Today
         Else
             chbEventComplete.Checked = True
             DTPEventCompleteDate.Text = Completedate
@@ -893,7 +893,7 @@ Public Class SSCPEvents
                     "'" & DTPSentDate.Text & "', '" & Completeness & "', " &
                     "'" & NeedsEnforcement & "', '" & Deviation & "', " &
                     "'" & Replace(GeneralComments, "'", "''") & "', '" & CurrentUser.UserID & "', " &
-                    "'" & OracleDate & "', '1')"
+                    " GETDATE() , '1')"
 
                     cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -917,7 +917,7 @@ Public Class SSCPEvents
                     "'" & dtpDueDate.Text & "', '" & DTPSentDate.Text & "', " &
                     "'" & Completeness & "', '" & NeedsEnforcement & "', " &
                     "'" & Deviation & "', '" & Replace(GeneralComments, "'", "''") & "', " &
-                    "'" & CurrentUser.UserID & "', '" & OracleDate & "')"
+                    "'" & CurrentUser.UserID & "',  GETDATE() )"
 
                     cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -940,7 +940,7 @@ Public Class SSCPEvents
                     "strshowdeviation = '" & Deviation & "', " &
                     "strgeneralcomments = '" & Replace(GeneralComments, "'", "''") & "', " &
                     "strmodifingperson = '" & CurrentUser.UserID & "', " &
-                    "datmodifingdate = '" & OracleDate & "' " &
+                    "datmodifingdate =  GETDATE()  " &
                     "where strTrackingNumber = '" & txtTrackingNumber.Text & "'"
 
                     cmd = New SqlCommand(SQL, CurrentConnection)
@@ -976,7 +976,7 @@ Public Class SSCPEvents
                          "strshowdeviation = '" & Deviation & "', " &
                          "strgeneralcomments = '" & Replace(GeneralComments, "'", "''") & "', " &
                          "strmodifingperson = '" & CurrentUser.UserID & "', " &
-                         "datmodifingdate = '" & OracleDate & "' " &
+                         "datmodifingdate =  GETDATE()  " &
                          "where strTrackingNumber = '" & txtTrackingNumber.Text & "' " &
                          "and strSubmittalNumber = '" & NUPReportSubmittal.Value & "'"
                     Else
@@ -995,7 +995,7 @@ Public Class SSCPEvents
                         "'" & dtpDueDate.Text & "', '" & DTPSentDate.Text & "', " &
                         "'" & Completeness & "', '" & NeedsEnforcement & "', " &
                         "'" & Deviation & "', '" & Replace(GeneralComments, "'", "''") & "', " &
-                        "'" & CurrentUser.UserID & "', '" & OracleDate & "')"
+                        "'" & CurrentUser.UserID & "',  GETDATE() )"
                     End If
 
                     cmd = New SqlCommand(SQL, CurrentConnection)
@@ -1110,7 +1110,7 @@ Public Class SSCPEvents
                     "'" & Replace(OperatingStatus, "'", "''") & "', '" & cboInspectionComplianceStatus.Text & "', " &
                     "'" & Replace(InspectionComments, "'", "''") & "', " &
                     "'" & EnforcementFollowUp & "', '" & CurrentUser.UserID & "', " &
-                    "'" & OracleDate & "')"
+                    " GETDATE() )"
                 Else
                     SQL = "Update SSCPInspections set " &
                     "DatInspectionDateStart = '" & InspectionTimeStart & "', " &
@@ -1123,7 +1123,7 @@ Public Class SSCPEvents
                     "strInspectionComments = '" & Replace(InspectionComments, "'", "''") & "', " &
                     "strInspectionFollowUp = '" & EnforcementFollowUp & "', " &
                     "strModifingPerson = '" & CurrentUser.UserID & "', " &
-                    "datModifingDate = '" & OracleDate & "' " &
+                    "datModifingDate =  GETDATE()  " &
                     "where strtrackingNumber = '" & txtTrackingNumber.Text & "'"
                 End If
 
@@ -1266,7 +1266,7 @@ Public Class SSCPEvents
                     "'" & ReportedDeviations & "', '" & ReportedUnReportedDeviations & "', " &
                     "'" & Replace(ACCComments, "'", "''") & "', " &
                     "'" & EnforcementNeeded & "', " &
-                    "'" & CurrentUser.UserID & "', '" & OracleDate & "', '" & AccReportingYear & "', " &
+                    "'" & CurrentUser.UserID & "',  GETDATE() , '" & AccReportingYear & "', " &
                     "'" & AllDeviationsReported & "', '" & ResubmittalRequested & "')"
 
                     cmd = New SqlCommand(SQL, CurrentConnection)
@@ -1292,7 +1292,7 @@ Public Class SSCPEvents
                     "'" & ReportedDeviations & "', '" & ReportedUnReportedDeviations & "', " &
                     "'" & Replace(ACCComments, "'", "''") & "', " &
                     "'" & EnforcementNeeded & "', '" & CurrentUser.UserID & "', " &
-                    "'" & OracleDate & "', '" & AccReportingYear & "', " &
+                    " GETDATE() , '" & AccReportingYear & "', " &
                     "'" & AllDeviationsReported & "', '" & ResubmittalRequested & "')"
 
                     cmd = New SqlCommand(SQL, CurrentConnection)
@@ -1315,7 +1315,7 @@ Public Class SSCPEvents
                     "strcomments = '" & Replace(ACCComments, "'", "''") & "', " &
                     "strEnforcementneeded = '" & EnforcementNeeded & "', " &
                     "strModifingPerson = '" & CurrentUser.UserID & "', " &
-                    "DatModifingDate = '" & OracleDate & "', " &
+                    "DatModifingDate =  GETDATE() , " &
                     "datAccReportingYear = '" & AccReportingYear & "', " &
                     "STRKNOWNDEVIATIONSREPORTED = '" & AllDeviationsReported & "', " &
                     "STRRESUBMITTALREQUIRED = '" & ResubmittalRequested & "' " &
@@ -1353,7 +1353,7 @@ Public Class SSCPEvents
                         "strcomments = '" & Replace(ACCComments, "'", "''") & "', " &
                         "strEnforcementneeded = '" & EnforcementNeeded & "', " &
                         "strModifingPerson = '" & CurrentUser.UserID & "', " &
-                        "DatModifingDate = '" & OracleDate & "', " &
+                        "DatModifingDate =  GETDATE() , " &
                         "datAccReportingYear = '" & AccReportingYear & "', " &
                         "STRKNOWNDEVIATIONSREPORTED = '" & AllDeviationsReported & "', " &
                         "STRRESUBMITTALREQUIRED = '" & ResubmittalRequested & "' " &
@@ -1377,7 +1377,7 @@ Public Class SSCPEvents
                         "'" & ReportedDeviations & "', '" & ReportedUnReportedDeviations & "', " &
                         "'" & Replace(ACCComments, "'", "''") & "', " &
                         "'" & EnforcementNeeded & "', '" & CurrentUser.UserID & "', " &
-                        "'" & OracleDate & "', '" & AccReportingYear & "', " &
+                        " GETDATE() , '" & AccReportingYear & "', " &
                         "'" & AllDeviationsReported & "', '" & ResubmittalRequested & "')"
                     End If
                     cmd = New SqlCommand(SQL, CurrentConnection)
@@ -1459,7 +1459,7 @@ Public Class SSCPEvents
                 "strTestReportComments = '" & Replace(TestReportComments, "'", "''") & "', " &
                 "strTestReportFollowUp = '" & TestReportFollowUp & "', " &
                 "strModifingPerson = '" & CurrentUser.UserID & "', " &
-                "datModifingDate = '" & OracleDate & "' " &
+                "datModifingDate =  GETDATE()  " &
                 "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
             Else
                 SQL = "Insert into SSCPTestReports " &
@@ -1471,7 +1471,7 @@ Public Class SSCPEvents
                 "('" & txtTrackingNumber.Text & "', '" & ReferenceNumber & "', " &
                 "'" & TestReportDue & "', " &
                 "'" & Replace(TestReportComments, "'", "''") & "', '" & TestReportFollowUp & "', " &
-                "'" & CurrentUser.UserID & "', '" & OracleDate & "') "
+                "'" & CurrentUser.UserID & "',  GETDATE() ) "
             End If
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -1585,7 +1585,7 @@ Public Class SSCPEvents
                 "strNotificationComment = '" & Replace(NotificationComment, "'", "''") & "', " &
                 "strNotificationFollowUp = '" & NotificationFollowUp & "', " &
                 "strModifingPerson = '" & CurrentUser.UserID & "', " &
-                "datModifingDate = '" & OracleDate & "' " &
+                "datModifingDate =  GETDATE()  " &
                 "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
             Else
                 SQL = "Insert into SSCPNotifications " &
@@ -1601,7 +1601,7 @@ Public Class SSCPEvents
                 "'" & NotificationSent & "', '" & cboNotificationType.SelectedValue & "', " &
                 "'" & Replace(NotificationTypeOther, "'", "''") & "', '" & Replace(NotificationComment, "'", "''") & "', " &
                 "'" & NotificationFollowUp & "', '" & CurrentUser.UserID & "', " &
-                "'" & OracleDate & "') "
+                " GETDATE() ) "
             End If
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -1739,7 +1739,7 @@ Public Class SSCPEvents
                             "values " &
                             "('" & txtTrackingNumber.Text & "', '" & ActionNumber & "', " &
                             "'A', '" & CurrentUser.UserID & "', " &
-                            "'" & OracleDate & "') "
+                            " GETDATE() ) "
 
                             cmd = New SqlCommand(SQL, CurrentConnection)
                             If CurrentConnection.State = ConnectionState.Closed Then
@@ -1835,7 +1835,7 @@ Public Class SSCPEvents
                             "values " &
                             "('" & CStr(CInt(txtTrackingNumber.Text + 1)) & "', '" & ActionNumber & "', " &
                             "'A', '" & CurrentUser.UserID & "', " &
-                            "'" & OracleDate & "') "
+                            " GETDATE() ) "
 
                             cmd = New SqlCommand(SQL, CurrentConnection)
                             If CurrentConnection.State = ConnectionState.Closed Then
@@ -1917,7 +1917,7 @@ Public Class SSCPEvents
                         "values " &
                         "('" & txtTrackingNumber.Text & "', '" & ActionNumber & "', " &
                         "'A', '" & CurrentUser.UserID & "', " &
-                        "'" & OracleDate & "') "
+                        " GETDATE() ) "
 
                         cmd = New SqlCommand(SQL, CurrentConnection)
                         If CurrentConnection.State = ConnectionState.Closed Then
@@ -2318,7 +2318,7 @@ Public Class SSCPEvents
                         dtpAccReportingYear.Checked = True
                     End If
                     If dr.Item("DATPostmarkDate") = "04-Jul-1776" Then
-                        DTPACCPostmarked.Text = OracleDate
+                        DTPACCPostmarked.Value = Today
                     Else
                         DTPACCPostmarked.Text = dr.Item("datPostmarkDate")
                     End If
@@ -2536,7 +2536,7 @@ Public Class SSCPEvents
                         dtpAccReportingYear.Checked = True
                     End If
                     If dr.Item("DATPostmarkDate") = "04-Jul-1776" Then
-                        DTPACCPostmarked.Text = OracleDate
+                        DTPACCPostmarked.Value = Today
                     Else
                         DTPACCPostmarked.Text = dr.Item("datPostmarkDate")
                     End If
@@ -2828,7 +2828,7 @@ Public Class SSCPEvents
                 End If
 
                 If txtISMPReferenceNumber.Text = "N/A" Or txtISMPReferenceNumber.Text = "" Then
-                    DTPTestReportReceivedDate.Text = OracleDate
+                    DTPTestReportReceivedDate.Value = Today
                     txtTestReportISMPCompleteDate.Text = "N/A"
                 Else
                     SQL = "Select datReceivedDate, datCompleteDate " &
@@ -2848,8 +2848,8 @@ Public Class SSCPEvents
                             txtTestReportISMPCompleteDate.Text = Format(dr.Item("datReceivedDate"), "dd-MMM-yyyy")
                         End If
                     Else
-                        DTPTestReportReceivedDate.Text = OracleDate
-                        txtTestReportISMPCompleteDate.Text = OracleDate
+                        DTPTestReportReceivedDate.Value = Today
+                        txtTestReportISMPCompleteDate.Text = TodayFormatted
                     End If
                     dr.Close()
                 End If

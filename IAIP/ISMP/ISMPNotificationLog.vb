@@ -16,16 +16,16 @@ Public Class ISMPNotificationLog
         Try
             Panel1.Text = "Select a Function..."
             Panel2.Text = CurrentUser.AlphaName
-            Panel3.Text = OracleDate
+            Panel3.Text = TodayFormatted
 
             LoadComboBoxes()
             If txtTestNotificationNumber.Text <> "" Then
                 LoadTestNotification()
             End If
-            DTPTestPlanReceived.Text = OracleDate
-            DTPTestNotification.Text = OracleDate
-            DTPTestDateStart.Text = OracleDate
-            DTPTestDateEnd.Text = OracleDate
+            DTPTestPlanReceived.Value = Today
+            DTPTestNotification.Value = Today
+            DTPTestDateStart.Value = Today
+            DTPTestDateEnd.Value = Today
 
             If AccountFormAccess(66, 2) <> "1" And AccountFormAccess(66, 3) <> "1" Then
                 bbtSave.Visible = False
@@ -194,12 +194,12 @@ Public Class ISMPNotificationLog
                         txtEmissionUnit.Text = dr.Item("strEmissionUnit")
                     End If
                     If IsDBNull(dr.Item("datProposedStartDate")) Then
-                        DTPTestDateStart.Text = OracleDate
+                        DTPTestDateStart.Value = Today
                     Else
                         DTPTestDateStart.Text = dr.Item("datProposedStartDate")
                     End If
                     If IsDBNull(dr.Item("datProposedEndDate")) Then
-                        DTPTestDateEnd.Text = OracleDate
+                        DTPTestDateEnd.Value = Today
                     Else
                         DTPTestDateEnd.Text = dr.Item("datProposedEndDate")
                     End If
@@ -219,12 +219,12 @@ Public Class ISMPNotificationLog
                         End If
                     End If
                     If IsDBNull(dr.Item("datTestPlanReceived")) Then
-                        DTPTestPlanReceived.Text = OracleDate
+                        DTPTestPlanReceived.Value = Today
                     Else
                         DTPTestPlanReceived.Text = dr.Item("datTestPlanReceived")
                     End If
                     If IsDBNull(dr.Item("strConfirmationNumber")) Then
-                        Confirm = OracleDate
+                        Confirm = TodayFormatted
                         DTPTestNotification.Text = Confirm
                     Else
                         Confirm = dr.Item("strConfirmationNumber")
@@ -236,7 +236,7 @@ Public Class ISMPNotificationLog
                             Case 22
                                 Confirm = Mid(Confirm, Confirm.Length - 14, Confirm.Length - 13)
                             Case Else
-                                Confirm = OracleDate
+                                Confirm = TodayFormatted
                         End Select
                         'If Confirm.Length >= 9 Then
                         '    If Confirm.Length > 13 And Confirm.Length > 15 Then
@@ -259,7 +259,7 @@ Public Class ISMPNotificationLog
                         End If
                     End If
                     If IsDBNull(dr.Item("datTestNotification")) Then
-                        DTPTestNotification.Text = OracleDate
+                        DTPTestNotification.Value = Today
                     Else
                         DTPTestNotification.Text = dr.Item("datTestNotification")
                     End If
@@ -419,7 +419,7 @@ Public Class ISMPNotificationLog
                     "strOnlineLastName = '" & txtContactLastName.Text & "', " &
                     "strInternalComments = '" & Replace(txtISMPComments.Text, "'", "''") & "', " &
                     "strmodifingstaff = '" & CurrentUser.UserID & "', " &
-                    "datModifingDate = '" & OracleDate & "', " &
+                    "datModifingDate = GETDATE(), " &
                     "datTestPlanReceived = '" & TestPlanRec & "', " &
                     "datTestNotification = '" & TestNotificationDate & "', " &
                     "strTelephone = '" & mtbPhoneNumber.Text & "', " &
@@ -499,7 +499,7 @@ Public Class ISMPNotificationLog
                     "'" & cboStaffResponsible.SelectedValue & "', " &
                     "'" & TestPlan & "', '" & TimelyNotification & "', " &
                     "'" & Replace(txtISMPComments.Text, "'", "''") & "', " &
-                    "'" & CurrentUser.UserID & "', '" & OracleDate & "', " &
+                    "'" & CurrentUser.UserID & "',  GETDATE() , " &
                     "'" & mtbPhoneNumber.Text & "', '" & mtbFaxNumber.Text & "', " &
                     "'" & TestNotificationDate & "', '" & TestNotificationDate & "', " &
                     "'" & Replace(txtPollutants.Text, "'", "''") & "') "
