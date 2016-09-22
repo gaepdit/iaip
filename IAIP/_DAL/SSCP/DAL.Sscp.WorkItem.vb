@@ -242,6 +242,17 @@ Namespace DAL.Sscp
             Return DB.GetDataTable(query, parameters)
         End Function
 
+        ''' <summary>
+        ''' Returns a DataTable of a SSCP notification types
+        ''' </summary>
+        ''' <returns></returns>
+        Public Function GetSscpNotificationTypes() As DataTable
+            Dim query As String = "SELECT STRNOTIFICATIONKEY, STRNOTIFICATIONDESC FROM LOOKUPSSCPNOTIFICATIONS"
+            Dim dt As DataTable = DB.GetDataTable(query)
+            dt.PrimaryKey = New DataColumn() {dt.Columns("STRNOTIFICATIONKEY")}
+            Return dt
+        End Function
+
 #End Region
 
 #Region " Reports "

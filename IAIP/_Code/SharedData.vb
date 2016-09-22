@@ -19,6 +19,7 @@ Public Class SharedData
         IaipAccountRoles
         AllFeeFacilities
         EpdManagers
+        SscpNotificationTypes
     End Enum
 
     ''' <summary>
@@ -65,7 +66,10 @@ Public Class SharedData
                     dt = DAL.GetAllFeeFacilities()
 
                 Case SharedTable.EpdManagers
-                    dt = DAL.GetEpdManagersAsDataTable
+                    dt = DAL.GetEpdManagersAsDataTable()
+
+                Case SharedTable.SscpNotificationTypes
+                    dt = DAL.Sscp.GetSscpNotificationTypes()
 
             End Select
 
