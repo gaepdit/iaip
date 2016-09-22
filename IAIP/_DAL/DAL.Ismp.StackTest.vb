@@ -14,10 +14,9 @@ Namespace DAL.Ismp
         Public Function StackTestExists(referenceNumber As String) As Boolean
             If referenceNumber = "" OrElse Not Integer.TryParse(referenceNumber, Nothing) Then Return False
 
-            Dim query As String = "SELECT '" & Boolean.TrueString & "' " &
+            Dim query As String = "SELECT CONVERT( bit, COUNT(*)) " &
                 " FROM ISMPREPORTINFORMATION " &
-                " WHERE RowNum = 1 " &
-                " AND STRREFERENCENUMBER = @ReferenceNumber "
+                " WHERE STRREFERENCENUMBER = @ReferenceNumber "
             Dim parameter As New SqlParameter("@ReferenceNumber", referenceNumber)
 
             Return DB.GetBoolean(query, parameter)
@@ -31,10 +30,9 @@ Namespace DAL.Ismp
         Public Function TestNotificationExists(notificationNumber As String) As Boolean
             If notificationNumber = "" OrElse Not Integer.TryParse(notificationNumber, Nothing) Then Return False
 
-            Dim query As String = "SELECT '" & Boolean.TrueString & "' " &
+            Dim query As String = "SELECT CONVERT( bit, COUNT(*)) " &
                 " FROM ISMPTESTNOTIFICATION " &
-                " WHERE RowNum = 1 " &
-                " AND STRTESTLOGNUMBER = @NotificationNumber "
+                " WHERE STRTESTLOGNUMBER = @NotificationNumber "
             Dim parameter As New SqlParameter("@NotificationNumber", notificationNumber)
 
             Return DB.GetBoolean(query, parameter)
@@ -87,19 +85,17 @@ Namespace DAL.Ismp
 
             Dim queryList As New List(Of String)
             Dim parametersList As New List(Of SqlParameter())
-            Dim parameter As SqlParameter() = New SqlParameter() {
-                New SqlParameter("@ReferenceNumber", referenceNumber)
-            }
+            Dim parameter As New SqlParameter("@ReferenceNumber", referenceNumber)
 
             If tableName <> "UNASSIGNED" Then
                 queryList.Add("DELETE FROM " & tableName & " WHERE strReferenceNumber = @ReferenceNumber")
-                parametersList.Add(parameter)
+                parametersList.Add({parameter})
             End If
 
             queryList.Add(" UPDATE ISMPReportInformation " &
                           " SET strDocumentType      = '001' " &
                           " WHERE strReferenceNumber = @ReferenceNumber ")
-            parametersList.Add(parameter)
+            parametersList.Add({parameter})
 
             Return DB.RunCommand(queryList, parametersList)
         End Function
