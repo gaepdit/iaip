@@ -53,10 +53,8 @@ Namespace DAL.Sscp
         Public Function EnforcementExists(enforcementId As String) As Boolean
             If enforcementId = "" OrElse Not Integer.TryParse(enforcementId, Nothing) Then Return False
 
-            Dim query As String = "SELECT '" & Boolean.TrueString & "' " &
-                " FROM SSCP_AUDITEDENFORCEMENT " &
-                " WHERE RowNum = 1 " &
-                " AND STRENFORCEMENTNUMBER = @enforcementId "
+            Dim query As String = "SELECT CONVERT( bit, COUNT(*)) FROM SSCP_AUDITEDENFORCEMENT " &
+                " WHERE STRENFORCEMENTNUMBER = @enforcementId "
             Dim parameter As New SqlParameter("@enforcementId", enforcementId)
 
             Dim result As String = DB.GetSingleValue(Of String)(query, parameter)

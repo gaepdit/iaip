@@ -114,8 +114,8 @@ Namespace DAL
                 " ON IAIP_BINARYFILES.BINARYFILEID = IAIP_SSCP_ENFORCEMENTDOCS.NUMBINARYFILE " &
                 " INNER JOIN IAIP_LK_SSCPDOCUMENTTYPE " &
                 " ON IAIP_SSCP_ENFORCEMENTDOCS.NUMDOCUMENTTYPE = IAIP_LK_SSCPDOCUMENTTYPE.DOCUMENTTYPEID " &
-                " WHERE IAIP_SSCP_ENFORCEMENTDOCS.STRENFORCEMENTNUMBER = @pId "
-            Dim parameter As New SqlParameter("@pId", enfNum)
+                " WHERE IAIP_SSCP_ENFORCEMENTDOCS.STRENFORCEMENTNUMBER = @Id "
+            Dim parameter As New SqlParameter("@Id", enfNum)
             Return DB.GetDataTable(query, parameter)
         End Function
 
@@ -140,7 +140,7 @@ Namespace DAL
             With doc
                 .BinaryFileId = Convert.ToInt32(row("BINARYFILEID"))
                 .FileName = row("STRFILENAME")
-                .FileSize = DBUtilities.GetNullable(Of Decimal?)(row("NUMFILESIZE"))
+                .FileSize = DBUtilities.GetNullable(Of Integer?)(row("NUMFILESIZE"))
                 .DocumentTypeId = row("NUMDOCUMENTTYPE")
                 .Comment = DBUtilities.GetNullable(Of String)(row("STRCOMMENT"))
                 .UploadDate = NormalizeDate(DBUtilities.GetNullable(Of Date)(row("CREATEDATE")))
@@ -262,8 +262,8 @@ Namespace DAL
             If doc Is Nothing Then Return False
             Dim metaDataQuery As String =
                             " INSERT INTO IAIP_SSCP_ENFORCEMENTDOCS " &
-                            " (NUMBINARYFILE,STRENFORCEMENTNUMBER,NUMDOCUMENTTYPE,STRCOMMENT,UPDATEUSER,UPDATEDATE,CREATEDATE) " &
-                            " VALUES (@FileID,@MetaDataId,@DocTypeId,@Comment,@User,@UpdateDate,@CreateDate) "
+                            " (ENFORCEMENTDOCSID,NUMBINARYFILE,STRENFORCEMENTNUMBER,NUMDOCUMENTTYPE,STRCOMMENT,UPDATEUSER,UPDATEDATE,CREATEDATE) " &
+                            " VALUES (NEXT VALUE FOR IAIP_SSCP_ENFORCEMENTDOCS_SEQ,@FileID,@MetaDataId,@DocTypeId,@Comment,@User,@UpdateDate,@CreateDate) "
             Dim metaDataId As String = doc.EnforcementNumber
             Return UploadDocument(doc, pathToFile, metaDataQuery, metaDataId, sender)
         End Function

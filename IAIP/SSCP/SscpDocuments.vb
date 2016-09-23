@@ -1,7 +1,6 @@
 ﻿Imports System.Collections.Generic
 Imports System.Text
 Imports System.IO
-
 Imports Iaip.Apb.Sscp
 Imports Iaip.DAL.Sscp
 Imports Iaip.DAL.DocumentData
@@ -38,7 +37,6 @@ Public Class SscpDocuments
 #Region "Page Load"
 
     Private Sub SscpDocuments_Load(sender As Object, e As EventArgs) Handles Me.Load
-
         LoadDocumentTypes()
         ClearEverything()
         If enforcementInfo IsNot Nothing Then ShowEnforcement()
@@ -46,7 +44,7 @@ Public Class SscpDocuments
 
     Private Sub LoadDocumentTypes()
         ' Get list of various document types and bind that list to the comboboxes
-        Dim documentTypes As Dictionary(Of Integer, String) = DAL.GetEnforcementDocumentTypesDict
+        Dim documentTypes As Dictionary(Of Integer, String) = GetEnforcementDocumentTypesDict()
 
         If documentTypes.Count > 0 Then
             ddlNewDocumentType.BindToDictionary(documentTypes)
@@ -185,13 +183,16 @@ Public Class SscpDocuments
 #Region "Enable/Disable Form Regions"
 
 #Region "Document (update/delete/download)"
+
     Private Sub EnableDocument()
-        EnableOrDisableDocument(True)
+        EnableOrDisableDocument(EnableOrDisable.Enable)
     End Sub
+
     Private Sub DisableDocument()
-        EnableOrDisableDocument(False)
+        EnableOrDisableDocument(EnableOrDisable.Disable)
     End Sub
-    Private Sub EnableOrDisableDocument(enable As Boolean)
+
+    Private Sub EnableOrDisableDocument(enable As EnableOrDisable)
         With pnlDocument
             .Enabled = enable
             .Visible = enable
@@ -202,16 +203,20 @@ Public Class SscpDocuments
             lblDocumentName.Text = dgvDocumentList.CurrentRow.Cells("FileName").Value
         End If
     End Sub
+
 #End Region
 
 #Region "New Document"
+
     Private Sub EnableNewDocument()
-        EnableOrDisableNewDocument(True)
+        EnableOrDisableNewDocument(EnableOrDisable.Enable)
     End Sub
+
     Private Sub DisableNewDocument()
-        EnableOrDisableNewDocument(False)
+        EnableOrDisableNewDocument(EnableOrDisable.Disable)
     End Sub
-    Private Sub EnableOrDisableNewDocument(enable As Boolean)
+
+    Private Sub EnableOrDisableNewDocument(enable As EnableOrDisable)
         With pnlNewDocument
             .Enabled = enable
         End With
@@ -222,16 +227,20 @@ Public Class SscpDocuments
             End With
         End If
     End Sub
+
 #End Region
 
 #Region "New Document Details"
+
     Private Sub EnableNewDocumentDetails()
-        EnableOrDisableNewDocumentDetails(True)
+        EnableOrDisableNewDocumentDetails(EnableOrDisable.Enable)
     End Sub
+
     Private Sub DisableNewDocumentDetails()
-        EnableOrDisableNewDocumentDetails(False)
+        EnableOrDisableNewDocumentDetails(EnableOrDisable.Disable)
     End Sub
-    Private Sub EnableOrDisableNewDocumentDetails(enable As Boolean)
+
+    Private Sub EnableOrDisableNewDocumentDetails(enable As EnableOrDisable)
         With pnlNewDocumentDetails
             .Enabled = enable
             .Visible = enable
@@ -240,6 +249,7 @@ Public Class SscpDocuments
             txtNewDocumentDescription.Text = ""
         End If
     End Sub
+
 #End Region
 
 #End Region
@@ -424,7 +434,7 @@ Public Class SscpDocuments
         If Message IsNot Nothing Then Message.Clear()
 
         Dim doc As EnforcementDocument = EnforcementDocumentFromFileListRow(dgvDocumentList.CurrentRow)
-        Me.Message = New IaipMessage(GetDocumentMessage(DocumentMessageType.DownloadingFile), doc.FileName)
+        Me.Message = New IaipMessage(GetDocumentMessage(DocumentMessageType.DownloadingFile))
 
         Dim canceled As Boolean = False
         Dim downloaded As Boolean = DownloadDocument(doc, canceled, Me)
