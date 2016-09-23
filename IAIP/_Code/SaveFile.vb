@@ -3,6 +3,13 @@ Imports System.IO
 
 Module SaveFile
 
+    ''' <summary>
+    ''' Retrieves a binary file from a database and saves it to disk
+    ''' </summary>
+    ''' <param name="filePath">The path for saving the file.</param>
+    ''' <param name="query">The DB query for retrieving the file from the DB.</param>
+    ''' <param name="parameter">An optional SqlParameter to send.</param>
+    ''' <returns></returns>
     Public Function SaveBinaryFileFromDB(filePath As String, query As String, Optional parameter As SqlParameter = Nothing) As Boolean
         Dim parameterArray As SqlParameter() = Nothing
         If parameter IsNot Nothing Then
@@ -11,16 +18,18 @@ Module SaveFile
         Return SaveBinaryFileFromDB(filePath, query, parameterArray)
     End Function
 
+    ''' <summary>
+    ''' Retrieves a binary file from a database and saves it to disk
+    ''' </summary>
+    ''' <param name="filePath">The path for saving the file.</param>
+    ''' <param name="query">The DB query for retrieving the file from the DB.</param>
+    ''' <param name="parameterArray">A SqlParameter array to send.</param>
+    ''' <returns></returns>
     Public Function SaveBinaryFileFromDB(filePath As String, query As String, parameterArray As SqlParameter()) As Boolean
-        Dim byteArray As Byte() = DB.GetByteArray(query, parameterArray)
+        Dim byteArray As Byte() = DB.GetSingleValue(Of Byte())(query, parameterArray)
 
         Try
-            Using fs As New FileStream(filePath, FileMode.Create, FileAccess.Write)
-                Using bw As New BinaryWriter(fs)
-                    bw.Write(byteArray)
-                End Using ' bw
-            End Using ' fs
-
+            File.WriteAllBytes(filePath, byteArray)
             Return True
         Catch ex As Exception
             Return False

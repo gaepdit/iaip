@@ -12,96 +12,71 @@ Namespace DAL
         ' File filters for open/save dialog boxes
         ' Document extensions from http://en.wikipedia.org/wiki/List_of_file_formats#Document
 
-        Public Function FileSaveFilters(key As String) As String
-            Dim fileFilters As New Dictionary(Of String, String)
-            With fileFilters
-                ' Text
-                .Add(".txt", "Text file (*.txt)|*.txt")
-                .Add(".rtf", "Rich text file (*.rtf)|*.rtf")
+        Public FileSaveFilters As New Dictionary(Of String, String) From {
+            {".txt", "Text file (*.txt)|*.txt"}, ' Text
+            {".rtf", "Rich text file (*.rtf)|*.rtf"},
+            {".doc", "Word Document (*.doc)|*.doc"}, ' Documents, Microsoft
+            {".docx", "Word Document (*.docx)|*.docx"},
+            {".docm", "Word Document (*.docm)|*.docm"},
+            {".wri", "Microsoft Write Document (*.wri)|*.wri"},
+            {".pdf", "PDF Document (*.pdf)|*.pdf"}, ' Documents, Other
+            {".epub", "Ebook (*.epub)|*.epub"},
+            {".gdoc", "Google Drive Document (*.gdoc)|*.gdoc"},
+            {".odt", "OpenDocument (*.odt)|*.odt"},
+            {".pages", "Apple Pages Document (*.pages)|*.pages"},
+            {".wpd", "WordPerfect Document (*.wpd)|*.wpd"},
+            {".html", "HTML File (*.html, *.htm)|*.html;*.htm"}, ' HTML
+            {".htm", "HTML File (*.html, *.htm)|*.html;*.htm"},
+            {".xhtml", "HTML File (*.html, *.htm, *.xhtml)|*.html;*.htm;*.xhtml"},
+            {".xht", "HTML File (*.html, *.htm, *.xhtml, *.xht)|*.html;*.htm;*.xhtml;*.xht"},
+            {".xls", "Excel Spreadsheet (*.xls)|*.xls"}, ' Spreadsheets, Microsoft
+            {".xlsx", "Excel Spreadsheet (*.xlsx)|*.xlsx"},
+            {".xlsm", "Excel Spreadsheet (*.xlsm)|*.xlsm"},
+            {".xlsb", "Excel Spreadsheet (*.xlsb)|*.xlsb"},
+            {".gsheet", "Google Drive Spreadsheet (*.gsheet)|*.gsheet"}, ' Spreadsheets, Other
+            {".ods", "Open Document Spreadsheet (*.ods)|*.ods"},
+            {".csv", "CSV File (*.csv)|*.csv"}, ' Data
+            {".xml", "XML File (*.xml)|*.xml"},
+            {".ppt", "PowerPoint Presentation (*.ppt)|*.ppt"}, ' Presentations
+            {".pptx", "PowerPoint Presentation (*.pptx)|*.pptx"},
+            {".pptm", "PowerPoint Presentation (*.pptm)|*.pptm"},
+            {".zip", "Archive File (*.zip)|*.zip"}, ' Archive (zip) files
+            {".7z", "Archive File (*.7z)|*.7z"},
+            {".rar", "Archive File (*.rar)|*.rar"},
+            {".bmp", "Bitmap Image (*.bmp)|*.bmp"}, ' Images
+            {".png", "PNG Image (*.png)|*.png"},
+            {".jpg", "JPEG Image (*.jpg, *.jpeg, *.jpe)|*.jpg;*.jpeg;.jpe"},
+            {".jpeg", "JPEG Image (*.jpg, *.jpeg, *.jpe)|*.jpg;*.jpeg;.jpe"},
+            {".jpe", "JPEG Image (*.jpg, *.jpeg, *.jpe)|*.jpg;*.jpeg;.jpe"},
+            {".gif", "GIF Image (*.gif)|*.gif"},
+            {".tif", "TIFF Image (*.tif, *.tiff)|*.tif;*.tiff"},
+            {".tiff", "TIFF Image (*.tif, *.tiff)|*.tif;*.tiff"}
+        }
 
-                ' Documents, Microsoft
-                .Add(".doc", "Word Document (*.doc)|*.doc")
-                .Add(".docx", "Word Document (*.docx)|*.docx")
-                .Add(".docm", "Word Document (*.docm)|*.docm")
-                .Add(".wri", "Microsoft Write Document (*.wri)|*.wri")
-
-                ' Documents, Other
-                .Add(".pdf", "PDF Document (*.pdf)|*.pdf")
-                .Add(".epub", "Ebook (*.epub)|*.epub")
-                .Add(".gdoc", "Google Drive Document (*.gdoc)|*.gdoc")
-                .Add(".odt", "OpenDocument (*.odt)|*.odt")
-                .Add(".pages", "Apple Pages Document (*.pages)|*.pages")
-                .Add(".wpd", "WordPerfect Document (*.wpd)|*.wpd")
-
-                ' HTML
-                .Add(".html", "HTML File (*.html, *.htm)|*.html;*.htm")
-                .Add(".htm", "HTML File (*.html, *.htm)|*.html;*.htm")
-                .Add(".xhtml", "HTML File (*.html, *.htm, *.xhtml)|*.html;*.htm;*.xhtml")
-                .Add(".xht", "HTML File (*.html, *.htm, *.xhtml, *.xht)|*.html;*.htm;*.xhtml;*.xht")
-
-                ' Spreadsheets, Microsoft
-                .Add(".xls", "Excel Spreadsheet (*.xls)|*.xls")
-                .Add(".xlsx", "Excel Spreadsheet (*.xlsx)|*.xlsx")
-                .Add(".xlsm", "Excel Spreadsheet (*.xlsm)|*.xlsm")
-                .Add(".xlsb", "Excel Spreadsheet (*.xlsb)|*.xlsb")
-
-                ' Spreadsheets, Other
-                .Add(".gsheet", "Google Drive Spreadsheet (*.gsheet)|*.gsheet")
-                .Add(".ods", "Open Document Spreadsheet (*.ods)|*.ods")
-
-                ' Data
-                .Add(".csv", "CSV File (*.csv)|*.csv")
-                .Add(".xml", "XML File (*.xml)|*.xml")
-
-                ' Presentations
-                .Add(".ppt", "PowerPoint Presentation (*.ppt)|*.ppt")
-                .Add(".pptx", "PowerPoint Presentation (*.pptx)|*.pptx")
-                .Add(".pptm", "PowerPoint Presentation (*.pptm)|*.pptm")
-
-                ' Archive (zip) files
-                .Add(".zip", "Archive File (*.zip)|*.zip")
-                .Add(".7z", "Archive File (*.7z)|*.7z")
-                .Add(".rar", "Archive File (*.rar)|*.rar")
-
-                ' Images
-                .Add(".bmp", "Bitmap Image (*.bmp)|*.bmp")
-                .Add(".png", "PNG Image (*.png)|*.png")
-                .Add(".jpg", "JPEG Image (*.jpg, *.jpeg, *.jpe)|*.jpg;*.jpeg;.jpe")
-                .Add(".jpeg", "JPEG Image (*.jpg, *.jpeg, *.jpe)|*.jpg;*.jpeg;.jpe")
-                .Add(".jpe", "JPEG Image (*.jpg, *.jpeg, *.jpe)|*.jpg;*.jpeg;.jpe")
-                .Add(".gif", "GIF Image (*.gif)|*.gif")
-                .Add(".tif", "TIFF Image (*.tif, *.tiff)|*.tif;*.tiff")
-                .Add(".tiff", "TIFF Image (*.tif, *.tiff)|*.tif;*.tiff")
-            End With
-
-            If fileFilters.ContainsKey(key) Then
-                Return fileFilters(key)
+        Public Function GetFileSaveFilters(key As String) As String
+            If FileSaveFilters.ContainsKey(key) Then
+                Return FileSaveFilters(key)
             Else
                 Return "*.*|*.*"
             End If
-
         End Function
 
-        Public Function FileOpenFilters() As List(Of String)
-            Dim fileFilters As New List(Of String)
-            With fileFilters
-                .Add("Common Document Formats (*.docx, *.doc, *.pdf, *.xlsx, *.xls)|*.pdf;*.doc;*.docx;*.xlsx;*.xls")
-                .Add("PDF Documents (*.pdf)|*.pdf")
-                .Add("Word Documents (*.doc, *.docx, *.docm)|*.doc;*.docx;*.docm")
-                .Add("Excel Spreadsheets (*.xls, *.xlsx, *.xlsm, *.xlsb, *.csv)|*.xls;*.xlsx;*.xlsm;*.xlsb; *.csv")
-                .Add("PowerPoint Presentations (*.ppt, *.pptx, *.pptm)|*.ppt;*.pptx;*.pptm")
-                .Add("Text Files (*.txt)|*.txt")
-                .Add("Rich Text Files (*.rtf)|*.rtf")
-                .Add("Images (*.png, *.jpg, *.gif, *.tif, *.bmp, etc.)|*.png;*.jpg;*.jpeg;*.jpe;*.gif;*.tif;*.tiff;*.bmp")
-                .Add("Archive Files(*.zip, *.7z, *.rar)|*.zip;*.7z;*.rar")
-                .Add("Other Documents (*.epub, *.gdoc, *.odt, *.wpd, *.wri)|*.epub;*.gdoc;*.odt;*.wpd;*.wri")
-                .Add("Other Spreadsheets (*.csv, *.gsheet, *.ods)|*.csv,*.gsheet,*.ods")
-                .Add("HTML Files (*.html, *.htm, *.xhtml, *.xht)|*.html;*.htm;*.xhtml;*.xht")
-                .Add("Data Files (*.xml, *.csv)|*.xml;*.csv")
-                .Add("All Files (*.*)|*.*")
-            End With
-            Return fileFilters
-        End Function
+        Public FileOpenFilters As New List(Of String) From {
+            {"Common Document Formats (*.docx, *.doc, *.pdf, *.xlsx, *.xls)|*.pdf;*.doc;*.docx;*.xlsx;*.xls"},
+            {"PDF Documents (*.pdf)|*.pdf"},
+            {"Word Documents (*.doc, *.docx, *.docm)|*.doc;*.docx;*.docm"},
+            {"Excel Spreadsheets (*.xls, *.xlsx, *.xlsm, *.xlsb, *.csv)|*.xls;*.xlsx;*.xlsm;*.xlsb; *.csv"},
+            {"PowerPoint Presentations (*.ppt, *.pptx, *.pptm)|*.ppt;*.pptx;*.pptm"},
+            {"Text Files (*.txt)|*.txt"},
+            {"Rich Text Files (*.rtf)|*.rtf"},
+            {"Images (*.png, *.jpg, *.gif, *.tif, *.bmp, etc.)|*.png;*.jpg;*.jpeg;*.jpe;*.gif;*.tif;*.tiff;*.bmp"},
+            {"Archive Files(*.zip, *.7z, *.rar)|*.zip;*.7z;*.rar"},
+            {"Other Documents (*.epub, *.gdoc, *.odt, *.wpd, *.wri)|*.epub;*.gdoc;*.odt;*.wpd;*.wri"},
+            {"Other Spreadsheets (*.csv, *.gsheet, *.ods)|*.csv,*.gsheet,*.ods"},
+            {"HTML Files (*.html, *.htm, *.xhtml, *.xht)|*.html;*.htm;*.xhtml;*.xht"},
+            {"Data Files (*.xml, *.csv)|*.xml;*.csv"},
+            {"All Files (*.*)|*.*"}
+        }
 
 #End Region
 
@@ -202,7 +177,7 @@ Namespace DAL
                     If Not Path.GetDirectoryName(dialog.FileName) = dialog.InitialDirectory Then
                         SaveUserSetting(UserSetting.FileDownloadLocation, Path.GetDirectoryName(dialog.FileName))
                     End If
-                    System.Diagnostics.Process.Start("explorer.exe", "/select,""" & dialog.FileName.ToString & """")
+                    Process.Start("explorer.exe", "/select,""" & dialog.FileName.ToString & """")
                 End If
             ElseIf dialogAction = DialogResult.Cancel Then
                 canceled = True
@@ -219,9 +194,9 @@ Namespace DAL
 
         Public Function DownloadFile(id As Integer, filePath As String) As Boolean
             Dim query As String = " SELECT IAIP_BINARYFILES.BLOBDOCUMENT " &
-                                " FROM IAIP_BINARYFILES " &
-                                " WHERE IAIP_BINARYFILES.BINARYFILEID = @pBinId "
-            Dim parameter As SqlParameter = New SqlParameter("@pBinId", id)
+                " FROM IAIP_BINARYFILES " &
+                " WHERE IAIP_BINARYFILES.BINARYFILEID = @FileID "
+            Dim parameter As SqlParameter = New SqlParameter("@FileID", id)
             Return SaveBinaryFileFromDB(filePath, query, parameter)
         End Function
 
@@ -230,63 +205,57 @@ Namespace DAL
 #Region "Upload files"
 
         Private Function UploadDocument(doc As Document, pathToFile As String, metaDataQuery As String, metaDataId As String, Optional sender As Object = Nothing) As Boolean
-            Throw New NotImplementedException()
+            If String.IsNullOrEmpty(pathToFile) Then Return False
 
-            ' TODO: SQL Server migration
+            If sender IsNot Nothing Then
+                sender.Cursor = Cursors.AppStarting
+            End If
 
-            'If String.IsNullOrEmpty(pathToFile) Then Return False
+            ' 1. Get seq value
+            ' -- Start Transaction
+            ' 2. Upload the binary file; use seq as id
+            ' 3. Upload file metadata; include binary file id
+            ' -- Commit Transaction
 
-            'If sender IsNot Nothing Then
-            '    sender.Cursor = Cursors.AppStarting
-            'End If
+            Dim binarySeqId As Integer = GetNextBinaryFileSequenceValue()
 
-            '' -- Transaction
-            '' 1. Get seq value
-            '' 2. Upload the binary file, use seq as id
-            '' 3. Upload file metadata, including binary file id
-            '' -- Commit transaction
+            Dim queryList As New List(Of String)
+            Dim parametersList As New List(Of SqlParameter())
 
-            'Dim queryList As New List(Of String)
-            'Dim parametersList As New List(Of SqlParameter())
-            'Dim binarySeqId As Integer = GetNextBinaryFileSequenceValue()
-            'Dim parameters As SqlParameter()
+            queryList.Add(
+                " INSERT INTO IAIP_BINARYFILES " &
+                " (BINARYFILEID,STRFILENAME,STRFILEEXTENSION,NUMFILESIZE,BLOBDOCUMENT,UPDATEUSER,UPDATEDATE,CREATEDATE) " &
+                " VALUES (@FileID,@FileName,@FileExt,@FileSize,@BinFile,@User,@UpdateDate,@CreateDate) "
+            )
+            parametersList.Add({
+                New SqlParameter("@FileID", binarySeqId),
+                New SqlParameter("@FileName", doc.FileName),
+                New SqlParameter("@FileExt", doc.FileExtension),
+                New SqlParameter("@FileSize", doc.FileSize),
+                New SqlParameter("@BinFile", ReadByteArrayFromFile(pathToFile)),
+                New SqlParameter("@User", CurrentUser.UserID),
+                New SqlParameter("@UpdateDate", Now),
+                New SqlParameter("@CreateDate", Now)
+            })
 
-            'queryList.Add(
-            '    " INSERT INTO IAIP_BINARYFILES " &
-            '    " (BINARYFILEID,STRFILENAME,STRFILEEXTENSION,NUMFILESIZE,BLOBDOCUMENT,UPDATEUSER,UPDATEDATE,CREATEDATE) " &
-            '    " VALUES (@pBinId,@pFileName,@pFileExt,@pFileSize,@pBinFile,@pUser,@pUpdateDate,@pCreateDate) "
-            ')
-            'parameters = New SqlParameter() {
-            '    New SqlParameter("@pBinId", binarySeqId),
-            '    New SqlParameter("@pFileName", doc.FileName),
-            '    New SqlParameter("@pFileExt", doc.FileExtension),
-            '    New SqlParameter("@pFileSize", doc.FileSize),
-            '    New SqlParameter("@pBinFile", SqlDbType.VarBinary, DB.ReadByteArrayFromFile(pathToFile), ParameterDirection.Input),
-            '    New SqlParameter("@pUser", CurrentUser.UserID),
-            '    New SqlParameter("@pUpdateDate", Date.Now),
-            '    New SqlParameter("@pCreateDate", Date.Now)
-            '}
-            'parametersList.Add(parameters)
+            queryList.Add(metaDataQuery)
+            parametersList.Add({
+                New SqlParameter("@FileID", binarySeqId),
+                New SqlParameter("@MetaDataId", metaDataId),
+                New SqlParameter("@DocTypeId", doc.DocumentTypeId),
+                New SqlParameter("@Comment", doc.Comment),
+                New SqlParameter("@User", CurrentUser.UserID),
+                New SqlParameter("@UpdateDate", Now),
+                New SqlParameter("@CreateDate", Now)
+            })
 
-            'queryList.Add(metaDataQuery)
-            'parameters = New SqlParameter() {
-            '    New SqlParameter("@pBinId", binarySeqId),
-            '    New SqlParameter("@pMetaDataId", metaDataId),
-            '    New SqlParameter("@pDocTypeId", doc.DocumentTypeId),
-            '    New SqlParameter("@pComment", doc.Comment),
-            '    New SqlParameter("@pUser", CurrentUser.UserID),
-            '    New SqlParameter("@pUpdateDate", Date.Now),
-            '    New SqlParameter("@pCreateDate", Date.Now)
-            '}
-            'parametersList.Add(parameters)
+            Dim result As Boolean = DB.RunCommand(queryList, parametersList)
 
-            'Dim result As Boolean = DB.RunCommand(queryList, parametersList)
+            If sender IsNot Nothing Then
+                sender.Cursor = Nothing
+            End If
 
-            'If sender IsNot Nothing Then
-            '    sender.Cursor = Nothing
-            'End If
-
-            'Return result
+            Return result
         End Function
 
         Public Function UploadEnforcementDocument(doc As EnforcementDocument, pathToFile As String, Optional sender As Object = Nothing) As Boolean
@@ -294,13 +263,13 @@ Namespace DAL
             Dim metaDataQuery As String =
                             " INSERT INTO IAIP_SSCP_ENFORCEMENTDOCS " &
                             " (NUMBINARYFILE,STRENFORCEMENTNUMBER,NUMDOCUMENTTYPE,STRCOMMENT,UPDATEUSER,UPDATEDATE,CREATEDATE) " &
-                            " VALUES (@pBinId,@pMetaDataId,@pDocTypeId,@pComment,@pUser,@pUpdateDate,@pCreateDate) "
+                            " VALUES (@FileID,@MetaDataId,@DocTypeId,@Comment,@User,@UpdateDate,@CreateDate) "
             Dim metaDataId As String = doc.EnforcementNumber
             Return UploadDocument(doc, pathToFile, metaDataQuery, metaDataId, sender)
         End Function
 
         Private Function GetNextBinaryFileSequenceValue() As Integer
-            Dim query As String = " SELECT IAIP_BINARYFILES_SEQ.NEXTVAL FROM DUAL "
+            Dim query As String = "SELECT NEXT VALUE FOR IAIP_BINARYFILES_SEQ"
             Return DB.GetSingleValue(Of Integer)(query)
         End Function
 
@@ -313,8 +282,8 @@ Namespace DAL
                 sender.Cursor = Cursors.AppStarting
             End If
 
-            Dim query As String = " DELETE FROM IAIP_BINARYFILES WHERE BINARYFILEID = @pBinId "
-            Dim parameter As SqlParameter = New SqlParameter("@pBinId", id)
+            Dim query As String = " DELETE FROM IAIP_BINARYFILES WHERE BINARYFILEID = @FileID "
+            Dim parameter As SqlParameter = New SqlParameter("@FileID", id)
 
             Dim result As Boolean = DB.RunCommand(query, parameter)
 
@@ -332,11 +301,11 @@ Namespace DAL
             If doc Is Nothing Then Return False
             Dim query As String =
                 " UPDATE IAIP_SSCP_ENFORCEMENTDOCS " &
-                " SET NUMDOCUMENTTYPE = @pDocTypeId, " &
-                " STRCOMMENT = @pComment, " &
-                " UPDATEUSER = @pUser, " &
-                " UPDATEDATE = @pUpdateDate " &
-                " WHERE ENFORCEMENTDOCSID = @pDocId "
+                " SET NUMDOCUMENTTYPE = @DocTypeId, " &
+                " STRCOMMENT = @Comment, " &
+                " UPDATEUSER = @User, " &
+                " UPDATEDATE = @UpdateDate " &
+                " WHERE ENFORCEMENTDOCSID = @DocId "
             Return UpdateDocument(doc, query, sender)
         End Function
 
@@ -346,11 +315,11 @@ Namespace DAL
             End If
 
             Dim parameters As SqlParameter() = {
-                New SqlParameter("@pDocTypeId", doc.DocumentTypeId),
-                New SqlParameter("@pComment", doc.Comment),
-                New SqlParameter("@pUser", CurrentUser.UserID),
-                New SqlParameter("@pUpdateDate", Date.Now),
-                New SqlParameter("@pDocId", doc.DocumentId)
+                New SqlParameter("@DocTypeId", doc.DocumentTypeId),
+                New SqlParameter("@Comment", doc.Comment),
+                New SqlParameter("@User", CurrentUser.UserID),
+                New SqlParameter("@UpdateDate", Date.Now),
+                New SqlParameter("@DocId", doc.DocumentId)
             }
 
             Dim result As Boolean = DB.RunCommand(query, parameters)
@@ -420,16 +389,16 @@ Namespace DAL
 
             Dim query As String =
                 " UPDATE IAIP_LK_SSCPDOCUMENTTYPE " &
-                " SET STRDOCUMENTTYPE  = @pDocType, " &
-                "   FACTIVE            = @pActive, " &
-                "   NUMORDINAL         = @pPosition " &
-                " WHERE DOCUMENTTYPEID = @pId "
+                " SET STRDOCUMENTTYPE  = @DocType, " &
+                "   FACTIVE            = @Active, " &
+                "   NUMORDINAL         = @Position " &
+                " WHERE DOCUMENTTYPEID = @Id "
 
             Dim parameters As SqlParameter() = {
-                New SqlParameter("@pDocType", d.DocumentType),
-                New SqlParameter("@pActive", d.Active.ToString),
-                New SqlParameter("@pPosition", d.Ordinal),
-                New SqlParameter("@pId", d.DocumentTypeId)
+                New SqlParameter("@DocType", d.DocumentType),
+                New SqlParameter("@Active", d.Active.ToString),
+                New SqlParameter("@Position", d.Ordinal),
+                New SqlParameter("@Id", d.DocumentTypeId)
             }
 
             Dim result As Boolean = DB.RunCommand(query, parameters)
@@ -451,12 +420,12 @@ Namespace DAL
             Dim query As String =
                 " INSERT INTO IAIP_LK_SSCPDOCUMENTTYPE " &
                 " (STRDOCUMENTTYPE, FACTIVE, NUMORDINAL ) " &
-                " VALUES (@pName, @pActive, @pOrdinal) "
+                " VALUES (@Name, @Active, @Ordinal) "
 
             Dim parameters As SqlParameter() = {
-                New SqlParameter("@pName", d.DocumentType),
-                New SqlParameter("@pActive", d.Active.ToString),
-                New SqlParameter("@pOrdinal", d.Ordinal)
+                New SqlParameter("@Name", d.DocumentType),
+                New SqlParameter("@Active", d.Active.ToString),
+                New SqlParameter("@Ordinal", d.Ordinal)
             }
 
             Dim result As Boolean = DB.RunCommand(query, parameters)
