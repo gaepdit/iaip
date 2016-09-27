@@ -9,10 +9,10 @@ Namespace DAL.Sspp
 #Region " Read "
 
         Public Function PermitExists(permitNumber As String) As Boolean
-            Dim query As String = "SELECT '" & Boolean.TrueString & "' " &
+            Dim query As String = "SELECT 1 " &
                 " FROM APBISSUEDPERMIT " &
-                " WHERE RowNum = 1 " &
-                " AND STRPERMITNUMBER = @permitnumber "
+                " WHERE STRPERMITNUMBER = @permitnumber "
+
             Dim parameter As New SqlParameter("@permitnumber", permitNumber)
 
             Return DB.GetBoolean(query, parameter)

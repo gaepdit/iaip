@@ -16,8 +16,7 @@ Namespace DAL.Sscp
         Public Function FacilityAssignmentExists(airsNumber As Apb.ApbFacilityId, targetYear As Integer) As Boolean
             Dim query As String = "SELECT '" & Boolean.TrueString & "' " &
                 " FROM SSCPINSPECTIONSREQUIRED " &
-                " WHERE RowNum = 1 " &
-                " AND INTYEAR = @year " &
+                " WHERE INTYEAR = @year " &
                 " AND STRAIRSNUMBER = @airs "
 
             Dim parameters As SqlParameter() = New SqlParameter() {
@@ -25,19 +24,17 @@ Namespace DAL.Sscp
                 New SqlParameter("@airs", airsNumber.DbFormattedString)
             }
 
-            Dim result As String = DB.GetSingleValue(Of String)(query, parameters)
-            Return Convert.ToBoolean(result)
+            Return DB.GetBoolean(query, parameters)
         End Function
 
         Public Function AssignmentYearExists(targetYear As Integer) As Boolean
-            Dim query As String = "SELECT '" & Boolean.TrueString & "' " &
+            Dim query As String = "SELECT 1 " &
                 " FROM SSCPINSPECTIONSREQUIRED " &
-                " WHERE RowNum = 1 " &
-                " AND INTYEAR = @year "
+                " WHERE INTYEAR = @year "
+
             Dim parameter As New SqlParameter("@year", targetYear)
 
-            Dim result As String = DB.GetSingleValue(Of String)(query, parameter)
-            Return Convert.ToBoolean(result)
+            Return DB.GetBoolean(query, parameter)
         End Function
 
         Public Function DeleteAssignmentYear(targetYear As Integer) As Boolean

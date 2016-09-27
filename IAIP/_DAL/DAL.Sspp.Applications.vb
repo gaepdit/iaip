@@ -8,14 +8,13 @@ Namespace DAL.Sspp
         Public Function ApplicationExists(appNumber As String) As Boolean
             If appNumber = "" OrElse Not Integer.TryParse(appNumber, Nothing) Then Return False
 
-            Dim query As String = "SELECT '" & Boolean.TrueString & "' " &
+            Dim query As String = "SELECT 1 " &
                 " FROM SSPPAPPLICATIONMASTER " &
-                " WHERE ROWNUM = 1 " &
-                " AND SSPPAPPLICATIONMASTER.STRAPPLICATIONNUMBER = @pId "
-            Dim parameter As New SqlParameter("@pId", appNumber)
+                " WHERE SSPPAPPLICATIONMASTER.STRAPPLICATIONNUMBER = @id "
 
-            Dim result As String = DB.GetSingleValue(Of String)(query, parameter)
-            Return Convert.ToBoolean(result)
+            Dim parameter As New SqlParameter("@id", appNumber)
+
+            Return DB.GetBoolean(query, parameter)
         End Function
 
         '' Not currently used, but may be useful in the future

@@ -7,29 +7,25 @@ Namespace DAL.Sbeap
         Public Function ClientExists(clientID As String) As Boolean
             If clientID = "" OrElse Not Integer.TryParse(clientID, Nothing) Then Return False
 
-            Dim query As String = "SELECT '" & Boolean.TrueString & "' " &
+            Dim query As String = "SELECT 1 " &
                 " FROM SBEAPCLIENTS " &
-                " WHERE RowNum = 1 " &
-                " AND CLIENTID = @pId "
+                " WHERE CLIENTID = @id "
 
-            Dim parameter As New SqlParameter("@pId", clientID)
+            Dim parameter As New SqlParameter("@id", clientID)
 
-            Dim result As String = DB.GetSingleValue(Of String)(query, parameter)
-            Return Convert.ToBoolean(result)
+            Return DB.GetBoolean(query, parameter)
         End Function
 
         Public Function CaseExists(caseNumber As String) As Boolean
             If caseNumber = "" OrElse Not Integer.TryParse(caseNumber, Nothing) Then Return False
 
-            Dim query As String = "SELECT '" & Boolean.TrueString & "' " &
+            Dim query As String = "SELECT 1 " &
                 " FROM SBEAPCASELOG " &
-                " WHERE RowNum = 1 " &
-                " AND NUMCASEID = @pId "
+                " WHERE NUMCASEID = @id "
 
-            Dim parameter As New SqlParameter("@pId", caseNumber)
+            Dim parameter As New SqlParameter("@id", caseNumber)
 
-            Dim result As String = DB.GetSingleValue(Of String)(query, parameter)
-            Return Convert.ToBoolean(result)
+            Return DB.GetBoolean(query, parameter)
         End Function
 
     End Module
