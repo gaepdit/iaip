@@ -9352,7 +9352,6 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
                 chbEventComplete.Enabled = False
                 DTPEventCompleteDate.Enabled = False
                 txtTrackingNumber.ReadOnly = True
-                txtEnforcementNumber.ReadOnly = True
                 cboStaffResponsible.Enabled = False
                 chbAcknoledgmentLetterSent.Enabled = False
                 DTPAcknoledgmentLetterSent.Enabled = False
@@ -9506,13 +9505,16 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
                     If IsDBNull(dr.Item("strEnforcementNumber")) Then
                         txtEnforcementNumber.Text = ""
                         txtEnforcementNumber.Visible = False
+                        btnEnforcementProcess.Visible = False
                     Else
                         txtEnforcementNumber.Text = dr.Item("strEnforcementNumber")
                         txtEnforcementNumber.Visible = True
+                        btnEnforcementProcess.Visible = True
                     End If
                 Else
                     txtEnforcementNumber.Text = ""
                     txtEnforcementNumber.Visible = False
+                    btnEnforcementProcess.Visible = False
                 End If
                 dr.Close()
 
@@ -15135,14 +15137,9 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
         End Try
     End Sub
     Private Sub OpenEnforcement()
-        Try
-            Dim parameters As New Generic.Dictionary(Of BaseForm.FormParameter, String)
-            parameters(FormParameter.AirsNumber) = txtAirsNumber.Text
-            If txtTrackingNumber.Text <> "" Then parameters(FormParameter.TrackingNumber) = txtTrackingNumber.Text
-            OpenSingleForm(SSCPEnforcementSelector, parameters:=parameters, closeFirst:=True)
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        If txtEnforcementNumber.Text <> "" And txtEnforcementNumber.Text <> "N/A" Then
+            OpenFormEnforcement(txtEnforcementNumber.Text)
+        End If
     End Sub
     Sub LoadConfidentialData(ConfidentialData As String)
         Try

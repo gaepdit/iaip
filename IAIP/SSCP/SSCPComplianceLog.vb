@@ -65,8 +65,8 @@ Public Class SSCPComplianceLog
 
         With clbEngineer
             .DataSource = GetSharedData(SharedTable.AllComplianceStaff)
-            .DisplayMember = "Staff"
-            .ValueMember = "numUserID"
+            .DisplayMember = "StaffName"
+            .ValueMember = "UserID"
         End With
 
         With clbNotifications
@@ -422,9 +422,9 @@ Public Class SSCPComplianceLog
                                     "strResponsibleStaff, datCompleteDate, " &
                                     "strModifingPerson, datModifingDate) " &
                                     "values " &
-                                    "(@trk, @airs, " &
-                                    " @datrec, '06', " &
-                                    " @user, @datrec, " &
+                                    "( NEXT VALUE FOR SSCPTrackingNumber, @airs, " &
+                                    " @daterec, '06', " &
+                                    " @user, @daterec, " &
                                     " @user, GETDATE())")
 
                         paramList.Add(p)

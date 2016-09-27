@@ -66,13 +66,13 @@ Namespace Apb.Sscp
 #Region " Enums "
 
         Public Enum WorkItemEventType
-            Unknown
-            Report
-            Inspection
-            StackTest
-            Notification
-            TvAcc
-            RmpInspection
+            Unknown = 0
+            Report = 1
+            Inspection = 2
+            StackTest = 3
+            Notification = 5
+            TvAcc = 4
+            RmpInspection = 7
         End Enum
 
         Public Shared EventTypeDbCodes As New Dictionary(Of WorkItemEventType, String) From {

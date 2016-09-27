@@ -12,13 +12,13 @@ Namespace DAL.Sscp
         ''' </summary>
         ''' <param name="trackingNumber">The SSCP work item tracking number to test.</param>
         ''' <returns>Returns True if the work item exists; otherwise, returns False.</returns>
-        Public Function WorkItemExists(trackingNumber As String) As Boolean
-            If trackingNumber = "" OrElse Not Integer.TryParse(trackingNumber, Nothing) Then Return False
+        Public Function WorkItemExists(trackingNumber As Integer) As Boolean
+            If trackingNumber = 0 Then Return False
 
             Dim query As String = "SELECT 1 " &
                 " FROM SSCPITEMMASTER " &
                 " WHERE STRTRACKINGNUMBER = @id "
-            Dim parameter As New SqlParameter("@id", trackingNumber)
+            Dim parameter As New SqlParameter("@id", trackingNumber.ToString)
 
             Return DB.ValueExists(query, parameter)
         End Function
@@ -66,8 +66,8 @@ Namespace DAL.Sscp
         ''' <param name="refNum">When this function returns, contains the ISMP reference number associated with the SSCP work 
         ''' item reference number if one exists. Otherwise, contains an empty string.</param>
         ''' <returns>Returns True if the SSCP work item reference number refers to a stack test; otherwise, returns False.</returns>
-        Public Function TryGetRefNumForWorkItem(trackingNumber As String, <Out> Optional ByRef refNum As String = "") As Boolean
-            If trackingNumber = "" OrElse Not Integer.TryParse(trackingNumber, Nothing) Then Return False
+        Public Function TryGetRefNumForWorkItem(trackingNumber As Integer, <Out> Optional ByRef refNum As String = "") As Boolean
+            If trackingNumber = 0 Then Return False
 
             Dim query As String = "SELECT STRREFERENCENUMBER " &
                 " FROM SSCPTESTREPORTS " &

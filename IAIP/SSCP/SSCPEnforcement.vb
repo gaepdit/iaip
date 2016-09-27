@@ -15,7 +15,6 @@ Public Class SscpEnforcement
     Public Property Facility As Apb.Facilities.Facility
     Public Property LinkedEventId As Integer
 
-    Private sscpStaff As DataTable
     Private violationTypes As DataTable
     Private existingFiles As List(Of EnforcementDocument)
     Private selectedStipulatedPenaltyItem As Integer = 0
@@ -97,7 +96,6 @@ Public Class SscpEnforcement
 #Region " Form setup "
 
     Private Sub GetLookupTables()
-        sscpStaff = GetSharedData(SharedTable.AllComplianceStaff)
         violationTypes = GetSharedData(SharedTable.ViolationTypes)
     End Sub
 
@@ -107,10 +105,10 @@ Public Class SscpEnforcement
 
     Private Sub LoadStaffComboBox()
         With StaffResponsible
-            .DataSource = sscpStaff
-            .DisplayMember = "Staff"
-            .ValueMember = "numUserID"
-            .SelectedIndex = 0
+            .DataSource = GetSharedData(SharedTable.AllComplianceStaff)
+            .DisplayMember = "StaffName"
+            .ValueMember = "UserID"
+            .SelectedIndex = -1
         End With
     End Sub
 

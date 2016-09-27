@@ -3407,7 +3407,7 @@ Partial Class ISMPTestReports
         Me.TPLoadingRack.Location = New System.Drawing.Point(4, 22)
         Me.TPLoadingRack.Name = "TPLoadingRack"
         Me.TPLoadingRack.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPLoadingRack.Size = New System.Drawing.Size(782, 298)
+        Me.TPLoadingRack.Size = New System.Drawing.Size(782, 288)
         Me.TPLoadingRack.TabIndex = 1
         Me.TPLoadingRack.Text = "Loading Rack"
         Me.TPLoadingRack.UseVisualStyleBackColor = True
@@ -3851,7 +3851,7 @@ Partial Class ISMPTestReports
         Me.TPPondTreatment.Controls.Add(Me.Label151)
         Me.TPPondTreatment.Location = New System.Drawing.Point(4, 22)
         Me.TPPondTreatment.Name = "TPPondTreatment"
-        Me.TPPondTreatment.Size = New System.Drawing.Size(782, 298)
+        Me.TPPondTreatment.Size = New System.Drawing.Size(782, 288)
         Me.TPPondTreatment.TabIndex = 2
         Me.TPPondTreatment.Text = "Pulping Process Condensate"
         Me.TPPondTreatment.UseVisualStyleBackColor = True
@@ -4364,7 +4364,7 @@ Partial Class ISMPTestReports
         Me.TPGasConcentration.Controls.Add(Me.Label133)
         Me.TPGasConcentration.Location = New System.Drawing.Point(4, 22)
         Me.TPGasConcentration.Name = "TPGasConcentration"
-        Me.TPGasConcentration.Size = New System.Drawing.Size(782, 298)
+        Me.TPGasConcentration.Size = New System.Drawing.Size(782, 288)
         Me.TPGasConcentration.TabIndex = 3
         Me.TPGasConcentration.Text = "Gas Concentration"
         Me.TPGasConcentration.UseVisualStyleBackColor = True
@@ -4872,7 +4872,7 @@ Partial Class ISMPTestReports
         Me.TPFlare.Controls.Add(Me.Label108)
         Me.TPFlare.Location = New System.Drawing.Point(4, 22)
         Me.TPFlare.Name = "TPFlare"
-        Me.TPFlare.Size = New System.Drawing.Size(782, 298)
+        Me.TPFlare.Size = New System.Drawing.Size(782, 288)
         Me.TPFlare.TabIndex = 4
         Me.TPFlare.Text = "Flare"
         Me.TPFlare.UseVisualStyleBackColor = True
@@ -5296,7 +5296,7 @@ Partial Class ISMPTestReports
         Me.TPMethodNine.Controls.Add(Me.TCMethodNine)
         Me.TPMethodNine.Location = New System.Drawing.Point(4, 22)
         Me.TPMethodNine.Name = "TPMethodNine"
-        Me.TPMethodNine.Size = New System.Drawing.Size(782, 298)
+        Me.TPMethodNine.Size = New System.Drawing.Size(782, 288)
         Me.TPMethodNine.TabIndex = 6
         Me.TPMethodNine.Text = "Method 9"
         Me.TPMethodNine.UseVisualStyleBackColor = True
@@ -6264,7 +6264,7 @@ Partial Class ISMPTestReports
         Me.TPMemorandum.Controls.Add(Me.TCMemorandum)
         Me.TPMemorandum.Location = New System.Drawing.Point(4, 22)
         Me.TPMemorandum.Name = "TPMemorandum"
-        Me.TPMemorandum.Size = New System.Drawing.Size(782, 298)
+        Me.TPMemorandum.Size = New System.Drawing.Size(782, 288)
         Me.TPMemorandum.TabIndex = 7
         Me.TPMemorandum.Text = "Memorandum"
         Me.TPMemorandum.UseVisualStyleBackColor = True
@@ -6740,7 +6740,7 @@ Partial Class ISMPTestReports
         Me.TPRata.Controls.Add(Me.Label173)
         Me.TPRata.Location = New System.Drawing.Point(4, 22)
         Me.TPRata.Name = "TPRata"
-        Me.TPRata.Size = New System.Drawing.Size(782, 298)
+        Me.TPRata.Size = New System.Drawing.Size(782, 288)
         Me.TPRata.TabIndex = 8
         Me.TPRata.Text = "RATA"
         Me.TPRata.UseVisualStyleBackColor = True
@@ -7752,7 +7752,7 @@ Partial Class ISMPTestReports
         Me.TPTwoStack.Controls.Add(Me.cboMaximumExpectedOperatingCapacityUnitsTwoStack)
         Me.TPTwoStack.Location = New System.Drawing.Point(4, 22)
         Me.TPTwoStack.Name = "TPTwoStack"
-        Me.TPTwoStack.Size = New System.Drawing.Size(782, 298)
+        Me.TPTwoStack.Size = New System.Drawing.Size(782, 288)
         Me.TPTwoStack.TabIndex = 9
         Me.TPTwoStack.Text = "Two Stack"
         Me.TPTwoStack.UseVisualStyleBackColor = True
@@ -9568,7 +9568,7 @@ Partial Class ISMPTestReports
         Me.TPMethodTwentyTwo.Controls.Add(Me.Label222)
         Me.TPMethodTwentyTwo.Location = New System.Drawing.Point(4, 22)
         Me.TPMethodTwentyTwo.Name = "TPMethodTwentyTwo"
-        Me.TPMethodTwentyTwo.Size = New System.Drawing.Size(782, 298)
+        Me.TPMethodTwentyTwo.Size = New System.Drawing.Size(782, 288)
         Me.TPMethodTwentyTwo.TabIndex = 10
         Me.TPMethodTwentyTwo.Text = "Method 22"
         Me.TPMethodTwentyTwo.UseVisualStyleBackColor = True
@@ -9807,7 +9807,7 @@ Partial Class ISMPTestReports
         Me.TPSSCPWork.Controls.Add(Me.txtTestReportDueDate)
         Me.TPSSCPWork.Location = New System.Drawing.Point(4, 22)
         Me.TPSSCPWork.Name = "TPSSCPWork"
-        Me.TPSSCPWork.Size = New System.Drawing.Size(782, 298)
+        Me.TPSSCPWork.Size = New System.Drawing.Size(782, 288)
         Me.TPSSCPWork.TabIndex = 11
         Me.TPSSCPWork.Text = "Compliance Work"
         Me.TPSSCPWork.UseVisualStyleBackColor = True
@@ -9876,6 +9876,7 @@ Partial Class ISMPTestReports
         Me.txtEnforcementNumber.ReadOnly = True
         Me.txtEnforcementNumber.Size = New System.Drawing.Size(77, 20)
         Me.txtEnforcementNumber.TabIndex = 412
+        Me.txtEnforcementNumber.Visible = False
         '
         'chbEventComplete
         '
@@ -9902,6 +9903,7 @@ Partial Class ISMPTestReports
         Me.btnEnforcementProcess.Size = New System.Drawing.Size(144, 23)
         Me.btnEnforcementProcess.TabIndex = 413
         Me.btnEnforcementProcess.Text = "Enforcement Process"
+        Me.btnEnforcementProcess.Visible = False
         '
         'btnSaveSSCPData
         '
