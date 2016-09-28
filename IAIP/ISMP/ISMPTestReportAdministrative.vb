@@ -2136,7 +2136,7 @@ Public Class ISMPTestReportAdministrative
             facilityLookupDialog.ShowDialog()
             If facilityLookupDialog.DialogResult = DialogResult.OK _
             AndAlso facilityLookupDialog.SelectedAirsNumber <> "" Then
-                Me.ValueFromFacilityLookUp = facilityLookupDialog.SelectedAirsNumber
+                cboAIRSNumber.Text = facilityLookupDialog.SelectedAirsNumber
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -2146,11 +2146,6 @@ Public Class ISMPTestReportAdministrative
     Private Sub MmiViewByFacility_Click(sender As Object, e As EventArgs) Handles MmiViewByFacility.Click
         OpenFacilityLookupTool()
     End Sub
-    Public WriteOnly Property ValueFromFacilityLookUp() As String
-        Set(Value As String)
-            cboAIRSNumber.Text = Value
-        End Set
-    End Property
     Private Sub MmiShowToolbar_Click(sender As Object, e As EventArgs) Handles MmiShowToolbar.Click
         Try
 

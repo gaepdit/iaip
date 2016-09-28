@@ -4620,8 +4620,9 @@ Public Class ISMPManagersTools
             facilityLookupDialog.ShowDialog()
             If facilityLookupDialog.DialogResult = DialogResult.OK _
             AndAlso facilityLookupDialog.SelectedAirsNumber <> "" Then
-                Me.ValueFromFacilityLookUp = facilityLookupDialog.SelectedAirsNumber
-                Me.ValueFromFacilityLookUp2 = facilityLookupDialog.SelectedFacilityName
+                txtAIRSNumber.Text = facilityLookupDialog.SelectedAirsNumber
+                txtAIRSNumber2.Text = facilityLookupDialog.SelectedAirsNumber
+                txtFacility.Text = facilityLookupDialog.SelectedFacilityName
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -4633,17 +4634,6 @@ Public Class ISMPManagersTools
             OpenFacilityLookupTool()
         End If
     End Sub
-    Public WriteOnly Property ValueFromFacilityLookUp() As String
-        Set(Value As String)
-            txtAIRSNumber.Text = Value
-            txtAIRSNumber2.Text = Value
-        End Set
-    End Property
-    Public WriteOnly Property ValueFromFacilityLookUp2() As String
-        Set(Value2 As String)
-            txtFacility.Text = Value2
-        End Set
-    End Property
     Private Sub MmiByEngineer_Click(sender As Object, e As EventArgs) Handles MmiByEngineer.Click
         Try
 

@@ -1289,19 +1289,13 @@ Public Class ISMPMonitoringLog
         End Try
     End Sub
 
-    Public WriteOnly Property ValueFromFacilityLookUp() As String
-        Set(Value As String)
-            txtAIRSNumberFilter.Text = Value
-        End Set
-    End Property
-
     Private Sub OpenFacilityLookupTool()
         Try
             Dim facilityLookupDialog As New IAIPFacilityLookUpTool
             facilityLookupDialog.ShowDialog()
             If facilityLookupDialog.DialogResult = DialogResult.OK _
             AndAlso facilityLookupDialog.SelectedAirsNumber <> "" Then
-                Me.ValueFromFacilityLookUp = facilityLookupDialog.SelectedAirsNumber
+                txtAIRSNumberFilter.Text = facilityLookupDialog.SelectedAirsNumber
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)

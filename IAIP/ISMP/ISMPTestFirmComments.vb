@@ -563,8 +563,8 @@ Public Class ISMPTestFirmComments
             facilityLookupDialog.ShowDialog()
             If facilityLookupDialog.DialogResult = DialogResult.OK _
             AndAlso facilityLookupDialog.SelectedAirsNumber <> "" Then
-                Me.ValueFromFacilityLookUp = facilityLookupDialog.SelectedAirsNumber
-                Me.ValueFromFacilityLookUp2 = facilityLookupDialog.SelectedFacilityName
+                txtAIRSNumber.Text = facilityLookupDialog.SelectedAirsNumber
+                txtFacilityTested.Text = facilityLookupDialog.SelectedFacilityName
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -573,16 +573,6 @@ Public Class ISMPTestFirmComments
     Private Sub tsbLookUpAirNumber_Click(sender As Object, e As EventArgs) Handles tsbLookUpAirNumber.Click
         OpenFacilityLookupTool()
     End Sub
-    Public WriteOnly Property ValueFromFacilityLookUp() As String
-        Set(Value As String)
-            txtAIRSNumber.Text = Value
-        End Set
-    End Property
-    Public WriteOnly Property ValueFromFacilityLookUp2() As String
-        Set(Value2 As String)
-            txtFacilityTested.Text = Value2
-        End Set
-    End Property
     Private Sub cboCommentNumber_TextChanged(sender As Object, e As EventArgs) Handles cboCommentNumber.TextChanged
         Try
             If cboCommentNumber.Text <> "" Then

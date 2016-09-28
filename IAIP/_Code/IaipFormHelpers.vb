@@ -16,7 +16,7 @@ Module IaipFormHelpers
         If airsNumber.Length = 0 Then
             Return OpenFormFacilitySummary()
         End If
-        If Not Apb.ApbFacilityId.IsValidAirsNumberFormat(airsNumber) Then
+        If Not ApbFacilityId.IsValidAirsNumberFormat(airsNumber) Then
             MessageBox.Show("AIRS number is not valid.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return Nothing
         Else
@@ -66,24 +66,35 @@ Module IaipFormHelpers
 
 #Region " FCE "
 
-    Public Sub OpenFormFce(airsNumber As ApbFacilityId, Optional year As String = "")
-        SSCPFCE = New SSCPFCEWork
-        SSCPFCE.txtAirsNumber.Text = airsNumber.ToString
-        SSCPFCE.Show()
-        If Not String.IsNullOrEmpty(year) Then
-            SSCPFCE.cboFCEYear.Text = year
+    Public Function OpenFormFce(airsNumber As ApbFacilityId, Optional year As String = "") As Form
+        If Not DAL.AirsNumberExists(airsNumber) Then
+            MessageBox.Show("AIRS number does not exist.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Return Nothing
+        Else
+            Dim SSCPFCE As SSCPFCEWork = New SSCPFCEWork
+            SSCPFCE.AirsNumber = airsNumber
+            SSCPFCE.Show()
+            If Not String.IsNullOrEmpty(year) Then
+                SSCPFCE.SetFceYear(year)
+            End If
+            Return SSCPFCE
         End If
-    End Sub
+    End Function
 
-    Public Sub OpenFormFce(fceNumber As String)
-        If Not String.IsNullOrEmpty(fceNumber) Then
+    Public Function OpenFormFce(fceNumber As String) As Form
+        If String.IsNullOrEmpty(fceNumber) Then
+            Return Nothing
+        Else
             Dim airsNumber As ApbFacilityId = DAL.Sscp.GetFacilityIdByFceId(fceNumber)
-            If airsNumber IsNot Nothing Then
-                OpenFormFce(airsNumber)
+            If airsNumber Is Nothing Then
+                Return Nothing
+            Else
+                Dim SSCPFCE As SSCPFCEWork = OpenFormFce(airsNumber)
                 SSCPFCE.txtFCENumber.Text = fceNumber
+                Return SSCPFCE
             End If
         End If
-    End Sub
+    End Function
 
 #End Region
 

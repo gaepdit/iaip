@@ -23,7 +23,7 @@ Namespace DAL
         ''' <summary>
         ''' Returns the facility name for a given AIRS number.
         ''' </summary>
-        ''' <param name="airsNumber">The AIRS number to search for as a string.</param>
+        ''' <param name="airsNumber">The AIRS number to search for.</param>
         ''' <returns>The facility name, or an empty string if facility AIRS number does not exist.</returns>
         Public Function GetFacilityName(airsNumber As ApbFacilityId) As String
             Dim fac As Facility = GetFacility(airsNumber)

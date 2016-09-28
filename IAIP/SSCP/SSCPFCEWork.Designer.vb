@@ -25,7 +25,6 @@ Partial Class SSCPFCEWork
         Me.MenuSave = New System.Windows.Forms.MenuItem()
         Me.MenuPrint = New System.Windows.Forms.MenuItem()
         Me.MenuClose = New System.Windows.Forms.MenuItem()
-        Me.txtAirsNumber = New System.Windows.Forms.TextBox()
         Me.ReviewDataTabs = New System.Windows.Forms.TabControl()
         Me.TPInspections = New System.Windows.Forms.TabPage()
         Me.dgrFCEInspections = New System.Windows.Forms.DataGrid()
@@ -158,16 +157,6 @@ Partial Class SSCPFCEWork
         Me.MenuClose.Index = 2
         Me.MenuClose.Shortcut = System.Windows.Forms.Shortcut.CtrlW
         Me.MenuClose.Text = "&Close"
-        '
-        'txtAirsNumber
-        '
-        Me.txtAirsNumber.BackColor = System.Drawing.SystemColors.Control
-        Me.txtAirsNumber.Location = New System.Drawing.Point(5, 47)
-        Me.txtAirsNumber.Name = "txtAirsNumber"
-        Me.txtAirsNumber.ReadOnly = True
-        Me.txtAirsNumber.Size = New System.Drawing.Size(12, 20)
-        Me.txtAirsNumber.TabIndex = 239
-        Me.txtAirsNumber.Visible = False
         '
         'ReviewDataTabs
         '
@@ -933,7 +922,6 @@ Partial Class SSCPFCEWork
         Me.ClientSize = New System.Drawing.Size(877, 642)
         Me.Controls.Add(Me.ToolStrip1)
         Me.Controls.Add(Me.TabControlFCE)
-        Me.Controls.Add(Me.txtAirsNumber)
         Me.Menu = Me.MainMenu1
         Me.Name = "SSCPFCEWork"
         Me.Text = "Full Compliance Evaluation"
@@ -988,7 +976,6 @@ Partial Class SSCPFCEWork
     Friend WithEvents MenuFile As System.Windows.Forms.MenuItem
     Friend WithEvents MenuSave As System.Windows.Forms.MenuItem
     Friend WithEvents TbbPrint As System.Windows.Forms.ToolBarButton
-    Friend WithEvents txtAirsNumber As System.Windows.Forms.TextBox
     Friend WithEvents ReviewDataTabs As System.Windows.Forms.TabControl
     Friend WithEvents TPInspections As System.Windows.Forms.TabPage
     Friend WithEvents dgrFCEInspections As System.Windows.Forms.DataGrid

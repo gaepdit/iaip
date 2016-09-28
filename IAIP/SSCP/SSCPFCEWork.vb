@@ -1,614 +1,341 @@
+Imports System.Collections.Generic
 Imports System.Data.SqlClient
+Imports System.Text
+Imports Iaip.Apb
+Imports Iaip.Apb.Facilities
 Imports Iaip.SharedData
 
 Public Class SSCPFCEWork
-    Dim SQL As String
-    Dim cmd As SqlCommand
-    Dim dr As SqlDataReader
-    Dim recExist As Boolean
-    Dim dsFCE As DataSet
-    Dim daFCE As SqlDataAdapter
-    Dim dsISMP As DataSet
-    Dim daISMP As SqlDataAdapter
-    Dim dsInspections As DataSet
-    Dim daInspections As SqlDataAdapter
-    Dim dsACC As DataSet
-    Dim daACC As SqlDataAdapter
-    Dim dsReport As DataSet
-    Dim daReport As SqlDataAdapter
-    Dim dsNotifications As DataSet
-    Dim daNotifications As SqlDataAdapter
-    Dim dsEnforcement As DataSet
-    Dim daEnforcement As SqlDataAdapter
-    Dim dsPerformanceTest As DataSet
-    Dim daPerformanceTest As SqlDataAdapter
-    Dim dtStaff As DataTable
 
+#Region " Properties "
 
-    Private Sub SSCPFCE_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private _airsNumber As ApbFacilityId
+    Public Property AirsNumber As ApbFacilityId
+        Get
+            Return _airsNumber
+        End Get
+        Set(value As ApbFacilityId)
+            _airsNumber = value
+            SetSqlParameters()
+        End Set
+    End Property
 
+    Private facility As Facility
+    Private fceTable As DataTable
+    Private paramAirs As SqlParameter
+    Private paramWithDates As SqlParameter()
+
+#End Region
+
+#Region " Page Load "
+
+    Private Sub SSCPFCEWork_Load(sender As Object, e As EventArgs) Handles Me.Load
+        LoadHeaderData()
+        LoadFCEDataset()
+        LoadReviewerCombo()
+        FillFCEData()
+
+        FormatFCEInspection()
+        FormatFCEACC()
+        FormatFCEReports()
+        FormatFCECorrespondance()
+        FormatFCEPerformanceTests()
+        FormatFCEEnforcement()
+        FormatISMPSummaryReports()
+
+        DTPFCECompleteDate.Value = Today
+        DTPFilterStartDate.Value = Today.AddDays(-365)
+        DTPFilterEndDate.Value = Today
+
+        If Not (AccountFormAccess(50, 1) = "1" Or AccountFormAccess(50, 2) = "1" Or AccountFormAccess(50, 3) = "1" Or AccountFormAccess(50, 4) = "1") Then
+            MenuSave.Visible = False
+            btnSave.Visible = False
+        End If
+    End Sub
+
+    Private Sub LoadHeaderData()
+        facility = DAL.GetFacility(AirsNumber).RetrieveHeaderData
+
+        If facility Is Nothing Then
+            MessageBox.Show("There was an error loading the facility.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Me.Close()
+        End If
+
+        Dim sb As New StringBuilder
+        sb.AppendLine(AirsNumber.FormattedString & " – " & facility.FacilityName)
+        sb.AppendLine(facility.DisplayFacilityAddress)
+        sb.AppendLine(facility.DisplayCounty & " County")
+        sb.AppendLine("Classification: " & facility.DisplayClassification)
+        sb.AppendLine("Air Program Codes:")
+        sb.AppendLine(facility.DisplayAirPrograms)
+
+        txtFacilityInformation.Text = sb.ToString
+    End Sub
+
+    Private Sub LoadFCEDataset()
+        Dim SQL As String = "SELECT f.STRFCENUMBER, f.STRFCEYEAR " &
+            "FROM SSCPFCE AS f " &
+            "INNER JOIN SSCPFCEMASTER AS m ON m.STRFCENUMBER = f.STRFCENUMBER " &
+            "WHERE m.STRAIRSNUMBER = @airs " &
+            "ORDER BY f.DATFCECOMPLETED DESC "
+        Dim p As New SqlParameter("@airs", AirsNumber.DbFormattedString)
+        fceTable = DB.GetDataTable(SQL, p)
+        fceTable.PrimaryKey = Nothing
+        fceTable.Columns("STRFCENUMBER").AllowDBNull = True
+    End Sub
+
+    Private Sub LoadReviewerCombo()
+        With cboReviewer
+            .DataSource = GetSharedData(SharedTable.AllComplianceStaff)
+            .DisplayMember = "StaffName"
+            .ValueMember = "UserID"
+            .SelectedIndex = -1
+        End With
+        cboReviewer.SelectedValue = CurrentUser.UserID
+    End Sub
+
+    Private Sub FillFCEData()
         Try
-
-            DTPFCECompleteDate.Value = Today
-            LoadHeaderData()
-            LoadFCEDataset()
-            FillFCEData()
-
-            FormatFCEInspection()
-            FormatFCEACC()
-            FormatFCEReports()
-            FormatFCECorrespondance()
-            FormatFCEPerformanceTests()
-            FormatFCEEnforcement()
-            FormatISMPSummaryReports()
-
-            DTPFCECompleteDate.Value = Today
-            DTPFilterStartDate.Value = Format(Date.Today.AddDays(-365), "dd-MMM-yyyy")
-            DTPFilterEndDate.Value = Today
-
-            If AccountFormAccess(50, 1) = "1" Or AccountFormAccess(50, 2) = "1" Or AccountFormAccess(50, 3) = "1" Or AccountFormAccess(50, 4) = "1" Then
+            If fceTable.Rows.Count = 0 Then
+                cboFCEYear.Items.Add(Today.AddYears(1).Year)
+                cboFCEYear.Items.Add(Today.Year)
+                cboFCEYear.Text = Today.Year
+                txtFCENumber.Text = ""
             Else
-                MenuSave.Visible = False
-                btnSave.Visible = False
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-#Region "Page Load Subs"
-    Sub LoadHeaderData()
-        Dim temp As String
-        Dim Street2 As String
-
-        Try
-
-            SQL = "Select strFacilityName, " &
-            "strFacilityStreet1, strFacilityStreet2, " &
-            "strFacilityCity, strFacilityZipCode, " &
-            "strCountyName " &
-            "from VW_APBFacilityLocation " &
-            "where strAIRSNumber = '0413" & txtAirsNumber.Text & "' "
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            dr = cmd.ExecuteReader
-
-            recExist = dr.Read
-            If recExist Then
-                If txtFacilityInformation.Text = "" Then
-                    txtFacilityInformation.Text = txtAirsNumber.Text
-                End If
-                temp = Mid(dr.Item("strFacilityZipCode"), 1, 5)
-                If Mid(dr.Item("strFacilityZipCode"), 6) <> "" Then
-                    temp = temp & "-" & Mid(dr.Item("strFacilityZipCode"), 6)
-                End If
-                If dr.Item("strFacilityStreet2") = "N/A" Then
-                    Street2 = ""
-                Else
-                    Street2 = dr.Item("strFacilityStreet2") & vbCrLf
-                End If
-
-                txtFacilityInformation.Text = txtFacilityInformation.Text & " - " &
-                dr.Item("strFacilityName") & vbCrLf &
-                dr.Item("strFacilityStreet1") & vbCrLf &
-                Street2 &
-                dr.Item("StrFacilityCity") & ", GA " & temp &
-                vbCrLf &
-                "County - " & dr.Item("strCountyName")
-            End If
-            dr.Close()
-
-            SQL = "Select " &
-            "strClass, strAIRProgramCodes " &
-            "from APBHeaderData " &
-            "where strAIRSNumber = '0413" & txtAirsNumber.Text & "' "
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-
-            recExist = dr.Read
-            If recExist = True Then
-                txtFacilityInformation.Text = txtFacilityInformation.Text & vbCrLf & vbCrLf & "Classification - " & dr.Item("strClass") & vbCrLf &
-                "Air Program Code(s) - " & vbCrLf
-                AddAirProgramCodes(dr.Item("StrAirProgramCodes"))
-            End If
-            dr.Close()
-
-
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
-    End Sub
-    Sub LoadFCEDataset()
-        Try
-
-            SQL = "select " &
-            "SSCPFCE.strFCENumber, " &
-            "strFCEYear as FCEYear " &
-            "from SSCPFCE, SSCPFCEMaster " &
-            "Where SSCPFCE.strFCENumber = SSCPFCEMaster.strFCENumber " &
-            "and SSCPFCEMaster.strairsnumber = '0413" & txtAirsNumber.Text & "' " &
-            "order by datFCECompleted DESC "
-
-            dsFCE = New DataSet
-            daFCE = New SqlDataAdapter(SQL, CurrentConnection)
-            daFCE.Fill(dsFCE, "FCEdata")
-
-            dtStaff = GetSharedData(SharedTable.AllComplianceStaff)
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Sub FillFCEData()
-        Dim dtFCE As New DataTable
-        Dim drDSRow As DataRow
-        Dim drNewRow As DataRow
-        Dim i As Integer
-        Dim flag As String
-
-        Try
-
-            With cboReviewer
-                .DataSource = dtStaff
-                .DisplayMember = "Staff"
-                .ValueMember = "numUserID"
-                .SelectedIndex = 0
-            End With
-
-            cboReviewer.SelectedValue = CurrentUser.UserID
-
-            If dsFCE.Tables(0).Rows.Count = 0 Then
-                cboFCEYear.Text = Date.Today.Year
-                cboFCEYear.Items.Add(Date.Today.AddYears(1).Year)
-                cboFCEYear.Items.Add(Date.Today.Year)
-            Else
-                dtFCE.Columns.Add("strFCENumber", GetType(System.String))
-                dtFCE.Columns.Add("FCEYear", GetType(System.String))
+                Dim dtFCE As DataTable = fceTable.Copy
 
                 ' Only add next (calendar) year after October 1 of this year
-                If Today >= New Date(Today.Year, 10, 1) Then
-                    flag = False
-                    For i = 0 To dsFCE.Tables(0).Rows.Count - 1
-                        If dsFCE.Tables(0).Rows(i).Item("FCEYear") = Date.Today.AddYears(1).Year Then
-                            flag = True
-                        End If
-                    Next
-                    If flag = False Then
-                        drNewRow = dtFCE.NewRow()
-                        drNewRow("strFCENumber") = ""
-                        drNewRow("FCEyear") = Date.Today.AddYears(1).Year
-                        dtFCE.Rows.Add(drNewRow)
-                    End If
+                If Today >= New Date(Today.Year, 10, 1) AndAlso
+                dtFCE.Select("STRFCEYEAR=" & Today.AddYears(1).Year).Length = 0 Then
+                    Dim dr As DataRow = dtFCE.NewRow()
+                    dr("STRFCEYEAR") = Date.Today.AddYears(1).Year
+                    dtFCE.Rows.Add(dr)
                 End If
 
-                flag = False
-                For i = 0 To dsFCE.Tables(0).Rows.Count - 1
-                    If dsFCE.Tables(0).Rows(i).Item("FCEYear") = Date.Today.Year Then
-                        flag = True
-                    End If
-                Next
-                If flag = False Then
-                    drNewRow = dtFCE.NewRow()
-                    drNewRow("strFCENumber") = ""
-                    drNewRow("FCEyear") = Date.Today.Year
-                    dtFCE.Rows.Add(drNewRow)
-                End If
-                flag = False
-                For i = 0 To dsFCE.Tables(0).Rows.Count - 1
-                    If dsFCE.Tables(0).Rows(i).Item("FCEYear") = Date.Today.AddYears(-1).Year Then
-                        flag = True
-                    End If
-                Next
-                If flag = False Then
-                    drNewRow = dtFCE.NewRow()
-                    drNewRow("strFCENumber") = ""
-                    drNewRow("FCEyear") = Date.Today.AddYears(-1).Year
-                    dtFCE.Rows.Add(drNewRow)
+                ' Add current year if missing
+                If dtFCE.Select("STRFCEYEAR=" & Today.Year).Length = 0 Then
+                    Dim dr As DataRow = dtFCE.NewRow()
+                    dr("STRFCEYEAR") = Today.Year
+                    dtFCE.Rows.Add(dr)
                 End If
 
-                For Each drDSRow In dsFCE.Tables("FCEdata").Rows()
-                    drNewRow = dtFCE.NewRow()
-                    drNewRow("strFCENumber") = drDSRow("strFCENumber")
-                    drNewRow("FCEYear") = drDSRow("FCEYear")
-                    dtFCE.Rows.Add(drNewRow)
-                Next
+                ' Add last year if missing
+                If dtFCE.Select("STRFCEYEAR=" & Today.AddYears(-1).Year).Length = 0 Then
+                    Dim dr As DataRow = dtFCE.NewRow()
+                    dr("STRFCEYEAR") = Date.Today.AddYears(-1).Year
+                    dtFCE.Rows.Add(dr)
+                End If
 
-                txtFCENumber.DataBindings.Clear()
+                dtFCE.DefaultView.Sort = "STRFCEYEAR DESC"
 
                 With txtFCENumber
-                    .DataBindings.Add(New Binding("Text", dtFCE, "strFCENumber"))
+                    .DataBindings.Clear()
+                    .DataBindings.Add(New Binding("Text", dtFCE, "STRFCENUMBER"))
                 End With
 
                 With cboFCEYear
                     .DataSource = dtFCE
-                    .DisplayMember = "FCEYear"
-                    .ValueMember = "strFCENumber"
+                    .DisplayMember = "STRFCEYEAR"
+                    .ValueMember = "STRFCENUMBER"
                     .SelectedIndex = 0
                 End With
             End If
-
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
 
+        End Try
     End Sub
-    Sub AddAirProgramCodes(ByRef AirProgramCode As String)
-        Dim AirList As String = ""
 
-        Try
-
-            If Mid(AirProgramCode, 1, 1) = 1 Then
-                AirList = vbTab & "0 - SIP" & vbCrLf
-            End If
-            If Mid(AirProgramCode, 2, 1) = 1 Then
-                AirList = AirList & vbTab & "1 - Federal SIP" & vbCrLf
-            End If
-            If Mid(AirProgramCode, 3, 1) = 1 Then
-                AirList = AirList & vbTab & "3 - Non-Federal SIP" & vbCrLf
-            End If
-            If Mid(AirProgramCode, 4, 1) = 1 Then
-                AirList = AirList & vbTab & "4 - CFC Tracking" & vbCrLf
-            End If
-            If Mid(AirProgramCode, 5, 1) = 1 Then
-                AirList = AirList & vbTab & "6 - PSD" & vbCrLf
-            End If
-            If Mid(AirProgramCode, 6, 1) = 1 Then
-                AirList = AirList & vbTab & "7 - NSR" & vbCrLf
-            End If
-            If Mid(AirProgramCode, 7, 1) = 1 Then
-                AirList = AirList & vbTab & "8 - NESHAP" & vbCrLf
-            End If
-            If Mid(AirProgramCode, 8, 1) = 1 Then
-                AirList = AirList & vbTab & "9 - NSPS" & vbCrLf
-            End If
-            If Mid(AirProgramCode, 9, 1) = 1 Then
-                AirList = AirList & vbTab & "F - FESOP" & vbCrLf
-            End If
-            If Mid(AirProgramCode, 10, 1) = 1 Then
-                AirList = AirList & vbTab & "A - Acid Precipitation" & vbCrLf
-            End If
-            If Mid(AirProgramCode, 11, 1) = 1 Then
-                AirList = AirList & vbTab & "I - Native American" & vbCrLf
-            End If
-            If Mid(AirProgramCode, 12, 1) = 1 Then
-                AirList = AirList & vbTab & "M - MACT" & vbCrLf
-            End If
-            If Mid(AirProgramCode, 13, 1) = 1 Then
-                AirList = AirList & vbTab & "V - Title V Permit" & vbCrLf
-            End If
-            If AirList = "" Then
-                AirList = vbTab & "No Air Program Codes available" & vbCrLf
-            End If
-            AirList = Mid(AirList, 1, (Len(AirList) - 2))
-
-            txtFacilityInformation.Text = txtFacilityInformation.Text & AirList
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
-
+    Public Sub SetFceYear(Year As Integer)
+        cboFCEYear.SelectedIndex = cboFCEYear.FindStringExact(Year)
     End Sub
-#Region "Load Datasets"
-    Sub LoadFCEInspectionData()
-        Try
 
-            SQL = "select SSCPInspections.strTrackingNumber, " &
-            "to_char(datReceivedDate, 'dd-Mon-yyyy') as ReceivedDate,  " &
-            "(strLastName|| ', ' ||strFirstName) as ReviewingEngineer, " &
-            "to_char(datInspectionDateStart, 'dd-Mon-yyyy') as InspectionDateStart,  " &
-            "to_char(datInspectionDateStart, 'HH24:mi:ss') as InspectionTimeStart,  " &
-            "to_char(datInspectionDateEnd, 'dd-Mon-yyyy') as InspectionDateEnd,  " &
-            "to_char(datInspectionDateEnd, 'HH24:mi:ss') as InspectionTimeEnd,  " &
-            "strInspectionReason, strWeatherConditions, strInspectionGuide,  " &
-            "strFacilityOperating, strInspectionComplianceStatus,  " &
-            "to_char(datCompleteDate, 'dd-Mon-yyyy') as InspectionReportComplete,  " &
-            "to_char(datAcknoledgmentLetterSent, 'dd-Mon-yyyy') as AcknowledgmentLetterSent,  " &
-            "strInspectionComments  " &
-            "from SSCPInspections, EPDUserProfiles, SSCPItemMaster  " &
-            "where  " &
-            "EPDUserProfiles.numUserID = SSCPItemMaster.strResponsibleStaff  " &
-            "and SSCPItemMaster.strTrackingNumber = SSCPInspections.strTrackingNumber  " &
-            "and SSCPItemMaster.strAIRSNumber = '0413" & txtAirsNumber.Text & "'  " &
-            "and ((datCompleteDate between '" & DTPFilterStartDate.Text & "' and '" & DTPFilterEndDate.Text & "') " &
-            "or (datReceivedDate between '" & DTPFilterStartDate.Text & "' and '" & DTPFilterEndDate.Text & "')) " &
-            "and (strDelete is Null or strDelete <> 'True') " &
-            "Order by SSCPInspections.strTrackingNumber DESC  "
-
-            dsInspections = New DataSet
-
-            Dim cmd As New SqlCommand(SQL, CurrentConnection)
-
-            daInspections = New SqlDataAdapter(cmd)
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            daInspections.Fill(dsInspections, "Inspections")
-            dgrFCEInspections.DataSource = dsInspections
-            dgrFCEInspections.DataMember = "Inspections"
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
-
-    End Sub
-    Sub LoadFCEACCData()
-        Try
-
-            SQL = "select SSCPItemMaster.strTrackingNumber, " &
-                "to_char(datReceivedDate, 'dd-Mon-yyyy') as ReceivedDate, " &
-                "(strLastName|| ', ' ||strFirstName) as ReviewingEngineer, " &
-                "strPostMarkedOnTime, " &
-                "to_char(datPostMarkDate, 'dd-Mon-yyyy') as PostmarkDate, " &
-                "strSignedByRO, strCorrectACCForms, strTitleVConditionsListed, " &
-                "strACCCorrectlyFilledOut, strReportedDeviations, " &
-                "strDeviationsUnreported, strComments, strEnforcementNeeded, " &
-                "to_char(datCompleteDate, 'dd-Mon-yyyy') as CompleteDate " &
-                "from SSCPACCS, SSCPItemMaster, EPDUSerProfiles " &
-                "where " &
-                "EPDUSerProfiles.numUserID = SSCPItemMaster.strModifingperson " &
-                "and SSCPItemMaster.strTrackingNumber = SSCPACCS.strTrackingNumber " &
-                "and ((datCompleteDate between '" & DTPFilterStartDate.Text & "' and '" & DTPFilterEndDate.Text & "') " &
-                " or " &
-                "(datReceivedDate between '" & DTPFilterStartDate.Text & "' and '" & DTPFilterEndDate.Text & "')) " &
-                "and SSCPItemMaster.strAIrsnumber = '0413" & txtAirsNumber.Text & "' " &
-                "and (strDelete is Null or strDelete <> 'True') "
-
-            dsACC = New DataSet
-
-            Dim cmd As New SqlCommand(SQL, CurrentConnection)
-
-            daACC = New SqlDataAdapter(cmd)
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            daACC.Fill(dsACC, "ACC")
-            dgrFCEACC.DataSource = dsACC
-            dgrFCEACC.DataMember = "ACC"
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
-    End Sub
-    Sub LoadFCEReports()
-        Try
-
-            SQL = "select SSCPItemMaster.strTrackingNumber, " &
-                 "to_char(datReceivedDate, 'dd-Mon-yyyy') as ReceivedDate, " &
-                 "strReportPeriod, " &
-                 "to_char(DatReportingPeriodStart, 'dd-Mon-yyyy') as ReportingStartDate, " &
-                 "to_char(datReportingPeriodEnd, 'dd-Mon-yyyy') as ReportingEndDate, " &
-                 "strReportingPeriodComments, " &
-                 "to_char(datReportDueDate, 'dd-Mon-yyyy') as ReportDueDate, " &
-                 "to_char(datSentByFacilityDate, 'dd-Mon-yyyy') as DateSentByFacility, " &
-                 "strCompleteStatus, strEnforcementNeeded, strShowDeviation, " &
-                 "strGeneralComments " &
-                 "from SSCPREports, SSCPItemMaster " &
-                 "where SSCPItemMaster.strTrackingNumber = SSCPREports.strTrackingNumber " &
-                 "and ((datCompleteDate between '" & DTPFilterStartDate.Text & "' and '" & DTPFilterEndDate.Text & "') " &
-                 "or " &
-                 "(datReceivedDate between '" & DTPFilterStartDate.Text & "' and '" & DTPFilterEndDate.Text & "')) " &
-                  "and (strDelete is Null or strDelete <> 'True') " &
-                 "and SSCPItemMaster.strAIrsnumber = '0413" & txtAirsNumber.Text & "' "
-
-            dsReport = New DataSet
-
-            Dim cmd As New SqlCommand(SQL, CurrentConnection)
-
-            daReport = New SqlDataAdapter(cmd)
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            daReport.Fill(dsReport, "Reports")
-            dgrFCEReports.DataSource = dsReport
-            dgrFCEReports.DataMember = "Reports"
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
-
-    End Sub
-    Sub LoadFCECorrespondance()
-        Try
-
-            SQL = "select SSCPItemMaster.strTrackingNumber, " &
-                 "to_char(datReceivedDate, 'dd-Mon-yyyy') as ReceivedDate, " &
-                 "CASE " &
-                 "    when strNotificationDue = 'True' then to_char(datNotificationDue, 'dd-Mon-yyyy') " &
-                 "    when strNotificationDue = 'False' then 'No Due Date' " &
-                 "End as NotificationDate, " &
-                 "CASE " &
-                 "    when strNotificationSent = 'True' then to_char(DatNotificationSent, 'dd-Mon-yyyy') " &
-                 "    when strNotificationSent = 'False' then 'Unknown' " &
-                 "End as NotificationSent, " &
-                 "CASE " &
-                 "    when strNotificationType = '01' then strNotificationTypeOther " &
-                 "    ELSE (select strNotificationDesc " &
-                 "     from LookUPSSCPNotifications, SSCPNotifications " &
-                 "     where LookUPSSCPNotifications.strNotificationKey = sscpNotifications.strnotificationType " &
-                 "     and sscpNotifications.strTrackingNumber = SSCPItemMaster.strTrackingNumber) " &
-                 "END as Notification, " &
-                 "strNotificationComment " &
-                 "from SSCPNotifications, SSCPItemMaster " &
-                 "where SSCPItemMaster.strTrackingNumber = SSCPNotifications.strTrackingNumber " &
-                 "and ((datCompleteDate between '" & DTPFilterStartDate.Text & "' and '" & DTPFilterEndDate.Text & "') " &
-                 "or " &
-                 "(datReceivedDate between '" & DTPFilterStartDate.Text & "' and '" & DTPFilterEndDate.Text & "')) " &
-                  "and (strDelete is Null or strDelete <> 'True') " &
-                 "and SSCPItemMaster.strAIrsnumber = '0413" & txtAirsNumber.Text & "' "
-
-            dsNotifications = New DataSet
-
-            Dim cmd As New SqlCommand(SQL, CurrentConnection)
-
-            daNotifications = New SqlDataAdapter(cmd)
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            daNotifications.Fill(dsNotifications, "Notifications")
-            dgrFCECorrespondance.DataSource = dsNotifications
-            dgrFCECorrespondance.DataMember = "Notifications"
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
-
-    End Sub       'Add Word documents when appropriate
-    Sub LoadFCESummaryReports()
-        Try
-
-            SQL = "Select ISMPReportInformation.strReferenceNumber,  " &
-             "strEmissionSource, LookUPPollutants.strPollutantDescription,  " &
-             "ISMPReportType.strReportType,  " &
-             "(strLastName|| ', ' ||strFirstName) as ReviewingEngineer,  " &
-             "to_char(datTestDateStart, 'dd-Mon-yyyy') as TestDateStart,  " &
-             "to_char(datReceivedDate, 'dd-Mon-yyyy') as REceivedDate,  " &
-             "Case  " &
-             "  when datCompleteDate = '04-Jul-1776' Then 'Open'  " &
-             "  when datCompleteDate <> '04-Jul-1776' Then to_char(datCompleteDate, 'dd-Mon-yyyy')  " &
-             "END as CompleteDate,  " &
-             "LookUPISMPComplianceStatus.strComplianceStatus,  " &
-             "Case  " &
-             "  when strClosed = 'False' then 'Open'   " &
-             "  when strClosed = 'True' then 'Closed'  " &
-             "END as Status,  " &
-             "mmoCommentArea, ISMPDocumentType.strDocumentType,   " &
-             "strApplicableRequirement,  " &
-             "LookUpEPDUnits.strUnitDesc  " &
-             "from ISMPMaster, ISMPReportInformation,  " &
-             "LookUPPollutants, ISMPReportType, EPDUserProfiles,  " &
-             "LookUPISMPComplianceStatus, ISMPDocumentType,  " &
-             "LookUpEPDUnits    " &
-             "where  " &
-             "ISMPReportInformation.strREferenceNumber = ISMPMaster.strReferenceNumber  " &
-             "and LookUPPollutants.strPOllutantCode = ISMPReportInformation.strPOllutant  " &
-             "and ISMPReportType.strKey = ISMPReportInformation.strReportType  " &
-             "and EPDUserProfiles.numUserID = ISMPReportInformation.strReviewingEngineer  " &
-             "and LookUPISMPComplianceStatus.strComplianceKey = ISMPReportInformation.strComplianceStatus  " &
-             "and ISMPDocumentType.strKey = ISMPReportInformation.strDocumentType  " &
-             "and strDelete is Null  " &
-             "and ISMPReportInformation.strReviewingUnit = to_char(LookUpEPDUnits.numUnitCode)   " &
-             "and strAIRSNumber = '0413" & txtAirsNumber.Text & "'   " &
-             "and ((datCompleteDate between '" & DTPFilterStartDate.Text & "' and '" & DTPFilterEndDate.Text & "')   " &
-              "or  (datReceivedDate between '" & DTPFilterStartDate.Text & "' and '" & DTPFilterEndDate.Text & "'))   " &
-             "and (strDelete is Null or strDelete <> 'True')   " &
-             "order by ISMPReportInformation.strReferenceNumber DESC  "
-
-            dsISMP = New DataSet
-
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            daISMP = New SqlDataAdapter(cmd)
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            daISMP.Fill(dsISMP, "ISMPWork")
-            dgrISMPSummaryReports.DataSource = dsISMP
-            dgrISMPSummaryReports.DataMember = "ISMPWork"
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
-    End Sub
-    Sub LoadFCEPerformanceTests()
-        Try
-
-            SQL = "Select " &
-                 "SSCPTestReports.strTrackingNumber, " &
-                 "to_char(datReceivedDate, 'dd-Mon-yyyy') as ReceivedDate, " &
-                 "(strLastName|| ', ' ||strFirstName) as ReviewingEngineer, " &
-                 "strReferenceNumber, strTestReportComments, " &
-                 "to_Char(datCompleteDate, 'dd-Mon-yyyy') as CompleteDate, " &
-                 "strTestReportFollowUp " &
-                 "from SSCPItemMaster, SSCPTestReports, " &
-                 "EPDUserProfiles  " &
-                 "where " &
-                 "EPDUserProfiles.numUserID = SSCPItemMaster.strResponsibleStaff (+) " &
-                 "and SSCPItemMaster.strTrackingNumber = SSCPTestReports.strTrackingNumber " &
-                 "and ((datCompleteDate between '" & DTPFilterStartDate.Text & "' and '" & DTPFilterEndDate.Text & "') " &
-                 " or " &
-                 "(datReceivedDate between '" & DTPFilterStartDate.Text & "' and '" & DTPFilterEndDate.Text & "')) " &
-                  "and (strDelete is Null or strDelete <> 'True') " &
-                 "and SSCPItemMaster.strAIrsnumber = '0413" & txtAirsNumber.Text & "' "
-
-            dsPerformanceTest = New DataSet
-
-            daPerformanceTest = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daPerformanceTest.Fill(dsPerformanceTest, "PerformanceTests")
-            dgrPerformanceTests.DataSource = dsPerformanceTest
-            dgrPerformanceTests.DataMember = "PerformanceTests"
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
-
-    End Sub
-    Sub LoadFCEEnforcement()
-        Try
-
-            SQL = "Select " &
-                 "SSCP_AuditedEnforcement.strEnforcementNumber, " &
-                 "case " &
-                 "when datEnforcementFinalized IS null then 'Open' " &
-                 "else to_char(datEnforcementFinalized, 'dd-Mon-yyyy') " &
-                 "ENd as EnforcementFinalized, " &
-                 "(strLastName|| ', ' ||strFirstName) as StaffResponsible, " &
-                 "strActionType  " &
-                 "from SSCP_AuditedEnforcement, EPDUserProfiles " &
-                 "where EPDUserProfiles.numUserID = SSCP_AuditedEnforcement.numStaffResponsible " &
-                  "and datDiscoveryDate between '" & DTPFilterStartDate.Text & "' and '" & DTPFilterEndDate.Text & "' " &
-                  "and (strStatus is Null or strStatus <> 'True') " &
-                 "and strAIRSnumber = '0413" & txtAirsNumber.Text & "' "
-
-            dsEnforcement = New DataSet
-
-            cmd = New SqlCommand(SQL, CurrentConnection)
-
-            daEnforcement = New SqlDataAdapter(cmd)
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            daEnforcement.Fill(dsEnforcement, "Enforcements")
-            dgrFCEEnforcement.DataSource = dsEnforcement
-            dgrFCEEnforcement.DataMember = "Enforcements"
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
-
-    End Sub
 #End Region
-#Region "FormatDataGrids"
-    Sub FormatFCEInspection()
+
+#Region " Load Datasets "
+
+    Private Sub LoadFCEInspectionData()
+        Dim SQL As String = "select SSCPInspections.strTrackingNumber, " &
+        "datReceivedDate as ReceivedDate,  " &
+        "CONCAT(strLastName, ', ', strFirstName) as ReviewingEngineer, " &
+        "datInspectionDateStart as InspectionDateStart,  " &
+        "datInspectionDateStart as InspectionTimeStart,  " &
+        "datInspectionDateEnd as InspectionDateEnd,  " &
+        "datInspectionDateEnd as InspectionTimeEnd,  " &
+        "strInspectionReason, strWeatherConditions, strInspectionGuide,  " &
+        "strFacilityOperating, strInspectionComplianceStatus,  " &
+        "datCompleteDate as InspectionReportComplete,  " &
+        "datAcknoledgmentLetterSent as AcknowledgmentLetterSent,  " &
+        "strInspectionComments  " &
+        "from SSCPInspections, EPDUserProfiles, SSCPItemMaster  " &
+        "where  " &
+        "EPDUserProfiles.numUserID = SSCPItemMaster.strResponsibleStaff  " &
+        "and SSCPItemMaster.strTrackingNumber = SSCPInspections.strTrackingNumber  " &
+        "and SSCPItemMaster.strAIRSNumber = @airs " &
+        "and ((datCompleteDate between @startDate and @endDate ) " &
+        "or (datReceivedDate between @startDate and @endDate )) " &
+        "and (strDelete is Null or strDelete <> 'True') " &
+        "Order by SSCPInspections.strTrackingNumber DESC  "
+
+        dgrFCEInspections.DataSource = DB.GetDataTable(SQL, paramWithDates)
+    End Sub
+
+    Private Sub LoadFCEACCData()
+        Dim SQL As String = "select SSCPItemMaster.strTrackingNumber, " &
+            "datReceivedDate as ReceivedDate, " &
+            "CONCAT(strLastName, ', ', strFirstName) as ReviewingEngineer, " &
+            "strPostMarkedOnTime, " &
+            "datPostMarkDate as PostmarkDate, " &
+            "strSignedByRO, strCorrectACCForms, strTitleVConditionsListed, " &
+            "strACCCorrectlyFilledOut, strReportedDeviations, " &
+            "strDeviationsUnreported, strComments, strEnforcementNeeded, " &
+            "datCompleteDate as CompleteDate " &
+            "from SSCPACCS, SSCPItemMaster, EPDUSerProfiles " &
+            "where " &
+            "EPDUSerProfiles.numUserID = SSCPItemMaster.strModifingperson " &
+            "and SSCPItemMaster.strTrackingNumber = SSCPACCS.strTrackingNumber " &
+            "and ((datCompleteDate between @startDate and @endDate ) " &
+            "or (datReceivedDate between @startDate and @endDate )) " &
+            "and SSCPItemMaster.strAIrsnumber = @airs " &
+            "and (strDelete is Null or strDelete <> 'True') "
+
+        dgrFCEACC.DataSource = DB.GetDataTable(SQL, paramWithDates)
+    End Sub
+
+    Private Sub LoadFCEReports()
+        Dim SQL As String = "select SSCPItemMaster.strTrackingNumber, " &
+             "datReceivedDate as ReceivedDate, " &
+             "strReportPeriod, " &
+             "DatReportingPeriodStart as ReportingStartDate, " &
+             "datReportingPeriodEnd as ReportingEndDate, " &
+             "strReportingPeriodComments, " &
+             "datReportDueDate as ReportDueDate, " &
+             "datSentByFacilityDate as DateSentByFacility, " &
+             "strCompleteStatus, strEnforcementNeeded, strShowDeviation, " &
+             "strGeneralComments " &
+             "from SSCPREports, SSCPItemMaster " &
+             "where SSCPItemMaster.strTrackingNumber = SSCPREports.strTrackingNumber " &
+             "and ((datCompleteDate between @startDate and @endDate) " &
+             "or " &
+             "(datReceivedDate between @startDate and @endDate)) " &
+              "and (strDelete is Null or strDelete <> 'True') " &
+            "and SSCPItemMaster.strAIrsnumber = @airs "
+
+        dgrFCEReports.DataSource = DB.GetDataTable(SQL, paramWithDates)
+    End Sub
+
+    Private Sub LoadFCECorrespondance()
+        Dim SQL As String = "select SSCPItemMaster.strTrackingNumber, " &
+             "datReceivedDate as ReceivedDate, " &
+             "CASE " &
+             "    when strNotificationDue = 'True' then datNotificationDue " &
+             "    when strNotificationDue = 'False' then null " &
+             "End as NotificationDate, " &
+             "CASE " &
+             "    when strNotificationSent = 'True' then DatNotificationSent " &
+             "    when strNotificationSent = 'False' then null " &
+             "End as NotificationSent, " &
+             "CASE " &
+             "    when strNotificationType = '01' then strNotificationTypeOther " &
+             "    ELSE (select strNotificationDesc " &
+             "     from LookUPSSCPNotifications, SSCPNotifications " &
+             "     where LookUPSSCPNotifications.strNotificationKey = sscpNotifications.strnotificationType " &
+             "     and sscpNotifications.strTrackingNumber = SSCPItemMaster.strTrackingNumber) " &
+             "END as Notification, " &
+             "strNotificationComment " &
+             "from SSCPNotifications, SSCPItemMaster " &
+             "where SSCPItemMaster.strTrackingNumber = SSCPNotifications.strTrackingNumber " &
+             "and ((datCompleteDate between @startDate and @endDate) " &
+             "or " &
+             "(datReceivedDate between @startDate and @endDate)) " &
+              "and (strDelete is Null or strDelete <> 'True') " &
+                         "and SSCPItemMaster.strAIrsnumber = @airs "
+
+        dgrFCECorrespondance.DataSource = DB.GetDataTable(SQL, paramWithDates)
+    End Sub
+
+    Private Sub LoadFCESummaryReports()
+        Dim SQL As String = "Select ISMPReportInformation.strReferenceNumber,  " &
+         "strEmissionSource, LookUPPollutants.strPollutantDescription,  " &
+         "ISMPReportType.strReportType,  " &
+         "CONCAT(strLastName, ', ', strFirstName) as ReviewingEngineer, " &
+         "datTestDateStart as TestDateStart,  " &
+         "datReceivedDate as REceivedDate,  " &
+         "Case  " &
+         "  when datCompleteDate = '04-Jul-1776' Then 'Open'  " &
+         "  when datCompleteDate <> '04-Jul-1776' Then datCompleteDate  " &
+         "END as CompleteDate,  " &
+         "LookUPISMPComplianceStatus.strComplianceStatus,  " &
+         "Case  " &
+         "  when strClosed = 'False' then 'Open'   " &
+         "  when strClosed = 'True' then 'Closed'  " &
+         "END as Status,  " &
+         "mmoCommentArea, ISMPDocumentType.strDocumentType,   " &
+         "strApplicableRequirement,  " &
+         "LookUpEPDUnits.strUnitDesc  " &
+         "from ISMPMaster, ISMPReportInformation,  " &
+         "LookUPPollutants, ISMPReportType, EPDUserProfiles,  " &
+         "LookUPISMPComplianceStatus, ISMPDocumentType,  " &
+         "LookUpEPDUnits    " &
+         "where  " &
+         "ISMPReportInformation.strREferenceNumber = ISMPMaster.strReferenceNumber  " &
+         "and LookUPPollutants.strPOllutantCode = ISMPReportInformation.strPOllutant  " &
+         "and ISMPReportType.strKey = ISMPReportInformation.strReportType  " &
+         "and EPDUserProfiles.numUserID = ISMPReportInformation.strReviewingEngineer  " &
+         "and LookUPISMPComplianceStatus.strComplianceKey = ISMPReportInformation.strComplianceStatus  " &
+         "and ISMPDocumentType.strKey = ISMPReportInformation.strDocumentType  " &
+         "and strDelete is Null  " &
+         "and ISMPReportInformation.strReviewingUnit = LookUpEPDUnits.numUnitCode " &
+         "and strAIRSNumber = @airs " &
+         "and ((datCompleteDate between @startDate and @endDate)   " &
+          "or  (datReceivedDate between @startDate and @endDate))   " &
+         "and (strDelete is Null or strDelete <> 'True')   " &
+         "order by ISMPReportInformation.strReferenceNumber DESC  "
+
+        dgrISMPSummaryReports.DataSource = DB.GetDataTable(SQL, paramWithDates)
+    End Sub
+
+    Private Sub LoadFCEPerformanceTests()
+        Dim SQL As String = "Select " &
+             "SSCPTestReports.strTrackingNumber, " &
+             "datReceivedDate as ReceivedDate, " &
+             "CONCAT(strLastName, ', ', strFirstName) as ReviewingEngineer, " &
+             "strReferenceNumber, strTestReportComments, " &
+             "datCompleteDate as CompleteDate, " &
+             "strTestReportFollowUp " &
+             "from SSCPItemMaster " &
+             "inner join SSCPTestReports " &
+             "on SSCPItemMaster.strTrackingNumber = SSCPTestReports.strTrackingNumber " &
+             "left join EPDUserProfiles " &
+             "on EPDUserProfiles.numUserID = SSCPItemMaster.strResponsibleStaff " &
+             "where ((datCompleteDate between @startDate and @endDate) " &
+             " or " &
+             "(datReceivedDate between @startDate and @endDate)) " &
+              "and (strDelete is Null or strDelete <> 'True') " &
+                         "and SSCPItemMaster.strAIrsnumber = @airs "
+
+        dgrPerformanceTests.DataSource = DB.GetDataTable(SQL, paramWithDates)
+    End Sub
+
+    Private Sub LoadFCEEnforcement()
+        Dim SQL As String = "Select " &
+             "SSCP_AuditedEnforcement.strEnforcementNumber, " &
+             "datEnforcementFinalized as EnforcementFinalized, " &
+             "CONCAT(strLastName, ', ', strFirstName) as StaffResponsible, " &
+             "strActionType  " &
+             "from SSCP_AuditedEnforcement, EPDUserProfiles " &
+             "where EPDUserProfiles.numUserID = SSCP_AuditedEnforcement.numStaffResponsible " &
+              "and datDiscoveryDate between @startDate and @endDate " &
+              "and (strStatus is Null or strStatus <> 'True') " &
+                         "and strAIrsnumber = @airs "
+
+        dgrFCEEnforcement.DataSource = DB.GetDataTable(SQL, paramWithDates)
+    End Sub
+
+#End Region
+
+#Region " FormatDataGrids "
+
+    Private Sub FormatFCEInspection()
         Try
 
             'Formatting our DataGrid
@@ -617,7 +344,7 @@ Public Class SSCPFCEWork
             'Dim objDateCol As New DataGridTimePickerColumn
 
             objGrid.AlternatingBackColor = Color.WhiteSmoke
-            objGrid.MappingName = "Inspections"
+            'objGrid.MappingName = "Inspections"
             objGrid.AllowSorting = True
             objGrid.ReadOnly = True
             objGrid.RowHeadersVisible = False
@@ -730,7 +457,8 @@ Public Class SSCPFCEWork
         End Try
 
     End Sub
-    Sub FormatFCEACC()
+
+    Private Sub FormatFCEACC()
         Try
 
             'Formatting our DataGrid
@@ -739,7 +467,6 @@ Public Class SSCPFCEWork
             'Dim objDateCol As New DataGridTimePickerColumn
 
             objGrid.AlternatingBackColor = Color.WhiteSmoke
-            objGrid.MappingName = "ACC"
             objGrid.AllowSorting = True
             objGrid.ReadOnly = True
             objGrid.RowHeadersVisible = False
@@ -870,7 +597,8 @@ Public Class SSCPFCEWork
 
 
     End Sub
-    Sub FormatFCEReports()
+
+    Private Sub FormatFCEReports()
         Try
 
             'Formatting our DataGrid
@@ -879,7 +607,6 @@ Public Class SSCPFCEWork
             'Dim objDateCol As New DataGridTimePickerColumn
 
             objGrid.AlternatingBackColor = Color.WhiteSmoke
-            objGrid.MappingName = "Reports"
             objGrid.AllowSorting = True
             objGrid.ReadOnly = True
             objGrid.RowHeadersVisible = False
@@ -994,7 +721,8 @@ Public Class SSCPFCEWork
 
 
     End Sub
-    Sub FormatFCECorrespondance()
+
+    Private Sub FormatFCECorrespondance()
         Try
 
             'Formatting our DataGrid
@@ -1003,7 +731,6 @@ Public Class SSCPFCEWork
             'Dim objDateCol As New DataGridTimePickerColumn
 
             objGrid.AlternatingBackColor = Color.WhiteSmoke
-            objGrid.MappingName = "Notifications"
             objGrid.AllowSorting = True
             objGrid.ReadOnly = True
             objGrid.RowHeadersVisible = False
@@ -1068,8 +795,9 @@ Public Class SSCPFCEWork
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
-    End Sub     'Add Word documents when appropriate
-    Sub FormatISMPSummaryReports()
+    End Sub
+
+    Private Sub FormatISMPSummaryReports()
         Try
 
             'Formatting our DataGrid
@@ -1078,7 +806,6 @@ Public Class SSCPFCEWork
             'Dim objDateCol As New DataGridTimePickerColumn
 
             objGrid.AlternatingBackColor = Color.WhiteSmoke
-            objGrid.MappingName = "ISMPWork"
             objGrid.AllowSorting = True
             objGrid.ReadOnly = True
             objGrid.RowHeadersVisible = False
@@ -1200,7 +927,8 @@ Public Class SSCPFCEWork
         End Try
 
     End Sub
-    Sub FormatFCEEnforcement()
+
+    Private Sub FormatFCEEnforcement()
         Try
 
             'Formatting our DataGrid
@@ -1209,7 +937,6 @@ Public Class SSCPFCEWork
             'Dim objDateCol As New DataGridTimePickerColumn
 
             objGrid.AlternatingBackColor = Color.WhiteSmoke
-            objGrid.MappingName = "Enforcements"
             objGrid.AllowSorting = True
             objGrid.ReadOnly = True
             objGrid.RowHeadersVisible = False
@@ -1259,7 +986,8 @@ Public Class SSCPFCEWork
         End Try
 
     End Sub
-    Sub FormatFCEPerformanceTests()
+
+    Private Sub FormatFCEPerformanceTests()
         Try
 
             'Formatting our DataGrid
@@ -1268,7 +996,6 @@ Public Class SSCPFCEWork
             'Dim objDateCol As New DataGridTimePickerColumn
 
             objGrid.AlternatingBackColor = Color.WhiteSmoke
-            objGrid.MappingName = "PerformanceTests"
             objGrid.AllowSorting = True
             objGrid.ReadOnly = True
             objGrid.RowHeadersVisible = False
@@ -1342,22 +1069,22 @@ Public Class SSCPFCEWork
         End Try
 
     End Sub
-#End Region
 
 #End Region
-#Region "Delarations"
+
+#Region " Load data "
+
     Private Sub txtFCENumber_TextChanged(sender As Object, e As EventArgs) Handles txtFCENumber.TextChanged
         Try
             If txtFCENumber.Text = "" Then
                 cboReviewer.SelectedValue = CurrentUser.UserID
-                'rdbFCEIncomplete.Checked = False
                 rdbFCEOnSite.Checked = False
                 rdbFCENoOnsite.Checked = False
                 DTPFCECompleteDate.Value = Today
                 txtFCEComments.Clear()
             Else
-                SQL = "select " &
-                "to_char(datFCECompleted, 'dd-Mon-yyyy') as datFCECompleted,  " &
+                Dim SQL As String = "select " &
+                "datFCECompleted as datFCECompleted,  " &
                 "strFCEComments,  " &
                 "Case " &
                 "  when strSiteInspection is Null then 'False' " &
@@ -1366,16 +1093,13 @@ Public Class SSCPFCEWork
                 "strReviewer,  " &
                 "strFCEYear " &
                 "from SSCPFCE  " &
-                "where strFCENumber = '" & txtFCENumber.Text & "' "
+                "where strFCENumber = @fce "
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
+                Dim p As New SqlParameter("@fce", txtFCENumber.Text)
 
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-                If recExist = True Then
+                Dim dr As DataRow = DB.GetDataRow(SQL, p)
+
+                If dr IsNot Nothing Then
                     If IsDBNull(dr.Item("datFCECompleted")) Then
                         DTPFCECompleteDate.Value = Today
                     Else
@@ -1392,628 +1116,301 @@ Public Class SSCPFCEWork
                         cboReviewer.SelectedValue = dr.Item("strReviewer")
                     End If
                     If IsDBNull(dr.Item("strSiteInspection")) Then
-                        rdbFCEOnSite.Checked = False
                         rdbFCENoOnsite.Checked = True
                     Else
                         If dr.Item("strSiteInspection") = "True" Then
                             rdbFCEOnSite.Checked = True
-                            rdbFCENoOnsite.Checked = False
                         Else
-                            rdbFCEOnSite.Checked = False
                             rdbFCENoOnsite.Checked = True
                         End If
                     End If
-                    If IsDBNull(dr.Item("strFCEYear")) Then
-                        cboFCEYear.Text = cboFCEYear.Text
-                    Else
+                    If Not IsDBNull(dr.Item("strFCEYear")) Then
                         cboFCEYear.Text = dr.Item("strFCEYear")
                     End If
                 End If
-                dr.Close()
-
-
             End If
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub llbViewFCEData_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewFCEData.LinkClicked
-        Try
-
-            LoadFCEInspectionData()
-            LoadFCEACCData()
-            LoadFCEReports()
-            LoadFCECorrespondance()
-            LoadFCEPerformanceTests()
-            LoadFCESummaryReports()
-            LoadFCEEnforcement()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
+        LoadFCEInspectionData()
+        FormatFCEInspection()
+        FormatFCEACC()
+        LoadFCEACCData()
+        LoadFCEReports()
+        LoadFCECorrespondance()
+        LoadFCEPerformanceTests()
+        LoadFCESummaryReports()
+        LoadFCEEnforcement()
     End Sub
 
-#Region "Data Grid Mouse Up's"
+#End Region
+
+#Region " DataGrid mouse events "
+
     Private Sub dgrFCEACC_MouseUp(sender As Object, e As MouseEventArgs) Handles dgrFCEACC.MouseUp
         Dim hti As DataGrid.HitTestInfo = dgrFCEACC.HitTest(e.X, e.Y)
         Try
-
             If hti.Type = DataGrid.HitTestType.Cell Then
-                If IsDBNull(dgrFCEACC(hti.Row, 0)) Then
-                Else
-                    If IsDBNull(dgrFCEACC(hti.Row, 1)) Then
-                    Else
-                        If IsDBNull(dgrFCEACC(hti.Row, 2)) Then
-                        Else
-                            If IsDBNull(dgrFCEACC(hti.Row, 3)) Then
-                            Else
-                                If IsDBNull(dgrFCEACC(hti.Row, 4)) Then
-                                Else
-                                    If IsDBNull(dgrFCEACC(hti.Row, 5)) Then
-                                    Else
-                                        If IsDBNull(dgrFCEACC(hti.Row, 6)) Then
-                                        Else
-                                            If IsDBNull(dgrFCEACC(hti.Row, 7)) Then
-                                            Else
-                                                If IsDBNull(dgrFCEACC(hti.Row, 8)) Then
-                                                Else
-                                                    If IsDBNull(dgrFCEACC(hti.Row, 9)) Then
-                                                    Else
-                                                        If IsDBNull(dgrFCEACC(hti.Row, 10)) Then
-                                                        Else
-                                                            If IsDBNull(dgrFCEACC(hti.Row, 11)) Then
-                                                            Else
-                                                                If IsDBNull(dgrFCEACC(hti.Row, 12)) Then
-                                                                Else
-                                                                    If IsDBNull(dgrFCEACC(hti.Row, 13)) Then
-                                                                    Else
-                                                                        txtACCTrackingNumber.Text = dgrFCEACC(hti.Row, 0)
-                                                                    End If
-                                                                End If
-                                                            End If
-                                                        End If
-                                                    End If
-                                                End If
-                                            End If
-                                        End If
-                                    End If
-                                End If
-                            End If
-                        End If
-                    End If
-                End If
-            End If
 
+                txtACCTrackingNumber.Text = dgrFCEACC(hti.Row, 0)
+            End If
         Catch ex As Exception
             ErrorReport(ex, txtFCENumber.Text, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
-
     End Sub
+
     Private Sub dgrFCECorrespondance_MouseUp(sender As Object, e As MouseEventArgs) Handles dgrFCECorrespondance.MouseUp
         Dim hti As DataGrid.HitTestInfo = dgrFCECorrespondance.HitTest(e.X, e.Y)
-
         Try
-
             If hti.Type = DataGrid.HitTestType.Cell Then
-                If IsDBNull(dgrFCECorrespondance(hti.Row, 0)) Then
-                Else
-                    If IsDBNull(dgrFCECorrespondance(hti.Row, 1)) Then
-                    Else
-                        If IsDBNull(dgrFCECorrespondance(hti.Row, 2)) Then
-                        Else
-                            If IsDBNull(dgrFCECorrespondance(hti.Row, 3)) Then
-                            Else
-                                If IsDBNull(dgrFCECorrespondance(hti.Row, 4)) Then
-                                Else
-                                    If IsDBNull(dgrFCECorrespondance(hti.Row, 5)) Then
-                                    Else
-                                        txtNotificationTrackingNumber.Text = dgrFCECorrespondance(hti.Row, 0)
-                                    End If
-                                End If
-                            End If
-                        End If
-                    End If
-                End If
+                txtNotificationTrackingNumber.Text = dgrFCECorrespondance(hti.Row, 0)
             End If
         Catch ex As Exception
             ErrorReport(ex, txtFCENumber.Text, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
-
     End Sub
+
     Private Sub dgrFCEEnforcement_MouseUp(sender As Object, e As MouseEventArgs) Handles dgrFCEEnforcement.MouseUp
         Dim hti As DataGrid.HitTestInfo = dgrFCEEnforcement.HitTest(e.X, e.Y)
-
         Try
-
             If hti.Type = DataGrid.HitTestType.Cell Then
-                If IsDBNull(dgrFCEEnforcement(hti.Row, 0)) Then
-                Else
-                    If IsDBNull(dgrFCEEnforcement(hti.Row, 1)) Then
-                    Else
-                        If IsDBNull(dgrFCEEnforcement(hti.Row, 2)) Then
-                        Else
-                            If IsDBNull(dgrFCEEnforcement(hti.Row, 3)) Then
-                            Else
-                                txtEnforcement.Text = dgrFCEEnforcement(hti.Row, 0)
-                            End If
-                        End If
-                    End If
-                End If
+                txtEnforcement.Text = dgrFCEEnforcement(hti.Row, 0)
             End If
         Catch ex As Exception
             ErrorReport(ex, txtFCENumber.Text, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
-
     End Sub
+
     Private Sub dgrFCEInspections_MouseUp(sender As Object, e As MouseEventArgs) Handles dgrFCEInspections.MouseUp
         Dim hti As DataGrid.HitTestInfo = dgrFCEInspections.HitTest(e.X, e.Y)
-
         Try
-
             If hti.Type = DataGrid.HitTestType.Cell Then
-                If IsDBNull(dgrFCEInspections(hti.Row, 0)) Then
-                Else
-                    If IsDBNull(dgrFCEInspections(hti.Row, 1)) Then
-                    Else
-                        If IsDBNull(dgrFCEInspections(hti.Row, 2)) Then
-                        Else
-                            If IsDBNull(dgrFCEInspections(hti.Row, 3)) Then
-                            Else
-                                If IsDBNull(dgrFCEInspections(hti.Row, 4)) Then
-                                Else
-                                    If IsDBNull(dgrFCEInspections(hti.Row, 5)) Then
-                                    Else
-                                        If IsDBNull(dgrFCEInspections(hti.Row, 6)) Then
-                                        Else
-                                            If IsDBNull(dgrFCEInspections(hti.Row, 7)) Then
-                                            Else
-                                                If IsDBNull(dgrFCEInspections(hti.Row, 8)) Then
-                                                Else
-                                                    If IsDBNull(dgrFCEInspections(hti.Row, 9)) Then
-                                                    Else
-                                                        If IsDBNull(dgrFCEInspections(hti.Row, 10)) Then
-                                                        Else
-                                                            If IsDBNull(dgrFCEInspections(hti.Row, 11)) Then
-                                                            Else
-                                                                txtInspectionTrackingNumber.Text = dgrFCEInspections(hti.Row, 0)
-                                                            End If
-                                                        End If
-                                                    End If
-                                                End If
-                                            End If
-                                        End If
-                                    End If
-                                End If
-                            End If
-                        End If
-                    End If
-                End If
+                txtInspectionTrackingNumber.Text = dgrFCEInspections(hti.Row, 0)
             End If
         Catch ex As Exception
             ErrorReport(ex, txtFCENumber.Text, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
-
     End Sub
+
     Private Sub dgrISMPSummaryReports_MouseUp(sender As Object, e As MouseEventArgs) Handles dgrISMPSummaryReports.MouseUp
         Dim hti As DataGrid.HitTestInfo = dgrISMPSummaryReports.HitTest(e.X, e.Y)
-
         Try
-
             If hti.Type = DataGrid.HitTestType.Cell Then
-                If IsDBNull(dgrISMPSummaryReports(hti.Row, 0)) Then
-                Else
-                    If IsDBNull(dgrISMPSummaryReports(hti.Row, 1)) Then
-                    Else
-                        If IsDBNull(dgrISMPSummaryReports(hti.Row, 2)) Then
-                        Else
-                            If IsDBNull(dgrISMPSummaryReports(hti.Row, 3)) Then
-                            Else
-                                If IsDBNull(dgrISMPSummaryReports(hti.Row, 4)) Then
-                                Else
-                                    If IsDBNull(dgrISMPSummaryReports(hti.Row, 5)) Then
-                                    Else
-                                        If IsDBNull(dgrISMPSummaryReports(hti.Row, 6)) Then
-                                        Else
-                                            If IsDBNull(dgrISMPSummaryReports(hti.Row, 7)) Then
-                                            Else
-                                                If IsDBNull(dgrISMPSummaryReports(hti.Row, 8)) Then
-                                                Else
-                                                    If IsDBNull(dgrISMPSummaryReports(hti.Row, 9)) Then
-                                                    Else
-                                                        If IsDBNull(dgrISMPSummaryReports(hti.Row, 10)) Then
-                                                        Else
-                                                            If IsDBNull(dgrISMPSummaryReports(hti.Row, 11)) Then
-                                                            Else
-                                                                If IsDBNull(dgrISMPSummaryReports(hti.Row, 12)) Then
-                                                                Else
-                                                                    txtISMPReferenceNumber.Text = dgrISMPSummaryReports(hti.Row, 0)
-                                                                End If
-                                                            End If
-                                                        End If
-                                                    End If
-                                                End If
-                                            End If
-                                        End If
-                                    End If
-                                End If
-                            End If
-                        End If
-                    End If
-                End If
+                txtISMPReferenceNumber.Text = dgrISMPSummaryReports(hti.Row, 0)
             End If
         Catch ex As Exception
             ErrorReport(ex, txtFCENumber.Text, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
-
     End Sub
+
     Private Sub dgrFCEReports_MouseUp(sender As Object, e As MouseEventArgs) Handles dgrFCEReports.MouseUp
         Dim hti As DataGrid.HitTestInfo = dgrFCEReports.HitTest(e.X, e.Y)
-
         Try
-
             If hti.Type = DataGrid.HitTestType.Cell Then
-                If IsDBNull(dgrFCEReports(hti.Row, 0)) Then
-                Else
-                    If IsDBNull(dgrFCEReports(hti.Row, 1)) Then
-                    Else
-                        If IsDBNull(dgrFCEReports(hti.Row, 2)) Then
-                        Else
-                            If IsDBNull(dgrFCEReports(hti.Row, 3)) Then
-                            Else
-                                If IsDBNull(dgrFCEReports(hti.Row, 4)) Then
-                                Else
-                                    If IsDBNull(dgrFCEReports(hti.Row, 5)) Then
-                                    Else
-                                        If IsDBNull(dgrFCEReports(hti.Row, 6)) Then
-                                        Else
-                                            If IsDBNull(dgrFCEReports(hti.Row, 7)) Then
-                                            Else
-                                                If IsDBNull(dgrFCEReports(hti.Row, 8)) Then
-                                                Else
-                                                    If IsDBNull(dgrFCEReports(hti.Row, 9)) Then
-                                                    Else
-                                                        If IsDBNull(dgrFCEReports(hti.Row, 10)) Then
-                                                        Else
-                                                            If IsDBNull(dgrFCEReports(hti.Row, 11)) Then
-                                                            Else
-                                                                txtReportTrackingNumber.Text = dgrFCEReports(hti.Row, 0)
-                                                            End If
-                                                        End If
-                                                    End If
-                                                End If
-                                            End If
-                                        End If
-                                    End If
-                                End If
-                            End If
-                        End If
-                    End If
-                End If
+                txtReportTrackingNumber.Text = dgrFCEReports(hti.Row, 0)
             End If
         Catch ex As Exception
             ErrorReport(ex, txtFCENumber.Text, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
-
     End Sub
+
     Private Sub dgrPerformanceTests_MouseUp(sender As Object, e As MouseEventArgs) Handles dgrPerformanceTests.MouseUp
         Dim hti As DataGrid.HitTestInfo = dgrPerformanceTests.HitTest(e.X, e.Y)
-
         Try
-
             If hti.Type = DataGrid.HitTestType.Cell Then
-                If IsDBNull(dgrPerformanceTests(hti.Row, 0)) Then
-                Else
-                    If IsDBNull(dgrPerformanceTests(hti.Row, 1)) Then
-                    Else
-                        If IsDBNull(dgrPerformanceTests(hti.Row, 2)) Then
-                        Else
-                            If IsDBNull(dgrPerformanceTests(hti.Row, 3)) Then
-                            Else
-                                If IsDBNull(dgrPerformanceTests(hti.Row, 4)) Then
-                                Else
-                                    If IsDBNull(dgrPerformanceTests(hti.Row, 5)) Then
-                                    Else
-                                        If IsDBNull(dgrPerformanceTests(hti.Row, 6)) Then
-                                        Else
-                                            txtPerformanceTests.Text = dgrPerformanceTests(hti.Row, 0)
-                                        End If
-                                    End If
-                                End If
-                            End If
-                        End If
-                    End If
-                End If
+                txtPerformanceTests.Text = dgrPerformanceTests(hti.Row, 0)
             End If
         Catch ex As Exception
             ErrorReport(ex, txtFCENumber.Text, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
-
-    End Sub
-#End Region
-    Public WriteOnly Property ValueFromFacilityLookUp() As String
-        Set(Value As String)
-            txtAirsNumber.Text = Value
-        End Set
-    End Property
-    Private Sub SSCPFCECheckList_Closing(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
-        SSCPFCE = Nothing
-        Me.Dispose()
     End Sub
 
 #End Region
 
-#Region "Functions and Subs"
-    Sub SaveFCE()
+#Region " Saving "
+
+    Private Sub SaveFCE()
         Try
 
             If AccountFormAccess(50, 2) = "0" And AccountFormAccess(50, 3) = "0" And AccountFormAccess(50, 4) = "0" Then
                 MsgBox("Insufficent permissions to save Full Compliance Evaluations.", MsgBoxStyle.Information, "Full Compliance Evaluation.")
             Else
-                Dim FCENumber As String = ""
-                Dim FCEStatus As String = ""
-                Dim FCECompleteDate As String = ""
+                Dim SQL As String
+                Dim sqlList As New List(Of String)
+                Dim paramList As New List(Of SqlParameter())
+
+                Dim FCENumber As Integer
+                Dim FCECompleteDate As Date = DTPFCECompleteDate.Value
                 Dim FCEComments As String = ""
-                Dim ActionNumber As String = ""
-                Dim StaffResponsible As String = ""
-                Dim FCEOnSite As String = ""
-                Dim FCEYear As String = ""
-                Dim Classification As String = ""
-
-                SQL = "Select strClass " &
-                "from APBHeaderData " &
-                "where strAIRSNumber = '0413" & txtAirsNumber.Text & "' "
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                While dr.Read
-                    Classification = dr.Item("strClass")
-                End While
-                dr.Close()
-
-                FCEStatus = True
-                'If rdbFCEComplete.Checked = True Then
-                '    FCEStatus = True
-                'Else
-                '    FCEStatus = True
-                'End If
-                FCECompleteDate = DTPFCECompleteDate.Text
                 If txtFCEComments.Text = "" Then
                     FCEComments = "N/A"
                 Else
-                    FCEComments = Replace(txtFCEComments.Text, "'", "''")
+                    FCEComments = txtFCEComments.Text
                 End If
-                StaffResponsible = cboReviewer.SelectedValue
-                If rdbFCEOnSite.Checked = True Then
-                    FCEOnSite = "True"
-                Else
-                    FCEOnSite = "False"
-                End If
-                If cboFCEYear.Text <> "" Then
-                    FCEYear = cboFCEYear.Text
-                Else
-                    FCEYear = Date.Now.Year
-                End If
+                Dim StaffResponsible As Integer = cboReviewer.SelectedValue
+                Dim FCEOnSite As String = rdbFCEOnSite.Checked.ToString
+                Dim FCEYear As String = cboFCEYear.Text
 
                 If txtFCENumber.Text = "" Then
-                    SQL = "Select Max(strFCENumber) as FCENumber " &
-                    "from SSCPFCEMaster "
+                    SQL = "Select Max(strFCENumber) as FCENumber from SSCPFCEMaster "
+                    FCENumber = DB.GetSingleValue(Of Integer)(SQL) + 1
 
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-
-                    dr = cmd.ExecuteReader
-                    While dr.Read
-                        FCENumber = dr.Item("FCENumber")
-                    End While
-                    FCENumber += 1
-
-                    SQL = "Insert into SSCPFCEMaster " &
-                    "(strFCENumber, strAIRSNumber, " &
-                    "strModifingPerson, datModifingDate) " &
-                    "values " &
-                    "('" & FCENumber & "', '0413" & txtAirsNumber.Text & "', " &
-                    "'" & CurrentUser.UserID & "',  GETDATE() ) "
-
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    dr = cmd.ExecuteReader
-
-                    SQL = "Insert into SSCPFCE " &
-                    "(strFCENumber, strFCEStatus, strReviewer, " &
-                    "datFCECompleted, strFCEComments, strModifingPerson, " &
-                    "datModifingDate, strSiteInspection, strFCEYear) " &
-                    "values " &
-                    "('" & FCENumber & "', '" & FCEStatus & "',  '" & StaffResponsible & "', " &
-                    "'" & FCECompleteDate & "', '" & FCEComments & "', '" & CurrentUser.UserID & "', " &
-                    " GETDATE() , '" & FCEOnSite & "', '" & FCEYear & "') "
-
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    dr = cmd.ExecuteReader
-
-                    If Classification = "A" Or Classification = "SM" Then
-                        SQL = "Select strAFSActionNumber " &
-                        "from APBSupplamentalData " &
-                        "where strAIRSNumber = '0413" & txtAirsNumber.Text & "' "
-
-                        cmd = New SqlCommand(SQL, CurrentConnection)
-                        If CurrentConnection.State = ConnectionState.Closed Then
-                            CurrentConnection.Open()
-                        End If
-                        dr = cmd.ExecuteReader
-                        While dr.Read
-                            ActionNumber = dr.Item("strAFSActionNumber")
-                        End While
-                        dr.Close()
-
-                        SQL = "Insert into AFSSSCPFCERecords " &
-                        "(strFCENumber, strAFSActionNumber, " &
-                        "strUpDateStatus, strModifingPerson, " &
-                        "datModifingDate) " &
+                    sqlList.Add("Insert into SSCPFCEMaster " &
+                        "(strFCENumber, strAIRSNumber, " &
+                        "strModifingPerson, datModifingDate) " &
                         "values " &
-                        "('" & FCENumber & "', '" & ActionNumber & "', " &
-                        "'A', '" & CurrentUser.UserID & "', " &
-                        " GETDATE() ) "
-                        cmd = New SqlCommand(SQL, CurrentConnection)
-                        If CurrentConnection.State = ConnectionState.Closed Then
-                            CurrentConnection.Open()
-                        End If
-                        dr = cmd.ExecuteReader
-                        dr.Close()
+                        "(@strFCENumber, @strAIRSNumber, " &
+                        "@strModifingPerson, GETDATE() ) ")
 
-                        ActionNumber = CStr(CInt(ActionNumber) + 1)
+                    paramList.Add({
+                        New SqlParameter("@strFCENumber", FCENumber),
+                        New SqlParameter("@strAIRSNumber", AirsNumber.DbFormattedString),
+                        New SqlParameter("@strModifingPerson", CurrentUser.UserID)
+                    })
 
-                        SQL = "Update APBSupplamentalData set " &
-                        "strAFSActionNUmber = '" & ActionNumber & "' " &
-                        "where strAIRSNumber = '0413" & txtAirsNumber.Text & "' "
-                        cmd = New SqlCommand(SQL, CurrentConnection)
-                        If CurrentConnection.State = ConnectionState.Closed Then
-                            CurrentConnection.Open()
-                        End If
-                        dr = cmd.ExecuteReader
-                        dr.Close()
+                    sqlList.Add("Insert into SSCPFCE " &
+                        "(strFCENumber, strFCEStatus, strReviewer, " &
+                        "datFCECompleted, strFCEComments, strModifingPerson, " &
+                        "datModifingDate, strSiteInspection, strFCEYear) " &
+                        "values " &
+                        "(@strFCENumber, 'True', @strReviewer, " &
+                        "@datFCECompleted, @strFCEComments, @strModifingPerson, " &
+                        "GETDATE(), @strSiteInspection, @strFCEYear) ")
+
+                    paramList.Add({
+                        New SqlParameter("@strFCENumber", FCENumber),
+                        New SqlParameter("@strReviewer", StaffResponsible),
+                        New SqlParameter("@datFCECompleted", FCECompleteDate),
+                        New SqlParameter("@strFCEComments", FCEComments),
+                        New SqlParameter("@strModifingPerson", CurrentUser.UserID),
+                        New SqlParameter("@strSiteInspection", FCEOnSite),
+                        New SqlParameter("@strFCEYear", FCEYear)
+                    })
+
+                    If facility.HeaderData.Classification = FacilityClassification.A Or
+                        facility.HeaderData.Classification = FacilityClassification.SM Then
+
+                        SQL = "Select strAFSActionNumber " &
+                            "from APBSupplamentalData " &
+                            "where strAIRSNumber = @airs "
+
+                        Dim ActionNumber As Integer = DB.GetSingleValue(Of Integer)(SQL, paramAirs)
+
+                        sqlList.Add("Insert into AFSSSCPFCERecords " &
+                            "(strFCENumber, strAFSActionNumber, " &
+                            "strUpDateStatus, strModifingPerson, " &
+                            "datModifingDate) " &
+                            "values " &
+                            "(@strFCENumber, @strAFSActionNumber, " &
+                            "'A', @strModifingPerson, " &
+                            "GETDATE()) ")
+
+                        paramList.Add({
+                            New SqlParameter("@strFCENumber", FCENumber),
+                            New SqlParameter("@strAFSActionNumber", ActionNumber),
+                            New SqlParameter("@strModifingPerson", CurrentUser.UserID)
+                        })
+
+                        sqlList.Add("Update APBSupplamentalData set " &
+                            "strAFSActionNUmber = @strAFSActionNUmber " &
+                            "where strAIRSNumber = @airs ")
+
+                        paramList.Add({
+                            New SqlParameter("@strAFSActionNUmber", ActionNumber + 1),
+                            paramAirs
+                        })
                     End If
                 Else
                     FCENumber = txtFCENumber.Text
 
-                    SQL = "select strFCENumber " &
-                    "from SSCPFCE " &
-                    "where strFCENumber = '" & FCENumber & "' "
-
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    recExist = dr.Read
-                    dr.Close()
-                    If recExist = True Then
-                        SQL = "Update SSCPFCEMaster set " &
-                        "strModifingPerson = '" & CurrentUser.UserID & "', " &
+                    sqlList.Add("Update SSCPFCEMaster set " &
+                        "strModifingPerson = @strModifingPerson, " &
                         "datModifingDate =  GETDATE()  " &
-                        "where strFCENumber = '" & FCENumber & "' "
+                        "where strFCENumber = @strFCENumber ")
 
-                        cmd = New SqlCommand(SQL, CurrentConnection)
-                        dr = cmd.ExecuteReader
+                    paramList.Add({
+                        New SqlParameter("@strFCENumber", FCENumber),
+                        New SqlParameter("@strModifingPerson", CurrentUser.UserID)
+                    })
 
-                        SQL = "Update SSCPFCE Set " &
-                        "strFCEStatus = '" & FCEStatus & "', " &
-                        "strReviewer = '" & StaffResponsible & "', " &
-                        "DatFCECompleted = '" & FCECompleteDate & "', " &
-                        "strFCEComments = '" & FCEComments & "', " &
-                        "strModifingPerson = '" & CurrentUser.UserID & "', " &
-                        "datModifingDate =  GETDATE() , " &
-                        "strSiteInspection = '" & FCEOnSite & "', " &
-                        "strFCEYear = '" & FCEYear & "' " &
-                        "where strFCENumber = '" & FCENumber & "'"
 
-                        cmd = New SqlCommand(SQL, CurrentConnection)
-                        dr = cmd.ExecuteReader
-                    End If
+                    sqlList.Add("Update SSCPFCE Set " &
+                        "strFCEStatus = 'True', " &
+                        "strReviewer = @strReviewer, " &
+                        "DatFCECompleted = @DatFCECompleted, " &
+                        "strFCEComments = @strFCEComments, " &
+                        "strModifingPerson = @strModifingPerson, " &
+                        "datModifingDate =  GETDATE(), " &
+                        "strSiteInspection = @strSiteInspection, " &
+                        "strFCEYear = @strFCEYear " &
+                        "where strFCENumber = @strFCENumber")
+
+                    paramList.Add({
+                        New SqlParameter("@strReviewer", StaffResponsible),
+                        New SqlParameter("@DatFCECompleted", FCECompleteDate),
+                        New SqlParameter("@strFCEComments", FCEComments),
+                        New SqlParameter("@strModifingPerson", CurrentUser.UserID),
+                        New SqlParameter("@strSiteInspection", FCEOnSite),
+                        New SqlParameter("@strFCEYear", FCEYear),
+                        New SqlParameter("@strFCENumber", FCENumber)
+                    })
                 End If
 
+                DB.RunCommand(sqlList, paramList)
 
-
-                txtFCENumber.Text = FCENumber
                 LoadFCEDataset()
                 FillFCEData()
                 txtFCENumber.Text = FCENumber
                 MsgBox("FCE Saved", MsgBoxStyle.Information, "Full Compliance Evaluation")
-
             End If
-
         Catch ex As Exception
-            ErrorReport(ex, txtFCENumber.Text & vbCrLf & txtAirsNumber.Text, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, txtFCENumber.Text, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
-
-
-    End Sub
-    Sub Clear()
-        Try
-            DTPFCECompleteDate.Value = Today
-            DTPFCECompleteDate.Checked = False
-            txtFCEComments.Clear()
-
-            dsISMP = New DataSet
-            dgrISMPSummaryReports.Refresh()
-
-            dsInspections = New DataSet
-            dgrFCEInspections.DataSource = dsInspections
-
-            dsACC = New DataSet
-            dgrFCEACC.DataSource = dsACC
-
-            dsReport = New DataSet
-            dgrFCEReports.DataSource = dsReport
-
-            dsNotifications = New DataSet
-            dgrFCECorrespondance.DataSource = dsNotifications
-
-            dsEnforcement = New DataSet
-            dgrISMPSummaryReports.DataSource = dsISMP
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
-
     End Sub
 
-#Region "Open Subborting Documents"
+#End Region
+
+#Region "Open Supporting Documents"
+
     Private Sub llbFCEInspections_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbFCEInspections.LinkClicked
         OpenFormSscpWorkItem(txtInspectionTrackingNumber.Text)
     End Sub
+
     Private Sub llbFCEACC_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbFCEACC.LinkClicked
         OpenFormSscpWorkItem(txtACCTrackingNumber.Text)
     End Sub
+
     Private Sub llbFCEReports_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbFCEReports.LinkClicked
         OpenFormSscpWorkItem(txtReportTrackingNumber.Text)
     End Sub
+
     Private Sub llbPerformanceTests_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbPerformanceTests.LinkClicked
         OpenFormSscpWorkItem(txtPerformanceTests.Text)
     End Sub
+
     Private Sub llbNotification_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbNotification.LinkClicked
         OpenFormSscpWorkItem(txtNotificationTrackingNumber.Text)
     End Sub
+
     Private Sub llbISMPSummaryReports_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbISMPSummaryReports.LinkClicked
-        Dim temp As String = ""
-        Try
-
-            If txtISMPReferenceNumber.Text <> "" Then
-                SQL = "Select strClosed " &
-                "from ISMPReportInformation " &
-                "where strReferenceNumber = '" & txtISMPReferenceNumber.Text & "' "
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                While dr.Read
-                    temp = dr.Item("strClosed")
-                End While
-                If temp = "True" Then
-                    PrintOut = Nothing
-                    If PrintOut Is Nothing Then PrintOut = New IAIPPrintOut
-                    PrintOut.txtReferenceNumber.Text = txtISMPReferenceNumber.Text
-                    PrintOut.txtPrintType.Text = "SSCP"
-                    PrintOut.Show()
-                Else
-                    MsgBox("This Test Summary has not been completely reviewed by ISMP Engineer", MsgBoxStyle.Information, "FCE Form")
-                End If
+        If txtISMPReferenceNumber.Text <> "" Then
+            If DAL.Ismp.StackTestIsClosedOut(txtISMPReferenceNumber.Text) Then
+                PrintOut = New IAIPPrintOut
+                PrintOut.txtReferenceNumber.Text = txtISMPReferenceNumber.Text
+                PrintOut.txtPrintType.Text = "SSCP"
+                PrintOut.Show()
+            Else
+                MsgBox("This Test Summary has not been completely reviewed by ISMP Engineer", MsgBoxStyle.Information, "FCE Form")
             End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
+        End If
     End Sub
+
     Private Sub llbFCEEnforcement_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbFCEEnforcement.LinkClicked
         OpenFormEnforcement(txtEnforcement.Text)
     End Sub
-#End Region
-
 
 #End Region
 
@@ -2022,7 +1419,6 @@ Public Class SSCPFCEWork
     Private Sub LoadSSCPFCEReport()
         Me.Cursor = Cursors.WaitCursor
 
-        Dim airs As New Apb.ApbFacilityId(txtAirsNumber.Text)
         Dim endDate As Date = DTPFCECompleteDate.Value
         Dim startDate As Date = endDate.AddYears(-FCE_DATA_PERIOD)
         Dim enforcementStartDate As Date = endDate.AddYears(-FCE_ENFORCEMENT_DATA_PERIOD)
@@ -2030,46 +1426,46 @@ Public Class SSCPFCEWork
         Dim rpt As New CR.Reports.SscpFceReport
 
         Dim dt1 As New DataTable
-        dt1 = CollectionHelper.ConvertToDataTable(Of Apb.Facilities.Facility)(New Apb.Facilities.Facility() {DAL.GetFacility(airs).RetrieveHeaderData})
+        dt1 = CollectionHelper.ConvertToDataTable(Of Facility)(New Facility() {facility})
         rpt.Subreports("FacilityBasicInfo.rpt").SetDataSource(dt1)
 
         Dim dt2 As New DataTable("VW_SSCP_INSPECTIONS")
-        dt2 = DAL.Sscp.GetInspectionDataTable(startDate, endDate, airs)
+        dt2 = DAL.Sscp.GetInspectionDataTable(startDate, endDate, AirsNumber)
         rpt.Subreports("SscpInspections.rpt").SetDataSource(dt2)
 
         Dim dt3 As New DataTable("VW_SSCP_RMPINSPECTIONS")
-        dt3 = DAL.Sscp.GetRmpInspectionDataTable(startDate, endDate, airs)
+        dt3 = DAL.Sscp.GetRmpInspectionDataTable(startDate, endDate, AirsNumber)
         rpt.Subreports("SscpRmpInspections.rpt").SetDataSource(dt3)
 
         Dim dt4 As New DataTable("VW_SSCP_ACCS")
-        dt4 = DAL.Sscp.GetAccDataTable(startDate, endDate, airs)
+        dt4 = DAL.Sscp.GetAccDataTable(startDate, endDate, AirsNumber)
         rpt.Subreports("SscpAcc.rpt").SetDataSource(dt4)
 
         Dim dt5 As New DataTable("VW_SSCP_REPORTS")
-        dt5 = DAL.Sscp.GetCompReportsDataTable(startDate, endDate, airs)
+        dt5 = DAL.Sscp.GetCompReportsDataTable(startDate, endDate, AirsNumber)
         rpt.Subreports("SscpReports.rpt").SetDataSource(dt5)
 
         Dim dt6 As New DataTable("VW_SSCP_NOTIFICATIONS")
-        dt6 = DAL.Sscp.GetCompNotificationsDataTable(startDate, endDate, airs)
+        dt6 = DAL.Sscp.GetCompNotificationsDataTable(startDate, endDate, AirsNumber)
         rpt.Subreports("SscpNotifications.rpt").SetDataSource(dt6)
 
         Dim dt7 As New DataTable("VW_SSCP_STACKTESTS")
-        dt7 = DAL.Sscp.GetCompStackTestDataTable(startDate, endDate, airs)
+        dt7 = DAL.Sscp.GetCompStackTestDataTable(startDate, endDate, AirsNumber)
         rpt.Subreports("SscpStackTests.rpt").SetDataSource(dt7)
 
         Dim dt9 As New DataTable("VW_SSCP_FCES")
-        dt9 = DAL.Sscp.GetFceDataTable(airs, year:=cboFCEYear.Text)
+        dt9 = DAL.Sscp.GetFceDataTable(AirsNumber, year:=cboFCEYear.Text)
         rpt.SetDataSource(dt9)
 
         Dim dt10 As New DataTable("VW_FEES_FACILITY_SUMMARY")
-        dt10 = DAL.FeesData.GetFeesFacilitySummaryAsDataTable(enforcementStartDate.Year, endDate.Year, airs)
+        dt10 = DAL.FeesData.GetFeesFacilitySummaryAsDataTable(enforcementStartDate.Year, endDate.Year, AirsNumber)
         rpt.Subreports("FeesFacilitySum.rpt").SetDataSource(dt10)
 
         Dim dt11 As New DataTable("VW_SSCP_ENFORCEMENT_SUMMARY")
-        dt11 = DAL.Sscp.GetEnforcementSummaryDataTable(enforcementStartDate, endDate, airs)
+        dt11 = DAL.Sscp.GetEnforcementSummaryDataTable(enforcementStartDate, endDate, AirsNumber)
         rpt.Subreports("SscpEnforcementSum.rpt").SetDataSource(dt11)
 
-        Dim pd As New Generic.Dictionary(Of String, String) From {
+        Dim pd As New Dictionary(Of String, String) From {
             {"StartDate", String.Format("{0:MMMM d, yyyy}", startDate)},
             {"EndDate", String.Format("{0:MMMM d, yyyy}", endDate)}
         }
@@ -2101,6 +1497,25 @@ Public Class SSCPFCEWork
 
     Private Sub btnPrint_Click(sender As Object, e As EventArgs) Handles btnPrint.Click
         LoadSSCPFCEReport()
+    End Sub
+
+#End Region
+
+#Region " Reset SQL Parameters "
+
+    Private Sub SetSqlParameters()
+        If AirsNumber IsNot Nothing Then
+            paramAirs = New SqlParameter("@airs", AirsNumber.DbFormattedString)
+            paramWithDates = {
+                paramAirs,
+                New SqlParameter("@startDate", DTPFilterStartDate.Value),
+                New SqlParameter("@endDate", DTPFilterEndDate.Value)
+            }
+        End If
+    End Sub
+
+    Private Sub FilterDates_ValueChanged(sender As Object, e As EventArgs) Handles DTPFilterStartDate.ValueChanged, DTPFilterEndDate.ValueChanged
+        SetSqlParameters()
     End Sub
 
 #End Region
