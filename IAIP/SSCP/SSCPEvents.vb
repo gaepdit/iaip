@@ -521,8 +521,8 @@ Public Class SSCPEvents
     End Sub
 
     Private Sub CheckEnforcement()
-        Dim enfNum As String = ""
-        If DAL.Sscp.EnforcementExistsForTrackingNumber(TrackingNumber, enfNum) Then
+        Dim enfNum As Integer
+        If DAL.Sscp.TryGetEnforcementForTrackingNumber(TrackingNumber, enfNum) Then
             txtEnforcementNumber.Text = enfNum
             txtEnforcementNumber.Visible = True
             btnEnforcementProcess.Visible = True

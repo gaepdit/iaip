@@ -2,6 +2,7 @@
 Imports Iaip.Apb.Sscp
 Imports System.Data.SqlClient
 Imports EpdIt
+Imports System.Runtime.InteropServices
 
 Namespace DAL.Sscp
 
@@ -9,12 +10,19 @@ Namespace DAL.Sscp
 
 #Region " Summary tables "
 
-        Public Function GetEnforcementCountForFacility(airs As Apb.ApbFacilityId) As Integer
+        ''' <summary>
+        ''' Returns a count of open enforcement cases for the specified facility
+        ''' </summary>
+        ''' <param name="airs">The Facility ID.</param>
+        ''' <returns>An Integer count of open enforcement cases.</returns>
+        Public Function GetOpenEnforcementCountForFacility(airs As Apb.ApbFacilityId) As Integer
             Dim query As String = "SELECT COUNT(*) " &
                 " FROM SSCP_AUDITEDENFORCEMENT " &
                 " WHERE STRENFORCEMENTFINALIZED = 'False' " &
                 " AND STRAIRSNUMBER = @airs"
+
             Dim parameter As SqlParameter = New SqlParameter("@airs", airs.DbFormattedString)
+
             Return DB.GetSingleValue(Of Integer)(query, parameter)
         End Function
 
@@ -30,11 +38,13 @@ Namespace DAL.Sscp
                 dateRangeStart As Date, dateRangeEnd As Date,
                 Optional airs As Apb.ApbFacilityId = Nothing,
                 Optional staffId As String = Nothing) As DataTable
+
             Dim query As String =
                 "SELECT * FROM VW_SSCP_ENFORCEMENT_SUMMARY " &
                 " WHERE EnforcementDate BETWEEN @datestart AND @dateend "
 
             If airs IsNot Nothing Then query &= " AND STRAIRSNUMBER = @airs "
+
             If Not String.IsNullOrEmpty(staffId) Then query &= " AND NUMSTAFFRESPONSIBLE = @staffId "
 
             Dim parameters As SqlParameter() = {
@@ -50,31 +60,44 @@ Namespace DAL.Sscp
 
 #Region " Exists "
 
+        ''' <summary>
+        ''' Returns a boolean indicating where an enforcement ID exists.
+        ''' </summary>
+        ''' <param name="enforcementId">The enforcement ID to check.</param>
+        ''' <returns>A boolean indicating where the enforcement ID exists.</returns>
         Public Function EnforcementExists(enforcementId As String) As Boolean
             If enforcementId = "" OrElse Not Integer.TryParse(enforcementId, Nothing) Then Return False
 
             Dim query As String = "SELECT CONVERT( bit, COUNT(*)) FROM SSCP_AUDITEDENFORCEMENT " &
                 " WHERE STRENFORCEMENTNUMBER = @enforcementId "
+
             Dim parameter As New SqlParameter("@enforcementId", enforcementId)
 
             Dim result As String = DB.GetSingleValue(Of String)(query, parameter)
             Return Convert.ToBoolean(result)
         End Function
 
-        Public Function EnforcementExistsForTrackingNumber(trackingNumber As String, ByRef enfNumber As String) As Boolean
-            If trackingNumber = "" OrElse Not Integer.TryParse(trackingNumber, Nothing) Then Return False
+        ''' <summary>
+        ''' Checks whether an enforcement case has been linked to an SSCP work item and retrieves the Enforcement ID if so.
+        ''' </summary>
+        ''' <param name="trackingNumber">The tracking number of the SSCP work item.</param>
+        ''' <param name="enforcementId">When this method returns, contains the Enforcement ID of the case if one exists, or zero if one does not.</param>
+        ''' <returns>True if an enforcement case exists for the work item; otherwise, false.</returns>
+        Public Function TryGetEnforcementForTrackingNumber(trackingNumber As Integer, <Out> ByRef enforcementId As Integer) As Boolean
+            enforcementId = 0
 
             Dim query As String = " SELECT STRENFORCEMENTNUMBER " &
                 " FROM SSCP_AUDITEDENFORCEMENT " &
                 " WHERE STRTRACKINGNUMBER = @trackingNumber "
+
             Dim parameter As New SqlParameter("@trackingNumber", trackingNumber)
 
-            Dim result As String = DB.GetSingleValue(Of String)(query, parameter)
+            Dim result As String = DB.GetSingleValue(Of Integer)(query, parameter)
 
             If result Is Nothing Then
                 Return False
             Else
-                enfNumber = result
+                enforcementId = result
                 Return True
             End If
         End Function
@@ -83,7 +106,7 @@ Namespace DAL.Sscp
 
 #Region " Get enforcement info "
 
-        Private Sub FillEnforcementInfoFromDataRow(row As DataRow, ByRef enfInfo As EnforcementInfo)
+        Private Function GetEnforcementInfoFromDataRow(row As DataRow) As EnforcementInfo
             Dim address As New Address
             With address
                 .City = DBUtilities.GetNullable(Of String)(row("STRFACILITYCITY"))
@@ -108,7 +131,8 @@ Namespace DAL.Sscp
                 .LastName = DBUtilities.GetNullable(Of String)(row("STRLASTNAME"))
             End With
 
-            With enfInfo
+            Dim enforcementInfo As New EnforcementInfo
+            With enforcementInfo
                 .DiscoveryDate = DBUtilities.GetNullable(Of Date?)(row("DATDISCOVERYDATE"))
                 .DateFinalized = DBUtilities.GetNullable(Of Date?)(row("DATENFORCEMENTFINALIZED"))
                 .Open = Not Convert.ToBoolean(row("STRENFORCEMENTFINALIZED"))
@@ -117,7 +141,9 @@ Namespace DAL.Sscp
                 .Facility = facility
                 .StaffResponsible = staff
             End With
-        End Sub
+
+            Return enforcementInfo
+        End Function
 
         Public Function GetEnforcementInfo(enforcementId As String) As EnforcementInfo
             Dim query As String =
@@ -138,15 +164,12 @@ Namespace DAL.Sscp
                 " LEFT JOIN EPDUSERPROFILES " &
                 " ON EPDUSERPROFILES.NUMUSERID = SSCP_AUDITEDENFORCEMENT.NUMSTAFFRESPONSIBLE " &
                 " WHERE SSCP_AUDITEDENFORCEMENT.STRENFORCEMENTNUMBER = @enforcementId "
+
             Dim parameter As New SqlParameter("@enforcementId", enforcementId)
-            Dim dataTable As DataTable = DB.GetDataTable(query, parameter)
-            If dataTable Is Nothing Then Return Nothing
 
-            Dim dataRow As DataRow = dataTable.Rows(0)
+            Dim dataRow As DataRow = DB.GetDataRow(query, parameter)
 
-            Dim enfInfo As New EnforcementInfo
-            FillEnforcementInfoFromDataRow(dataRow, enfInfo)
-            Return enfInfo
+            Return GetEnforcementInfoFromDataRow(dataRow)
         End Function
 
         Private Function EnforcementCaseFromDataRow(row As DataRow) As EnforcementCase
@@ -248,77 +271,10 @@ Namespace DAL.Sscp
 #Region " Save enforcement "
 
         Public Function SaveEnforcement(enforcementCase As EnforcementCase) As Integer
-            If enforcementCase.EnforcementId = 0 Then
-                enforcementCase.EnforcementId = GetNextEnforcementId()
-            End If
-
-            Dim queriesList As New List(Of String)
-            Dim parametersList As New List(Of SqlParameter())
+            Dim spName As String = "PD_SSCPENFORCEMENT"
 
             With enforcementCase
-
-                queriesList.Add("INSERT INTO SSCP_ENFORCEMENT " &
-                        "  ( " &
-                        "    ID, STRENFORCEMENTNUMBER, STRTRACKINGNUMBER, STRAIRSNUMBER, " &
-                        "    STRENFORCEMENTFINALIZED, DATENFORCEMENTFINALIZED, " &
-                        "    NUMSTAFFRESPONSIBLE, STRSTATUS, STRACTIONTYPE, " &
-                        "    STRGENERALCOMMENTS, STRDISCOVERYDATE, DATDISCOVERYDATE, " &
-                        "    STRDAYZERO, DATDAYZERO, STRHPV, STRPOLLUTANTS, " &
-                        "    STRPOLLUTANTSTATUS, STRLONTOUC, DATLONTOUC, STRLONSENT, " &
-                        "    DATLONSENT, STRLONRESOLVED, DATLONRESOLVED, STRLONCOMMENTS, " &
-                        "    STRNOVTOUC, DATNOVTOUC, " &
-                        "    STRNOVTOPM, DATNOVTOPM, STRNOVSENT, DATNOVSENT, " &
-                        "    STRNOVRESPONSERECEIVED, DATNOVRESPONSERECEIVED, STRNFATOUC, " &
-                        "    DATNFATOUC, STRNFATOPM, DATNFATOPM, STRNFALETTERSENT, " &
-                        "    DATNFALETTERSENT, STRNOVCOMMENT, " &
-                        "    STRCOTOUC, DATCOTOUC, STRCOTOPM, DATCOTOPM, STRCOPROPOSED, " &
-                        "    DATCOPROPOSED, STRCORECEIVEDFROMCOMPANY, " &
-                        "    DATCORECEIVEDFROMCOMPANY, STRCORECEIVEDFROMDIRECTOR, " &
-                        "    DATCORECEIVEDFROMDIRECTOR, STRCOEXECUTED, DATCOEXECUTED, " &
-                        "    STRCONUMBER, STRCORESOLVED, DATCORESOLVED, " &
-                        "    STRCOPENALTYAMOUNT, STRCOPENALTYAMOUNTCOMMENTS, " &
-                        "    STRCOCOMMENT, " &
-                        "    STRAOEXECUTED, DATAOEXECUTED, " &
-                        "    STRAOAPPEALED, DATAOAPPEALED, STRAORESOLVED, DATAORESOLVED, " &
-                        "    STRAOCOMMENT, STRAFSKEYACTIONNUMBER, STRAFSNOVSENTNUMBER, " &
-                        "    STRAFSNOVRESOLVEDNUMBER, STRAFSCOPROPOSEDNUMBER, " &
-                        "    STRAFSCOEXECUTEDNUMBER, STRAFSCORESOLVEDNUMBER, " &
-                        "    STRAFSAOTOAGNUMBER, STRAFSCIVILCOURTNUMBER, " &
-                        "    STRAFSAORESOLVEDNUMBER, STRMODIFINGPERSON, DATMODIFINGDATE " &
-                        "  ) " &
-                        "  VALUES " &
-                        "  ( " &
-                        "    (SELECT MAX(ID) + 1 FROM SSCP_ENFORCEMENT), " &
-                        "    @STRENFORCEMENTNUMBER, @STRTRACKINGNUMBER, " &
-                        "    @STRAIRSNUMBER, @STRENFORCEMENTFINALIZED, " &
-                        "    @DATENFORCEMENTFINALIZED, @NUMSTAFFRESPONSIBLE, @STRSTATUS, " &
-                        "    @STRACTIONTYPE, @STRGENERALCOMMENTS, @STRDISCOVERYDATE, " &
-                        "    @DATDISCOVERYDATE, @STRDAYZERO, @DATDAYZERO, @STRHPV, " &
-                        "    @STRPOLLUTANTS, @STRPOLLUTANTSTATUS, @STRLONTOUC, " &
-                        "    @DATLONTOUC, @STRLONSENT, @DATLONSENT, @STRLONRESOLVED, " &
-                        "    @DATLONRESOLVED, @STRLONCOMMENTS, " &
-                        "    @STRNOVTOUC, @DATNOVTOUC, " &
-                        "    @STRNOVTOPM, @DATNOVTOPM, @STRNOVSENT, @DATNOVSENT, " &
-                        "    @STRNOVRESPONSERECEIVED, @DATNOVRESPONSERECEIVED, " &
-                        "    @STRNFATOUC, @DATNFATOUC, @STRNFATOPM, @DATNFATOPM, " &
-                        "    @STRNFALETTERSENT, @DATNFALETTERSENT, @STRNOVCOMMENT, " &
-                        "    @STRCOTOUC, @DATCOTOUC, " &
-                        "    @STRCOTOPM, @DATCOTOPM, @STRCOPROPOSED, @DATCOPROPOSED, " &
-                        "    @STRCORECEIVEDFROMCOMPANY, @DATCORECEIVEDFROMCOMPANY, " &
-                        "    @STRCORECEIVEDFROMDIRECTOR, @DATCORECEIVEDFROMDIRECTOR, " &
-                        "    @STRCOEXECUTED, @DATCOEXECUTED, @STRCONUMBER, " &
-                        "    @STRCORESOLVED, @DATCORESOLVED, @STRCOPENALTYAMOUNT, " &
-                        "    @STRCOPENALTYAMOUNTCOMMENTS, @STRCOCOMMENT, " &
-                        "    @STRAOEXECUTED, @DATAOEXECUTED, @STRAOAPPEALED, " &
-                        "    @DATAOAPPEALED, @STRAORESOLVED, @DATAORESOLVED, " &
-                        "    @STRAOCOMMENT, @STRAFSKEYACTIONNUMBER, @STRAFSNOVSENTNUMBER, " &
-                        "    @STRAFSNOVRESOLVEDNUMBER, @STRAFSCOPROPOSEDNUMBER, " &
-                        "    @STRAFSCOEXECUTEDNUMBER, @STRAFSCORESOLVEDNUMBER, " &
-                        "    @STRAFSAOTOAGNUMBER, @STRAFSCIVILCOURTNUMBER, " &
-                        "    @STRAFSAORESOLVEDNUMBER, @STRMODIFINGPERSON, GETDATE() " &
-                        "  ) ")
-
-                parametersList.Add(New SqlParameter() {
+                Dim params As SqlParameter() = {
                     New SqlParameter("@STRENFORCEMENTNUMBER", .EnforcementId),
                     New SqlParameter("@STRTRACKINGNUMBER", StoreNothingIfZero(.LinkedWorkItemId)),
                     New SqlParameter("@STRAIRSNUMBER", .AirsNumber.DbFormattedString),
@@ -334,7 +290,6 @@ Namespace DAL.Sscp
                     New SqlParameter("@DATDAYZERO", .DayZeroDate),
                     New SqlParameter("@STRHPV", If(.ViolationType = "BLANK", "", .ViolationType)),
                     New SqlParameter("@STRPOLLUTANTS", .ProgramPollutants),
-                    New SqlParameter("@STRPOLLUTANTSTATUS", "0"),
                     New SqlParameter("@STRLONTOUC", .LonToUc.HasValue.ToString),
                     New SqlParameter("@DATLONTOUC", .LonToUc),
                     New SqlParameter("@STRLONSENT", .LonSent.HasValue.ToString),
@@ -392,22 +347,10 @@ Namespace DAL.Sscp
                     New SqlParameter("@STRAFSCIVILCOURTNUMBER", StoreNothingIfZero(.AfsCivilCourtActionNumber)),
                     New SqlParameter("@STRAFSAORESOLVEDNUMBER", StoreNothingIfZero(.AfsAoResolvedActionNumber)),
                     New SqlParameter("@STRMODIFINGPERSON", CurrentUser.UserID)
-                })
+                }
 
-                If DB.RunCommand(queriesList, parametersList) Then
-                    Dim param As SqlParameter = New SqlParameter("@ENFORCEMENT", .EnforcementId)
-                    DB.SPRunCommand("PD_SSCPENFORCEMENT", param)
-                    Return .EnforcementId
-                Else
-                    Return 0
-                End If
-
+                Return DB.SPGetSingleValue(Of Integer)(spName, params)
             End With
-        End Function
-
-        Private Function GetNextEnforcementId() As Integer
-            Dim query As String = "SELECT SSCPENFORCEMENTNUMBER.NEXTVAL FROM DUAL"
-            Return DB.GetSingleValue(Of Integer)(query)
         End Function
 
 #End Region
@@ -441,7 +384,7 @@ Namespace DAL.Sscp
         Public Function GetStipulatedPenalties(enforcementId As String) As DataTable
             Dim query As String = "SELECT STRENFORCEMENTKEY, STRSTIPULATEDPENALTY, " &
                 " CASE WHEN STRSTIPULATEDPENALTYCOMMENTS IS NULL THEN 'N/A' " &
-                "  ELSE STRSTIPULATEDPENALTYCOMMENTS END STRSTIPULATEDPENALTYCOMMENTS, " &
+                "  ELSE STRSTIPULATEDPENALTYCOMMENTS END AS STRSTIPULATEDPENALTYCOMMENTS, " &
                 " STRAFSSTIPULATEDPENALTYNUMBER " &
                 "FROM SSCPENFORCEMENTSTIPULATED " &
                 "WHERE STRENFORCEMENTNUMBER = @enforcementId " &
@@ -451,12 +394,11 @@ Namespace DAL.Sscp
         End Function
 
         Public Function GetNextStipulatedPenaltyKey(enforcementId As String) As Integer
-            Dim query As String = "SELECT MAX(es.STRENFORCEMENTKEY) " &
-                "FROM SSCPENFORCEMENTSTIPULATED es " &
-                "WHERE es.STRENFORCEMENTNUMBER = @enforcementId"
+            Dim query As String = "SELECT MAX(STRENFORCEMENTKEY) + 1 " &
+                "FROM SSCPENFORCEMENTSTIPULATED " &
+                "WHERE STRENFORCEMENTNUMBER = @enforcementId"
             Dim parameter As New SqlParameter("@enforcementId", enforcementId)
-            Dim key As Integer = DB.GetSingleValue(Of Integer)(query, parameter)
-            Return key + 1
+            Return DB.GetSingleValue(Of Integer)(query, parameter)
         End Function
 
         Public Function SaveNewStipulatedPenalty(enforcementId As String, airsNumber As Apb.ApbFacilityId,
@@ -534,10 +476,10 @@ Namespace DAL.Sscp
 #Region " Enforcement audit history "
 
         Public Function GetEnforcementAuditHistory(enforcementId As String) As DataTable
-            Dim query As String = "SELECT(upr.STRLASTNAME || ', ' || upr.STRFIRSTNAME) AS " &
+            Dim query As String = "SELECT CONCAT(upr.STRLASTNAME, ', ', upr.STRFIRSTNAME) AS " &
                 "  StaffResponsible, enf.STRTRACKINGNUMBER, " &
-                "  enf.DATENFORCEMENTFINALIZED, enf.STRSTATUS, enf.STRACTIONTYPE " &
-                "  , enf.STRGENERALCOMMENTS, enf.DATDISCOVERYDATE, " &
+                "  enf.DATENFORCEMENTFINALIZED, enf.STRSTATUS, enf.STRACTIONTYPE, " &
+                "  enf.STRGENERALCOMMENTS, enf.DATDISCOVERYDATE, " &
                 "  enf.DATDAYZERO, enf.STRHPV, enf.STRPOLLUTANTS, " &
                 "  enf.DATLONTOUC, enf.DATLONSENT, " &
                 "  enf.DATLONRESOLVED, enf.STRLONCOMMENTS, enf.DATNOVTOUC, " &
@@ -549,8 +491,8 @@ Namespace DAL.Sscp
                 "  enf.STRCONUMBER, enf.DATCORESOLVED, enf.STRCOCOMMENT, " &
                 "  enf.STRCOPENALTYAMOUNT, enf.STRCOPENALTYAMOUNTCOMMENTS, " &
                 "  enf.DATAOEXECUTED, enf.DATAOAPPEALED, enf.DATAORESOLVED, " &
-                "  enf.STRAOCOMMENT,(upm.STRLASTNAME || ', ' || upm.STRFIRSTNAME " &
-                "  ) AS ModifiedBy, enf.DATMODIFINGDATE " &
+                "  enf.STRAOCOMMENT, CONCAT(upm.STRLASTNAME, ', ', upm.STRFIRSTNAME) " &
+                "  AS ModifiedBy, enf.DATMODIFINGDATE " &
                 "FROM SSCP_ENFORCEMENT enf " &
                 "LEFT JOIN EPDUSERPROFILES upr ON " &
                 "  enf.NUMSTAFFRESPONSIBLE = upr.NUMUSERID " &
@@ -567,17 +509,19 @@ Namespace DAL.Sscp
 
         Public Function GetViolationTypes() As DataTable
             Dim query As String =
-                "SELECT AIRVIOLATIONTYPECODE, VIOLATIONTYPEDESC, SEVERITYCODE " &
-                " , POLLUTANTREQUIRED, DEPRECATED " &
-                "FROM LK_VIOLATION_TYPE " &
-                "WHERE STATUS = 'A' "
+            "SELECT AIRVIOLATIONTYPECODE, VIOLATIONTYPEDESC, SEVERITYCODE " &
+            " , POLLUTANTREQUIRED, DEPRECATED " &
+            "FROM LK_VIOLATION_TYPE " &
+            "WHERE STATUS = 'A' "
             Dim dt As DataTable = DB.GetDataTable(query)
 
-            Dim emptyRow As DataRow = dt.NewRow
-            emptyRow("AIRVIOLATIONTYPECODE") = "BLANK"
-            emptyRow("VIOLATIONTYPEDESC") = " "
-            emptyRow("SEVERITYCODE") = "BLANK"
-            dt.Rows.Add(emptyRow)
+            Dim dr As DataRow = dt.NewRow
+            dr("AIRVIOLATIONTYPECODE") = "BLANK"
+            dr("VIOLATIONTYPEDESC") = " "
+            dr("SEVERITYCODE") = "BLANK"
+            dr("POLLUTANTREQUIRED") = "FALSE"
+            dr("DEPRECATED") = "TRUE"
+            dt.Rows.Add(dr)
 
             dt.PrimaryKey = New DataColumn() {dt.Columns("AIRVIOLATIONTYPECODE")}
             Return dt

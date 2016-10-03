@@ -298,7 +298,7 @@ Public Class IAIPFacilitySummary
             End With
 
             'Compliance Status
-            Dim enforcementCount As Integer = DAL.Sscp.GetEnforcementCountForFacility(AirsNumber)
+            Dim enforcementCount As Integer = DAL.Sscp.GetOpenEnforcementCountForFacility(AirsNumber)
             If enforcementCount = 0 Then
                 ComplianceStatusDisplay.Text = "No open enforcement cases"
             ElseIf enforcementCount = 1 Then
