@@ -97,7 +97,7 @@ Namespace DAL.Sscp
         ''' <remarks></remarks>
         Public Function GetCompStackTestDataTable(
                 dateRangeStart As Date, dateRangeEnd As Date,
-                Optional airs As Apb.ApbFacilityId = Nothing,
+                airs As Apb.ApbFacilityId,
                 Optional staffId As String = Nothing,
                 Optional complete As WorkItemComplete = WorkItemComplete.All,
                 Optional deleted As WorkItemDeleted = WorkItemDeleted.NotDeleted
@@ -110,10 +110,10 @@ Namespace DAL.Sscp
             Dim parameters As SqlParameter() = {
                 New SqlParameter("@datestart", dateRangeStart),
                 New SqlParameter("@dateend", dateRangeEnd),
-                New SqlParameter("@airs", If(airs.DbFormattedString, "")),
-                New SqlParameter("@staffId", If(staffId, ""))
+                New SqlParameter("@airs", airs.DbFormattedString),
+                New SqlParameter("@staffId", staffId)
             }
-            Return DB.GetDataTable(query, parameters)
+            Return DB.GetDataTable(query, parameters, True)
         End Function
 
 #End Region
@@ -150,7 +150,7 @@ Namespace DAL.Sscp
         ''' <remarks></remarks>
         Public Function GetInspectionDataTable(
                 dateRangeStart As Date, dateRangeEnd As Date,
-                Optional airs As Apb.ApbFacilityId = Nothing,
+                airs As Apb.ApbFacilityId,
                 Optional staffId As String = Nothing,
                 Optional complete As WorkItemComplete = WorkItemComplete.All,
                 Optional deleted As WorkItemDeleted = WorkItemDeleted.NotDeleted
@@ -163,10 +163,10 @@ Namespace DAL.Sscp
             Dim parameters As SqlParameter() = {
                 New SqlParameter("@datestart", dateRangeStart),
                 New SqlParameter("@dateend", dateRangeEnd),
-                New SqlParameter("@airs", If(airs.DbFormattedString, "")),
-                New SqlParameter("@staffId", If(staffId, ""))
+                New SqlParameter("@airs", airs.DbFormattedString),
+                New SqlParameter("@staffId", staffId)
             }
-            Return DB.GetDataTable(query, parameters)
+            Return DB.GetDataTable(query, parameters, True)
         End Function
 
 #End Region
@@ -186,7 +186,7 @@ Namespace DAL.Sscp
         ''' <remarks></remarks>
         Public Function GetAccDataTable(
                 dateRangeStart As Date, dateRangeEnd As Date,
-                Optional airs As Apb.ApbFacilityId = Nothing,
+                airs As Apb.ApbFacilityId,
                 Optional staffId As String = Nothing,
                 Optional complete As WorkItemComplete = WorkItemComplete.All,
                 Optional deleted As WorkItemDeleted = WorkItemDeleted.NotDeleted
@@ -199,8 +199,8 @@ Namespace DAL.Sscp
             Dim parameters As SqlParameter() = {
                 New SqlParameter("@datestart", dateRangeStart),
                 New SqlParameter("@dateend", dateRangeEnd),
-                New SqlParameter("@airs", If(airs.DbFormattedString, "")),
-                New SqlParameter("@staffId", If(staffId, ""))
+                New SqlParameter("@airs", airs.DbFormattedString),
+                New SqlParameter("@staffId", staffId)
             }
             Return DB.GetDataTable(query, parameters)
         End Function
@@ -222,7 +222,7 @@ Namespace DAL.Sscp
         ''' <remarks></remarks>
         Public Function GetCompNotificationsDataTable(
                 dateRangeStart As Date, dateRangeEnd As Date,
-                Optional airs As Apb.ApbFacilityId = Nothing,
+                airs As Apb.ApbFacilityId,
                 Optional staffId As String = Nothing,
                 Optional complete As WorkItemComplete = WorkItemComplete.All,
                 Optional deleted As WorkItemDeleted = WorkItemDeleted.NotDeleted
@@ -235,10 +235,10 @@ Namespace DAL.Sscp
             Dim parameters As SqlParameter() = {
                 New SqlParameter("@datestart", dateRangeStart),
                 New SqlParameter("@dateend", dateRangeEnd),
-                New SqlParameter("@airs", If(airs.DbFormattedString, "")),
-                New SqlParameter("@staffId", If(staffId, ""))
+                New SqlParameter("@airs", airs.DbFormattedString),
+                New SqlParameter("@staffId", staffId)
             }
-            Return DB.GetDataTable(query, parameters)
+            Return DB.GetDataTable(query, parameters, True)
         End Function
 
         ''' <summary>
@@ -269,7 +269,7 @@ Namespace DAL.Sscp
         ''' <remarks></remarks>
         Public Function GetCompReportsDataTable(
                 dateRangeStart As Date, dateRangeEnd As Date,
-                Optional airs As Apb.ApbFacilityId = Nothing,
+                airs As Apb.ApbFacilityId,
                 Optional staffId As String = Nothing,
                 Optional complete As WorkItemComplete = WorkItemComplete.All,
                 Optional deleted As WorkItemDeleted = WorkItemDeleted.NotDeleted
@@ -282,10 +282,10 @@ Namespace DAL.Sscp
             Dim parameters As SqlParameter() = {
                 New SqlParameter("@datestart", dateRangeStart),
                 New SqlParameter("@dateend", dateRangeEnd),
-                New SqlParameter("@airs", If(airs.DbFormattedString, "")),
-                New SqlParameter("@staffId", If(staffId, ""))
+                New SqlParameter("@airs", airs.DbFormattedString),
+                New SqlParameter("@staffId", staffId)
             }
-            Return DB.GetDataTable(query, parameters)
+            Return DB.GetDataTable(query, parameters, True)
         End Function
 
 #End Region
@@ -305,7 +305,7 @@ Namespace DAL.Sscp
         ''' <remarks></remarks>
         Public Function GetRmpInspectionDataTable(
                 dateRangeStart As Date, dateRangeEnd As Date,
-                Optional airs As Apb.ApbFacilityId = Nothing,
+                airs As Apb.ApbFacilityId,
                 Optional staffId As String = Nothing,
                 Optional complete As WorkItemComplete = WorkItemComplete.All,
                 Optional deleted As WorkItemDeleted = WorkItemDeleted.NotDeleted
@@ -318,10 +318,10 @@ Namespace DAL.Sscp
             Dim parameters As SqlParameter() = {
                 New SqlParameter("@datestart", dateRangeStart),
                 New SqlParameter("@dateend", dateRangeEnd),
-                New SqlParameter("@airs", If(airs.DbFormattedString, "")),
-                New SqlParameter("@staffId", If(staffId, ""))
+                New SqlParameter("@airs", airs.DbFormattedString),
+                New SqlParameter("@staffId", staffId)
             }
-            Return DB.GetDataTable(query, parameters)
+            Return DB.GetDataTable(query, parameters, True)
         End Function
 
 #End Region

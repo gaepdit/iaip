@@ -66,7 +66,7 @@ Module ErrorReporting
             " (STRERRORNUMBER, STRUSER, STRERRORLOCATION, STRERRORMESSAGE, DATERRORDATE) " &
             " values (IAIPERRORNUMBER.NEXTVAL, @UserID, @ErrorLocation, @ErrorMessage, GETDATE()) "
         Dim parameters As SqlParameter() = New SqlParameter() {
-            New SqlParameter("@UserID", If(CurrentUser IsNot Nothing, CurrentUser.UserID, 0)),
+            New SqlParameter("@UserID", CurrentUser.UserID),
             New SqlParameter("@ErrorLocation", errorLocation),
             New SqlParameter("@ErrorMessage", errorMessage)
         }

@@ -66,7 +66,7 @@ Namespace DAL.Sscp
         ''' <returns>A DataTable of FCE data</returns>
         Public Function GetFceDataTable(
                 dateRangeStart As Date, dateRangeEnd As Date,
-                Optional airs As Apb.ApbFacilityId = Nothing,
+                airs As Apb.ApbFacilityId,
                 Optional staffId As String = Nothing,
                 Optional year As String = Nothing) As DataTable
 
@@ -81,21 +81,21 @@ Namespace DAL.Sscp
 
             If airs IsNot Nothing Then
                 query &= " AND STRAIRSNUMBER = @airs "
-                params.Add(New SqlParameter("@airs", If(airs.DbFormattedString, "")))
+                params.Add(New SqlParameter("@airs", airs.DbFormattedString))
             End If
 
             If Not String.IsNullOrEmpty(staffId) Then
                 query &= " AND STRREVIEWER = @staffId "
-                params.Add(New SqlParameter("@staffId", If(staffId, "")))
+                params.Add(New SqlParameter("@staffId", staffId))
             End If
 
             If Not String.IsNullOrEmpty(year) Then
                 query &= " AND STRFCEYEAR = @year "
-                params.Add(New SqlParameter("@year", If(year, "")))
+                params.Add(New SqlParameter("@year", year))
             End If
 
             Dim parameters As SqlParameter() = params.ToArray
-            Return DB.GetDataTable(query, parameters)
+            Return DB.GetDataTable(query, parameters, True)
         End Function
 
     End Module

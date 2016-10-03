@@ -149,9 +149,9 @@ Namespace DAL
             Dim parameters As SqlParameter() = {
                 New SqlParameter("@STROPERATIONALSTATUS", facility.HeaderData.OperationalStatusCode),
                 New SqlParameter("@STRCLASS", facility.HeaderData.ClassificationCode),
-                New SqlParameter("@STRNSPS", If(facility.SubjectToNsps, "1", "0")),
-                New SqlParameter("@STRPART70", If(facility.SubjectToPart70, "1", "0")),
-                New SqlParameter("@DATSHUTDOWNDATE", SqlDbType.DateTime2) With {.Value = If(facility.HeaderData.ShutdownDate.HasValue, facility.HeaderData.ShutdownDate, DBNull.Value)},
+                New SqlParameter("@STRNSPS", Convert.ToInt16(facility.SubjectToNsps)),
+                New SqlParameter("@STRPART70", Convert.ToInt16(facility.SubjectToPart70)),
+                New SqlParameter("@DATSHUTDOWNDATE", facility.HeaderData.ShutdownDate),
                 New SqlParameter("@STRFACILITYNAME", facility.FacilityName),
                 New SqlParameter("@STRFACILITYADDRESS1", facility.FacilityLocation.Address.Street),
                 New SqlParameter("@STRFACILITYADDRESS2", facility.FacilityLocation.Address.Street2),
@@ -163,7 +163,7 @@ Namespace DAL
                 New SqlParameter("@NUMFEEYEAR", feeYearDecimal)
             }
 
-            Return DB.RunCommand(query, parameters)
+            Return DB.RunCommand(query, parameters, forceAddNullableParameters:=True)
         End Function
 
         Public Function GetAllFeeFacilities() As DataTable

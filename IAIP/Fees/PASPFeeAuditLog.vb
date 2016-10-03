@@ -1,4 +1,5 @@
 ﻿Imports System.Data.SqlClient
+Imports System.Data.SqlTypes
 Imports CrystalDecisions.Shared
 Imports CrystalDecisions.CrystalReports.Engine
 Imports Iaip.Apb.Facilities
@@ -3088,7 +3089,7 @@ Public Class PASPFeeAuditLog
             Dim p3 As SqlParameter() = {
                 New SqlParameter("@NUMSTAFFRESPONSIBLE", StaffResponsible),
                 New SqlParameter("@STRAUDITLEVEL", AuditLevel),
-                New SqlParameter("@NUMENFORCEMENT", If(AuditEnforcement = 0, DBNull.Value, AuditEnforcement)),
+                New SqlParameter("@NUMENFORCEMENT", If(AuditEnforcement = 0, SqlInt32.Null, AuditEnforcement)),
                 New SqlParameter("@STRCOMMENTS", AuditComments),
                 New SqlParameter("@DATAUDITSTART", AuditStart),
                 New SqlParameter("@DATAUDITEND", AuditEnd),
@@ -3127,21 +3128,21 @@ Public Class PASPFeeAuditLog
                     New SqlParameter("@STRAIRSNUMBER", AirsNumber.DbFormattedString),
                     New SqlParameter("@NUMFEEYEAR", FeeYear),
                     New SqlParameter("@STRSYNTHETICMINOR", SM),
-                    New SqlParameter("@NUMSMFEE", If(SMFee = "", DBNull.Value, SMFee)),
+                    New SqlParameter("@NUMSMFEE", SMFee),
                     New SqlParameter("@STRPART70", Part70),
-                    New SqlParameter("@NUMPART70FEE", If(Part70Fee = "", DBNull.Value, Part70Fee)),
-                    New SqlParameter("@INTVOCTONS", If(VOCTons = "", DBNull.Value, VOCTons)),
-                    New SqlParameter("@INTPMTONS", If(PMTons = "", DBNull.Value, PMTons)),
-                    New SqlParameter("@INTSO2TONS", If(SO2Tons = "", DBNull.Value, SO2Tons)),
-                    New SqlParameter("@INTNOXTONS", If(NOxTons = "", DBNull.Value, NOxTons)),
-                    New SqlParameter("@NUMCALCULATEDFEE", If(CalculatedFee = "", DBNull.Value, CalculatedFee)),
-                    New SqlParameter("@NUMFEERATE", If(FeeRate = "", DBNull.Value, FeeRate)),
+                    New SqlParameter("@NUMPART70FEE", Part70Fee),
+                    New SqlParameter("@INTVOCTONS", VOCTons),
+                    New SqlParameter("@INTPMTONS", PMTons),
+                    New SqlParameter("@INTSO2TONS", SO2Tons),
+                    New SqlParameter("@INTNOXTONS", NOxTons),
+                    New SqlParameter("@NUMCALCULATEDFEE", CalculatedFee),
+                    New SqlParameter("@NUMFEERATE", FeeRate),
                     New SqlParameter("@STRNSPS", NSPS),
-                    New SqlParameter("@NUMNSPSFEE", If(NSPSFee = "", DBNull.Value, NSPSFee)),
+                    New SqlParameter("@NUMNSPSFEE", NSPSFee),
                     New SqlParameter("@STRNSPSEXEMPT", NSPSExempt),
                     New SqlParameter("@STRNSPSEXEMPTREASON", NSPSExemptions),
-                    New SqlParameter("@NUMADMINFEE", If(AdminFee = "", DBNull.Value, AdminFee)),
-                    New SqlParameter("@NUMTOTALFEE", If(TotalFee = "", DBNull.Value, TotalFee)),
+                    New SqlParameter("@NUMADMINFEE", AdminFee),
+                    New SqlParameter("@NUMTOTALFEE", TotalFee),
                     New SqlParameter("@STRCLASS", Classification),
                     New SqlParameter("@STROPERATE", OpStatus),
                     New SqlParameter("@DATSHUTDOWN", ShutDown),
@@ -3151,7 +3152,7 @@ Public Class PASPFeeAuditLog
                     New SqlParameter("@ACTIVE", "1"),
                     New SqlParameter("@UPDATEUSER", CurrentUser.UserID)
                 }
-                DB.RunCommand(SQL, p4)
+                DB.RunCommand(SQL, p4, forceAddNullableParameters:=True)
 
                 Dim p5 As SqlParameter() = {
                     New SqlParameter("@AIRSNumber", AirsNumber.DbFormattedString),
@@ -4084,21 +4085,21 @@ Public Class PASPFeeAuditLog
                         "where AuditID = @AuditID "
                     Dim p1 As SqlParameter() = {
                         New SqlParameter("@strSyntheticMinor", SM),
-                        New SqlParameter("@numSMFee", If(SMFee = "", DBNull.Value, SMFee)),
+                        New SqlParameter("@numSMFee", SMFee),
                         New SqlParameter("@strPart70", Part70),
-                        New SqlParameter("@numPart70Fee", If(Part70Fee = "", DBNull.Value, Part70Fee)),
-                        New SqlParameter("@intVOCTons", If(VOCTons = "", DBNull.Value, VOCTons)),
-                        New SqlParameter("@intPMTons", If(PMTons = "", DBNull.Value, PMTons)),
-                        New SqlParameter("@intSO2Tons", If(SO2Tons = "", DBNull.Value, SO2Tons)),
-                        New SqlParameter("@intNOxTons", If(NOxTons = "", DBNull.Value, NOxTons)),
-                        New SqlParameter("@numCalculatedFee", If(CalculatedFee = "", DBNull.Value, CalculatedFee)),
-                        New SqlParameter("@numFeeRate", If(FeeRate = "", DBNull.Value, FeeRate)),
+                        New SqlParameter("@numPart70Fee", Part70Fee),
+                        New SqlParameter("@intVOCTons", VOCTons),
+                        New SqlParameter("@intPMTons", PMTons),
+                        New SqlParameter("@intSO2Tons", SO2Tons),
+                        New SqlParameter("@intNOxTons", NOxTons),
+                        New SqlParameter("@numCalculatedFee", CalculatedFee),
+                        New SqlParameter("@numFeeRate", FeeRate),
                         New SqlParameter("@strNSPS", NSPS),
-                        New SqlParameter("@nuMNSPSFee", If(NSPSFee = "", DBNull.Value, NSPSFee)),
+                        New SqlParameter("@nuMNSPSFee", NSPSFee),
                         New SqlParameter("@strNSPSExempt", NSPSExempt),
                         New SqlParameter("@strNSPSExemptReason", NSPSExemptions),
-                        New SqlParameter("@numAdminFee", If(AdminFee = "", DBNull.Value, AdminFee)),
-                        New SqlParameter("@numTotalFee", If(TotalFee = "", DBNull.Value, TotalFee)),
+                        New SqlParameter("@numAdminFee", AdminFee),
+                        New SqlParameter("@numTotalFee", TotalFee),
                         New SqlParameter("@strClass", Classification),
                         New SqlParameter("@strOperate", OpStatus),
                         New SqlParameter("@datShutDown", ShutDown),
@@ -4108,7 +4109,7 @@ Public Class PASPFeeAuditLog
                         New SqlParameter("@UpdateUser", CurrentUser.UserID),
                         New SqlParameter("@AuditID", txtAuditID.Text)
                     }
-                    DB.RunCommand(SQL, p1)
+                    DB.RunCommand(SQL, p1, forceAddNullableParameters:=True)
                 Else
                     SQL = "INSERT INTO FS_FEEAMENDMENT " &
                         "( AUDITID, STRAIRSNUMBER, NUMFEEYEAR, STRSYNTHETICMINOR, " &
@@ -4129,23 +4130,23 @@ Public Class PASPFeeAuditLog
                     Dim p4 As SqlParameter() = {
                         New SqlParameter("@AUDITID", txtAuditID.Text),
                         New SqlParameter("@STRAIRSNUMBER", AirsNumber.DbFormattedString),
-                        New SqlParameter("@NUMFEEYEAR", If(FeeYear = "", DBNull.Value, FeeYear)),
+                        New SqlParameter("@NUMFEEYEAR", FeeYear),
                         New SqlParameter("@STRSYNTHETICMINOR", SM),
-                        New SqlParameter("@NUMSMFEE", If(SMFee = "", DBNull.Value, SMFee)),
+                        New SqlParameter("@NUMSMFEE", SMFee),
                         New SqlParameter("@STRPART70", Part70),
-                        New SqlParameter("@NUMPART70FEE", If(Part70Fee = "", DBNull.Value, Part70Fee)),
-                        New SqlParameter("@INTVOCTONS", If(VOCTons = "", DBNull.Value, VOCTons)),
-                        New SqlParameter("@INTPMTONS", If(PMTons = "", DBNull.Value, PMTons)),
-                        New SqlParameter("@INTSO2TONS", If(SO2Tons = "", DBNull.Value, SO2Tons)),
-                        New SqlParameter("@INTNOXTONS", If(NOxTons = "", DBNull.Value, NOxTons)),
-                        New SqlParameter("@NUMCALCULATEDFEE", If(CalculatedFee = "", DBNull.Value, CalculatedFee)),
-                        New SqlParameter("@NUMFEERATE", If(FeeRate = "", DBNull.Value, FeeRate)),
+                        New SqlParameter("@NUMPART70FEE", Part70Fee),
+                        New SqlParameter("@INTVOCTONS", VOCTons),
+                        New SqlParameter("@INTPMTONS", PMTons),
+                        New SqlParameter("@INTSO2TONS", SO2Tons),
+                        New SqlParameter("@INTNOXTONS", NOxTons),
+                        New SqlParameter("@NUMCALCULATEDFEE", CalculatedFee),
+                        New SqlParameter("@NUMFEERATE", FeeRate),
                         New SqlParameter("@STRNSPS", NSPS),
-                        New SqlParameter("@NUMNSPSFEE", If(NSPSFee = "", DBNull.Value, NSPSFee)),
+                        New SqlParameter("@NUMNSPSFEE", NSPSFee),
                         New SqlParameter("@STRNSPSEXEMPT", NSPSExempt),
                         New SqlParameter("@STRNSPSEXEMPTREASON", NSPSExemptions),
-                        New SqlParameter("@NUMADMINFEE", If(AdminFee = "", DBNull.Value, AdminFee)),
-                        New SqlParameter("@NUMTOTALFEE", If(TotalFee = "", DBNull.Value, TotalFee)),
+                        New SqlParameter("@NUMADMINFEE", AdminFee),
+                        New SqlParameter("@NUMTOTALFEE", TotalFee),
                         New SqlParameter("@STRCLASS", Classification),
                         New SqlParameter("@STROPERATE", OpStatus),
                         New SqlParameter("@DATSHUTDOWN", ShutDown),
@@ -4155,7 +4156,7 @@ Public Class PASPFeeAuditLog
                         New SqlParameter("@ACTIVE", "1"),
                         New SqlParameter("@UPDATEUSER", CurrentUser.UserID)
                     }
-                    DB.RunCommand(SQL, p4)
+                    DB.RunCommand(SQL, p4, forceAddNullableParameters:=True)
                 End If
 
                 Dim p5 As SqlParameter() = {
@@ -4221,7 +4222,7 @@ Public Class PASPFeeAuditLog
             Dim p3 As SqlParameter() = {
                 New SqlParameter("@numStaffResponsible", StaffResponsible),
                 New SqlParameter("@strAuditLevel", AuditLevel),
-                New SqlParameter("@numENFORCEMENT", If(AuditENFORCEMENT = "", DBNull.Value, AuditENFORCEMENT)),
+                New SqlParameter("@numENFORCEMENT", AuditENFORCEMENT),
                 New SqlParameter("@strComments", AuditComments),
                 New SqlParameter("@datAuditStart", AuditStart),
                 New SqlParameter("@datAuditEnd", AuditEnd),
@@ -4230,7 +4231,7 @@ Public Class PASPFeeAuditLog
                 New SqlParameter("@updateuser", CurrentUser.UserID),
                 New SqlParameter("@AuditID", txtAuditID.Text)
             }
-            DB.RunCommand(SQL, p3)
+            DB.RunCommand(SQL, p3, forceAddNullableParameters:=True)
 
             If EndCollections = "True" Then
                 SQL = "update FS_Admin set " &

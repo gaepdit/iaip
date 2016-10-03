@@ -36,24 +36,23 @@ Namespace DAL.Sscp
         ''' <returns>A DataTable of enforcement summary data</returns>
         Public Function GetEnforcementSummaryDataTable(
                 dateRangeStart As Date, dateRangeEnd As Date,
-                Optional airs As Apb.ApbFacilityId = Nothing,
+                airs As Apb.ApbFacilityId,
                 Optional staffId As String = Nothing) As DataTable
 
             Dim query As String =
                 "SELECT * FROM VW_SSCP_ENFORCEMENT_SUMMARY " &
-                " WHERE EnforcementDate BETWEEN @datestart AND @dateend "
-
-            If airs IsNot Nothing Then query &= " AND STRAIRSNUMBER = @airs "
+                " WHERE EnforcementDate BETWEEN @datestart AND @dateend " &
+                " AND STRAIRSNUMBER = @airs "
 
             If Not String.IsNullOrEmpty(staffId) Then query &= " AND NUMSTAFFRESPONSIBLE = @staffId "
 
             Dim parameters As SqlParameter() = {
                 New SqlParameter("@datestart", dateRangeStart),
                 New SqlParameter("@dateend", dateRangeEnd),
-                New SqlParameter("@airs", If(airs.DbFormattedString, "")),
-                New SqlParameter("@staffId", If(staffId, ""))
+                New SqlParameter("@airs", airs.DbFormattedString),
+                New SqlParameter("@staffId", staffId)
             }
-            Return DB.GetDataTable(query, parameters)
+            Return DB.GetDataTable(query, parameters, True)
         End Function
 
 #End Region
