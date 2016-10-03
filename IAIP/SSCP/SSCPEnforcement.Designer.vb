@@ -59,7 +59,6 @@ Partial Class SscpEnforcement
         Me.Label57 = New System.Windows.Forms.Label()
         Me.DataGridView1 = New System.Windows.Forms.DataGridView()
         Me.ToolTip = New System.Windows.Forms.ToolTip(Me.components)
-        Me.DismissMessageButton = New System.Windows.Forms.Button()
         Me.EnforcementTabs = New System.Windows.Forms.TabControl()
         Me.InfoTabPage = New System.Windows.Forms.TabPage()
         Me.LinkedEventDisplay = New System.Windows.Forms.LinkLabel()
@@ -211,6 +210,9 @@ Partial Class SscpEnforcement
         Me.EpaCaseFileId = New System.Windows.Forms.TextBox()
         Me.AfsKeyActionNumber = New System.Windows.Forms.TextBox()
         Me.NotSubmittedToEpaLabel = New System.Windows.Forms.Label()
+        Me.GeneralMessagePanel = New System.Windows.Forms.Panel()
+        Me.GeneralMessageDisplay = New System.Windows.Forms.Label()
+        Me.DismissMessageButton = New System.Windows.Forms.Button()
         Me.HeaderPanel = New System.Windows.Forms.Panel()
         Me.FacilityNotApprovedDisplay = New System.Windows.Forms.Label()
         Me.AirsNumberDisplay = New System.Windows.Forms.LinkLabel()
@@ -220,7 +222,6 @@ Partial Class SscpEnforcement
         Me.ResolvedDate = New System.Windows.Forms.DateTimePicker()
         Me.ResolvedCheckBox = New System.Windows.Forms.CheckBox()
         Me.EnforcementStatusLabel = New System.Windows.Forms.Label()
-        Me.GeneralMessageDisplay = New System.Windows.Forms.Label()
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
         Me.SaveButton = New System.Windows.Forms.ToolStripButton()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
@@ -238,7 +239,6 @@ Partial Class SscpEnforcement
         Me.DeleteEnforcementMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.DocumentsErrorProvider = New System.Windows.Forms.ErrorProvider(Me.components)
         Me.GeneralErrorProvider = New System.Windows.Forms.ErrorProvider(Me.components)
-        Me.GeneralMessagePanel = New System.Windows.Forms.Panel()
         Me.Panel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -267,12 +267,12 @@ Partial Class SscpEnforcement
         CType(Me.AuditHistory, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel12.SuspendLayout()
         Me.EpaValuesTabPage.SuspendLayout()
+        Me.GeneralMessagePanel.SuspendLayout()
         Me.HeaderPanel.SuspendLayout()
         Me.ToolStrip1.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         CType(Me.DocumentsErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.GeneralErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.GeneralMessagePanel.SuspendLayout()
         Me.SuspendLayout()
         '
         'Label4
@@ -546,18 +546,6 @@ Partial Class SscpEnforcement
         Me.DataGridView1.StandardTab = True
         Me.DataGridView1.TabIndex = 4
         '
-        'DismissMessageButton
-        '
-        Me.DismissMessageButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.DismissMessageButton.Location = New System.Drawing.Point(23, 7)
-        Me.DismissMessageButton.Name = "DismissMessageButton"
-        Me.DismissMessageButton.Size = New System.Drawing.Size(24, 23)
-        Me.DismissMessageButton.TabIndex = 1
-        Me.DismissMessageButton.Text = "X"
-        Me.ToolTip.SetToolTip(Me.DismissMessageButton, "Dismiss message.")
-        Me.DismissMessageButton.UseVisualStyleBackColor = True
-        Me.DismissMessageButton.Visible = False
-        '
         'EnforcementTabs
         '
         Me.EnforcementTabs.Controls.Add(Me.InfoTabPage)
@@ -603,14 +591,15 @@ Partial Class SscpEnforcement
         '
         'LinkedEventDisplay
         '
-        Me.LinkedEventDisplay.AutoSize = True
+        Me.LinkedEventDisplay.AutoEllipsis = True
         Me.LinkedEventDisplay.LinkArea = New System.Windows.Forms.LinkArea(17, 17)
         Me.LinkedEventDisplay.Location = New System.Drawing.Point(16, 52)
         Me.LinkedEventDisplay.Name = "LinkedEventDisplay"
-        Me.LinkedEventDisplay.Size = New System.Drawing.Size(92, 17)
+        Me.LinkedEventDisplay.Size = New System.Drawing.Size(152, 18)
         Me.LinkedEventDisplay.TabIndex = 1
         Me.LinkedEventDisplay.Text = "Discovery Event: "
         Me.LinkedEventDisplay.UseCompatibleTextRendering = True
+        Me.LinkedEventDisplay.UseMnemonic = False
         '
         'EAGroupBox
         '
@@ -793,7 +782,7 @@ Partial Class SscpEnforcement
         '
         'ClearLinkedEvent
         '
-        Me.ClearLinkedEvent.Location = New System.Drawing.Point(155, 47)
+        Me.ClearLinkedEvent.Location = New System.Drawing.Point(174, 47)
         Me.ClearLinkedEvent.Name = "ClearLinkedEvent"
         Me.ClearLinkedEvent.Size = New System.Drawing.Size(105, 23)
         Me.ClearLinkedEvent.TabIndex = 2
@@ -2414,6 +2403,43 @@ Partial Class SscpEnforcement
         Me.NotSubmittedToEpaLabel.TabIndex = 0
         Me.NotSubmittedToEpaLabel.Text = "Enforcement case not submitted to EPA"
         '
+        'GeneralMessagePanel
+        '
+        Me.GeneralMessagePanel.Controls.Add(Me.GeneralMessageDisplay)
+        Me.GeneralMessagePanel.Controls.Add(Me.DismissMessageButton)
+        Me.GeneralMessagePanel.Dock = System.Windows.Forms.DockStyle.Top
+        Me.GeneralMessagePanel.Location = New System.Drawing.Point(0, 152)
+        Me.GeneralMessagePanel.Name = "GeneralMessagePanel"
+        Me.GeneralMessagePanel.Size = New System.Drawing.Size(731, 43)
+        Me.GeneralMessagePanel.TabIndex = 343
+        Me.GeneralMessagePanel.Visible = False
+        '
+        'GeneralMessageDisplay
+        '
+        Me.GeneralMessageDisplay.AutoSize = True
+        Me.GeneralMessageDisplay.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.GeneralMessageDisplay.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.GeneralMessageDisplay.Location = New System.Drawing.Point(53, 4)
+        Me.GeneralMessageDisplay.MinimumSize = New System.Drawing.Size(400, 29)
+        Me.GeneralMessageDisplay.Name = "GeneralMessageDisplay"
+        Me.GeneralMessageDisplay.Padding = New System.Windows.Forms.Padding(6, 6, 30, 6)
+        Me.GeneralMessageDisplay.Size = New System.Drawing.Size(400, 29)
+        Me.GeneralMessageDisplay.TabIndex = 0
+        Me.GeneralMessageDisplay.Text = "Message display"
+        Me.GeneralMessageDisplay.Visible = False
+        '
+        'DismissMessageButton
+        '
+        Me.DismissMessageButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup
+        Me.DismissMessageButton.Location = New System.Drawing.Point(23, 7)
+        Me.DismissMessageButton.Name = "DismissMessageButton"
+        Me.DismissMessageButton.Size = New System.Drawing.Size(24, 23)
+        Me.DismissMessageButton.TabIndex = 1
+        Me.DismissMessageButton.Text = "X"
+        Me.ToolTip.SetToolTip(Me.DismissMessageButton, "Dismiss message.")
+        Me.DismissMessageButton.UseVisualStyleBackColor = True
+        Me.DismissMessageButton.Visible = False
+        '
         'HeaderPanel
         '
         Me.HeaderPanel.Controls.Add(Me.FacilityNotApprovedDisplay)
@@ -2522,20 +2548,6 @@ Partial Class SscpEnforcement
         Me.EnforcementStatusLabel.TabIndex = 7
         Me.EnforcementStatusLabel.Text = "Enforcement Status"
         Me.EnforcementStatusLabel.Visible = False
-        '
-        'GeneralMessageDisplay
-        '
-        Me.GeneralMessageDisplay.AutoSize = True
-        Me.GeneralMessageDisplay.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.GeneralMessageDisplay.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.GeneralMessageDisplay.Location = New System.Drawing.Point(53, 4)
-        Me.GeneralMessageDisplay.MinimumSize = New System.Drawing.Size(400, 29)
-        Me.GeneralMessageDisplay.Name = "GeneralMessageDisplay"
-        Me.GeneralMessageDisplay.Padding = New System.Windows.Forms.Padding(6, 6, 30, 6)
-        Me.GeneralMessageDisplay.Size = New System.Drawing.Size(400, 29)
-        Me.GeneralMessageDisplay.TabIndex = 0
-        Me.GeneralMessageDisplay.Text = "Message display"
-        Me.GeneralMessageDisplay.Visible = False
         '
         'ToolStrip1
         '
@@ -2657,17 +2669,6 @@ Partial Class SscpEnforcement
         Me.GeneralErrorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink
         Me.GeneralErrorProvider.ContainerControl = Me
         '
-        'GeneralMessagePanel
-        '
-        Me.GeneralMessagePanel.Controls.Add(Me.GeneralMessageDisplay)
-        Me.GeneralMessagePanel.Controls.Add(Me.DismissMessageButton)
-        Me.GeneralMessagePanel.Dock = System.Windows.Forms.DockStyle.Top
-        Me.GeneralMessagePanel.Location = New System.Drawing.Point(0, 152)
-        Me.GeneralMessagePanel.Name = "GeneralMessagePanel"
-        Me.GeneralMessagePanel.Size = New System.Drawing.Size(731, 43)
-        Me.GeneralMessagePanel.TabIndex = 343
-        Me.GeneralMessagePanel.Visible = False
-        '
         'SscpEnforcement
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -2726,6 +2727,8 @@ Partial Class SscpEnforcement
         Me.Panel12.PerformLayout()
         Me.EpaValuesTabPage.ResumeLayout(False)
         Me.EpaValuesTabPage.PerformLayout()
+        Me.GeneralMessagePanel.ResumeLayout(False)
+        Me.GeneralMessagePanel.PerformLayout()
         Me.HeaderPanel.ResumeLayout(False)
         Me.HeaderPanel.PerformLayout()
         Me.ToolStrip1.ResumeLayout(False)
@@ -2734,8 +2737,6 @@ Partial Class SscpEnforcement
         Me.MenuStrip1.PerformLayout()
         CType(Me.DocumentsErrorProvider, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.GeneralErrorProvider, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.GeneralMessagePanel.ResumeLayout(False)
-        Me.GeneralMessagePanel.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

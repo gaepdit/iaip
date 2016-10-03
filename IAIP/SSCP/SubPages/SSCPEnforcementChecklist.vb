@@ -1,39 +1,30 @@
+Imports System.Collections.Generic
 Imports System.Data.SqlClient
 
 Public Class SSCPEnforcementChecklist
-    Inherits BaseForm
 
 #Region " Properties "
 
     Public Property EnforcementNumber As String
     Public Property AirsNumber As Apb.ApbFacilityId
     Public Property SelectedDiscoveryEvent As String
-        Get
-            Return TrackingNumberDisplay.Text
-        End Get
-        Set(value As String)
-            TrackingNumberDisplay.Text = value
-        End Set
-    End Property
 
 #End Region
 
 #Region " Page Load "
 
     Private Sub SSCPEnforcementChecklist_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
         If Not Me.Modal Then Me.Close()
 
         CollapseFilterOptions()
         LoadHeader()
-        FormatDataGridForWorkEnTry()
 
         FilterWork()
     End Sub
 
     Private Sub LoadHeader()
         Dim facilityName As String = DAL.GetFacilityName(AirsNumber)
-        FacilityInfo.Text = AirsNumber.FormattedString & " " & facilityName
+        FacilityInfo.Text = AirsNumber.FormattedString & " – " & facilityName
         EnforcementInfo.Text = "Enforcement Number: " & EnforcementNumber
         DTPEndDate.Value = Today
         DTPStartDate.Value = Today.AddYears(-1)
@@ -43,142 +34,63 @@ Public Class SSCPEnforcementChecklist
         FilterOptionsPanel.Size = New Size(FilterOptionsPanel.Width, 0)
     End Sub
 
-    Private Sub FormatDataGridForWorkEnTry()
-
-        'Formatting our DataGrid
-        Dim objGrid As New DataGridTableStyle
-        Dim objtextcol As New DataGridTextBoxColumn
-
-        Try
-
-            objGrid.AlternatingBackColor = Color.WhiteSmoke
-            objGrid.MappingName = "tblWorkEntry"
-            objGrid.RowHeadersVisible = False
-            objGrid.AllowSorting = True
-            objGrid.ReadOnly = True
-
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "strTrackingNumber"
-            objtextcol.HeaderText = "Tracking Number"
-            objtextcol.Width = 110
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "strActivityName"
-            objtextcol.HeaderText = "Compliance Event"
-            objtextcol.Width = 150
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "ReceivedDate"
-            objtextcol.HeaderText = "Date Received by GEPD"
-            objtextcol.Width = 130
-            objtextcol.Format = "yyyy-MM-dd"
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "Staff"
-            objtextcol.HeaderText = "Staff Member"
-            objtextcol.Width = 110
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            'Applying the above formating 
-            dgrComplianceEvents.TableStyles.Clear()
-            dgrComplianceEvents.TableStyles.Add(objGrid)
-
-            'Setting the DataGrid Caption, which defines the table title
-            dgrComplianceEvents.CaptionText = "Work Currently Entered"
-            dgrComplianceEvents.ColumnHeadersVisible = True
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-
 #End Region
 
 #Region " Display work items "
 
     Private Sub FilterWork()
+        Dim SQL As String = "SELECT CONVERT(int, i.STRTRACKINGNUMBER) AS [Tracking Number], " &
+            "i.DATRECEIVEDDATE AS [Date Received], " &
+            "l.STRACTIVITYNAME AS [Work Type], " &
+            "CONCAT(u.STRLASTNAME, ', ', u.STRFIRSTNAME) AS [Responsible Staff] " &
+            "FROM SSCPITEMMASTER AS i " &
+            "INNER JOIN LOOKUPCOMPLIANCEACTIVITIES AS l ON i.STREVENTTYPE = l.STRACTIVITYTYPE " &
+            "INNER JOIN APBFACILITYINFORMATION AS f ON i.STRAIRSNUMBER = f.STRAIRSNUMBER " &
+            "INNER JOIN EPDUSERPROFILES AS u ON u.NUMUSERID = i.STRRESPONSIBLESTAFF " &
+            "WHERE i.STRAIRSNUMBER = @airsnumber AND i.STREVENTTYPE <> '05' "
+
+        Dim eventTypes As New List(Of String)
+
         Dim SQLLine As String = ""
         Dim SQLCount As Integer = 0
 
-        Dim SQL As String = "Select SUBSTRING(SSCPItemMaster.strAIrsnumber, 5,8) as AIRSNumber, strfacilityName, " &
-        "strActivityName, " &
-        "to_char(datReceivedDate, 'yyyy-MM-dd') as ReceivedDate, " &
-        "strTrackingNumber, (strLastName|| ', ' ||strFirstName) as Staff " &
-        "from SSCPItemMaster, " &
-        "LookUPComplianceActivities, APBFacilityInformation, EPDUserProfiles " &
-        "where " &
-        "SSCPItemMaster.strEventType = LookUPComplianceActivities.strActivityType " &
-        "and SSCPItemMaster.strairsnumber = APBFacilityInformation.strairsnumber " &
-        "and EPDUserProfiles.numUserID = SSCPItemMaster.strResponsibleStaff " &
-        "and SSCPItemMaster.strAIRSNumber = @airsnumber " &
-        "and SSCPItemMaster.strEventType <> '05' "
-
-        If chbWorkType.Checked = True Then
-            If chbAllWork.Checked <> True Then
-                If chbACCs.Checked = True Then
-                    SQLLine = SQLLine & "SSCPItemMaster.strEventType = '04' "
-                    SQLCount += 1
-                End If
-                If chbInspections.Checked = True Then
-                    If SQLCount <> 0 Then
-                        SQLLine = SQLLine & "OR SSCPItemMaster.strEventType = '02' "
-                    Else
-                        SQLLine = SQLLine & "SSCPItemMaster.strEventType = '02' "
-                    End If
-                    SQLCount += 1
-                End If
-                If chbPerformanceTests.Checked = True Then
-                    If SQLCount <> 0 Then
-                        SQLLine = SQLLine & "OR SSCPItemMaster.strEventType = '03' "
-                    Else
-                        SQLLine = SQLLine & "SSCPItemMaster.strEventType = '03' "
-                    End If
-                    SQLCount += 1
-                End If
-                If chbReports.Checked = True Then
-                    If SQLCount <> 0 Then
-                        SQLLine = SQLLine & "OR SSCPItemMaster.strEventType = '01' "
-                    Else
-                        SQLLine = SQLLine & "SSCPItemMaster.strEventType = '01' "
-                    End If
-                    SQLCount += 1
-                End If
-                If SQLLine <> "" Then
-                    SQLLine = " And (" & SQLLine & ") "
-                End If
+        If chbACCs.Checked Or chbInspections.Checked Or chbPerformanceTests.Checked Or chbReports.Checked Then
+            If chbACCs.Checked Then
+                eventTypes.Add("'04'")
             End If
+
+            If chbInspections.Checked = True Then
+                eventTypes.Add("'02'")
+            End If
+
+            If chbPerformanceTests.Checked = True Then
+                eventTypes.Add("'03'")
+            End If
+
+            If chbReports.Checked = True Then
+                eventTypes.Add("'01'")
+            End If
+
+            SQL = SQL & " AND i.STREVENTTYPE in (" & String.Join(",", eventTypes) & ") "
         End If
 
         If chbFilterDates.Checked Then
-            SQLLine = SQLLine & " and SSCPItemMaster.datReceivedDate between @startdate and @enddate "
+            SQL = SQL & " AND i.DATRECEIVEDDATE BETWEEN @startdate AND @enddate "
         End If
 
-        If SQLLine <> "" Then
-            SQL = SQL & SQLLine & " Order by datReceivedDate DESC, strTrackingNumber DESC "
-        End If
+        Dim p As SqlParameter() = {
+            New SqlParameter("@airsnumber", AirsNumber.DbFormattedString),
+            New SqlParameter("@startdate", DTPStartDate.Value),
+            New SqlParameter("@enddate", DTPEndDate.Value)
+        }
 
-        Dim oraparams(3) As SqlParameter
+        Dim dt As DataTable = DB.GetDataTable(SQL, p, True)
+        dt.DefaultView.Sort = "[Date Received] DESC"
 
-        If chbFilterDates.Checked Then
-            oraparams = {
-                New SqlParameter("@airsnumber", AirsNumber.DbFormattedString),
-                New SqlParameter("@startdate", DTPStartDate.Value),
-                New SqlParameter("@enddate", DTPEndDate.Value)
-            }
-        Else
-            oraparams = {
-                New SqlParameter("@airsnumber", AirsNumber.DbFormattedString)
-            }
-        End If
+        dgvComplianceEvents.DataSource = dt
+        dgvComplianceEvents.SanelyResizeColumns
 
-        Dim dt As DataTable = DB.GetDataTable(SQL, oraparams)
-        dt.TableName = "tblWorkEntry"
-        dgrComplianceEvents.DataSource = dt
-
-        txtWorkCount.Text = dt.Rows.Count
+        txtWorkCount.Text = dgvComplianceEvents.RowCount
     End Sub
 
 #End Region
@@ -198,19 +110,15 @@ Public Class SSCPEnforcementChecklist
     End Sub
 
     Private Sub chbFilterDates_CheckedChanged(sender As Object, e As EventArgs) Handles chbFilterDates.CheckedChanged
-        If chbFilterDates.Checked = True Then
-            DTPStartDate.Enabled = True
-            DTPEndDate.Enabled = True
-        Else
-            DTPStartDate.Enabled = False
-            DTPEndDate.Enabled = False
-        End If
+        DTPStartDate.Enabled = chbFilterDates.Checked
+        DTPEndDate.Enabled = chbFilterDates.Checked
     End Sub
 
-    Private Sub dgrComplianceEvents_MouseUp(sender As Object, e As MouseEventArgs) Handles dgrComplianceEvents.MouseUp
-        Dim hti As DataGrid.HitTestInfo = dgrComplianceEvents.HitTest(e.X, e.Y)
-        If hti.Type = DataGrid.HitTestType.Cell AndAlso Not IsDBNull(dgrComplianceEvents(hti.Row, 0)) Then
-            TrackingNumberDisplay.Text = dgrComplianceEvents(hti.Row, 0)
+    Private Sub dgvComplianceEvents_SelectionChanged(sender As Object, e As EventArgs) Handles dgvComplianceEvents.SelectionChanged
+        If dgvComplianceEvents.CurrentRow IsNot Nothing Then
+            Dim row As DataGridViewRow = dgvComplianceEvents.CurrentRow
+            TrackingNumberDisplay.Text = row.Cells("Tracking Number").Value
+            SelectedDiscoveryEvent = row.Cells("Tracking Number").Value
         End If
     End Sub
 

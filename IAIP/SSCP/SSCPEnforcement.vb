@@ -534,7 +534,7 @@ Public Class SscpEnforcement
             ClearLinkedEvent.Visible = True
             LinkToEvent.Visible = False
             LinkedEventDisplay.Text = "Discovery Event: " & LinkedEventId.ToString
-            LinkedEventDisplay.LinkArea = New LinkArea(17, LinkedEventDisplay.Text.Length)
+            LinkedEventDisplay.LinkArea = New LinkArea(17, LinkedEventId.ToString.Length)
         End If
     End Sub
 
