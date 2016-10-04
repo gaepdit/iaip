@@ -1,10 +1,9 @@
+Imports System.Collections.Generic
 Imports System.Data.SqlClient
-Imports System.Data
-Imports System.IO
-'Imports System.Text
 
 Public Class SSCPManagersTools
 
+#Region " TO DELETE "
     Dim SQL, SQL2, SQL3 As String
     Dim cmd, cmd2, cmd3 As SqlCommand
     Dim dr, dr2, dr3 As SqlDataReader
@@ -49,40 +48,19 @@ Public Class SSCPManagersTools
     Dim daEnforcementPenalties As SqlDataAdapter
     Dim ds As DataSet
     Dim da As SqlDataAdapter
+#End Region
 
-    Private Sub SSCP_Managers_Tools_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+#Region "Page Load subs"
 
+    Private Sub SSCPManagersTools_Load(sender As Object, e As EventArgs) Handles Me.Load
         Try
-
-            LoadDataSets()
-            LoadComboBoxes()
-
-            DTPStartDate.Value = Format(Date.Today.AddDays(-30), "dd-MMM-yyyy")
+            DTPStartDate.Value = Today.AddDays(-30)
             DTPEndDate.Value = Today
             dtpEnforcementStartDate.Value = Today
             dtpEnforcementEndDate.Value = Today
             dtpEnforcementStartDate.Enabled = False
             dtpEnforcementEndDate.Enabled = False
 
-            'TCManagerTools.TabPages.Remove(TPCMSWarning)
-            'TCManagerTools.TabPages.Remove(TPUniverse)
-            'TCManagerTools.TabPages.Remove(TPStaffReports)
-            TCManagerTools.TabPages.Remove(TPPollutantBubbleUp)
-            'TCManagerTools.TabPages.Remove(TPStatisticalPage)
-            TCManagerTools.TabPages.Remove(TPWatchList)
-            'TCManagerTools.TabPages.Remove(TPFacilityAssignments)
-            'TCManagerTools.TabPages.Remove(TPMiscReports)
-
-            'TCManagerTools.TabPages.Add(TPFacilityAssignments)
-            'TCManagerTools.TabPages.Add(TPStaffReports)
-            'TCManagerTools.TabPages.Add(TPUniverse)
-            'TCManagerTools.TabPages.Add(TPCMSWarning)
-            'TCManagerTools.TabPages.Add(TPPollutantBubbleUp)
-            'TCManagerTools.TabPages.Add(TPStatisticalPage)
-            'TCManagerTools.TabPages.Add(TPWatchList)
-            'TCManagerTools.TabPages.Add(TPMiscReports)
-
-            LoadStatisticalLists()
             DTPSearchDateStart.Text = Format(Date.Today.AddYears(-1), "dd-MMM-yyyy")
             DTPSearchDateEnd.Value = Today
 
@@ -90,31 +68,36 @@ Public Class SSCPManagersTools
             cboFilterEngineer2.Visible = False
             txtFacSearch1.Visible = True
             txtFacSearch2.Visible = True
+
+            LoadDataSets()
+            LoadComboBoxes()
+            LoadStatisticalLists()
+
             LoadSelectedFacilitesGrid()
 
-            Panel10.Enabled = False
-            Panel9.Enabled = False
-            Panel15.Enabled = False
+            FacilityAssignmentPanel.Enabled = False
+            TCNewFacilitySearch.Enabled = False
+            FacilitySelectToolsPanel.Enabled = False
 
             TCNewFacilitySearch.TabPages.Remove(TPCopyYear)
+
             If AccountFormAccess(129, 3) = "1" Or
                 (AccountFormAccess(22, 4) = "1" And AccountFormAccess(22, 3) = "0") Then
                 TCNewFacilitySearch.TabPages.Add(TPCopyYear)
             End If
+
             If AccountFormAccess(48, 2) = "1" And AccountFormAccess(48, 3) = "0" Then
                 btnAddToCmsUniverse.Visible = False
                 btnDeleteFacilityFromCms.Visible = False
-                Panel8.Visible = False
+                CmsClassSelectionPanel.Visible = False
             End If
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
-
     End Sub
 
-#Region "Page Load subs"
-    Sub LoadDataSets()
+    Private Sub LoadDataSets()
         Try
 
             dsStaff = New DataSet
@@ -284,11 +267,9 @@ Public Class SSCPManagersTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
-
     End Sub
-    Sub LoadComboBoxes()
-        'Dim drStaff As New DataTable
-        'Dim dtStaff As New DataTable
+
+    Private Sub LoadComboBoxes()
         Dim dtStaffSearch1 As New DataTable
         Dim dtStaffSearch2 As New DataTable
         Dim dtAssignStaff As New DataTable
@@ -568,7 +549,6 @@ Public Class SSCPManagersTools
 
             cboComplianceUnits.SelectedIndex = 0
 
-
             '--- This loads the Combo Box Filter Option 1 on New Search 
             cboFacSearch1.Items.Add("<Select a Filter Option>")
             cboFacSearch1.Items.Add("AIRS Number")
@@ -577,7 +557,6 @@ Public Class SSCPManagersTools
             cboFacSearch1.Items.Add("CMS Status")
             cboFacSearch1.Items.Add("County")
             cboFacSearch1.Items.Add("District")
-            'cboFacSearch1.Items.Add("District Engineer")
             cboFacSearch1.Items.Add("District Responsible")
             cboFacSearch1.Items.Add("Engineer")
             cboFacSearch1.Items.Add("Facility Name")
@@ -596,7 +575,6 @@ Public Class SSCPManagersTools
             cboFacSearch2.Items.Add("CMS Status")
             cboFacSearch2.Items.Add("County")
             cboFacSearch2.Items.Add("District")
-            'cboFacSearch2.Items.Add("District Engineer")
             cboFacSearch2.Items.Add("District Responsible")
             cboFacSearch2.Items.Add("Engineer")
             cboFacSearch2.Items.Add("Facility Name")
@@ -614,7 +592,6 @@ Public Class SSCPManagersTools
             cboSort1.Items.Add("Classification")
             cboSort1.Items.Add("County")
             cboSort1.Items.Add("District")
-            'cboSort1.Items.Add("District Engineer")
             cboSort1.Items.Add("District Responsible")
             cboSort1.Items.Add("Engineer")
             cboSort1.Items.Add("Facility Name")
@@ -631,7 +608,6 @@ Public Class SSCPManagersTools
             cboSort2.Items.Add("Classification")
             cboSort2.Items.Add("County")
             cboSort2.Items.Add("District")
-            'cboSort2.Items.Add("District Engineer")
             cboSort2.Items.Add("District Responsible")
             cboSort2.Items.Add("Engineer")
             cboSort2.Items.Add("Facility Name")
@@ -649,7 +625,7 @@ Public Class SSCPManagersTools
             '--- This loads the Combo Box Sort Option Order 2 for New Facility Search
             cboSortOrder2.Items.Add("Ascending Order")
             cboSortOrder2.Items.Add("Descending Order")
-            cboSortOrder2.Text = "Ascending Order"
+            cboSortOrder2.SelectedIndex = 0
 
             '--- This loads the operating status 1 for New Facility Search 
             cboOpStatus1.Items.Add("O")
@@ -670,10 +646,9 @@ Public Class SSCPManagersTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
-
-
     End Sub
-    Sub LoadStatisticalLists()
+
+    Private Sub LoadStatisticalLists()
         Try
             Dim dtAdmin As New DataTable
             Dim dtAir As New DataTable
@@ -826,21 +801,25 @@ Public Class SSCPManagersTools
                 .DisplayMember = "UserName"
                 .ValueMember = "numUserID"
             End With
+
             With clbAirToxicUnit
                 .DataSource = dtAir
                 .DisplayMember = "UserName"
                 .ValueMember = "numUserID"
             End With
+
             With clbChemicalsMinerals
                 .DataSource = dtChem
                 .DisplayMember = "UserName"
                 .ValueMember = "numUserID"
             End With
+
             With clbVOCCombustion
                 .DataSource = dtVOC
                 .DisplayMember = "UserName"
                 .ValueMember = "numUserID"
             End With
+
             With clbDistricts
                 .DataSource = dtDistricts
                 .DisplayMember = "UserName"
@@ -850,82 +829,75 @@ Public Class SSCPManagersTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
-
     End Sub
-    Sub LoadSelectedFacilitesGrid()
-        Try
-            dgvSelectedFacilityList.RowHeadersVisible = False
-            dgvSelectedFacilityList.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvSelectedFacilityList.AllowUserToResizeColumns = True
-            dgvSelectedFacilityList.AllowUserToAddRows = False
-            dgvSelectedFacilityList.AllowUserToDeleteRows = False
-            dgvSelectedFacilityList.AllowUserToOrderColumns = True
-            dgvSelectedFacilityList.AllowUserToResizeRows = True
-            dgvSelectedFacilityList.ColumnHeadersHeight = "35"
 
-            dgvSelectedFacilityList.Columns.Add("AIRSNumber", "AIRS #")
-            dgvSelectedFacilityList.Columns("AIRSNumber").DisplayIndex = 0
-            dgvSelectedFacilityList.Columns("AIRSNumber").Width = 75
-            dgvSelectedFacilityList.Columns("AIRSNumber").Visible = True
+    Private Sub LoadSelectedFacilitesGrid()
+        dgvSelectedFacilityList.RowHeadersVisible = False
+        dgvSelectedFacilityList.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
+        dgvSelectedFacilityList.AllowUserToResizeColumns = True
+        dgvSelectedFacilityList.AllowUserToAddRows = False
+        dgvSelectedFacilityList.AllowUserToDeleteRows = False
+        dgvSelectedFacilityList.AllowUserToOrderColumns = True
+        dgvSelectedFacilityList.AllowUserToResizeRows = True
+        dgvSelectedFacilityList.ColumnHeadersHeight = "35"
 
-            dgvSelectedFacilityList.Columns.Add("strFacilityName", "Facility Name")
-            dgvSelectedFacilityList.Columns("strFacilityName").DisplayIndex = 1
-            dgvSelectedFacilityList.Columns("strFacilityName").Width = 100
-            dgvSelectedFacilityList.Columns("strFacilityName").ReadOnly = True
+        dgvSelectedFacilityList.Columns.Add("AIRSNumber", "AIRS #")
+        dgvSelectedFacilityList.Columns("AIRSNumber").DisplayIndex = 0
+        dgvSelectedFacilityList.Columns("AIRSNumber").Width = 75
+        dgvSelectedFacilityList.Columns("AIRSNumber").Visible = True
 
-            dgvSelectedFacilityList.Columns.Add("SSCPEngineer", "SSCP Engineer")
-            dgvSelectedFacilityList.Columns("SSCPEngineer").DisplayIndex = 2
-            dgvSelectedFacilityList.Columns("SSCPEngineer").Width = 100
-            dgvSelectedFacilityList.Columns("SSCPEngineer").ReadOnly = False
+        dgvSelectedFacilityList.Columns.Add("strFacilityName", "Facility Name")
+        dgvSelectedFacilityList.Columns("strFacilityName").DisplayIndex = 1
+        dgvSelectedFacilityList.Columns("strFacilityName").Width = 100
+        dgvSelectedFacilityList.Columns("strFacilityName").ReadOnly = True
 
-            dgvSelectedFacilityList.Columns.Add("strUnitDesc", "SSCP Unit")
-            dgvSelectedFacilityList.Columns("strUnitDesc").DisplayIndex = 3
-            dgvSelectedFacilityList.Columns("strUnitDesc").Width = 100
-            dgvSelectedFacilityList.Columns("strUnitDesc").ReadOnly = True
+        dgvSelectedFacilityList.Columns.Add("SSCPEngineer", "SSCP Engineer")
+        dgvSelectedFacilityList.Columns("SSCPEngineer").DisplayIndex = 2
+        dgvSelectedFacilityList.Columns("SSCPEngineer").Width = 100
+        dgvSelectedFacilityList.Columns("SSCPEngineer").ReadOnly = False
 
-            dgvSelectedFacilityList.Columns.Add("strDistrictResponsible", "District Source")
-            dgvSelectedFacilityList.Columns("strDistrictResponsible").DisplayIndex = 4
-            dgvSelectedFacilityList.Columns("strDistrictResponsible").Width = 100
-            dgvSelectedFacilityList.Columns("strDistrictResponsible").ReadOnly = True
+        dgvSelectedFacilityList.Columns.Add("strUnitDesc", "SSCP Unit")
+        dgvSelectedFacilityList.Columns("strUnitDesc").DisplayIndex = 3
+        dgvSelectedFacilityList.Columns("strUnitDesc").Width = 100
+        dgvSelectedFacilityList.Columns("strUnitDesc").ReadOnly = True
 
-            dgvSelectedFacilityList.Columns.Add("InspectionRequired", "Inspection Required")
-            dgvSelectedFacilityList.Columns("InspectionRequired").DisplayIndex = 5
-            dgvSelectedFacilityList.Columns("InspectionRequired").Width = 150
-            dgvSelectedFacilityList.Columns("InspectionRequired").ReadOnly = True
+        dgvSelectedFacilityList.Columns.Add("strDistrictResponsible", "District Source")
+        dgvSelectedFacilityList.Columns("strDistrictResponsible").DisplayIndex = 4
+        dgvSelectedFacilityList.Columns("strDistrictResponsible").Width = 100
+        dgvSelectedFacilityList.Columns("strDistrictResponsible").ReadOnly = True
 
-            dgvSelectedFacilityList.Columns.Add("LastInspection", "Last Inspection")
-            dgvSelectedFacilityList.Columns("LastInspection").DisplayIndex = 6
-            dgvSelectedFacilityList.Columns("LastInspection").Width = 150
-            dgvSelectedFacilityList.Columns("LastInspection").ReadOnly = True
-            ' dgvFilteredFacilityList.Columns("LastInspection").DefaultCellStyle.Format = "dd-MMM-yyyy"
+        dgvSelectedFacilityList.Columns.Add("InspectionRequired", "Inspection Required")
+        dgvSelectedFacilityList.Columns("InspectionRequired").DisplayIndex = 5
+        dgvSelectedFacilityList.Columns("InspectionRequired").Width = 150
+        dgvSelectedFacilityList.Columns("InspectionRequired").ReadOnly = True
 
-            dgvSelectedFacilityList.Columns.Add("FCERequired", "FCE Required")
-            dgvSelectedFacilityList.Columns("FCERequired").DisplayIndex = 7
-            dgvSelectedFacilityList.Columns("FCERequired").Width = 150
-            dgvSelectedFacilityList.Columns("FCERequired").ReadOnly = True
+        dgvSelectedFacilityList.Columns.Add("LastInspection", "Last Inspection")
+        dgvSelectedFacilityList.Columns("LastInspection").DisplayIndex = 6
+        dgvSelectedFacilityList.Columns("LastInspection").Width = 150
+        dgvSelectedFacilityList.Columns("LastInspection").ReadOnly = True
 
-            dgvSelectedFacilityList.Columns.Add("LastFCE", "Last FCE")
-            dgvSelectedFacilityList.Columns("LastFCE").DisplayIndex = 8
-            dgvSelectedFacilityList.Columns("LastFCE").Width = 150
-            dgvSelectedFacilityList.Columns("LastFCE").ReadOnly = True
-            '  dgvFilteredFacilityList.Columns("LastFCE").DefaultCellStyle.Format = "dd-MMM-yyyy"
+        dgvSelectedFacilityList.Columns.Add("FCERequired", "FCE Required")
+        dgvSelectedFacilityList.Columns("FCERequired").DisplayIndex = 7
+        dgvSelectedFacilityList.Columns("FCERequired").Width = 150
+        dgvSelectedFacilityList.Columns("FCERequired").ReadOnly = True
 
-            dgvSelectedFacilityList.Columns.Add("strCMSStatus", "CMS Status")
-            dgvSelectedFacilityList.Columns("strCMSStatus").DisplayIndex = 9
-            dgvSelectedFacilityList.Columns("strCMSStatus").Width = 150
-            dgvSelectedFacilityList.Columns("strCMSStatus").ReadOnly = True
+        dgvSelectedFacilityList.Columns.Add("LastFCE", "Last FCE")
+        dgvSelectedFacilityList.Columns("LastFCE").DisplayIndex = 8
+        dgvSelectedFacilityList.Columns("LastFCE").Width = 150
+        dgvSelectedFacilityList.Columns("LastFCE").ReadOnly = True
 
-        Catch ex As Exception
-
-        End Try
+        dgvSelectedFacilityList.Columns.Add("strCMSStatus", "CMS Status")
+        dgvSelectedFacilityList.Columns("strCMSStatus").DisplayIndex = 9
+        dgvSelectedFacilityList.Columns("strCMSStatus").Width = 150
+        dgvSelectedFacilityList.Columns("strCMSStatus").ReadOnly = True
     End Sub
+
 #End Region
 
 #Region "Subs and Functions"
 
-    Sub LoadCMSUniverse()
+    Private Sub LoadCMSUniverse()
         Dim CMSStatus As String = ""
-        'Dim SQLLine As String = ""
 
         Try
             Select Case cboCMSFrequency.Text
@@ -988,7 +960,8 @@ Public Class SSCPManagersTools
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub AddFacilityToCMS()
+
+    Private Sub AddFacilityToCMS()
         Dim CMSState As String = ""
 
         Try
@@ -1030,10 +1003,9 @@ Public Class SSCPManagersTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
-
-
     End Sub
-    Sub RemoveFacilityFromCMS()
+
+    Private Sub RemoveFacilityFromCMS()
         Try
 
             SQL = "Select strAIRSNumber " &
@@ -1063,10 +1035,9 @@ Public Class SSCPManagersTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
-
-
     End Sub
-    Sub RunInspectionReport()
+
+    Private Sub RunInspectionReport()
         Dim dtEngineers As New DataTable
         dtEngineers = dsStaff.Tables("Staff")
         Dim drEngineers As DataRow()
@@ -1343,9 +1314,8 @@ Public Class SSCPManagersTools
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
                     End If
+
                     Try
-
-
                         dr = cmd.ExecuteReader
                         While dr.Read
                             StaffName = dr.Item("Staff")
@@ -1365,11 +1335,9 @@ Public Class SSCPManagersTools
                             OpenNotifications = dr.Item("OpenNotification")
                             OpenACCS = dr.Item("OpenACC")
                         End While
-
                     Catch ex As Exception
                         MsgBox(ex.ToString())
                     End Try
-                    '  
 
                     cmd2 = New SqlCommand(SQL2, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -1429,10 +1397,9 @@ Public Class SSCPManagersTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
-
-
     End Sub
-    Sub RunCMSWarningReport()
+
+    Private Sub RunCMSWarningReport()
         'Dim SQLLine As String
         'Dim SQLline2 As String
         'Dim StartDate As String
@@ -1689,188 +1656,9 @@ Public Class SSCPManagersTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
-
     End Sub
-    Sub PrintStaffReport()
-        Try
-            'Dim WordApp As New Word.ApplicationClass
-            'Dim wordDoc As Word.DocumentClass
-            Dim wordDoc As Microsoft.Office.Interop.Word.Document
-            Dim WordApp As New Microsoft.Office.Interop.Word.Application
 
-            wordDoc = WordApp.Documents.Add()
-            wordDoc.Activate()
-            WordApp.Selection.TypeText(rtbInspectionReport.Text)
-            WordApp.Visible = True
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Sub FilterPollutantSearch()
-        Try
-            Dim PollutantLine As String
-
-            PollutantLine = ""
-            If chbStatusB.Checked = True Then
-                PollutantLine = " strComplianceStatus = 'B' "
-            End If
-            If chbStatus1.Checked = True Then
-                If PollutantLine <> "" Then
-                    PollutantLine = PollutantLine & " or strComplianceStatus = '1' "
-                Else
-                    PollutantLine = " strComplianceStatus = '1' "
-                End If
-            End If
-            If chbStatus6.Checked = True Then
-                If PollutantLine <> "" Then
-                    PollutantLine = PollutantLine & " or strComplianceStatus = '6' "
-                Else
-                    PollutantLine = " strComplianceStatus = '6' "
-                End If
-            End If
-            If chbStatusW.Checked = True Then
-                If PollutantLine <> "" Then
-                    PollutantLine = PollutantLine & " or strComplianceStatus = 'W' "
-                Else
-                    PollutantLine = " strComplianceStatus = 'W' "
-                End If
-            End If
-            If chbStatus8.Checked = True Then
-                If PollutantLine <> "" Then
-                    PollutantLine = PollutantLine & " or strComplianceStatus = '8' "
-                Else
-                    PollutantLine = " strComplianceStatus = '8' "
-                End If
-            End If
-            If chbStatus0.Checked = True Then
-                If PollutantLine <> "" Then
-                    PollutantLine = PollutantLine & " or strComplianceStatus = '0' "
-                Else
-                    PollutantLine = " strComplianceStatus = '0' "
-                End If
-            End If
-            If chbStatus5.Checked = True Then
-                If PollutantLine <> "" Then
-                    PollutantLine = PollutantLine & " or strComplianceStatus = '5' "
-                Else
-                    PollutantLine = " strComplianceStatus = '5' "
-                End If
-            End If
-            If chbStatus2.Checked = True Then
-                If PollutantLine <> "" Then
-                    PollutantLine = PollutantLine & " or strComplianceStatus = '2' "
-                Else
-                    PollutantLine = " strComplianceStatus = '2' "
-                End If
-            End If
-            If chbStatus3.Checked = True Then
-                If PollutantLine <> "" Then
-                    PollutantLine = PollutantLine & " or strComplianceStatus = '3' "
-                Else
-                    PollutantLine = " strComplianceStatus = '3' "
-                End If
-            End If
-            If chbStatus4.Checked = True Then
-                If PollutantLine <> "" Then
-                    PollutantLine = PollutantLine & " or strComplianceStatus = '4' "
-                Else
-                    PollutantLine = " strComplianceStatus = '4' "
-                End If
-            End If
-            If chbStatus9.Checked = True Then
-                If PollutantLine <> "" Then
-                    PollutantLine = PollutantLine & " or strComplianceStatus = '9' "
-                Else
-                    PollutantLine = " strComplianceStatus = '9' "
-                End If
-            End If
-            If chbStatusC.Checked = True Then
-                If PollutantLine <> "" Then
-                    PollutantLine = PollutantLine & " or strComplianceStatus = 'C' "
-                Else
-                    PollutantLine = " strComplianceStatus = 'C' "
-                End If
-            End If
-            If chbStatusM.Checked = True Then
-                If PollutantLine <> "" Then
-                    PollutantLine = PollutantLine & " or strComplianceStatus = 'M' "
-                Else
-                    PollutantLine = " strComplianceStatus = 'M' "
-                End If
-            End If
-            If PollutantLine <> "" Then
-                PollutantLine = "where (" & PollutantLine & ") "
-            Else
-                PollutantLine = ""
-            End If
-
-            SQL =
-            "SELECT SUBSTRING( pp.STRAIRSNUMBER, 5,8 ) AS AIRSNumber , " &
-            "  fi.STRFACILITYNAME ,( pp.STRCOMPLIANCESTATUS || ' - ' || " &
-            "  lc.STRCOMPLIANCEDESC ) AS PollutantStatus , " &
-            "  lp.STRPOLLUTANTDESCRIPTION , CASE                    WHEN " &
-            "      SUBSTRING( strAirPollutantKey, 13, 1 ) = '0'         THEN 'SIP'     WHEN " &
-            "      SUBSTRING( strAirPollutantKey, 13, 1 ) = '1'         THEN 'Fed SIP' WHEN " &
-            "      SUBSTRING( strAirPollutantKey, 13, 1 ) = '3' THEN " &
-            "      'Non-Fed SIP'                WHEN SUBSTRING( strAirPollutantKey, 13, 1 ) = " &
-            "      '4'                                       THEN 'CFC'       WHEN SUBSTRING( strAirPollutantKey, 13, 1 ) = " &
-            "      '6'                                       THEN 'PSD'       WHEN SUBSTRING( strAirPollutantKey, 13, 1 ) = " &
-            "      '7'                                       THEN 'NSR'       WHEN SUBSTRING( strAirPollutantKey, 13, 1 ) = " &
-            "      '8'                                       THEN 'NESHAP'    WHEN SUBSTRING( strAirPollutantKey, 13, 1 ) = " &
-            "      '9'                                       THEN 'NSPS'      WHEN SUBSTRING( strAirPollutantKey, 13, 1 ) = " &
-            "      'A'                                       THEN 'Acid Rain' WHEN SUBSTRING( strAirPollutantKey, 13, 1 ) = " &
-            "      'F'                                       THEN 'FESOP'     WHEN " &
-            "      SUBSTRING( strAirPollutantKey, 13, 1 ) = 'I' THEN " &
-            "      'Native American'   WHEN SUBSTRING( strAirPollutantKey, 13, 1 ) " &
-            "      = 'M'   THEN 'MACT' WHEN SUBSTRING( strAirPollutantKey, 13, 1 ) " &
-            "      = 'V' THEN 'Title V' ELSE '' END AirProgram " &
-            "FROM APBAIRPROGRAMPOLLUTANTS pp " &
-            "INNER JOIN LOOKUPCOMPLIANCESTATUS lc " &
-            "ON lc.STRCOMPLIANCECODE = pp.STRCOMPLIANCESTATUS " &
-            "INNER JOIN LOOKUPPOLLUTANTS lp " &
-            "ON lp.STRPOLLUTANTCODE = pp.STRPOLLUTANTKEY " &
-            "INNER JOIN APBFACILITYINFORMATION fi " &
-            "ON pp.STRAIRSNUMBER = fi.STRAIRSNUMBER " &
-            PollutantLine
-
-            dsPollutantList = New DataSet
-            daPollutantList = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daPollutantList.Fill(dsPollutantList, "PollutantList")
-            dgvPollutantFacilities.DataSource = dsPollutantList
-            dgvPollutantFacilities.DataMember = "PollutantList"
-
-            dgvPollutantFacilities.RowHeadersVisible = False
-            dgvPollutantFacilities.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvPollutantFacilities.AllowUserToResizeColumns = True
-            dgvPollutantFacilities.AllowUserToAddRows = False
-            dgvPollutantFacilities.AllowUserToDeleteRows = False
-            dgvPollutantFacilities.AllowUserToOrderColumns = True
-            dgvPollutantFacilities.AllowUserToResizeRows = True
-
-            dgvPollutantFacilities.Columns("AIRSNumber").HeaderText = "AIRS #"
-            dgvPollutantFacilities.Columns("AIRSNumber").DisplayIndex = 0
-            dgvPollutantFacilities.Columns("strFacilityName").HeaderText = "Facility Name"
-            dgvPollutantFacilities.Columns("strFacilityName").DisplayIndex = 1
-            dgvPollutantFacilities.Columns("strPollutantDescription").HeaderText = "Pollutant"
-            dgvPollutantFacilities.Columns("strPollutantDescription").DisplayIndex = 2
-            dgvPollutantFacilities.Columns("PollutantStatus").HeaderText = "Status"
-            dgvPollutantFacilities.Columns("PollutantStatus").DisplayIndex = 3
-            dgvPollutantFacilities.Columns("AirProgram").HeaderText = "Air Program"
-            dgvPollutantFacilities.Columns("AirProgram").DisplayIndex = 4
-
-            dgvPollutantFacilities.SanelyResizeColumns()
-
-            txtPollutantCount.Text = dgvPollutantFacilities.RowCount.ToString
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Sub RunACCStats()
+    Private Sub RunACCStats()
         Try
             Dim EngineerList As String = ""
             Dim ResponsibleStaff As String = ""
@@ -2182,47 +1970,33 @@ Public Class SSCPManagersTools
 #End Region
 
 #Region "Buttons"
+
     Private Sub llbViewCMSUniverse_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewCMSUniverse.LinkClicked
-        Try
-
-            LoadCMSUniverse()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
+        LoadCMSUniverse()
     End Sub
+
     Private Sub llbCMSOpenFacilitySummary_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbCMSOpenFacilitySummary.LinkClicked
         OpenFormFacilitySummary(txtCMSAIRSNumber.Text)
     End Sub
+
     Private Sub llbCMSOpenFacilitySummary2_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbCMSOpenFacilitySummary2.LinkClicked
         OpenFormFacilitySummary(txtCMSAIRSNumber2.Text)
     End Sub
+
     Private Sub btnAddToCmsUniverse_LinkClicked(sender As Object, e As EventArgs) Handles btnAddToCmsUniverse.Click
-        Try
-            AddFacilityToCMS()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
+        AddFacilityToCMS()
     End Sub
+
     Private Sub btnDeleteFacilityFromCms_Click(sender As Object, e As EventArgs) Handles btnDeleteFacilityFromCms.Click
-        Try
-            RemoveFacilityFromCMS()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
+        RemoveFacilityFromCMS()
     End Sub
-    Private Sub lblRunInspectionReport_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblRunInspectionReport.LinkClicked
-        Try
-            RunInspectionReport()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
 
+    Private Sub lblRunInspectionReport_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblRunInspectionReport.LinkClicked
+        RunInspectionReport()
     End Sub
 
 #End Region
+
     Private Sub dgvCMSWarning_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvCMSWarning.MouseUp
         Try
             Dim hti As DataGridView.HitTestInfo = dgvCMSWarning.HitTest(e.X, e.Y)
@@ -2238,6 +2012,7 @@ Public Class SSCPManagersTools
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub txtCMSAIRSNumber_TextChanged(sender As Object, e As EventArgs) Handles txtCMSAIRSNumber.TextChanged
         Try
 
@@ -2299,8 +2074,8 @@ Public Class SSCPManagersTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
-
     End Sub
+
     Private Sub txtCMSAIRSNumber2_TextChanged(sender As Object, e As EventArgs) Handles txtCMSAIRSNumber2.TextChanged
         Try
 
@@ -2365,8 +2140,8 @@ Public Class SSCPManagersTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
-
     End Sub
+
     Private Sub cboComplianceUnits_TextChanged(sender As Object, e As EventArgs) Handles cboComplianceUnits.SelectedIndexChanged
         Dim dtEngineers As New DataTable
         Dim drEngineers As DataRow()
@@ -2419,58 +2194,19 @@ Public Class SSCPManagersTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
-
-
     End Sub
+
     Private Sub lblCMSWarning_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblCMSWarning.LinkClicked
-        Try
-
-            RunCMSWarningReport()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
+        RunCMSWarningReport()
     End Sub
-    Private Sub llbPrintStaffReport_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbPrintStaffReport.LinkClicked
-        Try
-            If rtbInspectionReport.Text <> "" Then
-                PrintStaffReport()
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Private Sub btnViewFacilities_Click(sender As Object, e As EventArgs) Handles btnViewFacilities.Click
-        FilterPollutantSearch()
-    End Sub
-    Private Sub dgvPollutantFacilities_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvPollutantFacilities.MouseUp
-        Dim hti As DataGridView.HitTestInfo = dgvPollutantFacilities.HitTest(e.X, e.Y)
 
-        Try
-
-
-            If dgvPollutantFacilities.RowCount > 0 And hti.RowIndex <> -1 Then
-                If dgvPollutantFacilities.Columns(0).HeaderText = "AIRS #" Then
-                    txtAIRSNumber.Text = dgvPollutantFacilities(0, hti.RowIndex).Value
-                End If
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
-    End Sub
     Private Sub btnRunStatisticalReport_Click(sender As Object, e As EventArgs) Handles btnRunStatisticalReport.Click
-        Try
-
-            RunACCStats()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        RunACCStats()
     End Sub
+
 #Region "ACC Subs and Functions"
-    Sub ViewACCTotalAssigned()
+
+    Private Sub ViewACCTotalAssigned()
         Try
             Dim EngineerList As String = ""
 
@@ -2552,7 +2288,8 @@ Public Class SSCPManagersTools
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub ViewACCReporting()
+
+    Private Sub ViewACCReporting()
         Try
             Dim ResponsibleStaff As String = ""
 
@@ -2632,7 +2369,8 @@ Public Class SSCPManagersTools
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub ViewACCRequiringResubmittal()
+
+    Private Sub ViewACCRequiringResubmittal()
         Try
             Dim ResponsibleStaff As String = ""
 
@@ -2715,7 +2453,8 @@ Public Class SSCPManagersTools
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub ViewACCSubmittedLate()
+
+    Private Sub ViewACCSubmittedLate()
         Try
             Dim ResponsibleStaff As String = ""
 
@@ -2798,7 +2537,8 @@ Public Class SSCPManagersTools
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub ViewACCDeviationsReported()
+
+    Private Sub ViewACCDeviationsReported()
         Try
             Dim ResponsibleStaff As String = ""
 
@@ -2879,12 +2619,12 @@ Public Class SSCPManagersTools
 
             txtStatisticalCount.Text = dgvStatisticalReports.RowCount.ToString
 
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub ViewACCDeviationsReportedCorrectly()
+
+    Private Sub ViewACCDeviationsReportedCorrectly()
         Try
             Dim ResponsibleStaff As String = ""
 
@@ -2966,12 +2706,12 @@ Public Class SSCPManagersTools
 
             txtStatisticalCount.Text = dgvStatisticalReports.RowCount.ToString
 
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub ViewACCDeviationsReportedIncorrectly()
+
+    Private Sub ViewACCDeviationsReportedIncorrectly()
         Try
             Dim ResponsibleStaff As String = ""
 
@@ -3054,12 +2794,12 @@ Public Class SSCPManagersTools
 
             txtStatisticalCount.Text = dgvStatisticalReports.RowCount.ToString
 
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub ViewACCDeviationsInFinal()
+
+    Private Sub ViewACCDeviationsInFinal()
         Try
             Dim ResponsibleStaff As String = ""
 
@@ -3138,12 +2878,12 @@ Public Class SSCPManagersTools
 
             txtStatisticalCount.Text = dgvStatisticalReports.RowCount.ToString
 
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub ViewACCDeviationsNotReported()
+
+    Private Sub ViewACCDeviationsNotReported()
         Try
             Dim ResponsibleStaff As String = ""
 
@@ -3226,7 +2966,8 @@ Public Class SSCPManagersTools
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub ViewACCEnforcementTaken()
+
+    Private Sub ViewACCEnforcementTaken()
         Try
             Dim ResponsibleStaff As String = ""
 
@@ -3313,7 +3054,8 @@ Public Class SSCPManagersTools
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub ViewACCCOTaken()
+
+    Private Sub ViewACCCOTaken()
         Try
             Dim ResponsibleStaff As String = ""
 
@@ -3398,7 +3140,8 @@ Public Class SSCPManagersTools
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub ViewACCNOVTaken()
+
+    Private Sub ViewACCNOVTaken()
         Try
             Dim ResponsibleStaff As String = ""
 
@@ -3483,7 +3226,8 @@ Public Class SSCPManagersTools
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub ViewACCLONTaken()
+
+    Private Sub ViewACCLONTaken()
         Try
             Dim ResponsibleStaff As String = ""
 
@@ -3572,126 +3316,62 @@ Public Class SSCPManagersTools
 #End Region
 
 #Region "ACC Views"
+
     Private Sub llbViewACCTotalAssigned_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewACCTotalAssigned.LinkClicked
-        Try
-
-            ViewACCTotalAssigned()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        ViewACCTotalAssigned()
     End Sub
+
     Private Sub llbACCReporting_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbACCReporting.LinkClicked
-        Try
-
-            ViewACCReporting()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        ViewACCReporting()
     End Sub
+
     Private Sub llbACCRequiringResubmittal_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbACCRequiringResubmittal.LinkClicked
-        Try
-
-            ViewACCRequiringResubmittal()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        ViewACCRequiringResubmittal()
     End Sub
+
     Private Sub llbACCSubmittedLate_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbACCSubmittedLate.LinkClicked
-        Try
-
-            ViewACCSubmittedLate()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        ViewACCSubmittedLate()
     End Sub
+
     Private Sub llbACCDeviationsReported_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbACCDeviationsReported.LinkClicked
-        Try
-
-            ViewACCDeviationsReported()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        ViewACCDeviationsReported()
     End Sub
+
     Private Sub llbACCDeviationsReportedCorrectly_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbACCDeviationsReportedCorrectly.LinkClicked
-        Try
-
-            ViewACCDeviationsReportedCorrectly()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        ViewACCDeviationsReportedCorrectly()
     End Sub
+
     Private Sub llbACCDeviationsIncorrectlyReported_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbACCDeviationsIncorrectlyReported.LinkClicked
-        Try
-
-            ViewACCDeviationsReportedIncorrectly()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        ViewACCDeviationsReportedIncorrectly()
     End Sub
+
     Private Sub llbACCDeviationsInFinal_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbACCDeviationsInFinal.LinkClicked
-        Try
-
-            ViewACCDeviationsInFinal()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        ViewACCDeviationsInFinal()
     End Sub
+
     Private Sub llbACCDeviationsNotReported_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbACCDeviationsNotReported.LinkClicked
-        Try
-
-            ViewACCDeviationsNotReported()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        ViewACCDeviationsNotReported()
     End Sub
+
     Private Sub llbACCEnforcementTaken_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbACCEnforcementTaken.LinkClicked
-        Try
-
-            ViewACCEnforcementTaken()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        ViewACCEnforcementTaken()
     End Sub
+
     Private Sub llbACCCOTaken_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbACCCOTaken.LinkClicked
-        Try
-
-            ViewACCCOTaken()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        ViewACCCOTaken()
     End Sub
+
     Private Sub llbACCNOVTaken_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbACCNOVTaken.LinkClicked
-        Try
-
-            ViewACCNOVTaken()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        ViewACCNOVTaken()
     End Sub
+
     Private Sub llbACCLONTaken_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbACCLONTaken.LinkClicked
-        Try
-
-            ViewACCLONTaken()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        ViewACCLONTaken()
     End Sub
+
 #End Region
 
-    Sub EnforcementTotals()
+    Private Sub EnforcementTotals()
         Try
             SQL = "select " &
             "CONCAT('$', CONVERT(decimal(12, 2), CoPenalty + Stipulated)) as TotalPen  " &
@@ -3742,16 +3422,13 @@ Public Class SSCPManagersTools
             ErrorReport(ex, SQL, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnPenaltySummary_Click(sender As Object, e As EventArgs) Handles btnPenaltySummary.Click
-        Try
-            If txtEnforcementAIRSNumber.Text <> "" Then
-                EnforcementTotals()
-            End If
 
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+    Private Sub btnPenaltySummary_Click(sender As Object, e As EventArgs) Handles btnPenaltySummary.Click
+        If txtEnforcementAIRSNumber.Text <> "" Then
+            EnforcementTotals()
+        End If
     End Sub
+
     Private Sub llbViewEnforcements_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewEnforcements.LinkClicked
         Try
             If txtEnforcementAIRSNumber.Text <> "" Then
@@ -3822,20 +3499,12 @@ Public Class SSCPManagersTools
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub chbUseEnforcementDateRange_CheckedChanged(sender As Object, e As EventArgs) Handles chbUseEnforcementDateRange.CheckedChanged
-        Try
-            If chbUseEnforcementDateRange.Checked = True Then
-                dtpEnforcementStartDate.Enabled = True
-                dtpEnforcementEndDate.Enabled = True
-            Else
-                dtpEnforcementStartDate.Enabled = False
-                dtpEnforcementEndDate.Enabled = False
-            End If
 
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+    Private Sub chbUseEnforcementDateRange_CheckedChanged(sender As Object, e As EventArgs) Handles chbUseEnforcementDateRange.CheckedChanged
+        dtpEnforcementStartDate.Enabled = chbUseEnforcementDateRange.Checked
+        dtpEnforcementEndDate.Enabled = chbUseEnforcementDateRange.Checked
     End Sub
+
     Private Sub dgvStatisticalReports_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvStatisticalReports.MouseUp
         Dim hti As DataGridView.HitTestInfo = dgvStatisticalReports.HitTest(e.X, e.Y)
 
@@ -3879,8 +3548,8 @@ Public Class SSCPManagersTools
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
-
     End Sub
+
     Private Sub llbViewRecord_Click(sender As Object, e As EventArgs) Handles llbViewRecord.LinkClicked
         Try
             If txtRecordNumber.Text <> "" Then
@@ -3902,13 +3571,15 @@ Public Class SSCPManagersTools
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub OpenFacilitySummary()
+
+    Private Sub OpenFacilitySummary()
         OpenFormFacilitySummary(txtRecordNumber.Text)
     End Sub
-    Sub OpenEnforcement()
+    Private Sub OpenEnforcement()
         OpenFormEnforcement(txtRecordNumber.Text)
     End Sub
-    Sub OpenSSCPWork()
+
+    Private Sub OpenSSCPWork()
         OpenFormSscpWorkItem(txtRecordNumber.Text)
     End Sub
 
@@ -3932,99 +3603,8 @@ Public Class SSCPManagersTools
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnViewWatchListFacilities_Click(sender As Object, e As EventArgs) Handles btnViewWatchListFacilities.Click
-        Try
-            Dim ComplianceWhere As String = "and strComplianceStatus = '0' "
 
-            If rdbAllNegativeStatus.Checked = True Then
-                ComplianceWhere = " and (strComplianceStatus = 'B' or strComplianceStatus = '1' " &
-                "or strComplianceStatus = '6' or strComplianceStatus = 'W' " &
-                "or strComplianceStatus = '0' ) "
-            End If
-            If rdbInViolationProceduralEmissions.Checked = True Then
-                ComplianceWhere = " and strComplianceStatus = 'B' "
-            End If
-            If rdbInViolationNoSchedule.Checked = True Then
-                ComplianceWhere = " and strComplianceStatus = '1' "
-            End If
-            If rdbInViolationNotMeetingSchedule.Checked = True Then
-                ComplianceWhere = " and strComplianceStatus = '6' "
-            End If
-            If rdbInViolationProcedural.Checked = True Then
-                ComplianceWhere = " and strComplianceStatus = 'W' "
-            End If
-            If rdbUnknownCompliance.Checked = True Then
-                ComplianceWhere = " and strComplianceStatus = '0' "
-            End If
-            If rdbMeetingCompliance.Checked = True Then
-                ComplianceWhere = " and strComplianceStatus = '5' "
-            End If
-            If rdbNoApplicableStateReg.Checked = True Then
-                ComplianceWhere = " and strComplianceStatus = '8' "
-            End If
-            If rdbInComplianceSourceTest.Checked = True Then
-                ComplianceWhere = " and strComplianceStatus = '2' "
-            End If
-            If rdbInComplianceInspection.Checked = True Then
-                ComplianceWhere = " and strComplianceStatus = '3' "
-            End If
-            If rdbInComplianceCertification.Checked = True Then
-                ComplianceWhere = " and strComplianceStatus = '4' "
-            End If
-            If rdbInComplianceShutDown.Checked = True Then
-                ComplianceWhere = " and strComplianceStatus = '9' "
-            End If
-            If rdbInComplianceProcedural.Checked = True Then
-                ComplianceWhere = " and strComplianceStatus = 'C' "
-            End If
-            If rdbInComplianceCEMSData.Checked = True Then
-                ComplianceWhere = " and strComplianceStatus = 'M' "
-            End If
-
-            SQL = "select " &
-            "distinct(SUBSTRING(APBAirProgramPollutants.strAIRSNumber, 5,8)) as AIRSNumber, " &
-            "strFacilityName, strPollutantDescription, " &
-            "(strComplianceStatus||' - '||strComplianceDesc) as ComplianceStatus " &
-            "from APBAirProgramPollutants, APBFacilityInformation, " &
-            "LookUpPollutants, LookUpComplianceStatus  " &
-            "where APBAirProgramPollutants.strAIRSnumber = APBFacilityInformation.strAIRSNumber  " &
-            "and APBAirProgramPollutants.strPollutantKey = LookUpPollutants.strPollutantCode " &
-            "and APBAirProgramPollutants.strComplianceStatus = LookupComplianceStatus.strComplianceCode  " &
-               ComplianceWhere
-
-            ds = New DataSet
-            da = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            da.Fill(ds, "ComplianceStatus")
-            dgvWatchList.DataSource = ds
-            dgvWatchList.DataMember = "ComplianceStatus"
-
-            dgvWatchList.RowHeadersVisible = False
-            dgvWatchList.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvWatchList.AllowUserToResizeColumns = True
-            dgvWatchList.AllowUserToAddRows = False
-            dgvWatchList.AllowUserToDeleteRows = False
-            dgvWatchList.AllowUserToOrderColumns = True
-            dgvWatchList.AllowUserToResizeRows = True
-
-            dgvWatchList.Columns("AIRSNumber").HeaderText = "AIRS #"
-            dgvWatchList.Columns("AIRSNumber").DisplayIndex = 0
-            dgvWatchList.Columns("strFacilityName").HeaderText = "Facility Name"
-            dgvWatchList.Columns("strFacilityName").DisplayIndex = 1
-            dgvWatchList.Columns("strPollutantDescription").HeaderText = "Pollutant"
-            dgvWatchList.Columns("strPollutantDescription").DisplayIndex = 2
-            dgvWatchList.Columns("ComplianceStatus").HeaderText = "Compliance Status"
-            dgvWatchList.Columns("ComplianceStatus").DisplayIndex = 3
-
-            lblWatchListCount.Text = "Count: " & dgvWatchList.RowCount.ToString
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Sub LoadFacilitySearch(Location As String)
+    Private Sub LoadFacilitySearch(Location As String)
         Try
             Dim SQLLine1 As String = " "
             Dim SQLLine2 As String = " "
@@ -4306,42 +3886,6 @@ Public Class SSCPManagersTools
             dgvFilteredFacilityList.AllowUserToOrderColumns = True
             dgvFilteredFacilityList.AllowUserToResizeRows = True
 
-            'If chbViewAllFields.Checked = True Then
-            '    dgvFilteredFacilityList.Columns("AIRSNumber").HeaderText = "AIRS #"
-            '    dgvFilteredFacilityList.Columns("AIRSNumber").DisplayIndex = 0
-            '    dgvFilteredFacilityList.Columns("strFacilityName").HeaderText = "Facility Name"
-            '    dgvFilteredFacilityList.Columns("strFacilityName").DisplayIndex = 1
-            '    dgvFilteredFacilityList.Columns("strFacilityCity").HeaderText = "City"
-            '    dgvFilteredFacilityList.Columns("strFacilityCity").DisplayIndex = 2
-            '    dgvFilteredFacilityList.Columns("strCountyName").HeaderText = "County"
-            '    dgvFilteredFacilityList.Columns("strCountyName").DisplayIndex = 3
-            '    dgvFilteredFacilityList.Columns("strDistrictName").HeaderText = "District"
-            '    dgvFilteredFacilityList.Columns("strDistrictName").DisplayIndex = 4
-            '    dgvFilteredFacilityList.Columns("strClass").HeaderText = "Classification"
-            '    dgvFilteredFacilityList.Columns("strClass").DisplayIndex = 5
-            '    dgvFilteredFacilityList.Columns("strOperationalStatus").HeaderText = "Operational Status"
-            '    dgvFilteredFacilityList.Columns("strOperationalStatus").DisplayIndex = 7
-            '    dgvFilteredFacilityList.Columns("strCMSMember").HeaderText = "CMS Status"
-            '    dgvFilteredFacilityList.Columns("strCMSMember").DisplayIndex = 6
-            '    dgvFilteredFacilityList.Columns("strSICCode").HeaderText = "SIC Code"
-            '    dgvFilteredFacilityList.Columns("strSICCode").DisplayIndex = 8
-            '    dgvFilteredFacilityList.Columns("strUnitDesc").HeaderText = "SSCP Title"
-            '    dgvFilteredFacilityList.Columns("strUnitDesc").DisplayIndex = 9
-            '    dgvFilteredFacilityList.Columns("SSCPEngineer").HeaderText = "SSCP Engineer"
-            '    dgvFilteredFacilityList.Columns("SSCPEngineer").DisplayIndex = 10
-            '    dgvFilteredFacilityList.Columns("strDistrictResponsible").HeaderText = "District Responsible"
-            '    dgvFilteredFacilityList.Columns("strDistrictResponsible").DisplayIndex = 11
-            '    dgvFilteredFacilityList.Columns("LastFCE").HeaderText = "Last FCE"
-            '    dgvFilteredFacilityList.Columns("LastFCE").DefaultCellStyle.Format = "dd-MMM-yyyy"
-            '    dgvFilteredFacilityList.Columns("LastFCE").DisplayIndex = 12
-            '    dgvFilteredFacilityList.Columns("LastInspectionDate").HeaderText = "Last Inspection"
-            '    dgvFilteredFacilityList.Columns("LastInspectionDate").DisplayIndex = 13
-            '    dgvFilteredFacilityList.Columns("LastInspectionDate").DefaultCellStyle.Format = "dd-MMM-yyyy"
-            '    dgvFilteredFacilityList.Columns("strInspectionRequired").HeaderText = "Inspection Required"
-            '    dgvFilteredFacilityList.Columns("strInspectionRequired").DisplayIndex = 14
-            'Else
-            'End If
-
             If chbIgnoreFiscalYear.Checked = True Then
                 dgvFilteredFacilityList.Columns("AIRSNumber").HeaderText = "AIRS #"
                 dgvFilteredFacilityList.Columns("AIRSNumber").DisplayIndex = 0
@@ -4408,14 +3952,11 @@ Public Class SSCPManagersTools
             ErrorReport(ex, SQL, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnFacilitySearch_Click(sender As Object, e As EventArgs) Handles btnFacilitySearch.Click
-        Try
-            LoadFacilitySearch("Filter")
 
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+    Private Sub btnFacilitySearch_Click(sender As Object, e As EventArgs) Handles btnFacilitySearch.Click
+        LoadFacilitySearch("Filter")
     End Sub
+
     Private Sub cboFacSearch1_SelectedValueChanged(sender As Object, e As EventArgs) Handles cboFacSearch1.SelectedValueChanged
         Try
             cboFilterEngineer1.Visible = False
@@ -4457,6 +3998,7 @@ Public Class SSCPManagersTools
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub cboFacSearch2_SelectedValueChanged(sender As Object, e As EventArgs) Handles cboFacSearch2.SelectedValueChanged
         Try
             cboFilterEngineer2.Visible = False
@@ -4498,6 +4040,7 @@ Public Class SSCPManagersTools
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub btnSelectFacility_Click(sender As Object, e As EventArgs) Handles btnSelectFacility.Click
         Try
             Dim dgvRow As New DataGridViewRow
@@ -4518,42 +4061,6 @@ Public Class SSCPManagersTools
                     dgvRow.CreateCells(dgvSelectedFacilityList)
                     dgvRow.Cells(0).Value = dgvFilteredFacilityList(0, dgvFilteredFacilityList.CurrentRow.Index).Value
                     dgvRow.Cells(1).Value = dgvFilteredFacilityList(1, dgvFilteredFacilityList.CurrentRow.Index).Value
-
-                    'If chbViewAllFields.Checked = True Then
-                    '    If IsDBNull(dgvFilteredFacilityList(10, dgvFilteredFacilityList.CurrentRow.Index).Value) Then
-                    '    Else
-                    '        dgvRow.Cells(2).Value = dgvFilteredFacilityList(10, dgvFilteredFacilityList.CurrentRow.Index).Value
-                    '    End If
-                    '    If IsDBNull(dgvFilteredFacilityList(11, dgvFilteredFacilityList.CurrentRow.Index).Value) Then
-                    '    Else
-                    '        dgvRow.Cells(3).Value = dgvFilteredFacilityList(11, dgvFilteredFacilityList.CurrentRow.Index).Value
-                    '    End If
-                    '    If IsDBNull(dgvFilteredFacilityList(12, dgvFilteredFacilityList.CurrentRow.Index).Value) Then
-                    '    Else
-                    '        dgvRow.Cells(4).Value = dgvFilteredFacilityList(12, dgvFilteredFacilityList.CurrentRow.Index).Value
-                    '    End If
-                    '    If IsDBNull(dgvFilteredFacilityList(6, dgvFilteredFacilityList.CurrentRow.Index).Value) Then
-                    '    Else
-                    '        dgvRow.Cells(5).Value = dgvFilteredFacilityList(6, dgvFilteredFacilityList.CurrentRow.Index).Value
-                    '    End If
-                    '    If IsDBNull(dgvFilteredFacilityList(7, dgvFilteredFacilityList.CurrentRow.Index).Value) Then
-                    '    Else
-                    '        dgvRow.Cells(6).Value = dgvFilteredFacilityList(7, dgvFilteredFacilityList.CurrentRow.Index).Value
-                    '    End If
-
-                    '    If IsDBNull(dgvFilteredFacilityList(8, dgvFilteredFacilityList.CurrentRow.Index).Value) Then
-                    '    Else
-                    '        dgvRow.Cells(7).Value = dgvFilteredFacilityList(8, dgvFilteredFacilityList.CurrentRow.Index).Value
-                    '    End If
-                    '    If IsDBNull(dgvFilteredFacilityList(9, dgvFilteredFacilityList.CurrentRow.Index).Value) Then
-                    '    Else
-                    '        dgvRow.Cells(8).Value = dgvFilteredFacilityList(9, dgvFilteredFacilityList.CurrentRow.Index).Value
-                    '    End If
-                    '    If IsDBNull(dgvFilteredFacilityList(3, dgvFilteredFacilityList.CurrentRow.Index).Value) Then
-                    '    Else
-                    '        dgvRow.Cells(9).Value = dgvFilteredFacilityList(3, dgvFilteredFacilityList.CurrentRow.Index).Value
-                    '    End If
-                    'Else
 
                     If chbIgnoreFiscalYear.Checked = True Then
                         If IsDBNull(dgvFilteredFacilityList(8, dgvFilteredFacilityList.CurrentRow.Index).Value) Then
@@ -4626,36 +4133,6 @@ Public Class SSCPManagersTools
                 End If
             Else
                 MsgBox("There must be a selected facility in the data grid to the left.", MsgBoxStyle.Exclamation, Me.Text)
-                'dgvRow.CreateCells(dgvSelectedFacilityList)
-                'dgvRow.Cells(0).Value = dgvFilteredFacilityList(0, dgvFilteredFacilityList.CurrentRow.Index).Value
-                'dgvRow.Cells(1).Value = dgvFilteredFacilityList(1, dgvFilteredFacilityList.CurrentRow.Index).Value
-
-                'If chbViewAllFields.Checked = True Then
-                '    dgvRow.Cells(2).Value = dgvFilteredFacilityList(9, dgvFilteredFacilityList.CurrentRow.Index).Value
-                '    dgvRow.Cells(3).Value = dgvFilteredFacilityList(7, dgvFilteredFacilityList.CurrentRow.Index).Value
-                '    dgvRow.Cells(4).Value = dgvFilteredFacilityList(10, dgvFilteredFacilityList.CurrentRow.Index).Value
-                '    If IsDBNull(dgvFilteredFacilityList(13, dgvFilteredFacilityList.CurrentRow.Index).Value) Then
-                '    Else
-                '        dgvRow.Cells(5).Value = dgvFilteredFacilityList(13, dgvFilteredFacilityList.CurrentRow.Index).Value
-                '    End If
-                '    If IsDBNull(dgvFilteredFacilityList(14, dgvFilteredFacilityList.CurrentRow.Index).Value) Then
-                '    Else
-                '        dgvRow.Cells(6).Value = dgvFilteredFacilityList(14, dgvFilteredFacilityList.CurrentRow.Index).Value
-                '    End If
-                'Else
-                '    dgvRow.Cells(2).Value = dgvFilteredFacilityList(2, dgvFilteredFacilityList.CurrentRow.Index).Value
-                '    dgvRow.Cells(3).Value = dgvFilteredFacilityList(8, dgvFilteredFacilityList.CurrentRow.Index).Value
-                '    dgvRow.Cells(4).Value = dgvFilteredFacilityList(9, dgvFilteredFacilityList.CurrentRow.Index).Value
-                '    If IsDBNull(dgvFilteredFacilityList(10, dgvFilteredFacilityList.CurrentRow.Index).Value) Then
-                '    Else
-                '        dgvRow.Cells(5).Value = dgvFilteredFacilityList(10, dgvFilteredFacilityList.CurrentRow.Index).Value
-                '    End If
-                '    If IsDBNull(dgvFilteredFacilityList(11, dgvFilteredFacilityList.CurrentRow.Index).Value) Then
-                '    Else
-                '        dgvRow.Cells(6).Value = dgvFilteredFacilityList(11, dgvFilteredFacilityList.CurrentRow.Index).Value
-                '    End If
-                'End If
-                'dgvSelectedFacilityList.Rows.Add(dgvRow)
             End If
 
             lblSelectedCount.Text = "Count: " & dgvSelectedFacilityList.Rows.Count.ToString
@@ -4664,6 +4141,7 @@ Public Class SSCPManagersTools
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub btnSelectAllFacilities_Click(sender As Object, e As EventArgs) Handles btnSelectAllFacilities.Click
         Try
             Dim dgvRow As New DataGridViewRow
@@ -4676,14 +4154,6 @@ Public Class SSCPManagersTools
                 dgvRow.CreateCells(dgvSelectedFacilityList)
                 dgvRow.Cells(0).Value = dgvFilteredFacilityList(0, i).Value
                 dgvRow.Cells(1).Value = dgvFilteredFacilityList(1, i).Value
-
-                'If chbViewAllFields.Checked = True Then
-                '    dgvRow.Cells(2).Value = dgvFilteredFacilityList(9, i).Value
-                '    dgvRow.Cells(3).Value = dgvFilteredFacilityList(7, i).Value
-                '    dgvRow.Cells(4).Value = dgvFilteredFacilityList(10, i).Value
-                '    dgvRow.Cells(5).Value = dgvFilteredFacilityList(13, i).Value
-                '    dgvRow.Cells(6).Value = dgvFilteredFacilityList(14, i).Value
-                'Else
 
                 If chbIgnoreFiscalYear.Checked = True Then
                     If IsDBNull(dgvFilteredFacilityList(8, i).Value) Then
@@ -4761,6 +4231,7 @@ Public Class SSCPManagersTools
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub btnUnselectFacility_Click(sender As Object, e As EventArgs) Handles btnUnselectFacility.Click
         Try
             If dgvSelectedFacilityList.Rows.Count > 0 Then
@@ -4773,6 +4244,7 @@ Public Class SSCPManagersTools
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub btnUnselectAllFacilities_Click(sender As Object, e As EventArgs) Handles btnUnselectAllFacilities.Click
         Try
 
@@ -4784,22 +4256,15 @@ Public Class SSCPManagersTools
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub btnClearManualAIRSNum_Click(sender As Object, e As EventArgs) Handles btnClearManualAIRSNum.Click
-        Try
-
-            txtManualAIRSNumber.Clear()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        txtManualAIRSNumber.Clear()
     End Sub
+
     Private Sub btnFilterManualAIRSList_Click(sender As Object, e As EventArgs) Handles btnFilterManualAIRSList.Click
-        Try
-            LoadFacilitySearch("Manual")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        LoadFacilitySearch("Manual")
     End Sub
+
     Private Sub btnSaveEngineerResponsibility_Click(sender As Object, e As EventArgs) Handles btnSaveEngineerResponsibility.Click
         Try
             Dim AIRSNum As String = ""
@@ -4865,6 +4330,7 @@ Public Class SSCPManagersTools
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub btnSaveSSCPUnitAssignment_Click(sender As Object, e As EventArgs) Handles btnSaveSSCPUnitAssignment.Click
         Try
             Dim AIRSNum As String = ""
@@ -4927,6 +4393,7 @@ Public Class SSCPManagersTools
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub btnSaveDistResponsible_Click(sender As Object, e As EventArgs) Handles btnSaveDistResponsible.Click
         Try
             Dim AIRSNum As String = ""
@@ -4983,9 +4450,10 @@ Public Class SSCPManagersTools
             MsgBox("District Responsibilitie(s) Completed", MsgBoxStyle.Information, "Managers Tools")
 
         Catch ex As Exception
-
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub btnSaveInspectionReq_Click(sender As Object, e As EventArgs) Handles btnSaveInspectionReq.Click
         Try
 
@@ -5056,6 +4524,7 @@ Public Class SSCPManagersTools
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub btnSaveFCEReq_Click(sender As Object, e As EventArgs) Handles btnSaveFCEReq.Click
         Try
             Dim AIRSNum As String = ""
@@ -5125,6 +4594,7 @@ Public Class SSCPManagersTools
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub btnSaveAllSettings_Click(sender As Object, e As EventArgs) Handles btnSaveAllSettings.Click
         Try
             Dim AIRSNum As String = ""
@@ -5247,6 +4717,7 @@ Public Class SSCPManagersTools
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub btnForceAIRSNumber_Click(sender As Object, e As EventArgs) Handles btnForceAIRSNumber.Click
         Try
             Dim dgvRow As New DataGridViewRow
@@ -5327,6 +4798,7 @@ Public Class SSCPManagersTools
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub btnClearEngineerAssignment_Click(sender As Object, e As EventArgs) Handles btnClearEngineerAssignment.Click
         Try
             Dim AIRSNum As String = ""
@@ -5389,6 +4861,7 @@ Public Class SSCPManagersTools
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub btnClearSSCPUnitAssignment_Click(sender As Object, e As EventArgs) Handles btnClearSSCPUnitAssignment.Click
         Try
             Dim AIRSNum As String = ""
@@ -5448,6 +4921,7 @@ Public Class SSCPManagersTools
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub btnSaveCMS_Click(sender As Object, e As EventArgs) Handles btnSaveCMS.Click
         Try
             Dim AIRSNum As String = ""
@@ -5493,22 +4967,19 @@ Public Class SSCPManagersTools
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub cboFiscalYear_TextChanged(sender As Object, e As EventArgs) Handles cboFiscalYear.SelectedIndexChanged
-        Try
-            If cboFiscalYear.Items.Contains(cboFiscalYear.Text) Then
-                Panel10.Enabled = True
-                Panel9.Enabled = True
-                Panel15.Enabled = True
-            Else
-                Panel10.Enabled = False
-                Panel9.Enabled = False
-                Panel15.Enabled = False
-            End If
 
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+    Private Sub cboFiscalYear_TextChanged(sender As Object, e As EventArgs) Handles cboFiscalYear.SelectedIndexChanged
+        If cboFiscalYear.Items.Contains(cboFiscalYear.Text) Then
+            FacilityAssignmentPanel.Enabled = True
+            Panel9.Enabled = True
+            FacilitySelectToolsPanel.Enabled = True
+        Else
+            FacilityAssignmentPanel.Enabled = False
+            Panel9.Enabled = False
+            FacilitySelectToolsPanel.Enabled = False
+        End If
     End Sub
+
     Private Sub btnCopyYear_Click(sender As Object, e As EventArgs) Handles btnCopyYear.Click
         Dim targetYear As Integer
         Dim oldYear As Integer
@@ -5583,8 +5054,6 @@ Public Class SSCPManagersTools
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-
-
 
     Private Sub btnRunTitleVSearch_Click(sender As Object, e As EventArgs) Handles btnRunTitleVSearch.Click
         Try
@@ -5678,7 +5147,6 @@ Public Class SSCPManagersTools
         End Try
     End Sub
 
-
     Private Sub btnRunComplianceReport_Click(sender As Object, e As EventArgs) Handles btnRunComplianceReport.Click
         Try
             SQL = "select " &
@@ -5763,24 +5231,15 @@ Public Class SSCPManagersTools
 
             txtMiscReportCount.Text = dgvMiscReport.RowCount.ToString
 
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-
     Private Sub txtManualAIRSNumber_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtManualAIRSNumber.KeyPress
-        Try
-
-            If e.KeyChar = Microsoft.VisualBasic.ChrW(1) Then
-                txtManualAIRSNumber.SelectAll()
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
+        If e.KeyChar = ChrW(1) Then
+            txtManualAIRSNumber.SelectAll()
+        End If
     End Sub
 
 #Region "Export to Excel"
@@ -5795,14 +5254,6 @@ Public Class SSCPManagersTools
 
     Private Sub btnExportCmsWarningToExcel_Click(sender As Object, e As EventArgs) Handles btnExportCmsWarningToExcel.Click
         dgvCMSWarning.ExportToExcel(Me)
-    End Sub
-
-    Private Sub btnExportPollutantsToExcel_Click(sender As Object, e As EventArgs) Handles btnExportPollutantsToExcel.Click
-        dgvPollutantFacilities.ExportToExcel(Me)
-    End Sub
-
-    Private Sub btnExportWatchListToExcel_Click(sender As Object, e As EventArgs) Handles btnExportWatchListToExcel.Click
-        dgvWatchList.ExportToExcel(Me)
     End Sub
 
     Private Sub btnExportCmsUniverseToExcel_Click(sender As Object, e As EventArgs) Handles btnExportCmsUniverseToExcel.Click
@@ -5827,7 +5278,7 @@ Public Class SSCPManagersTools
         End If
     End Sub
 
-    Private enfDocumentTypesList As Generic.List(Of DocumentType)
+    Private enfDocumentTypesList As List(Of DocumentType)
     Private Sub LoadEnforcementDocumentTypes()
         ' Get list of various document types and bind that list to the datagridview
         enfDocumentTypesList = DAL.GetEnforcementDocumentTypes
@@ -5963,31 +5414,22 @@ Public Class SSCPManagersTools
         CType(sender, DataGridView).ClearSelection()
     End Sub
 
-#Region "Change Accept Button"
+#Region " Accept Button "
 
-    Private Sub NoAcceptButton(sender As Object, e As EventArgs) _
-    Handles txtNewName.Leave, txtUpdateName.Leave, mtxtNewPosition.Leave, mtxtUpdatePosition.Leave
+    Private Sub NoAcceptButton(sender As Object, e As EventArgs) Handles txtNewName.Leave, txtUpdateName.Leave, mtxtNewPosition.Leave, mtxtUpdatePosition.Leave
         Me.AcceptButton = Nothing
     End Sub
 
-    Private Sub NewEnfDocType_Enter(sender As Object, e As EventArgs) _
-    Handles txtNewName.Enter, mtxtNewPosition.Enter
+    Private Sub NewEnfDocType_Enter(sender As Object, e As EventArgs) Handles txtNewName.Enter, mtxtNewPosition.Enter
         Me.AcceptButton = btnAddDocumentType
     End Sub
 
-    Private Sub UpdateEnfDocType_Enter(sender As Object, e As EventArgs) _
-    Handles txtUpdateName.Enter, mtxtUpdatePosition.Enter
+    Private Sub UpdateEnfDocType_Enter(sender As Object, e As EventArgs) Handles txtUpdateName.Enter, mtxtUpdatePosition.Enter
         Me.AcceptButton = btnUpdateDocumentType
     End Sub
 
 #End Region
 
 #End Region
-
-    Private Sub OpenFacilityButton_Click(sender As Object, e As EventArgs) Handles OpenFacilityButton.Click
-        If Apb.ApbFacilityId.IsValidAirsNumberFormat(txtAIRSNumber.Text) Then
-            OpenFormFacilitySummary(txtAIRSNumber.Text)
-        End If
-    End Sub
 
 End Class

@@ -20,9 +20,6 @@ Partial Class SSCPManagersTools
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SSCPManagersTools))
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.chbALLDates = New System.Windows.Forms.CheckBox()
         Me.txtUserSSCPUnit = New System.Windows.Forms.TextBox()
         Me.DTPEndDate = New System.Windows.Forms.DateTimePicker()
@@ -30,11 +27,10 @@ Partial Class SSCPManagersTools
         Me.DTPStartDate = New System.Windows.Forms.DateTimePicker()
         Me.Label28 = New System.Windows.Forms.Label()
         Me.Label10 = New System.Windows.Forms.Label()
-        Me.llbPrintStaffReport = New System.Windows.Forms.LinkLabel()
         Me.Label21 = New System.Windows.Forms.Label()
         Me.lblRunInspectionReport = New System.Windows.Forms.LinkLabel()
         Me.Label11 = New System.Windows.Forms.Label()
-        Me.Panel8 = New System.Windows.Forms.Panel()
+        Me.CmsClassSelectionPanel = New System.Windows.Forms.Panel()
         Me.rdbCMSClassA = New System.Windows.Forms.RadioButton()
         Me.rdbCMSClassS = New System.Windows.Forms.RadioButton()
         Me.clbEngineers = New System.Windows.Forms.CheckedListBox()
@@ -102,7 +98,7 @@ Partial Class SSCPManagersTools
         Me.Splitter3 = New System.Windows.Forms.Splitter()
         Me.TCManagerTools = New System.Windows.Forms.TabControl()
         Me.TPFacilityAssignments = New System.Windows.Forms.TabPage()
-        Me.Panel10 = New System.Windows.Forms.Panel()
+        Me.FacilityAssignmentPanel = New System.Windows.Forms.Panel()
         Me.GroupBox9 = New System.Windows.Forms.GroupBox()
         Me.btnSaveFCEReq = New System.Windows.Forms.Button()
         Me.rdbFCENotRequired = New System.Windows.Forms.RadioButton()
@@ -197,7 +193,7 @@ Partial Class SSCPManagersTools
         Me.Panel16 = New System.Windows.Forms.Panel()
         Me.btnExportFiltered = New System.Windows.Forms.Button()
         Me.lblFilteredCount = New System.Windows.Forms.Label()
-        Me.Panel15 = New System.Windows.Forms.Panel()
+        Me.FacilitySelectToolsPanel = New System.Windows.Forms.Panel()
         Me.btnSelectFacility = New System.Windows.Forms.Button()
         Me.btnSelectAllFacilities = New System.Windows.Forms.Button()
         Me.btnUnselectAllFacilities = New System.Windows.Forms.Button()
@@ -210,27 +206,6 @@ Partial Class SSCPManagersTools
         Me.Panel18 = New System.Windows.Forms.Panel()
         Me.cboFiscalYear = New System.Windows.Forms.ComboBox()
         Me.Label62 = New System.Windows.Forms.Label()
-        Me.TPPollutantBubbleUp = New System.Windows.Forms.TabPage()
-        Me.dgvPollutantFacilities = New System.Windows.Forms.DataGridView()
-        Me.GroupBox5 = New System.Windows.Forms.GroupBox()
-        Me.OpenFacilityButton = New System.Windows.Forms.Button()
-        Me.btnExportPollutantsToExcel = New System.Windows.Forms.Button()
-        Me.txtPollutantCount = New System.Windows.Forms.TextBox()
-        Me.txtAIRSNumber = New System.Windows.Forms.TextBox()
-        Me.btnViewFacilities = New System.Windows.Forms.Button()
-        Me.chbStatusM = New System.Windows.Forms.CheckBox()
-        Me.chbStatus4 = New System.Windows.Forms.CheckBox()
-        Me.chbStatus3 = New System.Windows.Forms.CheckBox()
-        Me.chbStatus2 = New System.Windows.Forms.CheckBox()
-        Me.chbStatusC = New System.Windows.Forms.CheckBox()
-        Me.chbStatus9 = New System.Windows.Forms.CheckBox()
-        Me.chbStatus0 = New System.Windows.Forms.CheckBox()
-        Me.chbStatus8 = New System.Windows.Forms.CheckBox()
-        Me.chbStatus5 = New System.Windows.Forms.CheckBox()
-        Me.chbStatusW = New System.Windows.Forms.CheckBox()
-        Me.chbStatus6 = New System.Windows.Forms.CheckBox()
-        Me.chbStatus1 = New System.Windows.Forms.CheckBox()
-        Me.chbStatusB = New System.Windows.Forms.CheckBox()
         Me.TPStatisticalPage = New System.Windows.Forms.TabPage()
         Me.SCStatisticalReports = New System.Windows.Forms.SplitContainer()
         Me.TCComplianceStaff = New System.Windows.Forms.TabControl()
@@ -307,26 +282,6 @@ Partial Class SSCPManagersTools
         Me.txtRecordNumber = New System.Windows.Forms.TextBox()
         Me.btnExportToExcel = New System.Windows.Forms.Button()
         Me.dgvStatisticalReports = New System.Windows.Forms.DataGridView()
-        Me.TPWatchList = New System.Windows.Forms.TabPage()
-        Me.dgvWatchList = New System.Windows.Forms.DataGridView()
-        Me.Panel6 = New System.Windows.Forms.Panel()
-        Me.btnExportWatchListToExcel = New System.Windows.Forms.Button()
-        Me.rdbInComplianceCEMSData = New System.Windows.Forms.RadioButton()
-        Me.rdbInComplianceProcedural = New System.Windows.Forms.RadioButton()
-        Me.rdbInComplianceShutDown = New System.Windows.Forms.RadioButton()
-        Me.rdbInComplianceCertification = New System.Windows.Forms.RadioButton()
-        Me.rdbInComplianceInspection = New System.Windows.Forms.RadioButton()
-        Me.rdbInComplianceSourceTest = New System.Windows.Forms.RadioButton()
-        Me.rdbNoApplicableStateReg = New System.Windows.Forms.RadioButton()
-        Me.rdbMeetingCompliance = New System.Windows.Forms.RadioButton()
-        Me.rdbUnknownCompliance = New System.Windows.Forms.RadioButton()
-        Me.rdbInViolationProcedural = New System.Windows.Forms.RadioButton()
-        Me.rdbInViolationNotMeetingSchedule = New System.Windows.Forms.RadioButton()
-        Me.rdbInViolationNoSchedule = New System.Windows.Forms.RadioButton()
-        Me.rdbInViolationProceduralEmissions = New System.Windows.Forms.RadioButton()
-        Me.rdbAllNegativeStatus = New System.Windows.Forms.RadioButton()
-        Me.btnViewWatchListFacilities = New System.Windows.Forms.Button()
-        Me.lblWatchListCount = New System.Windows.Forms.Label()
         Me.TPMiscReports = New System.Windows.Forms.TabPage()
         Me.dgvMiscReport = New System.Windows.Forms.DataGridView()
         Me.Panel19 = New System.Windows.Forms.Panel()
@@ -349,7 +304,7 @@ Partial Class SSCPManagersTools
         Me.lblNewPosition = New System.Windows.Forms.Label()
         Me.lblEnfDocumentTypes = New System.Windows.Forms.Label()
         Me.dgvEnfDocumentTypes = New System.Windows.Forms.DataGridView()
-        Me.Panel8.SuspendLayout()
+        Me.CmsClassSelectionPanel.SuspendLayout()
         Me.PanelCMSUniverse.SuspendLayout()
         Me.TPUniverse.SuspendLayout()
         CType(Me.dgvCMSUniverse, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -361,7 +316,7 @@ Partial Class SSCPManagersTools
         Me.TPCMSWarning.SuspendLayout()
         Me.TCManagerTools.SuspendLayout()
         Me.TPFacilityAssignments.SuspendLayout()
-        Me.Panel10.SuspendLayout()
+        Me.FacilityAssignmentPanel.SuspendLayout()
         Me.GroupBox9.SuspendLayout()
         Me.GroupBox8.SuspendLayout()
         Me.GroupBox6.SuspendLayout()
@@ -384,14 +339,11 @@ Partial Class SSCPManagersTools
         Me.Panel14.SuspendLayout()
         CType(Me.dgvFilteredFacilityList, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel16.SuspendLayout()
-        Me.Panel15.SuspendLayout()
+        Me.FacilitySelectToolsPanel.SuspendLayout()
         Me.Panel12.SuspendLayout()
         CType(Me.dgvSelectedFacilityList, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel17.SuspendLayout()
         Me.Panel18.SuspendLayout()
-        Me.TPPollutantBubbleUp.SuspendLayout()
-        CType(Me.dgvPollutantFacilities, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.GroupBox5.SuspendLayout()
         Me.TPStatisticalPage.SuspendLayout()
         CType(Me.SCStatisticalReports, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SCStatisticalReports.Panel1.SuspendLayout()
@@ -408,9 +360,6 @@ Partial Class SSCPManagersTools
         Me.TPEnforcement.SuspendLayout()
         Me.TPTitleVRenewals.SuspendLayout()
         CType(Me.dgvStatisticalReports, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.TPWatchList.SuspendLayout()
-        CType(Me.dgvWatchList, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.Panel6.SuspendLayout()
         Me.TPMiscReports.SuspendLayout()
         CType(Me.dgvMiscReport, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel19.SuspendLayout()
@@ -484,16 +433,6 @@ Partial Class SSCPManagersTools
         Me.Label10.TabIndex = 21
         Me.Label10.Text = "CMS State:"
         '
-        'llbPrintStaffReport
-        '
-        Me.llbPrintStaffReport.AutoSize = True
-        Me.llbPrintStaffReport.Location = New System.Drawing.Point(13, 76)
-        Me.llbPrintStaffReport.Name = "llbPrintStaffReport"
-        Me.llbPrintStaffReport.Size = New System.Drawing.Size(63, 13)
-        Me.llbPrintStaffReport.TabIndex = 153
-        Me.llbPrintStaffReport.TabStop = True
-        Me.llbPrintStaffReport.Text = "Print Report"
-        '
         'Label21
         '
         Me.Label21.AutoSize = True
@@ -524,15 +463,15 @@ Partial Class SSCPManagersTools
         Me.Label11.TabIndex = 152
         Me.Label11.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
-        'Panel8
+        'CmsClassSelectionPanel
         '
-        Me.Panel8.AutoSize = True
-        Me.Panel8.Controls.Add(Me.rdbCMSClassA)
-        Me.Panel8.Controls.Add(Me.rdbCMSClassS)
-        Me.Panel8.Location = New System.Drawing.Point(24, 344)
-        Me.Panel8.Name = "Panel8"
-        Me.Panel8.Size = New System.Drawing.Size(82, 20)
-        Me.Panel8.TabIndex = 25
+        Me.CmsClassSelectionPanel.AutoSize = True
+        Me.CmsClassSelectionPanel.Controls.Add(Me.rdbCMSClassA)
+        Me.CmsClassSelectionPanel.Controls.Add(Me.rdbCMSClassS)
+        Me.CmsClassSelectionPanel.Location = New System.Drawing.Point(24, 344)
+        Me.CmsClassSelectionPanel.Name = "CmsClassSelectionPanel"
+        Me.CmsClassSelectionPanel.Size = New System.Drawing.Size(82, 20)
+        Me.CmsClassSelectionPanel.TabIndex = 25
         '
         'rdbCMSClassA
         '
@@ -574,7 +513,7 @@ Partial Class SSCPManagersTools
         Me.PanelCMSUniverse.Controls.Add(Me.btnDeleteFacilityFromCms)
         Me.PanelCMSUniverse.Controls.Add(Me.btnAddToCmsUniverse)
         Me.PanelCMSUniverse.Controls.Add(Me.btnExportCmsUniverseToExcel)
-        Me.PanelCMSUniverse.Controls.Add(Me.Panel8)
+        Me.PanelCMSUniverse.Controls.Add(Me.CmsClassSelectionPanel)
         Me.PanelCMSUniverse.Controls.Add(Me.Label10)
         Me.PanelCMSUniverse.Controls.Add(Me.txtCMSState)
         Me.PanelCMSUniverse.Controls.Add(Me.txtCMSCount)
@@ -866,7 +805,6 @@ Partial Class SSCPManagersTools
         '
         'Panel7
         '
-        Me.Panel7.Controls.Add(Me.llbPrintStaffReport)
         Me.Panel7.Controls.Add(Me.lblRunInspectionReport)
         Me.Panel7.Controls.Add(Me.Label11)
         Me.Panel7.Controls.Add(Me.chbALLDates)
@@ -1178,9 +1116,7 @@ Partial Class SSCPManagersTools
         Me.TCManagerTools.Controls.Add(Me.TPStaffReports)
         Me.TCManagerTools.Controls.Add(Me.TPUniverse)
         Me.TCManagerTools.Controls.Add(Me.TPCMSWarning)
-        Me.TCManagerTools.Controls.Add(Me.TPPollutantBubbleUp)
         Me.TCManagerTools.Controls.Add(Me.TPStatisticalPage)
-        Me.TCManagerTools.Controls.Add(Me.TPWatchList)
         Me.TCManagerTools.Controls.Add(Me.TPMiscReports)
         Me.TCManagerTools.Controls.Add(Me.TPDocuments)
         Me.TCManagerTools.Dock = System.Windows.Forms.DockStyle.Fill
@@ -1193,7 +1129,7 @@ Partial Class SSCPManagersTools
         '
         'TPFacilityAssignments
         '
-        Me.TPFacilityAssignments.Controls.Add(Me.Panel10)
+        Me.TPFacilityAssignments.Controls.Add(Me.FacilityAssignmentPanel)
         Me.TPFacilityAssignments.Controls.Add(Me.Panel9)
         Me.TPFacilityAssignments.Controls.Add(Me.pnlFacilityAssignments)
         Me.TPFacilityAssignments.Location = New System.Drawing.Point(4, 22)
@@ -1203,31 +1139,31 @@ Partial Class SSCPManagersTools
         Me.TPFacilityAssignments.Text = "Facility Assignments"
         Me.TPFacilityAssignments.UseVisualStyleBackColor = True
         '
-        'Panel10
+        'FacilityAssignmentPanel
         '
-        Me.Panel10.AutoScroll = True
-        Me.Panel10.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Panel10.Controls.Add(Me.GroupBox9)
-        Me.Panel10.Controls.Add(Me.GroupBox8)
-        Me.Panel10.Controls.Add(Me.btnClearSSCPUnitAssignment)
-        Me.Panel10.Controls.Add(Me.btnClearEngineerAssignment)
-        Me.Panel10.Controls.Add(Me.Label59)
-        Me.Panel10.Controls.Add(Me.btnSaveAllSettings)
-        Me.Panel10.Controls.Add(Me.GroupBox6)
-        Me.Panel10.Controls.Add(Me.GroupBox7)
-        Me.Panel10.Controls.Add(Me.btnSaveSSCPUnitAssignment)
-        Me.Panel10.Controls.Add(Me.Label55)
-        Me.Panel10.Controls.Add(Me.Label56)
-        Me.Panel10.Controls.Add(Me.btnSaveEngineerResponsibility)
-        Me.Panel10.Controls.Add(Me.cboSSCPEngineer)
-        Me.Panel10.Controls.Add(Me.Label57)
-        Me.Panel10.Controls.Add(Me.cboSSCPUnit2)
-        Me.Panel10.Controls.Add(Me.Label58)
-        Me.Panel10.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel10.Location = New System.Drawing.Point(324, 451)
-        Me.Panel10.Name = "Panel10"
-        Me.Panel10.Size = New System.Drawing.Size(860, 248)
-        Me.Panel10.TabIndex = 420
+        Me.FacilityAssignmentPanel.AutoScroll = True
+        Me.FacilityAssignmentPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.FacilityAssignmentPanel.Controls.Add(Me.GroupBox9)
+        Me.FacilityAssignmentPanel.Controls.Add(Me.GroupBox8)
+        Me.FacilityAssignmentPanel.Controls.Add(Me.btnClearSSCPUnitAssignment)
+        Me.FacilityAssignmentPanel.Controls.Add(Me.btnClearEngineerAssignment)
+        Me.FacilityAssignmentPanel.Controls.Add(Me.Label59)
+        Me.FacilityAssignmentPanel.Controls.Add(Me.btnSaveAllSettings)
+        Me.FacilityAssignmentPanel.Controls.Add(Me.GroupBox6)
+        Me.FacilityAssignmentPanel.Controls.Add(Me.GroupBox7)
+        Me.FacilityAssignmentPanel.Controls.Add(Me.btnSaveSSCPUnitAssignment)
+        Me.FacilityAssignmentPanel.Controls.Add(Me.Label55)
+        Me.FacilityAssignmentPanel.Controls.Add(Me.Label56)
+        Me.FacilityAssignmentPanel.Controls.Add(Me.btnSaveEngineerResponsibility)
+        Me.FacilityAssignmentPanel.Controls.Add(Me.cboSSCPEngineer)
+        Me.FacilityAssignmentPanel.Controls.Add(Me.Label57)
+        Me.FacilityAssignmentPanel.Controls.Add(Me.cboSSCPUnit2)
+        Me.FacilityAssignmentPanel.Controls.Add(Me.Label58)
+        Me.FacilityAssignmentPanel.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.FacilityAssignmentPanel.Location = New System.Drawing.Point(324, 451)
+        Me.FacilityAssignmentPanel.Name = "FacilityAssignmentPanel"
+        Me.FacilityAssignmentPanel.Size = New System.Drawing.Size(860, 248)
+        Me.FacilityAssignmentPanel.TabIndex = 420
         '
         'GroupBox9
         '
@@ -2126,7 +2062,7 @@ Partial Class SSCPManagersTools
         Me.Panel13.AutoScroll = True
         Me.Panel13.Controls.Add(Me.Panel14)
         Me.Panel13.Controls.Add(Me.Panel16)
-        Me.Panel13.Controls.Add(Me.Panel15)
+        Me.Panel13.Controls.Add(Me.FacilitySelectToolsPanel)
         Me.Panel13.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel13.Location = New System.Drawing.Point(0, 0)
         Me.Panel13.Name = "Panel13"
@@ -2182,17 +2118,17 @@ Partial Class SSCPManagersTools
         Me.lblFilteredCount.TabIndex = 419
         Me.lblFilteredCount.Text = "Count: "
         '
-        'Panel15
+        'FacilitySelectToolsPanel
         '
-        Me.Panel15.Controls.Add(Me.btnSelectFacility)
-        Me.Panel15.Controls.Add(Me.btnSelectAllFacilities)
-        Me.Panel15.Controls.Add(Me.btnUnselectAllFacilities)
-        Me.Panel15.Controls.Add(Me.btnUnselectFacility)
-        Me.Panel15.Dock = System.Windows.Forms.DockStyle.Right
-        Me.Panel15.Location = New System.Drawing.Point(537, 0)
-        Me.Panel15.Name = "Panel15"
-        Me.Panel15.Size = New System.Drawing.Size(56, 416)
-        Me.Panel15.TabIndex = 422
+        Me.FacilitySelectToolsPanel.Controls.Add(Me.btnSelectFacility)
+        Me.FacilitySelectToolsPanel.Controls.Add(Me.btnSelectAllFacilities)
+        Me.FacilitySelectToolsPanel.Controls.Add(Me.btnUnselectAllFacilities)
+        Me.FacilitySelectToolsPanel.Controls.Add(Me.btnUnselectFacility)
+        Me.FacilitySelectToolsPanel.Dock = System.Windows.Forms.DockStyle.Right
+        Me.FacilitySelectToolsPanel.Location = New System.Drawing.Point(537, 0)
+        Me.FacilitySelectToolsPanel.Name = "FacilitySelectToolsPanel"
+        Me.FacilitySelectToolsPanel.Size = New System.Drawing.Size(56, 416)
+        Me.FacilitySelectToolsPanel.TabIndex = 422
         '
         'btnSelectFacility
         '
@@ -2315,251 +2251,6 @@ Partial Class SSCPManagersTools
         Me.Label62.Size = New System.Drawing.Size(97, 13)
         Me.Label62.TabIndex = 149
         Me.Label62.Text = "Federal Fiscal Year"
-        '
-        'TPPollutantBubbleUp
-        '
-        Me.TPPollutantBubbleUp.Controls.Add(Me.dgvPollutantFacilities)
-        Me.TPPollutantBubbleUp.Controls.Add(Me.GroupBox5)
-        Me.TPPollutantBubbleUp.Location = New System.Drawing.Point(4, 22)
-        Me.TPPollutantBubbleUp.Name = "TPPollutantBubbleUp"
-        Me.TPPollutantBubbleUp.Size = New System.Drawing.Size(1184, 699)
-        Me.TPPollutantBubbleUp.TabIndex = 5
-        Me.TPPollutantBubbleUp.Text = "Pollutant Bubble Up"
-        Me.TPPollutantBubbleUp.UseVisualStyleBackColor = True
-        '
-        'dgvPollutantFacilities
-        '
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvPollutantFacilities.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
-        Me.dgvPollutantFacilities.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvPollutantFacilities.DefaultCellStyle = DataGridViewCellStyle2
-        Me.dgvPollutantFacilities.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.dgvPollutantFacilities.Location = New System.Drawing.Point(0, 220)
-        Me.dgvPollutantFacilities.Name = "dgvPollutantFacilities"
-        Me.dgvPollutantFacilities.ReadOnly = True
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvPollutantFacilities.RowHeadersDefaultCellStyle = DataGridViewCellStyle3
-        Me.dgvPollutantFacilities.Size = New System.Drawing.Size(1184, 479)
-        Me.dgvPollutantFacilities.TabIndex = 1
-        '
-        'GroupBox5
-        '
-        Me.GroupBox5.Controls.Add(Me.OpenFacilityButton)
-        Me.GroupBox5.Controls.Add(Me.btnExportPollutantsToExcel)
-        Me.GroupBox5.Controls.Add(Me.txtPollutantCount)
-        Me.GroupBox5.Controls.Add(Me.txtAIRSNumber)
-        Me.GroupBox5.Controls.Add(Me.btnViewFacilities)
-        Me.GroupBox5.Controls.Add(Me.chbStatusM)
-        Me.GroupBox5.Controls.Add(Me.chbStatus4)
-        Me.GroupBox5.Controls.Add(Me.chbStatus3)
-        Me.GroupBox5.Controls.Add(Me.chbStatus2)
-        Me.GroupBox5.Controls.Add(Me.chbStatusC)
-        Me.GroupBox5.Controls.Add(Me.chbStatus9)
-        Me.GroupBox5.Controls.Add(Me.chbStatus0)
-        Me.GroupBox5.Controls.Add(Me.chbStatus8)
-        Me.GroupBox5.Controls.Add(Me.chbStatus5)
-        Me.GroupBox5.Controls.Add(Me.chbStatusW)
-        Me.GroupBox5.Controls.Add(Me.chbStatus6)
-        Me.GroupBox5.Controls.Add(Me.chbStatus1)
-        Me.GroupBox5.Controls.Add(Me.chbStatusB)
-        Me.GroupBox5.Dock = System.Windows.Forms.DockStyle.Top
-        Me.GroupBox5.Location = New System.Drawing.Point(0, 0)
-        Me.GroupBox5.Name = "GroupBox5"
-        Me.GroupBox5.Size = New System.Drawing.Size(1184, 220)
-        Me.GroupBox5.TabIndex = 0
-        Me.GroupBox5.TabStop = False
-        '
-        'OpenFacilityButton
-        '
-        Me.OpenFacilityButton.Location = New System.Drawing.Point(112, 189)
-        Me.OpenFacilityButton.Name = "OpenFacilityButton"
-        Me.OpenFacilityButton.Size = New System.Drawing.Size(75, 23)
-        Me.OpenFacilityButton.TabIndex = 316
-        Me.OpenFacilityButton.Text = "Open"
-        Me.OpenFacilityButton.UseVisualStyleBackColor = True
-        '
-        'btnExportPollutantsToExcel
-        '
-        Me.btnExportPollutantsToExcel.Location = New System.Drawing.Point(435, 189)
-        Me.btnExportPollutantsToExcel.Name = "btnExportPollutantsToExcel"
-        Me.btnExportPollutantsToExcel.Size = New System.Drawing.Size(111, 22)
-        Me.btnExportPollutantsToExcel.TabIndex = 315
-        Me.btnExportPollutantsToExcel.Text = "Export to Excel"
-        Me.btnExportPollutantsToExcel.UseVisualStyleBackColor = True
-        '
-        'txtPollutantCount
-        '
-        Me.txtPollutantCount.Location = New System.Drawing.Point(690, 48)
-        Me.txtPollutantCount.Name = "txtPollutantCount"
-        Me.txtPollutantCount.ReadOnly = True
-        Me.txtPollutantCount.Size = New System.Drawing.Size(56, 20)
-        Me.txtPollutantCount.TabIndex = 314
-        '
-        'txtAIRSNumber
-        '
-        Me.txtAIRSNumber.Location = New System.Drawing.Point(6, 191)
-        Me.txtAIRSNumber.Name = "txtAIRSNumber"
-        Me.txtAIRSNumber.Size = New System.Drawing.Size(100, 20)
-        Me.txtAIRSNumber.TabIndex = 312
-        '
-        'btnViewFacilities
-        '
-        Me.btnViewFacilities.AutoSize = True
-        Me.btnViewFacilities.Location = New System.Drawing.Point(663, 19)
-        Me.btnViewFacilities.Name = "btnViewFacilities"
-        Me.btnViewFacilities.Size = New System.Drawing.Size(83, 23)
-        Me.btnViewFacilities.TabIndex = 13
-        Me.btnViewFacilities.Text = "View Facilities"
-        Me.btnViewFacilities.UseVisualStyleBackColor = True
-        '
-        'chbStatusM
-        '
-        Me.chbStatusM.AutoSize = True
-        Me.chbStatusM.Location = New System.Drawing.Point(435, 134)
-        Me.chbStatusM.Name = "chbStatusM"
-        Me.chbStatusM.Size = New System.Drawing.Size(173, 17)
-        Me.chbStatusM.TabIndex = 12
-        Me.chbStatusM.Text = "M - In Compliance, CEMS Data"
-        Me.chbStatusM.UseVisualStyleBackColor = True
-        '
-        'chbStatus4
-        '
-        Me.chbStatus4.AutoSize = True
-        Me.chbStatus4.Location = New System.Drawing.Point(435, 65)
-        Me.chbStatus4.Name = "chbStatus4"
-        Me.chbStatus4.Size = New System.Drawing.Size(169, 17)
-        Me.chbStatus4.TabIndex = 11
-        Me.chbStatus4.Text = "4 - In Compliance, Certification"
-        Me.chbStatus4.UseVisualStyleBackColor = True
-        '
-        'chbStatus3
-        '
-        Me.chbStatus3.AutoSize = True
-        Me.chbStatus3.Location = New System.Drawing.Point(435, 42)
-        Me.chbStatus3.Name = "chbStatus3"
-        Me.chbStatus3.Size = New System.Drawing.Size(162, 17)
-        Me.chbStatus3.TabIndex = 10
-        Me.chbStatus3.Text = "3 - In Compliance, inspection"
-        Me.chbStatus3.UseVisualStyleBackColor = True
-        '
-        'chbStatus2
-        '
-        Me.chbStatus2.AutoSize = True
-        Me.chbStatus2.Location = New System.Drawing.Point(435, 19)
-        Me.chbStatus2.Name = "chbStatus2"
-        Me.chbStatus2.Size = New System.Drawing.Size(172, 17)
-        Me.chbStatus2.TabIndex = 9
-        Me.chbStatus2.Text = "2 - In Compliance, Source Test"
-        Me.chbStatus2.UseVisualStyleBackColor = True
-        '
-        'chbStatusC
-        '
-        Me.chbStatusC.AutoSize = True
-        Me.chbStatusC.Location = New System.Drawing.Point(435, 111)
-        Me.chbStatusC.Name = "chbStatusC"
-        Me.chbStatusC.Size = New System.Drawing.Size(165, 17)
-        Me.chbStatusC.TabIndex = 8
-        Me.chbStatusC.Text = "C - In Compliance, procedural"
-        Me.chbStatusC.UseVisualStyleBackColor = True
-        '
-        'chbStatus9
-        '
-        Me.chbStatus9.AutoSize = True
-        Me.chbStatus9.Location = New System.Drawing.Point(435, 88)
-        Me.chbStatus9.Name = "chbStatus9"
-        Me.chbStatus9.Size = New System.Drawing.Size(167, 17)
-        Me.chbStatus9.TabIndex = 7
-        Me.chbStatus9.Text = "9 - In Compliance, Shut Down"
-        Me.chbStatus9.UseVisualStyleBackColor = True
-        '
-        'chbStatus0
-        '
-        Me.chbStatus0.AutoSize = True
-        Me.chbStatus0.Location = New System.Drawing.Point(5, 134)
-        Me.chbStatus0.Name = "chbStatus0"
-        Me.chbStatus0.Size = New System.Drawing.Size(212, 17)
-        Me.chbStatus0.TabIndex = 6
-        Me.chbStatus0.Text = "0 - Unknown compliance status (SCAP)"
-        Me.chbStatus0.UseVisualStyleBackColor = True
-        '
-        'chbStatus8
-        '
-        Me.chbStatus8.AutoSize = True
-        Me.chbStatus8.Location = New System.Drawing.Point(5, 111)
-        Me.chbStatus8.Name = "chbStatus8"
-        Me.chbStatus8.Size = New System.Drawing.Size(158, 17)
-        Me.chbStatus8.TabIndex = 5
-        Me.chbStatus8.Text = "8 - No Applicable State Reg"
-        Me.chbStatus8.UseVisualStyleBackColor = True
-        '
-        'chbStatus5
-        '
-        Me.chbStatus5.AutoSize = True
-        Me.chbStatus5.Location = New System.Drawing.Point(240, 19)
-        Me.chbStatus5.Name = "chbStatus5"
-        Me.chbStatus5.Size = New System.Drawing.Size(184, 17)
-        Me.chbStatus5.TabIndex = 4
-        Me.chbStatus5.Text = "5 - Meeting compliance Schedule"
-        Me.chbStatus5.UseVisualStyleBackColor = True
-        '
-        'chbStatusW
-        '
-        Me.chbStatusW.AutoSize = True
-        Me.chbStatusW.Location = New System.Drawing.Point(5, 88)
-        Me.chbStatusW.Name = "chbStatusW"
-        Me.chbStatusW.Size = New System.Drawing.Size(153, 17)
-        Me.chbStatusW.TabIndex = 3
-        Me.chbStatusW.Text = "W - In violation, procedural"
-        Me.chbStatusW.UseVisualStyleBackColor = True
-        '
-        'chbStatus6
-        '
-        Me.chbStatus6.AutoSize = True
-        Me.chbStatus6.Location = New System.Drawing.Point(5, 65)
-        Me.chbStatus6.Name = "chbStatus6"
-        Me.chbStatus6.Size = New System.Drawing.Size(203, 17)
-        Me.chbStatus6.TabIndex = 2
-        Me.chbStatus6.Text = "6 - In violation, Not meeting Schedule"
-        Me.chbStatus6.UseVisualStyleBackColor = True
-        '
-        'chbStatus1
-        '
-        Me.chbStatus1.AutoSize = True
-        Me.chbStatus1.Location = New System.Drawing.Point(5, 42)
-        Me.chbStatus1.Name = "chbStatus1"
-        Me.chbStatus1.Size = New System.Drawing.Size(158, 17)
-        Me.chbStatus1.TabIndex = 1
-        Me.chbStatus1.Text = "1 - In violation, No schedule"
-        Me.chbStatus1.UseVisualStyleBackColor = True
-        '
-        'chbStatusB
-        '
-        Me.chbStatusB.AutoSize = True
-        Me.chbStatusB.Location = New System.Drawing.Point(5, 19)
-        Me.chbStatusB.Name = "chbStatusB"
-        Me.chbStatusB.Size = New System.Drawing.Size(201, 17)
-        Me.chbStatusB.TabIndex = 0
-        Me.chbStatusB.Text = "B - In Violation, procedural & emissions"
-        Me.chbStatusB.UseVisualStyleBackColor = True
         '
         'TPStatisticalPage
         '
@@ -3354,237 +3045,6 @@ Partial Class SSCPManagersTools
         Me.dgvStatisticalReports.Size = New System.Drawing.Size(565, 652)
         Me.dgvStatisticalReports.TabIndex = 14
         '
-        'TPWatchList
-        '
-        Me.TPWatchList.Controls.Add(Me.dgvWatchList)
-        Me.TPWatchList.Controls.Add(Me.Panel6)
-        Me.TPWatchList.Location = New System.Drawing.Point(4, 22)
-        Me.TPWatchList.Name = "TPWatchList"
-        Me.TPWatchList.Size = New System.Drawing.Size(1184, 699)
-        Me.TPWatchList.TabIndex = 7
-        Me.TPWatchList.Text = "Watch List Facilities"
-        Me.TPWatchList.UseVisualStyleBackColor = True
-        '
-        'dgvWatchList
-        '
-        Me.dgvWatchList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvWatchList.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.dgvWatchList.Location = New System.Drawing.Point(0, 108)
-        Me.dgvWatchList.Name = "dgvWatchList"
-        Me.dgvWatchList.ReadOnly = True
-        Me.dgvWatchList.Size = New System.Drawing.Size(1184, 591)
-        Me.dgvWatchList.TabIndex = 1
-        '
-        'Panel6
-        '
-        Me.Panel6.AutoScroll = True
-        Me.Panel6.Controls.Add(Me.btnExportWatchListToExcel)
-        Me.Panel6.Controls.Add(Me.rdbInComplianceCEMSData)
-        Me.Panel6.Controls.Add(Me.rdbInComplianceProcedural)
-        Me.Panel6.Controls.Add(Me.rdbInComplianceShutDown)
-        Me.Panel6.Controls.Add(Me.rdbInComplianceCertification)
-        Me.Panel6.Controls.Add(Me.rdbInComplianceInspection)
-        Me.Panel6.Controls.Add(Me.rdbInComplianceSourceTest)
-        Me.Panel6.Controls.Add(Me.rdbNoApplicableStateReg)
-        Me.Panel6.Controls.Add(Me.rdbMeetingCompliance)
-        Me.Panel6.Controls.Add(Me.rdbUnknownCompliance)
-        Me.Panel6.Controls.Add(Me.rdbInViolationProcedural)
-        Me.Panel6.Controls.Add(Me.rdbInViolationNotMeetingSchedule)
-        Me.Panel6.Controls.Add(Me.rdbInViolationNoSchedule)
-        Me.Panel6.Controls.Add(Me.rdbInViolationProceduralEmissions)
-        Me.Panel6.Controls.Add(Me.rdbAllNegativeStatus)
-        Me.Panel6.Controls.Add(Me.btnViewWatchListFacilities)
-        Me.Panel6.Controls.Add(Me.lblWatchListCount)
-        Me.Panel6.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel6.Location = New System.Drawing.Point(0, 0)
-        Me.Panel6.Name = "Panel6"
-        Me.Panel6.Size = New System.Drawing.Size(1184, 108)
-        Me.Panel6.TabIndex = 0
-        '
-        'btnExportWatchListToExcel
-        '
-        Me.btnExportWatchListToExcel.AutoSize = True
-        Me.btnExportWatchListToExcel.Location = New System.Drawing.Point(1088, 78)
-        Me.btnExportWatchListToExcel.Name = "btnExportWatchListToExcel"
-        Me.btnExportWatchListToExcel.Size = New System.Drawing.Size(88, 23)
-        Me.btnExportWatchListToExcel.TabIndex = 315
-        Me.btnExportWatchListToExcel.Text = "Export to Excel"
-        Me.btnExportWatchListToExcel.UseVisualStyleBackColor = True
-        '
-        'rdbInComplianceCEMSData
-        '
-        Me.rdbInComplianceCEMSData.AutoSize = True
-        Me.rdbInComplianceCEMSData.Location = New System.Drawing.Point(864, 35)
-        Me.rdbInComplianceCEMSData.Name = "rdbInComplianceCEMSData"
-        Me.rdbInComplianceCEMSData.Size = New System.Drawing.Size(172, 17)
-        Me.rdbInComplianceCEMSData.TabIndex = 16
-        Me.rdbInComplianceCEMSData.TabStop = True
-        Me.rdbInComplianceCEMSData.Text = "M - In Compliance, CEMS Data"
-        Me.rdbInComplianceCEMSData.UseVisualStyleBackColor = True
-        '
-        'rdbInComplianceProcedural
-        '
-        Me.rdbInComplianceProcedural.AutoSize = True
-        Me.rdbInComplianceProcedural.Location = New System.Drawing.Point(864, 12)
-        Me.rdbInComplianceProcedural.Name = "rdbInComplianceProcedural"
-        Me.rdbInComplianceProcedural.Size = New System.Drawing.Size(165, 17)
-        Me.rdbInComplianceProcedural.TabIndex = 15
-        Me.rdbInComplianceProcedural.TabStop = True
-        Me.rdbInComplianceProcedural.Text = "C - In Compliance, Procedural"
-        Me.rdbInComplianceProcedural.UseVisualStyleBackColor = True
-        '
-        'rdbInComplianceShutDown
-        '
-        Me.rdbInComplianceShutDown.AutoSize = True
-        Me.rdbInComplianceShutDown.Location = New System.Drawing.Point(687, 81)
-        Me.rdbInComplianceShutDown.Name = "rdbInComplianceShutDown"
-        Me.rdbInComplianceShutDown.Size = New System.Drawing.Size(166, 17)
-        Me.rdbInComplianceShutDown.TabIndex = 14
-        Me.rdbInComplianceShutDown.TabStop = True
-        Me.rdbInComplianceShutDown.Text = "9 - In Compliance, Shut Down"
-        Me.rdbInComplianceShutDown.UseVisualStyleBackColor = True
-        '
-        'rdbInComplianceCertification
-        '
-        Me.rdbInComplianceCertification.AutoSize = True
-        Me.rdbInComplianceCertification.Location = New System.Drawing.Point(687, 58)
-        Me.rdbInComplianceCertification.Name = "rdbInComplianceCertification"
-        Me.rdbInComplianceCertification.Size = New System.Drawing.Size(168, 17)
-        Me.rdbInComplianceCertification.TabIndex = 13
-        Me.rdbInComplianceCertification.TabStop = True
-        Me.rdbInComplianceCertification.Text = "4 - In Compliance, Certification"
-        Me.rdbInComplianceCertification.UseVisualStyleBackColor = True
-        '
-        'rdbInComplianceInspection
-        '
-        Me.rdbInComplianceInspection.AutoSize = True
-        Me.rdbInComplianceInspection.Location = New System.Drawing.Point(687, 35)
-        Me.rdbInComplianceInspection.Name = "rdbInComplianceInspection"
-        Me.rdbInComplianceInspection.Size = New System.Drawing.Size(162, 17)
-        Me.rdbInComplianceInspection.TabIndex = 12
-        Me.rdbInComplianceInspection.TabStop = True
-        Me.rdbInComplianceInspection.Text = "3 - In Compliance, Inspection"
-        Me.rdbInComplianceInspection.UseVisualStyleBackColor = True
-        '
-        'rdbInComplianceSourceTest
-        '
-        Me.rdbInComplianceSourceTest.AutoSize = True
-        Me.rdbInComplianceSourceTest.Location = New System.Drawing.Point(687, 12)
-        Me.rdbInComplianceSourceTest.Name = "rdbInComplianceSourceTest"
-        Me.rdbInComplianceSourceTest.Size = New System.Drawing.Size(171, 17)
-        Me.rdbInComplianceSourceTest.TabIndex = 11
-        Me.rdbInComplianceSourceTest.TabStop = True
-        Me.rdbInComplianceSourceTest.Text = "2 - In Compliance, Source Test"
-        Me.rdbInComplianceSourceTest.UseVisualStyleBackColor = True
-        '
-        'rdbNoApplicableStateReg
-        '
-        Me.rdbNoApplicableStateReg.AutoSize = True
-        Me.rdbNoApplicableStateReg.Location = New System.Drawing.Point(467, 58)
-        Me.rdbNoApplicableStateReg.Name = "rdbNoApplicableStateReg"
-        Me.rdbNoApplicableStateReg.Size = New System.Drawing.Size(160, 17)
-        Me.rdbNoApplicableStateReg.TabIndex = 10
-        Me.rdbNoApplicableStateReg.TabStop = True
-        Me.rdbNoApplicableStateReg.Text = "8 - No Applicable State Reg."
-        Me.rdbNoApplicableStateReg.UseVisualStyleBackColor = True
-        '
-        'rdbMeetingCompliance
-        '
-        Me.rdbMeetingCompliance.AutoSize = True
-        Me.rdbMeetingCompliance.Location = New System.Drawing.Point(467, 35)
-        Me.rdbMeetingCompliance.Name = "rdbMeetingCompliance"
-        Me.rdbMeetingCompliance.Size = New System.Drawing.Size(184, 17)
-        Me.rdbMeetingCompliance.TabIndex = 9
-        Me.rdbMeetingCompliance.TabStop = True
-        Me.rdbMeetingCompliance.Text = "5 - Meeting Compliance Schedule"
-        Me.rdbMeetingCompliance.UseVisualStyleBackColor = True
-        '
-        'rdbUnknownCompliance
-        '
-        Me.rdbUnknownCompliance.AutoSize = True
-        Me.rdbUnknownCompliance.Location = New System.Drawing.Point(467, 12)
-        Me.rdbUnknownCompliance.Name = "rdbUnknownCompliance"
-        Me.rdbUnknownCompliance.Size = New System.Drawing.Size(214, 17)
-        Me.rdbUnknownCompliance.TabIndex = 8
-        Me.rdbUnknownCompliance.TabStop = True
-        Me.rdbUnknownCompliance.Text = "0 - Unknown Compliance Status (SCAP)"
-        Me.rdbUnknownCompliance.UseVisualStyleBackColor = True
-        '
-        'rdbInViolationProcedural
-        '
-        Me.rdbInViolationProcedural.AutoSize = True
-        Me.rdbInViolationProcedural.Location = New System.Drawing.Point(257, 81)
-        Me.rdbInViolationProcedural.Name = "rdbInViolationProcedural"
-        Me.rdbInViolationProcedural.Size = New System.Drawing.Size(154, 17)
-        Me.rdbInViolationProcedural.TabIndex = 7
-        Me.rdbInViolationProcedural.TabStop = True
-        Me.rdbInViolationProcedural.Text = "W - In Violation, Procedural"
-        Me.rdbInViolationProcedural.UseVisualStyleBackColor = True
-        '
-        'rdbInViolationNotMeetingSchedule
-        '
-        Me.rdbInViolationNotMeetingSchedule.AutoSize = True
-        Me.rdbInViolationNotMeetingSchedule.Location = New System.Drawing.Point(257, 58)
-        Me.rdbInViolationNotMeetingSchedule.Name = "rdbInViolationNotMeetingSchedule"
-        Me.rdbInViolationNotMeetingSchedule.Size = New System.Drawing.Size(204, 17)
-        Me.rdbInViolationNotMeetingSchedule.TabIndex = 6
-        Me.rdbInViolationNotMeetingSchedule.TabStop = True
-        Me.rdbInViolationNotMeetingSchedule.Text = "6 - In Violation, Not Meeting Schedule"
-        Me.rdbInViolationNotMeetingSchedule.UseVisualStyleBackColor = True
-        '
-        'rdbInViolationNoSchedule
-        '
-        Me.rdbInViolationNoSchedule.AutoSize = True
-        Me.rdbInViolationNoSchedule.Location = New System.Drawing.Point(257, 35)
-        Me.rdbInViolationNoSchedule.Name = "rdbInViolationNoSchedule"
-        Me.rdbInViolationNoSchedule.Size = New System.Drawing.Size(160, 17)
-        Me.rdbInViolationNoSchedule.TabIndex = 5
-        Me.rdbInViolationNoSchedule.TabStop = True
-        Me.rdbInViolationNoSchedule.Text = "1 - In Violation, No Schedule"
-        Me.rdbInViolationNoSchedule.UseVisualStyleBackColor = True
-        '
-        'rdbInViolationProceduralEmissions
-        '
-        Me.rdbInViolationProceduralEmissions.AutoSize = True
-        Me.rdbInViolationProceduralEmissions.Location = New System.Drawing.Point(257, 12)
-        Me.rdbInViolationProceduralEmissions.Name = "rdbInViolationProceduralEmissions"
-        Me.rdbInViolationProceduralEmissions.Size = New System.Drawing.Size(199, 17)
-        Me.rdbInViolationProceduralEmissions.TabIndex = 4
-        Me.rdbInViolationProceduralEmissions.TabStop = True
-        Me.rdbInViolationProceduralEmissions.Text = "B - In Violation, Procedural Emissions"
-        Me.rdbInViolationProceduralEmissions.UseVisualStyleBackColor = True
-        '
-        'rdbAllNegativeStatus
-        '
-        Me.rdbAllNegativeStatus.AutoSize = True
-        Me.rdbAllNegativeStatus.Location = New System.Drawing.Point(111, 12)
-        Me.rdbAllNegativeStatus.Name = "rdbAllNegativeStatus"
-        Me.rdbAllNegativeStatus.Size = New System.Drawing.Size(126, 17)
-        Me.rdbAllNegativeStatus.TabIndex = 3
-        Me.rdbAllNegativeStatus.TabStop = True
-        Me.rdbAllNegativeStatus.Text = "All Negative Statuses"
-        Me.rdbAllNegativeStatus.UseVisualStyleBackColor = True
-        '
-        'btnViewWatchListFacilities
-        '
-        Me.btnViewWatchListFacilities.AutoSize = True
-        Me.btnViewWatchListFacilities.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnViewWatchListFacilities.Location = New System.Drawing.Point(11, 9)
-        Me.btnViewWatchListFacilities.Name = "btnViewWatchListFacilities"
-        Me.btnViewWatchListFacilities.Size = New System.Drawing.Size(83, 23)
-        Me.btnViewWatchListFacilities.TabIndex = 2
-        Me.btnViewWatchListFacilities.Text = "View Facilities"
-        Me.btnViewWatchListFacilities.UseVisualStyleBackColor = True
-        '
-        'lblWatchListCount
-        '
-        Me.lblWatchListCount.AutoSize = True
-        Me.lblWatchListCount.Location = New System.Drawing.Point(8, 83)
-        Me.lblWatchListCount.Name = "lblWatchListCount"
-        Me.lblWatchListCount.Size = New System.Drawing.Size(35, 13)
-        Me.lblWatchListCount.TabIndex = 0
-        Me.lblWatchListCount.Text = "Count"
-        '
         'TPMiscReports
         '
         Me.TPMiscReports.Controls.Add(Me.dgvMiscReport)
@@ -3593,7 +3053,7 @@ Partial Class SSCPManagersTools
         Me.TPMiscReports.Name = "TPMiscReports"
         Me.TPMiscReports.Size = New System.Drawing.Size(1184, 699)
         Me.TPMiscReports.TabIndex = 9
-        Me.TPMiscReports.Text = "Misc Reports"
+        Me.TPMiscReports.Text = "Enforcement Report"
         Me.TPMiscReports.UseVisualStyleBackColor = True
         '
         'dgvMiscReport
@@ -3652,9 +3112,9 @@ Partial Class SSCPManagersTools
         Me.btnRunComplianceReport.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.btnRunComplianceReport.Location = New System.Drawing.Point(8, 13)
         Me.btnRunComplianceReport.Name = "btnRunComplianceReport"
-        Me.btnRunComplianceReport.Size = New System.Drawing.Size(130, 23)
+        Me.btnRunComplianceReport.Size = New System.Drawing.Size(135, 23)
         Me.btnRunComplianceReport.TabIndex = 0
-        Me.btnRunComplianceReport.Text = "Run Compliance Report"
+        Me.btnRunComplianceReport.Text = "Run Enforcement Report"
         Me.btnRunComplianceReport.UseVisualStyleBackColor = True
         '
         'TPDocuments
@@ -3818,8 +3278,8 @@ Partial Class SSCPManagersTools
         Me.Controls.Add(Me.TCManagerTools)
         Me.Name = "SSCPManagersTools"
         Me.Text = "Compliance Managers Tools"
-        Me.Panel8.ResumeLayout(False)
-        Me.Panel8.PerformLayout()
+        Me.CmsClassSelectionPanel.ResumeLayout(False)
+        Me.CmsClassSelectionPanel.PerformLayout()
         Me.PanelCMSUniverse.ResumeLayout(False)
         Me.PanelCMSUniverse.PerformLayout()
         Me.TPUniverse.ResumeLayout(False)
@@ -3835,8 +3295,8 @@ Partial Class SSCPManagersTools
         Me.TPCMSWarning.ResumeLayout(False)
         Me.TCManagerTools.ResumeLayout(False)
         Me.TPFacilityAssignments.ResumeLayout(False)
-        Me.Panel10.ResumeLayout(False)
-        Me.Panel10.PerformLayout()
+        Me.FacilityAssignmentPanel.ResumeLayout(False)
+        Me.FacilityAssignmentPanel.PerformLayout()
         Me.GroupBox9.ResumeLayout(False)
         Me.GroupBox9.PerformLayout()
         Me.GroupBox8.ResumeLayout(False)
@@ -3870,18 +3330,14 @@ Partial Class SSCPManagersTools
         CType(Me.dgvFilteredFacilityList, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel16.ResumeLayout(False)
         Me.Panel16.PerformLayout()
-        Me.Panel15.ResumeLayout(False)
-        Me.Panel15.PerformLayout()
+        Me.FacilitySelectToolsPanel.ResumeLayout(False)
+        Me.FacilitySelectToolsPanel.PerformLayout()
         Me.Panel12.ResumeLayout(False)
         CType(Me.dgvSelectedFacilityList, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel17.ResumeLayout(False)
         Me.Panel17.PerformLayout()
         Me.Panel18.ResumeLayout(False)
         Me.Panel18.PerformLayout()
-        Me.TPPollutantBubbleUp.ResumeLayout(False)
-        CType(Me.dgvPollutantFacilities, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.GroupBox5.ResumeLayout(False)
-        Me.GroupBox5.PerformLayout()
         Me.TPStatisticalPage.ResumeLayout(False)
         Me.SCStatisticalReports.Panel1.ResumeLayout(False)
         Me.SCStatisticalReports.Panel2.ResumeLayout(False)
@@ -3902,10 +3358,6 @@ Partial Class SSCPManagersTools
         Me.TPTitleVRenewals.ResumeLayout(False)
         Me.TPTitleVRenewals.PerformLayout()
         CType(Me.dgvStatisticalReports, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.TPWatchList.ResumeLayout(False)
-        CType(Me.dgvWatchList, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.Panel6.ResumeLayout(False)
-        Me.Panel6.PerformLayout()
         Me.TPMiscReports.ResumeLayout(False)
         CType(Me.dgvMiscReport, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel19.ResumeLayout(False)
@@ -3925,11 +3377,10 @@ Partial Class SSCPManagersTools
     Friend WithEvents DTPStartDate As System.Windows.Forms.DateTimePicker
     Friend WithEvents Label28 As System.Windows.Forms.Label
     Friend WithEvents Label10 As System.Windows.Forms.Label
-    Friend WithEvents llbPrintStaffReport As System.Windows.Forms.LinkLabel
     Friend WithEvents Label21 As System.Windows.Forms.Label
     Friend WithEvents lblRunInspectionReport As System.Windows.Forms.LinkLabel
     Friend WithEvents Label11 As System.Windows.Forms.Label
-    Friend WithEvents Panel8 As System.Windows.Forms.Panel
+    Friend WithEvents CmsClassSelectionPanel As System.Windows.Forms.Panel
     Friend WithEvents rdbCMSClassA As System.Windows.Forms.RadioButton
     Friend WithEvents rdbCMSClassS As System.Windows.Forms.RadioButton
     Friend WithEvents clbEngineers As System.Windows.Forms.CheckedListBox
@@ -3989,25 +3440,6 @@ Partial Class SSCPManagersTools
     Friend WithEvents TPCMSWarning As System.Windows.Forms.TabPage
     Friend WithEvents Splitter3 As System.Windows.Forms.Splitter
     Friend WithEvents TCManagerTools As System.Windows.Forms.TabControl
-    Friend WithEvents TPPollutantBubbleUp As System.Windows.Forms.TabPage
-    Friend WithEvents GroupBox5 As System.Windows.Forms.GroupBox
-    Friend WithEvents chbStatus4 As System.Windows.Forms.CheckBox
-    Friend WithEvents chbStatus3 As System.Windows.Forms.CheckBox
-    Friend WithEvents chbStatus2 As System.Windows.Forms.CheckBox
-    Friend WithEvents chbStatusC As System.Windows.Forms.CheckBox
-    Friend WithEvents chbStatus9 As System.Windows.Forms.CheckBox
-    Friend WithEvents chbStatus0 As System.Windows.Forms.CheckBox
-    Friend WithEvents chbStatus8 As System.Windows.Forms.CheckBox
-    Friend WithEvents chbStatus5 As System.Windows.Forms.CheckBox
-    Friend WithEvents chbStatusW As System.Windows.Forms.CheckBox
-    Friend WithEvents chbStatus6 As System.Windows.Forms.CheckBox
-    Friend WithEvents chbStatus1 As System.Windows.Forms.CheckBox
-    Friend WithEvents chbStatusB As System.Windows.Forms.CheckBox
-    Friend WithEvents chbStatusM As System.Windows.Forms.CheckBox
-    Friend WithEvents dgvPollutantFacilities As System.Windows.Forms.DataGridView
-    Friend WithEvents btnViewFacilities As System.Windows.Forms.Button
-    Friend WithEvents txtAIRSNumber As System.Windows.Forms.TextBox
-    Friend WithEvents txtPollutantCount As System.Windows.Forms.TextBox
     Friend WithEvents TPStatisticalPage As System.Windows.Forms.TabPage
     Friend WithEvents btnRunStatisticalReport As System.Windows.Forms.Button
     Friend WithEvents DTPSearchDateEnd As System.Windows.Forms.DateTimePicker
@@ -4081,25 +3513,6 @@ Partial Class SSCPManagersTools
     Friend WithEvents lblStatisticalRecords As System.Windows.Forms.Label
     Friend WithEvents chbNoFCE As System.Windows.Forms.CheckBox
     Friend WithEvents dgvCMSUniverse As System.Windows.Forms.DataGridView
-    Friend WithEvents TPWatchList As System.Windows.Forms.TabPage
-    Friend WithEvents dgvWatchList As System.Windows.Forms.DataGridView
-    Friend WithEvents Panel6 As System.Windows.Forms.Panel
-    Friend WithEvents btnViewWatchListFacilities As System.Windows.Forms.Button
-    Friend WithEvents lblWatchListCount As System.Windows.Forms.Label
-    Friend WithEvents rdbAllNegativeStatus As System.Windows.Forms.RadioButton
-    Friend WithEvents rdbInViolationProceduralEmissions As System.Windows.Forms.RadioButton
-    Friend WithEvents rdbInComplianceProcedural As System.Windows.Forms.RadioButton
-    Friend WithEvents rdbInComplianceShutDown As System.Windows.Forms.RadioButton
-    Friend WithEvents rdbInComplianceCertification As System.Windows.Forms.RadioButton
-    Friend WithEvents rdbInComplianceInspection As System.Windows.Forms.RadioButton
-    Friend WithEvents rdbInComplianceSourceTest As System.Windows.Forms.RadioButton
-    Friend WithEvents rdbNoApplicableStateReg As System.Windows.Forms.RadioButton
-    Friend WithEvents rdbMeetingCompliance As System.Windows.Forms.RadioButton
-    Friend WithEvents rdbUnknownCompliance As System.Windows.Forms.RadioButton
-    Friend WithEvents rdbInViolationProcedural As System.Windows.Forms.RadioButton
-    Friend WithEvents rdbInViolationNotMeetingSchedule As System.Windows.Forms.RadioButton
-    Friend WithEvents rdbInViolationNoSchedule As System.Windows.Forms.RadioButton
-    Friend WithEvents rdbInComplianceCEMSData As System.Windows.Forms.RadioButton
     Friend WithEvents TPFacilityAssignments As System.Windows.Forms.TabPage
     Friend WithEvents btnSelectFacility As System.Windows.Forms.Button
     Friend WithEvents btnUnselectFacility As System.Windows.Forms.Button
@@ -4107,7 +3520,7 @@ Partial Class SSCPManagersTools
     Friend WithEvents btnUnselectAllFacilities As System.Windows.Forms.Button
     Friend WithEvents dgvSelectedFacilityList As System.Windows.Forms.DataGridView
     Friend WithEvents dgvFilteredFacilityList As System.Windows.Forms.DataGridView
-    Friend WithEvents Panel10 As System.Windows.Forms.Panel
+    Friend WithEvents FacilityAssignmentPanel As System.Windows.Forms.Panel
     Friend WithEvents Panel9 As System.Windows.Forms.Panel
     Friend WithEvents pnlFacilityAssignments As System.Windows.Forms.Panel
     Friend WithEvents cboFacSearch2 As System.Windows.Forms.ComboBox
@@ -4190,7 +3603,7 @@ Partial Class SSCPManagersTools
     Friend WithEvents rdbCMS_SM As System.Windows.Forms.RadioButton
     Friend WithEvents rdbCMS_A As System.Windows.Forms.RadioButton
     Friend WithEvents Label61 As System.Windows.Forms.Label
-    Friend WithEvents Panel15 As System.Windows.Forms.Panel
+    Friend WithEvents FacilitySelectToolsPanel As System.Windows.Forms.Panel
     Friend WithEvents Panel14 As System.Windows.Forms.Panel
     Friend WithEvents Panel16 As System.Windows.Forms.Panel
     Friend WithEvents Panel17 As System.Windows.Forms.Panel
@@ -4215,11 +3628,9 @@ Partial Class SSCPManagersTools
     Friend WithEvents btnExportMiscToExcel As System.Windows.Forms.Button
     Friend WithEvents btnExportToExcel As System.Windows.Forms.Button
     Friend WithEvents btnExportCmsWarningToExcel As System.Windows.Forms.Button
-    Friend WithEvents btnExportPollutantsToExcel As System.Windows.Forms.Button
     Friend WithEvents btnExportCmsUniverseToExcel As System.Windows.Forms.Button
     Friend WithEvents btnAddToCmsUniverse As System.Windows.Forms.Button
     Friend WithEvents btnDeleteFacilityFromCms As System.Windows.Forms.Button
-    Friend WithEvents btnExportWatchListToExcel As System.Windows.Forms.Button
     Friend WithEvents llbViewRecord As System.Windows.Forms.LinkLabel
     Friend WithEvents TPDocuments As System.Windows.Forms.TabPage
     Friend WithEvents lblEnfDocumentTypes As System.Windows.Forms.Label
@@ -4243,5 +3654,4 @@ Partial Class SSCPManagersTools
     Friend WithEvents Label64 As System.Windows.Forms.Label
     Friend WithEvents cboExistingYears As System.Windows.Forms.ComboBox
     Friend WithEvents Label63 As System.Windows.Forms.Label
-    Friend WithEvents OpenFacilityButton As System.Windows.Forms.Button
 End Class
