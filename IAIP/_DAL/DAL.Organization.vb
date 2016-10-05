@@ -1,6 +1,7 @@
 ﻿Imports System.Data.SqlClient
 Imports Iaip.SharedData
 Imports EpdIt.DBUtilities
+Imports System.Collections.Generic
 
 Namespace DAL
     Module Organization
@@ -107,6 +108,12 @@ Namespace DAL
             SscpProgramManager
             SsppProgramManager
         End Enum
+
+        Public Function GetDistrictsAsLookup() As DataTable
+            Dim query As String = "SELECT STRDISTRICTCODE AS Code, STRDISTRICTNAME AS District " &
+                " FROM LOOKUPDISTRICTS ORDER BY STRDISTRICTNAME "
+            Return DB.GetDataTable(query)
+        End Function
 
     End Module
 End Namespace

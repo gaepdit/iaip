@@ -132,6 +132,8 @@
 
 End Class
 
+#Region " Enums "
+
 Public Enum UserCan
     SaveEnforcement
     ResolveEnforcement
@@ -149,3 +151,5 @@ Public Enum RoleType
     BranchAdmin
     DistrictManager
 End Enum
+
+#End Region

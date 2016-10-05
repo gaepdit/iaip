@@ -371,12 +371,7 @@ Namespace DAL
                 .Active = Convert.ToBoolean(row("FACTIVE"))
                 .DocumentType = DBUtilities.GetNullable(Of String)(row("STRDOCUMENTTYPE"))
                 .DocumentTypeId = row("DOCUMENTTYPEID")
-                Try
-                    .Ordinal = DBUtilities.GetNullable(Of Short?)(row("NUMORDINAL"))
-
-                Catch ex As Exception
-
-                End Try
+                .Ordinal = DBUtilities.GetNullable(Of Integer)(row("NUMORDINAL"))
             End With
         End Sub
 

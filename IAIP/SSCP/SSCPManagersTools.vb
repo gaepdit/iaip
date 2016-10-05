@@ -1,5 +1,6 @@
 Imports System.Collections.Generic
 Imports System.Data.SqlClient
+Imports Iaip.SharedData
 
 Public Class SSCPManagersTools
 
@@ -10,38 +11,12 @@ Public Class SSCPManagersTools
     Dim recExist As Boolean
 
     Dim dsStaff As DataSet
-    Dim daStaff As SqlDataAdapter
-    Dim dsAssignStaff As DataSet
-    Dim daAssignStaff As SqlDataAdapter
-    Dim dsUnits As DataSet
-    Dim daUnits As SqlDataAdapter
-    Dim dsFilterUnits As DataSet
-    Dim daFilterUnits As SqlDataAdapter
-    Dim dsClassFilter As DataSet
-    Dim daClassFilter As SqlDataAdapter
-    Dim dsCMSMemberFilter As DataSet
-    Dim daCMSMemberFilter As SqlDataAdapter
-    Dim dsCountyFilter As DataSet
-    Dim daCountyFilter As SqlDataAdapter
-    Dim dsDistrictFilter As DataSet
-    Dim daDistrictFilter As SqlDataAdapter
 
-    Dim dsAdminStaff As DataSet
-    Dim daAdminStaff As SqlDataAdapter
-    Dim dsAirStaff As DataSet
-    Dim daAirStaff As SqlDataAdapter
-    Dim dsChemStaff As DataSet
-    Dim daChemStaff As SqlDataAdapter
-    Dim dsVOCStaff As DataSet
-    Dim daVOCStaff As SqlDataAdapter
-    Dim dsDistrictStaff As DataSet
-    Dim daDistrictStaff As SqlDataAdapter
     Dim dsCMSDataSet As DataSet
     Dim daCMSDataSet As SqlDataAdapter
     Dim dsCMSWarningDataSet As DataSet
     Dim daCMSWarningDataSet As SqlDataAdapter
-    Dim dsPollutantList As DataSet
-    Dim daPollutantList As SqlDataAdapter
+
     Dim dsStatisticalReport As DataSet
     Dim daStatisticalReport As SqlDataAdapter
     Dim dsEnforcementPenalties As DataSet
@@ -61,7 +36,7 @@ Public Class SSCPManagersTools
             dtpEnforcementStartDate.Enabled = False
             dtpEnforcementEndDate.Enabled = False
 
-            DTPSearchDateStart.Text = Format(Date.Today.AddYears(-1), "dd-MMM-yyyy")
+            DTPSearchDateStart.Value = Today.AddYears(-1)
             DTPSearchDateEnd.Value = Today
 
             cboFilterEngineer1.Visible = False
@@ -69,15 +44,10 @@ Public Class SSCPManagersTools
             txtFacSearch1.Visible = True
             txtFacSearch2.Visible = True
 
-            LoadDataSets()
             LoadComboBoxes()
-            LoadStatisticalLists()
+            LoadStatisticsListboxes()
 
             LoadSelectedFacilitesGrid()
-
-            FacilityAssignmentPanel.Enabled = False
-            TCNewFacilitySearch.Enabled = False
-            FacilitySelectToolsPanel.Enabled = False
 
             TCNewFacilitySearch.TabPages.Remove(TPCopyYear)
 
@@ -97,445 +67,148 @@ Public Class SSCPManagersTools
         End Try
     End Sub
 
-    Private Sub LoadDataSets()
-        Try
-
-            dsStaff = New DataSet
-            dsUnits = New DataSet
-            dsAssignStaff = New DataSet
-            dsFilterUnits = New DataSet
-            dsClassFilter = New DataSet
-            dsCMSMemberFilter = New DataSet
-            dsCountyFilter = New DataSet
-            dsDistrictFilter = New DataSet
-
-            SQL = "Select  " &
-            "(strLastName||', '||strFirstName) as UserName, " &
-            "strUnitDesc, numUserID " &
-            "from EPDUserProfiles, LookUpEPDUnits  " &
-            "where EPDUserProfiles.numUnit = LookupEPDUnits.numUnitCode (+) " &
-            "and (numProgram = '4' " &
-            "or strLastname = 'District') " &
-            "UNION " &
-            "Select  " &
-            "(strLastName||', '||strFirstName) as UserName, " &
-            "strUnitDesc, numUserID " &
-            "from EPDUserProfiles, LookUpEPDUnits, " &
-            "SSCPInspectionsRequired   " &
-            "where SSCPInspectionsRequired.numSSCPEngineer = EPDUserProfiles.numUserID " &
-            "and EPDUserProfiles.numUnit = LookupEPDUnits.numUnitCode (+) " &
-            "group by strLastName, strFirstName, strUnitDesc, numUserID  " &
-            "order by UserName "
-
-            daStaff = New SqlDataAdapter(SQL, CurrentConnection)
-
-            If AccountFormAccess(22, 2) = "1" Then 'District Liason 
-                SQL = "select " &
-                "strUnitDesc, numUnitCode " &
-                "from LookUPEPDUnits " &
-                "where numProgramCode = '4' " &
-                "or numUnitCode = '44' " &
-                "or numUnitCode = '43' " &
-                "or numUnitCode = '42' " &
-                "or numUnitCode = '41' " &
-                "or numUnitCode = '40' " &
-                "or numUnitCode = '39' " &
-                "or numUnitCode = '38'  " &
-                "or numUnitCode = '37'  " &
-                "or numUnitCode = '36' "
-            Else
-                SQL = "select strUnitDesc, numUnitCode " &
-                "from LookUpEPDUnits   " &
-                "where numProgramCode = '4' " &
-                "order by strUnitDesc  "
-            End If
-
-            daUnits = New SqlDataAdapter(SQL, CurrentConnection)
-
-            SQL = "Select " &
-            "(strLastName||', '||strFirstName) as UserName, " &
-            "strUnitDesc, numUserID " &
-            "from EPDUserProfiles, LookUpEPDUnits  " &
-            "where EPDUserProfiles.numUnit = LookupEPDUnits.numUnitCode (+) " &
-            "and ((numProgram = '4' " &
-            "or strLastname = 'District') " &
-            "    or numbranch = '5') " &
-            "and numEmployeeStatus = '1'  " &
-            "order by strLastName  "
-            daAssignStaff = New SqlDataAdapter(SQL, CurrentConnection)
-
-            SQL = "select " &
-           "strUnitDesc, numUnitCode " &
-           "from LookUPEPDUnits " &
-           "where numProgramCode = '4' " &
-           "or numUnitCode = '44' " &
-           "or numUnitCode = '43' " &
-           "or numUnitCode = '42' " &
-           "or numUnitCode = '41' " &
-           "or numUnitCode = '40' " &
-           "or numUnitCode = '39' " &
-           "or numUnitCode = '38'  " &
-           "or numUnitCode = '37'  "
-
-            daFilterUnits = New SqlDataAdapter(SQL, CurrentConnection)
-
-            SQL = "select distinct(strClass) as strClass " &
-            "from APBHeaderData  " &
-            "order by strClass "
-
-            daClassFilter = New SqlDataAdapter(SQL, CurrentConnection)
-
-            SQL = "Select distinct(strCMSMember) as strCMSMember " &
-            "from APBSupplamentalData " &
-            "order by strCMSMember "
-
-            daCMSMemberFilter = New SqlDataAdapter(SQL, CurrentConnection)
-
-            SQL = "select " &
-            "strCountyName, strCountyCode " &
-            "from LookUpCountyInformation " &
-            "order by strCountyName "
-
-            daCountyFilter = New SqlDataAdapter(SQL, CurrentConnection)
-
-            SQL = "Select " &
-            "strDistrictName " &
-            "from LookupDistricts " &
-            "order by strDistrictname "
-
-            daDistrictFilter = New SqlDataAdapter(SQL, CurrentConnection)
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            daStaff.Fill(dsStaff, "Staff")
-            daUnits.Fill(dsUnits, "Units")
-            daAssignStaff.Fill(dsAssignStaff, "AssignStaff")
-            daFilterUnits.Fill(dsFilterUnits, "FilterUnits")
-            daClassFilter.Fill(dsClassFilter, "ClassFilter")
-            daCMSMemberFilter.Fill(dsCMSMemberFilter, "CMSMemberFilter")
-            daCountyFilter.Fill(dsCountyFilter, "CountyFilter")
-            daDistrictFilter.Fill(dsDistrictFilter, "DistrictFilter")
-
-            If dsStaff.Tables(0).Rows.Count = 0 Then
-                SQL = "Select (strLastName||', '||strFirstName) as UserName,  " &
-                "strUnitDesc, numUserID    " &
-                "from EPDUserProfiles, LookUpEPDUnits    " &
-                "where EPDUserProfiles.numUnit = LookUpEPDUnits.numUnitCode (+)  " &
-                "and (numProgram = '4' or strLastName = 'District') " &
-                "order by strLastName "
-
-                dsStaff = New DataSet
-                daStaff = New SqlDataAdapter(SQL, CurrentConnection)
-
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-
-                daStaff.Fill(dsStaff, "Staff")
-            End If
-
-            cboFiscalYear.Items.Add(((Date.Now.Year) + 1).ToString)
-            cboFiscalYear.Items.Add(((Date.Now.Year)).ToString)
-
-            SQL = "select " &
-            "distinct(intYear) as FCEYear " &
-            "from SSCPInspectionsRequired " &
-            "order by intYear desc "
-
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                If IsDBNull(dr.Item("FCEYear")) Then
-                Else
-                    If cboFiscalYear.Items.Contains(dr.Item("FceYear").ToString) Then
-                    Else
-                        cboFiscalYear.Items.Add(dr.Item("FCEYear").ToString)
-                    End If
-                    If cboExistingYears.Items.Contains(dr.Item("FCEYear").ToString) Then
-                    Else
-                        cboExistingYears.Items.Add(dr.Item("FCEYear").ToString)
-                    End If
-                End If
-            End While
-            dr.Close()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-
     Private Sub LoadComboBoxes()
-        Dim dtStaffSearch1 As New DataTable
-        Dim dtStaffSearch2 As New DataTable
-        Dim dtAssignStaff As New DataTable
-        Dim dtUnits As New DataTable
-        Dim dtFilterUnits As New DataTable
-        Dim dtClassFilter As New DataTable
-        Dim dtCMSMemberFilter As New DataTable
-        Dim dtCountyFilter As New DataTable
-        Dim dtDistrictFilter As New DataTable
-
-        Dim drNewRow As DataRow
-        Dim drDSRow As DataRow
-        Dim drDSRow2 As DataRow
-        Dim drDSRow3 As DataRow
-        Dim drDSRow4 As DataRow
-        Dim drDSRow5 As DataRow
-        Dim drDSRow6 As DataRow
-        Dim drDSRow7 As DataRow
-        Dim drDSRow8 As DataRow
-
         Try
+            Dim SQL As String = "SELECT DISTINCT INTYEAR
+                FROM SSCPINSPECTIONSREQUIRED
+                UNION SELECT YEAR(GETDATE())
+                UNION SELECT YEAR(GETDATE()) + 1
+                ORDER BY INTYEAR DESC"
 
-            dtAssignStaff.Columns.Add("UserName", GetType(System.String))
-            dtAssignStaff.Columns.Add("numUserID", GetType(System.String))
+            With cboFiscalYear
+                .DataSource = DB.GetDataTable(SQL)
+                .DisplayMember = "INTYEAR"
+                .ValueMember = "INTYEAR"
+            End With
 
-            drNewRow = dtAssignStaff.NewRow()
-            drNewRow("UserName") = " "
-            drNewRow("numUserID") = "0"
-            dtAssignStaff.Rows.Add(drNewRow)
-
-            For Each drDSRow In dsAssignStaff.Tables("AssignStaff").Rows()
-                drNewRow = dtAssignStaff.NewRow
-                drNewRow("UserName") = drDSRow("UserName")
-                drNewRow("numUserID") = drDSRow("numUserID")
-                dtAssignStaff.Rows.Add(drNewRow)
-            Next
+            SQL = "SELECT CONCAT(STRLASTNAME, ', ', STRFIRSTNAME) AS UserName, NUMUSERID
+                FROM EPDUSERPROFILES AS p
+                LEFT JOIN LOOKUPEPDUNITS AS l ON p.NUMUNIT = l.NUMUNITCODE
+                WHERE NUMPROGRAM IN (4, 5) AND NUMEMPLOYEESTATUS = 1
+                ORDER BY STRLASTNAME"
 
             With cboSSCPEngineer
-                .DataSource = dtAssignStaff
+                .DataSource = DB.GetDataTable(SQL)
                 .DisplayMember = "UserName"
-                .ValueMember = "numUserID"
-                .SelectedIndex = 0
+                .ValueMember = "NUMUSERID"
             End With
 
-            dtStaffSearch1.Columns.Add("UserName", GetType(System.String))
-            dtStaffSearch1.Columns.Add("numUserID", GetType(System.String))
+            SQL = "SELECT CONCAT(STRLASTNAME, ', ', STRFIRSTNAME) AS UserName, NUMUSERID 
+                FROM EPDUSERPROFILES AS p
+                LEFT JOIN LOOKUPEPDUNITS AS l ON p.NUMUNIT = l.NUMUNITCODE
+                WHERE NUMPROGRAM = '4'
+                UNION
+                SELECT CONCAT(STRLASTNAME, ', ', STRFIRSTNAME) AS UserName, NUMUSERID
+                FROM EPDUSERPROFILES AS p
+                LEFT JOIN LOOKUPEPDUNITS AS l ON p.NUMUNIT = l.NUMUNITCODE
+                INNER JOIN SSCPINSPECTIONSREQUIRED AS r ON r.NUMSSCPENGINEER = p.NUMUSERID
+                ORDER BY UserName"
 
-            drNewRow = dtStaffSearch1.NewRow()
-            drNewRow("UserName") = " "
-            drNewRow("numUserID") = "0"
-            dtStaffSearch1.Rows.Add(drNewRow)
-
-            For Each drDSRow3 In dsStaff.Tables("Staff").Rows()
-                drNewRow = dtStaffSearch1.NewRow
-                drNewRow("UserName") = drDSRow3("UserName")
-                drNewRow("numUserID") = drDSRow3("numUserID")
-                dtStaffSearch1.Rows.Add(drNewRow)
-            Next
+            Dim dtStaffSearch As DataTable = DB.GetDataTable(SQL)
 
             With cboFilterEngineer1
-                .DataSource = dtStaffSearch1
+                .DataSource = dtStaffSearch
                 .DisplayMember = "UserName"
-                .ValueMember = "numUserID"
-                .SelectedIndex = 0
+                .ValueMember = "NUMUSERID"
             End With
-
-            dtStaffSearch2.Columns.Add("UserName", GetType(System.String))
-            dtStaffSearch2.Columns.Add("numUserID", GetType(System.String))
-
-            drNewRow = dtStaffSearch2.NewRow()
-            drNewRow("UserName") = " "
-            drNewRow("numUserID") = "0"
-            dtStaffSearch2.Rows.Add(drNewRow)
-
-            For Each drDSRow3 In dsStaff.Tables("Staff").Rows()
-                drNewRow = dtStaffSearch2.NewRow
-                drNewRow("UserName") = drDSRow3("UserName")
-                drNewRow("numUserID") = drDSRow3("numUserID")
-                dtStaffSearch2.Rows.Add(drNewRow)
-            Next
 
             With cboFilterEngineer2
-                .DataSource = dtStaffSearch2
+                .DataSource = dtStaffSearch
                 .DisplayMember = "UserName"
-                .ValueMember = "numUserID"
-                .SelectedIndex = 0
+                .ValueMember = "NUMUSERID"
             End With
 
-            dtUnits.Columns.Add("strUnitDesc", GetType(System.String))
-            dtUnits.Columns.Add("numUnitCode", GetType(System.String))
+            SQL = "SELECT STRUNITDESC, NUMUNITCODE FROM LOOKUPEPDUNITS 
+                WHERE NUMPROGRAMCODE = 4 OR NUMUNITCODE 
+                IN(44, 43, 42, 41, 40, 39, 38, 37)"
 
-            drNewRow = dtUnits.NewRow()
-            drNewRow("strUnitDesc") = " "
-            drNewRow("numUnitCode") = ""
-            dtUnits.Rows.Add(drNewRow)
-
-            For Each drDSRow2 In dsUnits.Tables("Units").Rows()
-                drNewRow = dtUnits.NewRow
-                drNewRow("strUnitDesc") = drDSRow2("strUnitDesc")
-                drNewRow("numUnitCode") = drDSRow2("numUnitCode")
-                dtUnits.Rows.Add(drNewRow)
-            Next
-
+            Dim dtUnits As DataTable = DB.GetDataTable(SQL)
 
             With cboSSCPUnit2
                 .DataSource = dtUnits
-                .DisplayMember = "strUnitDesc"
-                .ValueMember = "numUnitCode"
-                .SelectedValue = 0
+                .DisplayMember = "STRUNITDESC"
+                .ValueMember = "NUMUNITCODE"
             End With
 
-            dtFilterUnits.Columns.Add("strUnitDesc", GetType(System.String))
-            dtFilterUnits.Columns.Add("numUnitCode", GetType(System.String))
-
-            drNewRow = dtFilterUnits.NewRow()
-            drNewRow("strUnitDesc") = " "
-            drNewRow("numUnitCode") = " "
-            dtFilterUnits.Rows.Add(drNewRow)
-
-            For Each drDSRow4 In dsFilterUnits.Tables("FilterUnits").Rows()
-                drNewRow = dtFilterUnits.NewRow
-                drNewRow("strUnitDesc") = drDSRow4("strUnitDesc")
-                drNewRow("numUnitCode") = drDSRow4("numUnitCode")
-                dtFilterUnits.Rows.Add(drNewRow)
-            Next
-
             With cboSSCPUnitFilter
-                .DataSource = dtFilterUnits
-                .DisplayMember = "strUnitDesc"
-                .ValueMember = "numUnitCode"
-                .SelectedValue = 0
+                .DataSource = dtUnits.Clone
+                .DisplayMember = "STRUNITDESC"
+                .ValueMember = "NUMUNITCODE"
             End With
 
             With cboSSCPUnitFilter2
-                .DataSource = dtFilterUnits
-                .DisplayMember = "strUnitDesc"
-                .ValueMember = "numUnitCode"
-                .SelectedValue = 0
+                .DataSource = dtUnits.Clone
+                .DisplayMember = "STRUNITDESC"
+                .ValueMember = "NUMUNITCODE"
             End With
 
-            dtClassFilter.Columns.Add("strClass", GetType(System.String))
-
-            drNewRow = dtClassFilter.NewRow()
-            drNewRow("strClass") = " "
-            dtClassFilter.Rows.Add(drNewRow)
-
-            For Each drDSRow5 In dsClassFilter.Tables("ClassFilter").Rows()
-                drNewRow = dtClassFilter.NewRow
-                drNewRow("strClass") = drDSRow5("strClass")
-                dtClassFilter.Rows.Add(drNewRow)
-            Next
-
-            With cboClassFilter1
-                .DataSource = dtClassFilter
-                .DisplayMember = "strClass"
-                .ValueMember = "strClass"
-                .SelectedIndex = 0
+            With cboClassFilter1.Items
+                .Add("A")
+                .Add("B")
+                .Add("C")
+                .Add("PR")
+                .Add("SM")
             End With
 
-            With cboClassFilter2
-                .DataSource = dtClassFilter
-                .DisplayMember = "strClass"
-                .ValueMember = "strClass"
-                .SelectedIndex = 0
+            With cboClassFilter2.Items
+                .Add("A")
+                .Add("B")
+                .Add("C")
+                .Add("PR")
+                .Add("SM")
             End With
 
-
-            dtCMSMemberFilter.Columns.Add("strCMSmember", GetType(System.String))
-
-            drNewRow = dtCMSMemberFilter.NewRow()
-            drNewRow("strCMSMember") = " "
-            dtCMSMemberFilter.Rows.Add(drNewRow)
-
-            For Each drDSRow8 In dsCMSMemberFilter.Tables("CMSMemberFilter").Rows()
-                drNewRow = dtCMSMemberFilter.NewRow
-                drNewRow("strCMSMember") = drDSRow8("strCMSMember")
-                dtCMSMemberFilter.Rows.Add(drNewRow)
-            Next
-
-            With cboCMSMemberFilter1
-                .DataSource = dtCMSMemberFilter
-                .DisplayMember = "strCMSMember"
-                .ValueMember = "strCMSMember"
-                .SelectedIndex = 0
+            With cboCMSMemberFilter1.Items
+                .Add("")
+                .Add("A")
+                .Add("S")
+                .Add("M")
             End With
 
-            With cboCMSMemberFilter2
-                .DataSource = dtCMSMemberFilter
-                .DisplayMember = "strCMSMember"
-                .ValueMember = "strCMSMember"
-                .SelectedIndex = 0
+            With cboCMSMemberFilter2.Items
+                .Add("")
+                .Add("A")
+                .Add("S")
+                .Add("M")
             End With
 
-            With cboCMSFrequency
-                .DataSource = dtCMSMemberFilter
-                .DisplayMember = "strCMSMember"
-                .ValueMember = "strCMSMember"
-                .SelectedIndex = 0
+            With cboCMSFrequency.Items
+                .Add("")
+                .Add("A")
+                .Add("S")
+                .Add("M")
             End With
 
-            With cboCMSWarningFrequency
-                .DataSource = dtCMSMemberFilter
-                .DisplayMember = "strCMSMember"
-                .ValueMember = "strCMSMember"
-                .SelectedIndex = 0
+            With cboCMSWarningFrequency.Items
+                .Add("")
+                .Add("A")
+                .Add("S")
+                .Add("M")
             End With
-
-
-            dtCountyFilter.Columns.Add("strCountyName", GetType(System.String))
-            dtCountyFilter.Columns.Add("strCountyCode", GetType(System.String))
-
-            drNewRow = dtCountyFilter.NewRow()
-            drNewRow("strCountyName") = " "
-            drNewRow("strCountyCode") = " "
-            dtCountyFilter.Rows.Add(drNewRow)
-
-            For Each drDSRow6 In dsCountyFilter.Tables("CountyFilter").Rows()
-                drNewRow = dtCountyFilter.NewRow
-                drNewRow("strCountyName") = drDSRow6("strCountyName")
-                drNewRow("strCountyCode") = drDSRow6("strCountyCode")
-                dtCountyFilter.Rows.Add(drNewRow)
-            Next
 
             With cboCountyFilter1
-                .DataSource = dtCountyFilter
-                .DisplayMember = "strCountyName"
-                .ValueMember = "strCountyName"
-                .SelectedValue = 0
+                .DataSource = New BindingSource(GetSharedData(SharedTable.Counties), Nothing)
+                .DisplayMember = "County"
+                .ValueMember = "County"
             End With
 
             With cboCountyFilter2
-                .DataSource = dtCountyFilter
-                .DisplayMember = "strCountyName"
-                .ValueMember = "strCountyName"
-                .SelectedValue = 0
+                .DataSource = New BindingSource(GetSharedData(SharedTable.Counties), Nothing)
+                .DisplayMember = "County"
+                .ValueMember = "County"
             End With
 
-            dtDistrictFilter.Columns.Add("strDistrictName", GetType(System.String))
-
-            drNewRow = dtDistrictFilter.NewRow()
-            drNewRow("strDistrictName") = " "
-            dtDistrictFilter.Rows.Add(drNewRow)
-
-            For Each drDSRow7 In dsDistrictFilter.Tables("DistrictFilter").Rows()
-                drNewRow = dtDistrictFilter.NewRow
-                drNewRow("strDistrictName") = drDSRow7("strDistrictName")
-                dtDistrictFilter.Rows.Add(drNewRow)
-            Next
-
             With cboDistrictFilter1
-                .DataSource = dtDistrictFilter
-                .DisplayMember = "strDistrictName"
-                .ValueMember = "strDistrictName"
-                .SelectedValue = 0
+                .DataSource = DAL.GetDistrictsAsLookup()
+                .DisplayMember = "District"
+                .ValueMember = "District"
             End With
 
             With cboDistrictFilter2
-                .DataSource = dtDistrictFilter
-                .DisplayMember = "strDistrictName"
-                .ValueMember = "strDistrictName"
-                .SelectedValue = 0
+                .DataSource = DAL.GetDistrictsAsLookup()
+                .DisplayMember = "District"
+                .ValueMember = "District"
             End With
-
-
-
-
 
             '--- This loads the Combo Box Compliance Units/Districts
 
@@ -546,8 +219,6 @@ Public Class SSCPManagersTools
             cboComplianceUnits.Items.Add("VOC/Combustion")
             cboComplianceUnits.Items.Add("All Units")
             cboComplianceUnits.Items.Add("District")
-
-            cboComplianceUnits.SelectedIndex = 0
 
             '--- This loads the Combo Box Filter Option 1 on New Search 
             cboFacSearch1.Items.Add("<Select a Filter Option>")
@@ -564,7 +235,6 @@ Public Class SSCPManagersTools
             cboFacSearch1.Items.Add("SIC Codes")
             cboFacSearch1.Items.Add("SSCP Unit")
             cboFacSearch1.Items.Add("Unassigned Facilities")
-
             cboFacSearch1.SelectedIndex = 0
 
             '--- This loads the Combo Box Filter Option 2 on New Search 
@@ -582,7 +252,6 @@ Public Class SSCPManagersTools
             cboFacSearch2.Items.Add("SIC Codes")
             cboFacSearch2.Items.Add("SSCP Unit")
             cboFacSearch2.Items.Add("Unassigned Facilities")
-
             cboFacSearch2.SelectedIndex = 0
 
             '--- This loads the Combo Box Sort Option 1 for New Facility Search
@@ -599,8 +268,6 @@ Public Class SSCPManagersTools
             cboSort1.Items.Add("SIC Codes")
             cboSort1.Items.Add("SSCP Unit")
 
-            cboSort1.SelectedIndex = 0
-
             '--- This loads the Combo Box Sort Option 2 for New Facility Search
             cboSort2.Items.Add("<Select a Filter Option>")
             cboSort2.Items.Add("AIRS Number")
@@ -615,17 +282,13 @@ Public Class SSCPManagersTools
             cboSort2.Items.Add("SIC Codes")
             cboSort2.Items.Add("SSCP Unit")
 
-            cboSort2.SelectedIndex = 0
-
             '--- This loads the Combo Box Sort Option Order 1 for New Facility Search
             cboSortOrder1.Items.Add("Ascending Order")
             cboSortOrder1.Items.Add("Descending Order")
-            cboSortOrder1.Text = "Ascending Order"
 
             '--- This loads the Combo Box Sort Option Order 2 for New Facility Search
             cboSortOrder2.Items.Add("Ascending Order")
             cboSortOrder2.Items.Add("Descending Order")
-            cboSortOrder2.SelectedIndex = 0
 
             '--- This loads the operating status 1 for New Facility Search 
             cboOpStatus1.Items.Add("O")
@@ -648,187 +311,30 @@ Public Class SSCPManagersTools
         End Try
     End Sub
 
-    Private Sub LoadStatisticalLists()
-        Try
-            Dim dtAdmin As New DataTable
-            Dim dtAir As New DataTable
-            Dim dtChem As New DataTable
-            Dim dtVOC As New DataTable
-            Dim dtDistricts As New DataTable
+    Private Sub LoadStatisticsListboxes()
+        With clbAirToxicUnit
+            .DataSource = DAL.GetStaffAsDataTableByUnit("Air Toxics", True)
+            .DisplayMember = "UserName"
+            .ValueMember = "UserID"
+        End With
 
-            Dim drDSRow As DataRow
-            Dim drNewRow As DataRow
+        With clbChemicalsMinerals
+            .DataSource = DAL.GetStaffAsDataTableByUnit("Chemicals/Minerals", True)
+            .DisplayMember = "UserName"
+            .ValueMember = "UserID"
+        End With
 
-            SQL = "Select " &
-            "(strLastName||', '||strFirstName) as UserName, " &
-            "numUserID " &
-            "from EPDUserProfiles " &
-            "where numProgram = '4' " &
-            "and numUnit is null " &
-            "order by strLastName "
+        With clbVOCCombustion
+            .DataSource = DAL.GetStaffAsDataTableByUnit("VOC/Combustion", True)
+            .DisplayMember = "UserName"
+            .ValueMember = "UserID"
+        End With
 
-            dsAdminStaff = New DataSet
-            daAdminStaff = New SqlDataAdapter(SQL, CurrentConnection)
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daAdminStaff.Fill(dsAdminStaff, "AdminStaff")
-
-            SQL = "Select " &
-            "(strLastName||', '||strFirstName) as UserName, " &
-            "numUserID " &
-            "from EPDUserProfiles " &
-            "where numProgram = '4' " &
-            "and numUnit = '30' " &
-            "order by strLastName "
-
-            dsAirStaff = New DataSet
-            daAirStaff = New SqlDataAdapter(SQL, CurrentConnection)
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daAirStaff.Fill(dsAirStaff, "AirStaff")
-
-            SQL = "Select " &
-            "(strLastName||', '||strFirstName) as UserName, " &
-            "numUserID " &
-            "from EPDUserProfiles " &
-            "where numProgram = '4' " &
-            "and numUnit = '31' " &
-            "order by strLastName "
-
-            dsChemStaff = New DataSet
-            daChemStaff = New SqlDataAdapter(SQL, CurrentConnection)
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daChemStaff.Fill(dsChemStaff, "ChemStaff")
-
-            SQL = "Select " &
-             "(strLastName||', '||strFirstName) as UserName, " &
-             "numUserID " &
-             "from EPDUserProfiles " &
-             "where numProgram = '4' " &
-             "and numUnit = '32' " &
-             "order by strLastName "
-
-            dsVOCStaff = New DataSet
-            daVOCStaff = New SqlDataAdapter(SQL, CurrentConnection)
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daVOCStaff.Fill(dsVOCStaff, "VOCStaff")
-
-            SQL = "Select " &
-            "(strLastName||', '||strFirstName) as UserName,  " &
-            "numUserID   " &
-            "from EPDUserProfiles  " &
-            "where numBranch = '5' " &
-            "and (numProgram = '7' " &
-            "or numProgram = '9'  " &
-            "or numProgram = '10' " &
-            "or numProgram = '11' " &
-            "or numProgram = '12' " &
-            "or numProgram = '13' " &
-            "or numProgram = '14' " &
-            "or numProgram = '15') " &
-            "order by strLastName "
-
-            dsDistrictStaff = New DataSet
-            daDistrictStaff = New SqlDataAdapter(SQL, CurrentConnection)
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daDistrictStaff.Fill(dsDistrictStaff, "DistrictStaff")
-
-            dtAdmin.Columns.Add("UserName", GetType(System.String))
-            dtAdmin.Columns.Add("numUserID", GetType(System.String))
-
-            For Each drDSRow In dsAdminStaff.Tables("AdminStaff").Rows()
-                drNewRow = dtAdmin.NewRow()
-                drNewRow("UserName") = drDSRow("UserName")
-                drNewRow("numUserID") = drDSRow("numUserID")
-                dtAdmin.Rows.Add(drNewRow)
-            Next
-
-            dtAir.Columns.Add("UserName", GetType(System.String))
-            dtAir.Columns.Add("numUserID", GetType(System.String))
-
-            For Each drDSRow In dsAirStaff.Tables("AirStaff").Rows()
-                drNewRow = dtAir.NewRow()
-                drNewRow("UserName") = drDSRow("UserName")
-                drNewRow("numUserID") = drDSRow("numUserID")
-                dtAir.Rows.Add(drNewRow)
-            Next
-
-            dtChem.Columns.Add("UserName", GetType(System.String))
-            dtChem.Columns.Add("numUserID", GetType(System.String))
-
-            For Each drDSRow In dsChemStaff.Tables("ChemStaff").Rows()
-                drNewRow = dtChem.NewRow()
-                drNewRow("UserName") = drDSRow("UserName")
-                drNewRow("numUserID") = drDSRow("numUserID")
-                dtChem.Rows.Add(drNewRow)
-            Next
-
-            dtVOC.Columns.Add("UserName", GetType(System.String))
-            dtVOC.Columns.Add("numUserID", GetType(System.String))
-
-            For Each drDSRow In dsVOCStaff.Tables("VOCStaff").Rows()
-                drNewRow = dtVOC.NewRow()
-                drNewRow("UserName") = drDSRow("UserName")
-                drNewRow("numUserID") = drDSRow("numUserID")
-                dtVOC.Rows.Add(drNewRow)
-            Next
-
-            dtDistricts.Columns.Add("UserName", GetType(System.String))
-            dtDistricts.Columns.Add("numUserID", GetType(System.String))
-
-            For Each drDSRow In dsDistrictStaff.Tables("DistrictStaff").Rows()
-                drNewRow = dtDistricts.NewRow()
-                drNewRow("UserName") = drDSRow("UserName")
-                drNewRow("numUserID") = drDSRow("numUserID")
-                dtDistricts.Rows.Add(drNewRow)
-            Next
-
-            With clbAdministrative
-                .DataSource = dtAdmin
-                .DisplayMember = "UserName"
-                .ValueMember = "numUserID"
-            End With
-
-            With clbAirToxicUnit
-                .DataSource = dtAir
-                .DisplayMember = "UserName"
-                .ValueMember = "numUserID"
-            End With
-
-            With clbChemicalsMinerals
-                .DataSource = dtChem
-                .DisplayMember = "UserName"
-                .ValueMember = "numUserID"
-            End With
-
-            With clbVOCCombustion
-                .DataSource = dtVOC
-                .DisplayMember = "UserName"
-                .ValueMember = "numUserID"
-            End With
-
-            With clbDistricts
-                .DataSource = dtDistricts
-                .DisplayMember = "UserName"
-                .ValueMember = "numUserID"
-            End With
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        With clbDistricts
+            .DataSource = DAL.GetStaffAsDataTableByBranch(5, True)
+            .DisplayMember = "UserName"
+            .ValueMember = "UserID"
+        End With
     End Sub
 
     Private Sub LoadSelectedFacilitesGrid()
@@ -1663,13 +1169,6 @@ Public Class SSCPManagersTools
             Dim EngineerList As String = ""
             Dim ResponsibleStaff As String = ""
 
-            For x As Integer = 0 To clbAdministrative.Items.Count - 1
-                If clbAdministrative.GetItemChecked(x) = True Then
-                    clbAdministrative.SelectedIndex = x
-                    EngineerList = EngineerList & " numSSCPEngineer = '" & clbAdministrative.SelectedValue & "' Or "
-                    ResponsibleStaff = ResponsibleStaff & " strResponsibleStaff = '" & clbAdministrative.SelectedValue & "' Or "
-                End If
-            Next
             For x As Integer = 0 To clbAirToxicUnit.Items.Count - 1
                 If clbAirToxicUnit.GetItemChecked(x) = True Then
                     clbAirToxicUnit.SelectedIndex = x
@@ -2210,12 +1709,6 @@ Public Class SSCPManagersTools
         Try
             Dim EngineerList As String = ""
 
-            For x As Integer = 0 To clbAdministrative.Items.Count - 1
-                If clbAdministrative.GetItemChecked(x) = True Then
-                    clbAdministrative.SelectedIndex = x
-                    EngineerList = EngineerList & " numSSCPENGINEER = '" & clbAdministrative.SelectedValue & "' Or "
-                End If
-            Next
             For x As Integer = 0 To clbAirToxicUnit.Items.Count - 1
                 If clbAirToxicUnit.GetItemChecked(x) = True Then
                     clbAirToxicUnit.SelectedIndex = x
@@ -2293,12 +1786,6 @@ Public Class SSCPManagersTools
         Try
             Dim ResponsibleStaff As String = ""
 
-            For x As Integer = 0 To clbAdministrative.Items.Count - 1
-                If clbAdministrative.GetItemChecked(x) = True Then
-                    clbAdministrative.SelectedIndex = x
-                    ResponsibleStaff = ResponsibleStaff & " strResponsibleStaff = '" & clbAdministrative.SelectedValue & "' Or "
-                End If
-            Next
             For x As Integer = 0 To clbAirToxicUnit.Items.Count - 1
                 If clbAirToxicUnit.GetItemChecked(x) = True Then
                     clbAirToxicUnit.SelectedIndex = x
@@ -2374,12 +1861,6 @@ Public Class SSCPManagersTools
         Try
             Dim ResponsibleStaff As String = ""
 
-            For x As Integer = 0 To clbAdministrative.Items.Count - 1
-                If clbAdministrative.GetItemChecked(x) = True Then
-                    clbAdministrative.SelectedIndex = x
-                    ResponsibleStaff = ResponsibleStaff & " strResponsibleStaff = '" & clbAdministrative.SelectedValue & "' Or "
-                End If
-            Next
             For x As Integer = 0 To clbAirToxicUnit.Items.Count - 1
                 If clbAirToxicUnit.GetItemChecked(x) = True Then
                     clbAirToxicUnit.SelectedIndex = x
@@ -2458,12 +1939,6 @@ Public Class SSCPManagersTools
         Try
             Dim ResponsibleStaff As String = ""
 
-            For x As Integer = 0 To clbAdministrative.Items.Count - 1
-                If clbAdministrative.GetItemChecked(x) = True Then
-                    clbAdministrative.SelectedIndex = x
-                    ResponsibleStaff = ResponsibleStaff & " strResponsibleStaff = '" & clbAdministrative.SelectedValue & "' Or "
-                End If
-            Next
             For x As Integer = 0 To clbAirToxicUnit.Items.Count - 1
                 If clbAirToxicUnit.GetItemChecked(x) = True Then
                     clbAirToxicUnit.SelectedIndex = x
@@ -2542,12 +2017,6 @@ Public Class SSCPManagersTools
         Try
             Dim ResponsibleStaff As String = ""
 
-            For x As Integer = 0 To clbAdministrative.Items.Count - 1
-                If clbAdministrative.GetItemChecked(x) = True Then
-                    clbAdministrative.SelectedIndex = x
-                    ResponsibleStaff = ResponsibleStaff & " strResponsibleStaff = '" & clbAdministrative.SelectedValue & "' Or "
-                End If
-            Next
             For x As Integer = 0 To clbAirToxicUnit.Items.Count - 1
                 If clbAirToxicUnit.GetItemChecked(x) = True Then
                     clbAirToxicUnit.SelectedIndex = x
@@ -2628,12 +2097,6 @@ Public Class SSCPManagersTools
         Try
             Dim ResponsibleStaff As String = ""
 
-            For x As Integer = 0 To clbAdministrative.Items.Count - 1
-                If clbAdministrative.GetItemChecked(x) = True Then
-                    clbAdministrative.SelectedIndex = x
-                    ResponsibleStaff = ResponsibleStaff & " strResponsibleStaff = '" & clbAdministrative.SelectedValue & "' Or "
-                End If
-            Next
             For x As Integer = 0 To clbAirToxicUnit.Items.Count - 1
                 If clbAirToxicUnit.GetItemChecked(x) = True Then
                     clbAirToxicUnit.SelectedIndex = x
@@ -2715,12 +2178,6 @@ Public Class SSCPManagersTools
         Try
             Dim ResponsibleStaff As String = ""
 
-            For x As Integer = 0 To clbAdministrative.Items.Count - 1
-                If clbAdministrative.GetItemChecked(x) = True Then
-                    clbAdministrative.SelectedIndex = x
-                    ResponsibleStaff = ResponsibleStaff & " strResponsibleStaff = '" & clbAdministrative.SelectedValue & "' Or "
-                End If
-            Next
             For x As Integer = 0 To clbAirToxicUnit.Items.Count - 1
                 If clbAirToxicUnit.GetItemChecked(x) = True Then
                     clbAirToxicUnit.SelectedIndex = x
@@ -2803,12 +2260,6 @@ Public Class SSCPManagersTools
         Try
             Dim ResponsibleStaff As String = ""
 
-            For x As Integer = 0 To clbAdministrative.Items.Count - 1
-                If clbAdministrative.GetItemChecked(x) = True Then
-                    clbAdministrative.SelectedIndex = x
-                    ResponsibleStaff = ResponsibleStaff & " strResponsibleStaff = '" & clbAdministrative.SelectedValue & "' Or "
-                End If
-            Next
             For x As Integer = 0 To clbAirToxicUnit.Items.Count - 1
                 If clbAirToxicUnit.GetItemChecked(x) = True Then
                     clbAirToxicUnit.SelectedIndex = x
@@ -2887,12 +2338,6 @@ Public Class SSCPManagersTools
         Try
             Dim ResponsibleStaff As String = ""
 
-            For x As Integer = 0 To clbAdministrative.Items.Count - 1
-                If clbAdministrative.GetItemChecked(x) = True Then
-                    clbAdministrative.SelectedIndex = x
-                    ResponsibleStaff = ResponsibleStaff & " strResponsibleStaff = '" & clbAdministrative.SelectedValue & "' Or "
-                End If
-            Next
             For x As Integer = 0 To clbAirToxicUnit.Items.Count - 1
                 If clbAirToxicUnit.GetItemChecked(x) = True Then
                     clbAirToxicUnit.SelectedIndex = x
@@ -2971,12 +2416,6 @@ Public Class SSCPManagersTools
         Try
             Dim ResponsibleStaff As String = ""
 
-            For x As Integer = 0 To clbAdministrative.Items.Count - 1
-                If clbAdministrative.GetItemChecked(x) = True Then
-                    clbAdministrative.SelectedIndex = x
-                    ResponsibleStaff = ResponsibleStaff & " strResponsibleStaff = '" & clbAdministrative.SelectedValue & "' Or "
-                End If
-            Next
             For x As Integer = 0 To clbAirToxicUnit.Items.Count - 1
                 If clbAirToxicUnit.GetItemChecked(x) = True Then
                     clbAirToxicUnit.SelectedIndex = x
@@ -3059,12 +2498,6 @@ Public Class SSCPManagersTools
         Try
             Dim ResponsibleStaff As String = ""
 
-            For x As Integer = 0 To clbAdministrative.Items.Count - 1
-                If clbAdministrative.GetItemChecked(x) = True Then
-                    clbAdministrative.SelectedIndex = x
-                    ResponsibleStaff = ResponsibleStaff & " strResponsibleStaff = '" & clbAdministrative.SelectedValue & "' Or "
-                End If
-            Next
             For x As Integer = 0 To clbAirToxicUnit.Items.Count - 1
                 If clbAirToxicUnit.GetItemChecked(x) = True Then
                     clbAirToxicUnit.SelectedIndex = x
@@ -3145,12 +2578,6 @@ Public Class SSCPManagersTools
         Try
             Dim ResponsibleStaff As String = ""
 
-            For x As Integer = 0 To clbAdministrative.Items.Count - 1
-                If clbAdministrative.GetItemChecked(x) = True Then
-                    clbAdministrative.SelectedIndex = x
-                    ResponsibleStaff = ResponsibleStaff & " strResponsibleStaff = '" & clbAdministrative.SelectedValue & "' Or "
-                End If
-            Next
             For x As Integer = 0 To clbAirToxicUnit.Items.Count - 1
                 If clbAirToxicUnit.GetItemChecked(x) = True Then
                     clbAirToxicUnit.SelectedIndex = x
@@ -3231,12 +2658,6 @@ Public Class SSCPManagersTools
         Try
             Dim ResponsibleStaff As String = ""
 
-            For x As Integer = 0 To clbAdministrative.Items.Count - 1
-                If clbAdministrative.GetItemChecked(x) = True Then
-                    clbAdministrative.SelectedIndex = x
-                    ResponsibleStaff = ResponsibleStaff & " strResponsibleStaff = '" & clbAdministrative.SelectedValue & "' Or "
-                End If
-            Next
             For x As Integer = 0 To clbAirToxicUnit.Items.Count - 1
                 If clbAirToxicUnit.GetItemChecked(x) = True Then
                     clbAirToxicUnit.SelectedIndex = x
@@ -3957,7 +3378,7 @@ Public Class SSCPManagersTools
         LoadFacilitySearch("Filter")
     End Sub
 
-    Private Sub cboFacSearch1_SelectedValueChanged(sender As Object, e As EventArgs) Handles cboFacSearch1.SelectedValueChanged
+    Private Sub cboFacSearch1_SelectedValueChanged(sender As Object, e As EventArgs) Handles cboFacSearch1.SelectedIndexChanged
         Try
             cboFilterEngineer1.Visible = False
             txtFacSearch1.Visible = False
@@ -3999,7 +3420,7 @@ Public Class SSCPManagersTools
         End Try
     End Sub
 
-    Private Sub cboFacSearch2_SelectedValueChanged(sender As Object, e As EventArgs) Handles cboFacSearch2.SelectedValueChanged
+    Private Sub cboFacSearch2_SelectedValueChanged(sender As Object, e As EventArgs) Handles cboFacSearch2.SelectedIndexChanged
         Try
             cboFilterEngineer2.Visible = False
             txtFacSearch2.Visible = False
@@ -4968,18 +4389,6 @@ Public Class SSCPManagersTools
         End Try
     End Sub
 
-    Private Sub cboFiscalYear_TextChanged(sender As Object, e As EventArgs) Handles cboFiscalYear.SelectedIndexChanged
-        If cboFiscalYear.Items.Contains(cboFiscalYear.Text) Then
-            FacilityAssignmentPanel.Enabled = True
-            Panel9.Enabled = True
-            FacilitySelectToolsPanel.Enabled = True
-        Else
-            FacilityAssignmentPanel.Enabled = False
-            Panel9.Enabled = False
-            FacilitySelectToolsPanel.Enabled = False
-        End If
-    End Sub
-
     Private Sub btnCopyYear_Click(sender As Object, e As EventArgs) Handles btnCopyYear.Click
         Dim targetYear As Integer
         Dim oldYear As Integer
@@ -5299,22 +4708,14 @@ Public Class SSCPManagersTools
 
     Private Sub FormatEnfDocTypeList()
         With dgvEnfDocumentTypes
-            With .Columns("DocumentTypeId")
-                .Visible = False
-            End With
-            With .Columns("Active")
-                .HeaderText = "Active"
-                .DisplayIndex = 0
-            End With
-            With .Columns("Ordinal")
-                .HeaderText = "Pos."
-                .DisplayIndex = 1
-                .DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
-            End With
-            With .Columns("DocumentType")
-                .HeaderText = "Name"
-                .DisplayIndex = 2
-            End With
+            .Columns("DocumentTypeId").Visible = False
+            .Columns("Active").HeaderText = "Active"
+            .Columns("Active").DisplayIndex = 0
+            .Columns("Ordinal").HeaderText = "Pos."
+            .Columns("Ordinal").DisplayIndex = 1
+            .Columns("Ordinal").DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
+            .Columns("DocumentType").HeaderText = "Name"
+            .Columns("DocumentType").DisplayIndex = 2
         End With
     End Sub
 

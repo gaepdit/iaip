@@ -49,7 +49,7 @@ Public Class MASPRegistrationTool
     End Sub
 
     Private Sub LoadEventContactCombos()
-        Dim staff As DataTable = DAL.GetActiveStaffAsDataTable()
+        Dim staff As DataTable = DAL.GetStaffDetailsAsDataTableByBranch()
 
         Dim nullRow As DataRow = staff.NewRow
         nullRow("NUMUSERID") = 0

@@ -129,7 +129,6 @@ Partial Class SSCPManagersTools
         Me.Label57 = New System.Windows.Forms.Label()
         Me.cboSSCPUnit2 = New System.Windows.Forms.ComboBox()
         Me.Label58 = New System.Windows.Forms.Label()
-        Me.Panel9 = New System.Windows.Forms.Panel()
         Me.TCNewFacilitySearch = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
         Me.chbIgnoreFiscalYear = New System.Windows.Forms.CheckBox()
@@ -208,9 +207,11 @@ Partial Class SSCPManagersTools
         Me.Label62 = New System.Windows.Forms.Label()
         Me.TPStatisticalPage = New System.Windows.Forms.TabPage()
         Me.SCStatisticalReports = New System.Windows.Forms.SplitContainer()
+        Me.TCStatisticalTools = New System.Windows.Forms.TabControl()
+        Me.TPACCStats = New System.Windows.Forms.TabPage()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.Label1 = New System.Windows.Forms.Label()
         Me.TCComplianceStaff = New System.Windows.Forms.TabControl()
-        Me.TPAdministrative = New System.Windows.Forms.TabPage()
-        Me.clbAdministrative = New System.Windows.Forms.CheckedListBox()
         Me.TPAirToxics = New System.Windows.Forms.TabPage()
         Me.clbAirToxicUnit = New System.Windows.Forms.CheckedListBox()
         Me.TPChemicals = New System.Windows.Forms.TabPage()
@@ -219,8 +220,6 @@ Partial Class SSCPManagersTools
         Me.clbVOCCombustion = New System.Windows.Forms.CheckedListBox()
         Me.TPDistricts = New System.Windows.Forms.TabPage()
         Me.clbDistricts = New System.Windows.Forms.CheckedListBox()
-        Me.TCStatisticalTools = New System.Windows.Forms.TabControl()
-        Me.TPACCStats = New System.Windows.Forms.TabPage()
         Me.llbACCLONTaken = New System.Windows.Forms.LinkLabel()
         Me.llbACCNOVTaken = New System.Windows.Forms.LinkLabel()
         Me.btnRunStatisticalReport = New System.Windows.Forms.Button()
@@ -321,7 +320,6 @@ Partial Class SSCPManagersTools
         Me.GroupBox8.SuspendLayout()
         Me.GroupBox6.SuspendLayout()
         Me.GroupBox7.SuspendLayout()
-        Me.Panel9.SuspendLayout()
         Me.TCNewFacilitySearch.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.pnlDistResp2.SuspendLayout()
@@ -349,14 +347,13 @@ Partial Class SSCPManagersTools
         Me.SCStatisticalReports.Panel1.SuspendLayout()
         Me.SCStatisticalReports.Panel2.SuspendLayout()
         Me.SCStatisticalReports.SuspendLayout()
+        Me.TCStatisticalTools.SuspendLayout()
+        Me.TPACCStats.SuspendLayout()
         Me.TCComplianceStaff.SuspendLayout()
-        Me.TPAdministrative.SuspendLayout()
         Me.TPAirToxics.SuspendLayout()
         Me.TPChemicals.SuspendLayout()
         Me.TPVOC.SuspendLayout()
         Me.TPDistricts.SuspendLayout()
-        Me.TCStatisticalTools.SuspendLayout()
-        Me.TPACCStats.SuspendLayout()
         Me.TPEnforcement.SuspendLayout()
         Me.TPTitleVRenewals.SuspendLayout()
         CType(Me.dgvStatisticalReports, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -379,10 +376,10 @@ Partial Class SSCPManagersTools
         'txtUserSSCPUnit
         '
         Me.txtUserSSCPUnit.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtUserSSCPUnit.Location = New System.Drawing.Point(7, 7)
+        Me.txtUserSSCPUnit.Location = New System.Drawing.Point(26, 78)
         Me.txtUserSSCPUnit.Name = "txtUserSSCPUnit"
         Me.txtUserSSCPUnit.ReadOnly = True
-        Me.txtUserSSCPUnit.Size = New System.Drawing.Size(6, 20)
+        Me.txtUserSSCPUnit.Size = New System.Drawing.Size(54, 20)
         Me.txtUserSSCPUnit.TabIndex = 56
         Me.txtUserSSCPUnit.Visible = False
         '
@@ -1130,7 +1127,7 @@ Partial Class SSCPManagersTools
         'TPFacilityAssignments
         '
         Me.TPFacilityAssignments.Controls.Add(Me.FacilityAssignmentPanel)
-        Me.TPFacilityAssignments.Controls.Add(Me.Panel9)
+        Me.TPFacilityAssignments.Controls.Add(Me.TCNewFacilitySearch)
         Me.TPFacilityAssignments.Controls.Add(Me.pnlFacilityAssignments)
         Me.TPFacilityAssignments.Location = New System.Drawing.Point(4, 22)
         Me.TPFacilityAssignments.Name = "TPFacilityAssignments"
@@ -1289,9 +1286,9 @@ Partial Class SSCPManagersTools
         Me.Label59.AutoSize = True
         Me.Label59.Location = New System.Drawing.Point(690, 49)
         Me.Label59.Name = "Label59"
-        Me.Label59.Size = New System.Drawing.Size(136, 26)
+        Me.Label59.Size = New System.Drawing.Size(124, 26)
         Me.Label59.TabIndex = 153
-        Me.Label59.Text = "This will Save ALL fields " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "     EXCEPT for CMS status"
+        Me.Label59.Text = "This will Save ALL fields " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "EXCEPT for CMS status"
         '
         'btnSaveAllSettings
         '
@@ -1454,23 +1451,14 @@ Partial Class SSCPManagersTools
         Me.Label58.TabIndex = 148
         Me.Label58.Text = "SSCP Unit List"
         '
-        'Panel9
-        '
-        Me.Panel9.Controls.Add(Me.TCNewFacilitySearch)
-        Me.Panel9.Dock = System.Windows.Forms.DockStyle.Left
-        Me.Panel9.Location = New System.Drawing.Point(0, 451)
-        Me.Panel9.Name = "Panel9"
-        Me.Panel9.Size = New System.Drawing.Size(324, 248)
-        Me.Panel9.TabIndex = 419
-        '
         'TCNewFacilitySearch
         '
         Me.TCNewFacilitySearch.Controls.Add(Me.TabPage1)
         Me.TCNewFacilitySearch.Controls.Add(Me.TabPage2)
         Me.TCNewFacilitySearch.Controls.Add(Me.TabPage3)
         Me.TCNewFacilitySearch.Controls.Add(Me.TPCopyYear)
-        Me.TCNewFacilitySearch.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TCNewFacilitySearch.Location = New System.Drawing.Point(0, 0)
+        Me.TCNewFacilitySearch.Dock = System.Windows.Forms.DockStyle.Left
+        Me.TCNewFacilitySearch.Location = New System.Drawing.Point(0, 451)
         Me.TCNewFacilitySearch.Name = "TCNewFacilitySearch"
         Me.TCNewFacilitySearch.SelectedIndex = 0
         Me.TCNewFacilitySearch.Size = New System.Drawing.Size(324, 248)
@@ -2270,7 +2258,6 @@ Partial Class SSCPManagersTools
         '
         'SCStatisticalReports.Panel1
         '
-        Me.SCStatisticalReports.Panel1.Controls.Add(Me.TCComplianceStaff)
         Me.SCStatisticalReports.Panel1.Controls.Add(Me.TCStatisticalTools)
         '
         'SCStatisticalReports.Panel2
@@ -2283,146 +2270,26 @@ Partial Class SSCPManagersTools
         Me.SCStatisticalReports.Panel2.Controls.Add(Me.btnExportToExcel)
         Me.SCStatisticalReports.Panel2.Controls.Add(Me.dgvStatisticalReports)
         Me.SCStatisticalReports.Size = New System.Drawing.Size(1184, 699)
-        Me.SCStatisticalReports.SplitterDistance = 615
+        Me.SCStatisticalReports.SplitterDistance = 519
         Me.SCStatisticalReports.TabIndex = 15
-        '
-        'TCComplianceStaff
-        '
-        Me.TCComplianceStaff.Controls.Add(Me.TPAdministrative)
-        Me.TCComplianceStaff.Controls.Add(Me.TPAirToxics)
-        Me.TCComplianceStaff.Controls.Add(Me.TPChemicals)
-        Me.TCComplianceStaff.Controls.Add(Me.TPVOC)
-        Me.TCComplianceStaff.Controls.Add(Me.TPDistricts)
-        Me.TCComplianceStaff.Dock = System.Windows.Forms.DockStyle.Left
-        Me.TCComplianceStaff.Location = New System.Drawing.Point(0, 0)
-        Me.TCComplianceStaff.Multiline = True
-        Me.TCComplianceStaff.Name = "TCComplianceStaff"
-        Me.TCComplianceStaff.SelectedIndex = 0
-        Me.TCComplianceStaff.Size = New System.Drawing.Size(262, 318)
-        Me.TCComplianceStaff.TabIndex = 13
-        '
-        'TPAdministrative
-        '
-        Me.TPAdministrative.Controls.Add(Me.clbAdministrative)
-        Me.TPAdministrative.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TPAdministrative.Location = New System.Drawing.Point(4, 40)
-        Me.TPAdministrative.Name = "TPAdministrative"
-        Me.TPAdministrative.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPAdministrative.Size = New System.Drawing.Size(254, 274)
-        Me.TPAdministrative.TabIndex = 0
-        Me.TPAdministrative.Text = "Administrative"
-        Me.TPAdministrative.UseVisualStyleBackColor = True
-        '
-        'clbAdministrative
-        '
-        Me.clbAdministrative.CheckOnClick = True
-        Me.clbAdministrative.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.clbAdministrative.FormattingEnabled = True
-        Me.clbAdministrative.Location = New System.Drawing.Point(3, 3)
-        Me.clbAdministrative.Name = "clbAdministrative"
-        Me.clbAdministrative.ScrollAlwaysVisible = True
-        Me.clbAdministrative.Size = New System.Drawing.Size(248, 268)
-        Me.clbAdministrative.TabIndex = 1
-        '
-        'TPAirToxics
-        '
-        Me.TPAirToxics.Controls.Add(Me.clbAirToxicUnit)
-        Me.TPAirToxics.Location = New System.Drawing.Point(4, 40)
-        Me.TPAirToxics.Name = "TPAirToxics"
-        Me.TPAirToxics.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPAirToxics.Size = New System.Drawing.Size(254, 274)
-        Me.TPAirToxics.TabIndex = 1
-        Me.TPAirToxics.Text = "Air Toxics"
-        Me.TPAirToxics.UseVisualStyleBackColor = True
-        '
-        'clbAirToxicUnit
-        '
-        Me.clbAirToxicUnit.CheckOnClick = True
-        Me.clbAirToxicUnit.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.clbAirToxicUnit.FormattingEnabled = True
-        Me.clbAirToxicUnit.Location = New System.Drawing.Point(3, 3)
-        Me.clbAirToxicUnit.Name = "clbAirToxicUnit"
-        Me.clbAirToxicUnit.ScrollAlwaysVisible = True
-        Me.clbAirToxicUnit.Size = New System.Drawing.Size(248, 268)
-        Me.clbAirToxicUnit.TabIndex = 1
-        '
-        'TPChemicals
-        '
-        Me.TPChemicals.Controls.Add(Me.clbChemicalsMinerals)
-        Me.TPChemicals.Location = New System.Drawing.Point(4, 40)
-        Me.TPChemicals.Name = "TPChemicals"
-        Me.TPChemicals.Size = New System.Drawing.Size(254, 274)
-        Me.TPChemicals.TabIndex = 2
-        Me.TPChemicals.Text = "Chemicals/Minerals"
-        Me.TPChemicals.UseVisualStyleBackColor = True
-        '
-        'clbChemicalsMinerals
-        '
-        Me.clbChemicalsMinerals.CheckOnClick = True
-        Me.clbChemicalsMinerals.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.clbChemicalsMinerals.FormattingEnabled = True
-        Me.clbChemicalsMinerals.Location = New System.Drawing.Point(0, 0)
-        Me.clbChemicalsMinerals.Name = "clbChemicalsMinerals"
-        Me.clbChemicalsMinerals.ScrollAlwaysVisible = True
-        Me.clbChemicalsMinerals.Size = New System.Drawing.Size(254, 274)
-        Me.clbChemicalsMinerals.TabIndex = 1
-        '
-        'TPVOC
-        '
-        Me.TPVOC.Controls.Add(Me.clbVOCCombustion)
-        Me.TPVOC.Location = New System.Drawing.Point(4, 40)
-        Me.TPVOC.Name = "TPVOC"
-        Me.TPVOC.Size = New System.Drawing.Size(254, 274)
-        Me.TPVOC.TabIndex = 3
-        Me.TPVOC.Text = "VOC/Combustion"
-        Me.TPVOC.UseVisualStyleBackColor = True
-        '
-        'clbVOCCombustion
-        '
-        Me.clbVOCCombustion.CheckOnClick = True
-        Me.clbVOCCombustion.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.clbVOCCombustion.FormattingEnabled = True
-        Me.clbVOCCombustion.Location = New System.Drawing.Point(0, 0)
-        Me.clbVOCCombustion.Name = "clbVOCCombustion"
-        Me.clbVOCCombustion.ScrollAlwaysVisible = True
-        Me.clbVOCCombustion.Size = New System.Drawing.Size(254, 274)
-        Me.clbVOCCombustion.TabIndex = 1
-        '
-        'TPDistricts
-        '
-        Me.TPDistricts.Controls.Add(Me.clbDistricts)
-        Me.TPDistricts.Location = New System.Drawing.Point(4, 40)
-        Me.TPDistricts.Name = "TPDistricts"
-        Me.TPDistricts.Size = New System.Drawing.Size(254, 274)
-        Me.TPDistricts.TabIndex = 4
-        Me.TPDistricts.Text = "Districts"
-        Me.TPDistricts.UseVisualStyleBackColor = True
-        '
-        'clbDistricts
-        '
-        Me.clbDistricts.CheckOnClick = True
-        Me.clbDistricts.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.clbDistricts.FormattingEnabled = True
-        Me.clbDistricts.Location = New System.Drawing.Point(0, 0)
-        Me.clbDistricts.Name = "clbDistricts"
-        Me.clbDistricts.ScrollAlwaysVisible = True
-        Me.clbDistricts.Size = New System.Drawing.Size(254, 274)
-        Me.clbDistricts.TabIndex = 2
         '
         'TCStatisticalTools
         '
         Me.TCStatisticalTools.Controls.Add(Me.TPACCStats)
         Me.TCStatisticalTools.Controls.Add(Me.TPEnforcement)
         Me.TCStatisticalTools.Controls.Add(Me.TPTitleVRenewals)
-        Me.TCStatisticalTools.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.TCStatisticalTools.Location = New System.Drawing.Point(0, 318)
+        Me.TCStatisticalTools.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TCStatisticalTools.Location = New System.Drawing.Point(0, 0)
         Me.TCStatisticalTools.Name = "TCStatisticalTools"
         Me.TCStatisticalTools.SelectedIndex = 0
-        Me.TCStatisticalTools.Size = New System.Drawing.Size(615, 381)
+        Me.TCStatisticalTools.Size = New System.Drawing.Size(519, 699)
         Me.TCStatisticalTools.TabIndex = 14
         '
         'TPACCStats
         '
+        Me.TPACCStats.Controls.Add(Me.Label2)
+        Me.TPACCStats.Controls.Add(Me.Label1)
+        Me.TPACCStats.Controls.Add(Me.TCComplianceStaff)
         Me.TPACCStats.Controls.Add(Me.llbACCLONTaken)
         Me.TPACCStats.Controls.Add(Me.llbACCNOVTaken)
         Me.TPACCStats.Controls.Add(Me.btnRunStatisticalReport)
@@ -2467,15 +2334,131 @@ Partial Class SSCPManagersTools
         Me.TPACCStats.Location = New System.Drawing.Point(4, 22)
         Me.TPACCStats.Name = "TPACCStats"
         Me.TPACCStats.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPACCStats.Size = New System.Drawing.Size(607, 355)
+        Me.TPACCStats.Size = New System.Drawing.Size(511, 673)
         Me.TPACCStats.TabIndex = 0
         Me.TPACCStats.Text = "ACC Stats"
         Me.TPACCStats.UseVisualStyleBackColor = True
         '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Location = New System.Drawing.Point(148, 282)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(43, 13)
+        Me.Label2.TabIndex = 38
+        Me.Label2.Text = "through"
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(6, 282)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(30, 13)
+        Me.Label1.TabIndex = 38
+        Me.Label1.Text = "From"
+        '
+        'TCComplianceStaff
+        '
+        Me.TCComplianceStaff.Controls.Add(Me.TPAirToxics)
+        Me.TCComplianceStaff.Controls.Add(Me.TPChemicals)
+        Me.TCComplianceStaff.Controls.Add(Me.TPVOC)
+        Me.TCComplianceStaff.Controls.Add(Me.TPDistricts)
+        Me.TCComplianceStaff.Location = New System.Drawing.Point(6, 6)
+        Me.TCComplianceStaff.Multiline = True
+        Me.TCComplianceStaff.Name = "TCComplianceStaff"
+        Me.TCComplianceStaff.SelectedIndex = 0
+        Me.TCComplianceStaff.Size = New System.Drawing.Size(322, 264)
+        Me.TCComplianceStaff.TabIndex = 13
+        '
+        'TPAirToxics
+        '
+        Me.TPAirToxics.Controls.Add(Me.clbAirToxicUnit)
+        Me.TPAirToxics.Location = New System.Drawing.Point(4, 22)
+        Me.TPAirToxics.Name = "TPAirToxics"
+        Me.TPAirToxics.Padding = New System.Windows.Forms.Padding(3)
+        Me.TPAirToxics.Size = New System.Drawing.Size(314, 238)
+        Me.TPAirToxics.TabIndex = 1
+        Me.TPAirToxics.Text = "Air Toxics"
+        Me.TPAirToxics.UseVisualStyleBackColor = True
+        '
+        'clbAirToxicUnit
+        '
+        Me.clbAirToxicUnit.CheckOnClick = True
+        Me.clbAirToxicUnit.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.clbAirToxicUnit.FormattingEnabled = True
+        Me.clbAirToxicUnit.Location = New System.Drawing.Point(3, 3)
+        Me.clbAirToxicUnit.Name = "clbAirToxicUnit"
+        Me.clbAirToxicUnit.ScrollAlwaysVisible = True
+        Me.clbAirToxicUnit.Size = New System.Drawing.Size(308, 232)
+        Me.clbAirToxicUnit.TabIndex = 1
+        '
+        'TPChemicals
+        '
+        Me.TPChemicals.Controls.Add(Me.clbChemicalsMinerals)
+        Me.TPChemicals.Location = New System.Drawing.Point(4, 22)
+        Me.TPChemicals.Name = "TPChemicals"
+        Me.TPChemicals.Size = New System.Drawing.Size(314, 238)
+        Me.TPChemicals.TabIndex = 2
+        Me.TPChemicals.Text = "Chemicals/Minerals"
+        Me.TPChemicals.UseVisualStyleBackColor = True
+        '
+        'clbChemicalsMinerals
+        '
+        Me.clbChemicalsMinerals.CheckOnClick = True
+        Me.clbChemicalsMinerals.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.clbChemicalsMinerals.FormattingEnabled = True
+        Me.clbChemicalsMinerals.Location = New System.Drawing.Point(0, 0)
+        Me.clbChemicalsMinerals.Name = "clbChemicalsMinerals"
+        Me.clbChemicalsMinerals.ScrollAlwaysVisible = True
+        Me.clbChemicalsMinerals.Size = New System.Drawing.Size(314, 238)
+        Me.clbChemicalsMinerals.TabIndex = 1
+        '
+        'TPVOC
+        '
+        Me.TPVOC.Controls.Add(Me.clbVOCCombustion)
+        Me.TPVOC.Location = New System.Drawing.Point(4, 22)
+        Me.TPVOC.Name = "TPVOC"
+        Me.TPVOC.Size = New System.Drawing.Size(314, 238)
+        Me.TPVOC.TabIndex = 3
+        Me.TPVOC.Text = "VOC/Combustion"
+        Me.TPVOC.UseVisualStyleBackColor = True
+        '
+        'clbVOCCombustion
+        '
+        Me.clbVOCCombustion.CheckOnClick = True
+        Me.clbVOCCombustion.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.clbVOCCombustion.FormattingEnabled = True
+        Me.clbVOCCombustion.Location = New System.Drawing.Point(0, 0)
+        Me.clbVOCCombustion.Name = "clbVOCCombustion"
+        Me.clbVOCCombustion.ScrollAlwaysVisible = True
+        Me.clbVOCCombustion.Size = New System.Drawing.Size(314, 238)
+        Me.clbVOCCombustion.TabIndex = 1
+        '
+        'TPDistricts
+        '
+        Me.TPDistricts.Controls.Add(Me.clbDistricts)
+        Me.TPDistricts.Location = New System.Drawing.Point(4, 22)
+        Me.TPDistricts.Name = "TPDistricts"
+        Me.TPDistricts.Size = New System.Drawing.Size(314, 238)
+        Me.TPDistricts.TabIndex = 4
+        Me.TPDistricts.Text = "Districts"
+        Me.TPDistricts.UseVisualStyleBackColor = True
+        '
+        'clbDistricts
+        '
+        Me.clbDistricts.CheckOnClick = True
+        Me.clbDistricts.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.clbDistricts.FormattingEnabled = True
+        Me.clbDistricts.Location = New System.Drawing.Point(0, 0)
+        Me.clbDistricts.Name = "clbDistricts"
+        Me.clbDistricts.ScrollAlwaysVisible = True
+        Me.clbDistricts.Size = New System.Drawing.Size(314, 238)
+        Me.clbDistricts.TabIndex = 2
+        '
         'llbACCLONTaken
         '
         Me.llbACCLONTaken.AutoSize = True
-        Me.llbACCLONTaken.Location = New System.Drawing.Point(260, 297)
+        Me.llbACCLONTaken.Location = New System.Drawing.Point(260, 597)
         Me.llbACCLONTaken.Name = "llbACCLONTaken"
         Me.llbACCLONTaken.Size = New System.Drawing.Size(30, 13)
         Me.llbACCLONTaken.TabIndex = 37
@@ -2485,7 +2468,7 @@ Partial Class SSCPManagersTools
         'llbACCNOVTaken
         '
         Me.llbACCNOVTaken.AutoSize = True
-        Me.llbACCNOVTaken.Location = New System.Drawing.Point(260, 276)
+        Me.llbACCNOVTaken.Location = New System.Drawing.Point(260, 576)
         Me.llbACCNOVTaken.Name = "llbACCNOVTaken"
         Me.llbACCNOVTaken.Size = New System.Drawing.Size(30, 13)
         Me.llbACCNOVTaken.TabIndex = 36
@@ -2496,7 +2479,7 @@ Partial Class SSCPManagersTools
         '
         Me.btnRunStatisticalReport.AutoSize = True
         Me.btnRunStatisticalReport.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnRunStatisticalReport.Location = New System.Drawing.Point(309, 42)
+        Me.btnRunStatisticalReport.Location = New System.Drawing.Point(352, 28)
         Me.btnRunStatisticalReport.Name = "btnRunStatisticalReport"
         Me.btnRunStatisticalReport.Size = New System.Drawing.Size(74, 23)
         Me.btnRunStatisticalReport.TabIndex = 3
@@ -2506,7 +2489,7 @@ Partial Class SSCPManagersTools
         'llbACCCOTaken
         '
         Me.llbACCCOTaken.AutoSize = True
-        Me.llbACCCOTaken.Location = New System.Drawing.Point(260, 255)
+        Me.llbACCCOTaken.Location = New System.Drawing.Point(260, 555)
         Me.llbACCCOTaken.Name = "llbACCCOTaken"
         Me.llbACCCOTaken.Size = New System.Drawing.Size(30, 13)
         Me.llbACCCOTaken.TabIndex = 35
@@ -2516,7 +2499,7 @@ Partial Class SSCPManagersTools
         'llbACCEnforcementTaken
         '
         Me.llbACCEnforcementTaken.AutoSize = True
-        Me.llbACCEnforcementTaken.Location = New System.Drawing.Point(260, 234)
+        Me.llbACCEnforcementTaken.Location = New System.Drawing.Point(260, 534)
         Me.llbACCEnforcementTaken.Name = "llbACCEnforcementTaken"
         Me.llbACCEnforcementTaken.Size = New System.Drawing.Size(30, 13)
         Me.llbACCEnforcementTaken.TabIndex = 34
@@ -2527,7 +2510,7 @@ Partial Class SSCPManagersTools
         '
         Me.DTPSearchDateStart.CustomFormat = "dd-MMM-yyyy"
         Me.DTPSearchDateStart.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPSearchDateStart.Location = New System.Drawing.Point(309, 16)
+        Me.DTPSearchDateStart.Location = New System.Drawing.Point(42, 279)
         Me.DTPSearchDateStart.Name = "DTPSearchDateStart"
         Me.DTPSearchDateStart.Size = New System.Drawing.Size(100, 20)
         Me.DTPSearchDateStart.TabIndex = 6
@@ -2537,7 +2520,7 @@ Partial Class SSCPManagersTools
         '
         Me.DTPSearchDateEnd.CustomFormat = "dd-MMM-yyyy"
         Me.DTPSearchDateEnd.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPSearchDateEnd.Location = New System.Drawing.Point(412, 16)
+        Me.DTPSearchDateEnd.Location = New System.Drawing.Point(197, 279)
         Me.DTPSearchDateEnd.Name = "DTPSearchDateEnd"
         Me.DTPSearchDateEnd.Size = New System.Drawing.Size(100, 20)
         Me.DTPSearchDateEnd.TabIndex = 7
@@ -2546,7 +2529,7 @@ Partial Class SSCPManagersTools
         'llbACCDeviationsNotReported
         '
         Me.llbACCDeviationsNotReported.AutoSize = True
-        Me.llbACCDeviationsNotReported.Location = New System.Drawing.Point(260, 213)
+        Me.llbACCDeviationsNotReported.Location = New System.Drawing.Point(260, 513)
         Me.llbACCDeviationsNotReported.Name = "llbACCDeviationsNotReported"
         Me.llbACCDeviationsNotReported.Size = New System.Drawing.Size(30, 13)
         Me.llbACCDeviationsNotReported.TabIndex = 33
@@ -2556,7 +2539,7 @@ Partial Class SSCPManagersTools
         'llbACCDeviationsInFinal
         '
         Me.llbACCDeviationsInFinal.AutoSize = True
-        Me.llbACCDeviationsInFinal.Location = New System.Drawing.Point(260, 192)
+        Me.llbACCDeviationsInFinal.Location = New System.Drawing.Point(260, 492)
         Me.llbACCDeviationsInFinal.Name = "llbACCDeviationsInFinal"
         Me.llbACCDeviationsInFinal.Size = New System.Drawing.Size(30, 13)
         Me.llbACCDeviationsInFinal.TabIndex = 32
@@ -2566,7 +2549,7 @@ Partial Class SSCPManagersTools
         'llbACCDeviationsIncorrectlyReported
         '
         Me.llbACCDeviationsIncorrectlyReported.AutoSize = True
-        Me.llbACCDeviationsIncorrectlyReported.Location = New System.Drawing.Point(260, 161)
+        Me.llbACCDeviationsIncorrectlyReported.Location = New System.Drawing.Point(260, 461)
         Me.llbACCDeviationsIncorrectlyReported.Name = "llbACCDeviationsIncorrectlyReported"
         Me.llbACCDeviationsIncorrectlyReported.Size = New System.Drawing.Size(30, 13)
         Me.llbACCDeviationsIncorrectlyReported.TabIndex = 31
@@ -2576,7 +2559,7 @@ Partial Class SSCPManagersTools
         'llbACCDeviationsReportedCorrectly
         '
         Me.llbACCDeviationsReportedCorrectly.AutoSize = True
-        Me.llbACCDeviationsReportedCorrectly.Location = New System.Drawing.Point(260, 142)
+        Me.llbACCDeviationsReportedCorrectly.Location = New System.Drawing.Point(260, 442)
         Me.llbACCDeviationsReportedCorrectly.Name = "llbACCDeviationsReportedCorrectly"
         Me.llbACCDeviationsReportedCorrectly.Size = New System.Drawing.Size(30, 13)
         Me.llbACCDeviationsReportedCorrectly.TabIndex = 30
@@ -2586,7 +2569,7 @@ Partial Class SSCPManagersTools
         'llbACCDeviationsReported
         '
         Me.llbACCDeviationsReported.AutoSize = True
-        Me.llbACCDeviationsReported.Location = New System.Drawing.Point(260, 100)
+        Me.llbACCDeviationsReported.Location = New System.Drawing.Point(260, 400)
         Me.llbACCDeviationsReported.Name = "llbACCDeviationsReported"
         Me.llbACCDeviationsReported.Size = New System.Drawing.Size(30, 13)
         Me.llbACCDeviationsReported.TabIndex = 29
@@ -2596,7 +2579,7 @@ Partial Class SSCPManagersTools
         'llbACCSubmittedLate
         '
         Me.llbACCSubmittedLate.AutoSize = True
-        Me.llbACCSubmittedLate.Location = New System.Drawing.Point(260, 79)
+        Me.llbACCSubmittedLate.Location = New System.Drawing.Point(260, 379)
         Me.llbACCSubmittedLate.Name = "llbACCSubmittedLate"
         Me.llbACCSubmittedLate.Size = New System.Drawing.Size(30, 13)
         Me.llbACCSubmittedLate.TabIndex = 28
@@ -2606,7 +2589,7 @@ Partial Class SSCPManagersTools
         'llbACCRequiringResubmittal
         '
         Me.llbACCRequiringResubmittal.AutoSize = True
-        Me.llbACCRequiringResubmittal.Location = New System.Drawing.Point(260, 58)
+        Me.llbACCRequiringResubmittal.Location = New System.Drawing.Point(260, 358)
         Me.llbACCRequiringResubmittal.Name = "llbACCRequiringResubmittal"
         Me.llbACCRequiringResubmittal.Size = New System.Drawing.Size(30, 13)
         Me.llbACCRequiringResubmittal.TabIndex = 27
@@ -2616,7 +2599,7 @@ Partial Class SSCPManagersTools
         'llbACCReporting
         '
         Me.llbACCReporting.AutoSize = True
-        Me.llbACCReporting.Location = New System.Drawing.Point(260, 37)
+        Me.llbACCReporting.Location = New System.Drawing.Point(260, 337)
         Me.llbACCReporting.Name = "llbACCReporting"
         Me.llbACCReporting.Size = New System.Drawing.Size(30, 13)
         Me.llbACCReporting.TabIndex = 26
@@ -2626,7 +2609,7 @@ Partial Class SSCPManagersTools
         'llbViewACCTotalAssigned
         '
         Me.llbViewACCTotalAssigned.AutoSize = True
-        Me.llbViewACCTotalAssigned.Location = New System.Drawing.Point(260, 16)
+        Me.llbViewACCTotalAssigned.Location = New System.Drawing.Point(260, 316)
         Me.llbViewACCTotalAssigned.Name = "llbViewACCTotalAssigned"
         Me.llbViewACCTotalAssigned.Size = New System.Drawing.Size(30, 13)
         Me.llbViewACCTotalAssigned.TabIndex = 25
@@ -2635,7 +2618,7 @@ Partial Class SSCPManagersTools
         '
         'txtLONTaken
         '
-        Me.txtLONTaken.Location = New System.Drawing.Point(185, 293)
+        Me.txtLONTaken.Location = New System.Drawing.Point(185, 593)
         Me.txtLONTaken.Name = "txtLONTaken"
         Me.txtLONTaken.ReadOnly = True
         Me.txtLONTaken.Size = New System.Drawing.Size(59, 20)
@@ -2644,7 +2627,7 @@ Partial Class SSCPManagersTools
         'Label44
         '
         Me.Label44.AutoSize = True
-        Me.Label44.Location = New System.Drawing.Point(6, 297)
+        Me.Label44.Location = New System.Drawing.Point(6, 597)
         Me.Label44.Name = "Label44"
         Me.Label44.Size = New System.Drawing.Size(29, 13)
         Me.Label44.TabIndex = 23
@@ -2652,7 +2635,7 @@ Partial Class SSCPManagersTools
         '
         'txtNOVTaken
         '
-        Me.txtNOVTaken.Location = New System.Drawing.Point(185, 272)
+        Me.txtNOVTaken.Location = New System.Drawing.Point(185, 572)
         Me.txtNOVTaken.Name = "txtNOVTaken"
         Me.txtNOVTaken.ReadOnly = True
         Me.txtNOVTaken.Size = New System.Drawing.Size(59, 20)
@@ -2661,7 +2644,7 @@ Partial Class SSCPManagersTools
         'Label43
         '
         Me.Label43.AutoSize = True
-        Me.Label43.Location = New System.Drawing.Point(6, 276)
+        Me.Label43.Location = New System.Drawing.Point(6, 576)
         Me.Label43.Name = "Label43"
         Me.Label43.Size = New System.Drawing.Size(30, 13)
         Me.Label43.TabIndex = 21
@@ -2669,7 +2652,7 @@ Partial Class SSCPManagersTools
         '
         'txtCOTaken
         '
-        Me.txtCOTaken.Location = New System.Drawing.Point(185, 251)
+        Me.txtCOTaken.Location = New System.Drawing.Point(185, 551)
         Me.txtCOTaken.Name = "txtCOTaken"
         Me.txtCOTaken.ReadOnly = True
         Me.txtCOTaken.Size = New System.Drawing.Size(59, 20)
@@ -2678,7 +2661,7 @@ Partial Class SSCPManagersTools
         'Label42
         '
         Me.Label42.AutoSize = True
-        Me.Label42.Location = New System.Drawing.Point(6, 255)
+        Me.Label42.Location = New System.Drawing.Point(6, 555)
         Me.Label42.Name = "Label42"
         Me.Label42.Size = New System.Drawing.Size(22, 13)
         Me.Label42.TabIndex = 19
@@ -2686,7 +2669,7 @@ Partial Class SSCPManagersTools
         '
         'txtEnforcementActionTaken
         '
-        Me.txtEnforcementActionTaken.Location = New System.Drawing.Point(185, 230)
+        Me.txtEnforcementActionTaken.Location = New System.Drawing.Point(185, 530)
         Me.txtEnforcementActionTaken.Name = "txtEnforcementActionTaken"
         Me.txtEnforcementActionTaken.ReadOnly = True
         Me.txtEnforcementActionTaken.Size = New System.Drawing.Size(59, 20)
@@ -2695,7 +2678,7 @@ Partial Class SSCPManagersTools
         'Label41
         '
         Me.Label41.AutoSize = True
-        Me.Label41.Location = New System.Drawing.Point(6, 234)
+        Me.Label41.Location = New System.Drawing.Point(6, 534)
         Me.Label41.Name = "Label41"
         Me.Label41.Size = New System.Drawing.Size(129, 13)
         Me.Label41.TabIndex = 17
@@ -2703,7 +2686,7 @@ Partial Class SSCPManagersTools
         '
         'txtDeviationsNotPreviouslyReported
         '
-        Me.txtDeviationsNotPreviouslyReported.Location = New System.Drawing.Point(185, 209)
+        Me.txtDeviationsNotPreviouslyReported.Location = New System.Drawing.Point(185, 509)
         Me.txtDeviationsNotPreviouslyReported.Name = "txtDeviationsNotPreviouslyReported"
         Me.txtDeviationsNotPreviouslyReported.ReadOnly = True
         Me.txtDeviationsNotPreviouslyReported.Size = New System.Drawing.Size(59, 20)
@@ -2712,7 +2695,7 @@ Partial Class SSCPManagersTools
         'Label40
         '
         Me.Label40.AutoSize = True
-        Me.Label40.Location = New System.Drawing.Point(6, 213)
+        Me.Label40.Location = New System.Drawing.Point(6, 513)
         Me.Label40.Name = "Label40"
         Me.Label40.Size = New System.Drawing.Size(167, 13)
         Me.Label40.TabIndex = 15
@@ -2720,7 +2703,7 @@ Partial Class SSCPManagersTools
         '
         'txtDeviationsReportedInFinal
         '
-        Me.txtDeviationsReportedInFinal.Location = New System.Drawing.Point(185, 188)
+        Me.txtDeviationsReportedInFinal.Location = New System.Drawing.Point(185, 488)
         Me.txtDeviationsReportedInFinal.Name = "txtDeviationsReportedInFinal"
         Me.txtDeviationsReportedInFinal.ReadOnly = True
         Me.txtDeviationsReportedInFinal.Size = New System.Drawing.Size(59, 20)
@@ -2729,7 +2712,7 @@ Partial Class SSCPManagersTools
         'Label38
         '
         Me.Label38.AutoSize = True
-        Me.Label38.Location = New System.Drawing.Point(6, 192)
+        Me.Label38.Location = New System.Drawing.Point(6, 492)
         Me.Label38.Name = "Label38"
         Me.Label38.Size = New System.Drawing.Size(132, 13)
         Me.Label38.TabIndex = 13
@@ -2737,7 +2720,7 @@ Partial Class SSCPManagersTools
         '
         'txtDeviationsIncorrectlyReported
         '
-        Me.txtDeviationsIncorrectlyReported.Location = New System.Drawing.Point(185, 157)
+        Me.txtDeviationsIncorrectlyReported.Location = New System.Drawing.Point(185, 457)
         Me.txtDeviationsIncorrectlyReported.Name = "txtDeviationsIncorrectlyReported"
         Me.txtDeviationsIncorrectlyReported.ReadOnly = True
         Me.txtDeviationsIncorrectlyReported.Size = New System.Drawing.Size(59, 20)
@@ -2745,7 +2728,7 @@ Partial Class SSCPManagersTools
         '
         'txtDeviationsCorrectlyReported
         '
-        Me.txtDeviationsCorrectlyReported.Location = New System.Drawing.Point(185, 138)
+        Me.txtDeviationsCorrectlyReported.Location = New System.Drawing.Point(185, 438)
         Me.txtDeviationsCorrectlyReported.Name = "txtDeviationsCorrectlyReported"
         Me.txtDeviationsCorrectlyReported.ReadOnly = True
         Me.txtDeviationsCorrectlyReported.Size = New System.Drawing.Size(59, 20)
@@ -2754,7 +2737,7 @@ Partial Class SSCPManagersTools
         'Label37
         '
         Me.Label37.AutoSize = True
-        Me.Label37.Location = New System.Drawing.Point(6, 130)
+        Me.Label37.Location = New System.Drawing.Point(6, 430)
         Me.Label37.Name = "Label37"
         Me.Label37.Size = New System.Drawing.Size(168, 39)
         Me.Label37.TabIndex = 10
@@ -2762,7 +2745,7 @@ Partial Class SSCPManagersTools
         '
         'txtDeviationsReportedInOrigional
         '
-        Me.txtDeviationsReportedInOrigional.Location = New System.Drawing.Point(185, 96)
+        Me.txtDeviationsReportedInOrigional.Location = New System.Drawing.Point(185, 396)
         Me.txtDeviationsReportedInOrigional.Name = "txtDeviationsReportedInOrigional"
         Me.txtDeviationsReportedInOrigional.ReadOnly = True
         Me.txtDeviationsReportedInOrigional.Size = New System.Drawing.Size(59, 20)
@@ -2771,7 +2754,7 @@ Partial Class SSCPManagersTools
         'Label36
         '
         Me.Label36.AutoSize = True
-        Me.Label36.Location = New System.Drawing.Point(6, 100)
+        Me.Label36.Location = New System.Drawing.Point(6, 400)
         Me.Label36.Name = "Label36"
         Me.Label36.Size = New System.Drawing.Size(151, 13)
         Me.Label36.TabIndex = 8
@@ -2779,7 +2762,7 @@ Partial Class SSCPManagersTools
         '
         'txtSubmittedLate
         '
-        Me.txtSubmittedLate.Location = New System.Drawing.Point(185, 75)
+        Me.txtSubmittedLate.Location = New System.Drawing.Point(185, 375)
         Me.txtSubmittedLate.Name = "txtSubmittedLate"
         Me.txtSubmittedLate.ReadOnly = True
         Me.txtSubmittedLate.Size = New System.Drawing.Size(59, 20)
@@ -2788,7 +2771,7 @@ Partial Class SSCPManagersTools
         'Label35
         '
         Me.Label35.AutoSize = True
-        Me.Label35.Location = New System.Drawing.Point(6, 79)
+        Me.Label35.Location = New System.Drawing.Point(6, 379)
         Me.Label35.Name = "Label35"
         Me.Label35.Size = New System.Drawing.Size(121, 13)
         Me.Label35.TabIndex = 6
@@ -2796,7 +2779,7 @@ Partial Class SSCPManagersTools
         '
         'txtResubmittals
         '
-        Me.txtResubmittals.Location = New System.Drawing.Point(185, 54)
+        Me.txtResubmittals.Location = New System.Drawing.Point(185, 354)
         Me.txtResubmittals.Name = "txtResubmittals"
         Me.txtResubmittals.ReadOnly = True
         Me.txtResubmittals.Size = New System.Drawing.Size(59, 20)
@@ -2805,7 +2788,7 @@ Partial Class SSCPManagersTools
         'Label34
         '
         Me.Label34.AutoSize = True
-        Me.Label34.Location = New System.Drawing.Point(6, 58)
+        Me.Label34.Location = New System.Drawing.Point(6, 358)
         Me.Label34.Name = "Label34"
         Me.Label34.Size = New System.Drawing.Size(153, 13)
         Me.Label34.TabIndex = 4
@@ -2813,7 +2796,7 @@ Partial Class SSCPManagersTools
         '
         'txtFacilitiesReporting
         '
-        Me.txtFacilitiesReporting.Location = New System.Drawing.Point(185, 33)
+        Me.txtFacilitiesReporting.Location = New System.Drawing.Point(185, 333)
         Me.txtFacilitiesReporting.Name = "txtFacilitiesReporting"
         Me.txtFacilitiesReporting.ReadOnly = True
         Me.txtFacilitiesReporting.Size = New System.Drawing.Size(59, 20)
@@ -2822,7 +2805,7 @@ Partial Class SSCPManagersTools
         'Label32
         '
         Me.Label32.AutoSize = True
-        Me.Label32.Location = New System.Drawing.Point(6, 37)
+        Me.Label32.Location = New System.Drawing.Point(6, 337)
         Me.Label32.Name = "Label32"
         Me.Label32.Size = New System.Drawing.Size(96, 13)
         Me.Label32.TabIndex = 2
@@ -2830,7 +2813,7 @@ Partial Class SSCPManagersTools
         '
         'txtTotalFacilities
         '
-        Me.txtTotalFacilities.Location = New System.Drawing.Point(185, 12)
+        Me.txtTotalFacilities.Location = New System.Drawing.Point(185, 312)
         Me.txtTotalFacilities.Name = "txtTotalFacilities"
         Me.txtTotalFacilities.ReadOnly = True
         Me.txtTotalFacilities.Size = New System.Drawing.Size(59, 20)
@@ -2839,7 +2822,7 @@ Partial Class SSCPManagersTools
         'Label31
         '
         Me.Label31.AutoSize = True
-        Me.Label31.Location = New System.Drawing.Point(6, 16)
+        Me.Label31.Location = New System.Drawing.Point(6, 316)
         Me.Label31.Name = "Label31"
         Me.Label31.Size = New System.Drawing.Size(157, 13)
         Me.Label31.TabIndex = 0
@@ -2859,7 +2842,7 @@ Partial Class SSCPManagersTools
         Me.TPEnforcement.Location = New System.Drawing.Point(4, 22)
         Me.TPEnforcement.Name = "TPEnforcement"
         Me.TPEnforcement.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPEnforcement.Size = New System.Drawing.Size(607, 355)
+        Me.TPEnforcement.Size = New System.Drawing.Size(511, 673)
         Me.TPEnforcement.TabIndex = 1
         Me.TPEnforcement.Text = "Enforcement"
         Me.TPEnforcement.UseVisualStyleBackColor = True
@@ -2867,7 +2850,7 @@ Partial Class SSCPManagersTools
         'chbUseEnforcementDateRange
         '
         Me.chbUseEnforcementDateRange.AutoSize = True
-        Me.chbUseEnforcementDateRange.Location = New System.Drawing.Point(28, 44)
+        Me.chbUseEnforcementDateRange.Location = New System.Drawing.Point(9, 46)
         Me.chbUseEnforcementDateRange.Name = "chbUseEnforcementDateRange"
         Me.chbUseEnforcementDateRange.Size = New System.Drawing.Size(99, 17)
         Me.chbUseEnforcementDateRange.TabIndex = 30
@@ -2878,7 +2861,7 @@ Partial Class SSCPManagersTools
         '
         Me.dtpEnforcementStartDate.CustomFormat = "dd-MMM-yyyy"
         Me.dtpEnforcementStartDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpEnforcementStartDate.Location = New System.Drawing.Point(130, 44)
+        Me.dtpEnforcementStartDate.Location = New System.Drawing.Point(110, 44)
         Me.dtpEnforcementStartDate.Name = "dtpEnforcementStartDate"
         Me.dtpEnforcementStartDate.Size = New System.Drawing.Size(100, 20)
         Me.dtpEnforcementStartDate.TabIndex = 28
@@ -2888,7 +2871,7 @@ Partial Class SSCPManagersTools
         '
         Me.dtpEnforcementEndDate.CustomFormat = "dd-MMM-yyyy"
         Me.dtpEnforcementEndDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpEnforcementEndDate.Location = New System.Drawing.Point(236, 44)
+        Me.dtpEnforcementEndDate.Location = New System.Drawing.Point(216, 44)
         Me.dtpEnforcementEndDate.Name = "dtpEnforcementEndDate"
         Me.dtpEnforcementEndDate.Size = New System.Drawing.Size(100, 20)
         Me.dtpEnforcementEndDate.TabIndex = 29
@@ -2897,7 +2880,7 @@ Partial Class SSCPManagersTools
         'Label47
         '
         Me.Label47.AutoSize = True
-        Me.Label47.Location = New System.Drawing.Point(300, 14)
+        Me.Label47.Location = New System.Drawing.Point(6, 81)
         Me.Label47.Name = "Label47"
         Me.Label47.Size = New System.Drawing.Size(77, 13)
         Me.Label47.TabIndex = 27
@@ -2906,7 +2889,7 @@ Partial Class SSCPManagersTools
         'llbViewEnforcements
         '
         Me.llbViewEnforcements.AutoSize = True
-        Me.llbViewEnforcements.Location = New System.Drawing.Point(528, 14)
+        Me.llbViewEnforcements.Location = New System.Drawing.Point(237, 81)
         Me.llbViewEnforcements.Name = "llbViewEnforcements"
         Me.llbViewEnforcements.Size = New System.Drawing.Size(30, 13)
         Me.llbViewEnforcements.TabIndex = 26
@@ -2915,7 +2898,7 @@ Partial Class SSCPManagersTools
         '
         'mtbEnforcementSummary
         '
-        Me.mtbEnforcementSummary.Location = New System.Drawing.Point(383, 10)
+        Me.mtbEnforcementSummary.Location = New System.Drawing.Point(91, 78)
         Me.mtbEnforcementSummary.Mask = "$0000000000000000000"
         Me.mtbEnforcementSummary.Name = "mtbEnforcementSummary"
         Me.mtbEnforcementSummary.PromptChar = Global.Microsoft.VisualBasic.ChrW(32)
@@ -2926,7 +2909,7 @@ Partial Class SSCPManagersTools
         'Label46
         '
         Me.Label46.AutoSize = True
-        Me.Label46.Location = New System.Drawing.Point(6, 14)
+        Me.Label46.Location = New System.Drawing.Point(6, 15)
         Me.Label46.Name = "Label46"
         Me.Label46.Size = New System.Drawing.Size(72, 13)
         Me.Label46.TabIndex = 2
@@ -2935,7 +2918,7 @@ Partial Class SSCPManagersTools
         'btnPenaltySummary
         '
         Me.btnPenaltySummary.AutoSize = True
-        Me.btnPenaltySummary.Location = New System.Drawing.Point(190, 9)
+        Me.btnPenaltySummary.Location = New System.Drawing.Point(190, 10)
         Me.btnPenaltySummary.Name = "btnPenaltySummary"
         Me.btnPenaltySummary.Size = New System.Drawing.Size(101, 23)
         Me.btnPenaltySummary.TabIndex = 1
@@ -2944,7 +2927,7 @@ Partial Class SSCPManagersTools
         '
         'txtEnforcementAIRSNumber
         '
-        Me.txtEnforcementAIRSNumber.Location = New System.Drawing.Point(84, 10)
+        Me.txtEnforcementAIRSNumber.Location = New System.Drawing.Point(84, 11)
         Me.txtEnforcementAIRSNumber.Name = "txtEnforcementAIRSNumber"
         Me.txtEnforcementAIRSNumber.Size = New System.Drawing.Size(100, 20)
         Me.txtEnforcementAIRSNumber.TabIndex = 0
@@ -2955,7 +2938,7 @@ Partial Class SSCPManagersTools
         Me.TPTitleVRenewals.Controls.Add(Me.btnRunTitleVSearch)
         Me.TPTitleVRenewals.Location = New System.Drawing.Point(4, 22)
         Me.TPTitleVRenewals.Name = "TPTitleVRenewals"
-        Me.TPTitleVRenewals.Size = New System.Drawing.Size(607, 355)
+        Me.TPTitleVRenewals.Size = New System.Drawing.Size(511, 673)
         Me.TPTitleVRenewals.TabIndex = 2
         Me.TPTitleVRenewals.Text = "Title V Renewals"
         Me.TPTitleVRenewals.UseVisualStyleBackColor = True
@@ -3042,7 +3025,7 @@ Partial Class SSCPManagersTools
         Me.dgvStatisticalReports.Location = New System.Drawing.Point(0, 47)
         Me.dgvStatisticalReports.Name = "dgvStatisticalReports"
         Me.dgvStatisticalReports.ReadOnly = True
-        Me.dgvStatisticalReports.Size = New System.Drawing.Size(565, 652)
+        Me.dgvStatisticalReports.Size = New System.Drawing.Size(661, 652)
         Me.dgvStatisticalReports.TabIndex = 14
         '
         'TPMiscReports
@@ -3305,7 +3288,6 @@ Partial Class SSCPManagersTools
         Me.GroupBox6.PerformLayout()
         Me.GroupBox7.ResumeLayout(False)
         Me.GroupBox7.PerformLayout()
-        Me.Panel9.ResumeLayout(False)
         Me.TCNewFacilitySearch.ResumeLayout(False)
         Me.TabPage1.ResumeLayout(False)
         Me.TabPage1.PerformLayout()
@@ -3344,15 +3326,14 @@ Partial Class SSCPManagersTools
         Me.SCStatisticalReports.Panel2.PerformLayout()
         CType(Me.SCStatisticalReports, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SCStatisticalReports.ResumeLayout(False)
+        Me.TCStatisticalTools.ResumeLayout(False)
+        Me.TPACCStats.ResumeLayout(False)
+        Me.TPACCStats.PerformLayout()
         Me.TCComplianceStaff.ResumeLayout(False)
-        Me.TPAdministrative.ResumeLayout(False)
         Me.TPAirToxics.ResumeLayout(False)
         Me.TPChemicals.ResumeLayout(False)
         Me.TPVOC.ResumeLayout(False)
         Me.TPDistricts.ResumeLayout(False)
-        Me.TCStatisticalTools.ResumeLayout(False)
-        Me.TPACCStats.ResumeLayout(False)
-        Me.TPACCStats.PerformLayout()
         Me.TPEnforcement.ResumeLayout(False)
         Me.TPEnforcement.PerformLayout()
         Me.TPTitleVRenewals.ResumeLayout(False)
@@ -3447,12 +3428,10 @@ Partial Class SSCPManagersTools
     Friend WithEvents clbVOCCombustion As System.Windows.Forms.CheckedListBox
     Friend WithEvents clbChemicalsMinerals As System.Windows.Forms.CheckedListBox
     Friend WithEvents clbAirToxicUnit As System.Windows.Forms.CheckedListBox
-    Friend WithEvents clbAdministrative As System.Windows.Forms.CheckedListBox
     Friend WithEvents TCStatisticalTools As System.Windows.Forms.TabControl
     Friend WithEvents TPACCStats As System.Windows.Forms.TabPage
     Friend WithEvents TPEnforcement As System.Windows.Forms.TabPage
     Friend WithEvents TCComplianceStaff As System.Windows.Forms.TabControl
-    Friend WithEvents TPAdministrative As System.Windows.Forms.TabPage
     Friend WithEvents TPAirToxics As System.Windows.Forms.TabPage
     Friend WithEvents TPChemicals As System.Windows.Forms.TabPage
     Friend WithEvents TPVOC As System.Windows.Forms.TabPage
@@ -3521,7 +3500,6 @@ Partial Class SSCPManagersTools
     Friend WithEvents dgvSelectedFacilityList As System.Windows.Forms.DataGridView
     Friend WithEvents dgvFilteredFacilityList As System.Windows.Forms.DataGridView
     Friend WithEvents FacilityAssignmentPanel As System.Windows.Forms.Panel
-    Friend WithEvents Panel9 As System.Windows.Forms.Panel
     Friend WithEvents pnlFacilityAssignments As System.Windows.Forms.Panel
     Friend WithEvents cboFacSearch2 As System.Windows.Forms.ComboBox
     Friend WithEvents Label49 As System.Windows.Forms.Label
@@ -3654,4 +3632,6 @@ Partial Class SSCPManagersTools
     Friend WithEvents Label64 As System.Windows.Forms.Label
     Friend WithEvents cboExistingYears As System.Windows.Forms.ComboBox
     Friend WithEvents Label63 As System.Windows.Forms.Label
+    Friend WithEvents Label2 As Label
+    Friend WithEvents Label1 As Label
 End Class
