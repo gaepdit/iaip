@@ -1,5 +1,6 @@
 Imports System.Data.SqlClient
 Imports Iaip.Apb.Facilities
+Imports Iaip.SharedData
 
 Public Class IAIPFacilityCreator
 
@@ -33,15 +34,10 @@ Public Class IAIPFacilityCreator
 
     Private Sub LoadCounty()
         Try
-            Dim SQL As String = "Select " &
-            "strCountyCode, strCountyName " &
-            "from lookUpCountyInformation " &
-            "order by strCountyName "
-
             With cboCounty
-                .DataSource = DB.GetDataTable(SQL)
-                .DisplayMember = "strCountyName"
-                .ValueMember = "strCountyCode"
+                .DataSource = GetSharedData(SharedTable.Counties)
+                .DisplayMember = "County"
+                .ValueMember = "CountyCode"
                 .SelectedIndex = -1
             End With
 

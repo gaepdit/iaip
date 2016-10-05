@@ -20,6 +20,7 @@ Public Class SharedData
         AllFeeFacilities
         EpdManagers
         SscpNotificationTypes
+        Counties
     End Enum
 
     ''' <summary>
@@ -35,6 +36,7 @@ Public Class SharedData
     ''' </summary>
     Public Enum SharedLookupDictionary
         ActiveUsers
+        Counties
     End Enum
 
 #End Region
@@ -70,6 +72,9 @@ Public Class SharedData
 
                 Case SharedTable.SscpNotificationTypes
                     dt = DAL.Sscp.GetSscpNotificationTypes()
+
+                Case SharedTable.Counties
+                    dt = DAL.GetCountiesAsDataTable()
 
             End Select
 
@@ -137,6 +142,9 @@ Public Class SharedData
 
                 Case SharedLookupDictionary.ActiveUsers
                     dict = DAL.GetActiveUsers()
+
+                Case SharedLookupDictionary.Counties
+                    dict = DAL.GetCountiesAsDictionary()
 
             End Select
 
