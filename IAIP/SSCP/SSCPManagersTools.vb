@@ -131,13 +131,13 @@ Public Class SSCPManagersTools
             End With
 
             With cboSSCPUnitFilter
-                .DataSource = dtUnits.Clone
+                .DataSource = New BindingSource(dtUnits, Nothing)
                 .DisplayMember = "STRUNITDESC"
                 .ValueMember = "NUMUNITCODE"
             End With
 
             With cboSSCPUnitFilter2
-                .DataSource = dtUnits.Clone
+                .DataSource = New BindingSource(dtUnits, Nothing)
                 .DisplayMember = "STRUNITDESC"
                 .ValueMember = "NUMUNITCODE"
             End With
@@ -253,42 +253,6 @@ Public Class SSCPManagersTools
             cboFacSearch2.Items.Add("SSCP Unit")
             cboFacSearch2.Items.Add("Unassigned Facilities")
             cboFacSearch2.SelectedIndex = 0
-
-            '--- This loads the Combo Box Sort Option 1 for New Facility Search
-            cboSort1.Items.Add("<Select a Filter Option>")
-            cboSort1.Items.Add("AIRS Number")
-            cboSort1.Items.Add("City")
-            cboSort1.Items.Add("Classification")
-            cboSort1.Items.Add("County")
-            cboSort1.Items.Add("District")
-            cboSort1.Items.Add("District Responsible")
-            cboSort1.Items.Add("Engineer")
-            cboSort1.Items.Add("Facility Name")
-            cboSort1.Items.Add("Operational Status")
-            cboSort1.Items.Add("SIC Codes")
-            cboSort1.Items.Add("SSCP Unit")
-
-            '--- This loads the Combo Box Sort Option 2 for New Facility Search
-            cboSort2.Items.Add("<Select a Filter Option>")
-            cboSort2.Items.Add("AIRS Number")
-            cboSort2.Items.Add("City")
-            cboSort2.Items.Add("Classification")
-            cboSort2.Items.Add("County")
-            cboSort2.Items.Add("District")
-            cboSort2.Items.Add("District Responsible")
-            cboSort2.Items.Add("Engineer")
-            cboSort2.Items.Add("Facility Name")
-            cboSort2.Items.Add("Operational Status")
-            cboSort2.Items.Add("SIC Codes")
-            cboSort2.Items.Add("SSCP Unit")
-
-            '--- This loads the Combo Box Sort Option Order 1 for New Facility Search
-            cboSortOrder1.Items.Add("Ascending Order")
-            cboSortOrder1.Items.Add("Descending Order")
-
-            '--- This loads the Combo Box Sort Option Order 2 for New Facility Search
-            cboSortOrder2.Items.Add("Ascending Order")
-            cboSortOrder2.Items.Add("Descending Order")
 
             '--- This loads the operating status 1 for New Facility Search 
             cboOpStatus1.Items.Add("O")
@@ -3027,277 +2991,144 @@ Public Class SSCPManagersTools
 
     Private Sub LoadFacilitySearch(Location As String)
         Try
-            Dim SQLLine1 As String = " "
-            Dim SQLLine2 As String = " "
-            Dim SQLOrder1 As String = " "
-            Dim SQLOrder2 As String = " "
-            ' Dim dtEngineers As New DataTable
-            Dim SQLLine As String = ""
-            Dim TotalText As String = ""
+            Dim SQL As String
+            Dim SqlFilter As New List(Of String)
+            Dim ParamList As New List(Of SqlParameter)
 
-            If chbIgnoreFiscalYear.Checked = True Then
-                SQL = "Select " &
-                "SUBSTRING(VW_SSCP_MT_FacilityAssignment.strAIRSNumber, 5,8) as AIRSNumber, strFacilityName, " &
-                "strFacilityCity, " &
-                "strCMSMember, " &
-                "strClass, strOperationalStatus, " &
-                "LastInspection," &
-                "LastFCE, " &
-                "(strLastName||', '||strFirstName) as SSCPEngineer, " &
-                "strUnitDesc," &
-                " strDistrictResponsible, " &
-                "strCountyName " &
-                "from VW_SSCP_MT_FacilityAssignment, " &
-                "EPDUserProfiles, " &
-                " SSCPInspectionsRequired, " &
-                "LookUpEPDUnits, " &
-                "(select " &
-                "max(intYear) as MaxYear, SSCPInspectionsRequired.strairsnumber " &
-                "from SSCPInspectionsRequired " &
-                "group by SSCPInspectionsRequired.strAIRSNumber) MaxResults " &
-              " where SSCPInspectionsRequired.numSSCPEngineer = EPDUserProfiles.numUserID (+) " &
-              "and SSCPInspectionsRequired.numSSCPUnit = LookUpEPDunits.numUnitCode (+) " &
-              " and VW_SSCP_MT_FacilityAssignment.strairsnumber = sscpinspectionsrequired.strairsnumber (+) " &
-              "and SSCPInspectionsRequired.strAIRSNumber = MaxResults.strAIRSNumber " &
-              "and SSCPInspectionsRequired.intYear = MaxResults.maxYear "
-
+            If chbIgnoreFiscalYear.Checked Then
+                SQL = "SELECT SUBSTRING(v.strAIRSNumber, 5, 8) AS AIRSNumber, STRFACILITYNAME, STRFACILITYCITY, 
+                    STRCMSMEMBER, STRCLASS, STROPERATIONALSTATUS, LASTINSPECTION, LASTFCE, 
+                    CONCAT(STRLASTNAME, ', ', STRFIRSTNAME) AS SSCPEngineer, STRUNITDESC, 
+                    STRDISTRICTRESPONSIBLE, STRCOUNTYNAME
+                    FROM VW_SSCP_MT_FACILITYASSIGNMENT AS v
+                    LEFT JOIN SSCPINSPECTIONSREQUIRED AS r ON v.STRAIRSNUMBER = r.STRAIRSNUMBER
+                    LEFT JOIN EPDUSERPROFILES AS p ON r.NUMSSCPENGINEER = p.NUMUSERID
+                    LEFT JOIN LOOKUPEPDUNITS AS l ON r.NUMSSCPUNIT = l.NUMUNITCODE
+                    INNER JOIN (SELECT MAX(intYear) AS MaxYear, STRAIRSNUMBER
+                    FROM SSCPINSPECTIONSREQUIRED
+                    GROUP BY STRAIRSNUMBER) AS MaxResults 
+                    ON r.STRAIRSNUMBER = MaxResults.STRAIRSNUMBER AND r.INTYEAR = MaxResults.MaxYear"
             Else
-                SQL = "Select " &
-              "SUBSTRING(VW_SSCP_MT_FacilityAssignment.strAIRSNumber, 5,8) as AIRSNumber, strFacilityName, " &
-              "strFacilityCity, " &
-              "strCMSMember, " &
-              " strClass, strOperationalStatus, " &
-              " case " &
-              " when strInspectionRequired = 'True' then 'True' " &
-              " when strinspectionrequired = 'False' then 'False' " &
-              " when strInspectionRequired is null then 'False' " &
-              " end InspectionRequired, " &
-              " LastInspection," &
-              "   case " &
-              " when strFCERequired = 'True' then 'True' " &
-              " when strFCERequired = 'False' then 'False' " &
-              " when strFCERequired is null then 'False' " &
-              " end FCERequired, " &
-              "   LastFCE, " &
-              "(strLastName||', '||strFirstName) as SSCPEngineer, " &
-              "  strUnitDesc," &
-              "   strDistrictResponsible, " &
-              "  strCountyName " &
-              " from VW_SSCP_MT_FacilityAssignment, " &
-              "EPDUserProfiles, " &
-              " SSCPInspectionsRequired, " &
-              "LookUpEPDUnits " &
-              " where SSCPInspectionsRequired.numSSCPEngineer = EPDUserProfiles.numUserID (+) " &
-              "and SSCPInspectionsRequired.numSSCPUnit = LookUpEPDunits.numUnitCode (+) " &
-              " and VW_SSCP_MT_FacilityAssignment.strairsnumber = sscpinspectionsrequired.strairsnumber (+) " &
-              " and sscpinspectionsrequired.intYear = '" & cboFiscalYear.Text & "' "
+                SQL = "SELECT SUBSTRING(v.STRAIRSNUMBER, 5, 8) AS AIRSNumber, STRFACILITYNAME, STRFACILITYCITY, 
+                    STRCMSMEMBER, STRCLASS, STROPERATIONALSTATUS,
+                    CASE WHEN STRINSPECTIONREQUIRED = 'True' THEN 'True' ELSE 'False' END AS InspectionRequired, LASTINSPECTION,
+                    CASE WHEN strFCERequired = 'True' THEN 'True' ELSE 'False' END AS FCERequired, LASTFCE, 
+                    CONCAT(STRLASTNAME, ', ', STRFIRSTNAME) AS SSCPEngineer, STRUNITDESC, STRDISTRICTRESPONSIBLE, STRCOUNTYNAME
+                    FROM VW_SSCP_MT_FACILITYASSIGNMENT AS v
+                    LEFT JOIN SSCPINSPECTIONSREQUIRED AS r ON v.STRAIRSNUMBER = r.STRAIRSNUMBER
+                    LEFT JOIN EPDUSERPROFILES AS p ON r.NUMSSCPENGINEER = p.NUMUSERID
+                    LEFT JOIN LOOKUPEPDUNITS AS l ON r.NUMSSCPUNIT = l.NUMUNITCODE"
+
+                SqlFilter.Add(" r.INTYEAR = @year ")
+                ParamList.Add(New SqlParameter("@year", cboFiscalYear.Text))
             End If
 
-            SQLLine1 = " "
-            SQLLine2 = " "
-            SQLOrder1 = " "
-            SQLOrder2 = " "
             If Location = "Filter" Then
-                If cboFacSearch1.Items.Contains(cboFacSearch1.Text) And cboFilterEngineer1.Text <> "" Then
-                    Select Case cboFacSearch1.Text
-                        Case "AIRS Number"
-                            SQLLine1 = " upper(VW_SSCP_MT_FacilityAssignment.strAIRSNumber) like '%" & Replace(txtFacSearch1.Text.ToUpper, "'", "''") & "%' "
-                        Case "City"
-                            SQLLine1 = " upper(strFacilityCity) like '%" & Replace(txtFacSearch1.Text.ToUpper, "'", "''") & "%' "
-                        Case "Classification"
-                            SQLLine1 = " upper(strClass) like '%" & Replace(cboClassFilter1.Text.ToUpper, "'", "''") & "%' "
-                        Case "CMS Status"
-                            SQLLine1 = " Upper(strCMSMember) like '%" & Replace(cboCMSMemberFilter1.Text.ToUpper, "'", "''") & "%' "
-                        Case "County"
-                            SQLLine1 = " upper(strCountyName) like '%" & Replace(cboCountyFilter1.Text.ToUpper, "'", "''") & "%' "
-                        Case "District"
-                            SQLLine1 = " upper(strDistrictName) like '%" & Replace(cboDistrictFilter1.Text.ToUpper, "'", "''") & "%' "
-                        Case "District Engineer"
-                            SQLLine1 = " strDistrictEngineer = '" & cboFilterEngineer1.SelectedValue & "' "
-                        Case "District Responsible"
-                            If rdbDistResp1True.Checked = True Then
-                                SQLLine1 = " strDistrictResponsible = 'True' "
-                            Else
-                                SQLLine1 = " strDistrictResponsible = 'False' "
-                            End If
-                        Case "Engineer"
-                            SQLLine1 = " numSSCPEngineer = '" & cboFilterEngineer1.SelectedValue & "' "
-                        Case "Facility Name"
-                            SQLLine1 = " upper(strFacilityName) like '%" & Replace(txtFacSearch1.Text.ToUpper, "'", "''") & "%' "
-                        Case "Unassigned Facilities"
-                            SQLLine1 = " numSSCPEngineer is null "
-                        Case "Operational Status"
-                            SQLLine1 = " upper(strOperationalStatus) like '%" & Replace(cboOpStatus1.Text.ToUpper, "'", "''") & "%' "
-                        Case "SIC Codes"
-                            SQLLine1 = " upper(strSICCode) like '%" & Replace(txtFacSearch1.Text.ToUpper, "'", "''") & "%' "
-                        Case "SSCP Unit"
-                            SQLLine1 = " upper(strUnitDesc) like '%" & Replace(txtFacSearch1.Text.ToUpper, "'", "''") & "%' "
-                            SQLLine1 = " upper(strUnitDesc) like '%" & Replace(cboSSCPUnitFilter.Text.ToUpper, "'", "''") & "%' "
-                        Case Else
-                            SQLLine1 = " "
-                    End Select
-                End If
 
-                If cboFacSearch2.Items.Contains(cboFacSearch2.Text) And cboFilterEngineer2.Text <> "" Then
-                    Select Case cboFacSearch2.Text
-                        Case "AIRS Number"
-                            SQLLine2 = " upper(VW_SSCP_MT_FacilityAssignment.strAIRSNumber) like '%" & Replace(txtFacSearch2.Text.ToUpper, "'", "''") & "%' "
-                        Case "City"
-                            SQLLine2 = " upper(strFacilityCity) like '%" & Replace(txtFacSearch2.Text.ToUpper, "'", "''") & "%' "
-                        Case "Classification"
-                            SQLLine2 = " upper(strClass) like '%" & Replace(cboClassFilter2.Text.ToUpper, "'", "''") & "%' "
-                        Case "CMS Status"
-                            SQLLine2 = " Upper(strCMSMember) like '%" & Replace(cboCMSMemberFilter2.Text.ToUpper, "'", "''") & "%' "
-                        Case "County"
-                            SQLLine2 = " upper(strCountyName) like '%" & Replace(cboCountyFilter2.Text.ToUpper, "'", "''") & "%' "
-                        Case "District"
-                            SQLLine2 = " upper(strDistrictName) like '%" & Replace(cboDistrictFilter2.Text.ToUpper, "'", "''") & "%' "
-                        Case "District Engineer"
-                            SQLLine2 = " strDistrictEngineer = '" & cboFilterEngineer2.SelectedValue & "' "
-                        Case "District Responsible"
-                            If rdbDistResp2True.Checked = True Then
-                                SQLLine2 = " strDistrictResponsible = 'True' "
-                            Else
-                                SQLLine2 = " strDistrictResponsible = 'False' "
-                            End If
-                        Case "Engineer"
-                            SQLLine2 = " numSSCPEngineer = '" & cboFilterEngineer2.SelectedValue & "' "
-                        Case "Facility Name"
-                            SQLLine2 = " upper(strFacilityName) like '%" & Replace(txtFacSearch2.Text.ToUpper, "'", "''") & "%' "
-                        Case "Unassigned Facilities"
-                            SQLLine2 = " numSSCPEngineer is null "
-                        Case "Operational Status"
-                            SQLLine2 = " upper(strOperationalStatus) like '%" & Replace(cboOpStatus2.Text.ToUpper, "'", "''") & "%' "
-                        Case "SIC Codes"
-                            SQLLine2 = " upper(strSICCode) like '%" & Replace(txtFacSearch2.Text.ToUpper, "'", "''") & "%' "
-                        Case "SSCP Unit"
-                            SQLLine2 = " upper(strUnitDesc) like '%" & Replace(txtFacSearch2.Text.ToUpper, "'", "''") & "%' "
-                            SQLLine2 = " upper(strUnitDesc) like '%" & Replace(cboSSCPUnitFilter2.Text.ToUpper, "'", "''") & "%' "
-                        Case Else
-                            SQLLine2 = " "
-                    End Select
-                End If
+                Select Case cboFacSearch1.Text
+                    Case "AIRS Number"
+                        SqlFilter.Add(" v.STRAIRSNUMBER LIKE @search1 ")
+                        ParamList.Add(New SqlParameter("@search1", "%" & txtFacSearch1.Text & "%"))
+                    Case "City"
+                        SqlFilter.Add(" STRFACILITYCITY LIKE @search1 ")
+                        ParamList.Add(New SqlParameter("@search1", "%" & txtFacSearch1.Text & "%"))
+                    Case "Classification"
+                        SqlFilter.Add(" STRCLASS = @search1 ")
+                        ParamList.Add(New SqlParameter("@search1", cboClassFilter1.Text))
+                    Case "CMS Status"
+                        SqlFilter.Add(" STRCMSMEMBER = @search1 ")
+                        ParamList.Add(New SqlParameter("@search1", cboCMSMemberFilter1.Text))
+                    Case "County"
+                        SqlFilter.Add(" STRCOUNTYNAME = @search1 ")
+                        ParamList.Add(New SqlParameter("@search1", cboCountyFilter1.Text))
+                    Case "District"
+                        SqlFilter.Add(" STRDISTRICTNAME = @search1 ")
+                        ParamList.Add(New SqlParameter("@search1", cboDistrictFilter1.Text))
+                    Case "District Responsible"
+                        SqlFilter.Add(" STRDISTRICTRESPONSIBLE = @search1 ")
+                        ParamList.Add(New SqlParameter("@search1", rdbDistResp1True.Checked))
+                    Case "Engineer"
+                        SqlFilter.Add(" NUMSSCPENGINEER = @search1 ")
+                        ParamList.Add(New SqlParameter("@search1", cboFilterEngineer1.SelectedValue))
+                    Case "Facility Name"
+                        SqlFilter.Add(" STRFACILITYNAME LIKE @search1 ")
+                        ParamList.Add(New SqlParameter("@search1", "%" & txtFacSearch1.Text & "%"))
+                    Case "Unassigned Facilities"
+                        SqlFilter.Add(" NUMSSCPENGINEER is null ")
+                    Case "Operational Status"
+                        SqlFilter.Add(" STROPERATIONALSTATUS = @search1 ")
+                        ParamList.Add(New SqlParameter("@search1", cboOpStatus1.Text))
+                    Case "SIC Codes"
+                        SqlFilter.Add(" STRSICCODE LIKE @search1 ")
+                        ParamList.Add(New SqlParameter("@search1", "%" & txtFacSearch1.Text & "%"))
+                    Case "SSCP Unit"
+                        SqlFilter.Add(" STRUNITDESC = @search1 ")
+                        ParamList.Add(New SqlParameter("@search1", cboSSCPUnitFilter.Text))
+                End Select
 
-                If cboSort1.Items.Contains(cboSort1.Text) And cboSort1.SelectedIndex <> 0 Then
-                    Select Case cboSort1.Text
-                        Case "AIRS Number"
-                            SQLOrder1 = " strAIRSNumber"
-                        Case "City"
-                            SQLOrder1 = " strFacilityCity"
-                        Case "Classification"
-                            SQLOrder1 = " strClass"
-                        Case "County"
-                            SQLOrder1 = " strCountyName"
-                        Case "District"
-                            SQLOrder1 = " strDistrictName"
-                        Case "District Engineer"
-                            SQLOrder1 = " strDistrictEngineer"
-                        Case "District Responsible"
-                            SQLOrder1 = " strDistrictResponsible"
-                        Case "Engineer"
-                            SQLOrder1 = " numSSCPEngineer"
-                        Case "Facility Name"
-                            SQLOrder1 = " strFacilityName"
-                        Case "Operational Status"
-                            SQLOrder1 = " strOperationalStatus"
-                        Case "SIC Codes"
-                            SQLOrder1 = " strSICCode"
-                        Case "SSCP Unit"
-                            SQLOrder1 = " strUnitDesc"
-                        Case Else
-                            SQLOrder1 = " "
-                    End Select
-                    If SQLOrder1 <> " " Then
-                        If cboSortOrder1.Text = "Ascending Order" Then
-                            SQLOrder1 = SQLOrder1 & " asc "
-                        Else
-                            SQLOrder1 = SQLOrder1 & " desc "
-                        End If
-                    End If
-                End If
-
-                If cboSort2.Items.Contains(cboSort2.Text) And cboSort2.SelectedIndex <> 0 Then
-                    Select Case cboSort2.Text
-                        Case "AIRS Number"
-                            SQLOrder2 = " strAIRSNumber"
-                        Case "City"
-                            SQLOrder2 = " strFacilityCity"
-                        Case "Classification"
-                            SQLOrder2 = " strClass"
-                        Case "County"
-                            SQLOrder2 = " strCountyName"
-                        Case "District"
-                            SQLOrder2 = " strDistrictName"
-                        Case "District Engineer"
-                            SQLOrder2 = " strDistrictEngineer"
-                        Case "District Responsible"
-                            SQLOrder2 = " strDistrictResponsible"
-                        Case "Engineer"
-                            SQLOrder2 = " numSSCPEngineer"
-                        Case "Facility Name"
-                            SQLOrder2 = " strFacilityName"
-                        Case "Operational Status"
-                            SQLOrder2 = " strOperationalStatus"
-                        Case "SIC Codes"
-                            SQLOrder2 = " strSICCode"
-                        Case "SSCP Unit"
-                            SQLOrder2 = " strUnitDesc"
-                        Case Else
-                            SQLOrder2 = " "
-                    End Select
-                    If SQLOrder2 <> " " Then
-                        If cboSortOrder2.Text = "Ascending Order" Then
-                            SQLOrder2 = SQLOrder2 & " asc "
-                        Else
-                            SQLOrder2 = SQLOrder2 & " desc "
-                        End If
-                    End If
-                End If
-
-                If SQLLine1 <> " " Then
-                    SQL = SQL & " and " & SQLLine1
-                End If
-                If SQLLine2 <> " " Then
-                    SQL = SQL & " and " & SQLLine2
-                End If
-
-                If SQLOrder1 <> " " Then
-                    SQL = SQL & " Order by " & SQLOrder1
-                    If SQLOrder2 <> " " Then
-                        SQL = SQL & " , " & SQLLine2
-                    End If
-                Else
-                    If SQLOrder2 <> " " Then
-                        SQL = SQL & " Order by " & SQLOrder2
-                    End If
-                End If
+                Select Case cboFacSearch2.Text
+                    Case "AIRS Number"
+                        SqlFilter.Add(" v.STRAIRSNUMBER LIKE @search2 ")
+                        ParamList.Add(New SqlParameter("@search2", "%" & txtFacSearch2.Text & "%"))
+                    Case "City"
+                        SqlFilter.Add(" STRFACILITYCITY LIKE @search2 ")
+                        ParamList.Add(New SqlParameter("@search2", "%" & txtFacSearch2.Text & "%"))
+                    Case "Classification"
+                        SqlFilter.Add(" STRCLASS = @search2 ")
+                        ParamList.Add(New SqlParameter("@search2", cboClassFilter2.Text))
+                    Case "CMS Status"
+                        SqlFilter.Add(" STRCMSMEMBER = @search2 ")
+                        ParamList.Add(New SqlParameter("@search2", cboCMSMemberFilter2.Text))
+                    Case "County"
+                        SqlFilter.Add(" STRCOUNTYNAME = @search2 ")
+                        ParamList.Add(New SqlParameter("@search2", cboCountyFilter2.Text))
+                    Case "District"
+                        SqlFilter.Add(" STRDISTRICTNAME = @search2 ")
+                        ParamList.Add(New SqlParameter("@search2", cboDistrictFilter2.Text))
+                    Case "District Responsible"
+                        SqlFilter.Add(" STRDISTRICTRESPONSIBLE = @search2 ")
+                        ParamList.Add(New SqlParameter("@search2", rdbDistResp2True.Checked))
+                    Case "Engineer"
+                        SqlFilter.Add(" NUMSSCPENGINEER = @search2 ")
+                        ParamList.Add(New SqlParameter("@search2", cboFilterEngineer2.SelectedValue))
+                    Case "Facility Name"
+                        SqlFilter.Add(" STRFACILITYNAME LIKE @search2 ")
+                        ParamList.Add(New SqlParameter("@search2", "%" & txtFacSearch2.Text & "%"))
+                    Case "Unassigned Facilities"
+                        SqlFilter.Add(" NUMSSCPENGINEER is null ")
+                    Case "Operational Status"
+                        SqlFilter.Add(" STROPERATIONALSTATUS = @search2 ")
+                        ParamList.Add(New SqlParameter("@search2", cboOpStatus2.Text))
+                    Case "SIC Codes"
+                        SqlFilter.Add(" STRSICCODE LIKE @search2 ")
+                        ParamList.Add(New SqlParameter("@search2", "%" & txtFacSearch2.Text & "%"))
+                    Case "SSCP Unit"
+                        SqlFilter.Add(" STRUNITDESC = @search2 ")
+                        ParamList.Add(New SqlParameter("@search2", cboSSCPUnitFilter.Text))
+                End Select
 
             Else
-                TotalText = txtManualAIRSNumber.Text
-                SQLLine = ""
+                Dim airslist As String() = txtManualAIRSNumber.Text.Split(New String() {vbNewLine, "\r\n", "\n"}, StringSplitOptions.RemoveEmptyEntries)
 
-                Do While TotalText <> ""
-                    SQLLine = SQLLine & " VW_SSCP_MT_FacilityAssignment.strairsnumber = '0413" & Mid(TotalText, 1, 8) & "' or "
-                    If TotalText.Length > 10 Then
-                        TotalText = Microsoft.VisualBasic.Right(TotalText, TotalText.Length - 10)
-                    Else
-                        TotalText = ""
-                    End If
-                Loop
+                If airslist.Length > 0 Then
+                    For i As Integer = 0 To airslist.Length - 1
+                        airslist(i) = "0413" & airslist(i)
+                    Next
 
-                If SQLLine <> "" Then
-                    SQL = SQL & " and ( " & Mid(SQLLine, 1, SQLLine.Length - 4) & " ) "
+                    SqlFilter.Add(" v.STRAIRSNUMBER IN (select * from @airslist) ")
+
+                    ParamList.Add(New SqlParameter("@airslist", SqlDbType.Structured) With {
+                        .Value = airslist.AsSqlDataRecord,
+                        .TypeName = "dbo.StringList"
+                    })
                 End If
             End If
 
-            ds = New DataSet
-            da = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
+            If SqlFilter.Count > 0 Then
+                SQL &= " WHERE " & String.Join(" AND ", SqlFilter)
             End If
-            da.Fill(ds, "FacilitySearch")
-            dgvFilteredFacilityList.DataSource = ds
-            dgvFilteredFacilityList.DataMember = "FacilitySearch"
+
+            dgvFilteredFacilityList.DataSource = DB.GetDataTable(SQL, ParamList.ToArray)
 
             dgvFilteredFacilityList.RowHeadersVisible = False
             dgvFilteredFacilityList.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -3378,7 +3209,7 @@ Public Class SSCPManagersTools
         LoadFacilitySearch("Filter")
     End Sub
 
-    Private Sub cboFacSearch1_SelectedValueChanged(sender As Object, e As EventArgs) Handles cboFacSearch1.SelectedIndexChanged
+    Private Sub cboFacSearch1_SelectedValueChanged(sender As Object, e As EventArgs) Handles cboFacSearch1.SelectedValueChanged
         Try
             cboFilterEngineer1.Visible = False
             txtFacSearch1.Visible = False
@@ -3409,8 +3240,7 @@ Public Class SSCPManagersTools
                     cboOpStatus1.Visible = True
                 Case "SSCP Unit"
                     cboSSCPUnitFilter.Visible = True
-                Case "Unassigned Facilities"
-
+                Case "<Select a Filter Option>", "Unassigned Facilities"
                 Case Else
                     txtFacSearch1.Visible = True
             End Select
@@ -3420,7 +3250,7 @@ Public Class SSCPManagersTools
         End Try
     End Sub
 
-    Private Sub cboFacSearch2_SelectedValueChanged(sender As Object, e As EventArgs) Handles cboFacSearch2.SelectedIndexChanged
+    Private Sub cboFacSearch2_SelectedValueChanged(sender As Object, e As EventArgs) Handles cboFacSearch2.SelectedValueChanged
         Try
             cboFilterEngineer2.Visible = False
             txtFacSearch2.Visible = False
@@ -3451,8 +3281,7 @@ Public Class SSCPManagersTools
                     cboOpStatus2.Visible = True
                 Case "SSCP Unit"
                     cboSSCPUnitFilter2.Visible = True
-                Case "Unassigned Facilities"
-
+                Case "<Select a Filter Option>", "Unassigned Facilities"
                 Case Else
                     txtFacSearch2.Visible = True
             End Select
@@ -4141,80 +3970,36 @@ Public Class SSCPManagersTools
 
     Private Sub btnForceAIRSNumber_Click(sender As Object, e As EventArgs) Handles btnForceAIRSNumber.Click
         Try
-            Dim dgvRow As New DataGridViewRow
-            Dim temp As String
-            Dim temp2 As String = "Add"
-            Dim i As Integer = 0
-            Dim FacilityName As String = ""
+            If Apb.ApbFacilityId.IsValidAirsNumberFormat(mtbForcedAIRS.Text) Then
+                Dim airs As New Apb.ApbFacilityId(mtbForcedAIRS.Text)
 
-            SQL = "Select strAIRSNumber " &
-            "From APBMasterAIRS " &
-            "where strAIRSNumber = '0413" & mtbForcedAIRS.Text & "' "
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            recExist = dr.Read
-            dr.Close()
+                If DAL.AirsNumberExists(airs) Then
+                    Dim FacilityName As String = DAL.GetFacilityName(airs)
+                    Dim exists As Boolean = False
 
-            If recExist = True Then
-                SQL = "Select " &
-                "strFacilityName " &
-                "from APBFacilityInformation " &
-                "where strAIRSNumber = '0413" & mtbForcedAIRS.Text & "' "
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                While dr.Read
-                    If IsDBNull(dr.Item("strFacilityName")) Then
-                        FacilityName = ""
-                    Else
-                        FacilityName = dr.Item("strFacilityName")
-                    End If
-                End While
-                dr.Close()
-
-                i = dgvSelectedFacilityList.Rows.Count
-
-                If i > 0 Then
-                    temp = mtbForcedAIRS.Text
-                    For i = 0 To dgvSelectedFacilityList.Rows.Count - 1
-                        If dgvSelectedFacilityList(0, i).Value = temp Then
-                            temp2 = "Ignore"
+                    For Each row As DataGridViewRow In dgvSelectedFacilityList.Rows
+                        If row.Cells(0).Value.ToString.Equals(mtbForcedAIRS.Text) Then
+                            exists = True
                         End If
                     Next
-                    If temp2 <> "Ignore" Then
+
+                    If Not exists Then
+                        Dim dgvRow As New DataGridViewRow
+
                         dgvRow.CreateCells(dgvSelectedFacilityList)
                         dgvRow.Cells(0).Value = mtbForcedAIRS.Text
                         dgvRow.Cells(1).Value = FacilityName
-                        dgvRow.Cells(2).Value = ""
-                        dgvRow.Cells(3).Value = ""
-                        dgvRow.Cells(4).Value = ""
-                        dgvRow.Cells(5).Value = ""
 
                         dgvSelectedFacilityList.Rows.Add(dgvRow)
                     End If
+
+                    lblSelectedCount.Text = "Count: " & dgvSelectedFacilityList.Rows.Count.ToString
                 Else
-                    dgvRow.CreateCells(dgvSelectedFacilityList)
-                    dgvRow.Cells(0).Value = mtbForcedAIRS.Text
-                    dgvRow.Cells(1).Value = FacilityName
-                    dgvRow.Cells(2).Value = ""
-                    dgvRow.Cells(3).Value = ""
-                    dgvRow.Cells(4).Value = ""
-                    dgvRow.Cells(5).Value = ""
-
-                    dgvSelectedFacilityList.Rows.Add(dgvRow)
+                    MsgBox("AIRS # does not exist in the database.", MsgBoxStyle.Exclamation, "SSCP Managers Tools")
                 End If
-
-                lblSelectedCount.Text = "Count: " & dgvSelectedFacilityList.Rows.Count.ToString
             Else
-                MsgBox("AIRS # does not exist in the database.", MsgBoxStyle.Exclamation, "SSCP Managers Tools")
+                MsgBox("Invalid AIRS #.", MsgBoxStyle.Exclamation, "SSCP Managers Tools")
             End If
-
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try

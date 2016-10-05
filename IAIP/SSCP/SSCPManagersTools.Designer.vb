@@ -150,20 +150,12 @@ Partial Class SSCPManagersTools
         Me.rdbDistResp2False = New System.Windows.Forms.RadioButton()
         Me.rdbDistResp2True = New System.Windows.Forms.RadioButton()
         Me.cboFilterEngineer2 = New System.Windows.Forms.ComboBox()
-        Me.chbViewAllFields = New System.Windows.Forms.CheckBox()
         Me.btnFacilitySearch = New System.Windows.Forms.Button()
         Me.cboFacSearch1 = New System.Windows.Forms.ComboBox()
-        Me.Label51 = New System.Windows.Forms.Label()
         Me.txtFacSearch2 = New System.Windows.Forms.TextBox()
-        Me.Label52 = New System.Windows.Forms.Label()
-        Me.Label53 = New System.Windows.Forms.Label()
         Me.Label50 = New System.Windows.Forms.Label()
-        Me.cboSortOrder2 = New System.Windows.Forms.ComboBox()
         Me.Label49 = New System.Windows.Forms.Label()
-        Me.cboSort2 = New System.Windows.Forms.ComboBox()
         Me.cboFacSearch2 = New System.Windows.Forms.ComboBox()
-        Me.cboSortOrder1 = New System.Windows.Forms.ComboBox()
-        Me.cboSort1 = New System.Windows.Forms.ComboBox()
         Me.pnlDistResp1 = New System.Windows.Forms.Panel()
         Me.rdbDistResp1False = New System.Windows.Forms.RadioButton()
         Me.rdbDistResp1True = New System.Windows.Forms.RadioButton()
@@ -1473,20 +1465,12 @@ Partial Class SSCPManagersTools
         Me.TabPage1.Controls.Add(Me.cboOpStatus1)
         Me.TabPage1.Controls.Add(Me.pnlDistResp2)
         Me.TabPage1.Controls.Add(Me.cboFilterEngineer2)
-        Me.TabPage1.Controls.Add(Me.chbViewAllFields)
         Me.TabPage1.Controls.Add(Me.btnFacilitySearch)
         Me.TabPage1.Controls.Add(Me.cboFacSearch1)
-        Me.TabPage1.Controls.Add(Me.Label51)
         Me.TabPage1.Controls.Add(Me.txtFacSearch2)
-        Me.TabPage1.Controls.Add(Me.Label52)
-        Me.TabPage1.Controls.Add(Me.Label53)
         Me.TabPage1.Controls.Add(Me.Label50)
-        Me.TabPage1.Controls.Add(Me.cboSortOrder2)
         Me.TabPage1.Controls.Add(Me.Label49)
-        Me.TabPage1.Controls.Add(Me.cboSort2)
         Me.TabPage1.Controls.Add(Me.cboFacSearch2)
-        Me.TabPage1.Controls.Add(Me.cboSortOrder1)
-        Me.TabPage1.Controls.Add(Me.cboSort1)
         Me.TabPage1.Controls.Add(Me.pnlDistResp1)
         Me.TabPage1.Location = New System.Drawing.Point(4, 22)
         Me.TabPage1.Name = "TabPage1"
@@ -1670,17 +1654,6 @@ Partial Class SSCPManagersTools
         Me.cboFilterEngineer2.Size = New System.Drawing.Size(154, 21)
         Me.cboFilterEngineer2.TabIndex = 38
         '
-        'chbViewAllFields
-        '
-        Me.chbViewAllFields.AutoSize = True
-        Me.chbViewAllFields.Location = New System.Drawing.Point(216, 39)
-        Me.chbViewAllFields.Name = "chbViewAllFields"
-        Me.chbViewAllFields.Size = New System.Drawing.Size(97, 17)
-        Me.chbViewAllFields.TabIndex = 36
-        Me.chbViewAllFields.Text = "Show All Fields"
-        Me.chbViewAllFields.UseVisualStyleBackColor = True
-        Me.chbViewAllFields.Visible = False
-        '
         'btnFacilitySearch
         '
         Me.btnFacilitySearch.Location = New System.Drawing.Point(6, 6)
@@ -1697,39 +1670,12 @@ Partial Class SSCPManagersTools
         Me.cboFacSearch1.Size = New System.Drawing.Size(134, 21)
         Me.cboFacSearch1.TabIndex = 8
         '
-        'Label51
-        '
-        Me.Label51.AutoSize = True
-        Me.Label51.Location = New System.Drawing.Point(12, 109)
-        Me.Label51.Name = "Label51"
-        Me.Label51.Size = New System.Drawing.Size(41, 13)
-        Me.Label51.TabIndex = 28
-        Me.Label51.Text = "Sort By"
-        '
         'txtFacSearch2
         '
         Me.txtFacSearch2.Location = New System.Drawing.Point(154, 83)
         Me.txtFacSearch2.Name = "txtFacSearch2"
         Me.txtFacSearch2.Size = New System.Drawing.Size(154, 20)
         Me.txtFacSearch2.TabIndex = 11
-        '
-        'Label52
-        '
-        Me.Label52.AutoSize = True
-        Me.Label52.Location = New System.Drawing.Point(22, 129)
-        Me.Label52.Name = "Label52"
-        Me.Label52.Size = New System.Drawing.Size(19, 13)
-        Me.Label52.TabIndex = 29
-        Me.Label52.Text = "(1)"
-        '
-        'Label53
-        '
-        Me.Label53.AutoSize = True
-        Me.Label53.Location = New System.Drawing.Point(22, 153)
-        Me.Label53.Name = "Label53"
-        Me.Label53.Size = New System.Drawing.Size(19, 13)
-        Me.Label53.TabIndex = 30
-        Me.Label53.Text = "(2)"
         '
         'Label50
         '
@@ -1740,16 +1686,6 @@ Partial Class SSCPManagersTools
         Me.Label50.TabIndex = 12
         Me.Label50.Text = "Search Text"
         '
-        'cboSortOrder2
-        '
-        Me.cboSortOrder2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
-        Me.cboSortOrder2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cboSortOrder2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cboSortOrder2.Location = New System.Drawing.Point(187, 151)
-        Me.cboSortOrder2.Name = "cboSortOrder2"
-        Me.cboSortOrder2.Size = New System.Drawing.Size(121, 21)
-        Me.cboSortOrder2.TabIndex = 34
-        '
         'Label49
         '
         Me.Label49.AutoSize = True
@@ -1759,16 +1695,6 @@ Partial Class SSCPManagersTools
         Me.Label49.TabIndex = 7
         Me.Label49.Text = "Filter Options"
         '
-        'cboSort2
-        '
-        Me.cboSort2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
-        Me.cboSort2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cboSort2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cboSort2.Location = New System.Drawing.Point(46, 151)
-        Me.cboSort2.Name = "cboSort2"
-        Me.cboSort2.Size = New System.Drawing.Size(135, 21)
-        Me.cboSort2.TabIndex = 33
-        '
         'cboFacSearch2
         '
         Me.cboFacSearch2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
@@ -1776,26 +1702,6 @@ Partial Class SSCPManagersTools
         Me.cboFacSearch2.Name = "cboFacSearch2"
         Me.cboFacSearch2.Size = New System.Drawing.Size(134, 21)
         Me.cboFacSearch2.TabIndex = 10
-        '
-        'cboSortOrder1
-        '
-        Me.cboSortOrder1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
-        Me.cboSortOrder1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cboSortOrder1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cboSortOrder1.Location = New System.Drawing.Point(187, 127)
-        Me.cboSortOrder1.Name = "cboSortOrder1"
-        Me.cboSortOrder1.Size = New System.Drawing.Size(121, 21)
-        Me.cboSortOrder1.TabIndex = 32
-        '
-        'cboSort1
-        '
-        Me.cboSort1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
-        Me.cboSort1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cboSort1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cboSort1.Location = New System.Drawing.Point(46, 127)
-        Me.cboSort1.Name = "cboSort1"
-        Me.cboSort1.Size = New System.Drawing.Size(135, 21)
-        Me.cboSort1.TabIndex = 31
         '
         'pnlDistResp1
         '
@@ -1899,9 +1805,9 @@ Partial Class SSCPManagersTools
         Me.btnForceAIRSNumber.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.btnForceAIRSNumber.Location = New System.Drawing.Point(75, 107)
         Me.btnForceAIRSNumber.Name = "btnForceAIRSNumber"
-        Me.btnForceAIRSNumber.Size = New System.Drawing.Size(84, 23)
+        Me.btnForceAIRSNumber.Size = New System.Drawing.Size(87, 23)
         Me.btnForceAIRSNumber.TabIndex = 3
-        Me.btnForceAIRSNumber.Text = "Attemp to Add"
+        Me.btnForceAIRSNumber.Text = "Attempt to Add"
         Me.btnForceAIRSNumber.UseVisualStyleBackColor = True
         '
         'mtbForcedAIRS
@@ -3420,13 +3326,6 @@ Partial Class SSCPManagersTools
     Friend WithEvents Label50 As System.Windows.Forms.Label
     Friend WithEvents txtFacSearch1 As System.Windows.Forms.TextBox
     Friend WithEvents txtFacSearch2 As System.Windows.Forms.TextBox
-    Friend WithEvents Label51 As System.Windows.Forms.Label
-    Friend WithEvents Label52 As System.Windows.Forms.Label
-    Friend WithEvents Label53 As System.Windows.Forms.Label
-    Friend WithEvents cboSortOrder2 As System.Windows.Forms.ComboBox
-    Friend WithEvents cboSort2 As System.Windows.Forms.ComboBox
-    Friend WithEvents cboSortOrder1 As System.Windows.Forms.ComboBox
-    Friend WithEvents cboSort1 As System.Windows.Forms.ComboBox
     Friend WithEvents btnFacilitySearch As System.Windows.Forms.Button
     Friend WithEvents TCNewFacilitySearch As System.Windows.Forms.TabControl
     Friend WithEvents TabPage1 As System.Windows.Forms.TabPage
@@ -3435,7 +3334,6 @@ Partial Class SSCPManagersTools
     Friend WithEvents btnFilterManualAIRSList As System.Windows.Forms.Button
     Friend WithEvents Label54 As System.Windows.Forms.Label
     Friend WithEvents txtManualAIRSNumber As System.Windows.Forms.TextBox
-    Friend WithEvents chbViewAllFields As System.Windows.Forms.CheckBox
     Friend WithEvents cboFilterEngineer2 As System.Windows.Forms.ComboBox
     Friend WithEvents cboFilterEngineer1 As System.Windows.Forms.ComboBox
     Friend WithEvents pnlDistResp1 As System.Windows.Forms.Panel
