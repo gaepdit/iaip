@@ -281,13 +281,6 @@ Partial Class SSCPManagersTools
         Me.txtRecordNumber = New System.Windows.Forms.TextBox()
         Me.btnExportToExcel = New System.Windows.Forms.Button()
         Me.dgvStatisticalReports = New System.Windows.Forms.DataGridView()
-        Me.TPMiscReports = New System.Windows.Forms.TabPage()
-        Me.dgvMiscReport = New System.Windows.Forms.DataGridView()
-        Me.Panel19 = New System.Windows.Forms.Panel()
-        Me.btnExportMiscToExcel = New System.Windows.Forms.Button()
-        Me.txtMiscReportCount = New System.Windows.Forms.TextBox()
-        Me.Label67 = New System.Windows.Forms.Label()
-        Me.btnRunComplianceReport = New System.Windows.Forms.Button()
         Me.TPDocuments = New System.Windows.Forms.TabPage()
         Me.lblAddNewEnfDocType = New System.Windows.Forms.Label()
         Me.pnlUpdateDocumentType = New System.Windows.Forms.Panel()
@@ -357,9 +350,6 @@ Partial Class SSCPManagersTools
         Me.TPEnforcement.SuspendLayout()
         Me.TPTitleVRenewals.SuspendLayout()
         CType(Me.dgvStatisticalReports, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.TPMiscReports.SuspendLayout()
-        CType(Me.dgvMiscReport, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.Panel19.SuspendLayout()
         Me.TPDocuments.SuspendLayout()
         Me.pnlUpdateDocumentType.SuspendLayout()
         CType(Me.dgvEnfDocumentTypes, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -1114,7 +1104,6 @@ Partial Class SSCPManagersTools
         Me.TCManagerTools.Controls.Add(Me.TPUniverse)
         Me.TCManagerTools.Controls.Add(Me.TPCMSWarning)
         Me.TCManagerTools.Controls.Add(Me.TPStatisticalPage)
-        Me.TCManagerTools.Controls.Add(Me.TPMiscReports)
         Me.TCManagerTools.Controls.Add(Me.TPDocuments)
         Me.TCManagerTools.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TCManagerTools.Location = New System.Drawing.Point(0, 0)
@@ -3028,78 +3017,6 @@ Partial Class SSCPManagersTools
         Me.dgvStatisticalReports.Size = New System.Drawing.Size(661, 652)
         Me.dgvStatisticalReports.TabIndex = 14
         '
-        'TPMiscReports
-        '
-        Me.TPMiscReports.Controls.Add(Me.dgvMiscReport)
-        Me.TPMiscReports.Controls.Add(Me.Panel19)
-        Me.TPMiscReports.Location = New System.Drawing.Point(4, 22)
-        Me.TPMiscReports.Name = "TPMiscReports"
-        Me.TPMiscReports.Size = New System.Drawing.Size(1184, 699)
-        Me.TPMiscReports.TabIndex = 9
-        Me.TPMiscReports.Text = "Enforcement Report"
-        Me.TPMiscReports.UseVisualStyleBackColor = True
-        '
-        'dgvMiscReport
-        '
-        Me.dgvMiscReport.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvMiscReport.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.dgvMiscReport.Location = New System.Drawing.Point(0, 64)
-        Me.dgvMiscReport.Name = "dgvMiscReport"
-        Me.dgvMiscReport.ReadOnly = True
-        Me.dgvMiscReport.Size = New System.Drawing.Size(1184, 635)
-        Me.dgvMiscReport.TabIndex = 15
-        '
-        'Panel19
-        '
-        Me.Panel19.Controls.Add(Me.btnExportMiscToExcel)
-        Me.Panel19.Controls.Add(Me.txtMiscReportCount)
-        Me.Panel19.Controls.Add(Me.Label67)
-        Me.Panel19.Controls.Add(Me.btnRunComplianceReport)
-        Me.Panel19.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel19.Location = New System.Drawing.Point(0, 0)
-        Me.Panel19.Name = "Panel19"
-        Me.Panel19.Size = New System.Drawing.Size(1184, 64)
-        Me.Panel19.TabIndex = 0
-        '
-        'btnExportMiscToExcel
-        '
-        Me.btnExportMiscToExcel.AutoSize = True
-        Me.btnExportMiscToExcel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnExportMiscToExcel.Location = New System.Drawing.Point(498, 10)
-        Me.btnExportMiscToExcel.Name = "btnExportMiscToExcel"
-        Me.btnExportMiscToExcel.Size = New System.Drawing.Size(88, 23)
-        Me.btnExportMiscToExcel.TabIndex = 3
-        Me.btnExportMiscToExcel.Text = "Export to Excel"
-        Me.btnExportMiscToExcel.UseVisualStyleBackColor = True
-        '
-        'txtMiscReportCount
-        '
-        Me.txtMiscReportCount.Location = New System.Drawing.Point(201, 13)
-        Me.txtMiscReportCount.Name = "txtMiscReportCount"
-        Me.txtMiscReportCount.ReadOnly = True
-        Me.txtMiscReportCount.Size = New System.Drawing.Size(100, 20)
-        Me.txtMiscReportCount.TabIndex = 2
-        '
-        'Label67
-        '
-        Me.Label67.AutoSize = True
-        Me.Label67.Location = New System.Drawing.Point(157, 16)
-        Me.Label67.Name = "Label67"
-        Me.Label67.Size = New System.Drawing.Size(38, 13)
-        Me.Label67.TabIndex = 1
-        Me.Label67.Text = "Count:"
-        '
-        'btnRunComplianceReport
-        '
-        Me.btnRunComplianceReport.AutoSize = True
-        Me.btnRunComplianceReport.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnRunComplianceReport.Location = New System.Drawing.Point(8, 13)
-        Me.btnRunComplianceReport.Name = "btnRunComplianceReport"
-        Me.btnRunComplianceReport.Size = New System.Drawing.Size(135, 23)
-        Me.btnRunComplianceReport.TabIndex = 0
-        Me.btnRunComplianceReport.Text = "Run Enforcement Report"
-        Me.btnRunComplianceReport.UseVisualStyleBackColor = True
-        '
         'TPDocuments
         '
         Me.TPDocuments.Controls.Add(Me.lblAddNewEnfDocType)
@@ -3339,10 +3256,6 @@ Partial Class SSCPManagersTools
         Me.TPTitleVRenewals.ResumeLayout(False)
         Me.TPTitleVRenewals.PerformLayout()
         CType(Me.dgvStatisticalReports, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.TPMiscReports.ResumeLayout(False)
-        CType(Me.dgvMiscReport, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.Panel19.ResumeLayout(False)
-        Me.Panel19.PerformLayout()
         Me.TPDocuments.ResumeLayout(False)
         Me.TPDocuments.PerformLayout()
         Me.pnlUpdateDocumentType.ResumeLayout(False)
@@ -3597,13 +3510,6 @@ Partial Class SSCPManagersTools
     Friend WithEvents TPTitleVRenewals As System.Windows.Forms.TabPage
     Friend WithEvents btnRunTitleVSearch As System.Windows.Forms.Button
     Friend WithEvents Label66 As System.Windows.Forms.Label
-    Friend WithEvents TPMiscReports As System.Windows.Forms.TabPage
-    Friend WithEvents dgvMiscReport As System.Windows.Forms.DataGridView
-    Friend WithEvents Panel19 As System.Windows.Forms.Panel
-    Friend WithEvents btnRunComplianceReport As System.Windows.Forms.Button
-    Friend WithEvents txtMiscReportCount As System.Windows.Forms.TextBox
-    Friend WithEvents Label67 As System.Windows.Forms.Label
-    Friend WithEvents btnExportMiscToExcel As System.Windows.Forms.Button
     Friend WithEvents btnExportToExcel As System.Windows.Forms.Button
     Friend WithEvents btnExportCmsWarningToExcel As System.Windows.Forms.Button
     Friend WithEvents btnExportCmsUniverseToExcel As System.Windows.Forms.Button

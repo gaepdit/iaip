@@ -4556,95 +4556,6 @@ Public Class SSCPManagersTools
         End Try
     End Sub
 
-    Private Sub btnRunComplianceReport_Click(sender As Object, e As EventArgs) Handles btnRunComplianceReport.Click
-        Try
-            SQL = "select " &
-"SSCP_AuditedEnforcement.strEnforcementnumber,  " &
-"SUBSTRING(apbheaderdata.strairsnumber,  5,8) as AIRSNumber,  " &
-"APBFacilityInformation.strfacilityname,  " &
-"apbheaderdata.strclass,  " &
-"case " &
-"when strDistrictResponsible = 'True' then 'District Responsible' " &
-"else 'SSCP Responsible' " &
-"end DistrictResponsible, " &
-"strActionType, datDiscoverydate,  " &
-"case  " &
-"when strActionType = 'LON' then datLONSent   " &
-"when strActionType = 'NOV' then datNOVSent   " &
-"when strActionType = 'NOVCO' then datCOProposed  " &
-"when strActionType = 'NOVCOP' then datCOProposed  " &
-"when strActionType = 'HPV' then datNOVSent   " &
-"when strActionType = 'HPVCO' then datCOProposed  " &
-"when strActionType = 'HPVCOP' then datCOProposed   " &
-"when strActionType = 'HPVAO' then datAOExecuted   " &
-"end DateIssued, " &
-"case  " &
-"when strActionType = 'LON' then datLONResolved   " &
-"when strActionType = 'NOV' then datNFALetterSent   " &
-"when strActionType = 'NOVCO' then datCOResolved  " &
-"when strActionType = 'NOVCOP' then datCOResolved   " &
-"when strActionType = 'HPV' then datNFALetterSent  " &
-"when strActionType = 'HPVCO' then datCOResolved  " &
-"when strActionType = 'HPVCOP' then datCOResolved " &
-"when strActionType = 'HPVAO' then datAOResolved    " &
-"end DateResolved " &
-"from apbheaderdata, APBFacilityInformation,  " &
-"SSCP_AuditedEnforcement, SSCPDistrictResponsible " &
-"where apbheaderdata.strairsnumber = APBFacilityInformation.strairsnumber  " &
-"and APBHeaderdata.strairsnumber = SSCPDistrictResponsible.strAIRSnumber  " &
-"and APBHeaderdata.strairsnumber = SSCP_AuditedEnforcement.strAIRSnumber  " &
-"order by datDiscoverydate desc Nulls Last "
-
-            ds = New DataSet
-            da = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            da.Fill(ds, "MiscReport")
-            dgvMiscReport.DataSource = ds
-            dgvMiscReport.DataMember = "MiscReport"
-
-            dgvMiscReport.RowHeadersVisible = False
-            dgvMiscReport.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvMiscReport.AllowUserToResizeColumns = True
-            dgvMiscReport.AllowUserToAddRows = False
-            dgvMiscReport.AllowUserToDeleteRows = False
-            dgvMiscReport.AllowUserToOrderColumns = True
-            dgvMiscReport.AllowUserToResizeRows = True
-
-            dgvMiscReport.Columns("strEnforcementnumber").HeaderText = "Enforcement #"
-            dgvMiscReport.Columns("strEnforcementnumber").DisplayIndex = 0
-
-            dgvMiscReport.Columns("AIRSNumber").HeaderText = "AIRS #"
-            dgvMiscReport.Columns("AIRSNumber").DisplayIndex = 1
-            dgvMiscReport.Columns("strFacilityName").HeaderText = "Facility Name"
-            dgvMiscReport.Columns("strFacilityName").DisplayIndex = 2
-            dgvMiscReport.Columns("strFacilityName").Width = 150
-            dgvMiscReport.Columns("strclass").HeaderText = "Classification"
-            dgvMiscReport.Columns("strclass").DisplayIndex = 3
-            dgvMiscReport.Columns("DistrictResponsible").HeaderText = "Source Responsible"
-            dgvMiscReport.Columns("DistrictResponsible").DisplayIndex = 4
-            dgvMiscReport.Columns("strActionType").HeaderText = "Enforcement Type"
-            dgvMiscReport.Columns("strActionType").DisplayIndex = 5
-
-            dgvMiscReport.Columns("datDiscoverydate").HeaderText = "Discovery Date"
-            dgvMiscReport.Columns("datDiscoverydate").DisplayIndex = 6
-            dgvMiscReport.Columns("datDiscoverydate").DefaultCellStyle.Format = "dd-MMM-yyyy"
-
-            dgvMiscReport.Columns("DateIssued").HeaderText = "Date Issued"
-            dgvMiscReport.Columns("DateIssued").DisplayIndex = 7
-            dgvMiscReport.Columns("DateIssued").DefaultCellStyle.Format = "dd-MMM-yyyy"
-            dgvMiscReport.Columns("DateResolved").HeaderText = "Date Resolved"
-            dgvMiscReport.Columns("DateResolved").DisplayIndex = 8
-            dgvMiscReport.Columns("DateResolved").DefaultCellStyle.Format = "dd-MMM-yyyy"
-
-            txtMiscReportCount.Text = dgvMiscReport.RowCount.ToString
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-
     Private Sub txtManualAIRSNumber_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtManualAIRSNumber.KeyPress
         If e.KeyChar = ChrW(1) Then
             txtManualAIRSNumber.SelectAll()
@@ -4655,10 +4566,6 @@ Public Class SSCPManagersTools
 
     Private Sub btnExportToExcel_Click(sender As Object, e As EventArgs) Handles btnExportToExcel.Click
         dgvStatisticalReports.ExportToExcel(Me)
-    End Sub
-
-    Private Sub btnExportMiscToExcel_Click(sender As Object, e As EventArgs) Handles btnExportMiscToExcel.Click
-        dgvMiscReport.ExportToExcel(Me)
     End Sub
 
     Private Sub btnExportCmsWarningToExcel_Click(sender As Object, e As EventArgs) Handles btnExportCmsWarningToExcel.Click
