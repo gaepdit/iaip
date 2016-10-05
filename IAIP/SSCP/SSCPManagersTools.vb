@@ -4688,9 +4688,10 @@ Public Class SSCPManagersTools
     End Sub
 
     Private enfDocumentTypesList As List(Of DocumentType)
+
     Private Sub LoadEnforcementDocumentTypes()
         ' Get list of various document types and bind that list to the datagridview
-        enfDocumentTypesList = DAL.GetEnforcementDocumentTypes
+        enfDocumentTypesList = DAL.GetEnforcementDocumentTypes()
 
         If enfDocumentTypesList.Count > 0 Then
             With dgvEnfDocumentTypes
@@ -4720,14 +4721,14 @@ Public Class SSCPManagersTools
     End Sub
 
     Private Sub EnableEnfDocTypeUpdate()
-        EnableDisableEnfDocTypeUpdate(True)
+        EnableDisableEnfDocTypeUpdate(EnableOrDisable.Enable)
     End Sub
 
     Private Sub DisableEnfDocTypeUpdate()
-        EnableDisableEnfDocTypeUpdate(False)
+        EnableDisableEnfDocTypeUpdate(EnableOrDisable.Disable)
     End Sub
 
-    Private Sub EnableDisableEnfDocTypeUpdate(enable As Boolean)
+    Private Sub EnableDisableEnfDocTypeUpdate(enable As EnableOrDisable)
         With pnlUpdateDocumentType
             .Enabled = enable
             .Visible = enable
@@ -4739,9 +4740,7 @@ Public Class SSCPManagersTools
         End If
     End Sub
 
-    Private Sub btnAddDocumentType_Click(sender As Object, e As EventArgs) _
-    Handles btnAddDocumentType.Click
-
+    Private Sub btnAddDocumentType_Click(sender As Object, e As EventArgs) Handles btnAddDocumentType.Click
         ' Create Document object
         Dim newEnfDocType As New DocumentType
         With newEnfDocType

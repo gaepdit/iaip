@@ -414,8 +414,8 @@ Namespace DAL
 
             Dim query As String =
                 " INSERT INTO IAIP_LK_SSCPDOCUMENTTYPE " &
-                " (STRDOCUMENTTYPE, FACTIVE, NUMORDINAL ) " &
-                " VALUES (@Name, @Active, @Ordinal) "
+                " (DOCUMENTTYPEID, STRDOCUMENTTYPE, FACTIVE, NUMORDINAL ) " &
+                " VALUES ((SELECT MAX(DOCUMENTTYPEID) + 1 FROM IAIP_LK_SSCPDOCUMENTTYPE), @Name, @Active, @Ordinal) "
 
             Dim parameters As SqlParameter() = {
                 New SqlParameter("@Name", d.DocumentType),
