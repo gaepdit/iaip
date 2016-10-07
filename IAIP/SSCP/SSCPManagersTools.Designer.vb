@@ -20,20 +20,11 @@ Partial Class SSCPManagersTools
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SSCPManagersTools))
-        Me.chbALLDates = New System.Windows.Forms.CheckBox()
-        Me.txtUserSSCPUnit = New System.Windows.Forms.TextBox()
-        Me.DTPEndDate = New System.Windows.Forms.DateTimePicker()
-        Me.Label27 = New System.Windows.Forms.Label()
-        Me.DTPStartDate = New System.Windows.Forms.DateTimePicker()
-        Me.Label28 = New System.Windows.Forms.Label()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.Label21 = New System.Windows.Forms.Label()
-        Me.lblRunInspectionReport = New System.Windows.Forms.LinkLabel()
-        Me.Label11 = New System.Windows.Forms.Label()
         Me.CmsClassSelectionPanel = New System.Windows.Forms.Panel()
         Me.rdbCMSClassA = New System.Windows.Forms.RadioButton()
         Me.rdbCMSClassS = New System.Windows.Forms.RadioButton()
-        Me.clbEngineers = New System.Windows.Forms.CheckedListBox()
         Me.Splitter2 = New System.Windows.Forms.Splitter()
         Me.PanelCMSUniverse = New System.Windows.Forms.Panel()
         Me.btnDeleteFacilityFromCms = New System.Windows.Forms.Button()
@@ -58,14 +49,8 @@ Partial Class SSCPManagersTools
         Me.txtCMSLastFCE = New System.Windows.Forms.TextBox()
         Me.txtCMSClassification = New System.Windows.Forms.TextBox()
         Me.txtCMSAIRSNumber = New System.Windows.Forms.TextBox()
-        Me.cboComplianceUnits = New System.Windows.Forms.ComboBox()
-        Me.Label29 = New System.Windows.Forms.Label()
-        Me.Splitter4 = New System.Windows.Forms.Splitter()
         Me.TPUniverse = New System.Windows.Forms.TabPage()
         Me.dgvCMSUniverse = New System.Windows.Forms.DataGridView()
-        Me.rtbInspectionReport = New System.Windows.Forms.RichTextBox()
-        Me.TPStaffReports = New System.Windows.Forms.TabPage()
-        Me.Panel7 = New System.Windows.Forms.Panel()
         Me.txtCMSAssignedEngineer2 = New System.Windows.Forms.TextBox()
         Me.llbCMSOpenFacilitySummary2 = New System.Windows.Forms.LinkLabel()
         Me.txtCMSFacilityName2 = New System.Windows.Forms.TextBox()
@@ -287,8 +272,6 @@ Partial Class SSCPManagersTools
         Me.PanelCMSUniverse.SuspendLayout()
         Me.TPUniverse.SuspendLayout()
         CType(Me.dgvCMSUniverse, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.TPStaffReports.SuspendLayout()
-        Me.Panel7.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
         Me.PanelCMSWarning.SuspendLayout()
         CType(Me.dgvCMSWarning, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -342,62 +325,6 @@ Partial Class SSCPManagersTools
         CType(Me.dgvEnfDocumentTypes, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
-        'chbALLDates
-        '
-        Me.chbALLDates.Location = New System.Drawing.Point(398, 8)
-        Me.chbALLDates.Name = "chbALLDates"
-        Me.chbALLDates.Size = New System.Drawing.Size(72, 16)
-        Me.chbALLDates.TabIndex = 2
-        Me.chbALLDates.Text = "All Dates"
-        '
-        'txtUserSSCPUnit
-        '
-        Me.txtUserSSCPUnit.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtUserSSCPUnit.Location = New System.Drawing.Point(26, 78)
-        Me.txtUserSSCPUnit.Name = "txtUserSSCPUnit"
-        Me.txtUserSSCPUnit.ReadOnly = True
-        Me.txtUserSSCPUnit.Size = New System.Drawing.Size(54, 20)
-        Me.txtUserSSCPUnit.TabIndex = 56
-        Me.txtUserSSCPUnit.Visible = False
-        '
-        'DTPEndDate
-        '
-        Me.DTPEndDate.CustomFormat = "dd-MMM-yyyy"
-        Me.DTPEndDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPEndDate.Location = New System.Drawing.Point(518, 48)
-        Me.DTPEndDate.Name = "DTPEndDate"
-        Me.DTPEndDate.Size = New System.Drawing.Size(100, 20)
-        Me.DTPEndDate.TabIndex = 5
-        Me.DTPEndDate.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
-        '
-        'Label27
-        '
-        Me.Label27.AutoSize = True
-        Me.Label27.Location = New System.Drawing.Point(518, 24)
-        Me.Label27.Name = "Label27"
-        Me.Label27.Size = New System.Drawing.Size(93, 13)
-        Me.Label27.TabIndex = 147
-        Me.Label27.Text = "Analysis End Date"
-        '
-        'DTPStartDate
-        '
-        Me.DTPStartDate.CustomFormat = "dd-MMM-yyyy"
-        Me.DTPStartDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPStartDate.Location = New System.Drawing.Point(398, 48)
-        Me.DTPStartDate.Name = "DTPStartDate"
-        Me.DTPStartDate.Size = New System.Drawing.Size(100, 20)
-        Me.DTPStartDate.TabIndex = 4
-        Me.DTPStartDate.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
-        '
-        'Label28
-        '
-        Me.Label28.AutoSize = True
-        Me.Label28.Location = New System.Drawing.Point(398, 24)
-        Me.Label28.Name = "Label28"
-        Me.Label28.Size = New System.Drawing.Size(96, 13)
-        Me.Label28.TabIndex = 146
-        Me.Label28.Text = "Analysis Start Date"
-        '
         'Label10
         '
         Me.Label10.AutoSize = True
@@ -415,27 +342,6 @@ Partial Class SSCPManagersTools
         Me.Label21.Size = New System.Drawing.Size(98, 13)
         Me.Label21.TabIndex = 28
         Me.Label21.Text = "Assigned Engineer:"
-        '
-        'lblRunInspectionReport
-        '
-        Me.lblRunInspectionReport.AutoSize = True
-        Me.lblRunInspectionReport.Location = New System.Drawing.Point(13, 42)
-        Me.lblRunInspectionReport.Name = "lblRunInspectionReport"
-        Me.lblRunInspectionReport.Size = New System.Drawing.Size(114, 13)
-        Me.lblRunInspectionReport.TabIndex = 6
-        Me.lblRunInspectionReport.TabStop = True
-        Me.lblRunInspectionReport.Text = "Run Inspection Report"
-        '
-        'Label11
-        '
-        Me.Label11.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label11.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Label11.Location = New System.Drawing.Point(-8, 157)
-        Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(1132, 1)
-        Me.Label11.TabIndex = 152
-        Me.Label11.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
         'CmsClassSelectionPanel
         '
@@ -463,14 +369,6 @@ Partial Class SSCPManagersTools
         Me.rdbCMSClassS.Size = New System.Drawing.Size(41, 17)
         Me.rdbCMSClassS.TabIndex = 24
         Me.rdbCMSClassS.Text = "SM"
-        '
-        'clbEngineers
-        '
-        Me.clbEngineers.CheckOnClick = True
-        Me.clbEngineers.Location = New System.Drawing.Point(152, 40)
-        Me.clbEngineers.Name = "clbEngineers"
-        Me.clbEngineers.Size = New System.Drawing.Size(240, 109)
-        Me.clbEngineers.TabIndex = 3
         '
         'Splitter2
         '
@@ -707,33 +605,6 @@ Partial Class SSCPManagersTools
         Me.txtCMSAIRSNumber.Size = New System.Drawing.Size(100, 20)
         Me.txtCMSAIRSNumber.TabIndex = 3
         '
-        'cboComplianceUnits
-        '
-        Me.cboComplianceUnits.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cboComplianceUnits.Location = New System.Drawing.Point(152, 8)
-        Me.cboComplianceUnits.Name = "cboComplianceUnits"
-        Me.cboComplianceUnits.Size = New System.Drawing.Size(240, 21)
-        Me.cboComplianceUnits.TabIndex = 1
-        '
-        'Label29
-        '
-        Me.Label29.AutoSize = True
-        Me.Label29.Location = New System.Drawing.Point(8, 16)
-        Me.Label29.Name = "Label29"
-        Me.Label29.Size = New System.Drawing.Size(131, 13)
-        Me.Label29.TabIndex = 0
-        Me.Label29.Text = "Compliance Units/Districts"
-        '
-        'Splitter4
-        '
-        Me.Splitter4.BackColor = System.Drawing.SystemColors.Highlight
-        Me.Splitter4.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.Splitter4.Location = New System.Drawing.Point(0, 164)
-        Me.Splitter4.Name = "Splitter4"
-        Me.Splitter4.Size = New System.Drawing.Size(1109, 5)
-        Me.Splitter4.TabIndex = 162
-        Me.Splitter4.TabStop = False
-        '
         'TPUniverse
         '
         Me.TPUniverse.Controls.Add(Me.dgvCMSUniverse)
@@ -755,46 +626,6 @@ Partial Class SSCPManagersTools
         Me.dgvCMSUniverse.ReadOnly = True
         Me.dgvCMSUniverse.Size = New System.Drawing.Size(760, 633)
         Me.dgvCMSUniverse.TabIndex = 20
-        '
-        'rtbInspectionReport
-        '
-        Me.rtbInspectionReport.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.rtbInspectionReport.Location = New System.Drawing.Point(0, 169)
-        Me.rtbInspectionReport.Name = "rtbInspectionReport"
-        Me.rtbInspectionReport.Size = New System.Drawing.Size(1109, 464)
-        Me.rtbInspectionReport.TabIndex = 7
-        Me.rtbInspectionReport.Text = ""
-        '
-        'TPStaffReports
-        '
-        Me.TPStaffReports.Controls.Add(Me.Panel7)
-        Me.TPStaffReports.Controls.Add(Me.Splitter4)
-        Me.TPStaffReports.Controls.Add(Me.rtbInspectionReport)
-        Me.TPStaffReports.Location = New System.Drawing.Point(4, 22)
-        Me.TPStaffReports.Name = "TPStaffReports"
-        Me.TPStaffReports.Size = New System.Drawing.Size(1109, 633)
-        Me.TPStaffReports.TabIndex = 2
-        Me.TPStaffReports.Text = "Compliance Staff Report(s)"
-        Me.TPStaffReports.UseVisualStyleBackColor = True
-        '
-        'Panel7
-        '
-        Me.Panel7.Controls.Add(Me.lblRunInspectionReport)
-        Me.Panel7.Controls.Add(Me.Label11)
-        Me.Panel7.Controls.Add(Me.chbALLDates)
-        Me.Panel7.Controls.Add(Me.txtUserSSCPUnit)
-        Me.Panel7.Controls.Add(Me.DTPEndDate)
-        Me.Panel7.Controls.Add(Me.Label27)
-        Me.Panel7.Controls.Add(Me.Label28)
-        Me.Panel7.Controls.Add(Me.DTPStartDate)
-        Me.Panel7.Controls.Add(Me.clbEngineers)
-        Me.Panel7.Controls.Add(Me.cboComplianceUnits)
-        Me.Panel7.Controls.Add(Me.Label29)
-        Me.Panel7.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel7.Location = New System.Drawing.Point(0, 0)
-        Me.Panel7.Name = "Panel7"
-        Me.Panel7.Size = New System.Drawing.Size(1109, 164)
-        Me.Panel7.TabIndex = 163
         '
         'txtCMSAssignedEngineer2
         '
@@ -1087,7 +918,6 @@ Partial Class SSCPManagersTools
         'TCManagerTools
         '
         Me.TCManagerTools.Controls.Add(Me.TPFacilityAssignments)
-        Me.TCManagerTools.Controls.Add(Me.TPStaffReports)
         Me.TCManagerTools.Controls.Add(Me.TPUniverse)
         Me.TCManagerTools.Controls.Add(Me.TPCMSWarning)
         Me.TCManagerTools.Controls.Add(Me.TPStatisticalPage)
@@ -3078,9 +2908,6 @@ Partial Class SSCPManagersTools
         Me.PanelCMSUniverse.PerformLayout()
         Me.TPUniverse.ResumeLayout(False)
         CType(Me.dgvCMSUniverse, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.TPStaffReports.ResumeLayout(False)
-        Me.Panel7.ResumeLayout(False)
-        Me.Panel7.PerformLayout()
         Me.GroupBox4.ResumeLayout(False)
         Me.GroupBox4.PerformLayout()
         Me.PanelCMSWarning.ResumeLayout(False)
@@ -3158,20 +2985,11 @@ Partial Class SSCPManagersTools
         Me.ResumeLayout(False)
 
     End Sub
-    Friend WithEvents chbALLDates As System.Windows.Forms.CheckBox
-    Friend WithEvents txtUserSSCPUnit As System.Windows.Forms.TextBox
-    Friend WithEvents DTPEndDate As System.Windows.Forms.DateTimePicker
-    Friend WithEvents Label27 As System.Windows.Forms.Label
-    Friend WithEvents DTPStartDate As System.Windows.Forms.DateTimePicker
-    Friend WithEvents Label28 As System.Windows.Forms.Label
     Friend WithEvents Label10 As System.Windows.Forms.Label
     Friend WithEvents Label21 As System.Windows.Forms.Label
-    Friend WithEvents lblRunInspectionReport As System.Windows.Forms.LinkLabel
-    Friend WithEvents Label11 As System.Windows.Forms.Label
     Friend WithEvents CmsClassSelectionPanel As System.Windows.Forms.Panel
     Friend WithEvents rdbCMSClassA As System.Windows.Forms.RadioButton
     Friend WithEvents rdbCMSClassS As System.Windows.Forms.RadioButton
-    Friend WithEvents clbEngineers As System.Windows.Forms.CheckedListBox
     Friend WithEvents Splitter2 As System.Windows.Forms.Splitter
     Friend WithEvents PanelCMSUniverse As System.Windows.Forms.Panel
     Friend WithEvents txtCMSState As System.Windows.Forms.TextBox
@@ -3193,13 +3011,7 @@ Partial Class SSCPManagersTools
     Friend WithEvents txtCMSLastFCE As System.Windows.Forms.TextBox
     Friend WithEvents txtCMSClassification As System.Windows.Forms.TextBox
     Friend WithEvents txtCMSAIRSNumber As System.Windows.Forms.TextBox
-    Friend WithEvents cboComplianceUnits As System.Windows.Forms.ComboBox
-    Friend WithEvents Label29 As System.Windows.Forms.Label
-    Friend WithEvents Splitter4 As System.Windows.Forms.Splitter
     Friend WithEvents TPUniverse As System.Windows.Forms.TabPage
-    Friend WithEvents rtbInspectionReport As System.Windows.Forms.RichTextBox
-    Friend WithEvents TPStaffReports As System.Windows.Forms.TabPage
-    Friend WithEvents Panel7 As System.Windows.Forms.Panel
     Friend WithEvents txtCMSAssignedEngineer2 As System.Windows.Forms.TextBox
     Friend WithEvents llbCMSOpenFacilitySummary2 As System.Windows.Forms.LinkLabel
     Friend WithEvents txtCMSFacilityName2 As System.Windows.Forms.TextBox
