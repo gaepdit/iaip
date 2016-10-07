@@ -62,6 +62,7 @@ Partial Class SSCPManagersTools
         Me.rdbFCENotRequired = New System.Windows.Forms.RadioButton()
         Me.rdbFCERequired = New System.Windows.Forms.RadioButton()
         Me.GroupBox8 = New System.Windows.Forms.GroupBox()
+        Me.rdbCmsMega = New System.Windows.Forms.RadioButton()
         Me.rdbCMS_None = New System.Windows.Forms.RadioButton()
         Me.btnSaveCMS = New System.Windows.Forms.Button()
         Me.rdbCMS_SM = New System.Windows.Forms.RadioButton()
@@ -727,6 +728,7 @@ Partial Class SSCPManagersTools
         '
         'GroupBox8
         '
+        Me.GroupBox8.Controls.Add(Me.rdbCmsMega)
         Me.GroupBox8.Controls.Add(Me.rdbCMS_None)
         Me.GroupBox8.Controls.Add(Me.btnSaveCMS)
         Me.GroupBox8.Controls.Add(Me.rdbCMS_SM)
@@ -738,10 +740,19 @@ Partial Class SSCPManagersTools
         Me.GroupBox8.TabStop = False
         Me.GroupBox8.Text = "Compliance Monitoring Strategy"
         '
+        'rdbCmsMega
+        '
+        Me.rdbCmsMega.AutoSize = True
+        Me.rdbCmsMega.Location = New System.Drawing.Point(6, 65)
+        Me.rdbCmsMega.Name = "rdbCmsMega"
+        Me.rdbCmsMega.Size = New System.Drawing.Size(78, 17)
+        Me.rdbCmsMega.TabIndex = 29
+        Me.rdbCmsMega.Text = "CMS-Mega"
+        '
         'rdbCMS_None
         '
         Me.rdbCMS_None.AutoSize = True
-        Me.rdbCMS_None.Location = New System.Drawing.Point(6, 65)
+        Me.rdbCMS_None.Location = New System.Drawing.Point(98, 19)
         Me.rdbCMS_None.Name = "rdbCMS_None"
         Me.rdbCMS_None.Size = New System.Drawing.Size(67, 17)
         Me.rdbCMS_None.TabIndex = 29
@@ -2927,4 +2938,5 @@ Partial Class SSCPManagersTools
     Friend WithEvents Label1 As Label
     Friend WithEvents rdbCMSClassM As RadioButton
     Friend WithEvents rdbCMSClassNone As RadioButton
+    Friend WithEvents rdbCmsMega As RadioButton
 End Class

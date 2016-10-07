@@ -440,7 +440,7 @@ Public Class SSCPManagersTools
                     New SqlParameter("@r", CMSState)
                 }
 
-                DB.RunCommand(SQL, params)
+                DB.RunCommand(SQL, params, forceAddNullableParameters:=True)
             Else
                 MsgBox("Select a CMS status first.", MsgBoxStyle.Information, "SSCP Managers Tools")
             End If
@@ -2971,6 +2971,8 @@ Public Class SSCPManagersTools
                 CMSStatus = "A"
             ElseIf rdbCMS_SM.Checked Then
                 CMSStatus = "S"
+            ElseIf rdbCmsMega.Checked Then
+                CMSStatus = "M"
             End If
 
             For Each row As DataGridViewRow In dgvSelectedFacilityList.Rows
@@ -2983,7 +2985,7 @@ Public Class SSCPManagersTools
                     New SqlParameter("@airs", "0413" & row.Cells(0).Value)
                 }
 
-                DB.RunCommand(SQL, parameters)
+                DB.RunCommand(SQL, parameters, forceAddNullableParameters:=True)
 
                 row.Cells(9).Value = CMSStatus
             Next
