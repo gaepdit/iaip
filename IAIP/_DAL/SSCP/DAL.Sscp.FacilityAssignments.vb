@@ -5,16 +5,16 @@ Namespace DAL.Sscp
 
     Module FacilityAssignments
 
-        Public Function FacilityAssignmentExists(airsNumber As String, targetYear As Integer) As Boolean
+        Public Function FacilityAssignmentYearExists(airsNumber As String, targetYear As Integer) As Boolean
             If Not Apb.ApbFacilityId.IsValidAirsNumberFormat(airsNumber) Then
                 Return False
             Else
-                Return FacilityAssignmentExists(CType(airsNumber, Apb.ApbFacilityId), targetYear)
+                Return FacilityAssignmentYearExists(CType(airsNumber, Apb.ApbFacilityId), targetYear)
             End If
         End Function
 
-        Public Function FacilityAssignmentExists(airsNumber As Apb.ApbFacilityId, targetYear As Integer) As Boolean
-            Dim query As String = "SELECT '" & Boolean.TrueString & "' " &
+        Public Function FacilityAssignmentYearExists(airsNumber As Apb.ApbFacilityId, targetYear As Integer) As Boolean
+            Dim query As String = "SELECT CONVERT( bit, COUNT(*)) " &
                 " FROM SSCPINSPECTIONSREQUIRED " &
                 " WHERE INTYEAR = @year " &
                 " AND STRAIRSNUMBER = @airs "
@@ -27,8 +27,72 @@ Namespace DAL.Sscp
             Return DB.GetBoolean(query, parameters)
         End Function
 
+        Public Function SetFacilityStaffAssignment(airsNumber As Apb.ApbFacilityId, targetYear As Integer, staffAssignee As Integer, mgrAssignor As Integer) As Boolean
+            Dim SQL As String
+
+            If FacilityAssignmentYearExists(airsNumber, targetYear) Then
+                SQL = "Update SSCPInspectionsRequired set " &
+                    "numSSCPEngineer = @user, " &
+                    "strAssigningManager = @mgr , " &
+                    "DATASSIGNINGDATE =  GETDATE()  " &
+                    "where strAIRSNumber = @airs " &
+                    "and intYear = @year "
+            Else
+                SQL = "Insert into SSCPInspectionsRequired " &
+                    "(numKey, strAIRSNumber, intYear, " &
+                    " numSSCPEngineer, strAssigningManager, " &
+                    " DATASSIGNINGDATE) " &
+                    "values " &
+                    "((select max(numKey) + 1 from SSCPInspectionsRequired), " &
+                    " @airs, @year, " &
+                    " @user, @mgr, " &
+                    " GETDATE() ) "
+            End If
+
+            Dim parameters As SqlParameter() = {
+                New SqlParameter("@user", staffAssignee),
+                New SqlParameter("@mgr", mgrAssignor),
+                New SqlParameter("@airs", airsNumber.DbFormattedString),
+                New SqlParameter("@year", targetYear)
+            }
+
+            Return DB.RunCommand(SQL, parameters, forceAddNullableParameters:=True)
+        End Function
+
+        Public Function SetFacilityUnitAssignment(airsNumber As Apb.ApbFacilityId, targetYear As Integer, unitAssignee As Integer, mgrAssignor As Integer) As Boolean
+            Dim SQL As String
+
+            If FacilityAssignmentYearExists(airsNumber, targetYear) Then
+                SQL = "Update SSCPInspectionsRequired set " &
+                    "numSSCPUnit = @unit, " &
+                    "strAssigningManager = @mgr , " &
+                    "DATASSIGNINGDATE =  GETDATE()  " &
+                    "where strAIRSNumber = @airs " &
+                    "and intYear = @year "
+            Else
+                SQL = "Insert into SSCPInspectionsRequired " &
+                    "(numKey, strAIRSNumber, intYear, " &
+                    " numSSCPUnit, strAssigningManager, " &
+                    " DATASSIGNINGDATE) " &
+                    "values " &
+                    "((select max(numKey) + 1 from SSCPInspectionsRequired), " &
+                    " @airs, @year, " &
+                    " @unit, @mgr, " &
+                    " GETDATE() ) "
+            End If
+
+            Dim parameters As SqlParameter() = {
+                New SqlParameter("@unit", unitAssignee),
+                New SqlParameter("@mgr", mgrAssignor),
+                New SqlParameter("@airs", airsNumber.DbFormattedString),
+                New SqlParameter("@year", targetYear)
+            }
+
+            Return DB.RunCommand(SQL, parameters, forceAddNullableParameters:=True)
+        End Function
+
         Public Function AssignmentYearExists(targetYear As Integer) As Boolean
-            Dim query As String = "SELECT 1 " &
+            Dim query As String = "SELECT CONVERT( bit, COUNT(*)) " &
                 " FROM SSCPINSPECTIONSREQUIRED " &
                 " WHERE INTYEAR = @year "
 
@@ -64,8 +128,9 @@ Namespace DAL.Sscp
             If dataTable IsNot Nothing AndAlso dataTable.Rows.Count > 0 Then
                 For Each row As DataRow In dataTable.Rows
                     Dim airsNumberString As String = DBUtilities.GetNullable(Of String)(row("STRAIRSNUMBER"))
+
                     If Apb.ApbFacilityId.IsValidAirsNumberFormat(airsNumberString) AndAlso
-                    Not FacilityAssignmentExists(airsNumberString, targetYear) Then
+                    Not FacilityAssignmentYearExists(airsNumberString, targetYear) Then
 
                         Dim query2 As String = "INSERT " &
                             "  INTO SSCPINSPECTIONSREQUIRED " &

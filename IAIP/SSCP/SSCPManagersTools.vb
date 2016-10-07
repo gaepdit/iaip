@@ -81,6 +81,16 @@ Public Class SSCPManagersTools
                 .ValueMember = "INTYEAR"
             End With
 
+            SQL = "SELECT DISTINCT INTYEAR
+                FROM SSCPINSPECTIONSREQUIRED
+                ORDER BY INTYEAR DESC"
+
+            With cboExistingYears
+                .DataSource = DB.GetDataTable(SQL)
+                .DisplayMember = "INTYEAR"
+                .ValueMember = "INTYEAR"
+            End With
+
             SQL = "SELECT CONCAT(STRLASTNAME, ', ', STRFIRSTNAME) AS UserName, NUMUSERID
                 FROM EPDUSERPROFILES AS p
                 LEFT JOIN LOOKUPEPDUNITS AS l ON p.NUMUNIT = l.NUMUNITCODE
@@ -3517,65 +3527,17 @@ Public Class SSCPManagersTools
 
     Private Sub btnSaveEngineerResponsibility_Click(sender As Object, e As EventArgs) Handles btnSaveEngineerResponsibility.Click
         Try
-            Dim AIRSNum As String = ""
-            Dim Eng As String = ""
             If dgvSelectedFacilityList.RowCount = 0 Then
-                MsgBox("There are no selected facilities." & vbCrLf & "NO Data Saved", MsgBoxStyle.Information, Me.Text)
+                MsgBox("There are no selected facilities." & vbCrLf & "No data saved.", MsgBoxStyle.Information, Me.Text)
                 Exit Sub
             End If
 
-            For i As Integer = 0 To dgvSelectedFacilityList.Rows.Count - 1
-                AIRSNum = ""
-                Eng = ""
-
-                AIRSNum = dgvSelectedFacilityList(0, i).Value
-                Eng = cboSSCPEngineer.SelectedValue
-
-                SQL = "Select strAIRSNumber " &
-                "from SSCPInspectionsRequired " &
-                "where strAIRSNumber = '0413" & AIRSNum & "' " &
-                "and intYear = '" & cboFiscalYear.Text & "' "
-
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-                dr.Close()
-
-                If recExist = True Then
-                    SQL = "Update SSCPInspectionsRequired set " &
-                    "numSSCPEngineer = '" & Eng & "', " &
-                    "strAssigningManager = '" & CurrentUser.UserID & "', " &
-                    "DATASSIGNINGDATE =  GETDATE()  " &
-                    "where strAIRSNumber = '0413" & AIRSNum & "' " &
-                    "and sscpinspectionsrequired.intYear = '" & cboFiscalYear.Text & "' "
-                Else
-                    SQL = "Insert into SSCPInspectionsRequired " &
-                    "(numKey, strAIRSNumber, intYear, " &
-                    "numSSCPEngineer, strAssigningManager, DATASSIGNINGDATE) " &
-                    "values " &
-                    "((select max(numKey) + 1 from SSCPInspectionsRequired), " &
-                    "'0413" & AIRSNum & "', '" & cboFiscalYear.Text & "', " &
-                    "'" & Eng & "', '" & CurrentUser.UserID & "', " &
-                    " GETDATE() ) "
-                End If
-
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                dr.Close()
+            For Each row As DataGridViewRow In dgvSelectedFacilityList.Rows
+                DAL.Sscp.SetFacilityStaffAssignment(row.Cells(0).Value.ToString, cboFiscalYear.Text, cboSSCPEngineer.SelectedValue, CurrentUser.UserID)
+                row.Cells(2).Value = cboSSCPEngineer.Text
             Next
 
-            For i As Integer = 0 To dgvSelectedFacilityList.RowCount - 1
-                dgvSelectedFacilityList(2, i).Value = cboSSCPEngineer.Text
-            Next
-
-            MsgBox("Assignment(s) Completed", MsgBoxStyle.Information, "Managers Tools")
-
+            MsgBox("Assignments Completed", MsgBoxStyle.Information, "Managers Tools")
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -3583,58 +3545,14 @@ Public Class SSCPManagersTools
 
     Private Sub btnSaveSSCPUnitAssignment_Click(sender As Object, e As EventArgs) Handles btnSaveSSCPUnitAssignment.Click
         Try
-            Dim AIRSNum As String = ""
-            'Dim SSCPUnit As String = ""
-
             If dgvSelectedFacilityList.RowCount = 0 Then
                 MsgBox("There are no selected facilities." & vbCrLf & "NO Data Saved", MsgBoxStyle.Information, Me.Text)
                 Exit Sub
             End If
 
-            For i As Integer = 0 To dgvSelectedFacilityList.Rows.Count - 1
-                AIRSNum = dgvSelectedFacilityList(0, i).Value
-
-                SQL = "select strAIRSNumber " &
-                "from SSCPInspectionsRequired " &
-                "where strAIRSNumber = '0413" & AIRSNum & "' " &
-                "and intYear = '" & cboFiscalYear.Text & "' "
-
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-                dr.Close()
-                If recExist = True Then
-                    SQL = "Update SSCPInspectionsRequired set " &
-                    "numSSCPUnit = '" & cboSSCPUnit2.SelectedValue & "' , " &
-                    "strAssigningManager = '" & CurrentUser.UserID & "', " &
-                    "DATASSIGNINGDATE =  GETDATE()  " &
-                    "where strAIRSNumber = '0413" & AIRSNum & "'" &
-                    "and intYear = '" & cboFiscalYear.Text & "' "
-                Else
-                    SQL = "Insert into SSCPInspectionsRequired " &
-                    "(numKey, strAIRSNumber, intYear, " &
-                    "numSSCPUnit, strAssigningManager, DATASSIGNINGDATE) " &
-                    "values " &
-                    "((select max(numKey) + 1 from SSCPInspectionsRequired), " &
-                    "'0413" & AIRSNum & "', '" & cboFiscalYear.Text & "', " &
-                    "'" & cboSSCPUnit2.SelectedValue & "', " &
-                    "'" & CurrentUser.UserID & "', " &
-                    " GETDATE() ) "
-                End If
-
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                dr.Close()
-            Next
-
-            For i As Integer = 0 To dgvSelectedFacilityList.RowCount - 1
-                dgvSelectedFacilityList(3, i).Value = cboSSCPUnit2.Text
+            For Each row As DataGridViewRow In dgvSelectedFacilityList.Rows
+                DAL.Sscp.SetFacilityUnitAssignment(row.Cells(0).Value.ToString, cboFiscalYear.Text, cboSSCPUnit2.SelectedValue, CurrentUser.UserID)
+                row.Cells(3).Value = cboSSCPUnit2.Text
             Next
 
             MsgBox("Unit Assignment(s) Completed", MsgBoxStyle.Information, "Managers Tools")
@@ -3646,59 +3564,46 @@ Public Class SSCPManagersTools
 
     Private Sub btnSaveDistResponsible_Click(sender As Object, e As EventArgs) Handles btnSaveDistResponsible.Click
         Try
-            Dim AIRSNum As String = ""
-            Dim DistResp As String = ""
-
-            If rdbDistResponsibleTrue.Checked = True Then
-                DistResp = "True"
-            Else
-                DistResp = "False"
-            End If
-
             If dgvSelectedFacilityList.RowCount = 0 Then
                 MsgBox("There are no selected facilities." & vbCrLf & "NO Data Saved", MsgBoxStyle.Information, Me.Text)
                 Exit Sub
             End If
 
-            For i As Integer = 0 To dgvSelectedFacilityList.Rows.Count - 1
-                AIRSNum = dgvSelectedFacilityList(0, i).Value
+            Dim SQL As String
+            Dim DistResp As String = rdbDistResponsibleTrue.Checked.ToString
 
-                SQL = "Select strAIRSNumber " &
-                "from SSCPDistrictResponsible " &
-                "where strAIRSNumber = '0413" & AIRSNum & "' "
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-                dr.Close()
+            For Each row As DataGridViewRow In dgvSelectedFacilityList.Rows
+                SQL = "Select 1 " &
+                    "from SSCPDistrictResponsible " &
+                    "where strAIRSNumber = @airs "
 
-                If recExist = True Then
+                Dim p As New SqlParameter("@airs", "0413" & row.Cells(0).Value)
+
+                If DB.ValueExists(SQL, p) Then
                     SQL = "Update SSCPDistrictResponsible set " &
-                    "strDistrictResponsible = '" & DistResp & "', " &
-                    "strAssigningManager = '" & CurrentUser.UserID & "', " &
-                    "datAssigningDate =  GETDATE()  " &
-                    "where strAIRSNumber = '0413" & AIRSNum & "' "
+                    "strDistrictResponsible = @d, " &
+                    "strAssigningManager = @mgr , " &
+                    "datAssigningDate =  GETDATE() " &
+                    "where strAIRSNumber = @airs "
                 Else
                     SQL = "Insert into SSCPDistrictResponsible " &
                     "values " &
-                    "('0413" & AIRSNum & ", '" & DistResp & "', " &
-                    "'" & CurrentUser.UserID & "',  GETDATE() ) "
+                    "(@airs, @d, " &
+                    " @mgr,  GETDATE() ) "
                 End If
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                dr.Close()
+
+                Dim parameters As SqlParameter() = {
+                    New SqlParameter("@d", DistResp),
+                    New SqlParameter("@mgr", CurrentUser.UserID),
+                    p
+                }
+
+                DB.RunCommand(SQL, parameters)
+
+                row.Cells(4).Value = DistResp
             Next
 
-            For i As Integer = 0 To dgvSelectedFacilityList.RowCount - 1
-                dgvSelectedFacilityList(4, i).Value = DistResp
-            Next
-            MsgBox("District Responsibilitie(s) Completed", MsgBoxStyle.Information, "Managers Tools")
-
+            MsgBox("District Responsibilities Completed", MsgBoxStyle.Information, "Managers Tools")
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -3706,70 +3611,48 @@ Public Class SSCPManagersTools
 
     Private Sub btnSaveInspectionReq_Click(sender As Object, e As EventArgs) Handles btnSaveInspectionReq.Click
         Try
-
-            Dim AIRSNum As String = ""
-            Dim InspectionRequired As String = ""
-            Dim InspectionNote As String = ""
-
-            If rdbInspectionRequired.Checked = True Then
-                InspectionRequired = "True"
-                InspectionNote = "FY-" & Mid(cboFiscalYear.Text, 3)
-            Else
-                InspectionRequired = "False"
-                InspectionNote = ""
-            End If
             If dgvSelectedFacilityList.RowCount = 0 Then
                 MsgBox("There are no selected facilities." & vbCrLf & "NO Data Saved", MsgBoxStyle.Information, Me.Text)
                 Exit Sub
             End If
 
-            For i As Integer = 0 To dgvSelectedFacilityList.Rows.Count - 1
-                AIRSNum = dgvSelectedFacilityList(0, i).Value
+            Dim SQL As String
 
-                SQL = "Select strAIRSNumber " &
-                "from SSCPInspectionsRequired " &
-                "where strAIRSNumber = '0413" & AIRSNum & "' " &
-                "and intYear = '" & cboFiscalYear.Text & "' "
-
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-                dr.Close()
-                If recExist = True Then
+            For Each row As DataGridViewRow In dgvSelectedFacilityList.Rows
+                If DAL.Sscp.FacilityAssignmentYearExists(row.Cells(0).Value.ToString, CInt(cboFiscalYear.Text)) Then
                     SQL = "Update SSCPInspectionsRequired set " &
-                    "strInspectionRequired = '" & InspectionRequired & "', " &
-                    "strAssigningManager = '" & CurrentUser.UserID & "', " &
-                    "datAssigningDate =  GETDATE()  " &
-                    "where strAIRSNumber = '0413" & AIRSNum & "' " &
-                    "and intYear = '" & cboFiscalYear.Text & "' "
+                        "strInspectionRequired = @i, " &
+                        "strAssigningManager = @mgr, " &
+                        "datAssigningDate =  GETDATE()  " &
+                        "where strAIRSNumber = @airs " &
+                        "and intYear = @year "
                 Else
                     SQL = "Insert into SSCPInspectionsRequired " &
-                    "(numKey, strAIRSNumber, intYear, " &
-                    "strInspectionRequired, strAssigningManager, datAssigningDate) " &
-                    "values " &
-                    "((select max(numKey) + 1 from SSCPInspectionsRequired), " &
-                    "'0413" & AIRSNum & "', '" & cboFiscalYear.Text & "', " &
-                    "'" & InspectionRequired & "', " &
-                    "'" & CurrentUser.UserID & "',  GETDATE() ) "
-                End If
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
+                        "(numKey, strAIRSNumber, intYear, " &
+                        "strInspectionRequired, strAssigningManager, datAssigningDate) " &
+                        "values " &
+                        "((select max(numKey) + 1 from SSCPInspectionsRequired), " &
+                        "(@airs, @year, " &
+                        " @i, @mgr,  GETDATE() ) "
                 End If
 
-                dr = cmd.ExecuteReader
-                dr.Close()
+                Dim parameters As SqlParameter() = {
+                    New SqlParameter("@i", rdbInspectionRequired.Checked.ToString),
+                    New SqlParameter("@mgr", CurrentUser.UserID),
+                    New SqlParameter("@airs", "0413" & row.Cells(0).Value),
+                    New SqlParameter("@year", cboFiscalYear.Text)
+                }
+
+                DB.RunCommand(SQL, parameters)
+
+                If rdbInspectionRequired.Checked Then
+                    row.Cells(5).Value = "FY-" & Mid(cboFiscalYear.Text, 3)
+                Else
+                    row.Cells(5).Value = "No"
+                End If
             Next
 
-            For i As Integer = 0 To dgvSelectedFacilityList.RowCount - 1
-                dgvSelectedFacilityList(5, i).Value = InspectionNote
-            Next
-
-            MsgBox("Inspection(s) Completed", MsgBoxStyle.Information, "Managers Tools")
-
+            MsgBox("Inspections Completed", MsgBoxStyle.Information, "Managers Tools")
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -3777,192 +3660,46 @@ Public Class SSCPManagersTools
 
     Private Sub btnSaveFCEReq_Click(sender As Object, e As EventArgs) Handles btnSaveFCEReq.Click
         Try
-            Dim AIRSNum As String = ""
-            Dim FCERequired As String = ""
-            Dim FCENote As String = ""
-
-            If rdbFCERequired.Checked = True Then
-                FCERequired = "True"
-                FCENote = "FY-" & Mid(cboFiscalYear.Text, 3)
-            Else
-                FCERequired = "False"
-                FCENote = ""
-            End If
-
             If dgvSelectedFacilityList.RowCount = 0 Then
                 MsgBox("There are no selected facilities." & vbCrLf & "NO Data Saved", MsgBoxStyle.Information, Me.Text)
                 Exit Sub
             End If
 
-            For i As Integer = 0 To dgvSelectedFacilityList.Rows.Count - 1
-                AIRSNum = dgvSelectedFacilityList(0, i).Value
-
-                SQL = "Select strAIRSNumber " &
-                "from SSCPInspectionsRequired " &
-                "where strAIRSNumber = '0413" & AIRSNum & "' " &
-                "and intYear = '" & cboFiscalYear.Text & "' "
-
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-                dr.Close()
-                If recExist = True Then
+            For Each row As DataGridViewRow In dgvSelectedFacilityList.Rows
+                If DAL.Sscp.FacilityAssignmentYearExists(row.Cells(0).Value.ToString, CInt(cboFiscalYear.Text)) Then
                     SQL = "Update SSCPInspectionsRequired set " &
-                    "strFCERequired = '" & FCERequired & "', " &
-                    "strAssigningManager = '" & CurrentUser.UserID & "', " &
-                    "datAssigningDate =  GETDATE()  " &
-                    "where strAIRSNumber = '0413" & AIRSNum & "' " &
-                    "and intYear = '" & cboFiscalYear.Text & "' "
+                        "strFCERequired = @i, " &
+                        "strAssigningManager = @mgr, " &
+                        "datAssigningDate =  GETDATE()  " &
+                        "where strAIRSNumber = @airs " &
+                        "and intYear = @year "
                 Else
                     SQL = "Insert into SSCPInspectionsRequired " &
-                    "(numKey, strAIRSNumber, intYear, " &
-                    "strFCERequired, strAssigningManager, datAssigningDate) " &
-                   "values " &
-                   "((select max(numKey) + 1 from SSCPInspectionsRequired), " &
-                   "'0413" & AIRSNum & "', '" & cboFiscalYear.Text & "', " &
-                   "'" & FCERequired & "', '" & CurrentUser.UserID & "',  GETDATE() ) "
-                End If
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
+                        "(numKey, strAIRSNumber, intYear, " &
+                        "strFCERequired, strAssigningManager, datAssigningDate) " &
+                        "values " &
+                        "((select max(numKey) + 1 from SSCPInspectionsRequired), " &
+                        "(@airs, @year, " &
+                        " @i, @mgr,  GETDATE() ) "
                 End If
 
-                dr = cmd.ExecuteReader
-                dr.Close()
-            Next
+                Dim parameters As SqlParameter() = {
+                    New SqlParameter("@i", rdbFCERequired.Checked.ToString),
+                    New SqlParameter("@mgr", CurrentUser.UserID),
+                    New SqlParameter("@airs", "0413" & row.Cells(0).Value),
+                    New SqlParameter("@year", cboFiscalYear.Text)
+                }
 
-            For i As Integer = 0 To dgvSelectedFacilityList.RowCount - 1
-                dgvSelectedFacilityList(7, i).Value = FCENote
-            Next
+                DB.RunCommand(SQL, parameters)
 
-            MsgBox("FCE(s) Completed", MsgBoxStyle.Information, "Managers Tools")
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-
-    Private Sub btnSaveAllSettings_Click(sender As Object, e As EventArgs) Handles btnSaveAllSettings.Click
-        Try
-            Dim AIRSNum As String = ""
-            Dim Eng As String = ""
-            Dim DistResp As String = ""
-            Dim InspectionRequired As String = ""
-            Dim FCERequired As String = ""
-
-            Eng = cboSSCPEngineer.SelectedValue
-
-            If rdbDistResponsibleTrue.Checked = True Then
-                DistResp = "True"
-            Else
-                DistResp = "False"
-            End If
-
-            If dgvSelectedFacilityList.RowCount = 0 Then
-                MsgBox("There are no selected facilities." & vbCrLf & "NO Data Saved", MsgBoxStyle.Information, Me.Text)
-                Exit Sub
-            End If
-
-            If rdbInspectionRequired.Checked = True Then
-                InspectionRequired = "True"
-            Else
-                InspectionRequired = "False"
-            End If
-            If rdbFCERequired.Checked = True Then
-                FCERequired = "True"
-            Else
-                FCERequired = "False"
-            End If
-
-            For i As Integer = 0 To dgvSelectedFacilityList.Rows.Count - 1
-                AIRSNum = dgvSelectedFacilityList(0, i).Value
-
-                SQL = "select strAIRSNumber " &
-                "from SSCPInspectionsRequired " &
-                "where strAIRSNumber = '0413" & AIRSNum & "' " &
-                "and intYear = '" & cboFiscalYear.Text & "' "
-
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-                dr.Close()
-                If recExist = True Then
-                    SQL = "Update SSCPInspectionsRequired set " &
-                    "numSSCPEngineer = '" & Eng & "', " &
-                    "numSSCPUnit = '" & cboSSCPUnit2.SelectedValue & "' , " &
-                    "strInspectionRequired = '" & InspectionRequired & "', " &
-                    "strFCERequired = '" & FCERequired & "', " &
-                    "STRASSIGNINGMANAGER = '" & CurrentUser.UserID & "', " &
-                    "DATASSIGNINGDATE =  GETDATE()  " &
-                    "where strAIRSNumber = '0413" & AIRSNum & "' " &
-                    "and intyear = '" & cboFiscalYear.Text & "' "
+                If rdbFCERequired.Checked Then
+                    row.Cells(7).Value = "FY-" & Mid(cboFiscalYear.Text, 3)
                 Else
-                    SQL = "Insert into SSCPInspectionsRequired " &
-                    "(numKey, strAIRSNumber, intYear, " &
-                    "numSSCPEngineer, numSSCPUnit, " &
-                    "strInspectionRequired, strFCERequired, " &
-                    "STRASSIGNINGMANAGER, DATASSIGNINGDATE) " &
-                    "values " &
-                    "((select max(numKey) + 1 from SSCPInspectionsRequired), " &
-                    "'0413" & AIRSNum & "', '" & cboFiscalYear.Text & "', " &
-                    "'" & Eng & "', '" & cboSSCPUnit2.SelectedValue & "', " &
-                    "'" & InspectionRequired & "', '" & FCERequired & "', " &
-                    "'" & CurrentUser.UserID & "',  GETDATE() ) "
+                    row.Cells(7).Value = "No"
                 End If
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                dr.Close()
-
-                SQL = "Select strAIRSNumber " &
-                "from SSCPDistrictResponsible " &
-                "where strAIRSNumber = '0413" & AIRSNum & "' "
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-                dr.Close()
-
-                If recExist = True Then
-                    SQL = "Update SSCPDistrictResponsible set " &
-                    "strDistrictResponsible = '" & DistResp & "', " &
-                    "strAssigningManager = '" & CurrentUser.UserID & "', " &
-                    "datAssigningDate =  GETDATE()  " &
-                    "where strAIRSNumber = '0413" & AIRSNum & "' "
-                Else
-                    SQL = "Insert into SSCPDistrictResponsible " &
-                    "values " &
-                    "('0413" & AIRSNum & ", '" & DistResp & "', " &
-                    "'" & CurrentUser.UserID & "',  GETDATE() ) "
-                End If
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                dr.Close()
             Next
 
-            For i As Integer = 0 To dgvSelectedFacilityList.RowCount - 1
-                dgvSelectedFacilityList(4, i).Value = DistResp
-                dgvSelectedFacilityList(2, i).Value = cboSSCPEngineer.Text
-                dgvSelectedFacilityList(3, i).Value = cboSSCPUnit2.Text
-                dgvSelectedFacilityList(5, i).Value = InspectionRequired
-                dgvSelectedFacilityList(7, i).Value = FCERequired
-            Next
-
-            MsgBox("Unit Assignment(s) Completed", MsgBoxStyle.Information, "Managers Tools")
-
+            MsgBox("FCE Assignment Completed", MsgBoxStyle.Information, "Managers Tools")
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -4007,62 +3744,17 @@ Public Class SSCPManagersTools
 
     Private Sub btnClearEngineerAssignment_Click(sender As Object, e As EventArgs) Handles btnClearEngineerAssignment.Click
         Try
-            Dim AIRSNum As String = ""
-            ' Dim Eng As String = ""
-
             If dgvSelectedFacilityList.RowCount = 0 Then
-                MsgBox("There are no selected facilities." & vbCrLf & "NO Data Saved", MsgBoxStyle.Information, Me.Text)
+                MsgBox("There are no selected facilities." & vbCrLf & "No data saved.", MsgBoxStyle.Information, Me.Text)
                 Exit Sub
             End If
 
-            For i As Integer = 0 To dgvSelectedFacilityList.Rows.Count - 1
-                AIRSNum = ""
-                '  Eng = ""
-
-                AIRSNum = dgvSelectedFacilityList(0, i).Value
-
-                SQL = "Select strAIRSNumber " &
-                "from SSCPInspectionsRequired " &
-                "where strAIRSNumber = '0413" & AIRSNum & "' " &
-                "and intYear = '" & cboFiscalYear.Text & "' "
-
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-                dr.Close()
-
-                If recExist = True Then
-                    SQL = "Update SSCPInspectionsRequired set " &
-                    "numSSCPEngineer = '', " &
-                    "strAssigningManager = '" & CurrentUser.UserID & "', " &
-                    "DATASSIGNINGDATE =  GETDATE()  " &
-                    "where strAIRSNumber = '0413" & AIRSNum & "' " &
-                    "and intYear = '" & cboFiscalYear.Text & "' "
-                Else
-                    SQL = "Insert into SSCPInspectionsRequired " &
-                    "(numKey, strAIRSNumber, intYear, " &
-                    "numSSCPEngineer, strAssigningManager, DATASSIGNINGDATE) " &
-                    "values " &
-                    "((select max(numKey) + 1 from SSCPInspectionsRequired), " &
-                    "'0413" & AIRSNum & "', '" & cboFiscalYear.Text & "', " &
-                    "'', '" & CurrentUser.UserID & "', " &
-                    " GETDATE() ) "
-                End If
-
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                dr.Close()
-
-                dgvSelectedFacilityList(2, i).Value = ""
+            For Each row As DataGridViewRow In dgvSelectedFacilityList.Rows
+                DAL.Sscp.SetFacilityStaffAssignment(row.Cells(0).Value.ToString, cboFiscalYear.Text, Nothing, CurrentUser.UserID)
+                row.Cells(2).Value = Nothing
             Next
-            MsgBox("Assignment(s) Cleared", MsgBoxStyle.Information, "Managers Tools")
 
+            MsgBox("Assignments Cleared", MsgBoxStyle.Information, "Managers Tools")
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -4070,59 +3762,17 @@ Public Class SSCPManagersTools
 
     Private Sub btnClearSSCPUnitAssignment_Click(sender As Object, e As EventArgs) Handles btnClearSSCPUnitAssignment.Click
         Try
-            Dim AIRSNum As String = ""
-            ' Dim SSCPUnit As String = ""
-
             If dgvSelectedFacilityList.RowCount = 0 Then
                 MsgBox("There are no selected facilities." & vbCrLf & "NO Data Saved", MsgBoxStyle.Information, Me.Text)
                 Exit Sub
             End If
 
-            For i As Integer = 0 To dgvSelectedFacilityList.Rows.Count - 1
-                AIRSNum = dgvSelectedFacilityList(0, i).Value
-
-                SQL = "select strAIRSNumber " &
-                "from SSCPInspectionsRequired " &
-                "where strAIRSNumber = '0413" & AIRSNum & "' " &
-                "and intYear = '" & cboFiscalYear.Text & "' "
-
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-                dr.Close()
-                If recExist = True Then
-                    SQL = "Update SSCPInspectionsRequired set " &
-                    "numSSCPUnit = '', " &
-                    "strAssigningManager = '" & CurrentUser.UserID & "', " &
-                  "DATASSIGNINGDATE =  GETDATE()  " &
-                  "where strAIRSNumber = '0413" & AIRSNum & "'" &
-                  "and intYear = '" & cboFiscalYear.Text & "' "
-                Else
-                    SQL = "Insert into SSCPInspectionsRequired " &
-                 "(numKey, strAIRSNumber, intYear, " &
-                 "numSSCPUnit, strAssigningManager, DATASSIGNINGDATE) " &
-                 "values " &
-                 "((select max(numKey) + 1 from SSCPInspectionsRequired), " &
-                 "'0413" & AIRSNum & "', '" & cboFiscalYear.Text & "', " &
-                    "'', " &
-                    "'" & CurrentUser.UserID & "', " &
-                    " GETDATE() ) "
-                End If
-
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                dr.Close()
-
-                dgvSelectedFacilityList(3, i).Value = ""
+            For Each row As DataGridViewRow In dgvSelectedFacilityList.Rows
+                DAL.Sscp.SetFacilityUnitAssignment(row.Cells(0).Value.ToString, cboFiscalYear.Text, Nothing, CurrentUser.UserID)
+                row.Cells(3).Value = Nothing
             Next
-            MsgBox("Unit Assignment(s) Completed", MsgBoxStyle.Information, "Managers Tools")
 
+            MsgBox("Unit Assignment(s) Completed", MsgBoxStyle.Information, "Managers Tools")
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -4130,45 +3780,36 @@ Public Class SSCPManagersTools
 
     Private Sub btnSaveCMS_Click(sender As Object, e As EventArgs) Handles btnSaveCMS.Click
         Try
-            Dim AIRSNum As String = ""
-            Dim CMSStatus As String = ""
-
-            If rdbCMS_A.Checked = True Then
-                CMSStatus = "A"
-            End If
-            If rdbCMS_SM.Checked = True Then
-                CMSStatus = "S"
-            End If
-            If rdbCMS_None.Checked = True Then
-                CMSStatus = ""
-            End If
             If dgvSelectedFacilityList.RowCount = 0 Then
                 MsgBox("There are no selected facilities." & vbCrLf & "NO Data Saved", MsgBoxStyle.Information, Me.Text)
                 Exit Sub
             End If
 
-            For i As Integer = 0 To dgvSelectedFacilityList.Rows.Count - 1
-                AIRSNum = dgvSelectedFacilityList(0, i).Value
+            Dim SQL As String
+            Dim CMSStatus As String = ""
 
+            If rdbCMS_A.Checked Then
+                CMSStatus = "A"
+            ElseIf rdbCMS_SM.Checked Then
+                CMSStatus = "S"
+            End If
+
+            For Each row As DataGridViewRow In dgvSelectedFacilityList.Rows
                 SQL = "Update APBSupplamentalData set " &
-                "strCMSMember = '" & CMSStatus & "' " &
-                "where strAIRSNumber = '0413" & AIRSNum & "' "
+                    "strCMSMember = @c " &
+                    "where strAIRSNumber = @airs "
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                dr.Close()
+                Dim parameters As SqlParameter() = {
+                    New SqlParameter("@c", CMSStatus),
+                    New SqlParameter("@airs", "0413" & row.Cells(0).Value)
+                }
 
-                dgvSelectedFacilityList(9, i).Value = CMSStatus
+                DB.RunCommand(SQL, parameters)
+
+                row.Cells(9).Value = CMSStatus
             Next
 
-            For i As Integer = 0 To dgvSelectedFacilityList.RowCount - 1
-                dgvSelectedFacilityList(5, i).Value = CMSStatus
-            Next
-            MsgBox("Compliance Monitoring Strategy Updated", MsgBoxStyle.Information, "Managers Tools")
-
+            MsgBox("CMS Status Updated", MsgBoxStyle.Information, "Managers Tools")
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -4230,14 +3871,6 @@ Public Class SSCPManagersTools
 
             Dim recordsAdded As Integer = DAL.Sscp.CopyAssignmentYear(oldYear, targetYear)
             If recordsAdded > 0 Then
-                If Not cboExistingYears.Items.Contains(targetYear) Then
-                    cboExistingYears.Items.Add(targetYear)
-                End If
-
-                If Not cboFiscalYear.Items.Contains(targetYear) Then
-                    cboFiscalYear.Items.Add(mtbNewYear.Text)
-                End If
-
                 MsgBox(recordsAdded & " new records entered into " & targetYear, MsgBoxStyle.Information, Me.Text)
             Else
                 MsgBox("There was an error adding the data to the target year. " &
