@@ -56,7 +56,6 @@ Public Class SSCPManagersTools
 
             If AccountFormAccess(48, 2) = "1" And AccountFormAccess(48, 3) = "0" Then
                 btnAddToCmsUniverse.Visible = False
-                btnDeleteFacilityFromCms.Visible = False
                 CmsClassSelectionPanel.Visible = False
             End If
 
@@ -181,11 +180,14 @@ Public Class SSCPManagersTools
             End With
 
             With cboCMSFrequency.Items
-                .Add("")
+                .Add("All")
                 .Add("A")
                 .Add("S")
                 .Add("M")
+                .Add("Not in CMS")
             End With
+
+            cboCMSFrequency.SelectedIndex = 0
 
             With cboCMSWarningFrequency.Items
                 .Add("")
@@ -373,26 +375,20 @@ Public Class SSCPManagersTools
                     CMSStatus = " and strCMSMember = 'A' "
                 Case "S"
                     CMSStatus = " and strCMSMember = 'S' "
-                Case Else
+                Case "M"
+                    CMSStatus = " and strCMSMember = 'M' "
+                Case "Not in CMS"
+                    CMSStatus = " and strCMSMember is null "
+                Case "All"
                     CMSStatus = " and strCMSMember is not null "
             End Select
 
-            SQL = "Select * " &
-           "from VW_SSCP_CMSWarning " &
-           "where AIRSNumber is not Null " &
-           CMSStatus
+            Dim SQL As String = "Select * " &
+                "from VW_SSCP_CMSWarning " &
+                "where AIRSNumber is not Null " &
+                CMSStatus
 
-            dsCMSDataSet = New DataSet
-
-            daCMSDataSet = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            daCMSDataSet.Fill(dsCMSDataSet, "CMSData")
-
-            dgvCMSUniverse.DataSource = dsCMSDataSet
-            dgvCMSUniverse.DataMember = "CMSData"
+            dgvCMSUniverse.DataSource = DB.GetDataTable(SQL)
 
             dgvCMSUniverse.RowHeadersVisible = False
             dgvCMSUniverse.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -430,76 +426,31 @@ Public Class SSCPManagersTools
     End Sub
 
     Private Sub AddFacilityToCMS()
-        Dim CMSState As String = ""
-
         Try
+            Dim CMSState As String = Nothing
 
-            If rdbCMSClassA.Checked = True Or rdbCMSClassS.Checked = True Then
-                If rdbCMSClassA.Checked = True Then
+            If rdbCMSClassA.Checked Or rdbCMSClassS.Checked Or rdbCMSClassM.Checked Or rdbCMSClassNone.Checked Then
+                If rdbCMSClassA.Checked Then
                     CMSState = "A"
-                Else
+                ElseIf rdbCMSClassS.Checked Then
                     CMSState = "S"
+                ElseIf rdbCMSClassM.Checked Then
+                    CMSState = "M"
                 End If
-                SQL = "Select strAIRSNumber " &
-                "from APBSupplamentalData " &
-                "where strAIRSNumber = '0413" & txtCMSAIRSNumber.Text & "' "
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
 
-                recExist = dr.Read
-                dr.Close()
+                Dim SQL As String = "Update APBSupplamentalData set " &
+                    "strCMSMember = @r " &
+                    "where strAIRSNumber = @airs "
 
-                If recExist = True Then
-                    SQL = "Update APBSupplamentalData set " &
-                    "strCMSMember = '" & CMSState & "' " &
-                    "where strAIRSNumber = '0413" & txtCMSAIRSNumber.Text & "' "
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
+                Dim params As SqlParameter() = {
+                    New SqlParameter("@airs", "0413" & txtCMSAIRSNumber.Text),
+                    New SqlParameter("@r", CMSState)
+                }
 
-                    dr = cmd.ExecuteReader
-
-                End If
+                DB.RunCommand(SQL, params)
             Else
-                MsgBox("Select a CMS status of either 'A' or 'S'.", MsgBoxStyle.Information, "SSSCP Managers Tools")
+                MsgBox("Select a CMS status first.", MsgBoxStyle.Information, "SSCP Managers Tools")
             End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-
-    Private Sub RemoveFacilityFromCMS()
-        Try
-
-            SQL = "Select strAIRSNumber " &
-                              "from APBSupplamentalData " &
-                              "where strAIRSNumber = '0413" & txtCMSAIRSNumber.Text & "' "
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-
-            recExist = dr.Read
-            dr.Close()
-
-            If recExist = True Then
-                SQL = "Update APBSupplamentalData set " &
-                "strCMSMember = '' " &
-                "where strAIRSNumber = '0413" & txtCMSAIRSNumber.Text & "' "
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-
-                dr = cmd.ExecuteReader
-            End If
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -1086,10 +1037,6 @@ Public Class SSCPManagersTools
         AddFacilityToCMS()
     End Sub
 
-    Private Sub btnDeleteFacilityFromCms_Click(sender As Object, e As EventArgs) Handles btnDeleteFacilityFromCms.Click
-        RemoveFacilityFromCMS()
-    End Sub
-
 #End Region
 
     Private Sub dgvCMSWarning_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvCMSWarning.MouseUp
@@ -1102,69 +1049,6 @@ Public Class SSCPManagersTools
                 Else
                     txtCMSAIRSNumber2.Text = dgvCMSWarning(0, hti.RowIndex).Value
                 End If
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-
-    Private Sub txtCMSAIRSNumber_TextChanged(sender As Object, e As EventArgs) Handles txtCMSAIRSNumber.TextChanged
-        Try
-
-            If txtCMSAIRSNumber.Text.Length = 8 Then
-                SQL = "select " &
-               "AIRSNUMBER, STRFACILITYNAME, " &
-               "STRFACILITYCITY, STRCOUNTYNAME, " &
-               "STRDISTRICTNAME, STROPERATIONALSTATUS, " &
-               "STRCMSMEMBER, LASTFCE, strClass, " &
-               "(strLastName||', '||strFirstName) as AssignedEngineer " &
-               "from " &
-               "(select * " &
-               "from VW_SSCP_CMSWARNING) TABLE1, " &
-               "(select " &
-               "max(INTYEAR), NUMSSCPENGINEER, " &
-               "strairsnumber " &
-               "from SSCPINSPECTIONSREQUIRED " &
-               "group by NUMSSCPENGINEER, STRAIRSNUMBER)TABLE2, " &
-               "EPDUSERPROFILES " &
-               "where '0413'||TABLE1.AIRSNUMBER = TABLE2.STRAIRSNUMBER (+) " &
-               "and Table2.numSSCPEngineer = EPDUserProfiles.numuserid (+)  " &
-               "and AIRSNumber = '" & txtCMSAIRSNumber.Text & "' "
-
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-                If recExist = True Then
-                    txtCMSFacilityName.Text = dr.Item("strFacilityName")
-                    txtCMSOperationalStatus.Text = dr.Item("strOperationalStatus")
-                    txtCMSClassification.Text = dr.Item("strClass")
-                    If IsDBNull(dr.Item("strCMSMember")) Then
-                        txtCMSState.Text = ""
-                        txtCMSState.BackColor = Color.Tomato
-                    Else
-                        txtCMSState.Text = dr.Item("strCMSMember")
-                        txtCMSState.BackColor = Color.LightGreen
-                    End If
-                    If IsDBNull(dr.Item("AssignedEngineer")) Then
-                        txtCMSAssignedEngineer.Clear()
-                    Else
-                        If dr.Item("AssignedEngineer") = ", " Then
-                            txtCMSAssignedEngineer.Clear()
-                        Else
-                            txtCMSAssignedEngineer.Text = dr.Item("AssignedEngineer")
-                        End If
-                    End If
-
-                    If IsDBNull(dr.Item("LastFCE")) Then
-                        txtCMSLastFCE.Text = "Unknown"
-                    Else
-                        txtCMSLastFCE.Text = dr.Item("LastFCE")
-                    End If
-                End If
-
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -2560,8 +2444,6 @@ Public Class SSCPManagersTools
 
                 End If
             End If
-
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try

@@ -20,34 +20,23 @@ Partial Class SSCPManagersTools
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SSCPManagersTools))
-        Me.Label10 = New System.Windows.Forms.Label()
         Me.Label21 = New System.Windows.Forms.Label()
         Me.CmsClassSelectionPanel = New System.Windows.Forms.Panel()
+        Me.rdbCMSClassNone = New System.Windows.Forms.RadioButton()
+        Me.rdbCMSClassM = New System.Windows.Forms.RadioButton()
         Me.rdbCMSClassA = New System.Windows.Forms.RadioButton()
         Me.rdbCMSClassS = New System.Windows.Forms.RadioButton()
         Me.Splitter2 = New System.Windows.Forms.Splitter()
         Me.PanelCMSUniverse = New System.Windows.Forms.Panel()
-        Me.btnDeleteFacilityFromCms = New System.Windows.Forms.Button()
-        Me.btnAddToCmsUniverse = New System.Windows.Forms.Button()
         Me.btnExportCmsUniverseToExcel = New System.Windows.Forms.Button()
-        Me.txtCMSState = New System.Windows.Forms.TextBox()
+        Me.btnAddToCmsUniverse = New System.Windows.Forms.Button()
         Me.txtCMSCount = New System.Windows.Forms.TextBox()
         Me.Label8 = New System.Windows.Forms.Label()
-        Me.Label20 = New System.Windows.Forms.Label()
-        Me.txtCMSAssignedEngineer = New System.Windows.Forms.TextBox()
         Me.llbCMSOpenFacilitySummary = New System.Windows.Forms.LinkLabel()
         Me.llbViewCMSUniverse = New System.Windows.Forms.LinkLabel()
         Me.cboCMSFrequency = New System.Windows.Forms.ComboBox()
         Me.Label5 = New System.Windows.Forms.Label()
-        Me.txtCMSFacilityName = New System.Windows.Forms.TextBox()
-        Me.Label13 = New System.Windows.Forms.Label()
-        Me.Label6 = New System.Windows.Forms.Label()
-        Me.Label7 = New System.Windows.Forms.Label()
-        Me.Label12 = New System.Windows.Forms.Label()
         Me.Label9 = New System.Windows.Forms.Label()
-        Me.txtCMSOperationalStatus = New System.Windows.Forms.TextBox()
-        Me.txtCMSLastFCE = New System.Windows.Forms.TextBox()
-        Me.txtCMSClassification = New System.Windows.Forms.TextBox()
         Me.txtCMSAIRSNumber = New System.Windows.Forms.TextBox()
         Me.TPUniverse = New System.Windows.Forms.TabPage()
         Me.dgvCMSUniverse = New System.Windows.Forms.DataGridView()
@@ -325,15 +314,6 @@ Partial Class SSCPManagersTools
         CType(Me.dgvEnfDocumentTypes, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
-        'Label10
-        '
-        Me.Label10.AutoSize = True
-        Me.Label10.Location = New System.Drawing.Point(152, 176)
-        Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(61, 13)
-        Me.Label10.TabIndex = 21
-        Me.Label10.Text = "CMS State:"
-        '
         'Label21
         '
         Me.Label21.AutoSize = True
@@ -346,16 +326,34 @@ Partial Class SSCPManagersTools
         'CmsClassSelectionPanel
         '
         Me.CmsClassSelectionPanel.AutoSize = True
+        Me.CmsClassSelectionPanel.Controls.Add(Me.rdbCMSClassNone)
+        Me.CmsClassSelectionPanel.Controls.Add(Me.rdbCMSClassM)
         Me.CmsClassSelectionPanel.Controls.Add(Me.rdbCMSClassA)
         Me.CmsClassSelectionPanel.Controls.Add(Me.rdbCMSClassS)
-        Me.CmsClassSelectionPanel.Location = New System.Drawing.Point(24, 344)
+        Me.CmsClassSelectionPanel.Location = New System.Drawing.Point(11, 132)
         Me.CmsClassSelectionPanel.Name = "CmsClassSelectionPanel"
-        Me.CmsClassSelectionPanel.Size = New System.Drawing.Size(82, 20)
+        Me.CmsClassSelectionPanel.Size = New System.Drawing.Size(238, 25)
         Me.CmsClassSelectionPanel.TabIndex = 25
+        '
+        'rdbCMSClassNone
+        '
+        Me.rdbCMSClassNone.Location = New System.Drawing.Point(126, 3)
+        Me.rdbCMSClassNone.Name = "rdbCMSClassNone"
+        Me.rdbCMSClassNone.Size = New System.Drawing.Size(52, 17)
+        Me.rdbCMSClassNone.TabIndex = 28
+        Me.rdbCMSClassNone.Text = "None"
+        '
+        'rdbCMSClassM
+        '
+        Me.rdbCMSClassM.Location = New System.Drawing.Point(88, 3)
+        Me.rdbCMSClassM.Name = "rdbCMSClassM"
+        Me.rdbCMSClassM.Size = New System.Drawing.Size(32, 16)
+        Me.rdbCMSClassM.TabIndex = 28
+        Me.rdbCMSClassM.Text = "M"
         '
         'rdbCMSClassA
         '
-        Me.rdbCMSClassA.Location = New System.Drawing.Point(0, 0)
+        Me.rdbCMSClassA.Location = New System.Drawing.Point(3, 3)
         Me.rdbCMSClassA.Name = "rdbCMSClassA"
         Me.rdbCMSClassA.Size = New System.Drawing.Size(32, 16)
         Me.rdbCMSClassA.TabIndex = 23
@@ -364,7 +362,7 @@ Partial Class SSCPManagersTools
         'rdbCMSClassS
         '
         Me.rdbCMSClassS.AutoSize = True
-        Me.rdbCMSClassS.Location = New System.Drawing.Point(38, 0)
+        Me.rdbCMSClassS.Location = New System.Drawing.Point(41, 3)
         Me.rdbCMSClassS.Name = "rdbCMSClassS"
         Me.rdbCMSClassS.Size = New System.Drawing.Size(41, 17)
         Me.rdbCMSClassS.TabIndex = 24
@@ -382,55 +380,22 @@ Partial Class SSCPManagersTools
         '
         'PanelCMSUniverse
         '
-        Me.PanelCMSUniverse.Controls.Add(Me.btnDeleteFacilityFromCms)
-        Me.PanelCMSUniverse.Controls.Add(Me.btnAddToCmsUniverse)
         Me.PanelCMSUniverse.Controls.Add(Me.btnExportCmsUniverseToExcel)
+        Me.PanelCMSUniverse.Controls.Add(Me.btnAddToCmsUniverse)
         Me.PanelCMSUniverse.Controls.Add(Me.CmsClassSelectionPanel)
-        Me.PanelCMSUniverse.Controls.Add(Me.Label10)
-        Me.PanelCMSUniverse.Controls.Add(Me.txtCMSState)
         Me.PanelCMSUniverse.Controls.Add(Me.txtCMSCount)
         Me.PanelCMSUniverse.Controls.Add(Me.Label8)
-        Me.PanelCMSUniverse.Controls.Add(Me.Label20)
-        Me.PanelCMSUniverse.Controls.Add(Me.txtCMSAssignedEngineer)
         Me.PanelCMSUniverse.Controls.Add(Me.llbCMSOpenFacilitySummary)
         Me.PanelCMSUniverse.Controls.Add(Me.llbViewCMSUniverse)
         Me.PanelCMSUniverse.Controls.Add(Me.cboCMSFrequency)
         Me.PanelCMSUniverse.Controls.Add(Me.Label5)
-        Me.PanelCMSUniverse.Controls.Add(Me.txtCMSFacilityName)
-        Me.PanelCMSUniverse.Controls.Add(Me.Label13)
-        Me.PanelCMSUniverse.Controls.Add(Me.Label6)
-        Me.PanelCMSUniverse.Controls.Add(Me.Label7)
-        Me.PanelCMSUniverse.Controls.Add(Me.Label12)
         Me.PanelCMSUniverse.Controls.Add(Me.Label9)
-        Me.PanelCMSUniverse.Controls.Add(Me.txtCMSOperationalStatus)
-        Me.PanelCMSUniverse.Controls.Add(Me.txtCMSLastFCE)
-        Me.PanelCMSUniverse.Controls.Add(Me.txtCMSClassification)
         Me.PanelCMSUniverse.Controls.Add(Me.txtCMSAIRSNumber)
         Me.PanelCMSUniverse.Dock = System.Windows.Forms.DockStyle.Right
         Me.PanelCMSUniverse.Location = New System.Drawing.Point(764, 0)
         Me.PanelCMSUniverse.Name = "PanelCMSUniverse"
         Me.PanelCMSUniverse.Size = New System.Drawing.Size(345, 633)
         Me.PanelCMSUniverse.TabIndex = 17
-        '
-        'btnDeleteFacilityFromCms
-        '
-        Me.btnDeleteFacilityFromCms.AutoSize = True
-        Me.btnDeleteFacilityFromCms.Location = New System.Drawing.Point(19, 391)
-        Me.btnDeleteFacilityFromCms.Name = "btnDeleteFacilityFromCms"
-        Me.btnDeleteFacilityFromCms.Size = New System.Drawing.Size(177, 23)
-        Me.btnDeleteFacilityFromCms.TabIndex = 28
-        Me.btnDeleteFacilityFromCms.Text = "Delete Facility from CMS Universe"
-        Me.btnDeleteFacilityFromCms.UseVisualStyleBackColor = True
-        '
-        'btnAddToCmsUniverse
-        '
-        Me.btnAddToCmsUniverse.AutoSize = True
-        Me.btnAddToCmsUniverse.Location = New System.Drawing.Point(120, 341)
-        Me.btnAddToCmsUniverse.Name = "btnAddToCmsUniverse"
-        Me.btnAddToCmsUniverse.Size = New System.Drawing.Size(154, 23)
-        Me.btnAddToCmsUniverse.TabIndex = 27
-        Me.btnAddToCmsUniverse.Text = "Add Facility to CMS Universe"
-        Me.btnAddToCmsUniverse.UseVisualStyleBackColor = True
         '
         'btnExportCmsUniverseToExcel
         '
@@ -441,17 +406,19 @@ Partial Class SSCPManagersTools
         Me.btnExportCmsUniverseToExcel.Text = "Export to Excel"
         Me.btnExportCmsUniverseToExcel.UseVisualStyleBackColor = True
         '
-        'txtCMSState
+        'btnAddToCmsUniverse
         '
-        Me.txtCMSState.Location = New System.Drawing.Point(168, 192)
-        Me.txtCMSState.Name = "txtCMSState"
-        Me.txtCMSState.ReadOnly = True
-        Me.txtCMSState.Size = New System.Drawing.Size(96, 20)
-        Me.txtCMSState.TabIndex = 22
+        Me.btnAddToCmsUniverse.AutoSize = True
+        Me.btnAddToCmsUniverse.Location = New System.Drawing.Point(11, 163)
+        Me.btnAddToCmsUniverse.Name = "btnAddToCmsUniverse"
+        Me.btnAddToCmsUniverse.Size = New System.Drawing.Size(161, 23)
+        Me.btnAddToCmsUniverse.TabIndex = 27
+        Me.btnAddToCmsUniverse.Text = "Update CMS Status for Facility"
+        Me.btnAddToCmsUniverse.UseVisualStyleBackColor = True
         '
         'txtCMSCount
         '
-        Me.txtCMSCount.Location = New System.Drawing.Point(72, 40)
+        Me.txtCMSCount.Location = New System.Drawing.Point(89, 43)
         Me.txtCMSCount.Name = "txtCMSCount"
         Me.txtCMSCount.ReadOnly = True
         Me.txtCMSCount.Size = New System.Drawing.Size(56, 20)
@@ -460,33 +427,16 @@ Partial Class SSCPManagersTools
         'Label8
         '
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(8, 42)
+        Me.Label8.Location = New System.Drawing.Point(8, 46)
         Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(64, 13)
+        Me.Label8.Size = New System.Drawing.Size(75, 13)
         Me.Label8.TabIndex = 19
-        Me.Label8.Text = "CMS Count:"
-        '
-        'Label20
-        '
-        Me.Label20.AutoSize = True
-        Me.Label20.Location = New System.Drawing.Point(16, 216)
-        Me.Label20.Name = "Label20"
-        Me.Label20.Size = New System.Drawing.Size(98, 13)
-        Me.Label20.TabIndex = 17
-        Me.Label20.Text = "Assigned Engineer:"
-        '
-        'txtCMSAssignedEngineer
-        '
-        Me.txtCMSAssignedEngineer.Location = New System.Drawing.Point(32, 232)
-        Me.txtCMSAssignedEngineer.Name = "txtCMSAssignedEngineer"
-        Me.txtCMSAssignedEngineer.ReadOnly = True
-        Me.txtCMSAssignedEngineer.Size = New System.Drawing.Size(112, 20)
-        Me.txtCMSAssignedEngineer.TabIndex = 18
+        Me.Label8.Text = "Results count:"
         '
         'llbCMSOpenFacilitySummary
         '
         Me.llbCMSOpenFacilitySummary.AutoSize = True
-        Me.llbCMSOpenFacilitySummary.Location = New System.Drawing.Point(160, 232)
+        Me.llbCMSOpenFacilitySummary.Location = New System.Drawing.Point(195, 109)
         Me.llbCMSOpenFacilitySummary.Name = "llbCMSOpenFacilitySummary"
         Me.llbCMSOpenFacilitySummary.Size = New System.Drawing.Size(114, 13)
         Me.llbCMSOpenFacilitySummary.TabIndex = 4
@@ -496,7 +446,7 @@ Partial Class SSCPManagersTools
         'llbViewCMSUniverse
         '
         Me.llbViewCMSUniverse.AutoSize = True
-        Me.llbViewCMSUniverse.Location = New System.Drawing.Point(8, 10)
+        Me.llbViewCMSUniverse.Location = New System.Drawing.Point(158, 15)
         Me.llbViewCMSUniverse.Name = "llbViewCMSUniverse"
         Me.llbViewCMSUniverse.Size = New System.Drawing.Size(138, 13)
         Me.llbViewCMSUniverse.TabIndex = 1
@@ -506,7 +456,7 @@ Partial Class SSCPManagersTools
         'cboCMSFrequency
         '
         Me.cboCMSFrequency.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cboCMSFrequency.Location = New System.Drawing.Point(232, 8)
+        Me.cboCMSFrequency.Location = New System.Drawing.Point(72, 12)
         Me.cboCMSFrequency.Name = "cboCMSFrequency"
         Me.cboCMSFrequency.Size = New System.Drawing.Size(80, 21)
         Me.cboCMSFrequency.TabIndex = 2
@@ -514,92 +464,24 @@ Partial Class SSCPManagersTools
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(168, 10)
+        Me.Label5.Location = New System.Drawing.Point(8, 15)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(61, 13)
         Me.Label5.TabIndex = 9
         Me.Label5.Text = "CMS Class:"
         '
-        'txtCMSFacilityName
-        '
-        Me.txtCMSFacilityName.Location = New System.Drawing.Point(32, 104)
-        Me.txtCMSFacilityName.Name = "txtCMSFacilityName"
-        Me.txtCMSFacilityName.ReadOnly = True
-        Me.txtCMSFacilityName.Size = New System.Drawing.Size(184, 20)
-        Me.txtCMSFacilityName.TabIndex = 3
-        '
-        'Label13
-        '
-        Me.Label13.AutoSize = True
-        Me.Label13.Location = New System.Drawing.Point(8, 176)
-        Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(79, 13)
-        Me.Label13.TabIndex = 12
-        Me.Label13.Text = "Last FCE Date:"
-        '
-        'Label6
-        '
-        Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(8, 136)
-        Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(89, 13)
-        Me.Label6.TabIndex = 10
-        Me.Label6.Text = "Operating Status:"
-        '
-        'Label7
-        '
-        Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(8, 88)
-        Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(73, 13)
-        Me.Label7.TabIndex = 2
-        Me.Label7.Text = "Facility Name:"
-        '
-        'Label12
-        '
-        Me.Label12.AutoSize = True
-        Me.Label12.Location = New System.Drawing.Point(152, 136)
-        Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(71, 13)
-        Me.Label12.TabIndex = 11
-        Me.Label12.Text = "Classification:"
-        '
         'Label9
         '
         Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(216, 88)
+        Me.Label9.Location = New System.Drawing.Point(8, 109)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(75, 13)
         Me.Label9.TabIndex = 5
         Me.Label9.Text = "AIRS Number:"
         '
-        'txtCMSOperationalStatus
-        '
-        Me.txtCMSOperationalStatus.Location = New System.Drawing.Point(32, 152)
-        Me.txtCMSOperationalStatus.Name = "txtCMSOperationalStatus"
-        Me.txtCMSOperationalStatus.ReadOnly = True
-        Me.txtCMSOperationalStatus.Size = New System.Drawing.Size(112, 20)
-        Me.txtCMSOperationalStatus.TabIndex = 13
-        '
-        'txtCMSLastFCE
-        '
-        Me.txtCMSLastFCE.Location = New System.Drawing.Point(32, 192)
-        Me.txtCMSLastFCE.Name = "txtCMSLastFCE"
-        Me.txtCMSLastFCE.ReadOnly = True
-        Me.txtCMSLastFCE.Size = New System.Drawing.Size(112, 20)
-        Me.txtCMSLastFCE.TabIndex = 15
-        '
-        'txtCMSClassification
-        '
-        Me.txtCMSClassification.Location = New System.Drawing.Point(168, 152)
-        Me.txtCMSClassification.Name = "txtCMSClassification"
-        Me.txtCMSClassification.ReadOnly = True
-        Me.txtCMSClassification.Size = New System.Drawing.Size(96, 20)
-        Me.txtCMSClassification.TabIndex = 14
-        '
         'txtCMSAIRSNumber
         '
-        Me.txtCMSAIRSNumber.Location = New System.Drawing.Point(224, 104)
+        Me.txtCMSAIRSNumber.Location = New System.Drawing.Point(89, 106)
         Me.txtCMSAIRSNumber.MaxLength = 8
         Me.txtCMSAIRSNumber.Name = "txtCMSAIRSNumber"
         Me.txtCMSAIRSNumber.Size = New System.Drawing.Size(100, 20)
@@ -2985,31 +2867,19 @@ Partial Class SSCPManagersTools
         Me.ResumeLayout(False)
 
     End Sub
-    Friend WithEvents Label10 As System.Windows.Forms.Label
     Friend WithEvents Label21 As System.Windows.Forms.Label
     Friend WithEvents CmsClassSelectionPanel As System.Windows.Forms.Panel
     Friend WithEvents rdbCMSClassA As System.Windows.Forms.RadioButton
     Friend WithEvents rdbCMSClassS As System.Windows.Forms.RadioButton
     Friend WithEvents Splitter2 As System.Windows.Forms.Splitter
     Friend WithEvents PanelCMSUniverse As System.Windows.Forms.Panel
-    Friend WithEvents txtCMSState As System.Windows.Forms.TextBox
     Friend WithEvents txtCMSCount As System.Windows.Forms.TextBox
     Friend WithEvents Label8 As System.Windows.Forms.Label
-    Friend WithEvents Label20 As System.Windows.Forms.Label
-    Friend WithEvents txtCMSAssignedEngineer As System.Windows.Forms.TextBox
     Friend WithEvents llbCMSOpenFacilitySummary As System.Windows.Forms.LinkLabel
     Friend WithEvents llbViewCMSUniverse As System.Windows.Forms.LinkLabel
     Friend WithEvents cboCMSFrequency As System.Windows.Forms.ComboBox
     Friend WithEvents Label5 As System.Windows.Forms.Label
-    Friend WithEvents txtCMSFacilityName As System.Windows.Forms.TextBox
-    Friend WithEvents Label13 As System.Windows.Forms.Label
-    Friend WithEvents Label6 As System.Windows.Forms.Label
-    Friend WithEvents Label7 As System.Windows.Forms.Label
-    Friend WithEvents Label12 As System.Windows.Forms.Label
     Friend WithEvents Label9 As System.Windows.Forms.Label
-    Friend WithEvents txtCMSOperationalStatus As System.Windows.Forms.TextBox
-    Friend WithEvents txtCMSLastFCE As System.Windows.Forms.TextBox
-    Friend WithEvents txtCMSClassification As System.Windows.Forms.TextBox
     Friend WithEvents txtCMSAIRSNumber As System.Windows.Forms.TextBox
     Friend WithEvents TPUniverse As System.Windows.Forms.TabPage
     Friend WithEvents txtCMSAssignedEngineer2 As System.Windows.Forms.TextBox
@@ -3207,7 +3077,6 @@ Partial Class SSCPManagersTools
     Friend WithEvents btnExportCmsWarningToExcel As System.Windows.Forms.Button
     Friend WithEvents btnExportCmsUniverseToExcel As System.Windows.Forms.Button
     Friend WithEvents btnAddToCmsUniverse As System.Windows.Forms.Button
-    Friend WithEvents btnDeleteFacilityFromCms As System.Windows.Forms.Button
     Friend WithEvents llbViewRecord As System.Windows.Forms.LinkLabel
     Friend WithEvents TPDocuments As System.Windows.Forms.TabPage
     Friend WithEvents lblEnfDocumentTypes As System.Windows.Forms.Label
@@ -3233,4 +3102,6 @@ Partial Class SSCPManagersTools
     Friend WithEvents Label63 As System.Windows.Forms.Label
     Friend WithEvents Label2 As Label
     Friend WithEvents Label1 As Label
+    Friend WithEvents rdbCMSClassM As RadioButton
+    Friend WithEvents rdbCMSClassNone As RadioButton
 End Class
