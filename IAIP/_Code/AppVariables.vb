@@ -69,10 +69,11 @@ Module AppVariables
 
 #Region " Business logic constants "
 
-    Public Const FCE_DATA_PERIOD As Integer = 1
-    Public Const FCE_ENFORCEMENT_DATA_PERIOD As Integer = 5
-    Public Const MIN_FCE_SPAN_CLASS_A As Integer = 2
-    Public Const MIN_FCE_SPAN_CLASS_SM As Integer = 5
+    Public Const FCE_DATA_PERIOD As Integer = 1 ' Year
+    Public Const FCE_ENFORCEMENT_DATA_PERIOD As Integer = 5 ' Years
+    Public Const MIN_FCE_SPAN_CLASS_A As Integer = 2 ' Years
+    Public Const MIN_FCE_SPAN_CLASS_SM As Integer = 5 ' Years
+    Public Const MIN_FCE_SPAN_CLASS_M As Integer = 7 ' Years
 
 #End Region
 

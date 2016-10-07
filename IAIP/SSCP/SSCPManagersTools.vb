@@ -189,13 +189,6 @@ Public Class SSCPManagersTools
 
             cboCMSFrequency.SelectedIndex = 0
 
-            With cboCMSWarningFrequency.Items
-                .Add("")
-                .Add("A")
-                .Add("S")
-                .Add("M")
-            End With
-
             With cboCountyFilter1
                 .DataSource = New BindingSource(GetSharedData(SharedTable.Counties), Nothing)
                 .DisplayMember = "County"
@@ -456,260 +449,86 @@ Public Class SSCPManagersTools
         End Try
     End Sub
 
+    Private Sub chbNoFCE_CheckedChanged(sender As Object, e As EventArgs) Handles chbNoFCE.CheckedChanged
+        FceSearchFilters.Enabled = Not chbNoFCE.Checked
+    End Sub
+
     Private Sub RunCMSWarningReport()
-        'Dim SQLLine As String
-        'Dim SQLline2 As String
-        'Dim StartDate As String
-        'Dim EndDate As String
-        Dim CMSStatus As String
-        Dim FCEStatus As String
-        Dim StartCMSA As String
-        Dim EndCMSA As String
-        Dim StartCMSS As String
-        Dim EndCMSS As String
+        Dim SqlFilter As String = ""
+
+        Dim SMOverdueDate As Date = Today.AddYears(-MIN_FCE_SPAN_CLASS_SM)
+        Dim AOverdueDate As Date = Today.AddYears(-MIN_FCE_SPAN_CLASS_A)
+        Dim MegaOverdueDate As Date = Today.AddYears(-MIN_FCE_SPAN_CLASS_M)
 
         Try
-
-
-            Select Case cboCMSWarningFrequency.Text
-                Case "A"
-                    CMSStatus = " and strCMSMember = 'A' "
-                Case "S"
-                    CMSStatus = " and strCMSMember = 'S' "
-                Case Else
-                    CMSStatus = " and strCMSMember is not null "
-            End Select
-            FCEStatus = " "
-            If chbNoFCE.Checked = True Then
-                FCEStatus = " and lastFCE is null "
+            If chbNoFCE.Checked Then
+                SqlFilter = " Where strCMSMember Is Not null and lastFCE is null "
             Else
-                '  FCEStatus = " and lastFCE is not null "
-                If rdbNext60Days.Checked = True Then
-                    Select Case cboCMSWarningFrequency.Text
-                        Case "A"
-                            StartCMSA = Format(Today.AddDays(-670), "yyyy-MM-dd")
-                            EndCMSA = Format(Today.AddDays(-610), "yyyy-MM-dd")
+                SqlFilter = " where " &
+                    " (strCMSMember = 'A' and lastFCE < @adate) or " &
+                    " (strCMSMember = 'S' and lastFCE < @sdate) or " &
+                    " (strCMSMember = 'M' and lastFCE < @mdate) "
 
-                            CMSStatus = " and strCMSMember = 'A' and LastFCE  between '" & StartCMSA & "' and '" & EndCMSA & "' "
-                        Case "S"
-                            StartCMSS = Format(Today.AddDays(-1765), "yyyy-MM-dd")
-                            EndCMSS = Format(Today.AddDays(-1705), "yyyy-MM-dd")
-
-                            CMSStatus = " and strCMSMember = 'S' and LastFCE  between '" & StartCMSS & "' and '" & EndCMSS & "' "
-                        Case "A & S"
-                            StartCMSA = Format(Today.AddDays(-670), "yyyy-MM-dd")
-                            EndCMSA = Format(Today.AddDays(-610), "yyyy-MM-dd")
-                            StartCMSS = Format(Today.AddDays(-1765), "yyyy-MM-dd")
-                            EndCMSS = Format(Today.AddDays(-1705), "yyyy-MM-dd")
-
-                            CMSStatus = " and ((strCMSMember = 'A' and lastFCE between '" & StartCMSA & "' and '" & EndCMSA & "') " &
-                            "or (strCMSMember = 'S' and LastFCE between '" & StartCMSS & "' and '" & EndCMSS & "')) "
-                        Case Else
-                            StartCMSA = Format(Today.AddDays(-670), "yyyy-MM-dd")
-                            EndCMSA = Format(Today.AddDays(-610), "yyyy-MM-dd")
-                            StartCMSS = Format(Today.AddDays(-1765), "yyyy-MM-dd")
-                            EndCMSS = Format(Today.AddDays(-1705), "yyyy-MM-dd")
-
-                            CMSStatus = " and ((strCMSMember = 'A' and lastFCE between '" & StartCMSA & "' and '" & EndCMSA & "') " &
-                            "or (strCMSMember = 'S' and LastFCE between '" & StartCMSS & "' and '" & EndCMSS & "')) "
-                    End Select
-                End If
-                If rdbNext90Days.Checked = True Then
-                    Select Case cboCMSWarningFrequency.Text
-                        Case "A"
-                            StartCMSA = Format(Today.AddDays(-640), "yyyy-MM-dd")
-                            EndCMSA = Format(Today.AddDays(-550), "yyyy-MM-dd")
-
-                            CMSStatus = " and strCMSMember = 'A' and LastFCE  between '" & StartCMSA & "' and '" & EndCMSA & "' "
-                        Case "S"
-                            StartCMSS = Format(Today.AddDays(-1735), "yyyy-MM-dd")
-                            EndCMSS = Format(Today.AddDays(-1645), "yyyy-MM-dd")
-
-                            CMSStatus = " and strCMSMember = 'S' and LastFCE  between '" & StartCMSS & "' and '" & EndCMSS & "' "
-                        Case "A & S"
-                            StartCMSA = Format(Today.AddDays(-640), "yyyy-MM-dd")
-                            EndCMSA = Format(Today.AddDays(-550), "yyyy-MM-dd")
-                            StartCMSS = Format(Today.AddDays(-1735), "yyyy-MM-dd")
-                            EndCMSS = Format(Today.AddDays(-1645), "yyyy-MM-dd")
-
-                            CMSStatus = " and ((strCMSMember = 'A' and lastFCE between '" & StartCMSA & "' and '" & EndCMSA & "') " &
-                            "or (strCMSMember = 'S' and LastFCE between '" & StartCMSS & "' and '" & EndCMSS & "')) "
-                        Case Else
-                            StartCMSA = Format(Today.AddDays(-640), "yyyy-MM-dd")
-                            EndCMSA = Format(Today.AddDays(-550), "yyyy-MM-dd")
-                            StartCMSS = Format(Today.AddDays(-1735), "yyyy-MM-dd")
-                            EndCMSS = Format(Today.AddDays(-1645), "yyyy-MM-dd")
-
-                            CMSStatus = " and ((strCMSMember = 'A' and lastFCE between '" & StartCMSA & "' and '" & EndCMSA & "') " &
-                            "or (strCMSMember = 'S' and LastFCE between '" & StartCMSS & "' and '" & EndCMSS & "')) "
-                    End Select
-                End If
-                If rdbNext120Days.Checked = True Then
-                    Select Case cboCMSWarningFrequency.Text
-                        Case "A"
-                            StartCMSA = Format(Today.AddDays(-610), "yyyy-MM-dd")
-                            EndCMSA = Format(Today.AddDays(-490), "yyyy-MM-dd")
-
-                            CMSStatus = " and strCMSMember = 'A' and LastFCE  between '" & StartCMSA & "' and '" & EndCMSA & "' "
-                        Case "S"
-                            StartCMSS = Format(Today.AddDays(-1705), "yyyy-MM-dd")
-                            EndCMSS = Format(Today.AddDays(-1585), "yyyy-MM-dd")
-
-                            CMSStatus = " and strCMSMember = 'S' and LastFCE  between '" & StartCMSS & "' and '" & EndCMSS & "' "
-                        Case "A & S"
-                            StartCMSA = Format(Today.AddDays(-610), "yyyy-MM-dd")
-                            EndCMSA = Format(Today.AddDays(-490), "yyyy-MM-dd")
-                            StartCMSS = Format(Today.AddDays(-1705), "yyyy-MM-dd")
-                            EndCMSS = Format(Today.AddDays(-1585), "yyyy-MM-dd")
-
-                            CMSStatus = " and ((strCMSMember = 'A' and lastFCE between '" & StartCMSA & "' and '" & EndCMSA & "') " &
-                            "or (strCMSMember = 'S' and LastFCE between '" & StartCMSS & "' and '" & EndCMSS & "')) "
-                        Case Else
-                            StartCMSA = Format(Today.AddDays(-610), "yyyy-MM-dd")
-                            EndCMSA = Format(Today.AddDays(-490), "yyyy-MM-dd")
-                            StartCMSS = Format(Today.AddDays(-1705), "yyyy-MM-dd")
-                            EndCMSS = Format(Today.AddDays(-1585), "yyyy-MM-dd")
-
-                            CMSStatus = " and ((strCMSMember = 'A' and lastFCE between '" & StartCMSA & "' and '" & EndCMSA & "') " &
-                            "or (strCMSMember = 'S' and LastFCE between '" & StartCMSS & "' and '" & EndCMSS & "')) "
-                    End Select
-                End If
-                If rdbNextYear.Checked = True Then
-                    Select Case cboCMSWarningFrequency.Text
-                        Case "A"
-                            StartCMSA = Format(Today.AddDays(-365), "yyyy-MM-dd")
-                            EndCMSA = Format(Today.AddDays(-0), "yyyy-MM-dd")
-
-                            CMSStatus = " and strCMSMember = 'A' and LastFCE  between '" & StartCMSA & "' and '" & EndCMSA & "' "
-                        Case "S"
-                            StartCMSS = Format(Today.AddDays(-1825), "yyyy-MM-dd")
-                            EndCMSS = Format(Today.AddDays(-1460), "yyyy-MM-dd")
-
-                            CMSStatus = " and strCMSMember = 'S' and LastFCE  between '" & StartCMSS & "' and '" & EndCMSS & "' "
-                        Case "A & S"
-                            StartCMSA = Format(Today.AddDays(-365), "yyyy-MM-dd")
-                            EndCMSA = Format(Today.AddDays(-0), "yyyy-MM-dd")
-                            StartCMSS = Format(Today.AddDays(-1825), "yyyy-MM-dd")
-                            EndCMSS = Format(Today.AddDays(-1460), "yyyy-MM-dd")
-
-                            CMSStatus = " and ((strCMSMember = 'A' and lastFCE between '" & StartCMSA & "' and '" & EndCMSA & "') " &
-                            "or (strCMSMember = 'S' and LastFCE between '" & StartCMSS & "' and '" & EndCMSS & "')) "
-                        Case Else
-                            StartCMSA = Format(Today.AddDays(-365), "yyyy-MM-dd")
-                            EndCMSA = Format(Today.AddDays(-0), "yyyy-MM-dd")
-                            StartCMSS = Format(Today.AddDays(-1825), "yyyy-MM-dd")
-                            EndCMSS = Format(Today.AddDays(-1460), "yyyy-MM-dd")
-
-                            CMSStatus = " and ((strCMSMember = 'A' and lastFCE between '" & StartCMSA & "' and '" & EndCMSA & "') " &
-                            "or (strCMSMember = 'S' and LastFCE between '" & StartCMSS & "' and '" & EndCMSS & "')) "
-                    End Select
-                End If
-                If rdbFCEOverdue.Checked = True Then
-                    Select Case cboCMSWarningFrequency.Text
-                        Case "A"
-                            StartCMSA = Format(Today.AddDays(-730), "yyyy-MM-dd")
-
-                            CMSStatus = " and strCMSMember = 'A' and LastFCE  < '" & StartCMSA & "' "
-                        Case "S"
-                            StartCMSS = Format(Today.AddDays(-1825), "yyyy-MM-dd")
-
-                            CMSStatus = " and strCMSMember = 'S' and LastFCE  < '" & StartCMSS & "' "
-                        Case "A & S"
-                            StartCMSA = Format(Today.AddDays(-730), "yyyy-MM-dd")
-                            StartCMSS = Format(Today.AddDays(-1825), "yyyy-MM-dd")
-
-                            CMSStatus = " and ((strCMSMember = 'A' and lastFCE < '" & StartCMSA & "') " &
-                            "or (strCMSMember = 'S' and LastFCE < '" & StartCMSS & "')) "
-                        Case Else
-                            StartCMSA = Format(Today.AddDays(-730), "yyyy-MM-dd")
-                            StartCMSS = Format(Today.AddDays(-1825), "yyyy-MM-dd")
-
-                            CMSStatus = " and ((strCMSMember = 'A' and lastFCE < '" & StartCMSA & "') " &
-                          "or (strCMSMember = 'S' and LastFCE < '" & StartCMSS & "')) "
-                    End Select
-                End If
-
-                If rdbFCEPerformedWithinYear.Checked = True Then
-                    Select Case cboCMSWarningFrequency.Text
-                        Case "A"
-                            StartCMSA = Format(Today, "yyyy-MM-dd")
-                            EndCMSA = Format(Today.AddDays(-365), "yyyy-MM-dd")
-
-                            CMSStatus = " and strCMSMember = 'A' and LastFCE  between '" & StartCMSA & "' and '" & EndCMSA & "' "
-                        Case "S"
-                            StartCMSS = Format(Today, "yyyy-MM-dd")
-                            EndCMSS = Format(Today.AddDays(-365), "yyyy-MM-dd")
-
-                            CMSStatus = " and strCMSMember = 'S' and LastFCE  between '" & StartCMSS & "' and '" & EndCMSS & "' "
-                        Case "A & S"
-                            StartCMSA = Format(Today, "yyyy-MM-dd")
-                            EndCMSA = Format(Today.AddDays(-365), "yyyy-MM-dd")
-                            StartCMSS = Format(Today, "yyyy-MM-dd")
-                            EndCMSS = Format(Today.AddDays(-365), "yyyy-MM-dd")
-
-                            CMSStatus = " and ((strCMSMember = 'A' and lastFCE between '" & StartCMSA & "' and '" & EndCMSA & "') " &
-                            "or (strCMSMember = 'S' and LastFCE between '" & StartCMSS & "' and '" & EndCMSS & "')) "
-                        Case Else
-                            StartCMSA = Format(Today, "yyyy-MM-dd")
-                            EndCMSA = Format(Today.AddDays(-365), "yyyy-MM-dd")
-                            StartCMSS = Format(Today, "yyyy-MM-dd")
-                            EndCMSS = Format(Today.AddDays(-365), "yyyy-MM-dd")
-
-                            CMSStatus = " and ((strCMSMember = 'A' and lastFCE between '" & StartCMSA & "' and '" & EndCMSA & "') " &
-                            "or (strCMSMember = 'S' and LastFCE between '" & StartCMSS & "' and '" & EndCMSS & "')) "
-                    End Select
+                If rdbNext60Days.Checked Then
+                    SMOverdueDate = SMOverdueDate.AddDays(60)
+                    AOverdueDate = AOverdueDate.AddDays(60)
+                    MegaOverdueDate = MegaOverdueDate.AddDays(60)
+                ElseIf rdbNext90Days.Checked Then
+                    SMOverdueDate = SMOverdueDate.AddDays(90)
+                    AOverdueDate = AOverdueDate.AddDays(90)
+                    MegaOverdueDate = MegaOverdueDate.AddDays(90)
+                ElseIf rdbNext120Days.Checked Then
+                    SMOverdueDate = SMOverdueDate.AddDays(120)
+                    AOverdueDate = AOverdueDate.AddDays(120)
+                    MegaOverdueDate = MegaOverdueDate.AddDays(120)
+                ElseIf rdbNextYear.Checked Then
+                    SMOverdueDate = SMOverdueDate.AddYears(1)
+                    AOverdueDate = AOverdueDate.AddYears(1)
+                    MegaOverdueDate = MegaOverdueDate.AddYears(1)
                 End If
             End If
 
+            Dim SQL As String = "Select * " &
+                "from VW_SSCP_CMSWarning " &
+                SqlFilter
 
-            SQL = "Select * " &
-            "from VW_SSCP_CMSWarning " &
-            "where AIRSNumber is not Null " &
-            FCEStatus & CMSStatus
+            Dim p As SqlParameter() = {
+                 New SqlParameter("@adate", AOverdueDate),
+                 New SqlParameter("@sdate", SMOverdueDate),
+                 New SqlParameter("@mdate", MegaOverdueDate)
+            }
 
-            If SQL <> "" Then
-                dsCMSWarningDataSet = New DataSet
-                daCMSWarningDataSet = New SqlDataAdapter(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
+            dgvCMSWarning.DataSource = DB.GetDataTable(SQL, p)
 
-                daCMSWarningDataSet.Fill(dsCMSWarningDataSet, "CMSWarning")
+            dgvCMSWarning.RowHeadersVisible = False
+            dgvCMSWarning.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
+            dgvCMSWarning.AllowUserToResizeColumns = True
+            dgvCMSWarning.AllowUserToAddRows = False
+            dgvCMSWarning.AllowUserToDeleteRows = False
+            dgvCMSWarning.AllowUserToOrderColumns = True
+            dgvCMSWarning.AllowUserToResizeRows = True
 
-                dgvCMSWarning.DataSource = dsCMSWarningDataSet
-                dgvCMSWarning.DataMember = "CMSWarning"
+            dgvCMSWarning.Columns("strCMSMember").HeaderText = "CMS Class"
+            dgvCMSWarning.Columns("strCMSMember").DisplayIndex = 0
+            dgvCMSWarning.Columns("AIRSNumber").HeaderText = "AIRS Number"
+            dgvCMSWarning.Columns("AIRSNumber").DisplayIndex = 1
+            dgvCMSWarning.Columns("strFacilityName").HeaderText = "Facility Name"
+            dgvCMSWarning.Columns("strFacilityName").DisplayIndex = 2
+            dgvCMSWarning.Columns("strFacilityCity").HeaderText = "City"
+            dgvCMSWarning.Columns("strFacilityCity").DisplayIndex = 3
+            dgvCMSWarning.Columns("strCountyName").HeaderText = "County"
+            dgvCMSWarning.Columns("strCountyName").DisplayIndex = 4
+            dgvCMSWarning.Columns("strDistrictName").HeaderText = "District"
+            dgvCMSWarning.Columns("strDistrictName").DisplayIndex = 5
+            dgvCMSWarning.Columns("strOperationalStatus").HeaderText = "Operational Status"
+            dgvCMSWarning.Columns("strOperationalStatus").DisplayIndex = 6
+            dgvCMSWarning.Columns("LastFCE").HeaderText = "Last FCE"
+            dgvCMSWarning.Columns("LastFCE").DisplayIndex = 7
+            dgvCMSWarning.Columns("LastFCE").DefaultCellStyle.Format = "dd-MMM-yyyy"
+            dgvCMSWarning.Columns("strClass").HeaderText = "Class"
+            dgvCMSWarning.Columns("strClass").DisplayIndex = 8
 
-                dgvCMSWarning.RowHeadersVisible = False
-                dgvCMSWarning.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-                dgvCMSWarning.AllowUserToResizeColumns = True
-                dgvCMSWarning.AllowUserToAddRows = False
-                dgvCMSWarning.AllowUserToDeleteRows = False
-                dgvCMSWarning.AllowUserToOrderColumns = True
-                dgvCMSWarning.AllowUserToResizeRows = True
-
-                dgvCMSWarning.Columns("strCMSMember").HeaderText = "CMS Class"
-                dgvCMSWarning.Columns("strCMSMember").DisplayIndex = 0
-                dgvCMSWarning.Columns("AIRSNumber").HeaderText = "AIRS Number"
-                dgvCMSWarning.Columns("AIRSNumber").DisplayIndex = 1
-                dgvCMSWarning.Columns("strFacilityName").HeaderText = "Facility Name"
-                dgvCMSWarning.Columns("strFacilityName").DisplayIndex = 2
-                dgvCMSWarning.Columns("strFacilityCity").HeaderText = "City"
-                dgvCMSWarning.Columns("strFacilityCity").DisplayIndex = 3
-                dgvCMSWarning.Columns("strCountyName").HeaderText = "County"
-                dgvCMSWarning.Columns("strCountyName").DisplayIndex = 4
-                dgvCMSWarning.Columns("strDistrictName").HeaderText = "District"
-                dgvCMSWarning.Columns("strDistrictName").DisplayIndex = 5
-                dgvCMSWarning.Columns("strOperationalStatus").HeaderText = "Operational Status"
-                dgvCMSWarning.Columns("strOperationalStatus").DisplayIndex = 6
-                dgvCMSWarning.Columns("LastFCE").HeaderText = "Last FCE"
-                dgvCMSWarning.Columns("LastFCE").DisplayIndex = 7
-                dgvCMSWarning.Columns("LastFCE").DefaultCellStyle.Format = "dd-MMM-yyyy"
-                dgvCMSWarning.Columns("strClass").HeaderText = "Class"
-                dgvCMSWarning.Columns("strClass").DisplayIndex = 8
-
-                txtCMSWarningCount.Text = dgvCMSWarning.RowCount
-            End If
-
+            txtCMSWarningCount.Text = dgvCMSWarning.RowCount
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -1019,8 +838,6 @@ Public Class SSCPManagersTools
 
 #End Region
 
-#Region "Buttons"
-
     Private Sub llbViewCMSUniverse_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewCMSUniverse.LinkClicked
         LoadCMSUniverse()
     End Sub
@@ -1029,96 +846,8 @@ Public Class SSCPManagersTools
         OpenFormFacilitySummary(txtCMSAIRSNumber.Text)
     End Sub
 
-    Private Sub llbCMSOpenFacilitySummary2_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbCMSOpenFacilitySummary2.LinkClicked
-        OpenFormFacilitySummary(txtCMSAIRSNumber2.Text)
-    End Sub
-
     Private Sub btnAddToCmsUniverse_LinkClicked(sender As Object, e As EventArgs) Handles btnAddToCmsUniverse.Click
         AddFacilityToCMS()
-    End Sub
-
-#End Region
-
-    Private Sub dgvCMSWarning_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvCMSWarning.MouseUp
-        Try
-            Dim hti As DataGridView.HitTestInfo = dgvCMSWarning.HitTest(e.X, e.Y)
-
-            If dgvCMSWarning.RowCount > 0 And hti.RowIndex <> -1 Then
-                If IsDBNull(dgvCMSWarning(0, hti.RowIndex).Value) Then
-                    Exit Sub
-                Else
-                    txtCMSAIRSNumber2.Text = dgvCMSWarning(0, hti.RowIndex).Value
-                End If
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-
-    Private Sub txtCMSAIRSNumber2_TextChanged(sender As Object, e As EventArgs) Handles txtCMSAIRSNumber2.TextChanged
-        Try
-
-            If txtCMSAIRSNumber2.Text.Length = 8 Then
-                SQL = "select " &
-                "AIRSNUMBER, STRFACILITYNAME, " &
-                "STRFACILITYCITY, STRCOUNTYNAME, " &
-                "STRDISTRICTNAME, STROPERATIONALSTATUS, " &
-                "STRCMSMEMBER, LASTFCE, strClass, " &
-                "(strLastName||', '||strFirstName) as AssignedEngineer " &
-                "from " &
-                "(select * " &
-                "from VW_SSCP_CMSWARNING) TABLE1, " &
-                "(select " &
-                "max(INTYEAR), NUMSSCPENGINEER, " &
-                "strairsnumber " &
-                "from SSCPINSPECTIONSREQUIRED " &
-                "group by NUMSSCPENGINEER, STRAIRSNUMBER)TABLE2, " &
-                "EPDUSERPROFILES " &
-                "where '0413'||TABLE1.AIRSNUMBER = TABLE2.STRAIRSNUMBER (+) " &
-                "and Table2.numSSCPEngineer = EPDUserProfiles.numuserid (+)  " &
-                "and AIRSNumber = '" & txtCMSAIRSNumber2.Text & "' "
-
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-                If recExist = True Then
-                    If IsDBNull(dr.Item("strFacilityName")) Then
-                        txtCMSFacilityName2.Clear()
-                    Else
-                        txtCMSFacilityName2.Text = dr.Item("strFacilityName")
-                    End If
-                    If IsDBNull(dr.Item("strOperationalStatus")) Then
-                        txtCMSOperationalStatus2.Clear()
-                    Else
-                        txtCMSOperationalStatus2.Text = dr.Item("strOperationalStatus")
-                    End If
-                    If IsDBNull(dr.Item("strClass")) Then
-                        txtCMSClassification2.Clear()
-                    Else
-                        txtCMSClassification2.Text = dr.Item("strClass")
-                    End If
-                    If IsDBNull(dr.Item("AssignedEngineer")) Then
-                        txtCMSAssignedEngineer2.Clear()
-                    Else
-                        If dr.Item("AssignedEngineer") = ", " Then
-                            txtCMSAssignedEngineer2.Clear()
-                        Else
-                            txtCMSAssignedEngineer2.Text = dr.Item("AssignedEngineer")
-                        End If
-                    End If
-                    If IsDBNull(dr.Item("LastFCE")) Then
-                        txtCMSLastFCE2.Text = "Unknown"
-                    Else
-                        txtCMSLastFCE2.Text = dr.Item("LastFCE")
-                    End If
-                End If
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
     End Sub
 
     Private Sub lblCMSWarning_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblCMSWarning.LinkClicked

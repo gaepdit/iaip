@@ -20,7 +20,6 @@ Partial Class SSCPManagersTools
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SSCPManagersTools))
-        Me.Label21 = New System.Windows.Forms.Label()
         Me.CmsClassSelectionPanel = New System.Windows.Forms.Panel()
         Me.rdbCMSClassNone = New System.Windows.Forms.RadioButton()
         Me.rdbCMSClassM = New System.Windows.Forms.RadioButton()
@@ -40,29 +39,14 @@ Partial Class SSCPManagersTools
         Me.txtCMSAIRSNumber = New System.Windows.Forms.TextBox()
         Me.TPUniverse = New System.Windows.Forms.TabPage()
         Me.dgvCMSUniverse = New System.Windows.Forms.DataGridView()
-        Me.txtCMSAssignedEngineer2 = New System.Windows.Forms.TextBox()
-        Me.llbCMSOpenFacilitySummary2 = New System.Windows.Forms.LinkLabel()
-        Me.txtCMSFacilityName2 = New System.Windows.Forms.TextBox()
-        Me.Label15 = New System.Windows.Forms.Label()
-        Me.Label16 = New System.Windows.Forms.Label()
-        Me.Label17 = New System.Windows.Forms.Label()
-        Me.Label18 = New System.Windows.Forms.Label()
-        Me.Label19 = New System.Windows.Forms.Label()
-        Me.txtCMSOperationalStatus2 = New System.Windows.Forms.TextBox()
-        Me.txtCMSLastFCE2 = New System.Windows.Forms.TextBox()
-        Me.txtCMSClassification2 = New System.Windows.Forms.TextBox()
-        Me.txtCMSAIRSNumber2 = New System.Windows.Forms.TextBox()
-        Me.cboCMSWarningFrequency = New System.Windows.Forms.ComboBox()
         Me.lblCMSWarning = New System.Windows.Forms.LinkLabel()
-        Me.Label14 = New System.Windows.Forms.Label()
-        Me.GroupBox4 = New System.Windows.Forms.GroupBox()
-        Me.chbNoFCE = New System.Windows.Forms.CheckBox()
-        Me.rdbFCEPerformedWithinYear = New System.Windows.Forms.RadioButton()
+        Me.FceSearchFilters = New System.Windows.Forms.GroupBox()
         Me.rdbFCEOverdue = New System.Windows.Forms.RadioButton()
         Me.rdbNextYear = New System.Windows.Forms.RadioButton()
         Me.rdbNext120Days = New System.Windows.Forms.RadioButton()
         Me.rdbNext90Days = New System.Windows.Forms.RadioButton()
         Me.rdbNext60Days = New System.Windows.Forms.RadioButton()
+        Me.chbNoFCE = New System.Windows.Forms.CheckBox()
         Me.Label30 = New System.Windows.Forms.Label()
         Me.PanelCMSWarning = New System.Windows.Forms.Panel()
         Me.btnExportCmsWarningToExcel = New System.Windows.Forms.Button()
@@ -261,7 +245,7 @@ Partial Class SSCPManagersTools
         Me.PanelCMSUniverse.SuspendLayout()
         Me.TPUniverse.SuspendLayout()
         CType(Me.dgvCMSUniverse, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.GroupBox4.SuspendLayout()
+        Me.FceSearchFilters.SuspendLayout()
         Me.PanelCMSWarning.SuspendLayout()
         CType(Me.dgvCMSWarning, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TPCMSWarning.SuspendLayout()
@@ -313,15 +297,6 @@ Partial Class SSCPManagersTools
         Me.pnlUpdateDocumentType.SuspendLayout()
         CType(Me.dgvEnfDocumentTypes, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
-        '
-        'Label21
-        '
-        Me.Label21.AutoSize = True
-        Me.Label21.Location = New System.Drawing.Point(152, 395)
-        Me.Label21.Name = "Label21"
-        Me.Label21.Size = New System.Drawing.Size(98, 13)
-        Me.Label21.TabIndex = 28
-        Me.Label21.Text = "Assigned Engineer:"
         '
         'CmsClassSelectionPanel
         '
@@ -509,208 +484,86 @@ Partial Class SSCPManagersTools
         Me.dgvCMSUniverse.Size = New System.Drawing.Size(760, 633)
         Me.dgvCMSUniverse.TabIndex = 20
         '
-        'txtCMSAssignedEngineer2
-        '
-        Me.txtCMSAssignedEngineer2.Location = New System.Drawing.Point(168, 416)
-        Me.txtCMSAssignedEngineer2.Name = "txtCMSAssignedEngineer2"
-        Me.txtCMSAssignedEngineer2.ReadOnly = True
-        Me.txtCMSAssignedEngineer2.Size = New System.Drawing.Size(96, 20)
-        Me.txtCMSAssignedEngineer2.TabIndex = 29
-        '
-        'llbCMSOpenFacilitySummary2
-        '
-        Me.llbCMSOpenFacilitySummary2.AutoSize = True
-        Me.llbCMSOpenFacilitySummary2.Location = New System.Drawing.Point(136, 293)
-        Me.llbCMSOpenFacilitySummary2.Name = "llbCMSOpenFacilitySummary2"
-        Me.llbCMSOpenFacilitySummary2.Size = New System.Drawing.Size(114, 13)
-        Me.llbCMSOpenFacilitySummary2.TabIndex = 4
-        Me.llbCMSOpenFacilitySummary2.TabStop = True
-        Me.llbCMSOpenFacilitySummary2.Text = "Open Facility Summary"
-        '
-        'txtCMSFacilityName2
-        '
-        Me.txtCMSFacilityName2.Location = New System.Drawing.Point(32, 333)
-        Me.txtCMSFacilityName2.Name = "txtCMSFacilityName2"
-        Me.txtCMSFacilityName2.ReadOnly = True
-        Me.txtCMSFacilityName2.Size = New System.Drawing.Size(184, 20)
-        Me.txtCMSFacilityName2.TabIndex = 18
-        '
-        'Label15
-        '
-        Me.Label15.AutoSize = True
-        Me.Label15.Location = New System.Drawing.Point(8, 395)
-        Me.Label15.Name = "Label15"
-        Me.Label15.Size = New System.Drawing.Size(79, 13)
-        Me.Label15.TabIndex = 23
-        Me.Label15.Text = "Last FCE Date:"
-        '
-        'Label16
-        '
-        Me.Label16.AutoSize = True
-        Me.Label16.Location = New System.Drawing.Point(8, 354)
-        Me.Label16.Name = "Label16"
-        Me.Label16.Size = New System.Drawing.Size(89, 13)
-        Me.Label16.TabIndex = 21
-        Me.Label16.Text = "Operating Status:"
-        '
-        'Label17
-        '
-        Me.Label17.AutoSize = True
-        Me.Label17.Location = New System.Drawing.Point(8, 312)
-        Me.Label17.Name = "Label17"
-        Me.Label17.Size = New System.Drawing.Size(73, 13)
-        Me.Label17.TabIndex = 17
-        Me.Label17.Text = "Facility Name:"
-        '
-        'Label18
-        '
-        Me.Label18.AutoSize = True
-        Me.Label18.Location = New System.Drawing.Point(152, 354)
-        Me.Label18.Name = "Label18"
-        Me.Label18.Size = New System.Drawing.Size(71, 13)
-        Me.Label18.TabIndex = 22
-        Me.Label18.Text = "Classification:"
-        '
-        'Label19
-        '
-        Me.Label19.AutoSize = True
-        Me.Label19.Location = New System.Drawing.Point(8, 270)
-        Me.Label19.Name = "Label19"
-        Me.Label19.Size = New System.Drawing.Size(75, 13)
-        Me.Label19.TabIndex = 20
-        Me.Label19.Text = "AIRS Number:"
-        '
-        'txtCMSOperationalStatus2
-        '
-        Me.txtCMSOperationalStatus2.Location = New System.Drawing.Point(32, 374)
-        Me.txtCMSOperationalStatus2.Name = "txtCMSOperationalStatus2"
-        Me.txtCMSOperationalStatus2.ReadOnly = True
-        Me.txtCMSOperationalStatus2.Size = New System.Drawing.Size(112, 20)
-        Me.txtCMSOperationalStatus2.TabIndex = 24
-        '
-        'txtCMSLastFCE2
-        '
-        Me.txtCMSLastFCE2.Location = New System.Drawing.Point(32, 416)
-        Me.txtCMSLastFCE2.Name = "txtCMSLastFCE2"
-        Me.txtCMSLastFCE2.ReadOnly = True
-        Me.txtCMSLastFCE2.Size = New System.Drawing.Size(112, 20)
-        Me.txtCMSLastFCE2.TabIndex = 26
-        '
-        'txtCMSClassification2
-        '
-        Me.txtCMSClassification2.Location = New System.Drawing.Point(168, 374)
-        Me.txtCMSClassification2.Name = "txtCMSClassification2"
-        Me.txtCMSClassification2.ReadOnly = True
-        Me.txtCMSClassification2.Size = New System.Drawing.Size(96, 20)
-        Me.txtCMSClassification2.TabIndex = 25
-        '
-        'txtCMSAIRSNumber2
-        '
-        Me.txtCMSAIRSNumber2.Location = New System.Drawing.Point(24, 291)
-        Me.txtCMSAIRSNumber2.Name = "txtCMSAIRSNumber2"
-        Me.txtCMSAIRSNumber2.Size = New System.Drawing.Size(100, 20)
-        Me.txtCMSAIRSNumber2.TabIndex = 3
-        '
-        'cboCMSWarningFrequency
-        '
-        Me.cboCMSWarningFrequency.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cboCMSWarningFrequency.Location = New System.Drawing.Point(100, 42)
-        Me.cboCMSWarningFrequency.Name = "cboCMSWarningFrequency"
-        Me.cboCMSWarningFrequency.Size = New System.Drawing.Size(80, 21)
-        Me.cboCMSWarningFrequency.TabIndex = 2
-        '
         'lblCMSWarning
         '
         Me.lblCMSWarning.AutoSize = True
         Me.lblCMSWarning.Location = New System.Drawing.Point(8, 8)
         Me.lblCMSWarning.Name = "lblCMSWarning"
-        Me.lblCMSWarning.Size = New System.Drawing.Size(91, 13)
+        Me.lblCMSWarning.Size = New System.Drawing.Size(88, 13)
         Me.lblCMSWarning.TabIndex = 1
         Me.lblCMSWarning.TabStop = True
-        Me.lblCMSWarning.Text = "Run CMS Report:"
+        Me.lblCMSWarning.Text = "Run CMS Report"
         '
-        'Label14
+        'FceSearchFilters
         '
-        Me.Label14.AutoSize = True
-        Me.Label14.Location = New System.Drawing.Point(7, 44)
-        Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(86, 13)
-        Me.Label14.TabIndex = 13
-        Me.Label14.Text = "CMS Frequency:"
-        '
-        'GroupBox4
-        '
-        Me.GroupBox4.Controls.Add(Me.chbNoFCE)
-        Me.GroupBox4.Controls.Add(Me.rdbFCEPerformedWithinYear)
-        Me.GroupBox4.Controls.Add(Me.rdbFCEOverdue)
-        Me.GroupBox4.Controls.Add(Me.rdbNextYear)
-        Me.GroupBox4.Controls.Add(Me.rdbNext120Days)
-        Me.GroupBox4.Controls.Add(Me.rdbNext90Days)
-        Me.GroupBox4.Controls.Add(Me.rdbNext60Days)
-        Me.GroupBox4.Location = New System.Drawing.Point(8, 76)
-        Me.GroupBox4.Name = "GroupBox4"
-        Me.GroupBox4.Size = New System.Drawing.Size(225, 164)
-        Me.GroupBox4.TabIndex = 14
-        Me.GroupBox4.TabStop = False
-        Me.GroupBox4.Text = "FCEs Required based on Last FCE"
-        '
-        'chbNoFCE
-        '
-        Me.chbNoFCE.AutoSize = True
-        Me.chbNoFCE.Location = New System.Drawing.Point(16, 15)
-        Me.chbNoFCE.Name = "chbNoFCE"
-        Me.chbNoFCE.Size = New System.Drawing.Size(116, 17)
-        Me.chbNoFCE.TabIndex = 34
-        Me.chbNoFCE.Text = "No FCE on Record"
-        Me.chbNoFCE.UseVisualStyleBackColor = True
-        '
-        'rdbFCEPerformedWithinYear
-        '
-        Me.rdbFCEPerformedWithinYear.Location = New System.Drawing.Point(16, 129)
-        Me.rdbFCEPerformedWithinYear.Name = "rdbFCEPerformedWithinYear"
-        Me.rdbFCEPerformedWithinYear.Size = New System.Drawing.Size(197, 17)
-        Me.rdbFCEPerformedWithinYear.TabIndex = 33
-        Me.rdbFCEPerformedWithinYear.Text = "FCE Performed within Last Year"
+        Me.FceSearchFilters.Controls.Add(Me.rdbFCEOverdue)
+        Me.FceSearchFilters.Controls.Add(Me.rdbNextYear)
+        Me.FceSearchFilters.Controls.Add(Me.rdbNext120Days)
+        Me.FceSearchFilters.Controls.Add(Me.rdbNext90Days)
+        Me.FceSearchFilters.Controls.Add(Me.rdbNext60Days)
+        Me.FceSearchFilters.Location = New System.Drawing.Point(8, 75)
+        Me.FceSearchFilters.Name = "FceSearchFilters"
+        Me.FceSearchFilters.Size = New System.Drawing.Size(225, 140)
+        Me.FceSearchFilters.TabIndex = 14
+        Me.FceSearchFilters.TabStop = False
+        Me.FceSearchFilters.Text = "FCEs required based on last FCE"
         '
         'rdbFCEOverdue
         '
-        Me.rdbFCEOverdue.Location = New System.Drawing.Point(16, 96)
+        Me.rdbFCEOverdue.AutoSize = True
+        Me.rdbFCEOverdue.Checked = True
+        Me.rdbFCEOverdue.Location = New System.Drawing.Point(10, 19)
         Me.rdbFCEOverdue.Name = "rdbFCEOverdue"
-        Me.rdbFCEOverdue.Size = New System.Drawing.Size(197, 17)
+        Me.rdbFCEOverdue.Size = New System.Drawing.Size(89, 17)
         Me.rdbFCEOverdue.TabIndex = 32
+        Me.rdbFCEOverdue.TabStop = True
         Me.rdbFCEOverdue.Text = "FCE Overdue"
         '
         'rdbNextYear
         '
-        Me.rdbNextYear.Location = New System.Drawing.Point(16, 80)
+        Me.rdbNextYear.AutoSize = True
+        Me.rdbNextYear.Location = New System.Drawing.Point(10, 111)
         Me.rdbNextYear.Name = "rdbNextYear"
-        Me.rdbNextYear.Size = New System.Drawing.Size(197, 16)
+        Me.rdbNextYear.Size = New System.Drawing.Size(189, 17)
         Me.rdbNextYear.TabIndex = 4
         Me.rdbNextYear.Text = "FCE Needed in the upcoming Year"
         '
         'rdbNext120Days
         '
-        Me.rdbNext120Days.Location = New System.Drawing.Point(16, 64)
+        Me.rdbNext120Days.AutoSize = True
+        Me.rdbNext120Days.Location = New System.Drawing.Point(10, 88)
         Me.rdbNext120Days.Name = "rdbNext120Days"
-        Me.rdbNext120Days.Size = New System.Drawing.Size(171, 16)
+        Me.rdbNext120Days.Size = New System.Drawing.Size(166, 17)
         Me.rdbNext120Days.TabIndex = 3
         Me.rdbNext120Days.Text = "FCE Needed in next 120 days"
         '
         'rdbNext90Days
         '
-        Me.rdbNext90Days.Location = New System.Drawing.Point(16, 48)
+        Me.rdbNext90Days.AutoSize = True
+        Me.rdbNext90Days.Location = New System.Drawing.Point(10, 65)
         Me.rdbNext90Days.Name = "rdbNext90Days"
-        Me.rdbNext90Days.Size = New System.Drawing.Size(164, 16)
+        Me.rdbNext90Days.Size = New System.Drawing.Size(160, 17)
         Me.rdbNext90Days.TabIndex = 2
         Me.rdbNext90Days.Text = "FCE Needed in next 90 days"
         '
         'rdbNext60Days
         '
-        Me.rdbNext60Days.Location = New System.Drawing.Point(16, 32)
+        Me.rdbNext60Days.AutoSize = True
+        Me.rdbNext60Days.Location = New System.Drawing.Point(10, 42)
         Me.rdbNext60Days.Name = "rdbNext60Days"
-        Me.rdbNext60Days.Size = New System.Drawing.Size(164, 16)
+        Me.rdbNext60Days.Size = New System.Drawing.Size(160, 17)
         Me.rdbNext60Days.TabIndex = 1
         Me.rdbNext60Days.Text = "FCE Needed in next 60 days"
+        '
+        'chbNoFCE
+        '
+        Me.chbNoFCE.AutoSize = True
+        Me.chbNoFCE.Location = New System.Drawing.Point(18, 50)
+        Me.chbNoFCE.Name = "chbNoFCE"
+        Me.chbNoFCE.Size = New System.Drawing.Size(111, 17)
+        Me.chbNoFCE.TabIndex = 34
+        Me.chbNoFCE.Text = "No FCE on record"
+        Me.chbNoFCE.UseVisualStyleBackColor = True
         '
         'Label30
         '
@@ -723,24 +576,10 @@ Partial Class SSCPManagersTools
         '
         'PanelCMSWarning
         '
+        Me.PanelCMSWarning.Controls.Add(Me.chbNoFCE)
         Me.PanelCMSWarning.Controls.Add(Me.btnExportCmsWarningToExcel)
-        Me.PanelCMSWarning.Controls.Add(Me.Label21)
-        Me.PanelCMSWarning.Controls.Add(Me.txtCMSAssignedEngineer2)
-        Me.PanelCMSWarning.Controls.Add(Me.llbCMSOpenFacilitySummary2)
-        Me.PanelCMSWarning.Controls.Add(Me.txtCMSFacilityName2)
-        Me.PanelCMSWarning.Controls.Add(Me.Label15)
-        Me.PanelCMSWarning.Controls.Add(Me.Label16)
-        Me.PanelCMSWarning.Controls.Add(Me.Label17)
-        Me.PanelCMSWarning.Controls.Add(Me.Label18)
-        Me.PanelCMSWarning.Controls.Add(Me.Label19)
-        Me.PanelCMSWarning.Controls.Add(Me.txtCMSOperationalStatus2)
-        Me.PanelCMSWarning.Controls.Add(Me.txtCMSLastFCE2)
-        Me.PanelCMSWarning.Controls.Add(Me.txtCMSClassification2)
-        Me.PanelCMSWarning.Controls.Add(Me.txtCMSAIRSNumber2)
-        Me.PanelCMSWarning.Controls.Add(Me.cboCMSWarningFrequency)
         Me.PanelCMSWarning.Controls.Add(Me.lblCMSWarning)
-        Me.PanelCMSWarning.Controls.Add(Me.Label14)
-        Me.PanelCMSWarning.Controls.Add(Me.GroupBox4)
+        Me.PanelCMSWarning.Controls.Add(Me.FceSearchFilters)
         Me.PanelCMSWarning.Controls.Add(Me.Label30)
         Me.PanelCMSWarning.Controls.Add(Me.txtCMSWarningCount)
         Me.PanelCMSWarning.Dock = System.Windows.Forms.DockStyle.Right
@@ -751,7 +590,7 @@ Partial Class SSCPManagersTools
         '
         'btnExportCmsWarningToExcel
         '
-        Me.btnExportCmsWarningToExcel.Location = New System.Drawing.Point(11, 462)
+        Me.btnExportCmsWarningToExcel.Location = New System.Drawing.Point(11, 290)
         Me.btnExportCmsWarningToExcel.Name = "btnExportCmsWarningToExcel"
         Me.btnExportCmsWarningToExcel.Size = New System.Drawing.Size(123, 28)
         Me.btnExportCmsWarningToExcel.TabIndex = 33
@@ -2790,8 +2629,8 @@ Partial Class SSCPManagersTools
         Me.PanelCMSUniverse.PerformLayout()
         Me.TPUniverse.ResumeLayout(False)
         CType(Me.dgvCMSUniverse, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.GroupBox4.ResumeLayout(False)
-        Me.GroupBox4.PerformLayout()
+        Me.FceSearchFilters.ResumeLayout(False)
+        Me.FceSearchFilters.PerformLayout()
         Me.PanelCMSWarning.ResumeLayout(False)
         Me.PanelCMSWarning.PerformLayout()
         CType(Me.dgvCMSWarning, System.ComponentModel.ISupportInitialize).EndInit()
@@ -2867,7 +2706,6 @@ Partial Class SSCPManagersTools
         Me.ResumeLayout(False)
 
     End Sub
-    Friend WithEvents Label21 As System.Windows.Forms.Label
     Friend WithEvents CmsClassSelectionPanel As System.Windows.Forms.Panel
     Friend WithEvents rdbCMSClassA As System.Windows.Forms.RadioButton
     Friend WithEvents rdbCMSClassS As System.Windows.Forms.RadioButton
@@ -2882,23 +2720,8 @@ Partial Class SSCPManagersTools
     Friend WithEvents Label9 As System.Windows.Forms.Label
     Friend WithEvents txtCMSAIRSNumber As System.Windows.Forms.TextBox
     Friend WithEvents TPUniverse As System.Windows.Forms.TabPage
-    Friend WithEvents txtCMSAssignedEngineer2 As System.Windows.Forms.TextBox
-    Friend WithEvents llbCMSOpenFacilitySummary2 As System.Windows.Forms.LinkLabel
-    Friend WithEvents txtCMSFacilityName2 As System.Windows.Forms.TextBox
-    Friend WithEvents Label15 As System.Windows.Forms.Label
-    Friend WithEvents Label16 As System.Windows.Forms.Label
-    Friend WithEvents Label17 As System.Windows.Forms.Label
-    Friend WithEvents Label18 As System.Windows.Forms.Label
-    Friend WithEvents Label19 As System.Windows.Forms.Label
-    Friend WithEvents txtCMSOperationalStatus2 As System.Windows.Forms.TextBox
-    Friend WithEvents txtCMSLastFCE2 As System.Windows.Forms.TextBox
-    Friend WithEvents txtCMSClassification2 As System.Windows.Forms.TextBox
-    Friend WithEvents txtCMSAIRSNumber2 As System.Windows.Forms.TextBox
-    Friend WithEvents cboCMSWarningFrequency As System.Windows.Forms.ComboBox
     Friend WithEvents lblCMSWarning As System.Windows.Forms.LinkLabel
-    Friend WithEvents Label14 As System.Windows.Forms.Label
-    Friend WithEvents GroupBox4 As System.Windows.Forms.GroupBox
-    Friend WithEvents rdbFCEPerformedWithinYear As System.Windows.Forms.RadioButton
+    Friend WithEvents FceSearchFilters As System.Windows.Forms.GroupBox
     Friend WithEvents rdbFCEOverdue As System.Windows.Forms.RadioButton
     Friend WithEvents rdbNextYear As System.Windows.Forms.RadioButton
     Friend WithEvents rdbNext120Days As System.Windows.Forms.RadioButton
