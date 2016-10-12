@@ -207,16 +207,6 @@ Partial Class SSCPManagersTools
         Me.Label32 = New System.Windows.Forms.Label()
         Me.txtTotalFacilities = New System.Windows.Forms.TextBox()
         Me.Label31 = New System.Windows.Forms.Label()
-        Me.TPEnforcement = New System.Windows.Forms.TabPage()
-        Me.chbUseEnforcementDateRange = New System.Windows.Forms.CheckBox()
-        Me.dtpEnforcementStartDate = New System.Windows.Forms.DateTimePicker()
-        Me.dtpEnforcementEndDate = New System.Windows.Forms.DateTimePicker()
-        Me.Label47 = New System.Windows.Forms.Label()
-        Me.llbViewEnforcements = New System.Windows.Forms.LinkLabel()
-        Me.mtbEnforcementSummary = New System.Windows.Forms.MaskedTextBox()
-        Me.Label46 = New System.Windows.Forms.Label()
-        Me.btnPenaltySummary = New System.Windows.Forms.Button()
-        Me.txtEnforcementAIRSNumber = New System.Windows.Forms.TextBox()
         Me.TPTitleVRenewals = New System.Windows.Forms.TabPage()
         Me.Label66 = New System.Windows.Forms.Label()
         Me.btnRunTitleVSearch = New System.Windows.Forms.Button()
@@ -291,7 +281,6 @@ Partial Class SSCPManagersTools
         Me.TPChemicals.SuspendLayout()
         Me.TPVOC.SuspendLayout()
         Me.TPDistricts.SuspendLayout()
-        Me.TPEnforcement.SuspendLayout()
         Me.TPTitleVRenewals.SuspendLayout()
         CType(Me.dgvStatisticalReports, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TPDocuments.SuspendLayout()
@@ -1676,7 +1665,6 @@ Partial Class SSCPManagersTools
         'TCStatisticalTools
         '
         Me.TCStatisticalTools.Controls.Add(Me.TPACCStats)
-        Me.TCStatisticalTools.Controls.Add(Me.TPEnforcement)
         Me.TCStatisticalTools.Controls.Add(Me.TPTitleVRenewals)
         Me.TCStatisticalTools.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TCStatisticalTools.Location = New System.Drawing.Point(0, 0)
@@ -2272,110 +2260,6 @@ Partial Class SSCPManagersTools
         Me.Label31.TabIndex = 0
         Me.Label31.Text = "Total Facilities Assigned to Staff"
         '
-        'TPEnforcement
-        '
-        Me.TPEnforcement.Controls.Add(Me.chbUseEnforcementDateRange)
-        Me.TPEnforcement.Controls.Add(Me.dtpEnforcementStartDate)
-        Me.TPEnforcement.Controls.Add(Me.dtpEnforcementEndDate)
-        Me.TPEnforcement.Controls.Add(Me.Label47)
-        Me.TPEnforcement.Controls.Add(Me.llbViewEnforcements)
-        Me.TPEnforcement.Controls.Add(Me.mtbEnforcementSummary)
-        Me.TPEnforcement.Controls.Add(Me.Label46)
-        Me.TPEnforcement.Controls.Add(Me.btnPenaltySummary)
-        Me.TPEnforcement.Controls.Add(Me.txtEnforcementAIRSNumber)
-        Me.TPEnforcement.Location = New System.Drawing.Point(4, 22)
-        Me.TPEnforcement.Name = "TPEnforcement"
-        Me.TPEnforcement.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPEnforcement.Size = New System.Drawing.Size(477, 607)
-        Me.TPEnforcement.TabIndex = 1
-        Me.TPEnforcement.Text = "Enforcement"
-        Me.TPEnforcement.UseVisualStyleBackColor = True
-        '
-        'chbUseEnforcementDateRange
-        '
-        Me.chbUseEnforcementDateRange.AutoSize = True
-        Me.chbUseEnforcementDateRange.Location = New System.Drawing.Point(9, 46)
-        Me.chbUseEnforcementDateRange.Name = "chbUseEnforcementDateRange"
-        Me.chbUseEnforcementDateRange.Size = New System.Drawing.Size(99, 17)
-        Me.chbUseEnforcementDateRange.TabIndex = 30
-        Me.chbUseEnforcementDateRange.Text = "Use date range"
-        Me.chbUseEnforcementDateRange.UseVisualStyleBackColor = True
-        '
-        'dtpEnforcementStartDate
-        '
-        Me.dtpEnforcementStartDate.CustomFormat = "dd-MMM-yyyy"
-        Me.dtpEnforcementStartDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpEnforcementStartDate.Location = New System.Drawing.Point(110, 44)
-        Me.dtpEnforcementStartDate.Name = "dtpEnforcementStartDate"
-        Me.dtpEnforcementStartDate.Size = New System.Drawing.Size(100, 20)
-        Me.dtpEnforcementStartDate.TabIndex = 28
-        Me.dtpEnforcementStartDate.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
-        '
-        'dtpEnforcementEndDate
-        '
-        Me.dtpEnforcementEndDate.CustomFormat = "dd-MMM-yyyy"
-        Me.dtpEnforcementEndDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpEnforcementEndDate.Location = New System.Drawing.Point(216, 44)
-        Me.dtpEnforcementEndDate.Name = "dtpEnforcementEndDate"
-        Me.dtpEnforcementEndDate.Size = New System.Drawing.Size(100, 20)
-        Me.dtpEnforcementEndDate.TabIndex = 29
-        Me.dtpEnforcementEndDate.Value = New Date(2005, 8, 18, 0, 0, 0, 0)
-        '
-        'Label47
-        '
-        Me.Label47.AutoSize = True
-        Me.Label47.Location = New System.Drawing.Point(6, 81)
-        Me.Label47.Name = "Label47"
-        Me.Label47.Size = New System.Drawing.Size(77, 13)
-        Me.Label47.TabIndex = 27
-        Me.Label47.Text = "Total Penalties"
-        '
-        'llbViewEnforcements
-        '
-        Me.llbViewEnforcements.AutoSize = True
-        Me.llbViewEnforcements.Location = New System.Drawing.Point(237, 81)
-        Me.llbViewEnforcements.Name = "llbViewEnforcements"
-        Me.llbViewEnforcements.Size = New System.Drawing.Size(30, 13)
-        Me.llbViewEnforcements.TabIndex = 26
-        Me.llbViewEnforcements.TabStop = True
-        Me.llbViewEnforcements.Text = "View"
-        '
-        'mtbEnforcementSummary
-        '
-        Me.mtbEnforcementSummary.Location = New System.Drawing.Point(91, 78)
-        Me.mtbEnforcementSummary.Mask = "$0000000000000000000"
-        Me.mtbEnforcementSummary.Name = "mtbEnforcementSummary"
-        Me.mtbEnforcementSummary.PromptChar = Global.Microsoft.VisualBasic.ChrW(32)
-        Me.mtbEnforcementSummary.ReadOnly = True
-        Me.mtbEnforcementSummary.Size = New System.Drawing.Size(140, 20)
-        Me.mtbEnforcementSummary.TabIndex = 3
-        '
-        'Label46
-        '
-        Me.Label46.AutoSize = True
-        Me.Label46.Location = New System.Drawing.Point(6, 15)
-        Me.Label46.Name = "Label46"
-        Me.Label46.Size = New System.Drawing.Size(72, 13)
-        Me.Label46.TabIndex = 2
-        Me.Label46.Text = "AIRS Number"
-        '
-        'btnPenaltySummary
-        '
-        Me.btnPenaltySummary.AutoSize = True
-        Me.btnPenaltySummary.Location = New System.Drawing.Point(190, 10)
-        Me.btnPenaltySummary.Name = "btnPenaltySummary"
-        Me.btnPenaltySummary.Size = New System.Drawing.Size(101, 23)
-        Me.btnPenaltySummary.TabIndex = 1
-        Me.btnPenaltySummary.Text = "Penalty Summary"
-        Me.btnPenaltySummary.UseVisualStyleBackColor = True
-        '
-        'txtEnforcementAIRSNumber
-        '
-        Me.txtEnforcementAIRSNumber.Location = New System.Drawing.Point(84, 11)
-        Me.txtEnforcementAIRSNumber.Name = "txtEnforcementAIRSNumber"
-        Me.txtEnforcementAIRSNumber.Size = New System.Drawing.Size(100, 20)
-        Me.txtEnforcementAIRSNumber.TabIndex = 0
-        '
         'TPTitleVRenewals
         '
         Me.TPTitleVRenewals.Controls.Add(Me.Label66)
@@ -2704,8 +2588,6 @@ Partial Class SSCPManagersTools
         Me.TPChemicals.ResumeLayout(False)
         Me.TPVOC.ResumeLayout(False)
         Me.TPDistricts.ResumeLayout(False)
-        Me.TPEnforcement.ResumeLayout(False)
-        Me.TPEnforcement.PerformLayout()
         Me.TPTitleVRenewals.ResumeLayout(False)
         Me.TPTitleVRenewals.PerformLayout()
         CType(Me.dgvStatisticalReports, System.ComponentModel.ISupportInitialize).EndInit()
@@ -2753,7 +2635,6 @@ Partial Class SSCPManagersTools
     Friend WithEvents clbAirToxicUnit As System.Windows.Forms.CheckedListBox
     Friend WithEvents TCStatisticalTools As System.Windows.Forms.TabControl
     Friend WithEvents TPACCStats As System.Windows.Forms.TabPage
-    Friend WithEvents TPEnforcement As System.Windows.Forms.TabPage
     Friend WithEvents TCComplianceStaff As System.Windows.Forms.TabControl
     Friend WithEvents TPAirToxics As System.Windows.Forms.TabPage
     Friend WithEvents TPChemicals As System.Windows.Forms.TabPage
@@ -2803,15 +2684,6 @@ Partial Class SSCPManagersTools
     Friend WithEvents txtStatisticalCount As System.Windows.Forms.TextBox
     Friend WithEvents Label45 As System.Windows.Forms.Label
     Friend WithEvents txtRecordNumber As System.Windows.Forms.TextBox
-    Friend WithEvents Label46 As System.Windows.Forms.Label
-    Friend WithEvents btnPenaltySummary As System.Windows.Forms.Button
-    Friend WithEvents txtEnforcementAIRSNumber As System.Windows.Forms.TextBox
-    Friend WithEvents llbViewEnforcements As System.Windows.Forms.LinkLabel
-    Friend WithEvents mtbEnforcementSummary As System.Windows.Forms.MaskedTextBox
-    Friend WithEvents Label47 As System.Windows.Forms.Label
-    Friend WithEvents chbUseEnforcementDateRange As System.Windows.Forms.CheckBox
-    Friend WithEvents dtpEnforcementStartDate As System.Windows.Forms.DateTimePicker
-    Friend WithEvents dtpEnforcementEndDate As System.Windows.Forms.DateTimePicker
     Friend WithEvents lblStatisticalRecords As System.Windows.Forms.Label
     Friend WithEvents chbNoFCE As System.Windows.Forms.CheckBox
     Friend WithEvents dgvCMSUniverse As System.Windows.Forms.DataGridView
