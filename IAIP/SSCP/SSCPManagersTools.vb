@@ -29,11 +29,6 @@ Public Class SSCPManagersTools
 
     Private Sub SSCPManagersTools_Load(sender As Object, e As EventArgs) Handles Me.Load
         Try
-            dtpEnforcementStartDate.Value = Today
-            dtpEnforcementEndDate.Value = Today
-            dtpEnforcementStartDate.Enabled = False
-            dtpEnforcementEndDate.Enabled = False
-
             DTPSearchDateStart.Value = Today.AddYears(-1)
             DTPSearchDateEnd.Value = Today
 
@@ -2004,11 +1999,8 @@ Public Class SSCPManagersTools
                         OpenSSCPWork()
                     Case "Enforcement #"
                         OpenEnforcement()
-                    Case Else
-
                 End Select
             End If
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -2017,6 +2009,7 @@ Public Class SSCPManagersTools
     Private Sub OpenFacilitySummary()
         OpenFormFacilitySummary(txtRecordNumber.Text)
     End Sub
+
     Private Sub OpenEnforcement()
         OpenFormEnforcement(txtRecordNumber.Text)
     End Sub
@@ -2931,70 +2924,26 @@ Public Class SSCPManagersTools
 
     Private Sub btnRunTitleVSearch_Click(sender As Object, e As EventArgs) Handles btnRunTitleVSearch.Click
         Try
-            SQL = "SELECT DISTINCT SUBSTRING(FI.STRAIRSNUMBER, 5,8) AS AIRSNumber, " &
-            "  FI.STRFACILITYNAME, " &
-            "  HD.STROPERATIONALSTATUS, " &
-            "  (UP.STRLASTNAME " &
-            "  || ', ' " &
-            "  || UP.STRFIRSTNAME) AS StaffResponsible " &
-            "FROM APBFacilityinformation FI, " &
-            "  APBHeaderdata HD, " &
-            "  EPDUserProfiles UP, " &
-            "  SSCPINSPECTIONSREQUIRED IR, " &
-            "  (SELECT DISTINCT SUBSTRING(tFI.STRAIRSNUMBER, 5,8) AS AIRSNumber " &
-            "  FROM APBHeaderData tHD, " &
-            "    APBFacilityInformation tFI, " &
-            "    SSPPApplicationMaster tAM, " &
-            "    SSPPApplicationData tAD, " &
-            "    SSPPApplicationTracking tAT " &
-            "  WHERE tAM.STRAPPLICATIONNUMBER = tAD.STRAPPLICATIONNUMBER " &
-            "  AND tAM.STRAIRSNUMBER          = tHD.STRAIRSNUMBER " &
-            "  AND tAM.STRAIRSNUMBER          = tFI.STRAIRSNUMBER " &
-            "  AND tAM.STRAPPLICATIONNUMBER   = tAT.STRAPPLICATIONNUMBER " &
-            "  AND tAD.STRPERMITNUMBER LIKE '%V__0' " &
-            "  AND tHD.STROPERATIONALSTATUS             <> 'X' " &
-            "  AND SUBSTRING(tHD.STRAIRPROGRAMCODES, 13, 1) = '1' " &
-            "  AND ((tAT.DATPERMITISSUED                IS NOT NULL " &
-            "  AND tAT.DATPERMITISSUED                   < add_months(GETDATE(), -51)) " &
-            "  OR (tAT.DATEFFECTIVE                     IS NOT NULL " &
-            "  AND tAT.DATEFFECTIVE                      < add_months(GETDATE(), -51))) " &
-            "  MINUS " &
-            "    (SELECT DISTINCT SUBSTRING(tAM.STRAIRSNUMBER, 5,8) AS AIRSNumber " &
-            "    FROM SSPPApplicationMaster tAM, " &
-            "      SSPPApplicationData tAD, " &
-            "      SSPPApplicationTracking tAT, " &
-            "      APBHeaderData tHD " &
-            "    WHERE tAM.STRAPPLICATIONNUMBER = tAD.STRAPPLICATIONNUMBER " &
-            "    AND tAM.STRAPPLICATIONNUMBER   = tAT.STRAPPLICATIONNUMBER " &
-            "    AND tAM.STRAIRSNUMBER          = tHD.STRAIRSNUMBER " &
-            "    AND ((tAM.STRAPPLICATIONTYPE   = '14' " &
-            "    OR tAM.STRAPPLICATIONTYPE      = '16' " &
-            "    OR tAM.STRAPPLICATIONTYPE      = '27') " &
-            "    OR (tAD.STRPERMITNUMBER LIKE '%V__0')) " &
-            "    AND ((tAT.DATPERMITISSUED BETWEEN add_months(GETDATE(), -51) AND GETDATE() " &
-            "    AND tAT.DATEFFECTIVE BETWEEN add_months(GETDATE(),      -51) AND GETDATE()) " &
-            "    OR (tAT.DATRECEIVEDDATE BETWEEN add_months(GETDATE(),   -51) AND GETDATE())) " &
-            "    ) " &
-            "  ) TVFacilities, " &
-            "  (SELECT MAX(SSCPINSPECTIONSREQUIRED.INTYEAR) AS maxyear " &
-            "  FROM SSCPINSPECTIONSREQUIRED " &
-            "  ) maxyear " &
-            "WHERE FI.STRAIRSNUMBER = '0413' " &
-            "  || TVFacilities.AIRSNumber " &
-            "AND FI.STRAIRSNUMBER   = HD.STRAIRSNUMBER " &
-            "AND IR.NUMSSCPENGINEER = UP.NUMUSERID " &
-            "AND FI.STRAIRSNUMBER   = IR.STRAIRSNUMBER " &
-            "AND IR.INTYEAR         = maxyear.maxyear " &
-            "ORDER BY AIRSNumber"
+            Dim SQL As String = "SELECT SUBSTRING(f.STRAIRSNUMBER, 5, 8) AS AIRSNumber, f.STRFACILITYNAME, h.STROPERATIONALSTATUS
+                FROM APBFACILITYINFORMATION AS f
+                INNER JOIN APBHEADERDATA AS h ON f.STRAIRSNUMBER = h.STRAIRSNUMBER
+                INNER JOIN (
+                SELECT h.STRAIRSNUMBER
+                FROM SSPPAPPLICATIONMASTER AS m
+                INNER JOIN APBHEADERDATA AS h ON h.STRAIRSNUMBER = m.STRAIRSNUMBER
+                INNER JOIN SSPPAPPLICATIONTRACKING AS a ON m.STRAPPLICATIONNUMBER = a.STRAPPLICATIONNUMBER
+                INNER JOIN SSPPAPPLICATIONDATA AS d ON m.STRAPPLICATIONNUMBER = d.STRAPPLICATIONNUMBER
+                WHERE d.STRPERMITNUMBER LIKE '%V__0' AND h.STROPERATIONALSTATUS <> 'X' AND SUBSTRING(h.STRAIRPROGRAMCODES, 13, 1) = '1' AND (a.DATPERMITISSUED < DATEADD(month, -51, GETDATE()) OR a.DATEFFECTIVE < DATEADD(month, -51, GETDATE()))
+                EXCEPT
+                SELECT m.STRAIRSNUMBER
+                FROM SSPPAPPLICATIONMASTER AS m
+                INNER JOIN SSPPAPPLICATIONDATA AS d ON m.STRAPPLICATIONNUMBER = d.STRAPPLICATIONNUMBER
+                INNER JOIN SSPPAPPLICATIONTRACKING AS a ON m.STRAPPLICATIONNUMBER = a.STRAPPLICATIONNUMBER
+                WHERE (m.STRAPPLICATIONTYPE IN ('14', '16', '27') OR d.STRPERMITNUMBER LIKE '%V__0') AND (a.DATPERMITISSUED BETWEEN DATEADD(month, -51, GETDATE()) AND GETDATE() AND a.DATEFFECTIVE BETWEEN DATEADD(month, -51, GETDATE()) AND GETDATE() OR a.DATRECEIVEDDATE BETWEEN DATEADD(month, -51, GETDATE()) AND GETDATE()) ) AS t ON t.STRAIRSNUMBER = f.STRAIRSNUMBER
+                ORDER BY AIRSNumber"
 
-            dsStatisticalReport = New DataSet
-            daStatisticalReport = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daStatisticalReport.Fill(dsStatisticalReport, "TotalFacilities")
-            dgvStatisticalReports.DataSource = dsStatisticalReport
-            dgvStatisticalReports.DataMember = "TotalFacilities"
+            dgvStatisticalReports.DataSource = DB.GetDataTable(SQL)
+
             dgvStatisticalReports.RowHeadersVisible = False
             dgvStatisticalReports.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
             dgvStatisticalReports.AllowUserToResizeColumns = True
@@ -3002,20 +2951,13 @@ Public Class SSCPManagersTools
             dgvStatisticalReports.AllowUserToDeleteRows = False
             dgvStatisticalReports.AllowUserToOrderColumns = True
             dgvStatisticalReports.AllowUserToResizeRows = True
-
             dgvStatisticalReports.Columns("AIRSNumber").HeaderText = "AIRS #"
-            dgvStatisticalReports.Columns("AIRSNumber").DisplayIndex = 0
-            dgvStatisticalReports.Columns("strFacilityName").HeaderText = "Facility Name"
-            dgvStatisticalReports.Columns("strFacilityName").DisplayIndex = 1
-            dgvStatisticalReports.Columns("strFacilityName").Width = 150
-            dgvStatisticalReports.Columns("strOperationalStatus").HeaderText = "Op. Status"
-            dgvStatisticalReports.Columns("strOperationalStatus").DisplayIndex = 2
-            dgvStatisticalReports.Columns("StaffResponsible").HeaderText = "Staff Responsible"
-            dgvStatisticalReports.Columns("StaffResponsible").DisplayIndex = 3
-            dgvStatisticalReports.Columns("StaffResponsible").Width = 150
+            dgvStatisticalReports.Columns("STRFACILITYNAME").HeaderText = "Facility Name"
+            dgvStatisticalReports.Columns("STROPERATIONALSTATUS").HeaderText = "Op. Status"
+
+            dgvStatisticalReports.SanelyResizeColumns
 
             txtStatisticalCount.Text = dgvStatisticalReports.RowCount.ToString
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
