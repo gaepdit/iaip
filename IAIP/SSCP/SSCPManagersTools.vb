@@ -2165,10 +2165,7 @@ Public Class SSCPManagersTools
 
                     SqlFilter.Add(" v.STRAIRSNUMBER IN (select * from @airslist) ")
 
-                    ParamList.Add(New SqlParameter("@airslist", SqlDbType.Structured) With {
-                        .Value = airslist.AsSqlDataRecord,
-                        .TypeName = "dbo.StringList"
-                    })
+                    ParamList.Add(airslist.AsTvpSqlParameter("@airslist"))
                 End If
             End If
 

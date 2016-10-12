@@ -417,20 +417,4 @@ Module Extensions
 
 #End Region
 
-#Region " IEnumerable "
-
-    <Extension>
-    Public Function AsSqlDataRecord(Of T)(values As IEnumerable(Of T)) As IEnumerable(Of SqlDataRecord)
-        If values Is Nothing OrElse Not values.Any() Then Return Nothing
-
-        Dim metadata As SqlMetaData = SqlMetaData.InferFromValue(values.First(), "item")
-        Return values.Select(Function(v)
-                                 Dim r As New SqlDataRecord(metadata)
-                                 r.SetValues(v)
-                                 Return r
-                             End Function)
-    End Function
-
-#End Region
-
 End Module

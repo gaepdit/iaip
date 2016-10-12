@@ -174,14 +174,8 @@ Namespace DAL
                 New SqlParameter("@fromLocation", Convert.ToInt32(fromLocation)),
                 New SqlParameter("@rmpId", headerData.RmpId),
                 New SqlParameter("@modifiedBy", CurrentUser.UserID),
-                New SqlParameter("@activeApcList", SqlDbType.Structured) With {
-                    .Value = activeApcList.AsSqlDataRecord,
-                    .TypeName = "dbo.StringList"
-                },
-                New SqlParameter("@inactiveApcList", SqlDbType.Structured) With {
-                    .Value = inactiveApcList.AsSqlDataRecord,
-                    .TypeName = "dbo.StringList"
-                }
+                activeApcList.AsTvpSqlParameter("@activeApcList"),
+                inactiveApcList.AsTvpSqlParameter("@inactiveApcList")
             }
 
             Return DB.SPRunCommand(spName, params)
