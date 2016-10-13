@@ -42,6 +42,7 @@ Public Class IAIPEditHeaderData
 
     Private Sub LoadFacilityData()
         FacilityHeaderDataHistory = DAL.GetFacilityHeaderDataHistoryAsDataTable(AirsNumber)
+        FacilityHeaderDataHistory.Columns("STRKEY").AllowDBNull = True
 
         Dim currentData As DataRow = DAL.GetFacilityHeaderDataAsDataRow(AirsNumber)
 
