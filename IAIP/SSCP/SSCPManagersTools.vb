@@ -1,6 +1,8 @@
 Imports System.Collections.Generic
 Imports System.Data.SqlClient
 Imports Iaip.SharedData
+Imports Iaip.DAL
+
 
 Public Class SSCPManagersTools
 
@@ -531,300 +533,180 @@ Public Class SSCPManagersTools
 
     Private Sub RunACCStats()
         Try
-            Dim EngineerList As String = ""
-            Dim ResponsibleStaff As String = ""
+            Dim SQL As String
+            Dim selectedStaff As New HashSet(Of Integer)
 
-            For x As Integer = 0 To clbAirToxicUnit.Items.Count - 1
-                If clbAirToxicUnit.GetItemChecked(x) = True Then
-                    clbAirToxicUnit.SelectedIndex = x
-                    EngineerList = EngineerList & " numSSCPEngineer = '" & clbAirToxicUnit.SelectedValue & "' Or "
-                    ResponsibleStaff = ResponsibleStaff & " strResponsibleStaff = '" & clbAirToxicUnit.SelectedValue & "' Or "
-                End If
+            For Each checkedItem As DataRowView In clbAirToxicUnit.CheckedItems
+                selectedStaff.Add(checkedItem.Item("UserID"))
             Next
-            For x As Integer = 0 To clbChemicalsMinerals.Items.Count - 1
-                If clbChemicalsMinerals.GetItemChecked(x) = True Then
-                    clbChemicalsMinerals.SelectedIndex = x
-                    EngineerList = EngineerList & " numSSCPEngineer = '" & clbChemicalsMinerals.SelectedValue & "' Or "
-                    ResponsibleStaff = ResponsibleStaff & " strResponsibleStaff = '" & clbChemicalsMinerals.SelectedValue & "' Or "
-                End If
+            For Each checkedItem As DataRowView In clbChemicalsMinerals.CheckedItems
+                selectedStaff.Add(checkedItem.Item("UserID"))
             Next
-            For x As Integer = 0 To clbVOCCombustion.Items.Count - 1
-                If clbVOCCombustion.GetItemChecked(x) = True Then
-                    clbVOCCombustion.SelectedIndex = x
-                    EngineerList = EngineerList & " numSSCPEngineer = '" & clbVOCCombustion.SelectedValue & "' Or "
-                    ResponsibleStaff = ResponsibleStaff & " strResponsibleStaff = '" & clbVOCCombustion.SelectedValue & "' Or "
-                End If
+            For Each checkedItem As DataRowView In clbVOCCombustion.CheckedItems
+                selectedStaff.Add(checkedItem.Item("UserID"))
             Next
+            For Each checkedItem As DataRowView In clbDistricts.CheckedItems
+                selectedStaff.Add(checkedItem.Item("UserID"))
+            Next
+            Dim staffParam As SqlParameter = selectedStaff.AsTvpSqlParameter("@staff")
 
-            If EngineerList.Length > 3 Then
-                EngineerList = Mid(EngineerList, 1, (EngineerList.Length - 3))
-                EngineerList = "Where " & EngineerList
-            Else
-                EngineerList = ""
-            End If
+            Dim dateStartParam As New SqlParameter("@startdate", DTPSearchDateStart.Value)
+            Dim dateEndParam As New SqlParameter("@enddate", DTPSearchDateEnd.Value)
 
-            '---Total Facilities assigned to Unit
-            SQL = "select " &
-            "count(*) as TotalFacilities " &
-            "from " &
-            "(select " &
-            "max(intYear), strAIRSNumber " &
-            "from SSCPInspectionsRequired " &
-            EngineerList &
-            "group by strAIRSNumber) "
+            Dim params As SqlParameter() = {
+                staffParam,
+                dateStartParam,
+                dateEndParam
+            }
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                Me.txtTotalFacilities.Text = dr.Item("TotalFacilities")
-            End While
-            dr.Close()
+            '---Total facilities assigned to staff
+            SQL = "SELECT COUNT(DISTINCT STRAIRSNUMBER)
+                FROM SSCPINSPECTIONSREQUIRED
+                WHERE NUMSSCPENGINEER IN (SELECT * FROM @staff)"
 
-            If ResponsibleStaff.Length > 3 Then
-                ResponsibleStaff = Mid(ResponsibleStaff, 1, (ResponsibleStaff.Length - 3))
-                ResponsibleStaff = "and (" & ResponsibleStaff & ") "
-            End If
+            txtTotalFacilities.Text = DB.GetSingleValue(Of Integer)(SQL, staffParam).ToString
 
             '---Total Facilities reporting ACC's
-            SQL = "select count(*) as TotalACCs " &
+            SQL = "select count(*) " &
             "from SSCPItemMaster " &
             "where strEventType = '04' " &
-            "and datReceivedDate between '" & Me.DTPSearchDateStart.Text & "' and '" & Me.DTPSearchDateEnd.Text & "'  " &
-            ResponsibleStaff
+            "and datReceivedDate between @startdate and @enddate " &
+            "and strResponsibleStaff in (select * from @staff) "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                txtFacilitiesReporting.Text = dr.Item("TotalACCs")
-            End While
-            dr.Close()
+            txtFacilitiesReporting.Text = DB.GetSingleValue(Of Integer)(SQL, params).ToString
 
             '---Requiring resubmittals
             SQL = "select " &
-            "count(*) as TotalRequiringResubmittals  " &
-            "from SSCPACCs, SSCPItemMaster " &
-            "where SSCPACCs.strTrackingNumber = SSCPItemMaster.strTrackingNumber " &
-            "and strEventType = '04' " &
+            "count(*) " &
+            "from SSCPACCs inner join SSCPItemMaster " &
+            "on SSCPACCs.strTrackingNumber = SSCPItemMaster.strTrackingNumber " &
+            "where strEventType = '04' " &
             "and strSubmittalNumber = '2'  " &
-            "and datReceivedDate between '" & DTPSearchDateStart.Text & "' and '" & DTPSearchDateEnd.Text & "'  " &
-            ResponsibleStaff
+            "and datReceivedDate between @startdate and @enddate " &
+            "and strResponsibleStaff in (select * from @staff) "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                Me.txtResubmittals.Text = dr.Item("TotalRequiringResubmittals")
-            End While
-            dr.Close()
+            txtResubmittals.Text = DB.GetSingleValue(Of Integer)(SQL, params).ToString
 
             '---Submitted Late
             SQL = "select " &
-            "count(*) as SubmittedLate " &
-            "from SSCPACCs, SSCPItemMaster " &
-            "where SSCPACCs.strTrackingNumber = SSCPItemMaster.strTrackingNumber " &
-            "and strEventType = '04' " &
+            "count(*) " &
+            "from SSCPACCs inner join SSCPItemMaster " &
+            "on SSCPACCs.strTrackingNumber = SSCPItemMaster.strTrackingNumber " &
+            "where strEventType = '04' " &
             "and strPostMarkedOnTime = 'False' " &
-            "and datReceivedDate between '" & DTPSearchDateStart.Text & "' and '" & DTPSearchDateEnd.Text & "'  " &
-            ResponsibleStaff
+            "and datReceivedDate between @startdate and @enddate " &
+            "and strResponsibleStaff in (select * from @staff) "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                Me.txtSubmittedLate.Text = dr.Item("SubmittedLate")
-            End While
-            dr.Close()
+            txtSubmittedLate.Text = DB.GetSingleValue(Of Integer)(SQL, params).ToString
 
             '---Devations Reported in first Submittal
             SQL = "select " &
             "count(*) as DeviationsReported " &
-            "from SSCPACCs, SSCPItemMaster " &
-            "where SSCPACCs.strTrackingNumber = SSCPItemMaster.strTrackingNumber " &
-            "and strEventType = '04' " &
+            "from SSCPACCs inner join SSCPItemMaster " &
+            "on SSCPACCs.strTrackingNumber = SSCPItemMaster.strTrackingNumber " &
+            "where strEventType = '04' " &
             "and strSubmittalNumber = '1'  " &
             "and strReportedDeviations = 'True' " &
-            "and datReceivedDate between '" & DTPSearchDateStart.Text & "' and '" & DTPSearchDateEnd.Text & "'  " &
-            ResponsibleStaff
+            "and datReceivedDate between @startdate and @enddate " &
+            "and strResponsibleStaff in (select * from @staff) "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                Me.txtDeviationsReportedInOrigional.Text = dr.Item("DeviationsReported")
-            End While
-            dr.Close()
+            txtDeviationsReportedInOrigional.Text = DB.GetSingleValue(Of Integer)(SQL, params).ToString
 
             '---No Deviations Reported in first Submittal
             '   ---Correctly 
             SQL = "select  " &
             "count(*) as DeviationsCorrect " &
-            "from SSCPACCsHistory, SSCPItemMaster " &
-            "where SSCPACCsHistory.strTrackingNumber = SSCPItemMaster.strTrackingNumber " &
-            "and strEventType = '04' " &
+            "from SSCPACCs inner join SSCPItemMaster " &
+            "on SSCPACCs.strTrackingNumber = SSCPItemMaster.strTrackingNumber " &
+            "where strEventType = '04' " &
             "and strSubmittalNumber = '1'  " &
             "and strReportedDeviations = 'False' " &
             "and strDeviationsUnReported = 'False' " &
-            "and datReceivedDate between '" & DTPSearchDateStart.Text & "' and '" & DTPSearchDateEnd.Text & "'  " &
-            ResponsibleStaff
+            "and datReceivedDate between @startdate and @enddate " &
+            "and strResponsibleStaff in (select * from @staff) "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                Me.txtDeviationsCorrectlyReported.Text = dr.Item("DeviationsCorrect")
-            End While
-            dr.Close()
+            txtDeviationsCorrectlyReported.Text = DB.GetSingleValue(Of Integer)(SQL, params).ToString
 
             '   ---Incorrectly
             SQL = "select " &
             "count(*) as DeviationsIncorrect " &
-            "from SSCPACCsHistory, SSCPItemMaster " &
-            "where SSCPACCsHistory.strTrackingNumber = SSCPItemMaster.strTrackingNumber " &
-            "and strEventType = '04' " &
+            "from SSCPACCs inner join SSCPItemMaster " &
+            "on SSCPACCs.strTrackingNumber = SSCPItemMaster.strTrackingNumber " &
+            "where strEventType = '04' " &
             "and strSubmittalNumber = '1'  " &
             "and strReportedDeviations = 'False' " &
             "and strDeviationsUnReported = 'True' " &
-            "and datReceivedDate between '" & DTPSearchDateStart.Text & "' and '" & DTPSearchDateEnd.Text & "'  " &
-            ResponsibleStaff
+            "and datReceivedDate between @startdate and @enddate " &
+            "and strResponsibleStaff in (select * from @staff) "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                Me.txtDeviationsIncorrectlyReported.Text = dr.Item("DeviationsIncorrect")
-            End While
-            dr.Close()
+            txtDeviationsIncorrectlyReported.Text = DB.GetSingleValue(Of Integer)(SQL, params).ToString
 
             '---Deviations Reported in Final Report 
             SQL = "select " &
             "count(*) as DeviationsInFinal " &
-            "from SSCPACCs, SSCPItemMaster " &
-            "where SSCPACCs.strTrackingNumber = SSCPItemMaster.strTrackingNumber " &
-            "and strEventType = '04' " &
+            "from SSCPACCs inner join SSCPItemMaster " &
+            "on SSCPACCs.strTrackingNumber = SSCPItemMaster.strTrackingNumber " &
+            "where strEventType = '04' " &
             "and strReportedDeviations = 'True' " &
-            "and datReceivedDate between '" & DTPSearchDateStart.Text & "' and '" & DTPSearchDateEnd.Text & "'  " &
-            ResponsibleStaff
+            "and datReceivedDate between @startdate and @enddate " &
+            "and strResponsibleStaff in (select * from @staff) "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                Me.txtDeviationsReportedInFinal.Text = dr.Item("DeviationsInFinal")
-            End While
-            dr.Close()
+            txtDeviationsReportedInFinal.Text = DB.GetSingleValue(Of Integer)(SQL, params).ToString
 
             '---Deviations Not Previously Report
             SQL = "select  " &
             "count(*) as DeviationsNotReported " &
-            "from SSCPACCs, SSCPItemMaster " &
-            "where SSCPACCs.strTrackingNumber = SSCPItemMaster.strTrackingNumber " &
-            "and strEventType = '04' " &
+            "from SSCPACCs inner join SSCPItemMaster " &
+            "on SSCPACCs.strTrackingNumber = SSCPItemMaster.strTrackingNumber " &
+            "where strEventType = '04' " &
             "and strDeviationsUnReported = 'True' " &
-            "and datReceivedDate between '" & DTPSearchDateStart.Text & "' and '" & DTPSearchDateEnd.Text & "'  " &
-            ResponsibleStaff
+            "and datReceivedDate between @startdate and @enddate " &
+            "and strResponsibleStaff in (select * from @staff) "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                txtDeviationsNotPreviouslyReported.Text = dr.Item("DeviationsNotReported")
-            End While
-            dr.Close()
+            txtDeviationsNotPreviouslyReported.Text = DB.GetSingleValue(Of Integer)(SQL, params).ToString
 
             '---Enforcement Action Taken 
             SQL = "select count(*) as EnforcementTaken " &
-            "from SSCP_AuditedEnforcement, SSCPItemMaster  " &
-            "where SSCP_AuditedEnforcement.strTrackingNumber = SSCPItemMaster.strTrackingNumber  " &
-            "and strEventType = '04'  " &
-            "and datReceivedDate between '" & DTPSearchDateStart.Text & "' and '" & DTPSearchDateEnd.Text & "'  " &
-            ResponsibleStaff
+            "from SSCP_AuditedEnforcement inner join SSCPItemMaster  " &
+            "on SSCP_AuditedEnforcement.strTrackingNumber = SSCPItemMaster.strTrackingNumber  " &
+            "where strEventType = '04'  " &
+            "and datReceivedDate between @startdate and @enddate " &
+            "and strResponsibleStaff in (select * from @staff) "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                txtEnforcementActionTaken.Text = dr.Item("EnforcementTaken")
-            End While
-            dr.Close()
+            txtEnforcementActionTaken.Text = DB.GetSingleValue(Of Integer)(SQL, params).ToString
 
             '    ---LON
             SQL = "select count(*) as LONTaken  " &
-            "from SSCP_AuditedEnforcement, SSCPItemMaster  " &
-             "where SSCP_AuditedEnforcement.strTrackingNumber = SSCPItemMaster.strTrackingNumber  " &
-            "and strEventType = '04'  " &
+            "from SSCP_AuditedEnforcement inner join SSCPItemMaster  " &
+            "on SSCP_AuditedEnforcement.strTrackingNumber = SSCPItemMaster.strTrackingNumber  " &
+            "where strEventType = '04'  " &
             "and datLONSent is Not Null  " &
-            "and datReceivedDate between '" & DTPSearchDateStart.Text & "' and '" & DTPSearchDateEnd.Text & "'  " &
-            ResponsibleStaff
+            "and datReceivedDate between @startdate and @enddate " &
+            "and strResponsibleStaff in (select * from @staff) "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                txtLONTaken.Text = dr.Item("LONTaken")
-            End While
-            dr.Close()
+            txtLONTaken.Text = DB.GetSingleValue(Of Integer)(SQL, params).ToString
 
             '---NOV 
             SQL = "select count(*) as NOVTaken " &
-            "from SSCP_AuditedEnforcement, SSCPItemMaster " &
-             "where SSCP_AuditedEnforcement.strTrackingNumber = SSCPItemMaster.strTrackingNumber  " &
-           "and strEventType = '04'  " &
+            "from SSCP_AuditedEnforcement inner join SSCPItemMaster  " &
+            "on SSCP_AuditedEnforcement.strTrackingNumber = SSCPItemMaster.strTrackingNumber  " &
+            "where strEventType = '04'  " &
             "and datNFALetterSent is Not Null  " &
-            "and datReceivedDate between '" & DTPSearchDateStart.Text & "' and '" & DTPSearchDateEnd.Text & "'  " &
-            ResponsibleStaff
+            "and datReceivedDate between @startdate and @enddate " &
+            "and strResponsibleStaff in (select * from @staff) "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                txtNOVTaken.Text = dr.Item("NOVTaken")
-            End While
-            dr.Close()
+            txtNOVTaken.Text = DB.GetSingleValue(Of Integer)(SQL, params).ToString
 
             '---CO 
             SQL = "select count(*) as COTaken " &
-            "from SSCP_AuditedEnforcement, SSCPItemMaster  " &
-            "where SSCP_AuditedEnforcement.strTrackingNumber = SSCPItemMaster.strTrackingNumber  " &
-            "and strEventType = '04'  " &
+            "from SSCP_AuditedEnforcement inner join SSCPItemMaster  " &
+            "on SSCP_AuditedEnforcement.strTrackingNumber = SSCPItemMaster.strTrackingNumber  " &
+            "where strEventType = '04'  " &
             "and datCOResolved is Not Null  " &
-            "and datReceivedDate between '" & DTPSearchDateStart.Text & "' and '" & DTPSearchDateEnd.Text & "'  " &
-            ResponsibleStaff
+            "and datReceivedDate between @startdate and @enddate " &
+            "and strResponsibleStaff in (select * from @staff) "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                txtCOTaken.Text = dr.Item("COTaken")
-            End While
-            dr.Close()
+            txtCOTaken.Text = DB.GetSingleValue(Of Integer)(SQL, params).ToString
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -857,59 +739,41 @@ Public Class SSCPManagersTools
 
     Private Sub ViewACCTotalAssigned()
         Try
-            Dim EngineerList As String = ""
+            Dim SQL As String
+            Dim selectedStaff As New HashSet(Of Integer)
 
-            For x As Integer = 0 To clbAirToxicUnit.Items.Count - 1
-                If clbAirToxicUnit.GetItemChecked(x) = True Then
-                    clbAirToxicUnit.SelectedIndex = x
-                    EngineerList = EngineerList & " numSSCPENGINEER = '" & clbAirToxicUnit.SelectedValue & "' Or "
-                End If
+            For Each checkedItem As DataRowView In clbAirToxicUnit.CheckedItems
+                selectedStaff.Add(checkedItem.Item("UserID"))
             Next
-            For x As Integer = 0 To clbChemicalsMinerals.Items.Count - 1
-                If clbChemicalsMinerals.GetItemChecked(x) = True Then
-                    clbChemicalsMinerals.SelectedIndex = x
-                    EngineerList = EngineerList & " numSSCPENGINEER = '" & clbChemicalsMinerals.SelectedValue & "' Or "
-                End If
+            For Each checkedItem As DataRowView In clbChemicalsMinerals.CheckedItems
+                selectedStaff.Add(checkedItem.Item("UserID"))
             Next
-            For x As Integer = 0 To clbVOCCombustion.Items.Count - 1
-                If clbVOCCombustion.GetItemChecked(x) = True Then
-                    clbVOCCombustion.SelectedIndex = x
-                    EngineerList = EngineerList & " numSSCPENGINEER = '" & clbVOCCombustion.SelectedValue & "' Or "
-                End If
+            For Each checkedItem As DataRowView In clbVOCCombustion.CheckedItems
+                selectedStaff.Add(checkedItem.Item("UserID"))
             Next
-
-            If EngineerList.Length > 3 Then
-                EngineerList = Mid(EngineerList, 1, (EngineerList.Length - 3))
-                EngineerList = "where ( " & EngineerList & ") "
-            Else
-                EngineerList = ""
-            End If
+            For Each checkedItem As DataRowView In clbDistricts.CheckedItems
+                selectedStaff.Add(checkedItem.Item("UserID"))
+            Next
+            Dim staffParam As SqlParameter = selectedStaff.AsTvpSqlParameter("@staff")
 
             '---Total Facilities assigned to Unit
 
             SQL = "select " &
             "SUBSTRING(TABLE1.STRAIRSNUMBER, 5,8) as AIRSNUMBER, " &
             "STRFACILITYNAME, " &
-            "(strLastName||', '||strFirstName) as UserName " &
+            "concat(strLastName, ', ', strFirstName) as UserName " &
             "from " &
             "(select " &
-            "max(intYear), strAIRSNumber, " &
+            "max(intYear) as maxyear, strAIRSNumber, " &
             "numSSCPEngineer " &
             "from SSCPInspectionsRequired " &
-            EngineerList &
+            " where numSSCPENGINEER in (select * from @staff) " &
             "group by strAIRSNumber, numSSCPEngineer) Table1, " &
             "APBFacilityInformation, EPDUserProfiles " &
             "where Table1.strAIRSNumber = APBFacilityInformation.strAIRsnumber " &
             "and Table1.numSSCPEngineer = EPDUserProfiles.numUserID "
 
-            dsStatisticalReport = New DataSet
-            daStatisticalReport = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daStatisticalReport.Fill(dsStatisticalReport, "TotalFacilities")
-            dgvStatisticalReports.DataSource = dsStatisticalReport
-            dgvStatisticalReports.DataMember = "TotalFacilities"
+            dgvStatisticalReports.DataSource = DB.GetDataTable(SQL, staffParam)
 
             dgvStatisticalReports.RowHeadersVisible = False
             dgvStatisticalReports.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -934,55 +798,48 @@ Public Class SSCPManagersTools
 
     Private Sub ViewACCReporting()
         Try
-            Dim ResponsibleStaff As String = ""
+            Dim SQL As String
+            Dim selectedStaff As New HashSet(Of Integer)
 
-            For x As Integer = 0 To clbAirToxicUnit.Items.Count - 1
-                If clbAirToxicUnit.GetItemChecked(x) = True Then
-                    clbAirToxicUnit.SelectedIndex = x
-                    ResponsibleStaff = ResponsibleStaff & " strResponsibleStaff = '" & clbAirToxicUnit.SelectedValue & "' Or "
-                End If
+            For Each checkedItem As DataRowView In clbAirToxicUnit.CheckedItems
+                selectedStaff.Add(checkedItem.Item("UserID"))
             Next
-            For x As Integer = 0 To clbChemicalsMinerals.Items.Count - 1
-                If clbChemicalsMinerals.GetItemChecked(x) = True Then
-                    clbChemicalsMinerals.SelectedIndex = x
-                    ResponsibleStaff = ResponsibleStaff & " strResponsibleStaff = '" & clbChemicalsMinerals.SelectedValue & "' Or "
-                End If
+            For Each checkedItem As DataRowView In clbChemicalsMinerals.CheckedItems
+                selectedStaff.Add(checkedItem.Item("UserID"))
             Next
-            For x As Integer = 0 To clbVOCCombustion.Items.Count - 1
-                If clbVOCCombustion.GetItemChecked(x) = True Then
-                    clbVOCCombustion.SelectedIndex = x
-                    ResponsibleStaff = ResponsibleStaff & " strResponsibleStaff = '" & clbVOCCombustion.SelectedValue & "' Or "
-                End If
+            For Each checkedItem As DataRowView In clbVOCCombustion.CheckedItems
+                selectedStaff.Add(checkedItem.Item("UserID"))
             Next
+            For Each checkedItem As DataRowView In clbDistricts.CheckedItems
+                selectedStaff.Add(checkedItem.Item("UserID"))
+            Next
+            Dim staffParam As SqlParameter = selectedStaff.AsTvpSqlParameter("@staff")
 
-            If ResponsibleStaff.Length > 3 Then
-                ResponsibleStaff = Mid(ResponsibleStaff, 1, (ResponsibleStaff.Length - 3))
-                ResponsibleStaff = "and (" & ResponsibleStaff & ") "
-            End If
+            Dim dateStartParam As New SqlParameter("@startdate", DTPSearchDateStart.Value)
+            Dim dateEndParam As New SqlParameter("@enddate", DTPSearchDateEnd.Value)
+
+            Dim params As SqlParameter() = {
+                staffParam,
+                dateStartParam,
+                dateEndParam
+            }
 
             '---Total Facilities reporting ACC's
             SQL = "select " &
                 "SUBSTRING(APBFacilityInformation.strAIRSnumber, 5,8) as AIRSNumber,  " &
                 "strFacilityName,  " &
-                "(strLastname||', '||strFirstName) as UserName,  " &
+                "concat(strLastname, ', ', strFirstName) as UserName,  " &
                 "strTrackingNumber " &
                 "from APBFacilityInformation, EPDUserProfiles,  " &
                 "SSCPItemMaster  " &
                 "where SSCPItemMaster.strAirsnumber = APBFacilityInformation.strAIRSnumber  " &
                 "and SSCPItemMaster.strResponsibleStaff = EPDUserProfiles.numUserID   " &
                 "and strEventType = '04'  " &
-                "and datReceivedDate between '" & Me.DTPSearchDateStart.Text & "' and '" & Me.DTPSearchDateEnd.Text & "'  " &
-                ResponsibleStaff &
+                "and datReceivedDate between @startdate and @enddate " &
+                "and strResponsibleStaff in (select * from @staff) " &
                 "order by strFacilityName "
 
-            dsStatisticalReport = New DataSet
-            daStatisticalReport = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daStatisticalReport.Fill(dsStatisticalReport, "TotalFacilities")
-            dgvStatisticalReports.DataSource = dsStatisticalReport
-            dgvStatisticalReports.DataMember = "TotalFacilities"
+            dgvStatisticalReports.DataSource = DB.GetDataTable(SQL, params)
 
             dgvStatisticalReports.RowHeadersVisible = False
             dgvStatisticalReports.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -1009,37 +866,37 @@ Public Class SSCPManagersTools
 
     Private Sub ViewACCRequiringResubmittal()
         Try
-            Dim ResponsibleStaff As String = ""
+            Dim SQL As String
+            Dim selectedStaff As New HashSet(Of Integer)
 
-            For x As Integer = 0 To clbAirToxicUnit.Items.Count - 1
-                If clbAirToxicUnit.GetItemChecked(x) = True Then
-                    clbAirToxicUnit.SelectedIndex = x
-                    ResponsibleStaff = ResponsibleStaff & " strResponsibleStaff = '" & clbAirToxicUnit.SelectedValue & "' Or "
-                End If
+            For Each checkedItem As DataRowView In clbAirToxicUnit.CheckedItems
+                selectedStaff.Add(checkedItem.Item("UserID"))
             Next
-            For x As Integer = 0 To clbChemicalsMinerals.Items.Count - 1
-                If clbChemicalsMinerals.GetItemChecked(x) = True Then
-                    clbChemicalsMinerals.SelectedIndex = x
-                    ResponsibleStaff = ResponsibleStaff & " strResponsibleStaff = '" & clbChemicalsMinerals.SelectedValue & "' Or "
-                End If
+            For Each checkedItem As DataRowView In clbChemicalsMinerals.CheckedItems
+                selectedStaff.Add(checkedItem.Item("UserID"))
             Next
-            For x As Integer = 0 To clbVOCCombustion.Items.Count - 1
-                If clbVOCCombustion.GetItemChecked(x) = True Then
-                    clbVOCCombustion.SelectedIndex = x
-                    ResponsibleStaff = ResponsibleStaff & " strResponsibleStaff = '" & clbVOCCombustion.SelectedValue & "' Or "
-                End If
+            For Each checkedItem As DataRowView In clbVOCCombustion.CheckedItems
+                selectedStaff.Add(checkedItem.Item("UserID"))
             Next
+            For Each checkedItem As DataRowView In clbDistricts.CheckedItems
+                selectedStaff.Add(checkedItem.Item("UserID"))
+            Next
+            Dim staffParam As SqlParameter = selectedStaff.AsTvpSqlParameter("@staff")
 
-            If ResponsibleStaff.Length > 3 Then
-                ResponsibleStaff = Mid(ResponsibleStaff, 1, (ResponsibleStaff.Length - 3))
-                ResponsibleStaff = "and (" & ResponsibleStaff & ") "
-            End If
+            Dim dateStartParam As New SqlParameter("@startdate", DTPSearchDateStart.Value)
+            Dim dateEndParam As New SqlParameter("@enddate", DTPSearchDateEnd.Value)
+
+            Dim params As SqlParameter() = {
+                staffParam,
+                dateStartParam,
+                dateEndParam
+            }
 
             '---Requiring resubmittals
             SQL = "select " &
                 "SUBSTRING(APBFacilityInformation.strAIRSnumber, 5,8) as AIRSNumber,   " &
                 "strFacilityName,   " &
-                "(strLastName||', '||strFirstName) as UserName,   " &
+                "concat(strLastname, ', ', strFirstName) as UserName,  " &
                 "SSCPItemMaster.strTrackingNumber  " &
                 "from APBFacilityInformation, EPDUserProfiles,   " &
                 "SSCPItemMaster, SSCPACCs    " &
@@ -1048,18 +905,11 @@ Public Class SSCPManagersTools
                 "and SSCPItemMaster.strTrackingnumber = SSCPACCs.strTrackingNumber  " &
                 "and strSubmittalNumber = '2'  " &
                 "and strEventType = '04'   " &
-                "and datReceivedDate between '" & DTPSearchDateStart.Text & "' and '" & DTPSearchDateEnd.Text & "'  " &
-                ResponsibleStaff &
+                "and datReceivedDate between @startdate and @enddate " &
+                "and strResponsibleStaff in (select * from @staff) " &
                 "order by strFacilityName "
 
-            dsStatisticalReport = New DataSet
-            daStatisticalReport = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daStatisticalReport.Fill(dsStatisticalReport, "TotalFacilities")
-            dgvStatisticalReports.DataSource = dsStatisticalReport
-            dgvStatisticalReports.DataMember = "TotalFacilities"
+            dgvStatisticalReports.DataSource = DB.GetDataTable(SQL, params)
 
             dgvStatisticalReports.RowHeadersVisible = False
             dgvStatisticalReports.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -1087,37 +937,37 @@ Public Class SSCPManagersTools
 
     Private Sub ViewACCSubmittedLate()
         Try
-            Dim ResponsibleStaff As String = ""
+            Dim SQL As String
+            Dim selectedStaff As New HashSet(Of Integer)
 
-            For x As Integer = 0 To clbAirToxicUnit.Items.Count - 1
-                If clbAirToxicUnit.GetItemChecked(x) = True Then
-                    clbAirToxicUnit.SelectedIndex = x
-                    ResponsibleStaff = ResponsibleStaff & " strResponsibleStaff = '" & clbAirToxicUnit.SelectedValue & "' Or "
-                End If
+            For Each checkedItem As DataRowView In clbAirToxicUnit.CheckedItems
+                selectedStaff.Add(checkedItem.Item("UserID"))
             Next
-            For x As Integer = 0 To clbChemicalsMinerals.Items.Count - 1
-                If clbChemicalsMinerals.GetItemChecked(x) = True Then
-                    clbChemicalsMinerals.SelectedIndex = x
-                    ResponsibleStaff = ResponsibleStaff & " strResponsibleStaff = '" & clbChemicalsMinerals.SelectedValue & "' Or "
-                End If
+            For Each checkedItem As DataRowView In clbChemicalsMinerals.CheckedItems
+                selectedStaff.Add(checkedItem.Item("UserID"))
             Next
-            For x As Integer = 0 To clbVOCCombustion.Items.Count - 1
-                If clbVOCCombustion.GetItemChecked(x) = True Then
-                    clbVOCCombustion.SelectedIndex = x
-                    ResponsibleStaff = ResponsibleStaff & " strResponsibleStaff = '" & clbVOCCombustion.SelectedValue & "' Or "
-                End If
+            For Each checkedItem As DataRowView In clbVOCCombustion.CheckedItems
+                selectedStaff.Add(checkedItem.Item("UserID"))
             Next
+            For Each checkedItem As DataRowView In clbDistricts.CheckedItems
+                selectedStaff.Add(checkedItem.Item("UserID"))
+            Next
+            Dim staffParam As SqlParameter = selectedStaff.AsTvpSqlParameter("@staff")
 
-            If ResponsibleStaff.Length > 3 Then
-                ResponsibleStaff = Mid(ResponsibleStaff, 1, (ResponsibleStaff.Length - 3))
-                ResponsibleStaff = "and (" & ResponsibleStaff & ") "
-            End If
+            Dim dateStartParam As New SqlParameter("@startdate", DTPSearchDateStart.Value)
+            Dim dateEndParam As New SqlParameter("@enddate", DTPSearchDateEnd.Value)
+
+            Dim params As SqlParameter() = {
+                staffParam,
+                dateStartParam,
+                dateEndParam
+            }
 
             '---Submitted Late
             SQL = "select " &
            "SUBSTRING(APBFacilityInformation.strAIRSnumber, 5,8) as AIRSNumber,   " &
            "strFacilityName,   " &
-           "(strLastName||', '||strFirstName) as UserName,   " &
+                "concat(strLastname, ', ', strFirstName) as UserName,  " &
            "SSCPItemMaster.strTrackingNumber  " &
            "from APBFacilityInformation, EPDUserProfiles,   " &
            "SSCPItemMaster, SSCPACCs    " &
@@ -1126,18 +976,11 @@ Public Class SSCPManagersTools
            "and SSCPItemMaster.strTrackingnumber = SSCPACCs.strTrackingNumber  " &
            "and strPostMarkedOnTime = 'False' " &
            "and strEventType = '04'   " &
-           "and datReceivedDate between '" & DTPSearchDateStart.Text & "' and '" & DTPSearchDateEnd.Text & "'  " &
-           ResponsibleStaff &
+                "and datReceivedDate between @startdate and @enddate " &
+                "and strResponsibleStaff in (select * from @staff) " &
            "order by strFacilityName "
 
-            dsStatisticalReport = New DataSet
-            daStatisticalReport = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daStatisticalReport.Fill(dsStatisticalReport, "TotalFacilities")
-            dgvStatisticalReports.DataSource = dsStatisticalReport
-            dgvStatisticalReports.DataMember = "TotalFacilities"
+            dgvStatisticalReports.DataSource = DB.GetDataTable(SQL, params)
 
             dgvStatisticalReports.RowHeadersVisible = False
             dgvStatisticalReports.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -1165,38 +1008,37 @@ Public Class SSCPManagersTools
 
     Private Sub ViewACCDeviationsReported()
         Try
-            Dim ResponsibleStaff As String = ""
+            Dim SQL As String
+            Dim selectedStaff As New HashSet(Of Integer)
 
-            For x As Integer = 0 To clbAirToxicUnit.Items.Count - 1
-                If clbAirToxicUnit.GetItemChecked(x) = True Then
-                    clbAirToxicUnit.SelectedIndex = x
-                    ResponsibleStaff = ResponsibleStaff & " strResponsibleStaff = '" & clbAirToxicUnit.SelectedValue & "' Or "
-                End If
+            For Each checkedItem As DataRowView In clbAirToxicUnit.CheckedItems
+                selectedStaff.Add(checkedItem.Item("UserID"))
             Next
-            For x As Integer = 0 To clbChemicalsMinerals.Items.Count - 1
-                If clbChemicalsMinerals.GetItemChecked(x) = True Then
-                    clbChemicalsMinerals.SelectedIndex = x
-                    ResponsibleStaff = ResponsibleStaff & " strResponsibleStaff = '" & clbChemicalsMinerals.SelectedValue & "' Or "
-                End If
+            For Each checkedItem As DataRowView In clbChemicalsMinerals.CheckedItems
+                selectedStaff.Add(checkedItem.Item("UserID"))
             Next
-            For x As Integer = 0 To clbVOCCombustion.Items.Count - 1
-                If clbVOCCombustion.GetItemChecked(x) = True Then
-                    clbVOCCombustion.SelectedIndex = x
-                    ResponsibleStaff = ResponsibleStaff & " strResponsibleStaff = '" & clbVOCCombustion.SelectedValue & "' Or "
-                End If
+            For Each checkedItem As DataRowView In clbVOCCombustion.CheckedItems
+                selectedStaff.Add(checkedItem.Item("UserID"))
             Next
+            For Each checkedItem As DataRowView In clbDistricts.CheckedItems
+                selectedStaff.Add(checkedItem.Item("UserID"))
+            Next
+            Dim staffParam As SqlParameter = selectedStaff.AsTvpSqlParameter("@staff")
 
-            If ResponsibleStaff.Length > 3 Then
-                ResponsibleStaff = Mid(ResponsibleStaff, 1, (ResponsibleStaff.Length - 3))
-                ResponsibleStaff = "and (" & ResponsibleStaff & ") "
-            End If
+            Dim dateStartParam As New SqlParameter("@startdate", DTPSearchDateStart.Value)
+            Dim dateEndParam As New SqlParameter("@enddate", DTPSearchDateEnd.Value)
 
+            Dim params As SqlParameter() = {
+                staffParam,
+                dateStartParam,
+                dateEndParam
+            }
 
             '---Devations Reported in first Submittal
             SQL = "select " &
                 "SUBSTRING(APBFacilityInformation.strAIRSnumber, 5,8) as AIRSNumber,   " &
                 "strFacilityName,   " &
-                "(strLastName||', '||strFirstName) as UserName,   " &
+                "concat(strLastname, ', ', strFirstName) as UserName,  " &
                 "SSCPItemMaster.strTrackingNumber  " &
                 "from APBFacilityInformation, EPDUserProfiles,   " &
                 "SSCPItemMaster, SSCPACCs    " &
@@ -1206,18 +1048,11 @@ Public Class SSCPManagersTools
                 "and strSubmittalNumber = '1'  " &
                 "and strEventType = '04'   " &
                 "and strReportedDeviations = 'True' " &
-                "and datReceivedDate between '" & DTPSearchDateStart.Text & "' and '" & DTPSearchDateEnd.Text & "'  " &
-                ResponsibleStaff &
+                "and datReceivedDate between @startdate and @enddate " &
+                "and strResponsibleStaff in (select * from @staff) " &
                 "order by strFacilityName "
 
-            dsStatisticalReport = New DataSet
-            daStatisticalReport = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daStatisticalReport.Fill(dsStatisticalReport, "TotalFacilities")
-            dgvStatisticalReports.DataSource = dsStatisticalReport
-            dgvStatisticalReports.DataMember = "TotalFacilities"
+            dgvStatisticalReports.DataSource = DB.GetDataTable(SQL, params)
 
             dgvStatisticalReports.RowHeadersVisible = False
             dgvStatisticalReports.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -1245,38 +1080,38 @@ Public Class SSCPManagersTools
 
     Private Sub ViewACCDeviationsReportedCorrectly()
         Try
-            Dim ResponsibleStaff As String = ""
+            Dim SQL As String
+            Dim selectedStaff As New HashSet(Of Integer)
 
-            For x As Integer = 0 To clbAirToxicUnit.Items.Count - 1
-                If clbAirToxicUnit.GetItemChecked(x) = True Then
-                    clbAirToxicUnit.SelectedIndex = x
-                    ResponsibleStaff = ResponsibleStaff & " strResponsibleStaff = '" & clbAirToxicUnit.SelectedValue & "' Or "
-                End If
+            For Each checkedItem As DataRowView In clbAirToxicUnit.CheckedItems
+                selectedStaff.Add(checkedItem.Item("UserID"))
             Next
-            For x As Integer = 0 To clbChemicalsMinerals.Items.Count - 1
-                If clbChemicalsMinerals.GetItemChecked(x) = True Then
-                    clbChemicalsMinerals.SelectedIndex = x
-                    ResponsibleStaff = ResponsibleStaff & " strResponsibleStaff = '" & clbChemicalsMinerals.SelectedValue & "' Or "
-                End If
+            For Each checkedItem As DataRowView In clbChemicalsMinerals.CheckedItems
+                selectedStaff.Add(checkedItem.Item("UserID"))
             Next
-            For x As Integer = 0 To clbVOCCombustion.Items.Count - 1
-                If clbVOCCombustion.GetItemChecked(x) = True Then
-                    clbVOCCombustion.SelectedIndex = x
-                    ResponsibleStaff = ResponsibleStaff & " strResponsibleStaff = '" & clbVOCCombustion.SelectedValue & "' Or "
-                End If
+            For Each checkedItem As DataRowView In clbVOCCombustion.CheckedItems
+                selectedStaff.Add(checkedItem.Item("UserID"))
             Next
+            For Each checkedItem As DataRowView In clbDistricts.CheckedItems
+                selectedStaff.Add(checkedItem.Item("UserID"))
+            Next
+            Dim staffParam As SqlParameter = selectedStaff.AsTvpSqlParameter("@staff")
 
-            If ResponsibleStaff.Length > 3 Then
-                ResponsibleStaff = Mid(ResponsibleStaff, 1, (ResponsibleStaff.Length - 3))
-                ResponsibleStaff = "and (" & ResponsibleStaff & ") "
-            End If
+            Dim dateStartParam As New SqlParameter("@startdate", DTPSearchDateStart.Value)
+            Dim dateEndParam As New SqlParameter("@enddate", DTPSearchDateEnd.Value)
+
+            Dim params As SqlParameter() = {
+                staffParam,
+                dateStartParam,
+                dateEndParam
+            }
 
             '---No Deviations Reported in first Submittal
             '   ---Correctly 
             SQL = "select " &
                 "SUBSTRING(APBFacilityInformation.strAIRSnumber, 5,8) as AIRSNumber,   " &
                 "strFacilityName,   " &
-                "(strLastName||', '||strFirstName) as UserName,   " &
+                "concat(strLastname, ', ', strFirstName) as UserName,  " &
                 "SSCPItemMaster.strTrackingNumber  " &
                 "from APBFacilityInformation, EPDUserProfiles,   " &
                 "SSCPItemMaster, SSCPACCsHistory    " &
@@ -1287,18 +1122,11 @@ Public Class SSCPManagersTools
                 "and strEventType = '04'   " &
                 "and strReportedDeviations = 'False' " &
                 "and strDeviationsUnReported = 'False' " &
-                "and datReceivedDate between '" & DTPSearchDateStart.Text & "' and '" & DTPSearchDateEnd.Text & "'  " &
-                ResponsibleStaff &
+                "and datReceivedDate between @startdate and @enddate " &
+                "and strResponsibleStaff in (select * from @staff) " &
                 "order by strFacilityName "
 
-            dsStatisticalReport = New DataSet
-            daStatisticalReport = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daStatisticalReport.Fill(dsStatisticalReport, "TotalFacilities")
-            dgvStatisticalReports.DataSource = dsStatisticalReport
-            dgvStatisticalReports.DataMember = "TotalFacilities"
+            dgvStatisticalReports.DataSource = DB.GetDataTable(SQL, params)
 
             dgvStatisticalReports.RowHeadersVisible = False
             dgvStatisticalReports.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -1326,39 +1154,38 @@ Public Class SSCPManagersTools
 
     Private Sub ViewACCDeviationsReportedIncorrectly()
         Try
-            Dim ResponsibleStaff As String = ""
+            Dim SQL As String
+            Dim selectedStaff As New HashSet(Of Integer)
 
-            For x As Integer = 0 To clbAirToxicUnit.Items.Count - 1
-                If clbAirToxicUnit.GetItemChecked(x) = True Then
-                    clbAirToxicUnit.SelectedIndex = x
-                    ResponsibleStaff = ResponsibleStaff & " strResponsibleStaff = '" & clbAirToxicUnit.SelectedValue & "' Or "
-                End If
+            For Each checkedItem As DataRowView In clbAirToxicUnit.CheckedItems
+                selectedStaff.Add(checkedItem.Item("UserID"))
             Next
-            For x As Integer = 0 To clbChemicalsMinerals.Items.Count - 1
-                If clbChemicalsMinerals.GetItemChecked(x) = True Then
-                    clbChemicalsMinerals.SelectedIndex = x
-                    ResponsibleStaff = ResponsibleStaff & " strResponsibleStaff = '" & clbChemicalsMinerals.SelectedValue & "' Or "
-                End If
+            For Each checkedItem As DataRowView In clbChemicalsMinerals.CheckedItems
+                selectedStaff.Add(checkedItem.Item("UserID"))
             Next
-            For x As Integer = 0 To clbVOCCombustion.Items.Count - 1
-                If clbVOCCombustion.GetItemChecked(x) = True Then
-                    clbVOCCombustion.SelectedIndex = x
-                    ResponsibleStaff = ResponsibleStaff & " strResponsibleStaff = '" & clbVOCCombustion.SelectedValue & "' Or "
-                End If
+            For Each checkedItem As DataRowView In clbVOCCombustion.CheckedItems
+                selectedStaff.Add(checkedItem.Item("UserID"))
             Next
+            For Each checkedItem As DataRowView In clbDistricts.CheckedItems
+                selectedStaff.Add(checkedItem.Item("UserID"))
+            Next
+            Dim staffParam As SqlParameter = selectedStaff.AsTvpSqlParameter("@staff")
 
-            If ResponsibleStaff.Length > 3 Then
-                ResponsibleStaff = Mid(ResponsibleStaff, 1, (ResponsibleStaff.Length - 3))
-                ResponsibleStaff = "and (" & ResponsibleStaff & ") "
-            End If
+            Dim dateStartParam As New SqlParameter("@startdate", DTPSearchDateStart.Value)
+            Dim dateEndParam As New SqlParameter("@enddate", DTPSearchDateEnd.Value)
 
+            Dim params As SqlParameter() = {
+                staffParam,
+                dateStartParam,
+                dateEndParam
+            }
 
             '---No Deviations Reported in first Submittal
             '   ---Incorrectly
             SQL = "select " &
                 "SUBSTRING(APBFacilityInformation.strAIRSnumber, 5,8) as AIRSNumber,   " &
                 "strFacilityName,   " &
-                "(strLastName||', '||strFirstName) as UserName,   " &
+                "concat(strLastname, ', ', strFirstName) as UserName,  " &
                 "SSCPItemMaster.strTrackingNumber  " &
                 "from APBFacilityInformation, EPDUserProfiles,   " &
                 "SSCPItemMaster, SSCPACCsHistory    " &
@@ -1369,18 +1196,11 @@ Public Class SSCPManagersTools
                 "and strEventType = '04'   " &
                 "and strReportedDeviations = 'False' " &
                 "and strDeviationsUnReported = 'True' " &
-                "and datReceivedDate between '" & DTPSearchDateStart.Text & "' and '" & DTPSearchDateEnd.Text & "'  " &
-                ResponsibleStaff &
+                "and datReceivedDate between @startdate and @enddate " &
+                "and strResponsibleStaff in (select * from @staff) " &
                 "order by strFacilityName "
 
-            dsStatisticalReport = New DataSet
-            daStatisticalReport = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daStatisticalReport.Fill(dsStatisticalReport, "TotalFacilities")
-            dgvStatisticalReports.DataSource = dsStatisticalReport
-            dgvStatisticalReports.DataMember = "TotalFacilities"
+            dgvStatisticalReports.DataSource = DB.GetDataTable(SQL, params)
 
             dgvStatisticalReports.RowHeadersVisible = False
             dgvStatisticalReports.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -1408,37 +1228,37 @@ Public Class SSCPManagersTools
 
     Private Sub ViewACCDeviationsInFinal()
         Try
-            Dim ResponsibleStaff As String = ""
+            Dim SQL As String
+            Dim selectedStaff As New HashSet(Of Integer)
 
-            For x As Integer = 0 To clbAirToxicUnit.Items.Count - 1
-                If clbAirToxicUnit.GetItemChecked(x) = True Then
-                    clbAirToxicUnit.SelectedIndex = x
-                    ResponsibleStaff = ResponsibleStaff & " strResponsibleStaff = '" & clbAirToxicUnit.SelectedValue & "' Or "
-                End If
+            For Each checkedItem As DataRowView In clbAirToxicUnit.CheckedItems
+                selectedStaff.Add(checkedItem.Item("UserID"))
             Next
-            For x As Integer = 0 To clbChemicalsMinerals.Items.Count - 1
-                If clbChemicalsMinerals.GetItemChecked(x) = True Then
-                    clbChemicalsMinerals.SelectedIndex = x
-                    ResponsibleStaff = ResponsibleStaff & " strResponsibleStaff = '" & clbChemicalsMinerals.SelectedValue & "' Or "
-                End If
+            For Each checkedItem As DataRowView In clbChemicalsMinerals.CheckedItems
+                selectedStaff.Add(checkedItem.Item("UserID"))
             Next
-            For x As Integer = 0 To clbVOCCombustion.Items.Count - 1
-                If clbVOCCombustion.GetItemChecked(x) = True Then
-                    clbVOCCombustion.SelectedIndex = x
-                    ResponsibleStaff = ResponsibleStaff & " strResponsibleStaff = '" & clbVOCCombustion.SelectedValue & "' Or "
-                End If
+            For Each checkedItem As DataRowView In clbVOCCombustion.CheckedItems
+                selectedStaff.Add(checkedItem.Item("UserID"))
             Next
+            For Each checkedItem As DataRowView In clbDistricts.CheckedItems
+                selectedStaff.Add(checkedItem.Item("UserID"))
+            Next
+            Dim staffParam As SqlParameter = selectedStaff.AsTvpSqlParameter("@staff")
 
-            If ResponsibleStaff.Length > 3 Then
-                ResponsibleStaff = Mid(ResponsibleStaff, 1, (ResponsibleStaff.Length - 3))
-                ResponsibleStaff = "and (" & ResponsibleStaff & ") "
-            End If
+            Dim dateStartParam As New SqlParameter("@startdate", DTPSearchDateStart.Value)
+            Dim dateEndParam As New SqlParameter("@enddate", DTPSearchDateEnd.Value)
+
+            Dim params As SqlParameter() = {
+                staffParam,
+                dateStartParam,
+                dateEndParam
+            }
 
             '---Deviations Reported in Final Report 
             SQL = "select " &
             "SUBSTRING(APBFacilityInformation.strAIRSnumber, 5,8) as AIRSNumber,   " &
             "strFacilityName,   " &
-            "(strLastname||', '||strFirstName) as UserName,   " &
+                "concat(strLastname, ', ', strFirstName) as UserName,  " &
             "SSCPItemMaster.strTrackingNumber  " &
             "from APBFacilityInformation, EPDUserProfiles,   " &
             "SSCPItemMaster, SSCPACCs    " &
@@ -1447,18 +1267,11 @@ Public Class SSCPManagersTools
             "and SSCPItemMaster.strTrackingnumber = SSCPACCs.strTrackingNumber  " &
             "and strEventType = '04' " &
             "and strReportedDeviations = 'True' " &
-            "and datReceivedDate between '" & DTPSearchDateStart.Text & "' and '" & DTPSearchDateEnd.Text & "'  " &
-            ResponsibleStaff &
+                "and datReceivedDate between @startdate and @enddate " &
+                "and strResponsibleStaff in (select * from @staff) " &
             "order by strFacilityName "
 
-            dsStatisticalReport = New DataSet
-            daStatisticalReport = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daStatisticalReport.Fill(dsStatisticalReport, "TotalFacilities")
-            dgvStatisticalReports.DataSource = dsStatisticalReport
-            dgvStatisticalReports.DataMember = "TotalFacilities"
+            dgvStatisticalReports.DataSource = DB.GetDataTable(SQL, params)
 
             dgvStatisticalReports.RowHeadersVisible = False
             dgvStatisticalReports.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -1486,37 +1299,37 @@ Public Class SSCPManagersTools
 
     Private Sub ViewACCDeviationsNotReported()
         Try
-            Dim ResponsibleStaff As String = ""
+            Dim SQL As String
+            Dim selectedStaff As New HashSet(Of Integer)
 
-            For x As Integer = 0 To clbAirToxicUnit.Items.Count - 1
-                If clbAirToxicUnit.GetItemChecked(x) = True Then
-                    clbAirToxicUnit.SelectedIndex = x
-                    ResponsibleStaff = ResponsibleStaff & " strResponsibleStaff = '" & clbAirToxicUnit.SelectedValue & "' Or "
-                End If
+            For Each checkedItem As DataRowView In clbAirToxicUnit.CheckedItems
+                selectedStaff.Add(checkedItem.Item("UserID"))
             Next
-            For x As Integer = 0 To clbChemicalsMinerals.Items.Count - 1
-                If clbChemicalsMinerals.GetItemChecked(x) = True Then
-                    clbChemicalsMinerals.SelectedIndex = x
-                    ResponsibleStaff = ResponsibleStaff & " strResponsibleStaff = '" & clbChemicalsMinerals.SelectedValue & "' Or "
-                End If
+            For Each checkedItem As DataRowView In clbChemicalsMinerals.CheckedItems
+                selectedStaff.Add(checkedItem.Item("UserID"))
             Next
-            For x As Integer = 0 To clbVOCCombustion.Items.Count - 1
-                If clbVOCCombustion.GetItemChecked(x) = True Then
-                    clbVOCCombustion.SelectedIndex = x
-                    ResponsibleStaff = ResponsibleStaff & " strResponsibleStaff = '" & clbVOCCombustion.SelectedValue & "' Or "
-                End If
+            For Each checkedItem As DataRowView In clbVOCCombustion.CheckedItems
+                selectedStaff.Add(checkedItem.Item("UserID"))
             Next
+            For Each checkedItem As DataRowView In clbDistricts.CheckedItems
+                selectedStaff.Add(checkedItem.Item("UserID"))
+            Next
+            Dim staffParam As SqlParameter = selectedStaff.AsTvpSqlParameter("@staff")
 
-            If ResponsibleStaff.Length > 3 Then
-                ResponsibleStaff = Mid(ResponsibleStaff, 1, (ResponsibleStaff.Length - 3))
-                ResponsibleStaff = "and (" & ResponsibleStaff & ") "
-            End If
+            Dim dateStartParam As New SqlParameter("@startdate", DTPSearchDateStart.Value)
+            Dim dateEndParam As New SqlParameter("@enddate", DTPSearchDateEnd.Value)
+
+            Dim params As SqlParameter() = {
+                staffParam,
+                dateStartParam,
+                dateEndParam
+            }
 
             '---Deviations Not Previously Report
             SQL = "select " &
             "SUBSTRING(APBFacilityInformation.strAIRSnumber, 5,8) as AIRSNumber,   " &
             "strFacilityName,   " &
-            "(strLastName||', '||strFirstName) as UserName,   " &
+                "concat(strLastname, ', ', strFirstName) as UserName,  " &
             "SSCPItemMaster.strTrackingNumber  " &
             "from APBFacilityInformation, EPDUserProfiles,   " &
             "SSCPItemMaster, SSCPACCs    " &
@@ -1525,18 +1338,11 @@ Public Class SSCPManagersTools
             "and SSCPItemMaster.strTrackingnumber = SSCPACCs.strTrackingNumber  " &
             "and strEventType = '04'   " &
             "and strDeviationsUnReported = 'True' " &
-            "and datReceivedDate between '" & DTPSearchDateStart.Text & "' and '" & DTPSearchDateEnd.Text & "'  " &
-            ResponsibleStaff &
+                "and datReceivedDate between @startdate and @enddate " &
+                "and strResponsibleStaff in (select * from @staff) " &
             "order by strFacilityName "
 
-            dsStatisticalReport = New DataSet
-            daStatisticalReport = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daStatisticalReport.Fill(dsStatisticalReport, "TotalFacilities")
-            dgvStatisticalReports.DataSource = dsStatisticalReport
-            dgvStatisticalReports.DataMember = "TotalFacilities"
+            dgvStatisticalReports.DataSource = DB.GetDataTable(SQL, params)
 
             dgvStatisticalReports.RowHeadersVisible = False
             dgvStatisticalReports.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -1564,37 +1370,37 @@ Public Class SSCPManagersTools
 
     Private Sub ViewACCEnforcementTaken()
         Try
-            Dim ResponsibleStaff As String = ""
+            Dim SQL As String
+            Dim selectedStaff As New HashSet(Of Integer)
 
-            For x As Integer = 0 To clbAirToxicUnit.Items.Count - 1
-                If clbAirToxicUnit.GetItemChecked(x) = True Then
-                    clbAirToxicUnit.SelectedIndex = x
-                    ResponsibleStaff = ResponsibleStaff & " strResponsibleStaff = '" & clbAirToxicUnit.SelectedValue & "' Or "
-                End If
+            For Each checkedItem As DataRowView In clbAirToxicUnit.CheckedItems
+                selectedStaff.Add(checkedItem.Item("UserID"))
             Next
-            For x As Integer = 0 To clbChemicalsMinerals.Items.Count - 1
-                If clbChemicalsMinerals.GetItemChecked(x) = True Then
-                    clbChemicalsMinerals.SelectedIndex = x
-                    ResponsibleStaff = ResponsibleStaff & " strResponsibleStaff = '" & clbChemicalsMinerals.SelectedValue & "' Or "
-                End If
+            For Each checkedItem As DataRowView In clbChemicalsMinerals.CheckedItems
+                selectedStaff.Add(checkedItem.Item("UserID"))
             Next
-            For x As Integer = 0 To clbVOCCombustion.Items.Count - 1
-                If clbVOCCombustion.GetItemChecked(x) = True Then
-                    clbVOCCombustion.SelectedIndex = x
-                    ResponsibleStaff = ResponsibleStaff & " strResponsibleStaff = '" & clbVOCCombustion.SelectedValue & "' Or "
-                End If
+            For Each checkedItem As DataRowView In clbVOCCombustion.CheckedItems
+                selectedStaff.Add(checkedItem.Item("UserID"))
             Next
+            For Each checkedItem As DataRowView In clbDistricts.CheckedItems
+                selectedStaff.Add(checkedItem.Item("UserID"))
+            Next
+            Dim staffParam As SqlParameter = selectedStaff.AsTvpSqlParameter("@staff")
 
-            If ResponsibleStaff.Length > 3 Then
-                ResponsibleStaff = Mid(ResponsibleStaff, 1, (ResponsibleStaff.Length - 3))
-                ResponsibleStaff = "and (" & ResponsibleStaff & ") "
-            End If
+            Dim dateStartParam As New SqlParameter("@startdate", DTPSearchDateStart.Value)
+            Dim dateEndParam As New SqlParameter("@enddate", DTPSearchDateEnd.Value)
+
+            Dim params As SqlParameter() = {
+                staffParam,
+                dateStartParam,
+                dateEndParam
+            }
 
             '---Enforcement Action Taken 
             SQL = "select " &
                 "SUBSTRING(APBFacilityInformation.strAIRSnumber, 5,8) as AIRSNumber,   " &
                 "strFacilityName,   " &
-                "(strLastName||', '||strFirstName) as UserName,   " &
+                "concat(strLastname, ', ', strFirstName) as UserName,  " &
                 "SSCPItemMaster.strTrackingNumber,  " &
                 "SSCP_AuditedEnforcement.strEnforcementNumber  " &
                 "from APBFacilityInformation, EPDUserProfiles,   " &
@@ -1605,18 +1411,11 @@ Public Class SSCPManagersTools
                 "and SSCPItemMaster.strTrackingnumber = SSCPACCs.strTrackingNumber  " &
                 "and SSCPItemMaster.strTrackingNumber = SSCP_AuditedEnforcement.strTrackingNumber  " &
                 "and strEventType = '04'   " &
-                "and datReceivedDate between '" & DTPSearchDateStart.Text & "' and '" & DTPSearchDateEnd.Text & "'  " &
-                ResponsibleStaff &
+                "and datReceivedDate between @startdate and @enddate " &
+                "and strResponsibleStaff in (select * from @staff) " &
                 "order by strFacilityName"
 
-            dsStatisticalReport = New DataSet
-            daStatisticalReport = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daStatisticalReport.Fill(dsStatisticalReport, "TotalFacilities")
-            dgvStatisticalReports.DataSource = dsStatisticalReport
-            dgvStatisticalReports.DataMember = "TotalFacilities"
+            dgvStatisticalReports.DataSource = DB.GetDataTable(SQL, params)
 
             dgvStatisticalReports.RowHeadersVisible = False
             dgvStatisticalReports.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -1646,37 +1445,37 @@ Public Class SSCPManagersTools
 
     Private Sub ViewACCCOTaken()
         Try
-            Dim ResponsibleStaff As String = ""
+            Dim SQL As String
+            Dim selectedStaff As New HashSet(Of Integer)
 
-            For x As Integer = 0 To clbAirToxicUnit.Items.Count - 1
-                If clbAirToxicUnit.GetItemChecked(x) = True Then
-                    clbAirToxicUnit.SelectedIndex = x
-                    ResponsibleStaff = ResponsibleStaff & " strResponsibleStaff = '" & clbAirToxicUnit.SelectedValue & "' Or "
-                End If
+            For Each checkedItem As DataRowView In clbAirToxicUnit.CheckedItems
+                selectedStaff.Add(checkedItem.Item("UserID"))
             Next
-            For x As Integer = 0 To clbChemicalsMinerals.Items.Count - 1
-                If clbChemicalsMinerals.GetItemChecked(x) = True Then
-                    clbChemicalsMinerals.SelectedIndex = x
-                    ResponsibleStaff = ResponsibleStaff & " strResponsibleStaff = '" & clbChemicalsMinerals.SelectedValue & "' Or "
-                End If
+            For Each checkedItem As DataRowView In clbChemicalsMinerals.CheckedItems
+                selectedStaff.Add(checkedItem.Item("UserID"))
             Next
-            For x As Integer = 0 To clbVOCCombustion.Items.Count - 1
-                If clbVOCCombustion.GetItemChecked(x) = True Then
-                    clbVOCCombustion.SelectedIndex = x
-                    ResponsibleStaff = ResponsibleStaff & " strResponsibleStaff = '" & clbVOCCombustion.SelectedValue & "' Or "
-                End If
+            For Each checkedItem As DataRowView In clbVOCCombustion.CheckedItems
+                selectedStaff.Add(checkedItem.Item("UserID"))
             Next
+            For Each checkedItem As DataRowView In clbDistricts.CheckedItems
+                selectedStaff.Add(checkedItem.Item("UserID"))
+            Next
+            Dim staffParam As SqlParameter = selectedStaff.AsTvpSqlParameter("@staff")
 
-            If ResponsibleStaff.Length > 3 Then
-                ResponsibleStaff = Mid(ResponsibleStaff, 1, (ResponsibleStaff.Length - 3))
-                ResponsibleStaff = "and (" & ResponsibleStaff & ") "
-            End If
+            Dim dateStartParam As New SqlParameter("@startdate", DTPSearchDateStart.Value)
+            Dim dateEndParam As New SqlParameter("@enddate", DTPSearchDateEnd.Value)
+
+            Dim params As SqlParameter() = {
+                staffParam,
+                dateStartParam,
+                dateEndParam
+            }
 
             '---CO 
             SQL = "select " &
             "SUBSTRING(APBFacilityInformation.strAIRSnumber, 5,8) as AIRSNumber,   " &
             "strFacilityName,   " &
-            "(strLastName||', '||strFirstName) as UserName,   " &
+                "concat(strLastname, ', ', strFirstName) as UserName,  " &
             "SSCPItemMaster.strTrackingNumber,  " &
             "SSCP_AuditedEnforcement.strEnforcementNumber  " &
             "from APBFacilityInformation, EPDUserProfiles,   " &
@@ -1687,18 +1486,11 @@ Public Class SSCPManagersTools
             "and SSCPItemMaster.strTrackingNumber = SSCP_AuditedEnforcement.strTrackingNumber  " &
             "and strEventType = '04'   " &
             "and datCOResolved is Not Null  " &
-            "and datReceivedDate between '" & DTPSearchDateStart.Text & "' and '" & DTPSearchDateEnd.Text & "'  " &
-            ResponsibleStaff &
+                "and datReceivedDate between @startdate and @enddate " &
+                "and strResponsibleStaff in (select * from @staff) " &
             "order by strFacilityName"
 
-            dsStatisticalReport = New DataSet
-            daStatisticalReport = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daStatisticalReport.Fill(dsStatisticalReport, "TotalFacilities")
-            dgvStatisticalReports.DataSource = dsStatisticalReport
-            dgvStatisticalReports.DataMember = "TotalFacilities"
+            dgvStatisticalReports.DataSource = DB.GetDataTable(SQL, params)
 
             dgvStatisticalReports.RowHeadersVisible = False
             dgvStatisticalReports.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -1726,37 +1518,37 @@ Public Class SSCPManagersTools
 
     Private Sub ViewACCNOVTaken()
         Try
-            Dim ResponsibleStaff As String = ""
+            Dim SQL As String
+            Dim selectedStaff As New HashSet(Of Integer)
 
-            For x As Integer = 0 To clbAirToxicUnit.Items.Count - 1
-                If clbAirToxicUnit.GetItemChecked(x) = True Then
-                    clbAirToxicUnit.SelectedIndex = x
-                    ResponsibleStaff = ResponsibleStaff & " strResponsibleStaff = '" & clbAirToxicUnit.SelectedValue & "' Or "
-                End If
+            For Each checkedItem As DataRowView In clbAirToxicUnit.CheckedItems
+                selectedStaff.Add(checkedItem.Item("UserID"))
             Next
-            For x As Integer = 0 To clbChemicalsMinerals.Items.Count - 1
-                If clbChemicalsMinerals.GetItemChecked(x) = True Then
-                    clbChemicalsMinerals.SelectedIndex = x
-                    ResponsibleStaff = ResponsibleStaff & " strResponsibleStaff = '" & clbChemicalsMinerals.SelectedValue & "' Or "
-                End If
+            For Each checkedItem As DataRowView In clbChemicalsMinerals.CheckedItems
+                selectedStaff.Add(checkedItem.Item("UserID"))
             Next
-            For x As Integer = 0 To clbVOCCombustion.Items.Count - 1
-                If clbVOCCombustion.GetItemChecked(x) = True Then
-                    clbVOCCombustion.SelectedIndex = x
-                    ResponsibleStaff = ResponsibleStaff & " strResponsibleStaff = '" & clbVOCCombustion.SelectedValue & "' Or "
-                End If
+            For Each checkedItem As DataRowView In clbVOCCombustion.CheckedItems
+                selectedStaff.Add(checkedItem.Item("UserID"))
             Next
+            For Each checkedItem As DataRowView In clbDistricts.CheckedItems
+                selectedStaff.Add(checkedItem.Item("UserID"))
+            Next
+            Dim staffParam As SqlParameter = selectedStaff.AsTvpSqlParameter("@staff")
 
-            If ResponsibleStaff.Length > 3 Then
-                ResponsibleStaff = Mid(ResponsibleStaff, 1, (ResponsibleStaff.Length - 3))
-                ResponsibleStaff = "and (" & ResponsibleStaff & ") "
-            End If
+            Dim dateStartParam As New SqlParameter("@startdate", DTPSearchDateStart.Value)
+            Dim dateEndParam As New SqlParameter("@enddate", DTPSearchDateEnd.Value)
+
+            Dim params As SqlParameter() = {
+                staffParam,
+                dateStartParam,
+                dateEndParam
+            }
 
             '---NOV 
             SQL = "select " &
             "SUBSTRING(APBFacilityInformation.strAIRSnumber, 5,8) as AIRSNumber,   " &
             "strFacilityName,   " &
-            "(strLastName||', '||strFirstName) as UserName,   " &
+                "concat(strLastname, ', ', strFirstName) as UserName,  " &
             "SSCPItemMaster.strTrackingNumber,  " &
             "SSCP_AuditedEnforcement.strEnforcementNumber  " &
             "from APBFacilityInformation, EPDUserProfiles,   " &
@@ -1767,18 +1559,11 @@ Public Class SSCPManagersTools
              "and SSCPItemMaster.strTrackingNumber = SSCP_AuditedEnforcement.strTrackingNumber  " &
              "and strEventType = '04'   " &
              "and datNFALetterSent is Not Null  " &
-            "and datReceivedDate between '" & DTPSearchDateStart.Text & "' and '" & DTPSearchDateEnd.Text & "'  " &
-            ResponsibleStaff &
+                "and datReceivedDate between @startdate and @enddate " &
+                "and strResponsibleStaff in (select * from @staff) " &
             "order by strFacilityName"
 
-            dsStatisticalReport = New DataSet
-            daStatisticalReport = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daStatisticalReport.Fill(dsStatisticalReport, "TotalFacilities")
-            dgvStatisticalReports.DataSource = dsStatisticalReport
-            dgvStatisticalReports.DataMember = "TotalFacilities"
+            dgvStatisticalReports.DataSource = DB.GetDataTable(SQL, params)
 
             dgvStatisticalReports.RowHeadersVisible = False
             dgvStatisticalReports.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -1806,37 +1591,37 @@ Public Class SSCPManagersTools
 
     Private Sub ViewACCLONTaken()
         Try
-            Dim ResponsibleStaff As String = ""
+            Dim SQL As String
+            Dim selectedStaff As New HashSet(Of Integer)
 
-            For x As Integer = 0 To clbAirToxicUnit.Items.Count - 1
-                If clbAirToxicUnit.GetItemChecked(x) = True Then
-                    clbAirToxicUnit.SelectedIndex = x
-                    ResponsibleStaff = ResponsibleStaff & " strResponsibleStaff = '" & clbAirToxicUnit.SelectedValue & "' Or "
-                End If
+            For Each checkedItem As DataRowView In clbAirToxicUnit.CheckedItems
+                selectedStaff.Add(checkedItem.Item("UserID"))
             Next
-            For x As Integer = 0 To clbChemicalsMinerals.Items.Count - 1
-                If clbChemicalsMinerals.GetItemChecked(x) = True Then
-                    clbChemicalsMinerals.SelectedIndex = x
-                    ResponsibleStaff = ResponsibleStaff & " strResponsibleStaff = '" & clbChemicalsMinerals.SelectedValue & "' Or "
-                End If
+            For Each checkedItem As DataRowView In clbChemicalsMinerals.CheckedItems
+                selectedStaff.Add(checkedItem.Item("UserID"))
             Next
-            For x As Integer = 0 To clbVOCCombustion.Items.Count - 1
-                If clbVOCCombustion.GetItemChecked(x) = True Then
-                    clbVOCCombustion.SelectedIndex = x
-                    ResponsibleStaff = ResponsibleStaff & " strResponsibleStaff = '" & clbVOCCombustion.SelectedValue & "' Or "
-                End If
+            For Each checkedItem As DataRowView In clbVOCCombustion.CheckedItems
+                selectedStaff.Add(checkedItem.Item("UserID"))
             Next
+            For Each checkedItem As DataRowView In clbDistricts.CheckedItems
+                selectedStaff.Add(checkedItem.Item("UserID"))
+            Next
+            Dim staffParam As SqlParameter = selectedStaff.AsTvpSqlParameter("@staff")
 
-            If ResponsibleStaff.Length > 3 Then
-                ResponsibleStaff = Mid(ResponsibleStaff, 1, (ResponsibleStaff.Length - 3))
-                ResponsibleStaff = "and (" & ResponsibleStaff & ") "
-            End If
+            Dim dateStartParam As New SqlParameter("@startdate", DTPSearchDateStart.Value)
+            Dim dateEndParam As New SqlParameter("@enddate", DTPSearchDateEnd.Value)
+
+            Dim params As SqlParameter() = {
+                staffParam,
+                dateStartParam,
+                dateEndParam
+            }
 
             '    ---LON
             SQL = "select " &
             "SUBSTRING(APBFacilityInformation.strAIRSnumber, 5,8) as AIRSNumber,   " &
             "strFacilityName,   " &
-            "(strLastName||', '||strFirstName) as UserName,   " &
+                "concat(strLastname, ', ', strFirstName) as UserName,  " &
             "SSCPItemMaster.strTrackingNumber,  " &
             "SSCP_AuditedEnforcement.strEnforcementNumber  " &
             "from APBFacilityInformation, EPDUserProfiles,   " &
@@ -1847,18 +1632,11 @@ Public Class SSCPManagersTools
             "and SSCPItemMaster.strTrackingNumber = SSCP_AuditedEnforcement.strTrackingNumber  " &
              "and strEventType = '04'   " &
             "and datLONSent is Not Null  " &
-            "and datReceivedDate between '" & DTPSearchDateStart.Text & "' and '" & DTPSearchDateEnd.Text & "'  " &
-            ResponsibleStaff &
+                "and datReceivedDate between @startdate and @enddate " &
+                "and strResponsibleStaff in (select * from @staff) " &
             "order by strFacilityName"
 
-            dsStatisticalReport = New DataSet
-            daStatisticalReport = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daStatisticalReport.Fill(dsStatisticalReport, "TotalFacilities")
-            dgvStatisticalReports.DataSource = dsStatisticalReport
-            dgvStatisticalReports.DataMember = "TotalFacilities"
+            dgvStatisticalReports.DataSource = DB.GetDataTable(SQL, params)
 
             dgvStatisticalReports.RowHeadersVisible = False
             dgvStatisticalReports.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -2930,13 +2708,16 @@ Public Class SSCPManagersTools
                 INNER JOIN APBHEADERDATA AS h ON h.STRAIRSNUMBER = m.STRAIRSNUMBER
                 INNER JOIN SSPPAPPLICATIONTRACKING AS a ON m.STRAPPLICATIONNUMBER = a.STRAPPLICATIONNUMBER
                 INNER JOIN SSPPAPPLICATIONDATA AS d ON m.STRAPPLICATIONNUMBER = d.STRAPPLICATIONNUMBER
-                WHERE d.STRPERMITNUMBER LIKE '%V__0' AND h.STROPERATIONALSTATUS <> 'X' AND SUBSTRING(h.STRAIRPROGRAMCODES, 13, 1) = '1' AND (a.DATPERMITISSUED < DATEADD(month, -51, GETDATE()) OR a.DATEFFECTIVE < DATEADD(month, -51, GETDATE()))
+                WHERE d.STRPERMITNUMBER LIKE '%V__0' AND h.STROPERATIONALSTATUS <> 'X' AND SUBSTRING(h.STRAIRPROGRAMCODES, 13, 1) = '1' 
+                AND (a.DATPERMITISSUED < DATEADD(month, -51, GETDATE()) OR a.DATEFFECTIVE < DATEADD(month, -51, GETDATE()))
                 EXCEPT
                 SELECT m.STRAIRSNUMBER
                 FROM SSPPAPPLICATIONMASTER AS m
                 INNER JOIN SSPPAPPLICATIONDATA AS d ON m.STRAPPLICATIONNUMBER = d.STRAPPLICATIONNUMBER
                 INNER JOIN SSPPAPPLICATIONTRACKING AS a ON m.STRAPPLICATIONNUMBER = a.STRAPPLICATIONNUMBER
-                WHERE (m.STRAPPLICATIONTYPE IN ('14', '16', '27') OR d.STRPERMITNUMBER LIKE '%V__0') AND (a.DATPERMITISSUED BETWEEN DATEADD(month, -51, GETDATE()) AND GETDATE() AND a.DATEFFECTIVE BETWEEN DATEADD(month, -51, GETDATE()) AND GETDATE() OR a.DATRECEIVEDDATE BETWEEN DATEADD(month, -51, GETDATE()) AND GETDATE()) ) AS t ON t.STRAIRSNUMBER = f.STRAIRSNUMBER
+                WHERE (m.STRAPPLICATIONTYPE IN ('14', '16', '27') OR d.STRPERMITNUMBER LIKE '%V__0') 
+                AND (a.DATPERMITISSUED BETWEEN DATEADD(month, -51, GETDATE()) AND GETDATE() AND a.DATEFFECTIVE BETWEEN DATEADD(month, -51, GETDATE()) 
+                AND GETDATE() OR a.DATRECEIVEDDATE BETWEEN DATEADD(month, -51, GETDATE()) AND GETDATE()) ) AS t ON t.STRAIRSNUMBER = f.STRAIRSNUMBER
                 ORDER BY AIRSNumber"
 
             dgvStatisticalReports.DataSource = DB.GetDataTable(SQL)
