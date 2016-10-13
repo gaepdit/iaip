@@ -3852,7 +3852,6 @@ Public Class SSPPTitleVTools
     End Sub
     Sub LoadContactData()
         Try
-            Dim temp As String
             SQL = "Select strApplicationNumber " &
             "From SSPPApplicationContact " &
             "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
@@ -3930,7 +3929,6 @@ Public Class SSPPTitleVTools
                     If IsDBNull(dr.Item("strContactPhoneNumber1")) Then
                         mtbContactPhoneNumber.Clear()
                     Else
-                        temp = dr.Item("strContactPhoneNumber1")
                         mtbContactPhoneNumber.Text = dr.Item("strContactPhoneNumber1")
                     End If
                     If IsDBNull(dr.Item("strContactFaxNumber")) Then
@@ -4000,8 +3998,6 @@ Public Class SSPPTitleVTools
     End Sub
     Private Sub btnGetCurrentPermittingContact_Click(sender As Object, e As EventArgs) Handles btnGetCurrentPermittingContact.Click
         Try
-            Dim temp As String
-
             SQL = "Select " &
             "strContactFirstName, " &
              "strContactLastName, " &
@@ -4060,7 +4056,6 @@ Public Class SSPPTitleVTools
                 If IsDBNull(dr.Item("strContactPhoneNumber1")) Then
                     mtbContactPhoneNumber.Clear()
                 Else
-                    temp = dr.Item("strContactPhoneNumber1")
                     mtbContactPhoneNumber.Text = dr.Item("strContactPhoneNumber1")
                 End If
                 If IsDBNull(dr.Item("strContactFaxNumber")) Then

@@ -465,7 +465,7 @@ Public Class IAIPEditContacts
     Private Sub btnNewSave_Click(sender As Object, e As EventArgs) Handles btnNewSave.Click
         Try
             Dim newKey As String = ""
-            Dim sql As String = ""
+            Dim SQL As String = ""
 
             If AirsNumber.ToString <> "" Then
                 If rdbNewMonitoringContact.Checked = True Then
@@ -494,7 +494,7 @@ Public Class IAIPEditContacts
                 Else
                     Select Case newKey
                         Case "10", "20", "30", "50", "60", "70"
-                            sql = "delete APBContactInformation " &
+                            SQL = "delete APBContactInformation " &
                             "where strAIRSnumber = @airs " &
                             "and strKey = @key "
 
@@ -503,9 +503,9 @@ Public Class IAIPEditContacts
                                 New SqlParameter("@key", Mid(newKey, 1, 1) & "9")
                             }
 
-                            DB.RunCommand(sql, p)
+                            DB.RunCommand(SQL, p)
 
-                            sql = "Update APBContactInformation set " &
+                            SQL = "Update APBContactInformation set " &
                             "strKey = substring(strKey, 1,1) + (substring(strKey, 2,1) + 1), " &
                             "strContactKey = substring(strContactKey, 1, 13) + (substring(strContactKey, 14, 1) + 1) " &
                             "where strAIRSNumber = @airs " &
@@ -516,9 +516,9 @@ Public Class IAIPEditContacts
                                 New SqlParameter("@key", Mid(newKey, 1, 1) & "%")
                             }
 
-                            DB.RunCommand(sql, p)
+                            DB.RunCommand(SQL, p2)
 
-                            sql = "INSERT INTO APBCONTACTINFORMATION " &
+                            SQL = "INSERT INTO APBCONTACTINFORMATION " &
                                 "(STRCONTACTKEY, STRAIRSNUMBER, STRKEY, STRCONTACTFIRSTNAME, " &
                                 "STRCONTACTLASTNAME, STRCONTACTPREFIX, STRCONTACTSUFFIX, STRCONTACTTITLE, " &
                                 "STRCONTACTCOMPANYNAME, STRCONTACTPHONENUMBER1, STRCONTACTPHONENUMBER2, STRCONTACTFAXNUMBER, " &
@@ -559,10 +559,10 @@ Public Class IAIPEditContacts
                                 New SqlParameter("@STRCONTACTDESCRIPTION", txtNewDescrption.Text)
                             }
 
-                            DB.RunCommand(sql, p3)
+                            DB.RunCommand(SQL, p3)
 
                         Case Else
-                            sql = "INSERT INTO APBCONTACTINFORMATION " &
+                            SQL = "INSERT INTO APBCONTACTINFORMATION " &
                                 "(STRCONTACTKEY, STRAIRSNUMBER, STRKEY, STRCONTACTFIRSTNAME, " &
                                 "STRCONTACTLASTNAME, STRCONTACTPREFIX, STRCONTACTSUFFIX, STRCONTACTTITLE, " &
                                 "STRCONTACTCOMPANYNAME, STRCONTACTPHONENUMBER1, STRCONTACTPHONENUMBER2, STRCONTACTFAXNUMBER, " &
@@ -603,7 +603,7 @@ Public Class IAIPEditContacts
                                 New SqlParameter("@STRCONTACTDESCRIPTION", txtNewDescrption.Text)
                             }
 
-                            DB.RunCommand(sql, p3)
+                            DB.RunCommand(SQL, p3)
                     End Select
 
                     LoadContactsDataset()

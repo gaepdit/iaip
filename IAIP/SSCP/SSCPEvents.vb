@@ -1434,7 +1434,6 @@ Public Class SSCPEvents
 
     Private Sub SaveDate()
         Dim Staff As Integer
-        Dim ActionNumber As String = ""
         Dim SqlList As New List(Of String)
         Dim ParamList As New List(Of SqlParameter())
         Dim comDate As Object

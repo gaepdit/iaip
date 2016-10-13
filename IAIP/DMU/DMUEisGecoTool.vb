@@ -5,16 +5,6 @@ Imports System.Linq
 Imports System.Collections.Generic
 
 Public Class DMUEisGecoTool
-    Dim SQL, SQL2 As String
-    Dim cmd, cmd2 As SqlCommand
-    Dim dr, dr2 As SqlDataReader
-    Dim recExist As Boolean
-    Dim ds As DataSet
-    Dim da As SqlDataAdapter
-    Public dsES As DataSet
-    Public daES As SqlDataAdapter
-    Dim dsViewCount As DataSet
-    Dim daViewCount As SqlDataAdapter
 
     Private Sub DMUEisGecoTool_Load(sender As Object, e As EventArgs) Handles Me.Load
         LoadPermissions()
@@ -467,7 +457,7 @@ Public Class DMUEisGecoTool
         Try
             Dim dgvRow As New DataGridViewRow
 
-            SQL = "SELECT right(strairsnumber, 8) as strAIRSNumber, strfacilityname, " &
+            Dim SQL As String = "SELECT right(strairsnumber, 8) as strAIRSNumber, strfacilityname, " &
              "Case When intAdminAccess = 0 Then 'False' When intAdminAccess = 1 Then 'True' End as intAdminAccess, " &
              "Case When intFeeAccess = 0 Then 'False' When intFeeAccess = 1 Then 'True' End as intFeeAccess, " &
              "Case When intEIAccess = 0 Then 'False' When intEIAccess = 1 Then 'True' End as intEIAccess, " &
@@ -479,7 +469,6 @@ Public Class DMUEisGecoTool
             Dim param As New SqlParameter("@strUserEmail", EmailLoc)
 
             dgvUserFacilities.Rows.Clear()
-            ds = New DataSet
 
             Dim dt As DataTable = DB.GetDataTable(SQL, param)
 
@@ -545,7 +534,7 @@ Public Class DMUEisGecoTool
         txtESYear.Text = year.ToString
 
         Dim deadline As New Date(year + 1, 6, 15)
-        Dim sql As String
+        Dim SQL As String
         Dim param As New SqlParameter("@year", year.ToString)
         Dim params As SqlParameter() = {
             param,
@@ -554,80 +543,80 @@ Public Class DMUEisGecoTool
 
         Try
             Try
-                sql = "SELECT COUNT (*) AS ESMailoutCount " &
+                SQL = "SELECT COUNT (*) AS ESMailoutCount " &
                     "FROM ESMAILOUT em " &
                     "LEFT JOIN ESSCHEMA es " &
                     "ON em.STRAIRSYEAR  = es.STRAIRSYEAR " &
                     "WHERE em.STRESYEAR = @year"
-                txtESMailOutCount.Text = DB.GetSingleValue(Of Integer)(sql, param).ToString
+                txtESMailOutCount.Text = DB.GetSingleValue(Of Integer)(SQL, param).ToString
 
-                sql = "select count(*) as ResponseCount " &
+                SQL = "select count(*) as ResponseCount " &
                 "from esmailout, ESSCHEMA " &
                 "where ESMAILOUT.STRAIRSYEAR = ESSCHEMA.STRAIRSYEAR " &
                 "and ESSCHEMA.STROPTOUT is not NULL " &
                 "and esmailout.STRESYEAR = @year "
-                txtResponseCount.Text = DB.GetSingleValue(Of Integer)(sql, param).ToString
+                txtResponseCount.Text = DB.GetSingleValue(Of Integer)(SQL, param).ToString
 
-                sql = "select count(*) as TotaloptinCount " &
+                SQL = "select count(*) as TotaloptinCount " &
                 "from ESSchema " &
                 "where ESSchema.intESYEAR = @year " &
                 " and ESSchema.strOptOut = 'NO'"
-                txtTotalOptInCount.Text = DB.GetSingleValue(Of Integer)(sql, param).ToString
+                txtTotalOptInCount.Text = DB.GetSingleValue(Of Integer)(SQL, param).ToString
 
-                sql = "select count(*) as TotaloptOutCount " &
+                SQL = "select count(*) as TotaloptOutCount " &
                 "from ESSchema " &
                 "where ESSchema.intESYEAR = @year " &
                 "and ESSchema.strOptOut = 'YES'"
-                txtTotalOptOutCount.Text = DB.GetSingleValue(Of Integer)(sql, param).ToString
+                txtTotalOptOutCount.Text = DB.GetSingleValue(Of Integer)(SQL, param).ToString
 
-                sql = "select count(*) as TotalinincomplianceCount " &
+                SQL = "select count(*) as TotalinincomplianceCount " &
                 "from ESSchema " &
                 "where ESSchema.intESYEAR = @year " &
                 " and CAST(STRDATEFIRSTCONFIRM AS date) < = @deadline "
-                txtTotalincompliance.Text = DB.GetSingleValue(Of Integer)(sql, params).ToString
+                txtTotalincompliance.Text = DB.GetSingleValue(Of Integer)(SQL, params).ToString
 
-                sql = "select count(*) as TotaloutofcomplianceCount " &
+                SQL = "select count(*) as TotaloutofcomplianceCount " &
                 "from ESSchema " &
                 "where ESSchema.intESYEAR = @year " &
                 " and CAST(STRDATEFIRSTCONFIRM AS date) > @deadline "
-                txtTotaloutofcompliance.Text = DB.GetSingleValue(Of Integer)(sql, params).ToString
+                txtTotaloutofcompliance.Text = DB.GetSingleValue(Of Integer)(SQL, params).ToString
 
-                sql = "SELECT COUNT ( *) AS MailOutOptInCount " &
+                SQL = "SELECT COUNT ( *) AS MailOutOptInCount " &
                     "FROM ESSchema es " &
                     "RIGHT JOIN ESMailout em " &
                     "ON em.STRAIRSYEAR  = es.STRAIRSYEAR " &
                     "WHERE em.STRESYEAR = @year " &
                     "AND es.STROPTOUT   = 'NO'"
-                txtMailoutOptin.Text = DB.GetSingleValue(Of Integer)(sql, param).ToString
+                txtMailoutOptin.Text = DB.GetSingleValue(Of Integer)(SQL, param).ToString
 
-                sql = "SELECT COUNT ( *) AS MailOutOptOutCount " &
+                SQL = "SELECT COUNT ( *) AS MailOutOptOutCount " &
                     "FROM ESSchema es " &
                     "RIGHT JOIN ESMailout em " &
                     "ON em.STRAIRSYEAR  = es.STRAIRSYEAR " &
                     "WHERE em.STRESYEAR = @year " &
                     "AND es.STROPTOUT   = 'YES'"
-                txtMailOutOptOut.Text = DB.GetSingleValue(Of Integer)(sql, param).ToString
+                txtMailOutOptOut.Text = DB.GetSingleValue(Of Integer)(SQL, param).ToString
 
             Catch ex As Exception
                 MsgBox("That Prefix is not in the db" + vbCrLf + ex.ToString())
             End Try
 
 
-            sql = "select count(*) as Nonresponsecount " &
+            SQL = "select count(*) as Nonresponsecount " &
              "from ESSCHEMA " &
              "where ESSCHEMA.intESYEAR = @year " &
              " and ESSchema.strOptOut is NULL"
-            txtNonResponseCount.Text = DB.GetSingleValue(Of Integer)(sql, param).ToString
+            txtNonResponseCount.Text = DB.GetSingleValue(Of Integer)(SQL, param).ToString
 
-            sql = "SELECT COUNT (*) AS removedFacilitiescount " &
+            SQL = "SELECT COUNT (*) AS removedFacilitiescount " &
                 "FROM ESSchema es " &
                 "RIGHT JOIN esmailout em " &
                 "ON em.STRAIRSYEAR   = es.STRAIRSYEAR " &
                 "WHERE em.STRESYEAR  = @year " &
                 "AND es.STRAIRSYEAR IS NULL"
-            txtESremovedFacilities.Text = DB.GetSingleValue(Of Integer)(sql, param).ToString
+            txtESremovedFacilities.Text = DB.GetSingleValue(Of Integer)(SQL, param).ToString
 
-            sql = "SELECT COUNT ( *) AS extraNonresponderscount " &
+            SQL = "SELECT COUNT ( *) AS extraNonresponderscount " &
                 "FROM ESSchema es " &
                 "WHERE NOT EXISTS " &
                 "  (SELECT * " &
@@ -637,17 +626,17 @@ Public Class DMUEisGecoTool
                 "  ) " &
                 "AND es.INTESYEAR  = @year " &
                 "AND es.STROPTOUT IS NULL"
-            txtESextranonresponder.Text = DB.GetSingleValue(Of Integer)(sql, param).ToString
+            txtESextranonresponder.Text = DB.GetSingleValue(Of Integer)(SQL, param).ToString
 
-            sql = "SELECT COUNT ( *) AS mailoutNonresponderscount " &
+            SQL = "SELECT COUNT ( *) AS mailoutNonresponderscount " &
                 "FROM esmailout em " &
                 "LEFT JOIN ESSchema es " &
                 "ON em.STRAIRSYEAR  = es.STRAIRSYEAR " &
                 "WHERE em.STRESYEAR = @year " &
                 "AND es.STROPTOUT  IS NULL"
-            txtESmailoutNonResponder.Text = DB.GetSingleValue(Of Integer)(sql, param).ToString
+            txtESmailoutNonResponder.Text = DB.GetSingleValue(Of Integer)(SQL, param).ToString
 
-            sql = "SELECT COUNT ( *) AS ExtraCount " &
+            SQL = "SELECT COUNT ( *) AS ExtraCount " &
                 "FROM " &
                 "  (SELECT es.STRAIRSYEAR AS SchemaAIRS " &
                 "  , em.STRAIRSYEAR       AS MailoutAIRS " &
@@ -660,11 +649,11 @@ Public Class DMUEisGecoTool
                 "INNER JOIN ESSCHEMA es " &
                 "ON dt_NotInMailout.SchemaAIRS      = es.STRAIRSYEAR " &
                 "WHERE dt_NotInMailout.MailoutAIRS IS NULL"
-            Dim extracount As Integer = DB.GetSingleValue(Of Integer)(sql, param).ToString
+            Dim extracount As Integer = DB.GetSingleValue(Of Integer)(SQL, param).ToString
             txtESextraResponders.Text = extracount
             txtextraResponse.Text = extracount
 
-            sql = "SELECT COUNT ( *) AS ExtraOptinCount " &
+            SQL = "SELECT COUNT ( *) AS ExtraOptinCount " &
                 "FROM " &
                 "  (SELECT es.STRAIRSYEAR AS SchemaAIRS " &
                 "  , em.STRAIRSYEAR       AS MailoutAIRS " &
@@ -678,9 +667,9 @@ Public Class DMUEisGecoTool
                 "ON dt_NotInMailout.SchemaAIRS      = es.STRAIRSYEAR " &
                 "WHERE dt_NotInMailout.MailoutAIRS IS NULL " &
                 "AND es.STROPTOUT                   = 'NO'"
-            txtExtraOptin.Text = DB.GetSingleValue(Of Integer)(sql, param).ToString
+            txtExtraOptin.Text = DB.GetSingleValue(Of Integer)(SQL, param).ToString
 
-            sql = "SELECT COUNT ( *) AS ExtraOptOUTCount " &
+            SQL = "SELECT COUNT ( *) AS ExtraOptOUTCount " &
                 "FROM " &
                 "  (SELECT es.STRAIRSYEAR AS SchemaAIRS " &
                 "  , em.STRAIRSYEAR       AS MailoutAIRS " &
@@ -694,13 +683,13 @@ Public Class DMUEisGecoTool
                 "ON dt_NotInMailout.SchemaAIRS      = es.STRAIRSYEAR " &
                 "WHERE dt_NotInMailout.MailoutAIRS IS NULL " &
                 "AND es.STROPTOUT                   = 'YES'"
-            txtExtraOptout.Text = DB.GetSingleValue(Of Integer)(sql, param).ToString
+            txtExtraOptout.Text = DB.GetSingleValue(Of Integer)(SQL, param).ToString
 
-            sql = "select count(*) as TotalResponsecount " &
+            SQL = "select count(*) as TotalResponsecount " &
             "from ESSchema " &
             "where ESSchema.intESYEAR = @year " &
             " and ESSchema.strOptOut is not NULL"
-            txtTotalResponse.Text = DB.GetSingleValue(Of Integer)(sql, param).ToString
+            txtTotalResponse.Text = DB.GetSingleValue(Of Integer)(SQL, param).ToString
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -1079,7 +1068,7 @@ Public Class DMUEisGecoTool
 
     Private Sub lblViewOptin_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblViewTotalOptin.LinkClicked
         Try
-            SQL = "SELECT es.STRAIRSNUMBER " &
+            Dim SQL As String = "SELECT es.STRAIRSNUMBER " &
                 ", es.STRFACILITYNAME " &
                 ", es.STRDATEFIRSTCONFIRM " &
                 ", es.DBLVOCEMISSION " &
@@ -1275,7 +1264,7 @@ Public Class DMUEisGecoTool
 
     Private Sub lblViewESMailOut_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblViewESMailOut.LinkClicked
         Try
-            SQL = "SELECT esMailOut.STRAIRSNUMBER, " &
+            Dim SQL As String = "SELECT esMailOut.STRAIRSNUMBER, " &
             "esMailOut.STRFACILITYNAME, " &
             "esMailOut.STRCONTACTFIRSTNAME, " &
             "esMailOut.STRCONTACTLASTNAME, " &
@@ -1457,7 +1446,7 @@ Public Class DMUEisGecoTool
 
     Private Sub lblViewOptIn_LinkClicked_1(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblViewOptIn.LinkClicked
         Try
-            SQL = "SELECT es.STRAIRSNUMBER " &
+            Dim SQL As String = "SELECT es.STRAIRSNUMBER " &
                 ", es.STRFACILITYNAME " &
                 ", es.STRDATEFIRSTCONFIRM " &
                 ", es.STRCONFIRMATIONNBR " &
@@ -1583,7 +1572,7 @@ Public Class DMUEisGecoTool
 
     Private Sub lblViewExtraOptIn_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblViewExtraOptIn.LinkClicked
         Try
-            SQL = "SELECT es.STRAIRSNUMBER " &
+            Dim SQL As String = "SELECT es.STRAIRSNUMBER " &
                 ", es.STRFACILITYNAME " &
                 ", es.STRDATEFIRSTCONFIRM " &
                 ", es.STRCONFIRMATIONNBR " &
@@ -2304,7 +2293,7 @@ Public Class DMUEisGecoTool
 
     Private Sub btnESdeenrollment_Click(sender As Object, e As EventArgs) Handles btnESdeenrollment.Click
         Dim ESYear As Integer = CInt(cboESYear.SelectedItem)
-        Dim sql As String
+        Dim SQL As String
         Try
             If cboESYear.Text = "" Then
                 MsgBox("Please choose a year!", MsgBoxStyle.Information, "ES Enrollment")
@@ -2314,11 +2303,11 @@ Public Class DMUEisGecoTool
 
                 Select Case intAnswer
                     Case DialogResult.OK
-                        sql = "delete from ESSCHEMA " &
+                        SQL = "delete from ESSCHEMA " &
                             "where ESSCHEMA.INTESYEAR = @ESYear "
                         Dim param As New SqlParameter("@ESYear", ESYear)
 
-                        DB.RunCommand(sql, param)
+                        DB.RunCommand(SQL, param)
 
                         MsgBox("Enrollment has been removed!", MsgBoxStyle.Information, "ES Enrollment")
                     Case Else
@@ -2419,14 +2408,14 @@ Public Class DMUEisGecoTool
 
             Select Case intAnswer
                 Case DialogResult.Yes
-                    Dim sql As String = "delete from ESSCHEMA " &
+                    Dim SQL As String = "delete from ESSCHEMA " &
                         "where ESSCHEMA.INTESYEAR = @ESYear " &
                         " And ESSCHEMA.STRAIRSNUMBER = @AirsNo "
                     Dim param As SqlParameter() = {
                         New SqlParameter("@ESYear", ESYear),
                         New SqlParameter("@AirsNo", AirsNo)
                     }
-                    DB.RunCommand(sql, param)
+                    DB.RunCommand(SQL, param)
 
                     MsgBox("This Facility (" & AirsNo & ") has been removed for " & ESYear & "!", MsgBoxStyle.Information, "ES Enrollment")
                 Case Else
@@ -2443,7 +2432,7 @@ Public Class DMUEisGecoTool
         Dim ESYear As Integer = txtESYearforFacility.Text
 
         Try
-            Dim sql As String = "Select strAIRSYear " &
+            Dim SQL As String = "Select strAIRSYear " &
                 "FROM ESSCHEMA " &
                 "where ESSCHEMA.INTESYEAR = @ESYear " &
                 " And ESSCHEMA.STRAIRSNUMBER = @AirsNo "
@@ -2451,7 +2440,7 @@ Public Class DMUEisGecoTool
                         New SqlParameter("@ESYear", ESYear),
                         New SqlParameter("@AirsNo", AirsNo)
                     }
-            If DB.ValueExists(sql, param) Then
+            If DB.ValueExists(SQL, param) Then
                 MsgBox("This facility (" & AirsNo & ") has been enrolled for " & ESYear & "!", MsgBoxStyle.Information, "ES Enrollment")
             Else
                 MsgBox("This facility (" & AirsNo & ") is not enrolled for " & ESYear & "!", MsgBoxStyle.Information, "ES Enrollment")
@@ -2655,25 +2644,19 @@ Public Class DMUEisGecoTool
             Dim year As String = txtESYear.Text
             Dim intYear As Integer = Int(year)
 
-            SQL = "SELECT esSchema.STRAIRSNUMBER, " &
+            Dim SQL As String = "SELECT esSchema.STRAIRSNUMBER, " &
                 "esSchema.STRFACILITYNAME " &
                 "from ESSchema " &
                 " where  not exists (select * from ESMAILOUT " &
                 " where ESSchema.STRAIRSNUMBER = ESMAILOUT.STRAIRSNUMBER" &
                 " and ESSchema.INTESYEAR = ESMAILOUT.strESYEAR) " &
-                " and ESSchema.INTESYEAR = '" & intYear & "' " &
+                " and ESSchema.INTESYEAR = @year " &
                 " and ESSchema.STROPTOUT is null   " &
                 "order by esSchema.STRFACILITYNAME"
 
+            Dim p As New SqlParameter("@year", intYear)
 
-            dsViewCount = New DataSet
-            daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daViewCount.Fill(dsViewCount, "ViewCount")
-            dgvESDataCount.DataSource = dsViewCount
-            dgvESDataCount.DataMember = "ViewCount"
+            dgvESDataCount.DataSource = DB.GetDataTable(SQL, p)
 
             dgvESDataCount.RowHeadersVisible = False
             dgvESDataCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -2860,7 +2843,7 @@ Public Class DMUEisGecoTool
 
     Private Sub btnDelete_Click(sender As Object, e As EventArgs) Handles btnDelete.Click
         Try
-            SQL = "DELETE OlapUserAccess " &
+            Dim SQL As String = "DELETE OlapUserAccess " &
                 "WHERE numUserID = @numUserID " &
                 "and strAirsNumber = @strAirsNumber "
             Dim params As SqlParameter() = {
@@ -3000,7 +2983,7 @@ Public Class DMUEisGecoTool
                     FaxNumber = " strFaxNumber = @strFaxNumber "
                 End If
 
-                SQL = "Update OLAPUserProfile set " &
+                Dim SQL As String = "Update OLAPUserProfile set " &
                     ConcatNonEmptyStrings(",", {FirstName, LastName, Title, Company, Address, City, State, Zip, PhoneNumber, FaxNumber}) &
                     "where numUserID = @numUserID "
 
@@ -3058,7 +3041,7 @@ Public Class DMUEisGecoTool
                 "strUserPassword = @strUserPassword " &
                 "where numUserID = @numUserID "
                 Dim params As SqlParameter() = {
-                    New SqlParameter("@strUserPassword", "3dc183cf4b0ea0778a1819994ad6cf25"),'getMd5Hash(txtEditUserPassword.Text)),
+                    New SqlParameter("@strUserPassword", getMd5Hash(txtEditUserPassword.Text)),
                     New SqlParameter("@numUserID", txtWebUserID.Text)
                 }
                 DB.RunCommand(SQL, params)
@@ -3136,7 +3119,7 @@ Public Class DMUEisGecoTool
     Private Sub btnAddFacilitytoUser_Click(sender As Object, e As EventArgs) Handles btnAddFacilitytoUser.Click
         Try
             If txtWebUserID.Text <> "" And mtbFacilityToAdd.Text <> "" Then
-                SQL = "Select " &
+                Dim SQL As String = "Select " &
                 "1 " &
                 "from OlapUserAccess " &
                 "where numUserId = @numUserId " &
@@ -3176,7 +3159,7 @@ Public Class DMUEisGecoTool
     Private Sub btnDeleteFacilityUser_Click(sender As Object, e As EventArgs) Handles btnDeleteFacilityUser.Click
         Try
             If txtWebUserID.Text <> "" And cboFacilityToDelete.Text <> "" Then
-                SQL = "DELETE OlapUserAccess " &
+                Dim SQL As String = "DELETE OlapUserAccess " &
                 "WHERE numUserID = @numUserID " &
                 "and strAirsNumber = @strAirsNumber "
                 Dim params As SqlParameter() = {
@@ -4231,8 +4214,7 @@ Public Class DMUEisGecoTool
                         txtSelectedEISMailout.Text = dgvEISStats(3, hti.RowIndex).Value
                     End If
 
-
-                    SQL = "Select " &
+                    Dim SQL As String = "Select " &
                     "strFacilityName, " &
                     "strContactCompanyName, strContactAddress1, " &
                     "strContactAddress2, strContactCity, " &
@@ -4243,16 +4225,16 @@ Public Class DMUEisGecoTool
                     "strcomment, UpdateUser, " &
                     "updateDateTime, CreateDateTime " &
                      "from EIS_Mailout " &
-                     "where intInventoryyear = '" & txtSelectedEISMailout.Text & "' " &
-                     "and FacilitySiteID = '" & txtEISStatsMailoutAIRSNumber.Text & "' "
+                     "where intInventoryyear = @year " &
+                     "and FacilitySiteID = @airs "
 
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
+                    Dim params As SqlParameter() = {
+                        New SqlParameter("@year", txtSelectedEISMailout.Text),
+                        New SqlParameter("@airs", txtEISStatsMailoutAIRSNumber.Text)
+                    }
 
-                    dr = cmd.ExecuteReader
-                    While dr.Read
+                    Dim dr As DataRow = DB.GetDataRow(SQL, params)
+                    If dr IsNot Nothing Then
                         If IsDBNull(dr.Item("strFacilityName")) Then
                             txtEISStatsMailoutFacilityName.Clear()
                         Else
@@ -4328,10 +4310,7 @@ Public Class DMUEisGecoTool
                         Else
                             txtEISStatsMailoutCreateDate.Text = dr.Item("CreateDateTime")
                         End If
-
-                    End While
-                    dr.Close()
-
+                    End If
                 End If
             End If
             dgvEISStats.Enabled = True
@@ -4342,7 +4321,7 @@ Public Class DMUEisGecoTool
     Private Sub btnSaveEISStatMailout_Click(sender As Object, e As EventArgs) Handles btnSaveEISStatMailout.Click
         Try
             If txtSelectedEISMailout.Text <> "" And txtEISStatsMailoutAIRSNumber.Text <> "" Then
-                SQL = "UPdate EIS_Mailout set " &
+                Dim SQL As String = "UPdate EIS_Mailout set " &
                     "strFacilityName = @strFacilityName, " &
                     "strContactCompanyName = @strContactCompanyName, " &
                     "strContactAddress1 = @strContactAddress1, " &
@@ -5808,16 +5787,16 @@ Public Class DMUEisGecoTool
 
     Sub ViewPollutantThresholds()
         Try
-            Dim sql As String
+            Dim SQL As String
             If rdbThreeYearPollutants.Checked = True Then
-                sql = "Select " &
+                SQL = "Select " &
                 "strPollutant, numThreshold, " &
                 "numThresholdNAA " &
                 "from EIThresholds " &
                 "where strType = '3YEAR' " &
                 "order by strPollutant "
             Else
-                sql = "Select " &
+                SQL = "Select " &
                 "strPollutant, numThreshold, " &
                 "numThresholdNAA " &
                 "from EIThresholds " &
@@ -5825,7 +5804,7 @@ Public Class DMUEisGecoTool
                 "order by strPollutant "
             End If
 
-            Dim dt As DataTable = DB.GetDataTable(sql)
+            Dim dt As DataTable = DB.GetDataTable(SQL)
 
             dgvThresholdPollutants.DataSource = dt
 
@@ -6191,7 +6170,7 @@ Public Class DMUEisGecoTool
             EISConfirm = InputBox("Type in the EIS Year that you have selected to delete all current QA data.", Me.Text)
 
             If EISConfirm = txtEILogSelectedYear.Text Then
-                Dim sql1 As String = "delete EIS_QAAdmin " &
+                Dim SQL1 As String = "delete EIS_QAAdmin " &
                 "where inventoryyear = @inventoryyear " &
                 "and facilitysiteid = @facilitysiteid "
                 Dim params1 As SqlParameter() = {
@@ -6199,7 +6178,7 @@ Public Class DMUEisGecoTool
                     New SqlParameter("@facilitysiteid", txtEILogSelectedAIRSNumber.Text)
                 }
 
-                Dim sql2 As String = "Update EIS_Admin set " &
+                Dim SQL2 As String = "Update EIS_Admin set " &
                   "EISAccessCode = '2', " &
                   "EISStatusCode = '3', " &
                   "datEISstatus = GETDATE(), " &
@@ -6213,7 +6192,7 @@ Public Class DMUEisGecoTool
                     New SqlParameter("@facilitysiteid", txtEILogSelectedAIRSNumber.Text)
                 }
 
-                Dim querylist As New List(Of String) From {sql1, sql2}
+                Dim querylist As New List(Of String) From {SQL1, SQL2}
                 Dim paramlist As New List(Of SqlParameter()) From {params1, params2}
 
                 DB.RunCommand(querylist, paramlist)
@@ -6253,214 +6232,6 @@ Public Class DMUEisGecoTool
         End Try
     End Sub
 
-    Sub ViewMailoutData(MailoutStatus As String)
-        Try
-            Dim dgvRow As New DataGridViewRow
-            dgvEISStats.Rows.Clear()
-            SQL = "select " &
-            "'False' as ID, " &
-            " EIS_Admin.facilitysiteid, " &
-           "APBFacilityInformation.strFacilityname, " &
-           "EIS_Admin.inventoryyear, " &
-           "EISLK_EISStatusCode.strDesc as EISStatus, " &
-           "EISLK_EISAccessCode.strDesc as EISAccess, " &
-           "case " &
-           "when strOptOut = '1' then 'Yes' " &
-           "when strOptOut = '0' then 'No' " &
-           "else '-' " &
-           "End strOptOut, " &
-             "case " &
-           "when strEnrollment = '1' then 'Yes' " &
-           "when strEnrollment = '0' then 'No' " &
-           "else '-' " &
-           "end strEnrollment, " &
-           "case " &
-           "when strMailout = '1' then 'Yes' " &
-           "else 'No' " &
-           "end strMailout, " &
-           "case " &
-           "when strContactEmail is null then '-' " &
-           "else strContactEmail " &
-           "end ContactEmail, " &
-             "case " &
-           "When strContactPrefix is null then '-' " &
-           "else strContactPrefix " &
-           "end strContactPrefix, " &
-           "case " &
-           "when strContactFirstName is null then '-' " &
-           "else strContactFirstName " &
-           "end strContactFirstName, " &
-           "case " &
-           "When strContactLastName is null then '-' " &
-           "else strContactLastName " &
-           "end strContactLastName, " &
-           "case " &
-          "when strDMUResponsibleStaff is null then '-' " &
-           "else strDMUResponsibleStaff " &
-            "end strDMUResponsibleStaff, " &
-            "EIS_Mailout.strContactCompanyName as CoName, " &
-            "EIS_Mailout.strContactAddress1 as ContactAddress1, " &
-            "EIS_Mailout.strContactAddress2 as ContactAddress2, " &
-            "EIS_Mailout.strContactCity as ContactCity, " &
-            "EIS_Mailout.strContactState as  ContactState, " &
-            "EIS_Mailout.strContactZipCode as ContactZip, " &
-            "EIS_Mailout.strContactFirstname as ContactFirstName, " &
-            "EIS_Mailout.strContactLastName as ContactLastName, " &
-            "EIS_Mailout.strContactPrefix as ContactPrefix, " &
-            "EIS_Mailout.strContactEmail  as ContactEmail " &
-           "from EIS_Admin, APBFacilityInformation, " &
-           "EISLK_EISAccessCode, EISLK_EISStatusCode,  " &
-           "EIS_Mailout, EIS_QAAdmin " &
-           "where '0413'||EIS_Admin.FacilitySiteId = APBFacilityInformation.strAIRSNumber  " &
-           "and EIS_Admin.EISAccessCode = EISLK_EISAccessCode.EISAccessCode " &
-           "and EIS_Admin.EISStatusCode = EISLK_EISStatusCode.EISStatusCode " &
-           "and EIS_Admin.FacilitySiteID = EIS_QAAdmin.FacilitySiteID (+) " &
-           "and EIS_Admin.inventoryyear = EIS_QAAdmin.inventoryyear (+) " &
-           "and EIS_Admin.FacilitySiteID = EIS_Mailout.FacilitySiteID (+) " &
-           "and EIS_Admin.inventoryyear = EIS_Mailout.intinventoryyear (+) " &
-            "and EIS_Admin.Active = '1' " &
-           "and EIS_Admin.inventoryyear = '" & txtSelectedEISMailout.Text & "'"
-
-            If MailoutStatus = "1" Then
-                SQL = SQL & " and strMailout = '1' "
-            End If
-
-            dgvEISStats.Rows.Clear()
-            ds = New DataSet
-
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                dgvRow = New DataGridViewRow
-                dgvRow.CreateCells(dgvEISStats)
-                If IsDBNull(dr.Item("ID")) Then
-                    dgvRow.Cells(0).Value = ""
-                Else
-                    dgvRow.Cells(0).Value = dr.Item("ID")
-                End If
-
-                If IsDBNull(dr.Item("FacilitySiteID")) Then
-                    dgvRow.Cells(1).Value = ""
-                Else
-                    dgvRow.Cells(1).Value = dr.Item("FacilitySiteID")
-                End If
-                If IsDBNull(dr.Item("strFacilityName")) Then
-                    dgvRow.Cells(2).Value = ""
-                Else
-                    dgvRow.Cells(2).Value = dr.Item("strFacilityName")
-                End If
-                If IsDBNull(dr.Item("InventoryYear")) Then
-                    dgvRow.Cells(3).Value = ""
-                Else
-                    dgvRow.Cells(3).Value = dr.Item("InventoryYear")
-                End If
-                If IsDBNull(dr.Item("EISStatus")) Then
-                    dgvRow.Cells(4).Value = False
-                Else
-                    dgvRow.Cells(4).Value = dr.Item("EISStatus")
-                End If
-                If IsDBNull(dr.Item("EISAccess")) Then
-                    dgvRow.Cells(5).Value = False
-                Else
-                    dgvRow.Cells(5).Value = dr.Item("EISAccess")
-                End If
-
-                If IsDBNull(dr.Item("strOptOut")) Then
-                    dgvRow.Cells(6).Value = False
-                Else
-                    dgvRow.Cells(6).Value = dr.Item("strOptOut")
-                End If
-                If IsDBNull(dr.Item("strMailout")) Then
-                    dgvRow.Cells(7).Value = False
-                Else
-                    dgvRow.Cells(7).Value = dr.Item("strMailout")
-                End If
-
-                If IsDBNull(dr.Item("ContactEmail")) Then
-                    dgvRow.Cells(8).Value = False
-                Else
-                    dgvRow.Cells(8).Value = dr.Item("ContactEmail")
-                End If
-                If IsDBNull(dr.Item("strContactPrefix")) Then
-                    dgvRow.Cells(9).Value = False
-                Else
-                    dgvRow.Cells(9).Value = dr.Item("strContactPrefix")
-                End If
-                If IsDBNull(dr.Item("strContactFirstName")) Then
-                    dgvRow.Cells(10).Value = False
-                Else
-                    dgvRow.Cells(10).Value = dr.Item("strContactFirstName")
-                End If
-                If IsDBNull(dr.Item("strContactLastName")) Then
-                    dgvRow.Cells(11).Value = False
-                Else
-                    dgvRow.Cells(11).Value = dr.Item("strContactLastName")
-                End If
-
-                If IsDBNull(dr.Item("CoName")) Then
-                    dgvRow.Cells(20).Value = False
-                Else
-                    dgvRow.Cells(20).Value = dr.Item("CoName")
-                End If
-                If IsDBNull(dr.Item("ContactAddress1")) Then
-                    dgvRow.Cells(21).Value = False
-                Else
-                    dgvRow.Cells(21).Value = dr.Item("ContactAddress1")
-                End If
-                If IsDBNull(dr.Item("ContactAddress2")) Then
-                    dgvRow.Cells(22).Value = False
-                Else
-                    dgvRow.Cells(22).Value = dr.Item("ContactAddress2")
-                End If
-                If IsDBNull(dr.Item("ContactCity")) Then
-                    dgvRow.Cells(23).Value = False
-                Else
-                    dgvRow.Cells(23).Value = dr.Item("ContactCity")
-                End If
-                If IsDBNull(dr.Item("ContactState")) Then
-                    dgvRow.Cells(24).Value = False
-                Else
-                    dgvRow.Cells(24).Value = dr.Item("ContactState")
-                End If
-                If IsDBNull(dr.Item("ContactZip")) Then
-                    dgvRow.Cells(25).Value = False
-                Else
-                    dgvRow.Cells(25).Value = dr.Item("ContactZip")
-                End If
-                If IsDBNull(dr.Item("ContactFirstName")) Then
-                    dgvRow.Cells(26).Value = False
-                Else
-                    dgvRow.Cells(26).Value = dr.Item("ContactFirstName")
-                End If
-                If IsDBNull(dr.Item("ContactLastName")) Then
-                    dgvRow.Cells(27).Value = False
-                Else
-                    dgvRow.Cells(27).Value = dr.Item("ContactLastName")
-                End If
-                If IsDBNull(dr.Item("ContactPrefix")) Then
-                    dgvRow.Cells(28).Value = False
-                Else
-                    dgvRow.Cells(28).Value = dr.Item("ContactPrefix")
-                End If
-                If IsDBNull(dr.Item("ContactEmail")) Then
-                    dgvRow.Cells(29).Value = False
-                Else
-                    dgvRow.Cells(29).Value = dr.Item("ContactEmail")
-                End If
-
-                dgvEISStats.Rows.Add(dgvRow)
-            End While
-            dr.Close()
-
-            txtEISStatsCount.Text = dgvEISStats.RowCount.ToString
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
     Private Sub btnViewMailoutData_Click(sender As Object, e As EventArgs) Handles btnViewMailoutData.Click
         Try
             If txtSelectedEISMailout.Text = "" Then
@@ -6615,7 +6386,7 @@ Public Class DMUEisGecoTool
 
             Dim dgvRow As New DataGridViewRow
 
-            SQL = "Select " &
+            Dim SQL As String = "Select " &
             "'False' as ID, " &
             "FACILITYSITEID, " &
             "STRFACILITYNAME, INVENTORYYEAR, " &

@@ -1311,17 +1311,14 @@ Public Class ISMPMonitoringLog
     End Sub
     Sub LoadCompliaceColor()
         Try
-            Dim temp As String
             For Each row As DataGridViewRow In dgvTestReportViewer.Rows
                 If Not row.IsNewRow Then
                     If Not row.Cells(20).Value Is DBNull.Value Then
-                        temp = row.Cells(20).Value
                         If row.Cells(20).Value = "True" Then
                             row.DefaultCellStyle.BackColor = Color.Pink
                         End If
                     End If
                     If Not row.Cells(16).Value Is DBNull.Value Then
-                        temp = row.Cells(16).Value
                         If row.Cells(16).Value = "Not In Compliance" Then
                             row.DefaultCellStyle.BackColor = Color.Tomato
                         End If

@@ -710,7 +710,6 @@ Public Class MASPRegistrationTool
 #Region "Registration Management"
     Private Sub dgvRegistrationManagement_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvRegistrationManagement.MouseUp
         Try
-            Dim temp As String
             Dim hti As DataGridView.HitTestInfo = dgvRegistrationManagement.HitTest(e.X, e.Y)
 
             If dgvRegistrationManagement.RowCount > 0 And hti.RowIndex <> -1 Then
@@ -727,7 +726,6 @@ Public Class MASPRegistrationTool
                 If IsDBNull(dgvRegistrationManagement(2, hti.RowIndex).Value) Then
                     DTPRegDateRegistered.Text = ""
                 Else
-                    temp = dgvRegistrationManagement(2, hti.RowIndex).Value
                     DTPRegDateRegistered.Value = dgvRegistrationManagement(2, hti.RowIndex).Value
                 End If
 

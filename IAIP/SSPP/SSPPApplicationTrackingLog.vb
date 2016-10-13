@@ -3257,7 +3257,6 @@ Public Class SSPPApplicationTrackingLog
     End Sub
     Sub LoadContactData()
         Try
-            Dim temp As String
             If DAL.Sspp.ApplicationExists(txtApplicationNumber.Text) Then
                 Dim query As String = "Select " &
                 "strContactFirstName, " &
@@ -3321,7 +3320,6 @@ Public Class SSPPApplicationTrackingLog
                                 If IsDBNull(dr.Item("strContactPhoneNumber1")) Then
                                     mtbContactPhoneNumber.Clear()
                                 Else
-                                    temp = dr.Item("strContactPhoneNumber1")
                                     mtbContactPhoneNumber.Text = dr.Item("strContactPhoneNumber1")
                                 End If
                                 If IsDBNull(dr.Item("strContactFaxNumber")) Then
@@ -10945,8 +10943,6 @@ Public Class SSPPApplicationTrackingLog
     End Sub
     Private Sub btnGetCurrentPermittingContact_Click(sender As Object, e As EventArgs) Handles btnGetCurrentPermittingContact.Click
         Try
-            Dim temp As String
-
             Dim query As String = "Select " &
              "strContactFirstName, " &
              "strContactLastName, " &
@@ -11008,7 +11004,6 @@ Public Class SSPPApplicationTrackingLog
                             If IsDBNull(dr.Item("strContactPhoneNumber1")) Then
                                 mtbContactPhoneNumber.Clear()
                             Else
-                                temp = dr.Item("strContactPhoneNumber1")
                                 mtbContactPhoneNumber.Text = dr.Item("strContactPhoneNumber1")
                             End If
                             If IsDBNull(dr.Item("strContactFaxNumber")) Then
@@ -11717,7 +11712,6 @@ Public Class SSPPApplicationTrackingLog
     End Sub
     Private Sub btnAddNewSIPSubpart_Click(sender As Object, e As EventArgs) Handles btnAddNewSIPSubpart.Click
         Try
-            Dim temp As String
             Dim Subpart As String = ""
             Dim Desc As String = ""
             Dim dgvRow As New DataGridViewRow
@@ -11781,39 +11775,6 @@ Public Class SSPPApplicationTrackingLog
                     .DefaultCellStyle.BackColor = Color.LightGreen
                 End With
             End If
-
-
-            Exit Sub
-            Subpart = dgvSIPSubParts(1, dgvSIPSubParts.CurrentRow.Index).Value
-            Desc = dgvSIPSubParts(2, dgvSIPSubParts.CurrentRow.Index).Value
-
-            If i > 0 Then
-                temp = dgvSIPSubParts(1, dgvSIPSubParts.CurrentRow.Index).Value
-                For i = 0 To dgvSIPSubPartDelete.Rows.Count - 1
-                    If dgvSIPSubPartDelete(0, i).Value = temp Then
-                        temp2 = "Ignore"
-                    End If
-                Next
-                If temp2 <> "Ignore" Then
-                    dgvRow.CreateCells(dgvSIPSubPartDelete)
-                    dgvRow.Cells(0).Value = dgvSIPSubParts(1, dgvSIPSubParts.CurrentRow.Index).Value
-                    dgvRow.Cells(1).Value = dgvSIPSubParts(2, dgvSIPSubParts.CurrentRow.Index).Value
-                    dgvSIPSubPartDelete.Rows.Add(dgvRow)
-                    With Me.dgvSIPSubParts.Rows(dgvSIPSubParts.CurrentRow.Index)
-                        .DefaultCellStyle.BackColor = Color.Tomato
-                    End With
-                End If
-            Else
-                dgvRow.CreateCells(dgvSIPSubPartDelete)
-                dgvRow.Cells(0).Value = dgvSIPSubParts(1, dgvSIPSubParts.CurrentRow.Index).Value
-                dgvRow.Cells(1).Value = dgvSIPSubParts(2, dgvSIPSubParts.CurrentRow.Index).Value
-                dgvSIPSubPartDelete.Rows.Add(dgvRow)
-                With Me.dgvSIPSubParts.Rows(dgvSIPSubParts.CurrentRow.Index)
-                    .DefaultCellStyle.BackColor = Color.Tomato
-                End With
-            End If
-
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -12008,7 +11969,6 @@ Public Class SSPPApplicationTrackingLog
     End Sub
     Private Sub btnClearAddModifiedSIPs_Click(sender As Object, e As EventArgs) Handles btnClearAddModifiedSIPs.Click
         Try
-            Dim temp As String
             Dim temp2 As String = ""
             Dim Subpart As String = ""
             Dim Action As String = ""
@@ -12018,7 +11978,6 @@ Public Class SSPPApplicationTrackingLog
                 temp2 = ""
                 Action = ""
                 For j As Integer = 0 To dgvSIPSubParts.Rows.Count - 1
-                    temp = dgvSIPSubParts(1, j).Value
                     If dgvSIPSubParts(1, j).Value = Subpart Then
                         temp2 = j
                         Action = dgvSIPSubParts(4, j).Value
@@ -12656,7 +12615,6 @@ Public Class SSPPApplicationTrackingLog
     End Sub
     Private Sub btnAddNewNSPSSubpart_Click(sender As Object, e As EventArgs) Handles btnAddNewNSPSSubpart.Click
         Try
-            Dim temp As String
             Dim Subpart As String = ""
             Dim Desc As String = ""
             Dim dgvRow As New DataGridViewRow
@@ -12720,39 +12678,6 @@ Public Class SSPPApplicationTrackingLog
                     .DefaultCellStyle.BackColor = Color.LightGreen
                 End With
             End If
-
-
-            Exit Sub
-            Subpart = dgvNSPSSubParts(1, dgvNSPSSubParts.CurrentRow.Index).Value
-            Desc = dgvNSPSSubParts(2, dgvNSPSSubParts.CurrentRow.Index).Value
-
-            If i > 0 Then
-                temp = dgvNSPSSubParts(1, dgvNSPSSubParts.CurrentRow.Index).Value
-                For i = 0 To dgvNSPSSubPartDelete.Rows.Count - 1
-                    If dgvNSPSSubPartDelete(0, i).Value = temp Then
-                        temp2 = "Ignore"
-                    End If
-                Next
-                If temp2 <> "Ignore" Then
-                    dgvRow.CreateCells(dgvNSPSSubPartDelete)
-                    dgvRow.Cells(0).Value = dgvNSPSSubParts(1, dgvNSPSSubParts.CurrentRow.Index).Value
-                    dgvRow.Cells(1).Value = dgvNSPSSubParts(2, dgvNSPSSubParts.CurrentRow.Index).Value
-                    dgvNSPSSubPartDelete.Rows.Add(dgvRow)
-                    With Me.dgvNSPSSubParts.Rows(dgvNSPSSubParts.CurrentRow.Index)
-                        .DefaultCellStyle.BackColor = Color.Tomato
-                    End With
-                End If
-            Else
-                dgvRow.CreateCells(dgvNSPSSubPartDelete)
-                dgvRow.Cells(0).Value = dgvNSPSSubParts(1, dgvNSPSSubParts.CurrentRow.Index).Value
-                dgvRow.Cells(1).Value = dgvNSPSSubParts(2, dgvNSPSSubParts.CurrentRow.Index).Value
-                dgvNSPSSubPartDelete.Rows.Add(dgvRow)
-                With Me.dgvNSPSSubParts.Rows(dgvNSPSSubParts.CurrentRow.Index)
-                    .DefaultCellStyle.BackColor = Color.Tomato
-                End With
-            End If
-
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -12943,7 +12868,6 @@ Public Class SSPPApplicationTrackingLog
     End Sub
     Private Sub btnClearAddModifiedNSPSs_Click(sender As Object, e As EventArgs) Handles btnClearAddModifiedNSPSs.Click
         Try
-            Dim temp As String
             Dim i As Integer = 0
             Dim temp2 As String = ""
             Dim Subpart As String = ""
@@ -12954,7 +12878,6 @@ Public Class SSPPApplicationTrackingLog
                 temp2 = ""
                 Action = ""
                 For j As Integer = 0 To dgvNSPSSubParts.Rows.Count - 1
-                    temp = dgvNSPSSubParts(1, j).Value
                     If dgvNSPSSubParts(1, j).Value = Subpart Then
                         temp2 = j
                         Action = dgvNSPSSubParts(4, j).Value
@@ -12970,8 +12893,6 @@ Public Class SSPPApplicationTrackingLog
                 End If
             Next
             dgvNSPSSubpartAddEdit.Rows.Clear()
-            Exit Sub
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -13895,7 +13816,6 @@ Public Class SSPPApplicationTrackingLog
     End Sub
     Private Sub btnAddNewNESHAPSubpart_Click(sender As Object, e As EventArgs) Handles btnAddNewNESHAPSubpart.Click
         Try
-            Dim temp As String
             Dim Subpart As String = ""
             Dim Desc As String = ""
             Dim dgvRow As New DataGridViewRow
@@ -13960,39 +13880,6 @@ Public Class SSPPApplicationTrackingLog
                     .DefaultCellStyle.BackColor = Color.LightGreen
                 End With
             End If
-
-
-            Exit Sub
-            Subpart = dgvNESHAPSubParts(1, dgvNESHAPSubParts.CurrentRow.Index).Value
-            Desc = dgvNESHAPSubParts(2, dgvNESHAPSubParts.CurrentRow.Index).Value
-
-            If i > 0 Then
-                temp = dgvNESHAPSubParts(1, dgvNESHAPSubParts.CurrentRow.Index).Value
-                For i = 0 To dgvNESHAPSubPartDelete.Rows.Count - 1
-                    If dgvNESHAPSubPartDelete(0, i).Value = temp Then
-                        temp2 = "Ignore"
-                    End If
-                Next
-                If temp2 <> "Ignore" Then
-                    dgvRow.CreateCells(dgvNESHAPSubPartDelete)
-                    dgvRow.Cells(0).Value = dgvNESHAPSubParts(1, dgvNESHAPSubParts.CurrentRow.Index).Value
-                    dgvRow.Cells(1).Value = dgvNESHAPSubParts(2, dgvNESHAPSubParts.CurrentRow.Index).Value
-                    dgvNESHAPSubPartDelete.Rows.Add(dgvRow)
-                    With Me.dgvNESHAPSubParts.Rows(dgvNESHAPSubParts.CurrentRow.Index)
-                        .DefaultCellStyle.BackColor = Color.Tomato
-                    End With
-                End If
-            Else
-                dgvRow.CreateCells(dgvNESHAPSubPartDelete)
-                dgvRow.Cells(0).Value = dgvNESHAPSubParts(1, dgvNESHAPSubParts.CurrentRow.Index).Value
-                dgvRow.Cells(1).Value = dgvNESHAPSubParts(2, dgvNESHAPSubParts.CurrentRow.Index).Value
-                dgvNESHAPSubPartDelete.Rows.Add(dgvRow)
-                With Me.dgvNESHAPSubParts.Rows(dgvNESHAPSubParts.CurrentRow.Index)
-                    .DefaultCellStyle.BackColor = Color.Tomato
-                End With
-            End If
-
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -14184,7 +14071,6 @@ Public Class SSPPApplicationTrackingLog
     End Sub
     Private Sub btnClearAddModifiedNESHAPs_Click(sender As Object, e As EventArgs) Handles btnClearAddModifiedNESHAPs.Click
         Try
-            Dim temp As String
             Dim i As Integer = 0
             Dim temp2 As String = ""
             Dim Subpart As String = ""
@@ -14195,7 +14081,6 @@ Public Class SSPPApplicationTrackingLog
                 temp2 = ""
                 Action = ""
                 For j As Integer = 0 To dgvNESHAPSubParts.Rows.Count - 1
-                    temp = dgvNESHAPSubParts(1, j).Value
                     If dgvNESHAPSubParts(1, j).Value = Subpart Then
                         temp2 = j
                         Action = dgvNESHAPSubParts(4, j).Value
@@ -14211,8 +14096,6 @@ Public Class SSPPApplicationTrackingLog
                 End If
             Next
             dgvNESHAPSubpartAddEdit.Rows.Clear()
-            Exit Sub
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -14833,7 +14716,6 @@ Public Class SSPPApplicationTrackingLog
     End Sub
     Private Sub btnAddNewMACTSubpart_Click(sender As Object, e As EventArgs) Handles btnAddNewMACTSubpart.Click
         Try
-            Dim temp As String
             Dim Subpart As String = ""
             Dim Desc As String = ""
             Dim dgvRow As New DataGridViewRow
@@ -14897,39 +14779,6 @@ Public Class SSPPApplicationTrackingLog
                     .DefaultCellStyle.BackColor = Color.LightGreen
                 End With
             End If
-
-
-            Exit Sub
-            Subpart = dgvMACTSubParts(1, dgvMACTSubParts.CurrentRow.Index).Value
-            Desc = dgvMACTSubParts(2, dgvMACTSubParts.CurrentRow.Index).Value
-
-            If i > 0 Then
-                temp = dgvMACTSubParts(1, dgvMACTSubParts.CurrentRow.Index).Value
-                For i = 0 To dgvMACTSubPartDelete.Rows.Count - 1
-                    If dgvMACTSubPartDelete(0, i).Value = temp Then
-                        temp2 = "Ignore"
-                    End If
-                Next
-                If temp2 <> "Ignore" Then
-                    dgvRow.CreateCells(dgvMACTSubPartDelete)
-                    dgvRow.Cells(0).Value = dgvMACTSubParts(1, dgvMACTSubParts.CurrentRow.Index).Value
-                    dgvRow.Cells(1).Value = dgvMACTSubParts(2, dgvMACTSubParts.CurrentRow.Index).Value
-                    dgvMACTSubPartDelete.Rows.Add(dgvRow)
-                    With Me.dgvMACTSubParts.Rows(dgvMACTSubParts.CurrentRow.Index)
-                        .DefaultCellStyle.BackColor = Color.Tomato
-                    End With
-                End If
-            Else
-                dgvRow.CreateCells(dgvMACTSubPartDelete)
-                dgvRow.Cells(0).Value = dgvMACTSubParts(1, dgvMACTSubParts.CurrentRow.Index).Value
-                dgvRow.Cells(1).Value = dgvMACTSubParts(2, dgvMACTSubParts.CurrentRow.Index).Value
-                dgvMACTSubPartDelete.Rows.Add(dgvRow)
-                With Me.dgvMACTSubParts.Rows(dgvMACTSubParts.CurrentRow.Index)
-                    .DefaultCellStyle.BackColor = Color.Tomato
-                End With
-            End If
-
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -15121,7 +14970,6 @@ Public Class SSPPApplicationTrackingLog
     End Sub
     Private Sub btnClearAddModifiedMACTs_Click(sender As Object, e As EventArgs) Handles btnClearAddModifiedMACTs.Click
         Try
-            Dim temp As String
             Dim temp2 As String = ""
             Dim Subpart As String = ""
             Dim Action As String = ""
@@ -15131,7 +14979,6 @@ Public Class SSPPApplicationTrackingLog
                 temp2 = ""
                 Action = ""
                 For j As Integer = 0 To dgvMACTSubParts.Rows.Count - 1
-                    temp = dgvMACTSubParts(1, j).Value
                     If dgvMACTSubParts(1, j).Value = Subpart Then
                         temp2 = j
                         Action = dgvMACTSubParts(4, j).Value
@@ -15147,8 +14994,6 @@ Public Class SSPPApplicationTrackingLog
                 End If
             Next
             dgvMACTSubpartAddEdit.Rows.Clear()
-            Exit Sub
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -15203,7 +15048,6 @@ Public Class SSPPApplicationTrackingLog
 #End Region
     Private Sub chbCDS_0_CheckedChanged(sender As Object, e As EventArgs) Handles chbCDS_0.CheckedChanged
         Try
-            Dim temp As String
             Dim dgvRow As New DataGridViewRow
             Dim i As Integer = 0
             Dim j As Integer = 0
@@ -15221,7 +15065,6 @@ Public Class SSPPApplicationTrackingLog
                             temp2 = ""
                             Action = ""
                             For j = 0 To dgvSIPSubParts.Rows.Count - 1
-                                temp = dgvSIPSubParts(1, j).Value
                                 If dgvSIPSubParts(1, j).Value = Subpart Then
                                     temp2 = j
                                     Action = dgvSIPSubParts(4, j).Value
@@ -15288,7 +15131,6 @@ Public Class SSPPApplicationTrackingLog
     End Sub
     Private Sub chbCDS_8_CheckedChanged(sender As Object, e As EventArgs) Handles chbCDS_8.CheckedChanged
         Try
-            Dim temp As String
             Dim dgvRow As New DataGridViewRow
             Dim i As Integer = 0
             Dim j As Integer = 0
@@ -15306,7 +15148,6 @@ Public Class SSPPApplicationTrackingLog
                             temp2 = ""
                             Action = ""
                             For j = 0 To dgvNESHAPSubParts.Rows.Count - 1
-                                temp = dgvNESHAPSubParts(1, j).Value
                                 If dgvNESHAPSubParts(1, j).Value = Subpart Then
                                     temp2 = j
                                     Action = dgvNESHAPSubParts(4, j).Value
@@ -15374,7 +15215,6 @@ Public Class SSPPApplicationTrackingLog
     End Sub
     Private Sub chbCDS_9_CheckedChanged(sender As Object, e As EventArgs) Handles chbCDS_9.CheckedChanged
         Try
-            Dim temp As String
             Dim dgvRow As New DataGridViewRow
             Dim i As Integer = 0
             Dim j As Integer = 0
@@ -15392,7 +15232,6 @@ Public Class SSPPApplicationTrackingLog
                             temp2 = ""
                             Action = ""
                             For j = 0 To dgvNSPSSubParts.Rows.Count - 1
-                                temp = dgvNSPSSubParts(1, j).Value
                                 If dgvNSPSSubParts(1, j).Value = Subpart Then
                                     temp2 = j
                                     Action = dgvNSPSSubParts(4, j).Value
@@ -15462,7 +15301,6 @@ Public Class SSPPApplicationTrackingLog
     End Sub
     Private Sub chbCDS_M_CheckedChanged(sender As Object, e As EventArgs) Handles chbCDS_M.CheckedChanged
         Try
-            Dim temp As String
             Dim dgvRow As New DataGridViewRow
             Dim i As Integer = 0
             Dim j As Integer = 0
@@ -15480,7 +15318,6 @@ Public Class SSPPApplicationTrackingLog
                             temp2 = ""
                             Action = ""
                             For j = 0 To dgvMACTSubParts.Rows.Count - 1
-                                temp = dgvMACTSubParts(1, j).Value
                                 If dgvMACTSubParts(1, j).Value = Subpart Then
                                     temp2 = j
                                     Action = dgvMACTSubParts(4, j).Value

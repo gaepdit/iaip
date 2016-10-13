@@ -190,7 +190,7 @@ Public Class IAIPFacilitySummary
 
     Private Sub EditFacilityLocationButton_Click(sender As Object, e As EventArgs) Handles EditFacilityLocationButton.Click
         Dim parameters As New Dictionary(Of FormParameter, String) From {{FormParameter.AirsNumber, Me.AirsNumber.ToString}}
-        Dim editFacilityLocation As IAIPEditFacilityLocation = OpenMultiForm(IAIPEditFacilityLocation, Me.AirsNumber.GetHashCode, parameters)
+        OpenMultiForm(IAIPEditFacilityLocation, Me.AirsNumber.GetHashCode, parameters)
     End Sub
 
     Private Sub ClearBasicFacilityData()

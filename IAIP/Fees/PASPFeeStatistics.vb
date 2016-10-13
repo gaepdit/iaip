@@ -6729,7 +6729,7 @@ Public Class PASPFeeStatistics
 
             Dim p As New SqlParameter("@year", cboStatYear.Text)
 
-            dgvDepositsAndPayments.DataSource = DB.GetDataTable(sql, p)
+            dgvDepositsAndPayments.DataSource = DB.GetDataTable(SQL, p)
 
             dgvDepositsAndPayments.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
             dgvDepositsAndPayments.AllowUserToResizeColumns = True

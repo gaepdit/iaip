@@ -286,7 +286,6 @@ Public Class IAIPFacilityCreator
             Dim ContactPhoneNumber As String = ""
             Dim Comments As String = ""
             Dim RMPNumber As String = ""
-            Dim temp As String
 
             If IsDBNull(cboCounty.SelectedValue) Or cboCounty.SelectedValue Is Nothing Then
                 MsgBox("Invalid County Selected." & vbCrLf & "No Data Saved", MsgBoxStyle.Information, Me.Name)
@@ -297,8 +296,6 @@ Public Class IAIPFacilityCreator
                     "Either use the Edit button or clear the AIRS # before Saving a new Facility.", MsgBoxStyle.Information, Me.Name)
                 Exit Sub
             End If
-            temp = mtbFacilityLatitude.Text
-            temp = mtbFacilityLongitude.Text
             If mtbFacilityLatitude.Text = "  ." Then
                 MsgBox("The Latitude field needs to be addressed." &
                  "No Data saved.", MsgBoxStyle.Information, Me.Name)

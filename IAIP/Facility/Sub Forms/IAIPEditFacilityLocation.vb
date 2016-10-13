@@ -110,7 +110,6 @@ Public Class IAIPEditFacilityLocation
             Exit Sub
         End If
 
-        Dim ErrorCheck As Boolean = False
         Dim FacilityName As String = ""
         Dim Street1 As String = ""
         Dim Street2 As String = ""

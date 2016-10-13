@@ -163,7 +163,7 @@ Namespace DAL
 
             Dim dialog As New SaveFileDialog()
             With dialog
-                .Filter = FileSaveFilters(doc.FileExtension.ToLower)
+                .Filter = GetFileSaveFilters(doc.FileExtension.ToLower)
                 .DefaultExt = doc.FileExtension.ToLower
                 .FileName = doc.FileName
                 .InitialDirectory = GetUserSetting(UserSetting.FileDownloadLocation)

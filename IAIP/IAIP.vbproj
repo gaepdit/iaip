@@ -1638,7 +1638,6 @@
     <Compile Include="_Code\MD5.vb" />
     <Compile Include="_Code\DocumentMessages.vb" />
     <Compile Include="_Code\OutlookEmail.vb" />
-    <Compile Include="_Code\SimpleCrypt.vb" />
     <Compile Include="_Code\StartupShutdown.vb">
       <SubType>Code</SubType>
     </Compile>

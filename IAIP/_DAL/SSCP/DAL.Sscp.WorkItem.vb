@@ -120,22 +120,22 @@ Namespace DAL.Sscp
 
 #Region " Inspections "
 
-        ''' <summary>
-        ''' Returns the GEOS ID for an inspection if one exists; otherwise, returns an empty string
-        ''' </summary>
-        ''' <param name="id">The IAIP tracking number for the inspection</param>
-        ''' <returns>GEOS Inspection ID</returns>
-        Public Function GetGeosInspectionId(id As String) As String
-            If id = "" OrElse Not Integer.TryParse(id, Nothing) Then Return ""
+        '''' <summary>
+        '''' Returns the GEOS ID for an inspection if one exists; otherwise, returns an empty string
+        '''' </summary>
+        '''' <param name="id">The IAIP tracking number for the inspection</param>
+        '''' <returns>GEOS Inspection ID</returns>
+        'Public Function GetGeosInspectionId(id As String) As String
+        '    If id = "" OrElse Not Integer.TryParse(id, Nothing) Then Return ""
 
-            Dim query As String = "SELECT INSPECTION_ID " &
-            "  FROM GEOS_INSPECTIONS_XREF " &
-            "  WHERE STRTRACKINGNUMBER = @id "
-            Dim parameter As New SqlParameter("@id", id)
+        '    Dim query As String = "SELECT INSPECTION_ID " &
+        '    "  FROM GEOS_INSPECTIONS_XREF " &
+        '    "  WHERE STRTRACKINGNUMBER = @id "
+        '    Dim parameter As New SqlParameter("@id", id)
 
-            Dim result As String = DB.GetSingleValue(Of String)(query, parameter)
-            Return result
-        End Function
+        '    Dim result As String = DB.GetSingleValue(Of String)(query, parameter)
+        '    Return result
+        'End Function
 
         ''' <summary>
         ''' Returns a DataTable of a SSCP inspections for a given facility.

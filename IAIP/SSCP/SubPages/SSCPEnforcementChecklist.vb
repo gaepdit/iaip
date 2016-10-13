@@ -51,9 +51,6 @@ Public Class SSCPEnforcementChecklist
 
         Dim eventTypes As New List(Of String)
 
-        Dim SQLLine As String = ""
-        Dim SQLCount As Integer = 0
-
         If chbACCs.Checked Or chbInspections.Checked Or chbPerformanceTests.Checked Or chbReports.Checked Then
             If chbACCs.Checked Then
                 eventTypes.Add("'04'")
