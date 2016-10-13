@@ -12,6 +12,8 @@ Public Class SBEAPReports
     Dim daCombo As SqlDataAdapter
     Dim dsAction As DataSet
     Dim daAction As SqlDataAdapter
+    Dim dr As SqlDataReader
+    Dim cmd As SqlCommand
 
     Private Sub SBEAPReports_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 

@@ -4,6 +4,11 @@ Public Class IAIPLookUpTables
     Dim SQL As String
     Dim ds As DataSet
     Dim da As SqlDataAdapter
+    Dim recExist As Boolean
+    Dim dr As SqlDataReader
+    Dim dr2 As SqlDataReader
+    Dim cmd As SqlCommand
+    Dim cmd2 As SqlCommand
 
 #Region "ApplicationTypes"
 
@@ -170,6 +175,7 @@ Public Class IAIPLookUpTables
     End Sub
     Private Sub btnDeleteAppType_Click(sender As Object, e As EventArgs) Handles btnDeleteAppType.Click
         Try
+            Dim temp As String
             If txtApplicationID.Text <> "" Then
                 SQL = "Select Count(*) as IDUsed " &
                 "from SSPPApplicationMaster " &

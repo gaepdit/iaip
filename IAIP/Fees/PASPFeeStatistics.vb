@@ -918,6 +918,7 @@ Public Class PASPFeeStatistics
 
     Private Sub LoadSelectedFeeData()
         Try
+            Dim temp As String
             Dim SQL2 As String = ""
 
             Dim SQL As String = "SELECT fa.STRAIRSNUMBER, fa.NUMFEEYEAR, fa.INTSUBMITTAL, fa.DATSUBMITTAL, fa.STRCOMMENT, st.STRIAIPDESC " &
@@ -1817,6 +1818,7 @@ Public Class PASPFeeStatistics
 
     Private Sub btnRemovePaidFacilities_Click(sender As Object, e As EventArgs) Handles btnRemovePaidFacilities.Click
         Try
+            Dim temp As String
             Dim AIRSNumber As String = ""
             Dim i As Integer
             temp = dgvLateFeeReport.ColumnCount.ToString
@@ -6199,8 +6201,8 @@ Public Class PASPFeeStatistics
                 Dim dt As DataTable = DB.GetDataTable(query, parameters)
 
                 For Each row As DataRow In dt.Rows
-                    If Not IsDBNull(dr.Item("strAIRSNumber")) Then
-                        DAL.Update_FS_Admin_Status(cboFeeStatYear.Text, dr.Item("strAIRSNumber"))
+                    If Not IsDBNull(row.Item("strAIRSNumber")) Then
+                        DAL.Update_FS_Admin_Status(cboFeeStatYear.Text, row.Item("strAIRSNumber"))
                     End If
                 Next
 

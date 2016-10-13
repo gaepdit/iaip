@@ -9,6 +9,7 @@ Public Class SSPPApplicationTrackingLog
     Dim FormStatus As String
     Dim dtFacAppHistory As DataTable
     Dim dtFacInfoHistory As DataTable
+    Dim recExist As Boolean
 
     Private Sub SSPPPermitTrackingLog_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         
@@ -3256,6 +3257,7 @@ Public Class SSPPApplicationTrackingLog
     End Sub
     Sub LoadContactData()
         Try
+            Dim temp As String
             If DAL.Sspp.ApplicationExists(txtApplicationNumber.Text) Then
                 Dim query As String = "Select " &
                 "strContactFirstName, " &
@@ -10874,6 +10876,7 @@ Public Class SSPPApplicationTrackingLog
     End Sub
     Private Sub llbPermitNumber_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbPermitNumber.LinkClicked
         Try
+            Dim temp As String = ""
             Dim URL As String = ""
             Dim PDFFile As String = ""
 
@@ -10942,6 +10945,7 @@ Public Class SSPPApplicationTrackingLog
     End Sub
     Private Sub btnGetCurrentPermittingContact_Click(sender As Object, e As EventArgs) Handles btnGetCurrentPermittingContact.Click
         Try
+            Dim temp As String
 
             Dim query As String = "Select " &
              "strContactFirstName, " &
@@ -11156,6 +11160,7 @@ Public Class SSPPApplicationTrackingLog
 #Region "SIP Subpart"
     Sub LoadSSPPSIPSubPartInformation()
         Try
+            Dim temp As String
             Dim dgvRow As New DataGridViewRow
             Dim AppNum As String = ""
             Dim SubPart As String = ""
@@ -11520,6 +11525,7 @@ Public Class SSPPApplicationTrackingLog
     End Sub
     Private Sub btnSIPDelete_Click(sender As Object, e As EventArgs) Handles btnSIPDelete.Click
         Try
+            Dim temp As String
             Dim dgvRow As New DataGridViewRow
             Dim i As Integer = 0
             Dim temp2 As String = ""
@@ -11711,6 +11717,7 @@ Public Class SSPPApplicationTrackingLog
     End Sub
     Private Sub btnAddNewSIPSubpart_Click(sender As Object, e As EventArgs) Handles btnAddNewSIPSubpart.Click
         Try
+            Dim temp As String
             Dim Subpart As String = ""
             Dim Desc As String = ""
             Dim dgvRow As New DataGridViewRow
@@ -11813,6 +11820,7 @@ Public Class SSPPApplicationTrackingLog
     End Sub
     Private Sub btnSIPEdit_Click(sender As Object, e As EventArgs) Handles btnSIPEdit.Click
         Try
+            Dim temp As String
             Dim dgvRow As New DataGridViewRow
             Dim i As Integer = 0
             Dim temp2 As String = ""
@@ -12000,6 +12008,7 @@ Public Class SSPPApplicationTrackingLog
     End Sub
     Private Sub btnClearAddModifiedSIPs_Click(sender As Object, e As EventArgs) Handles btnClearAddModifiedSIPs.Click
         Try
+            Dim temp As String
             Dim temp2 As String = ""
             Dim Subpart As String = ""
             Dim Action As String = ""
@@ -12084,6 +12093,7 @@ Public Class SSPPApplicationTrackingLog
 #Region "NSPS Subpart"
     Sub LoadSSPPNSPSSubPartInformation()
         Try
+            Dim temp As String
             Dim dgvRow As New DataGridViewRow
             Dim AppNum As String = ""
             Dim SubPart As String = ""
@@ -12454,6 +12464,7 @@ Public Class SSPPApplicationTrackingLog
     End Sub
     Private Sub btnNSPSDelete_Click(sender As Object, e As EventArgs) Handles btnNSPSDelete.Click
         Try
+            Dim temp As String
             Dim dgvRow As New DataGridViewRow
             Dim i As Integer = 0
             Dim temp2 As String = ""
@@ -12645,6 +12656,7 @@ Public Class SSPPApplicationTrackingLog
     End Sub
     Private Sub btnAddNewNSPSSubpart_Click(sender As Object, e As EventArgs) Handles btnAddNewNSPSSubpart.Click
         Try
+            Dim temp As String
             Dim Subpart As String = ""
             Dim Desc As String = ""
             Dim dgvRow As New DataGridViewRow
@@ -12747,6 +12759,7 @@ Public Class SSPPApplicationTrackingLog
     End Sub
     Private Sub btnNSPSEdit_Click(sender As Object, e As EventArgs) Handles btnNSPSEdit.Click
         Try
+            Dim temp As String
             Dim dgvRow As New DataGridViewRow
             Dim i As Integer = 0
             Dim temp2 As String = ""
@@ -12930,6 +12943,7 @@ Public Class SSPPApplicationTrackingLog
     End Sub
     Private Sub btnClearAddModifiedNSPSs_Click(sender As Object, e As EventArgs) Handles btnClearAddModifiedNSPSs.Click
         Try
+            Dim temp As String
             Dim i As Integer = 0
             Dim temp2 As String = ""
             Dim Subpart As String = ""
@@ -13317,6 +13331,7 @@ Public Class SSPPApplicationTrackingLog
 #Region "NESHAP Subpart"
     Sub LoadSSPPNESHAPSubPartInformation()
         Try
+            Dim temp As String
             Dim dgvRow As New DataGridViewRow
             Dim AppNum As String = ""
             Dim SubPart As String = ""
@@ -13686,6 +13701,7 @@ Public Class SSPPApplicationTrackingLog
     End Sub
     Private Sub btnNESHAPDelete_Click(sender As Object, e As EventArgs) Handles btnNESHAPDelete.Click
         Try
+            Dim temp As String
             Dim dgvRow As New DataGridViewRow
             Dim i As Integer = 0
             Dim temp2 As String = ""
@@ -13879,6 +13895,7 @@ Public Class SSPPApplicationTrackingLog
     End Sub
     Private Sub btnAddNewNESHAPSubpart_Click(sender As Object, e As EventArgs) Handles btnAddNewNESHAPSubpart.Click
         Try
+            Dim temp As String
             Dim Subpart As String = ""
             Dim Desc As String = ""
             Dim dgvRow As New DataGridViewRow
@@ -13982,6 +13999,7 @@ Public Class SSPPApplicationTrackingLog
     End Sub
     Private Sub btnNESHAPEdit_Click(sender As Object, e As EventArgs) Handles btnNESHAPEdit.Click
         Try
+            Dim temp As String
             Dim dgvRow As New DataGridViewRow
             Dim i As Integer = 0
             Dim temp2 As String = ""
@@ -14166,6 +14184,7 @@ Public Class SSPPApplicationTrackingLog
     End Sub
     Private Sub btnClearAddModifiedNESHAPs_Click(sender As Object, e As EventArgs) Handles btnClearAddModifiedNESHAPs.Click
         Try
+            Dim temp As String
             Dim i As Integer = 0
             Dim temp2 As String = ""
             Dim Subpart As String = ""
@@ -14250,6 +14269,7 @@ Public Class SSPPApplicationTrackingLog
 #Region "MACT Subpart"
     Sub LoadSSPPMACTSubPartInformation()
         Try
+            Dim temp As String
             Dim dgvRow As New DataGridViewRow
             Dim AppNum As String = ""
             Dim SubPart As String = ""
@@ -14619,6 +14639,7 @@ Public Class SSPPApplicationTrackingLog
     End Sub
     Private Sub btnMACTDelete_Click(sender As Object, e As EventArgs) Handles btnMACTDelete.Click
         Try
+            Dim temp As String
             Dim dgvRow As New DataGridViewRow
             Dim i As Integer = 0
             Dim temp2 As String = ""
@@ -14812,6 +14833,7 @@ Public Class SSPPApplicationTrackingLog
     End Sub
     Private Sub btnAddNewMACTSubpart_Click(sender As Object, e As EventArgs) Handles btnAddNewMACTSubpart.Click
         Try
+            Dim temp As String
             Dim Subpart As String = ""
             Dim Desc As String = ""
             Dim dgvRow As New DataGridViewRow
@@ -14914,6 +14936,7 @@ Public Class SSPPApplicationTrackingLog
     End Sub
     Private Sub btnMACTEdit_Click(sender As Object, e As EventArgs) Handles btnMACTEdit.Click
         Try
+            Dim temp As String
             Dim dgvRow As New DataGridViewRow
             Dim i As Integer = 0
             Dim temp2 As String = ""
@@ -15098,6 +15121,7 @@ Public Class SSPPApplicationTrackingLog
     End Sub
     Private Sub btnClearAddModifiedMACTs_Click(sender As Object, e As EventArgs) Handles btnClearAddModifiedMACTs.Click
         Try
+            Dim temp As String
             Dim temp2 As String = ""
             Dim Subpart As String = ""
             Dim Action As String = ""
@@ -15179,6 +15203,7 @@ Public Class SSPPApplicationTrackingLog
 #End Region
     Private Sub chbCDS_0_CheckedChanged(sender As Object, e As EventArgs) Handles chbCDS_0.CheckedChanged
         Try
+            Dim temp As String
             Dim dgvRow As New DataGridViewRow
             Dim i As Integer = 0
             Dim j As Integer = 0
@@ -15263,6 +15288,7 @@ Public Class SSPPApplicationTrackingLog
     End Sub
     Private Sub chbCDS_8_CheckedChanged(sender As Object, e As EventArgs) Handles chbCDS_8.CheckedChanged
         Try
+            Dim temp As String
             Dim dgvRow As New DataGridViewRow
             Dim i As Integer = 0
             Dim j As Integer = 0
@@ -15348,6 +15374,7 @@ Public Class SSPPApplicationTrackingLog
     End Sub
     Private Sub chbCDS_9_CheckedChanged(sender As Object, e As EventArgs) Handles chbCDS_9.CheckedChanged
         Try
+            Dim temp As String
             Dim dgvRow As New DataGridViewRow
             Dim i As Integer = 0
             Dim j As Integer = 0
@@ -15435,6 +15462,7 @@ Public Class SSPPApplicationTrackingLog
     End Sub
     Private Sub chbCDS_M_CheckedChanged(sender As Object, e As EventArgs) Handles chbCDS_M.CheckedChanged
         Try
+            Dim temp As String
             Dim dgvRow As New DataGridViewRow
             Dim i As Integer = 0
             Dim j As Integer = 0

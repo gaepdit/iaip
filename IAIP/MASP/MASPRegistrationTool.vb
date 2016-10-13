@@ -7,6 +7,8 @@ Public Class MASPRegistrationTool
     Dim SQL As String
     Dim ds As DataSet
     Dim da As SqlDataAdapter
+    Dim dr As SqlDataReader
+    Dim cmd As SqlCommand
 
 #Region "Properties"
 
@@ -708,6 +710,7 @@ Public Class MASPRegistrationTool
 #Region "Registration Management"
     Private Sub dgvRegistrationManagement_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvRegistrationManagement.MouseUp
         Try
+            Dim temp As String
             Dim hti As DataGridView.HitTestInfo = dgvRegistrationManagement.HitTest(e.X, e.Y)
 
             If dgvRegistrationManagement.RowCount > 0 And hti.RowIndex <> -1 Then

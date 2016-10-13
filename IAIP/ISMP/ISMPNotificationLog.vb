@@ -354,6 +354,7 @@ Public Class ISMPNotificationLog
 #Region "Subs and Functions"
     Sub SaveNotification()
         Try
+            Dim temp As String
             If AccountFormAccess(66, 2) = "1" Or AccountFormAccess(66, 3) = "1" Then
                 Dim UserIDNum As String = ""
                 Dim TestPlan As String = ""

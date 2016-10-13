@@ -15,6 +15,9 @@ Public Class SSPPTitleVTools
     Dim airsno As String
     Dim Startdate As String
     Dim EndDate As String
+    Dim recExist As Boolean
+    Dim dr As SqlDataReader
+    Dim cmd As SqlCommand
 
     Private Sub DMUTitleVTools_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
@@ -3849,6 +3852,7 @@ Public Class SSPPTitleVTools
     End Sub
     Sub LoadContactData()
         Try
+            Dim temp As String
             SQL = "Select strApplicationNumber " &
             "From SSPPApplicationContact " &
             "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
@@ -3996,6 +4000,7 @@ Public Class SSPPTitleVTools
     End Sub
     Private Sub btnGetCurrentPermittingContact_Click(sender As Object, e As EventArgs) Handles btnGetCurrentPermittingContact.Click
         Try
+            Dim temp As String
 
             SQL = "Select " &
             "strContactFirstName, " &
@@ -4273,6 +4278,7 @@ Public Class SSPPTitleVTools
     End Sub
     Sub SaveComplianceContact()
         Try
+            Dim temp As String = ""
             Dim ContactFirstName As String = " "
             Dim ContactLastname As String = " "
             Dim ContactPrefix As String = " "

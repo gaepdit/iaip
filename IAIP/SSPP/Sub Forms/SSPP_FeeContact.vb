@@ -4,6 +4,7 @@ Public Class SSPP_FeeContact
     Dim SQL As String
     Dim cmd As SqlCommand
     Dim dr As SqlDataReader
+    Dim recExist As Boolean
 
     Private Sub SSPP_FeeContact_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 

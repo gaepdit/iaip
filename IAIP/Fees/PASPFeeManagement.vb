@@ -1015,6 +1015,7 @@ Public Class PASPFeeManagement
 
     Private Sub btnGenerateMailoutList_Click(sender As Object, e As EventArgs) Handles btnGenerateMailoutList.Click
         Try
+            Dim temp As String = ""
             Dim SQL As String
 
             If cboAvailableFeeYears.Text = "" OrElse Not IsNumeric(cboAvailableFeeYears.Text) Then

@@ -11,7 +11,7 @@ Public Class IAIPDistrictSourceTool
     Dim daDistrict As SqlDataAdapter
     Dim dsDistrictStaff As DataSet
     Dim daDistrictStaff As SqlDataAdapter
-
+    Dim dr2 As SqlDataReader
 
     Private Sub IAIPDistrictSourcesTool_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 

@@ -23,6 +23,11 @@ Public Class SmokeSchool
     Dim my2 As PassFailNoShow
     Public getIDoverRideFlag As String = "off"
     Public ErrorFlag As String = "no"
+    Dim recExist As Boolean
+    Dim dr As SqlDataReader
+    Dim dr2 As SqlDataReader
+    Dim cmd As SqlCommand
+    Dim cmd2 As SqlCommand
 
     Private Sub ISMPSmokeSchool_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 

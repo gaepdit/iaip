@@ -4,6 +4,8 @@ Public Class SBEAPPhoneLog
     Dim SQL, SQL2 As String
     Dim dsStaff As DataSet
     Dim daStaff As SqlDataAdapter
+    Dim dr As SqlDataReader
+    Dim cmd As SqlCommand
 
     Public WriteOnly Property ValueFromClientLookUp() As String
         Set(Value As String)

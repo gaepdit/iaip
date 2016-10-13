@@ -286,6 +286,7 @@ Public Class IAIPFacilityCreator
             Dim ContactPhoneNumber As String = ""
             Dim Comments As String = ""
             Dim RMPNumber As String = ""
+            Dim temp As String
 
             If IsDBNull(cboCounty.SelectedValue) Or cboCounty.SelectedValue Is Nothing Then
                 MsgBox("Invalid County Selected." & vbCrLf & "No Data Saved", MsgBoxStyle.Information, Me.Name)
@@ -741,6 +742,7 @@ Public Class IAIPFacilityCreator
     Private Sub btnPreLoadNewFacility_Click(sender As Object, e As EventArgs) Handles btnPreLoadNewFacility.Click
         Try
             Dim SQL As String
+            Dim temp As String
             If txtApplicationNumber.Text <> "App No." Then
                 SQL = "select " &
                 "strFacilityName, strFacilityStreet1, " &
@@ -1063,6 +1065,8 @@ Public Class IAIPFacilityCreator
 
     Private Sub btnViewFacility_Click(sender As Object, e As EventArgs) Handles btnViewFacility.Click
         Try
+            Dim temp As String
+
             If txtNewAIRSNumber.Text = "" Then
                 Exit Sub
             End If

@@ -8,6 +8,9 @@ Public Class SBEAPClientSummary
     Dim daContact As SqlDataAdapter
     Dim dsCaseLogGrid As DataSet
     Dim daCaseLogGrid As SqlDataAdapter
+    Dim recExist As Boolean
+    Dim dr As SqlDataReader
+    Dim cmd As SqlCommand
 
     Public WriteOnly Property ValueFromClientLookUp() As String
         Set(Value As String)

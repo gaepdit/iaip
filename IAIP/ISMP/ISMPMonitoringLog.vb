@@ -1311,6 +1311,7 @@ Public Class ISMPMonitoringLog
     End Sub
     Sub LoadCompliaceColor()
         Try
+            Dim temp As String
             For Each row As DataGridViewRow In dgvTestReportViewer.Rows
                 If Not row.IsNewRow Then
                     If Not row.Cells(20).Value Is DBNull.Value Then

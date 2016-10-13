@@ -12,6 +12,9 @@ Public Class SBEAPCaseWork
     Dim daActionLog As SqlDataAdapter
     Dim temp As String
     Dim i As Integer
+    Dim recExist As Boolean
+    Dim dr As SqlDataReader
+    Dim cmd As SqlCommand
 
     Public WriteOnly Property ValueFromClientLookUp() As String
         Set(Value As String)

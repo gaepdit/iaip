@@ -1,6 +1,6 @@
 Module AppVariables
 
-    ' App-wide public variables 
+    ' Global variables 
 
 #Region " DB Connections "
 
@@ -25,6 +25,7 @@ Module AppVariables
     Friend CurrentUser As IaipUser
     Friend AppFirstRun As Boolean = False
     Friend AppUpdated As Boolean = False
+    Friend AccountFormAccess(150, 4) As String
 
     Friend Const APP_NAME As String = "IAIP"
     Friend Const APP_FRIENDLY_NAME As String = "Integrated Air Information Platform"
@@ -46,8 +47,6 @@ Module AppVariables
     Friend Const DateParseExactFormat As String = "yyyy-MM-dd HH:mm tt"
     Friend Const DateFormat As String = "dd-MMM-yyyy"
     Friend Const DateStringFormat As String = "{0:dd-MMM-yyyy}"
-    'Friend Const DateTimeFormat As String = "dd-MMM-yyyy h:mm tt"
-    'Friend Const DateTimeStringFormat As String = "{0:dd-MMM-yyyy h:mm tt}"
     Friend Const DisplayZeroAsBlank As String = "0;; "
     Friend Const DisplayZeroAsNA As String = "0;;N/A"
 
@@ -59,7 +58,7 @@ Module AppVariables
 
 #End Region
 
-#Region " Regional constants "
+#Region " Geographic constants "
 
     Friend Const GA_STATE_CODE As String = "GA"
     Friend Const GA_STATE_NUMERIC_CODE As String = "13"
@@ -74,18 +73,6 @@ Module AppVariables
     Public Const MIN_FCE_SPAN_CLASS_A As Integer = 2 ' Years
     Public Const MIN_FCE_SPAN_CLASS_SM As Integer = 5 ' Years
     Public Const MIN_FCE_SPAN_CLASS_M As Integer = 7 ' Years
-
-#End Region
-
-#Region " Old public variables "
-    ' TODO: Destroy these
-
-    Public AccountFormAccess(150, 4) As String
-
-    Public cmd, cmd2 As SqlClient.SqlCommand
-    Public dr, dr2 As SqlClient.SqlDataReader
-    Public recExist As Boolean
-    Public temp As String
 
 #End Region
 
@@ -104,10 +91,6 @@ Module AppVariables
     Public ISMPConfidential As ISMPConfidentialData
     Public TestFirmComments As ISMPTestFirmComments
     Public StaffReports As ISMPStaffReports
-#End Region
-
-#Region " SSCP Screens "
-    Public SSCPFCE As SSCPFCEWork
 #End Region
 
 #Region " SSPP Screens "

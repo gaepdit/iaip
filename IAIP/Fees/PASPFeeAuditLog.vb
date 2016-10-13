@@ -1260,6 +1260,8 @@ Public Class PASPFeeAuditLog
         End If
 
         Try
+            Dim temp As String
+
             Dim SQL As String = "WITH cte AS " &
             "(SELECT * FROM FS_FEEAMENDMENT WHERE STRAIRSNUMBER = @airs AND NUMFEEYEAR = @year) " &
             "SELECT " &
@@ -4258,6 +4260,7 @@ Public Class PASPFeeAuditLog
             Dim AuditLevel As String = ""
             Dim NSPSExempt As String = ""
             Dim NSPSExemptions As String = ""
+            Dim temp As String
 
             If dgvAuditHistory.CurrentRow Is Nothing Then
                 Exit Sub
