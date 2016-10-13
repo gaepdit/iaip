@@ -6,27 +6,6 @@ Imports Iaip.DAL
 
 Public Class SSCPManagersTools
 
-#Region " TO DELETE "
-    Dim SQL, SQL2, SQL3 As String
-    Dim cmd, cmd2, cmd3 As SqlCommand
-    Dim dr, dr2, dr3 As SqlDataReader
-    Dim recExist As Boolean
-
-    Dim dsStaff As DataSet
-
-    Dim dsCMSDataSet As DataSet
-    Dim daCMSDataSet As SqlDataAdapter
-    Dim dsCMSWarningDataSet As DataSet
-    Dim daCMSWarningDataSet As SqlDataAdapter
-
-    Dim dsStatisticalReport As DataSet
-    Dim daStatisticalReport As SqlDataAdapter
-    Dim dsEnforcementPenalties As DataSet
-    Dim daEnforcementPenalties As SqlDataAdapter
-    Dim ds As DataSet
-    Dim da As SqlDataAdapter
-#End Region
-
 #Region "Page Load subs"
 
     Private Sub SSCPManagersTools_Load(sender As Object, e As EventArgs) Handles Me.Load
@@ -790,6 +769,8 @@ Public Class SSCPManagersTools
             dgvStatisticalReports.Columns("Username").HeaderText = "Staff Responsible"
             dgvStatisticalReports.Columns("Username").DisplayIndex = 2
 
+            dgvStatisticalReports.SanelyResizeColumns
+
             txtStatisticalCount.Text = dgvStatisticalReports.RowCount.ToString
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -857,6 +838,8 @@ Public Class SSCPManagersTools
             dgvStatisticalReports.Columns("Username").DisplayIndex = 2
             dgvStatisticalReports.Columns("strTrackingNumber").HeaderText = "ACC Tracking #"
             dgvStatisticalReports.Columns("strTrackingNumber").DisplayIndex = 3
+
+            dgvStatisticalReports.SanelyResizeColumns
 
             txtStatisticalCount.Text = dgvStatisticalReports.RowCount.ToString
         Catch ex As Exception
@@ -927,6 +910,8 @@ Public Class SSCPManagersTools
             dgvStatisticalReports.Columns("Username").DisplayIndex = 2
             dgvStatisticalReports.Columns("strTrackingNumber").HeaderText = "ACC Tracking #"
             dgvStatisticalReports.Columns("strTrackingNumber").DisplayIndex = 3
+
+            dgvStatisticalReports.SanelyResizeColumns
 
             txtStatisticalCount.Text = dgvStatisticalReports.RowCount.ToString
 
@@ -999,6 +984,8 @@ Public Class SSCPManagersTools
             dgvStatisticalReports.Columns("strTrackingNumber").HeaderText = "ACC Tracking #"
             dgvStatisticalReports.Columns("strTrackingNumber").DisplayIndex = 3
 
+            dgvStatisticalReports.SanelyResizeColumns
+
             txtStatisticalCount.Text = dgvStatisticalReports.RowCount.ToString
 
         Catch ex As Exception
@@ -1070,6 +1057,8 @@ Public Class SSCPManagersTools
             dgvStatisticalReports.Columns("Username").DisplayIndex = 2
             dgvStatisticalReports.Columns("strTrackingNumber").HeaderText = "ACC Tracking #"
             dgvStatisticalReports.Columns("strTrackingNumber").DisplayIndex = 3
+
+            dgvStatisticalReports.SanelyResizeColumns
 
             txtStatisticalCount.Text = dgvStatisticalReports.RowCount.ToString
 
@@ -1145,6 +1134,8 @@ Public Class SSCPManagersTools
             dgvStatisticalReports.Columns("strTrackingNumber").HeaderText = "ACC Tracking #"
             dgvStatisticalReports.Columns("strTrackingNumber").DisplayIndex = 3
 
+            dgvStatisticalReports.SanelyResizeColumns
+
             txtStatisticalCount.Text = dgvStatisticalReports.RowCount.ToString
 
         Catch ex As Exception
@@ -1219,6 +1210,8 @@ Public Class SSCPManagersTools
             dgvStatisticalReports.Columns("strTrackingNumber").HeaderText = "ACC Tracking #"
             dgvStatisticalReports.Columns("strTrackingNumber").DisplayIndex = 3
 
+            dgvStatisticalReports.SanelyResizeColumns
+
             txtStatisticalCount.Text = dgvStatisticalReports.RowCount.ToString
 
         Catch ex As Exception
@@ -1290,6 +1283,8 @@ Public Class SSCPManagersTools
             dgvStatisticalReports.Columns("strTrackingNumber").HeaderText = "ACC Tracking #"
             dgvStatisticalReports.Columns("strTrackingNumber").DisplayIndex = 3
 
+            dgvStatisticalReports.SanelyResizeColumns
+
             txtStatisticalCount.Text = dgvStatisticalReports.RowCount.ToString
 
         Catch ex As Exception
@@ -1360,6 +1355,8 @@ Public Class SSCPManagersTools
             dgvStatisticalReports.Columns("Username").DisplayIndex = 2
             dgvStatisticalReports.Columns("strTrackingNumber").HeaderText = "ACC Tracking #"
             dgvStatisticalReports.Columns("strTrackingNumber").DisplayIndex = 3
+
+            dgvStatisticalReports.SanelyResizeColumns
 
             txtStatisticalCount.Text = dgvStatisticalReports.RowCount.ToString
 
@@ -1436,6 +1433,8 @@ Public Class SSCPManagersTools
             dgvStatisticalReports.Columns("strEnforcementNumber").HeaderText = "Enforcement #"
             dgvStatisticalReports.Columns("strEnforcementNumber").DisplayIndex = 4
 
+            dgvStatisticalReports.SanelyResizeColumns
+
             txtStatisticalCount.Text = dgvStatisticalReports.RowCount.ToString
 
         Catch ex As Exception
@@ -1508,6 +1507,8 @@ Public Class SSCPManagersTools
             dgvStatisticalReports.Columns("Username").DisplayIndex = 2
             dgvStatisticalReports.Columns("strTrackingNumber").HeaderText = "ACC Tracking #"
             dgvStatisticalReports.Columns("strTrackingNumber").DisplayIndex = 3
+
+            dgvStatisticalReports.SanelyResizeColumns
 
             txtStatisticalCount.Text = dgvStatisticalReports.RowCount.ToString
 
@@ -1582,6 +1583,8 @@ Public Class SSCPManagersTools
             dgvStatisticalReports.Columns("strTrackingNumber").HeaderText = "ACC Tracking #"
             dgvStatisticalReports.Columns("strTrackingNumber").DisplayIndex = 3
 
+            dgvStatisticalReports.SanelyResizeColumns
+
             txtStatisticalCount.Text = dgvStatisticalReports.RowCount.ToString
 
         Catch ex As Exception
@@ -1654,6 +1657,8 @@ Public Class SSCPManagersTools
             dgvStatisticalReports.Columns("Username").DisplayIndex = 2
             dgvStatisticalReports.Columns("strTrackingNumber").HeaderText = "ACC Tracking #"
             dgvStatisticalReports.Columns("strTrackingNumber").DisplayIndex = 3
+
+            dgvStatisticalReports.SanelyResizeColumns
 
             txtStatisticalCount.Text = dgvStatisticalReports.RowCount.ToString
 
@@ -2024,7 +2029,7 @@ Public Class SSCPManagersTools
             lblFilteredCount.Text = "Count: " & dgvFilteredFacilityList.Rows.Count.ToString
 
         Catch ex As Exception
-            ErrorReport(ex, SQL, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -2473,13 +2478,15 @@ Public Class SSCPManagersTools
 
     Private Sub btnSaveFCEReq_Click(sender As Object, e As EventArgs) Handles btnSaveFCEReq.Click
         Try
+            Dim SQL As String
+
             If dgvSelectedFacilityList.RowCount = 0 Then
                 MsgBox("There are no selected facilities." & vbCrLf & "NO Data Saved", MsgBoxStyle.Information, Me.Text)
                 Exit Sub
             End If
 
             For Each row As DataGridViewRow In dgvSelectedFacilityList.Rows
-                If DAL.Sscp.FacilityAssignmentYearExists(row.Cells(0).Value.ToString, CInt(cboFiscalYear.Text)) Then
+                If Sscp.FacilityAssignmentYearExists(row.Cells(0).Value.ToString, CInt(cboFiscalYear.Text)) Then
                     SQL = "Update SSCPInspectionsRequired set " &
                         "strFCERequired = @i, " &
                         "strAssigningManager = @mgr, " &
