@@ -1269,7 +1269,7 @@ Public Class SSPPStatisticalTools
             "and (strApplicationType = '14' or strApplicationType = '16'   " &
             "or strApplicationType = '27' or strApplicationType = '17') " &
             "and datFinalizedDate is NUll  " &
-            "and datReceivedDate > add_months(GETDATE(), -12)  " &
+            "and datReceivedDate > DATEADD(month, -12, GETDATE())  " &
                 EngineerLine
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -1290,8 +1290,8 @@ Public Class SSPPStatisticalTools
             "and (strApplicationType = '14' or strApplicationType = '16'   " &
             "or strApplicationType = '27' or strApplicationType = '17') " &
             "and datFinalizedDate is NUll  " &
-            "and datReceivedDate >= add_months(GETDATE(), -18) " &
-            "and datReceivedDate < add_months(GETDATE(), -12) " &
+            "and datReceivedDate >= DATEADD(month, -18, GETDATE()) " &
+            "and datReceivedDate < DATEADD(month, -12, GETDATE()) " &
                 EngineerLine
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -1312,7 +1312,7 @@ Public Class SSPPStatisticalTools
             "and (strApplicationType = '14' or strApplicationType = '16'   " &
             "or strApplicationType = '27' or strApplicationType = '17') " &
             "and datFinalizedDate is NUll  " &
-            "and datReceivedDate < add_months(GETDATE(), -18)" &
+            "and datReceivedDate < DATEADD(month, -18, GETDATE())" &
                 EngineerLine
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -1407,7 +1407,7 @@ Public Class SSPPStatisticalTools
             "and strApplicationType <> '16' and strApplicationType <> '14' " &
             "and strApplicationType <> '17' and strApplicationType <> '27' " &
             "and datFinalizedDate is NUll  " &
-            "and datReceivedDate >= add_months(GETDATE(), -3)  " &
+            "and datReceivedDate >= DATEADD(month, -3, GETDATE())  " &
                 EngineerLine
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -1428,8 +1428,8 @@ Public Class SSPPStatisticalTools
             "and strApplicationType <> '16' and strApplicationType <> '14' " &
             "and strApplicationType <> '17' and strApplicationType <> '27' " &
             "and datFinalizedDate is NUll  " &
-            "and datReceivedDate >= add_months(GETDATE(), -6) " &
-            "and datReceivedDate < add_months(GETDATE(), -3) " &
+            "and datReceivedDate >= DATEADD(month, -6, GETDATE()) " &
+            "and datReceivedDate < DATEADD(month, -3, GETDATE()) " &
                 EngineerLine
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -1450,8 +1450,8 @@ Public Class SSPPStatisticalTools
             "and strApplicationType <> '16' and strApplicationType <> '14' " &
             "and strApplicationType <> '17' and strApplicationType <> '27' " &
             "and datFinalizedDate is NUll  " &
-            "and datReceivedDate >= add_months(GETDATE(), -9) " &
-            "and datReceivedDate < add_months(GETDATE(), -6) " &
+            "and datReceivedDate >= DATEADD(month, -9, GETDATE()) " &
+            "and datReceivedDate < DATEADD(month, -6, GETDATE()) " &
                 EngineerLine
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -1472,8 +1472,8 @@ Public Class SSPPStatisticalTools
             "and strApplicationType <> '16' and strApplicationType <> '14' " &
             "and strApplicationType <> '17' and strApplicationType <> '27' " &
             "and datFinalizedDate is NUll  " &
-            "and datReceivedDate >= add_months(GETDATE(), -12) " &
-            "and datReceivedDate < add_months(GETDATE(), -9) " &
+            "and datReceivedDate >= DATEADD(month, -12, GETDATE()) " &
+            "and datReceivedDate < DATEADD(month, -9, GETDATE()) " &
                 EngineerLine
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -1494,7 +1494,7 @@ Public Class SSPPStatisticalTools
             "and strApplicationType <> '16' and strApplicationType <> '14' " &
             "and strApplicationType <> '17' and strApplicationType <> '27' " &
             "and datFinalizedDate is NUll  " &
-            "and datReceivedDate < add_months(GETDATE(), -12)" &
+            "and datReceivedDate < DATEADD(month, -12, GETDATE())" &
                 EngineerLine
 
             cmd = New SqlCommand(SQL, CurrentConnection)
@@ -1644,7 +1644,7 @@ Public Class SSPPStatisticalTools
             "AND strPermitType = '7'  " &
             "AND datPermitIssued > '" & StartDate & "' " &
             "AND datPermitIssued < '" & EndDate & "' " &
-            "and datReceivedDate > add_months(datPermitIssued, -18) "
+            "and datReceivedDate > DATEADD(month, -18, datPermitIssued) "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -1669,7 +1669,7 @@ Public Class SSPPStatisticalTools
             "AND SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber " &
             "AND strApplicationType = '14' " &
             "and datPermitIssued is Null " &
-            "and datReceivedDate < add_months('" & EndDate & "', -18) "
+            "and datReceivedDate < DATEADD(month, -18, '" & EndDate & "') "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -1700,15 +1700,15 @@ Public Class SSPPStatisticalTools
             "distinct(SSPPApplicationMaster.strAIRSnumber) as AIRSNumber " &
             "from SSPPApplicationMaster, SSPPApplicationTracking  " &
             "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
-            "and datReceiveddate < add_months('" & EndDate & "', -6)  " &
-            "and datReceivedDate > add_months('" & EndDate & "', -54)  " &
+            "and datReceiveddate < DATEADD(month, -6, '" & EndDate & "')  " &
+            "and datReceivedDate > DATEADD(month, -54, '" & EndDate & "')  " &
             "and strApplicationType <> '16'  " &
             "and strApplicationType <> '12') PermitRequests   " &
             "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationnumber " &
             "and APBHeaderData.strAIRSNumber = SSPPApplicationMaster.strAIRSNumber   " &
             "and SSPPApplicationMaster.strAIRSNumber = Effect.strAIRSnumber  " &
             "and MaxDate = SSPPApplicationTracking.datEffective " &
-            "and maxDate < add_months('" & EndDate & "', -54) " &
+            "and maxDate < DATEADD(month, -54, '" & EndDate & "') " &
             "and strOperationalStatus = 'O'  " &
             "and SUBSTRING(strAirProgramCodes, 13, 1) = '1'  " &
             "and SSPPApplicationMaster.strAIRSNumber = PermitRequests.AIRSNumber) "
@@ -1744,15 +1744,15 @@ Public Class SSPPStatisticalTools
             "distinct(SSPPApplicationMaster.strAIRSnumber) as AIRSNumber " &
             "from SSPPApplicationMaster, SSPPApplicationTracking  " &
             "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
-            "and datReceiveddate < add_months('" & EndDate & "', -6)  " &
-            "and datReceivedDate > add_months('" & EndDate & "', -54)  " &
+            "and datReceiveddate < DATEADD(month, -6, '" & EndDate & "')  " &
+            "and datReceivedDate > DATEADD(month, -54, '" & EndDate & "')  " &
             "and (strApplicationType = '16' or strApplicationType = '12')) PermitRequests   " &
             "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationnumber " &
             "and APBHeaderData.strAIRSNumber = SSPPApplicationMaster.strAIRSNumber   " &
             "and APBHeaderData.strAIRSNumber = APBFacilityInformation.strAIRSNumber  " &
             "and SSPPApplicationMaster.strAIRSNumber = Effect.strAIRSnumber  " &
             "and MaxDate = SSPPApplicationTracking.datEffective " &
-            "and maxDate < add_months('" & EndDate & "', -54) " &
+            "and maxDate < DATEADD(month, -54, '" & EndDate & "') " &
             "and strOperationalStatus = 'O'  " &
             "and SUBSTRING(strAirProgramCodes, 13, 1) = '1'  " &
             "and SSPPApplicationMaster.strAIRSNumber = PermitRequests.AIRSNumber)  "
@@ -1784,15 +1784,15 @@ Public Class SSPPStatisticalTools
 "(Select  distinct(SSPPApplicationMaster.strAIRSnumber) as AIRSNumber  " &
 "from SSPPApplicationMaster, SSPPApplicationTracking   " &
 "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
-"and datReceiveddate < add_months('" & EndDate & "', -6)   " &
-"and datReceivedDate > add_months('" & EndDate & "', -54)   " &
+"and datReceiveddate < DATEADD(month, -6, '" & EndDate & "')   " &
+"and datReceivedDate > DATEADD(month, -54, '" & EndDate & "')   " &
 "and strApplicationType <> '16'   " &
 "and strApplicationType <> '12') PermitRequests    " &
 "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationnumber  " &
 "and APBHeaderData.strAIRSNumber = SSPPApplicationMaster.strAIRSNumber    " &
 "and SSPPApplicationMaster.strAIRSNumber = Effect.strAIRSnumber   " &
 "and MaxDate = SSPPApplicationTracking.datEffective  " &
-"and maxDate < add_months('" & EndDate & "', -54) " &
+"and maxDate < DATEADD(month, -54, '" & EndDate & "') " &
 "and strOperationalStatus = 'O'   " &
 "and SUBSTRING(strAirProgramCodes, 13, 1) = '1'  " &
 "and SSPPApplicationMaster.strAIRSNumber = PermitRequests.AIRSNumber))  EPA6A " &
@@ -1807,14 +1807,14 @@ Public Class SSPPStatisticalTools
 "(Select  distinct(SSPPApplicationMaster.strAIRSnumber) as AIRSNumber from SSPPApplicationMaster,  " &
 "SSPPApplicationTracking   " &
 "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber   " &
-"and datReceiveddate < add_months('" & EndDate & "', -6)  and datReceivedDate > add_months('" & EndDate & "', -54)   " &
+"and datReceiveddate < DATEADD(month, -6, '" & EndDate & "')  and datReceivedDate > DATEADD(month, -54, '" & EndDate & "')   " &
 "and (strApplicationType = '16' or strApplicationType = '12')) PermitRequests    " &
 "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationnumber  " &
 "and APBHeaderData.strAIRSNumber = SSPPApplicationMaster.strAIRSNumber    " &
 "and APBHeaderData.strAIRSNumber = APBFacilityInformation.strAIRSNumber  " &
  "and SSPPApplicationMaster.strAIRSNumber = Effect.strAIRSnumber  " &
  "and MaxDate = SSPPApplicationTracking.datEffective  " &
-"and maxDate < add_months('" & EndDate & "', -54)  " &
+"and maxDate < DATEADD(month, -54, '" & EndDate & "')  " &
 "and strOperationalStatus = 'O'  and SUBSTRING(strAirProgramCodes, 13, 1) = '1'   " &
 "and SSPPApplicationMaster.strAIRSNumber = PermitRequests.AIRSNumber)  ) EPA6b where  EPA6A.airsnumber = EPA6b.airsNumber) "
 
@@ -1866,7 +1866,7 @@ Public Class SSPPStatisticalTools
             "AND strPermitType = '7'  " &
             "AND datPermitIssued > '" & StartDate & "' " &
             "AND datPermitIssued < '" & EndDate & "' " &
-            "and datReceivedDate > add_months(datPermitIssued, -18) "
+            "and datReceivedDate > DATEADD(month, -18, datPermitIssued) "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -1889,7 +1889,7 @@ Public Class SSPPStatisticalTools
             "AND strPermitType = '7'  " &
             "AND datPermitIssued > '" & StartDate & "' " &
             "AND datPermitIssued < '" & EndDate & "' " &
-            "and datReceivedDate > add_months(datPermitIssued, -9) "
+            "and datReceivedDate > DATEADD(month, -9, datPermitIssued) "
 
             cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -1915,7 +1915,7 @@ Public Class SSPPStatisticalTools
             "AND SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber " &
             "AND (strApplicationType = '22' or strApplicationType = '21')  " &
             "and datPermitIssued is Null " &
-            "and datReceivedDate < add_months('" & EndDate & "', -18)"
+            "and datReceivedDate < DATEADD(month, -18, '" & EndDate & "')"
 
             cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
@@ -4442,7 +4442,7 @@ Public Class SSPPStatisticalTools
                 "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode (+) " &
                 "and datFinalizedDate is Null " &
                 "and (strApplicationType = '14' or strApplicationType = '16') " &
-                "and datReceivedDate > add_months(GETDATE(), -12)  " &
+                "and datReceivedDate > DATEADD(month, -12, GETDATE())  " &
                 EngineerLine
 
 
@@ -4562,8 +4562,8 @@ Public Class SSPPStatisticalTools
                 "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode (+) " &
                 "and datFinalizedDate is Null " &
                 "and (strApplicationType = '14' or strApplicationType = '16') " &
-                "and datReceivedDate >= add_months(GETDATE(), -18) " &
-                "and datReceivedDate < add_months(GETDATE(), -12) " &
+                "and datReceivedDate >= DATEADD(month, -18, GETDATE()) " &
+                "and datReceivedDate < DATEADD(month, -12, GETDATE()) " &
                 EngineerLine
 
                 dsViewCount = New DataSet
@@ -4682,7 +4682,7 @@ Public Class SSPPStatisticalTools
                 "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode (+) " &
                 "and datFinalizedDate is Null " &
                 "and (strApplicationType = '14' or strApplicationType = '16') " &
-                "and datReceivedDate < add_months(GETDATE(), -18)" &
+                "and datReceivedDate < DATEADD(month, -18, GETDATE())" &
                 EngineerLine
 
                 dsViewCount = New DataSet
@@ -4934,7 +4934,7 @@ Public Class SSPPStatisticalTools
                 "and datFinalizedDate is Null " &
                 "and strApplicationType <> '16' and strApplicationType <> '14' " &
                 "and strApplicationType <> '17' and strApplicationType <> '27' " &
-                "and datReceivedDate >= add_months(GETDATE(), -3)  " &
+                "and datReceivedDate >= DATEADD(month, -3, GETDATE())  " &
                 EngineerLine
 
                 dsViewCount = New DataSet
@@ -5054,8 +5054,8 @@ Public Class SSPPStatisticalTools
                 "and datFinalizedDate is Null " &
                 "and strApplicationType <> '16' and strApplicationType <> '14' " &
                 "and strApplicationType <> '17' and strApplicationType <> '27' " &
-                "and datReceivedDate >= add_months(GETDATE(), -6) " &
-                "and datReceivedDate < add_months(GETDATE(), -3) " &
+                "and datReceivedDate >= DATEADD(month, -6, GETDATE()) " &
+                "and datReceivedDate < DATEADD(month, -3, GETDATE()) " &
                 EngineerLine
 
                 dsViewCount = New DataSet
@@ -5175,8 +5175,8 @@ Public Class SSPPStatisticalTools
                 "and datFinalizedDate is Null " &
                 "and strApplicationType <> '16' and strApplicationType <> '14' " &
                 "and strApplicationType <> '17' and strApplicationType <> '27' " &
-                "and datReceivedDate >= add_months(GETDATE(), -9) " &
-                "and datReceivedDate < add_months(GETDATE(), -6) " &
+                "and datReceivedDate >= DATEADD(month, -9, GETDATE()) " &
+                "and datReceivedDate < DATEADD(month, -6, GETDATE()) " &
                 EngineerLine
 
                 dsViewCount = New DataSet
@@ -5296,8 +5296,8 @@ Public Class SSPPStatisticalTools
                 "and datFinalizedDate is Null " &
                 "and strApplicationType <> '16' and strApplicationType <> '14' " &
                 "and strApplicationType <> '17' and strApplicationType <> '27' " &
-                "and datReceivedDate >= add_months(GETDATE(), -12) " &
-                "and datReceivedDate < add_months(GETDATE(), -9) " &
+                "and datReceivedDate >= DATEADD(month, -12, GETDATE()) " &
+                "and datReceivedDate < DATEADD(month, -9, GETDATE()) " &
                 EngineerLine
 
                 dsViewCount = New DataSet
@@ -5417,7 +5417,7 @@ Public Class SSPPStatisticalTools
                 "and datFinalizedDate is Null " &
                 "and strApplicationType <> '16' and strApplicationType <> '14' " &
                 "and strApplicationType <> '17' and strApplicationType <> '27' " &
-                "and datReceivedDate < add_months(GETDATE(), -12)" &
+                "and datReceivedDate < DATEADD(month, -12, GETDATE())" &
                 EngineerLine
 
                 dsViewCount = New DataSet
@@ -5829,7 +5829,7 @@ Public Class SSPPStatisticalTools
                 "AND strPermitType = '7'  " &
                 "AND datPermitIssued > '" & StartDate & "' " &
                 "AND datPermitIssued < '" & EndDate & "' " &
-                "and datReceivedDate > add_months(datPermitIssued, -18) "
+                "and datReceivedDate > DATEADD(month, -18, datPermitIssued) "
 
                 dsViewCount = New DataSet
                 daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
@@ -5916,7 +5916,7 @@ Public Class SSPPStatisticalTools
                 "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode (+) " &
                 "AND strApplicationType = '14' " &
                 "and datPermitIssued is Null " &
-                "and datReceivedDate < add_months('" & EndDate & "', -18) "
+                "and datReceivedDate < DATEADD(month, -18, '" & EndDate & "') "
 
                 dsViewCount = New DataSet
                 daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
@@ -5993,8 +5993,8 @@ Public Class SSPPStatisticalTools
                 "distinct(SSPPApplicationMaster.strAIRSnumber) as AIRSNumber " &
                 "from SSPPApplicationMaster, SSPPApplicationTracking  " &
                 "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
-                "and datReceiveddate < add_months('" & EndDate & "', -6)  " &
-                "and datReceivedDate > add_months('" & EndDate & "', -54)  " &
+                "and datReceiveddate < DATEADD(month, -6, '" & EndDate & "')  " &
+                "and datReceivedDate > DATEADD(month, -54, '" & EndDate & "')  " &
                 "and strApplicationType <> '16'  " &
                 "and strApplicationType <> '12') PermitRequests   " &
                 "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationnumber " &
@@ -6002,7 +6002,7 @@ Public Class SSPPStatisticalTools
                 "and APBHeaderData.strAIRSNumber = APBFacilityInformation.strAIRSNumber  " &
                 "and SSPPApplicationMaster.strAIRSNumber = Effect.strAIRSnumber  " &
                 "and MaxDate = SSPPApplicationTracking.datEffective " &
-                "and maxDate < add_months('" & EndDate & "', -54) " &
+                "and maxDate < DATEADD(month, -54, '" & EndDate & "') " &
                 "and strOperationalStatus = 'O'  " &
                 "and SUBSTRING(strAirProgramCodes, 13, 1) = '1'  " &
                 "and SSPPApplicationMaster.strAIRSNumber = PermitRequests.AIRSNumber "
@@ -6078,15 +6078,15 @@ Public Class SSPPStatisticalTools
             "distinct(SSPPApplicationMaster.strAIRSnumber) as AIRSNumber " &
             "from SSPPApplicationMaster, SSPPApplicationTracking  " &
             "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
-            "and datReceiveddate < add_months('" & EndDate & "', -6)  " &
-            "and datReceivedDate > add_months('" & EndDate & "', -54)  " &
+            "and datReceiveddate < DATEADD(month, -6, '" & EndDate & "')  " &
+            "and datReceivedDate > DATEADD(month, -54, '" & EndDate & "')  " &
             "and (strApplicationType = '16' or strApplicationType = '12')) PermitRequests   " &
             "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationnumber " &
             "and APBHeaderData.strAIRSNumber = SSPPApplicationMaster.strAIRSNumber   " &
             "and APBHeaderData.strAIRSNumber = APBFacilityInformation.strAIRSNumber  " &
             "and SSPPApplicationMaster.strAIRSNumber = Effect.strAIRSnumber  " &
             "and MaxDate = SSPPApplicationTracking.datEffective " &
-            "and maxDate < add_months('" & EndDate & "', -54) " &
+            "and maxDate < DATEADD(month, , '" & EndDate & "') " &
             "and strOperationalStatus = 'O'  " &
             "and SUBSTRING(strAirProgramCodes, 13, 1) = '1'  " &
             "and SSPPApplicationMaster.strAIRSNumber = PermitRequests.AIRSNumber  " &
@@ -6163,8 +6163,8 @@ Public Class SSPPStatisticalTools
                 "(Select  distinct(SSPPApplicationMaster.strAIRSnumber) as AIRSNumber  " &
                 "from SSPPApplicationMaster, SSPPApplicationTracking   " &
                 "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
-                "and datReceiveddate < add_months('" & EndDate & "', -6)   " &
-                "and datReceivedDate > add_months('" & EndDate & "', -54)   " &
+                "and datReceiveddate < DATEADD(month, -6, '" & EndDate & "')   " &
+                "and datReceivedDate > DATEADD(month, -54, '" & EndDate & "')   " &
                 "and strApplicationType <> '16'   " &
                 "and strApplicationType <> '12') PermitRequests    " &
                 "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationnumber  " &
@@ -6172,7 +6172,7 @@ Public Class SSPPStatisticalTools
                 "and APBHeaderData.strAIRSNumber = SSPPApplicationMaster.strAIRSNumber    " &
                 "and SSPPApplicationMaster.strAIRSNumber = Effect.strAIRSnumber   " &
                 "and MaxDate = SSPPApplicationTracking.datEffective  " &
-                "and maxDate < add_months('" & EndDate & "', -54) " &
+                "and maxDate < DATEADD(month, -54, '" & EndDate & "') " &
                 "and strOperationalStatus = 'O'   " &
                 "and SUBSTRING(strAirProgramCodes, 13, 1) = '1'  " &
                 "and SSPPApplicationMaster.strAIRSNumber = PermitRequests.AIRSNumber))  EPA6A " &
@@ -6187,14 +6187,14 @@ Public Class SSPPStatisticalTools
                 "(Select  distinct(SSPPApplicationMaster.strAIRSnumber) as AIRSNumber from SSPPApplicationMaster,  " &
                 "SSPPApplicationTracking   " &
                 "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber   " &
-                "and datReceiveddate < add_months('" & EndDate & "', -6)  and datReceivedDate > add_months('" & EndDate & "', -54)   " &
+                "and datReceiveddate < DATEADD(month, -6, '" & EndDate & "' )  and datReceivedDate > DATEADD(month, -54, '" & EndDate & "')   " &
                 "and (strApplicationType = '16' or strApplicationType = '12')) PermitRequests    " &
                 "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationnumber  " &
                 "and APBHeaderData.strAIRSNumber = SSPPApplicationMaster.strAIRSNumber    " &
                 "and APBHeaderData.strAIRSNumber = APBFacilityInformation.strAIRSNumber  " &
                 "and SSPPApplicationMaster.strAIRSNumber = Effect.strAIRSnumber  " &
                 "and MaxDate = SSPPApplicationTracking.datEffective  " &
-                "and maxDate < add_months('" & EndDate & "', -54)  " &
+                "and maxDate < DATEADD(month, -54, '" & EndDate & "')  " &
                 "and strOperationalStatus = 'O'  and SUBSTRING(strAirProgramCodes, 13, 1) = '1'   " &
                 "and SSPPApplicationMaster.strAIRSNumber = PermitRequests.AIRSNumber)  ) EPA6b where  EPA6A.airsnumber = EPA6b.airsNumber) "
 
@@ -6375,7 +6375,7 @@ Public Class SSPPStatisticalTools
                 "AND strPermitType = '7'  " &
                 "AND datPermitIssued > '" & StartDate & "' " &
                 "AND datPermitIssued < '" & EndDate & "' " &
-                "and datReceivedDate > add_months(datPermitIssued, -18) "
+                "and datReceivedDate > DATEADD(month, -18, datPermitIssued) "
 
                 dsViewCount = New DataSet
                 daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
@@ -6466,7 +6466,7 @@ Public Class SSPPStatisticalTools
                 "AND strPermitType = '7'  " &
                 "AND datPermitIssued > '" & StartDate & "' " &
                 "AND datPermitIssued < '" & EndDate & "' " &
-                "and datReceivedDate > add_months(datPermitIssued, -9) "
+                "and datReceivedDate > DATEADD(month, -9, datPermitIssued) "
 
                 dsViewCount = New DataSet
                 daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
@@ -6552,7 +6552,7 @@ Public Class SSPPStatisticalTools
                 "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode (+) " &
                 "AND (strApplicationType = '22' or strApplicationType = '21')  " &
                 "and datPermitIssued is Null " &
-                "and datReceivedDate < add_months('" & EndDate & "', -18) "
+                "and datReceivedDate < DATEADD(month, -18, '" & EndDate & "') "
 
                 dsViewCount = New DataSet
                 daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
