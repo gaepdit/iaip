@@ -49,12 +49,11 @@ Public Class SBEAPClientSummary
             "Distinct(LookUpCountyInformation.strCountyName) as CountyName, " &
             "LookUpCountyInformation.strCountyCode, " &
             "LookUpDistrictinformation.strDistrictCode, " &
-            "strDistrictName, strOfficeName  " &
+            "strDistrictName  " &
             "from LookUpCountyInformation, LookUpDistrictInformation, " &
-            "LookUpDistricts, LookUpDistrictOffice  " &
+            "LookUpDistricts  " &
             "where LookUpCountyInformation.strCountyCode = LookUpDistrictinformation.strDistrictCounty " &
             "and LookUpDistrictInformation.strDistrictCode = LookUpDistricts.strDistrictCode " &
-            "and LookUpDistrictInformation.strDistrictCode = LookUpDistrictOffice.strDistrictCode " &
             "order by CountyName "
 
             dsCounty = New DataSet
@@ -2094,7 +2093,7 @@ Public Class SBEAPClientSummary
                 dtDistrictInfo = dsCounty.Tables("CountyData")
                 drDistrict = dtDistrictInfo.Select("CountyName = '" & cboCounty.Text & "'")
                 For Each row In drDistrict
-                    txtDistrictInformation.Text = row("strDistrictName").ToString() & " District - " & row("strOfficeName").ToString()
+                    txtDistrictInformation.Text = row("strDistrictName")
                 Next
             End If
 

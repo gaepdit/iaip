@@ -157,7 +157,6 @@ Public Class SSPPApplicationLog
             cboFieldType1.Items.Add("Public Advisory")
             cboFieldType1.Items.Add("Reason APL Submitted")
             cboFieldType1.Items.Add("Regional District")
-            cboFieldType1.Items.Add("Regional Office")
             cboFieldType1.Items.Add("SIC Code")
             cboFieldType1.Items.Add("Subpart - 0-SIP")
             cboFieldType1.Items.Add("Subpart - 8-NESHAP (Part 61)")
@@ -215,7 +214,6 @@ Public Class SSPPApplicationLog
             cboFieldType2.Items.Add("Public Advisory")
             cboFieldType2.Items.Add("Reason APL Submitted")
             cboFieldType2.Items.Add("Regional District")
-            cboFieldType2.Items.Add("Regional Office")
             cboFieldType2.Items.Add("SIC Code")
             cboFieldType2.Items.Add("Subpart - 0-SIP")
             cboFieldType2.Items.Add("Subpart - 8-NESHAP (Part 61)")
@@ -271,7 +269,6 @@ Public Class SSPPApplicationLog
             cboSort1.Items.Add("Public Advisory")
             cboSort1.Items.Add("Reason APL Submitted")
             cboSort1.Items.Add("Regional District")
-            cboSort1.Items.Add("Regional Office")
             cboSort1.Items.Add("SIC Code")
             cboSort1.Items.Add("Subpart - 0-SIP")
             cboSort1.Items.Add("Subpart - 8-NESHAP (Part 61)")
@@ -327,7 +324,6 @@ Public Class SSPPApplicationLog
             cboSort2.Items.Add("Public Advisory")
             cboSort2.Items.Add("Reason APL Submitted")
             cboSort2.Items.Add("Regional District")
-            cboSort2.Items.Add("Regional Office")
             cboSort2.Items.Add("SIC Code")
             cboSort2.Items.Add("Subpart - 0-SIP")
             cboSort2.Items.Add("Subpart - 8-NESHAP (Part 61)")
@@ -961,10 +957,6 @@ Public Class SSPPApplicationLog
                 "   else strDistrictName  " &
                 "   end as strDistrictName,  " &
                 "   case  " &
-                "     when strOfficeName is Null then ''  " &
-                "   else strOfficeName  " &
-                "   End as strOfficeName,  " &
-                "   case  " &
                 "   	     when APBHeaderData.strAttainmentStatus is Null then ''  " &
                 "when SUBSTRING(APBHeaderData.strAttainmentstatus, 2, 1) = '0' then 'No'  " &
                 "when SUBSTRING(APBHeaderData.strAttainmentstatus, 2, 1) = '1' then '1-hr Ozone'  " &
@@ -1069,7 +1061,7 @@ Public Class SSPPApplicationLog
                 "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
                 "  SSPPApplicationData, LookUpApplicationTypes, LookUpPermitTypes, " &
                 "  LookUpCountyInformation, LookUPDistrictInformation, " &
-                "  LookUpDistricts, LookUpDistrictOffice, APBHeaderData, " &
+                "  LookUpDistricts, APBHeaderData, " &
                 "  EPDUSerProfiles, LookUpEPDUnits, " &
                 "SSPPSubpartData " &
                 "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber (+) " &
@@ -1080,7 +1072,6 @@ Public Class SSPPApplicationLog
                 "and SUBSTRING(SSPPApplicationMaster.strAIRSNumber, 5, 3) = LookUpCountyInformation.strCountyCode (+) " &
                 "and LookUpCountyInformation.strCountyCode = LookUpDistrictInformation.strDistrictCounty (+)  " &
                 "and LookUpDistrictInformation.strDistrictCode = LookUPDistricts.strDistrictCode (+)  " &
-                "and LookUPDistricts.strDistrictCode = LooKUPDistrictOffice.strDistrictCode (+)  " &
                 "and SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
                 "and SSPPApplicationMaster.APBUnit = LookUpEPDUnits.numUnitCode (+) " &
                 "and SSPPApplicationMaster.strApplicationNumber = SSPPSubpartData.strApplicationNumber (+) "
@@ -1160,7 +1151,7 @@ Public Class SSPPApplicationLog
                     "from SSPPApplicationMaster, SSPPApplicationTracking,   " &
                     "  SSPPApplicationData, LookUpApplicationTypes, LookUpPermitTypes,  " &
                     "  LookUpCountyInformation, LookUPDistrictInformation,  " &
-                    "  LookUpDistricts, LookUpDistrictOffice, APBHeaderData,  " &
+                    "  LookUpDistricts, APBHeaderData,  " &
                     "  EPDUSerProfiles, LookUpEPDUnits,  " &
                     " SSPPSubpartData " &
                     "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber (+) " &
@@ -1171,7 +1162,6 @@ Public Class SSPPApplicationLog
                     "and SUBSTRING(SSPPApplicationMaster.strAIRSNumber, 5, 3) = LookUpCountyInformation.strCountyCode (+)  " &
                     "and LookUpCountyInformation.strCountyCode = LookUpDistrictInformation.strDistrictCounty (+)   " &
                     "and LookUpDistrictInformation.strDistrictCode = LookUPDistricts.strDistrictCode (+)   " &
-                    "and LookUPDistricts.strDistrictCode = LooKUPDistrictOffice.strDistrictCode (+)   " &
                     "and SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID  " &
                     "and SSPPApplicationMaster.APBUnit = LookUpEPDUnits.numUnitCode (+) " &
                     "and SSPPApplicationMaster.strApplicationNumber = SSPPSubpartData.strApplicationNumber (+) "
@@ -1396,8 +1386,6 @@ Public Class SSPPApplicationLog
                     SQLSearch1 = " Upper(strApplicationNotes) like Upper('%" & Replace(SearchText1, "'", "''") & "%') "
                 Case "Regional District"
                     SQLSearch1 = " Upper(strDistrictName) like Upper('%" & Replace(SearchText1b, "'", "''") & "%') "
-                Case "Regional Office"
-                    SQLSearch1 = " Upper(strOfficeName) like Upper('%" & Replace(SearchText1b, "'", "''") & "%') "
                 Case "Status Date"
                     SQLSearch1 = " StatusDate between '" & SearchDate1 & "' and '" & SearchDate1b & "' "
                 Case "SIC Code"
@@ -1629,8 +1617,6 @@ Public Class SSPPApplicationLog
                     SQLSearch2 = " Upper(strApplicationNotes) like Upper('%" & Replace(SearchText2, "'", "''") & "%') "
                 Case "Regional District"
                     SQLSearch2 = " Upper(strDistrictName) like Upper('%" & Replace(SearchText2b, "'", "''") & "%') "
-                Case "Regional Office"
-                    SQLSearch2 = " Upper(strOfficeName) like Upper('%" & Replace(SearchText2b, "'", "''") & "%') "
                 Case "SIC Code"
                     SQLSearch2 = " SSPPApplicationData.strSICCode like '%" & Replace(SearchText2, "'", "''") & "%' "
                 Case "Status Date"
@@ -1795,8 +1781,6 @@ Public Class SSPPApplicationLog
                     SQLOrder = SQLOrder & " strApplicationNotes " & temp
                 Case "Regional District"
                     SQLOrder = SQLOrder & " strDistrictName " & temp
-                Case "Regional Office"
-                    SQLOrder = SQLOrder & " strOfficeName " & temp
                 Case "SIC Code"
                     SQLOrder = SQLOrder & " SSPPApplicationData.strSICCode " & temp
             End Select
@@ -1921,8 +1905,6 @@ Public Class SSPPApplicationLog
                     SQLOrder = SQLOrder & " strApplicationNotes " & temp
                 Case "Regional District"
                     SQLOrder = SQLOrder & " strDistrictName " & temp
-                Case "Regional Office"
-                    SQLOrder = SQLOrder & " strOfficeName " & temp
                 Case "SIC Code"
                     SQLOrder = SQLOrder & " SSPPApplicationData.strSICCode " & temp
             End Select
@@ -2042,8 +2024,6 @@ Public Class SSPPApplicationLog
             dgvApplicationLog.Columns("PMFine").DisplayIndex = 18
             dgvApplicationLog.Columns("strDistrictName").HeaderText = "District"
             dgvApplicationLog.Columns("strDistrictName").DisplayIndex = 19
-            dgvApplicationLog.Columns("strOfficeName").HeaderText = "Office"
-            dgvApplicationLog.Columns("strOfficeName").DisplayIndex = 20
             dgvApplicationLog.Columns("APBUnit").HeaderText = "APL Unit"
             dgvApplicationLog.Columns("APBUnit").DisplayIndex = 21
             dgvApplicationLog.Columns("strLastname").HeaderText = "Last Name"
@@ -2746,27 +2726,6 @@ Public Class SSPPApplicationLog
                     cboSearchText1.Items.Add("West Central")
                     cboSearchText1.Text = cboSearchText1.Items.Item(0)
 
-                Case "Regional Office"
-                    txtSearchText1.Visible = False
-                    DTPSearchDate1.Visible = False
-                    DTPSearchDate1b.Visible = False
-                    cboSearchText1.Visible = True
-                    cboSIP1.Visible = False
-                    cboNESHAP1.Visible = False
-                    cboNSPS1.Visible = False
-                    cboMACT1.Visible = False
-
-                    cboSearchText1.Items.Clear()
-                    cboSearchText1.Items.Add("Albany")
-                    cboSearchText1.Items.Add("Athens")
-                    cboSearchText1.Items.Add("Atlanta")
-                    cboSearchText1.Items.Add("Augusta")
-                    cboSearchText1.Items.Add("Brunswick")
-                    cboSearchText1.Items.Add("Cartersville")
-                    cboSearchText1.Items.Add("Macon")
-                    cboSearchText1.Items.Add("Main Office")
-                    cboSearchText1.Items.Add("Savannah")
-                    cboSearchText1.Text = cboSearchText1.Items.Item(0)
                 Case "Status Date"
                     txtSearchText1.Visible = False
                     DTPSearchDate1.Visible = True
@@ -3417,27 +3376,6 @@ Public Class SSPPApplicationLog
                     cboSearchText2.Items.Add("West Central")
                     cboSearchText2.Text = cboSearchText2.Items.Item(0)
 
-                Case "Regional Office"
-                    txtSearchText2.Visible = False
-                    DTPSearchDate2.Visible = False
-                    DTPSearchDate2b.Visible = False
-                    cboSearchText2.Visible = True
-                    cboSIP2.Visible = False
-                    cboNESHAP2.Visible = False
-                    cboNSPS2.Visible = False
-                    cboMACT2.Visible = False
-
-                    cboSearchText2.Items.Clear()
-                    cboSearchText2.Items.Add("Albany")
-                    cboSearchText2.Items.Add("Athens")
-                    cboSearchText2.Items.Add("Atlanta")
-                    cboSearchText2.Items.Add("Augusta")
-                    cboSearchText2.Items.Add("Brunswick")
-                    cboSearchText2.Items.Add("Cartersville")
-                    cboSearchText2.Items.Add("Macon")
-                    cboSearchText2.Items.Add("Main Office")
-                    cboSearchText2.Items.Add("Savannah")
-                    cboSearchText2.Text = cboSearchText2.Items.Item(0)
                 Case "Status Date"
                     txtSearchText2.Visible = False
                     DTPSearchDate2.Visible = True

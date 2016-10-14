@@ -178,15 +178,15 @@ Public Class SSCPManagersTools
             End With
 
             With cboDistrictFilter1
-                .DataSource = DAL.GetDistrictsAsLookup()
-                .DisplayMember = "District"
-                .ValueMember = "District"
+                .DataSource = GetSharedData(SharedTable.DistrictOffices).Copy
+                .DisplayMember = "DistrictName"
+                .ValueMember = "DistrictName"
             End With
 
             With cboDistrictFilter2
-                .DataSource = DAL.GetDistrictsAsLookup()
-                .DisplayMember = "District"
-                .ValueMember = "District"
+                .DataSource = GetSharedData(SharedTable.DistrictOffices).Copy
+                .DisplayMember = "DistrictName"
+                .ValueMember = "DistrictName"
             End With
 
             '--- This loads the Combo Box Filter Option 1 on New Search 

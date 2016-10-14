@@ -8,7 +8,6 @@ Namespace DAL
                 STRCOUNTYNAME AS County
                 FROM LOOKUPCOUNTYINFORMATION
                 ORDER BY STRCOUNTYNAME"
-
             Return DB.GetLookupDictionary(query)
         End Function
 
@@ -17,7 +16,20 @@ Namespace DAL
                 STRCOUNTYNAME AS County
                 FROM LOOKUPCOUNTYINFORMATION
                 ORDER BY STRCOUNTYNAME"
+            Return DB.GetDataTable(query)
+        End Function
 
+        Public Function GetDistrictOffices() As DataTable
+            Dim query As String = "SELECT STRDISTRICTCODE AS DistrictCode, 
+                STRDISTRICTNAME AS DistrictName, STRDISTRICTMANAGER AS Manager
+                FROM LOOKUPDISTRICTS ORDER BY DistrictName"
+            Return DB.GetDataTable(query)
+        End Function
+
+        Public Function GetDistrictCountyAssignments() As DataTable
+            Dim query As String = "SELECT STRDISTRICTCOUNTY AS CountyCode, 
+                STRDISTRICTCODE AS DistrictCode
+                FROM LOOKUPDISTRICTINFORMATION"
             Return DB.GetDataTable(query)
         End Function
 

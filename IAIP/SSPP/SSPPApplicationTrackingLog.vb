@@ -54,7 +54,6 @@ Public Class SSPPApplicationTrackingLog
             txtFacilityStreetAddress.Clear()
             txtFacilityZipCode.Clear()
             txtDistrict.Clear()
-            txtOffice.Clear()
             txtSICCode.Clear()
             txtNAICSCode.Clear()
             txt1HourOzone.Clear()
@@ -2562,7 +2561,6 @@ Public Class SSPPApplicationTrackingLog
         Dim NAICS As String = ""
         Dim NAICSLine As String = "NAICS Code - "
         Dim CountyName As String = ""
-        Dim OfficeName As String = ""
         Dim District As String = ""
         Dim Attainment As String = ""
         Dim AttainmentStatus As String = ""
@@ -2579,19 +2577,18 @@ Public Class SSPPApplicationTrackingLog
             "strOperationalStatus, strClass, " &
             "strAirProgramCodes, strSICCode, " &
             "strNAICSCode, " &
-            "strCountyName, strOfficeName, " &
+            "strCountyName, " &
             "strDistrictName, " &
             "strPlantDescription, " &
             "APBHeaderData.strAttainmentStatus, " &
             "strStateProgramCodes, strDistrictResponsible " &
             "from APBFacilityInformation, APBHeaderData, " &
-            "LookUpCountyInformation, LooKUPDistrictOffice, " &
+            "LookUpCountyInformation, " &
             "LookUpDistrictInformation, LookUPDistricts, " &
             "APBSupplamentalData, SSCPDistrictResponsible " &
             "where APBFacilityInformation.strAIRSNumber = APBHeaderData.strAIRSNumber " &
             "and SUBSTRING(APBFacilityInformation.strAIRSNumber, 5, 3) = LookUpCountyInformation.strCountyCode " &
             "and SUBSTRING(APBFacilityInformation.strAIRSNumber, 5, 3) = LookUpDistrictInformation.strDistrictCounty " &
-            "and LookUpDistrictinformation.strDistrictCode = LooKUPDistrictOffice.strDistrictCode " &
             "and LookUpDistrictInformation.strDistrictCode = LookUPDistricts.strDistrictCode " &
             "and APBFacilityInformation.strAIRSNumber = APBSupplamentalData.strAIRSNumber " &
             "and APBFacilityInformation.strAIRSNumber = SSCPDistrictResponsible.strAIRSnumber (+) " &
@@ -2662,11 +2659,6 @@ Public Class SSPPApplicationTrackingLog
                             Else
                                 CountyName = dr.Item("strCountyName")
                             End If
-                            If IsDBNull(dr.Item("strOfficeName")) Then
-                                OfficeName = "N/A"
-                            Else
-                                OfficeName = dr.Item("strOfficeName")
-                            End If
                             If IsDBNull(dr.Item("strDistrictName")) Then
                                 District = "N/A"
                             Else
@@ -2708,7 +2700,6 @@ Public Class SSPPApplicationTrackingLog
                             NAICS = "N/A"
                             NAICSLine = "NAICS Code - "
                             CountyName = "N/A"
-                            OfficeName = "N/A"
                             District = "N/A"
                             Attainment = "00000"
                             StateProgramCodes = "00000"
@@ -2875,13 +2866,11 @@ Public Class SSPPApplicationTrackingLog
             StatePrograms & vbCrLf &
             "County - " & CountyName & vbCrLf &
             "District - " & District & vbCrLf &
-            "District Office - " & OfficeName & vbCrLf &
             AttainmentStatus & vbCrLf & vbCrLf &
             PlantLine
 
             cboCounty.SelectedIndex = cboCounty.FindString(CountyName)
             txtDistrict.Text = District
-            txtOffice.Text = OfficeName
 
             If txtFacilityName.Text = "" Then
                 txtFacilityName.Text = Facilityname
@@ -4171,7 +4160,6 @@ Public Class SSPPApplicationTrackingLog
             Dim NAICS As String = ""
             Dim NAICSLine As String = "NAICS Code - "
             Dim CountyName As String = ""
-            Dim OfficeName As String = ""
             Dim District As String = ""
             Dim Attainment As String = ""
             Dim AttainmentStatus As String = ""
@@ -4190,17 +4178,14 @@ Public Class SSPPApplicationTrackingLog
             "APBHeaderData.strAttainmentStatus,  " &
             "strStateProgramCodes,  " &
             "strcountyName,  " &
-            "strOfficeName,  " &
             "strDistrictName  " &
             "from APBFacilityInformation,  " &
             "APBHeaderData, LookUpCountyInformation,  " &
-            "LookUpDistrictOffice, LookUpDistricts,  " &
+            "LookUpDistricts,  " &
             "LookUpDistrictInformation  " &
             "where APBFacilityInformation.strAIRSnumber = APBHeaderData.strAIRSnumber " &
             "and SUBSTRING(APBFacilityInformation.strAIRSNumber, 5, 3) = LookUpCountyInformation.strCountyCode  " &
             "and SUBSTRING(APBFacilityInformation.strAIRSNumber, 5, 3) = LookUpDistrictInformation.strDistrictCounty  " &
-            "and LookUpDistrictInformation.strDistrictCode = LookUpDistrictOffice.strDistrictCode  " &
-            "and LookUpDistrictInformation.strDistrictCode = LookUpDistrictOffice.strDistrictCode  " &
             "and LookUpDistrictInformation.strDistrictCode = LookUpDistricts.strDistrictCode  " &
             "and APBHeaderData.strAIRSNumber = @airsnumber"
 
@@ -4269,11 +4254,6 @@ Public Class SSPPApplicationTrackingLog
                             Else
                                 CountyName = dr.Item("strCountyName")
                             End If
-                            If IsDBNull(dr.Item("strOfficeName")) Then
-                                OfficeName = "N/A"
-                            Else
-                                OfficeName = dr.Item("strOfficeName")
-                            End If
                             If IsDBNull(dr.Item("strDistrictName")) Then
                                 District = "N/A"
                             Else
@@ -4310,7 +4290,6 @@ Public Class SSPPApplicationTrackingLog
                             NAICS = "N/A"
                             NAICSLine = "NAICS Code - "
                             CountyName = "N/A"
-                            OfficeName = "N/A"
                             District = "N/A"
                             Attainment = "00000"
                             StateProgramCodes = "00000"
@@ -4475,13 +4454,11 @@ Public Class SSPPApplicationTrackingLog
             StatePrograms & vbCrLf &
             "County - " & CountyName & vbCrLf &
             "District - " & District & vbCrLf &
-            "District Office - " & OfficeName & vbCrLf &
             AttainmentStatus & vbCrLf & vbCrLf &
             PlantLine
 
             cboCounty.SelectedIndex = cboCounty.FindString(CountyName)
             txtDistrict.Text = District
-            txtOffice.Text = OfficeName
 
             txtFacilityName.Text = Facilityname
             txtFacilityStreetAddress.Text = FacilityStreet

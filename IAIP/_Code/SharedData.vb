@@ -21,6 +21,7 @@ Public Class SharedData
         EpdManagers
         SscpNotificationTypes
         Counties
+        DistrictOffices
     End Enum
 
     ''' <summary>
@@ -75,6 +76,9 @@ Public Class SharedData
 
                 Case SharedTable.Counties
                     dt = DAL.GetCountiesAsDataTable()
+
+                Case SharedTable.DistrictOffices
+                    dt = DAL.GetDistrictOffices()
 
             End Select
 
@@ -224,11 +228,15 @@ Public Class SharedData
 #Region " Public functions for clearing shared data "
 
     Public Shared Sub ClearSharedData(table As SharedTable)
-        If _tDictionary.ContainsKey(table) Then _tDictionary.Remove(table)
+        If _tDictionary IsNot Nothing AndAlso _tDictionary.ContainsKey(table) Then
+            _tDictionary.Remove(table)
+        End If
     End Sub
 
     Public Shared Sub ClearSharedData(dataSet As SharedDataSet)
-        If _dsDictionary.ContainsKey(dataSet) Then _dsDictionary.Remove(dataSet)
+        If _dsDictionary IsNot Nothing AndAlso _dsDictionary.ContainsKey(dataSet) Then
+            _dsDictionary.Remove(dataSet)
+        End If
     End Sub
 
 #End Region

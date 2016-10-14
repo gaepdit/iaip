@@ -94,8 +94,8 @@ Public Class SBEAPCaseWork
                 .ValueMember = "numActionType"
             End With
 
-            SQL = "Select strOfficeName " &
-            "from LookUpDistrictOffice " &
+            SQL = "Select STRDISTRICTNAME " &
+            "from LOOKUPDISTRICTS " &
             "Union " &
             "select 'APB' " &
             "from dual " &
