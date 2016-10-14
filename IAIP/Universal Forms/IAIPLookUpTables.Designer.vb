@@ -25,21 +25,13 @@ Partial Class IAIPLookUpTables
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(IAIPLookUpTables))
         Me.TCLookUpTables = New System.Windows.Forms.TabControl()
         Me.TPAPBManagement = New System.Windows.Forms.TabPage()
-        Me.Panel1 = New System.Windows.Forms.Panel()
         Me.dgvLookUpManagement = New System.Windows.Forms.DataGridView()
         Me.pnlAPBManagement = New System.Windows.Forms.Panel()
-        Me.btnViewAllPastTypes = New System.Windows.Forms.Button()
         Me.Label5 = New System.Windows.Forms.Label()
-        Me.cboManagementType = New System.Windows.Forms.ComboBox()
-        Me.btnClearManagement = New System.Windows.Forms.Button()
-        Me.txtAPBManagemetnID = New System.Windows.Forms.TextBox()
-        Me.chbAPBMangementVacant = New System.Windows.Forms.CheckBox()
-        Me.Label3 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
-        Me.txtAPBManagementName = New System.Windows.Forms.TextBox()
+        Me.txtApbManagementType = New System.Windows.Forms.TextBox()
+        Me.txtApbManagementName = New System.Windows.Forms.TextBox()
         Me.btnSaveAPBManagement = New System.Windows.Forms.Button()
-        Me.Panel2 = New System.Windows.Forms.Panel()
-        Me.btnLoadAPBManagement = New System.Windows.Forms.Button()
         Me.TPApplicationTypes = New System.Windows.Forms.TabPage()
         Me.btnEditAppType = New System.Windows.Forms.Button()
         Me.btnDeleteAppType = New System.Windows.Forms.Button()
@@ -54,10 +46,8 @@ Partial Class IAIPLookUpTables
         Me.btnLoadApplicationTypes = New System.Windows.Forms.Button()
         Me.TCLookUpTables.SuspendLayout()
         Me.TPAPBManagement.SuspendLayout()
-        Me.Panel1.SuspendLayout()
         CType(Me.dgvLookUpManagement, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.pnlAPBManagement.SuspendLayout()
-        Me.Panel2.SuspendLayout()
         Me.TPApplicationTypes.SuspendLayout()
         CType(Me.dgvApplicationType, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -71,172 +61,85 @@ Partial Class IAIPLookUpTables
         Me.TCLookUpTables.Name = "TCLookUpTables"
         Me.TCLookUpTables.SelectedIndex = 0
         Me.TCLookUpTables.Size = New System.Drawing.Size(792, 545)
-        Me.TCLookUpTables.TabIndex = 1
+        Me.TCLookUpTables.TabIndex = 0
         '
         'TPAPBManagement
         '
-        Me.TPAPBManagement.Controls.Add(Me.Panel1)
+        Me.TPAPBManagement.Controls.Add(Me.dgvLookUpManagement)
         Me.TPAPBManagement.Controls.Add(Me.pnlAPBManagement)
-        Me.TPAPBManagement.Controls.Add(Me.Panel2)
         Me.TPAPBManagement.Location = New System.Drawing.Point(4, 22)
         Me.TPAPBManagement.Name = "TPAPBManagement"
         Me.TPAPBManagement.Padding = New System.Windows.Forms.Padding(3)
         Me.TPAPBManagement.Size = New System.Drawing.Size(784, 519)
         Me.TPAPBManagement.TabIndex = 0
-        Me.TPAPBManagement.Text = "APB Management"
+        Me.TPAPBManagement.Text = "EPD Management"
         Me.TPAPBManagement.UseVisualStyleBackColor = True
-        '
-        'Panel1
-        '
-        Me.Panel1.Controls.Add(Me.dgvLookUpManagement)
-        Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Panel1.Location = New System.Drawing.Point(3, 167)
-        Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(778, 349)
-        Me.Panel1.TabIndex = 57
         '
         'dgvLookUpManagement
         '
         Me.dgvLookUpManagement.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvLookUpManagement.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.dgvLookUpManagement.Location = New System.Drawing.Point(0, 0)
+        Me.dgvLookUpManagement.Location = New System.Drawing.Point(3, 97)
         Me.dgvLookUpManagement.Name = "dgvLookUpManagement"
         Me.dgvLookUpManagement.ReadOnly = True
-        Me.dgvLookUpManagement.Size = New System.Drawing.Size(778, 349)
-        Me.dgvLookUpManagement.TabIndex = 56
-        Me.dgvLookUpManagement.Visible = False
+        Me.dgvLookUpManagement.Size = New System.Drawing.Size(778, 419)
+        Me.dgvLookUpManagement.TabIndex = 1
         '
         'pnlAPBManagement
         '
-        Me.pnlAPBManagement.Controls.Add(Me.btnViewAllPastTypes)
         Me.pnlAPBManagement.Controls.Add(Me.Label5)
-        Me.pnlAPBManagement.Controls.Add(Me.cboManagementType)
-        Me.pnlAPBManagement.Controls.Add(Me.btnClearManagement)
-        Me.pnlAPBManagement.Controls.Add(Me.txtAPBManagemetnID)
-        Me.pnlAPBManagement.Controls.Add(Me.chbAPBMangementVacant)
-        Me.pnlAPBManagement.Controls.Add(Me.Label3)
         Me.pnlAPBManagement.Controls.Add(Me.Label4)
-        Me.pnlAPBManagement.Controls.Add(Me.txtAPBManagementName)
+        Me.pnlAPBManagement.Controls.Add(Me.txtApbManagementType)
+        Me.pnlAPBManagement.Controls.Add(Me.txtApbManagementName)
         Me.pnlAPBManagement.Controls.Add(Me.btnSaveAPBManagement)
         Me.pnlAPBManagement.Dock = System.Windows.Forms.DockStyle.Top
-        Me.pnlAPBManagement.Location = New System.Drawing.Point(3, 36)
+        Me.pnlAPBManagement.Location = New System.Drawing.Point(3, 3)
         Me.pnlAPBManagement.Name = "pnlAPBManagement"
-        Me.pnlAPBManagement.Size = New System.Drawing.Size(778, 131)
-        Me.pnlAPBManagement.TabIndex = 54
-        Me.pnlAPBManagement.Visible = False
-        '
-        'btnViewAllPastTypes
-        '
-        Me.btnViewAllPastTypes.AutoSize = True
-        Me.btnViewAllPastTypes.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnViewAllPastTypes.Location = New System.Drawing.Point(367, 32)
-        Me.btnViewAllPastTypes.Name = "btnViewAllPastTypes"
-        Me.btnViewAllPastTypes.Size = New System.Drawing.Size(108, 23)
-        Me.btnViewAllPastTypes.TabIndex = 66
-        Me.btnViewAllPastTypes.Text = "View all past Types"
-        Me.btnViewAllPastTypes.UseVisualStyleBackColor = True
+        Me.pnlAPBManagement.Size = New System.Drawing.Size(778, 94)
+        Me.pnlAPBManagement.TabIndex = 0
         '
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(16, 37)
+        Me.Label5.Location = New System.Drawing.Point(17, 9)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(96, 13)
         Me.Label5.TabIndex = 63
         Me.Label5.Text = "Management Type"
         '
-        'cboManagementType
-        '
-        Me.cboManagementType.FormattingEnabled = True
-        Me.cboManagementType.Location = New System.Drawing.Point(118, 34)
-        Me.cboManagementType.Name = "cboManagementType"
-        Me.cboManagementType.Size = New System.Drawing.Size(163, 21)
-        Me.cboManagementType.TabIndex = 62
-        '
-        'btnClearManagement
-        '
-        Me.btnClearManagement.AutoSize = True
-        Me.btnClearManagement.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnClearManagement.Image = CType(resources.GetObject("btnClearManagement.Image"), System.Drawing.Image)
-        Me.btnClearManagement.Location = New System.Drawing.Point(131, 6)
-        Me.btnClearManagement.Name = "btnClearManagement"
-        Me.btnClearManagement.Size = New System.Drawing.Size(22, 22)
-        Me.btnClearManagement.TabIndex = 59
-        Me.btnClearManagement.UseVisualStyleBackColor = True
-        '
-        'txtAPBManagemetnID
-        '
-        Me.txtAPBManagemetnID.Location = New System.Drawing.Point(65, 8)
-        Me.txtAPBManagemetnID.Name = "txtAPBManagemetnID"
-        Me.txtAPBManagemetnID.ReadOnly = True
-        Me.txtAPBManagemetnID.Size = New System.Drawing.Size(51, 20)
-        Me.txtAPBManagemetnID.TabIndex = 56
-        '
-        'chbAPBMangementVacant
-        '
-        Me.chbAPBMangementVacant.AutoSize = True
-        Me.chbAPBMangementVacant.Location = New System.Drawing.Point(367, 60)
-        Me.chbAPBMangementVacant.Name = "chbAPBMangementVacant"
-        Me.chbAPBMangementVacant.Size = New System.Drawing.Size(100, 17)
-        Me.chbAPBMangementVacant.TabIndex = 58
-        Me.chbAPBMangementVacant.Text = "Vacant Position"
-        Me.chbAPBMangementVacant.UseVisualStyleBackColor = True
-        '
-        'Label3
-        '
-        Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(41, 11)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(18, 13)
-        Me.Label3.TabIndex = 53
-        Me.Label3.Text = "ID"
-        '
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(25, 61)
+        Me.Label4.Location = New System.Drawing.Point(17, 35)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(54, 13)
         Me.Label4.TabIndex = 57
         Me.Label4.Text = "Full Name"
         '
-        'txtAPBManagementName
+        'txtApbManagementType
         '
-        Me.txtAPBManagementName.Location = New System.Drawing.Point(118, 58)
-        Me.txtAPBManagementName.Name = "txtAPBManagementName"
-        Me.txtAPBManagementName.Size = New System.Drawing.Size(228, 20)
-        Me.txtAPBManagementName.TabIndex = 54
+        Me.txtApbManagementType.Location = New System.Drawing.Point(119, 6)
+        Me.txtApbManagementType.Name = "txtApbManagementType"
+        Me.txtApbManagementType.ReadOnly = True
+        Me.txtApbManagementType.Size = New System.Drawing.Size(119, 20)
+        Me.txtApbManagementType.TabIndex = 0
+        '
+        'txtApbManagementName
+        '
+        Me.txtApbManagementName.Location = New System.Drawing.Point(119, 32)
+        Me.txtApbManagementName.Name = "txtApbManagementName"
+        Me.txtApbManagementName.Size = New System.Drawing.Size(228, 20)
+        Me.txtApbManagementName.TabIndex = 1
         '
         'btnSaveAPBManagement
         '
-        Me.btnSaveAPBManagement.AutoSize = True
         Me.btnSaveAPBManagement.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnSaveAPBManagement.Location = New System.Drawing.Point(118, 86)
+        Me.btnSaveAPBManagement.Location = New System.Drawing.Point(119, 58)
         Me.btnSaveAPBManagement.Name = "btnSaveAPBManagement"
-        Me.btnSaveAPBManagement.Size = New System.Drawing.Size(107, 23)
-        Me.btnSaveAPBManagement.TabIndex = 55
+        Me.btnSaveAPBManagement.Size = New System.Drawing.Size(119, 23)
+        Me.btnSaveAPBManagement.TabIndex = 2
         Me.btnSaveAPBManagement.Text = "Save Management"
         Me.btnSaveAPBManagement.UseVisualStyleBackColor = True
-        '
-        'Panel2
-        '
-        Me.Panel2.Controls.Add(Me.btnLoadAPBManagement)
-        Me.Panel2.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel2.Location = New System.Drawing.Point(3, 3)
-        Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(778, 33)
-        Me.Panel2.TabIndex = 55
-        '
-        'btnLoadAPBManagement
-        '
-        Me.btnLoadAPBManagement.AutoSize = True
-        Me.btnLoadAPBManagement.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnLoadAPBManagement.Location = New System.Drawing.Point(3, 3)
-        Me.btnLoadAPBManagement.Name = "btnLoadAPBManagement"
-        Me.btnLoadAPBManagement.Size = New System.Drawing.Size(130, 23)
-        Me.btnLoadAPBManagement.TabIndex = 52
-        Me.btnLoadAPBManagement.Text = "Load APB Management"
-        Me.btnLoadAPBManagement.UseVisualStyleBackColor = True
         '
         'TPApplicationTypes
         '
@@ -377,12 +280,9 @@ Partial Class IAIPLookUpTables
         Me.Text = "IAIP Look Up Tables"
         Me.TCLookUpTables.ResumeLayout(False)
         Me.TPAPBManagement.ResumeLayout(False)
-        Me.Panel1.ResumeLayout(False)
         CType(Me.dgvLookUpManagement, System.ComponentModel.ISupportInitialize).EndInit()
         Me.pnlAPBManagement.ResumeLayout(False)
         Me.pnlAPBManagement.PerformLayout()
-        Me.Panel2.ResumeLayout(False)
-        Me.Panel2.PerformLayout()
         Me.TPApplicationTypes.ResumeLayout(False)
         Me.TPApplicationTypes.PerformLayout()
         CType(Me.dgvApplicationType, System.ComponentModel.ISupportInitialize).EndInit()
@@ -403,19 +303,11 @@ Partial Class IAIPLookUpTables
     Friend WithEvents btnDeleteAppType As System.Windows.Forms.Button
     Friend WithEvents btnEditAppType As System.Windows.Forms.Button
     Friend WithEvents TPAPBManagement As System.Windows.Forms.TabPage
-    Friend WithEvents btnLoadAPBManagement As System.Windows.Forms.Button
     Friend WithEvents pnlAPBManagement As System.Windows.Forms.Panel
     Friend WithEvents Label5 As System.Windows.Forms.Label
-    Friend WithEvents cboManagementType As System.Windows.Forms.ComboBox
-    Friend WithEvents btnClearManagement As System.Windows.Forms.Button
-    Friend WithEvents txtAPBManagemetnID As System.Windows.Forms.TextBox
-    Friend WithEvents chbAPBMangementVacant As System.Windows.Forms.CheckBox
-    Friend WithEvents Label3 As System.Windows.Forms.Label
     Friend WithEvents Label4 As System.Windows.Forms.Label
-    Friend WithEvents txtAPBManagementName As System.Windows.Forms.TextBox
+    Friend WithEvents txtApbManagementName As System.Windows.Forms.TextBox
     Friend WithEvents btnSaveAPBManagement As System.Windows.Forms.Button
-    Friend WithEvents Panel2 As System.Windows.Forms.Panel
     Friend WithEvents dgvLookUpManagement As System.Windows.Forms.DataGridView
-    Friend WithEvents Panel1 As System.Windows.Forms.Panel
-    Friend WithEvents btnViewAllPastTypes As System.Windows.Forms.Button
+    Friend WithEvents txtApbManagementType As TextBox
 End Class
