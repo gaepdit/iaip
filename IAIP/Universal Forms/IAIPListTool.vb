@@ -1,230 +1,96 @@
 Imports System.Data.SqlClient
-
+Imports Iaip.SharedData
 
 Public Class IAIPListTool
-    Dim SQL As String
-    Dim dr As SqlDataReader
-    Dim cmd As SqlCommand
-    Dim dsOrginizations As DataSet
-    Dim daOrginizations As SqlDataAdapter
-    Dim dsBranch As DataSet
-    Dim daBranch As SqlDataAdapter
-    Dim dsProgram As DataSet
-    Dim daProgram As SqlDataAdapter
-    Dim dsUnit As DataSet
-    Dim daUnit As SqlDataAdapter
-    Dim dsAccount As DataSet
-    Dim daAccount As SqlDataAdapter
-    Dim dsAccounts As DataSet
-    Dim daAccounts As SqlDataAdapter
-    Dim dsForms As DataSet
-    Dim daForms As SqlDataAdapter
-
-    Private Sub IAIPListTool_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
-        Try
-            btnAddBranch.Enabled = False
-            btnEditBranch.Enabled = False
-            btnDeleteBranch.Enabled = False
-            btnAddProgram.Enabled = False
-            btnEditProgram.Enabled = False
-            btnDeleteProgram.Enabled = False
-            btnAddUnit.Enabled = False
-            btnEditUnit.Enabled = False
-            btnDeleteUnit.Enabled = False
-            btnAddAccount.Enabled = False
-            btnEditAccount.Enabled = False
-            btnDeleteAccount.Enabled = False
-
-            LoadDataSets()
-            LoadBranchGrid()
-            LoadForms()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-        End Try
-    End Sub
+    Private formAccessText As String = ""
+    Private dtOrganization As DataTable
+    Private loading As Boolean = False
 
 #Region "Page Load"
-    Sub LoadDataSets()
-        Try
-            dsOrginizations = New DataSet
-            dsAccounts = New DataSet
 
-            SQL = "select " &
+    Private Sub IAIPListTool_Load(sender As Object, e As EventArgs) Handles Me.Load
+        btnAddBranch.Enabled = False
+        btnEditBranch.Enabled = False
+        btnAddProgram.Enabled = False
+        btnEditProgram.Enabled = False
+        btnAddUnit.Enabled = False
+        btnEditUnit.Enabled = False
+        btnAddAccount.Enabled = False
+        btnEditAccount.Enabled = False
+
+        FormatDataGridView(dgvBranch)
+        FormatDataGridView(dgvProgram)
+        FormatDataGridView(dgvUnit)
+        FormatDataGridView(dgvAccounts)
+        FormatDataGridView(dgvAvailableForms)
+        FormatDataGridView(dgvSelectedForms, False)
+
+        LoadDataSets()
+        LoadBranchGrid()
+        LoadForms()
+    End Sub
+
+    Private Sub LoadDataSets()
+        Dim SQL As String = "select " &
             "lookupepdbranches.numBranchCode, strBranchDesc,  " &
             "lookupepdprograms.numProgramCode, strProgramDesc,  " &
             "lookupepdunits.numUnitCode, strUnitdesc " &
-            "from Lookupepdbranches, lookupepdprograms,  " &
-            "lookupepdunits " &
-            "where lookupepdbranches.numbranchcode = lookupepdprograms.numbranchcode (+) " &
-            "and lookupepdprograms.numprogramcode = lookupepdunits.numprogramcode (+) " &
+            "from Lookupepdbranches " &
+            "left join lookupepdprograms  " &
+            "on lookupepdbranches.numbranchcode = lookupepdprograms.numbranchcode " &
+            "inner join lookupepdunits " &
+            "on lookupepdprograms.numprogramcode = lookupepdunits.numprogramcode " &
             "order by strbranchdesc, strProgramDesc, strUnitDesc "
 
-            daOrginizations = New SqlDataAdapter(SQL, CurrentConnection)
-
-            SQL = "Select " &
-            "numAccountCode, strAccountDesc, " &
-            "numBranchCode, numProgramCode, " &
-            "numUnitCode " &
-            "from LookUpIAIPAccounts " &
-            "order by strAccountDesc "
-
-            daAccounts = New SqlDataAdapter(SQL, CurrentConnection)
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daOrginizations.Fill(dsOrginizations, "Orginization")
-            daAccounts.Fill(dsAccounts, "Accounts")
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
+        dtOrganization = DB.GetDataTable(SQL)
     End Sub
-    Sub LoadBranchGrid()
+
+    Private Sub LoadBranchGrid()
         Try
-            SQL = "Select " &
+            Dim SQL As String = "Select " &
             "numBranchCode, strBranchDesc " &
             "from LookUpEPDBranches " &
             "order by strBranchDesc "
 
-            dsBranch = New DataSet
-            daBranch = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daBranch.Fill(dsBranch, "Branches")
-
-            dgvBranch.DataSource = dsBranch
-            dgvBranch.DataMember = "Branches"
-
-            dgvBranch.RowHeadersVisible = False
-            dgvBranch.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvBranch.AllowUserToResizeColumns = True
-            dgvBranch.AllowUserToAddRows = False
-            dgvBranch.AllowUserToDeleteRows = False
-            dgvBranch.AllowUserToOrderColumns = True
-            dgvBranch.AllowUserToResizeRows = True
-            dgvBranch.ReadOnly = True
-            dgvBranch.ColumnHeadersHeight = "35"
+            Dim dt As DataTable = DB.GetDataTable(SQL)
+            dgvBranch.DataSource = dt
             dgvBranch.Columns("numBranchCode").HeaderText = "ID #"
-            dgvBranch.Columns("numBranchCode").DisplayIndex = 0
-            dgvBranch.Columns("numBranchCode").Width = 60
             dgvBranch.Columns("strBranchDesc").HeaderText = "Branch Desc."
-            dgvBranch.Columns("strBranchDesc").DisplayIndex = 1
-            dgvBranch.Columns("strBranchDesc").Width = 300
+            dgvBranch.SanelyResizeColumns
 
             btnAddBranch.Enabled = True
 
-            Dim dtBranch As New DataTable
-            Dim drDSRow As DataRow
-            Dim drNewRow As DataRow
-            Dim temp As String = "Add"
-            Dim i As Integer
-
-            dtBranch.Columns.Add("numBranchCode", GetType(System.String))
-            dtBranch.Columns.Add("strBranchDesc", GetType(System.String))
-
-            drNewRow = dtBranch.NewRow()
-            drNewRow("numBranchCode") = ""
-            drNewRow("strBranchDesc") = " "
-            dtBranch.Rows.Add(drNewRow)
-
-            For Each drDSRow In dsBranch.Tables("Branches").Rows()
-                drNewRow = dtBranch.NewRow()
-                drNewRow("numBranchCode") = drDSRow("numBranchCode")
-                drNewRow("strBranchDesc") = drDSRow("strBranchDesc")
-
-                For i = 0 To dtBranch.Rows.Count - 1
-                    If drDSRow("strBranchDesc") = dtBranch.Rows(i).Item(1) Then
-                        temp = "No"
-                    Else
-                        'temp = temp
-                    End If
-                Next
-                If temp = "Add" Then
-                    dtBranch.Rows.Add(drNewRow)
-                End If
-                temp = "Add"
-            Next
-
             With cboBranch
-                .DataSource = dtBranch
+                .DataSource = dt.Copy
                 .DisplayMember = "strBranchDesc"
                 .ValueMember = "numBranchCode"
+                .SelectedIndex = -1
             End With
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
     End Sub
-    Sub LoadForms()
+
+    Private Sub LoadForms()
         Try
-            SQL = "Select " &
+            Dim SQL As String = "Select " &
             "numFormCode, strForm, " &
             "strFormDesc " &
             "from LookUpIAIPForms "
 
-            dsForms = New DataSet
-            daForms = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daForms.Fill(dsForms, "Forms")
-
-            dgvAvailableForms.DataSource = dsForms
-            dgvAvailableForms.DataMember = "Forms"
-
-            dgvAvailableForms.RowHeadersVisible = False
-            dgvAvailableForms.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvAvailableForms.AllowUserToResizeColumns = True
-            dgvAvailableForms.AllowUserToAddRows = False
-            dgvAvailableForms.AllowUserToDeleteRows = False
-            dgvAvailableForms.AllowUserToOrderColumns = True
-            dgvAvailableForms.AllowUserToResizeRows = True
-            dgvAvailableForms.ReadOnly = True
-            dgvAvailableForms.ColumnHeadersHeight = "35"
+            dgvAvailableForms.DataSource = DB.GetDataTable(SQL)
             dgvAvailableForms.Columns("numFormCode").HeaderText = "Form #"
-            dgvAvailableForms.Columns("numFormCode").DisplayIndex = 0
-            dgvAvailableForms.Columns("numFormCode").Width = 60
             dgvAvailableForms.Columns("numFormCode").Visible = False
-
             dgvAvailableForms.Columns("strForm").HeaderText = "Form"
-            dgvAvailableForms.Columns("strForm").DisplayIndex = 1
-            dgvAvailableForms.Columns("strForm").Width = 150
-
+            dgvAvailableForms.Columns("strForm").ReadOnly = True
             dgvAvailableForms.Columns("strFormDesc").HeaderText = "Form Description"
-            dgvAvailableForms.Columns("strFormDesc").DisplayIndex = 2
-            dgvAvailableForms.Columns("strFormDesc").Width = 250
-
-            dgvSelectedForms.RowHeadersVisible = False
-            dgvSelectedForms.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvSelectedForms.AllowUserToResizeColumns = True
-            dgvSelectedForms.AllowUserToAddRows = False
-            dgvSelectedForms.AllowUserToDeleteRows = False
-            dgvSelectedForms.AllowUserToOrderColumns = True
-            dgvSelectedForms.AllowUserToResizeRows = True
-            dgvSelectedForms.ColumnHeadersHeight = "35"
+            dgvAvailableForms.Columns("strFormDesc").ReadOnly = True
+            dgvAvailableForms.SanelyResizeColumns
 
             dgvSelectedForms.Columns.Add("numFormCode", "Form #")
-            dgvSelectedForms.Columns("numFormCode").DisplayIndex = 0
-            dgvSelectedForms.Columns("numFormCode").Width = 60
             dgvSelectedForms.Columns("numFormCode").Visible = False
-
             dgvSelectedForms.Columns.Add("strForm", "Form")
-            dgvSelectedForms.Columns("strForm").DisplayIndex = 1
-            dgvSelectedForms.Columns("strForm").Width = 150
-            dgvSelectedForms.Columns("strForm").ReadOnly = True
-
             dgvSelectedForms.Columns.Add("strFormDesc", "Form Description")
-            dgvSelectedForms.Columns("strFormDesc").DisplayIndex = 2
-            dgvSelectedForms.Columns("strFormDesc").Width = 250
-            dgvSelectedForms.Columns("strFormDesc").ReadOnly = True
 
             Dim colReadOnly As New DataGridViewCheckBoxColumn
             dgvSelectedForms.Columns.Add(colReadOnly)
@@ -242,493 +108,260 @@ Public Class IAIPListTool
             dgvSelectedForms.Columns.Add(colSpecialPermissions)
             dgvSelectedForms.Columns(6).HeaderText = "Special Permissions"
 
+            dgvSelectedForms.SanelyResizeColumns
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
     End Sub
 
+    Private Sub FormatDataGridView(dgv As DataGridView, Optional makeReadOnly As Boolean = True)
+        dgv.RowHeadersVisible = False
+        dgv.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
+        dgv.AllowUserToResizeColumns = True
+        dgv.AllowUserToAddRows = False
+        dgv.AllowUserToDeleteRows = False
+        dgv.AllowUserToOrderColumns = True
+        dgv.AllowUserToResizeRows = True
+        dgv.ReadOnly = makeReadOnly
+        dgv.SelectionMode = DataGridViewSelectionMode.FullRowSelect
+        dgv.MultiSelect = False
+    End Sub
 
 #End Region
-#Region "Subs and Functions"
-    Sub CheckButtons()
-        Try
-            If txtAccountCode.Text = "" Then
-                btnEditAccount.Enabled = False
-                btnDeleteAccount.Enabled = False
-            Else
-                btnEditAccount.Enabled = True
-                btnDeleteAccount.Enabled = True
-            End If
-            If txtUnitCode.Text = "" Then
-                btnEditUnit.Enabled = False
-                btnDeleteUnit.Enabled = False
-                btnAddAccount.Enabled = False
-            Else
-                btnEditUnit.Enabled = True
-                btnDeleteUnit.Enabled = True
-                btnAddAccount.Enabled = True
-            End If
-            If txtProgramCode.Text = "" Then
-                btnEditProgram.Enabled = False
-                btnDeleteProgram.Enabled = False
-                btnAddUnit.Enabled = False
-                btnAddAccount.Enabled = False
-            Else
-                btnEditProgram.Enabled = True
-                btnDeleteProgram.Enabled = True
-                btnAddUnit.Enabled = True
-                btnAddAccount.Enabled = True
-            End If
-            If txtBranchCode.Text = "" Then
-                btnEditBranch.Enabled = False
-                btnDeleteBranch.Enabled = False
-                btnAddProgram.Enabled = False
-                btnAddAccount.Enabled = False
-            Else
-                btnEditBranch.Enabled = True
-                btnDeleteBranch.Enabled = True
-                btnAddProgram.Enabled = True
-                btnAddAccount.Enabled = True
-            End If
 
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-        End Try
+    Private Sub CheckButtons()
+        If txtAccountCode.Text = "" Then
+            btnEditAccount.Enabled = False
+        Else
+            btnEditAccount.Enabled = True
+        End If
+
+        If txtUnitCode.Text = "" Then
+            btnEditUnit.Enabled = False
+            btnAddAccount.Enabled = False
+        Else
+            btnEditUnit.Enabled = True
+            btnAddAccount.Enabled = True
+        End If
+
+        If txtProgramCode.Text = "" Then
+            btnEditProgram.Enabled = False
+            btnAddUnit.Enabled = False
+            btnAddAccount.Enabled = False
+        Else
+            btnEditProgram.Enabled = True
+            btnAddUnit.Enabled = True
+            btnAddAccount.Enabled = True
+        End If
+
+        If txtBranchCode.Text = "" Then
+            btnEditBranch.Enabled = False
+            btnAddProgram.Enabled = False
+            btnAddAccount.Enabled = False
+        Else
+            btnEditBranch.Enabled = True
+            btnAddProgram.Enabled = True
+            btnAddAccount.Enabled = True
+        End If
     End Sub
-    Sub LoadProgramGrid()
-        Try
-            dsUnit = New DataSet
-            dsAccount = New DataSet
-            dgvUnit.DataSource = dsUnit
-            dgvAccounts.DataSource = dsAccount
 
-            SQL = "Select " &
+    Private Sub LoadProgramGrid()
+        Try
+            dgvUnit.DataSource = Nothing
+            dgvAccounts.DataSource = Nothing
+
+            Dim SQL As String = "Select " &
             "numProgramCode, strProgramDesc, " &
             "numBranchCode " &
             "from LookUpEPDprograms " &
-            "where numBranchCode = '" & txtBranchCode.Text & "' " &
+            "where numBranchCode = @branchcode " &
             "order by strProgramDesc "
 
-            dsProgram = New DataSet
-            daProgram = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daProgram.Fill(dsProgram, "Programs")
+            Dim p As New SqlParameter("@branchcode", txtBranchCode.Text)
 
-            dgvProgram.DataSource = dsProgram
-            dgvProgram.DataMember = "Programs"
+            dgvProgram.DataSource = DB.GetDataTable(SQL, p)
 
-            dgvProgram.RowHeadersVisible = False
-            dgvProgram.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvProgram.AllowUserToResizeColumns = True
-            dgvProgram.AllowUserToAddRows = False
-            dgvProgram.AllowUserToDeleteRows = False
-            dgvProgram.AllowUserToOrderColumns = True
-            dgvProgram.AllowUserToResizeRows = True
-            dgvProgram.ColumnHeadersHeight = "35"
             dgvProgram.Columns("numProgramCode").HeaderText = "ID #"
-            dgvProgram.Columns("numProgramCode").DisplayIndex = 0
-            dgvProgram.Columns("numProgramCode").Width = 60
             dgvProgram.Columns("strProgramDesc").HeaderText = "Program Desc."
-            dgvProgram.Columns("strProgramDesc").DisplayIndex = 1
-            dgvProgram.Columns("strProgramDesc").Width = 300
             dgvProgram.Columns("numBranchCode").HeaderText = "Branch Code"
-            dgvProgram.Columns("numBranchCode").DisplayIndex = 2
-            dgvProgram.Columns("numBranchCode").Width = 50
             dgvProgram.Columns("numBranchCode").Visible = False
+            dgvProgram.SanelyResizeColumns
 
             SQL = "Select " &
             "numAccountCode, strAccountDesc,  " &
             "LookUpEPDBranches.numBranchCode, strBranchDesc, " &
             "LookUpEPDPrograms.numProgramCode, strProgramDesc,  " &
             "LookUpEPDUnits.numUnitCode, strUnitDesc " &
-            "from LookUpIAIPAccounts, LookupEPDBranches,  " &
-            "LookUpEPDPrograms, LookUpEPDUnits   " &
-            "where LookUpIAIPAccounts.numBranchCode = LookUpEPDBranches.numBranchCode (+)  " &
-            "and LookUpIAIPAccounts.numProgramCode = LookUpEPDPrograms.numProgramCode (+)  " &
-            "and LookUpIAIPAccounts.numUnitCode = LookUpEPDUnits.numUnitCode (+)  " &
-            "and lookupiaipaccounts.numBranchCode = '" & txtBranchCode.Text & "'  " &
+            "from LookUpIAIPAccounts " &
+            "left join LookupEPDBranches " &
+            "on LookUpIAIPAccounts.numBranchCode = LookUpEPDBranches.numBranchCode " &
+            "left join LookUpEPDPrograms " &
+            "on LookUpIAIPAccounts.numProgramCode = LookUpEPDPrograms.numProgramCode " &
+            "left join LookUpEPDUnits   " &
+            "on LookUpIAIPAccounts.numUnitCode = LookUpEPDUnits.numUnitCode " &
+            "where lookupiaipaccounts.numBranchCode = @branchcode " &
             "and LookUpIAIPAccounts.numProgramCode is Null " &
             "and LookUpIAIPAccounts.numUnitCode is Null " &
             "order by strAccountDesc "
 
-            dsAccount = New DataSet
-            daAccount = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daAccount.Fill(dsAccount, "Accounts")
+            dgvAccounts.DataSource = DB.GetDataTable(SQL, p)
 
-            dgvAccounts.DataSource = dsAccount
-            dgvAccounts.DataMember = "Accounts"
-
-            dgvAccounts.RowHeadersVisible = False
-            dgvAccounts.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvAccounts.AllowUserToResizeColumns = True
-            dgvAccounts.AllowUserToAddRows = False
-            dgvAccounts.AllowUserToDeleteRows = False
-            dgvAccounts.AllowUserToOrderColumns = True
-            dgvAccounts.AllowUserToResizeRows = True
-            dgvAccounts.ColumnHeadersHeight = "35"
             dgvAccounts.Columns("numAccountCode").HeaderText = "ID #"
-            dgvAccounts.Columns("numAccountCode").DisplayIndex = 0
-            dgvAccounts.Columns("numAccountCode").Width = 60
             dgvAccounts.Columns("strAccountDesc").HeaderText = "Account Desc."
-            dgvAccounts.Columns("strAccountDesc").DisplayIndex = 1
-            dgvAccounts.Columns("strAccountDesc").Width = 300
             dgvAccounts.Columns("numBranchCode").HeaderText = "Branch Code"
-            dgvAccounts.Columns("numBranchCode").DisplayIndex = 2
             dgvAccounts.Columns("numBranchCode").Visible = False
             dgvAccounts.Columns("strBranchDesc").HeaderText = "Branch Desc."
-            dgvAccounts.Columns("strBranchDesc").DisplayIndex = 3
-            dgvAccounts.Columns("strBranchDesc").Width = 250
             dgvAccounts.Columns("numProgramCode").HeaderText = "Program Code"
-            dgvAccounts.Columns("numProgramCode").DisplayIndex = 4
             dgvAccounts.Columns("numProgramCode").Visible = False
             dgvAccounts.Columns("strProgramDesc").HeaderText = "Program Desc."
-            dgvAccounts.Columns("strProgramDesc").DisplayIndex = 5
-            dgvAccounts.Columns("strProgramDesc").Width = 250
             dgvAccounts.Columns("numUnitCode").HeaderText = "Unit Code"
-            dgvAccounts.Columns("numUnitCode").DisplayIndex = 6
             dgvAccounts.Columns("numUnitCode").Visible = False
             dgvAccounts.Columns("strUnitDesc").HeaderText = "unit Desc."
-            dgvAccounts.Columns("strUnitDesc").DisplayIndex = 7
-            dgvAccounts.Columns("strUnitDesc").Width = 250
+            dgvAccounts.SanelyResizeColumns
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
     End Sub
-    Sub LoadUnitGrid()
-        Try
-            dsAccount = New DataSet
-            dgvAccounts.DataSource = dsAccount
 
-            SQL = "Select " &
+    Private Sub LoadUnitGrid()
+        Try
+            dgvAccounts.DataSource = Nothing
+
+            Dim SQL As String = "Select " &
             "numUnitCode, strUnitDesc, " &
             "numProgramCode " &
             "from LookUpEPDUnits " &
-            "where numProgramCode = '" & txtProgramCode.Text & "' " &
+            "where numProgramCode = @programcode " &
             "order by strUnitDesc "
 
-            dsUnit = New DataSet
-            daUnit = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daUnit.Fill(dsUnit, "Units")
+            Dim p As New SqlParameter("@programcode", txtProgramCode.Text)
 
-            dgvUnit.DataSource = dsUnit
-            dgvUnit.DataMember = "Units"
-
-            dgvUnit.RowHeadersVisible = False
-            dgvUnit.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvUnit.AllowUserToResizeColumns = True
-            dgvUnit.AllowUserToAddRows = False
-            dgvUnit.AllowUserToDeleteRows = False
-            dgvUnit.AllowUserToOrderColumns = True
-            dgvUnit.AllowUserToResizeRows = True
-            dgvUnit.ColumnHeadersHeight = "35"
+            dgvUnit.DataSource = DB.GetDataTable(SQL, p)
             dgvUnit.Columns("numUnitCode").HeaderText = "ID #"
-            dgvUnit.Columns("numUnitCode").DisplayIndex = 0
-            dgvUnit.Columns("numUnitCode").Width = 60
             dgvUnit.Columns("strUnitDesc").HeaderText = "Unit Desc."
-            dgvUnit.Columns("strUnitDesc").DisplayIndex = 1
-            dgvUnit.Columns("strUnitDesc").Width = 300
             dgvUnit.Columns("numProgramCode").HeaderText = "Program Code"
-            dgvUnit.Columns("numProgramCode").DisplayIndex = 2
-            dgvUnit.Columns("numProgramCode").Width = 50
             dgvUnit.Columns("numProgramCode").Visible = False
+            dgvUnit.SanelyResizeColumns
 
             SQL = "Select " &
             "numAccountCode, strAccountDesc,  " &
             "LookUpEPDBranches.numBranchCode, strBranchDesc, " &
             "LookUpEPDPrograms.numProgramCode, strProgramDesc,  " &
             "LookUpEPDUnits.numUnitCode, strUnitDesc " &
-            "from LookUpIAIPAccounts, LookupEPDBranches,  " &
-            "LookUpEPDPrograms, LookUpEPDUnits   " &
-            "where LookUpIAIPAccounts.numBranchCode = LookUpEPDBranches.numBranchCode (+)  " &
-            "and LookUpIAIPAccounts.numProgramCode = LookUpEPDPrograms.numProgramCode (+)  " &
-            "and LookUpIAIPAccounts.numUnitCode = LookUpEPDUnits.numUnitCode (+)  " &
-            "and lookupiaipaccounts.numProgramCode = '" & txtProgramCode.Text & "'  " &
+            "from LookUpIAIPAccounts " &
+            "left join LookupEPDBranches " &
+            "on LookUpIAIPAccounts.numBranchCode = LookUpEPDBranches.numBranchCode " &
+            "left join LookUpEPDPrograms " &
+            "on LookUpIAIPAccounts.numProgramCode = LookUpEPDPrograms.numProgramCode " &
+            "left join LookUpEPDUnits " &
+            "on LookUpIAIPAccounts.numUnitCode = LookUpEPDUnits.numUnitCode " &
+            "where lookupiaipaccounts.numProgramCode = @programcode " &
             "and LookUpIAIPAccounts.numUnitCode is Null " &
             "order by strAccountDesc "
 
-            dsAccount = New DataSet
-            daAccount = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daAccount.Fill(dsAccount, "Accounts")
-
-            dgvAccounts.DataSource = dsAccount
-            dgvAccounts.DataMember = "Accounts"
-
-            dgvAccounts.RowHeadersVisible = False
-            dgvAccounts.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvAccounts.AllowUserToResizeColumns = True
-            dgvAccounts.AllowUserToAddRows = False
-            dgvAccounts.AllowUserToDeleteRows = False
-            dgvAccounts.AllowUserToOrderColumns = True
-            dgvAccounts.AllowUserToResizeRows = True
-            dgvAccounts.ColumnHeadersHeight = "35"
+            dgvAccounts.DataSource = DB.GetDataTable(SQL, p)
             dgvAccounts.Columns("numAccountCode").HeaderText = "ID #"
-            dgvAccounts.Columns("numAccountCode").DisplayIndex = 0
-            dgvAccounts.Columns("numAccountCode").Width = 60
             dgvAccounts.Columns("strAccountDesc").HeaderText = "Account Desc."
-            dgvAccounts.Columns("strAccountDesc").DisplayIndex = 1
-            dgvAccounts.Columns("strAccountDesc").Width = 300
             dgvAccounts.Columns("numBranchCode").HeaderText = "Branch Code"
-            dgvAccounts.Columns("numBranchCode").DisplayIndex = 2
             dgvAccounts.Columns("numBranchCode").Visible = False
             dgvAccounts.Columns("strBranchDesc").HeaderText = "Branch Desc."
-            dgvAccounts.Columns("strBranchDesc").DisplayIndex = 3
-            dgvAccounts.Columns("strBranchDesc").Width = 250
             dgvAccounts.Columns("numProgramCode").HeaderText = "Program Code"
-            dgvAccounts.Columns("numProgramCode").DisplayIndex = 4
-            dgvAccounts.Columns("numProgramCode").Visible = False
             dgvAccounts.Columns("strProgramDesc").HeaderText = "Program Desc."
-            dgvAccounts.Columns("strProgramDesc").DisplayIndex = 5
-            dgvAccounts.Columns("strProgramDesc").Width = 250
             dgvAccounts.Columns("numUnitCode").HeaderText = "Unit Code"
-            dgvAccounts.Columns("numUnitCode").DisplayIndex = 6
             dgvAccounts.Columns("numUnitCode").Visible = False
             dgvAccounts.Columns("strUnitDesc").HeaderText = "unit Desc."
-            dgvAccounts.Columns("strUnitDesc").DisplayIndex = 7
-            dgvAccounts.Columns("strUnitDesc").Width = 250
+            dgvAccounts.SanelyResizeColumns
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
     End Sub
-    Sub LoadAccountGrid()
+
+    Private Sub LoadAccountGrid()
         Try
-            SQL = "Select " &
+            Dim SQL As String = "Select " &
             "numAccountCode, strAccountDesc,  " &
             "LookUpEPDBranches.numBranchCode, strBranchDesc, " &
             "LookUpEPDPrograms.numProgramCode, strProgramDesc,  " &
             "LookUpEPDUnits.numUnitCode, strUnitDesc " &
-            "from LookUpIAIPAccounts, LookupEPDBranches,  " &
-            "LookUpEPDPrograms, LookUpEPDUnits   " &
-            "where LookUpIAIPAccounts.numBranchCode = LookUpEPDBranches.numBranchCode (+)  " &
-            "and LookUpIAIPAccounts.numProgramCode = LookUpEPDPrograms.numProgramCode (+)  " &
-            "and LookUpIAIPAccounts.numUnitCode = LookUpEPDUnits.numUnitCode (+)  " &
-            "and lookupiaipaccounts.numUnitCode = '" & txtUnitCode.Text & "'  " &
+            "from LookUpIAIPAccounts " &
+            "left join LookupEPDBranches " &
+            "on LookUpIAIPAccounts.numBranchCode = LookUpEPDBranches.numBranchCode " &
+            "left join LookUpEPDPrograms " &
+            "on LookUpIAIPAccounts.numProgramCode = LookUpEPDPrograms.numProgramCode " &
+            "left join LookUpEPDUnits   " &
+            "on LookUpIAIPAccounts.numUnitCode = LookUpEPDUnits.numUnitCode " &
+            "where lookupiaipaccounts.numUnitCode = @unitcode " &
             "order by strAccountDesc "
 
-            dsAccount = New DataSet
-            daAccount = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daAccount.Fill(dsAccount, "Accounts")
+            Dim p As New SqlParameter("@unitcode", txtUnitCode.Text)
 
-            dgvAccounts.DataSource = dsAccount
-            dgvAccounts.DataMember = "Accounts"
+            dgvAccounts.DataSource = DB.GetDataTable(SQL, p)
 
-            dgvAccounts.RowHeadersVisible = False
-            dgvAccounts.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvAccounts.AllowUserToResizeColumns = True
-            dgvAccounts.AllowUserToAddRows = False
-            dgvAccounts.AllowUserToDeleteRows = False
-            dgvAccounts.AllowUserToOrderColumns = True
-            dgvAccounts.AllowUserToResizeRows = True
-            dgvAccounts.ColumnHeadersHeight = "35"
             dgvAccounts.Columns("numAccountCode").HeaderText = "ID #"
-            dgvAccounts.Columns("numAccountCode").DisplayIndex = 0
-            dgvAccounts.Columns("numAccountCode").Width = 60
             dgvAccounts.Columns("strAccountDesc").HeaderText = "Account Desc."
-            dgvAccounts.Columns("strAccountDesc").DisplayIndex = 1
-            dgvAccounts.Columns("strAccountDesc").Width = 300
             dgvAccounts.Columns("numBranchCode").HeaderText = "Branch Code"
-            dgvAccounts.Columns("numBranchCode").DisplayIndex = 2
             dgvAccounts.Columns("numBranchCode").Visible = False
             dgvAccounts.Columns("strBranchDesc").HeaderText = "Branch Desc."
-            dgvAccounts.Columns("strBranchDesc").DisplayIndex = 3
-            dgvAccounts.Columns("strBranchDesc").Width = 250
             dgvAccounts.Columns("numProgramCode").HeaderText = "Program Code"
-            dgvAccounts.Columns("numProgramCode").DisplayIndex = 4
             dgvAccounts.Columns("numProgramCode").Visible = False
             dgvAccounts.Columns("strProgramDesc").HeaderText = "Program Desc."
-            dgvAccounts.Columns("strProgramDesc").DisplayIndex = 5
-            dgvAccounts.Columns("strProgramDesc").Width = 250
             dgvAccounts.Columns("numUnitCode").HeaderText = "Unit Code"
-            dgvAccounts.Columns("numUnitCode").DisplayIndex = 6
             dgvAccounts.Columns("numUnitCode").Visible = False
             dgvAccounts.Columns("strUnitDesc").HeaderText = "unit Desc."
-            dgvAccounts.Columns("strUnitDesc").DisplayIndex = 7
-            dgvAccounts.Columns("strUnitDesc").Width = 250
-
+            dgvAccounts.SanelyResizeColumns
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
     End Sub
-    Sub LoadProgram(BranchCode As String)
+
+    Private Sub LoadProgram(BranchCode As String)
         Try
-            Dim dtProgram As New DataTable
-            Dim drDSRow As DataRow
-            Dim drNewRow As DataRow
-            Dim temp As String = "Add"
-            Dim i As Integer
-
-            dtProgram.Columns.Add("numProgramCode", GetType(System.String))
-            dtProgram.Columns.Add("strProgramDesc", GetType(System.String))
-
-            drNewRow = dtProgram.NewRow()
-            drNewRow("numProgramCode") = ""
-            drNewRow("strProgramDesc") = " "
-            dtProgram.Rows.Add(drNewRow)
-
-            If BranchCode = " " Or BranchCode = "" Then
-
-            Else
-                For Each drDSRow In dsOrginizations.Tables("Orginization").Select("numBranchCode = " & BranchCode, "strProgramDesc")
-                    drNewRow = dtProgram.NewRow()
-                    drNewRow("numProgramCode") = drDSRow("numProgramCode")
-                    drNewRow("strProgramDesc") = drDSRow("strProgramDesc")
-
-                    If Not IsDBNull(drDSRow("strProgramDesc")) Then
-                        For i = 0 To dtProgram.Rows.Count - 1
-                            If drDSRow("strProgramDesc") = dtProgram.Rows(i).Item(1) Then
-                                temp = "No"
-                            Else
-                                'temp = temp
-                            End If
-                        Next
-                        If temp = "Add" Then
-                            dtProgram.Rows.Add(drNewRow)
-                        End If
-                        temp = "Add"
-                    End If
-                Next
-            End If
+            Dim dvProgram As New DataView(dtOrganization, "numBranchCode = " & BranchCode, "strProgramDesc", DataViewRowState.CurrentRows)
+            Dim dtProgram As DataTable = dvProgram.ToTable(True, {"numProgramCode", "strProgramDesc"})
 
             With cboProgram
                 .DataSource = dtProgram
                 .DisplayMember = "strProgramDesc"
                 .ValueMember = "numProgramCode"
+                .Enabled = True
+                .SelectedIndex = -1
             End With
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
     End Sub
-    Sub LoadUnit(ProgramCode As String)
+
+    Private Sub LoadAccounts(ProgramCode As String, BranchCode As String)
         Try
-            Dim dtUnit As New DataTable
-            Dim drDSRow As DataRow
-            Dim drNewRow As DataRow
-            Dim temp As String = "Add"
-            Dim i As Integer
+            Dim filterString As String = " BranchID = " & BranchCode
 
-            dtUnit.Columns.Add("numUnitCode", GetType(System.String))
-            dtUnit.Columns.Add("strUnitDesc", GetType(System.String))
-
-            drNewRow = dtUnit.NewRow()
-            drNewRow("numUnitCode") = ""
-            drNewRow("strUnitDesc") = " "
-            dtUnit.Rows.Add(drNewRow)
-
-            If ProgramCode = " " Or ProgramCode = "" Then
-
+            If String.IsNullOrEmpty(ProgramCode) Then
+                filterString &= " and ProgramID is null "
             Else
-                For Each drDSRow In dsOrginizations.Tables("Orginization").Select("numProgramCode = " & ProgramCode, "strUnitDesc")
-                    drNewRow = dtUnit.NewRow()
-                    drNewRow("numUnitCode") = drDSRow("numUnitCode")
-                    drNewRow("strUnitDesc") = drDSRow("strUnitDesc")
-
-                    If Not IsDBNull(drDSRow("strUnitDesc")) Then
-                        For i = 0 To dtUnit.Rows.Count - 1
-                            If drDSRow("strUnitDesc") = dtUnit.Rows(i).Item(1) Then
-                                temp = "No"
-                            Else
-                                'temp = temp
-                            End If
-                        Next
-                        If temp = "Add" Then
-                            dtUnit.Rows.Add(drNewRow)
-                        End If
-                        temp = "Add"
-                    End If
-                Next
+                filterString &= " and ProgramID = " & ProgramCode
             End If
-            With cboUnit
-                .DataSource = dtUnit
-                .DisplayMember = "strUnitDesc"
-                .ValueMember = "numUnitCode"
+
+            Dim dvAccount As New DataView(GetSharedData(SharedTable.IaipAccountRoles), filterString, "Role", DataViewRowState.CurrentRows)
+            Dim dtAccount As DataTable = dvAccount.ToTable(True, {"RoleCode", "Role"})
+
+            With lbAccounts
+                .DataSource = dtAccount
+                .DisplayMember = "Role"
+                .ValueMember = "RoleCode"
             End With
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
     End Sub
-    Sub LoadAccounts(UnitCode As String, ProgramCode As String, BranchCode As String)
-        Try
-            Dim dtAccount As New DataTable
-            Dim drDSRow As DataRow
-            Dim drNewRow As DataRow
 
-            dtAccount.Columns.Add("numAccountCode", GetType(System.String))
-            dtAccount.Columns.Add("strAccountDesc", GetType(System.String))
-
-
-            If BranchCode = "" And ProgramCode = "" And UnitCode = "" Then
-                With clbAccounts
-                    .DataSource = dtAccount
-                    .DisplayMember = "strAccountDesc"
-                    .ValueMember = "numAccountCode"
-                End With
-            Else
-                If UnitCode = "" Or UnitCode = " " Then
-                    UnitCode = " numUnitCode is null "
-                Else
-                    UnitCode = " numUnitCode = " & UnitCode
-                End If
-                If ProgramCode = "" Or ProgramCode = " " Then
-                    ProgramCode = " numProgramCode is null "
-                Else
-                    ProgramCode = " numProgramCode = " & ProgramCode
-                End If
-                If BranchCode = "" Or BranchCode = " " Then
-                    BranchCode = " numBranchCode is Null "
-                Else
-                    BranchCode = " numBranchCode = " & BranchCode
-                End If
-
-                For Each drDSRow In dsAccounts.Tables("Accounts").Select(BranchCode & " and " & ProgramCode & " and " & UnitCode, "strAccountdesc")
-                    drNewRow = dtAccount.NewRow()
-                    drNewRow("numAccountCode") = drDSRow("numAccountCode")
-                    drNewRow("strAccountDesc") = drDSRow("strAccountDesc")
-                    dtAccount.Rows.Add(drNewRow)
-                Next
-
-                With clbAccounts
-                    .DataSource = dtAccount
-                    .DisplayMember = "strAccountDesc"
-                    .ValueMember = "numAccountCode"
-                End With
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-    End Sub
-    Sub UpdateAccount()
+    Private Sub UpdateAccount()
         Try
             Dim i As Integer = 0
             Dim temp As String = ""
             Dim SQLLine As String = ""
 
-            lblFormAccess.Text = ""
+            formAccessText = ""
 
             For i = 0 To dgvSelectedForms.Rows.Count - 1
                 temp = "(" & dgvSelectedForms(0, i).Value & "-"
@@ -753,42 +386,37 @@ Public Class IAIPListTool
                     temp = temp & "0"
                 End If
                 temp = temp & ")"
-                lblFormAccess.Text = lblFormAccess.Text & temp
+                formAccessText = formAccessText & temp
             Next
 
-            SQL = "Update LookUpIAIPAccounts set " &
-            "strFormAccess = '" & lblFormAccess.Text & "' " &
+            Dim SQL As String = "Update LookUpIAIPAccounts set " &
+            "strFormAccess = @formAccessText " &
             "where "
 
+            Dim code As Integer
+
             If chbCascadeBranch.Checked = True Then
-                SQLLine = " numBranchcode = '" & cboBranch.SelectedValue & "' "
-            Else
-                If chbCascadeProgram.Checked = True Then
-                    SQLLine = " numProgramcode = '" & cboProgram.SelectedValue & "' "
-                Else
-                    SQLLine = ""
-                    Dim myStringIndex As String
-                    i = 0
-                    Do While i < Me.clbAccounts.CheckedItems.Count
-                        myStringIndex = Me.clbAccounts.CheckedIndices(i).ToString()
-                        clbAccounts.SetSelected(myStringIndex, True)
-                        SQLLine = SQLLine & " numaccountCode = '" & clbAccounts.SelectedValue & "' and "
-                        i += 1
-                    Loop
-                    If SQLLine <> "" Then
-                        SQLLine = Mid(SQLLine, 1, (SQLLine.Length) - 4)
-                    End If
-                End If
+                SQLLine = " numBranchcode = @code "
+                code = cboBranch.SelectedValue
+            ElseIf chbCascadeProgram.Checked = True Then
+                SQLLine = " numProgramcode = @code "
+                code = cboProgram.SelectedValue
+            ElseIf lbAccounts.SelectedItems.Count = 1 Then
+                SQLLine = " numaccountCode = @code "
+                code = lbAccounts.SelectedValue
             End If
 
             If SQLLine <> "" Then
                 SQL = SQL & SQLLine
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                dr.Close()
+
+                Dim p As SqlParameter() = {
+                    New SqlParameter("@formAccessText", formAccessText),
+                    New SqlParameter("@code", code)
+                }
+
+                DB.RunCommand(SQL, p)
+
+                SharedData.ClearSharedData(SharedTable.IaipAccountRoles)
 
                 MsgBox("Successfully  Done.", MsgBoxStyle.Information, "IAIP List Tool")
             Else
@@ -797,46 +425,34 @@ Public Class IAIPListTool
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
     End Sub
-    Sub ViewForms()
+
+    Private Sub ViewForms()
         Try
+            If lbAccounts.SelectedItems.Count <> 1 Then
+                Exit Sub
+            End If
+
             Dim i As Integer = 0
-            Dim myStringIndex As String
-            Dim temp As String = ""
+            Dim temp As String = lbAccounts.SelectedValue
             Dim temp2 As String = ""
             Dim tempForm As String = ""
             Dim dgvRow As New DataGridViewRow
 
-            Do While i < Me.clbAccounts.CheckedItems.Count
-                myStringIndex = Me.clbAccounts.CheckedIndices(i).ToString()
-                clbAccounts.SetSelected(myStringIndex, True)
-                temp = clbAccounts.SelectedValue
-                i += 1
-            Loop
-
-            SQL = "Select " &
+            Dim SQL As String = "Select " &
             "strFormAccess " &
             "from LookUpIAIPAccounts " &
-            "where numAccountCode = '" & temp & "' "
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                If IsDBNull(dr.Item("strFormAccess")) Then
-                    lblFormAccess.Text = ""
-                Else
-                    lblFormAccess.Text = dr.Item("strFormAccess")
-                End If
-            End While
-            dr.Close()
+            "where numAccountCode = @code "
+
+            Dim p As New SqlParameter("@code", temp)
+
+            formAccessText = DB.GetSingleValue(Of String)(SQL, p)
 
             dgvSelectedForms.Rows.Clear()
-            If lblFormAccess.Text <> "" Then
-                temp = lblFormAccess.Text
+
+            If formAccessText <> "" Then
+                temp = formAccessText
                 Do While temp <> ""
                     tempForm = Mid(temp, 1, InStr(temp, ")", CompareMethod.Text))
                     temp = Replace(temp, tempForm, "")
@@ -879,25 +495,21 @@ Public Class IAIPListTool
                                     dgvSelectedForms.Rows.Add(dgvRow)
                                 End If
                             End If
-                            System.Math.Min(System.Threading.Interlocked.Increment(y), y - 1)
+                            Math.Min(Threading.Interlocked.Increment(y), y - 1)
                         End While
-                        System.Math.Min(System.Threading.Interlocked.Increment(x), x - 1)
+                        Math.Min(Threading.Interlocked.Increment(x), x - 1)
                     End While
                 Loop
 
                 lblSelectedFormCount.Text = "Count: " & dgvSelectedForms.Rows.Count.ToString
-
+                dgvSelectedForms.SanelyResizeColumns
             End If
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
     End Sub
 
-
-#End Region
-#Region "Declaration"
     Private Sub dgvBranch_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvBranch.MouseUp
         Try
             Dim hti As DataGridView.HitTestInfo = dgvBranch.HitTest(e.X, e.Y)
@@ -917,9 +529,9 @@ Public Class IAIPListTool
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
     End Sub
+
     Private Sub dgvProgram_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvProgram.MouseUp
         Try
             Dim hti As DataGridView.HitTestInfo = dgvProgram.HitTest(e.X, e.Y)
@@ -939,9 +551,9 @@ Public Class IAIPListTool
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
     End Sub
+
     Private Sub dgvUnit_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvUnit.MouseUp
         Try
             Dim hti As DataGridView.HitTestInfo = dgvUnit.HitTest(e.X, e.Y)
@@ -961,9 +573,9 @@ Public Class IAIPListTool
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
     End Sub
+
     Private Sub dgvAccounts_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvAccounts.MouseUp
         Try
             Dim hti As DataGridView.HitTestInfo = dgvAccounts.HitTest(e.X, e.Y)
@@ -997,509 +609,250 @@ Public Class IAIPListTool
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
     End Sub
-    Private Sub tsbClear_Click(sender As Object, e As EventArgs) Handles tsbClear.Click
-        Try
-            dsProgram = New DataSet
-            dsUnit = New DataSet
-            dsAccount = New DataSet
 
-            dgvProgram.DataSource = dsProgram
-            dgvUnit.DataSource = dsUnit
-            dgvAccounts.DataSource = dsAccount
+    Private Sub txtBranchCode_TextChanged(sender As Object, e As EventArgs) Handles txtBranchCode.TextChanged,
+        txtProgramCode.TextChanged, txtUnitCode.TextChanged, txtAccountCode.TextChanged
 
-            txtAccount.Clear()
-            txtAccountCode.Clear()
-            txtUnit.Clear()
-            txtUnitCode.Clear()
-            txtProgram.Clear()
-            txtProgramCode.Clear()
-            txtBranch.Clear()
-            txtBranchCode.Clear()
+        CheckButtons()
+    End Sub
 
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-        End Try
-    End Sub
-    Private Sub txtBranchCode_TextChanged(sender As Object, e As EventArgs) Handles txtBranchCode.TextChanged
-        Try
-            CheckButtons()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-        End Try
-    End Sub
-    Private Sub txtProgramCode_TextChanged(sender As Object, e As EventArgs) Handles txtProgramCode.TextChanged
-        Try
-            CheckButtons()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-        End Try
-    End Sub
-    Private Sub txtUnitCode_TextChanged(sender As Object, e As EventArgs) Handles txtUnitCode.TextChanged
-        Try
-            CheckButtons()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-        End Try
-    End Sub
-    Private Sub txtAccountCode_TextChanged(sender As Object, e As EventArgs) Handles txtAccountCode.TextChanged
-        Try
-            CheckButtons()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-        End Try
-    End Sub
     Private Sub btnAddBranch_Click(sender As Object, e As EventArgs) Handles btnAddBranch.Click
         Try
-            SQL = "Insert into LookUpEPDBranches " &
+            Dim SQL As String = "Insert into LookUpEPDBranches " &
+            "(NUMBRANCHCODE, STRBRANCHDESC) " &
             "values " &
             "((select max(numBranchCode) + 1 from LookUpEPDBranches), " &
-            "'" & Replace(txtBranch.Text, "'", "''") & "') "
+            "@branch ) "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
+            Dim p As New SqlParameter("@branch", txtBranch.Text)
+
+            DB.RunCommand(SQL, p)
 
             SQL = "Select max(numBranchCode) from LookUpEPDBranches "
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                txtBranchCode.Text = dr.Item(0)
-            End While
-            dr.Close()
+
+            txtBranchCode.Text = DB.GetSingleValue(Of Integer)(SQL)
 
             LoadBranchGrid()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
     End Sub
+
     Private Sub btnEditBranch_Click(sender As Object, e As EventArgs) Handles btnEditBranch.Click
         Try
             If txtBranchCode.Text <> "" Then
-                SQL = "Update LookUpEPDBranches set " &
-                "strBranchDesc = '" & Replace(txtBranch.Text, "'", "''") & "' " &
-                "where numBranchCode = '" & txtBranchCode.Text & "' "
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                dr.Close()
+                Dim SQL As String = "Update LookUpEPDBranches set " &
+                "strBranchDesc = @branch " &
+                "where numBranchCode = @branchcode "
+
+                Dim p As SqlParameter() = {
+                    New SqlParameter("@branch", txtBranch.Text),
+                    New SqlParameter("@branchcode", txtBranchCode.Text)
+                }
+
+                DB.RunCommand(SQL, p)
 
                 LoadBranchGrid()
             End If
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
     End Sub
-    Private Sub btnDeleteBranch_Click(sender As Object, e As EventArgs) Handles btnDeleteBranch.Click
-        Try
-            If txtBranchCode.Text <> "" Then
-                SQL = "Delete LookUpEPDBranches " &
-                "where numBranchCode = '" & txtBranchCode.Text & "' "
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                dr.Close()
 
-                txtBranch.Clear()
-                txtBranchCode.Clear()
-
-                LoadBranchGrid()
-
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-        End Try
-    End Sub
     Private Sub btnAddProgram_Click(sender As Object, e As EventArgs) Handles btnAddProgram.Click
         Try
             If txtBranchCode.Text <> "" Then
-                SQL = "Insert into LookUpEPDPrograms " &
+                Dim SQL As String = "Insert into LookUpEPDPrograms " &
+                "(NUMPROGRAMCODE, STRPROGRAMDESC, NUMBRANCHCODE) " &
                 "values " &
-                "((select max(numProgramCode) + 1 from LookUpEPDPrograms where numProgramCode < 99), " &
-                "'" & Replace(txtProgram.Text, "'", "''") & "', " &
-                "'" & txtBranchCode.Text & "') "
+                "((select max(numProgramCode) + 1 from LookUpEPDPrograms), " &
+                " @program, @branchcode) "
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                dr.Close()
+                Dim p As SqlParameter() = {
+                    New SqlParameter("@program", txtProgram.Text),
+                    New SqlParameter("@branchcode", txtBranchCode.Text)
+                }
 
-                SQL = "select max(numProgramCode) from LookUpEPDPrograms where numProgramCode < 99 "
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                While dr.Read
-                    txtProgramCode.Text = dr.Item(0)
-                End While
-                dr.Close()
+                DB.RunCommand(SQL, p)
+
+                SQL = "select max(numProgramCode) from LookUpEPDPrograms"
+
+                txtProgramCode.Text = DB.GetSingleValue(Of Integer)(SQL)
 
                 LoadProgramGrid()
             End If
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
     End Sub
+
     Private Sub btnEditProgram_Click(sender As Object, e As EventArgs) Handles btnEditProgram.Click
         Try
             If txtProgramCode.Text <> "" And txtBranchCode.Text <> "" Then
+                Dim SQL As String = "Update LookUpEPDPrograms set " &
+                "strProgramDesc = @program, " &
+                "numBranchCode = @branchcode " &
+                "where numProgramCode = @programcode "
 
-                SQL = "Update LookUpEPDPrograms set " &
-                "strProgramDesc = '" & Replace(txtProgram.Text, "'", "''") & "', " &
-                "numBranchCode = '" & txtBranchCode.Text & "' " &
-                "where numProgramCode = '" & txtProgramCode.Text & "' "
+                Dim p As SqlParameter() = {
+                    New SqlParameter("@program", txtProgram.Text),
+                    New SqlParameter("@branchcode", txtBranchCode.Text),
+                    New SqlParameter("@programcode", txtProgramCode.Text)
+                }
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                dr.Close()
+                DB.RunCommand(SQL, p)
 
                 LoadProgramGrid()
-
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
     End Sub
-    Private Sub btnDeleteProgram_Click(sender As Object, e As EventArgs) Handles btnDeleteProgram.Click
-        Try
-            SQL = "Delete LookUpEPDPrograms " &
-            "where numProgramCode = '" & txtProgramCode.Text & "' "
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
 
-            txtProgram.Clear()
-            txtProgramCode.Clear()
-
-            LoadProgramGrid()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-        End Try
-    End Sub
     Private Sub btnAddUnit_Click(sender As Object, e As EventArgs) Handles btnAddUnit.Click
         Try
             If txtProgramCode.Text <> "" Then
-                SQL = "Insert into LookUpEPDUnits " &
+                Dim SQL As String = "Insert into LookUpEPDUnits " &
                 "(numUnitCode, strUnitDesc, numProgramCode)  " &
                 "values  " &
-                "((select max(numUnitCode) + 1 From LookUpEPDUnits), '" & Replace(txtUnit.Text, "'", "''") & "',  " &
-                "'" & Replace(txtProgramCode.Text, "'", "''") & "') "
+                "((select max(numUnitCode) + 1 From LookUpEPDUnits), " &
+                " @unit, @programcode ) "
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                dr.Close()
+                Dim p As SqlParameter() = {
+                    New SqlParameter("@unit", txtUnit.Text),
+                    New SqlParameter("@programcode", txtProgramCode.Text)
+                }
+
+                DB.RunCommand(SQL, p)
 
                 SQL = "select max(numUnitCode) from LookUpEPDUnits "
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                While dr.Read
-                    txtUnitCode.Text = dr.Item(0)
-                End While
-                dr.Close()
+
+                txtUnitCode.Text = DB.GetSingleValue(Of Integer)(SQL)
 
                 LoadUnitGrid()
             End If
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
     End Sub
+
     Private Sub btnEditUnit_Click(sender As Object, e As EventArgs) Handles btnEditUnit.Click
         Try
             If txtUnitCode.Text <> "" And txtProgramCode.Text <> "" Then
-                SQL = "Update LookUpEPDUnits set " &
-                "strUnitDesc = '" & txtUnit.Text & "' " &
-                "where numUnitCode = '" & txtUnitCode.Text & "' "
+                Dim SQL As String = "Update LookUpEPDUnits set " &
+                "strUnitDesc = @unit " &
+                "where numUnitCode = @unitcode "
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                dr.Close()
+                Dim p As SqlParameter() = {
+                    New SqlParameter("@unit", txtUnit.Text),
+                    New SqlParameter("@unitcode", txtUnitCode.Text)
+                }
+
+                DB.RunCommand(SQL, p)
 
                 LoadUnitGrid()
             End If
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
     End Sub
-    Private Sub btnDeleteUnit_Click(sender As Object, e As EventArgs) Handles btnDeleteUnit.Click
-        Try
-            SQL = "Delete LookUpEPDUnits " &
-            "where numUnitCode = '" & txtUnitCode.Text & "' "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
-
-            txtUnit.Clear()
-            txtUnitCode.Clear()
-
-            LoadUnitGrid()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-        End Try
-    End Sub
     Private Sub btnAddAccount_Click(sender As Object, e As EventArgs) Handles btnAddAccount.Click
         Try
-            SQL = "Insert into LookUpIAIPAccounts " &
+            Dim SQL As String = "Insert into LookUpIAIPAccounts " &
+            "(NUMACCOUNTCODE, STRACCOUNTDESC, NUMBRANCHCODE, NUMPROGRAMCODE, NUMUNITCODE, STRFORMACCESS) " &
             "values " &
             "((Select (max(numAccountCode) + 1) from LookUpIAIPAccounts), " &
-            "'" & txtAccount.Text & "', " &
-            "'" & txtBranchCode.Text & "', '" & txtProgramCode.Text & "', " &
-            "'" & txtUnitCode.Text & "', '') "
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
+            " @desc, @branchcode, @programcode, @unitcode, null) "
+
+            Dim p As SqlParameter() = {
+                New SqlParameter("@desc", txtAccount.Text),
+                New SqlParameter("@branchcode", txtBranchCode.Text),
+                New SqlParameter("@programcode", txtProgramCode.Text),
+                New SqlParameter("@unitcode", txtUnitCode.Text),
+                New SqlParameter("@formaccess", txtUnitCode.Text)
+            }
+
+            DB.RunCommand(SQL, p)
 
             SQL = "Select max(numAccountCode) as MaxAccount " &
             "from LookUpIAIPAccounts "
-
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                txtAccountCode.Text = dr.Item(0)
-            End While
-            dr.Close()
+            txtAccountCode.Text = DB.GetSingleValue(Of Integer)(SQL)
 
             LoadAccountGrid()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
     End Sub
+
     Private Sub btnEditAccount_Click(sender As Object, e As EventArgs) Handles btnEditAccount.Click
         Try
             If txtAccountCode.Text <> "" Then
-                SQL = "Update LookUpIAIPAccounts set " &
-                "strAccountDesc = '" & Replace(txtAccount.Text, "'", "''") & "', " &
-                "numBranchCode = '" & txtBranchCode.Text & "', " &
-                "numProgramCode = '" & txtProgramCode.Text & "', " &
-                "numUnitCode = '" & txtUnitCode.Text & "' " &
-                "where numAccountCode = '" & txtAccountCode.Text & "' "
+                Dim SQL As String = "Update LookUpIAIPAccounts set " &
+                "strAccountDesc = @desc, " &
+                "numBranchCode = @branchcode, " &
+                "numProgramCode = @programcode, " &
+                "numUnitCode = @unitcode " &
+                "where numAccountCode = @accountcode "
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                dr.Close()
+                Dim p As SqlParameter() = {
+                    New SqlParameter("@desc", txtAccount.Text),
+                    New SqlParameter("@branchcode", txtBranchCode.Text),
+                    New SqlParameter("@programcode", txtProgramCode.Text),
+                    New SqlParameter("@unitcode", txtUnitCode.Text),
+                    New SqlParameter("@accountcode", txtAccountCode.Text)
+                }
+
+                DB.RunCommand(SQL, p)
 
                 LoadAccountGrid()
             End If
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
     End Sub
-    Private Sub btnDeleteAccount_Click(sender As Object, e As EventArgs) Handles btnDeleteAccount.Click
-        Try
-            SQL = "Delete LookUpIAIPAccounts " &
-            "where numAccountCode = '" & txtAccountCode.Text & "' "
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
-            txtAccount.Clear()
-            txtAccountCode.Clear()
 
-            LoadAccountGrid()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-        End Try
-    End Sub
     Private Sub btnClearBranch_Click(sender As Object, e As EventArgs) Handles btnClearBranch.Click
-        Try
-            txtBranch.Clear()
-            txtBranchCode.Clear()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-        End Try
+        txtBranch.Clear()
+        txtBranchCode.Clear()
     End Sub
+
     Private Sub btnClearProgram_Click(sender As Object, e As EventArgs) Handles btnClearProgram.Click
-        Try
-            txtProgram.Clear()
-            txtProgramCode.Clear()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-        End Try
+        txtProgram.Clear()
+        txtProgramCode.Clear()
     End Sub
+
     Private Sub btnClearUnit_Click(sender As Object, e As EventArgs) Handles btnClearUnit.Click
-        Try
-            txtUnit.Clear()
-            txtUnitCode.Clear()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-        End Try
+        txtUnit.Clear()
+        txtUnitCode.Clear()
     End Sub
+
     Private Sub btnClearAccount_Click(sender As Object, e As EventArgs) Handles btnClearAccount.Click
-        Try
-            txtAccount.Clear()
-            txtAccountCode.Clear()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-        End Try
+        txtAccount.Clear()
+        txtAccountCode.Clear()
     End Sub
-    Private Sub cboBranch_SelectedValueChanged(sender As Object, e As EventArgs) Handles cboBranch.SelectedValueChanged
-        Try
-            Dim Unit As String
-            Dim Program As String
-            Dim Branch As String
 
-            If cboBranch.SelectedIndex > 0 Then
-                LoadProgram(cboBranch.SelectedValue)
-            End If
-
-            If cboBranch.SelectedIndex > 0 Then
-                Branch = cboBranch.SelectedValue
-            Else
-                Branch = ""
-            End If
-            If cboProgram.SelectedIndex > 0 Then
-                Program = cboProgram.SelectedValue
-            Else
-                Program = ""
-            End If
-            If cboUnit.SelectedIndex > 0 Then
-                Unit = cboUnit.SelectedValue
-            Else
-                Unit = ""
-            End If
-
-            LoadAccounts(Unit, Program, Branch)
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
+    Private Sub cboBranch_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboBranch.SelectedIndexChanged
+        loading = True
+        If cboBranch.SelectedIndex > -1 Then
+            LoadProgram(cboBranch.SelectedValue)
+            LoadAccounts(Nothing, cboBranch.SelectedValue)
+        Else
+            cboProgram.DataSource = Nothing
+            cboProgram.Enabled = False
+        End If
+        loading = False
     End Sub
-    Private Sub cboProgram_SelectedValueChanged(sender As Object, e As EventArgs) Handles cboProgram.SelectedValueChanged
-        Try
-            Dim Unit As String
-            Dim Program As String
-            Dim Branch As String
 
-            If cboProgram.SelectedIndex > 0 Then
-                LoadUnit(cboProgram.SelectedValue)
-            End If
-
-            If cboBranch.SelectedIndex > 0 Then
-                Branch = cboBranch.SelectedValue
-            Else
-                Branch = ""
-            End If
-            If cboProgram.SelectedIndex > 0 Then
-                Program = cboProgram.SelectedValue
-            Else
-                Program = ""
-            End If
-            If cboUnit.SelectedIndex > 0 Then
-                Unit = cboUnit.SelectedValue
-            Else
-                Unit = ""
-            End If
-
-            LoadAccounts(Unit, Program, Branch)
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
+    Private Sub cboProgram_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboProgram.SelectedIndexChanged
+        If Not loading And cboProgram.SelectedIndex > -1 Then
+            LoadAccounts(cboProgram.SelectedValue, cboBranch.SelectedValue)
+        End If
     End Sub
-    Private Sub cboUnit_SelectedValueChanged(sender As Object, e As EventArgs) Handles cboUnit.SelectedValueChanged
-        Try
-            Dim Unit As String
-            Dim Program As String
-            Dim Branch As String
 
-            If cboBranch.SelectedIndex > 0 Then
-                Branch = cboBranch.SelectedValue
-            Else
-                Branch = ""
-            End If
-            If cboProgram.SelectedIndex > 0 Then
-                Program = cboProgram.SelectedValue
-            Else
-                Program = ""
-            End If
-            If cboUnit.SelectedIndex > 0 Then
-                Unit = cboUnit.SelectedValue
-            Else
-                Unit = ""
-            End If
-
-            LoadAccounts(Unit, Program, Branch)
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-        End Try
-    End Sub
     Private Sub btnSelectForm_Click(sender As Object, e As EventArgs) Handles btnSelectForm.Click
         Try
             Dim dgvRow As New DataGridViewRow
@@ -1535,9 +888,9 @@ Public Class IAIPListTool
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
     End Sub
+
     Private Sub btnSelectAllForms_Click(sender As Object, e As EventArgs) Handles btnSelectAllForms.Click
         Try
             Dim dgvRow As New DataGridViewRow
@@ -1557,79 +910,27 @@ Public Class IAIPListTool
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
     End Sub
+
     Private Sub btnUnselectForm_Click(sender As Object, e As EventArgs) Handles btnUnselectForm.Click
-        Try
-            dgvSelectedForms.Rows.Remove(dgvSelectedForms.CurrentRow)
-
-            lblSelectedFormCount.Text = "Count: " & dgvSelectedForms.Rows.Count.ToString
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-        End Try
+        dgvSelectedForms.Rows.Remove(dgvSelectedForms.CurrentRow)
+        lblSelectedFormCount.Text = "Count: " & dgvSelectedForms.Rows.Count.ToString
     End Sub
+
     Private Sub btnUnselectAllForms_Click(sender As Object, e As EventArgs) Handles btnUnselectAllForms.Click
-        Try
-
-            dgvSelectedForms.Rows.Clear()
-
-            lblSelectedFormCount.Text = "Count: " & dgvSelectedForms.Rows.Count.ToString
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-        End Try
+        dgvSelectedForms.Rows.Clear()
+        lblSelectedFormCount.Text = "Count: " & dgvSelectedForms.Rows.Count.ToString
     End Sub
-    Private Sub chbCascadeBranch_CheckedChanged(sender As Object, e As EventArgs) Handles chbCascadeBranch.CheckedChanged
-        Try
 
-            If chbCascadeBranch.Checked = True Or chbCascadeProgram.Checked = True Then
-                clbAccounts.Enabled = False
-            Else
-                clbAccounts.Enabled = True
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-        End Try
+    Private Sub chbCascadeBranch_CheckedChanged(sender As Object, e As EventArgs) Handles chbCascadeBranch.CheckedChanged, chbCascadeProgram.CheckedChanged
+        lbAccounts.Enabled = Not chbCascadeBranch.Checked And Not chbCascadeProgram.Checked
     End Sub
-    Private Sub chbCascadeProgram_CheckedChanged(sender As Object, e As EventArgs) Handles chbCascadeProgram.CheckedChanged
-        Try
-            If chbCascadeBranch.Checked = True Or chbCascadeProgram.Checked = True Then
-                clbAccounts.Enabled = False
-            Else
-                clbAccounts.Enabled = True
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-        End Try
-    End Sub
-    Private Sub chbCascadeUnit_CheckedChanged(sender As Object, e As EventArgs)
-        Try
-            If chbCascadeBranch.Checked = True Or chbCascadeProgram.Checked = True Then
-                clbAccounts.Enabled = False
-            Else
-                clbAccounts.Enabled = True
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-        End Try
-    End Sub
+
     Private Sub btnUpdateAccount_Click(sender As Object, e As EventArgs) Handles btnUpdateAccount.Click
-        Try
-
-            UpdateAccount()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-        End Try
+        UpdateAccount()
     End Sub
+
     Private Sub dgvSelectedForms_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvSelectedForms.MouseUp
         Try
             Dim hti As DataGridView.HitTestInfo = dgvSelectedForms.HitTest(e.X, e.Y)
@@ -1684,17 +985,13 @@ Public Class IAIPListTool
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
     End Sub
+
     Private Sub btnViewAccountForms_Click(sender As Object, e As EventArgs) Handles btnViewAccountForms.Click
-        Try
-            ViewForms()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-        End Try
+        ViewForms()
     End Sub
+
     Private Sub tsbRefreshForm_Click(sender As Object, e As EventArgs) Handles tsbRefreshForm.Click
         Try
             txtBranch.Clear()
@@ -1705,35 +1002,21 @@ Public Class IAIPListTool
             txtUnitCode.Clear()
             txtAccount.Clear()
             txtAccountCode.Clear()
-            dsProgram = New DataSet
-            dgvProgram.DataSource = dsProgram
-            dsUnit = New DataSet
-            dgvUnit.DataSource = dsUnit
-            dsAccount = New DataSet
-            dgvAccounts.DataSource = dsAccount
+            dgvProgram.DataSource = Nothing
+            dgvUnit.DataSource = Nothing
+            dgvAccounts.DataSource = Nothing
 
             btnAddBranch.Enabled = False
             btnEditBranch.Enabled = False
-            btnDeleteBranch.Enabled = False
             btnAddProgram.Enabled = False
             btnEditProgram.Enabled = False
-            btnDeleteProgram.Enabled = False
             btnAddUnit.Enabled = False
             btnEditUnit.Enabled = False
-            btnDeleteUnit.Enabled = False
             btnAddAccount.Enabled = False
             btnEditAccount.Enabled = False
-            btnDeleteAccount.Enabled = False
 
-            If dsUnit.Tables.Count > 0 Then
-                cboUnit.SelectedIndex = 0
-            End If
-            If dsProgram.Tables.Count > 0 Then
-                cboProgram.SelectedIndex = 0
-            End If
-            If dsBranch.Tables.Count > 0 Then
-                cboBranch.SelectedIndex = 0
-            End If
+            cboProgram.SelectedIndex = -1
+            cboBranch.SelectedIndex = -1
 
             chbCascadeBranch.Checked = False
             chbCascadeProgram.Checked = False
@@ -1745,16 +1028,7 @@ Public Class IAIPListTool
             LoadForms()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
     End Sub
 
-
-#End Region
-
-
-
-    Private Sub HelpToolStripMenuItem_Click(sender As Object, e As EventArgs)
-        OpenDocumentationUrl(Me)
-    End Sub
 End Class
