@@ -292,17 +292,10 @@ Public Class SSPPApplicationTrackingLog
                 .SelectedIndex = 0
             End With
 
-            query = "SELECT STRAPPLICATIONTYPECODE, STRAPPLICATIONTYPEDESC " &
-                "FROM LOOKUPAPPLICATIONTYPES " &
-                "WHERE STRAPPLICATIONTYPEUSED <> 'False' OR " &
-                "  STRAPPLICATIONTYPEUSED IS NULL " &
-                "UNION " &
-                "SELECT '0', 'N/A' FROM DUAL ORDER BY STRAPPLICATIONTYPEDESC"
-            Dim dtApplicationType As DataTable = DB.GetDataTable(query)
             With cboApplicationType
-                .DataSource = dtApplicationType
-                .DisplayMember = "strApplicationTypeDesc"
-                .ValueMember = "strApplicationTypeCode"
+                .DataSource = DAL.Sspp.GetApplicationTypes()
+                .DisplayMember = "Application Type"
+                .ValueMember = "Application Type Code"
                 .SelectedValue = 0
             End With
 
@@ -3487,36 +3480,9 @@ Public Class SSPPApplicationTrackingLog
                                         End If
                                     End If
                                     If IsDBNull(dr.Item("strApplicationType")) Then
-                                        cboApplicationType.SelectedIndex = 0
+                                        cboApplicationType.SelectedValue = 0
                                     Else
                                         cboApplicationType.SelectedValue = dr.Item("strApplicationType")
-                                        If cboApplicationType.SelectedValue Is Nothing Then
-                                            temp = dr.Item("strApplicationType")
-                                            Select Case temp
-                                                Case 1
-                                                    cboApplicationType.Text = "112(g)"
-                                                Case 5
-                                                    cboApplicationType.Text = "FESOP"
-                                                Case 6
-                                                    cboApplicationType.Text = "LTR"
-                                                Case 7
-                                                    cboApplicationType.Text = "NPR"
-                                                Case 10
-                                                    cboApplicationType.Text = "PSD"
-                                                Case 13
-                                                    cboApplicationType.Text = "SM(TV)"
-                                                Case 17
-                                                    cboApplicationType.Text = "TV-Amend"
-                                                Case 18
-                                                    cboApplicationType.Text = "SLSM"
-                                                Case 23
-                                                    cboApplicationType.Text = "SM80"
-                                                Case 24
-                                                    cboApplicationType.Text = "PCP"
-                                                Case 27
-                                                    cboApplicationType.Text = "Title V"
-                                            End Select
-                                        End If
                                     End If
                                     If IsDBNull(dr.Item("strPermitType")) Then
                                         cboPermitAction.SelectedIndex = 0
@@ -4788,32 +4754,6 @@ Public Class SSPPApplicationTrackingLog
                 End If
                 If cboApplicationType.Text <> "" Then
                     ApplicationType = cboApplicationType.SelectedValue
-                    If cboApplicationType.SelectedValue Is Nothing Then
-                        Select Case cboApplicationType.Text
-                            Case "112(g)"
-                                ApplicationType = "1"
-                            Case "FESOP"
-                                ApplicationType = "5"
-                            Case "LTR"
-                                ApplicationType = "6"
-                            Case "NPR"
-                                ApplicationType = "7"
-                            Case "PSD"
-                                ApplicationType = "10"
-                            Case "SM(TV)"
-                                ApplicationType = "13"
-                            Case "TV-Amend"
-                                ApplicationType = "17"
-                            Case "SLSM"
-                                ApplicationType = "18"
-                            Case "SM80"
-                                ApplicationType = "23"
-                            Case "PCP"
-                                ApplicationType = "24"
-                            Case "Title V"
-                                ApplicationType = "27"
-                        End Select
-                    End If
                 End If
                 If cboPermitAction.Text <> "" Then
                     PermitType = cboPermitAction.SelectedValue
