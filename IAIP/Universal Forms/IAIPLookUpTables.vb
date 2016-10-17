@@ -2,15 +2,6 @@
 Imports Iaip.SharedData
 
 Public Class IAIPLookUpTables
-    Dim SQL As String
-    Dim ds As DataSet
-    Dim da As SqlDataAdapter
-    Dim recExist As Boolean
-    Dim dr As SqlDataReader
-    Dim dr2 As SqlDataReader
-    Dim cmd As SqlCommand
-    Dim cmd2 As SqlCommand
-
     Private AppTypesLoaded As Boolean = False
 
     Private Sub IAIPLookUpTables_Load(sender As Object, e As EventArgs) Handles Me.Load
