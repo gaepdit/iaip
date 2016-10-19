@@ -4,18 +4,19 @@
 
 This repository is a fork of the IAIP for the purpose of migrating the database back-end from Oracle to SQL Server. All of the original information below still applies, with the following additions to the branching model:
 
-* `ss-develop`: All database migration work will be done on the `ss-develop` branch.
-* `ss-feature/...`: Feature/work-in-progress branches off of `ss-develop`.
-* `ss-release/...`: Branches for preparation of UAT releases.
-* `ss-master`: UAT release branches off of `ss-develop`. Published releases should be tagged with `ss-version/...`. (See versioning section below.)
+* `ss-develop`: The main branch for all database migration work
+* `ss-master`: The stable branch for UAT releases
+* `ss-release/...`: Transient branches for preparation of UAT releases
 
-Work done on production IAIP will routinely be pulled into this fork by merging from `iaip/develop` into `ss-develop`.
+Published UAT releases (in the `ss-master` branch) should be tagged with `ss-version/...`. (See versioning section below.)
+
+Work done on production IAIP will routinely be pulled into this fork by merging from remote `iaip/develop` into `ss-develop`.
 
 ### Versioning
 
 Version numbering of UAT releases from the SQL Server fork is completely independent of production IAIP versioning. UAT releases will be numbered "0.1", "0.2", etc. 
 
-At the completion of the project, all changes will be merged back into the production IAIP repository and the released as IAIP 5.0.
+At the completion of the project, all changes will be merged back into the production IAIP repository and be released as IAIP 5.0. See the [Go Live Plan](Go Live Plan.md) for more information.
 
 ---
 
