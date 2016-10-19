@@ -1,27 +1,17 @@
 Imports System.Data.SqlClient
+Imports Iaip.SharedData
+Imports Iaip.Apb.Facilities
 
 Public Class SSPPApplicationLog
-    Inherits BaseForm
 
-#Region "Initialize variables"
-    ' Local variables
-    Private SQL As String
-    Private cmd As SqlCommand
-    Private dr As SqlDataReader
-    Private dsApplication As DataSet
-    'Private daApplication As SqlDataAdapter
-    Private dsUnitList As DataSet
-    Private daUnitList As SqlDataAdapter
-    Private dsEngineerList As DataSet
-    Private daEngineerList As SqlDataAdapter
-    Private dsSubpart As DataSet
-    Private daSubpart As SqlDataAdapter
-    Private SQLLine As String
-    Private SQLSearch1 As String
-    Private SQLSearch2 As String
-    Private SQLOrder As String
-    Private temp As String
-    Private selectedApp As String = ""
+#Region " Private properties "
+
+    Private Property dtApplicationLog As DataTable
+    Private Property selectedApp As String = ""
+
+#End Region
+
+#Region " Background worker fields "
 
     ' Fields to be used by LoadDataGrid (as backgroundworker) to 
     ' prevent cross-thread operation exceptions.
@@ -57,677 +47,396 @@ Public Class SSPPApplicationLog
 
 #End Region
 
-#Region "Page load/unload procedures"
-    Private Sub SSPPApplicationLog_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+#Region " Page load "
 
-        Try
+    Private Sub SSPPApplicationLog_Load(sender As Object, e As EventArgs) Handles Me.Load
+        dgvApplicationLog.Visible = False
+        lblMessage.Text = "Loading…"
+        lblMessage.Visible = True
 
-            dgvApplicationLog.Visible = False
-            'dgvApplicationLog.DataSource = dsApplication
-            lblMessage.Text = "Loading…"
-            lblMessage.Visible = True
+        btnFind.Enabled = True
+        btnResetSearch.Enabled = True
+        btnOpen.Enabled = False
+        btnExport.Enabled = False
+        mmiResetSearch.Enabled = True
+        mmiOpen.Enabled = False
+        mmiExport.Enabled = False
 
-            btnFind.Enabled = True
-            btnResetSearch.Enabled = True
-            btnOpen.Enabled = False
-            btnExport.Enabled = False
-            mmiResetSearch.Enabled = True
-            mmiOpen.Enabled = False
-            mmiExport.Enabled = False
-
-            LoadComboBoxes()
-            LoadDefaults()
-            RunSearch()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-
+        LoadComboBoxes()
+        LoadDefaults()
+        RunSearch()
     End Sub
+
     Private Sub LoadComboBoxes()
-        Dim dtUnitList As New DataTable
-        Dim dtEngineerList As New DataTable
-        Dim dtSIP As New DataTable
-        Dim dtSIP2 As New DataTable
-        Dim dtNSPS As New DataTable
-        Dim dtNSPS2 As New DataTable
-        Dim dtNESHAP As New DataTable
-        Dim dtNESHAP2 As New DataTable
-        Dim dtMACT As New DataTable
-        Dim dtMACT2 As New DataTable
-
-        Dim drNewRow As DataRow
-        Dim drDSRow As DataRow
-        Dim drDSRow2 As DataRow
-        Dim drDSRow3 As DataRow
-
-        Try
-
-            cboFieldType1.Items.Add("AIRS No.")
-            cboFieldType1.Items.Add("Applicable Rules")
-            cboFieldType1.Items.Add("Application No.")
-            cboFieldType1.Items.Add("Application Status")
-            cboFieldType1.Items.Add("Application Type")
-            cboFieldType1.Items.Add("Application Unit")
-            cboFieldType1.Items.Add("Applog Comments")
-            cboFieldType1.Items.Add("Date Acknowledged")
-            cboFieldType1.Items.Add("Date APL Dated")
-            cboFieldType1.Items.Add("Date APL Received")
-            cboFieldType1.Items.Add("Date Assigned")
-            cboFieldType1.Items.Add("Date Draft Issued")
-            cboFieldType1.Items.Add("Date Finalized")
-            cboFieldType1.Items.Add("Date PA Expires")
-            cboFieldType1.Items.Add("Date PN Expires")
-            cboFieldType1.Items.Add("Date Reassigned")
-            cboFieldType1.Items.Add("Date to BC")
-            cboFieldType1.Items.Add("Date to DO")
-            cboFieldType1.Items.Add("Date to PM")
-            cboFieldType1.Items.Add("Date to UC")
-            cboFieldType1.Items.Add("Deadline")
-            cboFieldType1.Items.Add("Engineer Firstname")
-            cboFieldType1.Items.Add("Engineer Lastname")
-            'cboFieldType1.Items.Add("Engineer Unit Code")
-            cboFieldType1.Items.Add("EPA 45-day Waived")
-            cboFieldType1.Items.Add("EPA 45-day Ends")
-            cboFieldType1.Items.Add("Facility City")
-            cboFieldType1.Items.Add("Facility County")
-            cboFieldType1.Items.Add("Facility Name")
-            cboFieldType1.Items.Add("Facility Street")
-            cboFieldType1.Items.Add("HAPs Major")
-            cboFieldType1.Items.Add("NAA 1Hr-Yes")
-            cboFieldType1.Items.Add("NAA 1Hr-Contr.")
-            cboFieldType1.Items.Add("NAA 1Hr-No")
-            cboFieldType1.Items.Add("NAA 8Hr-Atlanta")
-            cboFieldType1.Items.Add("NAA 8Hr-Macon")
-            cboFieldType1.Items.Add("NAA 8Hr-No")
-            cboFieldType1.Items.Add("NAA PM-Atlanta")
-            cboFieldType1.Items.Add("NAA PM-Chattanooga")
-            cboFieldType1.Items.Add("NAA PM-Floyd")
-            cboFieldType1.Items.Add("NAA PM-Macon")
-            cboFieldType1.Items.Add("NAA PM-No")
-            cboFieldType1.Items.Add("NSR/PSD Major")
-            cboFieldType1.Items.Add("PA Ready")
-            cboFieldType1.Items.Add("Permit Number")
-            cboFieldType1.Items.Add("Permit Type")
-            cboFieldType1.Items.Add("Plant Description")
-            cboFieldType1.Items.Add("PN Ready")
-            cboFieldType1.Items.Add("Public Advisory")
-            cboFieldType1.Items.Add("Reason APL Submitted")
-            cboFieldType1.Items.Add("Regional District")
-            cboFieldType1.Items.Add("SIC Code")
-            cboFieldType1.Items.Add("Subpart - 0-SIP")
-            cboFieldType1.Items.Add("Subpart - 8-NESHAP (Part 61)")
-            cboFieldType1.Items.Add("Subpart - 9-NSPS (Part 60)")
-            cboFieldType1.Items.Add("Subpart - M-MACT (Part 63)")
-
-            cboFieldType2.Items.Add("AIRS No.")
-            cboFieldType2.Items.Add("Applicable Rules")
-            cboFieldType2.Items.Add("Application No.")
-            cboFieldType2.Items.Add("Application Status")
-            cboFieldType2.Items.Add("Application Type")
-            cboFieldType2.Items.Add("Application Unit")
-            cboFieldType2.Items.Add("Applog Comments")
-            cboFieldType2.Items.Add("Date Acknowledged")
-            cboFieldType2.Items.Add("Date APL Dated")
-            cboFieldType2.Items.Add("Date APL Received")
-            cboFieldType2.Items.Add("Date Assigned")
-            cboFieldType2.Items.Add("Date Draft Issued")
-            cboFieldType2.Items.Add("Date Finalized")
-            cboFieldType2.Items.Add("Date PA Expires")
-            cboFieldType2.Items.Add("Date PN Expires")
-            cboFieldType2.Items.Add("Date Reassigned")
-            cboFieldType2.Items.Add("Date to BC")
-            cboFieldType2.Items.Add("Date to DO")
-            cboFieldType2.Items.Add("Date to PM")
-            cboFieldType2.Items.Add("Date to UC")
-            cboFieldType2.Items.Add("Deadline")
-            cboFieldType2.Items.Add("Engineer Firstname")
-            cboFieldType2.Items.Add("Engineer Lastname")
-            'cboFieldType2.Items.Add("Engineer Unit Code")
-            cboFieldType2.Items.Add("EPA 45-day Waived")
-            cboFieldType2.Items.Add("EPA 45-day Ends")
-            cboFieldType2.Items.Add("Facility City")
-            cboFieldType2.Items.Add("Facility County")
-            cboFieldType2.Items.Add("Facility Name")
-            cboFieldType2.Items.Add("Facility Street")
-            cboFieldType2.Items.Add("HAPs Major")
-            cboFieldType2.Items.Add("NAA 1Hr-Yes")
-            cboFieldType2.Items.Add("NAA 1Hr-Contr.")
-            cboFieldType2.Items.Add("NAA 1Hr-No")
-            cboFieldType2.Items.Add("NAA 8Hr-Atlanta")
-            cboFieldType2.Items.Add("NAA 8Hr-Macon")
-            cboFieldType2.Items.Add("NAA 8Hr-No")
-            cboFieldType2.Items.Add("NAA PM-Atlanta")
-            cboFieldType2.Items.Add("NAA PM-Chattanooga")
-            cboFieldType2.Items.Add("NAA PM-Floyd")
-            cboFieldType2.Items.Add("NAA PM-Macon")
-            cboFieldType2.Items.Add("NAA PM-No")
-            cboFieldType2.Items.Add("NSR/PSD Major")
-            cboFieldType2.Items.Add("PA Ready")
-            cboFieldType2.Items.Add("Permit Number")
-            cboFieldType2.Items.Add("Permit Type")
-            cboFieldType2.Items.Add("Plant Description")
-            cboFieldType2.Items.Add("PN Ready")
-            cboFieldType2.Items.Add("Public Advisory")
-            cboFieldType2.Items.Add("Reason APL Submitted")
-            cboFieldType2.Items.Add("Regional District")
-            cboFieldType2.Items.Add("SIC Code")
-            cboFieldType2.Items.Add("Subpart - 0-SIP")
-            cboFieldType2.Items.Add("Subpart - 8-NESHAP (Part 61)")
-            cboFieldType2.Items.Add("Subpart - 9-NSPS (Part 60)")
-            cboFieldType2.Items.Add("Subpart - M-MACT (Part 63)")
-
-            cboSort1.Items.Add("AIRS No.")
-            cboSort1.Items.Add("Applicable Rules")
-            cboSort1.Items.Add("Application No.")
-            cboSort1.Items.Add("Application Status")
-            cboSort1.Items.Add("Application Type")
-            cboSort1.Items.Add("Application Unit")
-            cboSort1.Items.Add("Applog Comments")
-            cboSort1.Items.Add("Date Acknowledged")
-            cboSort1.Items.Add("Date APL Dated")
-            cboSort1.Items.Add("Date APL Received")
-            cboSort1.Items.Add("Date Assigned")
-            cboSort1.Items.Add("Date Draft Issued")
-            cboSort1.Items.Add("Date PA Expires")
-            cboSort1.Items.Add("Date Finalized")
-            cboSort1.Items.Add("Date PN Expires")
-            cboSort1.Items.Add("Date Reassigned")
-            cboSort1.Items.Add("Date to BC")
-            cboSort1.Items.Add("Date to DO")
-            cboSort1.Items.Add("Date to PM")
-            cboSort1.Items.Add("Date to UC")
-            cboSort1.Items.Add("Deadline")
-            cboSort1.Items.Add("Engineer Firstname")
-            cboSort1.Items.Add("Engineer Lastname")
-            'cboSort1.Items.Add("Engineer Unit Code")
-            cboSort1.Items.Add("EPA 45-day Waived")
-            cboSort1.Items.Add("EPA 45-day Ends")
-            cboSort1.Items.Add("Facility City")
-            cboSort1.Items.Add("Facility County")
-            cboSort1.Items.Add("Facility Name")
-            cboSort1.Items.Add("Facility Street")
-            cboSort1.Items.Add("NAA 1Hr-Yes")
-            cboSort1.Items.Add("NAA 1Hr-Contr.")
-            cboSort1.Items.Add("NAA 1Hr-No")
-            cboSort1.Items.Add("NAA 8Hr-Atlanta")
-            cboSort1.Items.Add("NAA 8Hr-Macon")
-            cboSort1.Items.Add("NAA 8Hr-No")
-            cboSort1.Items.Add("NAA PM-Atlanta")
-            cboSort1.Items.Add("NAA PM-Chattanooga")
-            cboSort1.Items.Add("NAA PM-Floyd")
-            cboSort1.Items.Add("NAA PM-Macon")
-            cboSort1.Items.Add("NAA PM-No")
-            cboSort1.Items.Add("PA Ready")
-            cboSort1.Items.Add("Permit Number")
-            cboSort1.Items.Add("Permit Type")
-            cboSort1.Items.Add("Plant Description")
-            cboSort1.Items.Add("PN Ready")
-            cboSort1.Items.Add("Public Advisory")
-            cboSort1.Items.Add("Reason APL Submitted")
-            cboSort1.Items.Add("Regional District")
-            cboSort1.Items.Add("SIC Code")
-            cboSort1.Items.Add("Subpart - 0-SIP")
-            cboSort1.Items.Add("Subpart - 8-NESHAP (Part 61)")
-            cboSort1.Items.Add("Subpart - 9-NSPS (Part 60)")
-            cboSort1.Items.Add("Subpart - M-MACT (Part 63)")
-
-            cboSort2.Items.Add("AIRS No.")
-            cboSort2.Items.Add("Applicable Rules")
-            cboSort2.Items.Add("Application No.")
-            cboSort2.Items.Add("Application Status")
-            cboSort2.Items.Add("Application Type")
-            cboSort2.Items.Add("Application Unit")
-            cboSort2.Items.Add("Applog Comments")
-            cboSort2.Items.Add("Date Acknowledged")
-            cboSort2.Items.Add("Date APL Dated")
-            cboSort2.Items.Add("Date APL Received")
-            cboSort2.Items.Add("Date Assigned")
-            cboSort2.Items.Add("Date Draft Issued")
-            cboSort2.Items.Add("Date PA Expires")
-            cboSort2.Items.Add("Date Finalized")
-            cboSort2.Items.Add("Date PN Expires")
-            cboSort2.Items.Add("Date Reassigned")
-            cboSort2.Items.Add("Date to BC")
-            cboSort2.Items.Add("Date to DO")
-            cboSort2.Items.Add("Date to PM")
-            cboSort2.Items.Add("Date to UC")
-            cboSort2.Items.Add("Deadline")
-            cboSort2.Items.Add("Engineer Firstname")
-            cboSort2.Items.Add("Engineer Lastname")
-            'cboSort2.Items.Add("Engineer Unit Code")
-            cboSort2.Items.Add("EPA 45-day Waived")
-            cboSort2.Items.Add("EPA 45-day Ends")
-            cboSort2.Items.Add("Facility City")
-            cboSort2.Items.Add("Facility County")
-            cboSort2.Items.Add("Facility Name")
-            cboSort2.Items.Add("Facility Street")
-            cboSort2.Items.Add("NAA 1Hr-Yes")
-            cboSort2.Items.Add("NAA 1Hr-Contr.")
-            cboSort2.Items.Add("NAA 1Hr-No")
-            cboSort2.Items.Add("NAA 8Hr-Atlanta")
-            cboSort2.Items.Add("NAA 8Hr-Macon")
-            cboSort2.Items.Add("NAA 8Hr-No")
-            cboSort2.Items.Add("NAA PM-Atlanta")
-            cboSort2.Items.Add("NAA PM-Chattanooga")
-            cboSort2.Items.Add("NAA PM-Floyd")
-            cboSort2.Items.Add("NAA PM-Macon")
-            cboSort2.Items.Add("NAA PM-No")
-            cboSort2.Items.Add("PA Ready")
-            cboSort2.Items.Add("Permit Number")
-            cboSort2.Items.Add("Permit Type")
-            cboSort2.Items.Add("Plant Description")
-            cboSort2.Items.Add("PN Ready")
-            cboSort2.Items.Add("Public Advisory")
-            cboSort2.Items.Add("Reason APL Submitted")
-            cboSort2.Items.Add("Regional District")
-            cboSort2.Items.Add("SIC Code")
-            cboSort2.Items.Add("Subpart - 0-SIP")
-            cboSort2.Items.Add("Subpart - 8-NESHAP (Part 61)")
-            cboSort2.Items.Add("Subpart - 9-NSPS (Part 60)")
-            cboSort2.Items.Add("Subpart - M-MACT (Part 63)")
-
-            cboSortOrder1.Items.Add("Ascending Order")
-            cboSortOrder1.Items.Add("Descending Order")
-
-            cboSortOrder2.Items.Add("Ascending Order")
-            cboSortOrder2.Items.Add("Descending Order")
-
-            cboApplicationType.Items.Add("All")
-            cboApplicationType.Items.Add("Title V")
-            cboApplicationType.Items.Add("SIP (Non Title V)")
-
-            cboApplicationStatus.Items.Add("All")
-            cboApplicationStatus.Items.Add("Active")
-            cboApplicationStatus.Items.Add("Closed")
-
-            SQL = "select " &
-            "strUnitDesc, numUnitCode " &
-            "from LookUpEPDUnits " &
-            "where numProgramCode = '5' " &
-            "order by strUnitDesc "
-
-            dsUnitList = New DataSet
-            daUnitList = New SqlDataAdapter(SQL, CurrentConnection)
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            daUnitList.Fill(dsUnitList, "UnitList")
-
-            dtUnitList.Columns.Add("strUnitDesc", GetType(System.String))
-            dtUnitList.Columns.Add("numUnitCode", GetType(System.String))
-
-            drNewRow = dtUnitList.NewRow()
-            drNewRow("strUnitDesc") = "All"
-            drNewRow("numUnitCode") = "All"
-            dtUnitList.Rows.Add(drNewRow)
-
-            For Each drDSRow2 In dsUnitList.Tables("UnitList").Rows()
-                drNewRow = dtUnitList.NewRow
-                drNewRow("strUnitDesc") = drDSRow2("strUnitDesc")
-                drNewRow("numUnitCode") = drDSRow2("numUnitCode")
-                dtUnitList.Rows.Add(drNewRow)
-            Next
-
-            With cboApplicationUnit
-                .DataSource = dtUnitList
-                .DisplayMember = "strUnitDesc"
-                .ValueMember = "numUnitCode"
-                .SelectedIndex = 0
-            End With
-
-            SQL = "Select " &
-            "Distinct((strLastName|| ', ' ||strFirstName)) as EngineerName,  " &
-            "numUserID, strLastName   " &
-            "from EPDUserProfiles, SSPPApplicationMaster  " &
-            "where SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
-            "order by strLastName "
-
-            dsEngineerList = New DataSet
-            daEngineerList = New SqlDataAdapter(SQL, CurrentConnection)
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            daEngineerList.Fill(dsEngineerList, "EngineerList")
-
-            dtEngineerList.Columns.Add("EngineerName", GetType(System.String))
-            dtEngineerList.Columns.Add("numUserID", GetType(System.String))
-
-            drNewRow = dtEngineerList.NewRow()
-            drNewRow("EngineerName") = "All"
-            drNewRow("numUserID") = "XXX"
-            dtEngineerList.Rows.Add(drNewRow)
-
-            For Each drDSRow In dsEngineerList.Tables("EngineerList").Rows()
-                drNewRow = dtEngineerList.NewRow
-                drNewRow("EngineerName") = drDSRow("EngineerName")
-                drNewRow("numUserID") = drDSRow("numUserID")
-                dtEngineerList.Rows.Add(drNewRow)
-            Next
-
-            With cboEngineer
-                .DataSource = dtEngineerList
-                .DisplayMember = "EngineerName"
-                .ValueMember = "numUserID"
-                .SelectedIndex = 0
-            End With
-
-            dsSubpart = New DataSet
-
-            SQL = "Select " &
-            "strSubpart, " &
-            "(strSubpart||' - '||strDescription) as Subpart " &
-            "from LookUpSubpartSIP " &
-            "order by strSubpart "
-
-            daSubpart = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            daSubpart.Fill(dsSubpart, "SubpartSIP")
-
-            dtSIP.Columns.Add("strSubpart", GetType(System.String))
-            dtSIP.Columns.Add("Subpart", GetType(System.String))
-
-            dtSIP2.Columns.Add("strSubpart", GetType(System.String))
-            dtSIP2.Columns.Add("Subpart", GetType(System.String))
-
-            drNewRow = dtSIP.NewRow()
-            drNewRow("strSubpart") = ""
-            drNewRow("SubPart") = ""
-            dtSIP.Rows.Add(drNewRow)
-
-            drNewRow = dtSIP2.NewRow()
-            drNewRow("strSubpart") = ""
-            drNewRow("SubPart") = ""
-            dtSIP2.Rows.Add(drNewRow)
-
-            For Each drDSRow3 In dsSubpart.Tables("SubpartSIP").Rows()
-                drNewRow = dtSIP.NewRow
-                drNewRow("strSubpart") = drDSRow3("strSubpart")
-                drNewRow("Subpart") = drDSRow3("Subpart")
-                dtSIP.Rows.Add(drNewRow)
-
-                drNewRow = dtSIP2.NewRow
-                drNewRow("strSubpart") = drDSRow3("strSubpart")
-                drNewRow("Subpart") = drDSRow3("Subpart")
-                dtSIP2.Rows.Add(drNewRow)
-            Next
-
-            With cboSIP1
-                .DataSource = dtSIP
-                .DisplayMember = "Subpart"
-                .ValueMember = "strSubpart"
-                .SelectedIndex = 0
-            End With
-
-            With cboSIP2
-                .DataSource = dtSIP2
-                .DisplayMember = "Subpart"
-                .ValueMember = "strSubpart"
-                .SelectedIndex = 0
-            End With
-
-            SQL = "Select " &
-            "strSubpart, " &
-            "(strSubpart||' - '||strDescription) as Subpart " &
-            "from LookUpSubpart61 " &
-            "order by strSubpart "
-
-            daSubpart = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            daSubpart.Fill(dsSubpart, "SubpartNESHAP")
-
-            dtNESHAP.Columns.Add("strSubpart", GetType(System.String))
-            dtNESHAP.Columns.Add("Subpart", GetType(System.String))
-
-            dtNESHAP2.Columns.Add("strSubpart", GetType(System.String))
-            dtNESHAP2.Columns.Add("Subpart", GetType(System.String))
-
-            drNewRow = dtNESHAP.NewRow()
-            drNewRow("strSubpart") = ""
-            drNewRow("SubPart") = ""
-            dtNESHAP.Rows.Add(drNewRow)
-
-            drNewRow = dtNESHAP2.NewRow()
-            drNewRow("strSubpart") = ""
-            drNewRow("SubPart") = ""
-            dtNESHAP2.Rows.Add(drNewRow)
-
-            For Each drDSRow3 In dsSubpart.Tables("SubpartNESHAP").Rows()
-                drNewRow = dtNESHAP.NewRow
-                drNewRow("strSubpart") = drDSRow3("strSubpart")
-                drNewRow("Subpart") = drDSRow3("Subpart")
-                dtNESHAP.Rows.Add(drNewRow)
-
-                drNewRow = dtNESHAP2.NewRow
-                drNewRow("strSubpart") = drDSRow3("strSubpart")
-                drNewRow("Subpart") = drDSRow3("Subpart")
-                dtNESHAP2.Rows.Add(drNewRow)
-            Next
-
-            With cboNESHAP1
-                .DataSource = dtNESHAP
-                .DisplayMember = "Subpart"
-                .ValueMember = "strSubpart"
-                .SelectedIndex = 0
-            End With
-
-            With cboNESHAP2
-                .DataSource = dtNESHAP2
-                .DisplayMember = "Subpart"
-                .ValueMember = "strSubpart"
-                .SelectedIndex = 0
-            End With
-
-            SQL = "Select " &
-            "strSubpart, " &
-            "(strSubpart||' - '||strDescription) as Subpart " &
-            "from LookUpSubpart60 " &
-            "order by strSubpart "
-
-            daSubpart = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            daSubpart.Fill(dsSubpart, "SubpartNSPS")
-
-            dtNSPS.Columns.Add("strSubpart", GetType(System.String))
-            dtNSPS.Columns.Add("Subpart", GetType(System.String))
-
-            dtNSPS2.Columns.Add("strSubpart", GetType(System.String))
-            dtNSPS2.Columns.Add("Subpart", GetType(System.String))
-
-            drNewRow = dtNSPS.NewRow()
-            drNewRow("strSubpart") = ""
-            drNewRow("SubPart") = ""
-            dtNSPS.Rows.Add(drNewRow)
-
-            drNewRow = dtNSPS2.NewRow()
-            drNewRow("strSubpart") = ""
-            drNewRow("SubPart") = ""
-            dtNSPS2.Rows.Add(drNewRow)
-
-            For Each drDSRow3 In dsSubpart.Tables("SubpartNSPS").Rows()
-                drNewRow = dtNSPS.NewRow
-                drNewRow("strSubpart") = drDSRow3("strSubpart")
-                drNewRow("Subpart") = drDSRow3("Subpart")
-                dtNSPS.Rows.Add(drNewRow)
-
-                drNewRow = dtNSPS2.NewRow
-                drNewRow("strSubpart") = drDSRow3("strSubpart")
-                drNewRow("Subpart") = drDSRow3("Subpart")
-                dtNSPS2.Rows.Add(drNewRow)
-            Next
-
-            With cboNSPS1
-                .DataSource = dtNSPS
-                .DisplayMember = "Subpart"
-                .ValueMember = "strSubpart"
-                .SelectedIndex = 0
-            End With
-
-            With cboNSPS2
-                .DataSource = dtNSPS2
-                .DisplayMember = "Subpart"
-                .ValueMember = "strSubpart"
-                .SelectedIndex = 0
-            End With
-
-
-            SQL = "Select " &
-            "strSubpart, " &
-            "(strSubpart||' - '||strDescription) as Subpart " &
-            "from LookUpSubpart63 " &
-            "order by strSubpart "
-
-            daSubpart = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            daSubpart.Fill(dsSubpart, "SubpartMACT")
-
-            dtMACT.Columns.Add("strSubpart", GetType(System.String))
-            dtMACT.Columns.Add("Subpart", GetType(System.String))
-
-            dtMACT2.Columns.Add("strSubpart", GetType(System.String))
-            dtMACT2.Columns.Add("Subpart", GetType(System.String))
-
-            drNewRow = dtMACT.NewRow()
-            drNewRow("strSubpart") = ""
-            drNewRow("SubPart") = ""
-            dtMACT.Rows.Add(drNewRow)
-
-            drNewRow = dtMACT2.NewRow()
-            drNewRow("strSubpart") = ""
-            drNewRow("SubPart") = ""
-            dtMACT2.Rows.Add(drNewRow)
-
-            For Each drDSRow3 In dsSubpart.Tables("SubpartMACT").Rows()
-                drNewRow = dtMACT.NewRow
-                drNewRow("strSubpart") = drDSRow3("strSubpart")
-                drNewRow("Subpart") = drDSRow3("Subpart")
-                dtMACT.Rows.Add(drNewRow)
-
-                drNewRow = dtMACT2.NewRow
-                drNewRow("strSubpart") = drDSRow3("strSubpart")
-                drNewRow("Subpart") = drDSRow3("Subpart")
-                dtMACT2.Rows.Add(drNewRow)
-            Next
-
-            With cboMACT1
-                .DataSource = dtMACT
-                .DisplayMember = "Subpart"
-                .ValueMember = "strSubpart"
-                .SelectedIndex = 0
-            End With
-
-            With cboMACT2
-                .DataSource = dtMACT2
-                .DisplayMember = "Subpart"
-                .ValueMember = "strSubpart"
-                .SelectedIndex = 0
-            End With
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
+        cboFieldType1.Items.Add("AIRS No.")
+        cboFieldType1.Items.Add("Applicable Rules")
+        cboFieldType1.Items.Add("Application No.")
+        cboFieldType1.Items.Add("Application Status")
+        cboFieldType1.Items.Add("Application Type")
+        cboFieldType1.Items.Add("Application Unit")
+        cboFieldType1.Items.Add("Applog Comments")
+        cboFieldType1.Items.Add("Date Acknowledged")
+        cboFieldType1.Items.Add("Date APL Dated")
+        cboFieldType1.Items.Add("Date APL Received")
+        cboFieldType1.Items.Add("Date Assigned")
+        cboFieldType1.Items.Add("Date Draft Issued")
+        cboFieldType1.Items.Add("Date Finalized")
+        cboFieldType1.Items.Add("Date PA Expires")
+        cboFieldType1.Items.Add("Date PN Expires")
+        cboFieldType1.Items.Add("Date Reassigned")
+        cboFieldType1.Items.Add("Date to BC")
+        cboFieldType1.Items.Add("Date to DO")
+        cboFieldType1.Items.Add("Date to PM")
+        cboFieldType1.Items.Add("Date to UC")
+        cboFieldType1.Items.Add("Deadline")
+        cboFieldType1.Items.Add("Engineer Firstname")
+        cboFieldType1.Items.Add("Engineer Lastname")
+        cboFieldType1.Items.Add("EPA 45-day Waived")
+        cboFieldType1.Items.Add("EPA 45-day Ends")
+        cboFieldType1.Items.Add("Facility City")
+        cboFieldType1.Items.Add("Facility County")
+        cboFieldType1.Items.Add("Facility Name")
+        cboFieldType1.Items.Add("Facility Street")
+        cboFieldType1.Items.Add("HAPs Major")
+        cboFieldType1.Items.Add("NAA 1Hr-Yes")
+        cboFieldType1.Items.Add("NAA 1Hr-Contr.")
+        cboFieldType1.Items.Add("NAA 1Hr-No")
+        cboFieldType1.Items.Add("NAA 8Hr-Atlanta")
+        cboFieldType1.Items.Add("NAA 8Hr-Macon")
+        cboFieldType1.Items.Add("NAA 8Hr-No")
+        cboFieldType1.Items.Add("NAA PM-Atlanta")
+        cboFieldType1.Items.Add("NAA PM-Chattanooga")
+        cboFieldType1.Items.Add("NAA PM-Floyd")
+        cboFieldType1.Items.Add("NAA PM-Macon")
+        cboFieldType1.Items.Add("NAA PM-No")
+        cboFieldType1.Items.Add("NSR/PSD Major")
+        cboFieldType1.Items.Add("PA Ready")
+        cboFieldType1.Items.Add("Permit Number")
+        cboFieldType1.Items.Add("Permit Type")
+        cboFieldType1.Items.Add("Plant Description")
+        cboFieldType1.Items.Add("PN Ready")
+        cboFieldType1.Items.Add("Public Advisory")
+        cboFieldType1.Items.Add("Reason APL Submitted")
+        cboFieldType1.Items.Add("Regional District")
+        cboFieldType1.Items.Add("SIC Code")
+        cboFieldType1.Items.Add("Subpart - SIP")
+        cboFieldType1.Items.Add("Subpart - NESHAP (Part 61)")
+        cboFieldType1.Items.Add("Subpart - NSPS (Part 60)")
+        cboFieldType1.Items.Add("Subpart - MACT (Part 63)")
+
+        cboFieldType2.Items.Add("AIRS No.")
+        cboFieldType2.Items.Add("Applicable Rules")
+        cboFieldType2.Items.Add("Application No.")
+        cboFieldType2.Items.Add("Application Status")
+        cboFieldType2.Items.Add("Application Type")
+        cboFieldType2.Items.Add("Application Unit")
+        cboFieldType2.Items.Add("Applog Comments")
+        cboFieldType2.Items.Add("Date Acknowledged")
+        cboFieldType2.Items.Add("Date APL Dated")
+        cboFieldType2.Items.Add("Date APL Received")
+        cboFieldType2.Items.Add("Date Assigned")
+        cboFieldType2.Items.Add("Date Draft Issued")
+        cboFieldType2.Items.Add("Date Finalized")
+        cboFieldType2.Items.Add("Date PA Expires")
+        cboFieldType2.Items.Add("Date PN Expires")
+        cboFieldType2.Items.Add("Date Reassigned")
+        cboFieldType2.Items.Add("Date to BC")
+        cboFieldType2.Items.Add("Date to DO")
+        cboFieldType2.Items.Add("Date to PM")
+        cboFieldType2.Items.Add("Date to UC")
+        cboFieldType2.Items.Add("Deadline")
+        cboFieldType2.Items.Add("Engineer Firstname")
+        cboFieldType2.Items.Add("Engineer Lastname")
+        cboFieldType2.Items.Add("EPA 45-day Waived")
+        cboFieldType2.Items.Add("EPA 45-day Ends")
+        cboFieldType2.Items.Add("Facility City")
+        cboFieldType2.Items.Add("Facility County")
+        cboFieldType2.Items.Add("Facility Name")
+        cboFieldType2.Items.Add("Facility Street")
+        cboFieldType2.Items.Add("HAPs Major")
+        cboFieldType2.Items.Add("NAA 1Hr-Yes")
+        cboFieldType2.Items.Add("NAA 1Hr-Contr.")
+        cboFieldType2.Items.Add("NAA 1Hr-No")
+        cboFieldType2.Items.Add("NAA 8Hr-Atlanta")
+        cboFieldType2.Items.Add("NAA 8Hr-Macon")
+        cboFieldType2.Items.Add("NAA 8Hr-No")
+        cboFieldType2.Items.Add("NAA PM-Atlanta")
+        cboFieldType2.Items.Add("NAA PM-Chattanooga")
+        cboFieldType2.Items.Add("NAA PM-Floyd")
+        cboFieldType2.Items.Add("NAA PM-Macon")
+        cboFieldType2.Items.Add("NAA PM-No")
+        cboFieldType2.Items.Add("NSR/PSD Major")
+        cboFieldType2.Items.Add("PA Ready")
+        cboFieldType2.Items.Add("Permit Number")
+        cboFieldType2.Items.Add("Permit Type")
+        cboFieldType2.Items.Add("Plant Description")
+        cboFieldType2.Items.Add("PN Ready")
+        cboFieldType2.Items.Add("Public Advisory")
+        cboFieldType2.Items.Add("Reason APL Submitted")
+        cboFieldType2.Items.Add("Regional District")
+        cboFieldType2.Items.Add("SIC Code")
+        cboFieldType2.Items.Add("Subpart - SIP")
+        cboFieldType2.Items.Add("Subpart - NESHAP (Part 61)")
+        cboFieldType2.Items.Add("Subpart - NSPS (Part 60)")
+        cboFieldType2.Items.Add("Subpart - MACT (Part 63)")
+
+        cboSort1.Items.Add("AIRS No.")
+        cboSort1.Items.Add("Applicable Rules")
+        cboSort1.Items.Add("Application No.")
+        cboSort1.Items.Add("Application Status")
+        cboSort1.Items.Add("Application Type")
+        cboSort1.Items.Add("Application Unit")
+        cboSort1.Items.Add("Applog Comments")
+        cboSort1.Items.Add("Date Acknowledged")
+        cboSort1.Items.Add("Date APL Dated")
+        cboSort1.Items.Add("Date APL Received")
+        cboSort1.Items.Add("Date Assigned")
+        cboSort1.Items.Add("Date Draft Issued")
+        cboSort1.Items.Add("Date PA Expires")
+        cboSort1.Items.Add("Date Finalized")
+        cboSort1.Items.Add("Date PN Expires")
+        cboSort1.Items.Add("Date Reassigned")
+        cboSort1.Items.Add("Date to BC")
+        cboSort1.Items.Add("Date to DO")
+        cboSort1.Items.Add("Date to PM")
+        cboSort1.Items.Add("Date to UC")
+        cboSort1.Items.Add("Deadline")
+        cboSort1.Items.Add("Engineer Firstname")
+        cboSort1.Items.Add("Engineer Lastname")
+        cboSort1.Items.Add("EPA 45-day Waived")
+        cboSort1.Items.Add("EPA 45-day Ends")
+        cboSort1.Items.Add("Facility City")
+        cboSort1.Items.Add("Facility County")
+        cboSort1.Items.Add("Facility Name")
+        cboSort1.Items.Add("Facility Street")
+        cboSort1.Items.Add("NAA 1Hr-Yes")
+        cboSort1.Items.Add("NAA 1Hr-Contr.")
+        cboSort1.Items.Add("NAA 1Hr-No")
+        cboSort1.Items.Add("NAA 8Hr-Atlanta")
+        cboSort1.Items.Add("NAA 8Hr-Macon")
+        cboSort1.Items.Add("NAA 8Hr-No")
+        cboSort1.Items.Add("NAA PM-Atlanta")
+        cboSort1.Items.Add("NAA PM-Chattanooga")
+        cboSort1.Items.Add("NAA PM-Floyd")
+        cboSort1.Items.Add("NAA PM-Macon")
+        cboSort1.Items.Add("NAA PM-No")
+        cboSort1.Items.Add("PA Ready")
+        cboSort1.Items.Add("Permit Number")
+        cboSort1.Items.Add("Permit Type")
+        cboSort1.Items.Add("Plant Description")
+        cboSort1.Items.Add("PN Ready")
+        cboSort1.Items.Add("Public Advisory")
+        cboSort1.Items.Add("Reason APL Submitted")
+        cboSort1.Items.Add("Regional District")
+        cboSort1.Items.Add("SIC Code")
+        cboSort1.Items.Add("Subpart - SIP")
+        cboSort1.Items.Add("Subpart - NESHAP (Part 61)")
+        cboSort1.Items.Add("Subpart - NSPS (Part 60)")
+        cboSort1.Items.Add("Subpart - MACT (Part 63)")
+
+        cboSort2.Items.Add("AIRS No.")
+        cboSort2.Items.Add("Applicable Rules")
+        cboSort2.Items.Add("Application No.")
+        cboSort2.Items.Add("Application Status")
+        cboSort2.Items.Add("Application Type")
+        cboSort2.Items.Add("Application Unit")
+        cboSort2.Items.Add("Applog Comments")
+        cboSort2.Items.Add("Date Acknowledged")
+        cboSort2.Items.Add("Date APL Dated")
+        cboSort2.Items.Add("Date APL Received")
+        cboSort2.Items.Add("Date Assigned")
+        cboSort2.Items.Add("Date Draft Issued")
+        cboSort2.Items.Add("Date PA Expires")
+        cboSort2.Items.Add("Date Finalized")
+        cboSort2.Items.Add("Date PN Expires")
+        cboSort2.Items.Add("Date Reassigned")
+        cboSort2.Items.Add("Date to BC")
+        cboSort2.Items.Add("Date to DO")
+        cboSort2.Items.Add("Date to PM")
+        cboSort2.Items.Add("Date to UC")
+        cboSort2.Items.Add("Deadline")
+        cboSort2.Items.Add("Engineer Firstname")
+        cboSort2.Items.Add("Engineer Lastname")
+        cboSort2.Items.Add("EPA 45-day Waived")
+        cboSort2.Items.Add("EPA 45-day Ends")
+        cboSort2.Items.Add("Facility City")
+        cboSort2.Items.Add("Facility County")
+        cboSort2.Items.Add("Facility Name")
+        cboSort2.Items.Add("Facility Street")
+        cboSort2.Items.Add("NAA 1Hr-Yes")
+        cboSort2.Items.Add("NAA 1Hr-Contr.")
+        cboSort2.Items.Add("NAA 1Hr-No")
+        cboSort2.Items.Add("NAA 8Hr-Atlanta")
+        cboSort2.Items.Add("NAA 8Hr-Macon")
+        cboSort2.Items.Add("NAA 8Hr-No")
+        cboSort2.Items.Add("NAA PM-Atlanta")
+        cboSort2.Items.Add("NAA PM-Chattanooga")
+        cboSort2.Items.Add("NAA PM-Floyd")
+        cboSort2.Items.Add("NAA PM-Macon")
+        cboSort2.Items.Add("NAA PM-No")
+        cboSort2.Items.Add("PA Ready")
+        cboSort2.Items.Add("Permit Number")
+        cboSort2.Items.Add("Permit Type")
+        cboSort2.Items.Add("Plant Description")
+        cboSort2.Items.Add("PN Ready")
+        cboSort2.Items.Add("Public Advisory")
+        cboSort2.Items.Add("Reason APL Submitted")
+        cboSort2.Items.Add("Regional District")
+        cboSort2.Items.Add("SIC Code")
+        cboSort2.Items.Add("Subpart - SIP")
+        cboSort2.Items.Add("Subpart - NESHAP (Part 61)")
+        cboSort2.Items.Add("Subpart - NSPS (Part 60)")
+        cboSort2.Items.Add("Subpart - MACT (Part 63)")
+
+        cboSortOrder1.Items.Add("Ascending Order")
+        cboSortOrder1.Items.Add("Descending Order")
+
+        cboSortOrder2.Items.Add("Ascending Order")
+        cboSortOrder2.Items.Add("Descending Order")
+
+        cboApplicationType.Items.Add("All")
+        cboApplicationType.Items.Add("Title V")
+        cboApplicationType.Items.Add("SIP (Non Title V)")
+
+        cboApplicationStatus.Items.Add("All")
+        cboApplicationStatus.Items.Add("Active")
+        cboApplicationStatus.Items.Add("Closed")
+
+        Dim SQL As String = "select 'All' as strUnitDesc, 'All' as numUnitCode UNION " &
+        "select strUnitDesc, convert(varchar,numUnitCode) " &
+        "from LookUpEPDUnits " &
+        "where numProgramCode = 5 " &
+        "order by strUnitDesc "
+
+        With cboApplicationUnit
+            .DataSource = DB.GetDataTable(SQL)
+            .DisplayMember = "strUnitDesc"
+            .ValueMember = "numUnitCode"
+            .SelectedIndex = 0
+        End With
+
+        SQL = "Select 'All' as EngineerName, 'XXX' as numUserID, '' as strLastName UNION " &
+        "Select Distinct concat(strLastName, ', ', strFirstName) as EngineerName,  " &
+        "convert(varchar, numUserID), strLastName " &
+        "from EPDUserProfiles inner join SSPPApplicationMaster  " &
+        "on SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
+        "order by strLastName "
+
+        With cboEngineer
+            .DataSource = DB.GetDataTable(SQL)
+            .DisplayMember = "EngineerName"
+            .ValueMember = "numUserID"
+            .SelectedIndex = 0
+        End With
+
+        Dim dtSIP As DataTable = GetSharedData(SharedDataSet.RuleSubparts).Tables(RulePart.SIP.ToString)
+
+        With cboSIP1
+            .DataSource = dtSIP
+            .DisplayMember = "Long Description"
+            .ValueMember = "Subpart"
+            .SelectedIndex = 0
+        End With
+
+        With cboSIP2
+            .DataSource = dtSIP.Copy
+            .DisplayMember = "Long Description"
+            .ValueMember = "Subpart"
+            .SelectedIndex = 0
+        End With
+
+        Dim dtNESHAP As DataTable = GetSharedData(SharedDataSet.RuleSubparts).Tables(RulePart.NESHAP.ToString)
+
+        With cboNESHAP1
+            .DataSource = dtNESHAP
+            .DisplayMember = "Long Description"
+            .ValueMember = "Subpart"
+            .SelectedIndex = 0
+        End With
+
+        With cboNESHAP2
+            .DataSource = dtNESHAP.Copy
+            .DisplayMember = "Long Description"
+            .ValueMember = "Subpart"
+            .SelectedIndex = 0
+        End With
+
+        Dim dtNSPS As DataTable = GetSharedData(SharedDataSet.RuleSubparts).Tables(RulePart.NSPS.ToString)
+
+        With cboNSPS1
+            .DataSource = dtNSPS
+            .DisplayMember = "Long Description"
+            .ValueMember = "Subpart"
+            .SelectedIndex = 0
+        End With
+
+        With cboNSPS2
+            .DataSource = dtNSPS.Copy
+            .DisplayMember = "Long Description"
+            .ValueMember = "Subpart"
+            .SelectedIndex = 0
+        End With
+
+        Dim dtMACT As DataTable = GetSharedData(SharedDataSet.RuleSubparts).Tables(RulePart.MACT.ToString)
+
+        With cboMACT1
+            .DataSource = dtMACT
+            .DisplayMember = "Long Description"
+            .ValueMember = "Subpart"
+            .SelectedIndex = 0
+        End With
+
+        With cboMACT2
+            .DataSource = dtMACT.Copy
+            .DisplayMember = "Long Description"
+            .ValueMember = "Subpart"
+            .SelectedIndex = 0
+        End With
     End Sub
+
     Private Sub LoadDefaults()
-        Try
+        cboFieldType1.Text = "Facility Name"
+        cboFieldType2.Text = "Application No."
+        cboSort1.Text = "Facility Name"
+        cboSort2.Text = "Application No."
+        cboSortOrder1.Text = "Ascending Order"
+        cboSortOrder2.Text = "Descending Order"
+        cboApplicationType.Text = "All"
+        cboEngineer.SelectedIndex = 0
 
-            cboFieldType1.Text = "Facility Name"
-            cboFieldType2.Text = "Application No."
-            cboSort1.Text = "Facility Name"
-            cboSort2.Text = "Application No."
-            cboSortOrder1.Text = "Ascending Order"
-            cboSortOrder2.Text = "Descending Order"
+        DTPSearchDate1.Value = Today
+        DTPSearchDate1b.Value = Today
+        DTPSearchDate2.Value = Today
+        DTPSearchDate2b.Value = Today
+
+        txtSearchText1.Clear()
+        txtSearchText2.Clear()
+
+        cboApplicationStatus.Text = "Active"
+
+        If AccountFormAccess(3, 3) = "1" And CurrentUser.UnitId = 0 Then
+            'All active Applications
             cboApplicationType.Text = "All"
-            cboApplicationUnit.Text = "All"
-            chbShowAll.Checked = False
-
-            If cboEngineer.SelectedIndex > -1 Then
-                cboEngineer.SelectedIndex = 0
-            End If
-
-            DTPSearchDate1.Value = Today
-            DTPSearchDate1b.Value = Today
-            DTPSearchDate2.Value = Today
-            DTPSearchDate2b.Value = Today
-            txtSearchText1.Clear()
-            txtSearchText2.Clear()
-
-            cboApplicationStatus.Text = "Active"
-            If AccountFormAccess(3, 3) = "1" And CurrentUser.UnitId = 0 Then
-                'All active Applications
-                cboApplicationType.Text = "All"
-                'cboApplicationType.Text = "Title V"
+        ElseIf AccountFormAccess(3, 3) = "1" And CurrentUser.UnitId <> 0 Then
+            'All Active Applications from UC's Unit
+            If CurrentUser.ProgramID = 5 Then
+                cboApplicationUnit.SelectedValue = CurrentUser.UnitId
             Else
-                If AccountFormAccess(3, 3) = "1" And CurrentUser.UnitId <> 0 Then
-                    'All Active Applications from UC's Unit
-                    SQL = "Select numUnit " &
-                    "from EPDUserProfiles " &
-                    "where numUserID = '" & CurrentUser.UserID & "' " &
-                    "and numProgram = '5' "
-
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    Try
-
-                        dr = cmd.ExecuteReader
-                    Catch ex As Exception
-                        MsgBox(ex.ToString())
-                    End Try
-
-
-                    Dim recexist As Boolean = dr.Read
-                    If recexist = True Then
-                        cboApplicationUnit.SelectedValue = dr.Item("numUnit")
-                    End If
-                    dr.Close()
-                Else
-                    cboEngineer.SelectedValue = CurrentUser.UserID
-                    'If AccountArray(3, 2) = "1" Then
-                    '    cboEngineer.SelectedValue = CurrentUser.UserID
-                    'Else
-                    '    cboEngineer.SelectedValue = CurrentUser.UserID
-                    'End If
-                    'If cboEngineer.SelectedIndex < 0 Then
-                    '    cboEngineer.SelectedIndex = 0
-                    'End If
-                End If
+                cboEngineer.SelectedValue = CurrentUser.UserID
             End If
-            If AccountFormAccess(3, 4) = "1" Then
-                mmiNewApplication.Visible = True
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
+        Else
+            cboEngineer.SelectedValue = CurrentUser.UserID
+        End If
 
-        End Try
-
+        If AccountFormAccess(3, 4) = "1" Then
+            mmiNewApplication.Visible = True
+        End If
     End Sub
+
 #End Region
 
 #Region "Background worker / Search procedures"
+
     Private Sub RunSearch()
         CancelSearch()
 
@@ -774,398 +483,87 @@ Public Class SSPPApplicationLog
         SearchDate2 = DTPSearchDate2.Text
         SearchDate2b = DTPSearchDate2b.Text
 
-        dsApplication = New DataSet
+        dtApplicationLog = Nothing
 
-        Try
-            If bgwApplicationLog.IsBusy = False Then
-                bgwApplicationLog.RunWorkerAsync()
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Private Sub CancelSearch()
-        If bgwApplicationLog.IsBusy = True Then
-            bgwApplicationLog.CancelAsync()
+        If bgwApplicationLog.IsBusy = False Then
+            bgwApplicationLog.RunWorkerAsync()
         End If
     End Sub
+
+    Private Sub CancelSearch()
+        If bgwApplicationLog.IsBusy Then bgwApplicationLog.CancelAsync()
+    End Sub
+
     Private Sub FetchData(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles bgwApplicationLog.DoWork
+        Dim SQL As String = ""
+        Dim SQLLine As String = ""
+        Dim SQLSearch1 As String = ""
+        Dim SQLSearch2 As String = ""
+        Dim SQLOrder As String = ""
+
         Try
-            If chbShowAll.Checked = True Then
-                SQL = "Select  " &
-                "  distinct(CONVERT(int, SSPPApplicationMaster.strApplicationNumber)) as strApplicationNumber,  " &
-                "   case  " &
-                "   	when strApplicationTypeDesc IS Null then ''  " &
-                "   Else strApplicationTypeDesc  " &
-                "   End as strApplicationType,  " &
-                "   case  " &
-                "   	when datReceivedDate is Null then ''  " &
-                "   Else to_char(datReceivedDate, 'RRRR-MM-dd')  " &
-                "   End as datReceivedDate,  " &
-                "   case   " &
-                "when strPermitNumber is NULL then ''   " &
-                " else SUBSTRING(strPermitNumber, 1, 4)|| '-' ||SUBSTRING(strPermitNumber, 5, 3)|| '-'   " &
-                "||SUBSTRING(strPermitNumber, 8, 4)|| '-' ||SUBSTRING(strPermitNumber, 12, 1)|| '-' " &
-                "||SUBSTRING(strPermitNumber, 13, 2)|| '-' ||SUBSTRING(strPermitNumber, 15, 1)  " &
-                "   end As strPermitNumber,  " &
-                "   case  " &
-                "   	when datPermitIssued is Null then ''  " &
-                "   else to_char(datPermitIssued, 'RRRR-MM-dd')  " &
-                "   end as datPermitIssued,  " &
-                "   case  " &
-                "   	when numUserID = '0' then ''  " &
-                "   	when numUserID is Null then ''  " &
-                "   else (strLastName|| ', ' ||strFirstName)  " &
-                "   end as StaffResponsible,  " &
-                "   case  " &
-                "   	when SSPPApplicationData.strFacilityName is Null then ''  " &
-                "   else SSPPApplicationData.strFacilityName  " &
-                "   end as strFacilityName,  " &
-                "   case  " &
-                "   	when SSPPApplicationMaster.strAIRSNumber is Null then ''  " &
-                "   	when SSPPApplicationMaster.strAIRSNumber = '0413' then ''  " &
-                "   else SUBSTRING(SSPPApplicationMaster.strAIRSNumber, 5,8)  " &
-                "   end as strAIRSNumber,  " &
-                "     case  " &
-                "   when datPermitIssued is Not Null OR datFinalizedDate IS NOT NULL then '11 - Closed Out'  " &
-                "   when datToDirector is Not Null and datFinalizedDate is Null and (datDraftIssued is Null or datDraftIssued < datToDirector) then '09 - Administrative Review'  " &
-                "   when datToBranchCheif is Not Null and datFinalizedDate is Null  " &
-                "   and datToDirector is Null and (datDraftIssued is Null or datDraftIssued < datToBranchCheif) then '09 - Administrative Review'  " &
-                "   when datEPAEnds is not Null then '08 - EPA 45-day Review'  " &
-                "   when datPNExpires is Not Null and datPNExpires < GETDATE() then '07 - Public Notice Expired'  " &
-                "   when datPNExpires is Not Null and datPNExpires >= GETDATE() then '06 - Public Notice'   " &
-                "   when datDraftIssued is Not Null and datPNExpires is Null then '05 - Draft Issued'   " &
-                "   when dattoPMII is Not Null then '04 - AT PM'   " &
-                "   when dattoPMI is Not Null then '03 - At UC'   " &
-                "   when datReviewSubmitted is Not Null and (strSSCPUnit <> '0' or strISMPUnit <> '0') then '02 - Internal Review'  " &
-                "   when strStaffResponsible is Null or strStaffResponsible ='0' then '0 - Unassigned'    " &
-                "   else '01 - At Engineer'   " &
-                "   end as AppStatus,  " &
-                "   SSPPApplicationData.strSICCode,  " &
-                "   SSPPApplicationData.strPlantDescription,  " &
-                "   Case  " &
-                "   	when APBUnit is Null then ''  " &
-                "   Else strUnitDesc    " &
-                "   End as APBUnit,  " &
-                "   case  " &
-                "   	when datApplicationStarted is Null then ''  " &
-                "   Else to_char(datApplicationStarted, 'RRRR-MM-dd')  " &
-                "   End as datApplicationStarted,  " &
-                "   case  " &
-                "   	when datSentByFacility is Null then ''  " &
-                "   else to_char(datSentByFacility, 'RRRR-MM-dd')  " &
-                "   End as datSentByFacility,  " &
-                "   case  " &
-                "   	when datAssignedToEngineer is Null then ''  " &
-                "   else to_char(datAssignedtoEngineer, 'RRRR-MM-dd')  " &
-                "   ENd as datAssignedtoEngineer,  " &
-                "   case  " &
-                "   	when datReassignedToEngineer is Null then ''  " &
-                "   else to_char(datReassignedToEngineer, 'RRRR-MM-dd')  " &
-                "   End as datReassignedToEngineer,  " &
-                "   case  " &
-                "   	when datApplicationPackageComplete is Null then ''  " &
-                "   else to_char(datApplicationPackageComplete, 'RRRR-MM-dd')  " &
-                "   End as datApplicationPackageComplete,  " &
-                "  Case  " &
-                "   	when datAcknowledgementLetterSent is NUll then ''  " &
-                "   else to_char(datAcknowledgementLetterSent, 'RRRR-MM-dd')  " &
-                "   End as datAcknowledgementLetterSent,  " &
-                "   case  " &
-                "        when strPublicInvolvement = '0' Then 'Not Decided'  " &
-                "        when strPublicInvolvement = '1' Then 'PA Needed'  " &
-                "        when strPublicInvolvement = '2' Then 'PA Not Needed'  " &
-                "   Else 'Not Decided'  " &
-                "   end strPublicInvolvement,  " &
-                "   case  " &
-                "   	when datPNExpires is Null then ''  " &
-                "   else to_char(datPNExpires, 'RRRR-MM-dd')   " &
-                "   End as datPNExpires,  " &
-                "   case  " &
-                "   	when datPAExpires is Null then ''  " &
-                "   else to_char(datPAExpires, 'RRRR-MM-dd')  " &
-                "   End as datPAExpires,  " &
-                "   case  " &
-                "   	when datToPMI is Null then ''  " &
-                "   else to_char(datToPMI, 'RRRR-MM-dd')  " &
-                "   End as datToPMI,  " &
-                "   case  " &
-                "   	when datToPMII is Null then ''  " &
-                "   else to_char(datToPMII, 'RRRR-MM-dd')  " &
-                "   end as datToPMII,  " &
-                "   case  " &
-                "   	when datDraftIssued is NUll then ''  " &
-                "   else to_char(datDraftIssued, 'RRRR-MM-dd')  " &
-                "   end as datDraftIssued,  " &
-                "   case  " &
-                "   	when SSPPApplicationData.strComments is Null then ''  " &
-                "   else SSPPApplicationData.strComments  " &
-                "   End as strComments,   " &
-                "   case  " &
-                "   	when datWithdrawn is Null  then ''  " &
-                "   else to_char(datWithdrawn, 'RRRR-MM-dd')  " &
-                "   end as datWithdrawn,  " &
-                "   Case  " &
-                "   	when datApplicationDeadLine is Null then ''  " &
-                "   else to_char(datApplicationDeadLine, 'RRRR-MM-dd')  " &
-                "   End as datApplicationDeadLine,  " &
-                "   case  " &
-                "   	when datFinalizedDate is Null then ''  " &
-                "   else to_char(datFinalizedDate, 'RRRR-MM-dd')  " &
-                "   end as datFinalizedDate,  " &
-                "   case  " &
-                "   	when strPermitTypeDescription is Null then ''  " &
-                "   else strPermitTypeDescription  " &
-                "   End as strPermitType,  " &
-                "   case  " &
-                "   	when strApplicationNotes is Null then ''  " &
-                "   else strApplicationNotes  " &
-                "   end as strApplicationNotes,  " &
-                "   case  " &
-                "   	when strLastName is Null then ''  " &
-                "   	when strLastName = 'System' then ' '  " &
-                "   else strLastName  " &
-                "   end as strLastname, " &
-                "   case  " &
-                "   	when strFirstName is Null then ''  " &
-                "   else strFirstName  " &
-                "   end as strFirstName, " &
-                "   '' as strAFSGCode,  " &
-                "   case  " &
-                "   	when numUserID is null then 0  " &
-                "   	when numUserID = '0' then 0  " &
-                "   else numUserID  " &
-                "   end as numUserID, " &
-                "   Case  " &
-                "   	when strUnitDesc is Null then ''  " &
-                "   else strUnitDesc  " &
-                "   end as strUserUnit,  " &
-                "   case  " &
-                "   	when SSPPApplicationData.strFacilityStreet1 is NUll then ''  " &
-                "   else SSPPApplicationData.strFacilityStreet1  " &
-                "   end as strFacilityStreet1,  " &
-                "   case  " &
-                "   	when SSPPApplicationData.strFacilityCity is Null then ''  " &
-                "   else SSPPApplicationData.strFacilityCity  " &
-                "   end as strFacilityCity,  " &
-                "   case  " &
-                "   	when strCountyName is Null then ''  " &
-                "   else strCountyName  " &
-                "   end as strCountyName,  " &
-                "   case  " &
-                "   	when strDistrictName is Null then ''  " &
-                "   else strDistrictName  " &
-                "   end as strDistrictName,  " &
-                "   case  " &
-                "   	     when APBHeaderData.strAttainmentStatus is Null then ''  " &
-                "when SUBSTRING(APBHeaderData.strAttainmentstatus, 2, 1) = '0' then 'No'  " &
-                "when SUBSTRING(APBHeaderData.strAttainmentstatus, 2, 1) = '1' then '1-hr Ozone'  " &
-                "when SUBSTRING(APBHeaderData.strAttainmentstatus, 2, 1) = '2' then '1-hr Ozone Contribute'  " &
-                "   end as OneHrOzone,  " &
-                "   case  " &
-                "   	     when APBHeaderData.strAttainmentStatus is Null then ''  " &
-                "when SUBSTRING(APBHeaderData.strAttainmentstatus, 3, 1) = '0' then 'No'  " &
-                "when SUBSTRING(APBHeaderData.strAttainmentstatus, 3, 1) = '1' then '8-hr Ozone Atlanta'  " &
-                "when SUBSTRING(APBHeaderData.strAttainmentstatus, 3, 1) = '2' then '8-hr Ozone Macon'  " &
-                "   end as EightHrOzone,  " &
-                "   case  " &
-                "   	     when APBHeaderData.strAttainmentStatus is Null then ''  " &
-                "when SUBSTRING(APBHeaderData.strAttainmentstatus, 4, 1) = '0' then 'No'  " &
-                "when SUBSTRING(APBHeaderData.strAttainmentstatus, 4, 1) = '1' then 'PM - Atlanta'  " &
-                "when SUBSTRING(APBHeaderData.strAttainmentstatus, 4, 1) = '2' then 'PM - Chattanooga'  " &
-                "when SUBSTRING(APBHeaderData.strAttainmentstatus, 4, 1) = '3' then 'PM - Floyd'  " &
-                "when SUBSTRING(APBHeaderData.strAttainmentstatus, 4, 1) = '4' then 'PM - Macon'  " &
-                "   end as PMFine,  " &
-                "   case  " &
-                "      when strPAReady is Null then ''   " &
-                "      when strPAReady = 'True' then 'PA Ready'   " &
-                "      when strPAReady = 'False' then ''  " &
-                "   end as strPAReady,   " &
-                "   case   " &
-                "      when strPNready is Null then ''   " &
-                "      when strPNready = 'True' then 'PN Ready'  " &
-                "      when strPNReady = 'False' then ''   " &
-                "   end as strPNReady,   " &
-                "   case  " &
-                "   when datEPAWaived is Null then ''  " &
-                "   else to_char(datEPAWaived, 'RRRR-MM-dd')  " &
-                "   end as datEPAWaived,  " &
-                "   Case  " &
-                "   when datEPAEnds is Null then ''  " &
-                "   else to_char(datEPAEnds, 'RRRR-MM-dd')  " &
-                "   end as datEPAEnds,  " &
-                "   case  " &
-                "   when datToBranchCheif is Null then ''  " &
-                "   else to_char(datToBranchCheif, 'RRRR-MM-dd')  " &
-                "   end as datToBranchCheif,  " &
-                "   case  " &
-                "   when datToDirector is Null then ''  " &
-                "   else to_char(datToDirector, 'RRRR-MM-dd')  " &
-                "   end as datToDirector,  " &
-                "   case  " &
-                "        when APBHeaderData.strStateProgramCodes is Null then ''  " &
-                "        when SUBSTRING(APBHeaderData.strStateProgramCodes, 1, 1) = '1' then 'NSR/PSD Major'  " &
-                "   End as NSRMajor,  " &
-                "   Case  " &
-                "        when APBHeaderData.strStateProgramCodes is Null then ''  " &
-                "        when SUBSTRING(APBHeaderData.strStateProgramCodes, 2, 1) = '1' then 'HAPs Major'  " &
-                "   End as HAPsMajor,  " &
-                "   case   " &
-                "   when datPermitIssued is Not Null then to_char(datPermitIssued, 'RRRR-MM-dd')     " &
-                "   when datFinalizedDate is Not Null then to_char(datFinalizedDate, 'RRRR-MM-dd')  " &
-                "   when datToDirector is Not Null and datFinalizedDate is Null and (datDraftIssued is Null or datDraftIssued < datToDirector) then to_char(datToDirector, 'RRRR-MM-dd')  " &
-                "   when datToBranchCheif is Not Null and datFinalizedDate is Null and datToDirector is Null and (datDraftIssued is Null or datDraftIssued < datToBranchCheif) then to_char(DatTOBranchCheif, 'RRRR-MM-dd')   " &
-                "   when datEPAEnds is not Null then to_char(datEPAEnds, 'RRRR-MM-dd')    " &
-                "   when datPNExpires is Not Null and datPNExpires < GETDATE() then to_char(datPNExpires, 'RRRR-MM-dd')    " &
-                "   when datPNExpires is Not Null and datPNExpires >= GETDATE() then to_char(datPNExpires, 'RRRR-MM-dd')     " &
-                "   when datDraftIssued is Not Null and datPNExpires is Null then to_char(datDraftIssued, 'RRRR-MM-dd')     " &
-                "   when dattoPMII is Not Null then to_char(datToPMII, 'RRRR-MM-dd')     " &
-                "   when dattoPMI is Not Null then to_char(datToPMI, 'RRRR-MM-dd')     " &
-                "   when datReviewSubmitted is Not Null and (strSSCPUnit <> '0' or strISMPUnit <> '0') then to_char(datReviewSubmitted, 'RRRR-MM-dd')    " &
-                "   when strStaffResponsible is Null or strStaffResponsible ='0' then 'Unknown'     " &
-                "   else to_char(datAssignedToEngineer, 'RRRR-MM-dd')     " &
-                "   end as StatusDate,   " &
-                "   case  " &
-                "   when SUBSTRING(strTrackedRules, 1, 1) = '1' then 'PSD - Rule'  " &
-                "   else ' '  " &
-                "   end PSDRule,  " &
-                "   case   " &
-                "   when SUBSTRING(strTrackedRules, 2, 1) = '1' then 'NAA - Rule'   " &
-                "   else ' '   " &
-                "   end NAARule,   " &
-                "   case   " &
-                "   when SUBSTRING(strTrackedRules, 3, 1) = '1' then '112(g) - Rule'   " &
-                "   else ' '   " &
-                "   end gRule,   " &
-                "   case   " &
-                "   when SUBSTRING(strTrackedRules, 4, 1) = '1' then 'Rule (tt) RACT'   " &
-                "   else ' '  " &
-                "   end ttRACT,  " &
-                "   case   " &
-                "   when SUBSTRING(strTrackedRules, 5, 1) = '1' then 'Rule (yy) RACT'   " &
-                "   else ' '   " &
-                "   end yyRACT,   " &
-                "   case   " &
-                "   when SUBSTRING(strTrackedRules, 6, 1) = '1' then 'Actual PAL Rule'   " &
-                "   else ' '   " &
-                "   end PALRule, " &
-                "   case   " &
-                "   when SUBSTRING(strTrackedRules, 7, 1) = '1' then 'Expedited Permit'   " &
-                "   else ' '   " &
-                "   end ExpeditedPermitRule,   " &
-                "   case   " &
-                "   when SUBSTRING(strTrackedRules, 8, 1) = '1' then 'Confidential information submitted'   " &
-                "   else ' '   " &
-                "   end ConfInfoRule,   " &
-                " (SUBSTRING(SSPPSubpartData.strSubpartKey, -1, 1) ||' - '||SSPPSubpartData.strSubpart) as strSubpart " &
-                "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
-                "  SSPPApplicationData, LookUpApplicationTypes, LookUpPermitTypes, " &
-                "  LookUpCountyInformation, LookUPDistrictInformation, " &
-                "  LookUpDistricts, APBHeaderData, " &
-                "  EPDUSerProfiles, LookUpEPDUnits, " &
-                "SSPPSubpartData " &
-                "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber (+) " &
-                "and SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber (+) " &
-                "and SSPPApplicationMaster.strApplicationType = LookUpAPplicationTypes.strApplicationTypeCode (+) " &
-                "and SSPPApplicationMaster.strPermitType = LookUpPermitTypes.strPermitTypeCode (+)     " &
-                "and SSPPApplicationMaster.strAIRSNumber = APBHeaderData.strAIRSNumber (+)     " &
-                "and SUBSTRING(SSPPApplicationMaster.strAIRSNumber, 5, 3) = LookUpCountyInformation.strCountyCode (+) " &
-                "and LookUpCountyInformation.strCountyCode = LookUpDistrictInformation.strDistrictCounty (+)  " &
-                "and LookUpDistrictInformation.strDistrictCode = LookUPDistricts.strDistrictCode (+)  " &
-                "and SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
-                "and SSPPApplicationMaster.APBUnit = LookUpEPDUnits.numUnitCode (+) " &
-                "and SSPPApplicationMaster.strApplicationNumber = SSPPSubpartData.strApplicationNumber (+) "
-            Else
-                SQL = "Select  " &
-                    "  distinct(CONVERT(int, SSPPApplicationMaster.strApplicationNumber)) as strApplicationNumber,  " &
-                    "  case   " &
-                    " 	when strApplicationTypeDesc IS Null then ''   " &
-                    " Else strApplicationTypeDesc   " &
-                    " End as strApplicationType,   " &
-                    " case   " &
-                    " 	when datReceivedDate is Null then ''   " &
-                    " Else to_char(datReceivedDate, 'RRRR-MM-dd')   " &
-                    " End as datReceivedDate,   " &
-                    " case    " &
-                    "         when strPermitNumber is NULL then ''    " &
-                    "          else SUBSTRING(strPermitNumber, 1, 4)|| '-' ||SUBSTRING(strPermitNumber, 5, 3)|| '-'    " &
-                    "         ||SUBSTRING(strPermitNumber, 8, 4)|| '-' ||SUBSTRING(strPermitNumber, 12, 1)|| '-'   " &
-                    "         ||SUBSTRING(strPermitNumber, 13, 2)|| '-' ||SUBSTRING(strPermitNumber, 15, 1)   " &
-                    " end As strPermitNumber,   " &
-                    " case   " &
-                    " 	when datPermitIssued is Null then ''   " &
-                    " else to_char(datPermitIssued, 'RRRR-MM-dd')   " &
-                    " end as datPermitIssued,   " &
-                    " case   " &
-                    " 	when numUserID = '0' then ''   " &
-                    " 	when numUserID is Null then ''   " &
-                    " else (strLastName|| ', ' ||strFirstName)   " &
-                    " end as StaffResponsible,   " &
-                    " case   " &
-                    " 	when SSPPApplicationData.strFacilityName is Null then ''   " &
-                    " else SSPPApplicationData.strFacilityName   " &
-                    " end as strFacilityName,  " &
-                    " case   " &
-                    " 	when SSPPApplicationMaster.strAIRSNumber is Null then ''   " &
-                    " 	when SSPPApplicationMaster.strAIRSNumber = '0413' then ''   " &
-                    " else SUBSTRING(SSPPApplicationMaster.strAIRSNumber, 5,8)   " &
-                    " end as strAIRSNumber,   " &
-                    "case   " &
-                    "when datPermitIssued is Not Null OR datFinalizedDate IS NOT NULL then '11 - Closed Out'   " &
-                    "when datToDirector is Not Null and datFinalizedDate is Null and (datDraftIssued is Null or datDraftIssued < datToDirector) then '09 - Administrative Review'   " &
-                    "when datToBranchCheif is Not Null and datFinalizedDate is Null   " &
-                    "and datToDirector is Null and (datDraftIssued is Null or datDraftIssued < datToBranchCheif) then '09 - Administrative Review'   " &
-                    "when datEPAEnds is not Null then '08 - EPA 45-day Review'   " &
-                    "when datPNExpires is Not Null and datPNExpires < GETDATE() then '07 - Public Notice Expired'   " &
-                    "when datPNExpires is Not Null and datPNExpires >= GETDATE() then '06 - Public Notice'    " &
-                    "when datDraftIssued is Not Null and datPNExpires is Null then '05 - Draft Issued'    " &
-                    "when dattoPMII is Not Null then '04 - AT PM'    " &
-                    "when dattoPMI is Not Null then '03 - At UC'    " &
-                    "when datReviewSubmitted is Not Null and (strSSCPUnit <> '0' or strISMPUnit <> '0') then '02 - Internal Review'   " &
-                    "when strStaffResponsible is Null or strStaffResponsible ='0' then '0 - Unassigned'     " &
-                    "else '01 - At Engineer'    " &
-                    "end as AppStatus,   " &
-                    " case   " &
-                    "	when strPermitTypeDescription is Null then ''   " &
-                    "else strPermitTypeDescription   " &
-                    "End as strPermitType,  " &
-                    "case    " &
-                    "when datPermitIssued is Not Null then to_char(datPermitIssued, 'RRRR-MM-dd')      " &
-                    "when datFinalizedDate is Not Null then to_char(datFinalizedDate, 'RRRR-MM-dd')   " &
-                    "when datToDirector is Not Null and datFinalizedDate is Null   " &
-                    "and (datDraftIssued is Null or datDraftIssued < datToDirector) then to_char(datToDirector, 'RRRR-MM-dd')   " &
-                    "when datToBranchCheif is Not Null and datFinalizedDate is Null   " &
-                    "and datToDirector is Null and (datDraftIssued is Null or datDraftIssued < datToBranchCheif) then to_char(DatTOBranchCheif, 'RRRR-MM-dd')    " &
-                    "when datEPAEnds is not Null then to_char(datEPAEnds, 'RRRR-MM-dd')     " &
-                    "when datPNExpires is Not Null and datPNExpires < GETDATE() then to_char(datPNExpires, 'RRRR-MM-dd')     " &
-                    "when datPNExpires is Not Null and datPNExpires >= GETDATE() then to_char(datPNExpires, 'RRRR-MM-dd')      " &
-                    "when datDraftIssued is Not Null and datPNExpires is Null then to_char(datDraftIssued, 'RRRR-MM-dd')      " &
-                    "when dattoPMII is Not Null then to_char(datToPMII, 'RRRR-MM-dd')      " &
-                    "when dattoPMI is Not Null then to_char(datToPMI, 'RRRR-MM-dd')      " &
-                    "when datReviewSubmitted is Not Null and (strSSCPUnit <> '0' or strISMPUnit <> '0') then to_char(datReviewSubmitted, 'RRRR-MM-dd')     " &
-                    "when strStaffResponsible is Null or strStaffResponsible ='0' then 'Unknown'      " &
-                    "else to_char(datAssignedToEngineer, 'RRRR-MM-dd')      " &
-                    "end as StatusDate,   " &
-                    "SSPPApplicationData.strSICCode,   " &
-                    "SSPPApplicationData.strPlantDescription   " &
-                    "from SSPPApplicationMaster, SSPPApplicationTracking,   " &
-                    "  SSPPApplicationData, LookUpApplicationTypes, LookUpPermitTypes,  " &
-                    "  LookUpCountyInformation, LookUPDistrictInformation,  " &
-                    "  LookUpDistricts, APBHeaderData,  " &
-                    "  EPDUSerProfiles, LookUpEPDUnits,  " &
-                    " SSPPSubpartData " &
-                    "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber (+) " &
-                    "and SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber (+) " &
-                    "and SSPPApplicationMaster.strApplicationType = LookUpAPplicationTypes.strApplicationTypeCode (+) " &
-                    "and SSPPApplicationMaster.strPermitType = LookUpPermitTypes.strPermitTypeCode (+)      " &
-                    "and SSPPApplicationMaster.strAIRSNumber = APBHeaderData.strAIRSNumber (+)      " &
-                    "and SUBSTRING(SSPPApplicationMaster.strAIRSNumber, 5, 3) = LookUpCountyInformation.strCountyCode (+)  " &
-                    "and LookUpCountyInformation.strCountyCode = LookUpDistrictInformation.strDistrictCounty (+)   " &
-                    "and LookUpDistrictInformation.strDistrictCode = LookUPDistricts.strDistrictCode (+)   " &
-                    "and SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID  " &
-                    "and SSPPApplicationMaster.APBUnit = LookUpEPDUnits.numUnitCode (+) " &
-                    "and SSPPApplicationMaster.strApplicationNumber = SSPPSubpartData.strApplicationNumber (+) "
-            End If
+            SQL = "SELECT DISTINCT
+                CONVERT(int, m.STRAPPLICATIONNUMBER) AS strApplicationNumber,
+                CASE WHEN la.STRAPPLICATIONTYPEDESC IS NULL THEN '' 
+                ELSE la.STRAPPLICATIONTYPEDESC END AS strApplicationType,
+                CASE WHEN t.DATRECEIVEDDATE IS NULL THEN '' 
+                ELSE format(t.DATRECEIVEDDATE, 'd-MMM-yyyy') END AS datReceivedDate,
+                CASE WHEN d.STRPERMITNUMBER IS NULL THEN '' 
+                ELSE CONCAT(SUBSTRING(d.STRPERMITNUMBER, 1, 4), '-', SUBSTRING(d.STRPERMITNUMBER, 5, 3), '-', SUBSTRING(d.STRPERMITNUMBER, 8, 4), '-', SUBSTRING(d.STRPERMITNUMBER, 12, 1), '-', SUBSTRING(d.STRPERMITNUMBER, 13, 2), '-', SUBSTRING(d.STRPERMITNUMBER, 15, 1)) END AS strPermitNumber,
+                CASE WHEN t.DATPERMITISSUED IS NULL THEN '' 
+                ELSE format(t.DATPERMITISSUED, 'd-MMM-yyyy') END AS datPermitIssued,
+                CASE WHEN u.NUMUSERID = '0' THEN '' 
+                WHEN u.NUMUSERID IS NULL THEN '' 
+                ELSE CONCAT(u.STRLASTNAME, ', ', u.STRFIRSTNAME) END AS StaffResponsible,
+                CASE WHEN d.STRFACILITYNAME IS NULL THEN '' 
+                ELSE d.STRFACILITYNAME END AS strFacilityName,
+                CASE WHEN m.STRAIRSNUMBER IS NULL THEN '' 
+                WHEN m.STRAIRSNUMBER = '0413' THEN '' 
+                ELSE SUBSTRING(m.STRAIRSNUMBER, 5, 8) END AS strAIRSNumber,
+                CASE WHEN t.DATPERMITISSUED IS NOT NULL OR m.DATFINALIZEDDATE IS NOT NULL THEN '11 - Closed Out' 
+                WHEN t.DATTODIRECTOR IS NOT NULL AND m.DATFINALIZEDDATE IS NULL AND (t.DATDRAFTISSUED IS NULL OR t.DATDRAFTISSUED < t.DATTODIRECTOR) THEN '09 - Administrative Review' 
+                WHEN t.DATTOBRANCHCHEIF IS NOT NULL AND m.DATFINALIZEDDATE IS NULL AND t.DATTODIRECTOR IS NULL AND (t.DATDRAFTISSUED IS NULL OR t.DATDRAFTISSUED < t.DATTOBRANCHCHEIF) THEN '09 - Administrative Review' 
+                WHEN t.DATEPAENDS IS NOT NULL THEN '08 - EPA 45-day Review' 
+                WHEN t.DATPNEXPIRES IS NOT NULL AND t.DATPNEXPIRES < GETDATE() THEN '07 - Public Notice Expired' 
+                WHEN t.DATPNEXPIRES IS NOT NULL AND t.DATPNEXPIRES >= GETDATE() THEN '06 - Public Notice' 
+                WHEN t.DATDRAFTISSUED IS NOT NULL AND t.DATPNEXPIRES IS NULL THEN '05 - Draft Issued' 
+                WHEN t.DATTOPMII IS NOT NULL THEN '04 - AT PM' 
+                WHEN t.DATTOPMI IS NOT NULL THEN '03 - At UC' 
+                WHEN t.DATREVIEWSUBMITTED IS NOT NULL AND (d.STRSSCPUNIT <> '0' OR d.STRISMPUNIT <> '0') THEN '02 - Internal Review' 
+                WHEN m.STRSTAFFRESPONSIBLE IS NULL OR m.STRSTAFFRESPONSIBLE = '0' THEN '0 - Unassigned' 
+                ELSE '01 - At Engineer' END AS AppStatus,
+                CASE WHEN lp.STRPERMITTYPEDESCRIPTION IS NULL THEN '' 
+                ELSE lp.STRPERMITTYPEDESCRIPTION END AS strPermitType,
+                CASE WHEN t.DATPERMITISSUED IS NOT NULL THEN format(t.DATPERMITISSUED, 'd-MMM-yyyy') 
+                WHEN m.DATFINALIZEDDATE IS NOT NULL THEN format(m.DATFINALIZEDDATE, 'd-MMM-yyyy') 
+                WHEN t.DATTODIRECTOR IS NOT NULL AND m.DATFINALIZEDDATE IS NULL AND (t.DATDRAFTISSUED IS NULL OR t.DATDRAFTISSUED < t.DATTODIRECTOR) THEN format(t.DATTODIRECTOR, 'd-MMM-yyyy') 
+                WHEN t.DATTOBRANCHCHEIF IS NOT NULL AND m.DATFINALIZEDDATE IS NULL AND t.DATTODIRECTOR IS NULL AND (t.DATDRAFTISSUED IS NULL OR t.DATDRAFTISSUED < t.DATTOBRANCHCHEIF) THEN format(t.DATTOBRANCHCHEIF, 'd-MMM-yyyy') 
+                WHEN t.DATEPAENDS IS NOT NULL THEN format(t.DATEPAENDS, 'd-MMM-yyyy') 
+                WHEN t.DATPNEXPIRES IS NOT NULL AND t.DATPNEXPIRES < GETDATE() THEN format(t.DATPNEXPIRES, 'd-MMM-yyyy') 
+                WHEN t.DATPNEXPIRES IS NOT NULL AND t.DATPNEXPIRES >= GETDATE() THEN format(t.DATPNEXPIRES, 'd-MMM-yyyy') 
+                WHEN t.DATDRAFTISSUED IS NOT NULL AND t.DATPNEXPIRES IS NULL THEN format(t.DATDRAFTISSUED, 'd-MMM-yyyy') 
+                WHEN t.DATTOPMII IS NOT NULL THEN format(t.DATTOPMII, 'd-MMM-yyyy') 
+                WHEN t.DATTOPMI IS NOT NULL THEN format(t.DATTOPMI, 'd-MMM-yyyy') 
+                WHEN t.DATREVIEWSUBMITTED IS NOT NULL AND (d.STRSSCPUNIT <> '0' OR d.STRISMPUNIT <> '0') THEN format(t.DATREVIEWSUBMITTED, 'd-MMM-yyyy') 
+                WHEN m.STRSTAFFRESPONSIBLE IS NULL OR m.STRSTAFFRESPONSIBLE = '0' THEN 'Unknown' 
+                ELSE format(t.DATASSIGNEDTOENGINEER, 'd-MMM-yyyy') END AS StatusDate, 
+                d.STRSICCODE, d.STRPLANTDESCRIPTION,
+                lc.STRCOUNTYNAME,
+                case when e.STRUNITDESC is null then '' else e.STRUNITDESC end as APBUnit,
+                case when substring(strTrackedRules, 7, 1) = '1' then 'Expedited Permit' else ' ' end ExpeditedPermitRule
+                FROM SSPPApplicationMaster AS m
+                LEFT JOIN SSPPApplicationData AS d ON m.STRAPPLICATIONNUMBER = d.STRAPPLICATIONNUMBER
+                LEFT JOIN SSPPApplicationTracking AS t ON m.STRAPPLICATIONNUMBER = t.STRAPPLICATIONNUMBER
+                LEFT JOIN SSPPSubpartData AS s ON m.STRAPPLICATIONNUMBER = s.STRAPPLICATIONNUMBER
+                LEFT JOIN APBHeaderData AS h ON m.STRAIRSNUMBER = h.STRAIRSNUMBER
+                LEFT JOIN EPDUSerProfiles AS u ON m.STRSTAFFRESPONSIBLE = u.NUMUSERID
+                LEFT JOIN LookUpApplicationTypes AS la ON m.STRAPPLICATIONTYPE = la.STRAPPLICATIONTYPECODE
+                LEFT JOIN LookUpPermitTypes AS lp ON m.STRPERMITTYPE = lp.STRPERMITTYPECODE
+                LEFT JOIN LookUpEPDUnits AS e ON m.APBUNIT = e.NUMUNITCODE
+                LEFT JOIN LookUpCountyInformation AS lc ON SUBSTRING(m.strAIRSNumber, 5, 3) = lc.STRCOUNTYCODE
+                LEFT JOIN LookUPDistrictInformation AS ldi ON lc.STRCOUNTYCODE = ldi.STRDISTRICTCOUNTY
+                LEFT JOIN LookUpDistricts AS ld ON ldi.STRDISTRICTCODE = ld.STRDISTRICTCODE
+                WHERE 1=1 "
 
             If bgwApplicationLog.CancellationPending Then
                 e.Cancel = True
@@ -1174,32 +572,32 @@ Public Class SSPPApplicationLog
 
             Select Case FieldType1
                 Case "AIRS No."
-                    SQLSearch1 = " SSPPApplicationMaster.strAIRSNumber like '%" & Replace(SearchText1, "'", "''") & "%' "
+                    SQLSearch1 = " m.strAIRSNumber like @SearchText1 "
                 Case "Applicable Rules"
                     Select Case SearchText1b
                         Case "Any Rule"
-                            SQLSearch1 = " SSPPApplicationData.strTrackedRules <> '0000000000' "
+                            SQLSearch1 = " d.strTrackedRules <> '0000000000' "
                         Case "PSD"
-                            SQLSearch1 = " SUBSTRING(SSPPApplicationData.strTrackedRules, 1, 1) = '1' "
+                            SQLSearch1 = " SUBSTRING(d.strTrackedRules, 1, 1) = '1' "
                         Case "NAA NSR"
-                            SQLSearch1 = " SUBSTRING(SSPPApplicationData.strTrackedRules, 2, 1) = '1' "
+                            SQLSearch1 = " SUBSTRING(d.strTrackedRules, 2, 1) = '1' "
                         Case "112(g)"
-                            SQLSearch1 = " SUBSTRING(SSPPApplicationData.strTrackedRules, 3, 1) = '1' "
+                            SQLSearch1 = " SUBSTRING(d.strTrackedRules, 3, 1) = '1' "
                         Case "Rule (tt) RACT"
-                            SQLSearch1 = " SUBSTRING(SSPPApplicationData.strTrackedRules, 4, 1) = '1' "
+                            SQLSearch1 = " SUBSTRING(d.strTrackedRules, 4, 1) = '1' "
                         Case "Rule (yy) RACT"
-                            SQLSearch1 = " SUBSTRING(SSPPApplicationData.strTrackedRules, 5, 1) = '1' "
+                            SQLSearch1 = " SUBSTRING(d.strTrackedRules, 5, 1) = '1' "
                         Case "Actuals PAL"
-                            SQLSearch1 = " SUBSTRING(SSPPApplicationData.strTrackedRules, 6, 1) = '1' "
+                            SQLSearch1 = " SUBSTRING(d.strTrackedRules, 6, 1) = '1' "
                         Case "Expedited Permit"
-                            SQLSearch1 = " SUBSTRING(SSPPApplicationData.strTrackedRules, 7, 1) = '1' "
+                            SQLSearch1 = " SUBSTRING(d.strTrackedRules, 7, 1) = '1' "
                         Case "Confidential information submitted"
-                            SQLSearch1 = " SUBSTRING(SSPPApplicationData.strTrackedRules, 8, 1) = '1' "
+                            SQLSearch1 = " SUBSTRING(d.strTrackedRules, 8, 1) = '1' "
                         Case Else
                             SQLSearch1 = " "
                     End Select
                 Case "Application No."
-                    SQLSearch1 = " SSPPApplicationMaster.strApplicationNumber like '%" & Replace(SearchText1, "'", "''") & "%' "
+                    SQLSearch1 = " m.strApplicationNumber like @SearchText1 "
                 Case "Application Status"
                     Select Case SearchText1b
                         Case "0 - Unassigned"
@@ -1221,10 +619,7 @@ Public Class SSPPApplicationLog
                         Case "8 - EPA 45-day Review"
                             SQLSearch1 = " datEPAEnds is not Null and datFinalizedDate is Null and datDraftIssued is Not Null "
                         Case "9 - Administrative Review"
-                            'SQLSearch1 = " (datToBranchCheif is Not Null and datFinalizedDate is Null and datToDirector is Null and (datDraftIssued is Null or datDraftIssued < datToBranchCheif)) "
                             SQLSearch1 = " (datToBranchCheif is Not Null and datFinalizedDate is Null   and (datDraftIssued is Null or datDraftIssued < datToBranchCheif)) "
-                            'Case "9 - Administrative Review"
-                            '    SQLSearch1 = " (datToDirector is Not Null and datFinalizedDate is Null and (datDraftIssued is Null or datDraftIssued < datToDirector)) "
                         Case "11 - Closed Out"
                             SQLSearch1 = " datFinalizedDate is Not Null "
                         Case Else
@@ -1232,104 +627,103 @@ Public Class SSPPApplicationLog
                     End Select
                 Case "Application Type"
                     If SearchText1b = "Other" Then
-                        SQLSearch1 = " (Upper(strApplicationTypeDesc) <>  Upper('Acid Rain') and Upper(strApplicationTypeDesc) <>  Upper('AA') " &
-                        " and Upper(strApplicationTypeDesc) <>  Upper('NC') and  Upper(strApplicationTypeDesc) <>  Upper('SAW') " &
-                        "and Upper(strApplicationTypeDesc) <>  Upper('SAWO') and Upper(strApplicationTypeDesc) <>  Upper('MAW') " &
-                        "and Upper(strApplicationTypeDesc) <>  Upper('MAWO') and Upper(strApplicationTypeDesc) <>  Upper('TV-Renewal') " &
-                        "and Upper(strApplicationTypeDesc) <>  Upper('502(b)10') and Upper(strApplicationTypeDesc) <>  Upper('TV-Initial') " &
-                        "and Upper(strApplicationTypeDesc) <>  Upper('SM') and Upper(strApplicationTypeDesc) <>  Upper('Closed') " &
-                        "and Upper(strApplicationTypeDesc) <>  Upper('ERC') and Upper(strApplicationTypeDesc) <>  Upper('OFF PERMIT') " &
-                        "and Upper(strApplicationTypeDesc) <>  Upper('PBR') and Upper(strApplicationTypeDesc) <>  Upper('SIP')) "
+                        SQLSearch1 = " (strApplicationTypeDesc <>  'Acid Rain' and strApplicationTypeDesc <>  'AA' " &
+                        " and strApplicationTypeDesc <>  'NC' and  strApplicationTypeDesc <>  'SAW' " &
+                        "and strApplicationTypeDesc <>  'SAWO' and strApplicationTypeDesc <>  'MAW' " &
+                        "and strApplicationTypeDesc <>  'MAWO' and strApplicationTypeDesc <>  'TV-Renewal' " &
+                        "and strApplicationTypeDesc <>  '502(b)10' and strApplicationTypeDesc <>  'TV-Initial' " &
+                        "and strApplicationTypeDesc <>  'SM' and strApplicationTypeDesc <>  'Closed' " &
+                        "and strApplicationTypeDesc <>  'ERC' and strApplicationTypeDesc <>  'OFF PERMIT' " &
+                        "and strApplicationTypeDesc <>  'PBR' and strApplicationTypeDesc <>  'SIP') "
                     Else
-                        SQLSearch1 = " Upper(strApplicationTypeDesc) like Upper('%" & SearchText1b & "%') "
+                        SQLSearch1 = " strApplicationTypeDesc like @SearchText1b "
                     End If
                 Case "Application Unit"
-                    SQLSearch1 = " Upper(LookUpEPDUnits.strUnitDesc) like Upper('%" & Replace(SearchText1b, "'", "''") & "%') "
+                    SQLSearch1 = " e.strUnitDesc like @SearchText1b "
                 Case "Applog Comments"
-                    SQLSearch1 = " Upper(SSPPApplicationData.strComments) like Upper('%" & Replace(SearchText1, "'", "''") & "%') "
+                    SQLSearch1 = " d.strComments like @SearchText1 "
                 Case "Date Acknowledged"
-                    SQLSearch1 = " datAcknowledgementLetterSent between '" & SearchDate1 & "' and '" & SearchDate1b & "' "
+                    SQLSearch1 = " datAcknowledgementLetterSent between @SearchDate1 and @SearchDate1b "
                 Case "Date APL Completed"
-                    SQLSearch1 = " datApplicationPackageComplete between '" & SearchDate1 & "' and '" & SearchDate1b & "' "
+                    SQLSearch1 = " datApplicationPackageComplete between @SearchDate1 and @SearchDate1b "
                 Case "Date APL Dated"
-                    SQLSearch1 = " datSentByFacility between '" & SearchDate1 & "' and '" & SearchDate1b & "' "
+                    SQLSearch1 = " datSentByFacility between @SearchDate1 and @SearchDate1b "
                 Case "Date APL Received"
-                    SQLSearch1 = " datReceivedDate between '" & SearchDate1 & "' and '" & SearchDate1b & "' "
+                    SQLSearch1 = " datReceivedDate between @SearchDate1 and @SearchDate1b "
                 Case "Date Assigned"
-                    SQLSearch1 = " datAssignedtoEngineer between '" & SearchDate1 & "' and '" & SearchDate1b & "' "
+                    SQLSearch1 = " datAssignedtoEngineer between @SearchDate1 and @SearchDate1b "
                 Case "Date Draft Issued"
-                    SQLSearch1 = " datDraftIssued between '" & SearchDate1 & "' and '" & SearchDate1b & "' "
+                    SQLSearch1 = " datDraftIssued between @SearchDate1 and @SearchDate1b "
                 Case "Date PA Expires"
-                    SQLSearch1 = " datPAExpires between '" & SearchDate1 & "' and '" & SearchDate1b & "' "
+                    SQLSearch1 = " datPAExpires between  @SearchDate1 and @SearchDate1b "
                 Case "Date Finalized"
-                    SQLSearch1 = " datPermitIssued between '" & SearchDate1 & "' and '" & SearchDate1b & "' "
+                    SQLSearch1 = " datPermitIssued between  @SearchDate1 and @SearchDate1b "
                 Case "Date PN Expires"
-                    SQLSearch1 = " datPNExpires between '" & SearchDate1 & "' and '" & SearchDate1b & "' "
+                    SQLSearch1 = " datPNExpires between @SearchDate1 and @SearchDate1b "
                 Case "Date Reassigned"
-                    SQLSearch1 = " datReassignedToEngineer between '" & SearchDate1 & "' and '" & SearchDate1b & "' "
+                    SQLSearch1 = " datReassignedToEngineer between @SearchDate1 and @SearchDate1b "
                 Case "Date Started Review"
-                    SQLSearch1 = " datApplicationStarted between '" & SearchDate1 & "' and '" & SearchDate1b & "' "
+                    SQLSearch1 = " datApplicationStarted between @SearchDate1 and @SearchDate1b "
                 Case "Date to BC"
-                    SQLSearch1 = " datToBranchCheif between '" & SearchDate1 & "' and '" & SearchDate1b & "' "
+                    SQLSearch1 = " datToBranchCheif between @SearchDate1 and @SearchDate1b "
                 Case "Date to DO"
-                    SQLSearch1 = " datToDirector between '" & SearchDate1 & "' and '" & SearchDate1b & "' "
+                    SQLSearch1 = " datToDirector between @SearchDate1 and @SearchDate1b "
                 Case "Date to PM"
-                    SQLSearch1 = " datToPMII between '" & SearchDate1 & "' and '" & SearchDate1b & "' "
+                    SQLSearch1 = " datToPMII between @SearchDate1 and @SearchDate1b "
                 Case "Date to UC"
-                    SQLSearch1 = " datToPMI between '" & SearchDate1 & "' and '" & SearchDate1b & "' "
+                    SQLSearch1 = " datToPMI between @SearchDate1 and @SearchDate1b "
                 Case "Date Withdrawn"
-                    SQLSearch1 = " datWithdrawn between '" & SearchDate1 & "' and '" & SearchDate1b & "' "
+                    SQLSearch1 = " datWithdrawn between @SearchDate1 and @SearchDate1b "
                 Case "Deadline"
-                    SQLSearch1 = " datApplicationDeadLine between '" & SearchDate1 & "' and '" & SearchDate1b & "' "
+                    SQLSearch1 = " datApplicationDeadLine between @SearchDate1 and @SearchDate1b "
                 Case "Engineer Firstname"
-                    SQLSearch1 = " Upper(strFirstName) like Upper('%" & Replace(SearchText1, "'", "''") & "%') "
+                    SQLSearch1 = " strFirstName like @SearchText1 "
                 Case "Engineer Lastname"
-                    SQLSearch1 = " Upper(strLastName) like Upper('%" & Replace(SearchText1, "'", "''") & "%') "
+                    SQLSearch1 = " strLastName like @SearchText1 "
                 Case "Engineer Unit Code"
-                    SQLSearch1 = " Upper(APBUnit) like Upper('%" & Replace(SearchText1, "'", "''") & "%') "
+                    SQLSearch1 = " APBUnit like @SearchText1 "
                 Case "EPA 45-day Waived"
-                    SQLSearch1 = " datEPAWaived between '" & SearchDate1 & "' and '" & SearchDate1b & "' "
+                    SQLSearch1 = " datEPAWaived between @SearchDate1 and @SearchDate1b "
                 Case "EPA 45-day Ends"
-                    SQLSearch1 = " datEPAEnds between '" & SearchDate1 & "' and '" & SearchDate1b & "' "
+                    SQLSearch1 = " datEPAEnds between @SearchDate1 and @SearchDate1b "
                 Case "Facility City"
-                    SQLSearch1 = " Upper(strFacilityCity) like Upper('%" & Replace(SearchText1, "'", "''") & "%') "
+                    SQLSearch1 = " strFacilityCity like @SearchText1 "
                 Case "Facility County"
-                    SQLSearch1 = " Upper(strCountyName) like Upper('%" & Replace(SearchText1, "'", "''") & "%') "
+                    SQLSearch1 = " strCountyName like @SearchText1 "
                 Case "Facility Name"
-                    SQLSearch1 = " Upper(strFacilityName) like Upper('%" & Replace(SearchText1, "'", "''") & "%') "
+                    SQLSearch1 = " strFacilityName like @SearchText1 "
                 Case "Facility Street"
-                    SQLSearch1 = " Upper(strFacilityStreet1) like Upper('%" & Replace(SearchText1, "'", "''") & "%') "
+                    SQLSearch1 = " strFacilityStreet1 like @SearchText1 "
                 Case "HAPs Major"
-                    SQLSearch1 = " APBHeaderData.strStateProgramCodes like '_1___' "
+                    SQLSearch1 = " h.strStateProgramCodes like '_1___' "
                 Case "NAA 1Hr-Yes"
-                    SQLSearch1 = " APBHeaderData.strAttainmentStatus like '_1___' "
+                    SQLSearch1 = " h.strAttainmentStatus like '_1___' "
                 Case "NAA 1Hr-Contr."
-                    SQLSearch1 = " APBHeaderData.strAttainmentStatus like '_2___' "
+                    SQLSearch1 = " h.strAttainmentStatus like '_2___' "
                 Case "NAA 1Hr-No"
-                    SQLSearch1 = " APBHeaderData.strAttainmentStatus like '_0___' "
+                    SQLSearch1 = " h.strAttainmentStatus like '_0___' "
                 Case "NAA 8Hr-Atlanta"
-                    SQLSearch1 = " APBHeaderData.strAttainmentStatus like '__1__' "
+                    SQLSearch1 = " h.strAttainmentStatus like '__1__' "
                 Case "NAA 8Hr-Macon"
-                    SQLSearch1 = " APBHeaderData.strAttainmentStatus like '__2__' "
+                    SQLSearch1 = " h.strAttainmentStatus like '__2__' "
                 Case "NAA 8Hr-No"
-                    SQLSearch1 = " APBHeaderData.strAttainmentStatus like '__0__' "
+                    SQLSearch1 = " h.strAttainmentStatus like '__0__' "
                 Case "NAA PM-Atlanta"
-                    SQLSearch1 = " APBHeaderData.strAttainmentStatus like '___1_' "
+                    SQLSearch1 = " h.strAttainmentStatus like '___1_' "
                 Case "NAA PM-Chattanooga"
-                    SQLSearch1 = " APBHeaderData.strAttainmentStatus like '___2_' "
+                    SQLSearch1 = " h.strAttainmentStatus like '___2_' "
                 Case "NAA PM-Floyd"
-                    SQLSearch1 = " APBHeaderData.strAttainmentStatus like '___3_' "
+                    SQLSearch1 = " h.strAttainmentStatus like '___3_' "
                 Case "NAA PM-Macon"
-                    SQLSearch1 = " APBHeaderData.strAttainmentStatus like '___4_' "
+                    SQLSearch1 = " h.strAttainmentStatus like '___4_' "
                 Case "NAA PM-No"
-                    SQLSearch1 = " APBHeaderData.strAttainmentStatus like '___0_' "
+                    SQLSearch1 = " h.strAttainmentStatus like '___0_' "
                 Case "NSR/PSD Major"
-                    SQLSearch1 = " APBHeaderData.strStateProgramCodes like '1____' "
+                    SQLSearch1 = " h.strStateProgramCodes like '1____' "
                 Case "PA Ready"
                     SQLSearch1 = " strPAReady is Not Null and strPAReady = 'True' "
                 Case "Permit Number"
-                    temp = Replace(SearchText1, "-", "")
-                    SQLSearch1 = " Upper(strPermitNumber) like Upper('%" & Replace(temp, "'", "''") & "%') "
+                    SQLSearch1 = " strPermitNumber like @strPermitNumber "
                 Case "Permit Type"
                     If SearchText1b = "Other" Then
                         SQLSearch1 = " strPermitType is Null "
@@ -1368,7 +762,7 @@ Public Class SSPPApplicationLog
                         End Select
                     End If
                 Case "Plant Description"
-                    SQLSearch1 = " Upper(SSPPApplicationData.strPlantDescription) like '%" & Replace(SearchText1.ToUpper, "'", "''") & "%' "
+                    SQLSearch1 = " d.strPlantDescription like @SearchText1 "
                 Case "PN Ready"
                     SQLSearch1 = " strPNReady is Not Null and strPNReady = 'True' "
                 Case "Public Advisory"
@@ -1383,55 +777,55 @@ Public Class SSPPApplicationLog
                             SQLSearch1 = " strPublicInvolvement = '0' "
                     End Select
                 Case "Reason APL Submitted"
-                    SQLSearch1 = " Upper(strApplicationNotes) like Upper('%" & Replace(SearchText1, "'", "''") & "%') "
+                    SQLSearch1 = " strApplicationNotes like @SearchText1 "
                 Case "Regional District"
-                    SQLSearch1 = " Upper(strDistrictName) like Upper('%" & Replace(SearchText1b, "'", "''") & "%') "
+                    SQLSearch1 = " strDistrictName like @SearchText1b "
                 Case "Status Date"
-                    SQLSearch1 = " StatusDate between '" & SearchDate1 & "' and '" & SearchDate1b & "' "
+                    SQLSearch1 = " StatusDate between @SearchDate1 and @SearchDate1b "
                 Case "SIC Code"
-                    SQLSearch1 = " SSPPApplicationData.strSICCode like '%" & Replace(SearchText1, "'", "''") & "%' "
-                Case "Subpart - 0-SIP"
-                    SQLSearch1 = " ( SSPPSubpartData.strSubpart = '" & SubpartSIP1 & "' " &
-                    "and SUBSTRING(SSPPSubpartData.strSubpartKey, -1, 1) = '0' ) "
-                Case "Subpart - 8-NESHAP (Part 61)"
-                    SQLSearch1 = " ( SSPPSubpartData.strSubpart = '" & SubpartNESHAP1 & "' " &
-                    "and SUBSTRING(SSPPSubpartData.strSubpartKey, -1, 1) = '8' ) "
-                Case "Subpart - 9-NSPS (Part 60)"
-                    SQLSearch1 = " ( SSPPSubpartData.strSubpart = '" & SubpartNSPS1 & "' " &
-                    "and SUBSTRING(SSPPSubpartData.strSubpartKey, -1, 1) = '9' ) "
-                Case "Subpart - M-MACT (Part 63)"
-                    SQLSearch1 = " ( SSPPSubpartData.strSubpart = '" & SubpartMACT1 & "' " &
-                    "and SUBSTRING(SSPPSubpartData.strSubpartKey, -1, 1) = 'M' ) "
+                    SQLSearch1 = " d.strSICCode like @SearchText1 "
+                Case "Subpart - SIP"
+                    SQLSearch1 = " ( s.strSubpart = @SubpartSIP1 " &
+                    "and right(s.strSubpartKey, 1) = '0' ) "
+                Case "Subpart - NESHAP (Part 61)"
+                    SQLSearch1 = " ( s.strSubpart = @SubpartNESHAP1 " &
+                    "and right(s.strSubpartKey, 1) = '8' ) "
+                Case "Subpart - NSPS (Part 60)"
+                    SQLSearch1 = " ( s.strSubpart = @SubpartNSPS1 " &
+                    "and right(s.strSubpartKey, 1) = '9' ) "
+                Case "Subpart - MACT (Part 63)"
+                    SQLSearch1 = " ( s.strSubpart = @SubpartMACT1  " &
+                    "and right(s.strSubpartKey, 1) = 'M' ) "
             End Select
 
             Select Case FieldType2
                 Case "AIRS No."
-                    SQLSearch2 = " SSPPApplicationMaster.strAIRSNumber like '%" & Replace(SearchText2, "'", "''") & "%' "
+                    SQLSearch2 = " m.strAIRSNumber like @SearchText2 "
                 Case "Applicable Rules"
                     Select Case SearchText2b
                         Case "Any Rule"
-                            SQLSearch2 = " SSPPApplicationData.strTrackedRules <> '0000000000' "
+                            SQLSearch2 = " d.strTrackedRules <> '0000000000' "
                         Case "PSD"
-                            SQLSearch2 = " SUBSTRING(SSPPApplicationData.strTrackedRules, 1, 1) = '1' "
+                            SQLSearch2 = " SUBSTRING(d.strTrackedRules, 1, 1) = '1' "
                         Case "NAA NSR"
-                            SQLSearch2 = " SUBSTRING(SSPPApplicationData.strTrackedRules, 2, 1) = '1' "
+                            SQLSearch2 = " SUBSTRING(d.strTrackedRules, 2, 1) = '1' "
                         Case "112(g)"
-                            SQLSearch2 = " SUBSTRING(SSPPApplicationData.strTrackedRules, 3, 1) = '1' "
+                            SQLSearch2 = " SUBSTRING(d.strTrackedRules, 3, 1) = '1' "
                         Case "Rule (tt) RACT"
-                            SQLSearch2 = " SUBSTRING(SSPPApplicationData.strTrackedRules, 4, 1) = '1' "
+                            SQLSearch2 = " SUBSTRING(d.strTrackedRules, 4, 1) = '1' "
                         Case "Rule (yy) RACT"
-                            SQLSearch2 = " SUBSTRING(SSPPApplicationData.strTrackedRules, 5, 1) = '1' "
+                            SQLSearch2 = " SUBSTRING(d.strTrackedRules, 5, 1) = '1' "
                         Case "Actuals PAL"
-                            SQLSearch2 = " SUBSTRING(SSPPApplicationData.strTrackedRules, 6, 1) = '1' "
+                            SQLSearch2 = " SUBSTRING(d.strTrackedRules, 6, 1) = '1' "
                         Case "Expedited Permit"
-                            SQLSearch2 = " SUBSTRING(SSPPApplicationData.strTrackedRules, 7, 1) = '1' "
+                            SQLSearch2 = " SUBSTRING(d.strTrackedRules, 7, 1) = '1' "
                         Case "Confidential information submitted"
-                            SQLSearch2 = " SUBSTRING(SSPPApplicationData.strTrackedRules, 8, 1) = '1' "
+                            SQLSearch2 = " SUBSTRING(d.strTrackedRules, 8, 1) = '1' "
                         Case Else
                             SQLSearch2 = " "
                     End Select
                 Case "Application No."
-                    SQLSearch2 = " SSPPApplicationMaster.strApplicationNumber like '%" & Replace(SearchText2, "'", "''") & "%' "
+                    SQLSearch2 = " m.strApplicationNumber like @SearchText2 "
                 Case "Application Status"
                     Select Case SearchText2b
                         Case "0 - Unassigned"
@@ -1454,8 +848,6 @@ Public Class SSPPApplicationLog
                             SQLSearch2 = " datEPAEnds is not Null and datFinalizedDate is Null and datDraftIssued is Not Null "
                         Case "9 - Administrative Review"
                             SQLSearch2 = " (datToBranchCheif is Not Null and datFinalizedDate is Null and datToDirector is Null and (datDraftIssued is Null or datDraftIssued < datToBranchCheif)) "
-                            'Case "9 - Administrative Review"
-                            '    SQLSearch2 = " (datToDirector is Not Null and datFinalizedDate is Null and (datDraftIssued is Null or datDraftIssued < datToDirector)) "
                         Case "11 - Closed Out"
                             SQLSearch2 = " datFinalizedDate is Not Null "
                         Case Else
@@ -1463,104 +855,103 @@ Public Class SSPPApplicationLog
                     End Select
                 Case "Application Type"
                     If SearchText2b = "Other" Then
-                        SQLSearch2 = " (Upper(strApplicationTypeDesc) <>  Upper('Acid Rain') and Upper(strApplicationTypeDesc) <>  Upper('AA') " &
-                        " and Upper(strApplicationTypeDesc) <>  Upper('NC') and  Upper(strApplicationTypeDesc) <>  Upper('SAW') " &
-                        "and Upper(strApplicationTypeDesc) <>  Upper('SAWO') and Upper(strApplicationTypeDesc) <>  Upper('MAW') " &
-                        "and Upper(strApplicationTypeDesc) <>  Upper('MAWO') and Upper(strApplicationTypeDesc) <>  Upper('TV-Renewal') " &
-                        "and Upper(strApplicationTypeDesc) <>  Upper('502(b)10') and Upper(strApplicationTypeDesc) <>  Upper('TV-Initial') " &
-                        "and Upper(strApplicationTypeDesc) <>  Upper('SM') and Upper(strApplicationTypeDesc) <>  Upper('Closed') " &
-                        "and Upper(strApplicationTypeDesc) <>  Upper('ERC') and Upper(strApplicationTypeDesc) <>  Upper('OFF PERMIT') " &
-                        "and Upper(strApplicationTypeDesc) <>  Upper('PBR') and Upper(strApplicationTypeDesc) <>  Upper('SIP')) "
+                        SQLSearch2 = " (strApplicationTypeDesc <>  'Acid Rain' and strApplicationTypeDesc <>  'AA' " &
+                        " and strApplicationTypeDesc <>  'NC' and  strApplicationTypeDesc <>  'SAW' " &
+                        "and strApplicationTypeDesc <>  'SAWO' and strApplicationTypeDesc <>  'MAW' " &
+                        "and strApplicationTypeDesc <>  'MAWO' and strApplicationTypeDesc <>  'TV-Renewal' " &
+                        "and strApplicationTypeDesc <>  '502(b)10' and strApplicationTypeDesc <>  'TV-Initial' " &
+                        "and strApplicationTypeDesc <>  'SM' and strApplicationTypeDesc <>  'Closed' " &
+                        "and strApplicationTypeDesc <>  'ERC' and strApplicationTypeDesc <>  'OFF PERMIT' " &
+                        "and strApplicationTypeDesc <>  'PBR' and strApplicationTypeDesc <>  'SIP') "
                     Else
-                        SQLSearch2 = " Upper(strApplicationTypeDesc) like Upper('%" & SearchText2b & "%') "
+                        SQLSearch2 = " strApplicationTypeDesc like @SearchText2b "
                     End If
                 Case "Application Unit"
-                    SQLSearch2 = " Upper(LookUpEPDUnits.strUnitDesc) like Upper('%" & Replace(SearchText2b, "'", "''") & "%') "
+                    SQLSearch2 = " e.strUnitDesc like @SearchText2b "
                 Case "Applog Comments"
-                    SQLSearch2 = " Upper(SSPPApplicationData.strComments) like Upper('%" & Replace(SearchText2, "'", "''") & "%') "
+                    SQLSearch2 = " d.strComments like @SearchText2 "
                 Case "Date Acknowledged"
-                    SQLSearch2 = " datAcknowledgementLetterSent between '" & SearchDate2 & "' and '" & SearchDate2b & "'  "
+                    SQLSearch2 = " datAcknowledgementLetterSent between @SearchDate2 and @SearchDate2b  "
                 Case "Date APL Completed"
-                    SQLSearch2 = " datApplicationPackageComplete between '" & SearchDate2 & "' and '" & SearchDate2b & "'  "
+                    SQLSearch2 = " datApplicationPackageComplete between @SearchDate2 and @SearchDate2b  "
                 Case "Date APL Dated"
-                    SQLSearch2 = " datSentByFacility between '" & SearchDate2 & "' and '" & SearchDate2b & "'  "
+                    SQLSearch2 = " datSentByFacility between @SearchDate2 and @SearchDate2b  "
                 Case "Date APL Received"
-                    SQLSearch2 = " datReceivedDate between '" & SearchDate2 & "' and '" & SearchDate2b & "'  "
+                    SQLSearch2 = " datReceivedDate between @SearchDate2 and @SearchDate2b  "
                 Case "Date Assigned"
-                    SQLSearch2 = " datAssignedtoEngineer between '" & SearchDate2 & "' and '" & SearchDate2b & "'  "
+                    SQLSearch2 = " datAssignedtoEngineer between @SearchDate2 and @SearchDate2b  "
                 Case "Date Draft Issued"
-                    SQLSearch2 = " datDraftIssued between '" & SearchDate2 & "' and '" & SearchDate2b & "'  "
+                    SQLSearch2 = " datDraftIssued between @SearchDate2 and @SearchDate2b  "
                 Case "Date PA Expires"
-                    SQLSearch2 = " datPAExpires between '" & SearchDate2 & "' and '" & SearchDate2b & "'  "
+                    SQLSearch2 = " datPAExpires between @SearchDate2 and @SearchDate2b  "
                 Case "Date Finalized"
-                    SQLSearch2 = " datPermitIssued between '" & SearchDate2 & "' and '" & SearchDate2b & "'  "
+                    SQLSearch2 = " datPermitIssued between @SearchDate2 and @SearchDate2b  "
                 Case "Date PN Expires"
-                    SQLSearch2 = " datPNExpires between '" & SearchDate2 & "' and '" & SearchDate2b & "'  "
+                    SQLSearch2 = " datPNExpires between @SearchDate2 and @SearchDate2b  "
                 Case "Date Reassigned"
-                    SQLSearch2 = " datReassignedToEngineer between '" & SearchDate2 & "' and '" & SearchDate2b & "'  "
+                    SQLSearch2 = " datReassignedToEngineer between @SearchDate2 and @SearchDate2b  "
                 Case "Date Started Review"
-                    SQLSearch2 = " datApplicationStarted between '" & SearchDate2 & "' and '" & SearchDate2b & "'  "
+                    SQLSearch2 = " datApplicationStarted between @SearchDate2 and @SearchDate2b  "
                 Case "Date to BC"
-                    SQLSearch2 = " datToBranchCheif between '" & SearchDate2 & "' and '" & SearchDate2b & "'  "
+                    SQLSearch2 = " datToBranchCheif between @SearchDate2 and @SearchDate2b  "
                 Case "Date to DO"
-                    SQLSearch2 = " datToDirector between '" & SearchDate2 & "' and '" & SearchDate2b & "'  "
+                    SQLSearch2 = " datToDirector between @SearchDate2 and @SearchDate2b  "
                 Case "Date to PM"
-                    SQLSearch2 = " datToPMII between '" & SearchDate2 & "' and '" & SearchDate2b & "'  "
+                    SQLSearch2 = " datToPMII between @SearchDate2 and @SearchDate2b  "
                 Case "Date to UC"
-                    SQLSearch2 = " datToPMI between '" & SearchDate2 & "' and '" & SearchDate2b & "'  "
+                    SQLSearch2 = " datToPMI between @SearchDate2 and @SearchDate2b  "
                 Case "Date Withdrawn"
-                    SQLSearch2 = " datWithdrawn between '" & SearchDate2 & "' and '" & SearchDate2b & "'  "
+                    SQLSearch2 = " datWithdrawn between @SearchDate2 and @SearchDate2b  "
                 Case "Deadline"
-                    SQLSearch2 = " datApplicationDeadLine between '" & SearchDate2 & "' and '" & SearchDate2b & "'  "
+                    SQLSearch2 = " datApplicationDeadLine between @SearchDate2 and @SearchDate2b  "
                 Case "Engineer Firstname"
-                    SQLSearch2 = " Upper(strFirstName) like Upper('%" & Replace(SearchText2, "'", "''") & "%') "
+                    SQLSearch2 = " strFirstName like @SearchText2 "
                 Case "Engineer Lastname"
-                    SQLSearch2 = " Upper(strLastName) like Upper('%" & Replace(SearchText2, "'", "''") & "%') "
+                    SQLSearch2 = " strLastName like @SearchText2 "
                 Case "Engineer Unit Code"
-                    SQLSearch2 = " Upper(APBUnit) like Upper('%" & Replace(SearchText2, "'", "''") & "%') "
+                    SQLSearch2 = " APBUnit like @SearchText2 "
                 Case "EPA 45-day Waived"
-                    SQLSearch2 = " datEPAWaived between '" & SearchDate2 & "' and '" & SearchDate2b & "'  "
+                    SQLSearch2 = " datEPAWaived between @SearchDate2 and @SearchDate2b  "
                 Case "EPA 45-day Ends"
-                    SQLSearch2 = " datEPAEnds between '" & SearchDate2 & "' and '" & SearchDate2b & "'  "
+                    SQLSearch2 = " datEPAEnds between @SearchDate2 and @SearchDate2b  "
                 Case "Facility City"
-                    SQLSearch2 = " Upper(strFacilityCity) like Upper('%" & Replace(SearchText2, "'", "''") & "%') "
+                    SQLSearch2 = " strFacilityCity like @SearchText2 "
                 Case "Facility County"
-                    SQLSearch2 = " Upper(strCountyName) like Upper('%" & Replace(SearchText2, "'", "''") & "%') "
+                    SQLSearch2 = " strCountyName like @SearchText2 "
                 Case "Facility Name"
-                    SQLSearch2 = " Upper(strFacilityName) like Upper('%" & Replace(SearchText2, "'", "''") & "%') "
+                    SQLSearch2 = " strFacilityName like @SearchText2 "
                 Case "Facility Street"
-                    SQLSearch2 = " Upper(strFacilityStreet1) like Upper('%" & Replace(SearchText2, "'", "''") & "%') "
+                    SQLSearch2 = " strFacilityStreet1 like @SearchText2 "
                 Case "HAPs Major"
-                    SQLSearch2 = " APBHeaderData.strStateProgramCodes like '1____' "
+                    SQLSearch2 = " h.strStateProgramCodes like '1____' "
                 Case "NAA 1Hr-Yes"
-                    SQLSearch2 = " APBHeaderData.strAttainmentStatus like '_1___' "
+                    SQLSearch2 = " h.strAttainmentStatus like '_1___' "
                 Case "NAA 1Hr-Contr."
-                    SQLSearch2 = " APBHeaderData.strAttainmentStatus like '_2___' "
+                    SQLSearch2 = " h.strAttainmentStatus like '_2___' "
                 Case "NAA 1Hr-No"
-                    SQLSearch2 = " APBHeaderData.strAttainmentStatus like '_0___' "
+                    SQLSearch2 = " h.strAttainmentStatus like '_0___' "
                 Case "NAA 8Hr-Atlanta"
-                    SQLSearch2 = " APBHeaderData.strAttainmentStatus like '__1__' "
+                    SQLSearch2 = " h.strAttainmentStatus like '__1__' "
                 Case "NAA 8Hr-Macon"
-                    SQLSearch2 = " APBHeaderData.strAttainmentStatus like '__2__' "
+                    SQLSearch2 = " h.strAttainmentStatus like '__2__' "
                 Case "NAA 8Hr-No"
-                    SQLSearch2 = " APBHeaderData.strAttainmentStatus like '__0__' "
+                    SQLSearch2 = " h.strAttainmentStatus like '__0__' "
                 Case "NAA PM-Atlanta"
-                    SQLSearch2 = " APBHeaderData.strAttainmentStatus like '___1_' "
+                    SQLSearch2 = " h.strAttainmentStatus like '___1_' "
                 Case "NAA PM-Chattanooga"
-                    SQLSearch2 = " APBHeaderData.strAttainmentStatus like '___2_' "
+                    SQLSearch2 = " h.strAttainmentStatus like '___2_' "
                 Case "NAA PM-Floyd"
-                    SQLSearch2 = " APBHeaderData.strAttainmentStatus like '___3_' "
+                    SQLSearch2 = " h.strAttainmentStatus like '___3_' "
                 Case "NAA PM-Macon"
-                    SQLSearch2 = " APBHeaderData.strAttainmentStatus like '___4_' "
+                    SQLSearch2 = " h.strAttainmentStatus like '___4_' "
                 Case "NAA PM-No"
-                    SQLSearch2 = " APBHeaderData.strAttainmentStatus like '___0_' "
+                    SQLSearch2 = " h.strAttainmentStatus like '___0_' "
                 Case "NSR/PSD Major"
-                    SQLSearch2 = " APBHeaderData.strStateProgramCodes like '1____' "
+                    SQLSearch2 = " h.strStateProgramCodes like '1____' "
                 Case "PA Ready"
                     SQLSearch2 = " strPAReady is Not Null and strPAReady = 'True' "
                 Case "Permit Number"
-                    temp = Replace(SearchText2, "-", "")
-                    SQLSearch2 = " Upper(strPermitNumber) like Upper('%" & Replace(temp, "'", "''") & "%') "
+                    SQLSearch2 = " strPermitNumber like @strPermitNumber2 "
                 Case "Permit Type"
                     If SearchText2b = "Other" Then
                         SQLSearch2 = " strPermitType is Null "
@@ -1599,7 +990,7 @@ Public Class SSPPApplicationLog
                         End Select
                     End If
                 Case "Plant Description"
-                    SQLSearch2 = " Upper(SSPPApplicationData.strPlantDescription) like '%" & Replace(SearchText2.ToUpper, "'", "''") & "%' "
+                    SQLSearch2 = " d.strPlantDescription like @SearchText2 "
                 Case "PN Ready"
                     SQLSearch2 = " strPNReady is Not Null and strPNReady = 'True' "
                 Case "Public Advisory"
@@ -1614,25 +1005,25 @@ Public Class SSPPApplicationLog
                             SQLSearch2 = " strPublicInvolvement = '0' "
                     End Select
                 Case "Reason APL Submitted"
-                    SQLSearch2 = " Upper(strApplicationNotes) like Upper('%" & Replace(SearchText2, "'", "''") & "%') "
+                    SQLSearch2 = " strApplicationNotes like @SearchText2 "
                 Case "Regional District"
-                    SQLSearch2 = " Upper(strDistrictName) like Upper('%" & Replace(SearchText2b, "'", "''") & "%') "
+                    SQLSearch2 = " strDistrictName like @SearchText2b "
                 Case "SIC Code"
-                    SQLSearch2 = " SSPPApplicationData.strSICCode like '%" & Replace(SearchText2, "'", "''") & "%' "
+                    SQLSearch2 = " d.strSICCode like @SearchText2 "
                 Case "Status Date"
-                    SQLSearch2 = " StatusDate between '" & SearchDate2 & "' and '" & SearchDate2b & "' "
-                Case "Subpart - 0-SIP"
-                    SQLSearch2 = " ( SSPPSubpartData.strSubpart = '" & SubpartSIP2 & "' " &
-                    "and SUBSTRING(SSPPSubpartData.strSubpartKey, -1, 1) = '0' ) "
-                Case "Subpart - 8-NESHAP (Part 61)"
-                    SQLSearch2 = " ( SSPPSubpartData.strSubpart = '" & SubpartNESHAP2 & "' " &
-                    "and SUBSTRING(SSPPSubpartData.strSubpartKey, -1, 1) = '8' ) "
-                Case "Subpart - 9-NSPS (Part 60)"
-                    SQLSearch2 = " ( SSPPSubpartData.strSubpart = '" & SubpartNSPS2 & "' " &
-                    "and SUBSTRING(SSPPSubpartData.strSubpartKey, -1, 1) = '9' ) "
-                Case "Subpart - M-MACT (Part 63)"
-                    SQLSearch2 = " ( SSPPSubpartData.strSubpart = '" & SubpartMACT2 & "' " &
-                    "and SUBSTRING(SSPPSubpartData.strSubpartKey, -1, 1) = 'M' ) "
+                    SQLSearch2 = " StatusDate between @SearchDate2 and @SearchDate2b "
+                Case "Subpart - SIP"
+                    SQLSearch2 = " ( s.strSubpart = @SubpartSIP2 " &
+                    "and right(s.strSubpartKey, 1) = '0' ) "
+                Case "Subpart - NESHAP (Part 61)"
+                    SQLSearch2 = " ( s.strSubpart = @SubpartNESHAP2 " &
+                    "and right(s.strSubpartKey, 1) = '8' ) "
+                Case "Subpart - NSPS (Part 60)"
+                    SQLSearch2 = " ( s.strSubpart = @SubpartNSPS2 " &
+                    "and right(s.strSubpartKey, 1) = '9' ) "
+                Case "Subpart - MACT (Part 63)"
+                    SQLSearch2 = " ( s.strSubpart = @SubpartMACT2 " &
+                    "and right(s.strSubpartKey, 1) = 'M' ) "
             End Select
 
             If FieldType1 = FieldType2 Then
@@ -1655,8 +1046,8 @@ Public Class SSPPApplicationLog
                 End Select
             End If
             If AppUnitText <> "All" Then
-                SQLLine = SQLLine & "and (Upper(LookUpEPDUnits.strUnitDesc) = Upper('" & Replace(AppUnitText, "'", "''") & "') " &
-                "or (Upper(APBUnit) = Upper('" & Replace(AppUnit, "'", "''") & "'))) "
+                SQLLine = SQLLine & "and (e.strUnitDesc = @AppUnitText " &
+                "or APBUnit = @AppUnit) "
             End If
             If AppStatus <> "All" Then
                 Select Case AppStatus
@@ -1667,134 +1058,132 @@ Public Class SSPPApplicationLog
                 End Select
             End If
             If Engineer <> "XXX" Then
-                SQLLine = SQLLine & "and Upper(numUserID) like Upper('" & Replace(Engineer, "'", "''") & "') "
+                SQLLine = SQLLine & "and numUserID like @Engineer "
             End If
 
             SQLOrder = " order by "
 
             If SortOrder1 = "Descending Order" Then
-                temp = "Desc"
+                SortOrder1 = "Desc"
             Else
-                temp = " "
+                SortOrder1 = " "
             End If
 
             Select Case Sort1
                 Case "AIRS No."
-                    SQLOrder = SQLOrder & " strAIRSNumber " & temp
+                    SQLOrder = SQLOrder & " strAIRSNumber " & SortOrder1
                 Case "Application No."
-                    SQLOrder = SQLOrder & " SSPPApplicationMaster.strApplicationNumber " & temp
+                    SQLOrder = SQLOrder & " strApplicationNumber " & SortOrder1
                 Case "Application Status"
-                    SQLOrder = SQLOrder & " AppStatus " & temp
+                    SQLOrder = SQLOrder & " AppStatus " & SortOrder1
                 Case "Application Type"
-                    SQLOrder = SQLOrder & " strApplicationType " & temp
+                    SQLOrder = SQLOrder & " strApplicationType " & SortOrder1
                 Case "Application Unit"
-                    SQLOrder = SQLOrder & " strUnitDesc " & temp
+                    SQLOrder = SQLOrder & " strUnitDesc " & SortOrder1
                 Case "Applog Comments"
-                    SQLOrder = SQLOrder & " strComments " & temp
+                    SQLOrder = SQLOrder & " strComments " & SortOrder1
                 Case "Date Acknowledged"
-                    SQLOrder = SQLOrder & " datAcknowledgementLetterSent " & temp
+                    SQLOrder = SQLOrder & " datAcknowledgementLetterSent " & SortOrder1
                 Case "Date APL Completed"
-                    SQLOrder = SQLOrder & " datApplicationPackageComplete " & temp
+                    SQLOrder = SQLOrder & " datApplicationPackageComplete " & SortOrder1
                 Case "Date APL Dated"
-                    SQLOrder = SQLOrder & " datSentByFacility " & temp
+                    SQLOrder = SQLOrder & " datSentByFacility " & SortOrder1
                 Case "Date APL Received"
-                    SQLOrder = SQLOrder & " datReceivedDate " & temp
+                    SQLOrder = SQLOrder & " datReceivedDate " & SortOrder1
                 Case "Date Assigned"
-                    SQLOrder = SQLOrder & " datAssignedtoEngineer " & temp
+                    SQLOrder = SQLOrder & " datAssignedtoEngineer " & SortOrder1
                 Case "Date Draft Issued"
-                    SQLOrder = SQLOrder & " datDraftIssued " & temp
+                    SQLOrder = SQLOrder & " datDraftIssued " & SortOrder1
                 Case "Date PA Expires"
-                    SQLOrder = SQLOrder & " datPAExpires " & temp
+                    SQLOrder = SQLOrder & " datPAExpires " & SortOrder1
                 Case "Date Finalized"
-                    SQLOrder = SQLOrder & " datPermitIssued " & temp
+                    SQLOrder = SQLOrder & " datPermitIssued " & SortOrder1
                 Case "Date PN Expires"
-                    SQLOrder = SQLOrder & " datPNExpires " & temp
+                    SQLOrder = SQLOrder & " datPNExpires " & SortOrder1
                 Case "Date Reassigned"
-                    SQLOrder = SQLOrder & " datReassignedToEngineer " & temp
+                    SQLOrder = SQLOrder & " datReassignedToEngineer " & SortOrder1
                 Case "Date Started Review"
-                    SQLOrder = SQLOrder & " datApplicationStarted " & temp
+                    SQLOrder = SQLOrder & " datApplicationStarted " & SortOrder1
                 Case "Date to BC"
-                    SQLOrder = SQLOrder & " datToBranchCheif " & temp
+                    SQLOrder = SQLOrder & " datToBranchCheif " & SortOrder1
                 Case "Date to DO"
-                    SQLOrder = SQLOrder & " datToDirector " & temp
+                    SQLOrder = SQLOrder & " datToDirector " & SortOrder1
                 Case "Date to PM"
-                    SQLOrder = SQLOrder & " datToPMII " & temp
+                    SQLOrder = SQLOrder & " datToPMII " & SortOrder1
                 Case "Date to UC"
-                    SQLOrder = SQLOrder & " datToPMI " & temp
+                    SQLOrder = SQLOrder & " datToPMI " & SortOrder1
                 Case "Date Withdrawn"
-                    SQLOrder = SQLOrder & " datWithdrawn " & temp
+                    SQLOrder = SQLOrder & " datWithdrawn " & SortOrder1
                 Case "Deadline"
-                    SQLOrder = SQLOrder & " datApplicationDeadLine " & temp
+                    SQLOrder = SQLOrder & " datApplicationDeadLine " & SortOrder1
                 Case "Engineer Firstname"
-                    SQLOrder = SQLOrder & " strFirstName " & temp
+                    SQLOrder = SQLOrder & " strFirstName " & SortOrder1
                 Case "Engineer Lastname"
-                    SQLOrder = SQLOrder & " strLastName " & temp
+                    SQLOrder = SQLOrder & " strLastName " & SortOrder1
                 Case "Engineer Unit Code"
-                    SQLOrder = SQLOrder & " APBUnit " & temp
+                    SQLOrder = SQLOrder & " APBUnit " & SortOrder1
                 Case "EPA 45-day Waived"
-                    SQLOrder = SQLOrder & " datEPAWaived " & temp
+                    SQLOrder = SQLOrder & " datEPAWaived " & SortOrder1
                 Case "EPA 45-day Ends"
-                    SQLOrder = SQLOrder & " datEPAEnds " & temp
+                    SQLOrder = SQLOrder & " datEPAEnds " & SortOrder1
                 Case "Facility City"
-                    SQLOrder = SQLOrder & " strFacilityCity " & temp
+                    SQLOrder = SQLOrder & " strFacilityCity " & SortOrder1
                 Case "Facility County"
-                    SQLOrder = SQLOrder & " strCountyName " & temp
+                    SQLOrder = SQLOrder & " strCountyName " & SortOrder1
                 Case "Facility Name"
-                    SQLOrder = SQLOrder & " strFacilityName " & temp
+                    SQLOrder = SQLOrder & " strFacilityName " & SortOrder1
                 Case "Facility Street"
-                    SQLOrder = SQLOrder & " strFacilityStreet1 " & temp
+                    SQLOrder = SQLOrder & " strFacilityStreet1 " & SortOrder1
                 Case "NAA 1Hr-Yes"
-                    SQLOrder = SQLOrder & " strAttainmentStatus " & temp
+                    SQLOrder = SQLOrder & " strAttainmentStatus " & SortOrder1
                 Case "NAA 1Hr-Contr."
-                    SQLOrder = SQLOrder & " strAttainmentStatus " & temp
+                    SQLOrder = SQLOrder & " strAttainmentStatus " & SortOrder1
                 Case "NAA 1Hr-No"
-                    SQLOrder = SQLOrder & " strAttainmentStatus " & temp
+                    SQLOrder = SQLOrder & " strAttainmentStatus " & SortOrder1
                 Case "NAA 8Hr-Atlanta"
-                    SQLOrder = SQLOrder & " strAttainmentStatus " & temp
+                    SQLOrder = SQLOrder & " strAttainmentStatus " & SortOrder1
                 Case "NAA 8Hr-Macon"
-                    SQLOrder = SQLOrder & " strAttainmentStatus " & temp
+                    SQLOrder = SQLOrder & " strAttainmentStatus " & SortOrder1
                 Case "NAA 8Hr-No"
-                    SQLOrder = SQLOrder & " strAttainmentStatus " & temp
+                    SQLOrder = SQLOrder & " strAttainmentStatus " & SortOrder1
                 Case "NAA PM-Atlanta"
-                    SQLOrder = SQLOrder & " strAttainmentStatus " & temp
+                    SQLOrder = SQLOrder & " strAttainmentStatus " & SortOrder1
                 Case "NAA PM-Chattanooga"
-                    SQLOrder = SQLOrder & " strAttainmentStatus " & temp
+                    SQLOrder = SQLOrder & " strAttainmentStatus " & SortOrder1
                 Case "NAA PM-Floyd"
-                    SQLOrder = SQLOrder & " strAttainmentStatus " & temp
+                    SQLOrder = SQLOrder & " strAttainmentStatus " & SortOrder1
                 Case "NAA PM-Macon"
-                    SQLOrder = SQLOrder & " strAttainmentStatus " & temp
+                    SQLOrder = SQLOrder & " strAttainmentStatus " & SortOrder1
                 Case "NAA PM-No"
-                    SQLOrder = SQLOrder & " strAttainmentStatus " & temp
+                    SQLOrder = SQLOrder & " strAttainmentStatus " & SortOrder1
                 Case "PA Ready"
-                    SQLOrder = SQLOrder & " strPAReady " & temp
+                    SQLOrder = SQLOrder & " strPAReady " & SortOrder1
                 Case "Permit Number"
-                    SQLOrder = SQLOrder & " strPermitNumber " & temp
+                    SQLOrder = SQLOrder & " strPermitNumber " & SortOrder1
                 Case "Permit Type"
-                    SQLOrder = SQLOrder & " strPermitType " & temp
+                    SQLOrder = SQLOrder & " strPermitType " & SortOrder1
                 Case "Plant Description"
-                    SQLOrder = SQLOrder & " SSPPApplicationData.strPlantDescription " & temp
+                    SQLOrder = SQLOrder & " strPlantDescription " & SortOrder1
                 Case "PN Ready"
-                    SQLOrder = SQLOrder & " strPNReady " & temp
+                    SQLOrder = SQLOrder & " strPNReady " & SortOrder1
                 Case "Public Advisory"
-                    SQLOrder = SQLOrder & " strPublicInvolvement " & temp
+                    SQLOrder = SQLOrder & " strPublicInvolvement " & SortOrder1
                 Case "Reason APL Submitted"
-                    SQLOrder = SQLOrder & " strApplicationNotes " & temp
+                    SQLOrder = SQLOrder & " strApplicationNotes " & SortOrder1
                 Case "Regional District"
-                    SQLOrder = SQLOrder & " strDistrictName " & temp
+                    SQLOrder = SQLOrder & " strDistrictName " & SortOrder1
                 Case "SIC Code"
-                    SQLOrder = SQLOrder & " SSPPApplicationData.strSICCode " & temp
+                    SQLOrder = SQLOrder & " strSICCode " & SortOrder1
             End Select
 
-            If SQLOrder = " order by " Then
-                SQLOrder = " order by "
-            Else
+            If SQLOrder <> " order by " Then
                 SQLOrder = SQLOrder & ", "
             End If
 
             If SortOrder2 = "Descending Order" Then
-                temp = "Desc"
+                SortOrder2 = "Desc"
             Else
-                temp = " "
+                SortOrder2 = " "
             End If
 
             If bgwApplicationLog.CancellationPending Then
@@ -1804,109 +1193,109 @@ Public Class SSPPApplicationLog
 
             Select Case Sort2
                 Case "AIRS No."
-                    SQLOrder = SQLOrder & " strAIRSNumber " & temp
+                    SQLOrder = SQLOrder & " strAIRSNumber " & SortOrder2
                 Case "Application No."
-                    SQLOrder = SQLOrder & " SSPPApplicationMaster.strApplicationNumber " & temp
+                    SQLOrder = SQLOrder & " strApplicationNumber " & SortOrder2
                 Case "Application Status"
-                    SQLOrder = SQLOrder & " AppStatus " & temp
+                    SQLOrder = SQLOrder & " AppStatus " & SortOrder2
                 Case "Application Type"
-                    SQLOrder = SQLOrder & " strApplicationType " & temp
+                    SQLOrder = SQLOrder & " strApplicationType " & SortOrder2
                 Case "Application Unit"
-                    SQLOrder = SQLOrder & " strUnitDesc " & temp
+                    SQLOrder = SQLOrder & " strUnitDesc " & SortOrder2
                 Case "Applog Comments"
-                    SQLOrder = SQLOrder & " strComments " & temp
+                    SQLOrder = SQLOrder & " strComments " & SortOrder2
                 Case "Date Acknowledged"
-                    SQLOrder = SQLOrder & " datAcknowledgementLetterSent " & temp
+                    SQLOrder = SQLOrder & " datAcknowledgementLetterSent " & SortOrder2
                 Case "Date APL Completed"
-                    SQLOrder = SQLOrder & " datApplicationPackageComplete " & temp
+                    SQLOrder = SQLOrder & " datApplicationPackageComplete " & SortOrder2
                 Case "Date APL Dated"
-                    SQLOrder = SQLOrder & " datSentByFacility " & temp
+                    SQLOrder = SQLOrder & " datSentByFacility " & SortOrder2
                 Case "Date APL Received"
-                    SQLOrder = SQLOrder & " datReceivedDate " & temp
+                    SQLOrder = SQLOrder & " datReceivedDate " & SortOrder2
                 Case "Date Assigned"
-                    SQLOrder = SQLOrder & " datAssignedtoEngineer " & temp
+                    SQLOrder = SQLOrder & " datAssignedtoEngineer " & SortOrder2
                 Case "Date Draft Issued"
-                    SQLOrder = SQLOrder & " datDraftIssued " & temp
+                    SQLOrder = SQLOrder & " datDraftIssued " & SortOrder2
                 Case "Date PA Expires"
-                    SQLOrder = SQLOrder & " datPAExpires " & temp
+                    SQLOrder = SQLOrder & " datPAExpires " & SortOrder2
                 Case "Date Finalized"
-                    SQLOrder = SQLOrder & " datPermitIssued " & temp
+                    SQLOrder = SQLOrder & " datPermitIssued " & SortOrder2
                 Case "Date PN Expires"
-                    SQLOrder = SQLOrder & " datPNExpires " & temp
+                    SQLOrder = SQLOrder & " datPNExpires " & SortOrder2
                 Case "Date Reassigned"
-                    SQLOrder = SQLOrder & " datReassignedToEngineer " & temp
+                    SQLOrder = SQLOrder & " datReassignedToEngineer " & SortOrder2
                 Case "Date Started Review"
-                    SQLOrder = SQLOrder & " datApplicationStarted " & temp
+                    SQLOrder = SQLOrder & " datApplicationStarted " & SortOrder2
                 Case "Date to BC"
-                    SQLOrder = SQLOrder & " datToBranchCheif " & temp
+                    SQLOrder = SQLOrder & " datToBranchCheif " & SortOrder2
                 Case "Date to DO"
-                    SQLOrder = SQLOrder & " datToDirector " & temp
+                    SQLOrder = SQLOrder & " datToDirector " & SortOrder2
                 Case "Date to PM"
-                    SQLOrder = SQLOrder & " datToPMII " & temp
+                    SQLOrder = SQLOrder & " datToPMII " & SortOrder2
                 Case "Date to UC"
-                    SQLOrder = SQLOrder & " datToPMI " & temp
+                    SQLOrder = SQLOrder & " datToPMI " & SortOrder2
                 Case "Date Withdrawn"
-                    SQLOrder = SQLOrder & " datWithdrawn " & temp
+                    SQLOrder = SQLOrder & " datWithdrawn " & SortOrder2
                 Case "Deadline"
-                    SQLOrder = SQLOrder & " datApplicationDeadLine " & temp
+                    SQLOrder = SQLOrder & " datApplicationDeadLine " & SortOrder2
                 Case "Engineer Firstname"
-                    SQLOrder = SQLOrder & " strFirstName " & temp
+                    SQLOrder = SQLOrder & " strFirstName " & SortOrder2
                 Case "Engineer Lastname"
-                    SQLOrder = SQLOrder & " strLastName " & temp
+                    SQLOrder = SQLOrder & " strLastName " & SortOrder2
                 Case "Engineer Unit Code"
-                    SQLOrder = SQLOrder & " APBUnit " & temp
+                    SQLOrder = SQLOrder & " APBUnit " & SortOrder2
                 Case "EPA 45-day Waived"
-                    SQLOrder = SQLOrder & " datEPAWaived " & temp
+                    SQLOrder = SQLOrder & " datEPAWaived " & SortOrder2
                 Case "EPA 45-day Ends"
-                    SQLOrder = SQLOrder & " datEPAEnds " & temp
+                    SQLOrder = SQLOrder & " datEPAEnds " & SortOrder2
                 Case "Facility City"
-                    SQLOrder = SQLOrder & " strFacilityCity " & temp
+                    SQLOrder = SQLOrder & " strFacilityCity " & SortOrder2
                 Case "Facility County"
-                    SQLOrder = SQLOrder & " strCountyName " & temp
+                    SQLOrder = SQLOrder & " strCountyName " & SortOrder2
                 Case "Facility Name"
-                    SQLOrder = SQLOrder & " strFacilityName " & temp
+                    SQLOrder = SQLOrder & " strFacilityName " & SortOrder2
                 Case "Facility Street"
-                    SQLOrder = SQLOrder & " strFacilityStreet1 " & temp
+                    SQLOrder = SQLOrder & " strFacilityStreet1 " & SortOrder2
                 Case "NAA 1Hr-Yes"
-                    SQLOrder = SQLOrder & " strAttainmentStatus " & temp
+                    SQLOrder = SQLOrder & " strAttainmentStatus " & SortOrder2
                 Case "NAA 1Hr-Contr."
-                    SQLOrder = SQLOrder & " strAttainmentStatus " & temp
+                    SQLOrder = SQLOrder & " strAttainmentStatus " & SortOrder2
                 Case "NAA 1Hr-No"
-                    SQLOrder = SQLOrder & " strAttainmentStatus " & temp
+                    SQLOrder = SQLOrder & " strAttainmentStatus " & SortOrder2
                 Case "NAA 8Hr-Atlanta"
-                    SQLOrder = SQLOrder & " strAttainmentStatus " & temp
+                    SQLOrder = SQLOrder & " strAttainmentStatus " & SortOrder2
                 Case "NAA 8Hr-Macon"
-                    SQLOrder = SQLOrder & " strAttainmentStatus " & temp
+                    SQLOrder = SQLOrder & " strAttainmentStatus " & SortOrder2
                 Case "NAA 8Hr-No"
-                    SQLOrder = SQLOrder & " strAttainmentStatus " & temp
+                    SQLOrder = SQLOrder & " strAttainmentStatus " & SortOrder2
                 Case "NAA PM-Atlanta"
-                    SQLOrder = SQLOrder & " strAttainmentStatus " & temp
+                    SQLOrder = SQLOrder & " strAttainmentStatus " & SortOrder2
                 Case "NAA PM-Chattanooga"
-                    SQLOrder = SQLOrder & " strAttainmentStatus " & temp
+                    SQLOrder = SQLOrder & " strAttainmentStatus " & SortOrder2
                 Case "NAA PM-Floyd"
-                    SQLOrder = SQLOrder & " strAttainmentStatus " & temp
+                    SQLOrder = SQLOrder & " strAttainmentStatus " & SortOrder2
                 Case "NAA PM-Macon"
-                    SQLOrder = SQLOrder & " strAttainmentStatus " & temp
+                    SQLOrder = SQLOrder & " strAttainmentStatus " & SortOrder2
                 Case "NAA PM-No"
-                    SQLOrder = SQLOrder & " strAttainmentStatus " & temp
+                    SQLOrder = SQLOrder & " strAttainmentStatus " & SortOrder2
                 Case "PA Ready"
-                    SQLOrder = SQLOrder & " strPAReady " & temp
+                    SQLOrder = SQLOrder & " strPAReady " & SortOrder2
                 Case "Permit Number"
-                    SQLOrder = SQLOrder & " strPermitNumber " & temp
+                    SQLOrder = SQLOrder & " strPermitNumber " & SortOrder2
                 Case "Permit Type"
-                    SQLOrder = SQLOrder & " strPermitType " & temp
+                    SQLOrder = SQLOrder & " strPermitType " & SortOrder2
                 Case "Plant Description"
-                    SQLOrder = SQLOrder & " SSPPApplicationData.strPlantDescription " & temp
+                    SQLOrder = SQLOrder & " strPlantDescription " & SortOrder2
                 Case "PN Ready"
-                    SQLOrder = SQLOrder & " strPNReady " & temp
+                    SQLOrder = SQLOrder & " strPNReady " & SortOrder2
                 Case "Public Advisory"
-                    SQLOrder = SQLOrder & " strPublicInvolvement " & temp
+                    SQLOrder = SQLOrder & " strPublicInvolvement " & SortOrder2
                 Case "Reason APL Submitted"
-                    SQLOrder = SQLOrder & " strApplicationNotes " & temp
+                    SQLOrder = SQLOrder & " strApplicationNotes " & SortOrder2
                 Case "Regional District"
-                    SQLOrder = SQLOrder & " strDistrictName " & temp
+                    SQLOrder = SQLOrder & " strDistrictName " & SortOrder2
                 Case "SIC Code"
-                    SQLOrder = SQLOrder & " SSPPApplicationData.strSICCode " & temp
+                    SQLOrder = SQLOrder & " strSICCode " & SortOrder2
             End Select
 
             If bgwApplicationLog.CancellationPending Then
@@ -1914,7 +1303,6 @@ Public Class SSPPApplicationLog
                 Exit Sub
             End If
 
-            temp = Mid(SQLOrder, (Len(SQLOrder) - 1))
             If Mid(SQLOrder, (Len(SQLOrder) - 1)) = ", " Then
                 SQLOrder = Mid(SQLOrder, 1, (Len(SQLOrder) - 2))
             End If
@@ -1928,35 +1316,40 @@ Public Class SSPPApplicationLog
                 Exit Sub
             End If
 
-            Using connection As New SqlConnection(CurrentConnectionString)
-                Using dataAdapter As New SqlDataAdapter(SQL, CurrentConnection)
-                    Try
-                        connection.Open()
+            Dim p As SqlParameter() = {
+                New SqlParameter("@SearchText1", "%" & SearchText1 & "%"),
+                New SqlParameter("@SearchText1b", SearchText1b & "%"),
+                New SqlParameter("@SearchDate1", SearchDate1),
+                New SqlParameter("@SearchDate1b", SearchDate1b),
+                New SqlParameter("@SearchText2", "%" & SearchText2 & "%"),
+                New SqlParameter("@SearchText2b", "%" & SearchText2b & "%"),
+                New SqlParameter("@SearchDate2", SearchDate2),
+                New SqlParameter("@SearchDate2b", SearchDate2b),
+                New SqlParameter("@SubpartSIP1", SubpartSIP1),
+                New SqlParameter("@SubpartSIP2", SubpartSIP2),
+                New SqlParameter("@SubpartNSPS1", SubpartNSPS1),
+                New SqlParameter("@SubpartNSPS2", SubpartNSPS2),
+                New SqlParameter("@SubpartNESHAP1", SubpartNESHAP1),
+                New SqlParameter("@SubpartNESHAP2", SubpartNESHAP2),
+                New SqlParameter("@SubpartMACT1", SubpartMACT1),
+                New SqlParameter("@SubpartMACT2", SubpartMACT2),
+                New SqlParameter("@AppUnit", AppUnit),
+                New SqlParameter("@AppUnitText", AppUnitText),
+                New SqlParameter("@AppStatus", AppStatus),
+                New SqlParameter("@Engineer", Engineer),
+                New SqlParameter("@strPermitNumber", "%" & Replace(SearchText1, "-", "") & "%"),
+                New SqlParameter("@strPermitNumber2", "%" & Replace(SearchText2, "-", "") & "%")
+            }
 
-                        If bgwApplicationLog.CancellationPending Then
-                            e.Cancel = True
-                            Exit Sub
-                        End If
-
-                        dataAdapter.Fill(dsApplication, "ApplicationLog")
-                    Catch ee As SqlException
-                        MessageBox.Show("Could not connect to the database.")
-                        e.Cancel = True
-                    End Try
-                End Using
-            End Using
-
+            dtApplicationLog = DB.GetDataTable(SQL, p, True)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             If bgwApplicationLog.CancellationPending Then e.Cancel = True
         End Try
-
     End Sub
-    Private Sub bgwApplicationLog_RunWorkerCompleted(sender As Object,
-        e As System.ComponentModel.RunWorkerCompletedEventArgs) _
-        Handles bgwApplicationLog.RunWorkerCompleted
 
+    Private Sub bgwApplicationLog_RunWorkerCompleted(sender As Object, e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bgwApplicationLog.RunWorkerCompleted
         btnFind.Enabled = True
         btnResetSearch.Enabled = True
         mmiResetSearch.Enabled = True
@@ -1966,8 +1359,7 @@ Public Class SSPPApplicationLog
         mmiExport.Enabled = False
 
         If e.Cancelled Then
-            dsApplication = New DataSet
-            'dgvApplicationLog.DataSource = dsApplication
+            dtApplicationLog = Nothing
 
             dgvApplicationLog.Visible = False
             lblMessage.Text = "Search canceled"
@@ -1976,1501 +1368,1393 @@ Public Class SSPPApplicationLog
             Exit Sub
         End If
 
-        dgvApplicationLog.DataSource = dsApplication
-        dgvApplicationLog.DataMember = "ApplicationLog"
-
-        dgvApplicationLog.Columns("strApplicationNumber").HeaderText = "APL #"
-        dgvApplicationLog.Columns("strApplicationNumber").DisplayIndex = 0
-        dgvApplicationLog.Columns("strApplicationType").HeaderText = "APL Type"
-        dgvApplicationLog.Columns("strApplicationType").DisplayIndex = 4
-        dgvApplicationLog.Columns("datReceivedDate").HeaderText = "APL Rcvd"
-        dgvApplicationLog.Columns("datReceivedDate").DisplayIndex = 5
-        dgvApplicationLog.Columns("datPermitIssued").HeaderText = "Date Finalized"
-        dgvApplicationLog.Columns("datPermitIssued").DisplayIndex = 6
-        dgvApplicationLog.Columns("datPermitIssued").Visible = False
-        dgvApplicationLog.Columns("StaffResponsible").HeaderText = "Staff Responsible"
-        dgvApplicationLog.Columns("StaffResponsible").DisplayIndex = 3
-        dgvApplicationLog.Columns("strFacilityName").HeaderText = "Facility Name"
-        dgvApplicationLog.Columns("strFacilityName").DisplayIndex = 1
-        dgvApplicationLog.Columns("strAIRSNumber").HeaderText = "AIRS #"
-        dgvApplicationLog.Columns("strAIRSNumber").DisplayIndex = 2
-        dgvApplicationLog.Columns("strPermitNumber").HeaderText = "Permit Number"
-        dgvApplicationLog.Columns("strPermitNumber").DisplayIndex = 7
-        dgvApplicationLog.Columns("strPermitType").HeaderText = "Permit Type"
-        dgvApplicationLog.Columns("strPermitType").DisplayIndex = 8
-        dgvApplicationLog.Columns("AppStatus").HeaderText = "App Status"
-        dgvApplicationLog.Columns("AppStatus").DisplayIndex = 9
-        dgvApplicationLog.Columns("StatusDate").HeaderText = "Status Date"
-        dgvApplicationLog.Columns("StatusDate").DisplayIndex = 10
-        dgvApplicationLog.Columns("strSICCode").HeaderText = "SIC Code"
-        dgvApplicationLog.Columns("strSICCode").DisplayIndex = 11
-        dgvApplicationLog.Columns("strPlantDescription").HeaderText = "Plant Description"
-        dgvApplicationLog.Columns("strPlantDescription").DisplayIndex = 12
-
-        dgvApplicationLog.MakeColumnsLookLikeLinks(0)
-
-        If chbShowAll.Checked = True Then
-            dgvApplicationLog.Columns("strFacilityStreet1").HeaderText = "Facility Address"
-            dgvApplicationLog.Columns("strFacilityStreet1").DisplayIndex = 13
-            dgvApplicationLog.Columns("strFacilityCity").HeaderText = "City"
-            dgvApplicationLog.Columns("strFacilityCity").DisplayIndex = 14
-            dgvApplicationLog.Columns("strCountyName").HeaderText = "County"
-            dgvApplicationLog.Columns("strCountyName").DisplayIndex = 15
-            dgvApplicationLog.Columns("OneHrOzone").HeaderText = "1-HR Ozone"
-            dgvApplicationLog.Columns("OneHrOzone").DisplayIndex = 16
-            dgvApplicationLog.Columns("EightHrOzone").HeaderText = "8-HR Ozone"
-            dgvApplicationLog.Columns("EightHrOzone").DisplayIndex = 17
-            dgvApplicationLog.Columns("PMFine").HeaderText = "PM Fine"
-            dgvApplicationLog.Columns("PMFine").DisplayIndex = 18
-            dgvApplicationLog.Columns("strDistrictName").HeaderText = "District"
-            dgvApplicationLog.Columns("strDistrictName").DisplayIndex = 19
-            dgvApplicationLog.Columns("APBUnit").HeaderText = "APL Unit"
-            dgvApplicationLog.Columns("APBUnit").DisplayIndex = 21
-            dgvApplicationLog.Columns("strLastname").HeaderText = "Last Name"
-            dgvApplicationLog.Columns("strLastname").DisplayIndex = 22
-            dgvApplicationLog.Columns("strFirstName").HeaderText = "First Name"
-            dgvApplicationLog.Columns("strFirstName").DisplayIndex = 23
-            dgvApplicationLog.Columns("strUserUnit").HeaderText = "Engineer Unit"
-            dgvApplicationLog.Columns("strUserUnit").DisplayIndex = 24
-            dgvApplicationLog.Columns("datSentByFacility").HeaderText = "APL Dated"
-            dgvApplicationLog.Columns("datSentByFacility").DisplayIndex = 25
-            dgvApplicationLog.Columns("datAssignedtoEngineer").HeaderText = "App Assigned"
-            dgvApplicationLog.Columns("datAssignedtoEngineer").DisplayIndex = 26
-            dgvApplicationLog.Columns("datReassignedToEngineer").HeaderText = "App Reassigned"
-            dgvApplicationLog.Columns("datReassignedToEngineer").DisplayIndex = 27
-            dgvApplicationLog.Columns("datAcknowledgementLetterSent").HeaderText = "Acknow Date"
-            dgvApplicationLog.Columns("datAcknowledgementLetterSent").DisplayIndex = 28
-            dgvApplicationLog.Columns("strPublicInvolvement").HeaderText = "Public Advisory"
-            dgvApplicationLog.Columns("strPublicInvolvement").DisplayIndex = 29
-            dgvApplicationLog.Columns("datPNExpires").HeaderText = "PN Expired"
-            dgvApplicationLog.Columns("datPNExpires").DisplayIndex = 30
-            dgvApplicationLog.Columns("datPAExpires").HeaderText = "PA Expired"
-            dgvApplicationLog.Columns("datPAExpires").DisplayIndex = 31
-            dgvApplicationLog.Columns("datToPMI").HeaderText = "Date to UC"
-            dgvApplicationLog.Columns("datToPMI").DisplayIndex = 32
-            dgvApplicationLog.Columns("datToPMII").HeaderText = "Date to PM"
-            dgvApplicationLog.Columns("datToPMII").DisplayIndex = 33
-            dgvApplicationLog.Columns("datDraftIssued").HeaderText = "Draft Issued"
-            dgvApplicationLog.Columns("datDraftIssued").DisplayIndex = 34
-            dgvApplicationLog.Columns("strComments").HeaderText = "Applog Comments"
-            dgvApplicationLog.Columns("strComments").DisplayIndex = 35
-            dgvApplicationLog.Columns("strApplicationNotes").HeaderText = "Reason APL Submitted"
-            dgvApplicationLog.Columns("strApplicationNotes").DisplayIndex = 36
-            dgvApplicationLog.Columns("datApplicationDeadLine").HeaderText = "Application Deadline"
-            dgvApplicationLog.Columns("datApplicationDeadLine").DisplayIndex = 37
-            dgvApplicationLog.Columns("numUserID").Visible = False
-            dgvApplicationLog.Columns("strPAReady").HeaderText = "PA Ready"
-            dgvApplicationLog.Columns("strPAReady").DisplayIndex = 38
-            dgvApplicationLog.Columns("strPNReady").HeaderText = "PN Ready"
-            dgvApplicationLog.Columns("strPNReady").DisplayIndex = 39
-            dgvApplicationLog.Columns("datEPAWaived").HeaderText = "EPA 45-day Waived"
-            dgvApplicationLog.Columns("datEPAWaived").DisplayIndex = 40
-            dgvApplicationLog.Columns("datEPAEnds").HeaderText = "EPA 45-day Ends"
-            dgvApplicationLog.Columns("datEPAEnds").DisplayIndex = 41
-            dgvApplicationLog.Columns("datToBranchCheif").HeaderText = "Date To BC"
-            dgvApplicationLog.Columns("datToBranchCheif").DisplayIndex = 42
-            dgvApplicationLog.Columns("datToDirector").HeaderText = "Date to DO"
-            dgvApplicationLog.Columns("datToDirector").DisplayIndex = 43
-            dgvApplicationLog.Columns("NSRMajor").HeaderText = "NSR/PSD Major"
-            dgvApplicationLog.Columns("NSRMajor").DisplayIndex = 44
-            dgvApplicationLog.Columns("HAPSMajor").HeaderText = "HAPs Major"
-            dgvApplicationLog.Columns("HAPSMajor").DisplayIndex = 45
-            dgvApplicationLog.Columns("PSDRule").HeaderText = "PSD Rule"
-            dgvApplicationLog.Columns("PSDRule").DisplayIndex = 46
-            dgvApplicationLog.Columns("NAARule").HeaderText = "NAA Rule"
-            dgvApplicationLog.Columns("NAARule").DisplayIndex = 47
-            dgvApplicationLog.Columns("gRule").HeaderText = "112(g)"
-            dgvApplicationLog.Columns("gRule").DisplayIndex = 48
-            dgvApplicationLog.Columns("ttRACT").HeaderText = "Rule (tt) RACT"
-            dgvApplicationLog.Columns("ttRACT").DisplayIndex = 49
-            dgvApplicationLog.Columns("yyRACT").HeaderText = "Rule (yy) RACT"
-            dgvApplicationLog.Columns("yyRACT").DisplayIndex = 50
-            dgvApplicationLog.Columns("PALRule").HeaderText = "PAL Rule"
-            dgvApplicationLog.Columns("PALRule").DisplayIndex = 51
-            dgvApplicationLog.Columns("ExpeditedPermitRule").HeaderText = "Expedited Permit"
-            dgvApplicationLog.Columns("ExpeditedPermitRule").DisplayIndex = 52
-            dgvApplicationLog.Columns("ConfInfoRule").HeaderText = "Confidential info submitted"
-            dgvApplicationLog.Columns("ConfInfoRule").DisplayIndex = 53
-            dgvApplicationLog.Columns("datApplicationPackageComplete").Visible = False
-            dgvApplicationLog.Columns("datFinalizedDate").Visible = False
-            dgvApplicationLog.Columns("datWithdrawn").Visible = False
-            dgvApplicationLog.Columns("datApplicationStarted").Visible = False
-            dgvApplicationLog.Columns("strAFSGCode").HeaderText = "EPA G Code"
-            dgvApplicationLog.Columns("strAFSGCode").DisplayIndex = 54
-            dgvApplicationLog.Columns("strAFSGCode").Visible = False
-            dgvApplicationLog.Columns("strSubpart").HeaderText = "Subpart"
-            dgvApplicationLog.Columns("strSubpart").DisplayIndex = 55
-        End If
-
-        If dsApplication.Tables(0).Rows.Count = 0 Then
+        If dtApplicationLog.Rows.Count = 0 Then
             dgvApplicationLog.Visible = False
             Panel1.Text = "No applications found"
             lblMessage.Text = "No applications found"
             lblMessage.Visible = True
         Else
-            If dsApplication.Tables(0).Rows.Count = 1 Then
-                Panel1.Text = dsApplication.Tables(0).Rows.Count & " application found"
+            dgvApplicationLog.DataSource = dtApplicationLog
+
+            dgvApplicationLog.Columns("strApplicationNumber").HeaderText = "APL #"
+            dgvApplicationLog.Columns("strApplicationNumber").DisplayIndex = 0
+            dgvApplicationLog.Columns("strApplicationType").HeaderText = "APL Type"
+            dgvApplicationLog.Columns("strApplicationType").DisplayIndex = 4
+            dgvApplicationLog.Columns("datReceivedDate").HeaderText = "APL Rcvd"
+            dgvApplicationLog.Columns("datReceivedDate").DisplayIndex = 5
+            dgvApplicationLog.Columns("datPermitIssued").HeaderText = "Date Finalized"
+            dgvApplicationLog.Columns("datPermitIssued").DisplayIndex = 6
+            dgvApplicationLog.Columns("datPermitIssued").Visible = False
+            dgvApplicationLog.Columns("StaffResponsible").HeaderText = "Staff Responsible"
+            dgvApplicationLog.Columns("StaffResponsible").DisplayIndex = 3
+            dgvApplicationLog.Columns("strFacilityName").HeaderText = "Facility Name"
+            dgvApplicationLog.Columns("strFacilityName").DisplayIndex = 1
+            dgvApplicationLog.Columns("strAIRSNumber").HeaderText = "AIRS #"
+            dgvApplicationLog.Columns("strAIRSNumber").DisplayIndex = 2
+            dgvApplicationLog.Columns("strPermitNumber").HeaderText = "Permit Number"
+            dgvApplicationLog.Columns("strPermitNumber").DisplayIndex = 7
+            dgvApplicationLog.Columns("strPermitType").HeaderText = "Permit Type"
+            dgvApplicationLog.Columns("strPermitType").DisplayIndex = 8
+            dgvApplicationLog.Columns("AppStatus").HeaderText = "App Status"
+            dgvApplicationLog.Columns("AppStatus").DisplayIndex = 9
+            dgvApplicationLog.Columns("StatusDate").HeaderText = "Status Date"
+            dgvApplicationLog.Columns("StatusDate").DisplayIndex = 10
+            dgvApplicationLog.Columns("strSICCode").HeaderText = "SIC Code"
+            dgvApplicationLog.Columns("strSICCode").DisplayIndex = 11
+            dgvApplicationLog.Columns("strPlantDescription").HeaderText = "Plant Description"
+            dgvApplicationLog.Columns("strPlantDescription").DisplayIndex = 12
+            dgvApplicationLog.Columns("strCountyName").HeaderText = "County"
+            dgvApplicationLog.Columns("APBUnit").HeaderText = "APL Unit"
+            dgvApplicationLog.Columns("ExpeditedPermitRule").HeaderText = "Expedited Permit"
+
+            If dtApplicationLog.Rows.Count = 1 Then
+                Panel1.Text = dtApplicationLog.Rows.Count & " application found"
             Else
-                Panel1.Text = dsApplication.Tables(0).Rows.Count & " applications found"
+                Panel1.Text = dtApplicationLog.Rows.Count & " applications found"
             End If
+
+            dgvApplicationLog.MakeColumnsLookLikeLinks(0)
             dgvApplicationLog.Visible = True
             dgvApplicationLog.SanelyResizeColumns()
-            lblMessage.Visible = False
 
+            lblMessage.Visible = False
             btnExport.Enabled = True
             mmiExport.Enabled = True
         End If
     End Sub
+
 #End Region
 
-    Sub ExportToExcel()
+#Region " Other procedures "
+
+    Private Sub ExportToExcel()
         dgvApplicationLog.ExportToExcel(Me)
     End Sub
 
-#Region "Other procedures"
     Private Sub StartNewApplication()
-        Try
-            If AccountFormAccess(3, 4) = "1" Then
-                OpenFormNewPermitApplication()
-            Else
-                MessageBox.Show("You do not have sufficient permissions to start a new application.")
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        If AccountFormAccess(3, 4) = "1" Then
+            OpenFormNewPermitApplication()
+        Else
+            MessageBox.Show("You do not have sufficient permissions to start a new application.")
+        End If
     End Sub
+
     Private Sub OpenApplication(applicationNumber As String)
         OpenFormPermitApplication(applicationNumber)
     End Sub
+
 #End Region
 
-#Region "Events"
+#Region " Field Type ComboBox Events"
+
     Private Sub cboFieldType1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboFieldType1.SelectedIndexChanged
-        Try
+        Select Case cboFieldType1.Text
+            Case "AIRS No."
+                txtSearchText1.Visible = True
+                DTPSearchDate1.Visible = False
+                DTPSearchDate1b.Visible = False
+                cboSearchText1.Visible = False
+                cboSIP1.Visible = False
+                cboNESHAP1.Visible = False
+                cboNSPS1.Visible = False
+                cboMACT1.Visible = False
+            Case "Applicable Rules"
+                txtSearchText1.Visible = False
+                DTPSearchDate1.Visible = False
+                DTPSearchDate1b.Visible = False
+                cboSearchText1.Visible = True
+                cboSIP1.Visible = False
+                cboNESHAP1.Visible = False
+                cboNSPS1.Visible = False
+                cboMACT1.Visible = False
 
-            Select Case cboFieldType1.Text
-                Case "AIRS No."
-                    txtSearchText1.Visible = True
-                    DTPSearchDate1.Visible = False
-                    DTPSearchDate1b.Visible = False
-                    cboSearchText1.Visible = False
-                    cboSIP1.Visible = False
-                    cboNESHAP1.Visible = False
-                    cboNSPS1.Visible = False
-                    cboMACT1.Visible = False
-                Case "Applicable Rules"
-                    txtSearchText1.Visible = False
-                    DTPSearchDate1.Visible = False
-                    DTPSearchDate1b.Visible = False
-                    cboSearchText1.Visible = True
-                    cboSIP1.Visible = False
-                    cboNESHAP1.Visible = False
-                    cboNSPS1.Visible = False
-                    cboMACT1.Visible = False
+                cboSearchText1.Items.Clear()
+                cboSearchText1.Items.Add("Any Rule")
+                cboSearchText1.Items.Add("PSD")
+                cboSearchText1.Items.Add("NAA NSR")
+                cboSearchText1.Items.Add("112(g)")
+                cboSearchText1.Items.Add("Rule (tt) RACT")
+                cboSearchText1.Items.Add("Rule (yy) RACT")
+                cboSearchText1.Items.Add("Actuals PAL")
+                cboSearchText1.Items.Add("Expedited Permit")
+                cboSearchText1.Items.Add("Confidential information submitted")
+                cboSearchText1.Text = cboSearchText1.Items.Item(0)
+            Case "Application No."
+                txtSearchText1.Visible = True
+                DTPSearchDate1.Visible = False
+                DTPSearchDate1b.Visible = False
+                cboSearchText1.Visible = False
+                cboSIP1.Visible = False
+                cboNESHAP1.Visible = False
+                cboNSPS1.Visible = False
+                cboMACT1.Visible = False
 
-                    cboSearchText1.Items.Clear()
-                    cboSearchText1.Items.Add("Any Rule")
-                    cboSearchText1.Items.Add("PSD")
-                    cboSearchText1.Items.Add("NAA NSR")
-                    cboSearchText1.Items.Add("112(g)")
-                    cboSearchText1.Items.Add("Rule (tt) RACT")
-                    cboSearchText1.Items.Add("Rule (yy) RACT")
-                    cboSearchText1.Items.Add("Actuals PAL")
-                    cboSearchText1.Items.Add("Expedited Permit")
-                    cboSearchText1.Items.Add("Confidential information submitted")
-                    cboSearchText1.Text = cboSearchText1.Items.Item(0)
-                Case "Application No."
-                    txtSearchText1.Visible = True
-                    DTPSearchDate1.Visible = False
-                    DTPSearchDate1b.Visible = False
-                    cboSearchText1.Visible = False
-                    cboSIP1.Visible = False
-                    cboNESHAP1.Visible = False
-                    cboNSPS1.Visible = False
-                    cboMACT1.Visible = False
+            Case "Application Status"
+                txtSearchText1.Visible = False
+                DTPSearchDate1.Visible = False
+                DTPSearchDate1b.Visible = False
+                cboSearchText1.Visible = True
+                cboSIP1.Visible = False
+                cboNESHAP1.Visible = False
+                cboNSPS1.Visible = False
+                cboMACT1.Visible = False
 
-                Case "Application Status"
-                    txtSearchText1.Visible = False
-                    DTPSearchDate1.Visible = False
-                    DTPSearchDate1b.Visible = False
-                    cboSearchText1.Visible = True
-                    cboSIP1.Visible = False
-                    cboNESHAP1.Visible = False
-                    cboNSPS1.Visible = False
-                    cboMACT1.Visible = False
+                cboSearchText1.Items.Clear()
+                cboSearchText1.Items.Add("0 - Unassigned")
+                cboSearchText1.Items.Add("1 - At Engineer")
+                cboSearchText1.Items.Add("2 - Internal Review")
+                cboSearchText1.Items.Add("3 - At UC")
+                cboSearchText1.Items.Add("4 - At PM")
+                cboSearchText1.Items.Add("5 - Draft Issued")
+                cboSearchText1.Items.Add("6 - Public Notice")
+                cboSearchText1.Items.Add("7 - Public Notice Expired")
+                cboSearchText1.Items.Add("8 - EPA 45-day Review")
+                cboSearchText1.Items.Add("9 - Administrative Review")
+                cboSearchText1.Items.Add("11 - Closed Out")
+                cboSearchText1.Text = cboSearchText1.Items.Item(0)
+            Case "Application Type"
+                txtSearchText1.Visible = False
+                DTPSearchDate1.Visible = False
+                DTPSearchDate1b.Visible = False
+                cboSearchText1.Visible = True
+                cboSIP1.Visible = False
+                cboNESHAP1.Visible = False
+                cboNSPS1.Visible = False
+                cboMACT1.Visible = False
 
-                    cboSearchText1.Items.Clear()
-                    cboSearchText1.Items.Add("0 - Unassigned")
-                    cboSearchText1.Items.Add("1 - At Engineer")
-                    cboSearchText1.Items.Add("2 - Internal Review")
-                    cboSearchText1.Items.Add("3 - At UC")
-                    cboSearchText1.Items.Add("4 - At PM")
-                    cboSearchText1.Items.Add("5 - Draft Issued")
-                    cboSearchText1.Items.Add("6 - Public Notice")
-                    cboSearchText1.Items.Add("7 - Public Notice Expired")
-                    cboSearchText1.Items.Add("8 - EPA 45-day Review")
-                    cboSearchText1.Items.Add("9 - Administrative Review")
-                    'cboSearchText1.Items.Add("10 - To DO")
-                    cboSearchText1.Items.Add("11 - Closed Out")
-                    cboSearchText1.Text = cboSearchText1.Items.Item(0)
-                Case "Application Type"
-                    txtSearchText1.Visible = False
-                    DTPSearchDate1.Visible = False
-                    DTPSearchDate1b.Visible = False
-                    cboSearchText1.Visible = True
-                    cboSIP1.Visible = False
-                    cboNESHAP1.Visible = False
-                    cboNSPS1.Visible = False
-                    cboMACT1.Visible = False
+                cboSearchText1.Items.Clear()
+                cboSearchText1.Items.Add("502(b)10")
+                cboSearchText1.Items.Add("Acid Rain")
+                cboSearchText1.Items.Add("AA")
+                cboSearchText1.Items.Add("Closed")
+                cboSearchText1.Items.Add("ERC")
+                cboSearchText1.Items.Add("SAW")
+                cboSearchText1.Items.Add("SAWO")
+                cboSearchText1.Items.Add("MAW")
+                cboSearchText1.Items.Add("MAWO")
+                cboSearchText1.Items.Add("NC")
+                cboSearchText1.Items.Add("OFF Permit")
+                cboSearchText1.Items.Add("Other")
+                cboSearchText1.Items.Add("PBR")
+                cboSearchText1.Items.Add("SIP")
+                cboSearchText1.Items.Add("SM")
+                cboSearchText1.Items.Add("TV-Initial")
+                cboSearchText1.Items.Add("TV-Renewal")
+                cboSearchText1.Text = cboSearchText1.Items.Item(0)
 
-                    cboSearchText1.Items.Clear()
-                    cboSearchText1.Items.Add("502(b)10")
-                    cboSearchText1.Items.Add("Acid Rain")
-                    cboSearchText1.Items.Add("AA")
-                    cboSearchText1.Items.Add("Closed")
-                    cboSearchText1.Items.Add("ERC")
-                    cboSearchText1.Items.Add("SAW")
-                    cboSearchText1.Items.Add("SAWO")
-                    cboSearchText1.Items.Add("MAW")
-                    cboSearchText1.Items.Add("MAWO")
-                    cboSearchText1.Items.Add("NC")
-                    cboSearchText1.Items.Add("OFF Permit")
-                    cboSearchText1.Items.Add("Other")
-                    cboSearchText1.Items.Add("PBR")
-                    cboSearchText1.Items.Add("SIP")
-                    cboSearchText1.Items.Add("SM")
-                    cboSearchText1.Items.Add("TV-Initial")
-                    cboSearchText1.Items.Add("TV-Renewal")
-                    cboSearchText1.Text = cboSearchText1.Items.Item(0)
+            Case "Application Unit"
+                txtSearchText1.Visible = False
+                DTPSearchDate1.Visible = False
+                DTPSearchDate1b.Visible = False
+                cboSearchText1.Visible = True
+                cboSIP1.Visible = False
+                cboNESHAP1.Visible = False
+                cboNSPS1.Visible = False
+                cboMACT1.Visible = False
 
-                Case "Application Unit"
-                    txtSearchText1.Visible = False
-                    DTPSearchDate1.Visible = False
-                    DTPSearchDate1b.Visible = False
-                    cboSearchText1.Visible = True
-                    cboSIP1.Visible = False
-                    cboNESHAP1.Visible = False
-                    cboNSPS1.Visible = False
-                    cboMACT1.Visible = False
+                cboSearchText1.Items.Clear()
+                cboSearchText1.Items.Add("Chemical Permitting")
+                cboSearchText1.Items.Add("Combustion Permitting")
+                cboSearchText1.Items.Add("Mineral Permitting")
+                cboSearchText1.Items.Add("NOx Permitting")
+                cboSearchText1.Items.Add("SSPP Administrative")
+                cboSearchText1.Items.Add("VOC Permitting")
+                cboSearchText1.Text = cboSearchText1.Items.Item(0)
 
-                    cboSearchText1.Items.Clear()
-                    cboSearchText1.Items.Add("Chemical Permitting")
-                    cboSearchText1.Items.Add("Combustion Permitting")
-                    cboSearchText1.Items.Add("Mineral Permitting")
-                    cboSearchText1.Items.Add("NOx Permitting")
-                    cboSearchText1.Items.Add("SSPP Administrative")
-                    cboSearchText1.Items.Add("VOC Permitting")
-                    cboSearchText1.Text = cboSearchText1.Items.Item(0)
+            Case "Applog Comments"
+                txtSearchText1.Visible = True
+                DTPSearchDate1.Visible = False
+                DTPSearchDate1b.Visible = False
+                cboSearchText1.Visible = False
+                cboSIP1.Visible = False
+                cboNESHAP1.Visible = False
+                cboNSPS1.Visible = False
+                cboMACT1.Visible = False
+            Case "Date Acknowledged"
+                txtSearchText1.Visible = False
+                DTPSearchDate1.Visible = True
+                DTPSearchDate1b.Visible = True
+                cboSearchText1.Visible = False
+                cboSIP1.Visible = False
+                cboNESHAP1.Visible = False
+                cboNSPS1.Visible = False
+                cboMACT1.Visible = False
+            Case "Date APL Completed"
+                txtSearchText1.Visible = False
+                DTPSearchDate1.Visible = True
+                DTPSearchDate1b.Visible = True
+                cboSearchText1.Visible = False
+                cboSIP1.Visible = False
+                cboNESHAP1.Visible = False
+                cboNSPS1.Visible = False
+                cboMACT1.Visible = False
+            Case "Date APL Dated"
+                txtSearchText1.Visible = False
+                DTPSearchDate1.Visible = True
+                DTPSearchDate1b.Visible = True
+                cboSearchText1.Visible = False
+                cboSIP1.Visible = False
+                cboNESHAP1.Visible = False
+                cboNSPS1.Visible = False
+                cboMACT1.Visible = False
+            Case "Date APL Received"
+                txtSearchText1.Visible = False
+                DTPSearchDate1.Visible = True
+                DTPSearchDate1b.Visible = True
+                cboSearchText1.Visible = False
+                cboSIP1.Visible = False
+                cboNESHAP1.Visible = False
+                cboNSPS1.Visible = False
+                cboMACT1.Visible = False
+            Case "Date Assigned"
+                txtSearchText1.Visible = False
+                DTPSearchDate1.Visible = True
+                DTPSearchDate1b.Visible = True
+                cboSearchText1.Visible = False
+                cboSIP1.Visible = False
+                cboNESHAP1.Visible = False
+                cboNSPS1.Visible = False
+                cboMACT1.Visible = False
+            Case "Date Draft Issued"
+                txtSearchText1.Visible = False
+                DTPSearchDate1.Visible = True
+                DTPSearchDate1b.Visible = True
+                cboSearchText1.Visible = False
+                cboSIP1.Visible = False
+                cboNESHAP1.Visible = False
+                cboNSPS1.Visible = False
+                cboMACT1.Visible = False
+            Case "Date PA Expires"
+                txtSearchText1.Visible = False
+                DTPSearchDate1.Visible = True
+                DTPSearchDate1b.Visible = True
+                cboSearchText1.Visible = False
+                cboSIP1.Visible = False
+                cboNESHAP1.Visible = False
+                cboNSPS1.Visible = False
+                cboMACT1.Visible = False
+            Case "Date Finalized"
+                txtSearchText1.Visible = False
+                DTPSearchDate1.Visible = True
+                DTPSearchDate1b.Visible = True
+                cboSearchText1.Visible = False
+                cboSIP1.Visible = False
+                cboNESHAP1.Visible = False
+                cboNSPS1.Visible = False
+                cboMACT1.Visible = False
+            Case "Date PN Expires"
+                txtSearchText1.Visible = False
+                DTPSearchDate1.Visible = True
+                DTPSearchDate1b.Visible = True
+                cboSearchText1.Visible = False
+                cboSIP1.Visible = False
+                cboNESHAP1.Visible = False
+                cboNSPS1.Visible = False
+                cboMACT1.Visible = False
+            Case "Date Reassigned"
+                txtSearchText1.Visible = False
+                cboSearchText1.Visible = False
+                DTPSearchDate1.Visible = True
+                DTPSearchDate1b.Visible = True
+                cboSIP1.Visible = False
+                cboNESHAP1.Visible = False
+                cboNSPS1.Visible = False
+                cboMACT1.Visible = False
+            Case "Date Started Review"
+                txtSearchText1.Visible = False
+                DTPSearchDate1.Visible = True
+                DTPSearchDate1b.Visible = True
+                cboSearchText1.Visible = False
+                cboSIP1.Visible = False
+                cboNESHAP1.Visible = False
+                cboNSPS1.Visible = False
+                cboMACT1.Visible = False
+            Case "Date to BC"
+                txtSearchText1.Visible = False
+                DTPSearchDate1.Visible = True
+                DTPSearchDate1b.Visible = True
+                cboSearchText1.Visible = False
+                cboSIP1.Visible = False
+                cboNESHAP1.Visible = False
+                cboNSPS1.Visible = False
+                cboMACT1.Visible = False
+            Case "Date to DO"
+                txtSearchText1.Visible = False
+                DTPSearchDate1.Visible = True
+                DTPSearchDate1b.Visible = True
+                cboSearchText1.Visible = False
+                cboSIP1.Visible = False
+                cboNESHAP1.Visible = False
+                cboNSPS1.Visible = False
+                cboMACT1.Visible = False
+            Case "Date to PM"
+                txtSearchText1.Visible = False
+                DTPSearchDate1.Visible = True
+                DTPSearchDate1b.Visible = True
+                cboSearchText1.Visible = False
+                cboSIP1.Visible = False
+                cboNESHAP1.Visible = False
+                cboNSPS1.Visible = False
+                cboMACT1.Visible = False
+            Case "Date to UC"
+                txtSearchText1.Visible = False
+                DTPSearchDate1.Visible = True
+                DTPSearchDate1b.Visible = True
+                cboSearchText1.Visible = False
+                cboSIP1.Visible = False
+                cboNESHAP1.Visible = False
+                cboNSPS1.Visible = False
+                cboMACT1.Visible = False
+            Case "Date Withdrawn"
+                txtSearchText1.Visible = False
+                DTPSearchDate1.Visible = True
+                DTPSearchDate1b.Visible = True
+                cboSearchText1.Visible = False
+                cboSIP1.Visible = False
+                cboNESHAP1.Visible = False
+                cboNSPS1.Visible = False
+                cboMACT1.Visible = False
+            Case "Deadline"
+                txtSearchText1.Visible = False
+                DTPSearchDate1.Visible = True
+                DTPSearchDate1b.Visible = True
+                cboSearchText1.Visible = False
+                cboSIP1.Visible = False
+                cboNESHAP1.Visible = False
+                cboNSPS1.Visible = False
+                cboMACT1.Visible = False
+            Case "Engineer Firstname"
+                txtSearchText1.Visible = True
+                DTPSearchDate1.Visible = False
+                DTPSearchDate1b.Visible = False
+                cboSearchText1.Visible = False
+                cboSIP1.Visible = False
+                cboNESHAP1.Visible = False
+                cboNSPS1.Visible = False
+                cboMACT1.Visible = False
+            Case "Engineer Lastname"
+                txtSearchText1.Visible = True
+                DTPSearchDate1.Visible = False
+                DTPSearchDate1b.Visible = False
+                cboSearchText1.Visible = False
+                cboSIP1.Visible = False
+                cboNESHAP1.Visible = False
+                cboNSPS1.Visible = False
+                cboMACT1.Visible = False
+            Case "Engineer Unit Code"
+                txtSearchText1.Visible = True
+                DTPSearchDate1.Visible = False
+                DTPSearchDate1b.Visible = False
+                cboSearchText1.Visible = False
+                cboSIP1.Visible = False
+                cboNESHAP1.Visible = False
+                cboNSPS1.Visible = False
+                cboMACT1.Visible = False
+            Case "EPA 45-day Waived"
+                txtSearchText1.Visible = False
+                DTPSearchDate1.Visible = True
+                DTPSearchDate1b.Visible = True
+                cboSearchText1.Visible = False
+                cboSIP1.Visible = False
+                cboNESHAP1.Visible = False
+                cboNSPS1.Visible = False
+                cboMACT1.Visible = False
+            Case "EPA 45-day Ends"
+                txtSearchText1.Visible = False
+                DTPSearchDate1.Visible = True
+                DTPSearchDate1b.Visible = True
+                cboSearchText1.Visible = False
+                cboSIP1.Visible = False
+                cboNESHAP1.Visible = False
+                cboNSPS1.Visible = False
+                cboMACT1.Visible = False
+            Case "Facility City"
+                txtSearchText1.Visible = True
+                DTPSearchDate1.Visible = False
+                DTPSearchDate1b.Visible = False
+                cboSearchText1.Visible = False
+                cboSIP1.Visible = False
+                cboNESHAP1.Visible = False
+                cboNSPS1.Visible = False
+                cboMACT1.Visible = False
+            Case "Facility County"
+                txtSearchText1.Visible = True
+                DTPSearchDate1.Visible = False
+                DTPSearchDate1b.Visible = False
+                cboSearchText1.Visible = False
+                cboSIP1.Visible = False
+                cboNESHAP1.Visible = False
+                cboNSPS1.Visible = False
+                cboMACT1.Visible = False
+            Case "Facility Name"
+                txtSearchText1.Visible = True
+                DTPSearchDate1.Visible = False
+                DTPSearchDate1b.Visible = False
+                cboSearchText1.Visible = False
+                cboSIP1.Visible = False
+                cboNESHAP1.Visible = False
+                cboNSPS1.Visible = False
+                cboMACT1.Visible = False
+            Case "Facility Street"
+                txtSearchText1.Visible = True
+                DTPSearchDate1.Visible = False
+                DTPSearchDate1b.Visible = False
+                cboSearchText1.Visible = False
+                cboSIP1.Visible = False
+                cboNESHAP1.Visible = False
+                cboNSPS1.Visible = False
+                cboMACT1.Visible = False
+            Case "HAPs Major"
+                txtSearchText1.Visible = False
+                DTPSearchDate1.Visible = False
+                DTPSearchDate1b.Visible = False
+                cboSearchText1.Visible = False
+                cboSIP1.Visible = False
+                cboNESHAP1.Visible = False
+                cboNSPS1.Visible = False
+                cboMACT1.Visible = False
+            Case "NAA 1Hr-Yes"
+                txtSearchText1.Visible = False
+                DTPSearchDate1.Visible = False
+                DTPSearchDate1b.Visible = False
+                cboSearchText1.Visible = False
+                cboSIP1.Visible = False
+                cboNESHAP1.Visible = False
+                cboNSPS1.Visible = False
+                cboMACT1.Visible = False
+            Case "NAA 1Hr-Contr."
+                txtSearchText1.Visible = False
+                DTPSearchDate1.Visible = False
+                DTPSearchDate1b.Visible = False
+                cboSearchText1.Visible = False
+                cboSIP1.Visible = False
+                cboNESHAP1.Visible = False
+                cboNSPS1.Visible = False
+                cboMACT1.Visible = False
+            Case "NAA 1Hr-No"
+                txtSearchText1.Visible = False
+                DTPSearchDate1.Visible = False
+                DTPSearchDate1b.Visible = False
+                cboSearchText1.Visible = False
+                cboSIP1.Visible = False
+                cboNESHAP1.Visible = False
+                cboNSPS1.Visible = False
+                cboMACT1.Visible = False
+            Case "NAA 8Hr-Atlanta"
+                txtSearchText1.Visible = False
+                DTPSearchDate1.Visible = False
+                DTPSearchDate1b.Visible = False
+                cboSearchText1.Visible = False
+                cboSIP1.Visible = False
+                cboNESHAP1.Visible = False
+                cboNSPS1.Visible = False
+                cboMACT1.Visible = False
+            Case "NAA 8Hr-Macon"
+                txtSearchText1.Visible = False
+                DTPSearchDate1.Visible = False
+                DTPSearchDate1b.Visible = False
+                cboSearchText1.Visible = False
+                cboSIP1.Visible = False
+                cboNESHAP1.Visible = False
+                cboNSPS1.Visible = False
+                cboMACT1.Visible = False
+            Case "NAA 8Hr-No"
+                txtSearchText1.Visible = False
+                DTPSearchDate1.Visible = False
+                DTPSearchDate1b.Visible = False
+                cboSearchText1.Visible = False
+                cboSIP1.Visible = False
+                cboNESHAP1.Visible = False
+                cboNSPS1.Visible = False
+                cboMACT1.Visible = False
+            Case "NAA PM-Atlanta"
+                txtSearchText1.Visible = False
+                DTPSearchDate1.Visible = False
+                DTPSearchDate1b.Visible = False
+                cboSearchText1.Visible = False
+                cboSIP1.Visible = False
+                cboNESHAP1.Visible = False
+                cboNSPS1.Visible = False
+                cboMACT1.Visible = False
+            Case "NAA PM-Chattanooga"
+                txtSearchText1.Visible = False
+                DTPSearchDate1.Visible = False
+                DTPSearchDate1b.Visible = False
+                cboSearchText1.Visible = False
+                cboSIP1.Visible = False
+                cboNESHAP1.Visible = False
+                cboNSPS1.Visible = False
+                cboMACT1.Visible = False
+            Case "NAA PM-Floyd"
+                txtSearchText1.Visible = False
+                DTPSearchDate1.Visible = False
+                DTPSearchDate1b.Visible = False
+                cboSearchText1.Visible = False
+                cboSIP1.Visible = False
+                cboNESHAP1.Visible = False
+                cboNSPS1.Visible = False
+                cboMACT1.Visible = False
+            Case "NAA PM-Macon"
+                txtSearchText1.Visible = False
+                DTPSearchDate1.Visible = False
+                DTPSearchDate1b.Visible = False
+                cboSearchText1.Visible = False
+                cboSIP1.Visible = False
+                cboNESHAP1.Visible = False
+                cboNSPS1.Visible = False
+                cboMACT1.Visible = False
+            Case "NAA PM-No"
+                txtSearchText1.Visible = False
+                DTPSearchDate1.Visible = False
+                DTPSearchDate1b.Visible = False
+                cboSearchText1.Visible = False
+                cboSIP1.Visible = False
+                cboNESHAP1.Visible = False
+                cboNSPS1.Visible = False
+                cboMACT1.Visible = False
+            Case "NSR/PSD Major"
+                txtSearchText1.Visible = False
+                DTPSearchDate1.Visible = False
+                DTPSearchDate1b.Visible = False
+                cboSearchText1.Visible = False
+                cboSIP1.Visible = False
+                cboNESHAP1.Visible = False
+                cboNSPS1.Visible = False
+                cboMACT1.Visible = False
+            Case "PA Ready"
+                txtSearchText1.Visible = False
+                DTPSearchDate1.Visible = False
+                DTPSearchDate1b.Visible = False
+                cboSearchText1.Visible = False
+                cboSIP1.Visible = False
+                cboNESHAP1.Visible = False
+                cboNSPS1.Visible = False
+                cboMACT1.Visible = False
+            Case "Permit Number"
+                txtSearchText1.Visible = True
+                DTPSearchDate1.Visible = False
+                DTPSearchDate1b.Visible = False
+                cboSearchText1.Visible = False
+                cboSIP1.Visible = False
+                cboNESHAP1.Visible = False
+                cboNSPS1.Visible = False
+                cboMACT1.Visible = False
+            Case "Permit Type"
+                txtSearchText1.Visible = False
+                DTPSearchDate1.Visible = False
+                DTPSearchDate1b.Visible = False
+                cboSearchText1.Visible = True
+                cboSIP1.Visible = False
+                cboNESHAP1.Visible = False
+                cboNSPS1.Visible = False
+                cboMACT1.Visible = False
 
-                Case "Applog Comments"
-                    txtSearchText1.Visible = True
-                    DTPSearchDate1.Visible = False
-                    DTPSearchDate1b.Visible = False
-                    cboSearchText1.Visible = False
-                    cboSIP1.Visible = False
-                    cboNESHAP1.Visible = False
-                    cboNSPS1.Visible = False
-                    cboMACT1.Visible = False
-                Case "Date Acknowledged"
-                    txtSearchText1.Visible = False
-                    DTPSearchDate1.Visible = True
-                    DTPSearchDate1b.Visible = True
-                    cboSearchText1.Visible = False
-                    cboSIP1.Visible = False
-                    cboNESHAP1.Visible = False
-                    cboNSPS1.Visible = False
-                    cboMACT1.Visible = False
-                Case "Date APL Completed"
-                    txtSearchText1.Visible = False
-                    DTPSearchDate1.Visible = True
-                    DTPSearchDate1b.Visible = True
-                    cboSearchText1.Visible = False
-                    cboSIP1.Visible = False
-                    cboNESHAP1.Visible = False
-                    cboNSPS1.Visible = False
-                    cboMACT1.Visible = False
-                Case "Date APL Dated"
-                    txtSearchText1.Visible = False
-                    DTPSearchDate1.Visible = True
-                    DTPSearchDate1b.Visible = True
-                    cboSearchText1.Visible = False
-                    cboSIP1.Visible = False
-                    cboNESHAP1.Visible = False
-                    cboNSPS1.Visible = False
-                    cboMACT1.Visible = False
-                Case "Date APL Received"
-                    txtSearchText1.Visible = False
-                    DTPSearchDate1.Visible = True
-                    DTPSearchDate1b.Visible = True
-                    cboSearchText1.Visible = False
-                    cboSIP1.Visible = False
-                    cboNESHAP1.Visible = False
-                    cboNSPS1.Visible = False
-                    cboMACT1.Visible = False
-                Case "Date Assigned"
-                    txtSearchText1.Visible = False
-                    DTPSearchDate1.Visible = True
-                    DTPSearchDate1b.Visible = True
-                    cboSearchText1.Visible = False
-                    cboSIP1.Visible = False
-                    cboNESHAP1.Visible = False
-                    cboNSPS1.Visible = False
-                    cboMACT1.Visible = False
-                Case "Date Draft Issued"
-                    txtSearchText1.Visible = False
-                    DTPSearchDate1.Visible = True
-                    DTPSearchDate1b.Visible = True
-                    cboSearchText1.Visible = False
-                    cboSIP1.Visible = False
-                    cboNESHAP1.Visible = False
-                    cboNSPS1.Visible = False
-                    cboMACT1.Visible = False
-                Case "Date PA Expires"
-                    txtSearchText1.Visible = False
-                    DTPSearchDate1.Visible = True
-                    DTPSearchDate1b.Visible = True
-                    cboSearchText1.Visible = False
-                    cboSIP1.Visible = False
-                    cboNESHAP1.Visible = False
-                    cboNSPS1.Visible = False
-                    cboMACT1.Visible = False
-                Case "Date Finalized"
-                    txtSearchText1.Visible = False
-                    DTPSearchDate1.Visible = True
-                    DTPSearchDate1b.Visible = True
-                    cboSearchText1.Visible = False
-                    cboSIP1.Visible = False
-                    cboNESHAP1.Visible = False
-                    cboNSPS1.Visible = False
-                    cboMACT1.Visible = False
-                Case "Date PN Expires"
-                    txtSearchText1.Visible = False
-                    DTPSearchDate1.Visible = True
-                    DTPSearchDate1b.Visible = True
-                    cboSearchText1.Visible = False
-                    cboSIP1.Visible = False
-                    cboNESHAP1.Visible = False
-                    cboNSPS1.Visible = False
-                    cboMACT1.Visible = False
-                Case "Date Reassigned"
-                    txtSearchText1.Visible = False
-                    cboSearchText1.Visible = False
-                    DTPSearchDate1.Visible = True
-                    DTPSearchDate1b.Visible = True
-                    cboSIP1.Visible = False
-                    cboNESHAP1.Visible = False
-                    cboNSPS1.Visible = False
-                    cboMACT1.Visible = False
-                Case "Date Started Review"
-                    txtSearchText1.Visible = False
-                    DTPSearchDate1.Visible = True
-                    DTPSearchDate1b.Visible = True
-                    cboSearchText1.Visible = False
-                    cboSIP1.Visible = False
-                    cboNESHAP1.Visible = False
-                    cboNSPS1.Visible = False
-                    cboMACT1.Visible = False
-                Case "Date to BC"
-                    txtSearchText1.Visible = False
-                    DTPSearchDate1.Visible = True
-                    DTPSearchDate1b.Visible = True
-                    cboSearchText1.Visible = False
-                    cboSIP1.Visible = False
-                    cboNESHAP1.Visible = False
-                    cboNSPS1.Visible = False
-                    cboMACT1.Visible = False
-                Case "Date to DO"
-                    txtSearchText1.Visible = False
-                    DTPSearchDate1.Visible = True
-                    DTPSearchDate1b.Visible = True
-                    cboSearchText1.Visible = False
-                    cboSIP1.Visible = False
-                    cboNESHAP1.Visible = False
-                    cboNSPS1.Visible = False
-                    cboMACT1.Visible = False
-                Case "Date to PM"
-                    txtSearchText1.Visible = False
-                    DTPSearchDate1.Visible = True
-                    DTPSearchDate1b.Visible = True
-                    cboSearchText1.Visible = False
-                    cboSIP1.Visible = False
-                    cboNESHAP1.Visible = False
-                    cboNSPS1.Visible = False
-                    cboMACT1.Visible = False
-                Case "Date to UC"
-                    txtSearchText1.Visible = False
-                    DTPSearchDate1.Visible = True
-                    DTPSearchDate1b.Visible = True
-                    cboSearchText1.Visible = False
-                    cboSIP1.Visible = False
-                    cboNESHAP1.Visible = False
-                    cboNSPS1.Visible = False
-                    cboMACT1.Visible = False
-                Case "Date Withdrawn"
-                    txtSearchText1.Visible = False
-                    DTPSearchDate1.Visible = True
-                    DTPSearchDate1b.Visible = True
-                    cboSearchText1.Visible = False
-                    cboSIP1.Visible = False
-                    cboNESHAP1.Visible = False
-                    cboNSPS1.Visible = False
-                    cboMACT1.Visible = False
-                Case "Deadline"
-                    txtSearchText1.Visible = False
-                    DTPSearchDate1.Visible = True
-                    DTPSearchDate1b.Visible = True
-                    cboSearchText1.Visible = False
-                    cboSIP1.Visible = False
-                    cboNESHAP1.Visible = False
-                    cboNSPS1.Visible = False
-                    cboMACT1.Visible = False
-                Case "Engineer Firstname"
-                    txtSearchText1.Visible = True
-                    DTPSearchDate1.Visible = False
-                    DTPSearchDate1b.Visible = False
-                    cboSearchText1.Visible = False
-                    cboSIP1.Visible = False
-                    cboNESHAP1.Visible = False
-                    cboNSPS1.Visible = False
-                    cboMACT1.Visible = False
-                Case "Engineer Lastname"
-                    txtSearchText1.Visible = True
-                    DTPSearchDate1.Visible = False
-                    DTPSearchDate1b.Visible = False
-                    cboSearchText1.Visible = False
-                    cboSIP1.Visible = False
-                    cboNESHAP1.Visible = False
-                    cboNSPS1.Visible = False
-                    cboMACT1.Visible = False
-                Case "Engineer Unit Code"
-                    txtSearchText1.Visible = True
-                    DTPSearchDate1.Visible = False
-                    DTPSearchDate1b.Visible = False
-                    cboSearchText1.Visible = False
-                    cboSIP1.Visible = False
-                    cboNESHAP1.Visible = False
-                    cboNSPS1.Visible = False
-                    cboMACT1.Visible = False
-                Case "EPA 45-day Waived"
-                    txtSearchText1.Visible = False
-                    DTPSearchDate1.Visible = True
-                    DTPSearchDate1b.Visible = True
-                    cboSearchText1.Visible = False
-                    cboSIP1.Visible = False
-                    cboNESHAP1.Visible = False
-                    cboNSPS1.Visible = False
-                    cboMACT1.Visible = False
-                Case "EPA 45-day Ends"
-                    txtSearchText1.Visible = False
-                    DTPSearchDate1.Visible = True
-                    DTPSearchDate1b.Visible = True
-                    cboSearchText1.Visible = False
-                    cboSIP1.Visible = False
-                    cboNESHAP1.Visible = False
-                    cboNSPS1.Visible = False
-                    cboMACT1.Visible = False
-                Case "Facility City"
-                    txtSearchText1.Visible = True
-                    DTPSearchDate1.Visible = False
-                    DTPSearchDate1b.Visible = False
-                    cboSearchText1.Visible = False
-                    cboSIP1.Visible = False
-                    cboNESHAP1.Visible = False
-                    cboNSPS1.Visible = False
-                    cboMACT1.Visible = False
-                Case "Facility County"
-                    txtSearchText1.Visible = True
-                    DTPSearchDate1.Visible = False
-                    DTPSearchDate1b.Visible = False
-                    cboSearchText1.Visible = False
-                    cboSIP1.Visible = False
-                    cboNESHAP1.Visible = False
-                    cboNSPS1.Visible = False
-                    cboMACT1.Visible = False
-                Case "Facility Name"
-                    txtSearchText1.Visible = True
-                    DTPSearchDate1.Visible = False
-                    DTPSearchDate1b.Visible = False
-                    cboSearchText1.Visible = False
-                    cboSIP1.Visible = False
-                    cboNESHAP1.Visible = False
-                    cboNSPS1.Visible = False
-                    cboMACT1.Visible = False
-                Case "Facility Street"
-                    txtSearchText1.Visible = True
-                    DTPSearchDate1.Visible = False
-                    DTPSearchDate1b.Visible = False
-                    cboSearchText1.Visible = False
-                    cboSIP1.Visible = False
-                    cboNESHAP1.Visible = False
-                    cboNSPS1.Visible = False
-                    cboMACT1.Visible = False
-                Case "HAPs Major"
-                    txtSearchText1.Visible = False
-                    DTPSearchDate1.Visible = False
-                    DTPSearchDate1b.Visible = False
-                    cboSearchText1.Visible = False
-                    cboSIP1.Visible = False
-                    cboNESHAP1.Visible = False
-                    cboNSPS1.Visible = False
-                    cboMACT1.Visible = False
-                Case "NAA 1Hr-Yes"
-                    txtSearchText1.Visible = False
-                    DTPSearchDate1.Visible = False
-                    DTPSearchDate1b.Visible = False
-                    cboSearchText1.Visible = False
-                    cboSIP1.Visible = False
-                    cboNESHAP1.Visible = False
-                    cboNSPS1.Visible = False
-                    cboMACT1.Visible = False
-                Case "NAA 1Hr-Contr."
-                    txtSearchText1.Visible = False
-                    DTPSearchDate1.Visible = False
-                    DTPSearchDate1b.Visible = False
-                    cboSearchText1.Visible = False
-                    cboSIP1.Visible = False
-                    cboNESHAP1.Visible = False
-                    cboNSPS1.Visible = False
-                    cboMACT1.Visible = False
-                Case "NAA 1Hr-No"
-                    txtSearchText1.Visible = False
-                    DTPSearchDate1.Visible = False
-                    DTPSearchDate1b.Visible = False
-                    cboSearchText1.Visible = False
-                    cboSIP1.Visible = False
-                    cboNESHAP1.Visible = False
-                    cboNSPS1.Visible = False
-                    cboMACT1.Visible = False
-                Case "NAA 8Hr-Atlanta"
-                    txtSearchText1.Visible = False
-                    DTPSearchDate1.Visible = False
-                    DTPSearchDate1b.Visible = False
-                    cboSearchText1.Visible = False
-                    cboSIP1.Visible = False
-                    cboNESHAP1.Visible = False
-                    cboNSPS1.Visible = False
-                    cboMACT1.Visible = False
-                Case "NAA 8Hr-Macon"
-                    txtSearchText1.Visible = False
-                    DTPSearchDate1.Visible = False
-                    DTPSearchDate1b.Visible = False
-                    cboSearchText1.Visible = False
-                    cboSIP1.Visible = False
-                    cboNESHAP1.Visible = False
-                    cboNSPS1.Visible = False
-                    cboMACT1.Visible = False
-                Case "NAA 8Hr-No"
-                    txtSearchText1.Visible = False
-                    DTPSearchDate1.Visible = False
-                    DTPSearchDate1b.Visible = False
-                    cboSearchText1.Visible = False
-                    cboSIP1.Visible = False
-                    cboNESHAP1.Visible = False
-                    cboNSPS1.Visible = False
-                    cboMACT1.Visible = False
-                Case "NAA PM-Atlanta"
-                    txtSearchText1.Visible = False
-                    DTPSearchDate1.Visible = False
-                    DTPSearchDate1b.Visible = False
-                    cboSearchText1.Visible = False
-                    cboSIP1.Visible = False
-                    cboNESHAP1.Visible = False
-                    cboNSPS1.Visible = False
-                    cboMACT1.Visible = False
-                Case "NAA PM-Chattanooga"
-                    txtSearchText1.Visible = False
-                    DTPSearchDate1.Visible = False
-                    DTPSearchDate1b.Visible = False
-                    cboSearchText1.Visible = False
-                    cboSIP1.Visible = False
-                    cboNESHAP1.Visible = False
-                    cboNSPS1.Visible = False
-                    cboMACT1.Visible = False
-                Case "NAA PM-Floyd"
-                    txtSearchText1.Visible = False
-                    DTPSearchDate1.Visible = False
-                    DTPSearchDate1b.Visible = False
-                    cboSearchText1.Visible = False
-                    cboSIP1.Visible = False
-                    cboNESHAP1.Visible = False
-                    cboNSPS1.Visible = False
-                    cboMACT1.Visible = False
-                Case "NAA PM-Macon"
-                    txtSearchText1.Visible = False
-                    DTPSearchDate1.Visible = False
-                    DTPSearchDate1b.Visible = False
-                    cboSearchText1.Visible = False
-                    cboSIP1.Visible = False
-                    cboNESHAP1.Visible = False
-                    cboNSPS1.Visible = False
-                    cboMACT1.Visible = False
-                Case "NAA PM-No"
-                    txtSearchText1.Visible = False
-                    DTPSearchDate1.Visible = False
-                    DTPSearchDate1b.Visible = False
-                    cboSearchText1.Visible = False
-                    cboSIP1.Visible = False
-                    cboNESHAP1.Visible = False
-                    cboNSPS1.Visible = False
-                    cboMACT1.Visible = False
-                Case "NSR/PSD Major"
-                    txtSearchText1.Visible = False
-                    DTPSearchDate1.Visible = False
-                    DTPSearchDate1b.Visible = False
-                    cboSearchText1.Visible = False
-                    cboSIP1.Visible = False
-                    cboNESHAP1.Visible = False
-                    cboNSPS1.Visible = False
-                    cboMACT1.Visible = False
-                Case "PA Ready"
-                    txtSearchText1.Visible = False
-                    DTPSearchDate1.Visible = False
-                    DTPSearchDate1b.Visible = False
-                    cboSearchText1.Visible = False
-                    cboSIP1.Visible = False
-                    cboNESHAP1.Visible = False
-                    cboNSPS1.Visible = False
-                    cboMACT1.Visible = False
-                Case "Permit Number"
-                    txtSearchText1.Visible = True
-                    DTPSearchDate1.Visible = False
-                    DTPSearchDate1b.Visible = False
-                    cboSearchText1.Visible = False
-                    cboSIP1.Visible = False
-                    cboNESHAP1.Visible = False
-                    cboNSPS1.Visible = False
-                    cboMACT1.Visible = False
-                Case "Permit Type"
-                    txtSearchText1.Visible = False
-                    DTPSearchDate1.Visible = False
-                    DTPSearchDate1b.Visible = False
-                    cboSearchText1.Visible = True
-                    cboSIP1.Visible = False
-                    cboNESHAP1.Visible = False
-                    cboNSPS1.Visible = False
-                    cboMACT1.Visible = False
+                cboSearchText1.Items.Clear()
+                cboSearchText1.Items.Add("Denied")
+                cboSearchText1.Items.Add("N/A")
+                cboSearchText1.Items.Add("NPR")
+                cboSearchText1.Items.Add("Other")
+                cboSearchText1.Items.Add("PBR")
+                cboSearchText1.Items.Add("Permit")
+                cboSearchText1.Items.Add("Returned")
+                cboSearchText1.Items.Add("Revoked")
+                cboSearchText1.Items.Add("Withdrawn")
+                cboSearchText1.Text = cboSearchText1.Items.Item(0)
+            Case "Plant Description"
+                txtSearchText1.Visible = True
+                DTPSearchDate1.Visible = False
+                DTPSearchDate1b.Visible = False
+                cboSearchText1.Visible = False
+                cboSIP1.Visible = False
+                cboNESHAP1.Visible = False
+                cboNSPS1.Visible = False
+                cboMACT1.Visible = False
+            Case "PN Ready"
+                txtSearchText1.Visible = False
+                DTPSearchDate1.Visible = False
+                DTPSearchDate1b.Visible = False
+                cboSearchText1.Visible = False
+                cboSIP1.Visible = False
+                cboNESHAP1.Visible = False
+                cboNSPS1.Visible = False
+                cboMACT1.Visible = False
+            Case "Public Advisory"
+                txtSearchText1.Visible = False
+                DTPSearchDate1.Visible = False
+                DTPSearchDate1b.Visible = False
+                cboSearchText1.Visible = True
+                cboSIP1.Visible = False
+                cboNESHAP1.Visible = False
+                cboNSPS1.Visible = False
+                cboMACT1.Visible = False
 
-                    cboSearchText1.Items.Clear()
-                    cboSearchText1.Items.Add("Denied")
-                    cboSearchText1.Items.Add("N/A")
-                    cboSearchText1.Items.Add("NPR")
-                    cboSearchText1.Items.Add("Other")
-                    cboSearchText1.Items.Add("PBR")
-                    cboSearchText1.Items.Add("Permit")
-                    cboSearchText1.Items.Add("Returned")
-                    cboSearchText1.Items.Add("Revoked")
-                    cboSearchText1.Items.Add("Withdrawn")
-                    cboSearchText1.Text = cboSearchText1.Items.Item(0)
-                Case "Plant Description"
-                    txtSearchText1.Visible = True
-                    DTPSearchDate1.Visible = False
-                    DTPSearchDate1b.Visible = False
-                    cboSearchText1.Visible = False
-                    cboSIP1.Visible = False
-                    cboNESHAP1.Visible = False
-                    cboNSPS1.Visible = False
-                    cboMACT1.Visible = False
-                Case "PN Ready"
-                    txtSearchText1.Visible = False
-                    DTPSearchDate1.Visible = False
-                    DTPSearchDate1b.Visible = False
-                    cboSearchText1.Visible = False
-                    cboSIP1.Visible = False
-                    cboNESHAP1.Visible = False
-                    cboNSPS1.Visible = False
-                    cboMACT1.Visible = False
-                Case "Public Advisory"
-                    txtSearchText1.Visible = False
-                    DTPSearchDate1.Visible = False
-                    DTPSearchDate1b.Visible = False
-                    cboSearchText1.Visible = True
-                    cboSIP1.Visible = False
-                    cboNESHAP1.Visible = False
-                    cboNSPS1.Visible = False
-                    cboMACT1.Visible = False
+                cboSearchText1.Items.Clear()
+                cboSearchText1.Items.Add("PA Not Needed")
+                cboSearchText1.Items.Add("PA Needed")
+                cboSearchText1.Items.Add("Not Decided")
+                cboSearchText1.Text = cboSearchText1.Items.Item(0)
 
-                    cboSearchText1.Items.Clear()
-                    cboSearchText1.Items.Add("PA Not Needed")
-                    cboSearchText1.Items.Add("PA Needed")
-                    cboSearchText1.Items.Add("Not Decided")
-                    cboSearchText1.Text = cboSearchText1.Items.Item(0)
+            Case "Reason APL Submitted"
+                txtSearchText1.Visible = True
+                DTPSearchDate1.Visible = False
+                DTPSearchDate1b.Visible = False
+                cboSearchText1.Visible = False
+                cboSIP1.Visible = False
+                cboNESHAP1.Visible = False
+                cboNSPS1.Visible = False
+                cboMACT1.Visible = False
+            Case "Regional District"
+                txtSearchText1.Visible = False
+                DTPSearchDate1.Visible = False
+                DTPSearchDate1b.Visible = False
+                cboSearchText1.Visible = True
+                cboSIP1.Visible = False
+                cboNESHAP1.Visible = False
+                cboNSPS1.Visible = False
+                cboMACT1.Visible = False
 
-                Case "Reason APL Submitted"
-                    txtSearchText1.Visible = True
-                    DTPSearchDate1.Visible = False
-                    DTPSearchDate1b.Visible = False
-                    cboSearchText1.Visible = False
-                    cboSIP1.Visible = False
-                    cboNESHAP1.Visible = False
-                    cboNSPS1.Visible = False
-                    cboMACT1.Visible = False
-                Case "Regional District"
-                    txtSearchText1.Visible = False
-                    DTPSearchDate1.Visible = False
-                    DTPSearchDate1b.Visible = False
-                    cboSearchText1.Visible = True
-                    cboSIP1.Visible = False
-                    cboNESHAP1.Visible = False
-                    cboNSPS1.Visible = False
-                    cboMACT1.Visible = False
+                cboSearchText1.Items.Clear()
+                cboSearchText1.Items.Add("Coastal B")
+                cboSearchText1.Items.Add("Coastal S")
+                cboSearchText1.Items.Add("East Central")
+                cboSearchText1.Items.Add("Mountain A")
+                cboSearchText1.Items.Add("Mountain C")
+                cboSearchText1.Items.Add("Northeast")
+                cboSearchText1.Items.Add("Southwest")
+                cboSearchText1.Items.Add("Statewide")
+                cboSearchText1.Items.Add("West Central")
+                cboSearchText1.Text = cboSearchText1.Items.Item(0)
 
-                    cboSearchText1.Items.Clear()
-                    cboSearchText1.Items.Add("Coastal B")
-                    cboSearchText1.Items.Add("Coastal S")
-                    cboSearchText1.Items.Add("East Central")
-                    cboSearchText1.Items.Add("Mountain A")
-                    cboSearchText1.Items.Add("Mountain C")
-                    cboSearchText1.Items.Add("Northeast")
-                    cboSearchText1.Items.Add("Southwest")
-                    cboSearchText1.Items.Add("Statewide")
-                    cboSearchText1.Items.Add("West Central")
-                    cboSearchText1.Text = cboSearchText1.Items.Item(0)
-
-                Case "Status Date"
-                    txtSearchText1.Visible = False
-                    DTPSearchDate1.Visible = True
-                    DTPSearchDate1b.Visible = True
-                    cboSearchText1.Visible = False
-                    cboSIP1.Visible = False
-                    cboNESHAP1.Visible = False
-                    cboNSPS1.Visible = False
-                    cboMACT1.Visible = False
-                Case "SIC Code"
-                    txtSearchText1.Visible = True
-                    DTPSearchDate1.Visible = False
-                    DTPSearchDate1b.Visible = False
-                    cboSearchText1.Visible = False
-                    cboSIP1.Visible = False
-                    cboNESHAP1.Visible = False
-                    cboNSPS1.Visible = False
-                    cboMACT1.Visible = False
-                Case "Subpart - 0-SIP"
-                    txtSearchText1.Visible = True
-                    DTPSearchDate1.Visible = False
-                    DTPSearchDate1b.Visible = False
-                    cboSearchText1.Visible = False
-                    cboSIP1.Visible = True
-                    cboNESHAP1.Visible = False
-                    cboNSPS1.Visible = False
-                    cboMACT1.Visible = False
-                Case "Subpart - 8-NESHAP (Part 61)"
-                    txtSearchText1.Visible = True
-                    DTPSearchDate1.Visible = False
-                    DTPSearchDate1b.Visible = False
-                    cboSearchText1.Visible = False
-                    cboSIP1.Visible = False
-                    cboNESHAP1.Visible = True
-                    cboNSPS1.Visible = False
-                    cboMACT1.Visible = False
-                Case "Subpart - 9-NSPS (Part 60)"
-                    txtSearchText1.Visible = True
-                    DTPSearchDate1.Visible = False
-                    DTPSearchDate1b.Visible = False
-                    cboSearchText1.Visible = False
-                    cboSIP1.Visible = False
-                    cboNESHAP1.Visible = False
-                    cboNSPS1.Visible = True
-                    cboMACT1.Visible = False
-                Case "Subpart - M-MACT (Part 63)"
-                    txtSearchText1.Visible = True
-                    DTPSearchDate1.Visible = False
-                    DTPSearchDate1b.Visible = False
-                    cboSearchText1.Visible = False
-                    cboSIP1.Visible = False
-                    cboNESHAP1.Visible = False
-                    cboNSPS1.Visible = False
-                    cboMACT1.Visible = True
-                Case Else
-                    txtSearchText1.Visible = True
-                    DTPSearchDate1.Visible = False
-                    DTPSearchDate1b.Visible = False
-                    cboSearchText1.Visible = False
-                    cboSIP1.Visible = False
-                    cboNESHAP1.Visible = False
-                    cboNSPS1.Visible = False
-                    cboMACT1.Visible = False
-            End Select
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
+            Case "Status Date"
+                txtSearchText1.Visible = False
+                DTPSearchDate1.Visible = True
+                DTPSearchDate1b.Visible = True
+                cboSearchText1.Visible = False
+                cboSIP1.Visible = False
+                cboNESHAP1.Visible = False
+                cboNSPS1.Visible = False
+                cboMACT1.Visible = False
+            Case "SIC Code"
+                txtSearchText1.Visible = True
+                DTPSearchDate1.Visible = False
+                DTPSearchDate1b.Visible = False
+                cboSearchText1.Visible = False
+                cboSIP1.Visible = False
+                cboNESHAP1.Visible = False
+                cboNSPS1.Visible = False
+                cboMACT1.Visible = False
+            Case "Subpart - SIP"
+                txtSearchText1.Visible = True
+                DTPSearchDate1.Visible = False
+                DTPSearchDate1b.Visible = False
+                cboSearchText1.Visible = False
+                cboSIP1.Visible = True
+                cboNESHAP1.Visible = False
+                cboNSPS1.Visible = False
+                cboMACT1.Visible = False
+            Case "Subpart - NESHAP (Part 61)"
+                txtSearchText1.Visible = True
+                DTPSearchDate1.Visible = False
+                DTPSearchDate1b.Visible = False
+                cboSearchText1.Visible = False
+                cboSIP1.Visible = False
+                cboNESHAP1.Visible = True
+                cboNSPS1.Visible = False
+                cboMACT1.Visible = False
+            Case "Subpart - NSPS (Part 60)"
+                txtSearchText1.Visible = True
+                DTPSearchDate1.Visible = False
+                DTPSearchDate1b.Visible = False
+                cboSearchText1.Visible = False
+                cboSIP1.Visible = False
+                cboNESHAP1.Visible = False
+                cboNSPS1.Visible = True
+                cboMACT1.Visible = False
+            Case "Subpart - MACT (Part 63)"
+                txtSearchText1.Visible = True
+                DTPSearchDate1.Visible = False
+                DTPSearchDate1b.Visible = False
+                cboSearchText1.Visible = False
+                cboSIP1.Visible = False
+                cboNESHAP1.Visible = False
+                cboNSPS1.Visible = False
+                cboMACT1.Visible = True
+            Case Else
+                txtSearchText1.Visible = True
+                DTPSearchDate1.Visible = False
+                DTPSearchDate1b.Visible = False
+                cboSearchText1.Visible = False
+                cboSIP1.Visible = False
+                cboNESHAP1.Visible = False
+                cboNSPS1.Visible = False
+                cboMACT1.Visible = False
+        End Select
     End Sub
+
     Private Sub cboFieldType2_TextChanged(sender As Object, e As EventArgs) Handles cboFieldType2.SelectedIndexChanged
-        Try
+        Select Case cboFieldType2.Text
+            Case "AIRS No."
+                txtSearchText2.Visible = True
+                DTPSearchDate2.Visible = False
+                DTPSearchDate2b.Visible = False
+                cboSearchText2.Visible = False
+                cboSIP2.Visible = False
+                cboNESHAP2.Visible = False
+                cboNSPS2.Visible = False
+                cboMACT2.Visible = False
+            Case "Applicable Rules"
+                txtSearchText2.Visible = False
+                DTPSearchDate2.Visible = False
+                DTPSearchDate2b.Visible = False
+                cboSearchText2.Visible = True
+                cboSIP2.Visible = False
+                cboNESHAP2.Visible = False
+                cboNSPS2.Visible = False
+                cboMACT2.Visible = False
 
-            Select Case cboFieldType2.Text
-                Case "AIRS No."
-                    txtSearchText2.Visible = True
-                    DTPSearchDate2.Visible = False
-                    DTPSearchDate2b.Visible = False
-                    cboSearchText2.Visible = False
-                    cboSIP2.Visible = False
-                    cboNESHAP2.Visible = False
-                    cboNSPS2.Visible = False
-                    cboMACT2.Visible = False
-                Case "Applicable Rules"
-                    txtSearchText2.Visible = False
-                    DTPSearchDate2.Visible = False
-                    DTPSearchDate2b.Visible = False
-                    cboSearchText2.Visible = True
-                    cboSIP2.Visible = False
-                    cboNESHAP2.Visible = False
-                    cboNSPS2.Visible = False
-                    cboMACT2.Visible = False
+                cboSearchText2.Items.Clear()
+                cboSearchText2.Items.Add("Any Rule")
+                cboSearchText2.Items.Add("PSD")
+                cboSearchText2.Items.Add("NAA NSR")
+                cboSearchText2.Items.Add("112(g)")
+                cboSearchText2.Items.Add("Rule (tt) RACT")
+                cboSearchText2.Items.Add("Rule (yy) RACT")
+                cboSearchText2.Items.Add("Actuals PAL")
+                cboSearchText2.Items.Add("Expedited Permit")
+                cboSearchText2.Items.Add("Confidential information submitted")
+                cboSearchText2.Text = cboSearchText2.Items.Item(0)
+            Case "Application No."
+                txtSearchText2.Visible = True
+                DTPSearchDate2.Visible = False
+                DTPSearchDate2b.Visible = False
+                cboSearchText2.Visible = False
+                cboSIP2.Visible = False
+                cboNESHAP2.Visible = False
+                cboNSPS2.Visible = False
+                cboMACT2.Visible = False
+            Case "Application Status"
+                txtSearchText2.Visible = False
+                DTPSearchDate2.Visible = False
+                DTPSearchDate2b.Visible = False
+                cboSearchText2.Visible = True
+                cboSIP2.Visible = False
+                cboNESHAP2.Visible = False
+                cboNSPS2.Visible = False
+                cboMACT2.Visible = False
 
-                    cboSearchText2.Items.Clear()
-                    cboSearchText2.Items.Add("Any Rule")
-                    cboSearchText2.Items.Add("PSD")
-                    cboSearchText2.Items.Add("NAA NSR")
-                    cboSearchText2.Items.Add("112(g)")
-                    cboSearchText2.Items.Add("Rule (tt) RACT")
-                    cboSearchText2.Items.Add("Rule (yy) RACT")
-                    cboSearchText2.Items.Add("Actuals PAL")
-                    cboSearchText2.Items.Add("Expedited Permit")
-                    cboSearchText2.Items.Add("Confidential information submitted")
-                    cboSearchText2.Text = cboSearchText2.Items.Item(0)
-                Case "Application No."
-                    txtSearchText2.Visible = True
-                    DTPSearchDate2.Visible = False
-                    DTPSearchDate2b.Visible = False
-                    cboSearchText2.Visible = False
-                    cboSIP2.Visible = False
-                    cboNESHAP2.Visible = False
-                    cboNSPS2.Visible = False
-                    cboMACT2.Visible = False
-                Case "Application Status"
-                    txtSearchText2.Visible = False
-                    DTPSearchDate2.Visible = False
-                    DTPSearchDate2b.Visible = False
-                    cboSearchText2.Visible = True
-                    cboSIP2.Visible = False
-                    cboNESHAP2.Visible = False
-                    cboNSPS2.Visible = False
-                    cboMACT2.Visible = False
+                cboSearchText2.Items.Clear()
+                cboSearchText2.Items.Add("0 - Unassigned")
+                cboSearchText2.Items.Add("1 - At Engineer")
+                cboSearchText2.Items.Add("2 - Internal Review")
+                cboSearchText2.Items.Add("3 - At UC")
+                cboSearchText2.Items.Add("4 - At PM")
+                cboSearchText2.Items.Add("5 - Draft Issued")
+                cboSearchText2.Items.Add("6 - Public Notice")
+                cboSearchText2.Items.Add("7 - Public Notice Expired")
+                cboSearchText2.Items.Add("8 - EPA 45-day Review")
+                cboSearchText2.Items.Add("9 - Administrative Review")
+                cboSearchText2.Items.Add("11 - Closed Out")
+                cboSearchText2.Text = cboSearchText2.Items.Item(0)
 
-                    cboSearchText2.Items.Clear()
-                    cboSearchText2.Items.Add("0 - Unassigned")
-                    cboSearchText2.Items.Add("1 - At Engineer")
-                    cboSearchText2.Items.Add("2 - Internal Review")
-                    cboSearchText2.Items.Add("3 - At UC")
-                    cboSearchText2.Items.Add("4 - At PM")
-                    cboSearchText2.Items.Add("5 - Draft Issued")
-                    cboSearchText2.Items.Add("6 - Public Notice")
-                    cboSearchText2.Items.Add("7 - Public Notice Expired")
-                    cboSearchText2.Items.Add("8 - EPA 45-day Review")
-                    cboSearchText2.Items.Add("9 - Administrative Review")
-                    'cboSearchText2.Items.Add("10 - To DO")
-                    cboSearchText2.Items.Add("11 - Closed Out")
-                    cboSearchText2.Text = cboSearchText2.Items.Item(0)
+            Case "Application Type"
+                txtSearchText2.Visible = False
+                DTPSearchDate2.Visible = False
+                DTPSearchDate2b.Visible = False
+                cboSearchText2.Visible = True
+                cboSIP2.Visible = False
+                cboNESHAP2.Visible = False
+                cboNSPS2.Visible = False
+                cboMACT2.Visible = False
 
-                Case "Application Type"
-                    txtSearchText2.Visible = False
-                    DTPSearchDate2.Visible = False
-                    DTPSearchDate2b.Visible = False
-                    cboSearchText2.Visible = True
-                    cboSIP2.Visible = False
-                    cboNESHAP2.Visible = False
-                    cboNSPS2.Visible = False
-                    cboMACT2.Visible = False
+                cboSearchText2.Items.Clear()
+                cboSearchText2.Items.Add("502(b)10")
+                cboSearchText2.Items.Add("Acid Rain")
+                cboSearchText2.Items.Add("AA")
+                cboSearchText2.Items.Add("Closed")
+                cboSearchText2.Items.Add("ERC")
+                cboSearchText2.Items.Add("SAW")
+                cboSearchText2.Items.Add("SAWO")
+                cboSearchText2.Items.Add("MAW")
+                cboSearchText2.Items.Add("MAWO")
+                cboSearchText2.Items.Add("NC")
+                cboSearchText2.Items.Add("OFF Permit")
+                cboSearchText2.Items.Add("Other")
+                cboSearchText2.Items.Add("PBR")
+                cboSearchText2.Items.Add("SIP")
+                cboSearchText2.Items.Add("SM")
+                cboSearchText2.Items.Add("TV-Initial")
+                cboSearchText2.Items.Add("TV-Renewal")
+                cboSearchText2.Text = cboSearchText2.Items.Item(0)
 
-                    cboSearchText2.Items.Clear()
-                    cboSearchText2.Items.Add("502(b)10")
-                    cboSearchText2.Items.Add("Acid Rain")
-                    cboSearchText2.Items.Add("AA")
-                    cboSearchText2.Items.Add("Closed")
-                    cboSearchText2.Items.Add("ERC")
-                    cboSearchText2.Items.Add("SAW")
-                    cboSearchText2.Items.Add("SAWO")
-                    cboSearchText2.Items.Add("MAW")
-                    cboSearchText2.Items.Add("MAWO")
-                    cboSearchText2.Items.Add("NC")
-                    cboSearchText2.Items.Add("OFF Permit")
-                    cboSearchText2.Items.Add("Other")
-                    cboSearchText2.Items.Add("PBR")
-                    cboSearchText2.Items.Add("SIP")
-                    cboSearchText2.Items.Add("SM")
-                    cboSearchText2.Items.Add("TV-Initial")
-                    cboSearchText2.Items.Add("TV-Renewal")
-                    cboSearchText2.Text = cboSearchText2.Items.Item(0)
+            Case "Application Unit"
+                txtSearchText2.Visible = False
+                DTPSearchDate2.Visible = False
+                DTPSearchDate2b.Visible = False
+                cboSearchText2.Visible = True
+                cboSIP2.Visible = False
+                cboNESHAP2.Visible = False
+                cboNSPS2.Visible = False
+                cboMACT2.Visible = False
 
-                Case "Application Unit"
-                    txtSearchText2.Visible = False
-                    DTPSearchDate2.Visible = False
-                    DTPSearchDate2b.Visible = False
-                    cboSearchText2.Visible = True
-                    cboSIP2.Visible = False
-                    cboNESHAP2.Visible = False
-                    cboNSPS2.Visible = False
-                    cboMACT2.Visible = False
+                cboSearchText2.Items.Clear()
+                cboSearchText2.Items.Add("Chemical Permitting")
+                cboSearchText2.Items.Add("Combustion Permitting")
+                cboSearchText2.Items.Add("Mineral Permitting")
+                cboSearchText2.Items.Add("NOx Permitting")
+                cboSearchText2.Items.Add("SSPP Administrative")
+                cboSearchText2.Items.Add("VOC Permitting")
+                cboSearchText2.Text = cboSearchText2.Items.Item(0)
 
-                    cboSearchText2.Items.Clear()
-                    cboSearchText2.Items.Add("Chemical Permitting")
-                    cboSearchText2.Items.Add("Combustion Permitting")
-                    cboSearchText2.Items.Add("Mineral Permitting")
-                    cboSearchText2.Items.Add("NOx Permitting")
-                    cboSearchText2.Items.Add("SSPP Administrative")
-                    cboSearchText2.Items.Add("VOC Permitting")
-                    cboSearchText2.Text = cboSearchText2.Items.Item(0)
+            Case "Applog Comments"
+                txtSearchText2.Visible = True
+                DTPSearchDate2.Visible = False
+                DTPSearchDate2b.Visible = False
+                cboSearchText2.Visible = False
+                cboSIP2.Visible = False
+                cboNESHAP2.Visible = False
+                cboNSPS2.Visible = False
+                cboMACT2.Visible = False
+            Case "Date Acknowledged"
+                txtSearchText2.Visible = False
+                DTPSearchDate2.Visible = True
+                DTPSearchDate2b.Visible = True
+                cboSearchText2.Visible = False
+                cboSIP2.Visible = False
+                cboNESHAP2.Visible = False
+                cboNSPS2.Visible = False
+                cboMACT2.Visible = False
+            Case "Date APL Completed"
+                txtSearchText2.Visible = False
+                DTPSearchDate2.Visible = True
+                DTPSearchDate2b.Visible = True
+                cboSearchText2.Visible = False
+                cboSIP2.Visible = False
+                cboNESHAP2.Visible = False
+                cboNSPS2.Visible = False
+                cboMACT2.Visible = False
+            Case "Date APL Dated"
+                txtSearchText2.Visible = False
+                DTPSearchDate2.Visible = True
+                DTPSearchDate2b.Visible = True
+                cboSearchText2.Visible = False
+                cboSIP2.Visible = False
+                cboNESHAP2.Visible = False
+                cboNSPS2.Visible = False
+                cboMACT2.Visible = False
+            Case "Date APL Received"
+                txtSearchText2.Visible = False
+                DTPSearchDate2.Visible = True
+                DTPSearchDate2b.Visible = True
+                cboSearchText2.Visible = False
+                cboSIP2.Visible = False
+                cboNESHAP2.Visible = False
+                cboNSPS2.Visible = False
+                cboMACT2.Visible = False
+            Case "Date Assigned"
+                txtSearchText2.Visible = False
+                DTPSearchDate2.Visible = True
+                DTPSearchDate2b.Visible = True
+                cboSearchText2.Visible = False
+                cboSIP2.Visible = False
+                cboNESHAP2.Visible = False
+                cboNSPS2.Visible = False
+                cboMACT2.Visible = False
+            Case "Date Draft Issued"
+                txtSearchText2.Visible = False
+                DTPSearchDate2.Visible = True
+                DTPSearchDate2b.Visible = True
+                cboSearchText2.Visible = False
+                cboSIP2.Visible = False
+                cboNESHAP2.Visible = False
+                cboNSPS2.Visible = False
+                cboMACT2.Visible = False
+            Case "Date PA Expires"
+                txtSearchText2.Visible = False
+                DTPSearchDate2.Visible = True
+                DTPSearchDate2b.Visible = True
+                cboSearchText2.Visible = False
+                cboSIP2.Visible = False
+                cboNESHAP2.Visible = False
+                cboNSPS2.Visible = False
+                cboMACT2.Visible = False
+            Case "Date Finalized"
+                txtSearchText2.Visible = False
+                DTPSearchDate2.Visible = True
+                DTPSearchDate2b.Visible = True
+                cboSearchText2.Visible = False
+                cboSIP2.Visible = False
+                cboNESHAP2.Visible = False
+                cboNSPS2.Visible = False
+                cboMACT2.Visible = False
+            Case "Date PN Expires"
+                txtSearchText2.Visible = False
+                DTPSearchDate2.Visible = True
+                DTPSearchDate2b.Visible = True
+                cboSearchText2.Visible = False
+                cboSIP2.Visible = False
+                cboNESHAP2.Visible = False
+                cboNSPS2.Visible = False
+                cboMACT2.Visible = False
+            Case "Date Reassigned"
+                txtSearchText2.Visible = False
+                DTPSearchDate2.Visible = True
+                DTPSearchDate2b.Visible = True
+                cboSearchText2.Visible = False
+                cboSIP2.Visible = False
+                cboNESHAP2.Visible = False
+                cboNSPS2.Visible = False
+                cboMACT2.Visible = False
+            Case "Date Started Review"
+                txtSearchText2.Visible = False
+                DTPSearchDate2.Visible = True
+                DTPSearchDate2b.Visible = True
+                cboSearchText2.Visible = False
+                cboSIP2.Visible = False
+                cboNESHAP2.Visible = False
+                cboNSPS2.Visible = False
+                cboMACT2.Visible = False
+            Case "Date to BC"
+                txtSearchText2.Visible = False
+                DTPSearchDate2.Visible = True
+                DTPSearchDate2b.Visible = True
+                cboSearchText2.Visible = False
+                cboSIP2.Visible = False
+                cboNESHAP2.Visible = False
+                cboNSPS2.Visible = False
+                cboMACT2.Visible = False
+            Case "Date to DO"
+                txtSearchText2.Visible = False
+                DTPSearchDate2.Visible = True
+                DTPSearchDate2b.Visible = True
+                cboSearchText2.Visible = False
+                cboSIP2.Visible = False
+                cboNESHAP2.Visible = False
+                cboNSPS2.Visible = False
+                cboMACT2.Visible = False
+            Case "Date to PM"
+                txtSearchText2.Visible = False
+                DTPSearchDate2.Visible = True
+                DTPSearchDate2b.Visible = True
+                cboSearchText2.Visible = False
+                cboSIP2.Visible = False
+                cboNESHAP2.Visible = False
+                cboNSPS2.Visible = False
+                cboMACT2.Visible = False
+            Case "Date to UC"
+                txtSearchText2.Visible = False
+                DTPSearchDate2.Visible = True
+                DTPSearchDate2b.Visible = True
+                cboSearchText2.Visible = False
+                cboSIP2.Visible = False
+                cboNESHAP2.Visible = False
+                cboNSPS2.Visible = False
+                cboMACT2.Visible = False
+            Case "Date Withdrawn"
+                txtSearchText2.Visible = False
+                DTPSearchDate2.Visible = True
+                DTPSearchDate2b.Visible = True
+                cboSearchText2.Visible = False
+                cboSIP2.Visible = False
+                cboNESHAP2.Visible = False
+                cboNSPS2.Visible = False
+                cboMACT2.Visible = False
+            Case "Deadline"
+                txtSearchText2.Visible = False
+                DTPSearchDate2.Visible = True
+                DTPSearchDate2b.Visible = True
+                cboSearchText2.Visible = False
+                cboSIP2.Visible = False
+                cboNESHAP2.Visible = False
+                cboNSPS2.Visible = False
+                cboMACT2.Visible = False
+            Case "Engineer Firstname"
+                txtSearchText2.Visible = True
+                DTPSearchDate2.Visible = False
+                DTPSearchDate2b.Visible = False
+                cboSearchText2.Visible = False
+                cboSIP2.Visible = False
+                cboNESHAP2.Visible = False
+                cboNSPS2.Visible = False
+                cboMACT2.Visible = False
+            Case "Engineer Lastname"
+                txtSearchText2.Visible = True
+                DTPSearchDate2.Visible = False
+                DTPSearchDate2b.Visible = False
+                cboSearchText2.Visible = False
+                cboSIP2.Visible = False
+                cboNESHAP2.Visible = False
+                cboNSPS2.Visible = False
+                cboMACT2.Visible = False
+            Case "Engineer Unit Code"
+                txtSearchText2.Visible = True
+                DTPSearchDate2.Visible = False
+                DTPSearchDate2b.Visible = False
+                cboSearchText2.Visible = False
+                cboSIP2.Visible = False
+                cboNESHAP2.Visible = False
+                cboNSPS2.Visible = False
+                cboMACT2.Visible = False
+            Case "EPA 45-day Waived"
+                txtSearchText2.Visible = False
+                DTPSearchDate2.Visible = True
+                DTPSearchDate2b.Visible = True
+                cboSearchText2.Visible = False
+                cboSIP2.Visible = False
+                cboNESHAP2.Visible = False
+                cboNSPS2.Visible = False
+                cboMACT2.Visible = False
+            Case "EPA 45-day Ends"
+                txtSearchText2.Visible = False
+                DTPSearchDate2.Visible = True
+                DTPSearchDate2b.Visible = True
+                cboSearchText2.Visible = False
+                cboSIP2.Visible = False
+                cboNESHAP2.Visible = False
+                cboNSPS2.Visible = False
+                cboMACT2.Visible = False
+            Case "Facility City"
+                txtSearchText2.Visible = True
+                DTPSearchDate2.Visible = False
+                DTPSearchDate2b.Visible = False
+                cboSearchText2.Visible = False
+                cboSIP2.Visible = False
+                cboNESHAP2.Visible = False
+                cboNSPS2.Visible = False
+                cboMACT2.Visible = False
+            Case "Facility County"
+                txtSearchText2.Visible = True
+                DTPSearchDate2.Visible = False
+                DTPSearchDate2b.Visible = False
+                cboSearchText2.Visible = False
+                cboSIP2.Visible = False
+                cboNESHAP2.Visible = False
+                cboNSPS2.Visible = False
+                cboMACT2.Visible = False
+            Case "Facility Name"
+                txtSearchText2.Visible = True
+                DTPSearchDate2.Visible = False
+                DTPSearchDate2b.Visible = False
+                cboSearchText2.Visible = False
+                cboSIP2.Visible = False
+                cboNESHAP2.Visible = False
+                cboNSPS2.Visible = False
+                cboMACT2.Visible = False
+            Case "Facility Street"
+                txtSearchText2.Visible = True
+                DTPSearchDate2.Visible = False
+                DTPSearchDate2b.Visible = False
+                cboSearchText2.Visible = False
+                cboSIP2.Visible = False
+                cboNESHAP2.Visible = False
+                cboNSPS2.Visible = False
+                cboMACT2.Visible = False
+            Case "HAPs Major"
+                txtSearchText2.Visible = False
+                DTPSearchDate2.Visible = False
+                DTPSearchDate2b.Visible = False
+                cboSearchText2.Visible = False
+                cboSIP2.Visible = False
+                cboNESHAP2.Visible = False
+                cboNSPS2.Visible = False
+                cboMACT2.Visible = False
+            Case "NAA 1Hr-Yes"
+                txtSearchText2.Visible = False
+                DTPSearchDate2.Visible = False
+                DTPSearchDate2b.Visible = False
+                cboSearchText2.Visible = False
+                cboSIP2.Visible = False
+                cboNESHAP2.Visible = False
+                cboNSPS2.Visible = False
+                cboMACT2.Visible = False
+            Case "NAA 1Hr-Contr."
+                txtSearchText2.Visible = False
+                DTPSearchDate2.Visible = False
+                DTPSearchDate2b.Visible = False
+                cboSearchText2.Visible = False
+                cboSIP2.Visible = False
+                cboNESHAP2.Visible = False
+                cboNSPS2.Visible = False
+                cboMACT2.Visible = False
+            Case "NAA 1Hr-No"
+                txtSearchText2.Visible = False
+                DTPSearchDate2.Visible = False
+                DTPSearchDate2b.Visible = False
+                cboSearchText2.Visible = False
+                cboSIP2.Visible = False
+                cboNESHAP2.Visible = False
+                cboNSPS2.Visible = False
+                cboMACT2.Visible = False
+            Case "NAA 8Hr-Atlanta"
+                txtSearchText2.Visible = False
+                DTPSearchDate2.Visible = False
+                DTPSearchDate2b.Visible = False
+                cboSearchText2.Visible = False
+                cboSIP2.Visible = False
+                cboNESHAP2.Visible = False
+                cboNSPS2.Visible = False
+                cboMACT2.Visible = False
+            Case "NAA 8Hr-Macon"
+                txtSearchText2.Visible = False
+                DTPSearchDate2.Visible = False
+                DTPSearchDate2b.Visible = False
+                cboSearchText2.Visible = False
+                cboSIP2.Visible = False
+                cboNESHAP2.Visible = False
+                cboNSPS2.Visible = False
+                cboMACT2.Visible = False
+            Case "NAA 8Hr-No"
+                txtSearchText2.Visible = False
+                DTPSearchDate2.Visible = False
+                DTPSearchDate2b.Visible = False
+                cboSearchText2.Visible = False
+                cboSIP2.Visible = False
+                cboNESHAP2.Visible = False
+                cboNSPS2.Visible = False
+                cboMACT2.Visible = False
+            Case "NAA PM-Atlanta"
+                txtSearchText2.Visible = False
+                DTPSearchDate2.Visible = False
+                DTPSearchDate2b.Visible = False
+                cboSearchText2.Visible = False
+                cboSIP2.Visible = False
+                cboNESHAP2.Visible = False
+                cboNSPS2.Visible = False
+                cboMACT2.Visible = False
+            Case "NAA PM-Chattanooga"
+                txtSearchText2.Visible = False
+                DTPSearchDate2.Visible = False
+                DTPSearchDate2b.Visible = False
+                cboSearchText2.Visible = False
+                cboSIP2.Visible = False
+                cboNESHAP2.Visible = False
+                cboNSPS2.Visible = False
+                cboMACT2.Visible = False
+            Case "NAA PM-Floyd"
+                txtSearchText2.Visible = False
+                DTPSearchDate2.Visible = False
+                DTPSearchDate2b.Visible = False
+                cboSearchText2.Visible = False
+                cboSIP2.Visible = False
+                cboNESHAP2.Visible = False
+                cboNSPS2.Visible = False
+                cboMACT2.Visible = False
+            Case "NAA PM-Macon"
+                txtSearchText2.Visible = False
+                DTPSearchDate2.Visible = False
+                DTPSearchDate2b.Visible = False
+                cboSearchText2.Visible = False
+                cboSIP2.Visible = False
+                cboNESHAP2.Visible = False
+                cboNSPS2.Visible = False
+                cboMACT2.Visible = False
+            Case "NAA PM-No"
+                txtSearchText2.Visible = False
+                DTPSearchDate2.Visible = False
+                DTPSearchDate2b.Visible = False
+                cboSearchText2.Visible = False
+                cboSIP2.Visible = False
+                cboNESHAP2.Visible = False
+                cboNSPS2.Visible = False
+                cboMACT2.Visible = False
+            Case "NSR/PSD Major"
+                txtSearchText2.Visible = False
+                DTPSearchDate2.Visible = False
+                DTPSearchDate2b.Visible = False
+                cboSearchText2.Visible = False
+                cboSIP2.Visible = False
+                cboNESHAP2.Visible = False
+                cboNSPS2.Visible = False
+                cboMACT2.Visible = False
+            Case "PA Ready"
+                txtSearchText2.Visible = False
+                DTPSearchDate2.Visible = False
+                DTPSearchDate2b.Visible = False
+                cboSearchText2.Visible = False
+                cboSIP2.Visible = False
+                cboNESHAP2.Visible = False
+                cboNSPS2.Visible = False
+                cboMACT2.Visible = False
+            Case "Permit Number"
+                txtSearchText2.Visible = True
+                DTPSearchDate2.Visible = False
+                DTPSearchDate2b.Visible = False
+                cboSearchText2.Visible = False
+                cboSIP2.Visible = False
+                cboNESHAP2.Visible = False
+                cboNSPS2.Visible = False
+                cboMACT2.Visible = False
+            Case "Permit Type"
+                txtSearchText2.Visible = False
+                DTPSearchDate2.Visible = False
+                DTPSearchDate2b.Visible = False
+                cboSearchText2.Visible = True
+                cboSIP2.Visible = False
+                cboNESHAP2.Visible = False
+                cboNSPS2.Visible = False
+                cboMACT2.Visible = False
 
-                Case "Applog Comments"
-                    txtSearchText2.Visible = True
-                    DTPSearchDate2.Visible = False
-                    DTPSearchDate2b.Visible = False
-                    cboSearchText2.Visible = False
-                    cboSIP2.Visible = False
-                    cboNESHAP2.Visible = False
-                    cboNSPS2.Visible = False
-                    cboMACT2.Visible = False
-                Case "Date Acknowledged"
-                    txtSearchText2.Visible = False
-                    DTPSearchDate2.Visible = True
-                    DTPSearchDate2b.Visible = True
-                    cboSearchText2.Visible = False
-                    cboSIP2.Visible = False
-                    cboNESHAP2.Visible = False
-                    cboNSPS2.Visible = False
-                    cboMACT2.Visible = False
-                Case "Date APL Completed"
-                    txtSearchText2.Visible = False
-                    DTPSearchDate2.Visible = True
-                    DTPSearchDate2b.Visible = True
-                    cboSearchText2.Visible = False
-                    cboSIP2.Visible = False
-                    cboNESHAP2.Visible = False
-                    cboNSPS2.Visible = False
-                    cboMACT2.Visible = False
-                Case "Date APL Dated"
-                    txtSearchText2.Visible = False
-                    DTPSearchDate2.Visible = True
-                    DTPSearchDate2b.Visible = True
-                    cboSearchText2.Visible = False
-                    cboSIP2.Visible = False
-                    cboNESHAP2.Visible = False
-                    cboNSPS2.Visible = False
-                    cboMACT2.Visible = False
-                Case "Date APL Received"
-                    txtSearchText2.Visible = False
-                    DTPSearchDate2.Visible = True
-                    DTPSearchDate2b.Visible = True
-                    cboSearchText2.Visible = False
-                    cboSIP2.Visible = False
-                    cboNESHAP2.Visible = False
-                    cboNSPS2.Visible = False
-                    cboMACT2.Visible = False
-                Case "Date Assigned"
-                    txtSearchText2.Visible = False
-                    DTPSearchDate2.Visible = True
-                    DTPSearchDate2b.Visible = True
-                    cboSearchText2.Visible = False
-                    cboSIP2.Visible = False
-                    cboNESHAP2.Visible = False
-                    cboNSPS2.Visible = False
-                    cboMACT2.Visible = False
-                Case "Date Draft Issued"
-                    txtSearchText2.Visible = False
-                    DTPSearchDate2.Visible = True
-                    DTPSearchDate2b.Visible = True
-                    cboSearchText2.Visible = False
-                    cboSIP2.Visible = False
-                    cboNESHAP2.Visible = False
-                    cboNSPS2.Visible = False
-                    cboMACT2.Visible = False
-                Case "Date PA Expires"
-                    txtSearchText2.Visible = False
-                    DTPSearchDate2.Visible = True
-                    DTPSearchDate2b.Visible = True
-                    cboSearchText2.Visible = False
-                    cboSIP2.Visible = False
-                    cboNESHAP2.Visible = False
-                    cboNSPS2.Visible = False
-                    cboMACT2.Visible = False
-                Case "Date Finalized"
-                    txtSearchText2.Visible = False
-                    DTPSearchDate2.Visible = True
-                    DTPSearchDate2b.Visible = True
-                    cboSearchText2.Visible = False
-                    cboSIP2.Visible = False
-                    cboNESHAP2.Visible = False
-                    cboNSPS2.Visible = False
-                    cboMACT2.Visible = False
-                Case "Date PN Expires"
-                    txtSearchText2.Visible = False
-                    DTPSearchDate2.Visible = True
-                    DTPSearchDate2b.Visible = True
-                    cboSearchText2.Visible = False
-                    cboSIP2.Visible = False
-                    cboNESHAP2.Visible = False
-                    cboNSPS2.Visible = False
-                    cboMACT2.Visible = False
-                Case "Date Reassigned"
-                    txtSearchText2.Visible = False
-                    DTPSearchDate2.Visible = True
-                    DTPSearchDate2b.Visible = True
-                    cboSearchText2.Visible = False
-                    cboSIP2.Visible = False
-                    cboNESHAP2.Visible = False
-                    cboNSPS2.Visible = False
-                    cboMACT2.Visible = False
-                Case "Date Started Review"
-                    txtSearchText2.Visible = False
-                    DTPSearchDate2.Visible = True
-                    DTPSearchDate2b.Visible = True
-                    cboSearchText2.Visible = False
-                    cboSIP2.Visible = False
-                    cboNESHAP2.Visible = False
-                    cboNSPS2.Visible = False
-                    cboMACT2.Visible = False
-                Case "Date to BC"
-                    txtSearchText2.Visible = False
-                    DTPSearchDate2.Visible = True
-                    DTPSearchDate2b.Visible = True
-                    cboSearchText2.Visible = False
-                    cboSIP2.Visible = False
-                    cboNESHAP2.Visible = False
-                    cboNSPS2.Visible = False
-                    cboMACT2.Visible = False
-                Case "Date to DO"
-                    txtSearchText2.Visible = False
-                    DTPSearchDate2.Visible = True
-                    DTPSearchDate2b.Visible = True
-                    cboSearchText2.Visible = False
-                    cboSIP2.Visible = False
-                    cboNESHAP2.Visible = False
-                    cboNSPS2.Visible = False
-                    cboMACT2.Visible = False
-                Case "Date to PM"
-                    txtSearchText2.Visible = False
-                    DTPSearchDate2.Visible = True
-                    DTPSearchDate2b.Visible = True
-                    cboSearchText2.Visible = False
-                    cboSIP2.Visible = False
-                    cboNESHAP2.Visible = False
-                    cboNSPS2.Visible = False
-                    cboMACT2.Visible = False
-                Case "Date to UC"
-                    txtSearchText2.Visible = False
-                    DTPSearchDate2.Visible = True
-                    DTPSearchDate2b.Visible = True
-                    cboSearchText2.Visible = False
-                    cboSIP2.Visible = False
-                    cboNESHAP2.Visible = False
-                    cboNSPS2.Visible = False
-                    cboMACT2.Visible = False
-                Case "Date Withdrawn"
-                    txtSearchText2.Visible = False
-                    DTPSearchDate2.Visible = True
-                    DTPSearchDate2b.Visible = True
-                    cboSearchText2.Visible = False
-                    cboSIP2.Visible = False
-                    cboNESHAP2.Visible = False
-                    cboNSPS2.Visible = False
-                    cboMACT2.Visible = False
-                Case "Deadline"
-                    txtSearchText2.Visible = False
-                    DTPSearchDate2.Visible = True
-                    DTPSearchDate2b.Visible = True
-                    cboSearchText2.Visible = False
-                    cboSIP2.Visible = False
-                    cboNESHAP2.Visible = False
-                    cboNSPS2.Visible = False
-                    cboMACT2.Visible = False
-                Case "Engineer Firstname"
-                    txtSearchText2.Visible = True
-                    DTPSearchDate2.Visible = False
-                    DTPSearchDate2b.Visible = False
-                    cboSearchText2.Visible = False
-                    cboSIP2.Visible = False
-                    cboNESHAP2.Visible = False
-                    cboNSPS2.Visible = False
-                    cboMACT2.Visible = False
-                Case "Engineer Lastname"
-                    txtSearchText2.Visible = True
-                    DTPSearchDate2.Visible = False
-                    DTPSearchDate2b.Visible = False
-                    cboSearchText2.Visible = False
-                    cboSIP2.Visible = False
-                    cboNESHAP2.Visible = False
-                    cboNSPS2.Visible = False
-                    cboMACT2.Visible = False
-                Case "Engineer Unit Code"
-                    txtSearchText2.Visible = True
-                    DTPSearchDate2.Visible = False
-                    DTPSearchDate2b.Visible = False
-                    cboSearchText2.Visible = False
-                    cboSIP2.Visible = False
-                    cboNESHAP2.Visible = False
-                    cboNSPS2.Visible = False
-                    cboMACT2.Visible = False
-                Case "EPA 45-day Waived"
-                    txtSearchText2.Visible = False
-                    DTPSearchDate2.Visible = True
-                    DTPSearchDate2b.Visible = True
-                    cboSearchText2.Visible = False
-                    cboSIP2.Visible = False
-                    cboNESHAP2.Visible = False
-                    cboNSPS2.Visible = False
-                    cboMACT2.Visible = False
-                Case "EPA 45-day Ends"
-                    txtSearchText2.Visible = False
-                    DTPSearchDate2.Visible = True
-                    DTPSearchDate2b.Visible = True
-                    cboSearchText2.Visible = False
-                    cboSIP2.Visible = False
-                    cboNESHAP2.Visible = False
-                    cboNSPS2.Visible = False
-                    cboMACT2.Visible = False
-                Case "Facility City"
-                    txtSearchText2.Visible = True
-                    DTPSearchDate2.Visible = False
-                    DTPSearchDate2b.Visible = False
-                    cboSearchText2.Visible = False
-                    cboSIP2.Visible = False
-                    cboNESHAP2.Visible = False
-                    cboNSPS2.Visible = False
-                    cboMACT2.Visible = False
-                Case "Facility County"
-                    txtSearchText2.Visible = True
-                    DTPSearchDate2.Visible = False
-                    DTPSearchDate2b.Visible = False
-                    cboSearchText2.Visible = False
-                    cboSIP2.Visible = False
-                    cboNESHAP2.Visible = False
-                    cboNSPS2.Visible = False
-                    cboMACT2.Visible = False
-                Case "Facility Name"
-                    txtSearchText2.Visible = True
-                    DTPSearchDate2.Visible = False
-                    DTPSearchDate2b.Visible = False
-                    cboSearchText2.Visible = False
-                    cboSIP2.Visible = False
-                    cboNESHAP2.Visible = False
-                    cboNSPS2.Visible = False
-                    cboMACT2.Visible = False
-                Case "Facility Street"
-                    txtSearchText2.Visible = True
-                    DTPSearchDate2.Visible = False
-                    DTPSearchDate2b.Visible = False
-                    cboSearchText2.Visible = False
-                    cboSIP2.Visible = False
-                    cboNESHAP2.Visible = False
-                    cboNSPS2.Visible = False
-                    cboMACT2.Visible = False
-                Case "HAPs Major"
-                    txtSearchText2.Visible = False
-                    DTPSearchDate2.Visible = False
-                    DTPSearchDate2b.Visible = False
-                    cboSearchText2.Visible = False
-                    cboSIP2.Visible = False
-                    cboNESHAP2.Visible = False
-                    cboNSPS2.Visible = False
-                    cboMACT2.Visible = False
-                Case "NAA 1Hr-Yes"
-                    txtSearchText2.Visible = False
-                    DTPSearchDate2.Visible = False
-                    DTPSearchDate2b.Visible = False
-                    cboSearchText2.Visible = False
-                    cboSIP2.Visible = False
-                    cboNESHAP2.Visible = False
-                    cboNSPS2.Visible = False
-                    cboMACT2.Visible = False
-                Case "NAA 1Hr-Contr."
-                    txtSearchText2.Visible = False
-                    DTPSearchDate2.Visible = False
-                    DTPSearchDate2b.Visible = False
-                    cboSearchText2.Visible = False
-                    cboSIP2.Visible = False
-                    cboNESHAP2.Visible = False
-                    cboNSPS2.Visible = False
-                    cboMACT2.Visible = False
-                Case "NAA 1Hr-No"
-                    txtSearchText2.Visible = False
-                    DTPSearchDate2.Visible = False
-                    DTPSearchDate2b.Visible = False
-                    cboSearchText2.Visible = False
-                    cboSIP2.Visible = False
-                    cboNESHAP2.Visible = False
-                    cboNSPS2.Visible = False
-                    cboMACT2.Visible = False
-                Case "NAA 8Hr-Atlanta"
-                    txtSearchText2.Visible = False
-                    DTPSearchDate2.Visible = False
-                    DTPSearchDate2b.Visible = False
-                    cboSearchText2.Visible = False
-                    cboSIP2.Visible = False
-                    cboNESHAP2.Visible = False
-                    cboNSPS2.Visible = False
-                    cboMACT2.Visible = False
-                Case "NAA 8Hr-Macon"
-                    txtSearchText2.Visible = False
-                    DTPSearchDate2.Visible = False
-                    DTPSearchDate2b.Visible = False
-                    cboSearchText2.Visible = False
-                    cboSIP2.Visible = False
-                    cboNESHAP2.Visible = False
-                    cboNSPS2.Visible = False
-                    cboMACT2.Visible = False
-                Case "NAA 8Hr-No"
-                    txtSearchText2.Visible = False
-                    DTPSearchDate2.Visible = False
-                    DTPSearchDate2b.Visible = False
-                    cboSearchText2.Visible = False
-                    cboSIP2.Visible = False
-                    cboNESHAP2.Visible = False
-                    cboNSPS2.Visible = False
-                    cboMACT2.Visible = False
-                Case "NAA PM-Atlanta"
-                    txtSearchText2.Visible = False
-                    DTPSearchDate2.Visible = False
-                    DTPSearchDate2b.Visible = False
-                    cboSearchText2.Visible = False
-                    cboSIP2.Visible = False
-                    cboNESHAP2.Visible = False
-                    cboNSPS2.Visible = False
-                    cboMACT2.Visible = False
-                Case "NAA PM-Chattanooga"
-                    txtSearchText2.Visible = False
-                    DTPSearchDate2.Visible = False
-                    DTPSearchDate2b.Visible = False
-                    cboSearchText2.Visible = False
-                    cboSIP2.Visible = False
-                    cboNESHAP2.Visible = False
-                    cboNSPS2.Visible = False
-                    cboMACT2.Visible = False
-                Case "NAA PM-Floyd"
-                    txtSearchText2.Visible = False
-                    DTPSearchDate2.Visible = False
-                    DTPSearchDate2b.Visible = False
-                    cboSearchText2.Visible = False
-                    cboSIP2.Visible = False
-                    cboNESHAP2.Visible = False
-                    cboNSPS2.Visible = False
-                    cboMACT2.Visible = False
-                Case "NAA PM-Macon"
-                    txtSearchText2.Visible = False
-                    DTPSearchDate2.Visible = False
-                    DTPSearchDate2b.Visible = False
-                    cboSearchText2.Visible = False
-                    cboSIP2.Visible = False
-                    cboNESHAP2.Visible = False
-                    cboNSPS2.Visible = False
-                    cboMACT2.Visible = False
-                Case "NAA PM-No"
-                    txtSearchText2.Visible = False
-                    DTPSearchDate2.Visible = False
-                    DTPSearchDate2b.Visible = False
-                    cboSearchText2.Visible = False
-                    cboSIP2.Visible = False
-                    cboNESHAP2.Visible = False
-                    cboNSPS2.Visible = False
-                    cboMACT2.Visible = False
-                Case "NSR/PSD Major"
-                    txtSearchText2.Visible = False
-                    DTPSearchDate2.Visible = False
-                    DTPSearchDate2b.Visible = False
-                    cboSearchText2.Visible = False
-                    cboSIP2.Visible = False
-                    cboNESHAP2.Visible = False
-                    cboNSPS2.Visible = False
-                    cboMACT2.Visible = False
-                Case "PA Ready"
-                    txtSearchText2.Visible = False
-                    DTPSearchDate2.Visible = False
-                    DTPSearchDate2b.Visible = False
-                    cboSearchText2.Visible = False
-                    cboSIP2.Visible = False
-                    cboNESHAP2.Visible = False
-                    cboNSPS2.Visible = False
-                    cboMACT2.Visible = False
-                Case "Permit Number"
-                    txtSearchText2.Visible = True
-                    DTPSearchDate2.Visible = False
-                    DTPSearchDate2b.Visible = False
-                    cboSearchText2.Visible = False
-                    cboSIP2.Visible = False
-                    cboNESHAP2.Visible = False
-                    cboNSPS2.Visible = False
-                    cboMACT2.Visible = False
-                Case "Permit Type"
-                    txtSearchText2.Visible = False
-                    DTPSearchDate2.Visible = False
-                    DTPSearchDate2b.Visible = False
-                    cboSearchText2.Visible = True
-                    cboSIP2.Visible = False
-                    cboNESHAP2.Visible = False
-                    cboNSPS2.Visible = False
-                    cboMACT2.Visible = False
+                cboSearchText2.Items.Clear()
+                cboSearchText2.Items.Add("Denied")
+                cboSearchText2.Items.Add("N/A")
+                cboSearchText2.Items.Add("NPR")
+                cboSearchText2.Items.Add("Other")
+                cboSearchText2.Items.Add("PBR")
+                cboSearchText2.Items.Add("Permit")
+                cboSearchText2.Items.Add("Returned")
+                cboSearchText2.Items.Add("Revoked")
+                cboSearchText2.Items.Add("Withdrawn")
+                cboSearchText2.Text = cboSearchText2.Items.Item(0)
+            Case "Plant Description"
+                txtSearchText2.Visible = True
+                DTPSearchDate2.Visible = False
+                DTPSearchDate2b.Visible = False
+                cboSearchText2.Visible = False
+                cboSIP2.Visible = False
+                cboNESHAP2.Visible = False
+                cboNSPS2.Visible = False
+                cboMACT2.Visible = False
+            Case "PN Ready"
+                txtSearchText2.Visible = False
+                DTPSearchDate2.Visible = False
+                DTPSearchDate2b.Visible = False
+                cboSearchText2.Visible = False
+                cboSIP2.Visible = False
+                cboNESHAP2.Visible = False
+                cboNSPS2.Visible = False
+                cboMACT2.Visible = False
+            Case "Public Advisory"
+                txtSearchText2.Visible = False
+                DTPSearchDate2.Visible = False
+                DTPSearchDate2b.Visible = False
+                cboSearchText2.Visible = True
+                cboSIP2.Visible = False
+                cboNESHAP2.Visible = False
+                cboNSPS2.Visible = False
+                cboMACT2.Visible = False
 
-                    cboSearchText2.Items.Clear()
-                    cboSearchText2.Items.Add("Denied")
-                    cboSearchText2.Items.Add("N/A")
-                    cboSearchText2.Items.Add("NPR")
-                    cboSearchText2.Items.Add("Other")
-                    cboSearchText2.Items.Add("PBR")
-                    cboSearchText2.Items.Add("Permit")
-                    cboSearchText2.Items.Add("Returned")
-                    cboSearchText2.Items.Add("Revoked")
-                    cboSearchText2.Items.Add("Withdrawn")
-                    cboSearchText2.Text = cboSearchText2.Items.Item(0)
-                Case "Plant Description"
-                    txtSearchText2.Visible = True
-                    DTPSearchDate2.Visible = False
-                    DTPSearchDate2b.Visible = False
-                    cboSearchText2.Visible = False
-                    cboSIP2.Visible = False
-                    cboNESHAP2.Visible = False
-                    cboNSPS2.Visible = False
-                    cboMACT2.Visible = False
-                Case "PN Ready"
-                    txtSearchText2.Visible = False
-                    DTPSearchDate2.Visible = False
-                    DTPSearchDate2b.Visible = False
-                    cboSearchText2.Visible = False
-                    cboSIP2.Visible = False
-                    cboNESHAP2.Visible = False
-                    cboNSPS2.Visible = False
-                    cboMACT2.Visible = False
-                Case "Public Advisory"
-                    txtSearchText2.Visible = False
-                    DTPSearchDate2.Visible = False
-                    DTPSearchDate2b.Visible = False
-                    cboSearchText2.Visible = True
-                    cboSIP2.Visible = False
-                    cboNESHAP2.Visible = False
-                    cboNSPS2.Visible = False
-                    cboMACT2.Visible = False
+                cboSearchText2.Items.Clear()
+                cboSearchText2.Items.Add("PA Not Needed")
+                cboSearchText2.Items.Add("PA Needed")
+                cboSearchText2.Items.Add("Not Decided")
+                cboSearchText2.Text = cboSearchText2.Items.Item(0)
 
-                    cboSearchText2.Items.Clear()
-                    cboSearchText2.Items.Add("PA Not Needed")
-                    cboSearchText2.Items.Add("PA Needed")
-                    cboSearchText2.Items.Add("Not Decided")
-                    cboSearchText2.Text = cboSearchText2.Items.Item(0)
+            Case "Reason APL Submitted"
+                txtSearchText2.Visible = True
+                DTPSearchDate2.Visible = False
+                DTPSearchDate2b.Visible = False
+                cboSearchText2.Visible = False
+                cboSIP2.Visible = False
+                cboNESHAP2.Visible = False
+                cboNSPS2.Visible = False
+                cboMACT2.Visible = False
+            Case "Regional District"
+                txtSearchText2.Visible = False
+                DTPSearchDate2.Visible = False
+                DTPSearchDate2b.Visible = False
+                cboSearchText2.Visible = True
+                cboSIP2.Visible = False
+                cboNESHAP2.Visible = False
+                cboNSPS2.Visible = False
+                cboMACT2.Visible = False
 
-                Case "Reason APL Submitted"
-                    txtSearchText2.Visible = True
-                    DTPSearchDate2.Visible = False
-                    DTPSearchDate2b.Visible = False
-                    cboSearchText2.Visible = False
-                    cboSIP2.Visible = False
-                    cboNESHAP2.Visible = False
-                    cboNSPS2.Visible = False
-                    cboMACT2.Visible = False
-                Case "Regional District"
-                    txtSearchText2.Visible = False
-                    DTPSearchDate2.Visible = False
-                    DTPSearchDate2b.Visible = False
-                    cboSearchText2.Visible = True
-                    cboSIP2.Visible = False
-                    cboNESHAP2.Visible = False
-                    cboNSPS2.Visible = False
-                    cboMACT2.Visible = False
+                cboSearchText2.Items.Clear()
+                cboSearchText2.Items.Add("Coastal B")
+                cboSearchText2.Items.Add("Coastal S")
+                cboSearchText2.Items.Add("East Central")
+                cboSearchText2.Items.Add("Mountain A")
+                cboSearchText2.Items.Add("Mountain C")
+                cboSearchText2.Items.Add("Northeast")
+                cboSearchText2.Items.Add("Southwest")
+                cboSearchText2.Items.Add("Statewide")
+                cboSearchText2.Items.Add("West Central")
+                cboSearchText2.Text = cboSearchText2.Items.Item(0)
 
-                    cboSearchText2.Items.Clear()
-                    cboSearchText2.Items.Add("Coastal B")
-                    cboSearchText2.Items.Add("Coastal S")
-                    cboSearchText2.Items.Add("East Central")
-                    cboSearchText2.Items.Add("Mountain A")
-                    cboSearchText2.Items.Add("Mountain C")
-                    cboSearchText2.Items.Add("Northeast")
-                    cboSearchText2.Items.Add("Southwest")
-                    cboSearchText2.Items.Add("Statewide")
-                    cboSearchText2.Items.Add("West Central")
-                    cboSearchText2.Text = cboSearchText2.Items.Item(0)
+            Case "Status Date"
+                txtSearchText2.Visible = False
+                DTPSearchDate2.Visible = True
+                DTPSearchDate2b.Visible = True
+                cboSearchText2.Visible = False
+                cboSIP2.Visible = False
+                cboNESHAP2.Visible = False
+                cboNSPS2.Visible = False
+                cboMACT2.Visible = False
+            Case "SIC Code"
+                txtSearchText2.Visible = True
+                DTPSearchDate2.Visible = False
+                DTPSearchDate2b.Visible = False
+                cboSearchText2.Visible = False
+                cboSIP2.Visible = False
+                cboNESHAP2.Visible = False
+                cboNSPS2.Visible = False
+                cboMACT2.Visible = False
 
-                Case "Status Date"
-                    txtSearchText2.Visible = False
-                    DTPSearchDate2.Visible = True
-                    DTPSearchDate2b.Visible = True
-                    cboSearchText2.Visible = False
-                    cboSIP2.Visible = False
-                    cboNESHAP2.Visible = False
-                    cboNSPS2.Visible = False
-                    cboMACT2.Visible = False
-                Case "SIC Code"
-                    txtSearchText2.Visible = True
-                    DTPSearchDate2.Visible = False
-                    DTPSearchDate2b.Visible = False
-                    cboSearchText2.Visible = False
-                    cboSIP2.Visible = False
-                    cboNESHAP2.Visible = False
-                    cboNSPS2.Visible = False
-                    cboMACT2.Visible = False
-
-                Case "Subpart - 0-SIP"
-                    txtSearchText2.Visible = False
-                    DTPSearchDate2.Visible = False
-                    DTPSearchDate2b.Visible = False
-                    cboSearchText2.Visible = False
-                    cboSIP2.Visible = True
-                    cboNESHAP2.Visible = False
-                    cboNSPS2.Visible = False
-                    cboMACT2.Visible = False
-                Case "Subpart - 8-NESHAP (Part 61)"
-                    txtSearchText2.Visible = False
-                    DTPSearchDate2.Visible = False
-                    DTPSearchDate2b.Visible = False
-                    cboSearchText2.Visible = False
-                    cboSIP2.Visible = False
-                    cboNESHAP2.Visible = True
-                    cboNSPS2.Visible = False
-                    cboMACT2.Visible = False
-                Case "Subpart - 9-NSPS (Part 60)"
-                    txtSearchText2.Visible = False
-                    DTPSearchDate2.Visible = False
-                    DTPSearchDate2b.Visible = False
-                    cboSearchText2.Visible = False
-                    cboSIP2.Visible = False
-                    cboNESHAP2.Visible = False
-                    cboNSPS2.Visible = True
-                    cboMACT2.Visible = False
-                Case "Subpart - M-MACT (Part 63)"
-                    txtSearchText2.Visible = False
-                    DTPSearchDate2.Visible = False
-                    DTPSearchDate2b.Visible = True
-                    cboSearchText2.Visible = False
-                    cboSIP2.Visible = False
-                    cboNESHAP2.Visible = False
-                    cboNSPS2.Visible = False
-                    cboMACT2.Visible = True
-                Case Else
-                    txtSearchText2.Visible = True
-                    DTPSearchDate2.Visible = False
-                    DTPSearchDate2b.Visible = False
-                    cboSearchText2.Visible = False
-                    cboSIP2.Visible = False
-                    cboNESHAP2.Visible = False
-                    cboNSPS2.Visible = False
-                    cboMACT2.Visible = False
-            End Select
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
+            Case "Subpart - SIP"
+                txtSearchText2.Visible = False
+                DTPSearchDate2.Visible = False
+                DTPSearchDate2b.Visible = False
+                cboSearchText2.Visible = False
+                cboSIP2.Visible = True
+                cboNESHAP2.Visible = False
+                cboNSPS2.Visible = False
+                cboMACT2.Visible = False
+            Case "Subpart - NESHAP (Part 61)"
+                txtSearchText2.Visible = False
+                DTPSearchDate2.Visible = False
+                DTPSearchDate2b.Visible = False
+                cboSearchText2.Visible = False
+                cboSIP2.Visible = False
+                cboNESHAP2.Visible = True
+                cboNSPS2.Visible = False
+                cboMACT2.Visible = False
+            Case "Subpart - NSPS (Part 60)"
+                txtSearchText2.Visible = False
+                DTPSearchDate2.Visible = False
+                DTPSearchDate2b.Visible = False
+                cboSearchText2.Visible = False
+                cboSIP2.Visible = False
+                cboNESHAP2.Visible = False
+                cboNSPS2.Visible = True
+                cboMACT2.Visible = False
+            Case "Subpart - MACT (Part 63)"
+                txtSearchText2.Visible = False
+                DTPSearchDate2.Visible = False
+                DTPSearchDate2b.Visible = True
+                cboSearchText2.Visible = False
+                cboSIP2.Visible = False
+                cboNESHAP2.Visible = False
+                cboNSPS2.Visible = False
+                cboMACT2.Visible = True
+            Case Else
+                txtSearchText2.Visible = True
+                DTPSearchDate2.Visible = False
+                DTPSearchDate2b.Visible = False
+                cboSearchText2.Visible = False
+                cboSIP2.Visible = False
+                cboNESHAP2.Visible = False
+                cboNSPS2.Visible = False
+                cboMACT2.Visible = False
+        End Select
     End Sub
 
 #End Region
 
 #Region " DataGridView Events "
 
-    Private Sub dgvApplicationLog_CellMouseEnter(sender As Object, e As DataGridViewCellEventArgs) _
-    Handles dgvApplicationLog.CellMouseEnter
+    Private Sub dgvApplicationLog_CellMouseEnter(sender As Object, e As DataGridViewCellEventArgs) Handles dgvApplicationLog.CellMouseEnter
         ' Change cursor and text color when hovering over first column (treats text like a hyperlink)
-
         If e.ColumnIndex = dgvApplicationLog.Columns("strApplicationNumber").Index And e.RowIndex <> -1 Then
             dgvApplicationLog.MakeCellLookLikeHoveredLink(e.RowIndex, e.ColumnIndex, True)
         End If
     End Sub
 
-    Private Sub dgvApplicationLog_CellMouseLeave(sender As Object, e As DataGridViewCellEventArgs) _
-    Handles dgvApplicationLog.CellMouseLeave
+    Private Sub dgvApplicationLog_CellMouseLeave(sender As Object, e As DataGridViewCellEventArgs) Handles dgvApplicationLog.CellMouseLeave
         ' Reset cursor and text color when mouse leaves (un-hovers) a cell
         If e.ColumnIndex = dgvApplicationLog.Columns("strApplicationNumber").Index And e.RowIndex <> -1 Then
             dgvApplicationLog.MakeCellLookLikeHoveredLink(e.RowIndex, e.ColumnIndex, False)
         End If
     End Sub
 
-    Private Sub dgvApplicationLog_CellClick(sender As Object, e As DataGridViewCellEventArgs) _
-    Handles dgvApplicationLog.CellClick
-
+    Private Sub dgvApplicationLog_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvApplicationLog.CellClick
         ' Anywhere in any cell in any non-header row in grid
         If e.RowIndex <> -1 And e.RowIndex < dgvApplicationLog.RowCount Then
             selectedApp = dgvApplicationLog.Rows(e.RowIndex).Cells("strApplicationNumber").Value
@@ -3485,8 +2769,7 @@ Public Class SSPPApplicationLog
         End If
     End Sub
 
-    Private Sub dgvApplicationLog_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) _
-    Handles dgvApplicationLog.CellDoubleClick
+    Private Sub dgvApplicationLog_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvApplicationLog.CellDoubleClick
         'Double-click within the cell content (exclude first column to avoid double-firing)
         If e.RowIndex <> -1 And e.RowIndex < dgvApplicationLog.RowCount _
             And e.ColumnIndex <> dgvApplicationLog.Columns("strApplicationNumber").Index Then
@@ -3494,8 +2777,7 @@ Public Class SSPPApplicationLog
         End If
     End Sub
 
-    Private Sub dgvApplicationLog_CellEnter(sender As Object, e As DataGridViewCellEventArgs) _
-    Handles dgvApplicationLog.CellEnter
+    Private Sub dgvApplicationLog_CellEnter(sender As Object, e As DataGridViewCellEventArgs) Handles dgvApplicationLog.CellEnter
         If e.RowIndex <> -1 And e.RowIndex < dgvApplicationLog.RowCount Then
             selectedApp = dgvApplicationLog.Rows(e.RowIndex).Cells("strApplicationNumber").Value
             btnOpen.Enabled = True
@@ -3506,27 +2788,31 @@ Public Class SSPPApplicationLog
 #End Region
 
 #Region "Menu, buttons, and toolbar"
+
     Private Sub NewApplication_Click(sender As Object, e As EventArgs) Handles mmiNewApplication.Click
         StartNewApplication()
     End Sub
+
     Private Sub mmiClose_Click(sender As Object, e As EventArgs) Handles mmiClose.Click
         Me.Close()
     End Sub
-    Private Sub mmiOpenHelp_Click(sender As Object, e As EventArgs) Handles mmiOnlineHelp.Click
-        OpenDocumentationUrl(Me)
-    End Sub
+
     Private Sub mmiOpen_Click(sender As Object, e As EventArgs) Handles mmiOpen.Click, btnOpen.Click
         If selectedApp <> "" Then OpenApplication(selectedApp)
     End Sub
+
     Private Sub mmiReset_Click(sender As Object, e As EventArgs) Handles mmiResetSearch.Click, btnResetSearch.Click
         LoadDefaults()
     End Sub
+
     Private Sub mmiExport_Click(sender As Object, e As EventArgs) Handles mmiExport.Click, btnExport.Click
         ExportToExcel()
     End Sub
+
     Private Sub btnFind_Click(sender As Object, e As EventArgs) Handles btnFind.Click
         RunSearch()
     End Sub
+
 #End Region
 
 End Class

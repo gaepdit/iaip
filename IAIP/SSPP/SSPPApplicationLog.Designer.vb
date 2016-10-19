@@ -30,8 +30,6 @@ Partial Class SSPPApplicationLog
         Me.mmiResetSearch = New System.Windows.Forms.MenuItem()
         Me.MenuItem8 = New System.Windows.Forms.MenuItem()
         Me.mmiExport = New System.Windows.Forms.MenuItem()
-        Me.mmiHelp = New System.Windows.Forms.MenuItem()
-        Me.mmiOnlineHelp = New System.Windows.Forms.MenuItem()
         Me.cboSortOrder2 = New System.Windows.Forms.ComboBox()
         Me.cboSort2 = New System.Windows.Forms.ComboBox()
         Me.cboSortOrder1 = New System.Windows.Forms.ComboBox()
@@ -65,7 +63,6 @@ Partial Class SSPPApplicationLog
         Me.btnFind = New System.Windows.Forms.Button()
         Me.txtSearchText2 = New System.Windows.Forms.TextBox()
         Me.txtSearchText1 = New System.Windows.Forms.TextBox()
-        Me.chbShowAll = New System.Windows.Forms.CheckBox()
         Me.cboEngineer = New System.Windows.Forms.ComboBox()
         Me.cboSearchText1 = New System.Windows.Forms.ComboBox()
         Me.cboSearchText2 = New System.Windows.Forms.ComboBox()
@@ -97,7 +94,7 @@ Partial Class SSPPApplicationLog
         '
         'MainMenu1
         '
-        Me.MainMenu1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiFile, Me.mmiTools, Me.mmiHelp})
+        Me.MainMenu1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiFile, Me.mmiTools})
         '
         'mmiFile
         '
@@ -146,18 +143,6 @@ Partial Class SSPPApplicationLog
         Me.mmiExport.Index = 4
         Me.mmiExport.Shortcut = System.Windows.Forms.Shortcut.CtrlE
         Me.mmiExport.Text = "&Export to Excel"
-        '
-        'mmiHelp
-        '
-        Me.mmiHelp.Index = 2
-        Me.mmiHelp.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiOnlineHelp})
-        Me.mmiHelp.Text = "&Help"
-        '
-        'mmiOnlineHelp
-        '
-        Me.mmiOnlineHelp.Index = 0
-        Me.mmiOnlineHelp.Shortcut = System.Windows.Forms.Shortcut.F1
-        Me.mmiOnlineHelp.Text = "Online &Help"
         '
         'cboSortOrder2
         '
@@ -439,15 +424,6 @@ Partial Class SSPPApplicationLog
         Me.txtSearchText1.Size = New System.Drawing.Size(214, 20)
         Me.txtSearchText1.TabIndex = 1
         '
-        'chbShowAll
-        '
-        Me.chbShowAll.AutoSize = True
-        Me.chbShowAll.Location = New System.Drawing.Point(477, 80)
-        Me.chbShowAll.Name = "chbShowAll"
-        Me.chbShowAll.Size = New System.Drawing.Size(97, 17)
-        Me.chbShowAll.TabIndex = 12
-        Me.chbShowAll.Text = "Show All Fields"
-        '
         'cboEngineer
         '
         Me.cboEngineer.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
@@ -698,7 +674,6 @@ Partial Class SSPPApplicationLog
         Me.Panel2.Controls.Add(Me.btnResetSearch)
         Me.Panel2.Controls.Add(Me.btnFind)
         Me.Panel2.Controls.Add(Me.Label8)
-        Me.Panel2.Controls.Add(Me.chbShowAll)
         Me.Panel2.Controls.Add(Me.Label9)
         Me.Panel2.Controls.Add(Me.cboEngineer)
         Me.Panel2.Controls.Add(Me.Label10)
@@ -750,7 +725,6 @@ Partial Class SSPPApplicationLog
     Friend WithEvents mmiTools As System.Windows.Forms.MenuItem
     Friend WithEvents mmiClose As System.Windows.Forms.MenuItem
     Friend WithEvents mmiResetSearch As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiHelp As System.Windows.Forms.MenuItem
     Friend WithEvents mmiNewApplication As System.Windows.Forms.MenuItem
     Friend WithEvents cboSortOrder2 As System.Windows.Forms.ComboBox
     Friend WithEvents cboSort2 As System.Windows.Forms.ComboBox
@@ -785,7 +759,6 @@ Partial Class SSPPApplicationLog
     Friend WithEvents btnFind As System.Windows.Forms.Button
     Friend WithEvents txtSearchText2 As System.Windows.Forms.TextBox
     Friend WithEvents txtSearchText1 As System.Windows.Forms.TextBox
-    Friend WithEvents chbShowAll As System.Windows.Forms.CheckBox
     Friend WithEvents cboEngineer As System.Windows.Forms.ComboBox
     Friend WithEvents dgvApplicationLog As System.Windows.Forms.DataGridView
     Friend WithEvents cboSearchText1 As System.Windows.Forms.ComboBox
@@ -804,7 +777,6 @@ Partial Class SSPPApplicationLog
     Friend WithEvents cboNSPS2 As System.Windows.Forms.ComboBox
     Friend WithEvents cboNESHAP2 As System.Windows.Forms.ComboBox
     Friend WithEvents cboNESHAP1 As System.Windows.Forms.ComboBox
-    Friend WithEvents mmiOnlineHelp As System.Windows.Forms.MenuItem
     Friend WithEvents mmiExport As System.Windows.Forms.MenuItem
     Friend WithEvents btnExport As System.Windows.Forms.Button
     Friend WithEvents lblMessage As System.Windows.Forms.Label
