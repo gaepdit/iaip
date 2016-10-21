@@ -826,7 +826,6 @@ Public Class IAIPNavigation
         AddNavButtonIfAccountHasFormAccess(14, "Test Report Information", NameOf(ISMPTestReportAdministrative), NavButtonCategories.ISMP)
         AddNavButtonIfAccountHasFormAccess(15, "Memo Viewer", NameOf(ISMPTestMemoViewer), NavButtonCategories.ISMP)
         AddNavButtonIfAccountHasFormAccess(17, "ISMP Management", NameOf(ISMPManagersTools), NavButtonCategories.ISMP)
-        AddNavButtonIfAccountHasFormAccess(128, "Smoke School", NameOf(SmokeSchool), NavButtonCategories.ISMP)
 
         ' Fees
         AddNavButtonIfAccountHasFormAccess(135, "Fees Log", NameOf(PASPFeesLog), NavButtonCategories.Fees)
