@@ -44,8 +44,10 @@ Public Class DmuEdtErrorMessageDetail
     End Sub
 
     Private Sub PrepUserComboBoxes()
-        activeUsersList = GetSharedData(SharedLookupDictionary.ActiveUsers)
-        activeUsersList.Add(0, "Unassigned")
+        activeUsersList = New Dictionary(Of Integer, String)(GetSharedData(SharedLookupDictionary.ActiveUsers))
+        If Not activeUsersList.ContainsKey(0) Then
+            activeUsersList.Add(0, "Unassigned")
+        End If
         UserAsDefault.BindToKeyValuePairs(activeUsersList)
         UserToAssign.BindToKeyValuePairs(activeUsersList)
     End Sub
@@ -111,6 +113,9 @@ Public Class DmuEdtErrorMessageDetail
         statusOfSelectedRows = SelectedRowsState.NoneSelected
 
         edtErrorMessagesTable = DAL.Dmu.GetErrors(EdtErrorCode)
+        edtErrorMessagesTable.Columns("AssignedToUserName").ReadOnly = False
+        edtErrorMessagesTable.Columns("ResolvedByUserName").ReadOnly = False
+
         Dim keys(1) As DataColumn
         keys(0) = edtErrorMessagesTable.Columns("ERRORID")
         edtErrorMessagesTable.PrimaryKey = keys
