@@ -1,7 +1,4 @@
-﻿Imports System.Collections.Generic
-Imports System.Data.SqlClient
-
-Module ErrorReporting
+﻿Module ErrorReporting
 
     ''' <summary>
     ''' Handles logging and reporting of errors.
@@ -28,7 +25,7 @@ Module ErrorReporting
         If Not String.IsNullOrEmpty(supplementalMessage) Then
             errorMessage = errorMessage & Environment.NewLine & Environment.NewLine & supplementalMessage
         End If
-        LogError(errorMessage, contextMessage)
+        DAL.LogError(errorMessage, contextMessage)
 
         ' Third display a dialog to the user describing the error and next steps.
         If displayErrorToUser Then
@@ -60,22 +57,5 @@ Module ErrorReporting
             IaipExceptionManager.ShowErrorDialog(exc, WhatHappened, WhatUserCanDo)
         End If
     End Sub
-
-    Private Function LogError(errorMessage As String, errorLocation As String) As Boolean
-        Dim query As String = "INSERT INTO IAIPERRORLOG " &
-            " (STRERRORNUMBER, STRUSER, STRERRORLOCATION, STRERRORMESSAGE, DATERRORDATE) " &
-            " values (IAIPERRORNUMBER.NEXTVAL, @UserID, @ErrorLocation, @ErrorMessage, GETDATE()) "
-        Dim parameters As SqlParameter() = New SqlParameter() {
-            New SqlParameter("@UserID", CurrentUser.UserID),
-            New SqlParameter("@ErrorLocation", errorLocation),
-            New SqlParameter("@ErrorMessage", errorMessage)
-        }
-
-        Try
-            Return DB.RunCommand(query, parameters)
-        Catch ex As Exception
-            Return False
-        End Try
-    End Function
 
 End Module

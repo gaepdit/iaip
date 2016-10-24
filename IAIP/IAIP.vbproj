@@ -211,6 +211,7 @@
     <Compile Include="_Code\SaveFile.vb" />
     <Compile Include="_Code\StringFunctions.vb" />
     <Compile Include="_Code\UrlHandler.vb" />
+    <Compile Include="_DAL\DAL.IaipErrorLogging.vb" />
     <Compile Include="_DAL\DAL.Organization.vb" />
     <Compile Include="_DAL\DAL.State.vb" />
     <Compile Include="_DAL\DAL.Rules.vb" />

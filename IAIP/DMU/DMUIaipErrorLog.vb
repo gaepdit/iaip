@@ -99,12 +99,13 @@ Public Class DMUIaipErrorLog
     Private Sub LoadErrorLog()
         Dim query As String = "Select " &
             " strErrorNumber, " &
-            " (strLastName + ', ' + strFirstName) as ErrorUser, " &
+            " concat(strLastName, ', ', strFirstName) as ErrorUser, " &
             " strErrorLocation, strErrorMessage, " &
             " datErrorDate as ErrorDate, " &
             " strSolution " &
-            " from IAIPErrorLog, EPDUserProfiles " &
-            " where IAIPErrorLog.strUser = EPDUserProfiles.numUserID "
+            " from IAIPErrorLog inner join EPDUserProfiles " &
+            " on IAIPErrorLog.strUser = EPDUserProfiles.numUserID " &
+            " where 1=1 "
 
         If rdbViewResolvedErrors.Checked = True Then
             query = query & " and strSolution IS NOT NUll "
@@ -283,13 +284,13 @@ Public Class DMUIaipErrorLog
 
                     Dim query As String = "Select " &
                     "strErrorNumber, " &
-                    "(strLastName + ', ' + strFirstName) as ErrorUser,  " &
+                    "concat(strLastName, ', ', strFirstName) as ErrorUser,  " &
                     "strErrorLocation, strErrorMessage,  " &
                     "datErrorDate as ErrorDate,  " &
                     "strSolution  " &
-                    "from IAIPErrorLog, EPDUserProfiles  " &
-                    "where IAIPErrorLog.strUser = EPDUserProfiles.numUserID " &
-                    "and strErrorNumber = '" & txtErrorNumber.Text & "' "
+                    "from IAIPErrorLog inner join EPDUserProfiles  " &
+                    "on IAIPErrorLog.strUser = EPDUserProfiles.numUserID " &
+                    "where strErrorNumber = @errNum "
 
                     Dim parameter As SqlParameter = New SqlParameter("@errNum", txtErrorNumber.Text)
 
