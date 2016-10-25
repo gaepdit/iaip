@@ -10976,11 +10976,9 @@ Public Class SSPPApplicationTrackingLog
             Exit Sub
         End If
         If txtApplicationNumber.Text <> "" Then
-            PrintOut = Nothing
-            If PrintOut Is Nothing Then PrintOut = New IAIPPrintOut
-            PrintOut.txtPrintType.Text = "Letter"
-            PrintOut.txtOther.Text = "SSPP Confirm"
-            PrintOut.txtAIRSNumber.Text = txtApplicationNumber.Text
+            Dim PrintOut As New IAIPPrintOut
+            PrintOut.PrintoutType = IAIPPrintOut.PrintType.SsppConfirm
+            PrintOut.ReferenceValue = txtApplicationNumber.Text
             PrintOut.Show()
         End If
     End Sub

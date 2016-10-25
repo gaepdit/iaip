@@ -1,383 +1,182 @@
 Imports System.Data.SqlClient
 Imports CrystalDecisions.Shared
-Imports CrystalDecisions.CrystalReports.Engine
-Imports CrystalDecisions.Windows.Forms
+Imports Iaip.DAL
 
 Public Class IAIPPrintOut
 
-#Region " Local variables "
-    Dim SQL As String
-    Dim cmd As SqlCommand
-    Dim dr As SqlDataReader
-    Dim recExist As Boolean
-    Dim ConfidentialData As String = "0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
-    Dim ReportType As String
-    Dim WitnessingEngineer As String
-    Dim WitnessingEngineer2 As String
-    Dim ds As DataSet
-    Dim da As SqlDataAdapter
+#Region " Properties and fields "
+
+    Public Property PrintoutType As PrintType
+    Public Property PrintoutSubtype As PrintSubtype = PrintSubtype.Other
+    Public Property ReferenceValue As String
+    Public Property StartDate As Date
+    Public Property EndDate As Date
+
+    Public Enum PrintType
+        IsmpTestReport
+        SsppConfirm
+        TitleVRenewal
+    End Enum
+
+    Public Enum PrintSubtype
+        ToFile
+        Other
+    End Enum
+
+    Private ConfidentialData As String = "0"
+    Private ReportType As String = ""
+    Private WitnessingEngineer As String = ""
+    Private WitnessingEngineer2 As String = ""
+
+
 #End Region
 
 #Region " Form events "
 
-    Private Sub IAIPPrintOut_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
-
+    Private Sub IAIPPrintOut_Load(sender As Object, e As EventArgs) Handles Me.Load
         LoadCorrectReport()
-
-        CRViewerTabs(CRViewer, False)
+        CRViewer.ShowHideViewerTabs(VisibleOrNot.NotVisible)
     End Sub
 
     Private Sub IAIPPrintOut_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
         CRViewer.ReportSource = Nothing
-        PrintOut = Nothing
     End Sub
 
 #End Region
 
-#Region "Load Report"
+#Region " Load Correct Report "
 
     Private Sub LoadCorrectReport()
-        Dim temp As String = ""
-        Dim da As SqlDataAdapter
-        Dim ds As New DataSet
-        Dim rpt As New ReportClass
-
-        Try
-
-            Select Case txtPrintType.Text
-
-                Case "Letter"
-
-                    rpt = New crAPBPrintOut2
-                    monitor.TrackFeature("Report." & rpt.ResourceName)
-
-                    Dim Director As String = DAL.GetEpdManagerName(DAL.EpdManagementTypes.EpdDirector)
-                    Dim Commissioner As String = DAL.GetEpdManagerName(DAL.EpdManagementTypes.DnrCommissioner)
-
-                    Dim ParameterFields As CrystalDecisions.Shared.ParameterFields
-                    Dim ParameterField As CrystalDecisions.Shared.ParameterField
-                    Dim spValue As CrystalDecisions.Shared.ParameterDiscreteValue
-
-                    'Do this just once at the start
-                    ParameterFields = New CrystalDecisions.Shared.ParameterFields
-
-                    'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
-
-                    ParameterField.ParameterFieldName = "Director"
-                    spValue.Value = Director
-                    ParameterField.CurrentValues.Add(spValue)
-                    ParameterFields.Add(ParameterField)
-
-                    'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
-
-                    ParameterField.ParameterFieldName = "Commissioner"
-                    spValue.Value = Commissioner
-                    ParameterField.CurrentValues.Add(spValue)
-                    ParameterFields.Add(ParameterField)
-
-                    Select Case txtOther.Text
-                        Case "SSPP Confirm"
-                            SQL = "Select * " &
-                            "from VW_SSPP_Acknowledge " &
-                            "where strApplicationNumber = '" & txtAIRSNumber.Text & "' "
-
-                            da = New SqlDataAdapter(SQL, CurrentConnection)
-                            If CurrentConnection.State = ConnectionState.Closed Then
-                                CurrentConnection.Open()
-                            End If
-                            ds.EnforceConstraints = False
-                            da.Fill(ds, "VW_SSPP_Acknowledge")
-
-                            'Do this at the beginning of every new entry 
-                            ParameterField = New CrystalDecisions.Shared.ParameterField
-                            spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
-
-                            ParameterField.ParameterFieldName = "ReportType"
-                            spValue.Value = txtOther.Text
-                            ParameterField.CurrentValues.Add(spValue)
-                            ParameterFields.Add(ParameterField)
-                        Case Else
-                    End Select
-
-                    rpt.SetDataSource(ds)
-
-                    'Load Variables into the Fields
-                    CRViewer.ParameterFieldInfo = ParameterFields
-                    CRViewer.ReportSource = rpt
-                    CRViewer.Refresh()
-
-                Case "ISMPTestReport"
-                    If txtReferenceNumber.Text <> "" Then
-                        SQL = "select ISMPDocumentType.strDocumentType " &
-                         "from ISMPDocumentType, ISMPReportInformation " &
-                         "where ISMPReportInformation.strDocumentType = ISMPDocumentType.strKey and " &
-                         "strReferenceNumber = '" & txtReferenceNumber.Text & "'"
-                        Dim cmd As New SqlCommand(SQL, CurrentConnection)
-                        If CurrentConnection.State = ConnectionState.Closed Then
-                            CurrentConnection.Open()
-                        End If
-                        Dim dr As SqlDataReader = cmd.ExecuteReader
-                        Dim recExist As Boolean = dr.Read
-                        If recExist = True Then
-                            temp = dr.Item("strDocumentType")
-                        End If
-
-                        Select Case temp
-                            Case "Unassigned"
-                            Case "One Stack (Two Runs)"
-                                LoadOneStackTwoRun()
-                            Case "One Stack (Three Runs)"
-                                LoadOneStackThreeRun()
-                            Case "One Stack (Four Runs)"
-                                LoadOneStackFourRun()
-                            Case "Two Stack (Standard)"
-                                LoadTwoStackStandard()
-                            Case "Two Stack (DRE)"
-                                LoadTwoStackDRE()
-                            Case "Loading Rack"
-                                LoadLoadingRack()
-                            Case "Pond Treatment"
-                                LoadPondTreatment()
-                            Case "Gas Concentration"
-                                LoadGasConcentration()
-                            Case "Flare"
-                                LoadFlare()
-                            Case "Rata"
-                                LoadRata()
-                            Case "Memorandum (Standard)"
-                                LoadMemorandumStandard()
-                            Case "Memorandum (To File)"
-                                LoadMemorandumToFile()
-                            Case "Method 9 (Multi.)"
-                                LoadMethod9Multi()
-                            Case "Method 22"
-                                LoadMethod22()
-                            Case "Method9 (Single)"
-                                LoadMethod9Single()
-                            Case "PEMS"
-                                LoadPEMS()
-                            Case "PTE (Perminate Total Enclosure)"
-                                LoadPTE()
-                            Case Else
-                                MsgBox("Unable to Print at this time.")
-                                Me.Close()
-                        End Select
-                    Else
-                        MsgBox("Unable to Print at this time.")
-                        Me.Close()
-                    End If
-
-                Case "SSCP"
-                    If txtReferenceNumber.Text <> "" Then
-                        SQL = "select ISMPDocumentType.strDocumentType " &
-                         "from ISMPDocumentType, ISMPReportInformation " &
-                         "where ISMPReportInformation.strDocumentType = ISMPDocumentType.strKey and " &
-                         "strReferenceNumber = '" & txtReferenceNumber.Text & "'"
-                        Dim cmd As New SqlCommand(SQL, CurrentConnection)
-                        If CurrentConnection.State = ConnectionState.Closed Then
-                            CurrentConnection.Open()
-                        End If
-                        Dim dr As SqlDataReader = cmd.ExecuteReader
-                        Dim recExist As Boolean = dr.Read
-                        If recExist = True Then
-                            temp = dr.Item("strDocumentType")
-                        End If
-
-                        Select Case temp
-                            Case "Unassigned"
-                            Case "One Stack (Two Runs)"
-                                LoadOneStackTwoRun()
-                            Case "One Stack (Three Runs)"
-                                LoadOneStackThreeRun()
-                            Case "One Stack (Four Runs)"
-                                LoadOneStackFourRun()
-                            Case "Two Stack (Standard)"
-                                LoadTwoStackStandard()
-                            Case "Two Stack (DRE)"
-                                LoadTwoStackDRE()
-                            Case "Loading Rack"
-                                LoadLoadingRack()
-                            Case "Pond Treatment"
-                                LoadPondTreatment()
-                            Case "Gas Concentration"
-                                LoadGasConcentration()
-                            Case "Flare"
-                                LoadFlare()
-                            Case "Rata"
-                                LoadRata()
-                            Case "Memorandum (Standard)"
-                                LoadMemorandumStandard()
-                            Case "Memorandum (To File)"
-                                LoadMemorandumToFile()
-                            Case "Method 9 (Multi.)"
-                                LoadMethod9Multi()
-                            Case "Method 22"
-                                LoadMethod22()
-                            Case "Method9 (Single)"
-                                LoadMethod9Single()
-                            Case "PEMS"
-                                LoadPEMS()
-                            Case "PTE (Perminate Total Enclosure)"
-                                LoadPTE()
-                            Case Else
-                                MsgBox("Unable to Print at this time.")
-                                Me.Close()
-                        End Select
-                    Else
-                        MsgBox("Unable to Print at this time.")
-                        Me.Close()
-                    End If
-                Case "TitleVRenewal"
-                    PrintOutTitleVRenewals()
-
-                Case Else
-                    MsgBox("Unable to print; please contact EPD IT.")
-                    Me.Close()
-
-            End Select
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        Select Case PrintoutType
+            Case PrintType.SsppConfirm
+                PrintSsppAcknowledgmentLetter()
+            Case PrintType.IsmpTestReport
+                PrintIsmpReport()
+            Case PrintType.TitleVRenewal
+                PrintOutTitleVRenewals()
+            Case Else
+                MsgBox("Unable to print; please contact EPD IT.")
+                Me.Close()
+        End Select
     End Sub
 
 #End Region
 
-#Region "Test Reports"
+#Region " ISMP Test Reports "
+
+    Private Sub PrintIsmpReport()
+        Dim testType As String = Ismp.GetStackTestDocumentType(ReferenceValue)
+
+        Select Case testType
+            Case "One Stack (Two Runs)"
+                LoadOneStackTwoRun()
+            Case "One Stack (Three Runs)"
+                LoadOneStackThreeRun()
+            Case "One Stack (Four Runs)"
+                LoadOneStackFourRun()
+            Case "Two Stack (Standard)"
+                LoadTwoStackStandard()
+            Case "Two Stack (DRE)"
+                LoadTwoStackDRE()
+            Case "Loading Rack"
+                LoadLoadingRack()
+            Case "Pond Treatment"
+                LoadPondTreatment()
+            Case "Gas Concentration"
+                LoadGasConcentration()
+            Case "Flare"
+                LoadFlare()
+            Case "Rata"
+                LoadRata()
+            Case "Memorandum (Standard)"
+                LoadMemorandumStandard()
+            Case "Memorandum (To File)"
+                LoadMemorandumToFile()
+            Case "Method 9 (Multi.)"
+                LoadMethod9Multi()
+            Case "Method 22"
+                LoadMethod22()
+            Case "Method9 (Single)"
+                LoadMethod9Single()
+            Case "PTE (Perminate Total Enclosure)"
+                LoadPTE()
+            Case Else
+                MsgBox("Unable to Print at this time.")
+                Me.Close()
+        End Select
+    End Sub
+
     Private Sub LoadOneStackTwoRun()
         Dim rpt As New CROneStackTwoRuns
         monitor.TrackFeature("Report." & rpt.ResourceName)
 
-        Dim ParameterFields As CrystalDecisions.Shared.ParameterFields
-        Dim ParameterField As CrystalDecisions.Shared.ParameterField
-        Dim spValue As CrystalDecisions.Shared.ParameterDiscreteValue
+        Dim ParameterFields As ParameterFields
+        Dim ParameterField As ParameterField
+        Dim spValue As ParameterDiscreteValue
 
         Try
 
             'Do this just once at the start
-            ParameterFields = New CrystalDecisions.Shared.ParameterFields
+            ParameterFields = New ParameterFields
 
-            SQL = "Select " &
-            "ISMPMaster.strAIRSNumber as AIRSNumber, " &
-            "APBFacilityInformation.strFacilityName as FacilityName, " &
-            "strFacilityCity as FacilityCity, " &
-             "strFacilityState as FacilityState, " &
-            "strPollutantDescription as PollutantDescription, " &
-            "strEmissionSource, " &
-            "ISMPReportType.strReportType, " &
-           "strApplicableRequirement, " &
-           "(strFirstName||' '||strLastName) as ReviewingEngineer, " &
-           "Case " &
-             "when ISMPReportInformation.strWitnessingEngineer = '0' then 'N/W' " &
-           "Else " &
-             "(select (strFirstName||' '||strLastName) " &
-             "from EPDUserProfiles, ISMPReportInformation " &
-             "where ISMPReportInformation.strWitnessingEngineer = EPDUserProfiles.numUserID " &
-             "and ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') " &
-           "End as WitnessingEngineer, " &
-           "Case " &
-             "when ISMPReportInformation.strOtherWitnessingEng is Null then 'N/W' " &
-             "when ISMPReportInformation.strOtherWitnessingEng = '0' then 'N/W' " &
-           "Else  " &
-             "'M/W' " &
-           "End WitnessingEngineer2,     " &
-           "Case  " &
-             "when ISMPReportInformation.numReviewingManager is Null then 'N/A' " &
-           "Else  " &
-             "(Select (strFirstName||' '||strLastName) as UnitManager  " &
-             "from EPDUserProfiles, ISMPReportInformation  " &
-             "where ISMPReportInformation.numReviewingManager = EPDUserProfiles.numUserID " &
-             "and ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "')  " &
-           "END UnitManager,  " &
-           "datReviewedByUnitManager,  " &
-           "(Select (strFirstName||' '||strLastName) as ComplianceManager  " &
-           "from EPDUserProfiles, ISMPReportInformation   " &
-           "where ISMPReportInformation.strComplianceManager = EPDUserProfiles.nuMUserID " &
-           "and ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') as ComplianceManager,  " &
-           "to_char(datTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart,  " &
-           "to_char(datTestDateEnd, 'FMMonth DD, YYYY') as ForTestDateEnd,  " &
-           "to_char(datReceivedDate, 'FMMonth DD, YYYY') as ForReceivedDate,  " &
-           "datCompleteDate,  " &
-           "mmoCommentArea, strCommissioner, strDirector, strProgramManager,  " &
-           "strComplianceStatement as ComplianceStatement,  " &
-           "strControlEquipmentData,  " &
-           "(Select (strFirstName||' '||strLastName) as CC  " &
-           "from ISMPReportInformation, EPDUserProfiles  " &
-           "where ISMPReportInformation.strCC = EPDUserProfiles.numUserID  " &
-           "and ISMPREportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') as CC,  " &
-           "ISMPReportOneStack.strReferenceNumber,  " &
-           "strMaxOperatingCapacity,  " &
-           "(select strUnitDescription from LookUPUnits, ISMPReportOneStack   " &
-           "where strUnitkey = strMaxOperatingCapacityUnit   " &
-           "and ISMPReportOneStack.strreferencenumber = '" & txtReferenceNumber.Text & "') as MaxOperatingCapacityUnit,   " &
-           "strOperatingCapacity,   " &
-           "(select strUnitDescription from LookUPUnits, ISMPReportOneStack   " &
-           "where strUnitkey = strOperatingCapacityUnit   " &
-           "and ISMPReportOneStack.strreferencenumber = '" & txtReferenceNumber.Text & "') as OperatingCapacityUnit,    " &
-           "strAllowableEmissionRate1, strAllowableEmissionRate2, strAllowableEmissionRate3,   " &
-           "(select strUnitDescription from LookUPUnits, ISMPReportOneStack   " &
-           "where strUnitkey = strAllowableEmissionRateUnit1   " &
-           "and ISMPReportOneStack.strreferencenumber = '" & txtReferenceNumber.Text & "') as AllowableEmissionRateUnit1,   " &
-           "(select strUnitDescription from LookUPUnits, ISMPReportOneStack   " &
-           "where strUnitkey = strAllowableEmissionRateUnit2   " &
-           "and ISMPReportOneStack.strreferencenumber = '" & txtReferenceNumber.Text & "') as AllowableEmissionRateUnit2,   " &
-           "(select strUnitDescription from LookUPUnits, ISMPReportOneStack   " &
-           "where strUnitkey = strAllowableEmissionRateUnit3   " &
-           "and ISMPReportOneStack.strreferencenumber = '" & txtReferenceNumber.Text & "') as AllowableEmissionRateUnit3,   " &
-           "strRunNumber1a, strRunNumber1b, strGasTemperature1A, strGasTemperature1b,   " &
-           "strGasMoisture1A, strGasMoisture1B,   " &
-           "strGasFlowRateACFM1A, strGasFlowRateACFM1B, " &
-           "strGasFlowRateDSCFM1A, strGasFlowRateDSCFM1B,   " &
-           "strPollutantConcentration1A, strPollutantConcentration1B,   " &
-           "(Select strUnitDescription from LookUPUnits, ISMPReportOneStack   " &
-           "where strUnitkey = strPollutantConcentrationUnit   " &
-           "and ISMPReportOneStack.strReferenceNumber = '" & txtReferenceNumber.Text & "') as POllutantConcentrationUnit,   " &
-           "strPOllutantConcentrationAvg,   " &
-           "strEmissionRate1A, strEmissionRate1B, " &
-           "(select strUnitDescription from LookUPUnits, ISMPReportOneStack   " &
-           "where strUnitKey = strEmissionRateUnit   " &
-           "and ISMPReportOneStack.strReferenceNumber = '" & txtReferenceNumber.Text & "') as EmissionRateUnit,   " &
-           "strEmissionRateAvg, strPercentAllowable, strConfidentialData   " &
-           "From ISMPMaster, APBFacilityInformation,  " &
-           "ISMPReportInformation, LookUpPollutants,  " &
-           "ISMPReportType, EPDUserProfiles,  " &
-           "LookUpISMPComplianceStatus, ISMPReportOneStack   " &
-           "where ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber  " &
-           "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber  " &
-           "and ISMPReportInformation.strPollutant = LookUpPollutants.strPollutantCode  " &
-           "and ISMPReportInformation.strReportType = ISMPReportType.strKey  " &
-           "and ISMPReportInformation.strReviewingEngineer = EPDUserProfiles.numUserID  " &
-           "and ISMPReportInformation.strComplianceStatus = LookUpISMPComplianceStatus.strComplianceKey   " &
-           "and ISMPMaster.strReferenceNumber = ISMPReportOneStack.strReferenceNumber  " &
-           "and ISMPMaster.strReferenceNumber = '" & txtReferenceNumber.Text & "'"
+            Dim SQL As String = "
+                SELECT m.strAIRSNumber AS AIRSNumber, f.strFacilityName AS FacilityName, strFacilityCity AS FacilityCity, strFacilityState AS FacilityState, 
+                strPollutantDescription AS PollutantDescription, strEmissionSource, t.strReportType, strApplicableRequirement, 
+                CONCAT(u1.strFirstName, ' ', u1.strLastName) AS ReviewingEngineer,
+                CASE WHEN i.strWitnessingEngineer = '0' THEN 'N/W' ELSE CONCAT(u2.strFirstName, ' ', u2.strLastName) END AS WitnessingEngineer,
+                CASE WHEN i.strOtherWitnessingEng IS NULL THEN 'N/W' WHEN i.strOtherWitnessingEng = '0' THEN 'N/W' ELSE 'M/W' END AS WitnessingEngineer2,
+                CASE WHEN i.numReviewingManager IS NULL THEN 'N/A' ELSE CONCAT(u3.strFirstName, ' ', u3.strLastName) END AS UnitManager, datReviewedByUnitManager, 
+                CONCAT(u4.strFirstName, ' ', u4.strLastName) AS ComplianceManager, format(datTestDateStart, 'MMMM d, yyyy') AS ForTestDateStart, 
+                format(datTestDateEnd, 'MMMM d, yyyy') AS ForTestDateEnd, format(datReceivedDate, 'MMMM d, yyyy') AS ForReceivedDate, datCompleteDate, 
+                mmoCommentArea, strCommissioner, strDirector, strProgramManager, 
+                strComplianceStatement AS ComplianceStatement, strControlEquipmentData, CONCAT(u5.strFirstName, ' ', u5.strLastName) AS CC, r.strReferenceNumber, 
+                strMaxOperatingCapacity, l1.strUnitDescription AS MaxOperatingCapacityUnit, strOperatingCapacity, l2.strUnitDescription AS OperatingCapacityUnit, 
+                strAllowableEmissionRate1, strAllowableEmissionRate2, strAllowableEmissionRate3, l3.strUnitDescription AS AllowableEmissionRateUnit1, 
+                l4.strUnitDescription AS AllowableEmissionRateUnit2, l5.strUnitDescription AS AllowableEmissionRateUnit2, 
+                l6.strUnitDescription AS AllowableEmissionRateUnit3, strRunNumber1a, strRunNumber1b, strGasTemperature1A, strGasTemperature1b, strGasMoisture1A, 
+                strGasMoisture1B, strGasFlowRateACFM1A, strGasFlowRateACFM1B, strGasFlowRateDSCFM1A, strGasFlowRateDSCFM1B, strPollutantConcentration1A, 
+                strPollutantConcentration1B, l7.strUnitDescription AS POllutantConcentrationUnit, strPOllutantConcentrationAvg, strEmissionRate1A, strEmissionRate1B, 
+                l8.STRUNITDESCRIPTION AS EmissionRateUnit, strEmissionRateAvg, strPercentAllowable, strConfidentialData
+                FROM ISMPMASTER AS m
+                INNER JOIN APBFACILITYINFORMATION AS f ON m.strAIRSNumber = f.strAIRSNumber
+                INNER JOIN ISMPREPORTINFORMATION AS i ON m.strReferenceNumber = i.strReferenceNumber
+                INNER JOIN LOOKUPPOLLUTANTS AS p ON i.strPollutant = p.strPollutantCode
+                INNER JOIN ISMPREPORTTYPE AS t ON i.strReportType = t.strKey
+                INNER JOIN EPDUSERPROFILES AS u1 ON i.strReviewingEngineer = u1.numUserID
+                INNER JOIN EPDUSERPROFILES AS u2 ON i.strWitnessingEngineer = u2.numUserID
+                INNER JOIN EPDUSERPROFILES AS u3 ON i.numReviewingManager = u3.numUserID
+                INNER JOIN EPDUSERPROFILES AS u4 ON i.strComplianceManager = u4.numUserID
+                INNER JOIN EPDUSERPROFILES AS u5 ON i.strCC = u5.numUserID
+                INNER JOIN LOOKUPISMPCOMPLIANCESTATUS AS s ON i.strComplianceStatus = s.strComplianceKey
+                INNER JOIN ISMPREPORTONESTACK AS r ON m.strReferenceNumber = r.strReferenceNumber
+                INNER JOIN LOOKUPUNITS AS l1 ON l1.STRUNITKEY = r.strMaxOperatingCapacityUnit
+                INNER JOIN LOOKUPUNITS AS l2 ON l2.STRUNITKEY = r.strOperatingCapacityUnit
+                INNER JOIN LOOKUPUNITS AS l3 ON l3.STRUNITKEY = r.strAllowableEmissionRateUnit1
+                INNER JOIN LOOKUPUNITS AS l4 ON l4.STRUNITKEY = r.strAllowableEmissionRateUnit2
+                INNER JOIN LOOKUPUNITS AS l5 ON l5.STRUNITKEY = r.strAllowableEmissionRateUnit2
+                INNER JOIN LOOKUPUNITS AS l6 ON l6.STRUNITKEY = r.strAllowableEmissionRateUnit3
+                INNER JOIN LOOKUPUNITS AS l7 ON l7.STRUNITKEY = r.strPollutantConcentrationUnit
+                INNER JOIN LOOKUPUNITS AS l8 ON l8.STRUNITKEY = r.STREMISSIONRATEUNIT
+                WHERE m.strReferenceNumber = @ref"
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            recExist = dr.Read
+            Dim p As New SqlParameter("@ref", ReferenceValue)
 
-            If recExist Then
+            Dim dr As DataRow = DB.GetDataRow(SQL, p)
+
+            If dr IsNot Nothing Then
+
                 If IsDBNull(dr.Item("strConfidentialData")) Then
                     ConfidentialData = "0"
                 Else
                     ConfidentialData = dr.Item("strConfidentialData")
                 End If
-                If Mid(ConfidentialData, 1, 1) = "1" Then
-                    If txtOther.Text = "ToFile" Then
-                        ConfidentialData = "0" & Mid(ConfidentialData, 2)
-                    End If
+                If Mid(ConfidentialData, 1, 1) = "1" And PrintoutSubtype = PrintSubtype.ToFile Then
+                    ConfidentialData = "0" & Mid(ConfidentialData, 2)
                 End If
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "Commissioner"
                 spValue.Value = dr.Item("strCommissioner")
@@ -385,8 +184,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "Director"
                 spValue.Value = dr.Item("strDirector")
@@ -394,8 +193,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ProgramManager"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 9, 1) = "1" Then
@@ -407,8 +206,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "AIRSNumber"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 3, 1) = "1" Then
@@ -420,8 +219,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "FacilityName"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 4, 1) = "1" Then
@@ -433,8 +232,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "FacilityCity"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 5, 1) = "1" Then
@@ -446,8 +245,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "FacilityState"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 5, 1) = "1" Then
@@ -459,8 +258,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "Pollutant"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 15, 1) = "1" Then
@@ -472,8 +271,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "EmissionSourceTested"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 14, 1) = "1" Then
@@ -485,8 +284,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ReportTYpe"
                 spValue.Value = dr.Item("strReportTYpe")
@@ -510,8 +309,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ApplicableRequirement"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 31, 1) = "1" Then
@@ -523,8 +322,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ReviewingEngineer"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 7, 1) = "1" Then
@@ -549,8 +348,8 @@ Public Class IAIPPrintOut
                 End If
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "UnitManager"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 10, 1) = "1" Then
@@ -570,8 +369,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ComplianceManager"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 24, 1) = "1" Then
@@ -584,8 +383,8 @@ Public Class IAIPPrintOut
 
                 If dr.Item("forTestDateEnd") = dr.Item("ForTestDateStart") Then
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "TestDates"
                     If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 19, 1) = "1" Then
@@ -597,8 +396,8 @@ Public Class IAIPPrintOut
                     ParameterFields.Add(ParameterField)
                 Else
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "TestDates"
                     If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 19, 1) = "1" Then
@@ -611,8 +410,8 @@ Public Class IAIPPrintOut
                 End If
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ReceivedDate"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 21, 1) = "1" Then
@@ -624,8 +423,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "CommentArea"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 34, 1) = "1" Then
@@ -637,8 +436,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ComplianceStatus"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 18, 1) = "1" Then
@@ -650,8 +449,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ControlEquipmentOperatingData"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 32, 1) = "1" Then
@@ -664,8 +463,8 @@ Public Class IAIPPrintOut
 
                 If dr.Item("CC") <> "" And dr.Item("CC") <> "  Unassigned" Then
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "CC"
                     If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 25, 1) = "1" Then
@@ -677,8 +476,8 @@ Public Class IAIPPrintOut
                     ParameterFields.Add(ParameterField)
                 Else
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "CC"
                     spValue.Value = " "
@@ -687,8 +486,8 @@ Public Class IAIPPrintOut
                 End If
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "Referencenumber"
                 spValue.Value = dr.Item("strReferencenumber")
@@ -696,8 +495,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "MaximumOperatingCapacity"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 26, 1) = "1" Then
@@ -709,8 +508,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "MaximumOperatingCapacityUnit"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 26, 1) = "1" Then
@@ -722,8 +521,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "operatingCapacity"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 27, 1) = "1" Then
@@ -735,8 +534,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "OperatingCapacityUnit"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 27, 1) = "1" Then
@@ -748,8 +547,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "AllowableEmissionRate1"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 28, 1) = "1" Then
@@ -761,8 +560,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "AllowableEmissionRateUnit1"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 28, 1) = "1" Then
@@ -776,8 +575,8 @@ Public Class IAIPPrintOut
                 If dr.Item("AllowableEmissionRateUnit2") <> "N/A" Then
 
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "AllowableEmissionRate2"
                     If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 29, 1) = "1" Then
@@ -789,8 +588,8 @@ Public Class IAIPPrintOut
                     ParameterFields.Add(ParameterField)
 
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "AllowableEmissionRateUnit2"
                     If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 29, 1) = "1" Then
@@ -803,8 +602,8 @@ Public Class IAIPPrintOut
 
                 Else
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "AllowableEmissionRate2"
                     spValue.Value = " "
@@ -812,8 +611,8 @@ Public Class IAIPPrintOut
                     ParameterFields.Add(ParameterField)
 
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "AllowableEmissionRateUnit2"
                     spValue.Value = " "
@@ -824,8 +623,8 @@ Public Class IAIPPrintOut
                 If dr.Item("AllowableEmissionRateUnit3") <> "N/A" Then
 
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "AllowableEmissionRate3"
                     spValue.Value = "; " & vbCrLf & dr.Item("strAllowableEmissionRate3")
@@ -838,8 +637,8 @@ Public Class IAIPPrintOut
                     ParameterFields.Add(ParameterField)
 
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "AllowableEmissionRateUnit3"
                     spValue.Value = dr.Item("AllowableEmissionRateUnit3")
@@ -853,8 +652,8 @@ Public Class IAIPPrintOut
 
                 Else
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "AllowableEmissionRate3"
                     spValue.Value = " "
@@ -862,8 +661,8 @@ Public Class IAIPPrintOut
                     ParameterFields.Add(ParameterField)
 
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "AllowableEmissionRateUnit3"
                     spValue.Value = " "
@@ -872,8 +671,8 @@ Public Class IAIPPrintOut
                 End If
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "RunNumber1a"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 35, 1) = "1" Then
@@ -885,8 +684,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "RunNumber1B"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 42, 1) = "1" Then
@@ -898,8 +697,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "GasTemperature1A"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 36, 1) = "1" Then
@@ -911,8 +710,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "GasTemperature1B"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 43, 1) = "1" Then
@@ -924,8 +723,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "GasMoisture1A"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 37, 1) = "1" Then
@@ -937,8 +736,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "GasMoisture1B"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 44, 1) = "1" Then
@@ -950,8 +749,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "GasFlowRate(ACFM)1A"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 38, 1) = "1" Then
@@ -963,8 +762,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "GasFlowRate(ACFM)1B"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 45, 1) = "1" Then
@@ -976,8 +775,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "GasFlowRate(DSCFM)1A"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 39, 1) = "1" Then
@@ -989,8 +788,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "GasFlowRate(DSCFM)1B"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 46, 1) = "1" Then
@@ -1002,8 +801,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "PollutantConcentration1A"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 40, 1) = "1" Then
@@ -1015,8 +814,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "PollutantConcentration1B"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 47, 1) = "1" Then
@@ -1028,8 +827,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "PollutantConcentrationUnits"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 49, 1) = "1" Then
@@ -1041,8 +840,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "PollutantConcentrationAverage1"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 50, 1) = "1" Then
@@ -1054,8 +853,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "EmissionRate1A"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 41, 1) = "1" Then
@@ -1067,8 +866,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "EmissionRate1B"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 48, 1) = "1" Then
@@ -1080,8 +879,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "EmissionRateUnits"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 51, 1) = "1" Then
@@ -1093,8 +892,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "EmissionRateAverage1"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 52, 1) = "1" Then
@@ -1106,8 +905,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "PercentAllowable"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 33, 1) = "1" Then
@@ -1118,28 +917,17 @@ Public Class IAIPPrintOut
                 ParameterField.CurrentValues.Add(spValue)
                 ParameterFields.Add(ParameterField)
 
-                dr.Close()
-
                 If WitnessingEngineer2 = "M/W" Then
                     SQL = "select " &
-                    "(strFirstName||' '||strLastName) as WitnessingEng " &
-                    "from ISMPWitnessingEng, EPDUSerProfiles " &
-                    "where ISMPWitnessingEng.strWitnessingEngineer = EPDUSerProfiles.numUserProfiles  " &
-                    "and strReferenceNumber = '" & Me.txtReferenceNumber.Text & "'  "
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    WitnessingEngineer2 = ""
-                    While dr.Read
-                        WitnessingEngineer2 = WitnessingEngineer2 & vbCrLf & dr.Item("WitnessingEng")
-                    End While
-                    dr.Close()
+                    "concat(strFirstName,' ',strLastName) as WitnessingEng " &
+                    "from ISMPWitnessingEng inner join EPDUSerProfiles " &
+                    "on ISMPWitnessingEng.strWitnessingEngineer = EPDUSerProfiles.numUserProfiles  " &
+                    "where strReferenceNumber = @ref "
+
                     If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 13, 1) = "1" Then
                         WitnessingEngineer2 = "--Conf--"
                     Else
-                        WitnessingEngineer2 = WitnessingEngineer2
+                        WitnessingEngineer2 = DB.GetSingleValue(Of String)(SQL, p)
                     End If
                 Else
                     WitnessingEngineer2 = " "
@@ -1176,8 +964,8 @@ Public Class IAIPPrintOut
                 End If
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
                 ParameterField.ParameterFieldName = "WitnessingEngineer"
                 spValue.Value = WitnessingEngineer
                 ParameterField.CurrentValues.Add(spValue)
@@ -1188,148 +976,80 @@ Public Class IAIPPrintOut
 
                 'Display the Report
                 CRViewer.ReportSource = rpt
+
             Else
                 MsgBox("Unable to Print at this time.")
-                PrintOut.Close()
-
+                Me.Close()
             End If
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
+    End Sub
 
-
-    End Sub      'Complete
     Private Sub LoadOneStackThreeRun()
         Dim rpt As New CROneStackThreeRuns
         monitor.TrackFeature("Report." & rpt.ResourceName)
 
-        Dim ParameterFields As CrystalDecisions.Shared.ParameterFields
-        Dim ParameterField As CrystalDecisions.Shared.ParameterField
-        Dim spValue As CrystalDecisions.Shared.ParameterDiscreteValue
+        Dim ParameterFields As ParameterFields
+        Dim ParameterField As ParameterField
+        Dim spValue As ParameterDiscreteValue
 
         Try
 
             'Do this just once at the start
-            ParameterFields = New CrystalDecisions.Shared.ParameterFields
+            ParameterFields = New ParameterFields
 
-            SQL = "Select " &
-            "ISMPMaster.strAIRSNumber as AIRSNumber, " &
-            "APBFacilityInformation.strFacilityName as FacilityName, " &
-            "strFacilityCity as FacilityCity, " &
-             "strFacilityState as FacilityState, " &
-            "strPollutantDescription as PollutantDescription, " &
-            "strEmissionSource, " &
-            "ISMPReportType.strReportType, " &
-           "strApplicableRequirement, " &
-           "(strFirstName||' '||strLastName) as ReviewingEngineer, " &
-           "Case " &
-             "when ISMPReportInformation.strWitnessingEngineer = '0' then 'N/W' " &
-           "Else " &
-             "(select (strFirstName||' '||strLastName) " &
-             "from EPDUserProfiles, ISMPReportInformation " &
-             "where ISMPReportInformation.strWitnessingEngineer = EPDUserProfiles.numUserID " &
-             "and ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') " &
-           "End as WitnessingEngineer, " &
-           "Case " &
-             "when ISMPReportInformation.strOtherWitnessingEng is Null then 'N/W' " &
-             "when ISMPReportInformation.strOtherWitnessingEng = '0' then 'N/W' " &
-           "Else  " &
-             "'M/W' " &
-           "End WitnessingEngineer2,     " &
-           "Case  " &
-             "when ISMPReportInformation.numReviewingManager is Null then 'N/A' " &
-           "Else  " &
-             "(Select (strFirstName||' '||strLastName) as UnitManager  " &
-             "from EPDUserProfiles, ISMPReportInformation  " &
-             "where ISMPReportInformation.numReviewingManager = EPDUserProfiles.numUserID " &
-             "and ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "')  " &
-           "END UnitManager,  " &
-           "datReviewedByUnitManager,  " &
-           "(Select (strFirstName||' '||strLastName) as ComplianceManager  " &
-           "from EPDUserProfiles, ISMPReportInformation   " &
-           "where ISMPReportInformation.strComplianceManager = EPDUserProfiles.nuMUserID " &
-           "and ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') as ComplianceManager,  " &
-           "to_char(datTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart,  " &
-           "to_char(datTestDateEnd, 'FMMonth DD, YYYY') as ForTestDateEnd,  " &
-           "to_char(datReceivedDate, 'FMMonth DD, YYYY') as ForReceivedDate,  " &
-           "datCompleteDate,  " &
-           "mmoCommentArea, strCommissioner, strDirector, strProgramManager,  " &
-           "strComplianceStatement as ComplianceStatement,  " &
-           "strControlEquipmentData,  " &
-           "(Select (strFirstName||' '||strLastName) as CC  " &
-           "from ISMPReportInformation, EPDUserProfiles  " &
-           "where ISMPReportInformation.strCC = EPDUserProfiles.numUserID  " &
-           "and ISMPREportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') as CC,  " &
-           "ISMPReportOneStack.strReferencenumber, strMaxoperatingCapacity, " &
-            "(select strUnitDescription from LookUPUnits, ISMPReportOneStack " &
-            "where strUnitkey = strMaxOperatingCapacityUnit " &
-            "and ISMPReportOneStack.strreferencenumber = '" & txtReferenceNumber.Text & "') as MaxOperatingCapacityUnit, " &
-            "strOperatingCapacity, " &
-            "(select strUnitDescription from LookUPUnits, ISMPReportOneStack " &
-            "where strUnitkey = strOperatingCapacityUnit " &
-            "and ISMPReportOneStack.strreferencenumber = '" & txtReferenceNumber.Text & "') as OperatingCapacityUnit,  " &
-            "strAllowableEmissionRate1, strAllowableEmissionRate2, strAllowableEmissionRate3, " &
-            "(select strUnitDescription from LookUPUnits, ISMPReportOneStack " &
-            "where strUnitkey = strAllowableEmissionRateUnit1 " &
-            "and ISMPReportOneStack.strreferencenumber = '" & txtReferenceNumber.Text & "') as AllowableEmissionRateUnit1, " &
-            "(select strUnitDescription from LookUPUnits, ISMPReportOneStack " &
-            "where strUnitkey = strAllowableEmissionRateUnit2 " &
-            "and ISMPReportOneStack.strreferencenumber = '" & txtReferenceNumber.Text & "') as AllowableEmissionRateUnit2, " &
-            "(select strUnitDescription from LookUPUnits, ISMPReportOneStack " &
-            "where strUnitkey = strAllowableEmissionRateUnit3 " &
-            "and ISMPReportOneStack.strreferencenumber = '" & txtReferenceNumber.Text & "') as AllowableEmissionRateUnit3, " &
-            "strRunNumber1a, strRunNumber1b, strRunNumber1c, strGasTemperature1A, strGasTemperature1b, " &
-            "strGasTemperature1C, strGasMoisture1A, strGasMoisture1B, strGasMoisture1C, " &
-            "strGasFlowRateACFM1A, strGasFlowRateACFM1B, strGasFlowRateACFM1c, " &
-            "strGasFlowRateDSCFM1A, strGasFlowRateDSCFM1B, strGasFlowRateDSCFM1C, " &
-            "strPollutantConcentration1A, strPollutantConcentration1B, strPollutantConcentration1C, " &
-            "(Select strUnitDescription from LookUPUnits, ISMPReportOneStack " &
-            "where strUnitkey = strPollutantConcentrationUnit " &
-            "and ISMPReportOneStack.strReferenceNumber = '" & txtReferenceNumber.Text & "') as POllutantConcentrationUnit, " &
-            "strPOllutantConcentrationAvg, " &
-            "strEmissionRate1A, strEmissionRate1B, strEmissionRate1C, " &
-            "(select strUnitDescription from LookUPUnits, ISMPReportOneStack " &
-            "where strUnitKey = strEmissionRateUnit " &
-            "and ISMPReportOneStack.strReferenceNumber = '" & txtReferenceNumber.Text & "') as EmissionRateUnit, " &
-            "strEmissionRateAvg, strPercentAllowable, strConfidentialData " &
-           "From ISMPMaster, APBFacilityInformation,  " &
-           "ISMPReportInformation, LookUpPollutants,  " &
-           "ISMPReportType, EPDUserProfiles,  " &
-           "LookUpISMPComplianceStatus, ISMPReportOneStack   " &
-           "where ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber  " &
-           "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber  " &
-           "and ISMPReportInformation.strPollutant = LookUpPollutants.strPollutantCode  " &
-           "and ISMPReportInformation.strReportType = ISMPReportType.strKey  " &
-           "and ISMPReportInformation.strReviewingEngineer = EPDUserProfiles.numUserID  " &
-           "and ISMPReportInformation.strComplianceStatus = LookUpISMPComplianceStatus.strComplianceKey   " &
-           "and ISMPMaster.strReferenceNumber = ISMPReportOneStack.strReferenceNumber  " &
-           "and ISMPMaster.strReferenceNumber = '" & txtReferenceNumber.Text & "'"
+            Dim SQL As String = "
+                SELECT ISMPMaster.strAIRSNumber AS AIRSNumber, APBFacilityInformation.strFacilityName AS FacilityName, strFacilityCity AS FacilityCity, strFacilityState AS FacilityState, strPollutantDescription AS PollutantDescription, strEmissionSource, ISMPReportType.strReportType, strApplicableRequirement, CONCAT(strFirstName, ' ', strLastName) AS ReviewingEngineer,
+                CASE WHEN ISMPReportInformation.strWitnessingEngineer = '0' THEN 'N/W' ELSE (SELECT CONCAT(strFirstName, ' ', strLastName)
+                FROM EPDUserProfiles, ISMPReportInformation
+                WHERE ISMPReportInformation.strWitnessingEngineer = EPDUserProfiles.numUserID AND ISMPReportInformation.strReferenceNumber = @ref) END AS WitnessingEngineer,
+                CASE WHEN ISMPReportInformation.strOtherWitnessingEng IS NULL THEN 'N/W' WHEN ISMPReportInformation.strOtherWitnessingEng = '0' THEN 'N/W' ELSE 'M/W' END AS WitnessingEngineer2,
+                CASE WHEN ISMPReportInformation.numReviewingManager IS NULL THEN 'N/A' ELSE (SELECT CONCAT(strFirstName, ' ', strLastName) AS UnitManager
+                FROM EPDUserProfiles, ISMPReportInformation
+                WHERE ISMPReportInformation.numReviewingManager = EPDUserProfiles.numUserID AND ISMPReportInformation.strReferenceNumber = @ref) END AS UnitManager, datReviewedByUnitManager, (SELECT CONCAT(strFirstName, ' ', strLastName) AS ComplianceManager
+                FROM EPDUserProfiles, ISMPReportInformation
+                WHERE ISMPReportInformation.strComplianceManager = EPDUserProfiles.nuMUserID AND ISMPReportInformation.strReferenceNumber = @ref) AS ComplianceManager, format(datTestDateStart, 'MMMM d, yyyy') AS ForTestDateStart, format(datTestDateEnd, 'MMMM d, yyyy') AS ForTestDateEnd, format(datReceivedDate, 'MMMM d, yyyy') AS ForReceivedDate, datCompleteDate, mmoCommentArea, strCommissioner, strDirector, strProgramManager, strComplianceStatement AS ComplianceStatement, strControlEquipmentData, (SELECT CONCAT(strFirstName, ' ', strLastName) AS CC
+                FROM ISMPReportInformation, EPDUserProfiles
+                WHERE ISMPReportInformation.strCC = EPDUserProfiles.numUserID AND ISMPREportInformation.strReferenceNumber = @ref) AS CC, ISMPReportOneStack.strReferencenumber, strMaxoperatingCapacity, (SELECT strUnitDescription
+                FROM LookUPUnits, ISMPReportOneStack
+                WHERE strUnitkey = strMaxOperatingCapacityUnit AND ISMPReportOneStack.strreferencenumber = @ref) AS MaxOperatingCapacityUnit, strOperatingCapacity, (SELECT strUnitDescription
+                FROM LookUPUnits, ISMPReportOneStack
+                WHERE strUnitkey = strOperatingCapacityUnit AND ISMPReportOneStack.strreferencenumber = @ref) AS OperatingCapacityUnit, strAllowableEmissionRate1, strAllowableEmissionRate2, strAllowableEmissionRate3, (SELECT strUnitDescription
+                FROM LookUPUnits, ISMPReportOneStack
+                WHERE strUnitkey = strAllowableEmissionRateUnit1 AND ISMPReportOneStack.strreferencenumber = @ref) AS AllowableEmissionRateUnit1, (SELECT strUnitDescription
+                FROM LookUPUnits, ISMPReportOneStack
+                WHERE strUnitkey = strAllowableEmissionRateUnit2 AND ISMPReportOneStack.strreferencenumber = @ref) AS AllowableEmissionRateUnit2, (SELECT strUnitDescription
+                FROM LookUPUnits, ISMPReportOneStack
+                WHERE strUnitkey = strAllowableEmissionRateUnit3 AND ISMPReportOneStack.strreferencenumber = @ref) AS AllowableEmissionRateUnit3, strRunNumber1a, strRunNumber1b, strRunNumber1c, strGasTemperature1A, strGasTemperature1b, strGasTemperature1C, strGasMoisture1A, strGasMoisture1B, strGasMoisture1C, strGasFlowRateACFM1A, strGasFlowRateACFM1B, strGasFlowRateACFM1c, strGasFlowRateDSCFM1A, strGasFlowRateDSCFM1B, strGasFlowRateDSCFM1C, strPollutantConcentration1A, strPollutantConcentration1B, strPollutantConcentration1C, (SELECT strUnitDescription
+                FROM LookUPUnits, ISMPReportOneStack
+                WHERE strUnitkey = strPollutantConcentrationUnit AND ISMPReportOneStack.strReferenceNumber = @ref) AS POllutantConcentrationUnit, strPOllutantConcentrationAvg, strEmissionRate1A, strEmissionRate1B, strEmissionRate1C, (SELECT strUnitDescription
+                FROM LookUPUnits, ISMPReportOneStack
+                WHERE strUnitKey = strEmissionRateUnit AND ISMPReportOneStack.strReferenceNumber = @ref) AS EmissionRateUnit, strEmissionRateAvg, strPercentAllowable, strConfidentialData
+                FROM ISMPMaster, APBFacilityInformation, ISMPReportInformation, LookUpPollutants, ISMPReportType, EPDUserProfiles, LookUpISMPComplianceStatus, ISMPReportOneStack
+                WHERE ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber AND ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber AND ISMPReportInformation.strPollutant = LookUpPollutants.strPollutantCode AND ISMPReportInformation.strReportType = ISMPReportType.strKey AND ISMPReportInformation.strReviewingEngineer = EPDUserProfiles.numUserID AND ISMPReportInformation.strComplianceStatus = LookUpISMPComplianceStatus.strComplianceKey AND ISMPMaster.strReferenceNumber = ISMPReportOneStack.strReferenceNumber AND ISMPMaster.strReferenceNumber = @ref"
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            Dim recExist As Boolean = dr.Read
+            Dim p As New SqlParameter("@ref", ReferenceValue)
 
-            If recExist Then
+            Dim dr As DataRow = DB.GetDataRow(SQL, p)
+
+            If dr IsNot Nothing Then
+
                 If IsDBNull(dr.Item("strConfidentialData")) Then
                     ConfidentialData = "0"
                 Else
                     ConfidentialData = dr.Item("strConfidentialData")
                 End If
                 If Mid(ConfidentialData, 1, 1) = "1" Then
-                    If txtOther.Text = "ToFile" Then
+                    If PrintoutSubtype = PrintSubtype.ToFile Then
                         ConfidentialData = "0" & Mid(ConfidentialData, 2)
                     End If
                 End If
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "Commissioner"
                 spValue.Value = dr.Item("strCOmmissioner")
@@ -1337,8 +1057,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "Director"
                 spValue.Value = dr.Item("strDirector")
@@ -1346,8 +1066,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ProgramManager"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 9, 1) = "1" Then
@@ -1359,8 +1079,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "AIRSNumber"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 3, 1) = "1" Then
@@ -1372,8 +1092,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "FacilityName"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 4, 1) = "1" Then
@@ -1385,8 +1105,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "FacilityCity"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 5, 1) = "1" Then
@@ -1398,8 +1118,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "FacilityState"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 5, 1) = "1" Then
@@ -1410,8 +1130,8 @@ Public Class IAIPPrintOut
                 ParameterField.CurrentValues.Add(spValue)
                 ParameterFields.Add(ParameterField)
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "Pollutant"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 15, 1) = "1" Then
@@ -1423,8 +1143,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "EmissionSourceTested"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 14, 1) = "1" Then
@@ -1436,8 +1156,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ReportTYpe"
                 spValue.Value = dr.Item("strReportTYpe")
@@ -1461,8 +1181,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ApplicableRequirement"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 31, 1) = "1" Then
@@ -1474,8 +1194,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ReviewingEngineer"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 7, 1) = "1" Then
@@ -1500,8 +1220,8 @@ Public Class IAIPPrintOut
                 End If
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "UnitManager"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 10, 1) = "1" Then
@@ -1521,8 +1241,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ComplianceManager"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 24, 1) = "1" Then
@@ -1535,8 +1255,8 @@ Public Class IAIPPrintOut
 
                 If dr.Item("forTestDateEnd") = dr.Item("ForTestDateStart") Then
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "TestDates"
                     If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 19, 1) = "1" Then
@@ -1548,8 +1268,8 @@ Public Class IAIPPrintOut
                     ParameterFields.Add(ParameterField)
                 Else
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "TestDates"
                     If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 19, 1) = "1" Then
@@ -1562,8 +1282,8 @@ Public Class IAIPPrintOut
                 End If
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ReceivedDate"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 21, 1) = "1" Then
@@ -1575,8 +1295,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "CommentArea"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 34, 1) = "1" Then
@@ -1588,8 +1308,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ComplianceStatus"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 18, 1) = "1" Then
@@ -1601,8 +1321,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ControlEquipmentOperatingData"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 32, 1) = "1" Then
@@ -1615,8 +1335,8 @@ Public Class IAIPPrintOut
 
                 If dr.Item("CC") <> "" And dr.Item("CC") <> "  Unassigned" Then
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "CC"
                     If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 25, 1) = "1" Then
@@ -1628,8 +1348,8 @@ Public Class IAIPPrintOut
                     ParameterFields.Add(ParameterField)
                 Else
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "CC"
                     spValue.Value = " "
@@ -1638,8 +1358,8 @@ Public Class IAIPPrintOut
                 End If
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "Referencenumber"
                 spValue.Value = dr.Item("strReferencenumber")
@@ -1647,8 +1367,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "MaximumOperatingCapacity"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 26, 1) = "1" Then
@@ -1660,8 +1380,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "MaximumOperatingCapacityUnit"
                 Try
@@ -1675,13 +1395,12 @@ Public Class IAIPPrintOut
                     MsgBox(ex.ToString)
                 End Try
 
-
                 ParameterField.CurrentValues.Add(spValue)
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "operatingCapacity"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 27, 1) = "1" Then
@@ -1693,8 +1412,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "OperatingCapacityUnit"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 27, 1) = "1" Then
@@ -1706,8 +1425,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "AllowableEmissionRate1"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 28, 1) = "1" Then
@@ -1719,8 +1438,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "AllowableEmissionRateUnit1"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 28, 1) = "1" Then
@@ -1734,8 +1453,8 @@ Public Class IAIPPrintOut
                 If dr.Item("AllowableEmissionRateUnit2") <> "N/A" Then
 
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "AllowableEmissionRate2"
                     If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 29, 1) = "1" Then
@@ -1747,8 +1466,8 @@ Public Class IAIPPrintOut
                     ParameterFields.Add(ParameterField)
 
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "AllowableEmissionRateUnit2"
                     If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 29, 1) = "1" Then
@@ -1761,8 +1480,8 @@ Public Class IAIPPrintOut
 
                 Else
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "AllowableEmissionRate2"
                     spValue.Value = " "
@@ -1770,8 +1489,8 @@ Public Class IAIPPrintOut
                     ParameterFields.Add(ParameterField)
 
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "AllowableEmissionRateUnit2"
                     spValue.Value = " "
@@ -1782,8 +1501,8 @@ Public Class IAIPPrintOut
                 If dr.Item("AllowableEmissionRateUnit3") <> "N/A" Then
 
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "AllowableEmissionRate3"
                     spValue.Value = "; " & vbCrLf & dr.Item("strAllowableEmissionRate3")
@@ -1796,8 +1515,8 @@ Public Class IAIPPrintOut
                     ParameterFields.Add(ParameterField)
 
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "AllowableEmissionRateUnit3"
                     spValue.Value = dr.Item("AllowableEmissionRateUnit3")
@@ -1811,8 +1530,8 @@ Public Class IAIPPrintOut
 
                 Else
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "AllowableEmissionRate3"
                     spValue.Value = " "
@@ -1820,8 +1539,8 @@ Public Class IAIPPrintOut
                     ParameterFields.Add(ParameterField)
 
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "AllowableEmissionRateUnit3"
                     spValue.Value = " "
@@ -1830,8 +1549,8 @@ Public Class IAIPPrintOut
                 End If
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "RunNumber1a"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 35, 1) = "1" Then
@@ -1843,8 +1562,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "RunNumber1B"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 42, 1) = "1" Then
@@ -1856,8 +1575,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "RunNumber1C"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 49, 1) = "1" Then
@@ -1869,8 +1588,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "GasTemperature1A"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 36, 1) = "1" Then
@@ -1882,8 +1601,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "GasTemperature1B"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 43, 1) = "1" Then
@@ -1895,8 +1614,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "GasTemperature1C"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 50, 1) = "1" Then
@@ -1908,8 +1627,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "GasMoisture1A"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 37, 1) = "1" Then
@@ -1921,8 +1640,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "GasMoisture1B"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 44, 1) = "1" Then
@@ -1934,8 +1653,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "GasMoisture1C"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 51, 1) = "1" Then
@@ -1947,8 +1666,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "GasFlowRate(ACFM)1A"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 38, 1) = "1" Then
@@ -1960,8 +1679,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "GasFlowRate(ACFM)1B"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 45, 1) = "1" Then
@@ -1973,8 +1692,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "GasFlowRate(ACFM)1C"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 52, 1) = "1" Then
@@ -1986,8 +1705,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "GasFlowRate(DSCFM)1A"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 39, 1) = "1" Then
@@ -1999,8 +1718,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "GasFlowRate(DSCFM)1B"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 46, 1) = "1" Then
@@ -2012,8 +1731,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "GasFlowRate(DSCFM)1C"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 53, 1) = "1" Then
@@ -2025,8 +1744,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "PollutantConcentration1A"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 40, 1) = "1" Then
@@ -2038,8 +1757,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "PollutantConcentration1B"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 47, 1) = "1" Then
@@ -2051,8 +1770,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "PollutantConcentration1C"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 54, 1) = "1" Then
@@ -2064,8 +1783,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "PollutantConcentrationUnits"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 56, 1) = "1" Then
@@ -2077,8 +1796,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "PollutantConcentrationAverage1"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 57, 1) = "1" Then
@@ -2090,8 +1809,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "EmissionRate1A"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 41, 1) = "1" Then
@@ -2103,8 +1822,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "EmissionRate1B"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 48, 1) = "1" Then
@@ -2116,8 +1835,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "EmissionRate1C"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 55, 1) = "1" Then
@@ -2129,8 +1848,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "EmissionRateUnits"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 58, 1) = "1" Then
@@ -2142,8 +1861,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "EmissionRateAverage1"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 59, 1) = "1" Then
@@ -2155,8 +1874,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "PercentAllowable"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 33, 1) = "1" Then
@@ -2167,28 +1886,17 @@ Public Class IAIPPrintOut
                 ParameterField.CurrentValues.Add(spValue)
                 ParameterFields.Add(ParameterField)
 
-                dr.Close()
-
                 If WitnessingEngineer2 = "M/W" Then
                     SQL = "select " &
-                    "(strFirstName||' '||strLastName) as WitnessingEng " &
-                    "from ISMPWitnessingEng, EPDUserProfiles " &
-                    "where ISMPWitnessingEng.strWitnessingEngineer = EPDUserProfiles.numUserID  " &
-                    "and strReferenceNumber = '" & Me.txtReferenceNumber.Text & "'  "
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    WitnessingEngineer2 = ""
-                    While dr.Read
-                        WitnessingEngineer2 = WitnessingEngineer2 & vbCrLf & dr.Item("WitnessingEng")
-                    End While
-                    dr.Close()
+                    "concat(strFirstName,' ',strLastName) as WitnessingEng " &
+                    "from ISMPWitnessingEng inner join EPDUSerProfiles " &
+                    "on ISMPWitnessingEng.strWitnessingEngineer = EPDUSerProfiles.numUserProfiles  " &
+                    "where strReferenceNumber = @ref "
+
                     If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 13, 1) = "1" Then
                         WitnessingEngineer2 = "--Conf--"
                     Else
-                        WitnessingEngineer2 = WitnessingEngineer2
+                        WitnessingEngineer2 = DB.GetSingleValue(Of String)(SQL, p)
                     End If
                 Else
                     WitnessingEngineer2 = " "
@@ -2225,8 +1933,8 @@ Public Class IAIPPrintOut
                 End If
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
                 ParameterField.ParameterFieldName = "WitnessingEngineer"
                 spValue.Value = WitnessingEngineer
                 ParameterField.CurrentValues.Add(spValue)
@@ -2240,144 +1948,76 @@ Public Class IAIPPrintOut
 
             Else
                 MsgBox("Unable to Print at this time.")
-                PrintOut.Close()
+                Me.Close()
             End If
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
+    End Sub
 
-    End Sub    'Complete
     Private Sub LoadOneStackFourRun()
         Dim rpt As New CROneStackFourRuns
         monitor.TrackFeature("Report." & rpt.ResourceName)
 
-        Dim ParameterFields As CrystalDecisions.Shared.ParameterFields
-        Dim ParameterField As CrystalDecisions.Shared.ParameterField
-        Dim spValue As CrystalDecisions.Shared.ParameterDiscreteValue
+        Dim ParameterFields As ParameterFields
+        Dim ParameterField As ParameterField
+        Dim spValue As ParameterDiscreteValue
 
         Try
 
             'Do this just once at the start
-            ParameterFields = New CrystalDecisions.Shared.ParameterFields
+            ParameterFields = New ParameterFields
 
-            SQL = "Select " &
-            "ISMPMaster.strAIRSNumber as AIRSNumber, " &
-            "APBFacilityInformation.strFacilityName as FacilityName, " &
-            "strFacilityCity as FacilityCity, " &
-             "strFacilityState as FacilityState, " &
-            "strPollutantDescription as PollutantDescription, " &
-            "strEmissionSource, " &
-            "ISMPReportType.strReportType, " &
-           "strApplicableRequirement, " &
-           "(strFirstName||' '||strLastName) as ReviewingEngineer, " &
-           "Case " &
-             "when ISMPReportInformation.strWitnessingEngineer = '0' then 'N/W' " &
-           "Else " &
-             "(select (strFirstName||' '||strLastName) " &
-             "from EPDUserProfiles, ISMPReportInformation " &
-             "where ISMPReportInformation.strWitnessingEngineer = EPDUserProfiles.numUserID " &
-             "and ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') " &
-           "End as WitnessingEngineer, " &
-           "Case " &
-             "when ISMPReportInformation.strOtherWitnessingEng is Null then 'N/W' " &
-             "when ISMPReportInformation.strOtherWitnessingEng = '0' then 'N/W' " &
-           "Else  " &
-             "'M/W' " &
-           "End WitnessingEngineer2,     " &
-           "Case  " &
-             "when ISMPReportInformation.numReviewingManager is Null then 'N/A' " &
-           "Else  " &
-             "(Select (strFirstName||' '||strLastName) as UnitManager  " &
-             "from EPDUserProfiles, ISMPReportInformation  " &
-             "where ISMPReportInformation.numReviewingManager = EPDUserProfiles.numUserID " &
-             "and ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "')  " &
-           "END UnitManager,  " &
-           "datReviewedByUnitManager,  " &
-           "(Select (strFirstName||' '||strLastName) as ComplianceManager  " &
-           "from EPDUserProfiles, ISMPReportInformation   " &
-           "where ISMPReportInformation.strComplianceManager = EPDUserProfiles.nuMUserID " &
-           "and ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') as ComplianceManager,  " &
-           "to_char(datTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart,  " &
-           "to_char(datTestDateEnd, 'FMMonth DD, YYYY') as ForTestDateEnd,  " &
-           "to_char(datReceivedDate, 'FMMonth DD, YYYY') as ForReceivedDate,  " &
-           "datCompleteDate,  " &
-           "mmoCommentArea, strCommissioner, strDirector, strProgramManager,  " &
-           "strComplianceStatement as ComplianceStatement,  " &
-           "strControlEquipmentData,  " &
-           "(Select (strFirstName||' '||strLastName) as CC  " &
-           "from ISMPReportInformation, EPDUserProfiles  " &
-           "where ISMPReportInformation.strCC = EPDUserProfiles.numUserID  " &
-           "and ISMPREportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') as CC,  " &
-           "ISMPReportOneStack.strReferencenumber, strMaxoperatingCapacity, " &
-            "(select strUnitDescription from LookUPUnits, ISMPReportOneStack " &
-            "where strUnitkey = strMaxOperatingCapacityUnit " &
-            "and ISMPReportOneStack.strreferencenumber = '" & txtReferenceNumber.Text & "') as MaxOperatingCapacityUnit, " &
-            "strOperatingCapacity, " &
-            "(select strUnitDescription from LookUPUnits, ISMPReportOneStack " &
-            "where strUnitkey = strOperatingCapacityUnit " &
-            "and ISMPReportOneStack.strreferencenumber = '" & txtReferenceNumber.Text & "') as OperatingCapacityUnit,  " &
-            "strAllowableEmissionRate1, strAllowableEmissionRate2, strAllowableEmissionRate3, " &
-            "(select strUnitDescription from LookUPUnits, ISMPReportOneStack " &
-            "where strUnitkey = strAllowableEmissionRateUnit1 " &
-            "and ISMPReportOneStack.strreferencenumber = '" & txtReferenceNumber.Text & "') as AllowableEmissionRateUnit1, " &
-            "(select strUnitDescription from LookUPUnits, ISMPReportOneStack " &
-            "where strUnitkey = strAllowableEmissionRateUnit2 " &
-            "and ISMPReportOneStack.strreferencenumber = '" & txtReferenceNumber.Text & "') as AllowableEmissionRateUnit2, " &
-            "(select strUnitDescription from LookUPUnits, ISMPReportOneStack " &
-            "where strUnitkey = strAllowableEmissionRateUnit3 " &
-            "and ISMPReportOneStack.strreferencenumber = '" & txtReferenceNumber.Text & "') as AllowableEmissionRateUnit3, " &
-            "strRunNumber1a, strRunNumber1b, strRunNumber1c, strRunNumber1D, strGasTemperature1A, strGasTemperature1b, " &
-            "strGasTemperature1C, strGasTemperature1D, strGasMoisture1A, strGasMoisture1B, strGasMoisture1C, strGasMoisture1D, " &
-            "strGasFlowRateACFM1A, strGasFlowRateACFM1B, strGasFlowRateACFM1c, strGasFlowRateACFM1D, " &
-            "strGasFlowRateDSCFM1A, strGasFlowRateDSCFM1B, strGasFlowRateDSCFM1C, strGasFlowRateDSCFM1D, " &
-            "strPollutantConcentration1A, strPollutantConcentration1B, strPollutantConcentration1C, strPollutantConcentration1D, " &
-            "(Select strUnitDescription from LookUPUnits, ISMPReportOneStack " &
-            "where strUnitkey = strPollutantConcentrationUnit " &
-            "and ISMPReportOneStack.strReferenceNumber = '" & txtReferenceNumber.Text & "') as POllutantConcentrationUnit, " &
-            "strPOllutantConcentrationAvg, " &
-            "strEmissionRate1A, strEmissionRate1B, strEmissionRate1C, strEmissionRate1D, " &
-            "(select strUnitDescription from LookUPUnits, ISMPReportOneStack " &
-            "where strUnitKey = strEmissionRateUnit " &
-            "and ISMPReportOneStack.strReferenceNumber = '" & txtReferenceNumber.Text & "') as EmissionRateUnit, " &
-            "strEmissionRateAvg, strPercentAllowable, strConfidentialData " &
-           "From ISMPMaster, APBFacilityInformation,  " &
-           "ISMPReportInformation, LookUpPollutants,  " &
-           "ISMPReportType, EPDUserProfiles,  " &
-           "LookUpISMPComplianceStatus, ISMPReportOneStack   " &
-           "where ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber  " &
-           "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber  " &
-           "and ISMPReportInformation.strPollutant = LookUpPollutants.strPollutantCode  " &
-           "and ISMPReportInformation.strReportType = ISMPReportType.strKey  " &
-           "and ISMPReportInformation.strReviewingEngineer = EPDUserProfiles.numUserID  " &
-           "and ISMPReportInformation.strComplianceStatus = LookUpISMPComplianceStatus.strComplianceKey   " &
-           "and ISMPMaster.strReferenceNumber = ISMPReportOneStack.strReferenceNumber  " &
-           "and ISMPMaster.strReferenceNumber = '" & txtReferenceNumber.Text & "'"
+            Dim SQL As String = "SELECT ISMPMaster.strAIRSNumber AS AIRSNumber, APBFacilityInformation.strFacilityName AS FacilityName, strFacilityCity AS FacilityCity, strFacilityState AS FacilityState, strPollutantDescription AS PollutantDescription, strEmissionSource, ISMPReportType.strReportType, strApplicableRequirement, CONCAT(strFirstName, ' ', strLastName) AS ReviewingEngineer,
+                CASE WHEN ISMPReportInformation.strWitnessingEngineer = '0' THEN 'N/W' ELSE (SELECT CONCAT(strFirstName, ' ', strLastName)
+                FROM EPDUserProfiles, ISMPReportInformation
+                WHERE ISMPReportInformation.strWitnessingEngineer = EPDUserProfiles.numUserID AND ISMPReportInformation.strReferenceNumber = @ref) END AS WitnessingEngineer,
+                CASE WHEN ISMPReportInformation.strOtherWitnessingEng IS NULL THEN 'N/W' WHEN ISMPReportInformation.strOtherWitnessingEng = '0' THEN 'N/W' ELSE 'M/W' END AS WitnessingEngineer2,
+                CASE WHEN ISMPReportInformation.numReviewingManager IS NULL THEN 'N/A' ELSE (SELECT CONCAT(strFirstName, ' ', strLastName) AS UnitManager
+                FROM EPDUserProfiles, ISMPReportInformation
+                WHERE ISMPReportInformation.numReviewingManager = EPDUserProfiles.numUserID AND ISMPReportInformation.strReferenceNumber = @ref) END AS UnitManager, datReviewedByUnitManager, (SELECT CONCAT(strFirstName, ' ', strLastName) AS ComplianceManager
+                FROM EPDUserProfiles, ISMPReportInformation
+                WHERE ISMPReportInformation.strComplianceManager = EPDUserProfiles.nuMUserID AND ISMPReportInformation.strReferenceNumber = @ref) AS ComplianceManager, format(datTestDateStart, 'MMMM d, yyyy') AS ForTestDateStart, format(datTestDateEnd, 'MMMM d, yyyy') AS ForTestDateEnd, format(datReceivedDate, 'MMMM d, yyyy') AS ForReceivedDate, datCompleteDate, mmoCommentArea, strCommissioner, strDirector, strProgramManager, strComplianceStatement AS ComplianceStatement, strControlEquipmentData, (SELECT CONCAT(strFirstName, ' ', strLastName) AS CC
+                FROM ISMPReportInformation, EPDUserProfiles
+                WHERE ISMPReportInformation.strCC = EPDUserProfiles.numUserID AND ISMPREportInformation.strReferenceNumber = @ref) AS CC, ISMPReportOneStack.strReferencenumber, strMaxoperatingCapacity, (SELECT strUnitDescription
+                FROM LookUPUnits, ISMPReportOneStack
+                WHERE strUnitkey = strMaxOperatingCapacityUnit AND ISMPReportOneStack.strreferencenumber = @ref) AS MaxOperatingCapacityUnit, strOperatingCapacity, (SELECT strUnitDescription
+                FROM LookUPUnits, ISMPReportOneStack
+                WHERE strUnitkey = strOperatingCapacityUnit AND ISMPReportOneStack.strreferencenumber = @ref) AS OperatingCapacityUnit, strAllowableEmissionRate1, strAllowableEmissionRate2, strAllowableEmissionRate3, (SELECT strUnitDescription
+                FROM LookUPUnits, ISMPReportOneStack
+                WHERE strUnitkey = strAllowableEmissionRateUnit1 AND ISMPReportOneStack.strreferencenumber = @ref) AS AllowableEmissionRateUnit1, (SELECT strUnitDescription
+                FROM LookUPUnits, ISMPReportOneStack
+                WHERE strUnitkey = strAllowableEmissionRateUnit2 AND ISMPReportOneStack.strreferencenumber = @ref) AS AllowableEmissionRateUnit2, (SELECT strUnitDescription
+                FROM LookUPUnits, ISMPReportOneStack
+                WHERE strUnitkey = strAllowableEmissionRateUnit3 AND ISMPReportOneStack.strreferencenumber = @ref) AS AllowableEmissionRateUnit3, strRunNumber1a, strRunNumber1b, strRunNumber1c, strRunNumber1D, strGasTemperature1A, strGasTemperature1b, strGasTemperature1C, strGasTemperature1D, strGasMoisture1A, strGasMoisture1B, strGasMoisture1C, strGasMoisture1D, strGasFlowRateACFM1A, strGasFlowRateACFM1B, strGasFlowRateACFM1c, strGasFlowRateACFM1D, strGasFlowRateDSCFM1A, strGasFlowRateDSCFM1B, strGasFlowRateDSCFM1C, strGasFlowRateDSCFM1D, strPollutantConcentration1A, strPollutantConcentration1B, strPollutantConcentration1C, strPollutantConcentration1D, (SELECT strUnitDescription
+                FROM LookUPUnits, ISMPReportOneStack
+                WHERE strUnitkey = strPollutantConcentrationUnit AND ISMPReportOneStack.strReferenceNumber = @ref) AS POllutantConcentrationUnit, strPOllutantConcentrationAvg, strEmissionRate1A, strEmissionRate1B, strEmissionRate1C, strEmissionRate1D, (SELECT strUnitDescription
+                FROM LookUPUnits, ISMPReportOneStack
+                WHERE strUnitKey = strEmissionRateUnit AND ISMPReportOneStack.strReferenceNumber = @ref) AS EmissionRateUnit, strEmissionRateAvg, strPercentAllowable, strConfidentialData
+                FROM ISMPMaster, APBFacilityInformation, ISMPReportInformation, LookUpPollutants, ISMPReportType, EPDUserProfiles, LookUpISMPComplianceStatus, ISMPReportOneStack
+                WHERE ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber AND ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber AND ISMPReportInformation.strPollutant = LookUpPollutants.strPollutantCode AND ISMPReportInformation.strReportType = ISMPReportType.strKey AND ISMPReportInformation.strReviewingEngineer = EPDUserProfiles.numUserID AND ISMPReportInformation.strComplianceStatus = LookUpISMPComplianceStatus.strComplianceKey AND ISMPMaster.strReferenceNumber = ISMPReportOneStack.strReferenceNumber AND ISMPMaster.strReferenceNumber = @ref"
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            Dim recExist As Boolean = dr.Read
+            Dim p As New SqlParameter("@ref", ReferenceValue)
 
-            If recExist Then
+            Dim dr As DataRow = DB.GetDataRow(SQL, p)
+
+            If dr IsNot Nothing Then
+
                 If IsDBNull(dr.Item("strConfidentialData")) Then
                     ConfidentialData = "0"
                 Else
                     ConfidentialData = dr.Item("strConfidentialData")
                 End If
                 If Mid(ConfidentialData, 1, 1) = "1" Then
-                    If txtOther.Text = "ToFile" Then
+                    If PrintoutSubtype = PrintSubtype.ToFile Then
                         ConfidentialData = "0" & Mid(ConfidentialData, 2)
                     End If
                 End If
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "Commissioner"
                 spValue.Value = dr.Item("strCOmmissioner")
@@ -2385,8 +2025,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "Director"
                 spValue.Value = dr.Item("strDirector")
@@ -2394,8 +2034,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ProgramManager"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 9, 1) = "1" Then
@@ -2407,8 +2047,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "AIRSNumber"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 3, 1) = "1" Then
@@ -2420,8 +2060,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "FacilityName"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 4, 1) = "1" Then
@@ -2433,8 +2073,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "FacilityCity"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 5, 1) = "1" Then
@@ -2446,8 +2086,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "FacilityState"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 5, 1) = "1" Then
@@ -2459,8 +2099,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "Pollutant"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 15, 1) = "1" Then
@@ -2472,8 +2112,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "EmissionSourceTested"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 14, 1) = "1" Then
@@ -2485,8 +2125,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ReportTYpe"
                 ReportType = dr.Item("strReportTYpe")
@@ -2509,8 +2149,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ApplicableRequirement"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 31, 1) = "1" Then
@@ -2522,8 +2162,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ReviewingEngineer"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 7, 1) = "1" Then
@@ -2548,8 +2188,8 @@ Public Class IAIPPrintOut
                 End If
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "UnitManager"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 10, 1) = "1" Then
@@ -2569,8 +2209,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ComplianceManager"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 24, 1) = "1" Then
@@ -2583,8 +2223,8 @@ Public Class IAIPPrintOut
 
                 If dr.Item("forTestDateEnd") = dr.Item("ForTestDateStart") Then
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "TestDates"
                     If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 14, 1) = "1" Then
@@ -2596,8 +2236,8 @@ Public Class IAIPPrintOut
                     ParameterFields.Add(ParameterField)
                 Else
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "TestDates"
                     If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 14, 1) = "1" Then
@@ -2610,8 +2250,8 @@ Public Class IAIPPrintOut
                 End If
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ReceivedDate"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 21, 1) = "1" Then
@@ -2623,8 +2263,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "CommentArea"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 34, 1) = "1" Then
@@ -2636,8 +2276,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ComplianceStatus"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 18, 1) = "1" Then
@@ -2649,8 +2289,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ControlEquipmentOperatingData"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 32, 1) = "1" Then
@@ -2663,8 +2303,8 @@ Public Class IAIPPrintOut
 
                 If dr.Item("CC") <> "" And dr.Item("CC") <> "  Unassigned" Then
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "CC"
                     If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 25, 1) = "1" Then
@@ -2676,8 +2316,8 @@ Public Class IAIPPrintOut
                     ParameterFields.Add(ParameterField)
                 Else
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "CC"
                     spValue.Value = " "
@@ -2686,8 +2326,8 @@ Public Class IAIPPrintOut
                 End If
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "Referencenumber"
                 spValue.Value = dr.Item("strReferencenumber")
@@ -2695,8 +2335,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "MaximumOperatingCapacity"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 26, 1) = "1" Then
@@ -2708,8 +2348,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "MaximumOperatingCapacityUnit"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 26, 1) = "1" Then
@@ -2721,8 +2361,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "operatingCapacity"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 27, 1) = "1" Then
@@ -2734,8 +2374,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "OperatingCapacityUnit"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 27, 1) = "1" Then
@@ -2747,8 +2387,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "AllowableEmissionRate1"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 28, 1) = "1" Then
@@ -2760,8 +2400,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "AllowableEmissionRateUnit1"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 28, 1) = "1" Then
@@ -2775,8 +2415,8 @@ Public Class IAIPPrintOut
                 If dr.Item("AllowableEmissionRateUnit2") <> "N/A" Then
 
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "AllowableEmissionRate2"
                     If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 29, 1) = "1" Then
@@ -2788,8 +2428,8 @@ Public Class IAIPPrintOut
                     ParameterFields.Add(ParameterField)
 
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "AllowableEmissionRateUnit2"
                     If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 29, 1) = "1" Then
@@ -2801,8 +2441,8 @@ Public Class IAIPPrintOut
                     ParameterFields.Add(ParameterField)
                 Else
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "AllowableEmissionRate2"
                     spValue.Value = " "
@@ -2810,8 +2450,8 @@ Public Class IAIPPrintOut
                     ParameterFields.Add(ParameterField)
 
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "AllowableEmissionRateUnit2"
                     spValue.Value = " "
@@ -2822,8 +2462,8 @@ Public Class IAIPPrintOut
                 If dr.Item("AllowableEmissionRateUnit3") <> "N/A" Then
 
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "AllowableEmissionRate3"
                     spValue.Value = "; " & vbCrLf & dr.Item("strAllowableEmissionRate3")
@@ -2836,8 +2476,8 @@ Public Class IAIPPrintOut
                     ParameterFields.Add(ParameterField)
 
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "AllowableEmissionRateUnit3"
                     spValue.Value = dr.Item("AllowableEmissionRateUnit3")
@@ -2851,8 +2491,8 @@ Public Class IAIPPrintOut
 
                 Else
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "AllowableEmissionRate3"
                     spValue.Value = " "
@@ -2860,8 +2500,8 @@ Public Class IAIPPrintOut
                     ParameterFields.Add(ParameterField)
 
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "AllowableEmissionRateUnit3"
                     spValue.Value = " "
@@ -2870,8 +2510,8 @@ Public Class IAIPPrintOut
                 End If
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "RunNumber1a"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 35, 1) = "1" Then
@@ -2883,8 +2523,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "RunNumber1B"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 42, 1) = "1" Then
@@ -2896,8 +2536,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "RunNumber1C"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 49, 1) = "1" Then
@@ -2909,8 +2549,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "RunNumber1D"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 56, 1) = "1" Then
@@ -2922,8 +2562,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "GasTemperature1A"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 36, 1) = "1" Then
@@ -2935,8 +2575,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "GasTemperature1B"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 43, 1) = "1" Then
@@ -2948,8 +2588,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "GasTemperature1C"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 50, 1) = "1" Then
@@ -2961,8 +2601,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "GasTemperature1D"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 57, 1) = "1" Then
@@ -2974,8 +2614,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "GasMoisture1A"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 37, 1) = "1" Then
@@ -2987,8 +2627,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "GasMoisture1B"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 44, 1) = "1" Then
@@ -3000,8 +2640,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "GasMoisture1C"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 51, 1) = "1" Then
@@ -3013,8 +2653,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "GasMoisture1D"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 58, 1) = "1" Then
@@ -3026,8 +2666,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "GasFlowRate(ACFM)1A"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 38, 1) = "1" Then
@@ -3039,8 +2679,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "GasFlowRate(ACFM)1B"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 45, 1) = "1" Then
@@ -3052,8 +2692,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "GasFlowRate(ACFM)1C"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 52, 1) = "1" Then
@@ -3065,8 +2705,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "GasFlowRate(ACFM)1D"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 59, 1) = "1" Then
@@ -3078,8 +2718,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "GasFlowRate(DSCFM)1A"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 39, 1) = "1" Then
@@ -3091,8 +2731,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "GasFlowRate(DSCFM)1B"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 46, 1) = "1" Then
@@ -3104,8 +2744,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "GasFlowRate(DSCFM)1C"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 53, 1) = "1" Then
@@ -3117,8 +2757,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "GasFlowRate(DSCFM)1D"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 60, 1) = "1" Then
@@ -3130,8 +2770,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "PollutantConcentration1A"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 40, 1) = "1" Then
@@ -3143,8 +2783,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "PollutantConcentration1B"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 47, 1) = "1" Then
@@ -3156,8 +2796,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "PollutantConcentration1C"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 54, 1) = "1" Then
@@ -3169,8 +2809,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "PollutantConcentration1D"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 61, 1) = "1" Then
@@ -3182,8 +2822,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "PollutantConcentrationUnits"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 63, 1) = "1" Then
@@ -3195,8 +2835,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "PollutantConcentrationAverage1"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 64, 1) = "1" Then
@@ -3208,8 +2848,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "EmissionRate1A"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 41, 1) = "1" Then
@@ -3221,8 +2861,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "EmissionRate1B"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 48, 1) = "1" Then
@@ -3234,8 +2874,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "EmissionRate1C"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 55, 1) = "1" Then
@@ -3247,8 +2887,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "EmissionRate1D"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 62, 1) = "1" Then
@@ -3260,8 +2900,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "EmissionRateUnits"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 65, 1) = "1" Then
@@ -3273,8 +2913,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "EmissionRateAverage1"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 66, 1) = "1" Then
@@ -3286,8 +2926,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "PercentAllowable"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 33, 1) = "1" Then
@@ -3298,28 +2938,17 @@ Public Class IAIPPrintOut
                 ParameterField.CurrentValues.Add(spValue)
                 ParameterFields.Add(ParameterField)
 
-                dr.Close()
-
                 If WitnessingEngineer2 = "M/W" Then
                     SQL = "select " &
-                    "(strFirstName||' '||strLastName) as WitnessingEng " &
-                    "from ISMPWitnessingEng, EPDUserProfiles " &
-                    "where ISMPWitnessingEng.strWitnessingEngineer = EPDUserProfiles.numUserID  " &
-                    "and strReferenceNumber = '" & Me.txtReferenceNumber.Text & "'  "
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    WitnessingEngineer2 = ""
-                    While dr.Read
-                        WitnessingEngineer2 = WitnessingEngineer2 & vbCrLf & dr.Item("WitnessingEng")
-                    End While
-                    dr.Close()
+                    "concat(strFirstName,' ',strLastName) as WitnessingEng " &
+                    "from ISMPWitnessingEng inner join EPDUSerProfiles " &
+                    "on ISMPWitnessingEng.strWitnessingEngineer = EPDUSerProfiles.numUserProfiles  " &
+                    "where strReferenceNumber = @ref "
+
                     If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 13, 1) = "1" Then
                         WitnessingEngineer2 = "--Conf--"
                     Else
-                        WitnessingEngineer2 = WitnessingEngineer2
+                        WitnessingEngineer2 = DB.GetSingleValue(Of String)(SQL, p)
                     End If
                 Else
                     WitnessingEngineer2 = " "
@@ -3356,8 +2985,8 @@ Public Class IAIPPrintOut
                 End If
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
                 ParameterField.ParameterFieldName = "WitnessingEngineer"
                 spValue.Value = WitnessingEngineer
                 ParameterField.CurrentValues.Add(spValue)
@@ -3371,160 +3000,75 @@ Public Class IAIPPrintOut
 
             Else
                 MsgBox("Unable to Print at this time.")
-                PrintOut.Close()
-
+                Me.Close()
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
+    End Sub
 
-    End Sub     'Complete
     Private Sub LoadTwoStackStandard()
         Dim rpt As New CRTwoStackStandard
         monitor.TrackFeature("Report." & rpt.ResourceName)
 
-        Dim ParameterFields As CrystalDecisions.Shared.ParameterFields
-        Dim ParameterField As CrystalDecisions.Shared.ParameterField
-        Dim spValue As CrystalDecisions.Shared.ParameterDiscreteValue
+        Dim ParameterFields As ParameterFields
+        Dim ParameterField As ParameterField
+        Dim spValue As ParameterDiscreteValue
 
         Try
 
             'Do this just once at the start
-            ParameterFields = New CrystalDecisions.Shared.ParameterFields
+            ParameterFields = New ParameterFields
 
-            SQL = "Select " &
-            "ISMPMaster.strAIRSNumber as AIRSNumber, " &
-            "APBFacilityInformation.strFacilityName as FacilityName, " &
-            "strFacilityCity as FacilityCity, " &
-             "strFacilityState as FacilityState, " &
-            "strPollutantDescription as PollutantDescription, " &
-            "strEmissionSource, " &
-            "ISMPReportType.strReportType, " &
-           "strApplicableRequirement, " &
-           "(strFirstName||' '||strLastName) as ReviewingEngineer, " &
-           "Case " &
-             "when ISMPReportInformation.strWitnessingEngineer = '0' then 'N/W' " &
-           "Else " &
-             "(select (strFirstName||' '||strLastName) " &
-             "from EPDUserProfiles, ISMPReportInformation " &
-             "where ISMPReportInformation.strWitnessingEngineer = EPDUserProfiles.numUserID " &
-             "and ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') " &
-           "End as WitnessingEngineer, " &
-           "Case " &
-             "when ISMPReportInformation.strOtherWitnessingEng is Null then 'N/W' " &
-             "when ISMPReportInformation.strOtherWitnessingEng = '0' then 'N/W' " &
-           "Else  " &
-             "'M/W' " &
-           "End WitnessingEngineer2,     " &
-           "Case  " &
-             "when ISMPReportInformation.numReviewingManager is Null then 'N/A' " &
-           "Else  " &
-             "(Select (strFirstName||' '||strLastName) as UnitManager  " &
-             "from EPDUserProfiles, ISMPReportInformation  " &
-             "where ISMPReportInformation.numReviewingManager = EPDUserProfiles.numUserID " &
-             "and ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "')  " &
-           "END UnitManager,  " &
-           "datReviewedByUnitManager,  " &
-           "(Select (strFirstName||' '||strLastName) as ComplianceManager  " &
-           "from EPDUserProfiles, ISMPReportInformation   " &
-           "where ISMPReportInformation.strComplianceManager = EPDUserProfiles.nuMUserID " &
-           "and ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') as ComplianceManager,  " &
-           "to_char(datTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart,  " &
-           "to_char(datTestDateEnd, 'FMMonth DD, YYYY') as ForTestDateEnd,  " &
-           "to_char(datReceivedDate, 'FMMonth DD, YYYY') as ForReceivedDate,  " &
-           "datCompleteDate,  " &
-           "mmoCommentArea, strCommissioner, strDirector, strProgramManager,  " &
-           "strComplianceStatement as ComplianceStatement,  " &
-           "strControlEquipmentData,  " &
-           "(Select (strFirstName||' '||strLastName) as CC  " &
-           "from ISMPReportInformation, EPDUserProfiles  " &
-           "where ISMPReportInformation.strCC = EPDUserProfiles.numUserID  " &
-           "and ISMPREportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') as CC,  " &
-           "ISMPReportTwoStack.strReferencenumber, strMaxoperatingCapacity, " &
-            "(select strUnitDescription from LookUPUnits, ISMPReportTwoStack " &
-            "where strUnitkey = strMaxOperatingCapacityUnit " &
-            "and ISMPReportTwoStack.strreferencenumber = '" & txtReferenceNumber.Text & "') as MaxOperatingCapacityUnit, " &
-            "strOperatingCapacity, " &
-            "(select strUnitDescription from LookUPUnits, ISMPReportTwoStack " &
-            "where strUnitkey = strOperatingCapacityUnit " &
-            "and ISMPReportTwoStack.strreferencenumber = '" & txtReferenceNumber.Text & "') as OperatingCapacityUnit,  " &
-            "strAllowableEmissionRate1, strAllowableEmissionRate2, strAllowableEmissionRate3, " &
-            "(select strUnitDescription from LookUPUnits, ISMPReportTwoStack " &
-            "where strUnitkey = strAllowableEmissionRateUnit1 " &
-            "and ISMPReportTwoStack.strreferencenumber = '" & txtReferenceNumber.Text & "') as AllowableEmissionRateUnit1, " &
-            "(select strUnitDescription from LookUPUnits, ISMPReportTwoStack " &
-            "where strUnitkey = strAllowableEmissionRateUnit2 " &
-            "and ISMPReportTwoStack.strreferencenumber = '" & txtReferenceNumber.Text & "') as AllowableEmissionRateUnit2, " &
-            "(select strUnitDescription from LookUPUnits, ISMPReportTwoStack " &
-            "where strUnitkey = strAllowableEmissionRateUnit3 " &
-            "and ISMPReportTwoStack.strreferencenumber = '" & txtReferenceNumber.Text & "') as AllowableEmissionRateUnit3, " &
-            "strStackOneName, strStackTwoName, " &
-            "strRunNumber1a, strRunNumber1b, strRunNumber1c, strRunNumber2a, strRunNumber2b, strRunNumber2c, " &
-            "strGasTemperature1A, strGasTemperature1b, strGasTemperature1C, " &
-            "strGasTemperature2A, strGasTemperature2b, strGasTemperature2C, " &
-            "strGasMoisture1A, strGasMoisture1B, strGasMoisture1C, " &
-            "strGasMoisture2A, strGasMoisture2B, strGasMoisture2C, " &
-            "strGasFlowRateACFM1A, strGasFlowRateACFM1B, strGasFlowRateACFM1c, " &
-            "strGasFlowRateACFM2A, strGasFlowRateACFM2B, strGasFlowRateACFM2c, " &
-            "strGasFlowRateDSCFM1A, strGasFlowRateDSCFM1B, strGasFlowRateDSCFM1C, " &
-            "strGasFlowRateDSCFM2A, strGasFlowRateDSCFM2B, strGasFlowRateDSCFM2C, " &
-            "strPollutantConcentration1A, strPollutantConcentration1B, strPollutantConcentration1C, " &
-            "strPollutantConcentration2A, strPollutantConcentration2B, strPollutantConcentration2C, " &
-            "(Select strUnitDescription from LookUPUnits, ISMPReportTwoStack " &
-            "where strUnitkey = strPollutantConcentrationUnit " &
-            "and ISMPReportTwoStack.strReferenceNumber = '" & txtReferenceNumber.Text & "') as POllutantConcentrationUnit, " &
-            "strPOllutantConcentrationAvg1, " &
-            "strPOllutantConcentrationAvg2, " &
-            "strEmissionRate1A, strEmissionRate1B, strEmissionRate1C, " &
-            "strEmissionRate2A, strEmissionRate2B, strEmissionRate2C, " &
-            "(select strUnitDescription from LookUPUnits, ISMPReportTwoStack " &
-            "where strUnitKey = strEmissionRateUnit " &
-            "and ISMPReportTwoStack.strReferenceNumber = '" & txtReferenceNumber.Text & "') as EmissionRateUnit, " &
-            "strEmissionRateAvg1, " &
-            "strEmissionRateAvg2, " &
-            "strEmissionRateTotal1, " &
-            "strEmissionRateTotal2, " &
-            "strEmissionRateTotal3, " &
-            "strEmissionRateTotalAvg, " &
-            "strPercentAllowable, strConfidentialData " &
-           "From ISMPMaster, APBFacilityInformation,  " &
-           "ISMPReportInformation, LookUpPollutants,  " &
-           "ISMPReportType, EPDUserProfiles,  " &
-           "LookUpISMPComplianceStatus, ISMPReportTwoStack   " &
-           "where ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber  " &
-           "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber  " &
-           "and ISMPReportInformation.strPollutant = LookUpPollutants.strPollutantCode  " &
-           "and ISMPReportInformation.strReportType = ISMPReportType.strKey  " &
-           "and ISMPReportInformation.strReviewingEngineer = EPDUserProfiles.numUserID  " &
-           "and ISMPReportInformation.strComplianceStatus = LookUpISMPComplianceStatus.strComplianceKey   " &
-           "and ISMPMaster.strReferenceNumber = ISMPReportTwoStack.strReferenceNumber  " &
-           "and ISMPMaster.strReferenceNumber = '" & txtReferenceNumber.Text & "'"
+            Dim SQL As String = "SELECT ISMPMaster.strAIRSNumber AS AIRSNumber, APBFacilityInformation.strFacilityName AS FacilityName, strFacilityCity AS FacilityCity, strFacilityState AS FacilityState, strPollutantDescription AS PollutantDescription, strEmissionSource, ISMPReportType.strReportType, strApplicableRequirement, CONCAT(strFirstName, ' ', strLastName) AS ReviewingEngineer,
+                CASE WHEN ISMPReportInformation.strWitnessingEngineer = '0' THEN 'N/W' ELSE (SELECT CONCAT(strFirstName, ' ', strLastName)
+                FROM EPDUserProfiles, ISMPReportInformation
+                WHERE ISMPReportInformation.strWitnessingEngineer = EPDUserProfiles.numUserID AND ISMPReportInformation.strReferenceNumber = @ref) END AS WitnessingEngineer,
+                CASE WHEN ISMPReportInformation.strOtherWitnessingEng IS NULL THEN 'N/W' WHEN ISMPReportInformation.strOtherWitnessingEng = '0' THEN 'N/W' ELSE 'M/W' END AS WitnessingEngineer2,
+                CASE WHEN ISMPReportInformation.numReviewingManager IS NULL THEN 'N/A' ELSE (SELECT CONCAT(strFirstName, ' ', strLastName) AS UnitManager
+                FROM EPDUserProfiles, ISMPReportInformation
+                WHERE ISMPReportInformation.numReviewingManager = EPDUserProfiles.numUserID AND ISMPReportInformation.strReferenceNumber = @ref) END AS UnitManager, datReviewedByUnitManager, (SELECT CONCAT(strFirstName, ' ', strLastName) AS ComplianceManager
+                FROM EPDUserProfiles, ISMPReportInformation
+                WHERE ISMPReportInformation.strComplianceManager = EPDUserProfiles.nuMUserID AND ISMPReportInformation.strReferenceNumber = @ref) AS ComplianceManager, format(datTestDateStart, 'MMMM d, yyyy') AS ForTestDateStart, format(datTestDateEnd, 'MMMM d, yyyy') AS ForTestDateEnd, format(datReceivedDate, 'MMMM d, yyyy') AS ForReceivedDate, datCompleteDate, mmoCommentArea, strCommissioner, strDirector, strProgramManager, strComplianceStatement AS ComplianceStatement, strControlEquipmentData, (SELECT CONCAT(strFirstName, ' ', strLastName) AS CC
+                FROM ISMPReportInformation, EPDUserProfiles
+                WHERE ISMPReportInformation.strCC = EPDUserProfiles.numUserID AND ISMPREportInformation.strReferenceNumber = @ref) AS CC, ISMPReportTwoStack.strReferencenumber, strMaxoperatingCapacity, (SELECT strUnitDescription
+                FROM LookUPUnits, ISMPReportTwoStack
+                WHERE strUnitkey = strMaxOperatingCapacityUnit AND ISMPReportTwoStack.strreferencenumber = @ref) AS MaxOperatingCapacityUnit, strOperatingCapacity, (SELECT strUnitDescription
+                FROM LookUPUnits, ISMPReportTwoStack
+                WHERE strUnitkey = strOperatingCapacityUnit AND ISMPReportTwoStack.strreferencenumber = @ref) AS OperatingCapacityUnit, strAllowableEmissionRate1, strAllowableEmissionRate2, strAllowableEmissionRate3, (SELECT strUnitDescription
+                FROM LookUPUnits, ISMPReportTwoStack
+                WHERE strUnitkey = strAllowableEmissionRateUnit1 AND ISMPReportTwoStack.strreferencenumber = @ref) AS AllowableEmissionRateUnit1, (SELECT strUnitDescription
+                FROM LookUPUnits, ISMPReportTwoStack
+                WHERE strUnitkey = strAllowableEmissionRateUnit2 AND ISMPReportTwoStack.strreferencenumber = @ref) AS AllowableEmissionRateUnit2, (SELECT strUnitDescription
+                FROM LookUPUnits, ISMPReportTwoStack
+                WHERE strUnitkey = strAllowableEmissionRateUnit3 AND ISMPReportTwoStack.strreferencenumber = @ref) AS AllowableEmissionRateUnit3, strStackOneName, strStackTwoName, strRunNumber1a, strRunNumber1b, strRunNumber1c, strRunNumber2a, strRunNumber2b, strRunNumber2c, strGasTemperature1A, strGasTemperature1b, strGasTemperature1C, strGasTemperature2A, strGasTemperature2b, strGasTemperature2C, strGasMoisture1A, strGasMoisture1B, strGasMoisture1C, strGasMoisture2A, strGasMoisture2B, strGasMoisture2C, strGasFlowRateACFM1A, strGasFlowRateACFM1B, strGasFlowRateACFM1c, strGasFlowRateACFM2A, strGasFlowRateACFM2B, strGasFlowRateACFM2c, strGasFlowRateDSCFM1A, strGasFlowRateDSCFM1B, strGasFlowRateDSCFM1C, strGasFlowRateDSCFM2A, strGasFlowRateDSCFM2B, strGasFlowRateDSCFM2C, strPollutantConcentration1A, strPollutantConcentration1B, strPollutantConcentration1C, strPollutantConcentration2A, strPollutantConcentration2B, strPollutantConcentration2C, (SELECT strUnitDescription
+                FROM LookUPUnits, ISMPReportTwoStack
+                WHERE strUnitkey = strPollutantConcentrationUnit AND ISMPReportTwoStack.strReferenceNumber = @ref) AS POllutantConcentrationUnit, strPOllutantConcentrationAvg1, strPOllutantConcentrationAvg2, strEmissionRate1A, strEmissionRate1B, strEmissionRate1C, strEmissionRate2A, strEmissionRate2B, strEmissionRate2C, (SELECT strUnitDescription
+                FROM LookUPUnits, ISMPReportTwoStack
+                WHERE strUnitKey = strEmissionRateUnit AND ISMPReportTwoStack.strReferenceNumber = @ref) AS EmissionRateUnit, strEmissionRateAvg1, strEmissionRateAvg2, strEmissionRateTotal1, strEmissionRateTotal2, strEmissionRateTotal3, strEmissionRateTotalAvg, strPercentAllowable, strConfidentialData
+                FROM ISMPMaster, APBFacilityInformation, ISMPReportInformation, LookUpPollutants, ISMPReportType, EPDUserProfiles, LookUpISMPComplianceStatus, ISMPReportTwoStack
+                WHERE ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber AND ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber AND ISMPReportInformation.strPollutant = LookUpPollutants.strPollutantCode AND ISMPReportInformation.strReportType = ISMPReportType.strKey AND ISMPReportInformation.strReviewingEngineer = EPDUserProfiles.numUserID AND ISMPReportInformation.strComplianceStatus = LookUpISMPComplianceStatus.strComplianceKey AND ISMPMaster.strReferenceNumber = ISMPReportTwoStack.strReferenceNumber AND ISMPMaster.strReferenceNumber = @ref"
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
+            Dim p As New SqlParameter("@ref", ReferenceValue)
 
-            Dim recExist As Boolean = dr.Read
+            Dim dr As DataRow = DB.GetDataRow(SQL, p)
 
-            If recExist Then
+            If dr IsNot Nothing Then
+
                 If IsDBNull(dr.Item("strConfidentialData")) Then
                     ConfidentialData = "0"
                 Else
                     ConfidentialData = dr.Item("strConfidentialData")
                 End If
                 If Mid(ConfidentialData, 1, 1) = "1" Then
-                    If txtOther.Text = "ToFile" Then
+                    If PrintoutSubtype = PrintSubtype.ToFile Then
                         ConfidentialData = "0" & Mid(ConfidentialData, 2)
                     End If
                 End If
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "Commissioner"
                 spValue.Value = dr.Item("strCOmmissioner")
@@ -3532,8 +3076,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "Director"
                 spValue.Value = dr.Item("strDirector")
@@ -3541,8 +3085,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ProgramManager"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 9, 1) = "1" Then
@@ -3554,8 +3098,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "AIRSNumber"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 3, 1) = "1" Then
@@ -3567,8 +3111,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "FacilityName"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 4, 1) = "1" Then
@@ -3580,8 +3124,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "FacilityCity"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 5, 1) = "1" Then
@@ -3593,8 +3137,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "FacilityState"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 5, 1) = "1" Then
@@ -3606,8 +3150,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "Pollutant"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 15, 1) = "1" Then
@@ -3619,8 +3163,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "EmissionSourceTested"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 14, 1) = "1" Then
@@ -3632,8 +3176,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ReportTYpe"
                 ReportType = dr.Item("strReportTYpe")
@@ -3656,8 +3200,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ApplicableRequirement"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 31, 1) = "1" Then
@@ -3669,8 +3213,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ReviewingEngineer"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 7, 1) = "1" Then
@@ -3695,8 +3239,8 @@ Public Class IAIPPrintOut
                 End If
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "UnitManager"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 10, 1) = "1" Then
@@ -3716,8 +3260,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ComplianceManager"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 24, 1) = "1" Then
@@ -3730,8 +3274,8 @@ Public Class IAIPPrintOut
 
                 If dr.Item("forTestDateEnd") = dr.Item("ForTestDateStart") Then
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "TestDates"
                     If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 19, 1) = "1" Then
@@ -3743,8 +3287,8 @@ Public Class IAIPPrintOut
                     ParameterFields.Add(ParameterField)
                 Else
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "TestDates"
                     If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 19, 1) = "1" Then
@@ -3757,8 +3301,8 @@ Public Class IAIPPrintOut
                 End If
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ReceivedDate"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 21, 1) = "1" Then
@@ -3770,8 +3314,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "CommentArea"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 33, 1) = "1" Then
@@ -3783,8 +3327,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ComplianceStatus"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 18, 1) = "1" Then
@@ -3796,8 +3340,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ControlEquipmentOperatingData"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 32, 1) = "1" Then
@@ -3810,8 +3354,8 @@ Public Class IAIPPrintOut
 
                 If dr.Item("CC") <> "" And dr.Item("CC") <> "  Unassigned" Then
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "CC"
                     If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 25, 1) = "1" Then
@@ -3823,8 +3367,8 @@ Public Class IAIPPrintOut
                     ParameterFields.Add(ParameterField)
                 Else
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "CC"
                     spValue.Value = " "
@@ -3833,8 +3377,8 @@ Public Class IAIPPrintOut
                 End If
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "Referencenumber"
                 spValue.Value = dr.Item("strReferencenumber")
@@ -3842,8 +3386,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "MaximumOperatingCapacity"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 26, 1) = "1" Then
@@ -3855,8 +3399,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "MaximumOperatingCapacityUnit"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 26, 1) = "1" Then
@@ -3868,8 +3412,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "operatingCapacity"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 27, 1) = "1" Then
@@ -3881,8 +3425,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "OperatingCapacityUnit"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 27, 1) = "1" Then
@@ -3894,8 +3438,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "AllowableEmissionRate1"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 28, 1) = "1" Then
@@ -3907,8 +3451,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "AllowableEmissionRateUnit1"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 28, 1) = "1" Then
@@ -3922,8 +3466,8 @@ Public Class IAIPPrintOut
                 If dr.Item("AllowableEmissionRateUnit2") <> "N/A" Then
 
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "AllowableEmissionRate2"
                     If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 29, 1) = "1" Then
@@ -3935,8 +3479,8 @@ Public Class IAIPPrintOut
                     ParameterFields.Add(ParameterField)
 
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "AllowableEmissionRateUnit2"
                     If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 29, 1) = "1" Then
@@ -3949,8 +3493,8 @@ Public Class IAIPPrintOut
 
                 Else
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "AllowableEmissionRate2"
                     spValue.Value = " "
@@ -3958,8 +3502,8 @@ Public Class IAIPPrintOut
                     ParameterFields.Add(ParameterField)
 
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "AllowableEmissionRateUnit2"
                     spValue.Value = " "
@@ -3970,8 +3514,8 @@ Public Class IAIPPrintOut
                 If dr.Item("AllowableEmissionRateUnit3") <> "N/A" Then
 
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "AllowableEmissionRate3"
                     spValue.Value = "; " & vbCrLf & dr.Item("strAllowableEmissionRate3")
@@ -3984,8 +3528,8 @@ Public Class IAIPPrintOut
                     ParameterFields.Add(ParameterField)
 
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "AllowableEmissionRateUnit3"
                     spValue.Value = dr.Item("AllowableEmissionRateUnit3")
@@ -3999,8 +3543,8 @@ Public Class IAIPPrintOut
 
                 Else
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "AllowableEmissionRate3"
                     spValue.Value = " "
@@ -4008,8 +3552,8 @@ Public Class IAIPPrintOut
                     ParameterFields.Add(ParameterField)
 
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "AllowableEmissionRateUnit3"
                     spValue.Value = " "
@@ -4018,8 +3562,8 @@ Public Class IAIPPrintOut
                 End If
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "StackOneName"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 34, 1) = "1" Then
@@ -4031,8 +3575,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "StackTwoName"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 35, 1) = "1" Then
@@ -4044,8 +3588,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "RunNumber1a"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 36, 1) = "1" Then
@@ -4057,8 +3601,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "RunNumber1B"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 43, 1) = "1" Then
@@ -4070,8 +3614,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "RunNumber1C"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 50, 1) = "1" Then
@@ -4083,8 +3627,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "GasTemperature1A"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 37, 1) = "1" Then
@@ -4096,8 +3640,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "GasTemperature1B"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 44, 1) = "1" Then
@@ -4109,8 +3653,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "GasTemperature1C"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 51, 1) = "1" Then
@@ -4122,8 +3666,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "GasTemperature2A"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 58, 1) = "1" Then
@@ -4135,8 +3679,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "GasTemperature2B"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 65, 1) = "1" Then
@@ -4148,8 +3692,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "GasTemperature2C"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 72, 1) = "1" Then
@@ -4161,8 +3705,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "GasMoisture1A"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 38, 1) = "1" Then
@@ -4174,8 +3718,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "GasMoisture1B"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 45, 1) = "1" Then
@@ -4187,8 +3731,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "GasMoisture1C"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 52, 1) = "1" Then
@@ -4200,8 +3744,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "GasMoisture2A"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 59, 1) = "1" Then
@@ -4213,8 +3757,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "GasMoisture2B"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 66, 1) = "1" Then
@@ -4226,8 +3770,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "GasMoisture2C"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 73, 1) = "1" Then
@@ -4239,8 +3783,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "GasFlowRate(ACFM)1A"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 39, 1) = "1" Then
@@ -4252,8 +3796,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "GasFlowRate(ACFM)1B"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 46, 1) = "1" Then
@@ -4265,8 +3809,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "GasFlowRate(ACFM)1C"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 53, 1) = "1" Then
@@ -4278,8 +3822,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "GasFlowRate(ACFM)2A"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 60, 1) = "1" Then
@@ -4291,8 +3835,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "GasFlowRate(ACFM)2B"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 67, 1) = "1" Then
@@ -4304,8 +3848,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "GasFlowRate(ACFM)2C"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 74, 1) = "1" Then
@@ -4317,8 +3861,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "GasFlowRate(DSCFM)1A"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 40, 1) = "1" Then
@@ -4330,8 +3874,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "GasFlowRate(DSCFM)1B"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 47, 1) = "1" Then
@@ -4343,8 +3887,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "GasFlowRate(DSCFM)1C"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 54, 1) = "1" Then
@@ -4356,8 +3900,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "GasFlowRate(DSCFM)2A"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 61, 1) = "1" Then
@@ -4369,8 +3913,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "GasFlowRate(DSCFM)2B"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 68, 1) = "1" Then
@@ -4382,8 +3926,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "GasFlowRate(DSCFM)2C"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 75, 1) = "1" Then
@@ -4395,8 +3939,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "PollutantConcentration1A"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 41, 1) = "1" Then
@@ -4408,8 +3952,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "PollutantConcentration1B"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 48, 1) = "1" Then
@@ -4421,8 +3965,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "PollutantConcentration1C"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 55, 1) = "1" Then
@@ -4434,8 +3978,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "PollutantConcentration2A"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 62, 1) = "1" Then
@@ -4447,8 +3991,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "PollutantConcentration2B"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 69, 1) = "1" Then
@@ -4460,8 +4004,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "PollutantConcentration2C"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 76, 1) = "1" Then
@@ -4473,8 +4017,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "PollutantConcentrationUnits"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 78, 1) = "1" Then
@@ -4486,8 +4030,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "PollutantConcentrationAverage1"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 79, 1) = "1" Then
@@ -4499,8 +4043,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "PollutantConcentrationAverage2"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 80, 1) = "1" Then
@@ -4512,8 +4056,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "EmissionRate1A"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 42, 1) = "1" Then
@@ -4525,8 +4069,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "EmissionRate1B"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 49, 1) = "1" Then
@@ -4538,8 +4082,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "EmissionRate1C"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 56, 1) = "1" Then
@@ -4551,8 +4095,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "EmissionRate2A"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 63, 1) = "1" Then
@@ -4564,8 +4108,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "EmissionRate2B"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 70, 1) = "1" Then
@@ -4577,8 +4121,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "EmissionRate2C"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 77, 1) = "1" Then
@@ -4590,8 +4134,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "EmissionRateUnits"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 81, 1) = "1" Then
@@ -4603,8 +4147,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "EmissionRateAverage1"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 82, 1) = "1" Then
@@ -4616,8 +4160,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "EmissionRateAverage2"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 83, 1) = "1" Then
@@ -4629,8 +4173,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "EmissionRateTotal1"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 84, 1) = "1" Then
@@ -4642,8 +4186,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "EmissionRateTotal2"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 85, 1) = "1" Then
@@ -4655,8 +4199,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "EmissionRateTotal3"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 86, 1) = "1" Then
@@ -4668,8 +4212,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "EmissionRateTotalAverage"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 87, 1) = "1" Then
@@ -4681,8 +4225,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "PercentAllowable"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 88, 1) = "1" Then
@@ -4693,28 +4237,17 @@ Public Class IAIPPrintOut
                 ParameterField.CurrentValues.Add(spValue)
                 ParameterFields.Add(ParameterField)
 
-                dr.Close()
-
                 If WitnessingEngineer2 = "M/W" Then
                     SQL = "select " &
-                    "(strFirstName||' '||strLastName) as WitnessingEng " &
-                    "from ISMPWitnessingEng, EPDUserProfiles " &
-                    "where ISMPWitnessingEng.strWitnessingEngineer = EPDUserProfiles.numUserID  " &
-                    "and strReferenceNumber = '" & Me.txtReferenceNumber.Text & "'  "
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    WitnessingEngineer2 = ""
-                    While dr.Read
-                        WitnessingEngineer2 = WitnessingEngineer2 & vbCrLf & dr.Item("WitnessingEng")
-                    End While
-                    dr.Close()
+                    "concat(strFirstName,' ',strLastName) as WitnessingEng " &
+                    "from ISMPWitnessingEng inner join EPDUSerProfiles " &
+                    "on ISMPWitnessingEng.strWitnessingEngineer = EPDUSerProfiles.numUserProfiles  " &
+                    "where strReferenceNumber = @ref "
+
                     If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 13, 1) = "1" Then
                         WitnessingEngineer2 = "--Conf--"
                     Else
-                        WitnessingEngineer2 = WitnessingEngineer2
+                        WitnessingEngineer2 = DB.GetSingleValue(Of String)(SQL, p)
                     End If
                 Else
                     WitnessingEngineer2 = " "
@@ -4751,8 +4284,8 @@ Public Class IAIPPrintOut
                 End If
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
                 ParameterField.ParameterFieldName = "WitnessingEngineer"
                 spValue.Value = WitnessingEngineer
                 ParameterField.CurrentValues.Add(spValue)
@@ -4766,159 +4299,76 @@ Public Class IAIPPrintOut
 
             Else
                 MsgBox("Unable to Print at this time.")
-                PrintOut.Close()
-
+                Me.Close()
             End If
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
+    End Sub
 
-    End Sub    'Complete
     Private Sub LoadTwoStackDRE()
         Dim rpt As New CRTwoStackDRE
         monitor.TrackFeature("Report." & rpt.ResourceName)
 
-        Dim ParameterFields As CrystalDecisions.Shared.ParameterFields
-        Dim ParameterField As CrystalDecisions.Shared.ParameterField
-        Dim spValue As CrystalDecisions.Shared.ParameterDiscreteValue
+        Dim ParameterFields As ParameterFields
+        Dim ParameterField As ParameterField
+        Dim spValue As ParameterDiscreteValue
 
         Try
 
             'Do this just once at the start
-            ParameterFields = New CrystalDecisions.Shared.ParameterFields
+            ParameterFields = New ParameterFields
 
-            SQL = "Select " &
-            "ISMPMaster.strAIRSNumber as AIRSNumber, " &
-            "APBFacilityInformation.strFacilityName as FacilityName, " &
-            "strFacilityCity as FacilityCity, " &
-             "strFacilityState as FacilityState, " &
-            "strPollutantDescription as PollutantDescription, " &
-            "strEmissionSource, " &
-            "ISMPReportType.strReportType, " &
-           "strApplicableRequirement, " &
-           "(strFirstName||' '||strLastName) as ReviewingEngineer, " &
-           "Case " &
-             "when ISMPReportInformation.strWitnessingEngineer = '0' then 'N/W' " &
-           "Else " &
-             "(select (strFirstName||' '||strLastName) " &
-             "from EPDUserProfiles, ISMPReportInformation " &
-             "where ISMPReportInformation.strWitnessingEngineer = EPDUserProfiles.numUserID " &
-             "and ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') " &
-           "End as WitnessingEngineer, " &
-           "Case " &
-             "when ISMPReportInformation.strOtherWitnessingEng is Null then 'N/W' " &
-             "when ISMPReportInformation.strOtherWitnessingEng = '0' then 'N/W' " &
-           "Else  " &
-             "'M/W' " &
-           "End WitnessingEngineer2,     " &
-           "Case  " &
-             "when ISMPReportInformation.numReviewingManager is Null then 'N/A' " &
-           "Else  " &
-             "(Select (strFirstName||' '||strLastName) as UnitManager  " &
-             "from EPDUserProfiles, ISMPReportInformation  " &
-             "where ISMPReportInformation.numReviewingManager = EPDUserProfiles.numUserID " &
-             "and ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "')  " &
-           "END UnitManager,  " &
-           "datReviewedByUnitManager,  " &
-           "(Select (strFirstName||' '||strLastName) as ComplianceManager  " &
-           "from EPDUserProfiles, ISMPReportInformation   " &
-           "where ISMPReportInformation.strComplianceManager = EPDUserProfiles.nuMUserID " &
-           "and ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') as ComplianceManager,  " &
-           "to_char(datTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart,  " &
-           "to_char(datTestDateEnd, 'FMMonth DD, YYYY') as ForTestDateEnd,  " &
-           "to_char(datReceivedDate, 'FMMonth DD, YYYY') as ForReceivedDate,  " &
-           "datCompleteDate,  " &
-           "mmoCommentArea, strCommissioner, strDirector, strProgramManager,  " &
-           "strComplianceStatement as ComplianceStatement,  " &
-           "strControlEquipmentData,  " &
-           "(Select (strFirstName||' '||strLastName) as CC  " &
-           "from ISMPReportInformation, EPDUserProfiles  " &
-           "where ISMPReportInformation.strCC = EPDUserProfiles.numUserID  " &
-           "and ISMPREportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') as CC,  " &
-           "ISMPReportTwoStack.strReferencenumber, strMaxoperatingCapacity, " &
-        "(select strUnitDescription from LookUPUnits, ISMPReportTwoStack " &
-        "where strUnitkey = strMaxOperatingCapacityUnit " &
-        "and ISMPReportTwoStack.strreferencenumber = '" & txtReferenceNumber.Text & "') as MaxOperatingCapacityUnit, " &
-        "strOperatingCapacity, " &
-        "(select strUnitDescription from LookUPUnits, ISMPReportTwoStack " &
-        "where strUnitkey = strOperatingCapacityUnit " &
-        "and ISMPReportTwoStack.strreferencenumber = '" & txtReferenceNumber.Text & "') as OperatingCapacityUnit,  " &
-        "strAllowableEmissionRate1, strAllowableEmissionRate2, strAllowableEmissionRate3, " &
-        "(select strUnitDescription from LookUPUnits, ISMPReportTwoStack " &
-        "where strUnitkey = strAllowableEmissionRateUnit1 " &
-        "and ISMPReportTwoStack.strreferencenumber = '" & txtReferenceNumber.Text & "') as AllowableEmissionRateUnit1, " &
-        "(select strUnitDescription from LookUPUnits, ISMPReportTwoStack " &
-        "where strUnitkey = strAllowableEmissionRateUnit2 " &
-        "and ISMPReportTwoStack.strreferencenumber = '" & txtReferenceNumber.Text & "') as AllowableEmissionRateUnit2, " &
-        "(select strUnitDescription from LookUPUnits, ISMPReportTwoStack " &
-        "where strUnitkey = strAllowableEmissionRateUnit3 " &
-        "and ISMPReportTwoStack.strreferencenumber = '" & txtReferenceNumber.Text & "') as AllowableEmissionRateUnit3, " &
-        "strStackOneName, strStackTwoName, " &
-        "strRunNumber1a, strRunNumber1b, strRunNumber1c, strRunNumber2a, strRunNumber2b, strRunNumber2c, " &
-        "strGasTemperature1A, strGasTemperature1b, strGasTemperature1C, " &
-        "strGasTemperature2A, strGasTemperature2b, strGasTemperature2C, " &
-        "strGasMoisture1A, strGasMoisture1B, strGasMoisture1C, " &
-        "strGasMoisture2A, strGasMoisture2B, strGasMoisture2C, " &
-        "strGasFlowRateACFM1A, strGasFlowRateACFM1B, strGasFlowRateACFM1c, " &
-        "strGasFlowRateACFM2A, strGasFlowRateACFM2B, strGasFlowRateACFM2c, " &
-        "strGasFlowRateDSCFM1A, strGasFlowRateDSCFM1B, strGasFlowRateDSCFM1C, " &
-        "strGasFlowRateDSCFM2A, strGasFlowRateDSCFM2B, strGasFlowRateDSCFM2C, " &
-        "strPollutantConcentration1A, strPollutantConcentration1B, strPollutantConcentration1C, " &
-        "strPollutantConcentration2A, strPollutantConcentration2B, strPollutantConcentration2C, " &
-        "(Select strUnitDescription from LookUPUnits, ISMPReportTwoStack " &
-        "where strUnitkey = strPollutantConcentrationUnit " &
-        "and ISMPReportTwoStack.strReferenceNumber = '" & txtReferenceNumber.Text & "') as POllutantConcentrationUnit, " &
-        "strPOllutantConcentrationAvg1, " &
-        "strPOllutantConcentrationAvg2, " &
-        "strEmissionRate1A, strEmissionRate1B, strEmissionRate1C, " &
-        "strEmissionRate2A, strEmissionRate2B, strEmissionRate2C, " &
-        "(select strUnitDescription from LookUPUnits, ISMPReportTwoStack " &
-        "where strUnitKey = strEmissionRateUnit " &
-        "and ISMPReportTwoStack.strReferenceNumber = '" & txtReferenceNumber.Text & "') as EmissionRateUnit, " &
-        "strEmissionRateAvg1, " &
-        "strEmissionRateAvg2, " &
-        "strDestructionPercent, " &
-        "strPercentAllowable, strConfidentialData " &
-           "From ISMPMaster, APBFacilityInformation,  " &
-           "ISMPReportInformation, LookUpPollutants,  " &
-           "ISMPReportType, EPDUserProfiles,  " &
-           "LookUpISMPComplianceStatus, ISMPReportTwoStack   " &
-           "where ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber  " &
-           "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber  " &
-           "and ISMPReportInformation.strPollutant = LookUpPollutants.strPollutantCode  " &
-           "and ISMPReportInformation.strReportType = ISMPReportType.strKey  " &
-           "and ISMPReportInformation.strReviewingEngineer = EPDUserProfiles.numUserID  " &
-           "and ISMPReportInformation.strComplianceStatus = LookUpISMPComplianceStatus.strComplianceKey   " &
-           "and ISMPMaster.strReferenceNumber = ISMPReportTwoStack.strReferenceNumber  " &
-           "and ISMPMaster.strReferenceNumber = '" & txtReferenceNumber.Text & "'"
+            Dim SQL As String = "SELECT ISMPMaster.strAIRSNumber AS AIRSNumber, APBFacilityInformation.strFacilityName AS FacilityName, strFacilityCity AS FacilityCity, strFacilityState AS FacilityState, strPollutantDescription AS PollutantDescription, strEmissionSource, ISMPReportType.strReportType, strApplicableRequirement, CONCAT(strFirstName, ' ', strLastName) AS ReviewingEngineer,
+                CASE WHEN ISMPReportInformation.strWitnessingEngineer = '0' THEN 'N/W' ELSE (SELECT CONCAT(strFirstName, ' ', strLastName)
+                FROM EPDUserProfiles, ISMPReportInformation
+                WHERE ISMPReportInformation.strWitnessingEngineer = EPDUserProfiles.numUserID AND ISMPReportInformation.strReferenceNumber = @ref) END AS WitnessingEngineer,
+                CASE WHEN ISMPReportInformation.strOtherWitnessingEng IS NULL THEN 'N/W' WHEN ISMPReportInformation.strOtherWitnessingEng = '0' THEN 'N/W' ELSE 'M/W' END AS WitnessingEngineer2,
+                CASE WHEN ISMPReportInformation.numReviewingManager IS NULL THEN 'N/A' ELSE (SELECT CONCAT(strFirstName, ' ', strLastName) AS UnitManager
+                FROM EPDUserProfiles, ISMPReportInformation
+                WHERE ISMPReportInformation.numReviewingManager = EPDUserProfiles.numUserID AND ISMPReportInformation.strReferenceNumber = @ref) END AS UnitManager, datReviewedByUnitManager, (SELECT CONCAT(strFirstName, ' ', strLastName) AS ComplianceManager
+                FROM EPDUserProfiles, ISMPReportInformation
+                WHERE ISMPReportInformation.strComplianceManager = EPDUserProfiles.nuMUserID AND ISMPReportInformation.strReferenceNumber = @ref) AS ComplianceManager, format(datTestDateStart, 'MMMM d, yyyy') AS ForTestDateStart, format(datTestDateEnd, 'MMMM d, yyyy') AS ForTestDateEnd, format(datReceivedDate, 'MMMM d, yyyy') AS ForReceivedDate, datCompleteDate, mmoCommentArea, strCommissioner, strDirector, strProgramManager, strComplianceStatement AS ComplianceStatement, strControlEquipmentData, (SELECT CONCAT(strFirstName, ' ', strLastName) AS CC
+                FROM ISMPReportInformation, EPDUserProfiles
+                WHERE ISMPReportInformation.strCC = EPDUserProfiles.numUserID AND ISMPREportInformation.strReferenceNumber = @ref) AS CC, ISMPReportTwoStack.strReferencenumber, strMaxoperatingCapacity, (SELECT strUnitDescription
+                FROM LookUPUnits, ISMPReportTwoStack
+                WHERE strUnitkey = strMaxOperatingCapacityUnit AND ISMPReportTwoStack.strreferencenumber = @ref) AS MaxOperatingCapacityUnit, strOperatingCapacity, (SELECT strUnitDescription
+                FROM LookUPUnits, ISMPReportTwoStack
+                WHERE strUnitkey = strOperatingCapacityUnit AND ISMPReportTwoStack.strreferencenumber = @ref) AS OperatingCapacityUnit, strAllowableEmissionRate1, strAllowableEmissionRate2, strAllowableEmissionRate3, (SELECT strUnitDescription
+                FROM LookUPUnits, ISMPReportTwoStack
+                WHERE strUnitkey = strAllowableEmissionRateUnit1 AND ISMPReportTwoStack.strreferencenumber = @ref) AS AllowableEmissionRateUnit1, (SELECT strUnitDescription
+                FROM LookUPUnits, ISMPReportTwoStack
+                WHERE strUnitkey = strAllowableEmissionRateUnit2 AND ISMPReportTwoStack.strreferencenumber = @ref) AS AllowableEmissionRateUnit2, (SELECT strUnitDescription
+                FROM LookUPUnits, ISMPReportTwoStack
+                WHERE strUnitkey = strAllowableEmissionRateUnit3 AND ISMPReportTwoStack.strreferencenumber = @ref) AS AllowableEmissionRateUnit3, strStackOneName, strStackTwoName, strRunNumber1a, strRunNumber1b, strRunNumber1c, strRunNumber2a, strRunNumber2b, strRunNumber2c, strGasTemperature1A, strGasTemperature1b, strGasTemperature1C, strGasTemperature2A, strGasTemperature2b, strGasTemperature2C, strGasMoisture1A, strGasMoisture1B, strGasMoisture1C, strGasMoisture2A, strGasMoisture2B, strGasMoisture2C, strGasFlowRateACFM1A, strGasFlowRateACFM1B, strGasFlowRateACFM1c, strGasFlowRateACFM2A, strGasFlowRateACFM2B, strGasFlowRateACFM2c, strGasFlowRateDSCFM1A, strGasFlowRateDSCFM1B, strGasFlowRateDSCFM1C, strGasFlowRateDSCFM2A, strGasFlowRateDSCFM2B, strGasFlowRateDSCFM2C, strPollutantConcentration1A, strPollutantConcentration1B, strPollutantConcentration1C, strPollutantConcentration2A, strPollutantConcentration2B, strPollutantConcentration2C, (SELECT strUnitDescription
+                FROM LookUPUnits, ISMPReportTwoStack
+                WHERE strUnitkey = strPollutantConcentrationUnit AND ISMPReportTwoStack.strReferenceNumber = @ref) AS POllutantConcentrationUnit, strPOllutantConcentrationAvg1, strPOllutantConcentrationAvg2, strEmissionRate1A, strEmissionRate1B, strEmissionRate1C, strEmissionRate2A, strEmissionRate2B, strEmissionRate2C, (SELECT strUnitDescription
+                FROM LookUPUnits, ISMPReportTwoStack
+                WHERE strUnitKey = strEmissionRateUnit AND ISMPReportTwoStack.strReferenceNumber = @ref) AS EmissionRateUnit, strEmissionRateAvg1, strEmissionRateAvg2, strDestructionPercent, strPercentAllowable, strConfidentialData
+                FROM ISMPMaster, APBFacilityInformation, ISMPReportInformation, LookUpPollutants, ISMPReportType, EPDUserProfiles, LookUpISMPComplianceStatus, ISMPReportTwoStack
+                WHERE ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber AND ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber AND ISMPReportInformation.strPollutant = LookUpPollutants.strPollutantCode AND ISMPReportInformation.strReportType = ISMPReportType.strKey AND ISMPReportInformation.strReviewingEngineer = EPDUserProfiles.numUserID AND ISMPReportInformation.strComplianceStatus = LookUpISMPComplianceStatus.strComplianceKey AND ISMPMaster.strReferenceNumber = ISMPReportTwoStack.strReferenceNumber AND ISMPMaster.strReferenceNumber = @ref"
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
+            Dim p As New SqlParameter("@ref", ReferenceValue)
 
-            dr = cmd.ExecuteReader
+            Dim dr As DataRow = DB.GetDataRow(SQL, p)
 
-            Dim recExist As Boolean = dr.Read
+            If dr IsNot Nothing Then
 
-            If recExist Then
                 If IsDBNull(dr.Item("strConfidentialData")) Then
                     ConfidentialData = "0"
                 Else
                     ConfidentialData = dr.Item("strConfidentialData")
                 End If
                 If Mid(ConfidentialData, 1, 1) = "1" Then
-                    If txtOther.Text = "ToFile" Then
+                    If PrintoutSubtype = PrintSubtype.ToFile Then
                         ConfidentialData = "0" & Mid(ConfidentialData, 2)
                     End If
                 End If
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "Commissioner"
                 spValue.Value = dr.Item("strCOmmissioner")
@@ -4926,8 +4376,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "Director"
                 spValue.Value = dr.Item("strDirector")
@@ -4935,8 +4385,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ProgramManager"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 9, 1) = "1" Then
@@ -4948,8 +4398,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "AIRSNumber"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 3, 1) = "1" Then
@@ -4961,8 +4411,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "FacilityName"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 4, 1) = "1" Then
@@ -4974,8 +4424,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "FacilityCity"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 5, 1) = "1" Then
@@ -4987,8 +4437,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "FacilityState"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 5, 1) = "1" Then
@@ -5000,8 +4450,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "Pollutant"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 15, 1) = "1" Then
@@ -5013,8 +4463,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "EmissionSourceTested"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 14, 1) = "1" Then
@@ -5026,8 +4476,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ReportTYpe"
                 ReportType = dr.Item("strReportTYpe")
@@ -5050,8 +4500,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ApplicableRequirement"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 31, 1) = "1" Then
@@ -5063,8 +4513,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ReviewingEngineer"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 7, 1) = "1" Then
@@ -5089,8 +4539,8 @@ Public Class IAIPPrintOut
                 End If
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "UnitManager"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 10, 1) = "1" Then
@@ -5110,8 +4560,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ComplianceManager"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 24, 1) = "1" Then
@@ -5127,8 +4577,8 @@ Public Class IAIPPrintOut
 
                 If dr.Item("forTestDateEnd") = dr.Item("ForTestDateStart") Then
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "TestDates"
                     If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 19, 1) = "1" Then
@@ -5140,8 +4590,8 @@ Public Class IAIPPrintOut
                     ParameterFields.Add(ParameterField)
                 Else
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "TestDates"
                     If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 19, 1) = "1" Then
@@ -5154,8 +4604,8 @@ Public Class IAIPPrintOut
                 End If
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ReceivedDate"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 21, 1) = "1" Then
@@ -5167,8 +4617,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "CommentArea"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 33, 1) = "1" Then
@@ -5180,8 +4630,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ComplianceStatus"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 18, 1) = "1" Then
@@ -5193,8 +4643,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ControlEquipmentOperatingData"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 32, 1) = "1" Then
@@ -5207,8 +4657,8 @@ Public Class IAIPPrintOut
 
                 If dr.Item("CC") <> "" And dr.Item("CC") <> "  Unassigned" Then
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "CC"
                     If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 25, 1) = "1" Then
@@ -5220,8 +4670,8 @@ Public Class IAIPPrintOut
                     ParameterFields.Add(ParameterField)
                 Else
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "CC"
                     spValue.Value = " "
@@ -5230,8 +4680,8 @@ Public Class IAIPPrintOut
                 End If
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "Referencenumber"
                 spValue.Value = dr.Item("strReferencenumber")
@@ -5239,8 +4689,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "MaximumOperatingCapacity"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 26, 1) = "1" Then
@@ -5252,8 +4702,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "MaximumOperatingCapacityUnit"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 26, 1) = "1" Then
@@ -5265,8 +4715,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "operatingCapacity"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 27, 1) = "1" Then
@@ -5278,8 +4728,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "OperatingCapacityUnit"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 27, 1) = "1" Then
@@ -5291,8 +4741,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "AllowableEmissionRate1"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 28, 1) = "1" Then
@@ -5304,8 +4754,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "AllowableEmissionRateUnit1"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 28, 1) = "1" Then
@@ -5319,8 +4769,8 @@ Public Class IAIPPrintOut
                 If dr.Item("AllowableEmissionRateUnit2") <> "N/A" Then
 
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "AllowableEmissionRate2"
                     If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 29, 1) = "1" Then
@@ -5332,8 +4782,8 @@ Public Class IAIPPrintOut
                     ParameterFields.Add(ParameterField)
 
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "AllowableEmissionRateUnit2"
                     If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 29, 1) = "1" Then
@@ -5346,8 +4796,8 @@ Public Class IAIPPrintOut
 
                 Else
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "AllowableEmissionRate2"
                     spValue.Value = " "
@@ -5355,8 +4805,8 @@ Public Class IAIPPrintOut
                     ParameterFields.Add(ParameterField)
 
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "AllowableEmissionRateUnit2"
                     spValue.Value = " "
@@ -5367,8 +4817,8 @@ Public Class IAIPPrintOut
                 If dr.Item("AllowableEmissionRateUnit3") <> "N/A" Then
 
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "AllowableEmissionRate3"
                     spValue.Value = "; " & vbCrLf & dr.Item("strAllowableEmissionRate3")
@@ -5381,8 +4831,8 @@ Public Class IAIPPrintOut
                     ParameterFields.Add(ParameterField)
 
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "AllowableEmissionRateUnit3"
                     spValue.Value = dr.Item("AllowableEmissionRateUnit3")
@@ -5396,8 +4846,8 @@ Public Class IAIPPrintOut
 
                 Else
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "AllowableEmissionRate3"
                     spValue.Value = " "
@@ -5405,8 +4855,8 @@ Public Class IAIPPrintOut
                     ParameterFields.Add(ParameterField)
 
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "AllowableEmissionRateUnit3"
                     spValue.Value = " "
@@ -5415,8 +4865,8 @@ Public Class IAIPPrintOut
                 End If
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "StackOneName"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 34, 1) = "1" Then
@@ -5428,8 +4878,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "StackTwoName"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 35, 1) = "1" Then
@@ -5441,8 +4891,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "RunNumber1a"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 36, 1) = "1" Then
@@ -5454,8 +4904,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "RunNumber1B"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 43, 1) = "1" Then
@@ -5467,8 +4917,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "RunNumber1C"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 50, 1) = "1" Then
@@ -5480,8 +4930,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "GasTemperature1A"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 37, 1) = "1" Then
@@ -5493,8 +4943,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "GasTemperature1B"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 44, 1) = "1" Then
@@ -5506,8 +4956,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "GasTemperature1C"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 51, 1) = "1" Then
@@ -5519,8 +4969,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "GasTemperature2A"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 58, 1) = "1" Then
@@ -5532,8 +4982,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "GasTemperature2B"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 65, 1) = "1" Then
@@ -5545,8 +4995,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "GasTemperature2C"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 72, 1) = "1" Then
@@ -5558,8 +5008,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "GasMoisture1A"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 38, 1) = "1" Then
@@ -5571,8 +5021,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "GasMoisture1B"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 45, 1) = "1" Then
@@ -5584,8 +5034,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "GasMoisture1C"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 52, 1) = "1" Then
@@ -5597,8 +5047,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "GasMoisture2A"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 59, 1) = "1" Then
@@ -5610,8 +5060,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "GasMoisture2B"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 66, 1) = "1" Then
@@ -5623,8 +5073,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "GasMoisture2C"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 73, 1) = "1" Then
@@ -5636,8 +5086,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "GasFlowRate(ACFM)1A"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 39, 1) = "1" Then
@@ -5649,8 +5099,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "GasFlowRate(ACFM)1B"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 46, 1) = "1" Then
@@ -5662,8 +5112,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "GasFlowRate(ACFM)1C"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 53, 1) = "1" Then
@@ -5675,8 +5125,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "GasFlowRate(ACFM)2A"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 60, 1) = "1" Then
@@ -5688,8 +5138,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "GasFlowRate(ACFM)2B"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 67, 1) = "1" Then
@@ -5701,8 +5151,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "GasFlowRate(ACFM)2C"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 74, 1) = "1" Then
@@ -5714,8 +5164,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "GasFlowRate(DSCFM)1A"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 40, 1) = "1" Then
@@ -5727,8 +5177,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "GasFlowRate(DSCFM)1B"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 47, 1) = "1" Then
@@ -5740,8 +5190,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "GasFlowRate(DSCFM)1C"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 54, 1) = "1" Then
@@ -5753,8 +5203,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "GasFlowRate(DSCFM)2A"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 61, 1) = "1" Then
@@ -5766,8 +5216,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "GasFlowRate(DSCFM)2B"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 68, 1) = "1" Then
@@ -5779,8 +5229,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "GasFlowRate(DSCFM)2C"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 75, 1) = "1" Then
@@ -5792,8 +5242,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "PollutantConcentration1A"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 41, 1) = "1" Then
@@ -5805,8 +5255,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "PollutantConcentration1B"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 48, 1) = "1" Then
@@ -5818,8 +5268,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "PollutantConcentration1C"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 55, 1) = "1" Then
@@ -5831,8 +5281,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "PollutantConcentration2A"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 62, 1) = "1" Then
@@ -5844,8 +5294,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "PollutantConcentration2B"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 69, 1) = "1" Then
@@ -5857,8 +5307,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "PollutantConcentration2C"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 76, 1) = "1" Then
@@ -5870,8 +5320,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "PollutantConcentrationUnits"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 78, 1) = "1" Then
@@ -5883,8 +5333,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "PollutantConcentrationAverage1"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 79, 1) = "1" Then
@@ -5896,8 +5346,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "PollutantConcentrationAverage2"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 80, 1) = "1" Then
@@ -5909,8 +5359,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "EmissionRate1A"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 42, 1) = "1" Then
@@ -5922,8 +5372,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "EmissionRate1B"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 49, 1) = "1" Then
@@ -5935,8 +5385,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "EmissionRate1C"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 56, 1) = "1" Then
@@ -5948,8 +5398,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "EmissionRate2A"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 63, 1) = "1" Then
@@ -5961,8 +5411,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "EmissionRate2B"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 70, 1) = "1" Then
@@ -5974,8 +5424,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "EmissionRate2C"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 77, 1) = "1" Then
@@ -5987,8 +5437,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "EmissionRateUnits"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 81, 1) = "1" Then
@@ -6000,8 +5450,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "EmissionRateAverage1"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 82, 1) = "1" Then
@@ -6013,8 +5463,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "EmissionRateAverage2"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 83, 1) = "1" Then
@@ -6026,8 +5476,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "DestructionEfficiency1"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 84, 1) = "1" Then
@@ -6038,29 +5488,17 @@ Public Class IAIPPrintOut
                 ParameterField.CurrentValues.Add(spValue)
                 ParameterFields.Add(ParameterField)
 
-                dr.Close()
-
-
                 If WitnessingEngineer2 = "M/W" Then
                     SQL = "select " &
-                    "(strFirstName||' '||strLastName) as WitnessingEng " &
-                    "from ISMPWitnessingEng, EPDUserProfiles " &
-                    "where ISMPWitnessingEng.strWitnessingEngineer = EPDUserProfiles.numUserID  " &
-                    "and strReferenceNumber = '" & Me.txtReferenceNumber.Text & "'  "
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    WitnessingEngineer2 = ""
-                    While dr.Read
-                        WitnessingEngineer2 = WitnessingEngineer2 & vbCrLf & dr.Item("WitnessingEng")
-                    End While
-                    dr.Close()
+                    "concat(strFirstName,' ',strLastName) as WitnessingEng " &
+                    "from ISMPWitnessingEng inner join EPDUSerProfiles " &
+                    "on ISMPWitnessingEng.strWitnessingEngineer = EPDUSerProfiles.numUserProfiles  " &
+                    "where strReferenceNumber = @ref "
+
                     If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 13, 1) = "1" Then
                         WitnessingEngineer2 = "--Conf--"
                     Else
-                        WitnessingEngineer2 = WitnessingEngineer2
+                        WitnessingEngineer2 = DB.GetSingleValue(Of String)(SQL, p)
                     End If
                 Else
                     WitnessingEngineer2 = " "
@@ -6097,8 +5535,8 @@ Public Class IAIPPrintOut
                 End If
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
                 ParameterField.ParameterFieldName = "WitnessingEngineer"
                 spValue.Value = WitnessingEngineer
                 ParameterField.CurrentValues.Add(spValue)
@@ -6112,147 +5550,80 @@ Public Class IAIPPrintOut
 
             Else
                 MsgBox("Unable to Print at this time.")
-                PrintOut.Close()
-
+                Me.Close()
             End If
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
+    End Sub
 
-    End Sub         'Complete
     Private Sub LoadLoadingRack()
         Dim rpt As New CRLoadingRack
         monitor.TrackFeature("Report." & rpt.ResourceName)
 
-        Dim ParameterFields As CrystalDecisions.Shared.ParameterFields
-        Dim ParameterField As CrystalDecisions.Shared.ParameterField
-        Dim spValue As CrystalDecisions.Shared.ParameterDiscreteValue
+        Dim ParameterFields As ParameterFields
+        Dim ParameterField As ParameterField
+        Dim spValue As ParameterDiscreteValue
 
         Try
 
             'Do this just once at the start
-            ParameterFields = New CrystalDecisions.Shared.ParameterFields
+            ParameterFields = New ParameterFields
 
-            SQL = "Select " &
-            "ISMPMaster.strAIRSNumber as AIRSNumber, " &
-            "APBFacilityInformation.strFacilityName as FacilityName, " &
-            "strFacilityCity as FacilityCity, " &
-             "strFacilityState as FacilityState, " &
-            "strPollutantDescription as PollutantDescription, " &
-            "strEmissionSource, " &
-            "ISMPReportType.strReportType, " &
-           "strApplicableRequirement, " &
-           "(strFirstName||' '||strLastName) as ReviewingEngineer, " &
-           "Case " &
-             "when ISMPReportInformation.strWitnessingEngineer = '0' then 'N/W' " &
-           "Else " &
-             "(select (strFirstName||' '||strLastName) " &
-             "from EPDUserProfiles, ISMPReportInformation " &
-             "where ISMPReportInformation.strWitnessingEngineer = EPDUserProfiles.numUserID " &
-             "and ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') " &
-           "End as WitnessingEngineer, " &
-           "Case " &
-             "when ISMPReportInformation.strOtherWitnessingEng is Null then 'N/W' " &
-             "when ISMPReportInformation.strOtherWitnessingEng = '0' then 'N/W' " &
-           "Else  " &
-             "'M/W' " &
-           "End WitnessingEngineer2,     " &
-           "Case  " &
-             "when ISMPReportInformation.numReviewingManager is Null then 'N/A' " &
-           "Else  " &
-             "(Select (strFirstName||' '||strLastName) as UnitManager  " &
-             "from EPDUserProfiles, ISMPReportInformation  " &
-             "where ISMPReportInformation.numReviewingManager = EPDUserProfiles.numUserID " &
-             "and ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "')  " &
-           "END UnitManager,  " &
-           "datReviewedByUnitManager,  " &
-           "(Select (strFirstName||' '||strLastName) as ComplianceManager  " &
-           "from EPDUserProfiles, ISMPReportInformation   " &
-           "where ISMPReportInformation.strComplianceManager = EPDUserProfiles.nuMUserID " &
-           "and ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') as ComplianceManager,  " &
-           "to_char(datTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart,  " &
-           "to_char(datTestDateEnd, 'FMMonth DD, YYYY') as ForTestDateEnd,  " &
-           "to_char(datReceivedDate, 'FMMonth DD, YYYY') as ForReceivedDate,  " &
-           "datCompleteDate,  " &
-           "mmoCommentArea, strCommissioner, strDirector, strProgramManager,  " &
-           "strComplianceStatement as ComplianceStatement,  " &
-           "strControlEquipmentData,  " &
-           "(Select (strFirstName||' '||strLastName) as CC  " &
-           "from ISMPReportInformation, EPDUserProfiles  " &
-           "where ISMPReportInformation.strCC = EPDUserProfiles.numUserID  " &
-           "and ISMPREportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') as CC,  " &
-          "ISMPReportFlare.strReferencenumber, strMaxoperatingCapacity, " &
-            "(select strUnitDescription from LookUPUnits, ISMPReportFlare " &
-            "where strUnitkey = strMaxOperatingCapacityUnit " &
-            "and ISMPReportFlare.strreferencenumber = '" & txtReferenceNumber.Text & "') as MaxOperatingCapacityUnit, " &
-            "strOperatingCapacity, " &
-            "(select strUnitDescription from LookUPUnits, ISMPReportFlare " &
-            "where strUnitkey = strOperatingCapacityUnit " &
-            "and ISMPReportFlare.strreferencenumber = '" & txtReferenceNumber.Text & "') as OperatingCapacityUnit,  " &
-            "strAllowableEmissionRate1A, strAllowableEmissionRate2A, strAllowableEmissionRate3A, " &
-            "(select strUnitDescription from LookUPUnits, ISMPReportFlare " &
-            "where strUnitkey = strAllowEmissionRateUnit1A " &
-            "and ISMPReportFlare.strreferencenumber = '" & txtReferenceNumber.Text & "') as AllowableEmissionRateUnit1, " &
-            "(select strUnitDescription from LookUPUnits, ISMPReportFlare " &
-            "where strUnitkey = strAllowEmissionRateUnit2A " &
-            "and ISMPReportFlare.strreferencenumber = '" & txtReferenceNumber.Text & "') as AllowableEmissionRateUnit2, " &
-            "(select strUnitDescription from LookUPUnits, ISMPReportFlare " &
-            "where strUnitkey = strAllowEmissionRateUnit3A " &
-            "and ISMPReportFlare.strreferencenumber = '" & txtReferenceNumber.Text & "') as AllowableEmissionRateUnit3, " &
-            "strTestDuration, " &
-            "(select strUnitDescription from LookUPUnits, ISMPReportFlare " &
-            "where strUnitkey = strTestDurationUnit " &
-            "and ISMPReportFlare.strreferencenumber = '" & txtReferenceNumber.Text & "') as TestDurationUnit, " &
-            "strPollutantConcenIn, strPollutantConcenOut, " &
-            "(select strUnitDescription from LookUPUnits, ISMPReportFlare " &
-            "where strUnitkey = strPollutantConcenUnitIN " &
-            "and ISMPReportFlare.strreferencenumber = '" & txtReferenceNumber.Text & "') as PollutantConcentrationUnitIN, " &
-             "(select strUnitDescription from LookUPUnits, ISMPReportFlare " &
-            "where strUnitkey = strPollutantConcenUnitOUT " &
-            "and ISMPReportFlare.strreferencenumber = '" & txtReferenceNumber.Text & "') as PollutantConcentrationUnitOUT, " &
-            "strEmissionRate, " &
-             "(select strUnitDescription from LookUPUnits, ISMPReportFlare " &
-            "where strUnitkey = strEmissionRateUnit " &
-            "and ISMPReportFlare.strreferencenumber = '" & txtReferenceNumber.Text & "') as EmissionRateUnit, " &
-            "strDestructionEfficiency, strConfidentialData " &
-           "From ISMPMaster, APBFacilityInformation,  " &
-           "ISMPReportInformation, LookUpPollutants,  " &
-           "ISMPReportType, EPDUserProfiles,  " &
-           "LookUpISMPComplianceStatus, ISMPReportFlare   " &
-           "where ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber  " &
-           "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber  " &
-           "and ISMPReportInformation.strPollutant = LookUpPollutants.strPollutantCode  " &
-           "and ISMPReportInformation.strReportType = ISMPReportType.strKey  " &
-           "and ISMPReportInformation.strReviewingEngineer = EPDUserProfiles.numUserID  " &
-           "and ISMPReportInformation.strComplianceStatus = LookUpISMPComplianceStatus.strComplianceKey   " &
-           "and ISMPMaster.strReferenceNumber = ISMPReportFlare.strReferenceNumber  " &
-           "and ISMPMaster.strReferenceNumber = '" & txtReferenceNumber.Text & "'"
+            Dim SQL As String = "SELECT ISMPMaster.strAIRSNumber AS AIRSNumber, APBFacilityInformation.strFacilityName AS FacilityName, strFacilityCity AS FacilityCity, strFacilityState AS FacilityState, strPollutantDescription AS PollutantDescription, strEmissionSource, ISMPReportType.strReportType, strApplicableRequirement, CONCAT(strFirstName, ' ', strLastName) AS ReviewingEngineer,
+                CASE WHEN ISMPReportInformation.strWitnessingEngineer = '0' THEN 'N/W' ELSE (SELECT CONCAT(strFirstName, ' ', strLastName)
+                FROM EPDUserProfiles, ISMPReportInformation
+                WHERE ISMPReportInformation.strWitnessingEngineer = EPDUserProfiles.numUserID AND ISMPReportInformation.strReferenceNumber = @ref) END AS WitnessingEngineer,
+                CASE WHEN ISMPReportInformation.strOtherWitnessingEng IS NULL THEN 'N/W' WHEN ISMPReportInformation.strOtherWitnessingEng = '0' THEN 'N/W' ELSE 'M/W' END AS WitnessingEngineer2,
+                CASE WHEN ISMPReportInformation.numReviewingManager IS NULL THEN 'N/A' ELSE (SELECT CONCAT(strFirstName, ' ', strLastName) AS UnitManager
+                FROM EPDUserProfiles, ISMPReportInformation
+                WHERE ISMPReportInformation.numReviewingManager = EPDUserProfiles.numUserID AND ISMPReportInformation.strReferenceNumber = @ref) END AS UnitManager, datReviewedByUnitManager, (SELECT CONCAT(strFirstName, ' ', strLastName) AS ComplianceManager
+                FROM EPDUserProfiles, ISMPReportInformation
+                WHERE ISMPReportInformation.strComplianceManager = EPDUserProfiles.nuMUserID AND ISMPReportInformation.strReferenceNumber = @ref) AS ComplianceManager, format(datTestDateStart, 'MMMM d, yyyy') AS ForTestDateStart, format(datTestDateEnd, 'MMMM d, yyyy') AS ForTestDateEnd, format(datReceivedDate, 'MMMM d, yyyy') AS ForReceivedDate, datCompleteDate, mmoCommentArea, strCommissioner, strDirector, strProgramManager, strComplianceStatement AS ComplianceStatement, strControlEquipmentData, (SELECT CONCAT(strFirstName, ' ', strLastName) AS CC
+                FROM ISMPReportInformation, EPDUserProfiles
+                WHERE ISMPReportInformation.strCC = EPDUserProfiles.numUserID AND ISMPREportInformation.strReferenceNumber = @ref) AS CC, ISMPReportFlare.strReferencenumber, strMaxoperatingCapacity, (SELECT strUnitDescription
+                FROM LookUPUnits, ISMPReportFlare
+                WHERE strUnitkey = strMaxOperatingCapacityUnit AND ISMPReportFlare.strreferencenumber = @ref) AS MaxOperatingCapacityUnit, strOperatingCapacity, (SELECT strUnitDescription
+                FROM LookUPUnits, ISMPReportFlare
+                WHERE strUnitkey = strOperatingCapacityUnit AND ISMPReportFlare.strreferencenumber = @ref) AS OperatingCapacityUnit, strAllowableEmissionRate1A, strAllowableEmissionRate2A, strAllowableEmissionRate3A, (SELECT strUnitDescription
+                FROM LookUPUnits, ISMPReportFlare
+                WHERE strUnitkey = strAllowEmissionRateUnit1A AND ISMPReportFlare.strreferencenumber = @ref) AS AllowableEmissionRateUnit1, (SELECT strUnitDescription
+                FROM LookUPUnits, ISMPReportFlare
+                WHERE strUnitkey = strAllowEmissionRateUnit2A AND ISMPReportFlare.strreferencenumber = @ref) AS AllowableEmissionRateUnit2, (SELECT strUnitDescription
+                FROM LookUPUnits, ISMPReportFlare
+                WHERE strUnitkey = strAllowEmissionRateUnit3A AND ISMPReportFlare.strreferencenumber = @ref) AS AllowableEmissionRateUnit3, strTestDuration, (SELECT strUnitDescription
+                FROM LookUPUnits, ISMPReportFlare
+                WHERE strUnitkey = strTestDurationUnit AND ISMPReportFlare.strreferencenumber = @ref) AS TestDurationUnit, strPollutantConcenIn, strPollutantConcenOut, (SELECT strUnitDescription
+                FROM LookUPUnits, ISMPReportFlare
+                WHERE strUnitkey = strPollutantConcenUnitIN AND ISMPReportFlare.strreferencenumber = @ref) AS PollutantConcentrationUnitIN, (SELECT strUnitDescription
+                FROM LookUPUnits, ISMPReportFlare
+                WHERE strUnitkey = strPollutantConcenUnitOUT AND ISMPReportFlare.strreferencenumber = @ref) AS PollutantConcentrationUnitOUT, strEmissionRate, (SELECT strUnitDescription
+                FROM LookUPUnits, ISMPReportFlare
+                WHERE strUnitkey = strEmissionRateUnit AND ISMPReportFlare.strreferencenumber = @ref) AS EmissionRateUnit, strDestructionEfficiency, strConfidentialData
+                FROM ISMPMaster, APBFacilityInformation, ISMPReportInformation, LookUpPollutants, ISMPReportType, EPDUserProfiles, LookUpISMPComplianceStatus, ISMPReportFlare
+                WHERE ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber AND ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber AND ISMPReportInformation.strPollutant = LookUpPollutants.strPollutantCode AND ISMPReportInformation.strReportType = ISMPReportType.strKey AND ISMPReportInformation.strReviewingEngineer = EPDUserProfiles.numUserID AND ISMPReportInformation.strComplianceStatus = LookUpISMPComplianceStatus.strComplianceKey AND ISMPMaster.strReferenceNumber = ISMPReportFlare.strReferenceNumber AND ISMPMaster.strReferenceNumber = @ref"
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            recExist = dr.Read
+            Dim p As New SqlParameter("@ref", ReferenceValue)
 
-            If recExist Then
+            Dim dr As DataRow = DB.GetDataRow(SQL, p)
+
+            If dr IsNot Nothing Then
+
                 If IsDBNull(dr.Item("strConfidentialData")) Then
                     ConfidentialData = "0"
                 Else
                     ConfidentialData = dr.Item("strConfidentialData")
                 End If
                 If Mid(ConfidentialData, 1, 1) = "1" Then
-                    If txtOther.Text = "ToFile" Then
+                    If PrintoutSubtype = PrintSubtype.ToFile Then
                         ConfidentialData = "0" & Mid(ConfidentialData, 2)
                     End If
                 End If
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "Commissioner"
                 spValue.Value = dr.Item("strCOmmissioner")
@@ -6260,8 +5631,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "Director"
                 spValue.Value = dr.Item("strDirector")
@@ -6269,8 +5640,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ProgramManager"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 9, 1) = "1" Then
@@ -6282,8 +5653,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "AIRSNumber"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 3, 1) = "1" Then
@@ -6295,8 +5666,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "FacilityName"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 4, 1) = "1" Then
@@ -6308,8 +5679,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "FacilityCity"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 5, 1) = "1" Then
@@ -6321,8 +5692,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "FacilityState"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 5, 1) = "1" Then
@@ -6334,8 +5705,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "Pollutant"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 15, 1) = "1" Then
@@ -6347,8 +5718,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "EmissionSourceTested"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 14, 1) = "1" Then
@@ -6360,8 +5731,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ReportTYpe"
                 ReportType = dr.Item("strReportTYpe")
@@ -6384,8 +5755,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ApplicableRequirement"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 31, 1) = "1" Then
@@ -6397,8 +5768,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ReviewingEngineer"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 7, 1) = "1" Then
@@ -6423,8 +5794,8 @@ Public Class IAIPPrintOut
                 End If
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "UnitManager"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 10, 1) = "1" Then
@@ -6444,8 +5815,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ComplianceManager"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 24, 1) = "1" Then
@@ -6458,8 +5829,8 @@ Public Class IAIPPrintOut
 
                 If dr.Item("forTestDateEnd") = dr.Item("ForTestDateStart") Then
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "TestDates"
                     If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 19, 1) = "1" Then
@@ -6471,8 +5842,8 @@ Public Class IAIPPrintOut
                     ParameterFields.Add(ParameterField)
                 Else
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "TestDates"
                     If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 19, 1) = "1" Then
@@ -6485,8 +5856,8 @@ Public Class IAIPPrintOut
                 End If
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ReceivedDate"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 21, 1) = "1" Then
@@ -6498,8 +5869,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "CommentArea"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 38, 1) = "1" Then
@@ -6511,8 +5882,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ComplianceStatus"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 18, 1) = "1" Then
@@ -6524,8 +5895,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ControlEquipmentOperatingData"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 32, 1) = "1" Then
@@ -6538,8 +5909,8 @@ Public Class IAIPPrintOut
 
                 If dr.Item("CC") <> "" And dr.Item("CC") <> "  Unassigned" Then
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "CC"
                     If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 25, 1) = "1" Then
@@ -6551,8 +5922,8 @@ Public Class IAIPPrintOut
                     ParameterFields.Add(ParameterField)
                 Else
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "CC"
                     spValue.Value = " "
@@ -6561,8 +5932,8 @@ Public Class IAIPPrintOut
                 End If
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "Referencenumber"
                 spValue.Value = dr.Item("strReferencenumber")
@@ -6570,8 +5941,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "MaximumOperatingCapacity"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 26, 1) = "1" Then
@@ -6583,8 +5954,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "MaximumOperatingCapacityUnit"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 26, 1) = "1" Then
@@ -6596,8 +5967,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "operatingCapacity"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 27, 1) = "1" Then
@@ -6609,8 +5980,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "OperatingCapacityUnit"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 27, 1) = "1" Then
@@ -6622,8 +5993,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "AllowableEmissionRate1"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 28, 1) = "1" Then
@@ -6635,8 +6006,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "AllowableEmissionRateUnit1"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 28, 1) = "1" Then
@@ -6650,8 +6021,8 @@ Public Class IAIPPrintOut
                 If dr.Item("AllowableEmissionRateUnit2") <> "N/A" Then
 
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "AllowableEmissionRate2"
                     If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 29, 1) = "1" Then
@@ -6663,8 +6034,8 @@ Public Class IAIPPrintOut
                     ParameterFields.Add(ParameterField)
 
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "AllowableEmissionRateUnit2"
                     If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 29, 1) = "1" Then
@@ -6677,8 +6048,8 @@ Public Class IAIPPrintOut
 
                 Else
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "AllowableEmissionRate2"
                     spValue.Value = " "
@@ -6686,8 +6057,8 @@ Public Class IAIPPrintOut
                     ParameterFields.Add(ParameterField)
 
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "AllowableEmissionRateUnit2"
                     spValue.Value = " "
@@ -6698,8 +6069,8 @@ Public Class IAIPPrintOut
                 If dr.Item("AllowableEmissionRateUnit3") <> "N/A" Then
 
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "AllowableEmissionRate3"
                     spValue.Value = "; " & vbCrLf & dr.Item("strAllowableEmissionRate3A")
@@ -6712,8 +6083,8 @@ Public Class IAIPPrintOut
                     ParameterFields.Add(ParameterField)
 
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "AllowableEmissionRateUnit3"
                     spValue.Value = dr.Item("AllowableEmissionRateUnit3")
@@ -6727,8 +6098,8 @@ Public Class IAIPPrintOut
 
                 Else
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "AllowableEmissionRate3"
                     spValue.Value = " "
@@ -6736,8 +6107,8 @@ Public Class IAIPPrintOut
                     ParameterFields.Add(ParameterField)
 
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "AllowableEmissionRateUnit3"
                     spValue.Value = " "
@@ -6747,8 +6118,8 @@ Public Class IAIPPrintOut
 
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "TestDuration"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 33, 1) = "1" Then
@@ -6760,8 +6131,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "PollutantConcentrationIN"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 34, 1) = "1" Then
@@ -6773,8 +6144,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "PollutantConcentrationOUT"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 35, 1) = "1" Then
@@ -6786,8 +6157,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "EmissionRate"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 37, 1) = "1" Then
@@ -6799,8 +6170,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "EmissionRateUnits"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 37, 1) = "1" Then
@@ -6812,8 +6183,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "DestructionReductionEfficiency"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 36, 1) = "1" Then
@@ -6824,28 +6195,17 @@ Public Class IAIPPrintOut
                 ParameterField.CurrentValues.Add(spValue)
                 ParameterFields.Add(ParameterField)
 
-                dr.Close()
-
                 If WitnessingEngineer2 = "M/W" Then
                     SQL = "select " &
-                     "(strFirstName||' '||strLastName) as WitnessingEng " &
-                     "from ISMPWitnessingEng, EPDUserProfiles " &
-                     "where ISMPWitnessingEng.strWitnessingEngineer = EPDUserProfiles.numUserID  " &
-                     "and strReferenceNumber = '" & Me.txtReferenceNumber.Text & "'  "
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    WitnessingEngineer2 = ""
-                    While dr.Read
-                        WitnessingEngineer2 = WitnessingEngineer2 & vbCrLf & dr.Item("WitnessingEng")
-                    End While
-                    dr.Close()
+                    "concat(strFirstName,' ',strLastName) as WitnessingEng " &
+                    "from ISMPWitnessingEng inner join EPDUSerProfiles " &
+                    "on ISMPWitnessingEng.strWitnessingEngineer = EPDUSerProfiles.numUserProfiles  " &
+                    "where strReferenceNumber = @ref "
+
                     If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 13, 1) = "1" Then
                         WitnessingEngineer2 = "--Conf--"
                     Else
-                        WitnessingEngineer2 = WitnessingEngineer2
+                        WitnessingEngineer2 = DB.GetSingleValue(Of String)(SQL, p)
                     End If
                 Else
                     WitnessingEngineer2 = " "
@@ -6882,8 +6242,8 @@ Public Class IAIPPrintOut
                 End If
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
                 ParameterField.ParameterFieldName = "WitnessingEngineer"
                 spValue.Value = WitnessingEngineer
                 ParameterField.CurrentValues.Add(spValue)
@@ -6897,144 +6257,76 @@ Public Class IAIPPrintOut
 
             Else
                 MsgBox("Unable to Print at this time.")
-                PrintOut.Close()
-
+                Me.Close()
             End If
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
+    End Sub
 
-
-    End Sub         'Complete
     Private Sub LoadPondTreatment()
         Dim rpt As New CRPondTreatment
         monitor.TrackFeature("Report." & rpt.ResourceName)
 
-        Dim ParameterFields As CrystalDecisions.Shared.ParameterFields
-        Dim ParameterField As CrystalDecisions.Shared.ParameterField
-        Dim spValue As CrystalDecisions.Shared.ParameterDiscreteValue
+        Dim ParameterFields As ParameterFields
+        Dim ParameterField As ParameterField
+        Dim spValue As ParameterDiscreteValue
 
         Try
 
             'Do this just once at the start
-            ParameterFields = New CrystalDecisions.Shared.ParameterFields
+            ParameterFields = New ParameterFields
 
-            SQL = "Select " &
-            "ISMPMaster.strAIRSNumber as AIRSNumber, " &
-            "APBFacilityInformation.strFacilityName as FacilityName, " &
-            "strFacilityCity as FacilityCity, " &
-             "strFacilityState as FacilityState, " &
-            "strPollutantDescription as PollutantDescription, " &
-            "strEmissionSource, " &
-            "ISMPReportType.strReportType, " &
-           "strApplicableRequirement, " &
-           "(strFirstName||' '||strLastName) as ReviewingEngineer, " &
-           "Case " &
-             "when ISMPReportInformation.strWitnessingEngineer = '0' then 'N/W' " &
-           "Else " &
-             "(select (strFirstName||' '||strLastName) " &
-             "from EPDUserProfiles, ISMPReportInformation " &
-             "where ISMPReportInformation.strWitnessingEngineer = EPDUserProfiles.numUserID " &
-             "and ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') " &
-           "End as WitnessingEngineer, " &
-           "Case " &
-             "when ISMPReportInformation.strOtherWitnessingEng is Null then 'N/W' " &
-             "when ISMPReportInformation.strOtherWitnessingEng = '0' then 'N/W' " &
-           "Else  " &
-             "'M/W' " &
-           "End WitnessingEngineer2,     " &
-           "Case  " &
-             "when ISMPReportInformation.numReviewingManager is Null then 'N/A' " &
-           "Else  " &
-             "(Select (strFirstName||' '||strLastName) as UnitManager  " &
-             "from EPDUserProfiles, ISMPReportInformation  " &
-             "where ISMPReportInformation.numReviewingManager = EPDUserProfiles.numUserID " &
-             "and ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "')  " &
-           "END UnitManager,  " &
-           "datReviewedByUnitManager,  " &
-           "(Select (strFirstName||' '||strLastName) as ComplianceManager  " &
-           "from EPDUserProfiles, ISMPReportInformation   " &
-           "where ISMPReportInformation.strComplianceManager = EPDUserProfiles.nuMUserID " &
-           "and ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') as ComplianceManager,  " &
-           "to_char(datTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart,  " &
-           "to_char(datTestDateEnd, 'FMMonth DD, YYYY') as ForTestDateEnd,  " &
-           "to_char(datReceivedDate, 'FMMonth DD, YYYY') as ForReceivedDate,  " &
-           "datCompleteDate,  " &
-           "mmoCommentArea, strCommissioner, strDirector, strProgramManager,  " &
-           "strComplianceStatement as ComplianceStatement,  " &
-           "strControlEquipmentData,  " &
-           "(Select (strFirstName||' '||strLastName) as CC  " &
-           "from ISMPReportInformation, EPDUserProfiles  " &
-           "where ISMPReportInformation.strCC = EPDUserProfiles.numUserID  " &
-           "and ISMPREportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') as CC,  " &
-          "ISMPReportPondAndGas.strReferencenumber, strMaxoperatingCapacity, " &
-            "(select strUnitDescription from LookUPUnits, ISMPReportPondAndGas " &
-            "where strUnitkey = strMaxOperatingCapacityUnit " &
-            "and ISMPReportPondAndGas.strreferencenumber = '" & txtReferenceNumber.Text & "') as MaxOperatingCapacityUnit, " &
-            "strOperatingCapacity, " &
-            "(select strUnitDescription from LookUPUnits, ISMPReportPondAndGas " &
-            "where strUnitkey = strOperatingCapacityUnit " &
-            "and ISMPReportPondAndGas.strreferencenumber = '" & txtReferenceNumber.Text & "') as OperatingCapacityUnit,  " &
-            "strAllowableEmissionRate1, strAllowableEmissionRate2, strAllowableEmissionRate3, " &
-            "(select strUnitDescription from LookUPUnits, ISMPReportPondAndGas " &
-            "where strUnitkey = strAllowableEmissionRateUnit1 " &
-            "and ISMPReportPondAndGas.strreferencenumber = '" & txtReferenceNumber.Text & "') as AllowableEmissionRateUnit1, " &
-            "(select strUnitDescription from LookUPUnits, ISMPReportPondAndGas " &
-            "where strUnitkey = strAllowableEmissionRateUnit2 " &
-            "and ISMPReportPondAndGas.strreferencenumber = '" & txtReferenceNumber.Text & "') as AllowableEmissionRateUnit2, " &
-            "(select strUnitDescription from LookUPUnits, ISMPReportPondAndGas " &
-            "where strUnitkey = strAllowableEmissionRateUnit3 " &
-            "and ISMPReportPondAndGas.strreferencenumber = '" & txtReferenceNumber.Text & "') as AllowableEmissionRateUnit3, " &
-            "strRunNumber1a, strRunNumber1b, strRunNumber1c, " &
-            "strPollutantConcentration1A, strPollutantConcentration1B, strPollutantConcentration1C, " &
-            "(Select strUnitDescription from LookUPUnits, ISMPReportPondAndGas " &
-            "where strUnitkey = strPollutantConcentrationUnit " &
-            "and ISMPReportPondAndGas.strReferenceNumber = '" & txtReferenceNumber.Text & "') as POllutantConcentrationUnit, " &
-            "strPOllutantConcentrationAvg, " &
-            "strTreatmentRate1A, strTreatmentRate1B, strTreatmentRate1C, " &
-            "(select strUnitDescription from LookUPUnits, ISMPReportPondAndGas " &
-            "where strUnitKey = strTreatmentRateUnit " &
-            "and ISMPReportPondAndGas.strReferenceNumber = '" & txtReferenceNumber.Text & "') as TreatmentRateUnit, " &
-            "strTreatmentRateAvg, strPercentAllowable, strConfidentialData " &
-           "From ISMPMaster, APBFacilityInformation,  " &
-           "ISMPReportInformation, LookUpPollutants,  " &
-           "ISMPReportType, EPDUserProfiles,  " &
-           "LookUpISMPComplianceStatus, ISMPReportPondAndGas   " &
-           "where ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber  " &
-           "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber  " &
-           "and ISMPReportInformation.strPollutant = LookUpPollutants.strPollutantCode  " &
-           "and ISMPReportInformation.strReportType = ISMPReportType.strKey  " &
-           "and ISMPReportInformation.strReviewingEngineer = EPDUserProfiles.numUserID  " &
-           "and ISMPReportInformation.strComplianceStatus = LookUpISMPComplianceStatus.strComplianceKey   " &
-           "and ISMPMaster.strReferenceNumber = ISMPReportPondAndGas.strReferenceNumber  " &
-           "and ISMPMaster.strReferenceNumber = '" & txtReferenceNumber.Text & "'"
+            Dim SQL As String = "SELECT ISMPMaster.strAIRSNumber AS AIRSNumber, APBFacilityInformation.strFacilityName AS FacilityName, strFacilityCity AS FacilityCity, strFacilityState AS FacilityState, strPollutantDescription AS PollutantDescription, strEmissionSource, ISMPReportType.strReportType, strApplicableRequirement, CONCAT(strFirstName, ' ', strLastName) AS ReviewingEngineer,
+                CASE WHEN ISMPReportInformation.strWitnessingEngineer = '0' THEN 'N/W' ELSE (SELECT CONCAT(strFirstName, ' ', strLastName)
+                FROM EPDUserProfiles, ISMPReportInformation
+                WHERE ISMPReportInformation.strWitnessingEngineer = EPDUserProfiles.numUserID AND ISMPReportInformation.strReferenceNumber = @ref) END AS WitnessingEngineer,
+                CASE WHEN ISMPReportInformation.strOtherWitnessingEng IS NULL THEN 'N/W' WHEN ISMPReportInformation.strOtherWitnessingEng = '0' THEN 'N/W' ELSE 'M/W' END AS WitnessingEngineer2,
+                CASE WHEN ISMPReportInformation.numReviewingManager IS NULL THEN 'N/A' ELSE (SELECT CONCAT(strFirstName, ' ', strLastName) AS UnitManager
+                FROM EPDUserProfiles, ISMPReportInformation
+                WHERE ISMPReportInformation.numReviewingManager = EPDUserProfiles.numUserID AND ISMPReportInformation.strReferenceNumber = @ref) END AS UnitManager, datReviewedByUnitManager, (SELECT CONCAT(strFirstName, ' ', strLastName) AS ComplianceManager
+                FROM EPDUserProfiles, ISMPReportInformation
+                WHERE ISMPReportInformation.strComplianceManager = EPDUserProfiles.nuMUserID AND ISMPReportInformation.strReferenceNumber = @ref) AS ComplianceManager, format(datTestDateStart, 'MMMM d, yyyy') AS ForTestDateStart, format(datTestDateEnd, 'MMMM d, yyyy') AS ForTestDateEnd, format(datReceivedDate, 'MMMM d, yyyy') AS ForReceivedDate, datCompleteDate, mmoCommentArea, strCommissioner, strDirector, strProgramManager, strComplianceStatement AS ComplianceStatement, strControlEquipmentData, (SELECT CONCAT(strFirstName, ' ', strLastName) AS CC
+                FROM ISMPReportInformation, EPDUserProfiles
+                WHERE ISMPReportInformation.strCC = EPDUserProfiles.numUserID AND ISMPREportInformation.strReferenceNumber = @ref) AS CC, ISMPReportPondAndGas.strReferencenumber, strMaxoperatingCapacity, (SELECT strUnitDescription
+                FROM LookUPUnits, ISMPReportPondAndGas
+                WHERE strUnitkey = strMaxOperatingCapacityUnit AND ISMPReportPondAndGas.strreferencenumber = @ref) AS MaxOperatingCapacityUnit, strOperatingCapacity, (SELECT strUnitDescription
+                FROM LookUPUnits, ISMPReportPondAndGas
+                WHERE strUnitkey = strOperatingCapacityUnit AND ISMPReportPondAndGas.strreferencenumber = @ref) AS OperatingCapacityUnit, strAllowableEmissionRate1, strAllowableEmissionRate2, strAllowableEmissionRate3, (SELECT strUnitDescription
+                FROM LookUPUnits, ISMPReportPondAndGas
+                WHERE strUnitkey = strAllowableEmissionRateUnit1 AND ISMPReportPondAndGas.strreferencenumber = @ref) AS AllowableEmissionRateUnit1, (SELECT strUnitDescription
+                FROM LookUPUnits, ISMPReportPondAndGas
+                WHERE strUnitkey = strAllowableEmissionRateUnit2 AND ISMPReportPondAndGas.strreferencenumber = @ref) AS AllowableEmissionRateUnit2, (SELECT strUnitDescription
+                FROM LookUPUnits, ISMPReportPondAndGas
+                WHERE strUnitkey = strAllowableEmissionRateUnit3 AND ISMPReportPondAndGas.strreferencenumber = @ref) AS AllowableEmissionRateUnit3, strRunNumber1a, strRunNumber1b, strRunNumber1c, strPollutantConcentration1A, strPollutantConcentration1B, strPollutantConcentration1C, (SELECT strUnitDescription
+                FROM LookUPUnits, ISMPReportPondAndGas
+                WHERE strUnitkey = strPollutantConcentrationUnit AND ISMPReportPondAndGas.strReferenceNumber = @ref) AS POllutantConcentrationUnit, strPOllutantConcentrationAvg, strTreatmentRate1A, strTreatmentRate1B, strTreatmentRate1C, (SELECT strUnitDescription
+                FROM LookUPUnits, ISMPReportPondAndGas
+                WHERE strUnitKey = strTreatmentRateUnit AND ISMPReportPondAndGas.strReferenceNumber = @ref) AS TreatmentRateUnit, strTreatmentRateAvg, strPercentAllowable, strConfidentialData
+                FROM ISMPMaster, APBFacilityInformation, ISMPReportInformation, LookUpPollutants, ISMPReportType, EPDUserProfiles, LookUpISMPComplianceStatus, ISMPReportPondAndGas
+                WHERE ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber AND ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber AND ISMPReportInformation.strPollutant = LookUpPollutants.strPollutantCode AND ISMPReportInformation.strReportType = ISMPReportType.strKey AND ISMPReportInformation.strReviewingEngineer = EPDUserProfiles.numUserID AND ISMPReportInformation.strComplianceStatus = LookUpISMPComplianceStatus.strComplianceKey AND ISMPMaster.strReferenceNumber = ISMPReportPondAndGas.strReferenceNumber AND ISMPMaster.strReferenceNumber = @ref"
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
+            Dim p As New SqlParameter("@ref", ReferenceValue)
 
-            recExist = dr.Read
+            Dim dr As DataRow = DB.GetDataRow(SQL, p)
 
-            If recExist Then
+            If dr IsNot Nothing Then
+
                 If IsDBNull(dr.Item("strConfidentialData")) Then
                     ConfidentialData = "0"
                 Else
                     ConfidentialData = dr.Item("strConfidentialData")
                 End If
                 If Mid(ConfidentialData, 1, 1) = "1" Then
-                    If txtOther.Text = "ToFile" Then
+                    If PrintoutSubtype = PrintSubtype.ToFile Then
                         ConfidentialData = "0" & Mid(ConfidentialData, 2)
                     End If
                 End If
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "Commissioner"
                 spValue.Value = dr.Item("strCOmmissioner")
@@ -7042,8 +6334,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "Director"
                 spValue.Value = dr.Item("strDirector")
@@ -7051,8 +6343,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ProgramManager"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 9, 1) = "1" Then
@@ -7064,8 +6356,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "AIRSNumber"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 3, 1) = "1" Then
@@ -7077,8 +6369,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "FacilityName"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 4, 1) = "1" Then
@@ -7090,8 +6382,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "FacilityCity"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 5, 1) = "1" Then
@@ -7103,8 +6395,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "FacilityState"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 5, 1) = "1" Then
@@ -7116,8 +6408,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "Pollutant"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 15, 1) = "1" Then
@@ -7129,8 +6421,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "EmissionSourceTested"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 14, 1) = "1" Then
@@ -7142,8 +6434,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ReportTYpe"
                 ReportType = dr.Item("strReportTYpe")
@@ -7166,8 +6458,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ApplicableRequirement"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 31, 1) = "1" Then
@@ -7179,8 +6471,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ReviewingEngineer"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 7, 1) = "1" Then
@@ -7205,8 +6497,8 @@ Public Class IAIPPrintOut
                 End If
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "UnitManager"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 10, 1) = "1" Then
@@ -7226,8 +6518,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ComplianceManager"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 24, 1) = "1" Then
@@ -7240,8 +6532,8 @@ Public Class IAIPPrintOut
 
                 If dr.Item("forTestDateEnd") = dr.Item("ForTestDateStart") Then
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "TestDates"
                     If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 19, 1) = "1" Then
@@ -7253,8 +6545,8 @@ Public Class IAIPPrintOut
                     ParameterFields.Add(ParameterField)
                 Else
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "TestDates"
                     If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 19, 1) = "1" Then
@@ -7267,8 +6559,8 @@ Public Class IAIPPrintOut
                 End If
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ReceivedDate"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 21, 1) = "1" Then
@@ -7280,8 +6572,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "CommentArea"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 47, 1) = "1" Then
@@ -7293,8 +6585,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ComplianceStatus"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 18, 1) = "1" Then
@@ -7306,8 +6598,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ControlEquipmentOperatingData"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 32, 1) = "1" Then
@@ -7320,8 +6612,8 @@ Public Class IAIPPrintOut
 
                 If dr.Item("CC") <> "" And dr.Item("CC") <> "  Unassigned" Then
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "CC"
                     If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 25, 1) = "1" Then
@@ -7333,8 +6625,8 @@ Public Class IAIPPrintOut
                     ParameterFields.Add(ParameterField)
                 Else
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "CC"
                     spValue.Value = " "
@@ -7343,8 +6635,8 @@ Public Class IAIPPrintOut
                 End If
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "Referencenumber"
                 spValue.Value = dr.Item("strReferencenumber")
@@ -7352,8 +6644,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "MaximumOperatingCapacity"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 26, 1) = "1" Then
@@ -7365,8 +6657,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "MaximumOperatingCapacityUnit"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 26, 1) = "1" Then
@@ -7378,8 +6670,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "operatingCapacity"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 27, 1) = "1" Then
@@ -7391,8 +6683,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "OperatingCapacityUnit"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 27, 1) = "1" Then
@@ -7404,8 +6696,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "AllowableEmissionRate1"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 28, 1) = "1" Then
@@ -7417,8 +6709,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "AllowableEmissionRateUnit1"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 28, 1) = "1" Then
@@ -7432,8 +6724,8 @@ Public Class IAIPPrintOut
                 If dr.Item("AllowableEmissionRateUnit2") <> "N/A" Then
 
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "AllowableEmissionRate2"
                     If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 29, 1) = "1" Then
@@ -7445,8 +6737,8 @@ Public Class IAIPPrintOut
                     ParameterFields.Add(ParameterField)
 
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "AllowableEmissionRateUnit2"
                     If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 29, 1) = "1" Then
@@ -7459,8 +6751,8 @@ Public Class IAIPPrintOut
 
                 Else
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "AllowableEmissionRate2"
                     spValue.Value = " "
@@ -7468,8 +6760,8 @@ Public Class IAIPPrintOut
                     ParameterFields.Add(ParameterField)
 
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "AllowableEmissionRateUnit2"
                     spValue.Value = " "
@@ -7480,8 +6772,8 @@ Public Class IAIPPrintOut
                 If dr.Item("AllowableEmissionRateUnit3") <> "N/A" Then
 
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "AllowableEmissionRate3"
                     spValue.Value = "; " & vbCrLf & dr.Item("strAllowableEmissionRate3")
@@ -7494,8 +6786,8 @@ Public Class IAIPPrintOut
                     ParameterFields.Add(ParameterField)
 
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "AllowableEmissionRateUnit3"
                     spValue.Value = dr.Item("AllowableEmissionRateUnit3")
@@ -7509,8 +6801,8 @@ Public Class IAIPPrintOut
 
                 Else
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "AllowableEmissionRate3"
                     spValue.Value = " "
@@ -7518,8 +6810,8 @@ Public Class IAIPPrintOut
                     ParameterFields.Add(ParameterField)
 
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "AllowableEmissionRateUnit3"
                     spValue.Value = " "
@@ -7528,8 +6820,8 @@ Public Class IAIPPrintOut
                 End If
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "RunNumber1a"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 33, 1) = "1" Then
@@ -7541,8 +6833,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "RunNumber1B"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 36, 1) = "1" Then
@@ -7554,8 +6846,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "RunNumber1C"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 39, 1) = "1" Then
@@ -7567,8 +6859,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "PollutantConcentration1A"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 34, 1) = "1" Then
@@ -7580,8 +6872,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "PollutantConcentration1B"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 37, 1) = "1" Then
@@ -7593,8 +6885,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "PollutantConcentration1C"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 40, 1) = "1" Then
@@ -7606,8 +6898,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "PollutantConcentrationUnits"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 42, 1) = "1" Then
@@ -7619,8 +6911,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "PollutantConcentrationAverage1"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 43, 1) = "1" Then
@@ -7632,8 +6924,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "TreatmentRate1A"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 35, 1) = "1" Then
@@ -7645,8 +6937,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "TreatmentRate1B"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 38, 1) = "1" Then
@@ -7658,8 +6950,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "TreatmentRate1C"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 41, 1) = "1" Then
@@ -7671,8 +6963,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "TreatmentRateUnits"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 44, 1) = "1" Then
@@ -7684,8 +6976,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "TreatmentRateAverage1"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 45, 1) = "1" Then
@@ -7697,8 +6989,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "PercentAllowable"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 46, 1) = "1" Then
@@ -7709,28 +7001,17 @@ Public Class IAIPPrintOut
                 ParameterField.CurrentValues.Add(spValue)
                 ParameterFields.Add(ParameterField)
 
-                dr.Close()
-
                 If WitnessingEngineer2 = "M/W" Then
                     SQL = "select " &
-                    "(strFirstName||' '||strLastName) as WitnessingEng " &
-                    "from ISMPWitnessingEng, EPDUserProfiles " &
-                    "where ISMPWitnessingEng.strWitnessingEngineer = EPDUserProfiles.numUserID  " &
-                    "and strReferenceNumber = '" & Me.txtReferenceNumber.Text & "'  "
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    WitnessingEngineer2 = ""
-                    While dr.Read
-                        WitnessingEngineer2 = WitnessingEngineer2 & vbCrLf & dr.Item("WitnessingEng")
-                    End While
-                    dr.Close()
+                    "concat(strFirstName,' ',strLastName) as WitnessingEng " &
+                    "from ISMPWitnessingEng inner join EPDUSerProfiles " &
+                    "on ISMPWitnessingEng.strWitnessingEngineer = EPDUSerProfiles.numUserProfiles  " &
+                    "where strReferenceNumber = @ref "
+
                     If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 13, 1) = "1" Then
                         WitnessingEngineer2 = "--Conf--"
                     Else
-                        WitnessingEngineer2 = WitnessingEngineer2
+                        WitnessingEngineer2 = DB.GetSingleValue(Of String)(SQL, p)
                     End If
                 Else
                     WitnessingEngineer2 = " "
@@ -7767,8 +7048,8 @@ Public Class IAIPPrintOut
                 End If
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
                 ParameterField.ParameterFieldName = "WitnessingEngineer"
                 spValue.Value = WitnessingEngineer
                 ParameterField.CurrentValues.Add(spValue)
@@ -7782,143 +7063,76 @@ Public Class IAIPPrintOut
 
             Else
                 MsgBox("Unable to Print at this time.")
-                PrintOut.Close()
-
+                Me.Close()
             End If
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
+    End Sub
 
-    End Sub       'Complete
     Private Sub LoadGasConcentration()
         Dim rpt As New CRGasConcentration
         monitor.TrackFeature("Report." & rpt.ResourceName)
 
-        Dim ParameterFields As CrystalDecisions.Shared.ParameterFields
-        Dim ParameterField As CrystalDecisions.Shared.ParameterField
-        Dim spValue As CrystalDecisions.Shared.ParameterDiscreteValue
+        Dim ParameterFields As ParameterFields
+        Dim ParameterField As ParameterField
+        Dim spValue As ParameterDiscreteValue
 
         Try
 
             'Do this just once at the start
-            ParameterFields = New CrystalDecisions.Shared.ParameterFields
+            ParameterFields = New ParameterFields
 
-            SQL = "Select " &
-            "ISMPMaster.strAIRSNumber as AIRSNumber, " &
-            "APBFacilityInformation.strFacilityName as FacilityName, " &
-            "strFacilityCity as FacilityCity, " &
-             "strFacilityState as FacilityState, " &
-            "strPollutantDescription as PollutantDescription, " &
-            "strEmissionSource, " &
-            "ISMPReportType.strReportType, " &
-           "strApplicableRequirement, " &
-           "(strFirstName||' '||strLastName) as ReviewingEngineer, " &
-           "Case " &
-             "when ISMPReportInformation.strWitnessingEngineer = '0' then 'N/W' " &
-           "Else " &
-             "(select (strFirstName||' '||strLastName) " &
-             "from EPDUserProfiles, ISMPReportInformation " &
-             "where ISMPReportInformation.strWitnessingEngineer = EPDUserProfiles.numUserID " &
-             "and ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') " &
-           "End as WitnessingEngineer, " &
-           "Case " &
-             "when ISMPReportInformation.strOtherWitnessingEng is Null then 'N/W' " &
-             "when ISMPReportInformation.strOtherWitnessingEng = '0' then 'N/W' " &
-           "Else  " &
-             "'M/W' " &
-           "End WitnessingEngineer2,     " &
-           "Case  " &
-             "when ISMPReportInformation.numReviewingManager is Null then 'N/A' " &
-           "Else  " &
-             "(Select (strFirstName||' '||strLastName) as UnitManager  " &
-             "from EPDUserProfiles, ISMPReportInformation  " &
-             "where ISMPReportInformation.numReviewingManager = EPDUserProfiles.numUserID " &
-             "and ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "')  " &
-           "END UnitManager,  " &
-           "datReviewedByUnitManager,  " &
-           "(Select (strFirstName||' '||strLastName) as ComplianceManager  " &
-           "from EPDUserProfiles, ISMPReportInformation   " &
-           "where ISMPReportInformation.strComplianceManager = EPDUserProfiles.nuMUserID " &
-           "and ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') as ComplianceManager,  " &
-           "to_char(datTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart,  " &
-           "to_char(datTestDateEnd, 'FMMonth DD, YYYY') as ForTestDateEnd,  " &
-           "to_char(datReceivedDate, 'FMMonth DD, YYYY') as ForReceivedDate,  " &
-           "datCompleteDate,  " &
-           "mmoCommentArea, strCommissioner, strDirector, strProgramManager,  " &
-           "strComplianceStatement as ComplianceStatement,  " &
-           "strControlEquipmentData,  " &
-           "(Select (strFirstName||' '||strLastName) as CC  " &
-           "from ISMPReportInformation, EPDUserProfiles  " &
-           "where ISMPReportInformation.strCC = EPDUserProfiles.numUserID  " &
-           "and ISMPREportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') as CC,  " &
-          "ISMPReportPondAndGas.strReferencenumber, strMaxoperatingCapacity, " &
-            "(select strUnitDescription from LookUPUnits, ISMPReportPondAndGas " &
-            "where strUnitkey = strMaxOperatingCapacityUnit " &
-            "and ISMPReportPondAndGas.strreferencenumber = '" & txtReferenceNumber.Text & "') as MaxOperatingCapacityUnit, " &
-            "strOperatingCapacity, " &
-            "(select strUnitDescription from LookUPUnits, ISMPReportPondAndGas " &
-            "where strUnitkey = strOperatingCapacityUnit " &
-            "and ISMPReportPondAndGas.strreferencenumber = '" & txtReferenceNumber.Text & "') as OperatingCapacityUnit,  " &
-            "strAllowableEmissionRate1, strAllowableEmissionRate2, strAllowableEmissionRate3, " &
-            "(select strUnitDescription from LookUPUnits, ISMPReportPondAndGas " &
-            "where strUnitkey = strAllowableEmissionRateUnit1 " &
-            "and ISMPReportPondAndGas.strreferencenumber = '" & txtReferenceNumber.Text & "') as AllowableEmissionRateUnit1, " &
-            "(select strUnitDescription from LookUPUnits, ISMPReportPondAndGas " &
-            "where strUnitkey = strAllowableEmissionRateUnit2 " &
-            "and ISMPReportPondAndGas.strreferencenumber = '" & txtReferenceNumber.Text & "') as AllowableEmissionRateUnit2, " &
-            "(select strUnitDescription from LookUPUnits, ISMPReportPondAndGas " &
-            "where strUnitkey = strAllowableEmissionRateUnit3 " &
-            "and ISMPReportPondAndGas.strreferencenumber = '" & txtReferenceNumber.Text & "') as AllowableEmissionRateUnit3, " &
-            "strRunNumber1a, strRunNumber1b, strRunNumber1c, " &
-            "strPollutantConcentration1A, strPollutantConcentration1B, strPollutantConcentration1C, " &
-            "(Select strUnitDescription from LookUPUnits, ISMPReportPondAndGas " &
-            "where strUnitkey = strPollutantConcentrationUnit " &
-            "and ISMPReportPondAndGas.strReferenceNumber = '" & txtReferenceNumber.Text & "') as POllutantConcentrationUnit, " &
-            "strPOllutantConcentrationAvg, " &
-            "strEmissionRate1A, strEmissionRate1B, strEmissionRate1C, " &
-            "(select strUnitDescription from LookUPUnits, ISMPReportPondAndGas " &
-            "where strUnitKey = strEmissionRateUnit " &
-            "and ISMPReportPondAndGas.strReferenceNumber = '" & txtReferenceNumber.Text & "') as EmissionRateUnit, " &
-            "strEmissionRateAvg, strPercentAllowable, strConfidentialData " &
-           "From ISMPMaster, APBFacilityInformation,  " &
-           "ISMPReportInformation, LookUpPollutants,  " &
-           "ISMPReportType, EPDUserProfiles,  " &
-           "LookUpISMPComplianceStatus, ISMPReportPondAndGas   " &
-           "where ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber  " &
-           "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber  " &
-           "and ISMPReportInformation.strPollutant = LookUpPollutants.strPollutantCode  " &
-           "and ISMPReportInformation.strReportType = ISMPReportType.strKey  " &
-           "and ISMPReportInformation.strReviewingEngineer = EPDUserProfiles.numUserID  " &
-           "and ISMPReportInformation.strComplianceStatus = LookUpISMPComplianceStatus.strComplianceKey   " &
-           "and ISMPMaster.strReferenceNumber = ISMPReportPondAndGas.strReferenceNumber  " &
-           "and ISMPMaster.strReferenceNumber = '" & txtReferenceNumber.Text & "'"
+            Dim SQL As String = "SELECT ISMPMaster.strAIRSNumber AS AIRSNumber, APBFacilityInformation.strFacilityName AS FacilityName, strFacilityCity AS FacilityCity, strFacilityState AS FacilityState, strPollutantDescription AS PollutantDescription, strEmissionSource, ISMPReportType.strReportType, strApplicableRequirement, CONCAT(strFirstName, ' ', strLastName) AS ReviewingEngineer,
+                CASE WHEN ISMPReportInformation.strWitnessingEngineer = '0' THEN 'N/W' ELSE (SELECT CONCAT(strFirstName, ' ', strLastName)
+                FROM EPDUserProfiles, ISMPReportInformation
+                WHERE ISMPReportInformation.strWitnessingEngineer = EPDUserProfiles.numUserID AND ISMPReportInformation.strReferenceNumber = @ref) END AS WitnessingEngineer,
+                CASE WHEN ISMPReportInformation.strOtherWitnessingEng IS NULL THEN 'N/W' WHEN ISMPReportInformation.strOtherWitnessingEng = '0' THEN 'N/W' ELSE 'M/W' END AS WitnessingEngineer2,
+                CASE WHEN ISMPReportInformation.numReviewingManager IS NULL THEN 'N/A' ELSE (SELECT CONCAT(strFirstName, ' ', strLastName) AS UnitManager
+                FROM EPDUserProfiles, ISMPReportInformation
+                WHERE ISMPReportInformation.numReviewingManager = EPDUserProfiles.numUserID AND ISMPReportInformation.strReferenceNumber = @ref) END AS UnitManager, datReviewedByUnitManager, (SELECT CONCAT(strFirstName, ' ', strLastName) AS ComplianceManager
+                FROM EPDUserProfiles, ISMPReportInformation
+                WHERE ISMPReportInformation.strComplianceManager = EPDUserProfiles.nuMUserID AND ISMPReportInformation.strReferenceNumber = @ref) AS ComplianceManager, format(datTestDateStart, 'MMMM d, yyyy') AS ForTestDateStart, format(datTestDateEnd, 'MMMM d, yyyy') AS ForTestDateEnd, format(datReceivedDate, 'MMMM d, yyyy') AS ForReceivedDate, datCompleteDate, mmoCommentArea, strCommissioner, strDirector, strProgramManager, strComplianceStatement AS ComplianceStatement, strControlEquipmentData, (SELECT CONCAT(strFirstName, ' ', strLastName) AS CC
+                FROM ISMPReportInformation, EPDUserProfiles
+                WHERE ISMPReportInformation.strCC = EPDUserProfiles.numUserID AND ISMPREportInformation.strReferenceNumber = @ref) AS CC, ISMPReportPondAndGas.strReferencenumber, strMaxoperatingCapacity, (SELECT strUnitDescription
+                FROM LookUPUnits, ISMPReportPondAndGas
+                WHERE strUnitkey = strMaxOperatingCapacityUnit AND ISMPReportPondAndGas.strreferencenumber = @ref) AS MaxOperatingCapacityUnit, strOperatingCapacity, (SELECT strUnitDescription
+                FROM LookUPUnits, ISMPReportPondAndGas
+                WHERE strUnitkey = strOperatingCapacityUnit AND ISMPReportPondAndGas.strreferencenumber = @ref) AS OperatingCapacityUnit, strAllowableEmissionRate1, strAllowableEmissionRate2, strAllowableEmissionRate3, (SELECT strUnitDescription
+                FROM LookUPUnits, ISMPReportPondAndGas
+                WHERE strUnitkey = strAllowableEmissionRateUnit1 AND ISMPReportPondAndGas.strreferencenumber = @ref) AS AllowableEmissionRateUnit1, (SELECT strUnitDescription
+                FROM LookUPUnits, ISMPReportPondAndGas
+                WHERE strUnitkey = strAllowableEmissionRateUnit2 AND ISMPReportPondAndGas.strreferencenumber = @ref) AS AllowableEmissionRateUnit2, (SELECT strUnitDescription
+                FROM LookUPUnits, ISMPReportPondAndGas
+                WHERE strUnitkey = strAllowableEmissionRateUnit3 AND ISMPReportPondAndGas.strreferencenumber = @ref) AS AllowableEmissionRateUnit3, strRunNumber1a, strRunNumber1b, strRunNumber1c, strPollutantConcentration1A, strPollutantConcentration1B, strPollutantConcentration1C, (SELECT strUnitDescription
+                FROM LookUPUnits, ISMPReportPondAndGas
+                WHERE strUnitkey = strPollutantConcentrationUnit AND ISMPReportPondAndGas.strReferenceNumber = @ref) AS POllutantConcentrationUnit, strPOllutantConcentrationAvg, strEmissionRate1A, strEmissionRate1B, strEmissionRate1C, (SELECT strUnitDescription
+                FROM LookUPUnits, ISMPReportPondAndGas
+                WHERE strUnitKey = strEmissionRateUnit AND ISMPReportPondAndGas.strReferenceNumber = @ref) AS EmissionRateUnit, strEmissionRateAvg, strPercentAllowable, strConfidentialData
+                FROM ISMPMaster, APBFacilityInformation, ISMPReportInformation, LookUpPollutants, ISMPReportType, EPDUserProfiles, LookUpISMPComplianceStatus, ISMPReportPondAndGas
+                WHERE ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber AND ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber AND ISMPReportInformation.strPollutant = LookUpPollutants.strPollutantCode AND ISMPReportInformation.strReportType = ISMPReportType.strKey AND ISMPReportInformation.strReviewingEngineer = EPDUserProfiles.numUserID AND ISMPReportInformation.strComplianceStatus = LookUpISMPComplianceStatus.strComplianceKey AND ISMPMaster.strReferenceNumber = ISMPReportPondAndGas.strReferenceNumber AND ISMPMaster.strReferenceNumber = @ref"
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
+            Dim p As New SqlParameter("@ref", ReferenceValue)
 
-            recExist = dr.Read
+            Dim dr As DataRow = DB.GetDataRow(SQL, p)
 
-            If recExist Then
+            If dr IsNot Nothing Then
+
                 If IsDBNull(dr.Item("strConfidentialData")) Then
                     ConfidentialData = "0"
                 Else
                     ConfidentialData = dr.Item("strConfidentialData")
                 End If
                 If Mid(ConfidentialData, 1, 1) = "1" Then
-                    If txtOther.Text = "ToFile" Then
+                    If PrintoutSubtype = PrintSubtype.ToFile Then
                         ConfidentialData = "0" & Mid(ConfidentialData, 2)
                     End If
                 End If
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "Commissioner"
                 spValue.Value = dr.Item("strCOmmissioner")
@@ -7926,8 +7140,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "Director"
                 spValue.Value = dr.Item("strDirector")
@@ -7935,8 +7149,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ProgramManager"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 9, 1) = "1" Then
@@ -7948,8 +7162,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "AIRSNumber"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 3, 1) = "1" Then
@@ -7961,8 +7175,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "FacilityName"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 4, 1) = "1" Then
@@ -7974,8 +7188,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "FacilityCity"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 5, 1) = "1" Then
@@ -7987,8 +7201,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "FacilityState"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 5, 1) = "1" Then
@@ -8000,8 +7214,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "Pollutant"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 15, 1) = "1" Then
@@ -8013,8 +7227,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "EmissionSourceTested"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 14, 1) = "1" Then
@@ -8026,8 +7240,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ReportTYpe"
                 ReportType = dr.Item("strReportTYpe")
@@ -8050,8 +7264,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ApplicableRequirement"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 31, 1) = "1" Then
@@ -8063,8 +7277,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ReviewingEngineer"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 7, 1) = "1" Then
@@ -8089,8 +7303,8 @@ Public Class IAIPPrintOut
                 End If
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "UnitManager"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 10, 1) = "1" Then
@@ -8110,8 +7324,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ComplianceManager"
                 spValue.Value = dr.Item("ComplianceManager")
@@ -8125,8 +7339,8 @@ Public Class IAIPPrintOut
 
                 If dr.Item("forTestDateEnd") = dr.Item("ForTestDateStart") Then
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "TestDates"
                     spValue.Value = dr.Item("ForTestDateStart")
@@ -8139,8 +7353,8 @@ Public Class IAIPPrintOut
                     ParameterFields.Add(ParameterField)
                 Else
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "TestDates"
                     spValue.Value = (dr.Item("ForTestDateStart") & " to " & dr.Item("ForTestDateEnd"))
@@ -8154,8 +7368,8 @@ Public Class IAIPPrintOut
                 End If
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ReceivedDate"
                 spValue.Value = dr.Item("ForReceivedDate")
@@ -8168,8 +7382,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "CommentArea"
                 spValue.Value = dr.Item("mmoCommentArea")
@@ -8182,8 +7396,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ComplianceStatus"
                 spValue.Value = dr.Item("ComplianceStatement")
@@ -8196,8 +7410,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ControlEquipmentOperatingData"
                 spValue.Value = dr.Item("strControlEquipmentData")
@@ -8211,8 +7425,8 @@ Public Class IAIPPrintOut
 
                 If dr.Item("CC") <> "" And dr.Item("CC") <> "  Unassigned" Then
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "CC"
                     spValue.Value = ", " & dr.Item("CC")
@@ -8225,8 +7439,8 @@ Public Class IAIPPrintOut
                     ParameterFields.Add(ParameterField)
                 Else
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "CC"
                     spValue.Value = " "
@@ -8235,8 +7449,8 @@ Public Class IAIPPrintOut
                 End If
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "Referencenumber"
                 spValue.Value = dr.Item("strReferencenumber")
@@ -8244,8 +7458,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "MaximumOperatingCapacity"
                 spValue.Value = dr.Item("strMaxoperatingCapacity")
@@ -8258,8 +7472,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "MaximumOperatingCapacityUnit"
                 spValue.Value = dr.Item("MaxOperatingCapacityUnit")
@@ -8272,8 +7486,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "operatingCapacity"
                 spValue.Value = dr.Item("stroperatingCapacity")
@@ -8286,8 +7500,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "OperatingCapacityUnit"
                 spValue.Value = dr.Item("OperatingCapacityUnit")
@@ -8300,8 +7514,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "AllowableEmissionRate1"
                 spValue.Value = dr.Item("strAllowableEmissionRate1")
@@ -8314,8 +7528,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "AllowableEmissionRateUnit1"
                 spValue.Value = dr.Item("AllowableEmissionRateUnit1")
@@ -8330,8 +7544,8 @@ Public Class IAIPPrintOut
                 If dr.Item("AllowableEmissionRateUnit2") <> "N/A" Then
 
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "AllowableEmissionRate2"
                     spValue.Value = "; " & vbCrLf & dr.Item("strAllowableEmissionRate2")
@@ -8344,8 +7558,8 @@ Public Class IAIPPrintOut
                     ParameterFields.Add(ParameterField)
 
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "AllowableEmissionRateUnit2"
                     If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 29, 1) = "1" Then
@@ -8359,8 +7573,8 @@ Public Class IAIPPrintOut
 
                 Else
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "AllowableEmissionRate2"
                     spValue.Value = " "
@@ -8368,8 +7582,8 @@ Public Class IAIPPrintOut
                     ParameterFields.Add(ParameterField)
 
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "AllowableEmissionRateUnit2"
                     spValue.Value = " "
@@ -8380,8 +7594,8 @@ Public Class IAIPPrintOut
                 If dr.Item("AllowableEmissionRateUnit3") <> "N/A" Then
 
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "AllowableEmissionRate3"
                     spValue.Value = "; " & vbCrLf & dr.Item("strAllowableEmissionRate3")
@@ -8394,8 +7608,8 @@ Public Class IAIPPrintOut
                     ParameterFields.Add(ParameterField)
 
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "AllowableEmissionRateUnit3"
                     spValue.Value = dr.Item("AllowableEmissionRateUnit3")
@@ -8409,8 +7623,8 @@ Public Class IAIPPrintOut
 
                 Else
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "AllowableEmissionRate3"
                     spValue.Value = " "
@@ -8418,8 +7632,8 @@ Public Class IAIPPrintOut
                     ParameterFields.Add(ParameterField)
 
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "AllowableEmissionRateUnit3"
                     spValue.Value = " "
@@ -8428,8 +7642,8 @@ Public Class IAIPPrintOut
                 End If
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "RunNumber1a"
                 spValue.Value = dr.Item("strRunNumber1a")
@@ -8442,8 +7656,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "RunNumber1B"
                 spValue.Value = dr.Item("strRunNumber1B")
@@ -8456,8 +7670,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "RunNumber1C"
                 spValue.Value = dr.Item("strRunNumber1C")
@@ -8470,8 +7684,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "PollutantConcentration1A"
                 spValue.Value = dr.Item("strPollutantConcentration1A")
@@ -8484,8 +7698,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "PollutantConcentration1B"
                 spValue.Value = dr.Item("strPollutantConcentration1B")
@@ -8498,8 +7712,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "PollutantConcentration1C"
                 spValue.Value = dr.Item("strPollutantConcentration1C")
@@ -8512,8 +7726,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "PollutantConcentrationUnits"
                 spValue.Value = dr.Item("POllutantConcentrationUnit")
@@ -8526,8 +7740,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "PollutantConcentrationAverage1"
                 spValue.Value = dr.Item("strPOllutantConcentrationAvg")
@@ -8540,8 +7754,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "EmissionRate1A"
                 spValue.Value = dr.Item("strEmissionRate1A")
@@ -8554,8 +7768,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "EmissionRate1B"
                 spValue.Value = dr.Item("strEmissionRate1B")
@@ -8568,8 +7782,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "EmissionRate1C"
                 spValue.Value = dr.Item("strEmissionRate1C")
@@ -8582,8 +7796,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "EmissionRateUnits"
                 spValue.Value = dr.Item("EmissionRateUnit")
@@ -8596,8 +7810,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "EmissionRateAverage1"
                 spValue.Value = dr.Item("strEmissionRateAvg")
@@ -8610,8 +7824,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "PercentAllowable"
                 spValue.Value = dr.Item("strPercentAllowable")
@@ -8623,32 +7837,17 @@ Public Class IAIPPrintOut
                 ParameterField.CurrentValues.Add(spValue)
                 ParameterFields.Add(ParameterField)
 
-                dr.Close()
-
                 If WitnessingEngineer2 = "M/W" Then
                     SQL = "select " &
-                    "(strFirstName||' '||strLastName) as WitnessingEng " &
-                    "from ISMPWitnessingEng, EPDUserProfiles " &
-                    "where ISMPWitnessingEng.strWitnessingEngineer = EPDUserProfiles.numUserID  " &
-                    "and strReferenceNumber = '" & Me.txtReferenceNumber.Text & "'  "
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    WitnessingEngineer2 = ""
-                    While dr.Read
-                        If dr.Item("WitnessingEng") = "  Unassigned" Then
-                        Else
-                            WitnessingEngineer2 = WitnessingEngineer2 & vbCrLf & dr.Item("WitnessingEng")
-                        End If
+                    "concat(strFirstName,' ',strLastName) as WitnessingEng " &
+                    "from ISMPWitnessingEng inner join EPDUSerProfiles " &
+                    "on ISMPWitnessingEng.strWitnessingEngineer = EPDUSerProfiles.numUserProfiles  " &
+                    "where strReferenceNumber = @ref "
 
-                    End While
-                    dr.Close()
                     If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 13, 1) = "1" Then
                         WitnessingEngineer2 = "--Conf--"
                     Else
-                        WitnessingEngineer2 = WitnessingEngineer2
+                        WitnessingEngineer2 = DB.GetSingleValue(Of String)(SQL, p)
                     End If
                 Else
                     WitnessingEngineer2 = " "
@@ -8685,8 +7884,8 @@ Public Class IAIPPrintOut
                 End If
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
                 ParameterField.ParameterFieldName = "WitnessingEngineer"
                 spValue.Value = WitnessingEngineer
                 ParameterField.CurrentValues.Add(spValue)
@@ -8700,133 +7899,69 @@ Public Class IAIPPrintOut
 
             Else
                 MsgBox("Unable to Print at this time.")
-                PrintOut.Close()
-
+                Me.Close()
             End If
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
+    End Sub
 
-
-    End Sub    'Complete
     Private Sub LoadFlare()
         Dim rpt As New CRFlare
         monitor.TrackFeature("Report." & rpt.ResourceName)
 
-        Dim ParameterFields As CrystalDecisions.Shared.ParameterFields
-        Dim ParameterField As CrystalDecisions.Shared.ParameterField
-        Dim spValue As CrystalDecisions.Shared.ParameterDiscreteValue
+        Dim ParameterFields As ParameterFields
+        Dim ParameterField As ParameterField
+        Dim spValue As ParameterDiscreteValue
 
         Try
 
             'Do this just once at the start
-            ParameterFields = New CrystalDecisions.Shared.ParameterFields
+            ParameterFields = New ParameterFields
 
-            SQL = "Select " &
-            "ISMPMaster.strAIRSNumber as AIRSNumber, " &
-            "APBFacilityInformation.strFacilityName as FacilityName, " &
-            "strFacilityCity as FacilityCity, " &
-             "strFacilityState as FacilityState, " &
-            "strPollutantDescription as PollutantDescription, " &
-            "strEmissionSource, " &
-            "ISMPReportType.strReportType, " &
-           "strApplicableRequirement, " &
-           "(strFirstName||' '||strLastName) as ReviewingEngineer, " &
-           "Case " &
-             "when ISMPReportInformation.strWitnessingEngineer = '0' then 'N/W' " &
-           "Else " &
-             "(select (strFirstName||' '||strLastName) " &
-             "from EPDUserProfiles, ISMPReportInformation " &
-             "where ISMPReportInformation.strWitnessingEngineer = EPDUserProfiles.numUserID " &
-             "and ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') " &
-           "End as WitnessingEngineer, " &
-           "Case " &
-             "when ISMPReportInformation.strOtherWitnessingEng is Null then 'N/W' " &
-             "when ISMPReportInformation.strOtherWitnessingEng = '0' then 'N/W' " &
-           "Else  " &
-             "'M/W' " &
-           "End WitnessingEngineer2,     " &
-           "Case  " &
-             "when ISMPReportInformation.numReviewingManager is Null then 'N/A' " &
-           "Else  " &
-             "(Select (strFirstName||' '||strLastName) as UnitManager  " &
-             "from EPDUserProfiles, ISMPReportInformation  " &
-             "where ISMPReportInformation.numReviewingManager = EPDUserProfiles.numUserID " &
-             "and ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "')  " &
-           "END UnitManager,  " &
-           "datReviewedByUnitManager,  " &
-           "(Select (strFirstName||' '||strLastName) as ComplianceManager  " &
-           "from EPDUserProfiles, ISMPReportInformation   " &
-           "where ISMPReportInformation.strComplianceManager = EPDUserProfiles.nuMUserID " &
-           "and ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') as ComplianceManager,  " &
-           "to_char(datTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart,  " &
-           "to_char(datTestDateEnd, 'FMMonth DD, YYYY') as ForTestDateEnd,  " &
-           "to_char(datReceivedDate, 'FMMonth DD, YYYY') as ForReceivedDate,  " &
-           "datCompleteDate,  " &
-           "mmoCommentArea, strCommissioner, strDirector, strProgramManager,  " &
-           "strComplianceStatement as ComplianceStatement,  " &
-           "strControlEquipmentData,  " &
-           "(Select (strFirstName||' '||strLastName) as CC  " &
-           "from ISMPReportInformation, EPDUserProfiles  " &
-           "where ISMPReportInformation.strCC = EPDUserProfiles.numUserID  " &
-           "and ISMPREportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') as CC,  " &
-          "ISMPReportFlare.strReferencenumber, strMaxoperatingCapacity, " &
-            "(select strUnitDescription from LookUPUnits, ISMPReportFlare " &
-            "where strUnitkey = strMaxOperatingCapacityUnit " &
-            "and ISMPReportFlare.strreferencenumber = '" & txtReferenceNumber.Text & "') as MaxOperatingCapacityUnit, " &
-            "strOperatingCapacity, " &
-            "(select strUnitDescription from LookUPUnits, ISMPReportFlare " &
-            "where strUnitkey = strOperatingCapacityUnit " &
-            "and ISMPReportFlare.strreferencenumber = '" & txtReferenceNumber.Text & "') as OperatingCapacityUnit,  " &
-            "strLimitationVelocity, strLimitationHeatCapacity, " &
-            "strHeatingValue1A, strHeatingValue2A, strHeatingValue3A, " &
-            "(select strUnitDescription from LookUPUnits, ISMPReportFlare " &
-            "where strUnitkey = strHeatingValueUnits " &
-            "and ISMPReportFlare.strreferencenumber = '" & txtReferenceNumber.Text & "') as HeatingValueUnits, " &
-            "strHeatingValueAvg, strVelocity1A, strVelocity2A, strVelocity3A, " &
-            "(select strUnitDescription from LookUPUnits, ISMPReportFlare " &
-            "where strUnitkey = strVelocityUnits " &
-            "and ISMPReportFlare.strreferencenumber = '" & txtReferenceNumber.Text & "') as VelocityUnits, " &
-            "strVelocityAvg, strPercentAllowable, strConfidentialData " &
-           "From ISMPMaster, APBFacilityInformation,  " &
-           "ISMPReportInformation, LookUpPollutants,  " &
-           "ISMPReportType, EPDUserProfiles,  " &
-           "LookUpISMPComplianceStatus, ISMPReportFlare   " &
-           "where ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber  " &
-           "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber  " &
-           "and ISMPReportInformation.strPollutant = LookUpPollutants.strPollutantCode  " &
-           "and ISMPReportInformation.strReportType = ISMPReportType.strKey  " &
-           "and ISMPReportInformation.strReviewingEngineer = EPDUserProfiles.numUserID  " &
-           "and ISMPReportInformation.strComplianceStatus = LookUpISMPComplianceStatus.strComplianceKey   " &
-           "and ISMPMaster.strReferenceNumber = ISMPReportFlare.strReferenceNumber  " &
-           "and ISMPMaster.strReferenceNumber = '" & txtReferenceNumber.Text & "'"
+            Dim SQL As String = "SELECT ISMPMaster.strAIRSNumber AS AIRSNumber, APBFacilityInformation.strFacilityName AS FacilityName, strFacilityCity AS FacilityCity, strFacilityState AS FacilityState, strPollutantDescription AS PollutantDescription, strEmissionSource, ISMPReportType.strReportType, strApplicableRequirement, CONCAT(strFirstName, ' ', strLastName) AS ReviewingEngineer,
+                CASE WHEN ISMPReportInformation.strWitnessingEngineer = '0' THEN 'N/W' ELSE (SELECT CONCAT(strFirstName, ' ', strLastName)
+                FROM EPDUserProfiles, ISMPReportInformation
+                WHERE ISMPReportInformation.strWitnessingEngineer = EPDUserProfiles.numUserID AND ISMPReportInformation.strReferenceNumber = @ref) END AS WitnessingEngineer,
+                CASE WHEN ISMPReportInformation.strOtherWitnessingEng IS NULL THEN 'N/W' WHEN ISMPReportInformation.strOtherWitnessingEng = '0' THEN 'N/W' ELSE 'M/W' END AS WitnessingEngineer2,
+                CASE WHEN ISMPReportInformation.numReviewingManager IS NULL THEN 'N/A' ELSE (SELECT CONCAT(strFirstName, ' ', strLastName) AS UnitManager
+                FROM EPDUserProfiles, ISMPReportInformation
+                WHERE ISMPReportInformation.numReviewingManager = EPDUserProfiles.numUserID AND ISMPReportInformation.strReferenceNumber = @ref) END AS UnitManager, datReviewedByUnitManager, (SELECT CONCAT(strFirstName, ' ', strLastName) AS ComplianceManager
+                FROM EPDUserProfiles, ISMPReportInformation
+                WHERE ISMPReportInformation.strComplianceManager = EPDUserProfiles.nuMUserID AND ISMPReportInformation.strReferenceNumber = @ref) AS ComplianceManager, format(datTestDateStart, 'MMMM d, yyyy') AS ForTestDateStart, format(datTestDateEnd, 'MMMM d, yyyy') AS ForTestDateEnd, format(datReceivedDate, 'MMMM d, yyyy') AS ForReceivedDate, datCompleteDate, mmoCommentArea, strCommissioner, strDirector, strProgramManager, strComplianceStatement AS ComplianceStatement, strControlEquipmentData, (SELECT CONCAT(strFirstName, ' ', strLastName) AS CC
+                FROM ISMPReportInformation, EPDUserProfiles
+                WHERE ISMPReportInformation.strCC = EPDUserProfiles.numUserID AND ISMPREportInformation.strReferenceNumber = @ref) AS CC, ISMPReportFlare.strReferencenumber, strMaxoperatingCapacity, (SELECT strUnitDescription
+                FROM LookUPUnits, ISMPReportFlare
+                WHERE strUnitkey = strMaxOperatingCapacityUnit AND ISMPReportFlare.strreferencenumber = @ref) AS MaxOperatingCapacityUnit, strOperatingCapacity, (SELECT strUnitDescription
+                FROM LookUPUnits, ISMPReportFlare
+                WHERE strUnitkey = strOperatingCapacityUnit AND ISMPReportFlare.strreferencenumber = @ref) AS OperatingCapacityUnit, strLimitationVelocity, strLimitationHeatCapacity, strHeatingValue1A, strHeatingValue2A, strHeatingValue3A, (SELECT strUnitDescription
+                FROM LookUPUnits, ISMPReportFlare
+                WHERE strUnitkey = strHeatingValueUnits AND ISMPReportFlare.strreferencenumber = @ref) AS HeatingValueUnits, strHeatingValueAvg, strVelocity1A, strVelocity2A, strVelocity3A, (SELECT strUnitDescription
+                FROM LookUPUnits, ISMPReportFlare
+                WHERE strUnitkey = strVelocityUnits AND ISMPReportFlare.strreferencenumber = @ref) AS VelocityUnits, strVelocityAvg, strPercentAllowable, strConfidentialData
+                FROM ISMPMaster, APBFacilityInformation, ISMPReportInformation, LookUpPollutants, ISMPReportType, EPDUserProfiles, LookUpISMPComplianceStatus, ISMPReportFlare
+                WHERE ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber AND ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber AND ISMPReportInformation.strPollutant = LookUpPollutants.strPollutantCode AND ISMPReportInformation.strReportType = ISMPReportType.strKey AND ISMPReportInformation.strReviewingEngineer = EPDUserProfiles.numUserID AND ISMPReportInformation.strComplianceStatus = LookUpISMPComplianceStatus.strComplianceKey AND ISMPMaster.strReferenceNumber = ISMPReportFlare.strReferenceNumber AND ISMPMaster.strReferenceNumber = @ref"
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
+            Dim p As New SqlParameter("@ref", ReferenceValue)
 
-            recExist = dr.Read
+            Dim dr As DataRow = DB.GetDataRow(SQL, p)
 
-            If recExist Then
+            If dr IsNot Nothing Then
+
                 If IsDBNull(dr.Item("strConfidentialData")) Then
                     ConfidentialData = "0"
                 Else
                     ConfidentialData = dr.Item("strConfidentialData")
                 End If
                 If Mid(ConfidentialData, 1, 1) = "1" Then
-                    If txtOther.Text = "ToFile" Then
+                    If PrintoutSubtype = PrintSubtype.ToFile Then
                         ConfidentialData = "0" & Mid(ConfidentialData, 2)
                     End If
                 End If
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "Commissioner"
                 spValue.Value = dr.Item("strCOmmissioner")
@@ -8834,8 +7969,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "Director"
                 spValue.Value = dr.Item("strDirector")
@@ -8843,8 +7978,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ProgramManager"
                 spValue.Value = dr.Item("strProgrammanager")
@@ -8857,8 +7992,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "AIRSNumber"
                 spValue.Value = Mid(dr.Item("AIRSNumber"), 5, 8)
@@ -8871,8 +8006,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "FacilityName"
                 spValue.Value = dr.Item("FacilityName")
@@ -8885,8 +8020,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "FacilityCity"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 5, 1) = "1" Then
@@ -8898,8 +8033,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "FacilityState"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 5, 1) = "1" Then
@@ -8911,8 +8046,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "Pollutant"
                 spValue.Value = dr.Item("PollutantDescription")
@@ -8925,8 +8060,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "EmissionSourceTested"
                 spValue.Value = dr.Item("strEmissionSource")
@@ -8939,8 +8074,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ReportTYpe"
                 ReportType = dr.Item("strReportTYpe")
@@ -8963,8 +8098,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ApplicableRequirement"
                 spValue.Value = dr.Item("strApplicableRequirement")
@@ -8977,8 +8112,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ReviewingEngineer"
                 spValue.Value = dr.Item("ReviewingEngineer")
@@ -9004,8 +8139,8 @@ Public Class IAIPPrintOut
                 End If
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "UnitManager"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 10, 1) = "1" Then
@@ -9025,8 +8160,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ComplianceManager"
                 spValue.Value = dr.Item("ComplianceManager")
@@ -9040,8 +8175,8 @@ Public Class IAIPPrintOut
 
                 If dr.Item("forTestDateEnd") = dr.Item("ForTestDateStart") Then
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "TestDates"
                     spValue.Value = dr.Item("ForTestDateStart")
@@ -9054,8 +8189,8 @@ Public Class IAIPPrintOut
                     ParameterFields.Add(ParameterField)
                 Else
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "TestDates"
                     spValue.Value = (dr.Item("ForTestDateStart") & " to " & dr.Item("ForTestDateEnd"))
@@ -9069,8 +8204,8 @@ Public Class IAIPPrintOut
                 End If
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ReceivedDate"
                 spValue.Value = dr.Item("ForReceivedDate")
@@ -9083,8 +8218,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "CommentArea"
                 spValue.Value = dr.Item("mmoCommentArea")
@@ -9097,8 +8232,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ComplianceStatus"
                 spValue.Value = dr.Item("ComplianceStatement")
@@ -9111,8 +8246,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ControlEquipmentOperatingData"
                 spValue.Value = dr.Item("strControlEquipmentData")
@@ -9126,8 +8261,8 @@ Public Class IAIPPrintOut
 
                 If dr.Item("CC") <> "" And dr.Item("CC") <> "  Unassigned" Then
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "CC"
                     spValue.Value = ", " & dr.Item("CC")
@@ -9140,8 +8275,8 @@ Public Class IAIPPrintOut
                     ParameterFields.Add(ParameterField)
                 Else
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "CC"
                     spValue.Value = " "
@@ -9150,8 +8285,8 @@ Public Class IAIPPrintOut
                 End If
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "Referencenumber"
                 spValue.Value = dr.Item("strReferencenumber")
@@ -9159,8 +8294,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "MaximumOperatingCapacity"
                 spValue.Value = dr.Item("strMaxoperatingCapacity")
@@ -9173,8 +8308,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "MaximumOperatingCapacityUnit"
                 spValue.Value = dr.Item("MaxOperatingCapacityUnit")
@@ -9187,8 +8322,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "operatingCapacity"
                 spValue.Value = dr.Item("stroperatingCapacity")
@@ -9201,8 +8336,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "OperatingCapacityUnit"
                 spValue.Value = dr.Item("OperatingCapacityUnit")
@@ -9215,8 +8350,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "LimitationVelocity"
                 spValue.Value = "Velocity less than " & dr.Item("strLimitationVelocity") & " ft/sec;"
@@ -9229,8 +8364,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "LimitationHeatCapacity"
                 spValue.Value = " Heat Content greater than or equal to " & dr.Item("strLimitationHeatCapacity") & " BTU/scf."
@@ -9243,8 +8378,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "HeatingValue1A"
                 spValue.Value = dr.Item("strHeatingValue1A")
@@ -9257,8 +8392,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "HeatingValue1B"
                 spValue.Value = dr.Item("strHeatingValue2A")
@@ -9271,8 +8406,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "HeatingValue1C"
                 spValue.Value = dr.Item("strHeatingValue3A")
@@ -9285,8 +8420,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "HeatingValueUnits"
                 spValue.Value = dr.Item("HeatingValueUnits")
@@ -9299,8 +8434,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "HeatingValueAverage"
                 spValue.Value = dr.Item("strHeatingValueAvg")
@@ -9313,8 +8448,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "Velocity1A"
                 spValue.Value = dr.Item("strVelocity1A")
@@ -9327,8 +8462,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "Velocity1B"
                 spValue.Value = dr.Item("strVelocity2A")
@@ -9341,8 +8476,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "Velocity1C"
                 spValue.Value = dr.Item("strVelocity3A")
@@ -9355,8 +8490,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "VelocityUnits"
                 spValue.Value = dr.Item("VelocityUnits")
@@ -9369,8 +8504,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "VelocityAverage"
                 spValue.Value = dr.Item("strVelocityAvg")
@@ -9383,8 +8518,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "PercentAllowable"
                 spValue.Value = dr.Item("strPercentAllowable")
@@ -9396,28 +8531,17 @@ Public Class IAIPPrintOut
                 ParameterField.CurrentValues.Add(spValue)
                 ParameterFields.Add(ParameterField)
 
-                dr.Close()
-
                 If WitnessingEngineer2 = "M/W" Then
                     SQL = "select " &
-                    "(strFirstName||' '||strLastName) as WitnessingEng " &
-                    "from ISMPWitnessingEng, EPDUserProfiles " &
-                    "where ISMPWitnessingEng.strWitnessingEngineer = EPDUserProfiles.numUserID  " &
-                    "and strReferenceNumber = '" & Me.txtReferenceNumber.Text & "'  "
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    WitnessingEngineer2 = ""
-                    While dr.Read
-                        WitnessingEngineer2 = WitnessingEngineer2 & vbCrLf & dr.Item("WitnessingEng")
-                    End While
-                    dr.Close()
+                    "concat(strFirstName,' ',strLastName) as WitnessingEng " &
+                    "from ISMPWitnessingEng inner join EPDUSerProfiles " &
+                    "on ISMPWitnessingEng.strWitnessingEngineer = EPDUSerProfiles.numUserProfiles  " &
+                    "where strReferenceNumber = @ref "
+
                     If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 13, 1) = "1" Then
                         WitnessingEngineer2 = "--Conf--"
                     Else
-                        WitnessingEngineer2 = WitnessingEngineer2
+                        WitnessingEngineer2 = DB.GetSingleValue(Of String)(SQL, p)
                     End If
                 Else
                     WitnessingEngineer2 = " "
@@ -9454,8 +8578,8 @@ Public Class IAIPPrintOut
                 End If
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
                 ParameterField.ParameterFieldName = "WitnessingEngineer"
                 spValue.Value = WitnessingEngineer
                 ParameterField.CurrentValues.Add(spValue)
@@ -9469,115 +8593,62 @@ Public Class IAIPPrintOut
 
             Else
                 MsgBox("Unable to Print at this time.")
-                PrintOut.Close()
-
+                Me.Close()
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
+    End Sub
 
-    End Sub               'Complete
     Private Sub LoadMemorandumStandard()
         Dim rpt As New CRMemorandumStandard
         monitor.TrackFeature("Report." & rpt.ResourceName)
 
-        Dim ParameterFields As CrystalDecisions.Shared.ParameterFields
-        Dim ParameterField As CrystalDecisions.Shared.ParameterField
-        Dim spValue As CrystalDecisions.Shared.ParameterDiscreteValue
+        Dim ParameterFields As ParameterFields
+        Dim ParameterField As ParameterField
+        Dim spValue As ParameterDiscreteValue
 
         Try
 
 
             'Do this just once at the start
-            ParameterFields = New CrystalDecisions.Shared.ParameterFields
+            ParameterFields = New ParameterFields
 
-            SQL = "Select " &
-            "ISMPMaster.strAIRSNumber as AIRSNumber, " &
-            "APBFacilityInformation.strFacilityName as FacilityName, " &
-            "strFacilityCity as FacilityCity, " &
-             "strFacilityState as FacilityState, " &
-            "strPollutantDescription as PollutantDescription, " &
-            "strEmissionSource, " &
-            "ISMPReportType.strReportType, " &
-           "strApplicableRequirement, " &
-           "(strFirstName||' '||strLastName) as ReviewingEngineer, " &
-           "Case " &
-             "when ISMPReportInformation.strWitnessingEngineer = '0' then 'N/W' " &
-           "Else " &
-             "(select (strFirstName||' '||strLastName) " &
-             "from EPDUserProfiles, ISMPReportInformation " &
-             "where ISMPReportInformation.strWitnessingEngineer = EPDUserProfiles.numUserID " &
-             "and ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') " &
-           "End as WitnessingEngineer, " &
-           "Case " &
-             "when ISMPReportInformation.strOtherWitnessingEng is Null then 'N/W' " &
-             "when ISMPReportInformation.strOtherWitnessingEng = '0' then 'N/W' " &
-           "Else  " &
-             "'M/W' " &
-           "End WitnessingEngineer2,     " &
-           "Case  " &
-             "when ISMPReportInformation.numReviewingManager is Null then 'N/A' " &
-           "Else  " &
-             "(Select (strFirstName||' '||strLastName) as UnitManager  " &
-             "from EPDUserProfiles, ISMPReportInformation  " &
-             "where ISMPReportInformation.numReviewingManager = EPDUserProfiles.numUserID " &
-             "and ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "')  " &
-           "END UnitManager,  " &
-           "datReviewedByUnitManager,  " &
-           "(Select (strFirstName||' '||strLastName) as ComplianceManager  " &
-           "from EPDUserProfiles, ISMPReportInformation   " &
-           "where ISMPReportInformation.strComplianceManager = EPDUserProfiles.nuMUserID " &
-           "and ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') as ComplianceManager,  " &
-           "to_char(datTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart,  " &
-           "to_char(datTestDateEnd, 'FMMonth DD, YYYY') as ForTestDateEnd,  " &
-           "to_char(datReceivedDate, 'FMMonth DD, YYYY') as ForReceivedDate,  " &
-           "datCompleteDate,  " &
-           "mmoCommentArea, strCommissioner, strDirector, strProgramManager,  " &
-           "strComplianceStatement as ComplianceStatement,  " &
-           "strControlEquipmentData,  " &
-           "(Select (strFirstName||' '||strLastName) as CC  " &
-           "from ISMPReportInformation, EPDUserProfiles  " &
-           "where ISMPReportInformation.strCC = EPDUserProfiles.numUserID  " &
-           "and ISMPREportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') as CC,  " &
-         "ISMPREportMemo.strReferencenumber, strMemorandumField, strConfidentialData " &
-           "From ISMPMaster, APBFacilityInformation,  " &
-           "ISMPReportInformation, LookUpPollutants,  " &
-           "ISMPReportType, EPDUserProfiles,  " &
-           "LookUpISMPComplianceStatus, ISMPREportMemo   " &
-           "where ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber  " &
-           "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber  " &
-           "and ISMPReportInformation.strPollutant = LookUpPollutants.strPollutantCode  " &
-           "and ISMPReportInformation.strReportType = ISMPReportType.strKey  " &
-           "and ISMPReportInformation.strReviewingEngineer = EPDUserProfiles.numUserID  " &
-           "and ISMPReportInformation.strComplianceStatus = LookUpISMPComplianceStatus.strComplianceKey   " &
-           "and ISMPMaster.strReferenceNumber = ISMPREportMemo.strReferenceNumber  " &
-           "and ISMPMaster.strReferenceNumber = '" & txtReferenceNumber.Text & "'"
+            Dim SQL As String = "SELECT ISMPMaster.strAIRSNumber AS AIRSNumber, APBFacilityInformation.strFacilityName AS FacilityName, strFacilityCity AS FacilityCity, strFacilityState AS FacilityState, strPollutantDescription AS PollutantDescription, strEmissionSource, ISMPReportType.strReportType, strApplicableRequirement, CONCAT(strFirstName, ' ', strLastName) AS ReviewingEngineer,
+                CASE WHEN ISMPReportInformation.strWitnessingEngineer = '0' THEN 'N/W' ELSE (SELECT CONCAT(strFirstName, ' ', strLastName)
+                FROM EPDUserProfiles, ISMPReportInformation
+                WHERE ISMPReportInformation.strWitnessingEngineer = EPDUserProfiles.numUserID AND ISMPReportInformation.strReferenceNumber = @ref) END AS WitnessingEngineer,
+                CASE WHEN ISMPReportInformation.strOtherWitnessingEng IS NULL THEN 'N/W' WHEN ISMPReportInformation.strOtherWitnessingEng = '0' THEN 'N/W' ELSE 'M/W' END AS WitnessingEngineer2,
+                CASE WHEN ISMPReportInformation.numReviewingManager IS NULL THEN 'N/A' ELSE (SELECT CONCAT(strFirstName, ' ', strLastName) AS UnitManager
+                FROM EPDUserProfiles, ISMPReportInformation
+                WHERE ISMPReportInformation.numReviewingManager = EPDUserProfiles.numUserID AND ISMPReportInformation.strReferenceNumber = @ref) END AS UnitManager, datReviewedByUnitManager, (SELECT CONCAT(strFirstName, ' ', strLastName) AS ComplianceManager
+                FROM EPDUserProfiles, ISMPReportInformation
+                WHERE ISMPReportInformation.strComplianceManager = EPDUserProfiles.nuMUserID AND ISMPReportInformation.strReferenceNumber = @ref) AS ComplianceManager, format(datTestDateStart, 'MMMM d, yyyy') AS ForTestDateStart, format(datTestDateEnd, 'MMMM d, yyyy') AS ForTestDateEnd, format(datReceivedDate, 'MMMM d, yyyy') AS ForReceivedDate, datCompleteDate, mmoCommentArea, strCommissioner, strDirector, strProgramManager, strComplianceStatement AS ComplianceStatement, strControlEquipmentData, (SELECT CONCAT(strFirstName, ' ', strLastName) AS CC
+                FROM ISMPReportInformation, EPDUserProfiles
+                WHERE ISMPReportInformation.strCC = EPDUserProfiles.numUserID AND ISMPREportInformation.strReferenceNumber = @ref) AS CC, ISMPREportMemo.strReferencenumber, strMemorandumField, strConfidentialData
+                FROM ISMPMaster, APBFacilityInformation, ISMPReportInformation, LookUpPollutants, ISMPReportType, EPDUserProfiles, LookUpISMPComplianceStatus, ISMPREportMemo
+                WHERE ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber AND ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber AND ISMPReportInformation.strPollutant = LookUpPollutants.strPollutantCode AND ISMPReportInformation.strReportType = ISMPReportType.strKey AND ISMPReportInformation.strReviewingEngineer = EPDUserProfiles.numUserID AND ISMPReportInformation.strComplianceStatus = LookUpISMPComplianceStatus.strComplianceKey AND ISMPMaster.strReferenceNumber = ISMPREportMemo.strReferenceNumber AND ISMPMaster.strReferenceNumber = @ref"
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
+            Dim p As New SqlParameter("@ref", ReferenceValue)
 
-            recExist = dr.Read
+            Dim dr As DataRow = DB.GetDataRow(SQL, p)
 
-            If recExist Then
+            If dr IsNot Nothing Then
+
                 If IsDBNull(dr.Item("strConfidentialData")) Then
                     ConfidentialData = "0"
                 Else
                     ConfidentialData = dr.Item("strConfidentialData")
                 End If
                 If Mid(ConfidentialData, 1, 1) = "1" Then
-                    If txtOther.Text = "ToFile" Then
+                    If PrintoutSubtype = PrintSubtype.ToFile Then
                         ConfidentialData = "0" & Mid(ConfidentialData, 2)
                     End If
                 End If
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "Commissioner"
                 spValue.Value = dr.Item("strCOmmissioner")
@@ -9585,8 +8656,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "Director"
                 spValue.Value = dr.Item("strDirector")
@@ -9594,8 +8665,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ProgramManager"
                 spValue.Value = dr.Item("strProgrammanager")
@@ -9608,8 +8679,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "AIRSNumber"
                 spValue.Value = Mid(dr.Item("AIRSNumber"), 5, 8)
@@ -9622,8 +8693,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "FacilityName"
                 spValue.Value = dr.Item("FacilityName")
@@ -9636,8 +8707,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "FacilityCity"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 5, 1) = "1" Then
@@ -9649,8 +8720,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "FacilityState"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 5, 1) = "1" Then
@@ -9662,8 +8733,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "Pollutant"
                 spValue.Value = dr.Item("PollutantDescription")
@@ -9676,8 +8747,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "EmissionSourceTested"
                 spValue.Value = dr.Item("strEmissionSource")
@@ -9690,8 +8761,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ReportTYpe"
                 ReportType = dr.Item("strReportTYpe")
@@ -9714,8 +8785,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ApplicableRequirement"
                 spValue.Value = dr.Item("strApplicableRequirement")
@@ -9728,8 +8799,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ReviewingEngineer"
                 spValue.Value = dr.Item("ReviewingEngineer")
@@ -9755,8 +8826,8 @@ Public Class IAIPPrintOut
                 End If
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "UnitManager"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 10, 1) = "1" Then
@@ -9776,8 +8847,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ComplianceManager"
                 spValue.Value = dr.Item("ComplianceManager")
@@ -9791,8 +8862,8 @@ Public Class IAIPPrintOut
 
                 If dr.Item("forTestDateEnd") = dr.Item("ForTestDateStart") Then
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "TestDates"
                     spValue.Value = dr.Item("ForTestDateStart")
@@ -9805,8 +8876,8 @@ Public Class IAIPPrintOut
                     ParameterFields.Add(ParameterField)
                 Else
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "TestDates"
                     spValue.Value = (dr.Item("ForTestDateStart") & " to " & dr.Item("ForTestDateEnd"))
@@ -9820,8 +8891,8 @@ Public Class IAIPPrintOut
                 End If
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ReceivedDate"
                 spValue.Value = dr.Item("ForReceivedDate")
@@ -9834,8 +8905,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ComplianceStatus"
                 spValue.Value = dr.Item("ComplianceStatement")
@@ -9849,8 +8920,8 @@ Public Class IAIPPrintOut
 
                 If dr.Item("CC") <> "" And dr.Item("CC") <> "  Unassigned" Then
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "CC"
                     spValue.Value = ", " & dr.Item("CC")
@@ -9863,8 +8934,8 @@ Public Class IAIPPrintOut
                     ParameterFields.Add(ParameterField)
                 Else
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "CC"
                     spValue.Value = " "
@@ -9873,8 +8944,8 @@ Public Class IAIPPrintOut
                 End If
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "Referencenumber"
                 spValue.Value = dr.Item("strReferencenumber")
@@ -9882,8 +8953,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "Memorandum"
                 spValue.Value = dr.Item("strMemorandumField")
@@ -9895,28 +8966,17 @@ Public Class IAIPPrintOut
                 ParameterField.CurrentValues.Add(spValue)
                 ParameterFields.Add(ParameterField)
 
-                dr.Close()
-
                 If WitnessingEngineer2 = "M/W" Then
                     SQL = "select " &
-                    "(strFirstName||' '||strLastName) as WitnessingEng " &
-                    "from ISMPWitnessingEng, EPDUserProfiles " &
-                    "where ISMPWitnessingEng.strWitnessingEngineer = EPDUserProfiles.numUserID  " &
-                    "and strReferenceNumber = '" & Me.txtReferenceNumber.Text & "'  "
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    WitnessingEngineer2 = ""
-                    While dr.Read
-                        WitnessingEngineer2 = WitnessingEngineer2 & vbCrLf & dr.Item("WitnessingEng")
-                    End While
-                    dr.Close()
+                    "concat(strFirstName,' ',strLastName) as WitnessingEng " &
+                    "from ISMPWitnessingEng inner join EPDUSerProfiles " &
+                    "on ISMPWitnessingEng.strWitnessingEngineer = EPDUSerProfiles.numUserProfiles  " &
+                    "where strReferenceNumber = @ref "
+
                     If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 13, 1) = "1" Then
                         WitnessingEngineer2 = "--Conf--"
                     Else
-                        WitnessingEngineer2 = WitnessingEngineer2
+                        WitnessingEngineer2 = DB.GetSingleValue(Of String)(SQL, p)
                     End If
                 Else
                     WitnessingEngineer2 = " "
@@ -9953,8 +9013,8 @@ Public Class IAIPPrintOut
                 End If
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
                 ParameterField.ParameterFieldName = "WitnessingEngineer"
                 spValue.Value = WitnessingEngineer
                 ParameterField.CurrentValues.Add(spValue)
@@ -9968,117 +9028,62 @@ Public Class IAIPPrintOut
 
             Else
                 MsgBox("Unable to Print at this time.")
-                PrintOut.Close()
-
+                Me.Close()
             End If
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
+    End Sub
 
-
-    End Sub  'Complete
     Private Sub LoadMemorandumToFile()
         Dim rpt As New CRMemorandumToFile
         monitor.TrackFeature("Report." & rpt.ResourceName)
 
-        Dim ParameterFields As CrystalDecisions.Shared.ParameterFields
-        Dim ParameterField As CrystalDecisions.Shared.ParameterField
-        Dim spValue As CrystalDecisions.Shared.ParameterDiscreteValue
+        Dim ParameterFields As ParameterFields
+        Dim ParameterField As ParameterField
+        Dim spValue As ParameterDiscreteValue
 
         Try
 
 
             'Do this just once at the start
-            ParameterFields = New CrystalDecisions.Shared.ParameterFields
+            ParameterFields = New ParameterFields
 
-            SQL = "Select " &
-            "ISMPMaster.strAIRSNumber as AIRSNumber, " &
-            "APBFacilityInformation.strFacilityName as FacilityName, " &
-            "strFacilityCity as FacilityCity, " &
-             "strFacilityState as FacilityState, " &
-            "strPollutantDescription as PollutantDescription, " &
-            "strEmissionSource, " &
-            "ISMPReportType.strReportType, " &
-           "strApplicableRequirement, " &
-           "(strFirstName||' '||strLastName) as ReviewingEngineer, " &
-           "Case " &
-             "when ISMPReportInformation.strWitnessingEngineer = '0' then 'N/W' " &
-           "Else " &
-             "(select (strFirstName||' '||strLastName) " &
-             "from EPDUserProfiles, ISMPReportInformation " &
-             "where ISMPReportInformation.strWitnessingEngineer = EPDUserProfiles.numUserID " &
-             "and ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') " &
-           "End as WitnessingEngineer, " &
-           "Case " &
-             "when ISMPReportInformation.strOtherWitnessingEng is Null then 'N/W' " &
-             "when ISMPReportInformation.strOtherWitnessingEng = '0' then 'N/W' " &
-           "Else  " &
-             "'M/W' " &
-           "End WitnessingEngineer2,     " &
-           "Case  " &
-             "when ISMPReportInformation.numReviewingManager is Null then 'N/A' " &
-           "Else  " &
-             "(Select (strFirstName||' '||strLastName) as UnitManager  " &
-             "from EPDUserProfiles, ISMPReportInformation  " &
-             "where ISMPReportInformation.numReviewingManager = EPDUserProfiles.numUserID " &
-             "and ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "')  " &
-           "END UnitManager,  " &
-           "datReviewedByUnitManager,  " &
-           "(Select (strFirstName||' '||strLastName) as ComplianceManager  " &
-           "from EPDUserProfiles, ISMPReportInformation   " &
-           "where ISMPReportInformation.strComplianceManager = EPDUserProfiles.nuMUserID " &
-           "and ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') as ComplianceManager,  " &
-           "to_char(datTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart,  " &
-           "to_char(datTestDateEnd, 'FMMonth DD, YYYY') as ForTestDateEnd,  " &
-           "to_char(datReceivedDate, 'FMMonth DD, YYYY') as ForReceivedDate,  " &
-           "datCompleteDate,  " &
-           "mmoCommentArea, strCommissioner, strDirector, strProgramManager,  " &
-           "strComplianceStatement as ComplianceStatement,  " &
-           "strControlEquipmentData,  " &
-           "(Select (strFirstName||' '||strLastName) as CC  " &
-           "from ISMPReportInformation, EPDUserProfiles  " &
-           "where ISMPReportInformation.strCC = EPDUserProfiles.numUserID  " &
-           "and ISMPREportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') as CC,  " &
-        "ISMPREportMemo.strReferencenumber, strMemorandumField, " &
-      "strMonitormanufactureandmodel, strmonitorserialnumber, strConfidentialData " &
-           "From ISMPMaster, APBFacilityInformation,  " &
-           "ISMPReportInformation, LookUpPollutants,  " &
-           "ISMPReportType, EPDUserProfiles,  " &
-           "LookUpISMPComplianceStatus, ISMPREportMemo   " &
-           "where ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber  " &
-           "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber  " &
-           "and ISMPReportInformation.strPollutant = LookUpPollutants.strPollutantCode  " &
-           "and ISMPReportInformation.strReportType = ISMPReportType.strKey  " &
-           "and ISMPReportInformation.strReviewingEngineer = EPDUserProfiles.numUserID  " &
-           "and ISMPReportInformation.strComplianceStatus = LookUpISMPComplianceStatus.strComplianceKey   " &
-           "and ISMPMaster.strReferenceNumber = ISMPREportMemo.strReferenceNumber  " &
-           "and ISMPMaster.strReferenceNumber = '" & txtReferenceNumber.Text & "'"
+            Dim SQL As String = "SELECT ISMPMaster.strAIRSNumber AS AIRSNumber, APBFacilityInformation.strFacilityName AS FacilityName, strFacilityCity AS FacilityCity, strFacilityState AS FacilityState, strPollutantDescription AS PollutantDescription, strEmissionSource, ISMPReportType.strReportType, strApplicableRequirement, CONCAT(strFirstName, ' ', strLastName) AS ReviewingEngineer,
+                CASE WHEN ISMPReportInformation.strWitnessingEngineer = '0' THEN 'N/W' ELSE (SELECT CONCAT(strFirstName, ' ', strLastName)
+                FROM EPDUserProfiles, ISMPReportInformation
+                WHERE ISMPReportInformation.strWitnessingEngineer = EPDUserProfiles.numUserID AND ISMPReportInformation.strReferenceNumber = @ref) END AS WitnessingEngineer,
+                CASE WHEN ISMPReportInformation.strOtherWitnessingEng IS NULL THEN 'N/W' WHEN ISMPReportInformation.strOtherWitnessingEng = '0' THEN 'N/W' ELSE 'M/W' END AS WitnessingEngineer2,
+                CASE WHEN ISMPReportInformation.numReviewingManager IS NULL THEN 'N/A' ELSE (SELECT CONCAT(strFirstName, ' ', strLastName) AS UnitManager
+                FROM EPDUserProfiles, ISMPReportInformation
+                WHERE ISMPReportInformation.numReviewingManager = EPDUserProfiles.numUserID AND ISMPReportInformation.strReferenceNumber = @ref) END AS UnitManager, datReviewedByUnitManager, (SELECT CONCAT(strFirstName, ' ', strLastName) AS ComplianceManager
+                FROM EPDUserProfiles, ISMPReportInformation
+                WHERE ISMPReportInformation.strComplianceManager = EPDUserProfiles.nuMUserID AND ISMPReportInformation.strReferenceNumber = @ref) AS ComplianceManager, format(datTestDateStart, 'MMMM d, yyyy') AS ForTestDateStart, format(datTestDateEnd, 'MMMM d, yyyy') AS ForTestDateEnd, format(datReceivedDate, 'MMMM d, yyyy') AS ForReceivedDate, datCompleteDate, mmoCommentArea, strCommissioner, strDirector, strProgramManager, strComplianceStatement AS ComplianceStatement, strControlEquipmentData, (SELECT CONCAT(strFirstName, ' ', strLastName) AS CC
+                FROM ISMPReportInformation, EPDUserProfiles
+                WHERE ISMPReportInformation.strCC = EPDUserProfiles.numUserID AND ISMPREportInformation.strReferenceNumber = @ref) AS CC, ISMPREportMemo.strReferencenumber, strMemorandumField, strMonitormanufactureandmodel, strmonitorserialnumber, strConfidentialData
+                FROM ISMPMaster, APBFacilityInformation, ISMPReportInformation, LookUpPollutants, ISMPReportType, EPDUserProfiles, LookUpISMPComplianceStatus, ISMPREportMemo
+                WHERE ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber AND ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber AND ISMPReportInformation.strPollutant = LookUpPollutants.strPollutantCode AND ISMPReportInformation.strReportType = ISMPReportType.strKey AND ISMPReportInformation.strReviewingEngineer = EPDUserProfiles.numUserID AND ISMPReportInformation.strComplianceStatus = LookUpISMPComplianceStatus.strComplianceKey AND ISMPMaster.strReferenceNumber = ISMPREportMemo.strReferenceNumber AND ISMPMaster.strReferenceNumber = @ref"
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            recExist = dr.Read
+            Dim p As New SqlParameter("@ref", ReferenceValue)
 
-            If recExist Then
+            Dim dr As DataRow = DB.GetDataRow(SQL, p)
+
+            If dr IsNot Nothing Then
+
                 If IsDBNull(dr.Item("strConfidentialData")) Then
                     ConfidentialData = "0"
                 Else
                     ConfidentialData = dr.Item("strConfidentialData")
                 End If
                 If Mid(ConfidentialData, 1, 1) = "1" Then
-                    If txtOther.Text = "ToFile" Then
+                    If PrintoutSubtype = PrintSubtype.ToFile Then
                         ConfidentialData = "0" & Mid(ConfidentialData, 2)
                     End If
                 End If
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "Commissioner"
                 spValue.Value = dr.Item("strCOmmissioner")
@@ -10086,8 +9091,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "Director"
                 spValue.Value = dr.Item("strDirector")
@@ -10095,8 +9100,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ProgramManager"
                 spValue.Value = dr.Item("strProgrammanager")
@@ -10109,8 +9114,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "AIRSNumber"
                 spValue.Value = Mid(dr.Item("AIRSNumber"), 5, 8)
@@ -10123,8 +9128,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "FacilityName"
                 spValue.Value = dr.Item("FacilityName")
@@ -10137,8 +9142,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "FacilityCity"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 5, 1) = "1" Then
@@ -10150,8 +9155,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "FacilityState"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 5, 1) = "1" Then
@@ -10163,8 +9168,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "Pollutant"
                 spValue.Value = dr.Item("PollutantDescription")
@@ -10177,8 +9182,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "EmissionSourceTested"
                 spValue.Value = dr.Item("strEmissionSource")
@@ -10191,8 +9196,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ReportTYpe"
                 ReportType = dr.Item("strReportTYpe")
@@ -10215,8 +9220,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ApplicableRequirement"
                 spValue.Value = dr.Item("strApplicableRequirement")
@@ -10229,8 +9234,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ReviewingEngineer"
                 spValue.Value = dr.Item("ReviewingEngineer")
@@ -10256,8 +9261,8 @@ Public Class IAIPPrintOut
                 End If
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "UnitManager"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 10, 1) = "1" Then
@@ -10269,8 +9274,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ComplianceManager"
                 spValue.Value = dr.Item("ComplianceManager")
@@ -10284,8 +9289,8 @@ Public Class IAIPPrintOut
 
                 If dr.Item("forTestDateEnd") = dr.Item("ForTestDateStart") Then
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "TestDates"
                     spValue.Value = dr.Item("ForTestDateStart")
@@ -10298,8 +9303,8 @@ Public Class IAIPPrintOut
                     ParameterFields.Add(ParameterField)
                 Else
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "TestDates"
                     spValue.Value = (dr.Item("ForTestDateStart") & " to " & dr.Item("ForTestDateEnd"))
@@ -10313,8 +9318,8 @@ Public Class IAIPPrintOut
                 End If
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ReceivedDate"
                 spValue.Value = dr.Item("ForReceivedDate")
@@ -10327,8 +9332,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ComplianceStatus"
                 spValue.Value = dr.Item("ComplianceStatement")
@@ -10342,8 +9347,8 @@ Public Class IAIPPrintOut
 
                 If dr.Item("CC") <> "" And dr.Item("CC") <> "  Unassigned" Then
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "CC"
                     spValue.Value = ", " & dr.Item("CC")
@@ -10356,8 +9361,8 @@ Public Class IAIPPrintOut
                     ParameterFields.Add(ParameterField)
                 Else
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "CC"
                     spValue.Value = " "
@@ -10366,8 +9371,8 @@ Public Class IAIPPrintOut
                 End If
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "Referencenumber"
                 spValue.Value = dr.Item("strReferencenumber")
@@ -10375,8 +9380,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "Memorandum"
                 spValue.Value = dr.Item("strMemorandumField")
@@ -10389,8 +9394,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ManufacturerAndModel"
                 spValue.Value = dr.Item("strMonitormanufactureandmodel")
@@ -10403,8 +9408,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "SerialNumber"
                 spValue.Value = dr.Item("strmonitorserialnumber")
@@ -10416,28 +9421,17 @@ Public Class IAIPPrintOut
                 ParameterField.CurrentValues.Add(spValue)
                 ParameterFields.Add(ParameterField)
 
-                dr.Close()
-
                 If WitnessingEngineer2 = "M/W" Then
                     SQL = "select " &
-                    "(strFirstName||' '||strLastName) as WitnessingEng " &
-                    "from ISMPWitnessingEng, EPDUserProfiles " &
-                    "where ISMPWitnessingEng.strWitnessingEngineer = EPDUserProfiles.numUserID  " &
-                    "and strReferenceNumber = '" & Me.txtReferenceNumber.Text & "'  "
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    WitnessingEngineer2 = ""
-                    While dr.Read
-                        WitnessingEngineer2 = WitnessingEngineer2 & vbCrLf & dr.Item("WitnessingEng")
-                    End While
-                    dr.Close()
+                    "concat(strFirstName,' ',strLastName) as WitnessingEng " &
+                    "from ISMPWitnessingEng inner join EPDUSerProfiles " &
+                    "on ISMPWitnessingEng.strWitnessingEngineer = EPDUSerProfiles.numUserProfiles  " &
+                    "where strReferenceNumber = @ref "
+
                     If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 13, 1) = "1" Then
                         WitnessingEngineer2 = "--Conf--"
                     Else
-                        WitnessingEngineer2 = WitnessingEngineer2
+                        WitnessingEngineer2 = DB.GetSingleValue(Of String)(SQL, p)
                     End If
                 Else
                     WitnessingEngineer2 = " "
@@ -10474,8 +9468,8 @@ Public Class IAIPPrintOut
                 End If
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
                 ParameterField.ParameterFieldName = "WitnessingEngineer"
                 spValue.Value = WitnessingEngineer
                 ParameterField.CurrentValues.Add(spValue)
@@ -10489,136 +9483,72 @@ Public Class IAIPPrintOut
 
             Else
                 MsgBox("Unable to Print at this time.")
-                PrintOut.Close()
-
+                Me.Close()
             End If
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
+    End Sub
 
-
-    End Sub    'Complete
     Private Sub LoadPTE()
         Dim rpt As New CRMemorandumPTE
         monitor.TrackFeature("Report." & rpt.ResourceName)
 
-        Dim ParameterFields As CrystalDecisions.Shared.ParameterFields
-        Dim ParameterField As CrystalDecisions.Shared.ParameterField
-        Dim spValue As CrystalDecisions.Shared.ParameterDiscreteValue
+        Dim ParameterFields As ParameterFields
+        Dim ParameterField As ParameterField
+        Dim spValue As ParameterDiscreteValue
 
         Try
 
-
             'Do this just once at the start
-            ParameterFields = New CrystalDecisions.Shared.ParameterFields
+            ParameterFields = New ParameterFields
 
-            SQL = "Select " &
-            "ISMPMaster.strAIRSNumber as AIRSNumber, " &
-            "APBFacilityInformation.strFacilityName as FacilityName, " &
-            "strFacilityCity as FacilityCity, " &
-             "strFacilityState as FacilityState, " &
-            "strPollutantDescription as PollutantDescription, " &
-            "strEmissionSource, " &
-            "ISMPReportType.strReportType, " &
-           "strApplicableRequirement, " &
-           "(strFirstName||' '||strLastName) as ReviewingEngineer, " &
-           "Case " &
-             "when ISMPReportInformation.strWitnessingEngineer = '0' then 'N/W' " &
-           "Else " &
-             "(select (strFirstName||' '||strLastName) " &
-             "from EPDUserProfiles, ISMPReportInformation " &
-             "where ISMPReportInformation.strWitnessingEngineer = EPDUserProfiles.numUserID " &
-             "and ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') " &
-           "End as WitnessingEngineer, " &
-           "Case " &
-             "when ISMPReportInformation.strOtherWitnessingEng is Null then 'N/W' " &
-             "when ISMPReportInformation.strOtherWitnessingEng = '0' then 'N/W' " &
-           "Else  " &
-             "'M/W' " &
-           "End WitnessingEngineer2,     " &
-           "Case  " &
-             "when ISMPReportInformation.numReviewingManager is Null then 'N/A' " &
-           "Else  " &
-             "(Select (strFirstName||' '||strLastName) as UnitManager  " &
-             "from EPDUserProfiles, ISMPReportInformation  " &
-             "where ISMPReportInformation.numReviewingManager = EPDUserProfiles.numUserID " &
-             "and ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "')  " &
-           "END UnitManager,  " &
-           "datReviewedByUnitManager,  " &
-           "(Select (strFirstName||' '||strLastName) as ComplianceManager  " &
-           "from EPDUserProfiles, ISMPReportInformation   " &
-           "where ISMPReportInformation.strComplianceManager = EPDUserProfiles.nuMUserID " &
-           "and ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') as ComplianceManager,  " &
-           "to_char(datTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart,  " &
-           "to_char(datTestDateEnd, 'FMMonth DD, YYYY') as ForTestDateEnd,  " &
-           "to_char(datReceivedDate, 'FMMonth DD, YYYY') as ForReceivedDate,  " &
-           "datCompleteDate,  " &
-           "mmoCommentArea, strCommissioner, strDirector, strProgramManager,  " &
-           "strComplianceStatement as ComplianceStatement,  " &
-           "strControlEquipmentData,  " &
-           "(Select (strFirstName||' '||strLastName) as CC  " &
-           "from ISMPReportInformation, EPDUserProfiles  " &
-           "where ISMPReportInformation.strCC = EPDUserProfiles.numUserID  " &
-           "and ISMPREportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') as CC,  " &
-       "ISMPREportMemo.strReferencenumber, strMemorandumField, " &
-      "strMaxoperatingCapacity, " &
-      "(select strUnitDescription from LookUPUnits, ISMPREportMemo " &
-      "where strUnitkey = strMaxOperatingCapacityUnit " &
-      "and ISMPREportMemo.strreferencenumber = '" & txtReferenceNumber.Text & "') as MaxOperatingCapacityUnit, " &
-      "strOperatingCapacity, " &
-      "(select strUnitDescription from LookUPUnits, ISMPREportMemo " &
-      "where strUnitkey = strOperatingCapacityUnit " &
-      "and ISMPREportMemo.strreferencenumber = '" & txtReferenceNumber.Text & "') as OperatingCapacityUnit,  " &
-      "strAllowableEmissionrate1A, strAllowableEmissionRate1B, strAllowableEmissionRate1C, " &
-      "(select strUnitDescription from LookUPUnits, ISMPREportMemo " &
-      "where strUnitkey = strAllowableEmissionRateUnit1A " &
-      "and ISMPREportMemo.strreferencenumber = '" & txtReferenceNumber.Text & "') as AllowableEmissionRateUnit1, " &
-      "(select strUnitDescription from LookUPUnits, ISMPREportMemo " &
-      "where strUnitkey = strAllowableEmissionRateUnit1B " &
-      "and ISMPREportMemo.strreferencenumber = '" & txtReferenceNumber.Text & "') as AllowableEmissionRateUnit2, " &
-      "(select strUnitDescription from LookUPUnits, ISMPREportMemo " &
-      "where strUnitkey = strAllowableEmissionRateUnit1C " &
-      "and ISMPREportMemo.strreferencenumber = '" & txtReferenceNumber.Text & "') as AllowableEmissionRateUnit3, " &
-      "strConfidentialData " &
-           "From ISMPMaster, APBFacilityInformation,  " &
-           "ISMPReportInformation, LookUpPollutants,  " &
-           "ISMPReportType, EPDUserProfiles,  " &
-           "LookUpISMPComplianceStatus, ISMPREportMemo   " &
-           "where ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber  " &
-           "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber  " &
-           "and ISMPReportInformation.strPollutant = LookUpPollutants.strPollutantCode  " &
-           "and ISMPReportInformation.strReportType = ISMPReportType.strKey  " &
-           "and ISMPReportInformation.strReviewingEngineer = EPDUserProfiles.numUserID  " &
-           "and ISMPReportInformation.strComplianceStatus = LookUpISMPComplianceStatus.strComplianceKey   " &
-           "and ISMPMaster.strReferenceNumber = ISMPREportMemo.strReferenceNumber  " &
-           "and ISMPMaster.strReferenceNumber = '" & txtReferenceNumber.Text & "'"
+            Dim SQL As String = "SELECT ISMPMaster.strAIRSNumber AS AIRSNumber, APBFacilityInformation.strFacilityName AS FacilityName, strFacilityCity AS FacilityCity, strFacilityState AS FacilityState, strPollutantDescription AS PollutantDescription, strEmissionSource, ISMPReportType.strReportType, strApplicableRequirement, CONCAT(strFirstName, ' ', strLastName) AS ReviewingEngineer,
+                CASE WHEN ISMPReportInformation.strWitnessingEngineer = '0' THEN 'N/W' ELSE (SELECT CONCAT(strFirstName, ' ', strLastName)
+                FROM EPDUserProfiles, ISMPReportInformation
+                WHERE ISMPReportInformation.strWitnessingEngineer = EPDUserProfiles.numUserID AND ISMPReportInformation.strReferenceNumber = @ref) END AS WitnessingEngineer,
+                CASE WHEN ISMPReportInformation.strOtherWitnessingEng IS NULL THEN 'N/W' WHEN ISMPReportInformation.strOtherWitnessingEng = '0' THEN 'N/W' ELSE 'M/W' END AS WitnessingEngineer2,
+                CASE WHEN ISMPReportInformation.numReviewingManager IS NULL THEN 'N/A' ELSE (SELECT CONCAT(strFirstName, ' ', strLastName) AS UnitManager
+                FROM EPDUserProfiles, ISMPReportInformation
+                WHERE ISMPReportInformation.numReviewingManager = EPDUserProfiles.numUserID AND ISMPReportInformation.strReferenceNumber = @ref) END AS UnitManager, datReviewedByUnitManager, (SELECT CONCAT(strFirstName, ' ', strLastName) AS ComplianceManager
+                FROM EPDUserProfiles, ISMPReportInformation
+                WHERE ISMPReportInformation.strComplianceManager = EPDUserProfiles.nuMUserID AND ISMPReportInformation.strReferenceNumber = @ref) AS ComplianceManager, format(datTestDateStart, 'MMMM d, yyyy') AS ForTestDateStart, format(datTestDateEnd, 'MMMM d, yyyy') AS ForTestDateEnd, format(datReceivedDate, 'MMMM d, yyyy') AS ForReceivedDate, datCompleteDate, mmoCommentArea, strCommissioner, strDirector, strProgramManager, strComplianceStatement AS ComplianceStatement, strControlEquipmentData, (SELECT CONCAT(strFirstName, ' ', strLastName) AS CC
+                FROM ISMPReportInformation, EPDUserProfiles
+                WHERE ISMPReportInformation.strCC = EPDUserProfiles.numUserID AND ISMPREportInformation.strReferenceNumber = @ref) AS CC, ISMPREportMemo.strReferencenumber, strMemorandumField, strMaxoperatingCapacity, (SELECT strUnitDescription
+                FROM LookUPUnits, ISMPREportMemo
+                WHERE strUnitkey = strMaxOperatingCapacityUnit AND ISMPREportMemo.strreferencenumber = @ref) AS MaxOperatingCapacityUnit, strOperatingCapacity, (SELECT strUnitDescription
+                FROM LookUPUnits, ISMPREportMemo
+                WHERE strUnitkey = strOperatingCapacityUnit AND ISMPREportMemo.strreferencenumber = @ref) AS OperatingCapacityUnit, strAllowableEmissionrate1A, strAllowableEmissionRate1B, strAllowableEmissionRate1C, (SELECT strUnitDescription
+                FROM LookUPUnits, ISMPREportMemo
+                WHERE strUnitkey = strAllowableEmissionRateUnit1A AND ISMPREportMemo.strreferencenumber = @ref) AS AllowableEmissionRateUnit1, (SELECT strUnitDescription
+                FROM LookUPUnits, ISMPREportMemo
+                WHERE strUnitkey = strAllowableEmissionRateUnit1B AND ISMPREportMemo.strreferencenumber = @ref) AS AllowableEmissionRateUnit2, (SELECT strUnitDescription
+                FROM LookUPUnits, ISMPREportMemo
+                WHERE strUnitkey = strAllowableEmissionRateUnit1C AND ISMPREportMemo.strreferencenumber = @ref) AS AllowableEmissionRateUnit3, strConfidentialData
+                FROM ISMPMaster, APBFacilityInformation, ISMPReportInformation, LookUpPollutants, ISMPReportType, EPDUserProfiles, LookUpISMPComplianceStatus, ISMPREportMemo
+                WHERE ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber AND ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber AND ISMPReportInformation.strPollutant = LookUpPollutants.strPollutantCode AND ISMPReportInformation.strReportType = ISMPReportType.strKey AND ISMPReportInformation.strReviewingEngineer = EPDUserProfiles.numUserID AND ISMPReportInformation.strComplianceStatus = LookUpISMPComplianceStatus.strComplianceKey AND ISMPMaster.strReferenceNumber = ISMPREportMemo.strReferenceNumber AND ISMPMaster.strReferenceNumber = @ref"
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
+            Dim p As New SqlParameter("@ref", ReferenceValue)
 
-            recExist = dr.Read
+            Dim dr As DataRow = DB.GetDataRow(SQL, p)
 
-            If recExist Then
+            If dr IsNot Nothing Then
+
                 If IsDBNull(dr.Item("strConfidentialData")) Then
                     ConfidentialData = "0"
                 Else
                     ConfidentialData = dr.Item("strConfidentialData")
                 End If
                 If Mid(ConfidentialData, 1, 1) = "1" Then
-                    If txtOther.Text = "ToFile" Then
+                    If PrintoutSubtype = PrintSubtype.ToFile Then
                         ConfidentialData = "0" & Mid(ConfidentialData, 2)
                     End If
                 End If
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "Commissioner"
                 spValue.Value = dr.Item("strCOmmissioner")
@@ -10626,8 +9556,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "Director"
                 spValue.Value = dr.Item("strDirector")
@@ -10635,8 +9565,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ProgramManager"
                 spValue.Value = dr.Item("strProgrammanager")
@@ -10649,8 +9579,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "AIRSNumber"
                 spValue.Value = Mid(dr.Item("AIRSNumber"), 5, 8)
@@ -10663,8 +9593,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "FacilityName"
                 spValue.Value = dr.Item("FacilityName")
@@ -10677,8 +9607,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "FacilityCity"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 5, 1) = "1" Then
@@ -10690,8 +9620,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "FacilityState"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 5, 1) = "1" Then
@@ -10703,8 +9633,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "Pollutant"
                 spValue.Value = dr.Item("PollutantDescription")
@@ -10717,8 +9647,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "EmissionSourceTested"
                 spValue.Value = dr.Item("strEmissionSource")
@@ -10731,8 +9661,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ReportTYpe"
                 ReportType = dr.Item("strReportTYpe")
@@ -10755,8 +9685,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ApplicableRequirement"
                 spValue.Value = dr.Item("strApplicableRequirement")
@@ -10769,8 +9699,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ReviewingEngineer"
                 spValue.Value = dr.Item("ReviewingEngineer")
@@ -10796,8 +9726,8 @@ Public Class IAIPPrintOut
                 End If
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "UnitManager"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 10, 1) = "1" Then
@@ -10817,8 +9747,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ComplianceManager"
                 spValue.Value = dr.Item("ComplianceManager")
@@ -10832,8 +9762,8 @@ Public Class IAIPPrintOut
 
                 If dr.Item("forTestDateEnd") = dr.Item("ForTestDateStart") Then
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "TestDates"
                     spValue.Value = dr.Item("ForTestDateStart")
@@ -10846,8 +9776,8 @@ Public Class IAIPPrintOut
                     ParameterFields.Add(ParameterField)
                 Else
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "TestDates"
                     spValue.Value = (dr.Item("ForTestDateStart") & " to " & dr.Item("ForTestDateEnd"))
@@ -10861,8 +9791,8 @@ Public Class IAIPPrintOut
                 End If
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ReceivedDate"
                 spValue.Value = dr.Item("ForReceivedDate")
@@ -10875,8 +9805,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ComplianceStatus"
                 spValue.Value = dr.Item("ComplianceStatement")
@@ -10890,8 +9820,8 @@ Public Class IAIPPrintOut
 
                 If dr.Item("CC") <> "" And dr.Item("CC") <> "  Unassigned" Then
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "CC"
                     spValue.Value = ", " & dr.Item("CC")
@@ -10904,8 +9834,8 @@ Public Class IAIPPrintOut
                     ParameterFields.Add(ParameterField)
                 Else
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "CC"
                     spValue.Value = " "
@@ -10914,8 +9844,8 @@ Public Class IAIPPrintOut
                 End If
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ControlEquipmentOperatingData"
                 spValue.Value = dr.Item("strControlEquipmentData")
@@ -10928,8 +9858,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "Referencenumber"
                 spValue.Value = dr.Item("strReferencenumber")
@@ -10937,8 +9867,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "Memorandum"
                 spValue.Value = dr.Item("strMemorandumField")
@@ -10951,8 +9881,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "MaximumOperatingCapacity"
                 spValue.Value = dr.Item("strMaxoperatingCapacity")
@@ -10965,8 +9895,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "MaximumOperatingCapacityUnit"
                 spValue.Value = dr.Item("MaxOperatingCapacityUnit")
@@ -10979,8 +9909,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "operatingCapacity"
                 spValue.Value = dr.Item("stroperatingCapacity")
@@ -10993,8 +9923,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "OperatingCapacityUnit"
                 spValue.Value = dr.Item("OperatingCapacityUnit")
@@ -11007,8 +9937,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "AllowableEmissionRate1"
                 spValue.Value = dr.Item("strAllowableEmissionrate1A")
@@ -11021,8 +9951,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "AllowableEmissionRateUnit1"
                 spValue.Value = dr.Item("AllowableEmissionRateUnit1")
@@ -11037,8 +9967,8 @@ Public Class IAIPPrintOut
                 If dr.Item("AllowableEmissionRateUnit2") <> "N/A" Then
 
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "AllowableEmissionRate2"
                     spValue.Value = "; " & vbCrLf & dr.Item("strAllowableEmissionrate1B")
@@ -11051,8 +9981,8 @@ Public Class IAIPPrintOut
                     ParameterFields.Add(ParameterField)
 
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "AllowableEmissionRateUnit2"
                     If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 30, 1) = "1" Then
@@ -11066,8 +9996,8 @@ Public Class IAIPPrintOut
 
                 Else
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "AllowableEmissionRate2"
                     spValue.Value = " "
@@ -11075,8 +10005,8 @@ Public Class IAIPPrintOut
                     ParameterFields.Add(ParameterField)
 
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "AllowableEmissionRateUnit2"
                     spValue.Value = " "
@@ -11087,8 +10017,8 @@ Public Class IAIPPrintOut
                 If dr.Item("AllowableEmissionRateUnit3") <> "N/A" Then
 
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "AllowableEmissionRate3"
                     spValue.Value = "; " & vbCrLf & dr.Item("strAllowableEmissionRate1C")
@@ -11101,8 +10031,8 @@ Public Class IAIPPrintOut
                     ParameterFields.Add(ParameterField)
 
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "AllowableEmissionRateUnit3"
                     spValue.Value = dr.Item("AllowableEmissionRateUnit3")
@@ -11116,8 +10046,8 @@ Public Class IAIPPrintOut
 
                 Else
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "AllowableEmissionRate3"
                     spValue.Value = " "
@@ -11125,8 +10055,8 @@ Public Class IAIPPrintOut
                     ParameterFields.Add(ParameterField)
 
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "AllowableEmissionRateUnit3"
                     spValue.Value = " "
@@ -11134,28 +10064,17 @@ Public Class IAIPPrintOut
                     ParameterFields.Add(ParameterField)
                 End If
 
-                dr.Close()
-
                 If WitnessingEngineer2 = "M/W" Then
                     SQL = "select " &
-                    "(strFirstName||' '||strLastName) as WitnessingEng " &
-                    "from ISMPWitnessingEng, EPDUserProfiles " &
-                    "where ISMPWitnessingEng.strWitnessingEngineer = EPDUserProfiles.numUserID  " &
-                    "and strReferenceNumber = '" & Me.txtReferenceNumber.Text & "'  "
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    WitnessingEngineer2 = ""
-                    While dr.Read
-                        WitnessingEngineer2 = WitnessingEngineer2 & vbCrLf & dr.Item("WitnessingEng")
-                    End While
-                    dr.Close()
+                    "concat(strFirstName,' ',strLastName) as WitnessingEng " &
+                    "from ISMPWitnessingEng inner join EPDUSerProfiles " &
+                    "on ISMPWitnessingEng.strWitnessingEngineer = EPDUSerProfiles.numUserProfiles  " &
+                    "where strReferenceNumber = @ref "
+
                     If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 13, 1) = "1" Then
                         WitnessingEngineer2 = "--Conf--"
                     Else
-                        WitnessingEngineer2 = WitnessingEngineer2
+                        WitnessingEngineer2 = DB.GetSingleValue(Of String)(SQL, p)
                     End If
                 Else
                     WitnessingEngineer2 = " "
@@ -11192,8 +10111,8 @@ Public Class IAIPPrintOut
                 End If
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
                 ParameterField.ParameterFieldName = "WitnessingEngineer"
                 spValue.Value = WitnessingEngineer
                 ParameterField.CurrentValues.Add(spValue)
@@ -11207,127 +10126,67 @@ Public Class IAIPPrintOut
 
             Else
                 MsgBox("Unable to Print at this time.")
-                PrintOut.Close()
+                Me.Close()
             End If
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
+    End Sub
 
-
-    End Sub                 'Complete
     Private Sub LoadMethod22()
         Dim rpt As New CRMethod22
         monitor.TrackFeature("Report." & rpt.ResourceName)
 
-        Dim ParameterFields As CrystalDecisions.Shared.ParameterFields
-        Dim ParameterField As CrystalDecisions.Shared.ParameterField
-        Dim spValue As CrystalDecisions.Shared.ParameterDiscreteValue
+        Dim ParameterFields As ParameterFields
+        Dim ParameterField As ParameterField
+        Dim spValue As ParameterDiscreteValue
 
         Try
             'Do this just once at the start
-            ParameterFields = New CrystalDecisions.Shared.ParameterFields
+            ParameterFields = New ParameterFields
 
-            SQL = "Select " &
-            "ISMPMaster.strAIRSNumber as AIRSNumber, " &
-            "APBFacilityInformation.strFacilityName as FacilityName, " &
-            "strFacilityCity as FacilityCity, " &
-             "strFacilityState as FacilityState, " &
-            "strPollutantDescription as PollutantDescription, " &
-            "strEmissionSource, " &
-            "ISMPReportType.strReportType, " &
-           "strApplicableRequirement, " &
-           "(strFirstName||' '||strLastName) as ReviewingEngineer, " &
-           "Case " &
-             "when ISMPReportInformation.strWitnessingEngineer = '0' then 'N/W' " &
-           "Else " &
-             "(select (strFirstName||' '||strLastName) " &
-             "from EPDUserProfiles, ISMPReportInformation " &
-             "where ISMPReportInformation.strWitnessingEngineer = EPDUserProfiles.numUserID " &
-             "and ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') " &
-           "End as WitnessingEngineer, " &
-           "Case " &
-             "when ISMPReportInformation.strOtherWitnessingEng is Null then 'N/W' " &
-             "when ISMPReportInformation.strOtherWitnessingEng = '0' then 'N/W' " &
-           "Else  " &
-             "'M/W' " &
-           "End WitnessingEngineer2,     " &
-           "Case  " &
-             "when ISMPReportInformation.numReviewingManager is Null then 'N/A' " &
-           "Else  " &
-             "(Select (strFirstName||' '||strLastName) as UnitManager  " &
-             "from EPDUserProfiles, ISMPReportInformation  " &
-             "where ISMPReportInformation.numReviewingManager = EPDUserProfiles.numUserID " &
-             "and ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "')  " &
-           "END UnitManager,  " &
-           "datReviewedByUnitManager,  " &
-           "(Select (strFirstName||' '||strLastName) as ComplianceManager  " &
-           "from EPDUserProfiles, ISMPReportInformation   " &
-           "where ISMPReportInformation.strComplianceManager = EPDUserProfiles.nuMUserID " &
-           "and ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') as ComplianceManager,  " &
-           "to_char(datTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart,  " &
-           "to_char(datTestDateEnd, 'FMMonth DD, YYYY') as ForTestDateEnd,  " &
-           "to_char(datReceivedDate, 'FMMonth DD, YYYY') as ForReceivedDate,  " &
-           "datCompleteDate,  " &
-           "mmoCommentArea, strCommissioner, strDirector, strProgramManager,  " &
-           "strComplianceStatement as ComplianceStatement,  " &
-           "(Select LookUPISMPComplianceStatus.strComplianceStatus " &
-           "from LookUPISMPComplianceStatus, ISMPReportInformation " &
-           "where LookUPISMPComplianceStatus.strComplianceKey = ISMPReportInformation.strComplianceStatus " &
-            "and ISMPReportInformation.strReferencenumber = '" & txtReferenceNumber.Text & "') as ComplianceStatement2, " &
-           "strControlEquipmentData,  " &
-           "(Select (strFirstName||' '||strLastName) as CC  " &
-           "from ISMPReportInformation, EPDUserProfiles  " &
-           "where ISMPReportInformation.strCC = EPDUserProfiles.numUserID  " &
-           "and ISMPREportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') as CC,  " &
-       "ISMPREportOpacity.strReferencenumber, strMaxOperatingCapacity1A, " &
-            "(select strUnitDescription from LookUPUnits, ISMPREportOpacity " &
-            "where strUnitkey = strMaxOperatingCapacityUnit " &
-            "and ISMPREportOpacity.strreferencenumber = '" & txtReferenceNumber.Text & "') as MaxOperatingCapacityUnit, " &
-            "strOperatingCapacity1A, " &
-            "(select strUnitDescription from LookUPUnits, ISMPREportOpacity " &
-            "where strUnitkey = strOperatingCapacityUnit " &
-            "and ISMPREportOpacity.strreferencenumber = '" & txtReferenceNumber.Text & "') as OperatingCapacityUnit,  " &
-            "STRALLOWABLEEMISSIONRATE22, " &
-            "strOpacityTestDuration, strAccumulatedEmissionTime, strConfidentialData " &
-           "From ISMPMaster, APBFacilityInformation,  " &
-           "ISMPReportInformation, LookUpPollutants,  " &
-           "ISMPReportType, EPDUserProfiles,  " &
-           "LookUpISMPComplianceStatus, ISMPREportOpacity   " &
-           "where ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber  " &
-           "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber  " &
-           "and ISMPReportInformation.strPollutant = LookUpPollutants.strPollutantCode  " &
-           "and ISMPReportInformation.strReportType = ISMPReportType.strKey  " &
-           "and ISMPReportInformation.strReviewingEngineer = EPDUserProfiles.numUserID  " &
-           "and ISMPReportInformation.strComplianceStatus = LookUpISMPComplianceStatus.strComplianceKey   " &
-           "and ISMPMaster.strReferenceNumber = ISMPREportOpacity.strReferenceNumber  " &
-           "and ISMPMaster.strReferenceNumber = '" & txtReferenceNumber.Text & "'"
+            Dim SQL As String = "SELECT ISMPMaster.strAIRSNumber AS AIRSNumber, APBFacilityInformation.strFacilityName AS FacilityName, strFacilityCity AS FacilityCity, strFacilityState AS FacilityState, strPollutantDescription AS PollutantDescription, strEmissionSource, ISMPReportType.strReportType, strApplicableRequirement, CONCAT(strFirstName, ' ', strLastName) AS ReviewingEngineer,
+                CASE WHEN ISMPReportInformation.strWitnessingEngineer = '0' THEN 'N/W' ELSE (SELECT CONCAT(strFirstName, ' ', strLastName)
+                FROM EPDUserProfiles, ISMPReportInformation
+                WHERE ISMPReportInformation.strWitnessingEngineer = EPDUserProfiles.numUserID AND ISMPReportInformation.strReferenceNumber = @ref) END AS WitnessingEngineer,
+                CASE WHEN ISMPReportInformation.strOtherWitnessingEng IS NULL THEN 'N/W' WHEN ISMPReportInformation.strOtherWitnessingEng = '0' THEN 'N/W' ELSE 'M/W' END AS WitnessingEngineer2,
+                CASE WHEN ISMPReportInformation.numReviewingManager IS NULL THEN 'N/A' ELSE (SELECT CONCAT(strFirstName, ' ', strLastName) AS UnitManager
+                FROM EPDUserProfiles, ISMPReportInformation
+                WHERE ISMPReportInformation.numReviewingManager = EPDUserProfiles.numUserID AND ISMPReportInformation.strReferenceNumber = @ref) END AS UnitManager, datReviewedByUnitManager, (SELECT CONCAT(strFirstName, ' ', strLastName) AS ComplianceManager
+                FROM EPDUserProfiles, ISMPReportInformation
+                WHERE ISMPReportInformation.strComplianceManager = EPDUserProfiles.nuMUserID AND ISMPReportInformation.strReferenceNumber = @ref) AS ComplianceManager, format(datTestDateStart, 'MMMM d, yyyy') AS ForTestDateStart, format(datTestDateEnd, 'MMMM d, yyyy') AS ForTestDateEnd, format(datReceivedDate, 'MMMM d, yyyy') AS ForReceivedDate, datCompleteDate, mmoCommentArea, strCommissioner, strDirector, strProgramManager, strComplianceStatement AS ComplianceStatement, (SELECT LookUPISMPComplianceStatus.strComplianceStatus
+                FROM LookUPISMPComplianceStatus, ISMPReportInformation
+                WHERE LookUPISMPComplianceStatus.strComplianceKey = ISMPReportInformation.strComplianceStatus AND ISMPReportInformation.strReferencenumber = @ref) AS ComplianceStatement2, strControlEquipmentData, (SELECT CONCAT(strFirstName, ' ', strLastName) AS CC
+                FROM ISMPReportInformation, EPDUserProfiles
+                WHERE ISMPReportInformation.strCC = EPDUserProfiles.numUserID AND ISMPREportInformation.strReferenceNumber = @ref) AS CC, ISMPREportOpacity.strReferencenumber, strMaxOperatingCapacity1A, (SELECT strUnitDescription
+                FROM LookUPUnits, ISMPREportOpacity
+                WHERE strUnitkey = strMaxOperatingCapacityUnit AND ISMPREportOpacity.strreferencenumber = @ref) AS MaxOperatingCapacityUnit, strOperatingCapacity1A, (SELECT strUnitDescription
+                FROM LookUPUnits, ISMPREportOpacity
+                WHERE strUnitkey = strOperatingCapacityUnit AND ISMPREportOpacity.strreferencenumber = @ref) AS OperatingCapacityUnit, STRALLOWABLEEMISSIONRATE22, strOpacityTestDuration, strAccumulatedEmissionTime, strConfidentialData
+                FROM ISMPMaster, APBFacilityInformation, ISMPReportInformation, LookUpPollutants, ISMPReportType, EPDUserProfiles, LookUpISMPComplianceStatus, ISMPREportOpacity
+                WHERE ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber AND ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber AND ISMPReportInformation.strPollutant = LookUpPollutants.strPollutantCode AND ISMPReportInformation.strReportType = ISMPReportType.strKey AND ISMPReportInformation.strReviewingEngineer = EPDUserProfiles.numUserID AND ISMPReportInformation.strComplianceStatus = LookUpISMPComplianceStatus.strComplianceKey AND ISMPMaster.strReferenceNumber = ISMPREportOpacity.strReferenceNumber AND ISMPMaster.strReferenceNumber = @ref"
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
+            Dim p As New SqlParameter("@ref", ReferenceValue)
 
-            recExist = dr.Read
+            Dim dr As DataRow = DB.GetDataRow(SQL, p)
 
-            If recExist Then
+            If dr IsNot Nothing Then
+
                 If IsDBNull(dr.Item("strConfidentialData")) Then
                     ConfidentialData = "0"
                 Else
                     ConfidentialData = dr.Item("strConfidentialData")
                 End If
                 If Mid(ConfidentialData, 1, 1) = "1" Then
-                    If txtOther.Text = "ToFile" Then
+                    If PrintoutSubtype = PrintSubtype.ToFile Then
                         ConfidentialData = "0" & Mid(ConfidentialData, 2)
                     End If
                 End If
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "Commissioner"
                 spValue.Value = dr.Item("strCOmmissioner")
@@ -11335,8 +10194,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "Director"
                 spValue.Value = dr.Item("strDirector")
@@ -11344,8 +10203,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ProgramManager"
                 spValue.Value = dr.Item("strProgrammanager")
@@ -11358,8 +10217,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "AIRSNumber"
                 spValue.Value = Mid(dr.Item("AIRSNumber"), 5, 8)
@@ -11372,8 +10231,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "FacilityName"
                 spValue.Value = dr.Item("FacilityName")
@@ -11386,8 +10245,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "FacilityCity"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 5, 1) = "1" Then
@@ -11399,8 +10258,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "FacilityState"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 5, 1) = "1" Then
@@ -11412,8 +10271,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "Pollutant"
                 spValue.Value = dr.Item("PollutantDescription")
@@ -11426,8 +10285,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "EmissionSourceTested"
                 spValue.Value = dr.Item("strEmissionSource")
@@ -11440,8 +10299,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ReportTYpe"
                 ReportType = dr.Item("strReportTYpe")
@@ -11464,8 +10323,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ApplicableRequirement"
                 spValue.Value = dr.Item("strApplicableRequirement")
@@ -11478,8 +10337,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ReviewingEngineer"
                 spValue.Value = dr.Item("ReviewingEngineer")
@@ -11505,8 +10364,8 @@ Public Class IAIPPrintOut
                 End If
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "UnitManager"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 10, 1) = "1" Then
@@ -11526,8 +10385,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ComplianceManager"
                 spValue.Value = dr.Item("ComplianceManager")
@@ -11541,8 +10400,8 @@ Public Class IAIPPrintOut
 
                 If dr.Item("forTestDateEnd") = dr.Item("ForTestDateStart") Then
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "TestDates"
                     spValue.Value = dr.Item("ForTestDateStart")
@@ -11555,8 +10414,8 @@ Public Class IAIPPrintOut
                     ParameterFields.Add(ParameterField)
                 Else
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "TestDates"
                     spValue.Value = (dr.Item("ForTestDateStart") & " to " & dr.Item("ForTestDateEnd"))
@@ -11570,8 +10429,8 @@ Public Class IAIPPrintOut
                 End If
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ReceivedDate"
                 spValue.Value = dr.Item("ForReceivedDate")
@@ -11584,8 +10443,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "CommentArea"
                 spValue.Value = dr.Item("mmoCommentArea")
@@ -11598,8 +10457,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ComplianceStatus"
                 spValue.Value = dr.Item("ComplianceStatement")
@@ -11612,8 +10471,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ComplianceStatus2"
                 spValue.Value = dr.Item("ComplianceStatement2")
@@ -11628,8 +10487,8 @@ Public Class IAIPPrintOut
 
                 If dr.Item("CC") <> "" And dr.Item("CC") <> "  Unassigned" Then
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "CC"
                     spValue.Value = ", " & dr.Item("CC")
@@ -11642,8 +10501,8 @@ Public Class IAIPPrintOut
                     ParameterFields.Add(ParameterField)
                 Else
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "CC"
                     spValue.Value = " "
@@ -11652,8 +10511,8 @@ Public Class IAIPPrintOut
                 End If
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "Referencenumber"
                 spValue.Value = dr.Item("strReferencenumber")
@@ -11661,8 +10520,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "MaximumOperatingCapacity"
                 spValue.Value = dr.Item("strMaxOperatingCapacity1A")
@@ -11675,8 +10534,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "MaximumOperatingCapacityUnit"
                 spValue.Value = dr.Item("MaxOperatingCapacityUnit")
@@ -11689,8 +10548,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "operatingCapacity"
                 spValue.Value = dr.Item("strOperatingCapacity1A")
@@ -11703,8 +10562,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "OperatingCapacityUnit"
                 spValue.Value = dr.Item("OperatingCapacityUnit")
@@ -11717,8 +10576,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "AllowableEmissionRate1"
                 spValue.Value = dr.Item("STRALLOWABLEEMISSIONRATE22")
@@ -11731,8 +10590,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "OpacityTestDuration"
                 spValue.Value = dr.Item("strOpacityTestDuration") & " minutes "
@@ -11745,8 +10604,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "AccumulatedEmissionTime"
                 spValue.Value = dr.Item("strAccumulatedEmissionTime")
@@ -11758,28 +10617,17 @@ Public Class IAIPPrintOut
                 ParameterField.CurrentValues.Add(spValue)
                 ParameterFields.Add(ParameterField)
 
-                dr.Close()
-
                 If WitnessingEngineer2 = "M/W" Then
                     SQL = "select " &
-                    "(strFirstName||' '||strLastName) as WitnessingEng " &
-                    "from ISMPWitnessingEng, EPDUserProfiles " &
-                    "where ISMPWitnessingEng.strWitnessingEngineer = EPDUserProfiles.numUserID  " &
-                    "and strReferenceNumber = '" & Me.txtReferenceNumber.Text & "'  "
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    WitnessingEngineer2 = ""
-                    While dr.Read
-                        WitnessingEngineer2 = WitnessingEngineer2 & vbCrLf & dr.Item("WitnessingEng")
-                    End While
-                    dr.Close()
+                    "concat(strFirstName,' ',strLastName) as WitnessingEng " &
+                    "from ISMPWitnessingEng inner join EPDUSerProfiles " &
+                    "on ISMPWitnessingEng.strWitnessingEngineer = EPDUSerProfiles.numUserProfiles  " &
+                    "where strReferenceNumber = @ref "
+
                     If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 13, 1) = "1" Then
                         WitnessingEngineer2 = "--Conf--"
                     Else
-                        WitnessingEngineer2 = WitnessingEngineer2
+                        WitnessingEngineer2 = DB.GetSingleValue(Of String)(SQL, p)
                     End If
                 Else
                     WitnessingEngineer2 = " "
@@ -11816,8 +10664,8 @@ Public Class IAIPPrintOut
                 End If
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
                 ParameterField.ParameterFieldName = "WitnessingEngineer"
                 spValue.Value = WitnessingEngineer
                 ParameterField.CurrentValues.Add(spValue)
@@ -11831,133 +10679,70 @@ Public Class IAIPPrintOut
 
             Else
                 MsgBox("Unable to Print at this time.")
-                PrintOut.Close()
-
+                Me.Close()
             End If
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
+    End Sub
 
-
-    End Sub            'Complete
     Private Sub LoadMethod9Single()
         Dim rpt As New CRMethod9Single
         monitor.TrackFeature("Report." & rpt.ResourceName)
         Dim temp As String
 
-        Dim ParameterFields As CrystalDecisions.Shared.ParameterFields
-        Dim ParameterField As CrystalDecisions.Shared.ParameterField
-        Dim spValue As CrystalDecisions.Shared.ParameterDiscreteValue
+        Dim ParameterFields As ParameterFields
+        Dim ParameterField As ParameterField
+        Dim spValue As ParameterDiscreteValue
 
         Try
             'Do this just once at the start
-            ParameterFields = New CrystalDecisions.Shared.ParameterFields
+            ParameterFields = New ParameterFields
 
-            SQL = "Select " &
-            "ISMPMaster.strAIRSNumber as AIRSNumber, " &
-            "APBFacilityInformation.strFacilityName as FacilityName, " &
-            "strFacilityCity as FacilityCity, " &
-             "strFacilityState as FacilityState, " &
-            "strPollutantDescription as PollutantDescription, " &
-            "strEmissionSource, " &
-            "ISMPReportType.strReportType, " &
-           "strApplicableRequirement, " &
-           "(strFirstName||' '||strLastName) as ReviewingEngineer, " &
-           "Case " &
-             "when ISMPReportInformation.strWitnessingEngineer = '0' then 'N/W' " &
-           "Else " &
-             "(select (strFirstName||' '||strLastName) " &
-             "from EPDUserProfiles, ISMPReportInformation " &
-             "where ISMPReportInformation.strWitnessingEngineer = EPDUserProfiles.numUserID " &
-             "and ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') " &
-           "End as WitnessingEngineer, " &
-           "Case " &
-             "when ISMPReportInformation.strOtherWitnessingEng is Null then 'N/W' " &
-             "when ISMPReportInformation.strOtherWitnessingEng = '0' then 'N/W' " &
-           "Else  " &
-             "'M/W' " &
-           "End WitnessingEngineer2,     " &
-           "Case  " &
-             "when ISMPReportInformation.numReviewingManager is Null then 'N/A' " &
-           "Else  " &
-             "(Select (strFirstName||' '||strLastName) as UnitManager  " &
-             "from EPDUserProfiles, ISMPReportInformation  " &
-             "where ISMPReportInformation.numReviewingManager = EPDUserProfiles.numUserID " &
-             "and ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "')  " &
-           "END UnitManager,  " &
-           "datReviewedByUnitManager,  " &
-           "(Select (strFirstName||' '||strLastName) as ComplianceManager  " &
-           "from EPDUserProfiles, ISMPReportInformation   " &
-           "where ISMPReportInformation.strComplianceManager = EPDUserProfiles.nuMUserID " &
-           "and ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') as ComplianceManager,  " &
-           "to_char(datTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart,  " &
-           "to_char(datTestDateEnd, 'FMMonth DD, YYYY') as ForTestDateEnd,  " &
-           "to_char(datReceivedDate, 'FMMonth DD, YYYY') as ForReceivedDate,  " &
-           "datCompleteDate,  " &
-           "mmoCommentArea, strCommissioner, strDirector, strProgramManager,  " &
-           "strComplianceStatement as ComplianceStatement,  " &
-           "(Select LookUPISMPComplianceStatus.strComplianceStatus " &
-           "from LookUPISMPComplianceStatus, ISMPReportInformation " &
-           "where LookUPISMPComplianceStatus.strComplianceKey = ISMPReportInformation.strComplianceStatus " &
-           "and ISMPReportInformation.strReferencenumber = '" & txtReferenceNumber.Text & "') as ComplianceStatement2, " &
-           "strControlEquipmentData,  " &
-           "(Select (strFirstName||' '||strLastName) as CC  " &
-           "from ISMPReportInformation, EPDUserProfiles  " &
-           "where ISMPReportInformation.strCC = EPDUserProfiles.numUserID  " &
-           "and ISMPREportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') as CC,  " &
-           "ISMPREportOpacity.strReferencenumber, strMaxOperatingCapacity1A, " &
-            "(select strUnitDescription from LookUPUnits, ISMPREportOpacity " &
-            "where strUnitkey = strMaxOperatingCapacityUnit " &
-            "and ISMPREportOpacity.strreferencenumber = '" & txtReferenceNumber.Text & "') as MaxOperatingCapacityUnit, " &
-            "strOperatingCapacity1A, " &
-            "(select strUnitDescription from LookUPUnits, ISMPREportOpacity " &
-            "where strUnitkey = strOperatingCapacityUnit " &
-            "and ISMPREportOpacity.strreferencenumber = '" & txtReferenceNumber.Text & "') as OperatingCapacityUnit,  " &
-            "strAllowableEmissionRate1A, " &
-            "(select strUnitDescription from LookUPUnits, ISMPREportOpacity " &
-            "where strUnitkey = strAllowableEmissionRateUnit " &
-            "and ISMPREportOpacity.strreferencenumber = '" & txtReferenceNumber.Text & "') as AllowableEmissionRateUnit1, " &
-            "strOpacityTestDuration, " &
-            "strOpacityPointA, strConfidentialData, strOpacityStandard  " &
-           "From ISMPMaster, APBFacilityInformation,  " &
-           "ISMPReportInformation, LookUpPollutants,  " &
-           "ISMPReportType, EPDUserProfiles,  " &
-           "LookUpISMPComplianceStatus, ISMPREportOpacity   " &
-           "where ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber  " &
-           "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber  " &
-           "and ISMPReportInformation.strPollutant = LookUpPollutants.strPollutantCode  " &
-           "and ISMPReportInformation.strReportType = ISMPReportType.strKey  " &
-           "and ISMPReportInformation.strReviewingEngineer = EPDUserProfiles.numUserID  " &
-           "and ISMPReportInformation.strComplianceStatus = LookUpISMPComplianceStatus.strComplianceKey   " &
-           "and ISMPMaster.strReferenceNumber = ISMPREportOpacity.strReferenceNumber  " &
-           "and ISMPMaster.strReferenceNumber = '" & txtReferenceNumber.Text & "'"
+            Dim SQL As String = "SELECT ISMPMaster.strAIRSNumber AS AIRSNumber, APBFacilityInformation.strFacilityName AS FacilityName, strFacilityCity AS FacilityCity, strFacilityState AS FacilityState, strPollutantDescription AS PollutantDescription, strEmissionSource, ISMPReportType.strReportType, strApplicableRequirement, CONCAT(strFirstName, ' ', strLastName) AS ReviewingEngineer,
+                CASE WHEN ISMPReportInformation.strWitnessingEngineer = '0' THEN 'N/W' ELSE (SELECT CONCAT(strFirstName, ' ', strLastName)
+                FROM EPDUserProfiles, ISMPReportInformation
+                WHERE ISMPReportInformation.strWitnessingEngineer = EPDUserProfiles.numUserID AND ISMPReportInformation.strReferenceNumber = @ref) END AS WitnessingEngineer,
+                CASE WHEN ISMPReportInformation.strOtherWitnessingEng IS NULL THEN 'N/W' WHEN ISMPReportInformation.strOtherWitnessingEng = '0' THEN 'N/W' ELSE 'M/W' END AS WitnessingEngineer2,
+                CASE WHEN ISMPReportInformation.numReviewingManager IS NULL THEN 'N/A' ELSE (SELECT CONCAT(strFirstName, ' ', strLastName) AS UnitManager
+                FROM EPDUserProfiles, ISMPReportInformation
+                WHERE ISMPReportInformation.numReviewingManager = EPDUserProfiles.numUserID AND ISMPReportInformation.strReferenceNumber = @ref) END AS UnitManager, datReviewedByUnitManager, (SELECT CONCAT(strFirstName, ' ', strLastName) AS ComplianceManager
+                FROM EPDUserProfiles, ISMPReportInformation
+                WHERE ISMPReportInformation.strComplianceManager = EPDUserProfiles.nuMUserID AND ISMPReportInformation.strReferenceNumber = @ref) AS ComplianceManager, format(datTestDateStart, 'MMMM d, yyyy') AS ForTestDateStart, format(datTestDateEnd, 'MMMM d, yyyy') AS ForTestDateEnd, format(datReceivedDate, 'MMMM d, yyyy') AS ForReceivedDate, datCompleteDate, mmoCommentArea, strCommissioner, strDirector, strProgramManager, strComplianceStatement AS ComplianceStatement, (SELECT LookUPISMPComplianceStatus.strComplianceStatus
+                FROM LookUPISMPComplianceStatus, ISMPReportInformation
+                WHERE LookUPISMPComplianceStatus.strComplianceKey = ISMPReportInformation.strComplianceStatus AND ISMPReportInformation.strReferencenumber = @ref) AS ComplianceStatement2, strControlEquipmentData, (SELECT CONCAT(strFirstName, ' ', strLastName) AS CC
+                FROM ISMPReportInformation, EPDUserProfiles
+                WHERE ISMPReportInformation.strCC = EPDUserProfiles.numUserID AND ISMPREportInformation.strReferenceNumber = @ref) AS CC, ISMPREportOpacity.strReferencenumber, strMaxOperatingCapacity1A, (SELECT strUnitDescription
+                FROM LookUPUnits, ISMPREportOpacity
+                WHERE strUnitkey = strMaxOperatingCapacityUnit AND ISMPREportOpacity.strreferencenumber = @ref) AS MaxOperatingCapacityUnit, strOperatingCapacity1A, (SELECT strUnitDescription
+                FROM LookUPUnits, ISMPREportOpacity
+                WHERE strUnitkey = strOperatingCapacityUnit AND ISMPREportOpacity.strreferencenumber = @ref) AS OperatingCapacityUnit, strAllowableEmissionRate1A, (SELECT strUnitDescription
+                FROM LookUPUnits, ISMPREportOpacity
+                WHERE strUnitkey = strAllowableEmissionRateUnit AND ISMPREportOpacity.strreferencenumber = @ref) AS AllowableEmissionRateUnit1, strOpacityTestDuration, strOpacityPointA, strConfidentialData, strOpacityStandard
+                FROM ISMPMaster, APBFacilityInformation, ISMPReportInformation, LookUpPollutants, ISMPReportType, EPDUserProfiles, LookUpISMPComplianceStatus, ISMPREportOpacity
+                WHERE ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber AND ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber AND ISMPReportInformation.strPollutant = LookUpPollutants.strPollutantCode AND ISMPReportInformation.strReportType = ISMPReportType.strKey AND ISMPReportInformation.strReviewingEngineer = EPDUserProfiles.numUserID AND ISMPReportInformation.strComplianceStatus = LookUpISMPComplianceStatus.strComplianceKey AND ISMPMaster.strReferenceNumber = ISMPREportOpacity.strReferenceNumber AND ISMPMaster.strReferenceNumber = @ref"
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
+            Dim p As New SqlParameter("@ref", ReferenceValue)
 
-            recExist = dr.Read
+            Dim dr As DataRow = DB.GetDataRow(SQL, p)
 
-            If recExist Then
+            If dr IsNot Nothing Then
+
                 If IsDBNull(dr.Item("strConfidentialData")) Then
                     ConfidentialData = "0"
                 Else
                     ConfidentialData = dr.Item("strConfidentialData")
                 End If
                 If Mid(ConfidentialData, 1, 1) = "1" Then
-                    If txtOther.Text = "ToFile" Then
+                    If PrintoutSubtype = PrintSubtype.ToFile Then
                         ConfidentialData = "0" & Mid(ConfidentialData, 2)
                     End If
                 End If
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "Commissioner"
                 spValue.Value = dr.Item("strCOmmissioner")
@@ -11965,8 +10750,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "Director"
                 spValue.Value = dr.Item("strDirector")
@@ -11974,8 +10759,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ProgramManager"
                 spValue.Value = dr.Item("strProgrammanager")
@@ -11988,8 +10773,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "AIRSNumber"
                 spValue.Value = Mid(dr.Item("AIRSNumber"), 5, 8)
@@ -12002,8 +10787,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "FacilityName"
                 spValue.Value = dr.Item("FacilityName")
@@ -12016,8 +10801,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "FacilityCity"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 5, 1) = "1" Then
@@ -12029,8 +10814,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "FacilityState"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 5, 1) = "1" Then
@@ -12042,8 +10827,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "Pollutant"
                 spValue.Value = dr.Item("PollutantDescription")
@@ -12056,8 +10841,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "EmissionSourceTested"
                 spValue.Value = dr.Item("strEmissionSource")
@@ -12070,8 +10855,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ReportTYpe"
                 temp = dr.Item("strReportTYpe")
@@ -12094,8 +10879,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ApplicableRequirement"
                 spValue.Value = dr.Item("strApplicableRequirement")
@@ -12108,8 +10893,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ReviewingEngineer"
                 spValue.Value = dr.Item("ReviewingEngineer")
@@ -12135,8 +10920,8 @@ Public Class IAIPPrintOut
                 End If
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "UnitManager"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 10, 1) = "1" Then
@@ -12156,8 +10941,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ComplianceManager"
                 spValue.Value = dr.Item("ComplianceManager")
@@ -12171,8 +10956,8 @@ Public Class IAIPPrintOut
 
                 If dr.Item("forTestDateEnd") = dr.Item("ForTestDateStart") Then
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "TestDates"
                     spValue.Value = dr.Item("ForTestDateStart")
@@ -12185,8 +10970,8 @@ Public Class IAIPPrintOut
                     ParameterFields.Add(ParameterField)
                 Else
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "TestDates"
                     spValue.Value = (dr.Item("ForTestDateStart") & " to " & dr.Item("ForTestDateEnd"))
@@ -12200,8 +10985,8 @@ Public Class IAIPPrintOut
                 End If
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ReceivedDate"
                 spValue.Value = dr.Item("ForReceivedDate")
@@ -12214,8 +10999,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "CommentArea"
                 spValue.Value = dr.Item("mmoCommentArea")
@@ -12228,8 +11013,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ComplianceStatus"
                 spValue.Value = dr.Item("ComplianceStatement")
@@ -12242,8 +11027,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ComplianceStatus2"
                 spValue.Value = dr.Item("ComplianceStatement2")
@@ -12256,8 +11041,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ControlEquipmentOperatingData"
                 spValue.Value = dr.Item("strControlEquipmentData")
@@ -12271,8 +11056,8 @@ Public Class IAIPPrintOut
 
                 If dr.Item("CC") <> "" And dr.Item("CC") <> "  Unassigned" Then
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "CC"
                     spValue.Value = ", " & dr.Item("CC")
@@ -12285,8 +11070,8 @@ Public Class IAIPPrintOut
                     ParameterFields.Add(ParameterField)
                 Else
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "CC"
                     spValue.Value = " "
@@ -12295,8 +11080,8 @@ Public Class IAIPPrintOut
                 End If
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "Referencenumber"
                 spValue.Value = dr.Item("strReferencenumber")
@@ -12304,8 +11089,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "MaximumOperatingCapacity"
                 spValue.Value = dr.Item("strMaxoperatingCapacity1A")
@@ -12318,8 +11103,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "MaximumOperatingCapacityUnit"
                 spValue.Value = dr.Item("MaxOperatingCapacityUnit")
@@ -12332,8 +11117,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "operatingCapacity"
                 spValue.Value = dr.Item("stroperatingCapacity1A")
@@ -12346,8 +11131,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "OperatingCapacityUnit"
                 spValue.Value = dr.Item("OperatingCapacityUnit")
@@ -12360,8 +11145,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "AllowableEmissionRate1"
                 spValue.Value = dr.Item("strAllowableEmissionRate1A")
@@ -12374,8 +11159,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "AllowableEmissionRateUnit1"
                 spValue.Value = dr.Item("AllowableEmissionRateUnit1")
@@ -12388,8 +11173,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "OpacityTestDuration"
                 spValue.Value = dr.Item("strOpacityTestDuration")
@@ -12402,8 +11187,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "OpacityPointA"
                 spValue.Value = dr.Item("strOpacityPointA") & " % Opacity"
@@ -12417,8 +11202,8 @@ Public Class IAIPPrintOut
 
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "OpacityStandard"
                 If IsDBNull(dr.Item("strOpacityStandard")) Then
@@ -12439,28 +11224,17 @@ Public Class IAIPPrintOut
                 ParameterField.CurrentValues.Add(spValue)
                 ParameterFields.Add(ParameterField)
 
-                dr.Close()
-
                 If WitnessingEngineer2 = "M/W" Then
                     SQL = "select " &
-                    "(strFirstName||' '||strLastName) as WitnessingEng " &
-                    "from ISMPWitnessingEng, EPDUserProfiles " &
-                    "where ISMPWitnessingEng.strWitnessingEngineer = EPDUserProfiles.numUserID  " &
-                    "and strReferenceNumber = '" & Me.txtReferenceNumber.Text & "'  "
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    WitnessingEngineer2 = ""
-                    While dr.Read
-                        WitnessingEngineer2 = WitnessingEngineer2 & vbCrLf & dr.Item("WitnessingEng")
-                    End While
-                    dr.Close()
+                    "concat(strFirstName,' ',strLastName) as WitnessingEng " &
+                    "from ISMPWitnessingEng inner join EPDUSerProfiles " &
+                    "on ISMPWitnessingEng.strWitnessingEngineer = EPDUSerProfiles.numUserProfiles  " &
+                    "where strReferenceNumber = @ref "
+
                     If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 13, 1) = "1" Then
                         WitnessingEngineer2 = "--Conf--"
                     Else
-                        WitnessingEngineer2 = WitnessingEngineer2
+                        WitnessingEngineer2 = DB.GetSingleValue(Of String)(SQL, p)
                     End If
                 Else
                     WitnessingEngineer2 = " "
@@ -12497,8 +11271,8 @@ Public Class IAIPPrintOut
                 End If
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
                 ParameterField.ParameterFieldName = "WitnessingEngineer"
                 spValue.Value = WitnessingEngineer
                 ParameterField.CurrentValues.Add(spValue)
@@ -12513,143 +11287,71 @@ Public Class IAIPPrintOut
 
             Else
                 MsgBox("Unable to Print at this time.")
-                PrintOut.Close()
+                Me.Close()
             End If
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
+    End Sub
 
-
-    End Sub       'Complete
     Private Sub LoadMethod9Multi()
         Dim rpt As New CRMethod9Multi
         monitor.TrackFeature("Report." & rpt.ResourceName)
         Dim temp As String
 
-        Dim ParameterFields As CrystalDecisions.Shared.ParameterFields
-        Dim ParameterField As CrystalDecisions.Shared.ParameterField
-        Dim spValue As CrystalDecisions.Shared.ParameterDiscreteValue
+        Dim ParameterFields As ParameterFields
+        Dim ParameterField As ParameterField
+        Dim spValue As ParameterDiscreteValue
 
         Try
 
             'Do this just once at the start
-            ParameterFields = New CrystalDecisions.Shared.ParameterFields
+            ParameterFields = New ParameterFields
 
-            SQL = "Select " &
-            "ISMPMaster.strAIRSNumber as AIRSNumber, " &
-            "APBFacilityInformation.strFacilityName as FacilityName, " &
-            "strFacilityCity as FacilityCity, " &
-             "strFacilityState as FacilityState, " &
-            "strPollutantDescription as PollutantDescription, " &
-            "strEmissionSource, " &
-            "ISMPReportType.strReportType, " &
-           "strApplicableRequirement, " &
-           "(strFirstName||' '||strLastName) as ReviewingEngineer, " &
-           "Case " &
-             "when ISMPReportInformation.strWitnessingEngineer = '0' then 'N/W' " &
-           "Else " &
-             "(select (strFirstName||' '||strLastName) " &
-             "from EPDUserProfiles, ISMPReportInformation " &
-             "where ISMPReportInformation.strWitnessingEngineer = EPDUserProfiles.numUserID " &
-             "and ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') " &
-           "End as WitnessingEngineer, " &
-           "Case " &
-             "when ISMPReportInformation.strOtherWitnessingEng is Null then 'N/W' " &
-             "when ISMPReportInformation.strOtherWitnessingEng = '0' then 'N/W' " &
-           "Else  " &
-             "'M/W' " &
-           "End WitnessingEngineer2,     " &
-           "Case  " &
-             "when ISMPReportInformation.numReviewingManager is Null then 'N/A' " &
-           "Else  " &
-             "(Select (strFirstName||' '||strLastName) as UnitManager  " &
-             "from EPDUserProfiles, ISMPReportInformation  " &
-             "where ISMPReportInformation.numReviewingManager = EPDUserProfiles.numUserID " &
-             "and ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "')  " &
-           "END UnitManager,  " &
-           "datReviewedByUnitManager,  " &
-           "(Select (strFirstName||' '||strLastName) as ComplianceManager  " &
-           "from EPDUserProfiles, ISMPReportInformation   " &
-           "where ISMPReportInformation.strComplianceManager = EPDUserProfiles.nuMUserID " &
-           "and ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') as ComplianceManager,  " &
-           "to_char(datTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart,  " &
-           "to_char(datTestDateEnd, 'FMMonth DD, YYYY') as ForTestDateEnd,  " &
-           "to_char(datReceivedDate, 'FMMonth DD, YYYY') as ForReceivedDate,  " &
-           "datCompleteDate,  " &
-           "mmoCommentArea, strCommissioner, strDirector, strProgramManager,  " &
-           "strComplianceStatement as ComplianceStatement,  " &
-           "(Select LookUPISMPComplianceStatus.strComplianceStatus " &
-           "from LookUPISMPComplianceStatus, ISMPReportInformation " &
-           "where LookUPISMPComplianceStatus.strComplianceKey = ISMPReportInformation.strComplianceStatus " &
-            "and ISMPReportInformation.strReferencenumber = '" & txtReferenceNumber.Text & "') as ComplianceStatement2, " &
-           "strControlEquipmentData,  " &
-           "(Select (strFirstName||' '||strLastName) as CC  " &
-           "from ISMPReportInformation, EPDUserProfiles  " &
-           "where ISMPReportInformation.strCC = EPDUserProfiles.numUserID  " &
-           "and ISMPREportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') as CC,  " &
-       "ISMPREportOpacity.strReferencenumber, strMaxOperatingCapacity1A, " &
-            "strMaxOperatingCapacity2A, strMaxOperatingCapacity3A, " &
-            "strMaxOperatingCapacity4A, strMaxOperatingCapacity5A, " &
-            "(select strUnitDescription from LookUPUnits, ISMPREportOpacity " &
-            "where strUnitkey = strMaxOperatingCapacityUnit " &
-            "and ISMPREportOpacity.strreferencenumber = '" & txtReferenceNumber.Text & "') as MaxOperatingCapacityUnit, " &
-            "strOperatingCapacity1A, strOperatingCapacity2A, " &
-            "strOperatingCapacity3A, strOperatingCapacity4A, " &
-            "strOperatingCapacity5A, " &
-            "(select strUnitDescription from LookUPUnits, ISMPREportOpacity " &
-            "where strUnitkey = strOperatingCapacityUnit " &
-            "and ISMPREportOpacity.strreferencenumber = '" & txtReferenceNumber.Text & "') as OperatingCapacityUnit,  " &
-            "strAllowableEmissionRate1A, strAllowableEmissionRate2A, " &
-            "strAllowableEmissionRate3A, strAllowableEmissionRate4A, " &
-            "strAllowableEmissionRate5A, " &
-            "(select strUnitDescription from LookUPUnits, ISMPREportOpacity " &
-            "where strUnitkey = strAllowableEmissionRateUnit " &
-            "and ISMPREportOpacity.strreferencenumber = '" & txtReferenceNumber.Text & "') as AllowableEmissionRateUnit1, " &
-            "strOpacityTestDuration, " &
-            "strOpacityPointA, strOpacityPointB, strOpacityPointC, " &
-            "strOpacityPointD, strOpacityPointE, " &
-            "strEquipmentItem1, strEquipmentItem2, strEquipmentItem3, " &
-            "strEquipmentItem4, strEquipmentItem5, " &
-            "strConfidentialData, strOpacityStandard " &
-           "From ISMPMaster, APBFacilityInformation,  " &
-           "ISMPReportInformation, LookUpPollutants,  " &
-           "ISMPReportType, EPDUserProfiles,  " &
-           "LookUpISMPComplianceStatus, ISMPREportOpacity   " &
-           "where ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber  " &
-           "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber  " &
-           "and ISMPReportInformation.strPollutant = LookUpPollutants.strPollutantCode  " &
-           "and ISMPReportInformation.strReportType = ISMPReportType.strKey  " &
-           "and ISMPReportInformation.strReviewingEngineer = EPDUserProfiles.numUserID  " &
-           "and ISMPReportInformation.strComplianceStatus = LookUpISMPComplianceStatus.strComplianceKey   " &
-           "and ISMPMaster.strReferenceNumber = ISMPREportOpacity.strReferenceNumber  " &
-           "and ISMPMaster.strReferenceNumber = '" & txtReferenceNumber.Text & "'"
+            Dim SQL As String = "SELECT ISMPMaster.strAIRSNumber AS AIRSNumber, APBFacilityInformation.strFacilityName AS FacilityName, strFacilityCity AS FacilityCity, strFacilityState AS FacilityState, strPollutantDescription AS PollutantDescription, strEmissionSource, ISMPReportType.strReportType, strApplicableRequirement, CONCAT(strFirstName, ' ', strLastName) AS ReviewingEngineer,
+                CASE WHEN ISMPReportInformation.strWitnessingEngineer = '0' THEN 'N/W' ELSE (SELECT CONCAT(strFirstName, ' ', strLastName)
+                FROM EPDUserProfiles, ISMPReportInformation
+                WHERE ISMPReportInformation.strWitnessingEngineer = EPDUserProfiles.numUserID AND ISMPReportInformation.strReferenceNumber = @ref) END AS WitnessingEngineer,
+                CASE WHEN ISMPReportInformation.strOtherWitnessingEng IS NULL THEN 'N/W' WHEN ISMPReportInformation.strOtherWitnessingEng = '0' THEN 'N/W' ELSE 'M/W' END AS WitnessingEngineer2,
+                CASE WHEN ISMPReportInformation.numReviewingManager IS NULL THEN 'N/A' ELSE (SELECT CONCAT(strFirstName, ' ', strLastName) AS UnitManager
+                FROM EPDUserProfiles, ISMPReportInformation
+                WHERE ISMPReportInformation.numReviewingManager = EPDUserProfiles.numUserID AND ISMPReportInformation.strReferenceNumber = @ref) END AS UnitManager, datReviewedByUnitManager, (SELECT CONCAT(strFirstName, ' ', strLastName) AS ComplianceManager
+                FROM EPDUserProfiles, ISMPReportInformation
+                WHERE ISMPReportInformation.strComplianceManager = EPDUserProfiles.nuMUserID AND ISMPReportInformation.strReferenceNumber = @ref) AS ComplianceManager, format(datTestDateStart, 'MMMM d, yyyy') AS ForTestDateStart, format(datTestDateEnd, 'MMMM d, yyyy') AS ForTestDateEnd, format(datReceivedDate, 'MMMM d, yyyy') AS ForReceivedDate, datCompleteDate, mmoCommentArea, strCommissioner, strDirector, strProgramManager, strComplianceStatement AS ComplianceStatement, (SELECT LookUPISMPComplianceStatus.strComplianceStatus
+                FROM LookUPISMPComplianceStatus, ISMPReportInformation
+                WHERE LookUPISMPComplianceStatus.strComplianceKey = ISMPReportInformation.strComplianceStatus AND ISMPReportInformation.strReferencenumber = @ref) AS ComplianceStatement2, strControlEquipmentData, (SELECT CONCAT(strFirstName, ' ', strLastName) AS CC
+                FROM ISMPReportInformation, EPDUserProfiles
+                WHERE ISMPReportInformation.strCC = EPDUserProfiles.numUserID AND ISMPREportInformation.strReferenceNumber = @ref) AS CC, ISMPREportOpacity.strReferencenumber, strMaxOperatingCapacity1A, strMaxOperatingCapacity2A, strMaxOperatingCapacity3A, strMaxOperatingCapacity4A, strMaxOperatingCapacity5A, (SELECT strUnitDescription
+                FROM LookUPUnits, ISMPREportOpacity
+                WHERE strUnitkey = strMaxOperatingCapacityUnit AND ISMPREportOpacity.strreferencenumber = @ref) AS MaxOperatingCapacityUnit, strOperatingCapacity1A, strOperatingCapacity2A, strOperatingCapacity3A, strOperatingCapacity4A, strOperatingCapacity5A, (SELECT strUnitDescription
+                FROM LookUPUnits, ISMPREportOpacity
+                WHERE strUnitkey = strOperatingCapacityUnit AND ISMPREportOpacity.strreferencenumber = @ref) AS OperatingCapacityUnit, strAllowableEmissionRate1A, strAllowableEmissionRate2A, strAllowableEmissionRate3A, strAllowableEmissionRate4A, strAllowableEmissionRate5A, (SELECT strUnitDescription
+                FROM LookUPUnits, ISMPREportOpacity
+                WHERE strUnitkey = strAllowableEmissionRateUnit AND ISMPREportOpacity.strreferencenumber = @ref) AS AllowableEmissionRateUnit1, strOpacityTestDuration, strOpacityPointA, strOpacityPointB, strOpacityPointC, strOpacityPointD, strOpacityPointE, strEquipmentItem1, strEquipmentItem2, strEquipmentItem3, strEquipmentItem4, strEquipmentItem5, strConfidentialData, strOpacityStandard
+                FROM ISMPMaster, APBFacilityInformation, ISMPReportInformation, LookUpPollutants, ISMPReportType, EPDUserProfiles, LookUpISMPComplianceStatus, ISMPREportOpacity
+                WHERE ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber AND ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber AND ISMPReportInformation.strPollutant = LookUpPollutants.strPollutantCode AND ISMPReportInformation.strReportType = ISMPReportType.strKey AND ISMPReportInformation.strReviewingEngineer = EPDUserProfiles.numUserID AND ISMPReportInformation.strComplianceStatus = LookUpISMPComplianceStatus.strComplianceKey AND ISMPMaster.strReferenceNumber = ISMPREportOpacity.strReferenceNumber AND ISMPMaster.strReferenceNumber = @ref"
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
+            Dim p As New SqlParameter("@ref", ReferenceValue)
 
-            recExist = dr.Read
+            Dim dr As DataRow = DB.GetDataRow(SQL, p)
 
-            If recExist Then
+            If dr IsNot Nothing Then
+
                 If IsDBNull(dr.Item("strConfidentialData")) Then
                     ConfidentialData = "0"
                 Else
                     ConfidentialData = dr.Item("strConfidentialData")
                 End If
                 If Mid(ConfidentialData, 1, 1) = "1" Then
-                    If txtOther.Text = "ToFile" Then
+                    If PrintoutSubtype = PrintSubtype.ToFile Then
                         ConfidentialData = "0" & Mid(ConfidentialData, 2)
                     End If
                 End If
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "Commissioner"
                 spValue.Value = dr.Item("strCOmmissioner")
@@ -12657,8 +11359,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "Director"
                 spValue.Value = dr.Item("strDirector")
@@ -12666,8 +11368,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ProgramManager"
                 spValue.Value = dr.Item("strProgrammanager")
@@ -12680,8 +11382,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "AIRSNumber"
                 spValue.Value = Mid(dr.Item("AIRSNumber"), 5, 8)
@@ -12694,8 +11396,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "FacilityName"
                 spValue.Value = dr.Item("FacilityName")
@@ -12708,8 +11410,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "FacilityCity"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 5, 1) = "1" Then
@@ -12721,8 +11423,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "FacilityState"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 5, 1) = "1" Then
@@ -12734,8 +11436,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "Pollutant"
                 spValue.Value = dr.Item("PollutantDescription")
@@ -12748,8 +11450,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "EmissionSourceTested"
                 spValue.Value = dr.Item("strEmissionSource")
@@ -12762,8 +11464,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ReportType"
                 temp = dr.Item("strReportTYpe")
@@ -12786,8 +11488,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ApplicableRequirement"
                 spValue.Value = dr.Item("strApplicableRequirement")
@@ -12800,8 +11502,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ReviewingEngineer"
                 spValue.Value = dr.Item("ReviewingEngineer")
@@ -12827,8 +11529,8 @@ Public Class IAIPPrintOut
                 End If
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "UnitManager"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 10, 1) = "1" Then
@@ -12848,8 +11550,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ComplianceManager"
                 spValue.Value = dr.Item("ComplianceManager")
@@ -12863,8 +11565,8 @@ Public Class IAIPPrintOut
 
                 If dr.Item("forTestDateEnd") = dr.Item("ForTestDateStart") Then
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "TestDates"
                     spValue.Value = dr.Item("ForTestDateStart")
@@ -12877,8 +11579,8 @@ Public Class IAIPPrintOut
                     ParameterFields.Add(ParameterField)
                 Else
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "TestDates"
                     spValue.Value = (dr.Item("ForTestDateStart") & " to " & dr.Item("ForTestDateEnd"))
@@ -12892,8 +11594,8 @@ Public Class IAIPPrintOut
                 End If
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ReceivedDate"
                 spValue.Value = dr.Item("ForReceivedDate")
@@ -12906,8 +11608,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "CommentArea"
                 spValue.Value = dr.Item("mmoCommentArea")
@@ -12920,8 +11622,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ComplianceStatus"
                 spValue.Value = dr.Item("ComplianceStatement")
@@ -12934,8 +11636,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ComplianceStatus2"
                 spValue.Value = dr.Item("ComplianceStatement2")
@@ -12948,8 +11650,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ControlEquipmentOperatingData"
                 spValue.Value = dr.Item("strControlEquipmentData")
@@ -12963,8 +11665,8 @@ Public Class IAIPPrintOut
 
                 If dr.Item("CC") <> "" And dr.Item("CC") <> "  Unassigned" Then
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "CC"
                     spValue.Value = ", " & dr.Item("CC")
@@ -12977,8 +11679,8 @@ Public Class IAIPPrintOut
                     ParameterFields.Add(ParameterField)
                 Else
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "CC"
                     spValue.Value = " "
@@ -12987,8 +11689,8 @@ Public Class IAIPPrintOut
                 End If
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "Referencenumber"
                 spValue.Value = dr.Item("strReferencenumber")
@@ -12996,8 +11698,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "MaximumOperatingCapacity1"
                 spValue.Value = dr.Item("strMaxoperatingCapacity1A")
@@ -13010,8 +11712,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "MaximumOperatingCapacity2"
                 spValue.Value = dr.Item("strMaxoperatingCapacity2A")
@@ -13024,8 +11726,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "MaximumOperatingCapacity3"
                 spValue.Value = dr.Item("strMaxoperatingCapacity3A")
@@ -13038,8 +11740,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "MaximumOperatingCapacity4"
                 spValue.Value = dr.Item("strMaxoperatingCapacity4A")
@@ -13052,8 +11754,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "MaximumOperatingCapacity5"
                 spValue.Value = dr.Item("strMaxoperatingCapacity5A")
@@ -13066,8 +11768,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "MaximumOperatingCapacityUnit"
                 spValue.Value = dr.Item("MaxOperatingCapacityUnit")
@@ -13080,8 +11782,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "operatingCapacity1"
                 spValue.Value = dr.Item("stroperatingCapacity1A")
@@ -13094,8 +11796,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "operatingCapacity2"
                 spValue.Value = dr.Item("stroperatingCapacity2A")
@@ -13108,8 +11810,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "operatingCapacity3"
                 spValue.Value = dr.Item("stroperatingCapacity3A")
@@ -13122,8 +11824,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "operatingCapacity4"
                 spValue.Value = dr.Item("stroperatingCapacity4A")
@@ -13136,8 +11838,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "operatingCapacity5"
                 spValue.Value = dr.Item("stroperatingCapacity5A")
@@ -13150,8 +11852,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "OperatingCapacityUnit"
                 spValue.Value = dr.Item("OperatingCapacityUnit")
@@ -13164,8 +11866,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "AllowableEmissionRate1"
                 spValue.Value = dr.Item("strAllowableEmissionRate1A")
@@ -13178,8 +11880,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "AllowableEmissionRate2"
                 spValue.Value = dr.Item("strAllowableEmissionRate2A")
@@ -13192,8 +11894,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "AllowableEmissionRate3"
                 spValue.Value = dr.Item("strAllowableEmissionRate3A")
@@ -13206,8 +11908,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "AllowableEmissionRate4"
                 spValue.Value = dr.Item("strAllowableEmissionRate4A")
@@ -13220,8 +11922,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "AllowableEmissionRate5"
                 spValue.Value = dr.Item("strAllowableEmissionRate5A")
@@ -13234,8 +11936,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "OpacityPointA"
                 spValue.Value = dr.Item("strOpacityPointA")
@@ -13248,8 +11950,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "OpacityPointB"
                 spValue.Value = dr.Item("strOpacityPointB")
@@ -13262,8 +11964,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "OpacityPointC"
                 spValue.Value = dr.Item("strOpacityPointC")
@@ -13276,8 +11978,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "OpacityPointD"
                 spValue.Value = dr.Item("strOpacityPointD")
@@ -13290,8 +11992,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "OpacityPointE"
                 spValue.Value = dr.Item("strOpacityPointE")
@@ -13304,8 +12006,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "Attachment1"
                 spValue.Value = dr.Item("strEquipmentItem1")
@@ -13318,8 +12020,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "Attachment2"
                 spValue.Value = dr.Item("strEquipmentItem2")
@@ -13332,8 +12034,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "Attachment3"
                 spValue.Value = dr.Item("strEquipmentItem3")
@@ -13346,8 +12048,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "Attachment4"
                 spValue.Value = dr.Item("strEquipmentItem4")
@@ -13360,8 +12062,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "Attachment5"
                 spValue.Value = dr.Item("strEquipmentItem5")
@@ -13375,8 +12077,8 @@ Public Class IAIPPrintOut
 
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "OpacityStandard"
                 temp = dr.Item("strOpacityStandard")
@@ -13392,28 +12094,17 @@ Public Class IAIPPrintOut
                 ParameterField.CurrentValues.Add(spValue)
                 ParameterFields.Add(ParameterField)
 
-                dr.Close()
-
                 If WitnessingEngineer2 = "M/W" Then
                     SQL = "select " &
-                    "(strFirstName||' '||strLastName) as WitnessingEng " &
-                    "from ISMPWitnessingEng, EPDUserProfiles " &
-                    "where ISMPWitnessingEng.strWitnessingEngineer = EPDUserProfiles.numUserID  " &
-                    "and strReferenceNumber = '" & Me.txtReferenceNumber.Text & "'  "
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    WitnessingEngineer2 = ""
-                    While dr.Read
-                        WitnessingEngineer2 = WitnessingEngineer2 & vbCrLf & dr.Item("WitnessingEng")
-                    End While
-                    dr.Close()
+                    "concat(strFirstName,' ',strLastName) as WitnessingEng " &
+                    "from ISMPWitnessingEng inner join EPDUSerProfiles " &
+                    "on ISMPWitnessingEng.strWitnessingEngineer = EPDUSerProfiles.numUserProfiles  " &
+                    "where strReferenceNumber = @ref "
+
                     If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 13, 1) = "1" Then
                         WitnessingEngineer2 = "--Conf--"
                     Else
-                        WitnessingEngineer2 = WitnessingEngineer2
+                        WitnessingEngineer2 = DB.GetSingleValue(Of String)(SQL, p)
                     End If
                 Else
                     WitnessingEngineer2 = " "
@@ -13450,8 +12141,8 @@ Public Class IAIPPrintOut
                 End If
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
                 ParameterField.ParameterFieldName = "WitnessingEngineer"
                 spValue.Value = WitnessingEngineer
                 ParameterField.CurrentValues.Add(spValue)
@@ -13466,133 +12157,68 @@ Public Class IAIPPrintOut
 
             Else
                 MsgBox("Unable to Print at this time.")
-                PrintOut.Close()
-
+                Me.Close()
             End If
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
+    End Sub
 
-    End Sub        'Complete
     Private Sub LoadRata()
         Dim rpt As New CRRata
         monitor.TrackFeature("Report." & rpt.ResourceName)
         Dim temp As String
 
-        Dim ParameterFields As CrystalDecisions.Shared.ParameterFields
-        Dim ParameterField As CrystalDecisions.Shared.ParameterField
-        Dim spValue As CrystalDecisions.Shared.ParameterDiscreteValue
+        Dim ParameterFields As ParameterFields
+        Dim ParameterField As ParameterField
+        Dim spValue As ParameterDiscreteValue
 
         Try
 
 
             'Do this just once at the start
-            ParameterFields = New CrystalDecisions.Shared.ParameterFields
+            ParameterFields = New ParameterFields
 
-            SQL = "Select " &
-            "ISMPMaster.strAIRSNumber as AIRSNumber, " &
-            "APBFacilityInformation.strFacilityName as FacilityName, " &
-            "strFacilityCity as FacilityCity, " &
-             "strFacilityState as FacilityState, " &
-            "strPollutantDescription as PollutantDescription, " &
-            "strEmissionSource, " &
-            "ISMPReportType.strReportType, " &
-           "strApplicableRequirement, " &
-           "(strFirstName||' '||strLastName) as ReviewingEngineer, " &
-           "Case " &
-             "when ISMPReportInformation.strWitnessingEngineer = '0' then 'N/W' " &
-           "Else " &
-             "(select (strFirstName||' '||strLastName) " &
-             "from EPDUserProfiles, ISMPReportInformation " &
-             "where ISMPReportInformation.strWitnessingEngineer = EPDUserProfiles.numUserID " &
-             "and ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') " &
-           "End as WitnessingEngineer, " &
-           "Case " &
-             "when ISMPReportInformation.strOtherWitnessingEng is Null then 'N/W' " &
-             "when ISMPReportInformation.strOtherWitnessingEng = '0' then 'N/W' " &
-           "Else  " &
-             "'M/W' " &
-           "End WitnessingEngineer2,     " &
-           "Case  " &
-             "when ISMPReportInformation.numReviewingManager is Null then 'N/A' " &
-           "Else  " &
-             "(Select (strFirstName||' '||strLastName) as UnitManager  " &
-             "from EPDUserProfiles, ISMPReportInformation  " &
-             "where ISMPReportInformation.numReviewingManager = EPDUserProfiles.numUserID " &
-             "and ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "')  " &
-           "END UnitManager,  " &
-           "datReviewedByUnitManager,  " &
-           "(Select (strFirstName||' '||strLastName) as ComplianceManager  " &
-           "from EPDUserProfiles, ISMPReportInformation   " &
-           "where ISMPReportInformation.strComplianceManager = EPDUserProfiles.nuMUserID " &
-           "and ISMPReportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') as ComplianceManager,  " &
-           "to_char(datTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart,  " &
-           "to_char(datTestDateEnd, 'FMMonth DD, YYYY') as ForTestDateEnd,  " &
-           "to_char(datReceivedDate, 'FMMonth DD, YYYY') as ForReceivedDate,  " &
-           "datCompleteDate,  " &
-           "mmoCommentArea, strCommissioner, strDirector, strProgramManager,  " &
-           "strComplianceStatement as ComplianceStatement,  " &
-           "strControlEquipmentData,  " &
-           "(Select (strFirstName||' '||strLastName) as CC  " &
-           "from ISMPReportInformation, EPDUserProfiles  " &
-           "where ISMPReportInformation.strCC = EPDUserProfiles.numUserID  " &
-           "and ISMPREportInformation.strReferenceNumber = '" & txtReferenceNumber.Text & "') as CC,  " &
-           "ismpreportinformation.strComplianceStatus, " &
-       "ISMPReportRATA.strReferencenumber, " &
-            "(Select strPOllutantDescription " &
-            "from LookUPPollutants, ISMPReportRATA " &
-            "where LookUPPollutants.strPOllutantCode = ISMPReportRATA.strDiluent " &
-            "and ISMPReportRATA.strReferenceNumber = '" & txtReferenceNumber.Text & "') as Diluent, " &
-            "strAPplicableStandard, strRelativeAccuracyPercent, " &
-            "strReferenceMethod1, strReferenceMethod2, strReferenceMethod3, " &
-            "strReferenceMethod4, strReferenceMethod5, strReferenceMethod6, " &
-            "strReferenceMethod7, strReferenceMethod8, strReferenceMethod9, " &
-            "strReferenceMethod10, strReferenceMethod11, strReferenceMethod12, " &
-            "(select strUnitDescription from LookUPUnits, ISMPReportRATA " &
-            "where strUnitkey = strRataUnits " &
-            "and ISMPReportRATA.strreferencenumber = '" & txtReferenceNumber.Text & "') as RataUnits, " &
-            "StrCMS1, StrCMS2, StrCMS3, StrCMS4, StrCMS5, StrCMS6, " &
-            "StrCMS7, StrCMS8, StrCMS9, StrCMS10, StrCMS11, StrCMS12, " &
-            "strAccuracyRequiredPercent, strAccuracyREquiredStatement, strAccuracyChoice, " &
-            "strRunsINcludedKey, strConfidentialData " &
-           "From ISMPMaster, APBFacilityInformation,  " &
-           "ISMPReportInformation, LookUpPollutants,  " &
-           "ISMPReportType, EPDUserProfiles,  " &
-           "LookUpISMPComplianceStatus, ISMPReportRATA   " &
-           "where ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber  " &
-           "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber  " &
-           "and ISMPReportInformation.strPollutant = LookUpPollutants.strPollutantCode  " &
-           "and ISMPReportInformation.strReportType = ISMPReportType.strKey  " &
-           "and ISMPReportInformation.strReviewingEngineer = EPDUserProfiles.numUserID  " &
-           "and ISMPReportInformation.strComplianceStatus = LookUpISMPComplianceStatus.strComplianceKey   " &
-           "and ISMPMaster.strReferenceNumber = ISMPReportRATA.strReferenceNumber  " &
-           "and ISMPMaster.strReferenceNumber = '" & txtReferenceNumber.Text & "'"
+            Dim SQL As String = "SELECT ISMPMaster.strAIRSNumber AS AIRSNumber, APBFacilityInformation.strFacilityName AS FacilityName, strFacilityCity AS FacilityCity, strFacilityState AS FacilityState, strPollutantDescription AS PollutantDescription, strEmissionSource, ISMPReportType.strReportType, strApplicableRequirement, CONCAT(strFirstName, ' ', strLastName) AS ReviewingEngineer,
+                CASE WHEN ISMPReportInformation.strWitnessingEngineer = '0' THEN 'N/W' ELSE (SELECT CONCAT(strFirstName, ' ', strLastName)
+                FROM EPDUserProfiles, ISMPReportInformation
+                WHERE ISMPReportInformation.strWitnessingEngineer = EPDUserProfiles.numUserID AND ISMPReportInformation.strReferenceNumber = @ref) END AS WitnessingEngineer,
+                CASE WHEN ISMPReportInformation.strOtherWitnessingEng IS NULL THEN 'N/W' WHEN ISMPReportInformation.strOtherWitnessingEng = '0' THEN 'N/W' ELSE 'M/W' END AS WitnessingEngineer2,
+                CASE WHEN ISMPReportInformation.numReviewingManager IS NULL THEN 'N/A' ELSE (SELECT CONCAT(strFirstName, ' ', strLastName) AS UnitManager
+                FROM EPDUserProfiles, ISMPReportInformation
+                WHERE ISMPReportInformation.numReviewingManager = EPDUserProfiles.numUserID AND ISMPReportInformation.strReferenceNumber = @ref) END AS UnitManager, datReviewedByUnitManager, (SELECT CONCAT(strFirstName, ' ', strLastName) AS ComplianceManager
+                FROM EPDUserProfiles, ISMPReportInformation
+                WHERE ISMPReportInformation.strComplianceManager = EPDUserProfiles.nuMUserID AND ISMPReportInformation.strReferenceNumber = @ref) AS ComplianceManager, format(datTestDateStart, 'MMMM d, yyyy') AS ForTestDateStart, format(datTestDateEnd, 'MMMM d, yyyy') AS ForTestDateEnd, format(datReceivedDate, 'MMMM d, yyyy') AS ForReceivedDate, datCompleteDate, mmoCommentArea, strCommissioner, strDirector, strProgramManager, strComplianceStatement AS ComplianceStatement, strControlEquipmentData, (SELECT CONCAT(strFirstName, ' ', strLastName) AS CC
+                FROM ISMPReportInformation, EPDUserProfiles
+                WHERE ISMPReportInformation.strCC = EPDUserProfiles.numUserID AND ISMPREportInformation.strReferenceNumber = @ref) AS CC, ismpreportinformation.strComplianceStatus, ISMPReportRATA.strReferencenumber, (SELECT strPOllutantDescription
+                FROM LookUPPollutants, ISMPReportRATA
+                WHERE LookUPPollutants.strPOllutantCode = ISMPReportRATA.strDiluent AND ISMPReportRATA.strReferenceNumber = @ref) AS Diluent, strAPplicableStandard, strRelativeAccuracyPercent, strReferenceMethod1, strReferenceMethod2, strReferenceMethod3, strReferenceMethod4, strReferenceMethod5, strReferenceMethod6, strReferenceMethod7, strReferenceMethod8, strReferenceMethod9, strReferenceMethod10, strReferenceMethod11, strReferenceMethod12, (SELECT strUnitDescription
+                FROM LookUPUnits, ISMPReportRATA
+                WHERE strUnitkey = strRataUnits AND ISMPReportRATA.strreferencenumber = @ref) AS RataUnits, StrCMS1, StrCMS2, StrCMS3, StrCMS4, StrCMS5, StrCMS6, StrCMS7, StrCMS8, StrCMS9, StrCMS10, StrCMS11, StrCMS12, strAccuracyRequiredPercent, strAccuracyREquiredStatement, strAccuracyChoice, strRunsINcludedKey, strConfidentialData
+                FROM ISMPMaster, APBFacilityInformation, ISMPReportInformation, LookUpPollutants, ISMPReportType, EPDUserProfiles, LookUpISMPComplianceStatus, ISMPReportRATA
+                WHERE ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber AND ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber AND ISMPReportInformation.strPollutant = LookUpPollutants.strPollutantCode AND ISMPReportInformation.strReportType = ISMPReportType.strKey AND ISMPReportInformation.strReviewingEngineer = EPDUserProfiles.numUserID AND ISMPReportInformation.strComplianceStatus = LookUpISMPComplianceStatus.strComplianceKey AND ISMPMaster.strReferenceNumber = ISMPReportRATA.strReferenceNumber AND ISMPMaster.strReferenceNumber = @ref"
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            recExist = dr.Read
+            Dim p As New SqlParameter("@ref", ReferenceValue)
 
-            If recExist Then
+            Dim dr As DataRow = DB.GetDataRow(SQL, p)
+
+            If dr IsNot Nothing Then
+
                 If IsDBNull(dr.Item("strConfidentialData")) Then
                     ConfidentialData = "0"
                 Else
                     ConfidentialData = dr.Item("strConfidentialData")
                 End If
                 If Mid(ConfidentialData, 1, 1) = "1" Then
-                    If txtOther.Text = "ToFile" Then
+                    If PrintoutSubtype = PrintSubtype.ToFile Then
                         ConfidentialData = "0" & Mid(ConfidentialData, 2)
                     End If
                 End If
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "Commissioner"
                 spValue.Value = dr.Item("strCOmmissioner")
@@ -13600,8 +12226,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "Director"
                 spValue.Value = dr.Item("strDirector")
@@ -13609,8 +12235,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ProgramManager"
                 spValue.Value = dr.Item("strProgrammanager")
@@ -13623,8 +12249,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "AIRSNumber"
                 spValue.Value = Mid(dr.Item("AIRSNumber"), 5, 8)
@@ -13637,8 +12263,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "FacilityName"
                 spValue.Value = dr.Item("FacilityName")
@@ -13651,8 +12277,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "FacilityCity"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 5, 1) = "1" Then
@@ -13664,8 +12290,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "FacilityState"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 5, 1) = "1" Then
@@ -13677,8 +12303,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "Pollutant"
                 spValue.Value = dr.Item("PollutantDescription")
@@ -13691,8 +12317,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "EmissionSourceTested"
                 spValue.Value = dr.Item("strEmissionSource")
@@ -13705,8 +12331,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ReportType"
                 temp = dr.Item("strReportTYpe")
@@ -13729,8 +12355,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ApplicableRequirement"
                 spValue.Value = dr.Item("strApplicableRequirement")
@@ -13743,8 +12369,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ReviewingEngineer"
                 spValue.Value = dr.Item("ReviewingEngineer")
@@ -13770,8 +12396,8 @@ Public Class IAIPPrintOut
                 End If
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "UnitManager"
                 If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 10, 1) = "1" Then
@@ -13784,8 +12410,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ComplianceManager"
                 spValue.Value = dr.Item("ComplianceManager")
@@ -13799,8 +12425,8 @@ Public Class IAIPPrintOut
 
                 If dr.Item("forTestDateEnd") = dr.Item("ForTestDateStart") Then
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "TestDates"
                     spValue.Value = dr.Item("ForTestDateStart")
@@ -13813,8 +12439,8 @@ Public Class IAIPPrintOut
                     ParameterFields.Add(ParameterField)
                 Else
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "TestDates"
                     spValue.Value = (dr.Item("ForTestDateStart") & " to " & dr.Item("ForTestDateEnd"))
@@ -13828,8 +12454,8 @@ Public Class IAIPPrintOut
                 End If
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ReceivedDate"
                 spValue.Value = dr.Item("ForReceivedDate")
@@ -13842,8 +12468,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "CommentArea"
                 spValue.Value = dr.Item("mmoCommentArea")
@@ -13856,8 +12482,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ComplianceStatus"
                 spValue.Value = dr.Item("ComplianceStatement")
@@ -13870,8 +12496,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "PassFail"
                 temp = dr.Item("strComplianceStatus")
@@ -13899,8 +12525,8 @@ Public Class IAIPPrintOut
 
                 If dr.Item("CC") <> "" And dr.Item("CC") <> "  Unassigned" Then
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "CC"
                     spValue.Value = ", " & dr.Item("CC")
@@ -13913,8 +12539,8 @@ Public Class IAIPPrintOut
                     ParameterFields.Add(ParameterField)
                 Else
                     'Do this at the beginning of every new entry 
-                    ParameterField = New CrystalDecisions.Shared.ParameterField
-                    spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                    ParameterField = New ParameterField
+                    spValue = New ParameterDiscreteValue
 
                     ParameterField.ParameterFieldName = "CC"
                     spValue.Value = " "
@@ -13923,8 +12549,8 @@ Public Class IAIPPrintOut
                 End If
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "Referencenumber"
                 spValue.Value = dr.Item("strReferencenumber")
@@ -13932,8 +12558,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "Diluent"
                 spValue.Value = dr.Item("Diluent")
@@ -13946,8 +12572,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ApplicableStandard"
                 spValue.Value = dr.Item("strAPplicableStandard")
@@ -13960,8 +12586,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "RelativeAccuracyPercent"
                 spValue.Value = dr.Item("strRElativeAccuracyPercent")
@@ -13974,8 +12600,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "RelativeAccuracyChoice"
                 temp = dr.Item("strAccuracyChoice")
@@ -14000,8 +12626,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ReferenceMethod1"
                 spValue.Value = dr.Item("strReferenceMethod1")
@@ -14014,8 +12640,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ReferenceMethod2"
                 spValue.Value = dr.Item("strReferenceMethod2")
@@ -14028,8 +12654,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ReferenceMethod3"
                 spValue.Value = dr.Item("strReferenceMethod3")
@@ -14042,8 +12668,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ReferenceMethod4"
                 spValue.Value = dr.Item("strReferenceMethod4")
@@ -14056,8 +12682,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ReferenceMethod5"
                 spValue.Value = dr.Item("strReferenceMethod5")
@@ -14070,8 +12696,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ReferenceMethod6"
                 spValue.Value = dr.Item("strReferenceMethod6")
@@ -14084,8 +12710,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ReferenceMethod7"
                 spValue.Value = dr.Item("strReferenceMethod7")
@@ -14098,8 +12724,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ReferenceMethod8"
                 spValue.Value = dr.Item("strReferenceMethod8")
@@ -14112,8 +12738,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ReferenceMethod9"
                 spValue.Value = dr.Item("strReferenceMethod9")
@@ -14126,8 +12752,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ReferenceMethod10"
                 spValue.Value = dr.Item("strReferenceMethod10")
@@ -14140,8 +12766,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ReferenceMethod11"
                 spValue.Value = dr.Item("strReferenceMethod11")
@@ -14154,8 +12780,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "ReferenceMethod12"
                 spValue.Value = dr.Item("strReferenceMethod12")
@@ -14168,8 +12794,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "RATAUnits"
                 spValue.Value = dr.Item("RataUnits")
@@ -14182,8 +12808,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "CMS1"
                 spValue.Value = dr.Item("StrCMS1")
@@ -14196,8 +12822,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "CMS2"
                 spValue.Value = dr.Item("StrCMS2")
@@ -14210,8 +12836,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "CMS3"
                 spValue.Value = dr.Item("StrCMS3")
@@ -14224,8 +12850,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "CMS4"
                 spValue.Value = dr.Item("StrCMS4")
@@ -14238,8 +12864,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "CMS5"
                 spValue.Value = dr.Item("StrCMS5")
@@ -14252,8 +12878,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "CMS6"
                 spValue.Value = dr.Item("StrCMS6")
@@ -14266,8 +12892,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "CMS7"
                 spValue.Value = dr.Item("StrCMS7")
@@ -14280,8 +12906,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "CMS8"
                 spValue.Value = dr.Item("StrCMS8")
@@ -14294,8 +12920,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "CMS9"
                 spValue.Value = dr.Item("StrCMS9")
@@ -14308,8 +12934,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "CMS10"
                 spValue.Value = dr.Item("StrCMS10")
@@ -14322,8 +12948,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "CMS11"
                 spValue.Value = dr.Item("StrCMS11")
@@ -14336,8 +12962,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "CMS12"
                 spValue.Value = dr.Item("StrCMS12")
@@ -14350,8 +12976,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "RelativeAccuracyRequiredPercent"
                 spValue.Value = dr.Item("strAccuracyRequiredPercent")
@@ -14364,8 +12990,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "RelativeAccuracyRequiredStatement"
                 spValue.Value = dr.Item("strAccuracyREquiredStatement")
@@ -14380,8 +13006,8 @@ Public Class IAIPPrintOut
                 Dim OmitRuns As String = dr.Item("strRunsINcludedKey")
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "RunNumber1"
                 If Mid(OmitRuns, 1, 1) = "1" Then
@@ -14393,8 +13019,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "RunNumber2"
                 If Mid(OmitRuns, 2, 1) = "1" Then
@@ -14406,8 +13032,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "RunNumber3"
                 If Mid(OmitRuns, 3, 1) = "1" Then
@@ -14420,8 +13046,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "RunNumber4"
                 If Mid(OmitRuns, 4, 1) = "1" Then
@@ -14433,8 +13059,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "RunNumber5"
                 If Mid(OmitRuns, 5, 1) = "1" Then
@@ -14446,8 +13072,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "RunNumber6"
                 If Mid(OmitRuns, 6, 1) = "1" Then
@@ -14459,8 +13085,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "RunNumber7"
                 If Mid(OmitRuns, 7, 1) = "1" Then
@@ -14472,8 +13098,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "RunNumber8"
                 If Mid(OmitRuns, 8, 1) = "1" Then
@@ -14485,8 +13111,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "RunNumber9"
                 If Mid(OmitRuns, 9, 1) = "1" Then
@@ -14498,8 +13124,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "RunNumber10"
                 If Mid(OmitRuns, 10, 1) = "1" Then
@@ -14511,8 +13137,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "RunNumber11"
                 If Mid(OmitRuns, 11, 1) = "1" Then
@@ -14524,8 +13150,8 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "RunNumber12"
                 If Mid(OmitRuns, 12, 1) = "1" Then
@@ -14536,28 +13162,17 @@ Public Class IAIPPrintOut
                 ParameterField.CurrentValues.Add(spValue)
                 ParameterFields.Add(ParameterField)
 
-                dr.Close()
-
                 If WitnessingEngineer2 = "M/W" Then
                     SQL = "select " &
-                    "(strFirstName||' '||strLastName) as WitnessingEng " &
-                    "from ISMPWitnessingEng, EPDUserProfiles " &
-                    "where ISMPWitnessingEng.strWitnessingEngineer = EPDUserProfiles.numUserID  " &
-                    "and strReferenceNumber = '" & Me.txtReferenceNumber.Text & "'  "
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    WitnessingEngineer2 = ""
-                    While dr.Read
-                        WitnessingEngineer2 = WitnessingEngineer2 & vbCrLf & dr.Item("WitnessingEng")
-                    End While
-                    dr.Close()
+                    "concat(strFirstName,' ',strLastName) as WitnessingEng " &
+                    "from ISMPWitnessingEng inner join EPDUSerProfiles " &
+                    "on ISMPWitnessingEng.strWitnessingEngineer = EPDUSerProfiles.numUserProfiles  " &
+                    "where strReferenceNumber = @ref "
+
                     If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 13, 1) = "1" Then
                         WitnessingEngineer2 = "--Conf--"
                     Else
-                        WitnessingEngineer2 = WitnessingEngineer2
+                        WitnessingEngineer2 = DB.GetSingleValue(Of String)(SQL, p)
                     End If
                 Else
                     WitnessingEngineer2 = " "
@@ -14594,8 +13209,8 @@ Public Class IAIPPrintOut
                 End If
 
                 'Do this at the beginning of every new entry 
-                ParameterField = New CrystalDecisions.Shared.ParameterField
-                spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+                ParameterField = New ParameterField
+                spValue = New ParameterDiscreteValue
                 ParameterField.ParameterFieldName = "WitnessingEngineer"
                 spValue.Value = WitnessingEngineer
                 ParameterField.CurrentValues.Add(spValue)
@@ -14609,130 +13224,87 @@ Public Class IAIPPrintOut
 
             Else
                 MsgBox("Unable to Print at this time.")
-                PrintOut.Close()
+                Me.Close()
             End If
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
-    End Sub                'Complete
-    Private Sub LoadPEMS()
-        Try
-
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
     End Sub
 
 #End Region
 
-#Region "SSPP"
-    Sub PrintOutTitleVRenewals()
-        Dim Director As String = DAL.GetEpdManagerName(DAL.EpdManagementTypes.EpdDirector)
-        Dim Commissioner As String = DAL.GetEpdManagerName(DAL.EpdManagementTypes.DnrCommissioner)
-        Dim SsppProgramManager As String = DAL.GetEpdManagerName(DAL.EpdManagementTypes.SsppProgramManager)
-        Dim rpt As New ReportClass
+#Region " SSPP Reports "
 
-        rpt = New CRTitleVRenewal10
+    Private Sub PrintSsppAcknowledgmentLetter()
+        Dim ParameterFields As New ParameterFields
+
+        ParameterFields.AddParameterField("Director", GetEpdManagerName(EpdManagementTypes.EpdDirector))
+        ParameterFields.AddParameterField("Commissioner", GetEpdManagerName(EpdManagementTypes.DnrCommissioner))
+        ParameterFields.AddParameterField("ReportType", "SSPP Confirm")
+
+        Dim SQL As String = "Select * " &
+            "from VW_SSPP_Acknowledge " &
+            "where strApplicationNumber = @ref "
+
+        Dim p As New SqlParameter("@ref", ReferenceValue)
+
+        Dim dt As DataTable = DB.GetDataTable(SQL, p)
+        dt.TableName = "VW_SSPP_Acknowledge"
+
+        Dim rpt As New crAPBPrintOut2
         monitor.TrackFeature("Report." & rpt.ResourceName)
+        rpt.SetDataSource(dt)
 
-        Dim ParameterFields As CrystalDecisions.Shared.ParameterFields
-        Dim ParameterField As CrystalDecisions.Shared.ParameterField
-        Dim spValue As CrystalDecisions.Shared.ParameterDiscreteValue
+        CRViewer.ParameterFieldInfo = ParameterFields
+        CRViewer.ReportSource = rpt
+        CRViewer.Refresh()
+    End Sub
+
+    Private Sub PrintOutTitleVRenewals()
         Try
-            ds = New DataSet
-            SQL = "Select * " &
-            "from VW_Title_V_Renewals " &
-            "where datPermitIssued between '" & txtStartDate.Text & "' " &
-            "and '" & txtEndDate.Text & "' " &
-            "or datEffective between '" & txtStartDate.Text & "' " &
-            "and '" & txtEndDate.Text & "' "
+            Dim SQL As String
 
-            If txtSQLLine.Text <> "*" Then
+            If ReferenceValue = "*" Then
                 SQL = "Select * " &
-                "from VW_Title_V_Renewals " &
-                "where strApplicationNumber = '" & Replace(txtSQLLine.Text, "'", "''") & "' "
+                    "from VW_Title_V_Renewals " &
+                    "where datPermitIssued between @start " &
+                    "and @end " &
+                    "or datEffective between @start " &
+                    "and @end "
+            Else
+                SQL = "Select * " &
+                    "from VW_Title_V_Renewals " &
+                    "where strApplicationNumber = @ref "
             End If
 
-            da = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
+            Dim p As SqlParameter() = {
+                New SqlParameter("@start", StartDate),
+                New SqlParameter("@end", EndDate),
+                New SqlParameter("@ref", ReferenceValue)
+            }
 
-            ds.EnforceConstraints = False
-            da.Fill(ds, "VW_Title_V_Renewals")
-            rpt.SetDataSource(ds)
+            Dim dt As DataTable = DB.GetDataTable(SQL, p)
+            dt.TableName = "VW_Title_V_Renewals"
 
-            'Do this just once at the start
-            ParameterFields = New CrystalDecisions.Shared.ParameterFields
+            Dim ParameterFields As New ParameterFields
 
-            'Do this at the beginning of every new enTry 
-            ParameterField = New CrystalDecisions.Shared.ParameterField
-            spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
+            ParameterFields.AddParameterField("Director", GetEpdManagerName(EpdManagementTypes.EpdDirector))
+            ParameterFields.AddParameterField("Commissioner", GetEpdManagerName(EpdManagementTypes.DnrCommissioner))
+            ParameterFields.AddParameterField("ProgramManager", GetEpdManagerName(EpdManagementTypes.SsppProgramManager))
 
-            ParameterField.ParameterFieldName = "Commissioner"
-            spValue.Value = Commissioner
-            ParameterField.CurrentValues.Add(spValue)
-            ParameterFields.Add(ParameterField)
+            Dim rpt As New CRTitleVRenewal10
+            monitor.TrackFeature("Report." & rpt.ResourceName)
+            rpt.SetDataSource(dt)
 
-            'Do this at the beginning of every new enTry
-            ParameterField = New CrystalDecisions.Shared.ParameterField
-            spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
-
-            ParameterField.ParameterFieldName = "Director"
-            spValue.Value = Director
-            ParameterField.CurrentValues.Add(spValue)
-            ParameterFields.Add(ParameterField)
-
-            'Do this at the beginning of every new enTry
-            ParameterField = New CrystalDecisions.Shared.ParameterField
-            spValue = New CrystalDecisions.Shared.ParameterDiscreteValue
-
-            ParameterField.ParameterFieldName = "ProgramManager"
-            spValue.Value = SsppProgramManager
-            ParameterField.CurrentValues.Add(spValue)
-            ParameterFields.Add(ParameterField)
-
-            'Load Variables into the Fields
             CRViewer.ParameterFieldInfo = ParameterFields
             CRViewer.ReportSource = rpt
-
+            CRViewer.Refresh()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
-#End Region
 
-#Region " Utilities "
-    Private Sub CRViewerTabs(viewer As CrystalReportViewer, visible As Boolean)
-        ' http://bloggingabout.net/blogs/jschreuder/archive/2005/08/03/8760.aspx
-        If viewer IsNot Nothing Then
-            For Each control As Control In viewer.Controls
-                If TypeOf control Is PageView Then
-                    Dim tab As TabControl = DirectCast(DirectCast(control, PageView).Controls(0), TabControl)
-                    If Not visible Then
-                        tab.ItemSize = New Size(0, 1)
-                        tab.SizeMode = TabSizeMode.Fixed
-                        tab.Appearance = TabAppearance.Buttons
-                    Else
-                        tab.ItemSize = New Size(67, 18)
-                        tab.SizeMode = TabSizeMode.Normal
-                        tab.Appearance = TabAppearance.Normal
-                    End If
-                End If
-            Next
-        End If
-    End Sub
 #End Region
 
 End Class

@@ -69,6 +69,16 @@ Namespace DAL.Ismp
             Return DB.GetSingleValue(Of String)(query, parameter)
         End Function
 
+        Public Function GetStackTestDocumentType(referenceNumber As String) As String
+            Dim query As String = "SELECT t.STRDOCUMENTTYPE
+                FROM ISMPDOCUMENTTYPE AS t
+                INNER JOIN ISMPREPORTINFORMATION AS i ON i.STRDOCUMENTTYPE = t.STRKEY
+                WHERE i.STRREFERENCENUMBER = @ref"
+            Dim parameter As New SqlParameter("@ref", referenceNumber)
+
+            Return DB.GetSingleValue(Of String)(query, parameter)
+        End Function
+
         ''' <summary>
         ''' Clears all data from a stack test and resets the document type (but does not delete the test).
         ''' </summary>

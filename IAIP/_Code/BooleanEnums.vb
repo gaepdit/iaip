@@ -15,4 +15,9 @@
         Active = True
     End Enum
 
+    Public Enum VisibleOrNot
+        NotVisible = False
+        Visible = True
+    End Enum
+
 End Module

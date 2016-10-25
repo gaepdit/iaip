@@ -2249,18 +2249,13 @@ Public Class ISMPTestReportAdministrative
     End Sub
     Private Sub cmiPrintTestReport_Click(sender As Object, e As EventArgs) Handles cmiPrintTestReport.Click
         Try
-
-            PrintOut = Nothing
-            If PrintOut Is Nothing Then PrintOut = New IAIPPrintOut
-            PrintOut.txtPrintType.Text = "ISMPTestReport"
-            PrintOut.txtReferenceNumber.Text = Me.txtReferenceNumber.Text
+            Dim PrintOut As New IAIPPrintOut
+            PrintOut.PrintoutType = IAIPPrintOut.PrintType.IsmpTestReport
+            PrintOut.ReferenceValue = txtReferenceNumber.Text
             PrintOut.Show()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
     Private Sub LLFacilityName_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LLFacilityName.LinkClicked
         OpenFacilityLookupTool()

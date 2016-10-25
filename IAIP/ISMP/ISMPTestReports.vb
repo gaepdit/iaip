@@ -17525,14 +17525,12 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
     End Sub
     Private Sub tsbPrint_Click(sender As Object, e As EventArgs) Handles tsbPrint.Click
         Try
-            PrintOut = Nothing
-            If PrintOut Is Nothing Then PrintOut = New IAIPPrintOut
-            PrintOut.txtPrintType.Text = "ISMPTestReport"
-            PrintOut.txtReferenceNumber.Text = Me.txtReferenceNumber.Text
+            Dim PrintOut As New IAIPPrintOut
+            PrintOut.PrintoutType = IAIPPrintOut.PrintType.IsmpTestReport
+            PrintOut.ReferenceValue = txtReferenceNumber.Text
             PrintOut.Show()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
     End Sub
     Private Sub tsbClear_Click(sender As Object, e As EventArgs) Handles tsbClear.Click
@@ -22707,11 +22705,10 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
     End Sub
     Private Sub mmiPrintNonConf_Click(sender As Object, e As EventArgs) Handles mmiPrintNonConf.Click
         Try
-            PrintOut = Nothing
-            If PrintOut Is Nothing Then PrintOut = New IAIPPrintOut
-            PrintOut.txtPrintType.Text = "ISMPTestReport"
-            PrintOut.txtReferenceNumber.Text = Me.txtReferenceNumber.Text
-            PrintOut.txtOther.Text = "ToFile"
+            Dim PrintOut As New IAIPPrintOut
+            PrintOut.PrintoutType = IAIPPrintOut.PrintType.IsmpTestReport
+            PrintOut.ReferenceValue = txtReferenceNumber.Text
+            PrintOut.PrintoutSubtype = IAIPPrintOut.PrintSubtype.ToFile
             PrintOut.Show()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)

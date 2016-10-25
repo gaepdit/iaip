@@ -137,9 +137,9 @@ Module IaipFormHelpers
                 OpenMultiForm(ISMPTestReports, referenceNumber)
             Else
                 If DAL.Ismp.StackTestIsClosedOut(referenceNumber) Then
-                    PrintOut = New IAIPPrintOut
-                    PrintOut.txtReferenceNumber.Text = referenceNumber
-                    PrintOut.txtPrintType.Text = "SSCP"
+                    Dim PrintOut As New IAIPPrintOut
+                    PrintOut.ReferenceValue = referenceNumber
+                    PrintOut.PrintoutType = IAIPPrintOut.PrintType.IsmpTestReport
                     PrintOut.Show()
                 Else
                     MessageBox.Show("Test report has not been closed out.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)

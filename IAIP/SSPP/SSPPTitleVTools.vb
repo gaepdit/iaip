@@ -3470,24 +3470,17 @@ Public Class SSPPTitleVTools
     End Sub
     Private Sub btnPrintRenewalLetters_Click(sender As Object, e As EventArgs) Handles btnPrintRenewalLetters.Click
         Try
-
-            Dim SQLLine As String = "*"
-
             If Me.txtRenewalCount.Text <> "" And txtRenewalCount.Text <> "0" Then
-                PrintOut = Nothing
-                If PrintOut Is Nothing Then PrintOut = New IAIPPrintOut
-                PrintOut.txtPrintType.Text = "TitleVRenewal"
-                PrintOut.txtSQLLine.Text = SQLLine
-                PrintOut.txtStartDate.Text = Startdate
-                PrintOut.txtEndDate.Text = EndDate
+                Dim PrintOut As New IAIPPrintOut
+                PrintOut.PrintoutType = IAIPPrintOut.PrintType.TitleVRenewal
+                PrintOut.ReferenceValue = "*"
+                PrintOut.StartDate = DTPTitleVRenewalStart.Value.AddMonths(-51)
+                PrintOut.EndDate = DTPTitleVRenewalEnd.Value.AddMonths(-51)
                 PrintOut.Show()
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
     Private Sub btnPreviewESNReceived_Click(sender As Object, e As EventArgs) Handles btnPreviewESNReceived.Click
         Try
@@ -3812,31 +3805,26 @@ Public Class SSPPTitleVTools
     End Sub
     Private Sub btnPrintSingleTitleVRenewal_Click(sender As Object, e As EventArgs) Handles btnPrintSingleTitleVRenewal.Click
         Try
-
-            Dim SQLLine As String = "*"
+            Dim AppNumber As String = "*"
 
             If txtTitleVSingleLetter.Text <> "" Then
-                SQLLine = txtTitleVSingleLetter.Text
+                AppNumber = txtTitleVSingleLetter.Text
             Else
-                SQLLine = "*"
+                AppNumber = "*"
             End If
 
             If (Me.txtRenewalCount.Text <> "" And txtRenewalCount.Text <> "0") Or txtTitleVSingleLetter.Text <> "" Then
-                PrintOut = Nothing
-                If PrintOut Is Nothing Then PrintOut = New IAIPPrintOut
-                PrintOut.txtPrintType.Text = "TitleVRenewal"
-                PrintOut.txtSQLLine.Text = SQLLine
-                PrintOut.txtStartDate.Text = "01-Jan-1990"
-                PrintOut.txtEndDate.Text = "01-Jan-2099"
+                Dim PrintOut As New IAIPPrintOut
+                PrintOut.PrintoutType = IAIPPrintOut.PrintType.TitleVRenewal
+                PrintOut.ReferenceValue = AppNumber
+                PrintOut.StartDate = New Date(1990, 1, 1)
+                PrintOut.EndDate = New Date(2099, 1, 1)
                 PrintOut.Show()
             End If
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
     Private Sub btnLoadAppContact_Click(sender As Object, e As EventArgs) Handles btnLoadAppContact.Click
         Try

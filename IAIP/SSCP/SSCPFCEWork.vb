@@ -1398,9 +1398,9 @@ Public Class SSCPFCEWork
     Private Sub llbISMPSummaryReports_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbISMPSummaryReports.LinkClicked
         If txtISMPReferenceNumber.Text <> "" Then
             If DAL.Ismp.StackTestIsClosedOut(txtISMPReferenceNumber.Text) Then
-                PrintOut = New IAIPPrintOut
-                PrintOut.txtReferenceNumber.Text = txtISMPReferenceNumber.Text
-                PrintOut.txtPrintType.Text = "SSCP"
+                Dim PrintOut As New IAIPPrintOut
+                PrintOut.ReferenceValue = txtISMPReferenceNumber.Text
+                PrintOut.PrintoutType = IAIPPrintOut.PrintType.IsmpTestReport
                 PrintOut.Show()
             Else
                 MsgBox("This Test Summary has not been completely reviewed by ISMP Engineer", MsgBoxStyle.Information, "FCE Form")

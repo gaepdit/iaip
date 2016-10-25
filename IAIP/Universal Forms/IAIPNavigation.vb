@@ -229,12 +229,9 @@ Public Class IAIPNavigation
                     OpenMultiForm(ISMPTestReports, id)
                 Else
                     If DAL.Ismp.StackTestIsClosedOut(id) Then
-                        If PrintOut IsNot Nothing AndAlso Not PrintOut.IsDisposed Then
-                            PrintOut.Dispose()
-                        End If
-                        PrintOut = New IAIPPrintOut
-                        PrintOut.txtReferenceNumber.Text = txtOpenTestReport.Text
-                        PrintOut.txtPrintType.Text = "SSCP"
+                        Dim PrintOut As New IAIPPrintOut
+                        PrintOut.ReferenceValue = txtOpenTestReport.Text
+                        PrintOut.PrintoutType = IAIPPrintOut.PrintType.IsmpTestReport
                         PrintOut.Show()
                     Else
                         MsgBox("This test has not been completely reviewed by ISMP.", MsgBoxStyle.Information, "Facility Summary")

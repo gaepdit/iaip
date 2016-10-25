@@ -3,7 +3,6 @@
 Imports System.Collections.Generic
 Imports CrystalDecisions.CrystalReports.Engine
 Imports CrystalDecisions.Shared
-Imports CrystalDecisions.Windows.Forms
 
 Public Class CRViewerForm
 
@@ -134,13 +133,14 @@ Public Class CRViewerForm
         If Me.CRReportDocument IsNot Nothing Then
             If Me.CRParameters IsNot Nothing Then CRSetParameters(CRReportDocument, CRParameters)
             CRViewerControl.ReportSource = Me.CRReportDocument
-            CRViewerTabs(CRViewerControl, False)
+            CRViewerControl.ShowHideViewerTabs(VisibleOrNot.NotVisible)
         End If
     End Sub
 
 #End Region
 
 #Region " Utilities "
+
     Private Sub CRSetParameters(document As ReportClass, parameters As Dictionary(Of String, String))
         Dim fieldDefinitions As ParameterFieldDefinitions = document.DataDefinition.ParameterFields
         Dim parameterValues As ParameterValues = New ParameterValues()
@@ -154,25 +154,6 @@ Public Class CRViewerForm
         Next
     End Sub
 
-    Private Sub CRViewerTabs(viewer As CrystalReportViewer, visible As Boolean)
-        ' http://bloggingabout.net/blogs/jschreuder/archive/2005/08/03/8760.aspx
-        If viewer IsNot Nothing Then
-            For Each control As Control In viewer.Controls
-                If TypeOf control Is PageView Then
-                    Dim tab As TabControl = DirectCast(DirectCast(control, PageView).Controls(0), TabControl)
-                    If Not visible Then
-                        tab.ItemSize = New Size(0, 1)
-                        tab.SizeMode = TabSizeMode.Fixed
-                        tab.Appearance = TabAppearance.Buttons
-                    Else
-                        tab.ItemSize = New Size(67, 18)
-                        tab.SizeMode = TabSizeMode.Normal
-                        tab.Appearance = TabAppearance.Normal
-                    End If
-                End If
-            Next
-        End If
-    End Sub
 #End Region
 
 End Class

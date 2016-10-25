@@ -79,10 +79,6 @@ Module AppVariables
 #Region " All Forms "
     ' TODO DWW: Remove global form variables
 
-#Region " Universal Screens "
-    Public PrintOut As IAIPPrintOut
-#End Region
-
 #Region " ISMP Screens "
     Public ISMPMemoEdit As ISMPMemo
     Public ISMPNotificationLogForm As ISMPNotificationLog
