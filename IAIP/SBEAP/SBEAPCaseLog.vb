@@ -1,30 +1,24 @@
-﻿Imports System.Data.SqlClient
-Imports System.Math
+﻿Public Class SBEAPCaseLog
 
-Public Class SBEAPCaseLog
-    Dim SQL As String
-    Dim dsCaseLog As DataSet
-    Dim daActions As SqlDataAdapter
-    Dim daStaff As SqlDataAdapter
-    Dim daCaseWork As SqlDataAdapter
-    Dim dsActions As DataSet
-    Dim dsCaseLogGrid As DataSet
-    Dim daCaseLogGrid As SqlDataAdapter
-    Dim SQLAction As String
-    Dim SQLSearch1 As String
-    Dim SQLSearch2 As String
-    Dim SQLSearch3 As String
-    Dim SQLOrder1 As String
-    Dim SQLOrder2 As String
+#Region " Properties "
 
+    Private dtCaseLogGrid As DataTable
+    Private dtStaff As DataTable
+    Private dtCaseWork As DataTable
+    Private dtActions As DataTable
+    Private SQLAction As String
+    Private SQLSearch1 As String
+    Private SQLSearch2 As String
+    Private SQLSearch3 As String
+    Private SQLOrder1 As String
+    Private SQLOrder2 As String
 
-    Private Sub SBEAPCaseLog_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+#End Region
 
+#Region " Page Load "
+
+    Private Sub SBEAPCaseLog_Load(sender As Object, e As EventArgs) Handles Me.Load
         Try
-            label1.Text = "Select Case Work"
-            Label2.Text = CurrentUser.AlphaName
-            Label3.Text = TodayFormatted
-
             LoadDataSets()
             FormLoad()
             rdbOpenCases.Checked = True
@@ -33,16 +27,6 @@ Public Class SBEAPCaseLog
 
             btnSearchCaseLog.Enabled = False
             btnResetSearch.Enabled = False
-
-            If rdbOpenCases.Checked = True Then
-                rdbOpenCases.Checked = True
-            End If
-            If rdbClosedCase.Checked = True Then
-                rdbClosedCase.Checked = True
-            End If
-            If rdbAllCases.Checked = True Then
-                rdbAllCases.Checked = True
-            End If
 
             CreateCaseStatement()
 
@@ -57,48 +41,37 @@ Public Class SBEAPCaseLog
             ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-#Region "Page Load"
-    Sub LoadDataSets()
+
+    Private Sub LoadDataSets()
         Try
-            dsCaseLog = New DataSet
-
-            SQL = "select " &
-            "distinct(strLastName||', '||strFirstName) as Staff, " &
+            Dim SQL As String = "select " &
+            "distinct concat(strLastName,', ',strFirstName) as Staff, " &
             "numUserID " &
-            "from EPDUserProfiles, SBEAPCaseLog " &
-            "where epduserprofiles.numUserID = SBEAPCaseLog.numStaffResponsible " &
-            "or (numBranch = '5' and numProgram = '35') "
+            "from EPDUserProfiles inner join SBEAPCaseLog " &
+            "on epduserprofiles.numUserID = SBEAPCaseLog.numStaffResponsible " &
+            "where (numBranch = '5' and numProgram = '35') "
 
-            daStaff = New SqlDataAdapter(SQL, CurrentConnection)
+            dtStaff = DB.GetDataTable(SQL)
 
             SQL = "Select " &
             "strWorkDescription, numActionType " &
             "from LookUpSBEAPCaseWork " &
             "order by strWorkDescription "
 
-            daCaseWork = New SqlDataAdapter(SQL, CurrentConnection)
-
-            dsActions = New DataSet
+            dtCaseWork = DB.GetDataTable(SQL)
 
             SQL = "Select " &
             "numActionType, strWorkDescription " &
             "from LookUpSBEAPcaseWork " &
             "order by strWorkDescription  "
 
-            daActions = New SqlDataAdapter(SQL, CurrentConnection)
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daStaff.Fill(dsCaseLog, "StaffResponsible")
-            daCaseWork.Fill(dsCaseLog, "CaseWork")
-            daActions.Fill(dsActions, "Actions")
-
+            dtActions = DB.GetDataTable(SQL)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub FormLoad()
+
+    Private Sub FormLoad()
         Try
             cboFieldType1.Items.Clear()
             cboFieldType2.Items.Clear()
@@ -166,8 +139,8 @@ Public Class SBEAPCaseLog
     End Sub
 
 #End Region
-#Region "Subs and Functions"
-    Sub CreateCaseStatement()
+
+    Private Sub CreateCaseStatement()
         Try
             SQLAction = ""
             SQLSearch1 = ""
@@ -176,7 +149,6 @@ Public Class SBEAPCaseLog
             SQLOrder1 = ""
             SQLOrder2 = ""
 
-            'If NavScreen.label1.Text = "TESTING ENVIRONMENT" Then
             Select Case cboFieldType1.Text
                 Case "Action Type"
                     SQLAction = " and (numActionType = '" & Replace(cboSearchText1.SelectedValue, "'", "''") & "' ) "
@@ -190,15 +162,15 @@ Public Class SBEAPCaseLog
                 Case "Date Case Closed"
                     SQLSearch1 = "  CaseClosed between '" & DTPSearchDate1.Text & "' and '" & DTPSearchDate2.Text & "' "
                 Case "Staff First Name"
-                    SQLSearch1 = "  upper(StaffResponsible) like '%, " & Replace(txtSearchText1.Text.ToUpper, "'", "''") & "%' "
+                    SQLSearch1 = "  StaffResponsible like '%, " & Replace(txtSearchText1.Text, "'", "''") & "%' "
                 Case "Staff Last Name"
-                    SQLSearch1 = "  upper(StaffResponsible) like '%" & Replace(txtSearchText1.Text.ToUpper, "'", "''") & ", %' "
+                    SQLSearch1 = "  StaffResponsible like '%" & Replace(txtSearchText1.Text, "'", "''") & ", %' "
                 Case "Staff Responsible"
                     If cboSearchText1.SelectedIndex > 0 Then
-                        SQLSearch1 = "  Upper(StaffResponsible) = '" & Replace(cboSearchText1.Text.ToUpper, "'", "''") & "' "
+                        SQLSearch1 = "  StaffResponsible = '" & Replace(cboSearchText1.Text, "'", "''") & "' "
                     End If
                 Case "Case Description"
-                    SQLSearch1 = "  Upper(strCaseSummary) like '%" & Replace(txtSearchText1.Text.ToUpper, "'", "''") & "%' "
+                    SQLSearch1 = "  strCaseSummary like '%" & Replace(txtSearchText1.Text, "'", "''") & "%' "
                 Case Else
 
             End Select
@@ -221,15 +193,15 @@ Public Class SBEAPCaseLog
                 Case "Date Case Closed"
                     SQLSearch2 = " CaseClosed between '" & DTPSearchDate3.Text & "' and '" & DTPSearchDate4.Text & "' "
                 Case "Staff First Name"
-                    SQLSearch2 = " upper(StaffResponsible) like '%, " & Replace(txtSearchText2.Text.ToUpper, "'", "''") & "%' "
+                    SQLSearch2 = " StaffResponsible like '%, " & Replace(txtSearchText2.Text, "'", "''") & "%' "
                 Case "Staff Last Name"
-                    SQLSearch2 = " upper(StaffResponsible) like '%" & Replace(txtSearchText2.Text.ToUpper, "'", "''") & ", %' "
+                    SQLSearch2 = " StaffResponsible like '%" & Replace(txtSearchText2.Text, "'", "''") & ", %' "
                 Case "Staff Responsible"
                     If cboSearchText2.SelectedIndex > 0 Then
-                        SQLSearch2 = " Upper(StaffResponsible) = '" & Replace(cboSearchText2.Text.ToUpper, "'", "''") & "' "
+                        SQLSearch2 = " StaffResponsible = '" & Replace(cboSearchText2.Text, "'", "''") & "' "
                     End If
                 Case "Case Description"
-                    SQLSearch2 = " Upper(strCaseSummary) like '%" & Replace(txtSearchText2.Text.ToUpper, "'", "''") & "%' "
+                    SQLSearch2 = " strCaseSummary like '%" & Replace(txtSearchText2.Text, "'", "''") & "%' "
                 Case Else
                     SQLSearch2 = " datCaseClosed is null "
             End Select
@@ -341,9 +313,10 @@ Public Class SBEAPCaseLog
             ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub SearchCaseWork()
+
+    Private Sub SearchCaseWork()
         Try
-            SQL = "select * from " &
+            Dim SQL As String = "select * from " &
             "((select " &
             "VW_SBEAP_Caselog.*, 'Action' as ActionType " &
             "from VW_SBEAP_Caselog " &
@@ -362,30 +335,17 @@ Public Class SBEAPCaseLog
             "and Not Exists " &
             "(select * " &
             "from SBEAPActionLog " &
-            "where VW_SBEAP_Caselog.numCaseID = SBEAPActionLog.numCaseID))) " &
+            "where VW_SBEAP_Caselog.numCaseID = SBEAPActionLog.numCaseID)) as t1 ) as t2 " &
             SQLSearch1 & SQLSearch2
 
-            dsCaseLogGrid = New DataSet
-            daCaseLogGrid = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daCaseLogGrid.Fill(dsCaseLogGrid, "NavScreen")
-
+            dtCaseLogGrid = DB.GetDataTable(SQL)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-
-#End Region
     Private Sub cboFieldType1_SelectedValueChanged(sender As Object, e As EventArgs) Handles cboFieldType1.SelectedValueChanged
         Try
-            Dim drDSRow As DataRow
-            Dim drNewRow As DataRow
-            Dim dtCaseLog As New DataTable
-            Dim dtActionType As New DataTable
-
             txtSearchText1.Clear()
             cboSearchText1.Text = ""
             DTPSearchDate1.Value = Today
@@ -398,22 +358,8 @@ Public Class SBEAPCaseLog
                     DTPSearchDate1.Visible = False
                     DTPSearchDate2.Visible = False
 
-                    dtActionType.Columns.Add("strWorkDescription", GetType(System.String))
-                    dtActionType.Columns.Add("numActionType", GetType(System.String))
-                    drNewRow = dtActionType.NewRow()
-                    drNewRow("strWorkDescription") = ""
-                    drNewRow("numActionType") = " "
-                    dtActionType.Rows.Add(drNewRow)
-
-                    For Each drDSRow In dsActions.Tables("Actions").Rows()
-                        drNewRow = dtActionType.NewRow()
-                        drNewRow("strWorkDescription") = drDSRow("strWorkDescription")
-                        drNewRow("numActionType") = drDSRow("numActionType")
-                        dtActionType.Rows.Add(drNewRow)
-                    Next
-
                     With cboSearchText1
-                        .DataSource = dtActionType
+                        .DataSource = dtActions
                         .DisplayMember = "strWorkDescription"
                         .ValueMember = "numActionType"
                         .SelectedIndex = 0
@@ -454,22 +400,8 @@ Public Class SBEAPCaseLog
                     DTPSearchDate1.Visible = False
                     DTPSearchDate2.Visible = False
 
-                    dtCaseLog.Columns.Add("numUserID", GetType(System.String))
-                    dtCaseLog.Columns.Add("Staff", GetType(System.String))
-                    drNewRow = dtCaseLog.NewRow()
-                    drNewRow("numUserID") = ""
-                    drNewRow("Staff") = " "
-                    dtCaseLog.Rows.Add(drNewRow)
-
-                    For Each drDSRow In dsCaseLog.Tables("StaffResponsible").Rows()
-                        drNewRow = dtCaseLog.NewRow()
-                        drNewRow("numUserID") = drDSRow("numUserID")
-                        drNewRow("Staff") = drDSRow("Staff")
-                        dtCaseLog.Rows.Add(drNewRow)
-                    Next
-
                     With cboSearchText1
-                        .DataSource = dtCaseLog
+                        .DataSource = dtStaff
                         .DisplayMember = "Staff"
                         .ValueMember = "numUserID"
                         .SelectedIndex = 0
@@ -490,13 +422,9 @@ Public Class SBEAPCaseLog
             ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub cboFieldType2_SelectedValueChanged(sender As Object, e As EventArgs) Handles cboFieldType2.SelectedValueChanged
         Try
-            Dim drDSRow As DataRow
-            Dim drNewRow As DataRow
-            Dim dtCaseLog As New DataTable
-            Dim dtActionType As New DataTable
-
             txtSearchText2.Clear()
             cboSearchText2.Text = ""
             DTPSearchDate3.Value = Today
@@ -509,22 +437,8 @@ Public Class SBEAPCaseLog
                     DTPSearchDate3.Visible = False
                     DTPSearchDate4.Visible = False
 
-                    dtActionType.Columns.Add("strWorkDescription", GetType(System.String))
-                    dtActionType.Columns.Add("numActionType", GetType(System.String))
-                    drNewRow = dtActionType.NewRow()
-                    drNewRow("strWorkDescription") = ""
-                    drNewRow("numActionType") = " "
-                    dtActionType.Rows.Add(drNewRow)
-
-                    For Each drDSRow In dsActions.Tables("Actions").Rows()
-                        drNewRow = dtActionType.NewRow()
-                        drNewRow("strWorkDescription") = drDSRow("strWorkDescription")
-                        drNewRow("numActionType") = drDSRow("numActionType")
-                        dtActionType.Rows.Add(drNewRow)
-                    Next
-
                     With cboSearchText2
-                        .DataSource = dtActionType
+                        .DataSource = dtActions
                         .DisplayMember = "strWorkDescription"
                         .ValueMember = "numActionType"
                         .SelectedIndex = 0
@@ -565,22 +479,8 @@ Public Class SBEAPCaseLog
                     DTPSearchDate3.Visible = False
                     DTPSearchDate4.Visible = False
 
-                    dtCaseLog.Columns.Add("numUserID", GetType(System.String))
-                    dtCaseLog.Columns.Add("Staff", GetType(System.String))
-                    drNewRow = dtCaseLog.NewRow()
-                    drNewRow("numUserID") = ""
-                    drNewRow("Staff") = " "
-                    dtCaseLog.Rows.Add(drNewRow)
-
-                    For Each drDSRow In dsCaseLog.Tables("StaffResponsible").Rows()
-                        drNewRow = dtCaseLog.NewRow()
-                        drNewRow("numUserID") = drDSRow("numUserID")
-                        drNewRow("Staff") = drDSRow("Staff")
-                        dtCaseLog.Rows.Add(drNewRow)
-                    Next
-
                     With cboSearchText2
-                        .DataSource = dtCaseLog
+                        .DataSource = dtStaff
                         .DisplayMember = "Staff"
                         .ValueMember = "numUserID"
                         .SelectedIndex = 0
@@ -600,6 +500,7 @@ Public Class SBEAPCaseLog
             ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub btnSearchCaseLog_Click(sender As Object, e As EventArgs) Handles btnSearchCaseLog.Click
         Try
             btnSearchCaseLog.Enabled = False
@@ -615,6 +516,7 @@ Public Class SBEAPCaseLog
             ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub btnOpenCase_Click(sender As Object, e As EventArgs) Handles btnOpenCase.Click
         Try
             If txtCaseID.Text <> "" Then
@@ -632,6 +534,7 @@ Public Class SBEAPCaseLog
             ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub dgvCaseLog_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvCaseLog.CellDoubleClick
         Try
             If e.RowIndex > -1 Then
@@ -657,6 +560,7 @@ Public Class SBEAPCaseLog
             ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub dgvCaseLog_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvCaseLog.MouseUp
         Try
             Dim hti As DataGridView.HitTestInfo = dgvCaseLog.HitTest(e.X, e.Y)
@@ -674,30 +578,16 @@ Public Class SBEAPCaseLog
         Finally
         End Try
     End Sub
-    Private Sub tsbExport_Click(sender As Object, e As EventArgs) Handles tsbExport.Click
-        dgvCaseLog.ExportToExcel(Me)
-    End Sub
+
     Private Sub btnResetSearch_Click(sender As Object, e As EventArgs) Handles btnResetSearch.Click
-        Try
-            cboFieldType1.Text = "Case ID"
-            cboFieldType2.Text = "Staff Responsible"
-            cboSortType1.Text = ""
-            cboSortType2.Text = ""
-            cboSortOrder1.Text = cboSortOrder1.Items.Item(0)
-            cboSortOrder2.Text = cboSortOrder2.Items.Item(0)
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        cboFieldType1.Text = "Case ID"
+        cboFieldType2.Text = "Staff Responsible"
+        cboSortType1.Text = ""
+        cboSortType2.Text = ""
+        cboSortOrder1.SelectedIndex = 0
+        cboSortOrder2.SelectedIndex = 0
     End Sub
-    Private Sub tsbBack_Click(sender As Object, e As EventArgs) Handles tsbBack.Click
-        Try
-            Me.Close()
 
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
     Private Sub mmiOpenNewCase_Click(sender As Object, e As EventArgs) Handles mmiOpenNewCase.Click
         Try
             If CaseWork Is Nothing Then
@@ -712,58 +602,60 @@ Public Class SBEAPCaseLog
             ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub bgw1_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles bgw1.DoWork
-        Try
-            SearchCaseWork()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        SearchCaseWork()
     End Sub
+
     Private Sub bgw1_RunWorkerCompleted(sender As Object, e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bgw1.RunWorkerCompleted
         Try
-            dgvCaseLog.DataSource = dsCaseLogGrid
-            dgvCaseLog.DataMember = "NavScreen"
+            If dtCaseLogGrid IsNot Nothing Then
+                dgvCaseLog.DataSource = dtCaseLogGrid
 
-            dgvCaseLog.RowHeadersVisible = False
-            dgvCaseLog.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvCaseLog.AllowUserToResizeColumns = True
-            dgvCaseLog.AllowUserToAddRows = False
-            dgvCaseLog.AllowUserToDeleteRows = False
-            dgvCaseLog.AllowUserToOrderColumns = True
-            dgvCaseLog.AllowUserToResizeRows = True
-            dgvCaseLog.ColumnHeadersHeight = "35"
+                dgvCaseLog.RowHeadersVisible = False
+                dgvCaseLog.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
+                dgvCaseLog.AllowUserToResizeColumns = True
+                dgvCaseLog.AllowUserToAddRows = False
+                dgvCaseLog.AllowUserToDeleteRows = False
+                dgvCaseLog.AllowUserToOrderColumns = True
+                dgvCaseLog.AllowUserToResizeRows = True
+                dgvCaseLog.ColumnHeadersHeight = "35"
 
-            dgvCaseLog.Columns("numCaseID").HeaderText = "Case ID"
-            dgvCaseLog.Columns("numCaseID").DisplayIndex = 0
-            dgvCaseLog.Columns("StaffResponsible").HeaderText = "Staff Responsible"
-            dgvCaseLog.Columns("StaffResponsible").DisplayIndex = 4
-            dgvCaseLog.Columns("CaseOpened").HeaderText = "Date Case Opened"
-            dgvCaseLog.Columns("CaseOpened").DisplayIndex = 3
-            dgvCaseLog.Columns("CaseOpened").DefaultCellStyle.Format = "dd-MMM-yyyy"
-            dgvCaseLog.Columns("CaseClosed").HeaderText = "Date Case Closed"
-            dgvCaseLog.Columns("CaseClosed").DisplayIndex = 6
-            dgvCaseLog.Columns("CaseClosed").DefaultCellStyle.Format = "dd-MMM-yyyy"
-            dgvCaseLog.Columns("strCompanyName").HeaderText = "Client Name"
-            dgvCaseLog.Columns("strCompanyName").DisplayIndex = 1
-            dgvCaseLog.Columns("strCompanyName").Width = "200"
-            dgvCaseLog.Columns("ClientID").HeaderText = "Customer ID"
-            dgvCaseLog.Columns("ClientID").DisplayIndex = 2
-            'dgvCaseLog.Columns("ClientID").Visible = False
-            dgvCaseLog.Columns("numStaffResponsible").HeaderText = "Staff Responsible"
-            dgvCaseLog.Columns("numStaffResponsible").DisplayIndex = 7
-            dgvCaseLog.Columns("numStaffResponsible").Visible = False
-            dgvCaseLog.Columns("strCaseSummary").HeaderText = "Case Description"
-            dgvCaseLog.Columns("strCaseSummary").DisplayIndex = 5
+                dgvCaseLog.Columns("numCaseID").HeaderText = "Case ID"
+                dgvCaseLog.Columns("numCaseID").DisplayIndex = 0
+                dgvCaseLog.Columns("StaffResponsible").HeaderText = "Staff Responsible"
+                dgvCaseLog.Columns("StaffResponsible").DisplayIndex = 4
+                dgvCaseLog.Columns("CaseOpened").HeaderText = "Date Case Opened"
+                dgvCaseLog.Columns("CaseOpened").DisplayIndex = 3
+                dgvCaseLog.Columns("CaseOpened").DefaultCellStyle.Format = "dd-MMM-yyyy"
+                dgvCaseLog.Columns("CaseClosed").HeaderText = "Date Case Closed"
+                dgvCaseLog.Columns("CaseClosed").DisplayIndex = 6
+                dgvCaseLog.Columns("CaseClosed").DefaultCellStyle.Format = "dd-MMM-yyyy"
+                dgvCaseLog.Columns("strCompanyName").HeaderText = "Client Name"
+                dgvCaseLog.Columns("strCompanyName").DisplayIndex = 1
+                dgvCaseLog.Columns("strCompanyName").Width = "200"
+                dgvCaseLog.Columns("ClientID").HeaderText = "Customer ID"
+                dgvCaseLog.Columns("ClientID").DisplayIndex = 2
+                dgvCaseLog.Columns("numStaffResponsible").HeaderText = "Staff Responsible"
+                dgvCaseLog.Columns("numStaffResponsible").DisplayIndex = 7
+                dgvCaseLog.Columns("numStaffResponsible").Visible = False
+                dgvCaseLog.Columns("strCaseSummary").HeaderText = "Case Description"
+                dgvCaseLog.Columns("strCaseSummary").DisplayIndex = 5
 
-            LoadCaseColors()
-            btnSearchCaseLog.Enabled = True
-            btnResetSearch.Enabled = True
+                LoadCaseColors()
+                btnSearchCaseLog.Enabled = True
+                btnResetSearch.Enabled = True
+
+                dgvCaseLog.SanelyResizeColumns()
+            Else
+                dgvCaseLog.DataSource = Nothing
+            End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Sub LoadCaseColors()
+    Private Sub LoadCaseColors()
         Try
             Dim tempdate As Date = Date.Today
             Dim CurrDate As Date = Date.Today
@@ -777,7 +669,7 @@ Public Class SBEAPCaseLog
                             row.DefaultCellStyle.BackColor = Color.White
                         Else
                             tempdate = row.Cells(8).Value
-                            temp = Abs(DateDiff(DateInterval.Day, CurrDate, tempdate))
+                            temp = Math.Abs(DateDiff(DateInterval.Day, CurrDate, tempdate))
                             If temp < 15 Then
                                 row.DefaultCellStyle.BackColor = Color.White
                             End If
@@ -798,11 +690,13 @@ Public Class SBEAPCaseLog
             ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub dgvCaseLog_Sorted(sender As Object, e As EventArgs) Handles dgvCaseLog.Sorted
-        Try
-            LoadCaseColors()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        LoadCaseColors()
     End Sub
+
+    Private Sub mmiExportToExcel_Click(sender As Object, e As EventArgs) Handles mmiExportToExcel.Click
+        dgvCaseLog.ExportToExcel(Me)
+    End Sub
+
 End Class

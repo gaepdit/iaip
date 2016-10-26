@@ -7,7 +7,7 @@ Namespace DAL.Sbeap
         Public Function ClientExists(clientID As String) As Boolean
             If clientID = "" OrElse Not Integer.TryParse(clientID, Nothing) Then Return False
 
-            Dim query As String = "SELECT 1 " &
+            Dim query As String = "SELECT CONVERT( bit, COUNT(*)) " &
                 " FROM SBEAPCLIENTS " &
                 " WHERE CLIENTID = @id "
 
@@ -19,7 +19,7 @@ Namespace DAL.Sbeap
         Public Function CaseExists(caseNumber As String) As Boolean
             If caseNumber = "" OrElse Not Integer.TryParse(caseNumber, Nothing) Then Return False
 
-            Dim query As String = "SELECT 1 " &
+            Dim query As String = "SELECT CONVERT( bit, COUNT(*)) " &
                 " FROM SBEAPCASELOG " &
                 " WHERE NUMCASEID = @id "
 
