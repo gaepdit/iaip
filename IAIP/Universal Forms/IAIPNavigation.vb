@@ -849,7 +849,7 @@ Public Class IAIPNavigation
         AddNavButtonIfUserHasPermission({142, 143, 118}, "Case Log", NameOf(SBEAPCaseLog), NavButtonCategories.SBEAP)
         AddNavButtonIfUserHasPermission({142, 143, 118}, "Report Tool", NameOf(SBEAPReports), NavButtonCategories.SBEAP)
         AddNavButtonIfUserHasPermission({142, 143, 118}, "Phone Log", NameOf(SBEAPPhoneLog), NavButtonCategories.SBEAP)
-        AddNavButtonIfUserHasPermission({142, 143, 118}, "Misc. Tools", NameOf(SBEAPMiscTools), NavButtonCategories.SBEAP)
+        AddNavButtonIfUserHasPermission({142, 143, 118}, "Contact Data", NameOf(SBEAPMiscTools), NavButtonCategories.SBEAP)
 
     End Sub
 

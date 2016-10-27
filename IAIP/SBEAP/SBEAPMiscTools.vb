@@ -1,7 +1,4 @@
 ﻿Public Class SBEAPMiscTools
-    Private Sub SBEAPMiscTools_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        
-    End Sub
 
     Private Sub btnGetContactData_Click(sender As Object, e As EventArgs) Handles btnGetContactData.Click
         Dim query As String = "select " &
@@ -16,13 +13,13 @@
                 "strCompanyZipCode, strContactNotes,  " &
                 "strClientSIC, strClientNAICS, " &
                 "strClientDescription " &
-                "from SBEAPClientContacts, " &
-                "SBEAPClientLink, " &
-                "SBEAPClients, " &
-                "SBEAPClientData " &
-                "where SBEAPClientContacts.ClientContactID = SBEAPClientLink.ClientContactID  (+) " &
-                "and SBEAPClientLink.ClientID = SBEAPClientData.ClientID (+) " &
-                "and SBEAPClientLink.ClientID = SBEAPClients.ClientID (+) "
+                "from SBEAPClientContacts " &
+                "left join SBEAPClientLink " &
+                "on SBEAPClientContacts.ClientContactID = SBEAPClientLink.ClientContactID  " &
+                "left join SBEAPClients " &
+                "on SBEAPClientLink.ClientID = SBEAPClients.ClientID " &
+                "left join SBEAPClientData " &
+                "on SBEAPClientLink.ClientID = SBEAPClientData.ClientID "
 
         Dim dtMiscTools As DataTable = DB.GetDataTable(query)
 
@@ -75,10 +72,12 @@
         dgvMiscTools.Columns("strClientDescription").HeaderText = "Client Description"
         dgvMiscTools.Columns("strClientDescription").DisplayIndex = 18
 
+        dgvMiscTools.SanelyResizeColumns
         txtCount.Text = dgvMiscTools.RowCount.ToString
     End Sub
 
     Private Sub ExportToExcel_Click(sender As Object, e As EventArgs) Handles ExportToExcel.Click
         dgvMiscTools.ExportToExcel(Me)
     End Sub
+
 End Class
