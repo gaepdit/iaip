@@ -28,6 +28,78 @@ Namespace DAL.Sbeap
             Return DB.GetBoolean(query, parameter)
         End Function
 
+        Public Function ActionExists(actionId As String) As Boolean
+            If actionId = "" OrElse Not Integer.TryParse(actionId, Nothing) Then Return False
+
+            Dim query As String = "SELECT CONVERT( bit, COUNT(*)) " &
+                " FROM SBEAPActionLog " &
+                " WHERE numActionID = @id "
+
+            Dim parameter As New SqlParameter("@id", actionId)
+
+            Return DB.GetBoolean(query, parameter)
+        End Function
+
+        Public Function ComplianceAssistExists(actionId As String) As Boolean
+            If actionId = "" OrElse Not Integer.TryParse(actionId, Nothing) Then Return False
+
+            Dim query As String = "SELECT CONVERT( bit, COUNT(*)) " &
+                " FROM SBEAPComplianceAssist " &
+                " WHERE numActionID = @id "
+
+            Dim parameter As New SqlParameter("@id", actionId)
+
+            Return DB.GetBoolean(query, parameter)
+        End Function
+
+        Public Function TechnicalAssistExists(actionId As String) As Boolean
+            If actionId = "" OrElse Not Integer.TryParse(actionId, Nothing) Then Return False
+
+            Dim query As String = "SELECT CONVERT( bit, COUNT(*)) " &
+                " FROM SBEAPTechnicalAssist " &
+                " WHERE numActionID = @id "
+
+            Dim parameter As New SqlParameter("@id", actionId)
+
+            Return DB.GetBoolean(query, parameter)
+        End Function
+
+        Public Function PhoneLogExists(actionId As String) As Boolean
+            If actionId = "" OrElse Not Integer.TryParse(actionId, Nothing) Then Return False
+
+            Dim query As String = "SELECT CONVERT( bit, COUNT(*)) " &
+                " FROM SBEAPPhoneLog " &
+                " WHERE numActionID = @id "
+
+            Dim parameter As New SqlParameter("@id", actionId)
+
+            Return DB.GetBoolean(query, parameter)
+        End Function
+
+        Public Function ConferenceLogExists(actionId As String) As Boolean
+            If actionId = "" OrElse Not Integer.TryParse(actionId, Nothing) Then Return False
+
+            Dim query As String = "SELECT CONVERT( bit, COUNT(*)) " &
+                " FROM SBEAPConferenceLog " &
+                " WHERE numActionID = @id "
+
+            Dim parameter As New SqlParameter("@id", actionId)
+
+            Return DB.GetBoolean(query, parameter)
+        End Function
+
+        Public Function OtherLogExists(actionId As String) As Boolean
+            If actionId = "" OrElse Not Integer.TryParse(actionId, Nothing) Then Return False
+
+            Dim query As String = "SELECT CONVERT( bit, COUNT(*)) " &
+                " FROM SBEAPOtherLog " &
+                " WHERE numActionID = @id "
+
+            Dim parameter As New SqlParameter("@id", actionId)
+
+            Return DB.GetBoolean(query, parameter)
+        End Function
+
     End Module
 
 End Namespace
