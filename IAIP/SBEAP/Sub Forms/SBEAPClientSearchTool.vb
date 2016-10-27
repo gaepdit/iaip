@@ -1,24 +1,8 @@
 ﻿Imports System.Data.SqlClient
 
 Public Class SBEAPClientSearchTool
-    Dim SQL As String
-    Dim dsSearch As DataSet
-    Dim daSearch As SqlDataAdapter
 
-#Region " Form events "
-
-    Private Sub SBEAPClientSearchTool_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
-        If Not Me.Modal Then Me.Close()
-    End Sub
-
-    Private Sub SBEAPClientSearchTool_Shown(sender As Object, e As EventArgs) Handles Me.Shown
-        txtSearchCompanyName.Focus()
-    End Sub
-
-#End Region
-
-#Region " Form properties "
+#Region " Properties "
 
     Public ReadOnly Property SelectedClientID() As String
         Get
@@ -28,118 +12,159 @@ Public Class SBEAPClientSearchTool
 
 #End Region
 
-#Region " Search procedures "
+#Region " Form events "
 
-    Sub ClientSearch(Source As String)
-        Try
+    Private Sub SBEAPClientSearchTool_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        If Not Me.Modal Then Me.Close()
+    End Sub
 
-            Select Case Source
-                Case "CompanyName"
-                    SQL = "Select " &
+    Private Sub SBEAPClientSearchTool_Shown(sender As Object, e As EventArgs) Handles Me.Shown
+        txtSearchCompanyName.Focus()
+    End Sub
+
+#End Region
+
+#Region " Search procedure "
+
+    Private Sub ClientSearch(Source As String)
+        Dim SQL As String = ""
+        Dim searchString As String = ""
+
+        Select Case Source
+            Case "CompanyName"
+                SQL = "Select " &
                     "SBEAPClients.ClientID, " &
                     "SBEAPClients.strCompanyName, " &
                     "SBEAPClients.strCompanyAddress, " &
                     "SBEAPClients.strCompanyCity " &
                     "from SBEAPClients " &
-                    "where Upper(strCompanyName) like '%" & Replace(txtSearchCompanyName.Text.ToUpper, "'", "''") & "%' "
-                Case "HistoricalCompanyName"
-                    SQL = "select " &
-                    "strCompanyName, " &
+                    "where strCompanyName like @searchstring "
+
+                searchString = "%" & txtSearchCompanyName.Text & "%"
+
+            Case "HistoricalCompanyName"
+                SQL = "select " &
                     "ClientID, " &
+                    "strCompanyName, " &
                     "SBEAPClients.strCompanyAddress, " &
                     "SBEAPClients.strCompanyCity " &
                     "from SBEAPClients " &
-                    "where Upper(strCompanyName) like Upper('%" & Replace(txtSearchCompanyName.Text.ToUpper, "'", "''") & "%') " &
+                    "where strCompanyName like @searchstring " &
                     "union " &
                     "select " &
-                    "distinct(strCompanyName), " &
                     "ClientID, " &
+                    "strCompanyName, " &
                     "strCompanyAddress, " &
                     "strCompanyCity " &
                     "from HB_SBEAPClients " &
-                    "where Upper(strCompanyname) like Upper('%" & Replace(txtSearchCompanyName.Text.ToUpper, "'", "''") & "%') "
-                Case "StreetAddress"
-                    SQL = "Select " &
+                    "where strCompanyname like @searchstring "
+
+                searchString = "%" & txtSearchCompanyName.Text & "%"
+
+            Case "StreetAddress"
+                SQL = "Select " &
                     "ClientID, " &
                     "strCompanyName, strCompanyAddress, " &
                      "SBEAPClients.strCompanyCity " &
                     "from SBEAPClients " &
-                    "where upper(strCompanyAddress) like ('%" & Replace(txtSearchStreet.Text.ToUpper, "'", "''") & "%') "
-                Case "City"
-                    SQL = "Select " &
+                    "where strCompanyAddress like @searchstring "
+
+                searchString = "%" & txtSearchStreet.Text & "%"
+
+            Case "City"
+                SQL = "Select " &
                     "clientId, " &
                     "strCompanyName, strCompanyCity, " &
                     "strCompanyAddress " &
                     "from SBEAPClients " &
-                    "where upper(strCompanyCity) like ('%" & Replace(txtSearchCity.Text.ToUpper, "'", "''") & "%') "
-                Case "ZipCode"
-                    SQL = "Select " &
+                    "where strCompanyCity like @searchstring "
+
+                searchString = "%" & txtSearchCity.Text & "%"
+
+            Case "ZipCode"
+                SQL = "Select " &
                    "clientId, " &
                    "strCompanyName, strCompanyZipCode, " &
                    "strCompanyAddress, strCompanyCity " &
                    "from SBEAPClients " &
-                   "where upper(strCompanyZipCode) like ('%" & Replace(txtSearchZipCode.Text.ToUpper, "'", "''") & "%') "
-                Case "County"
-                    SQL = "Select " &
+                   "where strCompanyZipCode like @searchstring "
+
+                searchString = "%" & txtSearchZipCode.Text & "%"
+
+            Case "County"
+                SQL = "Select " &
                     "ClientId, " &
                     "strCompanyName, strCountyName, " &
                     "strCompanyAddress, strCompanyCity " &
-                    "from SBEAPClients, LookUpCountyInformation " &
-                    "where SBEAPClients.strCompanyCounty = LookUpCountyInformation.strCountyCode " &
-                    "and Upper(strCountyName) like ('%" & Replace(txtSearchCounty.Text.ToUpper, "'", "''") & "%') "
-                Case "SIC"
-                    SQL = "Select " &
+                    "from SBEAPClients inner join LookUpCountyInformation " &
+                    "on SBEAPClients.strCompanyCounty = LookUpCountyInformation.strCountyCode " &
+                    "where strCountyName like @searchstring "
+
+                searchString = "%" & txtSearchCounty.Text & "%"
+
+            Case "SIC"
+                SQL = "Select " &
                     "SBEAPClients.ClientId, " &
                     "strCompanyName, strClientSIC, " &
                     "strCompanyAddress, strCompanyCity " &
-                    "from SBEAPClients, SBEAPClientData " &
-                    "where SBEAPClients.ClientID = SBEAPClientData.ClientID " &
-                    "and upper(strClientSIC) like ('%" & Replace(txtSearchSIC.Text.ToUpper, "'", "''") & "%') "
-                Case "NAICS"
-                    SQL = "Select " &
+                    "from SBEAPClients inner join SBEAPClientData " &
+                    "on SBEAPClients.ClientID = SBEAPClientData.ClientID " &
+                    "where strClientSIC like @searchstring "
+
+                searchString = "%" & txtSearchSIC.Text & "%"
+
+            Case "NAICS"
+                SQL = "Select " &
                     "SBEAPClients.ClientId, " &
                     "strCompanyName, strClientNAICS, " &
                     "strCompanyAddress, strCompanyCity " &
-                    "from SBEAPClients, SBEAPClientData " &
-                    "where SBEAPClients.ClientID = SBEAPClientData.ClientID " &
-                    "and upper(strClientNAICS) like ('%" & Replace(txtSearchNAICS.Text.ToUpper, "'", "''") & "%') "
-                Case "AIRSNumber"
-                    SQL = "Select " &
+                    "from SBEAPClients inner join SBEAPClientData " &
+                    "on SBEAPClients.ClientID = SBEAPClientData.ClientID " &
+                    "where strClientNAICS like @searchstring "
+
+                searchString = "%" & txtSearchNAICS.Text & "%"
+
+            Case "AIRSNumber"
+                SQL = "Select " &
                     "SBEAPClients.ClientId, " &
                     "strCompanyName, strAIRSNumber, " &
                     "strCompanyAddress, strCompanyCity " &
-                    "from SBEAPClients, SBEAPClientData " &
-                    "where SBEAPClients.ClientID = SBEAPClientData.ClientID " &
-                    "and upper(strAIRSNumber) like ('%" & Replace(txtSearchAIRSNumber.Text.ToUpper, "'", "''") & "%') "
-                Case "EmployeeLess"
-                    SQL = "Select " &
+                    "from SBEAPClients inner join SBEAPClientData " &
+                    "on SBEAPClients.ClientID = SBEAPClientData.ClientID " &
+                    "where strAIRSNumber like @searchstring "
+
+                searchString = "%" & txtSearchAIRSNumber.Text & "%"
+
+            Case "EmployeeLess"
+                SQL = "Select " &
                     "SBEAPClients.ClientId, " &
                     "strCompanyName, strClientEmployees, " &
                     "strCompanyAddress, strCompanyCity " &
                     "from SBEAPClients, SBEAPClientData " &
                     "where SBEAPClients.ClientID = SBEAPClientData.ClientID " &
-                    "and strClientEmployees <= ('" & mtbSearchNumberOfEmployees.Text & "') "
-                Case "EmployeeGreater"
-                    SQL = "Select " &
+                    "and strClientEmployees <= @searchstring "
+
+                searchString = mtbSearchNumberOfEmployees.Text
+
+            Case "EmployeeGreater"
+                SQL = "Select " &
                     "SBEAPClients.ClientId, " &
                     "strCompanyName, strClientEmployees, " &
                     "strCompanyAddress, strCompanyCity " &
-                    "from SBEAPClients, SBEAPClientData " &
-                    "where SBEAPClients.ClientID = SBEAPClientData.ClientID " &
-                    "and strClientEmployees >= ('" & mtbSearchNumberOfEmployees.Text & "') "
-                Case Else
+                    "from SBEAPClients inner join SBEAPClientData " &
+                    "on SBEAPClients.ClientID = SBEAPClientData.ClientID " &
+                    "where strClientEmployees >= @searchstring "
 
-            End Select
+                searchString = mtbSearchNumberOfEmployees.Text
 
-            dsSearch = New DataSet
-            daSearch = New SqlDataAdapter(SQL, CurrentConnection)
+            Case Else
 
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daSearch.Fill(dsSearch, "SearchResult")
-            dgvClientInformation.DataSource = dsSearch
-            dgvClientInformation.DataMember = "SearchResult"
+        End Select
+
+        Dim p As New SqlParameter("@searchstring", searchString)
+
+        If SQL <> "" Then
+            dgvClientInformation.DataSource = DB.GetDataTable(SQL, p)
 
             dgvClientInformation.RowHeadersVisible = False
             dgvClientInformation.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -151,229 +176,93 @@ Public Class SBEAPClientSearchTool
             dgvClientInformation.ColumnHeadersHeight = "35"
             dgvClientInformation.Columns("ClientID").HeaderText = "Customer ID"
             dgvClientInformation.Columns("ClientID").DisplayIndex = 0
-            dgvClientInformation.Columns("ClientID").Width = 60
             dgvClientInformation.Columns("strCompanyName").HeaderText = "Company Name"
             dgvClientInformation.Columns("strCompanyName").DisplayIndex = 1
-            dgvClientInformation.Columns("strCompanyName").Width = 300
+
+            dgvClientInformation.Columns("strCompanyAddress").HeaderText = "Street Address"
+            dgvClientInformation.Columns("strCompanyCity").HeaderText = "Street City"
+
             Select Case Source
-                Case "CompanyName"
-                    dgvClientInformation.Columns("strCompanyAddress").HeaderText = "Street Address"
-                    dgvClientInformation.Columns("strCompanyAddress").DisplayIndex = 2
-                    dgvClientInformation.Columns("strCompanyAddress").Width = 150
-                    dgvClientInformation.Columns("strCompanyCity").HeaderText = "Street City"
-                    dgvClientInformation.Columns("strCompanyCity").DisplayIndex = 3
-                    dgvClientInformation.Columns("strCompanyCity").Width = 100
-                Case "HistoricalCompanyName"
-                    dgvClientInformation.Columns("strCompanyAddress").HeaderText = "Street Address"
-                    dgvClientInformation.Columns("strCompanyAddress").DisplayIndex = 2
-                    dgvClientInformation.Columns("strCompanyAddress").Width = 150
-                    dgvClientInformation.Columns("strCompanyCity").HeaderText = "Street City"
-                    dgvClientInformation.Columns("strCompanyCity").DisplayIndex = 3
-                    dgvClientInformation.Columns("strCompanyCity").Width = 100
-                Case "StreetAddress"
-                    dgvClientInformation.Columns("strCompanyAddress").HeaderText = "Street Address"
-                    dgvClientInformation.Columns("strCompanyAddress").DisplayIndex = 2
-                    dgvClientInformation.Columns("strCompanyAddress").Width = 150
-                    dgvClientInformation.Columns("strCompanyCity").DisplayIndex = 3
-                    dgvClientInformation.Columns("strCompanyCity").Width = 100
-                Case "City"
-                    dgvClientInformation.Columns("strCompanyCity").HeaderText = "City"
-                    dgvClientInformation.Columns("strCompanyCity").DisplayIndex = 2
-                    dgvClientInformation.Columns("strCompanyCity").Width = 100
-                    dgvClientInformation.Columns("strCompanyAddress").HeaderText = "Street Address"
-                    dgvClientInformation.Columns("strCompanyAddress").DisplayIndex = 3
-                    dgvClientInformation.Columns("strCompanyAddress").Width = 150
                 Case "ZipCode"
                     dgvClientInformation.Columns("strCompanyZipCode").HeaderText = "Zip Code"
-                    dgvClientInformation.Columns("strCompanyZipCode").DisplayIndex = 2
-                    dgvClientInformation.Columns("strCompanyZipCode").Width = 75
-                    dgvClientInformation.Columns("strCompanyAddress").HeaderText = "Street Address"
-                    dgvClientInformation.Columns("strCompanyAddress").DisplayIndex = 3
-                    dgvClientInformation.Columns("strCompanyAddress").Width = 150
-                    dgvClientInformation.Columns("strCompanyCity").HeaderText = "Street City"
-                    dgvClientInformation.Columns("strCompanyCity").DisplayIndex = 4
-                    dgvClientInformation.Columns("strCompanyCity").Width = 100
                 Case "County"
                     dgvClientInformation.Columns("strCountyName").HeaderText = "County"
-                    dgvClientInformation.Columns("strCountyName").DisplayIndex = 2
-                    dgvClientInformation.Columns("strCountyName").Width = 300
-                    dgvClientInformation.Columns("strCompanyAddress").HeaderText = "Street Address"
-                    dgvClientInformation.Columns("strCompanyAddress").DisplayIndex = 3
-                    dgvClientInformation.Columns("strCompanyAddress").Width = 150
-                    dgvClientInformation.Columns("strCompanyCity").HeaderText = "Street City"
-                    dgvClientInformation.Columns("strCompanyCity").DisplayIndex = 4
-                    dgvClientInformation.Columns("strCompanyCity").Width = 100
                 Case "SIC"
                     dgvClientInformation.Columns("strClientSIC").HeaderText = "SIC"
-                    dgvClientInformation.Columns("strClientSIC").DisplayIndex = 2
-                    dgvClientInformation.Columns("strClientSIC").Width = 100
-                    dgvClientInformation.Columns("strCompanyAddress").HeaderText = "Street Address"
-                    dgvClientInformation.Columns("strCompanyAddress").DisplayIndex = 3
-                    dgvClientInformation.Columns("strCompanyAddress").Width = 150
-                    dgvClientInformation.Columns("strCompanyCity").HeaderText = "Street City"
-                    dgvClientInformation.Columns("strCompanyCity").DisplayIndex = 4
-                    dgvClientInformation.Columns("strCompanyCity").Width = 100
                 Case "NAICS"
                     dgvClientInformation.Columns("strClientNAICS").HeaderText = "NAICS"
-                    dgvClientInformation.Columns("strClientNAICS").DisplayIndex = 2
-                    dgvClientInformation.Columns("strClientNAICS").Width = 100
-                    dgvClientInformation.Columns("strCompanyAddress").HeaderText = "Street Address"
-                    dgvClientInformation.Columns("strCompanyAddress").DisplayIndex = 3
-                    dgvClientInformation.Columns("strCompanyAddress").Width = 150
-                    dgvClientInformation.Columns("strCompanyCity").HeaderText = "Street City"
-                    dgvClientInformation.Columns("strCompanyCity").DisplayIndex = 4
-                    dgvClientInformation.Columns("strCompanyCity").Width = 100
                 Case "AIRSNumber"
                     dgvClientInformation.Columns("strAIRSNumber").HeaderText = "AIRS Number"
-                    dgvClientInformation.Columns("strAIRSNumber").DisplayIndex = 2
-                    dgvClientInformation.Columns("strAIRSNumber").Width = 100
-                    dgvClientInformation.Columns("strCompanyAddress").HeaderText = "Street Address"
-                    dgvClientInformation.Columns("strCompanyAddress").DisplayIndex = 3
-                    dgvClientInformation.Columns("strCompanyAddress").Width = 150
-                    dgvClientInformation.Columns("strCompanyCity").HeaderText = "Street City"
-                    dgvClientInformation.Columns("strCompanyCity").DisplayIndex = 4
-                    dgvClientInformation.Columns("strCompanyCity").Width = 100
                 Case "EmployeeLess"
                     dgvClientInformation.Columns("strClientEmployees").HeaderText = "# of Employees"
-                    dgvClientInformation.Columns("strClientEmployees").DisplayIndex = 2
-                    dgvClientInformation.Columns("strClientEmployees").Width = 100
-                    dgvClientInformation.Columns("strCompanyAddress").HeaderText = "Street Address"
-                    dgvClientInformation.Columns("strCompanyAddress").DisplayIndex = 3
-                    dgvClientInformation.Columns("strCompanyAddress").Width = 150
-                    dgvClientInformation.Columns("strCompanyCity").HeaderText = "Street City"
-                    dgvClientInformation.Columns("strCompanyCity").DisplayIndex = 4
-                    dgvClientInformation.Columns("strCompanyCity").Width = 100
                 Case "EmployeeGreater"
                     dgvClientInformation.Columns("strClientEmployees").HeaderText = "# of Employees"
-                    dgvClientInformation.Columns("strClientEmployees").DisplayIndex = 2
-                    dgvClientInformation.Columns("strClientEmployees").Width = 100
-                    dgvClientInformation.Columns("strCompanyAddress").HeaderText = "Street Address"
-                    dgvClientInformation.Columns("strCompanyAddress").DisplayIndex = 3
-                    dgvClientInformation.Columns("strCompanyAddress").Width = 150
-                    dgvClientInformation.Columns("strCompanyCity").HeaderText = "Street City"
-                    dgvClientInformation.Columns("strCompanyCity").DisplayIndex = 4
-                    dgvClientInformation.Columns("strCompanyCity").Width = 100
-                Case Else
-
             End Select
 
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
+            dgvClientInformation.SanelyResizeColumns
+        End If
     End Sub
+
+#End Region
 
 #Region " Search buttons "
 
     Private Sub btnSearchCompanyName_Click(sender As Object, e As EventArgs) Handles btnSearchCompanyName.Click
-        Try
-            If chbSearchHistoricalNames.Checked = False Then
-                ClientSearch("CompanyName")
-            Else
-                ClientSearch("HistoricalCompanyName")
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
+        If chbSearchHistoricalNames.Checked = False Then
+            ClientSearch("CompanyName")
+        Else
+            ClientSearch("HistoricalCompanyName")
+        End If
     End Sub
+
     Private Sub btnSearchStreet_Click(sender As Object, e As EventArgs) Handles btnSearchStreet.Click
-        Try
-            ClientSearch("StreetAddress")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
+        ClientSearch("StreetAddress")
     End Sub
+
     Private Sub btnSearchCity_Click(sender As Object, e As EventArgs) Handles btnSearchCity.Click
-        Try
-            ClientSearch("City")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
+        ClientSearch("City")
     End Sub
+
     Private Sub btnSearchZipCode_Click(sender As Object, e As EventArgs) Handles btnSearchZipCode.Click
-        Try
-            ClientSearch("ZipCode")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
+        ClientSearch("ZipCode")
     End Sub
+
     Private Sub btnSearchCounty_Click(sender As Object, e As EventArgs) Handles btnSearchCounty.Click
-        Try
-            ClientSearch("County")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
+        ClientSearch("County")
     End Sub
+
     Private Sub btnSearchSIC_Click(sender As Object, e As EventArgs) Handles btnSearchSIC.Click
-        Try
-            ClientSearch("SIC")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
+        ClientSearch("SIC")
     End Sub
+
     Private Sub btnSearchNAICS_Click(sender As Object, e As EventArgs) Handles btnSearchNAICS.Click
-        Try
-            ClientSearch("NAICS")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
+        ClientSearch("NAICS")
     End Sub
+
     Private Sub btnSearchAIRSNumber_Click(sender As Object, e As EventArgs) Handles btnSearchAIRSNumber.Click
-        Try
-            ClientSearch("AIRSNumber")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
+        ClientSearch("AIRSNumber")
     End Sub
+
     Private Sub btnSearchNumberOfEmployees_Click(sender As Object, e As EventArgs) Handles btnSearchNumberOfEmployees.Click
-        Try
-            If rdbEmployeeLessThan.Checked = True Then
+        If IsNumeric(mtbSearchNumberOfEmployees.Text) Then
+            If rdbEmployeeLessThan.Checked Then
                 ClientSearch("EmployeeLess")
             Else
                 ClientSearch("EmployeeGreater")
             End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
+        End If
     End Sub
-
-#End Region
 
 #End Region
 
 #Region " Results DataGridView "
 
-    Private Sub dgvClientInformation_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvClientInformation.MouseUp
-        Dim hti As DataGridView.HitTestInfo = dgvClientInformation.HitTest(e.X, e.Y)
-
-        Try
-            If dgvClientInformation.RowCount > 0 And hti.RowIndex <> -1 Then
-                txtClientID.Text = dgvClientInformation(0, hti.RowIndex).FormattedValue
-                txtClientCompanyName.Text = dgvClientInformation(1, hti.RowIndex).FormattedValue
-                UseSelection.Enabled = True
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+    Private Sub dgvClientInformation_CellEnter(sender As Object, e As DataGridViewCellEventArgs) Handles dgvClientInformation.CellEnter
+        If e.RowIndex <> -1 AndAlso e.RowIndex < dgvClientInformation.RowCount Then
+            txtClientID.Text = dgvClientInformation(0, e.RowIndex).FormattedValue
+            txtClientCompanyName.Text = dgvClientInformation(1, e.RowIndex).FormattedValue
+            UseSelection.Enabled = True
+        End If
     End Sub
 
 #End Region
@@ -389,6 +278,7 @@ Public Class SBEAPClientSearchTool
         txtSearchSIC.Clear()
         txtSearchStreet.Clear()
         txtSearchZipCode.Clear()
+        mtbSearchNumberOfEmployees.Clear()
         chbSearchHistoricalNames.Checked = False
         UseSelection.Enabled = False
         dgvClientInformation.DataSource = Nothing
