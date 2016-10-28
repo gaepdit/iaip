@@ -1,16 +1,8 @@
 Imports System.Data.SqlClient
 
 Public Class SBEAPClientSummary
-    Dim SQL As String
-    Dim dsCounty As DataSet
-    Dim daCounty As SqlDataAdapter
-    Dim dsContact As DataSet
-    Dim daContact As SqlDataAdapter
-    Dim dsCaseLogGrid As DataSet
-    Dim daCaseLogGrid As SqlDataAdapter
-    Dim recExist As Boolean
-    Dim dr As SqlDataReader
-    Dim cmd As SqlCommand
+
+#Region " Properties "
 
     Public WriteOnly Property ValueFromClientLookUp() As String
         Set(Value As String)
@@ -18,91 +10,60 @@ Public Class SBEAPClientSummary
         End Set
     End Property
 
+    Private dtCounty As DataTable
+    Private query As String
+
+#End Region
+
+#Region " Page Load "
+
     Private Sub SBEAPClientMaintenance_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
-        Try
-            ClientSummary = Nothing
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        ClientSummary = Nothing
     End Sub
 
-    Private Sub SBEAPClientMaintenance_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
-        Try
-            pnl1.Text = "Client Summary"
-            pnl2.Text = CurrentUser.AlphaName
-            pnl3.Text = TodayFormatted
-
-            LoadDataSets()
-            LoadComboBoxes()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+    Private Sub SBEAPClientMaintenance_Load(sender As Object, e As EventArgs) Handles Me.Load
+        LoadDataSets()
+        LoadComboBoxes()
     End Sub
 
-#Region "Page Load"
-    Sub LoadDataSets()
+    Private Sub LoadDataSets()
         Try
-            SQL = "Select " &
+            Dim SQL As String = "Select " &
+                "' ' as CountyName, ' ' as strCountyCode, '' as strDistrictCode, '' as strDistrictName " &
+                "union select " &
             "Distinct(LookUpCountyInformation.strCountyName) as CountyName, " &
             "LookUpCountyInformation.strCountyCode, " &
             "LookUpDistrictinformation.strDistrictCode, " &
             "strDistrictName  " &
-            "from LookUpCountyInformation, LookUpDistrictInformation, " &
-            "LookUpDistricts  " &
-            "where LookUpCountyInformation.strCountyCode = LookUpDistrictinformation.strDistrictCounty " &
-            "and LookUpDistrictInformation.strDistrictCode = LookUpDistricts.strDistrictCode " &
+            "from LookUpCountyInformation " &
+            "inner join LookUpDistrictInformation " &
+            "on LookUpCountyInformation.strCountyCode = LookUpDistrictinformation.strDistrictCounty " &
+            "inner join LookUpDistricts " &
+            "on LookUpDistrictInformation.strDistrictCode = LookUpDistricts.strDistrictCode " &
             "order by CountyName "
 
-            dsCounty = New DataSet
-            daCounty = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daCounty.Fill(dsCounty, "CountyData")
-
+            dtCounty = DB.GetDataTable(SQL)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub LoadComboBoxes()
+
+    Private Sub LoadComboBoxes()
         Try
-            Dim dtCounty As New DataTable
-            Dim drDSRow As DataRow
-            Dim drNewRow As DataRow
-
-            dtCounty.Columns.Add("CountyName", GetType(System.String))
-            dtCounty.Columns.Add("strCountyCode", GetType(System.String))
-
-            drNewRow = dtCounty.NewRow()
-            drNewRow("CountyName") = " "
-            drNewRow("strCountyCode") = " "
-            dtCounty.Rows.Add(drNewRow)
-
-            For Each drDSRow In dsCounty.Tables("CountyData").Rows()
-                drNewRow = dtCounty.NewRow
-                drNewRow("CountyName") = drDSRow("CountyName")
-                drNewRow("strCountyCode") = drDSRow("strCountyCode")
-                dtCounty.Rows.Add(drNewRow)
-            Next
-
             With cboCounty
                 .DataSource = dtCounty
                 .DisplayMember = "CountyName"
                 .ValueMember = "strCountyCode"
                 .SelectedValue = 0
             End With
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
 #End Region
-#Region "Subs and Functions"
-    Sub LoadClientData()
+
+    Public Sub LoadClientData()
         Try
             Dim CompanyName As String = ""
             Dim StartDate As String = ""
@@ -142,18 +103,8 @@ Public Class SBEAPClientSummary
             Dim ISMPUnit As String = ""
             Dim AirDescription As String = ""
 
-            SQL = "Select ClientId " &
-            "from SBEAPClients " &
-            "where ClientID = '" & txtClientID.Text & "' "
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            recExist = dr.Read
-            dr.Close()
-            If recExist = True Then
-                SQL = "select  " &
+            If DAL.Sbeap.ClientExists(txtClientID.Text) Then
+                query = "select  " &
                 "strCompanyName, datStartDate,  " &
                 "strCompanyAddress, strCompanyAddress2,  " &
                 "strCompanyCity, strCompanyState,  " &
@@ -162,25 +113,24 @@ Public Class SBEAPClientSummary
                 "strMailingAddress, strMailingAddress2,  " &
                 "strMailingCity, strMailingState,  " &
                 "strMailingZipCode,  " &
-                "(select (strLastName||', '||strFirstName) as Creator  " &
-                "from SBEAPClients, EPDUserProfiles  " &
-                "where SBEAPClients.strCompanyCreator = EPDUserProfiles.numUserID  " &
-                "and clientid = '" & txtClientID.Text & "') as Creator, " &
-                "to_char(datCompanyCreated, 'dd-Mon-yyyy') as datCompanyCreated,  " &
-                "(select (strLastName||', '||strFirstName) as Modifier " &
-                "from SBEAPClients, EPDUserProfiles  " &
-                "where SBEAPClients.strModifingPerson = EPDUserProfiles.numUserID  " &
-                "and clientid = '" & txtClientID.Text & "') as Modifier,  " &
-                "to_char(datModifingDate, 'dd-Mon-yyyy') as datModifingDate " &
+                "(select concat(strLastName,', ',strFirstName) as Creator  " &
+                "from SBEAPClients inner join EPDUserProfiles  " &
+                "on SBEAPClients.strCompanyCreator = EPDUserProfiles.numUserID  " &
+                "where clientid = @clientid) as Creator, " &
+                "format(datCompanyCreated, 'MMMM d, yyyy') as datCompanyCreated,  " &
+                "(select concat(strLastName,', ',strFirstName) as Modifier " &
+                "from SBEAPClients inner join EPDUserProfiles  " &
+                "on SBEAPClients.strModifingPerson = EPDUserProfiles.numUserID  " &
+                "where clientid = @clientid ) as Modifier,  " &
+                "format(datModifingDate , 'MMMM d, yyyy') as datModifingDate " &
                 "from SBEAPClients  " &
-                "where ClientID = '" & txtClientID.Text & "' "
+                "where ClientID = @clientid "
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                While dr.Read
+                Dim p As New SqlParameter("@clientid", txtClientID.Text)
+
+                Dim dr As DataRow = DB.GetDataRow(query, p)
+
+                If dr IsNot Nothing Then
                     If IsDBNull(dr.Item("strCompanyname")) Then
                         CompanyName = ""
                     Else
@@ -276,10 +226,9 @@ Public Class SBEAPClientSummary
                     Else
                         ModifingDate = dr.Item("datModifingDate")
                     End If
-                End While
-                dr.Close()
+                End If
 
-                SQL = "Select " &
+                query = "Select " &
                 "strClientDescription, strClientWEbSite, " &
                 "strClientSIC, SIC_DESC as strSICDesc, " &
                 "strClientNAICS, " &
@@ -289,103 +238,99 @@ Public Class SBEAPClientSummary
                 "strSSCPUnit, strSSPPEngineer, " &
                 "strSSPPUnit, strISMPEngineer, " &
                 "strISMPUnit, strAirDescription " &
-                "from SBEAPClientData, LK_SIC " &
-                "where SBEAPClientData.strClientSIC = LK_SIC.SIC_CODE (+) " &
-                "and ClientID = '" & txtClientID.Text & "' "
+                "from SBEAPClientData left join LK_SIC " &
+                "on SBEAPClientData.strClientSIC = LK_SIC.SIC_CODE " &
+                "where ClientID = @clientid "
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                While dr.Read
-                    If IsDBNull(dr.Item("strClientDescription")) Then
+                Dim dr2 As DataRow = DB.GetDataRow(query, p)
+
+                If dr2 IsNot Nothing Then
+                    If IsDBNull(dr2.Item("strClientDescription")) Then
                         Description = ""
                     Else
-                        Description = dr.Item("strClientDescription")
+                        Description = dr2.Item("strClientDescription")
                     End If
-                    If IsDBNull(dr.Item("strClientWEbSite")) Then
+                    If IsDBNull(dr2.Item("strClientWEbSite")) Then
                         WebSite = ""
                     Else
-                        WebSite = dr.Item("strClientWEbSite")
+                        WebSite = dr2.Item("strClientWEbSite")
                     End If
-                    If IsDBNull(dr.Item("strClientSIC")) Then
+                    If IsDBNull(dr2.Item("strClientSIC")) Then
                         SIC = ""
                     Else
-                        SIC = dr.Item("strClientSIC")
+                        SIC = dr2.Item("strClientSIC")
                     End If
-                    If IsDBNull(dr.Item("strSICDesc")) Then
+                    If IsDBNull(dr2.Item("strSICDesc")) Then
                         SICDesc = ""
                     Else
-                        SICDesc = "Description: " & dr.Item("strSICDesc")
+                        SICDesc = "Description: " & dr2.Item("strSICDesc")
                     End If
-                    If IsDBNull(dr.Item("strClientNAICS")) Then
+                    If IsDBNull(dr2.Item("strClientNAICS")) Then
                         NAICS = ""
                     Else
-                        NAICS = dr.Item("strClientNAICS")
+                        NAICS = dr2.Item("strClientNAICS")
                     End If
-                    If IsDBNull(dr.Item("strClientEmployees")) Then
+                    If IsDBNull(dr2.Item("strClientEmployees")) Then
                         Employees = ""
                     Else
-                        Employees = dr.Item("strClientEmployees")
+                        Employees = dr2.Item("strClientEmployees")
                     End If
-                    If IsDBNull(dr.Item("strAIRSNumber")) Then
+                    If IsDBNull(dr2.Item("strAIRSNumber")) Then
                         AIRSNumber = ""
                     Else
-                        AIRSNumber = dr.Item("strAIRSNumber")
+                        AIRSNumber = dr2.Item("strAIRSNumber")
                     End If
-                    If IsDBNull(dr.Item("strAIRProgramCodes")) Then
+                    If IsDBNull(dr2.Item("strAIRProgramCodes")) Then
                         AirProgramCode = ""
                     Else
-                        AirProgramCode = dr.Item("strAIRProgramCodes")
+                        AirProgramCode = dr2.Item("strAIRProgramCodes")
                     End If
-                    If IsDBNull(dr.Item("strStateProgramCodes")) Then
+                    If IsDBNull(dr2.Item("strStateProgramCodes")) Then
                         StateProgram = ""
                     Else
-                        StateProgram = dr.Item("strStateProgramCodes")
+                        StateProgram = dr2.Item("strStateProgramCodes")
                     End If
-                    If IsDBNull(dr.Item("strAirPermitNumber")) Then
+                    If IsDBNull(dr2.Item("strAirPermitNumber")) Then
                         AirPermit = ""
                     Else
-                        AirPermit = dr.Item("strAirPermitNumber")
+                        AirPermit = dr2.Item("strAirPermitNumber")
                     End If
-                    If IsDBNull(dr.Item("strSSCPEngineer")) Then
+                    If IsDBNull(dr2.Item("strSSCPEngineer")) Then
                         SSCPEngineer = ""
                     Else
-                        SSCPEngineer = dr.Item("strSSCPEngineer")
+                        SSCPEngineer = dr2.Item("strSSCPEngineer")
                     End If
-                    If IsDBNull(dr.Item("strSSCPUnit")) Then
+                    If IsDBNull(dr2.Item("strSSCPUnit")) Then
                         SSCPUnit = ""
                     Else
-                        SSCPUnit = dr.Item("strSSCPUnit")
+                        SSCPUnit = dr2.Item("strSSCPUnit")
                     End If
-                    If IsDBNull(dr.Item("strSSPPEngineer")) Then
+                    If IsDBNull(dr2.Item("strSSPPEngineer")) Then
                         SSPPEngineer = ""
                     Else
-                        SSPPEngineer = dr.Item("strSSPPEngineer")
+                        SSPPEngineer = dr2.Item("strSSPPEngineer")
                     End If
-                    If IsDBNull(dr.Item("strSSPPUnit")) Then
+                    If IsDBNull(dr2.Item("strSSPPUnit")) Then
                         SSPPUnit = ""
                     Else
-                        SSPPUnit = dr.Item("strSSPPUnit")
+                        SSPPUnit = dr2.Item("strSSPPUnit")
                     End If
-                    If IsDBNull(dr.Item("strISMPEngineer")) Then
+                    If IsDBNull(dr2.Item("strISMPEngineer")) Then
                         ISMPEngineer = ""
                     Else
-                        ISMPEngineer = dr.Item("strISMPEngineer")
+                        ISMPEngineer = dr2.Item("strISMPEngineer")
                     End If
-                    If IsDBNull(dr.Item("strISMPUnit")) Then
+                    If IsDBNull(dr2.Item("strISMPUnit")) Then
                         ISMPUnit = ""
                     Else
-                        ISMPUnit = dr.Item("strISMPUnit")
+                        ISMPUnit = dr2.Item("strISMPUnit")
                     End If
-                    If IsDBNull(dr.Item("strAirDescription")) Then
+                    If IsDBNull(dr2.Item("strAirDescription")) Then
                         AirDescription = ""
                     Else
-                        AirDescription = dr.Item("strAirDescription")
+                        AirDescription = dr2.Item("strAirDescription")
                     End If
-                End While
-                dr.Close()
+                End If
             Else
 
             End If
@@ -529,11 +474,10 @@ Public Class SBEAPClientSummary
             ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub LoadContactData()
-        Try
-            dsContact = New DataSet
 
-            SQL = "select " &
+    Private Sub LoadContactData()
+        Try
+            query = "select " &
             "SBEAPClientContacts.ClientContactID, " &
             "strClientFirstName, strClientLastName, " &
             "strclientSalutation, strClientCredentials, " &
@@ -543,18 +487,14 @@ Public Class SBEAPClientSummary
             "strClientAddress, strClientCity, " &
             "strClientState, strClientZipCode, " &
             "strContactNotes " &
-            "from SBEAPClientContacts, " &
+            "from SBEAPClientContacts inner join " &
             "SBEAPClientLink " &
-            "where SBEAPClientContacts.ClientContactID = SBEAPClientLink.ClientContactID " &
-            "and ClientID = '" & txtClientID.Text & "' "
+            "on SBEAPClientContacts.ClientContactID = SBEAPClientLink.ClientContactID " &
+            "where ClientID = @clientid "
 
-            daContact = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daContact.Fill(dsContact, "ContactList")
-            dgvContactInformation.DataSource = dsContact
-            dgvContactInformation.DataMember = "ContactList"
+            Dim p As New SqlParameter("@clientid", txtClientID.Text)
+
+            dgvContactInformation.DataSource = DB.GetDataTable(query, p)
 
             dgvContactInformation.RowHeadersVisible = False
             dgvContactInformation.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -598,220 +538,13 @@ Public Class SBEAPClientSummary
             dgvContactInformation.Columns("strContactNotes").HeaderText = "Notes"
             dgvContactInformation.Columns("strContactNotes").DisplayIndex = 14
 
+            dgvContactInformation.SanelyResizeColumns
         Catch ex As Exception
             ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub SaveContactData()
-        Try
-            Dim Firstname As String = ""
-            Dim LastName As String = ""
-            Dim Salutation As String = ""
-            Dim Credentials As String = ""
-            Dim Title As String = ""
-            Dim PhoneNumber As String = ""
-            Dim CellPhone As String = ""
-            Dim Fax As String = ""
-            Dim email As String = ""
-            Dim Address As String = ""
-            Dim City As String = ""
-            Dim State As String = ""
-            Dim ZipCode As String = ""
-            Dim MainContact As String = ""
 
-            If txtFirstName.Text <> "" Then
-                Firstname = txtFirstName.Text
-            Else
-                Firstname = ""
-            End If
-            If txtLastName.Text <> "" Then
-                LastName = txtLastName.Text
-            Else
-                LastName = ""
-            End If
-            If txtSalutation.Text <> "" Then
-                Salutation = txtSalutation.Text
-            Else
-                Salutation = ""
-            End If
-            If txtCredentials.Text <> "" Then
-                Credentials = txtCredentials.Text
-            Else
-                Credentials = ""
-            End If
-            If txtTitle.Text <> "" Then
-                Title = txtTitle.Text
-            Else
-                Title = ""
-            End If
-            If mtbPhoneNumber.Text <> "" Then
-                PhoneNumber = mtbPhoneNumber.Text
-            Else
-                PhoneNumber = ""
-            End If
-            If mtbCellPhone.Text <> "" Then
-                CellPhone = mtbCellPhone.Text
-            Else
-                CellPhone = ""
-            End If
-            If mtbFaxNumber.Text <> "" Then
-                Fax = mtbFaxNumber.Text
-            Else
-                Fax = ""
-            End If
-            If txtEmail.Text <> "" Then
-                email = txtEmail.Text
-            Else
-                email = ""
-            End If
-            If txtContactAddress.Text <> "" Then
-                Address = txtContactAddress.Text
-            Else
-                Address = ""
-            End If
-            If txtContactCity.Text <> "" Then
-                City = txtContactCity.Text
-            Else
-                City = ""
-            End If
-            If txtContactState.Text <> "" Then
-                State = txtContactState.Text
-            Else
-                State = ""
-            End If
-            If mtbContactZipCode.Text <> "" Then
-                ZipCode = mtbContactZipCode.Text
-            Else
-                ZipCode = ""
-            End If
-            If Me.chbMainClientContact.Checked = True Then
-                MainContact = "True"
-            Else
-                MainContact = "False"
-            End If
-
-            If txtContactID.Text = "" Then
-                SQL = "Insert into SBEAPClientContacts " &
-                "values " &
-                "((select (max(ClientContactID)+1) from SBEAPClientContacts), " &
-                "'" & Replace(Firstname, "'", "''") & "', " &
-                "'" & Replace(LastName, "'", "''") & "', " &
-                "'" & Replace(Salutation, "'", "''") & "', " &
-                "'" & Replace(Credentials, "'", "''") & "', " &
-                "'" & Replace(Title, "'", "''") & "', " &
-                "'" & Replace(PhoneNumber, "'", "''") & "', " &
-                "'" & Replace(CellPhone, "'", "''") & "', " &
-                "'" & Replace(Fax, "'", "''") & "', " &
-                "'" & Replace(email, "'", "''") & "', " &
-                "'" & Replace(Address, "'", "''") & "', " &
-                "'" & Replace(City, "'", "''") & "', " &
-                "'" & Replace(State, "'", "''") & "', " &
-                "'" & Replace(ZipCode, "'", "''") & "', " &
-                "'" & CurrentUser.UserID & "', " &
-                "GETDATE(), '" & CurrentUser.UserID & "', " &
-                "GETDATE()) "
-
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                dr.Close()
-
-                SQL = "Select max(ClientContactID) as ClientID " &
-                "from SBEAPClientContacts "
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                While dr.Read
-                    txtContactID.Text = dr.Item("ClientID")
-                End While
-                dr.Close()
-
-                txtContactCreationInfo.Text = CurrentUser.AlphaName & " - " & TodayFormatted
-            Else
-                SQL = "Update SBEAPClientContacts set " &
-                "strClientFirstName = '" & Replace(Firstname, "'", "''") & "', " &
-                "strClientLastName = '" & Replace(LastName, "'", "''") & "', " &
-                "strClientSalutation = '" & Replace(Salutation, "'", "''") & "', " &
-                "strClientCredentials = '" & Replace(Credentials, "'", "''") & "', " &
-                "strClientTitle = '" & Replace(Title, "'", "''") & "', " &
-                "strClientPhoneNumber = '" & Replace(PhoneNumber, "'", "''") & "', " &
-                "strClientCellPhone = '" & Replace(CellPhone, "'", "''") & "', " &
-                "strClientFax = '" & Replace(Fax, "'", "''") & "', " &
-                "strClientEmail = '" & Replace(email, "'", "''") & "', " &
-                "strClientAddress = '" & Replace(Address, "'", "''") & "', " &
-                "strClientCity = '" & Replace(City, "'", "''") & "', " &
-                "strClientState = '" & Replace(State, "'", "''") & "', " &
-                "strClientZipCode = '" & Replace(ZipCode, "'", "''") & "', " &
-                "strModifingPerson = '" & CurrentUser.UserID & "', " &
-                "datModifingDate = GETDATE() " &
-                "where ClientContactID = '" & txtContactID.Text & "' "
-
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                dr.Close()
-            End If
-
-            txtContactLastModified.Text = CurrentUser.AlphaName & " - " & TodayFormatted
-
-            SQL = "Select " &
-            "ClientID " &
-            "from SBEAPClientLink " &
-            "where clientID = '" & txtClientID.Text & "' " &
-            "and ClientContactID = '" & txtContactID.Text & "' "
-
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            recExist = dr.Read
-            dr.Close()
-            If recExist = False Then
-                SQL = "Insert into SBEAPClientLink " &
-                "values " &
-                "('" & txtClientID.Text & "', '" & txtContactID.Text & "', " &
-                "'" & MainContact & "') "
-            Else
-                SQL = "Update SBEAPClientLink set " &
-                "strMainContact = 'False' " &
-                "where ClientID = '" & txtClientID.Text & "' " &
-                "and ClientContactID = '" & txtContactID.Text & "' "
-
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                dr.Close()
-
-                SQL = "Update SBEAPClientLink set " &
-                "ClientID = '" & txtClientID.Text & "', " &
-                "ClientContactID = '" & txtContactID.Text & "', " &
-                "strMainContact  = '" & MainContact & "' " &
-                "where ClientID = '" & txtClientID.Text & "' " &
-                "and ClientContactID = '" & txtContactID.Text & "' "
-            End If
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
-
-            LoadContactData()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Sub AddNewContactData()
+    Private Sub AddNewContactData()
         Try
             Dim Firstname As String = ""
             Dim LastName As String = ""
@@ -905,92 +638,78 @@ Public Class SBEAPClientSummary
                 ContactNotes = ""
             End If
 
-            SQL = "Insert into SBEAPClientContacts " &
-                "values " &
-                "((select (max(ClientContactID)+1) from SBEAPClientContacts), " &
-                "'" & Replace(Firstname, "'", "''") & "', " &
-                "'" & Replace(LastName, "'", "''") & "', " &
-                "'" & Replace(Salutation, "'", "''") & "', " &
-                "'" & Replace(Credentials, "'", "''") & "', " &
-                "'" & Replace(Title, "'", "''") & "', " &
-                "'" & Replace(PhoneNumber, "'", "''") & "', " &
-                "'" & Replace(CellPhone, "'", "''") & "', " &
-                "'" & Replace(Fax, "'", "''") & "', " &
-                "'" & Replace(email, "'", "''") & "', " &
-                "'" & Replace(Address, "'", "''") & "', " &
-                "'" & Replace(City, "'", "''") & "', " &
-                "'" & Replace(State, "'", "''") & "', " &
-                "'" & Replace(ZipCode, "'", "''") & "', " &
-                "'" & CurrentUser.UserID & "', " &
-                "GETDATE(), '" & CurrentUser.UserID & "', " &
-                "GETDATE(), '" & Replace(ContactNotes, "'", "''") & "') "
+            query = "Insert into SBEAPClientContacts " &
+                    "(CLIENTCONTACTID, STRCLIENTFIRSTNAME, STRCLIENTLASTNAME, STRCLIENTSALUTATION, 
+                    STRCLIENTCREDENTIALS, STRCLIENTTITLE, STRCLIENTPHONENUMBER, STRCLIENTCELLPHONE, 
+                    STRCLIENTFAX, STRCLIENTEMAIL, STRCLIENTADDRESS, STRCLIENTCITY, STRCLIENTSTATE, 
+                    STRCLIENTZIPCODE, STRCLIENTCREATOR, DATCLIENTCREATED, STRMODIFINGPERSON, 
+                    getdate(), STRCONTACTNOTES) " &
+                    "values " &
+                    "((select (max(ClientContactID)+1) from SBEAPClientContacts), 
+                    @STRCLIENTFIRSTNAME, @STRCLIENTLASTNAME, @STRCLIENTSALUTATION, 
+                    @STRCLIENTCREDENTIALS, @STRCLIENTTITLE, @STRCLIENTPHONENUMBER, @STRCLIENTCELLPHONE, 
+                    @STRCLIENTFAX, @STRCLIENTEMAIL, @STRCLIENTADDRESS, @STRCLIENTCITY, @STRCLIENTSTATE, 
+                    @STRCLIENTZIPCODE, @STRCLIENTCREATOR, getdate(), @STRMODIFINGPERSON, 
+                    getdate(), @STRCONTACTNOTES) "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
+            Dim p As SqlParameter() = {
+                    New SqlParameter("@STRCLIENTFIRSTNAME", Firstname),
+                    New SqlParameter("@STRCLIENTLASTNAME", LastName),
+                    New SqlParameter("@STRCLIENTSALUTATION", Salutation),
+                    New SqlParameter("@STRCLIENTCREDENTIALS", Credentials),
+                    New SqlParameter("@STRCLIENTTITLE", Title),
+                    New SqlParameter("@STRCLIENTPHONENUMBER", PhoneNumber),
+                    New SqlParameter("@STRCLIENTCELLPHONE", CellPhone),
+                    New SqlParameter("@STRCLIENTFAX", Fax),
+                    New SqlParameter("@STRCLIENTEMAIL", email),
+                    New SqlParameter("@STRCLIENTADDRESS", Address),
+                    New SqlParameter("@STRCLIENTCITY", City),
+                    New SqlParameter("@STRCLIENTSTATE", State),
+                    New SqlParameter("@STRCLIENTZIPCODE", ZipCode),
+                    New SqlParameter("@STRCLIENTCREATOR", CurrentUser.UserID),
+                    New SqlParameter("@STRMODIFINGPERSON", CurrentUser.UserID),
+                    New SqlParameter("@STRCONTACTNOTES", ContactNotes)
+                }
 
-            SQL = "Select max(ClientContactID) as ClientID " &
-            "from SBEAPClientContacts "
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                txtContactID.Text = dr.Item("ClientID")
-            End While
-            dr.Close()
+            DB.RunCommand(query, p)
+
+            query = "Select max(ClientContactID) as ClientID " &
+                    "from SBEAPClientContacts "
+            txtContactID.Text = DB.GetSingleValue(Of String)(query)
 
             txtContactCreationInfo.Text = CurrentUser.AlphaName & " - " & TodayFormatted
             txtContactLastModified.Text = CurrentUser.AlphaName & " - " & TodayFormatted
 
-            SQL = "Select " &
+            query = "Select " &
             "ClientID " &
             "from SBEAPClientLink " &
-            "where clientID = '" & txtClientID.Text & "' " &
-            "and ClientContactID = '" & txtContactID.Text & "' "
+            "where clientID = @clientid " &
+            "and ClientContactID = @contactid "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            recExist = dr.Read
-            dr.Close()
-            If recExist = False Then
-                SQL = "Insert into SBEAPClientLink " &
-                "values " &
-                "('" & txtClientID.Text & "', '" & txtContactID.Text & "', " &
-                "'" & MainContact & "') "
+            Dim p2 As SqlParameter() = {
+                New SqlParameter("@clientid", txtClientID.Text),
+                New SqlParameter("@contactid", txtContactID.Text)
+            }
+
+            If Not DB.GetBoolean(query, p2) Then
+                query = "Insert into SBEAPClientLink " &
+                    "(CLIENTID, CLIENTCONTACTID, STRMAINCONTACT) " &
+                    "values " &
+                    "(@CLIENTID, @CLIENTCONTACTID, @STRMAINCONTACT) "
             Else
-                SQL = "Update SBEAPClientLink set " &
-                "strMainContact = 'False' " &
-                "where ClientID = '" & txtClientID.Text & "' " &
-                "and ClientContactID = '" & txtContactID.Text & "' "
-
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                dr.Close()
-
-                SQL = "Update SBEAPClientLink set " &
-                "ClientID = '" & txtClientID.Text & "', " &
-                "ClientContactID = '" & txtContactID.Text & "', " &
-                "strMainContact  = '" & MainContact & "' " &
-                "where ClientID = '" & txtClientID.Text & "' " &
-                "and ClientContactID = '" & txtContactID.Text & "' "
+                query = "Update SBEAPClientLink set " &
+                    "strMainContact = @STRMAINCONTACT " &
+                    "where ClientID = @CLIENTID " &
+                    "and ClientContactID = @CLIENTCONTACTID "
             End If
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
+
+            Dim p3 As SqlParameter() = {
+                New SqlParameter("@CLIENTID", txtClientID.Text),
+                New SqlParameter("@CLIENTCONTACTID", txtContactID.Text),
+                New SqlParameter("@STRMAINCONTACT", MainContact)
+            }
+
+            DB.RunCommand(query, p3)
 
             LoadContactData()
             ClearContactData()
@@ -999,7 +718,8 @@ Public Class SBEAPClientSummary
             ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub UpdateContactData()
+
+    Private Sub UpdateContactData()
         Try
             Dim Firstname As String = ""
             Dim LastName As String = ""
@@ -1093,90 +813,83 @@ Public Class SBEAPClientSummary
                 ContactNotes = ""
             End If
 
-            SQL = "select " &
-            "SBEAPClientContacts.clientContactID " &
-            "from SBEAPClientContacts, SBEAPClientLink " &
-            "where SBEAPClientContacts.clientContactID = SBEAPClientLink.ClientContactID  " &
-            "and Upper(strClientFirstName) = upper('" & txtFirstName.Text & "') " &
-            "and upper(strClientLastName) = Upper('" & txtLastName.Text & "') " &
-            "and ClientID = '" & txtClientID.Text & "' "
-
             If txtContactID.Text = "" Then
                 MsgBox("Either click 'Add New Contact' or select the contact from the table below before editing the Contact Information.", MsgBoxStyle.Information,
                        "Edit Contact Data")
             Else
-                SQL = "Update SBEAPClientContacts set " &
-                "strClientFirstName = '" & Replace(Firstname, "'", "''") & "', " &
-                "strClientLastName = '" & Replace(LastName, "'", "''") & "', " &
-                "strClientSalutation = '" & Replace(Salutation, "'", "''") & "', " &
-                "strClientCredentials = '" & Replace(Credentials, "'", "''") & "', " &
-                "strClientTitle = '" & Replace(Title, "'", "''") & "', " &
-                "strClientPhoneNumber = '" & Replace(PhoneNumber, "'", "''") & "', " &
-                "strClientCellPhone = '" & Replace(CellPhone, "'", "''") & "', " &
-                "strClientFax = '" & Replace(Fax, "'", "''") & "', " &
-                "strClientEmail = '" & Replace(email, "'", "''") & "', " &
-                "strClientAddress = '" & Replace(Address, "'", "''") & "', " &
-                "strClientCity = '" & Replace(City, "'", "''") & "', " &
-                "strClientState = '" & Replace(State, "'", "''") & "', " &
-                "strClientZipCode = '" & Replace(ZipCode, "'", "''") & "', " &
-                "strModifingPerson = '" & CurrentUser.UserID & "', " &
+                query = "Update SBEAPClientContacts set " &
+                "strClientFirstName = @strClientFirstName, " &
+                "strClientLastName = @strClientLastName, " &
+                "strClientSalutation = @strClientSalutation, " &
+                "strClientCredentials = @strClientCredentials, " &
+                "strClientTitle = @strClientTitle, " &
+                "strClientPhoneNumber = @strClientPhoneNumber, " &
+                "strClientCellPhone = @strClientCellPhone, " &
+                "strClientFax = @strClientFax, " &
+                "strClientEmail = @strClientEmail, " &
+                "strClientAddress = @strClientAddress, " &
+                "strClientCity = @strClientCity, " &
+                "strClientState = @strClientState, " &
+                "strClientZipCode = @strClientZipCode, " &
+                "strModifingPerson = @strModifingPerson, " &
                 "datModifingDate = GETDATE(), " &
-                "strContactNotes = '" & Replace(ContactNotes, "'", "''") & "' " &
-                "where ClientContactID = '" & txtContactID.Text & "' "
+                "strContactNotes = @strContactNotes " &
+                "where ClientContactID = @ClientContactID "
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                dr.Close()
+                Dim p As SqlParameter() = {
+                    New SqlParameter("@strClientFirstName", Firstname),
+                    New SqlParameter("@strClientLastName", LastName),
+                    New SqlParameter("@strClientSalutation", Salutation),
+                    New SqlParameter("@strClientCredentials", Credentials),
+                    New SqlParameter("@strClientTitle", Title),
+                    New SqlParameter("@strClientPhoneNumber", PhoneNumber),
+                    New SqlParameter("@strClientCellPhone", CellPhone),
+                    New SqlParameter("@strClientFax", Fax),
+                    New SqlParameter("@strClientEmail", email),
+                    New SqlParameter("@strClientAddress", Address),
+                    New SqlParameter("@strClientCity", City),
+                    New SqlParameter("@strClientState", State),
+                    New SqlParameter("@strClientZipCode", ZipCode),
+                    New SqlParameter("@strModifingPerson", CurrentUser.UserID),
+                    New SqlParameter("@strContactNotes", ContactNotes),
+                    New SqlParameter("@ClientContactID", txtContactID.Text)
+                }
+
+                DB.RunCommand(query, p)
 
                 txtContactLastModified.Text = CurrentUser.AlphaName & " - " & TodayFormatted
 
-                SQL = "Select " &
+                query = "Select " &
                 "ClientID " &
                 "from SBEAPClientLink " &
-                "where clientID = '" & txtClientID.Text & "' " &
-                "and ClientContactID = '" & txtContactID.Text & "' "
+                "where clientID = @clientID " &
+                "and ClientContactID = @ClientContactID "
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-                dr.Close()
-                If recExist = False Then
-                    SQL = "Insert into SBEAPClientLink " &
+                Dim p2 As SqlParameter() = {
+                    New SqlParameter("@clientID", txtClientID.Text),
+                    New SqlParameter("@ClientContactID", txtContactID.Text)
+                }
+
+
+                If Not DB.GetBoolean(query, p2) Then
+                    query = "Insert into SBEAPClientLink " &
+                    "(CLIENTID, CLIENTCONTACTID, STRMAINCONTACT) " &
                     "values " &
-                    "('" & txtClientID.Text & "', '" & txtContactID.Text & "', " &
-                    "'" & MainContact & "') "
+                    "(@CLIENTID, @CLIENTCONTACTID, @STRMAINCONTACT) "
                 Else
-                    SQL = "Update SBEAPClientLink set " &
-                    "strMainContact = 'False' " &
-                    "where ClientID = '" & txtClientID.Text & "' " &
-                    "and ClientContactID = '" & txtContactID.Text & "' "
-
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    dr.Close()
-
-                    SQL = "Update SBEAPClientLink set " &
-                    "ClientID = '" & txtClientID.Text & "', " &
-                    "ClientContactID = '" & txtContactID.Text & "', " &
-                    "strMainContact  = '" & MainContact & "' " &
-                    "where ClientID = '" & txtClientID.Text & "' " &
-                    "and ClientContactID = '" & txtContactID.Text & "' "
+                    query = "Update SBEAPClientLink set " &
+                    "strMainContact = @STRMAINCONTACT " &
+                    "where ClientID = @CLIENTID " &
+                    "and ClientContactID = @CLIENTCONTACTID "
                 End If
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                dr.Close()
+
+                Dim p3 As SqlParameter() = {
+                    New SqlParameter("@CLIENTID", txtClientID.Text),
+                    New SqlParameter("@CLIENTCONTACTID", txtContactID.Text),
+                    New SqlParameter("@STRMAINCONTACT", MainContact)
+                }
+
+                DB.RunCommand(query, p3)
 
                 LoadContactData()
             End If
@@ -1185,7 +898,8 @@ Public Class SBEAPClientSummary
             ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub ClearContactData()
+
+    Private Sub ClearContactData()
         Try
             txtContactID.Clear()
             txtFirstName.Clear()
@@ -1208,10 +922,11 @@ Public Class SBEAPClientSummary
             ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub LoadContact()
+
+    Private Sub LoadContact()
         Try
 
-            SQL = "select " &
+            query = "select " &
             "strClientFirstName, strClientLastName, " &
             "strClientSalutation, strClientCredentials, " &
             "strClientTitle, strClientPhoneNumber, " &
@@ -1219,27 +934,25 @@ Public Class SBEAPClientSummary
             "strClientEmail, strClientAddress, " &
             "strClientCity, strClientState, " &
             "strClientZipCode, " &
-            "(select (strLastName||', '||strFirstName) as Creator " &
+            "(select concat(strLastName,', ',strFirstName) as Creator " &
             "from SBEAPClientContacts, EPDUserProfiles " &
             "where SBEAPClientContacts.strClientCreator = EPDUserProfiles.numUserID " &
-            "and ClientContactID = '" & txtContactID.Text & "') as Creator, " &
-            "to_char(datClientCreated, 'dd-Mon-yyyy') as datClientCreated, " &
-            "(select (strLastName||', '||strFirstName) as Modifier " &
+            "and ClientContactID = @contactid ) as Creator, " &
+            "format(datClientCreated , 'MMMM d, yyyy') as datClientCreated, " &
+            "(select concat(strLastName,', ',strFirstName) as Modifier " &
             "from SBEAPClientContacts, EPDUserProfiles " &
             "where SBEAPClientContacts.strClientCreator = EPDUserProfiles.numUserID " &
-            "and ClientContactID = '" & txtContactID.Text & "') as Modifier, " &
-            "to_char(datModifingDate, 'dd-Mon-yyyy') as datModifingDate,  " &
+            "and ClientContactID = @contactid) as Modifier, " &
+            "format(datModifingDate , 'MMMM d, yyyy') as datModifingDate,  " &
             "strMainContact, strContactNotes " &
             "from SBEAPClientContacts, SBEAPClientLink " &
             "where SBEAPClientContacts.ClientContactID = SBEAPClientLink.ClientContactID " &
-            "and SBEAPClientContacts.ClientContactID = '" & txtContactID.Text & "' "
+            "and SBEAPClientContacts.ClientContactID = @contactid "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
+            Dim p As New SqlParameter("@contactid", txtContactID.Text)
+
+            Dim dr As DataRow = DB.GetDataRow(query, p)
+            If dr IsNot Nothing Then
                 If IsDBNull(dr.Item("strClientFirstName")) Then
                     txtFirstName.Text = ""
                 Else
@@ -1339,44 +1052,39 @@ Public Class SBEAPClientSummary
                 Else
                     txtContactNotes.Text = dr.Item("strContactNotes")
                 End If
-            End While
-            dr.Close()
+            End If
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub GetNextClientID()
+
+    Private Sub GetNextClientID()
         Try
 
             Dim CurrYear As String = ""
             CurrYear = Now.Year.ToString
 
-            SQL = "Select max(ClientID) as MaxClientID " &
+            query = "Select max(ClientID) as MaxClientID " &
             "from SBEAPClients " &
-            "where ClientID like '" & CurrYear & "%'"
+            "where ClientID like @year "
+            Dim p As New SqlParameter("@year", CurrYear & "%")
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
+            Dim dr As DataRow = DB.GetDataRow(query, p)
+            If dr IsNot Nothing Then
                 If IsDBNull(dr.Item("MaxClientID")) Then
                     txtClientID.Text = CurrYear & "00001"
                 Else
                     txtClientID.Text = dr.Item("MaxClientID") + 1
                 End If
-            End While
-            dr.Close()
-
-            'txtClientID.Text = CurrYear
+            End If
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub SaveClientData()
+
+    Private Sub SaveClientData()
         Try
             Dim Status As String = ""
             Dim ClientName As String = ""
@@ -1636,21 +1344,9 @@ Public Class SBEAPClientSummary
             If txtClientID.Text = "" Then
                 Status = "Insert"
 
-                SQL = "Select " &
-                "strCompanyName " &
-                "from SBEAPClients " &
-                "where upper(strCompanyName) = '" & Replace(txtCompanyName.Text.ToUpper, "'", "''") & "' "
-
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-                dr.Close()
                 Dim Result As DialogResult
 
-                If recExist = True Then
+                If DAL.Sbeap.ClientNameExists(txtCompanyName.Text) Then
                     Result = MessageBox.Show("There is a client with this name in the system." & vbCrLf & "Do you still want to create a new client?",
                       "Client Summary New Client", MessageBoxButtons.YesNoCancel,
                         MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
@@ -1662,17 +1358,7 @@ Public Class SBEAPClientSummary
                     End Select
                 End If
             Else
-                SQL = "Select ClientID " &
-                "from SBEAPClientData " &
-                "where ClientID = '" & txtClientID.Text & "' "
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-                dr.Close()
-                If recExist = True Then
+                If DAL.Sbeap.ClientExists(txtClientID.Text) Then
                     Status = "Update"
                 Else
                     Status = "Insert"
@@ -1684,125 +1370,238 @@ Public Class SBEAPClientSummary
                     ClientCreator = CurrentUser.UserID
                     GetNextClientID()
 
-                    SQL = "Insert into SBEAPClients " &
-                    "values " &
-                    "('" & txtClientID.Text & "', " &
-                    "'" & Replace(ClientName, "'", "''") & "', " &
-                    "'" & StartDate & "', " &
-                    "'" & Replace(ClientAddress, "'", "''") & "', " &
-                    "'" & Replace(ClientAddress2, "'", "''") & "', " &
-                    "'" & Replace(ClientCity, "'", "''") & "', " &
-                    "'" & Replace(ClientState, "'", "''") & "', " &
-                    "'" & Replace(ClientZipCode, "'", "''") & "', " &
-                    "'" & Replace(ClientCounty, "'", "''") & "', " &
-                    "'" & Replace(ClientLatitude, "'", "''") & "', " &
-                    "'" & Replace(ClientLongitude, "'", "''") & "', " &
-                    "'" & Replace(MailingAddress, "'", "''") & "', " &
-                    "'" & Replace(MailingAddress2, "'", "''") & "', " &
-                    "'" & Replace(MailingCity, "'", "''") & "', " &
-                    "'" & Replace(MailingState, "'", "''") & "', " &
-                    "'" & Replace(MailingZipCode, "'", "''") & "', " &
-                    "'" & Replace(ClientCreator, "'", "''") & "', " &
-                    "GETDATE(), '" & CurrentUser.UserID & "', GETDATE(), '') "
+                    query = "INSERT INTO SBEAPCLIENTS
+                        ( CLIENTID
+                        , STRCOMPANYNAME
+                        , DATSTARTDATE
+                        , STRCOMPANYADDRESS
+                        , STRCOMPANYADDRESS2
+                        , STRCOMPANYCITY
+                        , STRCOMPANYSTATE
+                        , STRCOMPANYZIPCODE
+                        , STRCOMPANYCOUNTY
+                        , STRCOMPANYLATITUDE
+                        , STRCOMPANYLONGITUDE
+                        , STRMAILINGADDRESS
+                        , STRMAILINGADDRESS2
+                        , STRMAILINGCITY
+                        , STRMAILINGSTATE
+                        , STRMAILINGZIPCODE
+                        , STRCOMPANYCREATOR
+                        , DATCOMPANYCREATED
+                        , STRMODIFINGPERSON
+                        , DATMODIFINGDATE
+                        , STRMODIFINGCOMMENTS
+                        )
+                        VALUES
+                        ( @CLIENTID
+                        , @STRCOMPANYNAME
+                        , @DATSTARTDATE
+                        , @STRCOMPANYADDRESS
+                        , @STRCOMPANYADDRESS2
+                        , @STRCOMPANYCITY
+                        , @STRCOMPANYSTATE
+                        , @STRCOMPANYZIPCODE
+                        , @STRCOMPANYCOUNTY
+                        , @STRCOMPANYLATITUDE
+                        , @STRCOMPANYLONGITUDE
+                        , @STRMAILINGADDRESS
+                        , @STRMAILINGADDRESS2
+                        , @STRMAILINGCITY
+                        , @STRMAILINGSTATE
+                        , @STRMAILINGZIPCODE
+                        , @STRCOMPANYCREATOR
+                        , getdate()
+                        , @STRMODIFINGPERSON
+                        , getdate()
+                        , ''
+                        )"
 
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    dr.Close()
+                    Dim p As SqlParameter() = {
+                        New SqlParameter("@CLIENTID", txtClientID.Text),
+                        New SqlParameter("@STRCOMPANYNAME", ClientName),
+                        New SqlParameter("@DATSTARTDATE", StartDate),
+                        New SqlParameter("@STRCOMPANYADDRESS", ClientAddress),
+                        New SqlParameter("@STRCOMPANYADDRESS2", ClientAddress2),
+                        New SqlParameter("@STRCOMPANYCITY", ClientCity),
+                        New SqlParameter("@STRCOMPANYSTATE", ClientState),
+                        New SqlParameter("@STRCOMPANYZIPCODE", ClientZipCode),
+                        New SqlParameter("@STRCOMPANYCOUNTY", ClientCounty),
+                        New SqlParameter("@STRCOMPANYLATITUDE", ClientLatitude),
+                        New SqlParameter("@STRCOMPANYLONGITUDE", ClientLongitude),
+                        New SqlParameter("@STRMAILINGADDRESS", MailingAddress),
+                        New SqlParameter("@STRMAILINGADDRESS2", MailingAddress2),
+                        New SqlParameter("@STRMAILINGCITY", MailingCity),
+                        New SqlParameter("@STRMAILINGSTATE", MailingState),
+                        New SqlParameter("@STRMAILINGZIPCODE", MailingZipCode),
+                        New SqlParameter("@STRCOMPANYCREATOR", ClientCreator),
+                        New SqlParameter("@STRMODIFINGPERSON", CurrentUser.UserID)
+                    }
 
-                    SQL = "Select max(clientID) as MaxID " &
+                    DB.RunCommand(query, p)
+
+                    query = "Select max(clientID) as MaxID " &
                     "from SBEAPClients "
 
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    While dr.Read
-                        txtClientID.Text = dr.Item("MaxID")
-                    End While
-                    dr.Close()
+                    txtClientID.Text = DB.GetSingleValue(Of Integer)(query)
 
-                    SQL = "Insert into SBEAPClientData " &
-                    "values " &
-                    "('" & txtClientID.Text & "', '" & Replace(ClientDescription, "'", "''") & "', " &
-                    "'" & Replace(WebSite, "'", "''") & "', '" & SIC & "', " &
-                    "'" & NAICS & "', '" & Employees & "', " &
-                    "'" & AIRSNumber & "', '" & AirCodes & "', " &
-                    "'" & StateCodes & "', " &
-                    "'" & CurrentUser.UserID & "', GETDATE(), '', " &
-                    "'" & Replace(AIRPermit, "'", "''") & "', '" & Replace(SSCPEngineer, "'", "''") & "', " &
-                    "'" & Replace(SSCPUnit, "'", "''") & "', '" & Replace(SSPPEngineer, "'", "''") & "', " &
-                    "'" & Replace(SSPPUnit, "'", "''") & "', '" & Replace(ISMPEngineer, "'", "''") & "', " &
-                    "'" & Replace(ISMPUnit, "'", "''") & "', '" & Replace(AirDescription, "'", "''") & "') "
+                    query = "INSERT INTO SBEAPCLIENTDATA
+                        ( CLIENTID
+                        , STRCLIENTDESCRIPTION
+                        , STRCLIENTWEBSITE
+                        , STRCLIENTSIC
+                        , STRCLIENTNAICS
+                        , STRCLIENTEMPLOYEES
+                        , STRAIRSNUMBER
+                        , STRAIRPROGRAMCODES
+                        , STRSTATEPROGRAMCODES
+                        , STRMODIFINGPERSON
+                        , DATMODIFINGDATE
+                        , STRMODIFINGCOMMENTS
+                        , STRAIRPERMITNUMBER
+                        , STRSSCPENGINEER
+                        , STRSSCPUNIT
+                        , STRSSPPENGINEER
+                        , STRSSPPUNIT
+                        , STRISMPENGINEER
+                        , STRISMPUNIT
+                        , STRAIRDESCRIPTION
+                        )
+                        VALUES
+                        ( @CLIENTID
+                        , @STRCLIENTDESCRIPTION
+                        , @STRCLIENTWEBSITE
+                        , @STRCLIENTSIC
+                        , @STRCLIENTNAICS
+                        , @STRCLIENTEMPLOYEES
+                        , @STRAIRSNUMBER
+                        , @STRAIRPROGRAMCODES
+                        , @STRSTATEPROGRAMCODES
+                        , @STRMODIFINGPERSON
+                        , getdate()
+                        , ''
+                        , @STRAIRPERMITNUMBER
+                        , @STRSSCPENGINEER
+                        , @STRSSCPUNIT
+                        , @STRSSPPENGINEER
+                        , @STRSSPPUNIT
+                        , @STRISMPENGINEER
+                        , @STRISMPUNIT
+                        , @STRAIRDESCRIPTION
+                        )"
 
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    dr.Close()
+                    Dim p2 As SqlParameter() = {
+                        New SqlParameter("@CLIENTID", txtClientID.Text),
+                        New SqlParameter("@STRCLIENTDESCRIPTION", ClientDescription),
+                        New SqlParameter("@STRCLIENTWEBSITE", WebSite),
+                        New SqlParameter("@STRCLIENTSIC", SIC),
+                        New SqlParameter("@STRCLIENTNAICS", NAICS),
+                        New SqlParameter("@STRCLIENTEMPLOYEES", Employees),
+                        New SqlParameter("@STRAIRSNUMBER", AIRSNumber),
+                        New SqlParameter("@STRAIRPROGRAMCODES", AirCodes),
+                        New SqlParameter("@STRSTATEPROGRAMCODES", StateCodes),
+                        New SqlParameter("@STRMODIFINGPERSON", CurrentUser.UserID),
+                        New SqlParameter("@STRAIRPERMITNUMBER", AIRPermit),
+                        New SqlParameter("@STRSSCPENGINEER", SSCPEngineer),
+                        New SqlParameter("@STRSSCPUNIT", SSCPUnit),
+                        New SqlParameter("@STRSSPPENGINEER", SSPPEngineer),
+                        New SqlParameter("@STRSSPPUNIT", SSPPUnit),
+                        New SqlParameter("@STRISMPENGINEER", ISMPEngineer),
+                        New SqlParameter("@STRISMPUNIT", ISMPUnit),
+                        New SqlParameter("@STRAIRDESCRIPTION", AirDescription)
+                    }
+
+                    DB.RunCommand(query, p2)
                 Else
                     MsgBox("The Client ID box currnetly has a value.", MsgBoxStyle.Information, "Client Maintenance")
                 End If
             Else
-                SQL = "Update SBEAPClients set " &
-                "strCompanyName = '" & Replace(ClientName, "'", "''") & "', " &
-                "datStartDate = '" & Replace(StartDate, "'", "''") & "', " &
-                "strCompanyaddress = '" & Replace(ClientAddress, "'", "''") & "', " &
-                "strCompanyAddress2 = '" & Replace(ClientAddress2, "'", "''") & "', " &
-                "strCompanyCity = '" & Replace(ClientCity, "'", "''") & "', " &
-                "strCompanyState = '" & Replace(ClientState, "'", "''") & "', " &
-                "strCompanyZipCode = '" & Replace(ClientZipCode, "'", "''") & "', " &
-                "strCompanyCounty = '" & ClientCounty & "', " &
-                "strCompanyLatitude = '" & Replace(ClientLatitude, "'", "''") & "', " &
-                "strCompanyLongitude = '" & Replace(ClientLongitude, "'", "''") & "', " &
-                "strMailingAddress = '" & Replace(MailingAddress, "'", "''") & "', " &
-                "strMailingAddress2 = '" & Replace(MailingAddress2, "'", "''") & "', " &
-                "strMailingCity = '" & Replace(MailingCity, "'", "''") & "', " &
-                "strMailingState = '" & Replace(MailingState, "'", "''") & "', " &
-                "strMailingZipCode = '" & Replace(MailingZipCode, "'", "''") & "', " &
-                "strModifingPerson = '" & CurrentUser.UserID & "', " &
-                "datModifingDate = GETDATE() " &
-                "where ClientID = '" & txtClientID.Text & "' "
+                query = "Update SBEAPClients set " &
+                    "strCompanyName = @STRCOMPANYNAME, " &
+                    "datStartDate = @DATSTARTDATE, " &
+                    "strCompanyaddress = @STRCOMPANYADDRESS, " &
+                    "strCompanyAddress2 = @STRCOMPANYADDRESS2, " &
+                    "strCompanyCity = @STRCOMPANYCITY, " &
+                    "strCompanyState = @STRCOMPANYSTATE, " &
+                    "strCompanyZipCode = @STRCOMPANYZIPCODE, " &
+                    "strCompanyCounty = @STRCOMPANYCOUNTY, " &
+                    "strCompanyLatitude = @STRCOMPANYLATITUDE, " &
+                    "strCompanyLongitude = @STRCOMPANYLONGITUDE, " &
+                    "strMailingAddress = @STRMAILINGADDRESS, " &
+                    "strMailingAddress2 = @STRMAILINGADDRESS2, " &
+                    "strMailingCity = @STRMAILINGCITY, " &
+                    "strMailingState = @STRMAILINGSTATE, " &
+                    "strMailingZipCode = @STRMAILINGZIPCODE, " &
+                    "strModifingPerson = @STRMODIFINGPERSON, " &
+                    "datModifingDate = GETDATE() " &
+                    "where ClientID = @CLIENTID "
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                dr.Close()
+                Dim p As SqlParameter() = {
+                    New SqlParameter("@CLIENTID", txtClientID.Text),
+                    New SqlParameter("@STRCOMPANYNAME", ClientName),
+                    New SqlParameter("@DATSTARTDATE", StartDate),
+                    New SqlParameter("@STRCOMPANYADDRESS", ClientAddress),
+                    New SqlParameter("@STRCOMPANYADDRESS2", ClientAddress2),
+                    New SqlParameter("@STRCOMPANYCITY", ClientCity),
+                    New SqlParameter("@STRCOMPANYSTATE", ClientState),
+                    New SqlParameter("@STRCOMPANYZIPCODE", ClientZipCode),
+                    New SqlParameter("@STRCOMPANYCOUNTY", ClientCounty),
+                    New SqlParameter("@STRCOMPANYLATITUDE", ClientLatitude),
+                    New SqlParameter("@STRCOMPANYLONGITUDE", ClientLongitude),
+                    New SqlParameter("@STRMAILINGADDRESS", MailingAddress),
+                    New SqlParameter("@STRMAILINGADDRESS2", MailingAddress2),
+                    New SqlParameter("@STRMAILINGCITY", MailingCity),
+                    New SqlParameter("@STRMAILINGSTATE", MailingState),
+                    New SqlParameter("@STRMAILINGZIPCODE", MailingZipCode),
+                    New SqlParameter("@STRCOMPANYCREATOR", ClientCreator),
+                    New SqlParameter("@STRMODIFINGPERSON", CurrentUser.UserID)
+                }
 
-                SQL = "Update SBEAPClientData set " &
-                "strClientDescription = '" & ClientDescription & "', " &
-                "strClientWebSite = '" & WebSite & "', " &
-                "strClientSIC = '" & SIC & "', " &
-                "strClientNAICS = '" & NAICS & "', " &
-                "strClientEmployees = '" & Employees & "', " &
-                "strAIRSNumber = '" & AIRSNumber & "', " &
-                "strAirProgramCodes = '" & AirCodes & "', " &
-                "strStateProgramCodes = '" & StateCodes & "', " &
-                "strModifingperson = '" & CurrentUser.UserID & "', " &
-                "datModifingDate = GETDATE(), " &
-                "strAIRPermitNumber = '" & Replace(AIRPermit, "'", "''") & "', " &
-                "strSSCPEngineer = '" & Replace(SSCPEngineer, "'", "''") & "', " &
-                "strSSCPUnit = '" & Replace(SSCPUnit, "'", "''") & "', " &
-                "strSSPPEngineer = '" & Replace(SSPPEngineer, "'", "''") & "', " &
-                "strSSPPUnit = '" & Replace(SSPPUnit, "'", "''") & "', " &
-                "strISMPEngineer = '" & Replace(ISMPEngineer, "'", "''") & "', " &
-                "strISMPUnit = '" & Replace(ISMPUnit, "'", "''") & "', " &
-                "strAirDescription = '" & Replace(AirDescription, "'", "''") & "' " &
-                "where ClientID = '" & txtClientID.Text & "' "
+                DB.RunCommand(query, p)
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                dr.Close()
+                query = "Update SBEAPClientData set " &
+                    "strClientDescription = @STRCLIENTDESCRIPTION, " &
+                    "strClientWebSite = @STRCLIENTWEBSITE, " &
+                    "strClientSIC = @STRCLIENTSIC, " &
+                    "strClientNAICS = @STRCLIENTNAICS, " &
+                    "strClientEmployees = @STRCLIENTEMPLOYEES, " &
+                    "strAIRSNumber = @STRAIRSNUMBER, " &
+                    "strAirProgramCodes = @STRAIRPROGRAMCODES, " &
+                    "strStateProgramCodes = @STRSTATEPROGRAMCODES, " &
+                    "strModifingperson = @STRMODIFINGPERSON, " &
+                    "strAIRPermitNumber = @STRAIRPERMITNUMBER, " &
+                    "strSSCPEngineer = @STRSSCPENGINEER, " &
+                    "strSSCPUnit = @STRSSCPUNIT, " &
+                    "strSSPPEngineer = @STRSSPPENGINEER, " &
+                    "strSSPPUnit = @STRSSPPUNIT, " &
+                    "strISMPEngineer = @STRISMPENGINEER, " &
+                    "strISMPUnit = @STRISMPUNIT, " &
+                    "strAirDescription = @STRAIRDESCRIPTION, " &
+                    "datModifingDate = GETDATE() " &
+                    "where ClientID = @CLIENTID "
 
+                Dim p2 As SqlParameter() = {
+                    New SqlParameter("@CLIENTID", txtClientID.Text),
+                    New SqlParameter("@STRCLIENTDESCRIPTION", ClientDescription),
+                    New SqlParameter("@STRCLIENTWEBSITE", WebSite),
+                    New SqlParameter("@STRCLIENTSIC", SIC),
+                    New SqlParameter("@STRCLIENTNAICS", NAICS),
+                    New SqlParameter("@STRCLIENTEMPLOYEES", Employees),
+                    New SqlParameter("@STRAIRSNUMBER", AIRSNumber),
+                    New SqlParameter("@STRAIRPROGRAMCODES", AirCodes),
+                    New SqlParameter("@STRSTATEPROGRAMCODES", StateCodes),
+                    New SqlParameter("@STRMODIFINGPERSON", CurrentUser.UserID),
+                    New SqlParameter("@STRAIRPERMITNUMBER", AIRPermit),
+                    New SqlParameter("@STRSSCPENGINEER", SSCPEngineer),
+                    New SqlParameter("@STRSSCPUNIT", SSCPUnit),
+                    New SqlParameter("@STRSSPPENGINEER", SSPPEngineer),
+                    New SqlParameter("@STRSSPPUNIT", SSPPUnit),
+                    New SqlParameter("@STRISMPENGINEER", ISMPEngineer),
+                    New SqlParameter("@STRISMPUNIT", ISMPUnit),
+                    New SqlParameter("@STRAIRDESCRIPTION", AirDescription)
+                }
+
+                DB.RunCommand(query, p2)
             End If
 
             MsgBox("Done", MsgBoxStyle.Information, "SBEAP")
@@ -1811,26 +1610,25 @@ Public Class SBEAPClientSummary
             ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub RefreshAIRSData()
+
+    Private Sub RefreshAIRSData()
         Try
             Dim AirProgramCode As String = "000000000000000"
             Dim StateProgram As String = "00"
 
-            SQL = "select " &
+            query = "select " &
             "strSICcode, strNAICSCode, " &
             "strPlantDescription, " &
             "strAIRProgramCodes, " &
             "strStateProgramCodes " &
             "from APBHeaderData " &
-            "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' "
+            "where strAIRSNumber = @airs "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
+            Dim p As New SqlParameter("@airs", "0413" & mtbAIRSNumber.Text)
 
-            dr = cmd.ExecuteReader
-            While dr.Read
+            Dim dr As DataRow = DB.GetDataRow(query, p)
+
+            If dr IsNot Nothing Then
                 If IsDBNull(dr.Item("strSICCode")) Then
                     mtbSIC.Clear()
                 Else
@@ -1856,9 +1654,7 @@ Public Class SBEAPClientSummary
                 Else
                     StateProgram = dr.Item("strStateProgramCodes")
                 End If
-            End While
-            dr.Close()
-
+            End If
 
             If Mid(AirProgramCode, 1, 1) = "1" Then
                 chbSIP.Checked = True
@@ -1938,183 +1734,160 @@ Public Class SBEAPClientSummary
             End If
 
             If txtStreetAddress.Text = "" Then
-                SQL = "select " &
+                query = "select " &
                 "strFacilityStreet1, strFacilityStreet2, " &
                 "strFacilityCity, strFacilityState, " &
                 "strFacilityZipCode, numFacilityLongitude, " &
                 "numFacilityLatitude " &
                 "from APBFacilityInformation " &
-                "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' "
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                While dr.Read
-                    If IsDBNull(dr.Item("strFacilityStreet1")) Then
-                        ' txtStreetAddress.Clear()
+                "where strAIRSNumber = @airs "
+
+                Dim dr2 As DataRow = DB.GetDataRow(query, p)
+
+                If dr2 IsNot Nothing Then
+                    If IsDBNull(dr2.Item("strFacilityStreet1")) Then
                     Else
-                        txtStreetAddress.Text = dr.Item("strFacilityStreet1")
+                        txtStreetAddress.Text = dr2.Item("strFacilityStreet1")
                     End If
-                    If IsDBNull(dr.Item("strFacilityStreet2")) Then
-                        ' txtStreetAddress2.Clear()
+                    If IsDBNull(dr2.Item("strFacilityStreet2")) Then
                     Else
-                        txtStreetAddress2.Text = dr.Item("strFacilityStreet2")
+                        txtStreetAddress2.Text = dr2.Item("strFacilityStreet2")
                     End If
-                    If IsDBNull(dr.Item("strFacilityCity")) Then
+                    If IsDBNull(dr2.Item("strFacilityCity")) Then
 
                     Else
-                        txtCity.Text = dr.Item("strFacilityCity")
+                        txtCity.Text = dr2.Item("strFacilityCity")
                     End If
-                    If IsDBNull(dr.Item("strFacilityState")) Then
+                    If IsDBNull(dr2.Item("strFacilityState")) Then
 
                     Else
-                        txtState.Text = dr.Item("strFacilityState")
+                        txtState.Text = dr2.Item("strFacilityState")
                     End If
-                    If IsDBNull(dr.Item("strFacilityZipCode")) Then
+                    If IsDBNull(dr2.Item("strFacilityZipCode")) Then
 
                     Else
-                        mtbZipCode.Text = dr.Item("strFacilityZipCode")
+                        mtbZipCode.Text = dr2.Item("strFacilityZipCode")
                     End If
-                    If IsDBNull(dr.Item("numFacilityLongitude")) Then
+                    If IsDBNull(dr2.Item("numFacilityLongitude")) Then
 
                     Else
-                        mtbLongitude.Text = dr.Item("numFacilityLongitude")
+                        mtbLongitude.Text = dr2.Item("numFacilityLongitude")
                     End If
-                    If IsDBNull(dr.Item("numFacilityLatitude")) Then
+                    If IsDBNull(dr2.Item("numFacilityLatitude")) Then
 
                     Else
-                        mtbLatitude.Text = dr.Item("numFacilityLatitude")
+                        mtbLatitude.Text = dr2.Item("numFacilityLatitude")
                     End If
                     cboCounty.SelectedValue = Mid(mtbAIRSNumber.Text, 1, 3)
-                End While
-                dr.Close()
+                End If
             End If
 
-            SQL = "Select " &
-            "Distinct((strLastName||', '||strFirstName)) as ISMPEngineer, strUnitDesc   " &
-            "from EPDUserProfiles, ISMPReportInformation,   " &
-            "ISMPMaster, LookUpEPDUnits    " &
-            "where EPDUserProfiles.numUnit = LookUpEPDunits.numunitCode (+) " &
-            "and numUserID = strReviewingEngineer   " &
-            "AND ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber   " &
-            "and strClosed = 'True'  " &
-            "and datCompleteDate = (Select Distinct(Max(datCompleteDate)) as CompleteDate  " &
-            "from ISMPReportInformation, ISMPMaster  " &
-            "where ISMPReportInformation.strReferenceNumber = ISMPMaster.strReferenceNumber   " &
-            "and ISMPMaster.strAIRSNumber = '0413" & mtbAIRSNumber.Text & "'  " &
-            "and strClosed = 'True')  " &
-            "and ISMPMaster.strAIRSNumber = '0413" & mtbAIRSNumber.Text & "'  "
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            recExist = dr.Read
-            If recExist = True Then
-                If IsDBNull(dr.Item("ISMPEngineer")) Then
+            query = "SELECT DISTINCT
+                       CONCAT(p.STRLASTNAME, ', ', p.STRFIRSTNAME) AS ISMPEngineer
+                     , u.STRUNITDESC
+                FROM   EPDUSERPROFILES AS p
+                LEFT JOIN LOOKUPEPDUNITS AS u
+                  ON p.NUMUNIT = u.NUMUNITCODE
+                INNER JOIN ISMPREPORTINFORMATION AS i
+                  ON p.NUMUSERID = i.STRREVIEWINGENGINEER
+                INNER JOIN ISMPMASTER AS m
+                  ON i.STRREFERENCENUMBER = m.STRREFERENCENUMBER
+                WHERE  i.STRCLOSED = 'True'
+                       AND m.STRAIRSNUMBER = @airs
+                       AND i.datCompleteDate =
+                (
+                    SELECT DISTINCT
+                           MAX(i.DATCOMPLETEDATE) AS CompleteDate
+                    FROM   ISMPREPORTINFORMATION AS i
+                    INNER JOIN ISMPMASTER AS m
+                      ON i.STRREFERENCENUMBER = m.STRREFERENCENUMBER
+                    WHERE  m.STRAIRSNUMBER = @airs
+                           AND i.STRCLOSED = 'True'
+                )"
+
+            Dim dr3 As DataRow = DB.GetDataRow(query, p)
+
+            If dr3 IsNot Nothing Then
+                If IsDBNull(dr3.Item("ISMPEngineer")) Then
                     txtISMPContact.Clear()
                 Else
-                    txtISMPContact.Text = dr.Item("ISMPEngineer")
+                    txtISMPContact.Text = dr3.Item("ISMPEngineer")
                 End If
-                If IsDBNull(dr.Item("strUnitDesc")) Then
+                If IsDBNull(dr3.Item("strUnitDesc")) Then
                     txtISMPUnit.Clear()
                 Else
-                    txtISMPUnit.Text = dr.Item("strUnitDesc")
+                    txtISMPUnit.Text = dr3.Item("strUnitDesc")
                 End If
             Else
                 txtISMPContact.Clear()
                 txtISMPUnit.Clear()
             End If
-            dr.Close()
 
-            SQL = "select  " &
-            "Distinct((strLastName||', '||strFirstName)) as SSPPStaffResponsible, strUnitDesc   " &
-            "from EPDUserProfiles, SSPPApplicationMaster, " &
-            "LookUpEPDUnits " &
-            "where EPDUserProfiles.numUnit = LookUpEPDUnits.numUnitCode (+) " &
-            "and numUserID = strStaffResponsible  " &
-            "and SSPPApplicationMaster.strApplicationNumber =  " &
-            "(select distinct(max(CONVERT(int, strApplicationNumber))) as GreatestApplication  " &
-            "from SSPPApplicationMaster   " &
-            "where SSPPApplicationMaster.strAIRSNumber = '0413" & mtbAIRSNumber.Text & "')  " &
-            "and SSPPApplicationMaster.strAIRSnumber = '0413" & mtbAIRSNumber.Text & "'  "
+            query = "SELECT DISTINCT
+                       CONCAT(p.STRLASTNAME, ', ', p.STRFIRSTNAME) AS SSPPStaffResponsible
+                     , u.STRUNITDESC
+                FROM   EPDUSERPROFILES AS p
+                INNER JOIN SSPPAPPLICATIONMASTER AS m
+                  ON p.NUMUSERID = m.STRSTAFFRESPONSIBLE
+                INNER JOIN LOOKUPEPDUNITS AS u
+                  ON p.NUMUNIT = u.NUMUNITCODE
+                WHERE  m.STRAPPLICATIONNUMBER =
+                (
+                    SELECT DISTINCT
+                           MAX(CONVERT( int, STRAPPLICATIONNUMBER)) AS GreatestApplication
+                    FROM   SSPPAPPLICATIONMASTER
+                    WHERE  STRAIRSNUMBER = @airs
+                )
+                       AND m.STRAIRSNUMBER = @airs"
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            recExist = dr.Read
-            If recExist = True Then
-                If IsDBNull(dr.Item("SSPPStaffResponsible")) Then
+            Dim dr4 As DataRow = DB.GetDataRow(query, p)
+
+            If dr4 IsNot Nothing Then
+                If IsDBNull(dr4.Item("SSPPStaffResponsible")) Then
                     txtSSPPContact.Clear()
                 Else
-                    txtSSPPContact.Text = dr.Item("SSPPStaffResponsible")
+                    txtSSPPContact.Text = dr4.Item("SSPPStaffResponsible")
                 End If
-                If IsDBNull(dr.Item("strUnitDesc")) Then
+                If IsDBNull(dr4.Item("strUnitDesc")) Then
                     txtSSPPUnit.Clear()
                 Else
-                    txtSSPPUnit.Text = dr.Item("strUnitDesc")
+                    txtSSPPUnit.Text = dr4.Item("strUnitDesc")
                 End If
             Else
                 txtSSPPContact.Clear()
                 txtSSPPUnit.Clear()
             End If
-            dr.Close()
-
-            If txtClientID.Text <> "" Then
-                Dim Result As DialogResult
-                Result = MessageBox.Show("Do you want to import contacts from this AIRS #?",
-                  "Client Summary Contact Import", MessageBoxButtons.YesNoCancel,
-                    MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
-
-                Select Case Result
-                    Case DialogResult.Yes
-
-
-                End Select
-
-            End If
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-#End Region
-#Region "Declarations"
+
     Private Sub cboCounty_SelectedValueChanged(sender As Object, e As EventArgs) Handles cboCounty.SelectedValueChanged
         Try
-            Dim dtDistrictInfo As DataTable
             Dim drDistrict As DataRow()
-            Dim row As DataRow
 
             If cboCounty.Text <> " " Then
-                dtDistrictInfo = dsCounty.Tables("CountyData")
-                drDistrict = dtDistrictInfo.Select("CountyName = '" & cboCounty.Text & "'")
-                For Each row In drDistrict
+                drDistrict = dtCounty.Select("CountyName = '" & cboCounty.Text & "'")
+                For Each row As DataRow In drDistrict
                     txtDistrictInformation.Text = row("strDistrictName")
                 Next
             End If
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub btnViewClientSummary_Click(sender As Object, e As EventArgs) Handles btnViewClientSummary.Click
         Try
-
             If txtClientID.Text <> "" Then
                 LoadClientData()
             End If
-
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-#End Region
     Private Sub txtStreetAddress_TextChanged(sender As Object, e As EventArgs) Handles txtStreetAddress.TextChanged
         Try
             If txtStreetAddress.Text <> "" Then
@@ -2126,6 +1899,7 @@ Public Class SBEAPClientSummary
             ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub txtStreetAddress2_TextChanged(sender As Object, e As EventArgs) Handles txtStreetAddress2.TextChanged
         Try
             If txtStreetAddress2.Text <> "" Then
@@ -2137,6 +1911,7 @@ Public Class SBEAPClientSummary
             ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub txtCity_TextChanged(sender As Object, e As EventArgs) Handles txtCity.TextChanged
         Try
             If txtCity.Text <> "" Then
@@ -2148,6 +1923,7 @@ Public Class SBEAPClientSummary
             ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub txtState_TextChanged(sender As Object, e As EventArgs) Handles txtState.TextChanged
         Try
             If txtState.Text <> "" Then
@@ -2159,6 +1935,7 @@ Public Class SBEAPClientSummary
             ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub mtbZipCode_TextChanged(sender As Object, e As EventArgs) Handles mtbZipCode.TextChanged
         Try
             If mtbZipCode.Text <> "" Then
@@ -2170,15 +1947,11 @@ Public Class SBEAPClientSummary
             ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub btnAddContact_Click(sender As Object, e As EventArgs) Handles btnAddContact.Click
-        Try
-
-            UpdateContactData()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        UpdateContactData()
     End Sub
+
     Private Sub dgvContactInformation_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvContactInformation.MouseUp
         Dim hti As DataGridView.HitTestInfo = dgvContactInformation.HitTest(e.X, e.Y)
 
@@ -2195,26 +1968,17 @@ Public Class SBEAPClientSummary
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
     End Sub
+
     Private Sub btnSearchForContact_Click(sender As Object, e As EventArgs) Handles btnSearchForContact.Click
-        Try
-            If txtContactID.Text <> "" Then
-                LoadContact()
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        If txtContactID.Text <> "" Then
+            LoadContact()
+        End If
     End Sub
-    Private Sub tsbSave_Click(sender As Object, e As EventArgs) Handles tsbSave.Click
-        Try
-            SaveClientData()
 
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+    Private Sub tsbSave_Click(sender As Object, e As EventArgs) Handles tsbSave.Click
+        SaveClientData()
     End Sub
 
     Private Sub tsbSearchTool_Click(sender As Object, e As EventArgs) Handles tsbSearchTool.Click
@@ -2230,40 +1994,16 @@ Public Class SBEAPClientSummary
         End Try
     End Sub
 
-    Private Sub tsbBack_Click(sender As Object, e As EventArgs) Handles tsbBack.Click
-        Try
-            ClientSummary = Nothing
-            Me.Close()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-
     Private Sub btnRefreshAIRSData_Click(sender As Object, e As EventArgs) Handles btnRefreshAIRSData.Click
-        Try
-            RefreshAIRSData()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        RefreshAIRSData()
     End Sub
-
 
     Private Sub btnClearContact_Click(sender As Object, e As EventArgs) Handles btnClearContact.Click
-        Try
-            ClearContactData()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        ClearContactData()
     End Sub
 
     Private Sub btnAddNewContact_Click(sender As Object, e As EventArgs) Handles btnAddNewContact.Click
-        Try
-            AddNewContactData()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        AddNewContactData()
     End Sub
 
     Private Sub btnDeleteContact_Click(sender As Object, e As EventArgs) Handles btnDeleteContact.Click
@@ -2276,32 +2016,22 @@ Public Class SBEAPClientSummary
 
                 Select Case Result
                     Case DialogResult.Yes
-                        SQL = "Delete SBEAPClientLink " &
-                        "where ClientContactID = '" & txtContactID.Text & "' "
+                        Dim p As New SqlParameter("@contact", txtContactID.Text)
 
-                        cmd = New SqlCommand(SQL, CurrentConnection)
-                        If CurrentConnection.State = ConnectionState.Closed Then
-                            CurrentConnection.Open()
-                        End If
-                        dr = cmd.ExecuteReader
-                        dr.Close()
+                        query = "Delete SBEAPClientLink " &
+                            "where ClientContactID = @contact "
 
-                        SQL = "Delete SBEAPClientContacts " &
-                        "where ClientContactID = '" & txtContactID.Text & "' "
+                        DB.RunCommand(query, p)
 
-                        cmd = New SqlCommand(SQL, CurrentConnection)
-                        If CurrentConnection.State = ConnectionState.Closed Then
-                            CurrentConnection.Open()
-                        End If
-                        dr = cmd.ExecuteReader
-                        dr.Close()
+                        query = "Delete SBEAPClientContacts " &
+                            "where ClientContactID = @contact "
+
+                        DB.RunCommand(query, p)
 
                         ClearContactData()
                         LoadContactData()
                 End Select
             End If
-
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -2318,7 +2048,6 @@ Public Class SBEAPClientSummary
             ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-
 
     Private Sub mmiDeleteClient_Click(sender As Object, e As EventArgs) Handles mmiDeleteClient.Click
         Try
@@ -2338,37 +2067,31 @@ Public Class SBEAPClientSummary
                         Do While CaseID <> "Done"
                             CaseID = "Done"
 
-                            SQL = "Select " &
+                            query = "Select " &
                             "numCaseID " &
                             "From SBEAPCaseLogLink " &
-                            "where ClientID = '" & txtClientID.Text & "' "
-                            cmd = New SqlCommand(SQL, CurrentConnection)
-                            If CurrentConnection.State = ConnectionState.Closed Then
-                                CurrentConnection.Open()
-                            End If
-                            dr = cmd.ExecuteReader
-                            While dr.Read
-                                If IsDBNull(dr.Item("numCaseID")) Then
-                                    CaseID = "Done"
-                                Else
-                                    CaseID = dr.Item("numCaseID")
+                            "where ClientID = @client "
+
+                            Dim dr2 As DataRow = DB.GetDataRow(query, New SqlParameter("@client", txtClientID.Text))
+
+                            If dr2 IsNot Nothing Then
+                                If Not IsDBNull(dr2.Item("numCaseID")) Then
+                                    CaseID = dr2.Item("numCaseID")
                                 End If
-                            End While
-                            dr.Close()
+                            End If
+
                             If CaseID <> "Done" Then
                                 Do While ActionID <> "Done"
                                     ActionID = "Done"
 
-                                    SQL = "Select " &
+                                    query = "Select " &
                                     "numActionID, numActionType " &
                                     "from SBEAPActionLog " &
-                                    "where numCaseID = '" & CaseID & "' "
-                                    cmd = New SqlCommand(SQL, CurrentConnection)
-                                    If CurrentConnection.State = ConnectionState.Closed Then
-                                        CurrentConnection.Open()
-                                    End If
-                                    dr = cmd.ExecuteReader
-                                    While dr.Read
+                                    "where numCaseID = @caseid "
+
+                                    Dim dr As DataRow = DB.GetDataRow(query, New SqlParameter("@caseid", CaseID))
+
+                                    If dr IsNot Nothing Then
                                         If IsDBNull(dr.Item("numActionID")) Then
                                             ActionID = "Done"
                                         Else
@@ -2379,148 +2102,93 @@ Public Class SBEAPClientSummary
                                         Else
                                             ActionType = dr.Item("numActionType")
                                         End If
-                                    End While
-                                    dr.Close()
+                                    End If
 
                                     If ActionID <> "" And ActionID <> "Done" Then
                                         Select Case ActionType
                                             Case "4"
-                                                SQL = "Delete SBEAPConferenceLog " &
-                                                "where numActionID = '" & ActionID & "'  "
-                                                cmd = New SqlCommand(SQL, CurrentConnection)
-                                                If CurrentConnection.State = ConnectionState.Closed Then
-                                                    CurrentConnection.Open()
-                                                End If
-                                                dr = cmd.ExecuteReader
-                                                dr.Close()
+                                                query = "Delete SBEAPConferenceLog " &
+                                                "where numActionID = @actionid "
 
-                                                SQL = "Delete SBEAPActionLog " &
-                                                "where numActionID = '" & ActionID & "'  "
-                                                cmd = New SqlCommand(SQL, CurrentConnection)
-                                                If CurrentConnection.State = ConnectionState.Closed Then
-                                                    CurrentConnection.Open()
-                                                End If
-                                                dr = cmd.ExecuteReader
-                                                dr.Close()
+                                                DB.RunCommand(query, New SqlParameter("@actionid", ActionID))
+
+                                                query = "Delete SBEAPActionLog " &
+                                                "where numActionID = @actionid "
+
+                                                DB.RunCommand(query, New SqlParameter("@actionid", ActionID))
+
                                             Case "6"
-                                                SQL = "Delete SBEAPPhoneLog " &
-                                                "where numActionID = '" & ActionID & "'  "
-                                                cmd = New SqlCommand(SQL, CurrentConnection)
-                                                If CurrentConnection.State = ConnectionState.Closed Then
-                                                    CurrentConnection.Open()
-                                                End If
-                                                dr = cmd.ExecuteReader
-                                                dr.Close()
+                                                query = "Delete SBEAPPhoneLog " &
+                                                "where numActionID = @actionid "
 
-                                                SQL = "Delete SBEAPActionLog " &
-                                                "where numActionID = '" & ActionID & "'  "
-                                                cmd = New SqlCommand(SQL, CurrentConnection)
-                                                If CurrentConnection.State = ConnectionState.Closed Then
-                                                    CurrentConnection.Open()
-                                                End If
-                                                dr = cmd.ExecuteReader
-                                                dr.Close()
+                                                DB.RunCommand(query, New SqlParameter("@actionid", ActionID))
+
+                                                query = "Delete SBEAPActionLog " &
+                                                "where numActionID = @actionid "
+
+                                                DB.RunCommand(query, New SqlParameter("@actionid", ActionID))
+
                                             Case "10"
-                                                SQL = "Delete SBEAPTechnicalAssist " &
-                                                "where numActionID = '" & ActionID & "'  "
-                                                cmd = New SqlCommand(SQL, CurrentConnection)
-                                                If CurrentConnection.State = ConnectionState.Closed Then
-                                                    CurrentConnection.Open()
-                                                End If
-                                                dr = cmd.ExecuteReader
-                                                dr.Close()
+                                                query = "Delete SBEAPTechnicalAssist " &
+                                                "where numActionID = @actionid "
 
-                                                SQL = "Delete SBEAPActionLog " &
-                                                "where numActionID = '" & ActionID & "'  "
-                                                cmd = New SqlCommand(SQL, CurrentConnection)
-                                                If CurrentConnection.State = ConnectionState.Closed Then
-                                                    CurrentConnection.Open()
-                                                End If
-                                                dr = cmd.ExecuteReader
-                                                dr.Close()
+                                                DB.RunCommand(query, New SqlParameter("@actionid", ActionID))
+
+                                                query = "Delete SBEAPActionLog " &
+                                                "where numActionID = @actionid "
+
+                                                DB.RunCommand(query, New SqlParameter("@actionid", ActionID))
+
                                             Case "1" Or "2" Or "3" Or "5" Or "7" Or "8" Or "9" Or "11" Or "12"
-                                                SQL = "Delete SBEAPOtherLog " &
-                                                "where numActionID = '" & ActionID & "'  "
-                                                cmd = New SqlCommand(SQL, CurrentConnection)
-                                                If CurrentConnection.State = ConnectionState.Closed Then
-                                                    CurrentConnection.Open()
-                                                End If
-                                                dr = cmd.ExecuteReader
-                                                dr.Close()
+                                                query = "Delete SBEAPOtherLog " &
+                                                "where numActionID = @actionid "
 
-                                                SQL = "Delete SBEAPActionLog " &
-                                                "where numActionID = '" & ActionID & "'  "
-                                                cmd = New SqlCommand(SQL, CurrentConnection)
-                                                If CurrentConnection.State = ConnectionState.Closed Then
-                                                    CurrentConnection.Open()
-                                                End If
-                                                dr = cmd.ExecuteReader
-                                                dr.Close()
+                                                DB.RunCommand(query, New SqlParameter("@actionid", ActionID))
+
+                                                query = "Delete SBEAPActionLog " &
+                                                "where numActionID = @actionid "
+
+                                                DB.RunCommand(query, New SqlParameter("@actionid", ActionID))
+
                                             Case Else
-                                                SQL = "Delete SBEAPConferenceLog " &
-                                                "where numActionID = '" & ActionID & "'  "
-                                                cmd = New SqlCommand(SQL, CurrentConnection)
-                                                If CurrentConnection.State = ConnectionState.Closed Then
-                                                    CurrentConnection.Open()
-                                                End If
-                                                dr = cmd.ExecuteReader
-                                                dr.Close()
+                                                query = "Delete SBEAPConferenceLog " &
+                                                "where numActionID = @actionid "
 
-                                                SQL = "Delete SBEAPPhoneLog " &
-                                                "where numActionID = '" & ActionID & "'  "
-                                                cmd = New SqlCommand(SQL, CurrentConnection)
-                                                If CurrentConnection.State = ConnectionState.Closed Then
-                                                    CurrentConnection.Open()
-                                                End If
-                                                dr = cmd.ExecuteReader
-                                                dr.Close()
+                                                DB.RunCommand(query, New SqlParameter("@actionid", ActionID))
 
-                                                SQL = "Delete SBEAPTechnicalAssist " &
-                                                "where numActionID = '" & ActionID & "'  "
-                                                cmd = New SqlCommand(SQL, CurrentConnection)
-                                                If CurrentConnection.State = ConnectionState.Closed Then
-                                                    CurrentConnection.Open()
-                                                End If
-                                                dr = cmd.ExecuteReader
-                                                dr.Close()
+                                                query = "Delete SBEAPPhoneLog " &
+                                                "where numActionID = @actionid "
 
-                                                SQL = "Delete SBEAPOtherLog " &
-                                                "where numActionID = '" & ActionID & "'  "
-                                                cmd = New SqlCommand(SQL, CurrentConnection)
-                                                If CurrentConnection.State = ConnectionState.Closed Then
-                                                    CurrentConnection.Open()
-                                                End If
-                                                dr = cmd.ExecuteReader
-                                                dr.Close()
+                                                DB.RunCommand(query, New SqlParameter("@actionid", ActionID))
 
-                                                SQL = "Delete SBEAPActionLog " &
-                                                "where numActionID = '" & ActionID & "'  "
-                                                cmd = New SqlCommand(SQL, CurrentConnection)
-                                                If CurrentConnection.State = ConnectionState.Closed Then
-                                                    CurrentConnection.Open()
-                                                End If
-                                                dr = cmd.ExecuteReader
-                                                dr.Close()
+                                                query = "Delete SBEAPTechnicalAssist " &
+                                                "where numActionID = @actionid "
+
+                                                DB.RunCommand(query, New SqlParameter("@actionid", ActionID))
+
+                                                query = "Delete SBEAPOtherLog " &
+                                                "where numActionID = @actionid "
+
+                                                DB.RunCommand(query, New SqlParameter("@actionid", ActionID))
+
+                                                query = "Delete SBEAPActionLog " &
+                                                "where numActionID = @actionid "
+
+                                                DB.RunCommand(query, New SqlParameter("@actionid", ActionID))
+
                                         End Select
                                     End If
                                 Loop
-                                SQL = "Delete SBEAPCaseLog " &
-                                "where numCaseID = '" & CaseID & "' "
-                                cmd = New SqlCommand(SQL, CurrentConnection)
-                                If CurrentConnection.State = ConnectionState.Closed Then
-                                    CurrentConnection.Open()
-                                End If
-                                dr = cmd.ExecuteReader
-                                dr.Close()
 
-                                SQL = "Delete SBEAPCaseLogLink " &
-                                "where numCaseID = '" & CaseID & "' "
-                                cmd = New SqlCommand(SQL, CurrentConnection)
-                                If CurrentConnection.State = ConnectionState.Closed Then
-                                    CurrentConnection.Open()
-                                End If
-                                dr = cmd.ExecuteReader
-                                dr.Close()
+                                query = "Delete SBEAPCaseLog " &
+                                "where numCaseID = @CaseID "
+
+                                DB.RunCommand(query, New SqlParameter("@CaseID", CaseID))
+
+                                query = "Delete SBEAPCaseLogLink " &
+                                "where numCaseID = @CaseID "
+
+                                DB.RunCommand(query, New SqlParameter("@CaseID", CaseID))
                             End If
                         Loop
 
@@ -2528,67 +2196,43 @@ Public Class SBEAPClientSummary
                         Do While ContactID <> "Done"
                             ContactID = "Done"
 
-                            SQL = "Select " &
+                            query = "Select " &
                             "ClientID, ClientContactID " &
                             "from SBEAPClientLink " &
-                            "where ClientID = '" & txtClientID.Text & "' "
+                            "where ClientID = @client "
 
-                            cmd = New SqlCommand(SQL, CurrentConnection)
-                            If CurrentConnection.State = ConnectionState.Closed Then
-                                CurrentConnection.Open()
-                            End If
-                            dr = cmd.ExecuteReader
-                            While dr.Read
-                                If IsDBNull(dr.Item("ClientContactID")) Then
-                                    ContactID = "Done"
-                                Else
-                                    ContactID = dr.Item("ClientContactID")
+                            Dim dr3 As DataRow = DB.GetDataRow(query, New SqlParameter("@client", txtClientID.Text))
+
+                            If dr3 IsNot Nothing Then
+                                If Not IsDBNull(dr3.Item("ClientContactID")) Then
+                                    ContactID = dr3.Item("ClientContactID")
                                 End If
-                            End While
-                            dr.Close()
+                            End If
 
                             If ContactID <> "" And ContactID <> "Done" Then
-                                SQL = "Delete SBEAPClientContacts " &
-                                "where ClientContactID = '" & ContactID & "' "
-                                cmd = New SqlCommand(SQL, CurrentConnection)
-                                If CurrentConnection.State = ConnectionState.Closed Then
-                                    CurrentConnection.Open()
-                                End If
-                                dr = cmd.ExecuteReader
-                                dr.Close()
+                                query = "Delete SBEAPClientContacts " &
+                                "where ClientContactID = @ContactID "
 
-                                SQL = "Delete SBEAPClientLink " &
-                                "where ClientContactID = '" & ContactID & "' "
-                                cmd = New SqlCommand(SQL, CurrentConnection)
-                                If CurrentConnection.State = ConnectionState.Closed Then
-                                    CurrentConnection.Open()
-                                End If
-                                dr = cmd.ExecuteReader
-                                dr.Close()
+                                DB.RunCommand(query, New SqlParameter("@ContactID", ContactID))
+
+                                query = "Delete SBEAPClientLink " &
+                                "where ClientContactID = @ContactID "
+
+                                DB.RunCommand(query, New SqlParameter("@ContactID", ContactID))
                             End If
                         Loop
 
-                        SQL = "Delete SBEAPClientData " &
-                        "where ClientID = '" & txtClientID.Text & "' "
-                        cmd = New SqlCommand(SQL, CurrentConnection)
-                        If CurrentConnection.State = ConnectionState.Closed Then
-                            CurrentConnection.Open()
-                        End If
-                        dr = cmd.ExecuteReader
-                        dr.Close()
+                        query = "Delete SBEAPClientData " &
+                        "where ClientID = @ClientID "
 
-                        SQL = "Delete SBEAPClients " &
-                        "where ClientID = '" & txtClientID.Text & "' "
-                        cmd = New SqlCommand(SQL, CurrentConnection)
-                        If CurrentConnection.State = ConnectionState.Closed Then
-                            CurrentConnection.Open()
-                        End If
-                        dr = cmd.ExecuteReader
-                        dr.Close()
+                        DB.RunCommand(query, New SqlParameter("@ClientID", txtClientID.Text))
+
+                        query = "Delete SBEAPClients " &
+                        "where ClientID = @ClientID "
+
+                        DB.RunCommand(query, New SqlParameter("@ClientID", txtClientID.Text))
 
                         ClearClientSummary()
-                    Case Else
-                        Exit Sub
                 End Select
             End If
 
@@ -2598,15 +2242,10 @@ Public Class SBEAPClientSummary
     End Sub
 
     Private Sub tsbClear_Click(sender As Object, e As EventArgs) Handles tsbClear.Click
-        Try
-
-            ClearClientSummary()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        ClearClientSummary()
     End Sub
-    Sub ClearClientSummary()
+
+    Private Sub ClearClientSummary()
         Try
             txtCompanyName.Clear()
             txtClientID.Clear()
@@ -2662,11 +2301,9 @@ Public Class SBEAPClientSummary
 
             ClearContactData()
 
-
             If dgvContactInformation.RowCount > 0 Then
                 If dgvContactInformation.Columns(0).HeaderText = "Client ID" Then
-                    dsContact = New DataSet
-                    dgvContactInformation.DataSource = dsContact
+                    dgvContactInformation.DataSource = Nothing
                 Else
 
                 End If
@@ -2674,49 +2311,39 @@ Public Class SBEAPClientSummary
 
             If dgvCaseLog.RowCount > 0 Then
                 If dgvCaseLog.Columns(0).HeaderText = "Case ID" Then
-                    dsCaseLogGrid = New DataSet
-                    dgvCaseLog.DataSource = dsCaseLogGrid
+                    dgvCaseLog.DataSource = Nothing
                 Else
 
                 End If
             End If
-
-
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Sub LoadClientWork()
+    Private Sub LoadClientWork()
         Try
-            SQL = "Select " &
+            query = "Select " &
             "SBEAPCaseLog.numCaseID, " &
             "numStaffResponsible, " &
             "case " &
             "when numStaffResponsible is Null then '' " &
-            "Else (strLastName||', '||strFirstName) " &
+            "Else concat(strLastName,', ',strFirstName) " &
             "END StaffResponsible, " &
             "datCaseOpened as CaseOpened, " &
             "datCaseClosed as CaseClosed, " &
             "strCompanyName, strCaseSummary, " &
             "SBEAPCaseLogLink.ClientID " &
-            "from SBEAPCaseLog, EPDUserProfiles, " &
-            "SBEAPClients, SBEAPCaseLogLink " &
-            "where SBEAPCaseLog.numStaffResponsible = EPDUserProfiles.numUserID (+) " &
-            "and SBEAPCaseLog.numCaseID = SBEAPCaseLogLink.numCaseID " &
-            "and SBEAPCaseLogLink.ClientID = SBEAPClients.ClientID (+)  " &
-            "and SBEAPClients.ClientID = '" & txtClientID.Text & "'  "
+            "from SBEAPCaseLog left join EPDUserProfiles " &
+            "on SBEAPCaseLog.numStaffResponsible = EPDUserProfiles.numUserID " &
+            "inner join SBEAPCaseLogLink " &
+            "on SBEAPCaseLog.numCaseID = SBEAPCaseLogLink.numCaseID " &
+            "left join SBEAPClients " &
+            "on SBEAPCaseLogLink.ClientID = SBEAPClients.ClientID " &
+            "where SBEAPClients.ClientID = @ClientID "
 
-            dsCaseLogGrid = New DataSet
-            daCaseLogGrid = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daCaseLogGrid.Fill(dsCaseLogGrid, "NavScreen")
-
-            dgvCaseLog.DataSource = dsCaseLogGrid
-            dgvCaseLog.DataMember = "NavScreen"
+            dgvCaseLog.DataSource = DB.GetDataTable(query, New SqlParameter("@ClientID", txtClientID.Text))
 
             dgvCaseLog.RowHeadersVisible = False
             dgvCaseLog.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -2741,17 +2368,18 @@ Public Class SBEAPClientSummary
             dgvCaseLog.Columns("strCompanyName").Width = "200"
             dgvCaseLog.Columns("ClientID").HeaderText = "Client ID"
             dgvCaseLog.Columns("ClientID").DisplayIndex = 6
-            'dgvCaseLog.Columns("ClientID").Visible = False
             dgvCaseLog.Columns("numStaffResponsible").HeaderText = "Staff Responsible"
             dgvCaseLog.Columns("numStaffResponsible").DisplayIndex = 7
             dgvCaseLog.Columns("numStaffResponsible").Visible = False
             dgvCaseLog.Columns("strCaseSummary").HeaderText = "Case Description"
             dgvCaseLog.Columns("strCaseSummary").DisplayIndex = 4
+            dgvCaseLog.SanelyResizeColumns
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub btnOpenCase_Click(sender As Object, e As EventArgs) Handles btnOpenCase.Click
         Try
             If txtCaseID.Text <> "" Then
@@ -2812,7 +2440,7 @@ Public Class SBEAPClientSummary
     Private Sub llbSICSearch_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbSICSearch.LinkClicked
         Try
 
-            System.Diagnostics.Process.Start("http://www.osha.gov/pls/imis/sicsearch.html")
+            Process.Start("http://www.osha.gov/pls/imis/sicsearch.html")
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -2822,10 +2450,11 @@ Public Class SBEAPClientSummary
     Private Sub llbNAICSSearch_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbNAICSSearch.LinkClicked
         Try
 
-            System.Diagnostics.Process.Start("http://www.naics.com/search.htm")
+            Process.Start("http://www.naics.com/search.htm")
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
 End Class

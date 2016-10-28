@@ -16,6 +16,18 @@ Namespace DAL.Sbeap
             Return DB.GetBoolean(query, parameter)
         End Function
 
+        Public Function ClientNameExists(clientName As String) As Boolean
+            If String.IsNullOrWhiteSpace(clientName) Then Return False
+
+            Dim query As String = "SELECT CONVERT( bit, COUNT(*)) " &
+                " FROM SBEAPCLIENTS " &
+                " WHERE strCompanyName = @id "
+
+            Dim parameter As New SqlParameter("@id", clientName)
+
+            Return DB.GetBoolean(query, parameter)
+        End Function
+
         Public Function CaseExists(caseNumber As String) As Boolean
             If caseNumber = "" OrElse Not Integer.TryParse(caseNumber, Nothing) Then Return False
 
