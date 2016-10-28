@@ -22,56 +22,56 @@ Partial Class SBEAPReports
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container
+        Me.components = New System.ComponentModel.Container()
         Me.SBEAPCLIENTDATABindingSource = New System.Windows.Forms.BindingSource(Me.components)
         Me.SBEAPCLIENTSBindingSource = New System.Windows.Forms.BindingSource(Me.components)
-        Me.btnRunSBEAPReport = New System.Windows.Forms.Button
-        Me.DTPReportStartDate = New System.Windows.Forms.DateTimePicker
-        Me.Label18 = New System.Windows.Forms.Label
-        Me.DTPReportEndDate = New System.Windows.Forms.DateTimePicker
-        Me.Label17 = New System.Windows.Forms.Label
-        Me.Panel1 = New System.Windows.Forms.Panel
-        Me.llbFrontDestCalls = New System.Windows.Forms.LinkLabel
-        Me.txtFrontDeskCallCount = New System.Windows.Forms.TextBox
-        Me.Label15 = New System.Windows.Forms.Label
-        Me.cboActionTypes = New System.Windows.Forms.ComboBox
-        Me.Button1 = New System.Windows.Forms.Button
-        Me.Label8 = New System.Windows.Forms.Label
-        Me.Label7 = New System.Windows.Forms.Label
-        Me.Label6 = New System.Windows.Forms.Label
-        Me.Label16 = New System.Windows.Forms.Label
-        Me.llbActionTypes = New System.Windows.Forms.LinkLabel
-        Me.llbTotalActions = New System.Windows.Forms.LinkLabel
-        Me.llbCasesClosed = New System.Windows.Forms.LinkLabel
-        Me.llbTotalCases = New System.Windows.Forms.LinkLabel
-        Me.llbExistingCases = New System.Windows.Forms.LinkLabel
-        Me.llbNewCases = New System.Windows.Forms.LinkLabel
-        Me.llbClientsAssisted = New System.Windows.Forms.LinkLabel
-        Me.txtActionTypeCount = New System.Windows.Forms.TextBox
-        Me.txtTotalActionCount = New System.Windows.Forms.TextBox
-        Me.txtCaseClosedCount = New System.Windows.Forms.TextBox
-        Me.txtTotalCaseCount = New System.Windows.Forms.TextBox
-        Me.txtExistingCaseCount = New System.Windows.Forms.TextBox
-        Me.txtNewCaseCount = New System.Windows.Forms.TextBox
-        Me.txtClientAssistCount = New System.Windows.Forms.TextBox
-        Me.llbViewNewClient = New System.Windows.Forms.LinkLabel
-        Me.txtNewClientCount = New System.Windows.Forms.TextBox
-        Me.Label12 = New System.Windows.Forms.Label
-        Me.Label11 = New System.Windows.Forms.Label
-        Me.Label10 = New System.Windows.Forms.Label
-        Me.Label9 = New System.Windows.Forms.Label
-        Me.Label5 = New System.Windows.Forms.Label
-        Me.Label4 = New System.Windows.Forms.Label
-        Me.Label19 = New System.Windows.Forms.Label
-        Me.Label13 = New System.Windows.Forms.Label
-        Me.GroupBox1 = New System.Windows.Forms.GroupBox
-        Me.dgvCaseWork = New System.Windows.Forms.DataGridView
-        Me.Panel2 = New System.Windows.Forms.Panel
-        Me.btnExportToExcel = New System.Windows.Forms.Button
-        Me.txtCount = New System.Windows.Forms.TextBox
-        Me.Label14 = New System.Windows.Forms.Label
-        Me.txtCaseID = New System.Windows.Forms.TextBox
-        Me.btnViewCase = New System.Windows.Forms.Button
+        Me.btnRunSBEAPReport = New System.Windows.Forms.Button()
+        Me.DTPReportStartDate = New System.Windows.Forms.DateTimePicker()
+        Me.Label18 = New System.Windows.Forms.Label()
+        Me.DTPReportEndDate = New System.Windows.Forms.DateTimePicker()
+        Me.Label17 = New System.Windows.Forms.Label()
+        Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.llbFrontDestCalls = New System.Windows.Forms.LinkLabel()
+        Me.txtFrontDeskCallCount = New System.Windows.Forms.TextBox()
+        Me.Label15 = New System.Windows.Forms.Label()
+        Me.cboActionTypes = New System.Windows.Forms.ComboBox()
+        Me.Button1 = New System.Windows.Forms.Button()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.Label16 = New System.Windows.Forms.Label()
+        Me.llbActionTypes = New System.Windows.Forms.LinkLabel()
+        Me.llbTotalActions = New System.Windows.Forms.LinkLabel()
+        Me.llbCasesClosed = New System.Windows.Forms.LinkLabel()
+        Me.llbTotalCases = New System.Windows.Forms.LinkLabel()
+        Me.llbExistingCases = New System.Windows.Forms.LinkLabel()
+        Me.llbNewCases = New System.Windows.Forms.LinkLabel()
+        Me.llbClientsAssisted = New System.Windows.Forms.LinkLabel()
+        Me.txtActionTypeCount = New System.Windows.Forms.TextBox()
+        Me.txtTotalActionCount = New System.Windows.Forms.TextBox()
+        Me.txtCaseClosedCount = New System.Windows.Forms.TextBox()
+        Me.txtTotalCaseCount = New System.Windows.Forms.TextBox()
+        Me.txtExistingCaseCount = New System.Windows.Forms.TextBox()
+        Me.txtNewCaseCount = New System.Windows.Forms.TextBox()
+        Me.txtClientAssistCount = New System.Windows.Forms.TextBox()
+        Me.llbViewNewClient = New System.Windows.Forms.LinkLabel()
+        Me.txtNewClientCount = New System.Windows.Forms.TextBox()
+        Me.Label12 = New System.Windows.Forms.Label()
+        Me.Label11 = New System.Windows.Forms.Label()
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.Label19 = New System.Windows.Forms.Label()
+        Me.Label13 = New System.Windows.Forms.Label()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.dgvCaseWork = New System.Windows.Forms.DataGridView()
+        Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.btnExportToExcel = New System.Windows.Forms.Button()
+        Me.txtCount = New System.Windows.Forms.TextBox()
+        Me.Label14 = New System.Windows.Forms.Label()
+        Me.txtCaseID = New System.Windows.Forms.TextBox()
+        Me.btnViewCase = New System.Windows.Forms.Button()
         CType(Me.SBEAPCLIENTDATABindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.SBEAPCLIENTSBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
@@ -210,6 +210,7 @@ Partial Class SBEAPReports
         '
         'cboActionTypes
         '
+        Me.cboActionTypes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboActionTypes.FormattingEnabled = True
         Me.cboActionTypes.Location = New System.Drawing.Point(11, 357)
         Me.cboActionTypes.Name = "cboActionTypes"
