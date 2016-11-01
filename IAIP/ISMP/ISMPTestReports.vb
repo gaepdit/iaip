@@ -6487,6 +6487,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                 cboReviewingEngineer.Enabled = True
                 cboWitnessingEngineer.Enabled = True
                 cboISMPUnit.Enabled = True
+                cboUnitManager.Enabled = True
                 clbWitnessingEngineers.Enabled = True
                 DTPTestDateStart.Enabled = True
                 DTPTestDateComplete.Enabled = True
@@ -7932,6 +7933,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                 cboWitnessingEngineer.Enabled = False
                 clbWitnessingEngineers.Enabled = False
                 cboISMPUnit.Enabled = False
+                cboUnitManager.Enabled = False
                 DTPTestDateStart.Enabled = False
                 DTPTestDateComplete.Enabled = False
                 cboComplianceManager.Enabled = False
