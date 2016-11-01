@@ -1,5 +1,5 @@
 Imports Oracle.ManagedDataAccess.Client
-Imports System.IO
+Imports System.Linq
 
 Public Class ISMPTestReports
     Dim dsMethods As DataSet
@@ -61,6 +61,7 @@ Public Class ISMPTestReports
 
             LoadDataSets()
             LoadCombos()
+            LoadUcCombo()
 
             If txtReferenceNumber.Text = "" Then
                 DefaultTabs()
@@ -2007,6 +2008,23 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
         Finally
         End Try
     End Sub
+    Private Sub LoadUcCombo()
+        Dim query As String = "SELECT (u.STRLASTNAME " &
+            "  ||', ' " &
+            "  ||u.STRFIRSTNAME) AS UnitManager " &
+            ", p.NUMUSERID " &
+            "FROM AIRBRANCH.EPDUSERPROFILES u " &
+            "INNER JOIN AIRBRANCH.IAIPPERMISSIONS p " &
+            "ON u.NUMUSERID             = p.NUMUSERID " &
+            "WHERE (u.NUMEMPLOYEESTATUS = '1' " &
+            "AND (p.STRIAIPPERMISSIONS LIKE '%(115)%')) " &
+            "OR p.NUMUSERID = 0"
+        With cboUnitManager
+            .DataSource = DB.GetDataTable(query)
+            .ValueMember = "NUMUSERID"
+            .DisplayMember = "UnitManager"
+        End With
+    End Sub
     Sub DefaultTabs()
         Try
             TCDocumentTypes.TabPages.Remove(TPOneStack)
@@ -2096,9 +2114,9 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             "  EngineerDays , rep.STRDETERMINATIONMETHOD , " &
             "  rep.STRCONTROLEQUIPMENTDATA , rep.STROTHERWITNESSINGENG , " &
             "  rep.STRCONFIDENTIALDATA , CASE WHEN rep.NUMREVIEWINGMANAGER " &
-            "      IS NULL THEN 'None'        WHEN rep.NUMREVIEWINGMANAGER = " &
-            "      '0'     THEN 'None' ELSE( p1.STRLASTNAME || ', ' || " &
+            "      IS NULL THEN 'None' ELSE( p1.STRLASTNAME || ', ' || " &
             "      p1.STRFIRSTNAME ) END UnitManager , " &
+            "  rep.NUMREVIEWINGMANAGER, " &
             "  rep.STRPRECOMPLIANCESTATUS , CASE                WHEN " &
             "      rep.STRCOMPLIANCEMANAGER IS NULL THEN 'None' WHEN " &
             "      rep.STRCOMPLIANCEMANAGER = '0'   THEN 'None' ELSE( " &
@@ -2203,11 +2221,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                 If IsDBNull(dr.Item("strReviewingunit")) Then
                     cboISMPUnit.SelectedValue = 0
                 Else
-                    If dr.Item("strReviewingUnit") = "O" Then
-                        cboISMPUnit.SelectedValue = 0
-                    Else
-                        cboISMPUnit.SelectedValue = dr.Item("strReviewingUnit")
-                    End If
+                    cboISMPUnit.SelectedValue = dr.Item("strReviewingUnit")
                 End If
                 If IsDBNull(dr.Item("datReviewedByUnitManager")) Then
                     txtAssignedToEngineer.Clear()
@@ -2348,10 +2362,26 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                         txtDaysAssigned.BackColor = Color.LightBlue
                     End If
                 End If
-                If IsDBNull(dr.Item("UnitManager")) Then
-                    txtUnitManager.Clear()
+                If IsDBNull(dr.Item("NUMREVIEWINGMANAGER")) Then
+                    cboUnitManager.SelectedValue = 0
                 Else
-                    txtUnitManager.Text = dr.Item("UnitManager")
+                    ' The Unit Manager combo box is filled with names according to a 
+                    ' list of current specific IAIP permissions. Previously existing stack
+                    ' tests may have already been assigned to users who no longer have the
+                    ' correct permissions. So we have to add one additional row to the combo
+                    ' box data source for the existing compliance manager assignment.
+                    Dim dt As DataTable = cboUnitManager.DataSource
+                    Dim contains As Boolean = dt.AsEnumerable().Any(Function(row) row("numUserID") = dr.Item("NUMREVIEWINGMANAGER"))
+
+                    If Not contains Then
+                        Dim dr1 As DataRow
+                        dr1 = dt.NewRow()
+                        dr1("numUserID") = dr.Item("NUMREVIEWINGMANAGER")
+                        dr1("UnitManager") = dr.Item("UnitManager")
+                        dt.Rows.Add(dr1)
+                    End If
+
+                    cboUnitManager.SelectedValue = dr.Item("NUMREVIEWINGMANAGER")
                 End If
                 If IsDBNull(dr.Item("strDeterminationMethod")) Then
                     Me.cboMethodDetermined.SelectedValue = 0
@@ -2467,7 +2497,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             "* from AIRBranch.ISMPTestReportMemo " &
             "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
+                    cmd = New OracleCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
             End If
@@ -9768,7 +9798,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             txtAssignedToEngineer.Clear()
             txtCompleteDate.Clear()
             txtProgramManager.Clear()
-            txtUnitManager.Clear()
+            cboUnitManager.SelectedValue = 0
             txtSourceTested.Clear()
             cboPollutantDetermined.SelectedValue = 0
             cboMethodDetermined.SelectedValue = 0
@@ -10339,6 +10369,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                   "End EngineerDays,  " &
                   "strDeterminationMethod, strControlEquipmentData,  " &
                   "strOtherWitnessingEng, strConfidentialData,  " &
+                  "numReviewingManager, " &
                   "case " &
                   "when numReviewingManager is null then 'N/A' " &
                   "else (strLastName||', '||strFirstName) " &
@@ -10530,10 +10561,26 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                                 txtDaysAssigned.BackColor = Color.LightBlue
                             End If
                         End If
-                        If IsDBNull(dr.Item("UnitManager")) Then
-                            txtUnitManager.Clear()
+                        If IsDBNull(dr.Item("numReviewingManager")) Then
+                            cboUnitManager.SelectedValue = 0
                         Else
-                            txtUnitManager.Text = dr.Item("UnitManager")
+                            ' The Unit Manager combo box is filled with names according to a 
+                            ' list of current specific IAIP permissions. Previously existing stack
+                            ' tests may have already been assigned to users who no longer have the
+                            ' correct permissions. So we have to add one additional row to the combo
+                            ' box data source for the existing compliance manager assignment.
+                            Dim dt As DataTable = cboUnitManager.DataSource
+                            Dim contains As Boolean = dt.AsEnumerable().Any(Function(row) row("numUserID") = dr.Item("NUMREVIEWINGMANAGER"))
+
+                            If Not contains Then
+                                Dim dr1 As DataRow
+                                dr1 = dt.NewRow()
+                                dr1("numUserID") = dr.Item("NUMREVIEWINGMANAGER")
+                                dr1("UnitManager") = dr.Item("UnitManager")
+                                dt.Rows.Add(dr1)
+                            End If
+
+                            cboUnitManager.Text = dr.Item("numReviewingManager")
                         End If
                     Else
 
@@ -10784,41 +10831,7 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             Else
                 AssignedDate = txtAssignedToEngineer.Text
             End If
-            If txtUnitManager.Text = "N/A" Then
-                Dim UserUnitTemp As String = ""
-
-                UserUnitTemp = CurrentUser.UnitId
-                If UserUnitTemp = 0 Then
-                    UserUnitTemp = ""
-                End If
-                SQL = "select (strLastName||', '||strFirstName) as UnitManager, " &
-                "AIRBRANCH.EPDUSerProfiles.numUserID " &
-                "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.IAIPPermissions " &
-                "where AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.IAIPPermissions.numUserID " &
-                "and numEmployeeStatus = '1' " &
-                "and (strIAIPPermissions like '%(4)%' or strIAIPPermissions like '%(115)%') " &
-                "and numUnit = '" & UserUnitTemp & "' "
-
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                While dr.Read
-                    If IsDBNull(dr.Item("UnitManager")) Then
-                        txtUnitManager.Text = "N/A"
-                    Else
-                        txtUnitManager.Text = dr.Item("UnitManager")
-                    End If
-                    If IsDBNull(dr.Item("numUserID")) Then
-                        UnitManager = ""
-                    Else
-                        UnitManager = dr.Item("numUserID")
-                    End If
-                End While
-            Else
-                UnitManager = ""
-            End If
+            UnitManager = cboUnitManager.SelectedValue
 
             Select Case TCDocumentTypes.TabPages.Count
                 Case Is < 3
@@ -11342,11 +11355,9 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             "strControlEquipmentData = '" & Replace(ControlEquip, "'", "''") & "', " &
             "strDeterminationMethod = '" & DetMethod & "', " &
             "strModifingPerson = '" & CurrentUser.UserID & "', " &
-            "datModifingDate = '" & OracleDate & "', "
-            If UnitManager <> "" Then
-                SQL = SQL & "numReviewingManager = '" & UnitManager & "', "
-            End If
-            SQL = SQL & "strOtherWitnessingEng = '" & OtherWitnessing & "' " &
+            "datModifingDate = '" & OracleDate & "', " &
+            "numReviewingManager = '" & UnitManager & "', " &
+            "strOtherWitnessingEng = '" & OtherWitnessing & "' " &
             "where strReferenceNumber = '" & txtReferenceNumber.Text & "'"
             'End If
 
@@ -15184,9 +15195,9 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
                 txtProgramManager.BackColor = Color.White
             End If
             If Mid(ConfidentialData, 10, 1) = "1" Then
-                Me.txtUnitManager.BackColor = Color.Tomato
+                Me.cboUnitManager.BackColor = Color.Tomato
             Else
-                txtUnitManager.BackColor = Color.White
+                cboUnitManager.BackColor = Color.White
             End If
             If Mid(ConfidentialData, 11, 1) = "1" Then
                 Me.cboTestNotificationNumber.BackColor = Color.Tomato
@@ -22720,18 +22731,6 @@ SELECT DISTINCT (AIRBranch.EPDUserProfiles.STRLASTNAME
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
-    End Sub
-
-    Private Sub cboISMPUnit_SelectedValueChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles cboISMPUnit.SelectedValueChanged
-        Try
-            txtUnitManager.Text = "N/A"
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-
-    Private Sub mmiHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiHelp.Click
-        OpenDocumentationUrl(Me)
     End Sub
 
     Private Sub mmiOpenMemo_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiOpenMemo.Click

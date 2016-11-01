@@ -47,7 +47,6 @@ Public Class ISMPManagersTools
     Private Sub ISMPManagersTools_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
         Try
-            CreateStatusBar()
             ShowCorrectTabs()
             LoadComboBoxDataSets()
             LoadComboBoxes()
@@ -55,21 +54,13 @@ Public Class ISMPManagersTools
             LoadLVTestReportAssignment()
             FormatEngineerTestReportGrid()
             FormatTestSummaryGrid()
-            FormatExcelDataGrid()
-            LoadExcelDataSet()
 
             DTPUnitStatsStartDate.Value = Format(Date.Today.AddDays(-30), "dd-MMM-yyyy")
             DTPUnitStatsEndDate.Value = OracleDate
             DTPMonthlyStart.Value = Format(Date.Today.AddDays(-30), "dd-MMM-yyyy")
             DTPMonthlyEnd.Value = OracleDate
-            DTPUnitStart.Value = Format(Date.Today.AddDays(-30), "dd-MMM-yyyy")
-            DTPUnitEnd.Value = OracleDate
             DTPEngineerTestReportStart.Text = Format(Date.Today.AddDays(-30), "dd-MMM-yyyy")
             DTPEngineerTestReportEnd.Text = OracleDate
-            DTPAppStartDate.Text = Format(Date.Today.AddDays(-30), "dd-MMM-yyyy")
-            DTPAppEndDate.Text = OracleDate
-            DTPStartDateFacility.Value = OracleDate
-            DTPEndDateFacility.Value = OracleDate
 
             LoadMethods()
             dtpAddTestReportDateReceived.Text = OracleDate
@@ -80,125 +71,30 @@ Public Class ISMPManagersTools
     End Sub
 
 #Region "Page Load"
-    Sub CreateStatusBar()
-        Try
-
-            panel1.Text = "Select a Function..."
-            panel2.Text = CurrentUser.AlphaName
-            panel3.Text = OracleDate
-
-            panel1.AutoSize = StatusBarPanelAutoSize.Spring
-            panel2.AutoSize = StatusBarPanelAutoSize.Contents
-            panel3.AutoSize = StatusBarPanelAutoSize.Contents
-
-            panel1.BorderStyle = StatusBarPanelBorderStyle.Sunken
-            panel2.BorderStyle = StatusBarPanelBorderStyle.Sunken
-            panel3.BorderStyle = StatusBarPanelBorderStyle.Sunken
-
-            panel1.Alignment = HorizontalAlignment.Left
-            panel2.Alignment = HorizontalAlignment.Left
-            panel3.Alignment = HorizontalAlignment.Right
-
-            ' Display panels in the StatusBar control.
-            statusBar1.ShowPanels = True
-
-            ' Add both panels to the StatusBarPanelCollection of the StatusBar.            
-            statusBar1.Panels.Add(panel1)
-            statusBar1.Panels.Add(panel2)
-            statusBar1.Panels.Add(panel3)
-
-            ' Add the StatusBar to the form.
-            Me.Controls.Add(statusBar1)
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
     Sub ShowCorrectTabs()
         Try
 
             TCManagersTools.TabPages.Remove(TPAIRSReportsPrinted)
             TCManagersTools.TabPages.Remove(TPMonthlyReport)
             TCManagersTools.TabPages.Remove(TPReportAssignment)
-            TCManagersTools.TabPages.Remove(TPTestReportStatistics)
-            TCManagersTools.TabPages.Remove(TPUnitStatistics)
-            TCManagersTools.TabPages.Remove(TPUnitAssignment)
             TCManagersTools.TabPages.Remove(TPUnitStatistics2)
-            TCManagersTools.TabPages.Remove(TPExcelFiles)
             TCManagersTools.TabPages.Remove(TPMiscTools)
-            TCManagersTools.TabPages.Remove(TPApplicationsReviewed)
 
             TCMiscTools.TabPages.Remove(TPMethods)
 
-            'Program Manager 
+            'Program & Unit Manager 
             If AccountFormAccess(17, 3) = "1" Then
                 TCManagersTools.TabPages.Add(TPReportAssignment)
                 TCManagersTools.TabPages.Add(TPMonthlyReport)
                 TCManagersTools.TabPages.Add(TPUnitStatistics2)
-                TCManagersTools.TabPages.Add(TPUnitStatistics)
                 TCManagersTools.TabPages.Add(TPAIRSReportsPrinted)
-                'TCManagersTools.TabPages.Add(Me.TPExcelFiles)
                 TCManagersTools.TabPages.Add(TPMiscTools)
                 TCMiscTools.TabPages.Add(TPMethods)
 
-                ShowCorrectPanels()
                 LoadAFSPrintList()
-            Else
-                'Unit Manager 
-                If AccountFormAccess(17, 2) = "1" Then
-                    TCManagersTools.TabPages.Add(TPUnitAssignment)
-                    TCManagersTools.TabPages.Add(TPReportAssignment)
-                    TCManagersTools.TabPages.Add(TPUnitStatistics2)
-                    TCManagersTools.TabPages.Add(TPUnitStatistics)
-                    'TCManagersTools.TabPages.Add(Me.TPExcelFiles)
-                    TCManagersTools.TabPages.Add(TPMiscTools)
-                    TCMiscTools.TabPages.Add(TPMethods)
-                    ShowCorrectPanels()
-                End If
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
-    End Sub
-    Sub ShowCorrectPanels()
-        Try
-
-            Select Case CurrentUser.UnitId
-                Case 0
-                    PanelCombustMineral.Visible = True
-                    txtDaysOpen.ReadOnly = False
-                    PanelChemVOC.Visible = True
-                    txtDaysOpen2.ReadOnly = True
-                    PanelAll.Visible = True
-
-                Case 12
-                    PanelCombustMineral.Visible = False
-                    txtDaysOpen.ReadOnly = False
-                    txtDaysOpen2.ReadOnly = True
-                    PanelChemVOC.Visible = True
-                    PanelAll.Visible = True
-                Case 13
-                    PanelCombustMineral.Visible = True
-                    txtDaysOpen.ReadOnly = True
-                    txtDaysOpen2.ReadOnly = False
-                    PanelChemVOC.Visible = False
-                    PanelAll.Visible = True
-                Case 14
-                    PanelCombustMineral.Visible = True
-                    txtDaysOpen.ReadOnly = False
-                    txtDaysOpen2.ReadOnly = True
-                    PanelChemVOC.Visible = True
-                    PanelAll.Visible = True
-                Case Else
-                    PanelAll.Visible = True
-            End Select
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
 
     End Sub
@@ -216,27 +112,11 @@ Public Class ISMPManagersTools
             "and numUserID <> '0' " &
             "order by strlastname"
 
-            SQL2 = "select strCountyCode, strCountyName from AIRBRANCH.LookUpCountyInformation " &
-            "order by strCountyName"
-
-            SQL3 = "select distinct(strFacilityCity) as City from AIRBRANCH.APBFacilityInformation " &
-            "order by strFacilityCity"
-
             dsEngineer = New DataSet
-            dsCounty = New DataSet
-            dsCity = New DataSet
 
             daEngineer = New OracleDataAdapter(SQL, CurrentConnection)
-            daCounty = New OracleDataAdapter(SQL2, CurrentConnection)
-            daCity = New OracleDataAdapter(SQL3, CurrentConnection)
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
 
             daEngineer.Fill(dsEngineer, "Engineers")
-            daCounty.Fill(dsCounty, "County")
-            daCity.Fill(dsCity, "City")
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -247,86 +127,15 @@ Public Class ISMPManagersTools
 
     End Sub
     Sub LoadComboBoxes()
-        Dim dtEngineers2 As DataTable
-        Dim dtCounty As New DataTable
-        Dim dtCity As New DataTable
-
         Try
-
-
-            dtEngineers2 = dsEngineer.Tables("Engineers")
-            dtCounty = dsCounty.Tables("County")
-            dtCity = dsCity.Tables("City")
-
-            Dim drEngineers As DataRow()
-            Dim drCounty As DataRow()
-            Dim drCity As DataRow()
-
-            Dim row As DataRow
 
             cboEngineer.Items.Add(" ")
 
-            drEngineers = dtEngineers2.Select()
-            For Each row In drEngineers
+            For Each row As DataRow In dsEngineer.Tables("Engineers").Rows
                 cboEngineer.Items.Add(row("UserName"))
-                MmiByEngineer.MenuItems.Add(row("UserName"))
+                clbEngineersList2.Items.Add(row("UserName"))
             Next
 
-            If CurrentUser.UnitId = 0 Then
-                drEngineers = dtEngineers2.Select()
-            Else
-                drEngineers = dtEngineers2.Select("numUnit is Null")
-            End If
-
-            Select Case CurrentUser.UnitId
-                Case 12
-                    drEngineers = dtEngineers2.Select("numUnit = '12'")
-                    For Each row In drEngineers
-                        clbEngineers1.Items.Add(row("UserName"))
-                        clbEngineersList2.Items.Add(row("UserName"))
-                    Next
-                Case 13
-                    drEngineers = dtEngineers2.Select("numUnit = '13'")
-                    For Each row In drEngineers
-                        clbEngineers2.Items.Add(row("UserName"))
-                        clbEngineersList2.Items.Add(row("UserName"))
-                    Next
-                Case 14
-                    drEngineers = dtEngineers2.Select("numUnit = '12'")
-                    For Each row In drEngineers
-                        clbEngineers1.Items.Add(row("UserName"))
-                        clbEngineersList2.Items.Add(row("UserName"))
-                    Next
-                    drEngineers = dtEngineers2.Select("numUnit = '13'")
-                    For Each row In drEngineers
-                        clbEngineers2.Items.Add(row("UserName"))
-                        clbEngineersList2.Items.Add(row("UserName"))
-                    Next
-                Case Else
-                    drEngineers = dtEngineers2.Select("numUnit = '12'")
-                    For Each row In drEngineers
-                        clbEngineers1.Items.Add(row("UserName"))
-                        clbEngineersList2.Items.Add(row("UserName"))
-                    Next
-                    drEngineers = dtEngineers2.Select("numUnit = '13'")
-                    For Each row In drEngineers
-                        clbEngineers2.Items.Add(row("UserName"))
-                        clbEngineersList2.Items.Add(row("UserName"))
-                    Next
-            End Select
-
-            cboCounty.Items.Add(" ")
-
-            drCounty = dtCounty.Select()
-            For Each row In drCounty
-                cboCounty.Items.Add(row("strCountyName"))
-            Next
-
-            cboCity.Items.Add(" ")
-            drCity = dtCity.Select()
-            For Each row In drCity
-                cboCity.Items.Add(row("City"))
-            Next
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -357,29 +166,7 @@ Public Class ISMPManagersTools
                 "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = '0'  " &
                 "and AIRBRANCH.ISMPReportInformation.strDelete is NULL "
             Else
-                If AccountFormAccess(17, 2) = "1" Then
-                    SQL = "Select " &
-                    "AIRBRANCH.ISMPMaster.strReferenceNumber, AIRBRANCH.ISMPMaster.strAIRSNumber, strFacilityName,  " &
-                    "to_Char(DATTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart, " &
-                    "strEmissionSource,  " &
-                    "(Select strPollutantDescription  " &
-                    "from AIRBRANCH.LookUPPollutants, AIRBRANCH.ISMPReportInformation  " &
-                    "where AIRBRANCH.LookUPPollutants.strPollutantCode = AIRBRANCH.ISMPReportInformation.strPOllutant  " &
-                    "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = AIRBRANCH.ISMPMaster.StrReferenceNumber) as Pollutant,  " &
-                    "(select (strLastName|| ', ' ||strFirstName) as ReviewingEngineer  " &
-                    "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation  " &
-                    "where AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.ISMPReportInformation.strReviewingEngineer  " &
-                    "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = AIRBRANCH.ISMPMaster.strReferenceNumber) as ReviewingEngineer  " &
-                    "from AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation, AIRBRANCH.ISMPReportInformation  " &
-                    "where AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber " &
-                    "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
-                      "and ( strclosed = 'False' or strClosed is null ) " &
-                    "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = '0' " &
-                    "and AIRBRANCH.ISMPReportInformation.strDelete is NULL"
-
-                Else
-                    SQL = ""
-                End If
+                SQL = ""
             End If
 
             dsTestReportAssignments = New DataSet
@@ -583,76 +370,6 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
-    Sub LoadExcelDataSet()
-        Try
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            SQL = "Select FileID, FileTitle " &
-            "From AIRBRANCH.ISMPTestReportAids"
-
-            dsExcelFiles = New DataSet
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-
-            daExcelFiles = New OracleDataAdapter(cmd)
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            daExcelFiles.Fill(dsExcelFiles, "ExcelFiles")
-            dgrExcelFiles.DataSource = dsExcelFiles
-            dgrExcelFiles.DataMember = "ExcelFiles"
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Sub FormatExcelDataGrid()
-        Try
-
-            'Formatting our DataGrid
-            Dim objGrid As New DataGridTableStyle
-            Dim objtextcol As New DataGridTextBoxColumn
-
-            objGrid.AlternatingBackColor = Color.WhiteSmoke
-            objGrid.MappingName = "ExcelFiles"
-            objGrid.RowHeadersVisible = False
-            objGrid.AllowSorting = True
-            objGrid.ReadOnly = True
-
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "FileID"
-            objtextcol.HeaderText = "ID Number"
-            objtextcol.Width = 80
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            objtextcol = New DataGridTextBoxColumn
-            objtextcol.MappingName = "FileTitle"
-            objtextcol.HeaderText = "Name of File"
-            objtextcol.Width = 300
-            objGrid.GridColumnStyles.Add(objtextcol)
-
-            'Applying the above formating 
-            dgrExcelFiles.TableStyles.Clear()
-            dgrExcelFiles.TableStyles.Add(objGrid)
-
-            'Setting the DataGrid Caption, which defines the table title
-            dgrExcelFiles.CaptionText = "Excel Files Currently Saved"
-            dgrExcelFiles.ColumnHeadersVisible = True
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
     Sub LoadAFSPrintList()
         Dim temp As String = ""
 
@@ -823,69 +540,6 @@ Public Class ISMPManagersTools
     End Sub
 #End Region
 #Region "Different Test Report Assignment Data Sets"
-    Sub LoadAllByUnitTestReportAssignmentDataSet()
-        Try
-
-            If AccountFormAccess(17, 3) = "1" Then
-                SQL = "Select " &
-                "AIRBRANCH.ISMPMaster.strReferenceNumber, AIRBRANCH.ISMPMaster.strAIRSNumber, strFacilityName,  " &
-                "to_Char(DATTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart, " &
-                "strEmissionSource,  " &
-                "(Select strPollutantDescription  " &
-                "from AIRBRANCH.LookUPPollutants, AIRBRANCH.ISMPReportInformation  " &
-                "where AIRBRANCH.LookUPPollutants.strPollutantCode = AIRBRANCH.ISMPReportInformation.strPOllutant  " &
-                "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = AIRBRANCH.ISMPMaster.StrReferenceNumber) as Pollutant,  " &
-                "(select (strLastName|| ', ' ||strFirstName) as ReviewingEngineer  " &
-                "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation  " &
-                "where AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.ISMPReportInformation.strReviewingEngineer  " &
-                "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = AIRBRANCH.ISMPMaster.strReferenceNumber) as ReviewingEngineer  " &
-                "from AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation, AIRBRANCH.ISMPReportInformation  " &
-                "where AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber " &
-                "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
-                  "and AIRBRANCH.ISMPReportInformation.strDelete is NULL"
-            Else
-                If AccountFormAccess(17, 2) = "1" Then
-                    SQL = "Select " &
-                    "AIRBRANCH.ISMPMaster.strReferenceNumber, AIRBRANCH.ISMPMaster.strAIRSNumber, strFacilityName,  " &
-                    "to_Char(DATTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart, " &
-                    "strEmissionSource,  " &
-                    "(Select strPollutantDescription  " &
-                    "from AIRBRANCH.LookUPPollutants, AIRBRANCH.ISMPReportInformation  " &
-                    "where AIRBRANCH.LookUPPollutants.strPollutantCode = AIRBRANCH.ISMPReportInformation.strPOllutant  " &
-                    "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = AIRBRANCH.ISMPMaster.StrReferenceNumber) as Pollutant,  " &
-                    "(select (strLastName|| ', ' ||strFirstName) as ReviewingEngineer  " &
-                    "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation  " &
-                    "where AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.ISMPReportInformation.strReviewingEngineer  " &
-                    "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = AIRBRANCH.ISMPMaster.strReferenceNumber) as ReviewingEngineer  " &
-                    "from AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation, AIRBRANCH.ISMPReportInformation  " &
-                    "where AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber " &
-                    "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
-                    "and strReviewingUnit = '" & CurrentUser.UserID & "' " &
-                      "and AIRBRANCH.ISMPReportInformation.strDelete is NULL"
-                Else
-                    SQL = ""
-                End If
-            End If
-
-            dsTestReportAssignments = New DataSet
-            daTestreportAssignments = New OracleDataAdapter
-
-            Dim cmd As New OracleCommand(SQL, CurrentConnection)
-
-            daTestreportAssignments.SelectCommand = cmd
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daTestreportAssignments.Fill(dsTestReportAssignments, "TestReportAssignment")
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
     Sub LoadAllNoUnitTestReportAssignmentDataSet()
         Try
 
@@ -907,26 +561,7 @@ Public Class ISMPManagersTools
                 "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
                   "and AIRBRANCH.ISMPReportInformation.strDelete is NULL"
             Else
-                If AccountFormAccess(17, 2) = "1" Then
-                    SQL = "Select " &
-                    "AIRBRANCH.ISMPMaster.strReferenceNumber, AIRBRANCH.ISMPMaster.strAIRSNumber, strFacilityName,  " &
-                    "to_Char(DATTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart, " &
-                    "strEmissionSource,  " &
-                    "(Select strPollutantDescription  " &
-                    "from AIRBRANCH.LookUPPollutants, AIRBRANCH.ISMPReportInformation  " &
-                    "where AIRBRANCH.LookUPPollutants.strPollutantCode = AIRBRANCH.ISMPReportInformation.strPOllutant  " &
-                    "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = AIRBRANCH.ISMPMaster.StrReferenceNumber) as Pollutant,  " &
-                    "(select (strLastName|| ', ' ||strFirstName) as ReviewingEngineer  " &
-                    "from AIRBRANCH.EPDUSerProfiles, AIRBRANCH.ISMPReportInformation  " &
-                    "where AIRBRANCH.EPDUSerProfiles.numUserID = AIRBRANCH.ISMPReportInformation.strReviewingEngineer  " &
-                    "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = AIRBRANCH.ISMPMaster.strReferenceNumber) as ReviewingEngineer  " &
-                    "from AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation, AIRBRANCH.ISMPReportInformation  " &
-                    "where AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber " &
-                    "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
-                      "and AIRBRANCH.ISMPReportInformation.strDelete is NULL"
-                Else
-                    SQL = ""
-                End If
+                SQL = ""
             End If
 
             dsTestReportAssignments = New DataSet
@@ -972,27 +607,7 @@ Public Class ISMPManagersTools
                 "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = '0' " &
                   "and AIRBRANCH.ISMPReportInformation.strDelete is NULL"
             Else
-                If AccountFormAccess(17, 2) = "1" Then
-                    SQL = "Select " &
-                    "AIRBRANCH.ISMPMaster.strReferenceNumber, AIRBRANCH.ISMPMaster.strAIRSNumber, strFacilityName,  " &
-                    "to_Char(DATTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart, " &
-                    "strEmissionSource,  " &
-                    "(Select strPollutantDescription  " &
-                    "from AIRBRANCH.LookUPPollutants, AIRBRANCH.ISMPReportInformation  " &
-                    "where AIRBRANCH.LookUPPollutants.strPollutantCode = AIRBRANCH.ISMPReportInformation.strPOllutant  " &
-                    "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = AIRBRANCH.ISMPMaster.StrReferenceNumber) as Pollutant,  " &
-                    "(select (strLastName|| ', ' ||strFirstName) as ReviewingEngineer  " &
-                    "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation  " &
-                    "where AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.ISMPReportInformation.strReviewingEngineer  " &
-                    "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = AIRBRANCH.ISMPMaster.strReferenceNumber) as ReviewingEngineer  " &
-                    "from AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation, AIRBRANCH.ISMPReportInformation  " &
-                    "where AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber " &
-                    "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
-                    "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = '0' " &
-                      "and AIRBRANCH.ISMPReportInformation.strDelete is NULL"
-                Else
-                    SQL = ""
-                End If
+                SQL = ""
             End If
 
             dsTestReportAssignments = New DataSet
@@ -1012,72 +627,6 @@ Public Class ISMPManagersTools
         Finally
 
         End Try
-
-    End Sub
-    Sub LoadAssignedByUnitTestReportAssignmentDataSet()
-        Try
-
-            If AccountFormAccess(17, 3) = "1" Then
-                SQL = "Select " &
-                "AIRBRANCH.ISMPMaster.strReferenceNumber, AIRBRANCH.ISMPMaster.strAIRSNumber, strFacilityName,  " &
-                "to_Char(DATTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart, " &
-                "strEmissionSource,  " &
-                "(Select strPollutantDescription  " &
-                "from AIRBRANCH.LookUPPollutants, AIRBRANCH.ISMPReportInformation  " &
-                "where AIRBRANCH.LookUPPollutants.strPollutantCode = AIRBRANCH.ISMPReportInformation.strPOllutant  " &
-                "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = AIRBRANCH.ISMPMaster.StrReferenceNumber) as Pollutant,  " &
-                "(select (strLastName|| ', ' ||strFirstName) as ReviewingEngineer  " &
-                "from AIRBRANCH.EPDUSerProfiles, AIRBRANCH.ISMPReportInformation  " &
-                "where AIRBRANCH.EPDUSerProfiles.numUserID = AIRBRANCH.ISMPReportInformation.strReviewingEngineer  " &
-                "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = AIRBRANCH.ISMPMaster.strReferenceNumber) as ReviewingEngineer  " &
-                "from AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation, AIRBRANCH.ISMPReportInformation  " &
-                "where AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber " &
-                "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
-                "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer <> '0' " &
-                  "and AIRBRANCH.ISMPReportInformation.strDelete is NULL"
-            Else
-                If AccountFormAccess(17, 2) = "1" Then
-                    SQL = "Select " &
-                    "AIRBRANCH.ISMPMaster.strReferenceNumber, AIRBRANCH.ISMPMaster.strAIRSNumber, strFacilityName,  " &
-                    "to_Char(DATTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart, " &
-                    "strEmissionSource,  " &
-                    "(Select strPollutantDescription  " &
-                    "from AIRBRANCH.LookUPPollutants, AIRBRANCH.ISMPReportInformation  " &
-                    "where AIRBRANCH.LookUPPollutants.strPollutantCode = AIRBRANCH.ISMPReportInformation.strPOllutant  " &
-                    "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = AIRBRANCH.ISMPMaster.StrReferenceNumber) as Pollutant,  " &
-                    "(select (strLastName|| ', ' ||strFirstName) as ReviewingEngineer  " &
-                    "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation  " &
-                    "where AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.ISMPReportInformation.strReviewingEngineer  " &
-                    "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = AIRBRANCH.ISMPMaster.strReferenceNumber) as ReviewingEngineer  " &
-                    "from AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation, AIRBRANCH.ISMPReportInformation  " &
-                    "where AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber " &
-                    "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
-                    "and strReviewingUnit = '" & CurrentUser.UserID & "' " &
-                     "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer <> '0' " &
-                       "and AIRBRANCH.ISMPReportInformation.strDelete is NULL"
-                Else
-                    SQL = ""
-                End If
-            End If
-
-            dsTestReportAssignments = New DataSet
-            daTestreportAssignments = New OracleDataAdapter
-
-            Dim cmd As New OracleCommand(SQL, CurrentConnection)
-
-            daTestreportAssignments.SelectCommand = cmd
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daTestreportAssignments.Fill(dsTestReportAssignments, "TestReportAssignment")
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
 
     End Sub
     Sub LoadAssignedNoUnitTestReportAssignmentDataSet()
@@ -1102,27 +651,7 @@ Public Class ISMPManagersTools
                 "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer <> '0' " &
                   "and AIRBRANCH.ISMPReportInformation.strDelete is NULL"
             Else
-                If AccountFormAccess(17, 2) = "1" Then
-                    SQL = "Select " &
-                    "AIRBRANCH.ISMPMaster.strReferenceNumber, AIRBRANCH.ISMPMaster.strAIRSNumber, strFacilityName,  " &
-                    "to_Char(DATTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart, " &
-                    "strEmissionSource,  " &
-                    "(Select strPollutantDescription  " &
-                    "from AIRBRANCH.LookUPPollutants, AIRBRANCH.ISMPReportInformation  " &
-                    "where AIRBRANCH.LookUPPollutants.strPollutantCode = AIRBRANCH.ISMPReportInformation.strPOllutant  " &
-                    "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = AIRBRANCH.ISMPMaster.StrReferenceNumber) as Pollutant,  " &
-                    "(select (strLastName|| ', ' ||strFirstName) as ReviewingEngineer  " &
-                    "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation  " &
-                    "where AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.ISMPReportInformation.strReviewingEngineer  " &
-                    "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = AIRBRANCH.ISMPMaster.strReferenceNumber) as ReviewingEngineer  " &
-                    "from AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation, AIRBRANCH.ISMPReportInformation  " &
-                    "where AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber " &
-                    "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
-                    "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer <> '0' " &
-                      "and AIRBRANCH.ISMPReportInformation.strDelete is NULL"
-                Else
-                    SQL = ""
-                End If
+                SQL = ""
             End If
 
             dsTestReportAssignments = New DataSet
@@ -1166,27 +695,7 @@ Public Class ISMPManagersTools
                 "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
                 "and AIRBRANCH.ISMPReportInformation.strDelete is not NULL"
             Else
-                If AccountFormAccess(17, 2) = "1" Then
-                    SQL = "Select " &
-                    "AIRBRANCH.ISMPMaster.strReferenceNumber, AIRBRANCH.ISMPMaster.strAIRSNumber, strFacilityName,  " &
-                    "to_Char(DATTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart, " &
-                    "strEmissionSource,  " &
-                    "(Select strPollutantDescription  " &
-                    "from AIRBRANCH.LookUPPollutants, AIRBRANCH.ISMPReportInformation  " &
-                    "where AIRBRANCH.LookUPPollutants.strPollutantCode = AIRBRANCH.ISMPReportInformation.strPOllutant  " &
-                    "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = AIRBRANCH.ISMPMaster.StrReferenceNumber) as Pollutant,  " &
-                    "(select (strLastName|| ', ' ||strFirstName) as ReviewingEngineer  " &
-                    "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation  " &
-                    "where AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.ISMPReportInformation.strReviewingEngineer  " &
-                    "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = AIRBRANCH.ISMPMaster.strReferenceNumber) as ReviewingEngineer  " &
-                    "from AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation, AIRBRANCH.ISMPReportInformation  " &
-                    "where AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber " &
-                    "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
-                    "and strReviewingUnit = '" & CurrentUser.UserID & "' " &
-                    "and AIRBRANCH.ISMPReportInformation.strDelete is not NULL"
-                Else
-                    SQL = ""
-                End If
+                SQL = ""
             End If
 
             dsTestReportAssignments = New DataSet
@@ -1231,29 +740,7 @@ Public Class ISMPManagersTools
                  "and AIRBRANCH.ISMPReportInformation.strDocumentType = '" & ReportType & "' " &
                 "and AIRBRANCH.ISMPReportInformation.strDelete is NULL"
             Else
-                If AccountFormAccess(17, 2) = "1" Then
-                    SQL = "Select " &
-                    "AIRBRANCH.ISMPMaster.strReferenceNumber, AIRBRANCH.ISMPMaster.strAIRSNumber, strFacilityName,  " &
-                    "to_Char(DATTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart, " &
-                    "strEmissionSource,  " &
-                    "(Select strPollutantDescription  " &
-                    "from AIRBRANCH.LookUPPollutants, AIRBRANCH.ISMPReportInformation  " &
-                    "where AIRBRANCH.LookUPPollutants.strPollutantCode = AIRBRANCH.ISMPReportInformation.strPOllutant  " &
-                    "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = AIRBRANCH.ISMPMaster.StrReferenceNumber) as Pollutant,  " &
-                    "(select (strLastName|| ', ' ||strFirstName) as ReviewingEngineer  " &
-                    "from AIRBRANCH.EPDUSerProfiles, AIRBRANCH.ISMPReportInformation  " &
-                    "where AIRBRANCH.EPDUSerProfiles.numUserID = AIRBRANCH.ISMPReportInformation.strReviewingEngineer  " &
-                    "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = AIRBRANCH.ISMPMaster.strReferenceNumber) as ReviewingEngineer  " &
-                    "from AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation, AIRBRANCH.ISMPReportInformation  " &
-                    "where AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber " &
-                    "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
-                    "and strReviewingUnit = '" & CurrentUser.UserID & "' " &
-                    "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = '0' " &
-                    "and AIRBRANCH.ISMPReportInformation.strDocumentType = '" & ReportType & "' " &
-                    "and AIRBRANCH.ISMPReportInformation.strDelete is NULL"
-                Else
-                    SQL = ""
-                End If
+                SQL = ""
             End If
 
             dsTestReportAssignments = New DataSet
@@ -1298,29 +785,7 @@ Public Class ISMPManagersTools
                 "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer <> '0' " &
                 "and AIRBRANCH.ISMPReportInformation.strDelete is NULL"
             Else
-                If AccountFormAccess(17, 2) = "1" Then
-                    SQL = "Select " &
-                    "AIRBRANCH.ISMPMaster.strReferenceNumber, AIRBRANCH.ISMPMaster.strAIRSNumber, strFacilityName,  " &
-                    "to_Char(DATTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart, " &
-                    "strEmissionSource,  " &
-                    "(Select strPollutantDescription  " &
-                    "from AIRBRANCH.LookUPPollutants, AIRBRANCH.ISMPReportInformation  " &
-                    "where AIRBRANCH.LookUPPollutants.strPollutantCode = AIRBRANCH.ISMPReportInformation.strPOllutant  " &
-                    "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = AIRBRANCH.ISMPMaster.StrReferenceNumber) as Pollutant,  " &
-                    "(select (strLastName|| ', ' ||strFirstName) as ReviewingEngineer  " &
-                    "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation  " &
-                    "where AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.ISMPReportInformation.strReviewingEngineer  " &
-                    "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = AIRBRANCH.ISMPMaster.strReferenceNumber) as ReviewingEngineer  " &
-                    "from AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation, AIRBRANCH.ISMPReportInformation  " &
-                    "where AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber " &
-                    "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
-                    "and strReviewingUnit = '" & CurrentUser.UserID & "' " &
-                    "and AIRBRANCH.ISMPReportInformation.strDocumentType = '" & ReportType & "' " &
-                    "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer <> '0' " &
-                    "and AIRBRANCH.ISMPReportInformation.strDelete is NULL"
-                Else
-                    SQL = ""
-                End If
+                SQL = ""
             End If
 
             dsTestReportAssignments = New DataSet
@@ -1366,28 +831,7 @@ Public Class ISMPManagersTools
                     "and AIRBRANCH.ISMPReportInformation.strDocumentType = '" & ReportType & "' " &
                     "and AIRBRANCH.ISMPReportInformation.strDelete is NULL"
             Else
-                If AccountFormAccess(17, 2) = "1" Then
-                    SQL = "Select " &
-                    "AIRBRANCH.ISMPMaster.strReferenceNumber, AIRBRANCH.ISMPMaster.strAIRSNumber, strFacilityName,  " &
-                    "to_Char(DATTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart, " &
-                    "strEmissionSource,  " &
-                    "(Select strPollutantDescription  " &
-                    "from AIRBRANCH.LookUPPollutants, AIRBRANCH.ISMPReportInformation  " &
-                    "where AIRBRANCH.LookUPPollutants.strPollutantCode = AIRBRANCH.ISMPReportInformation.strPOllutant  " &
-                    "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = AIRBRANCH.ISMPMaster.StrReferenceNumber) as Pollutant,  " &
-                    "(select (strLastName|| ', ' ||strFirstName) as ReviewingEngineer  " &
-                    "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation  " &
-                    "where AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.ISMPReportInformation.strReviewingEngineer  " &
-                    "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = AIRBRANCH.ISMPMaster.strReferenceNumber) as ReviewingEngineer  " &
-                    "from AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation, AIRBRANCH.ISMPReportInformation  " &
-                    "where AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber " &
-                    "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
-                    "and strReviewingUnit = '" & CurrentUser.UserID & "' " &
-                    "and AIRBRANCH.ISMPReportInformation.strDocumentType = '" & ReportType & "' " &
-                    "and AIRBRANCH.ISMPReportInformation.strDelete is NULL"
-                Else
-                    SQL = ""
-                End If
+                SQL = ""
             End If
 
             dsTestReportAssignments = New DataSet
@@ -1432,28 +876,7 @@ Public Class ISMPManagersTools
                 "and AIRBRANCH.ISMPMaster.strAIRSNumber = '0413" & txtAIRSNumber.Text & "' " &
                 "and AIRBRANCH.ISMPReportInformation.strDelete is NULL"
             Else
-                If AccountFormAccess(17, 2) = "1" Then
-                    SQL = "Select " &
-                    "AIRBRANCH.ISMPMaster.strReferenceNumber, AIRBRANCH.ISMPMaster.strAIRSNumber, strFacilityName,  " &
-                    "to_Char(DATTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart, " &
-                    "strEmissionSource,  " &
-                    "(Select strPollutantDescription  " &
-                    "from AIRBRANCH.LookUPPollutants, AIRBRANCH.ISMPReportInformation  " &
-                    "where AIRBRANCH.LookUPPollutants.strPollutantCode = AIRBRANCH.ISMPReportInformation.strPOllutant  " &
-                    "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = AIRBRANCH.ISMPMaster.StrReferenceNumber) as Pollutant,  " &
-                    "(select (strLastName|| ', ' ||strFirstName) as ReviewingEngineer  " &
-                    "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation  " &
-                    "where AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.ISMPReportInformation.strReviewingEngineer  " &
-                    "and AIRBRANCH.ISMPReportInformation.strReferenceNumber = AIRBRANCH.ISMPMaster.strReferenceNumber) as ReviewingEngineer  " &
-                    "from AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation, AIRBRANCH.ISMPReportInformation  " &
-                    "where AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber " &
-                    "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
-                    "and strReviewingUnit = '" & CurrentUser.UserID & "' " &
-                      "and AIRBRANCH.ISMPMaster.strAIRSNumber = '0413" & txtAIRSNumber.Text & "' " &
-                    "and AIRBRANCH.ISMPReportInformation.strDelete is NULL"
-                Else
-                    SQL = ""
-                End If
+                SQL = ""
             End If
 
             dsTestReportAssignments = New DataSet
@@ -1543,12 +966,10 @@ Public Class ISMPManagersTools
                         'AssignDate = AssignDate
                     End If
 
-                    Dim tempUnit As String = CurrentUser.UnitId.ToString
-
                     SQL = "Update AIRBRANCH.ISMPReportInformation set " &
                     "strReviewingEngineer = '" & EngineerGCode & "', " &
                     "datReviewedBYUnitManager = '" & AssignDate & "', " &
-                    "strReviewingUnit = '" & tempUnit & "', " &
+                    "strReviewingUnit = '" & CurrentUser.UnitId.ToString & "', " &
                     "numReviewingManager = '" & CurrentUser.UserID & "', " &
                     "strPreComplianceStatus = '" & PreCompliance & "' " &
                     "where AIRBRANCH.ISMPReportInformation.strReferenceNumber = '" & strObject.ToString() & "'"
@@ -1823,1563 +1244,9 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
-    Sub SaveUnitAssignments()
-        Dim strObject As String
-
-        Try
-
-            If rdbChemVOC.Checked <> False Or rdbCombusMineral.Checked <> False Then
-
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                If rdbChemVOC.Checked = True Then
-                    SQL = "Update AIRBRANCH.ISMPFacilityAssignment set " &
-                    "strISMPUnit = 'H' "
-                Else
-                    SQL = "Update AIRBRANCH.ISMPFacilityAssignment set " &
-                    "strChemicalVOC = 'I' "
-                End If
-                Try
-
-
-                    For Each strObject In lsbFacilities.Items
-                        SQL2 = SQL & "where strAIRSNumber = '0413" & strObject.ToCharArray() & "' "
-                        cmd = New OracleCommand(SQL2, CurrentConnection)
-                        dr = cmd.ExecuteReader
-                        SQL2 = ""
-                    Next
-
-                Catch ex As Exception
-                    MsgBox(ex.ToString())
-                End Try
-                '  
-
-                LVFacilities.Clear()
-                FillFacilitiesDataGrid()
-                lsbFacilities.Items.Clear()
-            Else
-                MsgBox("Select a unit to assign these facilities to first.")
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
 #End Region
+
 #Region "Run Statistics"
-    Sub RunFacilityStatistics()
-        Dim DateBias As String = ""
-        Dim FacilityBias As String = "%"
-        Dim CityBias As String = "%"
-        Dim CountyBias As String = "%%%"
-        Dim dtTable As New DataTable
-        Dim drRow As DataRow()
-        Dim row As DataRow
-
-        Dim FacilityOpen As Integer = "0"
-        Dim CSFacilityOpen1 As Integer = "0"
-        Dim CSFacilityOpen2 As Integer = "0"
-        Dim CSFacilityOpen3 As Integer = "0"
-        Dim CSFacilityOpen4 As Integer = "0"
-        Dim CSFacilityOpen5 As Integer = "0"
-
-        Dim FacilityClosed As Integer = "0"
-        Dim CSFacilityClosed1 As Integer = "0"
-        Dim CSFacilityClosed2 As Integer = "0"
-        Dim CSFacilityClosed3 As Integer = "0"
-        Dim CSFacilityClosed4 As Integer = "0"
-        Dim CSFacilityClosed5 As Integer = "0"
-
-        Dim FacilityOpenDays As Integer = "0"
-        Dim CSFacilityOpenDays1 As Integer = "0"
-        Dim CSFacilityOpenDays2 As Integer = "0"
-        Dim CSFacilityOpenDays3 As Integer = "0"
-        Dim CSFacilityOpenDays4 As Integer = "0"
-        Dim CSFacilityOpenDays5 As Integer = "0"
-
-        Try
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            If txtFacility.Text <> "" Then
-                FacilityBias = txtAIRSNumber2.Text
-            End If
-            If cboCounty.Text <> "" And cboCounty.Text <> " " Then
-                dtTable = dsCounty.Tables("County")
-                drRow = dtTable.Select("strCountyName = '" & cboCounty.Text & "'")
-                For Each row In drRow
-                    CountyBias = row("strCountyCode")
-                Next
-            Else
-                CountyBias = "%%%"
-            End If
-            If cboCity.Text <> "" And cboCity.Text <> " " Then
-                dtTable = dsCity.Tables("City")
-                drRow = dtTable.Select("City = '" & cboCity.Text & "'")
-                For Each row In drRow
-                    CityBias = row("City")
-                Next
-            Else
-                CityBias = "%"
-            End If
-            If rdbFacilityDateTestStarted.Checked = True Then
-                DateBias = "datTestDateStart between '" & DTPStartDateFacility.Text & "' " &
-                "and '" & DTPEndDateFacility.Text & "'"
-            End If
-            If rdbFacilityDateReceived.Checked = True Then
-                DateBias = "datReceivedDate between '" & DTPStartDateFacility.Text & "' " &
-                "and '" & DTPEndDateFacility.Text & "'"
-            End If
-            If rdbFacilityDateCompleted.Checked = True Then
-                DateBias = "datCompleteDate between '" & DTPStartDateFacility.Text & "' " &
-                "and '" & DTPEndDateFacility.Text & "'"
-            End If
-            If rdbStatsAll.Checked = True Then
-                DateBias = "datReceivedDate between '04-Jul-1776' " &
-                "and '09-Sep-9998'"
-            End If
-            If DateBias = "" Then
-                DateBias = "datReceivedDate between '04-Jul-1776' " &
-                "and '09-Sep-9998'"
-            End If
-
-            'txtOpenFacility
-            SQL = "Select count(*) as Count " &
-            "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation " &
-            "where strClosed = 'False' " &
-            "and strDelete is NULL " &
-            "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
-            "and AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber " &
-            "and Upper(AIRBRANCH.APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " &
-            "and AIRBRANCH.ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " &
-            "and subStr(AIRBRANCH.ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
-            "and " & DateBias & " "
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            Try
-
-
-
-                dr = cmd.ExecuteReader
-                While dr.Read
-                    FacilityOpen = dr.Item("Count")
-                End While
-            Catch ex As Exception
-                ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-            Finally
-
-            End Try
-            ' 
-
-            'txtClosedFacility
-            SQL = "Select count(*) as Count " &
-            "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation " &
-            "where strClosed = 'True' " &
-            "and strDelete is NULL " &
-            "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
-            "and AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber " &
-            "and Upper(AIRBRANCH.APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " &
-            "and AIRBRANCH.ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " &
-            "and subStr(AIRBRANCH.ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
-            "and " & DateBias & " "
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-
-            dr = cmd.ExecuteReader
-            While dr.Read
-                FacilityClosed = dr.Item("Count")
-            End While
-
-            'txtFacilityOpenDays
-            SQL = "Select count(*) as Count " &
-            "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation " &
-            "where " &
-            "strDelete is NULL " &
-            "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
-            "and AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber " &
-            "and Upper(AIRBRANCH.APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " &
-            "and AIRBRANCH.ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " &
-            "and subStr(AIRBRANCH.ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
-            "and (to_date('" & OracleDate & "', 'dd-Mon-yyyy') - datReceivedDate) >= '" & txtDaysOpenFacility.Text & "' " &
-            "and " & DateBias & " "
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-
-            dr = cmd.ExecuteReader
-            While dr.Read
-                FacilityOpenDays = dr.Item("Count")
-            End While
-
-            'Compliance Status Open
-            'File Open 
-            SQL = "Select count(*) as Count " &
-            "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation " &
-            "where strClosed = 'False' " &
-            "and strDelete is NULL " &
-            "and strComplianceStatus = '01' " &
-            "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
-            "and AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber " &
-            "and Upper(AIRBRANCH.APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " &
-            "and AIRBRANCH.ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " &
-            "and subStr(AIRBRANCH.ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
-            "and " & DateBias & " "
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-
-            dr = cmd.ExecuteReader
-            While dr.Read
-                CSFacilityOpen1 = dr.Item("Count")
-            End While
-
-            'For Information Purposes Only
-            SQL = "Select count(*) as Count " &
-            "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation " &
-            "where strClosed = 'False' " &
-            "and strDelete is NULL " &
-            "and strComplianceStatus = '02' " &
-            "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
-            "and AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber " &
-            "and Upper(AIRBRANCH.APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " &
-            "and AIRBRANCH.ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " &
-            "and subStr(AIRBRANCH.ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
-            "and " & DateBias & " "
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-
-            dr = cmd.ExecuteReader
-            While dr.Read
-                CSFacilityOpen2 = dr.Item("Count")
-            End While
-
-            'In Compliance
-            SQL = "Select count(*) as Count " &
-            "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation " &
-            "where strClosed = 'False' " &
-            "and strDelete is NULL " &
-            "and strComplianceStatus = '03' " &
-            "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
-            "and AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber " &
-            "and Upper(AIRBRANCH.APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " &
-            "and AIRBRANCH.ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " &
-            "and subStr(AIRBRANCH.ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
-            "and " & DateBias & " "
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-
-            dr = cmd.ExecuteReader
-            While dr.Read
-                CSFacilityOpen3 = dr.Item("Count")
-            End While
-
-            'Indeterminate
-            SQL = "Select count(*) as Count " &
-            "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation " &
-            "where strClosed = 'False' " &
-            "and strDelete is NULL " &
-            "and strComplianceStatus = '04' " &
-            "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
-            "and AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber " &
-            "and Upper(AIRBRANCH.APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " &
-            "and AIRBRANCH.ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " &
-            "and subStr(AIRBRANCH.ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
-            "and " & DateBias & " "
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-
-            dr = cmd.ExecuteReader
-            While dr.Read
-                CSFacilityOpen4 = dr.Item("Count")
-            End While
-
-            'Not In Compliance
-            SQL = "Select count(*) as Count " &
-            "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation " &
-            "where strClosed = 'False' " &
-            "and strDelete is NULL " &
-            "and strComplianceStatus = '05' " &
-            "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
-            "and AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber " &
-            "and Upper(AIRBRANCH.APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " &
-            "and AIRBRANCH.ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " &
-            "and subStr(AIRBRANCH.ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
-            "and " & DateBias & " "
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-
-            dr = cmd.ExecuteReader
-            While dr.Read
-                CSFacilityOpen5 = dr.Item("Count")
-            End While
-
-            'Compliance Status Closed
-            'File Open 
-            SQL = "Select count(*) as Count " &
-            "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation " &
-            "where strClosed = 'True' " &
-            "and strDelete is NULL " &
-            "and strComplianceStatus = '01' " &
-            "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
-            "and AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber " &
-            "and Upper(AIRBRANCH.APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " &
-            "and AIRBRANCH.ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " &
-            "and subStr(AIRBRANCH.ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
-            "and " & DateBias & " "
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-
-            dr = cmd.ExecuteReader
-            While dr.Read
-                CSFacilityClosed1 = dr.Item("Count")
-            End While
-
-            'For Information Purposes Only
-            SQL = "Select count(*) as Count " &
-            "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation " &
-            "where strClosed = 'True' " &
-            "and strDelete is NULL " &
-            "and strComplianceStatus = '02' " &
-            "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
-            "and AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber " &
-            "and Upper(AIRBRANCH.APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " &
-            "and AIRBRANCH.ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " &
-            "and subStr(AIRBRANCH.ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
-            "and " & DateBias & " "
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-
-            dr = cmd.ExecuteReader
-            While dr.Read
-                CSFacilityClosed2 = dr.Item("Count")
-            End While
-
-            'In Compliance
-            SQL = "Select count(*) as Count " &
-            "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation " &
-            "where strClosed = 'True' " &
-            "and strDelete is NULL " &
-            "and strComplianceStatus = '03' " &
-            "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
-            "and AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber " &
-            "and Upper(AIRBRANCH.APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " &
-            "and AIRBRANCH.ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " &
-            "and subStr(AIRBRANCH.ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
-            "and " & DateBias & " "
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-
-            dr = cmd.ExecuteReader
-            While dr.Read
-                CSFacilityClosed3 = dr.Item("Count")
-            End While
-
-            'Indeterminate
-            SQL = "Select count(*) as Count " &
-            "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation " &
-            "where strClosed = 'True' " &
-            "and strDelete is NULL " &
-            "and strComplianceStatus = '04' " &
-            "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
-            "and AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber " &
-            "and Upper(AIRBRANCH.APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " &
-            "and AIRBRANCH.ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " &
-            "and subStr(AIRBRANCH.ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
-            "and " & DateBias & " "
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-
-            dr = cmd.ExecuteReader
-            While dr.Read
-                CSFacilityClosed4 = dr.Item("Count")
-            End While
-
-            'Not In Compliance
-            SQL = "Select count(*) as Count " &
-            "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation " &
-            "where strClosed = 'True' " &
-            "and strDelete is NULL " &
-            "and strComplianceStatus = '05' " &
-            "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
-            "and AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber " &
-            "and Upper(AIRBRANCH.APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " &
-            "and AIRBRANCH.ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " &
-            "and subStr(AIRBRANCH.ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
-            "and " & DateBias & " "
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-
-            dr = cmd.ExecuteReader
-            While dr.Read
-                CSFacilityClosed5 = dr.Item("Count")
-            End While
-
-            'Compliance Status for Days Open
-            'File Open 
-            SQL = "Select count(*) as Count " &
-            "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation " &
-            "where " &
-            "strDelete is NULL " &
-            "and strComplianceStatus = '01' " &
-            "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
-            "and AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber " &
-            "and Upper(AIRBRANCH.APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " &
-            "and AIRBRANCH.ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " &
-            "and subStr(AIRBRANCH.ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
-            "and (to_date('" & OracleDate & "', 'dd-Mon-yyyy') - datReceivedDate) >= '" & txtDaysOpenFacility.Text & "' " &
-            "and " & DateBias & " "
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-
-            dr = cmd.ExecuteReader
-            While dr.Read
-                CSFacilityOpenDays1 = dr.Item("Count")
-            End While
-
-            'For Information Purposes Only
-            SQL = "Select count(*) as Count " &
-            "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation " &
-            "where " &
-            "strDelete is NULL " &
-            "and strComplianceStatus = '02' " &
-            "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
-            "and AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber " &
-            "and Upper(AIRBRANCH.APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " &
-            "and AIRBRANCH.ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " &
-            "and subStr(AIRBRANCH.ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
-            "and (to_date('" & OracleDate & "', 'dd-Mon-yyyy') - datReceivedDate) >= '" & txtDaysOpenFacility.Text & "' " &
-            "and " & DateBias & " "
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-
-            dr = cmd.ExecuteReader
-            While dr.Read
-                CSFacilityOpenDays2 = dr.Item("Count")
-            End While
-
-            'In Compliance
-            SQL = "Select count(*) as Count " &
-            "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation " &
-            "where " &
-            "strDelete is NULL " &
-            "and strComplianceStatus = '03' " &
-            "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
-            "and AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber " &
-            "and Upper(AIRBRANCH.APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " &
-            "and AIRBRANCH.ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " &
-            "and subStr(AIRBRANCH.ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
-            "and (to_date('" & OracleDate & "', 'dd-Mon-yyyy') - datReceivedDate) >= '" & txtDaysOpenFacility.Text & "' " &
-            "and " & DateBias & " "
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-
-            dr = cmd.ExecuteReader
-            While dr.Read
-                CSFacilityOpenDays3 = dr.Item("Count")
-            End While
-
-            'Indeterminate
-            SQL = "Select count(*) as Count " &
-           "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation " &
-           "where " &
-           "strDelete is NULL " &
-           "and strComplianceStatus = '04' " &
-           "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
-           "and AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber " &
-           "and Upper(AIRBRANCH.APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " &
-           "and AIRBRANCH.ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " &
-           "and subStr(AIRBRANCH.ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
-           "and (to_date('" & OracleDate & "', 'dd-Mon-yyyy') - datReceivedDate) >= '" & txtDaysOpenFacility.Text & "' " &
-           "and " & DateBias & " "
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-
-            dr = cmd.ExecuteReader
-            While dr.Read
-                CSFacilityOpenDays4 = dr.Item("Count")
-            End While
-
-            'Not In Compliance
-            SQL = "Select count(*) as Count " &
-           "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation " &
-           "where " &
-           "strDelete is NULL " &
-           "and strComplianceStatus = '05' " &
-           "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
-           "and AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber " &
-           "and Upper(AIRBRANCH.APBFacilityInformation.strFacilityCity) Like Upper('" & CityBias & "') " &
-           "and AIRBRANCH.ISMPMaster.strAIRSNumber Like '0413" & FacilityBias & "' " &
-           "and subStr(AIRBRANCH.ISMPMaster.strAIRSNumber, 5, 3) Like '" & CountyBias & "' " &
-           "and (to_date('" & OracleDate & "', 'dd-Mon-yyyy') - datReceivedDate) >= '" & txtDaysOpenFacility.Text & "' " &
-           "and " & DateBias & " "
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-
-            dr = cmd.ExecuteReader
-            While dr.Read
-                CSFacilityOpenDays5 = dr.Item("Count")
-            End While
-
-            txtOpenFacility.Text = FacilityOpen
-            txtClosedFacility.Text = FacilityClosed
-            txtCSFileOpenOpen.Text = CSFacilityOpen1
-            txtCSInfoOnlyOpen.Text = CSFacilityOpen2
-            txtCSInComplianceOpen.Text = CSFacilityOpen3
-            txtIndeterminateOpen.Text = CSFacilityOpen4
-            txtCSNotInComplianceOpen.Text = CSFacilityOpen5
-            txtCSFileOpenClosed.Text = CSFacilityClosed1
-            txtCSInfoOnlyClosed.Text = CSFacilityClosed2
-            txtCSInComplianceClosed.Text = CSFacilityClosed3
-            txtIndeterminateClosed.Text = CSFacilityClosed4
-            txtCSNotInComplianceClosed.Text = CSFacilityClosed5
-            txtFacilityOpenDays.Text = FacilityOpenDays
-            txtCSFileOpenOpenDays.Text = CSFacilityOpenDays1
-            txtCSInfoOnlyOpenDays.Text = CSFacilityOpenDays2
-            txtCSInComplianceOpenDays.Text = CSFacilityOpenDays3
-            txtIndeterminateOpenDays.Text = CSFacilityOpenDays4
-            txtCSNotInComplianceOpenDays.Text = CSFacilityOpenDays5
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-
-    End Sub
-    Sub RunUnitStatistics()
-        Dim DateBias As String = ""
-        Dim strObject As Object
-        Dim dtEngineers As New DataTable
-        dtEngineers = dsEngineer.Tables("Engineers")
-        Dim drEngineers As DataRow()
-        Dim row As DataRow
-        Dim EngineerGCode As String = "0"
-
-        Dim FacilityOpen As Integer = "0"
-        Dim FacilityOpen2 As Integer = "0"
-        Dim FacilityOpen3 As Integer = "0"
-        Dim FacilityOpen4 As Integer = "0"
-        Dim FacilityOpenDays As Integer = "0"
-        Dim FacilityOpenDays2 As Integer = "0"
-        Dim FacilityOpenDays3 As Integer = "0"
-        Dim FacilityOpenDays4 As Integer = "0"
-        Dim FacilityWitnessed As Integer = "0"
-        Dim FacilityWitnessed2 As Integer = "0"
-        Dim FacilityWitnessed3 As Integer = "0"
-        Dim FacilityWitnessed4 As Integer = "0"
-        Dim FacilityClosed As Integer = "0"
-        Dim FacilityClosed2 As Integer = "0"
-        Dim FacilityClosed3 As Integer = "0"
-        Dim FacilityClosed4 As Integer = "0"
-
-        Try
-
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            If rdbUnitDateTestStarted.Checked = True Then
-                DateBias = "datTestDateStart between '" & DTPUnitStart.Text & "' " &
-                "and '" & DTPUnitEnd.Text & "'"
-            End If
-            If rdbUnitDateReceived.Checked = True Then
-                DateBias = "datReceivedDate between '" & DTPUnitStart.Text & "' " &
-                "and '" & DTPUnitEnd.Text & "'"
-            End If
-            If rdbUnitDateCompleted.Checked = True Then
-                DateBias = "datCompleteDate between '" & DTPUnitStart.Text & "' " &
-                "and '" & DTPUnitEnd.Text & "'"
-            End If
-            If rdbUnitStatsAll.Checked = True Then
-                DateBias = "datReceivedDate between '04-Jul-1776' " &
-                "and '09-Sep-9998'"
-            End If
-            If DateBias = "" Then
-                DateBias = "datReceivedDate between '04-Jul-1776' " &
-                "and '09-Sep-9998'"
-            End If
-
-            If PanelChemVOC.Visible = True Then
-                For Each strObject In clbEngineers1.CheckedItems
-                    drEngineers = dtEngineers.Select("UserName = '" & strObject.ToString() & "'")
-                    For Each row In drEngineers
-                        EngineerGCode = row("numUserID")
-                    Next
-
-                    'txtOpenFacility
-                    SQL = "Select count(*) as Count " &
-                    "from AIRBRANCH.ISMPReportInformation " &
-                    "where strClosed = 'False' " &
-                    "and strDelete is NULL " &
-                    "and strReviewingEngineer = '" & EngineerGCode & "' " &
-                    "and " & DateBias & " "
-
-                    cmd = New OracleCommand(SQL, CurrentConnection)
-                    dr = cmd.ExecuteReader
-                    While dr.Read
-                        FacilityOpen += dr.Item("Count")
-                    End While
-
-                    'txtFacilityOpenDays
-                    SQL = "Select count(*) as Count " &
-                    "from AIRBRANCH.ISMPReportInformation " &
-                    "where " &
-                    "strDelete is NULL " &
-                    "and strReviewingEngineer = '" & EngineerGCode & "' " &
-                    "and (to_date('" & OracleDate & "', 'dd-Mon-yyyy') - datReceivedDate) >= '" & txtDaysOpen.Text & "' " &
-                    "and " & DateBias & " "
-
-                    cmd = New OracleCommand(SQL, CurrentConnection)
-
-                    dr = cmd.ExecuteReader
-                    While dr.Read
-                        FacilityOpenDays += dr.Item("Count")
-                    End While
-
-                    'txtWitnessedTests
-                    SQL = "Select count(*) as Count " &
-                    "from AIRBRANCH.ISMPReportInformation " &
-                    "where " &
-                    "strDelete is NULL " &
-                    "and (strWitnessingEngineer = '" & EngineerGCode & "' " &
-                    "or strWitnessingEngineer2 = '" & EngineerGCode & "') " &
-                    "and " & DateBias & " "
-
-                    cmd = New OracleCommand(SQL, CurrentConnection)
-                    dr = cmd.ExecuteReader
-                    While dr.Read
-                        FacilityWitnessed += dr.Item("count")
-                    End While
-
-                    'txtClosedFacility
-                    SQL = "Select count(*) as Count " &
-                    "from AIRBRANCH.ISMPReportInformation " &
-                    "where strClosed = 'True' " &
-                    "and strDelete is NULL " &
-                    "and strReviewingEngineer = '" & EngineerGCode & "' " &
-                    "and " & DateBias & " "
-
-                    cmd = New OracleCommand(SQL, CurrentConnection)
-
-                    dr = cmd.ExecuteReader
-                    While dr.Read
-                        FacilityClosed += dr.Item("Count")
-                    End While
-                Next
-            End If
-
-            If PanelCombustMineral.Visible = True Then
-                For Each strObject In clbEngineers2.CheckedItems
-                    drEngineers = dtEngineers.Select("UserName = '" & strObject.ToString() & "'")
-                    For Each row In drEngineers
-                        EngineerGCode = row("numUserID")
-                    Next
-
-                    'txtOpenFacility
-                    SQL = "Select count(*) as Count " &
-                    "from AIRBRANCH.ISMPReportInformation " &
-                    "where strClosed = 'False' " &
-                    "and strDelete is NULL " &
-                    "and strReviewingEngineer = '" & EngineerGCode & "' " &
-                    "and " & DateBias & " "
-
-                    cmd = New OracleCommand(SQL, CurrentConnection)
-                    dr = cmd.ExecuteReader
-                    While dr.Read
-                        FacilityOpen2 += dr.Item("Count")
-                    End While
-
-                    'txtFacilityOpenDays
-                    SQL = "Select count(*) as Count " &
-                    "from AIRBRANCH.ISMPReportInformation " &
-                    "where " &
-                    "strDelete is NULL " &
-                    "and strReviewingEngineer = '" & EngineerGCode & "' " &
-                    "and (to_date('" & OracleDate & "', 'dd-Mon-yyyy') - datReceivedDate) >= '" & txtDaysOpen2.Text & "' " &
-                    "and " & DateBias & " "
-
-                    cmd = New OracleCommand(SQL, CurrentConnection)
-
-                    dr = cmd.ExecuteReader
-                    While dr.Read
-                        FacilityOpenDays2 += dr.Item("Count")
-                    End While
-
-                    'txtWitnessedTests
-                    SQL = "Select count(*) as Count " &
-                    "from AIRBRANCH.ISMPReportInformation " &
-                    "where " &
-                    "strDelete is NULL " &
-                    "and (strWitnessingEngineer = '" & EngineerGCode & "' " &
-                    "or strWitnessingEngineer2 = '" & EngineerGCode & "') " &
-                    "and " & DateBias & " "
-
-                    cmd = New OracleCommand(SQL, CurrentConnection)
-                    dr = cmd.ExecuteReader
-                    While dr.Read
-                        FacilityWitnessed2 += dr.Item("count")
-                    End While
-
-                    'txtClosedFacility
-                    SQL = "Select count(*) as Count " &
-                    "from AIRBRANCH.ISMPReportInformation " &
-                    "where strClosed = 'True' " &
-                    "and strDelete is NULL " &
-                    "and strReviewingEngineer = '" & EngineerGCode & "' " &
-                    "and " & DateBias & " "
-
-                    cmd = New OracleCommand(SQL, CurrentConnection)
-
-                    dr = cmd.ExecuteReader
-                    While dr.Read
-                        FacilityClosed2 += dr.Item("Count")
-                    End While
-                Next
-            End If
-
-            'txtOpenFacility
-            SQL = "Select count(*) as Count " &
-            "from AIRBRANCH.ISMPReportInformation " &
-            "where strClosed = 'False' " &
-            "and strDelete is NULL " &
-            "and strReviewingEngineer = '0' " &
-            "and " & DateBias & " "
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            dr = cmd.ExecuteReader
-            While dr.Read
-                FacilityOpen3 += dr.Item("Count")
-            End While
-
-            'txtFacilityOpenDays
-            SQL = "Select count(*) as Count " &
-            "from AIRBRANCH.ISMPReportInformation " &
-            "where " &
-            "strDelete is NULL " &
-            "and strReviewingEngineer = '0' " &
-            "and (to_date('" & OracleDate & "', 'dd-Mon-yyyy') - datReceivedDate) >= '" & txtDaysOpen3.Text & "' " &
-            "and " & DateBias & " "
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-
-            dr = cmd.ExecuteReader
-            While dr.Read
-                FacilityOpenDays3 += dr.Item("Count")
-            End While
-
-            'txtWitnessedTests
-            SQL = "Select count(*) as Count " &
-            "from AIRBRANCH.ISMPReportInformation " &
-            "where " &
-            "strDelete is NULL " &
-            "and (strWitnessingEngineer <> '0' " &
-            "or strWitnessingEngineer2 <> '0') " &
-            "and " & DateBias & " "
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            dr = cmd.ExecuteReader
-            While dr.Read
-                FacilityWitnessed3 += dr.Item("count")
-            End While
-
-            'txtClosedFacility
-            SQL = "Select count(*) as Count " &
-            "from AIRBRANCH.ISMPReportInformation " &
-            "where strClosed = 'True' " &
-            "and strDelete is NULL " &
-            "and strReviewingEngineer = '0' " &
-            "and " & DateBias & " "
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-
-            dr = cmd.ExecuteReader
-            While dr.Read
-                FacilityClosed3 += dr.Item("Count")
-            End While
-
-            'txtOpenFacility
-            SQL = "Select count(*) as Count " &
-            "from AIRBRANCH.ISMPReportInformation " &
-            "where strClosed = 'False' " &
-            "and strDelete is NULL " &
-            "and " & DateBias & " "
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            dr = cmd.ExecuteReader
-            While dr.Read
-                FacilityOpen4 += dr.Item("Count")
-            End While
-
-            'txtFacilityOpenDays
-            SQL = "Select count(*) as Count " &
-            "from AIRBRANCH.ISMPReportInformation " &
-            "where " &
-            "strDelete is NULL " &
-            "and (to_date('" & OracleDate & "', 'dd-Mon-yyyy') - datReceivedDate) >= '" & txtDaysOpen4.Text & "' " &
-            "and " & DateBias & " "
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-
-            dr = cmd.ExecuteReader
-            While dr.Read
-                FacilityOpenDays4 += dr.Item("Count")
-            End While
-
-            'txtWitnessedTests
-            SQL = "Select count(*) as Count " &
-            "from AIRBRANCH.ISMPReportInformation " &
-            "where " &
-            "strDelete is NULL " &
-            "and (strWitnessingEngineer <> '0' " &
-            "or strWitnessingEngineer2 <> '0') " &
-            "and " & DateBias & " "
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            dr = cmd.ExecuteReader
-            While dr.Read
-                FacilityWitnessed4 += dr.Item("count")
-            End While
-
-            'txtClosedFacility
-            SQL = "Select count(*) as Count " &
-            "from AIRBRANCH.ISMPReportInformation " &
-            "where strClosed = 'True' " &
-            "and strDelete is NULL " &
-            "and " & DateBias & " "
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-
-            dr = cmd.ExecuteReader
-            While dr.Read
-                FacilityClosed4 += dr.Item("Count")
-            End While
-
-
-
-            txtOpenFiles1.Text = FacilityOpen
-            txtFilesOpen1.Text = FacilityOpenDays
-            txtWitnessed1.Text = FacilityWitnessed
-            txtClosed1.Text = FacilityClosed
-
-            txtOpenFiles2.Text = FacilityOpen2
-            txtFilesOpen2.Text = FacilityOpenDays2
-            txtWitnessed2.Text = FacilityWitnessed2
-            txtClosed2.Text = FacilityClosed2
-
-            txtOpenFiles3.Text = FacilityOpen3
-            txtFilesOpen3.Text = FacilityOpenDays3
-            txtWitnessed3.Text = FacilityWitnessed3
-            txtClosed3.Text = FacilityClosed3
-
-            txtOpenFilesTotal.Text = FacilityOpen4
-            txtFilesOpenTotal.Text = FacilityOpenDays4
-            txtWitnessedTotal.Text = FacilityWitnessed4
-            txtClosedTotal.Text = FacilityClosed4
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Sub RunUnitEngineerStatistics(ByVal EngineerGCode As String)
-        Dim DateBias As String = ""
-
-        Dim Staff As String = ""
-        Dim DateStatement As String = ""
-        Dim ReceivedByDate As String = "X"
-        Dim OpenByDate As String = "X"
-        Dim ClosedByDate As String = "X"
-        Dim WitnessedByDate As String = "X"
-        Dim OpenWitnessedByDate As String = "X"
-        Dim CloseWitnessedByDate As String = "X"
-        Dim GreaterByDate As String = "X"
-        Dim OpenGreaterByDate As String = "X"
-        Dim CloseGreaterByDate As String = "X"
-        Dim ComplianceByDate As String = "X"
-        Dim OpenComplianceByDate As String = "X"
-        Dim CloseComplianceByDate As String = "X"
-        Dim OpenMedianByDate As String = "X"
-        Dim CloseMedianByDate As String = "X"
-        Dim OpenPercentileByDate As String = "X"
-        Dim ClosePercentileByDate As String = "X"
-        Dim OtherWitnessed As String = "X"
-
-        Dim ReceivedTotal As String = "X"
-        Dim OpenTotal As String = "X"
-        Dim OpenWitnessedTotal As String = "X"
-        Dim OpenComplianceTotal As String = "X"
-        Dim OpenGreaterTotal As String = "X"
-        Dim OpenMedianTotal As String = "X"
-        Dim PercentileOpenTotalDay As String = "X"
-        Dim ClosedTotal As String = "X"
-        Dim ClosedWitnessedTotal As String = "X"
-        Dim ClosedComplianceTotal As String = "X"
-        Dim ClosedGreaterTotal As String = "X"
-        Dim ClosedMedianTotal As String = "X"
-        Dim PercentileClosedTotalDay As String = "X"
-        Dim Statement As String = ""
-
-        Dim i As Integer = 0
-        Dim MedianArrayByDateOpen(i) As Decimal
-        Dim j As Integer = 0
-        Dim MedianArrayByDateClose(j) As Decimal
-        Dim n As Integer = 0
-        Dim MedianArrayOpen(n) As Decimal
-        Dim o As Integer = 0
-        Dim MedianArrayClosed(o) As Decimal
-
-        Try
-            If rdbUnitDateTestStarted.Checked = True Then
-                DateBias = "datTestDateStart between '" & DTPUnitStart.Text & "' " &
-                "and '" & DTPUnitEnd.Text & "'"
-                DateStatement = "For all Tests Conducted between (" & DTPUnitStart.Text & ") and (" & DTPUnitEnd.Text & ") there were:"
-            End If
-            If rdbUnitDateReceived.Checked = True Then
-                DateBias = "datReceivedDate between '" & DTPUnitStart.Text & "' " &
-                "and '" & DTPUnitEnd.Text & "'"
-                DateStatement = "For all Test Reports Received between (" & DTPUnitStart.Text & ") and (" & DTPUnitEnd.Text & ") there were:"
-            End If
-            If rdbUnitDateCompleted.Checked = True Then
-                DateBias = "datCompleteDate between '" & DTPUnitStart.Text & "' " &
-                "and '" & DTPUnitEnd.Text & "'"
-                DateStatement = "For all Test Reports Completed between (" & DTPUnitStart.Text & ") and (" & DTPUnitEnd.Text & ") there were:"
-            End If
-            If rdbUnitStatsAll.Checked = True Then
-                DateBias = "datReceivedDate between '04-Jul-1776' " &
-                "and '09-Sep-9998'"
-                DateStatement = "For all Test Reports in the database there were: "
-            End If
-            If DateBias = "" Then
-                DateBias = "datReceivedDate between '04-Jul-1776' " &
-                "and '09-Sep-9998'"
-                DateStatement = "For all Test Reports in the database there were:"
-            End If
-
-            If EngineerGCode = "" Then
-
-            Else
-
-                SQL = "select " &
-                "distinct(strLastName|| ', ' ||strFirstName) as Staff,  " &
-                "case " &
-                "	when ReceivedByDate is NULL then 0  " &
-                "	Else ReceivedByDate " &
-                "End as ReceivedByDate,  " &
-                "Case  " &
-                "	when OpenByDate is Null then 0  " &
-                "	Else OpenByDate  " &
-                "End as OpenByDate,  " &
-                "Case  " &
-                "	WHEN CloseByDate is Null then 0  " &
-                "	Else CloseByDate " &
-                "End as CloseByDate,  " &
-                "Case  " &
-                "	when WitnessedByDate is Null then 0  " &
-                "	Else WitnessedByDate  " &
-                "End as WitnessedByDate, " &
-                "case  " &
-                "	when OpenWitnessedByDate is NULL then 0  " &
-                "	Else OpenWitnessedByDate  " &
-                "End as OpenWitnessedByDate,  " &
-                "case  " &
-                "	when CloseWitnessedByDate is NULL then 0  " &
-                "	Else CloseWitnessedByDate  " &
-                "End as CloseWitnessedByDate,  " &
-                "Case " &
-                "   when GreaterByDate is NUll then 0 " &
-                "   Else GreaterByDate " &
-                "End as GreaterByDate, " &
-                "case  " &
-                "	when OpenGreaterByDate is NULL then 0  " &
-                "	Else OpenGreaterByDate " &
-                "end as OpenGreaterByDate,    " &
-                "case  " &
-                "	When CloseGreaterByDate is NULL then 0  " &
-                "	Else CloseGreaterByDate  " &
-                "End as CloseGreaterByDate,  " &
-                "Case " &
-                "   when ComplianceByDate is NULL then 0 " &
-                "   Else ComplianceByDate " &
-                "End as ComplianceByDate, " &
-                "Case  " &
-                "	when OpenComplianceByDate is NULL then 0  " &
-                "	Else OpenComplianceByDate " &
-                "End as OpenComplianceByDate,  " &
-                "Case  " &
-                "	When CloseComplianceByDate is NULL then 0  " &
-                "	Else CloseComplianceByDate " &
-                "End as CloseComplianceByDate,  " &
-                "OtherWitnessed " &
-                "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation,  " &
-                "(Select strReviewingEngineer,  count(*) as ReceivedByDate   " &
-                "from AIRBRANCH.ISMPReportInformation   " &
-                "where strDelete is NULL " &
-                "and " & DateBias & " " &
-                "Group by strReviewingEngineer) ReceivedByDates,  " &
-                "(Select strReviewingEngineer,  " &
-                "count(*) as OpenByDate  " &
-                "from AIRBRANCH.ISMPReportInformation  " &
-                "where strClosed = 'False'  " &
-                "and strDelete is NULL  " &
-                "and " & DateBias & " " &
-                "Group by strReviewingEngineer) OpenByDates,  " &
-                "(Select strReviewingEngineer,  " &
-                "count(*) as CloseByDate  " &
-                "from AIRBRANCH.ISMPReportInformation  " &
-                "where strClosed = 'True'  " &
-                "and StrDelete is NULL  " &
-                "and " & DateBias & " " &
-                "Group by strReviewingEngineer) CloseByDates,  " &
-                "(Select strWitnessingEngineer,  " &
-                "count(*) as WitnessedByDate  " &
-                "from AIRBRANCH.ISMPReportInformation  " &
-                "where strDelete is NULL  " &
-                "and " & DateBias & " " &
-                "group by strWitnessingEngineer) WitnessedByDates,  " &
-                "(Select strWitnessingEngineer,  " &
-                "count(*) as OpenWitnessedByDate   " &
-                "from AIRBRANCH.ISMPReportInformation  " &
-                "where strDelete is NULL  " &
-                "and strClosed = 'False'  " &
-                 "and " & DateBias & " " &
-                "group by strWitnessingEngineer) OpenWitnessedByDates,  " &
-                "(select strWitnessingEngineer,  " &
-                "count(*) as CloseWitnessedByDate   " &
-                "from AIRBRANCH.ISMPReportInformation  " &
-                "where strDelete is NULL  " &
-                "and strClosed = 'True' " &
-                "and " & DateBias & " " &
-                "group by strwitnessingEngineer) CloseWitnessedByDates,  " &
-                "(select strReviewingEngineer,  " &
-                "count(*) as GreaterByDate " &
-                "from AIRBRANCH.ISMPReportInformation  " &
-                "where strDelete is NULL  " &
-                "and datReceivedDate < Decode(strClosed, 'False', (trunc(sysdate) - 50), " &
-                "                                        'True', (-50 + datCompleteDate)) " &
-                "and " & DateBias & " " &
-                "Group by strReviewingEngineer) GreaterByDates,  " &
-                "(select strReviewingEngineer,  " &
-                "count(*) as OpenGreaterByDate " &
-                "from AIRBRANCH.ISMPReportInformation  " &
-                "where strDelete is NULL  " &
-                "and strClosed = 'False'  " &
-                "and datReceivedDate < (trunc(sysdate) - 50)  " &
-                "and " & DateBias & " " &
-                "Group by strReviewingEngineer) OpenGreaterByDates,  " &
-                "(select strReviewingEngineer,  " &
-                "count(*) as CloseGreaterByDate " &
-                "from AIRBRANCH.ISMPReportInformation  " &
-                "where strDelete is NULL  " &
-                "and strClosed = 'True'  " &
-                "and datReceivedDate < (-50 + datCompleteDate) " &
-                "and " & DateBias & " " &
-                "Group by strReviewingEngineer) CloseGreaterByDates,  " &
-                "(select strReviewingEngineer, " &
-                "count(*) as ComplianceByDate " &
-                "from AIRBRANCH.ISMPReportInformation " &
-                "where strComplianceStatus = '05' " &
-                "and strDelete is NULL " &
-                "and " & DateBias & " " &
-                "group by strReviewingEngineer) ComplianceByDates, " &
-                "(select strReviewingEngineer,   " &
-                "count(*) as OpenComplianceByDate  " &
-                "from AIRBRANCH.ISMPReportInformation   " &
-                "where strComplianceStatus = '05'  " &
-                "and strClosed = 'False'  " &
-                "and strDelete is NULL  " &
-                "and " & DateBias & " " &
-                "group by strReviewingEngineer) OpenComplianceByDates,   " &
-                "(Select strReviewingEngineer,  " &
-                "count(*) as CloseComplianceByDate  " &
-                "from AIRBRANCH.ISMPReportInformation   " &
-                "where strComplianceStatus = '05'  " &
-                "and strClosed = 'True'  " &
-                "and strDelete is NULL  " &
-                "and " & DateBias & " " &
-                "group by strReviewingEngineer) CloseComplianceByDates,   " &
-                "(select  count(*) as OtherWitnessed " &
-                "from AIRBRANCH.ISMPWitnessingEng,  AIRBRANCH.ISMPReportInformation " &
-                "where AIRBRANCH.ISMPWitnessingEng.strreferencenumber  = AIRBRANCH.ISMPReportInformation.strreferencenumber  " &
-                "and strDelete is null  " &
-                "and " & DateBias & "  " &
-                "and AIRBranch.ISMPWitnessingEng.strWitnessingEngineer = '" & EngineerGCode & "')  OtherWitnesses  " &
-                "where AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.ISMPReportInformation.strReviewingEngineer  " &
-                "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = ReceivedByDates.strReviewingEngineer (+) " &
-                "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = OpenBYDates.strReviewingEngineer (+)  " &
-                "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = CloseByDates.strReviewingEngineer (+)  " &
-                "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = WitnessedByDates.strWitnessingEngineer (+)  " &
-                "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = OpenwitnessedByDates.strWitnessingEngineer (+)  " &
-                "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = CloseWitnessedByDates.strWitnessingEngineer (+)  " &
-                "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = GreaterByDates.strReviewingEngineer (+) " &
-                "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = OpenGreaterByDates.strReviewingEngineer (+)  " &
-                "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = CloseGreaterByDates.strReviewingEngineer (+)  " &
-                "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = ComplianceByDates.strReviewingEngineer (+) " &
-                "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = OpenComplianceByDates.strReviewingEngineer (+)  " &
-                "and AIRBRANCH.ISMPReportInformation.strREviewingEngineer = CloseComplianceByDates.strReviewingEngineer (+)  " &
-                "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = '" & EngineerGCode & "' "
-
-                SQL2 = "Select " &
-                "(strLastName|| ', ' ||strFirstName) as Staff, " &
-                "(trunc(sysdate) - datReceivedDate) as DaysOpenByDate " &
-                "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation " &
-                "where AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.ISMPReportInformation.strReviewingEngineer  " &
-                "and strClosed = 'False' " &
-                "and strDelete is NULL " &
-                "and " & DateBias & " " &
-                "and strReviewingEngineer = '" & EngineerGCode & "' " &
-                "order by DaysOpenByDate ASC "
-
-                SQL3 = "Select " &
-                "(strLastName|| ', ' ||strFirstName) as Staff, " &
-                "(datCompleteDate - datReceivedDate) as DaysCloseByDate " &
-                "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation " &
-                "where AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.ISMPReportInformation.strReviewingEngineer  " &
-                "and strClosed = 'True' " &
-                "and strDelete is NULL " &
-                "and " & DateBias & " " &
-                "and strReviewingEngineer = '" & EngineerGCode & "' " &
-                "order by DaysCloseByDate ASC "
-
-                SQL4 = "Select " &
-                "distinct(strLastName|| ', ' ||strFirstName) as Staff,  " &
-                "case  " &
-                "	when ReceivedTotal is NULL then 0  " &
-                "	Else ReceivedTotal  " &
-                "end as ReceivedTotal,  " &
-                "case  " &
-                "	when OpenTotal is NULL then 0  " &
-                "	Else OpenTotal  " &
-                "End as OpenTotal,  " &
-                "Case  " &
-                "	when OpenWitnessedTotal is NULL then 0  " &
-                "	Else OpenWitnessedTotal  " &
-                "End as OpenWitnessedTotal,  " &
-                "Case  " &
-                "	When OpenComplianceTotal is NULL then 0  " &
-                "	Else OpenComplianceTotal  " &
-                "End as OpenComplianceTotal,  " &
-                "Case  " &
-                "	when CloseTotal is NULL then 0  " &
-                "	else CloseTotal  " &
-                "End as CloseTotal,  " &
-                "Case  " &
-                "	when ClosedWitnessedTotal is NULL then 0  " &
-                "	Else ClosedWitnessedTotal  " &
-                "End as ClosedWitnessedTotal,  " &
-                "Case  " &
-                "	when ClosedComplianceTotal is NULL then 0  " &
-                "	Else ClosedComplianceTotal " &
-                "End as ClosedComplianceTotal,  " &
-                "Case  " &
-                "when OpenGreaterTotal is NULL then 0   " &
-                "Else OpenGreaterTotal   " &
-                "End as OpenGreaterTotal, " &
-                "Case  " &
-                "when ClosedGreaterTotal is NULL then 0   " &
-                "Else ClosedGreaterTotal   " &
-                "End as ClosedGreaterTotal   " &
-                "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation, " &
-                "(Select strReviewingEngineer,  " &
-                "count(*) as ReceivedTotal  " &
-                "from AIRBRANCH.ISMPReportInformation  " &
-                "where strDelete is NULL  " &
-                "Group by strReviewingEngineer) ReceivedTotals,  " &
-                "(Select strReviewingEngineer,  " &
-                "count(*) as OpenTotal " &
-                "from AIRBRANCH.ISMPReportInformation  " &
-                "where strClosed = 'False' " &
-                "and strDelete is NULL  " &
-                "Group by strReviewingEngineer) OpenTotals,  " &
-                "(select strWitnessingEngineer,  " &
-                "count(*) as OpenWitnessedTotal  " &
-                "from AIRBRANCH.ISMPReportInformation  " &
-                "where strClosed = 'False' " &
-                "and strDelete is Null " &
-                "group by strWitnessingEngineer) OpenWitnessedTotals,  " &
-                "(select strReviewingEngineer,  " &
-                "count(*) as OpenComplianceTotal  " &
-                "from AIRBRANCH.ISMPReportInformation  " &
-                "where strComplianceStatus = '05' " &
-                "and strClosed = 'False' " &
-                "and strDelete is NULL " &
-                "group by strReviewingEngineer) OpenComplianceTotals,  " &
-                "(select strReviewingEngineer,  " &
-                "count(*) as CloseTotal  " &
-                "from AIRBRANCH.ISMPReportInformation  " &
-                "where strClosed = 'True'  " &
-                "and strDelete is NULL " &
-                "Group by strReviewingEngineer) CloseTotals,  " &
-                "(select strWitnessingEngineer,  " &
-                "count(*) as ClosedWitnessedTotal  " &
-                "from AIRBRANCH.ISMPReportInformation  " &
-                "where strClosed = 'True' " &
-                "and strDelete is NULL  " &
-                "group by strWitnessingEngineer) ClosedWitnessedTotals,  " &
-                "(select strReviewingEngineer,  " &
-                "count(*) as ClosedComplianceTotal  " &
-                "from AIRBRANCH.ISMPReportInformation  " &
-                "where strComplianceStatus = '05' " &
-                "and strClosed = 'True' " &
-                "and strDelete is NULL " &
-                "group by strReviewingEngineer) ClosedComplianceTotals, " &
-                "(select strReviewingEngineer, count(*) as OpenGreaterTotal " &
-                "from AIRBRANCH.ISMPReportInformation  " &
-                "where strDelete is NULL  " &
-                "and strClosed = 'False'  " &
-                "and datReceivedDate < (trunc(sysdate) - 50)  " &
-                "Group by strReviewingEngineer) OpenGreaterTotals, " &
-                "(select strReviewingEngineer, count(*) as ClosedGreaterTotal " &
-                "from AIRBRANCH.ISMPReportInformation  " &
-                "where strDelete is NULL  " &
-                "and strClosed = 'True'  " &
-                "and datReceivedDate < (-50 + datCompleteDate)  " &
-                "Group by strReviewingEngineer) ClosedGreaterTotals " &
-                "where AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.ISMPReportInformation.strReviewingEngineer  " &
-                "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = ReceivedTotals.strReviewingEngineer (+) " &
-                "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = OpenTotals.strReviewingEngineer (+) " &
-                "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = OpenWitnessedTotals.strWitnessingEngineer (+) " &
-                "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = OpenComplianceTotals.strReviewingEngineer (+) " &
-                "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = CloseTotals.strReviewingEngineer (+)  " &
-                "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = ClosedWitnessedTotals.strWitnessingEngineer (+)  " &
-                "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = ClosedCompliancetotals.strReviewingEngineer (+) " &
-                "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = OpenGreaterTotals.strReviewingEngineer (+) " &
-                "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = ClosedGreaterTotals.strReviewingEngineer (+)   " &
-                "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = '" & EngineerGCode & "' "
-
-                SQL5 = "Select " &
-                "(strLastName|| ', ' ||strFirstName) as Staff, " &
-                "(trunc(sysdate) - datReceivedDate) as DaysOpen " &
-                "from AIRBRANCH.EPDUSerProfiles, AIRBRANCH.ISMPReportInformation " &
-                "where AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.ISMPReportInformation.strReviewingEngineer  " &
-                "and strClosed = 'False' " &
-                "and strDelete is NULL " &
-                "and strReviewingEngineer = '" & EngineerGCode & "' " &
-                "order by DaysOpen ASC "
-
-                SQL6 = "Select " &
-                "(strLastName|| ', ' ||strFirstName) as Staff, " &
-                "(datCompleteDate -datReceivedDate) as DaysClosed " &
-                "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation " &
-                "where AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.ISMPReportInformation.strReviewingEngineer  " &
-                "and strClosed = 'True' " &
-                "and strDelete is NULL " &
-                "and strReviewingEngineer = '" & EngineerGCode & "' " &
-                "order by DaysClosed ASC "
-
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                cmd2 = New OracleCommand(SQL2, CurrentConnection)
-                cmd3 = New OracleCommand(SQL3, CurrentConnection)
-                cmd4 = New OracleCommand(SQL4, CurrentConnection)
-                cmd5 = New OracleCommand(SQL5, CurrentConnection)
-                cmd6 = New OracleCommand(SQL6, CurrentConnection)
-
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-
-                Try
-
-                    dr = cmd.ExecuteReader
-
-                    While dr.Read
-                        If IsDBNull(dr.Item("Staff")) Then
-                            Staff = "X"
-                        Else
-                            Staff = dr.Item("Staff")
-                        End If
-                        If IsDBNull(dr.Item("ReceivedByDate")) Then
-                            ReceivedByDate = "X"
-                        Else
-                            ReceivedByDate = dr.Item("ReceivedByDate")
-                        End If
-                        If IsDBNull(dr.Item("OpenbyDate")) Then
-                            OpenByDate = "X"
-                        Else
-                            OpenByDate = dr.Item("OpenbyDate")
-                        End If
-                        If IsDBNull(dr.Item("CLoseByDate")) Then
-                            ClosedByDate = "X"
-                        Else
-                            ClosedByDate = dr.Item("CLoseByDate")
-                        End If
-                        If IsDBNull(dr.Item("WitnessedByDate")) Then
-                            WitnessedByDate = "X"
-                        Else
-                            WitnessedByDate = dr.Item("WitnessedByDate")
-                        End If
-                        If IsDBNull(dr.Item("OpenWitnessedByDate")) Then
-                            OpenWitnessedByDate = "X"
-                        Else
-                            OpenWitnessedByDate = dr.Item("OpenWitnessedByDate")
-                        End If
-                        If IsDBNull(dr.Item("Closewitnessedbydate")) Then
-                            CloseWitnessedByDate = "X"
-                        Else
-                            CloseWitnessedByDate = dr.Item("Closewitnessedbydate")
-                        End If
-                        If IsDBNull(dr.Item("GreaterByDate")) Then
-                            GreaterByDate = "X"
-                        Else
-                            GreaterByDate = dr.Item("GreaterByDate")
-                        End If
-                        If IsDBNull(dr.Item("OpenGreaterByDate")) Then
-                            OpenGreaterByDate = "X"
-                        Else
-                            OpenGreaterByDate = dr.Item("OpenGreaterByDate")
-                        End If
-                        If IsDBNull(dr.Item("CloseGreaterByDate")) Then
-                            CloseGreaterByDate = "X"
-                        Else
-                            CloseGreaterByDate = dr.Item("CloseGreaterByDate")
-                        End If
-                        If IsDBNull(dr.Item("ComplianceByDate")) Then
-                            ComplianceByDate = "X"
-                        Else
-                            ComplianceByDate = dr.Item("ComplianceByDate")
-                        End If
-                        If IsDBNull(dr.Item("OpenComplianceByDate")) Then
-                            OpenComplianceByDate = "X"
-                        Else
-                            OpenComplianceByDate = dr.Item("OpenComplianceByDate")
-                        End If
-                        If IsDBNull(dr.Item("CloseComplianceByDate")) Then
-                            CloseComplianceByDate = "X"
-                        Else
-                            CloseComplianceByDate = dr.Item("CloseComplianceByDate")
-                        End If
-                        If IsDBNull(dr.Item("OtherWitnessed")) Then
-                            OtherWitnessed = ""
-                        Else
-                            OtherWitnessed = dr.Item("OtherWitnessed")
-                        End If
-                    End While
-
-                    dr2 = cmd2.ExecuteReader
-                    While dr2.Read
-                        ReDim Preserve MedianArrayByDateOpen(i)
-                        MedianArrayByDateOpen(i) = CInt(dr2.Item("DaysOpenByDate"))
-                        i += 1
-                    End While
-
-
-                    dr3 = cmd3.ExecuteReader
-                    While dr3.Read
-                        ReDim Preserve MedianArrayByDateClose(j)
-                        MedianArrayByDateClose(j) = CInt(dr3.Item("DaysCloseByDate"))
-                        j += 1
-                    End While
-
-                    dr4 = cmd4.ExecuteReader
-                    While dr4.Read
-                        ReceivedTotal = dr4.Item("ReceivedTotal")
-                        OpenTotal = dr4.Item("OpenTotal")
-                        OpenWitnessedTotal = dr4.Item("OpenWitnessedTotal")
-                        OpenComplianceTotal = dr4.Item("OpenComplianceTotal")
-                        OpenGreaterTotal = dr4.Item("OpenGreaterTotal")
-                        ClosedTotal = dr4.Item("CloseTotal")
-                        ClosedWitnessedTotal = dr4.Item("ClosedWitnessedTotal")
-                        ClosedComplianceTotal = dr4.Item("ClosedComplianceTotal")
-                        ClosedGreaterTotal = dr4.Item("ClosedGreaterTotal")
-                    End While
-
-                    dr5 = cmd5.ExecuteReader
-                    While dr5.Read
-                        ReDim Preserve MedianArrayOpen(n)
-                        MedianArrayOpen(n) = CInt(dr5.Item("DaysOpen"))
-                        n += 1
-                    End While
-
-                    dr6 = cmd6.ExecuteReader
-                    While dr6.Read
-                        ReDim Preserve MedianArrayClosed(o)
-                        MedianArrayClosed(o) = CInt(dr6.Item("DaysClosed"))
-                        o += 1
-                    End While
-
-                Catch ex As Exception
-                    ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-                Finally
-
-                End Try
-                ' 
-
-
-
-                If MedianArrayByDateOpen.GetLength(0) Mod 2 = 0 Then
-                    OpenMedianByDate = (MedianArrayByDateOpen((MedianArrayByDateOpen.GetLength(0) / 2) - 1) + MedianArrayByDateOpen((MedianArrayByDateOpen.GetLength(0) / 2))) / 2
-                    If MedianArrayByDateOpen.GetLength(0) <= 2 Then
-                        OpenPercentileByDate = "Unavailable"
-                    Else
-                        OpenPercentileByDate = (MedianArrayByDateOpen((MedianArrayByDateOpen.GetLength(0) * 0.8) - 1) + MedianArrayByDateOpen((MedianArrayByDateOpen.GetLength(0) * 0.8))) / 2
-                    End If
-                Else
-                    OpenMedianByDate = MedianArrayByDateOpen(MedianArrayByDateOpen.GetLength(0) \ 2)
-                    If MedianArrayByDateOpen.GetLength(0) <= 2 Then
-                        OpenPercentileByDate = "Unavailable"
-                    Else
-                        OpenPercentileByDate = MedianArrayByDateOpen(MedianArrayByDateOpen.GetLength(0) * 0.8)
-                    End If
-                End If
-
-                If MedianArrayByDateClose.GetLength(0) Mod 2 = 0 Then
-                    CloseMedianByDate = (MedianArrayByDateClose((MedianArrayByDateClose.GetLength(0) / 2) - 1) + MedianArrayByDateClose((MedianArrayByDateClose.GetLength(0) / 2))) / 2
-                    If MedianArrayByDateClose.GetLength(0) <= 2 Then
-                        ClosePercentileByDate = "Unavailable"
-                    Else
-                        ClosePercentileByDate = (MedianArrayByDateClose((MedianArrayByDateClose.GetLength(0) * 0.8) - 1) + MedianArrayByDateClose((MedianArrayByDateClose.GetLength(0) * 0.8))) / 2
-                    End If
-                Else
-                    CloseMedianByDate = MedianArrayByDateClose(MedianArrayByDateClose.GetLength(0) \ 2)
-                    If MedianArrayByDateClose.GetLength(0) <= 2 Then
-                        ClosePercentileByDate = "Unavailable"
-                    Else
-                        ClosePercentileByDate = MedianArrayByDateClose(MedianArrayByDateClose.GetLength(0) * 0.8)
-                    End If
-                End If
-
-                If MedianArrayOpen.GetLength(0) Mod 2 = 0 Then
-                    OpenMedianTotal = (MedianArrayOpen((MedianArrayOpen.GetLength(0) / 2) - 1) + MedianArrayOpen((MedianArrayOpen.GetLength(0) / 2))) / 2
-                    If MedianArrayOpen.GetLength(0) <= 2 Then
-                        PercentileOpenTotalDay = "Unavailable"
-                    Else
-                        PercentileOpenTotalDay = (MedianArrayOpen((MedianArrayOpen.GetLength(0) * 0.8) - 1) + MedianArrayOpen((MedianArrayOpen.GetLength(0) * 0.8))) / 2
-                    End If
-                Else
-                    OpenMedianTotal = MedianArrayOpen(MedianArrayOpen.GetLength(0) \ 2)
-                    If MedianArrayOpen.GetLength(0) <= 2 Then
-                        PercentileOpenTotalDay = "Unavailable"
-                    Else
-                        PercentileOpenTotalDay = MedianArrayOpen(MedianArrayOpen.GetLength(0) * 0.8)
-                    End If
-                End If
-
-                If MedianArrayClosed.GetLength(0) Mod 2 = 0 Then
-                    ClosedMedianTotal = (MedianArrayClosed((MedianArrayClosed.GetLength(0) / 2) - 1) + MedianArrayClosed((MedianArrayClosed.GetLength(0) / 2))) / 2
-                    If MedianArrayClosed.GetLength(0) <= 2 Then
-                        PercentileClosedTotalDay = "Unavailable"
-                    Else
-                        PercentileClosedTotalDay = (MedianArrayClosed((MedianArrayClosed.GetLength(0) * 0.8) - 1) + MedianArrayClosed((MedianArrayClosed.GetLength(0) * 0.8))) / 2
-                    End If
-                Else
-                    ClosedMedianTotal = MedianArrayClosed(MedianArrayClosed.GetLength(0) \ 2)
-                    If MedianArrayClosed.GetLength(0) <= 2 Then
-                        PercentileClosedTotalDay = "Unavailable"
-                    Else
-                        PercentileClosedTotalDay = MedianArrayClosed(MedianArrayClosed.GetLength(0) * 0.8)
-                    End If
-                End If
-
-            End If
-
-            Statement = Statement &
-            "For the Staff member: " & Staff & vbCrLf &
-            vbTab & DateStatement & vbCrLf & vbCrLf &
-            "1. " & ReceivedByDate & " Test Reports Received " & vbCrLf &
-            "2. " & OpenByDate & " of these " & ReceivedByDate & " Test Reports are currently open" & vbCrLf &
-            "3. " & ClosedByDate & " of these " & ReceivedByDate & " Test Reports are currently closed " & vbCrLf & vbCrLf &
-            "4. " & WitnessedByDate & " of these " & ReceivedByDate & " Test Reports were witnessed by " & Staff & vbCrLf &
-            "5. " & OpenWitnessedByDate & " of these " & WitnessedByDate & " Test Reports are still open " & vbCrLf &
-            "6. " & CloseWitnessedByDate & " of these " & WitnessedByDate & " Test Reports are currently closed " & vbCrLf & vbCrLf &
-            "7. " & GreaterByDate & " of these " & ReceivedByDate & " Test Reports have been open for more than 50-days" & vbCrLf &
-            "8. " & OpenGreaterByDate & " of these " & GreaterByDate & " Test Reports open for more than 50-days are still open " & vbCrLf &
-            "9. " & CloseGreaterByDate & " of these " & GreaterByDate & " Test Reports open for more then 50-days are currently closed " & vbCrLf & vbCrLf &
-            "10. " & ComplianceByDate & " of these " & ReceivedByDate & " Test Reports were out of compliance" & vbCrLf &
-            "11. " & OpenComplianceByDate & " of these " & ComplianceByDate & " Test Reports are still open " & vbCrLf &
-            "12. " & CloseComplianceByDate & " of these " & ComplianceByDate & " Test Reports are currently closed " & vbCrLf & vbCrLf &
-            "13. The median time taken to complete those " & ClosedByDate & " Closed Test Reports was " & CloseMedianByDate & "-days" & vbCrLf &
-            "14. The 80% Percentile Time taken to complete those " & ClosedByDate & " Closed Test Reports was " & ClosePercentileByDate & "-days" & vbCrLf &
-            "15. The median time of the " & OpenByDate & " Open Test Reports is " & OpenMedianByDate & "-days" & vbCrLf &
-            "16. The 80% Percentile Time of the " & OpenByDate & " Open Test Reports is " & OpenPercentileByDate & "-days" & vbCrLf & vbCrLf &
-            "17. Overall " & Staff & " has received " & ReceivedTotal & " Test Reports" & vbCrLf & vbCrLf &
-            "18. " & OpenTotal & " of " & ReceivedTotal & " Test Reports are currently open" & vbCrLf &
-            "19. " & OpenWitnessedTotal & " of these " & OpenTotal & " Test Reports have been witnessed" & vbCrLf &
-            "20. " & OpenComplianceTotal & " of these " & OpenTotal & " Test Reports are currently out of compliance " & vbCrLf &
-            "21. " & OpenGreaterTotal & " of these " & OpenTotal & " Test Reports have been open for more than 50-days" & vbCrLf &
-            "22. The median time of the " & OpenTotal & " Open Test Reports is " & OpenMedianTotal & "-days" & vbCrLf &
-            "23. The 80% Percentile Time of the " & OpenTotal & " Open Test Reports is " & PercentileOpenTotalDay & "-days" & vbCrLf & vbCrLf &
-            "24. " & ClosedTotal & " of " & ReceivedTotal & " Test Reports are currently closed " & vbCrLf &
-            "25. " & ClosedWitnessedTotal & " of these " & ClosedTotal & " Test Reports have been witnessed" & vbCrLf &
-            "26. " & ClosedComplianceTotal & " of these " & ClosedTotal & " Test Reports are out of compliance " & vbCrLf &
-            "27. " & ClosedGreaterTotal & " of these " & ClosedTotal & " Test Reports were open for more than 50-days" & vbCrLf &
-            "28. The median time of the " & ClosedTotal & " Closed Test Reports was " & ClosedMedianTotal & "-days" & vbCrLf &
-            "29. The 80% Percentile Time of the " & ClosedTotal & " Closed Test Reports was " & PercentileClosedTotalDay & "-days" &
-            vbCrLf & vbCrLf &
-            "30. Additionally " & OtherWitnessed & " Test were witnessed but reviewed by another staff member. " & vbCrLf & vbCrLf &
-            vbCrLf
-
-            txtEngineerStatistics.Text = txtEngineerStatistics.Text & Statement
-
-        Catch ex As Exception
-            ErrorReport(ex, SQL, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Sub EngineerUnitStats()
-        Dim strObject As Object
-        Dim dtEngineers As New DataTable
-        dtEngineers = dsEngineer.Tables("Engineers")
-        Dim drEngineers As DataRow()
-        Dim row As DataRow
-        Dim EngineerGCode As String = "0"
-
-        Try
-
-            txtEngineerStatistics.Clear()
-
-            For Each strObject In clbEngineers1.CheckedItems
-                drEngineers = dtEngineers.Select("UserName = '" & strObject.ToString() & "'")
-                For Each row In drEngineers
-                    EngineerGCode = row("numUserID")
-                Next
-                RunUnitEngineerStatistics(EngineerGCode)
-            Next
-
-            For Each strObject In clbEngineers2.CheckedItems
-                drEngineers = dtEngineers.Select("UserName = '" & strObject.ToString() & "'")
-                For Each row In drEngineers
-                    EngineerGCode = row("numUserID")
-                Next
-                RunUnitEngineerStatistics(EngineerGCode)
-            Next
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Sub PrintEngineerUnitStats()
-        Dim WordText As String
-        'Dim WordApp As New Word.ApplicationClass
-        'Dim wordDoc As Word.DocumentClass
-        Dim wordDoc As Microsoft.Office.Interop.Word.Document
-        Dim WordApp As New Microsoft.Office.Interop.Word.Application
-
-
-        Try
-            WordText = txtEngineerStatistics.Text
-            wordDoc = WordApp.Documents.Add()
-            wordDoc.Activate()
-            WordApp.Selection.TypeText(WordText)
-            WordApp.Visible = True
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-
     Sub EngineerTestReport()
         Dim strObject As Object
         Dim DateBias As String = ""
@@ -3759,17 +1626,6 @@ Public Class ISMPManagersTools
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub ClearPage()
-        Try
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-
-    End Sub
     Sub ClearTestReportAssignmentTab()
         Try
 
@@ -3805,142 +1661,6 @@ Public Class ISMPManagersTools
 
     End Sub
 
-    <CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId:="cmdCB")>
-    Sub AddExcelFile()
-        Try
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            Dim myStream As Stream
-            Dim path As New OpenFileDialog
-            Dim PathName As String = "N/A"
-            Dim FileName As String = ""
-            Dim IDnumber As String = ""
-
-            path.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal)
-            path.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*"
-            path.FilterIndex = 2
-            path.RestoreDirectory = True
-
-            If path.ShowDialog() = DialogResult.OK Then
-                myStream = path.OpenFile()
-                If Not (myStream Is Nothing) Then
-                    If path.ValidateNames() Then
-                        PathName = path.FileName.ToString
-                        FileName = Mid(PathName, PathName.LastIndexOf("\") + 2, (Len(PathName) - PathName.LastIndexOf(".") + 5))
-                    Else
-                        PathName = "N/A"
-                        FileName = "N/A"
-                    End If
-
-                    ' Insert code to read the stream here.
-                    myStream.Close()
-                End If
-            End If
-
-            If PathName <> "N/A" Then
-
-                SQL = "select max(FileId) as ID " &
-                "from AIRBRANCH.ISMPTestReportAids "
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-                If recExist = True Then
-                    If dr.IsDBNull(0) Then
-                        IDnumber = "0"
-                    Else
-                        IDnumber = dr.Item("ID")
-                    End If
-                Else
-                    IDnumber = "0"
-                End If
-
-                IDnumber += 1
-
-                If txtFileName.Text <> "" Then
-                    FileName = txtFileName.Text
-                End If
-                FileName = Mid(FileName, 1, 50)
-
-                Dim da As OracleDataAdapter
-                Dim ds As DataSet
-                Dim Fs As FileStream = New FileStream(PathName, FileMode.Open, FileAccess.Read)
-                Dim DocData As Byte()
-                ReDim DocData(Fs.Length)
-                Fs.Read(DocData, 0, System.Convert.ToInt32(Fs.Length))
-                Fs.Close()
-
-                SQL = "Select * " &
-                "From AIRBRANCH.ISMPTestReportAIDS " &
-                "where FileID = '" & IDnumber & "' "
-
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                da = New OracleDataAdapter(SQL, CurrentConnection)
-                Dim cmdCB As OracleCommandBuilder = New OracleCommandBuilder(da)
-                ds = New DataSet("IAIPData")
-                da.MissingSchemaAction = MissingSchemaAction.AddWithKey
-
-                da.Fill(ds, "IAIPData")
-                Dim row As DataRow = ds.Tables("IAIPData").NewRow()
-                row("FileID") = IDnumber
-                row("FileTitle") = FileName
-                row("ISMPBLOB") = DocData
-                ds.Tables("IAIPData").Rows.Add(row)
-                da.Update(ds, "IAIPData")
-
-                LoadExcelDataSet()
-                txtNewFileName.Clear()
-
-                MsgBox("File Added")
-
-            Else
-                MsgBox("Bad Path")
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Sub RemoveExcelFile()
-        Dim FileID As String
-
-        Try
-
-            If txtFileName.Text <> "" Then
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                FileID = txtFileName.Text
-                FileID = Mid(FileID, 1, FileID.IndexOf(" - "))
-
-                SQL = "Delete AIRBRANCH.ISMPTestReportAids " &
-                "where FileID = '" & FileID & "' "
-
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                dr = cmd.ExecuteReader
-
-                LoadExcelDataSet()
-                MsgBox("File Removed")
-                txtFileName.Clear()
-
-            Else
-                MsgBox("First Select a file from the Datagrid")
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-
-    End Sub
     Sub RunSummaryReport()
         Try
 
@@ -4058,135 +1778,6 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
-    Sub DownloadExcelFiles()
-        Dim FileID As String
-        Dim FileName As String
-        Dim path As New SaveFileDialog
-        Dim ExcelApp As New Microsoft.Office.Interop.Excel.Application
-        Dim ExcelDoc As Microsoft.Office.Interop.Excel.Workbook
-
-        Dim DestFilePath As String = "N/A"
-
-
-        Try
-
-
-            If txtFileName.Text <> "" Then
-                FileID = txtFileName.Text
-                FileID = Mid(FileID, 1, FileID.IndexOf(" - "))
-
-                FileName = txtFileName.Text
-                FileName = Mid(FileName, FileName.IndexOf(" - ") + 4)
-
-                path.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal)
-                path.FileName = FileName
-                path.Filter = "Microsoft Office Excel Workbook (.xls)|.xls"
-                path.FilterIndex = 1
-                path.DefaultExt = ".xls"
-
-                If path.ShowDialog = DialogResult.OK Then
-                    DestFilePath = path.FileName.ToString
-                Else
-                    DestFilePath = "N/A"
-                End If
-
-                If DestFilePath <> "N/A" Then
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-
-                    SQL = "Select " &
-                    "FileId, FileTitle, ISMPBlob " &
-                    "from AIRBRANCH.ISMPTestReportAids " &
-                    "Where FileID = '" & FileID & "' "
-
-                    cmd = New OracleCommand(SQL, CurrentConnection)
-                    dr = cmd.ExecuteReader
-
-                    dr.Read()
-                    Dim b(dr.GetBytes(2, 0, Nothing, 0, Integer.MaxValue) - 1) As Byte
-                    dr.GetBytes(2, 0, b, 0, b.Length)
-                    dr.Close()
-
-                    Dim fs As New System.IO.FileStream(DestFilePath, IO.FileMode.Create, IO.FileAccess.Write)
-                    fs.Write(b, 0, b.Length)
-                    fs.Close()
-
-                    ExcelDoc = ExcelApp.Workbooks.Open(DestFilePath)
-                    ExcelDoc.Activate()
-                    If ExcelApp.Visible = False Then
-                        ExcelApp.Visible = True
-                    End If
-
-
-
-                End If
-            End If
-
-        Catch ex As Exception
-            If ex.ToString.Contains("RPC_E_CALL_REJECTED") Then
-                MsgBox("Error in exporting data." & vbCrLf & "Please run the export again.")
-            Else
-                ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-            End If
-        Finally
-
-        End Try
-
-    End Sub
-    Sub RunApplicationReport()
-        Try
-
-
-            SQL = "Select " &
-            "AIRBRANCH.SSPPApplicationMaster.strApplicationNumber, " &
-            "strISMPUnit, strISMPReviewer, datISMPReviewDate,  " &
-            "strISMPComments,  " &
-            "substr(AIRBRANCH.SSPPApplicationMaster.strAIRSNumber, 5) as AIRSNumber, " &
-            "AIRBRANCH.APBFacilityinformation.strFacilityName " &
-            "from AIRBRANCH.APBFacilityInformation, AIRBRANCH.SSPPApplicationMaster,  " &
-            "AIRBRANCH.SSPPApplicationTracking, AIRBRANCH.SSPPApplicationData " &
-            "where datISMPReviewDate between '" & DTPAppStartDate.Text & "' and '" & DTPAppEndDate.Text & "'  " &
-            "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationTracking.strApplicationNumber  " &
-            "and AIRBRANCH.SSPPApplicationMaster.strApplicationNumber = AIRBRANCH.SSPPApplicationData.strApplicationNumber " &
-            "and AIRBRANCH.APBFacilityInformation.strAIRSNumber = AIRBRANCH.SSPPApplicationMaster.strAIRSNumber "
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            dr = cmd.ExecuteReader
-            While dr.Read
-
-            End While
-            dr.Close()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Sub PrintApplicationReport()
-        Try
-            Dim wordDoc As Microsoft.Office.Interop.Word.Document
-            Dim WordApp As New Microsoft.Office.Interop.Word.Application
-            'Dim WordApp As New Word.ApplicationClass
-            'Dim wordDoc As Word.DocumentClass
-
-            wordDoc = WordApp.Documents.Add()
-            wordDoc.Activate()
-            WordApp.Selection.TypeText(txtISMPApplicationReport.Text)
-            WordApp.Visible = True
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
     Sub RunUnitStatistics2()
         Try
             SQL = "select " &
@@ -4194,10 +1785,6 @@ Public Class ISMPManagersTools
             "strUnitDesc, totalreceived,  " &
             "ReceivedCount,  " &
             "round((ReceivedCount/TotalReceived)*100, 2) as ProgramPercent,   " &
-            "case when numUnit = '13' then round((ReceivedCount/ComUnitTotal)*100, 2)  " &
-            " when numUnit = '12' then round((ReceivedCount/ChemUnitTotal)*100, 2)  " &
-            "End UnitPercent,  " &
-            "ComUnitTotal, ChemUnitTotal, " &
             "MedDays,  " &
             "PercentDays,  " &
             "(Witness1.witcount + witness2.witcount + Witness3.witcount) as Witnessed " &
@@ -4216,26 +1803,6 @@ Public Class ISMPManagersTools
             "and strReviewingEngineer <> '0'  " &
             "and strClosed = 'True'  " &
             "group by strReviewingEngineer) TotalRec,  " &
-            "(select count(*) as ComUnitTotal  " &
-            "from AIRBRANCH.ISMPReportInformation,   " &
-            "(select numUserID   " &
-            "from AIRBRANCH.EPDUserProfiles   " &
-            "where numProgram = '3'  " &
-            "and numUnit = '13') ComUnit  " &
-            "where datCompleteDate between '" & DTPUnitStatsStartDate.Text & "' and '" & DTPUnitStatsEndDate.Text & "'  " &
-            "and (strDelete <> 'True' or strDelete is Null)   " &
-            "and strClosed = 'True'  " &
-            "and strReviewingEngineer  = ComUnit.numUserID) ComTotal,  " &
-            "(select count(*) as ChemUnitTotal  " &
-            "from AIRBRANCH.ISMPReportInformation,   " &
-            "(select numUserID   " &
-            "from AIRBRANCH.EPDUserProfiles   " &
-            "where numProgram = '3'   " &
-            "and numUnit = '12') ChemUnit  " &
-            "where datCompleteDate between '" & DTPUnitStatsStartDate.Text & "' and '" & DTPUnitStatsEndDate.Text & "'  " &
-            "and (strDelete <> 'True' or strDelete is Null)   " &
-            "and strClosed = 'True'  " &
-            "and strReviewingEngineer  = ChemUnit.numUserID) ChemTotal,  " &
             "(select strReviewingEngineer,  " &
             "Median(dayin) as MedDays    " &
             "from  " &
@@ -4305,9 +1872,6 @@ Public Class ISMPManagersTools
 
             dsUnitStats = New DataSet
             daUnitStats = New OracleDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
             daUnitStats.Fill(dsUnitStats, "UnitStats")
             dgvUnitStats.DataSource = dsUnitStats
             dgvUnitStats.DataMember = "UnitStats"
@@ -4321,49 +1885,19 @@ Public Class ISMPManagersTools
             dgvUnitStats.AllowUserToResizeRows = True
             dgvUnitStats.ColumnHeadersHeight = "35"
             dgvUnitStats.Columns("Engineer").HeaderText = "Engineer"
-            dgvUnitStats.Columns("Engineer").DisplayIndex = 0
             dgvUnitStats.Columns("strUnitDesc").HeaderText = "Engineer Unit"
-            dgvUnitStats.Columns("strUnitDesc").DisplayIndex = 1
             dgvUnitStats.Columns("TotalReceived").HeaderText = "Total Reviewed"
-            dgvUnitStats.Columns("TotalReceived").DisplayIndex = 2
             dgvUnitStats.Columns("TotalReceived").Visible = False
             dgvUnitStats.Columns("ReceivedCount").HeaderText = "Engineer Reviewed"
-            dgvUnitStats.Columns("ReceivedCount").DisplayIndex = 3
             dgvUnitStats.Columns("ProgramPercent").HeaderText = "% Program "
-            dgvUnitStats.Columns("ProgramPercent").DisplayIndex = 5
-            dgvUnitStats.Columns("UnitPercent").HeaderText = "% Unit"
-            dgvUnitStats.Columns("UnitPercent").DisplayIndex = 4
             dgvUnitStats.Columns("MedDays").HeaderText = "Median Days"
-            dgvUnitStats.Columns("MedDays").DisplayIndex = 6
             dgvUnitStats.Columns("PercentDays").HeaderText = "80% Days"
-            dgvUnitStats.Columns("PercentDays").DisplayIndex = 7
             dgvUnitStats.Columns("Witnessed").HeaderText = "Witnessed"
-            dgvUnitStats.Columns("Witnessed").DisplayIndex = 8
-            dgvUnitStats.Columns("ComUnitTotal").HeaderText = "Combustion Unit Total"
-            dgvUnitStats.Columns("ComUnitTotal").DisplayIndex = 9
-            dgvUnitStats.Columns("ComUnitTotal").Visible = False
-            dgvUnitStats.Columns("ChemUnitTotal").HeaderText = "Chemicals Unit Total"
-            dgvUnitStats.Columns("ChemUnitTotal").DisplayIndex = 10
-            dgvUnitStats.Columns("ChemUnitTotal").Visible = False
-
 
             Try
                 txtTotalReviewed.Text = dgvUnitStats(2, 0).Value
             Catch ex As Exception
                 txtTotalReviewed.Text = "0"
-            End Try
-
-            Try
-                txtChemicalTotal.Text = dgvUnitStats(7, 0).Value
-            Catch ex As Exception
-                txtChemicalTotal.Text = "0"
-            End Try
-
-
-            Try
-                txtCombustionTotal.Text = dgvUnitStats(6, 0).Value
-            Catch ex As Exception
-                txtCombustionTotal.Text = "0"
             End Try
 
             txtEngineerCount.Text = dgvUnitStats.RowCount.ToString
@@ -4380,20 +1914,20 @@ Public Class ISMPManagersTools
                 Else
                     TotalAvg = TotalAvg + (dgvUnitStats(3, x).Value * dgvUnitStats(4, x).Value / 100)
                 End If
-                If IsDBNull(dgvUnitStats(8, x).Value) Then
+                If IsDBNull(dgvUnitStats(5, x).Value) Then
                     MedianAvg = MedianAvg + 0
                 Else
-                    MedianAvg = MedianAvg + (dgvUnitStats(8, x).Value * dgvUnitStats(4, x).Value / 100)
+                    MedianAvg = MedianAvg + (dgvUnitStats(5, x).Value * dgvUnitStats(4, x).Value / 100)
                 End If
-                If IsDBNull(dgvUnitStats(9, x).Value) Then
+                If IsDBNull(dgvUnitStats(6, x).Value) Then
                     PercentialAvg = PercentialAvg + 0
                 Else
-                    PercentialAvg = PercentialAvg + (dgvUnitStats(9, x).Value * dgvUnitStats(4, x).Value / 100)
+                    PercentialAvg = PercentialAvg + (dgvUnitStats(6, x).Value * dgvUnitStats(4, x).Value / 100)
                 End If
-                If IsDBNull(dgvUnitStats(10, x).Value) Then
+                If IsDBNull(dgvUnitStats(7, x).Value) Then
                     WitnessAvg = WitnessAvg + 0
                 Else
-                    WitnessAvg = WitnessAvg + (dgvUnitStats(10, x).Value * dgvUnitStats(4, x).Value / 100)
+                    WitnessAvg = WitnessAvg + (dgvUnitStats(7, x).Value * dgvUnitStats(4, x).Value / 100)
                 End If
             Next
 
@@ -4412,30 +1946,6 @@ Public Class ISMPManagersTools
         End Try
     End Sub
 #End Region
-    'Private Sub txtAIRSNumber_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
-    '    Try
-
-    '        If txtAIRSNumber.Text <> "" Then
-    '            If TPReportAssignment.Focus = True Then
-    '                LVTestReportAssignment.Clear()
-    '                lblTestReportAssignment.Items.Clear()
-    '                txtTestReportCount.Text = "0"
-    '                LoadByAIRSNumberTestReportAssignmentDataSet()
-    '                LoadLVTestReportAssignment()
-    '            End If
-    '            If TPTestReportStatistics.Focus = True Then
-    '                AddFacilityName()
-
-    '            End If
-
-    '        End If
-
-    '    Catch ex As Exception
-    '        ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-    '    Finally
-    '    End Try
-
-    'End Sub
     Private Sub TBManagersTools_ButtonClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.ToolBarButtonClickEventArgs) Handles TBManagersTools.ButtonClick
         Try
 
@@ -4443,36 +1953,21 @@ Public Class ISMPManagersTools
                 Case 0
                     If TPReportAssignment.Focus = True Then
                         SaveTestReportsAssignments()
-                    End If
-                    If TPAIRSReportsPrinted.Focus = True Then
+                    ElseIf TPAIRSReportsPrinted.Focus = True Then
                         SaveAIRSPrinting()
                     End If
-                    If TPUnitAssignment.Focus = True Then
-                        SaveUnitAssignments()
-                    End If
                 Case 1
-
-                Case 2
-
-                Case 3
                     If TPReportAssignment.Focus = True Then
                         cboEngineer.Text = ""
                         lblTestReportAssignment.Items.Clear()
                         txtTestReportCount.Text = 0
                         LVTestReportAssignment.Clear()
                         LoadLVTestReportAssignment()
-                    End If
-                    If TPMethods.Focus = True Then
+                    ElseIf TPMethods.Focus = True Then
                         txtMethodCode.Clear()
                         txtMethodDescription.Clear()
                         txtMethodNumber.Clear()
                     End If
-                Case 4
-                    Me.Close()
-                Case 5
-                    Me.Close()
-                Case Else
-                    MsgBox("try clicking again")
             End Select
 
         Catch ex As Exception
@@ -4489,28 +1984,6 @@ Public Class ISMPManagersTools
             If TPReportAssignment.Focus = True Then
                 SaveTestReportsAssignments()
             End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub MmiBack_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiBack.Click
-        Try
-
-            Me.Close()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub MmiExit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiExit.Click
-        Try
-
-            Me.Close()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -4621,7 +2094,6 @@ Public Class ISMPManagersTools
             If facilityLookupDialog.DialogResult = DialogResult.OK _
             AndAlso facilityLookupDialog.SelectedAirsNumber <> "" Then
                 Me.ValueFromFacilityLookUp = facilityLookupDialog.SelectedAirsNumber
-                Me.ValueFromFacilityLookUp2 = facilityLookupDialog.SelectedFacilityName
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
@@ -4636,77 +2108,8 @@ Public Class ISMPManagersTools
     Public WriteOnly Property ValueFromFacilityLookUp() As String
         Set(ByVal Value As String)
             txtAIRSNumber.Text = Value
-            txtAIRSNumber2.Text = Value
         End Set
     End Property
-    Public WriteOnly Property ValueFromFacilityLookUp2() As String
-        Set(ByVal Value2 As String)
-            txtFacility.Text = Value2
-        End Set
-    End Property
-    Private Sub MmiByEngineer_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiByEngineer.Click
-        Try
-
-            'Must have all engineers loaded some how
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-
-    End Sub
-    Private Sub MmiAllByUnit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiAllByUnit.Click
-        Try
-
-            If TPReportAssignment.Focus = True Then
-                LVTestReportAssignment.Clear()
-                lblTestReportAssignment.Items.Clear()
-                txtTestReportCount.Text = "0"
-                LoadAllByUnitTestReportAssignmentDataSet()
-                LoadLVTestReportAssignment()
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub MmiUnassignedByUnit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiUnassignedByUnit.Click
-        Try
-
-            If TPReportAssignment.Focus = True Then
-                LVTestReportAssignment.Clear()
-                lblTestReportAssignment.Items.Clear()
-                txtTestReportCount.Text = "0"
-                LoadTestReportAssignmentDataSet()
-                LoadLVTestReportAssignment()
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub MmiAssignedByUnit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiAssignedByUnit.Click
-        Try
-
-            If TPReportAssignment.Focus = True Then
-                LVTestReportAssignment.Clear()
-                lblTestReportAssignment.Items.Clear()
-                txtTestReportCount.Text = "0"
-                LoadAssignedByUnitTestReportAssignmentDataSet()
-                LoadLVTestReportAssignment()
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
 #Region "By Test Report-Unassigned"
     Private Sub MmiUnassigned_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiUnassigned.Click
         Try
@@ -5655,137 +3058,6 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
-    Private Sub LLRunFacilityReport_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles LLRunFacilityReport.LinkClicked
-        Try
-
-            RunFacilityStatistics()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub LLFaciltiySearch_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles LLFaciltiySearch.LinkClicked
-        If TPTestReportStatistics.Focus = True Then
-            OpenFacilityLookupTool()
-        End If
-    End Sub
-    Private Sub MmiCut_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiCut.Click
-        Try
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Sub FillFacilitiesDataGrid()
-        Try
-
-            dsFacilityList = New DataSet
-
-            SQL = "Select strFacilityName, substr(AIRBRANCH.APBFacilityInformation.strAIRSnumber, 5) as StrAIRSNumber, " &
-            "CASE " &
-            "when strISMPUnit = 'H' then 'Chemical and VOC' " &
-            "when strISMPUnit = 'I' then 'Combustion and Mineral' " &
-            "ELSE 'Unassigned' " &
-            "END as UnitAssigned " &
-            "from AIRBRANCH.APBFacilityInformation, AIRBRANCH.ISMPFacilityAssignment " &
-            "where AIRBRANCH.APBFacilityInformation.strAIRSNumber = AIRBRANCH.ISMPFacilityAssignment.strAIRSNumber " &
-            "order by strAIRSNumber "
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-
-            daFacilityList = New OracleDataAdapter(SQL, CurrentConnection)
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            daFacilityList.Fill(dsFacilityList, "FacilityList")
-
-
-
-            LVFacilities.View = View.Details
-            LVFacilities.AllowColumnReorder = True
-            LVFacilities.CheckBoxes = True
-            LVFacilities.GridLines = True
-            LVFacilities.FullRowSelect = True
-
-            Dim dtFacilitiesAssignment As New DataTable
-            dtFacilitiesAssignment = dsFacilityList.Tables("FacilityList")
-
-            Dim drFacilitiesAssignment As DataRow()
-
-            Dim row As DataRow
-
-            drFacilitiesAssignment = dtFacilitiesAssignment.Select()
-
-            LVFacilities.Columns.Add("AIRS Number", 100, HorizontalAlignment.Left)
-            LVFacilities.Columns.Add("Facility Name", 300, HorizontalAlignment.Left)
-            LVFacilities.Columns.Add("Currently Assigned Unit", 200, HorizontalAlignment.Left)
-
-            For Each row In drFacilitiesAssignment
-
-                Dim item1 As New ListViewItem(row("StrAIRSNumber").ToString())
-
-                item1.Checked = False
-                item1.SubItems.Add(row("strFacilityName").ToString())
-                item1.SubItems.Add(row("UnitAssigned").ToString())
-
-                LVFacilities.Items.AddRange(New ListViewItem() {item1})
-
-            Next row
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub LLBAllFacilities_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles LLBAllFacilities.LinkClicked
-        Try
-
-            FillFacilitiesDataGrid()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub LVFacilities_ColumnClick(ByVal sender As Object, ByVal e As System.Windows.Forms.ColumnClickEventArgs) Handles LVFacilities.ColumnClick
-        Try
-
-            ' Set the ListViewItemSorter property to a new ListViewItemComparer object.
-            LVFacilities.ListViewItemSorter = New ListViewItemComparer(e.Column)
-            ' Call the sort method to manually sort the column based on the ListViewItemComparer implementation.
-            LVFacilities.Sort()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub LVFacilities_ItemCheck(ByVal sender As Object, ByVal e As System.Windows.Forms.ItemCheckEventArgs) Handles LVFacilities.ItemCheck
-        Try
-
-            If LVFacilities.Items.Item(e.Index).Checked = True Then
-                lsbFacilities.Items.Remove(LVFacilities.Items.Item(e.Index).Text)
-            Else
-                lsbFacilities.Items.Add(LVFacilities.Items.Item(e.Index).Text)
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
     Private Sub llbRunMonthlyReport_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbRunMonthlyReport.LinkClicked
         Try
 
@@ -5803,50 +3075,6 @@ Public Class ISMPManagersTools
         Try
 
             ExportToWord()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub LlbUnitStatistics_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles LlbUnitStatistics.LinkClicked
-        Try
-
-
-            RunUnitStatistics()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-
-    End Sub
-    Private Sub txtDaysOpen_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtDaysOpen.TextChanged
-        Try
-
-            If txtDaysOpen2.ReadOnly = True Then
-                txtDaysOpen2.Text = txtDaysOpen.Text
-                txtDaysOpen3.Text = txtDaysOpen.Text
-                txtDaysOpen4.Text = txtDaysOpen.Text
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub txtDaysOpen2_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtDaysOpen2.TextChanged
-        Try
-
-            If txtDaysOpen.ReadOnly = True Then
-                txtDaysOpen.Text = txtDaysOpen2.Text
-                txtDaysOpen3.Text = txtDaysOpen2.Text
-                txtDaysOpen4.Text = txtDaysOpen2.Text
-            End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -5919,132 +3147,10 @@ Public Class ISMPManagersTools
     Private Sub llbExportToExcel_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbExportToExcel.LinkClicked
         dsEngineerGrid.Tables(0).ExportToExcel(Me)
     End Sub
-    Private Sub llbRunSummaryReport_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs)
-        Try
-
-            RunSummaryReport()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub llbPrintSummaryReport_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs)
-        Try
-
-            PrintSummaryReport()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub llbAddExcelFile_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbAddExcelFile.LinkClicked
-        Try
-
-            AddExcelFile()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub llbRemoveFile_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbRemoveFile.LinkClicked
-        Try
-
-            RemoveExcelFile()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub dgrExcelFiles_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgrExcelFiles.MouseUp
-        Dim hti As DataGrid.HitTestInfo = dgrExcelFiles.HitTest(e.X, e.Y)
-
-        Try
-
-            If hti.Type = DataGrid.HitTestType.Cell Then
-                If IsDBNull(dgrExcelFiles(hti.Row, 0)) Then
-                Else
-                    If IsDBNull(dgrExcelFiles(hti.Row, 1)) Then
-                    Else
-                        txtFileName.Text = dgrExcelFiles(hti.Row, 0) & " - " & dgrExcelFiles(hti.Row, 1)
-                    End If
-                End If
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
     Private Sub llbPrintSummaryReport_LinkClicked_1(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbPrintSummaryReport.LinkClicked
         Try
 
             PrintSummaryReport()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub llbRunEngineerStatReport_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbRunEngineerStatReport.LinkClicked
-        Try
-
-
-            EngineerUnitStats()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub llbExportStatsToWord_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbExportStatsToWord.LinkClicked
-        Try
-
-            PrintEngineerUnitStats()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub llbDownloadExcelFiles_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbDownloadExcelFiles.LinkClicked
-        Try
-
-            DownloadExcelFiles()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub btnRunApplicationReport_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnRunApplicationReport.Click
-        Try
-
-            RunApplicationReport()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub btnApplicationReport_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnApplicationReport.Click
-        Try
-
-            PrintApplicationReport()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -6085,132 +3191,6 @@ Public Class ISMPManagersTools
             "and (strDelete <> 'True' or strDelete is Null)  " &
             "and strReviewingEngineer <> '0'  " &
             "and strClosed = 'True' "
-
-            dsUnitStats = New DataSet
-            daUnitStats = New OracleDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daUnitStats.Fill(dsUnitStats, "UnitStats")
-            dgvUnitStats.DataSource = dsUnitStats
-            dgvUnitStats.DataMember = "UnitStats"
-
-            dgvUnitStats.RowHeadersVisible = False
-            dgvUnitStats.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvUnitStats.AllowUserToResizeColumns = True
-            dgvUnitStats.AllowUserToAddRows = False
-            dgvUnitStats.AllowUserToDeleteRows = False
-            dgvUnitStats.AllowUserToOrderColumns = True
-            dgvUnitStats.AllowUserToResizeRows = True
-            dgvUnitStats.ColumnHeadersHeight = "35"
-            dgvUnitStats.Columns("strReferenceNumber").HeaderText = "Reference #"
-            dgvUnitStats.Columns("strReferenceNumber").DisplayIndex = 0
-            dgvUnitStats.Columns("Engineer").HeaderText = "Engineer"
-            dgvUnitStats.Columns("Engineer").DisplayIndex = 1
-            dgvUnitStats.Columns("datTestDateStart").HeaderText = "Test Date"
-            dgvUnitStats.Columns("datTestDateStart").DisplayIndex = 2
-            dgvUnitStats.Columns("datReceivedDate").HeaderText = "Received Date"
-            dgvUnitStats.Columns("datReceivedDate").DisplayIndex = 3
-            dgvUnitStats.Columns("datCompleteDate").HeaderText = "Complete Date"
-            dgvUnitStats.Columns("datCompleteDate").DisplayIndex = 4
-
-            txtUnitStatsCount.Text = dgvUnitStats.RowCount.ToString
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-    End Sub
-    Private Sub lblChemTests_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblChemTests.LinkClicked
-        Try
-            SQL = "select strReferenceNumber, " &
-            "(strLastName|| ', ' ||strFirstName) as Engineer,  " &
-            "case  " &
-            "when datTestDateStart = '04-Jul-1776' then Null  " &
-            "else to_char(datTestDateStart, 'dd-Mon-yyyy')  " &
-            "end datTestDateStart,  " &
-            "case  " &
-            "when datReceivedDate = '04-Jul-1776' then Null  " &
-            "else to_Char(datReceivedDate, 'dd-Mon-yyyy')  " &
-            "End datReceivedDate,  " &
-            "case  " &
-            "when datCompleteDate = '04-Jul-1776' then Null  " &
-            "else to_char(datCompleteDate, 'dd-Mon-yyyy')  " &
-            "End datCompleteDate  " &
-            "from AIRBRANCH.ISMPReportInformation,  AIRBRANCH.EPDUserProfiles,  " &
-            "(select numUserID    " &
-            "from AIRBRANCH.EPDUserProfiles " &
-            "where numProgram = '3'  " &
-            "and numUnit = '12') ChemUnit   " &
-            "where AIRBRANCH.ISMPReportInformation.strReviewingEngineer = AIRBRANCH.EPDUSerProfiles.numUSerID   " &
-            "and datCompleteDate between '" & DTPUnitStatsStartDate.Text & "' and '" & DTPUnitStatsEndDate.Text & "'  " &
-            "and (strDelete <> 'True' or strDelete is Null)    " &
-            "and strClosed = 'True'   " &
-            "and strReviewingEngineer  = ChemUnit.numUserID "
-
-            dsUnitStats = New DataSet
-            daUnitStats = New OracleDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daUnitStats.Fill(dsUnitStats, "UnitStats")
-            dgvUnitStats.DataSource = dsUnitStats
-            dgvUnitStats.DataMember = "UnitStats"
-
-            dgvUnitStats.RowHeadersVisible = False
-            dgvUnitStats.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvUnitStats.AllowUserToResizeColumns = True
-            dgvUnitStats.AllowUserToAddRows = False
-            dgvUnitStats.AllowUserToDeleteRows = False
-            dgvUnitStats.AllowUserToOrderColumns = True
-            dgvUnitStats.AllowUserToResizeRows = True
-            dgvUnitStats.ColumnHeadersHeight = "35"
-            dgvUnitStats.Columns("strReferenceNumber").HeaderText = "Reference #"
-            dgvUnitStats.Columns("strReferenceNumber").DisplayIndex = 0
-            dgvUnitStats.Columns("Engineer").HeaderText = "Engineer"
-            dgvUnitStats.Columns("Engineer").DisplayIndex = 1
-            dgvUnitStats.Columns("datTestDateStart").HeaderText = "Test Date"
-            dgvUnitStats.Columns("datTestDateStart").DisplayIndex = 2
-            dgvUnitStats.Columns("datReceivedDate").HeaderText = "Received Date"
-            dgvUnitStats.Columns("datReceivedDate").DisplayIndex = 3
-            dgvUnitStats.Columns("datCompleteDate").HeaderText = "Complete Date"
-            dgvUnitStats.Columns("datCompleteDate").DisplayIndex = 4
-
-            txtUnitStatsCount.Text = dgvUnitStats.RowCount.ToString
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-    End Sub
-    Private Sub lblComTests_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblComTests.LinkClicked
-        Try
-            SQL = "select strReferenceNumber, " &
-           "(strLastName|| ', ' ||strFirstName) as Engineer,  " &
-           "case  " &
-           "when datTestDateStart = '04-Jul-1776' then Null  " &
-           "else to_char(datTestDateStart, 'dd-Mon-yyyy')  " &
-           "end datTestDateStart,  " &
-           "case  " &
-           "when datReceivedDate = '04-Jul-1776' then Null  " &
-           "else to_Char(datReceivedDate, 'dd-Mon-yyyy')  " &
-           "End datReceivedDate,  " &
-           "case  " &
-           "when datCompleteDate = '04-Jul-1776' then Null  " &
-           "else to_char(datCompleteDate, 'dd-Mon-yyyy')  " &
-           "End datCompleteDate  " &
-           "from AIRBRANCH.ISMPReportInformation,  AIRBRANCH.EPDUserProfiles,  " &
-           "(select numUserID " &
-           "from AIRBRANCH.EPDUserProfiles     " &
-           "where numProgram = '3' " &
-           "and numUnit = '13') ComUnit   " &
-           "where AIRBRANCH.ISMPReportInformation.strReviewingEngineer = AIRBRANCH.EPDUserProfiles.numUserID   " &
-           "and datCompleteDate between '" & DTPUnitStatsStartDate.Text & "' and '" & DTPUnitStatsEndDate.Text & "'  " &
-           "and (strDelete <> 'True' or strDelete is Null)    " &
-           "and strClosed = 'True'   " &
-           "and strReviewingEngineer  = ComUnit.numUserID "
 
             dsUnitStats = New DataSet
             daUnitStats = New OracleDataAdapter(SQL, CurrentConnection)
@@ -6461,11 +3441,6 @@ Public Class ISMPManagersTools
         Finally
 
         End Try
-    End Sub
-
-
-    Private Sub MmiHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiHelp.Click
-        OpenDocumentationUrl(Me)
     End Sub
 
     Private Sub btnAddTestReport_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAddTestReport.Click

@@ -23,188 +23,176 @@ Partial Class ISMPMonitoringLog
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(ISMPMonitoringLog))
-        Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle13 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle14 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle15 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle16 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle17 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Dim DataGridViewCellStyle18 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Me.MenuStrip1 = New System.Windows.Forms.MenuStrip
-        Me.FileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.mmiClear = New System.Windows.Forms.ToolStripMenuItem
-        Me.mmiBack = New System.Windows.Forms.ToolStripMenuItem
-        Me.EditToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.mmiReset = New System.Windows.Forms.ToolStripMenuItem
-        Me.ToolsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.mmiReports = New System.Windows.Forms.ToolStripMenuItem
-        Me.mmiHelp = New System.Windows.Forms.ToolStripMenuItem
-        Me.StatusStrip1 = New System.Windows.Forms.StatusStrip
-        Me.Panel1 = New System.Windows.Forms.ToolStripStatusLabel
-        Me.Panel2 = New System.Windows.Forms.ToolStripStatusLabel
-        Me.Panel3 = New System.Windows.Forms.ToolStripStatusLabel
-        Me.ToolStrip1 = New System.Windows.Forms.ToolStrip
-        Me.tsbClear = New System.Windows.Forms.ToolStripButton
-        Me.tsbBack = New System.Windows.Forms.ToolStripButton
-        Me.tsbFacilitySearch = New System.Windows.Forms.ToolStripButton
-        Me.tsbResize = New System.Windows.Forms.ToolStripButton
-        Me.tsbExportToExcel = New System.Windows.Forms.ToolStripButton
-        Me.SCMonitoringLog = New System.Windows.Forms.SplitContainer
-        Me.GBFilterAndSortOptions = New System.Windows.Forms.GroupBox
-        Me.txtTestFirmCommentsCount = New System.Windows.Forms.TextBox
-        Me.Label29 = New System.Windows.Forms.Label
-        Me.txtNotificationCount = New System.Windows.Forms.TextBox
-        Me.Label27 = New System.Windows.Forms.Label
-        Me.Label13 = New System.Windows.Forms.Label
-        Me.GroupBox9 = New System.Windows.Forms.GroupBox
-        Me.chbNotificationUnlinked = New System.Windows.Forms.CheckBox
-        Me.chbNotificationLinked = New System.Windows.Forms.CheckBox
-        Me.GroupBox8 = New System.Windows.Forms.GroupBox
-        Me.Label28 = New System.Windows.Forms.Label
-        Me.txtTestingFirm = New System.Windows.Forms.TextBox
-        Me.Label12 = New System.Windows.Forms.Label
-        Me.txtPollutantFilter = New System.Windows.Forms.TextBox
-        Me.Label9 = New System.Windows.Forms.Label
-        Me.txtCommentFieldFilter = New System.Windows.Forms.TextBox
-        Me.Label1 = New System.Windows.Forms.Label
-        Me.txtEmissionSourceTestedFilter = New System.Windows.Forms.TextBox
-        Me.Label26 = New System.Windows.Forms.Label
-        Me.txtCountyFilter = New System.Windows.Forms.TextBox
-        Me.Label21 = New System.Windows.Forms.Label
-        Me.txtFacilityNameFilter = New System.Windows.Forms.TextBox
-        Me.Label22 = New System.Windows.Forms.Label
-        Me.txtCityFilter = New System.Windows.Forms.TextBox
-        Me.Label23 = New System.Windows.Forms.Label
-        Me.txtNotificationNumberFilter = New System.Windows.Forms.TextBox
-        Me.Label24 = New System.Windows.Forms.Label
-        Me.Label25 = New System.Windows.Forms.Label
-        Me.txtReferenceNumberFilter = New System.Windows.Forms.TextBox
-        Me.txtAIRSNumberFilter = New System.Windows.Forms.TextBox
-        Me.GroupBox7 = New System.Windows.Forms.GroupBox
-        Me.clbWitnessingStaff = New System.Windows.Forms.CheckedListBox
-        Me.chbWitnessingEngineer = New System.Windows.Forms.CheckBox
-        Me.GroupBox6 = New System.Windows.Forms.GroupBox
-        Me.clbEngineer = New System.Windows.Forms.CheckedListBox
-        Me.chbReviewingEngineer = New System.Windows.Forms.CheckBox
-        Me.btnRunFilter = New System.Windows.Forms.Button
-        Me.GroupBox5 = New System.Windows.Forms.GroupBox
-        Me.chbTestFirmComments = New System.Windows.Forms.CheckBox
-        Me.chbNotifications = New System.Windows.Forms.CheckBox
-        Me.chbTestReports = New System.Windows.Forms.CheckBox
-        Me.TCMonitoringSelection = New System.Windows.Forms.TabControl
-        Me.TPSelectTestReport = New System.Windows.Forms.TabPage
-        Me.GBSelectedTestReport = New System.Windows.Forms.GroupBox
-        Me.LLSelectReport = New System.Windows.Forms.LinkLabel
-        Me.txtPollutant = New System.Windows.Forms.TextBox
-        Me.Label8 = New System.Windows.Forms.Label
-        Me.txtFacilityCounty = New System.Windows.Forms.TextBox
-        Me.Label7 = New System.Windows.Forms.Label
-        Me.txtFacilityCity = New System.Windows.Forms.TextBox
-        Me.Label6 = New System.Windows.Forms.Label
-        Me.txtTestType = New System.Windows.Forms.TextBox
-        Me.Label5 = New System.Windows.Forms.Label
-        Me.txtAIRSNumber = New System.Windows.Forms.TextBox
-        Me.Label4 = New System.Windows.Forms.Label
-        Me.txtFacilityName = New System.Windows.Forms.TextBox
-        Me.Label3 = New System.Windows.Forms.Label
-        Me.Label2 = New System.Windows.Forms.Label
-        Me.txtReferenceNumber = New System.Windows.Forms.TextBox
-        Me.TPSelectTestLog = New System.Windows.Forms.TabPage
-        Me.llbSelectTestLog = New System.Windows.Forms.LinkLabel
-        Me.txtNotificationTestStart = New System.Windows.Forms.TextBox
-        Me.Label14 = New System.Windows.Forms.Label
-        Me.txtNotificationCounty = New System.Windows.Forms.TextBox
-        Me.Label15 = New System.Windows.Forms.Label
-        Me.txtNotificationCity = New System.Windows.Forms.TextBox
-        Me.Label16 = New System.Windows.Forms.Label
-        Me.txtNotificationEmissionUnit = New System.Windows.Forms.TextBox
-        Me.Label17 = New System.Windows.Forms.Label
-        Me.txtNotificationAIRSNumber = New System.Windows.Forms.TextBox
-        Me.Label18 = New System.Windows.Forms.Label
-        Me.txtNotificationFacilityName = New System.Windows.Forms.TextBox
-        Me.Label19 = New System.Windows.Forms.Label
-        Me.Label20 = New System.Windows.Forms.Label
-        Me.txtTestLogNumber = New System.Windows.Forms.TextBox
-        Me.TPTestFirmComment = New System.Windows.Forms.TabPage
-        Me.txtTestFirmName = New System.Windows.Forms.TextBox
-        Me.Label38 = New System.Windows.Forms.Label
-        Me.txtTestFirmTestLogNumber = New System.Windows.Forms.TextBox
-        Me.Label37 = New System.Windows.Forms.Label
-        Me.txtTestFirmReferenceNumber = New System.Windows.Forms.TextBox
-        Me.Label30 = New System.Windows.Forms.Label
-        Me.llbOpenComments = New System.Windows.Forms.LinkLabel
-        Me.txtTestFirmCounty = New System.Windows.Forms.TextBox
-        Me.Label31 = New System.Windows.Forms.Label
-        Me.txtTestFirmFacilityCity = New System.Windows.Forms.TextBox
-        Me.Label32 = New System.Windows.Forms.Label
-        Me.txtTestFirmCommentType = New System.Windows.Forms.TextBox
-        Me.Label33 = New System.Windows.Forms.Label
-        Me.txtTestFirmAirsNumber = New System.Windows.Forms.TextBox
-        Me.Label34 = New System.Windows.Forms.Label
-        Me.txtTestFirmFacilityName = New System.Windows.Forms.TextBox
-        Me.Label35 = New System.Windows.Forms.Label
-        Me.Label36 = New System.Windows.Forms.Label
-        Me.txtCommentNumber = New System.Windows.Forms.TextBox
-        Me.txtReportCount = New System.Windows.Forms.TextBox
-        Me.GroupBox4 = New System.Windows.Forms.GroupBox
-        Me.chbAll = New System.Windows.Forms.CheckBox
-        Me.chbPTE = New System.Windows.Forms.CheckBox
-        Me.chbPEMS = New System.Windows.Forms.CheckBox
-        Me.chbMethod22 = New System.Windows.Forms.CheckBox
-        Me.chbMethod9Single = New System.Windows.Forms.CheckBox
-        Me.chbMethod9Multi = New System.Windows.Forms.CheckBox
-        Me.chbMemorandumToFile = New System.Windows.Forms.CheckBox
-        Me.chbMemorandumStandard = New System.Windows.Forms.CheckBox
-        Me.chbRata = New System.Windows.Forms.CheckBox
-        Me.chbFlare = New System.Windows.Forms.CheckBox
-        Me.chbGasConcentration = New System.Windows.Forms.CheckBox
-        Me.chbPondTreatment = New System.Windows.Forms.CheckBox
-        Me.chbLoadingRack = New System.Windows.Forms.CheckBox
-        Me.chbTwoStackDRE = New System.Windows.Forms.CheckBox
-        Me.chbTwoStackStandard = New System.Windows.Forms.CheckBox
-        Me.chbOneStackFourRun = New System.Windows.Forms.CheckBox
-        Me.chbOneStackThreeRun = New System.Windows.Forms.CheckBox
-        Me.chbOneStackTwoRun = New System.Windows.Forms.CheckBox
-        Me.chbUnassigned = New System.Windows.Forms.CheckBox
-        Me.GroupBox1 = New System.Windows.Forms.GroupBox
-        Me.chbUnitOption2 = New System.Windows.Forms.CheckBox
-        Me.chbUnitOption1 = New System.Windows.Forms.CheckBox
-        Me.GBReportType = New System.Windows.Forms.GroupBox
-        Me.chbOther = New System.Windows.Forms.CheckBox
-        Me.chbSourceTest = New System.Windows.Forms.CheckBox
-        Me.chbRATAandCEMS = New System.Windows.Forms.CheckBox
-        Me.chbPEMSDevelopment = New System.Windows.Forms.CheckBox
-        Me.chbMonitorCertification = New System.Windows.Forms.CheckBox
-        Me.GBDateBias = New System.Windows.Forms.GroupBox
-        Me.rdbNA = New System.Windows.Forms.RadioButton
-        Me.Label11 = New System.Windows.Forms.Label
-        Me.Label10 = New System.Windows.Forms.Label
-        Me.DTPEndDate = New System.Windows.Forms.DateTimePicker
-        Me.DTPStartDate = New System.Windows.Forms.DateTimePicker
-        Me.rdbFacilityDateCompleted = New System.Windows.Forms.RadioButton
-        Me.rdbFacilityDateTestStarted = New System.Windows.Forms.RadioButton
-        Me.rdbFacilityDateReceived = New System.Windows.Forms.RadioButton
-        Me.GroupBox3 = New System.Windows.Forms.GroupBox
-        Me.chbClosed = New System.Windows.Forms.CheckBox
-        Me.chbOpen = New System.Windows.Forms.CheckBox
-        Me.GroupBox2 = New System.Windows.Forms.GroupBox
-        Me.chbComplianceStatus5 = New System.Windows.Forms.CheckBox
-        Me.chbComplianceStatus4 = New System.Windows.Forms.CheckBox
-        Me.chbComplianceStatus3 = New System.Windows.Forms.CheckBox
-        Me.chbComplianceStatus2 = New System.Windows.Forms.CheckBox
-        Me.chbComplianceStatus1 = New System.Windows.Forms.CheckBox
-        Me.TCMonitoringGrids = New System.Windows.Forms.TabControl
-        Me.TPTestReports = New System.Windows.Forms.TabPage
-        Me.dgvTestReportViewer = New System.Windows.Forms.DataGridView
-        Me.TPNotifications = New System.Windows.Forms.TabPage
-        Me.dgvNotificationLog = New System.Windows.Forms.DataGridView
-        Me.TPTestFirmComments = New System.Windows.Forms.TabPage
-        Me.dgvTestFirmComments = New System.Windows.Forms.DataGridView
+        Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle13 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle14 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle15 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle16 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle17 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle18 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
+        Me.EditToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mmiReset = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mmiReports = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
+        Me.tsbClear = New System.Windows.Forms.ToolStripButton()
+        Me.tsbFacilitySearch = New System.Windows.Forms.ToolStripButton()
+        Me.tsbResize = New System.Windows.Forms.ToolStripButton()
+        Me.tsbExportToExcel = New System.Windows.Forms.ToolStripButton()
+        Me.SCMonitoringLog = New System.Windows.Forms.SplitContainer()
+        Me.GBFilterAndSortOptions = New System.Windows.Forms.GroupBox()
+        Me.txtTestFirmCommentsCount = New System.Windows.Forms.TextBox()
+        Me.Label29 = New System.Windows.Forms.Label()
+        Me.txtNotificationCount = New System.Windows.Forms.TextBox()
+        Me.Label27 = New System.Windows.Forms.Label()
+        Me.Label13 = New System.Windows.Forms.Label()
+        Me.GroupBox9 = New System.Windows.Forms.GroupBox()
+        Me.chbNotificationUnlinked = New System.Windows.Forms.CheckBox()
+        Me.chbNotificationLinked = New System.Windows.Forms.CheckBox()
+        Me.GroupBox8 = New System.Windows.Forms.GroupBox()
+        Me.Label28 = New System.Windows.Forms.Label()
+        Me.txtTestingFirm = New System.Windows.Forms.TextBox()
+        Me.Label12 = New System.Windows.Forms.Label()
+        Me.txtPollutantFilter = New System.Windows.Forms.TextBox()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.txtCommentFieldFilter = New System.Windows.Forms.TextBox()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.txtEmissionSourceTestedFilter = New System.Windows.Forms.TextBox()
+        Me.Label26 = New System.Windows.Forms.Label()
+        Me.txtCountyFilter = New System.Windows.Forms.TextBox()
+        Me.Label21 = New System.Windows.Forms.Label()
+        Me.txtFacilityNameFilter = New System.Windows.Forms.TextBox()
+        Me.Label22 = New System.Windows.Forms.Label()
+        Me.txtCityFilter = New System.Windows.Forms.TextBox()
+        Me.Label23 = New System.Windows.Forms.Label()
+        Me.txtNotificationNumberFilter = New System.Windows.Forms.TextBox()
+        Me.Label24 = New System.Windows.Forms.Label()
+        Me.Label25 = New System.Windows.Forms.Label()
+        Me.txtReferenceNumberFilter = New System.Windows.Forms.TextBox()
+        Me.txtAIRSNumberFilter = New System.Windows.Forms.TextBox()
+        Me.GroupBox7 = New System.Windows.Forms.GroupBox()
+        Me.clbWitnessingStaff = New System.Windows.Forms.CheckedListBox()
+        Me.chbWitnessingEngineer = New System.Windows.Forms.CheckBox()
+        Me.GroupBox6 = New System.Windows.Forms.GroupBox()
+        Me.clbEngineer = New System.Windows.Forms.CheckedListBox()
+        Me.chbReviewingEngineer = New System.Windows.Forms.CheckBox()
+        Me.btnRunFilter = New System.Windows.Forms.Button()
+        Me.GroupBox5 = New System.Windows.Forms.GroupBox()
+        Me.chbTestFirmComments = New System.Windows.Forms.CheckBox()
+        Me.chbNotifications = New System.Windows.Forms.CheckBox()
+        Me.chbTestReports = New System.Windows.Forms.CheckBox()
+        Me.TCMonitoringSelection = New System.Windows.Forms.TabControl()
+        Me.TPSelectTestReport = New System.Windows.Forms.TabPage()
+        Me.GBSelectedTestReport = New System.Windows.Forms.GroupBox()
+        Me.LLSelectReport = New System.Windows.Forms.LinkLabel()
+        Me.txtPollutant = New System.Windows.Forms.TextBox()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.txtFacilityCounty = New System.Windows.Forms.TextBox()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.txtFacilityCity = New System.Windows.Forms.TextBox()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.txtTestType = New System.Windows.Forms.TextBox()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.txtAIRSNumber = New System.Windows.Forms.TextBox()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.txtFacilityName = New System.Windows.Forms.TextBox()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.txtReferenceNumber = New System.Windows.Forms.TextBox()
+        Me.TPSelectTestLog = New System.Windows.Forms.TabPage()
+        Me.llbSelectTestLog = New System.Windows.Forms.LinkLabel()
+        Me.txtNotificationTestStart = New System.Windows.Forms.TextBox()
+        Me.Label14 = New System.Windows.Forms.Label()
+        Me.txtNotificationCounty = New System.Windows.Forms.TextBox()
+        Me.Label15 = New System.Windows.Forms.Label()
+        Me.txtNotificationCity = New System.Windows.Forms.TextBox()
+        Me.Label16 = New System.Windows.Forms.Label()
+        Me.txtNotificationEmissionUnit = New System.Windows.Forms.TextBox()
+        Me.Label17 = New System.Windows.Forms.Label()
+        Me.txtNotificationAIRSNumber = New System.Windows.Forms.TextBox()
+        Me.Label18 = New System.Windows.Forms.Label()
+        Me.txtNotificationFacilityName = New System.Windows.Forms.TextBox()
+        Me.Label19 = New System.Windows.Forms.Label()
+        Me.Label20 = New System.Windows.Forms.Label()
+        Me.txtTestLogNumber = New System.Windows.Forms.TextBox()
+        Me.TPTestFirmComment = New System.Windows.Forms.TabPage()
+        Me.txtTestFirmName = New System.Windows.Forms.TextBox()
+        Me.Label38 = New System.Windows.Forms.Label()
+        Me.txtTestFirmTestLogNumber = New System.Windows.Forms.TextBox()
+        Me.Label37 = New System.Windows.Forms.Label()
+        Me.txtTestFirmReferenceNumber = New System.Windows.Forms.TextBox()
+        Me.Label30 = New System.Windows.Forms.Label()
+        Me.llbOpenComments = New System.Windows.Forms.LinkLabel()
+        Me.txtTestFirmCounty = New System.Windows.Forms.TextBox()
+        Me.Label31 = New System.Windows.Forms.Label()
+        Me.txtTestFirmFacilityCity = New System.Windows.Forms.TextBox()
+        Me.Label32 = New System.Windows.Forms.Label()
+        Me.txtTestFirmCommentType = New System.Windows.Forms.TextBox()
+        Me.Label33 = New System.Windows.Forms.Label()
+        Me.txtTestFirmAirsNumber = New System.Windows.Forms.TextBox()
+        Me.Label34 = New System.Windows.Forms.Label()
+        Me.txtTestFirmFacilityName = New System.Windows.Forms.TextBox()
+        Me.Label35 = New System.Windows.Forms.Label()
+        Me.Label36 = New System.Windows.Forms.Label()
+        Me.txtCommentNumber = New System.Windows.Forms.TextBox()
+        Me.txtReportCount = New System.Windows.Forms.TextBox()
+        Me.GroupBox4 = New System.Windows.Forms.GroupBox()
+        Me.chbAll = New System.Windows.Forms.CheckBox()
+        Me.chbPTE = New System.Windows.Forms.CheckBox()
+        Me.chbPEMS = New System.Windows.Forms.CheckBox()
+        Me.chbMethod22 = New System.Windows.Forms.CheckBox()
+        Me.chbMethod9Single = New System.Windows.Forms.CheckBox()
+        Me.chbMethod9Multi = New System.Windows.Forms.CheckBox()
+        Me.chbMemorandumToFile = New System.Windows.Forms.CheckBox()
+        Me.chbMemorandumStandard = New System.Windows.Forms.CheckBox()
+        Me.chbRata = New System.Windows.Forms.CheckBox()
+        Me.chbFlare = New System.Windows.Forms.CheckBox()
+        Me.chbGasConcentration = New System.Windows.Forms.CheckBox()
+        Me.chbPondTreatment = New System.Windows.Forms.CheckBox()
+        Me.chbLoadingRack = New System.Windows.Forms.CheckBox()
+        Me.chbTwoStackDRE = New System.Windows.Forms.CheckBox()
+        Me.chbTwoStackStandard = New System.Windows.Forms.CheckBox()
+        Me.chbOneStackFourRun = New System.Windows.Forms.CheckBox()
+        Me.chbOneStackThreeRun = New System.Windows.Forms.CheckBox()
+        Me.chbOneStackTwoRun = New System.Windows.Forms.CheckBox()
+        Me.chbUnassigned = New System.Windows.Forms.CheckBox()
+        Me.GBReportType = New System.Windows.Forms.GroupBox()
+        Me.chbOther = New System.Windows.Forms.CheckBox()
+        Me.chbSourceTest = New System.Windows.Forms.CheckBox()
+        Me.chbRATAandCEMS = New System.Windows.Forms.CheckBox()
+        Me.chbPEMSDevelopment = New System.Windows.Forms.CheckBox()
+        Me.chbMonitorCertification = New System.Windows.Forms.CheckBox()
+        Me.GBDateBias = New System.Windows.Forms.GroupBox()
+        Me.rdbNA = New System.Windows.Forms.RadioButton()
+        Me.Label11 = New System.Windows.Forms.Label()
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.DTPEndDate = New System.Windows.Forms.DateTimePicker()
+        Me.DTPStartDate = New System.Windows.Forms.DateTimePicker()
+        Me.rdbFacilityDateCompleted = New System.Windows.Forms.RadioButton()
+        Me.rdbFacilityDateTestStarted = New System.Windows.Forms.RadioButton()
+        Me.rdbFacilityDateReceived = New System.Windows.Forms.RadioButton()
+        Me.GroupBox3 = New System.Windows.Forms.GroupBox()
+        Me.chbClosed = New System.Windows.Forms.CheckBox()
+        Me.chbOpen = New System.Windows.Forms.CheckBox()
+        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.chbComplianceStatus5 = New System.Windows.Forms.CheckBox()
+        Me.chbComplianceStatus4 = New System.Windows.Forms.CheckBox()
+        Me.chbComplianceStatus3 = New System.Windows.Forms.CheckBox()
+        Me.chbComplianceStatus2 = New System.Windows.Forms.CheckBox()
+        Me.chbComplianceStatus1 = New System.Windows.Forms.CheckBox()
+        Me.TCMonitoringGrids = New System.Windows.Forms.TabControl()
+        Me.TPTestReports = New System.Windows.Forms.TabPage()
+        Me.dgvTestReportViewer = New System.Windows.Forms.DataGridView()
+        Me.TPNotifications = New System.Windows.Forms.TabPage()
+        Me.dgvNotificationLog = New System.Windows.Forms.DataGridView()
+        Me.TPTestFirmComments = New System.Windows.Forms.TabPage()
+        Me.dgvTestFirmComments = New System.Windows.Forms.DataGridView()
         Me.MenuStrip1.SuspendLayout()
-        Me.StatusStrip1.SuspendLayout()
         Me.ToolStrip1.SuspendLayout()
+        CType(Me.SCMonitoringLog, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SCMonitoringLog.Panel1.SuspendLayout()
         Me.SCMonitoringLog.Panel2.SuspendLayout()
         Me.SCMonitoringLog.SuspendLayout()
@@ -220,7 +208,6 @@ Partial Class ISMPMonitoringLog
         Me.TPSelectTestLog.SuspendLayout()
         Me.TPTestFirmComment.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
-        Me.GroupBox1.SuspendLayout()
         Me.GBReportType.SuspendLayout()
         Me.GBDateBias.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
@@ -236,31 +223,12 @@ Partial Class ISMPMonitoringLog
         '
         'MenuStrip1
         '
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem, Me.EditToolStripMenuItem, Me.ToolsToolStripMenuItem, Me.mmiHelp})
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.EditToolStripMenuItem, Me.ToolsToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Size = New System.Drawing.Size(1016, 24)
         Me.MenuStrip1.TabIndex = 0
         Me.MenuStrip1.Text = "MenuStrip1"
-        '
-        'FileToolStripMenuItem
-        '
-        Me.FileToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiClear, Me.mmiBack})
-        Me.FileToolStripMenuItem.Name = "FileToolStripMenuItem"
-        Me.FileToolStripMenuItem.Size = New System.Drawing.Size(37, 20)
-        Me.FileToolStripMenuItem.Text = "File"
-        '
-        'mmiClear
-        '
-        Me.mmiClear.Name = "mmiClear"
-        Me.mmiClear.Size = New System.Drawing.Size(101, 22)
-        Me.mmiClear.Text = "Clear"
-        '
-        'mmiBack
-        '
-        Me.mmiBack.Name = "mmiBack"
-        Me.mmiBack.Size = New System.Drawing.Size(101, 22)
-        Me.mmiBack.Text = "Back"
         '
         'EditToolStripMenuItem
         '
@@ -285,56 +253,12 @@ Partial Class ISMPMonitoringLog
         'mmiReports
         '
         Me.mmiReports.Name = "mmiReports"
-        Me.mmiReports.Size = New System.Drawing.Size(114, 22)
+        Me.mmiReports.Size = New System.Drawing.Size(152, 22)
         Me.mmiReports.Text = "Reports"
-        '
-        'mmiHelp
-        '
-        Me.mmiHelp.Name = "mmiHelp"
-        Me.mmiHelp.Size = New System.Drawing.Size(44, 20)
-        Me.mmiHelp.Text = "Help"
-        '
-        'StatusStrip1
-        '
-        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Panel1, Me.Panel2, Me.Panel3})
-        Me.StatusStrip1.Location = New System.Drawing.Point(0, 688)
-        Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Size = New System.Drawing.Size(1016, 22)
-        Me.StatusStrip1.TabIndex = 1
-        Me.StatusStrip1.Text = "StatusStrip1"
-        '
-        'Panel1
-        '
-        Me.Panel1.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.Panel1.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
-        Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(993, 17)
-        Me.Panel1.Spring = True
-        Me.Panel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'Panel2
-        '
-        Me.Panel2.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.Panel2.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
-        Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(4, 17)
-        '
-        'Panel3
-        '
-        Me.Panel3.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.Panel3.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
-        Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(4, 17)
         '
         'ToolStrip1
         '
-        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsbClear, Me.tsbBack, Me.tsbFacilitySearch, Me.tsbResize, Me.tsbExportToExcel})
+        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsbClear, Me.tsbFacilitySearch, Me.tsbResize, Me.tsbExportToExcel})
         Me.ToolStrip1.Location = New System.Drawing.Point(0, 24)
         Me.ToolStrip1.Name = "ToolStrip1"
         Me.ToolStrip1.Size = New System.Drawing.Size(1016, 25)
@@ -349,15 +273,6 @@ Partial Class ISMPMonitoringLog
         Me.tsbClear.Name = "tsbClear"
         Me.tsbClear.Size = New System.Drawing.Size(23, 22)
         Me.tsbClear.Text = "Clear"
-        '
-        'tsbBack
-        '
-        Me.tsbBack.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.tsbBack.Image = CType(resources.GetObject("tsbBack.Image"), System.Drawing.Image)
-        Me.tsbBack.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.tsbBack.Name = "tsbBack"
-        Me.tsbBack.Size = New System.Drawing.Size(23, 22)
-        Me.tsbBack.Text = "Back"
         '
         'tsbFacilitySearch
         '
@@ -403,8 +318,8 @@ Partial Class ISMPMonitoringLog
         '
         Me.SCMonitoringLog.Panel2.BackColor = System.Drawing.SystemColors.Control
         Me.SCMonitoringLog.Panel2.Controls.Add(Me.TCMonitoringGrids)
-        Me.SCMonitoringLog.Size = New System.Drawing.Size(1016, 639)
-        Me.SCMonitoringLog.SplitterDistance = 539
+        Me.SCMonitoringLog.Size = New System.Drawing.Size(1016, 661)
+        Me.SCMonitoringLog.SplitterDistance = 557
         Me.SCMonitoringLog.TabIndex = 3
         '
         'GBFilterAndSortOptions
@@ -423,7 +338,6 @@ Partial Class ISMPMonitoringLog
         Me.GBFilterAndSortOptions.Controls.Add(Me.TCMonitoringSelection)
         Me.GBFilterAndSortOptions.Controls.Add(Me.txtReportCount)
         Me.GBFilterAndSortOptions.Controls.Add(Me.GroupBox4)
-        Me.GBFilterAndSortOptions.Controls.Add(Me.GroupBox1)
         Me.GBFilterAndSortOptions.Controls.Add(Me.GBReportType)
         Me.GBFilterAndSortOptions.Controls.Add(Me.GBDateBias)
         Me.GBFilterAndSortOptions.Controls.Add(Me.GroupBox3)
@@ -431,7 +345,7 @@ Partial Class ISMPMonitoringLog
         Me.GBFilterAndSortOptions.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GBFilterAndSortOptions.Location = New System.Drawing.Point(0, 0)
         Me.GBFilterAndSortOptions.Name = "GBFilterAndSortOptions"
-        Me.GBFilterAndSortOptions.Size = New System.Drawing.Size(1016, 539)
+        Me.GBFilterAndSortOptions.Size = New System.Drawing.Size(1016, 557)
         Me.GBFilterAndSortOptions.TabIndex = 239
         Me.GBFilterAndSortOptions.TabStop = False
         Me.GBFilterAndSortOptions.Text = "Filter and Sort Option(s)"
@@ -824,7 +738,7 @@ Partial Class ISMPMonitoringLog
         Me.TCMonitoringSelection.Location = New System.Drawing.Point(752, 16)
         Me.TCMonitoringSelection.Name = "TCMonitoringSelection"
         Me.TCMonitoringSelection.SelectedIndex = 0
-        Me.TCMonitoringSelection.Size = New System.Drawing.Size(261, 520)
+        Me.TCMonitoringSelection.Size = New System.Drawing.Size(261, 538)
         Me.TCMonitoringSelection.TabIndex = 253
         '
         'TPSelectTestReport
@@ -833,7 +747,7 @@ Partial Class ISMPMonitoringLog
         Me.TPSelectTestReport.Location = New System.Drawing.Point(4, 22)
         Me.TPSelectTestReport.Name = "TPSelectTestReport"
         Me.TPSelectTestReport.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPSelectTestReport.Size = New System.Drawing.Size(253, 494)
+        Me.TPSelectTestReport.Size = New System.Drawing.Size(253, 512)
         Me.TPSelectTestReport.TabIndex = 0
         Me.TPSelectTestReport.Text = "Test Report"
         Me.TPSelectTestReport.UseVisualStyleBackColor = True
@@ -858,7 +772,7 @@ Partial Class ISMPMonitoringLog
         Me.GBSelectedTestReport.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GBSelectedTestReport.Location = New System.Drawing.Point(3, 3)
         Me.GBSelectedTestReport.Name = "GBSelectedTestReport"
-        Me.GBSelectedTestReport.Size = New System.Drawing.Size(247, 488)
+        Me.GBSelectedTestReport.Size = New System.Drawing.Size(247, 506)
         Me.GBSelectedTestReport.TabIndex = 236
         Me.GBSelectedTestReport.TabStop = False
         '
@@ -1010,7 +924,7 @@ Partial Class ISMPMonitoringLog
         Me.TPSelectTestLog.Location = New System.Drawing.Point(4, 22)
         Me.TPSelectTestLog.Name = "TPSelectTestLog"
         Me.TPSelectTestLog.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPSelectTestLog.Size = New System.Drawing.Size(253, 494)
+        Me.TPSelectTestLog.Size = New System.Drawing.Size(253, 512)
         Me.TPSelectTestLog.TabIndex = 1
         Me.TPSelectTestLog.Text = "Test Log"
         Me.TPSelectTestLog.UseVisualStyleBackColor = True
@@ -1166,7 +1080,7 @@ Partial Class ISMPMonitoringLog
         Me.TPTestFirmComment.Controls.Add(Me.txtCommentNumber)
         Me.TPTestFirmComment.Location = New System.Drawing.Point(4, 22)
         Me.TPTestFirmComment.Name = "TPTestFirmComment"
-        Me.TPTestFirmComment.Size = New System.Drawing.Size(253, 494)
+        Me.TPTestFirmComment.Size = New System.Drawing.Size(253, 512)
         Me.TPTestFirmComment.TabIndex = 2
         Me.TPTestFirmComment.Text = "Test Firm Comments"
         Me.TPTestFirmComment.UseVisualStyleBackColor = True
@@ -1542,33 +1456,6 @@ Partial Class ISMPMonitoringLog
         Me.chbUnassigned.TabIndex = 242
         Me.chbUnassigned.Text = "Unassigned"
         '
-        'GroupBox1
-        '
-        Me.GroupBox1.Controls.Add(Me.chbUnitOption2)
-        Me.GroupBox1.Controls.Add(Me.chbUnitOption1)
-        Me.GroupBox1.Location = New System.Drawing.Point(563, 142)
-        Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(175, 100)
-        Me.GroupBox1.TabIndex = 243
-        Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "ISMP Unit Options"
-        '
-        'chbUnitOption2
-        '
-        Me.chbUnitOption2.Location = New System.Drawing.Point(10, 39)
-        Me.chbUnitOption2.Name = "chbUnitOption2"
-        Me.chbUnitOption2.Size = New System.Drawing.Size(176, 16)
-        Me.chbUnitOption2.TabIndex = 242
-        Me.chbUnitOption2.Text = "Combustion && Mineral Source"
-        '
-        'chbUnitOption1
-        '
-        Me.chbUnitOption1.Location = New System.Drawing.Point(10, 18)
-        Me.chbUnitOption1.Name = "chbUnitOption1"
-        Me.chbUnitOption1.Size = New System.Drawing.Size(120, 16)
-        Me.chbUnitOption1.TabIndex = 241
-        Me.chbUnitOption1.Text = "Chemical && VOC"
-        '
         'GBReportType
         '
         Me.GBReportType.Controls.Add(Me.chbOther)
@@ -1807,7 +1694,7 @@ Partial Class ISMPMonitoringLog
         Me.TCMonitoringGrids.Location = New System.Drawing.Point(0, 0)
         Me.TCMonitoringGrids.Name = "TCMonitoringGrids"
         Me.TCMonitoringGrids.SelectedIndex = 0
-        Me.TCMonitoringGrids.Size = New System.Drawing.Size(1016, 96)
+        Me.TCMonitoringGrids.Size = New System.Drawing.Size(1016, 100)
         Me.TCMonitoringGrids.TabIndex = 0
         '
         'TPTestReports
@@ -1816,7 +1703,7 @@ Partial Class ISMPMonitoringLog
         Me.TPTestReports.Location = New System.Drawing.Point(4, 22)
         Me.TPTestReports.Name = "TPTestReports"
         Me.TPTestReports.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPTestReports.Size = New System.Drawing.Size(1008, 70)
+        Me.TPTestReports.Size = New System.Drawing.Size(1008, 74)
         Me.TPTestReports.TabIndex = 0
         Me.TPTestReports.Text = "Test Reports"
         Me.TPTestReports.UseVisualStyleBackColor = True
@@ -1852,7 +1739,7 @@ Partial Class ISMPMonitoringLog
         DataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText
         DataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.dgvTestReportViewer.RowHeadersDefaultCellStyle = DataGridViewCellStyle12
-        Me.dgvTestReportViewer.Size = New System.Drawing.Size(1002, 64)
+        Me.dgvTestReportViewer.Size = New System.Drawing.Size(1002, 68)
         Me.dgvTestReportViewer.TabIndex = 0
         '
         'TPNotifications
@@ -1861,7 +1748,7 @@ Partial Class ISMPMonitoringLog
         Me.TPNotifications.Location = New System.Drawing.Point(4, 22)
         Me.TPNotifications.Name = "TPNotifications"
         Me.TPNotifications.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPNotifications.Size = New System.Drawing.Size(1008, 70)
+        Me.TPNotifications.Size = New System.Drawing.Size(1008, 74)
         Me.TPNotifications.TabIndex = 1
         Me.TPNotifications.Text = "Test Notifications"
         Me.TPNotifications.UseVisualStyleBackColor = True
@@ -1897,7 +1784,7 @@ Partial Class ISMPMonitoringLog
         DataGridViewCellStyle15.SelectionForeColor = System.Drawing.SystemColors.HighlightText
         DataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.dgvNotificationLog.RowHeadersDefaultCellStyle = DataGridViewCellStyle15
-        Me.dgvNotificationLog.Size = New System.Drawing.Size(1002, 64)
+        Me.dgvNotificationLog.Size = New System.Drawing.Size(1002, 68)
         Me.dgvNotificationLog.TabIndex = 1
         '
         'TPTestFirmComments
@@ -1905,7 +1792,7 @@ Partial Class ISMPMonitoringLog
         Me.TPTestFirmComments.Controls.Add(Me.dgvTestFirmComments)
         Me.TPTestFirmComments.Location = New System.Drawing.Point(4, 22)
         Me.TPTestFirmComments.Name = "TPTestFirmComments"
-        Me.TPTestFirmComments.Size = New System.Drawing.Size(1008, 70)
+        Me.TPTestFirmComments.Size = New System.Drawing.Size(1008, 74)
         Me.TPTestFirmComments.TabIndex = 2
         Me.TPTestFirmComments.Text = "Test Firm Comments"
         Me.TPTestFirmComments.UseVisualStyleBackColor = True
@@ -1941,7 +1828,7 @@ Partial Class ISMPMonitoringLog
         DataGridViewCellStyle18.SelectionForeColor = System.Drawing.SystemColors.HighlightText
         DataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.dgvTestFirmComments.RowHeadersDefaultCellStyle = DataGridViewCellStyle18
-        Me.dgvTestFirmComments.Size = New System.Drawing.Size(1008, 70)
+        Me.dgvTestFirmComments.Size = New System.Drawing.Size(1008, 74)
         Me.dgvTestFirmComments.TabIndex = 1
         '
         'ISMPMonitoringLog
@@ -1951,19 +1838,17 @@ Partial Class ISMPMonitoringLog
         Me.ClientSize = New System.Drawing.Size(1016, 710)
         Me.Controls.Add(Me.SCMonitoringLog)
         Me.Controls.Add(Me.ToolStrip1)
-        Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.MenuStrip1)
         Me.MainMenuStrip = Me.MenuStrip1
         Me.Name = "ISMPMonitoringLog"
         Me.Text = "ISMP Monitoring Log"
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
-        Me.StatusStrip1.ResumeLayout(False)
-        Me.StatusStrip1.PerformLayout()
         Me.ToolStrip1.ResumeLayout(False)
         Me.ToolStrip1.PerformLayout()
         Me.SCMonitoringLog.Panel1.ResumeLayout(False)
         Me.SCMonitoringLog.Panel2.ResumeLayout(False)
+        CType(Me.SCMonitoringLog, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SCMonitoringLog.ResumeLayout(False)
         Me.GBFilterAndSortOptions.ResumeLayout(False)
         Me.GBFilterAndSortOptions.PerformLayout()
@@ -1986,7 +1871,6 @@ Partial Class ISMPMonitoringLog
         Me.TPTestFirmComment.PerformLayout()
         Me.GroupBox4.ResumeLayout(False)
         Me.GroupBox4.PerformLayout()
-        Me.GroupBox1.ResumeLayout(False)
         Me.GBReportType.ResumeLayout(False)
         Me.GBDateBias.ResumeLayout(False)
         Me.GBDateBias.PerformLayout()
@@ -2005,18 +1889,9 @@ Partial Class ISMPMonitoringLog
 
     End Sub
     Friend WithEvents MenuStrip1 As System.Windows.Forms.MenuStrip
-    Friend WithEvents FileToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents mmiClear As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents mmiBack As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents EditToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents mmiHelp As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents StatusStrip1 As System.Windows.Forms.StatusStrip
-    Friend WithEvents Panel1 As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents Panel2 As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents Panel3 As System.Windows.Forms.ToolStripStatusLabel
     Friend WithEvents ToolStrip1 As System.Windows.Forms.ToolStrip
     Friend WithEvents tsbClear As System.Windows.Forms.ToolStripButton
-    Friend WithEvents tsbBack As System.Windows.Forms.ToolStripButton
     Friend WithEvents SCMonitoringLog As System.Windows.Forms.SplitContainer
     Friend WithEvents GBFilterAndSortOptions As System.Windows.Forms.GroupBox
     Friend WithEvents txtReportCount As System.Windows.Forms.TextBox
@@ -2057,9 +1932,6 @@ Partial Class ISMPMonitoringLog
     Friend WithEvents GroupBox3 As System.Windows.Forms.GroupBox
     Friend WithEvents chbClosed As System.Windows.Forms.CheckBox
     Friend WithEvents chbOpen As System.Windows.Forms.CheckBox
-    Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
-    Friend WithEvents chbUnitOption2 As System.Windows.Forms.CheckBox
-    Friend WithEvents chbUnitOption1 As System.Windows.Forms.CheckBox
     Friend WithEvents GBSelectedTestReport As System.Windows.Forms.GroupBox
     Friend WithEvents LLSelectReport As System.Windows.Forms.LinkLabel
     Friend WithEvents txtFacilityCounty As System.Windows.Forms.TextBox
