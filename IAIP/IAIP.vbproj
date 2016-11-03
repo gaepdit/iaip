@@ -579,12 +579,6 @@
     <Compile Include="Fees\PASPFeesLog.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SmokeSchool\SmokeSchool.Designer.vb">
-      <DependentUpon>SmokeSchool.vb</DependentUpon>
-    </Compile>
-    <Compile Include="SmokeSchool\SmokeSchool.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="ISMP\ISMPTestReports.Designer.vb">
       <DependentUpon>ISMPTestReports.vb</DependentUpon>
     </Compile>
@@ -601,12 +595,6 @@
       <DependentUpon>ISMPNotificationLog.vb</DependentUpon>
     </Compile>
     <Compile Include="ISMP\ISMPNotificationLog.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="SmokeSchool\PassFailNoShow.Designer.vb">
-      <DependentUpon>PassFailNoShow.vb</DependentUpon>
-    </Compile>
-    <Compile Include="SmokeSchool\PassFailNoShow.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="My Project\Settings.Designer.vb">
@@ -1182,10 +1170,6 @@
     <EmbeddedResource Include="Fees\PASPFeesLog.resx">
       <DependentUpon>PASPFeesLog.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="SmokeSchool\SmokeSchool.resx">
-      <DependentUpon>SmokeSchool.vb</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="ISMP\ISMPTestReports.resx">
       <SubType>Designer</SubType>
       <DependentUpon>ISMPTestReports.vb</DependentUpon>
@@ -1197,10 +1181,6 @@
     <EmbeddedResource Include="ISMP\ISMPNotificationLog.resx">
       <SubType>Designer</SubType>
       <DependentUpon>ISMPNotificationLog.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SmokeSchool\PassFailNoShow.resx">
-      <DependentUpon>PassFailNoShow.vb</DependentUpon>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="SSCP\SSCPComplianceLog.resx">
       <DependentUpon>SSCPComplianceLog.vb</DependentUpon>
@@ -1587,7 +1567,6 @@
     <Compile Include="_DAL\DAL.NavigationScreen.vb">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="_DAL\DAL.SmokeSchool.vb" />
     <Compile Include="_Code\CollectionHelper.vb" />
     <Compile Include="_Data Models\SSCP\Work Item\Apb.Sscp.WorkItem.vb" />
     <Compile Include="_Data Models\People\Person.vb" />
