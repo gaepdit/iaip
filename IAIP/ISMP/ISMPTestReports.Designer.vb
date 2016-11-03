@@ -35,7 +35,6 @@ Partial Class ISMPTestReports
         Me.mmiPrePopulate = New System.Windows.Forms.ToolStripMenuItem()
         Me.mmiDefaultCompliance = New System.Windows.Forms.ToolStripMenuItem()
         Me.mmiPrintNonConf = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mmiHelp = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
         Me.tsbSave = New System.Windows.Forms.ToolStripButton()
         Me.tsbSearch = New System.Windows.Forms.ToolStripButton()
@@ -76,10 +75,10 @@ Partial Class ISMPTestReports
         Me.DTPTestDateComplete = New System.Windows.Forms.DateTimePicker()
         Me.DTPTestDateStart = New System.Windows.Forms.DateTimePicker()
         Me.cboReviewingEngineer = New System.Windows.Forms.ComboBox()
+        Me.cboUnitManager = New System.Windows.Forms.ComboBox()
         Me.cboISMPUnit = New System.Windows.Forms.ComboBox()
         Me.Label16 = New System.Windows.Forms.Label()
         Me.Label15 = New System.Windows.Forms.Label()
-        Me.txtUnitManager = New System.Windows.Forms.TextBox()
         Me.Label14 = New System.Windows.Forms.Label()
         Me.txtProgramManager = New System.Windows.Forms.TextBox()
         Me.Label13 = New System.Windows.Forms.Label()
@@ -908,48 +907,48 @@ Partial Class ISMPTestReports
         Me.Label326 = New System.Windows.Forms.Label()
         Me.txtTestReportDueDate = New System.Windows.Forms.TextBox()
         Me.DeletedTestFlag = New System.Windows.Forms.Label()
-        Me.MenuStrip1.SuspendLayout
-        Me.ToolStrip1.SuspendLayout
-        CType(Me.SCTestReports,System.ComponentModel.ISupportInitialize).BeginInit
-        Me.SCTestReports.Panel1.SuspendLayout
-        Me.SCTestReports.Panel2.SuspendLayout
-        Me.SCTestReports.SuspendLayout
-        Me.GroupBox1.SuspendLayout
-        Me.TCDocumentTypes.SuspendLayout
-        Me.TPOneStack.SuspendLayout
-        Me.TCOneStack.SuspendLayout
-        Me.TPOneStackTwoRun.SuspendLayout
-        Me.TPOneStackThreeRun.SuspendLayout
-        Me.TPOneStackFourRun.SuspendLayout
-        Me.TPLoadingRack.SuspendLayout
-        Me.TPPondTreatment.SuspendLayout
-        Me.TPGasConcentration.SuspendLayout
-        Me.TPFlare.SuspendLayout
-        Me.TPMethodNine.SuspendLayout
-        Me.TCMethodNine.SuspendLayout
-        Me.TPMethodNineSingle.SuspendLayout
-        Me.Panel4.SuspendLayout
-        Me.TPMethodNineMultiple.SuspendLayout
-        Me.Panel5.SuspendLayout
-        Me.TPMethodNineMultiple2.SuspendLayout
-        Me.TPMemorandum.SuspendLayout
-        Me.TCMemorandum.SuspendLayout
-        Me.TPMemoStandard.SuspendLayout
-        Me.TPMemoToFile.SuspendLayout
-        Me.TPMemoPTE.SuspendLayout
-        Me.TPRata.SuspendLayout
-        Me.TPTwoStack.SuspendLayout
-        Me.TCTwoStack.SuspendLayout
-        Me.TPTwoStackStandard.SuspendLayout
-        Me.TPTwoStackDRE.SuspendLayout
-        Me.TPMethodTwentyTwo.SuspendLayout
-        Me.TPSSCPWork.SuspendLayout
-        Me.Panel22.SuspendLayout
-        Me.SuspendLayout
+        Me.MenuStrip1.SuspendLayout()
+        Me.ToolStrip1.SuspendLayout()
+        CType(Me.SCTestReports, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.SCTestReports.Panel1.SuspendLayout()
+        Me.SCTestReports.Panel2.SuspendLayout()
+        Me.SCTestReports.SuspendLayout()
+        Me.GroupBox1.SuspendLayout()
+        Me.TCDocumentTypes.SuspendLayout()
+        Me.TPOneStack.SuspendLayout()
+        Me.TCOneStack.SuspendLayout()
+        Me.TPOneStackTwoRun.SuspendLayout()
+        Me.TPOneStackThreeRun.SuspendLayout()
+        Me.TPOneStackFourRun.SuspendLayout()
+        Me.TPLoadingRack.SuspendLayout()
+        Me.TPPondTreatment.SuspendLayout()
+        Me.TPGasConcentration.SuspendLayout()
+        Me.TPFlare.SuspendLayout()
+        Me.TPMethodNine.SuspendLayout()
+        Me.TCMethodNine.SuspendLayout()
+        Me.TPMethodNineSingle.SuspendLayout()
+        Me.Panel4.SuspendLayout()
+        Me.TPMethodNineMultiple.SuspendLayout()
+        Me.Panel5.SuspendLayout()
+        Me.TPMethodNineMultiple2.SuspendLayout()
+        Me.TPMemorandum.SuspendLayout()
+        Me.TCMemorandum.SuspendLayout()
+        Me.TPMemoStandard.SuspendLayout()
+        Me.TPMemoToFile.SuspendLayout()
+        Me.TPMemoPTE.SuspendLayout()
+        Me.TPRata.SuspendLayout()
+        Me.TPTwoStack.SuspendLayout()
+        Me.TCTwoStack.SuspendLayout()
+        Me.TPTwoStackStandard.SuspendLayout()
+        Me.TPTwoStackDRE.SuspendLayout()
+        Me.TPMethodTwentyTwo.SuspendLayout()
+        Me.TPSSCPWork.SuspendLayout()
+        Me.Panel22.SuspendLayout()
+        Me.SuspendLayout()
         '
         'MenuStrip1
         '
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiFile, Me.mmiView, Me.mmiTool, Me.mmiHelp})
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiFile, Me.mmiView, Me.mmiTool})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Size = New System.Drawing.Size(790, 24)
@@ -966,15 +965,15 @@ Partial Class ISMPTestReports
         'mmiSave
         '
         Me.mmiSave.Name = "mmiSave"
-        Me.mmiSave.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.S),System.Windows.Forms.Keys)
-        Me.mmiSave.Size = New System.Drawing.Size(148, 22)
+        Me.mmiSave.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.S), System.Windows.Forms.Keys)
+        Me.mmiSave.Size = New System.Drawing.Size(152, 22)
         Me.mmiSave.Text = "Save"
         '
         'mmiClose
         '
         Me.mmiClose.Name = "mmiClose"
-        Me.mmiClose.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.W),System.Windows.Forms.Keys)
-        Me.mmiClose.Size = New System.Drawing.Size(148, 22)
+        Me.mmiClose.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.W), System.Windows.Forms.Keys)
+        Me.mmiClose.Size = New System.Drawing.Size(152, 22)
         Me.mmiClose.Text = "Close"
         '
         'mmiView
@@ -987,7 +986,7 @@ Partial Class ISMPTestReports
         'mmiOpenMemo
         '
         Me.mmiOpenMemo.Name = "mmiOpenMemo"
-        Me.mmiOpenMemo.Size = New System.Drawing.Size(141, 22)
+        Me.mmiOpenMemo.Size = New System.Drawing.Size(152, 22)
         Me.mmiOpenMemo.Text = "Open Memo"
         '
         'mmiTool
@@ -1028,12 +1027,6 @@ Partial Class ISMPTestReports
         Me.mmiPrintNonConf.Size = New System.Drawing.Size(233, 22)
         Me.mmiPrintNonConf.Text = "Print Non-Confidential Report"
         '
-        'mmiHelp
-        '
-        Me.mmiHelp.Name = "mmiHelp"
-        Me.mmiHelp.Size = New System.Drawing.Size(44, 20)
-        Me.mmiHelp.Text = "Help"
-        '
         'ToolStrip1
         '
         Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsbSave, Me.tsbSearch, Me.tsbPrePopulate, Me.tsbPrint, Me.tsbClear, Me.tsbResize, Me.tsbMemo, Me.tsbTestLogLink, Me.tsbDelete, Me.tsbConfidentialData})
@@ -1046,7 +1039,7 @@ Partial Class ISMPTestReports
         'tsbSave
         '
         Me.tsbSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.tsbSave.Image = CType(resources.GetObject("tsbSave.Image"),System.Drawing.Image)
+        Me.tsbSave.Image = CType(resources.GetObject("tsbSave.Image"), System.Drawing.Image)
         Me.tsbSave.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsbSave.Name = "tsbSave"
         Me.tsbSave.Size = New System.Drawing.Size(23, 22)
@@ -1055,7 +1048,7 @@ Partial Class ISMPTestReports
         'tsbSearch
         '
         Me.tsbSearch.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.tsbSearch.Image = CType(resources.GetObject("tsbSearch.Image"),System.Drawing.Image)
+        Me.tsbSearch.Image = CType(resources.GetObject("tsbSearch.Image"), System.Drawing.Image)
         Me.tsbSearch.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsbSearch.Name = "tsbSearch"
         Me.tsbSearch.Size = New System.Drawing.Size(23, 22)
@@ -1064,7 +1057,7 @@ Partial Class ISMPTestReports
         'tsbPrePopulate
         '
         Me.tsbPrePopulate.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.tsbPrePopulate.Image = CType(resources.GetObject("tsbPrePopulate.Image"),System.Drawing.Image)
+        Me.tsbPrePopulate.Image = CType(resources.GetObject("tsbPrePopulate.Image"), System.Drawing.Image)
         Me.tsbPrePopulate.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsbPrePopulate.Name = "tsbPrePopulate"
         Me.tsbPrePopulate.Size = New System.Drawing.Size(23, 22)
@@ -1073,7 +1066,7 @@ Partial Class ISMPTestReports
         'tsbPrint
         '
         Me.tsbPrint.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.tsbPrint.Image = CType(resources.GetObject("tsbPrint.Image"),System.Drawing.Image)
+        Me.tsbPrint.Image = CType(resources.GetObject("tsbPrint.Image"), System.Drawing.Image)
         Me.tsbPrint.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsbPrint.Name = "tsbPrint"
         Me.tsbPrint.Size = New System.Drawing.Size(23, 22)
@@ -1082,17 +1075,17 @@ Partial Class ISMPTestReports
         'tsbClear
         '
         Me.tsbClear.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.tsbClear.Image = CType(resources.GetObject("tsbClear.Image"),System.Drawing.Image)
+        Me.tsbClear.Image = CType(resources.GetObject("tsbClear.Image"), System.Drawing.Image)
         Me.tsbClear.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsbClear.Name = "tsbClear"
         Me.tsbClear.Size = New System.Drawing.Size(23, 22)
         Me.tsbClear.Text = "Clear"
-        Me.tsbClear.Visible = false
+        Me.tsbClear.Visible = False
         '
         'tsbResize
         '
         Me.tsbResize.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.tsbResize.Image = CType(resources.GetObject("tsbResize.Image"),System.Drawing.Image)
+        Me.tsbResize.Image = CType(resources.GetObject("tsbResize.Image"), System.Drawing.Image)
         Me.tsbResize.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsbResize.Name = "tsbResize"
         Me.tsbResize.Size = New System.Drawing.Size(23, 22)
@@ -1101,7 +1094,7 @@ Partial Class ISMPTestReports
         'tsbMemo
         '
         Me.tsbMemo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.tsbMemo.Image = CType(resources.GetObject("tsbMemo.Image"),System.Drawing.Image)
+        Me.tsbMemo.Image = CType(resources.GetObject("tsbMemo.Image"), System.Drawing.Image)
         Me.tsbMemo.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsbMemo.Name = "tsbMemo"
         Me.tsbMemo.Size = New System.Drawing.Size(23, 22)
@@ -1110,7 +1103,7 @@ Partial Class ISMPTestReports
         'tsbTestLogLink
         '
         Me.tsbTestLogLink.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.tsbTestLogLink.Image = CType(resources.GetObject("tsbTestLogLink.Image"),System.Drawing.Image)
+        Me.tsbTestLogLink.Image = CType(resources.GetObject("tsbTestLogLink.Image"), System.Drawing.Image)
         Me.tsbTestLogLink.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsbTestLogLink.Name = "tsbTestLogLink"
         Me.tsbTestLogLink.Size = New System.Drawing.Size(23, 22)
@@ -1119,7 +1112,7 @@ Partial Class ISMPTestReports
         'tsbDelete
         '
         Me.tsbDelete.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.tsbDelete.Image = CType(resources.GetObject("tsbDelete.Image"),System.Drawing.Image)
+        Me.tsbDelete.Image = CType(resources.GetObject("tsbDelete.Image"), System.Drawing.Image)
         Me.tsbDelete.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsbDelete.Name = "tsbDelete"
         Me.tsbDelete.Size = New System.Drawing.Size(23, 22)
@@ -1128,7 +1121,7 @@ Partial Class ISMPTestReports
         'tsbConfidentialData
         '
         Me.tsbConfidentialData.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.tsbConfidentialData.Image = CType(resources.GetObject("tsbConfidentialData.Image"),System.Drawing.Image)
+        Me.tsbConfidentialData.Image = CType(resources.GetObject("tsbConfidentialData.Image"), System.Drawing.Image)
         Me.tsbConfidentialData.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsbConfidentialData.Name = "tsbConfidentialData"
         Me.tsbConfidentialData.Size = New System.Drawing.Size(23, 22)
@@ -1149,7 +1142,7 @@ Partial Class ISMPTestReports
         '
         'SCTestReports.Panel2
         '
-        Me.SCTestReports.Panel2.AutoScroll = true
+        Me.SCTestReports.Panel2.AutoScroll = True
         Me.SCTestReports.Panel2.BackColor = System.Drawing.SystemColors.ControlLight
         Me.SCTestReports.Panel2.Controls.Add(Me.TCDocumentTypes)
         Me.SCTestReports.Size = New System.Drawing.Size(790, 693)
@@ -1185,10 +1178,10 @@ Partial Class ISMPTestReports
         Me.GroupBox1.Controls.Add(Me.DTPTestDateComplete)
         Me.GroupBox1.Controls.Add(Me.DTPTestDateStart)
         Me.GroupBox1.Controls.Add(Me.cboReviewingEngineer)
+        Me.GroupBox1.Controls.Add(Me.cboUnitManager)
         Me.GroupBox1.Controls.Add(Me.cboISMPUnit)
         Me.GroupBox1.Controls.Add(Me.Label16)
         Me.GroupBox1.Controls.Add(Me.Label15)
-        Me.GroupBox1.Controls.Add(Me.txtUnitManager)
         Me.GroupBox1.Controls.Add(Me.Label14)
         Me.GroupBox1.Controls.Add(Me.txtProgramManager)
         Me.GroupBox1.Controls.Add(Me.Label13)
@@ -1494,6 +1487,16 @@ Partial Class ISMPTestReports
         Me.cboReviewingEngineer.Size = New System.Drawing.Size(186, 21)
         Me.cboReviewingEngineer.TabIndex = 1
         '
+        'cboUnitManager
+        '
+        Me.cboUnitManager.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
+        Me.cboUnitManager.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboUnitManager.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboUnitManager.Location = New System.Drawing.Point(133, 214)
+        Me.cboUnitManager.Name = "cboUnitManager"
+        Me.cboUnitManager.Size = New System.Drawing.Size(169, 21)
+        Me.cboUnitManager.TabIndex = 2
+        '
         'cboISMPUnit
         '
         Me.cboISMPUnit.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
@@ -1522,16 +1525,6 @@ Partial Class ISMPTestReports
         Me.Label15.Size = New System.Drawing.Size(110, 13)
         Me.Label15.TabIndex = 11
         Me.Label15.Text = "Compliance Manager:"
-        '
-        'txtUnitManager
-        '
-        Me.txtUnitManager.BackColor = System.Drawing.SystemColors.Control
-        Me.txtUnitManager.Location = New System.Drawing.Point(133, 213)
-        Me.txtUnitManager.Name = "txtUnitManager"
-        Me.txtUnitManager.ReadOnly = True
-        Me.txtUnitManager.Size = New System.Drawing.Size(169, 20)
-        Me.txtUnitManager.TabIndex = 29
-        Me.txtUnitManager.TabStop = False
         '
         'Label14
         '
@@ -10151,7 +10144,6 @@ End Sub
     Friend WithEvents mmiOpenTestLogNotification As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mmiOpenExcelFile As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mmiPrePopulate As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents mmiHelp As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolStrip1 As System.Windows.Forms.ToolStrip
     Friend WithEvents tsbSave As System.Windows.Forms.ToolStripButton
     Friend WithEvents tsbSearch As System.Windows.Forms.ToolStripButton
@@ -10181,7 +10173,6 @@ End Sub
     Friend WithEvents cboISMPUnit As System.Windows.Forms.ComboBox
     Friend WithEvents Label16 As System.Windows.Forms.Label
     Friend WithEvents Label15 As System.Windows.Forms.Label
-    Friend WithEvents txtUnitManager As System.Windows.Forms.TextBox
     Friend WithEvents Label14 As System.Windows.Forms.Label
     Friend WithEvents txtProgramManager As System.Windows.Forms.TextBox
     Friend WithEvents Label13 As System.Windows.Forms.Label
@@ -11026,4 +11017,5 @@ End Sub
     Friend WithEvents rdbMethod9MultiHighestAvg As System.Windows.Forms.RadioButton
     Friend WithEvents lblMemoEntered As System.Windows.Forms.Label
     Friend WithEvents DeletedTestFlag As System.Windows.Forms.Label
+    Friend WithEvents cboUnitManager As ComboBox
 End Class

@@ -24,10 +24,6 @@ Public Class ISMPMonitoringLog
             DTPStartDate.Text = Format(Date.Today.AddDays(-30), "dd-MMM-yyyy")
             DTPEndDate.Value = Today
 
-            Panel1.Text = "Select a Function..."
-            Panel2.Text = CurrentUser.AlphaName
-            Panel3.Text = TodayFormatted
-
             chbReviewingEngineer.Text = CurrentUser.AlphaName
             chbWitnessingEngineer.Text = CurrentUser.AlphaName
 
@@ -458,16 +454,6 @@ Public Class ISMPMonitoringLog
                                                "like Upper('%" & txtPollutantFilter.Text & "%') "
                 End If
 
-                If chbUnitOption1.Checked = True And chbUnitOption2.Checked = True Then
-                    SQLWhere = SQLWhere & " And (strReviewingUnit = '12' or strReviewingUnit = '13') "
-                End If
-                If chbUnitOption1.Checked = True And chbUnitOption2.Checked = False Then
-                    SQLWhere = SQLWhere & " And strReviewingUnit = '12' "
-                End If
-                If chbUnitOption1.Checked = False And chbUnitOption2.Checked = True Then
-                    SQLWhere = SQLWhere & " And strReviewingUnit = '13' "
-                End If
-
                 SQL = SQL & SQLWhere
 
                 dsTestReportViewer = New DataSet
@@ -618,15 +604,6 @@ Public Class ISMPMonitoringLog
                 End If
                 If txtPollutantFilter.Text <> "" Then
 
-                End If
-                If chbUnitOption1.Checked = True And chbUnitOption2.Checked = True Then
-                    SQLWhere = SQLWhere & " And (strUserUnit = 'Chemical & VOC' or strUserUnit = 'Combustion & Mineral') "
-                End If
-                If chbUnitOption1.Checked = True And chbUnitOption2.Checked = False Then
-                    SQLWhere = SQLWhere & " And strUserUnit = 'Chemical & VOC' "
-                End If
-                If chbUnitOption1.Checked = False And chbUnitOption2.Checked = True Then
-                    SQLWhere = SQLWhere & " And strUserUnit = 'Combustion & Mineral' "
                 End If
                 If chbNotificationLinked.Checked = True Then
                     SQLWhere = SQLWhere & " and strReferenceNumber is Not Null "
@@ -929,8 +906,6 @@ Public Class ISMPMonitoringLog
             rdbFacilityDateReceived.Checked = True
             DTPStartDate.Text = Format(Date.Today.AddDays(-30), "dd-MMM-yyyy")
             DTPEndDate.Value = Today
-            chbUnitOption1.Checked = False
-            chbUnitOption2.Checked = False
             chbOpen.Checked = False
             chbClosed.Checked = False
             chbComplianceStatus1.Checked = False
@@ -994,53 +969,6 @@ Public Class ISMPMonitoringLog
         Try
 
             ResetOptions()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub mmiCut_Click(sender As Object, e As EventArgs)
-        Try
-
-            SendKeys.Send("^(x)")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub MmiPaste_Click(sender As Object, e As EventArgs)
-        Try
-
-            SendKeys.Send("^(v)")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub MmiCopy_Click(sender As Object, e As EventArgs)
-        Try
-
-            SendKeys.Send("^(c)")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub MmiHelp_Click(sender As Object, e As EventArgs) Handles mmiHelp.Click
-        OpenDocumentationUrl(Me)
-    End Sub
-    Private Sub MmiBack_Click(sender As Object, e As EventArgs) Handles mmiBack.Click
-        Try
-
-            Me.Close()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -1275,17 +1203,6 @@ Public Class ISMPMonitoringLog
         End Try
     End Sub
 
-    Private Sub tsbBack_Click(sender As Object, e As EventArgs) Handles tsbBack.Click
-        Try
-
-            Me.Dispose()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-    End Sub
-
     Private Sub OpenFacilityLookupTool()
         Try
             Dim facilityLookupDialog As New IAIPFacilityLookUpTool
@@ -1351,5 +1268,7 @@ Public Class ISMPMonitoringLog
         End Try
     End Sub
 
-
+    Private Sub tsbClear_Click(sender As Object, e As EventArgs) Handles tsbClear.Click
+        ResetOptions()
+    End Sub
 End Class

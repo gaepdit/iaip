@@ -788,7 +788,7 @@ Public Class IAIPNavigation
 
     Private Sub CreateNavButtonCategoriesList()
         AddNavButtonCategory(NavButtonCategories.General, "General")
-        AddNavButtonCategory(NavButtonCategories.ISMP, "Industrial Source Monitoring Program")
+        AddNavButtonCategory(NavButtonCategories.ISMP, "Industrial Source Monitoring Program", "ISMU")
         AddNavButtonCategory(NavButtonCategories.SSPP, "Stationary Source Permitting Program")
         AddNavButtonCategory(NavButtonCategories.SSCP, "Stationary Source Compliance Program")
         AddNavButtonCategory(NavButtonCategories.Fees, "Financial Management Unit")
@@ -822,7 +822,8 @@ Public Class IAIPNavigation
         AddNavButtonIfAccountHasFormAccess(5, "Monitoring Log", NameOf(ISMPMonitoringLog), NavButtonCategories.ISMP)
         AddNavButtonIfAccountHasFormAccess(14, "Test Report Information", NameOf(ISMPTestReportAdministrative), NavButtonCategories.ISMP)
         AddNavButtonIfAccountHasFormAccess(15, "Memo Viewer", NameOf(ISMPTestMemoViewer), NavButtonCategories.ISMP)
-        AddNavButtonIfAccountHasFormAccess(17, "ISMP Management", NameOf(ISMPManagersTools), NavButtonCategories.ISMP)
+        AddNavButtonIfAccountHasFormAccess(17, "ISMU Management", NameOf(ISMPManagersTools), NavButtonCategories.ISMP)
+        AddNavButtonIfAccountHasFormAccess(128, "Smoke School", NameOf(SmokeSchool), NavButtonCategories.ISMP)
 
         ' Fees
         AddNavButtonIfAccountHasFormAccess(135, "Fees Log", NameOf(PASPFeesLog), NavButtonCategories.Fees)

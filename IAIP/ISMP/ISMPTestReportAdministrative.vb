@@ -562,8 +562,6 @@ Public Class ISMPTestReportAdministrative
                     "'0413" & AIRSNumber & "', '" & CurrentUser.UserID & "', " &
                     " GETDATE() )"
 
-                    'This SQl statement was changed on 15-Oct-09 when LookUpAPBManagementType was created. MFloyd
-
                     SQL2 = "Insert into ISMPReportInformation " &
            "(strReferenceNumber, strPollutant, strEmissionSource, " &
            "strReportType, strDocumentType, strApplicableRequirement, " &
@@ -588,7 +586,7 @@ Public Class ISMPTestReportAdministrative
            "(SELECT " &
            "CASE  WHEN strDistrictResponsible <> 'False' AND strDistrictResponsible IS NOT NULL         THEN strDistrictManager  " &
            "WHEN to_char(TABLE1.STRASSIGNINGMANAGER) <> '1' AND to_char(TABLE1.STRASSIGNINGMANAGER) IS NOT NULL THEN to_char(TABLE1.STRASSIGNINGMANAGER) " &
-           " ELSE '337' " &
+           " ELSE '0' " &
            "END ManagerResponsible  " &
            "from LookUPDistricts, LOOKUPDISTRICTINFORMATION,  " &
            "SSCPDISTRICTRESPONSIBLE,     " &
@@ -614,25 +612,7 @@ Public Class ISMPTestReportAdministrative
            "(select strManagementName from LookUpAPBManagementType " &
            "where strKey = '" & DAL.EpdManagementTypes.IsmpProgramManager.ToString & "' and strCurrentContact = 'C' ), " &
            "'01', " &
-           "(SELECT " &
-           "CASE " &
-           "WHEN strDistrictResponsible <> 'False' AND strDistrictResponsible IS NOT NULL " &
-           "THEN '0' ELSE '0' " &
-           "END ManagerResponsible " &
-           "from LookUPDistricts, LOOKUPDISTRICTINFORMATION,  " &
-           "SSCPDistrictResponsible,     " &
-           "(select SSCPINSPECTIONSREQUIRED.STRASSIGNINGMANAGER, " &
-            "SSCPINSPECTIONSREQUIRED.strAIRSNumber " &
-            "from SSCPINSPECTIONSREQUIRED, " &
-            "(select max(INTYEAR) as MAXYEAR, STRAIRSNUMBER " &
-            "from SSCPINSPECTIONSREQUIRED " &
-            "group by STRAIRSNUMBER) MAXRESULTS " &
-            "where SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER = MAXRESULTS.STRAIRSNUMBER " &
-            "and SSCPINSPECTIONSREQUIRED.INTYEAR = MAXRESULTS.MAXYEAR) Table1 " &
-           "WHERE LOOKUPDISTRICTINFORMATION.strDistrictCode = LookUPDistricts.strDistrictCode (+) " &
-           "AND SSCPDistrictResponsible.strAIRSNumber = Table1.strAIRSnumber (+) " &
-           "AND SUBSTRING(SSCPDistrictResponsible.strAIRSNumber, 5, 3) = strDistrictCounty (+) " &
-           "AND SSCPDistrictResponsible.strAIRSNumber = '0413" & cboAIRSNumber.Text & "'), " &
+           "'0', " &
            "'" & CurrentUser.UserID & "', GETDATE() , " &
            "'N/A', '', '')"
 
