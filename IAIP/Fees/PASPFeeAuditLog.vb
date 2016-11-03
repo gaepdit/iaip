@@ -986,7 +986,7 @@ Public Class PASPFeeAuditLog
                 SQL = "Select Description " &
                 "from FSLK_NSPSReason " &
                 "where " & SQLLine
-                Dim desc As String = DB.GetSingleValue(Of String)(SQL)
+                Dim desc As String = DB.GetString(SQL)
                 If Not String.IsNullOrEmpty(desc) Then
                     txtGECOExceptions.Text = txtGECOExceptions.Text & "- " & desc & vbCrLf & vbCrLf
                 End If
@@ -1001,7 +1001,7 @@ Public Class PASPFeeAuditLog
 
             Dim param As New SqlParameter("@strCountyCode", AirsNumber.CountySubstring)
 
-            temp = DB.GetSingleValue(Of String)(SQL, param)
+            temp = DB.GetString(SQL, param)
             If String.IsNullOrEmpty(temp) Then
                 chbInvoicedataNonAttainment.Checked = False
             Else
@@ -1531,7 +1531,7 @@ Public Class PASPFeeAuditLog
                 "from FSLK_NSPSReason " &
                 "where " & SQLLine
 
-                Dim desc As String = DB.GetSingleValue(Of String)(SQL)
+                Dim desc As String = DB.GetString(SQL)
                 If Not String.IsNullOrEmpty(desc) Then
                     txtAuditedExemptions.Text = txtAuditedExemptions.Text & "- " & desc & vbCrLf & vbCrLf
                 End If
@@ -3009,7 +3009,7 @@ Public Class PASPFeeAuditLog
                 New SqlParameter("@airs", AirsNumber.DbFormattedString)
             }
 
-            If DB.GetSingleValue(Of Integer)(SQL, p2) = 0 Then
+            If DB.GetInteger(SQL, p2) = 0 Then
                 SQL = "insert into FS_FeeData " &
                 "(numfeeyear, strairsnumber, " &
                 "strComment, Active, " &
@@ -3106,7 +3106,7 @@ Public Class PASPFeeAuditLog
             SQL = "select max(AuditID) as AuditID " &
             "from  FS_FeeAudit "
 
-            txtAuditID.Text = DB.GetSingleValue(Of Integer)(SQL)
+            txtAuditID.Text = DB.GetInteger(SQL)
 
             If chbMakeEdits.Checked = True Then
                 SQL = "INSERT INTO FS_FEEAMENDMENT " &
@@ -4750,7 +4750,7 @@ Public Class PASPFeeAuditLog
                 New SqlParameter("@AIRSNumber", AIRSNumber.DbFormattedString)
             }
 
-            If DB.GetSingleValue(Of Integer)(SQL, params) > 0 Then
+            If DB.GetInteger(SQL, params) > 0 Then
                 Return False
             End If
 

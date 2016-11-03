@@ -12,7 +12,7 @@ Namespace DAL
                 "FROM APBSUPPLAMENTALDATA " &
                 "WHERE STRAIRSNUMBER = @airsNumber"
             Dim parameter As New SqlParameter("@airsNumber", airsNumber.DbFormattedString)
-            Return DB.GetSingleValue(Of Integer)(query, parameter)
+            Return DB.GetInteger(query, parameter)
         End Function
 
         Public Function SaveNextAfsActionNumber(airsNumber As Apb.ApbFacilityId, key As Integer) As Boolean

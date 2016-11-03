@@ -1256,7 +1256,7 @@ Public Class SSCPFCEWork
 
                 If txtFCENumber.Text = "" Then
                     SQL = "Select Max(strFCENumber) as FCENumber from SSCPFCEMaster "
-                    FCENumber = DB.GetSingleValue(Of Integer)(SQL) + 1
+                    FCENumber = DB.GetInteger(SQL) + 1
 
                     sqlList.Add("Insert into SSCPFCEMaster " &
                         "(strFCENumber, strAIRSNumber, " &
@@ -1297,7 +1297,7 @@ Public Class SSCPFCEWork
                             "from APBSupplamentalData " &
                             "where strAIRSNumber = @airs "
 
-                        Dim ActionNumber As Integer = DB.GetSingleValue(Of Integer)(SQL, paramAirs)
+                        Dim ActionNumber As Integer = DB.GetInteger(SQL, paramAirs)
 
                         sqlList.Add("Insert into AFSSSCPFCERecords " &
                             "(strFCENumber, strAFSActionNumber, " &

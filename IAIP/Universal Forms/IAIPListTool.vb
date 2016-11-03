@@ -447,7 +447,7 @@ Public Class IAIPListTool
 
             Dim p As New SqlParameter("@code", temp)
 
-            formAccessText = DB.GetSingleValue(Of String)(SQL, p)
+            formAccessText = DB.GetString(SQL, p)
 
             dgvSelectedForms.Rows.Clear()
 
@@ -632,7 +632,7 @@ Public Class IAIPListTool
 
             SQL = "Select max(numBranchCode) from LookUpEPDBranches "
 
-            txtBranchCode.Text = DB.GetSingleValue(Of Integer)(SQL)
+            txtBranchCode.Text = DB.GetInteger(SQL)
 
             LoadBranchGrid()
         Catch ex As Exception
@@ -679,7 +679,7 @@ Public Class IAIPListTool
 
                 SQL = "select max(numProgramCode) from LookUpEPDPrograms"
 
-                txtProgramCode.Text = DB.GetSingleValue(Of Integer)(SQL)
+                txtProgramCode.Text = DB.GetInteger(SQL)
 
                 LoadProgramGrid()
             End If
@@ -729,7 +729,7 @@ Public Class IAIPListTool
 
                 SQL = "select max(numUnitCode) from LookUpEPDUnits "
 
-                txtUnitCode.Text = DB.GetSingleValue(Of Integer)(SQL)
+                txtUnitCode.Text = DB.GetInteger(SQL)
 
                 LoadUnitGrid()
             End If
@@ -779,7 +779,7 @@ Public Class IAIPListTool
 
             SQL = "Select max(numAccountCode) as MaxAccount " &
             "from LookUpIAIPAccounts "
-            txtAccountCode.Text = DB.GetSingleValue(Of Integer)(SQL)
+            txtAccountCode.Text = DB.GetInteger(SQL)
 
             LoadAccountGrid()
         Catch ex As Exception

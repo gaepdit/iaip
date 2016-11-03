@@ -75,7 +75,7 @@ Namespace DAL.Sscp
                 " AND STRREFERENCENUMBER <> 'N/A' "
             Dim parameter As New SqlParameter("@id", trackingNumber)
 
-            refNum = DB.GetSingleValue(Of String)(query, parameter)
+            refNum = DB.GetString(query, parameter)
 
             If refNum = "" Then
                 Return False
@@ -133,7 +133,7 @@ Namespace DAL.Sscp
         '    "  WHERE STRTRACKINGNUMBER = @id "
         '    Dim parameter As New SqlParameter("@id", id)
 
-        '    Dim result As String = DB.GetSingleValue(Of String)(query, parameter)
+        '    Dim result As String = DB.GetString(query, parameter)
         '    Return result
         'End Function
 

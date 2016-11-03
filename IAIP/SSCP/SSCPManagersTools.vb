@@ -543,7 +543,7 @@ Public Class SSCPManagersTools
                 FROM SSCPINSPECTIONSREQUIRED
                 WHERE NUMSSCPENGINEER IN (SELECT * FROM @staff)"
 
-            txtTotalFacilities.Text = DB.GetSingleValue(Of Integer)(SQL, staffParam).ToString
+            txtTotalFacilities.Text = DB.GetInteger(SQL, staffParam).ToString
 
             '---Total Facilities reporting ACC's
             SQL = "select count(*) " &
@@ -552,7 +552,7 @@ Public Class SSCPManagersTools
             "and datReceivedDate between @startdate and @enddate " &
             "and strResponsibleStaff in (select * from @staff) "
 
-            txtFacilitiesReporting.Text = DB.GetSingleValue(Of Integer)(SQL, params).ToString
+            txtFacilitiesReporting.Text = DB.GetInteger(SQL, params).ToString
 
             '---Requiring resubmittals
             SQL = "select " &
@@ -564,7 +564,7 @@ Public Class SSCPManagersTools
             "and datReceivedDate between @startdate and @enddate " &
             "and strResponsibleStaff in (select * from @staff) "
 
-            txtResubmittals.Text = DB.GetSingleValue(Of Integer)(SQL, params).ToString
+            txtResubmittals.Text = DB.GetInteger(SQL, params).ToString
 
             '---Submitted Late
             SQL = "select " &
@@ -576,7 +576,7 @@ Public Class SSCPManagersTools
             "and datReceivedDate between @startdate and @enddate " &
             "and strResponsibleStaff in (select * from @staff) "
 
-            txtSubmittedLate.Text = DB.GetSingleValue(Of Integer)(SQL, params).ToString
+            txtSubmittedLate.Text = DB.GetInteger(SQL, params).ToString
 
             '---Devations Reported in first Submittal
             SQL = "select " &
@@ -589,7 +589,7 @@ Public Class SSCPManagersTools
             "and datReceivedDate between @startdate and @enddate " &
             "and strResponsibleStaff in (select * from @staff) "
 
-            txtDeviationsReportedInOrigional.Text = DB.GetSingleValue(Of Integer)(SQL, params).ToString
+            txtDeviationsReportedInOrigional.Text = DB.GetInteger(SQL, params).ToString
 
             '---No Deviations Reported in first Submittal
             '   ---Correctly 
@@ -604,7 +604,7 @@ Public Class SSCPManagersTools
             "and datReceivedDate between @startdate and @enddate " &
             "and strResponsibleStaff in (select * from @staff) "
 
-            txtDeviationsCorrectlyReported.Text = DB.GetSingleValue(Of Integer)(SQL, params).ToString
+            txtDeviationsCorrectlyReported.Text = DB.GetInteger(SQL, params).ToString
 
             '   ---Incorrectly
             SQL = "select " &
@@ -618,7 +618,7 @@ Public Class SSCPManagersTools
             "and datReceivedDate between @startdate and @enddate " &
             "and strResponsibleStaff in (select * from @staff) "
 
-            txtDeviationsIncorrectlyReported.Text = DB.GetSingleValue(Of Integer)(SQL, params).ToString
+            txtDeviationsIncorrectlyReported.Text = DB.GetInteger(SQL, params).ToString
 
             '---Deviations Reported in Final Report 
             SQL = "select " &
@@ -630,7 +630,7 @@ Public Class SSCPManagersTools
             "and datReceivedDate between @startdate and @enddate " &
             "and strResponsibleStaff in (select * from @staff) "
 
-            txtDeviationsReportedInFinal.Text = DB.GetSingleValue(Of Integer)(SQL, params).ToString
+            txtDeviationsReportedInFinal.Text = DB.GetInteger(SQL, params).ToString
 
             '---Deviations Not Previously Report
             SQL = "select  " &
@@ -642,7 +642,7 @@ Public Class SSCPManagersTools
             "and datReceivedDate between @startdate and @enddate " &
             "and strResponsibleStaff in (select * from @staff) "
 
-            txtDeviationsNotPreviouslyReported.Text = DB.GetSingleValue(Of Integer)(SQL, params).ToString
+            txtDeviationsNotPreviouslyReported.Text = DB.GetInteger(SQL, params).ToString
 
             '---Enforcement Action Taken 
             SQL = "select count(*) as EnforcementTaken " &
@@ -652,7 +652,7 @@ Public Class SSCPManagersTools
             "and datReceivedDate between @startdate and @enddate " &
             "and strResponsibleStaff in (select * from @staff) "
 
-            txtEnforcementActionTaken.Text = DB.GetSingleValue(Of Integer)(SQL, params).ToString
+            txtEnforcementActionTaken.Text = DB.GetInteger(SQL, params).ToString
 
             '    ---LON
             SQL = "select count(*) as LONTaken  " &
@@ -663,7 +663,7 @@ Public Class SSCPManagersTools
             "and datReceivedDate between @startdate and @enddate " &
             "and strResponsibleStaff in (select * from @staff) "
 
-            txtLONTaken.Text = DB.GetSingleValue(Of Integer)(SQL, params).ToString
+            txtLONTaken.Text = DB.GetInteger(SQL, params).ToString
 
             '---NOV 
             SQL = "select count(*) as NOVTaken " &
@@ -674,7 +674,7 @@ Public Class SSCPManagersTools
             "and datReceivedDate between @startdate and @enddate " &
             "and strResponsibleStaff in (select * from @staff) "
 
-            txtNOVTaken.Text = DB.GetSingleValue(Of Integer)(SQL, params).ToString
+            txtNOVTaken.Text = DB.GetInteger(SQL, params).ToString
 
             '---CO 
             SQL = "select count(*) as COTaken " &
@@ -685,7 +685,7 @@ Public Class SSCPManagersTools
             "and datReceivedDate between @startdate and @enddate " &
             "and strResponsibleStaff in (select * from @staff) "
 
-            txtCOTaken.Text = DB.GetSingleValue(Of Integer)(SQL, params).ToString
+            txtCOTaken.Text = DB.GetInteger(SQL, params).ToString
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)

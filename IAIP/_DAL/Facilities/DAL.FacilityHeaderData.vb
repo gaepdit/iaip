@@ -114,7 +114,7 @@ Namespace DAL
         Public Function GetFacilityOperationalStatus(airsNumber As ApbFacilityId) As FacilityOperationalStatus
             Dim query As String = "SELECT STROPERATIONALSTATUS FROM APBHEADERDATA WHERE STRAIRSNUMBER = @airsNumber"
             Dim parameter As New SqlParameter("@airsNumber", airsNumber.DbFormattedString)
-            Return [Enum].Parse(GetType(FacilityOperationalStatus), DB.GetSingleValue(Of String)(query, parameter))
+            Return [Enum].Parse(GetType(FacilityOperationalStatus), DB.GetString(query, parameter))
         End Function
 
 #End Region

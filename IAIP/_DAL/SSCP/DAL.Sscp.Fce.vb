@@ -16,7 +16,7 @@ Namespace DAL.Sscp
             Dim query As String = "SELECT STRAIRSNUMBER FROM SSCPFCEMASTER WHERE STRFCENUMBER = @fceNumber"
             Dim parameter As New SqlParameter("@fceNumber", fceNumber)
 
-            Return New Apb.ApbFacilityId(DB.GetSingleValue(Of String)(query, parameter))
+            Return New Apb.ApbFacilityId(DB.GetString(query, parameter))
         End Function
 
         ''' <summary>

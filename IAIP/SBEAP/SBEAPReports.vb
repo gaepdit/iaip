@@ -60,7 +60,7 @@ Public Class SBEAPReports
             "from SBEAPClients " &
             "where datCompanyCreated between @sdate and @edate "
 
-            txtNewClientCount.Text = DB.GetSingleValue(Of Integer)(query, p)
+            txtNewClientCount.Text = DB.GetInteger(query, p)
 
             query = "select count(*) " &
             "from (select " &
@@ -74,13 +74,13 @@ Public Class SBEAPReports
             "or datCaseOpened between @sdate and @edate " &
             "or datCaseClosed between @sdate and @edate ) ) t "
 
-            txtClientAssistCount.Text = DB.GetSingleValue(Of Integer)(query, p)
+            txtClientAssistCount.Text = DB.GetInteger(query, p)
 
             query = "select count(*) " &
             "from SBEAPCaseLog " &
             "where datCaseOpened between @sdate and @edate "
 
-            txtNewCaseCount.Text = DB.GetSingleValue(Of Integer)(query, p)
+            txtNewCaseCount.Text = DB.GetInteger(query, p)
 
             query = "select count(*) as Count " &
             "from (select distinct(SBEAPCaseLog.numCaseID) " &
@@ -91,7 +91,7 @@ Public Class SBEAPReports
             "or datCaseClosed between @sdate and @edate " &
             "or sbeapActionLog.datCreationDate between @sdate and @edate )) t "
 
-            txtExistingCaseCount.Text = DB.GetSingleValue(Of Integer)(query, p)
+            txtExistingCaseCount.Text = DB.GetInteger(query, p)
 
             If txtNewCaseCount.Text = "" Then
                 txtNewCaseCount.Text = "0"
@@ -106,13 +106,13 @@ Public Class SBEAPReports
             "from SBEAPCaseLog " &
             "where datCasecLosed between @sdate and @edate "
 
-            txtCaseClosedCount.Text = DB.GetSingleValue(Of Integer)(query, p)
+            txtCaseClosedCount.Text = DB.GetInteger(query, p)
 
             query = "select count(*)  " &
             "from SBEAPActionLog " &
             "where datActionOccured between @sdate and @edate "
 
-            txtTotalActionCount.Text = DB.GetSingleValue(Of Integer)(query, p)
+            txtTotalActionCount.Text = DB.GetInteger(query, p)
 
             query = "Select count(*)  " &
             "from SBEAPActionLog, " &
@@ -122,7 +122,7 @@ Public Class SBEAPReports
             "and strFrontDeskCall is not Null " &
             "and strFrontDeskCall = 'True' "
 
-            txtFrontDeskCallCount.Text = DB.GetSingleValue(Of Integer)(query, p)
+            txtFrontDeskCallCount.Text = DB.GetInteger(query, p)
 
             query = "select Count(*) as Count, numActionType " &
             "from SBEAPActionLog " &

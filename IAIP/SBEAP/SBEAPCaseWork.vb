@@ -307,7 +307,7 @@ Public Class SBEAPCaseWork
                 "from SBEAPCaseLogLink " &
                 "where numCaseID = @caseid "
 
-                Dim ClientCount As Integer = DB.GetSingleValue(Of Integer)(SQL, p)
+                Dim ClientCount As Integer = DB.GetInteger(SQL, p)
 
                 If ClientCount = 1 Then
                     rdbSingleClient.Checked = True
@@ -317,7 +317,7 @@ Public Class SBEAPCaseWork
                         "from SBEAPCaseLogLink " &
                         "where numCaseID = @caseid "
 
-                    txtClientID.Text = DB.GetSingleValue(Of String)(SQL, p)
+                    txtClientID.Text = DB.GetString(SQL, p)
 
                     If txtClientID.Text <> "" Then
                         LoadClientInfo()
@@ -1025,7 +1025,7 @@ Public Class SBEAPCaseWork
 
             Dim p As New SqlParameter("@actionid", txtActionID.Text)
 
-            txtCaseNotes.Text = DB.GetSingleValue(Of String)(SQL, p)
+            txtCaseNotes.Text = DB.GetString(SQL, p)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -1135,7 +1135,7 @@ Public Class SBEAPCaseWork
             DB.RunCommand(SQL, p)
 
             If SQL2 <> "" Then
-                txtCaseID.Text = DB.GetSingleValue(Of String)(SQL2)
+                txtCaseID.Text = DB.GetString(SQL2)
             End If
 
             If rdbSingleClient.Checked = True Then
@@ -2043,7 +2043,7 @@ Public Class SBEAPCaseWork
                 "else (select max(numActionID) + 1 from SBEAPActionLog)   " &
                 "end ActionNumber "
 
-                txtActionID.Text = DB.GetSingleValue(Of String)(SQL)
+                txtActionID.Text = DB.GetString(SQL)
 
                 SQL = "INSERT INTO SBEAPACTIONLOG 
                     (NUMACTIONID, NUMCASEID, NUMACTIONTYPE, NUMMODIFINGSTAFF, 

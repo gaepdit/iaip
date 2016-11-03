@@ -582,7 +582,7 @@ Public Class PASPFeeManagement
                     New SqlParameter("@reason4", "%," & ReasonID & ",%")
                 }
 
-                If DB.GetSingleValue(Of Integer)(SQL, p) > 0 Then
+                If DB.GetInteger(SQL, p) > 0 Then
                     MessageBox.Show("Unable to Remove this exemption from this year because this exemption has been used.")
                 Else
                     dgvNSPSExemptionsByYear.Rows.Remove(dgvNSPSExemptionsByYear.CurrentRow)
@@ -622,7 +622,7 @@ Public Class PASPFeeManagement
                         New SqlParameter("@reason4", "%," & ReasonID & ",%")
                     }
 
-                    If DB.GetSingleValue(Of Integer)(SQL, p) > 0 Then
+                    If DB.GetInteger(SQL, p) > 0 Then
                         i += 1
                     Else
                         dgvNSPSExemptionsByYear.Rows(i).Selected = True

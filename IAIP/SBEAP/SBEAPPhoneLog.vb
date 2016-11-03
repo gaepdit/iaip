@@ -292,7 +292,7 @@ Public Class SBEAPPhoneLog
                 DB.RunCommand(query, p)
 
                 If query2 <> "" Then
-                    txtCaseID.Text = DB.GetSingleValue(Of String)(query2)
+                    txtCaseID.Text = DB.GetString(query2)
                 End If
 
                 If txtActionID.Text = "" Then

@@ -270,7 +270,7 @@ Namespace DAL
 
         Private Function GetNextBinaryFileSequenceValue() As Integer
             Dim query As String = "SELECT NEXT VALUE FOR IAIP_BINARYFILES_SEQ"
-            Return DB.GetSingleValue(Of Integer)(query)
+            Return DB.GetInteger(query)
         End Function
 
 #End Region

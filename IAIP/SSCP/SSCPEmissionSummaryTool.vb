@@ -90,7 +90,7 @@ Public Class SSCPEmissionSummaryTool
 
         Try
             SQL = "SELECT COUNT(*) FROM esmailout WHERE STRESYEAR = @ESYear "
-            txtMailOutCount.Text = DB.GetSingleValue(Of String)(SQL, ESYearParam)
+            txtMailOutCount.Text = DB.GetString(SQL, ESYearParam)
 
             SQL = "SELECT COUNT(*)
                 FROM   esmailout
@@ -98,45 +98,45 @@ Public Class SSCPEmissionSummaryTool
                   ON esmailout.STRAIRSYEAR = ESSCHEMA.STRAIRSYEAR
                 WHERE  ESSCHEMA.STROPTOUT IS NOT NULL
                        AND esmailout.STRESYEAR = @ESYear"
-            txtResponseCount.Text = DB.GetSingleValue(Of String)(SQL, ESYearParam)
+            txtResponseCount.Text = DB.GetString(SQL, ESYearParam)
 
             SQL = "SELECT COUNT(*) FROM ESSchema
                     WHERE intESYEAR = @intESyear AND strOptOut = 'NO'"
-            txtTotalOptInCount.Text = DB.GetSingleValue(Of String)(SQL, intEsYearParam)
+            txtTotalOptInCount.Text = DB.GetString(SQL, intEsYearParam)
 
             SQL = "SELECT COUNT(*) FROM ESSchema
                     WHERE intESYEAR = @intESyear AND strOptOut = 'YES'"
-            txtTotalOptOutCount.Text = DB.GetSingleValue(Of String)(SQL, intEsYearParam)
+            txtTotalOptOutCount.Text = DB.GetString(SQL, intEsYearParam)
 
             SQL = "SELECT COUNT(*)
                 FROM   ESSchema
                 WHERE  intESYEAR = @intESyear
                 AND CAST(STRDATEFIRSTCONFIRM AS date) <= @deadline"
-            txtTotalincompliance.Text = DB.GetSingleValue(Of String)(SQL, params)
+            txtTotalincompliance.Text = DB.GetString(SQL, params)
 
             SQL = "select count(*) as TotaloutofcomplianceCount 
             from ESSchema 
                 WHERE  intESYEAR = @intESyear
                 AND CAST(STRDATEFIRSTCONFIRM AS date) > @deadline"
-            txtTotaloutofcompliance.Text = DB.GetSingleValue(Of String)(SQL, params)
+            txtTotaloutofcompliance.Text = DB.GetString(SQL, params)
 
             SQL = "SELECT COUNT(*)
                 FROM ESSchema
                 RIGHT JOIN ESMailout ON ESMailout.STRAIRSYEAR = ESSchema.STRAIRSYEAR
                 WHERE ESMailout.STRESYEAR = @ESYear AND ESSchema.STROPTOUT = 'NO'"
-            txtMailoutOptin.Text = DB.GetSingleValue(Of String)(SQL, ESYearParam)
+            txtMailoutOptin.Text = DB.GetString(SQL, ESYearParam)
 
             SQL = "SELECT COUNT(*)
                 FROM ESSchema
                 RIGHT JOIN ESMailout ON ESMailout.STRAIRSYEAR = ESSchema.STRAIRSYEAR
                 WHERE ESMailout.STRESYEAR = @ESYear AND ESSchema.STROPTOUT = 'YES'"
-            txtMailOutOptOut.Text = DB.GetSingleValue(Of String)(SQL, ESYearParam)
+            txtMailOutOptOut.Text = DB.GetString(SQL, ESYearParam)
 
             SQL = "select count(*) " &
                 "from ESSCHEMA " &
                 "where intESYEAR = @intESyear " &
                 " and strOptOut is NULL"
-            txtNonResponseCount.Text = DB.GetSingleValue(Of String)(SQL, intEsYearParam)
+            txtNonResponseCount.Text = DB.GetString(SQL, intEsYearParam)
 
             SQL = "SELECT COUNT(*) AS ExtraCount
                 FROM (SELECT ESSCHEMA.STRAIRSYEAR AS SchemaAIRS, ESMailout.STRAIRSYEAR AS MailoutAIRS
@@ -145,7 +145,7 @@ Public Class SSCPEmissionSummaryTool
                 WHERE ESSCHEMA.INTESYEAR = @intESyear AND ESSCHEMA.STROPTOUT IS NOT NULL) AS dt_NotInMailout
                 INNER JOIN ESSCHEMA ON dt_NotInMailout.SchemaAIRS = ESSCHEMA.STRAIRSYEAR
                 WHERE dt_NotInMailout.MailoutAIRS IS NULL"
-            txtextraResponse.Text = DB.GetSingleValue(Of String)(SQL, intEsYearParam)
+            txtextraResponse.Text = DB.GetString(SQL, intEsYearParam)
 
             SQL = "SELECT COUNT(*) AS ExtraOptinCount
                 FROM (SELECT ESSCHEMA.STRAIRSYEAR AS SchemaAIRS, ESMailout.STRAIRSYEAR AS MailoutAIRS
@@ -154,7 +154,7 @@ Public Class SSCPEmissionSummaryTool
                 WHERE ESSCHEMA.INTESYEAR = @intESyear AND ESSCHEMA.STROPTOUT IS NOT NULL) AS dt_NotInMailout
                 INNER JOIN ESSCHEMA ON dt_NotInMailout.SchemaAIRS = ESSCHEMA.STRAIRSYEAR
                 WHERE dt_NotInMailout.MailoutAIRS IS NULL AND ESSCHEMA.STROPTOUT = 'NO'"
-            txtExtraOptin.Text = DB.GetSingleValue(Of String)(SQL, intEsYearParam)
+            txtExtraOptin.Text = DB.GetString(SQL, intEsYearParam)
 
             SQL = "SELECT COUNT(*) AS ExtraOptinCount
                 FROM (SELECT ESSCHEMA.STRAIRSYEAR AS SchemaAIRS, ESMailout.STRAIRSYEAR AS MailoutAIRS
@@ -163,13 +163,13 @@ Public Class SSCPEmissionSummaryTool
                 WHERE ESSCHEMA.INTESYEAR = @intESyear AND ESSCHEMA.STROPTOUT IS NOT NULL) AS dt_NotInMailout
                 INNER JOIN ESSCHEMA ON dt_NotInMailout.SchemaAIRS = ESSCHEMA.STRAIRSYEAR
                 WHERE dt_NotInMailout.MailoutAIRS IS NULL AND ESSCHEMA.STROPTOUT = 'YES'"
-            txtExtraOptout.Text = DB.GetSingleValue(Of String)(SQL, intEsYearParam)
+            txtExtraOptout.Text = DB.GetString(SQL, intEsYearParam)
 
             SQL = "select count(*) as TotalResponsecount " &
             "from ESSchema " &
             "where ESSchema.intESYEAR = @intESyear " &
             " and ESSchema.strOptOut is not NULL"
-            txtTotalResponse.Text = DB.GetSingleValue(Of String)(SQL, intEsYearParam)
+            txtTotalResponse.Text = DB.GetString(SQL, intEsYearParam)
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)

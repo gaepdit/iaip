@@ -66,7 +66,7 @@ Namespace DAL.Ismp
 
             Dim parameter As New SqlParameter("@ReferenceNumber", referenceNumber)
 
-            Return DB.GetSingleValue(Of String)(query, parameter)
+            Return DB.GetString(query, parameter)
         End Function
 
         Public Function GetStackTestDocumentType(referenceNumber As String) As String
@@ -76,7 +76,7 @@ Namespace DAL.Ismp
                 WHERE i.STRREFERENCENUMBER = @ref"
             Dim parameter As New SqlParameter("@ref", referenceNumber)
 
-            Return DB.GetSingleValue(Of String)(query, parameter)
+            Return DB.GetString(query, parameter)
         End Function
 
         ''' <summary>

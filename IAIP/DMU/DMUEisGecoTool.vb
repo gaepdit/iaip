@@ -548,38 +548,38 @@ Public Class DMUEisGecoTool
                     "LEFT JOIN ESSCHEMA es " &
                     "ON em.STRAIRSYEAR  = es.STRAIRSYEAR " &
                     "WHERE em.STRESYEAR = @year"
-                txtESMailOutCount.Text = DB.GetSingleValue(Of Integer)(SQL, param).ToString
+                txtESMailOutCount.Text = DB.GetInteger(SQL, param).ToString
 
                 SQL = "select count(*) as ResponseCount " &
                 "from esmailout, ESSCHEMA " &
                 "where ESMAILOUT.STRAIRSYEAR = ESSCHEMA.STRAIRSYEAR " &
                 "and ESSCHEMA.STROPTOUT is not NULL " &
                 "and esmailout.STRESYEAR = @year "
-                txtResponseCount.Text = DB.GetSingleValue(Of Integer)(SQL, param).ToString
+                txtResponseCount.Text = DB.GetInteger(SQL, param).ToString
 
                 SQL = "select count(*) as TotaloptinCount " &
                 "from ESSchema " &
                 "where ESSchema.intESYEAR = @year " &
                 " and ESSchema.strOptOut = 'NO'"
-                txtTotalOptInCount.Text = DB.GetSingleValue(Of Integer)(SQL, param).ToString
+                txtTotalOptInCount.Text = DB.GetInteger(SQL, param).ToString
 
                 SQL = "select count(*) as TotaloptOutCount " &
                 "from ESSchema " &
                 "where ESSchema.intESYEAR = @year " &
                 "and ESSchema.strOptOut = 'YES'"
-                txtTotalOptOutCount.Text = DB.GetSingleValue(Of Integer)(SQL, param).ToString
+                txtTotalOptOutCount.Text = DB.GetInteger(SQL, param).ToString
 
                 SQL = "select count(*) as TotalinincomplianceCount " &
                 "from ESSchema " &
                 "where ESSchema.intESYEAR = @year " &
                 " and CAST(STRDATEFIRSTCONFIRM AS date) < = @deadline "
-                txtTotalincompliance.Text = DB.GetSingleValue(Of Integer)(SQL, params).ToString
+                txtTotalincompliance.Text = DB.GetInteger(SQL, params).ToString
 
                 SQL = "select count(*) as TotaloutofcomplianceCount " &
                 "from ESSchema " &
                 "where ESSchema.intESYEAR = @year " &
                 " and CAST(STRDATEFIRSTCONFIRM AS date) > @deadline "
-                txtTotaloutofcompliance.Text = DB.GetSingleValue(Of Integer)(SQL, params).ToString
+                txtTotaloutofcompliance.Text = DB.GetInteger(SQL, params).ToString
 
                 SQL = "SELECT COUNT ( *) AS MailOutOptInCount " &
                     "FROM ESSchema es " &
@@ -587,7 +587,7 @@ Public Class DMUEisGecoTool
                     "ON em.STRAIRSYEAR  = es.STRAIRSYEAR " &
                     "WHERE em.STRESYEAR = @year " &
                     "AND es.STROPTOUT   = 'NO'"
-                txtMailoutOptin.Text = DB.GetSingleValue(Of Integer)(SQL, param).ToString
+                txtMailoutOptin.Text = DB.GetInteger(SQL, param).ToString
 
                 SQL = "SELECT COUNT ( *) AS MailOutOptOutCount " &
                     "FROM ESSchema es " &
@@ -595,7 +595,7 @@ Public Class DMUEisGecoTool
                     "ON em.STRAIRSYEAR  = es.STRAIRSYEAR " &
                     "WHERE em.STRESYEAR = @year " &
                     "AND es.STROPTOUT   = 'YES'"
-                txtMailOutOptOut.Text = DB.GetSingleValue(Of Integer)(SQL, param).ToString
+                txtMailOutOptOut.Text = DB.GetInteger(SQL, param).ToString
 
             Catch ex As Exception
                 MsgBox("That Prefix is not in the db" + vbCrLf + ex.ToString())
@@ -606,7 +606,7 @@ Public Class DMUEisGecoTool
              "from ESSCHEMA " &
              "where ESSCHEMA.intESYEAR = @year " &
              " and ESSchema.strOptOut is NULL"
-            txtNonResponseCount.Text = DB.GetSingleValue(Of Integer)(SQL, param).ToString
+            txtNonResponseCount.Text = DB.GetInteger(SQL, param).ToString
 
             SQL = "SELECT COUNT (*) AS removedFacilitiescount " &
                 "FROM ESSchema es " &
@@ -614,7 +614,7 @@ Public Class DMUEisGecoTool
                 "ON em.STRAIRSYEAR   = es.STRAIRSYEAR " &
                 "WHERE em.STRESYEAR  = @year " &
                 "AND es.STRAIRSYEAR IS NULL"
-            txtESremovedFacilities.Text = DB.GetSingleValue(Of Integer)(SQL, param).ToString
+            txtESremovedFacilities.Text = DB.GetInteger(SQL, param).ToString
 
             SQL = "SELECT COUNT ( *) AS extraNonresponderscount " &
                 "FROM ESSchema es " &
@@ -626,7 +626,7 @@ Public Class DMUEisGecoTool
                 "  ) " &
                 "AND es.INTESYEAR  = @year " &
                 "AND es.STROPTOUT IS NULL"
-            txtESextranonresponder.Text = DB.GetSingleValue(Of Integer)(SQL, param).ToString
+            txtESextranonresponder.Text = DB.GetInteger(SQL, param).ToString
 
             SQL = "SELECT COUNT ( *) AS mailoutNonresponderscount " &
                 "FROM esmailout em " &
@@ -634,7 +634,7 @@ Public Class DMUEisGecoTool
                 "ON em.STRAIRSYEAR  = es.STRAIRSYEAR " &
                 "WHERE em.STRESYEAR = @year " &
                 "AND es.STROPTOUT  IS NULL"
-            txtESmailoutNonResponder.Text = DB.GetSingleValue(Of Integer)(SQL, param).ToString
+            txtESmailoutNonResponder.Text = DB.GetInteger(SQL, param).ToString
 
             SQL = "SELECT COUNT ( *) AS ExtraCount " &
                 "FROM " &
@@ -649,7 +649,7 @@ Public Class DMUEisGecoTool
                 "INNER JOIN ESSCHEMA es " &
                 "ON dt_NotInMailout.SchemaAIRS      = es.STRAIRSYEAR " &
                 "WHERE dt_NotInMailout.MailoutAIRS IS NULL"
-            Dim extracount As Integer = DB.GetSingleValue(Of Integer)(SQL, param).ToString
+            Dim extracount As Integer = DB.GetInteger(SQL, param).ToString
             txtESextraResponders.Text = extracount
             txtextraResponse.Text = extracount
 
@@ -667,7 +667,7 @@ Public Class DMUEisGecoTool
                 "ON dt_NotInMailout.SchemaAIRS      = es.STRAIRSYEAR " &
                 "WHERE dt_NotInMailout.MailoutAIRS IS NULL " &
                 "AND es.STROPTOUT                   = 'NO'"
-            txtExtraOptin.Text = DB.GetSingleValue(Of Integer)(SQL, param).ToString
+            txtExtraOptin.Text = DB.GetInteger(SQL, param).ToString
 
             SQL = "SELECT COUNT ( *) AS ExtraOptOUTCount " &
                 "FROM " &
@@ -683,13 +683,13 @@ Public Class DMUEisGecoTool
                 "ON dt_NotInMailout.SchemaAIRS      = es.STRAIRSYEAR " &
                 "WHERE dt_NotInMailout.MailoutAIRS IS NULL " &
                 "AND es.STROPTOUT                   = 'YES'"
-            txtExtraOptout.Text = DB.GetSingleValue(Of Integer)(SQL, param).ToString
+            txtExtraOptout.Text = DB.GetInteger(SQL, param).ToString
 
             SQL = "select count(*) as TotalResponsecount " &
             "from ESSchema " &
             "where ESSchema.intESYEAR = @year " &
             " and ESSchema.strOptOut is not NULL"
-            txtTotalResponse.Text = DB.GetSingleValue(Of Integer)(SQL, param).ToString
+            txtTotalResponse.Text = DB.GetInteger(SQL, param).ToString
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -2344,7 +2344,7 @@ Public Class DMUEisGecoTool
                     "FROM APBFACILITYINFORMATION " &
                     "where STRAIRSNUMBER = @AirsNo "
                 Dim param2 As New SqlParameter("@AirsNo ", AirsNo)
-                facilityName = DB.GetSingleValue(Of String)(SQL, param2)
+                facilityName = DB.GetString(SQL, param2)
 
                 If facilityName <> "" Then
                     SQL = "Select * " &
@@ -2721,7 +2721,7 @@ Public Class DMUEisGecoTool
                 "from APBFacilityInformation " &
                 "where strAIRSNumber = @strAIRSNumber "
                 Dim param As New SqlParameter("@strAIRSNumber", "0413" & mtbAIRSNumber.Text)
-                Dim fn As String = DB.GetSingleValue(Of String)(SQL, param)
+                Dim fn As String = DB.GetString(SQL, param)
 
                 If fn = "" Then
                     lblFaciltyName.Text = " - "

@@ -389,7 +389,7 @@ Public Class SSCPComplianceLog
             ElseIf rdbOther.Checked Then
                 If cboEvent.SelectedIndex > -1 Then
                     Dim SQL As String = "SELECT NEXT VALUE FOR SSCPTrackingNumber"
-                    Dim trk As Integer = DB.GetSingleValue(Of Integer)(SQL)
+                    Dim trk As Integer = DB.GetInteger(SQL)
 
                     Dim sqlList As New List(Of String)
                     Dim paramList As New List(Of SqlParameter())
@@ -640,7 +640,7 @@ Public Class SSCPComplianceLog
             Dim SQL As String = "Select strFacilityCity from APBFacilityInformation " &
                 "where strAIRSnumber = @airs "
             Dim p As New SqlParameter("@airs", "0413" & txtAIRSNumber.Text)
-            txtFacilityCity.Text = DB.GetSingleValue(Of String)(SQL, p)
+            txtFacilityCity.Text = DB.GetString(SQL, p)
         End If
     End Sub
 

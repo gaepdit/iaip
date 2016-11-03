@@ -2339,7 +2339,7 @@ Public Class SSPPApplicationTrackingLog
             "where strApplicationNumber = @appnumber"
             parameter = New SqlParameter("@appnumber", txtApplicationNumber.Text)
 
-            AIRSNumber = DB.GetSingleValue(Of String)(query, parameter)
+            AIRSNumber = DB.GetString(query, parameter)
 
             If String.IsNullOrEmpty(AIRSNumber) Then AIRSNumber = txtAIRSNumber.Text
 
@@ -3181,7 +3181,7 @@ Public Class SSPPApplicationTrackingLog
 
             Dim parameter As New SqlParameter("@airsnumber", "0413" & txtAIRSNumber.Text)
 
-            Attainment = DB.GetSingleValue(Of String)(query, parameter)
+            Attainment = DB.GetString(query, parameter)
             If Attainment = "" Then Attainment = "00000"
 
             Select Case Mid(Attainment, 2, 1)
@@ -4502,7 +4502,7 @@ Public Class SSPPApplicationTrackingLog
                "and strAirsNumber = @airsnumber"
             Dim parameter As New SqlParameter("@airsnumber", "0413" & txtAIRSNumber.Text)
 
-            txtOutstandingApplication.Text = DB.GetSingleValue(Of Integer)(query, parameter)
+            txtOutstandingApplication.Text = DB.GetInteger(query, parameter)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -4527,7 +4527,7 @@ Public Class SSPPApplicationTrackingLog
                     "from SSPPApplicationLinking " &
                     "where strApplicationNumber = @appnumber"
                 parameter = New SqlParameter("@appnumber", txtApplicationNumber.Text)
-                MasterApplication = DB.GetSingleValue(Of String)(query, parameter)
+                MasterApplication = DB.GetString(query, parameter)
 
                 If MasterApplication <> "" Then
                     txtMasterApp.Text = MasterApplication
@@ -5335,7 +5335,7 @@ Public Class SSPPApplicationTrackingLog
                         "from SSPPApplicationInformation " &
                         "where strApplicationNumber = @txtApplicationNumber"
                         parameter = {New SqlParameter("@txtApplicationNumber", txtApplicationNumber.Text)}
-                        InformationRequestKey = DB.GetSingleValue(Of Integer)(query, parameter)
+                        InformationRequestKey = DB.GetInteger(query, parameter)
                     Else
                         InformationRequestKey = txtInformationRequestedKey.Text
                     End If
@@ -5806,7 +5806,7 @@ Public Class SSPPApplicationTrackingLog
                     "and SUBSTRING(strkey, 1, 1) = '3' "
                     params = {New SqlParameter("@airs", "0413" & txtAIRSNumber.Text)}
 
-                    MaxKey = DB.GetSingleValue(Of String)(query, params)
+                    MaxKey = DB.GetString(query, params)
 
                     i = CInt(Mid(MaxKey, 2))
 
@@ -6175,7 +6175,7 @@ Public Class SSPPApplicationTrackingLog
                         "where strApplicationnumber = @item "
                         params = {New SqlParameter("@item", lbLinkApplications.Items.Item(i))}
 
-                        appType = DB.GetSingleValue(Of String)(query, params)
+                        appType = DB.GetString(query, params)
 
                         Select Case appType
                             Case "22"
@@ -6245,7 +6245,7 @@ Public Class SSPPApplicationTrackingLog
                 "from SSPPApplicationLinking " &
                 "where strApplicationNumber = @pMaster"
                 param = New SqlParameter("@pMaster", txtMasterApp.Text)
-                MasterLink = DB.GetSingleValue(Of String)(query, param)
+                MasterLink = DB.GetString(query, param)
 
                 If MasterLink <> "" Then
                     query = "Delete SSPPApplicationLinking " &
@@ -6430,7 +6430,7 @@ Public Class SSPPApplicationTrackingLog
             "where strApplicationNumber = @appnum "
             params = {New SqlParameter("@appnum", txtApplicationNumber.Text)}
 
-            UpdateStatus = DB.GetSingleValue(Of String)(query, params)
+            UpdateStatus = DB.GetString(query, params)
             If String.IsNullOrEmpty(UpdateStatus) Then
                 UpdateStatus = "A"
                 recExists = False
@@ -6452,7 +6452,7 @@ Public Class SSPPApplicationTrackingLog
                     "from APBSupplamentalData " &
                     "where strAIRSNumber = @airs"
                 params = {New SqlParameter("@airs", "0413" & txtAIRSNumber.Text)}
-                ActionNumber = DB.GetSingleValue(Of String)(query, params)
+                ActionNumber = DB.GetString(query, params)
 
                 query = "Insert into AFSSSPPRecords " &
                     "(strApplicationNumber, strAFSActionNumber, " &
@@ -6938,7 +6938,7 @@ Public Class SSPPApplicationTrackingLog
               "where strApplicationNumber = @appnumber "
             parameter = {New SqlParameter("@appnumber", txtApplicationNumber.Text)}
 
-            MasterApp = DB.GetSingleValue(Of String)(query, parameter)
+            MasterApp = DB.GetString(query, parameter)
             If MasterApp = "" Then MasterApp = txtApplicationNumber.Text
 
             rdbTitleVPermit.Checked = False
@@ -6956,7 +6956,7 @@ Public Class SSPPApplicationTrackingLog
                 New SqlParameter("@MasterApp", MasterApp),
                 New SqlParameter("@MasterAppFn", "%-" & MasterApp)
             }
-            Dim fn As String = DB.GetSingleValue(Of String)(query, parameter)
+            Dim fn As String = DB.GetString(query, parameter)
             If fn <> "" Then
                 Dim temp As String = Mid(fn, 1, 1)
                 Select Case temp
@@ -7594,7 +7594,7 @@ Public Class SSPPApplicationTrackingLog
     Private Sub mmiNewApplication_Click(sender As Object, e As EventArgs) Handles mmiNewApplication.Click
         Try
             Dim query As String = "Select next value for SSPPAPPLICATIONKEY"
-            txtApplicationNumber.Text = DB.GetSingleValue(Of Integer)(query)
+            txtApplicationNumber.Text = DB.GetInteger(query)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -8111,7 +8111,7 @@ Public Class SSPPApplicationTrackingLog
                     "from APBPermits " &
                     "where strFileName like @filename "
                 Dim parameter As New SqlParameter("@filename", "V_-" & MasterApp)
-                Dim fn As String = DB.GetSingleValue(Of String)(query, parameter)
+                Dim fn As String = DB.GetString(query, parameter)
 
                 If fn <> "" Then
                     Select Case Mid(fn, 1, 2)
@@ -8172,7 +8172,7 @@ Public Class SSPPApplicationTrackingLog
                     "from APBPermits " &
                     "where strFileName like @filename "
                 Dim parameter As New SqlParameter("@filename", "P_-" & MasterApp)
-                Dim fn As String = DB.GetSingleValue(Of String)(query, parameter)
+                Dim fn As String = DB.GetString(query, parameter)
 
                 If fn <> "" Then
                     Select Case Mid(fn, 1, 2)
@@ -8242,7 +8242,7 @@ Public Class SSPPApplicationTrackingLog
                     "from APBPermits " &
                     "where strFileName like @filename "
                 Dim parameter As New SqlParameter("@filename", "O_-" & MasterApp)
-                Dim fn As String = DB.GetSingleValue(Of String)(query, parameter)
+                Dim fn As String = DB.GetString(query, parameter)
 
                 If fn <> "" Then
                     Select Case Mid(fn, 1, 2)

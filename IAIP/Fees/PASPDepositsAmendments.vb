@@ -23,7 +23,7 @@ Public Class PASPDepositsAmendments
             "where strAIRSNumber = @AIRSNumber "
         Dim param As New SqlParameter("@AIRSNumber", New Apb.ApbFacilityId(AIRSNumber).DbFormattedString)
 
-        Dim facName As String = DB.GetSingleValue(Of String)(query, param)
+        Dim facName As String = DB.GetString(query, param)
 
         If String.IsNullOrWhiteSpace(facName) Then
             lblFacilityName.Text = "Facility Name"
@@ -533,7 +533,7 @@ Public Class PASPDepositsAmendments
             "and Active = '1' ) Payments "
             Dim param As New SqlParameter("@invID", invoiceID)
 
-            Dim result As String = DB.GetSingleValue(Of String)(query, param)
+            Dim result As String = DB.GetString(query, param)
             If String.IsNullOrWhiteSpace(result) Then
                 result = "1"
             End If
@@ -791,7 +791,7 @@ Public Class PASPDepositsAmendments
                 "where strAIRSNumber = @AIRSNumber "
                 Dim param As New SqlParameter("@AIRSNumber", New Apb.ApbFacilityId(mtbAIRSNumber.Text).DbFormattedString)
 
-                Dim facName As String = DB.GetSingleValue(Of String)(query, param)
+                Dim facName As String = DB.GetString(query, param)
 
                 If String.IsNullOrWhiteSpace(facName) Then
                     lblAIRSNumber.Text = "AIRS #: "
@@ -1044,7 +1044,7 @@ Public Class PASPDepositsAmendments
                         "where strAIRSNumber = @AIRSNumber "
                     param = {New SqlParameter("@AIRSNumber", New Apb.ApbFacilityId(mtbAIRSNumber.Text).DbFormattedString)}
 
-                    Dim facName As String = DB.GetSingleValue(Of String)(query, param)
+                    Dim facName As String = DB.GetString(query, param)
 
                     If String.IsNullOrWhiteSpace(facName) Then
                         lblAIRSNumber.Text = "AIRS #: "

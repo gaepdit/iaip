@@ -675,7 +675,7 @@ Public Class SBEAPClientSummary
 
             query = "Select max(ClientContactID) as ClientID " &
                     "from SBEAPClientContacts "
-            txtContactID.Text = DB.GetSingleValue(Of String)(query)
+            txtContactID.Text = DB.GetString(query)
 
             txtContactCreationInfo.Text = CurrentUser.AlphaName & " - " & TodayFormatted
             txtContactLastModified.Text = CurrentUser.AlphaName & " - " & TodayFormatted
@@ -1443,7 +1443,7 @@ Public Class SBEAPClientSummary
                     query = "Select max(clientID) as MaxID " &
                     "from SBEAPClients "
 
-                    txtClientID.Text = DB.GetSingleValue(Of Integer)(query)
+                    txtClientID.Text = DB.GetInteger(query)
 
                     query = "INSERT INTO SBEAPCLIENTDATA
                         ( CLIENTID

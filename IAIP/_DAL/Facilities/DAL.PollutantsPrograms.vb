@@ -22,7 +22,7 @@ Namespace DAL
         Public Function GetFacilityAirPrograms(airsNumber As ApbFacilityId) As AirProgram
             Dim query As String = "SELECT STRAIRPROGRAMCODES FROM APBHEADERDATA WHERE STRAIRSNUMBER = @airsNumber"
             Dim parameter As New SqlParameter("@airsNumber", airsNumber.DbFormattedString)
-            Dim apc As String = DB.GetSingleValue(Of String)(query, parameter)
+            Dim apc As String = DB.GetString(query, parameter)
 
             If apc Is Nothing Then
                 Return AirProgram.None

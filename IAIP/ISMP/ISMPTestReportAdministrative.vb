@@ -1042,7 +1042,7 @@ Public Class ISMPTestReportAdministrative
                     DB.RunCommand(SQL, parameter)
 
                     SQL = "SELECT STRTRACKINGNUMBER FROM SSCPTESTREPORTS WHERE STRREFERENCENUMBER = @ref"
-                    Dim trackingNumber As String = DB.GetSingleValue(Of String)(SQL, parameter)
+                    Dim trackingNumber As String = DB.GetString(SQL, parameter)
 
                     If trackingNumber IsNot Nothing Then
                         parameter = New SqlParameter("@trackingnum", trackingNumber)

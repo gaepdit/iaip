@@ -339,7 +339,7 @@ Public Class IAIPFacilityCreator
                 "FROM   APBMasterAIRS " &
                 "WHERE  SUBSTRING(strAIRSNumber, 5, 3) = @cty "
 
-            txtCDSAIRSNumber.Text = DB.GetSingleValue(Of String)(SQL, p)
+            txtCDSAIRSNumber.Text = DB.GetString(SQL, p)
 
             FindRegion(txtCDSRegionCode.Text, txtCDSAIRSNumber.Text)
 

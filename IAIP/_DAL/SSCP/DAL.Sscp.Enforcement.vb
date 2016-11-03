@@ -23,7 +23,7 @@ Namespace DAL.Sscp
 
             Dim parameter As SqlParameter = New SqlParameter("@airs", airs.DbFormattedString)
 
-            Return DB.GetSingleValue(Of Integer)(query, parameter)
+            Return DB.GetInteger(query, parameter)
         End Function
 
         ''' <summary>
@@ -72,7 +72,7 @@ Namespace DAL.Sscp
 
             Dim parameter As New SqlParameter("@enforcementId", enforcementId)
 
-            Dim result As String = DB.GetSingleValue(Of String)(query, parameter)
+            Dim result As String = DB.GetString(query, parameter)
             Return Convert.ToBoolean(result)
         End Function
 
@@ -91,7 +91,7 @@ Namespace DAL.Sscp
 
             Dim parameter As New SqlParameter("@trackingNumber", trackingNumber)
 
-            Dim result As String = DB.GetSingleValue(Of Integer)(query, parameter)
+            Dim result As String = DB.GetInteger(query, parameter)
 
             If result Is Nothing Then
                 Return False
@@ -397,7 +397,7 @@ Namespace DAL.Sscp
                 "FROM SSCPENFORCEMENTSTIPULATED " &
                 "WHERE STRENFORCEMENTNUMBER = @enforcementId"
             Dim parameter As New SqlParameter("@enforcementId", enforcementId)
-            Return DB.GetSingleValue(Of Integer)(query, parameter)
+            Return DB.GetInteger(query, parameter)
         End Function
 
         Public Function SaveNewStipulatedPenalty(enforcementId As String, airsNumber As Apb.ApbFacilityId,

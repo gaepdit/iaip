@@ -927,7 +927,7 @@ Public Class IAIPPrintOut
                     If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 13, 1) = "1" Then
                         WitnessingEngineer2 = "--Conf--"
                     Else
-                        WitnessingEngineer2 = DB.GetSingleValue(Of String)(SQL, p)
+                        WitnessingEngineer2 = DB.GetString(SQL, p)
                     End If
                 Else
                     WitnessingEngineer2 = " "
@@ -1896,7 +1896,7 @@ Public Class IAIPPrintOut
                     If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 13, 1) = "1" Then
                         WitnessingEngineer2 = "--Conf--"
                     Else
-                        WitnessingEngineer2 = DB.GetSingleValue(Of String)(SQL, p)
+                        WitnessingEngineer2 = DB.GetString(SQL, p)
                     End If
                 Else
                     WitnessingEngineer2 = " "
@@ -2948,7 +2948,7 @@ Public Class IAIPPrintOut
                     If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 13, 1) = "1" Then
                         WitnessingEngineer2 = "--Conf--"
                     Else
-                        WitnessingEngineer2 = DB.GetSingleValue(Of String)(SQL, p)
+                        WitnessingEngineer2 = DB.GetString(SQL, p)
                     End If
                 Else
                     WitnessingEngineer2 = " "
@@ -4247,7 +4247,7 @@ Public Class IAIPPrintOut
                     If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 13, 1) = "1" Then
                         WitnessingEngineer2 = "--Conf--"
                     Else
-                        WitnessingEngineer2 = DB.GetSingleValue(Of String)(SQL, p)
+                        WitnessingEngineer2 = DB.GetString(SQL, p)
                     End If
                 Else
                     WitnessingEngineer2 = " "
@@ -5498,7 +5498,7 @@ Public Class IAIPPrintOut
                     If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 13, 1) = "1" Then
                         WitnessingEngineer2 = "--Conf--"
                     Else
-                        WitnessingEngineer2 = DB.GetSingleValue(Of String)(SQL, p)
+                        WitnessingEngineer2 = DB.GetString(SQL, p)
                     End If
                 Else
                     WitnessingEngineer2 = " "
@@ -6205,7 +6205,7 @@ Public Class IAIPPrintOut
                     If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 13, 1) = "1" Then
                         WitnessingEngineer2 = "--Conf--"
                     Else
-                        WitnessingEngineer2 = DB.GetSingleValue(Of String)(SQL, p)
+                        WitnessingEngineer2 = DB.GetString(SQL, p)
                     End If
                 Else
                     WitnessingEngineer2 = " "
@@ -7011,7 +7011,7 @@ Public Class IAIPPrintOut
                     If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 13, 1) = "1" Then
                         WitnessingEngineer2 = "--Conf--"
                     Else
-                        WitnessingEngineer2 = DB.GetSingleValue(Of String)(SQL, p)
+                        WitnessingEngineer2 = DB.GetString(SQL, p)
                     End If
                 Else
                     WitnessingEngineer2 = " "
@@ -7847,7 +7847,7 @@ Public Class IAIPPrintOut
                     If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 13, 1) = "1" Then
                         WitnessingEngineer2 = "--Conf--"
                     Else
-                        WitnessingEngineer2 = DB.GetSingleValue(Of String)(SQL, p)
+                        WitnessingEngineer2 = DB.GetString(SQL, p)
                     End If
                 Else
                     WitnessingEngineer2 = " "
@@ -8541,7 +8541,7 @@ Public Class IAIPPrintOut
                     If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 13, 1) = "1" Then
                         WitnessingEngineer2 = "--Conf--"
                     Else
-                        WitnessingEngineer2 = DB.GetSingleValue(Of String)(SQL, p)
+                        WitnessingEngineer2 = DB.GetString(SQL, p)
                     End If
                 Else
                     WitnessingEngineer2 = " "
@@ -8976,7 +8976,7 @@ Public Class IAIPPrintOut
                     If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 13, 1) = "1" Then
                         WitnessingEngineer2 = "--Conf--"
                     Else
-                        WitnessingEngineer2 = DB.GetSingleValue(Of String)(SQL, p)
+                        WitnessingEngineer2 = DB.GetString(SQL, p)
                     End If
                 Else
                     WitnessingEngineer2 = " "
@@ -9431,7 +9431,7 @@ Public Class IAIPPrintOut
                     If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 13, 1) = "1" Then
                         WitnessingEngineer2 = "--Conf--"
                     Else
-                        WitnessingEngineer2 = DB.GetSingleValue(Of String)(SQL, p)
+                        WitnessingEngineer2 = DB.GetString(SQL, p)
                     End If
                 Else
                     WitnessingEngineer2 = " "
@@ -10074,7 +10074,7 @@ Public Class IAIPPrintOut
                     If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 13, 1) = "1" Then
                         WitnessingEngineer2 = "--Conf--"
                     Else
-                        WitnessingEngineer2 = DB.GetSingleValue(Of String)(SQL, p)
+                        WitnessingEngineer2 = DB.GetString(SQL, p)
                     End If
                 Else
                     WitnessingEngineer2 = " "
@@ -10627,7 +10627,7 @@ Public Class IAIPPrintOut
                     If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 13, 1) = "1" Then
                         WitnessingEngineer2 = "--Conf--"
                     Else
-                        WitnessingEngineer2 = DB.GetSingleValue(Of String)(SQL, p)
+                        WitnessingEngineer2 = DB.GetString(SQL, p)
                     End If
                 Else
                     WitnessingEngineer2 = " "
@@ -11234,7 +11234,7 @@ Public Class IAIPPrintOut
                     If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 13, 1) = "1" Then
                         WitnessingEngineer2 = "--Conf--"
                     Else
-                        WitnessingEngineer2 = DB.GetSingleValue(Of String)(SQL, p)
+                        WitnessingEngineer2 = DB.GetString(SQL, p)
                     End If
                 Else
                     WitnessingEngineer2 = " "
@@ -12104,7 +12104,7 @@ Public Class IAIPPrintOut
                     If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 13, 1) = "1" Then
                         WitnessingEngineer2 = "--Conf--"
                     Else
-                        WitnessingEngineer2 = DB.GetSingleValue(Of String)(SQL, p)
+                        WitnessingEngineer2 = DB.GetString(SQL, p)
                     End If
                 Else
                     WitnessingEngineer2 = " "
@@ -13172,7 +13172,7 @@ Public Class IAIPPrintOut
                     If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 13, 1) = "1" Then
                         WitnessingEngineer2 = "--Conf--"
                     Else
-                        WitnessingEngineer2 = DB.GetSingleValue(Of String)(SQL, p)
+                        WitnessingEngineer2 = DB.GetString(SQL, p)
                     End If
                 Else
                     WitnessingEngineer2 = " "
