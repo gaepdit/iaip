@@ -9,7 +9,7 @@ Namespace DAL.Sspp
 #Region " Read "
 
         Public Function PermitExists(permitNumber As String) As Boolean
-            Dim query As String = "SELECT 1 " &
+            Dim query As String = "SELECT CONVERT( bit, COUNT(*)) " &
                 " FROM APBISSUEDPERMIT " &
                 " WHERE STRPERMITNUMBER = @permitnumber "
 

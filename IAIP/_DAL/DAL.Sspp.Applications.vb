@@ -8,7 +8,7 @@ Namespace DAL.Sspp
         Public Function ApplicationExists(appNumber As String) As Boolean
             If appNumber = "" OrElse Not Integer.TryParse(appNumber, Nothing) Then Return False
 
-            Dim query As String = "SELECT 1 " &
+            Dim query As String = "SELECT CONVERT( bit, COUNT(*)) " &
                 " FROM SSPPAPPLICATIONMASTER " &
                 " WHERE SSPPAPPLICATIONMASTER.STRAPPLICATIONNUMBER = @id "
 
