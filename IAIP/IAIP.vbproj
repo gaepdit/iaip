@@ -53,11 +53,11 @@
     <InstallUrl>http://dmu.georgiaair.org/iaip/install/</InstallUrl>
     <ProductName>Integrated Air Information Platform</ProductName>
     <PublisherName>State of Georgia</PublisherName>
-    <MinimumRequiredVersion>4.3.9.0</MinimumRequiredVersion>
+    <MinimumRequiredVersion>4.4.0.0</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>installer.html</WebPage>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>4.3.9.0</ApplicationVersion>
+    <ApplicationVersion>4.4.0.0</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -135,7 +135,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Oracle.ManagedDataAccess, Version=4.121.2.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=MSIL">
-      <HintPath>..\packages\Oracle.ManagedDataAccess.12.1.24160419\lib\net40\Oracle.ManagedDataAccess.dll</HintPath>
+      <HintPath>..\packages\Oracle.ManagedDataAccess.12.1.24160719\lib\net40\Oracle.ManagedDataAccess.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System">
@@ -365,9 +365,6 @@
     </Compile>
     <Compile Include="SSCP\SubPages\SSCPEnforcementChecklist.Designer.vb">
       <DependentUpon>SSCPEnforcementChecklist.vb</DependentUpon>
-    </Compile>
-    <Compile Include="SSCP\SubPages\SSCPWorkEntry.Designer.vb">
-      <DependentUpon>SSCPWorkEntry.vb</DependentUpon>
     </Compile>
     <Compile Include="Universal Forms\BaseForm.Designer.vb">
       <DependentUpon>BaseForm.vb</DependentUpon>
@@ -793,9 +790,6 @@
       <DependentUpon>SSCPEnforcementSelector.vb</DependentUpon>
     </Compile>
     <Compile Include="SSCP\SubPages\SSCPEnforcementSelector.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="SSCP\SubPages\SSCPWorkEntry.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="SSPP\SSPPPublicNoticiesAndAdvisories.Designer.vb">
@@ -1357,10 +1351,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SSCP\SubPages\SSCPEnforcementSelector.resx">
       <DependentUpon>SSCPEnforcementSelector.vb</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SSCP\SubPages\SSCPWorkEntry.resx">
-      <DependentUpon>SSCPWorkEntry.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="SSPP\SSPPPublicNoticiesAndAdvisories.resx">

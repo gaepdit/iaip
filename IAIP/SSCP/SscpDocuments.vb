@@ -426,7 +426,7 @@ Public Class SscpDocuments
         If Message IsNot Nothing Then Message.Clear()
 
         Dim doc As EnforcementDocument = EnforcementDocumentFromFileListRow(dgvDocumentList.CurrentRow)
-        Me.Message = New IaipMessage(GetDocumentMessage(DocumentMessageType.DownloadingFile), doc.FileName)
+        Me.Message = New IaipMessage(GetDocumentMessage(DocumentMessageType.DownloadingFile))
 
         Dim canceled As Boolean = False
         Dim downloaded As Boolean = DownloadDocument(doc, canceled, Me)

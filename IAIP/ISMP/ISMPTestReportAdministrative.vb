@@ -562,8 +562,6 @@ Public Class ISMPTestReportAdministrative
                     "'0413" & AIRSNumber & "', '" & CurrentUser.UserID & "', " &
                     "'" & OracleDate & "')"
 
-                    'This SQl statement was changed on 15-Oct-09 when LookUpAPBManagementType was created. MFloyd
-
                     SQL2 = "Insert into AIRBRANCH.ISMPReportInformation " &
            "(strReferenceNumber, strPollutant, strEmissionSource, " &
            "strReportType, strDocumentType, strApplicableRequirement, " &
@@ -588,7 +586,7 @@ Public Class ISMPTestReportAdministrative
            "(SELECT " &
            "CASE  WHEN strDistrictResponsible <> 'False' AND strDistrictResponsible IS NOT NULL         THEN strDistrictManager  " &
            "WHEN to_char(TABLE1.STRASSIGNINGMANAGER) <> '1' AND to_char(TABLE1.STRASSIGNINGMANAGER) IS NOT NULL THEN to_char(TABLE1.STRASSIGNINGMANAGER) " &
-           " ELSE '337' " &
+           " ELSE '0' " &
            "END ManagerResponsible  " &
            "from AIRBRANCH.LookUPDistricts, AIRBRANCH.LOOKUPDISTRICTINFORMATION,  " &
            "AIRBRANCH.SSCPDISTRICTRESPONSIBLE,     " &
@@ -614,25 +612,7 @@ Public Class ISMPTestReportAdministrative
            "(select strManagementName from AIRBRANCH.LookUpAPBManagementType " &
            "where strKey = '" & DAL.EpdManagementTypes.IsmpProgramManager.ToString & "' and strCurrentContact = 'C' ), " &
            "'01', " &
-           "(SELECT " &
-           "CASE " &
-           "WHEN strDistrictResponsible <> 'False' AND strDistrictResponsible IS NOT NULL " &
-           "THEN '0' ELSE '0' " &
-           "END ManagerResponsible " &
-           "from AIRBRANCH.LookUPDistricts, AIRBRANCH.LOOKUPDISTRICTINFORMATION,  " &
-           "AIRBRANCH.SSCPDistrictResponsible,     " &
-           "(select AIRBRANCH.SSCPINSPECTIONSREQUIRED.STRASSIGNINGMANAGER, " &
-            "AIRBRANCH.SSCPINSPECTIONSREQUIRED.strAIRSNumber " &
-            "from AIRBRANCH.SSCPINSPECTIONSREQUIRED, " &
-            "(select max(INTYEAR) as MAXYEAR, STRAIRSNUMBER " &
-            "from AIRBRANCH.SSCPINSPECTIONSREQUIRED " &
-            "group by STRAIRSNUMBER) MAXRESULTS " &
-            "where AIRBRANCH.SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER = MAXRESULTS.STRAIRSNUMBER " &
-            "and AIRBRANCH.SSCPINSPECTIONSREQUIRED.INTYEAR = MAXRESULTS.MAXYEAR) Table1 " &
-           "WHERE AIRBRANCH.LOOKUPDISTRICTINFORMATION.strDistrictCode = AIRBRANCH.LookUPDistricts.strDistrictCode (+) " &
-           "AND AIRBRANCH.SSCPDistrictResponsible.strAIRSNumber = Table1.strAIRSnumber (+) " &
-           "AND SUBSTR(AIRBRANCH.SSCPDistrictResponsible.strAIRSNumber, 5, 3) = strDistrictCounty (+) " &
-           "AND AIRBRANCH.SSCPDistrictResponsible.strAIRSNumber = '0413" & cboAIRSNumber.Text & "'), " &
+           "'0', " &
            "'" & CurrentUser.UserID & "', '" & OracleDate & "', " &
            "'N/A', '', '')"
 
