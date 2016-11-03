@@ -1,18 +1,15 @@
 Imports System.Data.SqlClient
-Imports System.IO
 Imports System.Collections.Generic
 Imports EpdIt
 
 Public Class SSPPApplicationTrackingLog
     Dim MasterApp As String
-    Dim TimeStamp As String
+    Dim TimeStamp As DateTimeOffset = Nothing
     Dim FormStatus As String
     Dim dtFacAppHistory As DataTable
     Dim dtFacInfoHistory As DataTable
-    Dim recExist As Boolean
 
     Private Sub SSPPPermitTrackingLog_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        
         Try
 
             FormStatus = "Loading"
@@ -40,12 +37,10 @@ Public Class SSPPApplicationTrackingLog
         End Try
     End Sub
 
-
 #Region "Page Load Functions"
-    Sub LoadDefaults()
+
+    Private Sub LoadDefaults()
         Try
-
-
             'Application Tracking Tab
             txtApplicationNumber.Clear()
             txtAIRSNumber.Clear()
@@ -206,7 +201,7 @@ Public Class SSPPApplicationTrackingLog
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub LoadComboBoxes()
+    Private Sub LoadComboBoxes()
         Try
             cboOperationalStatus.Items.Add("O - Operating")
             cboOperationalStatus.Items.Add("P - Planned")
@@ -226,14 +221,14 @@ Public Class SSPPApplicationTrackingLog
             cboPublicAdvisory.Items.Add("PA Not Needed")
 
             Dim query As String = "SELECT 'N/A' AS EngineerName, 0 AS NUMUSERID " &
-                "FROM DUAL " &
+                " " &
                 "UNION " &
-                "SELECT(u.STRLASTNAME || ', ' || u.STRFIRSTNAME) AS EngineerName " &
+                "SELECT concat(u.STRLASTNAME , ', ' , u.STRFIRSTNAME) AS EngineerName " &
                 "  , u.NUMUSERID " &
                 "FROM EPDUSERPROFILES u " &
                 "WHERE u.NUMPROGRAM = 5 " &
                 "UNION " &
-                "SELECT DISTINCT(u.STRLASTNAME || ', ' || u.STRFIRSTNAME) AS " &
+                "SELECT concat(u.STRLASTNAME , ', ' , u.STRFIRSTNAME) AS " &
                 "  EngineerName, u.NUMUSERID " &
                 "FROM EPDUSERPROFILES u " &
                 "INNER JOIN SSPPAPPLICATIONMASTER a ON " &
@@ -249,9 +244,8 @@ Public Class SSPPApplicationTrackingLog
             End With
 
             query = "SELECT 'N/A' AS EngineerName, 0 AS NUMUSERID " &
-                "FROM DUAL " &
                 "UNION " &
-                "SELECT(STRLASTNAME || ', ' ||STRFIRSTNAME) AS EngineerName, " &
+                "SELECT concat(STRLASTNAME , ', ' ,STRFIRSTNAME) AS EngineerName, " &
                 "  NUMUSERID " &
                 "FROM EPDUSERPROFILES " &
                 "WHERE NUMPROGRAM = '4' " &
@@ -265,9 +259,8 @@ Public Class SSPPApplicationTrackingLog
             End With
 
             query = "SELECT 'N/A' AS EngineerName, 0 AS NUMUSERID " &
-                "FROM DUAL " &
                 "UNION " &
-                "SELECT(STRLASTNAME || ', ' ||STRFIRSTNAME) AS EngineerName, " &
+                "SELECT concat(STRLASTNAME , ', ' ,STRFIRSTNAME) AS EngineerName, " &
                 "  NUMUSERID " &
                 "FROM EPDUSERPROFILES " &
                 "WHERE NUMPROGRAM = '3' " &
@@ -283,7 +276,7 @@ Public Class SSPPApplicationTrackingLog
             query = "SELECT STRCOUNTYCODE, STRCOUNTYNAME " &
                 "FROM LOOKUPCOUNTYINFORMATION " &
                 "UNION " &
-                "SELECT '000', ' N/A' FROM DUAL ORDER BY STRCOUNTYNAME"
+                "SELECT '000', ' N/A' ORDER BY STRCOUNTYNAME"
             Dim dtCountyList As DataTable = DB.GetDataTable(query)
             With cboCounty
                 .DataSource = dtCountyList
@@ -303,7 +296,7 @@ Public Class SSPPApplicationTrackingLog
                 "FROM LOOKUPPERMITTYPES " &
                 "WHERE STRTYPEUSED <> 'False' OR STRTYPEUSED IS NULL " &
                 "UNION " &
-                "SELECT ' ', ' ' FROM DUAL ORDER BY STRPERMITTYPEDESCRIPTION"
+                "SELECT ' ', ' ' ORDER BY STRPERMITTYPEDESCRIPTION"
             Dim dtPermitType As DataTable = DB.GetDataTable(query)
             With cboPermitAction
                 .DataSource = dtPermitType
@@ -325,7 +318,7 @@ Public Class SSPPApplicationTrackingLog
                 "FROM LOOKUPEPDUNITS " &
                 "WHERE NUMPROGRAMCODE = 5 " &
                 "UNION " &
-                "SELECT ' ', 0 FROM DUAL ORDER BY STRUNITDESC"
+                "SELECT ' ', 0 ORDER BY STRUNITDESC"
             Dim dtSSPPUnit As DataTable = DB.GetDataTable(query)
             With cboApplicationUnit
                 .DataSource = dtSSPPUnit
@@ -338,7 +331,7 @@ Public Class SSPPApplicationTrackingLog
                 "FROM LOOKUPEPDUNITS " &
                 "WHERE NUMPROGRAMCODE = 4 " &
                 "UNION " &
-                "SELECT 'No Review Needed', 0 FROM DUAL ORDER BY STRUNITDESC"
+                "SELECT 'No Review Needed', 0 ORDER BY STRUNITDESC"
             Dim dtSSCPUnit As DataTable = DB.GetDataTable(query)
             With cboSSCPUnits
                 .DataSource = dtSSCPUnit
@@ -351,7 +344,7 @@ Public Class SSPPApplicationTrackingLog
                 "FROM LOOKUPEPDUNITS " &
                 "WHERE NUMPROGRAMCODE = 3 " &
                 "UNION " &
-                "SELECT 'No Review Needed', 0 FROM DUAL ORDER BY STRUNITDESC"
+                "SELECT 'No Review Needed', 0 ORDER BY STRUNITDESC"
             Dim dtISMPUnit As DataTable = DB.GetDataTable(query)
             With cboISMPUnits
                 .DataSource = dtISMPUnit
@@ -365,7 +358,7 @@ Public Class SSPPApplicationTrackingLog
         End Try
     End Sub
 
-    Sub LoadPermissions()
+    Private Sub LoadPermissions()
         Try
             'DMU developers and DMU Manager  - VALIDATED 
             'AccountArray(129, 3) = "1"
@@ -2335,13 +2328,12 @@ Public Class SSPPApplicationTrackingLog
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub LoadFacilityApplicationHistory()
+    Private Sub LoadFacilityApplicationHistory()
         Dim AIRSNumber As String
         Dim query As String
         Dim parameter As SqlParameter
 
         Try
-
             query = "Select strAIRSNumber " &
             "from SSPPApplicationMaster " &
             "where strApplicationNumber = @appnumber"
@@ -2358,15 +2350,15 @@ Public Class SSPPApplicationTrackingLog
             "End strApplicationTypeDesc, " &
             "case " &
             "    when SSPPApplicationMaster.strStaffResponsible is Null then ' ' " &
-            "else (strLastName||', '||strFirstName) " &
+            "else concat(strLastName,', ',strFirstName) " &
             "end staffResponsible, " &
             "case " &
             "    when SSPPApplicationMaster.datFinalizedDate is Null then ' ' " &
-            "else to_char(SSPPApplicationMaster.datFinalizedDate, 'FMMonth DD, YYYY') " &
+            "else format(SSPPApplicationMaster.datFinalizedDate, 'MMMM d, yyyy') " &
             "end FinalizedDate, " &
             "case " &
             "    when SSPPApplicationTracking.datSentByFacility is Null then ' ' " &
-            "else to_char(SSPPApplicationTracking.datSentByFacility, 'FMMonth DD, YYYY') " &
+            "else format(SSPPApplicationTracking.datSentByFacility, 'MMMM d, yyyy') " &
             "end DateSent, " &
             "case " &
             "    when LookUpEPDUnits.strUnitDesc is Null then ' ' " &
@@ -2380,14 +2372,19 @@ Public Class SSPPApplicationTrackingLog
             "    when SSPPApplicationData.strApplicationNotes is Null then ' ' " &
             "else SSPPApplicationData.strApplicationNotes " &
             "end strApplicationNotes " &
-            "from SSPPApplicationData, SSPPApplicationMaster, SSPPApplicationTracking, " &
-            "EPDUserProfiles, LookUpEPDUnits, LookUpApplicationTypes  " &
-            "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber " &
-            "and SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber " &
-            "and EPDUserProfiles.numUserID = SSPPApplicationMaster.strStaffResponsible " &
-            "and SSPPApplicationMaster.APBUnit = LookUpEPDUnits.numUnitCode (+) " &
-            "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode (+) " &
-            "and SSPPApplicationMaster.strAIRSNumber = @AIRSNumber "
+            "from SSPPApplicationData " &
+            "inner join SSPPApplicationMaster " &
+            "on SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber " &
+            "inner join SSPPApplicationTracking " &
+            "on SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber " &
+            "inner join EPDUserProfiles " &
+            "on EPDUserProfiles.numUserID = SSPPApplicationMaster.strStaffResponsible " &
+            "left join LookUpEPDUnits " &
+            "on SSPPApplicationMaster.APBUnit = LookUpEPDUnits.numUnitCode " &
+            "left join LookUpApplicationTypes " &
+            "on SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode " &
+            "where SSPPApplicationMaster.strAIRSNumber = @AIRSNumber "
+
             parameter = New SqlParameter("@AIRSNumber", AIRSNumber)
 
             dtFacAppHistory = DB.GetDataTable(query, parameter)
@@ -2431,14 +2428,14 @@ Public Class SSPPApplicationTrackingLog
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub LoadInformationRequestedHistory()
+    Private Sub LoadInformationRequestedHistory()
         Try
 
             Dim query As String = "Select " &
                "strApplicationNumber, strRequestKey, " &
                "Case " &
                "   when datInformationRequested is Null then ' ' " &
-               "else to_char(datInformationRequested, 'FMMonth DD, YYYY') " &
+               "else format(datInformationRequested, 'MMMM d, yyyy') " &
                "End InformationRequested, " &
                "case " &
                "when strInformationrequested is Null then ' ' " &
@@ -2446,7 +2443,7 @@ Public Class SSPPApplicationTrackingLog
                "end strInformationrequested, " &
                "case " &
                "    when datInformationReceived is null then ' ' " &
-               "else to_char(datInformationReceived, 'FMMonth DD, YYYY') " &
+               "else format(datInformationReceived, 'MMMM d, yyyy') " &
                "End InformationReceived, " &
                "case " &
                "when strInformationReceived is Null then ' ' " &
@@ -2493,12 +2490,12 @@ Public Class SSPPApplicationTrackingLog
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub LoadSubPartData()
+    Private Sub LoadSubPartData()
         Try
-            Dim dtPart60 As DataTable = DB.GetDataTable("Select strSubPart, strSubPart || ' - ' || strDescription as strDescription from LookupSubPart60 order by strSubpart ")
-            Dim dtPart61 As DataTable = DB.GetDataTable("Select strSubPart, strSubPart || ' - ' || strDescription as strDescription from LookupSubPart61 order by strSubpart ")
-            Dim dtPart63 As DataTable = DB.GetDataTable("Select strSubPart, strSubPart || ' - ' || strDescription as strDescription from LookupSubPart63 order by strSubpart ")
-            Dim dtSIP As DataTable = DB.GetDataTable("Select strSubPart, strSubPart || ' - ' || strDescription as strDescription from LookUpSubPartSIP order by strSubPart ")
+            Dim dtPart60 As DataTable = DB.GetDataTable("Select strSubPart, concat(strSubPart , ' - ' , strDescription) as strDescription from LookupSubPart60 order by strSubpart ")
+            Dim dtPart61 As DataTable = DB.GetDataTable("Select strSubPart, concat(strSubPart , ' - ' , strDescription) as strDescription from LookupSubPart61 order by strSubpart ")
+            Dim dtPart63 As DataTable = DB.GetDataTable("Select strSubPart, concat(strSubPart , ' - ' , strDescription) as strDescription from LookupSubPart63 order by strSubpart ")
+            Dim dtSIP As DataTable = DB.GetDataTable("Select strSubPart, concat(strSubPart , ' - ' , strDescription) as strDescription from LookUpSubPartSIP order by strSubPart ")
 
             With cboSIPSubpart
                 .DataSource = dtSIP
@@ -2535,8 +2532,7 @@ Public Class SSPPApplicationTrackingLog
 
 #End Region
 
-#Region "Subs and Functions"
-    Sub LoadBasicFacilityInfo()
+    Private Sub LoadBasicFacilityInfo()
         Dim Facilityname As String = ""
         Dim FacilityStreet As String = ""
         Dim FacilityCity As String = ""
@@ -2575,185 +2571,177 @@ Public Class SSPPApplicationTrackingLog
             "strPlantDescription, " &
             "APBHeaderData.strAttainmentStatus, " &
             "strStateProgramCodes, strDistrictResponsible " &
-            "from APBFacilityInformation, APBHeaderData, " &
-            "LookUpCountyInformation, " &
-            "LookUpDistrictInformation, LookUPDistricts, " &
-            "APBSupplamentalData, SSCPDistrictResponsible " &
-            "where APBFacilityInformation.strAIRSNumber = APBHeaderData.strAIRSNumber " &
-            "and SUBSTRING(APBFacilityInformation.strAIRSNumber, 5, 3) = LookUpCountyInformation.strCountyCode " &
-            "and SUBSTRING(APBFacilityInformation.strAIRSNumber, 5, 3) = LookUpDistrictInformation.strDistrictCounty " &
-            "and LookUpDistrictInformation.strDistrictCode = LookUPDistricts.strDistrictCode " &
-            "and APBFacilityInformation.strAIRSNumber = APBSupplamentalData.strAIRSNumber " &
-            "and APBFacilityInformation.strAIRSNumber = SSCPDistrictResponsible.strAIRSnumber (+) " &
-            "and APBFacilityInformation.strAIRSNumber = @AirsNumber "
+            "from APBFacilityInformation " &
+            "inner join APBHeaderData " &
+            "on APBFacilityInformation.strAIRSNumber = APBHeaderData.strAIRSNumber " &
+            "inner join LookUpCountyInformation " &
+            "on SUBSTRING(APBFacilityInformation.strAIRSNumber, 5, 3) = LookUpCountyInformation.strCountyCode " &
+            "inner join LookUpDistrictInformation " &
+            "on SUBSTRING(APBFacilityInformation.strAIRSNumber, 5, 3) = LookUpDistrictInformation.strDistrictCounty " &
+            "inner join LookUPDistricts " &
+            "on LookUpDistrictInformation.strDistrictCode = LookUPDistricts.strDistrictCode " &
+            "inner join APBSupplamentalData " &
+            "on APBFacilityInformation.strAIRSNumber = APBSupplamentalData.strAIRSNumber " &
+            "left join SSCPDistrictResponsible " &
+            "on APBFacilityInformation.strAIRSNumber = SSCPDistrictResponsible.strAIRSnumber " &
+            "where APBFacilityInformation.strAIRSNumber = @AirsNumber "
+
             Dim parameter As New SqlParameter("@AirsNumber", "0413" & txtAIRSNumber.Text)
 
-            Using connection As New SqlConnection(CurrentConnectionString)
-                Using cmd As SqlCommand = connection.CreateCommand
-                    cmd.CommandType = CommandType.Text
-                    cmd.CommandText = query
-                    cmd.Parameters.Add(parameter)
-                    cmd.Connection.Open()
-                    Using dr As SqlDataReader = cmd.ExecuteReader
+            Dim dr As DataRow = DB.GetDataRow(query, parameter)
 
-                        recExist = dr.Read
-                        If recExist = True Then
-                            If IsDBNull(dr.Item("strFacilityName")) Then
-                                Facilityname = "N/A"
-                            Else
-                                Facilityname = dr.Item("strFacilityname")
-                            End If
-                            If IsDBNull(dr.Item("strFacilityStreet1")) Then
-                                FacilityStreet = "N/A"
-                            Else
-                                FacilityStreet = dr.Item("strFacilityStreet1")
-                            End If
-                            If IsDBNull(dr.Item("strFacilityCity")) Then
-                                FacilityCity = "N/A"
-                            Else
-                                FacilityCity = dr.Item("strFacilityCity")
-                            End If
-                            If IsDBNull(dr.Item("strFacilityZipCode")) Then
-                                FacilityZipCode = "N/A"
-                            Else
-                                FacilityZipCode = dr.Item("strFacilityZipCode")
-                            End If
-                            If IsDBNull(dr.Item("strOperationalStatus")) Then
-                                OperationalStatus = "N/A"
-                            Else
-                                OperationalStatus = dr.Item("strOperationalStatus")
-                                OperationalStatusLine = "Operating Status - " & OperationalStatus
-                            End If
-                            If IsDBNull(dr.Item("strClass")) Then
-                                Classification = "N/A"
-                            Else
-                                Classification = dr.Item("strClass")
-                                ClassificationLine = "Classification - " & Classification
-                            End If
-                            If IsDBNull(dr.Item("strAirProgramCodes")) Then
-                                AirProgramCodes = "000000000000000"
-                            Else
-                                AirProgramCodes = dr.Item("strAirProgramCodes")
-                            End If
-                            If IsDBNull(dr.Item("strSICCode")) Then
-                                SIC = "N/A"
-                            Else
-                                SIC = dr.Item("strSICCode")
-                                SICLine = "SIC Code - " & SIC
-                            End If
-                            If IsDBNull(dr.Item("strNAICSCode")) Then
-                                NAICS = "N/A"
-                            Else
-                                NAICS = dr.Item("strNAICSCode")
-                                NAICSLine = "NAICS Code - " & NAICS
-                            End If
-                            If IsDBNull(dr.Item("strCountyName")) Then
-                                CountyName = "N/A"
-                            Else
-                                CountyName = dr.Item("strCountyName")
-                            End If
-                            If IsDBNull(dr.Item("strDistrictName")) Then
-                                District = "N/A"
-                            Else
-                                District = dr.Item("strDistrictName")
-                            End If
-                            If IsDBNull(dr.Item("strAttainmentStatus")) Then
-                                Attainment = "00000"
-                            Else
-                                Attainment = dr.Item("strAttainmentstatus")
-                            End If
-                            If IsDBNull(dr.Item("strStateProgramCodes")) Then
-                                StateProgramCodes = "00000"
-                            Else
-                                StateProgramCodes = dr.Item("strStateProgramCodes")
-                            End If
-                            If IsDBNull(dr.Item("strPlantDescription")) Then
-                                PlantDesc = "N/A"
-                            Else
-                                PlantDesc = dr.Item("strPlantDescription")
-                            End If
-                            PlantLine = "Plant Description - " & PlantDesc
-                            If IsDBNull(dr.Item("strDistrictResponsible")) Then
-                                DistResponsible = "False"
-                            Else
-                                DistResponsible = dr.Item("strDistrictResponsible")
-                            End If
-                        Else
-                            Facilityname = "N/A"
-                            FacilityStreet = "N/A"
-                            FacilityCity = "N/A"
-                            FacilityZipCode = "N/A"
-                            OperationalStatus = "N/A"
-                            OperationalStatusLine = "Operating Status - "
-                            Classification = "N/A"
-                            ClassificationLine = "Classification - "
-                            AirProgramCodes = "000000000000000"
-                            SIC = "N/A"
-                            SICLine = "SIC Code - "
-                            NAICS = "N/A"
-                            NAICSLine = "NAICS Code - "
-                            CountyName = "N/A"
-                            District = "N/A"
-                            Attainment = "00000"
-                            StateProgramCodes = "00000"
-                            PlantDesc = "N/A"
-                            PlantLine = "Plant Description - "
-                            DistResponsible = "False"
-                        End If
-
-                    End Using
-                    cmd.Connection.Close()
-                End Using
-            End Using
+            If dr IsNot Nothing Then
+                If IsDBNull(dr.Item("strFacilityName")) Then
+                    Facilityname = "N/A"
+                Else
+                    Facilityname = dr.Item("strFacilityname")
+                End If
+                If IsDBNull(dr.Item("strFacilityStreet1")) Then
+                    FacilityStreet = "N/A"
+                Else
+                    FacilityStreet = dr.Item("strFacilityStreet1")
+                End If
+                If IsDBNull(dr.Item("strFacilityCity")) Then
+                    FacilityCity = "N/A"
+                Else
+                    FacilityCity = dr.Item("strFacilityCity")
+                End If
+                If IsDBNull(dr.Item("strFacilityZipCode")) Then
+                    FacilityZipCode = "N/A"
+                Else
+                    FacilityZipCode = dr.Item("strFacilityZipCode")
+                End If
+                If IsDBNull(dr.Item("strOperationalStatus")) Then
+                    OperationalStatus = "N/A"
+                Else
+                    OperationalStatus = dr.Item("strOperationalStatus")
+                    OperationalStatusLine = "Operating Status - " & OperationalStatus
+                End If
+                If IsDBNull(dr.Item("strClass")) Then
+                    Classification = "N/A"
+                Else
+                    Classification = dr.Item("strClass")
+                    ClassificationLine = "Classification - " & Classification
+                End If
+                If IsDBNull(dr.Item("strAirProgramCodes")) Then
+                    AirProgramCodes = "000000000000000"
+                Else
+                    AirProgramCodes = dr.Item("strAirProgramCodes")
+                End If
+                If IsDBNull(dr.Item("strSICCode")) Then
+                    SIC = "N/A"
+                Else
+                    SIC = dr.Item("strSICCode")
+                    SICLine = "SIC Code - " & SIC
+                End If
+                If IsDBNull(dr.Item("strNAICSCode")) Then
+                    NAICS = "N/A"
+                Else
+                    NAICS = dr.Item("strNAICSCode")
+                    NAICSLine = "NAICS Code - " & NAICS
+                End If
+                If IsDBNull(dr.Item("strCountyName")) Then
+                    CountyName = "N/A"
+                Else
+                    CountyName = dr.Item("strCountyName")
+                End If
+                If IsDBNull(dr.Item("strDistrictName")) Then
+                    District = "N/A"
+                Else
+                    District = dr.Item("strDistrictName")
+                End If
+                If IsDBNull(dr.Item("strAttainmentStatus")) Then
+                    Attainment = "00000"
+                Else
+                    Attainment = dr.Item("strAttainmentstatus")
+                End If
+                If IsDBNull(dr.Item("strStateProgramCodes")) Then
+                    StateProgramCodes = "00000"
+                Else
+                    StateProgramCodes = dr.Item("strStateProgramCodes")
+                End If
+                If IsDBNull(dr.Item("strPlantDescription")) Then
+                    PlantDesc = "N/A"
+                Else
+                    PlantDesc = dr.Item("strPlantDescription")
+                End If
+                PlantLine = "Plant Description - " & PlantDesc
+                If IsDBNull(dr.Item("strDistrictResponsible")) Then
+                    DistResponsible = "False"
+                Else
+                    DistResponsible = dr.Item("strDistrictResponsible")
+                End If
+            Else
+                Facilityname = "N/A"
+                FacilityStreet = "N/A"
+                FacilityCity = "N/A"
+                FacilityZipCode = "N/A"
+                OperationalStatus = "N/A"
+                OperationalStatusLine = "Operating Status - "
+                Classification = "N/A"
+                ClassificationLine = "Classification - "
+                AirProgramCodes = "000000000000000"
+                SIC = "N/A"
+                SICLine = "SIC Code - "
+                NAICS = "N/A"
+                NAICSLine = "NAICS Code - "
+                CountyName = "N/A"
+                District = "N/A"
+                Attainment = "00000"
+                StateProgramCodes = "00000"
+                PlantDesc = "N/A"
+                PlantLine = "Plant Description - "
+                DistResponsible = "False"
+            End If
 
             If Mid(AirProgramCodes, 1, 1) = 1 Then
-                AirPrograms = "   0 - SIP" & vbCrLf
+                AirPrograms = "   0 - SIP" & vbNewLine
             Else
             End If
             If Mid(AirProgramCodes, 2, 1) = 1 Then
-                AirPrograms = AirPrograms & "   1 - Federal SIP" & vbCrLf
+                AirPrograms = AirPrograms & "   1 - Federal SIP" & vbNewLine
             End If
             If Mid(AirProgramCodes, 3, 1) = 1 Then
-                AirPrograms = AirPrograms & "   3 - Non-Federal SIP" & vbCrLf
+                AirPrograms = AirPrograms & "   3 - Non-Federal SIP" & vbNewLine
             End If
             If Mid(AirProgramCodes, 4, 1) = 1 Then
-                AirPrograms = AirPrograms & "   4 - CFC Tracking" & vbCrLf
+                AirPrograms = AirPrograms & "   4 - CFC Tracking" & vbNewLine
             End If
             If Mid(AirProgramCodes, 5, 1) = 1 Then
-                AirPrograms = AirPrograms & "   6 - PSD" & vbCrLf
+                AirPrograms = AirPrograms & "   6 - PSD" & vbNewLine
             End If
             If Mid(AirProgramCodes, 6, 1) = 1 Then
-                AirPrograms = AirPrograms & "   7 - NSR" & vbCrLf
+                AirPrograms = AirPrograms & "   7 - NSR" & vbNewLine
             Else
             End If
             If Mid(AirProgramCodes, 7, 1) = 1 Then
-                AirPrograms = AirPrograms & "   8 - NESHAP" & vbCrLf
+                AirPrograms = AirPrograms & "   8 - NESHAP" & vbNewLine
             Else
             End If
             If Mid(AirProgramCodes, 8, 1) = 1 Then
-                AirPrograms = AirPrograms & "   9 - NSPS" & vbCrLf
+                AirPrograms = AirPrograms & "   9 - NSPS" & vbNewLine
             Else
             End If
             If Mid(AirProgramCodes, 9, 1) = 1 Then
-                AirPrograms = AirPrograms & "   F - FESOP" & vbCrLf
+                AirPrograms = AirPrograms & "   F - FESOP" & vbNewLine
             Else
             End If
             If Mid(AirProgramCodes, 10, 1) = 1 Then
-                AirPrograms = AirPrograms & "   A - Acid Precipitation" & vbCrLf
+                AirPrograms = AirPrograms & "   A - Acid Precipitation" & vbNewLine
             Else
             End If
             If Mid(AirProgramCodes, 11, 1) = 1 Then
-                AirPrograms = AirPrograms & "   I - Native American" & vbCrLf
+                AirPrograms = AirPrograms & "   I - Native American" & vbNewLine
             End If
             If Mid(AirProgramCodes, 12, 1) = 1 Then
-                AirPrograms = AirPrograms & "   M - MACT" & vbCrLf
+                AirPrograms = AirPrograms & "   M - MACT" & vbNewLine
             Else
             End If
             If Mid(AirProgramCodes, 13, 1) = 1 Then
-                AirPrograms = AirPrograms & "   V - Title V Permit" & vbCrLf
+                AirPrograms = AirPrograms & "   V - Title V Permit" & vbNewLine
             Else
             End If
-            AirProgramLine = "Air Program(s) - " & vbCrLf & AirPrograms
+            AirProgramLine = "Air Program(s) - " & vbNewLine & AirPrograms
 
             Select Case Mid(Attainment, 2, 1)
                 Case 0
@@ -2770,13 +2758,13 @@ Public Class SSPPApplicationTrackingLog
                     AttainmentStatus = AttainmentStatus & ""
                 Case 1
                     If AttainmentStatus <> "" Then
-                        AttainmentStatus = AttainmentStatus & vbCrLf & "8-hr Atlanta"
+                        AttainmentStatus = AttainmentStatus & vbNewLine & "8-hr Atlanta"
                     Else
                         AttainmentStatus = "   8-hr Atlanta"
                     End If
                 Case 2
                     If AttainmentStatus <> "" Then
-                        AttainmentStatus = AttainmentStatus & vbCrLf & "8-hr Macon"
+                        AttainmentStatus = AttainmentStatus & vbNewLine & "8-hr Macon"
                     Else
                         AttainmentStatus = "   8-hr Macon"
                     End If
@@ -2788,25 +2776,25 @@ Public Class SSPPApplicationTrackingLog
                     AttainmentStatus = AttainmentStatus & ""
                 Case 1
                     If AttainmentStatus <> "" Then
-                        AttainmentStatus = AttainmentStatus & vbCrLf & "PM 2.5 Atlanta"
+                        AttainmentStatus = AttainmentStatus & vbNewLine & "PM 2.5 Atlanta"
                     Else
                         AttainmentStatus = "   PM 2.5 Atlanta"
                     End If
                 Case 2
                     If AttainmentStatus <> "" Then
-                        AttainmentStatus = AttainmentStatus & vbCrLf & "PM 2.5  Chattanooga"
+                        AttainmentStatus = AttainmentStatus & vbNewLine & "PM 2.5  Chattanooga"
                     Else
                         AttainmentStatus = "   PM 2.5  Chattanooga"
                     End If
                 Case 3
                     If AttainmentStatus <> "" Then
-                        AttainmentStatus = AttainmentStatus & vbCrLf & "PM 2.5 Floyd"
+                        AttainmentStatus = AttainmentStatus & vbNewLine & "PM 2.5 Floyd"
                     Else
                         AttainmentStatus = "   PM 2.5 Floyd"
                     End If
                 Case 4
                     If AttainmentStatus <> "" Then
-                        AttainmentStatus = AttainmentStatus & vbCrLf & "PM 2.5 Macon"
+                        AttainmentStatus = AttainmentStatus & vbNewLine & "PM 2.5 Macon"
                     Else
                         AttainmentStatus = "   PM 2.5 Macon"
                     End If
@@ -2817,7 +2805,7 @@ Public Class SSPPApplicationTrackingLog
             If AttainmentStatus = "" Then
                 AttainmentStatus = "Non Attainment Area - N/A"
             Else
-                AttainmentStatus = "Non Attainment Area - " & vbCrLf & AttainmentStatus
+                AttainmentStatus = "Non Attainment Area - " & vbNewLine & AttainmentStatus
             End If
 
             Select Case Mid(StateProgramCodes, 1, 1)
@@ -2843,23 +2831,23 @@ Public Class SSPPApplicationTrackingLog
             If StatePrograms = "" Then
                 StatePrograms = "State Codes - N/A"
             Else
-                StatePrograms = "State Codes - " & vbCrLf & StatePrograms
+                StatePrograms = "State Codes - " & vbNewLine & StatePrograms
             End If
 
             rtbFacilityInformation.Clear()
-            rtbFacilityInformation.Text = "AIRS # - " & txtAIRSNumber.Text & vbCrLf & vbCrLf &
-            Facilityname & vbCrLf &
-            FacilityStreet & vbCrLf &
-            FacilityCity & ", GA " & FacilityZipCode & vbCrLf & vbCrLf &
-            OperationalStatusLine & vbCrLf &
-            ClassificationLine & vbCrLf &
-            SICLine & vbCrLf &
-            NAICSLine & vbCrLf &
+            rtbFacilityInformation.Text = "AIRS # - " & txtAIRSNumber.Text & vbNewLine & vbNewLine &
+            Facilityname & vbNewLine &
+            FacilityStreet & vbNewLine &
+            FacilityCity & ", GA " & FacilityZipCode & vbNewLine & vbNewLine &
+            OperationalStatusLine & vbNewLine &
+            ClassificationLine & vbNewLine &
+            SICLine & vbNewLine &
+            NAICSLine & vbNewLine &
             AirProgramLine &
-            StatePrograms & vbCrLf &
-            "County - " & CountyName & vbCrLf &
-            "District - " & District & vbCrLf &
-            AttainmentStatus & vbCrLf & vbCrLf &
+            StatePrograms & vbNewLine &
+            "County - " & CountyName & vbNewLine &
+            "District - " & District & vbNewLine &
+            AttainmentStatus & vbNewLine & vbNewLine &
             PlantLine
 
             cboCounty.SelectedIndex = cboCounty.FindString(CountyName)
@@ -2899,8 +2887,6 @@ Public Class SSPPApplicationTrackingLog
                         cboClassification.Text = "SM - SYNTHETIC MINOR"
                     Case "PR"
                         cboClassification.Text = "PR - PERMIT BY RULE"
-                    'Case "U"
-                    '   cboClassification.Text = "U - UNDEFINED"
                     Case Else
                         cboClassification.Text = ""
                 End Select
@@ -3003,39 +2989,39 @@ Public Class SSPPApplicationTrackingLog
                         chbHAPsMajor.Checked = False
                 End Select
             Else
-                If txtFacilityName.Text <> Facilityname Then
+                If txtFacilityName.Text <> Facilityname And rtbFacilityInformation.Find(Facilityname) <> -1 Then
                     rtbFacilityInformation.SelectionStart = rtbFacilityInformation.Find(Facilityname)
                     rtbFacilityInformation.SelectionColor = Color.Tomato
                 End If
-                If txtFacilityStreetAddress.Text <> FacilityStreet Then
+                If txtFacilityStreetAddress.Text <> FacilityStreet And rtbFacilityInformation.Find(FacilityStreet) <> -1 Then
                     rtbFacilityInformation.SelectionStart = rtbFacilityInformation.Find(FacilityStreet)
                     rtbFacilityInformation.SelectionColor = Color.Tomato
                 End If
-                If cboFacilityCity.Text <> FacilityCity Then
+                If cboFacilityCity.Text <> FacilityCity And rtbFacilityInformation.Find(FacilityCity) <> -1 Then
                     rtbFacilityInformation.SelectionStart = rtbFacilityInformation.Find(FacilityCity)
                     rtbFacilityInformation.SelectionColor = Color.Tomato
                 End If
-                If txtFacilityZipCode.Text <> FacilityZipCode Then
+                If txtFacilityZipCode.Text <> FacilityZipCode And rtbFacilityInformation.Find(FacilityZipCode) <> -1 Then
                     rtbFacilityInformation.SelectionStart = rtbFacilityInformation.Find(FacilityZipCode)
                     rtbFacilityInformation.SelectionColor = Color.Tomato
                 End If
-                If txtSICCode.Text <> SIC Then
+                If txtSICCode.Text <> SIC And rtbFacilityInformation.Find(SICLine) <> -1 Then
                     rtbFacilityInformation.SelectionStart = rtbFacilityInformation.Find(SICLine)
                     rtbFacilityInformation.SelectionColor = Color.Tomato
                 End If
-                If txtNAICSCode.Text <> NAICS Then
+                If txtNAICSCode.Text <> NAICS And rtbFacilityInformation.Find(NAICSLine) <> -1 Then
                     rtbFacilityInformation.SelectionStart = rtbFacilityInformation.Find(NAICSLine)
                     rtbFacilityInformation.SelectionColor = Color.Tomato
                 End If
-                If Mid(cboOperationalStatus.Text, 1, 1) <> OperationalStatus Then
+                If Mid(cboOperationalStatus.Text, 1, 1) <> OperationalStatus And rtbFacilityInformation.Find(OperationalStatusLine) <> -1 Then
                     rtbFacilityInformation.SelectionStart = rtbFacilityInformation.Find(OperationalStatusLine)
                     rtbFacilityInformation.SelectionColor = Color.Tomato
                 End If
-                If Mid(cboClassification.Text, 1, 1) <> Mid(Classification, 1, 1) Then
+                If Mid(cboClassification.Text, 1, 1) <> Mid(Classification, 1, 1) And rtbFacilityInformation.Find(ClassificationLine) <> -1 Then
                     rtbFacilityInformation.SelectionStart = rtbFacilityInformation.Find(ClassificationLine)
                     rtbFacilityInformation.SelectionColor = Color.Tomato
                 End If
-                If txtPlantDescription.Text <> PlantDesc Then
+                If txtPlantDescription.Text <> PlantDesc And rtbFacilityInformation.Find(PlantLine) <> -1 Then
                     rtbFacilityInformation.SelectionStart = rtbFacilityInformation.Find(PlantLine)
                     rtbFacilityInformation.SelectionColor = Color.Tomato
                 End If
@@ -3183,7 +3169,7 @@ Public Class SSPPApplicationTrackingLog
             ErrorReport(ex, txtAIRSNumber.Text, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub LoadMiscData()
+    Private Sub LoadMiscData()
         Try
 
             Dim Attainment As String = ""
@@ -3237,7 +3223,7 @@ Public Class SSPPApplicationTrackingLog
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub LoadContactData()
+    Private Sub LoadContactData()
         Try
             If DAL.Sspp.ApplicationExists(txtApplicationNumber.Text) Then
                 Dim query As String = "Select " &
@@ -3260,100 +3246,89 @@ Public Class SSPPApplicationTrackingLog
 
                 Dim parameter As New SqlParameter("@appnumber", txtApplicationNumber.Text)
 
-                Using connection As New SqlConnection(CurrentConnectionString)
-                    Using cmd As SqlCommand = connection.CreateCommand
-                        cmd.CommandType = CommandType.Text
-                        cmd.CommandText = query
-                        cmd.Parameters.Add(parameter)
-                        cmd.Connection.Open()
-                        Using dr As SqlDataReader = cmd.ExecuteReader
+                Dim dr As DataRow = DB.GetDataRow(query, parameter)
 
-                            While dr.Read
-                                If IsDBNull(dr.Item("strContactFirstname")) Then
-                                    txtContactFirstName.Clear()
-                                Else
-                                    txtContactFirstName.Text = dr.Item("strContactFirstName")
-                                End If
-                                If IsDBNull(dr.Item("strContactLastName")) Then
-                                    txtContactLastName.Clear()
-                                Else
-                                    txtContactLastName.Text = dr.Item("strContactLastName")
-                                End If
-                                If IsDBNull(dr.Item("strContactPrefix")) Then
-                                    txtContactSocialTitle.Clear()
-                                Else
-                                    txtContactSocialTitle.Text = dr.Item("strContactPrefix")
-                                End If
-                                If IsDBNull(dr.Item("strContactSuffix")) Then
-                                    txtContactPedigree.Clear()
-                                Else
-                                    txtContactPedigree.Text = dr.Item("strContactSuffix")
-                                End If
-                                If IsDBNull(dr.Item("strContactTitle")) Then
-                                    txtContactTitle.Clear()
-                                Else
-                                    txtContactTitle.Text = dr.Item("strContactTitle")
-                                End If
-                                If IsDBNull(dr.Item("strContactCompanyName")) Then
-                                    txtContactCompanyName.Clear()
-                                Else
-                                    txtContactCompanyName.Text = dr.Item("strContactCompanyName")
-                                End If
-                                If IsDBNull(dr.Item("strContactPhoneNumber1")) Then
-                                    mtbContactPhoneNumber.Clear()
-                                Else
-                                    mtbContactPhoneNumber.Text = dr.Item("strContactPhoneNumber1")
-                                End If
-                                If IsDBNull(dr.Item("strContactFaxNumber")) Then
-                                    mtbContactFaxNumber.Clear()
-                                Else
-                                    mtbContactFaxNumber.Text = dr.Item("strContactFaxNumber")
-                                End If
-                                If IsDBNull(dr.Item("strContactEmail")) Then
-                                    txtContactEmailAddress.Clear()
-                                Else
-                                    txtContactEmailAddress.Text = dr.Item("strContactEmail")
-                                End If
-                                If IsDBNull(dr.Item("strContactAddress1")) Then
-                                    txtContactStreetAddress.Clear()
-                                Else
-                                    txtContactStreetAddress.Text = dr.Item("strContactAddress1")
-                                End If
-                                If IsDBNull(dr.Item("strContactCity")) Then
-                                    txtContactCity.Clear()
-                                Else
-                                    txtContactCity.Text = dr.Item("strContactCity")
-                                End If
-                                If IsDBNull(dr.Item("strContactState")) Then
-                                    txtContactState.Clear()
-                                Else
-                                    txtContactState.Text = dr.Item("strContactState")
-                                End If
-                                If IsDBNull(dr.Item("strContactZipCode")) Then
-                                    mtbContactZipCode.Clear()
-                                Else
-                                    mtbContactZipCode.Text = dr.Item("strContactZipCode")
-                                End If
-                                If IsDBNull(dr.Item("strContactDescription")) Then
-                                    txtContactDescription.Clear()
-                                Else
-                                    txtContactDescription.Text = dr.Item("strContactDescription")
-                                End If
-                            End While
-
-                        End Using
-                        cmd.Connection.Close()
-                    End Using
-                End Using
+                If dr IsNot Nothing Then
+                    If IsDBNull(dr.Item("strContactFirstname")) Then
+                        txtContactFirstName.Clear()
+                    Else
+                        txtContactFirstName.Text = dr.Item("strContactFirstName")
+                    End If
+                    If IsDBNull(dr.Item("strContactLastName")) Then
+                        txtContactLastName.Clear()
+                    Else
+                        txtContactLastName.Text = dr.Item("strContactLastName")
+                    End If
+                    If IsDBNull(dr.Item("strContactPrefix")) Then
+                        txtContactSocialTitle.Clear()
+                    Else
+                        txtContactSocialTitle.Text = dr.Item("strContactPrefix")
+                    End If
+                    If IsDBNull(dr.Item("strContactSuffix")) Then
+                        txtContactPedigree.Clear()
+                    Else
+                        txtContactPedigree.Text = dr.Item("strContactSuffix")
+                    End If
+                    If IsDBNull(dr.Item("strContactTitle")) Then
+                        txtContactTitle.Clear()
+                    Else
+                        txtContactTitle.Text = dr.Item("strContactTitle")
+                    End If
+                    If IsDBNull(dr.Item("strContactCompanyName")) Then
+                        txtContactCompanyName.Clear()
+                    Else
+                        txtContactCompanyName.Text = dr.Item("strContactCompanyName")
+                    End If
+                    If IsDBNull(dr.Item("strContactPhoneNumber1")) Then
+                        mtbContactPhoneNumber.Clear()
+                    Else
+                        mtbContactPhoneNumber.Text = dr.Item("strContactPhoneNumber1")
+                    End If
+                    If IsDBNull(dr.Item("strContactFaxNumber")) Then
+                        mtbContactFaxNumber.Clear()
+                    Else
+                        mtbContactFaxNumber.Text = dr.Item("strContactFaxNumber")
+                    End If
+                    If IsDBNull(dr.Item("strContactEmail")) Then
+                        txtContactEmailAddress.Clear()
+                    Else
+                        txtContactEmailAddress.Text = dr.Item("strContactEmail")
+                    End If
+                    If IsDBNull(dr.Item("strContactAddress1")) Then
+                        txtContactStreetAddress.Clear()
+                    Else
+                        txtContactStreetAddress.Text = dr.Item("strContactAddress1")
+                    End If
+                    If IsDBNull(dr.Item("strContactCity")) Then
+                        txtContactCity.Clear()
+                    Else
+                        txtContactCity.Text = dr.Item("strContactCity")
+                    End If
+                    If IsDBNull(dr.Item("strContactState")) Then
+                        txtContactState.Clear()
+                    Else
+                        txtContactState.Text = dr.Item("strContactState")
+                    End If
+                    If IsDBNull(dr.Item("strContactZipCode")) Then
+                        mtbContactZipCode.Clear()
+                    Else
+                        mtbContactZipCode.Text = dr.Item("strContactZipCode")
+                    End If
+                    If IsDBNull(dr.Item("strContactDescription")) Then
+                        txtContactDescription.Clear()
+                    Else
+                        txtContactDescription.Text = dr.Item("strContactDescription")
+                    End If
+                End If
             End If
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub LoadApplicationData()
+    Private Sub LoadApplicationData()
         Dim AIRSNumber As String = ""
-        Dim CloseOut As String = ""
+        Dim CloseOut As Boolean = False
         Dim temp As String = ""
         Dim query As String
         Dim parameter As SqlParameter
@@ -3365,8 +3340,10 @@ Public Class SSPPApplicationTrackingLog
                 "datModifingdate " &
                 "from SSPPApplicationMaster " &
                 "where strApplicationNumber = @appnumber "
+
                 parameter = New SqlParameter("@appnumber", txtApplicationNumber.Text)
-                TimeStamp = DB.GetSingleValue(Of String)(query, parameter)
+
+                TimeStamp = DB.GetSingleValue(Of DateTimeOffset)(query, parameter)
 
                 If TCApplicationTrackingLog.TabPages.Contains(TPTrackingLog) Then
                     query = "Select " &
@@ -3398,502 +3375,490 @@ Public Class SSPPApplicationTrackingLog
                     "strTrackedRules, STRSIGNIFICANTCOMMENTS, " &
                     "strPAPosted, strPNPosted " &
                     "from  " &
-                    "SSPPApplicationMaster,  " &
-                    "SSPPApplicationTracking,  " &
-                    "SSPPApplicationData " &
-                    "where " &
-                    "    SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber (+)  " &
-                    "and SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber (+)  " &
-                    "and SSPPApplicationMaster.strApplicationNumber = @appnumber"
+                    "SSPPApplicationMaster  " &
+                    "left join SSPPApplicationTracking  " &
+                    "on SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber " &
+                    "left join SSPPApplicationData " &
+                    "on SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber " &
+                    "where SSPPApplicationMaster.strApplicationNumber = @appnumber"
 
                     parameter = New SqlParameter("@appnumber", txtApplicationNumber.Text)
 
-                    Using connection As New SqlConnection(CurrentConnectionString)
-                        Using cmd As SqlCommand = connection.CreateCommand
-                            cmd.CommandType = CommandType.Text
-                            cmd.CommandText = query
-                            cmd.Parameters.Add(parameter)
-                            cmd.Connection.Open()
-                            Using dr As SqlDataReader = cmd.ExecuteReader
+                    Dim dr As DataRow = DB.GetDataRow(query, parameter)
 
-                                recExist = dr.Read
-                                If recExist = True Then
-                                    If IsDBNull(dr.Item("strAIRSNumber")) Then
-                                        AIRSNumber = ""
-                                    Else
-                                        AIRSNumber = dr.Item("strAIRSNumber")
-                                    End If
-                                    If IsDBNull(dr.Item("strStaffResponsible")) Then
-                                        cboEngineer.SelectedIndex = 0
-                                    Else
-                                        cboEngineer.SelectedValue = dr.Item("strStaffResponsible")
-                                    End If
-                                    If IsDBNull(dr.Item("strTrackedRules")) Then
-                                        chbPSD.Checked = False
-                                        chbNAANSR.Checked = False
-                                        chb112g.Checked = False
-                                        chbRulett.Checked = False
-                                        chbRuleyy.Checked = False
-                                        chbPal.Checked = False
-                                        chbExpedited.Checked = False
-                                        chbConfidential.Checked = False
-                                    Else
-                                        If Mid(dr.Item("strTrackedRules"), 1, 1) = "0" Then
-                                            chbPSD.Checked = False
-                                        Else
-                                            chbPSD.Checked = True
-                                        End If
-                                        If Mid(dr.Item("strTrackedRules"), 2, 1) = "0" Then
-                                            chbNAANSR.Checked = False
-                                        Else
-                                            chbNAANSR.Checked = True
-                                        End If
-                                        If Mid(dr.Item("strTrackedRules"), 3, 1) = "0" Then
-                                            chb112g.Checked = False
-                                        Else
-                                            chb112g.Checked = True
-                                        End If
-                                        If Mid(dr.Item("strTrackedRules"), 4, 1) = "0" Then
-                                            chbRulett.Checked = False
-                                        Else
-                                            chbRulett.Checked = True
-                                        End If
-                                        If Mid(dr.Item("strTrackedRules"), 5, 1) = "0" Then
-                                            chbRuleyy.Checked = False
-                                        Else
-                                            chbRuleyy.Checked = True
-                                        End If
-                                        If Mid(dr.Item("strTrackedRules"), 6, 1) = "0" Then
-                                            chbPal.Checked = False
-                                        Else
-                                            chbPal.Checked = True
-                                        End If
-                                        If Mid(dr.Item("strTrackedRules"), 7, 1) = "0" Then
-                                            chbExpedited.Checked = False
-                                        Else
-                                            chbExpedited.Checked = True
-                                        End If
-                                        If Mid(dr.Item("strTrackedRules"), 8, 1) = "0" Then
-                                            chbConfidential.Checked = False
-                                        Else
-                                            chbConfidential.Checked = True
-                                        End If
-                                    End If
-                                    If IsDBNull(dr.Item("strApplicationType")) Then
-                                        cboApplicationType.SelectedValue = 0
-                                    Else
-                                        cboApplicationType.SelectedValue = dr.Item("strApplicationType")
-                                    End If
-                                    If IsDBNull(dr.Item("strPermitType")) Then
-                                        cboPermitAction.SelectedIndex = 0
-                                    Else
-                                        cboPermitAction.SelectedValue = dr.Item("strPermitType")
-                                        If cboPermitAction.SelectedValue Is Nothing Then
-                                            temp = dr.Item("strPermitType")
-                                            Select Case temp
-                                                Case 1
-                                                    cboPermitAction.Text = "Amendment"
-                                                Case 3
-                                                    cboPermitAction.Text = "Draft"
-                                                Case 4
-                                                    cboPermitAction.Text = "New Permit"
-                                                Case 8
-                                                    cboPermitAction.Text = "PRMT-DNL"
-                                                Case 10
-                                                    cboPermitAction.Text = "Revoked"
-                                                Case 12
-                                                    cboPermitAction.Text = "Initial Title V Permit"
-                                                Case 13
-                                                    cboPermitAction.Text = "Renewal Title V Permit"
-                                            End Select
-                                        End If
-                                    End If
-                                    If IsDBNull(dr.Item("APBUnit")) Then
-                                        cboApplicationUnit.SelectedIndex = 0
-                                    Else
-                                        cboApplicationUnit.SelectedValue = dr.Item("APBUnit")
-                                    End If
-                                    If IsDBNull(dr.Item("datFinalizedDate")) Then
-                                        DTPFinalizedDate.Value = Today
-                                        chbClosedOut.Checked = False
-                                    Else
-                                        DTPFinalizedDate.Text = dr.Item("datFinalizedDate")
-                                        chbClosedOut.Checked = True
-                                    End If
-                                    If IsDBNull(dr.Item("strFacilityName")) Then
-                                        txtFacilityName.Clear()
-                                    Else
-                                        txtFacilityName.Text = dr.Item("strFacilityName")
-                                    End If
-                                    If IsDBNull(dr.Item("strFacilityStreet1")) Then
-                                        txtFacilityStreetAddress.Clear()
-                                    Else
-                                        txtFacilityStreetAddress.Text = dr.Item("strFacilityStreet1")
-                                    End If
-                                    If IsDBNull(dr.Item("strFacilityCity")) Then
-                                        cboFacilityCity.SelectedIndex = 0
-                                    Else
-                                        cboFacilityCity.SelectedIndex = cboFacilityCity.FindString(dr.Item("strFacilityCity"))
-                                    End If
-                                    If IsDBNull(dr.Item("strFacilityZipCode")) Then
-                                        txtFacilityZipCode.Clear()
-                                    Else
-                                        txtFacilityZipCode.Text = dr.Item("strFacilityZipCode")
-                                    End If
-                                    If IsDBNull(dr.Item("strOperationalStatus")) Then
-                                        cboOperationalStatus.Text = ""
-                                    Else
-                                        temp = dr.Item("strOperationalStatus")
-                                        Select Case temp
-                                            Case "O"
-                                                cboOperationalStatus.Text = "O - Operating"
-                                            Case "P"
-                                                cboOperationalStatus.Text = "P - Planned"
-                                            Case "C"
-                                                cboOperationalStatus.Text = "C - Under Construction"
-                                            Case "T"
-                                                cboOperationalStatus.Text = "T - Temporarily Closed"
-                                            Case "X"
-                                                cboOperationalStatus.Text = "X - Permanently Closed"
-                                            Case "I"
-                                                cboOperationalStatus.Text = "I - Seasonal Operation"
-                                            Case Else
-                                                cboOperationalStatus.Text = ""
-                                        End Select
-                                    End If
-                                    If IsDBNull(dr.Item("strClass")) Then
-                                        cboClassification.Text = ""
-                                    Else
-                                        temp = dr.Item("strClass")
-                                        Select Case temp
-                                            Case "A"
-                                                cboClassification.Text = "A - MAJOR"
-                                            Case "B"
-                                                cboClassification.Text = "B - MINOR"
-                                            Case "C"
-                                                cboClassification.Text = "C - UNKNOWN"
-                                            Case "SM"
-                                                cboClassification.Text = "SM - SYNTHETIC MINOR"
-                                            Case "PR"
-                                                cboClassification.Text = "PR - PERMIT BY RULE"
-                                            Case "U"
-                                                cboClassification.Text = "U - UNDEFINED"
-                                            Case Else
-                                                cboClassification.Text = ""
-                                        End Select
-                                    End If
-                                    If IsDBNull(dr.Item("strAirProgramCodes")) Then
-                                        chbCDS_0.Checked = True
-                                        chbCDS_6.Checked = False
-                                        chbCDS_7.Checked = False
-                                        chbCDS_8.Checked = False
-                                        chbCDS_9.Checked = False
-                                        chbCDS_A.Checked = False
-                                        chbCDS_M.Checked = False
-                                        chbCDS_V.Checked = False
-                                        chbCDS_RMP.Checked = False
-                                    Else
-                                        If Mid(dr.Item("strAirProgramCodes"), 1, 1) = 1 Then
-                                            chbCDS_0.Checked = True
-                                        Else
-                                            chbCDS_0.Checked = True
-                                        End If
-                                        If Mid(dr.Item("strAirProgramCodes"), 5, 1) = 1 Then
-                                            chbCDS_6.Checked = True
-                                        Else
-                                            chbCDS_6.Checked = False
-                                        End If
-                                        If Mid(dr.Item("strAirProgramCodes"), 6, 1) = 1 Then
-                                            chbCDS_7.Checked = True
-                                        Else
-                                            chbCDS_7.Checked = False
-                                        End If
-                                        If Mid(dr.Item("strAirProgramCodes"), 7, 1) = 1 Then
-                                            chbCDS_8.Checked = True
-                                        Else
-                                            chbCDS_8.Checked = False
-                                        End If
-                                        If Mid(dr.Item("strAirProgramCodes"), 8, 1) = 1 Then
-                                            chbCDS_9.Checked = True
-                                        Else
-                                            chbCDS_9.Checked = False
-                                        End If
-                                        If Mid(dr.Item("strAirProgramCodes"), 10, 1) = 1 Then
-                                            chbCDS_A.Checked = True
-                                        Else
-                                            chbCDS_A.Checked = False
-                                        End If
-                                        If Mid(dr.Item("strAirProgramCodes"), 12, 1) = 1 Then
-                                            chbCDS_M.Checked = True
-                                        Else
-                                            chbCDS_M.Checked = False
-                                        End If
-                                        If Mid(dr.Item("strAirProgramCodes"), 13, 1) = 1 Then
-                                            chbCDS_V.Checked = True
-                                        Else
-                                            chbCDS_V.Checked = False
-                                        End If
-                                        If Mid(dr.Item("strAIRProgramCodes"), 14, 1) = 1 Then
-                                            chbCDS_RMP.Checked = True
-                                        Else
-                                            chbCDS_RMP.Checked = False
-                                        End If
-                                    End If
-                                    If IsDBNull(dr.Item("strSICCode")) Then
-                                        txtSICCode.Clear()
-                                    Else
-                                        txtSICCode.Text = dr.Item("strSICCode")
-                                    End If
-                                    If IsDBNull(dr.Item("strNAICSCode")) Then
-                                        txtNAICSCode.Clear()
-                                    Else
-                                        txtNAICSCode.Text = dr.Item("strNAICSCode")
-                                    End If
-                                    If IsDBNull(dr.Item("strPermitNumber")) Then
-                                        txtPermitNumber.Clear()
-                                    Else
-                                        If cboApplicationType.Text = "ERC" Then
-                                            Select Case Len(dr.Item("strPermitNumber"))
-                                                Case Is <= 3
-                                                    txtPermitNumber.Text = "ERC"
-                                                Case Is > 8
-                                                    txtPermitNumber.Text = Mid(dr.Item("strPermitNumber"), 1, 3) & "-" & Mid(dr.Item("strPermitNumber"), 4, 5) & "-" & Mid(dr.Item("strPermitNumber"), 9)
-                                                Case Is > 3 <= 8
-                                                    txtPermitNumber.Text = Mid(dr.Item("strPermitNumber"), 1, 3) & "-" & Mid(dr.Item("strPermitNumber"), 4)
+                    If dr IsNot Nothing Then
+                        If IsDBNull(dr.Item("strAIRSNumber")) Then
+                            AIRSNumber = ""
+                        Else
+                            AIRSNumber = dr.Item("strAIRSNumber")
+                        End If
+                        If IsDBNull(dr.Item("strStaffResponsible")) Then
+                            cboEngineer.SelectedIndex = 0
+                        Else
+                            cboEngineer.SelectedValue = dr.Item("strStaffResponsible")
+                        End If
+                        If IsDBNull(dr.Item("strTrackedRules")) Then
+                            chbPSD.Checked = False
+                            chbNAANSR.Checked = False
+                            chb112g.Checked = False
+                            chbRulett.Checked = False
+                            chbRuleyy.Checked = False
+                            chbPal.Checked = False
+                            chbExpedited.Checked = False
+                            chbConfidential.Checked = False
+                        Else
+                            If Mid(dr.Item("strTrackedRules"), 1, 1) = "0" Then
+                                chbPSD.Checked = False
+                            Else
+                                chbPSD.Checked = True
+                            End If
+                            If Mid(dr.Item("strTrackedRules"), 2, 1) = "0" Then
+                                chbNAANSR.Checked = False
+                            Else
+                                chbNAANSR.Checked = True
+                            End If
+                            If Mid(dr.Item("strTrackedRules"), 3, 1) = "0" Then
+                                chb112g.Checked = False
+                            Else
+                                chb112g.Checked = True
+                            End If
+                            If Mid(dr.Item("strTrackedRules"), 4, 1) = "0" Then
+                                chbRulett.Checked = False
+                            Else
+                                chbRulett.Checked = True
+                            End If
+                            If Mid(dr.Item("strTrackedRules"), 5, 1) = "0" Then
+                                chbRuleyy.Checked = False
+                            Else
+                                chbRuleyy.Checked = True
+                            End If
+                            If Mid(dr.Item("strTrackedRules"), 6, 1) = "0" Then
+                                chbPal.Checked = False
+                            Else
+                                chbPal.Checked = True
+                            End If
+                            If Mid(dr.Item("strTrackedRules"), 7, 1) = "0" Then
+                                chbExpedited.Checked = False
+                            Else
+                                chbExpedited.Checked = True
+                            End If
+                            If Mid(dr.Item("strTrackedRules"), 8, 1) = "0" Then
+                                chbConfidential.Checked = False
+                            Else
+                                chbConfidential.Checked = True
+                            End If
+                        End If
+                        If IsDBNull(dr.Item("strApplicationType")) Then
+                            cboApplicationType.SelectedValue = 0
+                        Else
+                            cboApplicationType.SelectedValue = dr.Item("strApplicationType")
+                        End If
+                        If IsDBNull(dr.Item("strPermitType")) Then
+                            cboPermitAction.SelectedIndex = 0
+                        Else
+                            cboPermitAction.SelectedValue = dr.Item("strPermitType")
+                            If cboPermitAction.SelectedValue Is Nothing Then
+                                temp = dr.Item("strPermitType")
+                                Select Case temp
+                                    Case 1
+                                        cboPermitAction.Text = "Amendment"
+                                    Case 3
+                                        cboPermitAction.Text = "Draft"
+                                    Case 4
+                                        cboPermitAction.Text = "New Permit"
+                                    Case 8
+                                        cboPermitAction.Text = "PRMT-DNL"
+                                    Case 10
+                                        cboPermitAction.Text = "Revoked"
+                                    Case 12
+                                        cboPermitAction.Text = "Initial Title V Permit"
+                                    Case 13
+                                        cboPermitAction.Text = "Renewal Title V Permit"
+                                End Select
+                            End If
+                        End If
+                        If IsDBNull(dr.Item("APBUnit")) Then
+                            cboApplicationUnit.SelectedIndex = 0
+                        Else
+                            cboApplicationUnit.SelectedValue = dr.Item("APBUnit")
+                        End If
+                        If IsDBNull(dr.Item("datFinalizedDate")) Then
+                            DTPFinalizedDate.Value = Today
+                            chbClosedOut.Checked = False
+                        Else
+                            DTPFinalizedDate.Text = dr.Item("datFinalizedDate")
+                            chbClosedOut.Checked = True
+                        End If
+                        If IsDBNull(dr.Item("strFacilityName")) Then
+                            txtFacilityName.Clear()
+                        Else
+                            txtFacilityName.Text = dr.Item("strFacilityName")
+                        End If
+                        If IsDBNull(dr.Item("strFacilityStreet1")) Then
+                            txtFacilityStreetAddress.Clear()
+                        Else
+                            txtFacilityStreetAddress.Text = dr.Item("strFacilityStreet1")
+                        End If
+                        If IsDBNull(dr.Item("strFacilityCity")) Then
+                            cboFacilityCity.SelectedIndex = 0
+                        Else
+                            cboFacilityCity.SelectedIndex = cboFacilityCity.FindString(dr.Item("strFacilityCity"))
+                        End If
+                        If IsDBNull(dr.Item("strFacilityZipCode")) Then
+                            txtFacilityZipCode.Clear()
+                        Else
+                            txtFacilityZipCode.Text = dr.Item("strFacilityZipCode")
+                        End If
+                        If IsDBNull(dr.Item("strOperationalStatus")) Then
+                            cboOperationalStatus.Text = ""
+                        Else
+                            temp = dr.Item("strOperationalStatus")
+                            Select Case temp
+                                Case "O"
+                                    cboOperationalStatus.Text = "O - Operating"
+                                Case "P"
+                                    cboOperationalStatus.Text = "P - Planned"
+                                Case "C"
+                                    cboOperationalStatus.Text = "C - Under Construction"
+                                Case "T"
+                                    cboOperationalStatus.Text = "T - Temporarily Closed"
+                                Case "X"
+                                    cboOperationalStatus.Text = "X - Permanently Closed"
+                                Case "I"
+                                    cboOperationalStatus.Text = "I - Seasonal Operation"
+                                Case Else
+                                    cboOperationalStatus.Text = ""
+                            End Select
+                        End If
+                        If IsDBNull(dr.Item("strClass")) Then
+                            cboClassification.Text = ""
+                        Else
+                            temp = dr.Item("strClass")
+                            Select Case temp
+                                Case "A"
+                                    cboClassification.Text = "A - MAJOR"
+                                Case "B"
+                                    cboClassification.Text = "B - MINOR"
+                                Case "C"
+                                    cboClassification.Text = "C - UNKNOWN"
+                                Case "SM"
+                                    cboClassification.Text = "SM - SYNTHETIC MINOR"
+                                Case "PR"
+                                    cboClassification.Text = "PR - PERMIT BY RULE"
+                                Case "U"
+                                    cboClassification.Text = "U - UNDEFINED"
+                                Case Else
+                                    cboClassification.Text = ""
+                            End Select
+                        End If
+                        If IsDBNull(dr.Item("strAirProgramCodes")) Then
+                            chbCDS_0.Checked = True
+                            chbCDS_6.Checked = False
+                            chbCDS_7.Checked = False
+                            chbCDS_8.Checked = False
+                            chbCDS_9.Checked = False
+                            chbCDS_A.Checked = False
+                            chbCDS_M.Checked = False
+                            chbCDS_V.Checked = False
+                            chbCDS_RMP.Checked = False
+                        Else
+                            If Mid(dr.Item("strAirProgramCodes"), 1, 1) = 1 Then
+                                chbCDS_0.Checked = True
+                            Else
+                                chbCDS_0.Checked = True
+                            End If
+                            If Mid(dr.Item("strAirProgramCodes"), 5, 1) = 1 Then
+                                chbCDS_6.Checked = True
+                            Else
+                                chbCDS_6.Checked = False
+                            End If
+                            If Mid(dr.Item("strAirProgramCodes"), 6, 1) = 1 Then
+                                chbCDS_7.Checked = True
+                            Else
+                                chbCDS_7.Checked = False
+                            End If
+                            If Mid(dr.Item("strAirProgramCodes"), 7, 1) = 1 Then
+                                chbCDS_8.Checked = True
+                            Else
+                                chbCDS_8.Checked = False
+                            End If
+                            If Mid(dr.Item("strAirProgramCodes"), 8, 1) = 1 Then
+                                chbCDS_9.Checked = True
+                            Else
+                                chbCDS_9.Checked = False
+                            End If
+                            If Mid(dr.Item("strAirProgramCodes"), 10, 1) = 1 Then
+                                chbCDS_A.Checked = True
+                            Else
+                                chbCDS_A.Checked = False
+                            End If
+                            If Mid(dr.Item("strAirProgramCodes"), 12, 1) = 1 Then
+                                chbCDS_M.Checked = True
+                            Else
+                                chbCDS_M.Checked = False
+                            End If
+                            If Mid(dr.Item("strAirProgramCodes"), 13, 1) = 1 Then
+                                chbCDS_V.Checked = True
+                            Else
+                                chbCDS_V.Checked = False
+                            End If
+                            If Mid(dr.Item("strAIRProgramCodes"), 14, 1) = 1 Then
+                                chbCDS_RMP.Checked = True
+                            Else
+                                chbCDS_RMP.Checked = False
+                            End If
+                        End If
+                        If IsDBNull(dr.Item("strSICCode")) Then
+                            txtSICCode.Clear()
+                        Else
+                            txtSICCode.Text = dr.Item("strSICCode")
+                        End If
+                        If IsDBNull(dr.Item("strNAICSCode")) Then
+                            txtNAICSCode.Clear()
+                        Else
+                            txtNAICSCode.Text = dr.Item("strNAICSCode")
+                        End If
+                        If IsDBNull(dr.Item("strPermitNumber")) Then
+                            txtPermitNumber.Clear()
+                        Else
+                            If cboApplicationType.Text = "ERC" Then
+                                Select Case Len(dr.Item("strPermitNumber"))
+                                    Case Is <= 3
+                                        txtPermitNumber.Text = "ERC"
+                                    Case Is > 8
+                                        txtPermitNumber.Text = Mid(dr.Item("strPermitNumber"), 1, 3) & "-" & Mid(dr.Item("strPermitNumber"), 4, 5) & "-" & Mid(dr.Item("strPermitNumber"), 9)
+                                    Case Is > 3 <= 8
+                                        txtPermitNumber.Text = Mid(dr.Item("strPermitNumber"), 1, 3) & "-" & Mid(dr.Item("strPermitNumber"), 4)
 
-                                                Case Else
-                                                    txtPermitNumber.Text = dr.Item("strPermitNumber")
-                                            End Select
-                                        Else
-                                            Select Case Len(dr.Item("strPermitNumber"))
-                                                Case 15
-                                                    txtPermitNumber.Text = Mid(dr.Item("strPermitNumber"), 1, 4) & "-" & Mid(dr.Item("strPermitNumber"), 5, 3) &
-                                                    "-" & Mid(dr.Item("strPermitNumber"), 8, 4) & "-" & Mid(dr.Item("strPermitNumber"), 12, 1) &
-                                                    "-" & Mid(dr.Item("strPermitNumber"), 13, 2) & "-" & Mid(dr.Item("strPermitNumber"), 15, 1)
-                                                Case Is >= 13 = 14
-                                                    txtPermitNumber.Text = Mid(dr.Item("strPermitNumber"), 1, 4) & "-" & Mid(dr.Item("strPermitNumber"), 5, 3) _
-                                                    & "-" & Mid(dr.Item("strPermitNumber"), 8, 4) & "-" & Mid(dr.Item("strPermitNumber"), 12, 1) _
-                                                    & "-" & Mid(dr.Item("strPermitNumber"), 13)
-                                                Case 12
-                                                    txtPermitNumber.Text = Mid(dr.Item("strPermitNumber"), 1, 4) & "-" & Mid(dr.Item("strPermitNumber"), 5, 3) _
-                                                    & "-" & Mid(dr.Item("strPermitNumber"), 8, 4) & "-" & Mid(dr.Item("strPermitNumber"), 12, 1)
-                                                Case Is >= 8 <= 11
-                                                    txtPermitNumber.Text = Mid(dr.Item("strPermitNumber"), 1, 4) & "-" & Mid(dr.Item("strPermitNumber"), 5, 3) _
-                                                    & "-" & Mid(dr.Item("strPermitNumber"), 8)
-                                                Case Is >= 5 <= 7
-                                                    txtPermitNumber.Text = Mid(dr.Item("strPermitNumber"), 1, 4) & "-" & Mid(dr.Item("strPermitNumber"), 5)
-                                                Case Is <= 4
-                                                    txtPermitNumber.Text = Mid(dr.Item("strPermitNumber"), 1)
-                                                Case Else
-                                                    txtPermitNumber.Text = dr.Item("strPermitNumber")
-                                            End Select
-                                        End If
-                                    End If
-                                    If IsDBNull(dr.Item("strPlantDescription")) Then
-                                        txtPlantDescription.Clear()
-                                    Else
-                                        txtPlantDescription.Text = dr.Item("strPlantDescription")
-                                    End If
-                                    If IsDBNull(dr.Item("DataComments")) Then
-                                        txtComments.Clear()
-                                    Else
-                                        txtComments.Text = dr.Item("DataComments")
-                                    End If
-                                    If IsDBNull(dr.Item("strApplicationNotes")) Then
-                                        txtReasonAppSubmitted.Clear()
-                                    Else
-                                        txtReasonAppSubmitted.Text = dr.Item("strApplicationNotes")
-                                    End If
+                                    Case Else
+                                        txtPermitNumber.Text = dr.Item("strPermitNumber")
+                                End Select
+                            Else
+                                Select Case Len(dr.Item("strPermitNumber"))
+                                    Case 15
+                                        txtPermitNumber.Text = Mid(dr.Item("strPermitNumber"), 1, 4) & "-" & Mid(dr.Item("strPermitNumber"), 5, 3) &
+                                        "-" & Mid(dr.Item("strPermitNumber"), 8, 4) & "-" & Mid(dr.Item("strPermitNumber"), 12, 1) &
+                                        "-" & Mid(dr.Item("strPermitNumber"), 13, 2) & "-" & Mid(dr.Item("strPermitNumber"), 15, 1)
+                                    Case Is >= 13 = 14
+                                        txtPermitNumber.Text = Mid(dr.Item("strPermitNumber"), 1, 4) & "-" & Mid(dr.Item("strPermitNumber"), 5, 3) _
+                                        & "-" & Mid(dr.Item("strPermitNumber"), 8, 4) & "-" & Mid(dr.Item("strPermitNumber"), 12, 1) _
+                                        & "-" & Mid(dr.Item("strPermitNumber"), 13)
+                                    Case 12
+                                        txtPermitNumber.Text = Mid(dr.Item("strPermitNumber"), 1, 4) & "-" & Mid(dr.Item("strPermitNumber"), 5, 3) _
+                                        & "-" & Mid(dr.Item("strPermitNumber"), 8, 4) & "-" & Mid(dr.Item("strPermitNumber"), 12, 1)
+                                    Case Is >= 8 <= 11
+                                        txtPermitNumber.Text = Mid(dr.Item("strPermitNumber"), 1, 4) & "-" & Mid(dr.Item("strPermitNumber"), 5, 3) _
+                                        & "-" & Mid(dr.Item("strPermitNumber"), 8)
+                                    Case Is >= 5 <= 7
+                                        txtPermitNumber.Text = Mid(dr.Item("strPermitNumber"), 1, 4) & "-" & Mid(dr.Item("strPermitNumber"), 5)
+                                    Case Is <= 4
+                                        txtPermitNumber.Text = Mid(dr.Item("strPermitNumber"), 1)
+                                    Case Else
+                                        txtPermitNumber.Text = dr.Item("strPermitNumber")
+                                End Select
+                            End If
+                        End If
+                        If IsDBNull(dr.Item("strPlantDescription")) Then
+                            txtPlantDescription.Clear()
+                        Else
+                            txtPlantDescription.Text = dr.Item("strPlantDescription")
+                        End If
+                        If IsDBNull(dr.Item("DataComments")) Then
+                            txtComments.Clear()
+                        Else
+                            txtComments.Text = dr.Item("DataComments")
+                        End If
+                        If IsDBNull(dr.Item("strApplicationNotes")) Then
+                            txtReasonAppSubmitted.Clear()
+                        Else
+                            txtReasonAppSubmitted.Text = dr.Item("strApplicationNotes")
+                        End If
 
-                                    If IsDBNull(dr.Item("datFinalizedDate")) Then
-                                        CloseOut = "False"
-                                    Else
-                                        CloseOut = "True"
-                                    End If
-                                    If IsDBNull(dr.Item("datReceivedDate")) Then
-                                        DTPDateReceived.Value = Today
-                                    Else
-                                        DTPDateReceived.Text = dr.Item("datReceivedDate")
-                                    End If
-                                    If IsDBNull(dr.Item("datSentByFacility")) Then
-                                        DTPDateSent.Value = Today
-                                    Else
-                                        DTPDateSent.Text = dr.Item("datSentByFacility")
-                                    End If
-                                    If IsDBNull(dr.Item("datAssignedToEngineer")) Then
-                                        DTPDateAssigned.Value = Today
-                                        DTPDateAssigned.Checked = False
-                                    Else
-                                        DTPDateAssigned.Text = dr.Item("datAssignedToEngineer")
-                                        DTPDateAssigned.Checked = True
-                                    End If
-                                    If IsDBNull(dr.Item("datReassignedToEngineer")) Then
-                                        DTPDateReassigned.Value = Today
-                                        DTPDateReassigned.Checked = False
-                                    Else
-                                        DTPDateReassigned.Text = dr.Item("datReassignedToEngineer")
-                                        DTPDateReassigned.Checked = True
-                                    End If
+                        If IsDBNull(dr.Item("datFinalizedDate")) Then
+                            CloseOut = False
+                        Else
+                            CloseOut = True
+                        End If
+                        If IsDBNull(dr.Item("datReceivedDate")) Then
+                            DTPDateReceived.Value = Today
+                        Else
+                            DTPDateReceived.Text = dr.Item("datReceivedDate")
+                        End If
+                        If IsDBNull(dr.Item("datSentByFacility")) Then
+                            DTPDateSent.Value = Today
+                        Else
+                            DTPDateSent.Text = dr.Item("datSentByFacility")
+                        End If
+                        If IsDBNull(dr.Item("datAssignedToEngineer")) Then
+                            DTPDateAssigned.Value = Today
+                            DTPDateAssigned.Checked = False
+                        Else
+                            DTPDateAssigned.Text = dr.Item("datAssignedToEngineer")
+                            DTPDateAssigned.Checked = True
+                        End If
+                        If IsDBNull(dr.Item("datReassignedToEngineer")) Then
+                            DTPDateReassigned.Value = Today
+                            DTPDateReassigned.Checked = False
+                        Else
+                            DTPDateReassigned.Text = dr.Item("datReassignedToEngineer")
+                            DTPDateReassigned.Checked = True
+                        End If
 
-                                    If IsDBNull(dr.Item("datAcknowledgementLetterSent")) Then
-                                        DTPDateAcknowledge.Value = Today
-                                        DTPDateAcknowledge.Checked = False
-                                    Else
-                                        DTPDateAcknowledge.Text = dr.Item("datAcknowledgementLetterSent")
-                                        DTPDateAcknowledge.Checked = True
-                                    End If
-                                    If IsDBNull(dr.Item("strPublicInvolvement")) Then
-                                        cboPublicAdvisory.Text = ""
-                                    Else
-                                        temp = dr.Item("strPublicInvolvement")
-                                        Select Case temp
-                                            Case "0"
-                                                cboPublicAdvisory.Text = "Not Decided"
-                                            Case "1"
-                                                cboPublicAdvisory.Text = "PA Needed"
-                                            Case "2"
-                                                cboPublicAdvisory.Text = "PA Not Needed"
-                                            Case Else
-                                                cboPublicAdvisory.Text = "Not Decided"
-                                        End Select
-                                    End If
-                                    If IsDBNull(dr.Item("datToPMI")) Then
-                                        DTPDateToUC.Value = Today
-                                        DTPDateToUC.Checked = False
-                                    Else
-                                        DTPDateToUC.Text = dr.Item("datToPMI")
-                                        DTPDateToUC.Checked = True
-                                    End If
-                                    If IsDBNull(dr.Item("datToPMII")) Then
-                                        DTPDateToPM.Value = Today
-                                        DTPDateToPM.Checked = False
-                                    Else
-                                        DTPDateToPM.Text = dr.Item("datToPMII")
-                                        DTPDateToPM.Checked = True
-                                    End If
-                                    If IsDBNull(dr.Item("datPermitIssued")) Then
-                                        DTPFinalAction.Value = Today
-                                        DTPFinalAction.Checked = False
-                                    Else
-                                        DTPFinalAction.Text = dr.Item("datPermitIssued")
-                                        DTPFinalAction.Checked = True
-                                    End If
-                                    If IsDBNull(dr.Item("datApplicationDeadLine")) Then
-                                        DTPDeadline.Value = Today
-                                        DTPDeadline.Checked = False
-                                    Else
-                                        DTPDeadline.Text = dr.Item("datApplicationDeadline")
-                                        DTPDeadline.Checked = True
-                                    End If
-                                    If IsDBNull(dr.Item("datDraftIssued")) Then
-                                        DTPDraftIssued.Value = Today
-                                        DTPDraftIssued.Checked = False
-                                    Else
-                                        DTPDraftIssued.Text = dr.Item("datDraftIssued")
-                                        DTPDraftIssued.Checked = True
-                                    End If
-                                    If IsDBNull(dr.Item("datPAExpires")) Then
-                                        DTPDatePAExpires.Value = Today
-                                        DTPDatePAExpires.Checked = False
-                                    Else
-                                        DTPDatePAExpires.Text = dr.Item("datPAExpires")
-                                        DTPDatePAExpires.Checked = True
-                                    End If
-                                    If IsDBNull(dr.Item("datPNExpires")) Then
-                                        DTPDatePNExpires.Value = Today
-                                        DTPDatePNExpires.Checked = False
-                                    Else
-                                        DTPDatePNExpires.Text = dr.Item("datPNExpires")
-                                        DTPDatePNExpires.Checked = True
-                                    End If
-                                    If IsDBNull(dr.Item("strPAReady")) Then
-                                        chbPAReady.Checked = False
-                                    Else
-                                        If dr.Item("strPAReady") = "True" Then
-                                            chbPAReady.Checked = True
-                                        Else
-                                            chbPAReady.Checked = False
-                                        End If
-                                    End If
-                                    If IsDBNull(dr.Item("strPNReady")) Then
-                                        chbPNReady.Checked = False
-                                    Else
-                                        If dr.Item("strPNReady") = "True" Then
-                                            chbPNReady.Checked = True
-                                        Else
-                                            chbPNReady.Checked = False
-                                        End If
-                                    End If
-                                    If IsDBNull(dr.Item("datEPAWaived")) Then
-                                        DTPEPAWaived.Value = Today
-                                        DTPEPAWaived.Checked = False
-                                    Else
-                                        DTPEPAWaived.Text = dr.Item("datEPAWaived")
-                                        DTPEPAWaived.Checked = True
-                                    End If
-                                    If IsDBNull(dr.Item("datEPAEnds")) Then
-                                        DTPEPAEnds.Value = Today
-                                        DTPEPAEnds.Checked = False
-                                    Else
-                                        DTPEPAEnds.Text = dr.Item("datEPAEnds")
-                                        DTPEPAEnds.Checked = True
-                                    End If
-                                    If IsDBNull(dr.Item("datToBranchCheif")) Then
-                                        DTPDateToBC.Value = Today
-                                        DTPDateToBC.Checked = False
-                                    Else
-                                        DTPDateToBC.Text = dr.Item("datToBranchCheif")
-                                        DTPDateToBC.Checked = True
-                                    End If
-                                    If IsDBNull(dr.Item("datToDirector")) Then
-                                        DTPDateToDO.Value = Today
-                                        DTPDateToDO.Checked = False
-                                    Else
-                                        DTPDateToDO.Text = dr.Item("datToDirector")
-                                        DTPDateToDO.Checked = True
-                                    End If
-                                    If IsDBNull(dr.Item("strStateprogramcodes")) Then
-                                        chbNSRMajor.Checked = False
-                                        chbHAPsMajor.Checked = False
-                                    Else
-                                        Select Case Mid(dr.Item("strStateprogramcodes"), 1, 1)
-                                            Case 0
-                                                chbNSRMajor.Checked = False
-                                            Case 1
-                                                chbNSRMajor.Checked = True
-                                            Case Else
-                                                chbNSRMajor.Checked = False
-                                        End Select
-                                        Select Case Mid(dr.Item("strStateprogramcodes"), 2, 1)
-                                            Case 0
-                                                chbHAPsMajor.Checked = False
-                                            Case 1
-                                                chbHAPsMajor.Checked = True
-                                            Case Else
-                                                chbHAPsMajor.Checked = False
-                                        End Select
-                                    End If
+                        If IsDBNull(dr.Item("datAcknowledgementLetterSent")) Then
+                            DTPDateAcknowledge.Value = Today
+                            DTPDateAcknowledge.Checked = False
+                        Else
+                            DTPDateAcknowledge.Text = dr.Item("datAcknowledgementLetterSent")
+                            DTPDateAcknowledge.Checked = True
+                        End If
+                        If IsDBNull(dr.Item("strPublicInvolvement")) Then
+                            cboPublicAdvisory.Text = ""
+                        Else
+                            temp = dr.Item("strPublicInvolvement")
+                            Select Case temp
+                                Case "0"
+                                    cboPublicAdvisory.Text = "Not Decided"
+                                Case "1"
+                                    cboPublicAdvisory.Text = "PA Needed"
+                                Case "2"
+                                    cboPublicAdvisory.Text = "PA Not Needed"
+                                Case Else
+                                    cboPublicAdvisory.Text = "Not Decided"
+                            End Select
+                        End If
+                        If IsDBNull(dr.Item("datToPMI")) Then
+                            DTPDateToUC.Value = Today
+                            DTPDateToUC.Checked = False
+                        Else
+                            DTPDateToUC.Text = dr.Item("datToPMI")
+                            DTPDateToUC.Checked = True
+                        End If
+                        If IsDBNull(dr.Item("datToPMII")) Then
+                            DTPDateToPM.Value = Today
+                            DTPDateToPM.Checked = False
+                        Else
+                            DTPDateToPM.Text = dr.Item("datToPMII")
+                            DTPDateToPM.Checked = True
+                        End If
+                        If IsDBNull(dr.Item("datPermitIssued")) Then
+                            DTPFinalAction.Value = Today
+                            DTPFinalAction.Checked = False
+                        Else
+                            DTPFinalAction.Text = dr.Item("datPermitIssued")
+                            DTPFinalAction.Checked = True
+                        End If
+                        If IsDBNull(dr.Item("datApplicationDeadLine")) Then
+                            DTPDeadline.Value = Today
+                            DTPDeadline.Checked = False
+                        Else
+                            DTPDeadline.Text = dr.Item("datApplicationDeadline")
+                            DTPDeadline.Checked = True
+                        End If
+                        If IsDBNull(dr.Item("datDraftIssued")) Then
+                            DTPDraftIssued.Value = Today
+                            DTPDraftIssued.Checked = False
+                        Else
+                            DTPDraftIssued.Text = dr.Item("datDraftIssued")
+                            DTPDraftIssued.Checked = True
+                        End If
+                        If IsDBNull(dr.Item("datPAExpires")) Then
+                            DTPDatePAExpires.Value = Today
+                            DTPDatePAExpires.Checked = False
+                        Else
+                            DTPDatePAExpires.Text = dr.Item("datPAExpires")
+                            DTPDatePAExpires.Checked = True
+                        End If
+                        If IsDBNull(dr.Item("datPNExpires")) Then
+                            DTPDatePNExpires.Value = Today
+                            DTPDatePNExpires.Checked = False
+                        Else
+                            DTPDatePNExpires.Text = dr.Item("datPNExpires")
+                            DTPDatePNExpires.Checked = True
+                        End If
+                        If IsDBNull(dr.Item("strPAReady")) Then
+                            chbPAReady.Checked = False
+                        Else
+                            If dr.Item("strPAReady") = "True" Then
+                                chbPAReady.Checked = True
+                            Else
+                                chbPAReady.Checked = False
+                            End If
+                        End If
+                        If IsDBNull(dr.Item("strPNReady")) Then
+                            chbPNReady.Checked = False
+                        Else
+                            If dr.Item("strPNReady") = "True" Then
+                                chbPNReady.Checked = True
+                            Else
+                                chbPNReady.Checked = False
+                            End If
+                        End If
+                        If IsDBNull(dr.Item("datEPAWaived")) Then
+                            DTPEPAWaived.Value = Today
+                            DTPEPAWaived.Checked = False
+                        Else
+                            DTPEPAWaived.Text = dr.Item("datEPAWaived")
+                            DTPEPAWaived.Checked = True
+                        End If
+                        If IsDBNull(dr.Item("datEPAEnds")) Then
+                            DTPEPAEnds.Value = Today
+                            DTPEPAEnds.Checked = False
+                        Else
+                            DTPEPAEnds.Text = dr.Item("datEPAEnds")
+                            DTPEPAEnds.Checked = True
+                        End If
+                        If IsDBNull(dr.Item("datToBranchCheif")) Then
+                            DTPDateToBC.Value = Today
+                            DTPDateToBC.Checked = False
+                        Else
+                            DTPDateToBC.Text = dr.Item("datToBranchCheif")
+                            DTPDateToBC.Checked = True
+                        End If
+                        If IsDBNull(dr.Item("datToDirector")) Then
+                            DTPDateToDO.Value = Today
+                            DTPDateToDO.Checked = False
+                        Else
+                            DTPDateToDO.Text = dr.Item("datToDirector")
+                            DTPDateToDO.Checked = True
+                        End If
+                        If IsDBNull(dr.Item("strStateprogramcodes")) Then
+                            chbNSRMajor.Checked = False
+                            chbHAPsMajor.Checked = False
+                        Else
+                            Select Case Mid(dr.Item("strStateprogramcodes"), 1, 1)
+                                Case 0
+                                    chbNSRMajor.Checked = False
+                                Case 1
+                                    chbNSRMajor.Checked = True
+                                Case Else
+                                    chbNSRMajor.Checked = False
+                            End Select
+                            Select Case Mid(dr.Item("strStateprogramcodes"), 2, 1)
+                                Case 0
+                                    chbHAPsMajor.Checked = False
+                                Case 1
+                                    chbHAPsMajor.Checked = True
+                                Case Else
+                                    chbHAPsMajor.Checked = False
+                            End Select
+                        End If
 
-                                    If IsDBNull(dr.Item("STRSIGNIFICANTCOMMENTS")) Then
-                                        txtSignificantComments.Clear()
-                                    Else
-                                        txtSignificantComments.Text = dr.Item("strSignificantComments")
-                                    End If
-                                    If IsDBNull(dr.Item("strPAPosted")) Then
-                                        lblPAReady.Text = ""
-                                    Else
-                                        lblPAReady.Text = dr.Item("strPAPosted")
-                                    End If
-                                    If IsDBNull(dr.Item("strPNPosted")) Then
-                                        lblPNReady.Text = ""
-                                    Else
-                                        lblPNReady.Text = dr.Item("strPNPosted")
-                                    End If
-                                End If
-                            End Using
-                            cmd.Connection.Close()
-                        End Using
-                    End Using
+                        If IsDBNull(dr.Item("STRSIGNIFICANTCOMMENTS")) Then
+                            txtSignificantComments.Clear()
+                        Else
+                            txtSignificantComments.Text = dr.Item("strSignificantComments")
+                        End If
+                        If IsDBNull(dr.Item("strPAPosted")) Then
+                            lblPAReady.Text = ""
+                        Else
+                            lblPAReady.Text = dr.Item("strPAPosted")
+                        End If
+                        If IsDBNull(dr.Item("strPNPosted")) Then
+                            lblPNReady.Text = ""
+                        Else
+                            lblPNReady.Text = dr.Item("strPNPosted")
+                        End If
+                    End If
                 End If
 
                 If TCApplicationTrackingLog.TabPages.Contains(TPReviews) Then
@@ -3910,88 +3875,76 @@ Public Class SSPPApplicationTrackingLog
 
                     parameter = New SqlParameter("@appnumber", txtApplicationNumber.Text)
 
-                    Using connection As New SqlConnection(CurrentConnectionString)
-                        Using cmd As SqlCommand = connection.CreateCommand
-                            cmd.CommandType = CommandType.Text
-                            cmd.CommandText = query
-                            cmd.Parameters.Add(parameter)
-                            cmd.Connection.Open()
-                            Using dr As SqlDataReader = cmd.ExecuteReader
+                    Dim dr As DataRow = DB.GetDataRow(query, parameter)
 
-                                recExist = dr.Read
-                                If recExist = True Then
-                                    If IsDBNull(dr.Item("datReviewsubmitted")) Then
-                                        DTPReviewSubmitted.Value = Today
-                                        DTPReviewSubmitted.Checked = False
-                                    Else
-                                        DTPReviewSubmitted.Text = dr.Item("datReviewsubmitted")
-                                        DTPReviewSubmitted.Checked = True
-                                    End If
-                                    If IsDBNull(dr.Item("strSSCPUnit")) Then
-                                        cboSSCPUnits.SelectedValue = 0
-                                    Else
-                                        cboSSCPUnits.SelectedValue = dr.Item("strSSCPUnit")
-                                    End If
-                                    If IsDBNull(dr.Item("strISMPUnit")) Then
-                                        cboISMPUnits.SelectedValue = 0
-                                    Else
-                                        cboISMPUnits.SelectedValue = dr.Item("strISMPUnit")
-                                    End If
-                                    If IsDBNull(dr.Item("datSSCPReviewDate")) Then
-                                        DTPSSCPReview.Value = Today
-                                        DTPSSCPReview.Checked = False
-                                    Else
-                                        DTPSSCPReview.Text = dr.Item("datSSCPReviewDate")
-                                        DTPSSCPReview.Checked = True
-                                    End If
-                                    If IsDBNull(dr.Item("strSSCPReviewer")) Then
-                                        cboSSCPStaff.SelectedValue = 0
-                                    Else
-                                        cboSSCPStaff.SelectedValue = dr.Item("strSSCPReviewer")
-                                    End If
-                                    If IsDBNull(dr.Item("strSSCPComments")) Then
-                                        rdbSSCPNo.Checked = True
-                                        txtSSCPComments.Clear()
-                                    Else
-                                        If dr.Item("strSSCPComments") = "N/A" Then
-                                            rdbSSCPNo.Checked = True
-                                            txtSSCPComments.Text = ""
-                                        Else
-                                            rdbSSCPYes.Checked = True
-                                            txtSSCPComments.Text = dr.Item("strSSCPComments")
-                                        End If
-                                    End If
+                    If dr IsNot Nothing Then
+                        If IsDBNull(dr.Item("datReviewsubmitted")) Then
+                            DTPReviewSubmitted.Value = Today
+                            DTPReviewSubmitted.Checked = False
+                        Else
+                            DTPReviewSubmitted.Text = dr.Item("datReviewsubmitted")
+                            DTPReviewSubmitted.Checked = True
+                        End If
+                        If IsDBNull(dr.Item("strSSCPUnit")) Then
+                            cboSSCPUnits.SelectedValue = 0
+                        Else
+                            cboSSCPUnits.SelectedValue = dr.Item("strSSCPUnit")
+                        End If
+                        If IsDBNull(dr.Item("strISMPUnit")) Then
+                            cboISMPUnits.SelectedValue = 0
+                        Else
+                            cboISMPUnits.SelectedValue = dr.Item("strISMPUnit")
+                        End If
+                        If IsDBNull(dr.Item("datSSCPReviewDate")) Then
+                            DTPSSCPReview.Value = Today
+                            DTPSSCPReview.Checked = False
+                        Else
+                            DTPSSCPReview.Text = dr.Item("datSSCPReviewDate")
+                            DTPSSCPReview.Checked = True
+                        End If
+                        If IsDBNull(dr.Item("strSSCPReviewer")) Then
+                            cboSSCPStaff.SelectedValue = 0
+                        Else
+                            cboSSCPStaff.SelectedValue = dr.Item("strSSCPReviewer")
+                        End If
+                        If IsDBNull(dr.Item("strSSCPComments")) Then
+                            rdbSSCPNo.Checked = True
+                            txtSSCPComments.Clear()
+                        Else
+                            If dr.Item("strSSCPComments") = "N/A" Then
+                                rdbSSCPNo.Checked = True
+                                txtSSCPComments.Text = ""
+                            Else
+                                rdbSSCPYes.Checked = True
+                                txtSSCPComments.Text = dr.Item("strSSCPComments")
+                            End If
+                        End If
 
-                                    If IsDBNull(dr.Item("datISMPReviewDate")) Then
-                                        DTPISMPReview.Value = Today
-                                        DTPISMPReview.Checked = False
-                                    Else
-                                        DTPISMPReview.Text = dr.Item("datISMPReviewDate")
-                                        DTPISMPReview.Checked = True
-                                    End If
-                                    If IsDBNull(dr.Item("strISMPReviewer")) Then
-                                        cboISMPStaff.SelectedValue = 0
-                                    Else
-                                        cboISMPStaff.SelectedValue = dr.Item("strISMPReviewer")
-                                    End If
-                                    If IsDBNull(dr.Item("strISMPComments")) Then
-                                        rdbISMPNo.Checked = True
-                                        txtISMPComments.Clear()
-                                    Else
-                                        If dr.Item("strISMPComments") = "N/A" Then
-                                            rdbISMPNo.Checked = True
-                                            txtISMPComments.Text = ""
-                                        Else
-                                            rdbISMPYes.Checked = True
-                                            txtISMPComments.Text = dr.Item("strISMPComments")
-                                        End If
-                                    End If
-                                End If
-                            End Using
-                            cmd.Connection.Close()
-                        End Using
-                    End Using
-
+                        If IsDBNull(dr.Item("datISMPReviewDate")) Then
+                            DTPISMPReview.Value = Today
+                            DTPISMPReview.Checked = False
+                        Else
+                            DTPISMPReview.Text = dr.Item("datISMPReviewDate")
+                            DTPISMPReview.Checked = True
+                        End If
+                        If IsDBNull(dr.Item("strISMPReviewer")) Then
+                            cboISMPStaff.SelectedValue = 0
+                        Else
+                            cboISMPStaff.SelectedValue = dr.Item("strISMPReviewer")
+                        End If
+                        If IsDBNull(dr.Item("strISMPComments")) Then
+                            rdbISMPNo.Checked = True
+                            txtISMPComments.Clear()
+                        Else
+                            If dr.Item("strISMPComments") = "N/A" Then
+                                rdbISMPNo.Checked = True
+                                txtISMPComments.Text = ""
+                            Else
+                                rdbISMPYes.Checked = True
+                                txtISMPComments.Text = dr.Item("strISMPComments")
+                            End If
+                        End If
+                    End If
                 End If
 
                 If TCApplicationTrackingLog.TabPages.Contains(TPWebPublisher) Then
@@ -4005,93 +3958,81 @@ Public Class SSPPApplicationTrackingLog
                     "datExperationDate, strTargeted, " &
                     "datPNExpires " &
                     "from  " &
-                    "SSPPApplicationMaster,  " &
-                    "SSPPApplicationTracking,  " &
-                    "SSPPApplicationData " &
-                    "where " &
-                    "    SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber (+)  " &
-                    "and SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber (+)  " &
-                    "and SSPPApplicationMaster.strApplicationNumber = @appnumber"
+                    "SSPPApplicationMaster  " &
+                    "left join SSPPApplicationTracking  " &
+                    "on SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber " &
+                    "left join SSPPApplicationData " &
+                    "on SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber " &
+                    "where SSPPApplicationMaster.strApplicationNumber = @appnumber"
 
                     parameter = New SqlParameter("@appnumber", txtApplicationNumber.Text)
 
-                    Using connection As New SqlConnection(CurrentConnectionString)
-                        Using cmd As SqlCommand = connection.CreateCommand
-                            cmd.CommandType = CommandType.Text
-                            cmd.CommandText = query
-                            cmd.Parameters.Add(parameter)
-                            cmd.Connection.Open()
-                            Using dr As SqlDataReader = cmd.ExecuteReader
+                    Dim dr As DataRow = DB.GetDataRow(query, parameter)
 
-                                recExist = dr.Read
-                                If recExist = True Then
-                                    If IsDBNull(dr.Item("datEPAStatesNotifiedAppRec")) Then
-                                        DTPNotifiedAppReceived.Value = Today
-                                        DTPNotifiedAppReceived.Checked = False
-                                    Else
-                                        DTPNotifiedAppReceived.Text = dr.Item("datEPAStatesNotifiedAppRec")
-                                        DTPNotifiedAppReceived.Checked = True
-                                    End If
-                                    If IsDBNull(dr.Item("datDraftOnWeb")) Then
-                                        DTPDraftOnWeb.Value = Today
-                                        DTPDraftOnWeb.Checked = False
-                                    Else
-                                        DTPDraftOnWeb.Text = dr.Item("datDraftOnWeb")
-                                        DTPDraftOnWeb.Checked = True
-                                    End If
-                                    If IsDBNull(dr.Item("datEPAStatesNotified")) Then
-                                        DTPEPAStatesNotified.Value = Today
-                                        DTPEPAStatesNotified.Checked = False
-                                    Else
-                                        DTPEPAStatesNotified.Text = dr.Item("datEPAStatesNotified")
-                                        DTPEPAStatesNotified.Checked = True
-                                    End If
-                                    If IsDBNull(dr.Item("datFinalOnWeb")) Then
-                                        DTPFinalOnWeb.Value = Today
-                                        DTPFinalOnWeb.Checked = False
-                                    Else
-                                        DTPFinalOnWeb.Text = dr.Item("datFinalOnWeb")
-                                        DTPFinalOnWeb.Checked = True
-                                    End If
-                                    If IsDBNull(dr.Item("DatEPANotified")) Then
-                                        DTPEPANotifiedPermitOnWeb.Value = Today
-                                        DTPEPANotifiedPermitOnWeb.Checked = False
-                                    Else
-                                        DTPEPANotifiedPermitOnWeb.Text = dr.Item("DatEPANotified")
-                                        DTPEPANotifiedPermitOnWeb.Checked = True
-                                    End If
-                                    If IsDBNull(dr.Item("DatEffective")) Then
-                                        DTPEffectiveDateofPermit.Value = Today
-                                        DTPEffectiveDateofPermit.Checked = False
-                                    Else
-                                        DTPEffectiveDateofPermit.Text = dr.Item("datEffective")
-                                        DTPEffectiveDateofPermit.Checked = True
-                                    End If
-                                    If IsDBNull(dr.Item("datExperationDate")) Then
-                                        DTPExperationDate.Value = Today
-                                        DTPExperationDate.Checked = False
-                                    Else
-                                        DTPExperationDate.Checked = True
-                                        DTPExperationDate.Text = dr.Item("datExperationDate")
-                                    End If
-                                    If IsDBNull(dr.Item("strTargeted")) Then
-                                        txtEPATargetedComments.Text = ""
-                                    Else
-                                        txtEPATargetedComments.Text = dr.Item("strTargeted")
-                                    End If
-                                    If IsDBNull(dr.Item("datPNExpires")) Then
-                                        DTPPNExpires.Value = Today
-                                        DTPPNExpires.Checked = False
-                                    Else
-                                        DTPPNExpires.Checked = True
-                                        DTPPNExpires.Text = dr.Item("datPNExpires")
-                                    End If
+                    If dr IsNot Nothing Then
+                        If IsDBNull(dr.Item("datEPAStatesNotifiedAppRec")) Then
+                            DTPNotifiedAppReceived.Value = Today
+                            DTPNotifiedAppReceived.Checked = False
+                        Else
+                            DTPNotifiedAppReceived.Text = dr.Item("datEPAStatesNotifiedAppRec")
+                            DTPNotifiedAppReceived.Checked = True
+                        End If
+                        If IsDBNull(dr.Item("datDraftOnWeb")) Then
+                            DTPDraftOnWeb.Value = Today
+                            DTPDraftOnWeb.Checked = False
+                        Else
+                            DTPDraftOnWeb.Text = dr.Item("datDraftOnWeb")
+                            DTPDraftOnWeb.Checked = True
+                        End If
+                        If IsDBNull(dr.Item("datEPAStatesNotified")) Then
+                            DTPEPAStatesNotified.Value = Today
+                            DTPEPAStatesNotified.Checked = False
+                        Else
+                            DTPEPAStatesNotified.Text = dr.Item("datEPAStatesNotified")
+                            DTPEPAStatesNotified.Checked = True
+                        End If
+                        If IsDBNull(dr.Item("datFinalOnWeb")) Then
+                            DTPFinalOnWeb.Value = Today
+                            DTPFinalOnWeb.Checked = False
+                        Else
+                            DTPFinalOnWeb.Text = dr.Item("datFinalOnWeb")
+                            DTPFinalOnWeb.Checked = True
+                        End If
+                        If IsDBNull(dr.Item("DatEPANotified")) Then
+                            DTPEPANotifiedPermitOnWeb.Value = Today
+                            DTPEPANotifiedPermitOnWeb.Checked = False
+                        Else
+                            DTPEPANotifiedPermitOnWeb.Text = dr.Item("DatEPANotified")
+                            DTPEPANotifiedPermitOnWeb.Checked = True
+                        End If
+                        If IsDBNull(dr.Item("DatEffective")) Then
+                            DTPEffectiveDateofPermit.Value = Today
+                            DTPEffectiveDateofPermit.Checked = False
+                        Else
+                            DTPEffectiveDateofPermit.Text = dr.Item("datEffective")
+                            DTPEffectiveDateofPermit.Checked = True
+                        End If
+                        If IsDBNull(dr.Item("datExperationDate")) Then
+                            DTPExperationDate.Value = Today
+                            DTPExperationDate.Checked = False
+                        Else
+                            DTPExperationDate.Checked = True
+                            DTPExperationDate.Text = dr.Item("datExperationDate")
+                        End If
+                        If IsDBNull(dr.Item("strTargeted")) Then
+                            txtEPATargetedComments.Text = ""
+                        Else
+                            txtEPATargetedComments.Text = dr.Item("strTargeted")
+                        End If
+                        If IsDBNull(dr.Item("datPNExpires")) Then
+                            DTPPNExpires.Value = Today
+                            DTPPNExpires.Checked = False
+                        Else
+                            DTPPNExpires.Checked = True
+                            DTPPNExpires.Text = dr.Item("datPNExpires")
+                        End If
 
-                                End If
-                            End Using
-                            cmd.Connection.Close()
-                        End Using
-                    End Using
+                    End If
                 End If
             End If
 
@@ -4100,15 +4041,13 @@ Public Class SSPPApplicationTrackingLog
             End If
             CheckForLinks()
 
-            If CloseOut <> "" Then
-                CloseOutApplication(CloseOut)
-            End If
+            CloseOutApplication(CloseOut)
 
         Catch ex As Exception
             ErrorReport(ex, temp, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub ReLoadBasicFacilityInfo()
+    Private Sub ReLoadBasicFacilityInfo()
         Try
             Dim Facilityname As String = ""
             Dim FacilityStreet As String = ""
@@ -4157,164 +4096,154 @@ Public Class SSPPApplicationTrackingLog
 
             Dim parameter As New SqlParameter("@airsnumber", "0413" & txtAIRSNumber.Text)
 
-            Using connection As New SqlConnection(CurrentConnectionString)
-                Using cmd As SqlCommand = connection.CreateCommand
-                    cmd.CommandType = CommandType.Text
-                    cmd.CommandText = query
-                    cmd.Parameters.Add(parameter)
-                    cmd.Connection.Open()
-                    Using dr As SqlDataReader = cmd.ExecuteReader
-                        recExist = dr.Read
-                        If recExist = True Then
-                            If IsDBNull(dr.Item("strFacilityName")) Then
-                                Facilityname = "N/A"
-                            Else
-                                Facilityname = dr.Item("strFacilityname")
-                            End If
-                            If IsDBNull(dr.Item("strFacilityStreet1")) Then
-                                FacilityStreet = "N/A"
-                            Else
-                                FacilityStreet = dr.Item("strFacilityStreet1")
-                            End If
-                            If IsDBNull(dr.Item("strFacilityCity")) Then
-                                FacilityCity = "N/A"
-                            Else
-                                FacilityCity = dr.Item("strFacilityCity")
-                            End If
-                            If IsDBNull(dr.Item("strFacilityZipCode")) Then
-                                FacilityZipCode = "N/A"
-                            Else
-                                FacilityZipCode = dr.Item("strFacilityZipCode")
-                            End If
-                            If IsDBNull(dr.Item("strOperationalStatus")) Then
-                                OperationalStatus = "N/A"
-                            Else
-                                OperationalStatus = dr.Item("strOperationalStatus")
-                                OperationalStatusLine = "Operating Status - " & OperationalStatus
-                            End If
-                            If IsDBNull(dr.Item("strClass")) Then
-                                Classification = "N/A"
-                            Else
-                                Classification = dr.Item("strClass")
-                                ClassificationLine = "Classification - " & Classification
-                            End If
-                            If IsDBNull(dr.Item("strAirProgramCodes")) Then
-                                AirProgramCodes = "000000000000000"
-                            Else
-                                AirProgramCodes = dr.Item("strAirProgramCodes")
-                            End If
-                            If IsDBNull(dr.Item("strSICCode")) Then
-                                SIC = "N/A"
-                            Else
-                                SIC = dr.Item("strSICCode")
-                                SICLine = "SIC Code - " & SIC
-                            End If
-                            If IsDBNull(dr.Item("strNAICSCode")) Then
-                                NAICS = "N/A"
-                            Else
-                                NAICS = dr.Item("strNAICSCode")
-                                NAICSLine = "NAICS Code - " & NAICS
-                            End If
-                            If IsDBNull(dr.Item("strCountyName")) Then
-                                CountyName = "N/A"
-                            Else
-                                CountyName = dr.Item("strCountyName")
-                            End If
-                            If IsDBNull(dr.Item("strDistrictName")) Then
-                                District = "N/A"
-                            Else
-                                District = dr.Item("strDistrictName")
-                            End If
-                            If IsDBNull(dr.Item("strAttainmentStatus")) Then
-                                Attainment = "00000"
-                            Else
-                                Attainment = dr.Item("strAttainmentstatus")
-                            End If
-                            If IsDBNull(dr.Item("strStateProgramCodes")) Then
-                                StateProgramCodes = "00000"
-                            Else
-                                StateProgramCodes = dr.Item("strStateProgramCodes")
-                            End If
-                            If IsDBNull(dr.Item("strPlantDescription")) Then
-                                PlantDesc = "N/A"
-                            Else
-                                PlantDesc = dr.Item("strPlantDescription")
-                            End If
-                            PlantLine = "Plant Description - " & PlantDesc
-                        Else
-                            Facilityname = "N/A"
-                            FacilityStreet = "N/A"
-                            FacilityCity = "N/A"
-                            FacilityZipCode = "N/A"
-                            OperationalStatus = "N/A"
-                            OperationalStatusLine = "Operating Status - "
-                            Classification = "N/A"
-                            ClassificationLine = "Classification - "
-                            AirProgramCodes = "000000000000000"
-                            SIC = "N/A"
-                            SICLine = "SIC Code - "
-                            NAICS = "N/A"
-                            NAICSLine = "NAICS Code - "
-                            CountyName = "N/A"
-                            District = "N/A"
-                            Attainment = "00000"
-                            StateProgramCodes = "00000"
-                            PlantDesc = "N/A"
-                            PlantLine = "Plant Description - "
-                        End If
-                    End Using
-                    cmd.Connection.Close()
-                End Using
-            End Using
+            Dim dr As DataRow = DB.GetDataRow(query, parameter)
+
+            If dr IsNot Nothing Then
+                If IsDBNull(dr.Item("strFacilityName")) Then
+                    Facilityname = "N/A"
+                Else
+                    Facilityname = dr.Item("strFacilityname")
+                End If
+                If IsDBNull(dr.Item("strFacilityStreet1")) Then
+                    FacilityStreet = "N/A"
+                Else
+                    FacilityStreet = dr.Item("strFacilityStreet1")
+                End If
+                If IsDBNull(dr.Item("strFacilityCity")) Then
+                    FacilityCity = "N/A"
+                Else
+                    FacilityCity = dr.Item("strFacilityCity")
+                End If
+                If IsDBNull(dr.Item("strFacilityZipCode")) Then
+                    FacilityZipCode = "N/A"
+                Else
+                    FacilityZipCode = dr.Item("strFacilityZipCode")
+                End If
+                If IsDBNull(dr.Item("strOperationalStatus")) Then
+                    OperationalStatus = "N/A"
+                Else
+                    OperationalStatus = dr.Item("strOperationalStatus")
+                    OperationalStatusLine = "Operating Status - " & OperationalStatus
+                End If
+                If IsDBNull(dr.Item("strClass")) Then
+                    Classification = "N/A"
+                Else
+                    Classification = dr.Item("strClass")
+                    ClassificationLine = "Classification - " & Classification
+                End If
+                If IsDBNull(dr.Item("strAirProgramCodes")) Then
+                    AirProgramCodes = "000000000000000"
+                Else
+                    AirProgramCodes = dr.Item("strAirProgramCodes")
+                End If
+                If IsDBNull(dr.Item("strSICCode")) Then
+                    SIC = "N/A"
+                Else
+                    SIC = dr.Item("strSICCode")
+                    SICLine = "SIC Code - " & SIC
+                End If
+                If IsDBNull(dr.Item("strNAICSCode")) Then
+                    NAICS = "N/A"
+                Else
+                    NAICS = dr.Item("strNAICSCode")
+                    NAICSLine = "NAICS Code - " & NAICS
+                End If
+                If IsDBNull(dr.Item("strCountyName")) Then
+                    CountyName = "N/A"
+                Else
+                    CountyName = dr.Item("strCountyName")
+                End If
+                If IsDBNull(dr.Item("strDistrictName")) Then
+                    District = "N/A"
+                Else
+                    District = dr.Item("strDistrictName")
+                End If
+                If IsDBNull(dr.Item("strAttainmentStatus")) Then
+                    Attainment = "00000"
+                Else
+                    Attainment = dr.Item("strAttainmentstatus")
+                End If
+                If IsDBNull(dr.Item("strStateProgramCodes")) Then
+                    StateProgramCodes = "00000"
+                Else
+                    StateProgramCodes = dr.Item("strStateProgramCodes")
+                End If
+                If IsDBNull(dr.Item("strPlantDescription")) Then
+                    PlantDesc = "N/A"
+                Else
+                    PlantDesc = dr.Item("strPlantDescription")
+                End If
+                PlantLine = "Plant Description - " & PlantDesc
+            Else
+                Facilityname = "N/A"
+                FacilityStreet = "N/A"
+                FacilityCity = "N/A"
+                FacilityZipCode = "N/A"
+                OperationalStatus = "N/A"
+                OperationalStatusLine = "Operating Status - "
+                Classification = "N/A"
+                ClassificationLine = "Classification - "
+                AirProgramCodes = "000000000000000"
+                SIC = "N/A"
+                SICLine = "SIC Code - "
+                NAICS = "N/A"
+                NAICSLine = "NAICS Code - "
+                CountyName = "N/A"
+                District = "N/A"
+                Attainment = "00000"
+                StateProgramCodes = "00000"
+                PlantDesc = "N/A"
+                PlantLine = "Plant Description - "
+            End If
 
             If Mid(AirProgramCodes, 1, 1) = 1 Then
-                AirPrograms = "   0 - SIP" & vbCrLf
+                AirPrograms = "   0 - SIP" & vbNewLine
             Else
             End If
             If Mid(AirProgramCodes, 2, 1) = 1 Then
-                AirPrograms = AirPrograms & "   1 - Federal SIP" & vbCrLf
+                AirPrograms = AirPrograms & "   1 - Federal SIP" & vbNewLine
             End If
             If Mid(AirProgramCodes, 3, 1) = 1 Then
-                AirPrograms = AirPrograms & "   3 - Non-Federal SIP" & vbCrLf
+                AirPrograms = AirPrograms & "   3 - Non-Federal SIP" & vbNewLine
             End If
             If Mid(AirProgramCodes, 4, 1) = 1 Then
-                AirPrograms = AirPrograms & "   4 - CFC Tracking" & vbCrLf
+                AirPrograms = AirPrograms & "   4 - CFC Tracking" & vbNewLine
             End If
             If Mid(AirProgramCodes, 5, 1) = 1 Then
-                AirPrograms = AirPrograms & "   6 - PSD" & vbCrLf
+                AirPrograms = AirPrograms & "   6 - PSD" & vbNewLine
             End If
             If Mid(AirProgramCodes, 6, 1) = 1 Then
-                AirPrograms = AirPrograms & "   7 - NSR" & vbCrLf
+                AirPrograms = AirPrograms & "   7 - NSR" & vbNewLine
             Else
             End If
             If Mid(AirProgramCodes, 7, 1) = 1 Then
-                AirPrograms = AirPrograms & "   8 - NESHAP" & vbCrLf
+                AirPrograms = AirPrograms & "   8 - NESHAP" & vbNewLine
             Else
             End If
             If Mid(AirProgramCodes, 8, 1) = 1 Then
-                AirPrograms = AirPrograms & "   9 - NSPS" & vbCrLf
+                AirPrograms = AirPrograms & "   9 - NSPS" & vbNewLine
             Else
             End If
             If Mid(AirProgramCodes, 9, 1) = 1 Then
-                AirPrograms = AirPrograms & "   F - FESOP" & vbCrLf
+                AirPrograms = AirPrograms & "   F - FESOP" & vbNewLine
             Else
             End If
             If Mid(AirProgramCodes, 10, 1) = 1 Then
-                AirPrograms = AirPrograms & "   A - Acid Precipitation" & vbCrLf
+                AirPrograms = AirPrograms & "   A - Acid Precipitation" & vbNewLine
             Else
             End If
             If Mid(AirProgramCodes, 11, 1) = 1 Then
-                AirPrograms = AirPrograms & "   I - Native American" & vbCrLf
+                AirPrograms = AirPrograms & "   I - Native American" & vbNewLine
             End If
             If Mid(AirProgramCodes, 12, 1) = 1 Then
-                AirPrograms = AirPrograms & "   M - MACT" & vbCrLf
+                AirPrograms = AirPrograms & "   M - MACT" & vbNewLine
             Else
             End If
             If Mid(AirProgramCodes, 13, 1) = 1 Then
-                AirPrograms = AirPrograms & "   V - Title V Permit" & vbCrLf
+                AirPrograms = AirPrograms & "   V - Title V Permit" & vbNewLine
             Else
             End If
-            AirProgramLine = "Air Program(s) - " & vbCrLf & AirPrograms
+            AirProgramLine = "Air Program(s) - " & vbNewLine & AirPrograms
 
             Select Case Mid(Attainment, 2, 1)
                 Case 0
@@ -4331,13 +4260,13 @@ Public Class SSPPApplicationTrackingLog
                     AttainmentStatus = AttainmentStatus & ""
                 Case 1
                     If AttainmentStatus <> "" Then
-                        AttainmentStatus = AttainmentStatus & vbCrLf & "8-hr Atlanta"
+                        AttainmentStatus = AttainmentStatus & vbNewLine & "8-hr Atlanta"
                     Else
                         AttainmentStatus = "   8-hr Atlanta"
                     End If
                 Case 2
                     If AttainmentStatus <> "" Then
-                        AttainmentStatus = AttainmentStatus & vbCrLf & "8-hr Macon"
+                        AttainmentStatus = AttainmentStatus & vbNewLine & "8-hr Macon"
                     Else
                         AttainmentStatus = "   8-hr Macon"
                     End If
@@ -4349,25 +4278,25 @@ Public Class SSPPApplicationTrackingLog
                     AttainmentStatus = AttainmentStatus & ""
                 Case 1
                     If AttainmentStatus <> "" Then
-                        AttainmentStatus = AttainmentStatus & vbCrLf & "PM 2.5 Atlanta"
+                        AttainmentStatus = AttainmentStatus & vbNewLine & "PM 2.5 Atlanta"
                     Else
                         AttainmentStatus = "   PM 2.5 Atlanta"
                     End If
                 Case 2
                     If AttainmentStatus <> "" Then
-                        AttainmentStatus = AttainmentStatus & vbCrLf & "PM 2.5  Chattanooga"
+                        AttainmentStatus = AttainmentStatus & vbNewLine & "PM 2.5  Chattanooga"
                     Else
                         AttainmentStatus = "   PM 2.5  Chattanooga"
                     End If
                 Case 3
                     If AttainmentStatus <> "" Then
-                        AttainmentStatus = AttainmentStatus & vbCrLf & "PM 2.5 Floyd"
+                        AttainmentStatus = AttainmentStatus & vbNewLine & "PM 2.5 Floyd"
                     Else
                         AttainmentStatus = "   PM 2.5 Floyd"
                     End If
                 Case 4
                     If AttainmentStatus <> "" Then
-                        AttainmentStatus = AttainmentStatus & vbCrLf & "PM 2.5 Macon"
+                        AttainmentStatus = AttainmentStatus & vbNewLine & "PM 2.5 Macon"
                     Else
                         AttainmentStatus = "   PM 2.5 Macon"
                     End If
@@ -4378,7 +4307,7 @@ Public Class SSPPApplicationTrackingLog
             If AttainmentStatus = "" Then
                 AttainmentStatus = "Non Attainment Area - N/A"
             Else
-                AttainmentStatus = "Non Attainment Area - " & vbCrLf & AttainmentStatus
+                AttainmentStatus = "Non Attainment Area - " & vbNewLine & AttainmentStatus
             End If
 
             Select Case Mid(StateProgramCodes, 1, 1)
@@ -4404,23 +4333,23 @@ Public Class SSPPApplicationTrackingLog
             If StatePrograms = "" Then
                 StatePrograms = "State Codes - N/A"
             Else
-                StatePrograms = "State Codes - " & vbCrLf & StatePrograms
+                StatePrograms = "State Codes - " & vbNewLine & StatePrograms
             End If
 
             rtbFacilityInformation.Clear()
-            rtbFacilityInformation.Text = "AIRS # - " & txtAIRSNumber.Text & vbCrLf & vbCrLf &
-            Facilityname & vbCrLf &
-            FacilityStreet & vbCrLf &
-            FacilityCity & ", GA " & FacilityZipCode & vbCrLf & vbCrLf &
-            OperationalStatusLine & vbCrLf &
-            ClassificationLine & vbCrLf &
-            SICLine & vbCrLf &
-            NAICSLine & vbCrLf &
+            rtbFacilityInformation.Text = "AIRS # - " & txtAIRSNumber.Text & vbNewLine & vbNewLine &
+            Facilityname & vbNewLine &
+            FacilityStreet & vbNewLine &
+            FacilityCity & ", GA " & FacilityZipCode & vbNewLine & vbNewLine &
+            OperationalStatusLine & vbNewLine &
+            ClassificationLine & vbNewLine &
+            SICLine & vbNewLine &
+            NAICSLine & vbNewLine &
             AirProgramLine &
-            StatePrograms & vbCrLf &
-            "County - " & CountyName & vbCrLf &
-            "District - " & District & vbCrLf &
-            AttainmentStatus & vbCrLf & vbCrLf &
+            StatePrograms & vbNewLine &
+            "County - " & CountyName & vbNewLine &
+            "District - " & District & vbNewLine &
+            AttainmentStatus & vbNewLine & vbNewLine &
             PlantLine
 
             cboCounty.SelectedIndex = cboCounty.FindString(CountyName)
@@ -4459,8 +4388,6 @@ Public Class SSPPApplicationTrackingLog
                     cboClassification.Text = "SM - SYNTHETIC MINOR"
                 Case "PR"
                     cboClassification.Text = "PR - PERMIT BY RULE"
-                'Case "U"
-                '   cboClassification.Text = "U - UNDEFINED"
                 Case Else
                     cboClassification.Text = ""
             End Select
@@ -4567,22 +4494,20 @@ Public Class SSPPApplicationTrackingLog
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub CheckOpenApplications()
+    Private Sub CheckOpenApplications()
         Try
-            Dim query As String = "select count(*) as ApplicationCount " &
+            Dim query As String = "select count(*) " &
                "from SSPPApplicationMaster " &
                "where datFinalizedDate Is Null " &
                "and strAirsNumber = @airsnumber"
             Dim parameter As New SqlParameter("@airsnumber", "0413" & txtAIRSNumber.Text)
 
-            txtOutstandingApplication.Text = DB.GetSingleValue(Of String)(query, parameter)
-            If txtOutstandingApplication.Text = "" Then txtOutstandingApplication.Text = "0"
-
+            txtOutstandingApplication.Text = DB.GetSingleValue(Of Integer)(query, parameter)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub CheckForLinks()
+    Private Sub CheckForLinks()
         Dim MasterApplication As String
         Dim ApplicationCount As String = 0
         Dim query As String
@@ -4623,21 +4548,12 @@ Public Class SSPPApplicationTrackingLog
                         "order by strApplicationNumber "
                     parameter = New SqlParameter("@appnumber", txtApplicationNumber.Text)
 
-                    Using connection As New SqlConnection(CurrentConnectionString)
-                        Using cmd As SqlCommand = connection.CreateCommand
-                            cmd.CommandType = CommandType.Text
-                            cmd.CommandText = query
-                            cmd.Parameters.Add(parameter)
-                            cmd.Connection.Open()
-                            Using dr As SqlDataReader = cmd.ExecuteReader
-                                While dr.Read
-                                    lbLinkApplications.Items.Add(dr.Item("strApplicationNumber"))
-                                    ApplicationCount += 1
-                                End While
-                            End Using
-                            cmd.Connection.Close()
-                        End Using
-                    End Using
+                    Dim dt As DataTable = DB.GetDataTable(query, parameter)
+
+                    For Each dr As DataRow In dt.Rows
+                        lbLinkApplications.Items.Add(dr.Item("strApplicationNumber"))
+                        ApplicationCount += 1
+                    Next
 
                     txtApplicationCount.Text = ApplicationCount
                     lblLinkWarning.Visible = True
@@ -4658,7 +4574,7 @@ Public Class SSPPApplicationTrackingLog
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub SaveApplicationData()
+    Private Sub SaveApplicationData()
         Dim StaffResponsible As String = ""
         Dim ApplicationType As String = ""
         Dim PermitType As String = ""
@@ -4712,12 +4628,12 @@ Public Class SSPPApplicationTrackingLog
         Try
             If txtApplicationNumber.Text <> "" Then
                 If Not DAL.FacilityHeaderDataData.SicCodeIsValid(txtSICCode.Text) Then
-                    MsgBox("ERROR" & vbCrLf & "The SIC Code is not valid and must be fixed before proceeding.", MsgBoxStyle.Exclamation, Me.Text)
+                    MsgBox("ERROR" & vbNewLine & "The SIC Code is not valid and must be fixed before proceeding.", MsgBoxStyle.Exclamation, Me.Text)
                     Exit Sub
                 End If
 
                 If DAL.FacilityHeaderDataData.NaicsCodeIsValid(txtNAICSCode.Text) = False Then
-                    MsgBox("ERROR" & vbCrLf & "The NAICS Code is not valid and must be fixed before proceeding.", MsgBoxStyle.Exclamation, Me.Text)
+                    MsgBox("ERROR" & vbNewLine & "The NAICS Code is not valid and must be fixed before proceeding.", MsgBoxStyle.Exclamation, Me.Text)
                     Exit Sub
                 End If
 
@@ -4811,8 +4727,8 @@ Public Class SSPPApplicationTrackingLog
                 "datModifingdate " &
                 "from SSPPApplicationMaster " &
                 "where strApplicationNumber = @appnumber "
-                parameters = {New SqlParameter("@appnumber", txtApplicationNumber.Text)}
-                TimeStamp = DB.GetSingleValue(Of String)(query, parameters)
+
+                TimeStamp = DB.GetSingleValue(Of DateTimeOffset)(query, New SqlParameter("@appnumber", txtApplicationNumber.Text))
 
                 txtFacilityName.Text = Apb.Facilities.Facility.SanitizeFacilityNameForDb(txtFacilityName.Text)
                 FacilityName = txtFacilityName.Text
@@ -5271,29 +5187,18 @@ Public Class SSPPApplicationTrackingLog
 
                             Dim query2 As String = ""
 
-                            Using connection As New SqlConnection(CurrentConnectionString)
-                                Using cmd As SqlCommand = connection.CreateCommand
-                                    cmd.CommandType = CommandType.Text
-                                    cmd.CommandText = query
-                                    cmd.Parameters.AddRange(parameters)
-                                    cmd.Connection.Open()
-                                    Using dr As SqlDataReader = cmd.ExecuteReader
+                            Dim dr As DataRow = DB.GetDataRow(query, parameters)
 
-                                        While dr.Read
-                                            If IsDBNull(dr.Item("datToPMI")) Then
-                                                query2 = "Update SSPPApplicationTracking set datToPMI = @ToPMI "
-                                                If IsDBNull(dr.Item("datToPMII")) Then query2 &= ", datToPMII = @ToPMII "
-                                                query2 &= " where strApplicationNumber = @LinkedApplication  "
-                                            ElseIf IsDBNull(dr.Item("datToPMII")) Then
-                                                query2 = "Update SSPPApplicationTracking set " &
+                            If dr IsNot Nothing Then
+                                If IsDBNull(dr.Item("datToPMI")) Then
+                                    query2 = "Update SSPPApplicationTracking set datToPMI = @ToPMI "
+                                    If IsDBNull(dr.Item("datToPMII")) Then query2 &= ", datToPMII = @ToPMII "
+                                    query2 &= " where strApplicationNumber = @LinkedApplication  "
+                                ElseIf IsDBNull(dr.Item("datToPMII")) Then
+                                    query2 = "Update SSPPApplicationTracking set " &
                                                 "datToPMII = @ToPMII where strApplicationNumber = @LinkedApplication "
-                                            End If
-                                        End While
-
-                                    End Using
-                                    cmd.Connection.Close()
-                                End Using
-                            End Using
+                                End If
+                            End If
 
                             If Not String.IsNullOrWhiteSpace(query2) Then
                                 Dim parameters2 As SqlParameter() = {
@@ -5413,7 +5318,7 @@ Public Class SSPPApplicationTrackingLog
     End Sub
 
     Private Sub SaveInformationRequest()
-        Dim InformationRequestKey As String = ""
+        Dim InformationRequestKey As Integer = 1
         Dim InformationRequested As String = ""
         Dim InformationReceived As String = ""
         Dim DateInfoRequested As String
@@ -5426,13 +5331,11 @@ Public Class SSPPApplicationTrackingLog
             If txtApplicationNumber.Text <> "" Then
                 If DAL.Sspp.ApplicationExists(txtApplicationNumber.Text) Then
                     If txtInformationRequestedKey.Text = "" Then
-                        query = "Select max(strRequestKey) as RequestKey " &
+                        query = "SELECT ISNULL(MAX(strRequestKey), 0) + 1 " &
                         "from SSPPApplicationInformation " &
                         "where strApplicationNumber = @txtApplicationNumber"
                         parameter = {New SqlParameter("@txtApplicationNumber", txtApplicationNumber.Text)}
-                        InformationRequestKey = DB.GetSingleValue(Of String)(query, parameter)
-                        If String.IsNullOrWhiteSpace(InformationRequestKey) Then InformationRequestKey = "0"
-                        InformationRequestKey = CInt((InformationRequestKey) + 1)
+                        InformationRequestKey = DB.GetSingleValue(Of Integer)(query, parameter)
                     Else
                         InformationRequestKey = txtInformationRequestedKey.Text
                     End If
@@ -5519,7 +5422,7 @@ Public Class SSPPApplicationTrackingLog
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub DeleteInformationRequest()
+    Private Sub DeleteInformationRequest()
         Dim InformationRequestKey As String
 
         Try
@@ -5527,7 +5430,7 @@ Public Class SSPPApplicationTrackingLog
             If txtInformationRequestedKey.Text <> "" Then
                 InformationRequestKey = txtInformationRequestedKey.Text
 
-                Dim query As String = "Delete SSPPApplicationInformation " &
+                Dim query As String = "Delete from SSPPApplicationInformation " &
                 "where strApplicationNumber = @txtApplicationNumber " &
                 "and strRequestKey = @InformationRequestKey "
                 Dim parameter As SqlParameter() = {
@@ -5549,7 +5452,7 @@ Public Class SSPPApplicationTrackingLog
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub SaveApplicationSubmitForReview()
+    Private Sub SaveApplicationSubmitForReview()
         Dim DateReviewSubmitted As String = TodayFormatted
 
         Try
@@ -5598,7 +5501,7 @@ Public Class SSPPApplicationTrackingLog
         End Try
     End Sub
 
-    Sub SaveSSCPReview()
+    Private Sub SaveSSCPReview()
         Dim SSCPComments As String
 
         Try
@@ -5645,7 +5548,7 @@ Public Class SSPPApplicationTrackingLog
         End Try
     End Sub
 
-    Sub SaveISMPReview()
+    Private Sub SaveISMPReview()
         Dim ISMPComments As String
 
         Try
@@ -5691,7 +5594,7 @@ Public Class SSPPApplicationTrackingLog
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub SaveApplicationContact()
+    Private Sub SaveApplicationContact()
         Try
             Dim MaxKey As String = ""
             Dim i As Integer
@@ -5871,27 +5774,25 @@ Public Class SSPPApplicationTrackingLog
 
             DB.RunCommand(query, params)
 
-            'This line was changed 09-14-2009 per Eric Cornwells request. The check for Final Action was removed 
-            'If DTPFinalAction.Checked = True And chbClosedOut.Checked = True And txtAIRSNumber.Text.Length = 8 Then
             If chbClosedOut.Checked = True And txtAIRSNumber.Text.Length = 8 And IsNumeric(txtAIRSNumber.Text) Then
                 query = "select strKey " &
-                "from APBContactInformation, SSPPApplicationContact  " &
+                "from APBContactInformation inner join SSPPApplicationContact  " &
+                "on APBContactInformation.strContactFirstName = SSPPApplicationContact.strContactFirstName " &
+                "on APBContactInformation.strContactLastName = SSPPApplicationContact.strContactLastName  " &
+                "on APBContactInformation.strContactPrefix = SSPPApplicationContact.strContactPrefix " &
+                "on APBContactInformation.strContactSuffix = SSPPApplicationContact.strContactSuffix  " &
+                "on APBContactInformation.strContactTitle = SSPPApplicationContact.strContactTitle  " &
+                "on APBContactInformation.strContactCompanyName = SSPPApplicationContact.strContactCompanyName  " &
+                "on APBContactInformation.strContactPhoneNumber1 = SSPPApplicationContact.strContactPhoneNumber1  " &
+                "on APBContactInformation.strContactFaxNumber = SSPPApplicationContact.strContactFaxNumber  " &
+                "on APBContactInformation.strContactEmail = SSPPApplicationContact.strContactEmail  " &
+                "on APBContactInformation.strCOntactAddress1 = SSPPApplicationContact.strContactAddress1  " &
+                "on APBContactInformation.strCOntactCity = SSPPApplicationContact.strContactCity  " &
+                "on APBContactInformation.strContactZipCode = SSPPApplicationcontact.strContactZipCode  " &
+                "on APBContactInformation.strContactDescription = SSPPApplicationContact.strContactDescription  " &
                 "where APBContactInformation.strContactKey = @pKey " &
-                "and SSPPApplicationContact.strApplicationNumber = @app " &
-                "and Upper(APBContactInformation.strContactFirstName) = Upper(SSPPApplicationContact.strContactFirstName) " &
-                "and upper(APBContactInformation.strContactLastName) = Upper(SSPPApplicationContact.strContactLastName)  " &
-                "and Upper(APBContactInformation.strContactPrefix) = Upper(SSPPApplicationContact.strContactPrefix) " &
-                "and Upper(APBContactInformation.strContactSuffix) = Upper(SSPPApplicationContact.strContactSuffix)  " &
-                "and Upper(APBContactInformation.strContactTitle) = Upper(SSPPApplicationContact.strContactTitle)  " &
-                "and Upper(APBContactInformation.strContactCompanyName) = Upper(SSPPApplicationContact.strContactCompanyName)  " &
-                "and Upper(APBContactInformation.strContactPhoneNumber1) = " &
-                "Upper(SSPPApplicationContact.strContactPhoneNumber1)  " &
-                "and Upper(APBContactInformation.strContactFaxNumber) = Upper(SSPPApplicationContact.strContactFaxNumber)  " &
-                "and Upper(APBContactInformation.strContactEmail) = Upper(SSPPApplicationContact.strContactEmail)  " &
-                "and Upper(APBContactInformation.strCOntactAddress1) = Upper(SSPPApplicationContact.strContactAddress1)  " &
-                "and Upper(APBContactInformation.strCOntactCity) = Upper(SSPPApplicationContact.strContactCity)  " &
-                "and Upper(APBContactInformation.strContactZipCode) = Upper(SSPPApplicationcontact.strContactZipCode)  " &
-                "and Upper(APBContactInformation.strContactDescription) = Upper(SSPPApplicationContact.strContactDescription)  "
+                "and SSPPApplicationContact.strApplicationNumber = @app "
+
                 params = {
                     New SqlParameter("@pKey", "0413" & txtAIRSNumber.Text & "30"),
                     New SqlParameter("@app", txtApplicationNumber.Text)
@@ -5922,7 +5823,7 @@ Public Class SSPPApplicationTrackingLog
                         "strContactZipCode, strModifingPerson,  " &
                         "datModifingDate, strContactDescription)  " &
                         "select  " &
-                        "'0' || (strContactKey+1) as strContactKey,  " &
+                        " concat('0' , (strContactKey+1)) as strContactKey,  " &
                         "strAIRSnumber,  " &
                         "(strKey+1) as strKey, " &
                         "strContactFirstName, strContactLastName,  " &
@@ -5954,11 +5855,10 @@ Public Class SSPPApplicationTrackingLog
                             New SqlParameter("@airs", "0413" & txtAIRSNumber.Text),
                             New SqlParameter("@pKey", "3" & i.ToString)
                         }
-                        recExists = DB.ValueExists(query, params)
 
                         i -= 1
 
-                        If recExist = True Then
+                        If DB.ValueExists(query, params) Then
                             query = "Update APBContactInformation set " &
                             "strContactFirstName = (select strContactFirstName from APBContactInformation " &
                             "where strContactKey = @oldKey),  " &
@@ -6014,7 +5914,7 @@ Public Class SSPPApplicationTrackingLog
                             "strContactZipCode, strModifingPerson,  " &
                             "datModifingDate, strContactDescription)  " &
                             "select  " &
-                            "'0' || (strContactKey+1) as strContactKey,  " &
+                            " concat('0' , (strContactKey+1)) as strContactKey,  " &
                             "strAIRSnumber,  " &
                             "(strKey+1) as strKey, " &
                             "strContactFirstName, strContactLastName,  " &
@@ -6090,174 +5990,171 @@ Public Class SSPPApplicationTrackingLog
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub CloseOutApplication(Status As String)
+    Private Sub CloseOutApplication(Status As Boolean)
         Try
 
-            Select Case Status
-                Case "True"
-                    txtFacilityName.ReadOnly = True
-                    txtFacilityStreetAddress.ReadOnly = True
-                    cboFacilityCity.Enabled = False
-                    cboCounty.Enabled = False
-                    txtSICCode.ReadOnly = True
-                    txtNAICSCode.ReadOnly = True
-                    cboOperationalStatus.Enabled = False
-                    cboClassification.Enabled = False
-                    chbCDS_0.Enabled = False
-                    chbCDS_6.Enabled = False
-                    chbCDS_7.Enabled = False
-                    chbCDS_8.Enabled = False
-                    chbCDS_9.Enabled = False
-                    chbCDS_M.Enabled = False
-                    chbCDS_V.Enabled = False
-                    chbCDS_A.Enabled = False
-                    chbCDS_RMP.Enabled = False
+            If Status Then
+                txtFacilityName.ReadOnly = True
+                txtFacilityStreetAddress.ReadOnly = True
+                cboFacilityCity.Enabled = False
+                cboCounty.Enabled = False
+                txtSICCode.ReadOnly = True
+                txtNAICSCode.ReadOnly = True
+                cboOperationalStatus.Enabled = False
+                cboClassification.Enabled = False
+                chbCDS_0.Enabled = False
+                chbCDS_6.Enabled = False
+                chbCDS_7.Enabled = False
+                chbCDS_8.Enabled = False
+                chbCDS_9.Enabled = False
+                chbCDS_M.Enabled = False
+                chbCDS_V.Enabled = False
+                chbCDS_A.Enabled = False
+                chbCDS_RMP.Enabled = False
 
-                    txtPlantDescription.ReadOnly = True
-                    DTPDateSent.Enabled = False
-                    DTPDateReceived.Enabled = False
-                    DTPDateAssigned.Enabled = False
-                    DTPDateAssigned.Enabled = False
-                    DTPDateReassigned.Enabled = False
-                    DTPDateReassigned.Enabled = False
-                    DTPDateAcknowledge.Enabled = False
-                    DTPDateAcknowledge.Enabled = False
-                    DTPDatePAExpires.Enabled = False
-                    DTPDatePAExpires.Enabled = False
-                    DTPDatePNExpires.Enabled = False
-                    DTPDatePNExpires.Enabled = False
-                    DTPDeadline.Enabled = False
-                    DTPDeadline.Enabled = False
-                    DTPDateToUC.Enabled = False
-                    DTPDateToUC.Enabled = False
-                    DTPDateToPM.Enabled = False
-                    DTPDateToPM.Enabled = False
-                    DTPFinalAction.Enabled = False
-                    DTPFinalAction.Enabled = False
-                    DTPDraftIssued.Enabled = False
-                    DTPDraftIssued.Enabled = False
-                    txtPermitNumber.ReadOnly = True
-                    cboPermitAction.Enabled = False
-                    cboPublicAdvisory.Enabled = False
-                    txtReasonAppSubmitted.ReadOnly = True
-                    txtComments.ReadOnly = True
-                    btnSaveInformationRequest.Enabled = False
-                    btnClearInformationRequest.Enabled = False
-                    DTPInformationRequested.Enabled = False
-                    DTPInformationReceived.Enabled = False
-                    txtInformationRequested.ReadOnly = True
-                    txtInformationReceived.ReadOnly = True
-                    DTPReviewSubmitted.Enabled = False
-                    cboSSCPUnits.Enabled = False
-                    cboISMPUnits.Enabled = False
-                    DTPReviewSubmitted.Enabled = False
-                    cboSSCPStaff.Enabled = False
-                    rdbSSCPYes.Enabled = False
-                    rdbSSCPNo.Enabled = False
-                    txtSSCPComments.ReadOnly = True
-                    cboEngineer.Enabled = False
-                    cboApplicationUnit.Enabled = False
-                    cboApplicationType.Enabled = False
-                    chbNSRMajor.Enabled = False
-                    chbHAPsMajor.Enabled = False
-                    chbPSD.Enabled = False
-                    chbNAANSR.Enabled = False
-                    chb112g.Enabled = False
-                    chbRulett.Enabled = False
-                    chbRuleyy.Enabled = False
-                    chbPal.Enabled = False
-                    chbExpedited.Enabled = False
-                    chbConfidential.Enabled = False
-                    txtSignificantComments.ReadOnly = True
+                txtPlantDescription.ReadOnly = True
+                DTPDateSent.Enabled = False
+                DTPDateReceived.Enabled = False
+                DTPDateAssigned.Enabled = False
+                DTPDateAssigned.Enabled = False
+                DTPDateReassigned.Enabled = False
+                DTPDateReassigned.Enabled = False
+                DTPDateAcknowledge.Enabled = False
+                DTPDateAcknowledge.Enabled = False
+                DTPDatePAExpires.Enabled = False
+                DTPDatePAExpires.Enabled = False
+                DTPDatePNExpires.Enabled = False
+                DTPDatePNExpires.Enabled = False
+                DTPDeadline.Enabled = False
+                DTPDeadline.Enabled = False
+                DTPDateToUC.Enabled = False
+                DTPDateToUC.Enabled = False
+                DTPDateToPM.Enabled = False
+                DTPDateToPM.Enabled = False
+                DTPFinalAction.Enabled = False
+                DTPFinalAction.Enabled = False
+                DTPDraftIssued.Enabled = False
+                DTPDraftIssued.Enabled = False
+                txtPermitNumber.ReadOnly = True
+                cboPermitAction.Enabled = False
+                cboPublicAdvisory.Enabled = False
+                txtReasonAppSubmitted.ReadOnly = True
+                txtComments.ReadOnly = True
+                btnSaveInformationRequest.Enabled = False
+                btnClearInformationRequest.Enabled = False
+                DTPInformationRequested.Enabled = False
+                DTPInformationReceived.Enabled = False
+                txtInformationRequested.ReadOnly = True
+                txtInformationReceived.ReadOnly = True
+                DTPReviewSubmitted.Enabled = False
+                cboSSCPUnits.Enabled = False
+                cboISMPUnits.Enabled = False
+                DTPReviewSubmitted.Enabled = False
+                cboSSCPStaff.Enabled = False
+                rdbSSCPYes.Enabled = False
+                rdbSSCPNo.Enabled = False
+                txtSSCPComments.ReadOnly = True
+                cboEngineer.Enabled = False
+                cboApplicationUnit.Enabled = False
+                cboApplicationType.Enabled = False
+                chbNSRMajor.Enabled = False
+                chbHAPsMajor.Enabled = False
+                chbPSD.Enabled = False
+                chbNAANSR.Enabled = False
+                chb112g.Enabled = False
+                chbRulett.Enabled = False
+                chbRuleyy.Enabled = False
+                chbPal.Enabled = False
+                chbExpedited.Enabled = False
+                chbConfidential.Enabled = False
+                txtSignificantComments.ReadOnly = True
 
-                    'Facility Application History 
-                    btnAddApplicationToList.Enabled = False
-                    btnClearList.Enabled = False
-                    btnLinkApplications.Enabled = False
-                    btnClearLinks.Enabled = False
+                'Facility Application History 
+                btnAddApplicationToList.Enabled = False
+                btnClearList.Enabled = False
+                btnLinkApplications.Enabled = False
+                btnClearLinks.Enabled = False
 
-                    'Information Request History
-                    DTPInformationRequested.Enabled = False
-                    DTPInformationReceived.Enabled = False
-                    btnClearInformationRequest.Enabled = False
-                    btnSaveInformationRequest.Enabled = False
-                    btnDeleteInformationRequest.Enabled = False
-                    txtInformationRequested.ReadOnly = True
-                    txtInformationReceived.ReadOnly = True
+                'Information Request History
+                DTPInformationRequested.Enabled = False
+                DTPInformationReceived.Enabled = False
+                btnClearInformationRequest.Enabled = False
+                btnSaveInformationRequest.Enabled = False
+                btnDeleteInformationRequest.Enabled = False
+                txtInformationRequested.ReadOnly = True
+                txtInformationReceived.ReadOnly = True
 
-                    'Application Review Submission
-                    DTPReviewSubmitted.Enabled = False
-                    cboSSCPUnits.Enabled = False
-                    cboISMPUnits.Enabled = False
-                    DTPReviewSubmitted.Enabled = False
-                    cboISMPStaff.Enabled = False
-                    rdbISMPYes.Enabled = False
-                    rdbISMPNo.Enabled = False
-                    txtISMPComments.ReadOnly = True
+                'Application Review Submission
+                DTPReviewSubmitted.Enabled = False
+                cboSSCPUnits.Enabled = False
+                cboISMPUnits.Enabled = False
+                DTPReviewSubmitted.Enabled = False
+                cboISMPStaff.Enabled = False
+                rdbISMPYes.Enabled = False
+                rdbISMPNo.Enabled = False
+                txtISMPComments.ReadOnly = True
 
-                    'Subpart Tools
-                    btnSaveSIPSubpart.Enabled = False
-                    btnClearSIPDeletes.Enabled = False
-                    btnClearAddModifiedSIPs.Enabled = False
-                    btnAddNewSIPSubpart.Enabled = False
-                    btnSIPDelete.Enabled = False
-                    btnSIPUndelete.Enabled = False
-                    btnSIPDeleteAll.Enabled = False
-                    btnSIPUndeleteAll.Enabled = False
-                    btnSIPEdit.Enabled = False
-                    btnSIPUnedit.Enabled = False
-                    btnSIPEditAll.Enabled = False
-                    btnSIPUneditAll.Enabled = False
+                'Subpart Tools
+                btnSaveSIPSubpart.Enabled = False
+                btnClearSIPDeletes.Enabled = False
+                btnClearAddModifiedSIPs.Enabled = False
+                btnAddNewSIPSubpart.Enabled = False
+                btnSIPDelete.Enabled = False
+                btnSIPUndelete.Enabled = False
+                btnSIPDeleteAll.Enabled = False
+                btnSIPUndeleteAll.Enabled = False
+                btnSIPEdit.Enabled = False
+                btnSIPUnedit.Enabled = False
+                btnSIPEditAll.Enabled = False
+                btnSIPUneditAll.Enabled = False
 
-                    btnSaveNESHAPSubpart.Enabled = False
-                    btnClearNESHAPDeletes.Enabled = False
-                    btnClearAddModifiedNESHAPs.Enabled = False
-                    btnAddNewNESHAPSubpart.Enabled = False
-                    btnNESHAPDelete.Enabled = False
-                    btnNESHAPUndelete.Enabled = False
-                    btnNESHAPDeleteAll.Enabled = False
-                    btnNESHAPUndeleteAll.Enabled = False
-                    btnNESHAPEdit.Enabled = False
-                    btnNESHAPUnedit.Enabled = False
-                    btnNESHAPEditAll.Enabled = False
-                    btnNESHAPUneditAll.Enabled = False
+                btnSaveNESHAPSubpart.Enabled = False
+                btnClearNESHAPDeletes.Enabled = False
+                btnClearAddModifiedNESHAPs.Enabled = False
+                btnAddNewNESHAPSubpart.Enabled = False
+                btnNESHAPDelete.Enabled = False
+                btnNESHAPUndelete.Enabled = False
+                btnNESHAPDeleteAll.Enabled = False
+                btnNESHAPUndeleteAll.Enabled = False
+                btnNESHAPEdit.Enabled = False
+                btnNESHAPUnedit.Enabled = False
+                btnNESHAPEditAll.Enabled = False
+                btnNESHAPUneditAll.Enabled = False
 
-                    btnSaveNSPSSubpart.Enabled = False
-                    btnClearNSPSDeletes.Enabled = False
-                    btnClearAddModifiedNSPSs.Enabled = False
-                    btnAddNewNSPSSubpart.Enabled = False
-                    btnNSPSDelete.Enabled = False
-                    btnNSPSUndelete.Enabled = False
-                    btnNSPSDeleteAll.Enabled = False
-                    btnNSPSUndeleteAll.Enabled = False
-                    btnNSPSEdit.Enabled = False
-                    btnNSPSUnedit.Enabled = False
-                    btnNSPSEditAll.Enabled = False
-                    btnNSPSUneditAll.Enabled = False
+                btnSaveNSPSSubpart.Enabled = False
+                btnClearNSPSDeletes.Enabled = False
+                btnClearAddModifiedNSPSs.Enabled = False
+                btnAddNewNSPSSubpart.Enabled = False
+                btnNSPSDelete.Enabled = False
+                btnNSPSUndelete.Enabled = False
+                btnNSPSDeleteAll.Enabled = False
+                btnNSPSUndeleteAll.Enabled = False
+                btnNSPSEdit.Enabled = False
+                btnNSPSUnedit.Enabled = False
+                btnNSPSEditAll.Enabled = False
+                btnNSPSUneditAll.Enabled = False
 
-                    btnSaveMACTSubpart.Enabled = False
-                    btnClearMACTDeletes.Enabled = False
-                    btnClearAddModifiedMACTs.Enabled = False
-                    btnAddNewMACTSubpart.Enabled = False
-                    btnMACTDelete.Enabled = False
-                    btnMACTUndelete.Enabled = False
-                    btnMACTDeleteAll.Enabled = False
-                    btnMACTUndeleteAll.Enabled = False
-                    btnMACTEdit.Enabled = False
-                    btnMACTUnedit.Enabled = False
-                    btnMACTEditAll.Enabled = False
-                    btnMACTUneditAll.Enabled = False
-                Case "False"
-                    LoadPermissions()
-                Case Else
-                    LoadPermissions()
-            End Select
+                btnSaveMACTSubpart.Enabled = False
+                btnClearMACTDeletes.Enabled = False
+                btnClearAddModifiedMACTs.Enabled = False
+                btnAddNewMACTSubpart.Enabled = False
+                btnMACTDelete.Enabled = False
+                btnMACTUndelete.Enabled = False
+                btnMACTDeleteAll.Enabled = False
+                btnMACTUndeleteAll.Enabled = False
+                btnMACTEdit.Enabled = False
+                btnMACTUnedit.Enabled = False
+                btnMACTEditAll.Enabled = False
+                btnMACTUneditAll.Enabled = False
+            Else
+                LoadPermissions()
+            End If
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub LinkApplications()
+    Private Sub LinkApplications()
         Dim MasterAppType As String
         Dim i As Integer
         Dim query As String
@@ -6313,6 +6210,7 @@ Public Class SSPPApplicationTrackingLog
                         "where strApplicationnumber = @appItem "
                     Else
                         query = "Insert into SSPPApplicationLinking " &
+                            "(STRMASTERAPPLICATION, STRAPPLICATIONNUMBER) " &
                         "values " &
                         "(@MasterApp, @appItem) "
                     End If
@@ -6335,7 +6233,7 @@ Public Class SSPPApplicationTrackingLog
         End Try
     End Sub
 
-    Sub ClearApplicationLinks()
+    Private Sub ClearApplicationLinks()
         Dim MasterLink As String = ""
         Dim query As String
         Dim param As SqlParameter
@@ -6367,7 +6265,7 @@ Public Class SSPPApplicationTrackingLog
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub SaveWebPublisherData()
+    Private Sub SaveWebPublisherData()
         Dim EPAStatesNotifiedAppRec As String
         Dim DraftOnWeb As String
         Dim EPAStatesNotified As String
@@ -6517,7 +6415,7 @@ Public Class SSPPApplicationTrackingLog
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub GenerateAFSEntry()
+    Private Sub GenerateAFSEntry()
         Dim ActionNumber As String = ""
         Dim UpdateStatus As String
         Dim query As String
@@ -6589,7 +6487,7 @@ Public Class SSPPApplicationTrackingLog
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub UpdateAPBTables()
+    Private Sub UpdateAPBTables()
         Dim FacilityName As String = ""
         Dim FacilityStreet1 As String = ""
         Dim FacilityStreet2 As String = ""
@@ -6624,81 +6522,70 @@ Public Class SSPPApplicationTrackingLog
             "where strApplicationNumber = @appnumber "
             params = {New SqlParameter("@appnumber", txtApplicationNumber.Text)}
 
-            Using connection As New SqlConnection(CurrentConnectionString)
-                Using cmd As SqlCommand = connection.CreateCommand
-                    cmd.CommandType = CommandType.Text
-                    cmd.CommandText = query
-                    cmd.Parameters.AddRange(params)
-                    cmd.Connection.Open()
-                    Using dr As SqlDataReader = cmd.ExecuteReader
+            Dim dr As DataRow = DB.GetDataRow(query, params)
 
-                        While dr.Read
-                            If IsDBNull(dr.Item("strFacilityName")) Then
-                                FacilityName = "N/A"
-                            Else
-                                FacilityName = Apb.Facilities.Facility.SanitizeFacilityNameForDb(dr.Item("strFacilityName"))
-                            End If
-                            If IsDBNull(dr.Item("strFacilityStreet1")) Then
-                                FacilityStreet1 = "N/A"
-                            Else
-                                FacilityStreet1 = dr.Item("strFacilityStreet1")
-                            End If
-                            If IsDBNull(dr.Item("strFacilityStreet2")) Then
-                                FacilityStreet2 = "N/A"
-                            Else
-                                FacilityStreet2 = dr.Item("strFacilityStreet2")
-                            End If
-                            If IsDBNull(dr.Item("strFacilityCity")) Then
-                                City = "N/A"
-                            Else
-                                City = dr.Item("strFacilityCity")
-                            End If
-                            If IsDBNull(dr.Item("strFacilityZipCode")) Then
-                                ZipCode = "00000"
-                            Else
-                                ZipCode = dr.Item("strFacilityZipCode")
-                            End If
-                            If IsDBNull(dr.Item("strOperationalStatus")) Then
-                                OpStatus = "O"
-                            Else
-                                OpStatus = dr.Item("strOperationalStatus")
-                            End If
-                            If IsDBNull(dr.Item("strClass")) Then
-                                Classification = "B"
-                            Else
-                                Classification = dr.Item("strClass")
-                            End If
-                            If IsDBNull(dr.Item("strAIRProgramCodes")) Then
-                                AirProgramCodes = "000000000000000"
-                            Else
-                                AirProgramCodes = dr.Item("strAIRProgramCodes")
-                            End If
-                            If IsDBNull(dr.Item("strSICCode")) Then
-                                SICCode = "0000"
-                            Else
-                                SICCode = dr.Item("strSICCode")
-                            End If
-                            If IsDBNull(dr.Item("strNAICSCode")) Then
-                                NAICSCode = "000000"
-                            Else
-                                NAICSCode = dr.Item("strNAICSCode")
-                            End If
-                            If IsDBNull(dr.Item("strPlantDescription")) Then
-                                PlantDescription = ""
-                            Else
-                                PlantDescription = dr.Item("strPlantDescription")
-                            End If
-                            If IsDBNull(dr.Item("strStateProgramCodes")) Then
-                                StateProgramCodes = "00000"
-                            Else
-                                StateProgramCodes = dr.Item("strStateProgramCodes")
-                            End If
-                        End While
-
-                    End Using
-                    cmd.Connection.Close()
-                End Using
-            End Using
+            If dr IsNot Nothing Then
+                If IsDBNull(dr.Item("strFacilityName")) Then
+                    FacilityName = "N/A"
+                Else
+                    FacilityName = Apb.Facilities.Facility.SanitizeFacilityNameForDb(dr.Item("strFacilityName"))
+                End If
+                If IsDBNull(dr.Item("strFacilityStreet1")) Then
+                    FacilityStreet1 = "N/A"
+                Else
+                    FacilityStreet1 = dr.Item("strFacilityStreet1")
+                End If
+                If IsDBNull(dr.Item("strFacilityStreet2")) Then
+                    FacilityStreet2 = "N/A"
+                Else
+                    FacilityStreet2 = dr.Item("strFacilityStreet2")
+                End If
+                If IsDBNull(dr.Item("strFacilityCity")) Then
+                    City = "N/A"
+                Else
+                    City = dr.Item("strFacilityCity")
+                End If
+                If IsDBNull(dr.Item("strFacilityZipCode")) Then
+                    ZipCode = "00000"
+                Else
+                    ZipCode = dr.Item("strFacilityZipCode")
+                End If
+                If IsDBNull(dr.Item("strOperationalStatus")) Then
+                    OpStatus = "O"
+                Else
+                    OpStatus = dr.Item("strOperationalStatus")
+                End If
+                If IsDBNull(dr.Item("strClass")) Then
+                    Classification = "B"
+                Else
+                    Classification = dr.Item("strClass")
+                End If
+                If IsDBNull(dr.Item("strAIRProgramCodes")) Then
+                    AirProgramCodes = "000000000000000"
+                Else
+                    AirProgramCodes = dr.Item("strAIRProgramCodes")
+                End If
+                If IsDBNull(dr.Item("strSICCode")) Then
+                    SICCode = "0000"
+                Else
+                    SICCode = dr.Item("strSICCode")
+                End If
+                If IsDBNull(dr.Item("strNAICSCode")) Then
+                    NAICSCode = "000000"
+                Else
+                    NAICSCode = dr.Item("strNAICSCode")
+                End If
+                If IsDBNull(dr.Item("strPlantDescription")) Then
+                    PlantDescription = ""
+                Else
+                    PlantDescription = dr.Item("strPlantDescription")
+                End If
+                If IsDBNull(dr.Item("strStateProgramCodes")) Then
+                    StateProgramCodes = "00000"
+                Else
+                    StateProgramCodes = dr.Item("strStateProgramCodes")
+                End If
+            End If
 
             queryList.Add("Update APBFacilityInformation set " &
             "strFacilityName = @FacilityName, " &
@@ -6871,7 +6758,7 @@ Public Class SSPPApplicationTrackingLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, query & vbCrLf & txtAIRSNumber.Text & vbCrLf & txtApplicationNumber.Text, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, query & vbNewLine & txtAIRSNumber.Text & vbNewLine & txtApplicationNumber.Text, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -7003,7 +6890,7 @@ Public Class SSPPApplicationTrackingLog
         DB.RunCommand(query, params)
     End Sub
 
-    Sub DisplayPermitPanel()
+    Private Sub DisplayPermitPanel()
         Try
             '130, 307
 
@@ -7038,7 +6925,7 @@ Public Class SSPPApplicationTrackingLog
         End Try
     End Sub
 
-    Sub FindMasterApp()
+    Private Sub FindMasterApp()
         Dim AppType As String = ""
         Dim query As String
         Dim parameter As SqlParameter()
@@ -7060,9 +6947,10 @@ Public Class SSPPApplicationTrackingLog
 
             query = "select " &
             "distinct(APBPermits.strFileName)  " &
-            "from APBpermits, SSPPApplicationLinking " &
-            "where SUBSTRING(APBpermits.strFileName, 4,10) = SSPPAPPlicationLinking.strmasterapplication (+) " &
-            "and (SSPPApplicationLinking.strApplicationNumber = @MasterApp " &
+            "from APBpermits " &
+            "left join SSPPApplicationLinking " &
+            "on SUBSTRING(APBpermits.strFileName, 4,10) = SSPPAPPlicationLinking.strmasterapplication " &
+            "where (SSPPApplicationLinking.strApplicationNumber = @MasterApp " &
             "or APBPermits.strFileName like @MasterAppFn ) "
             parameter = {
                 New SqlParameter("@MasterApp", MasterApp),
@@ -7105,298 +6993,7 @@ Public Class SSPPApplicationTrackingLog
         End Try
     End Sub
 
-    Sub UploadFile(FileName As String, DocLocation As String, PDFLocation As String, DocOnFile As String)
-        Try
-            Dim Flag As String = "00"
-            Dim DocFile As String = ""
-            Dim ResultDoc As DialogResult
-            Dim PDFFile As String = ""
-            Dim ResultPDF As DialogResult
-
-            Dim query As String = "Select " &
-            "strDOCFileSize, strPDFFileSize " &
-            "From ApbPermits " &
-            "where strFileName = @FileName"
-            Dim parameter As New SqlParameter("@FileName", FileName)
-
-            Using connection As New SqlConnection(CurrentConnectionString)
-                Using cmd As SqlCommand = connection.CreateCommand
-                    cmd.CommandType = CommandType.Text
-                    cmd.CommandText = query
-                    cmd.Parameters.Add(parameter)
-                    cmd.Connection.Open()
-                    Using dr As SqlDataReader = cmd.ExecuteReader
-
-                        recExist = dr.Read
-                        If recExist = True Then
-                            If IsDBNull(dr.Item("strDocFileSize")) Then
-                                DocFile = ""
-                            Else
-                                DocFile = dr.Item("strDocFileSize")
-                            End If
-                            If IsDBNull(dr.Item("strPDFFileSize")) Then
-                                PDFFile = ""
-                            Else
-                                PDFFile = dr.Item("strPDFFileSize")
-                            End If
-                        Else
-                            DocFile = ""
-                            PDFFile = ""
-                        End If
-
-                    End Using
-                    cmd.Connection.Close()
-                End Using
-            End Using
-
-            If DocFile <> "" And DocLocation <> "" Then
-                Select Case Mid(FileName, 1, 2)
-                    Case "VN"
-                        ResultDoc = MessageBox.Show("A Word file currently exists for this Title V Narrative." & vbCrLf &
-                        "Do you want to overwrite this file?", "Permit Uploader",
-                        MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
-                    Case "VD"
-                        ResultDoc = MessageBox.Show("A Word file currently exists for this Title V Draft Permit." & vbCrLf &
-                        "Do you want to overwrite this file?", "Permit Uploader",
-                        MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
-                    Case "VP"
-                        ResultDoc = MessageBox.Show("A Word file currently exists for this Title V Public Notice." & vbCrLf &
-                        "Do you want to overwrite this file?", "Permit Uploader",
-                        MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
-                    Case "VF"
-                        ResultDoc = MessageBox.Show("A Word file currently exists for this Title V Final Permit." & vbCrLf &
-                        "Do you want to overwrite this file?", "Permit Uploader",
-                        MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
-                    Case "PA"
-                        ResultDoc = MessageBox.Show("A Word file currently exists for this PSD Application Summary." & vbCrLf &
-                        "Do you want to overwrite this file?", "Permit Uploader",
-                        MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
-                    Case "PP"
-                        ResultDoc = MessageBox.Show("A Word file currently exists for this PSD Preliminary Determination." & vbCrLf &
-                        "Do you want to overwrite this file?", "Permit Uploader",
-                        MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
-                    Case "PT"
-                        ResultDoc = MessageBox.Show("A Word file currently exists for this PSD Narrative." & vbCrLf &
-                        "Do you want to overwrite this file?", "Permit Uploader",
-                        MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
-                    Case "PD"
-                        ResultDoc = MessageBox.Show("A Word file currently exists for this PSD Draft Permit." & vbCrLf &
-                        "Do you want to overwrite this file?", "Permit Uploader",
-                        MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
-                    Case "PN"
-                        ResultDoc = MessageBox.Show("A Word file currently exists for this PSD Public Notice." & vbCrLf &
-                        "Do you want to overwrite this file?", "Permit Uploader",
-                        MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
-                    Case "PH"
-                        ResultDoc = MessageBox.Show("A Word file currently exists for this PSD Hearing Notice." & vbCrLf &
-                        "Do you want to overwrite this file?", "Permit Uploader",
-                        MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
-                    Case "PF"
-                        ResultDoc = MessageBox.Show("A Word file currently exists for this PSD Final Determination." & vbCrLf &
-                        "Do you want to overwrite this file?", "Permit Uploader",
-                        MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
-                    Case "PI"
-                        ResultDoc = MessageBox.Show("A Word file currently exists for this PSD Final Permit." & vbCrLf &
-                        "Do you want to overwrite this file?", "Permit Uploader",
-                        MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
-                    Case "ON"
-                        ResultDoc = MessageBox.Show("A Word file currently exists for this Other Narrative." & vbCrLf &
-                        "Do you want to overwrite this file?", "Permit Uploader",
-                        MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
-                    Case "OP"
-                        ResultDoc = MessageBox.Show("A Word file currently exists for this Other Permit." & vbCrLf &
-                        "Do you want to overwrite this file?", "Permit Uploader",
-                        MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
-                    Case Else
-                        ResultDoc = MessageBox.Show("A Word file currently exists for this 'Unknown' application." & vbCrLf &
-                        "Do you want to overwrite this file?", "Permit Uploader",
-                        MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
-                End Select
-                Select Case ResultDoc
-                    Case DialogResult.Yes
-                        Flag = "10"
-                    Case DialogResult.No
-                        Flag = "00"
-                    Case DialogResult.Cancel
-                        Flag = "00"
-                    Case Else
-                        Flag = "00"
-                End Select
-            Else
-                If DocLocation <> "" Then
-                    Flag = "10"
-                Else
-                    Flag = "00"
-                End If
-            End If
-            If (PDFFile <> "" And Mid(Flag, 1, 1) = "1") Or DocOnFile = "On File" Then
-                query = "update APBPermits set " &
-                "PDFPermitData = '', " &
-                "strPDFFileSize = '', " &
-                "strPDFModifingPerson = '', " &
-                "datPDFModifingDate = '' " &
-                "where strFileName = @FileName "
-                parameter = New SqlParameter("@FileName", FileName)
-                DB.RunCommand(query, parameter)
-            Else
-                If PDFFile <> "" And PDFLocation <> "" Then
-                    Select Case Mid(FileName, 1, 2)
-                        Case "VN"
-                            ResultPDF = MessageBox.Show("A PDF file currently exists for this Title V Narrative." & vbCrLf &
-                            "Do you want to overwrite this file?", "Permit Uploader",
-                            MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
-                        Case "VD"
-                            ResultPDF = MessageBox.Show("A PDF file currently exists for this Title V Draft Permit." & vbCrLf &
-                            "Do you want to overwrite this file?", "Permit Uploader",
-                            MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
-                        Case "VP"
-                            ResultPDF = MessageBox.Show("A PDF file currently exists for this Title V Public Notice." & vbCrLf &
-                            "Do you want to overwrite this file?", "Permit Uploader",
-                            MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
-                        Case "VF"
-                            ResultPDF = MessageBox.Show("A PDF file currently exists for this Title V Final Permit." & vbCrLf &
-                            "Do you want to overwrite this file?", "Permit Uploader",
-                            MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
-                        Case "PA"
-                            ResultPDF = MessageBox.Show("A PDF file currently exists for this PSD Application Summary." & vbCrLf &
-                            "Do you want to overwrite this file?", "Permit Uploader",
-                            MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
-                        Case "PP"
-                            ResultPDF = MessageBox.Show("A PDF file currently exists for this PSD Preliminary Determination." & vbCrLf &
-                            "Do you want to overwrite this file?", "Permit Uploader",
-                            MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
-                        Case "PT"
-                            ResultPDF = MessageBox.Show("A PDF file currently exists for this PSD Narrative." & vbCrLf &
-                            "Do you want to overwrite this file?", "Permit Uploader",
-                            MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
-                        Case "PD"
-                            ResultPDF = MessageBox.Show("A PDF file currently exists for this PSD Draft Permit." & vbCrLf &
-                            "Do you want to overwrite this file?", "Permit Uploader",
-                            MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
-                        Case "PN"
-                            ResultPDF = MessageBox.Show("A PDF file currently exists for this PSD Public Notice." & vbCrLf &
-                            "Do you want to overwrite this file?", "Permit Uploader",
-                            MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
-                        Case "PH"
-                            ResultPDF = MessageBox.Show("A PDF file currently exists for this PSD Hearing Notice." & vbCrLf &
-                            "Do you want to overwrite this file?", "Permit Uploader",
-                            MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
-                        Case "PF"
-                            ResultPDF = MessageBox.Show("A PDF file currently exists for this PSD Final Determination." & vbCrLf &
-                            "Do you want to overwrite this file?", "Permit Uploader",
-                            MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
-                        Case "PI"
-                            ResultPDF = MessageBox.Show("A PDF file currently exists for this PSD Final Permit." & vbCrLf &
-                            "Do you want to overwrite this file?", "Permit Uploader",
-                            MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
-                        Case "ON"
-                            ResultPDF = MessageBox.Show("A PDF file currently exists for this Other Narrative." & vbCrLf &
-                            "Do you want to overwrite this file?", "Permit Uploader",
-                            MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
-                        Case "OP"
-                            ResultPDF = MessageBox.Show("A PDF file currently exists for this Other Permit." & vbCrLf &
-                            "Do you want to overwrite this file?", "Permit Uploader",
-                            MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
-                        Case Else
-                            ResultPDF = MessageBox.Show("A PDF file currently exists for this 'Unknown' application." & vbCrLf &
-                            "Do you want to overwrite this file?", "Permit Uploader",
-                            MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
-                    End Select
-                    Select Case ResultPDF
-                        Case DialogResult.Yes
-                            Flag = Mid(Flag, 1, 1) & "1"
-                        Case DialogResult.No
-                            Flag = Mid(Flag, 1, 1) & "0"
-                        Case DialogResult.Cancel
-                            Flag = Mid(Flag, 1, 1) & "0"
-                        Case Else
-                            Flag = Mid(Flag, 1, 1) & "0"
-                    End Select
-                Else
-                    If PDFLocation <> "" Then
-                        Flag = Mid(Flag, 1, 1) & "1"
-                    Else
-                        Flag = Mid(Flag, 1, 1) & "0"
-                    End If
-                End If
-            End If
-            If Flag <> "00" Then
-                Dim rowCount As Integer
-
-                query = "Delete APBPermits " &
-                   "where strFileName = @FileName "
-                parameter = New SqlParameter("@FileName", FileName)
-                DB.RunCommand(query, parameter)
-
-                query = "select " &
-                "rowCount " &
-                "from APBPermits " &
-                "where strFileName = @FileName "
-                parameter = New SqlParameter("@FileName", FileName)
-                rowCount = DB.GetSingleValue(Of Integer)(query, parameter)
-
-                If rowCount = 0 Then
-                    query = "select " &
-                    "(max(rowCount) + 1) as RowCount " &
-                    "from APBPermits "
-                    rowCount = DB.GetSingleValue(Of Integer)(query)
-                    If rowCount = 0 Then rowCount = 1
-                End If
-
-                Dim fs As FileStream
-                If DocLocation <> "" And Mid(Flag, 1, 1) = "1" Then
-                    fs = New FileStream(DocLocation, FileMode.OpenOrCreate, FileAccess.Read)
-                Else
-                    fs = New FileStream(PDFLocation, FileMode.OpenOrCreate, FileAccess.Read)
-                End If
-
-                Dim rawData() As Byte = New Byte(fs.Length) {}
-                fs.Read(rawData, 0, System.Convert.ToInt32(fs.Length))
-                fs.Close()
-
-                Dim ds As DataSet
-
-                query = "Select * from APBPermits " &
-                "where strFileName = @FileName "
-
-                Using connection As New SqlConnection(CurrentConnectionString)
-                    Using da As New SqlDataAdapter(query, connection)
-                        da.SelectCommand.Parameters.Add(parameter)
-
-                        Dim cmdCB As SqlCommandBuilder = New SqlCommandBuilder(da)
-                        ds = New DataSet("PDF")
-                        da.MissingSchemaAction = MissingSchemaAction.AddWithKey
-
-                        da.Fill(ds, "PDF")
-                        Dim row As DataRow = ds.Tables("PDF").NewRow()
-                        row("rowCount") = rowCount.ToString
-                        row("strFileName") = FileName
-                        If DocLocation <> "" And Mid(Flag, 1, 1) = "1" Then
-                            row("docPermitData") = rawData
-                            row("strDocFileSize") = rawData.Length
-                            row("strDocModifingPerson") = CurrentUser.UserID
-                            row("datDocModifingDate") = TodayFormatted
-                        Else
-                            row("pdfPermitData") = rawData
-                            row("strPDFFileSize") = rawData.Length
-                            row("strPDFModifingPerson") = CurrentUser.UserID
-                            row("datPDFModifingDate") = TodayFormatted
-                        End If
-                        ds.Tables("PDF").Rows.Add(row)
-                        da.Update(ds, "PDF")
-
-                        cmdCB.Dispose()
-                    End Using
-                End Using
-
-                MsgBox("Done", MsgBoxStyle.Information, "Permit Uploader")
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Sub DownloadFile(fileName As String, fileType As String)
+    Private Sub DownloadFile(fileName As String, fileType As String)
         If fileType = "00" Then Exit Sub
         Try
             Dim saveFilePath As String
@@ -7450,9 +7047,9 @@ Public Class SSPPApplicationTrackingLog
         End Try
     End Sub
 
-#End Region
 #Region "Clears"
-    Sub ClearApplicationData()
+
+    Private Sub ClearApplicationData()
         Try
 
             txtApplicationNumber.Clear()
@@ -7469,7 +7066,7 @@ Public Class SSPPApplicationTrackingLog
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub ClearApplicationTab()
+    Private Sub ClearApplicationTab()
         Try
 
             txtFacilityName.Clear()
@@ -7524,20 +7121,18 @@ Public Class SSPPApplicationTrackingLog
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub ClearFacilityApplicationHistoryTab()
+    Private Sub ClearFacilityApplicationHistoryTab()
         Try
 
-            'dgrFacilityAppHistory()
             txtHistoryAppComments.Clear()
             txtHistoryComments.Clear()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub ClearInformationRequestedTab()
+    Private Sub ClearInformationRequestedTab()
         Try
 
-            'dgrInformationRequested()
             DTPInformationRequested.Value = Today
             DTPInformationReceived.Value = Today
             txtInformationRequested.Clear()
@@ -7546,7 +7141,7 @@ Public Class SSPPApplicationTrackingLog
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub ClearReviewTab()
+    Private Sub ClearReviewTab()
         Try
 
             DTPReviewSubmitted.Value = Today
@@ -7564,8 +7159,11 @@ Public Class SSPPApplicationTrackingLog
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
 #End Region
+
 #Region "Check Box Changes"
+
     Private Sub chbClosedOut_CheckedChanged(sender As Object, e As EventArgs) Handles chbClosedOut.CheckedChanged
         Try
 
@@ -7581,7 +7179,9 @@ Public Class SSPPApplicationTrackingLog
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
 #End Region
+
 #Region "Delarations"
 
     Private Sub txtPermitNumber_TextChanged(sender As Object, e As EventArgs) Handles txtPermitNumber.TextChanged
@@ -7843,11 +7443,11 @@ Public Class SSPPApplicationTrackingLog
                 "from SSPPApplicationMaster " &
                 "where strApplicationNumber = @appnumber "
             Dim parameter As New SqlParameter("@appnumber", txtApplicationNumber.Text)
-            Dim temp As String = DB.GetSingleValue(Of String)(query, parameter)
+            Dim temp As DateTimeOffset = DB.GetSingleValue(Of DateTimeOffset)(query, parameter)
 
-            If TimeStamp <> "" AndAlso TimeStamp <> temp Then
-                MessageBox.Show("The application has been updated since you last opened it." & vbCrLf &
-                            "Please reopen the application to save any changes." & vbCrLf & vbCrLf &
+            If TimeStamp <> Nothing AndAlso TimeStamp <> temp Then
+                MessageBox.Show("The application has been updated since you last opened it." & vbNewLine &
+                            "Please reopen the application to save any changes." & vbNewLine & vbNewLine &
                             "NO DATA SAVED",
                             "Application Tracking Log", MessageBoxButtons.OK)
                 Exit Sub
@@ -7993,7 +7593,7 @@ Public Class SSPPApplicationTrackingLog
     End Sub
     Private Sub mmiNewApplication_Click(sender As Object, e As EventArgs) Handles mmiNewApplication.Click
         Try
-            Dim query As String = "Select SSPPApplicationKey.nextval from dual "
+            Dim query As String = "Select next value for SSPPAPPLICATIONKEY"
             txtApplicationNumber.Text = DB.GetSingleValue(Of Integer)(query)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -8412,11 +8012,11 @@ Public Class SSPPApplicationTrackingLog
     End Sub
 
 #End Region
-    Sub LoadApplication()
+
+    Public Sub LoadApplication()
         Try
             If String.IsNullOrWhiteSpace(txtApplicationNumber.Text) Then Exit Sub
 
-            'LoadBasicFacilityInfo()
             FormStatus = "Loading"
             LoadApplicationData()
             LoadMiscData()
@@ -8665,6 +8265,9 @@ Public Class SSPPApplicationTrackingLog
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
+#Region " Some Checkboxes "
+
     Private Sub chbTVNarrative_CheckedChanged(sender As Object, e As EventArgs) Handles chbTVNarrative.CheckedChanged
         Try
 
@@ -8677,93 +8280,81 @@ Public Class SSPPApplicationTrackingLog
 
                 Dim query As String = "select " &
                 "case " &
-                "when docPermitData is Null then '' " &
+                "when docPermitData is Null then null " &
                 "Else 'True' " &
                 "End DocData, " &
                 "case " &
-                "when strDocModifingPerson is Null then '' " &
-                "else (select (strLastName||', '||strFirstName) as StaffName " &
+                "when strDocModifingPerson is Null then null " &
+                "else (select concat(strLastName,', ',strFirstName) as StaffName " &
                 "from APBPermits, EPDUserProfiles " &
                 "where APBPermits.strDocModifingPerson = EPDUserProfiles.numUserID " &
                 "and numUserID = strDocModifingPerson " &
                 "and strFileName = @filename ) " &
                 "end DocStaffResponsible, " &
                 "case " &
-                "when datDocModifingDate is Null then '' " &
-                "else to_char(datDocModifingDate, 'dd-Mon-yyyy') " &
+                "when datDocModifingDate is Null then null " &
+                "else format(datDocModifingDate, 'dd-MMM-yyyy') " &
                 "End datDocModifingDate, " &
                 "case " &
-                "when pdfPermitData is Null then '' " &
+                "when pdfPermitData is Null then null " &
                 "Else 'True' " &
                 "End PDFData, " &
                 "case " &
-                "when strPDFModifingPerson is Null then '' " &
-                "else (select (strLastName||', '||strFirstName) as StaffName " &
+                "when strPDFModifingPerson is Null then null " &
+                "else (select concat(strLastName,', ',strFirstName) as StaffName " &
                 "from APBPermits, EPDUserProfiles " &
                 "where APBPermits.strPDFModifingPerson = EPDUserProfiles.numUserID  " &
                 "and numUserID = strPDFModifingPerson " &
                 "and strFileName = @filename ) " &
                 "end PDFStaffResponsible, " &
                 "case " &
-                "when datPDFModifingDate is Null then '' " &
-                "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " &
+                "when datPDFModifingDate is Null then null " &
+                "else format(datPDFModifingdate, 'dd-MMM-yyyy') " &
                 "End datPDFModifingDate " &
                 "from APBPermits " &
                 "where strFileName = @filename "
 
                 Dim parameter As New SqlParameter("@filename", "VN-" & MasterApp)
 
-                Using connection As New SqlConnection(CurrentConnectionString)
-                    Using cmd As SqlCommand = connection.CreateCommand
-                        cmd.CommandType = CommandType.Text
-                        cmd.CommandText = query
-                        cmd.Parameters.Add(parameter)
-                        cmd.Connection.Open()
-                        Using dr As SqlDataReader = cmd.ExecuteReader
+                Dim dr As DataRow = DB.GetDataRow(query, parameter)
 
-                            recExist = dr.Read
-                            If recExist = True Then
-                                If IsDBNull(dr.Item("DocData")) Then
-                                    txtTVNarrativeDoc.Text = ""
-                                Else
-                                    txtTVNarrativeDoc.Text = "On File"
-                                End If
-                                If IsDBNull(dr.Item("DocstaffResponsible")) Then
-                                    lblTVNarrativeSRDoc.Visible = False
-                                Else
-                                    lblTVNarrativeSRDoc.Visible = True
-                                    lblTVNarrativeSRDoc.Text = dr.Item("DocStaffResponsible")
-                                End If
-                                If IsDBNull(dr.Item("datDocModifingdate")) Then
-                                    lblTVNarrativeDUDoc.Visible = False
-                                Else
-                                    lblTVNarrativeDUDoc.Visible = True
-                                    lblTVNarrativeDUDoc.Text = dr.Item("datDocModifingDate")
-                                End If
+                If dr IsNot Nothing Then
+                    If IsDBNull(dr.Item("DocData")) Then
+                        txtTVNarrativeDoc.Text = ""
+                    Else
+                        txtTVNarrativeDoc.Text = "On File"
+                    End If
+                    If IsDBNull(dr.Item("DocstaffResponsible")) Then
+                        lblTVNarrativeSRDoc.Visible = False
+                    Else
+                        lblTVNarrativeSRDoc.Visible = True
+                        lblTVNarrativeSRDoc.Text = dr.Item("DocStaffResponsible")
+                    End If
+                    If IsDBNull(dr.Item("datDocModifingdate")) Then
+                        lblTVNarrativeDUDoc.Visible = False
+                    Else
+                        lblTVNarrativeDUDoc.Visible = True
+                        lblTVNarrativeDUDoc.Text = dr.Item("datDocModifingDate")
+                    End If
 
-                                If IsDBNull(dr.Item("PDFData")) Then
-                                    txtTVNarrativePDF.Text = ""
-                                Else
-                                    txtTVNarrativePDF.Text = "On File"
-                                End If
-                                If IsDBNull(dr.Item("PDFstaffResponsible")) Then
-                                    lblTVNarrativeSRPDF.Visible = False
-                                Else
-                                    lblTVNarrativeSRPDF.Visible = True
-                                    lblTVNarrativeSRPDF.Text = dr.Item("PDFStaffResponsible")
-                                End If
-                                If IsDBNull(dr.Item("datPDFModifingdate")) Then
-                                    lblTVNarrativeDUPDF.Visible = False
-                                Else
-                                    lblTVNarrativeDUPDF.Visible = True
-                                    lblTVNarrativeDUPDF.Text = dr.Item("datPDFModifingDate")
-                                End If
-                            End If
-
-                        End Using
-                        cmd.Connection.Close()
-                    End Using
-                End Using
+                    If IsDBNull(dr.Item("PDFData")) Then
+                        txtTVNarrativePDF.Text = ""
+                    Else
+                        txtTVNarrativePDF.Text = "On File"
+                    End If
+                    If IsDBNull(dr.Item("PDFstaffResponsible")) Then
+                        lblTVNarrativeSRPDF.Visible = False
+                    Else
+                        lblTVNarrativeSRPDF.Visible = True
+                        lblTVNarrativeSRPDF.Text = dr.Item("PDFStaffResponsible")
+                    End If
+                    If IsDBNull(dr.Item("datPDFModifingdate")) Then
+                        lblTVNarrativeDUPDF.Visible = False
+                    Else
+                        lblTVNarrativeDUPDF.Visible = True
+                        lblTVNarrativeDUPDF.Text = dr.Item("datPDFModifingDate")
+                    End If
+                End If
 
                 If txtTVNarrativeDoc.Text = "On File" Or txtTVNarrativePDF.Text = "On File" Then
                     btnTVNarrativeDownload.Visible = True
@@ -8798,93 +8389,81 @@ Public Class SSPPApplicationTrackingLog
 
                 Dim query As String = "select " &
                 "case " &
-                "when docPermitData is Null then '' " &
+                "when docPermitData is Null then null " &
                 "Else 'True' " &
                 "End DocData, " &
                 "case " &
-                "when strDocModifingPerson is Null then '' " &
-                "else (select (strLastName||', '||strFirstName) as StaffName " &
+                "when strDocModifingPerson is Null then null " &
+                "else (select concat(strLastName,', ',strFirstName) as StaffName " &
                 "from APBPermits, EPDUserProfiles " &
                 "where APBPermits.strDocModifingPerson = EPDUserProfiles.numUserID " &
                 "and numUserID = strDocModifingPerson " &
                 "and strFileName = @filename ) " &
                 "end DocStaffResponsible, " &
                 "case " &
-                "when datDocModifingDate is Null then '' " &
-                "else to_char(datDocModifingDate, 'dd-Mon-yyyy') " &
+                "when datDocModifingDate is Null then null " &
+                "else format(datDocModifingDate, 'dd-MMM-yyyy') " &
                 "End datDocModifingDate, " &
                 "case " &
-                "when pdfPermitData is Null then '' " &
+                "when pdfPermitData is Null then null " &
                 "Else 'True' " &
                 "End PDFData, " &
                 "case " &
-                "when strPDFModifingPerson is Null then '' " &
-                "else (select (strLastName||', '||strFirstName) as StaffName " &
+                "when strPDFModifingPerson is Null then null " &
+                "else (select concat(strLastName,', ',strFirstName) as StaffName " &
                 "from APBPermits, EPDUserProfiles " &
                 "where APBPermits.strPDFModifingPerson = EPDUserProfiles.numUserID  " &
                 "and numuserID = strPDFModifingPerson " &
                 "and strFileName = @filename) " &
                 "end PDFStaffResponsible, " &
                 "case " &
-                "when datPDFModifingDate is Null then '' " &
-                "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " &
+                "when datPDFModifingDate is Null then null " &
+                "else format(datPDFModifingdate, 'dd-MMM-yyyy') " &
                 "End datPDFModifingDate " &
                 "from APBPermits " &
                 "where strFileName = @filename "
 
                 Dim parameter As New SqlParameter("@filename", "VD-" & MasterApp)
 
-                Using connection As New SqlConnection(CurrentConnectionString)
-                    Using cmd As SqlCommand = connection.CreateCommand
-                        cmd.CommandType = CommandType.Text
-                        cmd.CommandText = query
-                        cmd.Parameters.Add(parameter)
-                        cmd.Connection.Open()
-                        Using dr As SqlDataReader = cmd.ExecuteReader
+                Dim dr As DataRow = DB.GetDataRow(query, parameter)
 
-                            recExist = dr.Read
-                            If recExist = True Then
-                                If IsDBNull(dr.Item("DocData")) Then
-                                    txtTVDraftDoc.Text = ""
-                                Else
-                                    txtTVDraftDoc.Text = "On File"
-                                End If
-                                If IsDBNull(dr.Item("DocstaffResponsible")) Then
-                                    lblTVDraftSRDoc.Visible = False
-                                Else
-                                    lblTVDraftSRDoc.Visible = True
-                                    lblTVDraftSRDoc.Text = dr.Item("DocStaffResponsible")
-                                End If
-                                If IsDBNull(dr.Item("datDocModifingdate")) Then
-                                    lblTVDraftDUDoc.Visible = False
-                                Else
-                                    lblTVDraftDUDoc.Visible = True
-                                    lblTVDraftDUDoc.Text = dr.Item("datDocModifingDate")
-                                End If
+                If dr IsNot Nothing Then
+                    If IsDBNull(dr.Item("DocData")) Then
+                        txtTVDraftDoc.Text = ""
+                    Else
+                        txtTVDraftDoc.Text = "On File"
+                    End If
+                    If IsDBNull(dr.Item("DocstaffResponsible")) Then
+                        lblTVDraftSRDoc.Visible = False
+                    Else
+                        lblTVDraftSRDoc.Visible = True
+                        lblTVDraftSRDoc.Text = dr.Item("DocStaffResponsible")
+                    End If
+                    If IsDBNull(dr.Item("datDocModifingdate")) Then
+                        lblTVDraftDUDoc.Visible = False
+                    Else
+                        lblTVDraftDUDoc.Visible = True
+                        lblTVDraftDUDoc.Text = dr.Item("datDocModifingDate")
+                    End If
 
-                                If IsDBNull(dr.Item("PDFData")) Then
-                                    txtTVDraftPDF.Text = ""
-                                Else
-                                    txtTVDraftPDF.Text = "On File"
-                                End If
-                                If IsDBNull(dr.Item("PDFstaffResponsible")) Then
-                                    lblTVDraftSRPDF.Visible = False
-                                Else
-                                    lblTVDraftSRPDF.Visible = True
-                                    lblTVDraftSRPDF.Text = dr.Item("PDFStaffResponsible")
-                                End If
-                                If IsDBNull(dr.Item("datPDFModifingdate")) Then
-                                    lblTVDraftDUPDF.Visible = False
-                                Else
-                                    lblTVDraftDUPDF.Visible = True
-                                    lblTVDraftDUPDF.Text = dr.Item("datPDFModifingDate")
-                                End If
-                            End If
-
-                        End Using
-                        cmd.Connection.Close()
-                    End Using
-                End Using
+                    If IsDBNull(dr.Item("PDFData")) Then
+                        txtTVDraftPDF.Text = ""
+                    Else
+                        txtTVDraftPDF.Text = "On File"
+                    End If
+                    If IsDBNull(dr.Item("PDFstaffResponsible")) Then
+                        lblTVDraftSRPDF.Visible = False
+                    Else
+                        lblTVDraftSRPDF.Visible = True
+                        lblTVDraftSRPDF.Text = dr.Item("PDFStaffResponsible")
+                    End If
+                    If IsDBNull(dr.Item("datPDFModifingdate")) Then
+                        lblTVDraftDUPDF.Visible = False
+                    Else
+                        lblTVDraftDUPDF.Visible = True
+                        lblTVDraftDUPDF.Text = dr.Item("datPDFModifingDate")
+                    End If
+                End If
 
                 If txtTVDraftDoc.Text = "On File" Or txtTVDraftPDF.Text = "On File" Then
                     btnTVDraftDownload.Visible = True
@@ -8918,93 +8497,81 @@ Public Class SSPPApplicationTrackingLog
 
                 Dim query As String = "select " &
                 "case " &
-                "when docPermitData is Null then '' " &
+                "when docPermitData is Null then null " &
                 "Else 'True' " &
                 "End DocData, " &
                 "case " &
-                "when strDocModifingPerson is Null then '' " &
-                "else (select (strLastName|| ' '||strFirstName) as StaffName " &
+                "when strDocModifingPerson is Null then null " &
+                "else (select concat(strLastName, ' ',strFirstName) as StaffName " &
                 "from APBPermits, EPDUserProfiles " &
                 "where APBPermits.strDocModifingPerson = EPDUserProfiles.numUserID " &
                 "and numUserID = strDocModifingPerson " &
                 "and strFileName = @filename ) " &
                 "end DocStaffResponsible, " &
                 "case " &
-                "when datDocModifingDate is Null then '' " &
-                "else to_char(datDocModifingDate, 'dd-Mon-yyyy') " &
+                "when datDocModifingDate is Null then null " &
+                "else format(datDocModifingDate, 'dd-MMM-yyyy') " &
                 "End datDocModifingDate, " &
                 "case " &
-                "when pdfPermitData is Null then '' " &
+                "when pdfPermitData is Null then null " &
                 "Else 'True' " &
                 "End PDFData, " &
                 "case " &
-                "when strPDFModifingPerson is Null then '' " &
-                "else (select (strLastName||', '||strFirstName) as StaffName " &
+                "when strPDFModifingPerson is Null then null " &
+                "else (select concat(strLastName,', ',strFirstName) as StaffName " &
                 "from APBPermits, EPDUserProfiles " &
                 "where APBPermits.strPDFModifingPerson = EPDUserProfiles.numUserID  " &
                 "and numUserID = strPDFModifingPerson " &
                 "and strFileName = @filename ) " &
                 "end PDFStaffResponsible, " &
                 "case " &
-                "when datPDFModifingDate is Null then '' " &
-                "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " &
+                "when datPDFModifingDate is Null then null " &
+                "else format(datPDFModifingdate, 'dd-MMM-yyyy') " &
                 "End datPDFModifingDate " &
                 "from APBPermits " &
                 "where strFileName = @filename "
 
                 Dim parameter As New SqlParameter("@filename", "VP-" & MasterApp)
 
-                Using connection As New SqlConnection(CurrentConnectionString)
-                    Using cmd As SqlCommand = connection.CreateCommand
-                        cmd.CommandType = CommandType.Text
-                        cmd.CommandText = query
-                        cmd.Parameters.Add(parameter)
-                        cmd.Connection.Open()
-                        Using dr As SqlDataReader = cmd.ExecuteReader
+                Dim dr As DataRow = DB.GetDataRow(query, parameter)
 
-                            recExist = dr.Read
-                            If recExist = True Then
-                                If IsDBNull(dr.Item("DocData")) Then
-                                    txtTVPublicNoticeDoc.Text = ""
-                                Else
-                                    txtTVPublicNoticeDoc.Text = "On File"
-                                End If
-                                If IsDBNull(dr.Item("DocstaffResponsible")) Then
-                                    lblTVPublicNoticeSRDoc.Visible = False
-                                Else
-                                    lblTVPublicNoticeSRDoc.Visible = True
-                                    lblTVPublicNoticeSRDoc.Text = dr.Item("DocStaffResponsible")
-                                End If
-                                If IsDBNull(dr.Item("datDocModifingdate")) Then
-                                    lblTVPublicNoticeDUDoc.Visible = False
-                                Else
-                                    lblTVPublicNoticeDUDoc.Visible = True
-                                    lblTVPublicNoticeDUDoc.Text = dr.Item("datDocModifingDate")
-                                End If
+                If dr IsNot Nothing Then
+                    If IsDBNull(dr.Item("DocData")) Then
+                        txtTVPublicNoticeDoc.Text = ""
+                    Else
+                        txtTVPublicNoticeDoc.Text = "On File"
+                    End If
+                    If IsDBNull(dr.Item("DocstaffResponsible")) Then
+                        lblTVPublicNoticeSRDoc.Visible = False
+                    Else
+                        lblTVPublicNoticeSRDoc.Visible = True
+                        lblTVPublicNoticeSRDoc.Text = dr.Item("DocStaffResponsible")
+                    End If
+                    If IsDBNull(dr.Item("datDocModifingdate")) Then
+                        lblTVPublicNoticeDUDoc.Visible = False
+                    Else
+                        lblTVPublicNoticeDUDoc.Visible = True
+                        lblTVPublicNoticeDUDoc.Text = dr.Item("datDocModifingDate")
+                    End If
 
-                                If IsDBNull(dr.Item("PDFData")) Then
-                                    txtTVPublicNoticePDF.Text = ""
-                                Else
-                                    txtTVPublicNoticePDF.Text = "On File"
-                                End If
-                                If IsDBNull(dr.Item("PDFstaffResponsible")) Then
-                                    lblTVPublicNoticeSRPDF.Visible = False
-                                Else
-                                    lblTVPublicNoticeSRPDF.Visible = True
-                                    lblTVPublicNoticeSRPDF.Text = dr.Item("PDFStaffResponsible")
-                                End If
-                                If IsDBNull(dr.Item("datPDFModifingdate")) Then
-                                    lblTVPublicNoticeDUPDF.Visible = False
-                                Else
-                                    lblTVPublicNoticeDUPDF.Visible = True
-                                    lblTVPublicNoticeDUPDF.Text = dr.Item("datPDFModifingDate")
-                                End If
-                            End If
-
-                        End Using
-                        cmd.Connection.Close()
-                    End Using
-                End Using
+                    If IsDBNull(dr.Item("PDFData")) Then
+                        txtTVPublicNoticePDF.Text = ""
+                    Else
+                        txtTVPublicNoticePDF.Text = "On File"
+                    End If
+                    If IsDBNull(dr.Item("PDFstaffResponsible")) Then
+                        lblTVPublicNoticeSRPDF.Visible = False
+                    Else
+                        lblTVPublicNoticeSRPDF.Visible = True
+                        lblTVPublicNoticeSRPDF.Text = dr.Item("PDFStaffResponsible")
+                    End If
+                    If IsDBNull(dr.Item("datPDFModifingdate")) Then
+                        lblTVPublicNoticeDUPDF.Visible = False
+                    Else
+                        lblTVPublicNoticeDUPDF.Visible = True
+                        lblTVPublicNoticeDUPDF.Text = dr.Item("datPDFModifingDate")
+                    End If
+                End If
 
                 If txtTVPublicNoticeDoc.Text = "On File" Or txtTVPublicNoticePDF.Text = "On File" Then
                     btnTVPublicNoticeDownload.Visible = True
@@ -9039,93 +8606,81 @@ Public Class SSPPApplicationTrackingLog
 
                 Dim query As String = "select " &
                  "case " &
-                 "when docPermitData is Null then '' " &
+                 "when docPermitData is Null then null " &
                  "Else 'True' " &
                  "End DocData, " &
                  "case " &
-                 "when strDocModifingPerson is Null then '' " &
-                 "else (select (strLastName||', '||strFirstName) as StaffName " &
+                 "when strDocModifingPerson is Null then null " &
+                 "else (select concat(strLastName,', ',strFirstName) as StaffName " &
                  "from APBPermits, EPDUserProfiles " &
                  "where APBPermits.strDocModifingPerson = EPDUserProfiles.numUserID " &
                  "and numUserID = strDocModifingPerson " &
                  "and strFileName = @filename ) " &
                  "end DocStaffResponsible, " &
                  "case " &
-                 "when datDocModifingDate is Null then '' " &
-                 "else to_char(datDocModifingDate, 'dd-Mon-yyyy') " &
+                 "when datDocModifingDate is Null then null " &
+                 "else format(datDocModifingDate, 'dd-MMM-yyyy') " &
                  "End datDocModifingDate, " &
                  "case " &
-                 "when pdfPermitData is Null then '' " &
+                 "when pdfPermitData is Null then null " &
                  "Else 'True' " &
                  "End PDFData, " &
                  "case " &
-                 "when strPDFModifingPerson is Null then '' " &
-                 "else (select (strLastName||', '||strFirstName) as StaffName " &
+                 "when strPDFModifingPerson is Null then null " &
+                 "else (select concat(strLastName,', ',strFirstName) as StaffName " &
                  "from APBPermits, EPDUserProfiles " &
                  "where APBPermits.strPDFModifingPerson = EPDUserProfiles.numUserID  " &
                  "and numUserID = strPDFModifingPerson " &
                  "and strFileName = @filename) " &
                  "end PDFStaffResponsible, " &
                  "case " &
-                 "when datPDFModifingDate is Null then '' " &
-                 "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " &
+                 "when datPDFModifingDate is Null then null " &
+                 "else format(datPDFModifingdate, 'dd-MMM-yyyy') " &
                  "End datPDFModifingDate " &
                  "from APBPermits " &
                  "where strFileName = @filename "
 
                 Dim parameter As New SqlParameter("@filename", "VF-" & MasterApp)
 
-                Using connection As New SqlConnection(CurrentConnectionString)
-                    Using cmd As SqlCommand = connection.CreateCommand
-                        cmd.CommandType = CommandType.Text
-                        cmd.CommandText = query
-                        cmd.Parameters.Add(parameter)
-                        cmd.Connection.Open()
-                        Using dr As SqlDataReader = cmd.ExecuteReader
+                Dim dr As DataRow = DB.GetDataRow(query, parameter)
 
-                            recExist = dr.Read
-                            If recExist = True Then
-                                If IsDBNull(dr.Item("DocData")) Then
-                                    txtTVFinalDoc.Text = ""
-                                Else
-                                    txtTVFinalDoc.Text = "On File"
-                                End If
-                                If IsDBNull(dr.Item("DocstaffResponsible")) Then
-                                    lblTVFinalSRDoc.Visible = False
-                                Else
-                                    lblTVFinalSRDoc.Visible = True
-                                    lblTVFinalSRDoc.Text = dr.Item("DocStaffResponsible")
-                                End If
-                                If IsDBNull(dr.Item("datDocModifingdate")) Then
-                                    lblTVFinalDUDoc.Visible = False
-                                Else
-                                    lblTVFinalDUDoc.Visible = True
-                                    lblTVFinalDUDoc.Text = dr.Item("datDocModifingDate")
-                                End If
+                If dr IsNot Nothing Then
+                    If IsDBNull(dr.Item("DocData")) Then
+                        txtTVFinalDoc.Text = ""
+                    Else
+                        txtTVFinalDoc.Text = "On File"
+                    End If
+                    If IsDBNull(dr.Item("DocstaffResponsible")) Then
+                        lblTVFinalSRDoc.Visible = False
+                    Else
+                        lblTVFinalSRDoc.Visible = True
+                        lblTVFinalSRDoc.Text = dr.Item("DocStaffResponsible")
+                    End If
+                    If IsDBNull(dr.Item("datDocModifingdate")) Then
+                        lblTVFinalDUDoc.Visible = False
+                    Else
+                        lblTVFinalDUDoc.Visible = True
+                        lblTVFinalDUDoc.Text = dr.Item("datDocModifingDate")
+                    End If
 
-                                If IsDBNull(dr.Item("PDFData")) Then
-                                    txtTVFinalPDF.Text = ""
-                                Else
-                                    txtTVFinalPDF.Text = "On File"
-                                End If
-                                If IsDBNull(dr.Item("PDFstaffResponsible")) Then
-                                    lblTVFinalSRPDF.Visible = False
-                                Else
-                                    lblTVFinalSRPDF.Visible = True
-                                    lblTVFinalSRPDF.Text = dr.Item("PDFStaffResponsible")
-                                End If
-                                If IsDBNull(dr.Item("datPDFModifingdate")) Then
-                                    lblTVFinalDUPDF.Visible = False
-                                Else
-                                    lblTVFinalDUPDF.Visible = True
-                                    lblTVFinalDUPDF.Text = dr.Item("datPDFModifingDate")
-                                End If
-                            End If
-
-                        End Using
-                        cmd.Connection.Close()
-                    End Using
-                End Using
+                    If IsDBNull(dr.Item("PDFData")) Then
+                        txtTVFinalPDF.Text = ""
+                    Else
+                        txtTVFinalPDF.Text = "On File"
+                    End If
+                    If IsDBNull(dr.Item("PDFstaffResponsible")) Then
+                        lblTVFinalSRPDF.Visible = False
+                    Else
+                        lblTVFinalSRPDF.Visible = True
+                        lblTVFinalSRPDF.Text = dr.Item("PDFStaffResponsible")
+                    End If
+                    If IsDBNull(dr.Item("datPDFModifingdate")) Then
+                        lblTVFinalDUPDF.Visible = False
+                    Else
+                        lblTVFinalDUPDF.Visible = True
+                        lblTVFinalDUPDF.Text = dr.Item("datPDFModifingDate")
+                    End If
+                End If
 
                 If txtTVFinalDoc.Text = "On File" Or txtTVFinalPDF.Text = "On File" Then
                     btnTVFinalDownload.Visible = True
@@ -9159,92 +8714,80 @@ Public Class SSPPApplicationTrackingLog
 
                 Dim query As String = "select " &
                  "case " &
-                 "when docPermitData is Null then '' " &
+                 "when docPermitData is Null then null " &
                  "Else 'True' " &
                  "End DocData, " &
                  "case " &
-                 "when strDocModifingPerson is Null then '' " &
-                 "else (select (strLastName||', '||strFirstName) as StaffName " &
+                 "when strDocModifingPerson is Null then null " &
+                 "else (select concat(strLastName,', ',strFirstName) as StaffName " &
                  "from APBPermits, EPDUserProfiles " &
                  "where APBPermits.strDocModifingPerson = EPDUserProfiles.numUserID " &
                  "and numUserID = strDocModifingPerson " &
                  "and strFileName = @filename ) " &
                  "end DocStaffResponsible, " &
                  "case " &
-                 "when datDocModifingDate is Null then '' " &
-                 "else to_char(datDocModifingDate, 'dd-Mon-yyyy') " &
+                 "when datDocModifingDate is Null then null " &
+                 "else format(datDocModifingDate, 'dd-MMM-yyyy') " &
                  "End datDocModifingDate, " &
                  "case " &
-                 "when pdfPermitData is Null then '' " &
+                 "when pdfPermitData is Null then null " &
                  "Else 'True' " &
                  "End PDFData, " &
                  "case " &
-                 "when strPDFModifingPerson is Null then '' " &
-                 "else (select (strLastName||', '||strFirstName) as StaffName " &
+                 "when strPDFModifingPerson is Null then null " &
+                 "else (select concat(strLastName,', ',strFirstName) as StaffName " &
                  "from APBPermits, EPDUserProfiles " &
                  "where APBPermits.strPDFModifingPerson = EPDUserProfiles.numUserID  " &
                  "and numUserID = strPDFModifingPerson " &
                  "and strFileName = @filename ) " &
                  "end PDFStaffResponsible, " &
                  "case " &
-                 "when datPDFModifingDate is Null then '' " &
-                 "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " &
+                 "when datPDFModifingDate is Null then null " &
+                 "else format(datPDFModifingdate, 'dd-MMM-yyyy') " &
                  "End datPDFModifingDate " &
                  "from APBPermits " &
                  "where strFileName = @filename "
 
                 Dim parameter As New SqlParameter("@filename", "VF-" & MasterApp)
 
-                Using connection As New SqlConnection(CurrentConnectionString)
-                    Using cmd As SqlCommand = connection.CreateCommand
-                        cmd.CommandType = CommandType.Text
-                        cmd.CommandText = query
-                        cmd.Parameters.Add(parameter)
-                        cmd.Connection.Open()
-                        Using dr As SqlDataReader = cmd.ExecuteReader
+                Dim dr As DataRow = DB.GetDataRow(query, parameter)
 
-                            recExist = dr.Read
-                            If recExist = True Then
-                                If IsDBNull(dr.Item("DocData")) Then
-                                    txtPSDAppSummaryDoc.Text = ""
-                                Else
-                                    txtPSDAppSummaryDoc.Text = "On File"
-                                End If
-                                If IsDBNull(dr.Item("DocstaffResponsible")) Then
-                                    lblPSDAppSummarySRDoc.Visible = False
-                                Else
-                                    lblPSDAppSummarySRDoc.Visible = True
-                                    lblPSDAppSummarySRDoc.Text = dr.Item("DocStaffResponsible")
-                                End If
-                                If IsDBNull(dr.Item("datDocModifingdate")) Then
-                                    lblPSDAppSummaryDUDoc.Visible = False
-                                Else
-                                    lblPSDAppSummaryDUDoc.Visible = True
-                                    lblPSDAppSummaryDUDoc.Text = dr.Item("datDocModifingDate")
-                                End If
-                                If IsDBNull(dr.Item("PDFData")) Then
-                                    txtPSDAppSummaryPDF.Text = ""
-                                Else
-                                    txtPSDAppSummaryPDF.Text = "On File"
-                                End If
-                                If IsDBNull(dr.Item("PDFstaffResponsible")) Then
-                                    lblPSDAppSummarySRPDF.Visible = False
-                                Else
-                                    lblPSDAppSummarySRPDF.Visible = True
-                                    lblPSDAppSummarySRPDF.Text = dr.Item("PDFStaffResponsible")
-                                End If
-                                If IsDBNull(dr.Item("datPDFModifingdate")) Then
-                                    lblPSDAppSummaryDUPDF.Visible = False
-                                Else
-                                    lblPSDAppSummaryDUPDF.Visible = True
-                                    lblPSDAppSummaryDUPDF.Text = dr.Item("datPDFModifingDate")
-                                End If
-                            End If
-
-                        End Using
-                        cmd.Connection.Close()
-                    End Using
-                End Using
+                If dr IsNot Nothing Then
+                    If IsDBNull(dr.Item("DocData")) Then
+                        txtPSDAppSummaryDoc.Text = ""
+                    Else
+                        txtPSDAppSummaryDoc.Text = "On File"
+                    End If
+                    If IsDBNull(dr.Item("DocstaffResponsible")) Then
+                        lblPSDAppSummarySRDoc.Visible = False
+                    Else
+                        lblPSDAppSummarySRDoc.Visible = True
+                        lblPSDAppSummarySRDoc.Text = dr.Item("DocStaffResponsible")
+                    End If
+                    If IsDBNull(dr.Item("datDocModifingdate")) Then
+                        lblPSDAppSummaryDUDoc.Visible = False
+                    Else
+                        lblPSDAppSummaryDUDoc.Visible = True
+                        lblPSDAppSummaryDUDoc.Text = dr.Item("datDocModifingDate")
+                    End If
+                    If IsDBNull(dr.Item("PDFData")) Then
+                        txtPSDAppSummaryPDF.Text = ""
+                    Else
+                        txtPSDAppSummaryPDF.Text = "On File"
+                    End If
+                    If IsDBNull(dr.Item("PDFstaffResponsible")) Then
+                        lblPSDAppSummarySRPDF.Visible = False
+                    Else
+                        lblPSDAppSummarySRPDF.Visible = True
+                        lblPSDAppSummarySRPDF.Text = dr.Item("PDFStaffResponsible")
+                    End If
+                    If IsDBNull(dr.Item("datPDFModifingdate")) Then
+                        lblPSDAppSummaryDUPDF.Visible = False
+                    Else
+                        lblPSDAppSummaryDUPDF.Visible = True
+                        lblPSDAppSummaryDUPDF.Text = dr.Item("datPDFModifingDate")
+                    End If
+                End If
 
                 If txtPSDAppSummaryDoc.Text = "On File" Or txtPSDAppSummaryPDF.Text = "On File" Then
                     btnPSDAppSummaryDownload.Visible = True
@@ -9278,92 +8821,80 @@ Public Class SSPPApplicationTrackingLog
 
                 Dim query As String = "select " &
                  "case " &
-                 "when docPermitData is Null then '' " &
+                 "when docPermitData is Null then null " &
                  "Else 'True' " &
                  "End DocData, " &
                  "case " &
-                 "when strDocModifingPerson is Null then '' " &
-                 "else (select (strLastName||', '||strFirstName) as StaffName " &
+                 "when strDocModifingPerson is Null then null " &
+                 "else (select concat(strLastName,', ',strFirstName) as StaffName " &
                  "from APBPermits, EPDUserProfiles " &
                  "where APBPermits.strDocModifingPerson = EPDUserProfiles.numUserID " &
                  "and numUserID = strDocModifingPerson " &
                  "and strFileName = @filename ) " &
                  "end DocStaffResponsible, " &
                  "case " &
-                 "when datDocModifingDate is Null then '' " &
-                 "else to_char(datDocModifingDate, 'dd-Mon-yyyy') " &
+                 "when datDocModifingDate is Null then null " &
+                 "else format(datDocModifingDate, 'dd-MMM-yyyy') " &
                  "End datDocModifingDate, " &
                  "case " &
-                 "when pdfPermitData is Null then '' " &
+                 "when pdfPermitData is Null then null " &
                  "Else 'True' " &
                  "End PDFData, " &
                  "case " &
-                 "when strPDFModifingPerson is Null then '' " &
-                 "else (select (strLastName||', '||strFirstName) as StaffName " &
+                 "when strPDFModifingPerson is Null then null " &
+                 "else (select concat(strLastName,', ',strFirstName) as StaffName " &
                  "from APBPermits, EPDUserProfiles " &
                  "where APBPermits.strPDFModifingPerson = EPDUserProfiles.numUserID  " &
                  "and numUserID = strPDFModifingPerson " &
                  "and strFileName = @filename ) " &
                  "end PDFStaffResponsible, " &
                  "case " &
-                 "when datPDFModifingDate is Null then '' " &
-                 "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " &
+                 "when datPDFModifingDate is Null then null " &
+                 "else format(datPDFModifingdate, 'dd-MMM-yyyy') " &
                  "End datPDFModifingDate " &
                  "from APBPermits " &
                  "where strFileName = @filename "
 
                 Dim parameter As New SqlParameter("@filename", "PP-" & MasterApp)
 
-                Using connection As New SqlConnection(CurrentConnectionString)
-                    Using cmd As SqlCommand = connection.CreateCommand
-                        cmd.CommandType = CommandType.Text
-                        cmd.CommandText = query
-                        cmd.Parameters.Add(parameter)
-                        cmd.Connection.Open()
-                        Using dr As SqlDataReader = cmd.ExecuteReader
+                Dim dr As DataRow = DB.GetDataRow(query, parameter)
 
-                            recExist = dr.Read
-                            If recExist = True Then
-                                If IsDBNull(dr.Item("DocData")) Then
-                                    txtPSDPrelimDetDoc.Text = ""
-                                Else
-                                    txtPSDPrelimDetDoc.Text = "On File"
-                                End If
-                                If IsDBNull(dr.Item("DocstaffResponsible")) Then
-                                    lblPSDPrelimDetSRDoc.Visible = False
-                                Else
-                                    lblPSDPrelimDetSRDoc.Visible = True
-                                    lblPSDPrelimDetSRDoc.Text = dr.Item("DocStaffResponsible")
-                                End If
-                                If IsDBNull(dr.Item("datDocModifingdate")) Then
-                                    lblPSDPrelimDetDUDoc.Visible = False
-                                Else
-                                    lblPSDPrelimDetDUDoc.Visible = True
-                                    lblPSDPrelimDetDUDoc.Text = dr.Item("datDocModifingDate")
-                                End If
-                                If IsDBNull(dr.Item("PDFData")) Then
-                                    txtPSDPrelimDetPDF.Text = ""
-                                Else
-                                    txtPSDPrelimDetPDF.Text = "On File"
-                                End If
-                                If IsDBNull(dr.Item("PDFstaffResponsible")) Then
-                                    lblPSDPrelimDetSRPDF.Visible = False
-                                Else
-                                    lblPSDPrelimDetSRPDF.Visible = True
-                                    lblPSDPrelimDetSRPDF.Text = dr.Item("PDFStaffResponsible")
-                                End If
-                                If IsDBNull(dr.Item("datPDFModifingdate")) Then
-                                    lblPSDPrelimDetDUPDF.Visible = False
-                                Else
-                                    lblPSDPrelimDetDUPDF.Visible = True
-                                    lblPSDPrelimDetDUPDF.Text = dr.Item("datPDFModifingDate")
-                                End If
-                            End If
-
-                        End Using
-                        cmd.Connection.Close()
-                    End Using
-                End Using
+                If dr IsNot Nothing Then
+                    If IsDBNull(dr.Item("DocData")) Then
+                        txtPSDPrelimDetDoc.Text = ""
+                    Else
+                        txtPSDPrelimDetDoc.Text = "On File"
+                    End If
+                    If IsDBNull(dr.Item("DocstaffResponsible")) Then
+                        lblPSDPrelimDetSRDoc.Visible = False
+                    Else
+                        lblPSDPrelimDetSRDoc.Visible = True
+                        lblPSDPrelimDetSRDoc.Text = dr.Item("DocStaffResponsible")
+                    End If
+                    If IsDBNull(dr.Item("datDocModifingdate")) Then
+                        lblPSDPrelimDetDUDoc.Visible = False
+                    Else
+                        lblPSDPrelimDetDUDoc.Visible = True
+                        lblPSDPrelimDetDUDoc.Text = dr.Item("datDocModifingDate")
+                    End If
+                    If IsDBNull(dr.Item("PDFData")) Then
+                        txtPSDPrelimDetPDF.Text = ""
+                    Else
+                        txtPSDPrelimDetPDF.Text = "On File"
+                    End If
+                    If IsDBNull(dr.Item("PDFstaffResponsible")) Then
+                        lblPSDPrelimDetSRPDF.Visible = False
+                    Else
+                        lblPSDPrelimDetSRPDF.Visible = True
+                        lblPSDPrelimDetSRPDF.Text = dr.Item("PDFStaffResponsible")
+                    End If
+                    If IsDBNull(dr.Item("datPDFModifingdate")) Then
+                        lblPSDPrelimDetDUPDF.Visible = False
+                    Else
+                        lblPSDPrelimDetDUPDF.Visible = True
+                        lblPSDPrelimDetDUPDF.Text = dr.Item("datPDFModifingDate")
+                    End If
+                End If
 
                 If txtPSDPrelimDetDoc.Text = "On File" Or txtPSDPrelimDetPDF.Text = "On File" Then
                     btnPSDPrelimDetDownload.Visible = True
@@ -9397,92 +8928,80 @@ Public Class SSPPApplicationTrackingLog
 
                 Dim query As String = "select " &
                  "case " &
-                 "when docPermitData is Null then '' " &
+                 "when docPermitData is Null then null " &
                  "Else 'True' " &
                  "End DocData, " &
                  "case " &
-                 "when strDocModifingPerson is Null then '' " &
-                 "else (select (strLastName||', '||strFirstName) as StaffName " &
+                 "when strDocModifingPerson is Null then null " &
+                 "else (select concat(strLastName,', ',strFirstName) as StaffName " &
                  "from APBPermits, EPDUserProfiles " &
                  "where APBPermits.strDocModifingPerson = EPDUserProfiles.numUserID " &
                  "and numUserID = strDocModifingPerson " &
                  "and strFileName = @filename ) " &
                  "end DocStaffResponsible, " &
                  "case " &
-                 "when datDocModifingDate is Null then '' " &
-                 "else to_char(datDocModifingDate, 'dd-Mon-yyyy') " &
+                 "when datDocModifingDate is Null then null " &
+                 "else format(datDocModifingDate, 'dd-MMM-yyyy') " &
                  "End datDocModifingDate, " &
                  "case " &
-                 "when pdfPermitData is Null then '' " &
+                 "when pdfPermitData is Null then null " &
                  "Else 'True' " &
                  "End PDFData, " &
                  "case " &
-                 "when strPDFModifingPerson is Null then '' " &
-                 "else (select (strLastName||', '||strFirstName) as StaffName " &
+                 "when strPDFModifingPerson is Null then null " &
+                 "else (select concat(strLastName,', ',strFirstName) as StaffName " &
                  "from APBPermits, EPDUserProfiles " &
                  "where APBPermits.strPDFModifingPerson = EPDUserProfiles.numUserID  " &
                  "and numUserID = strPDFModifingPerson " &
                  "and strFileName = @filename )" &
                  "end PDFStaffResponsible, " &
                  "case " &
-                 "when datPDFModifingDate is Null then '' " &
-                 "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " &
+                 "when datPDFModifingDate is Null then null " &
+                 "else format(datPDFModifingdate, 'dd-MMM-yyyy') " &
                  "End datPDFModifingDate " &
                  "from APBPermits " &
                  "where strFileName = @filename "
 
                 Dim parameter As New SqlParameter("@filename", "PT-" & MasterApp)
 
-                Using connection As New SqlConnection(CurrentConnectionString)
-                    Using cmd As SqlCommand = connection.CreateCommand
-                        cmd.CommandType = CommandType.Text
-                        cmd.CommandText = query
-                        cmd.Parameters.Add(parameter)
-                        cmd.Connection.Open()
-                        Using dr As SqlDataReader = cmd.ExecuteReader
+                Dim dr As DataRow = DB.GetDataRow(query, parameter)
 
-                            recExist = dr.Read
-                            If recExist = True Then
-                                If IsDBNull(dr.Item("DocData")) Then
-                                    txtPSDNarrativeDoc.Text = ""
-                                Else
-                                    txtPSDNarrativeDoc.Text = "On File"
-                                End If
-                                If IsDBNull(dr.Item("DocstaffResponsible")) Then
-                                    lblPSDNarrativeSRDoc.Visible = False
-                                Else
-                                    lblPSDNarrativeSRDoc.Visible = True
-                                    lblPSDNarrativeSRDoc.Text = dr.Item("DocStaffResponsible")
-                                End If
-                                If IsDBNull(dr.Item("datDocModifingdate")) Then
-                                    lblPSDNarrativeDUDoc.Visible = False
-                                Else
-                                    lblPSDNarrativeDUDoc.Visible = True
-                                    lblPSDNarrativeDUDoc.Text = dr.Item("datDocModifingDate")
-                                End If
-                                If IsDBNull(dr.Item("PDFData")) Then
-                                    txtPSDNarrativePDF.Text = ""
-                                Else
-                                    txtPSDNarrativePDF.Text = "On File"
-                                End If
-                                If IsDBNull(dr.Item("PDFstaffResponsible")) Then
-                                    lblPSDNarrativeSRPDF.Visible = False
-                                Else
-                                    lblPSDNarrativeSRPDF.Visible = True
-                                    lblPSDNarrativeSRPDF.Text = dr.Item("PDFStaffResponsible")
-                                End If
-                                If IsDBNull(dr.Item("datPDFModifingdate")) Then
-                                    lblPSDNarrativeDUPDF.Visible = False
-                                Else
-                                    lblPSDNarrativeDUPDF.Visible = True
-                                    lblPSDNarrativeDUPDF.Text = dr.Item("datPDFModifingDate")
-                                End If
-                            End If
-
-                        End Using
-                        cmd.Connection.Close()
-                    End Using
-                End Using
+                If dr IsNot Nothing Then
+                    If IsDBNull(dr.Item("DocData")) Then
+                        txtPSDNarrativeDoc.Text = ""
+                    Else
+                        txtPSDNarrativeDoc.Text = "On File"
+                    End If
+                    If IsDBNull(dr.Item("DocstaffResponsible")) Then
+                        lblPSDNarrativeSRDoc.Visible = False
+                    Else
+                        lblPSDNarrativeSRDoc.Visible = True
+                        lblPSDNarrativeSRDoc.Text = dr.Item("DocStaffResponsible")
+                    End If
+                    If IsDBNull(dr.Item("datDocModifingdate")) Then
+                        lblPSDNarrativeDUDoc.Visible = False
+                    Else
+                        lblPSDNarrativeDUDoc.Visible = True
+                        lblPSDNarrativeDUDoc.Text = dr.Item("datDocModifingDate")
+                    End If
+                    If IsDBNull(dr.Item("PDFData")) Then
+                        txtPSDNarrativePDF.Text = ""
+                    Else
+                        txtPSDNarrativePDF.Text = "On File"
+                    End If
+                    If IsDBNull(dr.Item("PDFstaffResponsible")) Then
+                        lblPSDNarrativeSRPDF.Visible = False
+                    Else
+                        lblPSDNarrativeSRPDF.Visible = True
+                        lblPSDNarrativeSRPDF.Text = dr.Item("PDFStaffResponsible")
+                    End If
+                    If IsDBNull(dr.Item("datPDFModifingdate")) Then
+                        lblPSDNarrativeDUPDF.Visible = False
+                    Else
+                        lblPSDNarrativeDUPDF.Visible = True
+                        lblPSDNarrativeDUPDF.Text = dr.Item("datPDFModifingDate")
+                    End If
+                End If
 
                 If txtPSDNarrativeDoc.Text = "On File" Or txtPSDNarrativePDF.Text = "On File" Then
                     btnPSDNarrativeDownload.Visible = True
@@ -9516,92 +9035,80 @@ Public Class SSPPApplicationTrackingLog
 
                 Dim query As String = "select " &
                  "case " &
-                 "when docPermitData is Null then '' " &
+                 "when docPermitData is Null then null " &
                  "Else 'True' " &
                  "End DocData, " &
                  "case " &
-                 "when strDocModifingPerson is Null then '' " &
-                 "else (select (strLastName||', '||strFirstName) as StaffName " &
+                 "when strDocModifingPerson is Null then null " &
+                 "else (select concat(strLastName,', ',strFirstName) as StaffName " &
                  "from APBPermits, EPDUserProfiles " &
                  "where APBPermits.strDocModifingPerson = EPDUserProfiles.numUserID " &
                  "and numUserID = strDocModifingPerson " &
                  "and strFileName = @filename ) " &
                  "end DocStaffResponsible, " &
                  "case " &
-                 "when datDocModifingDate is Null then '' " &
-                 "else to_char(datDocModifingDate, 'dd-Mon-yyyy') " &
+                 "when datDocModifingDate is Null then null " &
+                 "else format(datDocModifingDate, 'dd-MMM-yyyy') " &
                  "End datDocModifingDate, " &
                  "case " &
-                 "when pdfPermitData is Null then '' " &
+                 "when pdfPermitData is Null then null " &
                  "Else 'True' " &
                  "End PDFData, " &
                  "case " &
-                 "when strPDFModifingPerson is Null then '' " &
-                 "else (select (strLastName||', '||strFirstName) as StaffName " &
+                 "when strPDFModifingPerson is Null then null " &
+                 "else (select concat(strLastName,', ',strFirstName) as StaffName " &
                  "from APBPermits, EPDUserProfiles " &
                  "where APBPermits.strPDFModifingPerson = EPDUserProfiles.numUserID  " &
                  "and numUserID = strPDFModifingPerson " &
                  "and strFileName = @filename ) " &
                  "end PDFStaffResponsible, " &
                  "case " &
-                 "when datPDFModifingDate is Null then '' " &
-                 "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " &
+                 "when datPDFModifingDate is Null then null " &
+                 "else format(datPDFModifingdate, 'dd-MMM-yyyy') " &
                  "End datPDFModifingDate " &
                  "from APBPermits " &
                  "where strFileName = @filename "
 
                 Dim parameter As New SqlParameter("@filename", "PD-" & MasterApp)
 
-                Using connection As New SqlConnection(CurrentConnectionString)
-                    Using cmd As SqlCommand = connection.CreateCommand
-                        cmd.CommandType = CommandType.Text
-                        cmd.CommandText = query
-                        cmd.Parameters.Add(parameter)
-                        cmd.Connection.Open()
-                        Using dr As SqlDataReader = cmd.ExecuteReader
+                Dim dr As DataRow = DB.GetDataRow(query, parameter)
 
-                            recExist = dr.Read
-                            If recExist = True Then
-                                If IsDBNull(dr.Item("DocData")) Then
-                                    txtPSDDraftPermitDoc.Text = ""
-                                Else
-                                    txtPSDDraftPermitDoc.Text = "On File"
-                                End If
-                                If IsDBNull(dr.Item("DocstaffResponsible")) Then
-                                    lblPSDDraftPermitSRDoc.Visible = False
-                                Else
-                                    lblPSDDraftPermitSRDoc.Visible = True
-                                    lblPSDDraftPermitSRDoc.Text = dr.Item("DocStaffResponsible")
-                                End If
-                                If IsDBNull(dr.Item("datDocModifingdate")) Then
-                                    lblPSDDraftPermitDUDoc.Visible = False
-                                Else
-                                    lblPSDDraftPermitDUDoc.Visible = True
-                                    lblPSDDraftPermitDUDoc.Text = dr.Item("datDocModifingDate")
-                                End If
-                                If IsDBNull(dr.Item("PDFData")) Then
-                                    txtPSDDraftPermitPDF.Text = ""
-                                Else
-                                    txtPSDDraftPermitPDF.Text = "On File"
-                                End If
-                                If IsDBNull(dr.Item("PDFstaffResponsible")) Then
-                                    lblPSDDraftPermitSRPDF.Visible = False
-                                Else
-                                    lblPSDDraftPermitSRPDF.Visible = True
-                                    lblPSDDraftPermitSRPDF.Text = dr.Item("PDFStaffResponsible")
-                                End If
-                                If IsDBNull(dr.Item("datPDFModifingdate")) Then
-                                    lblPSDDraftPermitDUPDF.Visible = False
-                                Else
-                                    lblPSDDraftPermitDUPDF.Visible = True
-                                    lblPSDDraftPermitDUPDF.Text = dr.Item("datPDFModifingDate")
-                                End If
-                            End If
-
-                        End Using
-                        cmd.Connection.Close()
-                    End Using
-                End Using
+                If dr IsNot Nothing Then
+                    If IsDBNull(dr.Item("DocData")) Then
+                        txtPSDDraftPermitDoc.Text = ""
+                    Else
+                        txtPSDDraftPermitDoc.Text = "On File"
+                    End If
+                    If IsDBNull(dr.Item("DocstaffResponsible")) Then
+                        lblPSDDraftPermitSRDoc.Visible = False
+                    Else
+                        lblPSDDraftPermitSRDoc.Visible = True
+                        lblPSDDraftPermitSRDoc.Text = dr.Item("DocStaffResponsible")
+                    End If
+                    If IsDBNull(dr.Item("datDocModifingdate")) Then
+                        lblPSDDraftPermitDUDoc.Visible = False
+                    Else
+                        lblPSDDraftPermitDUDoc.Visible = True
+                        lblPSDDraftPermitDUDoc.Text = dr.Item("datDocModifingDate")
+                    End If
+                    If IsDBNull(dr.Item("PDFData")) Then
+                        txtPSDDraftPermitPDF.Text = ""
+                    Else
+                        txtPSDDraftPermitPDF.Text = "On File"
+                    End If
+                    If IsDBNull(dr.Item("PDFstaffResponsible")) Then
+                        lblPSDDraftPermitSRPDF.Visible = False
+                    Else
+                        lblPSDDraftPermitSRPDF.Visible = True
+                        lblPSDDraftPermitSRPDF.Text = dr.Item("PDFStaffResponsible")
+                    End If
+                    If IsDBNull(dr.Item("datPDFModifingdate")) Then
+                        lblPSDDraftPermitDUPDF.Visible = False
+                    Else
+                        lblPSDDraftPermitDUPDF.Visible = True
+                        lblPSDDraftPermitDUPDF.Text = dr.Item("datPDFModifingDate")
+                    End If
+                End If
 
                 If txtPSDDraftPermitDoc.Text = "On File" Or txtPSDDraftPermitPDF.Text = "On File" Then
                     btnPSDDraftPermitDownload.Visible = True
@@ -9635,92 +9142,80 @@ Public Class SSPPApplicationTrackingLog
 
                 Dim query As String = "select " &
                 "case " &
-                "when docPermitData is Null then '' " &
+                "when docPermitData is Null then null " &
                 "Else 'True' " &
                 "End DocData, " &
                 "case " &
-                "when strDocModifingPerson is Null then '' " &
-                "else (select (strLastName||', '||strFirstName) as StaffName " &
+                "when strDocModifingPerson is Null then null " &
+                "else (select concat(strLastName,', ',strFirstName) as StaffName " &
                 "from APBPermits, EPDUserProfiles " &
                 "where APBPermits.strDocModifingPerson = EPDUserProfiles.numUserID " &
                 "and numUserID = strDocModifingPerson " &
                 "and strFileName = @filename ) " &
                 "end DocStaffResponsible, " &
                 "case " &
-                "when datDocModifingDate is Null then '' " &
-                "else to_char(datDocModifingDate, 'dd-Mon-yyyy') " &
+                "when datDocModifingDate is Null then null " &
+                "else format(datDocModifingDate, 'dd-MMM-yyyy') " &
                 "End datDocModifingDate, " &
                 "case " &
-                "when pdfPermitData is Null then '' " &
+                "when pdfPermitData is Null then null " &
                 "Else 'True' " &
                 "End PDFData, " &
                 "case " &
-                "when strPDFModifingPerson is Null then '' " &
-                "else (select (strLastname||', '||strFirstName) as StaffName " &
+                "when strPDFModifingPerson is Null then null " &
+                "else (select concat(strLastName,', ',strFirstName) as StaffName " &
                 "from APBPermits, EPDUserProfiles " &
                 "where APBPermits.strPDFModifingPerson = EPDUserProfiles.numUserID  " &
                 "and numUserID = strPDFModifingPerson " &
                 "and strFileName = @filename ) " &
                 "end PDFStaffResponsible, " &
                 "case " &
-                "when datPDFModifingDate is Null then '' " &
-                "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " &
+                "when datPDFModifingDate is Null then null " &
+                "else format(datPDFModifingdate, 'dd-MMM-yyyy') " &
                 "End datPDFModifingDate " &
                 "from APBPermits " &
                 "where strFileName = @filename "
 
                 Dim parameter As New SqlParameter("@filename", "PN-" & MasterApp)
 
-                Using connection As New SqlConnection(CurrentConnectionString)
-                    Using cmd As SqlCommand = connection.CreateCommand
-                        cmd.CommandType = CommandType.Text
-                        cmd.CommandText = query
-                        cmd.Parameters.Add(parameter)
-                        cmd.Connection.Open()
-                        Using dr As SqlDataReader = cmd.ExecuteReader
+                Dim dr As DataRow = DB.GetDataRow(query, parameter)
 
-                            recExist = dr.Read
-                            If recExist = True Then
-                                If IsDBNull(dr.Item("DocData")) Then
-                                    txtPSDPublicNoticeDoc.Text = ""
-                                Else
-                                    txtPSDPublicNoticeDoc.Text = "On File"
-                                End If
-                                If IsDBNull(dr.Item("DocstaffResponsible")) Then
-                                    lblPSDPublicNoticeSRDoc.Visible = False
-                                Else
-                                    lblPSDPublicNoticeSRDoc.Visible = True
-                                    lblPSDPublicNoticeSRDoc.Text = dr.Item("DocStaffResponsible")
-                                End If
-                                If IsDBNull(dr.Item("datDocModifingdate")) Then
-                                    lblPSDPublicNoticeDUDoc.Visible = False
-                                Else
-                                    lblPSDPublicNoticeDUDoc.Visible = True
-                                    lblPSDPublicNoticeDUDoc.Text = dr.Item("datDocModifingDate")
-                                End If
-                                If IsDBNull(dr.Item("PDFData")) Then
-                                    txtPSDPublicNoticePDF.Text = ""
-                                Else
-                                    txtPSDPublicNoticePDF.Text = "On File"
-                                End If
-                                If IsDBNull(dr.Item("PDFstaffResponsible")) Then
-                                    lblPSDPublicNoticeSRPDF.Visible = False
-                                Else
-                                    lblPSDPublicNoticeSRPDF.Visible = True
-                                    lblPSDPublicNoticeSRPDF.Text = dr.Item("PDFStaffResponsible")
-                                End If
-                                If IsDBNull(dr.Item("datPDFModifingdate")) Then
-                                    lblPSDPublicNoticeDUPDF.Visible = False
-                                Else
-                                    lblPSDPublicNoticeDUPDF.Visible = True
-                                    lblPSDPublicNoticeDUPDF.Text = dr.Item("datPDFModifingDate")
-                                End If
-                            End If
-
-                        End Using
-                        cmd.Connection.Close()
-                    End Using
-                End Using
+                If dr IsNot Nothing Then
+                    If IsDBNull(dr.Item("DocData")) Then
+                        txtPSDPublicNoticeDoc.Text = ""
+                    Else
+                        txtPSDPublicNoticeDoc.Text = "On File"
+                    End If
+                    If IsDBNull(dr.Item("DocstaffResponsible")) Then
+                        lblPSDPublicNoticeSRDoc.Visible = False
+                    Else
+                        lblPSDPublicNoticeSRDoc.Visible = True
+                        lblPSDPublicNoticeSRDoc.Text = dr.Item("DocStaffResponsible")
+                    End If
+                    If IsDBNull(dr.Item("datDocModifingdate")) Then
+                        lblPSDPublicNoticeDUDoc.Visible = False
+                    Else
+                        lblPSDPublicNoticeDUDoc.Visible = True
+                        lblPSDPublicNoticeDUDoc.Text = dr.Item("datDocModifingDate")
+                    End If
+                    If IsDBNull(dr.Item("PDFData")) Then
+                        txtPSDPublicNoticePDF.Text = ""
+                    Else
+                        txtPSDPublicNoticePDF.Text = "On File"
+                    End If
+                    If IsDBNull(dr.Item("PDFstaffResponsible")) Then
+                        lblPSDPublicNoticeSRPDF.Visible = False
+                    Else
+                        lblPSDPublicNoticeSRPDF.Visible = True
+                        lblPSDPublicNoticeSRPDF.Text = dr.Item("PDFStaffResponsible")
+                    End If
+                    If IsDBNull(dr.Item("datPDFModifingdate")) Then
+                        lblPSDPublicNoticeDUPDF.Visible = False
+                    Else
+                        lblPSDPublicNoticeDUPDF.Visible = True
+                        lblPSDPublicNoticeDUPDF.Text = dr.Item("datPDFModifingDate")
+                    End If
+                End If
 
                 If txtPSDPublicNoticeDoc.Text = "On File" Or txtPSDPublicNoticePDF.Text = "On File" Then
                     btnPSDPublicNoticeDownload.Visible = True
@@ -9754,92 +9249,80 @@ Public Class SSPPApplicationTrackingLog
 
                 Dim query As String = "select " &
                  "case " &
-                 "when docPermitData is Null then '' " &
+                 "when docPermitData is Null then null " &
                  "Else 'True' " &
                  "End DocData, " &
                  "case " &
-                 "when strDocModifingPerson is Null then '' " &
-                 "else (select (strLastName||', '||strFirstName) as StaffName " &
+                 "when strDocModifingPerson is Null then null " &
+                 "else (select concat(strLastName,', ',strFirstName) as StaffName " &
                  "from APBPermits, EPDUserProfiles " &
                  "where APBPermits.strDocModifingPerson = EPDUserProfiles.numuserID " &
                  "and numUserID = strDocModifingPerson " &
                  "and strFileName = @filename ) " &
                  "end DocStaffResponsible, " &
                  "case " &
-                 "when datDocModifingDate is Null then '' " &
-                 "else to_char(datDocModifingDate, 'dd-Mon-yyyy') " &
+                 "when datDocModifingDate is Null then null " &
+                 "else format(datDocModifingDate, 'dd-MMM-yyyy') " &
                  "End datDocModifingDate, " &
                  "case " &
-                 "when pdfPermitData is Null then '' " &
+                 "when pdfPermitData is Null then null " &
                  "Else 'True' " &
                  "End PDFData, " &
                  "case " &
-                 "when strPDFModifingPerson is Null then '' " &
-                 "else (select (strLastname||', '||strFirstname) as StaffName " &
+                 "when strPDFModifingPerson is Null then null " &
+                 "else (select concat(strLastName,', ',strFirstName) as StaffName " &
                  "from APBPermits, EPDUserProfiles " &
                  "where APBPermits.strPDFModifingPerson = EPDUserProfiles.numUserID  " &
                  "and numUserID = strPDFModifingPerson " &
                  "and strFileName = @filename ) " &
                  "end PDFStaffResponsible, " &
                  "case " &
-                 "when datPDFModifingDate is Null then '' " &
-                 "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " &
+                 "when datPDFModifingDate is Null then null " &
+                 "else format(datPDFModifingdate, 'dd-MMM-yyyy') " &
                  "End datPDFModifingDate " &
                  "from APBPermits " &
                  "where strFileName = @filename "
 
                 Dim parameter As New SqlParameter("@filename", "PH-" & MasterApp)
 
-                Using connection As New SqlConnection(CurrentConnectionString)
-                    Using cmd As SqlCommand = connection.CreateCommand
-                        cmd.CommandType = CommandType.Text
-                        cmd.CommandText = query
-                        cmd.Parameters.Add(parameter)
-                        cmd.Connection.Open()
-                        Using dr As SqlDataReader = cmd.ExecuteReader
+                Dim dr As DataRow = DB.GetDataRow(query, parameter)
 
-                            recExist = dr.Read
-                            If recExist = True Then
-                                If IsDBNull(dr.Item("DocData")) Then
-                                    txtPSDHearingNoticeDoc.Text = ""
-                                Else
-                                    txtPSDHearingNoticeDoc.Text = "On File"
-                                End If
-                                If IsDBNull(dr.Item("DocstaffResponsible")) Then
-                                    lblPSDHearingNoticeSRDoc.Visible = False
-                                Else
-                                    lblPSDHearingNoticeSRDoc.Visible = True
-                                    lblPSDHearingNoticeSRDoc.Text = dr.Item("DocStaffResponsible")
-                                End If
-                                If IsDBNull(dr.Item("datDocModifingdate")) Then
-                                    lblPSDHearingNoticeDUDoc.Visible = False
-                                Else
-                                    lblPSDHearingNoticeDUDoc.Visible = True
-                                    lblPSDHearingNoticeDUDoc.Text = dr.Item("datDocModifingDate")
-                                End If
-                                If IsDBNull(dr.Item("PDFData")) Then
-                                    txtPSDHearingNoticePDF.Text = ""
-                                Else
-                                    txtPSDHearingNoticePDF.Text = "On File"
-                                End If
-                                If IsDBNull(dr.Item("PDFstaffResponsible")) Then
-                                    lblPSDHearingNoticeSRPDF.Visible = False
-                                Else
-                                    lblPSDHearingNoticeSRPDF.Visible = True
-                                    lblPSDHearingNoticeSRPDF.Text = dr.Item("PDFStaffResponsible")
-                                End If
-                                If IsDBNull(dr.Item("datPDFModifingdate")) Then
-                                    lblPSDHearingNoticeDUPDF.Visible = False
-                                Else
-                                    lblPSDHearingNoticeDUPDF.Visible = True
-                                    lblPSDHearingNoticeDUPDF.Text = dr.Item("datPDFModifingDate")
-                                End If
-                            End If
-
-                        End Using
-                        cmd.Connection.Close()
-                    End Using
-                End Using
+                If dr IsNot Nothing Then
+                    If IsDBNull(dr.Item("DocData")) Then
+                        txtPSDHearingNoticeDoc.Text = ""
+                    Else
+                        txtPSDHearingNoticeDoc.Text = "On File"
+                    End If
+                    If IsDBNull(dr.Item("DocstaffResponsible")) Then
+                        lblPSDHearingNoticeSRDoc.Visible = False
+                    Else
+                        lblPSDHearingNoticeSRDoc.Visible = True
+                        lblPSDHearingNoticeSRDoc.Text = dr.Item("DocStaffResponsible")
+                    End If
+                    If IsDBNull(dr.Item("datDocModifingdate")) Then
+                        lblPSDHearingNoticeDUDoc.Visible = False
+                    Else
+                        lblPSDHearingNoticeDUDoc.Visible = True
+                        lblPSDHearingNoticeDUDoc.Text = dr.Item("datDocModifingDate")
+                    End If
+                    If IsDBNull(dr.Item("PDFData")) Then
+                        txtPSDHearingNoticePDF.Text = ""
+                    Else
+                        txtPSDHearingNoticePDF.Text = "On File"
+                    End If
+                    If IsDBNull(dr.Item("PDFstaffResponsible")) Then
+                        lblPSDHearingNoticeSRPDF.Visible = False
+                    Else
+                        lblPSDHearingNoticeSRPDF.Visible = True
+                        lblPSDHearingNoticeSRPDF.Text = dr.Item("PDFStaffResponsible")
+                    End If
+                    If IsDBNull(dr.Item("datPDFModifingdate")) Then
+                        lblPSDHearingNoticeDUPDF.Visible = False
+                    Else
+                        lblPSDHearingNoticeDUPDF.Visible = True
+                        lblPSDHearingNoticeDUPDF.Text = dr.Item("datPDFModifingDate")
+                    End If
+                End If
 
                 If txtPSDHearingNoticeDoc.Text = "On File" Or txtPSDHearingNoticePDF.Text = "On File" Then
                     btnPSDHearingNoticeDownload.Visible = True
@@ -9873,92 +9356,80 @@ Public Class SSPPApplicationTrackingLog
 
                 Dim query As String = "select " &
                  "case " &
-                 "when docPermitData is Null then '' " &
+                 "when docPermitData is Null then null " &
                  "Else 'True' " &
                  "End DocData, " &
                  "case " &
-                 "when strDocModifingPerson is Null then '' " &
-                 "else (select (strLastName||', '||strFirstName) as StaffName " &
+                 "when strDocModifingPerson is Null then null " &
+                 "else (select concat(strLastName,', ',strFirstName) as StaffName " &
                  "from APBPermits, EPDUserProfiles " &
                  "where APBPermits.strDocModifingPerson = EPDUserProfiles.numUserID " &
                  "and numUserID = strDocModifingPerson " &
                  "and strFileName = @filename ) " &
                  "end DocStaffResponsible, " &
                  "case " &
-                 "when datDocModifingDate is Null then '' " &
-                 "else to_char(datDocModifingDate, 'dd-Mon-yyyy') " &
+                 "when datDocModifingDate is Null then null " &
+                 "else format(datDocModifingDate, 'dd-MMM-yyyy') " &
                  "End datDocModifingDate, " &
                  "case " &
-                 "when pdfPermitData is Null then '' " &
+                 "when pdfPermitData is Null then null " &
                  "Else 'True' " &
                  "End PDFData, " &
                  "case " &
-                 "when strPDFModifingPerson is Null then '' " &
-                 "else (select (strLastName||', '||strFirstName) as StaffName " &
+                 "when strPDFModifingPerson is Null then null " &
+                 "else (select concat(strLastName,', ',strFirstName) as StaffName " &
                  "from APBPermits, EPDUserProfiles " &
                  "where APBPermits.strPDFModifingPerson = EPDUserProfiles.numUserID  " &
                  "and numUserID = strPDFModifingPerson " &
                  "and strFileName = @filename ) " &
                  "end PDFStaffResponsible, " &
                  "case " &
-                 "when datPDFModifingDate is Null then '' " &
-                 "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " &
+                 "when datPDFModifingDate is Null then null " &
+                 "else format(datPDFModifingdate, 'dd-MMM-yyyy') " &
                  "End datPDFModifingDate " &
                  "from APBPermits " &
                  "where strFileName = @filename "
 
                 Dim parameter As New SqlParameter("@filename", "PF-" & MasterApp)
 
-                Using connection As New SqlConnection(CurrentConnectionString)
-                    Using cmd As SqlCommand = connection.CreateCommand
-                        cmd.CommandType = CommandType.Text
-                        cmd.CommandText = query
-                        cmd.Parameters.Add(parameter)
-                        cmd.Connection.Open()
-                        Using dr As SqlDataReader = cmd.ExecuteReader
+                Dim dr As DataRow = DB.GetDataRow(query, parameter)
 
-                            recExist = dr.Read
-                            If recExist = True Then
-                                If IsDBNull(dr.Item("DocData")) Then
-                                    txtPSDFinalDetDoc.Text = ""
-                                Else
-                                    txtPSDFinalDetDoc.Text = "On File"
-                                End If
-                                If IsDBNull(dr.Item("DocstaffResponsible")) Then
-                                    lblPSDFinalDetSRDoc.Visible = False
-                                Else
-                                    lblPSDFinalDetSRDoc.Visible = True
-                                    lblPSDFinalDetSRDoc.Text = dr.Item("DocStaffResponsible")
-                                End If
-                                If IsDBNull(dr.Item("datDocModifingdate")) Then
-                                    lblPSDFinalDetDUDoc.Visible = False
-                                Else
-                                    lblPSDFinalDetDUDoc.Visible = True
-                                    lblPSDFinalDetDUDoc.Text = dr.Item("datDocModifingDate")
-                                End If
-                                If IsDBNull(dr.Item("PDFData")) Then
-                                    txtPSDFinalDetPDF.Text = ""
-                                Else
-                                    txtPSDFinalDetPDF.Text = "On File"
-                                End If
-                                If IsDBNull(dr.Item("PDFstaffResponsible")) Then
-                                    lblPSDFinalDetSRPDF.Visible = False
-                                Else
-                                    lblPSDFinalDetSRPDF.Visible = True
-                                    lblPSDFinalDetSRPDF.Text = dr.Item("PDFStaffResponsible")
-                                End If
-                                If IsDBNull(dr.Item("datPDFModifingdate")) Then
-                                    lblPSDFinalDetDUPDF.Visible = False
-                                Else
-                                    lblPSDFinalDetDUPDF.Visible = True
-                                    lblPSDFinalDetDUPDF.Text = dr.Item("datPDFModifingDate")
-                                End If
-                            End If
-
-                        End Using
-                        cmd.Connection.Close()
-                    End Using
-                End Using
+                If dr IsNot Nothing Then
+                    If IsDBNull(dr.Item("DocData")) Then
+                        txtPSDFinalDetDoc.Text = ""
+                    Else
+                        txtPSDFinalDetDoc.Text = "On File"
+                    End If
+                    If IsDBNull(dr.Item("DocstaffResponsible")) Then
+                        lblPSDFinalDetSRDoc.Visible = False
+                    Else
+                        lblPSDFinalDetSRDoc.Visible = True
+                        lblPSDFinalDetSRDoc.Text = dr.Item("DocStaffResponsible")
+                    End If
+                    If IsDBNull(dr.Item("datDocModifingdate")) Then
+                        lblPSDFinalDetDUDoc.Visible = False
+                    Else
+                        lblPSDFinalDetDUDoc.Visible = True
+                        lblPSDFinalDetDUDoc.Text = dr.Item("datDocModifingDate")
+                    End If
+                    If IsDBNull(dr.Item("PDFData")) Then
+                        txtPSDFinalDetPDF.Text = ""
+                    Else
+                        txtPSDFinalDetPDF.Text = "On File"
+                    End If
+                    If IsDBNull(dr.Item("PDFstaffResponsible")) Then
+                        lblPSDFinalDetSRPDF.Visible = False
+                    Else
+                        lblPSDFinalDetSRPDF.Visible = True
+                        lblPSDFinalDetSRPDF.Text = dr.Item("PDFStaffResponsible")
+                    End If
+                    If IsDBNull(dr.Item("datPDFModifingdate")) Then
+                        lblPSDFinalDetDUPDF.Visible = False
+                    Else
+                        lblPSDFinalDetDUPDF.Visible = True
+                        lblPSDFinalDetDUPDF.Text = dr.Item("datPDFModifingDate")
+                    End If
+                End If
 
                 If txtPSDFinalDetDoc.Text = "On File" Or txtPSDFinalDetPDF.Text = "On File" Then
                     btnPSDFinalDetDownload.Visible = True
@@ -9992,92 +9463,80 @@ Public Class SSPPApplicationTrackingLog
 
                 Dim query As String = "select " &
                 "case " &
-                "when docPermitData is Null then '' " &
+                "when docPermitData is Null then null " &
                 "Else 'True' " &
                 "End DocData, " &
                 "case " &
-                "when strDocModifingPerson is Null then '' " &
-                "else (select (strLastName||', '||strFirstName) as StaffName " &
+                "when strDocModifingPerson is Null then null " &
+                "else (select concat(strLastName,', ',strFirstName) as StaffName " &
                 "from APBPermits, EPDUserProfiles " &
                 "where APBPermits.strDocModifingPerson = EPDUserProfiles.numUserID " &
                 "and numUserID = strDocModifingPerson " &
                 "and strFileName = @filename ) " &
                 "end DocStaffResponsible, " &
                 "case " &
-                "when datDocModifingDate is Null then '' " &
-                "else to_char(datDocModifingDate, 'dd-Mon-yyyy') " &
+                "when datDocModifingDate is Null then null " &
+                "else format(datDocModifingDate, 'dd-MMM-yyyy') " &
                 "End datDocModifingDate, " &
                 "case " &
-                "when pdfPermitData is Null then '' " &
+                "when pdfPermitData is Null then null " &
                 "Else 'True' " &
                 "End PDFData, " &
                 "case " &
-                "when strPDFModifingPerson is Null then '' " &
-                "else (select (strLastName||', '||strFirstName) as StaffName " &
+                "when strPDFModifingPerson is Null then null " &
+                "else (select concat(strLastName,', ',strFirstName) as StaffName " &
                 "from APBPermits, EPDUserProfiles " &
                 "where APBPermits.strPDFModifingPerson = EPDUserProfiles.numUserID  " &
                 "and numUserID = strPDFModifingPerson " &
                 "and strFileName = @filename ) " &
                 "end PDFStaffResponsible, " &
                 "case " &
-                "when datPDFModifingDate is Null then '' " &
-                "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " &
+                "when datPDFModifingDate is Null then null " &
+                "else format(datPDFModifingdate, 'dd-MMM-yyyy') " &
                 "End datPDFModifingDate " &
                 "from APBPermits " &
                 "where strFileName = @filename "
 
                 Dim parameter As New SqlParameter("@filename", "PF-" & MasterApp)
 
-                Using connection As New SqlConnection(CurrentConnectionString)
-                    Using cmd As SqlCommand = connection.CreateCommand
-                        cmd.CommandType = CommandType.Text
-                        cmd.CommandText = query
-                        cmd.Parameters.Add(parameter)
-                        cmd.Connection.Open()
-                        Using dr As SqlDataReader = cmd.ExecuteReader
+                Dim dr As DataRow = DB.GetDataRow(query, parameter)
 
-                            recExist = dr.Read
-                            If recExist = True Then
-                                If IsDBNull(dr.Item("DocData")) Then
-                                    txtPSDFinalPermitDoc.Text = ""
-                                Else
-                                    txtPSDFinalPermitDoc.Text = "On File"
-                                End If
-                                If IsDBNull(dr.Item("DocstaffResponsible")) Then
-                                    lblPSDFinalPermitSRDoc.Visible = False
-                                Else
-                                    lblPSDFinalPermitSRDoc.Visible = True
-                                    lblPSDFinalPermitSRDoc.Text = dr.Item("DocStaffResponsible")
-                                End If
-                                If IsDBNull(dr.Item("datDocModifingdate")) Then
-                                    lblPSDFinalPermitDUDoc.Visible = False
-                                Else
-                                    lblPSDFinalPermitDUDoc.Visible = True
-                                    lblPSDFinalPermitDUDoc.Text = dr.Item("datDocModifingDate")
-                                End If
-                                If IsDBNull(dr.Item("PDFData")) Then
-                                    txtPSDFinalPermitPDF.Text = ""
-                                Else
-                                    txtPSDFinalPermitPDF.Text = "On File"
-                                End If
-                                If IsDBNull(dr.Item("PDFstaffResponsible")) Then
-                                    lblPSDFinalPermitSRPDF.Visible = False
-                                Else
-                                    lblPSDFinalPermitSRPDF.Visible = True
-                                    lblPSDFinalPermitSRPDF.Text = dr.Item("PDFStaffResponsible")
-                                End If
-                                If IsDBNull(dr.Item("datPDFModifingdate")) Then
-                                    lblPSDFinalPermitDUPDF.Visible = False
-                                Else
-                                    lblPSDFinalPermitDUPDF.Visible = True
-                                    lblPSDFinalPermitDUPDF.Text = dr.Item("datPDFModifingDate")
-                                End If
-                            End If
-
-                        End Using
-                        cmd.Connection.Close()
-                    End Using
-                End Using
+                If dr IsNot Nothing Then
+                    If IsDBNull(dr.Item("DocData")) Then
+                        txtPSDFinalPermitDoc.Text = ""
+                    Else
+                        txtPSDFinalPermitDoc.Text = "On File"
+                    End If
+                    If IsDBNull(dr.Item("DocstaffResponsible")) Then
+                        lblPSDFinalPermitSRDoc.Visible = False
+                    Else
+                        lblPSDFinalPermitSRDoc.Visible = True
+                        lblPSDFinalPermitSRDoc.Text = dr.Item("DocStaffResponsible")
+                    End If
+                    If IsDBNull(dr.Item("datDocModifingdate")) Then
+                        lblPSDFinalPermitDUDoc.Visible = False
+                    Else
+                        lblPSDFinalPermitDUDoc.Visible = True
+                        lblPSDFinalPermitDUDoc.Text = dr.Item("datDocModifingDate")
+                    End If
+                    If IsDBNull(dr.Item("PDFData")) Then
+                        txtPSDFinalPermitPDF.Text = ""
+                    Else
+                        txtPSDFinalPermitPDF.Text = "On File"
+                    End If
+                    If IsDBNull(dr.Item("PDFstaffResponsible")) Then
+                        lblPSDFinalPermitSRPDF.Visible = False
+                    Else
+                        lblPSDFinalPermitSRPDF.Visible = True
+                        lblPSDFinalPermitSRPDF.Text = dr.Item("PDFStaffResponsible")
+                    End If
+                    If IsDBNull(dr.Item("datPDFModifingdate")) Then
+                        lblPSDFinalPermitDUPDF.Visible = False
+                    Else
+                        lblPSDFinalPermitDUPDF.Visible = True
+                        lblPSDFinalPermitDUPDF.Text = dr.Item("datPDFModifingDate")
+                    End If
+                End If
 
                 If txtPSDFinalPermitDoc.Text = "On File" Or txtPSDFinalPermitPDF.Text = "On File" Then
                     btnPSDFinalPermitDownload.Visible = True
@@ -10110,92 +9569,80 @@ Public Class SSPPApplicationTrackingLog
 
                 Dim query As String = "select " &
                  "case " &
-                 "when docPermitData is Null then '' " &
+                 "when docPermitData is Null then null " &
                  "Else 'True' " &
                  "End DocData, " &
                  "case " &
-                 "when strDocModifingPerson is Null then '' " &
-                 "else (select (strLastName||', '||strFirstName) as StaffName " &
+                 "when strDocModifingPerson is Null then null " &
+                 "else (select concat(strLastName,', ',strFirstName) as StaffName " &
                  "from APBPermits, EPDUserProfiles " &
                  "where APBPermits.strDocModifingPerson = EPDUserProfiles.numUserID " &
                  "and numUserID = strDocModifingPerson " &
                  "and strFileName = @filename ) " &
                  "end DocStaffResponsible, " &
                  "case " &
-                 "when datDocModifingDate is Null then '' " &
-                 "else to_char(datDocModifingDate, 'dd-Mon-yyyy') " &
+                 "when datDocModifingDate is Null then null " &
+                 "else format(datDocModifingDate, 'dd-MMM-yyyy') " &
                  "End datDocModifingDate, " &
                  "case " &
-                 "when pdfPermitData is Null then '' " &
+                 "when pdfPermitData is Null then null " &
                  "Else 'True' " &
                  "End PDFData, " &
                  "case " &
-                 "when strPDFModifingPerson is Null then '' " &
-                 "else (select (strLastName||', '||strFirstName) as StaffName " &
+                 "when strPDFModifingPerson is Null then null " &
+                 "else (select concat(strLastName,', ',strFirstName) as StaffName " &
                  "from APBPermits, EPDUSerProfiles " &
                  "where APBPermits.strPDFModifingPerson = EPDUSerProfiles.numUserID  " &
                  "and numUserID = strPDFModifingPerson " &
                  "and strFileName = @filename ) " &
                  "end PDFStaffResponsible, " &
                  "case " &
-                 "when datPDFModifingDate is Null then '' " &
-                 "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " &
+                 "when datPDFModifingDate is Null then null " &
+                 "else format(datPDFModifingdate, 'dd-MMM-yyyy') " &
                  "End datPDFModifingDate " &
                  "from APBPermits " &
                  "where strFileName = @filename "
 
                 Dim parameter As New SqlParameter("@filename", "ON-" & MasterApp)
 
-                Using connection As New SqlConnection(CurrentConnectionString)
-                    Using cmd As SqlCommand = connection.CreateCommand
-                        cmd.CommandType = CommandType.Text
-                        cmd.CommandText = query
-                        cmd.Parameters.Add(parameter)
-                        cmd.Connection.Open()
-                        Using dr As SqlDataReader = cmd.ExecuteReader
+                Dim dr As DataRow = DB.GetDataRow(query, parameter)
 
-                            recExist = dr.Read
-                            If recExist = True Then
-                                If IsDBNull(dr.Item("DocData")) Then
-                                    txtOtherNarrativeDoc.Text = ""
-                                Else
-                                    txtOtherNarrativeDoc.Text = "On File"
-                                End If
-                                If IsDBNull(dr.Item("DocstaffResponsible")) Then
-                                    lblOtherNarrativeSRDoc.Visible = False
-                                Else
-                                    lblOtherNarrativeSRDoc.Visible = True
-                                    lblOtherNarrativeSRDoc.Text = dr.Item("DocStaffResponsible")
-                                End If
-                                If IsDBNull(dr.Item("datDocModifingdate")) Then
-                                    lblOtherNarrativeDUDoc.Visible = False
-                                Else
-                                    lblOtherNarrativeDUDoc.Visible = True
-                                    lblOtherNarrativeDUDoc.Text = dr.Item("datDocModifingDate")
-                                End If
-                                If IsDBNull(dr.Item("PDFData")) Then
-                                    txtOtherNarrativePDF.Text = ""
-                                Else
-                                    txtOtherNarrativePDF.Text = "On File"
-                                End If
-                                If IsDBNull(dr.Item("PDFstaffResponsible")) Then
-                                    lblOtherNarrativeSRPDF.Visible = False
-                                Else
-                                    lblOtherNarrativeSRPDF.Visible = True
-                                    lblOtherNarrativeSRPDF.Text = dr.Item("PDFStaffResponsible")
-                                End If
-                                If IsDBNull(dr.Item("datPDFModifingdate")) Then
-                                    lblOtherNarrativeDUPDF.Visible = False
-                                Else
-                                    lblOtherNarrativeDUPDF.Visible = True
-                                    lblOtherNarrativeDUPDF.Text = dr.Item("datPDFModifingDate")
-                                End If
-                            End If
-
-                        End Using
-                        cmd.Connection.Close()
-                    End Using
-                End Using
+                If dr IsNot Nothing Then
+                    If IsDBNull(dr.Item("DocData")) Then
+                        txtOtherNarrativeDoc.Text = ""
+                    Else
+                        txtOtherNarrativeDoc.Text = "On File"
+                    End If
+                    If IsDBNull(dr.Item("DocstaffResponsible")) Then
+                        lblOtherNarrativeSRDoc.Visible = False
+                    Else
+                        lblOtherNarrativeSRDoc.Visible = True
+                        lblOtherNarrativeSRDoc.Text = dr.Item("DocStaffResponsible")
+                    End If
+                    If IsDBNull(dr.Item("datDocModifingdate")) Then
+                        lblOtherNarrativeDUDoc.Visible = False
+                    Else
+                        lblOtherNarrativeDUDoc.Visible = True
+                        lblOtherNarrativeDUDoc.Text = dr.Item("datDocModifingDate")
+                    End If
+                    If IsDBNull(dr.Item("PDFData")) Then
+                        txtOtherNarrativePDF.Text = ""
+                    Else
+                        txtOtherNarrativePDF.Text = "On File"
+                    End If
+                    If IsDBNull(dr.Item("PDFstaffResponsible")) Then
+                        lblOtherNarrativeSRPDF.Visible = False
+                    Else
+                        lblOtherNarrativeSRPDF.Visible = True
+                        lblOtherNarrativeSRPDF.Text = dr.Item("PDFStaffResponsible")
+                    End If
+                    If IsDBNull(dr.Item("datPDFModifingdate")) Then
+                        lblOtherNarrativeDUPDF.Visible = False
+                    Else
+                        lblOtherNarrativeDUPDF.Visible = True
+                        lblOtherNarrativeDUPDF.Text = dr.Item("datPDFModifingDate")
+                    End If
+                End If
 
                 If txtOtherNarrativeDoc.Text = "On File" Or txtOtherNarrativePDF.Text = "On File" Then
                     btnOtherNarrativeDownload.Visible = True
@@ -10230,92 +9677,80 @@ Public Class SSPPApplicationTrackingLog
 
                 Dim query As String = "select " &
                   "case " &
-                  "when docPermitData is Null then '' " &
+                  "when docPermitData is Null then null " &
                   "Else 'True' " &
                   "End DocData, " &
                   "case " &
-                  "when strDocModifingPerson is Null then '' " &
-                  "else (select (strLastName||', '||strFirstName) as StaffName " &
+                  "when strDocModifingPerson is Null then null " &
+                  "else (select concat(strLastName,', ',strFirstName) as StaffName " &
                   "from APBPermits, EPDUserProfiles " &
                   "where APBPermits.strDocModifingPerson = EPDUserProfiles.numUserID " &
                   "and numUserID = strDocModifingPerson " &
                   "and strFileName = @filename ) " &
                   "end DocStaffResponsible, " &
                   "case " &
-                  "when datDocModifingDate is Null then '' " &
-                  "else to_char(datDocModifingDate, 'dd-Mon-yyyy') " &
+                  "when datDocModifingDate is Null then null " &
+                  "else format(datDocModifingDate, 'dd-MMM-yyyy') " &
                   "End datDocModifingDate, " &
                   "case " &
-                  "when pdfPermitData is Null then '' " &
+                  "when pdfPermitData is Null then null " &
                   "Else 'True' " &
                   "End PDFData, " &
                   "case " &
-                  "when strPDFModifingPerson is Null then '' " &
-                  "else (select (strLastName||', '||strFirstName) as StaffName " &
+                  "when strPDFModifingPerson is Null then null " &
+                  "else (select concat(strLastName,', ',strFirstName) as StaffName " &
                   "from APBPermits, epduserprofiles " &
                   "where APBPermits.strPDFModifingPerson = EPDUserProfiles.numUserID  " &
                   "and numUserID = strPDFModifingPerson " &
                   "and strFileName = @filename ) " &
                   "end PDFStaffResponsible, " &
                   "case " &
-                  "when datPDFModifingDate is Null then '' " &
-                  "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " &
+                  "when datPDFModifingDate is Null then null " &
+                  "else format(datPDFModifingdate, 'dd-MMM-yyyy') " &
                   "End datPDFModifingDate " &
                   "from APBPermits " &
                   "where strFileName = @filename "
 
                 Dim parameter As New SqlParameter("@filename", "OP-" & MasterApp)
 
-                Using connection As New SqlConnection(CurrentConnectionString)
-                    Using cmd As SqlCommand = connection.CreateCommand
-                        cmd.CommandType = CommandType.Text
-                        cmd.CommandText = query
-                        cmd.Parameters.Add(parameter)
-                        cmd.Connection.Open()
-                        Using dr As SqlDataReader = cmd.ExecuteReader
+                Dim dr As DataRow = DB.GetDataRow(query, parameter)
 
-                            recExist = dr.Read
-                            If recExist = True Then
-                                If IsDBNull(dr.Item("DocData")) Then
-                                    txtOtherPermitDoc.Text = ""
-                                Else
-                                    txtOtherPermitDoc.Text = "On File"
-                                End If
-                                If IsDBNull(dr.Item("DocstaffResponsible")) Then
-                                    lblOtherPermitSRDoc.Visible = False
-                                Else
-                                    lblOtherPermitSRDoc.Visible = True
-                                    lblOtherPermitSRDoc.Text = dr.Item("DocStaffResponsible")
-                                End If
-                                If IsDBNull(dr.Item("datDocModifingdate")) Then
-                                    lblOtherPermitDUDoc.Visible = False
-                                Else
-                                    lblOtherPermitDUDoc.Visible = True
-                                    lblOtherPermitDUDoc.Text = dr.Item("datDocModifingDate")
-                                End If
-                                If IsDBNull(dr.Item("PDFData")) Then
-                                    txtOtherPermitPDF.Text = ""
-                                Else
-                                    txtOtherPermitPDF.Text = "On File"
-                                End If
-                                If IsDBNull(dr.Item("PDFstaffResponsible")) Then
-                                    lblOtherPermitSRPDF.Visible = False
-                                Else
-                                    lblOtherPermitSRPDF.Visible = True
-                                    lblOtherPermitSRPDF.Text = dr.Item("PDFStaffResponsible")
-                                End If
-                                If IsDBNull(dr.Item("datPDFModifingdate")) Then
-                                    lblOtherPermitDUPDF.Visible = False
-                                Else
-                                    lblOtherPermitDUPDF.Visible = True
-                                    lblOtherPermitDUPDF.Text = dr.Item("datPDFModifingDate")
-                                End If
-                            End If
-
-                        End Using
-                        cmd.Connection.Close()
-                    End Using
-                End Using
+                If dr IsNot Nothing Then
+                    If IsDBNull(dr.Item("DocData")) Then
+                        txtOtherPermitDoc.Text = ""
+                    Else
+                        txtOtherPermitDoc.Text = "On File"
+                    End If
+                    If IsDBNull(dr.Item("DocstaffResponsible")) Then
+                        lblOtherPermitSRDoc.Visible = False
+                    Else
+                        lblOtherPermitSRDoc.Visible = True
+                        lblOtherPermitSRDoc.Text = dr.Item("DocStaffResponsible")
+                    End If
+                    If IsDBNull(dr.Item("datDocModifingdate")) Then
+                        lblOtherPermitDUDoc.Visible = False
+                    Else
+                        lblOtherPermitDUDoc.Visible = True
+                        lblOtherPermitDUDoc.Text = dr.Item("datDocModifingDate")
+                    End If
+                    If IsDBNull(dr.Item("PDFData")) Then
+                        txtOtherPermitPDF.Text = ""
+                    Else
+                        txtOtherPermitPDF.Text = "On File"
+                    End If
+                    If IsDBNull(dr.Item("PDFstaffResponsible")) Then
+                        lblOtherPermitSRPDF.Visible = False
+                    Else
+                        lblOtherPermitSRPDF.Visible = True
+                        lblOtherPermitSRPDF.Text = dr.Item("PDFStaffResponsible")
+                    End If
+                    If IsDBNull(dr.Item("datPDFModifingdate")) Then
+                        lblOtherPermitDUPDF.Visible = False
+                    Else
+                        lblOtherPermitDUPDF.Visible = True
+                        lblOtherPermitDUPDF.Text = dr.Item("datPDFModifingDate")
+                    End If
+                End If
 
                 If txtOtherPermitDoc.Text = "On File" Or txtOtherPermitPDF.Text = "On File" Then
                     btnOtherPermitDownload.Visible = True
@@ -10338,14 +9773,19 @@ Public Class SSPPApplicationTrackingLog
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
+#End Region
+
+#Region " Download files "
+
     Private Sub btnOtherNarrativeDownload_Click(sender As Object, e As EventArgs) Handles btnOtherNarrativeDownload.Click
         Try
             Dim Result As String = ""
 
             If (txtOtherNarrativeDoc.Text = "On File" Or txtOtherNarrativePDF.Text = "On File") And txtApplicationNumber.Text <> "" Then
                 If txtOtherNarrativeDoc.Text = "On File" And txtOtherNarrativePDF.Text = "On File" Then
-                    Result = InputBox("If you want to download the word document type 'Word'." & vbCrLf &
-                    "If you want to download the pdf file type 'pdf'." & vbCrLf &
+                    Result = InputBox("If you want to download the word document type 'Word'." & vbNewLine &
+                    "If you want to download the pdf file type 'pdf'." & vbNewLine &
                     "If you want to download both type 'Both'.", "Permit Downloader", "Cancel")
                     Select Case Result.ToUpper
                         Case "WORD"
@@ -10378,8 +9818,8 @@ Public Class SSPPApplicationTrackingLog
 
             If (txtOtherPermitDoc.Text = "On File" Or txtOtherPermitPDF.Text = "On File") And txtApplicationNumber.Text <> "" Then
                 If txtOtherPermitDoc.Text = "On File" And txtOtherPermitPDF.Text = "On File" Then
-                    Result = InputBox("If you want to download the word document type 'Word'." & vbCrLf &
-                    "If you want to download the pdf file type 'pdf'." & vbCrLf &
+                    Result = InputBox("If you want to download the word document type 'Word'." & vbNewLine &
+                    "If you want to download the pdf file type 'pdf'." & vbNewLine &
                     "If you want to download both type 'Both'.", "Permit Downloader", "Cancel")
                     Select Case Result.ToUpper
                         Case "WORD"
@@ -10410,8 +9850,8 @@ Public Class SSPPApplicationTrackingLog
 
             If (txtTVNarrativeDoc.Text = "On File" Or txtTVNarrativePDF.Text = "On File") And txtApplicationNumber.Text <> "" Then
                 If txtTVNarrativeDoc.Text = "On File" And txtTVNarrativePDF.Text = "On File" Then
-                    Result = InputBox("If you want to download the word document type 'Word'." & vbCrLf &
-                    "If you want to download the pdf file type 'pdf'." & vbCrLf &
+                    Result = InputBox("If you want to download the word document type 'Word'." & vbNewLine &
+                    "If you want to download the pdf file type 'pdf'." & vbNewLine &
                     "If you want to download both type 'Both'.", "Permit Downloader", "Cancel")
                     Select Case Result.ToUpper
                         Case "WORD"
@@ -10442,8 +9882,8 @@ Public Class SSPPApplicationTrackingLog
 
             If (txtTVDraftDoc.Text = "On File" Or txtTVDraftPDF.Text = "On File") And txtApplicationNumber.Text <> "" Then
                 If txtTVDraftDoc.Text = "On File" And txtTVDraftPDF.Text = "On File" Then
-                    Result = InputBox("If you want to download the word document type 'Word'." & vbCrLf &
-                    "If you want to download the pdf file type 'pdf'." & vbCrLf &
+                    Result = InputBox("If you want to download the word document type 'Word'." & vbNewLine &
+                    "If you want to download the pdf file type 'pdf'." & vbNewLine &
                     "If you want to download both type 'Both'.", "Permit Downloader", "Cancel")
                     Select Case Result.ToUpper
                         Case "WORD"
@@ -10474,8 +9914,8 @@ Public Class SSPPApplicationTrackingLog
 
             If (txtTVPublicNoticeDoc.Text = "On File" Or txtTVPublicNoticePDF.Text = "On File") And txtApplicationNumber.Text <> "" Then
                 If txtTVPublicNoticeDoc.Text = "On File" And txtTVPublicNoticePDF.Text = "On File" Then
-                    Result = InputBox("If you want to download the word document type 'Word'." & vbCrLf &
-                    "If you want to download the pdf file type 'pdf'." & vbCrLf &
+                    Result = InputBox("If you want to download the word document type 'Word'." & vbNewLine &
+                    "If you want to download the pdf file type 'pdf'." & vbNewLine &
                     "If you want to download both type 'Both'.", "Permit Downloader", "Cancel")
                     Select Case Result.ToUpper
                         Case "WORD"
@@ -10506,8 +9946,8 @@ Public Class SSPPApplicationTrackingLog
 
             If (txtTVFinalDoc.Text = "On File" Or txtTVFinalPDF.Text = "On File") And txtApplicationNumber.Text <> "" Then
                 If txtTVFinalDoc.Text = "On File" And txtTVFinalPDF.Text = "On File" Then
-                    Result = InputBox("If you want to download the word document type 'Word'." & vbCrLf &
-                    "If you want to download the pdf file type 'pdf'." & vbCrLf &
+                    Result = InputBox("If you want to download the word document type 'Word'." & vbNewLine &
+                    "If you want to download the pdf file type 'pdf'." & vbNewLine &
                     "If you want to download both type 'Both'.", "Permit Downloader", "Cancel")
                     Select Case Result.ToUpper
                         Case "WORD"
@@ -10538,8 +9978,8 @@ Public Class SSPPApplicationTrackingLog
 
             If (txtPSDAppSummaryDoc.Text = "On File" Or txtPSDAppSummaryPDF.Text = "On File") And txtApplicationNumber.Text <> "" Then
                 If txtPSDAppSummaryDoc.Text = "On File" And txtPSDAppSummaryPDF.Text = "On File" Then
-                    Result = InputBox("If you want to download the word document type 'Word'." & vbCrLf &
-                    "If you want to download the pdf file type 'pdf'." & vbCrLf &
+                    Result = InputBox("If you want to download the word document type 'Word'." & vbNewLine &
+                    "If you want to download the pdf file type 'pdf'." & vbNewLine &
                     "If you want to download both type 'Both'.", "Permit Downloader", "Cancel")
                     Select Case Result.ToUpper
                         Case "WORD"
@@ -10570,8 +10010,8 @@ Public Class SSPPApplicationTrackingLog
 
             If (txtPSDPrelimDetDoc.Text = "On File" Or txtPSDPrelimDetPDF.Text = "On File") And txtApplicationNumber.Text <> "" Then
                 If txtPSDPrelimDetDoc.Text = "On File" And txtPSDPrelimDetPDF.Text = "On File" Then
-                    Result = InputBox("If you want to download the word document type 'Word'." & vbCrLf &
-                    "If you want to download the pdf file type 'pdf'." & vbCrLf &
+                    Result = InputBox("If you want to download the word document type 'Word'." & vbNewLine &
+                    "If you want to download the pdf file type 'pdf'." & vbNewLine &
                     "If you want to download both type 'Both'.", "Permit Downloader", "Cancel")
                     Select Case Result.ToUpper
                         Case "WORD"
@@ -10602,8 +10042,8 @@ Public Class SSPPApplicationTrackingLog
 
             If (txtPSDNarrativeDoc.Text = "On File" Or txtPSDNarrativePDF.Text = "On File") And txtApplicationNumber.Text <> "" Then
                 If txtPSDNarrativeDoc.Text = "On File" And txtPSDNarrativePDF.Text = "On File" Then
-                    Result = InputBox("If you want to download the word document type 'Word'." & vbCrLf &
-                    "If you want to download the pdf file type 'pdf'." & vbCrLf &
+                    Result = InputBox("If you want to download the word document type 'Word'." & vbNewLine &
+                    "If you want to download the pdf file type 'pdf'." & vbNewLine &
                     "If you want to download both type 'Both'.", "Permit Downloader", "Cancel")
                     Select Case Result.ToUpper
                         Case "WORD"
@@ -10634,8 +10074,8 @@ Public Class SSPPApplicationTrackingLog
 
             If (txtPSDDraftPermitDoc.Text = "On File" Or txtPSDDraftPermitPDF.Text = "On File") And txtApplicationNumber.Text <> "" Then
                 If txtPSDDraftPermitDoc.Text = "On File" And txtPSDDraftPermitPDF.Text = "On File" Then
-                    Result = InputBox("If you want to download the word document type 'Word'." & vbCrLf &
-                    "If you want to download the pdf file type 'pdf'." & vbCrLf &
+                    Result = InputBox("If you want to download the word document type 'Word'." & vbNewLine &
+                    "If you want to download the pdf file type 'pdf'." & vbNewLine &
                     "If you want to download both type 'Both'.", "Permit Downloader", "Cancel")
                     Select Case Result.ToUpper
                         Case "WORD"
@@ -10666,8 +10106,8 @@ Public Class SSPPApplicationTrackingLog
 
             If (txtPSDPublicNoticeDoc.Text = "On File" Or txtPSDPublicNoticePDF.Text = "On File") And txtApplicationNumber.Text <> "" Then
                 If txtPSDPublicNoticeDoc.Text = "On File" And txtPSDPublicNoticePDF.Text = "On File" Then
-                    Result = InputBox("If you want to download the word document type 'Word'." & vbCrLf &
-                    "If you want to download the pdf file type 'pdf'." & vbCrLf &
+                    Result = InputBox("If you want to download the word document type 'Word'." & vbNewLine &
+                    "If you want to download the pdf file type 'pdf'." & vbNewLine &
                     "If you want to download both type 'Both'.", "Permit Downloader", "Cancel")
                     Select Case Result.ToUpper
                         Case "WORD"
@@ -10698,8 +10138,8 @@ Public Class SSPPApplicationTrackingLog
 
             If (txtPSDHearingNoticeDoc.Text = "On File" Or txtPSDHearingNoticePDF.Text = "On File") And txtApplicationNumber.Text <> "" Then
                 If txtPSDHearingNoticeDoc.Text = "On File" And txtPSDHearingNoticePDF.Text = "On File" Then
-                    Result = InputBox("If you want to download the word document type 'Word'." & vbCrLf &
-                    "If you want to download the pdf file type 'pdf'." & vbCrLf &
+                    Result = InputBox("If you want to download the word document type 'Word'." & vbNewLine &
+                    "If you want to download the pdf file type 'pdf'." & vbNewLine &
                     "If you want to download both type 'Both'.", "Permit Downloader", "Cancel")
                     Select Case Result.ToUpper
                         Case "WORD"
@@ -10730,8 +10170,8 @@ Public Class SSPPApplicationTrackingLog
 
             If (txtPSDFinalDetDoc.Text = "On File" Or txtPSDFinalDetPDF.Text = "On File") And txtApplicationNumber.Text <> "" Then
                 If txtPSDFinalDetDoc.Text = "On File" And txtPSDFinalDetPDF.Text = "On File" Then
-                    Result = InputBox("If you want to download the word document type 'Word'." & vbCrLf &
-                    "If you want to download the pdf file type 'pdf'." & vbCrLf &
+                    Result = InputBox("If you want to download the word document type 'Word'." & vbNewLine &
+                    "If you want to download the pdf file type 'pdf'." & vbNewLine &
                     "If you want to download both type 'Both'.", "Permit Downloader", "Cancel")
                     Select Case Result.ToUpper
                         Case "WORD"
@@ -10762,8 +10202,8 @@ Public Class SSPPApplicationTrackingLog
 
             If (txtPSDFinalPermitDoc.Text = "On File" Or txtPSDFinalPermitPDF.Text = "On File") And txtApplicationNumber.Text <> "" Then
                 If txtPSDFinalPermitDoc.Text = "On File" And txtPSDFinalPermitPDF.Text = "On File" Then
-                    Result = InputBox("If you want to download the word document type 'Word'." & vbCrLf &
-                    "If you want to download the pdf file type 'pdf'." & vbCrLf &
+                    Result = InputBox("If you want to download the word document type 'Word'." & vbNewLine &
+                    "If you want to download the pdf file type 'pdf'." & vbNewLine &
                     "If you want to download both type 'Both'.", "Permit Downloader", "Cancel")
                     Select Case Result.ToUpper
                         Case "WORD"
@@ -10789,6 +10229,9 @@ Public Class SSPPApplicationTrackingLog
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
+#End Region
+
     Private Sub llbPermitNumber_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbPermitNumber.LinkClicked
         Try
             Dim temp As String = ""
@@ -10798,10 +10241,10 @@ Public Class SSPPApplicationTrackingLog
             Dim query As String = "select " &
             "distinct(APBPermits.strFileName),  " &
             "strDocFileSize, strPDFFileSize " &
-            "from APBpermits, SSPPApplicationLinking " &
-            "where SUBSTRING(APBpermits.strFileName, 4,10) = " &
-            "SSPPAPPlicationLinking.strmasterapplication (+) " &
-            "and (SSPPApplicationLinking.strApplicationNumber = @MasterApp " &
+            "from APBpermits left join SSPPApplicationLinking " &
+            "on SUBSTRING(APBpermits.strFileName, 4,10) = " &
+            "SSPPAPPlicationLinking.strmasterapplication " &
+            "where (SSPPApplicationLinking.strApplicationNumber = @MasterApp " &
             "or APBPermits.strFileName like @MasterAppFn ) "
 
             Dim parameter As SqlParameter() = {
@@ -10809,27 +10252,16 @@ Public Class SSPPApplicationTrackingLog
                 New SqlParameter("@MasterAppFn", "%-" & MasterApp)
             }
 
-            Using connection As New SqlConnection(CurrentConnectionString)
-                Using cmd As SqlCommand = connection.CreateCommand
-                    cmd.CommandType = CommandType.Text
-                    cmd.CommandText = query
-                    cmd.Parameters.AddRange(parameter)
-                    cmd.Connection.Open()
-                    Using dr As SqlDataReader = cmd.ExecuteReader
+            Dim dr As DataRow = DB.GetDataRow(query, parameter)
 
-                        While dr.Read
-                            temp = dr.Item("strFileName")
-                            If IsDBNull(dr.Item("strPDFFileSize")) Then
-                                PDFFile = ""
-                            Else
-                                PDFFile = dr.Item("strPDFFileSize")
-                            End If
-                        End While
-
-                    End Using
-                    cmd.Connection.Close()
-                End Using
-            End Using
+            If dr IsNot Nothing Then
+                temp = dr.Item("strFileName")
+                If IsDBNull(dr.Item("strPDFFileSize")) Then
+                    PDFFile = ""
+                Else
+                    PDFFile = dr.Item("strPDFFileSize")
+                End If
+            End If
 
             Select Case Mid(temp, 1, 1)
                 Case "V"
@@ -10880,90 +10312,81 @@ Public Class SSPPApplicationTrackingLog
 
             Dim parameter As New SqlParameter("@pKey", "0413" & txtAIRSNumber.Text & "30")
 
-            Using connection As New SqlConnection(CurrentConnectionString)
-                Using cmd As SqlCommand = connection.CreateCommand
-                    cmd.CommandType = CommandType.Text
-                    cmd.CommandText = query
-                    cmd.Parameters.Add(parameter)
-                    cmd.Connection.Open()
-                    Using dr As SqlDataReader = cmd.ExecuteReader
-                        While dr.Read
-                            If IsDBNull(dr.Item("strContactFirstname")) Then
-                                txtContactFirstName.Clear()
-                            Else
-                                txtContactFirstName.Text = dr.Item("strContactFirstName")
-                            End If
-                            If IsDBNull(dr.Item("strContactLastName")) Then
-                                txtContactLastName.Clear()
-                            Else
-                                txtContactLastName.Text = dr.Item("strContactLastName")
-                            End If
-                            If IsDBNull(dr.Item("strContactPrefix")) Then
-                                txtContactSocialTitle.Clear()
-                            Else
-                                txtContactSocialTitle.Text = dr.Item("strContactPrefix")
-                            End If
-                            If IsDBNull(dr.Item("strContactSuffix")) Then
-                                txtContactPedigree.Clear()
-                            Else
-                                txtContactPedigree.Text = dr.Item("strContactSuffix")
-                            End If
-                            If IsDBNull(dr.Item("strContactTitle")) Then
-                                txtContactTitle.Clear()
-                            Else
-                                txtContactTitle.Text = dr.Item("strContactTitle")
-                            End If
-                            If IsDBNull(dr.Item("strContactCompanyName")) Then
-                                txtContactCompanyName.Clear()
-                            Else
-                                txtContactCompanyName.Text = dr.Item("strContactCompanyName")
-                            End If
-                            If IsDBNull(dr.Item("strContactPhoneNumber1")) Then
-                                mtbContactPhoneNumber.Clear()
-                            Else
-                                mtbContactPhoneNumber.Text = dr.Item("strContactPhoneNumber1")
-                            End If
-                            If IsDBNull(dr.Item("strContactFaxNumber")) Then
-                                mtbContactFaxNumber.Clear()
-                            Else
-                                mtbContactFaxNumber.Text = dr.Item("strContactFaxNumber")
-                            End If
-                            If IsDBNull(dr.Item("strContactEmail")) Then
-                                txtContactEmailAddress.Clear()
-                            Else
-                                txtContactEmailAddress.Text = dr.Item("strContactEmail")
-                            End If
-                            If IsDBNull(dr.Item("strContactAddress1")) Then
-                                txtContactStreetAddress.Clear()
-                            Else
-                                txtContactStreetAddress.Text = dr.Item("strContactAddress1")
-                            End If
-                            If IsDBNull(dr.Item("strContactCity")) Then
-                                txtContactCity.Clear()
-                            Else
-                                txtContactCity.Text = dr.Item("strContactCity")
-                            End If
-                            If IsDBNull(dr.Item("strContactState")) Then
-                                txtContactState.Clear()
-                            Else
-                                txtContactState.Text = dr.Item("strContactState")
-                            End If
-                            If IsDBNull(dr.Item("strContactZipCode")) Then
-                                mtbContactZipCode.Clear()
-                            Else
-                                mtbContactZipCode.Text = dr.Item("strContactZipCode")
-                            End If
-                            If IsDBNull(dr.Item("strContactDescription")) Then
-                                txtContactDescription.Clear()
-                            Else
-                                txtContactDescription.Text = dr.Item("strContactDescription")
-                            End If
-                            txtContactDescription.Text = "From App #- " & txtApplicationNumber.Text & vbCrLf & txtContactDescription.Text
-                        End While
-                    End Using
-                    cmd.Connection.Close()
-                End Using
-            End Using
+            Dim dr As DataRow = DB.GetDataRow(query, parameter)
+
+            If dr IsNot Nothing Then
+                If IsDBNull(dr.Item("strContactFirstname")) Then
+                    txtContactFirstName.Clear()
+                Else
+                    txtContactFirstName.Text = dr.Item("strContactFirstName")
+                End If
+                If IsDBNull(dr.Item("strContactLastName")) Then
+                    txtContactLastName.Clear()
+                Else
+                    txtContactLastName.Text = dr.Item("strContactLastName")
+                End If
+                If IsDBNull(dr.Item("strContactPrefix")) Then
+                    txtContactSocialTitle.Clear()
+                Else
+                    txtContactSocialTitle.Text = dr.Item("strContactPrefix")
+                End If
+                If IsDBNull(dr.Item("strContactSuffix")) Then
+                    txtContactPedigree.Clear()
+                Else
+                    txtContactPedigree.Text = dr.Item("strContactSuffix")
+                End If
+                If IsDBNull(dr.Item("strContactTitle")) Then
+                    txtContactTitle.Clear()
+                Else
+                    txtContactTitle.Text = dr.Item("strContactTitle")
+                End If
+                If IsDBNull(dr.Item("strContactCompanyName")) Then
+                    txtContactCompanyName.Clear()
+                Else
+                    txtContactCompanyName.Text = dr.Item("strContactCompanyName")
+                End If
+                If IsDBNull(dr.Item("strContactPhoneNumber1")) Then
+                    mtbContactPhoneNumber.Clear()
+                Else
+                    mtbContactPhoneNumber.Text = dr.Item("strContactPhoneNumber1")
+                End If
+                If IsDBNull(dr.Item("strContactFaxNumber")) Then
+                    mtbContactFaxNumber.Clear()
+                Else
+                    mtbContactFaxNumber.Text = dr.Item("strContactFaxNumber")
+                End If
+                If IsDBNull(dr.Item("strContactEmail")) Then
+                    txtContactEmailAddress.Clear()
+                Else
+                    txtContactEmailAddress.Text = dr.Item("strContactEmail")
+                End If
+                If IsDBNull(dr.Item("strContactAddress1")) Then
+                    txtContactStreetAddress.Clear()
+                Else
+                    txtContactStreetAddress.Text = dr.Item("strContactAddress1")
+                End If
+                If IsDBNull(dr.Item("strContactCity")) Then
+                    txtContactCity.Clear()
+                Else
+                    txtContactCity.Text = dr.Item("strContactCity")
+                End If
+                If IsDBNull(dr.Item("strContactState")) Then
+                    txtContactState.Clear()
+                Else
+                    txtContactState.Text = dr.Item("strContactState")
+                End If
+                If IsDBNull(dr.Item("strContactZipCode")) Then
+                    mtbContactZipCode.Clear()
+                Else
+                    mtbContactZipCode.Text = dr.Item("strContactZipCode")
+                End If
+                If IsDBNull(dr.Item("strContactDescription")) Then
+                    txtContactDescription.Clear()
+                Else
+                    txtContactDescription.Text = dr.Item("strContactDescription")
+                End If
+                txtContactDescription.Text = "From App #- " & txtApplicationNumber.Text & vbNewLine & txtContactDescription.Text
+            End If
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -10971,7 +10394,7 @@ Public Class SSPPApplicationTrackingLog
     End Sub
     Private Sub btnAcknowledgementLetter_Click(sender As Object, e As EventArgs) Handles btnAcknowledgementLetter.Click
         If txtContactSocialTitle.Text = "" Or txtContactSocialTitle.Text = "N/A" Or txtContactSocialTitle.Text = " " Then
-            MessageBox.Show("Invalid Social Title" & vbCrLf & "Please correct.", "SSPP Application Tracking Log",
+            MessageBox.Show("Invalid Social Title" & vbNewLine & "Please correct.", "SSPP Application Tracking Log",
                             MessageBoxButtons.OK)
             Exit Sub
         End If
@@ -10991,7 +10414,7 @@ Public Class SSPPApplicationTrackingLog
             Dim StaffEmail As String = ""
 
             If txtContactSocialTitle.Text = "" Or txtContactSocialTitle.Text = "N/A" Or txtContactSocialTitle.Text = " " Then
-                MessageBox.Show("Invalid Social Title" & vbCrLf & "Please correct.", "SSPP Application Tracking Log",
+                MessageBox.Show("Invalid Social Title" & vbNewLine & "Please correct.", "SSPP Application Tracking Log",
                                 MessageBoxButtons.OK)
                 Exit Sub
             End If
@@ -11011,21 +10434,12 @@ Public Class SSPPApplicationTrackingLog
             "where numUserID = @UserGCode "
             Dim parameter As New SqlParameter("@UserGCode", CurrentUser.UserID)
 
-            Using connection As New SqlConnection(CurrentConnectionString)
-                Using cmd As SqlCommand = connection.CreateCommand
-                    cmd.CommandType = CommandType.Text
-                    cmd.CommandText = query
-                    cmd.Parameters.Add(parameter)
-                    cmd.Connection.Open()
-                    Using dr As SqlDataReader = cmd.ExecuteReader
-                        While dr.Read
-                            StaffPhone = FormatDigitsAsPhoneNumber(DBUtilities.GetNullable(Of String)(dr.Item("strPhone")), True)
-                            StaffEmail = DBUtilities.GetNullable(Of String)(dr.Item("strEmailAddress"))
-                        End While
-                    End Using
-                    cmd.Connection.Close()
-                End Using
-            End Using
+            Dim dr As DataRow = DB.GetDataRow(query, parameter)
+
+            If dr IsNot Nothing Then
+                StaffPhone = FormatDigitsAsPhoneNumber(DBUtilities.GetNullable(Of String)(dr.Item("strPhone")), True)
+                StaffEmail = DBUtilities.GetNullable(Of String)(dr.Item("strEmailAddress"))
+            End If
 
             Subject = "GA Air Application No. " & txtApplicationNumber.Text & ", dated: " & DTPDateSent.Text
 
@@ -11067,8 +10481,10 @@ Public Class SSPPApplicationTrackingLog
             Me.Cursor = Nothing
         End Try
     End Sub
+
 #Region "SIP Subpart"
-    Sub LoadSSPPSIPSubPartInformation()
+
+    Private Sub LoadSSPPSIPSubPartInformation()
         Try
             Dim temp As String
             Dim dgvRow As New DataGridViewRow
@@ -11134,43 +10550,34 @@ Public Class SSPPApplicationTrackingLog
             "and Active = '1' "
             parameter = {New SqlParameter("@pKey", "0413" & txtAIRSNumber.Text & "0")}
 
-            Using connection As New SqlConnection(CurrentConnectionString)
-                Using cmd As SqlCommand = connection.CreateCommand
-                    cmd.CommandType = CommandType.Text
-                    cmd.CommandText = query
-                    cmd.Parameters.AddRange(parameter)
-                    cmd.Connection.Open()
-                    Using dr As SqlDataReader = cmd.ExecuteReader
-                        While dr.Read
-                            dgvRow = New DataGridViewRow
-                            dgvRow.CreateCells(dgvSIPSubParts)
-                            If IsDBNull(dr.Item("AppNum")) Then
-                                dgvRow.Cells(0).Value = ""
-                            Else
-                                dgvRow.Cells(0).Value = dr.Item("AppNum")
-                            End If
-                            If IsDBNull(dr.Item("strSubpart")) Then
-                                dgvRow.Cells(1).Value = ""
-                            Else
-                                dgvRow.Cells(1).Value = dr.Item("strSubpart")
-                            End If
-                            If IsDBNull(dr.Item("strDescription")) Then
-                                dgvRow.Cells(2).Value = ""
-                            Else
-                                dgvRow.Cells(2).Value = dr.Item("strDescription")
-                            End If
-                            If IsDBNull(dr.Item("CreateDateTime")) Then
-                                dgvRow.Cells(3).Value = ""
-                            Else
-                                dgvRow.Cells(3).Value = Format(dr.Item("CreateDateTime"), "dd-MMM-yyyy")
-                            End If
-                            dgvRow.Cells(4).Value = "Existing"
-                            dgvSIPSubParts.Rows.Add(dgvRow)
-                        End While
-                    End Using
-                    cmd.Connection.Close()
-                End Using
-            End Using
+            Dim dt As DataTable = DB.GetDataTable(query, parameter)
+
+            For Each dr As DataRow In dt.Rows
+                dgvRow = New DataGridViewRow
+                dgvRow.CreateCells(dgvSIPSubParts)
+                If IsDBNull(dr.Item("AppNum")) Then
+                    dgvRow.Cells(0).Value = ""
+                Else
+                    dgvRow.Cells(0).Value = dr.Item("AppNum")
+                End If
+                If IsDBNull(dr.Item("strSubpart")) Then
+                    dgvRow.Cells(1).Value = ""
+                Else
+                    dgvRow.Cells(1).Value = dr.Item("strSubpart")
+                End If
+                If IsDBNull(dr.Item("strDescription")) Then
+                    dgvRow.Cells(2).Value = ""
+                Else
+                    dgvRow.Cells(2).Value = dr.Item("strDescription")
+                End If
+                If IsDBNull(dr.Item("CreateDateTime")) Then
+                    dgvRow.Cells(3).Value = ""
+                Else
+                    dgvRow.Cells(3).Value = Format(dr.Item("CreateDateTime"), "dd-MMM-yyyy")
+                End If
+                dgvRow.Cells(4).Value = "Existing"
+                dgvSIPSubParts.Rows.Add(dgvRow)
+            Next
 
             If dgvSIPSubParts.RowCount > 0 Then
                 For i = 0 To dgvSIPSubParts.RowCount - 1
@@ -11194,41 +10601,32 @@ Public Class SSPPApplicationTrackingLog
                         New SqlParameter("@appnum", txtApplicationNumber.Text)
                     }
 
-                    Using connection As New SqlConnection(CurrentConnectionString)
-                        Using cmd As SqlCommand = connection.CreateCommand
-                            cmd.CommandType = CommandType.Text
-                            cmd.CommandText = query
-                            cmd.Parameters.AddRange(parameter)
-                            cmd.Connection.Open()
-                            Using dr As SqlDataReader = cmd.ExecuteReader
-                                While dr.Read
-                                    If IsDBNull(dr.Item("strApplicationNumber")) Then
-                                    Else
-                                        dgvSIPSubParts(0, i).Value = dr.Item("strApplicationNumber")
-                                    End If
-                                    If IsDBNull(dr.Item("strApplicationActivity")) Then
-                                    Else
-                                        Select Case dr.Item("strApplicationActivity").ToString
-                                            Case "1"
-                                                'Added' 
-                                                dgvSIPSubParts(4, i).Value = "Added"
-                                            Case "2"
-                                                'Modified' 
-                                                dgvSIPSubParts(4, i).Value = "Modify"
-                                            Case Else
-                                                'Existing
-                                                dgvSIPSubParts(4, i).Value = "Existing"
-                                        End Select
-                                    End If
-                                    If IsDBNull(dr.Item("CreateDateTime")) Then
-                                    Else
-                                        dgvSIPSubParts(3, i).Value = Format(dr.Item("CreateDateTime"), "dd-MMM-yyyy")
-                                    End If
-                                End While
-                            End Using
-                            cmd.Connection.Close()
-                        End Using
-                    End Using
+                    Dim dr As DataRow = DB.GetDataRow(query, parameter)
+
+                    If dr IsNot Nothing Then
+                        If IsDBNull(dr.Item("strApplicationNumber")) Then
+                        Else
+                            dgvSIPSubParts(0, i).Value = dr.Item("strApplicationNumber")
+                        End If
+                        If IsDBNull(dr.Item("strApplicationActivity")) Then
+                        Else
+                            Select Case dr.Item("strApplicationActivity").ToString
+                                Case "1"
+                                    'Added' 
+                                    dgvSIPSubParts(4, i).Value = "Added"
+                                Case "2"
+                                    'Modified' 
+                                    dgvSIPSubParts(4, i).Value = "Modify"
+                                Case Else
+                                    'Existing
+                                    dgvSIPSubParts(4, i).Value = "Existing"
+                            End Select
+                        End If
+                        If IsDBNull(dr.Item("CreateDateTime")) Then
+                        Else
+                            dgvSIPSubParts(3, i).Value = Format(dr.Item("CreateDateTime"), "dd-MMM-yyyy")
+                        End If
+                    End If
                 Next
             End If
 
@@ -11299,135 +10697,126 @@ Public Class SSPPApplicationTrackingLog
             "and SSPPSubpartData.strSubpartKey  = @pKey "
             parameter = {New SqlParameter("@pKey", txtApplicationNumber.Text & "0")}
 
-            Using connection As New SqlConnection(CurrentConnectionString)
-                Using cmd As SqlCommand = connection.CreateCommand
-                    cmd.CommandType = CommandType.Text
-                    cmd.CommandText = query
-                    cmd.Parameters.AddRange(parameter)
-                    cmd.Connection.Open()
-                    Using dr As SqlDataReader = cmd.ExecuteReader
-                        While dr.Read
-                            If IsDBNull(dr.Item("strApplicationNumber")) Then
-                                AppNum = ""
-                            Else
-                                AppNum = dr.Item("strApplicationNumber")
-                            End If
-                            If IsDBNull(dr.Item("strSubpart")) Then
-                                SubPart = ""
-                            Else
-                                SubPart = dr.Item("strSubpart")
-                            End If
-                            If IsDBNull(dr.Item("strDescription")) Then
-                                Desc = ""
-                            Else
-                                Desc = dr.Item("strDescription")
-                            End If
-                            If IsDBNull(dr.Item("Action")) Then
-                                Action = ""
-                            Else
-                                Action = dr.Item("Action")
-                            End If
-                            If IsDBNull(dr.Item("CreateDateTime")) Then
-                                CreateDateTime = ""
-                            Else
-                                CreateDateTime = Format(dr.Item("CreateDateTime"), "dd-MMM-yyyy")
-                            End If
+            Dim dt2 As DataTable = DB.GetDataTable(query, parameter)
 
-                            Select Case Action
-                                Case "Removed"
-                                    temp = ""
-                                    For i = 0 To dgvSIPSubParts.Rows.Count - 1
-                                        If SubPart = dgvSIPSubParts(1, i).Value Then
-                                            dgvSIPSubParts(0, i).Value = AppNum
-                                            dgvSIPSubParts(4, i).Value = "Removed"
-                                            temp = "Removed"
-                                            With Me.dgvSIPSubParts.Rows(i)
-                                                .DefaultCellStyle.BackColor = Color.Tomato
-                                            End With
-                                        End If
-                                    Next
-                                    If temp = "" Then
-                                        dgvRow = New DataGridViewRow
-                                        dgvRow.CreateCells(dgvSIPSubParts)
-                                        dgvRow.Cells(0).Value = AppNum
-                                        dgvRow.Cells(1).Value = SubPart
-                                        dgvRow.Cells(2).Value = Desc
-                                        dgvRow.Cells(3).Value = CreateDateTime
-                                        dgvRow.Cells(4).Value = "Removed"
-                                        dgvSIPSubParts.Rows.Add(dgvRow)
-                                        i = dgvSIPSubParts.Rows.Count - 1
-                                        With Me.dgvSIPSubParts.Rows(i)
-                                            .DefaultCellStyle.BackColor = Color.Tomato
-                                        End With
-                                    End If
-                                    dgvRow = New DataGridViewRow
-                                    dgvRow.CreateCells(dgvSIPSubPartDelete)
-                                    dgvRow.Cells(0).Value = SubPart
-                                    dgvRow.Cells(1).Value = Desc
-                                    dgvSIPSubPartDelete.Rows.Add(dgvRow)
-                                Case "Added"
-                                    temp = ""
-                                    For i = 0 To dgvSIPSubParts.Rows.Count - 1
-                                        If SubPart = dgvSIPSubParts(1, i).Value Then
-                                            dgvSIPSubParts(0, i).Value = AppNum
-                                            dgvSIPSubParts(4, i).Value = "Added"
-                                            temp = "Added"
-                                            With Me.dgvSIPSubParts.Rows(i)
-                                                .DefaultCellStyle.BackColor = Color.LightGreen
-                                            End With
-                                        End If
-                                    Next
-                                    If temp <> "Added" Then
-                                        dgvRow = New DataGridViewRow
-                                        dgvRow.CreateCells(dgvSIPSubParts)
-                                        dgvRow.Cells(0).Value = AppNum
-                                        dgvRow.Cells(1).Value = SubPart
-                                        dgvRow.Cells(2).Value = Desc
-                                        dgvRow.Cells(3).Value = CreateDateTime
-                                        dgvRow.Cells(4).Value = "Added"
-                                        dgvSIPSubParts.Rows.Add(dgvRow)
-                                        i = dgvSIPSubParts.Rows.Count - 1
-                                        With Me.dgvSIPSubParts.Rows(i)
-                                            .DefaultCellStyle.BackColor = Color.LightGreen
-                                        End With
-                                    End If
-                                    dgvRow = New DataGridViewRow
-                                    dgvRow.CreateCells(dgvSIPSubpartAddEdit)
-                                    dgvRow.Cells(0).Value = SubPart
-                                    dgvRow.Cells(1).Value = Desc
-                                    dgvRow.Cells(2).Value = CreateDateTime
-                                    dgvRow.Cells(3).Value = "Added"
-                                    dgvSIPSubpartAddEdit.Rows.Add(dgvRow)
-                                    i = dgvSIPSubpartAddEdit.Rows.Count - 1
-                                    With Me.dgvSIPSubpartAddEdit.Rows(i)
-                                        .DefaultCellStyle.BackColor = Color.LightGreen
-                                    End With
-                                Case "Modified"
-                                    temp = ""
-                                    For i = 0 To dgvSIPSubParts.Rows.Count - 1
-                                        If SubPart = dgvSIPSubParts(1, i).Value Then
-                                            dgvSIPSubParts(0, i).Value = AppNum
-                                            temp = "Modify"
-                                            With Me.dgvSIPSubParts.Rows(i)
-                                                .DefaultCellStyle.BackColor = Color.LightBlue
-                                            End With
-                                        End If
-                                    Next
-                                    dgvRow = New DataGridViewRow
-                                    dgvRow.CreateCells(dgvSIPSubpartAddEdit)
-                                    dgvRow.Cells(0).Value = SubPart
-                                    dgvRow.Cells(1).Value = Desc
-                                    dgvRow.Cells(2).Value = CreateDateTime
-                                    dgvRow.Cells(3).Value = "Modify"
-                                    dgvSIPSubpartAddEdit.Rows.Add(dgvRow)
-                                Case Else
-                            End Select
+            For Each dr As DataRow In dt2.Rows
+                If IsDBNull(dr.Item("strApplicationNumber")) Then
+                    AppNum = ""
+                Else
+                    AppNum = dr.Item("strApplicationNumber")
+                End If
+                If IsDBNull(dr.Item("strSubpart")) Then
+                    SubPart = ""
+                Else
+                    SubPart = dr.Item("strSubpart")
+                End If
+                If IsDBNull(dr.Item("strDescription")) Then
+                    Desc = ""
+                Else
+                    Desc = dr.Item("strDescription")
+                End If
+                If IsDBNull(dr.Item("Action")) Then
+                    Action = ""
+                Else
+                    Action = dr.Item("Action")
+                End If
+                If IsDBNull(dr.Item("CreateDateTime")) Then
+                    CreateDateTime = ""
+                Else
+                    CreateDateTime = Format(dr.Item("CreateDateTime"), "dd-MMM-yyyy")
+                End If
 
-                        End While
-                    End Using
-                    cmd.Connection.Close()
-                End Using
-            End Using
+                Select Case Action
+                    Case "Removed"
+                        temp = ""
+                        For i = 0 To dgvSIPSubParts.Rows.Count - 1
+                            If SubPart = dgvSIPSubParts(1, i).Value Then
+                                dgvSIPSubParts(0, i).Value = AppNum
+                                dgvSIPSubParts(4, i).Value = "Removed"
+                                temp = "Removed"
+                                With Me.dgvSIPSubParts.Rows(i)
+                                    .DefaultCellStyle.BackColor = Color.Tomato
+                                End With
+                            End If
+                        Next
+                        If temp = "" Then
+                            dgvRow = New DataGridViewRow
+                            dgvRow.CreateCells(dgvSIPSubParts)
+                            dgvRow.Cells(0).Value = AppNum
+                            dgvRow.Cells(1).Value = SubPart
+                            dgvRow.Cells(2).Value = Desc
+                            dgvRow.Cells(3).Value = CreateDateTime
+                            dgvRow.Cells(4).Value = "Removed"
+                            dgvSIPSubParts.Rows.Add(dgvRow)
+                            i = dgvSIPSubParts.Rows.Count - 1
+                            With Me.dgvSIPSubParts.Rows(i)
+                                .DefaultCellStyle.BackColor = Color.Tomato
+                            End With
+                        End If
+                        dgvRow = New DataGridViewRow
+                        dgvRow.CreateCells(dgvSIPSubPartDelete)
+                        dgvRow.Cells(0).Value = SubPart
+                        dgvRow.Cells(1).Value = Desc
+                        dgvSIPSubPartDelete.Rows.Add(dgvRow)
+                    Case "Added"
+                        temp = ""
+                        For i = 0 To dgvSIPSubParts.Rows.Count - 1
+                            If SubPart = dgvSIPSubParts(1, i).Value Then
+                                dgvSIPSubParts(0, i).Value = AppNum
+                                dgvSIPSubParts(4, i).Value = "Added"
+                                temp = "Added"
+                                With Me.dgvSIPSubParts.Rows(i)
+                                    .DefaultCellStyle.BackColor = Color.LightGreen
+                                End With
+                            End If
+                        Next
+                        If temp <> "Added" Then
+                            dgvRow = New DataGridViewRow
+                            dgvRow.CreateCells(dgvSIPSubParts)
+                            dgvRow.Cells(0).Value = AppNum
+                            dgvRow.Cells(1).Value = SubPart
+                            dgvRow.Cells(2).Value = Desc
+                            dgvRow.Cells(3).Value = CreateDateTime
+                            dgvRow.Cells(4).Value = "Added"
+                            dgvSIPSubParts.Rows.Add(dgvRow)
+                            i = dgvSIPSubParts.Rows.Count - 1
+                            With Me.dgvSIPSubParts.Rows(i)
+                                .DefaultCellStyle.BackColor = Color.LightGreen
+                            End With
+                        End If
+                        dgvRow = New DataGridViewRow
+                        dgvRow.CreateCells(dgvSIPSubpartAddEdit)
+                        dgvRow.Cells(0).Value = SubPart
+                        dgvRow.Cells(1).Value = Desc
+                        dgvRow.Cells(2).Value = CreateDateTime
+                        dgvRow.Cells(3).Value = "Added"
+                        dgvSIPSubpartAddEdit.Rows.Add(dgvRow)
+                        i = dgvSIPSubpartAddEdit.Rows.Count - 1
+                        With Me.dgvSIPSubpartAddEdit.Rows(i)
+                            .DefaultCellStyle.BackColor = Color.LightGreen
+                        End With
+                    Case "Modified"
+                        temp = ""
+                        For i = 0 To dgvSIPSubParts.Rows.Count - 1
+                            If SubPart = dgvSIPSubParts(1, i).Value Then
+                                dgvSIPSubParts(0, i).Value = AppNum
+                                temp = "Modify"
+                                With Me.dgvSIPSubParts.Rows(i)
+                                    .DefaultCellStyle.BackColor = Color.LightBlue
+                                End With
+                            End If
+                        Next
+                        dgvRow = New DataGridViewRow
+                        dgvRow.CreateCells(dgvSIPSubpartAddEdit)
+                        dgvRow.Cells(0).Value = SubPart
+                        dgvRow.Cells(1).Value = Desc
+                        dgvRow.Cells(2).Value = CreateDateTime
+                        dgvRow.Cells(3).Value = "Modify"
+                        dgvSIPSubpartAddEdit.Rows.Add(dgvRow)
+                    Case Else
+                End Select
+
+            Next
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -11456,7 +10845,7 @@ Public Class SSPPApplicationTrackingLog
                 End If
             Next
             If temp2 = "Message" Then
-                MsgBox("Subpart " & Subpart & " is currently listed in the Added/Modify list. " & vbCrLf &
+                MsgBox("Subpart " & Subpart & " is currently listed in the Added/Modify list. " & vbNewLine &
                        "The subpart must be removed from this list before it can be deleted from the Facility.",
                        MsgBoxStyle.Exclamation, "Application Tracking Log")
                 Exit Sub
@@ -11548,7 +10937,7 @@ Public Class SSPPApplicationTrackingLog
                     End If
                 Next
                 If temp2 = "Message" Then
-                    MsgBox("Subpart " & Subpart & " is currently listed in the Added/Modify list. " & vbCrLf &
+                    MsgBox("Subpart " & Subpart & " is currently listed in the Added/Modify list. " & vbNewLine &
                            "The subpart must be removed from this list before it can be deleted from the Facility.",
                            MsgBoxStyle.Exclamation, "Application Tracking Log")
                     Exit Sub
@@ -11634,7 +11023,7 @@ Public Class SSPPApplicationTrackingLog
             Dim temp2 As String = ""
 
             If chbCDS_0.Checked = False Then
-                MsgBox("The SIP Subpart is not checked on the Tracking Log tab. " & vbCrLf &
+                MsgBox("The SIP Subpart is not checked on the Tracking Log tab. " & vbNewLine &
                        "This must be done before Adding new Subparts.", MsgBoxStyle.Exclamation,
                         "Application Tracking")
                 Exit Sub
@@ -11717,7 +11106,7 @@ Public Class SSPPApplicationTrackingLog
                 End If
             Next
             If temp2 = "Message" Then
-                MsgBox("Subpart " & Subpart & " is currently listed in the Removed by list. " & vbCrLf &
+                MsgBox("Subpart " & Subpart & " is currently listed in the Removed by list. " & vbNewLine &
                        "The subpart must be removed from this list before it can be Modified by this Application.",
                        MsgBoxStyle.Exclamation, "Application Tracking Log")
                 Exit Sub
@@ -11813,7 +11202,7 @@ Public Class SSPPApplicationTrackingLog
                     End If
                 Next
                 If temp2 = "Message" Then
-                    MsgBox("Subpart " & Subpart & " is currently listed in the Removed by list. " & vbCrLf &
+                    MsgBox("Subpart " & Subpart & " is currently listed in the Removed by list. " & vbNewLine &
                            "The subpart must be removed from this list before it can be Modified by this Application.",
                            MsgBoxStyle.Exclamation, "Application Tracking Log")
                     Exit Sub
@@ -11870,13 +11259,9 @@ Public Class SSPPApplicationTrackingLog
 
             Do While TempRemove <> ""
                 i = Mid(TempRemove, 1, InStr(TempRemove, ",", CompareMethod.Text))
-                ' If Action <> "Added" Then
                 dgvSIPSubpartAddEdit.Rows.RemoveAt(i)
-                'End If
                 TempRemove = Replace(TempRemove, i & ",", "")
             Loop
-            'dgvSIPSubpartAddEdit.Rows.Clear()
-            Exit Sub
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -11914,7 +11299,7 @@ Public Class SSPPApplicationTrackingLog
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub SaveSIPSubpart()
+    Private Sub SaveSIPSubpart()
         Try
             Dim Subpart As String = ""
             Dim Action As String = ""
@@ -11948,7 +11333,7 @@ Public Class SSPPApplicationTrackingLog
     Private Sub btnSaveSIPSubpart_Click(sender As Object, e As EventArgs) Handles btnSaveSIPSubpart.Click
         Try
             If chbCDS_0.Checked = False Then
-                MsgBox("WARNING DATA NOT SAVED:" & vbCrLf &
+                MsgBox("WARNING DATA NOT SAVED:" & vbNewLine &
                        "On the Tracking Log tab select the air program code 0 - SIP. " &
                        "If you do not check this air program code the subpart(s) cannot be saved.",
                      MsgBoxStyle.Exclamation, "Application Tracking Log")
@@ -11963,9 +11348,12 @@ Public Class SSPPApplicationTrackingLog
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
 #End Region
+
 #Region "NSPS Subpart"
-    Sub LoadSSPPNSPSSubPartInformation()
+
+    Private Sub LoadSSPPNSPSSubPartInformation()
         Try
             Dim temp As String
             Dim dgvRow As New DataGridViewRow
@@ -12031,50 +11419,41 @@ Public Class SSPPApplicationTrackingLog
                 "and Active = '1' "
             parameter = {New SqlParameter("@pKey", "0413" & txtAIRSNumber.Text & "9")}
 
-            Using connection As New SqlConnection(CurrentConnectionString)
-                Using cmd As SqlCommand = connection.CreateCommand
-                    cmd.CommandType = CommandType.Text
-                    cmd.CommandText = query
-                    cmd.Parameters.AddRange(parameter)
-                    cmd.Connection.Open()
-                    Using dr As SqlDataReader = cmd.ExecuteReader
-                        While dr.Read
-                            dgvRow = New DataGridViewRow
-                            dgvRow.CreateCells(dgvNSPSSubParts)
-                            If IsDBNull(dr.Item("AppNum")) Then
-                                dgvRow.Cells(0).Value = ""
-                            Else
-                                dgvRow.Cells(0).Value = dr.Item("AppNum")
-                            End If
-                            If IsDBNull(dr.Item("strSubpart")) Then
-                                dgvRow.Cells(1).Value = ""
-                            Else
-                                dgvRow.Cells(1).Value = dr.Item("strSubpart")
-                            End If
-                            If IsDBNull(dr.Item("strDescription")) Then
-                                dgvRow.Cells(2).Value = ""
-                            Else
-                                dgvRow.Cells(2).Value = dr.Item("strDescription")
-                            End If
-                            If IsDBNull(dr.Item("CreateDateTime")) Then
-                                dgvRow.Cells(3).Value = ""
-                            Else
-                                dgvRow.Cells(3).Value = Format(dr.Item("CreateDateTime"), "dd-MMM-yyyy")
-                            End If
-                            dgvRow.Cells(4).Value = "Existing"
-                            dgvNSPSSubParts.Rows.Add(dgvRow)
-                        End While
-                    End Using
-                    cmd.Connection.Close()
-                End Using
-            End Using
+            Dim dt As DataTable = DB.GetDataTable(query, parameter)
+
+            For Each dr As DataRow In dt.Rows
+                dgvRow = New DataGridViewRow
+                dgvRow.CreateCells(dgvNSPSSubParts)
+                If IsDBNull(dr.Item("AppNum")) Then
+                    dgvRow.Cells(0).Value = ""
+                Else
+                    dgvRow.Cells(0).Value = dr.Item("AppNum")
+                End If
+                If IsDBNull(dr.Item("strSubpart")) Then
+                    dgvRow.Cells(1).Value = ""
+                Else
+                    dgvRow.Cells(1).Value = dr.Item("strSubpart")
+                End If
+                If IsDBNull(dr.Item("strDescription")) Then
+                    dgvRow.Cells(2).Value = ""
+                Else
+                    dgvRow.Cells(2).Value = dr.Item("strDescription")
+                End If
+                If IsDBNull(dr.Item("CreateDateTime")) Then
+                    dgvRow.Cells(3).Value = ""
+                Else
+                    dgvRow.Cells(3).Value = Format(dr.Item("CreateDateTime"), "dd-MMM-yyyy")
+                End If
+                dgvRow.Cells(4).Value = "Existing"
+                dgvNSPSSubParts.Rows.Add(dgvRow)
+            Next
 
             If dgvNSPSSubParts.RowCount > 0 Then
                 For i = 0 To dgvNSPSSubParts.RowCount - 1
                     SubPart = dgvNSPSSubParts.Item(1, i).Value
 
                     query = "select " &
-                    "SSPPApplicationMaster.strApplicationNumber,  " &
+                    "SSPPAPPLICATIONMASTER.STRAPPLICATIONNUMBER,  " &
                     "strSubpart, strApplicationActivity,   " &
                     "CreateDateTime " &
                     "from SSPPApplicationMaster, SSPPSubpartData   " &
@@ -12091,41 +11470,32 @@ Public Class SSPPApplicationTrackingLog
                         New SqlParameter("@appnum", txtApplicationNumber.Text)
                     }
 
-                    Using connection As New SqlConnection(CurrentConnectionString)
-                        Using cmd As SqlCommand = connection.CreateCommand
-                            cmd.CommandType = CommandType.Text
-                            cmd.CommandText = query
-                            cmd.Parameters.AddRange(parameter)
-                            cmd.Connection.Open()
-                            Using dr As SqlDataReader = cmd.ExecuteReader
-                                While dr.Read
-                                    If IsDBNull(dr.Item("strApplicationNumber")) Then
-                                    Else
-                                        dgvNSPSSubParts(0, i).Value = dr.Item("strApplicationNumber")
-                                    End If
-                                    If IsDBNull(dr.Item("strApplicationActivity")) Then
-                                    Else
-                                        Select Case dr.Item("strApplicationActivity").ToString
-                                            Case "1"
-                                                'Added' 
-                                                dgvNSPSSubParts(4, i).Value = "Added"
-                                            Case "2"
-                                                'Modified' 
-                                                dgvNSPSSubParts(4, i).Value = "Modify"
-                                            Case Else
-                                                'Existing
-                                                dgvNSPSSubParts(4, i).Value = "Existing"
-                                        End Select
-                                    End If
-                                    If IsDBNull(dr.Item("CreateDateTime")) Then
-                                    Else
-                                        dgvNSPSSubParts(3, i).Value = Format(dr.Item("CreateDateTime"), "dd-MMM-yyyy")
-                                    End If
-                                End While
-                            End Using
-                            cmd.Connection.Close()
-                        End Using
-                    End Using
+                    Dim dr As DataRow = DB.GetDataRow(query, parameter)
+
+                    If dr IsNot Nothing Then
+                        If IsDBNull(dr.Item("strApplicationNumber")) Then
+                        Else
+                            dgvNSPSSubParts(0, i).Value = dr.Item("strApplicationNumber")
+                        End If
+                        If IsDBNull(dr.Item("strApplicationActivity")) Then
+                        Else
+                            Select Case dr.Item("strApplicationActivity").ToString
+                                Case "1"
+                                    'Added' 
+                                    dgvNSPSSubParts(4, i).Value = "Added"
+                                Case "2"
+                                    'Modified' 
+                                    dgvNSPSSubParts(4, i).Value = "Modify"
+                                Case Else
+                                    'Existing
+                                    dgvNSPSSubParts(4, i).Value = "Existing"
+                            End Select
+                        End If
+                        If IsDBNull(dr.Item("CreateDateTime")) Then
+                        Else
+                            dgvNSPSSubParts(3, i).Value = Format(dr.Item("CreateDateTime"), "dd-MMM-yyyy")
+                        End If
+                    End If
 
                 Next
             End If
@@ -12197,140 +11567,131 @@ Public Class SSPPApplicationTrackingLog
             "and SSPPSubpartData.strSubPartKey  = @pKey "
             parameter = {New SqlParameter("@pKey", txtApplicationNumber.Text & "9")}
 
-            Using connection As New SqlConnection(CurrentConnectionString)
-                Using cmd As SqlCommand = connection.CreateCommand
-                    cmd.CommandType = CommandType.Text
-                    cmd.CommandText = query
-                    cmd.Parameters.AddRange(parameter)
-                    cmd.Connection.Open()
-                    Using dr As SqlDataReader = cmd.ExecuteReader
-                        While dr.Read
-                            If IsDBNull(dr.Item("strApplicationNumber")) Then
-                                AppNum = ""
-                            Else
-                                AppNum = dr.Item("strApplicationNumber")
+            Dim dt2 As DataTable = DB.GetDataTable(query, parameter)
+
+            For Each dr As DataRow In dt2.Rows
+                If IsDBNull(dr.Item("strApplicationNumber")) Then
+                    AppNum = ""
+                Else
+                    AppNum = dr.Item("strApplicationNumber")
+                End If
+                If IsDBNull(dr.Item("strSubpart")) Then
+                    SubPart = ""
+                Else
+                    SubPart = dr.Item("strSubpart")
+                End If
+                If IsDBNull(dr.Item("strDescription")) Then
+                    Desc = ""
+                Else
+                    Desc = dr.Item("strDescription")
+                End If
+                If IsDBNull(dr.Item("Action")) Then
+                    Action = ""
+                Else
+                    Action = dr.Item("Action")
+                End If
+                If IsDBNull(dr.Item("CreateDateTime")) Then
+                    CreateDateTime = ""
+                Else
+                    CreateDateTime = Format(dr.Item("CreateDateTime"), "dd-MMM-yyyy")
+                End If
+
+                Select Case Action
+                    Case "Removed"
+                        temp = ""
+                        For i = 0 To dgvNSPSSubParts.Rows.Count - 1
+                            If SubPart = dgvNSPSSubParts(1, i).Value Then
+                                dgvNSPSSubParts(0, i).Value = AppNum
+                                dgvNSPSSubParts(4, i).Value = "Removed"
+                                temp = "Removed"
+                                With Me.dgvNSPSSubParts.Rows(i)
+                                    .DefaultCellStyle.BackColor = Color.Tomato
+                                End With
                             End If
-                            If IsDBNull(dr.Item("strSubpart")) Then
-                                SubPart = ""
-                            Else
-                                SubPart = dr.Item("strSubpart")
+                        Next
+
+                        If temp = "" Then
+                            dgvRow = New DataGridViewRow
+                            dgvRow.CreateCells(dgvNSPSSubParts)
+                            dgvRow.Cells(0).Value = AppNum
+                            dgvRow.Cells(1).Value = SubPart
+                            dgvRow.Cells(2).Value = Desc
+                            dgvRow.Cells(3).Value = CreateDateTime
+                            dgvRow.Cells(4).Value = "Removed"
+                            dgvNSPSSubParts.Rows.Add(dgvRow)
+                            i = dgvNSPSSubParts.Rows.Count - 1
+                            With Me.dgvNSPSSubParts.Rows(i)
+                                .DefaultCellStyle.BackColor = Color.Tomato
+                            End With
+                        End If
+
+                        dgvRow = New DataGridViewRow
+                        dgvRow.CreateCells(dgvNSPSSubPartDelete)
+                        dgvRow.Cells(0).Value = SubPart
+                        dgvRow.Cells(1).Value = Desc
+                        dgvNSPSSubPartDelete.Rows.Add(dgvRow)
+                    Case "Added"
+                        temp = ""
+                        For i = 0 To dgvNSPSSubParts.Rows.Count - 1
+                            If SubPart = dgvNSPSSubParts(1, i).Value Then
+                                dgvNSPSSubParts(4, i).Value = "Added"
+                                temp = "Added"
+                                With Me.dgvNSPSSubParts.Rows(i)
+                                    .DefaultCellStyle.BackColor = Color.LightGreen
+                                End With
                             End If
-                            If IsDBNull(dr.Item("strDescription")) Then
-                                Desc = ""
-                            Else
-                                Desc = dr.Item("strDescription")
+                        Next
+                        If temp <> "Added" Then
+                            dgvRow = New DataGridViewRow
+                            dgvRow.CreateCells(dgvNSPSSubParts)
+                            dgvRow.Cells(0).Value = AppNum
+                            dgvRow.Cells(1).Value = SubPart
+                            dgvRow.Cells(2).Value = Desc
+                            dgvRow.Cells(3).Value = CreateDateTime
+                            dgvRow.Cells(4).Value = "Added"
+                            dgvNSPSSubParts.Rows.Add(dgvRow)
+                            i = dgvNSPSSubParts.Rows.Count - 1
+                            With Me.dgvNSPSSubParts.Rows(i)
+                                .DefaultCellStyle.BackColor = Color.LightGreen
+                            End With
+                        End If
+
+                        dgvRow = New DataGridViewRow
+                        dgvRow.CreateCells(dgvNSPSSubpartAddEdit)
+                        dgvRow.Cells(0).Value = SubPart
+                        dgvRow.Cells(1).Value = Desc
+                        dgvRow.Cells(2).Value = CreateDateTime
+                        dgvRow.Cells(3).Value = "Added"
+                        dgvNSPSSubpartAddEdit.Rows.Add(dgvRow)
+                        i = dgvNSPSSubpartAddEdit.Rows.Count - 1
+                        With Me.dgvNSPSSubpartAddEdit.Rows(i)
+                            .DefaultCellStyle.BackColor = Color.LightGreen
+                        End With
+
+                    Case "Modified"
+                        temp = ""
+                        For i = 0 To dgvNSPSSubParts.Rows.Count - 1
+                            If SubPart = dgvNSPSSubParts(1, i).Value Then
+                                dgvNSPSSubParts(0, i).Value = AppNum
+                                temp = "Modify"
+                                With Me.dgvNSPSSubParts.Rows(i)
+                                    .DefaultCellStyle.BackColor = Color.LightBlue
+                                End With
                             End If
-                            If IsDBNull(dr.Item("Action")) Then
-                                Action = ""
-                            Else
-                                Action = dr.Item("Action")
-                            End If
-                            If IsDBNull(dr.Item("CreateDateTime")) Then
-                                CreateDateTime = ""
-                            Else
-                                CreateDateTime = Format(dr.Item("CreateDateTime"), "dd-MMM-yyyy")
-                            End If
+                        Next
 
-                            Select Case Action
-                                Case "Removed"
-                                    temp = ""
-                                    For i = 0 To dgvNSPSSubParts.Rows.Count - 1
-                                        If SubPart = dgvNSPSSubParts(1, i).Value Then
-                                            dgvNSPSSubParts(0, i).Value = AppNum
-                                            dgvNSPSSubParts(4, i).Value = "Removed"
-                                            temp = "Removed"
-                                            With Me.dgvNSPSSubParts.Rows(i)
-                                                .DefaultCellStyle.BackColor = Color.Tomato
-                                            End With
-                                        End If
-                                    Next
+                        dgvRow = New DataGridViewRow
+                        dgvRow.CreateCells(dgvNSPSSubpartAddEdit)
+                        dgvRow.Cells(0).Value = SubPart
+                        dgvRow.Cells(1).Value = Desc
+                        dgvRow.Cells(2).Value = CreateDateTime
+                        dgvRow.Cells(3).Value = "Modify"
+                        dgvNSPSSubpartAddEdit.Rows.Add(dgvRow)
+                    Case Else
 
-                                    If temp = "" Then
-                                        dgvRow = New DataGridViewRow
-                                        dgvRow.CreateCells(dgvNSPSSubParts)
-                                        dgvRow.Cells(0).Value = AppNum
-                                        dgvRow.Cells(1).Value = SubPart
-                                        dgvRow.Cells(2).Value = Desc
-                                        dgvRow.Cells(3).Value = CreateDateTime
-                                        dgvRow.Cells(4).Value = "Removed"
-                                        dgvNSPSSubParts.Rows.Add(dgvRow)
-                                        i = dgvNSPSSubParts.Rows.Count - 1
-                                        With Me.dgvNSPSSubParts.Rows(i)
-                                            .DefaultCellStyle.BackColor = Color.Tomato
-                                        End With
-                                    End If
+                End Select
 
-                                    dgvRow = New DataGridViewRow
-                                    dgvRow.CreateCells(dgvNSPSSubPartDelete)
-                                    dgvRow.Cells(0).Value = SubPart
-                                    dgvRow.Cells(1).Value = Desc
-                                    dgvNSPSSubPartDelete.Rows.Add(dgvRow)
-                                Case "Added"
-                                    temp = ""
-                                    For i = 0 To dgvNSPSSubParts.Rows.Count - 1
-                                        If SubPart = dgvNSPSSubParts(1, i).Value Then
-                                            dgvNSPSSubParts(4, i).Value = "Added"
-                                            temp = "Added"
-                                            With Me.dgvNSPSSubParts.Rows(i)
-                                                .DefaultCellStyle.BackColor = Color.LightGreen
-                                            End With
-                                        End If
-                                    Next
-                                    If temp <> "Added" Then
-                                        dgvRow = New DataGridViewRow
-                                        dgvRow.CreateCells(dgvNSPSSubParts)
-                                        dgvRow.Cells(0).Value = AppNum
-                                        dgvRow.Cells(1).Value = SubPart
-                                        dgvRow.Cells(2).Value = Desc
-                                        dgvRow.Cells(3).Value = CreateDateTime
-                                        dgvRow.Cells(4).Value = "Added"
-                                        dgvNSPSSubParts.Rows.Add(dgvRow)
-                                        i = dgvNSPSSubParts.Rows.Count - 1
-                                        With Me.dgvNSPSSubParts.Rows(i)
-                                            .DefaultCellStyle.BackColor = Color.LightGreen
-                                        End With
-                                    End If
-
-                                    dgvRow = New DataGridViewRow
-                                    dgvRow.CreateCells(dgvNSPSSubpartAddEdit)
-                                    dgvRow.Cells(0).Value = SubPart
-                                    dgvRow.Cells(1).Value = Desc
-                                    dgvRow.Cells(2).Value = CreateDateTime
-                                    dgvRow.Cells(3).Value = "Added"
-                                    dgvNSPSSubpartAddEdit.Rows.Add(dgvRow)
-                                    i = dgvNSPSSubpartAddEdit.Rows.Count - 1
-                                    With Me.dgvNSPSSubpartAddEdit.Rows(i)
-                                        .DefaultCellStyle.BackColor = Color.LightGreen
-                                    End With
-
-                                Case "Modified"
-                                    temp = ""
-                                    For i = 0 To dgvNSPSSubParts.Rows.Count - 1
-                                        If SubPart = dgvNSPSSubParts(1, i).Value Then
-                                            dgvNSPSSubParts(0, i).Value = AppNum
-                                            temp = "Modify"
-                                            With Me.dgvNSPSSubParts.Rows(i)
-                                                .DefaultCellStyle.BackColor = Color.LightBlue
-                                            End With
-                                        End If
-                                    Next
-
-                                    dgvRow = New DataGridViewRow
-                                    dgvRow.CreateCells(dgvNSPSSubpartAddEdit)
-                                    dgvRow.Cells(0).Value = SubPart
-                                    dgvRow.Cells(1).Value = Desc
-                                    dgvRow.Cells(2).Value = CreateDateTime
-                                    dgvRow.Cells(3).Value = "Modify"
-                                    dgvNSPSSubpartAddEdit.Rows.Add(dgvRow)
-                                Case Else
-
-                            End Select
-
-                        End While
-                    End Using
-                    cmd.Connection.Close()
-                End Using
-            End Using
+            Next
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -12359,7 +11720,7 @@ Public Class SSPPApplicationTrackingLog
                 End If
             Next
             If temp2 = "Message" Then
-                MsgBox("Subpart " & Subpart & " is currently listed in the Added/Modify list. " & vbCrLf &
+                MsgBox("Subpart " & Subpart & " is currently listed in the Added/Modify list. " & vbNewLine &
                        "The subpart must be removed from this list before it can be deleted from the Facility.",
                        MsgBoxStyle.Exclamation, "Application Tracking Log")
                 Exit Sub
@@ -12451,7 +11812,7 @@ Public Class SSPPApplicationTrackingLog
                     End If
                 Next
                 If temp2 = "Message" Then
-                    MsgBox("Subpart " & Subpart & " is currently listed in the Added/Modify list. " & vbCrLf &
+                    MsgBox("Subpart " & Subpart & " is currently listed in the Added/Modify list. " & vbNewLine &
                            "The subpart must be removed from this list before it can be deleted from the Facility.",
                            MsgBoxStyle.Exclamation, "Application Tracking Log")
                     Exit Sub
@@ -12537,7 +11898,7 @@ Public Class SSPPApplicationTrackingLog
             Dim temp2 As String = ""
 
             If chbCDS_9.Checked = False Then
-                MsgBox("The NSPS Subpart is not checked on the Tracking Log tab. " & vbCrLf &
+                MsgBox("The NSPS Subpart is not checked on the Tracking Log tab. " & vbNewLine &
                        "This must be done before Adding new Subparts.", MsgBoxStyle.Exclamation,
                         "Application Tracking")
                 Exit Sub
@@ -12620,7 +11981,7 @@ Public Class SSPPApplicationTrackingLog
                 End If
             Next
             If temp2 = "Message" Then
-                MsgBox("Subpart " & Subpart & " is currently listed in the Removed by list. " & vbCrLf &
+                MsgBox("Subpart " & Subpart & " is currently listed in the Removed by list. " & vbNewLine &
                        "The subpart must be removed from this list before it can be Modified by this Application.",
                        MsgBoxStyle.Exclamation, "Application Tracking Log")
                 Exit Sub
@@ -12716,7 +12077,7 @@ Public Class SSPPApplicationTrackingLog
                     End If
                 Next
                 If temp2 = "Message" Then
-                    MsgBox("Subpart " & Subpart & " is currently listed in the Removed by list. " & vbCrLf &
+                    MsgBox("Subpart " & Subpart & " is currently listed in the Removed by list. " & vbNewLine &
                            "The subpart must be removed from this list before it can be Modified by this Application.",
                            MsgBoxStyle.Exclamation, "Application Tracking Log")
                     Exit Sub
@@ -12814,7 +12175,7 @@ Public Class SSPPApplicationTrackingLog
     End Sub
 
     Private Sub DeleteProgramSubparts(appnum As String, programkey As String)
-        Dim query As String = "Delete SSPPSubpartData " &
+        Dim query As String = "Delete from SSPPSubpartData " &
             "where strSubpartKey = @pKey "
         Dim parameter As New SqlParameter("@pKey", appnum & programkey)
         DB.RunCommand(query, parameter)
@@ -12843,7 +12204,7 @@ Public Class SSPPApplicationTrackingLog
         DB.RunCommand(query, parameters)
     End Sub
 
-    Sub SaveNSPSSubpart()
+    Private Sub SaveNSPSSubpart()
         Try
             Dim Subpart As String = ""
             Dim Action As String = ""
@@ -12874,7 +12235,7 @@ Public Class SSPPApplicationTrackingLog
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub SaveNSPSSubpart2()
+    Private Sub SaveNSPSSubpart2()
         Try
             Dim Subpart As String = ""
             Dim Action As String = ""
@@ -12888,58 +12249,48 @@ Public Class SSPPApplicationTrackingLog
             "and strApplicationActivity = '1' "
             parameter = {New SqlParameter("@pKey", txtApplicationNumber.Text & "9")}
 
-            Using connection As New SqlConnection(CurrentConnectionString)
-                Using cmd As SqlCommand = connection.CreateCommand
-                    cmd.CommandType = CommandType.Text
-                    cmd.CommandText = query
-                    cmd.Parameters.AddRange(parameter)
-                    cmd.Connection.Open()
-                    Using dr As SqlDataReader = cmd.ExecuteReader
-                        While dr.Read
-                            If IsDBNull(dr.Item("strSubpart")) Then
-                                Subpart = ""
-                            Else
-                                Subpart = dr.Item("strSubpart")
-                            End If
+            Dim dt As DataTable = DB.GetDataTable(query, parameter)
 
-                            Dim temp As String = ""
-                            If Subpart <> "" Then
-                                For i = 0 To dgvNSPSSubParts.Rows.Count - 1
-                                    If Subpart = dgvNSPSSubParts(1, i).Value Then
-                                        temp = "Ignore"
-                                    End If
-                                Next
-                                If temp <> "Ignore" Then
-                                    query = "Update APBSubpartData set " &
-                                        "Active = '9', " &
-                                        "updateUser = @UserGCode , " &
-                                        "updateDateTime = GETDATE() " &
-                                        "where strSubpartKey = @pKey " &
-                                        "and strSubpart = @Subpart "
-                                    parameter = {
-                                        New SqlParameter("@UserGCode", CurrentUser.UserID),
-                                        New SqlParameter("@pKey", "0413" & txtAIRSNumber.Text & "9"),
-                                        New SqlParameter("@Subpart", Subpart)
-                                    }
-                                    DB.RunCommand(query, parameter)
+            For Each dr As DataRow In dt.Rows
+                If IsDBNull(dr.Item("strSubpart")) Then
+                    Subpart = ""
+                Else
+                    Subpart = dr.Item("strSubpart")
+                End If
 
-                                    query = "Delete SSPPSubpartData " &
-                                    "where strSubpartKey = @pKey " &
-                                    "and strApplicationActivity = '1' " &
-                                    "and strSubpart = @Subpart "
-                                    parameter = {
-                                        New SqlParameter("@pKey", txtApplicationNumber.Text & "9"),
-                                        New SqlParameter("@Subpart", Subpart)
-                                    }
-                                    DB.RunCommand(query, parameter)
-                                End If
-                            End If
-                        End While
-                    End Using
-                    cmd.Connection.Close()
-                End Using
-            End Using
+                Dim temp As String = ""
+                If Subpart <> "" Then
+                    For i = 0 To dgvNSPSSubParts.Rows.Count - 1
+                        If Subpart = dgvNSPSSubParts(1, i).Value Then
+                            temp = "Ignore"
+                        End If
+                    Next
+                    If temp <> "Ignore" Then
+                        query = "Update APBSubpartData set " &
+                            "Active = '9', " &
+                            "updateUser = @UserGCode , " &
+                            "updateDateTime = GETDATE() " &
+                            "where strSubpartKey = @pKey " &
+                            "and strSubpart = @Subpart "
+                        parameter = {
+                            New SqlParameter("@UserGCode", CurrentUser.UserID),
+                            New SqlParameter("@pKey", "0413" & txtAIRSNumber.Text & "9"),
+                            New SqlParameter("@Subpart", Subpart)
+                        }
+                        DB.RunCommand(query, parameter)
 
+                        query = "Delete from SSPPSubpartData " &
+                        "where strSubpartKey = @pKey " &
+                        "and strApplicationActivity = '1' " &
+                        "and strSubpart = @Subpart "
+                        parameter = {
+                            New SqlParameter("@pKey", txtApplicationNumber.Text & "9"),
+                            New SqlParameter("@Subpart", Subpart)
+                        }
+                        DB.RunCommand(query, parameter)
+                    End If
+                End If
+            Next
 
             For i = 0 To dgvNSPSSubParts.Rows.Count - 1
                 Subpart = dgvNSPSSubParts(1, i).Value
@@ -12974,7 +12325,7 @@ Public Class SSPPApplicationTrackingLog
                 DB.RunCommand(query, parameter)
             Next
 
-            query = "Delete SSPPSubpartData " &
+            query = "Delete from SSPPSubpartData " &
             "where strSubpartKey = @pKey " &
             "and strApplicationActivity <> '1' "
             parameter = {New SqlParameter("@pKey", txtApplicationNumber.Text & "9")}
@@ -13013,7 +12364,7 @@ Public Class SSPPApplicationTrackingLog
                     query = "Update SSPPSubpartData set " &
                         "strApplicationActivity = '9', " &
                         "updateUser = @UserGCode , " &
-                        "updateDateTime = (to_char(GETDATE(), 'DD-Mon-YY HH12:MI:SS')) " &
+                        "updateDateTime = GETDATE() " &
                         "where strApplicationNumber = @appnum " &
                         "and strSubPartKey = @pKey " &
                         "and strSubPart = @Subpart "
@@ -13055,7 +12406,7 @@ Public Class SSPPApplicationTrackingLog
                             query = "Update SSPPSubpartData set " &
                                 "strApplicationActivity = '1', " &
                                 "updateUser = @UserGCode , " &
-                                "updateDateTime = (to_char(GETDATE(), 'DD-Mon-YY HH12:MI:SS')) " &
+                                "updateDateTime = GETDATE() " &
                                 "where strApplicationNumber = @appnum " &
                                 "and strSubPartKey = @pKey " &
                                 "and strSubPart = @Subpart "
@@ -13076,7 +12427,7 @@ Public Class SSPPApplicationTrackingLog
                             query = "Update SSPPSubpartData set " &
                                 "strApplicationActivity = '2', " &
                                 "updateUser = @UserGCode , " &
-                                "updateDateTime = (to_char(GETDATE(), 'DD-Mon-YY HH12:MI:SS')) " &
+                                "updateDateTime = GETDATE() " &
                                 "where strApplicationNumber = @appnum " &
                                 "and strSubPartKey = @pKey " &
                                 "and strSubPart = @Subpart "
@@ -13150,7 +12501,7 @@ Public Class SSPPApplicationTrackingLog
     Private Sub btnSaveNSPSSubpart_Click(sender As Object, e As EventArgs) Handles btnSaveNSPSSubpart.Click
         Try
             If chbCDS_9.Checked = False Then
-                MsgBox("WARNING DATA NOT SAVED:" & vbCrLf &
+                MsgBox("WARNING DATA NOT SAVED:" & vbNewLine &
                        "On the Tracking Log tab select the air program code 9 - NSPS. " &
                        "If you do not check this air program code the subpart(s) cannot be saved.",
                      MsgBoxStyle.Exclamation, "Application Tracking Log")
@@ -13163,9 +12514,12 @@ Public Class SSPPApplicationTrackingLog
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
 #End Region
+
 #Region "NESHAP Subpart"
-    Sub LoadSSPPNESHAPSubPartInformation()
+
+    Private Sub LoadSSPPNESHAPSubPartInformation()
         Try
             Dim temp As String
             Dim dgvRow As New DataGridViewRow
@@ -13231,43 +12585,34 @@ Public Class SSPPApplicationTrackingLog
             "and Active = '1' "
             parameter = {New SqlParameter("@pKey", "0413" & txtAIRSNumber.Text & "8")}
 
-            Using connection As New SqlConnection(CurrentConnectionString)
-                Using cmd As SqlCommand = connection.CreateCommand
-                    cmd.CommandType = CommandType.Text
-                    cmd.CommandText = query
-                    cmd.Parameters.AddRange(parameter)
-                    cmd.Connection.Open()
-                    Using dr As SqlDataReader = cmd.ExecuteReader
-                        While dr.Read
-                            dgvRow = New DataGridViewRow
-                            dgvRow.CreateCells(dgvNESHAPSubParts)
-                            If IsDBNull(dr.Item("AppNum")) Then
-                                dgvRow.Cells(0).Value = ""
-                            Else
-                                dgvRow.Cells(0).Value = dr.Item("AppNum")
-                            End If
-                            If IsDBNull(dr.Item("strSubpart")) Then
-                                dgvRow.Cells(1).Value = ""
-                            Else
-                                dgvRow.Cells(1).Value = dr.Item("strSubpart")
-                            End If
-                            If IsDBNull(dr.Item("strDescription")) Then
-                                dgvRow.Cells(2).Value = ""
-                            Else
-                                dgvRow.Cells(2).Value = dr.Item("strDescription")
-                            End If
-                            If IsDBNull(dr.Item("CreateDateTime")) Then
-                                dgvRow.Cells(3).Value = ""
-                            Else
-                                dgvRow.Cells(3).Value = Format(dr.Item("CreateDateTime"), "dd-MMM-yyyy")
-                            End If
-                            dgvRow.Cells(4).Value = "Existing"
-                            dgvNESHAPSubParts.Rows.Add(dgvRow)
-                        End While
-                    End Using
-                    cmd.Connection.Close()
-                End Using
-            End Using
+            Dim dt As DataTable = DB.GetDataTable(query, parameter)
+
+            For Each dr As DataRow In dt.Rows
+                dgvRow = New DataGridViewRow
+                dgvRow.CreateCells(dgvNESHAPSubParts)
+                If IsDBNull(dr.Item("AppNum")) Then
+                    dgvRow.Cells(0).Value = ""
+                Else
+                    dgvRow.Cells(0).Value = dr.Item("AppNum")
+                End If
+                If IsDBNull(dr.Item("strSubpart")) Then
+                    dgvRow.Cells(1).Value = ""
+                Else
+                    dgvRow.Cells(1).Value = dr.Item("strSubpart")
+                End If
+                If IsDBNull(dr.Item("strDescription")) Then
+                    dgvRow.Cells(2).Value = ""
+                Else
+                    dgvRow.Cells(2).Value = dr.Item("strDescription")
+                End If
+                If IsDBNull(dr.Item("CreateDateTime")) Then
+                    dgvRow.Cells(3).Value = ""
+                Else
+                    dgvRow.Cells(3).Value = Format(dr.Item("CreateDateTime"), "dd-MMM-yyyy")
+                End If
+                dgvRow.Cells(4).Value = "Existing"
+                dgvNESHAPSubParts.Rows.Add(dgvRow)
+            Next
 
             If dgvNESHAPSubParts.RowCount > 0 Then
                 For i = 0 To dgvNESHAPSubParts.RowCount - 1
@@ -13291,41 +12636,32 @@ Public Class SSPPApplicationTrackingLog
                         New SqlParameter("@appnum", txtApplicationNumber.Text)
                     }
 
-                    Using connection As New SqlConnection(CurrentConnectionString)
-                        Using cmd As SqlCommand = connection.CreateCommand
-                            cmd.CommandType = CommandType.Text
-                            cmd.CommandText = query
-                            cmd.Parameters.AddRange(parameter)
-                            cmd.Connection.Open()
-                            Using dr As SqlDataReader = cmd.ExecuteReader
-                                While dr.Read
-                                    If IsDBNull(dr.Item("strApplicationNumber")) Then
-                                    Else
-                                        dgvNESHAPSubParts(0, i).Value = dr.Item("strApplicationNumber")
-                                    End If
-                                    If IsDBNull(dr.Item("strApplicationActivity")) Then
-                                    Else
-                                        Select Case dr.Item("strApplicationActivity").ToString
-                                            Case "1"
-                                                'Added' 
-                                                dgvNESHAPSubParts(4, i).Value = "Added"
-                                            Case "2"
-                                                'Modified' 
-                                                dgvNESHAPSubParts(4, i).Value = "Modify"
-                                            Case Else
-                                                'Existing
-                                                dgvNESHAPSubParts(4, i).Value = "Existing"
-                                        End Select
-                                    End If
-                                    If IsDBNull(dr.Item("CreateDateTime")) Then
-                                    Else
-                                        dgvNESHAPSubParts(3, i).Value = Format(dr.Item("CreateDateTime"), "dd-MMM-yyyy")
-                                    End If
-                                End While
-                            End Using
-                            cmd.Connection.Close()
-                        End Using
-                    End Using
+                    Dim dr As DataRow = DB.GetDataRow(query, parameter)
+
+                    If dr IsNot Nothing Then
+                        If IsDBNull(dr.Item("strApplicationNumber")) Then
+                        Else
+                            dgvNESHAPSubParts(0, i).Value = dr.Item("strApplicationNumber")
+                        End If
+                        If IsDBNull(dr.Item("strApplicationActivity")) Then
+                        Else
+                            Select Case dr.Item("strApplicationActivity").ToString
+                                Case "1"
+                                    'Added' 
+                                    dgvNESHAPSubParts(4, i).Value = "Added"
+                                Case "2"
+                                    'Modified' 
+                                    dgvNESHAPSubParts(4, i).Value = "Modify"
+                                Case Else
+                                    'Existing
+                                    dgvNESHAPSubParts(4, i).Value = "Existing"
+                            End Select
+                        End If
+                        If IsDBNull(dr.Item("CreateDateTime")) Then
+                        Else
+                            dgvNESHAPSubParts(3, i).Value = Format(dr.Item("CreateDateTime"), "dd-MMM-yyyy")
+                        End If
+                    End If
                 Next
             End If
 
@@ -13396,140 +12732,131 @@ Public Class SSPPApplicationTrackingLog
             "and SSPPSubpartData.strSubPartKey  = @pKey "
             parameter = {New SqlParameter("@pKey", txtApplicationNumber.Text & "8")}
 
-            Using connection As New SqlConnection(CurrentConnectionString)
-                Using cmd As SqlCommand = connection.CreateCommand
-                    cmd.CommandType = CommandType.Text
-                    cmd.CommandText = query
-                    cmd.Parameters.AddRange(parameter)
-                    cmd.Connection.Open()
-                    Using dr As SqlDataReader = cmd.ExecuteReader
-                        While dr.Read
-                            If IsDBNull(dr.Item("strApplicationNumber")) Then
-                                AppNum = ""
-                            Else
-                                AppNum = dr.Item("strApplicationNumber")
+            Dim dt2 As DataTable = DB.GetDataTable(query, parameter)
+
+            For Each dr As DataRow In dt2.Rows
+                If IsDBNull(dr.Item("strApplicationNumber")) Then
+                    AppNum = ""
+                Else
+                    AppNum = dr.Item("strApplicationNumber")
+                End If
+                If IsDBNull(dr.Item("strSubpart")) Then
+                    SubPart = ""
+                Else
+                    SubPart = dr.Item("strSubpart")
+                End If
+                If IsDBNull(dr.Item("strDescription")) Then
+                    Desc = ""
+                Else
+                    Desc = dr.Item("strDescription")
+                End If
+                If IsDBNull(dr.Item("Action")) Then
+                    Action = ""
+                Else
+                    Action = dr.Item("Action")
+                End If
+                If IsDBNull(dr.Item("CreateDateTime")) Then
+                    CreateDateTime = ""
+                Else
+                    CreateDateTime = Format(dr.Item("CreateDateTime"), "dd-MMM-yyyy")
+                End If
+
+                Select Case Action
+                    Case "Removed"
+                        temp = ""
+                        For i = 0 To dgvNESHAPSubParts.Rows.Count - 1
+                            If SubPart = dgvNESHAPSubParts(1, i).Value Then
+                                dgvNESHAPSubParts(0, i).Value = AppNum
+                                dgvNESHAPSubParts(4, i).Value = "Removed"
+                                temp = "Removed"
+                                With Me.dgvNESHAPSubParts.Rows(i)
+                                    .DefaultCellStyle.BackColor = Color.Tomato
+                                End With
                             End If
-                            If IsDBNull(dr.Item("strSubpart")) Then
-                                SubPart = ""
-                            Else
-                                SubPart = dr.Item("strSubpart")
+                        Next
+
+                        If temp = "" Then
+                            dgvRow = New DataGridViewRow
+                            dgvRow.CreateCells(dgvNESHAPSubParts)
+                            dgvRow.Cells(0).Value = AppNum
+                            dgvRow.Cells(1).Value = SubPart
+                            dgvRow.Cells(2).Value = Desc
+                            dgvRow.Cells(3).Value = CreateDateTime
+                            dgvRow.Cells(4).Value = "Removed"
+                            dgvNESHAPSubParts.Rows.Add(dgvRow)
+                            i = dgvNESHAPSubParts.Rows.Count - 1
+                            With Me.dgvNESHAPSubParts.Rows(i)
+                                .DefaultCellStyle.BackColor = Color.Tomato
+                            End With
+                        End If
+
+                        dgvRow = New DataGridViewRow
+                        dgvRow.CreateCells(dgvNESHAPSubPartDelete)
+                        dgvRow.Cells(0).Value = SubPart
+                        dgvRow.Cells(1).Value = Desc
+                        dgvNESHAPSubPartDelete.Rows.Add(dgvRow)
+                    Case "Added"
+                        temp = ""
+                        For i = 0 To dgvNESHAPSubParts.Rows.Count - 1
+                            If SubPart = dgvNESHAPSubParts(1, i).Value Then
+                                dgvNESHAPSubParts(4, i).Value = "Added"
+                                temp = "Added"
+                                With Me.dgvNESHAPSubParts.Rows(i)
+                                    .DefaultCellStyle.BackColor = Color.LightGreen
+                                End With
                             End If
-                            If IsDBNull(dr.Item("strDescription")) Then
-                                Desc = ""
-                            Else
-                                Desc = dr.Item("strDescription")
+                        Next
+                        If temp <> "Added" Then
+                            dgvRow = New DataGridViewRow
+                            dgvRow.CreateCells(dgvNESHAPSubParts)
+                            dgvRow.Cells(0).Value = AppNum
+                            dgvRow.Cells(1).Value = SubPart
+                            dgvRow.Cells(2).Value = Desc
+                            dgvRow.Cells(3).Value = CreateDateTime
+                            dgvRow.Cells(4).Value = "Added"
+                            dgvNESHAPSubParts.Rows.Add(dgvRow)
+                            i = dgvNESHAPSubParts.Rows.Count - 1
+                            With Me.dgvNESHAPSubParts.Rows(i)
+                                .DefaultCellStyle.BackColor = Color.LightGreen
+                            End With
+                        End If
+
+                        dgvRow = New DataGridViewRow
+                        dgvRow.CreateCells(dgvNESHAPSubpartAddEdit)
+                        dgvRow.Cells(0).Value = SubPart
+                        dgvRow.Cells(1).Value = Desc
+                        dgvRow.Cells(2).Value = CreateDateTime
+                        dgvRow.Cells(3).Value = "Added"
+                        dgvNESHAPSubpartAddEdit.Rows.Add(dgvRow)
+                        i = dgvNESHAPSubpartAddEdit.Rows.Count - 1
+                        With Me.dgvNESHAPSubpartAddEdit.Rows(i)
+                            .DefaultCellStyle.BackColor = Color.LightGreen
+                        End With
+
+                    Case "Modified"
+                        temp = ""
+                        For i = 0 To dgvNESHAPSubParts.Rows.Count - 1
+                            If SubPart = dgvNESHAPSubParts(1, i).Value Then
+                                dgvNESHAPSubParts(0, i).Value = AppNum
+                                temp = "Modify"
+                                With Me.dgvNESHAPSubParts.Rows(i)
+                                    .DefaultCellStyle.BackColor = Color.LightBlue
+                                End With
                             End If
-                            If IsDBNull(dr.Item("Action")) Then
-                                Action = ""
-                            Else
-                                Action = dr.Item("Action")
-                            End If
-                            If IsDBNull(dr.Item("CreateDateTime")) Then
-                                CreateDateTime = ""
-                            Else
-                                CreateDateTime = Format(dr.Item("CreateDateTime"), "dd-MMM-yyyy")
-                            End If
+                        Next
 
-                            Select Case Action
-                                Case "Removed"
-                                    temp = ""
-                                    For i = 0 To dgvNESHAPSubParts.Rows.Count - 1
-                                        If SubPart = dgvNESHAPSubParts(1, i).Value Then
-                                            dgvNESHAPSubParts(0, i).Value = AppNum
-                                            dgvNESHAPSubParts(4, i).Value = "Removed"
-                                            temp = "Removed"
-                                            With Me.dgvNESHAPSubParts.Rows(i)
-                                                .DefaultCellStyle.BackColor = Color.Tomato
-                                            End With
-                                        End If
-                                    Next
+                        dgvRow = New DataGridViewRow
+                        dgvRow.CreateCells(dgvNESHAPSubpartAddEdit)
+                        dgvRow.Cells(0).Value = SubPart
+                        dgvRow.Cells(1).Value = Desc
+                        dgvRow.Cells(2).Value = CreateDateTime
+                        dgvRow.Cells(3).Value = "Modify"
+                        dgvNESHAPSubpartAddEdit.Rows.Add(dgvRow)
+                    Case Else
 
-                                    If temp = "" Then
-                                        dgvRow = New DataGridViewRow
-                                        dgvRow.CreateCells(dgvNESHAPSubParts)
-                                        dgvRow.Cells(0).Value = AppNum
-                                        dgvRow.Cells(1).Value = SubPart
-                                        dgvRow.Cells(2).Value = Desc
-                                        dgvRow.Cells(3).Value = CreateDateTime
-                                        dgvRow.Cells(4).Value = "Removed"
-                                        dgvNESHAPSubParts.Rows.Add(dgvRow)
-                                        i = dgvNESHAPSubParts.Rows.Count - 1
-                                        With Me.dgvNESHAPSubParts.Rows(i)
-                                            .DefaultCellStyle.BackColor = Color.Tomato
-                                        End With
-                                    End If
+                End Select
 
-                                    dgvRow = New DataGridViewRow
-                                    dgvRow.CreateCells(dgvNESHAPSubPartDelete)
-                                    dgvRow.Cells(0).Value = SubPart
-                                    dgvRow.Cells(1).Value = Desc
-                                    dgvNESHAPSubPartDelete.Rows.Add(dgvRow)
-                                Case "Added"
-                                    temp = ""
-                                    For i = 0 To dgvNESHAPSubParts.Rows.Count - 1
-                                        If SubPart = dgvNESHAPSubParts(1, i).Value Then
-                                            dgvNESHAPSubParts(4, i).Value = "Added"
-                                            temp = "Added"
-                                            With Me.dgvNESHAPSubParts.Rows(i)
-                                                .DefaultCellStyle.BackColor = Color.LightGreen
-                                            End With
-                                        End If
-                                    Next
-                                    If temp <> "Added" Then
-                                        dgvRow = New DataGridViewRow
-                                        dgvRow.CreateCells(dgvNESHAPSubParts)
-                                        dgvRow.Cells(0).Value = AppNum
-                                        dgvRow.Cells(1).Value = SubPart
-                                        dgvRow.Cells(2).Value = Desc
-                                        dgvRow.Cells(3).Value = CreateDateTime
-                                        dgvRow.Cells(4).Value = "Added"
-                                        dgvNESHAPSubParts.Rows.Add(dgvRow)
-                                        i = dgvNESHAPSubParts.Rows.Count - 1
-                                        With Me.dgvNESHAPSubParts.Rows(i)
-                                            .DefaultCellStyle.BackColor = Color.LightGreen
-                                        End With
-                                    End If
-
-                                    dgvRow = New DataGridViewRow
-                                    dgvRow.CreateCells(dgvNESHAPSubpartAddEdit)
-                                    dgvRow.Cells(0).Value = SubPart
-                                    dgvRow.Cells(1).Value = Desc
-                                    dgvRow.Cells(2).Value = CreateDateTime
-                                    dgvRow.Cells(3).Value = "Added"
-                                    dgvNESHAPSubpartAddEdit.Rows.Add(dgvRow)
-                                    i = dgvNESHAPSubpartAddEdit.Rows.Count - 1
-                                    With Me.dgvNESHAPSubpartAddEdit.Rows(i)
-                                        .DefaultCellStyle.BackColor = Color.LightGreen
-                                    End With
-
-                                Case "Modified"
-                                    temp = ""
-                                    For i = 0 To dgvNESHAPSubParts.Rows.Count - 1
-                                        If SubPart = dgvNESHAPSubParts(1, i).Value Then
-                                            dgvNESHAPSubParts(0, i).Value = AppNum
-                                            temp = "Modify"
-                                            With Me.dgvNESHAPSubParts.Rows(i)
-                                                .DefaultCellStyle.BackColor = Color.LightBlue
-                                            End With
-                                        End If
-                                    Next
-
-                                    dgvRow = New DataGridViewRow
-                                    dgvRow.CreateCells(dgvNESHAPSubpartAddEdit)
-                                    dgvRow.Cells(0).Value = SubPart
-                                    dgvRow.Cells(1).Value = Desc
-                                    dgvRow.Cells(2).Value = CreateDateTime
-                                    dgvRow.Cells(3).Value = "Modify"
-                                    dgvNESHAPSubpartAddEdit.Rows.Add(dgvRow)
-                                Case Else
-
-                            End Select
-
-                        End While
-                    End Using
-                    cmd.Connection.Close()
-                End Using
-            End Using
+            Next
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -13558,7 +12885,7 @@ Public Class SSPPApplicationTrackingLog
                 End If
             Next
             If temp2 = "Message" Then
-                MsgBox("Subpart " & Subpart & " is currently listed in the Added/Modify list. " & vbCrLf &
+                MsgBox("Subpart " & Subpart & " is currently listed in the Added/Modify list. " & vbNewLine &
                        "The subpart must be removed from this list before it can be deleted from the Facility.",
                        MsgBoxStyle.Exclamation, "Application Tracking Log")
                 Exit Sub
@@ -13650,7 +12977,7 @@ Public Class SSPPApplicationTrackingLog
                     End If
                 Next
                 If temp2 = "Message" Then
-                    MsgBox("Subpart " & Subpart & " is currently listed in the Added/Modify list. " & vbCrLf &
+                    MsgBox("Subpart " & Subpart & " is currently listed in the Added/Modify list. " & vbNewLine &
                            "The subpart must be removed from this list before it can be deleted from the Facility.",
                            MsgBoxStyle.Exclamation, "Application Tracking Log")
                     Exit Sub
@@ -13738,7 +13065,7 @@ Public Class SSPPApplicationTrackingLog
             Dim temp2 As String = ""
 
             If chbCDS_8.Checked = False Then
-                MsgBox("The NESHAP Subpart is not checked on the Tracking Log tab. " & vbCrLf &
+                MsgBox("The NESHAP Subpart is not checked on the Tracking Log tab. " & vbNewLine &
                        "This must be done before Adding new Subparts.", MsgBoxStyle.Exclamation,
                         "Application Tracking")
                 Exit Sub
@@ -13822,7 +13149,7 @@ Public Class SSPPApplicationTrackingLog
                 End If
             Next
             If temp2 = "Message" Then
-                MsgBox("Subpart " & Subpart & " is currently listed in the Removed by list. " & vbCrLf &
+                MsgBox("Subpart " & Subpart & " is currently listed in the Removed by list. " & vbNewLine &
                        "The subpart must be removed from this list before it can be Modified by this Application.",
                        MsgBoxStyle.Exclamation, "Application Tracking Log")
                 Exit Sub
@@ -13919,7 +13246,7 @@ Public Class SSPPApplicationTrackingLog
                     End If
                 Next
                 If temp2 = "Message" Then
-                    MsgBox("Subpart " & Subpart & " is currently listed in the Removed by list. " & vbCrLf &
+                    MsgBox("Subpart " & Subpart & " is currently listed in the Removed by list. " & vbNewLine &
                            "The subpart must be removed from this list before it can be Modified by this Application.",
                            MsgBoxStyle.Exclamation, "Application Tracking Log")
                     Exit Sub
@@ -14015,7 +13342,7 @@ Public Class SSPPApplicationTrackingLog
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub SaveNESHAPSubpart()
+    Private Sub SaveNESHAPSubpart()
         Try
             Dim Subpart As String = ""
             Dim Action As String = ""
@@ -14049,7 +13376,7 @@ Public Class SSPPApplicationTrackingLog
     Private Sub btnSaveNESHAPSubpart_Click(sender As Object, e As EventArgs) Handles btnSaveNESHAPSubpart.Click
         Try
             If chbCDS_8.Checked = False Then
-                MsgBox("WARNING DATA NOT SAVED:" & vbCrLf &
+                MsgBox("WARNING DATA NOT SAVED:" & vbNewLine &
                        "On the Tracking Log tab select the air program code 8 - NESHAP. " &
                        "If you do not check this air program code the subpart(s) cannot be saved.",
                      MsgBoxStyle.Exclamation, "Application Tracking Log")
@@ -14063,9 +13390,12 @@ Public Class SSPPApplicationTrackingLog
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
 #End Region
+
 #Region "MACT Subpart"
-    Sub LoadSSPPMACTSubPartInformation()
+
+    Private Sub LoadSSPPMACTSubPartInformation()
         Try
             Dim temp As String
             Dim dgvRow As New DataGridViewRow
@@ -14131,43 +13461,34 @@ Public Class SSPPApplicationTrackingLog
             "and Active = '1' "
             parameter = {New SqlParameter("@pKey", "0413" & txtAIRSNumber.Text & "M")}
 
-            Using connection As New SqlConnection(CurrentConnectionString)
-                Using cmd As SqlCommand = connection.CreateCommand
-                    cmd.CommandType = CommandType.Text
-                    cmd.CommandText = query
-                    cmd.Parameters.AddRange(parameter)
-                    cmd.Connection.Open()
-                    Using dr As SqlDataReader = cmd.ExecuteReader
-                        While dr.Read
-                            dgvRow = New DataGridViewRow
-                            dgvRow.CreateCells(dgvMACTSubParts)
-                            If IsDBNull(dr.Item("AppNum")) Then
-                                dgvRow.Cells(0).Value = ""
-                            Else
-                                dgvRow.Cells(0).Value = dr.Item("AppNum")
-                            End If
-                            If IsDBNull(dr.Item("strSubpart")) Then
-                                dgvRow.Cells(1).Value = ""
-                            Else
-                                dgvRow.Cells(1).Value = dr.Item("strSubpart")
-                            End If
-                            If IsDBNull(dr.Item("strDescription")) Then
-                                dgvRow.Cells(2).Value = ""
-                            Else
-                                dgvRow.Cells(2).Value = dr.Item("strDescription")
-                            End If
-                            If IsDBNull(dr.Item("CreateDateTime")) Then
-                                dgvRow.Cells(3).Value = ""
-                            Else
-                                dgvRow.Cells(3).Value = Format(dr.Item("CreateDateTime"), "dd-MMM-yyyy")
-                            End If
-                            dgvRow.Cells(4).Value = "Existing"
-                            dgvMACTSubParts.Rows.Add(dgvRow)
-                        End While
-                    End Using
-                    cmd.Connection.Close()
-                End Using
-            End Using
+            Dim dt As DataTable = DB.GetDataTable(query, parameter)
+
+            For Each dr As DataRow In dt.Rows
+                dgvRow = New DataGridViewRow
+                dgvRow.CreateCells(dgvMACTSubParts)
+                If IsDBNull(dr.Item("AppNum")) Then
+                    dgvRow.Cells(0).Value = ""
+                Else
+                    dgvRow.Cells(0).Value = dr.Item("AppNum")
+                End If
+                If IsDBNull(dr.Item("strSubpart")) Then
+                    dgvRow.Cells(1).Value = ""
+                Else
+                    dgvRow.Cells(1).Value = dr.Item("strSubpart")
+                End If
+                If IsDBNull(dr.Item("strDescription")) Then
+                    dgvRow.Cells(2).Value = ""
+                Else
+                    dgvRow.Cells(2).Value = dr.Item("strDescription")
+                End If
+                If IsDBNull(dr.Item("CreateDateTime")) Then
+                    dgvRow.Cells(3).Value = ""
+                Else
+                    dgvRow.Cells(3).Value = Format(dr.Item("CreateDateTime"), "dd-MMM-yyyy")
+                End If
+                dgvRow.Cells(4).Value = "Existing"
+                dgvMACTSubParts.Rows.Add(dgvRow)
+            Next
 
             If dgvMACTSubParts.RowCount > 0 Then
                 For i = 0 To dgvMACTSubParts.RowCount - 1
@@ -14191,41 +13512,32 @@ Public Class SSPPApplicationTrackingLog
                         New SqlParameter("@appnum", txtApplicationNumber.Text)
                     }
 
-                    Using connection As New SqlConnection(CurrentConnectionString)
-                        Using cmd As SqlCommand = connection.CreateCommand
-                            cmd.CommandType = CommandType.Text
-                            cmd.CommandText = query
-                            cmd.Parameters.AddRange(parameter)
-                            cmd.Connection.Open()
-                            Using dr As SqlDataReader = cmd.ExecuteReader
-                                While dr.Read
-                                    If IsDBNull(dr.Item("strApplicationNumber")) Then
-                                    Else
-                                        dgvMACTSubParts(0, i).Value = dr.Item("strApplicationNumber")
-                                    End If
-                                    If IsDBNull(dr.Item("strApplicationActivity")) Then
-                                    Else
-                                        Select Case dr.Item("strApplicationActivity").ToString
-                                            Case "1"
-                                                'Added' 
-                                                dgvMACTSubParts(4, i).Value = "Added"
-                                            Case "2"
-                                                'Modified' 
-                                                dgvMACTSubParts(4, i).Value = "Modify"
-                                            Case Else
-                                                'Existing
-                                                dgvMACTSubParts(4, i).Value = "Existing"
-                                        End Select
-                                    End If
-                                    If IsDBNull(dr.Item("CreateDateTime")) Then
-                                    Else
-                                        dgvMACTSubParts(3, i).Value = Format(dr.Item("CreateDateTime"), "dd-MMM-yyyy")
-                                    End If
-                                End While
-                            End Using
-                            cmd.Connection.Close()
-                        End Using
-                    End Using
+                    Dim dr As DataRow = DB.GetDataRow(query, parameter)
+
+                    If dr IsNot Nothing Then
+                        If IsDBNull(dr.Item("strApplicationNumber")) Then
+                        Else
+                            dgvMACTSubParts(0, i).Value = dr.Item("strApplicationNumber")
+                        End If
+                        If IsDBNull(dr.Item("strApplicationActivity")) Then
+                        Else
+                            Select Case dr.Item("strApplicationActivity").ToString
+                                Case "1"
+                                    'Added' 
+                                    dgvMACTSubParts(4, i).Value = "Added"
+                                Case "2"
+                                    'Modified' 
+                                    dgvMACTSubParts(4, i).Value = "Modify"
+                                Case Else
+                                    'Existing
+                                    dgvMACTSubParts(4, i).Value = "Existing"
+                            End Select
+                        End If
+                        If IsDBNull(dr.Item("CreateDateTime")) Then
+                        Else
+                            dgvMACTSubParts(3, i).Value = Format(dr.Item("CreateDateTime"), "dd-MMM-yyyy")
+                        End If
+                    End If
                 Next
             End If
 
@@ -14296,140 +13608,131 @@ Public Class SSPPApplicationTrackingLog
             "and SSPPSubpartData.strSubpartKey  = @pKey "
             parameter = {New SqlParameter("@pKey", txtApplicationNumber.Text & "M")}
 
-            Using connection As New SqlConnection(CurrentConnectionString)
-                Using cmd As SqlCommand = connection.CreateCommand
-                    cmd.CommandType = CommandType.Text
-                    cmd.CommandText = query
-                    cmd.Parameters.AddRange(parameter)
-                    cmd.Connection.Open()
-                    Using dr As SqlDataReader = cmd.ExecuteReader
-                        While dr.Read
-                            If IsDBNull(dr.Item("strApplicationNumber")) Then
-                                AppNum = ""
-                            Else
-                                AppNum = dr.Item("strApplicationNumber")
+            Dim dt2 As DataTable = DB.GetDataTable(query, parameter)
+
+            For Each dr As DataRow In dt2.Rows
+                If IsDBNull(dr.Item("strApplicationNumber")) Then
+                    AppNum = ""
+                Else
+                    AppNum = dr.Item("strApplicationNumber")
+                End If
+                If IsDBNull(dr.Item("strSubpart")) Then
+                    SubPart = ""
+                Else
+                    SubPart = dr.Item("strSubpart")
+                End If
+                If IsDBNull(dr.Item("strDescription")) Then
+                    Desc = ""
+                Else
+                    Desc = dr.Item("strDescription")
+                End If
+                If IsDBNull(dr.Item("Action")) Then
+                    Action = ""
+                Else
+                    Action = dr.Item("Action")
+                End If
+                If IsDBNull(dr.Item("CreateDateTime")) Then
+                    CreateDateTime = ""
+                Else
+                    CreateDateTime = Format(dr.Item("CreateDateTime"), "dd-MMM-yyyy")
+                End If
+
+                Select Case Action
+                    Case "Removed"
+                        temp = ""
+                        For i = 0 To dgvMACTSubParts.Rows.Count - 1
+                            If SubPart = dgvMACTSubParts(1, i).Value Then
+                                dgvMACTSubParts(0, i).Value = AppNum
+                                dgvMACTSubParts(4, i).Value = "Removed"
+                                temp = "Removed"
+                                With Me.dgvMACTSubParts.Rows(i)
+                                    .DefaultCellStyle.BackColor = Color.Tomato
+                                End With
                             End If
-                            If IsDBNull(dr.Item("strSubpart")) Then
-                                SubPart = ""
-                            Else
-                                SubPart = dr.Item("strSubpart")
+                        Next
+
+                        If temp = "" Then
+                            dgvRow = New DataGridViewRow
+                            dgvRow.CreateCells(dgvMACTSubParts)
+                            dgvRow.Cells(0).Value = AppNum
+                            dgvRow.Cells(1).Value = SubPart
+                            dgvRow.Cells(2).Value = Desc
+                            dgvRow.Cells(3).Value = CreateDateTime
+                            dgvRow.Cells(4).Value = "Removed"
+                            dgvMACTSubParts.Rows.Add(dgvRow)
+                            i = dgvMACTSubParts.Rows.Count - 1
+                            With Me.dgvMACTSubParts.Rows(i)
+                                .DefaultCellStyle.BackColor = Color.Tomato
+                            End With
+                        End If
+
+                        dgvRow = New DataGridViewRow
+                        dgvRow.CreateCells(dgvMACTSubPartDelete)
+                        dgvRow.Cells(0).Value = SubPart
+                        dgvRow.Cells(1).Value = Desc
+                        dgvMACTSubPartDelete.Rows.Add(dgvRow)
+                    Case "Added"
+                        temp = ""
+                        For i = 0 To dgvMACTSubParts.Rows.Count - 1
+                            If SubPart = dgvMACTSubParts(1, i).Value Then
+                                dgvMACTSubParts(4, i).Value = "Added"
+                                temp = "Added"
+                                With Me.dgvMACTSubParts.Rows(i)
+                                    .DefaultCellStyle.BackColor = Color.LightGreen
+                                End With
                             End If
-                            If IsDBNull(dr.Item("strDescription")) Then
-                                Desc = ""
-                            Else
-                                Desc = dr.Item("strDescription")
+                        Next
+                        If temp <> "Added" Then
+                            dgvRow = New DataGridViewRow
+                            dgvRow.CreateCells(dgvMACTSubParts)
+                            dgvRow.Cells(0).Value = AppNum
+                            dgvRow.Cells(1).Value = SubPart
+                            dgvRow.Cells(2).Value = Desc
+                            dgvRow.Cells(3).Value = CreateDateTime
+                            dgvRow.Cells(4).Value = "Added"
+                            dgvMACTSubParts.Rows.Add(dgvRow)
+                            i = dgvMACTSubParts.Rows.Count - 1
+                            With Me.dgvMACTSubParts.Rows(i)
+                                .DefaultCellStyle.BackColor = Color.LightGreen
+                            End With
+                        End If
+
+                        dgvRow = New DataGridViewRow
+                        dgvRow.CreateCells(dgvMACTSubpartAddEdit)
+                        dgvRow.Cells(0).Value = SubPart
+                        dgvRow.Cells(1).Value = Desc
+                        dgvRow.Cells(2).Value = CreateDateTime
+                        dgvRow.Cells(3).Value = "Added"
+                        dgvMACTSubpartAddEdit.Rows.Add(dgvRow)
+                        i = dgvMACTSubpartAddEdit.Rows.Count - 1
+                        With Me.dgvMACTSubpartAddEdit.Rows(i)
+                            .DefaultCellStyle.BackColor = Color.LightGreen
+                        End With
+
+                    Case "Modified"
+                        temp = ""
+                        For i = 0 To dgvMACTSubParts.Rows.Count - 1
+                            If SubPart = dgvMACTSubParts(1, i).Value Then
+                                dgvMACTSubParts(0, i).Value = AppNum
+                                temp = "Modify"
+                                With Me.dgvMACTSubParts.Rows(i)
+                                    .DefaultCellStyle.BackColor = Color.LightBlue
+                                End With
                             End If
-                            If IsDBNull(dr.Item("Action")) Then
-                                Action = ""
-                            Else
-                                Action = dr.Item("Action")
-                            End If
-                            If IsDBNull(dr.Item("CreateDateTime")) Then
-                                CreateDateTime = ""
-                            Else
-                                CreateDateTime = Format(dr.Item("CreateDateTime"), "dd-MMM-yyyy")
-                            End If
+                        Next
 
-                            Select Case Action
-                                Case "Removed"
-                                    temp = ""
-                                    For i = 0 To dgvMACTSubParts.Rows.Count - 1
-                                        If SubPart = dgvMACTSubParts(1, i).Value Then
-                                            dgvMACTSubParts(0, i).Value = AppNum
-                                            dgvMACTSubParts(4, i).Value = "Removed"
-                                            temp = "Removed"
-                                            With Me.dgvMACTSubParts.Rows(i)
-                                                .DefaultCellStyle.BackColor = Color.Tomato
-                                            End With
-                                        End If
-                                    Next
+                        dgvRow = New DataGridViewRow
+                        dgvRow.CreateCells(dgvMACTSubpartAddEdit)
+                        dgvRow.Cells(0).Value = SubPart
+                        dgvRow.Cells(1).Value = Desc
+                        dgvRow.Cells(2).Value = CreateDateTime
+                        dgvRow.Cells(3).Value = "Modify"
+                        dgvMACTSubpartAddEdit.Rows.Add(dgvRow)
+                    Case Else
 
-                                    If temp = "" Then
-                                        dgvRow = New DataGridViewRow
-                                        dgvRow.CreateCells(dgvMACTSubParts)
-                                        dgvRow.Cells(0).Value = AppNum
-                                        dgvRow.Cells(1).Value = SubPart
-                                        dgvRow.Cells(2).Value = Desc
-                                        dgvRow.Cells(3).Value = CreateDateTime
-                                        dgvRow.Cells(4).Value = "Removed"
-                                        dgvMACTSubParts.Rows.Add(dgvRow)
-                                        i = dgvMACTSubParts.Rows.Count - 1
-                                        With Me.dgvMACTSubParts.Rows(i)
-                                            .DefaultCellStyle.BackColor = Color.Tomato
-                                        End With
-                                    End If
+                End Select
 
-                                    dgvRow = New DataGridViewRow
-                                    dgvRow.CreateCells(dgvMACTSubPartDelete)
-                                    dgvRow.Cells(0).Value = SubPart
-                                    dgvRow.Cells(1).Value = Desc
-                                    dgvMACTSubPartDelete.Rows.Add(dgvRow)
-                                Case "Added"
-                                    temp = ""
-                                    For i = 0 To dgvMACTSubParts.Rows.Count - 1
-                                        If SubPart = dgvMACTSubParts(1, i).Value Then
-                                            dgvMACTSubParts(4, i).Value = "Added"
-                                            temp = "Added"
-                                            With Me.dgvMACTSubParts.Rows(i)
-                                                .DefaultCellStyle.BackColor = Color.LightGreen
-                                            End With
-                                        End If
-                                    Next
-                                    If temp <> "Added" Then
-                                        dgvRow = New DataGridViewRow
-                                        dgvRow.CreateCells(dgvMACTSubParts)
-                                        dgvRow.Cells(0).Value = AppNum
-                                        dgvRow.Cells(1).Value = SubPart
-                                        dgvRow.Cells(2).Value = Desc
-                                        dgvRow.Cells(3).Value = CreateDateTime
-                                        dgvRow.Cells(4).Value = "Added"
-                                        dgvMACTSubParts.Rows.Add(dgvRow)
-                                        i = dgvMACTSubParts.Rows.Count - 1
-                                        With Me.dgvMACTSubParts.Rows(i)
-                                            .DefaultCellStyle.BackColor = Color.LightGreen
-                                        End With
-                                    End If
-
-                                    dgvRow = New DataGridViewRow
-                                    dgvRow.CreateCells(dgvMACTSubpartAddEdit)
-                                    dgvRow.Cells(0).Value = SubPart
-                                    dgvRow.Cells(1).Value = Desc
-                                    dgvRow.Cells(2).Value = CreateDateTime
-                                    dgvRow.Cells(3).Value = "Added"
-                                    dgvMACTSubpartAddEdit.Rows.Add(dgvRow)
-                                    i = dgvMACTSubpartAddEdit.Rows.Count - 1
-                                    With Me.dgvMACTSubpartAddEdit.Rows(i)
-                                        .DefaultCellStyle.BackColor = Color.LightGreen
-                                    End With
-
-                                Case "Modified"
-                                    temp = ""
-                                    For i = 0 To dgvMACTSubParts.Rows.Count - 1
-                                        If SubPart = dgvMACTSubParts(1, i).Value Then
-                                            dgvMACTSubParts(0, i).Value = AppNum
-                                            temp = "Modify"
-                                            With Me.dgvMACTSubParts.Rows(i)
-                                                .DefaultCellStyle.BackColor = Color.LightBlue
-                                            End With
-                                        End If
-                                    Next
-
-                                    dgvRow = New DataGridViewRow
-                                    dgvRow.CreateCells(dgvMACTSubpartAddEdit)
-                                    dgvRow.Cells(0).Value = SubPart
-                                    dgvRow.Cells(1).Value = Desc
-                                    dgvRow.Cells(2).Value = CreateDateTime
-                                    dgvRow.Cells(3).Value = "Modify"
-                                    dgvMACTSubpartAddEdit.Rows.Add(dgvRow)
-                                Case Else
-
-                            End Select
-
-                        End While
-                    End Using
-                    cmd.Connection.Close()
-                End Using
-            End Using
+            Next
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -14458,7 +13761,7 @@ Public Class SSPPApplicationTrackingLog
                 End If
             Next
             If temp2 = "Message" Then
-                MsgBox("Subpart " & Subpart & " is currently listed in the Added/Modify list. " & vbCrLf &
+                MsgBox("Subpart " & Subpart & " is currently listed in the Added/Modify list. " & vbNewLine &
                        "The subpart must be removed from this list before it can be deleted from the Facility.",
                        MsgBoxStyle.Exclamation, "Application Tracking Log")
                 Exit Sub
@@ -14550,7 +13853,7 @@ Public Class SSPPApplicationTrackingLog
                     End If
                 Next
                 If temp2 = "Message" Then
-                    MsgBox("Subpart " & Subpart & " is currently listed in the Added/Modify list. " & vbCrLf &
+                    MsgBox("Subpart " & Subpart & " is currently listed in the Added/Modify list. " & vbNewLine &
                            "The subpart must be removed from this list before it can be deleted from the Facility.",
                            MsgBoxStyle.Exclamation, "Application Tracking Log")
                     Exit Sub
@@ -14638,7 +13941,7 @@ Public Class SSPPApplicationTrackingLog
             Dim temp2 As String = ""
 
             If chbCDS_M.Checked = False Then
-                MsgBox("The MACT Subpart is not checked on the Tracking Log tab. " & vbCrLf &
+                MsgBox("The MACT Subpart is not checked on the Tracking Log tab. " & vbNewLine &
                        "This must be done before Adding new Subparts.", MsgBoxStyle.Exclamation,
                         "Application Tracking")
                 Exit Sub
@@ -14721,7 +14024,7 @@ Public Class SSPPApplicationTrackingLog
                 End If
             Next
             If temp2 = "Message" Then
-                MsgBox("Subpart " & Subpart & " is currently listed in the Removed by list. " & vbCrLf &
+                MsgBox("Subpart " & Subpart & " is currently listed in the Removed by list. " & vbNewLine &
                        "The subpart must be removed from this list before it can be Modified by this Application.",
                        MsgBoxStyle.Exclamation, "Application Tracking Log")
                 Exit Sub
@@ -14818,7 +14121,7 @@ Public Class SSPPApplicationTrackingLog
                     End If
                 Next
                 If temp2 = "Message" Then
-                    MsgBox("Subpart " & Subpart & " is currently listed in the Removed by list. " & vbCrLf &
+                    MsgBox("Subpart " & Subpart & " is currently listed in the Removed by list. " & vbNewLine &
                            "The subpart must be removed from this list before it can be Modified by this Application.",
                            MsgBoxStyle.Exclamation, "Application Tracking Log")
                     Exit Sub
@@ -14913,7 +14216,7 @@ Public Class SSPPApplicationTrackingLog
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub SaveMACTSubpart()
+    Private Sub SaveMACTSubpart()
         Try
             Dim Subpart As String = ""
             Dim Action As String = ""
@@ -14947,7 +14250,7 @@ Public Class SSPPApplicationTrackingLog
     Private Sub btnSaveMACTSubpart_Click(sender As Object, e As EventArgs) Handles btnSaveMACTSubpart.Click
         Try
             If chbCDS_M.Checked = False Then
-                MsgBox("WARNING DATA NOT SAVED:" & vbCrLf &
+                MsgBox("WARNING DATA NOT SAVED:" & vbNewLine &
                        "On the Tracking Log tab select the air program code M - MACT. " &
                        "If you do not check this air program code the subpart(s) cannot be saved.",
                        MsgBoxStyle.Exclamation, "Application Tracking Log")
@@ -14960,7 +14263,9 @@ Public Class SSPPApplicationTrackingLog
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
 #End Region
+
     Private Sub chbCDS_0_CheckedChanged(sender As Object, e As EventArgs) Handles chbCDS_0.CheckedChanged
         Try
             Dim dgvRow As New DataGridViewRow
@@ -15006,7 +14311,7 @@ Public Class SSPPApplicationTrackingLog
                                 End If
                             Next
                             If temp2 = "Message" Then
-                                MsgBox("Subpart " & Subpart & " is currently listed in the Added/Modify list. " & vbCrLf &
+                                MsgBox("Subpart " & Subpart & " is currently listed in the Added/Modify list. " & vbNewLine &
                                        "The subpart must be removed from this list before it can be deleted from the Facility.",
                                        MsgBoxStyle.Exclamation, "Application Tracking Log")
                                 Exit Sub
@@ -15089,7 +14394,7 @@ Public Class SSPPApplicationTrackingLog
                                 End If
                             Next
                             If temp2 = "Message" Then
-                                MsgBox("Subpart " & Subpart & " is currently listed in the Added/Modify list. " & vbCrLf &
+                                MsgBox("Subpart " & Subpart & " is currently listed in the Added/Modify list. " & vbNewLine &
                                        "The subpart must be removed from this list before it can be deleted from the Facility.",
                                        MsgBoxStyle.Exclamation, "Application Tracking Log")
                                 Exit Sub
@@ -15173,7 +14478,7 @@ Public Class SSPPApplicationTrackingLog
                                 End If
                             Next
                             If temp2 = "Message" Then
-                                MsgBox("Subpart " & Subpart & " is currently listed in the Added/Modify list. " & vbCrLf &
+                                MsgBox("Subpart " & Subpart & " is currently listed in the Added/Modify list. " & vbNewLine &
                                        "The subpart must be removed from this list before it can be deleted from the Facility.",
                                        MsgBoxStyle.Exclamation, "Application Tracking Log")
                                 Exit Sub
@@ -15259,7 +14564,7 @@ Public Class SSPPApplicationTrackingLog
                                 End If
                             Next
                             If temp2 = "Message" Then
-                                MsgBox("Subpart " & Subpart & " is currently listed in the Added/Modify list. " & vbCrLf &
+                                MsgBox("Subpart " & Subpart & " is currently listed in the Added/Modify list. " & vbNewLine &
                                        "The subpart must be removed from this list before it can be deleted from the Facility.",
                                        MsgBoxStyle.Exclamation, "Application Tracking Log")
                                 Exit Sub
@@ -15316,4 +14621,5 @@ Public Class SSPPApplicationTrackingLog
     Private Sub SaveButton_Click(sender As Object, e As EventArgs) Handles SaveButton.Click
         PreSaveCheckThenSave()
     End Sub
+
 End Class

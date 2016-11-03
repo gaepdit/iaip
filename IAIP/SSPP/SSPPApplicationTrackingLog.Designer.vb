@@ -5678,7 +5678,6 @@ Partial Class SSPPApplicationTrackingLog
         Me.cboFacilityCity.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboFacilityCity.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cboFacilityCity.BackColor = System.Drawing.SystemColors.Window
-        Me.cboFacilityCity.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboFacilityCity.Enabled = False
         Me.cboFacilityCity.Location = New System.Drawing.Point(8, 64)
         Me.cboFacilityCity.Name = "cboFacilityCity"
