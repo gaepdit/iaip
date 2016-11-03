@@ -561,9 +561,9 @@ Public Class IAIPPrintOut
                     End If
                 Else
                     If Mid(ConfidentialData, 9, 1) = "1" Then
-                        spValue.Value = ", " & dr.Item("UnitManager")
+                        spValue.Value = dr.Item("UnitManager")
                     Else
-                        spValue.Value = ", " & dr.Item("UnitManager")
+                        spValue.Value = dr.Item("UnitManager")
                     End If
                 End If
                 ParameterField.CurrentValues.Add(spValue)
@@ -1512,9 +1512,9 @@ Public Class IAIPPrintOut
                     End If
                 Else
                     If Mid(ConfidentialData, 9, 1) = "1" Then
-                        spValue.Value = ", " & dr.Item("UnitManager")
+                        spValue.Value = dr.Item("UnitManager")
                     Else
-                        spValue.Value = ", " & dr.Item("UnitManager")
+                        spValue.Value = dr.Item("UnitManager")
                     End If
                 End If
                 ParameterField.CurrentValues.Add(spValue)
@@ -2560,9 +2560,9 @@ Public Class IAIPPrintOut
                     End If
                 Else
                     If Mid(ConfidentialData, 9, 1) = "1" Then
-                        spValue.Value = ", " & dr.Item("UnitManager")
+                        spValue.Value = dr.Item("UnitManager")
                     Else
-                        spValue.Value = ", " & dr.Item("UnitManager")
+                        spValue.Value = dr.Item("UnitManager")
                     End If
                 End If
                 ParameterField.CurrentValues.Add(spValue)
@@ -3707,9 +3707,9 @@ Public Class IAIPPrintOut
                     End If
                 Else
                     If Mid(ConfidentialData, 9, 1) = "1" Then
-                        spValue.Value = ", " & dr.Item("UnitManager")
+                        spValue.Value = dr.Item("UnitManager")
                     Else
-                        spValue.Value = ", " & dr.Item("UnitManager")
+                        spValue.Value = dr.Item("UnitManager")
                     End If
                 End If
                 ParameterField.CurrentValues.Add(spValue)
@@ -5101,9 +5101,9 @@ Public Class IAIPPrintOut
                     End If
                 Else
                     If Mid(ConfidentialData, 9, 1) = "1" Then
-                        spValue.Value = ", " & dr.Item("UnitManager")
+                        spValue.Value = dr.Item("UnitManager")
                     Else
-                        spValue.Value = ", " & dr.Item("UnitManager")
+                        spValue.Value = dr.Item("UnitManager")
                     End If
                 End If
                 ParameterField.CurrentValues.Add(spValue)
@@ -6435,9 +6435,9 @@ Public Class IAIPPrintOut
                     End If
                 Else
                     If Mid(ConfidentialData, 9, 1) = "1" Then
-                        spValue.Value = ", " & dr.Item("UnitManager")
+                        spValue.Value = dr.Item("UnitManager")
                     Else
-                        spValue.Value = ", " & dr.Item("UnitManager")
+                        spValue.Value = dr.Item("UnitManager")
                     End If
                 End If
                 ParameterField.CurrentValues.Add(spValue)
@@ -7217,9 +7217,9 @@ Public Class IAIPPrintOut
                     End If
                 Else
                     If Mid(ConfidentialData, 9, 1) = "1" Then
-                        spValue.Value = ", " & dr.Item("UnitManager")
+                        spValue.Value = dr.Item("UnitManager")
                     Else
-                        spValue.Value = ", " & dr.Item("UnitManager")
+                        spValue.Value = dr.Item("UnitManager")
                     End If
                 End If
                 ParameterField.CurrentValues.Add(spValue)
@@ -8101,9 +8101,9 @@ Public Class IAIPPrintOut
                     End If
                 Else
                     If Mid(ConfidentialData, 9, 1) = "1" Then
-                        spValue.Value = ", " & dr.Item("UnitManager")
+                        spValue.Value = dr.Item("UnitManager")
                     Else
-                        spValue.Value = ", " & dr.Item("UnitManager")
+                        spValue.Value = dr.Item("UnitManager")
                     End If
                 End If
                 ParameterField.CurrentValues.Add(spValue)
@@ -9016,9 +9016,9 @@ Public Class IAIPPrintOut
                     End If
                 Else
                     If Mid(ConfidentialData, 9, 1) = "1" Then
-                        spValue.Value = ", " & dr.Item("UnitManager")
+                        spValue.Value = dr.Item("UnitManager")
                     Else
-                        spValue.Value = ", " & dr.Item("UnitManager")
+                        spValue.Value = dr.Item("UnitManager")
                     End If
                 End If
                 ParameterField.CurrentValues.Add(spValue)
@@ -9767,9 +9767,9 @@ Public Class IAIPPrintOut
                     End If
                 Else
                     If Mid(ConfidentialData, 9, 1) = "1" Then
-                        spValue.Value = ", " & dr.Item("UnitManager")
+                        spValue.Value = dr.Item("UnitManager")
                     Else
-                        spValue.Value = ", " & dr.Item("UnitManager")
+                        spValue.Value = dr.Item("UnitManager")
                     End If
                 End If
                 ParameterField.CurrentValues.Add(spValue)
@@ -10808,9 +10808,9 @@ Public Class IAIPPrintOut
                     End If
                 Else
                     If Mid(ConfidentialData, 9, 1) = "1" Then
-                        spValue.Value = ", " & dr.Item("UnitManager")
+                        spValue.Value = dr.Item("UnitManager")
                     Else
-                        spValue.Value = ", " & dr.Item("UnitManager")
+                        spValue.Value = dr.Item("UnitManager")
                     End If
                 End If
                 ParameterField.CurrentValues.Add(spValue)
@@ -11517,9 +11517,9 @@ Public Class IAIPPrintOut
                     End If
                 Else
                     If Mid(ConfidentialData, 9, 1) = "1" Then
-                        spValue.Value = ", " & dr.Item("UnitManager")
+                        spValue.Value = dr.Item("UnitManager")
                     Else
-                        spValue.Value = ", " & dr.Item("UnitManager")
+                        spValue.Value = dr.Item("UnitManager")
                     End If
                 End If
                 ParameterField.CurrentValues.Add(spValue)
@@ -12147,9 +12147,9 @@ Public Class IAIPPrintOut
                     End If
                 Else
                     If Mid(ConfidentialData, 9, 1) = "1" Then
-                        spValue.Value = ", " & dr.Item("UnitManager")
+                        spValue.Value = dr.Item("UnitManager")
                     Else
-                        spValue.Value = ", " & dr.Item("UnitManager")
+                        spValue.Value = dr.Item("UnitManager")
                     End If
                 End If
                 ParameterField.CurrentValues.Add(spValue)
@@ -12839,9 +12839,9 @@ Public Class IAIPPrintOut
                     End If
                 Else
                     If Mid(ConfidentialData, 9, 1) = "1" Then
-                        spValue.Value = ", " & dr.Item("UnitManager")
+                        spValue.Value = dr.Item("UnitManager")
                     Else
-                        spValue.Value = ", " & dr.Item("UnitManager")
+                        spValue.Value = dr.Item("UnitManager")
                     End If
                 End If
                 ParameterField.CurrentValues.Add(spValue)
