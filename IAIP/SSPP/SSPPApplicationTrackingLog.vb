@@ -3358,7 +3358,6 @@ Public Class SSPPApplicationTrackingLog
                     "strPermitNumber, strPlantDescription,  " &
                     "SSPPApplicationData.strComments as DataComments,  " &
                     "strApplicationNotes, " &
-                    "datFinalizedDate, " &
                     "strStateProgramCodes,  " &
                     "datReceivedDate, datSentByFacility,  " &
                     "datAssignedToEngineer, datReassignedToEngineer,  " &
@@ -4579,7 +4578,7 @@ Public Class SSPPApplicationTrackingLog
         Dim ApplicationType As String = ""
         Dim PermitType As String = ""
         Dim Unit As String = ""
-        Dim DateFinalized As String = ""
+        Dim DateFinalized As String = Nothing
         Dim FacilityName As String = ""
         Dim FacilityAddress As String = ""
         Dim FacilityCity As String = ""
@@ -4593,32 +4592,32 @@ Public Class SSPPApplicationTrackingLog
         Dim PlantDesc As String = ""
         Dim Comments As String = ""
         Dim ApplicationNotes As String = ""
-        Dim ReceivedDate As String = ""
-        Dim SentByDate As String = ""
-        Dim AssignedToEngineer As String = ""
-        Dim ReAssignedToEngineer As String = ""
-        Dim PackageCompleteDate As String = ""
-        Dim AcknowledgementLetter As String = ""
+        Dim ReceivedDate As String = Nothing
+        Dim SentByDate As String = Nothing
+        Dim AssignedToEngineer As String = Nothing
+        Dim ReAssignedToEngineer As String = Nothing
+        Dim PackageCompleteDate As String = Nothing
+        Dim AcknowledgementLetter As String = Nothing
         Dim PublicInvolved As String = ""
-        Dim ToPMI As String = ""
-        Dim ToPMII As String = ""
-        Dim ReturnToEngineer As String = ""
-        Dim PermitIssued As String = ""
-        Dim AppDeadline As String = ""
-        Dim Withdrawn As String = ""
-        Dim DraftIssued As String = ""
-        Dim EPAWaived As String = ""
-        Dim EPAEnds As String = ""
-        Dim ToBC As String = ""
-        Dim ToDO As String = ""
-        Dim PAReady As String = ""
-        Dim PNReady As String = ""
+        Dim ToPMI As String = Nothing
+        Dim ToPMII As String = Nothing
+        Dim ReturnToEngineer As String = Nothing
+        Dim PermitIssued As String = Nothing
+        Dim AppDeadline As String = Nothing
+        Dim Withdrawn As String = Nothing
+        Dim DraftIssued As String = Nothing
+        Dim EPAWaived As String = Nothing
+        Dim EPAEnds As String = Nothing
+        Dim ToBC As String = Nothing
+        Dim ToDO As String = Nothing
+        Dim PAReady As String = Nothing
+        Dim PNReady As String = Nothing
         Dim TrackedRules As String = ""
         Dim StateProgramCodes As String = ""
         Dim AttainmentStatus As String = ""
         Dim SignificantComments As String = ""
-        Dim PAExpires As String = ""
-        Dim PNExpires As String = ""
+        Dim PAExpires As String = Nothing
+        Dim PNExpires As String = Nothing
 
         Dim query As String
         Dim parameters As SqlParameter()
@@ -4698,7 +4697,7 @@ Public Class SSPPApplicationTrackingLog
                 If chbClosedOut.Checked = True Then
                     DateFinalized = TodayFormatted
                 Else
-                    DateFinalized = ""
+                    DateFinalized = Nothing
                 End If
 
                 query = "Update SSPPApplicationMaster set " &
@@ -4721,7 +4720,7 @@ Public Class SSPPApplicationTrackingLog
                     New SqlParameter("@updateuser", CurrentUser.UserID),
                     New SqlParameter("@appnumber", txtApplicationNumber.Text)
                 }
-                DB.RunCommand(query, parameters)
+                DB.RunCommand(query, parameters, forceAddNullableParameters:=True)
 
                 query = "Select " &
                 "datModifingdate " &
@@ -4968,81 +4967,81 @@ Public Class SSPPApplicationTrackingLog
                     New SqlParameter("@UserGCode", CurrentUser.UserID),
                     New SqlParameter("@txtApplicationNumber", txtApplicationNumber.Text)
                 }
-                DB.RunCommand(query, parameters)
+                DB.RunCommand(query, parameters, forceAddNullableParameters:=True)
 
                 ReceivedDate = DTPDateReceived.Text
                 SentByDate = DTPDateSent.Text
                 If DTPDateAssigned.Checked = True Then
                     AssignedToEngineer = DTPDateAssigned.Text
                 Else
-                    AssignedToEngineer = ""
+                    AssignedToEngineer = Nothing
                 End If
                 If DTPDateReassigned.Checked = True Then
                     ReAssignedToEngineer = DTPDateReassigned.Text
                 Else
-                    ReAssignedToEngineer = ""
+                    ReAssignedToEngineer = Nothing
                 End If
                 If DTPDateAcknowledge.Checked = True Then
                     AcknowledgementLetter = DTPDateAcknowledge.Text
                 Else
-                    AcknowledgementLetter = ""
+                    AcknowledgementLetter = Nothing
                 End If
                 If DTPDateToUC.Checked = True Then
                     ToPMI = DTPDateToUC.Text
                 Else
-                    ToPMI = ""
+                    ToPMI = Nothing
                 End If
                 If DTPDateToPM.Checked = True Then
                     ToPMII = DTPDateToPM.Text
                 Else
-                    ToPMII = ""
+                    ToPMII = Nothing
                 End If
-                ReturnToEngineer = ""
+                ReturnToEngineer = Nothing
 
                 If DTPFinalAction.Checked = True Then
                     PermitIssued = DTPFinalAction.Text
                 Else
-                    PermitIssued = ""
+                    PermitIssued = Nothing
                 End If
                 If DTPDeadline.Checked = True Then
                     AppDeadline = DTPDeadline.Text
                 Else
-                    AppDeadline = ""
+                    AppDeadline = Nothing
                 End If
                 If DTPDraftIssued.Checked = True Then
                     DraftIssued = DTPDraftIssued.Text
                 Else
-                    DraftIssued = ""
+                    DraftIssued = Nothing
                 End If
                 If DTPEPAWaived.Checked = True Then
                     EPAWaived = DTPEPAWaived.Text
                 Else
-                    EPAWaived = ""
+                    EPAWaived = Nothing
                 End If
                 If DTPEPAEnds.Checked = True Then
                     EPAEnds = DTPEPAEnds.Text
                 Else
-                    EPAEnds = ""
+                    EPAEnds = Nothing
                 End If
                 If DTPDateToBC.Checked = True Then
                     ToBC = DTPDateToBC.Text
                 Else
-                    ToBC = ""
+                    ToBC = Nothing
                 End If
                 If DTPDateToDO.Checked = True Then
                     ToDO = DTPDateToDO.Text
                 Else
-                    ToDO = ""
+                    ToDO = Nothing
                 End If
                 If DTPDatePAExpires.Checked = True Then
                     PAExpires = DTPDatePAExpires.Text
                 Else
-                    PAExpires = ""
+                    PAExpires = Nothing
                 End If
                 If DTPDatePNExpires.Checked = True Then
                     PNExpires = DTPDatePNExpires.Text
                 Else
-                    PNExpires = ""
+                    PNExpires = Nothing
                 End If
 
                 query = "Update SSPPApplicationTracking set " &
@@ -5091,7 +5090,7 @@ Public Class SSPPApplicationTrackingLog
                     New SqlParameter("@PNExpires", PNExpires),
                     New SqlParameter("@txtApplicationNumber", txtApplicationNumber.Text)
                 }
-                DB.RunCommand(query, parameters)
+                DB.RunCommand(query, parameters, forceAddNullableParameters:=True)
 
                 If lblLinkWarning.Visible = True Then
                     Dim LinkedApplication As String
@@ -5177,7 +5176,7 @@ Public Class SSPPApplicationTrackingLog
                                                New SqlParameter("@LinkedApplication", LinkedApplication)
                                            })
 
-                            DB.RunCommand(queriesList, parametersList)
+                            DB.RunCommand(queriesList, parametersList, forceAddNullableParameters:=True)
 
                             query = "Select " &
                                 "datToPMI, datToPMII " &
@@ -5187,7 +5186,7 @@ Public Class SSPPApplicationTrackingLog
 
                             Dim query2 As String = ""
 
-                            Dim dr As DataRow = DB.GetDataRow(query, parameters)
+                            Dim dr As DataRow = DB.GetDataRow(query, parameters, forceAddNullableParameters:=True)
 
                             If dr IsNot Nothing Then
                                 If IsDBNull(dr.Item("datToPMI")) Then
@@ -5206,7 +5205,7 @@ Public Class SSPPApplicationTrackingLog
                                     New SqlParameter("@ToPMII", ToPMII),
                                     New SqlParameter("@LinkedApplication", LinkedApplication)
                                 }
-                                DB.RunCommand(query2, parameters2)
+                                DB.RunCommand(query2, parameters2, forceAddNullableParameters:=True)
                             End If
 
                         End If
@@ -5357,12 +5356,12 @@ Public Class SSPPApplicationTrackingLog
                     If DTPInformationRequested.Checked = True Then
                         DateInfoRequested = DTPInformationRequested.Text
                     Else
-                        DateInfoRequested = ""
+                        DateInfoRequested = Nothing
                     End If
                     If DTPInformationReceived.Checked = True Then
                         DateInfoReceived = DTPInformationReceived.Text
                     Else
-                        DateInfoReceived = ""
+                        DateInfoReceived = Nothing
                     End If
 
                     If recordExists Then
@@ -5407,7 +5406,7 @@ Public Class SSPPApplicationTrackingLog
                             New SqlParameter("@UserGCode", CurrentUser.UserID)
                         }
                     End If
-                    DB.RunCommand(query, parameter)
+                    DB.RunCommand(query, parameter, forceAddNullableParameters:=True)
 
                     LoadInformationRequestedHistory()
 
@@ -5453,15 +5452,13 @@ Public Class SSPPApplicationTrackingLog
         End Try
     End Sub
     Private Sub SaveApplicationSubmitForReview()
-        Dim DateReviewSubmitted As String = TodayFormatted
+        Dim DateReviewSubmitted As Date = Today
 
         Try
 
             If txtApplicationNumber.Text <> "" Then
                 If DTPReviewSubmitted.Checked = True Then
-                    DateReviewSubmitted = DTPReviewSubmitted.Text
-                Else
-                    DateReviewSubmitted = TodayFormatted
+                    DateReviewSubmitted = DTPReviewSubmitted.Value
                 End If
 
                 If DAL.Sspp.ApplicationExists(txtApplicationNumber.Text) Then
@@ -5531,7 +5528,7 @@ Public Class SSPPApplicationTrackingLog
                     "datSSCPReviewDate = @DTPSSCPReview " &
                     "where strApplicationNumber = @txtApplicationNumber ")
                     paramList.Add({
-                        New SqlParameter("@DTPSSCPReview", DTPSSCPReview.Text),
+                        New SqlParameter("@DTPSSCPReview", DTPSSCPReview.Value),
                         New SqlParameter("@txtApplicationNumber", txtApplicationNumber.Text)
                     })
 
@@ -5578,7 +5575,7 @@ Public Class SSPPApplicationTrackingLog
                     "datISMPReviewDate = @DTPISMPReview " &
                     "where strApplicationNumber = @txtApplicationNumber")
                     paramList.Add({
-                        New SqlParameter("@DTPISMPReview", DTPISMPReview.Text),
+                        New SqlParameter("@DTPISMPReview", DTPISMPReview.Value),
                         New SqlParameter("@txtApplicationNumber", txtApplicationNumber.Text)
                     })
 
@@ -6282,48 +6279,47 @@ Public Class SSPPApplicationTrackingLog
             If DTPNotifiedAppReceived.Checked = True Then
                 EPAStatesNotifiedAppRec = DTPNotifiedAppReceived.Text
             Else
-                EPAStatesNotifiedAppRec = ""
+                EPAStatesNotifiedAppRec = Nothing
             End If
             If DTPDraftOnWeb.Checked = True Then
                 DraftOnWeb = DTPDraftOnWeb.Text
             Else
-                DraftOnWeb = ""
+                DraftOnWeb = Nothing
             End If
             If DTPEPAStatesNotified.Checked = True Then
                 EPAStatesNotified = Me.DTPEPAStatesNotified.Text
             Else
-                EPAStatesNotified = ""
+                EPAStatesNotified = Nothing
             End If
             If DTPFinalOnWeb.Checked = True Then
                 FinalOnWeb = DTPFinalOnWeb.Text
             Else
-                FinalOnWeb = ""
+                FinalOnWeb = Nothing
             End If
             If DTPEPANotifiedPermitOnWeb.Checked = True Then
                 EPANotifiedPermitOnWeb = DTPEPANotifiedPermitOnWeb.Text
             Else
-                EPANotifiedPermitOnWeb = ""
+                EPANotifiedPermitOnWeb = Nothing
             End If
             If DTPEffectiveDateofPermit.Checked = True Then
                 EffectiveDateOnPermit = DTPEffectiveDateofPermit.Text
             Else
-                EffectiveDateOnPermit = ""
+                EffectiveDateOnPermit = Nothing
             End If
             If DTPExperationDate.Checked = True Then
                 ExperationDate = DTPExperationDate.Text
             Else
-                ExperationDate = ""
+                ExperationDate = Nothing
             End If
             If txtEPATargetedComments.Text <> "" Then
-                TargetedComments = Replace(txtEPATargetedComments.Text, "'", "''")
-                TargetedComments = Mid(TargetedComments, 1, 4000)
+                TargetedComments = Mid(txtEPATargetedComments.Text, 1, 4000)
             Else
                 TargetedComments = ""
             End If
             If DTPPNExpires.Checked = True Then
                 PNExpires = DTPPNExpires.Text
             Else
-                PNExpires = ""
+                PNExpires = Nothing
             End If
 
             If txtApplicationNumber.Text <> "" Then
@@ -6357,7 +6353,7 @@ Public Class SSPPApplicationTrackingLog
                      New SqlParameter("@txtApplicationNumber", txtApplicationNumber.Text)
                     })
 
-                DB.RunCommand(queryList, paramsList)
+                DB.RunCommand(queryList, paramsList, forceAddNullableParameters:=True)
 
                 If lblLinkWarning.Visible = True Then
                     Dim LinkedApplication As String
@@ -6403,7 +6399,7 @@ Public Class SSPPApplicationTrackingLog
                                  New SqlParameter("@LinkedApplication", LinkedApplication)
                                 })
 
-                            DB.RunCommand(queryList, paramsList)
+                            DB.RunCommand(queryList, paramsList, forceAddNullableParameters:=True)
                         End If
                     Next
                 End If
