@@ -559,7 +559,7 @@ Public Class SSPPApplicationLog
                 LEFT JOIN EPDUSerProfiles AS u ON m.STRSTAFFRESPONSIBLE = u.NUMUSERID
                 LEFT JOIN LookUpApplicationTypes AS la ON m.STRAPPLICATIONTYPE = la.STRAPPLICATIONTYPECODE
                 LEFT JOIN LookUpPermitTypes AS lp ON m.STRPERMITTYPE = lp.STRPERMITTYPECODE
-                LEFT JOIN LookUpEPDUnits AS e ON m.APBUNIT = e.NUMUNITCODE
+                LEFT JOIN LookUpEPDUnits AS e ON m.APBUNIT = CONVERT( varchar(10), e.NUMUNITCODE)
                 LEFT JOIN LookUpCountyInformation AS lc ON SUBSTRING(m.strAIRSNumber, 5, 3) = lc.STRCOUNTYCODE
                 LEFT JOIN LookUPDistrictInformation AS ldi ON lc.STRCOUNTYCODE = ldi.STRDISTRICTCOUNTY
                 LEFT JOIN LookUpDistricts AS ld ON ldi.STRDISTRICTCODE = ld.STRDISTRICTCODE
