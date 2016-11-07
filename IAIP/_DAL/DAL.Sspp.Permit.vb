@@ -74,7 +74,7 @@ Namespace DAL.Sspp
         Private Function GetPermitFromDataRow(row As DataRow) As Permit
             Dim permit As New Permit
             With permit
-                .Active = Convert.ToBoolean(Convert.ToInt32(DBUtilities.GetNullable(Of String)(row("ACTIVE"))))
+                .Active = ConvertDBValueToBoolean(DBUtilities.GetNullable(Of String)(row("ACTIVE")), BooleanDBConversionType.OneOrZero)
                 .AirsNumber = DBUtilities.GetNullable(Of String)(row("STRAIRSNUMBER"))
                 .ID = DBUtilities.GetNullable(Of String)(row("ISSUEDPERMITID"))
                 .IssuedDate = DBUtilities.GetNullable(Of Date)(row("DATISSUED"))
@@ -117,7 +117,7 @@ Namespace DAL.Sspp
                     New SqlParameter("@RevokedDate", permit.RevokedDate),
                     New SqlParameter("@UpdateDate", Date.Now),
                     New SqlParameter("@UpdatedBy", CurrentUser.UserID),
-                    New SqlParameter("@Active", Convert.ToInt32(permit.Active)),
+                    New SqlParameter("@Active", ConvertBooleanToDBValue(permit.Active, BooleanDBConversionType.OneOrZero)),
                     New SqlParameter("@PermitTypeCode", permit.PermitTypeCode),
                     New SqlParameter("@ID", permit.ID)
                 }
@@ -155,7 +155,7 @@ Namespace DAL.Sspp
                 "   ) " &
                 "   VALUES " &
                 "   ( " &
-                "     PERMITID_SEQ.NEXTVAL, " &
+                "     (select next value for PERMITID_SEQ), " &
                 "     @AirsNumber, " &
                 "     @PermitNumber, " &
                 "     @IssuedDate, " &
@@ -177,8 +177,36 @@ Namespace DAL.Sspp
                 New SqlParameter("@CreatedBy", CurrentUser.UserID),
                 New SqlParameter("@UpdateDate", Date.Now),
                 New SqlParameter("@UpdatedBy", CurrentUser.UserID),
-                New SqlParameter("@Active", Convert.ToInt32(permit.Active)),
+                New SqlParameter("@Active", ConvertBooleanToDBValue(permit.Active, BooleanDBConversionType.OneOrZero)),
                 New SqlParameter("@PermitTypeCode", permit.PermitTypeCode)
+            }
+
+            Return DB.RunCommand(query, parameters)
+        End Function
+
+        Public Function RevokePermits(permits As List(Of Permit), revocationDate As Date) As Boolean
+            If permits Is Nothing OrElse permits.Count = 0 Then Return False
+
+            Dim permitIds As New List(Of Integer)
+
+            For Each permit As Permit In permits
+                permitIds.Add(permit.ID)
+            Next
+
+            Dim query As String =
+                " UPDATE APBISSUEDPERMIT " &
+                " SET DATREVOKED = @RevokedDate, " &
+                "   UPDATEDATE = @UpdateDate, " &
+                "   UPDATEDBY = @UpdatedBy, " &
+                "   ACTIVE = @Active, " &
+                " WHERE ISSUEDPERMITID IN (SELECT * FROM @ids) "
+
+            Dim parameters As SqlParameter() = {
+                New SqlParameter("@RevokedDate", revocationDate),
+                New SqlParameter("@UpdateDate", Date.Now),
+                New SqlParameter("@UpdatedBy", CurrentUser.UserID),
+                New SqlParameter("@Active", ConvertBooleanToDBValue(False, BooleanDBConversionType.OneOrZero)),
+                permitIds.AsTvpSqlParameter("@ids")
             }
 
             Return DB.RunCommand(query, parameters)

@@ -5279,12 +5279,7 @@ Public Class SSPPApplicationTrackingLog
             Dim revokedPermits As List(Of Apb.Sspp.Permit) = permitRevocationDialog.PermitsToRevoke
 
             If revokedPermits IsNot Nothing AndAlso revokedPermits.Count > 0 Then
-                For Each p As Apb.Sspp.Permit In revokedPermits
-                    p.RevokedDate = DTPFinalAction.Value
-                    p.Active = False
-                Next
-
-                Dim result As Boolean = DAL.Sspp.UpdatePermits(revokedPermits)
+                Dim result As Boolean = DAL.Sspp.RevokePermits(revokedPermits, DTPFinalAction.Value)
                 If Not result Then
                     MessageBox.Show("There was an error revoking permits." & vbNewLine &
                                     "Please contact the Data Management Unit.", "Error",
