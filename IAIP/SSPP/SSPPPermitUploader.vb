@@ -2,11 +2,7 @@ Imports System.Data.SqlClient
 Imports System.IO
 
 Public Class SSPPPermitUploader
-    Dim SQL As String
-    Dim cmd As SqlCommand
-    Dim dr As SqlDataReader
-    Dim recExist As Boolean
-    Dim MasterApp As String
+    Private Property MasterApp As String
 
 #Region "Form events"
 
@@ -64,13 +60,14 @@ Public Class SSPPPermitUploader
 
     End Sub
 
-    Sub FindApplicationInformation()
+    Private Sub FindApplicationInformation()
         Try
             Dim ZipCode As String = ""
             Dim PermitType As String = ""
             Dim AppType As String = ""
             Dim Status As String = ""
             Dim temp As String = ""
+            Dim SQL As String
 
             txtApplicationInformation.Clear()
             txtApplicationLinks.Clear()
@@ -79,38 +76,36 @@ Public Class SSPPPermitUploader
             SQL = "Select " &
             "strAIRSNumber " &
             "from SSPPApplicationMaster " &
-            "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
+            "where strApplicationNumber = @appnum "
 
-            dr = cmd.ExecuteReader
-            recExist = dr.Read
-            dr.Close()
-            If recExist = True Then
+            Dim p As New SqlParameter("@appnum", txtApplicationNumber.Text)
+
+            If DB.ValueExists(SQL, p) Then
                 SQL = "Select " &
                 "SUBSTRING(SSPPApplicationMaster.strAIRSNumber, 5,8) as strAIRSnumber, " &
                 "APBFacilityInformation.strFacilityName, APBFacilityInformation.strFacilityStreet1, " &
                 "APBFacilityInformation.strFacilityCity, APBFacilityInformation.strFacilityZipCode, " &
                 "datFinalizedDate, strCountyName, strApplicationTypeDesc, strPermitTypeDescription, " &
-                "datPermitIssued, (strLastName||', '||strFirstName) as StaffResponsible, " &
+                "datPermitIssued, concat(strLastName,', ',strFirstName) as StaffResponsible, " &
                 "datFinalOnWeb " &
-                "from SSPPApplicationTracking, SSPPApplicationMaster, " &
-                "APBFacilityInformation, LookUpCountyInformation, " &
-                "LookUpApplicationTypes, LookUpPermitTypes, " &
-                "EPDUserProfiles " &
-                "where SSPPApplicationMaster.strApplicationNumber  = SSPPApplicationTracking.strApplicationNumber (+) " &
-                "and SSPPApplicationMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber  " &
-                "and SUBSTRING(SSPPApplicationMaster.strAIRSnumber, 5, 3)  = LookUpCountyInformation.strCountyCode (+) " &
-                "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode (+) " &
-                "and SSPPApplicationMaster.strPermitType = LookUpPermitTypes.strPermitTypeCode (+) " &
-                "and SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
-                "and ssppapplicationtracking.strApplicationNumber = '" & txtApplicationNumber.Text & "' "
+                "from SSPPApplicationMaster " &
+                "left join SSPPApplicationTracking " &
+                "on SSPPApplicationMaster.strApplicationNumber  = SSPPApplicationTracking.strApplicationNumber " &
+                "inner join APBFacilityInformation " &
+                "on SSPPApplicationMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber  " &
+                "left join LookUpCountyInformation " &
+                "on SUBSTRING(SSPPApplicationMaster.strAIRSnumber, 5, 3)  = LookUpCountyInformation.strCountyCode " &
+                "left join LookUpApplicationTypes " &
+                "on SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode " &
+                "left join LookUpPermitTypes " &
+                "on SSPPApplicationMaster.strPermitType = LookUpPermitTypes.strPermitTypeCode " &
+                "inner join EPDUserProfiles " &
+                "on SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
+                "where ssppapplicationtracking.strApplicationNumber = @appnum "
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                dr = cmd.ExecuteReader
-                While dr.Read
+                Dim dr As DataRow = DB.GetDataRow(SQL, p)
+
+                If dr IsNot Nothing Then
                     If IsDBNull(dr.Item("strAIRSNumber")) Then
                         txtApplicationInformation.Text = txtApplicationInformation.Text & "AIRS #: Unknown " & vbCrLf
                     Else
@@ -185,42 +180,33 @@ Public Class SSPPPermitUploader
                         lblFinalOnWeb.Visible = True
                         DTPFinalOnWeb.Visible = True
                     End If
-                End While
-                dr.Close()
+                End If
             Else
                 txtApplicationInformation.Text = "No Application Data available."
             End If
 
             SQL = "select strMasterApplication " &
             "from SSPPApplicationLinking " &
-            "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            recExist = dr.Read
+            "where strApplicationNumber = @appnum "
 
-            If recExist = True Then
-                MasterApp = dr.Item("strMasterApplication")
+            If DB.ValueExists(SQL, p) Then
+                MasterApp = DB.GetString(SQL, p)
             Else
                 MasterApp = txtApplicationNumber.Text
             End If
-            dr.Close()
+
+            Dim p2 As New SqlParameter("@appnum", MasterApp)
+
             If MasterApp <> "" Then
                 SQL = "Select strApplicationNumber " &
                 "from SSPPApplicationLinking " &
-                "where strMasterApplication = '" & MasterApp & "' "
+                "where strMasterApplication = @appnum "
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                While dr.Read
+                Dim dt As DataTable = DB.GetDataTable(SQL, p2)
+
+                For Each dr As DataRow In dt.Rows
                     txtApplicationLinks.Text = txtApplicationLinks.Text & dr.Item("strApplicationNumber") & vbCrLf
-                End While
-                dr.Close()
+                Next
             Else
                 txtApplicationLinks.Clear()
             End If
@@ -230,28 +216,27 @@ Public Class SSPPPermitUploader
             rdbOtherPermit.Checked = False
 
             SQL = "select " &
-            "distinct(APBPermits.strFileName)  " &
-            "from APBpermits, SSPPApplicationLinking " &
-            "where SUBSTRING(APBpermits.strFileName, 4,10) = SSPPAPPlicationLinking.strmasterapplication (+) " &
-            "and (SSPPApplicationLinking.strApplicationNumber = '" & MasterApp & "' " &
-            "or APBPermits.strFileName like '%-" & MasterApp & "') "
+            "top (1) APBPermits.strFileName  " &
+            "from APBpermits " &
+            "left join SSPPApplicationLinking " &
+            "on SUBSTRING(APBpermits.strFileName, 4,10) = SSPPAPPlicationLinking.strmasterapplication " &
+            "where (SSPPApplicationLinking.strApplicationNumber = @appnum " &
+            "or APBPermits.strFileName like @appnumlike) "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            recExist = dr.Read
+            Dim p3 As SqlParameter() = {
+                p2,
+                New SqlParameter("@appnumlike", "%-" & MasterApp)
+            }
 
-            If recExist = True Then
-                temp = Mid(dr.Item("strFileName"), 1, 1)
+            Dim dr2 As DataRow = DB.GetDataRow(SQL, p3)
+
+            If dr2 IsNot Nothing Then
+                temp = Mid(dr2.Item("strFileName"), 1, 1)
                 Select Case temp
                     Case "V"
                         rdbTitleVPermit.Checked = True
                     Case "P"
                         rdbPSDPermit.Checked = True
-                    Case "O"
-                        rdbOtherPermit.Checked = True
                     Case Else
                         rdbOtherPermit.Checked = True
                 End Select
@@ -270,7 +255,6 @@ Public Class SSPPPermitUploader
                 End Select
 
             End If
-            dr.Close()
 
             If Status <> "" Then
                 If CurrentUser.UnitId = 14 Or (CurrentUser.UnitId = 0 And CurrentUser.ProgramID = 4) Or (CurrentUser.UnitId = 0 And CurrentUser.ProgramID = 5) Then
@@ -288,7 +272,7 @@ Public Class SSPPPermitUploader
 
     End Sub
 
-    Sub ClearForm()
+    Private Sub ClearForm()
         Try
             txtApplicationNumber.Clear()
             txtApplicationInformation.Clear()
@@ -323,27 +307,28 @@ Public Class SSPPPermitUploader
 
     End Sub
 
-    <CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId:="cmdCB")>
-    Sub UploadFile(FileName As String, DocLocation As String, DocxLocation As String,
-                    PDFLocation As String, DocOnFile As String)
+    Private Sub UploadFile(FileName As String,
+                           DocLocation As String,
+                           DocxLocation As String,
+                           PDFLocation As String,
+                           DocOnFile As String)
         Try
             Dim Flag As String = "00"
             Dim DocFile As String = ""
             Dim ResultDoc As DialogResult
             Dim PDFFile As String = ""
             Dim ResultPDF As DialogResult
+            Dim SQL As String
 
             SQL = "Select " &
             "strDOCFileSize, strPDFFileSize " &
             "From ApbPermits " &
-            "where strFileName = '" & FileName & "' "
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            recExist = dr.Read
-            If recExist = True Then
+            "where strFileName = @FileName "
+
+            Dim p As New SqlParameter("@FileName", FileName)
+
+            Dim dr As DataRow = DB.GetDataRow(SQL, p)
+            If dr IsNot Nothing Then
                 If IsDBNull(dr.Item("strDocFileSize")) Then
                     DocFile = ""
                 Else
@@ -358,7 +343,6 @@ Public Class SSPPPermitUploader
                 DocFile = ""
                 PDFFile = ""
             End If
-            dr.Close()
 
             If DocFile <> "" And (DocLocation <> "" Or DocxLocation <> "") Then
                 Select Case Mid(FileName, 1, 2)
@@ -426,10 +410,6 @@ Public Class SSPPPermitUploader
                 Select Case ResultDoc
                     Case DialogResult.Yes
                         Flag = "10"
-                    Case DialogResult.No
-                        Flag = "00"
-                    Case DialogResult.Cancel
-                        Flag = "00"
                     Case Else
                         Flag = "00"
                 End Select
@@ -442,18 +422,13 @@ Public Class SSPPPermitUploader
             End If
             If (PDFFile <> "" And Mid(Flag, 1, 1) = "1") Or DocOnFile = "On File" Then
                 SQL = "update APBPermits set " &
-                "PDFPermitData = '', " &
-                "strPDFFileSize = '', " &
-                "strPDFModifingPerson = '', " &
-                "datPDFModifingDate = '' " &
-                "where strFileName = '" & FileName & "' "
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                dr.Read()
-                dr.Close()
+                "PDFPermitData = null, " &
+                "strPDFFileSize = null, " &
+                "strPDFModifingPerson = null, " &
+                "datPDFModifingDate = null " &
+                "where strFileName = @FileName "
+
+                DB.RunCommand(SQL, p)
 
             Else
                 If PDFFile <> "" And PDFLocation <> "" Then
@@ -522,10 +497,6 @@ Public Class SSPPPermitUploader
                     Select Case ResultPDF
                         Case DialogResult.Yes
                             Flag = Mid(Flag, 1, 1) & "1"
-                        Case DialogResult.No
-                            Flag = Mid(Flag, 1, 1) & "0"
-                        Case DialogResult.Cancel
-                            Flag = Mid(Flag, 1, 1) & "0"
                         Case Else
                             Flag = Mid(Flag, 1, 1) & "0"
                     End Select
@@ -539,133 +510,115 @@ Public Class SSPPPermitUploader
             End If
             If Flag <> "00" Then
                 Dim rowCount As String = ""
-                Dim da As SqlDataAdapter
-                Dim ds As DataSet
+                Dim exists As Boolean = True
 
                 If Flag <> "00" Then
                     SQL = "Delete APBPermits " &
-                    "where strFileName = '" & FileName & "' "
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    dr.Close()
+                    "where strFileName = @FileName "
+
+                    DB.RunCommand(SQL, p)
 
                     SQL = "select " &
-                    "rowCount " &
+                    "[rowCount] " &
                     "from APBPermits " &
-                    "where strFileName = '" & FileName & "' "
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    While dr.Read
-                        If IsDBNull(dr.Item("rowCount")) Then
+                    "where strFileName = @FileName "
+
+                    Dim dr2 As DataRow = DB.GetDataRow(SQL, p)
+                    If dr2 IsNot Nothing Then
+                        If IsDBNull(dr2.Item("rowCount")) Then
                             rowCount = ""
                         Else
-                            rowCount = dr.Item("RowCount")
+                            rowCount = dr2.Item("RowCount")
                         End If
-                    End While
-                    dr.Close()
+                    Else
+                        rowCount = ""
+                    End If
 
                     If rowCount = "" Then
+                        exists = False
+
                         SQL = "select " &
-                        "(max(rowCount) + 1) as RowCount " &
+                        "(max([rowCount]) + 1) as [rowCount] " &
                         "from APBPermits "
-                        cmd = New SqlCommand(SQL, CurrentConnection)
-                        If CurrentConnection.State = ConnectionState.Closed Then
-                            CurrentConnection.Open()
-                        End If
-                        dr = cmd.ExecuteReader
-                        While dr.Read
-                            If IsDBNull(dr.Item("RowCount")) Then
+
+                        Dim dr3 As DataRow = DB.GetDataRow(SQL, p)
+                        If dr3 IsNot Nothing Then
+                            If IsDBNull(dr3.Item("RowCount")) Then
                                 rowCount = "1"
                             Else
-                                rowCount = dr.Item("RowCount")
+                                rowCount = dr3.Item("RowCount")
                             End If
-                        End While
-                        dr.Close()
+                        End If
                     End If
 
                     Dim fs As FileStream
                     If DocLocation <> "" And Mid(Flag, 1, 1) = "1" Then
                         fs = New FileStream(DocLocation, FileMode.OpenOrCreate, FileAccess.Read)
+                    ElseIf DocxLocation <> "" And Mid(Flag, 1, 1) = "1" Then
+                        fs = New FileStream(DocxLocation, FileMode.OpenOrCreate, FileAccess.Read)
                     Else
-                        If DocxLocation <> "" And Mid(Flag, 1, 1) = "1" Then
-                            fs = New FileStream(DocxLocation, FileMode.OpenOrCreate, FileAccess.Read)
-                        Else
-                            fs = New FileStream(PDFLocation, FileMode.OpenOrCreate, FileAccess.Read)
-                        End If
+                        fs = New FileStream(PDFLocation, FileMode.OpenOrCreate, FileAccess.Read)
                     End If
 
                     Dim rawData() As Byte = New Byte(fs.Length) {}
-                    'If DocLocation <> "" Then
-                    '    rawData = rawData
-                    'End If
                     If DocxLocation <> "" Then
                         ReDim rawData(fs.Length - 1)
                     End If
-                    'If PDFLocation <> "" Then
-                    '    rawData = rawData
-                    'End If
 
-                    fs.Read(rawData, 0, System.Convert.ToInt32(fs.Length))
+                    fs.Read(rawData, 0, Convert.ToInt32(fs.Length))
                     fs.Close()
 
-                    SQL = "Select * from APBPermits " &
-                    "where strFileName = '" & FileName & "' "
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    da = New SqlDataAdapter(SQL, CurrentConnection)
-                    Dim cmdCB As SqlCommandBuilder = New SqlCommandBuilder(da)
-                    ds = New DataSet("PDF")
-                    da.MissingSchemaAction = MissingSchemaAction.AddWithKey
-
-                    da.Fill(ds, "PDF")
-                    Dim row As DataRow = ds.Tables("PDF").NewRow()
-                    row("rowCount") = rowCount
-                    row("strFileName") = FileName
-                    If (DocLocation <> "" Or DocxLocation <> "") And Mid(Flag, 1, 1) = "1" Then
-                        row("docPermitData") = rawData
-                        row("strDocFileSize") = rawData.Length
-                        row("strDocModifingPerson") = CurrentUser.UserID
-                        row("datDocModifingDate") = TodayFormatted
-                    Else
-                        row("pdfPermitData") = rawData
-                        row("strPDFFileSize") = rawData.Length
-                        row("strPDFModifingPerson") = CurrentUser.UserID
-                        row("datPDFModifingDate") = TodayFormatted
-                    End If
-                    ds.Tables("PDF").Rows.Add(row)
-                    da.Update(ds, "PDF")
-
-                    If Mid(FileName, 1, 2) = "OP" Then
-                        SQL = "Update SSPPApplicationTracking set " &
-                        "datFinalOnWeb =  GETDATE()  " &
-                        "where strApplicationNumber = '" & MasterApp & "' "
-                        cmd = New SqlCommand(SQL, CurrentConnection)
-                        If CurrentConnection.State = ConnectionState.Closed Then
-                            CurrentConnection.Open()
+                    If exists Then
+                        If (DocLocation <> "" Or DocxLocation <> "") And Mid(Flag, 1, 1) = "1" Then
+                            SQL = "UPDATE APBPermits set " &
+                                "strFileName = @filename, " &
+                                "docPermitData = @rawdata , " &
+                                "strDocFileSize = @length , " &
+                                "strDocModifingPerson = @user , " &
+                                "datDocModifingDate = getdate() " &
+                                "where [rowCount] = @rowCount "
+                        Else
+                            SQL = "UPDATE APBPermits set " &
+                                "strFileName = @filename, " &
+                                "pdfPermitData = @rawdata , " &
+                                "strPDFFileSize = @length , " &
+                                "strPDFModifingPerson = @user , " &
+                                "datPDFModifingDate = getdate() " &
+                                "where [rowCount] = @rowCount "
                         End If
-                        dr = cmd.ExecuteReader
-                        dr.Close()
+                    Else
+                        If (DocLocation <> "" Or DocxLocation <> "") And Mid(Flag, 1, 1) = "1" Then
+                            SQL = "insert into APBPermits " &
+                                "([rowCount], strFileName, docPermitData, strDocFileSize, strDocModifingPerson, datDocModifingDate) " &
+                                "Values " &
+                                "(@rowCount, @filename, @rawdata, @length, @user, getdate()) "
+                        Else
+                            SQL = "insert into APBPermits " &
+                                "([rowCount], strFileName, pdfPermitData, strPDFFileSize, strPDFModifingPerson, datPDFModifingDate) " &
+                                "Values " &
+                                "(@rowCount, @filename, @rawdata, @length, @user, getdate()) "
+                        End If
                     End If
+
+                    Dim pf As SqlParameter() = {
+                        New SqlParameter("@rowcount", rowCount),
+                        New SqlParameter("@filename", FileName),
+                        New SqlParameter("@rawdata", rawData),
+                        New SqlParameter("@length", rawData.Length),
+                        New SqlParameter("@user", CurrentUser.UserID)
+                    }
+
+                    DB.RunCommand(SQL, pf)
                 End If
 
                 If Mid(FileName, 1, 2) = "OP" Then
                     SQL = "Update SSPPApplicationTracking set " &
                     "datFinalOnWeb =  GETDATE()  " &
-                    "where strApplicationNumber = '" & MasterApp & "' "
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    dr.Close()
+                    "where strApplicationNumber = @appnum "
+
+                    DB.RunCommand(SQL, New SqlParameter("@appnum", MasterApp))
                 End If
+
             End If
 
         Catch ex As Exception
@@ -676,12 +629,13 @@ Public Class SSPPPermitUploader
 
     End Sub
 
-    Sub SaveFiles()
+    Private Sub SaveFiles()
         Try
             Dim doc As String = ""
             Dim docx As String = ""
             Dim pdf As String = ""
             Dim docOnFile As String = ""
+            Dim SQL As String
 
             If rdbTitleVPermit.Checked = True Then
                 If chbTVNarrative.Checked = True Then    'Prefix VN-
@@ -810,23 +764,15 @@ Public Class SSPPPermitUploader
 
                     SQL = "Select datFinalOnWeb " &
                     "from SSPPApplicationTracking " &
-                    "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    recExist = dr.Read
-                    dr.Close()
-                    If recExist = False Then
+                    "where strApplicationNumber = @appnum "
+
+                    Dim p As New SqlParameter("@appnum", txtApplicationNumber.Text)
+
+                    If DB.ValueExists(SQL, p) Then
                         SQL = "Update SSPPApplicationTracking set " &
-                        "datFinalOnWeb =  GETDATE()  "
-                        cmd = New SqlCommand(SQL, CurrentConnection)
-                        If CurrentConnection.State = ConnectionState.Closed Then
-                            CurrentConnection.Open()
-                        End If
-                        dr = cmd.ExecuteReader
-                        dr.Close()
+                        "datFinalOnWeb =  GETDATE()  " &
+                        "where strApplicationNumber = @appnum "
+                        DB.RunCommand(SQL, p)
                     End If
 
                 End If
@@ -1082,23 +1028,15 @@ Public Class SSPPPermitUploader
 
                     SQL = "Select datFinalOnWeb " &
                     "from SSPPApplicationTracking " &
-                    "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    recExist = dr.Read
-                    dr.Close()
-                    If recExist = False Then
+                    "where strApplicationNumber = @appnum "
+
+                    Dim p As New SqlParameter("@appnum", txtApplicationNumber.Text)
+
+                    If DB.ValueExists(SQL, p) Then
                         SQL = "Update SSPPApplicationTracking set " &
-                        "datFinalOnWeb =  GETDATE()  "
-                        cmd = New SqlCommand(SQL, CurrentConnection)
-                        If CurrentConnection.State = ConnectionState.Closed Then
-                            CurrentConnection.Open()
-                        End If
-                        dr = cmd.ExecuteReader
-                        dr.Close()
+                        "datFinalOnWeb =  GETDATE()  " &
+                        "where strApplicationNumber = @appnum "
+                        DB.RunCommand(SQL, p)
                     End If
 
                 End If
@@ -1166,25 +1104,18 @@ Public Class SSPPPermitUploader
                         UploadFile("OP-" & MasterApp, doc, docx, pdf, docOnFile)
 
                         SQL = "Select datFinalOnWeb " &
-                        "from SSPPApplicationTracking " &
-                        "where strApplicationNumber = '" & txtApplicationNumber.Text & "' "
-                        cmd = New SqlCommand(SQL, CurrentConnection)
-                        If CurrentConnection.State = ConnectionState.Closed Then
-                            CurrentConnection.Open()
-                        End If
-                        dr = cmd.ExecuteReader
-                        recExist = dr.Read
-                        dr.Close()
-                        If recExist = False Then
+                            "from SSPPApplicationTracking " &
+                            "where strApplicationNumber = @appnum "
+
+                        Dim p As New SqlParameter("@appnum", txtApplicationNumber.Text)
+
+                        If DB.ValueExists(SQL, p) Then
                             SQL = "Update SSPPApplicationTracking set " &
-                            "datFinalOnWeb =  GETDATE()  "
-                            cmd = New SqlCommand(SQL, CurrentConnection)
-                            If CurrentConnection.State = ConnectionState.Closed Then
-                                CurrentConnection.Open()
-                            End If
-                            dr = cmd.ExecuteReader
-                            dr.Close()
+                                "datFinalOnWeb =  GETDATE()  " &
+                                "where strApplicationNumber = @appnum "
+                            DB.RunCommand(SQL, p)
                         End If
+
                     End If
                 End If
             End If
@@ -1204,42 +1135,27 @@ Public Class SSPPPermitUploader
     Sub DeleteFile(FileType As String)
         Try
             Dim ResultDoc As DialogResult
+            Dim SQL As String
 
             SQL = "Select " &
             "strFileName " &
             "from APBPermits " &
-            "where strFileName = '" & FileType & "-" & txtApplicationNumber.Text & "' "
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            recExist = dr.Read
-            dr.Close()
-            If recExist = True Then
+            "where strFileName = @filename "
+
+            Dim p As New SqlParameter("@filename", FileType & "-" & txtApplicationNumber.Text)
+
+            If DB.ValueExists(SQL, p) Then
                 ResultDoc = MessageBox.Show("Are you positive you want to delete this file?" & vbCrLf &
                         "It will not be recoverable if you delete it.", "Permit Delete",
                         MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
-                Select Case ResultDoc
-                    Case DialogResult.Yes
-                        SQL = "Delete APBPermits " &
-                        "where strFileName = '" & FileType & "-" & txtApplicationNumber.Text & "' "
+                If ResultDoc = DialogResult.Yes Then
+                    SQL = "Delete APBPermits " &
+                    "where strFileName = @filename "
 
-                        cmd = New SqlCommand(SQL, CurrentConnection)
-                        If CurrentConnection.State = ConnectionState.Closed Then
-                            CurrentConnection.Open()
-                        End If
-                        dr = cmd.ExecuteReader
-                        dr.Close()
-                        FindApplicationInformation()
+                    DB.RunCommand(SQL, p)
 
-                    Case DialogResult.No
-
-                    Case DialogResult.Cancel
-
-                    Case Else
-
-                End Select
+                    FindApplicationInformation()
+                End If
             End If
 
         Catch ex As Exception
@@ -1253,7 +1169,6 @@ Public Class SSPPPermitUploader
 
     Sub DisplayPermitPanel()
         Try
-            '130, 307
             If TCPermitUploader.TabPages.Contains(TPTV) Then
                 TCPermitUploader.TabPages.Remove(TPTV)
             End If
@@ -1265,24 +1180,14 @@ Public Class SSPPPermitUploader
             End If
             If rdbTitleVPermit.Checked = True Then
                 TCPermitUploader.TabPages.Add(TPTV)
-            Else
-                If rdbPSDPermit.Checked = True Then
-                    TCPermitUploader.TabPages.Add(TPPSD)
-                Else
-                    If rdbOtherPermit.Checked = True Then
-                        TCPermitUploader.TabPages.Add(TPOther)
-                    Else
-
-                    End If
-                End If
+            ElseIf rdbPSDPermit.Checked = True Then
+                TCPermitUploader.TabPages.Add(TPPSD)
+            ElseIf rdbOtherPermit.Checked = True Then
+                TCPermitUploader.TabPages.Add(TPOther)
             End If
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
-
     End Sub
 
     Private Sub rdbTitleVPermit_CheckedChanged(sender As Object, e As EventArgs) Handles rdbTitleVPermit.CheckedChanged
@@ -1291,6 +1196,7 @@ Public Class SSPPPermitUploader
             Dim TVDraft As String = ""
             Dim TVNotice As String = ""
             Dim TVFinal As String = ""
+            Dim SQL As String
 
             chbTVNarrative.Checked = False
             chbTVDraft.Checked = False
@@ -1303,29 +1209,25 @@ Public Class SSPPPermitUploader
                 SQL = "select " &
                 "strFileName " &
                 "from APBPermits " &
-                "where strFileName like 'V_-" & MasterApp & "' "
+                "where strFileName like @filename "
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                Do While dr.Read
-                    If IsDBNull(dr.Item("strFileName")) Then
-                    Else
-                        Select Case Mid(dr.Item("strFileName"), 1, 2)
-                            Case "VN"
-                                TVNarrative = "True"
-                            Case "VD"
-                                TVDraft = "True"
-                            Case "VP"
-                                TVNotice = "True"
-                            Case "VF"
-                                TVFinal = "True"
-                        End Select
-                    End If
-                Loop
-                dr.Close()
+                Dim p As New SqlParameter("@filename", "V_-" & MasterApp)
+
+                Dim dt As DataTable = DB.GetDataTable(SQL, p)
+
+                For Each dr As DataRow In dt.Rows
+                    Select Case Mid(dr.Item("strFileName"), 1, 2)
+                        Case "VN"
+                            TVNarrative = "True"
+                        Case "VD"
+                            TVDraft = "True"
+                        Case "VP"
+                            TVNotice = "True"
+                        Case "VF"
+                            TVFinal = "True"
+                    End Select
+                Next
+
                 If TVNarrative = "True" Then
                     chbTVNarrative.Checked = True
                 End If
@@ -1358,6 +1260,7 @@ Public Class SSPPPermitUploader
             Dim PSDHearing As String = ""
             Dim PSDFinal As String = ""
             Dim PSDPermit As String = ""
+            Dim SQL As String
 
             chbPSDApplicationSummary.Checked = False
             chbPSDPrelimDet.Checked = False
@@ -1374,37 +1277,33 @@ Public Class SSPPPermitUploader
                 SQL = "select " &
                 "strFileName " &
                 "from APBPermits " &
-                "where strFileName like 'P_-" & MasterApp & "' "
+                "where strFileName like @filename "
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                Do While dr.Read
-                    If IsDBNull(dr.Item("strFileName")) Then
-                    Else
-                        Select Case Mid(dr.Item("strFileName"), 1, 2)
-                            Case "PA"
-                                PSDAppSummary = "True"
-                            Case "PP"
-                                PSDPrelimDet = "True"
-                            Case "PT"
-                                PSDNarrative = "True"
-                            Case "PD"
-                                PSDDraft = "True"
-                            Case "PN"
-                                PSDNotice = "True"
-                            Case "PH"
-                                PSDHearing = "True"
-                            Case "PF"
-                                PSDFinal = "True"
-                            Case "PI"
-                                PSDPermit = "True"
-                        End Select
-                    End If
-                Loop
-                dr.Close()
+                Dim p As New SqlParameter("@filename", "P_-" & MasterApp)
+
+                Dim dt As DataTable = DB.GetDataTable(SQL, p)
+
+                For Each dr As DataRow In dt.Rows
+                    Select Case Mid(dr.Item("strFileName"), 1, 2)
+                        Case "PA"
+                            PSDAppSummary = "True"
+                        Case "PP"
+                            PSDPrelimDet = "True"
+                        Case "PT"
+                            PSDNarrative = "True"
+                        Case "PD"
+                            PSDDraft = "True"
+                        Case "PN"
+                            PSDNotice = "True"
+                        Case "PH"
+                            PSDHearing = "True"
+                        Case "PF"
+                            PSDFinal = "True"
+                        Case "PI"
+                            PSDPermit = "True"
+                    End Select
+                Next
+
                 If PSDAppSummary = "True" Then
                     chbPSDApplicationSummary.Checked = True
                 End If
@@ -1443,6 +1342,7 @@ Public Class SSPPPermitUploader
         Try
             Dim OtherNarrative As String = ""
             Dim OtherPermit As String = ""
+            Dim SQL As String
 
             chbOtherNarrative.Checked = False
             chbOtherPermit.Checked = False
@@ -1453,25 +1353,21 @@ Public Class SSPPPermitUploader
                 SQL = "select " &
                 "strFileName " &
                 "from APBPermits " &
-                "where strFileName like 'O_-" & MasterApp & "' "
+                "where strFileName like @filename "
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                Do While dr.Read
-                    If IsDBNull(dr.Item("strFileName")) Then
-                    Else
-                        Select Case Mid(dr.Item("strFileName"), 1, 2)
-                            Case "ON"
-                                OtherNarrative = "True"
-                            Case "OP"
-                                OtherPermit = "True"
-                        End Select
-                    End If
-                Loop
-                dr.Close()
+                Dim p As New SqlParameter("@filename", "O_-" & MasterApp)
+
+                Dim dt As DataTable = DB.GetDataTable(SQL, p)
+
+                For Each dr As DataRow In dt.Rows
+                    Select Case Mid(dr.Item("strFileName"), 1, 2)
+                        Case "ON"
+                            OtherNarrative = "True"
+                        Case "OP"
+                            OtherPermit = "True"
+                    End Select
+                Next
+
                 If OtherNarrative = "True" Then
                     chbOtherNarrative.Checked = True
                 End If
@@ -1494,6 +1390,7 @@ Public Class SSPPPermitUploader
 
     Private Sub chbTVNarrative_CheckedChanged(sender As Object, e As EventArgs) Handles chbTVNarrative.CheckedChanged
         Try
+            Dim SQL As String
 
             If chbTVNarrative.Checked = True And MasterApp <> "" Then
 
@@ -1505,47 +1402,45 @@ Public Class SSPPPermitUploader
 
                 SQL = "select " &
                 "case " &
-                "when docPermitData is Null then '' " &
+                "when docPermitData is Null then null " &
                 "Else 'True' " &
                 "End DocData, " &
                 "case " &
-                "when strDocModifingPerson is Null then '' " &
-                "else (select (strLastName||', '||strFirstName) as StaffName " &
+                "when strDocModifingPerson is Null then null " &
+                "else (select concat(strLastName,', ',strFirstName) as StaffName " &
                 "from APBPermits, EPDUserProfiles " &
                 "where APBPermits.strDocModifingPerson = EPDUserProfiles.numUserID " &
                 "and numUserID = strDocModifingPerson " &
-                "and strFileName = 'VN-" & MasterApp & "') " &
+                "and strFileName = @fn ) " &
                 "end DocStaffResponsible, " &
                 "case " &
-                "when datDocModifingDate is Null then '' " &
-                "else to_char(datDocModifingDate, 'dd-Mon-yyyy') " &
+                "when datDocModifingDate is Null then  null  " &
+                "else format(datDocModifingDate, 'dd-MMM-yyyy') " &
                 "End datDocModifingDate, " &
                 "case " &
-                "when pdfPermitData is Null then '' " &
+                "when pdfPermitData is Null then null " &
                 "Else 'True' " &
                 "End PDFData, " &
                 "case " &
-                "when strPDFModifingPerson is Null then '' " &
-                "else (select (strLastName||', '||strFirstName) as StaffName " &
+                "when strPDFModifingPerson is Null then  null  " &
+                "else (select concat(strLastName,', ',strFirstName) as StaffName " &
                 "from APBPermits, EPDUSerProfiles " &
                 "where APBPermits.strPDFModifingPerson = EPDUSerProfiles.numUserID  " &
                 "and numUserID = strPDFModifingPerson " &
-                "and strFileName = 'VN-" & MasterApp & "') " &
+                "and strFileName = @fn ) " &
                 "end PDFStaffResponsible, " &
                 "case " &
-                "when datPDFModifingDate is Null then '' " &
-                "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " &
+                "when datPDFModifingDate is Null then  null  " &
+                "else format(datPDFModifingdate, 'dd-MMM-yyyy') " &
                 "End datPDFModifingDate " &
                 "from APBPermits " &
-                "where strFileName = 'VN-" & MasterApp & "' "
+                "where strFileName = @fn "
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-                If recExist = True Then
+                Dim p As New SqlParameter("@fn", "VN-" & MasterApp)
+
+                Dim dr As DataRow = DB.GetDataRow(SQL, p)
+
+                If dr IsNot Nothing Then
                     If IsDBNull(dr.Item("DocData")) Then
                         txtTVNarrativeDoc.Text = ""
                     Else
@@ -1582,7 +1477,7 @@ Public Class SSPPPermitUploader
                         lblTVNarrativeDUPDF.Text = dr.Item("datPDFModifingDate")
                     End If
                 End If
-                dr.Close()
+
                 If txtTVNarrativeDoc.Text = "On File" Or txtTVNarrativePDF.Text = "On File" Then
                     btnTVNarrativeDownload.Visible = True
                     If AccountFormAccess(9, 3) = "1" Then
@@ -1618,6 +1513,7 @@ Public Class SSPPPermitUploader
     End Sub
     Private Sub chbTVDraft_CheckedChanged(sender As Object, e As EventArgs) Handles chbTVDraft.CheckedChanged
         Try
+            Dim SQL As String
 
             If chbTVDraft.Checked = True And MasterApp <> "" Then
                 txtTVDraftDoc.Visible = True
@@ -1628,47 +1524,45 @@ Public Class SSPPPermitUploader
 
                 SQL = "select " &
                 "case " &
-                "when docPermitData is Null then '' " &
+                "when docPermitData is Null then  null  " &
                 "Else 'True' " &
                 "End DocData, " &
                 "case " &
-                "when strDocModifingPerson is Null then '' " &
-                "else (select (strLastName||', '||strFirstName) as StaffName " &
+                "when strDocModifingPerson is Null then  null  " &
+                "else (select concat(strLastName,', ',strFirstName) as StaffName " &
                 "from APBPermits, EPDUSerProfiles " &
                 "where APBPermits.strDocModifingPerson = EPDUSerProfiles.numUserID " &
                 "and numUserID = strDocModifingPerson " &
-                "and strFileName = 'VD-" & MasterApp & "') " &
+                "and strFileName = @fn ) " &
                 "end DocStaffResponsible, " &
                 "case " &
-                "when datDocModifingDate is Null then '' " &
-                "else to_char(datDocModifingDate, 'dd-Mon-yyyy') " &
+                "when datDocModifingDate is Null then  null  " &
+                "else format(datDocModifingDate, 'dd-MMM-yyyy') " &
                 "End datDocModifingDate, " &
                 "case " &
-                "when pdfPermitData is Null then '' " &
+                "when pdfPermitData is Null then  null  " &
                 "Else 'True' " &
                 "End PDFData, " &
                 "case " &
-                "when strPDFModifingPerson is Null then '' " &
-                "else (select (strLastName||', '||strFirstName) as StaffName " &
+                "when strPDFModifingPerson is Null then  null  " &
+                "else (select concat(strLastName,', ',strFirstName) as StaffName " &
                 "from APBPermits, EPDUserProfiles " &
                 "where APBPermits.strPDFModifingPerson = EPDUserProfiles.numUserID  " &
                 "and numUserID = strPDFModifingPerson " &
-                "and strFileName = 'VD-" & MasterApp & "') " &
+                "and strFileName = @fn ) " &
                 "end PDFStaffResponsible, " &
                 "case " &
-                "when datPDFModifingDate is Null then '' " &
-                "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " &
+                "when datPDFModifingDate is Null then  null  " &
+                "else format(datPDFModifingdate, 'dd-MMM-yyyy') " &
                 "End datPDFModifingDate " &
                 "from APBPermits " &
-                "where strFileName = 'VD-" & MasterApp & "' "
+                "where strFileName = @fn  "
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-                If recExist = True Then
+                Dim p As New SqlParameter("@fn", "VD-" & MasterApp)
+
+                Dim dr As DataRow = DB.GetDataRow(SQL, p)
+
+                If dr IsNot Nothing Then
                     If IsDBNull(dr.Item("DocData")) Then
                         txtTVDraftDoc.Text = ""
                     Else
@@ -1705,7 +1599,7 @@ Public Class SSPPPermitUploader
                         lblTVDraftDUPDF.Text = dr.Item("datPDFModifingDate")
                     End If
                 End If
-                dr.Close()
+
                 If txtTVDraftDoc.Text = "On File" Or txtTVDraftPDF.Text = "On File" Then
                     btnTVDraftDownload.Visible = True
                     If AccountFormAccess(9, 3) = "1" Then
@@ -1740,6 +1634,7 @@ Public Class SSPPPermitUploader
     End Sub
     Private Sub chbTVPublicNotice_CheckedChanged(sender As Object, e As EventArgs) Handles chbTVPublicNotice.CheckedChanged
         Try
+            Dim SQL As String
 
             If chbTVPublicNotice.Checked = True And MasterApp <> "" Then
                 txtTVPublicNoticeDoc.Visible = True
@@ -1750,47 +1645,45 @@ Public Class SSPPPermitUploader
 
                 SQL = "select " &
                 "case " &
-                "when docPermitData is Null then '' " &
+                "when docPermitData is Null then  null  " &
                 "Else 'True' " &
                 "End DocData, " &
                 "case " &
-                "when strDocModifingPerson is Null then '' " &
-                "else (select (strLastName||', '||strFirstName) as StaffName " &
+                "when strDocModifingPerson is Null then  null  " &
+                "else (select concat(strLastName,', ',strFirstName) as StaffName " &
                 "from APBPermits, EPDUserProfiles " &
                 "where APBPermits.strDocModifingPerson = EPDUserProfiles.numUserID " &
                 "and numUserID = strDocModifingPerson " &
-                "and strFileName = 'VP-" & MasterApp & "') " &
+                "and strFileName = @fn ) " &
                 "end DocStaffResponsible, " &
                 "case " &
-                "when datDocModifingDate is Null then '' " &
-                "else to_char(datDocModifingDate, 'dd-Mon-yyyy') " &
+                "when datDocModifingDate is Null then  null  " &
+                "else format(datDocModifingDate, 'dd-MMM-yyyy') " &
                 "End datDocModifingDate, " &
                 "case " &
-                "when pdfPermitData is Null then '' " &
+                "when pdfPermitData is Null then  null  " &
                 "Else 'True' " &
                 "End PDFData, " &
                 "case " &
-                "when strPDFModifingPerson is Null then '' " &
-                "else (select (strLastName||', '||strFirstName) as StaffName " &
+                "when strPDFModifingPerson is Null then  null  " &
+                "else (select concat(strLastName,', ',strFirstName) as StaffName " &
                 "from APBPermits, EPDUserProfiles " &
                 "where APBPermits.strPDFModifingPerson = EPDUserProfiles.numUserID  " &
                 "and numUserID = strPDFModifingPerson " &
-                "and strFileName = 'VP-" & MasterApp & "') " &
+                "and strFileName = @fn ) " &
                 "end PDFStaffResponsible, " &
                 "case " &
-                "when datPDFModifingDate is Null then '' " &
-                "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " &
+                "when datPDFModifingDate is Null then  null  " &
+                "else format(datPDFModifingdate, 'dd-MMM-yyyy') " &
                 "End datPDFModifingDate " &
                 "from APBPermits " &
-                "where strFileName = 'VP-" & MasterApp & "' "
+                "where strFileName = @fn  "
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-                If recExist = True Then
+                Dim p As New SqlParameter("@fn", "VP-" & MasterApp)
+
+                Dim dr As DataRow = DB.GetDataRow(SQL, p)
+
+                If dr IsNot Nothing Then
                     If IsDBNull(dr.Item("DocData")) Then
                         txtTVPublicNoticeDoc.Text = ""
                     Else
@@ -1827,7 +1720,7 @@ Public Class SSPPPermitUploader
                         lblTVPublicNoticeDUPDF.Text = dr.Item("datPDFModifingDate")
                     End If
                 End If
-                dr.Close()
+
                 If txtTVPublicNoticeDoc.Text = "On File" Or txtTVPublicNoticePDF.Text = "On File" Then
                     btnTVPublicNoticeDownload.Visible = True
                     If AccountFormAccess(9, 3) = "1" Then
@@ -1862,6 +1755,7 @@ Public Class SSPPPermitUploader
     End Sub
     Private Sub chbTVFinal_CheckedChanged(sender As Object, e As EventArgs) Handles chbTVFinal.CheckedChanged
         Try
+            Dim SQL As String
 
             If chbTVFinal.Checked = True And MasterApp <> "" Then
                 txtTVFinalDoc.Visible = True
@@ -1872,47 +1766,45 @@ Public Class SSPPPermitUploader
 
                 SQL = "select " &
                  "case " &
-                 "when docPermitData is Null then '' " &
+                 "when docPermitData is Null then  null  " &
                  "Else 'True' " &
                  "End DocData, " &
                  "case " &
-                 "when strDocModifingPerson is Null then '' " &
-                 "else (select (strLastName||', '||strFirstName) as StaffName " &
+                 "when strDocModifingPerson is Null then  null  " &
+                 "else (select concat(strLastName,', ',strFirstName) as StaffName " &
                  "from APBPermits, EPDUserProfiles " &
                  "where APBPermits.strDocModifingPerson = EPDUserProfiles.numUserID " &
                  "and numUserID = strDocModifingPerson " &
-                 "and strFileName = 'VF-" & MasterApp & "') " &
+                 "and strFileName = @fn ) " &
                  "end DocStaffResponsible, " &
                  "case " &
-                 "when datDocModifingDate is Null then '' " &
-                 "else to_char(datDocModifingDate, 'dd-Mon-yyyy') " &
+                 "when datDocModifingDate is Null then  null  " &
+                 "else format(datDocModifingDate, 'dd-MMM-yyyy') " &
                  "End datDocModifingDate, " &
                  "case " &
-                 "when pdfPermitData is Null then '' " &
+                 "when pdfPermitData is Null then  null  " &
                  "Else 'True' " &
                  "End PDFData, " &
                  "case " &
-                 "when strPDFModifingPerson is Null then '' " &
-                 "else (select (strLastName||', '||strFirstName) as StaffName " &
+                 "when strPDFModifingPerson is Null then  null  " &
+                 "else (select concat(strLastName,', ',strFirstName) as StaffName " &
                  "from APBPermits, EPDUserProfiles " &
                  "where APBPermits.strPDFModifingPerson = EPDUserProfiles.numUserID  " &
                  "and numUserID = strPDFModifingPerson " &
-                 "and strFileName = 'VF-" & MasterApp & "') " &
+                 "and strFileName = @fn ) " &
                  "end PDFStaffResponsible, " &
                  "case " &
-                 "when datPDFModifingDate is Null then '' " &
-                 "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " &
+                 "when datPDFModifingDate is Null then  null  " &
+                 "else format(datPDFModifingdate, 'dd-MMM-yyyy') " &
                  "End datPDFModifingDate " &
                  "from APBPermits " &
-                 "where strFileName = 'VF-" & MasterApp & "' "
+                 "where strFileName = @fn  "
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-                If recExist = True Then
+                Dim p As New SqlParameter("@fn", "VF-" & MasterApp)
+
+                Dim dr As DataRow = DB.GetDataRow(SQL, p)
+
+                If dr IsNot Nothing Then
                     If IsDBNull(dr.Item("DocData")) Then
                         txtTVFinalDoc.Text = ""
                     Else
@@ -1949,7 +1841,7 @@ Public Class SSPPPermitUploader
                         lblTVFinalDUPDF.Text = dr.Item("datPDFModifingDate")
                     End If
                 End If
-                dr.Close()
+
                 If txtTVFinalDoc.Text = "On File" Or txtTVFinalPDF.Text = "On File" Then
                     btnTVFinalDownload.Visible = True
                     If AccountFormAccess(9, 3) = "1" Then
@@ -1984,6 +1876,7 @@ Public Class SSPPPermitUploader
     End Sub
     Private Sub chbPSDApplicationSummary_CheckedChanged(sender As Object, e As EventArgs) Handles chbPSDApplicationSummary.CheckedChanged
         Try
+            Dim SQL As String
 
             If chbPSDApplicationSummary.Checked = True And MasterApp <> "" Then
                 txtPSDAppSummaryDoc.Visible = True
@@ -1993,59 +1886,47 @@ Public Class SSPPPermitUploader
                 lblWord.Visible = True
                 lblPDF.Visible = True
 
-                'btnPSDAppSummary.Location = New System.Drawing.Point(119, 357)
-                'txtPSDAppSummaryDoc.Location = New System.Drawing.Point(149, 358)
-                'lblPSDAppSummarySRDoc.Location = New System.Drawing.Point(155, 382)
-                'lblPSDAppSummaryDUDoc.Location = New System.Drawing.Point(155, 399)
-                'txtPSDAppSummaryPDF.Location = New System.Drawing.Point(396, 358)
-                'lblPSDAppSummarySRPDF.Location = New System.Drawing.Point(405, 382)
-                'lblPSDAppSummaryDUPDF.Location = New System.Drawing.Point(405, 399)
-                'btnPSDAppSummaryDownload.Location = New System.Drawing.Point(643, 357)
-                'btnDeletePSDAppSummary.Location = New System.Drawing.Point(643, 380)
-
                 SQL = "select " &
                  "case " &
-                 "when docPermitData is Null then '' " &
+                 "when docPermitData is Null then  null  " &
                  "Else 'True' " &
                  "End DocData, " &
                  "case " &
-                 "when strDocModifingPerson is Null then '' " &
-                 "else (select (strLastName||', '||strFirstName) as StaffName " &
+                 "when strDocModifingPerson is Null then  null  " &
+                 "else (select concat(strLastName,', ',strFirstName) as StaffName " &
                  "from APBPermits, EPDUserProfiles " &
                  "where APBPermits.strDocModifingPerson = EPDUserProfiles.numUserID " &
                  "and numUserID = strDocModifingPerson " &
-                 "and strFileName = 'PA-" & MasterApp & "') " &
+                 "and strFileName = @fn ) " &
                  "end DocStaffResponsible, " &
                  "case " &
-                 "when datDocModifingDate is Null then '' " &
-                 "else to_char(datDocModifingDate, 'dd-Mon-yyyy') " &
+                 "when datDocModifingDate is Null then  null  " &
+                 "else format(datDocModifingDate, 'dd-MMM-yyyy') " &
                  "End datDocModifingDate, " &
                  "case " &
-                 "when pdfPermitData is Null then '' " &
+                 "when pdfPermitData is Null then  null  " &
                  "Else 'True' " &
                  "End PDFData, " &
                  "case " &
-                 "when strPDFModifingPerson is Null then '' " &
-                 "else (select (strLastName||', '||strFirstName) as StaffName " &
+                 "when strPDFModifingPerson is Null then  null  " &
+                 "else (select concat(strLastName,', ',strFirstName) as StaffName " &
                  "from APBPermits, EPDUserProfiles " &
                  "where APBPermits.strPDFModifingPerson = EPDUserProfiles.numUserID  " &
                  "and numUserID = strPDFModifingPerson " &
-                 "and strFileName = 'PA-" & MasterApp & "') " &
+                 "and strFileName = @fn ) " &
                  "end PDFStaffResponsible, " &
                  "case " &
-                 "when datPDFModifingDate is Null then '' " &
-                 "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " &
+                 "when datPDFModifingDate is Null then  null  " &
+                 "else format(datPDFModifingdate, 'dd-MMM-yyyy') " &
                  "End datPDFModifingDate " &
                  "from APBPermits " &
-                 "where strFileName = 'PA-" & MasterApp & "' "
+                 "where strFileName = @fn  "
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-                If recExist = True Then
+                Dim p As New SqlParameter("@fn", "PA-" & MasterApp)
+
+                Dim dr As DataRow = DB.GetDataRow(SQL, p)
+
+                If dr IsNot Nothing Then
                     If IsDBNull(dr.Item("DocData")) Then
                         txtPSDAppSummaryDoc.Text = ""
                     Else
@@ -2081,7 +1962,7 @@ Public Class SSPPPermitUploader
                         lblPSDAppSummaryDUPDF.Text = dr.Item("datPDFModifingDate")
                     End If
                 End If
-                dr.Close()
+
                 If txtPSDAppSummaryDoc.Text = "On File" Or txtPSDAppSummaryPDF.Text = "On File" Then
                     btnPSDAppSummaryDownload.Visible = True
                     If AccountFormAccess(9, 3) = "1" Then
@@ -2116,6 +1997,7 @@ Public Class SSPPPermitUploader
     End Sub
     Private Sub chbPSDPrelimDet_CheckedChanged(sender As Object, e As EventArgs) Handles chbPSDPrelimDet.CheckedChanged
         Try
+            Dim SQL As String
 
             If chbPSDPrelimDet.Checked = True And MasterApp <> "" Then
                 txtPSDPrelimDetDoc.Visible = True
@@ -2125,60 +2007,58 @@ Public Class SSPPPermitUploader
                 lblPDF.Visible = True
 
 
-                btnPSDPrelimDet.Location = New System.Drawing.Point(119, 15)
-                txtPSDPrelimDetDoc.Location = New System.Drawing.Point(149, 16)
-                txtPSDPrelimDetPDF.Location = New System.Drawing.Point(396, 16)
-                btnPSDPrelimDetDownload.Location = New System.Drawing.Point(643, 15)
-                lblPSDPrelimDetSRDoc.Location = New System.Drawing.Point(155, 40)
-                lblPSDPrelimDetDUDoc.Location = New System.Drawing.Point(155, 58)
-                lblPSDPrelimDetSRPDF.Location = New System.Drawing.Point(405, 40)
-                lblPSDPrelimDetDUPDF.Location = New System.Drawing.Point(405, 58)
-                btnDeletePSDPrelimDet.Location = New System.Drawing.Point(643, 38)
+                'btnPSDPrelimDet.Location = New System.Drawing.Point(119, 15)
+                'txtPSDPrelimDetDoc.Location = New System.Drawing.Point(149, 16)
+                'txtPSDPrelimDetPDF.Location = New System.Drawing.Point(396, 16)
+                'btnPSDPrelimDetDownload.Location = New System.Drawing.Point(643, 15)
+                'lblPSDPrelimDetSRDoc.Location = New System.Drawing.Point(155, 40)
+                'lblPSDPrelimDetDUDoc.Location = New System.Drawing.Point(155, 58)
+                'lblPSDPrelimDetSRPDF.Location = New System.Drawing.Point(405, 40)
+                'lblPSDPrelimDetDUPDF.Location = New System.Drawing.Point(405, 58)
+                'btnDeletePSDPrelimDet.Location = New System.Drawing.Point(643, 38)
 
 
                 SQL = "select " &
                  "case " &
-                 "when docPermitData is Null then '' " &
+                 "when docPermitData is Null then  null  " &
                  "Else 'True' " &
                  "End DocData, " &
                  "case " &
-                 "when strDocModifingPerson is Null then '' " &
-                 "else (select (strLastName||', '||strFirstName) as StaffName " &
+                 "when strDocModifingPerson is Null then  null  " &
+                 "else (select concat(strLastName,', ',strFirstName) as StaffName " &
                  "from APBPermits, EPDUserProfiles " &
                  "where APBPermits.strDocModifingPerson = EPDUserProfiles.numUserID " &
                  "and numUserID = strDocModifingPerson " &
-                 "and strFileName = 'PP-" & MasterApp & "') " &
+                 "and strFileName = @fn ) " &
                  "end DocStaffResponsible, " &
                  "case " &
-                 "when datDocModifingDate is Null then '' " &
-                 "else to_char(datDocModifingDate, 'dd-Mon-yyyy') " &
+                 "when datDocModifingDate is Null then  null  " &
+                 "else format(datDocModifingDate, 'dd-MMM-yyyy') " &
                  "End datDocModifingDate, " &
                  "case " &
-                 "when pdfPermitData is Null then '' " &
+                 "when pdfPermitData is Null then  null  " &
                  "Else 'True' " &
                  "End PDFData, " &
                  "case " &
-                 "when strPDFModifingPerson is Null then '' " &
-                 "else (select (strLastName||', '||strFirstName) as StaffName " &
+                 "when strPDFModifingPerson is Null then  null  " &
+                 "else (select concat(strLastName,', ',strFirstName) as StaffName " &
                  "from APBPermits, EPDUserProfiles " &
                  "where APBPermits.strPDFModifingPerson = EPDUserProfiles.numUserID  " &
                  "and numUserID = strPDFModifingPerson " &
-                 "and strFileName = 'PP-" & MasterApp & "') " &
+                 "and strFileName = @fn ) " &
                  "end PDFStaffResponsible, " &
                  "case " &
-                 "when datPDFModifingDate is Null then '' " &
-                 "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " &
+                 "when datPDFModifingDate is Null then  null  " &
+                 "else format(datPDFModifingdate, 'dd-MMM-yyyy') " &
                  "End datPDFModifingDate " &
                  "from APBPermits " &
-                 "where strFileName = 'PP-" & MasterApp & "' "
+                 "where strFileName = @fn  "
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-                If recExist = True Then
+                Dim p As New SqlParameter("@fn", "PP-" & MasterApp)
+
+                Dim dr As DataRow = DB.GetDataRow(SQL, p)
+
+                If dr IsNot Nothing Then
                     If IsDBNull(dr.Item("DocData")) Then
                         txtPSDPrelimDetDoc.Text = ""
                     Else
@@ -2214,7 +2094,7 @@ Public Class SSPPPermitUploader
                         lblPSDPrelimDetDUPDF.Text = dr.Item("datPDFModifingDate")
                     End If
                 End If
-                dr.Close()
+
                 If txtPSDPrelimDetDoc.Text = "On File" Or txtPSDPrelimDetPDF.Text = "On File" Then
                     btnPSDPrelimDetDownload.Visible = True
                     If AccountFormAccess(9, 3) = "1" Then
@@ -2249,6 +2129,7 @@ Public Class SSPPPermitUploader
     End Sub
     Private Sub chbPSDNarrative_CheckedChanged(sender As Object, e As EventArgs) Handles chbPSDNarrative.CheckedChanged
         Try
+            Dim SQL As String
 
             If chbPSDNarrative.Checked = True And MasterApp <> "" Then
                 txtPSDNarrativeDoc.Visible = True
@@ -2257,59 +2138,47 @@ Public Class SSPPPermitUploader
                 lblWord.Visible = True
                 lblPDF.Visible = True
 
-                'btnPSDNarrative.Location = New System.Drawing.Point(119, 414)
-                'txtPSDNarrativeDoc.Location = New System.Drawing.Point(149, 415)
-                'lblPSDNarrativeSRDoc.Location = New System.Drawing.Point(155, 438)
-                'lblPSDNarrativeDUDoc.Location = New System.Drawing.Point(155, 454)
-                'txtPSDNarrativePDF.Location = New System.Drawing.Point(396, 415)
-                'lblPSDNarrativeSRPDF.Location = New System.Drawing.Point(405, 438)
-                'lblPSDNarrativeDUPDF.Location = New System.Drawing.Point(406, 454)
-                'btnPSDNarrativeDownload.Location = New System.Drawing.Point(643, 414)
-                'btnDeletePSDNarrative.Location = New System.Drawing.Point(643, 438)
-
                 SQL = "select " &
                  "case " &
-                 "when docPermitData is Null then '' " &
+                 "when docPermitData is Null then  null  " &
                  "Else 'True' " &
                  "End DocData, " &
                  "case " &
-                 "when strDocModifingPerson is Null then '' " &
-                 "else (select (strLastName||', '||strFirstName) as StaffName " &
+                 "when strDocModifingPerson is Null then  null  " &
+                 "else (select concat(strLastName,', ',strFirstName) as StaffName " &
                  "from APBPermits, EPDUserProfiles " &
                  "where APBPermits.strDocModifingPerson = EPDUserProfiles.numUserID " &
                  "and numUserID = strDocModifingPerson " &
-                 "and strFileName = 'PT-" & MasterApp & "') " &
+                 "and strFileName = @fn ) " &
                  "end DocStaffResponsible, " &
                  "case " &
-                 "when datDocModifingDate is Null then '' " &
-                 "else to_char(datDocModifingDate, 'dd-Mon-yyyy') " &
+                 "when datDocModifingDate is Null then  null  " &
+                 "else format(datDocModifingDate, 'dd-MMM-yyyy') " &
                  "End datDocModifingDate, " &
                  "case " &
-                 "when pdfPermitData is Null then '' " &
+                 "when pdfPermitData is Null then  null  " &
                  "Else 'True' " &
                  "End PDFData, " &
                  "case " &
-                 "when strPDFModifingPerson is Null then '' " &
-                 "else (select (strLastName||', '||strFirstName) as StaffName " &
+                 "when strPDFModifingPerson is Null then  null  " &
+                 "else (select concat(strLastName,', ',strFirstName) as StaffName " &
                  "from APBPermits, EPDUserProfiles " &
                  "where APBPermits.strPDFModifingPerson = EPDUserProfiles.numUserID  " &
                  "and numUserID = strPDFModifingPerson " &
-                 "and strFileName = 'PT-" & MasterApp & "') " &
+                 "and strFileName = @fn ) " &
                  "end PDFStaffResponsible, " &
                  "case " &
-                 "when datPDFModifingDate is Null then '' " &
-                 "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " &
+                 "when datPDFModifingDate is Null then  null  " &
+                 "else format(datPDFModifingdate, 'dd-MMM-yyyy') " &
                  "End datPDFModifingDate " &
                  "from APBPermits " &
-                 "where strFileName = 'PT-" & MasterApp & "' "
+                 "where strFileName = @fn  "
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-                If recExist = True Then
+                Dim p As New SqlParameter("@fn", "PT-" & MasterApp)
+
+                Dim dr As DataRow = DB.GetDataRow(SQL, p)
+
+                If dr IsNot Nothing Then
                     If IsDBNull(dr.Item("DocData")) Then
                         txtPSDNarrativeDoc.Text = ""
                     Else
@@ -2345,7 +2214,7 @@ Public Class SSPPPermitUploader
                         lblPSDNarrativeDUPDF.Text = dr.Item("datPDFModifingDate")
                     End If
                 End If
-                dr.Close()
+
                 If txtPSDNarrativeDoc.Text = "On File" Or txtPSDNarrativePDF.Text = "On File" Then
                     btnPSDNarrativeDownload.Visible = True
                     If AccountFormAccess(9, 3) = "1" Then
@@ -2380,6 +2249,7 @@ Public Class SSPPPermitUploader
     End Sub
     Private Sub chbPSDDraftPermit_CheckedChanged(sender As Object, e As EventArgs) Handles chbPSDDraftPermit.CheckedChanged
         Try
+            Dim SQL As String
 
             If chbPSDDraftPermit.Checked = True And MasterApp <> "" Then
                 txtPSDDraftPermitDoc.Visible = True
@@ -2388,59 +2258,47 @@ Public Class SSPPPermitUploader
                 lblWord.Visible = True
                 lblPDF.Visible = True
 
-                'btnPSDDraftPermit.Location = New System.Drawing.Point(119, 73)
-                'txtPSDDraftPermitDoc.Location = New System.Drawing.Point(149, 74)
-                'lblPSDDraftPermitSRDoc.Location = New System.Drawing.Point(155, 98)
-                'lblPSDDraftPermitDUDoc.Location = New System.Drawing.Point(155, 115)
-                'txtPSDDraftPermitPDF.Location = New System.Drawing.Point(396, 74)
-                'lblPSDDraftPermitSRPDF.Location = New System.Drawing.Point(405, 98)
-                'lblPSDDraftPermitDUPDF.Location = New System.Drawing.Point(405, 115)
-                'btnPSDDraftPermitDownload.Location = New System.Drawing.Point(643, 73)
-                'btnDeletePSDDraftPermit.Location = New System.Drawing.Point(643, 96)
-
                 SQL = "select " &
                  "case " &
-                 "when docPermitData is Null then '' " &
+                 "when docPermitData is Null then  null  " &
                  "Else 'True' " &
                  "End DocData, " &
                  "case " &
-                 "when strDocModifingPerson is Null then '' " &
-                 "else (select (strLastName||', '||strFirstName) as StaffName " &
+                 "when strDocModifingPerson is Null then  null  " &
+                 "else (select concat(strLastName,', ',strFirstName) as StaffName " &
                  "from APBPermits, EPDUserProfiles " &
                  "where APBPermits.strDocModifingPerson = EPDUserProfiles.numUserID " &
                  "and numUserID = strDocModifingPerson " &
-                 "and strFileName = 'PD-" & MasterApp & "') " &
+                 "and strFileName = @fn ) " &
                  "end DocStaffResponsible, " &
                  "case " &
-                 "when datDocModifingDate is Null then '' " &
-                 "else to_char(datDocModifingDate, 'dd-Mon-yyyy') " &
+                 "when datDocModifingDate is Null then  null  " &
+                 "else format(datDocModifingDate, 'dd-MMM-yyyy') " &
                  "End datDocModifingDate, " &
                  "case " &
-                 "when pdfPermitData is Null then '' " &
+                 "when pdfPermitData is Null then  null  " &
                  "Else 'True' " &
                  "End PDFData, " &
                  "case " &
-                 "when strPDFModifingPerson is Null then '' " &
-                 "else (select (strLastName||', '||strFirstName) as StaffName " &
+                 "when strPDFModifingPerson is Null then  null  " &
+                 "else (select concat(strLastName,', ',strFirstName) as StaffName " &
                  "from APBPermits, EPDUserProfiles " &
                  "where APBPermits.strPDFModifingPerson = EPDUserProfiles.numUserID  " &
                  "and numUserID = strPDFModifingPerson " &
-                 "and strFileName = 'PD-" & MasterApp & "') " &
+                 "and strFileName = @fn ) " &
                  "end PDFStaffResponsible, " &
                  "case " &
-                 "when datPDFModifingDate is Null then '' " &
-                 "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " &
+                 "when datPDFModifingDate is Null then  null  " &
+                 "else format(datPDFModifingdate, 'dd-MMM-yyyy') " &
                  "End datPDFModifingDate " &
                  "from APBPermits " &
-                 "where strFileName = 'PD-" & MasterApp & "' "
+                 "where strFileName = @fn  "
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-                If recExist = True Then
+                Dim p As New SqlParameter("@fn", "PD-" & MasterApp)
+
+                Dim dr As DataRow = DB.GetDataRow(SQL, p)
+
+                If dr IsNot Nothing Then
                     If IsDBNull(dr.Item("DocData")) Then
                         txtPSDDraftPermitDoc.Text = ""
                     Else
@@ -2476,7 +2334,7 @@ Public Class SSPPPermitUploader
                         lblPSDDraftPermitDUPDF.Text = dr.Item("datPDFModifingDate")
                     End If
                 End If
-                dr.Close()
+
                 If txtPSDDraftPermitDoc.Text = "On File" Or txtPSDDraftPermitPDF.Text = "On File" Then
                     btnPSDDraftPermitDownload.Visible = True
                     If AccountFormAccess(9, 3) = "1" Then
@@ -2511,6 +2369,7 @@ Public Class SSPPPermitUploader
     End Sub
     Private Sub chbPSDPublicNotice_CheckedChanged(sender As Object, e As EventArgs) Handles chbPSDPublicNotice.CheckedChanged
         Try
+            Dim SQL As String
 
             If chbPSDPublicNotice.Checked = True And MasterApp <> "" Then
                 txtPSDPublicNoticeDoc.Visible = True
@@ -2519,59 +2378,47 @@ Public Class SSPPPermitUploader
                 lblWord.Visible = True
                 lblPDF.Visible = True
 
-                'btnPSDPublicNotice.Location = New System.Drawing.Point(119, 130)
-                'txtPSDPublicNoticeDoc.Location = New System.Drawing.Point(149, 131)
-                'lblPSDPublicNoticeSRDoc.Location = New System.Drawing.Point(155, 154)
-                'lblPSDPublicNoticeDUDoc.Location = New System.Drawing.Point(155, 174)
-                'txtPSDPublicNoticePDF.Location = New System.Drawing.Point(396, 131)
-                'lblPSDPublicNoticeSRPDF.Location = New System.Drawing.Point(405, 154)
-                'lblPSDPublicNoticeDUPDF.Location = New System.Drawing.Point(405, 174)
-                'btnPSDPublicNoticeDownload.Location = New System.Drawing.Point(643, 130)
-                'btnDeletePSDPublicNotice.Location = New System.Drawing.Point(643, 154)
-
                 SQL = "select " &
                 "case " &
-                "when docPermitData is Null then '' " &
+                "when docPermitData is Null then  null  " &
                 "Else 'True' " &
                 "End DocData, " &
                 "case " &
-                "when strDocModifingPerson is Null then '' " &
-                "else (select (strLastName||', '||strFirstName) as StaffName " &
+                "when strDocModifingPerson is Null then  null  " &
+                "else (select concat(strLastName,', ',strFirstName) as StaffName " &
                 "from APBPermits, EPDUserProfiles " &
                 "where APBPermits.strDocModifingPerson = EPDUserProfiles.numUserID " &
                 "and numUserID = strDocModifingPerson " &
-                "and strFileName = 'PN-" & MasterApp & "') " &
+                "and strFileName = @fn ) " &
                 "end DocStaffResponsible, " &
                 "case " &
-                "when datDocModifingDate is Null then '' " &
-                "else to_char(datDocModifingDate, 'dd-Mon-yyyy') " &
+                "when datDocModifingDate is Null then  null  " &
+                "else format(datDocModifingDate, 'dd-MMM-yyyy') " &
                 "End datDocModifingDate, " &
                 "case " &
-                "when pdfPermitData is Null then '' " &
+                "when pdfPermitData is Null then  null  " &
                 "Else 'True' " &
                 "End PDFData, " &
                 "case " &
-                "when strPDFModifingPerson is Null then '' " &
-                "else (select (strLastName||', '||strFirstName) as StaffName " &
+                "when strPDFModifingPerson is Null then  null  " &
+                "else (select concat(strLastName,', ',strFirstName) as StaffName " &
                 "from APBPermits, EPDUserProfiles " &
                 "where APBPermits.strPDFModifingPerson = EPDUserProfiles.numUserID  " &
                 "and numUserID = strPDFModifingPerson " &
-                "and strFileName = 'PN-" & MasterApp & "') " &
+                "and strFileName = @fn ) " &
                 "end PDFStaffResponsible, " &
                 "case " &
-                "when datPDFModifingDate is Null then '' " &
-                "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " &
+                "when datPDFModifingDate is Null then  null  " &
+                "else format(datPDFModifingdate, 'dd-MMM-yyyy') " &
                 "End datPDFModifingDate " &
                 "from APBPermits " &
-                "where strFileName = 'PN-" & MasterApp & "' "
+                "where strFileName = @fn  "
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-                If recExist = True Then
+                Dim p As New SqlParameter("@fn", "PN-" & MasterApp)
+
+                Dim dr As DataRow = DB.GetDataRow(SQL, p)
+
+                If dr IsNot Nothing Then
                     If IsDBNull(dr.Item("DocData")) Then
                         txtPSDPublicNoticeDoc.Text = ""
                     Else
@@ -2607,7 +2454,7 @@ Public Class SSPPPermitUploader
                         lblPSDPublicNoticeDUPDF.Text = dr.Item("datPDFModifingDate")
                     End If
                 End If
-                dr.Close()
+
                 If txtPSDPublicNoticeDoc.Text = "On File" Or txtPSDPublicNoticePDF.Text = "On File" Then
                     btnPSDPublicNoticeDownload.Visible = True
                     If AccountFormAccess(9, 3) = "1" Then
@@ -2642,6 +2489,7 @@ Public Class SSPPPermitUploader
     End Sub
     Private Sub chbPSDHearingNotice_CheckedChanged(sender As Object, e As EventArgs) Handles chbPSDHearingNotice.CheckedChanged
         Try
+            Dim SQL As String
 
             If chbPSDHearingNotice.Checked = True And MasterApp <> "" Then
                 txtPSDHearingNoticeDoc.Visible = True
@@ -2650,59 +2498,47 @@ Public Class SSPPPermitUploader
                 lblWord.Visible = True
                 lblPDF.Visible = True
 
-                'btnPSDHearingNotice.Location = New System.Drawing.Point(119, 189)
-                'txtPSDHearingNoticeDoc.Location = New System.Drawing.Point(149, 190)
-                'lblPSDHearingNoticeSRDoc.Location = New System.Drawing.Point(155, 213)
-                'lblPSDHearingNoticeDUDoc.Location = New System.Drawing.Point(155, 230)
-                'txtPSDHearingNoticePDF.Location = New System.Drawing.Point(396, 190)
-                'lblPSDHearingNoticeSRPDF.Location = New System.Drawing.Point(405, 213)
-                'lblPSDHearingNoticeDUPDF.Location = New System.Drawing.Point(405, 230)
-                'btnPSDHearingNoticeDownload.Location = New System.Drawing.Point(643, 189)
-                'btnDeletePSDHearingNotice.Location = New System.Drawing.Point(643, 213)
-
                 SQL = "select " &
                  "case " &
-                 "when docPermitData is Null then '' " &
+                 "when docPermitData is Null then  null  " &
                  "Else 'True' " &
                  "End DocData, " &
                  "case " &
-                 "when strDocModifingPerson is Null then '' " &
-                 "else (select (strLastName||', '||strFirstName) as StaffName " &
+                 "when strDocModifingPerson is Null then  null  " &
+                 "else (select concat(strLastName,', ',strFirstName) as StaffName " &
                  "from APBPermits, EPDUserProfiles " &
                  "where APBPermits.strDocModifingPerson = EPDUserProfiles.numUserID " &
                  "and numUserID = strDocModifingPerson " &
-                 "and strFileName = 'PH-" & MasterApp & "') " &
+                 "and strFileName = @fn ) " &
                  "end DocStaffResponsible, " &
                  "case " &
-                 "when datDocModifingDate is Null then '' " &
-                 "else to_char(datDocModifingDate, 'dd-Mon-yyyy') " &
+                 "when datDocModifingDate is Null then  null  " &
+                 "else format(datDocModifingDate, 'dd-MMM-yyyy') " &
                  "End datDocModifingDate, " &
                  "case " &
-                 "when pdfPermitData is Null then '' " &
+                 "when pdfPermitData is Null then  null  " &
                  "Else 'True' " &
                  "End PDFData, " &
                  "case " &
-                 "when strPDFModifingPerson is Null then '' " &
-                 "else (select (strLastName||', '||strFirstName) as StaffName " &
+                 "when strPDFModifingPerson is Null then  null  " &
+                 "else (select concat(strLastName,', ',strFirstName) as StaffName " &
                  "from APBPermits, EPDUserProfiles " &
                  "where APBPermits.strPDFModifingPerson = EPDUserProfiles.numUserID  " &
                  "and numUserID = strPDFModifingPerson " &
-                 "and strFileName = 'PH-" & MasterApp & "') " &
+                 "and strFileName = @fn ) " &
                  "end PDFStaffResponsible, " &
                  "case " &
-                 "when datPDFModifingDate is Null then '' " &
-                 "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " &
+                 "when datPDFModifingDate is Null then  null  " &
+                 "else format(datPDFModifingdate, 'dd-MMM-yyyy') " &
                  "End datPDFModifingDate " &
                  "from APBPermits " &
-                 "where strFileName = 'PH-" & MasterApp & "' "
+                 "where strFileName = @fn  "
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-                If recExist = True Then
+                Dim p As New SqlParameter("@fn", "PH-" & MasterApp)
+
+                Dim dr As DataRow = DB.GetDataRow(SQL, p)
+
+                If dr IsNot Nothing Then
                     If IsDBNull(dr.Item("DocData")) Then
                         txtPSDHearingNoticeDoc.Text = ""
                     Else
@@ -2738,7 +2574,7 @@ Public Class SSPPPermitUploader
                         lblPSDHearingNoticeDUPDF.Text = dr.Item("datPDFModifingDate")
                     End If
                 End If
-                dr.Close()
+
                 If txtPSDHearingNoticeDoc.Text = "On File" Or txtPSDHearingNoticePDF.Text = "On File" Then
                     btnPSDHearingNoticeDownload.Visible = True
                     If AccountFormAccess(9, 3) = "1" Then
@@ -2773,6 +2609,7 @@ Public Class SSPPPermitUploader
     End Sub
     Private Sub chbPSDFinalDet_CheckedChanged(sender As Object, e As EventArgs) Handles chbPSDFinalDet.CheckedChanged
         Try
+            Dim SQL As String
 
             If chbPSDFinalDet.Checked = True And MasterApp <> "" Then
                 txtPSDFinalDetDoc.Visible = True
@@ -2781,59 +2618,47 @@ Public Class SSPPPermitUploader
                 lblWord.Visible = True
                 lblPDF.Visible = True
 
-                'btnPSDFinalDet.Location = New System.Drawing.Point(119, 245)
-                'txtPSDFinalDetDoc.Location = New System.Drawing.Point(149, 246)
-                'lblPSDFinalDetSRDoc.Location = New System.Drawing.Point(155, 268)
-                'lblPSDFinalDetDUDoc.Location = New System.Drawing.Point(155, 284)
-                'txtPSDFinalDetPDF.Location = New System.Drawing.Point(396, 246)
-                'lblPSDFinalDetSRPDF.Location = New System.Drawing.Point(405, 268)
-                'lblPSDFinalDetDUPDF.Location = New System.Drawing.Point(405, 284)
-                'btnPSDFinalDetDownload.Location = New System.Drawing.Point(643, 245)
-                'btnDeletePSDFinalDet.Location = New System.Drawing.Point(643, 268)
-
                 SQL = "select " &
                  "case " &
-                 "when docPermitData is Null then '' " &
+                 "when docPermitData is Null then  null  " &
                  "Else 'True' " &
                  "End DocData, " &
                  "case " &
-                 "when strDocModifingPerson is Null then '' " &
-                 "else (select (strLastName||', '||strFirstName) as StaffName " &
+                 "when strDocModifingPerson is Null then  null  " &
+                 "else (select concat(strLastName,', ',strFirstName) as StaffName " &
                  "from APBPermits, EPDUserProfiles " &
                  "where APBPermits.strDocModifingPerson = EPDUserProfiles.numUserID " &
                  "and numUserID = strDocModifingPerson " &
-                 "and strFileName = 'PF-" & MasterApp & "') " &
+                 "and strFileName = @fn ) " &
                  "end DocStaffResponsible, " &
                  "case " &
-                 "when datDocModifingDate is Null then '' " &
-                 "else to_char(datDocModifingDate, 'dd-Mon-yyyy') " &
+                 "when datDocModifingDate is Null then  null  " &
+                 "else format(datDocModifingDate, 'dd-MMM-yyyy') " &
                  "End datDocModifingDate, " &
                  "case " &
-                 "when pdfPermitData is Null then '' " &
+                 "when pdfPermitData is Null then  null  " &
                  "Else 'True' " &
                  "End PDFData, " &
                  "case " &
-                 "when strPDFModifingPerson is Null then '' " &
-                 "else (select (strLastName||', '||strFirstName) as StaffName " &
+                 "when strPDFModifingPerson is Null then  null  " &
+                 "else (select concat(strLastName,', ',strFirstName) as StaffName " &
                  "from APBPermits, EPDUserProfiles " &
                  "where APBPermits.strPDFModifingPerson = EPDUserProfiles.numUserID  " &
                  "and numUserID = strPDFModifingPerson " &
-                 "and strFileName = 'PF-" & MasterApp & "') " &
+                 "and strFileName = @fn ) " &
                  "end PDFStaffResponsible, " &
                  "case " &
-                 "when datPDFModifingDate is Null then '' " &
-                 "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " &
+                 "when datPDFModifingDate is Null then  null  " &
+                 "else format(datPDFModifingdate, 'dd-MMM-yyyy') " &
                  "End datPDFModifingDate " &
                  "from APBPermits " &
-                 "where strFileName = 'PF-" & MasterApp & "' "
+                 "where strFileName = @fn  "
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-                If recExist = True Then
+                Dim p As New SqlParameter("@fn", "PF-" & MasterApp)
+
+                Dim dr As DataRow = DB.GetDataRow(SQL, p)
+
+                If dr IsNot Nothing Then
                     If IsDBNull(dr.Item("DocData")) Then
                         txtPSDFinalDetDoc.Text = ""
                     Else
@@ -2869,7 +2694,7 @@ Public Class SSPPPermitUploader
                         lblPSDFinalDetDUPDF.Text = dr.Item("datPDFModifingDate")
                     End If
                 End If
-                dr.Close()
+
                 If txtPSDFinalDetDoc.Text = "On File" Or txtPSDFinalDetPDF.Text = "On File" Then
                     btnPSDFinalDetDownload.Visible = True
                     If AccountFormAccess(9, 3) = "1" Then
@@ -2904,6 +2729,7 @@ Public Class SSPPPermitUploader
     End Sub
     Private Sub chbPSDFinalPermit_CheckedChanged(sender As Object, e As EventArgs) Handles chbPSDFinalPermit.CheckedChanged
         Try
+            Dim SQL As String
 
             If chbPSDFinalPermit.Checked = True And MasterApp <> "" Then
                 txtPSDFinalPermitDoc.Visible = True
@@ -2912,59 +2738,47 @@ Public Class SSPPPermitUploader
                 lblWord.Visible = True
                 lblPDF.Visible = True
 
-                'btnPSDFinalPermit.Location = New System.Drawing.Point(119, 302)
-                'txtPSDFinalPermitDoc.Location = New System.Drawing.Point(149, 303)
-                'lblPSDFinalPermitSRDoc.Location = New System.Drawing.Point(155, 326)
-                'lblPSDFinalPermitDUDoc.Location = New System.Drawing.Point(155, 342)
-                'txtPSDFinalPermitPDF.Location = New System.Drawing.Point(396, 303)
-                'lblPSDFinalPermitSRPDF.Location = New System.Drawing.Point(405, 326)
-                'lblPSDFinalPermitDUPDF.Location = New System.Drawing.Point(406, 342)
-                'btnPSDFinalPermitDownload.Location = New System.Drawing.Point(643, 302)
-                'btnDeletePSDFinalPermit.Location = New System.Drawing.Point(643, 326)
-
                 SQL = "select " &
                 "case " &
-                "when docPermitData is Null then '' " &
+                "when docPermitData is Null then  null  " &
                 "Else 'True' " &
                 "End DocData, " &
                 "case " &
-                "when strDocModifingPerson is Null then '' " &
-                "else (select (strLastName||', '||strFirstName) as StaffName " &
+                "when strDocModifingPerson is Null then  null  " &
+                "else (select concat(strLastName,', ',strFirstName) as StaffName " &
                 "from APBPermits, EPDUserProfiles " &
                 "where APBPermits.strDocModifingPerson = EPDUserProfiles.numUserID " &
                 "and numUserID = strDocModifingPerson " &
-                "and strFileName = 'PI-" & MasterApp & "') " &
+                "and strFileName = @fn ) " &
                 "end DocStaffResponsible, " &
                 "case " &
-                "when datDocModifingDate is Null then '' " &
-                "else to_char(datDocModifingDate, 'dd-Mon-yyyy') " &
+                "when datDocModifingDate is Null then  null  " &
+                "else format(datDocModifingDate, 'dd-MMM-yyyy') " &
                 "End datDocModifingDate, " &
                 "case " &
-                "when pdfPermitData is Null then '' " &
+                "when pdfPermitData is Null then  null  " &
                 "Else 'True' " &
                 "End PDFData, " &
                 "case " &
-                "when strPDFModifingPerson is Null then '' " &
-                "else (select (strLastName||', '||strFirstName) as StaffName " &
+                "when strPDFModifingPerson is Null then  null  " &
+                "else (select concat(strLastName,', ',strFirstName) as StaffName " &
                 "from APBPermits, EPDUserProfiles " &
                 "where APBPermits.strPDFModifingPerson = EPDUserProfiles.numUserID  " &
                 "and numUserID = strPDFModifingPerson " &
-                "and strFileName = 'PI-" & MasterApp & "') " &
+                "and strFileName = @fn ) " &
                 "end PDFStaffResponsible, " &
                 "case " &
-                "when datPDFModifingDate is Null then '' " &
-                "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " &
+                "when datPDFModifingDate is Null then  null  " &
+                "else format(datPDFModifingdate, 'dd-MMM-yyyy') " &
                 "End datPDFModifingDate " &
                 "from APBPermits " &
-                "where strFileName = 'PI-" & MasterApp & "' "
+                "where strFileName = @fn  "
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-                If recExist = True Then
+                Dim p As New SqlParameter("@fn", "PI-" & MasterApp)
+
+                Dim dr As DataRow = DB.GetDataRow(SQL, p)
+
+                If dr IsNot Nothing Then
                     If IsDBNull(dr.Item("DocData")) Then
                         txtPSDFinalPermitDoc.Text = ""
                     Else
@@ -3000,7 +2814,7 @@ Public Class SSPPPermitUploader
                         lblPSDFinalPermitDUPDF.Text = dr.Item("datPDFModifingDate")
                     End If
                 End If
-                dr.Close()
+
                 If txtPSDFinalPermitDoc.Text = "On File" Or txtPSDFinalPermitPDF.Text = "On File" Then
                     btnPSDFinalPermitDownload.Visible = True
                     If AccountFormAccess(9, 3) = "1" Then
@@ -3035,6 +2849,8 @@ Public Class SSPPPermitUploader
     End Sub
     Private Sub chbOtherNarrative_CheckedChanged(sender As Object, e As EventArgs) Handles chbOtherNarrative.CheckedChanged
         Try
+            Dim SQL As String
+
             If chbOtherNarrative.Checked = True And MasterApp <> "" Then
                 txtOtherNarrativeDoc.Visible = True
                 txtOtherNarrativePDF.Visible = True
@@ -3044,47 +2860,45 @@ Public Class SSPPPermitUploader
 
                 SQL = "select " &
                  "case " &
-                 "when docPermitData is Null then '' " &
+                 "when docPermitData is Null then  null  " &
                  "Else 'True' " &
                  "End DocData, " &
                  "case " &
-                 "when strDocModifingPerson is Null then '' " &
-                 "else (select (strLastName||', '||strFirstName) as StaffName " &
+                 "when strDocModifingPerson is Null then  null  " &
+                 "else (select concat(strLastName,', ',strFirstName) as StaffName " &
                  "from APBPermits, EPDUserProfiles " &
                  "where APBPermits.strDocModifingPerson = EPDUserProfiles.numUserID " &
                  "and numUserID = strDocModifingPerson " &
-                 "and strFileName = 'ON-" & MasterApp & "') " &
+                 "and strFileName = @fn ) " &
                  "end DocStaffResponsible, " &
                  "case " &
-                 "when datDocModifingDate is Null then '' " &
-                 "else to_char(datDocModifingDate, 'dd-Mon-yyyy') " &
+                 "when datDocModifingDate is Null then  null  " &
+                 "else format(datDocModifingDate, 'dd-MMM-yyyy') " &
                  "End datDocModifingDate, " &
                  "case " &
-                 "when pdfPermitData is Null then '' " &
+                 "when pdfPermitData is Null then  null  " &
                  "Else 'True' " &
                  "End PDFData, " &
                  "case " &
-                 "when strPDFModifingPerson is Null then '' " &
-                 "else (select (strLastName||', '||strFirstName) as StaffName " &
+                 "when strPDFModifingPerson is Null then  null  " &
+                 "else (select concat(strLastName,', ',strFirstName) as StaffName " &
                  "from APBPermits, EPDUserProfiles " &
                  "where APBPermits.strPDFModifingPerson = EPDUserProfiles.numUserID  " &
                  "and numUserID = strPDFModifingPerson " &
-                 "and strFileName = 'ON-" & MasterApp & "') " &
+                 "and strFileName = @fn ) " &
                  "end PDFStaffResponsible, " &
                  "case " &
-                 "when datPDFModifingDate is Null then '' " &
-                 "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " &
+                 "when datPDFModifingDate is Null then  null  " &
+                 "else format(datPDFModifingdate, 'dd-MMM-yyyy') " &
                  "End datPDFModifingDate " &
                  "from APBPermits " &
-                 "where strFileName = 'ON-" & MasterApp & "' "
+                 "where strFileName = @fn  "
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-                If recExist = True Then
+                Dim p As New SqlParameter("@fn", "ON-" & MasterApp)
+
+                Dim dr As DataRow = DB.GetDataRow(SQL, p)
+
+                If dr IsNot Nothing Then
                     If IsDBNull(dr.Item("DocData")) Then
                         txtOtherNarrativeDoc.Text = ""
                     Else
@@ -3120,7 +2934,7 @@ Public Class SSPPPermitUploader
                         lblOtherNarrativeDUPDF.Text = dr.Item("datPDFModifingDate")
                     End If
                 End If
-                dr.Close()
+
                 If txtOtherNarrativeDoc.Text = "On File" Or txtOtherNarrativePDF.Text = "On File" Then
                     btnOtherNarrativeDownload.Visible = True
                     If AccountFormAccess(9, 3) = "1" Then
@@ -3156,6 +2970,7 @@ Public Class SSPPPermitUploader
     End Sub
     Private Sub chbOtherPermit_CheckedChanged(sender As Object, e As EventArgs) Handles chbOtherPermit.CheckedChanged
         Try
+            Dim SQL As String
 
             If chbOtherPermit.Checked = True And MasterApp <> "" Then
                 txtOtherPermitDoc.Visible = True
@@ -3166,47 +2981,45 @@ Public Class SSPPPermitUploader
 
                 SQL = "select " &
                   "case " &
-                  "when docPermitData is Null then '' " &
+                  "when docPermitData is Null then  null  " &
                   "Else 'True' " &
                   "End DocData, " &
                   "case " &
-                  "when strDocModifingPerson is Null then '' " &
-                  "else (select (strLastName||', '||strFirstName) as StaffName " &
+                  "when strDocModifingPerson is Null then  null  " &
+                  "else (select concat(strLastName,', ',strFirstName) as StaffName " &
                   "from APBPermits, EPDUserProfiles " &
                   "where APBPermits.strDocModifingPerson = EPDUserProfiles.numUserID " &
                   "and numUserID = strDocModifingPerson " &
-                  "and strFileName = 'OP-" & MasterApp & "') " &
+                  "and strFileName = @fn ) " &
                   "end DocStaffResponsible, " &
                   "case " &
-                  "when datDocModifingDate is Null then '' " &
-                  "else to_char(datDocModifingDate, 'dd-Mon-yyyy') " &
+                  "when datDocModifingDate is Null then  null  " &
+                  "else format(datDocModifingDate, 'dd-MMM-yyyy') " &
                   "End datDocModifingDate, " &
                   "case " &
-                  "when pdfPermitData is Null then '' " &
+                  "when pdfPermitData is Null then  null  " &
                   "Else 'True' " &
                   "End PDFData, " &
                   "case " &
-                  "when strPDFModifingPerson is Null then '' " &
-                  "else (select (strLastName||', '||strFirstName) as StaffName " &
+                  "when strPDFModifingPerson is Null then  null  " &
+                  "else (select concat(strLastName,', ',strFirstName) as StaffName " &
                   "from APBPermits, EPDUserProfiles " &
                   "where APBPermits.strPDFModifingPerson = EPDUserProfiles.numUserID  " &
                   "and numUserID = strPDFModifingPerson " &
-                  "and strFileName = 'OP-" & MasterApp & "') " &
+                  "and strFileName = @fn ) " &
                   "end PDFStaffResponsible, " &
                   "case " &
-                  "when datPDFModifingDate is Null then '' " &
-                  "else to_char(datPDFModifingdate, 'dd-Mon-yyyy') " &
+                  "when datPDFModifingDate is Null then  null  " &
+                  "else format(datPDFModifingdate, 'dd-MMM-yyyy') " &
                   "End datPDFModifingDate " &
                   "from APBPermits " &
-                  "where strFileName = 'OP-" & MasterApp & "' "
+                  "where strFileName = @fn  "
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-                If recExist = True Then
+                Dim p As New SqlParameter("@fn", "OP-" & MasterApp)
+
+                Dim dr As DataRow = DB.GetDataRow(SQL, p)
+
+                If dr IsNot Nothing Then
                     If IsDBNull(dr.Item("DocData")) Then
                         txtOtherPermitDoc.Text = ""
                     Else
@@ -3242,7 +3055,7 @@ Public Class SSPPPermitUploader
                         lblOtherPermitDUPDF.Text = dr.Item("datPDFModifingDate")
                     End If
                 End If
-                dr.Close()
+
                 If txtOtherPermitDoc.Text = "On File" Or txtOtherPermitPDF.Text = "On File" Then
                     btnOtherPermitDownload.Visible = True
                     If AccountFormAccess(9, 3) = "1" Then
@@ -3281,8 +3094,7 @@ Public Class SSPPPermitUploader
 
 #Region "Document upload buttons"
 
-    Private Sub UploadButtons_Click(sender As Object, e As EventArgs) _
-    Handles btnOtherNarrative.Click, btnOtherPermit.Click,
+    Private Sub UploadButtons_Click(sender As Object, e As EventArgs) Handles btnOtherNarrative.Click, btnOtherPermit.Click,
         btnPSDAppSummary.Click, btnPSDDraftPermit.Click, btnPSDFinalDet.Click,
         btnPSDFinalPermit.Click, btnPSDHearingNotice.Click, btnPSDNarrative.Click,
         btnPSDPrelimDet.Click, btnPSDPublicNotice.Click,
@@ -3336,70 +3148,55 @@ Public Class SSPPPermitUploader
 
 #Region "Download files"
 
-    Sub DownloadFile(FileName As String, FileType As String)
+    Private Sub DownloadFile(FileName As String, FileType As String)
         Try
             Dim PermitNumber As String = ""
             Dim path As New SaveFileDialog
             Dim DestFilePath As String = "N/A"
+            Dim SQL As String
 
             If FileType <> "00" Then
-                SQL = "select strApplicationNumber, " &
+                SQL = "select " &
                 "strPermitNumber,  " &
-                "(SUBSTRING(strPermitNumber,1, 4) ||'-'||SUBSTRING(strPermitNumber, 5,3) " &
-                "   ||'-'||SUBSTRING(strPermitNumber, 8,4)||'-'||SUBSTRING(strPermitNumber, 12, 1)  " &
-                "   ||'-'||SUBSTRING(strPermitNumber, 13, 2) ||'-'||SUBSTRING(strPermitNumber, 15,1)) as PermitNumber " &
+                "concat(SUBSTRING(strPermitNumber,1, 4) ,'-',SUBSTRING(strPermitNumber, 5,3) " &
+                "   ,'-',SUBSTRING(strPermitNumber, 8,4),'-',SUBSTRING(strPermitNumber, 12, 1)  " &
+                "   ,'-',SUBSTRING(strPermitNumber, 13, 2) ,'-',SUBSTRING(strPermitNumber, 15,1)) as PermitNumber " &
                 "from SSPPApplicationData  " &
-                "where strApplicationNumber like '" & MasterApp & "' "
+                "where strApplicationNumber like @appnum "
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-                If recExist = True Then
+                Dim p As New SqlParameter("@appnum", MasterApp)
+
+                Dim dr As DataRow = DB.GetDataRow(SQL, p)
+
+                If dr IsNot Nothing Then
                     PermitNumber = dr.Item("PermitNumber")
                 Else
                     PermitNumber = Mid(FileName, 3)
                 End If
-                dr.Close()
 
                 Select Case FileType
                     Case "10"
                         path.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal)
                         path.FileName = PermitNumber
                         path.Filter = "Microsoft Office Work file (*.doc)|.doc"
-                        'path.Filter = "docx files (*.docx)|*.docx"
                         path.FilterIndex = 1
                         path.DefaultExt = ".doc"
-                        'path.DefaultExt = ".docx"
 
                         If path.ShowDialog = DialogResult.OK Then
                             DestFilePath = path.FileName.ToString
                         Else
                             DestFilePath = "N/A"
                         End If
-                        If DestFilePath <> "N/A" Then
-                            If CurrentConnection.State = ConnectionState.Closed Then
-                                CurrentConnection.Open()
-                            End If
 
+                        If DestFilePath <> "N/A" Then
                             SQL = "select " &
                             "DocPermitData " &
                             "from APBPermits " &
-                            "where strFileName = '" & FileName & "' "
+                            "where strFileName = @filename "
 
-                            cmd = New SqlCommand(SQL, CurrentConnection)
-                            dr = cmd.ExecuteReader
+                            Dim p2 As New SqlParameter("@filename", FileName)
 
-                            dr.Read()
-                            Dim b(dr.GetBytes(0, 0, Nothing, 0, Integer.MaxValue) - 1) As Byte
-                            dr.GetBytes(0, 0, b, 0, b.Length)
-                            dr.Close()
-
-                            Dim fs As New System.IO.FileStream(DestFilePath, IO.FileMode.Create, IO.FileAccess.Write)
-                            fs.Write(b, 0, b.Length)
-                            fs.Close()
+                            SaveBinaryFileFromDB(DestFilePath, SQL, p2)
                         End If
                     Case "01"
                         path.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal)
@@ -3415,26 +3212,14 @@ Public Class SSPPPermitUploader
                         End If
 
                         If DestFilePath <> "N/A" Then
-                            If CurrentConnection.State = ConnectionState.Closed Then
-                                CurrentConnection.Open()
-                            End If
-
                             SQL = "select " &
                             "pdfPermitData " &
                             "from APBPermits " &
-                            "where strFileName = '" & FileName & "' "
+                            "where strFileName = @filename "
 
-                            cmd = New SqlCommand(SQL, CurrentConnection)
-                            dr = cmd.ExecuteReader
+                            Dim p2 As New SqlParameter("@filename", FileName)
 
-                            dr.Read()
-                            Dim b(dr.GetBytes(0, 0, Nothing, 0, Integer.MaxValue) - 1) As Byte
-                            dr.GetBytes(0, 0, b, 0, b.Length)
-                            dr.Close()
-
-                            Dim fs As New System.IO.FileStream(DestFilePath, IO.FileMode.Create, IO.FileAccess.Write)
-                            fs.Write(b, 0, b.Length)
-                            fs.Close()
+                            SaveBinaryFileFromDB(DestFilePath, SQL, p2)
                         End If
                     Case "11"
                         path.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal)
@@ -3448,28 +3233,18 @@ Public Class SSPPPermitUploader
                         Else
                             DestFilePath = "N/A"
                         End If
-                        If DestFilePath <> "N/A" Then
-                            If CurrentConnection.State = ConnectionState.Closed Then
-                                CurrentConnection.Open()
-                            End If
 
+                        If DestFilePath <> "N/A" Then
                             SQL = "select " &
                             "DocPermitData " &
                             "from APBPermits " &
-                            "where strFileName = '" & FileName & "' "
+                            "where strFileName = @filename "
 
-                            cmd = New SqlCommand(SQL, CurrentConnection)
-                            dr = cmd.ExecuteReader
+                            Dim p2 As New SqlParameter("@filename", FileName)
 
-                            dr.Read()
-                            Dim b(dr.GetBytes(0, 0, Nothing, 0, Integer.MaxValue) - 1) As Byte
-                            dr.GetBytes(0, 0, b, 0, b.Length)
-                            dr.Close()
-
-                            Dim fs As New System.IO.FileStream(DestFilePath, IO.FileMode.Create, IO.FileAccess.Write)
-                            fs.Write(b, 0, b.Length)
-                            fs.Close()
+                            SaveBinaryFileFromDB(DestFilePath, SQL, p2)
                         End If
+
                         path.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal)
                         path.FileName = PermitNumber
                         path.Filter = "Adobe PDF Files (*.pdf)|.pdf"
@@ -3483,32 +3258,20 @@ Public Class SSPPPermitUploader
                         End If
 
                         If DestFilePath <> "N/A" Then
-                            If CurrentConnection.State = ConnectionState.Closed Then
-                                CurrentConnection.Open()
-                            End If
-
                             SQL = "select " &
                             "pdfPermitData " &
                             "from APBPermits " &
-                            "where strFileName = '" & FileName & "' "
+                            "where strFileName = @filename "
 
-                            cmd = New SqlCommand(SQL, CurrentConnection)
-                            dr = cmd.ExecuteReader
+                            Dim p2 As New SqlParameter("@filename", FileName)
 
-                            dr.Read()
-                            Dim b(dr.GetBytes(0, 0, Nothing, 0, Integer.MaxValue) - 1) As Byte
-                            dr.GetBytes(0, 0, b, 0, b.Length)
-                            dr.Close()
-
-                            Dim fs As New System.IO.FileStream(DestFilePath, IO.FileMode.Create, IO.FileAccess.Write)
-                            fs.Write(b, 0, b.Length)
-                            fs.Close()
+                            SaveBinaryFileFromDB(DestFilePath, SQL, p2)
                         End If
                     Case Else
                 End Select
 
                 If DestFilePath <> "N/A" Then
-                    Diagnostics.Process.Start(DestFilePath)
+                    Process.Start(DestFilePath)
                 End If
             End If
 
@@ -3518,6 +3281,10 @@ Public Class SSPPPermitUploader
 
         End Try
     End Sub
+
+#End Region
+
+#Region " Buttons "
 
     Private Sub btnOtherNarrativeDownload_Click(sender As Object, e As EventArgs) Handles btnOtherNarrativeDownload.Click
         Try
