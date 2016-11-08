@@ -89,10 +89,6 @@ Module AppVariables
     Public StaffReports As ISMPStaffReports
 #End Region
 
-#Region " SSPP Screens "
-    Public FeeContact As SSPP_FeeContact
-#End Region
-
 #Region " SBEAP Screens "
     Public ClientSummary As SBEAPClientSummary
     Public CaseWork As SBEAPCaseWork

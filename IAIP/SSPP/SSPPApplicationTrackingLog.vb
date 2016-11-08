@@ -14596,17 +14596,12 @@ Public Class SSPPApplicationTrackingLog
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnUpdateFeeContact_Click(sender As Object, e As EventArgs) Handles btnGoToFeeContact.Click
-        Try
-            FeeContact = Nothing
-            If FeeContact Is Nothing Then FeeContact = New SSPP_FeeContact
-            FeeContact.Show()
-            FeeContact.txtAIRSNumber.Text = txtAIRSNumber.Text
-            FeeContact.txtApplicationNumber.Text = txtApplicationNumber.Text
 
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+    Private Sub btnUpdateFeeContact_Click(sender As Object, e As EventArgs) Handles btnGoToFeeContact.Click
+        Dim feeContact As New SSPP_FeeContact
+        feeContact.txtAIRSNumber.Text = txtAIRSNumber.Text
+        feeContact.txtApplicationNumber.Text = txtApplicationNumber.Text
+        feeContact.Show()
     End Sub
 
     Private Sub SaveButton_Click(sender As Object, e As EventArgs) Handles SaveButton.Click

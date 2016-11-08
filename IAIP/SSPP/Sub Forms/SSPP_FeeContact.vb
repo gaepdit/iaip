@@ -1,15 +1,8 @@
 ﻿Imports System.Data.SqlClient
 
 Public Class SSPP_FeeContact
-    Dim SQL As String
-    Dim cmd As SqlCommand
-    Dim dr As SqlDataReader
-    Dim recExist As Boolean
 
-    Private Sub SSPP_FeeContact_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
-    End Sub
-    Sub LoadCurrentFeeContact()
+    Private Sub LoadCurrentFeeContact()
         Try
             txtSocialTitle.Clear()
             txtFirstName.Clear()
@@ -27,7 +20,7 @@ Public Class SSPP_FeeContact
             txtEmailAddress.Clear()
             txtDescription.Clear()
 
-            SQL = "Select " &
+            Dim SQL As String = "Select " &
             "strContactKey, " &
             "strContactFirstName, strContactLastName, " &
             "strContactPrefix, strContactSuffix, " &
@@ -38,94 +31,88 @@ Public Class SSPP_FeeContact
             "strContactState, strContactZipCode, " &
             "strContactDescription " &
             "from APBContactInformation " &
-            "where strContactKey = '0413" & txtAIRSNumber.Text & "40' "
+            "where strContactKey = @airs "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            recExist = dr.Read
-            dr.Close()
-            If recExist = True Then
-                dr = cmd.ExecuteReader
-                While dr.Read
-                    If IsDBNull(dr.Item("strContactPrefix")) Then
-                        txtSocialTitle.Clear()
-                    Else
-                        txtSocialTitle.Text = dr.Item("strContactPrefix")
-                    End If
-                    If IsDBNull(dr.Item("strContactFirstName")) Then
-                        txtFirstName.Clear()
-                    Else
-                        txtFirstName.Text = dr.Item("strContactFirstName")
-                    End If
-                    If IsDBNull(dr.Item("strContactLastName")) Then
-                        txtLastName.Clear()
-                    Else
-                        txtLastName.Text = dr.Item("strContactLastName")
-                    End If
-                    If IsDBNull(dr.Item("strContactSuffix")) Then
-                        txtPedigree.Clear()
-                    Else
-                        txtPedigree.Text = dr.Item("strContactSuffix")
-                    End If
-                    If IsDBNull(dr.Item("strContactTitle")) Then
-                        txtTitle.Clear()
-                    Else
-                        txtTitle.Text = dr.Item("strContactTitle")
-                    End If
-                    If IsDBNull(dr.Item("strContactCompanyName")) Then
-                        txtCompany.Clear()
-                    Else
-                        txtCompany.Text = dr.Item("strContactCompanyName")
-                    End If
-                    If IsDBNull(dr.Item("strContactPhoneNumber1")) Then
-                        mtbPhoneNumber1.Clear()
-                    Else
-                        mtbPhoneNumber1.Text = dr.Item("strContactPhoneNumber1")
-                    End If
-                    If IsDBNull(dr.Item("strContactPhoneNumber2")) Then
-                        mtbPhoneNumber2.Clear()
-                    Else
-                        mtbPhoneNumber2.Text = dr.Item("strContactPhoneNumber2")
-                    End If
-                    If IsDBNull(dr.Item("strContactFaxNumber")) Then
-                        mtbFaxNumber.Clear()
-                    Else
-                        mtbFaxNumber.Text = dr.Item("strContactFaxNumber")
-                    End If
-                    If IsDBNull(dr.Item("strContactEmail")) Then
-                        txtEmailAddress.Clear()
-                    Else
-                        txtEmailAddress.Text = dr.Item("strContactEmail")
-                    End If
-                    If IsDBNull(dr.Item("strContactAddress1")) Then
-                        txtAddress.Clear()
-                    Else
-                        txtAddress.Text = dr.Item("strContactAddress1")
-                    End If
-                    If IsDBNull(dr.Item("strContactCity")) Then
-                        txtCity.Clear()
-                    Else
-                        txtCity.Text = dr.Item("strContactCity")
-                    End If
-                    If IsDBNull(dr.Item("strContactState")) Then
-                        txtState.Clear()
-                    Else
-                        txtState.Text = dr.Item("strContactState")
-                    End If
-                    If IsDBNull(dr.Item("strContactZipCode")) Then
-                        mtbZipCode.Clear()
-                    Else
-                        mtbZipCode.Text = dr.Item("strContactZipCode")
-                    End If
-                    If IsDBNull(dr.Item("strContactDescription")) Then
-                        txtDescription.Clear()
-                    Else
-                        txtDescription.Text = dr.Item("strContactDescription")
-                    End If
-                End While
+            Dim p As New SqlParameter("@airs", "0413" & txtAIRSNumber.Text & "40")
+
+            Dim dr As DataRow = DB.GetDataRow(SQL, p)
+
+            If dr IsNot Nothing Then
+                If IsDBNull(dr.Item("strContactPrefix")) Then
+                    txtSocialTitle.Clear()
+                Else
+                    txtSocialTitle.Text = dr.Item("strContactPrefix")
+                End If
+                If IsDBNull(dr.Item("strContactFirstName")) Then
+                    txtFirstName.Clear()
+                Else
+                    txtFirstName.Text = dr.Item("strContactFirstName")
+                End If
+                If IsDBNull(dr.Item("strContactLastName")) Then
+                    txtLastName.Clear()
+                Else
+                    txtLastName.Text = dr.Item("strContactLastName")
+                End If
+                If IsDBNull(dr.Item("strContactSuffix")) Then
+                    txtPedigree.Clear()
+                Else
+                    txtPedigree.Text = dr.Item("strContactSuffix")
+                End If
+                If IsDBNull(dr.Item("strContactTitle")) Then
+                    txtTitle.Clear()
+                Else
+                    txtTitle.Text = dr.Item("strContactTitle")
+                End If
+                If IsDBNull(dr.Item("strContactCompanyName")) Then
+                    txtCompany.Clear()
+                Else
+                    txtCompany.Text = dr.Item("strContactCompanyName")
+                End If
+                If IsDBNull(dr.Item("strContactPhoneNumber1")) Then
+                    mtbPhoneNumber1.Clear()
+                Else
+                    mtbPhoneNumber1.Text = dr.Item("strContactPhoneNumber1")
+                End If
+                If IsDBNull(dr.Item("strContactPhoneNumber2")) Then
+                    mtbPhoneNumber2.Clear()
+                Else
+                    mtbPhoneNumber2.Text = dr.Item("strContactPhoneNumber2")
+                End If
+                If IsDBNull(dr.Item("strContactFaxNumber")) Then
+                    mtbFaxNumber.Clear()
+                Else
+                    mtbFaxNumber.Text = dr.Item("strContactFaxNumber")
+                End If
+                If IsDBNull(dr.Item("strContactEmail")) Then
+                    txtEmailAddress.Clear()
+                Else
+                    txtEmailAddress.Text = dr.Item("strContactEmail")
+                End If
+                If IsDBNull(dr.Item("strContactAddress1")) Then
+                    txtAddress.Clear()
+                Else
+                    txtAddress.Text = dr.Item("strContactAddress1")
+                End If
+                If IsDBNull(dr.Item("strContactCity")) Then
+                    txtCity.Clear()
+                Else
+                    txtCity.Text = dr.Item("strContactCity")
+                End If
+                If IsDBNull(dr.Item("strContactState")) Then
+                    txtState.Clear()
+                Else
+                    txtState.Text = dr.Item("strContactState")
+                End If
+                If IsDBNull(dr.Item("strContactZipCode")) Then
+                    mtbZipCode.Clear()
+                Else
+                    mtbZipCode.Text = dr.Item("strContactZipCode")
+                End If
+                If IsDBNull(dr.Item("strContactDescription")) Then
+                    txtDescription.Clear()
+                Else
+                    txtDescription.Text = dr.Item("strContactDescription")
+                End If
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -175,21 +162,18 @@ Public Class SSPP_FeeContact
     Private Sub btnSaveFeeContact_Click(sender As Object, e As EventArgs) Handles btnSaveFeeContact.Click
         Try
             If txtAIRSNumber.Text <> "" Then
-                SQL = "Select " &
+                Dim SQL As String = "Select " &
                 "strContactKey " &
                 "from APBContactInformation " &
-                "where strContactKey = '0413" & txtAIRSNumber.Text & "40' " &
-                "and strContactDescription = '" & txtDescription.Text & "' "
+                "where strContactKey = @key " &
+                "and strContactDescription = @desc "
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-                dr.Close()
+                Dim p As SqlParameter() = {
+                    New SqlParameter("@key", "0413" & txtAIRSNumber.Text & "40"),
+                    New SqlParameter("@desc", txtDescription.Text)
+                }
 
-                If recExist = True Then
+                If DB.ValueExists(SQL, p) Then
                     MsgBox("The Contact Description is exactly the same are a record on file." & vbCrLf &
                            "Please enter a unique description before saving.", MsgBoxStyle.Exclamation,
                            "Fee Contact Updtate")
@@ -203,39 +187,53 @@ Public Class SSPP_FeeContact
                 End If
 
                 SQL = "Update APBContactInformation set " &
-                "strContactFirstName = '" & Replace(txtFirstName.Text, "'", "''") & "', " &
-                "strContactLastName = '" & Replace(txtLastName.Text, "'", "''") & "', " &
-                "strContactPrefix = '" & Replace(txtSocialTitle.Text, "'", "''") & "', " &
-                "strContactSuffix = '" & Replace(txtPedigree.Text, "'", "''") & "', " &
-                "strContactCompanyName = '" & Replace(txtCompany.Text, "'", "''") & "', " &
-                "strContactTitle = '" & Replace(txtTitle.Text, "'", "''") & "', " &
-                "strContactPhoneNumber1 = '" & Replace(mtbPhoneNumber1.Text, "'", "''") & "', " &
-                "strContactPhoneNumber2 = '" & Replace(mtbPhoneNumber2.Text, "'", "''") & "', " &
-                "strContactFaxNumber = '" & Replace(mtbFaxNumber.Text, "'", "''") & "', " &
-                "strContactEmail = '" & Replace(txtEmailAddress.Text.Trim, "'", "''") & "', " &
-                "strContactAddress1 = '" & Replace(txtAddress.Text, "'", "''") & "', " &
-                "strContactAddress2 = '', " &
-                "strContactCity = '" & Replace(txtCity.Text, "'", "''") & "', " &
-                "strContactState = '" & Replace(txtState.Text, "'", "''") & "', " &
-                "strContactZipCode = '" & Replace(mtbZipCode.Text, "'", "''") & "', " &
-                "strModifingPerson = '" & CurrentUser.UserID & "', " &
-                "datModifingDate =  GETDATE() , " &
-                "strContactDescription = '" & Replace(txtDescription.Text, "'", "''") & "' " &
-                "where strContactKey = '0413" & txtAIRSNumber.Text & "40' "
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                dr.Close()
-                MsgBox("Contact Saved", MsgBoxStyle.Information, "Fee Contact Update")
+                    "strContactFirstName = @strContactFirstName, " &
+                    "strContactLastName = @strContactLastName, " &
+                    "strContactPrefix = @strContactPrefix, " &
+                    "strContactSuffix = @strContactSuffix, " &
+                    "strContactCompanyName = @strContactCompanyName, " &
+                    "strContactTitle = @strContactTitle, " &
+                    "strContactPhoneNumber1 = @strContactPhoneNumber1, " &
+                    "strContactPhoneNumber2 = @strContactPhoneNumber2, " &
+                    "strContactFaxNumber = @strContactFaxNumber, " &
+                    "strContactEmail = @strContactEmail, " &
+                    "strContactAddress1 = @strContactAddress1, " &
+                    "strContactAddress2 = null, " &
+                    "strContactCity = @strContactCity, " &
+                    "strContactState = @strContactState, " &
+                    "strContactZipCode = @strContactZipCode, " &
+                    "strModifingPerson = @strModifingPerson, " &
+                    "datModifingDate =  GETDATE() , " &
+                    "strContactDescription = @strContactDescription " &
+                    "where strContactKey = @strContactKey "
 
+                Dim p2 As SqlParameter() = {
+                    New SqlParameter("@strContactFirstName", txtFirstName.Text),
+                    New SqlParameter("@strContactLastName", txtLastName.Text),
+                    New SqlParameter("@strContactPrefix", txtSocialTitle.Text),
+                    New SqlParameter("@strContactSuffix", txtPedigree.Text),
+                    New SqlParameter("@strContactCompanyName", txtCompany.Text),
+                    New SqlParameter("@strContactTitle", txtTitle.Text),
+                    New SqlParameter("@strContactPhoneNumber1", mtbPhoneNumber1.Text),
+                    New SqlParameter("@strContactPhoneNumber2", mtbPhoneNumber2.Text),
+                    New SqlParameter("@strContactFaxNumber", mtbFaxNumber.Text),
+                    New SqlParameter("@strContactEmail", txtEmailAddress.Text),
+                    New SqlParameter("@strContactAddress1", txtAddress.Text),
+                    New SqlParameter("@strContactCity", txtCity.Text),
+                    New SqlParameter("@strContactState", txtState.Text),
+                    New SqlParameter("@strContactZipCode", mtbZipCode.Text),
+                    New SqlParameter("@strModifingPerson", CurrentUser.UserID),
+                    New SqlParameter("@strContactDescription", txtDescription.Text),
+                    New SqlParameter("@strContactKey", "0413" & txtAIRSNumber.Text & "40")
+                 }
+
+                DB.RunCommand(SQL, p2)
+                MsgBox("Contact Saved", MsgBoxStyle.Information, "Fee Contact Update")
             End If
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-
 
 End Class
