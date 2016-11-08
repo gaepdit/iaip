@@ -129,7 +129,7 @@ Public Class ISMPStaffReports
 
             Else
                 SQL = "select " &
-                "distinct(strLastName|| ', ' ||strFirstName) as Staff,  " &
+                "distinct concat(strLastName, ', ' ,strFirstName) as Staff,  " &
                 "case " &
                 "	when ReceivedByDate is NULL then 0  " &
                 "	Else ReceivedByDate " &
@@ -281,7 +281,7 @@ Public Class ISMPStaffReports
                 "and ISMPReportInformation.strReviewingEngineer = '" & EngineerGCode & "' "
 
                 SQL2 = "Select " &
-                "(strLastName|| ', ' ||strFirstName) as Staff, " &
+                "concat(strLastName, ', ' ,strFirstName) as Staff, " &
                 "DATEDIFF(day, datReceivedDate, GETDATE() ) as DaysOpenByDate " &
                 "from EPDUserProfiles, ISMPReportInformation " &
                 "where EPDUserProfiles.numUserID = ISMPReportInformation.strReviewingEngineer  " &
@@ -292,7 +292,7 @@ Public Class ISMPStaffReports
                 "order by DaysOpenByDate ASC "
 
                 SQL3 = "Select " &
-                "(strLastName|| ', ' ||strFirstName) as Staff, " &
+                "concat(strLastName, ', ' ,strFirstName) as Staff, " &
                 "(datCompleteDate - datReceivedDate) as DaysCloseByDate " &
                 "from EPDUserProfiles, ISMPReportInformation " &
                 "where EPDUserProfiles.numUserID = ISMPReportInformation.strReviewingEngineer  " &
@@ -303,7 +303,7 @@ Public Class ISMPStaffReports
                 "order by DaysCloseByDate ASC "
 
                 SQL4 = "Select " &
-                "distinct(strLastName|| ', ' ||strFirstName) as Staff,  " &
+                "distinct concat(strLastName, ', ' ,strFirstName) as Staff,  " &
                 "case  " &
                 "	when ReceivedTotal is NULL then 0  " &
                 "	Else ReceivedTotal  " &
@@ -409,7 +409,7 @@ Public Class ISMPStaffReports
                 "and ISMPReportInformation.strReviewingEngineer = '" & EngineerGCode & "' "
 
                 SQL5 = "Select " &
-                "(strLastName|| ', ' ||strFirstName) as Staff, " &
+                "concat(strLastName, ', ' ,strFirstName) as Staff, " &
                 "DATEDIFF(day, datReceivedDate, GETDATE() ) as DaysOpen " &
                 "from EPDUSerProfiles, ISMPReportInformation " &
                 "where EPDUserProfiles.numUserID = ISMPReportInformation.strReviewingEngineer  " &
@@ -419,7 +419,7 @@ Public Class ISMPStaffReports
                 "order by DaysOpen ASC "
 
                 SQL6 = "Select " &
-                "(strLastName|| ', ' ||strFirstName) as Staff, " &
+                " concat(strLastName, ', ' ,strFirstName) as Staff, " &
                 "(datCompleteDate -datReceivedDate) as DaysClosed " &
                 "from EPDUserProfiles, ISMPReportInformation " &
                 "where EPDUserProfiles.numUserID = ISMPReportInformation.strReviewingEngineer  " &

@@ -206,7 +206,7 @@ Public Class SSPPStatisticalTools
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
-                            EngineerLine = EngineerLine & " (strLastName||', '||strFirstName) = '" & Engineer & "' or "
+                            EngineerLine = EngineerLine & "  concat(strLastName,', ',strFirstName) = '" & Engineer & "' or "
                         Next
                         If EngineerLine <> "" Then
                             EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
@@ -216,7 +216,7 @@ Public Class SSPPStatisticalTools
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
-                            EngineerLine = EngineerLine & " (strLastName||', '||strFirstName) = '" & Engineer & "' or "
+                            EngineerLine = EngineerLine & "  concat(strLastName,', ',strFirstName) = '" & Engineer & "' or "
                         Next
                         If EngineerLine <> "" Then
                             EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
@@ -230,7 +230,7 @@ Public Class SSPPStatisticalTools
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
-                            EngineerLine = EngineerLine & " (strLastName||', '||strFirstName) = '" & Engineer & "' or "
+                            EngineerLine = EngineerLine & "  concat(strLastName,', ',strFirstName) = '" & Engineer & "' or "
                         Next
                         If EngineerLine <> "" Then
                             EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
@@ -958,7 +958,7 @@ Public Class SSPPStatisticalTools
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
-                            EngineerLine = EngineerLine & " (strLastName||', '||strFirstName) = '" & Engineer & "' or "
+                            EngineerLine = EngineerLine & "  concat(strLastName,', ',strFirstName) = '" & Engineer & "' or "
                         Next
                         If EngineerLine <> "" Then
                             EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
@@ -968,7 +968,7 @@ Public Class SSPPStatisticalTools
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
-                            EngineerLine = EngineerLine & " (strLastName||', '||strFirstName) = '" & Engineer & "' or "
+                            EngineerLine = EngineerLine & "  concat(strLastName,', ',strFirstName) = '" & Engineer & "' or "
                         Next
                         If EngineerLine <> "" Then
                             EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
@@ -982,7 +982,7 @@ Public Class SSPPStatisticalTools
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
-                            EngineerLine = EngineerLine & " (strLastName||', '||strFirstName) = '" & Engineer & "' or "
+                            EngineerLine = EngineerLine & "  concat(strLastName,', ',strFirstName) = '" & Engineer & "' or "
                         Next
                         If EngineerLine <> "" Then
                             EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
@@ -1207,7 +1207,7 @@ Public Class SSPPStatisticalTools
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
-                            EngineerLine = EngineerLine & " (strLastName||', '||strFirstName) = '" & Engineer & "' or "
+                            EngineerLine = EngineerLine & "  concat(strLastName,', ',strFirstName) = '" & Engineer & "' or "
                         Next
                         If EngineerLine <> "" Then
                             EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
@@ -1217,7 +1217,7 @@ Public Class SSPPStatisticalTools
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
-                            EngineerLine = EngineerLine & " (strLastName||', '||strFirstName) = '" & Engineer & "' or "
+                            EngineerLine = EngineerLine & "  concat(strLastName,', ',strFirstName) = '" & Engineer & "' or "
                         Next
                         If EngineerLine <> "" Then
                             EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
@@ -1231,7 +1231,7 @@ Public Class SSPPStatisticalTools
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
-                            EngineerLine = EngineerLine & " (strLastName||', '||strFirstName) = '" & Engineer & "' or "
+                            EngineerLine = EngineerLine & "  concat(strLastName,', ',strFirstName) = '" & Engineer & "' or "
                         Next
                         If EngineerLine <> "" Then
                             EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
@@ -1345,7 +1345,7 @@ Public Class SSPPStatisticalTools
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
-                            EngineerLine = EngineerLine & " (strLastName||', '||strFirstName) = '" & Engineer & "' or "
+                            EngineerLine = EngineerLine & "  concat(strLastName,', ',strFirstName) = '" & Engineer & "' or "
                         Next
                         If EngineerLine <> "" Then
                             EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
@@ -1355,7 +1355,7 @@ Public Class SSPPStatisticalTools
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
-                            EngineerLine = EngineerLine & " (strLastName||', '||strFirstName) = '" & Engineer & "' or "
+                            EngineerLine = EngineerLine & "  concat(strLastName,', ',strFirstName) = '" & Engineer & "' or "
                         Next
                         If EngineerLine <> "" Then
                             EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
@@ -1369,7 +1369,7 @@ Public Class SSPPStatisticalTools
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
-                            EngineerLine = EngineerLine & " (strLastName||', '||strFirstName) = '" & Engineer & "' or "
+                            EngineerLine = EngineerLine & "  concat(strLastName,', ',strFirstName) = '" & Engineer & "' or "
                         Next
                         If EngineerLine <> "" Then
                             EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
@@ -2021,7 +2021,7 @@ Public Class SSPPStatisticalTools
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
-                            EngineerLine = EngineerLine & " (strLastName||', '||strFirstName) = '" & Engineer & "' or "
+                            EngineerLine = EngineerLine & "  concat(strLastName,', ',strFirstName) = '" & Engineer & "' or "
                         Next
                         If EngineerLine <> "" Then
                             EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
@@ -2031,7 +2031,7 @@ Public Class SSPPStatisticalTools
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
-                            EngineerLine = EngineerLine & " (strLastName||', '||strFirstName) = '" & Engineer & "' or "
+                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
                         Next
                         If EngineerLine <> "" Then
                             EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
@@ -2045,7 +2045,7 @@ Public Class SSPPStatisticalTools
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
-                            EngineerLine = EngineerLine & " (strLastName||', '||strFirstName) = '" & Engineer & "' or "
+                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
                         Next
                         If EngineerLine <> "" Then
                             EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
@@ -2066,10 +2066,10 @@ Public Class SSPPStatisticalTools
                 "strApplicationTypeDesc, " &
                 "case " &
                 "when strMasterApplication is Null then '' " &
-                "else 'Linked - '|| strMasterApplication " &
+                "else concat('Linked - ', strMasterApplication) " &
                 "end Link, " &
                 "(datPermitIssued - datReceivedDate) as Diff, " &
-                "(strLastName||', '||strFirstName) as UserName " &
+                " concat(strLastName, ', ', strFirstName) as UserName " &
                 "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
                 "SSPPApplicationData, LookUpApplicationTypes, " &
                 "SSPPApplicationLinking, " &
@@ -2192,7 +2192,7 @@ Public Class SSPPStatisticalTools
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
-                            EngineerLine = EngineerLine & " (strLastName||', '||strFirstName) = '" & Engineer & "' or "
+                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
                         Next
                         If EngineerLine <> "" Then
                             EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
@@ -2202,7 +2202,7 @@ Public Class SSPPStatisticalTools
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
-                            EngineerLine = EngineerLine & " (strLastName||', '||strFirstName) = '" & Engineer & "' or "
+                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
                         Next
                         If EngineerLine <> "" Then
                             EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
@@ -2216,7 +2216,7 @@ Public Class SSPPStatisticalTools
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
-                            EngineerLine = EngineerLine & " (strLastName||', '||strFirstName) = '" & Engineer & "' or "
+                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
                         Next
                         If EngineerLine <> "" Then
                             EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
@@ -2236,10 +2236,10 @@ Public Class SSPPStatisticalTools
                 "strApplicationTypeDesc,  " &
                 "case " &
                 "when strMasterApplication is Null then '' " &
-                "else 'Linked - '|| strMasterApplication " &
+                "else concat('Linked - ', strMasterApplication) " &
                 "end Link, " &
                 "(datPermitIssued - datReceivedDate) as Diff, " &
-                "(strLastName||', '||strFirstName) as UserName " &
+                " concat(strLastName, ', ', strFirstName) as UserName " &
                 "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
                 "SSPPApplicationData, LookUpApplicationTypes,     " &
                 "SSPPApplicationLinking, " &
@@ -2313,7 +2313,7 @@ Public Class SSPPStatisticalTools
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
-                            EngineerLine = EngineerLine & " (strLastName||', '||strFirstName) = '" & Engineer & "' or "
+                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
                         Next
                         If EngineerLine <> "" Then
                             EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
@@ -2323,7 +2323,7 @@ Public Class SSPPStatisticalTools
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
-                            EngineerLine = EngineerLine & " (strLastName||', '||strFirstName) = '" & Engineer & "' or "
+                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
                         Next
                         If EngineerLine <> "" Then
                             EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
@@ -2337,7 +2337,7 @@ Public Class SSPPStatisticalTools
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
-                            EngineerLine = EngineerLine & " (strLastName||', '||strFirstName) = '" & Engineer & "' or "
+                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
                         Next
                         If EngineerLine <> "" Then
                             EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
@@ -2357,10 +2357,10 @@ Public Class SSPPStatisticalTools
                 "strApplicationTypeDesc,  " &
                 "case " &
                 "when strMasterApplication is Null then '' " &
-                "else 'Linked - '|| strMasterApplication " &
+                "else concat('Linked - ', strMasterApplication) " &
                 "end Link, " &
                 "(datPermitIssued - datReceivedDate) as Diff, " &
-                "(strLastName||', '||strFirstName) as UserName " &
+                " concat(strLastName, ', ', strFirstName) as UserName " &
                 "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
                 "SSPPApplicationData, LookUpApplicationTypes,     " &
                 "SSPPApplicationLinking, " &
@@ -2434,7 +2434,7 @@ Public Class SSPPStatisticalTools
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
-                            EngineerLine = EngineerLine & " (strLastName||', '||strFirstName) = '" & Engineer & "' or "
+                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
                         Next
                         If EngineerLine <> "" Then
                             EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
@@ -2444,7 +2444,7 @@ Public Class SSPPStatisticalTools
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
-                            EngineerLine = EngineerLine & " (strLastName||', '||strFirstName) = '" & Engineer & "' or "
+                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
                         Next
                         If EngineerLine <> "" Then
                             EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
@@ -2458,7 +2458,7 @@ Public Class SSPPStatisticalTools
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
-                            EngineerLine = EngineerLine & " (strLastName||', '||strFirstName) = '" & Engineer & "' or "
+                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
                         Next
                         If EngineerLine <> "" Then
                             EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
@@ -2478,10 +2478,10 @@ Public Class SSPPStatisticalTools
                 "strApplicationTypeDesc,  " &
                 "case " &
                 "when strMasterApplication is Null then '' " &
-                "else 'Linked - '|| strMasterApplication " &
+                "else concat('Linked - ', strMasterApplication) " &
                 "end Link, " &
                 "(datPermitIssued - datReceivedDate) as Diff, " &
-                "(strLastName||', '||strFirstName) as UserName " &
+                " concat(strLastName, ', ', strFirstName) as UserName " &
                 "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
                 "SSPPApplicationData, LookUpApplicationTypes,     " &
                 "SSPPApplicationLinking, " &
@@ -2555,7 +2555,7 @@ Public Class SSPPStatisticalTools
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
-                            EngineerLine = EngineerLine & " (strLastName||', '||strFirstName) = '" & Engineer & "' or "
+                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
                         Next
                         If EngineerLine <> "" Then
                             EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
@@ -2565,7 +2565,7 @@ Public Class SSPPStatisticalTools
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
-                            EngineerLine = EngineerLine & " (strLastName||', '||strFirstName) = '" & Engineer & "' or "
+                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
                         Next
                         If EngineerLine <> "" Then
                             EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
@@ -2579,7 +2579,7 @@ Public Class SSPPStatisticalTools
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
-                            EngineerLine = EngineerLine & " (strLastName||', '||strFirstName) = '" & Engineer & "' or "
+                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
                         Next
                         If EngineerLine <> "" Then
                             EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
@@ -2599,10 +2599,10 @@ Public Class SSPPStatisticalTools
                 "strApplicationTypeDesc,  " &
                 "case " &
                 "when strMasterApplication is Null then '' " &
-                "else 'Linked - '|| strMasterApplication " &
+                "else concat('Linked - ', strMasterApplication) " &
                 "end Link, " &
                 "(datPermitIssued - datReceivedDate) as Diff, " &
-                "(strLastName||', '||strFirstname) as UserName " &
+                " concat(strLastName, ', ', strFirstName) as UserName " &
                 "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
                 "SSPPApplicationData, LookUpApplicationTypes,     " &
                 "SSPPApplicationLinking, " &
@@ -2676,7 +2676,7 @@ Public Class SSPPStatisticalTools
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
-                            EngineerLine = EngineerLine & " (strLastName||', '||strFirstName) = '" & Engineer & "' or "
+                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
                         Next
                         If EngineerLine <> "" Then
                             EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
@@ -2686,7 +2686,7 @@ Public Class SSPPStatisticalTools
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
-                            EngineerLine = EngineerLine & " (strLastName||', '||strFirstName) = '" & Engineer & "' or "
+                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
                         Next
                         If EngineerLine <> "" Then
                             EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
@@ -2700,7 +2700,7 @@ Public Class SSPPStatisticalTools
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
-                            EngineerLine = EngineerLine & " (strLastName||', '||strFirstName) = '" & Engineer & "' or "
+                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
                         Next
                         If EngineerLine <> "" Then
                             EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
@@ -2720,10 +2720,10 @@ Public Class SSPPStatisticalTools
                 "strApplicationTypeDesc,  " &
                 "case " &
                 "when strMasterApplication is Null then '' " &
-                "else 'Linked - '|| strMasterApplication " &
+                "else concat('Linked - ', strMasterApplication) " &
                 "end Link, " &
                 "(datPermitIssued - datReceivedDate) as Diff, " &
-                "(strLastName||', '||strFirstName) as UserName " &
+                " concat(strLastName, ', ', strFirstName) as UserName " &
                 "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
                 "SSPPApplicationData, LookUpApplicationTypes,     " &
                 "SSPPApplicationLinking, " &
@@ -2797,7 +2797,7 @@ Public Class SSPPStatisticalTools
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
-                            EngineerLine = EngineerLine & " (strLastName||', '||strFirstName) = '" & Engineer & "' or "
+                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
                         Next
                         If EngineerLine <> "" Then
                             EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
@@ -2807,7 +2807,7 @@ Public Class SSPPStatisticalTools
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
-                            EngineerLine = EngineerLine & " (strLastName||', '||strFirstName) = '" & Engineer & "' or "
+                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
                         Next
                         If EngineerLine <> "" Then
                             EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
@@ -2821,7 +2821,7 @@ Public Class SSPPStatisticalTools
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
-                            EngineerLine = EngineerLine & " (strLastName||', '||strFirstName) = '" & Engineer & "' or "
+                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
                         Next
                         If EngineerLine <> "" Then
                             EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
@@ -2841,10 +2841,10 @@ Public Class SSPPStatisticalTools
                 "strApplicationTypeDesc,  " &
                 "case " &
                 "when strMasterApplication is Null then '' " &
-                "else 'Linked - '|| strMasterApplication " &
+                "else concat('Linked - ', strMasterApplication) " &
                 "end Link, " &
                 "(datPermitIssued - datReceivedDate) as Diff, " &
-                "(strLastName||', '||strFirstName) as UserName " &
+                " concat(strLastName, ', ', strFirstName) as UserName " &
                 "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
                 "SSPPApplicationData, LookUpApplicationTypes,     " &
                 "SSPPApplicationLinking, " &
@@ -2918,7 +2918,7 @@ Public Class SSPPStatisticalTools
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
-                            EngineerLine = EngineerLine & " (strLastName||', '||strFirstName) = '" & Engineer & "' or "
+                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
                         Next
                         If EngineerLine <> "" Then
                             EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
@@ -2928,7 +2928,7 @@ Public Class SSPPStatisticalTools
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
-                            EngineerLine = EngineerLine & " (strLastName||', '||strFirstName) = '" & Engineer & "' or "
+                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
                         Next
                         If EngineerLine <> "" Then
                             EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
@@ -2942,7 +2942,7 @@ Public Class SSPPStatisticalTools
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
-                            EngineerLine = EngineerLine & " (strLastName||', '||strFirstName) = '" & Engineer & "' or "
+                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
                         Next
                         If EngineerLine <> "" Then
                             EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
@@ -2962,10 +2962,10 @@ Public Class SSPPStatisticalTools
                 "strApplicationTypeDesc,  " &
                 "case " &
                 "when strMasterApplication is Null then '' " &
-                "else 'Linked - '|| strMasterApplication " &
+                "else concat('Linked - ', strMasterApplication) " &
                 "end Link, " &
                 "(datPermitIssued - datReceivedDate) as Diff, " &
-                "(strLastName||', '||strFirstName) as UserName " &
+                " concat(strLastName, ', ', strFirstName) as UserName " &
                 "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
                 "SSPPApplicationData, LookUpApplicationTypes,    " &
                 "SSPPApplicationLinking, " &
@@ -3041,7 +3041,7 @@ Public Class SSPPStatisticalTools
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
-                            EngineerLine = EngineerLine & " (strLastName||', '||strFirstName) = '" & Engineer & "' or "
+                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
                         Next
                         If EngineerLine <> "" Then
                             EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
@@ -3051,7 +3051,7 @@ Public Class SSPPStatisticalTools
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
-                            EngineerLine = EngineerLine & " (strLastName||', '||strFirstName) = '" & Engineer & "' or "
+                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
                         Next
                         If EngineerLine <> "" Then
                             EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
@@ -3065,7 +3065,7 @@ Public Class SSPPStatisticalTools
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
-                            EngineerLine = EngineerLine & " (strLastName||', '||strFirstName) = '" & Engineer & "' or "
+                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
                         Next
                         If EngineerLine <> "" Then
                             EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
@@ -3088,10 +3088,10 @@ Public Class SSPPStatisticalTools
                 "End strApplicationTypeDesc,  " &
                 "case " &
                 "when strMasterApplication is Null then '' " &
-                "else 'Linked - '|| strMasterApplication " &
+                "else concat('Linked - ', strMasterApplication) " &
                 "end Link, " &
                 "(datPermitIssued - datReceivedDate) as Diff, " &
-                "(strLastname||', '||strFirstName) as UserName " &
+                " concat(strLastName, ', ', strFirstName) as UserName " &
                 "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
                 "SSPPApplicationData, LookUpApplicationTypes,  " &
                 "SSPPApplicationLinking, " &
@@ -3169,7 +3169,7 @@ Public Class SSPPStatisticalTools
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
-                            EngineerLine = EngineerLine & " (strLastName||', '||strFirstName) = '" & Engineer & "' or "
+                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
                         Next
                         If EngineerLine <> "" Then
                             EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
@@ -3179,7 +3179,7 @@ Public Class SSPPStatisticalTools
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
-                            EngineerLine = EngineerLine & " (strLastName||', '||strFirstName) = '" & Engineer & "' or "
+                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
                         Next
                         If EngineerLine <> "" Then
                             EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
@@ -3193,7 +3193,7 @@ Public Class SSPPStatisticalTools
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
-                            EngineerLine = EngineerLine & " (strLastName||', '||strFirstName) = '" & Engineer & "' or "
+                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
                         Next
                         If EngineerLine <> "" Then
                             EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
@@ -3213,10 +3213,10 @@ Public Class SSPPStatisticalTools
                 "strApplicationTypeDesc,  " &
                 "case " &
                 "when strMasterApplication is Null then '' " &
-                "else 'Linked - '|| strMasterApplication " &
+                "else concat('Linked - ', strMasterApplication) " &
                 "end Link, " &
                 "(datPermitIssued - datReceivedDate) as Diff, " &
-                "(strLastName||', '||strFirstName) as UserName " &
+                " concat(strLastName, ', ', strFirstName) as UserName " &
                 "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
                 "SSPPApplicationData, LookUpApplicationTypes, " &
                 "SSPPApplicationLinking, " &
@@ -3300,7 +3300,7 @@ Public Class SSPPStatisticalTools
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
-                            EngineerLine = EngineerLine & " (strLastName||', '||strFirstName) = '" & Engineer & "' or "
+                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
                         Next
                         If EngineerLine <> "" Then
                             EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
@@ -3310,7 +3310,7 @@ Public Class SSPPStatisticalTools
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
-                            EngineerLine = EngineerLine & " (strLastName||', '||strFirstName) = '" & Engineer & "' or "
+                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
                         Next
                         If EngineerLine <> "" Then
                             EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
@@ -3324,7 +3324,7 @@ Public Class SSPPStatisticalTools
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
-                            EngineerLine = EngineerLine & " (strLastName||', '||strFirstName) = '" & Engineer & "' or "
+                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
                         Next
                         If EngineerLine <> "" Then
                             EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
@@ -3353,7 +3353,7 @@ Public Class SSPPStatisticalTools
                 "when strStaffResponsible is Null or strStaffResponsible ='0' then '0 - Unassigned'         " &
                 "else '01 - At Engineer'        " &
                 "end as AppStatus,     " &
-                "(strLastname||', '||strFirstName) as UserName " &
+                " concat(strLastName, ', ', strFirstName) as UserName " &
                 "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
                 "SSPPApplicationData, LookUpApplicationTypes,  " &
                 "EPDUserProfiles " &
@@ -3414,7 +3414,7 @@ Public Class SSPPStatisticalTools
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
-                            EngineerLine = EngineerLine & " (strLastName||', '||strFirstName) = '" & Engineer & "' or "
+                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
                         Next
                         If EngineerLine <> "" Then
                             EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
@@ -3424,7 +3424,7 @@ Public Class SSPPStatisticalTools
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
-                            EngineerLine = EngineerLine & " (strLastName||', '||strFirstName) = '" & Engineer & "' or "
+                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
                         Next
                         If EngineerLine <> "" Then
                             EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
@@ -3438,7 +3438,7 @@ Public Class SSPPStatisticalTools
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
-                            EngineerLine = EngineerLine & " (strLastName||', '||strFirstName) = '" & Engineer & "' or "
+                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
                         Next
                         If EngineerLine <> "" Then
                             EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
@@ -3467,7 +3467,7 @@ Public Class SSPPStatisticalTools
                 "when strStaffResponsible is Null or strStaffResponsible ='0' then '0 - Unassigned'         " &
                 "else '01 - At Engineer'        " &
                 "end as AppStatus,     " &
-                "(strLastName||', '||strFirstName) as UserName " &
+                " concat(strLastName, ', ', strFirstName) as UserName " &
                 "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
                 "SSPPApplicationData, LookUpApplicationTypes,  " &
                 "EPDUserProfiles " &
@@ -3530,7 +3530,7 @@ Public Class SSPPStatisticalTools
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
-                            EngineerLine = EngineerLine & " (strLastName||', '||strFirstName) = '" & Engineer & "' or "
+                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
                         Next
                         If EngineerLine <> "" Then
                             EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
@@ -3540,7 +3540,7 @@ Public Class SSPPStatisticalTools
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
-                            EngineerLine = EngineerLine & " (strLastName||', '||strFirstName) = '" & Engineer & "' or "
+                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
                         Next
                         If EngineerLine <> "" Then
                             EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
@@ -3554,7 +3554,7 @@ Public Class SSPPStatisticalTools
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
-                            EngineerLine = EngineerLine & " (strLastName||', '||strFirstName) = '" & Engineer & "' or "
+                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
                         Next
                         If EngineerLine <> "" Then
                             EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
@@ -3583,7 +3583,7 @@ Public Class SSPPStatisticalTools
                 "when strStaffResponsible is Null or strStaffResponsible ='0' then '0 - Unassigned'         " &
                 "else '01 - At Engineer'        " &
                 "end as AppStatus,    " &
-                "(strLastName||', '||strFirstName) as UserName " &
+                " concat(strLastName, ', ', strFirstName) as UserName " &
                 "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
                 "SSPPApplicationData, LookUpApplicationTypes,  " &
                 "EPDUserProfiles " &
@@ -3646,7 +3646,7 @@ Public Class SSPPStatisticalTools
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
-                            EngineerLine = EngineerLine & " (strLastName||', '||strFirstName) = '" & Engineer & "' or "
+                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
                         Next
                         If EngineerLine <> "" Then
                             EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
@@ -3656,7 +3656,7 @@ Public Class SSPPStatisticalTools
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
-                            EngineerLine = EngineerLine & " (strLastName||', '||strFirstName) = '" & Engineer & "' or "
+                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
                         Next
                         If EngineerLine <> "" Then
                             EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
@@ -3670,7 +3670,7 @@ Public Class SSPPStatisticalTools
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
-                            EngineerLine = EngineerLine & " (strLastName||', '||strFirstName) = '" & Engineer & "' or "
+                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
                         Next
                         If EngineerLine <> "" Then
                             EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
@@ -3699,7 +3699,7 @@ Public Class SSPPStatisticalTools
                 "when strStaffResponsible is Null or strStaffResponsible ='0' then '0 - Unassigned'         " &
                 "else '01 - At Engineer'        " &
                 "end as AppStatus,     " &
-                "(strLastName||', '||strFirstName) as UserName " &
+                " concat(strLastName, ', ', strFirstName) as UserName " &
                 "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
                 "SSPPApplicationData, LookUpApplicationTypes,  " &
                 "EPDUserProfiles " &
@@ -3762,7 +3762,7 @@ Public Class SSPPStatisticalTools
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
-                            EngineerLine = EngineerLine & " (strLastName||', '||strFirstName) = '" & Engineer & "' or "
+                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
                         Next
                         If EngineerLine <> "" Then
                             EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
@@ -3772,7 +3772,7 @@ Public Class SSPPStatisticalTools
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
-                            EngineerLine = EngineerLine & " (strLastName||', '||strFirstName) = '" & Engineer & "' or "
+                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
                         Next
                         If EngineerLine <> "" Then
                             EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
@@ -3786,7 +3786,7 @@ Public Class SSPPStatisticalTools
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
-                            EngineerLine = EngineerLine & " (strLastName||', '||strFirstName) = '" & Engineer & "' or "
+                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
                         Next
                         If EngineerLine <> "" Then
                             EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
@@ -3815,7 +3815,7 @@ Public Class SSPPStatisticalTools
                 "when strStaffResponsible is Null or strStaffResponsible ='0' then '0 - Unassigned'         " &
                 "else '01 - At Engineer'        " &
                 "end as AppStatus,    " &
-                "(strLastName||', '||strFirstName) as UserName " &
+                " concat(strLastName, ', ', strFirstName) as UserName " &
                 "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
                 "SSPPApplicationData, LookUpApplicationTypes,  " &
                 "EPDUserProfiles " &
@@ -3882,7 +3882,7 @@ Public Class SSPPStatisticalTools
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
-                            EngineerLine = EngineerLine & " (strLastName||', '||strFirstName) = '" & Engineer & "' or "
+                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
                         Next
                         If EngineerLine <> "" Then
                             EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
@@ -3892,7 +3892,7 @@ Public Class SSPPStatisticalTools
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
-                            EngineerLine = EngineerLine & " (strLastName||', '||strFirstName) = '" & Engineer & "' or "
+                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
                         Next
                         If EngineerLine <> "" Then
                             EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
@@ -3906,7 +3906,7 @@ Public Class SSPPStatisticalTools
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
-                            EngineerLine = EngineerLine & " (strLastName||', '||strFirstName) = '" & Engineer & "' or "
+                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
                         Next
                         If EngineerLine <> "" Then
                             EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
@@ -3935,7 +3935,7 @@ Public Class SSPPStatisticalTools
                 "when strStaffResponsible is Null or strStaffResponsible ='0' then '0 - Unassigned'         " &
                 "else '01 - At Engineer'        " &
                 "end as AppStatus,     " &
-                "(strLastname||', '||strFirstName) as UserName " &
+                " concat(strLastName, ', ', strFirstName) as UserName " &
                 "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
                 "SSPPApplicationData, LookUpApplicationTypes,  " &
                 "EPDUserProfiles " &
@@ -4003,7 +4003,7 @@ Public Class SSPPStatisticalTools
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
-                            EngineerLine = EngineerLine & " (strLastName||', '||strFirstName) = '" & Engineer & "' or "
+                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
                         Next
                         If EngineerLine <> "" Then
                             EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
@@ -4013,7 +4013,7 @@ Public Class SSPPStatisticalTools
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
-                            EngineerLine = EngineerLine & " (strLastName||', '||strFirstName) = '" & Engineer & "' or "
+                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
                         Next
                         If EngineerLine <> "" Then
                             EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
@@ -4027,7 +4027,7 @@ Public Class SSPPStatisticalTools
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
-                            EngineerLine = EngineerLine & " (strLastName||', '||strFirstName) = '" & Engineer & "' or "
+                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
                         Next
                         If EngineerLine <> "" Then
                             EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
@@ -4056,7 +4056,7 @@ Public Class SSPPStatisticalTools
                 "when strStaffResponsible is Null or strStaffResponsible ='0' then '0 - Unassigned'         " &
                 "else '01 - At Engineer'        " &
                 "end as AppStatus,   " &
-                "(strLastName||', '||strFirstName) as UserName " &
+                " concat(strLastName, ', ', strFirstName) as UserName " &
                 "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
                 "SSPPApplicationData, LookUpApplicationTypes,  " &
                 "EPDUserProfiles " &
@@ -4125,7 +4125,7 @@ Public Class SSPPStatisticalTools
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
-                            EngineerLine = EngineerLine & " (strLastName||', '||strFirstName) = '" & Engineer & "' or "
+                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
                         Next
                         If EngineerLine <> "" Then
                             EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
@@ -4135,7 +4135,7 @@ Public Class SSPPStatisticalTools
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
-                            EngineerLine = EngineerLine & " (strLastName||', '||strFirstName) = '" & Engineer & "' or "
+                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
                         Next
                         If EngineerLine <> "" Then
                             EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
@@ -4149,7 +4149,7 @@ Public Class SSPPStatisticalTools
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
-                            EngineerLine = EngineerLine & " (strLastName||', '||strFirstName) = '" & Engineer & "' or "
+                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
                         Next
                         If EngineerLine <> "" Then
                             EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
@@ -4178,7 +4178,7 @@ Public Class SSPPStatisticalTools
                 "when strStaffResponsible is Null or strStaffResponsible ='0' then '0 - Unassigned'         " &
                 "else '01 - At Engineer'        " &
                 "end as AppStatus,   " &
-                "(strLastName||', '||strFirstName) as UserName " &
+                " concat(strLastName, ', ', strFirstName) as UserName " &
                 "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
                 "SSPPApplicationData, LookUpApplicationTypes,  " &
                 "EPDUserProfiles " &
@@ -4259,7 +4259,7 @@ Public Class SSPPStatisticalTools
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
-                            EngineerLine = EngineerLine & " (strLastName||', '||strFirstName) = '" & Engineer & "' or "
+                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
                         Next
                         If EngineerLine <> "" Then
                             EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
@@ -4269,7 +4269,7 @@ Public Class SSPPStatisticalTools
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
-                            EngineerLine = EngineerLine & " (strLastName||', '||strFirstName) = '" & Engineer & "' or "
+                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
                         Next
                         If EngineerLine <> "" Then
                             EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
@@ -4283,7 +4283,7 @@ Public Class SSPPStatisticalTools
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
-                            EngineerLine = EngineerLine & " (strLastName||', '||strFirstName) = '" & Engineer & "' or "
+                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
                         Next
                         If EngineerLine <> "" Then
                             EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
@@ -4313,7 +4313,7 @@ Public Class SSPPStatisticalTools
                 "else '01 - At Engineer'        " &
                 "end as AppStatus, " &
                 "format(datReceivedDate, 'yyyy-MM-dd') as datReceivedDate, " &
-                "(strLastName||', '||strFirstName) as UserName " &
+                " concat(strLastName, ', ', strFirstName) as UserName " &
                 "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
                 "SSPPApplicationData, LookUpApplicationTypes,  " &
                 "EPDUserProfiles " &
@@ -4378,7 +4378,7 @@ Public Class SSPPStatisticalTools
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
-                            EngineerLine = EngineerLine & " (strLastName||', '||strFirstName) = '" & Engineer & "' or "
+                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
                         Next
                         If EngineerLine <> "" Then
                             EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
@@ -4388,7 +4388,7 @@ Public Class SSPPStatisticalTools
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
-                            EngineerLine = EngineerLine & " (strLastName||', '||strFirstName) = '" & Engineer & "' or "
+                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
                         Next
                         If EngineerLine <> "" Then
                             EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
@@ -4402,7 +4402,7 @@ Public Class SSPPStatisticalTools
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
-                            EngineerLine = EngineerLine & " (strLastName||', '||strFirstName) = '" & Engineer & "' or "
+                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
                         Next
                         If EngineerLine <> "" Then
                             EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
@@ -4432,7 +4432,7 @@ Public Class SSPPStatisticalTools
                 "else '01 - At Engineer'        " &
                 "end as AppStatus, " &
                 "format(datReceivedDate, 'yyyy-MM-dd') as datReceivedDate, " &
-                "(strLastName||', '||strFirstName) as UserName " &
+                " concat(strLastName, ', ', strFirstName) as UserName " &
                 "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
                 "SSPPApplicationData, LookUpApplicationTypes,  " &
                 "EPDUserProfiles " &
@@ -4498,7 +4498,7 @@ Public Class SSPPStatisticalTools
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
-                            EngineerLine = EngineerLine & " (strLastName||', '||strFirstName) = '" & Engineer & "' or "
+                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
                         Next
                         If EngineerLine <> "" Then
                             EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
@@ -4508,7 +4508,7 @@ Public Class SSPPStatisticalTools
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
-                            EngineerLine = EngineerLine & " (strLastName||', '||strFirstName) = '" & Engineer & "' or "
+                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
                         Next
                         If EngineerLine <> "" Then
                             EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
@@ -4522,7 +4522,7 @@ Public Class SSPPStatisticalTools
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
-                            EngineerLine = EngineerLine & " (strLastName||', '||strFirstName) = '" & Engineer & "' or "
+                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
                         Next
                         If EngineerLine <> "" Then
                             EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
@@ -4552,7 +4552,7 @@ Public Class SSPPStatisticalTools
                 "else '01 - At Engineer'        " &
                 "end as AppStatus, " &
                 "format(datReceivedDate, 'yyyy-MM-dd') as datReceivedDate, " &
-                "(strLastName||', '||strFirstName) as UserName " &
+                " concat(strLastName, ', ', strFirstName) as UserName " &
                 "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
                 "SSPPApplicationData, LookUpApplicationTypes,  " &
                 "EPDUserProfiles " &
@@ -4618,7 +4618,7 @@ Public Class SSPPStatisticalTools
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
-                            EngineerLine = EngineerLine & " (strLastName||', '||strFirstName) = '" & Engineer & "' or "
+                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
                         Next
                         If EngineerLine <> "" Then
                             EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
@@ -4628,7 +4628,7 @@ Public Class SSPPStatisticalTools
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
-                            EngineerLine = EngineerLine & " (strLastName||', '||strFirstName) = '" & Engineer & "' or "
+                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
                         Next
                         If EngineerLine <> "" Then
                             EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
@@ -4642,7 +4642,7 @@ Public Class SSPPStatisticalTools
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
-                            EngineerLine = EngineerLine & " (strLastName||', '||strFirstName) = '" & Engineer & "' or "
+                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
                         Next
                         If EngineerLine <> "" Then
                             EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
@@ -4672,7 +4672,7 @@ Public Class SSPPStatisticalTools
                 "else '01 - At Engineer'        " &
                 "end as AppStatus, " &
                 "format(datReceivedDate, 'yyyy-MM-dd') as datReceivedDate, " &
-                "(strLastName||', '||strFirstName) as UserName " &
+                " concat(strLastName, ', ', strFirstName) as UserName " &
                 "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
                 "SSPPApplicationData, LookUpApplicationTypes,  " &
                 "EPDUserProfiles " &
@@ -4750,7 +4750,7 @@ Public Class SSPPStatisticalTools
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
-                            EngineerLine = EngineerLine & " (strLastName||', '||strFirstName) = '" & Engineer & "' or "
+                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
                         Next
                         If EngineerLine <> "" Then
                             EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
@@ -4760,7 +4760,7 @@ Public Class SSPPStatisticalTools
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
-                            EngineerLine = EngineerLine & " (strLastName||', '||strFirstName) = '" & Engineer & "' or "
+                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
                         Next
                         If EngineerLine <> "" Then
                             EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
@@ -4774,7 +4774,7 @@ Public Class SSPPStatisticalTools
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
-                            EngineerLine = EngineerLine & " (strLastName||', '||strFirstName) = '" & Engineer & "' or "
+                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
                         Next
                         If EngineerLine <> "" Then
                             EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
@@ -4804,7 +4804,7 @@ Public Class SSPPStatisticalTools
                 "else '01 - At Engineer'        " &
                 "end as AppStatus, " &
                 "format(datReceivedDate, 'yyyy-MM-dd') as datReceivedDate, " &
-                "(strLastName||', '||strFirstName) as UserName " &
+                " concat(strLastName, ', ', strFirstName) as UserName " &
                 "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
                 "SSPPApplicationData, LookUpApplicationTypes,  " &
                 "EPDUserProfiles " &
@@ -4869,7 +4869,7 @@ Public Class SSPPStatisticalTools
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
-                            EngineerLine = EngineerLine & " (strLastName||', '||strFirstName) = '" & Engineer & "' or "
+                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
                         Next
                         If EngineerLine <> "" Then
                             EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
@@ -4879,7 +4879,7 @@ Public Class SSPPStatisticalTools
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
-                            EngineerLine = EngineerLine & " (strLastName||', '||strFirstName) = '" & Engineer & "' or "
+                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
                         Next
                         If EngineerLine <> "" Then
                             EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
@@ -4893,7 +4893,7 @@ Public Class SSPPStatisticalTools
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
-                            EngineerLine = EngineerLine & " (strLastName||', '||strFirstName) = '" & Engineer & "' or "
+                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
                         Next
                         If EngineerLine <> "" Then
                             EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
@@ -4923,7 +4923,7 @@ Public Class SSPPStatisticalTools
                 "else '01 - At Engineer'        " &
                 "end as AppStatus, " &
                 "format(datReceivedDate, 'yyyy-MM-dd') as datReceivedDate, " &
-                "(strLastName||', '||strFirstName) as UserName " &
+                " concat(strLastName, ', ', strFirstName) as UserName " &
                 "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
                 "SSPPApplicationData, LookUpApplicationTypes,  " &
                 "EPDUserProfiles " &
@@ -4989,7 +4989,7 @@ Public Class SSPPStatisticalTools
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
-                            EngineerLine = EngineerLine & " (strLastName||', '||strFirstName) = '" & Engineer & "' or "
+                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
                         Next
                         If EngineerLine <> "" Then
                             EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
@@ -4999,7 +4999,7 @@ Public Class SSPPStatisticalTools
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
-                            EngineerLine = EngineerLine & " (strLastName||', '||strFirstName) = '" & Engineer & "' or "
+                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
                         Next
                         If EngineerLine <> "" Then
                             EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
@@ -5013,7 +5013,7 @@ Public Class SSPPStatisticalTools
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
-                            EngineerLine = EngineerLine & " (strLastName||', '||strFirstName) = '" & Engineer & "' or "
+                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
                         Next
                         If EngineerLine <> "" Then
                             EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
@@ -5043,7 +5043,7 @@ Public Class SSPPStatisticalTools
                 "else '01 - At Engineer'        " &
                 "end as AppStatus, " &
                 "format(datReceivedDate, 'yyyy-MM-dd') as datReceivedDate, " &
-                "(strLastName||', '||strFirstName) as UserName " &
+                " concat(strLastName, ', ', strFirstName) as UserName " &
                 "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
                 "SSPPApplicationData, LookUpApplicationTypes,  " &
                 "EPDUserProfiles " &
@@ -5110,7 +5110,7 @@ Public Class SSPPStatisticalTools
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
-                            EngineerLine = EngineerLine & " (strLastName||', '||strFirstName) = '" & Engineer & "' or "
+                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
                         Next
                         If EngineerLine <> "" Then
                             EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
@@ -5120,7 +5120,7 @@ Public Class SSPPStatisticalTools
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
-                            EngineerLine = EngineerLine & " (strLastName||', '||strFirstName) = '" & Engineer & "' or "
+                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
                         Next
                         If EngineerLine <> "" Then
                             EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
@@ -5134,7 +5134,7 @@ Public Class SSPPStatisticalTools
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
-                            EngineerLine = EngineerLine & " (strLastName||', '||strFirstName) = '" & Engineer & "' or "
+                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
                         Next
                         If EngineerLine <> "" Then
                             EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
@@ -5164,7 +5164,7 @@ Public Class SSPPStatisticalTools
                 "else '01 - At Engineer'        " &
                 "end as AppStatus, " &
                 "format(datReceivedDate, 'yyyy-MM-dd') as datReceivedDate, " &
-                "(strLastName||', '||strFirstName) as UserName " &
+                " concat(strLastName, ', ', strFirstName) as UserName " &
                 "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
                 "SSPPApplicationData, LookUpApplicationTypes,  " &
                 "EPDUserProfiles " &
@@ -5231,7 +5231,7 @@ Public Class SSPPStatisticalTools
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
-                            EngineerLine = EngineerLine & " (strLastName||', '||strFirstName) = '" & Engineer & "' or "
+                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
                         Next
                         If EngineerLine <> "" Then
                             EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
@@ -5241,7 +5241,7 @@ Public Class SSPPStatisticalTools
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
-                            EngineerLine = EngineerLine & " (strLastName||', '||strFirstName) = '" & Engineer & "' or "
+                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
                         Next
                         If EngineerLine <> "" Then
                             EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
@@ -5255,7 +5255,7 @@ Public Class SSPPStatisticalTools
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
-                            EngineerLine = EngineerLine & " (strLastName||', '||strFirstName) = '" & Engineer & "' or "
+                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
                         Next
                         If EngineerLine <> "" Then
                             EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
@@ -5285,7 +5285,7 @@ Public Class SSPPStatisticalTools
                 "else '01 - At Engineer'        " &
                 "end as AppStatus, " &
                 "format(datReceivedDate, 'yyyy-MM-dd') as datReceivedDate, " &
-                "(strLastName||', '||strFirstName) as UserName " &
+                " concat(strLastName, ', ', strFirstName) as UserName " &
                 "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
                 "SSPPApplicationData, LookUpApplicationTypes,  " &
                 "EPDUserProfiles " &
@@ -5352,7 +5352,7 @@ Public Class SSPPStatisticalTools
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
-                            EngineerLine = EngineerLine & " (strLastName||', '||strFirstName) = '" & Engineer & "' or "
+                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
                         Next
                         If EngineerLine <> "" Then
                             EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
@@ -5362,7 +5362,7 @@ Public Class SSPPStatisticalTools
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
-                            EngineerLine = EngineerLine & " (strLastName||', '||strFirstName) = '" & Engineer & "' or "
+                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
                         Next
                         If EngineerLine <> "" Then
                             EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
@@ -5376,7 +5376,7 @@ Public Class SSPPStatisticalTools
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
-                            EngineerLine = EngineerLine & " (strLastName||', '||strFirstName) = '" & Engineer & "' or "
+                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
                         Next
                         If EngineerLine <> "" Then
                             EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
@@ -5406,7 +5406,7 @@ Public Class SSPPStatisticalTools
                 "else '01 - At Engineer'        " &
                 "end as AppStatus, " &
                 "format(datReceivedDate, 'yyyy-MM-dd') as datReceivedDate, " &
-                "(strLastName||', '||strFirstName) as UserName " &
+                " concat(strLastName, ', ', strFirstName) as UserName " &
                 "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
                 "SSPPApplicationData, LookUpApplicationTypes,  " &
                 "EPDUserProfiles " &
@@ -6619,7 +6619,7 @@ Public Class SSPPStatisticalTools
                 clbEngineers3.Items.Add("All Engineers")
 
                 SQL = "SELECT " &
-                "(strLastName||', '||strFirstName) AS UserName,   " &
+                " concat(strLastName, ', ', strFirstName) AS UserName,   " &
                 "numUserID  " &
                 "from EPDUserProfiles   " &
                 "WHERE numUnit = '" & cboSSPPUnits.SelectedValue & "'   " &
@@ -6638,7 +6638,7 @@ Public Class SSPPStatisticalTools
                 dr.Close()
 
                 If cboSSPPUnits.Text = "SSPP Administrative" Then
-                    SQL = "select (strLastName||', '||strFirstName) as UserName,  " &
+                    SQL = "select  concat(strLastName, ', ', strFirstName) as UserName,  " &
                     "numUSerID    " &
                     "from    " &
                     "EPDUserProfiles,    " &

@@ -866,11 +866,11 @@ Public Class ISMPTestReportAdministrative
               "format(datCompleteDate, 'dd-MMM-yyyy') as forDateComplete, " &
               "strClosed, " &
               "ISMpReportType.strReportType, " &
-              "(select (strLastName||', '||strFirstName) as ReviewingEngineer " &
+              "(select concat(strLastName,', ',strFirstName) as ReviewingEngineer " &
                "from EPDUserProfiles, ISMPReportInformation " &
                "where EPDUserProfiles.numUserID = ISMPReportInformation.strReviewingEngineer " &
                "and ISMPReportInformation.strReferencenumber = '" & txtReferenceNumber.Text & "') as ReviewingENgineer,  " &
-              "(strLastName||', '||strFirstName) as UnitManager, " &
+              "concat(strLastName,', ',strFirstName) as UnitManager, " &
                "strEmissionSource, " &
                "LookUpTestingFirms.strTestingFirm, " &
                "LookUpPollutants.strPollutantDescription,  " &

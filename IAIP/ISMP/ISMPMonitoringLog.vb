@@ -45,7 +45,7 @@ Public Class ISMPMonitoringLog
         Try
 
             SQL = "select " &
-            "distinct(strLastName|| ', ' ||strFirstName) as UserName, " &
+            "distinct concat(strLastName, ', ' ,strFirstName) as UserName, " &
             "numUserID " &
             "from epduserprofiles, " &
             "(select distinct(strStaffResponsible) as NotificationStaff " &
@@ -53,7 +53,7 @@ Public Class ISMPMonitoringLog
             "where convert(varchar(3),EPDUserProfiles.numUserId) = Notification.NotificationStaff " &
             "Union " &
             "Select " &
-            "distinct(strLastName|| ', ' ||strFirstName) as UserName, " &
+            "distinct concat(strLastName, ', ' ,strFirstName) as UserName, " &
             "numUserID " &
             "from EPDUserProfiles, " &
             "(select distinct(strReviewingEngineer) " &
@@ -193,7 +193,7 @@ Public Class ISMPMonitoringLog
                 "LookUpPollutants.strPollutantDescription,  " &
                 "ISMPReportType.strReportType,  " &
                 "ISMPDocumentType.strDocumentType,  " &
-                "(strLastName|| ', ' ||strFirstName) as StaffResponsible,  " &
+                "concat(strLastName, ', ' , strFirstName) as StaffResponsible,  " &
                 "ISMPREportInformation.datTestDateStart,  " &
                 "ISMPREportInformation.datReceivedDate,  " &
                 "(ISMPREportINformation.datReceivedDate - " &
@@ -535,7 +535,7 @@ Public Class ISMPMonitoringLog
                "strCountyName,  " &
                "convert(int, ISMPTestNotification.strTestLogNumber) as strTestLogNumber,    " &
                "strEmissionUnit,  datProposedStartDate,    " &
-               "(strLastName|| ', ' ||strFirstName) as StaffResponsible,   " &
+               "concat(strLastName, ', ' , strFirstName) as StaffResponsible,   " &
                "strUnitDesc, " &
                "ISMPTestNotification.strcomments,  " &
                "strReferenceNumber " &
@@ -678,7 +678,7 @@ Public Class ISMPMonitoringLog
                "when strCommentType = '3' then 'Post-test Comment' " &
                "else 'Unknown' " &
                "end CommentType, " &
-               "(strLastName|| ', ' ||strFirstName) as StaffResponsible, " &
+               "concat(strLastName, ', ' , strFirstName) as StaffResponsible, " &
                "datCommentDate, strComment, " &
                "strFacilityCity, " &
                "LookUpCountyInformation.strCountyName " &
@@ -822,7 +822,7 @@ Public Class ISMPMonitoringLog
                 "datProposedStartDate  " &
                 "from APBFacilityINformation, ISMPTestNotification,  " &
                 "LookUpCountyInformation  " &
-                "where '0413'||ISMPTestNotification.strAIRSnumber = APBFacilityInformation.strAIRSNumber (+) " &
+                "where concat('0413',ISMPTestNotification.strAIRSnumber) = APBFacilityInformation.strAIRSNumber (+) " &
                 "and SUBSTRING(ISMPTestNotification.strAIRSNumber, 1, 3) = LookUpCountyInformation.strCountyCode (+)  " &
                 "and strTestLogNumber = '" & txtTestLogNumber.Text & "' "
 

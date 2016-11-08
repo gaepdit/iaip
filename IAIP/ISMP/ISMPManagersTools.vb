@@ -102,7 +102,7 @@ Public Class ISMPManagersTools
         Try
 
             SQL = "select " &
-            "(strLastName|| ', ' ||strFirstName) as UserName,  " &
+            "concat(strLastName, ', ' ,strFirstName) as UserName,  " &
             "numUserID, numUnit  " &
             "from EPDUSerProfiles, LookUpEPDUnits  " &
             "where EPDUSerProfiles.numUnit = LookUpEPDUnits.numUnitCode  " &
@@ -155,7 +155,7 @@ Public Class ISMPManagersTools
                 "from LookUPPollutants, ISMPReportInformation  " &
                 "where LookUPPollutants.strPollutantCode = ISMPReportInformation.strPOllutant   " &
                 "and ISMPReportInformation.strReferenceNumber = ISMPMaster.StrReferenceNumber) as Pollutant,   " &
-                "(select (strLastName|| ', ' ||strFirstName) as ReviewingEngineer   " &
+                "(select concat(strLastName, ', ' ,strFirstName) as ReviewingEngineer   " &
                 "from EPDUserProfiles, ISMPReportInformation   " &
                 "where EPDUserProfiles.numUserID = ISMPReportInformation.strReviewingEngineer   " &
                 "and ISMPReportInformation.strReferenceNumber = ISMPMaster.strReferenceNumber) as ReviewingEngineer   " &
@@ -552,7 +552,7 @@ Public Class ISMPManagersTools
                 "from LookUPPollutants, ISMPReportInformation  " &
                 "where LookUPPollutants.strPollutantCode = ISMPReportInformation.strPOllutant  " &
                 "and ISMPReportInformation.strReferenceNumber = ISMPMaster.StrReferenceNumber) as Pollutant,  " &
-                "(select (strLastName|| ', ' ||strFirstName) as ReviewingEngineer  " &
+                "(select concat(strLastName, ', ' ,strFirstName) as ReviewingEngineer  " &
                 "from EPDUSerProfiles, ISMPReportInformation  " &
                 "where EPDUSerProfiles.numUserID = ISMPReportInformation.strReviewingEngineer  " &
                 "and ISMPReportInformation.strReferenceNumber = ISMPMaster.strReferenceNumber) as ReviewingEngineer  " &
@@ -597,7 +597,7 @@ Public Class ISMPManagersTools
                 "from LookUPPollutants, ISMPReportInformation  " &
                 "where LookUPPollutants.strPollutantCode = ISMPReportInformation.strPOllutant  " &
                 "and ISMPReportInformation.strReferenceNumber = ISMPMaster.StrReferenceNumber) as Pollutant,  " &
-                "(select (strLastName|| ', ' ||strFirstName) as ReviewingEngineer  " &
+                "(select concat(strLastName, ', ' , strFirstName) as ReviewingEngineer  " &
                 "from EPDUserProfiles, ISMPReportInformation  " &
                 "where EPDUserProfiles.numUserID = ISMPReportInformation.strReviewingEngineer  " &
                 "and ISMPReportInformation.strReferenceNumber = ISMPMaster.strReferenceNumber) as ReviewingEngineer  " &
@@ -641,7 +641,7 @@ Public Class ISMPManagersTools
                 "from LookUPPollutants, ISMPReportInformation  " &
                 "where LookUPPollutants.strPollutantCode = ISMPReportInformation.strPOllutant  " &
                 "and ISMPReportInformation.strReferenceNumber = ISMPMaster.StrReferenceNumber) as Pollutant,  " &
-                "(select (strLastName|| ', ' ||strFirstName) as ReviewingEngineer  " &
+                "(select concat(strLastName, ', ' , strFirstName) as ReviewingEngineer  " &
                 "from EPDUserProfiles, ISMPReportInformation  " &
                 "where EPDUserProfiles.numUserID = ISMPReportInformation.strReviewingEngineer  " &
                 "and ISMPReportInformation.strReferenceNumber = ISMPMaster.strReferenceNumber) as ReviewingEngineer  " &
@@ -686,7 +686,7 @@ Public Class ISMPManagersTools
                 "from LookUPPollutants, ISMPReportInformation  " &
                 "where LookUPPollutants.strPollutantCode = ISMPReportInformation.strPOllutant  " &
                 "and ISMPReportInformation.strReferenceNumber = ISMPMaster.StrReferenceNumber) as Pollutant,  " &
-                "(select (strLastName|| ', ' ||strFirstName) as ReviewingEngineer  " &
+                "(select concat(strLastName, ', ' , strFirstName) as ReviewingEngineer  " &
                 "from EPDUserProfiles, ISMPReportInformation  " &
                 "where EPDUserProfiles.numUserID = ISMPReportInformation.strReviewingEngineer  " &
                 "and ISMPReportInformation.strReferenceNumber = ISMPMaster.strReferenceNumber) as ReviewingEngineer  " &
@@ -729,7 +729,7 @@ Public Class ISMPManagersTools
                 "from LookUPPollutants, ISMPReportInformation  " &
                 "where LookUPPollutants.strPollutantCode = ISMPReportInformation.strPOllutant  " &
                 "and ISMPReportInformation.strReferenceNumber = ISMPMaster.StrReferenceNumber) as Pollutant,  " &
-                "(select (strLastName|| ', ' ||strFirstName) as ReviewingEngineer  " &
+                "(select concat(strLastName, ', ' , strFirstName) as ReviewingEngineer  " &
                 "from EPDUserProfiles, ISMPReportInformation  " &
                 "where EPDUserProfiles.numUserID = ISMPReportInformation.strReviewingEngineer  " &
                 "and ISMPReportInformation.strReferenceNumber = ISMPMaster.strReferenceNumber) as ReviewingEngineer  " &
@@ -774,7 +774,7 @@ Public Class ISMPManagersTools
                 "from LookUPPollutants, ISMPReportInformation  " &
                 "where LookUPPollutants.strPollutantCode = ISMPReportInformation.strPOllutant  " &
                 "and ISMPReportInformation.strReferenceNumber = ISMPMaster.StrReferenceNumber) as Pollutant,  " &
-                "(select (strLastName|| ', ' ||strFirstName) as ReviewingEngineer  " &
+                "(select concat(strLastName, ', ' , strFirstName) as ReviewingEngineer  " &
                 "from EPDUserProfiles, ISMPReportInformation  " &
                 "where EPDUserProfiles.numUserID = ISMPReportInformation.strReviewingEngineer  " &
                 "and ISMPReportInformation.strReferenceNumber = ISMPMaster.strReferenceNumber) as ReviewingEngineer  " &
@@ -821,7 +821,7 @@ Public Class ISMPManagersTools
                     "from LookUPPollutants, ISMPReportInformation  " &
                     "where LookUPPollutants.strPollutantCode = ISMPReportInformation.strPOllutant  " &
                     "and ISMPReportInformation.strReferenceNumber = ISMPMaster.StrReferenceNumber) as Pollutant,  " &
-                    "(select (strLastName|| ', ' ||strFirstName) as ReviewingEngineer  " &
+                    "(select concat(strLastName, ', ' , strFirstName) as ReviewingEngineer  " &
                     "from EPDUserProfiles, ISMPReportInformation  " &
                     "where EPDUserProfiles.numUserID = ISMPReportInformation.strReviewingEngineer  " &
                     "and ISMPReportInformation.strReferenceNumber = ISMPMaster.strReferenceNumber) as ReviewingEngineer  " &
@@ -866,7 +866,7 @@ Public Class ISMPManagersTools
                 "from LookUPPollutants, ISMPReportInformation  " &
                 "where LookUPPollutants.strPollutantCode = ISMPReportInformation.strPOllutant  " &
                 "and ISMPReportInformation.strReferenceNumber = ISMPMaster.StrReferenceNumber) as Pollutant,  " &
-                "(select (strLastName|| ', ' ||strFirstName) as ReviewingEngineer  " &
+                "(select concat(strLastName, ', ' , strFirstName) as ReviewingEngineer  " &
                 "from EPDUserProfiles, ISMPReportInformation  " &
                 "where EPDUserProfiles.numUserID = ISMPReportInformation.strReviewingEngineer  " &
                 "and ISMPReportInformation.strReferenceNumber = ISMPMaster.strReferenceNumber) as ReviewingEngineer  " &
@@ -1297,11 +1297,11 @@ Public Class ISMPManagersTools
             "format(datTestDateStart, 'dd-MMM-yyyy') as ForDatTestDateStart, " &
             "format(datReceivedDate, 'dd-MMM-yyyy') as ForDatReceivedDate, " &
             "format(datCompleteDate, 'dd-MMM-yyyy') as ForDatCompleteDate, " &
-            "(select (strLastName|| ', ' ||strFirstName) as ReviewingEngineer  " &
+            "(select concat(strLastName, ', ' , strFirstName) as ReviewingEngineer  " &
             "from EPDUserProfiles, ISMPReportInformation  " &
             "where EPDUserProfiles.numUserID = ISMPReportInformation.strReviewingEngineer  " &
             "and ISMPReportInformation.strReferenceNumber = ISMPMaster.strReferenceNumber) as ReviewingEngineer, " &
-            "(Select (strLastName|| ', ' ||strFirstName) as WitnessingEngineer " &
+            "(Select concat(strLastName, ', ' , strFirstName) as WitnessingEngineer " &
             "from EPDUserProfiles, ISMPReportInformation " &
             "where EPDUserProfiles.numUserID = ISMPReportInformation.strReviewingEngineer " &
             "and ISMPReportInformation.strReferenceNumber = ISMPMaster.strReferenceNumber) as WitnessingEngineer " &
@@ -1358,7 +1358,7 @@ Public Class ISMPManagersTools
             End If
 
             SQL = "Select " &
-            "(select (strLastName|| ', ' ||strFirstName) as ReviewingEngineer " &
+            "(select concat(strLastName, ', ' , strFirstName) as ReviewingEngineer " &
             "from EPDUserProfiles, ISMPReportInformation " &
             "where EPDUserProfiles.numUserID = ISMPReportInformation.strReviewingEngineer " &
             "and ISMPReportInformation.strReferenceNumber = ISMPMaster.strReferenceNumber) as ReviewingEngineer, " &
@@ -1781,7 +1781,7 @@ Public Class ISMPManagersTools
     Sub RunUnitStatistics2()
         Try
             SQL = "select " &
-            "distinct(strLastName|| ', ' ||strFirstName) as Engineer,  " &
+            "distinctconcat(strLastName, ', ' , strFirstName) as Engineer,  " &
             "strUnitDesc, totalreceived,  " &
             "ReceivedCount,  " &
             "round((ReceivedCount/TotalReceived)*100, 2) as ProgramPercent,   " &
@@ -3168,7 +3168,7 @@ Public Class ISMPManagersTools
     Private Sub lblTotalTests_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblTotalTests.LinkClicked
         Try
             SQL = "select strReferenceNumber, " &
-            "(strLastName|| ', ' ||strFirstName) as Engineer,  " &
+            "concat(strLastName, ', ' , strFirstName) as Engineer,  " &
             "case  " &
             "when datTestDateStart = '04-Jul-1776' then  null  " &
             "else format(datTestDateStart, 'dd-MMM-yyyy') " &

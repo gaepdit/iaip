@@ -55,7 +55,7 @@ Public Class ISMPNotificationLog
             "order by strFacilityname "
 
             SQL2 = "select " &
-            "distinct(strLastName|| ', ' ||strFirstName) as UserName,  " &
+            "distinct concat(strLastName, ', ' ,strFirstName) as UserName,  " &
             "epduserprofiles.numUserID  " &
             "from EPDUserProfiles, ISMPTestNotification  " &
             "where (numProgram = '3' and numunit <> '14')  " &

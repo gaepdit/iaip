@@ -108,7 +108,7 @@ Public Class ISMPTestFirmComments
             "numCommentsID, strCommentType, " &
             "strComment, " &
             "format(datCommentDate, 'dd-MMM-yyyy') as CommentDate, " &
-            "(strLastName|| ', ' ||strFirstName) as StaffResponsible " &
+            "concat(strLastName, ', ' ,strFirstName) as StaffResponsible " &
             "from ismptestfirmcomments, EPDUSerProfiles " &
             "where ismptestfirmcomments.strStaffResponsible = EPDUSerProfiles.numUserID "
 

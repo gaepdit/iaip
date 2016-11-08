@@ -138,13 +138,13 @@ Public Class IAIPQueryGenerator
                 "from " &
                 "(Select  " &
                 "distinct(numUserID) as numUserID, " &
-                "(StrLastName||', '||strFirstname) as Staff " &
+                " concat(StrLastName, ', ', strFirstname) as Staff " &
                 "from EPDUserProfiles  " &
                 "where numProgram = '4' " &
                 "union " &
                 "Select  " &
                 "distinct(numUserID) as numUserID, " &
-                "(StrLastName||', '||strFirstname) as Staff " &
+                " concat(StrLastName, ', ', strFirstname) as Staff " &
                 "from EPDUserProfiles, SSCPItemMaster   " &
                 "where EPDUserProfiles.numuserID = SSCPItemMaster.strResponsibleStaff) " &
                 "order by Staff "
@@ -734,7 +734,7 @@ Public Class IAIPQueryGenerator
 
             If chbSSCPEngineer.Checked = True Then
                 SQLSelect = SQLSelect &
-                "(strLastName||', '||strFirstName) as SSCPEngineer, "
+                " concat(StrLastName, ', ', strFirstname) as SSCPEngineer, "
 
                 If SQLFrom.IndexOf("VW_SSCP_MOSTRECENTASSIGNMENT") <> -1 Then
                     '   SQLFrom = SQLFrom

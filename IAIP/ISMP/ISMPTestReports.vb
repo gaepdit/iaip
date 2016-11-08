@@ -126,7 +126,7 @@ Public Class ISMPTestReports
             "numUserID  " &
             "from  " &
             "(select  " &
-            "(strLastName|| ', ' ||strFirstName) as UserName,  " &
+            "concat(strLastName, ', ' ,strFirstName) as UserName,  " &
             "NumUserID  " &
             "from EPDUSerProfiles  " &
             "where numProgram  = '3'  " &
@@ -134,7 +134,7 @@ Public Class ISMPTestReports
             "and (numunit is null or numunit <> '14') " &
             "union  " &
             "select  " &
-            "distinct(strLastName|| ', ' ||strFirstName) as UserName,  " &
+            "distinct concat(strLastName, ', ' ,strFirstName) as UserName,  " &
             "NumUserID  " &
             "from EPDUSerProfiles, ismpreportinformation " &
             "where epdUserProfiles.numUserId = ismpreportinformation.strWitnessingEngineer) "
@@ -146,9 +146,9 @@ Public Class ISMPTestReports
             daComplianceStatus = New SqlDataAdapter(SQL, CurrentConnection)
 
             SQL = <s><![CDATA[
-SELECT (EPDUserProfiles.STRLASTNAME
-  || ', '
-  || EPDUserProfiles.STRFIRSTNAME) AS UserName,
+SELECT concat(EPDUserProfiles.STRLASTNAME
+  , ', '
+  , EPDUserProfiles.STRFIRSTNAME) AS UserName,
   EPDUserProfiles.NUMUSERID
 FROM EPDUserProfiles,
   IAIPPermissions
@@ -177,9 +177,9 @@ SELECT 'None', 0 ORDER BY USERNAME
             daISMPUnits = New SqlDataAdapter(SQL, CurrentConnection)
 
             SQL = <s><![CDATA[
-SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
-    || ', '
-    || EPDUserProfiles.STRFIRSTNAME) AS ComplianceManager,
+SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
+    , ', '
+    , EPDUserProfiles.STRFIRSTNAME) AS ComplianceManager,
     EPDUserProfiles.NUMUSERID
   FROM EPDUserProfiles,
     IAIPPermissions
@@ -223,7 +223,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
             "numUserID  " &
             "from  " &
             "(select  " &
-            "(strLastName|| ', ' ||strFirstName) as UserName,  " &
+            "concat(strLastName, ', ' ,strFirstName) as UserName,  " &
             "numUserID  " &
             "from EPDUserProfiles  " &
             "where ((numProgram = '4'  or numbranch = '5' ) " &
@@ -2009,9 +2009,9 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
         End Try
     End Sub
     Private Sub LoadUcCombo()
-        Dim query As String = "SELECT (u.STRLASTNAME " &
-            "  ||', ' " &
-            "  ||u.STRFIRSTNAME) AS UnitManager " &
+        Dim query As String = "SELECT concat(u.STRLASTNAME " &
+            "  , ', ' " &
+            "  , u.STRFIRSTNAME) AS UnitManager " &
             ", p.NUMUSERID " &
             "FROM AIRBRANCH.EPDUSERPROFILES u " &
             "INNER JOIN AIRBRANCH.IAIPPERMISSIONS p " &
@@ -2114,16 +2114,16 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
             "  EngineerDays , rep.STRDETERMINATIONMETHOD , " &
             "  rep.STRCONTROLEQUIPMENTDATA , rep.STROTHERWITNESSINGENG , " &
             "  rep.STRCONFIDENTIALDATA , CASE WHEN rep.NUMREVIEWINGMANAGER " &
-            "      IS NULL THEN 'None' ELSE( p1.STRLASTNAME || ', ' || " &
+            "      IS NULL THEN 'None' ELSE concat( p1.STRLASTNAME , ', ' , " &
             "      p1.STRFIRSTNAME ) END UnitManager , " &
             "  rep.NUMREVIEWINGMANAGER, " &
             "  rep.STRPRECOMPLIANCESTATUS , CASE                WHEN " &
             "      rep.STRCOMPLIANCEMANAGER IS NULL THEN 'None' WHEN " &
-            "      rep.STRCOMPLIANCEMANAGER = '0'   THEN 'None' ELSE( " &
-            "      p2.STRLASTNAME || ', ' || p2.STRFIRSTNAME ) END " &
+            "      rep.STRCOMPLIANCEMANAGER = '0'   THEN 'None' ELSE concat( " &
+            "      p2.STRLASTNAME , ', ' , p2.STRFIRSTNAME ) END " &
             "  ComplianceManager , CASE WHEN rep.STRCC IS NULL THEN 'None' " &
             "                           WHEN rep.STRCC = '0'   THEN 'None' " &
-            "    ELSE( p3.STRLASTNAME || ', ' || p3.STRFIRSTNAME ) END " &
+            "    ELSE concat( p3.STRLASTNAME , ', ' , p3.STRFIRSTNAME ) END " &
             "  CCName , rep.STRDELETE " &
             "FROM ISMPMaster mas " &
             "INNER JOIN ISMPReportInformation rep " &
@@ -9614,7 +9614,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
             Dim SQL As String
 
             SQL = "select " &
-            "(LogNumber|| ' --> ' ||StartDate) as LogNumber " &
+            "concat(LogNumber, ' --> ' ,StartDate) as LogNumber " &
             "from  " &
             "(Select (ISMPTESTNotification.strTestLogNumber) as LogNumber, " &
             "format(datProposedStartDate,'dd-MMM-yyyy') as StartDate " &
@@ -9625,7 +9625,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
             "and strAIRSNumber = '0413" & txtAirsNumber.Text & "') NonLinked  " &
             "UNION  " &
             "select " &
-            "(LogNumber|| ' --> ' ||StartDate) as LogNumber " &
+            "concat(LogNumber, ' --> ' ,StartDate) as LogNumber " &
             "from  " &
             "(select (ISMPTestLogLink.strTestLogNumber) as LogNumber, " &
             "' ' as StartDate " &
@@ -9633,7 +9633,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
             "where strReferenceNumber = '" & txtReferenceNumber.Text & "') CurrentLink " &
             "Union " &
             "select  " &
-            "(LogNumber || ' --> ' ||StartDate) as LogNumber " &
+            "concat(LogNumber , ' --> ' ,StartDate) as LogNumber " &
             "from (select distinct(ISMPTestLogLink.strTestLogNumber) as LogNumber,  " &
             "' ' as StartDate " &
             "from ISMPTestLogLink, ISMPReportInformation,  " &
@@ -9644,7 +9644,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
             "and strClosed <> 'True') UnclosedLinks "
 
             SQL = "select " &
-            "(LogNumber|| ' --> ' ||StartDate) as LogNumber " &
+            "concat(LogNumber, ' --> ' ,StartDate) as LogNumber " &
             "from  (Select (ISMPTESTNotification.strTestLogNumber) as LogNumber, " &
             "format(datProposedStartDate,'dd-MMM-yyyy') as StartDate " &
             "from  ISMPTESTNotification  " &
@@ -9656,12 +9656,12 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
             "select " &
             "LogNumber " &
             "from (select " &
-            "(ISMPTestLogLink.strTestLogNumber|| ' --> ' ||datProposedStartDate) as LogNumber " &
+            "concat(ISMPTestLogLink.strTestLogNumber, ' --> ' ,datProposedStartDate) as LogNumber " &
             "from ISMPTestLogLink, ISMPTestNotification " &
             "where ISMPTestLogLink.strTestLogNumber = ISMPTestNotification.strTestLogNumber " &
             "and strReferenceNumber = '" & txtReferenceNumber.Text & "') CurrentLink " &
             "Union " &
-            "select  (LogNumber || ' --> ' ||StartDate) as LogNumber " &
+            "select  concat(LogNumber , ' --> ' ,StartDate) as LogNumber " &
             "from " &
             "(select distinct(ISMPTestLogLink.strTestLogNumber) as LogNumber,  " &
             "datProposedstartdate as StartDate " &
@@ -9686,7 +9686,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
             dr.Close()
 
             SQL = "select " &
-            "(ISMPTestLogLink.strTestLogNumber|| ' --> ' ||datProposedStartDate) as LogNumber " &
+            "concat(ISMPTestLogLink.strTestLogNumber, ' --> ' ,datProposedStartDate) as LogNumber " &
             "from ISMPTestLogLink, ISMPTestNotification " &
             "where ISMPTestLogLink.strTestLogNumber = ISMPTestNotification.strTestLogNumber " &
             "and strReferenceNumber = '" & txtReferenceNumber.Text & "' "
@@ -10376,7 +10376,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
                   "numReviewingManager, " &
                   "case " &
                   "when numReviewingManager is null then 'N/A' " &
-                  "else (strLastName||', '||strFirstName) " &
+                  "else concat(strLastName,', ',strFirstName) " &
                   "END UnitManager " &
                   "from ISMPMaster, APBFacilityInformation,  " &
                   "ISMPReportInformation, EPDUserProfiles     " &

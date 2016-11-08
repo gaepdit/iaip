@@ -67,9 +67,9 @@ Public Class SSPPTitleVTools
             "strFacilityName, " &
             "case  " &
             "        when strPermitNumber is NULL then ' '  " &
-            "         else SUBSTRING(strPermitNumber, 1, 4)|| '-' ||SUBSTRING(strPermitNumber, 5, 3)|| '-'  " &
-            "        ||SUBSTRING(strPermitNumber, 8, 4)|| '-' ||SUBSTRING(strPermitNumber, 12, 1)|| '-'           " &
-            "        ||SUBSTRING(strPermitNumber, 13, 2)|| '-' ||SUBSTRING(strPermitNumber, 15, 1) " &
+            "         else concat(SUBSTRING(strPermitNumber, 1, 4), '-' ,SUBSTRING(strPermitNumber, 5, 3), '-'  " &
+            "        ,SUBSTRING(strPermitNumber, 8, 4), '-' ,SUBSTRING(strPermitNumber, 12, 1), '-'           " &
+            "        ,SUBSTRING(strPermitNumber, 13, 2), '-' ,SUBSTRING(strPermitNumber, 15, 1)) " &
             "end As strPermitNumber, " &
             "Case " &
             "when datFinalizedDate is Null then ' ' " &
@@ -105,9 +105,9 @@ Public Class SSPPTitleVTools
             "strFacilityName,  " &
             "CASE   " &
             "   WHEN strPermitNumber IS NULL THEN ' '   " &
-            "   ELSE SUBSTRING(strPermitNumber, 1, 4)|| '-' ||SUBSTRING(strPermitNumber, 5, 3)|| '-'   " &
-            "    ||SUBSTRING(strPermitNumber, 8, 4)|| '-' ||SUBSTRING(strPermitNumber, 12, 1)|| '-'         " &
-            "    ||SUBSTRING(strPermitNumber, 13, 2)|| '-' ||SUBSTRING(strPermitNumber, 15, 1)  " &
+            "   ELSE concat(SUBSTRING(strPermitNumber, 1, 4), '-' ,SUBSTRING(strPermitNumber, 5, 3), '-'   " &
+            "    ,SUBSTRING(strPermitNumber, 8, 4), '-' ,SUBSTRING(strPermitNumber, 12, 1), '-'         " &
+            "    ,SUBSTRING(strPermitNumber, 13, 2), '-' ,SUBSTRING(strPermitNumber, 15, 1) ) " &
             "END AS strPermitNumber,  " &
             "CASE  " &
             "   WHEN datFinalizedDate IS NULL THEN ' '  " &
@@ -351,7 +351,7 @@ Public Class SSPPTitleVTools
     Private Sub LoadDataSetInformation()
         Try
             SQL = "select " &
-            "(strLastName||', '||strFirstName) as UserName,  " &
+            "concat(strLastName,', ',strFirstName) as UserName,  " &
             "numUserID  " &
             "from EPDUserProfiles  " &
             "order by strLastName  "
@@ -685,12 +685,12 @@ Public Class SSPPTitleVTools
 
             SQL =
             "SELECT am.STRAPPLICATIONNUMBER , SUBSTRING( fi.STRAIRSNUMBER, 5,8 ) " &
-            "  AS AIRSNumber , fi.STRFACILITYNAME ,( " &
-            "  SUBSTRING( ad.STRPERMITNUMBER, 1, 4 ) || '-' ||  " &
-            "  SUBSTRING( ad.STRPERMITNUMBER, 5, 3 ) || '-' ||  " &
-            "  SUBSTRING( ad.STRPERMITNUMBER, 8, 4 ) || '-' ||  " &
-            "  SUBSTRING( ad.STRPERMITNUMBER, 12, 1 ) || '-' ||  " &
-            "  SUBSTRING( ad.STRPERMITNUMBER, 13, 2 ) || '-' ||  " &
+            "  AS AIRSNumber , fi.STRFACILITYNAME ,concat( " &
+            "  SUBSTRING( ad.STRPERMITNUMBER, 1, 4 ) , '-' ,  " &
+            "  SUBSTRING( ad.STRPERMITNUMBER, 5, 3 ) , '-' ,  " &
+            "  SUBSTRING( ad.STRPERMITNUMBER, 8, 4 ) , '-' ,  " &
+            "  SUBSTRING( ad.STRPERMITNUMBER, 12, 1 ) , '-' ,  " &
+            "  SUBSTRING( ad.STRPERMITNUMBER, 13, 2 ) , '-' ,  " &
             "  SUBSTRING( ad.STRPERMITNUMBER, 15 ) ) AS PermitNumber , 'dd-MMM-yyyy' " &
             "  at.DATPERMITISSUED, 'dd-MMM-yyyy' ) AS PermitIssued , format " &
             "  ( at.DATEFFECTIVE, 'dd-MMM-yyyy' ) AS EffectiveDate " &
@@ -857,7 +857,7 @@ Public Class SSPPTitleVTools
             "SSPPApplicationMaster.strApplicationNumber, " &
             "strFacilityName, strFacilityCity, " &
             "strApplicationTypeDesc, " &
-            "(strLastName||', '||strFirstName) as StaffResponsible, " &
+            "concat(strLastName,', ',strFirstName) as StaffResponsible, " &
             "strUnitDesc " &
             "from SSPPApplicationMaster, SSPPApplicationData, " &
             "LookUpApplicationTypes, EPDUserProfiles, " &
@@ -1074,7 +1074,7 @@ Public Class SSPPTitleVTools
             "SSPPApplicationMaster.strApplicationNumber, " &
             "strFacilityName, strFacilityCity, " &
             "strApplicationTypeDesc, " &
-            "(strLastName||', '||strFirstName) as StaffResponsible, " &
+            "concat(strLastName,', ',strFirstName) as StaffResponsible, " &
             "strUnitDesc " &
             "from SSPPApplicationMaster, SSPPApplicationData, " &
             "LookUpApplicationTypes, SSPPApplicationTracking, " &
@@ -1173,7 +1173,7 @@ Public Class SSPPTitleVTools
                     "SSPPApplicationMaster.strApplicationNumber,  " &
                     "strFacilityName, strFacilityCity,  " &
                     "strApplicationTypeDesc,  " &
-                    "(strLastName||', '||strFirstName) as StaffResponsible,  " &
+                    " concat(strLastName,', ',strFirstName) as StaffResponsible,  " &
                     "strUnitDesc  " &
                     "from SSPPApplicationMaster, SSPPApplicationData,  " &
                     "LookUpApplicationTypes, SSPPApplicationLinking, " &
@@ -1706,7 +1706,7 @@ Public Class SSPPTitleVTools
             "SSPPApplicationMaster.strApplicationNumber, " &
             "strFacilityName, strFacilityCity, " &
             "strApplicationTypeDesc, " &
-            "(strLastName||', '||strFirstName) as StaffResponsible, " &
+            " concat(strLastName,', ',strFirstName) as StaffResponsible, " &
             "strUnitDesc " &
             "from SSPPApplicationMaster, SSPPApplicationData, " &
             "LookUpApplicationTypes, EPDUserProfiles, " &
@@ -1724,7 +1724,7 @@ Public Class SSPPTitleVTools
             "SSPPApplicationMaster.strApplicationNumber, " &
             "strFacilityName, strFacilityCity, " &
             "strApplicationTypeDesc, " &
-            "(strLastName||', '||strFirstName) as StaffResponsible, " &
+            " concat(strLastName,', ',strFirstName) as StaffResponsible, " &
             "strUnitDesc " &
             "from SSPPApplicationMaster, SSPPApplicationData, " &
             "LookUpApplicationTypes, EPDUserProfiles, " &
@@ -1821,7 +1821,7 @@ Public Class SSPPTitleVTools
                     "SSPPApplicationMaster.strApplicationNumber,  " &
                     "strFacilityName, strFacilityCity,  " &
                     "strApplicationTypeDesc,  " &
-                    "(strLastName||', '||strFirstName) as StaffResponsible,  " &
+                    " concat(strLastName,', ',strFirstName) as StaffResponsible,  " &
                     "strUnitDesc  " &
                     "from SSPPApplicationMaster, SSPPApplicationData,  " &
                     "LookUpApplicationTypes, SSPPApplicationLinking, " &
@@ -2331,7 +2331,7 @@ Public Class SSPPTitleVTools
             "SSPPApplicationMaster.strApplicationNumber, " &
             "strFacilityName, strFacilityCity, " &
             "strApplicationTypeDesc, " &
-            "(strLastName||', '||strFirstName) as StaffResponsible, " &
+            " concat(strLastName,', ',strFirstName) as StaffResponsible, " &
             "strUnitDesc " &
             "from SSPPApplicationMaster, SSPPApplicationData, " &
             "LookUpApplicationTypes, SSPPApplicationTracking, " &
@@ -2432,7 +2432,7 @@ Public Class SSPPTitleVTools
                     "SSPPApplicationMaster.strApplicationNumber,  " &
                     "strFacilityName, strFacilityCity,  " &
                     "strApplicationTypeDesc,  " &
-                    "(strLastName||', '||strFirstName) as StaffResponsible,  " &
+                    " concat(strLastName,', ',strFirstName) as StaffResponsible,  " &
                     "strUnitDesc  " &
                     "from SSPPApplicationMaster, SSPPApplicationData,  " &
                     "LookUpApplicationTypes, SSPPApplicationLinking, " &
@@ -2760,7 +2760,7 @@ Public Class SSPPTitleVTools
                    "SSPPApplicationMaster.strApplicationNumber, " &
                    "strFacilityName, strFacilityCity, " &
                    "strApplicationTypeDesc, " &
-                   "(strLastName||', '||strFirstName) as StaffResponsible, " &
+                   " concat(strLastName,', ',strFirstName) as StaffResponsible, " &
                    "strUnitDesc " &
                    "from SSPPApplicationMaster, SSPPApplicationData, " &
                    "LookUpApplicationTypes, SSPPApplicationTracking, " &
@@ -2837,7 +2837,7 @@ Public Class SSPPTitleVTools
                    "SSPPApplicationMaster.strApplicationNumber, " &
                    "strFacilityName, strFacilityCity, " &
                    "strApplicationTypeDesc, " &
-                   "(strLastName||', '||strFirstName) as StaffResponsible, " &
+                   " concat(strLastName,', ',strFirstName) as StaffResponsible, " &
                    "strUnitDesc " &
                    "from SSPPApplicationMaster, SSPPApplicationData, " &
                    "LookUpApplicationTypes, SSPPApplicationTracking, " &
@@ -2915,7 +2915,7 @@ Public Class SSPPTitleVTools
                    "SSPPApplicationMaster.strApplicationNumber, " &
                    "strFacilityName, strFacilityCity, " &
                    "strApplicationTypeDesc, " &
-                   "(strLastName||', '||strFirstName) as StaffResponsible, " &
+                   " concat(strLastName,', ',strFirstName) as StaffResponsible, " &
                    "strUnitDesc " &
                    "from SSPPApplicationMaster, SSPPApplicationData, " &
                    "LookUpApplicationTypes,  " &
@@ -2991,7 +2991,7 @@ Public Class SSPPTitleVTools
                     "SSPPApplicationMaster.strApplicationNumber, " &
                     "strFacilityName, strFacilityCity, " &
                     "strApplicationTypeDesc, " &
-                    "(strLastName||', '||strFirstName) as StaffResponsible, " &
+                    " concat(strLastName,', ',strFirstName) as StaffResponsible, " &
                     "strUnitDesc " &
                     "from SSPPApplicationMaster, SSPPApplicationData, " &
                     "LookUpApplicationTypes, " &
