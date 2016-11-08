@@ -1546,12 +1546,14 @@ Public Class SSPPStatisticalTools
             "and (strEPATOPSExcluded is null or strEPATOPSExcluded = 'False')  " &
             "and strOperationalStatus = 'O')) EPA2a1,  " &
             "(select count(*) as EPA2ab " &
-            "from APBHeaderData, APBSupplamentalData,  " &
-            "SSPPApplicationMaster, SSPPApplicationTracking  " &
-            "where APBHeaderData.strAIRSNumber = APBSupplamentalData.strAIRSNumber " &
-            "and APBHeaderData.strAIRSNumber = SSPPApplicationMaster.strAIRSNumber (+)  " &
-            "and SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strAPplicationNumber  " &
-            "AND (SUBSTRING(strAirProgramCodes, 13, 1) <> '1'  " &
+            "FROM APBHeaderData " &
+            " INNER JOIN APBSupplamentalData  " &
+            " ON APBHeaderData.strAIRSNumber = APBSupplamentalData.strAIRSNumber " &
+            " LEFT JOIN SSPPApplicationMaster " &
+            " ON APBHeaderData.strAIRSNumber = SSPPApplicationMaster.strAIRSNumber " &
+            " INNER JOIN SSPPApplicationTracking  " &
+            " ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strAPplicationNumber  " &
+            "where (SUBSTRING(strAirProgramCodes, 13, 1) <> '1'  " &
             "and datPermitIssued is null  " &
             "and strApplicationType = '14'  " &
             "and datFinalizeddate is null " &
@@ -1577,11 +1579,12 @@ Public Class SSPPStatisticalTools
             "where (SUBSTRING(strAirProgramCodes, 13, 1) = '1' " &
             "and strOperationalStatus = 'O')) EPA2d1,  " &
             "(select count(*) as EPA2db " &
-            "from APBHeaderData, " &
-            "SSPPApplicationMaster, SSPPApplicationTracking  " &
-            "where APBHeaderData.strAIRSNumber = SSPPApplicationMaster.strAIRSNumber (+) " &
-            "and SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strAPplicationNumber  " &
-            "AND (SUBSTRING(strAirProgramCodes, 13, 1) <> '1'  " &
+            "FROM APBHeaderData " &
+            " LEFT JOIN SSPPApplicationMaster " &
+            " ON APBHeaderData.strAIRSNumber = SSPPApplicationMaster.strAIRSNumber " &
+            " INNER JOIN SSPPApplicationTracking  " &
+            " ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strAPplicationNumber  " &
+            "where (SUBSTRING(strAirProgramCodes, 13, 1) <> '1'  " &
             "and datPermitIssued is null  " &
             "and strApplicationType = '14'  " &
             "and datFinalizeddate is null )) EPA2d2 "
@@ -2070,16 +2073,18 @@ Public Class SSPPStatisticalTools
                 "end Link, " &
                 "(datPermitIssued - datReceivedDate) as Diff, " &
                 " concat(strLastName, ', ', strFirstName) as UserName " &
-                "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
-                "SSPPApplicationData, LookUpApplicationTypes, " &
-                "SSPPApplicationLinking, " &
-                "EPDUserProfiles " &
-                "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
-                "and SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
-                "and SSPPApplicationMaster.strApplicatioNNumber = SSPPApplicationData.strApplicationNumber  " &
-                "and SSPPApplicationMaster.strApplicatioNnumber = SSPPApplicationLinking.strApplicationNumber (+) " &
-                "and LookUpApplicationTypes.strApplicationTypeCode = strApplicationType  " &
-                "and (strApplicationType = '14' or strApplicationType = '16')  " &
+                "FROM SSPPApplicationMaster " &
+                " INNER JOIN SSPPApplicationTracking  " &
+                "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
+                " INNER JOIN SSPPApplicationData " &
+                "ON SSPPApplicationMaster.strApplicatioNNumber = SSPPApplicationData.strApplicationNumber  " &
+                " INNER JOIN LookUpApplicationTypes " &
+                "ON LookUpApplicationTypes.strApplicationTypeCode = strApplicationType  " &
+                " LEFT JOIN SSPPApplicationLinking " &
+                "ON SSPPApplicationMaster.strApplicatioNnumber = SSPPApplicationLinking.strApplicationNumber " &
+                " INNER JOIN EPDUserProfiles " &
+                "ON SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
+                "where (strApplicationType = '14' or strApplicationType = '16')  " &
                 "and DatPermitIssued > '" & FirstDay & "' and datPermitissued < '" & LastDay & "'  " &
                 "and (strPermitType = '4' or strPermitType = '7' or strPermitType = '12' " &
                 "or strPermitType = '13') " &
@@ -2240,16 +2245,18 @@ Public Class SSPPStatisticalTools
                 "end Link, " &
                 "(datPermitIssued - datReceivedDate) as Diff, " &
                 " concat(strLastName, ', ', strFirstName) as UserName " &
-                "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
-                "SSPPApplicationData, LookUpApplicationTypes,     " &
-                "SSPPApplicationLinking, " &
-                "EPDUserProfiles " &
-                "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
-                "and SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
-                "and SSPPApplicationMaster.strApplicatioNNumber = SSPPApplicationData.strApplicationNumber  " &
-                "and SSPPApplicationMaster.strApplicatioNnumber = SSPPApplicationLinking.strApplicationNumber (+) " &
-                "and LookUpApplicationTypes.strApplicationTypeCode = strApplicationType  " &
-                "and (strApplicationType = '22' or strApplicationType = '21')  " &
+                "FROM SSPPApplicationMaster " &
+                " INNER JOIN SSPPApplicationTracking  " &
+                "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
+                " INNER JOIN SSPPApplicationData " &
+                "ON SSPPApplicationMaster.strApplicatioNNumber = SSPPApplicationData.strApplicationNumber  " &
+                " INNER JOIN LookUpApplicationTypes " &
+                "ON LookUpApplicationTypes.strApplicationTypeCode = strApplicationType  " &
+                " LEFT JOIN SSPPApplicationLinking " &
+                "ON SSPPApplicationMaster.strApplicatioNnumber = SSPPApplicationLinking.strApplicationNumber " &
+                " INNER JOIN EPDUserProfiles " &
+                "ON SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
+                "where (strApplicationType = '22' or strApplicationType = '21')  " &
                 "and DatPermitIssued > '" & FirstDay & "' and datPermitissued < '" & LastDay & "'  " &
                 "and (strPermitType = '4' or strPermitType = '7') " &
                 EngineerLine
@@ -2361,16 +2368,18 @@ Public Class SSPPStatisticalTools
                 "end Link, " &
                 "(datPermitIssued - datReceivedDate) as Diff, " &
                 " concat(strLastName, ', ', strFirstName) as UserName " &
-                "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
-                "SSPPApplicationData, LookUpApplicationTypes,     " &
-                "SSPPApplicationLinking, " &
-                "EPDUserProfiles " &
-                "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
-                "and SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
-                "and SSPPApplicationMaster.strApplicatioNNumber = SSPPApplicationData.strApplicationNumber  " &
-                "and SSPPApplicationMaster.strApplicatioNnumber = SSPPApplicationLinking.strApplicationNumber (+) " &
-                "and LookUpApplicationTypes.strApplicationTypeCode = strApplicationType  " &
-                "and (strApplicationType = '20' or strApplicationType = '19')  " &
+                "FROM SSPPApplicationMaster " &
+                " INNER JOIN SSPPApplicationTracking  " &
+                "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
+                " INNER JOIN SSPPApplicationData " &
+                "ON SSPPApplicationMaster.strApplicatioNNumber = SSPPApplicationData.strApplicationNumber  " &
+                " INNER JOIN LookUpApplicationTypes " &
+                "ON LookUpApplicationTypes.strApplicationTypeCode = strApplicationType  " &
+                " LEFT JOIN SSPPApplicationLinking " &
+                "ON SSPPApplicationMaster.strApplicatioNnumber = SSPPApplicationLinking.strApplicationNumber " &
+                " INNER JOIN EPDUserProfiles " &
+                "ON SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
+                "where (strApplicationType = '20' or strApplicationType = '19')  " &
                 "and DatPermitIssued > '" & FirstDay & "' and datPermitissued < '" & LastDay & "'  " &
                 "and (strPermitType = '4' or strPermitType = '7') " &
                 EngineerLine
@@ -2482,16 +2491,18 @@ Public Class SSPPStatisticalTools
                 "end Link, " &
                 "(datPermitIssued - datReceivedDate) as Diff, " &
                 " concat(strLastName, ', ', strFirstName) as UserName " &
-                "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
-                "SSPPApplicationData, LookUpApplicationTypes,     " &
-                "SSPPApplicationLinking, " &
-                "EPDUserProfiles " &
-                "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
-                "and SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
-                "and SSPPApplicationMaster.strApplicatioNNumber = SSPPApplicationData.strApplicationNumber  " &
-                "and SSPPApplicationMaster.strApplicatioNnumber = SSPPApplicationLinking.strApplicationNumber (+) " &
-                "and LookUpApplicationTypes.strApplicationTypeCode = strApplicationType  " &
-                "and strApplicationType = '15' " &
+                "FROM SSPPApplicationMaster " &
+                " INNER JOIN SSPPApplicationTracking  " &
+                "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
+                " INNER JOIN SSPPApplicationData " &
+                "ON SSPPApplicationMaster.strApplicatioNNumber = SSPPApplicationData.strApplicationNumber  " &
+                " INNER JOIN LookUpApplicationTypes " &
+                "ON LookUpApplicationTypes.strApplicationTypeCode = strApplicationType  " &
+                " LEFT JOIN SSPPApplicationLinking " &
+                "ON SSPPApplicationMaster.strApplicatioNnumber = SSPPApplicationLinking.strApplicationNumber " &
+                " INNER JOIN EPDUserProfiles " &
+                "ON SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
+                "where strApplicationType = '15' " &
                 "and DatPermitIssued > '" & FirstDay & "' and datPermitissued < '" & LastDay & "'  " &
                 "and (strPermitType = '4' or strPermitType = '7') " &
                 EngineerLine
@@ -2603,16 +2614,18 @@ Public Class SSPPStatisticalTools
                 "end Link, " &
                 "(datPermitIssued - datReceivedDate) as Diff, " &
                 " concat(strLastName, ', ', strFirstName) as UserName " &
-                "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
-                "SSPPApplicationData, LookUpApplicationTypes,     " &
-                "SSPPApplicationLinking, " &
-                "EPDUserProfiles " &
-                "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
-                "and SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
-                "and SSPPApplicationMaster.strApplicatioNNumber = SSPPApplicationData.strApplicationNumber  " &
-                "and SSPPApplicationMaster.strApplicatioNnumber = SSPPApplicationLinking.strApplicationNumber (+) " &
-                "and LookUpApplicationTypes.strApplicationTypeCode = strApplicationType  " &
-                "and strApplicationType = '26' " &
+                "FROM SSPPApplicationMaster " &
+                " INNER JOIN SSPPApplicationTracking  " &
+                "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
+                " INNER JOIN SSPPApplicationData " &
+                "ON SSPPApplicationMaster.strApplicatioNNumber = SSPPApplicationData.strApplicationNumber  " &
+                " INNER JOIN LookUpApplicationTypes " &
+                "ON LookUpApplicationTypes.strApplicationTypeCode = strApplicationType  " &
+                " LEFT JOIN SSPPApplicationLinking " &
+                "ON SSPPApplicationMaster.strApplicatioNnumber = SSPPApplicationLinking.strApplicationNumber " &
+                " INNER JOIN EPDUserProfiles " &
+                "ON SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
+                "where strApplicationType = '26' " &
                 "and DatPermitIssued > '" & FirstDay & "' and datPermitissued < '" & LastDay & "'  " &
                 "and (strPermitType = '4' or strPermitType = '7' or strPermitType = '1') " &
                 EngineerLine
@@ -2724,16 +2737,18 @@ Public Class SSPPStatisticalTools
                 "end Link, " &
                 "(datPermitIssued - datReceivedDate) as Diff, " &
                 " concat(strLastName, ', ', strFirstName) as UserName " &
-                "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
-                "SSPPApplicationData, LookUpApplicationTypes,     " &
-                "SSPPApplicationLinking, " &
-                "EPDUserProfiles " &
-                "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
-                "and SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
-                "and SSPPApplicationMaster.strApplicatioNNumber = SSPPApplicationData.strApplicationNumber  " &
-                "and SSPPApplicationMaster.strApplicatioNnumber = SSPPApplicationLinking.strApplicationNumber (+) " &
-                "and LookUpApplicationTypes.strApplicationTypeCode = strApplicationType  " &
-                "and strApplicationType = '12' " &
+                "FROM SSPPApplicationMaster " &
+                " INNER JOIN SSPPApplicationTracking  " &
+                "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
+                " INNER JOIN SSPPApplicationData " &
+                "ON SSPPApplicationMaster.strApplicatioNNumber = SSPPApplicationData.strApplicationNumber  " &
+                " INNER JOIN LookUpApplicationTypes " &
+                "ON LookUpApplicationTypes.strApplicationTypeCode = strApplicationType  " &
+                " LEFT JOIN SSPPApplicationLinking " &
+                "ON SSPPApplicationMaster.strApplicatioNnumber = SSPPApplicationLinking.strApplicationNumber " &
+                " INNER JOIN EPDUserProfiles " &
+                "ON SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
+                "where strApplicationType = '12' " &
                 "and DatPermitIssued > '" & FirstDay & "' and datPermitissued < '" & LastDay & "'  " &
                  "and (strPermitType = '4' or strPermitType = '7') " &
                 EngineerLine
@@ -2845,16 +2860,18 @@ Public Class SSPPStatisticalTools
                 "end Link, " &
                 "(datPermitIssued - datReceivedDate) as Diff, " &
                 " concat(strLastName, ', ', strFirstName) as UserName " &
-                "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
-                "SSPPApplicationData, LookUpApplicationTypes,     " &
-                "SSPPApplicationLinking, " &
-                "EPDUserProfiles " &
-                "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
-                "and SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
-                "and SSPPApplicationMaster.strApplicatioNNumber = SSPPApplicationData.strApplicationNumber  " &
-                "and SSPPApplicationMaster.strApplicatioNnumber = SSPPApplicationLinking.strApplicationNumber (+) " &
-                "and LookUpApplicationTypes.strApplicationTypeCode = strApplicationType  " &
-                "and strApplicationType = '9' " &
+                "FROM SSPPApplicationMaster " &
+                " INNER JOIN SSPPApplicationTracking  " &
+                "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
+                " INNER JOIN SSPPApplicationData " &
+                "ON SSPPApplicationMaster.strApplicatioNNumber = SSPPApplicationData.strApplicationNumber  " &
+                " INNER JOIN LookUpApplicationTypes " &
+                "ON LookUpApplicationTypes.strApplicationTypeCode = strApplicationType  " &
+                " LEFT JOIN SSPPApplicationLinking " &
+                "ON SSPPApplicationMaster.strApplicatioNnumber = SSPPApplicationLinking.strApplicationNumber " &
+                " INNER JOIN EPDUserProfiles " &
+                "ON SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
+                "where strApplicationType = '9' " &
                 "and DatPermitIssued > '" & FirstDay & "' and datPermitissued < '" & LastDay & "' " &
                 "and strPermitType = '6' " &
                 EngineerLine
@@ -2966,16 +2983,18 @@ Public Class SSPPStatisticalTools
                 "end Link, " &
                 "(datPermitIssued - datReceivedDate) as Diff, " &
                 " concat(strLastName, ', ', strFirstName) as UserName " &
-                "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
-                "SSPPApplicationData, LookUpApplicationTypes,    " &
-                "SSPPApplicationLinking, " &
-                "EPDUserProfiles " &
-                "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
-                "and SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.nuMUserID " &
-                "and SSPPApplicationMaster.strApplicatioNNumber = SSPPApplicationData.strApplicationNumber  " &
-                "and SSPPApplicationMaster.strApplicatioNnumber = SSPPApplicationLinking.strApplicationNumber (+) " &
-                "and LookUpApplicationTypes.strApplicationTypeCode = strApplicationType  " &
-                "and (strApplicationType = '11' OR strApplicationType = '8' " &
+                "FROM SSPPApplicationMaster " &
+                " INNER JOIN SSPPApplicationTracking  " &
+                "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
+                " INNER JOIN SSPPApplicationData " &
+                "ON SSPPApplicationMaster.strApplicatioNNumber = SSPPApplicationData.strApplicationNumber  " &
+                " INNER JOIN LookUpApplicationTypes " &
+                "ON LookUpApplicationTypes.strApplicationTypeCode = strApplicationType  " &
+                " LEFT JOIN SSPPApplicationLinking " &
+                "ON SSPPApplicationMaster.strApplicatioNnumber = SSPPApplicationLinking.strApplicationNumber " &
+                " INNER JOIN EPDUserProfiles " &
+                "ON SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
+                "where (strApplicationType = '11' OR strApplicationType = '8' " &
                 "OR strApplicationType = '4' OR strapplicationType = '3' " &
                 "OR strApplicationType = '25' OR strApplicationType = '2') " &
                 "and DatPermitIssued > '" & FirstDay & "' and datPermitissued < '" & LastDay & "'  " &
@@ -3092,16 +3111,18 @@ Public Class SSPPStatisticalTools
                 "end Link, " &
                 "(datPermitIssued - datReceivedDate) as Diff, " &
                 " concat(strLastName, ', ', strFirstName) as UserName " &
-                "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
-                "SSPPApplicationData, LookUpApplicationTypes,  " &
-                "SSPPApplicationLinking, " &
-                "EPDUserProfiles " &
-                "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
-                "and SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
-                "and SSPPApplicationMaster.strApplicatioNNumber = SSPPApplicationData.strApplicationNumber  " &
-                "and SSPPApplicationMaster.strApplicatioNnumber = SSPPApplicationLinking.strApplicationNumber (+) " &
-                "and strApplicationType = LookUpApplicationTypes.strApplicationTypeCode (+) " &
-                "and datPermitIssued IS not Null  " &
+                "FROM SSPPApplicationMaster " &
+                " INNER JOIN SSPPApplicationTracking  " &
+                "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
+                " INNER JOIN SSPPApplicationData " &
+                "ON SSPPApplicationMaster.strApplicatioNNumber = SSPPApplicationData.strApplicationNumber  " &
+                " LEFT JOIN LookUpApplicationTypes " &
+                "ON strApplicationType = LookUpApplicationTypes.strApplicationTypeCode " &
+                " LEFT JOIN SSPPApplicationLinking " &
+                "ON SSPPApplicationMaster.strApplicatioNnumber = SSPPApplicationLinking.strApplicationNumber " &
+                " INNER JOIN EPDUserProfiles " &
+                "ON SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
+                "where datPermitIssued IS not Null  " &
                 "and datPermitIssued > '" & FirstDay & "' and datPermitIssued < '" & LastDay & "'  " &
                 "and strPermitType <> '4' " &
                 "and strPermitType <> '7' " &
@@ -3217,16 +3238,18 @@ Public Class SSPPStatisticalTools
                 "end Link, " &
                 "(datPermitIssued - datReceivedDate) as Diff, " &
                 " concat(strLastName, ', ', strFirstName) as UserName " &
-                "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
-                "SSPPApplicationData, LookUpApplicationTypes, " &
-                "SSPPApplicationLinking, " &
-                "EPDUserProfiles " &
-                "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
-                "and SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
-                "and SSPPApplicationMaster.strApplicatioNNumber = SSPPApplicationData.strApplicationNumber  " &
-                "and SSPPApplicationMaster.strApplicatioNnumber = SSPPApplicationLinking.strApplicationNumber (+) " &
-                "and LookUpApplicationTypes.strApplicationTypeCode = strApplicationType  " &
-                "and SUBSTRING(strTrackedRules, 1, 1) = '1'  " &
+                "FROM SSPPApplicationMaster " &
+                " INNER JOIN SSPPApplicationTracking  " &
+                "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
+                " INNER JOIN SSPPApplicationData " &
+                "ON SSPPApplicationMaster.strApplicatioNNumber = SSPPApplicationData.strApplicationNumber  " &
+                " INNER JOIN LookUpApplicationTypes " &
+                "ON LookUpApplicationTypes.strApplicationTypeCode = strApplicationType  " &
+                " LEFT JOIN SSPPApplicationLinking " &
+                "ON SSPPApplicationMaster.strApplicatioNnumber = SSPPApplicationLinking.strApplicationNumber " &
+                " INNER JOIN EPDUserProfiles " &
+                "ON SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
+                "where SUBSTRING(strTrackedRules, 1, 1) = '1'  " &
                 "and DatPermitIssued > '" & FirstDay & "' and datPermitissued < '" & LastDay & "'  " &
                 "and strPermitType <> '9' " &
                 "and strPermitType <> '10' " &
@@ -4314,14 +4337,18 @@ Public Class SSPPStatisticalTools
                 "end as AppStatus, " &
                 "format(datReceivedDate, 'yyyy-MM-dd') as datReceivedDate, " &
                 " concat(strLastName, ', ', strFirstName) as UserName " &
-                "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
-                "SSPPApplicationData, LookUpApplicationTypes,  " &
-                "EPDUserProfiles " &
-                "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
-                "and SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
-                "and SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber  " &
-                "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode (+) " &
-                "and datFinalizedDate is Null " &
+                "FROM SSPPApplicationMaster " &
+                " INNER JOIN SSPPApplicationTracking  " &
+                "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
+                " INNER JOIN SSPPApplicationData " &
+                "ON SSPPApplicationMaster.strApplicatioNNumber = SSPPApplicationData.strApplicationNumber  " &
+                " LEFT JOIN LookUpApplicationTypes " &
+                "ON SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode " &
+                " LEFT JOIN SSPPApplicationLinking " &
+                "ON SSPPApplicationMaster.strApplicatioNnumber = SSPPApplicationLinking.strApplicationNumber " &
+                " INNER JOIN EPDUserProfiles " &
+                "ON SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
+                "where datFinalizedDate is Null " &
                 "and (strApplicationType = '14' or strApplicationType = '16') " &
                 EngineerLine
 
@@ -4433,14 +4460,16 @@ Public Class SSPPStatisticalTools
                 "end as AppStatus, " &
                 "format(datReceivedDate, 'yyyy-MM-dd') as datReceivedDate, " &
                 " concat(strLastName, ', ', strFirstName) as UserName " &
-                "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
-                "SSPPApplicationData, LookUpApplicationTypes,  " &
-                "EPDUserProfiles " &
-                "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
-                "and SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
-                "and SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber  " &
-                "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode (+) " &
-                "and datFinalizedDate is Null " &
+                "FROM SSPPApplicationMaster " &
+                " INNER JOIN SSPPApplicationTracking  " &
+                "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
+                " INNER JOIN SSPPApplicationData " &
+                "ON SSPPApplicationMaster.strApplicatioNNumber = SSPPApplicationData.strApplicationNumber  " &
+                " LEFT JOIN LookUpApplicationTypes " &
+                "ON SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode " &
+                " INNER JOIN EPDUserProfiles " &
+                "ON SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
+                "where datFinalizedDate is Null " &
                 "and (strApplicationType = '14' or strApplicationType = '16') " &
                 "and datReceivedDate > DATEADD(month, -12, GETDATE())  " &
                 EngineerLine
@@ -4553,14 +4582,16 @@ Public Class SSPPStatisticalTools
                 "end as AppStatus, " &
                 "format(datReceivedDate, 'yyyy-MM-dd') as datReceivedDate, " &
                 " concat(strLastName, ', ', strFirstName) as UserName " &
-                "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
-                "SSPPApplicationData, LookUpApplicationTypes,  " &
-                "EPDUserProfiles " &
-                "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
-                "and SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
-                "and SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber  " &
-                "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode (+) " &
-                "and datFinalizedDate is Null " &
+                "FROM SSPPApplicationMaster " &
+                " INNER JOIN SSPPApplicationTracking  " &
+                "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
+                " INNER JOIN SSPPApplicationData " &
+                "ON SSPPApplicationMaster.strApplicatioNNumber = SSPPApplicationData.strApplicationNumber  " &
+                " LEFT JOIN LookUpApplicationTypes " &
+                "ON SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode " &
+                " INNER JOIN EPDUserProfiles " &
+                "ON SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
+                "where datFinalizedDate is Null " &
                 "and (strApplicationType = '14' or strApplicationType = '16') " &
                 "and datReceivedDate >= DATEADD(month, -18, GETDATE()) " &
                 "and datReceivedDate < DATEADD(month, -12, GETDATE()) " &
@@ -4673,14 +4704,16 @@ Public Class SSPPStatisticalTools
                 "end as AppStatus, " &
                 "format(datReceivedDate, 'yyyy-MM-dd') as datReceivedDate, " &
                 " concat(strLastName, ', ', strFirstName) as UserName " &
-                "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
-                "SSPPApplicationData, LookUpApplicationTypes,  " &
-                "EPDUserProfiles " &
-                "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
-                "and SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
-                "and SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber  " &
-                "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode (+) " &
-                "and datFinalizedDate is Null " &
+                "FROM SSPPApplicationMaster " &
+                " INNER JOIN SSPPApplicationTracking  " &
+                "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
+                " INNER JOIN SSPPApplicationData " &
+                "ON SSPPApplicationMaster.strApplicatioNNumber = SSPPApplicationData.strApplicationNumber  " &
+                " LEFT JOIN LookUpApplicationTypes " &
+                "ON SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode " &
+                " INNER JOIN EPDUserProfiles " &
+                "ON SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
+                "where datFinalizedDate is Null " &
                 "and (strApplicationType = '14' or strApplicationType = '16') " &
                 "and datReceivedDate < DATEADD(month, -18, GETDATE())" &
                 EngineerLine
@@ -4805,14 +4838,16 @@ Public Class SSPPStatisticalTools
                 "end as AppStatus, " &
                 "format(datReceivedDate, 'yyyy-MM-dd') as datReceivedDate, " &
                 " concat(strLastName, ', ', strFirstName) as UserName " &
-                "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
-                "SSPPApplicationData, LookUpApplicationTypes,  " &
-                "EPDUserProfiles " &
-                "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
-                "and SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
-                "and SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber  " &
-                "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode (+) " &
-                "and datFinalizedDate is Null " &
+                "FROM SSPPApplicationMaster " &
+                " INNER JOIN  SSPPApplicationTracking  " &
+                "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
+                " INNER JOIN SSPPApplicationData " &
+                "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber  " &
+                " LEFT JOIN LookUpApplicationTypes  " &
+                "ON SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode " &
+                " INNER JOIN EPDUserProfiles " &
+                "ON SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
+                "where datFinalizedDate is Null " &
                 "and strApplicationType <> '16' and strApplicationType <> '14' " &
                 "and strApplicationType <> '17' and strApplicationType <> '27' " &
                 EngineerLine
@@ -4924,14 +4959,16 @@ Public Class SSPPStatisticalTools
                 "end as AppStatus, " &
                 "format(datReceivedDate, 'yyyy-MM-dd') as datReceivedDate, " &
                 " concat(strLastName, ', ', strFirstName) as UserName " &
-                "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
-                "SSPPApplicationData, LookUpApplicationTypes,  " &
-                "EPDUserProfiles " &
-                "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
-                "and SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
-                "and SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber  " &
-                "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode (+) " &
-                "and datFinalizedDate is Null " &
+                "FROM SSPPApplicationMaster " &
+                " INNER JOIN  SSPPApplicationTracking  " &
+                "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
+                " INNER JOIN SSPPApplicationData " &
+                "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber  " &
+                " LEFT JOIN LookUpApplicationTypes  " &
+                "ON SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode " &
+                " INNER JOIN EPDUserProfiles " &
+                "ON SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
+                "Where datFinalizedDate is Null " &
                 "and strApplicationType <> '16' and strApplicationType <> '14' " &
                 "and strApplicationType <> '17' and strApplicationType <> '27' " &
                 "and datReceivedDate >= DATEADD(month, -3, GETDATE())  " &
@@ -5044,14 +5081,16 @@ Public Class SSPPStatisticalTools
                 "end as AppStatus, " &
                 "format(datReceivedDate, 'yyyy-MM-dd') as datReceivedDate, " &
                 " concat(strLastName, ', ', strFirstName) as UserName " &
-                "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
-                "SSPPApplicationData, LookUpApplicationTypes,  " &
-                "EPDUserProfiles " &
-                "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
-                "and SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
-                "and SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber  " &
-                "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode (+) " &
-                "and datFinalizedDate is Null " &
+                "FROM SSPPApplicationMaster " &
+                " INNER JOIN  SSPPApplicationTracking  " &
+                "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
+                " INNER JOIN SSPPApplicationData " &
+                "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber  " &
+                " LEFT JOIN LookUpApplicationTypes  " &
+                "ON SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode " &
+                " INNER JOIN EPDUserProfiles " &
+                "ON SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
+                "where datFinalizedDate is Null " &
                 "and strApplicationType <> '16' and strApplicationType <> '14' " &
                 "and strApplicationType <> '17' and strApplicationType <> '27' " &
                 "and datReceivedDate >= DATEADD(month, -6, GETDATE()) " &
@@ -5165,14 +5204,16 @@ Public Class SSPPStatisticalTools
                 "end as AppStatus, " &
                 "format(datReceivedDate, 'yyyy-MM-dd') as datReceivedDate, " &
                 " concat(strLastName, ', ', strFirstName) as UserName " &
-                "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
-                "SSPPApplicationData, LookUpApplicationTypes,  " &
-                "EPDUserProfiles " &
-                "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
-                "and SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
-                "and SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber  " &
-                "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode (+) " &
-                "and datFinalizedDate is Null " &
+                "FROM SSPPApplicationMaster " &
+                " INNER JOIN  SSPPApplicationTracking  " &
+                "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
+                " INNER JOIN SSPPApplicationData " &
+                "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber  " &
+                " LEFT JOIN LookUpApplicationTypes  " &
+                "ON SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode " &
+                " INNER JOIN EPDUserProfiles " &
+                "ON SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
+                "where datFinalizedDate is Null " &
                 "and strApplicationType <> '16' and strApplicationType <> '14' " &
                 "and strApplicationType <> '17' and strApplicationType <> '27' " &
                 "and datReceivedDate >= DATEADD(month, -9, GETDATE()) " &
@@ -5286,14 +5327,16 @@ Public Class SSPPStatisticalTools
                 "end as AppStatus, " &
                 "format(datReceivedDate, 'yyyy-MM-dd') as datReceivedDate, " &
                 " concat(strLastName, ', ', strFirstName) as UserName " &
-                "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
-                "SSPPApplicationData, LookUpApplicationTypes,  " &
-                "EPDUserProfiles " &
-                "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
-                "and SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
-                "and SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber  " &
-                "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode (+) " &
-                "and datFinalizedDate is Null " &
+                "FROM SSPPApplicationMaster " &
+                " INNER JOIN  SSPPApplicationTracking  " &
+                "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
+                " INNER JOIN SSPPApplicationData " &
+                "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber  " &
+                " LEFT JOIN LookUpApplicationTypes  " &
+                "ON SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode " &
+                " INNER JOIN EPDUserProfiles " &
+                "ON SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
+                "where datFinalizedDate is Null " &
                 "and strApplicationType <> '16' and strApplicationType <> '14' " &
                 "and strApplicationType <> '17' and strApplicationType <> '27' " &
                 "and datReceivedDate >= DATEADD(month, -12, GETDATE()) " &
@@ -5407,14 +5450,16 @@ Public Class SSPPStatisticalTools
                 "end as AppStatus, " &
                 "format(datReceivedDate, 'yyyy-MM-dd') as datReceivedDate, " &
                 " concat(strLastName, ', ', strFirstName) as UserName " &
-                "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
-                "SSPPApplicationData, LookUpApplicationTypes,  " &
-                "EPDUserProfiles " &
-                "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
-                "and SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
-                "and SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber  " &
-                "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode (+) " &
-                "and datFinalizedDate is Null " &
+                "FROM SSPPApplicationMaster " &
+                " INNER JOIN  SSPPApplicationTracking  " &
+                "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
+                " INNER JOIN SSPPApplicationData " &
+                "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber  " &
+                " LEFT JOIN LookUpApplicationTypes  " &
+                "ON SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode " &
+                " INNER JOIN EPDUserProfiles " &
+                "ON SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
+                "where datFinalizedDate is Null " &
                 "and strApplicationType <> '16' and strApplicationType <> '14' " &
                 "and strApplicationType <> '17' and strApplicationType <> '27' " &
                 "and datReceivedDate < DATEADD(month, -12, GETDATE())" &
@@ -5501,12 +5546,14 @@ Public Class SSPPStatisticalTools
                 "and (strEPATOPSExcluded is null or strEPATOPSExcluded = 'False')   " &
                 "and strOperationalStatus = 'O') EPA1,  " &
                 "(select APBHeaderData.strAIRSNumber as AIRSNumber2 " &
-                "from APBHeaderData, APBSupplamentalData,   " &
-                "SSPPApplicationMaster, SSPPApplicationTracking   " &
-                "where APBHeaderData.strAIRSNumber = APBSupplamentalData.strAIRSNumber  " &
-                "and APBHeaderData.strAIRSNumber = SSPPApplicationMaster.strAIRSNumber (+)   " &
-                "and SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strAPplicationNumber   " &
-                "AND SUBSTRING(strAirProgramCodes, 13, 1) <> '1'   " &
+                "FROM APBHeaderData " &
+                " INNER JOIN APBSupplamentalData   " &
+                "ON APBHeaderData.strAIRSNumber = APBSupplamentalData.strAIRSNumber  " &
+                " LEFT JOIN SSPPApplicationMaster " &
+                "ON APBHeaderData.strAIRSNumber = SSPPApplicationMaster.strAIRSNumber " &
+                " INNER JOIN SSPPApplicationTracking   " &
+                "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strAPplicationNumber   " &
+                "where SUBSTRING(strAirProgramCodes, 13, 1) <> '1'   " &
                 "and datPermitIssued is null   " &
                 "and strApplicationType = '14'   " &
                 "and datFinalizeddate is null  " &
@@ -5581,12 +5628,14 @@ Public Class SSPPStatisticalTools
                 "AND SUBSTRING(strAirProgramCodes, 13, 1) = '1'   " &
                 "and strOperationalStatus = 'O') EPA1,   " &
                 "(select APBHeaderData.strAIRSNumber as AIRSNumber2  " &
-                "from APBHeaderData, APBSupplamentalData,    " &
-                "SSPPApplicationMaster, SSPPApplicationTracking    " &
-                "where APBHeaderData.strAIRSNumber = APBSupplamentalData.strAIRSNumber   " &
-                "and APBHeaderData.strAIRSNumber = SSPPApplicationMaster.strAIRSNumber (+)    " &
-                "and SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strAPplicationNumber    " &
-                "AND SUBSTRING(strAirProgramCodes, 13, 1) <> '1'    " &
+                "FROM APBHeaderData " &
+                " INNER JOIN APBSupplamentalData   " &
+                "ON APBHeaderData.strAIRSNumber = APBSupplamentalData.strAIRSNumber  " &
+                " LEFT JOIN SSPPApplicationMaster " &
+                "ON APBHeaderData.strAIRSNumber = SSPPApplicationMaster.strAIRSNumber " &
+                " INNER JOIN SSPPApplicationTracking   " &
+                "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strAPplicationNumber   " &
+                "where SUBSTRING(strAirProgramCodes, 13, 1) <> '1'    " &
                 "and datPermitIssued is null    " &
                 "and strApplicationType = '14'   " &
                 "and datFinalizeddate is null) EPA2   " &
@@ -5729,12 +5778,14 @@ Public Class SSPPStatisticalTools
                 "end as AppStatus, " &
                 "format(datReceivedDate, 'yyyy-MM-dd') as datReceivedDate, " &
                 "format(datPermitIssued, 'yyyy-MM-dd') as datPermitIssued " &
-                "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
-                "SSPPApplicationData, LookUpApplicationTypes " &
-                "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
-                "and SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber  " &
-                "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode (+) " &
-                "AND datPermitIssued IS NOT NULL " &
+                "FROM SSPPApplicationMaster " &
+                " INNER JOIN SSPPApplicationTracking  " &
+                "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
+                " INNER JOIN SSPPApplicationData " &
+                "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber  " &
+                " LEFT JOIN LookUpApplicationTypes " &
+                "ON SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode " &
+                "where datPermitIssued IS NOT NULL " &
                 "AND strApplicationType = '14'  " &
                 "AND strPermitType = '7'  " &
                 "AND datPermitIssued > '" & StartDate & "' " &
@@ -5819,12 +5870,14 @@ Public Class SSPPStatisticalTools
                 "end as AppStatus, " &
                 "format(datReceivedDate, 'yyyy-MM-dd') as datReceivedDate, " &
                 "format(datPermitIssued, 'yyyy-MM-dd') as datPermitIssued " &
-                "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
-                "SSPPApplicationData, LookUpApplicationTypes " &
-                "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
-                "and SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber  " &
-                "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode (+) " &
-                "AND datPermitIssued IS NOT NULL " &
+                "FROM SSPPApplicationMaster " &
+                " INNER JOIN SSPPApplicationTracking  " &
+                "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
+                " INNER JOIN SSPPApplicationData " &
+                "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber  " &
+                " LEFT JOIN LookUpApplicationTypes " &
+                "ON SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode " &
+                "where datPermitIssued IS NOT NULL " &
                 "AND strApplicationType = '14'  " &
                 "AND strPermitType = '7'  " &
                 "AND datPermitIssued > '" & StartDate & "' " &
@@ -5909,12 +5962,14 @@ Public Class SSPPStatisticalTools
                 "else '01 - At Engineer'        " &
                 "end as AppStatus, " &
                 "format(datReceivedDate, 'yyyy-MM-dd') as datReceivedDate " &
-                "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
-                "SSPPApplicationData, LookUpApplicationTypes " &
-                "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
-                "and SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber  " &
-                "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode (+) " &
-                "AND strApplicationType = '14' " &
+                "FROM SSPPApplicationMaster " &
+                " INNER JOIN SSPPApplicationTracking  " &
+                "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
+                " INNER JOIN SSPPApplicationData " &
+                "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber  " &
+                " LEFT JOIN LookUpApplicationTypes " &
+                "ON SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode " &
+                "where strApplicationType = '14' " &
                 "and datPermitIssued is Null " &
                 "and datReceivedDate < DATEADD(month, -18, '" & EndDate & "') "
 
@@ -6275,12 +6330,14 @@ Public Class SSPPStatisticalTools
                 "end as AppStatus, " &
                 "format(datReceivedDate, 'yyyy-MM-dd') as datReceivedDate, " &
                 "format(datPermitIssued, 'yyyy-MM-dd') as datPermitIssued " &
-                "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
-                "SSPPApplicationData, LookUpApplicationTypes " &
-                "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
-                "and SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber  " &
-                "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode (+) " &
-                "AND datPermitIssued IS NOT NULL " &
+                "FROM SSPPApplicationMaster " &
+                " INNER JOIN SSPPApplicationTracking  " &
+                "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
+                " INNER JOIN SSPPApplicationData " &
+                "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber  " &
+                " LEFT JOIN LookUpApplicationTypes " &
+                "ON SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode " &
+                "where datPermitIssued IS NOT NULL " &
                 "AND (strApplicationType = '22' or strApplicationType = '21')  " &
                 "AND strPermitType = '7'  " &
                 "AND datPermitIssued > '" & StartDate & "' " &
@@ -6365,12 +6422,14 @@ Public Class SSPPStatisticalTools
                 "end as AppStatus, " &
                 "format(datReceivedDate, 'yyyy-MM-dd') as datReceivedDate, " &
                 "format(datPermitIssued, 'yyyy-MM-dd') as datPermitIssued " &
-                "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
-                "SSPPApplicationData, LookUpApplicationTypes " &
-                "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
-                "and SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber  " &
-                "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode (+) " &
-                "AND datPermitIssued IS NOT NULL " &
+                "FROM SSPPApplicationMaster " &
+                " INNER JOIN SSPPApplicationTracking  " &
+                "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
+                " INNER JOIN SSPPApplicationData " &
+                "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber  " &
+                " LEFT JOIN LookUpApplicationTypes " &
+                "ON SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode " &
+                "where datPermitIssued IS NOT NULL " &
                 "AND (strApplicationType = '22' or strApplicationType = '21')  " &
                 "AND strPermitType = '7'  " &
                 "AND datPermitIssued > '" & StartDate & "' " &
@@ -6456,12 +6515,14 @@ Public Class SSPPStatisticalTools
                 "end as AppStatus, " &
                 "format(datReceivedDate, 'yyyy-MM-dd') as datReceivedDate, " &
                 "format(datPermitIssued, 'yyyy-MM-dd') as datPermitIssued " &
-                "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
-                "SSPPApplicationData, LookUpApplicationTypes " &
-                "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
-                "and SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber  " &
-                "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode (+) " &
-                "AND datPermitIssued IS NOT NULL " &
+                "FROM SSPPApplicationMaster " &
+                " INNER JOIN SSPPApplicationTracking  " &
+                "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
+                " INNER JOIN SSPPApplicationData " &
+                "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber  " &
+                " LEFT JOIN LookUpApplicationTypes " &
+                "ON SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode " &
+                "where datPermitIssued IS NOT NULL " &
                 "AND (strApplicationType = '22' or strApplicationType = '21')  " &
                 "AND strPermitType = '7'  " &
                 "AND datPermitIssued > '" & StartDate & "' " &
@@ -6545,12 +6606,14 @@ Public Class SSPPStatisticalTools
                 "else '01 - At Engineer'        " &
                 "end as AppStatus, " &
                 "format(datReceivedDate, 'yyyy-MM-dd') as datReceivedDate " &
-                "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
-                "SSPPApplicationData, LookUpApplicationTypes " &
-                "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
-                "and SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber  " &
-                "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode (+) " &
-                "AND (strApplicationType = '22' or strApplicationType = '21')  " &
+                "FROM SSPPApplicationMaster " &
+                " INNER JOIN SSPPApplicationTracking  " &
+                "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
+                " INNER JOIN SSPPApplicationData " &
+                "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber  " &
+                " LEFT JOIN LookUpApplicationTypes " &
+                "ON SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode " &
+                "where (strApplicationType = '22' or strApplicationType = '21')  " &
                 "and datPermitIssued is Null " &
                 "and datReceivedDate < DATEADD(month, -18, '" & EndDate & "') "
 

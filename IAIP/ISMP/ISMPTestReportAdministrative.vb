@@ -588,9 +588,12 @@ Public Class ISMPTestReportAdministrative
            "WHEN convert(int,TABLE1.STRASSIGNINGMANAGER) <> 1 AND TABLE1.STRASSIGNINGMANAGER IS NOT NULL THEN convert(int,TABLE1.STRASSIGNINGMANAGER) " &
            " ELSE '0' " &
            "END ManagerResponsible  " &
-           "from LookUPDistricts, LOOKUPDISTRICTINFORMATION,  " &
-           "SSCPDISTRICTRESPONSIBLE,     " &
-           "(select SSCPINSPECTIONSREQUIRED.STRASSIGNINGMANAGER, " &
+           "from LookUPDistricts " &
+           " RIGHT JOIN LOOKUPDISTRICTINFORMATION  " &
+           "ON LOOKUPDISTRICTINFORMATION.strDistrictCode = LookUPDistricts.strDistrictCode " &
+           " RIGHT JOIN SSCPDISTRICTRESPONSIBLE     " &
+           "ON SUBSTRING(SSCPDistrictResponsible.strAIRSNumber, 5, 3) = strDistrictCounty " &
+           " LEFT JOIN (select SSCPINSPECTIONSREQUIRED.STRASSIGNINGMANAGER, " &
            "SSCPINSPECTIONSREQUIRED.strAIRSNumber " &
            "from SSCPINSPECTIONSREQUIRED, " &
            "(select max(INTYEAR) as MAXYEAR, STRAIRSNUMBER " &
@@ -598,10 +601,8 @@ Public Class ISMPTestReportAdministrative
            "group by STRAIRSNUMBER) MAXRESULTS " &
            "where SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER = MAXRESULTS.STRAIRSNUMBER " &
            "and SSCPINSPECTIONSREQUIRED.INTYEAR = MAXRESULTS.MAXYEAR) Table1 " &
-           "WHERE LOOKUPDISTRICTINFORMATION.strDistrictCode = LookUPDistricts.strDistrictCode (+) " &
-           "AND SSCPDistrictResponsible.strAIRSNumber = Table1.strAIRSnumber (+) " &
-           "AND SUBSTRING(SSCPDistrictResponsible.strAIRSNumber, 5, 3) = strDistrictCounty (+) " &
-           "and SSCPDISTRICTRESPONSIBLE.STRAIRSNUMBER = '0413" & cboAIRSNumber.Text & "'), " &
+           "ON SSCPDistrictResponsible.strAIRSNumber = Table1.strAIRSnumber " &
+           "where  SSCPDISTRICTRESPONSIBLE.STRAIRSNUMBER = '0413" & cboAIRSNumber.Text & "'), " &
            "'" & DTPTestDateStart.Text & "', '" & DTPTestDateEnd.Text & "', " &
            "'" & DTPDateReceived.Text & "', " &
            "'04-Jul-1776', 'N/A', '" & RecordStatus & "', " &
@@ -877,20 +878,24 @@ Public Class ISMPTestReportAdministrative
                "LookUpEPDUnits.strUnitDesc, " &
                "ISMPDocumentType.strDocumentType, " &
                "LookUpISMPComplianceStatus.strComplianceStatus " &
-            "from ISMPMaster, ISMPReportInformation, " &
-              "ISMPReportType, LookUpTestingFirms, " &
-              "LookUpPollutants, LookUpEPDUnits, " &
-              "EPDUSerPRofiles, ISMPDocumentType,  " &
-              "LookUpISMpComplianceStatus " &
-            "where ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
-              "and ISMPReportInformation.strReportType = ISMpReportType.strKey " &
-              "and ISMPREportINformation.strTestingFirm = LookUpTestingFirms.strTestingFirmKey " &
-              "and ISMPReportInformation.strPollutant = LookUpPollutants.strPollutantCode " &
-              "and ISMPREportInformation.numReviewingManager = EPDUserProfiles.numUserID (+) " &
-              "and EPDUserPRofiles.numUnit = LookUpEPDUnits.numUnitCode (+) " &
-              "and ISMPReportInformation.strDocumentTYpe = ISMPDocumentType.strKEy " &
-              "and ISMPReportINformation.strComplianceStatus = LookUpISMPComplianceStatus.strComplianceKey " &
-              "and ISMPMaster.strReferenceNumber = '" & txtReferenceNumber.Text & "' "
+                "from ISMPMaster " &
+                " INNER JOIN ISMPReportInformation " &
+                "ON ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
+                " INNER JOIN ISMPReportType " &
+                "ON ISMPReportInformation.strReportType = ISMpReportType.strKey " &
+                " INNERJOIN LookUpTestingFirms " &
+                "ON ISMPREportINformation.strTestingFirm = LookUpTestingFirms.strTestingFirmKey " &
+                " INNER JOIN LookUpPollutants " &
+                "ON ISMPReportInformation.strPollutant = LookUpPollutants.strPollutantCode " &
+                " LEFT JOIN LookUpEPDUnits " &
+                "ON EPDUserPRofiles.numUnit = LookUpEPDUnits.numUnitCode " &
+                " LEFT JOIN EPDUSerPRofiles " &
+                "ON ISMPREportInformation.numReviewingManager = EPDUserProfiles.numUserID " &
+                " INNER JOIN ISMPDocumentType " &
+                "ON ISMPReportInformation.strDocumentTYpe = ISMPDocumentType.strKEy " &
+                " INNER JOIN LookUpISMpComplianceStatus " &
+                "ON ISMPReportINformation.strComplianceStatus = LookUpISMPComplianceStatus.strComplianceKey " &
+                "where ISMPMaster.strReferenceNumber = '" & txtReferenceNumber.Text & "' "
 
                     cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then

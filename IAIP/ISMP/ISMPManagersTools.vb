@@ -1681,28 +1681,28 @@ Public Class ISMPManagersTools
              "    When OpenFiftys is Null then 0 " &
              "    Else OpenFiftys " &
              "End as OpenFiftys " &
-             "From (SELECT EPDUSerProfiles.STRFIRSTNAME as Engineer, Count(*) as OpenReports " &
+             "from EPDUserProfiles " &
+             "left join (SELECT EPDUSerProfiles.STRFIRSTNAME as Engineer, Count(*) as OpenReports " &
              "    FROM EPDUserProfiles, ISMPReportInformation " &
              "    WHERE (ISMPReportInformation.STRCLOSED = 'False' ) " &
              "    and EPDUserProfiles.numUserID = ISMPReportInformation.strReviewingEngineer " &
-             "Group by strfirstname) OpenReport, " &
-             "(SELECT EPDUserProfiles.STRFIRSTNAME as Engineer, Count(*) as ClosedReports " &
+             "Group by strfirstname) OpenReport " &
+             "on epduserprofiles.strFirstname = OpenReport.Engineer " &
+             "left join (SELECT EPDUserProfiles.STRFIRSTNAME as Engineer, Count(*) as ClosedReports " &
              "    FROM EPDUserProfiles, ISMPReportInformation " &
              "    WHERE (ISMPReportInformation.STRCLOSED = 'True' ) " &
              "    and EPDUSerProfiles.numUserID = ISMPReportInformation.strReviewingEngineer " &
              "    and datCompleteDate Between DATEADD(day, -60, GETDATE()) and GETDATE() " &
-             "Group by strfirstname) ClosedReport, " &
-             "(SELECT EPDUSerProfiles.STRFIRSTNAME as Engineer, Count(*) as OpenFiftys " &
+             "Group by strfirstname) ClosedReport " &
+             "on epduserprofiles.strFirstName = ClosedReport.Engineer " &
+             "left join (SELECT EPDUSerProfiles.STRFIRSTNAME as Engineer, Count(*) as OpenFiftys " &
              "    FROM EPDUSerProfiles, ISMPReportInformation " &
              "    WHERE (ISMPReportInformation.STRCLOSED = 'False' ) " &
              "    and EPDUserProfiles.numUserID = ISMPReportInformation.strReviewingEngineer " &
              "    and datReceivedDate <= DATEADD(day, -50, GETDATE() ) " &
-             "Group by strfirstname) OLdOpen, " &
-             "EPDUserProfiles " &
-             "where strFirstname = OpenReport.Engineer (+) " &
-             "and strFirstName = ClosedReport.Engineer (+) " &
-             "and strFirstName = OldOpen.Engineer (+) " &
-             "and (OpenReports > '0' or ClosedReports > '0'  or OpenFiftys > '0') " &
+             "Group by strfirstname) OLdOpen " &
+             "on epduserprofiles.strFirstName = OldOpen.Engineer " &
+             " where (OpenReports > '0' or ClosedReports > '0'  or OpenFiftys > '0') " &
              "Order by Staff "
 
             dsSummaryReport = New DataSet
@@ -1788,22 +1788,26 @@ Public Class ISMPManagersTools
             "MedDays,  " &
             "PercentDays,  " &
             "(Witness1.witcount + witness2.witcount + Witness3.witcount) as Witnessed " &
-            "from ISMPReportInformation, EPDUserProfiles,  " &
-            "LookUpEPDUnits, " &
-            "(select count(*) as TotalReceived " &
+            "FROM ISMPReportInformation " &
+            " INNER JOIN EPDUserProfiles  " &
+            " ON ISMPReportInformation.strReviewingEngineer = EPDUserProfiles.numUserID  " &
+            " INNER JOIN LookUpEPDUnits " &
+            " ON EPDUserProfiles.numUnit = LookUpEPDUnits.numUnitCode " &
+            " JOIN (select count(*) as TotalReceived " &
             "from ISMPReportInformation  " &
             "where datCompleteDate between '" & DTPUnitStatsStartDate.Text & "' and '" & DTPUnitStatsEndDate.Text & "'  " &
             "and (strDelete <> 'True' or strDelete is Null) " &
             "and strReviewingEngineer <> '0' " &
             "and strClosed = 'True') TotalReviewed,  " &
-            "(select strReviewingEngineer, Count(*) as ReceivedCount " &
+            " LEFT JOIN (select strReviewingEngineer, Count(*) as ReceivedCount " &
             "from ISMPReportInformation   " &
             "where datcompleteDate between '" & DTPUnitStatsStartDate.Text & "' and '" & DTPUnitStatsEndDate.Text & "'  " &
             "and (strDelete is Null or strDelete <> 'True') " &
             "and strReviewingEngineer <> '0'  " &
             "and strClosed = 'True'  " &
-            "group by strReviewingEngineer) TotalRec,  " &
-            "(select strReviewingEngineer,  " &
+            "group by strReviewingEngineer) TotalRec  " &
+            " ON ISMPReportInformation.strReviewingEngineer = TotalRec.strReviewingEngineer " &
+            " LEFT JOIN (select strReviewingEngineer,  " &
             "Median(dayin) as MedDays    " &
             "from  " &
             "(select  " &
@@ -1817,8 +1821,9 @@ Public Class ISMPManagersTools
             "and (strDelete <> 'True' or strDelete is Null) " &
             "and strClosed = 'True'  " &
             "and strReviewingEngineer <> '0') SubTable  " &
-            "group by strReviewingEngineer) MedianTotal,  " &
-            "(select strReviewingEngineer,  " &
+            "group by strReviewingEngineer) MedianTotal  " &
+            " ON ISMPREportINformation.strReviewingEngineer = MedianTotal.strReviewingEngineer " &
+            " LEFT JOIN (select strReviewingEngineer,  " &
             "Percentile_cont(0.8) within Group(Order by DaysIn) as percentDays  " &
             "from  " &
             "(select  " &
@@ -1832,24 +1837,27 @@ Public Class ISMPManagersTools
             "and (strDelete <> 'True' or strDelete is Null) " &
             "and strReviewingEngineer <> '0'  " &
             "and strClosed = 'True')  " &
-            "group by strReviewingEngineer) PercentDays,  " &
-            "(select ISMPReportInformation.strWitnessingEngineer,  " &
+            "group by strReviewingEngineer) PercentDays  " &
+            " ON ISMPREportINformation.strReviewingEngineer = PercentDays.strReviewingEngineer " &
+            " LEFT JOIN (select ISMPReportInformation.strWitnessingEngineer,  " &
             "count(*) as WitCount " &
             "from ISMPReportInformation   " &
             "where datcompleteDate between '" & DTPUnitStatsStartDate.Text & "' and '" & DTPUnitStatsEndDate.Text & "'  " &
             "and (strDelete <> 'True' or strDelete is Null)  " &
             "and ISMPReportInformation.strWitnessingEngineer <> '0' " &
             "and strClosed = 'True'  " &
-            "group by ISMPReportInformation.strWitnessingEngineer) Witness1,  " &
-            "(select ISMPReportInformation.strWitnessingEngineer2,  " &
+            "group by ISMPReportInformation.strWitnessingEngineer) Witness1  " &
+            " ON ISMPREportINformation.strReviewingEngineer = Witness1.strWitnessingEngineer " &
+            " LEFT JOIN (select ISMPReportInformation.strWitnessingEngineer2,  " &
             "count(*) as WitCount " &
             "from ISMPReportInformation   " &
             "where datcompleteDate between '" & DTPUnitStatsStartDate.Text & "' and '" & DTPUnitStatsEndDate.Text & "'  " &
             "and (strDelete <> 'True' or strDelete is Null)  " &
             "and ISMPReportInformation.strWitnessingEngineer2 <> '0' " &
             "and strClosed = 'True'  " &
-            "group by ISMPReportInformation.strWitnessingEngineer2) Witness2,  " &
-            "(select  ISMPWitnessingEng.strWitnessingEngineer,  " &
+            "group by ISMPReportInformation.strWitnessingEngineer2) Witness2 " &
+            " ON ISMPREportINformation.strReviewingEngineer = Witness2.strWitnessingEngineer2 " &
+            " LEFT JOIN (select  ISMPWitnessingEng.strWitnessingEngineer,  " &
             "count(*) as WitCount " &
             "from ISMPReportInformation, ISMPWitnessingEng    " &
             "where datcompleteDate between '" & DTPUnitStatsStartDate.Text & "' and '" & DTPUnitStatsEndDate.Text & "'  " &
@@ -1857,17 +1865,10 @@ Public Class ISMPManagersTools
             "and ISMPReportInformation.strReferenceNumber = ISMPWitnessingEng.strReferenceNumber   " &
             "and strClosed = 'True'  " &
             "group by ISMPWitnessingEng.strWitnessingEngineer) Witness3  " &
-            "where ISMPReportInformation.strReviewingEngineer = EPDUserProfiles.numUserID  " &
-            "and EPDUserProfiles.numUnit = LookUpEPDUnits.numUnitCode " &
-            "and datCompleteDate between '" & DTPUnitStatsStartDate.Text & "' and '" & DTPUnitStatsEndDate.Text & "' " &
+            " ON ISMPREportINformation.strReviewingEngineer = Witness3.strWitnessingEngineer " &
+            " WHERE datCompleteDate between '" & DTPUnitStatsStartDate.Text & "' and '" & DTPUnitStatsEndDate.Text & "' " &
             "and (strDelete <> 'True' or strDelete is Null)  " &
             "and ISMPReportInformation.strReviewingEngineer <> '0'  " &
-            "and ISMPReportInformation.strReviewingEngineer = TotalRec.strReviewingEngineer (+)  " &
-            "and ISMPREportINformation.strReviewingEngineer = MedianTotal.strReviewingEngineer (+) " &
-            "and ISMPREportINformation.strReviewingEngineer = PercentDays.strReviewingEngineer (+) " &
-            "and ISMPREportINformation.strReviewingEngineer = Witness1.strWitnessingEngineer (+)  " &
-            "and ISMPREportINformation.strReviewingEngineer = Witness2.strWitnessingEngineer2 (+) " &
-            "and ISMPREportINformation.strReviewingEngineer = Witness3.strWitnessingEngineer (+)  " &
             "order by strUnitDesc, Engineer "
 
             dsUnitStats = New DataSet

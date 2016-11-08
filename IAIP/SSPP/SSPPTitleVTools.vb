@@ -859,14 +859,16 @@ Public Class SSPPTitleVTools
             "strApplicationTypeDesc, " &
             "concat(strLastName,', ',strFirstName) as StaffResponsible, " &
             "strUnitDesc " &
-            "from SSPPApplicationMaster, SSPPApplicationData, " &
-            "LookUpApplicationTypes, EPDUserProfiles, " &
-            "LookUpEPDUnits " &
-            "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber " &
-            "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode " &
-            "and SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
-            "and EPDUserProfiles.numUnit = LookUpEPDUnits.numUnitCode (+) " &
-            "and (strAppReceivedNotification is Null or strAppReceivedNotification = 'False') " &
+            "FROM SSPPApplicationMaster " &
+            " INNER JOIN SSPPApplicationData " &
+            "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber " &
+            " INNER JOIN LookUpApplicationTypes " &
+            "ON SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode " &
+            " INNER JOIN EPDUserProfiles " &
+            "ON SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
+            " LEFT JOIN LookUpEPDUnits " &
+            "ON EPDUserProfiles.numUnit = LookUpEPDUnits.numUnitCode " &
+            "where (strAppReceivedNotification is Null or strAppReceivedNotification = 'False') " &
             "and (strApplicationType = '19'  or strApplicationType = '20' or strApplicationType = '21' " &
             "or strApplicationType = '22') " &
             "order by strFacilityName, strAPplicationNumber DESC "
@@ -1076,15 +1078,18 @@ Public Class SSPPTitleVTools
             "strApplicationTypeDesc, " &
             "concat(strLastName,', ',strFirstName) as StaffResponsible, " &
             "strUnitDesc " &
-            "from SSPPApplicationMaster, SSPPApplicationData, " &
-            "LookUpApplicationTypes, SSPPApplicationTracking, " &
-            "EPDUserProfiles, LookUpEPDUnits " &
-            "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber " &
-            "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode " &
-            "and SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber " &
-            "and SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
-            "and EPDUserProfiles.numUnit = LookUpEPDUnits.numUnitCode (+) " &
-            "and (strDraftOnWebNotification is Null or strDraftOnWebNotification = 'False') " &
+            "FROM SSPPApplicationMaster " &
+            " INNER JOIN SSPPApplicationData " &
+            "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber " &
+            " INNER JOIN LookUpApplicationTypes " &
+            "ON SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode " &
+            " INNER JOIN SSPPApplicationTracking " &
+            "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber " &
+            " INNER JOIN EPDUserProfiles " &
+            "ON SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
+            " LEFT JOIN LookUpEPDUnits " &
+            "ON EPDUserProfiles.numUnit = LookUpEPDUnits.numUnitCode " &
+            "where (strDraftOnWebNotification is Null or strDraftOnWebNotification = 'False') " &
             "and (strApplicationType = '14'  or strApplicationType = '16' or strApplicationType = '21' " &
             "or strApplicationType = '22') " &
             "and strPNReady = 'True' " &
@@ -1175,15 +1180,18 @@ Public Class SSPPTitleVTools
                     "strApplicationTypeDesc,  " &
                     " concat(strLastName,', ',strFirstName) as StaffResponsible,  " &
                     "strUnitDesc  " &
-                    "from SSPPApplicationMaster, SSPPApplicationData,  " &
-                    "LookUpApplicationTypes, SSPPApplicationLinking, " &
-                    "EPDUserProfiles, LookUpEPDUnits  " &
-                    "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber  " &
-                    "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode   " &
-                    "and SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
-                    "and EPDUserProfiles.numUnit = LookUpEPDUnits.numUnitCode (+) " &
-                    "and SSPPApplicationMaster.strApplicationNumber = SSPPApplicationLinking.strApplicationNumber " &
-                    "and SSPPApplicationLinking.strMasterApplication = '" & temp & "' "
+                    "FROM SSPPApplicationMaster " &
+                    " INNER JOIN SSPPApplicationData  " &
+                    "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber  " &
+                    " INNER JOIN LookUpApplicationTypes " &
+                    "ON SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode   " &
+                    " INNER JOIN SSPPApplicationLinking " &
+                    "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationLinking.strApplicationNumber " &
+                    " INNER JOIN EPDUserProfiles " &
+                    "ON SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
+                    " LEFT JOIN LookUpEPDUnits  " &
+                    "ON EPDUserProfiles.numUnit = LookUpEPDUnits.numUnitCode " &
+                    "where SSPPApplicationLinking.strMasterApplication = '" & temp & "' "
 
                     cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -1302,14 +1310,16 @@ Public Class SSPPTitleVTools
                     "strFacilityName, strFacilityCity,  " &
                     "strApplicationTypeDesc, " &
                     "strCountyName, datPNExpires " &
-                    "from SSPPApplicationMaster, SSPPApplicationData,  " &
-                    "LookUpCountyInformation, LookUpApplicationTypes, " &
-                    "SSPPApplicationTracking " &
-                    "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber  " &
-                    "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode  " &
-                    "and SSPPApplicationmaster.strAPplicationNumber = SSPPApplicationTracking.strApplicationNumber (+) " &
-                    "and SUBSTRING(strAIRSNumber, 5, 3) = strCountyCode " &
-                    "and SSPPApplicationMaster.strApplicationNumber = '" & temp & "' "
+                    "FROM SSPPApplicationMaster " &
+                    " INNER JOIN SSPPApplicationData  " &
+                    "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber  " &
+                    " INNER JOIN LookUpCountyInformation " &
+                    "ON SUBSTRING(strAIRSNumber, 5, 3) = strCountyCode " &
+                    " INNER JOIN LookUpApplicationTypes, " &
+                    "ON SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode  " &
+                    " LEFT JOIN SSPPApplicationTracking " &
+                    "ON SSPPApplicationmaster.strAPplicationNumber = SSPPApplicationTracking.strApplicationNumber " &
+                    "where SSPPApplicationMaster.strApplicationNumber = '" & temp & "' "
 
                     cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -1701,40 +1711,24 @@ Public Class SSPPTitleVTools
 
             clbTitleVEmailList.Items.Clear()
 
-            'This is the old code that was changed on May 13, 2009 
             SQL = "Select " &
             "SSPPApplicationMaster.strApplicationNumber, " &
             "strFacilityName, strFacilityCity, " &
             "strApplicationTypeDesc, " &
             " concat(strLastName,', ',strFirstName) as StaffResponsible, " &
             "strUnitDesc " &
-            "from SSPPApplicationMaster, SSPPApplicationData, " &
-            "LookUpApplicationTypes, EPDUserProfiles, " &
-            "LookUpEPDUnits " &
-            "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber " &
-            "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode " &
-            "and SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
-            "and EPDUserProfiles.numUnit = LookUpEPDUnits.numUnitCode (+) " &
-            "and (strDraftOnWebNotification is Null or strDraftOnWebNotification = 'False') " &
-            "and (strApplicationType = '19'  or strApplicationType = '20') " &
-            "order by strFacilityName, strApplicationNumber DESC "
-
-
-            SQL = "Select " &
-            "SSPPApplicationMaster.strApplicationNumber, " &
-            "strFacilityName, strFacilityCity, " &
-            "strApplicationTypeDesc, " &
-            " concat(strLastName,', ',strFirstName) as StaffResponsible, " &
-            "strUnitDesc " &
-            "from SSPPApplicationMaster, SSPPApplicationData, " &
-            "LookUpApplicationTypes, EPDUserProfiles, " &
-            "LookUpEPDUnits, SSPPApplicationTracking " &
-            "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber " &
-            "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode " &
-            "and SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber " &
-            "and SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
-            "and EPDUserProfiles.numUnit = LookUpEPDUnits.numUnitCode (+) " &
-            "and datEPAStatesNotified is not Null " &
+            "FROM SSPPApplicationMaster " &
+            " INNER JOIN SSPPApplicationData " &
+            "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber " &
+            " INNER JOIN LookUpApplicationTypes " &
+            "ON SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode " &
+            " INNER JOIN EPDUserProfiles " &
+            "ON SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
+            " LEFT JOIN LookUpEPDUnits " &
+            "ON EPDUserProfiles.numUnit = LookUpEPDUnits.numUnitCode " &
+            " INNER JOIN SSPPApplicationTracking " &
+            "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber " &
+            "where datEPAStatesNotified is not Null " &
             "and (strDraftOnWebNotification is Null or strDraftOnWebNotification = 'False') " &
             "and (strApplicationType = '19'  or strApplicationType = '20') " &
             "order by strFacilityName, strApplicationNumber DESC "
@@ -1823,15 +1817,18 @@ Public Class SSPPTitleVTools
                     "strApplicationTypeDesc,  " &
                     " concat(strLastName,', ',strFirstName) as StaffResponsible,  " &
                     "strUnitDesc  " &
-                    "from SSPPApplicationMaster, SSPPApplicationData,  " &
-                    "LookUpApplicationTypes, SSPPApplicationLinking, " &
-                    "EPDuserProfiles, LookUPEPDunits " &
-                    "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber  " &
-                    "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode   " &
-                    "and SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID  " &
-                    "and EPDUserProfiles.numUnit = LookUpEPDUnits.numUnitCode (+) " &
-                    "and SSPPApplicationMaster.strApplicationNumber = SSPPApplicationLinking.strApplicationNumber " &
-                    "and SSPPApplicationLinking.strMasterApplication = '" & temp & "' "
+                    "FROM SSPPApplicationMaster " &
+                    " INNER JOIN SSPPApplicationData  " &
+                    "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber  " &
+                    " INNER JOIN LookUpApplicationTypes " &
+                    "ON SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode   " &
+                    " INNER JOIN SSPPApplicationLinking " &
+                    "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationLinking.strApplicationNumber " &
+                    " INNER JOIN EPDuserProfiles " &
+                    "ON SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID  " &
+                    " LEFT JOIN LookUPEPDunits " &
+                    "ON EPDUserProfiles.numUnit = LookUpEPDUnits.numUnitCode " &
+                    "where SSPPApplicationLinking.strMasterApplication = '" & temp & "' "
 
                     cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -2333,15 +2330,18 @@ Public Class SSPPTitleVTools
             "strApplicationTypeDesc, " &
             " concat(strLastName,', ',strFirstName) as StaffResponsible, " &
             "strUnitDesc " &
-            "from SSPPApplicationMaster, SSPPApplicationData, " &
-            "LookUpApplicationTypes, SSPPApplicationTracking, " &
-            "EPDUserProfiles, LookUpEPDUnits " &
-            "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber " &
-            "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode " &
-            "and SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber " &
-            "and SSPPApplicationMaster.strStaffResponsible = EPDuserProfiles.numUserID " &
-            "and EPDuserProfiles.numUnit = LookUpEPDUnits.numUnitCode (+) " &
-            "and (strFinalOnWebNotification is Null or strFinalOnWebNotification = 'False') " &
+            "FROM SSPPApplicationMaster " &
+            " INNER JOIN SSPPApplicationData " &
+            "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber " &
+            " INNER JOIN LookUpApplicationTypes " &
+            "ON SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode " &
+            " INNER JOIN SSPPApplicationTracking " &
+            "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber " &
+            " INNER JOIN EPDUserProfiles " &
+            "ON SSPPApplicationMaster.strStaffResponsible = EPDuserProfiles.numUserID " &
+            " LEFT JOIN LookUpEPDUnits " &
+            "ON EPDuserProfiles.numUnit = LookUpEPDUnits.numUnitCode " &
+            "where (strFinalOnWebNotification is Null or strFinalOnWebNotification = 'False') " &
             "and (strApplicationType = '14'  or strApplicationType = '16' " &
             "or strApplicationType = '19' or strApplicationType = '20' " &
             "or strApplicationType = '21' or strApplicationType = '22' " &
@@ -2434,15 +2434,18 @@ Public Class SSPPTitleVTools
                     "strApplicationTypeDesc,  " &
                     " concat(strLastName,', ',strFirstName) as StaffResponsible,  " &
                     "strUnitDesc  " &
-                    "from SSPPApplicationMaster, SSPPApplicationData,  " &
-                    "LookUpApplicationTypes, SSPPApplicationLinking, " &
-                    "EPDUserProfiles, LookUpEPDUnits  " &
-                    "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber  " &
-                    "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode   " &
-                    "and SSPPApplicationMaster.strStaffResponsible = EPDuserPRofiles.numUserID  " &
-                    "and EPDUserProfiles.numUnit = LookUpEPDunits.numUnitCode (+) " &
-                    "and SSPPApplicationMaster.strApplicationNumber = SSPPApplicationLinking.strApplicationNumber " &
-                    "and SSPPApplicationLinking.strMasterApplication = '" & temp & "' "
+                    "FROM SSPPApplicationMaster " &
+                    " INNER JOIN SSPPApplicationData  " &
+                    "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber  " &
+                    " INNER JOIN LookUpApplicationTypes " &
+                    "ON SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode   " &
+                    " INNER JOIN SSPPApplicationLinking " &
+                    "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationLinking.strApplicationNumber " &
+                    " INNER JOIN EPDUserProfiles " &
+                    "ON SSPPApplicationMaster.strStaffResponsible = EPDuserPRofiles.numUserID  " &
+                    " LEFT JOIN LookUpEPDUnits  " &
+                    "ON EPDUserProfiles.numUnit = LookUpEPDunits.numUnitCode " &
+                    "where SSPPApplicationLinking.strMasterApplication = '" & temp & "' "
 
                     cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -2562,14 +2565,16 @@ Public Class SSPPTitleVTools
                     "strCountyName, strPermitNumber,  " &
                     "datPermitIssued, datEffective, " &
                     "strApplicationTypeDesc " &
-                    "from SSPPApplicationMaster, SSPPApplicationData,  " &
-                    "LookUpCountyInformation, LookUpApplicationTypes, " &
-                    "SSPPApplicationTracking " &
-                    "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber  " &
-                    "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode  " &
-                    "and SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber (+) " &
-                    "and SUBSTRING(strAIRSNumber, 5, 3) = strCountyCode " &
-                    "and SSPPApplicationMaster.strApplicationNumber = '" & temp & "' "
+                    "FROM SSPPApplicationMaster " &
+                    " INNER JOIN SSPPApplicationData " &
+                    "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber  " &
+                    " INNER JOIN LookUpCountyInformation " &
+                    "ON SUBSTRING(strAIRSNumber, 5, 3) = strCountyCode " &
+                    " INNER JOIN LookUpApplicationTypes " &
+                    "ON SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode  " &
+                    " LEFT JOIN SSPPApplicationTracking " &
+                    "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber " &
+                    "where SSPPApplicationMaster.strApplicationNumber = '" & temp & "' "
 
                     cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -2762,15 +2767,18 @@ Public Class SSPPTitleVTools
                    "strApplicationTypeDesc, " &
                    " concat(strLastName,', ',strFirstName) as StaffResponsible, " &
                    "strUnitDesc " &
-                   "from SSPPApplicationMaster, SSPPApplicationData, " &
-                   "LookUpApplicationTypes, SSPPApplicationTracking, " &
-                   "EPDUserProfiles, LookUpEPDUnits " &
-                   "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber " &
-                   "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode " &
-                   "and SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber " &
-                   "and SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
-                   "and EPDUserProfiles.numUnit = LookUpEPDUnits.numUnitCode (+) " &
-                   "and SSPPApplicationMaster.strApplicationNumber = '" & txtApplicationNumberToAdd.Text & "' "
+                    "FROM SSPPApplicationMaster " &
+                    " INNER JOIN SSPPApplicationData " &
+                    "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber " &
+                    " INNER JOIN LookUpApplicationTypes " &
+                    "ON SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode " &
+                    " INNER JOIN SSPPApplicationTracking " &
+                    "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber " &
+                    " INNER JOIN EPDUserProfiles " &
+                    "ON SSPPApplicationMaster.strStaffResponsible = EPDuserProfiles.numUserID " &
+                    " LEFT JOIN LookUpEPDUnits " &
+                    "ON EPDuserProfiles.numUnit = LookUpEPDUnits.numUnitCode " &
+                   "where SSPPApplicationMaster.strApplicationNumber = '" & txtApplicationNumberToAdd.Text & "' "
 
                     cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -2839,15 +2847,18 @@ Public Class SSPPTitleVTools
                    "strApplicationTypeDesc, " &
                    " concat(strLastName,', ',strFirstName) as StaffResponsible, " &
                    "strUnitDesc " &
-                   "from SSPPApplicationMaster, SSPPApplicationData, " &
-                   "LookUpApplicationTypes, SSPPApplicationTracking, " &
-                   "EPDUserProfiles, LookUpEPDUnits " &
-                   "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber " &
-                   "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode " &
-                   "and SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber " &
-                   "and SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
-                   "and EPDUserProfiles.numUnit = LookUpEPDUnits.numUnitCode (+) " &
-                   "and SSPPApplicationMaster.strApplicationNumber = '" & txtApplicationNumberToAdd.Text & "' "
+                    "FROM SSPPApplicationMaster " &
+                    " INNER JOIN SSPPApplicationData " &
+                    "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber " &
+                    " INNER JOIN LookUpApplicationTypes " &
+                    "ON SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode " &
+                    " INNER JOIN SSPPApplicationTracking " &
+                    "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber " &
+                    " INNER JOIN EPDUserProfiles " &
+                    "ON SSPPApplicationMaster.strStaffResponsible = EPDuserProfiles.numUserID " &
+                    " LEFT JOIN LookUpEPDUnits " &
+                    "ON EPDuserProfiles.numUnit = LookUpEPDUnits.numUnitCode " &
+                   "where SSPPApplicationMaster.strApplicationNumber = '" & txtApplicationNumberToAdd.Text & "' "
 
 
                     cmd = New SqlCommand(SQL, CurrentConnection)
@@ -2917,14 +2928,18 @@ Public Class SSPPTitleVTools
                    "strApplicationTypeDesc, " &
                    " concat(strLastName,', ',strFirstName) as StaffResponsible, " &
                    "strUnitDesc " &
-                   "from SSPPApplicationMaster, SSPPApplicationData, " &
-                   "LookUpApplicationTypes,  " &
-                   "EPDUserProfiles, LookUpEPDUnits " &
-                   "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber " &
-                   "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode " &
-                   "and SSPPApplicationMaster.strStaffResponsible = EPDuserProfiles.numUserID " &
-                   "and EPDuserProfiles.numUnit = LookUpEPDUnits.numUnitCode (+) " &
-                   "and SSPPApplicationMaster.strApplicationNumber = '" & txtApplicationNumberToAdd.Text & "' "
+                    "FROM SSPPApplicationMaster " &
+                    " INNER JOIN SSPPApplicationData " &
+                    "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber " &
+                    " INNER JOIN LookUpApplicationTypes " &
+                    "ON SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode " &
+                    " INNER JOIN SSPPApplicationTracking " &
+                    "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber " &
+                    " INNER JOIN EPDUserProfiles " &
+                    "ON SSPPApplicationMaster.strStaffResponsible = EPDuserProfiles.numUserID " &
+                    " LEFT JOIN LookUpEPDUnits " &
+                    "ON EPDuserProfiles.numUnit = LookUpEPDUnits.numUnitCode " &
+                   "where SSPPApplicationMaster.strApplicationNumber = '" & txtApplicationNumberToAdd.Text & "' "
 
                     cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
@@ -2993,14 +3008,18 @@ Public Class SSPPTitleVTools
                     "strApplicationTypeDesc, " &
                     " concat(strLastName,', ',strFirstName) as StaffResponsible, " &
                     "strUnitDesc " &
-                    "from SSPPApplicationMaster, SSPPApplicationData, " &
-                    "LookUpApplicationTypes, " &
-                    "EPDuserProfiles, LookUpEPDUnits " &
-                    "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber " &
-                    "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode " &
-                    "and SSPPApplicationMaster.strStaffResponsible = EPDuserProfiles.numUserID " &
-                    "and EPDUserProfiles.numUnit = LookUpEPDUnits.numUnitCode (+) " &
-                    "and SSPPApplicationMaster.strApplicationNumber = '" & txtApplicationNumberToAdd.Text & "' "
+                    "FROM SSPPApplicationMaster " &
+                    " INNER JOIN SSPPApplicationData " &
+                    "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber " &
+                    " INNER JOIN LookUpApplicationTypes " &
+                    "ON SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode " &
+                    " INNER JOIN SSPPApplicationTracking " &
+                    "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber " &
+                    " INNER JOIN EPDUserProfiles " &
+                    "ON SSPPApplicationMaster.strStaffResponsible = EPDuserProfiles.numUserID " &
+                    " LEFT JOIN LookUpEPDUnits " &
+                    "ON EPDuserProfiles.numUnit = LookUpEPDUnits.numUnitCode " &
+                    "where SSPPApplicationMaster.strApplicationNumber = '" & txtApplicationNumberToAdd.Text & "' "
 
                     cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then

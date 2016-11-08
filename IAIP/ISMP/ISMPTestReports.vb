@@ -10378,12 +10378,14 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                   "when numReviewingManager is null then 'N/A' " &
                   "else concat(strLastName,', ',strFirstName) " &
                   "END UnitManager " &
-                  "from ISMPMaster, APBFacilityInformation,  " &
-                  "ISMPReportInformation, EPDUserProfiles     " &
-                  "where ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber  " &
-                  "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber  " &
-                  "and ISMPReportInformation.numReviewingManager = EPDUserProfiles.numUserID (+) " &
-                  "and ISMPMaster.strReferenceNumber = '" & RefNum & "' "
+                  "from ISMPMaster " &
+                  " INNER JOIN APBFacilityInformation  " &
+                  "ON ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber  " &
+                  " INNER JOIN ISMPReportInformation " &
+                  "ON ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber  " &
+                  " LEFT JOIN EPDUserProfiles     " &
+                  "ON ISMPReportInformation.numReviewingManager = EPDUserProfiles.numUserID " &
+                  "where ISMPMaster.strReferenceNumber = '" & RefNum & "' "
 
                     cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then

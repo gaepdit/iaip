@@ -212,25 +212,30 @@ Public Class ISMPMonitoringLog
                 "LookUpEPDUnits.strUnitDesc, " &
                 "ISMPTestLogLink.strTestLogNumber, " &
                 "strPreComplianceStatus " &
-                "From ISMPMaster, APBFacilityInformation,  " &
-                "LookUpCountyInformation, ISMPReportInformation, " &
-                "LookUpPollutants, ISMPReportType,  " &
-                "ISMPDocumentType, EPDUSerProfiles,  " &
-                "LookUpISMPComplianceStatus,  " &
-                "ISMPTestLogLink, ISMPWitnessingEng, " &
-                "LookUpEPDUnits " &
-                "where ISMPMaster.strReferenceNumber = ISMPREportInformation.strReferenceNumber  " &
-                "and ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSnumber " &
-                "and ISMPREportInformation.strReviewingEngineer = EPDUserProfiles.numUserID (+)  " &
-                "and ISMPREportINformation.strReportType = ISMPREportType.strKey " &
-                "and SUBSTRING(ISMPMaster.strAIRSNumber, 5, 3) = LookupCountyInformation.strCountyCode  " &
-                "and ISMPReportInformation.strpollutant = LookUpPollutants.strPollutantCode (+)  " &
-                "and ISMPREportINformation.strDocumentType = ISMPDocumentType.strKey (+)  " &
-                "and ISMPReportInformation.strComplianceStatus = LookUpISMPComplianceStatus.strComplianceKey (+) " &
-                "and ISMPMaster.strReferenceNumber = ISMPTestLogLink.strReferenceNumber (+) " &
-                "and ISMPMaster.strReferenceNumber = ISMPWitnessingEng.strReferenceNumber (+) " &
-                "and EPDUserProfiles.numUnit = LookUpEPDUnits.numUnitCode " &
-                "and (strDelete is Null or strDelete <> 'DELETE') "
+                "FROM ISMPMaster " &
+                " INNER JOIN APBFacilityInformation  " &
+                " ON ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSnumber " &
+                " INNER JOIN LookUpCountyInformation " &
+                " ON SUBSTRING(ISMPMaster.strAIRSNumber, 5, 3) = LookupCountyInformation.strCountyCode  " &
+                " INNER JOIN ISMPReportInformation " &
+                " ON ISMPMaster.strReferenceNumber = ISMPREportInformation.strReferenceNumber  " &
+                " LEFT JOIN LookUpPollutants " &
+                " ON ISMPReportInformation.strpollutant = LookUpPollutants.strPollutantCode " &
+                " INNER JOIN ISMPReportType  " &
+                " ON ISMPREportINformation.strReportType = ISMPREportType.strKey " &
+                " LEFT JOIN ISMPDocumentType " &
+                " ON ISMPREportINformation.strDocumentType = ISMPDocumentType.strKey " &
+                " LEFT JOIN EPDUSerProfiles  " &
+                " ON ISMPREportInformation.strReviewingEngineer = EPDUserProfiles.numUserID " &
+                " LEFT JOIN LookUpISMPComplianceStatus  " &
+                " ON ISMPReportInformation.strComplianceStatus = LookUpISMPComplianceStatus.strComplianceKey " &
+                " LEFT JOIN ISMPTestLogLink " &
+                " ON ISMPMaster.strReferenceNumber = ISMPTestLogLink.strReferenceNumber " &
+                " LEFT JOIN ISMPWitnessingEng " &
+                " ON ISMPMaster.strReferenceNumber = ISMPWitnessingEng.strReferenceNumber " &
+                " INNER JOIN LookUpEPDUnits " &
+                " ON EPDUserProfiles.numUnit = LookUpEPDUnits.numUnitCode " &
+                "WHERE (strDelete is Null or strDelete <> 'DELETE') "
 
                 If chbReviewingEngineer.Checked = True Then
                     SQLWhere = SQLWhere & " and ( "
@@ -539,14 +544,17 @@ Public Class ISMPMonitoringLog
                "strUnitDesc, " &
                "ISMPTestNotification.strcomments,  " &
                "strReferenceNumber " &
-               "from ISMPTestNotification, ISMPTestLogLink,  " &
-               "EPDUserProfiles, APBFacilityINformation,  " &
-               "LookUpCountyInformation, LookUpEPDUnits  " &
-               "where  ISMPTestNotification.strTestLogNumber = ISMPTestLogLink.strTestLognumber (+)    " &
-               "and ISMPTestNotification.strAIRSNumber = APBFacilityInformation.strAIRSNumber (+) " &
-               "and SUBSTRING(ISMPTestNotification.strAIRSNumber, 5, 3) = LookUpCountyInformation.strcountycode (+)  " &
-               "and EPDUserProfiles.numUnit = LookUpEPDUnits.numUnitCode (+) " &
-               "and strStaffResponsible = EPDUserProfiles.numUserID (+)  "
+               "from ISMPTestNotification " &
+               " LEFT JOIN ISMPTestLogLink  " &
+               "ON ISMPTestNotification.strTestLogNumber = ISMPTestLogLink.strTestLognumber " &
+               " LEFT JOIN EPDUserProfiles " &
+               "ON strStaffResponsible = EPDUserProfiles.numUserID " &
+               " LEFT JOIN APBFacilityINformation  " &
+               "ON ISMPTestNotification.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
+               " LEFT JOIN LookUpCountyInformation  " &
+               "ON SUBSTRING(ISMPTestNotification.strAIRSNumber, 5, 3) = LookUpCountyInformation.strcountycode " &
+               " LEFT JOIN LookUpEPDUnits  " &
+               "ON EPDUserProfiles.numUnit = LookUpEPDUnits.numUnitCode "
 
                 If chbReviewingEngineer.Checked = True Then
                     SQLWhere = SQLWhere & " and ( "
@@ -682,14 +690,17 @@ Public Class ISMPMonitoringLog
                "datCommentDate, strComment, " &
                "strFacilityCity, " &
                "LookUpCountyInformation.strCountyName " &
-               "from ISMPTestFirmComments, LookUpTestingFirms, " &
-               "APBFacilityInformation, EPDUserProfiles,  " &
-               "ISMPTestNotification, LookUpCountyInformation " &
-               "where ISMPTestFirmComments.strTestingFirmKey = LooKUpTestingFirms.strTestingFirmKey " &
-               "and ISMPTestFirmComments.strAIRSnumber = APBFacilityInformation.strAIRSNumber (+) " &
-               "and ISMPTestFirmComments.strStaffResponsible = EPDUserProfiles.numUserID (+) " &
-               "and SUBSTRING(ISMPTestFirmComments.strAIRSNUmber, 5, 3)  = LookUpCountyInformation.strCountycode (+) " &
-               "and ismptestfirmcomments.strtestlognumber = ismptestnotification.strtestlognumber (+) "
+               "from ISMPTestFirmComments " &
+               " INNER JOIN LookUpTestingFirms " &
+               "ON ISMPTestFirmComments.strTestingFirmKey = LooKUpTestingFirms.strTestingFirmKey " &
+               " LEFT JOIN APBFacilityInformation " &
+               "ON ISMPTestFirmComments.strAIRSnumber = APBFacilityInformation.strAIRSNumber " &
+               " LEFT JOIN EPDUserProfiles  " &
+               "ON ISMPTestFirmComments.strStaffResponsible = EPDUserProfiles.numUserID " &
+               " LEFT JOIN ISMPTestNotification " &
+               "ON ismptestfirmcomments.strtestlognumber = ismptestnotification.strtestlognumber " &
+               " LEFT JOIN LookUpCountyInformation " &
+               "ON SUBSTRING(ISMPTestFirmComments.strAIRSNUmber, 5, 3)  = LookUpCountyInformation.strCountycode "
 
 
                 If chbReviewingEngineer.Checked = True Then
@@ -820,11 +831,12 @@ Public Class ISMPMonitoringLog
                 "APBFacilityInformation.strFacilityCity,  " &
                 "strCountyName,  " &
                 "datProposedStartDate  " &
-                "from APBFacilityINformation, ISMPTestNotification,  " &
-                "LookUpCountyInformation  " &
-                "where concat('0413',ISMPTestNotification.strAIRSnumber) = APBFacilityInformation.strAIRSNumber (+) " &
-                "and SUBSTRING(ISMPTestNotification.strAIRSNumber, 1, 3) = LookUpCountyInformation.strCountyCode (+)  " &
-                "and strTestLogNumber = '" & txtTestLogNumber.Text & "' "
+                " FROM ISMPTestNotification " &
+                " LEFT JOIN APBFacilityINformation " &
+                "ON concat('0413',ISMPTestNotification.strAIRSnumber) = APBFacilityInformation.strAIRSNumber " &
+                " LEFT JOIN LookUpCountyInformation  " &
+                "ON SUBSTRING(ISMPTestNotification.strAIRSNumber, 1, 3) = LookUpCountyInformation.strCountyCode " &
+                "WHERE strTestLogNumber = '" & txtTestLogNumber.Text & "' "
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then

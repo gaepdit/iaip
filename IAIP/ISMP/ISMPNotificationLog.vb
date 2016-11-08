@@ -156,9 +156,9 @@ Public Class ISMPNotificationLog
                 "strTelePhone, strFax, " &
                 "datTestPlanReceived, datTestNotification, " &
                 "strPollutants " &
-                "from ISMPTestNotification, APBFacilityInformation  " &
-                "where ISMPTestNotification.strAIRSNumber = APBFacilityInformation.strAIRSNumber (+)  " &
-                "and ISMPTestNotification.strTestLogNumber = '" & txtTestNotificationNumber.Text & "'  "
+                "from ISMPTestNotification LEFT JOIN APBFacilityInformation  " &
+                "on ISMPTestNotification.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
+                "where ISMPTestNotification.strTestLogNumber = '" & txtTestNotificationNumber.Text & "'  "
                 cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
                     CurrentConnection.Open()

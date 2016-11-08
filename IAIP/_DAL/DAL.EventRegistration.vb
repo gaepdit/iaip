@@ -107,14 +107,14 @@ Namespace DAL
                 "   EP2.STRFIRSTNAME    AS STRFIRSTNAME2, " &
                 "   EP2.STREMAILADDRESS AS STREMAILADDRESS2, " &
                 "   EP2.STRPHONE        AS STRPHONE2 " &
-                " FROM RES_EVENT, " &
-                "   RESLK_EVENTSTATUS, " &
-                "   EPDUSERPROFILES EP2, " &
-                "   EPDUSERPROFILES EP1 " &
-                " WHERE RES_EVENT.NUMEVENTSTATUSCODE = RESLK_EVENTSTATUS.NUMRESLK_EVENTSTATUSID(+) " &
-                " AND RES_EVENT.STRUSERGCODE         = EP2.NUMUSERID(+) " &
-                " AND RES_EVENT.NUMAPBCONTACT        = EP1.NUMUSERID(+) " &
-                " AND RES_EVENT.NUMRES_EVENTID      = @pId "
+                " FROM RES_EVENT " &
+                "  left join RESLK_EVENTSTATUS " &
+                " on RES_EVENT.NUMEVENTSTATUSCODE = RESLK_EVENTSTATUS.NUMRESLK_EVENTSTATUSID " &
+                "  left join EPDUSERPROFILES EP2 " &
+                " on RES_EVENT.STRUSERGCODE         = EP2.NUMUSERID " &
+                "  left join EPDUSERPROFILES EP1 " &
+                " on RES_EVENT.NUMAPBCONTACT        = EP1.NUMUSERID " &
+                " where RES_EVENT.NUMRES_EVENTID      = @pId "
 
             Dim parameter As New SqlParameter("@pId", id)
 

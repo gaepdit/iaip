@@ -178,86 +178,99 @@ Public Class ISMPStaffReports
                 "	When CloseComplianceByDate is NULL then 0  " &
                 "	Else CloseComplianceByDate " &
                 "End as CloseComplianceByDate  " &
-                "from EPDUserProfiles, ISMPReportInformation,  " &
-                "(Select strReviewingEngineer,  count(*) as ReceivedByDate   " &
+                "FROM ISMPReportInformation  " &
+                " INNER JOIN EPDUserProfiles " &
+                "ON EPDUserProfiles.numUserID = ISMPReportInformation.strReviewingEngineer  " &
+                " LEFT JOIN (Select strReviewingEngineer,  count(*) as ReceivedByDate   " &
                 "from ISMPReportInformation   " &
                 "where strDelete is NULL " &
                 "and " & DateBias & " " &
-                "Group by strReviewingEngineer) ReceivedByDates,  " &
-                "(Select strReviewingEngineer,  " &
+                "Group by strReviewingEngineer) ReceivedByDates " &
+                "ON ISMPReportInformation.strReviewingEngineer = ReceivedByDates.strReviewingEngineer " &
+                " LEFT JOIN (Select strReviewingEngineer,  " &
                 "count(*) as OpenByDate  " &
                 "from ISMPReportInformation  " &
                 "where strClosed = 'False'  " &
                 "and strDelete is NULL  " &
                 "and " & DateBias & " " &
-                "Group by strReviewingEngineer) OpenByDates,  " &
-                "(Select strReviewingEngineer,  " &
+                "Group by strReviewingEngineer) OpenByDates " &
+                "ON ISMPReportInformation.strReviewingEngineer = OpenBYDates.strReviewingEngineer " &
+                " LEFT JOIN (Select strReviewingEngineer,  " &
                 "count(*) as CloseByDate  " &
                 "from ISMPReportInformation  " &
                 "where strClosed = 'True'  " &
                 "and StrDelete is NULL  " &
                 "and " & DateBias & " " &
-                "Group by strReviewingEngineer) CloseByDates,  " &
-                "(Select strWitnessingEngineer,  " &
+                "Group by strReviewingEngineer) CloseByDates " &
+                "ON ISMPReportInformation.strReviewingEngineer = CloseByDates.strReviewingEngineer " &
+                " LEFT JOIN (Select strWitnessingEngineer,  " &
                 "count(*) as WitnessedByDate  " &
                 "from ISMPReportInformation  " &
                 "where strDelete is NULL  " &
                 "and " & DateBias & " " &
-                "group by strWitnessingEngineer) WitnessedByDates,  " &
-                "(Select strWitnessingEngineer,  " &
+                "group by strWitnessingEngineer) WitnessedByDates  " &
+                "ON ISMPReportInformation.strReviewingEngineer = WitnessedByDates.strWitnessingEngineer " &
+                " LEFT JOIN (Select strWitnessingEngineer,  " &
                 "count(*) as OpenWitnessedByDate   " &
                 "from ISMPReportInformation  " &
                 "where strDelete is NULL  " &
                 "and strClosed = 'False'  " &
                  "and " & DateBias & " " &
-                "group by strWitnessingEngineer) OpenWitnessedByDates,  " &
-                "(select strWitnessingEngineer,  " &
+                "group by strWitnessingEngineer) OpenWitnessedByDates  " &
+                "ON ISMPReportInformation.strReviewingEngineer = OpenwitnessedByDates.strWitnessingEngineer " &
+                " LEFT JOIN (select strWitnessingEngineer,  " &
                 "count(*) as CloseWitnessedByDate   " &
                 "from ISMPReportInformation  " &
                 "where strDelete is NULL  " &
                 "and strClosed = 'True' " &
                 "and " & DateBias & " " &
-                "group by strwitnessingEngineer) CloseWitnessedByDates,  " &
-                "(select strReviewingEngineer,  " &
+                "group by strwitnessingEngineer) CloseWitnessedByDates  " &
+                "ON ISMPReportInformation.strReviewingEngineer = CloseWitnessedByDates.strWitnessingEngineer " &
+                " LEFT JOIN (select strReviewingEngineer,  " &
                 "count(*) as GreaterByDate " &
                 "from ISMPReportInformation  " &
                 "where strDelete is NULL  " &
                 "and datReceivedDate < if strClosed = 'False' then DATEADD(day, -50, GETDATE()), " &
                 "                                        else DATEADD(day, -50, datCompleteDate) end " &
                 "and " & DateBias & " " &
-                "Group by strReviewingEngineer) GreaterByDates,  " &
-                "(select strReviewingEngineer,  " &
+                "Group by strReviewingEngineer) GreaterByDates  " &
+                "ON ISMPReportInformation.strReviewingEngineer = GreaterByDates.strReviewingEngineer " &
+                " LEFT JOIN (select strReviewingEngineer,  " &
                 "count(*) as OpenGreaterByDate " &
                 "from ISMPReportInformation  " &
                 "where strDelete is NULL  " &
                 "and strClosed = 'False'  " &
                 "and datReceivedDate < DATEADD(day, -50, GETDATE() ) " &
                 "and " & DateBias & " " &
-                "Group by strReviewingEngineer) OpenGreaterByDates,  " &
-                "(select strReviewingEngineer,  " &
+                "Group by strReviewingEngineer) OpenGreaterByDates  " &
+                "ON ISMPReportInformation.strReviewingEngineer = OpenGreaterByDates.strReviewingEngineer " &
+                " LEFT JOIN (select strReviewingEngineer,  " &
                 "count(*) as CloseGreaterByDate " &
                 "from ISMPReportInformation  " &
                 "where strDelete is NULL  " &
                 "and strClosed = 'True'  " &
                 "and datReceivedDate < (-50 + datCompleteDate) " &
                 "and " & DateBias & " " &
-                "Group by strReviewingEngineer) CloseGreaterByDates,  " &
-                "(select strReviewingEngineer, " &
+                "Group by strReviewingEngineer) CloseGreaterByDates  " &
+                "ON ISMPReportInformation.strReviewingEngineer = CloseGreaterByDates.strReviewingEngineer " &
+                " LEFT JOIN (select strReviewingEngineer, " &
                 "count(*) as ComplianceByDate " &
                 "from ISMPReportInformation " &
                 "where strComplianceStatus = '05' " &
                 "and strDelete is NULL " &
                 "and " & DateBias & " " &
-                "group by strReviewingEngineer) ComplianceByDates, " &
-                "(select strReviewingEngineer,   " &
+                "group by strReviewingEngineer) ComplianceByDates " &
+                "ON ISMPReportInformation.strReviewingEngineer = ComplianceByDates.strReviewingEngineer " &
+                " LEFT JOIN (select strReviewingEngineer,   " &
                 "count(*) as OpenComplianceByDate  " &
                 "from ISMPReportInformation   " &
                 "where strComplianceStatus = '05'  " &
                 "and strClosed = 'False'  " &
                 "and strDelete is NULL  " &
                 "and " & DateBias & " " &
-                "group by strReviewingEngineer) OpenComplianceByDates,   " &
-                "(Select strReviewingEngineer,  " &
+                "group by strReviewingEngineer) OpenComplianceByDates   " &
+                "ON ISMPReportInformation.strReviewingEngineer = OpenComplianceByDates.strReviewingEngineer   " &
+                " LEFT JOIN (Select strReviewingEngineer,  " &
                 "count(*) as CloseComplianceByDate  " &
                 "from ISMPReportInformation   " &
                 "where strComplianceStatus = '05'  " &
@@ -265,20 +278,8 @@ Public Class ISMPStaffReports
                 "and strDelete is NULL  " &
                 "and " & DateBias & " " &
                 "group by strReviewingEngineer) CloseComplianceByDates   " &
-                "where EPDUserProfiles.numUserID = ISMPReportInformation.strReviewingEngineer  " &
-                "and ISMPReportInformation.strReviewingEngineer = ReceivedByDates.strReviewingEngineer (+) " &
-                "and ISMPReportInformation.strReviewingEngineer = OpenBYDates.strReviewingEngineer (+)  " &
-                "and ISMPReportInformation.strReviewingEngineer = CloseByDates.strReviewingEngineer (+)  " &
-                "and ISMPReportInformation.strReviewingEngineer = WitnessedByDates.strWitnessingEngineer (+)  " &
-                "and ISMPReportInformation.strReviewingEngineer = OpenwitnessedByDates.strWitnessingEngineer (+)  " &
-                "and ISMPReportInformation.strReviewingEngineer = CloseWitnessedByDates.strWitnessingEngineer (+)  " &
-                "and ISMPReportInformation.strReviewingEngineer = GreaterByDates.strReviewingEngineer (+) " &
-                "and ISMPReportInformation.strReviewingEngineer = OpenGreaterByDates.strReviewingEngineer (+)  " &
-                "and ISMPReportInformation.strReviewingEngineer = CloseGreaterByDates.strReviewingEngineer (+)  " &
-                "and ISMPReportInformation.strReviewingEngineer = ComplianceByDates.strReviewingEngineer (+) " &
-                "and ISMPReportInformation.strReviewingEngineer = OpenComplianceByDates.strReviewingEngineer (+)  " &
-                "and ISMPReportInformation.strREviewingEngineer = CloseComplianceByDates.strReviewingEngineer (+)  " &
-                "and ISMPReportInformation.strReviewingEngineer = '" & EngineerGCode & "' "
+                "ON ISMPReportInformation.strREviewingEngineer = CloseComplianceByDates.strReviewingEngineer   " &
+                "where ISMPReportInformation.strReviewingEngineer = '" & EngineerGCode & "' "
 
                 SQL2 = "Select " &
                 "concat(strLastName, ', ' ,strFirstName) as Staff, " &
@@ -340,73 +341,74 @@ Public Class ISMPStaffReports
                 "when ClosedGreaterTotal is NULL then 0   " &
                 "Else ClosedGreaterTotal   " &
                 "End as ClosedGreaterTotal   " &
-                "from EPDUserProfiles, ISMPReportInformation, " &
-                "(Select strReviewingEngineer,  " &
+                "from EPDUserProfiles " &
+                " INNER JOIN ISMPReportInformation " &
+                "ON EPDUserProfiles.numUserID = ISMPReportInformation.strReviewingEngineer  " &
+                " LEFT JOIN (Select strReviewingEngineer,  " &
                 "count(*) as ReceivedTotal  " &
                 "from ISMPReportInformation  " &
                 "where strDelete is NULL  " &
-                "Group by strReviewingEngineer) ReceivedTotals,  " &
-                "(Select strReviewingEngineer,  " &
+                "Group by strReviewingEngineer) ReceivedTotals " &
+                "ON ISMPReportInformation.strReviewingEngineer = ReceivedTotals.strReviewingEngineer " &
+                " LEFT JOIN (Select strReviewingEngineer,  " &
                 "count(*) as OpenTotal " &
                 "from ISMPReportInformation  " &
                 "where strClosed = 'False' " &
                 "and strDelete is NULL  " &
-                "Group by strReviewingEngineer) OpenTotals,  " &
-                "(select strWitnessingEngineer,  " &
+                "Group by strReviewingEngineer) OpenTotals  " &
+                "ON ISMPReportInformation.strReviewingEngineer = OpenTotals.strReviewingEngineer " &
+                " LEFT JOIN (select strWitnessingEngineer,  " &
                 "count(*) as OpenWitnessedTotal  " &
                 "from ISMPReportInformation  " &
                 "where strClosed = 'False' " &
                 "and strDelete is Null " &
-                "group by strWitnessingEngineer) OpenWitnessedTotals,  " &
-                "(select strReviewingEngineer,  " &
+                "group by strWitnessingEngineer) OpenWitnessedTotals  " &
+                "ON ISMPReportInformation.strReviewingEngineer = OpenWitnessedTotals.strWitnessingEngineer " &
+                " LEFT JOIN (select strReviewingEngineer,  " &
                 "count(*) as OpenComplianceTotal  " &
                 "from ISMPReportInformation  " &
                 "where strComplianceStatus = '05' " &
                 "and strClosed = 'False' " &
                 "and strDelete is NULL " &
-                "group by strReviewingEngineer) OpenComplianceTotals,  " &
-                "(select strReviewingEngineer,  " &
+                "group by strReviewingEngineer) OpenComplianceTotals  " &
+                "ON ISMPReportInformation.strReviewingEngineer = OpenComplianceTotals.strReviewingEngineer " &
+                " LEFT JOIN (select strReviewingEngineer,  " &
                 "count(*) as CloseTotal  " &
                 "from ISMPReportInformation  " &
                 "where strClosed = 'True'  " &
                 "and strDelete is NULL " &
-                "Group by strReviewingEngineer) CloseTotals,  " &
-                "(select strWitnessingEngineer,  " &
+                "Group by strReviewingEngineer) CloseTotals  " &
+                "ON ISMPReportInformation.strReviewingEngineer = CloseTotals.strReviewingEngineer " &
+                " LEFT JOIN (select strWitnessingEngineer,  " &
                 "count(*) as ClosedWitnessedTotal  " &
                 "from ISMPReportInformation  " &
                 "where strClosed = 'True' " &
                 "and strDelete is NULL  " &
-                "group by strWitnessingEngineer) ClosedWitnessedTotals,  " &
-                "(select strReviewingEngineer,  " &
+                "group by strWitnessingEngineer) ClosedWitnessedTotals  " &
+                "ON ISMPReportInformation.strReviewingEngineer = ClosedWitnessedTotals.strWitnessingEngineer " &
+                " LEFT JOIN (select strReviewingEngineer,  " &
                 "count(*) as ClosedComplianceTotal  " &
                 "from ISMPReportInformation  " &
                 "where strComplianceStatus = '05' " &
                 "and strClosed = 'True' " &
                 "and strDelete is NULL " &
-                "group by strReviewingEngineer) ClosedComplianceTotals, " &
-                "(select strReviewingEngineer, count(*) as OpenGreaterTotal " &
+                "group by strReviewingEngineer) ClosedComplianceTotals " &
+                "ON ISMPReportInformation.strReviewingEngineer = ClosedCompliancetotals.strReviewingEngineer " &
+                " LEFT JOIN (select strReviewingEngineer, count(*) as OpenGreaterTotal " &
                 "from ISMPReportInformation  " &
                 "where strDelete is NULL  " &
                 "and strClosed = 'False'  " &
                 "and datReceivedDate < DATEADD(day, -50, GETDATE() )  " &
-                "Group by strReviewingEngineer) OpenGreaterTotals, " &
-                "(select strReviewingEngineer, count(*) as ClosedGreaterTotal " &
+                "Group by strReviewingEngineer) OpenGreaterTotals " &
+                "ON ISMPReportInformation.strReviewingEngineer = OpenGreaterTotals.strReviewingEngineer " &
+                " LEFT JOIN (select strReviewingEngineer, count(*) as ClosedGreaterTotal " &
                 "from ISMPReportInformation  " &
                 "where strDelete is NULL  " &
                 "and strClosed = 'True'  " &
                 "and datReceivedDate < (-50 + datCompleteDate)  " &
                 "Group by strReviewingEngineer) ClosedGreaterTotals " &
-                "where EPDUserProfiles.numUserID = ISMPReportInformation.strReviewingEngineer  " &
-                "and ISMPReportInformation.strReviewingEngineer = ReceivedTotals.strReviewingEngineer (+) " &
-                "and ISMPReportInformation.strReviewingEngineer = OpenTotals.strReviewingEngineer (+) " &
-                "and ISMPReportInformation.strReviewingEngineer = OpenWitnessedTotals.strWitnessingEngineer (+) " &
-                "and ISMPReportInformation.strReviewingEngineer = OpenComplianceTotals.strReviewingEngineer (+) " &
-                "and ISMPReportInformation.strReviewingEngineer = CloseTotals.strReviewingEngineer (+)  " &
-                "and ISMPReportInformation.strReviewingEngineer = ClosedWitnessedTotals.strWitnessingEngineer (+)  " &
-                "and ISMPReportInformation.strReviewingEngineer = ClosedCompliancetotals.strReviewingEngineer (+) " &
-                "and ISMPReportInformation.strReviewingEngineer = OpenGreaterTotals.strReviewingEngineer (+) " &
-                "and ISMPReportInformation.strReviewingEngineer = ClosedGreaterTotals.strReviewingEngineer (+)   " &
-                "and ISMPReportInformation.strReviewingEngineer = '" & EngineerGCode & "' "
+                "ON ISMPReportInformation.strReviewingEngineer = ClosedGreaterTotals.strReviewingEngineer " &
+                "where ISMPReportInformation.strReviewingEngineer = '" & EngineerGCode & "' "
 
                 SQL5 = "Select " &
                 "concat(strLastName, ', ' ,strFirstName) as Staff, " &

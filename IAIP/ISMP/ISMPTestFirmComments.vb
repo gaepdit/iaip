@@ -351,9 +351,9 @@ Public Class ISMPTestFirmComments
                     "SUBSTRING(APBFacilityInformation.strAIRSNumber, 5,8) as strAIRSNumber, " &
                     "strFacilityName, " &
                     "strTestLogNumber " &
-                    "from APBFacilityInformation, ISMPTestNotification " &
-                    "where APBFacilityInformation.strAIRSNumber = ISMPTestNotification.strAIRSNumber (+) " &
-                    "and ISMPTestNotification.strTestLogNumber = '" & txtTestNotificationNumber.Text & "' "
+                    "from APBFacilityInformation LEFT JOIN ISMPTestNotification " &
+                    "ON APBFacilityInformation.strAIRSNumber = ISMPTestNotification.strAIRSNumber " &
+                    "WHERE ISMPTestNotification.strTestLogNumber = '" & txtTestNotificationNumber.Text & "' "
                     cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
                         CurrentConnection.Open()
@@ -379,12 +379,14 @@ Public Class ISMPTestFirmComments
                     "strFacilityName,  strTestLogNumber,  " &
                     "format(datTestDateStart, 'dd-MMM-yyyy') as datTestDateStart, " &
                     "format(datTestDateEnd, 'dd-MMM-yyyy') as datTestDateEnd " &
-                    "from ISMPMaster, APBFacilityInformation,  " &
-                    "ISMPTestNotification, ISMPReportInformation " &
-                    "where ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSnumber  " &
-                    "and ISMPMaster.strAIRSNumber = ISMpTestNotification.strAIRSNumber (+)  " &
-                    "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber (+) " &
-                    "and ISMPMaster.strReferenceNumber = '" & txtTestReportNumber.Text & "'  "
+                    "from ISMPMaster " &
+                    " INNER JOIN APBFacilityInformation  " &
+                    "ON ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSnumber  " &
+                    " LEFT JOIN ISMPTestNotification " &
+                    "ON ISMPMaster.strAIRSNumber = ISMpTestNotification.strAIRSNumber " &
+                    " LEFT JOIN ISMPReportInformation " &
+                    "ON ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
+                    "where ISMPMaster.strReferenceNumber = '" & txtTestReportNumber.Text & "'  "
 
                     cmd = New SqlCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then

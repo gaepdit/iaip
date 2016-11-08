@@ -64,14 +64,16 @@ Public Class SSPPPublicNoticiesAndAdvisories
             "when strPNPosted is null then '' " &
             "else strPNPosted " &
             "end strPNPosted " &
-            "from SSPPApplicationMaster, SSPPApplicationData, " &
-            "SSPPApplicationTracking, LookUpApplicationTypes, " &
-            "LookUpCountyInformation " &
-            "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber " &
-            "and SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber " &
-            "and SUBSTRING(SSPPApplicationMaster.strAIRSNumber, 5, 3) = LookUpCountyInformation.strCountyCode " &
-            "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode (+) " &
-            "and datFinalizedDate is Null " &
+            "from SSPPApplicationMaster " &
+            " INNER JOIN SSPPApplicationData " &
+            "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber " &
+            " INNER JOIN SSPPApplicationTracking " &
+            "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber " &
+            " LEFT JOIN LookUpApplicationTypes " &
+            "ON SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode " &
+            " INNER JOIN LookUpCountyInformation " &
+            "ON SUBSTRING(SSPPApplicationMaster.strAIRSNumber, 5, 3) = LookUpCountyInformation.strCountyCode " &
+            "where datFinalizedDate is Null " &
             "And strPAPosted Is null And strPNPosted Is null " &
             "and (strPAReady = 'True' or strPNReady = 'True') " &
             "and ((strApplicationTypeCode = '2' or strApplicationTypeCode = '21' " &
@@ -192,14 +194,16 @@ Public Class SSPPPublicNoticiesAndAdvisories
             "   when strApplicationType is Null then '' " &
             "   else LookUpApplicationTypes.strApplicationTypeDesc " &
             "End AppType " &
-            "from SSPPApplicationMaster, SSPPApplicationData,  " &
-            "SSPPApplicationTracking, " &
-            "LookUpApplicationTypes, LookUpCountyInformation  " &
-             "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber  " &
-            "and SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
-            "and SUBSTRING(SSPPApplicationMaster.strAIRSNumber, 5, 3) = LookUpCountyInformation.strCountyCode  " &
-            "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode (+)  " &
-            "and strPAReady = 'True' " &
+            "FROM SSPPApplicationMaster " &
+            " INNER JOIN SSPPApplicationData  " &
+            "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber  " &
+            " INNER JOIN SSPPApplicationTracking " &
+            "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
+            " LEFT JOIN LookUpApplicationTypes " &
+            "ON SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode " &
+            " INNER JOIN LookUpCountyInformation  " &
+            "ON SUBSTRING(SSPPApplicationMaster.strAIRSNumber, 5, 3) = LookUpCountyInformation.strCountyCode  " &
+            "where strPAReady = 'True' " &
             "and strPAPosted is Null " &
             "and datPAExpires is Null " &
             "and strPublicInvolvement = '1' " &
@@ -223,14 +227,16 @@ Public Class SSPPPublicNoticiesAndAdvisories
             "   when strApplicationType is Null then '' " &
             "   else LookUpApplicationTypes.strApplicationTypeDesc " &
             "End AppType " &
-            "from SSPPApplicationMaster, SSPPApplicationData,  " &
-            "SSPPApplicationTracking, " &
-            "LookUpApplicationTypes, LookUpCountyInformation  " &
-            "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber  " &
-            "and SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
-            "and SUBSTRING(SSPPApplicationMaster.strAIRSNumber, 5, 3) = LookUpCountyInformation.strCountyCode  " &
-            "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode (+)  " &
-            "and strPNPosted is Null " &
+            "FROM SSPPApplicationMaster " &
+            " INNER JOIN SSPPApplicationData  " &
+            "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber  " &
+            " INNER JOIN SSPPApplicationTracking " &
+            "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
+            " LEFT JOIN LookUpApplicationTypes " &
+            "ON SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode " &
+            " INNER JOIN LookUpCountyInformation  " &
+            "ON SUBSTRING(SSPPApplicationMaster.strAIRSNumber, 5, 3) = LookUpCountyInformation.strCountyCode  " &
+            "where strPNPosted is Null " &
             "and (strApplicationType = '14' or strApplicationType = '16' " &
             "or strApplicationType = '21' or strApplicationType = '22') " &
             "and (datPNExpires > (GETDATE() + 24) and datPNExpires < (GETDATE() + 37)) " &
@@ -254,7 +260,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
                     lsbApplicationList.Items.Add(" ")
                 End If
 
-                SIPAppNumbers = " AND (" & Mid(SIPAppNumbers, 1, (SIPAppNumbers.Length) - 3) & " ) "
+                SIPAppNumbers = " WHERE (" & Mid(SIPAppNumbers, 1, (SIPAppNumbers.Length) - 3) & " ) "
 
                 SQL = "Select " &
                 "SSPPApplicationMaster.strApplicationNumber, " &
@@ -264,13 +270,15 @@ Public Class SSPPPublicNoticiesAndAdvisories
                 "   when strApplicationType is Null then '' " &
                 "   else LookUpApplicationTypes.strApplicationTypeDesc " &
                 "End AppType " &
-                "from SSPPApplicationMaster, SSPPApplicationData,  " &
-                "SSPPApplicationTracking, " &
-                "LookUpApplicationTypes, LookUpCountyInformation  " &
-                "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber  " &
-                "and SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
-                "and SUBSTRING(SSPPApplicationMaster.strAIRSNumber, 5, 3) = LookUpCountyInformation.strCountyCode  " &
-                "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode (+)  " &
+                "FROM SSPPApplicationMaster " &
+                " INNER JOIN SSPPApplicationData  " &
+                "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber  " &
+                " INNER JOIN SSPPApplicationTracking " &
+                "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
+                " LEFT JOIN LookUpApplicationTypes " &
+                "ON SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode " &
+                " INNER JOIN LookUpCountyInformation  " &
+                "ON SUBSTRING(SSPPApplicationMaster.strAIRSNumber, 5, 3) = LookUpCountyInformation.strCountyCode  " &
                 SIPAppNumbers &
                 "order by strCountyName "
 
@@ -359,7 +367,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
                     lsbApplicationList.Items.Add("Public Noticies")
                 End If
 
-                TVAppNumbers = " AND (" & Mid(TVAppNumbers, 1, (TVAppNumbers.Length) - 3) & " ) "
+                TVAppNumbers = " WHERE (" & Mid(TVAppNumbers, 1, (TVAppNumbers.Length) - 3) & " ) "
 
                 SQL = "Select " &
                 "SSPPApplicationMaster.strApplicationNumber, " &
@@ -369,13 +377,15 @@ Public Class SSPPPublicNoticiesAndAdvisories
                 "   when strApplicationType is Null then '' " &
                 "   else LookUpApplicationTypes.strApplicationTypeDesc " &
                 "End AppType " &
-                "from SSPPApplicationMaster, SSPPApplicationData,  " &
-                "SSPPApplicationTracking, " &
-                "LookUpApplicationTypes, LookUpCountyInformation  " &
-                "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber  " &
-                "and SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
-                "and SUBSTRING(SSPPApplicationMaster.strAIRSNumber, 5, 3) = LookUpCountyInformation.strCountyCode  " &
-                "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode (+)  " &
+            "FROM SSPPApplicationMaster " &
+            " INNER JOIN SSPPApplicationData  " &
+            "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber  " &
+            " INNER JOIN SSPPApplicationTracking " &
+            "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
+            " LEFT JOIN LookUpApplicationTypes " &
+            "ON SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode " &
+            " INNER JOIN LookUpCountyInformation  " &
+            "ON SUBSTRING(SSPPApplicationMaster.strAIRSNumber, 5, 3) = LookUpCountyInformation.strCountyCode  " &
                 TVAppNumbers &
                 "order by strCountyName "
 
@@ -488,14 +498,16 @@ Public Class SSPPPublicNoticiesAndAdvisories
             "   Else ''  " &
             "End PNReady,  " &
             "datPNExpires  " &
-            "from SSPPApplicationMaster, SSPPApplicationData,  " &
-            "SSPPApplicationTracking, " &
-            "LookUpApplicationTypes, LookUpCountyInformation  " &
-            "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber  " &
-            "and SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
-            "and SUBSTRING(SSPPApplicationMaster.strAIRSNumber, 5, 3) = LookUpCountyInformation.strCountyCode  " &
-            "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode (+)  " &
-            "and SSPPApplicationMaster.strApplicationNumber = '" & txtApplicationNumberEditor.Text & "' "
+            "FROM SSPPApplicationMaster " &
+            " INNER JOIN SSPPApplicationData  " &
+            "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber  " &
+            " INNER JOIN SSPPApplicationTracking " &
+            "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
+            " LEFT JOIN LookUpApplicationTypes " &
+            "ON SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode " &
+            " INNER JOIN LookUpCountyInformation  " &
+            "ON SUBSTRING(SSPPApplicationMaster.strAIRSNumber, 5, 3) = LookUpCountyInformation.strCountyCode  " &
+            "where SSPPApplicationMaster.strApplicationNumber = '" & txtApplicationNumberEditor.Text & "' "
             cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
@@ -613,14 +625,16 @@ Public Class SSPPPublicNoticiesAndAdvisories
             "   Else ''  " &
             "End PNReady,  " &
             "datPNExpires  " &
-            "from SSPPApplicationMaster, SSPPApplicationData,  " &
-            "SSPPApplicationTracking, " &
-            "LookUpApplicationTypes, LookUpCountyInformation  " &
-            "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber  " &
-            "and SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
-            "and SUBSTRING(SSPPApplicationMaster.strAIRSNumber, 5, 3) = LookUpCountyInformation.strCountyCode  " &
-            "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode (+)  " &
-            "and SSPPApplicationMaster.strApplicationNumber = '" & txtApplicationNumberEditor.Text & "' "
+            "FROM SSPPApplicationMaster " &
+            " INNER JOIN SSPPApplicationData  " &
+            "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber  " &
+            " INNER JOIN SSPPApplicationTracking " &
+            "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
+            " LEFT JOIN LookUpApplicationTypes " &
+            "ON SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode " &
+            " INNER JOIN LookUpCountyInformation  " &
+            "ON SUBSTRING(SSPPApplicationMaster.strAIRSNumber, 5, 3) = LookUpCountyInformation.strCountyCode  " &
+            "where SSPPApplicationMaster.strApplicationNumber = '" & txtApplicationNumberEditor.Text & "' "
             cmd = New SqlCommand(SQL, CurrentConnection)
             If CurrentConnection.State = ConnectionState.Closed Then
                 CurrentConnection.Open()
