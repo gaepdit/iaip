@@ -1,40 +1,30 @@
+Imports System.Collections.Generic
 Imports System.Data.SqlClient
 Imports System.IO
+Imports Iaip.DAL
 
 Public Class SSPPPublicNoticiesAndAdvisories
-    Dim SQL As String
-    Dim cmd As SqlCommand
-    Dim dr As SqlDataReader
-    Dim recExist As Boolean
-    Dim dsPublicLetters As DataSet
-    Dim daPublicLetters As SqlDataAdapter
-
 
     Private Sub DevPublicNoticiesAndAdvisories_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         Try
-            Panel1.Text = "Public Advisories Letter Generator"
-            Panel2.Text = CurrentUser.AlphaName
-            Panel3.Text = TodayFormatted
-
-            'Me.WindowState = FormWindowState.Maximized
 
             LoadPublicNoticesList()
             TCPublicNotices.TabPages.Remove(TPPublishDocument)
             LoadOldPDFs()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & ".DevPublicNoticiesAndAdvisories_Load")
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-#Region "Page Load"
-    Sub LoadPublicNoticesList()
+
+    Private Sub LoadPublicNoticesList()
         Try
 
-            SQL = "Select " &
+            Dim query As String = "Select " &
             "SSPPApplicationMaster.strApplicationNumber, " &
             "SSPPApplicationData.strFacilityName, " &
             "strCountyName, " &
@@ -85,16 +75,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
             "or strApplicationTypeCode = '12')and strPublicInvolvement <> '2')) " &
             "order by strApplicationNumber desc "
 
-            dsPublicLetters = New DataSet
-
-            daPublicLetters = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            daPublicLetters.Fill(dsPublicLetters, "PublicLetters")
-            dgvPublicNotice.DataSource = dsPublicLetters
-            dgvPublicNotice.DataMember = "PublicLetters"
+            dgvPublicNotice.DataSource = DB.GetDataTable(query)
 
             txtPreviewCount.Text = dgvPublicNotice.RowCount.ToString
 
@@ -130,68 +111,60 @@ Public Class SSPPPublicNoticiesAndAdvisories
             dgvPublicNotice.Columns("strPNPosted").HeaderText = "PN Posted"
             dgvPublicNotice.Columns("strPNPosted").DisplayIndex = 9
 
+            dgvPublicNotice.SanelyResizeColumns
+
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & ".LoadPublicNoticesList")
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Sub LoadOldPDFs()
+    Private Sub LoadOldPDFs()
         Try
 
             cboPAPNReports.Items.Clear()
 
-            SQL = "select strFileName " &
+            Dim query As String = "select strFileName " &
             "from SSPPPublicLetters " &
             "order by datPublishedDate "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
+            Dim dt As DataTable = DB.GetDataTable(query)
+            For Each dr As DataRow In dt.Rows
                 Me.cboPAPNReports.Items.Add(dr.Item("strFileName"))
-            End While
-            dr.Close()
+            Next
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & ".LoadOldPDFs")
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
     End Sub
-#End Region
-#Region "Subs and Functions"
-    Sub CreatePublicNoticeList()
+    Private Sub CreatePublicNoticeList()
         Try
-            Dim strObject As Object = ""
             Dim AppNum As String = ""
             Dim FacilityName As String = ""
             Dim County As String = ""
             Dim AppType As String = ""
 
-            Dim AppNumbers As String = ""
-            Dim SIPAppNumbers As String = ""
-            Dim TVAppNumbers As String = ""
+            Dim AppNumbers As New List(Of String)
+            Dim SIPAppNumbers As New List(Of String)
+            Dim TVAppNumbers As New List(Of String)
 
             Dim temp As String = ""
             Dim i As Integer
 
+
             For i = 0 To dgvPublicNotice.RowCount - 1
-                strObject = dgvPublicNotice(0, i).Value.ToString
-                AppNumbers = AppNumbers & " SSPPApplicationMaster.strApplicationNumber = '" & strObject & "' or "
+                AppNumbers.Add(dgvPublicNotice(0, i).Value.ToString)
             Next
 
-            AppNumbers = "And ( " & Mid(AppNumbers, 1, (AppNumbers.Length - 3)) & " ) "
-
-            SQL = "Select " &
+            Dim query As String = "Select " &
             "SSPPApplicationMaster.strApplicationNumber, " &
             "SSPPApplicationData.strFacilityName, " &
             "strCountyName, " &
             "case " &
-            "   when strApplicationType is Null then '' " &
+            "   when strApplicationType is Null then null " &
             "   else LookUpApplicationTypes.strApplicationTypeDesc " &
             "End AppType " &
             "FROM SSPPApplicationMaster " &
@@ -207,19 +180,18 @@ Public Class SSPPPublicNoticiesAndAdvisories
             "and strPAPosted is Null " &
             "and datPAExpires is Null " &
             "and strPublicInvolvement = '1' " &
-            AppNumbers
+            " and SSPPApplicationMaster.strApplicationNumber in " &
+            "(select * from @appnumbers) "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                SIPAppNumbers = SIPAppNumbers & " SSPPApplicationMaster.strApplicationNumber = '" & dr.Item("strApplicationNumber") & "' or "
-            End While
-            dr.Close()
+            Dim p As SqlParameter = AppNumbers.AsTvpSqlParameter("@appnumbers")
 
-            SQL = "Select " &
+            Dim dt As DataTable = DB.GetDataTable(query, p)
+
+            For Each dr As DataRow In dt.Rows
+                SIPAppNumbers.Add(dr.Item("strApplicationNumber"))
+            Next
+
+            query = "Select " &
             "SSPPApplicationMaster.strApplicationNumber, " &
             "SSPPApplicationData.strFacilityName, " &
             "strCountyName, " &
@@ -240,19 +212,16 @@ Public Class SSPPPublicNoticiesAndAdvisories
             "and (strApplicationType = '14' or strApplicationType = '16' " &
             "or strApplicationType = '21' or strApplicationType = '22') " &
             "and (datPNExpires > (GETDATE() + 24) and datPNExpires < (GETDATE() + 37)) " &
-             AppNumbers
+            " and SSPPApplicationMaster.strApplicationNumber in " &
+            "(select * from @appnumbers) "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                TVAppNumbers = TVAppNumbers & " SSPPApplicationMaster.strApplicationNumber = '" & dr.Item("strApplicationNumber") & "' or "
-            End While
-            dr.Close()
+            Dim dt2 As DataTable = DB.GetDataTable(query, p)
 
-            If SIPAppNumbers <> "" Then
+            For Each dr As DataRow In dt.Rows
+                TVAppNumbers.Add(dr.Item("strApplicationNumber"))
+            Next
+
+            If SIPAppNumbers.Count > 0 Then
                 If lsbApplicationList.Items.Contains("Public Advisories") Then
 
                 Else
@@ -260,9 +229,8 @@ Public Class SSPPPublicNoticiesAndAdvisories
                     lsbApplicationList.Items.Add(" ")
                 End If
 
-                SIPAppNumbers = " WHERE (" & Mid(SIPAppNumbers, 1, (SIPAppNumbers.Length) - 3) & " ) "
 
-                SQL = "Select " &
+                query = "Select " &
                 "SSPPApplicationMaster.strApplicationNumber, " &
                 "SSPPApplicationData.strFacilityName, " &
                 "strCountyName, " &
@@ -279,15 +247,15 @@ Public Class SSPPPublicNoticiesAndAdvisories
                 "ON SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode " &
                 " INNER JOIN LookUpCountyInformation  " &
                 "ON SUBSTRING(SSPPApplicationMaster.strAIRSNumber, 5, 3) = LookUpCountyInformation.strCountyCode  " &
-                SIPAppNumbers &
+                " where SSPPApplicationMaster.strApplicationNumber in " &
+                "(select * from @sipappnumbers)  " &
                 "order by strCountyName "
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                While dr.Read
+                Dim p3 As SqlParameter = SIPAppNumbers.AsTvpSqlParameter("@sipappnumbers")
+
+                Dim dt3 As DataTable = DB.GetDataTable(query, p3)
+
+                For Each dr As DataRow In dt.Rows
                     temp = ""
                     If IsDBNull(dr.Item("strApplicationNumber")) Then
                         AppNum = ""
@@ -357,44 +325,42 @@ Public Class SSPPPublicNoticiesAndAdvisories
                             End If
                         End If
                     End If
-                End While
+                Next
             End If
 
-            If TVAppNumbers <> "" Then
+            If TVAppNumbers.Count > 0 Then
                 If lsbApplicationList.Items.Contains("Public Noticies") Then
 
                 Else
                     lsbApplicationList.Items.Add("Public Noticies")
                 End If
 
-                TVAppNumbers = " WHERE (" & Mid(TVAppNumbers, 1, (TVAppNumbers.Length) - 3) & " ) "
+                query = "Select " &
+                    "SSPPApplicationMaster.strApplicationNumber, " &
+                    "SSPPApplicationData.strFacilityName, " &
+                    "strCountyName, " &
+                    "case " &
+                    "   when strApplicationType is Null then '' " &
+                    "   else LookUpApplicationTypes.strApplicationTypeDesc " &
+                    "End AppType " &
+                "FROM SSPPApplicationMaster " &
+                " INNER JOIN SSPPApplicationData  " &
+                "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber  " &
+                " INNER JOIN SSPPApplicationTracking " &
+                "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
+                " LEFT JOIN LookUpApplicationTypes " &
+                "ON SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode " &
+                " INNER JOIN LookUpCountyInformation  " &
+                "ON SUBSTRING(SSPPApplicationMaster.strAIRSNumber, 5, 3) = LookUpCountyInformation.strCountyCode  " &
+                " where SSPPApplicationMaster.strApplicationNumber in " &
+                "(select * from @tvappnumbers)  " &
+                    "order by strCountyName "
 
-                SQL = "Select " &
-                "SSPPApplicationMaster.strApplicationNumber, " &
-                "SSPPApplicationData.strFacilityName, " &
-                "strCountyName, " &
-                "case " &
-                "   when strApplicationType is Null then '' " &
-                "   else LookUpApplicationTypes.strApplicationTypeDesc " &
-                "End AppType " &
-            "FROM SSPPApplicationMaster " &
-            " INNER JOIN SSPPApplicationData  " &
-            "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber  " &
-            " INNER JOIN SSPPApplicationTracking " &
-            "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
-            " LEFT JOIN LookUpApplicationTypes " &
-            "ON SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode " &
-            " INNER JOIN LookUpCountyInformation  " &
-            "ON SUBSTRING(SSPPApplicationMaster.strAIRSNumber, 5, 3) = LookUpCountyInformation.strCountyCode  " &
-                TVAppNumbers &
-                "order by strCountyName "
+                Dim p4 As SqlParameter = SIPAppNumbers.AsTvpSqlParameter("@tvappnumbers")
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                While dr.Read
+                Dim dt4 As DataTable = DB.GetDataTable(query, p4)
+
+                For Each dr As DataRow In dt.Rows
                     temp = ""
                     If IsDBNull(dr.Item("strApplicationNumber")) Then
                         AppNum = ""
@@ -455,21 +421,21 @@ Public Class SSPPPublicNoticiesAndAdvisories
                             lsbApplicationList.Items.Add(temp)
                         End If
                     End If
-                End While
+                Next
             End If
 
-            If SIPAppNumbers = "" And TVAppNumbers = "" Then
+            If SIPAppNumbers.Count = 0 And TVAppNumbers.Count = 0 Then
                 lsbApplicationList.Items.Add("No Public Advisories and No Public Noticies")
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & ".CreatePublicNoticeList")
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Sub AddToApplicationList()
+    Private Sub AddToApplicationList()
         Try
             Dim AppNum As String = ""
             Dim FacilityName As String = ""
@@ -477,7 +443,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
             Dim AppType As String = ""
             Dim temp As String = ""
 
-            SQL = "Select " &
+            Dim query As String = "Select " &
             "SSPPApplicationMaster.strApplicationNumber, " &
             "SSPPApplicationData.strFacilityName, " &
             "strCountyName, " &
@@ -507,14 +473,13 @@ Public Class SSPPPublicNoticiesAndAdvisories
             "ON SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode " &
             " INNER JOIN LookUpCountyInformation  " &
             "ON SUBSTRING(SSPPApplicationMaster.strAIRSNumber, 5, 3) = LookUpCountyInformation.strCountyCode  " &
-            "where SSPPApplicationMaster.strApplicationNumber = '" & txtApplicationNumberEditor.Text & "' "
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            recExist = dr.Read
-            If recExist = True Then
+            "where SSPPApplicationMaster.strApplicationNumber = @appnum "
+
+            Dim p As New SqlParameter("@appnum", txtApplicationNumberEditor.Text)
+
+            Dim dr As DataRow = DB.GetDataRow(query, p)
+
+            If dr IsNot Nothing Then
                 temp = ""
                 If IsDBNull(dr.Item("strApplicationNumber")) Then
                     AppNum = ""
@@ -537,8 +502,6 @@ Public Class SSPPPublicNoticiesAndAdvisories
                     AppType = dr.Item("AppType")
                 End If
             End If
-
-            dr.Close()
 
             temp = AppNum & " - " & FacilityName
             Select Case temp.Length
@@ -572,7 +535,6 @@ Public Class SSPPPublicNoticiesAndAdvisories
                             lsbApplicationList.Items.Insert(lsbApplicationList.Items.IndexOf("Public Noticies") - 1, temp)
                         Else
                             lsbApplicationList.Items.Insert(lsbApplicationList.Items.IndexOf(" ") - 1, temp)
-                            'lsbApplicationList.Items.Add(temp)
                         End If
                     Else
                         lsbApplicationList.Items.Insert(0, "Public Advisories")
@@ -590,13 +552,13 @@ Public Class SSPPPublicNoticiesAndAdvisories
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & ".AddToApplicationList")
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Sub RemoveFromApplicationList()
+    Private Sub RemoveFromApplicationList()
         Try
             Dim AppNum As String = ""
             Dim FacilityName As String = ""
@@ -604,7 +566,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
             Dim AppType As String = ""
             Dim temp As String = ""
 
-            SQL = "Select " &
+            Dim query As String = "Select " &
             "SSPPApplicationMaster.strApplicationNumber, " &
             "SSPPApplicationData.strFacilityName, " &
             "strCountyName, " &
@@ -634,14 +596,13 @@ Public Class SSPPPublicNoticiesAndAdvisories
             "ON SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode " &
             " INNER JOIN LookUpCountyInformation  " &
             "ON SUBSTRING(SSPPApplicationMaster.strAIRSNumber, 5, 3) = LookUpCountyInformation.strCountyCode  " &
-            "where SSPPApplicationMaster.strApplicationNumber = '" & txtApplicationNumberEditor.Text & "' "
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            recExist = dr.Read
-            If recExist = True Then
+            "where SSPPApplicationMaster.strApplicationNumber = @appnum "
+
+            Dim p As New SqlParameter("@appnum", txtApplicationNumberEditor.Text)
+
+            Dim dr As DataRow = DB.GetDataRow(query, p)
+
+            If dr IsNot Nothing Then
                 temp = ""
                 If IsDBNull(dr.Item("strApplicationNumber")) Then
                     AppNum = ""
@@ -664,8 +625,6 @@ Public Class SSPPPublicNoticiesAndAdvisories
                     AppType = dr.Item("AppType")
                 End If
             End If
-
-            dr.Close()
 
             temp = AppNum & " - " & FacilityName
             Select Case temp.Length
@@ -697,13 +656,13 @@ Public Class SSPPPublicNoticiesAndAdvisories
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & ".RemoveFromApplicationList")
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Sub FillApplicationList()
+    Private Sub FillApplicationList()
         Try
             Dim temp As String
             Dim i As Integer
@@ -749,18 +708,18 @@ Public Class SSPPPublicNoticiesAndAdvisories
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & ".FillApplicationList")
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Sub OpenApplication()
+    Private Sub OpenApplication()
         OpenFormPermitApplication(txtApplicationNumber.Text)
     End Sub
-    Sub PreviewReport()
-        Dim SQLLine As String = ""
+    Private Sub PreviewReport()
         Dim i As Integer
+        Dim query As String
 
         Dim PANeeded As String = ""
         Dim PublicAdvisories As String = ""
@@ -770,14 +729,16 @@ Public Class SSPPPublicNoticiesAndAdvisories
         Dim TVSigMod As String = ""
         Dim Deadline As String = ""
 
+        Dim AdvAppNumbers As New List(Of String)
+        Dim NotAppNumbers As New List(Of String)
+
         Try
             If lsbPublicAdvisories.Items.Count > 0 Then
                 For i = 0 To lsbPublicAdvisories.Items.Count - 1
-                    SQLLine = SQLLine & " SSPPApplicationMaster.strApplicationNumber = " & lsbPublicAdvisories.Items.Item(i) & " or "
+                    AdvAppNumbers.Add(lsbPublicAdvisories.Items.Item(i))
                 Next
-                SQLLine = "and ( " & Mid(SQLLine, 1, (SQLLine.Length) - 3) & " ) "
 
-                SQL = "select " &
+                query = "select " &
                 "SSPPApplicationData.strApplicationNumber, " &
                 "strPAReady, strFacilityName, " &
                 "strFacilityStreet1, strFacilityCity, " &
@@ -789,15 +750,15 @@ Public Class SSPPPublicNoticiesAndAdvisories
                 "where SSPPApplicationData.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber " &
                 "and SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicatioNNumber " &
                 "and SUBSTRING(SSPPApplicationMaster.strAIRSNumber, 5, 3) = LookUpCountyInformation.strCountyCode " &
-                SQLLine &
+                " and SSPPApplicationMaster.strApplicationNumber in " &
+                " (select * from @appnumbers)  " &
                 "order by strCountyName "
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                While dr.Read
+                Dim p As SqlParameter = AdvAppNumbers.AsTvpSqlParameter("@appnumbers")
+
+                Dim dt As DataTable = DB.GetDataTable(query, p)
+
+                For Each dr As DataRow In dt.Rows
                     If IsDBNull(dr.Item("strCountyName")) Then
                         PANeeded = PANeeded & "County Unknown" & vbCrLf & vbCrLf
                     Else
@@ -845,18 +806,15 @@ Public Class SSPPPublicNoticiesAndAdvisories
                     Else
                         PANeeded = PANeeded & "Reason for Application:X " & dr.Item("strApplicationNotes") & vbCrLf & vbCrLf
                     End If
-                End While
-                dr.Close()
+                Next
             End If
 
-            SQLLine = ""
             If lsbPublicNoticies.Items.Count > 0 Then
                 For i = 0 To lsbPublicNoticies.Items.Count - 1
-                    SQLLine = SQLLine & " SSPPApplicationMaster.strApplicationNumber = " & lsbPublicNoticies.Items.Item(i) & " or "
+                    NotAppNumbers.Add(lsbPublicNoticies.Items.Item(i))
                 Next
-                SQLLine = "and ( " & Mid(SQLLine, 1, (SQLLine.Length) - 3) & " ) "
 
-                SQL = "Select  " &
+                query = "Select  " &
                 "SSPPApplicationMaster.strApplicationNumber,  " &
                 "strCountyName, strFacilityName,  " &
                 "strFacilityStreet1, strFacilityCity,  " &
@@ -869,15 +827,15 @@ Public Class SSPPPublicNoticiesAndAdvisories
                 "and SUBSTRING(SSPPApplicationMaster.strAIRSNumber, 5, 3) = LookUpCountyInformation.strCountyCode  " &
                 "and SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber " &
                 "and strApplicationType = '14'  " &
-                SQLLine &
+                " and SSPPApplicationMaster.strApplicationNumber in " &
+                " (select * from @appnumbers)  " &
                 "order by strCountyName "
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                While dr.Read
+                Dim p As SqlParameter = NotAppNumbers.AsTvpSqlParameter("@appnumbers")
+
+                Dim dt As DataTable = DB.GetDataTable(query, p)
+
+                For Each dr As DataRow In dt.Rows
                     If IsDBNull(dr.Item("strCountyName")) Then
                         TVInitial = TVInitial & "County Unknown" & vbCrLf & vbCrLf
                     Else
@@ -925,18 +883,9 @@ Public Class SSPPPublicNoticiesAndAdvisories
                     Else
                         TVInitial = TVInitial & "Comment period/deadline for public hearing request expires on:X " & dr.Item("datPNExpires") & vbCrLf & vbCrLf
                     End If
-                End While
-                dr.Close()
-            End If
-
-            SQLLine = ""
-            If lsbPublicNoticies.Items.Count > 0 Then
-                For i = 0 To lsbPublicNoticies.Items.Count - 1
-                    SQLLine = SQLLine & " SSPPApplicationMaster.strApplicationNumber = " & lsbPublicNoticies.Items.Item(i) & " or "
                 Next
-                SQLLine = "and ( " & Mid(SQLLine, 1, (SQLLine.Length) - 3) & " ) "
 
-                SQL = "Select  " &
+                query = "Select  " &
                 "SSPPApplicationMaster.strApplicationNumber,  " &
                 "strCountyName, strFacilityName,  " &
                 "strFacilityStreet1, strFacilityCity,  " &
@@ -948,16 +897,14 @@ Public Class SSPPPublicNoticiesAndAdvisories
                 "where SSPPApplicationMaster.strApplicationnumber = SSPPApplicationData.strApplicationNumber   " &
                 "and SUBSTRING(SSPPApplicationMaster.strAIRSNumber, 5, 3) = LookUpCountyInformation.strCountyCode  " &
                 "and SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber " &
-                SQLLine &
+                " and SSPPApplicationMaster.strApplicationNumber in " &
+                " (select * from @appnumbers)  " &
                 "and strApplicationType = '16'  " &
                 "order by strCountyName "
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                While dr.Read
+                Dim dt2 As DataTable = DB.GetDataTable(query, p)
+
+                For Each dr As DataRow In dt2.Rows
                     If IsDBNull(dr.Item("strCountyName")) Then
                         TVRenewal = TVRenewal & "County Unknown" & vbCrLf & vbCrLf
                     Else
@@ -1005,18 +952,9 @@ Public Class SSPPPublicNoticiesAndAdvisories
                     Else
                         TVRenewal = TVRenewal & "Comment period/deadline for public hearing request expires on:X " & dr.Item("datPNExpires") & vbCrLf & vbCrLf
                     End If
-                End While
-                dr.Close()
-            End If
-
-            SQLLine = ""
-            If lsbPublicNoticies.Items.Count > 0 Then
-                For i = 0 To lsbPublicNoticies.Items.Count - 1
-                    SQLLine = SQLLine & " SSPPApplicationMaster.strApplicationNumber = " & lsbPublicNoticies.Items.Item(i) & " or "
                 Next
-                SQLLine = "and ( " & Mid(SQLLine, 1, (SQLLine.Length) - 3) & " ) "
 
-                SQL = "Select  " &
+                query = "Select  " &
                 "SSPPApplicationMaster.strApplicationNumber,  " &
                 "strCountyName, strFacilityName,  " &
                 "strFacilityStreet1, strFacilityCity,  " &
@@ -1029,16 +967,16 @@ Public Class SSPPPublicNoticiesAndAdvisories
                 "where SSPPApplicationMaster.strApplicationnumber = SSPPApplicationData.strApplicationNumber   " &
                 "and SUBSTRING(SSPPApplicationMaster.strAIRSNumber, 5, 3) = LookUpCountyInformation.strCountyCode  " &
                 "and SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber " &
-                SQLLine &
+                " and SSPPApplicationMaster.strApplicationNumber in " &
+                " (select * from @appnumbers)  " &
+                "and strApplicationType = '16'  " &
                 "and (strApplicationType = '21' or strApplicationType = '22')  " &
                 "order by strCountyName "
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                While dr.Read
+
+                Dim dt3 As DataTable = DB.GetDataTable(query, p)
+
+                For Each dr As DataRow In dt3.Rows
                     If IsDBNull(dr.Item("strCountyName")) Then
                         TVSigMod = TVSigMod & "County Unknown" & vbCrLf & vbCrLf
                     Else
@@ -1095,8 +1033,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
                     Else
                         TVSigMod = TVSigMod & "Comment period/deadline for public hearing request expires on:X " & dr.Item("datPNExpires") & vbCrLf & vbCrLf
                     End If
-                End While
-                dr.Close()
+                Next
             End If
 
             If DTPPADeadline.Checked = False Then
@@ -1194,13 +1131,13 @@ Public Class SSPPPublicNoticiesAndAdvisories
             FormatReport()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & ".PreviewReport")
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Sub FormatReport()
+    Private Sub FormatReport()
         Try
 
             Dim bfont As New Font(txtPublicNoticeDocument.Font, FontStyle.Bold)
@@ -1220,7 +1157,6 @@ Public Class SSPPPublicNoticiesAndAdvisories
                 temp2 = Replace(temp2, "X*", "")
                 txtPublicNoticeDocument.SelectionStart = txtPublicNoticeDocument.Find(temp)
                 txtPublicNoticeDocument.SelectionFont = ufont
-                ' txtPublicLetter.SelectionFont = bfont
                 txtPublicNoticeDocument.SelectedText = temp2
             Loop
 
@@ -1364,13 +1300,13 @@ Public Class SSPPPublicNoticiesAndAdvisories
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & ".FormatReport")
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Sub GenerateFileName()
+    Private Sub GenerateFileName()
         Try
             Dim FileMonth As String = ""
             Dim FileYear As String = ""
@@ -1415,18 +1351,13 @@ Public Class SSPPPublicNoticiesAndAdvisories
             FileName = "PA" & FileMonth & FileYear & "-" & FileWeek
 
             Do While Flag = False
-                SQL = "select strFileName " &
+                Dim query As String = "select strFileName " &
                 "From SSPPPublicLetters " &
-                "where strFileName = '" & FileName & "' "
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-                dr.Close()
+                "where strFileName = @FileName "
 
-                If recExist = True Then
+                Dim p As New SqlParameter("@FileName", FileName)
+
+                If DB.ValueExists(query, p) Then
                     If FileName.Length > 8 Then
                         Select Case Mid(FileName, 9, 1)
                             Case "a"
@@ -1495,18 +1426,17 @@ Public Class SSPPPublicNoticiesAndAdvisories
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & ".GenerateFileName")
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
 
-    <CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId:="cmdCB")>
-    Sub UpdateLetter()
+    Private Sub UpdateLetter()
         Try
             Dim FileName As String = ""
-            Dim DestFilePath As String = IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "temp.rtf")
+            Dim DestFilePath As String = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "temp.rtf")
             Dim ReviewingManager As String = ""
             Dim ReviewedDate As String = ""
             Dim PublishingStaff As String = ""
@@ -1516,21 +1446,18 @@ Public Class SSPPPublicNoticiesAndAdvisories
             If lblFileName.Text <> "pdf File Name" And lblFileName.Text <> "ERROR" Then
                 FileName = lblFileName.Text
 
-                SQL = "Select " &
+                Dim query As String = "Select " &
                 "strFileName, strReviewingManager, " &
                 "datReviewed, strPublishingStaff, " &
                 "datPublishedDate, datCommentsDate " &
                 "from SSPPPublicLetters " &
-                "where strFileName = '" & FileName & "' "
+                "where strFileName = @FileName "
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
+                Dim p As New SqlParameter("@FileName", FileName)
 
-                If recExist = True Then
+                Dim dr As DataRow = DB.GetDataRow(query, p)
+
+                If dr IsNot Nothing Then
                     FileName = FileName
                     If IsDBNull(dr.Item("strReviewingManager")) Then
                         ReviewingManager = ""
@@ -1560,7 +1487,6 @@ Public Class SSPPPublicNoticiesAndAdvisories
                     PublishedDate = TodayFormatted
                     CommentsDate = Format(CDate(DTPPADeadline.Text), "dd-MMM-yyyy").ToString
                 End If
-                dr.Close()
 
                 If DTPPADeadline.Checked = True Then
                     CommentsDate = Format(CDate(DTPPADeadline.Text), "dd-MMM-yyyy").ToString
@@ -1569,126 +1495,113 @@ Public Class SSPPPublicNoticiesAndAdvisories
                 End If
 
                 If FileName <> "" Then
-                    SQL = "Delete SSPPPublicLetters " &
-                    "where strFileName = '" & FileName & "' "
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    dr.Close()
+                    query = "Delete SSPPPublicLetters " &
+                    "where strFileName = @FileName "
 
-                    Dim Encoder As New System.Text.ASCIIEncoding
+                    DB.RunCommand(query, p)
+
+                    Dim Encoder As New Text.ASCIIEncoding
                     Dim bytedata As Byte() = Encoder.GetBytes(txtPublicNoticeDocument.Rtf)
 
-                    Dim fs As New System.IO.FileStream(DestFilePath, IO.FileMode.Create, IO.FileAccess.Write)
+                    Dim fs As New FileStream(DestFilePath, FileMode.Create, FileAccess.Write)
                     fs.Write(bytedata, 0, bytedata.Length)
                     fs.Close()
 
-                    Dim da As SqlDataAdapter
-                    Dim ds As DataSet
+                    query = "INSERT INTO SSPPPUBLICLETTERS " &
+                        "(STRFILENAME, BATCHFILE, STRREVIEWINGMANAGER, DATREVIEWED, " &
+                        " STRPUBLISHINGSTAFF, DATPUBLISHEDDATE, DATCOMMENTSDATE) " &
+                        "VALUES " &
+                        "(@STRFILENAME, @BATCHFILE, @STRREVIEWINGMANAGER, @DATREVIEWED, " &
+                        " @STRPUBLISHINGSTAFF, @DATPUBLISHEDDATE, @DATCOMMENTSDATE) "
 
-                    SQL = "Select * " &
-                    "from SSPPPublicLetters " &
-                    "where strFileName = '" & FileName & "' "
+                    Dim p2 As SqlParameter() = {
+                        New SqlParameter("@strFileName", FileName),
+                        New SqlParameter("@BatchFile", bytedata),
+                        New SqlParameter("@strReviewingManager", ReviewingManager),
+                        New SqlParameter("@datReviewed", ReviewedDate),
+                        New SqlParameter("@strPublishingStaff", PublishingStaff),
+                        New SqlParameter("@datPublishedDate", PublishedDate),
+                        New SqlParameter("@datcommentsDate", CommentsDate)
+                    }
 
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    da = New SqlDataAdapter(SQL, CurrentConnection)
-                    Dim cmdCB As SqlCommandBuilder = New SqlCommandBuilder(da)
-                    ds = New DataSet("IAIPData")
-                    da.MissingSchemaAction = MissingSchemaAction.AddWithKey
-
-                    da.Fill(ds, "IAIPData")
-                    Dim row As DataRow = ds.Tables("IAIPData").NewRow()
-                    row("strFileName") = FileName
-                    row("BatchFile") = bytedata
-                    row("strReviewingManager") = ReviewingManager
-                    row("datReviewed") = ReviewedDate
-                    row("strPublishingStaff") = PublishingStaff
-                    row("datPublishedDate") = PublishedDate
-                    row("datcommentsDate") = CommentsDate
-                    ds.Tables("IAIPData").Rows.Add(row)
-                    da.Update(ds, "IAIPData")
+                    DB.RunCommand(query, p2)
                 End If
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & ".btnGenerateReport_Click")
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Sub UpdateApplications()
+    Private Sub UpdateApplications()
         Try
             Dim i As Integer
-            Dim SQLLine As String = ""
+            Dim query As String
 
             If lsbPublicAdvisories.Items.Count > 0 Then
-                SQL = "Update SSPPApplicationData set " &
+                query = "Update SSPPApplicationData set " &
                 "strPublicInvolvement = '1', " &
-                "strPAPosted = '" & lblFileName.Text & "' " &
-                "where "
+                "strPAPosted = @filename " &
+                "where strApplicationNumber in " &
+                "(select * from @appnums)  "
+
+                Dim AppNums As New List(Of String)
 
                 For i = 0 To lsbPublicAdvisories.Items.Count - 1
-                    SQLLine = SQLLine & " strApplicationNumber = '" & lsbPublicAdvisories.Items.Item(i) & "' or "
+                    AppNums.Add(lsbPublicAdvisories.Items.Item(i))
                 Next
-                If SQLLine <> "" Then
-                    SQLLine = Mid(SQLLine, 1, (SQLLine.Length - 3))
-                End If
-                SQL = SQL & SQLLine
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                dr.Close()
 
-                SQL = "Update SSPPApplicationTracking set " &
-                "datPAExpires = '" & Me.DTPPADeadline.Text & "' " &
-                "where " & SQLLine
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                dr.Close()
+                Dim p As SqlParameter() = {
+                    New SqlParameter("@filename", lblFileName.Text),
+                    AppNums.AsTvpSqlParameter("@appnums")
+                }
+
+                DB.RunCommand(query, p)
+
+                query = "Update SSPPApplicationTracking set " &
+                "datPAExpires = @dat " &
+                "where strApplicationNumber in " &
+                "(select * from @appnums)  "
+
+                Dim p2 As SqlParameter() = {
+                    New SqlParameter("@dat", DTPPADeadline.Value),
+                    AppNums.AsTvpSqlParameter("@appnums")
+                }
+
+                DB.RunCommand(query, p2)
             End If
 
-            SQL = ""
-            SQLLine = ""
-
             If lsbPublicNoticies.Items.Count > 0 Then
-                SQL = "Update SSPPApplicationData set " &
+                query = "Update SSPPApplicationData set " &
                 "strPublicInvolvement = '1', " &
-                "strPNPosted = '" & lblFileName.Text & "' " &
-                "where "
+                "strPNPosted = @filename " &
+                "where strApplicationNumber in " &
+                "(select * from @appnums)  "
+
+                Dim AppNums As New List(Of String)
 
                 For i = 0 To lsbPublicNoticies.Items.Count - 1
-                    SQLLine = SQLLine & " strAPplicationNumber = '" & lsbPublicNoticies.Items.Item(i) & "' or "
+                    AppNums.Add(lsbPublicNoticies.Items.Item(i))
                 Next
-                If SQLLine <> "" Then
-                    SQLLine = Mid(SQLLine, 1, (SQLLine.Length - 3))
-                End If
-                SQL = SQL & SQLLine
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                dr.Close()
+
+                Dim p As SqlParameter() = {
+                    New SqlParameter("@filename", lblFileName.Text),
+                    AppNums.AsTvpSqlParameter("@appnums")
+                }
+
+                DB.RunCommand(query, p)
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & ".UpdateApplications")
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Sub ExportPDF()
+    Private Sub ExportPDF()
         Try
             Dim rpt As New SSPPPublicNotice
             monitor.TrackFeature("Report." & rpt.ResourceName)
@@ -1716,31 +1629,28 @@ Public Class SSPPPublicNoticiesAndAdvisories
             CRVPublicNotices.ExportReport()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & ".ExportPDF")
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Sub OpenOldPAPN()
+    Private Sub OpenOldPAPN()
         Try
-            Dim DestFilePath As String = IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "temp.rtf")
+            Dim DestFilePath As String = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "temp.rtf")
 
-            SQL = "Select " &
+            Dim query As String = "Select " &
             "strFileName, BatchFile, " &
             "strReviewingManager, " &
             "datReviewed, strPublishingStaff, " &
             "datPublishedDate, datCommentsDate " &
             "from SSPPPublicLetters " &
-            "where strFileName = '" & cboPAPNReports.Text & "' "
+            "where strFileName = @filename "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
+            Dim p As New SqlParameter("@filename", cboPAPNReports.Text)
 
-            dr = cmd.ExecuteReader
-            While dr.Read
+            Dim dr As DataRow = DB.GetDataRow(query, p)
+            If dr IsNot Nothing Then
                 lblPAPNDocumentName.Text = cboPAPNReports.Text
                 lblPAPNDocumentName.Visible = True
 
@@ -1762,7 +1672,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
                 fs.Write(byteData, 0, ArraySize)
                 fs.Close()
 
-                Dim filepath As String = IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "temp.rtf")
+                Dim filepath As String = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "temp.rtf")
                 If File.Exists(filepath) Then
                     Dim reader As StreamReader = New StreamReader(filepath)
                     Do
@@ -1770,18 +1680,14 @@ Public Class SSPPPublicNoticiesAndAdvisories
                     Loop Until reader.Peek = -1
                     reader.Close()
                 End If
-            End While
-
-            dr.Close()
+            End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & ".OpenOldPAPN")
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
     End Sub
-#End Region
-#Region "Declarations"
     Private Sub DevPublicNoticiesAndAdvisories_SizeChanged(sender As Object, e As EventArgs) Handles Me.SizeChanged
         Try
             If Me.Size.Width > 200 Then
@@ -1807,7 +1713,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & ".DevPublicNoticiesAndAdvisories_SizeChanged")
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -1818,7 +1724,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
             CreatePublicNoticeList()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & ".btnPreview_Click")
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -1838,7 +1744,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & ".btnEditApplicationList_Click")
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -1852,7 +1758,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & ".btnRemoveFromApplicationList_Click")
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -1872,7 +1778,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
             PreviewReport()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & ".btnGeneratePublicNotice_Click")
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -1887,7 +1793,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & ".dgvPublicNotice_MouseUp")
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -1901,7 +1807,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & ".btnOpenApplication_Click")
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -1914,7 +1820,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
             PreviewReport()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & ".btnGeneratePNReport_Click")
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -1927,7 +1833,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & ".txtApplicationList_SelectedIndexChanged")
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -1938,7 +1844,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
             txtApplicationNumber.Text = lsbPublicNoticies.SelectedItem.ToString
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & ".lsbPublicNoticies_SelectedIndexChanged")
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -1958,7 +1864,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & ".btnPublishPDF_Click")
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -1974,7 +1880,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & ".btnOpenPAPN_Click")
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -2007,7 +1913,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
             CRVPublicNotices.ExportReport()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & ".btnViewOldPDFs_Click")
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -2018,13 +1924,12 @@ Public Class SSPPPublicNoticiesAndAdvisories
             lsbApplicationList.Items.Clear()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & ".btnClearPreview_Click")
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
     End Sub
 
-    <CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId:="cmdCB")>
     Private Sub btnSavePAPNChanges_Click(sender As Object, e As EventArgs) Handles btnSavePAPNChanges.Click
         Try
             Dim FileName As String = ""
@@ -2038,22 +1943,18 @@ Public Class SSPPPublicNoticiesAndAdvisories
             If lblPAPNDocumentName.Text <> "PA/PN Doc Name" And lblPAPNDocumentName.Text <> "ERROR" Then
                 FileName = lblPAPNDocumentName.Text
 
-                SQL = "Select " &
+                Dim query As String = "Select " &
                 "strFileName, strReviewingManager, " &
                 "datReviewed, strPublishingStaff, " &
                 "datPublishedDate, datCommentsDate " &
                 "from SSPPPublicLetters " &
-                "where strFileName = '" & FileName & "' "
+                "where strFileName = @filename "
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
+                Dim p As New SqlParameter("@filename", FileName)
 
-                If recExist = True Then
-                    FileName = FileName
+                Dim dr As DataRow = DB.GetDataRow(query, p)
+
+                If dr IsNot Nothing Then
                     If IsDBNull(dr.Item("strReviewingManager")) Then
                         ReviewingManager = CurrentUser.UserID
                     Else
@@ -2080,74 +1981,54 @@ Public Class SSPPPublicNoticiesAndAdvisories
                         CommentsDate = Format(dr.Item("datCommentsDate"), "dd-MMM-yyyy")
                     End If
                 Else
-                    FileName = FileName
                     ReviewingManager = CurrentUser.UserID
                     ReviewedDate = TodayFormatted
                     PublishingStaff = CurrentUser.UserID
                     PublishedDate = TodayFormatted
                     CommentsDate = TodayFormatted
                 End If
-                dr.Close()
 
                 If FileName <> "" Then
-                    SQL = "Delete SSPPPublicLetters " &
-                    "where strFileName = '" & FileName & "' "
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    dr.Close()
+                    query = "Delete SSPPPublicLetters " &
+                    "where strFileName = @FileName "
 
-                    Dim Encoder As New System.Text.ASCIIEncoding
+                    DB.RunCommand(query, p)
+
+                    Dim Encoder As New Text.ASCIIEncoding
                     Dim bytedata As Byte() = Encoder.GetBytes(rtbPAPNDocument2.Rtf)
 
-                    Dim fs As New System.IO.FileStream(DestFilePath, IO.FileMode.Create, IO.FileAccess.Write)
+                    Dim fs As New FileStream(DestFilePath, FileMode.Create, FileAccess.Write)
                     fs.Write(bytedata, 0, bytedata.Length)
                     fs.Close()
 
-                    Dim da As SqlDataAdapter
-                    Dim ds As DataSet
+                    query = "INSERT INTO SSPPPUBLICLETTERS " &
+                        "(STRFILENAME, BATCHFILE, STRREVIEWINGMANAGER, DATREVIEWED, " &
+                        " STRPUBLISHINGSTAFF, DATPUBLISHEDDATE, DATCOMMENTSDATE) " &
+                        "VALUES " &
+                        "(@STRFILENAME, @BATCHFILE, @STRREVIEWINGMANAGER, @DATREVIEWED, " &
+                        " @STRPUBLISHINGSTAFF, @DATPUBLISHEDDATE, @DATCOMMENTSDATE) "
 
-                    SQL = "Select * " &
-                    "from SSPPPublicLetters " &
-                    "where strFileName = '" & FileName & "' "
+                    Dim p2 As SqlParameter() = {
+                        New SqlParameter("@strFileName", FileName),
+                        New SqlParameter("@BatchFile", bytedata),
+                        New SqlParameter("@strReviewingManager", ReviewingManager),
+                        New SqlParameter("@datReviewed", ReviewedDate),
+                        New SqlParameter("@strPublishingStaff", PublishingStaff),
+                        New SqlParameter("@datPublishedDate", PublishedDate),
+                        New SqlParameter("@datcommentsDate", CommentsDate)
+                    }
 
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    da = New SqlDataAdapter(SQL, CurrentConnection)
-                    Dim cmdCB As SqlCommandBuilder = New SqlCommandBuilder(da)
-                    ds = New DataSet("IAIPData")
-                    da.MissingSchemaAction = MissingSchemaAction.AddWithKey
-
-                    da.Fill(ds, "IAIPData")
-                    Dim row As DataRow = ds.Tables("IAIPData").NewRow()
-                    row("strFileName") = FileName
-                    row("BatchFile") = bytedata
-                    row("strReviewingManager") = ReviewingManager
-                    row("datReviewed") = ReviewedDate
-                    row("strPublishingStaff") = PublishingStaff
-                    row("datPublishedDate") = PublishedDate
-                    row("datcommentsDate") = CommentsDate
-                    ds.Tables("IAIPData").Rows.Add(row)
-                    da.Update(ds, "IAIPData")
+                    DB.RunCommand(query, p2)
 
                     MsgBox("Data updated", MsgBoxStyle.Information, "Public notices and advisories.")
                 End If
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & ".btnClearPreview_Click")
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
-    End Sub
-
-#End Region
-
-    Private Sub mmiHelp_Click(sender As Object, e As EventArgs) Handles mmiHelp.Click
-        OpenDocumentationUrl(Me)
     End Sub
 
 End Class
