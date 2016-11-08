@@ -5883,11 +5883,11 @@ Public Class DMUEisGecoTool
 
             Dim SQL As String = "Select * from " &
             "EIThresholds " &
-            "where upper(strPollutant) = @strPollutant " &
+            "where strPollutant = @strPollutant " &
             "and strType = @strType "
 
             Dim params As SqlParameter() = {
-                New SqlParameter("@strPollutant", txtPollutant.Text.ToUpper),
+                New SqlParameter("@strPollutant", txtPollutant.Text),
                 New SqlParameter("@strType", ThresholdType)
             }
 
@@ -5934,11 +5934,11 @@ Public Class DMUEisGecoTool
 
             Dim SQL As String = "Select * from " &
             "EIThresholds " &
-            "where upper(strPollutant) = @strPollutant " &
+            "where strPollutant = @strPollutant " &
             "and strType = @strType "
 
             Dim params As SqlParameter() = {
-                New SqlParameter("@strPollutant", txtPollutant.Text.ToUpper),
+                New SqlParameter("@strPollutant", txtPollutant.Text),
                 New SqlParameter("@strType", ThresholdType)
             }
 

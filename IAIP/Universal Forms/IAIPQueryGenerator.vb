@@ -1542,14 +1542,14 @@ Public Class IAIPQueryGenerator
                 SQLWhereCase2 = " Not Like "
             End If
             If txtFacilityNameSearch1.Text <> "" Then
-                SQLWhere = SQLWhere & " and (upper(strFacilityName) " & SQLWhereCase2 & " '%" & txtFacilityNameSearch1.Text.ToUpper & "%') "
+                SQLWhere = SQLWhere & " and (strFacilityName " & SQLWhereCase2 & " '%" & txtFacilityNameSearch1.Text & "%') "
             End If
             If txtFacilityNameSearch2.Text <> "" Then
                 If txtFacilityNameSearch1.Text <> "" Then
                     SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 2)) &
-                    " " & SQLWhereCase1 & " upper(strFacilityName) " & SQLWhereCase2 & " '%" & txtFacilityNameSearch2.Text.ToUpper & "%' ) "
+                    " " & SQLWhereCase1 & " strFacilityName " & SQLWhereCase2 & " '%" & txtFacilityNameSearch2.Text & "%' ) "
                 Else
-                    SQLWhere = SQLWhere & " and (upper(strFacilityName) " & SQLWhereCase2 & " '%" & txtFacilityNameSearch2.Text.ToUpper & "%') "
+                    SQLWhere = SQLWhere & " and (strFacilityName " & SQLWhereCase2 & " '%" & txtFacilityNameSearch2.Text & "%') "
                 End If
             End If
 
@@ -1565,14 +1565,14 @@ Public Class IAIPQueryGenerator
                     SQLWhereCase2 = " Not Like "
                 End If
                 If txtFacilityStreet1Search1.Text <> "" Then
-                    SQLWhere = SQLWhere & " and (upper(strFacilityStreet1) " & SQLWhereCase2 & " '%" & txtFacilityStreet1Search1.Text.ToUpper & "%') "
+                    SQLWhere = SQLWhere & " and (strFacilityStreet1 " & SQLWhereCase2 & " '%" & txtFacilityStreet1Search1.Text & "%') "
                 End If
                 If txtFacilityStreet1Search2.Text <> "" Then
                     If txtFacilityStreet1Search1.Text <> "" Then
                         SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 2)) &
-                        " " & SQLWhereCase1 & " upper(strFacilityStreet1) " & SQLWhereCase2 & " '%" & txtFacilityStreet1Search2.Text.ToUpper & "%' ) "
+                        " " & SQLWhereCase1 & " strFacilityStreet1 " & SQLWhereCase2 & " '%" & txtFacilityStreet1Search2.Text & "%' ) "
                     Else
-                        SQLWhere = SQLWhere & " and (upper(strFacilityStreet1) " & SQLWhereCase2 & " '%" & txtFacilityStreet1Search2.Text.ToUpper & "%') "
+                        SQLWhere = SQLWhere & " and (strFacilityStreet1 " & SQLWhereCase2 & " '%" & txtFacilityStreet1Search2.Text & "%') "
                     End If
                 End If
             End If
@@ -1589,14 +1589,14 @@ Public Class IAIPQueryGenerator
                     SQLWhereCase2 = " Not Like "
                 End If
                 If txtFacilityStreet2Search1.Text <> "" Then
-                    SQLWhere = SQLWhere & " and (upper(strFacilityStreet2) " & SQLWhereCase2 & " '%" & txtFacilityStreet2Search1.Text.ToUpper & "%') "
+                    SQLWhere = SQLWhere & " and (strFacilityStreet2 " & SQLWhereCase2 & " '%" & txtFacilityStreet2Search1.Text & "%') "
                 End If
                 If txtFacilityStreet2Search2.Text <> "" Then
                     If txtFacilityStreet2Search1.Text <> "" Then
                         SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 2)) &
-                        " " & SQLWhereCase1 & " upper(strFacilityStreet2) " & SQLWhereCase2 & " '%" & txtFacilityStreet2Search2.Text.ToUpper & "%' ) "
+                        " " & SQLWhereCase1 & " strFacilityStreet2 " & SQLWhereCase2 & " '%" & txtFacilityStreet2Search2.Text & "%' ) "
                     Else
-                        SQLWhere = SQLWhere & " and (upper(strFacilityStreet2) " & SQLWhereCase2 & " '%" & txtFacilityStreet2Search2.Text.ToUpper & "%') "
+                        SQLWhere = SQLWhere & " and (strFacilityStreet2 " & SQLWhereCase2 & " '%" & txtFacilityStreet2Search2.Text & "%') "
                     End If
                 End If
             End If
@@ -1613,14 +1613,14 @@ Public Class IAIPQueryGenerator
                     SQLWhereCase2 = " Not Like "
                 End If
                 If txtFacilityCitySearch1.Text <> "" Then
-                    SQLWhere = SQLWhere & " and (upper(strFacilityCity) " & SQLWhereCase2 & " '%" & txtFacilityCitySearch1.Text.ToUpper & "%') "
+                    SQLWhere = SQLWhere & " and (strFacilityCity " & SQLWhereCase2 & " '%" & txtFacilityCitySearch1.Text & "%') "
                 End If
                 If txtFacilityCitySearch2.Text <> "" Then
                     If txtFacilityCitySearch1.Text <> "" Then
                         SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 2)) &
-                        " " & SQLWhereCase1 & " upper(strFacilityCity) " & SQLWhereCase2 & " '%" & txtFacilityCitySearch2.Text.ToUpper & "%' ) "
+                        " " & SQLWhereCase1 & " strFacilityCity " & SQLWhereCase2 & " '%" & txtFacilityCitySearch2.Text & "%' ) "
                     Else
-                        SQLWhere = SQLWhere & " and (upper(strFacilityCity) " & SQLWhereCase2 & " '%" & txtFacilityCitySearch2.Text.ToUpper & "%') "
+                        SQLWhere = SQLWhere & " and (strFacilityCity " & SQLWhereCase2 & " '%" & txtFacilityCitySearch2.Text & "%') "
                     End If
                 End If
             End If
@@ -1637,14 +1637,14 @@ Public Class IAIPQueryGenerator
                     SQLWhereCase2 = " Not Like "
                 End If
                 If txtFacilityZipCodeSearch1.Text <> "" Then
-                    SQLWhere = SQLWhere & " and (upper(strFacilityZipCode) " & SQLWhereCase2 & " '%" & txtFacilityZipCodeSearch1.Text.ToUpper & "%') "
+                    SQLWhere = SQLWhere & " and (strFacilityZipCode " & SQLWhereCase2 & " '%" & txtFacilityZipCodeSearch1.Text & "%') "
                 End If
                 If txtFacilityZipCodeSearch2.Text <> "" Then
                     If txtFacilityZipCodeSearch1.Text <> "" Then
                         SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 2)) &
-                        " " & SQLWhereCase1 & " upper(strFacilityZipCode) " & SQLWhereCase2 & " '%" & txtFacilityZipCodeSearch2.Text.ToUpper & "%' ) "
+                        " " & SQLWhereCase1 & " strFacilityZipCode " & SQLWhereCase2 & " '%" & txtFacilityZipCodeSearch2.Text & "%' ) "
                     Else
-                        SQLWhere = SQLWhere & " and (upper(strFacilityzipcode) " & SQLWhereCase2 & " '%" & txtFacilityZipCodeSearch2.Text.ToUpper & "%') "
+                        SQLWhere = SQLWhere & " and (strFacilityzipcode " & SQLWhereCase2 & " '%" & txtFacilityZipCodeSearch2.Text & "%') "
                     End If
                 End If
             End If
@@ -1775,14 +1775,14 @@ Public Class IAIPQueryGenerator
                     SQLWhereCase2 = " Not Like "
                 End If
                 If cboOperationStatusSearch1.Text <> "" And cboOperationStatusSearch1.Text <> " " Then
-                    SQLWhere = SQLWhere & " and (APBHeaderdata.strOperationalStatus " & SQLWhereCase2 & " '%" & Mid(cboOperationStatusSearch1.Text.ToUpper, 1, 1) & "%') "
+                    SQLWhere = SQLWhere & " and (APBHeaderdata.strOperationalStatus " & SQLWhereCase2 & " '%" & Mid(cboOperationStatusSearch1.Text, 1, 1) & "%') "
                 End If
                 If cboOperationStatusSearch2.Text <> "" And cboOperationStatusSearch2.Text <> " " Then
                     If cboOperationStatusSearch1.Text <> "" And cboOperationStatusSearch1.Text <> " " Then
                         SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 2)) &
-                        " " & SQLWhereCase1 & " APBHeaderdata.strOperationalStatus " & SQLWhereCase2 & " '%" & Mid(cboOperationStatusSearch2.Text.ToUpper, 1, 1) & "%' ) "
+                        " " & SQLWhereCase1 & " APBHeaderdata.strOperationalStatus " & SQLWhereCase2 & " '%" & Mid(cboOperationStatusSearch2.Text, 1, 1) & "%' ) "
                     Else
-                        SQLWhere = SQLWhere & " and (APBHeaderdata.strOperationalStatus " & SQLWhereCase2 & " '%" & Mid(cboOperationStatusSearch2.Text.ToUpper, 1, 1) & "%') "
+                        SQLWhere = SQLWhere & " and (APBHeaderdata.strOperationalStatus " & SQLWhereCase2 & " '%" & Mid(cboOperationStatusSearch2.Text, 1, 1) & "%') "
                     End If
                 End If
             End If
@@ -1799,14 +1799,14 @@ Public Class IAIPQueryGenerator
                     SQLWhereCase2 = " Not Like "
                 End If
                 If cboClassificationSearch1.Text <> "" And cboClassificationSearch1.Text <> " " Then
-                    SQLWhere = SQLWhere & " and (APBHeaderdata.strClass " & SQLWhereCase2 & " '%" & Mid(cboClassificationSearch1.Text.ToUpper, 1, 1) & "%') "
+                    SQLWhere = SQLWhere & " and (APBHeaderdata.strClass " & SQLWhereCase2 & " '%" & Mid(cboClassificationSearch1.Text, 1, 1) & "%') "
                 End If
                 If cboClassificationSearch2.Text <> "" And cboClassificationSearch2.Text <> " " Then
                     If cboClassificationSearch1.Text <> "" And cboClassificationSearch1.Text <> " " Then
                         SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 2)) &
-                        " " & SQLWhereCase1 & " APBHeaderdata.strClass " & SQLWhereCase2 & " '%" & Mid(cboClassificationSearch2.Text.ToUpper, 1, 1) & "%' ) "
+                        " " & SQLWhereCase1 & " APBHeaderdata.strClass " & SQLWhereCase2 & " '%" & Mid(cboClassificationSearch2.Text, 1, 1) & "%' ) "
                     Else
-                        SQLWhere = SQLWhere & " and (APBHeaderdata.strClass " & SQLWhereCase2 & " '%" & Mid(cboClassificationSearch2.Text.ToUpper, 1, 1) & "%') "
+                        SQLWhere = SQLWhere & " and (APBHeaderdata.strClass " & SQLWhereCase2 & " '%" & Mid(cboClassificationSearch2.Text, 1, 1) & "%') "
                     End If
                 End If
             End If
@@ -1823,14 +1823,14 @@ Public Class IAIPQueryGenerator
                     SQLWhereCase2 = " Not Like "
                 End If
                 If txtSICCodeSearch1.Text <> "" Then
-                    SQLWhere = SQLWhere & " and (upper(APBHeaderdata.strSICCode) " & SQLWhereCase2 & " '%" & txtSICCodeSearch1.Text.ToUpper & "%') "
+                    SQLWhere = SQLWhere & " and (APBHeaderdata.strSICCode " & SQLWhereCase2 & " '%" & txtSICCodeSearch1.Text & "%') "
                 End If
                 If txtSICCodeSearch2.Text <> "" Then
                     If txtSICCodeSearch1.Text <> "" Then
                         SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 2)) &
-                        " " & SQLWhereCase1 & " upper(APBHeaderdata.strSICCode) " & SQLWhereCase2 & " '%" & txtSICCodeSearch2.Text.ToUpper & "%' ) "
+                        " " & SQLWhereCase1 & " APBHeaderdata.strSICCode " & SQLWhereCase2 & " '%" & txtSICCodeSearch2.Text & "%' ) "
                     Else
-                        SQLWhere = SQLWhere & " and (upper(APBHeaderdata.strSICCode) " & SQLWhereCase2 & " '%" & txtSICCodeSearch2.Text.ToUpper & "%') "
+                        SQLWhere = SQLWhere & " and (APBHeaderdata.strSICCode " & SQLWhereCase2 & " '%" & txtSICCodeSearch2.Text & "%') "
                     End If
                 End If
             End If
@@ -1847,14 +1847,14 @@ Public Class IAIPQueryGenerator
                     SQLWhereCase2 = " Not Like "
                 End If
                 If txtNAICSCodeSearch1.Text <> "" Then
-                    SQLWhere = SQLWhere & " and (upper(APBHeaderdata.strNAICSCode) " & SQLWhereCase2 & " '%" & txtNAICSCodeSearch1.Text.ToUpper & "%') "
+                    SQLWhere = SQLWhere & " and (APBHeaderdata.strNAICSCode " & SQLWhereCase2 & " '%" & txtNAICSCodeSearch1.Text & "%') "
                 End If
                 If txtNAICSCodeSearch2.Text <> "" Then
                     If txtNAICSCodeSearch1.Text <> "" Then
                         SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 2)) &
-                        " " & SQLWhereCase1 & " upper(APBHeaderdata.strNAICSCode) " & SQLWhereCase2 & " '%" & txtNAICSCodeSearch2.Text.ToUpper & "%' ) "
+                        " " & SQLWhereCase1 & " APBHeaderdata.strNAICSCode " & SQLWhereCase2 & " '%" & txtNAICSCodeSearch2.Text & "%' ) "
                     Else
-                        SQLWhere = SQLWhere & " and (upper(APBHeaderdata.strNAICSCode) " & SQLWhereCase2 & " '%" & txtNAICSCodeSearch2.Text.ToUpper & "%') "
+                        SQLWhere = SQLWhere & " and (APBHeaderdata.strNAICSCode " & SQLWhereCase2 & " '%" & txtNAICSCodeSearch2.Text & "%') "
                     End If
                 End If
             End If
@@ -1949,14 +1949,14 @@ Public Class IAIPQueryGenerator
                     SQLWhereCase2 = " Not Like "
                 End If
                 If txtPlantDescriptionSearch1.Text <> "" Then
-                    SQLWhere = SQLWhere & " and (upper(APBHeaderData.strPlantDescription) " & SQLWhereCase2 & " '%" & txtPlantDescriptionSearch1.Text.ToUpper & "%') "
+                    SQLWhere = SQLWhere & " and (APBHeaderData.strPlantDescription " & SQLWhereCase2 & " '%" & txtPlantDescriptionSearch1.Text & "%') "
                 End If
                 If txtPlantDescriptionSearch2.Text <> "" Then
                     If txtPlantDescriptionSearch1.Text <> "" Then
                         SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 2)) &
-                        " " & SQLWhereCase1 & " upper(APBHeaderData.strPlantDescription) " & SQLWhereCase2 & " '%" & txtPlantDescriptionSearch2.Text.ToUpper & "%' ) "
+                        " " & SQLWhereCase1 & " APBHeaderData.strPlantDescription " & SQLWhereCase2 & " '%" & txtPlantDescriptionSearch2.Text & "%' ) "
                     Else
-                        SQLWhere = SQLWhere & " and (upper(APBHeaderData.strPlantDescription) " & SQLWhereCase2 & " '%" & txtPlantDescriptionSearch2.Text.ToUpper & "%') "
+                        SQLWhere = SQLWhere & " and (APBHeaderData.strPlantDescription " & SQLWhereCase2 & " '%" & txtPlantDescriptionSearch2.Text & "%') "
                     End If
                 End If
             End If
@@ -1974,14 +1974,14 @@ Public Class IAIPQueryGenerator
                     SQLWhereCase2 = " Not Like "
                 End If
                 If cboSSCPUnitSearch1.Text <> " " Then
-                    SQLWhere = SQLWhere & " and (upper(strUnitDesc) " & SQLWhereCase2 & " '%" & cboSSCPUnitSearch1.Text.ToUpper & "%') "
+                    SQLWhere = SQLWhere & " and (strUnitDesc " & SQLWhereCase2 & " '%" & cboSSCPUnitSearch1.Text & "%') "
                 End If
                 If cboSSCPUnitSearch2.Text <> " " Then
                     If cboSSCPUnitSearch1.Text <> " " Then
                         SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 2)) &
-                        " " & SQLWhereCase1 & " upper(strUnitDesc) " & SQLWhereCase2 & " '%" & cboSSCPUnitSearch2.Text.ToUpper & "%' ) "
+                        " " & SQLWhereCase1 & " strUnitDesc " & SQLWhereCase2 & " '%" & cboSSCPUnitSearch2.Text & "%' ) "
                     Else
-                        SQLWhere = SQLWhere & " and (upper(strUnitDesc) " & SQLWhereCase2 & " '%" & cboSSCPUnitSearch2.Text.ToUpper & "%') "
+                        SQLWhere = SQLWhere & " and (strUnitDesc " & SQLWhereCase2 & " '%" & cboSSCPUnitSearch2.Text & "%') "
                     End If
                 End If
             End If

@@ -94,7 +94,7 @@ Public Class ISMPTestMemoViewer
             End If
 
             If txtFilterText1.Text <> "" Then
-                SQLLine = "And Upper(strMemorandumField) like Upper('%" & txtFilterText1.Text & "%') "
+                SQLLine = "And strMemorandumField like '%" & txtFilterText1.Text & "%' "
             Else
                 'SQLLine = SQLLine
             End If
