@@ -54,15 +54,15 @@ Public Class SSPPTitleVTools
             "CONVERT(int, SSPPApplicationMaster.strApplicationNumber) as ApplicationNumber, " &
             "case " &
             "When datDraftIssued is Null then ' ' " &
-            "ELSE to_char(datDraftIssued, 'RRRR-MM-dd') " &
+            "ELSE format(datDraftIssued, 'yyyy-MM-dd') " &
             "END datDraftIssued, " &
             "case " &
             "When datPermitIssued is Null then ' ' " &
-            "ELSE to_Char(datPermitIssued, 'RRRR-MM-dd') " &
+            "ELSE format(datPermitIssued, 'yyyy-MM-dd') " &
             "END datPermitIssued, " &
             "case " &
             "When datExperationDate is Null then ' ' " &
-            "ELSE to_char(datExperationDate, 'RRRR-MM-dd') " &
+            "ELSE format(datExperationDate, 'yyyy-MM-dd') " &
             "END datExperationDate, " &
             "strFacilityName, " &
             "case  " &
@@ -73,7 +73,7 @@ Public Class SSPPTitleVTools
             "end As strPermitNumber, " &
             "Case " &
             "when datFinalizedDate is Null then ' ' " &
-            "Else to_char(datFinalizedDate, 'RRRR-MM-dd') " &
+            "Else format(datFinalizedDate, 'yyyy-MM-dd') " &
             "End datFinalizedDate, " &
             "strApplicationTypeDesc " &
             "from SSPPApplicationTracking, SSPPApplicationData, " &
@@ -92,15 +92,15 @@ Public Class SSPPTitleVTools
             "CONVERT(int, SSPPApplicationMaster.strApplicationNumber) AS ApplicationNumber,  " &
             "CASE  " &
             "   WHEN datDraftIssued IS NULL THEN ' '  " &
-            "   ELSE TO_CHAR(datDraftIssued, 'RRRR-MM-dd') " &
+            "   ELSE format(datDraftIssued, 'yyyy-MM-dd') " &
             "END datDraftIssued,  " &
             "CASE  " &
             "   WHEN datPermitIssued IS NULL THEN ' '  " &
-            "   ELSE TO_CHAR(datPermitIssued, 'RRRR-MM-dd') " &
+            "   ELSE format(datPermitIssued, 'yyyy-MM-dd') " &
             "END datPermitIssued,  " &
             "CASE  " &
             "   WHEN datExperationDate IS NULL THEN ' '  " &
-            "   ELSE TO_CHAR(datExperationDate, 'RRRR-MM-dd') " &
+            "   ELSE format(datExperationDate, 'yyyy-MM-dd') " &
             "END datExperationDate,  " &
             "strFacilityName,  " &
             "CASE   " &
@@ -111,7 +111,7 @@ Public Class SSPPTitleVTools
             "END AS strPermitNumber,  " &
             "CASE  " &
             "   WHEN datFinalizedDate IS NULL THEN ' '  " &
-            "   ELSE TO_CHAR(datFinalizedDate, 'RRRR-MM-dd') " &
+            "   ELSE format(datFinalizedDate, 'yyyy-MM-dd') " &
             "END datFinalizedDate,  " &
             "strApplicationTypeDesc  " &
             "from SSPPApplicationTracking, SSPPApplicationData,  " &
@@ -691,9 +691,9 @@ Public Class SSPPTitleVTools
             "  SUBSTRING( ad.STRPERMITNUMBER, 8, 4 ) || '-' ||  " &
             "  SUBSTRING( ad.STRPERMITNUMBER, 12, 1 ) || '-' ||  " &
             "  SUBSTRING( ad.STRPERMITNUMBER, 13, 2 ) || '-' ||  " &
-            "  SUBSTRING( ad.STRPERMITNUMBER, 15 ) ) AS PermitNumber , TO_CHAR( " &
-            "  at.DATPERMITISSUED, 'dd-Mon-yyyy' ) AS PermitIssued , TO_CHAR " &
-            "  ( at.DATEFFECTIVE, 'dd-Mon-yyyy' ) AS EffectiveDate " &
+            "  SUBSTRING( ad.STRPERMITNUMBER, 15 ) ) AS PermitNumber , 'dd-MMM-yyyy' " &
+            "  at.DATPERMITISSUED, 'dd-MMM-yyyy' ) AS PermitIssued , format " &
+            "  ( at.DATEFFECTIVE, 'dd-MMM-yyyy' ) AS EffectiveDate " &
             "FROM SSPPApplicationMaster am " &
             "INNER JOIN SSPPApplicationData ad " &
             "ON ad.STRAPPLICATIONNUMBER = am.STRAPPLICATIONNUMBER " &

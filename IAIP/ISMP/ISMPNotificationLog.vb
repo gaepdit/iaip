@@ -59,7 +59,7 @@ Public Class ISMPNotificationLog
             "epduserprofiles.numUserID  " &
             "from EPDUserProfiles, ISMPTestNotification  " &
             "where (numProgram = '3' and numunit <> '14')  " &
-            "or ISMPTestNotification.strStaffResponsible = to_char(EPDUSerProfiles.numUserID) " &
+            "or ISMPTestNotification.strStaffResponsible = convert(varchar(3),EPDUSerProfiles.numUserID) " &
             "order by UserName "
 
             dsFacilityData = New DataSet

@@ -50,7 +50,7 @@ Public Class ISMPMonitoringLog
             "from epduserprofiles, " &
             "(select distinct(strStaffResponsible) as NotificationStaff " &
             "from ISMPTestNotification) Notification " &
-            "where to_char(EPDUserProfiles.numUserId) = Notification.NotificationStaff " &
+            "where convert(varchar(3),EPDUserProfiles.numUserId) = Notification.NotificationStaff " &
             "Union " &
             "Select " &
             "distinct(strLastName|| ', ' ||strFirstName) as UserName, " &
@@ -58,7 +58,7 @@ Public Class ISMPMonitoringLog
             "from EPDUserProfiles, " &
             "(select distinct(strReviewingEngineer) " &
             "from ISMPReportInformation) ISMPUsers " &
-            "where to_char(EPDUserProfiles.numUserID) = ISMPUsers.strReviewingEngineer  "
+            "where convert(varchar(3),EPDUserProfiles.numUserID) = ISMPUsers.strReviewingEngineer  "
 
             dsEngineer = New DataSet
 

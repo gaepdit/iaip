@@ -258,8 +258,8 @@ Public Class ISMPTestReportAdministrative
         Dim SQL As String
 
         SQL = "select ISMPMaster.strReferenceNumber, " &
-        "to_char(datReceivedDate, 'dd-Mon-yyyy') as forDatReceivedDate, " &
-        "to_char(datTestDateStart, 'dd-Mon-yyyy') as forDatTestDateStart, " &
+        "format(datReceivedDate, 'dd-MMM-yyyy') as forDatReceivedDate, " &
+        "format(datTestDateStart, 'dd-MMM-yyyy') as forDatTestDateStart, " &
         " SUBSTRING(ISMPMaster.strAirsnumber, 5,8) as StrAIRSNumber, " &
         "strFacilityName, ISMPDocumentType.strDocumentType " &
         "from ISMPReportInformation, ISMPDocumentType, " &
@@ -585,7 +585,7 @@ Public Class ISMPTestReportAdministrative
            "'04-Jul-1776', " &
            "(SELECT " &
            "CASE  WHEN strDistrictResponsible <> 'False' AND strDistrictResponsible IS NOT NULL         THEN strDistrictManager  " &
-           "WHEN to_char(TABLE1.STRASSIGNINGMANAGER) <> '1' AND to_char(TABLE1.STRASSIGNINGMANAGER) IS NOT NULL THEN to_char(TABLE1.STRASSIGNINGMANAGER) " &
+           "WHEN convert(int,TABLE1.STRASSIGNINGMANAGER) <> 1 AND TABLE1.STRASSIGNINGMANAGER IS NOT NULL THEN convert(int,TABLE1.STRASSIGNINGMANAGER) " &
            " ELSE '0' " &
            "END ManagerResponsible  " &
            "from LookUPDistricts, LOOKUPDISTRICTINFORMATION,  " &
@@ -859,11 +859,11 @@ Public Class ISMPTestReportAdministrative
 
                     SQL = "Select  " &
               "ISMPReportInformation.strReferenceNumber, " &
-              "to_char(datReceivedDate, 'dd-Mon-yyyy') as forDatReceivedDate, " &
-              "to_char(datTestDateStart, 'dd-Mon-yyyy') as forDatTestDateStart, " &
-              "to_char(datTestDateEnd, 'dd-Mon-yyyy') as forDatTestDateEnd, " &
-              "to_char(datReviewedByUnitmanager, 'dd-Mon-yyyy') as forDatReviewedByUnitManager, " &
-              "to_char(datCompleteDate, 'dd-Mon-yyyy') as forDateComplete, " &
+              "format(datReceivedDate, 'dd-MMM-yyyy') as forDatReceivedDate, " &
+              "format(datTestDateStart, 'dd-MMM-yyyy') as forDatTestDateStart, " &
+              "format(datTestDateEnd, 'dd-MMM-yyyy') as forDatTestDateEnd, " &
+              "format(datReviewedByUnitmanager, 'dd-MMM-yyyy') as forDatReviewedByUnitManager, " &
+              "format(datCompleteDate, 'dd-MMM-yyyy') as forDateComplete, " &
               "strClosed, " &
               "ISMpReportType.strReportType, " &
               "(select (strLastName||', '||strFirstName) as ReviewingEngineer " &
@@ -1270,8 +1270,8 @@ Public Class ISMPTestReportAdministrative
         Try
 
             SQL = "select ISMPMaster.strReferenceNumber,  " &
-            "to_char(datReceivedDate, 'dd-Mon-yyyy') as forDatReceivedDate, " &
-                  "to_char(datTestDateStart, 'dd-Mon-yyyy') as forDatTestDateStart, " &
+            "format(datReceivedDate, 'dd-MMM-yyyy') as forDatReceivedDate, " &
+                  "format(datTestDateStart, 'dd-MMM-yyyy') as forDatTestDateStart, " &
                   "SUBSTRING(ISMPMaster.strAirsnumber, 5,8) as strAIRSNumber, strFacilityName, " &
                   "ISMPDocumentType.strDocumentType " &
                   "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
@@ -1319,8 +1319,8 @@ Public Class ISMPTestReportAdministrative
         Try
 
             SQL = "select ISMPMaster.strReferenceNumber,  " &
-            "to_char(datReceivedDate, 'dd-Mon-yyyy') as forDatReceivedDate, " &
-            "to_char(datTestDateStart, 'dd-Mon-yyyy') as forDatTestDateStart, " &
+            "format(datReceivedDate, 'dd-MMM-yyyy') as forDatReceivedDate, " &
+            "format(datTestDateStart, 'dd-MMM-yyyy') as forDatTestDateStart, " &
             "SUBSTRING(ISMPMaster.strAirsnumber, 5,8) as strAIRSNumber, strFacilityName, " &
             "ISMPDocumentType.strDocumentType " &
             "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
@@ -1357,8 +1357,8 @@ Public Class ISMPTestReportAdministrative
         Try
 
             SQL = "select ISMPMaster.strReferenceNumber, " &
-            "to_char(datReceivedDate, 'dd-Mon-yyyy') as forDatReceivedDate, " &
-                 "to_char(datTestDateStart, 'dd-Mon-yyyy') as forDatTestDateStart, " &
+            "format(datReceivedDate, 'dd-MMM-yyyy') as forDatReceivedDate, " &
+                 "format(datTestDateStart, 'dd-MMM-yyyy') as forDatTestDateStart, " &
                  "SUBSTRING(ISMPMaster.strAirsnumber, 5,8) as strAIRSNumber, strFacilityName, " &
                  "ISMPDocumentType.strDocumentType " &
                  "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
@@ -1395,8 +1395,8 @@ Public Class ISMPTestReportAdministrative
         Try
 
             SQL = "select ISMPMaster.strReferenceNumber, " &
-            "to_char(datReceivedDate, 'dd-Mon-yyyy') as forDatReceivedDate, " &
-                "to_char(datTestDateStart, 'dd-Mon-yyyy') as forDatTestDateStart, " &
+            "format(datReceivedDate, 'dd-MMM-yyyy') as forDatReceivedDate, " &
+                "format(datTestDateStart, 'dd-MMM-yyyy') as forDatTestDateStart, " &
                 "SUBSTRING(ISMPMaster.strAirsnumber, 5,8) as strAIRSNumber, strFacilityName, " &
                 "ISMPDocumentType.strDocumentType " &
                 "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
@@ -1433,8 +1433,8 @@ Public Class ISMPTestReportAdministrative
         Try
 
             SQL = "select ISMPMaster.strReferenceNumber, " &
-            "to_char(datReceivedDate, 'dd-Mon-yyyy') as forDatReceivedDate, " &
-                 "to_char(datTestDateStart, 'dd-Mon-yyyy') as forDatTestDateStart, " &
+            "format(datReceivedDate, 'dd-MMM-yyyy') as forDatReceivedDate, " &
+                 "format(datTestDateStart, 'dd-MMM-yyyy') as forDatTestDateStart, " &
                  "SUBSTRING(ISMPMaster.strAirsnumber, 5,8) as strAIRSNumber, strFacilityName, " &
                  "ISMPDocumentType.strDocumentType " &
                  "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
@@ -1471,8 +1471,8 @@ Public Class ISMPTestReportAdministrative
         Try
 
             SQL = "select ISMPMaster.strReferenceNumber, " &
-            "to_char(datReceivedDate, 'dd-Mon-yyyy') as forDatReceivedDate, " &
-                "to_char(datTestDateStart, 'dd-Mon-yyyy') as forDatTestDateStart, " &
+            "format(datReceivedDate, 'dd-MMM-yyyy') as forDatReceivedDate, " &
+                "format(datTestDateStart, 'dd-MMM-yyyy') as forDatTestDateStart, " &
                 "SUBSTRING(ISMPMaster.strAirsnumber, 5,8) as strAIRSNumber, strFacilityName, " &
                 "ISMPDocumentType.strDocumentType " &
                 "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
@@ -1509,8 +1509,8 @@ Public Class ISMPTestReportAdministrative
         Try
 
             SQL = "select ISMPMaster.strReferenceNumber, " &
-            "to_char(datReceivedDate, 'dd-Mon-yyyy') as forDatReceivedDate, " &
-                 "to_char(datTestDateStart, 'dd-Mon-yyyy') as forDatTestDateStart, " &
+            "format(datReceivedDate, 'dd-MMM-yyyy') as forDatReceivedDate, " &
+                 "format(datTestDateStart, 'dd-MMM-yyyy') as forDatTestDateStart, " &
                  "SUBSTRING(ISMPMaster.strAirsnumber, 5,8) as strAIRSNumber, strFacilityName, " &
                  "ISMPDocumentType.strDocumentType " &
                  "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
@@ -1547,8 +1547,8 @@ Public Class ISMPTestReportAdministrative
         Try
 
             SQL = "select ISMPMaster.strReferenceNumber, " &
-            "to_char(datReceivedDate, 'dd-Mon-yyyy') as forDatReceivedDate, " &
-               "to_char(datTestDateStart, 'dd-Mon-yyyy') as forDatTestDateStart, " &
+            "format(datReceivedDate, 'dd-MMM-yyyy') as forDatReceivedDate, " &
+               "format(datTestDateStart, 'dd-MMM-yyyy') as forDatTestDateStart, " &
                "SUBSTRING(ISMPMaster.strAirsnumber, 5,8) as strAIRSNumber, strFacilityName, " &
                "ISMPDocumentType.strDocumentType " &
                "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
@@ -1585,8 +1585,8 @@ Public Class ISMPTestReportAdministrative
         Try
 
             SQL = "select ISMPMaster.strReferenceNumber,  " &
-            "to_char(datReceivedDate, 'dd-Mon-yyyy') as forDatReceivedDate, " &
-                 "to_char(datTestDateStart, 'dd-Mon-yyyy') as forDatTestDateStart, " &
+            "format(datReceivedDate, 'dd-MMM-yyyy') as forDatReceivedDate, " &
+                 "format(datTestDateStart, 'dd-MMM-yyyy') as forDatTestDateStart, " &
                  "SUBSTRING(ISMPMaster.strAirsnumber, 5,8) as strAIRSNumber, strFacilityName, " &
                  "ISMPDocumentType.strDocumentType " &
                  "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
@@ -1623,8 +1623,8 @@ Public Class ISMPTestReportAdministrative
         Try
 
             SQL = "select ISMPMaster.strReferenceNumber, " &
-            "to_char(datReceivedDate, 'dd-Mon-yyyy') as forDatReceivedDate, " &
-                 "to_char(datTestDateStart, 'dd-Mon-yyyy') as forDatTestDateStart, " &
+            "format(datReceivedDate, 'dd-MMM-yyyy') as forDatReceivedDate, " &
+                 "format(datTestDateStart, 'dd-MMM-yyyy') as forDatTestDateStart, " &
                  "SUBSTRING(ISMPMaster.strAirsnumber, 5,8) as strAIRSNumber, strFacilityName, " &
                  "ISMPDocumentType.strDocumentType " &
                  "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
@@ -1661,8 +1661,8 @@ Public Class ISMPTestReportAdministrative
         Try
 
             SQL = "select ISMPMaster.strReferenceNumber,  " &
-            "to_char(datReceivedDate, 'dd-Mon-yyyy') as forDatReceivedDate, " &
-                 "to_char(datTestDateStart, 'dd-Mon-yyyy') as forDatTestDateStart, " &
+            "format(datReceivedDate, 'dd-MMM-yyyy') as forDatReceivedDate, " &
+                 "format(datTestDateStart, 'dd-MMM-yyyy') as forDatTestDateStart, " &
                  "SUBSTRING(ISMPMaster.strAirsnumber, 5,8) as strAIRSNumber, strFacilityName, " &
                  "ISMPDocumentType.strDocumentType " &
                  "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
@@ -1699,8 +1699,8 @@ Public Class ISMPTestReportAdministrative
         Try
 
             SQL = "select ISMPMaster.strReferenceNumber, " &
-            "to_char(datReceivedDate, 'dd-Mon-yyyy') as forDatReceivedDate, " &
-                 "to_char(datTestDateStart, 'dd-Mon-yyyy') as forDatTestDateStart, " &
+            "format(datReceivedDate, 'dd-MMM-yyyy') as forDatReceivedDate, " &
+                 "format(datTestDateStart, 'dd-MMM-yyyy') as forDatTestDateStart, " &
                  "SUBSTRING(ISMPMaster.strAirsnumber, 5,8) as strAIRSNumber, strFacilityName, " &
                  "ISMPDocumentType.strDocumentType " &
                  "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
@@ -1737,8 +1737,8 @@ Public Class ISMPTestReportAdministrative
         Try
 
             SQL = "select ISMPMaster.strReferenceNumber,  " &
-            "to_char(datReceivedDate, 'dd-Mon-yyyy') as forDatReceivedDate, " &
-                "to_char(datTestDateStart, 'dd-Mon-yyyy') as forDatTestDateStart, " &
+            "format(datReceivedDate, 'dd-MMM-yyyy') as forDatReceivedDate, " &
+                "format(datTestDateStart, 'dd-MMM-yyyy') as forDatTestDateStart, " &
                 "SUBSTRING(ISMPMaster.strAirsnumber, 5,8) as strAIRSNumber, strFacilityName, " &
                 "ISMPDocumentType.strDocumentType " &
                 "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
@@ -1775,8 +1775,8 @@ Public Class ISMPTestReportAdministrative
         Try
 
             SQL = "select ISMPMaster.strReferenceNumber, " &
-            "to_char(datReceivedDate, 'dd-Mon-yyyy') as forDatReceivedDate, " &
-                "to_char(datTestDateStart, 'dd-Mon-yyyy') as forDatTestDateStart, " &
+            "format(datReceivedDate, 'dd-MMM-yyyy') as forDatReceivedDate, " &
+                "format(datTestDateStart, 'dd-MMM-yyyy') as forDatTestDateStart, " &
                 "SUBSTRING(ISMPMaster.strAirsnumber, 5,8) as strAIRSNumber, strFacilityName, " &
                 "ISMPDocumentType.strDocumentType " &
                 "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
@@ -1813,8 +1813,8 @@ Public Class ISMPTestReportAdministrative
         Try
 
             SQL = "select ISMPMaster.strReferenceNumber,  " &
-            "to_char(datReceivedDate, 'dd-Mon-yyyy') as forDatReceivedDate, " &
-                "to_char(datTestDateStart, 'dd-Mon-yyyy') as forDatTestDateStart, " &
+            "format(datReceivedDate, 'dd-MMM-yyyy') as forDatReceivedDate, " &
+                "format(datTestDateStart, 'dd-MMM-yyyy') as forDatTestDateStart, " &
                 "SUBSTRING(ISMPMaster.strAirsnumber, 5,8) as strAIRSNumber, strFacilityName, " &
                 "ISMPDocumentType.strDocumentType " &
                 "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
@@ -1851,8 +1851,8 @@ Public Class ISMPTestReportAdministrative
         Try
 
             SQL = "select ISMPMaster.strReferenceNumber,  " &
-            "to_char(datReceivedDate, 'dd-Mon-yyyy') as forDatReceivedDate, " &
-                  "to_char(datTestDateStart, 'dd-Mon-yyyy') as forDatTestDateStart, " &
+            "format(datReceivedDate, 'dd-MMM-yyyy') as forDatReceivedDate, " &
+                  "format(datTestDateStart, 'dd-MMM-yyyy') as forDatTestDateStart, " &
                   "SUBSTRING(ISMPMaster.strAirsnumber, 5,8) as strAIRSNumber, strFacilityName, " &
                   "ISMPDocumentType.strDocumentType " &
                   "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
@@ -1889,8 +1889,8 @@ Public Class ISMPTestReportAdministrative
         Try
 
             SQL = "select ISMPMaster.strReferenceNumber,  " &
-            "to_char(datReceivedDate, 'dd-Mon-yyyy') as forDatReceivedDate, " &
-                   "to_char(datTestDateStart, 'dd-Mon-yyyy') as forDatTestDateStart, " &
+            "format(datReceivedDate, 'dd-MMM-yyyy') as forDatReceivedDate, " &
+                   "format(datTestDateStart, 'dd-MMM-yyyy') as forDatTestDateStart, " &
                    "SUBSTRING(ISMPMaster.strAirsnumber, 5,8) as strAIRSNumber, strFacilityName, " &
                    "ISMPDocumentType.strDocumentType " &
                    "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
@@ -1927,8 +1927,8 @@ Public Class ISMPTestReportAdministrative
         Try
 
             SQL = "select ISMPMaster.strReferenceNumber, " &
-            "to_char(datReceivedDate, 'dd-Mon-yyyy') as forDatReceivedDate, " &
-                 "to_char(datTestDateStart, 'dd-Mon-yyyy') as forDatTestDateStart, " &
+            "format(datReceivedDate, 'dd-MMM-yyyy') as forDatReceivedDate, " &
+                 "format(datTestDateStart, 'dd-MMM-yyyy') as forDatTestDateStart, " &
                  "SUBSTRING(ISMPMaster.strAirsnumber, 5,8) as strAIRSNumber, strFacilityName, " &
                  "ISMPDocumentType.strDocumentType " &
                  "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
@@ -1965,8 +1965,8 @@ Public Class ISMPTestReportAdministrative
         Try
 
             SQL = "select ISMPMaster.strReferenceNumber,  " &
-            "to_char(datReceivedDate, 'dd-Mon-yyyy') as forDatReceivedDate, " &
-                "to_char(datTestDateStart, 'dd-Mon-yyyy') as forDatTestDateStart, " &
+            "format(datReceivedDate, 'dd-MMM-yyyy') as forDatReceivedDate, " &
+                "format(datTestDateStart, 'dd-MMM-yyyy') as forDatTestDateStart, " &
                 "SUBSTRING(ISMPMaster.strAirsnumber, 5,8) as strAIRSNumber, strFacilityName, " &
                 "ISMPDocumentType.strDocumentType " &
                 "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
@@ -2003,8 +2003,8 @@ Public Class ISMPTestReportAdministrative
         Try
 
             SQL = "select ISMPMaster.strReferenceNumber, " &
-            "to_char(datReceivedDate, 'dd-Mon-yyyy') as forDatReceivedDate, " &
-                  "to_char(datTestDateStart, 'dd-Mon-yyyy') as forDatTestDateStart, " &
+            "format(datReceivedDate, 'dd-MMM-yyyy') as forDatReceivedDate, " &
+                  "format(datTestDateStart, 'dd-MMM-yyyy') as forDatTestDateStart, " &
                   "SUBSTRING(ISMPMaster.strAirsnumber, 5,8) as strAIRSNumber, strFacilityName, " &
                   "ISMPDocumentType.strDocumentType " &
                   "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
@@ -2040,8 +2040,8 @@ Public Class ISMPTestReportAdministrative
         Try
 
             SQL = "select ISMPMaster.strReferenceNumber,  " &
-            "to_char(datReceivedDate, 'dd-Mon-yyyy') as forDatReceivedDate, " &
-               "to_char(datTestDateStart, 'dd-Mon-yyyy') as forDatTestDateStart, " &
+            "format(datReceivedDate, 'dd-MMM-yyyy') as forDatReceivedDate, " &
+               "format(datTestDateStart, 'dd-MMM-yyyy') as forDatTestDateStart, " &
                "SUBSTRING(ISMPMaster.strAirsnumber, 5,8) as strAIRSNumber, strFacilityName, " &
                "ISMPDocumentType.strDocumentType " &
                "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
@@ -2077,8 +2077,8 @@ Public Class ISMPTestReportAdministrative
         Try
 
             SQL = "select ISMPMaster.strReferenceNumber, " &
-            "to_char(datReceivedDate, 'dd-Mon-yyyy') as forDatReceivedDate, " &
-            "to_char(datTestDateStart, 'dd-Mon-yyyy') as forDatTestDateStart, " &
+            "format(datReceivedDate, 'dd-MMM-yyyy') as forDatReceivedDate, " &
+            "format(datTestDateStart, 'dd-MMM-yyyy') as forDatTestDateStart, " &
             "SUBSTRING(ISMPMaster.strAirsnumber, 5,8) as strAIRSNumber, strFacilityName, " &
             "ISMPDocumentType.strDocumentType " &
             "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &

@@ -149,7 +149,7 @@ Public Class ISMPManagersTools
             If AccountFormAccess(17, 3) = "1" Then
                 SQL = "Select " &
                 "ISMPMaster.strReferenceNumber, ISMPMaster.strAIRSNumber, strFacilityName,   " &
-                "to_Char(DATTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart,  " &
+                "format(DATTestDateStart, 'MMMM d, yyyy') as ForTestDateStart,  " &
                 "strEmissionSource,   " &
                 "(Select strPollutantDescription   " &
                 "from LookUPPollutants, ISMPReportInformation  " &
@@ -546,7 +546,7 @@ Public Class ISMPManagersTools
             If AccountFormAccess(17, 3) = "1" Then
                 SQL = "Select " &
                 "ISMPMaster.strReferenceNumber, ISMPMaster.strAIRSNumber, strFacilityName,  " &
-                "to_Char(DATTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart, " &
+                "format(DATTestDateStart, 'MMMM d, yyyy') as ForTestDateStart, " &
                 "strEmissionSource,  " &
                 "(Select strPollutantDescription  " &
                 "from LookUPPollutants, ISMPReportInformation  " &
@@ -591,7 +591,7 @@ Public Class ISMPManagersTools
             If AccountFormAccess(17, 3) = "1" Then
                 SQL = "Select " &
                 "ISMPMaster.strReferenceNumber, ISMPMaster.strAIRSNumber, strFacilityName,  " &
-                "to_Char(DATTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart, " &
+                "format(DATTestDateStart, 'MMMM d, yyyy') as ForTestDateStart, " &
                 "strEmissionSource,  " &
                 "(Select strPollutantDescription  " &
                 "from LookUPPollutants, ISMPReportInformation  " &
@@ -635,7 +635,7 @@ Public Class ISMPManagersTools
             If AccountFormAccess(17, 3) = "1" Then
                 SQL = "Select " &
                 "ISMPMaster.strReferenceNumber, ISMPMaster.strAIRSNumber, strFacilityName,  " &
-                "to_Char(DATTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart, " &
+                "format(DATTestDateStart, 'MMMM d, yyyy') as ForTestDateStart, " &
                 "strEmissionSource,  " &
                 "(Select strPollutantDescription  " &
                 "from LookUPPollutants, ISMPReportInformation  " &
@@ -680,7 +680,7 @@ Public Class ISMPManagersTools
             If AccountFormAccess(17, 3) = "1" Then
                 SQL = "Select " &
                 "ISMPMaster.strReferenceNumber, ISMPMaster.strAIRSNumber, strFacilityName,  " &
-                "to_Char(DATTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart, " &
+                "format(DATTestDateStart, 'MMMM d, yyyy') as ForTestDateStart, " &
                 "strEmissionSource,  " &
                 "(Select strPollutantDescription  " &
                 "from LookUPPollutants, ISMPReportInformation  " &
@@ -723,7 +723,7 @@ Public Class ISMPManagersTools
             If AccountFormAccess(17, 3) = "1" Then
                 SQL = "Select " &
                 "ISMPMaster.strReferenceNumber, ISMPMaster.strAIRSNumber, strFacilityName,  " &
-                "to_Char(DATTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart, " &
+                "format(DATTestDateStart, 'MMMM d, yyyy') as ForTestDateStart, " &
                 "strEmissionSource,  " &
                 "(Select strPollutantDescription  " &
                 "from LookUPPollutants, ISMPReportInformation  " &
@@ -768,7 +768,7 @@ Public Class ISMPManagersTools
             If AccountFormAccess(17, 3) = "1" Then
                 SQL = "Select " &
                 "ISMPMaster.strReferenceNumber, ISMPMaster.strAIRSNumber, strFacilityName,  " &
-                "to_Char(DATTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart, " &
+                "format(DATTestDateStart, 'MMMM d, yyyy') as ForTestDateStart, " &
                 "strEmissionSource,  " &
                 "(Select strPollutantDescription  " &
                 "from LookUPPollutants, ISMPReportInformation  " &
@@ -815,7 +815,7 @@ Public Class ISMPManagersTools
             If AccountFormAccess(17, 3) = "1" Then
                 SQL = "Select " &
                     "ISMPMaster.strReferenceNumber, ISMPMaster.strAIRSNumber, strFacilityName,  " &
-                    "to_Char(DATTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart, " &
+                    "format(DATTestDateStart, 'MMMM d, yyyy') as ForTestDateStart, " &
                     "strEmissionSource,  " &
                     "(Select strPollutantDescription  " &
                     "from LookUPPollutants, ISMPReportInformation  " &
@@ -860,7 +860,7 @@ Public Class ISMPManagersTools
             If AccountFormAccess(17, 3) = "1" Then
                 SQL = "Select " &
                 "ISMPMaster.strReferenceNumber, ISMPMaster.strAIRSNumber, strFacilityName,  " &
-                "to_Char(DATTestDateStart, 'FMMonth DD, YYYY') as ForTestDateStart, " &
+                "format(DATTestDateStart, 'MMMM d, yyyy') as ForTestDateStart, " &
                 "strEmissionSource,  " &
                 "(Select strPollutantDescription  " &
                 "from LookUPPollutants, ISMPReportInformation  " &
@@ -952,7 +952,7 @@ Public Class ISMPManagersTools
                     CurrentConnection.Open()
                 End If
                 For Each strObject In lblTestReportAssignment.Items
-                    SQL = "select to_char(datReviewedBYUnitManager, 'dd-Mon-yyyy') as ReviewedByUnitManager " &
+                    SQL = "select format(datReviewedBYUnitManager, 'dd-MMM-yyyy') as ReviewedByUnitManager " &
                           "from ISMPReportInformation " &
                           "where strReferenceNumber = '" & strObject.ToString() & "' "
                     cmd = New SqlCommand(SQL, CurrentConnection)
@@ -1294,9 +1294,9 @@ Public Class ISMPManagersTools
 
             SQL = "Select ISMPReportInformation.strReferenceNumber, strFacilityName, " &
             "SUBSTRING(ISMPMaster.strAIRSNumber, 5,8) as AIRSNumber, strClosed, " &
-            "to_char(datTestDateStart, 'dd-Mon-yyyy') as ForDatTestDateStart, " &
-            "to_char(datReceivedDate, 'dd-Mon-yyyy') as ForDatReceivedDate, " &
-            "to_char(datCompleteDate, 'dd-Mon-yyyy') as ForDatCompleteDate, " &
+            "format(datTestDateStart, 'dd-MMM-yyyy') as ForDatTestDateStart, " &
+            "format(datReceivedDate, 'dd-MMM-yyyy') as ForDatReceivedDate, " &
+            "format(datCompleteDate, 'dd-MMM-yyyy') as ForDatCompleteDate, " &
             "(select (strLastName|| ', ' ||strFirstName) as ReviewingEngineer  " &
             "from EPDUserProfiles, ISMPReportInformation  " &
             "where EPDUserProfiles.numUserID = ISMPReportInformation.strReviewingEngineer  " &
@@ -1363,7 +1363,7 @@ Public Class ISMPManagersTools
             "where EPDUserProfiles.numUserID = ISMPReportInformation.strReviewingEngineer " &
             "and ISMPReportInformation.strReferenceNumber = ISMPMaster.strReferenceNumber) as ReviewingEngineer, " &
             "ISMPReportInformation.strReferenceNumber, strFacilityName, " &
-            "to_char(datReceivedDate, 'dd-Mon-yyyy') as ForDatReceivedDate, " &
+            "format(datReceivedDate, 'dd-MMM-yyyy') as ForDatReceivedDate, " &
             "DATEDIFF(day, datReceivedDate, GETDATE()) as Days " &
             "from ISMPReportInformation, ISMPMaster, APBFacilityInformation " &
             "where " &
@@ -1578,7 +1578,7 @@ Public Class ISMPManagersTools
             End If
 
             SQL = "Select ISMPReportInformation.strReferenceNumber, strEmissionSource, strPollutantDescription, " &
-            "to_char(datTestDateStart, 'dd-Mon-yyyy') as fordatTestDateStart, to_char(datTestDateEnd, 'dd-Mon-yyyy') as fordatTestDateEnd, " &
+            "format(datTestDateStart, 'dd-MMM-yyyy') as fordatTestDateStart, format(datTestDateEnd, 'dd-MMM-yyyy') as fordatTestDateEnd, " &
             "SUBSTRING(ISMPMaster.strAIRSNumber, 5,8) as AIRSNumber, strFacilityName, strFacilityCity, strFacilityState, " &
             "ISMPReportType.strReportType " &
             "from ISMPReportInformation, LookUPPollutants, ISMPMaster, APBFacilityInformation, " &
@@ -3171,15 +3171,15 @@ Public Class ISMPManagersTools
             "(strLastName|| ', ' ||strFirstName) as Engineer,  " &
             "case  " &
             "when datTestDateStart = '04-Jul-1776' then  null  " &
-            "else to_char(datTestDateStart, 'dd-Mon-yyyy') " &
+            "else format(datTestDateStart, 'dd-MMM-yyyy') " &
             "End datTestDateStart,  " &
             "case  " &
             "when datReceivedDate = '04-Jul-1776' then Null  " &
-            "else to_char(datReceivedDate, 'dd-Mon-yyyy')  " &
+            "else format(datReceivedDate, 'dd-MMM-yyyy')  " &
             "End datReceiveddate,  " &
             "Case  " &
             "when datCompleteDate = '04-Jul-1776' then Null  " &
-            "else to_char(datCompleteDate, 'dd-Mon-yyyy')  " &
+            "else format(datCompleteDate, 'dd-MMM-yyyy')  " &
             "end datCompleteDate  " &
             "from ISMPReportInformation, EPDUserProfiles    " &
             "where ISMPReportInformation.strReviewingEngineer = EPDUserProfiles.numUserID  " &

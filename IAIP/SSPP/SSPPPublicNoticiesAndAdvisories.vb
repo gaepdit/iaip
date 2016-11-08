@@ -48,7 +48,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
             "  when strPAReady = 'False' then '' " &
             "  Else '' " &
             "End PAReady, " &
-            "to_char(datPAExpires, 'YYYY-MM-dd') as PAExpires, " &
+            "format(datPAExpires, 'yyyy-MM-dd') as PAExpires, " &
             "case " &
             "when strPAPosted is null then '' " &
             "else strPAPosted " &
@@ -59,7 +59,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
             "  when strPNReady = 'False' then '' " &
             "  Else '' " &
             "End PNReady, " &
-            "to_char(datPNExpires, 'YYYY-MM-dd') as PNExpires, " &
+            "format(datPNExpires, 'yyyy-MM-dd') as PNExpires, " &
             "case " &
             "when strPNPosted is null then '' " &
             "else strPNPosted " &
@@ -848,7 +848,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
                 "strFacilityStreet1, strFacilityCity,  " &
                 "strFacilityState, strFacilityZipCode,  " &
                 "strPlantDescription, strApplicationNotes,  " &
-                "to_char(datPNExpires, 'Monthdd, YYYY') as datPNExpires " &
+                "format(datPNExpires, 'MMMM dd, yyyy') as datPNExpires " &
                 "from SSPPApplicationData, SSPPApplicationMaster, " &
                 "LookUpCountyInformation, SSPPApplicationTracking " &
                 "where SSPPApplicationMaster.strApplicationnumber = SSPPApplicationData.strApplicationNumber   " &
@@ -928,7 +928,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
                 "strFacilityStreet1, strFacilityCity,  " &
                 "strFacilityState, strFacilityZipCode,  " &
                 "strPlantDescription, strApplicationNotes,  " &
-                "to_char(datPNExpires, 'Monthdd, YYYY') as datPNExpires " &
+                "format(datPNExpires, 'MMMM dd, yyyy') as datPNExpires " &
                 "from SSPPApplicationData, SSPPApplicationMaster,   " &
                 "LookUpCountyInformation, SSPPApplicationTracking " &
                 "where SSPPApplicationMaster.strApplicationnumber = SSPPApplicationData.strApplicationNumber   " &
@@ -1008,7 +1008,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
                 "strFacilityStreet1, strFacilityCity,  " &
                 "strFacilityState, strFacilityZipCode,  " &
                 "strPlantDescription, strApplicationNotes,  " &
-                "to_char(datPNExpires, 'Monthdd, YYYY') as datPNExpires, " &
+                "format(datPNExpires, 'MMMM dd, yyyy') as datPNExpires, " &
                 "strSignificantComments " &
                 "from SSPPApplicationData, SSPPApplicationMaster,   " &
                 "LookUpCountyInformation, SSPPApplicationTracking " &

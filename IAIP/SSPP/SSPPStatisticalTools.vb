@@ -2062,7 +2062,7 @@ Public Class SSPPStatisticalTools
                 SQL = "select " &
                 "SSPPApplicationMaster.strApplicationNumber,  " &
                 "strFacilityName,  " &
-                "to_char(datPermitIssued, 'RRRR-MM-dd') as datPermitIssued,  " &
+                "format(datPermitIssued, 'yyyy-MM-dd') as datPermitIssued,  " &
                 "strApplicationTypeDesc, " &
                 "case " &
                 "when strMasterApplication is Null then '' " &
@@ -2232,7 +2232,7 @@ Public Class SSPPStatisticalTools
                 SQL = "select " &
                 "SSPPApplicationMaster.strApplicationNumber,  " &
                 "strFacilityName,  " &
-                "to_char(datPermitIssued, 'RRRR-MM-dd') as datPermitIssued,  " &
+                "format(datPermitIssued, 'yyyy-MM-dd') as datPermitIssued,  " &
                 "strApplicationTypeDesc,  " &
                 "case " &
                 "when strMasterApplication is Null then '' " &
@@ -2353,7 +2353,7 @@ Public Class SSPPStatisticalTools
                 SQL = "select " &
                 "SSPPApplicationMaster.strApplicationNumber,  " &
                 "strFacilityName,  " &
-                "to_char(datPermitIssued, 'RRRR-MM-dd') as datPermitIssued,  " &
+                "format(datPermitIssued, 'yyyy-MM-dd') as datPermitIssued,  " &
                 "strApplicationTypeDesc,  " &
                 "case " &
                 "when strMasterApplication is Null then '' " &
@@ -2474,7 +2474,7 @@ Public Class SSPPStatisticalTools
                 SQL = "select " &
                 "SSPPApplicationMaster.strApplicationNumber,  " &
                 "strFacilityName,  " &
-                "to_char(datPermitIssued, 'RRRR-MM-dd') as datPermitIssued,  " &
+                "format(datPermitIssued, 'yyyy-MM-dd') as datPermitIssued,  " &
                 "strApplicationTypeDesc,  " &
                 "case " &
                 "when strMasterApplication is Null then '' " &
@@ -2595,7 +2595,7 @@ Public Class SSPPStatisticalTools
                 SQL = "select " &
                 "SSPPApplicationMaster.strApplicationNumber,  " &
                 "strFacilityName,  " &
-                "to_char(datPermitIssued, 'RRRR-MM-dd') as datPermitIssued,  " &
+                "format(datPermitIssued, 'yyyy-MM-dd') as datPermitIssued,  " &
                 "strApplicationTypeDesc,  " &
                 "case " &
                 "when strMasterApplication is Null then '' " &
@@ -2716,7 +2716,7 @@ Public Class SSPPStatisticalTools
                 SQL = "select " &
                 "SSPPApplicationMaster.strApplicationNumber,  " &
                 "strFacilityName,  " &
-                "to_char(datPermitIssued, 'RRRR-MM-dd') as datPermitIssued,  " &
+                "format(datPermitIssued, 'yyyy-MM-dd') as datPermitIssued,  " &
                 "strApplicationTypeDesc,  " &
                 "case " &
                 "when strMasterApplication is Null then '' " &
@@ -2837,7 +2837,7 @@ Public Class SSPPStatisticalTools
                 SQL = "select " &
                 "SSPPApplicationMaster.strApplicationNumber,  " &
                 "strFacilityName,  " &
-                "to_char(datPermitIssued, 'RRRR-MM-dd') as datPermitIssued,  " &
+                "format(datPermitIssued, 'yyyy-MM-dd') as datPermitIssued,  " &
                 "strApplicationTypeDesc,  " &
                 "case " &
                 "when strMasterApplication is Null then '' " &
@@ -2958,7 +2958,7 @@ Public Class SSPPStatisticalTools
                 SQL = "select " &
                 "SSPPApplicationMaster.strApplicationNumber,  " &
                 "strFacilityName,  " &
-                "to_char(datPermitIssued, 'RRRR-MM-dd') as datPermitIssued,  " &
+                "format(datPermitIssued, 'yyyy-MM-dd') as datPermitIssued,  " &
                 "strApplicationTypeDesc,  " &
                 "case " &
                 "when strMasterApplication is Null then '' " &
@@ -3081,7 +3081,7 @@ Public Class SSPPStatisticalTools
                 SQL = "select " &
                 "SSPPApplicationMaster.strApplicationNumber,  " &
                 "strFacilityName,  " &
-                "to_char(datPermitIssued, 'RRRR-MM-dd') as datPermitIssued,  " &
+                "format(datPermitIssued, 'yyyy-MM-dd') as datPermitIssued,  " &
                 "case " &
                 "when strApplicationTypeDesc is Null  then '' " &
                 "else strApplicationTypeDesc " &
@@ -3209,7 +3209,7 @@ Public Class SSPPStatisticalTools
                 SQL = "select " &
                 "SSPPApplicationMaster.strApplicationNumber,  " &
                 "strFacilityName,  " &
-                "to_char(datPermitIssued, 'RRRR-MM-dd') as datPermitIssued,  " &
+                "format(datPermitIssued, 'yyyy-MM-dd') as datPermitIssued,  " &
                 "strApplicationTypeDesc,  " &
                 "case " &
                 "when strMasterApplication is Null then '' " &
@@ -4312,7 +4312,7 @@ Public Class SSPPStatisticalTools
                 "when strStaffResponsible is Null or strStaffResponsible ='0' then '0 - Unassigned'         " &
                 "else '01 - At Engineer'        " &
                 "end as AppStatus, " &
-                "to_char(datReceivedDate, 'RRRR-MM-dd') as datReceivedDate, " &
+                "format(datReceivedDate, 'yyyy-MM-dd') as datReceivedDate, " &
                 "(strLastName||', '||strFirstName) as UserName " &
                 "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
                 "SSPPApplicationData, LookUpApplicationTypes,  " &
@@ -4431,7 +4431,7 @@ Public Class SSPPStatisticalTools
                 "when strStaffResponsible is Null or strStaffResponsible ='0' then '0 - Unassigned'         " &
                 "else '01 - At Engineer'        " &
                 "end as AppStatus, " &
-                "to_char(datReceivedDate, 'RRRR-MM-dd') as datReceivedDate, " &
+                "format(datReceivedDate, 'yyyy-MM-dd') as datReceivedDate, " &
                 "(strLastName||', '||strFirstName) as UserName " &
                 "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
                 "SSPPApplicationData, LookUpApplicationTypes,  " &
@@ -4551,7 +4551,7 @@ Public Class SSPPStatisticalTools
                 "when strStaffResponsible is Null or strStaffResponsible ='0' then '0 - Unassigned'         " &
                 "else '01 - At Engineer'        " &
                 "end as AppStatus, " &
-                "to_char(datReceivedDate, 'RRRR-MM-dd') as datReceivedDate, " &
+                "format(datReceivedDate, 'yyyy-MM-dd') as datReceivedDate, " &
                 "(strLastName||', '||strFirstName) as UserName " &
                 "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
                 "SSPPApplicationData, LookUpApplicationTypes,  " &
@@ -4671,7 +4671,7 @@ Public Class SSPPStatisticalTools
                 "when strStaffResponsible is Null or strStaffResponsible ='0' then '0 - Unassigned'         " &
                 "else '01 - At Engineer'        " &
                 "end as AppStatus, " &
-                "to_char(datReceivedDate, 'RRRR-MM-dd') as datReceivedDate, " &
+                "format(datReceivedDate, 'yyyy-MM-dd') as datReceivedDate, " &
                 "(strLastName||', '||strFirstName) as UserName " &
                 "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
                 "SSPPApplicationData, LookUpApplicationTypes,  " &
@@ -4803,7 +4803,7 @@ Public Class SSPPStatisticalTools
                 "when strStaffResponsible is Null or strStaffResponsible ='0' then '0 - Unassigned'         " &
                 "else '01 - At Engineer'        " &
                 "end as AppStatus, " &
-                "to_char(datReceivedDate, 'RRRR-MM-dd') as datReceivedDate, " &
+                "format(datReceivedDate, 'yyyy-MM-dd') as datReceivedDate, " &
                 "(strLastName||', '||strFirstName) as UserName " &
                 "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
                 "SSPPApplicationData, LookUpApplicationTypes,  " &
@@ -4922,7 +4922,7 @@ Public Class SSPPStatisticalTools
                 "when strStaffResponsible is Null or strStaffResponsible ='0' then '0 - Unassigned'         " &
                 "else '01 - At Engineer'        " &
                 "end as AppStatus, " &
-                "to_char(datReceivedDate, 'RRRR-MM-dd') as datReceivedDate, " &
+                "format(datReceivedDate, 'yyyy-MM-dd') as datReceivedDate, " &
                 "(strLastName||', '||strFirstName) as UserName " &
                 "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
                 "SSPPApplicationData, LookUpApplicationTypes,  " &
@@ -5042,7 +5042,7 @@ Public Class SSPPStatisticalTools
                 "when strStaffResponsible is Null or strStaffResponsible ='0' then '0 - Unassigned'         " &
                 "else '01 - At Engineer'        " &
                 "end as AppStatus, " &
-                "to_char(datReceivedDate, 'RRRR-MM-dd') as datReceivedDate, " &
+                "format(datReceivedDate, 'yyyy-MM-dd') as datReceivedDate, " &
                 "(strLastName||', '||strFirstName) as UserName " &
                 "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
                 "SSPPApplicationData, LookUpApplicationTypes,  " &
@@ -5163,7 +5163,7 @@ Public Class SSPPStatisticalTools
                 "when strStaffResponsible is Null or strStaffResponsible ='0' then '0 - Unassigned'         " &
                 "else '01 - At Engineer'        " &
                 "end as AppStatus, " &
-                "to_char(datReceivedDate, 'RRRR-MM-dd') as datReceivedDate, " &
+                "format(datReceivedDate, 'yyyy-MM-dd') as datReceivedDate, " &
                 "(strLastName||', '||strFirstName) as UserName " &
                 "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
                 "SSPPApplicationData, LookUpApplicationTypes,  " &
@@ -5284,7 +5284,7 @@ Public Class SSPPStatisticalTools
                 "when strStaffResponsible is Null or strStaffResponsible ='0' then '0 - Unassigned'         " &
                 "else '01 - At Engineer'        " &
                 "end as AppStatus, " &
-                "to_char(datReceivedDate, 'RRRR-MM-dd') as datReceivedDate, " &
+                "format(datReceivedDate, 'yyyy-MM-dd') as datReceivedDate, " &
                 "(strLastName||', '||strFirstName) as UserName " &
                 "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
                 "SSPPApplicationData, LookUpApplicationTypes,  " &
@@ -5405,7 +5405,7 @@ Public Class SSPPStatisticalTools
                 "when strStaffResponsible is Null or strStaffResponsible ='0' then '0 - Unassigned'         " &
                 "else '01 - At Engineer'        " &
                 "end as AppStatus, " &
-                "to_char(datReceivedDate, 'RRRR-MM-dd') as datReceivedDate, " &
+                "format(datReceivedDate, 'yyyy-MM-dd') as datReceivedDate, " &
                 "(strLastName||', '||strFirstName) as UserName " &
                 "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
                 "SSPPApplicationData, LookUpApplicationTypes,  " &
@@ -5727,8 +5727,8 @@ Public Class SSPPStatisticalTools
                 "when strStaffResponsible is Null or strStaffResponsible ='0' then '0 - Unassigned'         " &
                 "else '01 - At Engineer'        " &
                 "end as AppStatus, " &
-                "to_char(datReceivedDate, 'RRRR-MM-dd') as datReceivedDate, " &
-                "to_char(datPermitIssued, 'RRRR-MM-dd') as datPermitIssued " &
+                "format(datReceivedDate, 'yyyy-MM-dd') as datReceivedDate, " &
+                "format(datPermitIssued, 'yyyy-MM-dd') as datPermitIssued " &
                 "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
                 "SSPPApplicationData, LookUpApplicationTypes " &
                 "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
@@ -5817,8 +5817,8 @@ Public Class SSPPStatisticalTools
                 "when strStaffResponsible is Null or strStaffResponsible ='0' then '0 - Unassigned'         " &
                 "else '01 - At Engineer'        " &
                 "end as AppStatus, " &
-                "to_char(datReceivedDate, 'RRRR-MM-dd') as datReceivedDate, " &
-                "to_char(datPermitIssued, 'RRRR-MM-dd') as datPermitIssued " &
+                "format(datReceivedDate, 'yyyy-MM-dd') as datReceivedDate, " &
+                "format(datPermitIssued, 'yyyy-MM-dd') as datPermitIssued " &
                 "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
                 "SSPPApplicationData, LookUpApplicationTypes " &
                 "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
@@ -5908,7 +5908,7 @@ Public Class SSPPStatisticalTools
                 "when strStaffResponsible is Null or strStaffResponsible ='0' then '0 - Unassigned'         " &
                 "else '01 - At Engineer'        " &
                 "end as AppStatus, " &
-                "to_char(datReceivedDate, 'RRRR-MM-dd') as datReceivedDate " &
+                "format(datReceivedDate, 'yyyy-MM-dd') as datReceivedDate " &
                 "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
                 "SSPPApplicationData, LookUpApplicationTypes " &
                 "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
@@ -5978,7 +5978,7 @@ Public Class SSPPStatisticalTools
                 SQL = "select " &
                 "distinct(SUBSTRING(SSPPApplicationMaster.strAIRSnumber, 5,8)) as AIRSNumber,  " &
                 "strFacilityName,  " &
-                "to_char(MaxDate, 'RRRR-MM-dd') as MaxDate " &
+                "format(MaxDate, 'yyyy-MM-dd') as MaxDate " &
                 "from SSPPApplicationMaster,  " &
                 "SSPPApplicationTracking, APBHeaderData,  " &
                 "APBFacilityInformation,   " &
@@ -6063,7 +6063,7 @@ Public Class SSPPStatisticalTools
                 SQL = "select " &
             "distinct(SUBSTRING(SSPPApplicationMaster.strAIRSnumber, 5,8) ) as AIRSNumber,  " &
             "strFacilityName, " &
-            "to_char(MaxDate, 'RRRR-MM-dd') as MaxDate " &
+            "format(MaxDate, 'yyyy-MM-dd') as MaxDate " &
             "from SSPPApplicationMaster,  " &
             "SSPPApplicationTracking, APBHeaderData,  " &
             "APBFacilityInformation,   " &
@@ -6273,8 +6273,8 @@ Public Class SSPPStatisticalTools
                 "when strStaffResponsible is Null or strStaffResponsible ='0' then '0 - Unassigned'         " &
                 "else '01 - At Engineer'        " &
                 "end as AppStatus, " &
-                "to_char(datReceivedDate, 'RRRR-MM-dd') as datReceivedDate, " &
-                "to_char(datPermitIssued, 'RRRR-MM-dd') as datPermitIssued " &
+                "format(datReceivedDate, 'yyyy-MM-dd') as datReceivedDate, " &
+                "format(datPermitIssued, 'yyyy-MM-dd') as datPermitIssued " &
                 "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
                 "SSPPApplicationData, LookUpApplicationTypes " &
                 "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
@@ -6363,8 +6363,8 @@ Public Class SSPPStatisticalTools
                 "when strStaffResponsible is Null or strStaffResponsible ='0' then '0 - Unassigned'         " &
                 "else '01 - At Engineer'        " &
                 "end as AppStatus, " &
-                "to_char(datReceivedDate, 'RRRR-MM-dd') as datReceivedDate, " &
-                "to_char(datPermitIssued, 'RRRR-MM-dd') as datPermitIssued " &
+                "format(datReceivedDate, 'yyyy-MM-dd') as datReceivedDate, " &
+                "format(datPermitIssued, 'yyyy-MM-dd') as datPermitIssued " &
                 "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
                 "SSPPApplicationData, LookUpApplicationTypes " &
                 "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
@@ -6454,8 +6454,8 @@ Public Class SSPPStatisticalTools
                 "when strStaffResponsible is Null or strStaffResponsible ='0' then '0 - Unassigned'         " &
                 "else '01 - At Engineer'        " &
                 "end as AppStatus, " &
-                "to_char(datReceivedDate, 'RRRR-MM-dd') as datReceivedDate, " &
-                "to_char(datPermitIssued, 'RRRR-MM-dd') as datPermitIssued " &
+                "format(datReceivedDate, 'yyyy-MM-dd') as datReceivedDate, " &
+                "format(datPermitIssued, 'yyyy-MM-dd') as datPermitIssued " &
                 "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
                 "SSPPApplicationData, LookUpApplicationTypes " &
                 "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
@@ -6544,7 +6544,7 @@ Public Class SSPPStatisticalTools
                 "when strStaffResponsible is Null or strStaffResponsible ='0' then '0 - Unassigned'         " &
                 "else '01 - At Engineer'        " &
                 "end as AppStatus, " &
-                "to_char(datReceivedDate, 'RRRR-MM-dd') as datReceivedDate " &
+                "format(datReceivedDate, 'yyyy-MM-dd') as datReceivedDate " &
                 "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
                 "SSPPApplicationData, LookUpApplicationTypes " &
                 "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
@@ -6645,7 +6645,7 @@ Public Class SSPPStatisticalTools
                     "(select distinct(strStaffResponsible) As Users   " &
                     "from SSPPApplicationMaster   " &
                     "minus    " &
-                    "select to_char(numUserID)     " &
+                    "select convert(varchar(3),numUserID)     " &
                     "from EPDUserProfiles where numProgram = '5') AppUsers   " &
                     "where EPDUserProfiles.numUserID = AppUsers.Users    " &
                     "Order by Username  "

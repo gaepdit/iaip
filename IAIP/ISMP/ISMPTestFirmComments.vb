@@ -107,7 +107,7 @@ Public Class ISMPTestFirmComments
             SQL = "select " &
             "numCommentsID, strCommentType, " &
             "strComment, " &
-            "to_char(datCommentDate, 'dd-Mon-yyyy') as CommentDate, " &
+            "format(datCommentDate, 'dd-MMM-yyyy') as CommentDate, " &
             "(strLastName|| ', ' ||strFirstName) as StaffResponsible " &
             "from ismptestfirmcomments, EPDUSerProfiles " &
             "where ismptestfirmcomments.strStaffResponsible = EPDUSerProfiles.numUserID "
@@ -170,8 +170,8 @@ Public Class ISMPTestFirmComments
                 txtTestDateStart.Clear()
 
                 SQL = "Select " &
-                "to_char(datTestDateStart, 'dd-Mon-yyyy') as datTestDateStart, " &
-                "to_char(datTestDateEnd, 'dd-Mon-yyyy') as datTestDateEnd " &
+                "format(datTestDateStart, 'dd-MMM-yyyy') as datTestDateStart, " &
+                "format(datTestDateEnd, 'dd-MMM-yyyy') as datTestDateEnd " &
                 "from ISMPReportInformation " &
                 "where strReferenceNumber = '" & txtTestReportNumber.Text & "' "
                 cmd = New SqlCommand(SQL, CurrentConnection)
@@ -377,8 +377,8 @@ Public Class ISMPTestFirmComments
                     "ISMPMaster.strReferenceNumber,  " &
                     "SUBSTRING(APBFacilityInformation.strAIRSnumber, 5,8) as strAIRSNUmber, " &
                     "strFacilityName,  strTestLogNumber,  " &
-                    "to_char(datTestDateStart, 'dd-Mon-yyyy') as datTestDateStart, " &
-                    "to_char(datTestDateEnd, 'dd-Mon-yyyy') as datTestDateEnd " &
+                    "format(datTestDateStart, 'dd-MMM-yyyy') as datTestDateStart, " &
+                    "format(datTestDateEnd, 'dd-MMM-yyyy') as datTestDateEnd " &
                     "from ISMPMaster, APBFacilityInformation,  " &
                     "ISMPTestNotification, ISMPReportInformation " &
                     "where ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSnumber  " &

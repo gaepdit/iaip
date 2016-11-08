@@ -2094,22 +2094,22 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
             "  rep.STREMISSIONSOURCE , rep.STRREPORTTYPE , " &
             "  rep.STRDOCUMENTTYPE , rep.STRAPPLICABLEREQUIREMENT , " &
             "  rep.STRTESTINGFIRM , rep.STRREVIEWINGENGINEER , " &
-            "  rep.STRWITNESSINGENGINEER , rep.STRREVIEWINGUNIT , TO_CHAR( " &
-            "  rep.DATREVIEWEDBYUNITMANAGER, 'dd-Mon-yyyy' ) AS " &
-            "  datReviewedByUnitManager , rep.STRCOMPLIANCEMANAGER , TO_CHAR " &
-            "  ( rep.DATRECEIVEDDATE, 'dd-Mon-yyyy' ) AS datReceivedDate , " &
-            "  TO_CHAR( rep.DATTESTDATESTART, 'dd-Mon-yyyy' ) AS " &
-            "  datTestDateStart , TO_CHAR( rep.DATTESTDATEEND, 'dd-Mon-yyyy' " &
-            "  ) AS datTestDateEnd , TO_CHAR( rep.DATCOMPLETEDATE, " &
-            "  'dd-Mon-yyyy' ) AS datCompleteDate , rep.MMOCOMMENTAREA , " &
+            "  rep.STRWITNESSINGENGINEER , rep.STRREVIEWINGUNIT , format( " &
+            "  rep.DATREVIEWEDBYUNITMANAGER, 'dd-MMM-yyyy' ) AS " &
+            "  datReviewedByUnitManager , rep.STRCOMPLIANCEMANAGER , format " &
+            "  ( rep.DATRECEIVEDDATE, 'dd-MMM-yyyy' ) AS datReceivedDate , " &
+            "  format( rep.DATTESTDATESTART, 'dd-MMM-yyyy' ) AS " &
+            "  datTestDateStart , format( rep.DATTESTDATEEND, 'dd-MMM-yyyy' " &
+            "  ) AS datTestDateEnd , format( rep.DATCOMPLETEDATE, " &
+            "  'dd-MMM-yyyy' ) AS datCompleteDate , rep.MMOCOMMENTAREA , " &
             "  rep.STRCLOSED , rep.STRPROGRAMMANAGER , " &
-            "  rep.STRCOMPLIANCESTATUS , rep.STRCC , TO_CHAR( " &
+            "  rep.STRCOMPLIANCESTATUS , rep.STRCC , convert(int, " &
             "  rep.DATRECEIVEDDATE - rep.DATTESTDATEEND ) AS DaysFromTest , " &
-            "  CASE WHEN rep.DATCOMPLETEDATE = '04-Jul-1776' THEN TO_CHAR( " &
-            "      GETDATE() - rep.DATRECEIVEDDATE ) ELSE TO_CHAR( " &
+            "  CASE WHEN rep.DATCOMPLETEDATE = '04-Jul-1776' THEN convert(int, " &
+            "      GETDATE() - convert(datetime,rep.DATRECEIVEDDATE )) ELSE convert(int, " &
             "      rep.DATCOMPLETEDATE - rep.DATRECEIVEDDATE ) END APBDays , " &
-            "  CASE WHEN rep.DATCOMPLETEDATE = '04-Jul-1776' THEN TO_CHAR( " &
-            "      GETDATE() - rep.DATREVIEWEDBYUNITMANAGER ) ELSE TO_CHAR( " &
+            "  CASE WHEN rep.DATCOMPLETEDATE = '04-Jul-1776' THEN convert(int, " &
+            "      GETDATE() - convert(datetime,rep.DATREVIEWEDBYUNITMANAGER )) ELSE convert(int, " &
             "      rep.DATCOMPLETEDATE - rep.DATREVIEWEDBYUNITMANAGER ) END " &
             "  EngineerDays , rep.STRDETERMINATIONMETHOD , " &
             "  rep.STRCONTROLEQUIPMENTDATA , rep.STROTHERWITNESSINGENG , " &
@@ -9617,7 +9617,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
             "(LogNumber|| ' --> ' ||StartDate) as LogNumber " &
             "from  " &
             "(Select (ISMPTESTNotification.strTestLogNumber) as LogNumber, " &
-            "to_char(datProposedStartDate) as StartDate " &
+            "format(datProposedStartDate,'dd-MMM-yyyy') as StartDate " &
             "from  ISMPTESTNotification  " &
             "where not exists(select ISMPTestLogLink.strTestLogNumber  " &
             "from ISMPTestLogLink " &
@@ -9646,7 +9646,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
             SQL = "select " &
             "(LogNumber|| ' --> ' ||StartDate) as LogNumber " &
             "from  (Select (ISMPTESTNotification.strTestLogNumber) as LogNumber, " &
-            "to_char(datProposedStartDate) as StartDate " &
+            "format(datProposedStartDate,'dd-MMM-yyyy') as StartDate " &
             "from  ISMPTESTNotification  " &
             "where not exists(select ISMPTestLogLink.strTestLogNumber  " &
             "from ISMPTestLogLink " &
@@ -10353,23 +10353,23 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
                   "strTestingFirm, strReviewingEngineer,  " &
                   "strWitnessingEngineer,  " &
                   "strReviewingUnit,  " &
-                  "to_char(datReviewedByUnitManager, 'dd-Mon-yyyy') as datReviewedByUnitManager,  " &
+                  "format(datReviewedByUnitManager, 'dd-MMM-yyyy') as datReviewedByUnitManager,  " &
                   "strComplianceManager,  " &
-                  "to_char(datReceivedDate, 'dd-Mon-yyyy') as datReceivedDate,  " &
-                  "to_char(datTestDateStart, 'dd-Mon-yyyy') as datTestDateStart,  " &
-                  "to_char(datTestDateEnd, 'dd-Mon-yyyy') as datTestDateEnd,  " &
-                  "to_char(datCompleteDate, 'dd-Mon-yyyy') as datCompleteDate,  " &
+                  "format(datReceivedDate, 'dd-MMM-yyyy') as datReceivedDate,  " &
+                  "format(datTestDateStart, 'dd-MMM-yyyy') as datTestDateStart,  " &
+                  "format(datTestDateEnd, 'dd-MMM-yyyy') as datTestDateEnd,  " &
+                  "format(datCompleteDate, 'dd-MMM-yyyy') as datCompleteDate,  " &
                   "mmoCommentArea,  " &
                   "strClosed, strProgramManager,  " &
                   "strComplianceStatus, strCC,  " &
                   "(ISMPReportInformation.datReceivedDate - ISMPReportInformation.datTestDateEnd) as DaysFromTest,  " &
                   "case  " &
-                  "when datCompleteDate = '04-Jul-1776' then to_char(GETDATE()-datReceivedDate)  " &
-                  "else to_char(datCompleteDate - datReceivedDate)  " &
+                  "when datCompleteDate = '04-Jul-1776' then convert(int,GETDATE()-convert(datetime,datReceivedDate))  " &
+                  "else convert(int,datCompleteDate - datReceivedDate)  " &
                   "End APBDays,  " &
                   "Case " &
-                  "when datCompleteDate = '04-Jul-1776' then to_char(GETDATE()-datReviewedByUnitManager)  " &
-                  "else to_char(datCompleteDate - datReviewedByUnitManager)  " &
+                  "when datCompleteDate = '04-Jul-1776' then convert(int,GETDATE()-convert(datetime,datReviewedByUnitManager))  " &
+                  "else convert(int,datCompleteDate - datReviewedByUnitManager)  " &
                   "End EngineerDays,  " &
                   "strDeterminationMethod, strControlEquipmentData,  " &
                   "strOtherWitnessingEng, strConfidentialData,  " &
