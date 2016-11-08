@@ -1133,7 +1133,7 @@ Public Class ISMPTestReportAdministrative
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL = "Select SSCPTrackingNumber.currval from dual "
+                SQL = "select current_value FROM sys.sequences WHERE name = 'sscptrackingnumber'"
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then

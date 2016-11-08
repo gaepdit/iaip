@@ -160,7 +160,7 @@ OR (IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(121)%')
 OR (IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(114)%')
 OR (IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(141)%'))
 UNION
-SELECT 'None', 0 FROM DUAL ORDER BY USERNAME
+SELECT 'None', 0 ORDER BY USERNAME
             ]]></s>.Value
 
             daCCList = New SqlDataAdapter(SQL, CurrentConnection)
@@ -201,7 +201,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
   OR IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(133)%'
   OR IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(114)%'))
   UNION
-  SELECT 'None', 0 FROM DUAL 
+  SELECT 'None', 0 
   ORDER BY ComplianceManager
             ]]></s>.Value
             daComplianceManager = New SqlDataAdapter(SQL, CurrentConnection)
@@ -11756,7 +11756,7 @@ SELECT DISTINCT (EPDUserProfiles.STRLASTNAME
                 dr = cmd.ExecuteReader
                 dr.Close()
 
-                SQL = "Select SSCPTrackingNumber.currval from dual "
+                SQL = "select current_value FROM sys.sequences WHERE name = 'sscptrackingnumber'"
 
                 cmd = New SqlCommand(SQL, CurrentConnection)
                 If CurrentConnection.State = ConnectionState.Closed Then
