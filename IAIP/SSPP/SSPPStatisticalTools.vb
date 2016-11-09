@@ -1,28 +1,7 @@
 Imports System.Data.SqlClient
 
-
 Public Class SSPPStatisticalTools
-    'Dim SQL As String
-    'Dim cmd As SqlCommand
-    'Dim dr As SqlDataReader
-    Dim recExist As Boolean
-    Dim dsViewCount As DataSet
-    Dim daViewCount As SqlDataAdapter
-    Dim dsPermittingUnits As DataSet
-    Dim daPermittingUnits As SqlDataAdapter
-    Dim tempLoad As String
-
-    Dim SQL, SQL2, SQL3, SQL4 As String
-    Dim cmd As SqlCommand
-    Dim dr As SqlDataReader
-    Dim dsPart60 As DataSet
-    Dim daPart60 As SqlDataAdapter
-    Dim dsPart61 As DataSet
-    Dim daPart61 As SqlDataAdapter
-    Dim dsPart63 As DataSet
-    Dim daPart63 As SqlDataAdapter
-    Dim dsSIP As DataSet
-    Dim daSIP As SqlDataAdapter
+    Private Property tempLoad As String = ""
 
     Private Sub SSPPStatisticalTools_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
@@ -45,119 +24,29 @@ Public Class SSPPStatisticalTools
         End Try
     End Sub
 
-#Region "Page Load"
-    Sub SetDateRange()
-        Try
-
-            Dim Month As String = ""
-            Dim Year As String = ""
-
-            Year = Now.Date.Year
-            Month = Now.Date.Month
-            Select Case Month
-                Case "1"
-                    DTPPermitCountStart.Text = "01-Jan-" & Year
-                    DTPPermitCountEnd.Text = "31-Jan-" & Year
-                Case "2"
-                    DTPPermitCountStart.Text = "01-Feb-" & Year
-                    DTPPermitCountEnd.Text = "28-Feb-" & Year
-                Case "3"
-                    DTPPermitCountStart.Text = "01-Mar-" & Year
-                    DTPPermitCountEnd.Text = "31-Mar-" & Year
-                Case "4"
-                    DTPPermitCountStart.Text = "01-Apr-" & Year
-                    DTPPermitCountEnd.Text = "30-Apr-" & Year
-                Case "5"
-                    DTPPermitCountStart.Text = "01-May-" & Year
-                    DTPPermitCountEnd.Text = "31-May-" & Year
-                Case "6"
-                    DTPPermitCountStart.Text = "01-Jun-" & Year
-                    DTPPermitCountEnd.Text = "30-Jun-" & Year
-                Case "7"
-                    DTPPermitCountStart.Text = "01-Jul-" & Year
-                    DTPPermitCountEnd.Text = "31-Jul-" & Year
-                Case "8"
-                    DTPPermitCountStart.Text = "01-Aug-" & Year
-                    DTPPermitCountEnd.Text = "31-Aug-" & Year
-                Case "9"
-                    DTPPermitCountStart.Text = "01-Sep-" & Year
-                    DTPPermitCountEnd.Text = "30-Sep-" & Year
-                Case "10"
-                    DTPPermitCountStart.Text = "01-Oct-" & Year
-                    DTPPermitCountEnd.Text = "31-Oct-" & Year
-                Case "11"
-                    DTPPermitCountStart.Text = "01-Nov-" & Year
-                    DTPPermitCountEnd.Text = "30-Nov-" & Year
-                Case "12"
-                    DTPPermitCountStart.Text = "01-Dec-" & Year
-                    DTPPermitCountEnd.Text = "31-Dec-" & Year
-                Case Else
-                    DTPPermitCountStart.Value = Today
-                    DTPPermitCountEnd.Value = Today
-            End Select
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-
-        End Try
+    Private Sub SetDateRange()
+        DTPPermitCountStart.Value = New Date(Today.Year, Today.Month, 1)
+        DTPPermitCountEnd.Value = DTPPermitCountStart.Value.AddMonths(1).AddDays(-1)
     End Sub
-    Sub LoadEPAReportYear()
-        Try
+    Private Sub LoadEPAReportYear()
+        Dim Year As Integer = Today.AddYears(1).Year
 
+        Do Until Year = 2005
+            cboEPAYear.Items.Add(Year)
+            Year = Year - 1
+        Loop
 
-            Dim i As Integer = 0
-            Dim Year As String
-
-            Year = Now.Year
-            cboEPAYear.Items.Add(Now.AddMonths(12).Year)
-
-            Do Until Year = "2005"
-                cboEPAYear.Items.Add(Year)
-                i += 12
-                Year = Now.AddMonths(-i).Year
-            Loop
-
-            cboEPAYear.Text = Now.Year
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-
-        End Try
+        cboEPAYear.SelectedItem = Today.Year
     End Sub
-    Sub LoadComboBoxs()
+    Private Sub LoadComboBoxs()
         Try
-
-            Dim dtPermittingUnits As New DataTable
-            Dim drDSRow As DataRow
-            Dim drNewRow As DataRow
-
-            SQL = "select " &
+            Dim query As String = "select " &
             "strUnitDesc, numUnitCode  " &
             "from LookUpEPDUnits  " &
             "where numProgramCode = '5'  " &
             "order by strUnitDesc "
 
-            dsPermittingUnits = New DataSet
-            daPermittingUnits = New SqlDataAdapter(SQL, CurrentConnection)
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            daPermittingUnits.Fill(dsPermittingUnits, "PermittingUnits")
-
-            dtPermittingUnits.Columns.Add("strUnitDesc", GetType(System.String))
-            dtPermittingUnits.Columns.Add("numUnitCode", GetType(System.String))
-
-            For Each drDSRow In dsPermittingUnits.Tables("PermittingUnits").Rows()
-                drNewRow = dtPermittingUnits.NewRow
-                drNewRow("strUnitDesc") = drDSRow("strUnitDesc")
-                drNewRow("numUnitCode") = drDSRow("numUnitCode")
-                dtPermittingUnits.Rows.Add(drNewRow)
-            Next
+            Dim dtPermittingUnits As DataTable = DB.GetDataTable(query)
 
             With cboSSPPUnits
                 .DataSource = dtPermittingUnits
@@ -186,94 +75,64 @@ Public Class SSPPStatisticalTools
 
         End Try
     End Sub
-#End Region
-#Region "Subs and Functions"
-    Sub RunPermitsIssued()
+    Private Sub RunPermitsIssued()
         Try
 
-            Dim FirstDay As String = ""
-            Dim LastDay As String = ""
+            Dim FirstDay As Date
+            Dim LastDay As Date
             Dim MedianTime As String = 0
-            'Dim PercentileTime As String = 0
             Dim n As Integer = 0
             Dim MedianArray(n) As Decimal
             Dim EngineerLine As String = ""
+            Dim query As String
 
             If chbAllApps.Checked = False Then
-                If cboSSPPUnits.Text = "SSPP Administrative" Then
-                    If clbEngineers.CheckedIndices.Contains(0) = True Then
-                        For Each Engineer As String In clbEngineers.Items
-                            If EngineerLine = "" Then
-                                EngineerLine = "and ( "
-                            End If
-                            EngineerLine = EngineerLine & "  concat(strLastName,', ',strFirstName) = '" & Engineer & "' or "
-                        Next
-                        If EngineerLine <> "" Then
-                            EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
-                        End If
-                    Else
-                        For Each Engineer As String In clbEngineers.CheckedItems
-                            If EngineerLine = "" Then
-                                EngineerLine = "and ( "
-                            End If
-                            EngineerLine = EngineerLine & "  concat(strLastName,', ',strFirstName) = '" & Engineer & "' or "
-                        Next
-                        If EngineerLine <> "" Then
-                            EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
-                        End If
-                    End If
+                If clbEngineers.CheckedIndices.Contains(0) = True Then
+                    EngineerLine = " and numUnit = '" & cboSSPPUnits.SelectedValue & "' "
                 Else
-                    If clbEngineers.CheckedIndices.Contains(0) = True Then
-                        EngineerLine = " and numUnit = '" & cboSSPPUnits.SelectedValue & "' "
-                    Else
-                        For Each Engineer As String In clbEngineers.CheckedItems
-                            If EngineerLine = "" Then
-                                EngineerLine = "and ( "
-                            End If
-                            EngineerLine = EngineerLine & "  concat(strLastName,', ',strFirstName) = '" & Engineer & "' or "
-                        Next
-                        If EngineerLine <> "" Then
-                            EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
+                    For Each Engineer As String In clbEngineers.CheckedItems
+                        If EngineerLine = "" Then
+                            EngineerLine = "and ( "
                         End If
+                        EngineerLine = EngineerLine & "  concat(strLastName,', ',strFirstName) = '" & Engineer & "' or "
+                    Next
+                    If EngineerLine <> "" Then
+                        EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
                     End If
                 End If
             Else
                 EngineerLine = ""
             End If
 
-            FirstDay = Format(DTPPermitCountStart.Value.AddDays(-1), "dd-MMM-yyyy")
-            LastDay = Format(DTPPermitCountEnd.Value.AddDays(1), "dd-MMM-yyyy")
+            FirstDay = DTPPermitCountStart.Value.AddDays(-1)
+            LastDay = DTPPermitCountEnd.Value.AddDays(1)
 
-            SQL = "select count(*) as TVInitial " &
+            query = "select count(*) " &
             "from SSPPApplicationMaster, SSPPApplicationTracking, " &
             "EPDUserProfiles " &
             "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber " &
             "and SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
             "and strApplicationType = '14' " &
-            "and DatPermitIssued > '" & FirstDay & "' and datPermitissued < '" & LastDay & "' " &
+            "and DatPermitIssued > @FirstDay and datPermitissued < @LastDay " &
             "and (strPermitType = '4' or strPermitType = '7' or strPermitType = '12' " &
             "or strPermitType = '13') " &
             EngineerLine
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
+            Dim p As SqlParameter() = {
+                New SqlParameter("@FirstDay", FirstDay),
+                New SqlParameter("@LastDay", LastDay)
+            }
 
-            dr = cmd.ExecuteReader
-            While dr.Read
-                txtTitleVInitialCount.Text = dr.Item("TVInitial")
-            End While
-            dr.Close()
+            txtTitleVInitialCount.Text = DB.GetInteger(query, p)
 
             If txtTitleVInitialCount.Text <> "0" Then
-                SQL = "select (datPermitIssued - datReceivedDate) as Diff " &
+                query = "select datediff(day,datReceivedDate,datPermitIssued) as Diff " &
                 "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
                 "EPDUserProfiles " &
                 "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
                 "and SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
                 "and strApplicationType = '14'  " &
-                "and DatPermitIssued > '" & FirstDay & "' and datPermitissued < '" & LastDay & "' " &
+                "and DatPermitIssued > @FirstDay and datPermitissued < @LastDay " &
                 "and (strPermitType = '4' or strPermitType = '7' or strPermitType = '12' " &
                 "or strPermitType = '13') " &
                 EngineerLine &
@@ -282,15 +141,13 @@ Public Class SSPPStatisticalTools
                 n = 0
                 ReDim MedianArray(n)
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                dr = cmd.ExecuteReader
+                Dim dt As DataTable = DB.GetDataTable(query, p)
 
-                While dr.Read
+                For Each dr As DataRow In dt.Rows
                     ReDim Preserve MedianArray(n)
-                    MedianArray(n) = CInt(dr.Item("Diff"))
+                    MedianArray(n) = dr.Item("Diff")
                     n = n + 1
-                End While
-                dr.Close()
+                Next
 
                 Array.Sort(MedianArray)
 
@@ -304,35 +161,27 @@ Public Class SSPPStatisticalTools
                 txtTVInitialMedian.Text = "0"
             End If
 
-            SQL = "select count(*) as TVRenewal " &
+            query = "select count(*)  " &
             "from SSPPApplicationMaster, SSPPApplicationTracking,   " &
             "EPDUserProfiles " &
             "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber " &
             "and SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
             "and strApplicationType = '16' " &
-            "and DatPermitIssued > '" & FirstDay & "' and datPermitissued < '" & LastDay & "' " &
+            "and DatPermitIssued > @FirstDay and datPermitissued < @LastDay " &
             "and (strPermitType = '4' or strPermitType = '7' or strPermitType = '12' " &
             "or strPermitType = '13') " &
             EngineerLine
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                txtTitleVRenewalCount.Text = dr.Item("TVRenewal")
-            End While
-            dr.Close()
+            txtTitleVRenewalCount.Text = DB.GetInteger(query, p)
 
             If txtTitleVRenewalCount.Text <> "0" Then
-                SQL = "select (datPermitIssued - datReceivedDate) as Diff " &
+                query = "select datediff(day, datReceivedDate, datPermitIssued ) as Diff " &
                     "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
                     "EPDUserProfiles " &
                     "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
                     "and SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
                     "and strApplicationType = '16'  " &
-                    "and DatPermitIssued > '" & FirstDay & "' and datPermitissued < '" & LastDay & "' " &
+                    "and DatPermitIssued > @FirstDay and datPermitissued < @LastDay " &
                     "and (strPermitType = '4' or strPermitType = '7' or strPermitType = '12' " &
                     "or strPermitType = '13') " &
                     EngineerLine &
@@ -341,15 +190,13 @@ Public Class SSPPStatisticalTools
                 n = 0
                 ReDim MedianArray(n)
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                dr = cmd.ExecuteReader
+                Dim dt As DataTable = DB.GetDataTable(query, p)
 
-                While dr.Read
+                For Each dr As DataRow In dt.Rows
                     ReDim Preserve MedianArray(n)
-                    MedianArray(n) = CInt(dr.Item("Diff"))
+                    MedianArray(n) = dr.Item("Diff")
                     n = n + 1
-                End While
-                dr.Close()
+                Next
 
                 Array.Sort(MedianArray)
 
@@ -364,13 +211,13 @@ Public Class SSPPStatisticalTools
             End If
 
             If txtTitleVInitialCount.Text <> "0" And txtTitleVRenewalCount.Text <> "0" Then
-                SQL = "select (datPermitIssued - datReceivedDate) as Diff " &
+                query = "select datediff(day, datReceivedDate, datPermitIssued ) as Diff " &
                     "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
                     "EPDUserProfiles " &
                     "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
                     "and SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
                     "and (strApplicationType = '16' or strApplicationType = '14') " &
-                    "and DatPermitIssued > '" & FirstDay & "' and datPermitissued < '" & LastDay & "' " &
+                    "and DatPermitIssued > @FirstDay and datPermitissued < @LastDay " &
                     "and (strPermitType = '4' or strPermitType = '7' or strPermitType = '12' " &
                     "or strPermitType = '13') " &
                     EngineerLine &
@@ -379,15 +226,13 @@ Public Class SSPPStatisticalTools
                 n = 0
                 ReDim MedianArray(n)
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                dr = cmd.ExecuteReader
+                Dim dt As DataTable = DB.GetDataTable(query, p)
 
-                While dr.Read
+                For Each dr As DataRow In dt.Rows
                     ReDim Preserve MedianArray(n)
-                    MedianArray(n) = CInt(dr.Item("Diff"))
+                    MedianArray(n) = dr.Item("Diff")
                     n = n + 1
-                End While
-                dr.Close()
+                Next
 
                 Array.Sort(MedianArray)
 
@@ -401,51 +246,40 @@ Public Class SSPPStatisticalTools
                 txtTVTotalMedian.Text = "0"
             End If
 
-            SQL = "select count(*) as SigMod " &
+            query = "select count(*)  " &
             "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
             "EPDUserProfiles " &
             "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber " &
             "and SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
             "and (strApplicationType = '22' or strApplicationType = '21') " &
-            "and DatPermitIssued > '" & FirstDay & "' and datPermitissued < '" & LastDay & "' " &
+            "and DatPermitIssued > @FirstDay and datPermitissued < @LastDay " &
             "and (strPermitType = '4' or strPermitType = '7') " &
             EngineerLine
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                txtSigModCount.Text = dr.Item("SigMod")
-            End While
-            dr.Close()
+            txtSigModCount.Text = DB.GetInteger(query, p)
 
             If txtSigModCount.Text <> "0" Then
-                SQL = "select (datPermitIssued - datReceivedDate) as Diff " &
+                query = "select datediff(day, datReceivedDate, datPermitIssued ) as Diff " &
                     "from SSPPApplicationMaster, SSPPApplicationTracking, " &
                     "EPDUserProfiles " &
                     "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
                     "and SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
                     "and (strApplicationType = '22' or strApplicationType = '21') " &
-                    "and DatPermitIssued > '" & FirstDay & "' and datPermitissued < '" & LastDay & "' " &
+                    "and DatPermitIssued > @FirstDay and datPermitissued < @LastDay " &
                     "and (strPermitType = '4' or strPermitType = '7') " &
                     EngineerLine &
                     "Order by Diff desc "
 
-
                 n = 0
                 ReDim MedianArray(n)
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                dr = cmd.ExecuteReader
+                Dim dt As DataTable = DB.GetDataTable(query, p)
 
-                While dr.Read
+                For Each dr As DataRow In dt.Rows
                     ReDim Preserve MedianArray(n)
-                    MedianArray(n) = CInt(dr.Item("Diff"))
+                    MedianArray(n) = dr.Item("Diff")
                     n = n + 1
-                End While
-                dr.Close()
+                Next
 
                 Array.Sort(MedianArray)
 
@@ -459,34 +293,26 @@ Public Class SSPPStatisticalTools
                 txtSigModMedian.Text = "0"
             End If
 
-            SQL = "select count(*) as MinorMod " &
+            query = "select count(*) as MinorMod " &
             "from SSPPApplicationMaster, SSPPApplicationTracking, " &
             "EPDUserProfiles " &
             "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber " &
             "and SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
             "and (strApplicationType = '19' or strApplicationType = '20') " &
-            "and DatPermitIssued > '" & FirstDay & "' and datPermitissued < '" & LastDay & "' " &
+            "and DatPermitIssued > @FirstDay and datPermitissued < @LastDay " &
             "and (strPermitType = '4' or strPermitType = '7') " &
             EngineerLine
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                txtMinorModCount.Text = dr.Item("MinorMod")
-            End While
-            dr.Close()
+            txtMinorModCount.Text = DB.GetInteger(query, p)
 
             If txtMinorModCount.Text <> "0" Then
-                SQL = "select (datPermitIssued - datReceivedDate) as Diff " &
+                query = "select datediff(day, datReceivedDate, datPermitIssued ) as Diff " &
                     "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
                     "EPDUserProfiles " &
                     "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
                     "and SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
                     "and (strApplicationType = '19' or strApplicationType = '20') " &
-                    "and DatPermitIssued > '" & FirstDay & "' and datPermitissued < '" & LastDay & "' " &
+                    "and DatPermitIssued > @FirstDay and datPermitissued < @LastDay " &
                     "and (strPermitType = '4' or strPermitType = '7') " &
                     EngineerLine &
                     "Order by Diff desc "
@@ -494,15 +320,13 @@ Public Class SSPPStatisticalTools
                 n = 0
                 ReDim MedianArray(n)
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                dr = cmd.ExecuteReader
+                Dim dt As DataTable = DB.GetDataTable(query, p)
 
-                While dr.Read
+                For Each dr As DataRow In dt.Rows
                     ReDim Preserve MedianArray(n)
-                    MedianArray(n) = CInt(dr.Item("Diff"))
+                    MedianArray(n) = dr.Item("Diff")
                     n = n + 1
-                End While
-                dr.Close()
+                Next
 
                 Array.Sort(MedianArray)
 
@@ -516,34 +340,26 @@ Public Class SSPPStatisticalTools
                 txtMinorMedian.Text = "0"
             End If
 
-            SQL = "select count(*) as Mod502 " &
+            query = "select count(*) as Mod502 " &
             "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
             "EPDUserProfiles " &
             "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber " &
             "and SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
             "and strApplicationType = '15' " &
-            "and DatPermitIssued > '" & FirstDay & "' and datPermitissued < '" & LastDay & "' " &
+            "and DatPermitIssued > @FirstDay and datPermitissued < @LastDay " &
             "and (strPermitType = '4' or strPermitType = '7') " &
             EngineerLine
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                txt502Count.Text = dr.Item("Mod502")
-            End While
-            dr.Close()
+            txt502Count.Text = DB.GetInteger(query, p)
 
             If txt502Count.Text <> "0" Then
-                SQL = "select (datPermitIssued - datReceivedDate) as Diff " &
+                query = "select datediff(day,datReceivedDate, datPermitIssued ) as Diff " &
                     "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
                     "EPDUserProfiles " &
                     "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
                     "and SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
                     "and strApplicationType = '15' " &
-                    "and DatPermitIssued > '" & FirstDay & "' and datPermitissued < '" & LastDay & "' " &
+                    "and DatPermitIssued > @FirstDay and datPermitissued < @LastDay " &
                     "and (strPermitType = '4' or strPermitType = '7') " &
                     EngineerLine &
                     "Order by Diff desc "
@@ -551,15 +367,13 @@ Public Class SSPPStatisticalTools
                 n = 0
                 ReDim MedianArray(n)
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                dr = cmd.ExecuteReader
+                Dim dt As DataTable = DB.GetDataTable(query, p)
 
-                While dr.Read
+                For Each dr As DataRow In dt.Rows
                     ReDim Preserve MedianArray(n)
-                    MedianArray(n) = CInt(dr.Item("Diff"))
+                    MedianArray(n) = dr.Item("Diff")
                     n = n + 1
-                End While
-                dr.Close()
+                Next
 
                 Array.Sort(MedianArray)
 
@@ -573,35 +387,26 @@ Public Class SSPPStatisticalTools
                 txt502Median.Text = "0"
             End If
 
-            SQL = "select count(*) as AA " &
+            query = "select count(*) as AA " &
             "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
             "EPDUserProfiles " &
             "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber " &
             "and SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
             "and strApplicationType = '26' " &
-            "and DatPermitIssued > '" & FirstDay & "' and datPermitissued < '" & LastDay & "' " &
+            "and DatPermitIssued > @FirstDay and datPermitissued < @LastDay " &
             "and (strPermitType = '4' or strPermitType = '7' or strPermitType = '1') " &
             EngineerLine
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                txtAACount.Text = dr.Item("AA")
-            End While
-            dr.Close()
-
+            txtAACount.Text = DB.GetInteger(query, p)
 
             If txtAACount.Text <> "0" Then
-                SQL = "select (datPermitIssued - datReceivedDate) as Diff " &
+                query = "select datediff(day,datReceivedDate, datPermitIssued ) as Diff " &
                         "from SSPPApplicationMaster, SSPPApplicationTracking, " &
                         "EPDUserProfiles " &
                         "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
                         "and SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
                         "and strApplicationType = '26' " &
-                        "and DatPermitIssued > '" & FirstDay & "' and datPermitissued < '" & LastDay & "' " &
+                        "and DatPermitIssued > @FirstDay and datPermitissued < @LastDay " &
                         "and (strPermitType = '4' or strPermitType = '7' or strPermitType = '1') " &
                         EngineerLine &
                         "Order by Diff desc "
@@ -609,15 +414,13 @@ Public Class SSPPStatisticalTools
                 n = 0
                 ReDim MedianArray(n)
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                dr = cmd.ExecuteReader
+                Dim dt As DataTable = DB.GetDataTable(query, p)
 
-                While dr.Read
+                For Each dr As DataRow In dt.Rows
                     ReDim Preserve MedianArray(n)
-                    MedianArray(n) = CInt(dr.Item("Diff"))
+                    MedianArray(n) = dr.Item("Diff")
                     n = n + 1
-                End While
-                dr.Close()
+                Next
 
                 Array.Sort(MedianArray)
 
@@ -631,34 +434,26 @@ Public Class SSPPStatisticalTools
                 txtAAMedian.Text = "0"
             End If
 
-            SQL = "select count(*) as SM " &
+            query = "select count(*) as SM " &
             "from SSPPApplicationMaster, SSPPApplicationTracking, " &
             "EPDUserProfiles " &
             "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber " &
             "and SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
             "and strApplicationType = '12' " &
-            "and DatPermitIssued > '" & FirstDay & "' and datPermitissued < '" & LastDay & "' " &
+            "and DatPermitIssued > @FirstDay and datPermitissued < @LastDay " &
             "and (strPermitType = '4' or strPermitType = '7') " &
             EngineerLine
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                txtSMCount.Text = dr.Item("SM")
-            End While
-            dr.Close()
+            txtSMCount.Text = DB.GetInteger(query, p)
 
             If txtSMCount.Text <> "0" Then
-                SQL = "select (datPermitIssued - datReceivedDate) as Diff " &
+                query = "select datediff(day,datReceivedDate, datPermitIssued ) as Diff " &
                     "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
                     "EPDUserProfiles " &
                     "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
                     "and SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
                     "and strApplicationType = '12' " &
-                    "and DatPermitIssued > '" & FirstDay & "' and datPermitissued < '" & LastDay & "' " &
+                    "and DatPermitIssued > @FirstDay and datPermitissued < @LastDay " &
                     "and (strPermitType = '4' or strPermitType = '7') " &
                     EngineerLine &
                     "Order by Diff desc "
@@ -666,15 +461,13 @@ Public Class SSPPStatisticalTools
                 n = 0
                 ReDim MedianArray(n)
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                dr = cmd.ExecuteReader
+                Dim dt As DataTable = DB.GetDataTable(query, p)
 
-                While dr.Read
+                For Each dr As DataRow In dt.Rows
                     ReDim Preserve MedianArray(n)
-                    MedianArray(n) = CInt(dr.Item("Diff"))
+                    MedianArray(n) = dr.Item("Diff")
                     n = n + 1
-                End While
-                dr.Close()
+                Next
 
                 Array.Sort(MedianArray)
 
@@ -689,34 +482,26 @@ Public Class SSPPStatisticalTools
                 txtSMMedian.Text = "0"
             End If
 
-            SQL = "select count(*) as PBR " &
+            query = "select count(*) as PBR " &
             "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
             "EPDUserProfiles " &
             "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber " &
             "and SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
             "and strApplicationType = '9' " &
-            "and DatPermitIssued > '" & FirstDay & "' and datPermitissued < '" & LastDay & "' " &
+            "and DatPermitIssued > @FirstDay and datPermitissued < @LastDay " &
             "and strPermitType = '6' " &
             EngineerLine
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                txtPBRCount.Text = dr.Item("PBR")
-            End While
-            dr.Close()
+            txtPBRCount.Text = DB.GetInteger(query, p)
 
             If txtPBRCount.Text <> "0" Then
-                SQL = "select (datPermitIssued - datReceivedDate) as Diff " &
+                query = "select datediff(day,datReceivedDate, datPermitIssued ) as Diff " &
                     "from SSPPApplicationMaster, SSPPApplicationTracking, " &
                     "EPDUserProfiles " &
                     "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
                     "and SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
                     "and strApplicationType = '9' " &
-                    "and DatPermitIssued > '" & FirstDay & "' and datPermitissued < '" & LastDay & "' " &
+                    "and DatPermitIssued > @FirstDay and datPermitissued < @LastDay " &
                     "and strPermitType = '6' " &
                     EngineerLine &
                     "Order by Diff desc "
@@ -724,15 +509,13 @@ Public Class SSPPStatisticalTools
                 n = 0
                 ReDim MedianArray(n)
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                dr = cmd.ExecuteReader
+                Dim dt As DataTable = DB.GetDataTable(query, p)
 
-                While dr.Read
+                For Each dr As DataRow In dt.Rows
                     ReDim Preserve MedianArray(n)
-                    MedianArray(n) = CInt(dr.Item("Diff"))
+                    MedianArray(n) = dr.Item("Diff")
                     n = n + 1
-                End While
-                dr.Close()
+                Next
 
                 Array.Sort(MedianArray)
 
@@ -746,7 +529,7 @@ Public Class SSPPStatisticalTools
                 txtPBRMedian.Text = "0"
             End If
 
-            SQL = "select count(*) as Other " &
+            query = "select count(*) as Other " &
             "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
             "EPDUserProfiles " &
             "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber " &
@@ -754,22 +537,14 @@ Public Class SSPPStatisticalTools
             "and (strApplicationType = '11' OR strApplicationType = '8' " &
             "OR strApplicationType = '4' OR strapplicationType = '3' " &
             "OR strApplicationType = '25' OR strApplicationType = '2') " &
-            "and DatPermitIssued > '" & FirstDay & "' and datPermitissued < '" & LastDay & "' " &
+            "and DatPermitIssued > @FirstDay and datPermitissued < @LastDay " &
             "and (strPermitType = '7' or strPermitType = '4') " &
             EngineerLine
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                txtOtherCount.Text = dr.Item("Other")
-            End While
-            dr.Close()
+            txtOtherCount.Text = DB.GetInteger(query, p)
 
             If txtOtherCount.Text <> "0" Then
-                SQL = "select (datPermitIssued - datReceivedDate) as Diff " &
+                query = "select datediff(day,datReceivedDate, datPermitIssued ) as Diff " &
                     "from SSPPApplicationMaster, SSPPApplicationTracking, " &
                     "EPDUserProfiles " &
                     "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
@@ -777,7 +552,7 @@ Public Class SSPPStatisticalTools
                     "and (strApplicationType = '11' OR strApplicationType = '8' " &
                     "OR strApplicationType = '4' OR strapplicationType = '3' " &
                     "OR strApplicationType = '25' OR strApplicationType = '2') " &
-                    "and DatPermitIssued > '" & FirstDay & "' and datPermitissued < '" & LastDay & "' " &
+                    "and DatPermitIssued > @FirstDay and datPermitissued < @LastDay " &
                     "and (strPermitType = '7' or strPermitType = '4') " &
                     EngineerLine &
                     "Order by Diff desc "
@@ -785,15 +560,13 @@ Public Class SSPPStatisticalTools
                 n = 0
                 ReDim MedianArray(n)
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                dr = cmd.ExecuteReader
+                Dim dt As DataTable = DB.GetDataTable(query, p)
 
-                While dr.Read
+                For Each dr As DataRow In dt.Rows
                     ReDim Preserve MedianArray(n)
-                    MedianArray(n) = CInt(dr.Item("Diff"))
+                    MedianArray(n) = dr.Item("Diff")
                     n = n + 1
-                End While
-                dr.Close()
+                Next
 
                 Array.Sort(MedianArray)
 
@@ -808,13 +581,13 @@ Public Class SSPPStatisticalTools
                 txtOtherMedian.Text = "0"
             End If
 
-            SQL = "select count(*) as Closed " &
+            query = "select count(*) as Closed " &
             "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
             "EPDUserProfiles " &
             "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
             "and SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
             "and datPermitIssued IS not Null  " &
-            "and datPermitIssued > '" & FirstDay & "' and datPermitIssued < '" & LastDay & "' " &
+            "and datPermitIssued > @FirstDay and datPermitissued < @LastDay " &
             "and strPermitType <> '4' " &
             "and strPermitType <> '7' " &
             "and strPermitType <> '12' " &
@@ -822,25 +595,16 @@ Public Class SSPPStatisticalTools
             "and strPermitType <> '6' " &
             EngineerLine
 
-
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                txtNonPermitCount.Text = dr.Item("Closed")
-            End While
-            dr.Close()
+            txtNonPermitCount.Text = DB.GetInteger(query, p)
 
             If txtNonPermitCount.Text <> "0" Then
-                SQL = "select (datPermitIssued - datReceivedDate) as Diff " &
+                query = "select datediff(day,datReceivedDate, datPermitIssued ) as Diff " &
                     "from SSPPApplicationMaster, SSPPApplicationTracking, " &
                     "EPDUserProfiles " &
                     "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
                     "and SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
                     "and datPermitIssued IS not Null  " &
-                    "and datPermitIssued > '" & FirstDay & "' and datPermitIssued < '" & LastDay & "' " &
+                    "and datPermitIssued > @FirstDay and datPermitissued < @LastDay " &
                     "and strPermitType <> '4' " &
                     "and strPermitType <> '7' " &
                     "and strPermitType <> '12' " &
@@ -852,15 +616,13 @@ Public Class SSPPStatisticalTools
                 n = 0
                 ReDim MedianArray(n)
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                dr = cmd.ExecuteReader
+                Dim dt As DataTable = DB.GetDataTable(query, p)
 
-                While dr.Read
+                For Each dr As DataRow In dt.Rows
                     ReDim Preserve MedianArray(n)
-                    MedianArray(n) = CInt(dr.Item("Diff"))
+                    MedianArray(n) = dr.Item("Diff")
                     n = n + 1
-                End While
-                dr.Close()
+                Next
 
                 Array.Sort(MedianArray)
 
@@ -874,7 +636,7 @@ Public Class SSPPStatisticalTools
                 txtNonPermitMedian.Text = "0"
             End If
 
-            SQL = "select count(*) as PSD " &
+            query = "select count(*) as PSD " &
             "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
             "SSPPApplicationData,  " &
             "EPDUserProfiles " &
@@ -882,24 +644,16 @@ Public Class SSPPStatisticalTools
             "and SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
             "and SSPPApplicationMaster.strApplicatioNNumber = SSPPApplicationData.strApplicationNumber  " &
             "and SUBSTRING(strTrackedRules, 1, 1) = '1'  " &
-            "and DatPermitIssued > '" & FirstDay & "' and datPermitissued < '" & LastDay & "'  " &
+            "and DatPermitIssued > @FirstDay and datPermitissued < @LastDay  " &
             "and strPermitType <> '9' " &
             "and strPermitType <> '10' " &
             "and strPermitType <> '11' " &
             EngineerLine
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                txtPSDCount.Text = dr.Item("PSD")
-            End While
-            dr.Close()
+            txtPSDCount.Text = DB.GetInteger(query, p)
 
             If txtPSDCount.Text <> "0" Then
-                SQL = "select (datPermitIssued - datReceivedDate) as Diff " &
+                query = "select datediff(day,datReceivedDate, datPermitIssued ) as Diff " &
                     "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
                     "SSPPApplicationData,  " &
                     "EPDUserProfiles " &
@@ -907,7 +661,7 @@ Public Class SSPPStatisticalTools
                     "and SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
                     "and SSPPApplicationMaster.strApplicatioNNumber = SSPPApplicationData.strApplicationNumber  " &
                     "and SUBSTRING(strTrackedRules, 1, 1) = '1'  " &
-                    "and DatPermitIssued > '" & FirstDay & "' and datPermitissued < '" & LastDay & "' " &
+                    "and DatPermitIssued > @FirstDay and datPermitissued < @LastDay " &
                     "and strPermitType <> '9' " &
                     "and strPermitType <> '10' " &
                     "and strPermitType <> '11' " &
@@ -917,15 +671,13 @@ Public Class SSPPStatisticalTools
                 n = 0
                 ReDim MedianArray(n)
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                dr = cmd.ExecuteReader
+                Dim dt As DataTable = DB.GetDataTable(query, p)
 
-                While dr.Read
+                For Each dr As DataRow In dt.Rows
                     ReDim Preserve MedianArray(n)
-                    MedianArray(n) = CInt(dr.Item("Diff"))
+                    MedianArray(n) = dr.Item("Diff")
                     n = n + 1
-                End While
-                dr.Close()
+                Next
 
                 Array.Sort(MedianArray)
 
@@ -946,71 +698,40 @@ Public Class SSPPStatisticalTools
 
         End Try
     End Sub
-    Sub RunOpenApplications()
+    Private Sub RunOpenApplications()
         Try
 
             Dim EngineerLine As String = ""
+            Dim query As String
 
             If chbAllApps2.Checked = False Then
-                If cboSSPPUnits2.Text = "SSPP Administrative" Then
-                    If clbEngineers2.CheckedIndices.Contains(0) = True Then
-                        For Each Engineer As String In clbEngineers2.Items
-                            If EngineerLine = "" Then
-                                EngineerLine = "and ( "
-                            End If
-                            EngineerLine = EngineerLine & "  concat(strLastName,', ',strFirstName) = '" & Engineer & "' or "
-                        Next
-                        If EngineerLine <> "" Then
-                            EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
-                        End If
-                    Else
-                        For Each Engineer As String In clbEngineers2.CheckedItems
-                            If EngineerLine = "" Then
-                                EngineerLine = "and ( "
-                            End If
-                            EngineerLine = EngineerLine & "  concat(strLastName,', ',strFirstName) = '" & Engineer & "' or "
-                        Next
-                        If EngineerLine <> "" Then
-                            EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
-                        End If
-                    End If
+                If clbEngineers2.CheckedIndices.Contains(0) = True Then
+                    EngineerLine = " and numUnit = '" & cboSSPPUnits2.SelectedValue & "' "
                 Else
-                    If clbEngineers2.CheckedIndices.Contains(0) = True Then
-                        EngineerLine = " and numUnit = '" & cboSSPPUnits2.SelectedValue & "' "
-                    Else
-                        For Each Engineer As String In clbEngineers2.CheckedItems
-                            If EngineerLine = "" Then
-                                EngineerLine = "and ( "
-                            End If
-                            EngineerLine = EngineerLine & "  concat(strLastName,', ',strFirstName) = '" & Engineer & "' or "
-                        Next
-                        If EngineerLine <> "" Then
-                            EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
+                    For Each Engineer As String In clbEngineers2.CheckedItems
+                        If EngineerLine = "" Then
+                            EngineerLine = "and ( "
                         End If
+                        EngineerLine = EngineerLine & "  concat(strLastName,', ',strFirstName) = '" & Engineer & "' or "
+                    Next
+                    If EngineerLine <> "" Then
+                        EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
                     End If
                 End If
             Else
                 EngineerLine = ""
             End If
 
-            SQL = "select count(*) as OpenCount " &
+            query = "select count(*) as OpenCount " &
             "from SSPPApplicationMaster,  " &
             "EPDUserProfiles " &
             "where datFinalizedDate is Null " &
             "and SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
                     EngineerLine
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                txtAllOpenCount.Text = dr.Item("OpenCount")
-            End While
-            dr.Close()
+            txtAllOpenCount.Text = DB.GetInteger(query)
 
-            SQL = "select count(*) as OpenDOCount " &
+            query = "select count(*) as OpenDOCount " &
             "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
             "EPDUserProfiles " &
             "where datFinalizedDate is Null  " &
@@ -1020,17 +741,9 @@ Public Class SSPPStatisticalTools
             "and (datDraftIssued is Null or datDraftIssued < datToDirector) " &
                     EngineerLine
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                txtToDOCount.Text = dr.Item("OpenDOCount")
-            End While
-            dr.Close()
+            txtToDOCount.Text = DB.GetInteger(query)
 
-            SQL = "select count(*) as OpenBCCount " &
+            query = "select count(*) as OpenBCCount " &
             "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
             "EPDUserProfiles " &
             "where datFinalizedDate is Null  " &
@@ -1041,17 +754,9 @@ Public Class SSPPStatisticalTools
             "and (datDraftIssued is Null or datDraftIssued < datToBranchCheif) " &
                     EngineerLine
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                txtToBCCount.Text = dr.Item("OpenBCCount")
-            End While
-            dr.Close()
+            txtToBCCount.Text = DB.GetInteger(query)
 
-            SQL = "select count(*) as Open45Days " &
+            query = "select count(*) as Open45Days " &
             "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
             "EPDUserProfiles " &
             "where datFinalizedDate is Null  " &
@@ -1061,17 +766,9 @@ Public Class SSPPStatisticalTools
             "and datDraftIssued is Not Null " &
                     EngineerLine
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                txtOpen45DayCount.Text = dr.Item("Open45Days")
-            End While
-            dr.Close()
+            txtOpen45DayCount.Text = DB.GetInteger(query)
 
-            SQL = "select count(*) as OpenPublicNotice " &
+            query = "select count(*) as OpenPublicNotice " &
             "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
             "EPDUserProfiles " &
             "where datFinalizedDate is Null  " &
@@ -1081,17 +778,9 @@ Public Class SSPPStatisticalTools
             "and datEPAEnds is Null  " &
                     EngineerLine
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                txtPublicNoticeCount.Text = dr.Item("OpenPublicNotice")
-            End While
-            dr.Close()
+            txtPublicNoticeCount.Text = DB.GetInteger(query)
 
-            SQL = "select count(*) as OpenDraftIssued " &
+            query = "select count(*) as OpenDraftIssued " &
             "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
             "EPDUserProfiles " &
             "where datFinalizedDate is Null  " &
@@ -1104,17 +793,9 @@ Public Class SSPPStatisticalTools
             "and datEPAEnds is Null  " &
                     EngineerLine
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                txtDraftIssuedCount.Text = dr.Item("OpenDraftIssued")
-            End While
-            dr.Close()
+            txtDraftIssuedCount.Text = DB.GetInteger(query)
 
-            SQL = "select count(*) as OpenPMIICount " &
+            query = "select count(*) as OpenPMIICount " &
             "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
             "EPDUserProfiles " &
             "where datFinalizedDate is Null  " &
@@ -1128,17 +809,9 @@ Public Class SSPPStatisticalTools
             "and datToPMII is Not Null " &
                     EngineerLine
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                txtToPMCount.Text = dr.Item("OpenPMIICount")
-            End While
-            dr.Close()
+            txtToPMCount.Text = DB.GetInteger(query)
 
-            SQL = "select count(*) as OpenPMICount " &
+            query = "select count(*) as OpenPMICount " &
             "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
             "EPDUserProfiles " &
             "where datFinalizedDate is Null  " &
@@ -1153,17 +826,9 @@ Public Class SSPPStatisticalTools
             "and datToPMI is Not Null " &
                     EngineerLine
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                txtToUCCount.Text = dr.Item("OpenPMICount")
-            End While
-            dr.Close()
+            txtToUCCount.Text = DB.GetInteger(query)
 
-            SQL = "select count(*) as OpenStaffCount " &
+            query = "select count(*) as OpenStaffCount " &
             "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
             "EPDUserProfiles " &
             "where datFinalizedDate is Null  " &
@@ -1178,15 +843,7 @@ Public Class SSPPStatisticalTools
             "and datToPMI is Null " &
                     EngineerLine
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                txtWStaffCount.Text = dr.Item("OpenStaffCount")
-            End While
-            dr.Close()
+            txtWStaffCount.Text = DB.GetInteger(query)
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -1195,54 +852,31 @@ Public Class SSPPStatisticalTools
 
         End Try
     End Sub
-    Sub RunTVAgeOfApplications()
+    Private Sub RunTVAgeOfApplications()
         Try
 
             Dim EngineerLine As String = ""
+            Dim query As String
 
             If chbAllApps3.Checked = False Then
-                If cboSSPPUnits3.Text = "SSPP Administrative" Then
-                    If clbEngineers3.CheckedIndices.Contains(0) = True Then
-                        For Each Engineer As String In clbEngineers3.Items
-                            If EngineerLine = "" Then
-                                EngineerLine = "and ( "
-                            End If
-                            EngineerLine = EngineerLine & "  concat(strLastName,', ',strFirstName) = '" & Engineer & "' or "
-                        Next
-                        If EngineerLine <> "" Then
-                            EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
-                        End If
-                    Else
-                        For Each Engineer As String In clbEngineers3.CheckedItems
-                            If EngineerLine = "" Then
-                                EngineerLine = "and ( "
-                            End If
-                            EngineerLine = EngineerLine & "  concat(strLastName,', ',strFirstName) = '" & Engineer & "' or "
-                        Next
-                        If EngineerLine <> "" Then
-                            EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
-                        End If
-                    End If
+                If clbEngineers3.CheckedIndices.Contains(0) = True Then
+                    EngineerLine = " and numUnit = '" & cboSSPPUnits3.SelectedValue & "' "
                 Else
-                    If clbEngineers3.CheckedIndices.Contains(0) = True Then
-                        EngineerLine = " and numUnit = '" & cboSSPPUnits3.SelectedValue & "' "
-                    Else
-                        For Each Engineer As String In clbEngineers3.CheckedItems
-                            If EngineerLine = "" Then
-                                EngineerLine = "and ( "
-                            End If
-                            EngineerLine = EngineerLine & "  concat(strLastName,', ',strFirstName) = '" & Engineer & "' or "
-                        Next
-                        If EngineerLine <> "" Then
-                            EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
+                    For Each Engineer As String In clbEngineers3.CheckedItems
+                        If EngineerLine = "" Then
+                            EngineerLine = "and ( "
                         End If
+                        EngineerLine = EngineerLine & "  concat(strLastName,', ',strFirstName) = '" & Engineer & "' or "
+                    Next
+                    If EngineerLine <> "" Then
+                        EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
                     End If
                 End If
             Else
                 EngineerLine = ""
             End If
 
-            SQL = "Select count(*) as TVTotalOpen " &
+            query = "Select count(*) as TVTotalOpen " &
             "from SSPPApplicationMaster,  " &
             "EPDUserProfiles " &
             "where datFinalizedDate is Null " &
@@ -1251,17 +885,9 @@ Public Class SSPPStatisticalTools
             "or strApplicationType = '27' or strApplicationType = '17') " &
                 EngineerLine
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                txtTVTotalOpenCount.Text = dr.Item("TVTotalOpen")
-            End While
-            dr.Close()
+            txtTVTotalOpenCount.Text = DB.GetInteger(query)
 
-            SQL = "Select count(*) as TVYearOpen " &
+            query = "Select count(*) as TVYearOpen " &
             "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
             "EPDUserProfiles " &
             "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
@@ -1272,17 +898,9 @@ Public Class SSPPStatisticalTools
             "and datReceivedDate > DATEADD(month, -12, GETDATE())  " &
                 EngineerLine
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                txtTVOneYearCount.Text = dr.Item("TVYearOpen")
-            End While
-            dr.Close()
+            txtTVOneYearCount.Text = DB.GetInteger(query)
 
-            SQL = "Select count(*) as TV12MonthsOpen " &
+            query = "Select count(*) as TV12MonthsOpen " &
             "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
             "EPDUserProfiles " &
             "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
@@ -1294,17 +912,9 @@ Public Class SSPPStatisticalTools
             "and datReceivedDate < DATEADD(month, -12, GETDATE()) " &
                 EngineerLine
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                txtTVTwelveCount.Text = dr.Item("TV12MonthsOpen")
-            End While
-            dr.Close()
+            txtTVTwelveCount.Text = DB.GetInteger(query)
 
-            SQL = "Select count(*) as TV18MonthsOpen " &
+            query = "Select count(*) as TV18MonthsOpen " &
             "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
             "EPDUserProfiles " &
             "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
@@ -1315,15 +925,8 @@ Public Class SSPPStatisticalTools
             "and datReceivedDate < DATEADD(month, -18, GETDATE())" &
                 EngineerLine
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                txtTVGreaterCount.Text = dr.Item("TV18MonthsOpen")
-            End While
-            dr.Close()
+
+            txtTVGreaterCount.Text = DB.GetInteger(query)
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -1332,55 +935,30 @@ Public Class SSPPStatisticalTools
 
         End Try
     End Sub
-    Sub RunNonTVAgeOfApplications()
+    Private Sub RunNonTVAgeOfApplications()
         Try
-
-
             Dim EngineerLine As String = ""
+            Dim query As String
 
             If chbAllApps3.Checked = False Then
-                If cboSSPPUnits3.Text = "SSPP Administrative" Then
-                    If clbEngineers3.CheckedIndices.Contains(0) = True Then
-                        For Each Engineer As String In clbEngineers3.Items
-                            If EngineerLine = "" Then
-                                EngineerLine = "and ( "
-                            End If
-                            EngineerLine = EngineerLine & "  concat(strLastName,', ',strFirstName) = '" & Engineer & "' or "
-                        Next
-                        If EngineerLine <> "" Then
-                            EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
-                        End If
-                    Else
-                        For Each Engineer As String In clbEngineers3.CheckedItems
-                            If EngineerLine = "" Then
-                                EngineerLine = "and ( "
-                            End If
-                            EngineerLine = EngineerLine & "  concat(strLastName,', ',strFirstName) = '" & Engineer & "' or "
-                        Next
-                        If EngineerLine <> "" Then
-                            EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
-                        End If
-                    End If
+                If clbEngineers3.CheckedIndices.Contains(0) = True Then
+                    EngineerLine = " and numUnit = '" & cboSSPPUnits3.SelectedValue & "' "
                 Else
-                    If clbEngineers3.CheckedIndices.Contains(0) = True Then
-                        EngineerLine = " and numUnit = '" & cboSSPPUnits3.SelectedValue & "' "
-                    Else
-                        For Each Engineer As String In clbEngineers3.CheckedItems
-                            If EngineerLine = "" Then
-                                EngineerLine = "and ( "
-                            End If
-                            EngineerLine = EngineerLine & "  concat(strLastName,', ',strFirstName) = '" & Engineer & "' or "
-                        Next
-                        If EngineerLine <> "" Then
-                            EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
+                    For Each Engineer As String In clbEngineers3.CheckedItems
+                        If EngineerLine = "" Then
+                            EngineerLine = "and ( "
                         End If
+                        EngineerLine = EngineerLine & "  concat(strLastName,', ',strFirstName) = '" & Engineer & "' or "
+                    Next
+                    If EngineerLine <> "" Then
+                        EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
                     End If
                 End If
             Else
                 EngineerLine = ""
             End If
 
-            SQL = "Select count(*) as NonTVTotalOpen " &
+            query = "Select count(*) as NonTVTotalOpen " &
             "from SSPPApplicationMaster,  " &
             "EPDUserProfiles " &
             "where datFinalizedDate is Null " &
@@ -1389,17 +967,9 @@ Public Class SSPPStatisticalTools
             "and strApplicationType <> '17' and strApplicationType <> '27' " &
                 EngineerLine
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                txtTotalOpenCount.Text = dr.Item("NonTVTotalOpen")
-            End While
-            dr.Close()
+            txtTotalOpenCount.Text = DB.GetInteger(query)
 
-            SQL = "Select count(*) as NonTVThreeMonthOpen " &
+            query = "Select count(*) as NonTVThreeMonthOpen " &
             "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
             "EPDUserProfiles " &
             "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
@@ -1410,17 +980,9 @@ Public Class SSPPStatisticalTools
             "and datReceivedDate >= DATEADD(month, -3, GETDATE())  " &
                 EngineerLine
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                txtThreeMonthOpenCount.Text = dr.Item("NonTVThreeMonthOpen")
-            End While
-            dr.Close()
+            txtThreeMonthOpenCount.Text = DB.GetInteger(query)
 
-            SQL = "Select count(*) as NonTVSixMonthsOpen " &
+            query = "Select count(*) as NonTVSixMonthsOpen " &
             "from SSPPApplicationMaster, SSPPApplicationTracking,  " &
             "EPDUserProfiles " &
             "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
@@ -1432,17 +994,9 @@ Public Class SSPPStatisticalTools
             "and datReceivedDate < DATEADD(month, -3, GETDATE()) " &
                 EngineerLine
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                txtSixMonthOpenCount.Text = dr.Item("NonTVSixMonthsOpen")
-            End While
-            dr.Close()
+            txtSixMonthOpenCount.Text = DB.GetInteger(query)
 
-            SQL = "Select count(*) as NonTVNineMonthsOpen " &
+            query = "Select count(*) as NonTVNineMonthsOpen " &
             "from SSPPApplicationMaster, SSPPApplicationTracking,   " &
             "EPDUserProfiles " &
             "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
@@ -1454,17 +1008,9 @@ Public Class SSPPStatisticalTools
             "and datReceivedDate < DATEADD(month, -6, GETDATE()) " &
                 EngineerLine
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                txtNineMonthOpenCount.Text = dr.Item("NonTVNineMonthsOpen")
-            End While
-            dr.Close()
+            txtNineMonthOpenCount.Text = DB.GetInteger(query)
 
-            SQL = "Select count(*) as NonTVTwelveMonthsOpen " &
+            query = "Select count(*) as NonTVTwelveMonthsOpen " &
             "from SSPPApplicationMaster, SSPPApplicationTracking, " &
             "EPDUserProfiles " &
             "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
@@ -1476,17 +1022,9 @@ Public Class SSPPStatisticalTools
             "and datReceivedDate < DATEADD(month, -9, GETDATE()) " &
                 EngineerLine
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                txtTwelveMonthOpenCount.Text = dr.Item("NonTVTwelveMonthsOpen")
-            End While
-            dr.Close()
+            txtTwelveMonthOpenCount.Text = DB.GetInteger(query)
 
-            SQL = "Select count(*) as NonTVGreaterThanOpen " &
+            query = "Select count(*) as NonTVGreaterThanOpen " &
             "from SSPPApplicationMaster, SSPPApplicationTracking, " &
             "EPDUserProfiles " &
             "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
@@ -1497,15 +1035,7 @@ Public Class SSPPStatisticalTools
             "and datReceivedDate < DATEADD(month, -12, GETDATE())" &
                 EngineerLine
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                txtGreaterThanOpenCount.Text = dr.Item("NonTVGreaterThanOpen")
-            End While
-            dr.Close()
+            txtGreaterThanOpenCount.Text = DB.GetInteger(query)
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -1514,30 +1044,36 @@ Public Class SSPPStatisticalTools
 
         End Try
     End Sub
-    Sub RunEPAReport()
+    Private Sub RunEPAReport()
         Try
 
-            Dim StartDate As String
-            Dim EndDate As String
+            Dim StartDate As Date
+            Dim EndDate As Date
+            Dim query As String
 
             If cboEPAYear.Text <> "" Then
                 If rdbJanuaryReport.Checked = True Then
-                    StartDate = "31-Dec-" & (CDate("31-Dec-" & cboEPAYear.Text).AddMonths(-12).Year).ToString
-                    EndDate = "01-Jul-" & cboEPAYear.Text
+                    StartDate = New Date((CDate("31-Dec-" & cboEPAYear.Text).AddMonths(-12).Year), 12, 31)
+                    EndDate = New Date(cboEPAYear.Text, 7, 1)
                 Else
-                    StartDate = "30-Jun-" & cboEPAYear.Text
-                    EndDate = "01-Jan-" & (CDate("01-Jan-" & cboEPAYear.Text).AddMonths(12).Year).ToString
+                    StartDate = New Date(cboEPAYear.Text, 6, 30)
+                    EndDate = New Date((CDate("01-Jan-" & cboEPAYear.Text).AddMonths(12).Year), 1, 1)
                 End If
             Else
-                StartDate = "31-Dec-" & (Now.AddMonths(-12).Year).ToString
-                EndDate = "01-Jul-" & Now.Year.ToString
+                StartDate = New Date((Now.AddMonths(-12).Year), 12, 31)
+                EndDate = New Date(Now.Year, 7, 1)
             End If
+
+            Dim p As SqlParameter() = {
+                New SqlParameter("@StartDate", StartDate),
+                New SqlParameter("@EndDate", EndDate)
+            }
 
             txtEPA1a.Text = "N/A"
             txtEPA1b.Text = "N/A"
             txtEPA1c.Text = "N/A"
 
-            SQL = "select (EPA2ab + EPA2aa) as EPA2a " &
+            query = "select (EPA2ab + EPA2aa) as EPA2a " &
             "from " &
             "(select count(*) as EPA2aa " &
             "from APBHeaderData, APBSupplamentalData  " &
@@ -1559,20 +1095,12 @@ Public Class SSPPStatisticalTools
             "and datFinalizeddate is null " &
             "and (strEPATOPSExcluded is null or strEPATOPSExcluded = 'False'))) EPA2a2 "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                txtEPA2a.Text = dr.Item("EPA2a")
-            End While
-            dr.Close()
+            txtEPA2a.Text = DB.GetInteger(query)
 
             txtEPA2b.Text = "0"
             txtEPA2c.Text = (CInt(txtEPA2a.Text) + CInt(txtEPA2b.Text)).ToString
 
-            SQL = "select (EPA2db + EPA2da) as EPA2d " &
+            query = "select (EPA2db + EPA2da) as EPA2d " &
             "from " &
             "(select count(*) as EPA2da " &
             "from APBHeaderData  " &
@@ -1589,33 +1117,16 @@ Public Class SSPPStatisticalTools
             "and strApplicationType = '14'  " &
             "and datFinalizeddate is null )) EPA2d2 "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                txtEPA2d.Text = dr.Item("EPA2d")
-            End While
-            dr.Close()
+            txtEPA2d.Text = DB.GetInteger(query)
 
-            SQL = "select count(*) as EPA3a " &
+            query = "select count(*) as EPA3a " &
             "from APBHeaderData " &
             "where SUBSTRING(strAirProgramCodes, 13, 1) = '1'  " &
             "and strOperationalStatus = 'O' "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
+            txtEPA3a.Text = DB.GetInteger(query)
 
-            dr = cmd.ExecuteReader
-            While dr.Read
-                txtEPA3a.Text = dr.Item("EPA3a")
-            End While
-            dr.Close()
-
-            SQL = "SELECT COUNT(*) AS EPA4a " &
+            query = "SELECT COUNT(*) AS EPA4a " &
             "from SSPPApplicationMaster,  " &
             "SSPPApplicationTracking, SSPPApplicationData  " &
             "WHERE SSPPApplicationMaster.strApplicatioNnumber = SSPPApplicationTracking.strApplicationNumber  " &
@@ -1623,21 +1134,12 @@ Public Class SSPPStatisticalTools
             "AND datPermitIssued IS NOT NULL " &
             "AND strApplicationType = '14'  " &
             "AND strPermitType = '7'  " &
-            "AND datPermitIssued > '" & StartDate & "' " &
-            "AND datPermitIssued < '" & EndDate & "' "
+            "AND datPermitIssued > @StartDate " &
+            "AND datPermitIssued < @EndDate "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
+            txtEPA4a.Text = DB.GetInteger(query, p)
 
-            dr = cmd.ExecuteReader
-            While dr.Read
-                txtEPA4a.Text = dr.Item("EPA4a")
-            End While
-            dr.Close()
-
-            SQL = "SELECT COUNT(*) AS EPA4b " &
+            query = "SELECT COUNT(*) AS EPA4b " &
             "from SSPPApplicationMaster,  " &
             "SSPPApplicationTracking, SSPPApplicationData  " &
             "WHERE SSPPApplicationMaster.strApplicatioNnumber = SSPPApplicationTracking.strApplicationNumber  " &
@@ -1645,47 +1147,29 @@ Public Class SSPPStatisticalTools
             "AND datPermitIssued IS NOT NULL " &
             "AND strApplicationType = '14'  " &
             "AND strPermitType = '7'  " &
-            "AND datPermitIssued > '" & StartDate & "' " &
-            "AND datPermitIssued < '" & EndDate & "' " &
+            "AND datPermitIssued > @StartDate " &
+            "AND datPermitIssued < @EndDate " &
             "and datReceivedDate > DATEADD(month, -18, datPermitIssued) "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            dr = cmd.ExecuteReader
-            While dr.Read
-                txtEPA4b.Text = dr.Item("EPA4b")
-            End While
-            dr.Close()
+            txtEPA4b.Text = DB.GetInteger(query, p)
 
             If txtEPA4a.Text = "0" Then
                 txtEPA4a.Text = "N/A"
                 txtEPA4b.Text = "0"
             End If
 
-            SQL = "SELECT COUNT(*) AS EPA5a " &
+            query = "SELECT COUNT(*) AS EPA5a " &
             "from SSPPApplicationMaster, " &
             "SSPPApplicationTracking, SSPPApplicationData " &
             "WHERE SSPPApplicationMaster.strApplicatioNnumber = SSPPApplicationTracking.strApplicationNumber " &
             "AND SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber " &
             "AND strApplicationType = '14' " &
             "and datPermitIssued is Null " &
-            "and datReceivedDate < DATEADD(month, -18, '" & EndDate & "') "
+            "and datReceivedDate < DATEADD(month, -18, @EndDate) "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
+            txtEPA5a.Text = DB.GetInteger(query, p)
 
-            dr = cmd.ExecuteReader
-            While dr.Read
-                txtEPA5a.Text = dr.Item("EPA5a")
-            End While
-            dr.Close()
-
-            SQL = "Select Count(*) as EPA6a " &
+            query = "Select Count(*) as EPA6a " &
             "From " &
             "(select " &
             "distinct(SSPPApplicationMaster.strAIRSnumber) as AIRSNumber,  " &
@@ -1703,31 +1187,22 @@ Public Class SSPPStatisticalTools
             "distinct(SSPPApplicationMaster.strAIRSnumber) as AIRSNumber " &
             "from SSPPApplicationMaster, SSPPApplicationTracking  " &
             "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
-            "and datReceiveddate < DATEADD(month, -6, '" & EndDate & "')  " &
-            "and datReceivedDate > DATEADD(month, -54, '" & EndDate & "')  " &
+            "and datReceiveddate < DATEADD(month, -6, @EndDate)  " &
+            "and datReceivedDate > DATEADD(month, -54, @EndDate)  " &
             "and strApplicationType <> '16'  " &
             "and strApplicationType <> '12') PermitRequests   " &
             "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationnumber " &
             "and APBHeaderData.strAIRSNumber = SSPPApplicationMaster.strAIRSNumber   " &
             "and SSPPApplicationMaster.strAIRSNumber = Effect.strAIRSnumber  " &
             "and MaxDate = SSPPApplicationTracking.datEffective " &
-            "and maxDate < DATEADD(month, -54, '" & EndDate & "') " &
+            "and maxDate < DATEADD(month, -54, @EndDate) " &
             "and strOperationalStatus = 'O'  " &
             "and SUBSTRING(strAirProgramCodes, 13, 1) = '1'  " &
-            "and SSPPApplicationMaster.strAIRSNumber = PermitRequests.AIRSNumber) "
+            "and SSPPApplicationMaster.strAIRSNumber = PermitRequests.AIRSNumber) t"
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
+            txtEPA6a.Text = DB.GetInteger(query, p)
 
-            dr = cmd.ExecuteReader
-            While dr.Read
-                txtEPA6a.Text = dr.Item("EPA6a")
-            End While
-            dr.Close()
-
-            SQL = "Select Count(*) as EPA6b " &
+            query = "Select Count(*) as EPA6b " &
             "From " &
             "(select " &
             "distinct(SUBSTRING(SSPPApplicationMaster.strAIRSnumber, 5,8) ) as AIRSNumber,  " &
@@ -1747,32 +1222,22 @@ Public Class SSPPStatisticalTools
             "distinct(SSPPApplicationMaster.strAIRSnumber) as AIRSNumber " &
             "from SSPPApplicationMaster, SSPPApplicationTracking  " &
             "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
-            "and datReceiveddate < DATEADD(month, -6, '" & EndDate & "')  " &
-            "and datReceivedDate > DATEADD(month, -54, '" & EndDate & "')  " &
+            "and datReceiveddate < DATEADD(month, -6, @EndDate)  " &
+            "and datReceivedDate > DATEADD(month, -54, @EndDate)  " &
             "and (strApplicationType = '16' or strApplicationType = '12')) PermitRequests   " &
             "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationnumber " &
             "and APBHeaderData.strAIRSNumber = SSPPApplicationMaster.strAIRSNumber   " &
             "and APBHeaderData.strAIRSNumber = APBFacilityInformation.strAIRSNumber  " &
             "and SSPPApplicationMaster.strAIRSNumber = Effect.strAIRSnumber  " &
             "and MaxDate = SSPPApplicationTracking.datEffective " &
-            "and maxDate < DATEADD(month, -54, '" & EndDate & "') " &
+            "and maxDate < DATEADD(month, -54, @EndDate) " &
             "and strOperationalStatus = 'O'  " &
             "and SUBSTRING(strAirProgramCodes, 13, 1) = '1'  " &
-            "and SSPPApplicationMaster.strAIRSNumber = PermitRequests.AIRSNumber)  "
+            "and SSPPApplicationMaster.strAIRSNumber = PermitRequests.AIRSNumber)  t"
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
+            txtEPA6b.Text = DB.GetInteger(query, p)
 
-            dr = cmd.ExecuteReader
-            While dr.Read
-                txtEPA6b.Text = dr.Item("EPA6b")
-            End While
-            dr.Close()
-
-
-            SQL = "select count(*) as EPA6C " &
+            query = "select count(*) as EPA6C " &
 "from (Select *  From  " &
 "(select  " &
 "distinct(SUBSTRING(SSPPApplicationMaster.strAIRSnumber, 5,8)) as AIRSNumber,   " &
@@ -1787,18 +1252,18 @@ Public Class SSPPStatisticalTools
 "(Select  distinct(SSPPApplicationMaster.strAIRSnumber) as AIRSNumber  " &
 "from SSPPApplicationMaster, SSPPApplicationTracking   " &
 "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
-"and datReceiveddate < DATEADD(month, -6, '" & EndDate & "')   " &
-"and datReceivedDate > DATEADD(month, -54, '" & EndDate & "')   " &
+"and datReceiveddate < DATEADD(month, -6, @EndDate)   " &
+"and datReceivedDate > DATEADD(month, -54, @EndDate)   " &
 "and strApplicationType <> '16'   " &
 "and strApplicationType <> '12') PermitRequests    " &
 "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationnumber  " &
 "and APBHeaderData.strAIRSNumber = SSPPApplicationMaster.strAIRSNumber    " &
 "and SSPPApplicationMaster.strAIRSNumber = Effect.strAIRSnumber   " &
 "and MaxDate = SSPPApplicationTracking.datEffective  " &
-"and maxDate < DATEADD(month, -54, '" & EndDate & "') " &
+"and maxDate < DATEADD(month, -54, @EndDate) " &
 "and strOperationalStatus = 'O'   " &
 "and SUBSTRING(strAirProgramCodes, 13, 1) = '1'  " &
-"and SSPPApplicationMaster.strAIRSNumber = PermitRequests.AIRSNumber))  EPA6A " &
+"and SSPPApplicationMaster.strAIRSNumber = PermitRequests.AIRSNumber) t1 )  EPA6A " &
 "where not exists  " &
 "(select * from (Select *   " &
 "From (select distinct(SUBSTRING(SSPPApplicationMaster.strAIRSnumber, 5,8) ) as AIRSNumber,   " &
@@ -1810,34 +1275,20 @@ Public Class SSPPStatisticalTools
 "(Select  distinct(SSPPApplicationMaster.strAIRSnumber) as AIRSNumber from SSPPApplicationMaster,  " &
 "SSPPApplicationTracking   " &
 "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber   " &
-"and datReceiveddate < DATEADD(month, -6, '" & EndDate & "')  and datReceivedDate > DATEADD(month, -54, '" & EndDate & "')   " &
+"and datReceiveddate < DATEADD(month, -6, @EndDate)  and datReceivedDate > DATEADD(month, -54, @EndDate)   " &
 "and (strApplicationType = '16' or strApplicationType = '12')) PermitRequests    " &
 "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationnumber  " &
 "and APBHeaderData.strAIRSNumber = SSPPApplicationMaster.strAIRSNumber    " &
 "and APBHeaderData.strAIRSNumber = APBFacilityInformation.strAIRSNumber  " &
  "and SSPPApplicationMaster.strAIRSNumber = Effect.strAIRSnumber  " &
  "and MaxDate = SSPPApplicationTracking.datEffective  " &
-"and maxDate < DATEADD(month, -54, '" & EndDate & "')  " &
+"and maxDate < DATEADD(month, -54, @EndDate)  " &
 "and strOperationalStatus = 'O'  and SUBSTRING(strAirProgramCodes, 13, 1) = '1'   " &
-"and SSPPApplicationMaster.strAIRSNumber = PermitRequests.AIRSNumber)  ) EPA6b where  EPA6A.airsnumber = EPA6b.airsNumber) "
+"and SSPPApplicationMaster.strAIRSNumber = PermitRequests.AIRSNumber) t2 ) EPA6b where  EPA6A.airsnumber = EPA6b.airsNumber) "
 
+            txtEPA6C.Text = DB.GetInteger(query, p)
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            dr = cmd.ExecuteReader
-            While dr.Read
-                txtEPA6C.Text = dr.Item("EPA6C")
-            End While
-            dr.Close()
-
-
-
-
-
-            SQL = "SELECT COUNT(*) AS EPA7a " &
+            query = "SELECT COUNT(*) AS EPA7a " &
             "from SSPPApplicationMaster,  " &
             "SSPPApplicationTracking, SSPPApplicationData  " &
             "WHERE SSPPApplicationMaster.strApplicatioNnumber = SSPPApplicationTracking.strApplicationNumber  " &
@@ -1845,21 +1296,12 @@ Public Class SSPPStatisticalTools
             "AND datPermitIssued IS NOT NULL " &
             "AND (strApplicationType = '22' or strApplicationType = '21')  " &
             "AND strPermitType = '7'  " &
-            "AND datPermitIssued > '" & StartDate & "' " &
-            "AND datPermitIssued < '" & EndDate & "' "
+            "AND datPermitIssued > @StartDate " &
+            "AND datPermitIssued < @EndDate "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
+            txtEPA7a.Text = DB.GetInteger(query, p)
 
-            dr = cmd.ExecuteReader
-            While dr.Read
-                txtEPA7a.Text = dr.Item("EPA7a")
-            End While
-            dr.Close()
-
-            SQL = "SELECT COUNT(*) AS EPA7b " &
+            query = "SELECT COUNT(*) AS EPA7b " &
             "from SSPPApplicationMaster,  " &
             "SSPPApplicationTracking, SSPPApplicationData  " &
             "WHERE SSPPApplicationMaster.strApplicatioNnumber = SSPPApplicationTracking.strApplicationNumber  " &
@@ -1867,22 +1309,13 @@ Public Class SSPPStatisticalTools
             "AND datPermitIssued IS NOT NULL " &
             "AND (strApplicationType = '22' or strApplicationType = '21')  " &
             "AND strPermitType = '7'  " &
-            "AND datPermitIssued > '" & StartDate & "' " &
-            "AND datPermitIssued < '" & EndDate & "' " &
+            "AND datPermitIssued > @StartDate " &
+            "AND datPermitIssued < @EndDate " &
             "and datReceivedDate > DATEADD(month, -18, datPermitIssued) "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
+            txtEPA7b.Text = DB.GetInteger(query, p)
 
-            dr = cmd.ExecuteReader
-            While dr.Read
-                txtEPA7b.Text = dr.Item("EPA7b")
-            End While
-            dr.Close()
-
-            SQL = "SELECT COUNT(*) AS EPA7c " &
+            query = "SELECT COUNT(*) AS EPA7c " &
             "from SSPPApplicationMaster,  " &
             "SSPPApplicationTracking, SSPPApplicationData  " &
             "WHERE SSPPApplicationMaster.strApplicatioNnumber = SSPPApplicationTracking.strApplicationNumber  " &
@@ -1890,20 +1323,11 @@ Public Class SSPPStatisticalTools
             "AND datPermitIssued IS NOT NULL " &
             "AND (strApplicationType = '22' or strApplicationType = '21')  " &
             "AND strPermitType = '7'  " &
-            "AND datPermitIssued > '" & StartDate & "' " &
-            "AND datPermitIssued < '" & EndDate & "' " &
+            "AND datPermitIssued > @StartDate " &
+            "AND datPermitIssued < @EndDate " &
             "and datReceivedDate > DATEADD(month, -9, datPermitIssued) "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            dr = cmd.ExecuteReader
-            While dr.Read
-                txtEPA7c.Text = dr.Item("EPA7c")
-            End While
-            dr.Close()
+            txtEPA7c.Text = DB.GetInteger(query, p)
 
             If txtEPA7a.Text = "0" Then
                 txtEPA7a.Text = "0"
@@ -1911,25 +1335,16 @@ Public Class SSPPStatisticalTools
                 txtEPA7c.Text = "N/A"
             End If
 
-            SQL = "SELECT COUNT(*) AS EPA8a " &
+            query = "SELECT COUNT(*) AS EPA8a " &
             "from SSPPApplicationMaster, " &
             "SSPPApplicationTracking, SSPPApplicationData " &
             "WHERE SSPPApplicationMaster.strApplicatioNnumber = SSPPApplicationTracking.strApplicationNumber " &
             "AND SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber " &
             "AND (strApplicationType = '22' or strApplicationType = '21')  " &
             "and datPermitIssued is Null " &
-            "and datReceivedDate < DATEADD(month, -18, '" & EndDate & "')"
+            "and datReceivedDate < DATEADD(month, -18, @EndDate)"
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            dr = cmd.ExecuteReader
-            While dr.Read
-                txtEPA8a.Text = dr.Item("EPA8a")
-            End While
-            dr.Close()
+            txtEPA8a.Text = DB.GetInteger(query, p)
 
             txtEPA9a.Text = "No Comments"
 
@@ -1943,10 +1358,8 @@ Public Class SSPPStatisticalTools
         End Try
 
     End Sub
-    Sub UpdateEPAReport()
+    Private Sub UpdateEPAReport()
         Try
-
-
             txtEPAReportText.Clear()
             txtEPAReportText.Text = "1. Outstanding Permit Issuance " & vbCrLf &
             vbTab & "a) Number of final Actions: " & txtEPA1a.Text & vbCrLf &
@@ -1983,17 +1396,6 @@ Public Class SSPPStatisticalTools
 
         End Try
     End Sub
-#End Region
-#Region "Declarations"
-    Private Sub SSPPApplicationLog_Closing(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
-        Try
-
-            Me.Dispose()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
-    End Sub
     Private Sub btnRunReport_Click(sender As Object, e As EventArgs) Handles btnRunReport.Click
         Try
 
@@ -2010,49 +1412,31 @@ Public Class SSPPStatisticalTools
     Private Sub llbViewTVCount_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewTVCount.LinkClicked
         Try
 
-            Dim FirstDay As String = ""
-            Dim LastDay As String = ""
+            Dim FirstDay As Date
+            Dim LastDay As Date
+            Dim query As String
             Dim EngineerLine As String = ""
 
-            FirstDay = Format(DTPPermitCountStart.Value.AddDays(-1), "dd-MMM-yyyy")
-            LastDay = Format(DTPPermitCountEnd.Value.AddDays(1), "dd-MMM-yyyy")
+            FirstDay = DTPPermitCountStart.Value.AddDays(-1)
+            LastDay = DTPPermitCountEnd.Value.AddDays(1)
+
+            Dim p As SqlParameter() = {
+                New SqlParameter("@FirstDay", FirstDay),
+                New SqlParameter("@LastDay", LastDay)
+            }
 
             If chbAllApps.Checked = False Then
-                If cboSSPPUnits.Text = "SSPP Administrative" Then
-                    If clbEngineers.CheckedIndices.Contains(0) = True Then
-                        For Each Engineer As String In clbEngineers.Items
-                            If EngineerLine = "" Then
-                                EngineerLine = "and ( "
-                            End If
-                            EngineerLine = EngineerLine & "  concat(strLastName,', ',strFirstName) = '" & Engineer & "' or "
-                        Next
-                        If EngineerLine <> "" Then
-                            EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
-                        End If
-                    Else
-                        For Each Engineer As String In clbEngineers.CheckedItems
-                            If EngineerLine = "" Then
-                                EngineerLine = "and ( "
-                            End If
-                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
-                        Next
-                        If EngineerLine <> "" Then
-                            EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
-                        End If
-                    End If
+                If clbEngineers.CheckedIndices.Contains(0) = True Then
+                    EngineerLine = " and numUnit = '" & cboSSPPUnits.SelectedValue & "' "
                 Else
-                    If clbEngineers.CheckedIndices.Contains(0) = True Then
-                        EngineerLine = " and numUnit = '" & cboSSPPUnits.SelectedValue & "' "
-                    Else
-                        For Each Engineer As String In clbEngineers.CheckedItems
-                            If EngineerLine = "" Then
-                                EngineerLine = "and ( "
-                            End If
-                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
-                        Next
-                        If EngineerLine <> "" Then
-                            EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
+                    For Each Engineer As String In clbEngineers.CheckedItems
+                        If EngineerLine = "" Then
+                            EngineerLine = "and ( "
                         End If
+                        EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
+                    Next
+                    If EngineerLine <> "" Then
+                        EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
                     End If
                 End If
             Else
@@ -2062,7 +1446,7 @@ Public Class SSPPStatisticalTools
             If (txtTitleVInitialCount.Text <> "0" And txtTitleVInitialCount.Text <> "") Or
                  (txtTitleVRenewalCount.Text <> "0" And txtTitleVRenewalCount.Text <> "") Then
 
-                SQL = "select " &
+                query = "select " &
                 "SSPPApplicationMaster.strApplicationNumber,  " &
                 "strFacilityName,  " &
                 "format(datPermitIssued, 'yyyy-MM-dd') as datPermitIssued,  " &
@@ -2071,7 +1455,7 @@ Public Class SSPPStatisticalTools
                 "when strMasterApplication is Null then '' " &
                 "else concat('Linked - ', strMasterApplication) " &
                 "end Link, " &
-                "(datPermitIssued - datReceivedDate) as Diff, " &
+                "datediff(day, datReceivedDate, datPermitIssued ) as Diff, " &
                 " concat(strLastName, ', ', strFirstName) as UserName " &
                 "FROM SSPPApplicationMaster " &
                 " INNER JOIN SSPPApplicationTracking  " &
@@ -2085,19 +1469,12 @@ Public Class SSPPStatisticalTools
                 " INNER JOIN EPDUserProfiles " &
                 "ON SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
                 "where (strApplicationType = '14' or strApplicationType = '16')  " &
-                "and DatPermitIssued > '" & FirstDay & "' and datPermitissued < '" & LastDay & "'  " &
+                "and DatPermitIssued > @FirstDay and datPermitissued < @LastDay  " &
                 "and (strPermitType = '4' or strPermitType = '7' or strPermitType = '12' " &
                 "or strPermitType = '13') " &
                 EngineerLine
 
-                dsViewCount = New DataSet
-                daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                daViewCount.Fill(dsViewCount, "ViewCount")
-                dgvApplicationCount.DataSource = dsViewCount
-                dgvApplicationCount.DataMember = "ViewCount"
+                dgvApplicationCount.DataSource = DB.GetDataTable(query, p)
 
                 dgvApplicationCount.RowHeadersVisible = False
                 dgvApplicationCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -2183,49 +1560,31 @@ Public Class SSPPStatisticalTools
     Private Sub lblViewSigModCount_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblViewSigModCount.LinkClicked
         Try
 
-            Dim FirstDay As String = ""
-            Dim LastDay As String = ""
+            Dim FirstDay As Date
+            Dim LastDay As Date
+            Dim query As String
             Dim EngineerLine As String = ""
 
-            FirstDay = Format(DTPPermitCountStart.Value.AddDays(-1), "dd-MMM-yyyy")
-            LastDay = Format(DTPPermitCountEnd.Value.AddDays(1), "dd-MMM-yyyy")
+            FirstDay = DTPPermitCountStart.Value.AddDays(-1)
+            LastDay = DTPPermitCountEnd.Value.AddDays(1)
+
+            Dim p As SqlParameter() = {
+                New SqlParameter("@FirstDay", FirstDay),
+                New SqlParameter("@LastDay", LastDay)
+            }
 
             If chbAllApps.Checked = False Then
-                If cboSSPPUnits.Text = "SSPP Administrative" Then
-                    If clbEngineers.CheckedIndices.Contains(0) = True Then
-                        For Each Engineer As String In clbEngineers.Items
-                            If EngineerLine = "" Then
-                                EngineerLine = "and ( "
-                            End If
-                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
-                        Next
-                        If EngineerLine <> "" Then
-                            EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
-                        End If
-                    Else
-                        For Each Engineer As String In clbEngineers.CheckedItems
-                            If EngineerLine = "" Then
-                                EngineerLine = "and ( "
-                            End If
-                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
-                        Next
-                        If EngineerLine <> "" Then
-                            EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
-                        End If
-                    End If
+                If clbEngineers.CheckedIndices.Contains(0) = True Then
+                    EngineerLine = " and numUnit = '" & cboSSPPUnits.SelectedValue & "' "
                 Else
-                    If clbEngineers.CheckedIndices.Contains(0) = True Then
-                        EngineerLine = " and numUnit = '" & cboSSPPUnits.SelectedValue & "' "
-                    Else
-                        For Each Engineer As String In clbEngineers.CheckedItems
+                    For Each Engineer As String In clbEngineers.CheckedItems
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
                             EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
                         Next
-                        If EngineerLine <> "" Then
-                            EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
-                        End If
+                    If EngineerLine <> "" Then
+                        EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
                     End If
                 End If
             Else
@@ -2234,7 +1593,7 @@ Public Class SSPPStatisticalTools
 
             If (txtSigModCount.Text <> "0" And txtSigModCount.Text <> "") Then
 
-                SQL = "select " &
+                query = "select " &
                 "SSPPApplicationMaster.strApplicationNumber,  " &
                 "strFacilityName,  " &
                 "format(datPermitIssued, 'yyyy-MM-dd') as datPermitIssued,  " &
@@ -2243,7 +1602,7 @@ Public Class SSPPStatisticalTools
                 "when strMasterApplication is Null then '' " &
                 "else concat('Linked - ', strMasterApplication) " &
                 "end Link, " &
-                "(datPermitIssued - datReceivedDate) as Diff, " &
+                "datediff(day, datReceivedDate, datPermitIssued ) as Diff, " &
                 " concat(strLastName, ', ', strFirstName) as UserName " &
                 "FROM SSPPApplicationMaster " &
                 " INNER JOIN SSPPApplicationTracking  " &
@@ -2257,18 +1616,11 @@ Public Class SSPPStatisticalTools
                 " INNER JOIN EPDUserProfiles " &
                 "ON SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
                 "where (strApplicationType = '22' or strApplicationType = '21')  " &
-                "and DatPermitIssued > '" & FirstDay & "' and datPermitissued < '" & LastDay & "'  " &
+                "and DatPermitIssued > @FirstDay and datPermitissued < @LastDay  " &
                 "and (strPermitType = '4' or strPermitType = '7') " &
                 EngineerLine
 
-                dsViewCount = New DataSet
-                daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                daViewCount.Fill(dsViewCount, "ViewCount")
-                dgvApplicationCount.DataSource = dsViewCount
-                dgvApplicationCount.DataMember = "ViewCount"
+                dgvApplicationCount.DataSource = DB.GetDataTable(query, p)
 
                 dgvApplicationCount.RowHeadersVisible = False
                 dgvApplicationCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -2306,49 +1658,31 @@ Public Class SSPPStatisticalTools
     Private Sub llbViewMinorModCount_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewMinorModCount.LinkClicked
         Try
 
-            Dim FirstDay As String = ""
-            Dim LastDay As String = ""
+            Dim FirstDay As Date
+            Dim LastDay As Date
+            Dim query As String
             Dim EngineerLine As String = ""
 
-            FirstDay = Format(DTPPermitCountStart.Value.AddDays(-1), "dd-MMM-yyyy")
-            LastDay = Format(DTPPermitCountEnd.Value.AddDays(1), "dd-MMM-yyyy")
+            FirstDay = DTPPermitCountStart.Value.AddDays(-1)
+            LastDay = DTPPermitCountEnd.Value.AddDays(1)
+
+            Dim p As SqlParameter() = {
+                New SqlParameter("@FirstDay", FirstDay),
+                New SqlParameter("@LastDay", LastDay)
+            }
 
             If chbAllApps.Checked = False Then
-                If cboSSPPUnits.Text = "SSPP Administrative" Then
-                    If clbEngineers.CheckedIndices.Contains(0) = True Then
-                        For Each Engineer As String In clbEngineers.Items
-                            If EngineerLine = "" Then
-                                EngineerLine = "and ( "
-                            End If
-                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
-                        Next
-                        If EngineerLine <> "" Then
-                            EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
-                        End If
-                    Else
-                        For Each Engineer As String In clbEngineers.CheckedItems
-                            If EngineerLine = "" Then
-                                EngineerLine = "and ( "
-                            End If
-                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
-                        Next
-                        If EngineerLine <> "" Then
-                            EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
-                        End If
-                    End If
+                If clbEngineers.CheckedIndices.Contains(0) = True Then
+                    EngineerLine = " and numUnit = '" & cboSSPPUnits.SelectedValue & "' "
                 Else
-                    If clbEngineers.CheckedIndices.Contains(0) = True Then
-                        EngineerLine = " and numUnit = '" & cboSSPPUnits.SelectedValue & "' "
-                    Else
-                        For Each Engineer As String In clbEngineers.CheckedItems
-                            If EngineerLine = "" Then
-                                EngineerLine = "and ( "
-                            End If
-                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
-                        Next
-                        If EngineerLine <> "" Then
-                            EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
+                    For Each Engineer As String In clbEngineers.CheckedItems
+                        If EngineerLine = "" Then
+                            EngineerLine = "and ( "
                         End If
+                        EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
+                    Next
+                    If EngineerLine <> "" Then
+                        EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
                     End If
                 End If
             Else
@@ -2357,7 +1691,7 @@ Public Class SSPPStatisticalTools
 
             If (txtMinorModCount.Text <> "0" And txtMinorModCount.Text <> "") Then
 
-                SQL = "select " &
+                query = "select " &
                 "SSPPApplicationMaster.strApplicationNumber,  " &
                 "strFacilityName,  " &
                 "format(datPermitIssued, 'yyyy-MM-dd') as datPermitIssued,  " &
@@ -2366,7 +1700,7 @@ Public Class SSPPStatisticalTools
                 "when strMasterApplication is Null then '' " &
                 "else concat('Linked - ', strMasterApplication) " &
                 "end Link, " &
-                "(datPermitIssued - datReceivedDate) as Diff, " &
+                "datediff(day, datReceivedDate, datPermitIssued ) as Diff, " &
                 " concat(strLastName, ', ', strFirstName) as UserName " &
                 "FROM SSPPApplicationMaster " &
                 " INNER JOIN SSPPApplicationTracking  " &
@@ -2380,18 +1714,11 @@ Public Class SSPPStatisticalTools
                 " INNER JOIN EPDUserProfiles " &
                 "ON SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
                 "where (strApplicationType = '20' or strApplicationType = '19')  " &
-                "and DatPermitIssued > '" & FirstDay & "' and datPermitissued < '" & LastDay & "'  " &
+                "and DatPermitIssued > @FirstDay and datPermitissued < @LastDay  " &
                 "and (strPermitType = '4' or strPermitType = '7') " &
                 EngineerLine
 
-                dsViewCount = New DataSet
-                daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                daViewCount.Fill(dsViewCount, "ViewCount")
-                dgvApplicationCount.DataSource = dsViewCount
-                dgvApplicationCount.DataMember = "ViewCount"
+                dgvApplicationCount.DataSource = DB.GetDataTable(query, p)
 
                 dgvApplicationCount.RowHeadersVisible = False
                 dgvApplicationCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -2429,49 +1756,31 @@ Public Class SSPPStatisticalTools
     Private Sub llbView502Count_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbView502Count.LinkClicked
         Try
 
-            Dim FirstDay As String = ""
-            Dim LastDay As String = ""
+            Dim FirstDay As Date
+            Dim LastDay As Date
+            Dim query As String
             Dim EngineerLine As String = ""
 
-            FirstDay = Format(DTPPermitCountStart.Value.AddDays(-1), "dd-MMM-yyyy")
-            LastDay = Format(DTPPermitCountEnd.Value.AddDays(1), "dd-MMM-yyyy")
+            FirstDay = DTPPermitCountStart.Value.AddDays(-1)
+            LastDay = DTPPermitCountEnd.Value.AddDays(1)
+
+            Dim p As SqlParameter() = {
+                New SqlParameter("@FirstDay", FirstDay),
+                New SqlParameter("@LastDay", LastDay)
+            }
 
             If chbAllApps.Checked = False Then
-                If cboSSPPUnits.Text = "SSPP Administrative" Then
-                    If clbEngineers.CheckedIndices.Contains(0) = True Then
-                        For Each Engineer As String In clbEngineers.Items
-                            If EngineerLine = "" Then
-                                EngineerLine = "and ( "
-                            End If
-                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
-                        Next
-                        If EngineerLine <> "" Then
-                            EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
-                        End If
-                    Else
-                        For Each Engineer As String In clbEngineers.CheckedItems
-                            If EngineerLine = "" Then
-                                EngineerLine = "and ( "
-                            End If
-                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
-                        Next
-                        If EngineerLine <> "" Then
-                            EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
-                        End If
-                    End If
+                If clbEngineers.CheckedIndices.Contains(0) = True Then
+                    EngineerLine = " and numUnit = '" & cboSSPPUnits.SelectedValue & "' "
                 Else
-                    If clbEngineers.CheckedIndices.Contains(0) = True Then
-                        EngineerLine = " and numUnit = '" & cboSSPPUnits.SelectedValue & "' "
-                    Else
-                        For Each Engineer As String In clbEngineers.CheckedItems
+                    For Each Engineer As String In clbEngineers.CheckedItems
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
                             EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
                         Next
-                        If EngineerLine <> "" Then
-                            EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
-                        End If
+                    If EngineerLine <> "" Then
+                        EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
                     End If
                 End If
             Else
@@ -2480,7 +1789,7 @@ Public Class SSPPStatisticalTools
 
             If (txt502Count.Text <> "0" And txt502Count.Text <> "") Then
 
-                SQL = "select " &
+                query = "select " &
                 "SSPPApplicationMaster.strApplicationNumber,  " &
                 "strFacilityName,  " &
                 "format(datPermitIssued, 'yyyy-MM-dd') as datPermitIssued,  " &
@@ -2489,7 +1798,7 @@ Public Class SSPPStatisticalTools
                 "when strMasterApplication is Null then '' " &
                 "else concat('Linked - ', strMasterApplication) " &
                 "end Link, " &
-                "(datPermitIssued - datReceivedDate) as Diff, " &
+                "datediff(day, datReceivedDate, datPermitIssued ) as Diff, " &
                 " concat(strLastName, ', ', strFirstName) as UserName " &
                 "FROM SSPPApplicationMaster " &
                 " INNER JOIN SSPPApplicationTracking  " &
@@ -2503,18 +1812,11 @@ Public Class SSPPStatisticalTools
                 " INNER JOIN EPDUserProfiles " &
                 "ON SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
                 "where strApplicationType = '15' " &
-                "and DatPermitIssued > '" & FirstDay & "' and datPermitissued < '" & LastDay & "'  " &
+                "and DatPermitIssued > @FirstDay and datPermitissued < @LastDay  " &
                 "and (strPermitType = '4' or strPermitType = '7') " &
                 EngineerLine
 
-                dsViewCount = New DataSet
-                daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                daViewCount.Fill(dsViewCount, "ViewCount")
-                dgvApplicationCount.DataSource = dsViewCount
-                dgvApplicationCount.DataMember = "ViewCount"
+                dgvApplicationCount.DataSource = DB.GetDataTable(query, p)
 
                 dgvApplicationCount.RowHeadersVisible = False
                 dgvApplicationCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -2552,49 +1854,31 @@ Public Class SSPPStatisticalTools
     Private Sub llbViewAACount_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewAACount.LinkClicked
         Try
 
-            Dim FirstDay As String = ""
-            Dim LastDay As String = ""
+            Dim FirstDay As Date
+            Dim LastDay As Date
+            Dim query As String
             Dim EngineerLine As String = ""
 
-            FirstDay = Format(DTPPermitCountStart.Value.AddDays(-1), "dd-MMM-yyyy")
-            LastDay = Format(DTPPermitCountEnd.Value.AddDays(1), "dd-MMM-yyyy")
+            FirstDay = DTPPermitCountStart.Value.AddDays(-1)
+            LastDay = DTPPermitCountEnd.Value.AddDays(1)
+
+            Dim p As SqlParameter() = {
+                New SqlParameter("@FirstDay", FirstDay),
+                New SqlParameter("@LastDay", LastDay)
+            }
 
             If chbAllApps.Checked = False Then
-                If cboSSPPUnits.Text = "SSPP Administrative" Then
-                    If clbEngineers.CheckedIndices.Contains(0) = True Then
-                        For Each Engineer As String In clbEngineers.Items
-                            If EngineerLine = "" Then
-                                EngineerLine = "and ( "
-                            End If
-                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
-                        Next
-                        If EngineerLine <> "" Then
-                            EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
-                        End If
-                    Else
-                        For Each Engineer As String In clbEngineers.CheckedItems
-                            If EngineerLine = "" Then
-                                EngineerLine = "and ( "
-                            End If
-                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
-                        Next
-                        If EngineerLine <> "" Then
-                            EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
-                        End If
-                    End If
+                If clbEngineers.CheckedIndices.Contains(0) = True Then
+                    EngineerLine = " and numUnit = '" & cboSSPPUnits.SelectedValue & "' "
                 Else
-                    If clbEngineers.CheckedIndices.Contains(0) = True Then
-                        EngineerLine = " and numUnit = '" & cboSSPPUnits.SelectedValue & "' "
-                    Else
-                        For Each Engineer As String In clbEngineers.CheckedItems
-                            If EngineerLine = "" Then
-                                EngineerLine = "and ( "
-                            End If
-                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
-                        Next
-                        If EngineerLine <> "" Then
-                            EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
+                    For Each Engineer As String In clbEngineers.CheckedItems
+                        If EngineerLine = "" Then
+                            EngineerLine = "and ( "
                         End If
+                        EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
+                    Next
+                    If EngineerLine <> "" Then
+                        EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
                     End If
                 End If
             Else
@@ -2603,7 +1887,7 @@ Public Class SSPPStatisticalTools
 
             If (txtAACount.Text <> "0" And txtAACount.Text <> "") Then
 
-                SQL = "select " &
+                query = "select " &
                 "SSPPApplicationMaster.strApplicationNumber,  " &
                 "strFacilityName,  " &
                 "format(datPermitIssued, 'yyyy-MM-dd') as datPermitIssued,  " &
@@ -2612,7 +1896,7 @@ Public Class SSPPStatisticalTools
                 "when strMasterApplication is Null then '' " &
                 "else concat('Linked - ', strMasterApplication) " &
                 "end Link, " &
-                "(datPermitIssued - datReceivedDate) as Diff, " &
+                "datediff(day, datReceivedDate, datPermitIssued ) as Diff, " &
                 " concat(strLastName, ', ', strFirstName) as UserName " &
                 "FROM SSPPApplicationMaster " &
                 " INNER JOIN SSPPApplicationTracking  " &
@@ -2626,18 +1910,11 @@ Public Class SSPPStatisticalTools
                 " INNER JOIN EPDUserProfiles " &
                 "ON SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
                 "where strApplicationType = '26' " &
-                "and DatPermitIssued > '" & FirstDay & "' and datPermitissued < '" & LastDay & "'  " &
+                "and DatPermitIssued > @FirstDay and datPermitissued < @LastDay  " &
                 "and (strPermitType = '4' or strPermitType = '7' or strPermitType = '1') " &
                 EngineerLine
 
-                dsViewCount = New DataSet
-                daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                daViewCount.Fill(dsViewCount, "ViewCount")
-                dgvApplicationCount.DataSource = dsViewCount
-                dgvApplicationCount.DataMember = "ViewCount"
+                dgvApplicationCount.DataSource = DB.GetDataTable(query, p)
 
                 dgvApplicationCount.RowHeadersVisible = False
                 dgvApplicationCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -2675,49 +1952,31 @@ Public Class SSPPStatisticalTools
     Private Sub llbViewSMCount_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewSMCount.LinkClicked
         Try
 
-            Dim FirstDay As String = ""
-            Dim LastDay As String = ""
+            Dim FirstDay As Date
+            Dim LastDay As Date
+            Dim query As String
             Dim EngineerLine As String = ""
 
-            FirstDay = Format(DTPPermitCountStart.Value.AddDays(-1), "dd-MMM-yyyy")
-            LastDay = Format(DTPPermitCountEnd.Value.AddDays(1), "dd-MMM-yyyy")
+            FirstDay = DTPPermitCountStart.Value.AddDays(-1)
+            LastDay = DTPPermitCountEnd.Value.AddDays(1)
+
+            Dim p As SqlParameter() = {
+                New SqlParameter("@FirstDay", FirstDay),
+                New SqlParameter("@LastDay", LastDay)
+            }
 
             If chbAllApps.Checked = False Then
-                If cboSSPPUnits.Text = "SSPP Administrative" Then
-                    If clbEngineers.CheckedIndices.Contains(0) = True Then
-                        For Each Engineer As String In clbEngineers.Items
-                            If EngineerLine = "" Then
-                                EngineerLine = "and ( "
-                            End If
-                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
-                        Next
-                        If EngineerLine <> "" Then
-                            EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
-                        End If
-                    Else
-                        For Each Engineer As String In clbEngineers.CheckedItems
-                            If EngineerLine = "" Then
-                                EngineerLine = "and ( "
-                            End If
-                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
-                        Next
-                        If EngineerLine <> "" Then
-                            EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
-                        End If
-                    End If
+                If clbEngineers.CheckedIndices.Contains(0) = True Then
+                    EngineerLine = " and numUnit = '" & cboSSPPUnits.SelectedValue & "' "
                 Else
-                    If clbEngineers.CheckedIndices.Contains(0) = True Then
-                        EngineerLine = " and numUnit = '" & cboSSPPUnits.SelectedValue & "' "
-                    Else
-                        For Each Engineer As String In clbEngineers.CheckedItems
+                    For Each Engineer As String In clbEngineers.CheckedItems
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
                             EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
                         Next
-                        If EngineerLine <> "" Then
-                            EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
-                        End If
+                    If EngineerLine <> "" Then
+                        EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
                     End If
                 End If
             Else
@@ -2726,7 +1985,7 @@ Public Class SSPPStatisticalTools
 
             If (txtSMCount.Text <> "0" And txtSMCount.Text <> "") Then
 
-                SQL = "select " &
+                query = "select " &
                 "SSPPApplicationMaster.strApplicationNumber,  " &
                 "strFacilityName,  " &
                 "format(datPermitIssued, 'yyyy-MM-dd') as datPermitIssued,  " &
@@ -2735,7 +1994,7 @@ Public Class SSPPStatisticalTools
                 "when strMasterApplication is Null then '' " &
                 "else concat('Linked - ', strMasterApplication) " &
                 "end Link, " &
-                "(datPermitIssued - datReceivedDate) as Diff, " &
+                "datediff(day, datReceivedDate, datPermitIssued ) as Diff, " &
                 " concat(strLastName, ', ', strFirstName) as UserName " &
                 "FROM SSPPApplicationMaster " &
                 " INNER JOIN SSPPApplicationTracking  " &
@@ -2749,18 +2008,11 @@ Public Class SSPPStatisticalTools
                 " INNER JOIN EPDUserProfiles " &
                 "ON SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
                 "where strApplicationType = '12' " &
-                "and DatPermitIssued > '" & FirstDay & "' and datPermitissued < '" & LastDay & "'  " &
+                "and DatPermitIssued > @FirstDay and datPermitissued < @LastDay  " &
                  "and (strPermitType = '4' or strPermitType = '7') " &
                 EngineerLine
 
-                dsViewCount = New DataSet
-                daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                daViewCount.Fill(dsViewCount, "ViewCount")
-                dgvApplicationCount.DataSource = dsViewCount
-                dgvApplicationCount.DataMember = "ViewCount"
+                dgvApplicationCount.DataSource = DB.GetDataTable(query, p)
 
                 dgvApplicationCount.RowHeadersVisible = False
                 dgvApplicationCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -2798,49 +2050,31 @@ Public Class SSPPStatisticalTools
     Private Sub llbViewPBRCount_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewPBRCount.LinkClicked
         Try
 
-            Dim FirstDay As String = ""
-            Dim LastDay As String = ""
+            Dim FirstDay As Date
+            Dim LastDay As Date
+            Dim query As String
             Dim EngineerLine As String = ""
 
-            FirstDay = Format(DTPPermitCountStart.Value.AddDays(-1), "dd-MMM-yyyy")
-            LastDay = Format(DTPPermitCountEnd.Value.AddDays(1), "dd-MMM-yyyy")
+            FirstDay = DTPPermitCountStart.Value.AddDays(-1)
+            LastDay = DTPPermitCountEnd.Value.AddDays(1)
+
+            Dim p As SqlParameter() = {
+                New SqlParameter("@FirstDay", FirstDay),
+                New SqlParameter("@LastDay", LastDay)
+            }
 
             If chbAllApps.Checked = False Then
-                If cboSSPPUnits.Text = "SSPP Administrative" Then
-                    If clbEngineers.CheckedIndices.Contains(0) = True Then
-                        For Each Engineer As String In clbEngineers.Items
-                            If EngineerLine = "" Then
-                                EngineerLine = "and ( "
-                            End If
-                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
-                        Next
-                        If EngineerLine <> "" Then
-                            EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
-                        End If
-                    Else
-                        For Each Engineer As String In clbEngineers.CheckedItems
-                            If EngineerLine = "" Then
-                                EngineerLine = "and ( "
-                            End If
-                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
-                        Next
-                        If EngineerLine <> "" Then
-                            EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
-                        End If
-                    End If
+                If clbEngineers.CheckedIndices.Contains(0) = True Then
+                    EngineerLine = " and numUnit = '" & cboSSPPUnits.SelectedValue & "' "
                 Else
-                    If clbEngineers.CheckedIndices.Contains(0) = True Then
-                        EngineerLine = " and numUnit = '" & cboSSPPUnits.SelectedValue & "' "
-                    Else
-                        For Each Engineer As String In clbEngineers.CheckedItems
+                    For Each Engineer As String In clbEngineers.CheckedItems
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
                             EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
                         Next
-                        If EngineerLine <> "" Then
-                            EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
-                        End If
+                    If EngineerLine <> "" Then
+                        EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
                     End If
                 End If
             Else
@@ -2849,7 +2083,7 @@ Public Class SSPPStatisticalTools
 
             If (txtPBRCount.Text <> "0" And txtPBRCount.Text <> "") Then
 
-                SQL = "select " &
+                query = "select " &
                 "SSPPApplicationMaster.strApplicationNumber,  " &
                 "strFacilityName,  " &
                 "format(datPermitIssued, 'yyyy-MM-dd') as datPermitIssued,  " &
@@ -2858,7 +2092,7 @@ Public Class SSPPStatisticalTools
                 "when strMasterApplication is Null then '' " &
                 "else concat('Linked - ', strMasterApplication) " &
                 "end Link, " &
-                "(datPermitIssued - datReceivedDate) as Diff, " &
+                "datediff(day, datReceivedDate, datPermitIssued ) as Diff, " &
                 " concat(strLastName, ', ', strFirstName) as UserName " &
                 "FROM SSPPApplicationMaster " &
                 " INNER JOIN SSPPApplicationTracking  " &
@@ -2872,18 +2106,11 @@ Public Class SSPPStatisticalTools
                 " INNER JOIN EPDUserProfiles " &
                 "ON SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
                 "where strApplicationType = '9' " &
-                "and DatPermitIssued > '" & FirstDay & "' and datPermitissued < '" & LastDay & "' " &
+                "and DatPermitIssued > @FirstDay and datPermitissued < @LastDay " &
                 "and strPermitType = '6' " &
                 EngineerLine
 
-                dsViewCount = New DataSet
-                daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                daViewCount.Fill(dsViewCount, "ViewCount")
-                dgvApplicationCount.DataSource = dsViewCount
-                dgvApplicationCount.DataMember = "ViewCount"
+                dgvApplicationCount.DataSource = DB.GetDataTable(query, p)
 
                 dgvApplicationCount.RowHeadersVisible = False
                 dgvApplicationCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -2921,49 +2148,31 @@ Public Class SSPPStatisticalTools
     Private Sub llbViewOtherCount_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewOtherCount.LinkClicked
         Try
 
-            Dim FirstDay As String = ""
-            Dim LastDay As String = ""
+            Dim FirstDay As Date
+            Dim LastDay As Date
+            Dim query As String
             Dim EngineerLine As String = ""
 
-            FirstDay = Format(DTPPermitCountStart.Value.AddDays(-1), "dd-MMM-yyyy")
-            LastDay = Format(DTPPermitCountEnd.Value.AddDays(1), "dd-MMM-yyyy")
+            FirstDay = DTPPermitCountStart.Value.AddDays(-1)
+            LastDay = DTPPermitCountEnd.Value.AddDays(1)
+
+            Dim p As SqlParameter() = {
+                New SqlParameter("@FirstDay", FirstDay),
+                New SqlParameter("@LastDay", LastDay)
+            }
 
             If chbAllApps.Checked = False Then
-                If cboSSPPUnits.Text = "SSPP Administrative" Then
-                    If clbEngineers.CheckedIndices.Contains(0) = True Then
-                        For Each Engineer As String In clbEngineers.Items
-                            If EngineerLine = "" Then
-                                EngineerLine = "and ( "
-                            End If
-                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
-                        Next
-                        If EngineerLine <> "" Then
-                            EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
-                        End If
-                    Else
-                        For Each Engineer As String In clbEngineers.CheckedItems
-                            If EngineerLine = "" Then
-                                EngineerLine = "and ( "
-                            End If
-                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
-                        Next
-                        If EngineerLine <> "" Then
-                            EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
-                        End If
-                    End If
+                If clbEngineers.CheckedIndices.Contains(0) = True Then
+                    EngineerLine = " and numUnit = '" & cboSSPPUnits.SelectedValue & "' "
                 Else
-                    If clbEngineers.CheckedIndices.Contains(0) = True Then
-                        EngineerLine = " and numUnit = '" & cboSSPPUnits.SelectedValue & "' "
-                    Else
-                        For Each Engineer As String In clbEngineers.CheckedItems
-                            If EngineerLine = "" Then
-                                EngineerLine = "and ( "
-                            End If
-                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
-                        Next
-                        If EngineerLine <> "" Then
-                            EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
+                    For Each Engineer As String In clbEngineers.CheckedItems
+                        If EngineerLine = "" Then
+                            EngineerLine = "and ( "
                         End If
+                        EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
+                    Next
+                    If EngineerLine <> "" Then
+                        EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
                     End If
                 End If
             Else
@@ -2972,7 +2181,7 @@ Public Class SSPPStatisticalTools
 
             If (txtOtherCount.Text <> "0" And txtOtherCount.Text <> "") Then
 
-                SQL = "select " &
+                query = "select " &
                 "SSPPApplicationMaster.strApplicationNumber,  " &
                 "strFacilityName,  " &
                 "format(datPermitIssued, 'yyyy-MM-dd') as datPermitIssued,  " &
@@ -2981,7 +2190,7 @@ Public Class SSPPStatisticalTools
                 "when strMasterApplication is Null then '' " &
                 "else concat('Linked - ', strMasterApplication) " &
                 "end Link, " &
-                "(datPermitIssued - datReceivedDate) as Diff, " &
+                "datediff(day, datReceivedDate, datPermitIssued ) as Diff, " &
                 " concat(strLastName, ', ', strFirstName) as UserName " &
                 "FROM SSPPApplicationMaster " &
                 " INNER JOIN SSPPApplicationTracking  " &
@@ -2997,18 +2206,11 @@ Public Class SSPPStatisticalTools
                 "where (strApplicationType = '11' OR strApplicationType = '8' " &
                 "OR strApplicationType = '4' OR strapplicationType = '3' " &
                 "OR strApplicationType = '25' OR strApplicationType = '2') " &
-                "and DatPermitIssued > '" & FirstDay & "' and datPermitissued < '" & LastDay & "'  " &
+                "and DatPermitIssued > @FirstDay and datPermitissued < @LastDay  " &
                 "and (strPermitType = '7' or strPermitType = '4') " &
                 EngineerLine
 
-                dsViewCount = New DataSet
-                daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                daViewCount.Fill(dsViewCount, "ViewCount")
-                dgvApplicationCount.DataSource = dsViewCount
-                dgvApplicationCount.DataMember = "ViewCount"
+                dgvApplicationCount.DataSource = DB.GetDataTable(query, p)
 
                 dgvApplicationCount.RowHeadersVisible = False
                 dgvApplicationCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -3046,49 +2248,31 @@ Public Class SSPPStatisticalTools
     Private Sub llbViewNoPermitCount_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewNoPermitCount.LinkClicked
         Try
 
-            Dim FirstDay As String = ""
-            Dim LastDay As String = ""
+            Dim FirstDay As Date
+            Dim LastDay As Date
+            Dim query As String
             Dim EngineerLine As String = ""
 
-            FirstDay = Format(DTPPermitCountStart.Value.AddDays(-1), "dd-MMM-yyyy")
-            LastDay = Format(DTPPermitCountEnd.Value.AddDays(1), "dd-MMM-yyyy")
+            FirstDay = DTPPermitCountStart.Value.AddDays(-1)
+            LastDay = DTPPermitCountEnd.Value.AddDays(1)
+
+            Dim p As SqlParameter() = {
+                New SqlParameter("@FirstDay", FirstDay),
+                New SqlParameter("@LastDay", LastDay)
+            }
 
             If chbAllApps.Checked = False Then
-                If cboSSPPUnits.Text = "SSPP Administrative" Then
-                    If clbEngineers.CheckedIndices.Contains(0) = True Then
-                        For Each Engineer As String In clbEngineers.Items
-                            If EngineerLine = "" Then
-                                EngineerLine = "and ( "
-                            End If
-                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
-                        Next
-                        If EngineerLine <> "" Then
-                            EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
-                        End If
-                    Else
-                        For Each Engineer As String In clbEngineers.CheckedItems
-                            If EngineerLine = "" Then
-                                EngineerLine = "and ( "
-                            End If
-                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
-                        Next
-                        If EngineerLine <> "" Then
-                            EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
-                        End If
-                    End If
+                If clbEngineers.CheckedIndices.Contains(0) = True Then
+                    EngineerLine = " and numUnit = '" & cboSSPPUnits.SelectedValue & "' "
                 Else
-                    If clbEngineers.CheckedIndices.Contains(0) = True Then
-                        EngineerLine = " and numUnit = '" & cboSSPPUnits.SelectedValue & "' "
-                    Else
-                        For Each Engineer As String In clbEngineers.CheckedItems
-                            If EngineerLine = "" Then
-                                EngineerLine = "and ( "
-                            End If
-                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
-                        Next
-                        If EngineerLine <> "" Then
-                            EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
+                    For Each Engineer As String In clbEngineers.CheckedItems
+                        If EngineerLine = "" Then
+                            EngineerLine = "and ( "
                         End If
+                        EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
+                    Next
+                    If EngineerLine <> "" Then
+                        EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
                     End If
                 End If
             Else
@@ -3097,7 +2281,7 @@ Public Class SSPPStatisticalTools
 
             If (txtNonPermitCount.Text <> "0" And txtNonPermitCount.Text <> "") Then
 
-                SQL = "select " &
+                query = "select " &
                 "SSPPApplicationMaster.strApplicationNumber,  " &
                 "strFacilityName,  " &
                 "format(datPermitIssued, 'yyyy-MM-dd') as datPermitIssued,  " &
@@ -3109,7 +2293,7 @@ Public Class SSPPStatisticalTools
                 "when strMasterApplication is Null then '' " &
                 "else concat('Linked - ', strMasterApplication) " &
                 "end Link, " &
-                "(datPermitIssued - datReceivedDate) as Diff, " &
+                "datediff(day, datReceivedDate, datPermitIssued ) as Diff, " &
                 " concat(strLastName, ', ', strFirstName) as UserName " &
                 "FROM SSPPApplicationMaster " &
                 " INNER JOIN SSPPApplicationTracking  " &
@@ -3123,7 +2307,7 @@ Public Class SSPPStatisticalTools
                 " INNER JOIN EPDUserProfiles " &
                 "ON SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
                 "where datPermitIssued IS not Null  " &
-                "and datPermitIssued > '" & FirstDay & "' and datPermitIssued < '" & LastDay & "'  " &
+                "and datPermitIssued > @FirstDay and datPermitissued < @LastDay  " &
                 "and strPermitType <> '4' " &
                 "and strPermitType <> '7' " &
                 "and strPermitType <> '12' " &
@@ -3131,14 +2315,7 @@ Public Class SSPPStatisticalTools
                 "and strPermitType <> '6' " &
                 EngineerLine
 
-                dsViewCount = New DataSet
-                daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                daViewCount.Fill(dsViewCount, "ViewCount")
-                dgvApplicationCount.DataSource = dsViewCount
-                dgvApplicationCount.DataMember = "ViewCount"
+                dgvApplicationCount.DataSource = DB.GetDataTable(query, p)
 
                 dgvApplicationCount.RowHeadersVisible = False
                 dgvApplicationCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -3176,49 +2353,31 @@ Public Class SSPPStatisticalTools
     Private Sub llbViewPSDCount_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewPSDCount.LinkClicked
         Try
 
-            Dim FirstDay As String = ""
-            Dim LastDay As String = ""
+            Dim FirstDay As Date
+            Dim LastDay As Date
+            Dim query As String
             Dim EngineerLine As String = ""
 
-            FirstDay = Format(DTPPermitCountStart.Value.AddDays(-1), "dd-MMM-yyyy")
-            LastDay = Format(DTPPermitCountEnd.Value.AddDays(1), "dd-MMM-yyyy")
+            FirstDay = DTPPermitCountStart.Value.AddDays(-1)
+            LastDay = DTPPermitCountEnd.Value.AddDays(1)
+
+            Dim p As SqlParameter() = {
+                New SqlParameter("@FirstDay", FirstDay),
+                New SqlParameter("@LastDay", LastDay)
+            }
 
             If chbAllApps.Checked = False Then
-                If cboSSPPUnits.Text = "SSPP Administrative" Then
-                    If clbEngineers.CheckedIndices.Contains(0) = True Then
-                        For Each Engineer As String In clbEngineers.Items
-                            If EngineerLine = "" Then
-                                EngineerLine = "and ( "
-                            End If
-                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
-                        Next
-                        If EngineerLine <> "" Then
-                            EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
-                        End If
-                    Else
-                        For Each Engineer As String In clbEngineers.CheckedItems
-                            If EngineerLine = "" Then
-                                EngineerLine = "and ( "
-                            End If
-                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
-                        Next
-                        If EngineerLine <> "" Then
-                            EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
-                        End If
-                    End If
+                If clbEngineers.CheckedIndices.Contains(0) = True Then
+                    EngineerLine = " and numUnit = '" & cboSSPPUnits.SelectedValue & "' "
                 Else
-                    If clbEngineers.CheckedIndices.Contains(0) = True Then
-                        EngineerLine = " and numUnit = '" & cboSSPPUnits.SelectedValue & "' "
-                    Else
-                        For Each Engineer As String In clbEngineers.CheckedItems
-                            If EngineerLine = "" Then
-                                EngineerLine = "and ( "
-                            End If
-                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
-                        Next
-                        If EngineerLine <> "" Then
-                            EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
+                    For Each Engineer As String In clbEngineers.CheckedItems
+                        If EngineerLine = "" Then
+                            EngineerLine = "and ( "
                         End If
+                        EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
+                    Next
+                    If EngineerLine <> "" Then
+                        EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
                     End If
                 End If
             Else
@@ -3227,7 +2386,7 @@ Public Class SSPPStatisticalTools
 
             If (txtPSDCount.Text <> "0" And txtPSDCount.Text <> "") Then
 
-                SQL = "select " &
+                query = "select " &
                 "SSPPApplicationMaster.strApplicationNumber,  " &
                 "strFacilityName,  " &
                 "format(datPermitIssued, 'yyyy-MM-dd') as datPermitIssued,  " &
@@ -3236,7 +2395,7 @@ Public Class SSPPStatisticalTools
                 "when strMasterApplication is Null then '' " &
                 "else concat('Linked - ', strMasterApplication) " &
                 "end Link, " &
-                "(datPermitIssued - datReceivedDate) as Diff, " &
+                "datediff(day, datReceivedDate, datPermitIssued ) as Diff, " &
                 " concat(strLastName, ', ', strFirstName) as UserName " &
                 "FROM SSPPApplicationMaster " &
                 " INNER JOIN SSPPApplicationTracking  " &
@@ -3250,20 +2409,13 @@ Public Class SSPPStatisticalTools
                 " INNER JOIN EPDUserProfiles " &
                 "ON SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
                 "where SUBSTRING(strTrackedRules, 1, 1) = '1'  " &
-                "and DatPermitIssued > '" & FirstDay & "' and datPermitissued < '" & LastDay & "'  " &
+                "and DatPermitIssued > @FirstDay and datPermitissued < @LastDay  " &
                 "and strPermitType <> '9' " &
                 "and strPermitType <> '10' " &
                 "and strPermitType <> '11' " &
                 EngineerLine
 
-                dsViewCount = New DataSet
-                daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                daViewCount.Fill(dsViewCount, "ViewCount")
-                dgvApplicationCount.DataSource = dsViewCount
-                dgvApplicationCount.DataMember = "ViewCount"
+                dgvApplicationCount.DataSource = DB.GetDataTable(query, p)
 
                 dgvApplicationCount.RowHeadersVisible = False
                 dgvApplicationCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -3313,45 +2465,21 @@ Public Class SSPPStatisticalTools
     End Sub
     Private Sub llbViewAllOpenCount_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewAllOpenCount.LinkClicked
         Try
-
+            Dim query As String
             Dim EngineerLine As String = ""
 
             If chbAllApps2.Checked = False Then
-                If cboSSPPUnits2.Text = "SSPP Administrative" Then
-                    If clbEngineers2.CheckedIndices.Contains(0) = True Then
-                        For Each Engineer As String In clbEngineers2.Items
-                            If EngineerLine = "" Then
-                                EngineerLine = "and ( "
-                            End If
-                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
-                        Next
-                        If EngineerLine <> "" Then
-                            EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
-                        End If
-                    Else
-                        For Each Engineer As String In clbEngineers2.CheckedItems
-                            If EngineerLine = "" Then
-                                EngineerLine = "and ( "
-                            End If
-                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
-                        Next
-                        If EngineerLine <> "" Then
-                            EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
-                        End If
-                    End If
+                If clbEngineers2.CheckedIndices.Contains(0) = True Then
+                    EngineerLine = " and numUnit = '" & cboSSPPUnits2.SelectedValue & "' "
                 Else
-                    If clbEngineers2.CheckedIndices.Contains(0) = True Then
-                        EngineerLine = " and numUnit = '" & cboSSPPUnits2.SelectedValue & "' "
-                    Else
-                        For Each Engineer As String In clbEngineers2.CheckedItems
-                            If EngineerLine = "" Then
-                                EngineerLine = "and ( "
-                            End If
-                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
-                        Next
-                        If EngineerLine <> "" Then
-                            EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
+                    For Each Engineer As String In clbEngineers2.CheckedItems
+                        If EngineerLine = "" Then
+                            EngineerLine = "and ( "
                         End If
+                        EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
+                    Next
+                    If EngineerLine <> "" Then
+                        EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
                     End If
                 End If
             Else
@@ -3359,7 +2487,7 @@ Public Class SSPPStatisticalTools
             End If
 
             If txtAllOpenCount.Text <> "" Then
-                SQL = "select " &
+                query = "select " &
                 "SSPPApplicationMaster.strApplicationNumber,  " &
                 "strFacilityName, strApplicationTypeDesc,  " &
                 "case       " &
@@ -3387,14 +2515,7 @@ Public Class SSPPStatisticalTools
                 "and datFinalizedDate is Null " &
                 EngineerLine
 
-                dsViewCount = New DataSet
-                daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                daViewCount.Fill(dsViewCount, "ViewCount")
-                dgvApplicationCount.DataSource = dsViewCount
-                dgvApplicationCount.DataMember = "ViewCount"
+                dgvApplicationCount.DataSource = DB.GetDataTable(query)
 
                 dgvApplicationCount.RowHeadersVisible = False
                 dgvApplicationCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -3427,45 +2548,21 @@ Public Class SSPPStatisticalTools
     End Sub
     Private Sub llbViewToBCDOCount_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewToBCDOCount.LinkClicked
         Try
-
+            Dim query As String
             Dim EngineerLine As String = ""
 
             If chbAllApps2.Checked = False Then
-                If cboSSPPUnits2.Text = "SSPP Administrative" Then
-                    If clbEngineers2.CheckedIndices.Contains(0) = True Then
-                        For Each Engineer As String In clbEngineers2.Items
-                            If EngineerLine = "" Then
-                                EngineerLine = "and ( "
-                            End If
-                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
-                        Next
-                        If EngineerLine <> "" Then
-                            EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
-                        End If
-                    Else
-                        For Each Engineer As String In clbEngineers2.CheckedItems
-                            If EngineerLine = "" Then
-                                EngineerLine = "and ( "
-                            End If
-                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
-                        Next
-                        If EngineerLine <> "" Then
-                            EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
-                        End If
-                    End If
+                If clbEngineers2.CheckedIndices.Contains(0) = True Then
+                    EngineerLine = " and numUnit = '" & cboSSPPUnits2.SelectedValue & "' "
                 Else
-                    If clbEngineers2.CheckedIndices.Contains(0) = True Then
-                        EngineerLine = " and numUnit = '" & cboSSPPUnits2.SelectedValue & "' "
-                    Else
-                        For Each Engineer As String In clbEngineers2.CheckedItems
-                            If EngineerLine = "" Then
-                                EngineerLine = "and ( "
-                            End If
-                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
-                        Next
-                        If EngineerLine <> "" Then
-                            EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
+                    For Each Engineer As String In clbEngineers2.CheckedItems
+                        If EngineerLine = "" Then
+                            EngineerLine = "and ( "
                         End If
+                        EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
+                    Next
+                    If EngineerLine <> "" Then
+                        EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
                     End If
                 End If
             Else
@@ -3473,7 +2570,7 @@ Public Class SSPPStatisticalTools
             End If
 
             If txtToDOCount.Text <> "" Or txtToBCCount.Text <> "" Then
-                SQL = "select " &
+                query = "select " &
                 "SSPPApplicationMaster.strApplicationNumber,  " &
                 "strFacilityName, strApplicationTypeDesc,  " &
                 "case       " &
@@ -3503,14 +2600,7 @@ Public Class SSPPStatisticalTools
                 "or (datToDirector is Not Null and (datDraftIssued is Null or datDraftIssued < datToDirector))) " &
                 EngineerLine
 
-                dsViewCount = New DataSet
-                daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                daViewCount.Fill(dsViewCount, "ViewCount")
-                dgvApplicationCount.DataSource = dsViewCount
-                dgvApplicationCount.DataMember = "ViewCount"
+                dgvApplicationCount.DataSource = DB.GetDataTable(query)
 
                 dgvApplicationCount.RowHeadersVisible = False
                 dgvApplicationCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -3543,45 +2633,21 @@ Public Class SSPPStatisticalTools
     End Sub
     Private Sub llbViewOpen45DayCount_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewOpen45DayCount.LinkClicked
         Try
-
+            Dim query As String
             Dim EngineerLine As String = ""
 
             If chbAllApps2.Checked = False Then
-                If cboSSPPUnits2.Text = "SSPP Administrative" Then
-                    If clbEngineers2.CheckedIndices.Contains(0) = True Then
-                        For Each Engineer As String In clbEngineers2.Items
-                            If EngineerLine = "" Then
-                                EngineerLine = "and ( "
-                            End If
-                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
-                        Next
-                        If EngineerLine <> "" Then
-                            EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
-                        End If
-                    Else
-                        For Each Engineer As String In clbEngineers2.CheckedItems
-                            If EngineerLine = "" Then
-                                EngineerLine = "and ( "
-                            End If
-                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
-                        Next
-                        If EngineerLine <> "" Then
-                            EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
-                        End If
-                    End If
+                If clbEngineers2.CheckedIndices.Contains(0) = True Then
+                    EngineerLine = " and numUnit = '" & cboSSPPUnits2.SelectedValue & "' "
                 Else
-                    If clbEngineers2.CheckedIndices.Contains(0) = True Then
-                        EngineerLine = " and numUnit = '" & cboSSPPUnits2.SelectedValue & "' "
-                    Else
-                        For Each Engineer As String In clbEngineers2.CheckedItems
+                    For Each Engineer As String In clbEngineers2.CheckedItems
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
                             EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
                         Next
-                        If EngineerLine <> "" Then
-                            EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
-                        End If
+                    If EngineerLine <> "" Then
+                        EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
                     End If
                 End If
             Else
@@ -3589,7 +2655,7 @@ Public Class SSPPStatisticalTools
             End If
 
             If txtOpen45DayCount.Text <> "" Then
-                SQL = "select " &
+                query = "select " &
                 "SSPPApplicationMaster.strApplicationNumber,  " &
                 "strFacilityName, strApplicationTypeDesc,  " &
                 "case       " &
@@ -3619,14 +2685,7 @@ Public Class SSPPStatisticalTools
                 "and datDraftIssued is Not Null " &
                 EngineerLine
 
-                dsViewCount = New DataSet
-                daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                daViewCount.Fill(dsViewCount, "ViewCount")
-                dgvApplicationCount.DataSource = dsViewCount
-                dgvApplicationCount.DataMember = "ViewCount"
+                dgvApplicationCount.DataSource = DB.GetDataTable(query)
 
                 dgvApplicationCount.RowHeadersVisible = False
                 dgvApplicationCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -3659,45 +2718,21 @@ Public Class SSPPStatisticalTools
     End Sub
     Private Sub llbViewPublicNoticeCount_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewPublicNoticeCount.LinkClicked
         Try
-
+            Dim query As String
             Dim EngineerLine As String = ""
 
             If chbAllApps2.Checked = False Then
-                If cboSSPPUnits2.Text = "SSPP Administrative" Then
-                    If clbEngineers2.CheckedIndices.Contains(0) = True Then
-                        For Each Engineer As String In clbEngineers2.Items
-                            If EngineerLine = "" Then
-                                EngineerLine = "and ( "
-                            End If
-                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
-                        Next
-                        If EngineerLine <> "" Then
-                            EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
-                        End If
-                    Else
-                        For Each Engineer As String In clbEngineers2.CheckedItems
-                            If EngineerLine = "" Then
-                                EngineerLine = "and ( "
-                            End If
-                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
-                        Next
-                        If EngineerLine <> "" Then
-                            EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
-                        End If
-                    End If
+                If clbEngineers2.CheckedIndices.Contains(0) = True Then
+                    EngineerLine = " and numUnit = '" & cboSSPPUnits2.SelectedValue & "' "
                 Else
-                    If clbEngineers2.CheckedIndices.Contains(0) = True Then
-                        EngineerLine = " and numUnit = '" & cboSSPPUnits2.SelectedValue & "' "
-                    Else
-                        For Each Engineer As String In clbEngineers2.CheckedItems
-                            If EngineerLine = "" Then
-                                EngineerLine = "and ( "
-                            End If
-                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
-                        Next
-                        If EngineerLine <> "" Then
-                            EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
+                    For Each Engineer As String In clbEngineers2.CheckedItems
+                        If EngineerLine = "" Then
+                            EngineerLine = "and ( "
                         End If
+                        EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
+                    Next
+                    If EngineerLine <> "" Then
+                        EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
                     End If
                 End If
             Else
@@ -3705,7 +2740,7 @@ Public Class SSPPStatisticalTools
             End If
 
             If txtPublicNoticeCount.Text <> "" Then
-                SQL = "select " &
+                query = "select " &
                 "SSPPApplicationMaster.strApplicationNumber,  " &
                 "strFacilityName, strApplicationTypeDesc,  " &
                 "case       " &
@@ -3735,14 +2770,7 @@ Public Class SSPPStatisticalTools
                 "and datEPAEnds is Null " &
                 EngineerLine
 
-                dsViewCount = New DataSet
-                daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                daViewCount.Fill(dsViewCount, "ViewCount")
-                dgvApplicationCount.DataSource = dsViewCount
-                dgvApplicationCount.DataMember = "ViewCount"
+                dgvApplicationCount.DataSource = DB.GetDataTable(query)
 
                 dgvApplicationCount.RowHeadersVisible = False
                 dgvApplicationCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -3775,45 +2803,21 @@ Public Class SSPPStatisticalTools
     End Sub
     Private Sub llbViewDraftIssuedCount_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewDraftIssuedCount.LinkClicked
         Try
-
+            Dim query As String
             Dim EngineerLine As String = ""
 
             If chbAllApps2.Checked = False Then
-                If cboSSPPUnits2.Text = "SSPP Administrative" Then
-                    If clbEngineers2.CheckedIndices.Contains(0) = True Then
-                        For Each Engineer As String In clbEngineers2.Items
-                            If EngineerLine = "" Then
-                                EngineerLine = "and ( "
-                            End If
-                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
-                        Next
-                        If EngineerLine <> "" Then
-                            EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
-                        End If
-                    Else
-                        For Each Engineer As String In clbEngineers2.CheckedItems
-                            If EngineerLine = "" Then
-                                EngineerLine = "and ( "
-                            End If
-                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
-                        Next
-                        If EngineerLine <> "" Then
-                            EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
-                        End If
-                    End If
+                If clbEngineers2.CheckedIndices.Contains(0) = True Then
+                    EngineerLine = " and numUnit = '" & cboSSPPUnits2.SelectedValue & "' "
                 Else
-                    If clbEngineers2.CheckedIndices.Contains(0) = True Then
-                        EngineerLine = " and numUnit = '" & cboSSPPUnits2.SelectedValue & "' "
-                    Else
-                        For Each Engineer As String In clbEngineers2.CheckedItems
-                            If EngineerLine = "" Then
-                                EngineerLine = "and ( "
-                            End If
-                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
-                        Next
-                        If EngineerLine <> "" Then
-                            EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
+                    For Each Engineer As String In clbEngineers2.CheckedItems
+                        If EngineerLine = "" Then
+                            EngineerLine = "and ( "
                         End If
+                        EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
+                    Next
+                    If EngineerLine <> "" Then
+                        EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
                     End If
                 End If
             Else
@@ -3821,7 +2825,7 @@ Public Class SSPPStatisticalTools
             End If
 
             If txtDraftIssuedCount.Text <> "" Then
-                SQL = "select " &
+                query = "select " &
                 "SSPPApplicationMaster.strApplicationNumber,  " &
                 "strFacilityName, strApplicationTypeDesc,  " &
                 "case       " &
@@ -3854,14 +2858,7 @@ Public Class SSPPStatisticalTools
                 "and datEPAEnds is Null  " &
                 EngineerLine
 
-                dsViewCount = New DataSet
-                daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                daViewCount.Fill(dsViewCount, "ViewCount")
-                dgvApplicationCount.DataSource = dsViewCount
-                dgvApplicationCount.DataMember = "ViewCount"
+                dgvApplicationCount.DataSource = DB.GetDataTable(query)
 
                 dgvApplicationCount.RowHeadersVisible = False
                 dgvApplicationCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -3895,45 +2892,21 @@ Public Class SSPPStatisticalTools
     End Sub
     Private Sub llbViewToPMCount_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewToPMCount.LinkClicked
         Try
-
+            Dim query As String
             Dim EngineerLine As String = ""
 
             If chbAllApps2.Checked = False Then
-                If cboSSPPUnits2.Text = "SSPP Administrative" Then
-                    If clbEngineers2.CheckedIndices.Contains(0) = True Then
-                        For Each Engineer As String In clbEngineers2.Items
-                            If EngineerLine = "" Then
-                                EngineerLine = "and ( "
-                            End If
-                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
-                        Next
-                        If EngineerLine <> "" Then
-                            EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
-                        End If
-                    Else
-                        For Each Engineer As String In clbEngineers2.CheckedItems
-                            If EngineerLine = "" Then
-                                EngineerLine = "and ( "
-                            End If
-                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
-                        Next
-                        If EngineerLine <> "" Then
-                            EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
-                        End If
-                    End If
+                If clbEngineers2.CheckedIndices.Contains(0) = True Then
+                    EngineerLine = " and numUnit = '" & cboSSPPUnits2.SelectedValue & "' "
                 Else
-                    If clbEngineers2.CheckedIndices.Contains(0) = True Then
-                        EngineerLine = " and numUnit = '" & cboSSPPUnits2.SelectedValue & "' "
-                    Else
-                        For Each Engineer As String In clbEngineers2.CheckedItems
-                            If EngineerLine = "" Then
-                                EngineerLine = "and ( "
-                            End If
-                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
-                        Next
-                        If EngineerLine <> "" Then
-                            EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
+                    For Each Engineer As String In clbEngineers2.CheckedItems
+                        If EngineerLine = "" Then
+                            EngineerLine = "and ( "
                         End If
+                        EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
+                    Next
+                    If EngineerLine <> "" Then
+                        EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
                     End If
                 End If
             Else
@@ -3941,7 +2914,7 @@ Public Class SSPPStatisticalTools
             End If
 
             If txtToPMCount.Text <> "" Then
-                SQL = "select " &
+                query = "select " &
                 "SSPPApplicationMaster.strApplicationNumber,  " &
                 "strFacilityName, strApplicationTypeDesc,  " &
                 "case       " &
@@ -3975,14 +2948,7 @@ Public Class SSPPStatisticalTools
                 "and datToPMII is Not Null " &
                 EngineerLine
 
-                dsViewCount = New DataSet
-                daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                daViewCount.Fill(dsViewCount, "ViewCount")
-                dgvApplicationCount.DataSource = dsViewCount
-                dgvApplicationCount.DataMember = "ViewCount"
+                dgvApplicationCount.DataSource = DB.GetDataTable(query)
 
                 dgvApplicationCount.RowHeadersVisible = False
                 dgvApplicationCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -4016,45 +2982,21 @@ Public Class SSPPStatisticalTools
     End Sub
     Private Sub llbViewToUCCount_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewToUCCount.LinkClicked
         Try
-
+            Dim query As String
             Dim EngineerLine As String = ""
 
             If chbAllApps2.Checked = False Then
-                If cboSSPPUnits2.Text = "SSPP Administrative" Then
-                    If clbEngineers2.CheckedIndices.Contains(0) = True Then
-                        For Each Engineer As String In clbEngineers2.Items
-                            If EngineerLine = "" Then
-                                EngineerLine = "and ( "
-                            End If
-                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
-                        Next
-                        If EngineerLine <> "" Then
-                            EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
-                        End If
-                    Else
-                        For Each Engineer As String In clbEngineers2.CheckedItems
-                            If EngineerLine = "" Then
-                                EngineerLine = "and ( "
-                            End If
-                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
-                        Next
-                        If EngineerLine <> "" Then
-                            EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
-                        End If
-                    End If
+                If clbEngineers2.CheckedIndices.Contains(0) = True Then
+                    EngineerLine = " and numUnit = '" & cboSSPPUnits2.SelectedValue & "' "
                 Else
-                    If clbEngineers2.CheckedIndices.Contains(0) = True Then
-                        EngineerLine = " and numUnit = '" & cboSSPPUnits2.SelectedValue & "' "
-                    Else
-                        For Each Engineer As String In clbEngineers2.CheckedItems
+                    For Each Engineer As String In clbEngineers2.CheckedItems
                             If EngineerLine = "" Then
                                 EngineerLine = "and ( "
                             End If
                             EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
                         Next
-                        If EngineerLine <> "" Then
-                            EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
-                        End If
+                    If EngineerLine <> "" Then
+                        EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
                     End If
                 End If
             Else
@@ -4062,7 +3004,7 @@ Public Class SSPPStatisticalTools
             End If
 
             If txtToUCCount.Text <> "" Then
-                SQL = "select " &
+                query = "select " &
                 "SSPPApplicationMaster.strApplicationNumber,  " &
                 "strFacilityName, strApplicationTypeDesc,  " &
                 "case       " &
@@ -4097,14 +3039,7 @@ Public Class SSPPStatisticalTools
                 "and datToPMI is Not Null " &
                 EngineerLine
 
-                dsViewCount = New DataSet
-                daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                daViewCount.Fill(dsViewCount, "ViewCount")
-                dgvApplicationCount.DataSource = dsViewCount
-                dgvApplicationCount.DataMember = "ViewCount"
+                dgvApplicationCount.DataSource = DB.GetDataTable(query)
 
                 dgvApplicationCount.RowHeadersVisible = False
                 dgvApplicationCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -4138,45 +3073,21 @@ Public Class SSPPStatisticalTools
     End Sub
     Private Sub llbViewWStaffCount_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewWStaffCount.LinkClicked
         Try
-
+            Dim query As String
             Dim EngineerLine As String = ""
 
             If chbAllApps2.Checked = False Then
-                If cboSSPPUnits2.Text = "SSPP Administrative" Then
-                    If clbEngineers2.CheckedIndices.Contains(0) = True Then
-                        For Each Engineer As String In clbEngineers2.Items
-                            If EngineerLine = "" Then
-                                EngineerLine = "and ( "
-                            End If
-                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
-                        Next
-                        If EngineerLine <> "" Then
-                            EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
-                        End If
-                    Else
-                        For Each Engineer As String In clbEngineers2.CheckedItems
-                            If EngineerLine = "" Then
-                                EngineerLine = "and ( "
-                            End If
-                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
-                        Next
-                        If EngineerLine <> "" Then
-                            EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
-                        End If
-                    End If
+                If clbEngineers2.CheckedIndices.Contains(0) = True Then
+                    EngineerLine = " and numUnit = '" & cboSSPPUnits2.SelectedValue & "' "
                 Else
-                    If clbEngineers2.CheckedIndices.Contains(0) = True Then
-                        EngineerLine = " and numUnit = '" & cboSSPPUnits2.SelectedValue & "' "
-                    Else
-                        For Each Engineer As String In clbEngineers2.CheckedItems
-                            If EngineerLine = "" Then
-                                EngineerLine = "and ( "
-                            End If
-                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
-                        Next
-                        If EngineerLine <> "" Then
-                            EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
+                    For Each Engineer As String In clbEngineers2.CheckedItems
+                        If EngineerLine = "" Then
+                            EngineerLine = "and ( "
                         End If
+                        EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
+                    Next
+                    If EngineerLine <> "" Then
+                        EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
                     End If
                 End If
             Else
@@ -4184,7 +3095,7 @@ Public Class SSPPStatisticalTools
             End If
 
             If txtWStaffCount.Text <> "" Then
-                SQL = "select " &
+                query = "select " &
                 "SSPPApplicationMaster.strApplicationNumber,  " &
                 "strFacilityName, strApplicationTypeDesc,  " &
                 "case       " &
@@ -4219,14 +3130,7 @@ Public Class SSPPStatisticalTools
                 "and datToPMI is Null " &
                 EngineerLine
 
-                dsViewCount = New DataSet
-                daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                daViewCount.Fill(dsViewCount, "ViewCount")
-                dgvApplicationCount.DataSource = dsViewCount
-                dgvApplicationCount.DataMember = "ViewCount"
+                dgvApplicationCount.DataSource = DB.GetDataTable(query)
 
                 dgvApplicationCount.RowHeadersVisible = False
                 dgvApplicationCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -4272,45 +3176,21 @@ Public Class SSPPStatisticalTools
     End Sub
     Private Sub llbViewTVTotalOpenCount_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewTVTotalOpenCount.LinkClicked
         Try
-
+            Dim query As String
             Dim EngineerLine As String = ""
 
             If chbAllApps3.Checked = False Then
-                If cboSSPPUnits3.Text = "SSPP Administrative" Then
-                    If clbEngineers3.CheckedIndices.Contains(0) = True Then
-                        For Each Engineer As String In clbEngineers3.Items
-                            If EngineerLine = "" Then
-                                EngineerLine = "and ( "
-                            End If
-                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
-                        Next
-                        If EngineerLine <> "" Then
-                            EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
-                        End If
-                    Else
-                        For Each Engineer As String In clbEngineers3.CheckedItems
-                            If EngineerLine = "" Then
-                                EngineerLine = "and ( "
-                            End If
-                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
-                        Next
-                        If EngineerLine <> "" Then
-                            EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
-                        End If
-                    End If
+                If clbEngineers3.CheckedIndices.Contains(0) = True Then
+                    EngineerLine = " and numUnit = '" & cboSSPPUnits3.SelectedValue & "' "
                 Else
-                    If clbEngineers3.CheckedIndices.Contains(0) = True Then
-                        EngineerLine = " and numUnit = '" & cboSSPPUnits3.SelectedValue & "' "
-                    Else
-                        For Each Engineer As String In clbEngineers3.CheckedItems
-                            If EngineerLine = "" Then
-                                EngineerLine = "and ( "
-                            End If
-                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
-                        Next
-                        If EngineerLine <> "" Then
-                            EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
+                    For Each Engineer As String In clbEngineers3.CheckedItems
+                        If EngineerLine = "" Then
+                            EngineerLine = "and ( "
                         End If
+                        EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
+                    Next
+                    If EngineerLine <> "" Then
+                        EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
                     End If
                 End If
             Else
@@ -4318,7 +3198,7 @@ Public Class SSPPStatisticalTools
             End If
 
             If txtTVTotalOpenCount.Text <> "" Then
-                SQL = "select " &
+                query = "select " &
                 "SSPPApplicationMaster.strApplicationNumber,  " &
                 "strFacilityName, strApplicationTypeDesc, " &
                 "case       " &
@@ -4352,15 +3232,7 @@ Public Class SSPPStatisticalTools
                 "and (strApplicationType = '14' or strApplicationType = '16') " &
                 EngineerLine
 
-
-                dsViewCount = New DataSet
-                daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                daViewCount.Fill(dsViewCount, "ViewCount")
-                dgvApplicationCount.DataSource = dsViewCount
-                dgvApplicationCount.DataMember = "ViewCount"
+                dgvApplicationCount.DataSource = DB.GetDataTable(query)
 
                 dgvApplicationCount.RowHeadersVisible = False
                 dgvApplicationCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -4395,45 +3267,21 @@ Public Class SSPPStatisticalTools
     End Sub
     Private Sub llbViewTVOneYearCount_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewTVOneYearCount.LinkClicked
         Try
-
+            Dim query As String
             Dim EngineerLine As String = ""
 
             If chbAllApps3.Checked = False Then
-                If cboSSPPUnits3.Text = "SSPP Administrative" Then
-                    If clbEngineers3.CheckedIndices.Contains(0) = True Then
-                        For Each Engineer As String In clbEngineers3.Items
-                            If EngineerLine = "" Then
-                                EngineerLine = "and ( "
-                            End If
-                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
-                        Next
-                        If EngineerLine <> "" Then
-                            EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
-                        End If
-                    Else
-                        For Each Engineer As String In clbEngineers3.CheckedItems
-                            If EngineerLine = "" Then
-                                EngineerLine = "and ( "
-                            End If
-                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
-                        Next
-                        If EngineerLine <> "" Then
-                            EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
-                        End If
-                    End If
+                If clbEngineers3.CheckedIndices.Contains(0) = True Then
+                    EngineerLine = " and numUnit = '" & cboSSPPUnits3.SelectedValue & "' "
                 Else
-                    If clbEngineers3.CheckedIndices.Contains(0) = True Then
-                        EngineerLine = " and numUnit = '" & cboSSPPUnits3.SelectedValue & "' "
-                    Else
-                        For Each Engineer As String In clbEngineers3.CheckedItems
-                            If EngineerLine = "" Then
-                                EngineerLine = "and ( "
-                            End If
-                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
-                        Next
-                        If EngineerLine <> "" Then
-                            EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
+                    For Each Engineer As String In clbEngineers3.CheckedItems
+                        If EngineerLine = "" Then
+                            EngineerLine = "and ( "
                         End If
+                        EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
+                    Next
+                    If EngineerLine <> "" Then
+                        EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
                     End If
                 End If
             Else
@@ -4441,7 +3289,7 @@ Public Class SSPPStatisticalTools
             End If
 
             If txtTVOneYearCount.Text <> "" Then
-                SQL = "select " &
+                query = "select " &
                 "SSPPApplicationMaster.strApplicationNumber,  " &
                 "strFacilityName, strApplicationTypeDesc, " &
                 "case       " &
@@ -4474,15 +3322,7 @@ Public Class SSPPStatisticalTools
                 "and datReceivedDate > DATEADD(month, -12, GETDATE())  " &
                 EngineerLine
 
-
-                dsViewCount = New DataSet
-                daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                daViewCount.Fill(dsViewCount, "ViewCount")
-                dgvApplicationCount.DataSource = dsViewCount
-                dgvApplicationCount.DataMember = "ViewCount"
+                dgvApplicationCount.DataSource = DB.GetDataTable(query)
 
                 dgvApplicationCount.RowHeadersVisible = False
                 dgvApplicationCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -4517,45 +3357,21 @@ Public Class SSPPStatisticalTools
     End Sub
     Private Sub llbViewTVTwelveCount_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewTVTwelveCount.LinkClicked
         Try
-
+            Dim query As String
             Dim EngineerLine As String = ""
 
             If chbAllApps3.Checked = False Then
-                If cboSSPPUnits3.Text = "SSPP Administrative" Then
-                    If clbEngineers3.CheckedIndices.Contains(0) = True Then
-                        For Each Engineer As String In clbEngineers3.Items
-                            If EngineerLine = "" Then
-                                EngineerLine = "and ( "
-                            End If
-                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
-                        Next
-                        If EngineerLine <> "" Then
-                            EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
-                        End If
-                    Else
-                        For Each Engineer As String In clbEngineers3.CheckedItems
-                            If EngineerLine = "" Then
-                                EngineerLine = "and ( "
-                            End If
-                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
-                        Next
-                        If EngineerLine <> "" Then
-                            EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
-                        End If
-                    End If
+                If clbEngineers3.CheckedIndices.Contains(0) = True Then
+                    EngineerLine = " and numUnit = '" & cboSSPPUnits3.SelectedValue & "' "
                 Else
-                    If clbEngineers3.CheckedIndices.Contains(0) = True Then
-                        EngineerLine = " and numUnit = '" & cboSSPPUnits3.SelectedValue & "' "
-                    Else
-                        For Each Engineer As String In clbEngineers3.CheckedItems
-                            If EngineerLine = "" Then
-                                EngineerLine = "and ( "
-                            End If
-                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
-                        Next
-                        If EngineerLine <> "" Then
-                            EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
+                    For Each Engineer As String In clbEngineers3.CheckedItems
+                        If EngineerLine = "" Then
+                            EngineerLine = "and ( "
                         End If
+                        EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
+                    Next
+                    If EngineerLine <> "" Then
+                        EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
                     End If
                 End If
             Else
@@ -4563,7 +3379,7 @@ Public Class SSPPStatisticalTools
             End If
 
             If txtTVTwelveCount.Text <> "" Then
-                SQL = "select " &
+                query = "select " &
                 "SSPPApplicationMaster.strApplicationNumber,  " &
                 "strFacilityName, strApplicationTypeDesc, " &
                 "case       " &
@@ -4597,14 +3413,7 @@ Public Class SSPPStatisticalTools
                 "and datReceivedDate < DATEADD(month, -12, GETDATE()) " &
                 EngineerLine
 
-                dsViewCount = New DataSet
-                daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                daViewCount.Fill(dsViewCount, "ViewCount")
-                dgvApplicationCount.DataSource = dsViewCount
-                dgvApplicationCount.DataMember = "ViewCount"
+                dgvApplicationCount.DataSource = DB.GetDataTable(query)
 
                 dgvApplicationCount.RowHeadersVisible = False
                 dgvApplicationCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -4639,45 +3448,21 @@ Public Class SSPPStatisticalTools
     End Sub
     Private Sub llvViewTVGreaterCount_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llvViewTVGreaterCount.LinkClicked
         Try
-
+            Dim query As String
             Dim EngineerLine As String = ""
 
             If chbAllApps3.Checked = False Then
-                If cboSSPPUnits3.Text = "SSPP Administrative" Then
-                    If clbEngineers3.CheckedIndices.Contains(0) = True Then
-                        For Each Engineer As String In clbEngineers3.Items
-                            If EngineerLine = "" Then
-                                EngineerLine = "and ( "
-                            End If
-                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
-                        Next
-                        If EngineerLine <> "" Then
-                            EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
-                        End If
-                    Else
-                        For Each Engineer As String In clbEngineers3.CheckedItems
-                            If EngineerLine = "" Then
-                                EngineerLine = "and ( "
-                            End If
-                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
-                        Next
-                        If EngineerLine <> "" Then
-                            EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
-                        End If
-                    End If
+                If clbEngineers3.CheckedIndices.Contains(0) = True Then
+                    EngineerLine = " and numUnit = '" & cboSSPPUnits3.SelectedValue & "' "
                 Else
-                    If clbEngineers3.CheckedIndices.Contains(0) = True Then
-                        EngineerLine = " and numUnit = '" & cboSSPPUnits3.SelectedValue & "' "
-                    Else
-                        For Each Engineer As String In clbEngineers3.CheckedItems
-                            If EngineerLine = "" Then
-                                EngineerLine = "and ( "
-                            End If
-                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
-                        Next
-                        If EngineerLine <> "" Then
-                            EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
+                    For Each Engineer As String In clbEngineers3.CheckedItems
+                        If EngineerLine = "" Then
+                            EngineerLine = "and ( "
                         End If
+                        EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
+                    Next
+                    If EngineerLine <> "" Then
+                        EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
                     End If
                 End If
             Else
@@ -4685,7 +3470,7 @@ Public Class SSPPStatisticalTools
             End If
 
             If txtTVGreaterCount.Text <> "" Then
-                SQL = "select " &
+                query = "select " &
                 "SSPPApplicationMaster.strApplicationNumber,  " &
                 "strFacilityName, strApplicationTypeDesc, " &
                 "case       " &
@@ -4718,14 +3503,7 @@ Public Class SSPPStatisticalTools
                 "and datReceivedDate < DATEADD(month, -18, GETDATE())" &
                 EngineerLine
 
-                dsViewCount = New DataSet
-                daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                daViewCount.Fill(dsViewCount, "ViewCount")
-                dgvApplicationCount.DataSource = dsViewCount
-                dgvApplicationCount.DataMember = "ViewCount"
+                dgvApplicationCount.DataSource = DB.GetDataTable(query)
 
                 dgvApplicationCount.RowHeadersVisible = False
                 dgvApplicationCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -4773,45 +3551,21 @@ Public Class SSPPStatisticalTools
     End Sub
     Private Sub llbViewTotalOpenCount_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewTotalOpenCount.LinkClicked
         Try
-
+            Dim query As String
             Dim EngineerLine As String = ""
 
             If chbAllApps3.Checked = False Then
-                If cboSSPPUnits3.Text = "SSPP Administrative" Then
-                    If clbEngineers3.CheckedIndices.Contains(0) = True Then
-                        For Each Engineer As String In clbEngineers3.Items
-                            If EngineerLine = "" Then
-                                EngineerLine = "and ( "
-                            End If
-                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
-                        Next
-                        If EngineerLine <> "" Then
-                            EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
-                        End If
-                    Else
-                        For Each Engineer As String In clbEngineers3.CheckedItems
-                            If EngineerLine = "" Then
-                                EngineerLine = "and ( "
-                            End If
-                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
-                        Next
-                        If EngineerLine <> "" Then
-                            EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
-                        End If
-                    End If
+                If clbEngineers3.CheckedIndices.Contains(0) = True Then
+                    EngineerLine = " and numUnit = '" & cboSSPPUnits3.SelectedValue & "' "
                 Else
-                    If clbEngineers3.CheckedIndices.Contains(0) = True Then
-                        EngineerLine = " and numUnit = '" & cboSSPPUnits3.SelectedValue & "' "
-                    Else
-                        For Each Engineer As String In clbEngineers3.CheckedItems
-                            If EngineerLine = "" Then
-                                EngineerLine = "and ( "
-                            End If
-                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
-                        Next
-                        If EngineerLine <> "" Then
-                            EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
+                    For Each Engineer As String In clbEngineers3.CheckedItems
+                        If EngineerLine = "" Then
+                            EngineerLine = "and ( "
                         End If
+                        EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
+                    Next
+                    If EngineerLine <> "" Then
+                        EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
                     End If
                 End If
             Else
@@ -4819,7 +3573,7 @@ Public Class SSPPStatisticalTools
             End If
 
             If txtTotalOpenCount.Text <> "" Then
-                SQL = "select " &
+                query = "select " &
                 "SSPPApplicationMaster.strApplicationNumber,  " &
                 "strFacilityName, strApplicationTypeDesc, " &
                 "case       " &
@@ -4852,14 +3606,7 @@ Public Class SSPPStatisticalTools
                 "and strApplicationType <> '17' and strApplicationType <> '27' " &
                 EngineerLine
 
-                dsViewCount = New DataSet
-                daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                daViewCount.Fill(dsViewCount, "ViewCount")
-                dgvApplicationCount.DataSource = dsViewCount
-                dgvApplicationCount.DataMember = "ViewCount"
+                dgvApplicationCount.DataSource = DB.GetDataTable(query)
 
                 dgvApplicationCount.RowHeadersVisible = False
                 dgvApplicationCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -4894,45 +3641,21 @@ Public Class SSPPStatisticalTools
     End Sub
     Private Sub llbViewThreeMonthOpenCount_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewThreeMonthOpenCount.LinkClicked
         Try
-
+            Dim query As String
             Dim EngineerLine As String = ""
 
             If chbAllApps3.Checked = False Then
-                If cboSSPPUnits3.Text = "SSPP Administrative" Then
-                    If clbEngineers3.CheckedIndices.Contains(0) = True Then
-                        For Each Engineer As String In clbEngineers3.Items
-                            If EngineerLine = "" Then
-                                EngineerLine = "and ( "
-                            End If
-                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
-                        Next
-                        If EngineerLine <> "" Then
-                            EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
-                        End If
-                    Else
-                        For Each Engineer As String In clbEngineers3.CheckedItems
-                            If EngineerLine = "" Then
-                                EngineerLine = "and ( "
-                            End If
-                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
-                        Next
-                        If EngineerLine <> "" Then
-                            EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
-                        End If
-                    End If
+                If clbEngineers3.CheckedIndices.Contains(0) = True Then
+                    EngineerLine = " and numUnit = '" & cboSSPPUnits3.SelectedValue & "' "
                 Else
-                    If clbEngineers3.CheckedIndices.Contains(0) = True Then
-                        EngineerLine = " and numUnit = '" & cboSSPPUnits3.SelectedValue & "' "
-                    Else
-                        For Each Engineer As String In clbEngineers3.CheckedItems
-                            If EngineerLine = "" Then
-                                EngineerLine = "and ( "
-                            End If
-                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
-                        Next
-                        If EngineerLine <> "" Then
-                            EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
+                    For Each Engineer As String In clbEngineers3.CheckedItems
+                        If EngineerLine = "" Then
+                            EngineerLine = "and ( "
                         End If
+                        EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
+                    Next
+                    If EngineerLine <> "" Then
+                        EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
                     End If
                 End If
             Else
@@ -4940,7 +3663,7 @@ Public Class SSPPStatisticalTools
             End If
 
             If txtThreeMonthOpenCount.Text <> "" Then
-                SQL = "select " &
+                query = "select " &
                 "SSPPApplicationMaster.strApplicationNumber,  " &
                 "strFacilityName, strApplicationTypeDesc, " &
                 "case       " &
@@ -4974,14 +3697,7 @@ Public Class SSPPStatisticalTools
                 "and datReceivedDate >= DATEADD(month, -3, GETDATE())  " &
                 EngineerLine
 
-                dsViewCount = New DataSet
-                daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                daViewCount.Fill(dsViewCount, "ViewCount")
-                dgvApplicationCount.DataSource = dsViewCount
-                dgvApplicationCount.DataMember = "ViewCount"
+                dgvApplicationCount.DataSource = DB.GetDataTable(query)
 
                 dgvApplicationCount.RowHeadersVisible = False
                 dgvApplicationCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -5016,45 +3732,21 @@ Public Class SSPPStatisticalTools
     End Sub
     Private Sub llbViewSixMonthOpenCount_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewSixMonthOpenCount.LinkClicked
         Try
-
+            Dim query As String
             Dim EngineerLine As String = ""
 
             If chbAllApps3.Checked = False Then
-                If cboSSPPUnits3.Text = "SSPP Administrative" Then
-                    If clbEngineers3.CheckedIndices.Contains(0) = True Then
-                        For Each Engineer As String In clbEngineers3.Items
-                            If EngineerLine = "" Then
-                                EngineerLine = "and ( "
-                            End If
-                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
-                        Next
-                        If EngineerLine <> "" Then
-                            EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
-                        End If
-                    Else
-                        For Each Engineer As String In clbEngineers3.CheckedItems
-                            If EngineerLine = "" Then
-                                EngineerLine = "and ( "
-                            End If
-                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
-                        Next
-                        If EngineerLine <> "" Then
-                            EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
-                        End If
-                    End If
+                If clbEngineers3.CheckedIndices.Contains(0) = True Then
+                    EngineerLine = " and numUnit = '" & cboSSPPUnits3.SelectedValue & "' "
                 Else
-                    If clbEngineers3.CheckedIndices.Contains(0) = True Then
-                        EngineerLine = " and numUnit = '" & cboSSPPUnits3.SelectedValue & "' "
-                    Else
-                        For Each Engineer As String In clbEngineers3.CheckedItems
-                            If EngineerLine = "" Then
-                                EngineerLine = "and ( "
-                            End If
-                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
-                        Next
-                        If EngineerLine <> "" Then
-                            EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
+                    For Each Engineer As String In clbEngineers3.CheckedItems
+                        If EngineerLine = "" Then
+                            EngineerLine = "and ( "
                         End If
+                        EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
+                    Next
+                    If EngineerLine <> "" Then
+                        EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
                     End If
                 End If
             Else
@@ -5062,7 +3754,7 @@ Public Class SSPPStatisticalTools
             End If
 
             If txtSixMonthOpenCount.Text <> "" Then
-                SQL = "select " &
+                query = "select " &
                 "SSPPApplicationMaster.strApplicationNumber,  " &
                 "strFacilityName, strApplicationTypeDesc, " &
                 "case       " &
@@ -5097,14 +3789,7 @@ Public Class SSPPStatisticalTools
                 "and datReceivedDate < DATEADD(month, -3, GETDATE()) " &
                 EngineerLine
 
-                dsViewCount = New DataSet
-                daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                daViewCount.Fill(dsViewCount, "ViewCount")
-                dgvApplicationCount.DataSource = dsViewCount
-                dgvApplicationCount.DataMember = "ViewCount"
+                dgvApplicationCount.DataSource = DB.GetDataTable(query)
 
                 dgvApplicationCount.RowHeadersVisible = False
                 dgvApplicationCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -5139,45 +3824,21 @@ Public Class SSPPStatisticalTools
     End Sub
     Private Sub llbViewNineMonthOpenCount_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewNineMonthOpenCount.LinkClicked
         Try
-
+            Dim query As String
             Dim EngineerLine As String = ""
 
             If chbAllApps3.Checked = False Then
-                If cboSSPPUnits3.Text = "SSPP Administrative" Then
-                    If clbEngineers3.CheckedIndices.Contains(0) = True Then
-                        For Each Engineer As String In clbEngineers3.Items
-                            If EngineerLine = "" Then
-                                EngineerLine = "and ( "
-                            End If
-                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
-                        Next
-                        If EngineerLine <> "" Then
-                            EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
-                        End If
-                    Else
-                        For Each Engineer As String In clbEngineers3.CheckedItems
-                            If EngineerLine = "" Then
-                                EngineerLine = "and ( "
-                            End If
-                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
-                        Next
-                        If EngineerLine <> "" Then
-                            EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
-                        End If
-                    End If
+                If clbEngineers3.CheckedIndices.Contains(0) = True Then
+                    EngineerLine = " and numUnit = '" & cboSSPPUnits3.SelectedValue & "' "
                 Else
-                    If clbEngineers3.CheckedIndices.Contains(0) = True Then
-                        EngineerLine = " and numUnit = '" & cboSSPPUnits3.SelectedValue & "' "
-                    Else
-                        For Each Engineer As String In clbEngineers3.CheckedItems
-                            If EngineerLine = "" Then
-                                EngineerLine = "and ( "
-                            End If
-                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
-                        Next
-                        If EngineerLine <> "" Then
-                            EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
+                    For Each Engineer As String In clbEngineers3.CheckedItems
+                        If EngineerLine = "" Then
+                            EngineerLine = "and ( "
                         End If
+                        EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
+                    Next
+                    If EngineerLine <> "" Then
+                        EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
                     End If
                 End If
             Else
@@ -5185,7 +3846,7 @@ Public Class SSPPStatisticalTools
             End If
 
             If txtNineMonthOpenCount.Text <> "" Then
-                SQL = "select " &
+                query = "select " &
                 "SSPPApplicationMaster.strApplicationNumber,  " &
                 "strFacilityName, strApplicationTypeDesc, " &
                 "case       " &
@@ -5220,14 +3881,7 @@ Public Class SSPPStatisticalTools
                 "and datReceivedDate < DATEADD(month, -6, GETDATE()) " &
                 EngineerLine
 
-                dsViewCount = New DataSet
-                daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                daViewCount.Fill(dsViewCount, "ViewCount")
-                dgvApplicationCount.DataSource = dsViewCount
-                dgvApplicationCount.DataMember = "ViewCount"
+                dgvApplicationCount.DataSource = DB.GetDataTable(query)
 
                 dgvApplicationCount.RowHeadersVisible = False
                 dgvApplicationCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -5262,45 +3916,21 @@ Public Class SSPPStatisticalTools
     End Sub
     Private Sub llbViewTwelveMonthOpenCount_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewTwelveMonthOpenCount.LinkClicked
         Try
-
+            Dim query As String
             Dim EngineerLine As String = ""
 
             If chbAllApps3.Checked = False Then
-                If cboSSPPUnits3.Text = "SSPP Administrative" Then
-                    If clbEngineers3.CheckedIndices.Contains(0) = True Then
-                        For Each Engineer As String In clbEngineers3.Items
-                            If EngineerLine = "" Then
-                                EngineerLine = "and ( "
-                            End If
-                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
-                        Next
-                        If EngineerLine <> "" Then
-                            EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
-                        End If
-                    Else
-                        For Each Engineer As String In clbEngineers3.CheckedItems
-                            If EngineerLine = "" Then
-                                EngineerLine = "and ( "
-                            End If
-                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
-                        Next
-                        If EngineerLine <> "" Then
-                            EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
-                        End If
-                    End If
+                If clbEngineers3.CheckedIndices.Contains(0) = True Then
+                    EngineerLine = " and numUnit = '" & cboSSPPUnits3.SelectedValue & "' "
                 Else
-                    If clbEngineers3.CheckedIndices.Contains(0) = True Then
-                        EngineerLine = " and numUnit = '" & cboSSPPUnits3.SelectedValue & "' "
-                    Else
-                        For Each Engineer As String In clbEngineers3.CheckedItems
-                            If EngineerLine = "" Then
-                                EngineerLine = "and ( "
-                            End If
-                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
-                        Next
-                        If EngineerLine <> "" Then
-                            EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
+                    For Each Engineer As String In clbEngineers3.CheckedItems
+                        If EngineerLine = "" Then
+                            EngineerLine = "and ( "
                         End If
+                        EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
+                    Next
+                    If EngineerLine <> "" Then
+                        EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
                     End If
                 End If
             Else
@@ -5308,7 +3938,7 @@ Public Class SSPPStatisticalTools
             End If
 
             If txtTwelveMonthOpenCount.Text <> "" Then
-                SQL = "select " &
+                query = "select " &
                 "SSPPApplicationMaster.strApplicationNumber,  " &
                 "strFacilityName, strApplicationTypeDesc, " &
                 "case       " &
@@ -5343,14 +3973,7 @@ Public Class SSPPStatisticalTools
                 "and datReceivedDate < DATEADD(month, -9, GETDATE()) " &
                 EngineerLine
 
-                dsViewCount = New DataSet
-                daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                daViewCount.Fill(dsViewCount, "ViewCount")
-                dgvApplicationCount.DataSource = dsViewCount
-                dgvApplicationCount.DataMember = "ViewCount"
+                dgvApplicationCount.DataSource = DB.GetDataTable(query)
 
                 dgvApplicationCount.RowHeadersVisible = False
                 dgvApplicationCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -5385,45 +4008,21 @@ Public Class SSPPStatisticalTools
     End Sub
     Private Sub llbViewGreaterThanOpenCount_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewGreaterThanOpenCount.LinkClicked
         Try
-
+            Dim query As String
             Dim EngineerLine As String = ""
 
             If chbAllApps3.Checked = False Then
-                If cboSSPPUnits3.Text = "SSPP Administrative" Then
-                    If clbEngineers3.CheckedIndices.Contains(0) = True Then
-                        For Each Engineer As String In clbEngineers3.Items
-                            If EngineerLine = "" Then
-                                EngineerLine = "and ( "
-                            End If
-                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
-                        Next
-                        If EngineerLine <> "" Then
-                            EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
-                        End If
-                    Else
-                        For Each Engineer As String In clbEngineers3.CheckedItems
-                            If EngineerLine = "" Then
-                                EngineerLine = "and ( "
-                            End If
-                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
-                        Next
-                        If EngineerLine <> "" Then
-                            EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
-                        End If
-                    End If
+                If clbEngineers3.CheckedIndices.Contains(0) = True Then
+                    EngineerLine = " and numUnit = '" & cboSSPPUnits3.SelectedValue & "' "
                 Else
-                    If clbEngineers3.CheckedIndices.Contains(0) = True Then
-                        EngineerLine = " and numUnit = '" & cboSSPPUnits3.SelectedValue & "' "
-                    Else
-                        For Each Engineer As String In clbEngineers3.CheckedItems
-                            If EngineerLine = "" Then
-                                EngineerLine = "and ( "
-                            End If
-                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
-                        Next
-                        If EngineerLine <> "" Then
-                            EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
+                    For Each Engineer As String In clbEngineers3.CheckedItems
+                        If EngineerLine = "" Then
+                            EngineerLine = "and ( "
                         End If
+                        EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
+                    Next
+                    If EngineerLine <> "" Then
+                        EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
                     End If
                 End If
             Else
@@ -5431,7 +4030,7 @@ Public Class SSPPStatisticalTools
             End If
 
             If txtGreaterThanOpenCount.Text <> "" Then
-                SQL = "select " &
+                query = "select " &
                 "SSPPApplicationMaster.strApplicationNumber,  " &
                 "strFacilityName, strApplicationTypeDesc, " &
                 "case       " &
@@ -5465,14 +4064,7 @@ Public Class SSPPStatisticalTools
                 "and datReceivedDate < DATEADD(month, -12, GETDATE())" &
                 EngineerLine
 
-                dsViewCount = New DataSet
-                daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                daViewCount.Fill(dsViewCount, "ViewCount")
-                dgvApplicationCount.DataSource = dsViewCount
-                dgvApplicationCount.DataMember = "ViewCount"
+                dgvApplicationCount.DataSource = DB.GetDataTable(query)
 
                 dgvApplicationCount.RowHeadersVisible = False
                 dgvApplicationCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -5524,10 +4116,10 @@ Public Class SSPPStatisticalTools
     End Sub
     Private Sub llbViewEPA2a_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewEPA2a.LinkClicked
         Try
-
+            Dim query As String
 
             If txtEPA2a.Text <> "" Then
-                SQL = "Select " &
+                query = "Select " &
                 "distinct(SUBSTRING(APBFacilityInformation.strAIRSNumber, 5,8)) as AIRSNumber,  " &
                 "APBFacilityInformation.strFacilityName,  " &
                 "case  " &
@@ -5562,14 +4154,7 @@ Public Class SSPPStatisticalTools
                 "and (APBHeaderData.strAIRSnumber = EPA1.AIRSNumber1  " &
                 "or APBHeaderData.strAIRSnumber = EPA2.AIRSNumber2) "
 
-                dsViewCount = New DataSet
-                daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                daViewCount.Fill(dsViewCount, "ViewCount")
-                dgvApplicationCount.DataSource = dsViewCount
-                dgvApplicationCount.DataMember = "ViewCount"
+                dgvApplicationCount.DataSource = DB.GetDataTable(query)
 
                 dgvApplicationCount.RowHeadersVisible = False
                 dgvApplicationCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -5600,10 +4185,10 @@ Public Class SSPPStatisticalTools
     End Sub
     Private Sub llbViewEPA2d_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewEPA2d.LinkClicked
         Try
-
+            Dim query As String
 
             If txtEPA2d.Text <> "" Then
-                SQL = "Select " &
+                query = "Select " &
                 "distinct(SUBSTRING(APBFacilityInformation.strAIRSNumber, 5,8)) as AIRSNumber,   " &
                 "APBFacilityInformation.strFacilityName,   " &
                 "case      " &
@@ -5644,14 +4229,7 @@ Public Class SSPPStatisticalTools
                 "and (APBHeaderData.strAIRSnumber = EPA1.AIRSNumber1   " &
                 "or APBHeaderData.strAIRSnumber = EPA2.AIRSNumber2) "
 
-                dsViewCount = New DataSet
-                daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                daViewCount.Fill(dsViewCount, "ViewCount")
-                dgvApplicationCount.DataSource = dsViewCount
-                dgvApplicationCount.DataMember = "ViewCount"
+                dgvApplicationCount.DataSource = DB.GetDataTable(query)
 
                 dgvApplicationCount.RowHeadersVisible = False
                 dgvApplicationCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -5684,10 +4262,10 @@ Public Class SSPPStatisticalTools
     End Sub
     Private Sub llbViewEPA3a_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewEPA3a.LinkClicked
         Try
-
+            Dim query As String
 
             If txtEPA3a.Text <> "" Then
-                SQL = "Select " &
+                query = "Select " &
                 "SUBSTRING(APBFacilityInformation.strAIRSNumber, 5,8) as AIRSNumber,  " &
                 "strFacilityName,  " &
                 "case  " &
@@ -5703,14 +4281,7 @@ Public Class SSPPStatisticalTools
                 "and SUBSTRING(strAirProgramCodes, 13, 1) = '1'  " &
                 "and strOPerationalStatus = 'O'  "
 
-                dsViewCount = New DataSet
-                daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                daViewCount.Fill(dsViewCount, "ViewCount")
-                dgvApplicationCount.DataSource = dsViewCount
-                dgvApplicationCount.DataMember = "ViewCount"
+                dgvApplicationCount.DataSource = DB.GetDataTable(query)
 
                 dgvApplicationCount.RowHeadersVisible = False
                 dgvApplicationCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -5741,25 +4312,31 @@ Public Class SSPPStatisticalTools
     End Sub
     Private Sub llbViewEPA4a_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewEPA4a.LinkClicked
         Try
-
-            Dim StartDate As String
-            Dim EndDate As String
+            Dim StartDate As Date
+            Dim EndDate As Date
+            Dim query As String
+            Dim EngineerLine As String = ""
 
             If cboEPAYear.Text <> "" Then
                 If rdbJanuaryReport.Checked = True Then
-                    StartDate = "31-Dec-" & (CDate("31-Dec-" & cboEPAYear.Text).AddMonths(-12).Year).ToString
-                    EndDate = "01-Jul-" & cboEPAYear.Text
+                    StartDate = New Date(cboEPAYear.SelectedValue - 1, 12, 31)
+                    EndDate = New Date(cboEPAYear.SelectedValue, 7, 1)
                 Else
-                    StartDate = "30-Jun-" & cboEPAYear.Text
-                    EndDate = "01-Jan-" & (CDate("01-Jan-" & cboEPAYear.Text).AddMonths(12).Year).ToString
+                    StartDate = New Date(cboEPAYear.SelectedValue, 6, 30)
+                    EndDate = New Date(cboEPAYear.SelectedValue + 1, 1, 1)
                 End If
             Else
                 StartDate = "31-Dec-" & (Now.AddMonths(-12).Year).ToString
                 EndDate = "01-Jul-" & Now.Year.ToString
             End If
 
+            Dim p As SqlParameter() = {
+                New SqlParameter("@StartDate", StartDate),
+                New SqlParameter("@EndDate", EndDate)
+            }
+
             If txtEPA4a.Text <> "" Then
-                SQL = "select " &
+                query = "select " &
                 "SSPPApplicationMaster.strApplicationNumber,  " &
                 "strFacilityName, strApplicationTypeDesc, " &
                 "case       " &
@@ -5788,17 +4365,10 @@ Public Class SSPPStatisticalTools
                 "where datPermitIssued IS NOT NULL " &
                 "AND strApplicationType = '14'  " &
                 "AND strPermitType = '7'  " &
-                "AND datPermitIssued > '" & StartDate & "' " &
-                "AND datPermitIssued < '" & EndDate & "' "
+                "AND datPermitIssued > @StartDate " &
+                "AND datPermitIssued < @EndDate "
 
-                dsViewCount = New DataSet
-                daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                daViewCount.Fill(dsViewCount, "ViewCount")
-                dgvApplicationCount.DataSource = dsViewCount
-                dgvApplicationCount.DataMember = "ViewCount"
+                dgvApplicationCount.DataSource = DB.GetDataTable(query, p)
 
                 dgvApplicationCount.RowHeadersVisible = False
                 dgvApplicationCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -5833,25 +4403,31 @@ Public Class SSPPStatisticalTools
     End Sub
     Private Sub llbViewEPA4b_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewEPA4b.LinkClicked
         Try
-
-            Dim StartDate As String
-            Dim EndDate As String
+            Dim StartDate As Date
+            Dim EndDate As Date
+            Dim query As String
+            Dim EngineerLine As String = ""
 
             If cboEPAYear.Text <> "" Then
                 If rdbJanuaryReport.Checked = True Then
-                    StartDate = "31-Dec-" & (CDate("31-Dec-" & cboEPAYear.Text).AddMonths(-12).Year).ToString
-                    EndDate = "01-Jul-" & cboEPAYear.Text
+                    StartDate = New Date(cboEPAYear.SelectedValue - 1, 12, 31)
+                    EndDate = New Date(cboEPAYear.SelectedValue, 7, 1)
                 Else
-                    StartDate = "30-Jun-" & cboEPAYear.Text
-                    EndDate = "01-Jan-" & (CDate("01-Jan-" & cboEPAYear.Text).AddMonths(12).Year).ToString
+                    StartDate = New Date(cboEPAYear.SelectedValue, 6, 30)
+                    EndDate = New Date(cboEPAYear.SelectedValue + 1, 1, 1)
                 End If
             Else
                 StartDate = "31-Dec-" & (Now.AddMonths(-12).Year).ToString
                 EndDate = "01-Jul-" & Now.Year.ToString
             End If
 
+            Dim p As SqlParameter() = {
+                New SqlParameter("@StartDate", StartDate),
+                New SqlParameter("@EndDate", EndDate)
+            }
+
             If txtEPA4b.Text <> "" Then
-                SQL = "select " &
+                query = "select " &
                 "SSPPApplicationMaster.strApplicationNumber,  " &
                 "strFacilityName, strApplicationTypeDesc, " &
                 "case       " &
@@ -5880,18 +4456,11 @@ Public Class SSPPStatisticalTools
                 "where datPermitIssued IS NOT NULL " &
                 "AND strApplicationType = '14'  " &
                 "AND strPermitType = '7'  " &
-                "AND datPermitIssued > '" & StartDate & "' " &
-                "AND datPermitIssued < '" & EndDate & "' " &
+                "AND datPermitIssued > @StartDate " &
+                "AND datPermitIssued < @EndDate " &
                 "and datReceivedDate > DATEADD(month, -18, datPermitIssued) "
 
-                dsViewCount = New DataSet
-                daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                daViewCount.Fill(dsViewCount, "ViewCount")
-                dgvApplicationCount.DataSource = dsViewCount
-                dgvApplicationCount.DataMember = "ViewCount"
+                dgvApplicationCount.DataSource = DB.GetDataTable(query, p)
 
                 dgvApplicationCount.RowHeadersVisible = False
                 dgvApplicationCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -5927,24 +4496,24 @@ Public Class SSPPStatisticalTools
     End Sub
     Private Sub llbViewEPA5a_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewEPA5a.LinkClicked
         Try
-            ' Dim StartDate As String
-            Dim EndDate As String
+            Dim EndDate As Date
+            Dim query As String
+            Dim EngineerLine As String = ""
 
             If cboEPAYear.Text <> "" Then
                 If rdbJanuaryReport.Checked = True Then
-                    'StartDate = "31-Dec-" & (CDate("31-Dec-" & cboEPAYear.Text).AddMonths(-12).Year).ToString
-                    EndDate = "01-Jul-" & cboEPAYear.Text
+                    EndDate = New Date(cboEPAYear.SelectedValue, 7, 1)
                 Else
-                    ' StartDate = "30-Jun-" & cboEPAYear.Text
-                    EndDate = "01-Jan-" & (CDate("01-Jan-" & cboEPAYear.Text).AddMonths(12).Year).ToString
+                    EndDate = New Date(cboEPAYear.SelectedValue + 1, 1, 1)
                 End If
             Else
-                'StartDate = "31-Dec-" & (Now.AddMonths(-12).Year).ToString
                 EndDate = "01-Jul-" & Now.Year.ToString
             End If
 
+            Dim p As New SqlParameter("@EndDate", EndDate)
+
             If txtEPA5a.Text <> "" Then
-                SQL = "select " &
+                query = "select " &
                 "SSPPApplicationMaster.strApplicationNumber,  " &
                 "strFacilityName, strApplicationTypeDesc, " &
                 "case       " &
@@ -5971,16 +4540,9 @@ Public Class SSPPStatisticalTools
                 "ON SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode " &
                 "where strApplicationType = '14' " &
                 "and datPermitIssued is Null " &
-                "and datReceivedDate < DATEADD(month, -18, '" & EndDate & "') "
+                "and datReceivedDate < DATEADD(month, -18, @EndDate) "
 
-                dsViewCount = New DataSet
-                daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                daViewCount.Fill(dsViewCount, "ViewCount")
-                dgvApplicationCount.DataSource = dsViewCount
-                dgvApplicationCount.DataMember = "ViewCount"
+                dgvApplicationCount.DataSource = DB.GetDataTable(query, p)
 
                 dgvApplicationCount.RowHeadersVisible = False
                 dgvApplicationCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -6013,24 +4575,24 @@ Public Class SSPPStatisticalTools
     End Sub
     Private Sub llbViewEPA6a_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewEPA6a.LinkClicked
         Try
-            'Dim StartDate As String
-            Dim EndDate As String
+            Dim EndDate As Date
+            Dim query As String
+            Dim EngineerLine As String = ""
 
             If cboEPAYear.Text <> "" Then
                 If rdbJanuaryReport.Checked = True Then
-                    'StartDate = "31-Dec-" & (CDate("31-Dec-" & cboEPAYear.Text).AddMonths(-12).Year).ToString
-                    EndDate = "01-Jul-" & cboEPAYear.Text
+                    EndDate = New Date(cboEPAYear.SelectedValue, 7, 1)
                 Else
-                    'StartDate = "30-Jun-" & cboEPAYear.Text
-                    EndDate = "01-Jan-" & (CDate("01-Jan-" & cboEPAYear.Text).AddMonths(12).Year).ToString
+                    EndDate = New Date(cboEPAYear.SelectedValue + 1, 1, 1)
                 End If
             Else
-                'StartDate = "31-Dec-" & (Now.AddMonths(-12).Year).ToString
                 EndDate = "01-Jul-" & Now.Year.ToString
             End If
 
+            Dim p As New SqlParameter("@EndDate", EndDate)
+
             If txtEPA6a.Text <> "" Then
-                SQL = "select " &
+                query = "select " &
                 "distinct(SUBSTRING(SSPPApplicationMaster.strAIRSnumber, 5,8)) as AIRSNumber,  " &
                 "strFacilityName,  " &
                 "format(MaxDate, 'yyyy-MM-dd') as MaxDate " &
@@ -6048,8 +4610,8 @@ Public Class SSPPStatisticalTools
                 "distinct(SSPPApplicationMaster.strAIRSnumber) as AIRSNumber " &
                 "from SSPPApplicationMaster, SSPPApplicationTracking  " &
                 "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
-                "and datReceiveddate < DATEADD(month, -6, '" & EndDate & "')  " &
-                "and datReceivedDate > DATEADD(month, -54, '" & EndDate & "')  " &
+                "and datReceiveddate < DATEADD(month, -6, @EndDate)  " &
+                "and datReceivedDate > DATEADD(month, -54, @EndDate)  " &
                 "and strApplicationType <> '16'  " &
                 "and strApplicationType <> '12') PermitRequests   " &
                 "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationnumber " &
@@ -6057,19 +4619,12 @@ Public Class SSPPStatisticalTools
                 "and APBHeaderData.strAIRSNumber = APBFacilityInformation.strAIRSNumber  " &
                 "and SSPPApplicationMaster.strAIRSNumber = Effect.strAIRSnumber  " &
                 "and MaxDate = SSPPApplicationTracking.datEffective " &
-                "and maxDate < DATEADD(month, -54, '" & EndDate & "') " &
+                "and maxDate < DATEADD(month, -54, @EndDate) " &
                 "and strOperationalStatus = 'O'  " &
                 "and SUBSTRING(strAirProgramCodes, 13, 1) = '1'  " &
                 "and SSPPApplicationMaster.strAIRSNumber = PermitRequests.AIRSNumber "
 
-                dsViewCount = New DataSet
-                daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                daViewCount.Fill(dsViewCount, "ViewCount")
-                dgvApplicationCount.DataSource = dsViewCount
-                dgvApplicationCount.DataMember = "ViewCount"
+                dgvApplicationCount.DataSource = DB.GetDataTable(query, p)
 
                 dgvApplicationCount.RowHeadersVisible = False
                 dgvApplicationCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -6098,24 +4653,24 @@ Public Class SSPPStatisticalTools
     End Sub
     Private Sub llbViewEPA6b_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewEPA6b.LinkClicked
         Try
-            'Dim StartDate As String
-            Dim EndDate As String
+            Dim EndDate As Date
+            Dim query As String
+            Dim EngineerLine As String = ""
 
             If cboEPAYear.Text <> "" Then
                 If rdbJanuaryReport.Checked = True Then
-                    'StartDate = "31-Dec-" & (CDate("31-Dec-" & cboEPAYear.Text).AddMonths(-12).Year).ToString
-                    EndDate = "01-Jul-" & cboEPAYear.Text
+                    EndDate = New Date(cboEPAYear.SelectedValue, 7, 1)
                 Else
-                    'StartDate = "30-Jun-" & cboEPAYear.Text
-                    EndDate = "01-Jan-" & (CDate("01-Jan-" & cboEPAYear.Text).AddMonths(12).Year).ToString
+                    EndDate = New Date(cboEPAYear.SelectedValue + 1, 1, 1)
                 End If
             Else
-                'StartDate = "31-Dec-" & (Now.AddMonths(-12).Year).ToString
                 EndDate = "01-Jul-" & Now.Year.ToString
             End If
 
+            Dim p As New SqlParameter("@EndDate", EndDate)
+
             If txtEPA6b.Text <> "" Then
-                SQL = "select " &
+                query = "select " &
             "distinct(SUBSTRING(SSPPApplicationMaster.strAIRSnumber, 5,8) ) as AIRSNumber,  " &
             "strFacilityName, " &
             "format(MaxDate, 'yyyy-MM-dd') as MaxDate " &
@@ -6133,28 +4688,21 @@ Public Class SSPPStatisticalTools
             "distinct(SSPPApplicationMaster.strAIRSnumber) as AIRSNumber " &
             "from SSPPApplicationMaster, SSPPApplicationTracking  " &
             "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
-            "and datReceiveddate < DATEADD(month, -6, '" & EndDate & "')  " &
-            "and datReceivedDate > DATEADD(month, -54, '" & EndDate & "')  " &
+            "and datReceiveddate < DATEADD(month, -6, @EndDate)  " &
+            "and datReceivedDate > DATEADD(month, -54, @EndDate)  " &
             "and (strApplicationType = '16' or strApplicationType = '12')) PermitRequests   " &
             "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationnumber " &
             "and APBHeaderData.strAIRSNumber = SSPPApplicationMaster.strAIRSNumber   " &
             "and APBHeaderData.strAIRSNumber = APBFacilityInformation.strAIRSNumber  " &
             "and SSPPApplicationMaster.strAIRSNumber = Effect.strAIRSnumber  " &
             "and MaxDate = SSPPApplicationTracking.datEffective " &
-            "and maxDate < DATEADD(month, , '" & EndDate & "') " &
+            "and maxDate < DATEADD(month, , @EndDate) " &
             "and strOperationalStatus = 'O'  " &
             "and SUBSTRING(strAirProgramCodes, 13, 1) = '1'  " &
             "and SSPPApplicationMaster.strAIRSNumber = PermitRequests.AIRSNumber  " &
             "order by AIRSNumber "
 
-                dsViewCount = New DataSet
-                daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                daViewCount.Fill(dsViewCount, "ViewCount")
-                dgvApplicationCount.DataSource = dsViewCount
-                dgvApplicationCount.DataMember = "ViewCount"
+                dgvApplicationCount.DataSource = DB.GetDataTable(query, p)
 
                 dgvApplicationCount.RowHeadersVisible = False
                 dgvApplicationCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -6183,27 +4731,26 @@ Public Class SSPPStatisticalTools
 
         End Try
     End Sub
-
     Private Sub llbViewEPA6c_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewEPA6c.LinkClicked
         Try
-            'Dim StartDate As String
-            Dim EndDate As String
+            Dim EndDate As Date
+            Dim query As String
+            Dim EngineerLine As String = ""
 
             If cboEPAYear.Text <> "" Then
                 If rdbJanuaryReport.Checked = True Then
-                    'StartDate = "31-Dec-" & (CDate("31-Dec-" & cboEPAYear.Text).AddMonths(-12).Year).ToString
-                    EndDate = "01-Jul-" & cboEPAYear.Text
+                    EndDate = New Date(cboEPAYear.SelectedValue, 7, 1)
                 Else
-                    ' StartDate = "30-Jun-" & cboEPAYear.Text
-                    EndDate = "01-Jan-" & (CDate("01-Jan-" & cboEPAYear.Text).AddMonths(12).Year).ToString
+                    EndDate = New Date(cboEPAYear.SelectedValue + 1, 1, 1)
                 End If
             Else
-                'StartDate = "31-Dec-" & (Now.AddMonths(-12).Year).ToString
                 EndDate = "01-Jul-" & Now.Year.ToString
             End If
 
+            Dim p As New SqlParameter("@EndDate", EndDate)
+
             If txtEPA6C.Text <> "" Then
-                SQL = "select * " &
+                query = "select * " &
                 "from (Select *  From  " &
                 "(select  " &
                 "distinct(SUBSTRING(SSPPApplicationMaster.strAIRSnumber, 5,8)) as AIRSNumber,   " &
@@ -6218,8 +4765,8 @@ Public Class SSPPStatisticalTools
                 "(Select  distinct(SSPPApplicationMaster.strAIRSnumber) as AIRSNumber  " &
                 "from SSPPApplicationMaster, SSPPApplicationTracking   " &
                 "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
-                "and datReceiveddate < DATEADD(month, -6, '" & EndDate & "')   " &
-                "and datReceivedDate > DATEADD(month, -54, '" & EndDate & "')   " &
+                "and datReceiveddate < DATEADD(month, -6, @EndDate)   " &
+                "and datReceivedDate > DATEADD(month, -54, @EndDate)   " &
                 "and strApplicationType <> '16'   " &
                 "and strApplicationType <> '12') PermitRequests    " &
                 "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationnumber  " &
@@ -6227,7 +4774,7 @@ Public Class SSPPStatisticalTools
                 "and APBHeaderData.strAIRSNumber = SSPPApplicationMaster.strAIRSNumber    " &
                 "and SSPPApplicationMaster.strAIRSNumber = Effect.strAIRSnumber   " &
                 "and MaxDate = SSPPApplicationTracking.datEffective  " &
-                "and maxDate < DATEADD(month, -54, '" & EndDate & "') " &
+                "and maxDate < DATEADD(month, -54, @EndDate) " &
                 "and strOperationalStatus = 'O'   " &
                 "and SUBSTRING(strAirProgramCodes, 13, 1) = '1'  " &
                 "and SSPPApplicationMaster.strAIRSNumber = PermitRequests.AIRSNumber))  EPA6A " &
@@ -6242,25 +4789,18 @@ Public Class SSPPStatisticalTools
                 "(Select  distinct(SSPPApplicationMaster.strAIRSnumber) as AIRSNumber from SSPPApplicationMaster,  " &
                 "SSPPApplicationTracking   " &
                 "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber   " &
-                "and datReceiveddate < DATEADD(month, -6, '" & EndDate & "' )  and datReceivedDate > DATEADD(month, -54, '" & EndDate & "')   " &
+                "and datReceiveddate < DATEADD(month, -6, @EndDate )  and datReceivedDate > DATEADD(month, -54, @EndDate)   " &
                 "and (strApplicationType = '16' or strApplicationType = '12')) PermitRequests    " &
                 "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationnumber  " &
                 "and APBHeaderData.strAIRSNumber = SSPPApplicationMaster.strAIRSNumber    " &
                 "and APBHeaderData.strAIRSNumber = APBFacilityInformation.strAIRSNumber  " &
                 "and SSPPApplicationMaster.strAIRSNumber = Effect.strAIRSnumber  " &
                 "and MaxDate = SSPPApplicationTracking.datEffective  " &
-                "and maxDate < DATEADD(month, -54, '" & EndDate & "')  " &
+                "and maxDate < DATEADD(month, -54, @EndDate)  " &
                 "and strOperationalStatus = 'O'  and SUBSTRING(strAirProgramCodes, 13, 1) = '1'   " &
                 "and SSPPApplicationMaster.strAIRSNumber = PermitRequests.AIRSNumber)  ) EPA6b where  EPA6A.airsnumber = EPA6b.airsNumber) "
 
-                dsViewCount = New DataSet
-                daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                daViewCount.Fill(dsViewCount, "ViewCount")
-                dgvApplicationCount.DataSource = dsViewCount
-                dgvApplicationCount.DataMember = "ViewCount"
+                dgvApplicationCount.DataSource = DB.GetDataTable(query, p)
 
                 dgvApplicationCount.RowHeadersVisible = False
                 dgvApplicationCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -6288,30 +4828,33 @@ Public Class SSPPStatisticalTools
 
         End Try
     End Sub
-
-
     Private Sub llbViewEPA7a_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewEPA7a.LinkClicked
         Try
-
-
-            Dim StartDate As String
-            Dim EndDate As String
+            Dim StartDate As Date
+            Dim EndDate As Date
+            Dim query As String
+            Dim EngineerLine As String = ""
 
             If cboEPAYear.Text <> "" Then
                 If rdbJanuaryReport.Checked = True Then
-                    StartDate = "31-Dec-" & (CDate("31-Dec-" & cboEPAYear.Text).AddMonths(-12).Year).ToString
-                    EndDate = "01-Jul-" & cboEPAYear.Text
+                    StartDate = New Date(cboEPAYear.SelectedValue - 1, 12, 31)
+                    EndDate = New Date(cboEPAYear.SelectedValue, 7, 1)
                 Else
-                    StartDate = "30-Jun-" & cboEPAYear.Text
-                    EndDate = "01-Jan-" & (CDate("01-Jan-" & cboEPAYear.Text).AddMonths(12).Year).ToString
+                    StartDate = New Date(cboEPAYear.SelectedValue, 6, 30)
+                    EndDate = New Date(cboEPAYear.SelectedValue + 1, 1, 1)
                 End If
             Else
                 StartDate = "31-Dec-" & (Now.AddMonths(-12).Year).ToString
                 EndDate = "01-Jul-" & Now.Year.ToString
             End If
 
+            Dim p As SqlParameter() = {
+                New SqlParameter("@StartDate", StartDate),
+                New SqlParameter("@EndDate", EndDate)
+            }
+
             If txtEPA7a.Text <> "" Then
-                SQL = "select " &
+                query = "select " &
                 "SSPPApplicationMaster.strApplicationNumber,  " &
                 "strFacilityName, strApplicationTypeDesc, " &
                 "case       " &
@@ -6340,17 +4883,10 @@ Public Class SSPPStatisticalTools
                 "where datPermitIssued IS NOT NULL " &
                 "AND (strApplicationType = '22' or strApplicationType = '21')  " &
                 "AND strPermitType = '7'  " &
-                "AND datPermitIssued > '" & StartDate & "' " &
-                "AND datPermitIssued < '" & EndDate & "' "
+                "AND datPermitIssued > @StartDate " &
+                "AND datPermitIssued < @EndDate "
 
-                dsViewCount = New DataSet
-                daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                daViewCount.Fill(dsViewCount, "ViewCount")
-                dgvApplicationCount.DataSource = dsViewCount
-                dgvApplicationCount.DataMember = "ViewCount"
+                dgvApplicationCount.DataSource = DB.GetDataTable(query, p)
 
                 dgvApplicationCount.RowHeadersVisible = False
                 dgvApplicationCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -6385,25 +4921,31 @@ Public Class SSPPStatisticalTools
     End Sub
     Private Sub llbViewEPA7b_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewEPA7b.LinkClicked
         Try
-
-            Dim StartDate As String
-            Dim EndDate As String
+            Dim StartDate As Date
+            Dim EndDate As Date
+            Dim query As String
+            Dim EngineerLine As String = ""
 
             If cboEPAYear.Text <> "" Then
                 If rdbJanuaryReport.Checked = True Then
-                    StartDate = "31-Dec-" & (CDate("31-Dec-" & cboEPAYear.Text).AddMonths(-12).Year).ToString
-                    EndDate = "01-Jul-" & cboEPAYear.Text
+                    StartDate = New Date(cboEPAYear.SelectedValue - 1, 12, 31)
+                    EndDate = New Date(cboEPAYear.SelectedValue, 7, 1)
                 Else
-                    StartDate = "30-Jun-" & cboEPAYear.Text
-                    EndDate = "01-Jan-" & (CDate("01-Jan-" & cboEPAYear.Text).AddMonths(12).Year).ToString
+                    StartDate = New Date(cboEPAYear.SelectedValue, 6, 30)
+                    EndDate = New Date(cboEPAYear.SelectedValue + 1, 1, 1)
                 End If
             Else
                 StartDate = "31-Dec-" & (Now.AddMonths(-12).Year).ToString
                 EndDate = "01-Jul-" & Now.Year.ToString
             End If
 
+            Dim p As SqlParameter() = {
+                New SqlParameter("@StartDate", StartDate),
+                New SqlParameter("@EndDate", EndDate)
+            }
+
             If txtEPA7b.Text <> "" Then
-                SQL = "select " &
+                query = "select " &
                 "SSPPApplicationMaster.strApplicationNumber,  " &
                 "strFacilityName, strApplicationTypeDesc, " &
                 "case       " &
@@ -6432,18 +4974,11 @@ Public Class SSPPStatisticalTools
                 "where datPermitIssued IS NOT NULL " &
                 "AND (strApplicationType = '22' or strApplicationType = '21')  " &
                 "AND strPermitType = '7'  " &
-                "AND datPermitIssued > '" & StartDate & "' " &
-                "AND datPermitIssued < '" & EndDate & "' " &
+                "AND datPermitIssued > @StartDate " &
+                "AND datPermitIssued < @EndDate " &
                 "and datReceivedDate > DATEADD(month, -18, datPermitIssued) "
 
-                dsViewCount = New DataSet
-                daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                daViewCount.Fill(dsViewCount, "ViewCount")
-                dgvApplicationCount.DataSource = dsViewCount
-                dgvApplicationCount.DataMember = "ViewCount"
+                dgvApplicationCount.DataSource = DB.GetDataTable(query, p)
 
                 dgvApplicationCount.RowHeadersVisible = False
                 dgvApplicationCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -6478,25 +5013,31 @@ Public Class SSPPStatisticalTools
     End Sub
     Private Sub llbViewEPA7c_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewEPA7c.LinkClicked
         Try
-
-            Dim StartDate As String
-            Dim EndDate As String
+            Dim StartDate As Date
+            Dim EndDate As Date
+            Dim query As String
+            Dim EngineerLine As String = ""
 
             If cboEPAYear.Text <> "" Then
                 If rdbJanuaryReport.Checked = True Then
-                    StartDate = "31-Dec-" & (CDate("31-Dec-" & cboEPAYear.Text).AddMonths(-12).Year).ToString
-                    EndDate = "01-Jul-" & cboEPAYear.Text
+                    StartDate = New Date(cboEPAYear.SelectedValue - 1, 12, 31)
+                    EndDate = New Date(cboEPAYear.SelectedValue, 7, 1)
                 Else
-                    StartDate = "30-Jun-" & cboEPAYear.Text
-                    EndDate = "01-Jan-" & (CDate("01-Jan-" & cboEPAYear.Text).AddMonths(12).Year).ToString
+                    StartDate = New Date(cboEPAYear.SelectedValue, 6, 30)
+                    EndDate = New Date(cboEPAYear.SelectedValue + 1, 1, 1)
                 End If
             Else
                 StartDate = "31-Dec-" & (Now.AddMonths(-12).Year).ToString
                 EndDate = "01-Jul-" & Now.Year.ToString
             End If
 
+            Dim p As SqlParameter() = {
+                New SqlParameter("@StartDate", StartDate),
+                New SqlParameter("@EndDate", EndDate)
+            }
+
             If txtEPA7c.Text <> "" Then
-                SQL = "select " &
+                query = "select " &
                 "SSPPApplicationMaster.strApplicationNumber,  " &
                 "strFacilityName, strApplicationTypeDesc, " &
                 "case       " &
@@ -6525,18 +5066,11 @@ Public Class SSPPStatisticalTools
                 "where datPermitIssued IS NOT NULL " &
                 "AND (strApplicationType = '22' or strApplicationType = '21')  " &
                 "AND strPermitType = '7'  " &
-                "AND datPermitIssued > '" & StartDate & "' " &
-                "AND datPermitIssued < '" & EndDate & "' " &
+                "AND datPermitIssued > @StartDate " &
+                "AND datPermitIssued < @EndDate " &
                 "and datReceivedDate > DATEADD(month, -9, datPermitIssued) "
 
-                dsViewCount = New DataSet
-                daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                daViewCount.Fill(dsViewCount, "ViewCount")
-                dgvApplicationCount.DataSource = dsViewCount
-                dgvApplicationCount.DataMember = "ViewCount"
+                dgvApplicationCount.DataSource = DB.GetDataTable(query, p)
 
                 dgvApplicationCount.RowHeadersVisible = False
                 dgvApplicationCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -6571,24 +5105,30 @@ Public Class SSPPStatisticalTools
     End Sub
     Private Sub llbViewEPA8a_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewEPA8a.LinkClicked
         Try
-            'Dim StartDate As String
-            Dim EndDate As String
+            Dim StartDate As Date
+            Dim EndDate As Date
+            Dim query As String
+            Dim EngineerLine As String = ""
 
             If cboEPAYear.Text <> "" Then
                 If rdbJanuaryReport.Checked = True Then
-                    'StartDate = "31-Dec-" & (CDate("31-Dec-" & cboEPAYear.Text).AddMonths(-12).Year).ToString
-                    EndDate = "01-Jul-" & cboEPAYear.Text
+                    StartDate = New Date(cboEPAYear.SelectedValue - 1, 12, 31)
+                    EndDate = New Date(cboEPAYear.SelectedValue, 7, 1)
                 Else
-                    'StartDate = "30-Jun-" & cboEPAYear.Text
-                    EndDate = "01-Jan-" & (CDate("01-Jan-" & cboEPAYear.Text).AddMonths(12).Year).ToString
+                    StartDate = New Date(cboEPAYear.SelectedValue, 6, 30)
+                    EndDate = New Date(cboEPAYear.SelectedValue + 1, 1, 1)
                 End If
             Else
-                'StartDate = "31-Dec-" & (Now.AddMonths(-12).Year).ToString
+                StartDate = "31-Dec-" & (Now.AddMonths(-12).Year).ToString
                 EndDate = "01-Jul-" & Now.Year.ToString
             End If
 
+            Dim p As SqlParameter() = {
+                New SqlParameter("@EndDate", EndDate)
+            }
+
             If txtEPA8a.Text <> "" Then
-                SQL = "select " &
+                query = "select " &
                 "SSPPApplicationMaster.strApplicationNumber,  " &
                 "strFacilityName, strApplicationTypeDesc, " &
                 "case       " &
@@ -6615,16 +5155,9 @@ Public Class SSPPStatisticalTools
                 "ON SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode " &
                 "where (strApplicationType = '22' or strApplicationType = '21')  " &
                 "and datPermitIssued is Null " &
-                "and datReceivedDate < DATEADD(month, -18, '" & EndDate & "') "
+                "and datReceivedDate < DATEADD(month, -18, @EndDate) "
 
-                dsViewCount = New DataSet
-                daViewCount = New SqlDataAdapter(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                daViewCount.Fill(dsViewCount, "ViewCount")
-                dgvApplicationCount.DataSource = dsViewCount
-                dgvApplicationCount.DataMember = "ViewCount"
+                dgvApplicationCount.DataSource = DB.GetDataTable(query, p)
 
                 dgvApplicationCount.RowHeadersVisible = False
                 dgvApplicationCount.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -6671,7 +5204,7 @@ Public Class SSPPStatisticalTools
     End Sub
     Private Sub cboSSPPUnits_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboSSPPUnits.SelectedIndexChanged
         Try
-
+            Dim query As String
 
             If cboSSPPUnits.Text <> "" And cboSSPPUnits.Text <> "System.Data.DataRowView" And tempLoad <> "Load" Then
                 clbEngineers.Items.Clear()
@@ -6681,27 +5214,25 @@ Public Class SSPPStatisticalTools
                 clbEngineers2.Items.Add("All Engineers")
                 clbEngineers3.Items.Add("All Engineers")
 
-                SQL = "SELECT " &
+                query = "SELECT " &
                 " concat(strLastName, ', ', strFirstName) AS UserName,   " &
                 "numUserID  " &
                 "from EPDUserProfiles   " &
-                "WHERE numUnit = '" & cboSSPPUnits.SelectedValue & "'   " &
+                "WHERE numUnit = @unit " &
                 "Order by UserName  "
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                While dr.Read
+                Dim p As New SqlParameter("@unit", cboSSPPUnits.SelectedValue)
+
+                Dim dt As DataTable = DB.GetDataTable(query, p)
+
+                For Each dr As DataRow In dt.Rows
                     clbEngineers.Items.Add(dr.Item("UserName"))
                     clbEngineers2.Items.Add(dr.Item("Username"))
                     clbEngineers3.Items.Add(dr.Item("UserName"))
-                End While
-                dr.Close()
+                Next
 
                 If cboSSPPUnits.Text = "SSPP Administrative" Then
-                    SQL = "select  concat(strLastName, ', ', strFirstName) as UserName,  " &
+                    query = "select  concat(strLastName, ', ', strFirstName) as UserName,  " &
                     "numUSerID    " &
                     "from    " &
                     "EPDUserProfiles,    " &
@@ -6713,17 +5244,13 @@ Public Class SSPPStatisticalTools
                     "where EPDUserProfiles.numUserID = AppUsers.Users    " &
                     "Order by Username  "
 
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    While dr.Read
+                    Dim dt2 As DataTable = DB.GetDataTable(query, p)
+
+                    For Each dr As DataRow In dt2.Rows
                         clbEngineers.Items.Add(dr.Item("UserName"))
                         clbEngineers2.Items.Add(dr.Item("Username"))
                         clbEngineers3.Items.Add(dr.Item("UserName"))
-                    End While
-                    dr.Close()
+                    Next
                 End If
 
                 clbEngineers.SetItemCheckState(0, CheckState.Checked)
@@ -6731,15 +5258,15 @@ Public Class SSPPStatisticalTools
                 clbEngineers3.SetItemCheckState(0, CheckState.Checked)
 
             End If
-
-
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
     End Sub
+
+#Region " index changed and checkbox changed "
+
     Private Sub clbEngineers_SelectedIndexChanged(sender As Object, e As EventArgs) Handles clbEngineers.SelectedIndexChanged
         Try
 
@@ -6892,55 +5419,23 @@ Public Class SSPPStatisticalTools
     End Sub
 
 #End Region
+
     Private Sub btnExportToExcel_Click(sender As Object, e As EventArgs) Handles btnExportToExcel.Click
         dgvApplicationCount.ExportToExcel(Me)
     End Sub
 
-#Region "Subpart Tool"
-    Sub LoadSubPartData()
+    Private Sub LoadSubPartData()
         Try
-            Dim dtPart60 As New DataTable
-            Dim dtPart61 As New DataTable
-            Dim dtPart63 As New DataTable
-            Dim dtSIP As New DataTable
-            Dim drDSRow As DataRow
-            Dim drDSRow2 As DataRow
-            Dim drDSRow3 As DataRow
-            Dim drDSRow4 As DataRow
-            Dim drNewRow As DataRow
 
-            SQL = "Select * from LookupSubPart60 order by strSubpart "
-            SQL2 = "Select * from LookupSubPart61 order by strSubpart "
-            SQL3 = "Select * from LookupSubPart63 order by strSubpart "
-            SQL4 = "Select * from LookUpSubPartSIP order by strSubPart "
+            Dim query1 As String = "Select * from LookupSubPart60 order by strSubpart "
+            Dim query2 As String = "Select * from LookupSubPart61 order by strSubpart "
+            Dim query3 As String = "Select * from LookupSubPart63 order by strSubpart "
+            Dim query4 As String = "Select * from LookUpSubPartSIP order by strSubPart "
 
-            dsPart60 = New DataSet
-            dsPart61 = New DataSet
-            dsPart63 = New DataSet
-            dsSIP = New DataSet
-
-            daPart60 = New SqlDataAdapter(SQL, CurrentConnection)
-            daPart61 = New SqlDataAdapter(SQL2, CurrentConnection)
-            daPart63 = New SqlDataAdapter(SQL3, CurrentConnection)
-            daSIP = New SqlDataAdapter(SQL4, CurrentConnection)
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            daPart60.Fill(dsPart60, "Part60")
-            daPart61.Fill(dsPart61, "Part61")
-            daPart63.Fill(dsPart63, "Part63")
-            daSIP.Fill(dsSIP, "SIP")
-
-            dgvNSPS.DataSource = dsPart60
-            dgvNSPS.DataMember = "Part60"
-            dgvNESHAP.DataSource = dsPart61
-            dgvNESHAP.DataMember = "Part61"
-            dgvMACT.DataSource = dsPart63
-            dgvMACT.DataMember = "Part63"
-            dgvSIP.DataSource = dsSIP
-            dgvSIP.DataMember = "SIP"
+            dgvNSPS.DataSource = DB.GetDataTable(query1)
+            dgvNESHAP.DataSource = DB.GetDataTable(query2)
+            dgvMACT.DataSource = DB.GetDataTable(query3)
+            dgvSIP.DataSource = DB.GetDataTable(query4)
 
             dgvNSPS.RowHeadersVisible = False
             dgvNSPS.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -6994,66 +5489,6 @@ Public Class SSPPStatisticalTools
             dgvSIP.Columns("strdescription").DisplayIndex = 1
             dgvSIP.Columns("strdescription").Width = 500
 
-            dtSIP.Columns.Add("strSubPart", GetType(System.String))
-            dtSIP.Columns.Add("strDescription", GetType(System.String))
-
-            drNewRow = dtSIP.NewRow()
-            drNewRow("strSubPart") = " "
-            drNewRow("strDescription") = " "
-            dtSIP.Rows.Add(drNewRow)
-
-            For Each drDSRow4 In dsSIP.Tables("SIP").Rows()
-                drNewRow = dtSIP.NewRow()
-                drNewRow("strSubPart") = drDSRow4("strSubPart")
-                drNewRow("strDescription") = drDSRow4("strSubPart") & " - " & drDSRow4("strDescription")
-                dtSIP.Rows.Add(drNewRow)
-            Next
-
-            dtPart60.Columns.Add("strSubPart", GetType(System.String))
-            dtPart60.Columns.Add("strDescription", GetType(System.String))
-
-            drNewRow = dtPart60.NewRow()
-            drNewRow("strSubPart") = " "
-            drNewRow("strDescription") = " "
-            dtPart60.Rows.Add(drNewRow)
-
-            For Each drDSRow In dsPart60.Tables("Part60").Rows()
-                drNewRow = dtPart60.NewRow()
-                drNewRow("strSubPart") = drDSRow("strSubPart")
-                drNewRow("strDescription") = drDSRow("strSubPart") & " - " & drDSRow("strDescription")
-                'drNewRow("strDescription") = drDSRow("strDescription")
-                dtPart60.Rows.Add(drNewRow)
-            Next
-
-            dtPart61.Columns.Add("strSubPart", GetType(System.String))
-            dtPart61.Columns.Add("strDescription", GetType(System.String))
-
-            drNewRow = dtPart61.NewRow()
-            drNewRow("strSubPart") = " "
-            drNewRow("strDescription") = " "
-            dtPart61.Rows.Add(drNewRow)
-
-            For Each drDSRow2 In dsPart61.Tables("Part61").Rows()
-                drNewRow = dtPart61.NewRow()
-                drNewRow("strSubPart") = drDSRow2("strSubPart")
-                drNewRow("strDescription") = drDSRow2("strSubPart") & " - " & drDSRow2("strDescription")
-                dtPart61.Rows.Add(drNewRow)
-            Next
-
-            dtPart63.Columns.Add("strSubPart", GetType(System.String))
-            dtPart63.Columns.Add("strDescription", GetType(System.String))
-
-            drNewRow = dtPart63.NewRow()
-            drNewRow("strSubPart") = " "
-            drNewRow("strDescription") = " "
-            dtPart63.Rows.Add(drNewRow)
-
-            For Each drDSRow3 In dsPart63.Tables("Part63").Rows()
-                drNewRow = dtPart63.NewRow()
-                drNewRow("strSubPart") = drDSRow3("strSubPart")
-                drNewRow("strDescription") = drDSRow3("strSubPart") & " - " & drDSRow3("strDescription")
-                dtPart63.Rows.Add(drNewRow)
-            Next
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -7062,39 +5497,38 @@ Public Class SSPPStatisticalTools
 
 
     End Sub
-#Region "Declarations"
+
     Private Sub btnEditSIP_Click(sender As Object, e As EventArgs) Handles btnEditSIP.Click
         Try
+            Dim query As String
+
             If txtSIPCode.Text <> "" And txtSIPDescription.Text <> "" Then
                 txtSIPCode.BackColor = Color.White
                 txtSIPDescription.BackColor = Color.White
 
-                SQL = "Select strSubPart " &
+                query = "Select strSubPart " &
                 "From LookUpSubpartSIP " &
-                "where strSubPart = '" & txtSIPCode.Text & "' "
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-                dr.Close()
-                If recExist = True Then
-                    SQL = "Update LookUpSubpartSIP set " &
-                    "strDescription = '" & Replace(txtSIPDescription.Text, "'", "''") & "' " &
-                    "where strSubpart = '" & txtSIPCode.Text & "' "
+                "where strSubPart = @code "
+
+                Dim p As New SqlParameter("@code", txtSIPCode.Text)
+
+                If DB.ValueExists(query, p) Then
+                    query = "Update LookUpSubpartSIP set " &
+                    "strDescription = @desc " &
+                    "where strSubpart = @code "
                 Else
-                    SQL = "Insert into LookUpSubpartSIP " &
+                    query = "Insert into LookUpSubpartSIP " &
+                    "(strsubpart, strdescription ) " &
                     "values " &
-                    "('" & Replace(txtSIPCode.Text, "'", "''") & "', " &
-                    "'" & Replace(txtSIPDescription.Text, "'", "''") & "') "
+                    "(@code, @desc) "
                 End If
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                dr.Close()
+
+                Dim p2 As SqlParameter() = {
+                    p,
+                    New SqlParameter("@desc", txtSIPDescription.Text)
+                }
+
+                DB.RunCommand(query, p2)
                 LoadSubPartData()
 
             Else
@@ -7118,36 +5552,35 @@ Public Class SSPPStatisticalTools
     End Sub
     Private Sub btnEditNSPS_Click(sender As Object, e As EventArgs) Handles btnEditNSPS.Click
         Try
+            Dim query As String
+
             If txtNSPSCode.Text <> "" And txtNSPSDescription.Text <> "" Then
                 txtNSPSCode.BackColor = Color.White
                 txtNSPSDescription.BackColor = Color.White
 
-                SQL = "Select strSubPart " &
+                query = "Select strSubPart " &
                 "From LookUpSubpart60 " &
-                "where strSubPart = '" & txtNSPSCode.Text & "' "
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-                dr.Close()
-                If recExist = True Then
-                    SQL = "Update LookUpSubpart60 set " &
-                    "strDescription = '" & Replace(txtNSPSDescription.Text, "'", "''") & "' " &
-                    "where strSubpart = '" & txtNSPSCode.Text & "' "
+                "where strSubPart = @code "
+
+                Dim p As New SqlParameter("@code", txtNSPSCode.Text)
+
+                If DB.ValueExists(query, p) Then
+                    query = "Update LookUpSubpart60 set " &
+                    "strDescription = @desc " &
+                    "where strSubpart = @code "
                 Else
-                    SQL = "Insert into LookUpSubpart60 " &
+                    query = "Insert into LookUpSubpart60 " &
+                    "(strsubpart, strdescription ) " &
                     "values " &
-                    "('" & Replace(txtNSPSCode.Text, "'", "''") & "', " &
-                    "'" & Replace(txtNSPSDescription.Text, "'", "''") & "') "
+                    "(@code, @desc) "
                 End If
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                dr.Close()
+
+                Dim p2 As SqlParameter() = {
+                    p,
+                    New SqlParameter("@desc", txtNSPSDescription.Text)
+                }
+
+                DB.RunCommand(query, p2)
                 LoadSubPartData()
 
             Else
@@ -7170,36 +5603,35 @@ Public Class SSPPStatisticalTools
     End Sub
     Private Sub btnEditNESHAP_Click(sender As Object, e As EventArgs) Handles btnEditNESHAP.Click
         Try
+            Dim query As String
+
             If txtNESHAPCode.Text <> "" And txtNESHAPDescription.Text <> "" Then
                 txtNESHAPCode.BackColor = Color.White
                 txtNESHAPDescription.BackColor = Color.White
 
-                SQL = "Select strSubPart " &
+                query = "Select strSubPart " &
                 "From LookUpSubpart61 " &
-                "where strSubPart = '" & txtNESHAPCode.Text & "' "
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-                dr.Close()
-                If recExist = True Then
-                    SQL = "Update LookUpSubpart61 set " &
-                    "strDescription = '" & Replace(txtNESHAPDescription.Text, "'", "''") & "' " &
-                    "where strSubpart = '" & txtNESHAPCode.Text & "' "
+                "where strSubPart = @code "
+
+                Dim p As New SqlParameter("@code", txtNESHAPCode.Text)
+
+                If DB.ValueExists(query, p) Then
+                    query = "Update LookUpSubpart61 set " &
+                    "strDescription = @desc " &
+                    "where strSubpart = @code "
                 Else
-                    SQL = "Insert into LookUpSubpart61 " &
+                    query = "Insert into LookUpSubpart61 " &
+                    "(strsubpart, strdescription ) " &
                     "values " &
-                    "('" & Replace(txtNESHAPCode.Text, "'", "''") & "', " &
-                    "'" & Replace(txtNESHAPDescription.Text, "'", "''") & "') "
+                    "(@code, @desc) "
                 End If
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                dr.Close()
+
+                Dim p2 As SqlParameter() = {
+                    p,
+                    New SqlParameter("@desc", txtNESHAPDescription.Text)
+                }
+
+                DB.RunCommand(query, p2)
                 LoadSubPartData()
 
             Else
@@ -7223,36 +5655,35 @@ Public Class SSPPStatisticalTools
     End Sub
     Private Sub btnEditMACT_Click(sender As Object, e As EventArgs) Handles btnEditMACT.Click
         Try
+            Dim query As String
+
             If txtMACTCode.Text <> "" And txtMACTDescription.Text <> "" Then
                 txtMACTCode.BackColor = Color.White
                 txtMACTDescription.BackColor = Color.White
 
-                SQL = "Select strSubPart " &
+                query = "Select strSubPart " &
                 "From LookUpSubpart63 " &
-                "where strSubPart = '" & txtMACTCode.Text & "' "
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-                dr.Close()
-                If recExist = True Then
-                    SQL = "Update LookUpSubpart63 set " &
-                    "strDescription = '" & Replace(txtMACTDescription.Text, "'", "''") & "' " &
-                    "where strSubpart = '" & txtMACTCode.Text & "' "
+                "where strSubPart = @code "
+
+                Dim p As New SqlParameter("@code", txtMACTCode.Text)
+
+                If DB.ValueExists(query, p) Then
+                    query = "Update LookUpSubpart63 set " &
+                    "strDescription = @desc " &
+                    "where strSubpart = @code "
                 Else
-                    SQL = "Insert into LookUpSubpart63 " &
+                    query = "Insert into LookUpSubpart63 " &
+                    "(strsubpart, strdescription ) " &
                     "values " &
-                    "('" & Replace(txtMACTCode.Text, "'", "''") & "', " &
-                    "'" & Replace(txtMACTDescription.Text, "'", "''") & "') "
+                    "(@code, @desc) "
                 End If
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                dr.Close()
+
+                Dim p2 As SqlParameter() = {
+                    p,
+                    New SqlParameter("@desc", txtMACTDescription.Text)
+                }
+
+                DB.RunCommand(query, p2)
                 LoadSubPartData()
 
             Else
@@ -7274,79 +5705,9 @@ Public Class SSPPStatisticalTools
 
         End Try
     End Sub
-    Private Sub btnDeleteSIPSubpart_Click_1(sender As Object, e As EventArgs) Handles btnDeleteSIPSubpart.Click
-        Try
-            SQL = "Delete LookUpSubpartSIP " &
-            "where strSubpart = '" & Replace(txtSIPCode.Text, "'", "''") & "' "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
-            LoadSubPartData()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
+#Region " clears and mouseups "
 
-        End Try
-    End Sub
-    Private Sub btnDeleteNSPSSubpart_Click_1(sender As Object, e As EventArgs) Handles btnDeleteNSPSSubpart.Click
-        Try
-            SQL = "Delete LookUpSubpart60 " &
-            "where strSubpart = '" & Replace(txtSIPCode.Text, "'", "''") & "' "
-
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
-            LoadSubPartData()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-    End Sub
-    Private Sub btnDeleteNESHAPSubpart_Click_1(sender As Object, e As EventArgs) Handles btnDeleteNESHAPSubpart.Click
-        Try
-            SQL = "Delete LookUpSubpart61 " &
-            "where strSubpart = '" & Replace(txtSIPCode.Text, "'", "''") & "' "
-
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
-            LoadSubPartData()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-    End Sub
-    Private Sub btnDeleteMACTSubpart_Click_1(sender As Object, e As EventArgs) Handles btnDeleteMACTSubpart.Click
-        Try
-            SQL = "Delete LookUpSubpart63 " &
-            "where strSubpart = '" & Replace(txtSIPCode.Text, "'", "''") & "' "
-
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
-            LoadSubPartData()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-    End Sub
     Private Sub btnClearSIP_Click(sender As Object, e As EventArgs) Handles btnClearSIP.Click
         Try
             txtSIPCode.Clear()
@@ -7396,7 +5757,6 @@ Public Class SSPPStatisticalTools
         End Try
     End Sub
 
-#End Region
     Private Sub dgvSIP_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvSIP.MouseUp
         Try
             Dim hti As DataGridView.HitTestInfo = dgvSIP.HitTest(e.X, e.Y)
@@ -7471,7 +5831,5 @@ Public Class SSPPStatisticalTools
     End Sub
 
 #End Region
-
-
 
 End Class

@@ -247,7 +247,6 @@ Partial Class SSPPStatisticalTools
         Me.dgvSIP = New System.Windows.Forms.DataGridView()
         Me.Panel5 = New System.Windows.Forms.Panel()
         Me.btnClearSIP = New System.Windows.Forms.Button()
-        Me.btnDeleteSIPSubpart = New System.Windows.Forms.Button()
         Me.txtSIPDescription = New System.Windows.Forms.TextBox()
         Me.Label73 = New System.Windows.Forms.Label()
         Me.btnEditSIP = New System.Windows.Forms.Button()
@@ -257,7 +256,6 @@ Partial Class SSPPStatisticalTools
         Me.dgvNSPS = New System.Windows.Forms.DataGridView()
         Me.Panel7 = New System.Windows.Forms.Panel()
         Me.btnClearNSPS = New System.Windows.Forms.Button()
-        Me.btnDeleteNSPSSubpart = New System.Windows.Forms.Button()
         Me.txtNSPSDescription = New System.Windows.Forms.TextBox()
         Me.Label75 = New System.Windows.Forms.Label()
         Me.btnEditNSPS = New System.Windows.Forms.Button()
@@ -267,7 +265,6 @@ Partial Class SSPPStatisticalTools
         Me.dgvNESHAP = New System.Windows.Forms.DataGridView()
         Me.Panel8 = New System.Windows.Forms.Panel()
         Me.btnClearNESHAP = New System.Windows.Forms.Button()
-        Me.btnDeleteNESHAPSubpart = New System.Windows.Forms.Button()
         Me.txtNESHAPDescription = New System.Windows.Forms.TextBox()
         Me.Label77 = New System.Windows.Forms.Label()
         Me.btnEditNESHAP = New System.Windows.Forms.Button()
@@ -277,7 +274,6 @@ Partial Class SSPPStatisticalTools
         Me.dgvMACT = New System.Windows.Forms.DataGridView()
         Me.Panel9 = New System.Windows.Forms.Panel()
         Me.btnClearMACT = New System.Windows.Forms.Button()
-        Me.btnDeleteMACTSubpart = New System.Windows.Forms.Button()
         Me.txtMACTDescription = New System.Windows.Forms.TextBox()
         Me.Label79 = New System.Windows.Forms.Label()
         Me.btnEditMACT = New System.Windows.Forms.Button()
@@ -903,6 +899,7 @@ Partial Class SSPPStatisticalTools
         '
         'cboSSPPUnits
         '
+        Me.cboSSPPUnits.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboSSPPUnits.FormattingEnabled = True
         Me.cboSSPPUnits.Location = New System.Drawing.Point(269, 28)
         Me.cboSSPPUnits.Name = "cboSSPPUnits"
@@ -1054,6 +1051,7 @@ Partial Class SSPPStatisticalTools
         '
         'cboSSPPUnits2
         '
+        Me.cboSSPPUnits2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboSSPPUnits2.FormattingEnabled = True
         Me.cboSSPPUnits2.Location = New System.Drawing.Point(21, 24)
         Me.cboSSPPUnits2.Name = "cboSSPPUnits2"
@@ -1370,6 +1368,7 @@ Partial Class SSPPStatisticalTools
         '
         'cboSSPPUnits3
         '
+        Me.cboSSPPUnits3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboSSPPUnits3.FormattingEnabled = True
         Me.cboSSPPUnits3.Location = New System.Drawing.Point(27, 69)
         Me.cboSSPPUnits3.Name = "cboSSPPUnits3"
@@ -2345,6 +2344,7 @@ Partial Class SSPPStatisticalTools
         '
         'cboEPAYear
         '
+        Me.cboEPAYear.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboEPAYear.FormattingEnabled = True
         Me.cboEPAYear.Location = New System.Drawing.Point(302, 8)
         Me.cboEPAYear.Name = "cboEPAYear"
@@ -2590,7 +2590,6 @@ Partial Class SSPPStatisticalTools
         'Panel5
         '
         Me.Panel5.Controls.Add(Me.btnClearSIP)
-        Me.Panel5.Controls.Add(Me.btnDeleteSIPSubpart)
         Me.Panel5.Controls.Add(Me.txtSIPDescription)
         Me.Panel5.Controls.Add(Me.Label73)
         Me.Panel5.Controls.Add(Me.btnEditSIP)
@@ -2612,17 +2611,6 @@ Partial Class SSPPStatisticalTools
         Me.btnClearSIP.TabIndex = 8
         Me.btnClearSIP.Text = "Clear "
         Me.btnClearSIP.UseVisualStyleBackColor = True
-        '
-        'btnDeleteSIPSubpart
-        '
-        Me.btnDeleteSIPSubpart.AutoSize = True
-        Me.btnDeleteSIPSubpart.Location = New System.Drawing.Point(574, 83)
-        Me.btnDeleteSIPSubpart.Name = "btnDeleteSIPSubpart"
-        Me.btnDeleteSIPSubpart.Size = New System.Drawing.Size(108, 23)
-        Me.btnDeleteSIPSubpart.TabIndex = 5
-        Me.btnDeleteSIPSubpart.Text = "Delete SIP Subpart"
-        Me.btnDeleteSIPSubpart.UseVisualStyleBackColor = True
-        Me.btnDeleteSIPSubpart.Visible = False
         '
         'txtSIPDescription
         '
@@ -2692,7 +2680,6 @@ Partial Class SSPPStatisticalTools
         'Panel7
         '
         Me.Panel7.Controls.Add(Me.btnClearNSPS)
-        Me.Panel7.Controls.Add(Me.btnDeleteNSPSSubpart)
         Me.Panel7.Controls.Add(Me.txtNSPSDescription)
         Me.Panel7.Controls.Add(Me.Label75)
         Me.Panel7.Controls.Add(Me.btnEditNSPS)
@@ -2714,17 +2701,6 @@ Partial Class SSPPStatisticalTools
         Me.btnClearNSPS.TabIndex = 7
         Me.btnClearNSPS.Text = "Clear "
         Me.btnClearNSPS.UseVisualStyleBackColor = True
-        '
-        'btnDeleteNSPSSubpart
-        '
-        Me.btnDeleteNSPSSubpart.AutoSize = True
-        Me.btnDeleteNSPSSubpart.Location = New System.Drawing.Point(562, 83)
-        Me.btnDeleteNSPSSubpart.Name = "btnDeleteNSPSSubpart"
-        Me.btnDeleteNSPSSubpart.Size = New System.Drawing.Size(120, 23)
-        Me.btnDeleteNSPSSubpart.TabIndex = 6
-        Me.btnDeleteNSPSSubpart.Text = "Delete NSPS Subpart"
-        Me.btnDeleteNSPSSubpart.UseVisualStyleBackColor = True
-        Me.btnDeleteNSPSSubpart.Visible = False
         '
         'txtNSPSDescription
         '
@@ -2794,7 +2770,6 @@ Partial Class SSPPStatisticalTools
         'Panel8
         '
         Me.Panel8.Controls.Add(Me.btnClearNESHAP)
-        Me.Panel8.Controls.Add(Me.btnDeleteNESHAPSubpart)
         Me.Panel8.Controls.Add(Me.txtNESHAPDescription)
         Me.Panel8.Controls.Add(Me.Label77)
         Me.Panel8.Controls.Add(Me.btnEditNESHAP)
@@ -2816,17 +2791,6 @@ Partial Class SSPPStatisticalTools
         Me.btnClearNESHAP.TabIndex = 8
         Me.btnClearNESHAP.Text = "Clear "
         Me.btnClearNESHAP.UseVisualStyleBackColor = True
-        '
-        'btnDeleteNESHAPSubpart
-        '
-        Me.btnDeleteNESHAPSubpart.AutoSize = True
-        Me.btnDeleteNESHAPSubpart.Location = New System.Drawing.Point(547, 83)
-        Me.btnDeleteNESHAPSubpart.Name = "btnDeleteNESHAPSubpart"
-        Me.btnDeleteNESHAPSubpart.Size = New System.Drawing.Size(135, 23)
-        Me.btnDeleteNESHAPSubpart.TabIndex = 6
-        Me.btnDeleteNESHAPSubpart.Text = "Delete NESHAP Subpart"
-        Me.btnDeleteNESHAPSubpart.UseVisualStyleBackColor = True
-        Me.btnDeleteNESHAPSubpart.Visible = False
         '
         'txtNESHAPDescription
         '
@@ -2896,7 +2860,6 @@ Partial Class SSPPStatisticalTools
         'Panel9
         '
         Me.Panel9.Controls.Add(Me.btnClearMACT)
-        Me.Panel9.Controls.Add(Me.btnDeleteMACTSubpart)
         Me.Panel9.Controls.Add(Me.txtMACTDescription)
         Me.Panel9.Controls.Add(Me.Label79)
         Me.Panel9.Controls.Add(Me.btnEditMACT)
@@ -2918,17 +2881,6 @@ Partial Class SSPPStatisticalTools
         Me.btnClearMACT.TabIndex = 8
         Me.btnClearMACT.Text = "Clear "
         Me.btnClearMACT.UseVisualStyleBackColor = True
-        '
-        'btnDeleteMACTSubpart
-        '
-        Me.btnDeleteMACTSubpart.AutoSize = True
-        Me.btnDeleteMACTSubpart.Location = New System.Drawing.Point(561, 83)
-        Me.btnDeleteMACTSubpart.Name = "btnDeleteMACTSubpart"
-        Me.btnDeleteMACTSubpart.Size = New System.Drawing.Size(121, 23)
-        Me.btnDeleteMACTSubpart.TabIndex = 6
-        Me.btnDeleteMACTSubpart.Text = "Delete MACT Subpart"
-        Me.btnDeleteMACTSubpart.UseVisualStyleBackColor = True
-        Me.btnDeleteMACTSubpart.Visible = False
         '
         'txtMACTDescription
         '
@@ -3257,7 +3209,6 @@ Partial Class SSPPStatisticalTools
     Friend WithEvents dgvSIP As System.Windows.Forms.DataGridView
     Friend WithEvents Panel5 As System.Windows.Forms.Panel
     Friend WithEvents btnClearSIP As System.Windows.Forms.Button
-    Friend WithEvents btnDeleteSIPSubpart As System.Windows.Forms.Button
     Friend WithEvents txtSIPDescription As System.Windows.Forms.TextBox
     Friend WithEvents Label73 As System.Windows.Forms.Label
     Friend WithEvents btnEditSIP As System.Windows.Forms.Button
@@ -3267,7 +3218,6 @@ Partial Class SSPPStatisticalTools
     Friend WithEvents dgvNSPS As System.Windows.Forms.DataGridView
     Friend WithEvents Panel7 As System.Windows.Forms.Panel
     Friend WithEvents btnClearNSPS As System.Windows.Forms.Button
-    Friend WithEvents btnDeleteNSPSSubpart As System.Windows.Forms.Button
     Friend WithEvents txtNSPSDescription As System.Windows.Forms.TextBox
     Friend WithEvents Label75 As System.Windows.Forms.Label
     Friend WithEvents btnEditNSPS As System.Windows.Forms.Button
@@ -3277,7 +3227,6 @@ Partial Class SSPPStatisticalTools
     Friend WithEvents dgvNESHAP As System.Windows.Forms.DataGridView
     Friend WithEvents Panel8 As System.Windows.Forms.Panel
     Friend WithEvents btnClearNESHAP As System.Windows.Forms.Button
-    Friend WithEvents btnDeleteNESHAPSubpart As System.Windows.Forms.Button
     Friend WithEvents txtNESHAPDescription As System.Windows.Forms.TextBox
     Friend WithEvents Label77 As System.Windows.Forms.Label
     Friend WithEvents btnEditNESHAP As System.Windows.Forms.Button
@@ -3287,7 +3236,6 @@ Partial Class SSPPStatisticalTools
     Friend WithEvents dgvMACT As System.Windows.Forms.DataGridView
     Friend WithEvents Panel9 As System.Windows.Forms.Panel
     Friend WithEvents btnClearMACT As System.Windows.Forms.Button
-    Friend WithEvents btnDeleteMACTSubpart As System.Windows.Forms.Button
     Friend WithEvents txtMACTDescription As System.Windows.Forms.TextBox
     Friend WithEvents Label79 As System.Windows.Forms.Label
     Friend WithEvents btnEditMACT As System.Windows.Forms.Button
