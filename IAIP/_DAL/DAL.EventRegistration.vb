@@ -9,7 +9,7 @@ Namespace DAL
 #Region "Lookups"
 
         Public Function GetResEventStatusesAsDictionary(Optional addBlank As Boolean = False, Optional blankPrompt As String = "") As SortedDictionary(Of Integer, String)
-            Dim query As String = " SELECT NUMRESLK_EVENTSTATUSID, STREVENTSTATUS " &
+            Dim query As String = " SELECT distinct NUMRESLK_EVENTSTATUSID, STREVENTSTATUS " &
                 " FROM RESLK_EVENTSTATUS " &
                 " WHERE ACTIVE = '1' " &
                 " ORDER BY STREVENTSTATUS "
@@ -38,38 +38,29 @@ Namespace DAL
 #Region "Events"
 
         Public Function GetResEventsAsDataTable(toDate As Nullable(Of Date), fromDate As Nullable(Of Date)) As DataTable
-            Throw New NotImplementedException()
+            Dim query As String =
+                " SELECT convert(int,RES_EVENT.NUMRES_EVENTID) as NUMRES_EVENTID, " &
+                "     RES_EVENT.STRTITLE, " &
+                "     RES_EVENT.STRDESCRIPTION, " &
+                "     RES_EVENT.DATSTARTDATE, " &
+                "     RES_EVENT.STREVENTSTARTTIME, " &
+                "     RES_EVENT.STRVENUE, " &
+                "     RES_EVENT.STRNOTES " &
+                " FROM RES_EVENT " &
+                " WHERE RES_EVENT.DATSTARTDATE       IS NOT NULL " &
+                " AND (RES_EVENT.DATSTARTDATE >= @pFromDate " &
+                " OR @pFromDate                                IS NULL) " &
+                " AND (RES_EVENT.DATSTARTDATE <= @pToDate " &
+                " OR @pToDate                                  IS NULL) " &
+                " AND RES_EVENT.ACTIVE                = '1' " &
+                " ORDER BY RES_EVENT.DATSTARTDATE "
 
-            ' TODO: SQL Server migration
+            Dim parameters As SqlParameter() = {
+                    New SqlParameter("@pFromDate", fromDate),
+                    New SqlParameter("@pToDate", toDate)
+                }
 
-            'Try
-            '    Dim query As String =
-            '        " SELECT RES_EVENT.NUMRES_EVENTID, " &
-            '        "     RES_EVENT.STRTITLE, " &
-            '        "     RES_EVENT.STRDESCRIPTION, " &
-            '        "     RES_EVENT.DATSTARTDATE, " &
-            '        "     RES_EVENT.STREVENTSTARTTIME, " &
-            '        "     RES_EVENT.STRVENUE, " &
-            '        "     RES_EVENT.STRNOTES " &
-            '        " FROM RES_EVENT " &
-            '        " WHERE RES_EVENT.DATSTARTDATE       IS NOT NULL " &
-            '        " AND (RES_EVENT.DATSTARTDATE >= @pFromDate " &
-            '        " OR @pFromDate                                IS NULL) " &
-            '        " AND (RES_EVENT.DATSTARTDATE <= @pToDate " &
-            '        " OR @pToDate                                  IS NULL) " &
-            '        " AND RES_EVENT.ACTIVE                = '1' " &
-            '        " ORDER BY RES_EVENT.DATSTARTDATE "
-
-            '    Dim parameters As SqlParameter() = {
-            '        New SqlParameter("@pFromDate", SqlDbType.DateTime2, fromDate, ParameterDirection.Input),
-            '        New SqlParameter("@pToDate", SqlDbType.DateTime2, toDate, ParameterDirection.Input)
-            '    }
-
-            '    Return DB.GetDataTable(query, parameters)
-            'Catch ex As Exception
-            '    ErrorReport(ex, System.Reflection.MethodBase.GetCurrentMethod.Name)
-            '    Return Nothing
-            'End Try
+            Return DB.GetDataTable(query, parameters, forceAddNullableParameters:=True)
         End Function
 
 #End Region
@@ -78,7 +69,7 @@ Namespace DAL
 
         Public Function GetResEventByIdAsDataRow(id As Integer) As DataRow
             Dim query As String =
-                " SELECT RES_EVENT.NUMRES_EVENTID, " &
+                " SELECT distinct convert(int,RES_EVENT.NUMRES_EVENTID) as NUMRES_EVENTID, " &
                 "   RES_EVENT.ACTIVE, " &
                 "   RESLK_EVENTSTATUS.STREVENTSTATUS, " &
                 "   RES_EVENT.STRUSERGCODE, " &
@@ -114,25 +105,12 @@ Namespace DAL
                 " on RES_EVENT.STRUSERGCODE         = EP2.NUMUSERID " &
                 "  left join EPDUSERPROFILES EP1 " &
                 " on RES_EVENT.NUMAPBCONTACT        = EP1.NUMUSERID " &
-                " where RES_EVENT.NUMRES_EVENTID      = @pId "
+                " where convert(int,RES_EVENT.NUMRES_EVENTID)      = @pId "
 
             Dim parameter As New SqlParameter("@pId", id)
 
-            Dim dataTable As DataTable = DB.GetDataTable(query, parameter)
-            If dataTable Is Nothing Then Return Nothing
-
-            Return dataTable.Rows(0)
+            Return DB.GetDataRow(query, parameter)
         End Function
-
-        '' Not currently used, but may be useful in the future
-        'Public Function GetResEventById(id As Integer) As ResEvent
-        '    Dim dataRow As DataRow = GetResEventByIdAsDataRow(id)
-        '    Dim resEvent As New ResEvent
-
-        '    FillResEventInfoFromDataRow(dataRow, ResEvent)
-
-        '    Return resEvent
-        'End Function
 
         Public Sub FillResEventInfoFromDataRow(row As DataRow, ByRef re As ResEvent)
             Dim address As New Address
@@ -206,7 +184,7 @@ Namespace DAL
                 " WHERE RES_REGISTRATION.NUMGECOUSERID           = OLAPUSERPROFILE.NUMUSERID " &
                 " AND RES_REGISTRATION.NUMREGISTRATIONSTATUSCODE = RESLK_REGISTRATIONSTATUS.NUMRESLK_REGISTRATIONSTATUSID " &
                 " AND RES_REGISTRATION.NUMGECOUSERID             = OLAPUSERLOGIN.NUMUSERID " &
-                " AND RES_REGISTRATION.NUMRES_EVENTID           = @pId "
+                " AND convert(int,RES_REGISTRATION.NUMRES_EVENTID)           = @pId "
 
             Dim parameter As New SqlParameter("@pId", id)
 

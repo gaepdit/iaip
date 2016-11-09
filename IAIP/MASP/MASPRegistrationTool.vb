@@ -4,15 +4,11 @@ Imports Iaip.DAL.EventRegistrationData
 Imports Iaip.Apb.Res
 
 Public Class MASPRegistrationTool
-    Dim SQL As String
-    Dim ds As DataSet
-    Dim da As SqlDataAdapter
-    Dim dr As SqlDataReader
-    Dim cmd As SqlCommand
+    Dim query As String
 
 #Region "Properties"
 
-    Dim selectedEventId As Decimal?
+    Dim selectedEventId As Integer?
     Dim selectedEvent As ResEvent
 
 #End Region
@@ -20,7 +16,6 @@ Public Class MASPRegistrationTool
 #Region "Form events"
 
     Private Sub MASPRegistrationTool_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
 
         LoadComboBoxes()
         LoadEvent()
@@ -307,15 +302,9 @@ Public Class MASPRegistrationTool
 
 #End Region
 
-#Region "Event Management Tab"
-
-
-#End Region
-
-    Sub LoadEventManagement()
+    Private Sub LoadEventManagement()
         Try
-            SQL = "Select " &
-            "numRes_EventID, " &
+            query = "Select " &
             "numEventStatusCode, strUserGCode, " &
             "strTitle, strDescription, " &
             "datStartDate, datEndDate, " &
@@ -328,13 +317,12 @@ Public Class MASPRegistrationTool
             "strEventStartTime, strEventEndTime, " &
             "strWebURL " &
             "From RES_Event " &
-            "where nuMRes_EventID = '" & selectedEventId & "' "
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
+            "where convert(int,NUMRES_EVENTID) = @eventid "
+
+            Dim p As New SqlParameter("@eventid", selectedEventId)
+
+            Dim dr As DataRow = DB.GetDataRow(query, p)
+            If dr IsNot Nothing Then
                 If IsDBNull(dr.Item("numEventStatusCode")) Then
                     cboEventStatus.SelectedValue = 0
                 Else
@@ -443,16 +431,15 @@ Public Class MASPRegistrationTool
                 Else
                     txtWebsiteURL.Text = dr.Item("strWebURL")
                 End If
-            End While
-            dr.Close()
+            End If
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub LoadRegistrationManagement()
+    Private Sub LoadRegistrationManagement()
         Try
-            SQL = "select " &
+            query = "select " &
             "Res_Registration.numRes_registrationID, " &
             "Res_Event.strTitle as eventTitle,  " &
             "datRegistrationDateTime, " &
@@ -473,17 +460,11 @@ Public Class MASPRegistrationTool
             "and Res_registration.numRegistrationStatusCode = " &
             "RESLK_RegistrationStatus.NUMRESLK_REGISTRATIONSTATUSID " &
             "and Res_Registration.numGECouserID = OLAPUserLogIn.numuserid " &
-            "and Res_registration.numRes_EventID = '" & selectedEventId & "' "
+            "and convert(int,Res_registration.numRes_EventID) = @eventid "
 
-            ds = New DataSet
-            da = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
+            Dim p As New SqlParameter("@eventid", selectedEventId)
 
-            da.Fill(ds, "Registered")
-            dgvRegistrationManagement.DataSource = ds
-            dgvRegistrationManagement.DataMember = "Registered"
+            dgvRegistrationManagement.DataSource = DB.GetDataTable(query, p)
 
             dgvRegistrationManagement.RowHeadersVisible = False
             dgvRegistrationManagement.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -503,7 +484,6 @@ Public Class MASPRegistrationTool
             dgvRegistrationManagement.Columns("EventTitle").Visible = False
             dgvRegistrationManagement.Columns("datRegistrationDateTime").HeaderText = "Reg. Date"
             dgvRegistrationManagement.Columns("datRegistrationDateTime").DisplayIndex = 2
-            ' dgvRegistrationManagement.Columns("datRegistrationDateTime").DefaultCellStyle.Format = "dd-MMM-yyyy HH:MM"
             dgvRegistrationManagement.Columns("strConfirmationNumber").HeaderText = "Confirmation"
             dgvRegistrationManagement.Columns("strConfirmationNumber").DisplayIndex = 3
             dgvRegistrationManagement.Columns("strConfirmationNumber").Visible = False
@@ -541,20 +521,11 @@ Public Class MASPRegistrationTool
             dgvRegistrationManagement.Columns("strUserType").HeaderText = "User Type"
             dgvRegistrationManagement.Columns("strUserType").DisplayIndex = 18
             dgvRegistrationManagement.Columns("strUserType").Visible = False
-            'dgvRegistrationManagement.Columns("strComments").HeaderText = "Comments"
-            'dgvRegistrationManagement.Columns("strComments").DisplayIndex = 19
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub LoadReports()
-        Try
 
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
 #End Region
 
 #Region "Events Management"
@@ -657,9 +628,9 @@ Public Class MASPRegistrationTool
         End Try
     End Sub
 
-    Public Function GeneratePasscode() As String
+    Private Function GeneratePasscode() As String
         Try
-            Dim r As New Random(System.DateTime.Now.Millisecond)
+            Dim r As New Random(Date.Now.Millisecond)
             Dim passcode As String = "GA" & r.Next(100000, 999999)
             If PasscodeExists(passcode) Then
                 Return GeneratePasscode()
@@ -707,6 +678,7 @@ Public Class MASPRegistrationTool
     End Sub
 
 #End Region
+
 #Region "Registration Management"
     Private Sub dgvRegistrationManagement_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvRegistrationManagement.MouseUp
         Try
@@ -824,16 +796,7 @@ Public Class MASPRegistrationTool
         End Try
     End Sub
 
-
-
 #End Region
-
-
-    'Private Sub cboEventWebContact_Leave(sender As Object, e As EventArgs) Handles cboEventWebContact.Leave
-    '    If cboEventWebContact.Items.Contains(cboEventWebContact.Text) = False Then
-    '        cboEventWebContact.SelectedIndex = 0
-    '    End If
-    'End Sub
 
     Private Sub btnModifyRegistration_Click(sender As Object, e As EventArgs) Handles btnModifyRegistration.Click
         Try
@@ -886,7 +849,6 @@ Public Class MASPRegistrationTool
 
 
     End Sub
-
 
     Private Sub btnExportRegistrantsToExcel_Click(sender As Object, e As EventArgs) Handles btnExportRegistrantsToExcel.Click
         dgvOverviewRegistrants.ExportToExcel()
@@ -942,7 +904,7 @@ Public Class MASPRegistrationTool
 
 #Region "Insert/Update event/registration"
 
-    Function Insert_RES_Event(EventStatusCode As String, Title As String,
+    Private Sub Insert_RES_Event(EventStatusCode As String, Title As String,
                             Description As String, StartDateTime As String,
                             EndDateTime As String, Venue As String,
                             Address As String, City As String,
@@ -953,10 +915,9 @@ Public Class MASPRegistrationTool
                             LogInRequired As String,
                             PassCodeRequired As String, PassCode As String,
                             Active As String, EventTime As String,
-                            EventEndTime As String, WebURL As String) As String
-        Try
-            Dim EventID As String = "0"
+                            EventEndTime As String, WebURL As String)
 
+        Try
             If LogInRequired = True Then
                 LogInRequired = "1"
             Else
@@ -977,7 +938,7 @@ Public Class MASPRegistrationTool
                 LogInRequired = "0"
             End If
 
-            SQL = "Insert into RES_Event " &
+            query = "Insert into RES_Event " &
                      "(numRes_EventID, numEventStatusCode, " &
                      "strUserGCode, strTitle, " &
                      "strDescription, datStartDate, " &
@@ -993,59 +954,54 @@ Public Class MASPRegistrationTool
                      "strEventEndTime, strWebURL) " &
                      "values " &
                      "((select " &
-                     "case when max(numres_eventID) is null then 1 " &
-                     "else max(numRes_EventID) + 1 End  " &
-                     "from Res_event), " &
-                     "'" & Replace(EventStatusCode, "'", "''") & "',  '" & Replace(WebContact, "'", "''") & "', " &
-                     "'" & Replace(Title, "'", "''") & "', " &
-                     "'" & Replace(Description, "'", "''") & "', '" & Replace(StartDateTime, "'", "''") & "', " &
-                     "'" & Replace(EndDateTime, "'", "''") & "', '" & Replace(Venue, "'", "''") & "', " &
-                     "'" & Replace(Capacity, "'", "''") & "', '" & Replace(Notes, "'", "''") & "', " &
-                     "'', " &
-                     "'" & Active & "', " &
-                     "GETDATE(), '" & CurrentUser.UserID & "', " &
-                     "GETDATE(), '" & LogInRequired & "', " &
-                     "'" & Replace(PassCode, "'", "''") & "', '" & Replace(Address, "'", "''") & "', " &
-                     "'" & Replace(City, "'", "''") & "', '" & Replace(State, "'", "''") & "',  " &
-                     "'" & ZipCode & "', '" & APBContact & "', " &
-                     "'" & WebPhoneNumber & "', '" & Replace(EventTime, "'", "''") & "', " &
-                     "'" & Replace(EventEndTime, "'", "''") & "', '" & Replace(WebURL, "'", "''") & "') "
+                     "case when max(convert(int,numres_eventID)) is null then 1 " &
+                     "else max(convert(int,NUMRES_EVENTID)) + 1 End  " &
+                     "from Res_event), @numEventStatusCode, " &
+                     "@strUserGCode, @strTitle, " &
+                     "@strDescription, @datStartDate, " &
+                     "@datEndDate, @strVenue, " &
+                     "@numCapacity, @strNotes, " &
+                     "null, @Active, " &
+                     "getdate(), @UpdateUser, " &
+                     "getdate(), @strLogInRequired, " &
+                     "@strPassCode, @strAddress, " &
+                     "@strCity, @strState, " &
+                     "@numZipCode, @numAPBContact, " &
+                     "@numWebPhoneNumber, @strEventStartTime, " &
+                     "@strEventEndTime, @strWebURL) "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
+            Dim p As SqlParameter() = {
+                New SqlParameter("@numEventStatusCode", EventStatusCode),
+                New SqlParameter("@strUserGCode", WebContact),
+                New SqlParameter("@strTitle", Title),
+                New SqlParameter("@strDescription", Description),
+                New SqlParameter("@datStartDate", StartDateTime),
+                New SqlParameter("@datEndDate", EndDateTime),
+                New SqlParameter("@strVenue", Venue),
+                New SqlParameter("@numCapacity", Capacity),
+                New SqlParameter("@strNotes", Notes),
+                New SqlParameter("@Active", Active),
+                New SqlParameter("@UpdateUser", CurrentUser.UserID),
+                New SqlParameter("@strLogInRequired", LogInRequired),
+                New SqlParameter("@strPassCode", PassCode),
+                New SqlParameter("@strAddress", Address),
+                New SqlParameter("@strCity", City),
+                New SqlParameter("@strState", State),
+                New SqlParameter("@numZipCode", ZipCode),
+                New SqlParameter("@numAPBContact", APBContact),
+                New SqlParameter("@numWebPhoneNumber", WebPhoneNumber),
+                New SqlParameter("@strEventStartTime", EventTime),
+                New SqlParameter("@strEventEndTime", EventEndTime),
+                New SqlParameter("@strWebURL", WebURL)
+            }
 
-            SQL = "Select " &
-            "max(numRes_eventID) as EventID " &
-            "from RES_Event "
-
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            dr = cmd.ExecuteReader
-            While dr.Read
-                If IsDBNull(dr.Item("EventID")) Then
-                    EventID = "0"
-                Else
-                    EventID = dr.Item("EventID")
-                End If
-            End While
-            dr.Close()
-
-            Return EventID
-
+            DB.RunCommand(query, p)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
-        Return ""
-    End Function
+    End Sub
 
-    Function Update_RES_Event(Res_EventID As String,
+    Private Function Update_RES_Event(Res_EventID As String,
                            EventStatusCode As String, Title As String,
                            Description As String, StartDateTime As String,
                            EndDateTime As String, Venue As String,
@@ -1063,85 +1019,85 @@ Public Class MASPRegistrationTool
             If IsDBNull(EventStatusCode) Then
             Else
                 If EventStatusCode <> "" Then
-                    SQL = "numEventStatusCode = '" & Replace(EventStatusCode, "'", "''") & "', "
+                    SQL = "numEventStatusCode = @EventStatusCode, "
                 End If
             End If
             If IsDBNull(Title) Then
             Else
                 If Title <> "" Then
-                    SQL = SQL & "strTitle = '" & Replace(Title, "'", "''") & "', "
+                    SQL = SQL & "strTitle = @Title, "
                 End If
             End If
             If IsDBNull(Description) Then
             Else
                 If Description <> "" Then
-                    SQL = SQL & "strDescription = '" & Replace(Description, "'", "''") & "', "
+                    SQL = SQL & "strDescription = @Description, "
                 End If
             End If
             If IsDBNull(StartDateTime) Then
             Else
                 If StartDateTime <> "" Then
-                    SQL = SQL & "datStartDate = '" & Replace(StartDateTime, "'", "''") & "', "
+                    SQL = SQL & "datStartDate = @StartDateTime, "
                 End If
             End If
             If IsDBNull(EndDateTime) Then
             Else
                 If EndDateTime <> "" Then
-                    SQL = SQL & "datEndDate = '" & Replace(EndDateTime, "'", "''") & "', "
+                    SQL = SQL & "datEndDate = @EndDateTime, "
                 End If
             End If
             If IsDBNull(Venue) Then
             Else
                 If Venue <> "" Then
-                    SQL = SQL & "strVenue = '" & Replace(Venue, "'", "''") & "', "
+                    SQL = SQL & "strVenue = @Venue, "
                 End If
             End If
             If IsDBNull(Address) Then
             Else
                 If Address <> "" Then
-                    SQL = SQL & "strAddress = '" & Replace(Address, "'", "''") & "', "
+                    SQL = SQL & "strAddress = @Address, "
                 End If
             End If
             If IsDBNull(City) Then
             Else
                 If City <> "" Then
-                    SQL = SQL & "strCity = '" & Replace(City, "'", "''") & "', "
+                    SQL = SQL & "strCity = @City, "
                 End If
             End If
             If IsDBNull(State) Then
             Else
                 If State <> "" Then
-                    SQL = SQL & "strState = '" & Replace(State, "'", "''") & "', "
+                    SQL = SQL & "strState = @State, "
                 End If
             End If
             If IsDBNull(ZipCode) Then
             Else
                 If ZipCode <> "" Then
-                    SQL = SQL & "numZipCode = '" & Replace(ZipCode, "'", "''") & "', "
+                    SQL = SQL & "numZipCode = @ZipCode, "
                 End If
             End If
             If IsDBNull(Capacity) Then
             Else
                 If Capacity <> "" Then
-                    SQL = SQL & "numCapacity = '" & Replace(Capacity, "'", "''") & "', "
+                    SQL = SQL & "numCapacity = @Capacity, "
                 End If
             End If
             If IsDBNull(Notes) Then
             Else
                 If Notes <> "" Then
-                    SQL = SQL & "strNotes = '" & Replace(Notes, "'", "''") & "', "
+                    SQL = SQL & "strNotes = @Notes, "
                 End If
             End If
             If IsDBNull(APBContact) Then
             Else
                 If APBContact <> "" Then
-                    SQL = SQL & "numAPBContact = '" & Replace(APBContact, "'", "''") & "', "
+                    SQL = SQL & "numAPBContact = @APBContact, "
                 End If
             End If
             If IsDBNull(WebContact) Then
             Else
                 If WebContact <> "" Then
-                    SQL = SQL & "strUserGCode = '" & Replace(WebContact, "'", "''") & "', "
+                    SQL = SQL & "strUserGCode = @WebContact, "
                 End If
             End If
             If IsDBNull(LogInRequired) Then
@@ -1153,7 +1109,7 @@ Public Class MASPRegistrationTool
                     Else
                         LogInRequired = "0"
                     End If
-                    SQL = SQL & "strLogInRequired = '" & Replace(LogInRequired, "'", "''") & "', "
+                    SQL = SQL & "strLogInRequired = @LogInRequired, "
                 Else
                     LogInRequired = "0"
                 End If
@@ -1164,44 +1120,69 @@ Public Class MASPRegistrationTool
                 If PassCodeRequired = "0" Or PassCode = "" Then
                     SQL = SQL & "strPasscode = '1', "
                 Else
-                    SQL = SQL & "strPassCode = '" & Replace(PassCode, "'", "''") & "', "
+                    SQL = SQL & "strPassCode = @PassCode, "
                 End If
             End If
             If IsDBNull(EventTime) Then
             Else
                 If EventTime <> "" Then
-                    SQL = SQL & "strEventStartTime = '" & Replace(EventTime, "'", "''") & "', "
+                    SQL = SQL & "strEventStartTime = @EventTime, "
                 End If
             End If
             If IsDBNull(EventEndTime) Then
             Else
                 If EventEndTime <> "" Then
-                    SQL = SQL & "strEventEndTime = '" & Replace(EventEndTime, "'", "''") & "', "
+                    SQL = SQL & "strEventEndTime = @EventEndTime, "
                 End If
             End If
             If IsDBNull(WebURL) Then
             Else
                 If WebURL <> "" Then
-                    SQL = SQL & "strWebURL = '" & Replace(WebURL, "'", "''") & "', "
+                    SQL = SQL & "strWebURL = @WebURL, "
                 End If
             End If
 
             If IsDBNull(Active) Then
             Else
-                SQL = SQL & "active = '" & Active & "', "
+                SQL = SQL & "active = @Active, "
             End If
             If SQL <> "" Then
                 SQL = "Update Res_Event set " &
-                SQL & "updateUser = '" & CurrentUser.UserID & "', " &
+                SQL & "updateUser = @user , " &
                 "updateDateTime =  GETDATE()  " &
-                "where numRes_EventID = '" & Res_EventID & "' "
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                dr.Close()
+                "where convert(int,NUMRES_EVENTID) = @Res_EventID "
+
+                Dim p As SqlParameter() = {
+                    New SqlParameter("@Res_EventID", Res_EventID),
+                    New SqlParameter("@EventStatusCode", EventStatusCode),
+                    New SqlParameter("@Title", Title),
+                    New SqlParameter("@Description", Description),
+                    New SqlParameter("@StartDateTime", StartDateTime),
+                    New SqlParameter("@EndDateTime", EndDateTime),
+                    New SqlParameter("@Venue", Venue),
+                    New SqlParameter("@Address", Address),
+                    New SqlParameter("@City", City),
+                    New SqlParameter("@State", State),
+                    New SqlParameter("@ZipCode", ZipCode),
+                    New SqlParameter("@Capacity", Capacity),
+                    New SqlParameter("@Notes", Notes),
+                    New SqlParameter("@APBContact", APBContact),
+                    New SqlParameter("@WebContact", WebContact),
+                    New SqlParameter("@LogInRequired", LogInRequired),
+                    New SqlParameter("@PassCodeRequired", PassCodeRequired),
+                    New SqlParameter("@PassCode", PassCode),
+                    New SqlParameter("@Active", Active),
+                    New SqlParameter("@EventTime", EventTime),
+                    New SqlParameter("@EventEndTime", EventEndTime),
+                    New SqlParameter("@WebURL", WebURL),
+                    New SqlParameter("@user", CurrentUser.UserID)
+                }
+
+                DB.RunCommand(SQL, p)
+
                 Return True
+            Else
+                Return False
             End If
 
         Catch ex As Exception
@@ -1209,22 +1190,24 @@ Public Class MASPRegistrationTool
         End Try
     End Function
 
-    Function Update_RES_Registration(RegistrationID As String, Confirmation As String,
+    Private Function Update_RES_Registration(RegistrationID As String, Confirmation As String,
                                      RegStatusCode As String, RegDate As String) As Boolean
         Try
 
-            SQL = "Update Res_Registration set " &
-            "numREgistrationStatusCode = '" & RegStatusCode & "', " &
-            "datRegistrationDateTime = '" & RegDate & "' " &
-            "where numRes_RegistrationID = '" & RegistrationID & "' " &
-            "and strConfirmationNumber = '" & Confirmation & "' "
+            query = "Update Res_Registration set " &
+            "numREgistrationStatusCode = @numREgistrationStatusCode, " &
+            "datRegistrationDateTime = @datRegistrationDateTime " &
+            "where numRes_RegistrationID = @numRes_RegistrationID " &
+            "and strConfirmationNumber = @strConfirmationNumber "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
+            Dim p As SqlParameter() = {
+                New SqlParameter("@numREgistrationStatusCode", RegStatusCode),
+                New SqlParameter("@datRegistrationDateTime", RegDate),
+                New SqlParameter("@numRes_RegistrationID", RegistrationID),
+                New SqlParameter("@strConfirmationNumber", Confirmation)
+            }
+
+            DB.RunCommand(query, p)
             Return True
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -1235,8 +1218,8 @@ Public Class MASPRegistrationTool
 
 #Region "DAL"
 
-    Public Function PasscodeExists(id As String) As Boolean
-        Dim query As String = "SELECT 1 FROM RES_EVENT WHERE STRPASSCODE = @id"
+    Private Function PasscodeExists(id As String) As Boolean
+        Dim query As String = "SELECT CONVERT( bit, COUNT(*)) FROM RES_EVENT WHERE STRPASSCODE = @id"
         Dim parameter As New SqlParameter("@id", id)
         Return DB.GetBoolean(query, parameter)
     End Function
