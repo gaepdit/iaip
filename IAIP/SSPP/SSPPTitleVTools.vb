@@ -1,77 +1,15 @@
 ﻿Imports System.Data.SqlClient
 
 Public Class SSPPTitleVTools
-    Dim SQL, SQL2 As String
-    Dim dsWebPublisher As DataSet
-    Dim daWebPublisher As SqlDataAdapter
-    Dim dsStaff As DataSet
-    Dim daStaff As New SqlDataAdapter
-    Dim ds As DataSet
-    Dim da As SqlDataAdapter
-    Dim airsno As String
-    Dim Startdate As String
-    Dim EndDate As String
-    Dim recExist As Boolean
-    Dim dr As SqlDataReader
-    Dim cmd As SqlCommand
+    Dim query, query2 As String
 
     Private Sub DMUTitleVTools_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         LoadPermissions()
     End Sub
 
-#Region "Page Load Functions"
-    Sub LoadWebPublisherDataGrid(AppNum As String)
-        Dim SQLLine As String
-
+    Private Sub LoadWebPublisherDataGrid()
         Try
-
-
-
-            If AppNum = "Load" Then
-                SQLLine = ""
-            Else
-                SQLLine = " and SSPPApplicationMaster.strApplicationNumber = '" & AppNum & "' "
-            End If
-
-            SQL = "select " &
-            "CONVERT(int, SSPPApplicationMaster.strApplicationNumber) as ApplicationNumber, " &
-            "case " &
-            "When datDraftIssued is Null then ' ' " &
-            "ELSE format(datDraftIssued, 'yyyy-MM-dd') " &
-            "END datDraftIssued, " &
-            "case " &
-            "When datPermitIssued is Null then ' ' " &
-            "ELSE format(datPermitIssued, 'yyyy-MM-dd') " &
-            "END datPermitIssued, " &
-            "case " &
-            "When datExperationDate is Null then ' ' " &
-            "ELSE format(datExperationDate, 'yyyy-MM-dd') " &
-            "END datExperationDate, " &
-            "strFacilityName, " &
-            "case  " &
-            "        when strPermitNumber is NULL then ' '  " &
-            "         else concat(SUBSTRING(strPermitNumber, 1, 4), '-' ,SUBSTRING(strPermitNumber, 5, 3), '-'  " &
-            "        ,SUBSTRING(strPermitNumber, 8, 4), '-' ,SUBSTRING(strPermitNumber, 12, 1), '-'           " &
-            "        ,SUBSTRING(strPermitNumber, 13, 2), '-' ,SUBSTRING(strPermitNumber, 15, 1)) " &
-            "end As strPermitNumber, " &
-            "Case " &
-            "when datFinalizedDate is Null then ' ' " &
-            "Else format(datFinalizedDate, 'yyyy-MM-dd') " &
-            "End datFinalizedDate, " &
-            "strApplicationTypeDesc " &
-            "from SSPPApplicationTracking, SSPPApplicationData, " &
-            "SSPPApplicationMaster, LookUpApplicationTypes " &
-            "where SSPPApplicationTracking.strApplicationNumber = SSPPApplicationData.strApplicationNumber " &
-            "and LookUpApplicationTypes.strApplicationTypeCode = strApplicationType " &
-            "and SSPPApplicationTracking.strApplicationNumber = SSPPApplicationMaster.strApplicationNumber " &
-            "and (datDraftIssued is Not Null or datPermitIssued is Not Null or datEPAStatesNotified is Not Null) " &
-            "and datFinalOnWeb is Null " &
-            "and datFinalizedDate is Null " &
-            "and (strApplicationType = '17' or strApplicationType = '14' or strApplicationType = '16' " &
-            " or strApplicationType = '15' or strApplicationType = '26' or strApplicationType = '19' " &
-            " or strApplicationType = '20' or strApplicationType = '22' or strApplicationType = '21')" & SQLLine
-
-            SQL = "SELECT " &
+            query = "SELECT " &
             "CONVERT(int, SSPPApplicationMaster.strApplicationNumber) AS ApplicationNumber,  " &
             "CASE  " &
             "   WHEN datDraftIssued IS NULL THEN ' '  " &
@@ -129,30 +67,14 @@ Public Class SSPPTitleVTools
             "strApplicationType = '11' " &
             "and SUBSTRING(strTrackedRules, 1, 1) = '1' " &
             ") " &
-            "and datFinalizedDate is Null " & SQLLine &
+            "and datFinalizedDate is Null " &
             " order by ApplicationNumber Desc "
 
-            dsWebPublisher = New DataSet
+            Dim dt As DataTable = DB.GetDataTable(query)
+            dt.TableName = "WebPublisher"
+            dgrWebPublisher.DataSource = dt
 
-            daWebPublisher = New SqlDataAdapter(SQL, CurrentConnection)
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            Try
-
-
-                daWebPublisher.Fill(dsWebPublisher, "WebPublisher")
-                dgrWebPublisher.DataSource = dsWebPublisher
-                dgrWebPublisher.DataMember = "WebPublisher"
-
-            Catch ex As Exception
-                MsgBox(ex.ToString())
-            End Try
-
-            txtTVCount.Text = dsWebPublisher.Tables(0).Rows.Count
-
+            txtTVCount.Text = dt.Rows.Count
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -162,7 +84,7 @@ Public Class SSPPTitleVTools
 
 
     End Sub
-    Sub FormatWebPublisherDataGrid()
+    Private Sub FormatWebPublisherDataGrid()
         Try
 
             'Formatting our DataGrid
@@ -231,7 +153,7 @@ Public Class SSPPTitleVTools
         End Try
 
     End Sub
-    Sub CheckForLinks()
+    Private Sub CheckForLinks()
         Dim MasterApplication As String
         Dim ApplicationCount As String = 0
 
@@ -241,41 +163,35 @@ Public Class SSPPTitleVTools
             lbLinkApplications.Items.Clear()
 
             If txtWebPublisherApplicationNumber.Text <> "" Then
-                SQL = "Select " &
-                "strMasterApplication, strApplicationNumber " &
+                query = "Select " &
+                "strMasterApplication " &
                 "from SSPPApplicationLinking " &
-                "where strApplicationNumber = '" & txtWebPublisherApplicationNumber.Text & "' "
+                "where strApplicationNumber = @app "
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
+                Dim p As New SqlParameter("@app", txtWebPublisherApplicationNumber.Text)
 
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-                If recExist = True Then
-                    MasterApplication = dr.Item("strMasterApplication")
-                Else
+                MasterApplication = DB.GetString(query, p)
+
+                If MasterApplication = "" Then
                     MasterApplication = ""
                     lbLinkApplications.Items.Clear()
                     lblLinkWarning.Visible = False
-                End If
-                If MasterApplication <> "" Then
-                    SQL = "Select " &
-                    "strMasterApplication, strApplicationNumber " &
+                Else
+                    query = "Select " &
+                    "strApplicationNumber " &
                     "from SSPPApplicationLinking " &
-                    "where strMasterApplication = '" & MasterApplication & "' " &
+                    "where strMasterApplication = @masterapp " &
                     "order by strApplicationNumber "
 
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    While dr.Read
+                    Dim p2 As New SqlParameter("@masterapp", MasterApplication)
+
+                    Dim dt As DataTable = DB.GetDataTable(query, p2)
+
+                    For Each dr As DataRow In dt.Rows
                         lbLinkApplications.Items.Add(dr.Item("strApplicationNumber"))
                         ApplicationCount += 1
-                    End While
+                    Next
+
                     lblLinkWarning.Visible = True
                 End If
             Else
@@ -293,7 +209,7 @@ Public Class SSPPTitleVTools
         End Try
 
     End Sub
-    Sub LoadPermissions()
+    Private Sub LoadPermissions()
         Try
 
             TCDMUTools.TabPages.Remove(TPWebPublishing)
@@ -306,7 +222,7 @@ Public Class SSPPTitleVTools
                 TCDMUTools.TabPages.Add(TPTVEmails)
                 TCDMUTools.TabPages.Add(TPTitleVRenewals)
 
-                LoadWebPublisherDataGrid("Load")
+                LoadWebPublisherDataGrid()
                 FormatWebPublisherDataGrid()
 
                 DTPNotifiedAppReceived.Value = Today
@@ -320,7 +236,7 @@ Public Class SSPPTitleVTools
                 DTPTitleVRenewalStart.Value = Today
                 DTPPNExpires.Value = Today
                 DTPExperationDate.Value = Today
-                DTPTitleVRenewalEnd.Text = Format(Today.AddMonths(1), "dd-MMM-yyyy")
+                DTPTitleVRenewalEnd.Value = Today.AddMonths(1)
 
             End If
         Catch ex As Exception
@@ -329,41 +245,12 @@ Public Class SSPPTitleVTools
 
         End Try
     End Sub
-    Private Sub LoadDataSetInformation()
-        Try
-            SQL = "select " &
-            "concat(strLastName,', ',strFirstName) as UserName,  " &
-            "numUserID  " &
-            "from EPDUserProfiles  " &
-            "order by strLastName  "
-
-            dsStaff = New DataSet
-
-            daStaff = New SqlDataAdapter(SQL, CurrentConnection)
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            daStaff.Fill(dsStaff, "Staff")
-
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-#End Region
-
-#Region "Subs and Functions"
-    Sub LoadWebPublisherApplicationData()
+    Private Sub LoadWebPublisherApplicationData()
         Try
 
             Dim AppType As String = ""
 
-            SQL = "Select " &
+            query = "Select " &
             "datDraftOnWeb, datEPAStatesNotified, " &
             "datFinalONWeb, DatEPANotified, " &
             "datEffective, strTargeted, " &
@@ -374,16 +261,13 @@ Public Class SSPPTitleVTools
             "SSPPApplicationMaster " &
             "where SSPPApplicationTracking.strApplicationNumber = SSPPApplicationData.strApplicationNumber " &
             "and SSPPApplicationTracking.strApplicationNumber = SSPPApplicationMaster.strApplicationNumber  " &
-            "and SSPPApplicationTracking.strApplicationNumber = '" & txtWebPublisherApplicationNumber.Text & "' "
+            "and SSPPApplicationTracking.strApplicationNumber = @app "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
+            Dim p As New SqlParameter("@app", txtWebPublisherApplicationNumber.Text)
 
-            dr = cmd.ExecuteReader
-            recExist = dr.Read
-            If recExist = True Then
+            Dim dr As DataRow = DB.GetDataRow(query, p)
+
+            If dr IsNot Nothing Then
                 If IsDBNull(dr.Item("datEPAStatesNotifiedAppRec")) Then
                     chbNotifiedAppReceived.Checked = False
                 Else
@@ -463,11 +347,6 @@ Public Class SSPPTitleVTools
             End If
             CheckForLinks()
 
-            If txtWebPublisherApplicationNumber.Text <> "" Then
-                'LoadWebPublisherDataGrid(txtWebPublisherApplicationNumber.Text)
-            End If
-
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -475,93 +354,81 @@ Public Class SSPPTitleVTools
         End Try
 
     End Sub
-    Sub SaveWebPublisherData()
-        Dim EPAStatesNotifiedAppRec As String
-        Dim DraftOnWeb As String
-        Dim EPAStatesNotified As String
-        Dim FinalOnWeb As String
-        Dim EPANotifiedPermitOnWeb As String
-        Dim EffectiveDateOnPermit As String
+    Private Sub SaveWebPublisherData()
+        Dim EPAStatesNotifiedAppRec As String = Nothing
+        Dim DraftOnWeb As String = Nothing
+        Dim EPAStatesNotified As String = Nothing
+        Dim FinalOnWeb As String = Nothing
+        Dim EPANotifiedPermitOnWeb As String = Nothing
+        Dim EffectiveDateOnPermit As String = Nothing
         Dim TargetedComments As String
-        Dim ExperationDate As String
-        Dim PNExpires As String
+        Dim ExperationDate As String = Nothing
+        Dim PNExpires As String = Nothing
 
         Try
 
             If chbNotifiedAppReceived.Checked = True Then
                 EPAStatesNotifiedAppRec = DTPNotifiedAppReceived.Text
-            Else
-                EPAStatesNotifiedAppRec = ""
             End If
             If chbDraftOnWeb.Checked = True Then
                 DraftOnWeb = DTPDraftOnWeb.Text
-            Else
-                DraftOnWeb = ""
             End If
             If chbEPAandStatesNotified.Checked = True Then
                 EPAStatesNotified = DTPEPAStatesNotified.Text
-            Else
-                EPAStatesNotified = ""
             End If
             If chbFinalOnWeb.Checked = True Then
                 FinalOnWeb = DTPFinalOnWeb.Text
-            Else
-                FinalOnWeb = ""
             End If
             If chbEPANotifiedPermitOnWeb.Checked = True Then
                 EPANotifiedPermitOnWeb = DTPEPANotifiedPermitOnWeb.Text
-            Else
-                EPANotifiedPermitOnWeb = ""
             End If
             If chbEffectiveDateOfPermit.Checked = True Then
                 EffectiveDateOnPermit = DTPEffectiveDateofPermit.Text
-            Else
-                EffectiveDateOnPermit = ""
             End If
             If chbExpirationDate.Checked = True Then
                 ExperationDate = DTPExperationDate.Text
-            Else
-                ExperationDate = ""
             End If
-            If txtEPATargetedComments.Text <> "" Then
-                TargetedComments = Replace(txtEPATargetedComments.Text, "'", "''")
-                TargetedComments = Mid(TargetedComments, 1, 4000)
-            Else
-                TargetedComments = ""
-            End If
+            TargetedComments = Mid(txtEPATargetedComments.Text, 1, 4000)
             If chbPNExpires.Checked = True Then
                 PNExpires = DTPPNExpires.Text
-            Else
-                PNExpires = ""
             End If
 
             If txtWebPublisherApplicationNumber.Text <> "" Then
-                SQL = "Update SSPPApplicationTracking set " &
-                "datDraftOnWeb = '" & DraftOnWeb & "', " &
-                "datEPAStatesNotified = '" & EPAStatesNotified & "', " &
-                "datFinalOnWeb = '" & FinalOnWeb & "', " &
-                "datEPANotified = '" & EPANotifiedPermitOnWeb & "', " &
-                "datEffective = '" & EffectiveDateOnPermit & "', " &
-                "datEPAStatesNotifiedAppRec = '" & EPAStatesNotifiedAppRec & "', " &
-                "datExperationDate = '" & ExperationDate & "', " &
-                "datPNExpires = '" & PNExpires & "' " &
-                "where strApplicationNumber = '" & txtWebPublisherApplicationNumber.Text & "' "
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                dr.Close()
+                query = "Update SSPPApplicationTracking set " &
+                "datDraftOnWeb = @datDraftOnWeb, " &
+                "datEPAStatesNotified = @datEPAStatesNotified, " &
+                "datFinalOnWeb = @datFinalOnWeb, " &
+                "datEPANotified = @datEPANotified, " &
+                "datEffective = @datEffective, " &
+                "datEPAStatesNotifiedAppRec = @datEPAStatesNotifiedAppRec, " &
+                "datExperationDate = @datExperationDate, " &
+                "datPNExpires = @datPNExpires " &
+                "where strApplicationNumber = @strApplicationNumber "
 
-                SQL = "Update SSPPApplicationData set " &
-                "strTargeted = '" & TargetedComments & "' " &
-                "where strApplicationNumber = '" & txtWebPublisherApplicationNumber.Text & "' "
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                dr.Close()
+                Dim p As SqlParameter() = {
+                    New SqlParameter("@datDraftOnWeb", DraftOnWeb),
+                    New SqlParameter("@datEPAStatesNotified", EPAStatesNotified),
+                    New SqlParameter("@datFinalOnWeb", FinalOnWeb),
+                    New SqlParameter("@datEPANotified", EPANotifiedPermitOnWeb),
+                    New SqlParameter("@datEffective", EffectiveDateOnPermit),
+                    New SqlParameter("@datEPAStatesNotifiedAppRec", EPAStatesNotifiedAppRec),
+                    New SqlParameter("@datExperationDate", ExperationDate),
+                    New SqlParameter("@datPNExpires", PNExpires),
+                    New SqlParameter("@strApplicationNumber", txtWebPublisherApplicationNumber.Text)
+                }
+
+                DB.RunCommand(query, p, forceAddNullableParameters:=True)
+
+                query2 = "Update SSPPApplicationData set " &
+                "strTargeted = @strTargeted " &
+                "where strApplicationNumber = @strApplicationNumber "
+
+                Dim p2 As SqlParameter() = {
+                    New SqlParameter("@strTargeted", TargetedComments),
+                    New SqlParameter("@strApplicationNumber", txtWebPublisherApplicationNumber.Text)
+                }
+
+                DB.RunCommand(query2, p2)
 
                 If lblLinkWarning.Visible = True Then
                     Dim LinkedApplication As String
@@ -574,51 +441,38 @@ Public Class SSPPTitleVTools
                             LinkedApplication = ""
                         End If
                         If LinkedApplication <> "" Then
-                            SQL = "Update SSPPApplicationTracking set " &
-                            "datDraftOnWeb = '" & DraftOnWeb & "', " &
-                            "datEPAStatesNotified = '" & EPAStatesNotified & "', " &
-                            "datFinalOnWeb = '" & FinalOnWeb & "', " &
-                            "datEPANotified = '" & EPANotifiedPermitOnWeb & "', " &
-                            "datEffective = '" & EffectiveDateOnPermit & "', " &
-                            "datExperationDate = '" & ExperationDate & "', " &
-                            "datEPAStatesNotifiedAppRec = '" & EPAStatesNotifiedAppRec & "',  " &
-                            "datPNExpires = '" & PNExpires & "' " &
-                            "where strApplicationNumber = '" & LinkedApplication & "' "
 
-                            cmd = New SqlCommand(SQL, CurrentConnection)
-                            If CurrentConnection.State = ConnectionState.Closed Then
-                                CurrentConnection.Open()
-                            End If
-                            dr = cmd.ExecuteReader
-                            dr.Read()
-                            dr.Close()
+                            Dim p3 As SqlParameter() = {
+                                New SqlParameter("@datDraftOnWeb", DraftOnWeb),
+                                New SqlParameter("@datEPAStatesNotified", EPAStatesNotified),
+                                New SqlParameter("@datFinalOnWeb", FinalOnWeb),
+                                New SqlParameter("@datEPANotified", EPANotifiedPermitOnWeb),
+                                New SqlParameter("@datEffective", EffectiveDateOnPermit),
+                                New SqlParameter("@datEPAStatesNotifiedAppRec", EPAStatesNotifiedAppRec),
+                                New SqlParameter("@datExperationDate", ExperationDate),
+                                New SqlParameter("@datPNExpires", PNExpires),
+                                New SqlParameter("@strApplicationNumber", LinkedApplication)
+                            }
 
-                            SQL = "Update SSPPApplicationData set " &
-                            "strTargeted = '" & TargetedComments & "' " &
-                            "where strApplicationNumber = '" & LinkedApplication & "' "
+                            DB.RunCommand(query, p3, forceAddNullableParameters:=True)
 
-                            cmd = New SqlCommand(SQL, CurrentConnection)
-                            If CurrentConnection.State = ConnectionState.Closed Then
-                                CurrentConnection.Open()
-                            End If
-                            dr = cmd.ExecuteReader
-                            dr.Read()
-                            dr.Close()
+                            Dim p4 As SqlParameter() = {
+                                New SqlParameter("@strTargeted", TargetedComments),
+                                New SqlParameter("@strApplicationNumber", LinkedApplication)
+                            }
+
+                            DB.RunCommand(query2, p4)
                         End If
                     Next
                 End If
 
                 If DraftOnWeb <> "" And EPAStatesNotified = "" Then
-                    SQL = "Update SSPPApplicationData set " &
+                    query = "Update SSPPApplicationData set " &
                     "strDraftOnWebNotification = 'False' " &
-                    "where strApplicationNumber = '" & txtWebPublisherApplicationNumber.Text & "' "
+                    "where strApplicationNumber = @app "
 
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    dr.Close()
+                    Dim p5 As New SqlParameter("@app", txtWebPublisherApplicationNumber.Text)
+                    DB.RunCommand(query2, p5)
                 End If
 
                 MsgBox("Web Information Saved", MsgBoxStyle.Information, "Application Tracking Log")
@@ -630,7 +484,7 @@ Public Class SSPPTitleVTools
         End Try
 
     End Sub
-    Sub RunTitleVRenewalReport()
+    Private Sub RunTitleVRenewalReport()
         Dim ApplicationNumber As String
         Dim AIRSNumber As String
         Dim FacilityName As String
@@ -641,19 +495,11 @@ Public Class SSPPTitleVTools
 
         Try
 
-            Startdate = DTPTitleVRenewalStart.Text
-            EndDate = DTPTitleVRenewalEnd.Text
+            Dim Startdate As Date = DTPTitleVRenewalStart.Value.AddMonths(-51)
+            Dim EndDate As Date = DTPTitleVRenewalEnd.Value.AddMonths(-51)
 
-            Startdate = Format(CDate(Startdate).AddMonths(-51), "dd-MMM-yyyy")
-            EndDate = Format(CDate(EndDate).AddMonths(-51), "dd-MMM-yyyy")
-
-
-            'EndDate = CDate(EndDate).AddMonths(-50)
-            'EndDate = CDate(EndDate).Month & "-01-" & CDate(EndDate).Year
-            'EndDate = Format(CDate(EndDate), "dd-MMM-yyyy")
-
-            lblStartDate.Text = Startdate
-            lblEndDate.Text = EndDate
+            lblStartDate.Text = Format(Startdate, "dd-MMM-yyyy")
+            lblEndDate.Text = Format(EndDate, "dd-MMM-yyyy")
 
             clbTitleVRenewals.Items.Clear()
 
@@ -664,7 +510,7 @@ Public Class SSPPTitleVTools
             End If
 
 
-            SQL =
+            query =
             "SELECT am.STRAPPLICATIONNUMBER , SUBSTRING( fi.STRAIRSNUMBER, 5,8 ) " &
             "  AS AIRSNumber , fi.STRFACILITYNAME ,concat( " &
             "  SUBSTRING( ad.STRPERMITNUMBER, 1, 4 ) , '-' ,  " &
@@ -672,37 +518,33 @@ Public Class SSPPTitleVTools
             "  SUBSTRING( ad.STRPERMITNUMBER, 8, 4 ) , '-' ,  " &
             "  SUBSTRING( ad.STRPERMITNUMBER, 12, 1 ) , '-' ,  " &
             "  SUBSTRING( ad.STRPERMITNUMBER, 13, 2 ) , '-' ,  " &
-            "  SUBSTRING( ad.STRPERMITNUMBER, 15 ) ) AS PermitNumber , 'dd-MMM-yyyy' " &
-            "  at.DATPERMITISSUED, 'dd-MMM-yyyy' ) AS PermitIssued , format " &
-            "  ( at.DATEFFECTIVE, 'dd-MMM-yyyy' ) AS EffectiveDate " &
+            "  SUBSTRING( ad.STRPERMITNUMBER, 15, 1 ) ) AS PermitNumber ,  " &
+            "  format( ar.DATPERMITISSUED, 'dd-MMM-yyyy' ) AS PermitIssued , format " &
+            "  ( ar.DATEFFECTIVE, 'dd-MMM-yyyy' ) AS EffectiveDate " &
             "FROM SSPPApplicationMaster am " &
             "INNER JOIN SSPPApplicationData ad " &
             "ON ad.STRAPPLICATIONNUMBER = am.STRAPPLICATIONNUMBER " &
-            "INNER JOIN SSPPApplicationTracking at " &
-            "ON am.STRAPPLICATIONNUMBER = at.STRAPPLICATIONNUMBER " &
+            "INNER JOIN SSPPApplicationTracking ar " &
+            "ON am.STRAPPLICATIONNUMBER = ar.STRAPPLICATIONNUMBER " &
             "INNER JOIN APBHeaderData hd " &
             "ON am.STRAIRSNUMBER = hd.STRAIRSNUMBER " &
             "INNER JOIN APBFacilityInformation fi " &
             "ON fi.STRAIRSNUMBER = am.STRAIRSNUMBER " &
             "WHERE ad.STRPERMITNUMBER LIKE '%V__0' AND " &
             "  hd.STROPERATIONALSTATUS <> 'X' AND " &
-            "  SUBSTRING( hd.STRAIRPROGRAMCODES, 13, 1 ) = '1' AND at.DATEFFECTIVE " &
+            "  SUBSTRING( hd.STRAIRPROGRAMCODES, 13, 1 ) = '1' AND ar.DATEFFECTIVE " &
             "  BETWEEN @Startdate AND @EndDate AND( am.STRAPPLICATIONTYPE = " &
             "  '14' OR am.STRAPPLICATIONTYPE = '16' OR am.STRAPPLICATIONTYPE " &
             "  = '27' )"
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            cmd.Parameters.Clear()
-            Dim param1 As SqlParameter = New SqlParameter("@Startdate", Startdate)
-            cmd.Parameters.Add(param1)
-            Dim param2 As SqlParameter = New SqlParameter("@EndDate", EndDate)
-            cmd.Parameters.Add(param2)
+            Dim p As SqlParameter() = {
+                New SqlParameter("@Startdate", Startdate),
+                New SqlParameter("@EndDate", EndDate)
+            }
 
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
+            Dim dt As DataTable = DB.GetDataTable(query, p)
+
+            For Each dr As DataRow In dt.Rows
                 If IsDBNull(dr.Item("strApplicationNumber")) Then
                     ApplicationNumber = ""
                 Else
@@ -748,8 +590,7 @@ Public Class SSPPTitleVTools
 
                 txtRenewalCount.Text = clbTitleVRenewals.Items.Count - 1
 
-            End While
-            dr.Close()
+            Next
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -759,7 +600,7 @@ Public Class SSPPTitleVTools
 
 
     End Sub
-    Sub LoadWebPublishingFacilityInformation()
+    Private Sub LoadWebPublishingFacilityInformation()
         Try
             Dim FacilityName As String = ""
             Dim Street As String = ""
@@ -768,20 +609,17 @@ Public Class SSPPTitleVTools
             Dim ZipCode As String = ""
 
             If txtWebPublisherApplicationNumber.Text <> "" Then
-                SQL = "Select " &
+                query = "Select " &
                 "strFacilityName, strFacilityStreet1, " &
                 "strFacilityCity, strFacilityState, " &
                 "strFacilityZipCode " &
                 "from SSPPApplicationData " &
-                "Where strApplicationNumber = '" & txtWebPublisherApplicationNumber.Text & "' "
+                "Where strApplicationNumber = @app "
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-                If recExist = True Then
+                Dim p As New SqlParameter("@app", txtWebPublisherApplicationNumber.Text)
+
+                Dim dr As DataRow = DB.GetDataRow(query, p)
+                If dr IsNot Nothing Then
                     If IsDBNull(dr.Item("strFacilityName")) Then
                         FacilityName = ""
                     Else
@@ -808,7 +646,6 @@ Public Class SSPPTitleVTools
                         ZipCode = dr.Item("strFacilityZipCode")
                     End If
                 End If
-                dr.Close()
 
                 txtFacilityInformation.Text = FacilityName & vbCrLf &
                 Street & vbCrLf &
@@ -822,7 +659,7 @@ Public Class SSPPTitleVTools
         End Try
 
     End Sub
-    Sub PreviewAppReceivedEmail()
+    Private Sub PreviewAppReceivedEmail()
         Try
             Dim AppNumber As String = ""
             Dim FacName As String = ""
@@ -834,7 +671,7 @@ Public Class SSPPTitleVTools
 
             clbTitleVEmailList.Items.Clear()
 
-            SQL = "Select " &
+            query = "Select " &
             "SSPPApplicationMaster.strApplicationNumber, " &
             "strFacilityName, strFacilityCity, " &
             "strApplicationTypeDesc, " &
@@ -854,12 +691,9 @@ Public Class SSPPTitleVTools
             "or strApplicationType = '22') " &
             "order by strFacilityName, strAPplicationNumber DESC "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
+            Dim dt As DataTable = DB.GetDataTable(query)
+
+            For Each dr As DataRow In dt.Rows
                 If IsDBNull(dr.Item("strApplicationNumber")) Then
                     AppNumber = ""
                 Else
@@ -909,8 +743,7 @@ Public Class SSPPTitleVTools
                     clbTitleVEmailList.SetItemChecked(clbTitleVEmailList.Items.IndexOf(temp), True)
                 End If
 
-            End While
-            dr.Close()
+            Next
 
             txtEmailType.Text = "AppReceived"
 
@@ -921,7 +754,7 @@ Public Class SSPPTitleVTools
         End Try
 
     End Sub
-    Sub GenerateAppReceivedEmail()
+    Private Sub GenerateAppReceivedEmail()
         Try
             Dim AppNumber As String = ""
             Dim FacName As String = ""
@@ -938,7 +771,7 @@ Public Class SSPPTitleVTools
                 "Georgia EPD has received an application for the modification of an existing Part 70 permit for the " &
                 "following source(s): " & vbCrLf & vbCrLf
 
-                SQL = "Select " &
+                query = "Select " &
                 "SSPPApplicationMaster.strApplicationNumber,  " &
                 "strFacilityName, strFacilityCity,  " &
                 "strApplicationTypeDesc,  " &
@@ -949,7 +782,7 @@ Public Class SSPPTitleVTools
                 "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode  " &
                 "and SUBSTRING(strAIRSNumber, 5, 3) = strCountyCode  "
 
-                SQL2 = "Update SSPPApplicationData set " &
+                query2 = "Update SSPPApplicationData set " &
                 "strAppReceivedNotification = 'True' where "
 
                 For Each strObject In clbTitleVEmailList.CheckedItems
@@ -961,15 +794,12 @@ Public Class SSPPTitleVTools
 
                 SQLLine = "And ( " & Mid(SQLLine, 1, (SQLLine.Length - 3)) & " ) "
                 SQLLine2 = Mid(SQLLine2, 1, (SQLLine2.Length - 3))
-                SQL = SQL & SQLLine & " order by strFacilityName "
-                SQL2 = SQL2 & SQLLine2
+                query = query & SQLLine & " order by strFacilityName "
+                query2 = query2 & SQLLine2
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                While dr.Read
+                Dim dt As DataTable = DB.GetDataTable(query)
+
+                For Each dr As DataRow In dt.Rows
                     If IsDBNull(dr.Item("strApplicationNumber")) Then
                         AppNumber = ""
                     Else
@@ -1011,8 +841,7 @@ Public Class SSPPTitleVTools
                     txtEmailLetter.Text = txtEmailLetter.Text & FacName & vbCrLf &
                     FacCity & " (" & County & " County), GA" & vbCrLf &
                     "TV-" & AppNumber & "/" & AppType & vbCrLf & vbCrLf
-                End While
-                dr.Close()
+                Next
 
                 txtEmailLetter.Text = txtEmailLetter.Text & "Please reply to acknowledge receipt of this notification. " &
                 "Any questions regarding this permit application may be directed to: " & vbCrLf & vbCrLf &
@@ -1020,12 +849,7 @@ Public Class SSPPTitleVTools
                 "Stationary Source Permitting Program " & vbCrLf &
                 "404/363-7020"
 
-                cmd = New SqlCommand(SQL2, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                dr.Close()
+                DB.RunCommand(query2)
 
             Else
                 txtEmailLetter.Clear()
@@ -1039,7 +863,7 @@ Public Class SSPPTitleVTools
         End Try
 
     End Sub
-    Sub PreviewDraftOnWeb()
+    Private Sub PreviewDraftOnWeb()
         Try
             Dim AppNumber As String = ""
             Dim FacName As String = ""
@@ -1053,7 +877,7 @@ Public Class SSPPTitleVTools
 
             clbTitleVEmailList.Items.Clear()
 
-            SQL = "Select " &
+            query = "Select " &
             "SSPPApplicationMaster.strApplicationNumber, " &
             "strFacilityName, strFacilityCity, " &
             "strApplicationTypeDesc, " &
@@ -1077,12 +901,9 @@ Public Class SSPPTitleVTools
             "and datDraftOnWeb is Not Null " &
             "order by strFacilityName, strAPplicationNumber DESC "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
+            Dim dt As DataTable = DB.GetDataTable(query)
+
+            For Each dr As DataRow In dt.Rows
                 If IsDBNull(dr.Item("strApplicationNumber")) Then
                     AppNumber = ""
                 Else
@@ -1133,29 +954,21 @@ Public Class SSPPTitleVTools
                     clbTitleVEmailList.SetItemChecked(clbTitleVEmailList.Items.IndexOf(temp), True)
                 End If
 
-            End While
-            dr.Close()
+            Next
 
             Do While LinkedApps <> ""
                 MasterApp = Mid(LinkedApps, 1, (InStr(LinkedApps, ",", CompareMethod.Text) - 1))
-                SQL = "select " &
+                query = "select " &
                 "strMasterApplication " &
                 "from SSPPApplicationLinking " &
-                "where strApplicationNumber = '" & MasterApp & "' "
+                "where strApplicationNumber = @app "
 
-                temp = ""
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                While dr.Read
-                    temp = dr.Item("strMasterApplication")
-                End While
-                dr.Close()
+                Dim p As New SqlParameter("@app", MasterApp)
+
+                temp = DB.GetString(query, p)
 
                 If temp <> "" Then
-                    SQL = "Select " &
+                    query = "Select " &
                     "SSPPApplicationMaster.strApplicationNumber,  " &
                     "strFacilityName, strFacilityCity,  " &
                     "strApplicationTypeDesc,  " &
@@ -1172,14 +985,13 @@ Public Class SSPPTitleVTools
                     "ON SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID " &
                     " LEFT JOIN LookUpEPDUnits  " &
                     "ON EPDUserProfiles.numUnit = LookUpEPDUnits.numUnitCode " &
-                    "where SSPPApplicationLinking.strMasterApplication = '" & temp & "' "
+                    "where SSPPApplicationLinking.strMasterApplication = @mapp "
 
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    While dr.Read
+                    Dim p2 As New SqlParameter("@mapp", temp)
+
+                    Dim dt2 As DataTable = DB.GetDataTable(query, p)
+
+                    For Each dr As DataRow In dt2.Rows
                         If IsDBNull(dr.Item("strApplicationNumber")) Then
                             AppNumber = ""
                         Else
@@ -1228,7 +1040,7 @@ Public Class SSPPTitleVTools
                             clbTitleVEmailList.Items.Add(temp)
                             clbTitleVEmailList.SetItemChecked(clbTitleVEmailList.Items.IndexOf(temp), True)
                         End If
-                    End While
+                    Next
                 End If
 
                 LinkedApps = Replace(LinkedApps, (MasterApp & ","), "")
@@ -1244,7 +1056,7 @@ Public Class SSPPTitleVTools
 
 
     End Sub
-    Sub GenerateDraftOnWebEmail()
+    Private Sub GenerateDraftOnWebEmail()
         Try
             Dim AppNumber As String = ""
             Dim FacName As String = ""
@@ -1262,31 +1074,22 @@ Public Class SSPPTitleVTools
                 txtEmailLetter.Text = "In accordance with Georgia's Title V Implementation Agreement, attached are the public notices for the " &
                 "draft/proposed permits and amendments for the following sources: " & vbCrLf & vbCrLf
 
-                SQL2 = "Update SSPPApplicationData set " &
+                query2 = "Update SSPPApplicationData set " &
                 "strDraftOnWebNotification = 'True' where "
 
                 For Each strObject In clbTitleVEmailList.CheckedItems
                     temp = strObject
                     temp = Mid(temp, 1, (InStr(temp, " -", CompareMethod.Text) - 1))
 
-                    SQL = "Select strMasterApplication " &
+                    query = "Select strMasterApplication " &
                     "from SSPPApplicationLinking " &
-                    "where strApplicationNumber = '" & temp & "' "
+                    "where strApplicationNumber = @app "
 
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    recExist = dr.Read
-                    If recExist = True Then
-                        LinkedApp = dr.Item("strMasterApplication")
-                    Else
-                        LinkedApp = ""
-                    End If
-                    dr.Close()
+                    Dim p As New SqlParameter("@app", temp)
 
-                    SQL = "Select " &
+                    LinkedApp = DB.GetString(query, p)
+
+                    query = "Select " &
                     "SSPPApplicationMaster.strApplicationNumber, " &
                     "strFacilityName, strFacilityCity,  " &
                     "strApplicationTypeDesc, " &
@@ -1296,18 +1099,15 @@ Public Class SSPPTitleVTools
                     "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber  " &
                     " INNER JOIN LookUpCountyInformation " &
                     "ON SUBSTRING(strAIRSNumber, 5, 3) = strCountyCode " &
-                    " INNER JOIN LookUpApplicationTypes, " &
+                    " INNER JOIN LookUpApplicationTypes " &
                     "ON SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode  " &
                     " LEFT JOIN SSPPApplicationTracking " &
                     "ON SSPPApplicationmaster.strAPplicationNumber = SSPPApplicationTracking.strApplicationNumber " &
-                    "where SSPPApplicationMaster.strApplicationNumber = '" & temp & "' "
+                    "where SSPPApplicationMaster.strApplicationNumber = @app "
 
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    While dr.Read
+                    Dim dt As DataTable = DB.GetDataTable(query, p)
+
+                    For Each dr As DataRow In dt.Rows
                         If IsDBNull(dr.Item("strApplicationNumber")) Then
                             AppNumber = ""
                         Else
@@ -1352,36 +1152,33 @@ Public Class SSPPTitleVTools
                                 AppType = "Minor modification with construction"
                             Case "AA"
                                 AppType = "Administrative Amendment"
-                            Case Else
-                                'AppType = AppType
                         End Select
                         If IsDBNull(dr.Item("datPNExpires")) Then
                             PNExpires = ""
                         Else
                             PNExpires = dr.Item("datPNExpires")
                         End If
-                    End While
-                    dr.Close()
+                    Next
 
                     If LinkedApp = "" Then
                         AppLine = "TV-" & AppNumber & "/" & AppType
                     Else
                         AppLine = ""
 
-                        SQL = "select " &
+                        query = "select " &
                         "SSPPApplicationLinking.strApplicationNumber, " &
                         "strApplicationTypeDesc " &
                         "from SSPPApplicationLinking, SSPPApplicationMaster, " &
                         "LookUpApplicationTypes " &
                         "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationLinking.strApplicationNumber " &
                         "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode " &
-                        "and strMasterApplication = '" & LinkedApp & "' "
-                        cmd = New SqlCommand(SQL, CurrentConnection)
-                        If CurrentConnection.State = ConnectionState.Closed Then
-                            CurrentConnection.Open()
-                        End If
-                        dr = cmd.ExecuteReader
-                        While dr.Read
+                        "and strMasterApplication = @app "
+
+                        Dim p3 As New SqlParameter("@app", LinkedApp)
+
+                        Dim dt3 As DataTable = DB.GetDataTable(query, p)
+
+                        For Each dr As DataRow In dt.Rows
                             If IsDBNull(dr.Item("strApplicationNumber")) Then
                                 AppNumber = ""
                             Else
@@ -1411,12 +1208,9 @@ Public Class SSPPTitleVTools
                                     AppType = "Minor modification with construction"
                                 Case "AA"
                                     AppType = "Administrative Amendment"
-                                Case Else
-                                    'AppType = AppType
                             End Select
                             AppLine = AppLine & "TV-" & AppNumber & "/" & AppType & ", "
-                        End While
-                        dr.Close()
+                        Next
                         AppLine = Mid(AppLine, 1, (AppLine.Length - 2))
                     End If
 
@@ -1432,7 +1226,7 @@ Public Class SSPPTitleVTools
                 Next
 
                 SQLLine2 = Mid(SQLLine2, 1, (SQLLine2.Length - 3))
-                SQL2 = SQL2 & SQLLine2
+                query2 = query2 & SQLLine2
 
                 txtEmailLetter.Text = txtEmailLetter.Text & "The public notices are to be published by each facility in a newspaper of general " &
                 "circulation in the area where the facility is located within 14/30 days following their receipt of the draft permit and/or " &
@@ -1447,12 +1241,7 @@ Public Class SSPPTitleVTools
                 "Stationary Source Permitting Program " & vbCrLf &
                 "404/363-7020"
 
-                cmd = New SqlCommand(SQL2, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                dr.Close()
+                DB.RunCommand(query2)
 
             Else
                 txtEmailLetter.Clear()
@@ -1466,7 +1255,7 @@ Public Class SSPPTitleVTools
         End Try
 
     End Sub
-    Sub GenerateDraftOnWebState()
+    Private Sub GenerateDraftOnWebState()
         Try
             Dim AppNumber As String = ""
             Dim FacName As String = ""
@@ -1483,31 +1272,22 @@ Public Class SSPPTitleVTools
                 txtEmailLetter.Text = "In accordance with 40 CFR 70.8(b)(1), attached are the public notices for the draft/proposed permits and " &
                 "amendments for the following sources: " & vbCrLf & vbCrLf
 
-                SQL2 = "Update SSPPApplicationData set " &
+                query2 = "Update SSPPApplicationData set " &
                 "strDraftOnWebNotification = 'True' where "
 
                 For Each strObject In clbTitleVEmailList.CheckedItems
                     temp = strObject
                     temp = Mid(temp, 1, (InStr(temp, " -", CompareMethod.Text) - 1))
 
-                    SQL = "Select strMasterApplication " &
+                    query = "Select strMasterApplication " &
                     "from SSPPApplicationLinking " &
-                    "where strApplicationNumber = '" & temp & "' "
+                    "where strApplicationNumber = @app "
 
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    recExist = dr.Read
-                    If recExist = True Then
-                        LinkedApp = dr.Item("strMasterApplication")
-                    Else
-                        LinkedApp = ""
-                    End If
-                    dr.Close()
+                    Dim p As New SqlParameter("@app", temp)
 
-                    SQL = "Select " &
+                    LinkedApp = DB.GetString(query, p)
+
+                    query = "Select " &
                     "SSPPApplicationMaster.strApplicationNumber, " &
                     "strFacilityName, strFacilityCity,  " &
                     "strApplicationTypeDesc, " &
@@ -1517,14 +1297,11 @@ Public Class SSPPTitleVTools
                     "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber  " &
                     "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode  " &
                     "and SUBSTRING(strAIRSNumber, 5, 3) = strCountyCode " &
-                    "and SSPPApplicationMaster.strApplicationNumber = '" & temp & "' "
+                    "and SSPPApplicationMaster.strApplicationNumber = @app "
 
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    While dr.Read
+                    Dim dt As DataTable = DB.GetDataTable(query, p)
+
+                    For Each dr As DataRow In dt.Rows
                         If IsDBNull(dr.Item("strApplicationNumber")) Then
                             AppNumber = ""
                         Else
@@ -1572,28 +1349,27 @@ Public Class SSPPTitleVTools
                             Case Else
                                 'AppType = AppType
                         End Select
-                    End While
-                    dr.Close()
+                    Next
 
                     If LinkedApp = "" Then
                         AppLine = "TV-" & AppNumber & "/" & AppType
                     Else
                         AppLine = ""
 
-                        SQL = "select " &
+                        query = "select " &
                         "SSPPApplicationLinking.strApplicationNumber, " &
                         "strApplicationTypeDesc " &
                         "from SSPPApplicationLinking, SSPPApplicationMaster, " &
                         "LookUpApplicationTypes " &
                         "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationLinking.strApplicationNumber " &
                         "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode " &
-                        "and strMasterApplication = '" & LinkedApp & "' "
-                        cmd = New SqlCommand(SQL, CurrentConnection)
-                        If CurrentConnection.State = ConnectionState.Closed Then
-                            CurrentConnection.Open()
-                        End If
-                        dr = cmd.ExecuteReader
-                        While dr.Read
+                        "and strMasterApplication = @app "
+
+                        Dim p3 As New SqlParameter("@app", LinkedApp)
+
+                        Dim dt3 As DataTable = DB.GetDataTable(query, p)
+
+                        For Each dr As DataRow In dt.Rows
                             If IsDBNull(dr.Item("strApplicationNumber")) Then
                                 AppNumber = ""
                             Else
@@ -1627,8 +1403,7 @@ Public Class SSPPTitleVTools
                                     'AppType = AppType
                             End Select
                             AppLine = AppLine & "TV-" & AppNumber & "/" & AppType & ", "
-                        End While
-                        dr.Close()
+                        Next
                         AppLine = Mid(AppLine, 1, (AppLine.Length - 2))
                     End If
 
@@ -1642,7 +1417,7 @@ Public Class SSPPTitleVTools
                 Next
 
                 SQLLine2 = Mid(SQLLine2, 1, (SQLLine2.Length - 3))
-                SQL2 = SQL2 & SQLLine2
+                query2 = query2 & SQLLine2
 
                 txtEmailLetter.Text = txtEmailLetter.Text & "The public notices are to be published by each facility in a newspaper of general " &
                 "circulation in the area where the facility is located within 14/30 days following their receipt of the draft permit and/or " &
@@ -1657,12 +1432,7 @@ Public Class SSPPTitleVTools
                 "Stationary Source Permitting Program " & vbCrLf &
                 "404/363-7020"
 
-                cmd = New SqlCommand(SQL2, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                dr.Close()
+                DB.RunCommand(query2)
 
             Else
                 txtEmailLetter.Clear()
@@ -1678,7 +1448,7 @@ Public Class SSPPTitleVTools
 
 
     End Sub
-    Sub PreviewMinorModOnWeb()
+    Private Sub PreviewMinorModOnWeb()
         Try
             Dim AppNumber As String = ""
             Dim FacName As String = ""
@@ -1692,7 +1462,7 @@ Public Class SSPPTitleVTools
 
             clbTitleVEmailList.Items.Clear()
 
-            SQL = "Select " &
+            query = "Select " &
             "SSPPApplicationMaster.strApplicationNumber, " &
             "strFacilityName, strFacilityCity, " &
             "strApplicationTypeDesc, " &
@@ -1714,12 +1484,9 @@ Public Class SSPPTitleVTools
             "and (strApplicationType = '19'  or strApplicationType = '20') " &
             "order by strFacilityName, strApplicationNumber DESC "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
+            Dim dt As DataTable = DB.GetDataTable(query)
+
+            For Each dr As DataRow In dt.Rows
                 If IsDBNull(dr.Item("strApplicationNumber")) Then
                     AppNumber = ""
                 Else
@@ -1770,29 +1537,21 @@ Public Class SSPPTitleVTools
                     clbTitleVEmailList.SetItemChecked(clbTitleVEmailList.Items.IndexOf(temp), True)
                 End If
 
-            End While
-            dr.Close()
+            Next
 
             Do While LinkedApps <> ""
                 MasterApp = Mid(LinkedApps, 1, (InStr(LinkedApps, ",", CompareMethod.Text) - 1))
-                SQL = "select " &
+                query = "select " &
                 "strMasterApplication " &
                 "from SSPPApplicationLinking " &
-                "where strApplicationNumber = '" & MasterApp & "' "
+                "where strApplicationNumber = @app "
 
-                temp = ""
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                While dr.Read
-                    temp = dr.Item("strMasterApplication")
-                End While
-                dr.Close()
+                Dim p As New SqlParameter("@app", MasterApp)
+
+                temp = DB.GetString(query, p)
 
                 If temp <> "" Then
-                    SQL = "Select " &
+                    query = "Select " &
                     "SSPPApplicationMaster.strApplicationNumber,  " &
                     "strFacilityName, strFacilityCity,  " &
                     "strApplicationTypeDesc,  " &
@@ -1809,14 +1568,11 @@ Public Class SSPPTitleVTools
                     "ON SSPPApplicationMaster.strStaffResponsible = EPDUserProfiles.numUserID  " &
                     " LEFT JOIN LookUPEPDunits " &
                     "ON EPDUserProfiles.numUnit = LookUpEPDUnits.numUnitCode " &
-                    "where SSPPApplicationLinking.strMasterApplication = '" & temp & "' "
+                    "where SSPPApplicationMaster.strApplicationNumber = @app "
 
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    While dr.Read
+                    Dim dt2 As DataTable = DB.GetDataTable(query, p)
+
+                    For Each dr As DataRow In dt2.Rows
                         If IsDBNull(dr.Item("strApplicationNumber")) Then
                             AppNumber = ""
                         Else
@@ -1865,7 +1621,7 @@ Public Class SSPPTitleVTools
                             clbTitleVEmailList.Items.Add(temp)
                             clbTitleVEmailList.SetItemChecked(clbTitleVEmailList.Items.IndexOf(temp), True)
                         End If
-                    End While
+                    Next
                 End If
 
                 LinkedApps = Replace(LinkedApps, (MasterApp & ","), "")
@@ -1881,7 +1637,7 @@ Public Class SSPPTitleVTools
         End Try
 
     End Sub
-    Sub GenerateMinorOnWebEmail()
+    Private Sub GenerateMinorOnWebEmail()
         Try
             Dim AppNumber As String = ""
             Dim FacName As String = ""
@@ -1898,31 +1654,22 @@ Public Class SSPPTitleVTools
                 txtEmailLetter.Text = "In accordance with Georgia's Title V Implementation Agreement, attached is the proposed Part " &
                 "70 permit modification and permit amendment narrative for the following: " & vbCrLf & vbCrLf
 
-                SQL2 = "Update SSPPApplicationData set " &
+                query2 = "Update SSPPApplicationData set " &
                 "strDraftOnWebNotification = 'True' where "
 
                 For Each strObject In clbTitleVEmailList.CheckedItems
                     temp = strObject
                     temp = Mid(temp, 1, (InStr(temp, " -", CompareMethod.Text) - 1))
 
-                    SQL = "Select strMasterApplication " &
+                    query = "Select strMasterApplication " &
                     "from SSPPApplicationLinking " &
-                    "where strApplicationNumber = '" & temp & "' "
+                    "where strApplicationNumber = @app "
 
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    recExist = dr.Read
-                    If recExist = True Then
-                        LinkedApp = dr.Item("strMasterApplication")
-                    Else
-                        LinkedApp = ""
-                    End If
-                    dr.Close()
+                    Dim p As New SqlParameter("@app", temp)
 
-                    SQL = "Select " &
+                    LinkedApp = DB.GetString(query, p)
+
+                    query = "Select " &
                     "SSPPApplicationMaster.strApplicationNumber, " &
                     "strFacilityName, strFacilityCity,  " &
                     "strApplicationTypeDesc, " &
@@ -1932,14 +1679,11 @@ Public Class SSPPTitleVTools
                     "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber  " &
                     "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode  " &
                     "and SUBSTRING(strAIRSNumber, 5, 3) = strCountyCode " &
-                    "and SSPPApplicationMaster.strApplicationNumber = '" & temp & "' "
+                    "and SSPPApplicationMaster.strApplicationNumber = @app "
 
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    While dr.Read
+                    Dim dt As DataTable = DB.GetDataTable(query, p)
+
+                    For Each dr As DataRow In dt.Rows
                         If IsDBNull(dr.Item("strApplicationNumber")) Then
                             AppNumber = ""
                         Else
@@ -1987,28 +1731,27 @@ Public Class SSPPTitleVTools
                             Case Else
                                 'AppType = AppType
                         End Select
-                    End While
-                    dr.Close()
+                    Next
 
                     If LinkedApp = "" Then
                         AppLine = "TV-" & AppNumber & "/" & AppType
                     Else
                         AppLine = ""
 
-                        SQL = "select " &
+                        query = "select " &
                         "SSPPApplicationLinking.strApplicationNumber, " &
                         "strApplicationTypeDesc " &
                         "from SSPPApplicationLinking, SSPPApplicationMaster, " &
                         "LookUpApplicationTypes " &
                         "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationLinking.strApplicationNumber " &
                         "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode " &
-                        "and strMasterApplication = '" & LinkedApp & "' "
-                        cmd = New SqlCommand(SQL, CurrentConnection)
-                        If CurrentConnection.State = ConnectionState.Closed Then
-                            CurrentConnection.Open()
-                        End If
-                        dr = cmd.ExecuteReader
-                        While dr.Read
+                        "and strMasterApplication = @app "
+
+                        Dim p3 As New SqlParameter("@app", LinkedApp)
+
+                        Dim dt3 As DataTable = DB.GetDataTable(query, p)
+
+                        For Each dr As DataRow In dt.Rows
                             If IsDBNull(dr.Item("strApplicationNumber")) Then
                                 AppNumber = ""
                             Else
@@ -2042,8 +1785,7 @@ Public Class SSPPTitleVTools
                                     'AppType = AppType
                             End Select
                             AppLine = AppLine & "TV-" & AppNumber & "/" & AppType & ", "
-                        End While
-                        dr.Close()
+                        Next
                         AppLine = Mid(AppLine, 1, (AppLine.Length - 2))
                     End If
 
@@ -2057,7 +1799,7 @@ Public Class SSPPTitleVTools
                 Next
 
                 SQLLine2 = Mid(SQLLine2, 1, (SQLLine2.Length - 3))
-                SQL2 = SQL2 & SQLLine2
+                query2 = query2 & SQLLine2
 
                 txtEmailLetter.Text = txtEmailLetter.Text & "EPA's review of the proposed minor amendment extends from 45 days following the date of this " &
                 "message. Please reply to acknowledge receipt of this notification. Any questions regarding this " &
@@ -2067,12 +1809,7 @@ Public Class SSPPTitleVTools
                 "Stationary Source Permitting Program " & vbCrLf &
                 "404/363-7020"
 
-                cmd = New SqlCommand(SQL2, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                dr.Close()
+                DB.RunCommand(query2)
 
             Else
                 txtEmailLetter.Clear()
@@ -2087,7 +1824,7 @@ Public Class SSPPTitleVTools
         End Try
 
     End Sub
-    Sub GenerateMinorOnWebState()
+    Private Sub GenerateMinorOnWebState()
         Try
             Dim AppNumber As String = ""
             Dim FacName As String = ""
@@ -2104,31 +1841,22 @@ Public Class SSPPTitleVTools
                 txtEmailLetter.Text = "In accordance with 40 CFR 70.8(b)(1), attached is the proposed Part 70 permit modification and  " &
                 "permit amendment narrative for the following source: " & vbCrLf & vbCrLf
 
-                SQL2 = "Update SSPPApplicationData set " &
+                query2 = "Update SSPPApplicationData set " &
                 "strDraftOnWebNotification = 'True' where "
 
                 For Each strObject In clbTitleVEmailList.CheckedItems
                     temp = strObject
                     temp = Mid(temp, 1, (InStr(temp, " -", CompareMethod.Text) - 1))
 
-                    SQL = "Select strMasterApplication " &
+                    query = "Select strMasterApplication " &
                     "from SSPPApplicationLinking " &
-                    "where strApplicationNumber = '" & temp & "' "
+                    "where strApplicationNumber = @app "
 
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    recExist = dr.Read
-                    If recExist = True Then
-                        LinkedApp = dr.Item("strMasterApplication")
-                    Else
-                        LinkedApp = ""
-                    End If
-                    dr.Close()
+                    Dim p As New SqlParameter("@app", temp)
 
-                    SQL = "Select " &
+                    LinkedApp = DB.GetString(query, p)
+
+                    query = "Select " &
                     "SSPPApplicationMaster.strApplicationNumber, " &
                     "strFacilityName, strFacilityCity,  " &
                     "strApplicationTypeDesc, " &
@@ -2138,14 +1866,11 @@ Public Class SSPPTitleVTools
                     "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber  " &
                     "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode  " &
                     "and SUBSTRING(strAIRSNumber, 5, 3) = strCountyCode " &
-                    "and SSPPApplicationMaster.strApplicationNumber = '" & temp & "' "
+                    "and SSPPApplicationMaster.strApplicationNumber = @app "
 
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    While dr.Read
+                    Dim dt As DataTable = DB.GetDataTable(query, p)
+
+                    For Each dr As DataRow In dt.Rows
                         If IsDBNull(dr.Item("strApplicationNumber")) Then
                             AppNumber = ""
                         Else
@@ -2193,28 +1918,27 @@ Public Class SSPPTitleVTools
                             Case Else
                                 'AppType = AppType
                         End Select
-                    End While
-                    dr.Close()
+                    Next
 
                     If LinkedApp = "" Then
                         AppLine = "TV-" & AppNumber & "/" & AppType
                     Else
                         AppLine = ""
 
-                        SQL = "select " &
+                        query = "select " &
                         "SSPPApplicationLinking.strApplicationNumber, " &
                         "strApplicationTypeDesc " &
                         "from SSPPApplicationLinking, SSPPApplicationMaster, " &
                         "LookUpApplicationTypes " &
                         "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationLinking.strApplicationNumber " &
                         "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode " &
-                        "and strMasterApplication = '" & LinkedApp & "' "
-                        cmd = New SqlCommand(SQL, CurrentConnection)
-                        If CurrentConnection.State = ConnectionState.Closed Then
-                            CurrentConnection.Open()
-                        End If
-                        dr = cmd.ExecuteReader
-                        While dr.Read
+                        "and strMasterApplication = @app "
+
+                        Dim p3 As New SqlParameter("@app", LinkedApp)
+
+                        Dim dt3 As DataTable = DB.GetDataTable(query, p)
+
+                        For Each dr As DataRow In dt.Rows
                             If IsDBNull(dr.Item("strApplicationNumber")) Then
                                 AppNumber = ""
                             Else
@@ -2248,8 +1972,7 @@ Public Class SSPPTitleVTools
                                     'AppType = AppType
                             End Select
                             AppLine = AppLine & "TV-" & AppNumber & "/" & AppType & ", "
-                        End While
-                        dr.Close()
+                        Next
                         AppLine = Mid(AppLine, 1, (AppLine.Length - 2))
                     End If
 
@@ -2263,7 +1986,7 @@ Public Class SSPPTitleVTools
                 Next
 
                 SQLLine2 = Mid(SQLLine2, 1, (SQLLine2.Length - 3))
-                SQL2 = SQL2 & SQLLine2
+                query2 = query2 & SQLLine2
 
                 txtEmailLetter.Text = txtEmailLetter.Text & "Please reply to acknowledge receipt of this notification. Any questions regarding this proposed " &
                 "permit amendment may be directed to: " & vbCrLf & vbCrLf &
@@ -2271,12 +1994,8 @@ Public Class SSPPTitleVTools
                 "Stationary Source Permitting Program " & vbCrLf &
                 "404/363-7020"
 
-                cmd = New SqlCommand(SQL2, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                dr.Close()
+                DB.RunCommand(query2)
+
             Else
                 txtEmailLetter.Clear()
                 MsgBox("Click Preview button first.", MsgBoxStyle.Information, "Title V Emails.")
@@ -2291,7 +2010,7 @@ Public Class SSPPTitleVTools
 
 
     End Sub
-    Sub PreviewFinalOnWeb()
+    Private Sub PreviewFinalOnWeb()
         Try
             Dim AppNumber As String = ""
             Dim FacName As String = ""
@@ -2305,7 +2024,7 @@ Public Class SSPPTitleVTools
 
             clbTitleVEmailList.Items.Clear()
 
-            SQL = "Select " &
+            query = "Select " &
             "SSPPApplicationMaster.strApplicationNumber, " &
             "strFacilityName, strFacilityCity, " &
             "strApplicationTypeDesc, " &
@@ -2331,12 +2050,9 @@ Public Class SSPPTitleVTools
             "and DatFinalOnWeb is Not Null " &
             "order by strFacilityName, strAPplicationNumber DESC "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
+            Dim dt As DataTable = DB.GetDataTable(query)
+
+            For Each dr As DataRow In dt.Rows
                 If IsDBNull(dr.Item("strApplicationNumber")) Then
                     AppNumber = ""
                 Else
@@ -2387,29 +2103,21 @@ Public Class SSPPTitleVTools
                     clbTitleVEmailList.SetItemChecked(clbTitleVEmailList.Items.IndexOf(temp), True)
                 End If
 
-            End While
-            dr.Close()
+            Next
 
             Do While LinkedApps <> ""
                 MasterApp = Mid(LinkedApps, 1, (InStr(LinkedApps, ",", CompareMethod.Text) - 1))
-                SQL = "select " &
+                query = "select " &
                 "strMasterApplication " &
                 "from SSPPApplicationLinking " &
-                "where strApplicationNumber = '" & MasterApp & "' "
+                "where strApplicationNumber = @app "
 
-                temp = ""
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                While dr.Read
-                    temp = dr.Item("strMasterApplication")
-                End While
-                dr.Close()
+                Dim p As New SqlParameter("@app", MasterApp)
+
+                temp = DB.GetString(query, p)
 
                 If temp <> "" Then
-                    SQL = "Select " &
+                    query = "Select " &
                     "SSPPApplicationMaster.strApplicationNumber,  " &
                     "strFacilityName, strFacilityCity,  " &
                     "strApplicationTypeDesc,  " &
@@ -2426,14 +2134,13 @@ Public Class SSPPTitleVTools
                     "ON SSPPApplicationMaster.strStaffResponsible = EPDuserPRofiles.numUserID  " &
                     " LEFT JOIN LookUpEPDUnits  " &
                     "ON EPDUserProfiles.numUnit = LookUpEPDunits.numUnitCode " &
-                    "where SSPPApplicationLinking.strMasterApplication = '" & temp & "' "
+                    "and SSPPApplicationMaster.strApplicationNumber = @app "
 
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    While dr.Read
+                    Dim p2 As New SqlParameter("@app", temp)
+
+                    Dim dt2 As DataTable = DB.GetDataTable(query, p2)
+
+                    For Each dr As DataRow In dt2.Rows
                         If IsDBNull(dr.Item("strApplicationNumber")) Then
                             AppNumber = ""
                         Else
@@ -2482,7 +2189,7 @@ Public Class SSPPTitleVTools
                             clbTitleVEmailList.Items.Add(temp)
                             clbTitleVEmailList.SetItemChecked(clbTitleVEmailList.Items.IndexOf(temp), True)
                         End If
-                    End While
+                    Next
                 End If
 
                 LinkedApps = Replace(LinkedApps, (MasterApp & ","), "")
@@ -2498,7 +2205,7 @@ Public Class SSPPTitleVTools
 
 
     End Sub
-    Sub GenerateFinalOnWeb()
+    Private Sub GenerateFinalOnWeb()
         Try
             Dim AppNumber As String = ""
             Dim FacName As String = ""
@@ -2517,30 +2224,22 @@ Public Class SSPPTitleVTools
                 txtEmailLetter.Text = "In accordance with condition V.A.1.a of Georgia's Title V Agreement, the final Part 70 " &
                 "Permits were issued to the following sources:" & vbCrLf & vbCrLf
 
-                SQL2 = "Update SSPPApplicationData set " &
+                query2 = "Update SSPPApplicationData set " &
                 "strFinalOnWebNotification = 'True' where "
 
                 For Each strObject In clbTitleVEmailList.CheckedItems
                     temp = strObject
                     temp = Mid(temp, 1, (InStr(temp, " -", CompareMethod.Text) - 1))
 
-                    SQL = "Select strMasterApplication " &
+                    query = "Select strMasterApplication " &
                     "from SSPPApplicationLinking " &
-                    "where strApplicationNumber = '" & temp & "' "
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    recExist = dr.Read
-                    If recExist = True Then
-                        LinkedApp = dr.Item("strMasterApplication")
-                    Else
-                        LinkedApp = ""
-                    End If
-                    dr.Close()
+                    "where strApplicationNumber = @app "
 
-                    SQL = "Select " &
+                    Dim p As New SqlParameter("@app", temp)
+
+                    LinkedApp = DB.GetString(query, p)
+
+                    query = "Select " &
                     "SSPPApplicationMaster.strApplicationNumber, " &
                     "strFacilityName, strFacilityCity,  " &
                     "strCountyName, strPermitNumber,  " &
@@ -2553,16 +2252,13 @@ Public Class SSPPTitleVTools
                     "ON SUBSTRING(strAIRSNumber, 5, 3) = strCountyCode " &
                     " INNER JOIN LookUpApplicationTypes " &
                     "ON SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode  " &
-                    " LEFT JOIN SSPPApplicationTracking " &
+                    " inner JOIN SSPPApplicationTracking " &
                     "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber " &
-                    "where SSPPApplicationMaster.strApplicationNumber = '" & temp & "' "
+                    "and SSPPApplicationMaster.strApplicationNumber = @app "
 
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    While dr.Read
+                    Dim dt As DataTable = DB.GetDataTable(query, p)
+
+                    For Each dr As DataRow In dt.Rows
                         If IsDBNull(dr.Item("strApplicationNumber")) Then
                             AppNumber = ""
                         Else
@@ -2626,28 +2322,27 @@ Public Class SSPPTitleVTools
                             Case Else
                                 'AppType = AppType
                         End Select
-                    End While
-                    dr.Close()
+                    Next
 
                     If LinkedApp = "" Then
                         AppLine = "TV-" & AppNumber & "/" & AppType
                     Else
                         AppLine = ""
 
-                        SQL = "select " &
+                        query = "select " &
                         "SSPPApplicationLinking.strApplicationNumber, " &
                         "strApplicationTypeDesc " &
                         "from SSPPApplicationLinking, SSPPApplicationMaster, " &
                         "LookUpApplicationTypes " &
                         "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationLinking.strApplicationNumber " &
                         "and SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode " &
-                        "and strMasterApplication = '" & LinkedApp & "' "
-                        cmd = New SqlCommand(SQL, CurrentConnection)
-                        If CurrentConnection.State = ConnectionState.Closed Then
-                            CurrentConnection.Open()
-                        End If
-                        dr = cmd.ExecuteReader
-                        While dr.Read
+                        "and strMasterApplication = @app "
+
+                        Dim p3 As New SqlParameter("@app", LinkedApp)
+
+                        Dim dt3 As DataTable = DB.GetDataTable(query, p)
+
+                        For Each dr As DataRow In dt.Rows
                             If IsDBNull(dr.Item("strApplicationNumber")) Then
                                 AppNumber = ""
                             Else
@@ -2681,8 +2376,7 @@ Public Class SSPPTitleVTools
                                     'AppType = AppType
                             End Select
                             AppLine = AppLine & "TV-" & AppNumber & "/" & AppType & ", "
-                        End While
-                        dr.Close()
+                        Next
                         AppLine = Mid(AppLine, 1, (AppLine.Length - 2))
                     End If
 
@@ -2697,7 +2391,7 @@ Public Class SSPPTitleVTools
                 Next
 
                 SQLLine2 = Mid(SQLLine2, 1, (SQLLine2.Length - 3))
-                SQL2 = SQL2 & SQLLine2
+                query2 = query2 & SQLLine2
 
                 txtEmailLetter.Text = txtEmailLetter.Text & "The final permit, permit review narrative and in most cases the " &
                 "permit application will be available from the Georgia Air Permit Search Engine web page located at: " &
@@ -2709,12 +2403,8 @@ Public Class SSPPTitleVTools
                 "Stationary Source Permitting Program " & vbCrLf &
                 "404/363-7020"
 
-                cmd = New SqlCommand(SQL2, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                dr.Close()
+                DB.RunCommand(query2)
+
             Else
                 txtEmailLetter.Clear()
                 MsgBox("Click Preview button first.", MsgBoxStyle.Information, "Title V Emails.")
@@ -2728,7 +2418,7 @@ Public Class SSPPTitleVTools
         End Try
 
     End Sub
-    Sub AddAppToList()
+    Private Sub AddAppToList()
         Try
             Dim AppNumber As String = ""
             Dim FacName As String = ""
@@ -2742,7 +2432,7 @@ Public Class SSPPTitleVTools
 
             Select Case txtEmailType.Text
                 Case "AppReceived"
-                    SQL = "Select " &
+                    query = "Select " &
                    "SSPPApplicationMaster.strApplicationNumber, " &
                    "strFacilityName, strFacilityCity, " &
                    "strApplicationTypeDesc, " &
@@ -2759,15 +2449,13 @@ Public Class SSPPTitleVTools
                     "ON SSPPApplicationMaster.strStaffResponsible = EPDuserProfiles.numUserID " &
                     " LEFT JOIN LookUpEPDUnits " &
                     "ON EPDuserProfiles.numUnit = LookUpEPDUnits.numUnitCode " &
-                   "where SSPPApplicationMaster.strApplicationNumber = '" & txtApplicationNumberToAdd.Text & "' "
+                    "where SSPPApplicationMaster.strApplicationNumber = @app "
 
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    recExist = dr.Read
-                    If recExist = True Then
+                    Dim p As New SqlParameter("@app", txtApplicationNumberToAdd.Text)
+
+                    Dim dr As DataRow = DB.GetDataRow(query, p)
+
+                    If dr IsNot Nothing Then
                         If IsDBNull(dr.Item("strApplicationNumber")) Then
                             AppNumber = ""
                         Else
@@ -2820,9 +2508,8 @@ Public Class SSPPTitleVTools
                     Else
                         MsgBox("Unable to add this Applition to list.", MsgBoxStyle.Information, "Data Management Tools")
                     End If
-                    dr.Close()
                 Case "DraftOnWeb"
-                    SQL = "Select " &
+                    query = "Select " &
                    "SSPPApplicationMaster.strApplicationNumber, " &
                    "strFacilityName, strFacilityCity, " &
                    "strApplicationTypeDesc, " &
@@ -2839,16 +2526,13 @@ Public Class SSPPTitleVTools
                     "ON SSPPApplicationMaster.strStaffResponsible = EPDuserProfiles.numUserID " &
                     " LEFT JOIN LookUpEPDUnits " &
                     "ON EPDuserProfiles.numUnit = LookUpEPDUnits.numUnitCode " &
-                   "where SSPPApplicationMaster.strApplicationNumber = '" & txtApplicationNumberToAdd.Text & "' "
+                    "where SSPPApplicationMaster.strApplicationNumber = @app "
 
+                    Dim p As New SqlParameter("@app", txtApplicationNumberToAdd.Text)
 
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    recExist = dr.Read
-                    If recExist = True Then
+                    Dim dr As DataRow = DB.GetDataRow(query, p)
+
+                    If dr IsNot Nothing Then
                         If IsDBNull(dr.Item("strApplicationNumber")) Then
                             AppNumber = ""
                         Else
@@ -2901,9 +2585,8 @@ Public Class SSPPTitleVTools
                     Else
                         MsgBox("Unable to add this Applition to list.", MsgBoxStyle.Information, "Data Management Tools")
                     End If
-                    dr.Close()
                 Case "MinorOnWeb"
-                    SQL = "Select " &
+                    query = "Select " &
                    "SSPPApplicationMaster.strApplicationNumber, " &
                    "strFacilityName, strFacilityCity, " &
                    "strApplicationTypeDesc, " &
@@ -2920,15 +2603,13 @@ Public Class SSPPTitleVTools
                     "ON SSPPApplicationMaster.strStaffResponsible = EPDuserProfiles.numUserID " &
                     " LEFT JOIN LookUpEPDUnits " &
                     "ON EPDuserProfiles.numUnit = LookUpEPDUnits.numUnitCode " &
-                   "where SSPPApplicationMaster.strApplicationNumber = '" & txtApplicationNumberToAdd.Text & "' "
+                    "where SSPPApplicationMaster.strApplicationNumber = @app "
 
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    recExist = dr.Read
-                    If recExist = True Then
+                    Dim p As New SqlParameter("@app", txtApplicationNumberToAdd.Text)
+
+                    Dim dr As DataRow = DB.GetDataRow(query, p)
+
+                    If dr IsNot Nothing Then
                         If IsDBNull(dr.Item("strApplicationNumber")) Then
                             AppNumber = ""
                         Else
@@ -2981,9 +2662,8 @@ Public Class SSPPTitleVTools
                     Else
                         MsgBox("Unable to add this Applition to list.", MsgBoxStyle.Information, "Data Management Tools")
                     End If
-                    dr.Close()
                 Case "FinalOnWeb"
-                    SQL = "Select " &
+                    query = "Select " &
                     "SSPPApplicationMaster.strApplicationNumber, " &
                     "strFacilityName, strFacilityCity, " &
                     "strApplicationTypeDesc, " &
@@ -3000,15 +2680,13 @@ Public Class SSPPTitleVTools
                     "ON SSPPApplicationMaster.strStaffResponsible = EPDuserProfiles.numUserID " &
                     " LEFT JOIN LookUpEPDUnits " &
                     "ON EPDuserProfiles.numUnit = LookUpEPDUnits.numUnitCode " &
-                    "where SSPPApplicationMaster.strApplicationNumber = '" & txtApplicationNumberToAdd.Text & "' "
+                    "where SSPPApplicationMaster.strApplicationNumber = @app "
 
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    recExist = dr.Read
-                    If recExist = True Then
+                    Dim p As New SqlParameter("@app", txtApplicationNumberToAdd.Text)
+
+                    Dim dr As DataRow = DB.GetDataRow(query, p)
+
+                    If dr IsNot Nothing Then
                         If IsDBNull(dr.Item("strApplicationNumber")) Then
                             AppNumber = ""
                         Else
@@ -3060,7 +2738,6 @@ Public Class SSPPTitleVTools
                     Else
                         MsgBox("Unable to add this Applition to list.", MsgBoxStyle.Information, "Data Management Tools")
                     End If
-                    dr.Close()
             End Select
 
         Catch ex As Exception
@@ -3070,24 +2747,14 @@ Public Class SSPPTitleVTools
         End Try
 
     End Sub
-#End Region
-    Private Sub DEVDataManagementTools_Closing(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
-        Try
-            Me.Dispose()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
 
-        End Try
-
-    End Sub
     Private Sub btnViewApplication_Click(sender As Object, e As EventArgs) Handles btnViewApplication.Click
         OpenFormPermitApplication(txtWebPublisherApplicationNumber.Text)
     End Sub
     Private Sub btnReloadGrid_Click(sender As Object, e As EventArgs) Handles btnReloadGrid.Click
         Try
 
-            LoadWebPublisherDataGrid("Load")
+            LoadWebPublisherDataGrid()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -3116,20 +2783,6 @@ Public Class SSPPTitleVTools
         End Try
 
     End Sub
-    Private Sub txtWebPublisherApplicationNumber_TextChanged(sender As Object, e As EventArgs) Handles txtWebPublisherApplicationNumber.TextChanged
-        Try
-
-            'If txtWebPublisherApplicationNumber.Text <> "" Then
-            '    LoadWebPublisherApplicationData()
-            'End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-#Region "Checkbox Changes"
     Private Sub chbNotifiedAppReceived_CheckedChanged(sender As Object, e As EventArgs) Handles chbNotifiedAppReceived.CheckedChanged
         Try
 
@@ -3250,7 +2903,6 @@ Public Class SSPPTitleVTools
         End Try
 
     End Sub
-#End Region
     Private Sub btnSaveWebPublisher_Click(sender As Object, e As EventArgs) Handles btnSaveWebPublisher.Click
         Try
 
@@ -3307,127 +2959,6 @@ Public Class SSPPTitleVTools
         End Try
 
     End Sub
-#Region "Mahesh Code for Web App Users"
-    Function LoadComboBoxes() As DataTable
-        Dim dtairs As New DataTable
-        Dim drDSRow As DataRow
-        Dim drNewRow As DataRow
-        Dim SQL As String
-
-        Try
-
-
-            SQL = "Select DISTINCT SUBSTRING(strairsnumber, 5,8) as strairsnumber, " _
-            + "strfacilityname " _
-            + "from APBFacilityInformation " _
-            + "Order by strAIRSNumber "
-
-            ds = New DataSet
-            da = New SqlDataAdapter(SQL, CurrentConnection)
-
-            If CurrentConnection.State = ConnectionState.Open Then
-            Else
-                CurrentConnection.Open()
-            End If
-
-            da.Fill(ds, "facilityInfo")
-
-            dtairs.Columns.Add("strairsnumber", GetType(System.String))
-            dtairs.Columns.Add("strfacilityname", GetType(System.String))
-
-            drNewRow = dtairs.NewRow()
-            drNewRow("strfacilityname") = " "
-            drNewRow("strairsnumber") = " "
-            dtairs.Rows.Add(drNewRow)
-
-            For Each drDSRow In ds.Tables("facilityInfo").Rows()
-                drNewRow = dtairs.NewRow()
-                drNewRow("strairsnumber") = drDSRow("strairsnumber")
-                drNewRow("strfacilityname") = drDSRow("strfacilityname")
-                dtairs.Rows.Add(drNewRow)
-            Next
-
-            Return dtairs
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-            Return Nothing
-        Finally
-
-        End Try
-
-    End Function
-    Private Sub Back()
-        Try
-
-            Me.Hide()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub UpdateRecords(userid As Object, adminaccess As Object, feeaccess As Object, eiaccess As Object, esaccess As Object)
-
-        Dim admin, fee, ei, es As Integer
-        If adminaccess = True Then
-            admin = 1
-        Else
-            admin = 0
-        End If
-        If feeaccess = True Then
-            fee = 1
-        Else
-            fee = 0
-        End If
-        If eiaccess = True Then
-            ei = 1
-        Else
-            ei = 0
-        End If
-        If esaccess = True Then
-            es = 1
-        Else
-            es = 0
-        End If
-
-        Try
-            Dim updateString As String = "UPDATE OlapUserAccess " &
-                      "SET intadminaccess = '" & admin & "', " &
-                      "intFeeAccess = '" & fee & "', " &
-                      "intEIAccess = '" & ei & "', " &
-                      "intESAccess = '" & es & "' " &
-                      "WHERE numUserID = '" & userid & "' " &
-                      "and strAirsNumber = '0413" & airsno & "' "
-
-            Dim cmd As New SqlCommand(updateString, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            cmd.ExecuteNonQuery()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
-    End Sub
-
-#End Region
-#Region "Fee Password Reset"
-    Private Sub SetPassword_Closing(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
-        Try
-
-            Me.Dispose()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-
-#End Region
     Private Sub txtWebPublisherApplicationNumber_Leave(sender As Object, e As EventArgs) Handles txtWebPublisherApplicationNumber.Leave
         Try
 
@@ -3827,10 +3358,7 @@ Public Class SSPPTitleVTools
         End Try
     End Sub
 
-#Region " CodeFile "
-    ' Code that was formerly in CodeFile.vb but is only used in this form anyway
-
-    Function Insert_APBContactInformation(AIRSNumber As String, Key As String,
+    Private Function Insert_APBContactInformation(AIRSNumber As String, Key As String,
                                       ContactFirstName As String, ContactLastName As String,
                                       ContactPrefix As String, ContactSuffix As String,
                                       ContactTitle As String, ContactCompanyName As String,
@@ -3847,25 +3375,42 @@ Public Class SSPPTitleVTools
                 Return False
             End If
             Dim SQL As String = "Insert into APBContactInformation " &
+             "(STRCONTACTKEY, STRAIRSNUMBER, STRKEY, STRCONTACTFIRSTNAME, " &
+             "STRCONTACTLASTNAME, STRCONTACTPREFIX, STRCONTACTSUFFIX, STRCONTACTTITLE, " &
+             "STRCONTACTCOMPANYNAME, STRCONTACTPHONENUMBER1, STRCONTACTPHONENUMBER2, STRCONTACTFAXNUMBER, " &
+             "STRCONTACTEMAIL, STRCONTACTADDRESS1, STRCONTACTADDRESS2, STRCONTACTCITY, " &
+             "STRCONTACTSTATE, STRCONTACTZIPCODE, STRMODIFINGPERSON, DATMODIFINGDATE, " &
+             "STRCONTACTDESCRIPTION) " &
              "values " &
-             "('0413" & AIRSNumber & Key & "', '0413" & AIRSNumber & "', " &
-             "" & Key & " , '" & Replace(ContactFirstName, "'", "''") & "', " &
-             "'" & Replace(ContactLastName, "'", "''") & "', '" & Replace(ContactPrefix, "'", "''") & "', " &
-             "'" & Replace(ContactSuffix, "'", "''") & "', '" & Replace(ContactTitle, "'", "''") & "', " &
-             "'" & Replace(ContactCompanyName, "'", "''") & "', '" & Replace(ContactPhoneNumber1, "'", "''") & "', " &
-             "'', '" & Replace(ContactFaxNumber, "'", "''") & "', " &
-             "'" & Replace(ContactEmail, "'", "''") & "', '" & Replace(ContactAddress1, "'", "''") & "', " &
-             "'', '" & Replace(ContactCity, "'", "''") & "', " &
-             "'" & Replace(ContactState, "'", "''") & "', '" & Replace(ContactZipCode, "'", "''") & "', " &
-             "'" & CurrentUser.UserID & "',  GETDATE() , " &
-             "'" & Replace(ContactDescription, "'", "''") & "') "
+             "(@STRCONTACTKEY, @STRAIRSNUMBER, @STRKEY, @STRCONTACTFIRSTNAME, " &
+             "@STRCONTACTLASTNAME, @STRCONTACTPREFIX, @STRCONTACTSUFFIX, @STRCONTACTTITLE, " &
+             "@STRCONTACTCOMPANYNAME, @STRCONTACTPHONENUMBER1, null, @STRCONTACTFAXNUMBER, " &
+             "@STRCONTACTEMAIL, @STRCONTACTADDRESS1, null, @STRCONTACTCITY, " &
+             "@STRCONTACTSTATE, @STRCONTACTZIPCODE, @STRMODIFINGPERSON, getdate(), " &
+             "@STRCONTACTDESCRIPTION) "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
+            Dim p As SqlParameter() = {
+                New SqlParameter("@STRCONTACTKEY", "0413" & AIRSNumber & Key),
+                New SqlParameter("@STRAIRSNUMBER", "0413" & AIRSNumber),
+                New SqlParameter("@STRKEY", Key),
+                New SqlParameter("@STRCONTACTFIRSTNAME", ContactFirstName),
+                New SqlParameter("@STRCONTACTLASTNAME", ContactLastName),
+                New SqlParameter("@STRCONTACTPREFIX", ContactPrefix),
+                New SqlParameter("@STRCONTACTSUFFIX", ContactSuffix),
+                New SqlParameter("@STRCONTACTTITLE", ContactTitle),
+                New SqlParameter("@STRCONTACTCOMPANYNAME", ContactCompanyName),
+                New SqlParameter("@STRCONTACTPHONENUMBER1", ContactPhoneNumber1),
+                New SqlParameter("@STRCONTACTFAXNUMBER", ContactFaxNumber),
+                New SqlParameter("@STRCONTACTEMAIL", ContactEmail),
+                New SqlParameter("@STRCONTACTADDRESS1", ContactAddress1),
+                New SqlParameter("@STRCONTACTCITY", ContactCity),
+                New SqlParameter("@STRCONTACTSTATE", ContactState),
+                New SqlParameter("@STRCONTACTZIPCODE", ContactZipCode),
+                New SqlParameter("@STRMODIFINGPERSON", CurrentUser.UserID),
+                New SqlParameter("@STRCONTACTDESCRIPTION", ContactDescription)
+            }
+
+            DB.RunCommand(SQL, p)
 
             Return True
 
@@ -3875,7 +3420,7 @@ Public Class SSPPTitleVTools
 
     End Function
 
-    Function Update_APBContactInformation(AIRSNumber As String, Key As String,
+    Private Function Update_APBContactInformation(AIRSNumber As String, Key As String,
                                          ContactFirstName As String, ContactLastName As String,
                                          ContactPrefix As String, ContactSuffix As String,
                                          ContactTitle As String, ContactCompanyName As String,
@@ -3896,84 +3441,96 @@ Public Class SSPPTitleVTools
             Dim SQL As String = "Select " &
             "SUBSTRING(max(strKey) + 1, 2, 1) as NewKey " &
             "from APBContactInformation " &
-            "where strAIRSNumber = '0413" & AIRSNumber & "' " &
-            "and strKey like '" & Mid(Key, 1, 1) & "%' "
+            "where strAIRSNumber = @airs " &
+            "and strKey like @keylike "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
+            Dim p As SqlParameter() = {
+                New SqlParameter("@airs", "0413" & AIRSNumber),
+                New SqlParameter("@keylike", Mid(Key, 1, 1) & "%")
+            }
+
+            Dim dt As DataTable = DB.GetDataTable(SQL, p)
+
+            For Each dr As DataRow In dt.Rows
                 If IsDBNull(dr.Item("newKey")) Then
                     NewKey = 0
                 Else
                     NewKey = dr.Item("newKey")
                 End If
-            End While
-            dr.Close()
+            Next
 
             If NewKey = 0 Then
                 NewKey = 9
                 SQL = "Delete APBContactInformation " &
-                "where strAIRSNumber = '0413" & AIRSNumber & "' " &
-                "and strKey = '" & Mid(Key, 1, 1) & "9'"
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                dr.Close()
+                "where strAIRSNumber = @airs " &
+                "and strKey = @key "
+
+                Dim p2 As SqlParameter() = {
+                    New SqlParameter("@airs", "0413" & AIRSNumber),
+                    New SqlParameter("@key", Mid(Key, 1, 1) & "9")
+                }
+
+                DB.RunCommand(SQL, p2)
             End If
 
             Do Until NewKey = 0
-                ' MsgBox(NewKey.ToString)
-
                 SQL = "Update APBContactInformation set " &
-                "strKey = '" & Mid(Key, 1, 1) & NewKey & "', " &
-                "strContactKey = '0413" & AIRSNumber & Mid(Key, 1, 1) & NewKey & "' " &
-                "where strAIRSNumber = '0413" & AIRSNumber & "' " &
-                "and strKey = '" & Mid(Key, 1, 1) & (NewKey - 1) & "' "
+                "strKey = @key, " &
+                "strContactKey = @ckey " &
+                "where strAIRSNumber = @airs " &
+                "and strKey = @oldkey "
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                dr.Close()
+                Dim p3 As SqlParameter() = {
+                    New SqlParameter("@airs", "0413" & AIRSNumber),
+                    New SqlParameter("@key", Mid(Key, 1, 1) & NewKey),
+                    New SqlParameter("@ckey", "0413" & AIRSNumber & Mid(Key, 1, 1) & NewKey),
+                    New SqlParameter("@key", Mid(Key, 1, 1) & (NewKey - 1))
+                }
+
+                DB.RunCommand(SQL, p3)
 
                 NewKey -= 1
             Loop
 
-            SQL = "Insert into APBContactInformation " &
-            "values " &
-            "('0413" & AIRSNumber & Mid(Key, 1, 1) & NewKey & "', " &
-            "'0413" & AIRSNumber & "', '" & Key & "', " &
-            "'" & Replace(ContactFirstName, "'", "''") & "', " &
-            "'" & Replace(ContactLastName, "'", "''") & "', " &
-            "'" & Replace(ContactPrefix, "'", "''") & "', " &
-            "'" & Replace(ContactSuffix, "'", "''") & "', " &
-            "'" & Replace(ContactTitle, "'", "''") & "', " &
-            "'" & Replace(ContactCompanyName, "'", "''") & "', " &
-            "'" & Replace(ContactPhoneNumber1, "'", "''") & "', " &
-            "'" & Replace(ContactPhoneNumber2, "'", "''") & "', " &
-            "'" & Replace(ContactFaxNumber, "'", "''") & "', " &
-            "'" & Replace(ContactEmail, "'", "''") & "', " &
-            "'" & Replace(ContactAddress1, "'", "''") & "', " &
-            "'" & Replace(ContactAddress2, "'", "''") & "', " &
-            "'" & Replace(ContactCity, "'", "''") & "', " &
-            "'" & Replace(ContactState, "'", "''") & "', " &
-            "'" & Replace(ContactZipCode, "'", "''") & "', " &
-            "'" & CurrentUser.UserID & "', " &
-            " GETDATE() , " &
-            "'" & Replace(ContactDescription, "'", "''") & "') "
+            Dim query As String = "Insert into APBContactInformation " &
+             "(STRCONTACTKEY, STRAIRSNUMBER, STRKEY, STRCONTACTFIRSTNAME, " &
+             "STRCONTACTLASTNAME, STRCONTACTPREFIX, STRCONTACTSUFFIX, STRCONTACTTITLE, " &
+             "STRCONTACTCOMPANYNAME, STRCONTACTPHONENUMBER1, STRCONTACTPHONENUMBER2, STRCONTACTFAXNUMBER, " &
+             "STRCONTACTEMAIL, STRCONTACTADDRESS1, STRCONTACTADDRESS2, STRCONTACTCITY, " &
+             "STRCONTACTSTATE, STRCONTACTZIPCODE, STRMODIFINGPERSON, DATMODIFINGDATE, " &
+             "STRCONTACTDESCRIPTION) " &
+             "values " &
+             "(@STRCONTACTKEY, @STRAIRSNUMBER, @STRKEY, @STRCONTACTFIRSTNAME, " &
+             "@STRCONTACTLASTNAME, @STRCONTACTPREFIX, @STRCONTACTSUFFIX, @STRCONTACTTITLE, " &
+             "@STRCONTACTCOMPANYNAME, @STRCONTACTPHONENUMBER1, @STRCONTACTPHONENUMBER2, @STRCONTACTFAXNUMBER, " &
+             "@STRCONTACTEMAIL, @STRCONTACTADDRESS1, @STRCONTACTADDRESS2, @STRCONTACTCITY, " &
+             "@STRCONTACTSTATE, @STRCONTACTZIPCODE, @STRMODIFINGPERSON, getdate(), " &
+             "@STRCONTACTDESCRIPTION) "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
+            Dim pp As SqlParameter() = {
+                New SqlParameter("@STRCONTACTKEY", "0413" & AIRSNumber & Mid(Key, 1, 1) & NewKey),
+                New SqlParameter("@STRAIRSNUMBER", "0413" & AIRSNumber),
+                New SqlParameter("@STRKEY", Key),
+                New SqlParameter("@STRCONTACTFIRSTNAME", ContactFirstName),
+                New SqlParameter("@STRCONTACTLASTNAME", ContactLastName),
+                New SqlParameter("@STRCONTACTPREFIX", ContactPrefix),
+                New SqlParameter("@STRCONTACTSUFFIX", ContactSuffix),
+                New SqlParameter("@STRCONTACTTITLE", ContactTitle),
+                New SqlParameter("@STRCONTACTCOMPANYNAME", ContactCompanyName),
+                New SqlParameter("@STRCONTACTPHONENUMBER1", ContactPhoneNumber1),
+                New SqlParameter("@STRCONTACTPHONENUMBER2", ContactPhoneNumber2),
+                New SqlParameter("@STRCONTACTFAXNUMBER", ContactFaxNumber),
+                New SqlParameter("@STRCONTACTEMAIL", ContactEmail),
+                New SqlParameter("@STRCONTACTADDRESS1", ContactAddress1),
+                New SqlParameter("@STRCONTACTADDRESS2", ContactAddress2),
+                New SqlParameter("@STRCONTACTCITY", ContactCity),
+                New SqlParameter("@STRCONTACTSTATE", ContactState),
+                New SqlParameter("@STRCONTACTZIPCODE", ContactZipCode),
+                New SqlParameter("@STRMODIFINGPERSON", CurrentUser.UserID),
+                New SqlParameter("@STRCONTACTDESCRIPTION", ContactDescription)
+            }
+
+            DB.RunCommand(query, pp)
 
             Return True
 
@@ -3982,7 +3539,5 @@ Public Class SSPPTitleVTools
         End Try
 
     End Function
-
-#End Region
 
 End Class
