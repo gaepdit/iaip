@@ -13249,12 +13249,14 @@ Public Class IAIPPrintOut
 
         Dim p As New SqlParameter("@ref", ReferenceValue)
 
+        Dim ds As New DataSet
         Dim dt As DataTable = DB.GetDataTable(SQL, p)
         dt.TableName = "VW_SSPP_Acknowledge"
+        ds.Tables.Add(dt)
 
         Dim rpt As New crAPBPrintOut2
         monitor.TrackFeature("Report." & rpt.ResourceName)
-        rpt.SetDataSource(dt)
+        rpt.SetDataSource(ds)
 
         CRViewer.ParameterFieldInfo = ParameterFields
         CRViewer.ReportSource = rpt
