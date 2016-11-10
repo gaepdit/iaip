@@ -1,33 +1,17 @@
 Imports System.Data.SqlClient
 
-
 Public Class ISMPMonitoringLog
-    Dim SQL As String
-    Dim cmd As SqlCommand
-    Dim dr As SqlDataReader
-    Dim recExist As Boolean
-    Dim dsTestReportViewer As DataSet
-    Dim daTestReportViewer As SqlDataAdapter
-    Dim dsNotificationViewer As DataSet
-    Dim daNotificationViewer As SqlDataAdapter
-    Dim dsTestFirmComments As DataSet
-    Dim daTestFirmComments As SqlDataAdapter
-    Dim dsEngineer As DataSet
-    Dim daEngineer As SqlDataAdapter
-    Dim dsPollutants As DataSet
-    Dim daPollutants As SqlDataAdapter
 
     Private Sub ISMPMonitoringLog_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         Try
 
-            DTPStartDate.Text = Format(Date.Today.AddDays(-30), "dd-MMM-yyyy")
+            DTPStartDate.Value = Today.AddDays(-30)
             DTPEndDate.Value = Today
 
             chbReviewingEngineer.Text = CurrentUser.AlphaName
             chbWitnessingEngineer.Text = CurrentUser.AlphaName
 
-            LoadEngineerDataSet()
             LoadComboBoxes()
             LoadDataSet()
 
@@ -38,14 +22,11 @@ Public Class ISMPMonitoringLog
         End Try
     End Sub
 
-#Region "Page Load Functions"
-    Sub LoadEngineerDataSet()
-        Dim SQL As String
-
+    Private Sub LoadComboBoxes()
         Try
 
-            SQL = "select " &
-            "distinct concat(strLastName, ', ' ,strFirstName) as UserName, " &
+            Dim query As String = "select " &
+            "concat(strLastName, ', ' ,strFirstName) as UserName, " &
             "numUserID " &
             "from epduserprofiles, " &
             "(select distinct(strStaffResponsible) as NotificationStaff " &
@@ -53,67 +34,21 @@ Public Class ISMPMonitoringLog
             "where convert(varchar(3),EPDUserProfiles.numUserId) = Notification.NotificationStaff " &
             "Union " &
             "Select " &
-            "distinct concat(strLastName, ', ' ,strFirstName) as UserName, " &
+            "concat(strLastName, ', ' ,strFirstName) as UserName, " &
             "numUserID " &
             "from EPDUserProfiles, " &
             "(select distinct(strReviewingEngineer) " &
             "from ISMPReportInformation) ISMPUsers " &
             "where convert(varchar(3),EPDUserProfiles.numUserID) = ISMPUsers.strReviewingEngineer  "
 
-            dsEngineer = New DataSet
-
-            daEngineer = New SqlDataAdapter(SQL, CurrentConnection)
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            daEngineer.Fill(dsEngineer, "Engineers")
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Sub LoadComboBoxes()
-        Dim dtStaff As New DataTable
-        Dim dtWitnessingEng As New DataTable
-        Dim drDSRow As DataRow
-        Dim drNewRow As DataRow
-        Dim drNewRow2 As DataRow
-
-        Try
-
-            dtStaff.Columns.Add("UserName", GetType(System.String))
-            dtStaff.Columns.Add("numUserID", GetType(System.String))
-
-            For Each drDSRow In dsEngineer.Tables("Engineers").Rows()
-                drNewRow = dtStaff.NewRow
-                drNewRow("UserName") = drDSRow("UserName")
-                drNewRow("numUserID") = drDSRow("numUserID")
-                dtStaff.Rows.Add(drNewRow)
-            Next
-
             With clbEngineer
-                .DataSource = dtStaff
+                .DataSource = DB.GetDataTable(query)
                 .DisplayMember = "UserName"
                 .ValueMember = "numUserID"
             End With
-
-            dtWitnessingEng.Columns.Add("UserName", GetType(System.String))
-            dtWitnessingEng.Columns.Add("numUserID", GetType(System.String))
-
-            For Each drDSRow In dsEngineer.Tables("Engineers").Rows()
-                drNewRow2 = dtWitnessingEng.NewRow
-                drNewRow2("UserName") = drDSRow("UserName")
-                drNewRow2("numUserID") = drDSRow("numUserID")
-                dtWitnessingEng.Rows.Add(drNewRow2)
-            Next
 
             With clbWitnessingStaff
-                .DataSource = dtWitnessingEng
+                .DataSource = CType(clbEngineer.DataSource, DataTable).Copy
                 .DisplayMember = "UserName"
                 .ValueMember = "numUserID"
             End With
@@ -125,65 +60,17 @@ Public Class ISMPMonitoringLog
         End Try
 
     End Sub
-    Sub LoadPollutants()
-        Dim dtPollutants As New DataTable
-        Dim drDSRow As DataRow
-        Dim drNewRow As DataRow
 
-        Try
+    Private Sub LoadDataSet()
+        Dim SQLWhere As String = ""
+        Dim query As String = ""
 
-            SQL = "Select strPollutantCode, strPollutantDescription " &
-                "from LookUPPollutants " &
-                "order by strPollutantDescription"
-
-            dsPollutants = New DataSet
-
-            daPollutants = New SqlDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            daPollutants.Fill(dsPollutants, "Pollutants")
-
-            dtPollutants.Columns.Add("strPOllutantDescription", GetType(System.String))
-            dtPollutants.Columns.Add("strPollutantCode", GetType(System.String))
-
-            drNewRow = dtPollutants.NewRow()
-            drNewRow("strPOllutantDescription") = " "
-            drNewRow("strPollutantCode") = " "
-            dtPollutants.Rows.Add(drNewRow)
-
-            For Each drDSRow In dsPollutants.Tables("Pollutants").Rows()
-                drNewRow = dtPollutants.NewRow()
-                drNewRow("strPOllutantDescription") = drDSRow("strPOllutantDescription")
-                drNewRow("strPollutantCode") = drDSRow("strPollutantCode")
-                dtPollutants.Rows.Add(drNewRow)
-            Next
-
-            'With cboPollutants
-            '    .DataSource = dtPollutants
-            '    .DisplayMember = "strPOllutantDescription"
-            '    .ValueMember = "strPollutantCode"
-            '    .SelectedIndex = 0
-            'End With
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-#End Region
-#Region "Functions & Subs"
-#Region "DataSet(s)"
-    Sub LoadDataSet()
-        Dim SQLWhere As String = " "
         Try
 
             If chbTestReports.Checked = True Then
                 SQLWhere = ""
-                SQL = "select " &
+
+                query = "select " &
                 "ISMPMaster.strReferenceNumber,  " &
                 "SUBSTRING(ISMPMaster.strAIRSNumber, 5,8) as strAIRSNumber,  " &
                 "APBFacilityInformation.strFacilityName,  " &
@@ -196,11 +83,11 @@ Public Class ISMPMonitoringLog
                 "concat(strLastName, ', ' , strFirstName) as StaffResponsible,  " &
                 "ISMPREportInformation.datTestDateStart,  " &
                 "ISMPREportInformation.datReceivedDate,  " &
-                "(ISMPREportINformation.datReceivedDate - " &
-                "ISMPReportInformation.datTestDateEnd) as daysToReceived, " &
+                "DATEDIFF(day, ISMPREportINformation.datTestDateEnd, " &
+                "ISMPReportInformation.datReceivedDate) as daysToReceived, " &
                 "case " &
                 "when strClosed <> 'True' then ROUND( DATEDIFF(day, ISMPREportInformation.datReceivedDate, GETDATE() ), 0) " &
-                "else ROUND(abs(DATEDIFF(day, ISMPReportInformation.datCompleteDate, ISMPReportInformation.datReceivedDate)), 0) " &
+                "else DATEDIFF(day, ISMPReportInformation.datCompleteDate, ISMPReportInformation.datReceivedDate) " &
                 "End daysInAPB, " &
                 "case " &
                 "when ISMPReportInformation.datCompleteDate = '04-Jul-1776' then Null " &
@@ -371,19 +258,19 @@ Public Class ISMPMonitoringLog
                     SQLWhere = SQLWhere & " and ( "
 
                     If chbMonitorCertification.Checked = True Then
-                        SQLWhere = SQLWhere & " ISMPReportInformation. strReportType = '001' Or "
+                        SQLWhere = SQLWhere & " ISMPReportInformation.strReportType = '001' Or "
                     End If
                     If chbPEMSDevelopment.Checked = True Then
-                        SQLWhere = SQLWhere & " ISMPReportInformation. strReportType = '002' Or "
+                        SQLWhere = SQLWhere & " ISMPReportInformation.strReportType = '002' Or "
                     End If
                     If chbRATAandCEMS.Checked = True Then
-                        SQLWhere = SQLWhere & " ISMPReportInformation. strReportType = '003' Or "
+                        SQLWhere = SQLWhere & " ISMPReportInformation.strReportType = '003' Or "
                     End If
                     If chbSourceTest.Checked = True Then
-                        SQLWhere = SQLWhere & " ISMPReportInformation. strReportType = '004' Or "
+                        SQLWhere = SQLWhere & " ISMPReportInformation.strReportType = '004' Or "
                     End If
                     If chbOther.Checked = True Then
-                        SQLWhere = SQLWhere & " ISMPReportInformation. strReportType = '005' Or "
+                        SQLWhere = SQLWhere & " ISMPReportInformation.strReportType = '005' Or "
                     End If
                     SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 3)) & " ) "
 
@@ -459,18 +346,9 @@ Public Class ISMPMonitoringLog
                                                "like '%" & txtPollutantFilter.Text & "%' "
                 End If
 
-                SQL = SQL & SQLWhere
+                query = query & SQLWhere
 
-                dsTestReportViewer = New DataSet
-                daTestReportViewer = New SqlDataAdapter(SQL, CurrentConnection)
-
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-
-                daTestReportViewer.Fill(dsTestReportViewer, "TestReportViewer")
-                dgvTestReportViewer.DataSource = dsTestReportViewer
-                dgvTestReportViewer.DataMember = "TestReportViewer"
+                dgvTestReportViewer.DataSource = DB.GetDataTable(query)
 
                 dgvTestReportViewer.RowHeadersVisible = False
                 dgvTestReportViewer.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -533,7 +411,7 @@ Public Class ISMPMonitoringLog
 
             If Me.chbNotifications.Checked = True Then
                 SQLWhere = ""
-                SQL = "select distinct " &
+                query = "select distinct " &
                "SUBSTRING(ISMPTEstNotification.strAIRSNumber, 5,8) as AIRSNumber, " &
                "APBFacilityInformation.strFacilityName,  " &
                "strFacilityCity,  " &
@@ -554,7 +432,8 @@ Public Class ISMPMonitoringLog
                " LEFT JOIN LookUpCountyInformation  " &
                "ON SUBSTRING(ISMPTestNotification.strAIRSNumber, 5, 3) = LookUpCountyInformation.strcountycode " &
                " LEFT JOIN LookUpEPDUnits  " &
-               "ON EPDUserProfiles.numUnit = LookUpEPDUnits.numUnitCode "
+               "ON EPDUserProfiles.numUnit = LookUpEPDUnits.numUnitCode " &
+               " where 1=1 "
 
                 If chbReviewingEngineer.Checked = True Then
                     SQLWhere = SQLWhere & " and ( "
@@ -620,18 +499,9 @@ Public Class ISMPMonitoringLog
                     SQLWhere = SQLWhere & " and strReferenceNumber is Null "
                 End If
 
-                SQL = SQL & SQLWhere
+                query = query & SQLWhere
 
-                dsNotificationViewer = New DataSet
-                daNotificationViewer = New SqlDataAdapter(SQL, CurrentConnection)
-
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-
-                daNotificationViewer.Fill(dsNotificationViewer, "NotificationViewer")
-                dgvNotificationLog.DataSource = dsNotificationViewer
-                dgvNotificationLog.DataMember = "NotificationViewer"
+                dgvNotificationLog.DataSource = DB.GetDataTable(query)
 
                 dgvNotificationLog.RowHeadersVisible = False
                 dgvNotificationLog.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -651,9 +521,6 @@ Public Class ISMPMonitoringLog
                 dgvNotificationLog.Columns("strCountyName").DisplayIndex = 5
                 dgvNotificationLog.Columns("strTestLogNumber").HeaderText = "Test Log #"
                 dgvNotificationLog.Columns("strTestLogNumber").DisplayIndex = 0
-                '   dgvNotificationLog.Columns("strTestLogNumber").DefaultCellStyle.Format = 
-
-
                 dgvNotificationLog.Columns("strEmissionUnit").HeaderText = "Unit Tested"
                 dgvNotificationLog.Columns("strEmissionUnit").DisplayIndex = 6
                 dgvNotificationLog.Columns("datProposedStartDate").HeaderText = "Purposed Test Date"
@@ -671,10 +538,10 @@ Public Class ISMPMonitoringLog
             End If
 
             If chbTestFirmComments.Checked = True Then
-                SQL = ""
+                query = ""
                 SQLWhere = ""
 
-                SQL = "select " &
+                query = "select " &
                "numcommentsID, strTestingFirm, " &
                "SUBSTRING(ISMPTestFirmComments.strAIRSNumber, 5,8) as AIRSNumber, " &
                "strFacilityName, " &
@@ -702,8 +569,7 @@ Public Class ISMPMonitoringLog
                " LEFT JOIN LookUpCountyInformation " &
                "ON SUBSTRING(ISMPTestFirmComments.strAIRSNUmber, 5, 3)  = LookUpCountyInformation.strCountycode "
 
-
-                If chbReviewingEngineer.Checked = True Then
+                                If chbReviewingEngineer.Checked = True Then
                     SQLWhere = SQLWhere & " and ( "
                     If clbEngineer.CheckedItems.Count > 0 Then
                         For x As Integer = 0 To clbEngineer.Items.Count - 1
@@ -760,18 +626,9 @@ Public Class ISMPMonitoringLog
                                                 "like '%" & Replace(txtTestingFirm.Text, "'", "''") & "%' "
                 End If
 
-                SQL = SQL & SQLWhere
+                query = query & SQLWhere
 
-                dsTestFirmComments = New DataSet
-                daTestFirmComments = New SqlDataAdapter(SQL, CurrentConnection)
-
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-
-                daTestFirmComments.Fill(dsTestFirmComments, "TestFirmComments")
-                dgvTestFirmComments.DataSource = dsTestFirmComments
-                dgvTestFirmComments.DataMember = "TestFirmComments"
+                dgvTestFirmComments.DataSource = DB.GetDataTable(query)
 
                 dgvTestFirmComments.RowHeadersVisible = False
                 dgvTestFirmComments.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -811,19 +668,20 @@ Public Class ISMPMonitoringLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, SQL, "ISMPTestReportViewer.LoadDataSet")
+            ErrorReport(ex, query, "ISMPTestReportViewer.LoadDataSet")
         Finally
 
         End Try
 
 
     End Sub
-#End Region
-    Sub LoadTestLogData()
+
+    Private Sub LoadTestLogData()
         Try
+            Dim query As String
 
             If txtTestLogNumber.Text <> "" Then
-                SQL = "Select " &
+                query = "Select " &
                 "strTestLogNumber,  " &
                 "APBFacilityInformation.strFacilityName,  " &
                 "SUBSTRING(APBFacilityInformation.strAIRSnumber, 5,8) as AIRSNumber,  " &
@@ -836,16 +694,13 @@ Public Class ISMPMonitoringLog
                 "ON concat('0413',ISMPTestNotification.strAIRSnumber) = APBFacilityInformation.strAIRSNumber " &
                 " LEFT JOIN LookUpCountyInformation  " &
                 "ON SUBSTRING(ISMPTestNotification.strAIRSNumber, 1, 3) = LookUpCountyInformation.strCountyCode " &
-                "WHERE strTestLogNumber = '" & txtTestLogNumber.Text & "' "
+                "WHERE strTestLogNumber = @log "
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
+                Dim p As New SqlParameter("@log", txtTestLogNumber.Text)
 
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-                If recExist = True Then
+                Dim dr As DataRow = DB.GetDataRow(query, p)
+
+                If dr IsNot Nothing Then
                     If IsDBNull(dr.Item("strFacilityName")) Then
                         txtNotificationFacilityName.Text = " "
                     Else
@@ -887,7 +742,7 @@ Public Class ISMPMonitoringLog
         End Try
 
     End Sub
-    Sub SelectTestReport()
+    Private Sub SelectTestReport()
         Try
             Dim id As String = txtReferenceNumber.Text
             If id = "" Then Exit Sub
@@ -912,11 +767,11 @@ Public Class ISMPMonitoringLog
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub ResetOptions()
+    Private Sub ResetOptions()
         Try
 
             rdbFacilityDateReceived.Checked = True
-            DTPStartDate.Text = Format(Date.Today.AddDays(-30), "dd-MMM-yyyy")
+            DTPStartDate.Value = Today.AddDays(-30)
             DTPEndDate.Value = Today
             chbOpen.Checked = False
             chbClosed.Checked = False
@@ -943,17 +798,7 @@ Public Class ISMPMonitoringLog
         End Try
 
     End Sub
-#End Region
-    Private Sub ISMPTestReportViewer_Closing(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
-        Try
-            Me.Dispose()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
 
-        End Try
-
-    End Sub
     Private Sub LLSelectReport_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LLSelectReport.LinkClicked
         Try
 
@@ -1150,7 +995,6 @@ Public Class ISMPMonitoringLog
 
                 Else
                     txtReferenceNumber.Text = dgvNotificationLog(10, hti.RowIndex).Value
-                    'txtTestFirmReferenceNumber.Text = dgvNotificationLog(10, hti.RowIndex).Value
                 End If
 
             End If
@@ -1235,7 +1079,7 @@ Public Class ISMPMonitoringLog
     Private Sub tsbExportToExcel_Click(sender As Object, e As EventArgs) Handles tsbExportToExcel.Click
         dgvTestReportViewer.ExportToExcel(Me)
     End Sub
-    Sub LoadCompliaceColor()
+    Private Sub LoadCompliaceColor()
         Try
             For Each row As DataGridViewRow In dgvTestReportViewer.Rows
                 If Not row.IsNewRow Then
@@ -1265,22 +1109,12 @@ Public Class ISMPMonitoringLog
     End Sub
 
     Private Sub mmiReports_Click(sender As Object, e As EventArgs) Handles mmiReports.Click
-        Try
-            If StaffReports Is Nothing Then
-                If StaffReports Is Nothing Then StaffReports = New ISMPStaffReports
-            Else
-                StaffReports.Dispose()
-                StaffReports = New ISMPStaffReports
-                If StaffReports Is Nothing Then StaffReports = New ISMPStaffReports
-            End If
-            StaffReports.Show()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        Dim StaffReports As New ISMPStaffReports
+        StaffReports.Show()
     End Sub
 
     Private Sub tsbClear_Click(sender As Object, e As EventArgs) Handles tsbClear.Click
         ResetOptions()
     End Sub
+
 End Class
