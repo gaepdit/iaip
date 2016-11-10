@@ -85,7 +85,6 @@ Module AppVariables
     Public ISMPAddTestingFirm As ISMPAddTestingFirms
     Public ISMPConfidential As ISMPConfidentialData
     Public TestFirmComments As ISMPTestFirmComments
-    Public StaffReports As ISMPStaffReports
 #End Region
 
 #Region " SBEAP Screens "
