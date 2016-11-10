@@ -1,6 +1,7 @@
 ﻿Imports System.Data.SqlClient
 Imports Iaip.Apb.Sscp
 Imports System.Collections.Generic
+Imports System.Text.RegularExpressions
 
 Namespace DAL.Ismp
 
@@ -92,6 +93,8 @@ Namespace DAL.Ismp
             If tableName Is Nothing Then
                 Return Nothing
             End If
+
+            tableName = Regex.Replace(tableName, NonAlphabeticPattern, "")
 
             Dim queryList As New List(Of String)
             Dim parametersList As New List(Of SqlParameter())
