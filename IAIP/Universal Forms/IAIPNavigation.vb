@@ -923,8 +923,8 @@ Public Class IAIPNavigation
 
 #Region " Testing Menu click events "
 
-    Private Sub mmiThrowError_Click(sender As Object, e As EventArgs) Handles TestThrowError.Click
-        Throw New Exception("Unhandled exception testing")
+    Private Sub RunTest_Click(sender As Object, e As EventArgs) Handles RunTest.Click
+        'Throw New Exception("Unhandled exception testing")
     End Sub
 
 #End Region

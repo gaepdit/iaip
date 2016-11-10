@@ -38,7 +38,7 @@ Partial Class IAIPNavigation
         Me.mmiSeparator1 = New System.Windows.Forms.MenuItem()
         Me.mmiAbout = New System.Windows.Forms.MenuItem()
         Me.TestingMenu = New System.Windows.Forms.MenuItem()
-        Me.TestThrowError = New System.Windows.Forms.MenuItem()
+        Me.RunTest = New System.Windows.Forms.MenuItem()
         Me.lblTitle = New System.Windows.Forms.Label()
         Me.flpNavButtons = New System.Windows.Forms.FlowLayoutPanel()
         Me.grpQuickAccess = New System.Windows.Forms.GroupBox()
@@ -184,14 +184,14 @@ Partial Class IAIPNavigation
         'TestingMenu
         '
         Me.TestingMenu.Index = 4
-        Me.TestingMenu.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.TestThrowError})
+        Me.TestingMenu.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.RunTest})
         Me.TestingMenu.Text = "T&esting"
         Me.TestingMenu.Visible = False
         '
-        'TestThrowError
+        'RunTest
         '
-        Me.TestThrowError.Index = 0
-        Me.TestThrowError.Text = "Throw error"
+        Me.RunTest.Index = 0
+        Me.RunTest.Text = "Run test"
         '
         'lblTitle
         '
@@ -847,7 +847,7 @@ Partial Class IAIPNavigation
     Private WithEvents bgrUserPermissions As System.ComponentModel.BackgroundWorker
     Friend WithEvents dgvWorkViewer As System.Windows.Forms.DataGridView
     Friend WithEvents NavWorkListChangerPanel As System.Windows.Forms.Panel
-    Friend WithEvents TestThrowError As System.Windows.Forms.MenuItem
+    Friend WithEvents RunTest As System.Windows.Forms.MenuItem
     Friend WithEvents ProfileMenuItem As System.Windows.Forms.MenuItem
     Friend WithEvents UpdateProfile As System.Windows.Forms.MenuItem
     Friend WithEvents ChangePassword As System.Windows.Forms.MenuItem
