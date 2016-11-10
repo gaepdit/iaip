@@ -1032,7 +1032,7 @@ Public Class SBEAPCaseWork
     End Sub
 
     Private Sub UpdateCaseLog(Origin As String)
-        Dim SQL As String
+        Dim SQL As String = ""
         Dim SQL2 As String
 
         Try
