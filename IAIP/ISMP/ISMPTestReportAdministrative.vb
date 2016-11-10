@@ -2309,17 +2309,8 @@ Public Class ISMPTestReportAdministrative
 
     End Sub
     Private Sub mmiAddPollutant_Click(sender As Object, e As EventArgs) Handles mmiAddPollutant.Click
-        Try
-
-            ISMPAddPollutant = Nothing
-            If ISMPAddPollutant Is Nothing Then ISMPAddPollutant = New ISMPAddPollutants
-            ISMPAddPollutant.Show()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
+        Dim ISMPAddPollutant As New ISMPAddPollutants
+        ISMPAddPollutant.Show()
     End Sub
     Private Sub mmiRefreshLists_Click(sender As Object, e As EventArgs) Handles mmiRefreshLists.Click
         Try

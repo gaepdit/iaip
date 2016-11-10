@@ -924,6 +924,8 @@ Public Class IAIPNavigation
 #Region " Testing Menu click events "
 
     Private Sub RunTest_Click(sender As Object, e As EventArgs) Handles RunTest.Click
+        Dim ISMPAddPollutant As New ISMPAddPollutants
+        ISMPAddPollutant.Show()
         'Throw New Exception("Unhandled exception testing")
     End Sub
 

@@ -82,7 +82,6 @@ Module AppVariables
 #Region " ISMP Screens "
     Public ISMPMemoEdit As ISMPMemo
     Public ISMPNotificationLogForm As ISMPNotificationLog
-    Public ISMPAddPollutant As ISMPAddPollutants
     Public ISMPAddTestingFirm As ISMPAddTestingFirms
     Public ISMPConfidential As ISMPConfidentialData
     Public TestFirmComments As ISMPTestFirmComments
