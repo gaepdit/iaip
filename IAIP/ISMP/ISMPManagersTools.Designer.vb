@@ -1,4 +1,4 @@
-<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class ISMPManagersTools
     Inherits BaseForm
 
@@ -13,7 +13,7 @@ Partial Class ISMPManagersTools
 
     End Sub
 
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overloads Overrides Sub Dispose(ByVal disposing As Boolean)
         If disposing Then
             If Not (components Is Nothing) Then
@@ -153,8 +153,6 @@ Partial Class ISMPManagersTools
     Friend WithEvents DataGridBoolColumn1 As System.Windows.Forms.DataGridBoolColumn
     Friend WithEvents DataGridTextBoxColumn2 As System.Windows.Forms.DataGridTextBoxColumn
     Friend WithEvents DataGridTextBoxColumn1 As System.Windows.Forms.DataGridTextBoxColumn
-    Friend WithEvents chbOneStack3Runs As System.Windows.Forms.CheckBox
-    Friend WithEvents chbOneStack2Runs As System.Windows.Forms.CheckBox
     Friend WithEvents MmiAllNoDoc As System.Windows.Forms.MenuItem
     Friend WithEvents MmiAllMethod22 As System.Windows.Forms.MenuItem
     Friend WithEvents MmiAllMethod9Multi As System.Windows.Forms.MenuItem
@@ -228,29 +226,10 @@ Partial Class ISMPManagersTools
     Friend WithEvents PanelReportAssignment As System.Windows.Forms.Panel
     Friend WithEvents cboEngineer As System.Windows.Forms.ComboBox
     Friend WithEvents Label1 As System.Windows.Forms.Label
-    Friend WithEvents Label100 As System.Windows.Forms.Label
-    Friend WithEvents chbMemorandum As System.Windows.Forms.CheckBox
-    Friend WithEvents chbMethod9Multi As System.Windows.Forms.CheckBox
-    Friend WithEvents chbTwoStackDRE As System.Windows.Forms.CheckBox
-    Friend WithEvents chbTwoStack As System.Windows.Forms.CheckBox
-    Friend WithEvents chbOneStack4Runs As System.Windows.Forms.CheckBox
-    Friend WithEvents chbMethod9Single As System.Windows.Forms.CheckBox
-    Friend WithEvents chbMethod22 As System.Windows.Forms.CheckBox
-    Friend WithEvents chbTreatmentPonds As System.Windows.Forms.CheckBox
-    Friend WithEvents chbGasTests As System.Windows.Forms.CheckBox
-    Friend WithEvents chbRATA As System.Windows.Forms.CheckBox
-    Friend WithEvents chbMemorandumToFile As System.Windows.Forms.CheckBox
-    Friend WithEvents chbPTE As System.Windows.Forms.CheckBox
-    Friend WithEvents chbLoadingRack As System.Windows.Forms.CheckBox
-    Friend WithEvents chbFlare As System.Windows.Forms.CheckBox
-    Friend WithEvents Label101 As System.Windows.Forms.Label
-    Friend WithEvents Label102 As System.Windows.Forms.Label
-    Friend WithEvents chbPEMS As System.Windows.Forms.CheckBox
     Friend WithEvents btnRunReport As System.Windows.Forms.Button
     Friend WithEvents txtReportText As System.Windows.Forms.RichTextBox
     Friend WithEvents txtOutOfComplianceReport As System.Windows.Forms.RichTextBox
     Friend WithEvents TCManagersTools As System.Windows.Forms.TabControl
-    Friend WithEvents TPAIRSReportsPrinted As System.Windows.Forms.TabPage
     Friend WithEvents TPMonthlyReport As System.Windows.Forms.TabPage
     Friend WithEvents TPReportAssignment As System.Windows.Forms.TabPage
     Friend WithEvents PanelManagersTools As System.Windows.Forms.Panel
@@ -435,27 +414,6 @@ Partial Class ISMPManagersTools
         Me.Label123 = New System.Windows.Forms.Label()
         Me.DTPUnitStatsEndDate = New System.Windows.Forms.DateTimePicker()
         Me.DTPUnitStatsStartDate = New System.Windows.Forms.DateTimePicker()
-        Me.TPAIRSReportsPrinted = New System.Windows.Forms.TabPage()
-        Me.chbOneStack3Runs = New System.Windows.Forms.CheckBox()
-        Me.chbPEMS = New System.Windows.Forms.CheckBox()
-        Me.Label102 = New System.Windows.Forms.Label()
-        Me.Label101 = New System.Windows.Forms.Label()
-        Me.chbFlare = New System.Windows.Forms.CheckBox()
-        Me.chbLoadingRack = New System.Windows.Forms.CheckBox()
-        Me.chbPTE = New System.Windows.Forms.CheckBox()
-        Me.chbMemorandumToFile = New System.Windows.Forms.CheckBox()
-        Me.chbRATA = New System.Windows.Forms.CheckBox()
-        Me.chbGasTests = New System.Windows.Forms.CheckBox()
-        Me.chbTreatmentPonds = New System.Windows.Forms.CheckBox()
-        Me.chbMethod22 = New System.Windows.Forms.CheckBox()
-        Me.chbMethod9Single = New System.Windows.Forms.CheckBox()
-        Me.chbOneStack4Runs = New System.Windows.Forms.CheckBox()
-        Me.chbTwoStack = New System.Windows.Forms.CheckBox()
-        Me.chbTwoStackDRE = New System.Windows.Forms.CheckBox()
-        Me.chbMethod9Multi = New System.Windows.Forms.CheckBox()
-        Me.chbMemorandum = New System.Windows.Forms.CheckBox()
-        Me.Label100 = New System.Windows.Forms.Label()
-        Me.chbOneStack2Runs = New System.Windows.Forms.CheckBox()
         Me.TPEngineerTestReport = New System.Windows.Forms.TabPage()
         Me.Splitter9 = New System.Windows.Forms.Splitter()
         Me.GroupBox14 = New System.Windows.Forms.GroupBox()
@@ -566,7 +524,6 @@ Partial Class ISMPManagersTools
         CType(Me.dgvUnitStats, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel15.SuspendLayout()
         Me.Panel13.SuspendLayout()
-        Me.TPAIRSReportsPrinted.SuspendLayout()
         Me.TPEngineerTestReport.SuspendLayout()
         Me.GroupBox14.SuspendLayout()
         Me.PanelDate.SuspendLayout()
@@ -1207,7 +1164,6 @@ Partial Class ISMPManagersTools
         '
         Me.TCManagersTools.Controls.Add(Me.TPReportAssignment)
         Me.TCManagersTools.Controls.Add(Me.TPUnitStatistics2)
-        Me.TCManagersTools.Controls.Add(Me.TPAIRSReportsPrinted)
         Me.TCManagersTools.Controls.Add(Me.TPEngineerTestReport)
         Me.TCManagersTools.Controls.Add(Me.TPMonthlyReport)
         Me.TCManagersTools.Controls.Add(Me.TPMiscTools)
@@ -1316,6 +1272,7 @@ Partial Class ISMPManagersTools
         '
         Me.cboEngineer.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboEngineer.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboEngineer.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboEngineer.Location = New System.Drawing.Point(8, 32)
         Me.cboEngineer.Name = "cboEngineer"
         Me.cboEngineer.Size = New System.Drawing.Size(144, 21)
@@ -1595,195 +1552,6 @@ Partial Class ISMPManagersTools
         Me.DTPUnitStatsStartDate.Size = New System.Drawing.Size(104, 20)
         Me.DTPUnitStatsStartDate.TabIndex = 98
         Me.DTPUnitStatsStartDate.Value = New Date(2005, 8, 23, 0, 0, 0, 0)
-        '
-        'TPAIRSReportsPrinted
-        '
-        Me.TPAIRSReportsPrinted.Controls.Add(Me.chbOneStack3Runs)
-        Me.TPAIRSReportsPrinted.Controls.Add(Me.chbPEMS)
-        Me.TPAIRSReportsPrinted.Controls.Add(Me.Label102)
-        Me.TPAIRSReportsPrinted.Controls.Add(Me.Label101)
-        Me.TPAIRSReportsPrinted.Controls.Add(Me.chbFlare)
-        Me.TPAIRSReportsPrinted.Controls.Add(Me.chbLoadingRack)
-        Me.TPAIRSReportsPrinted.Controls.Add(Me.chbPTE)
-        Me.TPAIRSReportsPrinted.Controls.Add(Me.chbMemorandumToFile)
-        Me.TPAIRSReportsPrinted.Controls.Add(Me.chbRATA)
-        Me.TPAIRSReportsPrinted.Controls.Add(Me.chbGasTests)
-        Me.TPAIRSReportsPrinted.Controls.Add(Me.chbTreatmentPonds)
-        Me.TPAIRSReportsPrinted.Controls.Add(Me.chbMethod22)
-        Me.TPAIRSReportsPrinted.Controls.Add(Me.chbMethod9Single)
-        Me.TPAIRSReportsPrinted.Controls.Add(Me.chbOneStack4Runs)
-        Me.TPAIRSReportsPrinted.Controls.Add(Me.chbTwoStack)
-        Me.TPAIRSReportsPrinted.Controls.Add(Me.chbTwoStackDRE)
-        Me.TPAIRSReportsPrinted.Controls.Add(Me.chbMethod9Multi)
-        Me.TPAIRSReportsPrinted.Controls.Add(Me.chbMemorandum)
-        Me.TPAIRSReportsPrinted.Controls.Add(Me.Label100)
-        Me.TPAIRSReportsPrinted.Controls.Add(Me.chbOneStack2Runs)
-        Me.TPAIRSReportsPrinted.Location = New System.Drawing.Point(4, 22)
-        Me.TPAIRSReportsPrinted.Name = "TPAIRSReportsPrinted"
-        Me.TPAIRSReportsPrinted.Size = New System.Drawing.Size(1134, 736)
-        Me.TPAIRSReportsPrinted.TabIndex = 5
-        Me.TPAIRSReportsPrinted.Text = "AIRS Reports Printed"
-        Me.TPAIRSReportsPrinted.UseVisualStyleBackColor = True
-        '
-        'chbOneStack3Runs
-        '
-        Me.chbOneStack3Runs.Location = New System.Drawing.Point(16, 120)
-        Me.chbOneStack3Runs.Name = "chbOneStack3Runs"
-        Me.chbOneStack3Runs.Size = New System.Drawing.Size(232, 24)
-        Me.chbOneStack3Runs.TabIndex = 40
-        Me.chbOneStack3Runs.Text = "One Stack (3-Runs)"
-        '
-        'chbPEMS
-        '
-        Me.chbPEMS.Location = New System.Drawing.Point(248, 264)
-        Me.chbPEMS.Name = "chbPEMS"
-        Me.chbPEMS.Size = New System.Drawing.Size(232, 24)
-        Me.chbPEMS.TabIndex = 39
-        Me.chbPEMS.Text = "PEMS"
-        '
-        'Label102
-        '
-        Me.Label102.Location = New System.Drawing.Point(16, 48)
-        Me.Label102.Name = "Label102"
-        Me.Label102.Size = New System.Drawing.Size(376, 23)
-        Me.Label102.TabIndex = 38
-        Me.Label102.Text = "Boxes with check marks will not be printed out. "
-        '
-        'Label101
-        '
-        Me.Label101.Location = New System.Drawing.Point(16, 72)
-        Me.Label101.Name = "Label101"
-        Me.Label101.Size = New System.Drawing.Size(336, 23)
-        Me.Label101.TabIndex = 37
-        Me.Label101.Text = "Forms without a check mark will generate an AIRS form."
-        '
-        'chbFlare
-        '
-        Me.chbFlare.Location = New System.Drawing.Point(248, 240)
-        Me.chbFlare.Name = "chbFlare"
-        Me.chbFlare.Size = New System.Drawing.Size(232, 24)
-        Me.chbFlare.TabIndex = 36
-        Me.chbFlare.Text = "Flare"
-        '
-        'chbLoadingRack
-        '
-        Me.chbLoadingRack.Location = New System.Drawing.Point(248, 168)
-        Me.chbLoadingRack.Name = "chbLoadingRack"
-        Me.chbLoadingRack.Size = New System.Drawing.Size(232, 24)
-        Me.chbLoadingRack.TabIndex = 35
-        Me.chbLoadingRack.Text = "Loading Rack (DRE)"
-        '
-        'chbPTE
-        '
-        Me.chbPTE.Location = New System.Drawing.Point(248, 192)
-        Me.chbPTE.Name = "chbPTE"
-        Me.chbPTE.Size = New System.Drawing.Size(232, 24)
-        Me.chbPTE.TabIndex = 34
-        Me.chbPTE.Text = "PTE (Perminate Total Enclosure)"
-        '
-        'chbMemorandumToFile
-        '
-        Me.chbMemorandumToFile.Location = New System.Drawing.Point(16, 288)
-        Me.chbMemorandumToFile.Name = "chbMemorandumToFile"
-        Me.chbMemorandumToFile.Size = New System.Drawing.Size(232, 24)
-        Me.chbMemorandumToFile.TabIndex = 33
-        Me.chbMemorandumToFile.Text = "Memorandum To File"
-        '
-        'chbRATA
-        '
-        Me.chbRATA.Location = New System.Drawing.Point(248, 216)
-        Me.chbRATA.Name = "chbRATA"
-        Me.chbRATA.Size = New System.Drawing.Size(232, 24)
-        Me.chbRATA.TabIndex = 32
-        Me.chbRATA.Text = "RATA"
-        '
-        'chbGasTests
-        '
-        Me.chbGasTests.Location = New System.Drawing.Point(248, 96)
-        Me.chbGasTests.Name = "chbGasTests"
-        Me.chbGasTests.Size = New System.Drawing.Size(232, 24)
-        Me.chbGasTests.TabIndex = 31
-        Me.chbGasTests.Text = "Gas Tests"
-        '
-        'chbTreatmentPonds
-        '
-        Me.chbTreatmentPonds.Location = New System.Drawing.Point(248, 120)
-        Me.chbTreatmentPonds.Name = "chbTreatmentPonds"
-        Me.chbTreatmentPonds.Size = New System.Drawing.Size(232, 24)
-        Me.chbTreatmentPonds.TabIndex = 30
-        Me.chbTreatmentPonds.Text = "Treatment Ponds"
-        '
-        'chbMethod22
-        '
-        Me.chbMethod22.Location = New System.Drawing.Point(248, 144)
-        Me.chbMethod22.Name = "chbMethod22"
-        Me.chbMethod22.Size = New System.Drawing.Size(232, 24)
-        Me.chbMethod22.TabIndex = 29
-        Me.chbMethod22.Text = "Method 22"
-        '
-        'chbMethod9Single
-        '
-        Me.chbMethod9Single.Location = New System.Drawing.Point(16, 216)
-        Me.chbMethod9Single.Name = "chbMethod9Single"
-        Me.chbMethod9Single.Size = New System.Drawing.Size(232, 24)
-        Me.chbMethod9Single.TabIndex = 28
-        Me.chbMethod9Single.Text = "Method 9 (Single)"
-        '
-        'chbOneStack4Runs
-        '
-        Me.chbOneStack4Runs.Location = New System.Drawing.Point(16, 144)
-        Me.chbOneStack4Runs.Name = "chbOneStack4Runs"
-        Me.chbOneStack4Runs.Size = New System.Drawing.Size(232, 24)
-        Me.chbOneStack4Runs.TabIndex = 27
-        Me.chbOneStack4Runs.Text = "One Stack (4-Runs)"
-        '
-        'chbTwoStack
-        '
-        Me.chbTwoStack.Location = New System.Drawing.Point(16, 168)
-        Me.chbTwoStack.Name = "chbTwoStack"
-        Me.chbTwoStack.Size = New System.Drawing.Size(232, 24)
-        Me.chbTwoStack.TabIndex = 26
-        Me.chbTwoStack.Text = "Two Stack (Standard)"
-        '
-        'chbTwoStackDRE
-        '
-        Me.chbTwoStackDRE.Location = New System.Drawing.Point(16, 192)
-        Me.chbTwoStackDRE.Name = "chbTwoStackDRE"
-        Me.chbTwoStackDRE.Size = New System.Drawing.Size(232, 24)
-        Me.chbTwoStackDRE.TabIndex = 25
-        Me.chbTwoStackDRE.Text = "Two Stack DRE"
-        '
-        'chbMethod9Multi
-        '
-        Me.chbMethod9Multi.Location = New System.Drawing.Point(16, 240)
-        Me.chbMethod9Multi.Name = "chbMethod9Multi"
-        Me.chbMethod9Multi.Size = New System.Drawing.Size(232, 24)
-        Me.chbMethod9Multi.TabIndex = 24
-        Me.chbMethod9Multi.Text = "Method 9 (Multi)"
-        '
-        'chbMemorandum
-        '
-        Me.chbMemorandum.Location = New System.Drawing.Point(16, 264)
-        Me.chbMemorandum.Name = "chbMemorandum"
-        Me.chbMemorandum.Size = New System.Drawing.Size(232, 24)
-        Me.chbMemorandum.TabIndex = 23
-        Me.chbMemorandum.Text = "Memorandum (Standard)"
-        '
-        'Label100
-        '
-        Me.Label100.Location = New System.Drawing.Point(16, 24)
-        Me.Label100.Name = "Label100"
-        Me.Label100.Size = New System.Drawing.Size(400, 23)
-        Me.Label100.TabIndex = 21
-        Me.Label100.Text = "Select which Report Types will not have an AIRS Form Printed Out "
-        '
-        'chbOneStack2Runs
-        '
-        Me.chbOneStack2Runs.Location = New System.Drawing.Point(16, 96)
-        Me.chbOneStack2Runs.Name = "chbOneStack2Runs"
-        Me.chbOneStack2Runs.Size = New System.Drawing.Size(232, 24)
-        Me.chbOneStack2Runs.TabIndex = 20
-        Me.chbOneStack2Runs.Text = "One Stack (2-Runs)"
         '
         'TPEngineerTestReport
         '
@@ -2845,7 +2613,6 @@ Partial Class ISMPManagersTools
         Me.Panel15.PerformLayout()
         Me.Panel13.ResumeLayout(False)
         Me.Panel13.PerformLayout()
-        Me.TPAIRSReportsPrinted.ResumeLayout(False)
         Me.TPEngineerTestReport.ResumeLayout(False)
         Me.GroupBox14.ResumeLayout(False)
         Me.PanelDate.ResumeLayout(False)
@@ -2879,5 +2646,4 @@ Partial Class ISMPManagersTools
         Me.PerformLayout()
 
     End Sub
-
 End Class
