@@ -1809,9 +1809,7 @@ Public Class ISMPTestReportAdministrative
     End Sub
     Private Sub mmiAddTestingFirm_Click(sender As Object, e As EventArgs) Handles mmiAddTestingFirm.Click
         Try
-
-            ISMPAddTestingFirm = Nothing
-            If ISMPAddTestingFirm Is Nothing Then ISMPAddTestingFirm = New ISMPAddTestingFirms
+            Dim ISMPAddTestingFirm As New ISMPAddTestingFirms
             ISMPAddTestingFirm.Show()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)

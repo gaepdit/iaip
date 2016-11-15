@@ -1,25 +1,14 @@
 Imports System.Data.SqlClient
 
-
 Public Class ISMPAddTestingFirms
-    Inherits BaseForm
-    Dim statusBar1 As New StatusBar
-    Dim panel1 As New StatusBarPanel
-    Dim panel2 As New StatusBarPanel
-    Dim panel3 As New StatusBarPanel
-    Dim SQL As String
-    Dim cmd As SqlCommand
-    Dim dr As SqlDataReader
-    Dim recExist As Boolean
-    Dim dsTestingFirms As DataSet
-    Dim daTestingFirms As SqlDataAdapter
+    Dim query As String
 
+#Region "Page Load"
 
-    Private Sub ISMPAddTestingFirms_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub ISMPAddTestingFirms_Load(sender As Object, e As EventArgs) Handles Me.Load
 
         Try
 
-            CreateStatusBar()
             LoadDataSet()
             FormatdgrTestingFirms()
         Catch ex As Exception
@@ -30,48 +19,10 @@ Public Class ISMPAddTestingFirms
 
     End Sub
 
-#Region "Page Load"
-    Sub CreateStatusBar()
+    Private Sub LoadDataSet()
         Try
 
-            panel1.Text = "Select a Function..."
-            panel2.Text = CurrentUser.AlphaName
-            panel3.Text = TodayFormatted
-
-            panel1.AutoSize = StatusBarPanelAutoSize.Spring
-            panel2.AutoSize = StatusBarPanelAutoSize.Contents
-            panel3.AutoSize = StatusBarPanelAutoSize.Contents
-
-            panel1.BorderStyle = StatusBarPanelBorderStyle.Sunken
-            panel2.BorderStyle = StatusBarPanelBorderStyle.Sunken
-            panel3.BorderStyle = StatusBarPanelBorderStyle.Sunken
-
-            panel1.Alignment = HorizontalAlignment.Left
-            panel2.Alignment = HorizontalAlignment.Left
-            panel3.Alignment = HorizontalAlignment.Right
-
-            ' Display panels in the StatusBar control.
-            statusBar1.ShowPanels = True
-
-            ' Add both panels to the StatusBarPanelCollection of the StatusBar.            
-            statusBar1.Panels.Add(panel1)
-            statusBar1.Panels.Add(panel2)
-            statusBar1.Panels.Add(panel3)
-
-            ' Add the StatusBar to the form.
-            Me.Controls.Add(statusBar1)
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-
-    End Sub
-    Sub LoadDataSet()
-        Try
-
-            SQL = "Select strTestingFirmKey, strTestingFirm, " &
+            query = "Select strTestingFirmKey, strTestingFirm, " &
                  "strFirmAddress1, strFirmAddress2, " &
                  "strFirmCity, strFirmState, " &
                  "strFirmZipCode, strFirmPhoneNumber1, " &
@@ -79,17 +30,9 @@ Public Class ISMPAddTestingFirms
                  "from LookUPTestingFirms " &
                  "Order by strTestingFirm "
 
-            dsTestingFirms = New DataSet
-
-            daTestingFirms = New SqlDataAdapter(SQL, CurrentConnection)
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            daTestingFirms.Fill(dsTestingFirms, "TestingFirms")
-            dgrTestingFirms.DataSource = dsTestingFirms
-            dgrTestingFirms.DataMember = "TestingFirms"
+            Dim dt As DataTable = DB.GetDataTable(query)
+            dt.TableName = "TestingFirms"
+            dgrTestingFirms.DataSource = dt
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -98,13 +41,12 @@ Public Class ISMPAddTestingFirms
         End Try
 
     End Sub
-    Sub FormatdgrTestingFirms()
+    Private Sub FormatdgrTestingFirms()
         Try
 
             'Formatting our DataGrid
             Dim objGrid As New DataGridTableStyle
             Dim objtextcol As New DataGridTextBoxColumn
-            'Dim objDateCol As New DataGridTimePickerColumn
 
             objGrid.AlternatingBackColor = Color.WhiteSmoke
             objGrid.MappingName = "TestingFirms"
@@ -206,16 +148,12 @@ Public Class ISMPAddTestingFirms
         End Try
 
     End Sub
+
 #End Region
 
-
-#Region "Functions and Subs"
-    Sub LoadTestingFirmInfo()
-        Dim dtTestingFirms As New DataTable
+    Private Sub LoadTestingFirmInfo()
         Try
-
-            dtTestingFirms = dsTestingFirms.Tables("TestingFirms")
-
+            Dim dtTestingFirms As DataTable = CType(dgrTestingFirms.DataSource, DataTable)
             Dim drTestingFirms As DataRow()
             Dim row As DataRow
 
@@ -279,17 +217,13 @@ Public Class ISMPAddTestingFirms
 
 
     End Sub
-    Sub GetNextKey()
+    Private Sub GetNextKey()
         Dim TestingFirmKey As String
         Dim newTestingFirmKey As String
         Try
 
             TestingFirmKey = "00001"
             newTestingFirmKey = "00000"
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
 
             Do Until newTestingFirmKey <> "00000"
                 Select Case TestingFirmKey.Length
@@ -305,13 +239,13 @@ Public Class ISMPAddTestingFirms
                         ' TestingFirmKey = TestingFirmKey
                 End Select
 
-                SQL = "Select strTestingfirmKey " &
+                query = "Select strTestingfirmKey " &
                 "from LookUPTestingFirms " &
-                "where strTestingFirmKey = '" & TestingFirmKey & "' "
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-                If recExist = True Then
+                "where strTestingFirmKey = @key "
+
+                Dim p As New SqlParameter("@key", TestingFirmKey)
+
+                If DB.ValueExists(query, p) Then
                     TestingFirmKey += 1
                 Else
                     newTestingFirmKey = TestingFirmKey
@@ -342,7 +276,7 @@ Public Class ISMPAddTestingFirms
 
 
     End Sub
-    Sub Save()
+    Private Sub Save()
         Dim TestingFirm As String = ""
         Dim TestingFirmAddress1 As String = ""
         Dim TestingFirmAddress2 As String = ""
@@ -358,27 +292,27 @@ Public Class ISMPAddTestingFirms
         Try
 
             If txtTestingFirm.Text <> "" Then
-                TestingFirm = Replace(txtTestingFirm.Text, "'", "''")
+                TestingFirm = txtTestingFirm.Text
             Else
                 TestingFirm = "N/A"
             End If
             If txtTestingFirmAddress1.Text <> "" Then
-                TestingFirmAddress1 = Replace(txtTestingFirmAddress1.Text, "'", "''")
+                TestingFirmAddress1 = txtTestingFirmAddress1.Text
             Else
                 TestingFirmAddress1 = "N/A"
             End If
             If txtTestingFirmAddress2.Text <> "" Then
-                TestingFirmAddress2 = Replace(txtTestingFirmAddress2.Text, "'", "''")
+                TestingFirmAddress2 = txtTestingFirmAddress2.Text
             Else
                 TestingFirmAddress2 = "N/A"
             End If
             If txtTestingFirmCity.Text <> "" Then
-                TestingFirmCity = Replace(txtTestingFirmCity.Text, "'", "''")
+                TestingFirmCity = txtTestingFirmCity.Text
             Else
                 TestingFirmCity = "N/A"
             End If
             If txtTestingFirmState.Text <> "" Then
-                TestingFirmState = Replace(txtTestingFirmState.Text, "'", "''")
+                TestingFirmState = txtTestingFirmState.Text
             Else
                 TestingFirmState = "GA"
             End If
@@ -432,7 +366,7 @@ Public Class ISMPAddTestingFirms
                 TestingFirmFaxNumber = "N/A"
             End If
             If txtTestingFirmEmail.Text <> "" Then
-                TestingFirmEmail = Replace(txtTestingFirmEmail.Text, "'", "''")
+                TestingFirmEmail = txtTestingFirmEmail.Text
             Else
                 TestingFirmEmail = "N/A"
             End If
@@ -442,34 +376,27 @@ Public Class ISMPAddTestingFirms
                     GetNextKey()
                 End If
 
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                If chbDeleteTestingFirm.Checked = True Then
-                    SQL = "Delete LookUPTestingFirms " &
-                    "where strTestingFirmKey = '" & txtTestingFirmKey.Text & "'"
+                query = "Select strTestingFirmKey " &
+                "from LookUPTestingFirms " &
+                "where strTestingFirmKey = @key "
+
+                Dim p As New SqlParameter("@key", txtTestingFirmKey.Text)
+
+                If DB.ValueExists(query, p) Then
+                    query = "Update LookUPTestingFirms set " &
+                        "strTestingFirm = @strTestingFirm, " &
+                        "strFirmAddress1 = @strFirmAddress1, " &
+                        "strFirmAddress2 = @strFirmAddress2, " &
+                        "strFirmCity = @strFirmCity, " &
+                        "strFirmState = @strFirmState, " &
+                        "strFirmZipCode = @strFirmZipCode, " &
+                        "strFirmphoneNumber1 = @strFirmphoneNumber1, " &
+                        "strFirmPhoneNumber2 = @strFirmPhoneNumber2, " &
+                        "strFirmFax = @strFirmFax, " &
+                        "strFirmEmail = @strFirmEmail " &
+                        "where strTestingFirmKey = @strTestingFirmKey "
                 Else
-                    SQL = "Select strTestingFirmKey " &
-                    "from LookUPTestingFirms " &
-                    "where strTestingFirmKey = '" & txtTestingFirmKey.Text & "'"
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    dr = cmd.ExecuteReader
-                    recExist = dr.Read
-                    If recExist = True Then
-                        SQL = "Update LookUPTestingFirms set " &
-                        "strTestingFirm = '" & TestingFirm & "', " &
-                        "strFirmAddress1 = '" & TestingFirmAddress1 & "', " &
-                        "strFirmAddress2 = '" & TestingFirmAddress2 & "', " &
-                        "strFirmCity = '" & TestingFirmCity & "', " &
-                        "strFirmState = '" & TestingFirmState & "', " &
-                        "strFirmZipCode = '" & TestingFirmZipCode & "', " &
-                        "strFirmphoneNumber1 = '" & TestingFirmPhoneNumber1 & "', " &
-                        "strFirmPhoneNumber2 = '" & TestingFirmPhoneNumber2 & "', " &
-                        "strFirmFax = '" & TestingFirmFaxNumber & "', " &
-                        "strFirmEmail = '" & TestingFirmEmail & "' " &
-                        "where strTestingFirmKey = '" & txtTestingFirmKey.Text & "' "
-                    Else
-                        SQL = "Insert into LookUPTestingFirms " &
+                    query = "Insert into LookUPTestingFirms " &
                         "(strTestingFirmKey, strTestingFirm, " &
                         "strFirmAddress1, strFirmAddress2, " &
                         "strFirmCity, strFirmState, " &
@@ -477,19 +404,31 @@ Public Class ISMPAddTestingFirms
                         "strFirmPhoneNumber2, strFirmFax, " &
                         "strFirmEmail) " &
                         "values " &
-                        "('" & txtTestingFirmKey.Text & "', '" & TestingFirm & "', " &
-                        "'" & TestingFirmAddress1 & "', '" & TestingFirmAddress2 & "', " &
-                        "'" & TestingFirmCity & "', '" & TestingFirmState & "', " &
-                        "'" & TestingFirmZipCode & "', '" & TestingFirmPhoneNumber1 & "', " &
-                        "'" & TestingFirmPhoneNumber2 & "', '" & TestingFirmFaxNumber & "', " &
-                        "'" & TestingFirmEmail & "') "
-                    End If
+                        "(@strTestingFirmKey, @strTestingFirm, " &
+                        "@strFirmAddress1, @strFirmAddress2, " &
+                        "@strFirmCity, @strFirmState, " &
+                        "@strFirmZipCode, @strFirmPhoneNumber1, " &
+                        "@strFirmPhoneNumber2, @strFirmFax, " &
+                        "@strFirmEmail) "
                 End If
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                dr = cmd.ExecuteReader
+
+                Dim p2 As SqlParameter() = {
+                    New SqlParameter("@strTestingFirm", TestingFirm),
+                    New SqlParameter("@strFirmAddress1", TestingFirmAddress1),
+                    New SqlParameter("@strFirmAddress2", TestingFirmAddress2),
+                    New SqlParameter("@strFirmCity", TestingFirmCity),
+                    New SqlParameter("@strFirmState", TestingFirmState),
+                    New SqlParameter("@strFirmZipCode", TestingFirmZipCode),
+                    New SqlParameter("@strFirmphoneNumber1", TestingFirmPhoneNumber1),
+                    New SqlParameter("@strFirmPhoneNumber2", TestingFirmPhoneNumber2),
+                    New SqlParameter("@strFirmFax", TestingFirmFaxNumber),
+                    New SqlParameter("@strFirmEmail", TestingFirmEmail),
+                    New SqlParameter("@strTestingFirmKey", txtTestingFirmKey.Text)
+                }
+
+                DB.RunCommand(query, p2)
 
                 LoadDataSet()
-
 
             End If
 
@@ -500,7 +439,7 @@ Public Class ISMPAddTestingFirms
         End Try
 
     End Sub
-    Sub Clear()
+    Private Sub Clear()
         Try
 
             txtTestingFirmKey.Clear()
@@ -517,7 +456,6 @@ Public Class ISMPAddTestingFirms
             txtTestingFirmPhoneNumber2.Clear()
             txtTestingFirmFaxNumber.Clear()
             txtTestingFirmEmail.Clear()
-            chbDeleteTestingFirm.Checked = False
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -525,30 +463,7 @@ Public Class ISMPAddTestingFirms
         End Try
 
     End Sub
-    Sub Back()
-        Try
 
-            ISMPAddTestingFirm = Nothing
-            Me.Close()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-#End Region
-    Private Sub ISMPAddTestingFirms_Closing(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
-        Try
-
-            ISMPAddTestingFirm = Nothing
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
     Private Sub dgrTestingFirms_MouseUp(sender As Object, e As MouseEventArgs) Handles dgrTestingFirms.MouseUp
         Dim hti As DataGrid.HitTestInfo = dgrTestingFirms.HitTest(e.X, e.Y)
 
@@ -620,50 +535,6 @@ Public Class ISMPAddTestingFirms
         End Try
 
     End Sub
-    Private Sub MmiBack_Click(sender As Object, e As EventArgs) Handles MmiBack.Click
-        Try
-
-            Back()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub mmiCut_Click(sender As Object, e As EventArgs) Handles mmiCut.Click
-        Try
-
-            SendKeys.Send("(^X)")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub mmiCopy_Click(sender As Object, e As EventArgs) Handles mmiCopy.Click
-        Try
-
-            SendKeys.Send("(^C)")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub mmiPaste_Click(sender As Object, e As EventArgs) Handles mmiPaste.Click
-        Try
-
-            SendKeys.Send("(^V)")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
     Private Sub mmiClear_Click(sender As Object, e As EventArgs) Handles mmiClear.Click
         Try
 
@@ -675,9 +546,7 @@ Public Class ISMPAddTestingFirms
         End Try
 
     End Sub
-    Private Sub mmiHelp_Click(sender As Object, e As EventArgs) Handles mmiHelp.Click
-        OpenDocumentationUrl(Me)
-    End Sub
+
 #End Region
 
     Private Sub TBAddTestingFirm_ButtonClick(sender As Object, e As ToolBarButtonClickEventArgs) Handles TBAddTestingFirm.ButtonClick
@@ -688,8 +557,6 @@ Public Class ISMPAddTestingFirms
                     Save()
                 Case 1
                     Clear()
-                Case 2
-                    Back()
             End Select
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)

@@ -30,7 +30,6 @@ Partial Class ISMPAddTestingFirms
     Friend WithEvents Label8 As System.Windows.Forms.Label
     Friend WithEvents TBAddTestingFirm As System.Windows.Forms.ToolBar
     Friend WithEvents txtTestingFirmKey As System.Windows.Forms.TextBox
-    Friend WithEvents chbDeleteTestingFirm As System.Windows.Forms.CheckBox
     Friend WithEvents txtTestingFirmEmail As System.Windows.Forms.TextBox
     Friend WithEvents txtTestingFirmFaxNumber As System.Windows.Forms.TextBox
     Friend WithEvents txtTestingFirmPhoneNumber2 As System.Windows.Forms.TextBox
@@ -52,23 +51,9 @@ Partial Class ISMPAddTestingFirms
     Friend WithEvents txtTestingFirm As System.Windows.Forms.TextBox
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents dgrTestingFirms As System.Windows.Forms.DataGrid
-    Friend WithEvents Splitter1 As System.Windows.Forms.Splitter
     Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
-    Friend WithEvents tbbBack As System.Windows.Forms.ToolBarButton
     Friend WithEvents tbbClear As System.Windows.Forms.ToolBarButton
     Friend WithEvents tbbSave As System.Windows.Forms.ToolBarButton
-    Friend WithEvents mmiHelp As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiClear As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem11 As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiPaste As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiCopy As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiCut As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem2 As System.Windows.Forms.MenuItem
-    Friend WithEvents MmiBack As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem10 As System.Windows.Forms.MenuItem
-    Friend WithEvents MmiSave As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem1 As System.Windows.Forms.MenuItem
-    Friend WithEvents MainMenu1 As System.Windows.Forms.MainMenu
     Friend WithEvents Image_List_All As System.Windows.Forms.ImageList
     Private components As System.ComponentModel.IContainer
 
@@ -77,26 +62,12 @@ Partial Class ISMPAddTestingFirms
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(ISMPAddTestingFirms))
         Me.Image_List_All = New System.Windows.Forms.ImageList(Me.components)
-        Me.MainMenu1 = New System.Windows.Forms.MainMenu(Me.components)
-        Me.MenuItem1 = New System.Windows.Forms.MenuItem()
-        Me.MmiSave = New System.Windows.Forms.MenuItem()
-        Me.MenuItem10 = New System.Windows.Forms.MenuItem()
-        Me.MmiBack = New System.Windows.Forms.MenuItem()
-        Me.MenuItem2 = New System.Windows.Forms.MenuItem()
-        Me.mmiCut = New System.Windows.Forms.MenuItem()
-        Me.mmiCopy = New System.Windows.Forms.MenuItem()
-        Me.mmiPaste = New System.Windows.Forms.MenuItem()
-        Me.MenuItem11 = New System.Windows.Forms.MenuItem()
-        Me.mmiClear = New System.Windows.Forms.MenuItem()
-        Me.mmiHelp = New System.Windows.Forms.MenuItem()
         Me.TBAddTestingFirm = New System.Windows.Forms.ToolBar()
         Me.tbbSave = New System.Windows.Forms.ToolBarButton()
         Me.tbbClear = New System.Windows.Forms.ToolBarButton()
-        Me.tbbBack = New System.Windows.Forms.ToolBarButton()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.txtTestingFirmKey = New System.Windows.Forms.TextBox()
-        Me.chbDeleteTestingFirm = New System.Windows.Forms.CheckBox()
         Me.txtTestingFirmEmail = New System.Windows.Forms.TextBox()
         Me.txtTestingFirmFaxNumber = New System.Windows.Forms.TextBox()
         Me.txtTestingFirmPhoneNumber2 = New System.Windows.Forms.TextBox()
@@ -117,8 +88,12 @@ Partial Class ISMPAddTestingFirms
         Me.Label2 = New System.Windows.Forms.Label()
         Me.txtTestingFirm = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.Splitter1 = New System.Windows.Forms.Splitter()
         Me.dgrTestingFirms = New System.Windows.Forms.DataGrid()
+        Me.MmiSave = New System.Windows.Forms.MenuItem()
+        Me.MenuItem1 = New System.Windows.Forms.MenuItem()
+        Me.mmiClear = New System.Windows.Forms.MenuItem()
+        Me.MenuItem2 = New System.Windows.Forms.MenuItem()
+        Me.MainMenu1 = New System.Windows.Forms.MainMenu(Me.components)
         Me.GroupBox1.SuspendLayout()
         CType(Me.dgrTestingFirms, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -213,70 +188,9 @@ Partial Class ISMPAddTestingFirms
         Me.Image_List_All.Images.SetKeyName(83, "")
         Me.Image_List_All.Images.SetKeyName(84, "")
         '
-        'MainMenu1
-        '
-        Me.MainMenu1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MenuItem1, Me.MenuItem2, Me.mmiHelp})
-        '
-        'MenuItem1
-        '
-        Me.MenuItem1.Index = 0
-        Me.MenuItem1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MmiSave, Me.MenuItem10, Me.MmiBack})
-        Me.MenuItem1.Text = "File"
-        '
-        'MmiSave
-        '
-        Me.MmiSave.Index = 0
-        Me.MmiSave.Text = "Save"
-        '
-        'MenuItem10
-        '
-        Me.MenuItem10.Index = 1
-        Me.MenuItem10.Text = "-"
-        '
-        'MmiBack
-        '
-        Me.MmiBack.Index = 2
-        Me.MmiBack.Text = "Back"
-        '
-        'MenuItem2
-        '
-        Me.MenuItem2.Index = 1
-        Me.MenuItem2.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiCut, Me.mmiCopy, Me.mmiPaste, Me.MenuItem11, Me.mmiClear})
-        Me.MenuItem2.Text = "Edit"
-        '
-        'mmiCut
-        '
-        Me.mmiCut.Index = 0
-        Me.mmiCut.Text = "Cut"
-        '
-        'mmiCopy
-        '
-        Me.mmiCopy.Index = 1
-        Me.mmiCopy.Text = "Copy"
-        '
-        'mmiPaste
-        '
-        Me.mmiPaste.Index = 2
-        Me.mmiPaste.Text = "Paste"
-        '
-        'MenuItem11
-        '
-        Me.MenuItem11.Index = 3
-        Me.MenuItem11.Text = "-"
-        '
-        'mmiClear
-        '
-        Me.mmiClear.Index = 4
-        Me.mmiClear.Text = "Clear"
-        '
-        'mmiHelp
-        '
-        Me.mmiHelp.Index = 2
-        Me.mmiHelp.Text = "Help"
-        '
         'TBAddTestingFirm
         '
-        Me.TBAddTestingFirm.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.tbbSave, Me.tbbClear, Me.tbbBack})
+        Me.TBAddTestingFirm.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.tbbSave, Me.tbbClear})
         Me.TBAddTestingFirm.DropDownArrows = True
         Me.TBAddTestingFirm.ImageList = Me.Image_List_All
         Me.TBAddTestingFirm.Location = New System.Drawing.Point(0, 0)
@@ -297,17 +211,10 @@ Partial Class ISMPAddTestingFirms
         Me.tbbClear.Name = "tbbClear"
         Me.tbbClear.ToolTipText = "Clear"
         '
-        'tbbBack
-        '
-        Me.tbbBack.ImageIndex = 2
-        Me.tbbBack.Name = "tbbBack"
-        Me.tbbBack.ToolTipText = "Back"
-        '
         'GroupBox1
         '
         Me.GroupBox1.Controls.Add(Me.Label8)
         Me.GroupBox1.Controls.Add(Me.txtTestingFirmKey)
-        Me.GroupBox1.Controls.Add(Me.chbDeleteTestingFirm)
         Me.GroupBox1.Controls.Add(Me.txtTestingFirmEmail)
         Me.GroupBox1.Controls.Add(Me.txtTestingFirmFaxNumber)
         Me.GroupBox1.Controls.Add(Me.txtTestingFirmPhoneNumber2)
@@ -331,7 +238,7 @@ Partial Class ISMPAddTestingFirms
         Me.GroupBox1.Dock = System.Windows.Forms.DockStyle.Top
         Me.GroupBox1.Location = New System.Drawing.Point(0, 28)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(680, 156)
+        Me.GroupBox1.Size = New System.Drawing.Size(680, 150)
         Me.GroupBox1.TabIndex = 145
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Testing Firm Information"
@@ -352,14 +259,6 @@ Partial Class ISMPAddTestingFirms
         Me.txtTestingFirmKey.ReadOnly = True
         Me.txtTestingFirmKey.Size = New System.Drawing.Size(56, 20)
         Me.txtTestingFirmKey.TabIndex = 21
-        '
-        'chbDeleteTestingFirm
-        '
-        Me.chbDeleteTestingFirm.Location = New System.Drawing.Point(16, 134)
-        Me.chbDeleteTestingFirm.Name = "chbDeleteTestingFirm"
-        Me.chbDeleteTestingFirm.Size = New System.Drawing.Size(128, 16)
-        Me.chbDeleteTestingFirm.TabIndex = 20
-        Me.chbDeleteTestingFirm.Text = "Delete Testing Firm"
         '
         'txtTestingFirmEmail
         '
@@ -525,33 +424,48 @@ Partial Class ISMPAddTestingFirms
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "Testing Firm Name:"
         '
-        'Splitter1
-        '
-        Me.Splitter1.BackColor = System.Drawing.SystemColors.Highlight
-        Me.Splitter1.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Splitter1.Location = New System.Drawing.Point(0, 184)
-        Me.Splitter1.Name = "Splitter1"
-        Me.Splitter1.Size = New System.Drawing.Size(680, 5)
-        Me.Splitter1.TabIndex = 146
-        Me.Splitter1.TabStop = False
-        '
         'dgrTestingFirms
         '
         Me.dgrTestingFirms.DataMember = ""
         Me.dgrTestingFirms.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgrTestingFirms.HeaderForeColor = System.Drawing.SystemColors.ControlText
-        Me.dgrTestingFirms.Location = New System.Drawing.Point(0, 189)
+        Me.dgrTestingFirms.Location = New System.Drawing.Point(0, 178)
         Me.dgrTestingFirms.Name = "dgrTestingFirms"
         Me.dgrTestingFirms.ReadOnly = True
-        Me.dgrTestingFirms.Size = New System.Drawing.Size(680, 156)
+        Me.dgrTestingFirms.Size = New System.Drawing.Size(680, 167)
         Me.dgrTestingFirms.TabIndex = 147
+        '
+        'MmiSave
+        '
+        Me.MmiSave.Index = 0
+        Me.MmiSave.Text = "Save"
+        '
+        'MenuItem1
+        '
+        Me.MenuItem1.Index = 0
+        Me.MenuItem1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MmiSave})
+        Me.MenuItem1.Text = "File"
+        '
+        'mmiClear
+        '
+        Me.mmiClear.Index = 0
+        Me.mmiClear.Text = "Clear"
+        '
+        'MenuItem2
+        '
+        Me.MenuItem2.Index = 1
+        Me.MenuItem2.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiClear})
+        Me.MenuItem2.Text = "Edit"
+        '
+        'MainMenu1
+        '
+        Me.MainMenu1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MenuItem1, Me.MenuItem2})
         '
         'ISMPAddTestingFirms
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.ClientSize = New System.Drawing.Size(680, 345)
         Me.Controls.Add(Me.dgrTestingFirms)
-        Me.Controls.Add(Me.Splitter1)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.TBAddTestingFirm)
         Me.Menu = Me.MainMenu1
@@ -566,4 +480,9 @@ Partial Class ISMPAddTestingFirms
 
     End Sub
 
+    Friend WithEvents MmiSave As MenuItem
+    Friend WithEvents MenuItem1 As MenuItem
+    Friend WithEvents mmiClear As MenuItem
+    Friend WithEvents MenuItem2 As MenuItem
+    Friend WithEvents MainMenu1 As MainMenu
 End Class
