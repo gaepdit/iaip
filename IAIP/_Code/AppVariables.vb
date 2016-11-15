@@ -80,7 +80,6 @@ Module AppVariables
     ' TODO DWW: Remove global form variables
 
 #Region " ISMP Screens "
-    Public ISMPMemoEdit As ISMPMemo
     Public ISMPNotificationLogForm As ISMPNotificationLog
     Public ISMPConfidential As ISMPConfidentialData
     Public TestFirmComments As ISMPTestFirmComments

@@ -162,11 +162,10 @@ Module IaipFormHelpers
 
     Public Sub OpenFormTestMemo(referenceNumber As String)
         If DAL.Ismp.StackTestExists(referenceNumber) Then
-            ISMPMemoEdit = New ISMPMemo
+            Dim ISMPMemoEdit As New ISMPMemo
             ISMPMemoEdit.txtReferenceNumber.Text = referenceNumber
             ISMPMemoEdit.Show()
         End If
-
     End Sub
 
 #End Region
