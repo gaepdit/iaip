@@ -2,32 +2,20 @@ Imports System.Data.SqlClient
 Imports System.Linq
 
 Public Class ISMPTestReports
-    Dim dsMethods As DataSet
-    Dim daMethods As SqlDataAdapter
-    Dim dsEngineer As DataSet
-    Dim daEngineer As SqlDataAdapter
-    Dim dsComplianceStatus As DataSet
-    Dim daComplianceStatus As SqlDataAdapter
-    Dim dsCCList As DataSet
-    Dim daCCList As SqlDataAdapter
-    Dim dsUnits As DataSet
-    Dim daUnits As SqlDataAdapter
-    Dim dsComplianceManager As DataSet
-    Dim daComplianceManager As SqlDataAdapter
-    Dim dsReportType As DataSet
-    Dim daReportType As SqlDataAdapter
-    Dim dsTestingFirm As DataSet
-    Dim daTestingFirm As SqlDataAdapter
-    Dim dsISMPUnits As DataSet
-    Dim daISMPUnits As SqlDataAdapter
-    Dim dsPollutants As DataSet
-    Dim daPollutants As SqlDataAdapter
-    Dim SQL As String
-    Dim cmd As SqlCommand
-    Dim dr As SqlDataReader
-    Dim RecExist As Boolean
-    Dim dsComplianceStaff As DataSet
-    Dim daComplianceStaff As SqlDataAdapter
+    Dim dtMethods As DataTable
+    Dim dtEngineer As DataTable
+    Dim dtComplianceStatus As DataTable
+    Dim dtCCList As DataTable
+    Dim dtUnits As DataTable
+    Dim dtComplianceManager As DataTable
+    Dim dtReportType As DataTable
+    Dim dtTestingFirm As DataTable
+    Dim dtISMPUnits As DataTable
+    Dim dtPollutants As DataTable
+    Dim dtComplianceStaff As DataTable
+
+    Dim query As String
+
     Dim DocumentType As String
     Dim ApplicableRequirment As String
     Dim ReportComments As String
@@ -52,10 +40,10 @@ Public Class ISMPTestReports
         End Set
     End Property
 
-    Private Sub ISMPTestReports_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub ISMPTestReports_Load(sender As Object, e As EventArgs) Handles Me.Load
 
         Try
-            txtReferenceNumber.Text = Me.ReferenceNumber
+            txtReferenceNumber.Text = ReferenceNumber
 
             SCTestReports.SanelySetSplitterDistance(190)
 
@@ -82,9 +70,9 @@ Public Class ISMPTestReports
                 LoadSSCPData()
             End If
             If txtReferenceNumber.Text <> "" Then
-                Me.Text = txtReferenceNumber.Text & " - Performance Monitoring Test Reports"
+                Text = txtReferenceNumber.Text & " - Performance Monitoring Test Reports"
             Else
-                Me.Text = "Performance Monitoring Test Reports"
+                Text = "Performance Monitoring Test Reports"
             End If
 
             If DocumentType = "001" Then
@@ -97,262 +85,121 @@ Public Class ISMPTestReports
         Finally
         End Try
     End Sub
-#Region "Page Load Functions"
-    Sub LoadDataSets()
-        Try
-            dsMethods = New DataSet
-            dsEngineer = New DataSet
-            dsComplianceStatus = New DataSet
-            dsCCList = New DataSet
-            dsUnits = New DataSet
-            dsComplianceManager = New DataSet
-            dsReportType = New DataSet
-            dsTestingFirm = New DataSet
-            dsISMPUnits = New DataSet
-            dsPollutants = New DataSet
-            dsComplianceStaff = New DataSet
 
-            SQL = "Select strMethodCode, " &
+    Private Sub LoadDataSets()
+        Try
+            query = "Select strMethodCode, " &
             "strMethodDesc " &
             "from LookUpISMPMethods " &
             "order by strMethodCode "
 
-            daMethods = New SqlDataAdapter(SQL, CurrentConnection)
+            dtMethods = DB.GetDataTable(query)
 
-            SQL = "select " &
-            "case when numUserId = '0' then 'Not Witnessed'  " &
-            "else UserName " &
-            "End Username,  " &
-            "numUserID  " &
-            "from  " &
-            "(select  " &
-            "concat(strLastName, ', ' ,strFirstName) as UserName,  " &
-            "NumUserID  " &
-            "from EPDUSerProfiles  " &
-            "where numProgram  = '3'  " &
-            "and numEmployeeStatus = '1'   " &
-            "and (numunit is null or numunit <> '14') " &
-            "union  " &
-            "select  " &
-            "distinct concat(strLastName, ', ' ,strFirstName) as UserName,  " &
-            "NumUserID  " &
-            "from EPDUSerProfiles, ismpreportinformation " &
-            "where epdUserProfiles.numUserId = ismpreportinformation.strWitnessingEngineer) "
+            query = "SELECT CONCAT(strLastName, ', ', strFirstName) AS UserName, NumUserID
+                FROM EPDUSerProfiles
+                WHERE numProgram = '3' AND numEmployeeStatus = '1' AND (numunit IS NULL OR numunit <> '14') AND NUMUSERID <> 0
+                UNION
+                SELECT CONCAT(strLastName, ', ', strFirstName) AS UserName, NumUserID
+                FROM EPDUSerProfiles, ismpreportinformation
+                WHERE epdUserProfiles.numUserId = ismpreportinformation.strWitnessingEngineer AND NUMUSERID <> 0
+                UNION
+                SELECT 'Not Witnessed', 0 "
 
-            daEngineer = New SqlDataAdapter(SQL, CurrentConnection)
+            dtEngineer = DB.GetDataTable(query)
 
-            SQL = "select strCompliancekey, strComplianceStatus from LookUPISMPComplianceStatus"
+            query = "select strCompliancekey, strComplianceStatus from LookUPISMPComplianceStatus"
 
-            daComplianceStatus = New SqlDataAdapter(SQL, CurrentConnection)
+            dtComplianceStatus = DB.GetDataTable(query)
 
-            SQL = <s><![CDATA[
-SELECT concat(EPDUserProfiles.STRLASTNAME
-  , ', '
-  , EPDUserProfiles.STRFIRSTNAME) AS UserName,
-  EPDUserProfiles.NUMUSERID
-FROM EPDUserProfiles,
-  IAIPPermissions
-WHERE EPDUserProfiles.NUMUSERID = IAIPPermissions.NUMUSERID
-AND EPDUserProfiles.NUMEMPLOYEESTATUS = '1'
-AND ((IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(28)%')
-OR (IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(19)%')
-OR (IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(121)%')
-OR (IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(114)%')
-OR (IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(141)%'))
-UNION
-SELECT 'None', 0 ORDER BY USERNAME
-            ]]></s>.Value
+            query = "SELECT concat(EPDUserProfiles.STRLASTNAME
+                    , ', '
+                    , EPDUserProfiles.STRFIRSTNAME) AS UserName,
+                    EPDUserProfiles.NUMUSERID
+                FROM EPDUserProfiles,
+                    IAIPPermissions
+                WHERE EPDUserProfiles.NUMUSERID = IAIPPermissions.NUMUSERID
+                AND EPDUserProfiles.NUMEMPLOYEESTATUS = '1'
+                AND ((IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(28)%')
+                OR (IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(19)%')
+                OR (IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(121)%')
+                OR (IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(114)%')
+                OR (IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(141)%'))
+                UNION
+                SELECT 'None', 0 ORDER BY USERNAME"
 
-            daCCList = New SqlDataAdapter(SQL, CurrentConnection)
+            dtCCList = DB.GetDataTable(query)
 
-            SQL = "select strUnitKey, strUnitDescription from LookUPUnits order by strUnitDescription"
+            query = "Select strUnitKey, strUnitDescription from LookUPUnits union select ' ', ' ' order by strUnitDescription"
 
-            daUnits = New SqlDataAdapter(SQL, CurrentConnection)
+            dtUnits = DB.GetDataTable(query)
 
-            SQL = "select " &
+            query = "Select " &
                 "strUnitDesc, numUnitCode  " &
                 "from LookUpEPDUnits  " &
                 "where numProgramCode = '3' or numProgramCode = '0' "
 
-            daISMPUnits = New SqlDataAdapter(SQL, CurrentConnection)
+            dtISMPUnits = DB.GetDataTable(query)
 
-            SQL = <s><![CDATA[
-SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
-    , ', '
-    , EPDUserProfiles.STRFIRSTNAME) AS ComplianceManager,
-    EPDUserProfiles.NUMUSERID
-  FROM EPDUserProfiles,
-    IAIPPermissions
-  WHERE EPDUserProfiles.NUMUSERID        = IAIPPermissions.NUMUSERID
-  AND (EPDUserProfiles.NUMEMPLOYEESTATUS = '1'
-  AND (IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(19)%'
-  OR IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(27)%'
-  OR IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(21)%'
-  OR IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(23)%'
-  OR IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(25)%'
-  OR IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(79)%'
-  OR IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(80)%'
-  OR IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(81)%'
-  OR IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(82)%'
-  OR IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(83)%'
-  OR IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(84)%'
-  OR IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(85)%'
-  OR IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(86)%'
-  OR IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(133)%'
-  OR IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(114)%'))
-  UNION
-  SELECT 'None', 0 
-  ORDER BY ComplianceManager
-            ]]></s>.Value
-            daComplianceManager = New SqlDataAdapter(SQL, CurrentConnection)
+            query = "SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
+                , ', '
+                , EPDUserProfiles.STRFIRSTNAME) AS ComplianceManager,
+                EPDUserProfiles.NUMUSERID
+              FROM EPDUserProfiles,
+                IAIPPermissions
+              WHERE EPDUserProfiles.NUMUSERID        = IAIPPermissions.NUMUSERID
+              AND (EPDUserProfiles.NUMEMPLOYEESTATUS = '1'
+              AND (IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(19)%'
+              OR IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(27)%'
+              OR IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(21)%'
+              OR IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(23)%'
+              OR IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(25)%'
+              OR IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(79)%'
+              OR IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(80)%'
+              OR IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(81)%'
+              OR IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(82)%'
+              OR IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(83)%'
+              OR IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(84)%'
+              OR IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(85)%'
+              OR IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(86)%'
+              OR IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(133)%'
+              OR IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(114)%'))
+              UNION
+              SELECT 'None', 0 
+              ORDER BY ComplianceManager"
 
-            SQL = "Select strTestingFirm, strTestingFirmKey from LookUPTestingFirms order by strTestingFirm"
-            daTestingFirm = New SqlDataAdapter(SQL, CurrentConnection)
+            dtComplianceManager = DB.GetDataTable(query)
 
-            SQL = "Select strReportType, strKey from ISMPReportType order by strReportType"
-            daReportType = New SqlDataAdapter(SQL, CurrentConnection)
+            query = "Select strTestingFirm, strTestingFirmKey from LookUPTestingFirms order by strTestingFirm"
 
-            SQL = "Select strPollutantCode, strPollutantDescription from LookUPPollutants order by strPollutantDescription"
-            daPollutants = New SqlDataAdapter(SQL, CurrentConnection)
+            dtTestingFirm = DB.GetDataTable(query)
 
-            SQL = "Select " &
-            "case  " &
-            "when numUserID = '0' then 'No Compliance Staff'  " &
-            "else UserName " &
-            "end StaffName,  " &
-            "numUserID  " &
-            "from  " &
-            "(select  " &
-            "concat(strLastName, ', ' ,strFirstName) as UserName,  " &
-            "numUserID  " &
-            "from EPDUserProfiles  " &
-            "where ((numProgram = '4'  or numbranch = '5' ) " &
-            "and numEmployeeStatus = '1')  " &
-            "or strLastName = 'District'  " &
-            "Union " &
-            "select staff as username, numuserID " &
-            "from VW_ComplianceStaff) "
+            query = "Select strReportType, strKey from ISMPReportType order by strReportType"
 
-            daComplianceStaff = New SqlDataAdapter(SQL, CurrentConnection)
+            dtReportType = DB.GetDataTable(query)
 
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
+            query = "Select strPollutantCode, strPollutantDescription from LookUPPollutants order by strPollutantDescription"
 
-            daMethods.Fill(dsMethods, "Methods")
-            daEngineer.Fill(dsEngineer, "Engineers")
-            daComplianceStatus.Fill(dsComplianceStatus, "ComplianceStatus")
-            daCCList.Fill(dsCCList, "CCList")
-            daUnits.Fill(dsUnits, "Units")
-            daComplianceManager.Fill(dsComplianceManager, "ComplianceManager")
-            daTestingFirm.Fill(dsTestingFirm, "TestingFirm")
-            daReportType.Fill(dsReportType, "ReportType")
-            daISMPUnits.Fill(dsISMPUnits, "ISMPUnits")
-            daPollutants.Fill(dsPollutants, "Pollutants")
-            daComplianceStaff.Fill(dsComplianceStaff, "ComplianceStaff")
+            dtPollutants = DB.GetDataTable(query)
 
+            query = "SELECT CONCAT(strLastName, ', ', strFirstName) AS StaffName, numUserID
+                FROM EPDUserProfiles
+                WHERE (numProgram = '4' OR numbranch = '5') AND numEmployeeStatus = '1' OR strLastName = 'District' AND numuserid <> 0
+                UNION
+                SELECT StaffName AS username, userid AS numUserID
+                FROM VW_ComplianceStaff
+                WHERE userid <> 0
+                UNION
+                SELECT 'No Compliance Staff', 0"
+
+            dtComplianceStaff = DB.GetDataTable(query)
 
         Catch ex As Exception
-            ErrorReport(ex, SQL, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, query, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
-    Sub LoadCombos()
+    Private Sub LoadCombos()
         Try
-            Dim dtMethods As New DataTable
-            Dim dtEngineers As New DataTable
-            Dim dtWitnessingEngineer As New DataTable
-            Dim dtWitnessingEngineer2 As New DataTable
-            Dim dtComplianceStatus As New DataTable
-            Dim dtCCList As New DataTable
-            Dim dtISMPUnits As New DataTable
-            Dim dtComplianceManager As New DataTable
-            Dim dtReportType As New DataTable
-            Dim dtTestingFirm As New DataTable
-            Dim dtPollutants As New DataTable
-            Dim dtComplianceStaff As New DataTable
-            Dim dtMaximumExpectedOperatingCapacityUnitsOneStack As New DataTable
-            Dim dtOperatingCapacityUnitsOneStack As New DataTable
-            Dim dtAllowableEmissionRateUnits1OneStack As New DataTable
-            Dim dtAllowableEmissionRateUnits2OneStack As New DataTable
-            Dim dtAllowableEmissionRateUnits3OneStack As New DataTable
-            Dim dtPollConUnitOneStackTwoRun As New DataTable
-            Dim dtEmissRateUnitOneStackTwoRun As New DataTable
-            Dim dtPollConUnitOneStackThreeRun As New DataTable
-            Dim dtEmissRateUnitOneStackThreeRun As New DataTable
-            Dim dtPollConUnitOneStackFourRun As New DataTable
-            Dim dtEmissRateUnitOneStackFourRun As New DataTable
-            Dim dtMaximumExpectedOperatingCapacityUnitsLoadingRack As New DataTable
-            Dim dtOperatingCapacityUnitsLoadingRack As New DataTable
-            Dim dtAllowableEmissionRateUnits1LoadingRack As New DataTable
-            Dim dtAllowableEmissionRateUnits2LoadingRack As New DataTable
-            Dim dtAllowableEmissionRateUnits3LoadingRack As New DataTable
-            Dim dtTestDurationUnitsLoadingRack As New DataTable
-            Dim dtPollConUnitINLoadingRack As New DataTable
-            Dim dtPollConUnitOUTLoadingRack As New DataTable
-            Dim dtEmissRateUnitLoadingRack As New DataTable
-            Dim dtMaximumExpectedOperatingCapacityUnitsPond As New DataTable
-            Dim dtOperatingCapacityUnitsPond As New DataTable
-            Dim dtAllowableEmissionRateUnits1Pond As New DataTable
-            Dim dtAllowableEmissionRateUnits2Pond As New DataTable
-            Dim dtAllowableEmissionRateUnits3Pond As New DataTable
-            Dim dtPollConUnitPond As New DataTable
-            Dim dtTreatmentRateUnitPond As New DataTable
-            Dim dtMaximumExpectedOperatingCapacityUnitsGas As New DataTable
-            Dim dtOperatingCapacityUnitsGas As New DataTable
-            Dim dtAllowableEmissionRateUnits1Gas As New DataTable
-            Dim dtAllowableEmissionRateUnits2Gas As New DataTable
-            Dim dtAllowableEmissionRateUnits3Gas As New DataTable
-            Dim dtPollConUnitGas As New DataTable
-            Dim dtEmissRateUnitGas As New DataTable
-            Dim dtMaximumExpectedOperatingCapacityUnitsFlare As New DataTable
-            Dim dtOperatingCapacityUnitsFlare As New DataTable
-            Dim dtHeatingValueUnits As New DataTable
-            Dim dtVelocityUnitsFlare As New DataTable
-            Dim dtMaximumExpectedOperatingCapacityUnitsMethod9Single As New DataTable
-            Dim dtOperatingCapacityUnitsMethod9Single As New DataTable
-            Dim dtAllowableEmissionRateUnits1Method9Single As New DataTable
-            Dim dtMaximumExpectedOperatingCapacityUnitsMemorandumPTE As New DataTable
-            Dim dtOperatingCapacityUnitsMemorandumPTE As New DataTable
-            Dim dtAllowableEmissionRateUnits1MemorandumPTE As New DataTable
-            Dim dtAllowableEmissionRateUnits2MemorandumPTE As New DataTable
-            Dim dtAllowableEmissionRateUnits3MemorandumPTE As New DataTable
-            Dim dtUnitsRata As New DataTable
-            Dim dtMaximumExpectedOperatingCapacityUnitsTwoStack As New DataTable
-            Dim dtOperatingCapacityUnitsTwoStack As New DataTable
-            Dim dtAllowableEmissionRateUnits1TwoStack As New DataTable
-            Dim dtAllowableEmissionRateUnits2TwoStack As New DataTable
-            Dim dtAllowableEmissionRateUnits3TwoStack As New DataTable
-            Dim dtPollConUnitTwoStackStandard As New DataTable
-            Dim dtEmissRateUnitTwoStackStandard As New DataTable
-            Dim dtPollConUnitTwoStackDRE As New DataTable
-            Dim dtEmissRateUnitTwoStackDRE As New DataTable
-            Dim dtMaximumExpectedOperatingCapacityUnitsMethod22 As New DataTable
-            Dim dtOperatingCapacityUnitsMethod22 As New DataTable
-            Dim dtMaximumExpectedOperatingCapacityUnitsMethod9Multi As New DataTable
-            Dim dtOperatingCapacityUnitsMethod9Multi As New DataTable
-            Dim dtAllowableEmissionRateUnitsMethod9Multi As New DataTable
-            Dim dtDilutent As New DataTable
-            Dim dtRataDilutent As New DataTable
-
-            Dim drDSRow As DataRow
-            Dim drNewRow As DataRow
-
-            dtMethods.Columns.Add("strMethodCode", GetType(System.String))
-            dtMethods.Columns.Add("strMethodDesc", GetType(System.String))
-
-            drNewRow = dtMethods.NewRow()
-            drNewRow("strMethodCode") = " "
-            drNewRow("strMethodDesc") = " "
-            dtMethods.Rows.Add(drNewRow)
-
-            For Each drDSRow In dsMethods.Tables("Methods").Rows()
-                drNewRow = dtMethods.NewRow
-                drNewRow("strMethodCode") = drDSRow("strMethodCode")
-                drNewRow("strMethodDesc") = drDSRow("strMethodDesc")
-                dtMethods.Rows.Add(drNewRow)
-            Next
-
             With cboMethodDetermined
                 .DataSource = dtMethods
                 .DisplayMember = "strMethodDesc"
@@ -360,79 +207,26 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                 .SelectedValue = 0
             End With
 
-            dtEngineers.Columns.Add("numUserID", GetType(System.String))
-            dtEngineers.Columns.Add("UserName", GetType(System.String))
-            dtWitnessingEngineer.Columns.Add("numUserID", GetType(System.String))
-            dtWitnessingEngineer.Columns.Add("UserName", GetType(System.String))
-            dtWitnessingEngineer2.Columns.Add("numUserID", GetType(System.String))
-            dtWitnessingEngineer2.Columns.Add("UserName", GetType(System.String))
-
-            drNewRow = dtEngineers.NewRow()
-            drNewRow("numUserID") = " "
-            drNewRow("UserName") = " "
-            dtEngineers.Rows.Add(drNewRow)
-
-            drNewRow = dtWitnessingEngineer.NewRow()
-            drNewRow("numUserID") = " "
-            drNewRow("UserName") = " "
-            dtWitnessingEngineer.Rows.Add(drNewRow)
-
-            For Each drDSRow In dsEngineer.Tables("Engineers").Rows()
-                drNewRow = dtEngineers.NewRow
-                drNewRow("numUserID") = drDSRow("numUserID")
-                drNewRow("UserName") = drDSRow("UserName")
-                dtEngineers.Rows.Add(drNewRow)
-            Next
-
-            For Each drDSRow In dsEngineer.Tables("Engineers").Rows()
-                drNewRow = dtWitnessingEngineer.NewRow
-                drNewRow("numUserID") = drDSRow("numUserID")
-                drNewRow("UserName") = drDSRow("UserName")
-                dtWitnessingEngineer.Rows.Add(drNewRow)
-            Next
-
-            For Each drDSRow In dsEngineer.Tables("Engineers").Rows()
-                drNewRow = dtWitnessingEngineer2.NewRow
-                drNewRow("numUserID") = drDSRow("numUserID")
-                drNewRow("UserName") = drDSRow("UserName")
-                dtWitnessingEngineer2.Rows.Add(drNewRow)
-            Next
-
             With cboReviewingEngineer
-                .DataSource = dtEngineers
+                .DataSource = dtEngineer
                 .DisplayMember = "UserName"
                 .ValueMember = "numUserID"
                 .SelectedValue = 0
             End With
 
             With cboWitnessingEngineer
-                .DataSource = dtWitnessingEngineer
+                .DataSource = dtEngineer.Copy
                 .DisplayMember = "UserName"
                 .ValueMember = "numUserID"
                 .SelectedValue = 0
             End With
 
             With clbWitnessingEngineers
-                .DataSource = dtWitnessingEngineer2
+                .DataSource = dtEngineer.Copy
                 .DisplayMember = "UserName"
                 .ValueMember = "numUserID"
                 .SelectedValue = 0
             End With
-
-            dtComplianceStatus.Columns.Add("strComplianceKey", GetType(System.String))
-            dtComplianceStatus.Columns.Add("strComplianceStatus", GetType(System.String))
-
-            drNewRow = dtComplianceStatus.NewRow()
-            drNewRow("strComplianceKey") = " "
-            drNewRow("strComplianceStatus") = " "
-            dtComplianceStatus.Rows.Add(drNewRow)
-
-            For Each drDSRow In dsComplianceStatus.Tables("ComplianceStatus").Rows()
-                drNewRow = dtComplianceStatus.NewRow
-                drNewRow("strComplianceKey") = drDSRow("strComplianceKey")
-                drNewRow("strComplianceStatus") = drDSRow("strComplianceStatus")
-                dtComplianceStatus.Rows.Add(drNewRow)
-            Next
 
             With cboComplianceStatus
                 .DataSource = dtComplianceStatus
@@ -441,42 +235,12 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                 .SelectedValue = 0
             End With
 
-            dtComplianceStaff.Columns.Add("numUserID", GetType(System.String))
-            dtComplianceStaff.Columns.Add("StaffName", GetType(System.String))
-
-            drNewRow = dtComplianceStaff.NewRow()
-            drNewRow("numUserID") = " "
-            drNewRow("StaffName") = " "
-            dtComplianceStaff.Rows.Add(drNewRow)
-
-            For Each drDSRow In dsComplianceStaff.Tables("ComplianceStaff").Rows()
-                drNewRow = dtComplianceStaff.NewRow
-                drNewRow("numUserID") = drDSRow("numUserID")
-                drNewRow("StaffName") = drDSRow("StaffName")
-                dtComplianceStaff.Rows.Add(drNewRow)
-            Next
-
             With cboStaffResponsible
                 .DataSource = dtComplianceStaff
                 .DisplayMember = "StaffName"
                 .ValueMember = "numUserID"
                 .SelectedValue = 0
             End With
-
-            dtCCList.Columns.Add("numUserID", GetType(System.String))
-            dtCCList.Columns.Add("UserName", GetType(System.String))
-
-            drNewRow = dtCCList.NewRow()
-            drNewRow("numUserID") = " "
-            drNewRow("UserName") = " "
-            dtCCList.Rows.Add(drNewRow)
-
-            For Each drDSRow In dsCCList.Tables("CCList").Rows()
-                drNewRow = dtCCList.NewRow
-                drNewRow("numUserID") = drDSRow("numUserID")
-                drNewRow("UserName") = drDSRow("UserName")
-                dtCCList.Rows.Add(drNewRow)
-            Next
 
             With cboccBox
                 .DataSource = dtCCList
@@ -485,43 +249,12 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                 .SelectedValue = 0
             End With
 
-
-            dtISMPUnits.Columns.Add("numUnitCode", GetType(System.String))
-            dtISMPUnits.Columns.Add("strUnitDesc", GetType(System.String))
-
-            drNewRow = dtISMPUnits.NewRow()
-            drNewRow("numUnitCode") = " "
-            drNewRow("strUnitDesc") = " "
-            dtISMPUnits.Rows.Add(drNewRow)
-
-            For Each drDSRow In dsISMPUnits.Tables("ISMPUnits").Rows()
-                drNewRow = dtISMPUnits.NewRow
-                drNewRow("numUnitCode") = drDSRow("numUnitCode")
-                drNewRow("strUnitDesc") = drDSRow("strUnitDesc")
-                dtISMPUnits.Rows.Add(drNewRow)
-            Next
-
             With cboISMPUnit
                 .DataSource = dtISMPUnits
                 .DisplayMember = "strUnitDesc"
                 .ValueMember = "numUnitCode"
                 .SelectedValue = 0
             End With
-
-            dtComplianceManager.Columns.Add("numUserID", GetType(System.String))
-            dtComplianceManager.Columns.Add("ComplianceManager", GetType(System.String))
-
-            drNewRow = dtComplianceManager.NewRow()
-            drNewRow("numUserID") = " "
-            drNewRow("ComplianceManager") = " "
-            dtComplianceManager.Rows.Add(drNewRow)
-
-            For Each drDSRow In dsComplianceManager.Tables("ComplianceManager").Rows()
-                drNewRow = dtComplianceManager.NewRow
-                drNewRow("numUserID") = drDSRow("numUserID")
-                drNewRow("ComplianceManager") = drDSRow("ComplianceManager")
-                dtComplianceManager.Rows.Add(drNewRow)
-            Next
 
             With cboComplianceManager
                 .DataSource = dtComplianceManager
@@ -530,42 +263,12 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                 .SelectedValue = 0
             End With
 
-            dtTestingFirm.Columns.Add("strTestingFirmKey", GetType(System.String))
-            dtTestingFirm.Columns.Add("strTestingFirm", GetType(System.String))
-
-            drNewRow = dtTestingFirm.NewRow()
-            drNewRow("strTestingFirmKey") = " "
-            drNewRow("strTestingFirm") = " "
-            dtTestingFirm.Rows.Add(drNewRow)
-
-            For Each drDSRow In dsTestingFirm.Tables("TestingFirm").Rows()
-                drNewRow = dtTestingFirm.NewRow
-                drNewRow("strTestingFirmKey") = drDSRow("strTestingFirmKey")
-                drNewRow("strTestingFirm") = drDSRow("strTestingFirm")
-                dtTestingFirm.Rows.Add(drNewRow)
-            Next
-
             With cboTestingFirm
                 .DataSource = dtTestingFirm
                 .DisplayMember = "strTestingFirm"
                 .ValueMember = "strTestingFirmKey"
                 .SelectedValue = 0
             End With
-
-            dtPollutants.Columns.Add("strPollutantCode", GetType(System.String))
-            dtPollutants.Columns.Add("strPollutantDescription", GetType(System.String))
-
-            drNewRow = dtPollutants.NewRow()
-            drNewRow("strPollutantCode") = " "
-            drNewRow("strPollutantDescription") = " "
-            dtPollutants.Rows.Add(drNewRow)
-
-            For Each drDSRow In dsPollutants.Tables("Pollutants").Rows()
-                drNewRow = dtPollutants.NewRow
-                drNewRow("strPollutantCode") = drDSRow("strPollutantCode")
-                drNewRow("strPollutantDescription") = drDSRow("strPollutantDescription")
-                dtPollutants.Rows.Add(drNewRow)
-            Next
 
             With cboPollutantDetermined
                 .DataSource = dtPollutants
@@ -574,21 +277,6 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                 .SelectedValue = 0
             End With
 
-            dtReportType.Columns.Add("strKey", GetType(System.String))
-            dtReportType.Columns.Add("strReportType", GetType(System.String))
-
-            drNewRow = dtReportType.NewRow()
-            drNewRow("strKey") = " "
-            drNewRow("strReportType") = " "
-            dtReportType.Rows.Add(drNewRow)
-
-            For Each drDSRow In dsReportType.Tables("ReportType").Rows()
-                drNewRow = dtReportType.NewRow
-                drNewRow("strKey") = drDSRow("strKey")
-                drNewRow("strReportType") = drDSRow("strReportType")
-                dtReportType.Rows.Add(drNewRow)
-            Next
-
             With cboReportType
                 .DataSource = dtReportType
                 .DisplayMember = "strReportType"
@@ -596,1352 +284,438 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                 .SelectedValue = 0
             End With
 
-            dtMaximumExpectedOperatingCapacityUnitsOneStack.Columns.Add("strUnitKey", GetType(System.String))
-            dtMaximumExpectedOperatingCapacityUnitsOneStack.Columns.Add("strUnitDescription", GetType(System.String))
-
-            drNewRow = dtMaximumExpectedOperatingCapacityUnitsOneStack.NewRow()
-            drNewRow("strUnitKey") = " "
-            drNewRow("strUnitDescription") = " "
-            dtMaximumExpectedOperatingCapacityUnitsOneStack.Rows.Add(drNewRow)
-
-            For Each drDSRow In dsUnits.Tables("Units").Rows()
-                drNewRow = dtMaximumExpectedOperatingCapacityUnitsOneStack.NewRow
-                drNewRow("strUnitKey") = drDSRow("strUnitKey")
-                drNewRow("strUnitDescription") = drDSRow("strUnitDescription")
-                dtMaximumExpectedOperatingCapacityUnitsOneStack.Rows.Add(drNewRow)
-            Next
-
             With cboMaximumExpectedOperatingCapacityUnitsOneStack
-                .DataSource = dtMaximumExpectedOperatingCapacityUnitsOneStack
+                .DataSource = dtUnits
                 .DisplayMember = "strUnitDescription"
                 .ValueMember = "strUnitKey"
                 .SelectedValue = 0
             End With
-
-            dtOperatingCapacityUnitsOneStack.Columns.Add("strUnitKey", GetType(System.String))
-            dtOperatingCapacityUnitsOneStack.Columns.Add("strUnitDescription", GetType(System.String))
-
-            drNewRow = dtOperatingCapacityUnitsOneStack.NewRow()
-            drNewRow("strUnitKey") = " "
-            drNewRow("strUnitDescription") = " "
-            dtOperatingCapacityUnitsOneStack.Rows.Add(drNewRow)
-
-            For Each drDSRow In dsUnits.Tables("Units").Rows()
-                drNewRow = dtOperatingCapacityUnitsOneStack.NewRow
-                drNewRow("strUnitKey") = drDSRow("strUnitKey")
-                drNewRow("strUnitDescription") = drDSRow("strUnitDescription")
-                dtOperatingCapacityUnitsOneStack.Rows.Add(drNewRow)
-            Next
 
             With cboOperatingCapacityUnitsOneStack
-                .DataSource = dtOperatingCapacityUnitsOneStack
+                .DataSource = dtUnits.Copy
                 .DisplayMember = "strUnitDescription"
                 .ValueMember = "strUnitKey"
                 .SelectedValue = 0
             End With
-
-            dtAllowableEmissionRateUnits1OneStack.Columns.Add("strUnitKey", GetType(System.String))
-            dtAllowableEmissionRateUnits1OneStack.Columns.Add("strUnitDescription", GetType(System.String))
-
-            drNewRow = dtAllowableEmissionRateUnits1OneStack.NewRow()
-            drNewRow("strUnitKey") = " "
-            drNewRow("strUnitDescription") = " "
-            dtAllowableEmissionRateUnits1OneStack.Rows.Add(drNewRow)
-
-            For Each drDSRow In dsUnits.Tables("Units").Rows()
-                drNewRow = dtAllowableEmissionRateUnits1OneStack.NewRow
-                drNewRow("strUnitKey") = drDSRow("strUnitKey")
-                drNewRow("strUnitDescription") = drDSRow("strUnitDescription")
-                dtAllowableEmissionRateUnits1OneStack.Rows.Add(drNewRow)
-            Next
 
             With cboAllowableEmissionRateUnits1OneStack
-                .DataSource = dtAllowableEmissionRateUnits1OneStack
+                .DataSource = dtUnits.Copy
                 .DisplayMember = "strUnitDescription"
                 .ValueMember = "strUnitKey"
                 .SelectedValue = 0
             End With
-
-            dtAllowableEmissionRateUnits2OneStack.Columns.Add("strUnitKey", GetType(System.String))
-            dtAllowableEmissionRateUnits2OneStack.Columns.Add("strUnitDescription", GetType(System.String))
-
-            drNewRow = dtAllowableEmissionRateUnits2OneStack.NewRow()
-            drNewRow("strUnitKey") = " "
-            drNewRow("strUnitDescription") = " "
-            dtAllowableEmissionRateUnits2OneStack.Rows.Add(drNewRow)
-
-            For Each drDSRow In dsUnits.Tables("Units").Rows()
-                drNewRow = dtAllowableEmissionRateUnits2OneStack.NewRow
-                drNewRow("strUnitKey") = drDSRow("strUnitKey")
-                drNewRow("strUnitDescription") = drDSRow("strUnitDescription")
-                dtAllowableEmissionRateUnits2OneStack.Rows.Add(drNewRow)
-            Next
 
             With cboAllowableEmissionRateUnits2OneStack
-                .DataSource = dtAllowableEmissionRateUnits2OneStack
+                .DataSource = dtUnits.Copy
                 .DisplayMember = "strUnitDescription"
                 .ValueMember = "strUnitKey"
                 .SelectedValue = 0
             End With
-
-            dtAllowableEmissionRateUnits3OneStack.Columns.Add("strUnitKey", GetType(System.String))
-            dtAllowableEmissionRateUnits3OneStack.Columns.Add("strUnitDescription", GetType(System.String))
-
-            drNewRow = dtAllowableEmissionRateUnits3OneStack.NewRow()
-            drNewRow("strUnitKey") = " "
-            drNewRow("strUnitDescription") = " "
-            dtAllowableEmissionRateUnits3OneStack.Rows.Add(drNewRow)
-
-            For Each drDSRow In dsUnits.Tables("Units").Rows()
-                drNewRow = dtAllowableEmissionRateUnits3OneStack.NewRow
-                drNewRow("strUnitKey") = drDSRow("strUnitKey")
-                drNewRow("strUnitDescription") = drDSRow("strUnitDescription")
-                dtAllowableEmissionRateUnits3OneStack.Rows.Add(drNewRow)
-            Next
 
             With cboAllowableEmissionRateUnits3OneStack
-                .DataSource = dtAllowableEmissionRateUnits3OneStack
+                .DataSource = dtUnits.Copy
                 .DisplayMember = "strUnitDescription"
                 .ValueMember = "strUnitKey"
                 .SelectedValue = 0
             End With
-
-            dtPollConUnitOneStackTwoRun.Columns.Add("strUnitKey", GetType(System.String))
-            dtPollConUnitOneStackTwoRun.Columns.Add("strUnitDescription", GetType(System.String))
-
-            drNewRow = dtPollConUnitOneStackTwoRun.NewRow()
-            drNewRow("strUnitKey") = " "
-            drNewRow("strUnitDescription") = " "
-            dtPollConUnitOneStackTwoRun.Rows.Add(drNewRow)
-
-            For Each drDSRow In dsUnits.Tables("Units").Rows()
-                drNewRow = dtPollConUnitOneStackTwoRun.NewRow
-                drNewRow("strUnitKey") = drDSRow("strUnitKey")
-                drNewRow("strUnitDescription") = drDSRow("strUnitDescription")
-                dtPollConUnitOneStackTwoRun.Rows.Add(drNewRow)
-            Next
 
             With cboPollConUnitOneStackTwoRun
-                .DataSource = dtPollConUnitOneStackTwoRun
+                .DataSource = dtUnits.Copy
                 .DisplayMember = "strUnitDescription"
                 .ValueMember = "strUnitKey"
                 .SelectedValue = 0
             End With
-
-            dtEmissRateUnitOneStackTwoRun.Columns.Add("strUnitKey", GetType(System.String))
-            dtEmissRateUnitOneStackTwoRun.Columns.Add("strUnitDescription", GetType(System.String))
-
-            drNewRow = dtEmissRateUnitOneStackTwoRun.NewRow()
-            drNewRow("strUnitKey") = " "
-            drNewRow("strUnitDescription") = " "
-            dtEmissRateUnitOneStackTwoRun.Rows.Add(drNewRow)
-
-            For Each drDSRow In dsUnits.Tables("Units").Rows()
-                drNewRow = dtEmissRateUnitOneStackTwoRun.NewRow
-                drNewRow("strUnitKey") = drDSRow("strUnitKey")
-                drNewRow("strUnitDescription") = drDSRow("strUnitDescription")
-                dtEmissRateUnitOneStackTwoRun.Rows.Add(drNewRow)
-            Next
 
             With cboEmissRateUnitOneStackTwoRun
-                .DataSource = dtEmissRateUnitOneStackTwoRun
+                .DataSource = dtUnits.Copy
                 .DisplayMember = "strUnitDescription"
                 .ValueMember = "strUnitKey"
                 .SelectedValue = 0
             End With
-
-            dtPollConUnitOneStackThreeRun.Columns.Add("strUnitKey", GetType(System.String))
-            dtPollConUnitOneStackThreeRun.Columns.Add("strUnitDescription", GetType(System.String))
-
-            drNewRow = dtPollConUnitOneStackThreeRun.NewRow()
-            drNewRow("strUnitKey") = " "
-            drNewRow("strUnitDescription") = " "
-            dtPollConUnitOneStackThreeRun.Rows.Add(drNewRow)
-
-            For Each drDSRow In dsUnits.Tables("Units").Rows()
-                drNewRow = dtPollConUnitOneStackThreeRun.NewRow
-                drNewRow("strUnitKey") = drDSRow("strUnitKey")
-                drNewRow("strUnitDescription") = drDSRow("strUnitDescription")
-                dtPollConUnitOneStackThreeRun.Rows.Add(drNewRow)
-            Next
 
             With cboPollConUnitOneStackThreeRun
-                .DataSource = dtPollConUnitOneStackThreeRun
+                .DataSource = dtUnits.Copy
                 .DisplayMember = "strUnitDescription"
                 .ValueMember = "strUnitKey"
                 .SelectedValue = 0
             End With
-
-            dtEmissRateUnitOneStackThreeRun.Columns.Add("strUnitKey", GetType(System.String))
-            dtEmissRateUnitOneStackThreeRun.Columns.Add("strUnitDescription", GetType(System.String))
-
-            drNewRow = dtEmissRateUnitOneStackThreeRun.NewRow()
-            drNewRow("strUnitKey") = " "
-            drNewRow("strUnitDescription") = " "
-            dtEmissRateUnitOneStackThreeRun.Rows.Add(drNewRow)
-
-            For Each drDSRow In dsUnits.Tables("Units").Rows()
-                drNewRow = dtEmissRateUnitOneStackThreeRun.NewRow
-                drNewRow("strUnitKey") = drDSRow("strUnitKey")
-                drNewRow("strUnitDescription") = drDSRow("strUnitDescription")
-                dtEmissRateUnitOneStackThreeRun.Rows.Add(drNewRow)
-            Next
 
             With cboEmissRateUnitOneStackThreeRun
-                .DataSource = dtEmissRateUnitOneStackThreeRun
+                .DataSource = dtUnits.Copy
                 .DisplayMember = "strUnitDescription"
                 .ValueMember = "strUnitKey"
                 .SelectedValue = 0
             End With
-
-            dtPollConUnitOneStackFourRun.Columns.Add("strUnitKey", GetType(System.String))
-            dtPollConUnitOneStackFourRun.Columns.Add("strUnitDescription", GetType(System.String))
-
-            drNewRow = dtPollConUnitOneStackFourRun.NewRow()
-            drNewRow("strUnitKey") = " "
-            drNewRow("strUnitDescription") = " "
-            dtPollConUnitOneStackFourRun.Rows.Add(drNewRow)
-
-            For Each drDSRow In dsUnits.Tables("Units").Rows()
-                drNewRow = dtPollConUnitOneStackFourRun.NewRow
-                drNewRow("strUnitKey") = drDSRow("strUnitKey")
-                drNewRow("strUnitDescription") = drDSRow("strUnitDescription")
-                dtPollConUnitOneStackFourRun.Rows.Add(drNewRow)
-            Next
 
             With cboPollConUnitOneStackFourRun
-                .DataSource = dtPollConUnitOneStackFourRun
+                .DataSource = dtUnits.Copy
                 .DisplayMember = "strUnitDescription"
                 .ValueMember = "strUnitKey"
                 .SelectedValue = 0
             End With
-
-            dtEmissRateUnitOneStackFourRun.Columns.Add("strUnitKey", GetType(System.String))
-            dtEmissRateUnitOneStackFourRun.Columns.Add("strUnitDescription", GetType(System.String))
-
-            drNewRow = dtEmissRateUnitOneStackFourRun.NewRow()
-            drNewRow("strUnitKey") = " "
-            drNewRow("strUnitDescription") = " "
-            dtEmissRateUnitOneStackFourRun.Rows.Add(drNewRow)
-
-            For Each drDSRow In dsUnits.Tables("Units").Rows()
-                drNewRow = dtEmissRateUnitOneStackFourRun.NewRow
-                drNewRow("strUnitKey") = drDSRow("strUnitKey")
-                drNewRow("strUnitDescription") = drDSRow("strUnitDescription")
-                dtEmissRateUnitOneStackFourRun.Rows.Add(drNewRow)
-            Next
 
             With cboEmissRateUnitOneStackFourRun
-                .DataSource = dtEmissRateUnitOneStackFourRun
+                .DataSource = dtUnits.Copy
                 .DisplayMember = "strUnitDescription"
                 .ValueMember = "strUnitKey"
                 .SelectedValue = 0
             End With
-
-            dtMaximumExpectedOperatingCapacityUnitsLoadingRack.Columns.Add("strUnitKey", GetType(System.String))
-            dtMaximumExpectedOperatingCapacityUnitsLoadingRack.Columns.Add("strUnitDescription", GetType(System.String))
-
-            drNewRow = dtMaximumExpectedOperatingCapacityUnitsLoadingRack.NewRow()
-            drNewRow("strUnitKey") = " "
-            drNewRow("strUnitDescription") = " "
-            dtMaximumExpectedOperatingCapacityUnitsLoadingRack.Rows.Add(drNewRow)
-
-            For Each drDSRow In dsUnits.Tables("Units").Rows()
-                drNewRow = dtMaximumExpectedOperatingCapacityUnitsLoadingRack.NewRow
-                drNewRow("strUnitKey") = drDSRow("strUnitKey")
-                drNewRow("strUnitDescription") = drDSRow("strUnitDescription")
-                dtMaximumExpectedOperatingCapacityUnitsLoadingRack.Rows.Add(drNewRow)
-            Next
 
             With cboMaximumExpectedOperatingCapacityUnitsLoadingRack
-                .DataSource = dtMaximumExpectedOperatingCapacityUnitsLoadingRack
+                .DataSource = dtUnits.Copy
                 .DisplayMember = "strUnitDescription"
                 .ValueMember = "strUnitKey"
                 .SelectedValue = 0
             End With
-
-            dtOperatingCapacityUnitsLoadingRack.Columns.Add("strUnitKey", GetType(System.String))
-            dtOperatingCapacityUnitsLoadingRack.Columns.Add("strUnitDescription", GetType(System.String))
-
-            drNewRow = dtOperatingCapacityUnitsLoadingRack.NewRow()
-            drNewRow("strUnitKey") = " "
-            drNewRow("strUnitDescription") = " "
-            dtOperatingCapacityUnitsLoadingRack.Rows.Add(drNewRow)
-
-            For Each drDSRow In dsUnits.Tables("Units").Rows()
-                drNewRow = dtOperatingCapacityUnitsLoadingRack.NewRow
-                drNewRow("strUnitKey") = drDSRow("strUnitKey")
-                drNewRow("strUnitDescription") = drDSRow("strUnitDescription")
-                dtOperatingCapacityUnitsLoadingRack.Rows.Add(drNewRow)
-            Next
 
             With cboOperatingCapacityUnitsLoadingRack
-                .DataSource = dtOperatingCapacityUnitsLoadingRack
+                .DataSource = dtUnits.Copy
                 .DisplayMember = "strUnitDescription"
                 .ValueMember = "strUnitKey"
                 .SelectedValue = 0
             End With
-
-            dtAllowableEmissionRateUnits1LoadingRack.Columns.Add("strUnitKey", GetType(System.String))
-            dtAllowableEmissionRateUnits1LoadingRack.Columns.Add("strUnitDescription", GetType(System.String))
-
-            drNewRow = dtAllowableEmissionRateUnits1LoadingRack.NewRow()
-            drNewRow("strUnitKey") = " "
-            drNewRow("strUnitDescription") = " "
-            dtAllowableEmissionRateUnits1LoadingRack.Rows.Add(drNewRow)
-
-            For Each drDSRow In dsUnits.Tables("Units").Rows()
-                drNewRow = dtAllowableEmissionRateUnits1LoadingRack.NewRow
-                drNewRow("strUnitKey") = drDSRow("strUnitKey")
-                drNewRow("strUnitDescription") = drDSRow("strUnitDescription")
-                dtAllowableEmissionRateUnits1LoadingRack.Rows.Add(drNewRow)
-            Next
 
             With cboAllowableEmissionRateUnits1LoadingRack
-                .DataSource = dtAllowableEmissionRateUnits1LoadingRack
+                .DataSource = dtUnits.Copy
                 .DisplayMember = "strUnitDescription"
                 .ValueMember = "strUnitKey"
                 .SelectedValue = 0
             End With
-
-            dtAllowableEmissionRateUnits2LoadingRack.Columns.Add("strUnitKey", GetType(System.String))
-            dtAllowableEmissionRateUnits2LoadingRack.Columns.Add("strUnitDescription", GetType(System.String))
-
-            drNewRow = dtAllowableEmissionRateUnits2LoadingRack.NewRow()
-            drNewRow("strUnitKey") = " "
-            drNewRow("strUnitDescription") = " "
-            dtAllowableEmissionRateUnits2LoadingRack.Rows.Add(drNewRow)
-
-            For Each drDSRow In dsUnits.Tables("Units").Rows()
-                drNewRow = dtAllowableEmissionRateUnits2LoadingRack.NewRow
-                drNewRow("strUnitKey") = drDSRow("strUnitKey")
-                drNewRow("strUnitDescription") = drDSRow("strUnitDescription")
-                dtAllowableEmissionRateUnits2LoadingRack.Rows.Add(drNewRow)
-            Next
 
             With cboAllowableEmissionRateUnits2LoadingRack
-                .DataSource = dtAllowableEmissionRateUnits2LoadingRack
+                .DataSource = dtUnits.Copy
                 .DisplayMember = "strUnitDescription"
                 .ValueMember = "strUnitKey"
                 .SelectedValue = 0
             End With
-
-            dtAllowableEmissionRateUnits3LoadingRack.Columns.Add("strUnitKey", GetType(System.String))
-            dtAllowableEmissionRateUnits3LoadingRack.Columns.Add("strUnitDescription", GetType(System.String))
-
-            drNewRow = dtAllowableEmissionRateUnits3LoadingRack.NewRow()
-            drNewRow("strUnitKey") = " "
-            drNewRow("strUnitDescription") = " "
-            dtAllowableEmissionRateUnits3LoadingRack.Rows.Add(drNewRow)
-
-            For Each drDSRow In dsUnits.Tables("Units").Rows()
-                drNewRow = dtAllowableEmissionRateUnits3LoadingRack.NewRow
-                drNewRow("strUnitKey") = drDSRow("strUnitKey")
-                drNewRow("strUnitDescription") = drDSRow("strUnitDescription")
-                dtAllowableEmissionRateUnits3LoadingRack.Rows.Add(drNewRow)
-            Next
 
             With cboAllowableEmissionRateUnits3LoadingRack
-                .DataSource = dtAllowableEmissionRateUnits3LoadingRack
+                .DataSource = dtUnits.Copy
                 .DisplayMember = "strUnitDescription"
                 .ValueMember = "strUnitKey"
                 .SelectedValue = 0
             End With
-
-            dtTestDurationUnitsLoadingRack.Columns.Add("strUnitKey", GetType(System.String))
-            dtTestDurationUnitsLoadingRack.Columns.Add("strUnitDescription", GetType(System.String))
-
-            drNewRow = dtTestDurationUnitsLoadingRack.NewRow()
-            drNewRow("strUnitKey") = " "
-            drNewRow("strUnitDescription") = " "
-            dtTestDurationUnitsLoadingRack.Rows.Add(drNewRow)
-
-            For Each drDSRow In dsUnits.Tables("Units").Rows()
-                drNewRow = dtTestDurationUnitsLoadingRack.NewRow
-                drNewRow("strUnitKey") = drDSRow("strUnitKey")
-                drNewRow("strUnitDescription") = drDSRow("strUnitDescription")
-                dtTestDurationUnitsLoadingRack.Rows.Add(drNewRow)
-            Next
 
             With cboTestDurationUnitsLoadingRack
-                .DataSource = dtTestDurationUnitsLoadingRack
+                .DataSource = dtUnits.Copy
                 .DisplayMember = "strUnitDescription"
                 .ValueMember = "strUnitKey"
                 .SelectedValue = 0
             End With
-
-            dtPollConUnitINLoadingRack.Columns.Add("strUnitKey", GetType(System.String))
-            dtPollConUnitINLoadingRack.Columns.Add("strUnitDescription", GetType(System.String))
-
-            drNewRow = dtPollConUnitINLoadingRack.NewRow()
-            drNewRow("strUnitKey") = " "
-            drNewRow("strUnitDescription") = " "
-            dtPollConUnitINLoadingRack.Rows.Add(drNewRow)
-
-            For Each drDSRow In dsUnits.Tables("Units").Rows()
-                drNewRow = dtPollConUnitINLoadingRack.NewRow
-                drNewRow("strUnitKey") = drDSRow("strUnitKey")
-                drNewRow("strUnitDescription") = drDSRow("strUnitDescription")
-                dtPollConUnitINLoadingRack.Rows.Add(drNewRow)
-            Next
 
             With cboPollConUnitINLoadingRack
-                .DataSource = dtPollConUnitINLoadingRack
+                .DataSource = dtUnits.Copy
                 .DisplayMember = "strUnitDescription"
                 .ValueMember = "strUnitKey"
                 .SelectedValue = 0
             End With
-
-            dtPollConUnitOUTLoadingRack.Columns.Add("strUnitKey", GetType(System.String))
-            dtPollConUnitOUTLoadingRack.Columns.Add("strUnitDescription", GetType(System.String))
-
-            drNewRow = dtPollConUnitOUTLoadingRack.NewRow()
-            drNewRow("strUnitKey") = " "
-            drNewRow("strUnitDescription") = " "
-            dtPollConUnitOUTLoadingRack.Rows.Add(drNewRow)
-
-            For Each drDSRow In dsUnits.Tables("Units").Rows()
-                drNewRow = dtPollConUnitOUTLoadingRack.NewRow
-                drNewRow("strUnitKey") = drDSRow("strUnitKey")
-                drNewRow("strUnitDescription") = drDSRow("strUnitDescription")
-                dtPollConUnitOUTLoadingRack.Rows.Add(drNewRow)
-            Next
 
             With cboPollConUnitOUTLoadingRack
-                .DataSource = dtPollConUnitOUTLoadingRack
+                .DataSource = dtUnits.Copy
                 .DisplayMember = "strUnitDescription"
                 .ValueMember = "strUnitKey"
                 .SelectedValue = 0
             End With
-
-            dtEmissRateUnitLoadingRack.Columns.Add("strUnitKey", GetType(System.String))
-            dtEmissRateUnitLoadingRack.Columns.Add("strUnitDescription", GetType(System.String))
-
-            drNewRow = dtEmissRateUnitLoadingRack.NewRow()
-            drNewRow("strUnitKey") = " "
-            drNewRow("strUnitDescription") = " "
-            dtEmissRateUnitLoadingRack.Rows.Add(drNewRow)
-
-            For Each drDSRow In dsUnits.Tables("Units").Rows()
-                drNewRow = dtEmissRateUnitLoadingRack.NewRow
-                drNewRow("strUnitKey") = drDSRow("strUnitKey")
-                drNewRow("strUnitDescription") = drDSRow("strUnitDescription")
-                dtEmissRateUnitLoadingRack.Rows.Add(drNewRow)
-            Next
 
             With cboEmissRateUnitLoadingRack
-                .DataSource = dtEmissRateUnitLoadingRack
+                .DataSource = dtUnits.Copy
                 .DisplayMember = "strUnitDescription"
                 .ValueMember = "strUnitKey"
                 .SelectedValue = 0
             End With
-
-            dtMaximumExpectedOperatingCapacityUnitsPond.Columns.Add("strUnitKey", GetType(System.String))
-            dtMaximumExpectedOperatingCapacityUnitsPond.Columns.Add("strUnitDescription", GetType(System.String))
-
-            drNewRow = dtMaximumExpectedOperatingCapacityUnitsPond.NewRow()
-            drNewRow("strUnitKey") = " "
-            drNewRow("strUnitDescription") = " "
-            dtMaximumExpectedOperatingCapacityUnitsPond.Rows.Add(drNewRow)
-
-            For Each drDSRow In dsUnits.Tables("Units").Rows()
-                drNewRow = dtMaximumExpectedOperatingCapacityUnitsPond.NewRow
-                drNewRow("strUnitKey") = drDSRow("strUnitKey")
-                drNewRow("strUnitDescription") = drDSRow("strUnitDescription")
-                dtMaximumExpectedOperatingCapacityUnitsPond.Rows.Add(drNewRow)
-            Next
 
             With cboMaximumExpectedOperatingCapacityUnitsPond
-                .DataSource = dtMaximumExpectedOperatingCapacityUnitsPond
+                .DataSource = dtUnits.Copy
                 .DisplayMember = "strUnitDescription"
                 .ValueMember = "strUnitKey"
                 .SelectedValue = 0
             End With
-
-            dtOperatingCapacityUnitsPond.Columns.Add("strUnitKey", GetType(System.String))
-            dtOperatingCapacityUnitsPond.Columns.Add("strUnitDescription", GetType(System.String))
-
-            drNewRow = dtOperatingCapacityUnitsPond.NewRow()
-            drNewRow("strUnitKey") = " "
-            drNewRow("strUnitDescription") = " "
-            dtOperatingCapacityUnitsPond.Rows.Add(drNewRow)
-
-            For Each drDSRow In dsUnits.Tables("Units").Rows()
-                drNewRow = dtOperatingCapacityUnitsPond.NewRow
-                drNewRow("strUnitKey") = drDSRow("strUnitKey")
-                drNewRow("strUnitDescription") = drDSRow("strUnitDescription")
-                dtOperatingCapacityUnitsPond.Rows.Add(drNewRow)
-            Next
 
             With cboOperatingCapacityUnitsPond
-                .DataSource = dtOperatingCapacityUnitsPond
+                .DataSource = dtUnits.Copy
                 .DisplayMember = "strUnitDescription"
                 .ValueMember = "strUnitKey"
                 .SelectedValue = 0
             End With
-
-            dtAllowableEmissionRateUnits1Pond.Columns.Add("strUnitKey", GetType(System.String))
-            dtAllowableEmissionRateUnits1Pond.Columns.Add("strUnitDescription", GetType(System.String))
-
-            drNewRow = dtAllowableEmissionRateUnits1Pond.NewRow()
-            drNewRow("strUnitKey") = " "
-            drNewRow("strUnitDescription") = " "
-            dtAllowableEmissionRateUnits1Pond.Rows.Add(drNewRow)
-
-            For Each drDSRow In dsUnits.Tables("Units").Rows()
-                drNewRow = dtAllowableEmissionRateUnits1Pond.NewRow
-                drNewRow("strUnitKey") = drDSRow("strUnitKey")
-                drNewRow("strUnitDescription") = drDSRow("strUnitDescription")
-                dtAllowableEmissionRateUnits1Pond.Rows.Add(drNewRow)
-            Next
 
             With cboAllowableEmissionRateUnits1Pond
-                .DataSource = dtAllowableEmissionRateUnits1Pond
+                .DataSource = dtUnits.Copy
                 .DisplayMember = "strUnitDescription"
                 .ValueMember = "strUnitKey"
                 .SelectedValue = 0
             End With
-
-            dtAllowableEmissionRateUnits2Pond.Columns.Add("strUnitKey", GetType(System.String))
-            dtAllowableEmissionRateUnits2Pond.Columns.Add("strUnitDescription", GetType(System.String))
-
-            drNewRow = dtAllowableEmissionRateUnits2Pond.NewRow()
-            drNewRow("strUnitKey") = " "
-            drNewRow("strUnitDescription") = " "
-            dtAllowableEmissionRateUnits2Pond.Rows.Add(drNewRow)
-
-            For Each drDSRow In dsUnits.Tables("Units").Rows()
-                drNewRow = dtAllowableEmissionRateUnits2Pond.NewRow
-                drNewRow("strUnitKey") = drDSRow("strUnitKey")
-                drNewRow("strUnitDescription") = drDSRow("strUnitDescription")
-                dtAllowableEmissionRateUnits2Pond.Rows.Add(drNewRow)
-            Next
 
             With cboAllowableEmissionRateUnits2Pond
-                .DataSource = dtAllowableEmissionRateUnits2Pond
+                .DataSource = dtUnits.Copy
                 .DisplayMember = "strUnitDescription"
                 .ValueMember = "strUnitKey"
                 .SelectedValue = 0
             End With
-
-            dtAllowableEmissionRateUnits3Pond.Columns.Add("strUnitKey", GetType(System.String))
-            dtAllowableEmissionRateUnits3Pond.Columns.Add("strUnitDescription", GetType(System.String))
-
-            drNewRow = dtAllowableEmissionRateUnits3Pond.NewRow()
-            drNewRow("strUnitKey") = " "
-            drNewRow("strUnitDescription") = " "
-            dtAllowableEmissionRateUnits3Pond.Rows.Add(drNewRow)
-
-            For Each drDSRow In dsUnits.Tables("Units").Rows()
-                drNewRow = dtAllowableEmissionRateUnits3Pond.NewRow
-                drNewRow("strUnitKey") = drDSRow("strUnitKey")
-                drNewRow("strUnitDescription") = drDSRow("strUnitDescription")
-                dtAllowableEmissionRateUnits3Pond.Rows.Add(drNewRow)
-            Next
 
             With cboAllowableEmissionRateUnits3Pond
-                .DataSource = dtAllowableEmissionRateUnits3Pond
+                .DataSource = dtUnits.Copy
                 .DisplayMember = "strUnitDescription"
                 .ValueMember = "strUnitKey"
                 .SelectedValue = 0
             End With
-
-            dtPollConUnitPond.Columns.Add("strUnitKey", GetType(System.String))
-            dtPollConUnitPond.Columns.Add("strUnitDescription", GetType(System.String))
-
-            drNewRow = dtPollConUnitPond.NewRow()
-            drNewRow("strUnitKey") = " "
-            drNewRow("strUnitDescription") = " "
-            dtPollConUnitPond.Rows.Add(drNewRow)
-
-            For Each drDSRow In dsUnits.Tables("Units").Rows()
-                drNewRow = dtPollConUnitPond.NewRow
-                drNewRow("strUnitKey") = drDSRow("strUnitKey")
-                drNewRow("strUnitDescription") = drDSRow("strUnitDescription")
-                dtPollConUnitPond.Rows.Add(drNewRow)
-            Next
 
             With cboPollConUnitPond
-                .DataSource = dtPollConUnitPond
+                .DataSource = dtUnits.Copy
                 .DisplayMember = "strUnitDescription"
                 .ValueMember = "strUnitKey"
                 .SelectedValue = 0
             End With
-
-            dtTreatmentRateUnitPond.Columns.Add("strUnitKey", GetType(System.String))
-            dtTreatmentRateUnitPond.Columns.Add("strUnitDescription", GetType(System.String))
-
-            drNewRow = dtTreatmentRateUnitPond.NewRow()
-            drNewRow("strUnitKey") = " "
-            drNewRow("strUnitDescription") = " "
-            dtTreatmentRateUnitPond.Rows.Add(drNewRow)
-
-            For Each drDSRow In dsUnits.Tables("Units").Rows()
-                drNewRow = dtTreatmentRateUnitPond.NewRow
-                drNewRow("strUnitKey") = drDSRow("strUnitKey")
-                drNewRow("strUnitDescription") = drDSRow("strUnitDescription")
-                dtTreatmentRateUnitPond.Rows.Add(drNewRow)
-            Next
 
             With cboTreatmentRateUnitPond
-                .DataSource = dtTreatmentRateUnitPond
+                .DataSource = dtUnits.Copy
                 .DisplayMember = "strUnitDescription"
                 .ValueMember = "strUnitKey"
                 .SelectedValue = 0
             End With
-
-            dtMaximumExpectedOperatingCapacityUnitsGas.Columns.Add("strUnitKey", GetType(System.String))
-            dtMaximumExpectedOperatingCapacityUnitsGas.Columns.Add("strUnitDescription", GetType(System.String))
-
-            drNewRow = dtMaximumExpectedOperatingCapacityUnitsGas.NewRow()
-            drNewRow("strUnitKey") = " "
-            drNewRow("strUnitDescription") = " "
-            dtMaximumExpectedOperatingCapacityUnitsGas.Rows.Add(drNewRow)
-
-            For Each drDSRow In dsUnits.Tables("Units").Rows()
-                drNewRow = dtMaximumExpectedOperatingCapacityUnitsGas.NewRow
-                drNewRow("strUnitKey") = drDSRow("strUnitKey")
-                drNewRow("strUnitDescription") = drDSRow("strUnitDescription")
-                dtMaximumExpectedOperatingCapacityUnitsGas.Rows.Add(drNewRow)
-            Next
 
             With cboMaximumExpectedOperatingCapacityUnitsGas
-                .DataSource = dtMaximumExpectedOperatingCapacityUnitsGas
+                .DataSource = dtUnits.Copy
                 .DisplayMember = "strUnitDescription"
                 .ValueMember = "strUnitKey"
                 .SelectedValue = 0
             End With
-
-            dtOperatingCapacityUnitsGas.Columns.Add("strUnitKey", GetType(System.String))
-            dtOperatingCapacityUnitsGas.Columns.Add("strUnitDescription", GetType(System.String))
-
-            drNewRow = dtOperatingCapacityUnitsGas.NewRow()
-            drNewRow("strUnitKey") = " "
-            drNewRow("strUnitDescription") = " "
-            dtOperatingCapacityUnitsGas.Rows.Add(drNewRow)
-
-            For Each drDSRow In dsUnits.Tables("Units").Rows()
-                drNewRow = dtOperatingCapacityUnitsGas.NewRow
-                drNewRow("strUnitKey") = drDSRow("strUnitKey")
-                drNewRow("strUnitDescription") = drDSRow("strUnitDescription")
-                dtOperatingCapacityUnitsGas.Rows.Add(drNewRow)
-            Next
 
             With cboOperatingCapacityUnitsGas
-                .DataSource = dtOperatingCapacityUnitsGas
+                .DataSource = dtUnits.Copy
                 .DisplayMember = "strUnitDescription"
                 .ValueMember = "strUnitKey"
                 .SelectedValue = 0
             End With
-
-            dtAllowableEmissionRateUnits1Gas.Columns.Add("strUnitKey", GetType(System.String))
-            dtAllowableEmissionRateUnits1Gas.Columns.Add("strUnitDescription", GetType(System.String))
-
-            drNewRow = dtAllowableEmissionRateUnits1Gas.NewRow()
-            drNewRow("strUnitKey") = " "
-            drNewRow("strUnitDescription") = " "
-            dtAllowableEmissionRateUnits1Gas.Rows.Add(drNewRow)
-
-            For Each drDSRow In dsUnits.Tables("Units").Rows()
-                drNewRow = dtAllowableEmissionRateUnits1Gas.NewRow
-                drNewRow("strUnitKey") = drDSRow("strUnitKey")
-                drNewRow("strUnitDescription") = drDSRow("strUnitDescription")
-                dtAllowableEmissionRateUnits1Gas.Rows.Add(drNewRow)
-            Next
 
             With cboAllowableEmissionRateUnits1Gas
-                .DataSource = dtAllowableEmissionRateUnits1Gas
+                .DataSource = dtUnits.Copy
                 .DisplayMember = "strUnitDescription"
                 .ValueMember = "strUnitKey"
                 .SelectedValue = 0
             End With
-
-            dtAllowableEmissionRateUnits2Gas.Columns.Add("strUnitKey", GetType(System.String))
-            dtAllowableEmissionRateUnits2Gas.Columns.Add("strUnitDescription", GetType(System.String))
-
-            drNewRow = dtAllowableEmissionRateUnits2Gas.NewRow()
-            drNewRow("strUnitKey") = " "
-            drNewRow("strUnitDescription") = " "
-            dtAllowableEmissionRateUnits2Gas.Rows.Add(drNewRow)
-
-            For Each drDSRow In dsUnits.Tables("Units").Rows()
-                drNewRow = dtAllowableEmissionRateUnits2Gas.NewRow
-                drNewRow("strUnitKey") = drDSRow("strUnitKey")
-                drNewRow("strUnitDescription") = drDSRow("strUnitDescription")
-                dtAllowableEmissionRateUnits2Gas.Rows.Add(drNewRow)
-            Next
 
             With cboAllowableEmissionRateUnits2Gas
-                .DataSource = dtAllowableEmissionRateUnits2Gas
+                .DataSource = dtUnits.Copy
                 .DisplayMember = "strUnitDescription"
                 .ValueMember = "strUnitKey"
                 .SelectedValue = 0
             End With
-
-            dtAllowableEmissionRateUnits3Gas.Columns.Add("strUnitKey", GetType(System.String))
-            dtAllowableEmissionRateUnits3Gas.Columns.Add("strUnitDescription", GetType(System.String))
-
-            drNewRow = dtAllowableEmissionRateUnits3Gas.NewRow()
-            drNewRow("strUnitKey") = " "
-            drNewRow("strUnitDescription") = " "
-            dtAllowableEmissionRateUnits3Gas.Rows.Add(drNewRow)
-
-            For Each drDSRow In dsUnits.Tables("Units").Rows()
-                drNewRow = dtAllowableEmissionRateUnits3Gas.NewRow
-                drNewRow("strUnitKey") = drDSRow("strUnitKey")
-                drNewRow("strUnitDescription") = drDSRow("strUnitDescription")
-                dtAllowableEmissionRateUnits3Gas.Rows.Add(drNewRow)
-            Next
 
             With cboAllowableEmissionRateUnits3Gas
-                .DataSource = dtAllowableEmissionRateUnits3Gas
+                .DataSource = dtUnits.Copy
                 .DisplayMember = "strUnitDescription"
                 .ValueMember = "strUnitKey"
                 .SelectedValue = 0
             End With
-
-            dtPollConUnitGas.Columns.Add("strUnitKey", GetType(System.String))
-            dtPollConUnitGas.Columns.Add("strUnitDescription", GetType(System.String))
-
-            drNewRow = dtPollConUnitGas.NewRow()
-            drNewRow("strUnitKey") = " "
-            drNewRow("strUnitDescription") = " "
-            dtPollConUnitGas.Rows.Add(drNewRow)
-
-            For Each drDSRow In dsUnits.Tables("Units").Rows()
-                drNewRow = dtPollConUnitGas.NewRow
-                drNewRow("strUnitKey") = drDSRow("strUnitKey")
-                drNewRow("strUnitDescription") = drDSRow("strUnitDescription")
-                dtPollConUnitGas.Rows.Add(drNewRow)
-            Next
 
             With cboPollConUnitGas
-                .DataSource = dtPollConUnitGas
+                .DataSource = dtUnits.Copy
                 .DisplayMember = "strUnitDescription"
                 .ValueMember = "strUnitKey"
                 .SelectedValue = 0
             End With
-
-            dtEmissRateUnitGas.Columns.Add("strUnitKey", GetType(System.String))
-            dtEmissRateUnitGas.Columns.Add("strUnitDescription", GetType(System.String))
-
-            drNewRow = dtEmissRateUnitGas.NewRow()
-            drNewRow("strUnitKey") = " "
-            drNewRow("strUnitDescription") = " "
-            dtEmissRateUnitGas.Rows.Add(drNewRow)
-
-            For Each drDSRow In dsUnits.Tables("Units").Rows()
-                drNewRow = dtEmissRateUnitGas.NewRow
-                drNewRow("strUnitKey") = drDSRow("strUnitKey")
-                drNewRow("strUnitDescription") = drDSRow("strUnitDescription")
-                dtEmissRateUnitGas.Rows.Add(drNewRow)
-            Next
 
             With cboEmissRateUnitGas
-                .DataSource = dtEmissRateUnitGas
+                .DataSource = dtUnits.Copy
                 .DisplayMember = "strUnitDescription"
                 .ValueMember = "strUnitKey"
                 .SelectedValue = 0
             End With
-
-            dtMaximumExpectedOperatingCapacityUnitsFlare.Columns.Add("strUnitKey", GetType(System.String))
-            dtMaximumExpectedOperatingCapacityUnitsFlare.Columns.Add("strUnitDescription", GetType(System.String))
-
-            drNewRow = dtMaximumExpectedOperatingCapacityUnitsFlare.NewRow()
-            drNewRow("strUnitKey") = " "
-            drNewRow("strUnitDescription") = " "
-            dtMaximumExpectedOperatingCapacityUnitsFlare.Rows.Add(drNewRow)
-
-            For Each drDSRow In dsUnits.Tables("Units").Rows()
-                drNewRow = dtMaximumExpectedOperatingCapacityUnitsFlare.NewRow
-                drNewRow("strUnitKey") = drDSRow("strUnitKey")
-                drNewRow("strUnitDescription") = drDSRow("strUnitDescription")
-                dtMaximumExpectedOperatingCapacityUnitsFlare.Rows.Add(drNewRow)
-            Next
 
             With cboMaximumExpectedOperatingCapacityUnitsFlare
-                .DataSource = dtMaximumExpectedOperatingCapacityUnitsFlare
+                .DataSource = dtUnits.Copy
                 .DisplayMember = "strUnitDescription"
                 .ValueMember = "strUnitKey"
                 .SelectedValue = 0
             End With
-
-            dtOperatingCapacityUnitsFlare.Columns.Add("strUnitKey", GetType(System.String))
-            dtOperatingCapacityUnitsFlare.Columns.Add("strUnitDescription", GetType(System.String))
-
-            drNewRow = dtOperatingCapacityUnitsFlare.NewRow()
-            drNewRow("strUnitKey") = " "
-            drNewRow("strUnitDescription") = " "
-            dtOperatingCapacityUnitsFlare.Rows.Add(drNewRow)
-
-            For Each drDSRow In dsUnits.Tables("Units").Rows()
-                drNewRow = dtOperatingCapacityUnitsFlare.NewRow
-                drNewRow("strUnitKey") = drDSRow("strUnitKey")
-                drNewRow("strUnitDescription") = drDSRow("strUnitDescription")
-                dtOperatingCapacityUnitsFlare.Rows.Add(drNewRow)
-            Next
 
             With cboOperatingCapacityUnitsFlare
-                .DataSource = dtOperatingCapacityUnitsFlare
+                .DataSource = dtUnits.Copy
                 .DisplayMember = "strUnitDescription"
                 .ValueMember = "strUnitKey"
                 .SelectedValue = 0
             End With
-
-            dtHeatingValueUnits.Columns.Add("strUnitKey", GetType(System.String))
-            dtHeatingValueUnits.Columns.Add("strUnitDescription", GetType(System.String))
-
-            drNewRow = dtHeatingValueUnits.NewRow()
-            drNewRow("strUnitKey") = " "
-            drNewRow("strUnitDescription") = " "
-            dtHeatingValueUnits.Rows.Add(drNewRow)
-
-            For Each drDSRow In dsUnits.Tables("Units").Rows()
-                drNewRow = dtHeatingValueUnits.NewRow
-                drNewRow("strUnitKey") = drDSRow("strUnitKey")
-                drNewRow("strUnitDescription") = drDSRow("strUnitDescription")
-                dtHeatingValueUnits.Rows.Add(drNewRow)
-            Next
 
             With cboHeatingValueUnits
-                .DataSource = dtHeatingValueUnits
+                .DataSource = dtUnits.Copy
                 .DisplayMember = "strUnitDescription"
                 .ValueMember = "strUnitKey"
                 .SelectedValue = 0
             End With
-
-            dtVelocityUnitsFlare.Columns.Add("strUnitKey", GetType(System.String))
-            dtVelocityUnitsFlare.Columns.Add("strUnitDescription", GetType(System.String))
-
-            drNewRow = dtVelocityUnitsFlare.NewRow()
-            drNewRow("strUnitKey") = " "
-            drNewRow("strUnitDescription") = " "
-            dtVelocityUnitsFlare.Rows.Add(drNewRow)
-
-            For Each drDSRow In dsUnits.Tables("Units").Rows()
-                drNewRow = dtVelocityUnitsFlare.NewRow
-                drNewRow("strUnitKey") = drDSRow("strUnitKey")
-                drNewRow("strUnitDescription") = drDSRow("strUnitDescription")
-                dtVelocityUnitsFlare.Rows.Add(drNewRow)
-            Next
 
             With cboVelocityUnitsFlare
-                .DataSource = dtVelocityUnitsFlare
+                .DataSource = dtUnits.Copy
                 .DisplayMember = "strUnitDescription"
                 .ValueMember = "strUnitKey"
                 .SelectedValue = 0
             End With
-
-            dtMaximumExpectedOperatingCapacityUnitsMethod9Single.Columns.Add("strUnitKey", GetType(System.String))
-            dtMaximumExpectedOperatingCapacityUnitsMethod9Single.Columns.Add("strUnitDescription", GetType(System.String))
-
-            drNewRow = dtMaximumExpectedOperatingCapacityUnitsMethod9Single.NewRow()
-            drNewRow("strUnitKey") = " "
-            drNewRow("strUnitDescription") = " "
-            dtMaximumExpectedOperatingCapacityUnitsMethod9Single.Rows.Add(drNewRow)
-
-            For Each drDSRow In dsUnits.Tables("Units").Rows()
-                drNewRow = dtMaximumExpectedOperatingCapacityUnitsMethod9Single.NewRow
-                drNewRow("strUnitKey") = drDSRow("strUnitKey")
-                drNewRow("strUnitDescription") = drDSRow("strUnitDescription")
-                dtMaximumExpectedOperatingCapacityUnitsMethod9Single.Rows.Add(drNewRow)
-            Next
 
             With cboMaximumExpectedOperatingCapacityUnitsMethod9Single
-                .DataSource = dtMaximumExpectedOperatingCapacityUnitsMethod9Single
+                .DataSource = dtUnits.Copy
                 .DisplayMember = "strUnitDescription"
                 .ValueMember = "strUnitKey"
                 .SelectedValue = 0
             End With
-
-            dtOperatingCapacityUnitsMethod9Single.Columns.Add("strUnitKey", GetType(System.String))
-            dtOperatingCapacityUnitsMethod9Single.Columns.Add("strUnitDescription", GetType(System.String))
-
-            drNewRow = dtOperatingCapacityUnitsMethod9Single.NewRow()
-            drNewRow("strUnitKey") = " "
-            drNewRow("strUnitDescription") = " "
-            dtOperatingCapacityUnitsMethod9Single.Rows.Add(drNewRow)
-
-            For Each drDSRow In dsUnits.Tables("Units").Rows()
-                drNewRow = dtOperatingCapacityUnitsMethod9Single.NewRow
-                drNewRow("strUnitKey") = drDSRow("strUnitKey")
-                drNewRow("strUnitDescription") = drDSRow("strUnitDescription")
-                dtOperatingCapacityUnitsMethod9Single.Rows.Add(drNewRow)
-            Next
 
             With cboOperatingCapacityUnitsMethod9Single
-                .DataSource = dtOperatingCapacityUnitsMethod9Single
+                .DataSource = dtUnits.Copy
                 .DisplayMember = "strUnitDescription"
                 .ValueMember = "strUnitKey"
                 .SelectedValue = 0
             End With
-
-            dtAllowableEmissionRateUnits1Method9Single.Columns.Add("strUnitKey", GetType(System.String))
-            dtAllowableEmissionRateUnits1Method9Single.Columns.Add("strUnitDescription", GetType(System.String))
-
-            drNewRow = dtAllowableEmissionRateUnits1Method9Single.NewRow()
-            drNewRow("strUnitKey") = " "
-            drNewRow("strUnitDescription") = " "
-            dtAllowableEmissionRateUnits1Method9Single.Rows.Add(drNewRow)
-
-            For Each drDSRow In dsUnits.Tables("Units").Rows()
-                drNewRow = dtAllowableEmissionRateUnits1Method9Single.NewRow
-                drNewRow("strUnitKey") = drDSRow("strUnitKey")
-                drNewRow("strUnitDescription") = drDSRow("strUnitDescription")
-                dtAllowableEmissionRateUnits1Method9Single.Rows.Add(drNewRow)
-            Next
 
             With cboAllowableEmissionRateUnits1Method9Single
-                .DataSource = dtAllowableEmissionRateUnits1Method9Single
+                .DataSource = dtUnits.Copy
                 .DisplayMember = "strUnitDescription"
                 .ValueMember = "strUnitKey"
                 .SelectedValue = 0
             End With
-
-            dtMaximumExpectedOperatingCapacityUnitsMemorandumPTE.Columns.Add("strUnitKey", GetType(System.String))
-            dtMaximumExpectedOperatingCapacityUnitsMemorandumPTE.Columns.Add("strUnitDescription", GetType(System.String))
-
-            drNewRow = dtMaximumExpectedOperatingCapacityUnitsMemorandumPTE.NewRow()
-            drNewRow("strUnitKey") = " "
-            drNewRow("strUnitDescription") = " "
-            dtMaximumExpectedOperatingCapacityUnitsMemorandumPTE.Rows.Add(drNewRow)
-
-            For Each drDSRow In dsUnits.Tables("Units").Rows()
-                drNewRow = dtMaximumExpectedOperatingCapacityUnitsMemorandumPTE.NewRow
-                drNewRow("strUnitKey") = drDSRow("strUnitKey")
-                drNewRow("strUnitDescription") = drDSRow("strUnitDescription")
-                dtMaximumExpectedOperatingCapacityUnitsMemorandumPTE.Rows.Add(drNewRow)
-            Next
 
             With cboMaximumExpectedOperatingCapacityUnitsMemorandumPTE
-                .DataSource = dtMaximumExpectedOperatingCapacityUnitsMemorandumPTE
+                .DataSource = dtUnits.Copy
                 .DisplayMember = "strUnitDescription"
                 .ValueMember = "strUnitKey"
                 .SelectedValue = 0
             End With
-
-            dtOperatingCapacityUnitsMemorandumPTE.Columns.Add("strUnitKey", GetType(System.String))
-            dtOperatingCapacityUnitsMemorandumPTE.Columns.Add("strUnitDescription", GetType(System.String))
-
-            drNewRow = dtOperatingCapacityUnitsMemorandumPTE.NewRow()
-            drNewRow("strUnitKey") = " "
-            drNewRow("strUnitDescription") = " "
-            dtOperatingCapacityUnitsMemorandumPTE.Rows.Add(drNewRow)
-
-            For Each drDSRow In dsUnits.Tables("Units").Rows()
-                drNewRow = dtOperatingCapacityUnitsMemorandumPTE.NewRow
-                drNewRow("strUnitKey") = drDSRow("strUnitKey")
-                drNewRow("strUnitDescription") = drDSRow("strUnitDescription")
-                dtOperatingCapacityUnitsMemorandumPTE.Rows.Add(drNewRow)
-            Next
 
             With cboOperatingCapacityUnitsMemorandumPTE
-                .DataSource = dtOperatingCapacityUnitsMemorandumPTE
+                .DataSource = dtUnits.Copy
                 .DisplayMember = "strUnitDescription"
                 .ValueMember = "strUnitKey"
                 .SelectedValue = 0
             End With
-
-            dtAllowableEmissionRateUnits1MemorandumPTE.Columns.Add("strUnitKey", GetType(System.String))
-            dtAllowableEmissionRateUnits1MemorandumPTE.Columns.Add("strUnitDescription", GetType(System.String))
-
-            drNewRow = dtAllowableEmissionRateUnits1MemorandumPTE.NewRow()
-            drNewRow("strUnitKey") = " "
-            drNewRow("strUnitDescription") = " "
-            dtAllowableEmissionRateUnits1MemorandumPTE.Rows.Add(drNewRow)
-
-            For Each drDSRow In dsUnits.Tables("Units").Rows()
-                drNewRow = dtAllowableEmissionRateUnits1MemorandumPTE.NewRow
-                drNewRow("strUnitKey") = drDSRow("strUnitKey")
-                drNewRow("strUnitDescription") = drDSRow("strUnitDescription")
-                dtAllowableEmissionRateUnits1MemorandumPTE.Rows.Add(drNewRow)
-            Next
 
             With cboAllowableEmissionRateUnits1MemorandumPTE
-                .DataSource = dtAllowableEmissionRateUnits1MemorandumPTE
+                .DataSource = dtUnits.Copy
                 .DisplayMember = "strUnitDescription"
                 .ValueMember = "strUnitKey"
                 .SelectedValue = 0
             End With
-
-            dtAllowableEmissionRateUnits2MemorandumPTE.Columns.Add("strUnitKey", GetType(System.String))
-            dtAllowableEmissionRateUnits2MemorandumPTE.Columns.Add("strUnitDescription", GetType(System.String))
-
-            drNewRow = dtAllowableEmissionRateUnits2MemorandumPTE.NewRow()
-            drNewRow("strUnitKey") = " "
-            drNewRow("strUnitDescription") = " "
-            dtAllowableEmissionRateUnits2MemorandumPTE.Rows.Add(drNewRow)
-
-            For Each drDSRow In dsUnits.Tables("Units").Rows()
-                drNewRow = dtAllowableEmissionRateUnits2MemorandumPTE.NewRow
-                drNewRow("strUnitKey") = drDSRow("strUnitKey")
-                drNewRow("strUnitDescription") = drDSRow("strUnitDescription")
-                dtAllowableEmissionRateUnits2MemorandumPTE.Rows.Add(drNewRow)
-            Next
 
             With cboAllowableEmissionRateUnits2MemorandumPTE
-                .DataSource = dtAllowableEmissionRateUnits2MemorandumPTE
+                .DataSource = dtUnits.Copy
                 .DisplayMember = "strUnitDescription"
                 .ValueMember = "strUnitKey"
                 .SelectedValue = 0
             End With
-
-            dtAllowableEmissionRateUnits3MemorandumPTE.Columns.Add("strUnitKey", GetType(System.String))
-            dtAllowableEmissionRateUnits3MemorandumPTE.Columns.Add("strUnitDescription", GetType(System.String))
-
-            drNewRow = dtAllowableEmissionRateUnits3MemorandumPTE.NewRow()
-            drNewRow("strUnitKey") = " "
-            drNewRow("strUnitDescription") = " "
-            dtAllowableEmissionRateUnits3MemorandumPTE.Rows.Add(drNewRow)
-
-            For Each drDSRow In dsUnits.Tables("Units").Rows()
-                drNewRow = dtAllowableEmissionRateUnits3MemorandumPTE.NewRow
-                drNewRow("strUnitKey") = drDSRow("strUnitKey")
-                drNewRow("strUnitDescription") = drDSRow("strUnitDescription")
-                dtAllowableEmissionRateUnits3MemorandumPTE.Rows.Add(drNewRow)
-            Next
 
             With cboAllowableEmissionRateUnits3MemorandumPTE
-                .DataSource = dtAllowableEmissionRateUnits3MemorandumPTE
+                .DataSource = dtUnits.Copy
                 .DisplayMember = "strUnitDescription"
                 .ValueMember = "strUnitKey"
                 .SelectedValue = 0
             End With
-
-            dtUnitsRata.Columns.Add("strUnitKey", GetType(System.String))
-            dtUnitsRata.Columns.Add("strUnitDescription", GetType(System.String))
-
-            drNewRow = dtUnitsRata.NewRow()
-            drNewRow("strUnitKey") = " "
-            drNewRow("strUnitDescription") = " "
-            dtUnitsRata.Rows.Add(drNewRow)
-
-            For Each drDSRow In dsUnits.Tables("Units").Rows()
-                drNewRow = dtUnitsRata.NewRow
-                drNewRow("strUnitKey") = drDSRow("strUnitKey")
-                drNewRow("strUnitDescription") = drDSRow("strUnitDescription")
-                dtUnitsRata.Rows.Add(drNewRow)
-            Next
 
             With cboUnitsRata
-                .DataSource = dtUnitsRata
+                .DataSource = dtUnits.Copy
                 .DisplayMember = "strUnitDescription"
                 .ValueMember = "strUnitKey"
                 .SelectedValue = 0
             End With
-
-            dtMaximumExpectedOperatingCapacityUnitsTwoStack.Columns.Add("strUnitKey", GetType(System.String))
-            dtMaximumExpectedOperatingCapacityUnitsTwoStack.Columns.Add("strUnitDescription", GetType(System.String))
-
-            drNewRow = dtMaximumExpectedOperatingCapacityUnitsTwoStack.NewRow()
-            drNewRow("strUnitKey") = " "
-            drNewRow("strUnitDescription") = " "
-            dtMaximumExpectedOperatingCapacityUnitsTwoStack.Rows.Add(drNewRow)
-
-            For Each drDSRow In dsUnits.Tables("Units").Rows()
-                drNewRow = dtMaximumExpectedOperatingCapacityUnitsTwoStack.NewRow
-                drNewRow("strUnitKey") = drDSRow("strUnitKey")
-                drNewRow("strUnitDescription") = drDSRow("strUnitDescription")
-                dtMaximumExpectedOperatingCapacityUnitsTwoStack.Rows.Add(drNewRow)
-            Next
 
             With cboMaximumExpectedOperatingCapacityUnitsTwoStack
-                .DataSource = dtMaximumExpectedOperatingCapacityUnitsTwoStack
+                .DataSource = dtUnits.Copy
                 .DisplayMember = "strUnitDescription"
                 .ValueMember = "strUnitKey"
                 .SelectedValue = 0
             End With
-
-            dtOperatingCapacityUnitsTwoStack.Columns.Add("strUnitKey", GetType(System.String))
-            dtOperatingCapacityUnitsTwoStack.Columns.Add("strUnitDescription", GetType(System.String))
-
-            drNewRow = dtOperatingCapacityUnitsTwoStack.NewRow()
-            drNewRow("strUnitKey") = " "
-            drNewRow("strUnitDescription") = " "
-            dtOperatingCapacityUnitsTwoStack.Rows.Add(drNewRow)
-
-            For Each drDSRow In dsUnits.Tables("Units").Rows()
-                drNewRow = dtOperatingCapacityUnitsTwoStack.NewRow
-                drNewRow("strUnitKey") = drDSRow("strUnitKey")
-                drNewRow("strUnitDescription") = drDSRow("strUnitDescription")
-                dtOperatingCapacityUnitsTwoStack.Rows.Add(drNewRow)
-            Next
 
             With cboOperatingCapacityUnitsTwoStack
-                .DataSource = dtOperatingCapacityUnitsTwoStack
+                .DataSource = dtUnits.Copy
                 .DisplayMember = "strUnitDescription"
                 .ValueMember = "strUnitKey"
                 .SelectedValue = 0
             End With
-
-            dtAllowableEmissionRateUnits1TwoStack.Columns.Add("strUnitKey", GetType(System.String))
-            dtAllowableEmissionRateUnits1TwoStack.Columns.Add("strUnitDescription", GetType(System.String))
-
-            drNewRow = dtAllowableEmissionRateUnits1TwoStack.NewRow()
-            drNewRow("strUnitKey") = " "
-            drNewRow("strUnitDescription") = " "
-            dtAllowableEmissionRateUnits1TwoStack.Rows.Add(drNewRow)
-
-            For Each drDSRow In dsUnits.Tables("Units").Rows()
-                drNewRow = dtAllowableEmissionRateUnits1TwoStack.NewRow
-                drNewRow("strUnitKey") = drDSRow("strUnitKey")
-                drNewRow("strUnitDescription") = drDSRow("strUnitDescription")
-                dtAllowableEmissionRateUnits1TwoStack.Rows.Add(drNewRow)
-            Next
 
             With cboAllowableEmissionRateUnits1TwoStack
-                .DataSource = dtAllowableEmissionRateUnits1TwoStack
+                .DataSource = dtUnits.Copy
                 .DisplayMember = "strUnitDescription"
                 .ValueMember = "strUnitKey"
                 .SelectedValue = 0
             End With
-
-            dtAllowableEmissionRateUnits2TwoStack.Columns.Add("strUnitKey", GetType(System.String))
-            dtAllowableEmissionRateUnits2TwoStack.Columns.Add("strUnitDescription", GetType(System.String))
-
-            drNewRow = dtAllowableEmissionRateUnits2TwoStack.NewRow()
-            drNewRow("strUnitKey") = " "
-            drNewRow("strUnitDescription") = " "
-            dtAllowableEmissionRateUnits2TwoStack.Rows.Add(drNewRow)
-
-            For Each drDSRow In dsUnits.Tables("Units").Rows()
-                drNewRow = dtAllowableEmissionRateUnits2TwoStack.NewRow
-                drNewRow("strUnitKey") = drDSRow("strUnitKey")
-                drNewRow("strUnitDescription") = drDSRow("strUnitDescription")
-                dtAllowableEmissionRateUnits2TwoStack.Rows.Add(drNewRow)
-            Next
 
             With cboAllowableEmissionRateUnits2TwoStack
-                .DataSource = dtAllowableEmissionRateUnits2TwoStack
+                .DataSource = dtUnits.Copy
                 .DisplayMember = "strUnitDescription"
                 .ValueMember = "strUnitKey"
                 .SelectedValue = 0
             End With
-
-            dtAllowableEmissionRateUnits3TwoStack.Columns.Add("strUnitKey", GetType(System.String))
-            dtAllowableEmissionRateUnits3TwoStack.Columns.Add("strUnitDescription", GetType(System.String))
-
-            drNewRow = dtAllowableEmissionRateUnits3TwoStack.NewRow()
-            drNewRow("strUnitKey") = " "
-            drNewRow("strUnitDescription") = " "
-            dtAllowableEmissionRateUnits3TwoStack.Rows.Add(drNewRow)
-
-            For Each drDSRow In dsUnits.Tables("Units").Rows()
-                drNewRow = dtAllowableEmissionRateUnits3TwoStack.NewRow
-                drNewRow("strUnitKey") = drDSRow("strUnitKey")
-                drNewRow("strUnitDescription") = drDSRow("strUnitDescription")
-                dtAllowableEmissionRateUnits3TwoStack.Rows.Add(drNewRow)
-            Next
 
             With cboAllowableEmissionRateUnits3TwoStack
-                .DataSource = dtAllowableEmissionRateUnits3TwoStack
+                .DataSource = dtUnits.Copy
                 .DisplayMember = "strUnitDescription"
                 .ValueMember = "strUnitKey"
                 .SelectedValue = 0
             End With
-
-            dtPollConUnitTwoStackStandard.Columns.Add("strUnitKey", GetType(System.String))
-            dtPollConUnitTwoStackStandard.Columns.Add("strUnitDescription", GetType(System.String))
-
-            drNewRow = dtPollConUnitTwoStackStandard.NewRow()
-            drNewRow("strUnitKey") = " "
-            drNewRow("strUnitDescription") = " "
-            dtPollConUnitTwoStackStandard.Rows.Add(drNewRow)
-
-            For Each drDSRow In dsUnits.Tables("Units").Rows()
-                drNewRow = dtPollConUnitTwoStackStandard.NewRow
-                drNewRow("strUnitKey") = drDSRow("strUnitKey")
-                drNewRow("strUnitDescription") = drDSRow("strUnitDescription")
-                dtPollConUnitTwoStackStandard.Rows.Add(drNewRow)
-            Next
 
             With cboPollConUnitTwoStackStandard
-                .DataSource = dtPollConUnitTwoStackStandard
+                .DataSource = dtUnits.Copy
                 .DisplayMember = "strUnitDescription"
                 .ValueMember = "strUnitKey"
                 .SelectedValue = 0
             End With
-
-            dtEmissRateUnitTwoStackStandard.Columns.Add("strUnitKey", GetType(System.String))
-            dtEmissRateUnitTwoStackStandard.Columns.Add("strUnitDescription", GetType(System.String))
-
-            drNewRow = dtEmissRateUnitTwoStackStandard.NewRow()
-            drNewRow("strUnitKey") = " "
-            drNewRow("strUnitDescription") = " "
-            dtEmissRateUnitTwoStackStandard.Rows.Add(drNewRow)
-
-            For Each drDSRow In dsUnits.Tables("Units").Rows()
-                drNewRow = dtEmissRateUnitTwoStackStandard.NewRow
-                drNewRow("strUnitKey") = drDSRow("strUnitKey")
-                drNewRow("strUnitDescription") = drDSRow("strUnitDescription")
-                dtEmissRateUnitTwoStackStandard.Rows.Add(drNewRow)
-            Next
 
             With cboEmissRateUnitTwoStackStandard
-                .DataSource = dtEmissRateUnitTwoStackStandard
+                .DataSource = dtUnits.Copy
                 .DisplayMember = "strUnitDescription"
                 .ValueMember = "strUnitKey"
                 .SelectedValue = 0
             End With
-
-            dtPollConUnitTwoStackDRE.Columns.Add("strUnitKey", GetType(System.String))
-            dtPollConUnitTwoStackDRE.Columns.Add("strUnitDescription", GetType(System.String))
-
-            drNewRow = dtPollConUnitTwoStackDRE.NewRow()
-            drNewRow("strUnitKey") = " "
-            drNewRow("strUnitDescription") = " "
-            dtPollConUnitTwoStackDRE.Rows.Add(drNewRow)
-
-            For Each drDSRow In dsUnits.Tables("Units").Rows()
-                drNewRow = dtPollConUnitTwoStackDRE.NewRow
-                drNewRow("strUnitKey") = drDSRow("strUnitKey")
-                drNewRow("strUnitDescription") = drDSRow("strUnitDescription")
-                dtPollConUnitTwoStackDRE.Rows.Add(drNewRow)
-            Next
 
             With cboPollConUnitTwoStackDRE
-                .DataSource = dtPollConUnitTwoStackDRE
+                .DataSource = dtUnits.Copy
                 .DisplayMember = "strUnitDescription"
                 .ValueMember = "strUnitKey"
                 .SelectedValue = 0
             End With
-
-            dtEmissRateUnitTwoStackDRE.Columns.Add("strUnitKey", GetType(System.String))
-            dtEmissRateUnitTwoStackDRE.Columns.Add("strUnitDescription", GetType(System.String))
-
-            drNewRow = dtEmissRateUnitTwoStackDRE.NewRow()
-            drNewRow("strUnitKey") = " "
-            drNewRow("strUnitDescription") = " "
-            dtEmissRateUnitTwoStackDRE.Rows.Add(drNewRow)
-
-            For Each drDSRow In dsUnits.Tables("Units").Rows()
-                drNewRow = dtEmissRateUnitTwoStackDRE.NewRow
-                drNewRow("strUnitKey") = drDSRow("strUnitKey")
-                drNewRow("strUnitDescription") = drDSRow("strUnitDescription")
-                dtEmissRateUnitTwoStackDRE.Rows.Add(drNewRow)
-            Next
 
             With cboEmissRateUnitTwoStackDRE
-                .DataSource = dtEmissRateUnitTwoStackDRE
+                .DataSource = dtUnits.Copy
                 .DisplayMember = "strUnitDescription"
                 .ValueMember = "strUnitKey"
                 .SelectedValue = 0
             End With
-
-            dtMaximumExpectedOperatingCapacityUnitsMethod22.Columns.Add("strUnitKey", GetType(System.String))
-            dtMaximumExpectedOperatingCapacityUnitsMethod22.Columns.Add("strUnitDescription", GetType(System.String))
-
-            drNewRow = dtMaximumExpectedOperatingCapacityUnitsMethod22.NewRow()
-            drNewRow("strUnitKey") = " "
-            drNewRow("strUnitDescription") = " "
-            dtMaximumExpectedOperatingCapacityUnitsMethod22.Rows.Add(drNewRow)
-
-            For Each drDSRow In dsUnits.Tables("Units").Rows()
-                drNewRow = dtMaximumExpectedOperatingCapacityUnitsMethod22.NewRow
-                drNewRow("strUnitKey") = drDSRow("strUnitKey")
-                drNewRow("strUnitDescription") = drDSRow("strUnitDescription")
-                dtMaximumExpectedOperatingCapacityUnitsMethod22.Rows.Add(drNewRow)
-            Next
 
             With cboMaximumExpectedOperatingCapacityUnitsMethod22
-                .DataSource = dtMaximumExpectedOperatingCapacityUnitsMethod22
+                .DataSource = dtUnits.Copy
                 .DisplayMember = "strUnitDescription"
                 .ValueMember = "strUnitKey"
                 .SelectedValue = 0
             End With
-
-            dtOperatingCapacityUnitsMethod22.Columns.Add("strUnitKey", GetType(System.String))
-            dtOperatingCapacityUnitsMethod22.Columns.Add("strUnitDescription", GetType(System.String))
-
-            drNewRow = dtOperatingCapacityUnitsMethod22.NewRow()
-            drNewRow("strUnitKey") = " "
-            drNewRow("strUnitDescription") = " "
-            dtOperatingCapacityUnitsMethod22.Rows.Add(drNewRow)
-
-            For Each drDSRow In dsUnits.Tables("Units").Rows()
-                drNewRow = dtOperatingCapacityUnitsMethod22.NewRow
-                drNewRow("strUnitKey") = drDSRow("strUnitKey")
-                drNewRow("strUnitDescription") = drDSRow("strUnitDescription")
-                dtOperatingCapacityUnitsMethod22.Rows.Add(drNewRow)
-            Next
 
             With cboOperatingCapacityUnitsMethod22
-                .DataSource = dtOperatingCapacityUnitsMethod22
+                .DataSource = dtUnits.Copy
                 .DisplayMember = "strUnitDescription"
                 .ValueMember = "strUnitKey"
                 .SelectedValue = 0
             End With
-
-            dtMaximumExpectedOperatingCapacityUnitsMethod9Multi.Columns.Add("strUnitKey", GetType(System.String))
-            dtMaximumExpectedOperatingCapacityUnitsMethod9Multi.Columns.Add("strUnitDescription", GetType(System.String))
-
-            drNewRow = dtMaximumExpectedOperatingCapacityUnitsMethod9Multi.NewRow()
-            drNewRow("strUnitKey") = " "
-            drNewRow("strUnitDescription") = " "
-            dtMaximumExpectedOperatingCapacityUnitsMethod9Multi.Rows.Add(drNewRow)
-
-            For Each drDSRow In dsUnits.Tables("Units").Rows()
-                drNewRow = dtMaximumExpectedOperatingCapacityUnitsMethod9Multi.NewRow
-                drNewRow("strUnitKey") = drDSRow("strUnitKey")
-                drNewRow("strUnitDescription") = drDSRow("strUnitDescription")
-                dtMaximumExpectedOperatingCapacityUnitsMethod9Multi.Rows.Add(drNewRow)
-            Next
 
             With cboMaximumExpectedOperatingCapacityUnitsMethod9Multi
-                .DataSource = dtMaximumExpectedOperatingCapacityUnitsMethod9Multi
+                .DataSource = dtUnits.Copy
                 .DisplayMember = "strUnitDescription"
                 .ValueMember = "strUnitKey"
                 .SelectedValue = 0
             End With
-
-            dtOperatingCapacityUnitsMethod9Multi.Columns.Add("strUnitKey", GetType(System.String))
-            dtOperatingCapacityUnitsMethod9Multi.Columns.Add("strUnitDescription", GetType(System.String))
-
-            drNewRow = dtOperatingCapacityUnitsMethod9Multi.NewRow()
-            drNewRow("strUnitKey") = " "
-            drNewRow("strUnitDescription") = " "
-            dtOperatingCapacityUnitsMethod9Multi.Rows.Add(drNewRow)
-
-            For Each drDSRow In dsUnits.Tables("Units").Rows()
-                drNewRow = dtOperatingCapacityUnitsMethod9Multi.NewRow
-                drNewRow("strUnitKey") = drDSRow("strUnitKey")
-                drNewRow("strUnitDescription") = drDSRow("strUnitDescription")
-                dtOperatingCapacityUnitsMethod9Multi.Rows.Add(drNewRow)
-            Next
 
             With cboOperatingCapacityUnitsMethod9Multi
-                .DataSource = dtOperatingCapacityUnitsMethod9Multi
+                .DataSource = dtUnits.Copy
                 .DisplayMember = "strUnitDescription"
                 .ValueMember = "strUnitKey"
                 .SelectedValue = 0
             End With
-
-            dtAllowableEmissionRateUnitsMethod9Multi.Columns.Add("strUnitKey", GetType(System.String))
-            dtAllowableEmissionRateUnitsMethod9Multi.Columns.Add("strUnitDescription", GetType(System.String))
-
-            drNewRow = dtAllowableEmissionRateUnitsMethod9Multi.NewRow()
-            drNewRow("strUnitKey") = " "
-            drNewRow("strUnitDescription") = " "
-            dtAllowableEmissionRateUnitsMethod9Multi.Rows.Add(drNewRow)
-
-            For Each drDSRow In dsUnits.Tables("Units").Rows()
-                drNewRow = dtAllowableEmissionRateUnitsMethod9Multi.NewRow
-                drNewRow("strUnitKey") = drDSRow("strUnitKey")
-                drNewRow("strUnitDescription") = drDSRow("strUnitDescription")
-                dtAllowableEmissionRateUnitsMethod9Multi.Rows.Add(drNewRow)
-            Next
 
             With cboAllowableEmissionRateUnitsMethod9Multi
-                .DataSource = dtAllowableEmissionRateUnitsMethod9Multi
+                .DataSource = dtUnits.Copy
                 .DisplayMember = "strUnitDescription"
                 .ValueMember = "strUnitKey"
                 .SelectedValue = 0
             End With
 
+            Dim dtDilutent As New DataTable
             dtDilutent.Columns.Add("strDilutentCode", GetType(System.String))
             dtDilutent.Columns.Add("strDiluent", GetType(System.String))
 
-            drNewRow = dtDilutent.NewRow()
+            Dim drNewRow As DataRow = dtDilutent.NewRow()
             drNewRow("strDilutentCode") = " "
             drNewRow("strDiluent") = " "
             dtDilutent.Rows.Add(drNewRow)
@@ -1973,6 +747,7 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                 .SelectedValue = 0
             End With
 
+            Dim dtRataDilutent As New DataTable
             dtRataDilutent.Columns.Add("strDilutentCode", GetType(System.String))
             dtRataDilutent.Columns.Add("strDiluent", GetType(System.String))
 
@@ -2009,12 +784,12 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
         End Try
     End Sub
     Private Sub LoadUcCombo()
-        Dim query As String = "SELECT concat(u.STRLASTNAME " &
+        Dim query As String = "Select concat(u.STRLASTNAME " &
             "  , ', ' " &
             "  , u.STRFIRSTNAME) AS UnitManager " &
             ", p.NUMUSERID " &
-            "FROM AIRBRANCH.EPDUSERPROFILES u " &
-            "INNER JOIN AIRBRANCH.IAIPPERMISSIONS p " &
+            "FROM EPDUSERPROFILES u " &
+            "INNER JOIN IAIPPERMISSIONS p " &
             "ON u.NUMUSERID             = p.NUMUSERID " &
             "WHERE (u.NUMEMPLOYEESTATUS = '1' " &
             "AND (p.STRIAIPPERMISSIONS LIKE '%(115)%')) " &
@@ -2025,7 +800,7 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
             .DisplayMember = "UnitManager"
         End With
     End Sub
-    Sub DefaultTabs()
+    Private Sub DefaultTabs()
         Try
             TCDocumentTypes.TabPages.Remove(TPOneStack)
             TCDocumentTypes.TabPages.Remove(TPLoadingRack)
@@ -2069,8 +844,8 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
 
             TCDocumentTypes.TabPages.Add(TPRata)
             TCDocumentTypes.TabPages.Add(TPTwoStack)
-            TCTwoStack.TabPages.Remove(Me.TPTwoStackStandard)
-            TCTwoStack.TabPages.Remove(Me.TPTwoStackDRE)
+            TCTwoStack.TabPages.Remove(TPTwoStackStandard)
+            TCTwoStack.TabPages.Remove(TPTwoStackDRE)
             TCTwoStack.TabPages.Add(TPTwoStackStandard)
             TCTwoStack.TabPages.Add(TPTwoStackDRE)
 
@@ -2082,12 +857,12 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
         Finally
         End Try
     End Sub
-    Sub LoadData(RefNumber As String)
+    Private Sub LoadData(RefNumber As String)
         Try
             Dim OtherWitnessingEng As String = "0"
             Dim ConfidentialData As String = "0"
 
-            SQL =
+            query =
             "SELECT mas.STRREFERENCENUMBER , SUBSTRING( mas.STRAIRSNUMBER, 5,8 ) " &
             "  AS AIRSNumber , fac.STRFACILITYNAME , fac.STRFACILITYCITY , " &
             "  fac.STRFACILITYSTATE , rep.STRPOLLUTANT , " &
@@ -2103,14 +878,14 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
             "  ) AS datTestDateEnd , format( rep.DATCOMPLETEDATE, " &
             "  'dd-MMM-yyyy' ) AS datCompleteDate , rep.MMOCOMMENTAREA , " &
             "  rep.STRCLOSED , rep.STRPROGRAMMANAGER , " &
-            "  rep.STRCOMPLIANCESTATUS , rep.STRCC , convert(int, " &
-            "  rep.DATRECEIVEDDATE - rep.DATTESTDATEEND ) AS DaysFromTest , " &
-            "  CASE WHEN rep.DATCOMPLETEDATE = '04-Jul-1776' THEN convert(int, " &
-            "      GETDATE() - convert(datetime,rep.DATRECEIVEDDATE )) ELSE convert(int, " &
-            "      rep.DATCOMPLETEDATE - rep.DATRECEIVEDDATE ) END APBDays , " &
-            "  CASE WHEN rep.DATCOMPLETEDATE = '04-Jul-1776' THEN convert(int, " &
-            "      GETDATE() - convert(datetime,rep.DATREVIEWEDBYUNITMANAGER )) ELSE convert(int, " &
-            "      rep.DATCOMPLETEDATE - rep.DATREVIEWEDBYUNITMANAGER ) END " &
+            "  rep.STRCOMPLIANCESTATUS , rep.STRCC , datediff(day, " &
+            "  rep.DATTESTDATEEND, rep.DATRECEIVEDDATE) AS DaysFromTest , " &
+            "  CASE WHEN rep.DATCOMPLETEDATE = '04-Jul-1776' THEN datediff(day, " &
+            "      rep.DATRECEIVEDDATE, getdate()) ELSE datediff(day, " &
+            "      rep.DATRECEIVEDDATE, rep.DATCOMPLETEDATE) END APBDays , " &
+            "  CASE WHEN rep.DATCOMPLETEDATE = '04-Jul-1776' THEN datediff(day, " &
+            "      rep.DATREVIEWEDBYUNITMANAGER, getdate()) ELSE datediff(day, " &
+            "      rep.DATREVIEWEDBYUNITMANAGER, rep.DATCOMPLETEDATE) END " &
             "  EngineerDays , rep.STRDETERMINATIONMETHOD , " &
             "  rep.STRCONTROLEQUIPMENTDATA , rep.STROTHERWITNESSINGENG , " &
             "  rep.STRCONFIDENTIALDATA , CASE WHEN rep.NUMREVIEWINGMANAGER " &
@@ -2136,19 +911,13 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
             "ON rep.NUMREVIEWINGMANAGER = p1.NUMUSERID " &
             "INNER JOIN APBFacilityInformation fac " &
             "ON fac.STRAIRSNUMBER = mas.STRAIRSNUMBER " &
-            "WHERE mas.STRREFERENCENUMBER = @refnum"
+            "WHERE mas.STRREFERENCENUMBER = @RefNumber"
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            Dim parameter As SqlParameter = New SqlParameter("@RefNumber", RefNumber)
-            cmd.Parameters.Clear()
-            cmd.Parameters.Add(parameter)
+            Dim p As SqlParameter = New SqlParameter("@RefNumber", RefNumber)
 
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            RecExist = dr.Read
-            If RecExist = True Then
+            Dim dr As DataRow = DB.GetDataRow(query, p)
+
+            If dr IsNot Nothing Then
                 If IsDBNull(dr.Item("AIRSNumber")) Then
                     txtAirsNumber.Clear()
                 Else
@@ -2315,7 +1084,7 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                 End If
 
                 If IsDBNull(dr.Item("DaysFromTest")) Then
-                    Me.txtDaysfromTestToAPB.Clear()
+                    txtDaysfromTestToAPB.Clear()
                 Else
                     txtDaysfromTestToAPB.Text = dr.Item("DaysFromTest")
                     If txtDaysfromTestToAPB.Text < 1 And txtDaysfromTestToAPB.Text > 0 Then
@@ -2384,7 +1153,7 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                     cboUnitManager.SelectedValue = dr.Item("NUMREVIEWINGMANAGER")
                 End If
                 If IsDBNull(dr.Item("strDeterminationMethod")) Then
-                    Me.cboMethodDetermined.SelectedValue = 0
+                    cboMethodDetermined.SelectedValue = 0
                 Else
                     If dr.Item("strDeterminationMethod") = "00000" Then
                         cboMethodDetermined.SelectedValue = 0
@@ -2428,10 +1197,7 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                         cboComplianceStatus.BackColor = Color.Pink
                     End If
                 End If
-            Else
-
             End If
-            dr.Close()
 
             If DocumentType <> "" Then
                 Select Case DocumentType
@@ -2479,7 +1245,7 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                 LoadOtherWitnessingEng()
             End If
 
-            If ReportStatus = "True" Then 'Or AccountArray(69, 4) = "1" Then 'Add Compliance work if User has 'Special Permission 
+            If ReportStatus = "True" Then
                 TCDocumentTypes.TabPages.Add(TPSSCPWork)
             Else
                 TCDocumentTypes.TabPages.Remove(TPSSCPWork)
@@ -2493,30 +1259,27 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
 
             lblMemoEntered.Visible = False
 
-            SQL = "Select " &
+            query = "Select " &
             "* from ISMPTestReportMemo " &
-            "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
+            "where strReferenceNumber = @RefNumber "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
+            Dim dr4 As DataRow = DB.GetDataRow(query, p)
+            If dr4 IsNot Nothing Then
                 If IsDBNull(dr.Item("strReferenceNumber")) Then
                     lblMemoEntered.Visible = False
                 Else
                     lblMemoEntered.Visible = True
                 End If
-            End While
-            dr.Close()
+            Else
+                lblMemoEntered.Visible = False
+            End If
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
-    Sub LoadOneStack(RefNum As String)
+    Private Sub LoadOneStack(RefNum As String)
         Try
             TCDocumentTypes.TabPages.Remove(TPLoadingRack)
             TCDocumentTypes.TabPages.Remove(TPPondTreatment)
@@ -2533,7 +1296,8 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                 Case "002"
                     TCOneStack.TabPages.Remove(TPOneStackThreeRun)
                     TCOneStack.TabPages.Remove(TPOneStackFourRun)
-                    SQL = "select " &
+
+                    query = "select " &
                     "strMaxoperatingCapacity,  " &
                     "strMaxOperatingCapacityUnit,  " &
                     "strOperatingCapacity,  " &
@@ -2564,15 +1328,13 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                     "strEmissionRateAvg, " &
                     "strPercentAllowable  " &
                     "from ISMPReportOneStack " &
-                    "where strReferenceNumber = '" & RefNum & "' "
+                    "where strReferenceNumber = @RefNum "
 
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    RecExist = dr.Read
-                    If RecExist = True Then
+                    Dim p As New SqlParameter("@RefNum", RefNum)
+
+                    Dim dr As DataRow = DB.GetDataRow(query, p)
+
+                    If dr IsNot Nothing Then
                         If IsDBNull(dr.Item("strMaxOperatingCapacity")) Then
                             txtMaximumExpectedOperatingCapacityOneStack.Clear()
                         Else
@@ -2741,14 +1503,14 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                             txtPercentAllowableOneStack.Text = dr.Item("strPercentAllowable")
                         End If
                     End If
-                    dr.Close()
+
                     txtApplicableRegulationOneStack.Text = ApplicableRequirment
                     txtOtherInformationOneStack.Text = ReportComments
 
                 Case "003"
                     TCOneStack.TabPages.Remove(TPOneStackTwoRun)
                     TCOneStack.TabPages.Remove(TPOneStackFourRun)
-                    SQL = "select " &
+                    query = "select " &
                     "strMaxoperatingCapacity,  " &
                     "strMaxOperatingCapacityUnit,  " &
                     "strOperatingCapacity,  " &
@@ -2786,15 +1548,13 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                     "strEmissionRateAvg, " &
                     "strPercentAllowable  " &
                     "from ISMPReportOneStack " &
-                    "where strReferenceNumber = '" & RefNum & "' "
+                    "where strReferenceNumber = @RefNum "
 
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    RecExist = dr.Read
-                    If RecExist = True Then
+                    Dim p As New SqlParameter("@RefNum", RefNum)
+
+                    Dim dr As DataRow = DB.GetDataRow(query, p)
+
+                    If dr IsNot Nothing Then
                         If IsDBNull(dr.Item("strMaxOperatingCapacity")) Then
                             txtMaximumExpectedOperatingCapacityOneStack.Clear()
                         Else
@@ -2997,13 +1757,14 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                             txtPercentAllowableOneStack.Text = dr.Item("strPercentAllowable")
                         End If
                     End If
-                    dr.Close()
+
                     txtApplicableRegulationOneStack.Text = ApplicableRequirment
                     txtOtherInformationOneStack.Text = ReportComments
+
                 Case "004"
                     TCOneStack.TabPages.Remove(TPOneStackTwoRun)
                     TCOneStack.TabPages.Remove(TPOneStackThreeRun)
-                    SQL = "select " &
+                    query = "select " &
                     "strMaxoperatingCapacity,  " &
                     "strMaxOperatingCapacityUnit,  " &
                     "strOperatingCapacity,  " &
@@ -3048,15 +1809,13 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                     "strEmissionRateAvg, " &
                     "strPercentAllowable  " &
                     "from ISMPReportOneStack " &
-                    "where strReferenceNumber = '" & RefNum & "' "
+                    "where strReferenceNumber = @RefNum "
 
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    RecExist = dr.Read
-                    If RecExist = True Then
+                    Dim p As New SqlParameter("@RefNum", RefNum)
+
+                    Dim dr As DataRow = DB.GetDataRow(query, p)
+
+                    If dr IsNot Nothing Then
                         If IsDBNull(dr.Item("strMaxOperatingCapacity")) Then
                             txtMaximumExpectedOperatingCapacityOneStack.Clear()
                         Else
@@ -3295,7 +2054,7 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                             txtPercentAllowableOneStack.Text = dr.Item("strPercentAllowable")
                         End If
                     End If
-                    dr.Close()
+
                     txtApplicableRegulationOneStack.Text = ApplicableRequirment
                     txtOtherInformationOneStack.Text = ReportComments
 
@@ -3308,7 +2067,7 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
         Finally
         End Try
     End Sub
-    Sub LoadTwoStack(RefNum As String)
+    Private Sub LoadTwoStack(RefNum As String)
         Try
             TCDocumentTypes.TabPages.Remove(TPOneStack)
             TCDocumentTypes.TabPages.Remove(TPLoadingRack)
@@ -3323,8 +2082,8 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
 
             Select Case DocumentType
                 Case "005"
-                    TCTwoStack.TabPages.Remove(Me.TPTwoStackDRE)
-                    SQL = "Select strMaxOperatingCapacity, strMaxOperatingCapacityUnit, " &
+                    TCTwoStack.TabPages.Remove(TPTwoStackDRE)
+                    query = "Select strMaxOperatingCapacity, strMaxOperatingCapacityUnit, " &
                     "strOperatingCapacity, strOperatingCapacityUnit, " &
                     "strAllowableEmissionRate1, strAllowableEmissionRate2, " &
                     "strAllowableEmissionRate3, strAllowableEmissionRateUnit1, " &
@@ -3352,15 +2111,13 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                     "strEmissionRateTotalAvg, " &
                     "strPercentAllowable " &
                     "from ISMPReportTwoStack " &
-                    "where strReferenceNumber = '" & RefNum & "'"
+                    "where strReferenceNumber = @RefNum "
 
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    RecExist = dr.Read
-                    If RecExist = True Then
+                    Dim p As New SqlParameter("@RefNum", RefNum)
+
+                    Dim dr As DataRow = DB.GetDataRow(query, p)
+
+                    If dr IsNot Nothing Then
                         If IsDBNull(dr.Item("strMaxOperatingCapacity")) Then
                             txtMaximumExpectedOperatingCapacityTwoStack.Clear()
                         Else
@@ -3925,9 +2682,10 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                             End If
                         End If
                     End If
+
                 Case "006"
-                    TCTwoStack.TabPages.Remove(Me.TPTwoStackStandard)
-                    SQL = "Select strMaxOperatingCapacity, strMaxOperatingCapacityUnit, " &
+                    TCTwoStack.TabPages.Remove(TPTwoStackStandard)
+                    query = "Select strMaxOperatingCapacity, strMaxOperatingCapacityUnit, " &
                      "strOperatingCapacity, strOperatingCapacityUnit, " &
                      "strAllowableEmissionRate1, strAllowableEmissionRate2, " &
                      "strAllowableEmissionRate3, strAllowableEmissionRateUnit1, " &
@@ -3953,15 +2711,13 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                      "strEmissionRateAvg2, " &
                      "strDestructionPercent " &
                      "from ISMPReportTwoStack " &
-                     "where strReferenceNumber = '" & RefNum & "'"
+                    "where strReferenceNumber = @RefNum "
 
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    RecExist = dr.Read
-                    If RecExist = True Then
+                    Dim p As New SqlParameter("@RefNum", RefNum)
+
+                    Dim dr As DataRow = DB.GetDataRow(query, p)
+
+                    If dr IsNot Nothing Then
                         If IsDBNull(dr.Item("strMaxOperatingCapacity")) Then
                             txtMaximumExpectedOperatingCapacityTwoStack.Clear()
                         Else
@@ -4492,14 +3248,13 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                 Case Else
 
             End Select
-            dr.Close()
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
-    Sub LoadLoadingRack(RefNum As String)
+    Private Sub LoadLoadingRack(RefNum As String)
         Try
             TCDocumentTypes.TabPages.Remove(TPOneStack)
             TCDocumentTypes.TabPages.Remove(TPPondTreatment)
@@ -4514,7 +3269,7 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
 
             Select Case DocumentType
                 Case "007"
-                    SQL = "Select " &
+                    query = "Select " &
                     "strMaxOperatingCapacity, strMaxOperatingCapacityUnit, " &
                     "strOperatingCapacity, strOperatingCapacityUnit, " &
                     "strLimitationVelocity, strLimitationHeatCapacity, " &
@@ -4527,15 +3282,13 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                     "strEmissionRate, strEmissionRateUnit, strDestructionEfficiency, " &
                     "strPercentAllowable " &
                     "from ISMPReportFlare " &
-                    "where strReferenceNumber = '" & RefNum & "'"
+                    "where strReferenceNumber = @RefNum "
 
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    RecExist = dr.Read
-                    If RecExist = True Then
+                    Dim p As New SqlParameter("@RefNum", RefNum)
+
+                    Dim dr As DataRow = DB.GetDataRow(query, p)
+
+                    If dr IsNot Nothing Then
                         If IsDBNull(dr.Item("strMaxOperatingCapacity")) Then
                             txtMaximumExpectedOperatingCapacityLoadingRack.Clear()
                         Else
@@ -4687,7 +3440,7 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
         Finally
         End Try
     End Sub
-    Sub LoadPondTreatment(RefNum As String)
+    Private Sub LoadPondTreatment(RefNum As String)
         Try
             TCDocumentTypes.TabPages.Remove(TPOneStack)
             TCDocumentTypes.TabPages.Remove(TPLoadingRack)
@@ -4702,7 +3455,7 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
 
             Select Case DocumentType
                 Case "008"
-                    SQL = "Select strMaxOperatingCapacity, strMaxOperatingCapacityUnit, " &
+                    query = "Select strMaxOperatingCapacity, strMaxOperatingCapacityUnit, " &
                     "strOperatingCapacity, strOperatingCapacityUnit, " &
                     "strAllowableEmissionRate1, strAllowableEmissionRate2, " &
                     "strAllowableEmissionRate3, strAllowableEmissionRateUnit1, " &
@@ -4714,15 +3467,13 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                     "strTreatmentRateUnit, strTreatmentRateAvg, " &
                     "strPercentAllowable " &
                     "from ISMPReportPondAndGas " &
-                    "where strReferenceNumber = '" & RefNum & "'"
+                    "where strReferenceNumber = @RefNum "
 
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    RecExist = dr.Read
-                    If RecExist = True Then
+                    Dim p As New SqlParameter("@RefNum", RefNum)
+
+                    Dim dr As DataRow = DB.GetDataRow(query, p)
+
+                    If dr IsNot Nothing Then
                         If IsDBNull(dr.Item("strMaxOperatingCapacity")) Then
                             txtMaximumExpectedOperatingCapacityPond.Clear()
                         Else
@@ -4920,14 +3671,13 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                 Case Else
 
             End Select
-            dr.Close()
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
-    Sub LoadGasConcentration(RefNum As String)
+    Private Sub LoadGasConcentration(RefNum As String)
         Try
             TCDocumentTypes.TabPages.Remove(TPOneStack)
             TCDocumentTypes.TabPages.Remove(TPLoadingRack)
@@ -4942,7 +3692,7 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
 
             Select Case DocumentType
                 Case "009"
-                    SQL = "Select " &
+                    query = "Select " &
                     "strMaxOperatingCapacity, strMaxOperatingCapacityUnit, " &
                     "strOperatingCapacity, strOperatingCapacityUnit, " &
                     "strAllowableEmissionRate1, strAllowableEmissionRate2, " &
@@ -4955,15 +3705,13 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                     "strEmissionRateUnit, strEmissionRateAvg, " &
                     "strPercentAllowable " &
                     "from ISMPReportPondAndGas " &
-                    "where strReferenceNumber = '" & RefNum & "'"
+                    "where strReferenceNumber = @RefNum "
 
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    RecExist = dr.Read
-                    If RecExist = True Then
+                    Dim p As New SqlParameter("@RefNum", RefNum)
+
+                    Dim dr As DataRow = DB.GetDataRow(query, p)
+
+                    If dr IsNot Nothing Then
                         If IsDBNull(dr.Item("strMaxOperatingCapacity")) Then
                             txtMaximumExpectedOperatingCapacityGas.Clear()
                         Else
@@ -5160,14 +3908,13 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                 Case Else
 
             End Select
-            dr.Close()
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
-    Sub LoadFlare(RefNum As String)
+    Private Sub LoadFlare(RefNum As String)
         Try
             TCDocumentTypes.TabPages.Remove(TPOneStack)
             TCDocumentTypes.TabPages.Remove(TPLoadingRack)
@@ -5182,7 +3929,7 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
 
             Select Case DocumentType
                 Case "010"
-                    SQL = "Select " &
+                    query = "Select " &
                     "strMaxOperatingCapacity, strMaxOperatingCapacityUnit, " &
                     "strOperatingCapacity, strOperatingCapacityUnit, " &
                     "strLimitationVelocity, strLimitationHeatCapacity, " &
@@ -5192,15 +3939,13 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                     "strVelocityUnits, strVelocityAvg, " &
                     "strPercentAllowable " &
                     "from ISMPReportFlare " &
-                    "where strReferenceNumber = '" & RefNum & "'"
+                    "where strReferenceNumber = @RefNum "
 
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    RecExist = dr.Read
-                    If RecExist = True Then
+                    Dim p As New SqlParameter("@RefNum", RefNum)
+
+                    Dim dr As DataRow = DB.GetDataRow(query, p)
+
+                    If dr IsNot Nothing Then
                         If IsDBNull(dr.Item("strMaxOperatingCapacity")) Then
                             txtMaximumExpectedOperatingCapacityFlare.Clear()
                         Else
@@ -5345,14 +4090,13 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                     End If
                 Case Else
             End Select
-            dr.Close()
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
-    Sub LoadRata(RefNum As String)
+    Private Sub LoadRata(RefNum As String)
         Try
             Dim OmitRuns As String = ""
 
@@ -5369,7 +4113,7 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
 
             Select Case DocumentType
                 Case "011"
-                    SQL = "Select " &
+                    query = "Select " &
                     "strDiluent, strApplicableStandard, strRelativeAccuracyPercent, " &
                     "strReferenceMethod1, strReferenceMethod2, strReferenceMethod3, " &
                     "strReferenceMethod4, strReferenceMethod5, strReferenceMethod6, " &
@@ -5381,15 +4125,13 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                     "strAccuracyChoice, strAccuracyRequiredPercent, " &
                     "strAccuracyREquiredStatement, strRunsINcludedKey " &
                     "from ISMPReportRATA " &
-                    "where strReferenceNumber = '" & RefNum & "'"
+                    "where strReferenceNumber = @RefNum "
 
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    RecExist = dr.Read
-                    If RecExist = True Then
+                    Dim p As New SqlParameter("@RefNum", RefNum)
+
+                    Dim dr As DataRow = DB.GetDataRow(query, p)
+
+                    If dr IsNot Nothing Then
                         If IsDBNull(dr.Item("strDiluent")) Then
                             cboDilutentMonitoredRata.SelectedValue = 0
                         Else
@@ -5732,14 +4474,13 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                 Case Else
 
             End Select
-            dr.Close()
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
-    Sub LoadMemo(RefNum As String)
+    Private Sub LoadMemo(RefNum As String)
         Try
             TCDocumentTypes.TabPages.Remove(TPOneStack)
             TCDocumentTypes.TabPages.Remove(TPLoadingRack)
@@ -5755,21 +4496,19 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
             'TCMemorandum
             Select Case DocumentType
                 Case "012"
-                    TCMemorandum.TabPages.Remove(Me.TPMemoPTE)
-                    TCMemorandum.TabPages.Remove(Me.TPMemoToFile)
+                    TCMemorandum.TabPages.Remove(TPMemoPTE)
+                    TCMemorandum.TabPages.Remove(TPMemoToFile)
 
-                    SQL = "Select " &
+                    query = "Select " &
                     "strMemorandumField " &
                     "from ISMPREportMemo " &
-                    "where strReferenceNumber = '" & RefNum & "'"
+                    "where strReferenceNumber = @RefNum "
 
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    RecExist = dr.Read
-                    If RecExist = True Then
+                    Dim p As New SqlParameter("@RefNum", RefNum)
+
+                    Dim dr As DataRow = DB.GetDataRow(query, p)
+
+                    If dr IsNot Nothing Then
                         If IsDBNull(dr.Item("strMemorandumField")) Then
                             txtMemorandumStandard.Clear()
                         Else
@@ -5781,23 +4520,22 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                         End If
                         txtApplicableRegulationMemorandum.Text = ApplicableRequirment
                     End If
-                Case "013"
-                    TCMemorandum.TabPages.Remove(Me.TPMemoPTE)
-                    TCMemorandum.TabPages.Remove(Me.TPMemoStandard)
 
-                    SQL = "Select " &
+                Case "013"
+                    TCMemorandum.TabPages.Remove(TPMemoPTE)
+                    TCMemorandum.TabPages.Remove(TPMemoStandard)
+
+                    query = "Select " &
                     "strMemorandumField, strMonitorManufactureAndModel, " &
                     "strMonitorSerialNumber " &
                     "from ISMPREportMemo " &
-                    "where strReferenceNumber = '" & RefNum & "'"
+                    "where strReferenceNumber = @RefNum "
 
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    RecExist = dr.Read
-                    If RecExist = True Then
+                    Dim p As New SqlParameter("@RefNum", RefNum)
+
+                    Dim dr As DataRow = DB.GetDataRow(query, p)
+
+                    If dr IsNot Nothing Then
                         If IsDBNull(dr.Item("strMemorandumField")) Then
                             txtMemorandumToFile.Clear()
                         Else
@@ -5828,11 +4566,12 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                         End If
                         txtApplicableRegulationMemorandum.Text = ApplicableRequirment
                     End If
-                Case "018"
-                    TCMemorandum.TabPages.Remove(Me.TPMemoStandard)
-                    TCMemorandum.TabPages.Remove(Me.TPMemoToFile)
 
-                    SQL = "Select " &
+                Case "018"
+                    TCMemorandum.TabPages.Remove(TPMemoStandard)
+                    TCMemorandum.TabPages.Remove(TPMemoToFile)
+
+                    query = "Select " &
                     "strMemorandumField, " &
                     "strMaxOperatingCapacity, strMaxOperatingCapacityUnit, " &
                     "strOperatingCapacity, strOperatingCapacityUnit, " &
@@ -5840,15 +4579,13 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                     "strAllowableEmissionRate1C, strAllowableEmissionRateUnit1A, " &
                     "strAllowableEmissionRateUnit1B, strAllowableEmissionRateUnit1C " &
                     "from ISMPREportMemo " &
-                    "where strReferenceNumber = '" & RefNum & "'"
+                    "where strReferenceNumber = @RefNum "
 
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    RecExist = dr.Read
-                    If RecExist = True Then
+                    Dim p As New SqlParameter("@RefNum", RefNum)
+
+                    Dim dr As DataRow = DB.GetDataRow(query, p)
+
+                    If dr IsNot Nothing Then
                         If IsDBNull(dr.Item("strMemorandumField")) Then
                             txtMemorandumPTE.Clear()
                         Else
@@ -5937,14 +4674,13 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                 Case Else
 
             End Select
-            dr.Close()
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
-    Sub LoadMethod9(RefNum As String)
+    Private Sub LoadMethod9(RefNum As String)
         Try
             TCDocumentTypes.TabPages.Remove(TPOneStack)
             TCDocumentTypes.TabPages.Remove(TPLoadingRack)
@@ -5959,25 +4695,23 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
 
             Select Case DocumentType
                 Case "016"
-                    TCMethodNine.TabPages.Remove(Me.TPMethodNineMultiple)
-                    TCMethodNine.TabPages.Remove(Me.TPMethodNineMultiple2)
+                    TCMethodNine.TabPages.Remove(TPMethodNineMultiple)
+                    TCMethodNine.TabPages.Remove(TPMethodNineMultiple2)
 
-                    SQL = "Select " &
+                    query = "Select " &
                     "strMaxOperatingCapacity1A, strMaxOperatingCapacityUnit, " &
                     "strOperatingCapacity1A, strOperatingCapacityUnit, " &
                     "strAllowableEmissionRate1A, strAllowableEmissionRateUnit, " &
                     "strOpacityTestDuration, " &
                     "strOpacityPointA, strOpacityStandard  " &
                     "from ISMPREportOpacity " &
-                    "where strReferenceNumber = '" & RefNum & "'"
+                    "where strReferenceNumber = @RefNum "
 
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    RecExist = dr.Read
-                    If RecExist = True Then
+                    Dim p As New SqlParameter("@RefNum", RefNum)
+
+                    Dim dr As DataRow = DB.GetDataRow(query, p)
+
+                    If dr IsNot Nothing Then
                         If IsDBNull(dr.Item("strMaxOperatingCapacity1A")) Then
                             txtMaximumExpectedOperatingCapacityMethod9Single.Clear()
                         Else
@@ -6053,10 +4787,11 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                             End If
                         End If
                     End If
-                Case "014"
-                    TCMethodNine.TabPages.Remove(Me.TPMethodNineSingle)
 
-                    SQL = "Select " &
+                Case "014"
+                    TCMethodNine.TabPages.Remove(TPMethodNineSingle)
+
+                    query = "Select " &
                     "strMaxOperatingCapacity1A, strMaxOperatingCapacity2A, " &
                     "strMaxOperatingCapacity3A, strMaxOperatingCapacity4A, " &
                     "strMaxOperatingCapacity5A, strMaxOperatingCapacityUnit, " &
@@ -6073,15 +4808,13 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                     "strEquipmentItem4, strEquipmentItem5, " &
                     "strOpacityStandard " &
                     "from ISMPREportOpacity " &
-                    "where strReferenceNumber = '" & RefNum & "'"
+                    "where strReferenceNumber = @RefNum "
 
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    RecExist = dr.Read
-                    If RecExist = True Then
+                    Dim p As New SqlParameter("@RefNum", RefNum)
+
+                    Dim dr As DataRow = DB.GetDataRow(query, p)
+
+                    If dr IsNot Nothing Then
                         If IsDBNull(dr.Item("strMaxOperatingCapacity1A")) Then
                             txtMaximumExpectedOperatingCapacityMethod9Multi1.Clear()
                         Else
@@ -6337,17 +5070,17 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                         txtControlEquipmentOperatingDataMethod9Multi.Text = ControlEquipment
                         txtOtherInformationMethod9.Text = ReportComments
                     End If
+
                 Case Else
 
             End Select
-            dr.Close()
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
-    Sub LoadMethod22(RefNum As String)
+    Private Sub LoadMethod22(RefNum As String)
         Try
             TCDocumentTypes.TabPages.Remove(TPOneStack)
             TCDocumentTypes.TabPages.Remove(TPLoadingRack)
@@ -6362,21 +5095,19 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
 
             Select Case DocumentType
                 Case "015"
-                    SQL = "Select " &
+                    query = "Select " &
                     "strMaxOperatingCapacity1A, strMaxOperatingCapacityUnit, " &
                     "strOperatingCapacity1A, strOperatingCapacityUnit, " &
                      "STRALLOWABLEEMISSIONRATE22, " &
                     "strOpacityTestDuration, strAccumulatedEmissionTime " &
                     "from ISMPREportOpacity " &
-                    "where strReferenceNumber = '" & RefNum & "'"
+                    "where strReferenceNumber = @RefNum "
 
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    RecExist = dr.Read
-                    If RecExist = True Then
+                    Dim p As New SqlParameter("@RefNum", RefNum)
+
+                    Dim dr As DataRow = DB.GetDataRow(query, p)
+
+                    If dr IsNot Nothing Then
                         If IsDBNull(dr.Item("strMaxOperatingCapacity1A")) Then
                             txtMaximumExpectedOperatingCapacityMethod22.Clear()
                         Else
@@ -6438,14 +5169,13 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                 Case Else
 
             End Select
-            dr.Close()
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
-    Sub LoadUserPermissions()
+    Private Sub LoadUserPermissions()
         Try
             If AccountFormAccess(69, 1) = "1" Or AccountFormAccess(69, 2) = "1" Or AccountFormAccess(69, 3) = "1" Or AccountFormAccess(69, 4) = "1" Then
             Else
@@ -7919,7 +6649,7 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                         txtControlEquipmentOperatingDataMemorandumPTE.ReadOnly = False
                         txtMemorandumPTE.ReadOnly = False
                 End Select
-                Me.cboTestNotificationNumber.Enabled = True
+                cboTestNotificationNumber.Enabled = True
             Else
                 txtSourceTested.ReadOnly = True
                 mmiPrePopulate.Visible = False
@@ -9403,20 +8133,20 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
         Finally
         End Try
     End Sub
-    Sub LoadOtherWitnessingEng()
+    Private Sub LoadOtherWitnessingEng()
         Try
-            SQL = "select strWitnessingEngineer " &
+            query = "select strWitnessingEngineer " &
             "From ISMPWitnessingEng " &
-            "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
+            "where strReferenceNumber = @RefNum "
+
+            Dim p As New SqlParameter("@RefNum", txtReferenceNumber.Text)
+
+            Dim dr As DataRow = DB.GetDataRow(query, p)
+
             Dim temp As String = " "
             Dim x As Integer = 0
 
-            While dr.Read
+            If dr IsNot Nothing Then
                 temp = dr.Item("strWitnessingEngineer")
                 clbWitnessingEngineers.SelectedValue = temp
                 x = clbWitnessingEngineers.SelectedIndex
@@ -9424,18 +8154,17 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                     clbWitnessingEngineers.SetItemCheckState(x, CheckState.Checked)
                 End If
                 clbWitnessingEngineers.SelectedValue = 0
-            End While
-            dr.Close()
+            End If
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
-    Sub LoadSSCPData()
+    Private Sub LoadSSCPData()
         Try
             If txtAirsNumber.Text <> "" Then
-                SQL = "Select " &
+                query = "Select " &
                 "SSCPTestReports.strTrackingNumber, " &
                 "datTestReportDue, strTestReportComments, " &
                 "strTestReportFollowUp, datREceivedDate, " &
@@ -9444,14 +8173,13 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                 "from SSCPTestReports, " &
                 "SSCPItemMaster  " &
                 "where SSCPTestReports.strTrackingNumber = SSCPItemMaster.strTrackingNumber " &
-                "and strReferenceNumber = '" & txtReferenceNumber.Text & "' "
+                "and strReferenceNumber = @RefNum "
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                While dr.Read
+                Dim p As New SqlParameter("@RefNum", txtReferenceNumber.Text)
+
+                Dim dr As DataRow = DB.GetDataRow(query, p)
+
+                If dr IsNot Nothing Then
                     If IsDBNull(dr.Item("strTrackingNumber")) Then
                         txtTrackingNumber.Text = ""
                     Else
@@ -9508,12 +8236,10 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                     Else
                         txtTestReportReceivedbySSCPDate.Text = Format(dr.Item("datReceivedDate"), "dd-MMM-yyyy")
                     End If
-                End While
-                dr.Close()
+                End If
+
                 DTPTestReportDueDate.Visible = False
                 chbTestReportChangeDueDate.Checked = False
-                'DTPAcknoledgmentLetterSent.Visible = False
-                'chbAcknoledgmentLetterSent.Checked = False
                 DTPEventCompleteDate.Enabled = False
 
                 If AccountFormAccess(69, 4) = "1" Then
@@ -9524,22 +8250,21 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                     End If
                 End If
 
-                SQL = "Select strEnforcementNumber " &
+                query = "Select strEnforcementNumber " &
                 "from SSCP_AuditedEnforcement " &
-                "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                RecExist = dr.Read
-                If RecExist = True Then
-                    If IsDBNull(dr.Item("strEnforcementNumber")) Then
+                "where convert(int,strTrackingNumber) = convert(int,@track) "
+
+                Dim p2 As New SqlParameter("@track", txtTrackingNumber.Text)
+
+                Dim dr2 As DataRow = DB.GetDataRow(query, p2)
+
+                If dr2 IsNot Nothing Then
+                    If IsDBNull(dr2.Item("strEnforcementNumber")) Then
                         txtEnforcementNumber.Text = ""
                         txtEnforcementNumber.Visible = False
                         btnEnforcementProcess.Visible = False
                     Else
-                        txtEnforcementNumber.Text = dr.Item("strEnforcementNumber")
+                        txtEnforcementNumber.Text = dr2.Item("strEnforcementNumber")
                         txtEnforcementNumber.Visible = True
                         btnEnforcementProcess.Visible = True
                     End If
@@ -9548,27 +8273,24 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                     txtEnforcementNumber.Visible = False
                     btnEnforcementProcess.Visible = False
                 End If
-                dr.Close()
 
-                SQL = "Select datSSCPTestReportDue " &
+                query = "Select datSSCPTestReportDue " &
                 "from APBSupplamentalData " &
-                "where strAIRSNumber = '0413" & txtAirsNumber.Text & "' "
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                RecExist = dr.Read
-                If RecExist = True Then
-                    If IsDBNull(dr.Item("datSSCPTestReportDue")) Then
+                "where strAIRSNumber = @airs "
+
+                Dim p3 As New SqlParameter("@airs", "0413" & txtAirsNumber.Text)
+
+                Dim dr3 As DataRow = DB.GetDataRow(query, p3)
+
+                If dr3 IsNot Nothing Then
+                    If IsDBNull(dr3.Item("datSSCPTestReportDue")) Then
                         DTPTestReportNewDueDate.Value = Today
                     Else
-                        DTPTestReportNewDueDate.Text = Format(dr.Item("datSSCPTestReportDue"), "dd-MMM-yyyy")
+                        DTPTestReportNewDueDate.Text = Format(dr3.Item("datSSCPTestReportDue"), "dd-MMM-yyyy")
                     End If
                 Else
                     DTPTestReportNewDueDate.Value = Today
                 End If
-                dr.Close()
 
             End If
 
@@ -9577,7 +8299,7 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
         Finally
         End Try
     End Sub
-    Sub CloseSSCPWork(Status As Boolean)
+    Private Sub CloseSSCPWork(Status As Boolean)
         Try
             If Status = True Then
                 cboStaffResponsible.Enabled = False
@@ -9609,41 +8331,10 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
         End Try
 
     End Sub
-    Sub LoadTestNotifications()
+    Private Sub LoadTestNotifications()
         Try
-            Dim SQL As String
 
-            SQL = "select " &
-            "concat(LogNumber, ' --> ' ,StartDate) as LogNumber " &
-            "from  " &
-            "(Select (ISMPTESTNotification.strTestLogNumber) as LogNumber, " &
-            "format(datProposedStartDate,'dd-MMM-yyyy') as StartDate " &
-            "from  ISMPTESTNotification  " &
-            "where not exists(select ISMPTestLogLink.strTestLogNumber  " &
-            "from ISMPTestLogLink " &
-            "where ISMPTestNotification.strTestLogNumber = ISMPTestLogLink.strTestLogNumber)  " &
-            "and strAIRSNumber = '0413" & txtAirsNumber.Text & "') NonLinked  " &
-            "UNION  " &
-            "select " &
-            "concat(LogNumber, ' --> ' ,StartDate) as LogNumber " &
-            "from  " &
-            "(select (ISMPTestLogLink.strTestLogNumber) as LogNumber, " &
-            "' ' as StartDate " &
-            "from ISMPTestLogLink  " &
-            "where strReferenceNumber = '" & txtReferenceNumber.Text & "') CurrentLink " &
-            "Union " &
-            "select  " &
-            "concat(LogNumber , ' --> ' ,StartDate) as LogNumber " &
-            "from (select distinct(ISMPTestLogLink.strTestLogNumber) as LogNumber,  " &
-            "' ' as StartDate " &
-            "from ISMPTestLogLink, ISMPReportInformation,  " &
-            "ISMPMaster " &
-            "where ISMPTEstLogLink.strReferenceNumber = ISMPREportInformation.strReferenceNumber  " &
-            "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber  " &
-            "and strAIRSNumber = '0413" & txtAirsNumber.Text & "'  " &
-            "and strClosed <> 'True') UnclosedLinks "
-
-            SQL = "select " &
+            query = "select " &
             "concat(LogNumber, ' --> ' ,StartDate) as LogNumber " &
             "from  (Select (ISMPTESTNotification.strTestLogNumber) as LogNumber, " &
             "format(datProposedStartDate,'dd-MMM-yyyy') as StartDate " &
@@ -9651,7 +8342,7 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
             "where not exists(select ISMPTestLogLink.strTestLogNumber  " &
             "from ISMPTestLogLink " &
             "where ISMPTestNotification.strTestLogNumber = ISMPTestLogLink.strTestLogNumber)  " &
-            "and strAIRSNumber = '0413" & txtAirsNumber.Text & "') NonLinked  " &
+            "and strAIRSNumber = @airs ) NonLinked  " &
             "UNION  " &
             "select " &
             "LogNumber " &
@@ -9659,7 +8350,7 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
             "concat(ISMPTestLogLink.strTestLogNumber, ' --> ' ,datProposedStartDate) as LogNumber " &
             "from ISMPTestLogLink, ISMPTestNotification " &
             "where ISMPTestLogLink.strTestLogNumber = ISMPTestNotification.strTestLogNumber " &
-            "and strReferenceNumber = '" & txtReferenceNumber.Text & "') CurrentLink " &
+            "and strReferenceNumber = @ref) CurrentLink " &
             "Union " &
             "select  concat(LogNumber , ' --> ' ,StartDate) as LogNumber " &
             "from " &
@@ -9670,33 +8361,30 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
             "where ISMPTEstLogLink.strReferenceNumber = ISMPREportInformation.strReferenceNumber  " &
             "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber  " &
             "and ISMPTestLogLink.strTestLogNumber = ISMPTestNotification.strTestLogNumber  " &
-            "and ISMPMaster.strAIRSNumber = '0413" & txtAirsNumber.Text & "'  " &
+            "and ISMPMaster.strAIRSNumber = @airs " &
             "and strClosed <> 'True') UnclosedLinks "
 
+            Dim p As SqlParameter() = {
+                New SqlParameter("@airs", "0413" & txtAirsNumber.Text),
+                New SqlParameter("@ref", txtReferenceNumber.Text)
+            }
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
+            Dim dt As DataTable = DB.GetDataTable(query, p)
+
             cboTestNotificationNumber.Items.Add(" ")
-            While dr.Read
-                cboTestNotificationNumber.Items.Add(dr.Item("LogNumber"))
-            End While
-            dr.Close()
+            For Each dr2 As DataRow In dt.Rows
+                cboTestNotificationNumber.Items.Add(dr2.Item("LogNumber"))
+            Next
 
-            SQL = "select " &
+            query = "select " &
             "concat(ISMPTestLogLink.strTestLogNumber, ' --> ' ,datProposedStartDate) as LogNumber " &
             "from ISMPTestLogLink, ISMPTestNotification " &
             "where ISMPTestLogLink.strTestLogNumber = ISMPTestNotification.strTestLogNumber " &
-            "and strReferenceNumber = '" & txtReferenceNumber.Text & "' "
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            RecExist = dr.Read
-            If RecExist = True Then
+            "and strReferenceNumber = @ref "
+
+            Dim dr As DataRow = DB.GetDataRow(query, p)
+
+            If dr IsNot Nothing Then
                 If IsDBNull(dr.Item("LogNumber")) Then
                     cboTestNotificationNumber.Text = " "
                 Else
@@ -9705,46 +8393,32 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                     End If
                 End If
             End If
-            dr.Close()
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
-    Sub LoadDefaultComplianceManager()
+    Private Sub LoadDefaultComplianceManager()
         Try
             Dim ComplianceManager As String = ""
             Dim DistrictManager As String = ""
 
-            SQL = "select max(INTYEAR), strAssigningManager " &
+            query = "select max(INTYEAR), strAssigningManager " &
                   "from SSCPINSPECTIONSREQUIRED, " &
                    "(select max(intyear) as MaxYear, SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER  " &
                       "from SSCPINSPECTIONSREQUIRED " &
-                      "where SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER = '0413" & txtAirsNumber.Text & "' " &
+                      "where SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER = @airs " &
                       "group by SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER ) MaxResults " &
-                  "where SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER = '0413" & txtAirsNumber.Text & "' " &
+                  "where SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER = @airs " &
                   " and SSCPINSPECTIONSREQUIRED.intyear = maxresults.maxyear " &
                   "group by strAssigningManager "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            RecExist = dr.Read
-            If RecExist = True Then
-                If IsDBNull(dr.Item("strAssigningManager")) Then
-                    ComplianceManager = ""
-                Else
-                    ComplianceManager = dr.Item("strAssigningManager")
-                End If
-            Else
-                ComplianceManager = ""
-            End If
-            dr.Close()
+            Dim p As New SqlParameter("@airs", "0413" & txtAirsNumber.Text)
 
-            SQL = "select " &
+            ComplianceManager = DB.GetString(query, p)
+
+            query = "select " &
             "strDistrictManager  " &
             "from SSCPDistrictResponsible,  " &
             "LookUpDistricts,  " &
@@ -9752,24 +8426,9 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
             "where strDistrictResponsible = 'True'  " &
             "and LookUpDistricts.strDistrictCode = LookUpDistrictInformation.strDistrictCode   " &
             "and LookUpDistrictInformation.strDistrictCounty = SUBSTRING(SSCPDistrictResponsible.strAIRSNumber, 5, 3) " &
-            "and SSCPDistrictResponsible.strAIRSNumber = '0413" & txtAirsNumber.Text & "' "
+            "and SSCPDistrictResponsible.strAIRSNumber = @airs "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            RecExist = dr.Read
-            If RecExist = True Then
-                If IsDBNull(dr.Item("strDistrictManager")) Then
-                    DistrictManager = ""
-                Else
-                    DistrictManager = dr.Item("strDistrictManager")
-                End If
-            Else
-                DistrictManager = ""
-            End If
-            dr.Close()
+            DistrictManager = DB.GetString(query, p)
 
             If DistrictManager <> "" Then
                 cboComplianceManager.SelectedValue = DistrictManager
@@ -9789,9 +8448,8 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
         Finally
         End Try
     End Sub
-#End Region
-#Region "Subs and Functions"
-    Sub ClearAll()
+
+    Private Sub ClearAll()
         Try
             txtReferenceNumber.Clear()
             txtAirsNumber.Clear()
@@ -10308,7 +8966,7 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
         Finally
         End Try
     End Sub
-    Sub PrePopulate()
+    Private Sub PrePopulate()
         Try
             Dim RefNum As String
             Dim OldRefNum As String
@@ -10318,31 +8976,24 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
             OldRefNum = InputBox("Enter Old Reference Number.", "PrePopulate Tool.")
 
             If OldRefNum <> "" Then
-                SQL = "select ISMPDocumentType.strDocumentType " &
-                "from ISMPDocumentType, ISMPReportInformation " &
-                "where ISMPReportInformation.strDocumentType = ISMPDocumentType.strKey " &
-                "and strReferenceNumber = '" & OldRefNum & "'"
-
-                SQL = "Select strDocumentType  " &
+                query = "Select strDocumentType  " &
                 "from ISMPReportInformation " &
-                "where strReferenceNumber = '" & OldRefNum & "' "
+                "where strReferenceNumber = @OldRefNum "
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                RecExist = dr.Read
-                If RecExist = True Then
-                    DocType = dr.Item("strDocumentType")
+                Dim pOld As New SqlParameter("@OldRefNum", OldRefNum)
+
+                Dim dr2 As DataRow = DB.GetDataRow(query, pOld)
+
+                If dr2 IsNot Nothing Then
+                    DocType = dr2.Item("strDocumentType")
                 Else
                     DocType = "Non-Exist"
                 End If
-                dr.Close()
+
                 If DocType <> "Non-Exist" Then
                     ClearAll()
 
-                    SQL = "Select " &
+                    query = "Select " &
                   "ISMPMaster.strReferenceNumber,  " &
                   "SUBSTRING(ISMpMaster.strAIRSnumber, 5,8) as AIRSNumber,  " &
                   "APBFacilityInformation.strFacilityName,  " &
@@ -10385,15 +9036,13 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                   "ON ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber  " &
                   " LEFT JOIN EPDUserProfiles     " &
                   "ON ISMPReportInformation.numReviewingManager = EPDUserProfiles.numUserID " &
-                  "where ISMPMaster.strReferenceNumber = '" & RefNum & "' "
+                  "where ISMPMaster.strReferenceNumber = @RefNum "
 
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    RecExist = dr.Read
-                    If RecExist = True Then
+                    Dim pNew As New SqlParameter("@RefNum", RefNum)
+
+                    Dim dr As DataRow = DB.GetDataRow(query, pNew)
+
+                    If dr IsNot Nothing Then
                         If IsDBNull(dr.Item("AIRSNumber")) Then
                             txtAirsNumber.Clear()
                         Else
@@ -10519,7 +9168,7 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                         End If
 
                         If IsDBNull(dr.Item("DaysFromTest")) Then
-                            Me.txtDaysfromTestToAPB.Clear()
+                            txtDaysfromTestToAPB.Clear()
                         Else
                             txtDaysfromTestToAPB.Text = dr.Item("DaysFromTest")
                             If txtDaysfromTestToAPB.Text.Contains(".") Then
@@ -10588,24 +9237,19 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
 
                             cboUnitManager.Text = dr.Item("numReviewingManager")
                         End If
-                    Else
 
                     End If
-                    dr.Close()
 
-                    SQL = "select " &
+                    query = "select " &
                     "strPollutant, strEmissionSource, " &
                     "strReportType, strDeterminationMethod, " &
                     "strApplicableRequirement, strControlEquipmentData " &
                     "from ISMPReportInformation " &
-                    "where strReferenceNUmber = '" & OldRefNum & "' "
+                    "where strReferenceNUmber = @OldRefNum "
 
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    While dr.Read
+                    Dim dr3 As DataRow = DB.GetDataRow(query, pOld)
+
+                    If dr3 IsNot Nothing Then
                         If IsDBNull(dr.Item("strEmissionSource")) Then
                             txtSourceTested.Clear()
                         Else
@@ -10636,7 +9280,8 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                         Else
                             ControlEquipment = dr.Item("strControlEquipmentData")
                         End If
-                    End While
+                    End If
+
                     txtReferenceNumber.Text = RefNum
 
                     DocumentType = DocType
@@ -10681,8 +9326,6 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                         End Select
                     End If
 
-                    'TCDocumentTypes.TabPages.Add(TPSSCPWork)
-
                 Else
                     MsgBox("The Reference Number " & OldRefNum & " is not a valid value.", MsgBoxStyle.Information, "Test Report")
                 End If
@@ -10695,11 +9338,11 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
 
     End Sub
 
-    Sub OpenMemo()
-        OpenFormTestMemo(Me.txtReferenceNumber.Text)
+    Private Sub OpenMemo()
+        OpenFormTestMemo(txtReferenceNumber.Text)
     End Sub
 
-    Sub ClearTestReportData()
+    Private Sub ClearTestReportData()
         Dim diag As DialogResult = MessageBox.Show("This will clear all data from this test repot. Are you sure you want to proceed?", "Delete all data", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2)
 
         If diag = DialogResult.Yes Then
@@ -10719,7 +9362,7 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
         End If
     End Sub
 
-    Sub SaveStackTest()
+    Private Sub SaveStackTest()
         Try
             Dim Pollutant As String = "00001"
             Dim EmissionSource As String = "N/A'"
@@ -10769,7 +9412,7 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
             Else
                 DetMethod = ""
             End If
-            If Me.cboTestingFirm.Text <> " " And cboTestingFirm.Text <> "" Then
+            If cboTestingFirm.Text <> " " And cboTestingFirm.Text <> "" Then
                 TestingFirm = cboTestingFirm.SelectedValue
                 If TestingFirm = "" Then
                     TestingFirm = "00000"
@@ -10819,7 +9462,7 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
             Else
                 ComplianceManager = "0"
             End If
-            If Me.cboccBox.Text <> " " And cboccBox.Text <> "" Then
+            If cboccBox.Text <> " " And cboccBox.Text <> "" Then
                 CC = cboccBox.SelectedValue
                 If CC = "" Then
                     CC = "0"
@@ -10857,13 +9500,13 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                         Else
                             Comments = "N/A"
                         End If
-                        If TCOneStack.TabPages.Contains(Me.TPOneStackTwoRun) Then
+                        If TCOneStack.TabPages.Contains(TPOneStackTwoRun) Then
                             DocumentType = "002"
                         Else
-                            If TCOneStack.TabPages.Contains(Me.TPOneStackThreeRun) Then
+                            If TCOneStack.TabPages.Contains(TPOneStackThreeRun) Then
                                 DocumentType = "003"
                             Else
-                                If TCOneStack.TabPages.Contains(Me.TPOneStackFourRun) Then
+                                If TCOneStack.TabPages.Contains(TPOneStackFourRun) Then
                                     DocumentType = "004"
                                 Else
                                     DocumentType = "001"
@@ -10887,10 +9530,10 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                             Else
                                 Comments = "N/A"
                             End If
-                            If TCTwoStack.TabPages.Contains(Me.TPTwoStackStandard) Then
+                            If TCTwoStack.TabPages.Contains(TPTwoStackStandard) Then
                                 DocumentType = "005"
                             Else
-                                If TCTwoStack.TabPages.Contains(Me.TPTwoStackDRE) Then
+                                If TCTwoStack.TabPages.Contains(TPTwoStackDRE) Then
                                     DocumentType = "006"
                                 Else
                                     DocumentType = "001"
@@ -10990,15 +9633,15 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                                                         ApplicableReg = "Incomplete"
                                                     End If
                                                     Comments = "N/A"
-                                                    If TCMemorandum.TabPages.Contains(Me.TPMemoStandard) Then
+                                                    If TCMemorandum.TabPages.Contains(TPMemoStandard) Then
                                                         DocumentType = "012"
                                                         ControlEquip = "N/A"
                                                     Else
-                                                        If TCMemorandum.TabPages.Contains(Me.TPMemoToFile) Then
+                                                        If TCMemorandum.TabPages.Contains(TPMemoToFile) Then
                                                             DocumentType = "013"
                                                             ControlEquip = "N/A"
                                                         Else
-                                                            If TCMemorandum.TabPages.Contains(Me.TPMemoPTE) Then
+                                                            If TCMemorandum.TabPages.Contains(TPMemoPTE) Then
                                                                 DocumentType = "018"
                                                                 If txtControlEquipmentOperatingDataMemorandumPTE.Text <> "" Then
                                                                     ControlEquip = txtControlEquipmentOperatingDataMemorandumPTE.Text
@@ -11012,7 +9655,7 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                                                     End If
                                                 Else
                                                     If TCDocumentTypes.TabPages.Contains(TPMethodNine) Then
-                                                        If TCMethodNine.TabPages.Contains(Me.TPMethodNineSingle) Then
+                                                        If TCMethodNine.TabPages.Contains(TPMethodNineSingle) Then
                                                             DocumentType = "016"
                                                             If txtApplicableRegulationMethod9Single.Text <> "" Then
                                                                 ApplicableReg = txtApplicableRegulationMethod9Single.Text
@@ -11030,7 +9673,7 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                                                                 ControlEquip = "N/A"
                                                             End If
                                                         Else
-                                                            If TCMethodNine.TabPages.Contains(Me.TPMethodNineMultiple) Then
+                                                            If TCMethodNine.TabPages.Contains(TPMethodNineMultiple) Then
                                                                 DocumentType = "014"
                                                                 If txtApplicableRegulationMethod9Multi.Text <> "" Then
                                                                     ApplicableReg = txtApplicableRegulationMethod9Multi.Text
@@ -11064,11 +9707,6 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                                                             Else
                                                                 Comments = "N/A"
                                                             End If
-                                                            'If Me.txtControlEquipmentOperatingDataMethod.Text <> "" Then
-                                                            '    ControlEquip = txtControlEquipmentOperatingDataMethod22.Text
-                                                            'Else
-                                                            '    ControlEquip = "N/A"
-                                                            'End If
                                                         Else
                                                             DocumentType = "001"
                                                         End If
@@ -11083,7 +9721,7 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                     End If
                 Case 3
                     If TCDocumentTypes.TabPages.Contains(TPMethodNine) Then
-                        If TCMethodNine.TabPages.Contains(Me.TPMethodNineMultiple) Then
+                        If TCMethodNine.TabPages.Contains(TPMethodNineMultiple) Then
                             DocumentType = "014"
                             If txtApplicableRegulationMethod9Multi.Text <> "" Then
                                 ApplicableReg = txtApplicableRegulationMethod9Multi.Text
@@ -11139,7 +9777,7 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                     Else
                         If TPLoadingRack.Focus = True Then
                             DocumentType = "007"
-                            If Me.txtApplicableRegulationLoadingRack.Text <> "" Then
+                            If txtApplicableRegulationLoadingRack.Text <> "" Then
                                 ApplicableReg = txtApplicableRegulationLoadingRack.Text
                             Else
                                 ApplicableReg = "Incomplete"
@@ -11157,7 +9795,7 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                         Else
                             If TPPondTreatment.Focus = True Then
                                 DocumentType = "008"
-                                If Me.txtApplicableRegulationPond.Text <> "" Then
+                                If txtApplicableRegulationPond.Text <> "" Then
                                     ApplicableReg = txtApplicableRegulationPond.Text
                                 Else
                                     ApplicableReg = "Incomplete"
@@ -11175,7 +9813,7 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                             Else
                                 If TPGasConcentration.Focus = True Then
                                     DocumentType = "009"
-                                    If Me.txtApplicableRegulationGas.Text <> "" Then
+                                    If txtApplicableRegulationGas.Text <> "" Then
                                         ApplicableReg = txtApplicableRegulationGas.Text
                                     Else
                                         ApplicableReg = "Incomplete"
@@ -11193,7 +9831,7 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                                 Else
                                     If TPFlare.Focus = True Then
                                         DocumentType = "010"
-                                        If Me.txtApplicableRegulationFlare.Text <> "" Then
+                                        If txtApplicableRegulationFlare.Text <> "" Then
                                             ApplicableReg = txtApplicableRegulationFlare.Text
                                         Else
                                             ApplicableReg = "Incomplete"
@@ -11217,7 +9855,7 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                                             End If
                                             If TPMethodNineSingle.Focus = True Then
                                                 DocumentType = "016"
-                                                If Me.txtApplicableRegulationMethod9Single.Text <> "" Then
+                                                If txtApplicableRegulationMethod9Single.Text <> "" Then
                                                     ApplicableReg = txtApplicableRegulationMethod9Single.Text
                                                 Else
                                                     ApplicableReg = "Incomplete"
@@ -11230,7 +9868,7 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                                             Else
                                                 If TPMethodNineMultiple.Focus = True Or TPMethodNineMultiple2.Focus = True Then
                                                     DocumentType = "014"
-                                                    If Me.txtApplicableRegulationMethod9Multi.Text <> "" Then
+                                                    If txtApplicableRegulationMethod9Multi.Text <> "" Then
                                                         ApplicableReg = txtApplicableRegulationMethod9Multi.Text
                                                     Else
                                                         ApplicableReg = "Incomplete"
@@ -11246,21 +9884,21 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                                             End If
                                         Else
                                             If TPMemorandum.Focus = True Then
-                                                If Me.txtApplicableRegulationMemorandum.Text <> "" Then
+                                                If txtApplicableRegulationMemorandum.Text <> "" Then
                                                     ApplicableReg = txtApplicableRegulationMemorandum.Text
                                                 Else
                                                     ApplicableReg = "Incomplete"
                                                 End If
                                                 Comments = "N/A"
-                                                If Me.TPMemoStandard.Focus = True Then
+                                                If TPMemoStandard.Focus = True Then
                                                     DocumentType = "012"
                                                 Else
-                                                    If Me.TPMemoToFile.Focus = True Then
+                                                    If TPMemoToFile.Focus = True Then
                                                         DocumentType = "013"
                                                     Else
-                                                        If Me.TPMemoPTE.Focus = True Then
+                                                        If TPMemoPTE.Focus = True Then
                                                             DocumentType = "018"
-                                                            If Me.txtControlEquipmentOperatingDataMemorandumPTE.Text <> "" Then
+                                                            If txtControlEquipmentOperatingDataMemorandumPTE.Text <> "" Then
                                                                 ControlEquip = txtControlEquipmentOperatingDataMemorandumPTE.Text
                                                             Else
                                                                 ControlEquip = "N/A"
@@ -11273,7 +9911,7 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                                             Else
                                                 If TPRata.Focus = True Then
                                                     DocumentType = "011"
-                                                    If Me.txtApplicableRegulationRata.Text <> "" Then
+                                                    If txtApplicableRegulationRata.Text <> "" Then
                                                         ApplicableReg = txtApplicableRegulationRata.Text
                                                     Else
                                                         ApplicableReg = "Incomplete"
@@ -11286,7 +9924,7 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                                                     ControlEquip = "N/A"
                                                 Else
                                                     If TPTwoStack.Focus = True Then
-                                                        If Me.txtApplicableRegulationTwoStack.Text <> "" Then
+                                                        If txtApplicableRegulationTwoStack.Text <> "" Then
                                                             ApplicableReg = txtApplicableRegulationTwoStack.Text
                                                         Else
                                                             ApplicableReg = "Incomplete"
@@ -11301,10 +9939,10 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                                                         Else
                                                             ControlEquip = "N/A"
                                                         End If
-                                                        If Me.TPTwoStackStandard.Focus = True Then
+                                                        If TPTwoStackStandard.Focus = True Then
                                                             DocumentType = "005"
                                                         Else
-                                                            If Me.TPTwoStackDRE.Focus = True Then
+                                                            If TPTwoStackDRE.Focus = True Then
                                                                 DocumentType = "006"
                                                             Else
                                                                 DocumentType = "001"
@@ -11313,7 +9951,7 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                                                     Else
                                                         If TPMethodTwentyTwo.Focus = True Then
                                                             DocumentType = "015"
-                                                            If Me.txtApplicableRegulationMethod22.Text <> "" Then
+                                                            If txtApplicableRegulationMethod22.Text <> "" Then
                                                                 ApplicableReg = txtApplicableRegulationMethod22.Text
                                                             Else
                                                                 ApplicableReg = "Incomplete"
@@ -11340,39 +9978,59 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                     DocumentType = "001"
             End Select
 
-            SQL = "Update ISMPReportInformation set " &
-            "strPollutant = '" & Pollutant & "', " &
-            "strEmissionSource = '" & Replace(EmissionSource, "'", "''") & "', " &
-            "strReportType = '" & ReportType & "', " &
-            "strDocumentType = '" & DocumentType & "', " &
-            "strApplicableRequirement = '" & Replace(ApplicableReg, "'", "''") & "', " &
-            "strTestingFirm = '" & TestingFirm & "', " &
-            "strReviewingEngineer = '" & ReviewingEngineer & "', " &
-            "strWitnessingEngineer = '" & WitnessingEng & "', " &
-            "strWitnessingEngineer2 = '" & WitnessingEng2 & "', " &
-            "strReviewingUnit = '" & ReviewingUnit & "', " &
-            "datTestDateStart = '" & TestStart & "', " &
-            "datTestDateEnd = '" & TestEnd & "', " &
-            "datReviewedByUnitManager = '" & AssignedDate & "', " &
-            "mmoCommentArea = '" & Replace(Comments, "'", "''") & "', " &
-            "strComplianceStatus = '" & ComplianceStatus & "', " &
-            "strComplianceManager = '" & ComplianceManager & "', " &
-            "strCC = '" & CC & "', " &
-            "strControlEquipmentData = '" & Replace(ControlEquip, "'", "''") & "', " &
-            "strDeterminationMethod = '" & DetMethod & "', " &
-            "strModifingPerson = '" & CurrentUser.UserID & "', " &
-            "datModifingDate =  GETDATE() , " &
-            "numReviewingManager = '" & UnitManager & "', " &
-            "strOtherWitnessingEng = '" & OtherWitnessing & "' " &
-            "where strReferenceNumber = '" & txtReferenceNumber.Text & "'"
-            'End If
+            query = "Update ISMPReportInformation set " &
+            "strPollutant = @strPollutant, " &
+            "strEmissionSource = @strEmissionSource, " &
+            "strReportType = @strReportType, " &
+            "strDocumentType = @strDocumentType, " &
+            "strApplicableRequirement = @strApplicableRequirement, " &
+            "strTestingFirm = @strTestingFirm, " &
+            "strReviewingEngineer = @strReviewingEngineer, " &
+            "strWitnessingEngineer = @strWitnessingEngineer, " &
+            "strWitnessingEngineer2 = @strWitnessingEngineer2, " &
+            "strReviewingUnit = @strReviewingUnit, " &
+            "datTestDateStart = @datTestDateStart, " &
+            "datTestDateEnd = @datTestDateEnd, " &
+            "datReviewedByUnitManager = @datReviewedByUnitManager, " &
+            "mmoCommentArea = @mmoCommentArea, " &
+            "strComplianceStatus = @strComplianceStatus, " &
+            "strComplianceManager = @strComplianceManager, " &
+            "strCC = @strCC, " &
+            "strControlEquipmentData = @strControlEquipmentData, " &
+            "strDeterminationMethod = @strDeterminationMethod, " &
+            "strModifingPerson = @strModifingPerson, " &
+            "datModifingDate = getdate(), " &
+            "numReviewingManager = @numReviewingManager, " &
+            "strOtherWitnessingEng = @strOtherWitnessingEng " &
+            "where strReferenceNumber = @strReferenceNumber "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
+            Dim p As SqlParameter() = {
+                New SqlParameter("@strPollutant", Pollutant),
+                New SqlParameter("@strEmissionSource", EmissionSource),
+                New SqlParameter("@strReportType", ReportType),
+                New SqlParameter("@strDocumentType", DocumentType),
+                New SqlParameter("@strApplicableRequirement", ApplicableReg),
+                New SqlParameter("@strTestingFirm", TestingFirm),
+                New SqlParameter("@strReviewingEngineer", ReviewingEngineer),
+                New SqlParameter("@strWitnessingEngineer", WitnessingEng),
+                New SqlParameter("@strWitnessingEngineer2", WitnessingEng2),
+                New SqlParameter("@strReviewingUnit", ReviewingUnit),
+                New SqlParameter("@datTestDateStart", TestStart),
+                New SqlParameter("@datTestDateEnd", TestEnd),
+                New SqlParameter("@datReviewedByUnitManager", AssignedDate),
+                New SqlParameter("@mmoCommentArea", Comments),
+                New SqlParameter("@strComplianceStatus", ComplianceStatus),
+                New SqlParameter("@strComplianceManager", ComplianceManager),
+                New SqlParameter("@strCC", CC),
+                New SqlParameter("@strControlEquipmentData", ControlEquip),
+                New SqlParameter("@strDeterminationMethod", DetMethod),
+                New SqlParameter("@strModifingPerson", CurrentUser.UserID),
+                New SqlParameter("@numReviewingManager", UnitManager),
+                New SqlParameter("@strOtherWitnessingEng", OtherWitnessing),
+                New SqlParameter("@strReferenceNumber", txtReferenceNumber.Text)
+            }
+
+            DB.RunCommand(query, p)
 
             Select Case DocumentType
                 Case "001"
@@ -11415,43 +10073,40 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
 
             If OtherWitnessing > 0 Then
                 Dim temp As String = " "
-                If Me.clbWitnessingEngineers.CheckedItems.Count > 0 Then
-                    SQL = "Delete ISMPWitnessingEng " &
-                    "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    dr.Close()
+                If clbWitnessingEngineers.CheckedItems.Count > 0 Then
+                    query = "Delete ISMPWitnessingEng " &
+                    "where strReferenceNumber = @ref "
+
+                    Dim p2 As New SqlParameter("@ref", txtReferenceNumber.Text)
+
+                    DB.RunCommand(query, p2)
 
                     For x As Integer = 0 To clbWitnessingEngineers.Items.Count - 1
                         If clbWitnessingEngineers.GetItemChecked(x) = True Then
                             clbWitnessingEngineers.SelectedIndex = x
                             temp = clbWitnessingEngineers.SelectedValue
-                            SQL = "Insert into ISMPWitnessingEng " &
+                            query = "Insert into ISMPWitnessingEng " &
+                                "(STRREFERENCENUMBER, STRWITNESSINGENGINEER) " &
                             "values " &
-                            "('" & txtReferenceNumber.Text & "', '" & temp & "') "
-                            cmd = New SqlCommand(SQL, CurrentConnection)
-                            If CurrentConnection.State = ConnectionState.Closed Then
-                                CurrentConnection.Open()
-                            End If
-                            dr = cmd.ExecuteReader
-                            dr.Close()
+                                "(@STRREFERENCENUMBER, @STRWITNESSINGENGINEER) "
+
+                            Dim p3 As SqlParameter() = {
+                                New SqlParameter("@STRREFERENCENUMBER", txtReferenceNumber.Text),
+                                New SqlParameter("@STRWITNESSINGENGINEER", temp)
+                            }
+
+                            DB.RunCommand(query, p3)
                         End If
                     Next
                 End If
             End If
 
-            SQL = "delete ISMPTestLogLink " &
-            "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
+            query = "delete ISMPTestLogLink " &
+                "where strReferenceNumber = @ref "
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
+            Dim p4 As New SqlParameter("@ref", txtReferenceNumber.Text)
+
+            DB.RunCommand(query, p4)
 
             If cboTestNotificationNumber.Text <> " " And cboTestNotificationNumber.Text <> "" Then
                 Dim NotificationNumber As String = ""
@@ -11461,15 +10116,17 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                     NotificationNumber = cboTestNotificationNumber.Text
                 End If
 
-                SQL = "Insert into ISMPTestLogLink " &
+                query = "Insert into ISMPTestLogLink " &
+                    "(STRREFERENCENUMBER, STRTESTLOGNUMBER) " &
                 "values " &
-                "('" & txtReferenceNumber.Text & "', '" & NotificationNumber & "') "
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                dr.Close()
+                    "(@STRREFERENCENUMBER, @STRTESTLOGNUMBER) "
+
+                Dim p5 As SqlParameter() = {
+                    New SqlParameter("@STRREFERENCENUMBER", txtReferenceNumber.Text),
+                    New SqlParameter("@STRTESTLOGNUMBER", NotificationNumber)
+                }
+
+                DB.RunCommand(query, p5)
             End If
 
             If TCDocumentTypes.TabPages.Count > 4 Then
@@ -11533,7 +10190,7 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                         TCDocumentTypes.TabPages.Remove(TPMemorandum)
                         TCDocumentTypes.TabPages.Remove(TPRata)
                         TCDocumentTypes.TabPages.Remove(TPMethodTwentyTwo)
-                        TCTwoStack.TabPages.Remove(Me.TPTwoStackStandard)
+                        TCTwoStack.TabPages.Remove(TPTwoStackStandard)
                     Case "007"
                         TCDocumentTypes.TabPages.Remove(TPOneStack)
                         TCDocumentTypes.TabPages.Remove(TPPondTreatment)
@@ -11683,7 +10340,7 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
         Finally
         End Try
     End Sub
-    Sub SaveSSCPWork()
+    Private Sub SaveSSCPWork()
         Try
             Dim StaffResponsible As String = CurrentUser.UserID
             Dim CompleteDate As String = TodayFormatted
@@ -11727,7 +10384,6 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                     TestDue = txtTestReportDueDate.Text
                 Else
                     TestDue = Format(CDate(txtReceivedByAPB.Text), "dd-MMM-yyyy")
-                    'Format(Date.Today, "dd-MMM-yyyy")
                 End If
             End If
             If txtTestReportComments.Text <> "" Then
@@ -11741,133 +10397,123 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                 FollowUp = "False"
             End If
             If txtTrackingNumber.Text = "" Then
-                SQL = "Insert into SSCPItemMaster " &
+                query = "Insert into SSCPItemMaster " &
                 "(strTrackingNumber, strAIRSNumber, " &
                 "datReceivedDate, strEventType, " &
                 "strResponsibleStaff, datCompleteDate, " &
                 "strModifingPerson, datModifingDate) " &
                 "values " &
-                "(SSCPTrackingNumber.nextval, '0413" & txtAirsNumber.Text & "', " &
+                "(NEXT VALUE FOR SSCPTrackingNumber, @airs , " &
                 " GETDATE() , '03', " &
-                "'" & StaffResponsible & "', '', " &
-                "'" & CurrentUser.UserID & "',  GETDATE() )"
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                dr.Close()
+                "@StaffResponsible, null, " &
+                "@user,  GETDATE() )"
 
-                SQL = "select current_value FROM sys.sequences WHERE name = 'sscptrackingnumber'"
+                Dim p6 As SqlParameter() = {
+                    New SqlParameter("@airs", "0413" & txtAirsNumber.Text),
+                    New SqlParameter("@StaffResponsible", StaffResponsible),
+                    New SqlParameter("@user", CurrentUser.UserID)
+                }
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                While dr.Read
-                    txtTrackingNumber.Text = dr.Item(0)
-                End While
-                dr.Close()
+                DB.RunCommand(query, p6)
 
-                SQL = "Insert into SSCPTestReports " &
+                query = "select current_value FROM sys.sequences WHERE Name = 'sscptrackingnumber'"
+
+                txtTrackingNumber.Text = DB.GetInteger(query).ToString
+
+                query = "Insert into SSCPTestReports " &
                 "(strTrackingNumber, strReferenceNumber, " &
                 "datTestReportDue, " &
                 "strTestReportComments, strTestReportFollowUp, " &
                 "strModifingPerson, datModifingDate) " &
                 "Values " &
-                "('" & txtTrackingNumber.Text & "', '" & txtReferenceNumber.Text & "', " &
+                "(@track, @ref, " &
                 " GETDATE() , " &
                 "' ', 'False', " &
-                "'" & CurrentUser.UserID & "',  GETDATE() ) "
+                "@user,  GETDATE() ) "
 
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                dr.Close()
+                Dim p7 As SqlParameter() = {
+                    New SqlParameter("@track", txtTrackingNumber.Text),
+                    New SqlParameter("@ref", txtReferenceNumber.Text),
+                    New SqlParameter("@user", CurrentUser.UserID)
+                }
+
+                DB.RunCommand(query, p7)
             End If
 
             If txtTrackingNumber.Text <> "" Then
-                SQL = "Select strTrackingNumber " &
+                query = "Select strTrackingNumber " &
                 "from SSCPItemMaster " &
-                "where strTrackingNumber = '" & txtTrackingNumber.Text & "'"
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                RecExist = dr.Read
-                dr.Close()
+                "where strTrackingNumber = @track"
 
-                If RecExist = True Then
-                    SQL = "Update SSCPItemMaster set " &
-                    "strResponsibleStaff = '" & StaffResponsible & "', " &
-                    "datCompleteDate = '" & CompleteDate & "', " &
-                    "datAcknoledgmentLetterSent = '" & AckLetter & "', " &
-                    "strModifingPerson = '" & CurrentUser.UserID & "', " &
+                Dim p8 As New SqlParameter("@track", txtTrackingNumber.Text)
+
+                If DB.ValueExists(query, p8) Then
+                    query = "Update SSCPItemMaster set " &
+                    "strResponsibleStaff = @strResponsibleStaff, " &
+                    "datCompleteDate = @datCompleteDate, " &
+                    "datAcknoledgmentLetterSent = @datAcknoledgmentLetterSent, " &
+                    "strModifingPerson = @strModifingPerson, " &
                     "datModifingDate =  GETDATE()  " &
-                    "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    dr.Close()
-                    SQL = "Select strTrackingNumber " &
+                    "where strTrackingNumber = @strTrackingNumber "
+
+                    Dim p9 As SqlParameter() = {
+                        New SqlParameter("@strResponsibleStaff", StaffResponsible),
+                        New SqlParameter("@datCompleteDate", CompleteDate),
+                        New SqlParameter("@datAcknoledgmentLetterSent", AckLetter),
+                        New SqlParameter("@strModifingPerson", CurrentUser.UserID),
+                        New SqlParameter("@strTrackingNumber", txtTrackingNumber.Text)
+                    }
+
+                    DB.RunCommand(query, p9)
+
+                    query = "Select strTrackingNumber " &
                     "from SSCPTestReports " &
-                    "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    RecExist = dr.Read
-                    dr.Close()
-                    If RecExist = True Then
-                        SQL = "Update SSCPTestReports set " &
-                        "datTestReportDue = '" & TestDue & "', " &
-                        "strTestReportComments = '" & Replace(ReportComments, "'", "''") & "', " &
-                        "strTestReportFollowUp = '" & FollowUp & "', " &
-                        "strModifingPerson = '" & CurrentUser.UserID & "', " &
+                    "where strTrackingNumber = @track "
+
+                    If DB.ValueExists(query, p8) Then
+                        query = "Update SSCPTestReports set " &
+                        "datTestReportDue = @datTestReportDue, " &
+                        "strTestReportComments = @strTestReportComments, " &
+                        "strTestReportFollowUp = @strTestReportFollowUp, " &
+                        "strModifingPerson = @strModifingPerson, " &
                         "datModifingDate =  GETDATE()  " &
-                        "where strTrackingNumber = '" & txtTrackingNumber.Text & "' "
-                        cmd = New SqlCommand(SQL, CurrentConnection)
-                        If CurrentConnection.State = ConnectionState.Closed Then
-                            CurrentConnection.Open()
-                        End If
-                        dr = cmd.ExecuteReader
-                        dr.Close()
+                        "where strTrackingNumber = @strTrackingNumber "
+
+                        Dim p10 As SqlParameter() = {
+                            New SqlParameter("@datTestReportDue", TestDue),
+                            New SqlParameter("@strTestReportComments", ReportComments),
+                            New SqlParameter("@strTestReportFollowUp", FollowUp),
+                            New SqlParameter("@strModifingPerson", CurrentUser.UserID),
+                            New SqlParameter("@strTrackingNumber", txtTrackingNumber.Text)
+                        }
+
+                        DB.RunCommand(query, p10)
                     End If
+
                     If txtAirsNumber.Text.Length = 8 Then
-                        SQL = "Select strAIRSNumber " &
+                        query = "Select strAIRSNumber " &
                         "from APBSupplamentalData " &
-                        "where strAIRSNumber = '0413" & txtAirsNumber.Text & "' "
-                        cmd = New SqlCommand(SQL, CurrentConnection)
-                        If CurrentConnection.State = ConnectionState.Closed Then
-                            CurrentConnection.Open()
-                        End If
-                        dr = cmd.ExecuteReader
-                        RecExist = dr.Read
-                        dr.Close()
-                        If RecExist = True Then
-                            SQL = "Update APBSupplamentalData set " &
-                            "DatSSCPTestReportDue = '" & NextTest & "', " &
-                            "strModifingPerson = '" & CurrentUser.UserID & "', " &
+                        "where strAIRSNumber = @airs "
+
+                        Dim p11 As New SqlParameter("@airs", "0413" & txtAirsNumber.Text)
+
+                        If DB.ValueExists(query, p11) Then
+                            query = "Update APBSupplamentalData set " &
+                            "DatSSCPTestReportDue = @DatSSCPTestReportDue, " &
+                            "strModifingPerson = @strModifingPerson, " &
                             "datModifingdate =  GETDATE()  " &
-                            "where strAIRSnumber = '0413" & txtAirsNumber.Text & "' "
-                            cmd = New SqlCommand(SQL, CurrentConnection)
-                            If CurrentConnection.State = ConnectionState.Closed Then
-                                CurrentConnection.Open()
-                            End If
-                            dr = cmd.ExecuteReader
-                            dr.Close()
+                            "where strAIRSnumber = @strAIRSnumber "
+
+                            Dim p12 As SqlParameter() = {
+                                New SqlParameter("@DatSSCPTestReportDue", NextTest),
+                                New SqlParameter("@strModifingPerson", CurrentUser.UserID),
+                                New SqlParameter("@strAIRSnumber", "0413" & txtAirsNumber.Text)
+                            }
+
+                            DB.RunCommand(query, p12)
                         End If
                     End If
-                Else
                 End If
-            Else
             End If
 
             MsgBox("SSCP Work Save Complete", MsgBoxStyle.Information, "SSCP Work")
@@ -11877,7 +10523,7 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
         Finally
         End Try
     End Sub
-    Sub SaveOneStack(Runs As String)
+    Private Sub SaveOneStack(Runs As String)
         Try
             Dim MaxOpCapacity As String = " "
             Dim MaxOpCapacityUnit As String = "00000"
@@ -12416,103 +11062,138 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
 
             End Select
 
-            SQL = "Select strReferenceNumber " &
+            query = "Select strReferenceNumber " &
             "From ISMPReportOneStack " &
-            "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            RecExist = dr.Read
-            dr.Close()
+            "where strReferenceNumber = @ref "
 
-            If RecExist = True Then
-                SQL = "Update ISMPReportOneStack Set " &
-                "strMaxOperatingCapacity = '" & MaxOpCapacity & "', " &
-                " strMaxOperatingCapacityUnit = '" & MaxOpCapacityUnit & "', " &
-                "strOperatingCapacity = '" & OpCapacity & "', " &
-                "strOperatingCapacityUnit = '" & OpCapacityUnit & "', " &
-                "strAllowableEmissionRate1 = '" & AllowEmissRate1 & "', " &
-                "strAllowableEmissionRate2 = '" & AllowEmissRate2 & "', " &
-                "strAllowableEmissionRate3 = '" & AllowEmissRate3 & "', " &
-                "strAllowableEmissionRateUnit1 = '" & EmissRateUnit1 & "', " &
-                "strAllowableEmissionRateUnit2 = '" & EmissRateUnit2 & "', " &
-                "strAllowableEmissionRateUnit3 = '" & EmissRateUnit3 & "', " &
-                "strRunNumber1A = '" & TestRun1 & "', " &
-                "strRunnumber1b = '" & TestRun2 & "', " &
-                "strRunNumber1C = '" & TestRun3 & "', " &
-                "strRunNumber1D = '" & TestRun4 & "', " &
-                "strGasTemperature1A = '" & GasTemp1 & "', " &
-                "strGasTemperature1B = '" & GasTemp2 & "', " &
-                "strGasTemperature1C = '" & GasTemp3 & "', " &
-                "strGasTemperature1D = '" & GasTemp4 & "', " &
-                "strGasMoisture1A = '" & GasMoist1 & "', " &
-                "strGasMoisture1B = '" & GasMoist2 & "', " &
-                "strGasMoisture1C = '" & GasMoist3 & "', " &
-                "strGasMoisture1D = '" & GasMoist4 & "', " &
-                "strGasFlowRateACFM1A = '" & FlowRateACFM1 & "', " &
-                "strGasFlowRateACFM1B = '" & FlowRateACFM2 & "', " &
-                "strGasFlowRateACFM1C = '" & FlowRateACFM3 & "', " &
-                "strGasFlowRateACFM1D = '" & FlowRateACFM4 & "', " &
-                "strGasFlowRateDSCFM1A = '" & FlowRateDSCFM1 & "', " &
-                "strGasFlowRateDSCFM1B = '" & FlowRateDSCFM2 & "', " &
-                "strGasFlowRateDSCFM1C = '" & FlowRateDSCFM3 & "', " &
-                "strGasFlowRateDSCFM1D = '" & FlowRateDSCFM4 & "', " &
-                "strPollutantConcentration1A = '" & PollConc1 & "', " &
-                "strPollutantConcentration1B = '" & PollConc2 & "', " &
-                "strPollutantConcentration1C = '" & PollConc3 & "', " &
-                "strPollutantConcentration1D = '" & PollConc4 & "', " &
-                "strPollutantConcentrationUnit = '" & PollConcUnit & "', " &
-                "strPollutantConcentrationAvg = '" & PollAverage & "', " &
-                "strEmissionRate1A = '" & EmissRate1 & "', " &
-                "strEmissionRate1B = '" & EmissRate2 & "', " &
-                "strEmissionRate1C = '" & EmissRate3 & "', " &
-                "strEmissionRate1D = '" & EmissRate4 & "', " &
-                "strEmissionRateUnit = '" & EmissRateUnit & "', " &
-                "strEmissionRateAvg = '" & EmissRateAvg & "', " &
-                "strPercentAllowable = '" & PercentAllowable & "' " &
-                "where strReferenceNumber = '" & txtReferenceNumber.Text & "'"
+            Dim p As New SqlParameter("@ref", txtReferenceNumber.Text)
+
+            If DB.ValueExists(query, p) Then
+                query = "Update ISMPReportOneStack Set " &
+                "strMaxOperatingCapacity = @strMaxOperatingCapacity, " &
+                "strMaxOperatingCapacityUnit = @strMaxOperatingCapacityUnit, " &
+                "strOperatingCapacity = @strOperatingCapacity, " &
+                "strOperatingCapacityUnit = @strOperatingCapacityUnit, " &
+                "strAllowableEmissionRate1 = @strAllowableEmissionRate1, " &
+                "strAllowableEmissionRate2 = @strAllowableEmissionRate2, " &
+                "strAllowableEmissionRate3 = @strAllowableEmissionRate3, " &
+                "strAllowableEmissionRateUnit1 = @strAllowableEmissionRateUnit1, " &
+                "strAllowableEmissionRateUnit2 = @strAllowableEmissionRateUnit2, " &
+                "strAllowableEmissionRateUnit3 = @strAllowableEmissionRateUnit3, " &
+                "strRunNumber1A = @strRunNumber1A, " &
+                "strRunnumber1b = @strRunnumber1b, " &
+                "strRunNumber1C = @strRunNumber1C, " &
+                "strRunNumber1D = @strRunNumber1D, " &
+                "strGasTemperature1A = @strGasTemperature1A, " &
+                "strGasTemperature1B = @strGasTemperature1B, " &
+                "strGasTemperature1C = @strGasTemperature1C, " &
+                "strGasTemperature1D = @strGasTemperature1D, " &
+                "strGasMoisture1A = @strGasMoisture1A, " &
+                "strGasMoisture1B = @strGasMoisture1B, " &
+                "strGasMoisture1C = @strGasMoisture1C, " &
+                "strGasMoisture1D = @strGasMoisture1D, " &
+                "strGasFlowRateACFM1A = @strGasFlowRateACFM1A, " &
+                "strGasFlowRateACFM1B = @strGasFlowRateACFM1B, " &
+                "strGasFlowRateACFM1C = @strGasFlowRateACFM1C, " &
+                "strGasFlowRateACFM1D = @strGasFlowRateACFM1D, " &
+                "strGasFlowRateDSCFM1A = @strGasFlowRateDSCFM1A, " &
+                "strGasFlowRateDSCFM1B = @strGasFlowRateDSCFM1B, " &
+                "strGasFlowRateDSCFM1C = @strGasFlowRateDSCFM1C, " &
+                "strGasFlowRateDSCFM1D = @strGasFlowRateDSCFM1D, " &
+                "strPollutantConcentration1A = @strPollutantConcentration1A, " &
+                "strPollutantConcentration1B = @strPollutantConcentration1B, " &
+                "strPollutantConcentration1C = @strPollutantConcentration1C, " &
+                "strPollutantConcentration1D = @strPollutantConcentration1D, " &
+                "strPollutantConcentrationUnit = @strPollutantConcentrationUnit, " &
+                "strPollutantConcentrationAvg = @strPollutantConcentrationAvg, " &
+                "strEmissionRate1A = @strEmissionRate1A, " &
+                "strEmissionRate1B = @strEmissionRate1B, " &
+                "strEmissionRate1C = @strEmissionRate1C, " &
+                "strEmissionRate1D = @strEmissionRate1D, " &
+                "strEmissionRateUnit = @strEmissionRateUnit, " &
+                "strEmissionRateAvg = @strEmissionRateAvg, " &
+                "strPercentAllowable = @strPercentAllowable " &
+                "where strReferenceNumber = @strReferenceNumber "
             Else
-                SQL = "Insert into ISMPREportOneStack " &
-                "values " &
-                "('" & txtReferenceNumber.Text & "', " &
-                "'" & MaxOpCapacity & "', '" & MaxOpCapacityUnit & "', " &
-                "'" & OpCapacity & "', '" & OpCapacityUnit & "', " &
-                "'" & AllowEmissRate1 & "', '" & AllowEmissRate2 & "', " &
-                "'" & AllowEmissRate3 & "', '" & EmissRateUnit1 & "', " &
-                "'" & EmissRateUnit2 & "', '" & EmissRateUnit3 & "', " &
-                "'" & TestRun1 & "', '" & TestRun2 & "', " &
-                "'" & TestRun3 & "', '" & TestRun4 & "', " &
-                "'" & GasTemp1 & "', '" & GasTemp2 & "', " &
-                "'" & GasTemp3 & "', '" & GasTemp4 & "', " &
-                "'" & GasMoist1 & "', '" & GasMoist2 & "', " &
-                "'" & GasMoist3 & "', '" & GasMoist4 & "', " &
-                "'" & FlowRateACFM1 & "', '" & FlowRateACFM2 & "', " &
-                "'" & FlowRateACFM3 & "', '" & FlowRateACFM4 & "', " &
-                "'" & FlowRateDSCFM1 & "', '" & FlowRateDSCFM2 & "', " &
-                "'" & FlowRateDSCFM3 & "', '" & FlowRateDSCFM4 & "', " &
-                "'" & PollConc1 & "', '" & PollConc2 & "', " &
-                "'" & PollConc3 & "', '" & PollConc4 & "', " &
-                "'" & PollConcUnit & "', '" & PollAverage & "', " &
-                "'" & EmissRate1 & "', '" & EmissRate2 & "', " &
-                "'" & EmissRate3 & "', '" & EmissRate4 & "', " &
-                "'" & EmissRateUnit & "', '" & EmissRateAvg & "', " &
-                "'" & PercentAllowable & "') "
+                query = "Insert into ISMPREportOneStack " &
+                    "(STRREFERENCENUMBER, STRMAXOPERATINGCAPACITY, STRMAXOPERATINGCAPACITYUNIT, STROPERATINGCAPACITY, " &
+                    "STROPERATINGCAPACITYUNIT, STRALLOWABLEEMISSIONRATE1, STRALLOWABLEEMISSIONRATE2, STRALLOWABLEEMISSIONRATE3, " &
+                    "STRALLOWABLEEMISSIONRATEUNIT1, STRALLOWABLEEMISSIONRATEUNIT2, STRALLOWABLEEMISSIONRATEUNIT3, STRRUNNUMBER1A, " &
+                    "STRRUNNUMBER1B, STRRUNNUMBER1C, STRRUNNUMBER1D, STRGASTEMPERATURE1A, STRGASTEMPERATURE1B, STRGASTEMPERATURE1C, " &
+                    "STRGASTEMPERATURE1D, STRGASMOISTURE1A, STRGASMOISTURE1B, STRGASMOISTURE1C, STRGASMOISTURE1D, STRGASFLOWRATEACFM1A, " &
+                    "STRGASFLOWRATEACFM1B, STRGASFLOWRATEACFM1C, STRGASFLOWRATEACFM1D, STRGASFLOWRATEDSCFM1A, STRGASFLOWRATEDSCFM1B, " &
+                    "STRGASFLOWRATEDSCFM1C, STRGASFLOWRATEDSCFM1D, STRPOLLUTANTCONCENTRATION1A, STRPOLLUTANTCONCENTRATION1B, " &
+                    "STRPOLLUTANTCONCENTRATION1C, STRPOLLUTANTCONCENTRATION1D, STRPOLLUTANTCONCENTRATIONUNIT, STRPOLLUTANTCONCENTRATIONAVG, " &
+                    "STREMISSIONRATE1A, STREMISSIONRATE1B, STREMISSIONRATE1C, STREMISSIONRATE1D, STREMISSIONRATEUNIT, STREMISSIONRATEAVG, " &
+                    "STRPERCENTALLOWABLE) " &
+                    "values " &
+                    "(@STRREFERENCENUMBER, @STRMAXOPERATINGCAPACITY, @STRMAXOPERATINGCAPACITYUNIT, @STROPERATINGCAPACITY, " &
+                    "@STROPERATINGCAPACITYUNIT, @STRALLOWABLEEMISSIONRATE1, @STRALLOWABLEEMISSIONRATE2, @STRALLOWABLEEMISSIONRATE3, " &
+                    "@STRALLOWABLEEMISSIONRATEUNIT1, @STRALLOWABLEEMISSIONRATEUNIT2, @STRALLOWABLEEMISSIONRATEUNIT3, @STRRUNNUMBER1A, " &
+                    "@STRRUNNUMBER1B, @STRRUNNUMBER1C, @STRRUNNUMBER1D, @STRGASTEMPERATURE1A, @STRGASTEMPERATURE1B, @STRGASTEMPERATURE1C, " &
+                    "@STRGASTEMPERATURE1D, @STRGASMOISTURE1A, @STRGASMOISTURE1B, @STRGASMOISTURE1C, @STRGASMOISTURE1D, @STRGASFLOWRATEACFM1A, " &
+                    "@STRGASFLOWRATEACFM1B, @STRGASFLOWRATEACFM1C, @STRGASFLOWRATEACFM1D, @STRGASFLOWRATEDSCFM1A, @STRGASFLOWRATEDSCFM1B, " &
+                    "@STRGASFLOWRATEDSCFM1C, @STRGASFLOWRATEDSCFM1D, @STRPOLLUTANTCONCENTRATION1A, @STRPOLLUTANTCONCENTRATION1B, " &
+                    "@STRPOLLUTANTCONCENTRATION1C, @STRPOLLUTANTCONCENTRATION1D, @STRPOLLUTANTCONCENTRATIONUNIT, @STRPOLLUTANTCONCENTRATIONAVG, " &
+                    "@STREMISSIONRATE1A, @STREMISSIONRATE1B, @STREMISSIONRATE1C, @STREMISSIONRATE1D, @STREMISSIONRATEUNIT, @STREMISSIONRATEAVG, " &
+                    "@STRPERCENTALLOWABLE) "
             End If
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
+
+            Dim p2 As SqlParameter() = {
+                New SqlParameter("@strMaxOperatingCapacity", MaxOpCapacity),
+                New SqlParameter("@strMaxOperatingCapacityUnit", MaxOpCapacityUnit),
+                New SqlParameter("@strOperatingCapacity", OpCapacity),
+                New SqlParameter("@strOperatingCapacityUnit", OpCapacityUnit),
+                New SqlParameter("@strAllowableEmissionRate1", AllowEmissRate1),
+                New SqlParameter("@strAllowableEmissionRate2", AllowEmissRate2),
+                New SqlParameter("@strAllowableEmissionRate3", AllowEmissRate3),
+                New SqlParameter("@strAllowableEmissionRateUnit1", EmissRateUnit1),
+                New SqlParameter("@strAllowableEmissionRateUnit2", EmissRateUnit2),
+                New SqlParameter("@strAllowableEmissionRateUnit3", EmissRateUnit3),
+                New SqlParameter("@strRunNumber1A", TestRun1),
+                New SqlParameter("@strRunnumber1b", TestRun2),
+                New SqlParameter("@strRunNumber1C", TestRun3),
+                New SqlParameter("@strRunNumber1D", TestRun4),
+                New SqlParameter("@strGasTemperature1A", GasTemp1),
+                New SqlParameter("@strGasTemperature1B", GasTemp2),
+                New SqlParameter("@strGasTemperature1C", GasTemp3),
+                New SqlParameter("@strGasTemperature1D", GasTemp4),
+                New SqlParameter("@strGasMoisture1A", GasMoist1),
+                New SqlParameter("@strGasMoisture1B", GasMoist2),
+                New SqlParameter("@strGasMoisture1C", GasMoist3),
+                New SqlParameter("@strGasMoisture1D", GasMoist4),
+                New SqlParameter("@strGasFlowRateACFM1A", FlowRateACFM1),
+                New SqlParameter("@strGasFlowRateACFM1B", FlowRateACFM2),
+                New SqlParameter("@strGasFlowRateACFM1C", FlowRateACFM3),
+                New SqlParameter("@strGasFlowRateACFM1D", FlowRateACFM4),
+                New SqlParameter("@strGasFlowRateDSCFM1A", FlowRateDSCFM1),
+                New SqlParameter("@strGasFlowRateDSCFM1B", FlowRateDSCFM2),
+                New SqlParameter("@strGasFlowRateDSCFM1C", FlowRateDSCFM3),
+                New SqlParameter("@strGasFlowRateDSCFM1D", FlowRateDSCFM4),
+                New SqlParameter("@strPollutantConcentration1A", PollConc1),
+                New SqlParameter("@strPollutantConcentration1B", PollConc2),
+                New SqlParameter("@strPollutantConcentration1C", PollConc3),
+                New SqlParameter("@strPollutantConcentration1D", PollConc4),
+                New SqlParameter("@strPollutantConcentrationUnit", PollConcUnit),
+                New SqlParameter("@strPollutantConcentrationAvg", PollAverage),
+                New SqlParameter("@strEmissionRate1A", EmissRate1),
+                New SqlParameter("@strEmissionRate1B", EmissRate2),
+                New SqlParameter("@strEmissionRate1C", EmissRate3),
+                New SqlParameter("@strEmissionRate1D", EmissRate4),
+                New SqlParameter("@strEmissionRateUnit", EmissRateUnit),
+                New SqlParameter("@strEmissionRateAvg", EmissRateAvg),
+                New SqlParameter("@strPercentAllowable", PercentAllowable),
+                New SqlParameter("@strReferenceNumber", txtReferenceNumber.Text)
+            }
+
+            DB.RunCommand(query, p2)
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
-    Sub SaveTwoStack(ReportType As String)
+    Private Sub SaveTwoStack(ReportType As String)
         Try
             Dim MaxOpCapacity As String = " "
             Dim MaxOpCapacityUnit As String = "00000"
@@ -12648,7 +11329,7 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
             End If
             Select Case ReportType
                 Case "Standard"
-                    If Me.txtStackOneNameTwoStackStandard.Text <> "" Then
+                    If txtStackOneNameTwoStackStandard.Text <> "" Then
                         StackNameOne = txtStackOneNameTwoStackStandard.Text
                     Else
                         StackNameOne = "Stack One"
@@ -12668,7 +11349,7 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                     Else
                         TestRun1B = " "
                     End If
-                    If Me.txtRunNumTwoStackStandard1C.Text <> "" Then
+                    If txtRunNumTwoStackStandard1C.Text <> "" Then
                         TestRun1C = txtRunNumTwoStackStandard1C.Text
                     Else
                         TestRun1C = " "
@@ -12683,7 +11364,7 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                     Else
                         TestRun2B = " "
                     End If
-                    If Me.txtRunNumTwoStackStandard2C.Text <> "" Then
+                    If txtRunNumTwoStackStandard2C.Text <> "" Then
                         TestRun2C = txtRunNumTwoStackStandard2C.Text
                     Else
                         TestRun2C = " "
@@ -12857,32 +11538,32 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                     Else
                         PollConcAvg2 = " "
                     End If
-                    If Me.txtEmissRateTwoStackStandard1A.Text <> "" Then
+                    If txtEmissRateTwoStackStandard1A.Text <> "" Then
                         EmissRate1A = txtEmissRateTwoStackStandard1A.Text
                     Else
                         EmissRate1A = " "
                     End If
-                    If Me.txtEmissRateTwoStackStandard1B.Text <> "" Then
+                    If txtEmissRateTwoStackStandard1B.Text <> "" Then
                         EmissRate1B = txtEmissRateTwoStackStandard1B.Text
                     Else
                         EmissRate1B = " "
                     End If
-                    If Me.txtEmissRateTwoStackStandard1C.Text <> "" Then
+                    If txtEmissRateTwoStackStandard1C.Text <> "" Then
                         EmissRate1C = txtEmissRateTwoStackStandard1C.Text
                     Else
                         EmissRate1C = " "
                     End If
-                    If Me.txtEmissRateTwoStackStandard2A.Text <> "" Then
+                    If txtEmissRateTwoStackStandard2A.Text <> "" Then
                         EmissRate2A = txtEmissRateTwoStackStandard2A.Text
                     Else
                         EmissRate2A = " "
                     End If
-                    If Me.txtEmissRateTwoStackStandard2B.Text <> "" Then
+                    If txtEmissRateTwoStackStandard2B.Text <> "" Then
                         EmissRate2B = txtEmissRateTwoStackStandard2B.Text
                     Else
                         EmissRate2B = " "
                     End If
-                    If Me.txtEmissRateTwoStackStandard2C.Text <> "" Then
+                    If txtEmissRateTwoStackStandard2C.Text <> "" Then
                         EmissRate2C = txtEmissRateTwoStackStandard2C.Text
                     Else
                         EmissRate2C = " "
@@ -12931,7 +11612,7 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                         PercentAllowable = " "
                     End If
                 Case "DRE"
-                    If Me.txtStackOneNameTwoStackDRE.Text <> "" Then
+                    If txtStackOneNameTwoStackDRE.Text <> "" Then
                         StackNameOne = txtStackOneNameTwoStackDRE.Text
                     Else
                         StackNameOne = "Stack One"
@@ -12951,7 +11632,7 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                     Else
                         TestRun1B = " "
                     End If
-                    If Me.txtRunNumTwoStackDRE1C.Text <> "" Then
+                    If txtRunNumTwoStackDRE1C.Text <> "" Then
                         TestRun1C = txtRunNumTwoStackDRE1C.Text
                     Else
                         TestRun1C = " "
@@ -12966,7 +11647,7 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                     Else
                         TestRun2B = " "
                     End If
-                    If Me.txtRunNumTwoStackDRE2C.Text <> "" Then
+                    If txtRunNumTwoStackDRE2C.Text <> "" Then
                         TestRun2C = txtRunNumTwoStackDRE2C.Text
                     Else
                         TestRun2C = " "
@@ -13144,32 +11825,32 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                     Else
                         EmissRate1A = " "
                     End If
-                    If Me.txtEmissRateTwoStackDRE1B.Text <> "" Then
+                    If txtEmissRateTwoStackDRE1B.Text <> "" Then
                         EmissRate1B = txtEmissRateTwoStackDRE1B.Text
                     Else
                         EmissRate1B = " "
                     End If
-                    If Me.txtEmissRateTwoStackDRE1C.Text <> "" Then
+                    If txtEmissRateTwoStackDRE1C.Text <> "" Then
                         EmissRate1C = txtEmissRateTwoStackDRE1C.Text
                     Else
                         EmissRate1C = " "
                     End If
-                    If Me.txtEmissRateTwoStackDRE2A.Text <> "" Then
+                    If txtEmissRateTwoStackDRE2A.Text <> "" Then
                         EmissRate2A = txtEmissRateTwoStackDRE2A.Text
                     Else
                         EmissRate2A = " "
                     End If
-                    If Me.txtEmissRateTwoStackDRE2B.Text <> "" Then
+                    If txtEmissRateTwoStackDRE2B.Text <> "" Then
                         EmissRate2B = txtEmissRateTwoStackDRE2B.Text
                     Else
                         EmissRate2B = " "
                     End If
-                    If Me.txtEmissRateTwoStackDRE2C.Text <> "" Then
+                    If txtEmissRateTwoStackDRE2C.Text <> "" Then
                         EmissRate2C = txtEmissRateTwoStackDRE2C.Text
                     Else
                         EmissRate2C = " "
                     End If
-                    If Me.cboEmissRateUnitTwoStackDRE.Text <> " " And Me.cboEmissRateUnitTwoStackDRE.Text <> "" Then
+                    If cboEmissRateUnitTwoStackDRE.Text <> " " And cboEmissRateUnitTwoStackDRE.Text <> "" Then
                         EmissRateUnit = cboEmissRateUnitTwoStackDRE.SelectedValue
                         If EmissRateUnit = "" Then
                             EmissRateUnit = "00000"
@@ -13196,145 +11877,166 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
 
             End Select
 
-            SQL = "Select strReferenceNumber " &
+            query = "Select strReferenceNumber " &
             "From ISMPReportTwoStack " &
-            "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            RecExist = dr.Read
-            dr.Close()
+            "where strReferenceNumber = @ref "
 
-            If RecExist = True Then
-                SQL = "Update ISMPReportTwoStack set " &
-                "strMaxOperatingCapacity = '" & MaxOpCapacity & "', " &
-                "strMaxOperatingCapacityUnit = '" & MaxOpCapacityUnit & "', " &
-                "strOperatingCapacity = '" & OpCapacity & "', " &
-                "strOperatingCapacityUnit = '" & OpCapacityUnit & "', " &
-                "strAllowableEmissionRate1 = '" & AllowEmissRate1 & "', " &
-                "strAllowableEmissionrate2 = '" & AllowEmissRate2 & "', " &
-                "strAllowableEmissionRate3 = '" & AllowEmissRate3 & "', " &
-                "strAllowableEmissionRateUnit1 = '" & AllowEmissRateUnit1 & "', " &
-                "strAllowableEmissionRateUnit2 = '" & AllowEmissRateUnit2 & "', " &
-                "strAllowableEmissionRateUnit3 = '" & AllowEmissRateUnit3 & "', " &
-                "strStackOneName = '" & Replace(StackNameOne, "'", "''") & "', " &
-                "strStackTwoName = '" & Replace(StackNameTwo, "'", "''") & "', " &
-                "strRunNumber1a = '" & TestRun1A & "', " &
-                "strRunNumber1b = '" & TestRun1B & "', " &
-                "strRunNumber1c = '" & TestRun1C & "', " &
-                "strRunNumber2a = '" & TestRun2A & "', " &
-                "strRunNumber2b = '" & TestRun2B & "', " &
-                "strRunNumber2c = '" & TestRun2C & "', " &
-                "strGasTemperature1a = '" & GasTemp1A & "', " &
-                "strGasTemperature1b = '" & GasTemp1B & "', " &
-                "strGasTempErature1c = '" & GasTemp1C & "', " &
-                "strGasTemperature2a = '" & GasTemp2A & "', " &
-                "strGasTemperature2b = '" & GasTemp2B & "', " &
-                "strGasTempErature2c = '" & GasTemp2C & "', " &
-                "strGasMoisture1a  = '" & GasMoist1A & "', " &
-                "strGasMoisture1b  = '" & GasMoist1B & "', " &
-                "strGasMoisture1c  = '" & GasMoist1C & "', " &
-                "strGasMoisture2a  = '" & GasMoist2A & "', " &
-                "strGasMoisture2b  = '" & GasMoist2B & "', " &
-                "strGasMoisture2c  = '" & GasMoist2C & "', " &
-                "strGasFlowRateACFM1A = '" & FlowRateACFM1A & "', " &
-                "strGasFlowRateACFM1b = '" & FlowRateACFM1B & "', " &
-                "strGasFlowRateACFM1C = '" & FlowRateACFM1C & "', " &
-                "strGasFlowRateACFM2A = '" & FlowRateACFM2A & "', " &
-                "strGasFlowRateACFM2b = '" & FlowRateACFM2B & "', " &
-                "strGasFlowRateACFM2C = '" & FlowRateACFM2C & "', " &
-                "strGasFlowRateDSCFM1A = '" & FlowRateDSCFM1A & "', " &
-                "strGasFlowRateDSCFM1b = '" & FlowRateDSCFM1B & "', " &
-                "strGasFlowRateDSCFM1C = '" & FlowRateDSCFM1C & "', " &
-                "strGasFlowRateDSCFM2A = '" & FlowRateDSCFM2A & "', " &
-                "strGasFlowRateDSCFM2b = '" & FlowRateDSCFM2B & "', " &
-                "strGasFlowRateDSCFM2C = '" & FlowRateDSCFM2C & "', " &
-                "strPollutantConcentration1a = '" & PollConc1A & "', " &
-                "strPollutantConcentration1b = '" & PollConc1B & "', " &
-                "strPollutantConcentration1c = '" & PollConc1C & "', " &
-                "strPollutantConcentration2a = '" & PollConc2A & "', " &
-                "strPollutantConcentration2B = '" & PollConc2B & "', " &
-                "strPollutantConcentration2C = '" & PollConc2C & "', " &
-                "strPollutantConcentrationUnit = '" & PollConcUnit & "', " &
-                "strPollutantConcentrationAvg1 = '" & PollConcAvg1 & "', " &
-                "strPollutantConcentrationAvg2 = '" & PollConcAvg2 & "', " &
-                "strEmissionRate1A = '" & EmissRate1A & "', " &
-                "strEmissionRate1B = '" & EmissRate1B & "', " &
-                "strEmissionRate1C = '" & EmissRate1C & "', " &
-                "strEmissionRate2A = '" & EmissRate2A & "', " &
-                "strEmissionRate2B = '" & EmissRate2B & "', " &
-                "strEmissionRate2C = '" & EmissRate2C & "', " &
-                "strEmissionRateUnit = '" & EmissRateUnit & "', " &
-                "strEmissionRateAvg1 = '" & EmissRateAvg1 & "', " &
-                "strEmissionRateAvg2 = '" & EmissRateAvg2 & "', " &
-                "strEmissionRateTotal1 = '" & EmissTotal1 & "', " &
-                "strEmissionRateTotal2 = '" & EmissTotal2 & "', " &
-                "strEmissionRateTotal3 = '" & EmissTotal3 & "', " &
-                "strEmissionRateTotalAvg = '" & EmissTotalAvg & "', " &
-                "strDestructionPercent = '" & Destruct & "', " &
-                "strPercentAllowable = '" & PercentAllowable & "' " &
-                "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
+            Dim p As New SqlParameter("@ref", txtReferenceNumber.Text)
+
+            If DB.ValueExists(query, p) Then
+                query = "Update ISMPReportTwoStack set " &
+                "strMaxOperatingCapacity = @strMaxOperatingCapacity, " &
+                "strMaxOperatingCapacityUnit = @strMaxOperatingCapacityUnit, " &
+                "strOperatingCapacity = @strOperatingCapacity, " &
+                "strOperatingCapacityUnit = @strOperatingCapacityUnit, " &
+                "strAllowableEmissionRate1 = @strAllowableEmissionRate1, " &
+                "strAllowableEmissionrate2 = @strAllowableEmissionrate2, " &
+                "strAllowableEmissionRate3 = @strAllowableEmissionRate3, " &
+                "strAllowableEmissionRateUnit1 = @strAllowableEmissionRateUnit1, " &
+                "strAllowableEmissionRateUnit2 = @strAllowableEmissionRateUnit2, " &
+                "strAllowableEmissionRateUnit3 = @strAllowableEmissionRateUnit3, " &
+                "strStackOneName = @strStackOneName, " &
+                "strStackTwoName = @strStackTwoName, " &
+                "strRunNumber1a = @strRunNumber1a, " &
+                "strRunNumber1b = @strRunNumber1b, " &
+                "strRunNumber1c = @strRunNumber1c, " &
+                "strRunNumber2a = @strRunNumber2a, " &
+                "strRunNumber2b = @strRunNumber2b, " &
+                "strRunNumber2c = @strRunNumber2c, " &
+                "strGasTemperature1a = @strGasTemperature1a, " &
+                "strGasTemperature1b = @strGasTemperature1b, " &
+                "strGasTempErature1c = @strGasTempErature1c, " &
+                "strGasTemperature2a = @strGasTemperature2a, " &
+                "strGasTemperature2b = @strGasTemperature2b, " &
+                "strGasTempErature2c = @strGasTempErature2c, " &
+                "strGasMoisture1a  = @strGasMoisture1a, " &
+                "strGasMoisture1b  = @strGasMoisture1b, " &
+                "strGasMoisture1c  = @strGasMoisture1c, " &
+                "strGasMoisture2a  = @strGasMoisture2a, " &
+                "strGasMoisture2b  = @strGasMoisture2b, " &
+                "strGasMoisture2c  = @strGasMoisture2c, " &
+                "strGasFlowRateACFM1A = @strGasFlowRateACFM1A, " &
+                "strGasFlowRateACFM1b = @strGasFlowRateACFM1b, " &
+                "strGasFlowRateACFM1C = @strGasFlowRateACFM1C, " &
+                "strGasFlowRateACFM2A = @strGasFlowRateACFM2A, " &
+                "strGasFlowRateACFM2b = @strGasFlowRateACFM2b, " &
+                "strGasFlowRateACFM2C = @strGasFlowRateACFM2C, " &
+                "strGasFlowRateDSCFM1A = @strGasFlowRateDSCFM1A, " &
+                "strGasFlowRateDSCFM1b = @strGasFlowRateDSCFM1b, " &
+                "strGasFlowRateDSCFM1C = @strGasFlowRateDSCFM1C, " &
+                "strGasFlowRateDSCFM2A = @strGasFlowRateDSCFM2A, " &
+                "strGasFlowRateDSCFM2b = @strGasFlowRateDSCFM2b, " &
+                "strGasFlowRateDSCFM2C = @strGasFlowRateDSCFM2C, " &
+                "strPollutantConcentration1a = @strPollutantConcentration1a, " &
+                "strPollutantConcentration1b = @strPollutantConcentration1b, " &
+                "strPollutantConcentration1c = @strPollutantConcentration1c, " &
+                "strPollutantConcentration2a = @strPollutantConcentration2a, " &
+                "strPollutantConcentration2B = @strPollutantConcentration2B, " &
+                "strPollutantConcentration2C = @strPollutantConcentration2C, " &
+                "strPollutantConcentrationUnit = @strPollutantConcentrationUnit, " &
+                "strPollutantConcentrationAvg1 = @strPollutantConcentrationAvg1, " &
+                "strPollutantConcentrationAvg2 = @strPollutantConcentrationAvg2, " &
+                "strEmissionRate1A = @strEmissionRate1A, " &
+                "strEmissionRate1B = @strEmissionRate1B, " &
+                "strEmissionRate1C = @strEmissionRate1C, " &
+                "strEmissionRate2A = @strEmissionRate2A, " &
+                "strEmissionRate2B = @strEmissionRate2B, " &
+                "strEmissionRate2C = @strEmissionRate2C, " &
+                "strEmissionRateUnit = @strEmissionRateUnit, " &
+                "strEmissionRateAvg1 = @strEmissionRateAvg1, " &
+                "strEmissionRateAvg2 = @strEmissionRateAvg2, " &
+                "strEmissionRateTotal1 = @strEmissionRateTotal1, " &
+                "strEmissionRateTotal2 = @strEmissionRateTotal2, " &
+                "strEmissionRateTotal3 = @strEmissionRateTotal3, " &
+                "strEmissionRateTotalAvg = @strEmissionRateTotalAvg, " &
+                "strDestructionPercent = @strDestructionPercent, " &
+                "strPercentAllowable = @strPercentAllowable " &
+                 "where strReferenceNumber = @strReferenceNumber "
             Else
-                SQL = "Insert into ISMPReportTwoStack " &
-                "values " &
-                "('" & txtReferenceNumber.Text & "', " &
-                "'" & MaxOpCapacity & "', '" & MaxOpCapacityUnit & "', " &
-                "'" & OpCapacity & "', '" & OpCapacityUnit & "', " &
-                "'" & AllowEmissRate1 & "', '" & AllowEmissRate2 & "', " &
-                "'" & AllowEmissRate3 & "', " &
-                "'" & AllowEmissRateUnit1 & "', '" & AllowEmissRateUnit2 & "', " &
-                "'" & AllowEmissRateUnit3 & "', " &
-                "'" & Replace(StackNameOne, "'", "''") & "', '" & Replace(StackNameTwo, "'", "''") & "', " &
-                "'" & TestRun1A & "', '" & TestRun1B & "', " &
-                "'" & TestRun1C & "', '" & TestRun2A & "', " &
-                "'" & TestRun2B & "', '" & TestRun2C & "', " &
-                "'" & GasTemp1A & "', '" & GasTemp1B & "', " &
-                "'" & GasTemp1C & "', '" & GasTemp2A & "', " &
-                "'" & GasTemp2B & "', '" & GasTemp2C & "', " &
-                "'" & GasMoist1A & "', '" & GasMoist1B & "', " &
-                "'" & GasMoist1C & "', '" & GasMoist2A & "', " &
-                "'" & GasMoist2B & "', '" & GasMoist2C & "', " &
-                "'" & FlowRateACFM1A & "', '" & FlowRateACFM1B & "', " &
-                "'" & FlowRateACFM1C & "', '" & FlowRateACFM2A & "', " &
-                "'" & FlowRateACFM2B & "', '" & FlowRateACFM2C & "', " &
-                "'" & FlowRateDSCFM1A & "', '" & FlowRateDSCFM1B & "', " &
-                "'" & FlowRateDSCFM1C & "', '" & FlowRateDSCFM2A & "', " &
-                "'" & FlowRateDSCFM2B & "', '" & FlowRateDSCFM2C & "', " &
-                "'" & PollConc1A & "', '" & PollConc1B & "', " &
-                "'" & PollConc1C & "', '" & PollConc2A & "', " &
-                "'" & PollConc2B & "', '" & PollConc2C & "', " &
-                "'" & PollConcUnit & "', " &
-                "'" & PollConcAvg1 & "', " &
-                "'" & PollConcAvg2 & "', " &
-                "'" & EmissRate1A & "', '" & EmissRate1B & "', " &
-                "'" & EmissRate1C & "', '" & EmissRate2A & "', " &
-                "'" & EmissRate2B & "', '" & EmissRate2C & "', " &
-                "'" & EmissRateUnit & "', " &
-                "'" & EmissRateAvg1 & "', " &
-                "'" & EmissRateAvg2 & "',  " &
-                "'" & EmissTotal1 & "', " &
-                "'" & EmissTotal2 & "', " &
-                "'" & EmissTotal3 & "', " &
-                "'" & EmissTotalAvg & "', " &
-                "'" & Destruct & "', " &
-                "'" & PercentAllowable & "') "
+                query = "Insert into ISMPReportTwoStack " &
+                    "(STRREFERENCENUMBER, STRMAXOPERATINGCAPACITY, STRMAXOPERATINGCAPACITYUNIT, STROPERATINGCAPACITY, STROPERATINGCAPACITYUNIT, STRALLOWABLEEMISSIONRATE1, STRALLOWABLEEMISSIONRATE2, STRALLOWABLEEMISSIONRATE3, STRALLOWABLEEMISSIONRATEUNIT1, STRALLOWABLEEMISSIONRATEUNIT2, STRALLOWABLEEMISSIONRATEUNIT3, STRSTACKONENAME, STRSTACKTWONAME, STRRUNNUMBER1A, STRRUNNUMBER1B, STRRUNNUMBER1C, STRRUNNUMBER2A, STRRUNNUMBER2B, STRRUNNUMBER2C, STRGASTEMPERATURE1A, STRGASTEMPERATURE1B, STRGASTEMPERATURE1C, STRGASTEMPERATURE2A, STRGASTEMPERATURE2B, STRGASTEMPERATURE2C, STRGASMOISTURE1A, STRGASMOISTURE1B, STRGASMOISTURE1C, STRGASMOISTURE2A, STRGASMOISTURE2B, STRGASMOISTURE2C, STRGASFLOWRATEACFM1A, STRGASFLOWRATEACFM1B, STRGASFLOWRATEACFM1C, STRGASFLOWRATEACFM2A, STRGASFLOWRATEACFM2B, STRGASFLOWRATEACFM2C, STRGASFLOWRATEDSCFM1A, STRGASFLOWRATEDSCFM1B, STRGASFLOWRATEDSCFM1C, STRGASFLOWRATEDSCFM2A, STRGASFLOWRATEDSCFM2B, STRGASFLOWRATEDSCFM2C, STRPOLLUTANTCONCENTRATION1A, STRPOLLUTANTCONCENTRATION1B, STRPOLLUTANTCONCENTRATION1C, STRPOLLUTANTCONCENTRATION2A, STRPOLLUTANTCONCENTRATION2B, STRPOLLUTANTCONCENTRATION2C, STRPOLLUTANTCONCENTRATIONUNIT, STRPOLLUTANTCONCENTRATIONAVG1, STRPOLLUTANTCONCENTRATIONAVG2, STREMISSIONRATE1A, STREMISSIONRATE1B, STREMISSIONRATE1C, STREMISSIONRATE2A, STREMISSIONRATE2B, STREMISSIONRATE2C, STREMISSIONRATEUNIT, STREMISSIONRATEAVG1, STREMISSIONRATEAVG2, STREMISSIONRATETOTAL1, STREMISSIONRATETOTAL2, STREMISSIONRATETOTAL3, STREMISSIONRATETOTALAVG, STRDESTRUCTIONPERCENT, STRPERCENTALLOWABLE) " &
+                    "values " &
+                    "(@STRREFERENCENUMBER, @STRMAXOPERATINGCAPACITY, @STRMAXOPERATINGCAPACITYUNIT, @STROPERATINGCAPACITY, @STROPERATINGCAPACITYUNIT, @STRALLOWABLEEMISSIONRATE1, @STRALLOWABLEEMISSIONRATE2, @STRALLOWABLEEMISSIONRATE3, @STRALLOWABLEEMISSIONRATEUNIT1, @STRALLOWABLEEMISSIONRATEUNIT2, @STRALLOWABLEEMISSIONRATEUNIT3, @STRSTACKONENAME, @STRSTACKTWONAME, @STRRUNNUMBER1A, @STRRUNNUMBER1B, @STRRUNNUMBER1C, @STRRUNNUMBER2A, @STRRUNNUMBER2B, @STRRUNNUMBER2C, @STRGASTEMPERATURE1A, @STRGASTEMPERATURE1B, @STRGASTEMPERATURE1C, @STRGASTEMPERATURE2A, @STRGASTEMPERATURE2B, @STRGASTEMPERATURE2C, @STRGASMOISTURE1A, @STRGASMOISTURE1B, @STRGASMOISTURE1C, @STRGASMOISTURE2A, @STRGASMOISTURE2B, @STRGASMOISTURE2C, @STRGASFLOWRATEACFM1A, @STRGASFLOWRATEACFM1B, @STRGASFLOWRATEACFM1C, @STRGASFLOWRATEACFM2A, @STRGASFLOWRATEACFM2B, @STRGASFLOWRATEACFM2C, @STRGASFLOWRATEDSCFM1A, @STRGASFLOWRATEDSCFM1B, @STRGASFLOWRATEDSCFM1C, @STRGASFLOWRATEDSCFM2A, @STRGASFLOWRATEDSCFM2B, @STRGASFLOWRATEDSCFM2C, @STRPOLLUTANTCONCENTRATION1A, @STRPOLLUTANTCONCENTRATION1B, @STRPOLLUTANTCONCENTRATION1C, @STRPOLLUTANTCONCENTRATION2A, @STRPOLLUTANTCONCENTRATION2B, @STRPOLLUTANTCONCENTRATION2C, @STRPOLLUTANTCONCENTRATIONUNIT, @STRPOLLUTANTCONCENTRATIONAVG1, @STRPOLLUTANTCONCENTRATIONAVG2, @STREMISSIONRATE1A, @STREMISSIONRATE1B, @STREMISSIONRATE1C, @STREMISSIONRATE2A, @STREMISSIONRATE2B, @STREMISSIONRATE2C, @STREMISSIONRATEUNIT, @STREMISSIONRATEAVG1, @STREMISSIONRATEAVG2, @STREMISSIONRATETOTAL1, @STREMISSIONRATETOTAL2, @STREMISSIONRATETOTAL3, @STREMISSIONRATETOTALAVG, @STRDESTRUCTIONPERCENT, @STRPERCENTALLOWABLE) "
             End If
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
+            Dim p2 As SqlParameter() = {
+                New SqlParameter("@strMaxOperatingCapacity", MaxOpCapacity),
+                New SqlParameter("@strMaxOperatingCapacityUnit", MaxOpCapacityUnit),
+                New SqlParameter("@strOperatingCapacity", OpCapacity),
+                New SqlParameter("@strOperatingCapacityUnit", OpCapacityUnit),
+                New SqlParameter("@strAllowableEmissionRate1", AllowEmissRate1),
+                New SqlParameter("@strAllowableEmissionrate2", AllowEmissRate2),
+                New SqlParameter("@strAllowableEmissionRate3", AllowEmissRate3),
+                New SqlParameter("@strAllowableEmissionRateUnit1", AllowEmissRateUnit1),
+                New SqlParameter("@strAllowableEmissionRateUnit2", AllowEmissRateUnit2),
+                New SqlParameter("@strAllowableEmissionRateUnit3", AllowEmissRateUnit3),
+                New SqlParameter("@strStackOneName", StackNameOne),
+                New SqlParameter("@strStackTwoName", StackNameTwo),
+                New SqlParameter("@strRunNumber1a", TestRun1A),
+                New SqlParameter("@strRunNumber1b", TestRun1B),
+                New SqlParameter("@strRunNumber1c", TestRun1C),
+                New SqlParameter("@strRunNumber2a", TestRun2A),
+                New SqlParameter("@strRunNumber2b", TestRun2B),
+                New SqlParameter("@strRunNumber2c", TestRun2C),
+                New SqlParameter("@strGasTemperature1a", GasTemp1A),
+                New SqlParameter("@strGasTemperature1b", GasTemp1B),
+                New SqlParameter("@strGasTempErature1c", GasTemp1C),
+                New SqlParameter("@strGasTemperature2a", GasTemp2A),
+                New SqlParameter("@strGasTemperature2b", GasTemp2B),
+                New SqlParameter("@strGasTempErature2c", GasTemp2C),
+                New SqlParameter("@strGasMoisture1a", GasMoist1A),
+                New SqlParameter("@strGasMoisture1b", GasMoist1B),
+                New SqlParameter("@strGasMoisture1c", GasMoist1C),
+                New SqlParameter("@strGasMoisture2a", GasMoist2A),
+                New SqlParameter("@strGasMoisture2b", GasMoist2B),
+                New SqlParameter("@strGasMoisture2c", GasMoist2C),
+                New SqlParameter("@strGasFlowRateACFM1A", FlowRateACFM1A),
+                New SqlParameter("@strGasFlowRateACFM1b", FlowRateACFM1B),
+                New SqlParameter("@strGasFlowRateACFM1C", FlowRateACFM1C),
+                New SqlParameter("@strGasFlowRateACFM2A", FlowRateACFM2A),
+                New SqlParameter("@strGasFlowRateACFM2b", FlowRateACFM2B),
+                New SqlParameter("@strGasFlowRateACFM2C", FlowRateACFM2C),
+                New SqlParameter("@strGasFlowRateDSCFM1A", FlowRateDSCFM1A),
+                New SqlParameter("@strGasFlowRateDSCFM1b", FlowRateDSCFM1B),
+                New SqlParameter("@strGasFlowRateDSCFM1C", FlowRateDSCFM1C),
+                New SqlParameter("@strGasFlowRateDSCFM2A", FlowRateDSCFM2A),
+                New SqlParameter("@strGasFlowRateDSCFM2b", FlowRateDSCFM2B),
+                New SqlParameter("@strGasFlowRateDSCFM2C", FlowRateDSCFM2C),
+                New SqlParameter("@strPollutantConcentration1a", PollConc1A),
+                New SqlParameter("@strPollutantConcentration1b", PollConc1B),
+                New SqlParameter("@strPollutantConcentration1c", PollConc1C),
+                New SqlParameter("@strPollutantConcentration2a", PollConc2A),
+                New SqlParameter("@strPollutantConcentration2B", PollConc2B),
+                New SqlParameter("@strPollutantConcentration2C", PollConc2C),
+                New SqlParameter("@strPollutantConcentrationUnit", PollConcUnit),
+                New SqlParameter("@strPollutantConcentrationAvg1", PollConcAvg1),
+                New SqlParameter("@strPollutantConcentrationAvg2", PollConcAvg2),
+                New SqlParameter("@strEmissionRate1A", EmissRate1A),
+                New SqlParameter("@strEmissionRate1B", EmissRate1B),
+                New SqlParameter("@strEmissionRate1C", EmissRate1C),
+                New SqlParameter("@strEmissionRate2A", EmissRate2A),
+                New SqlParameter("@strEmissionRate2B", EmissRate2B),
+                New SqlParameter("@strEmissionRate2C", EmissRate2C),
+                New SqlParameter("@strEmissionRateUnit", EmissRateUnit),
+                New SqlParameter("@strEmissionRateAvg1", EmissRateAvg1),
+                New SqlParameter("@strEmissionRateAvg2", EmissRateAvg2),
+                New SqlParameter("@strEmissionRateTotal1", EmissTotal1),
+                New SqlParameter("@strEmissionRateTotal2", EmissTotal2),
+                New SqlParameter("@strEmissionRateTotal3", EmissTotal3),
+                New SqlParameter("@strEmissionRateTotalAvg", EmissTotalAvg),
+                New SqlParameter("@strDestructionPercent", Destruct),
+                New SqlParameter("@strPercentAllowable", PercentAllowable),
+                New SqlParameter("@strReferenceNumber", txtReferenceNumber.Text)
+            }
+
+            DB.RunCommand(query, p2)
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
-    Sub SaveLoadingRack()
+    Private Sub SaveLoadingRack()
         Try
             Dim MaxOpCapacity As String = " "
             Dim MaxOpCapacityUnit As String = "00000"
@@ -13356,12 +12058,12 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
             Dim EmissRateUnit As String = "00000"
             Dim Destruct As String = " "
 
-            If Me.txtMaximumExpectedOperatingCapacityLoadingRack.Text <> "" Then
-                MaxOpCapacity = Me.txtMaximumExpectedOperatingCapacityLoadingRack.Text
+            If txtMaximumExpectedOperatingCapacityLoadingRack.Text <> "" Then
+                MaxOpCapacity = txtMaximumExpectedOperatingCapacityLoadingRack.Text
             Else
                 MaxOpCapacity = " "
             End If
-            If Me.cboMaximumExpectedOperatingCapacityUnitsLoadingRack.Text <> " " And Me.cboMaximumExpectedOperatingCapacityUnitsLoadingRack.Text <> "" Then
+            If cboMaximumExpectedOperatingCapacityUnitsLoadingRack.Text <> " " And cboMaximumExpectedOperatingCapacityUnitsLoadingRack.Text <> "" Then
                 MaxOpCapacityUnit = cboMaximumExpectedOperatingCapacityUnitsLoadingRack.SelectedValue
                 If MaxOpCapacityUnit = "" Then
                     MaxOpCapacityUnit = "00000"
@@ -13369,12 +12071,12 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
             Else
                 MaxOpCapacityUnit = "00000"
             End If
-            If Me.txtOperatingCapacityLoadingRack.Text <> "" Then
-                OpCapacity = Me.txtOperatingCapacityLoadingRack.Text
+            If txtOperatingCapacityLoadingRack.Text <> "" Then
+                OpCapacity = txtOperatingCapacityLoadingRack.Text
             Else
                 OpCapacity = " "
             End If
-            If Me.cboOperatingCapacityUnitsLoadingRack.Text <> " " And Me.cboOperatingCapacityUnitsLoadingRack.Text <> "" Then
+            If cboOperatingCapacityUnitsLoadingRack.Text <> " " And cboOperatingCapacityUnitsLoadingRack.Text <> "" Then
                 OpCapacityUnit = cboOperatingCapacityUnitsLoadingRack.SelectedValue
                 If OpCapacityUnit = "" Then
                     OpCapacityUnit = "00000"
@@ -13382,22 +12084,22 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
             Else
                 OpCapacityUnit = "00000"
             End If
-            If Me.txtAllowableEmissionRate1LoadingRack.Text <> "" Then
+            If txtAllowableEmissionRate1LoadingRack.Text <> "" Then
                 AllowEmissRate1 = txtAllowableEmissionRate1LoadingRack.Text
             Else
                 AllowEmissRate1 = " "
             End If
-            If Me.txtAllowableEmissionRate2LoadingRack.Text <> "" Then
+            If txtAllowableEmissionRate2LoadingRack.Text <> "" Then
                 AllowEmissRate2 = txtAllowableEmissionRate2LoadingRack.Text
             Else
                 AllowEmissRate2 = " "
             End If
-            If Me.txtAllowableEmissionRate3LoadingRack.Text <> "" Then
+            If txtAllowableEmissionRate3LoadingRack.Text <> "" Then
                 AllowEmissRate3 = txtAllowableEmissionRate3LoadingRack.Text
             Else
                 AllowEmissRate3 = " "
             End If
-            If Me.cboAllowableEmissionRateUnits1LoadingRack.Text <> " " And cboAllowableEmissionRateUnits1LoadingRack.Text <> "" Then
+            If cboAllowableEmissionRateUnits1LoadingRack.Text <> " " And cboAllowableEmissionRateUnits1LoadingRack.Text <> "" Then
                 AllowEmissRateUnit1 = cboAllowableEmissionRateUnits1LoadingRack.SelectedValue
                 If AllowEmissRateUnit1 = "" Then
                     AllowEmissRateUnit1 = "00000"
@@ -13405,7 +12107,7 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
             Else
                 AllowEmissRateUnit1 = "00000"
             End If
-            If Me.cboAllowableEmissionRateUnits2LoadingRack.Text <> " " And cboAllowableEmissionRateUnits2LoadingRack.Text <> "" Then
+            If cboAllowableEmissionRateUnits2LoadingRack.Text <> " " And cboAllowableEmissionRateUnits2LoadingRack.Text <> "" Then
                 AllowEmissRateUnit2 = cboAllowableEmissionRateUnits2LoadingRack.SelectedValue
                 If AllowEmissRateUnit2 = "" Then
                     AllowEmissRateUnit2 = "00000"
@@ -13413,7 +12115,7 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
             Else
                 AllowEmissRateUnit2 = "00000"
             End If
-            If Me.cboAllowableEmissionRateUnits3LoadingRack.Text <> " " And cboAllowableEmissionRateUnits3LoadingRack.Text <> "" Then
+            If cboAllowableEmissionRateUnits3LoadingRack.Text <> " " And cboAllowableEmissionRateUnits3LoadingRack.Text <> "" Then
                 AllowEmissRateUnit3 = cboAllowableEmissionRateUnits3LoadingRack.SelectedValue
                 If AllowEmissRateUnit3 = "" Then
                     AllowEmissRateUnit3 = "00000"
@@ -13421,12 +12123,12 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
             Else
                 AllowEmissRateUnit3 = "00000"
             End If
-            If Me.txtTestDurationLoadingRack.Text <> "" Then
+            If txtTestDurationLoadingRack.Text <> "" Then
                 TestDuration = txtTestDurationLoadingRack.Text
             Else
                 TestDuration = " "
             End If
-            If Me.cboTestDurationUnitsLoadingRack.Text <> " " And cboTestDurationUnitsLoadingRack.Text <> "" Then
+            If cboTestDurationUnitsLoadingRack.Text <> " " And cboTestDurationUnitsLoadingRack.Text <> "" Then
                 TestDurationUnit = cboTestDurationUnitsLoadingRack.SelectedValue
                 If TestDurationUnit = "" Then
                     TestDurationUnit = "00000"
@@ -13434,12 +12136,12 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
             Else
                 TestDurationUnit = "00000"
             End If
-            If Me.txtPollConcINLoadingRack.Text <> "" Then
+            If txtPollConcINLoadingRack.Text <> "" Then
                 PollConcIn = txtPollConcINLoadingRack.Text
             Else
                 PollConcIn = " "
             End If
-            If Me.cboPollConUnitINLoadingRack.Text <> " " And cboPollConUnitINLoadingRack.Text <> "" Then
+            If cboPollConUnitINLoadingRack.Text <> " " And cboPollConUnitINLoadingRack.Text <> "" Then
                 PollConcInUnit = cboPollConUnitINLoadingRack.SelectedValue
                 If PollConcInUnit = "" Then
                     PollConcInUnit = "00000"
@@ -13447,12 +12149,12 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
             Else
                 PollConcInUnit = "00000"
             End If
-            If Me.txtPollConcOUTLoadingRack.Text <> "" Then
+            If txtPollConcOUTLoadingRack.Text <> "" Then
                 PollConcOut = txtPollConcOUTLoadingRack.Text
             Else
                 PollConcOut = " "
             End If
-            If Me.cboPollConUnitOUTLoadingRack.Text <> " " And cboPollConUnitOUTLoadingRack.Text <> "" Then
+            If cboPollConUnitOUTLoadingRack.Text <> " " And cboPollConUnitOUTLoadingRack.Text <> "" Then
                 PollConcOutUnit = cboPollConUnitOUTLoadingRack.SelectedValue
                 If PollConcOutUnit = "" Then
                     PollConcOutUnit = "00000"
@@ -13460,12 +12162,12 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
             Else
                 PollConcOutUnit = "00000"
             End If
-            If Me.txtEmissRateLoadingRack.Text <> "" Then
+            If txtEmissRateLoadingRack.Text <> "" Then
                 EmissRate = txtEmissRateLoadingRack.Text
             Else
                 EmissRate = " "
             End If
-            If Me.cboEmissRateUnitLoadingRack.Text <> " " And cboEmissRateUnitLoadingRack.Text <> "" Then
+            If cboEmissRateUnitLoadingRack.Text <> " " And cboEmissRateUnitLoadingRack.Text <> "" Then
                 EmissRateUnit = cboEmissRateUnitLoadingRack.SelectedValue
                 If EmissRateUnit = "" Then
                     EmissRateUnit = "00000"
@@ -13473,82 +12175,90 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
             Else
                 EmissRateUnit = "00000"
             End If
-            If Me.txtDestructionEfficiencyLoadingRack.Text <> "" Then
+            If txtDestructionEfficiencyLoadingRack.Text <> "" Then
                 Destruct = txtDestructionEfficiencyLoadingRack.Text
             Else
                 Destruct = " "
             End If
 
-            SQL = "Select strReferenceNumber " &
+            query = "Select strReferenceNumber " &
             "from ISMPReportFlare " &
-            "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            RecExist = dr.Read
-            dr.Close()
+            "where strReferenceNumber = @ref "
 
-            If RecExist = True Then
-                SQL = "Update ISMPReportFlare set " &
-                "strMaxOperatingCapacity  = '" & MaxOpCapacity & "', " &
-                "strMaxOperatingCapacityUnit = '" & MaxOpCapacityUnit & "', " &
-                "strOperatingcapacity = '" & OpCapacity & "', " &
-                "strOperatingCapacityUnit = '" & OpCapacityUnit & "', " &
-                "strAllowableEmissionRate1A = '" & AllowEmissRate1 & "', " &
-                "strAllowableEmissionRate2A = '" & AllowEmissRate2 & "', " &
-                "strAllowableEmissionRate3A = '" & AllowEmissRate3 & "', " &
-                "strAllowEmissionRateUnit1A = '" & AllowEmissRateUnit1 & "', " &
-                "strAllowEmissionRateUnit2A = '" & AllowEmissRateUnit2 & "', " &
-                "strAllowEmissionRateUnit3A = '" & AllowEmissRateUnit3 & "', " &
-                "strTestDuration = '" & TestDuration & "', " &
-                "strTestDurationUnit = '" & TestDurationUnit & "', " &
-                "strPollutantConcenIn = '" & PollConcIn & "', " &
-                "strPollutantConcenUnitIn = '" & PollConcInUnit & "', " &
-                "strPollutantConcenOut = '" & PollConcOut & "', " &
-                "strPollutantConcenUnitOut = '" & PollConcOutUnit & "', " &
-                "strEmissionRate = '" & EmissRate & "', " &
-                "strEmissionRateUnit = '" & EmissRateUnit & "', " &
-                "strDestructionEfficiency = '" & Destruct & "' " &
-                "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
+            Dim p As New SqlParameter("@ref", txtReferenceNumber.Text)
+
+            If DB.ValueExists(query, p) Then
+                query = "Update ISMPReportFlare set " &
+                "strMaxOperatingCapacity  = @strMaxOperatingCapacity, " &
+                "strMaxOperatingCapacityUnit = @strMaxOperatingCapacityUnit, " &
+                "strOperatingcapacity = @strOperatingcapacity, " &
+                "strOperatingCapacityUnit = @strOperatingCapacityUnit, " &
+                "strAllowableEmissionRate1A = @strAllowableEmissionRate1A, " &
+                "strAllowableEmissionRate2A = @strAllowableEmissionRate2A, " &
+                "strAllowableEmissionRate3A = @strAllowableEmissionRate3A, " &
+                "strAllowEmissionRateUnit1A = @strAllowEmissionRateUnit1A, " &
+                "strAllowEmissionRateUnit2A = @strAllowEmissionRateUnit2A, " &
+                "strAllowEmissionRateUnit3A = @strAllowEmissionRateUnit3A, " &
+                "strTestDuration = @strTestDuration, " &
+                "strTestDurationUnit = @strTestDurationUnit, " &
+                "strPollutantConcenIn = @strPollutantConcenIn, " &
+                "strPollutantConcenUnitIn = @strPollutantConcenUnitIn, " &
+                "strPollutantConcenOut = @strPollutantConcenOut, " &
+                "strPollutantConcenUnitOut = @strPollutantConcenUnitOut, " &
+                "strEmissionRate = @strEmissionRate, " &
+                "strEmissionRateUnit = @strEmissionRateUnit, " &
+                "strDestructionEfficiency = @strDestructionEfficiency " &
+                "where strReferenceNumber = @strReferenceNumber "
             Else
-                SQL = "Insert into ISMPReportFlare " &
+                query = "Insert into ISMPReportFlare " &
+                    "(STRREFERENCENUMBER, STRMAXOPERATINGCAPACITY, STRMAXOPERATINGCAPACITYUNIT, STROPERATINGCAPACITY, " &
+                    "STROPERATINGCAPACITYUNIT, STRLIMITATIONVELOCITY, STRLIMITATIONHEATCAPACITY, STRALLOWABLEEMISSIONRATE1A, " &
+                    "STRALLOWABLEEMISSIONRATE2A, STRALLOWABLEEMISSIONRATE3A, STRALLOWEMISSIONRATEUNIT1A, STRALLOWEMISSIONRATEUNIT2A, " &
+                    "STRALLOWEMISSIONRATEUNIT3A, STRHEATINGVALUE1A, STRHEATINGVALUE2A, STRHEATINGVALUE3A, STRHEATINGVALUEUNITS, " &
+                    "STRHEATINGVALUEAVG, STRVELOCITY1A, STRVELOCITY2A, STRVELOCITY3A, STRVELOCITYUNITS, STRVELOCITYAVG, " &
+                    "STRTESTDURATION, STRTESTDURATIONUNIT, STRPOLLUTANTCONCENIN, STRPOLLUTANTCONCENUNITIN, STRPOLLUTANTCONCENOUT, " &
+                    "STRPOLLUTANTCONCENUNITOUT, STREMISSIONRATE, STREMISSIONRATEUNIT, STRDESTRUCTIONEFFICIENCY, STRPERCENTALLOWABLE) " &
                 "values " &
-                "('" & txtReferenceNumber.Text & "', " &
-                "'" & MaxOpCapacity & "', '" & MaxOpCapacityUnit & "', " &
-                "'" & OpCapacity & "', '" & OpCapacityUnit & "', " &
-                "' ', ' ', " &
-                "'" & AllowEmissRate1 & "', '" & AllowEmissRate2 & "', " &
-                "'" & AllowEmissRate3 & "', " &
-                "'" & AllowEmissRateUnit1 & "', '" & AllowEmissRateUnit2 & "', " &
-                "'" & AllowEmissRateUnit3 & "', " &
-                "' ', ' ', " &
-                "' ', ' ', " &
-                "' ', " &
-                "' ', ' ', " &
-                "' ', ' ', " &
-                "' ', " &
-                "'" & TestDuration & "', '" & TestDurationUnit & "', " &
-                "'" & PollConcIn & "', '" & PollConcInUnit & "', " &
-                "'" & PollConcOut & "', '" & PollConcOutUnit & "', " &
-                "'" & EmissRate & "', '" & EmissRateUnit & "', " &
-                "'" & Destruct & "', ' ')  "
+                    "(@STRREFERENCENUMBER, @STRMAXOPERATINGCAPACITY, @STRMAXOPERATINGCAPACITYUNIT, @STROPERATINGCAPACITY, " &
+                    "@STROPERATINGCAPACITYUNIT, ' ', ' ', @STRALLOWABLEEMISSIONRATE1A, " &
+                    "@STRALLOWABLEEMISSIONRATE2A, @STRALLOWABLEEMISSIONRATE3A, @STRALLOWEMISSIONRATEUNIT1A, @STRALLOWEMISSIONRATEUNIT2A, " &
+                    "@STRALLOWEMISSIONRATEUNIT3A, ' ', ' ', ' ', ' ', " &
+                    "' ', ' ', ' ', ' ', ' ', ' ', " &
+                    "@STRTESTDURATION, @STRTESTDURATIONUNIT, @STRPOLLUTANTCONCENIN, @STRPOLLUTANTCONCENUNITIN, @STRPOLLUTANTCONCENOUT, " &
+                    "@STRPOLLUTANTCONCENUNITOUT, @STREMISSIONRATE, @STREMISSIONRATEUNIT, @STRDESTRUCTIONEFFICIENCY, ' ') "
             End If
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
+            Dim p2 As SqlParameter() = {
+                New SqlParameter("@strMaxOperatingCapacity", MaxOpCapacity),
+                New SqlParameter("@strMaxOperatingCapacityUnit", MaxOpCapacityUnit),
+                New SqlParameter("@strOperatingcapacity", OpCapacity),
+                New SqlParameter("@strOperatingCapacityUnit", OpCapacityUnit),
+                New SqlParameter("@strAllowableEmissionRate1A", AllowEmissRate1),
+                New SqlParameter("@strAllowableEmissionRate2A", AllowEmissRate2),
+                New SqlParameter("@strAllowableEmissionRate3A", AllowEmissRate3),
+                New SqlParameter("@strAllowEmissionRateUnit1A", AllowEmissRateUnit1),
+                New SqlParameter("@strAllowEmissionRateUnit2A", AllowEmissRateUnit2),
+                New SqlParameter("@strAllowEmissionRateUnit3A", AllowEmissRateUnit3),
+                New SqlParameter("@strTestDuration", TestDuration),
+                New SqlParameter("@strTestDurationUnit", TestDurationUnit),
+                New SqlParameter("@strPollutantConcenIn", PollConcIn),
+                New SqlParameter("@strPollutantConcenUnitIn", PollConcInUnit),
+                New SqlParameter("@strPollutantConcenOut", PollConcOut),
+                New SqlParameter("@strPollutantConcenUnitOut", PollConcOutUnit),
+                New SqlParameter("@strEmissionRate", EmissRate),
+                New SqlParameter("@strEmissionRateUnit", EmissRateUnit),
+                New SqlParameter("@strDestructionEfficiency", Destruct),
+                New SqlParameter("@strReferenceNumber", txtReferenceNumber.Text)
+            }
+
+            DB.RunCommand(query, p2)
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
-    Sub SavePondTreatment()
+    Private Sub SavePondTreatment()
         Try
             Dim MaxOpCapacity As String = " "
             Dim MaxOpCapacityUnit As String = "00000"
@@ -13641,32 +12351,32 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
             Else
                 AllowEmissRateUnit3 = "00000"
             End If
-            If Me.txtRunNumPond1A.Text <> "" Then
+            If txtRunNumPond1A.Text <> "" Then
                 TestRun1 = txtRunNumPond1A.Text
             Else
                 TestRun1 = "1"
             End If
-            If Me.txtRunNumPond1B.Text <> "" Then
+            If txtRunNumPond1B.Text <> "" Then
                 TestRun2 = txtRunNumPond1B.Text
             Else
                 TestRun2 = "2"
             End If
-            If Me.txtRunNumPond1C.Text <> "" Then
+            If txtRunNumPond1C.Text <> "" Then
                 TestRun3 = txtRunNumPond1C.Text
             Else
                 TestRun3 = "3"
             End If
-            If Me.txtPollConcPond1A.Text <> "" Then
+            If txtPollConcPond1A.Text <> "" Then
                 PollConc1 = txtPollConcPond1A.Text
             Else
                 PollConc1 = " "
             End If
-            If Me.txtPollConcPond1B.Text <> "" Then
+            If txtPollConcPond1B.Text <> "" Then
                 PollConc2 = txtPollConcPond1B.Text
             Else
                 PollConc2 = " "
             End If
-            If Me.txtPollConcPond1C.Text <> "" Then
+            If txtPollConcPond1C.Text <> "" Then
                 PollConc3 = txtPollConcPond1C.Text
             Else
                 PollConc3 = " "
@@ -13684,22 +12394,22 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
             Else
                 PollConcAvg = " "
             End If
-            If Me.txtTreatmentRatePond1A.Text <> "" Then
+            If txtTreatmentRatePond1A.Text <> "" Then
                 Treatment1 = txtTreatmentRatePond1A.Text
             Else
                 Treatment1 = " "
             End If
-            If Me.txtTreatmentRatePond1B.Text <> "" Then
+            If txtTreatmentRatePond1B.Text <> "" Then
                 Treatment2 = txtTreatmentRatePond1B.Text
             Else
                 Treatment2 = " "
             End If
-            If Me.txtTreatmentRatePond1C.Text <> "" Then
+            If txtTreatmentRatePond1C.Text <> "" Then
                 Treatment3 = txtTreatmentRatePond1C.Text
             Else
                 Treatment3 = " "
             End If
-            If Me.cboTreatmentRateUnitPond.Text <> " " And Me.cboTreatmentRateUnitPond.Text <> "" Then
+            If cboTreatmentRateUnitPond.Text <> " " And cboTreatmentRateUnitPond.Text <> "" Then
                 TreatmentUnit = cboTreatmentRateUnitPond.SelectedValue
                 If TreatmentUnit = "" Then
                     TreatmentUnit = "00000"
@@ -13707,7 +12417,7 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
             Else
                 TreatmentUnit = "00000"
             End If
-            If Me.txtTreatmentRateAvgPond.Text <> "" Then
+            If txtTreatmentRateAvgPond.Text <> "" Then
                 TreatmentAvg = txtTreatmentRateAvgPond.Text
             Else
                 TreatmentAvg = " "
@@ -13718,80 +12428,94 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                 Destruct = " "
             End If
 
-            SQL = "Select strReferenceNumber " &
+            query = "Select strReferenceNumber " &
             "from ISMPReportPondAndGas " &
-            "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            RecExist = dr.Read
-            dr.Close()
+            "where strReferenceNumber = @ref "
 
-            If RecExist = True Then
-                SQL = "Update ISMPReportPondAndGas set " &
-                "strMaxOperatingCapacity = '" & MaxOpCapacity & "', " &
-                "strMaxOperatingCapacityUnit = '" & MaxOpCapacityUnit & "', " &
-                "strOperatingCapacity  =  '" & OpCapacity & "', " &
-                "strOperatingCapacityUnit = '" & OpCapacityUnit & "', " &
-                "strAllowableEmissionRate1 = '" & AllowEmissRate1 & "', " &
-                "strAllowableEmissionRate2 = '" & AllowEmissRate2 & "', " &
-                "strAllowableEmissionRate3 = '" & AllowEmissRate3 & "', " &
-                "strAllowableEmissionRateUnit1 = '" & AllowEmissRateUnit1 & "', " &
-                "strAllowableEmissionRateUnit2 = '" & AllowEmissRateUnit2 & "', " &
-                "strAllowableemissionrateunit3 = '" & AllowEmissRateUnit3 & "', " &
-                "strRunNumber1A = '" & TestRun1 & "', " &
-                "strRunNumber1B = '" & TestRun2 & "', " &
-                "strRunNumber1C = '" & TestRun3 & "', " &
-                "strPollutantConcentration1A = '" & PollConc1 & "', " &
-                "strPollutantConcentration1B = '" & PollConc2 & "', " &
-                "strPOllutantConcentration1C = '" & PollConc3 & "', " &
-                "strPollutantConcentrationUnit = '" & PollConcUnit & "', " &
-                "strPollutantConcentrationAvg = '" & PollConcAvg & "', " &
-                "strTreatmentRate1A = '" & Treatment1 & "', " &
-                "strTreatmentRate1B = '" & Treatment2 & "', " &
-                "strTreatmentRate1C = '" & Treatment3 & "', " &
-                "strTreatmentRateUnit = '" & TreatmentUnit & "', " &
-                "strTreatmentRateAvg = '" & TreatmentAvg & "', " &
-                "strPercentallowable = '" & Destruct & "' " &
-                "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
+            Dim p As New SqlParameter("@ref", txtReferenceNumber.Text)
+
+            If DB.ValueExists(query, p) Then
+                query = "Update ISMPReportPondAndGas set " &
+                "strMaxOperatingCapacity = @strMaxOperatingCapacity, " &
+                "strMaxOperatingCapacityUnit = @strMaxOperatingCapacityUnit, " &
+                "strOperatingCapacity  = @strOperatingCapacity, " &
+                "strOperatingCapacityUnit = @strOperatingCapacityUnit, " &
+                "strAllowableEmissionRate1 = @strAllowableEmissionRate1, " &
+                "strAllowableEmissionRate2 = @strAllowableEmissionRate2, " &
+                "strAllowableEmissionRate3 = @strAllowableEmissionRate3, " &
+                "strAllowableEmissionRateUnit1 = @strAllowableEmissionRateUnit1, " &
+                "strAllowableEmissionRateUnit2 = @strAllowableEmissionRateUnit2, " &
+                "strAllowableemissionrateunit3 = @strAllowableemissionrateunit3, " &
+                "strRunNumber1A = @strRunNumber1A, " &
+                "strRunNumber1B = @strRunNumber1B, " &
+                "strRunNumber1C = @strRunNumber1C, " &
+                "strPollutantConcentration1A = @strPollutantConcentration1A, " &
+                "strPollutantConcentration1B = @strPollutantConcentration1B, " &
+                "strPOllutantConcentration1C = @strPOllutantConcentration1C, " &
+                "strPollutantConcentrationUnit = @strPollutantConcentrationUnit, " &
+                "strPollutantConcentrationAvg = @strPollutantConcentrationAvg, " &
+                "strTreatmentRate1A = @strTreatmentRate1A, " &
+                "strTreatmentRate1B = @strTreatmentRate1B, " &
+                "strTreatmentRate1C = @strTreatmentRate1C, " &
+                "strTreatmentRateUnit = @strTreatmentRateUnit, " &
+                "strTreatmentRateAvg = @strTreatmentRateAvg, " &
+                "strPercentallowable = @strPercentallowable " &
+                "where strReferenceNumber = @strReferenceNumber "
             Else
-                SQL = "Insert into ISMPReportPondAndGas " &
+                query = "Insert into ISMPReportPondAndGas " &
+                    "(STRREFERENCENUMBER, STRMAXOPERATINGCAPACITY, STRMAXOPERATINGCAPACITYUNIT, STROPERATINGCAPACITY, " &
+                    "STROPERATINGCAPACITYUNIT, STRALLOWABLEEMISSIONRATE1, STRALLOWABLEEMISSIONRATE2, STRALLOWABLEEMISSIONRATE3, " &
+                    "STRALLOWABLEEMISSIONRATEUNIT1, STRALLOWABLEEMISSIONRATEUNIT2, STRALLOWABLEEMISSIONRATEUNIT3, STRRUNNUMBER1A, " &
+                    "STRRUNNUMBER1B, STRRUNNUMBER1C, STRPOLLUTANTCONCENTRATION1A, STRPOLLUTANTCONCENTRATION1B, STRPOLLUTANTCONCENTRATION1C, " &
+                    "STRPOLLUTANTCONCENTRATIONUNIT, STRPOLLUTANTCONCENTRATIONAVG, STREMISSIONRATE1A, STREMISSIONRATE1B, STREMISSIONRATE1C, " &
+                    "STREMISSIONRATEUNIT, STREMISSIONRATEAVG, STRTREATMENTRATE1A, STRTREATMENTRATE1B, STRTREATMENTRATE1C, STRTREATMENTRATEUNIT, " &
+                    "STRTREATMENTRATEAVG, STRPERCENTALLOWABLE) " &
                 "values " &
-                "('" & txtReferenceNumber.Text & "', " &
-                "'" & MaxOpCapacity & "', '" & MaxOpCapacityUnit & "', " &
-                "'" & OpCapacity & "', '" & OpCapacityUnit & "', " &
-                "'" & AllowEmissRate1 & "', '" & AllowEmissRate2 & "', " &
-                "'" & AllowEmissRate3 & "', " &
-                "'" & AllowEmissRateUnit1 & "', '" & AllowEmissRateUnit2 & "', " &
-                "'" & AllowEmissRateUnit3 & "', " &
-                "'" & TestRun1 & "', '" & TestRun2 & "', " &
-                "'" & TestRun3 & "', " &
-                "'" & PollConc1 & "', '" & PollConc2 & "', " &
-                "'" & PollConc3 & "', " &
-                "'" & PollConcUnit & "', '" & PollConcAvg & "', " &
-                "' ', ' ', " &
-                "' ', " &
-                "' ', ' ', " &
-                "'" & Treatment1 & "', '" & Treatment2 & "', " &
-                "'" & Treatment3 & "', " &
-                "'" & TreatmentUnit & "', '" & TreatmentAvg & "', " &
-                "'" & Destruct & "') "
+                    "(@STRREFERENCENUMBER, @STRMAXOPERATINGCAPACITY, @STRMAXOPERATINGCAPACITYUNIT, @STROPERATINGCAPACITY, " &
+                    "@STROPERATINGCAPACITYUNIT, @STRALLOWABLEEMISSIONRATE1, @STRALLOWABLEEMISSIONRATE2, @STRALLOWABLEEMISSIONRATE3, " &
+                    "@STRALLOWABLEEMISSIONRATEUNIT1, @STRALLOWABLEEMISSIONRATEUNIT2, @STRALLOWABLEEMISSIONRATEUNIT3, @STRRUNNUMBER1A, " &
+                    "@STRRUNNUMBER1B, @STRRUNNUMBER1C, @STRPOLLUTANTCONCENTRATION1A, @STRPOLLUTANTCONCENTRATION1B, @STRPOLLUTANTCONCENTRATION1C, " &
+                    "@STRPOLLUTANTCONCENTRATIONUNIT, @STRPOLLUTANTCONCENTRATIONAVG, ' ', ' ', ' ', " &
+                    "' ', ' ', @STRTREATMENTRATE1A, @STRTREATMENTRATE1B, @STRTREATMENTRATE1C, @STRTREATMENTRATEUNIT, " &
+                    "@STRTREATMENTRATEAVG, @STRPERCENTALLOWABLE) "
             End If
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
+
+            Dim p2 As SqlParameter() = {
+                New SqlParameter("@strMaxOperatingCapacity", MaxOpCapacity),
+                New SqlParameter("@strMaxOperatingCapacityUnit", MaxOpCapacityUnit),
+                New SqlParameter("@strOperatingCapacity", OpCapacity),
+                New SqlParameter("@strOperatingCapacityUnit", OpCapacityUnit),
+                New SqlParameter("@strAllowableEmissionRate1", AllowEmissRate1),
+                New SqlParameter("@strAllowableEmissionRate2", AllowEmissRate2),
+                New SqlParameter("@strAllowableEmissionRate3", AllowEmissRate3),
+                New SqlParameter("@strAllowableEmissionRateUnit1", AllowEmissRateUnit1),
+                New SqlParameter("@strAllowableEmissionRateUnit2", AllowEmissRateUnit2),
+                New SqlParameter("@strAllowableemissionrateunit3", AllowEmissRateUnit3),
+                New SqlParameter("@strRunNumber1A", TestRun1),
+                New SqlParameter("@strRunNumber1B", TestRun2),
+                New SqlParameter("@strRunNumber1C", TestRun3),
+                New SqlParameter("@strPollutantConcentration1A", PollConc1),
+                New SqlParameter("@strPollutantConcentration1B", PollConc2),
+                New SqlParameter("@strPOllutantConcentration1C", PollConc3),
+                New SqlParameter("@strPollutantConcentrationUnit", PollConcUnit),
+                New SqlParameter("@strPollutantConcentrationAvg", PollConcAvg),
+                New SqlParameter("@strTreatmentRate1A", Treatment1),
+                New SqlParameter("@strTreatmentRate1B", Treatment2),
+                New SqlParameter("@strTreatmentRate1C", Treatment3),
+                New SqlParameter("@strTreatmentRateUnit", TreatmentUnit),
+                New SqlParameter("@strTreatmentRateAvg", TreatmentAvg),
+                New SqlParameter("@strPercentallowable", Destruct),
+                New SqlParameter("@strReferenceNumber", txtReferenceNumber.Text)
+            }
+
+            DB.RunCommand(query, p2)
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
-    Sub SaveGas()
+    Private Sub SaveGas()
         Try
             Dim MaxOpCapacity As String = " "
             Dim MaxOpCapacityUnit As String = "00000"
@@ -13884,32 +12608,32 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
             Else
                 AllowEmissRateUnit3 = "00000"
             End If
-            If Me.txtRunNumGas1A.Text <> "" Then
+            If txtRunNumGas1A.Text <> "" Then
                 TestRun1 = txtRunNumGas1A.Text
             Else
                 TestRun1 = "1"
             End If
-            If Me.txtRunNumGas1B.Text <> "" Then
+            If txtRunNumGas1B.Text <> "" Then
                 TestRun2 = txtRunNumGas1B.Text
             Else
                 TestRun2 = "2"
             End If
-            If Me.txtRunNumGas1C.Text <> "" Then
+            If txtRunNumGas1C.Text <> "" Then
                 TestRun3 = txtRunNumGas1C.Text
             Else
                 TestRun3 = "3"
             End If
-            If Me.txtPollConcGas1A.Text <> "" Then
+            If txtPollConcGas1A.Text <> "" Then
                 PollConc1 = txtPollConcGas1A.Text
             Else
                 PollConc1 = " "
             End If
-            If Me.txtPollConcGas1B.Text <> "" Then
+            If txtPollConcGas1B.Text <> "" Then
                 PollConc2 = txtPollConcGas1B.Text
             Else
                 PollConc2 = " "
             End If
-            If Me.txtPollConcGas1C.Text <> "" Then
+            If txtPollConcGas1C.Text <> "" Then
                 PollConc3 = txtPollConcGas1C.Text
             Else
                 PollConc3 = " "
@@ -13927,22 +12651,22 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
             Else
                 PollConcAvg = " "
             End If
-            If Me.txtEmissRateGas1A.Text <> "" Then
+            If txtEmissRateGas1A.Text <> "" Then
                 Emission1 = txtEmissRateGas1A.Text
             Else
                 Emission1 = " "
             End If
-            If Me.txtEmissRateGas1B.Text <> "" Then
+            If txtEmissRateGas1B.Text <> "" Then
                 Emission2 = txtEmissRateGas1B.Text
             Else
                 Emission2 = " "
             End If
-            If Me.txtEmissRateGas1C.Text <> "" Then
+            If txtEmissRateGas1C.Text <> "" Then
                 Emission3 = txtEmissRateGas1C.Text
             Else
                 Emission3 = " "
             End If
-            If Me.cboEmissRateUnitGas.Text <> " " And Me.cboEmissRateUnitGas.Text <> "" Then
+            If cboEmissRateUnitGas.Text <> " " And cboEmissRateUnitGas.Text <> "" Then
                 EmissionUnit = cboEmissRateUnitGas.SelectedValue
                 If EmissionUnit = "" Then
                     EmissionUnit = "00000"
@@ -13950,7 +12674,7 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
             Else
                 EmissionUnit = "00000"
             End If
-            If Me.txtEmissRateAvgGas.Text <> "" Then
+            If txtEmissRateAvgGas.Text <> "" Then
                 EmissionAvg = txtEmissRateAvgGas.Text
             Else
                 EmissionAvg = " "
@@ -13961,79 +12685,94 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                 PercentAllowable = " "
             End If
 
-            SQL = "Select strReferenceNumber " &
+            query = "Select strReferenceNumber " &
             "from ISMPReportPondAndGas " &
-            "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            RecExist = dr.Read
-            dr.Close()
+            "where strReferenceNumber = @ref "
 
-            If RecExist = True Then
-                SQL = "Update ISMPReportPondAndGas set " &
-                "strMaxOperatingCapacity = '" & MaxOpCapacity & "', " &
-                "strMaxOperatingCapacityUnit = '" & MaxOpCapacityUnit & "', " &
-                "strOperatingCapacity  =  '" & OpCapacity & "', " &
-                "strOperatingCapacityUnit = '" & OpCapacityUnit & "', " &
-                "strAllowableEmissionRate1 = '" & AllowEmissRate1 & "', " &
-                "strAllowableEmissionRate2 = '" & AllowEmissRate2 & "', " &
-                "strAllowableEmissionRate3 = '" & AllowEmissRate3 & "', " &
-                "strAllowableEmissionRateUnit1 = '" & AllowEmissRateUnit1 & "', " &
-                "strAllowableEmissionRateUnit2 = '" & AllowEmissRateUnit2 & "', " &
-                "strAllowableemissionrateunit3 = '" & AllowEmissRateUnit3 & "', " &
-                "strRunNumber1A = '" & TestRun1 & "', " &
-                "strRunNumber1B = '" & TestRun2 & "', " &
-                "strRunNumber1C = '" & TestRun3 & "', " &
-                "strPollutantConcentration1A = '" & PollConc1 & "', " &
-                "strPollutantConcentration1B = '" & PollConc2 & "', " &
-                "strPOllutantConcentration1C = '" & PollConc3 & "', " &
-                "strPollutantConcentrationUnit = '" & PollConcUnit & "', " &
-                "strPollutantConcentrationAvg = '" & PollConcAvg & "', " &
-                "strEmissionRate1A = '" & Emission1 & "', " &
-                "strEmissionRate1B = '" & Emission2 & "', " &
-                "strEmissionRate1C = '" & Emission3 & "', " &
-                "strEmissionRateUnit = '" & EmissionUnit & "', " &
-                "strEmissionRateAvg = '" & EmissionAvg & "', " &
-                "strPercentAllowable = '" & PercentAllowable & "' " &
-                "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
+            Dim p As New SqlParameter("@ref", txtReferenceNumber.Text)
+
+            If DB.ValueExists(query, p) Then
+                query = "Update ISMPReportPondAndGas set " &
+                "strMaxOperatingCapacity = @strMaxOperatingCapacity, " &
+                "strMaxOperatingCapacityUnit = @strMaxOperatingCapacityUnit, " &
+                "strOperatingCapacity  = @strOperatingCapacity, " &
+                "strOperatingCapacityUnit = @strOperatingCapacityUnit, " &
+                "strAllowableEmissionRate1 = @strAllowableEmissionRate1, " &
+                "strAllowableEmissionRate2 = @strAllowableEmissionRate2, " &
+                "strAllowableEmissionRate3 = @strAllowableEmissionRate3, " &
+                "strAllowableEmissionRateUnit1 = @strAllowableEmissionRateUnit1, " &
+                "strAllowableEmissionRateUnit2 = @strAllowableEmissionRateUnit2, " &
+                "strAllowableemissionrateunit3 = @strAllowableemissionrateunit3, " &
+                "strRunNumber1A = @strRunNumber1A, " &
+                "strRunNumber1B = @strRunNumber1B, " &
+                "strRunNumber1C = @strRunNumber1C, " &
+                "strPollutantConcentration1A = @strPollutantConcentration1A, " &
+                "strPollutantConcentration1B = @strPollutantConcentration1B, " &
+                "strPOllutantConcentration1C = @strPOllutantConcentration1C, " &
+                "strPollutantConcentrationUnit = @strPollutantConcentrationUnit, " &
+                "strPollutantConcentrationAvg = @strPollutantConcentrationAvg, " &
+                "strEmissionRate1A = @strEmissionRate1A, " &
+                "strEmissionRate1B = @strEmissionRate1B, " &
+                "strEmissionRate1C = @strEmissionRate1C, " &
+                "strEmissionRateUnit = @strEmissionRateUnit, " &
+                "strEmissionRateAvg = @strEmissionRateAvg, " &
+                "strPercentAllowable = @strPercentAllowable " &
+                "where strReferenceNumber = @strReferenceNumber  "
             Else
-                SQL = "Insert into ISMPReportPondAndGas " &
+                query = "Insert into ISMPReportPondAndGas " &
+                    "(STRREFERENCENUMBER, STRMAXOPERATINGCAPACITY, STRMAXOPERATINGCAPACITYUNIT, STROPERATINGCAPACITY, " &
+                    "STROPERATINGCAPACITYUNIT, STRALLOWABLEEMISSIONRATE1, STRALLOWABLEEMISSIONRATE2, STRALLOWABLEEMISSIONRATE3, " &
+                    "STRALLOWABLEEMISSIONRATEUNIT1, STRALLOWABLEEMISSIONRATEUNIT2, STRALLOWABLEEMISSIONRATEUNIT3, STRRUNNUMBER1A, " &
+                    "STRRUNNUMBER1B, STRRUNNUMBER1C, STRPOLLUTANTCONCENTRATION1A, STRPOLLUTANTCONCENTRATION1B, " &
+                    "STRPOLLUTANTCONCENTRATION1C, STRPOLLUTANTCONCENTRATIONUNIT, STRPOLLUTANTCONCENTRATIONAVG, STREMISSIONRATE1A, " &
+                    "STREMISSIONRATE1B, STREMISSIONRATE1C, STREMISSIONRATEUNIT, STREMISSIONRATEAVG, STRTREATMENTRATE1A, " &
+                    "STRTREATMENTRATE1B, STRTREATMENTRATE1C, STRTREATMENTRATEUNIT, STRTREATMENTRATEAVG, STRPERCENTALLOWABLE) " &
                 "values " &
-                "('" & txtReferenceNumber.Text & "', " &
-                "'" & MaxOpCapacity & "', '" & MaxOpCapacityUnit & "', " &
-                "'" & OpCapacity & "', '" & OpCapacityUnit & "', " &
-                "'" & AllowEmissRate1 & "', '" & AllowEmissRate2 & "', " &
-                "'" & AllowEmissRate3 & "', " &
-                "'" & AllowEmissRateUnit1 & "', '" & AllowEmissRateUnit2 & "', " &
-                "'" & AllowEmissRateUnit3 & "', " &
-                "'" & TestRun1 & "', '" & TestRun2 & "', " &
-                "'" & TestRun3 & "', " &
-                "'" & PollConc1 & "', '" & PollConc2 & "', " &
-                "'" & PollConc3 & "', " &
-                "'" & PollConcUnit & "', '" & PollConcAvg & "', " &
-                "'" & Emission1 & "', '" & Emission2 & "', " &
-                "'" & Emission3 & "', " &
-                "'" & EmissionUnit & "', '" & EmissionAvg & "', " &
-                "' ', ' ', " &
-                "' ', " &
-                "' ', ' ', " &
-                "'" & PercentAllowable & "') "
+                    "(@STRREFERENCENUMBER, @STRMAXOPERATINGCAPACITY, @STRMAXOPERATINGCAPACITYUNIT, @STROPERATINGCAPACITY, " &
+                    "@STROPERATINGCAPACITYUNIT, @STRALLOWABLEEMISSIONRATE1, @STRALLOWABLEEMISSIONRATE2, @STRALLOWABLEEMISSIONRATE3, " &
+                    "@STRALLOWABLEEMISSIONRATEUNIT1, @STRALLOWABLEEMISSIONRATEUNIT2, @STRALLOWABLEEMISSIONRATEUNIT3, @STRRUNNUMBER1A, " &
+                    "@STRRUNNUMBER1B, @STRRUNNUMBER1C, @STRPOLLUTANTCONCENTRATION1A, @STRPOLLUTANTCONCENTRATION1B, " &
+                    "@STRPOLLUTANTCONCENTRATION1C, @STRPOLLUTANTCONCENTRATIONUNIT, @STRPOLLUTANTCONCENTRATIONAVG, @STREMISSIONRATE1A, " &
+                    "@STREMISSIONRATE1B, @STREMISSIONRATE1C, @STREMISSIONRATEUNIT, @STREMISSIONRATEAVG, ' ', " &
+                    "' ', ' ', ' ', ' ', @STRPERCENTALLOWABLE) "
             End If
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
+
+            Dim p2 As SqlParameter() = {
+                New SqlParameter("@strMaxOperatingCapacity", MaxOpCapacity),
+                New SqlParameter("@strMaxOperatingCapacityUnit", MaxOpCapacityUnit),
+                New SqlParameter("@strOperatingCapacity", OpCapacity),
+                New SqlParameter("@strOperatingCapacityUnit", OpCapacityUnit),
+                New SqlParameter("@strAllowableEmissionRate1", AllowEmissRate1),
+                New SqlParameter("@strAllowableEmissionRate2", AllowEmissRate2),
+                New SqlParameter("@strAllowableEmissionRate3", AllowEmissRate3),
+                New SqlParameter("@strAllowableEmissionRateUnit1", AllowEmissRateUnit1),
+                New SqlParameter("@strAllowableEmissionRateUnit2", AllowEmissRateUnit2),
+                New SqlParameter("@strAllowableemissionrateunit3", AllowEmissRateUnit3),
+                New SqlParameter("@strRunNumber1A", TestRun1),
+                New SqlParameter("@strRunNumber1B", TestRun2),
+                New SqlParameter("@strRunNumber1C", TestRun3),
+                New SqlParameter("@strPollutantConcentration1A", PollConc1),
+                New SqlParameter("@strPollutantConcentration1B", PollConc2),
+                New SqlParameter("@strPOllutantConcentration1C", PollConc3),
+                New SqlParameter("@strPollutantConcentrationUnit", PollConcUnit),
+                New SqlParameter("@strPollutantConcentrationAvg", PollConcAvg),
+                New SqlParameter("@strEmissionRate1A", Emission1),
+                New SqlParameter("@strEmissionRate1B", Emission2),
+                New SqlParameter("@strEmissionRate1C", Emission3),
+                New SqlParameter("@strEmissionRateUnit", EmissionUnit),
+                New SqlParameter("@strEmissionRateAvg", EmissionAvg),
+                New SqlParameter("@strPercentAllowable", PercentAllowable),
+                New SqlParameter("@strReferenceNumber", txtReferenceNumber.Text)
+            }
+
+            DB.RunCommand(query, p2)
+
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
-    Sub SaveFlare()
+    Private Sub SaveFlare()
         Try
             Dim MaxOpCapacity As String = " "
             Dim MaxOpCapacityUnit As String = "00000"
@@ -14053,12 +12792,12 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
             Dim VelocityAvg As String = " "
             Dim PercentAllowable As String = " "
 
-            If Me.txtMaximumExpectedOperatingCapacityFlare.Text <> "" Then
-                MaxOpCapacity = Me.txtMaximumExpectedOperatingCapacityFlare.Text
+            If txtMaximumExpectedOperatingCapacityFlare.Text <> "" Then
+                MaxOpCapacity = txtMaximumExpectedOperatingCapacityFlare.Text
             Else
                 MaxOpCapacity = " "
             End If
-            If Me.cboMaximumExpectedOperatingCapacityUnitsFlare.Text <> " " And Me.cboMaximumExpectedOperatingCapacityUnitsFlare.Text <> "" Then
+            If cboMaximumExpectedOperatingCapacityUnitsFlare.Text <> " " And cboMaximumExpectedOperatingCapacityUnitsFlare.Text <> "" Then
                 MaxOpCapacityUnit = cboMaximumExpectedOperatingCapacityUnitsFlare.SelectedValue
                 If MaxOpCapacityUnit = "" Then
                     MaxOpCapacityUnit = "00000"
@@ -14066,12 +12805,12 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
             Else
                 MaxOpCapacityUnit = "00000"
             End If
-            If Me.txtOperatingCapacityFlare.Text <> "" Then
-                OpCapacity = Me.txtOperatingCapacityFlare.Text
+            If txtOperatingCapacityFlare.Text <> "" Then
+                OpCapacity = txtOperatingCapacityFlare.Text
             Else
                 OpCapacity = " "
             End If
-            If Me.cboOperatingCapacityUnitsFlare.Text <> " " And Me.cboOperatingCapacityUnitsFlare.Text <> "" Then
+            If cboOperatingCapacityUnitsFlare.Text <> " " And cboOperatingCapacityUnitsFlare.Text <> "" Then
                 OpCapacityUnit = cboOperatingCapacityUnitsFlare.SelectedValue
                 If OpCapacityUnit = "" Then
                     OpCapacityUnit = "00000"
@@ -14104,7 +12843,7 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
             Else
                 HeatingValue3 = " "
             End If
-            If Me.cboHeatingValueUnits.Text <> " " And cboHeatingValueUnits.Text <> "" Then
+            If cboHeatingValueUnits.Text <> " " And cboHeatingValueUnits.Text <> "" Then
                 HeatingValueUnit = cboHeatingValueUnits.SelectedValue
                 If HeatingValueUnit = "" Then
                     HeatingValueUnit = "00000"
@@ -14151,39 +12890,50 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                 PercentAllowable = " "
             End If
 
-            SQL = "Select strReferenceNumber " &
+            query = "Select strReferenceNumber " &
             "from ISMPReportFlare " &
-            "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            RecExist = dr.Read
-            dr.Close()
+            "where strReferenceNumber = @ref "
 
-            If RecExist = True Then
-                SQL = "Update ISMPReportFlare set " &
-                "strMaxOperatingCapacity  = '" & MaxOpCapacity & "', " &
-                "strMaxOperatingCapacityUnit = '" & MaxOpCapacityUnit & "', " &
-                "strOperatingcapacity = '" & OpCapacity & "', " &
-                "strOperatingCapacityUnit = '" & OpCapacityUnit & "', " &
-                "strLimitationVelocity  = '" & LimitationVelocity & "', " &
-                "strLimitationHeatCapacity = '" & LimitationHeatCap & "', " &
-                "strHeatingValue1A = '" & HeatingValue1 & "', " &
-                "strHeatingValue2A = '" & HeatingValue2 & "', " &
-                "strHeatingValue3A = '" & HeatingValue3 & "', " &
-                "strHeatingValueUnits = '" & HeatingValueUnit & "', " &
-                "strHeatingValueAvg = '" & HeatingAvg & "', " &
-                "strVelocity1A = '" & Velocity1 & "', " &
-                "strVelocity2A = '" & Velocity2 & "', " &
-                "strVelocity3A = '" & Velocity3 & "', " &
-                "strVelocityUnits = '" & VelocityUnit & "', " &
-                "strVelocityAvg = '" & VelocityAvg & "', " &
-                "strPercentAllowable = '" & PercentAllowable & "' " &
-                "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
+            Dim p As New SqlParameter("@ref", txtReferenceNumber.Text)
+
+            If DB.ValueExists(query, p) Then
+                query = "Update ISMPReportFlare set " &
+                "strMaxOperatingCapacity  = @strMaxOperatingCapacity, " &
+                "strMaxOperatingCapacityUnit = @strMaxOperatingCapacityUnit, " &
+                "strOperatingcapacity = @strOperatingcapacity, " &
+                "strOperatingCapacityUnit = @strOperatingCapacityUnit, " &
+                "strLimitationVelocity  = @strLimitationVelocity, " &
+                "strLimitationHeatCapacity = @strLimitationHeatCapacity, " &
+                "strHeatingValue1A = @strHeatingValue1A, " &
+                "strHeatingValue2A = @strHeatingValue2A, " &
+                "strHeatingValue3A = @strHeatingValue3A, " &
+                "strHeatingValueUnits = @strHeatingValueUnits, " &
+                "strHeatingValueAvg = @strHeatingValueAvg, " &
+                "strVelocity1A = @strVelocity1A, " &
+                "strVelocity2A = @strVelocity2A, " &
+                "strVelocity3A = @strVelocity3A, " &
+                "strVelocityUnits = @strVelocityUnits, " &
+                "strVelocityAvg = @strVelocityAvg, " &
+                "strPercentAllowable = @strPercentAllowable " &
+                "where strReferenceNumber = @strReferenceNumber "
             Else
-                SQL = "Insert into ISMPReportFlare " &
+                query = "Insert into ISMPReportFlare " &
+                    "(STRREFERENCENUMBER, STRMAXOPERATINGCAPACITY, STRMAXOPERATINGCAPACITYUNIT, STROPERATINGCAPACITY, " &
+                    "STROPERATINGCAPACITYUNIT, STRLIMITATIONVELOCITY, STRLIMITATIONHEATCAPACITY, STRALLOWABLEEMISSIONRATE1A, " &
+                    "STRALLOWABLEEMISSIONRATE2A, STRALLOWABLEEMISSIONRATE3A, STRALLOWEMISSIONRATEUNIT1A, STRALLOWEMISSIONRATEUNIT2A, " &
+                    "STRALLOWEMISSIONRATEUNIT3A, STRHEATINGVALUE1A, STRHEATINGVALUE2A, STRHEATINGVALUE3A, STRHEATINGVALUEUNITS, " &
+                    "STRHEATINGVALUEAVG, STRVELOCITY1A, STRVELOCITY2A, STRVELOCITY3A, STRVELOCITYUNITS, STRVELOCITYAVG, " &
+                    "STRTESTDURATION, STRTESTDURATIONUNIT, STRPOLLUTANTCONCENIN, STRPOLLUTANTCONCENUNITIN, STRPOLLUTANTCONCENOUT, " &
+                    "STRPOLLUTANTCONCENUNITOUT, STREMISSIONRATE, STREMISSIONRATEUNIT, STRDESTRUCTIONEFFICIENCY, STRPERCENTALLOWABLE) " &
+                "values " &
+                    "(@STRREFERENCENUMBER, @STRMAXOPERATINGCAPACITY, @STRMAXOPERATINGCAPACITYUNIT, @STROPERATINGCAPACITY, " &
+                    "@STROPERATINGCAPACITYUNIT, @STRLIMITATIONVELOCITY, @STRLIMITATIONHEATCAPACITY, ' ', " &
+                    "' ', ' ', ' ', ' ', " &
+                    "' ', @STRHEATINGVALUE1A, @STRHEATINGVALUE2A, @STRHEATINGVALUE3A, @STRHEATINGVALUEUNITS, " &
+                    "@STRHEATINGVALUEAVG, @STRVELOCITY1A, @STRVELOCITY2A, @STRVELOCITY3A, @STRVELOCITYUNITS, @STRVELOCITYAVG, " &
+                    "' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', @STRPERCENTALLOWABLE) "
+
+                query = "Insert into ISMPReportFlare " &
                 "values " &
                 "('" & txtReferenceNumber.Text & "', " &
                 "'" & MaxOpCapacity & "', '" & MaxOpCapacityUnit & "', " &
@@ -14206,19 +12956,35 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                 "' ', '" & PercentAllowable & "')  "
             End If
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
+            Dim p2 As SqlParameter() = {
+                New SqlParameter("@strMaxOperatingCapacity", MaxOpCapacity),
+                New SqlParameter("@strMaxOperatingCapacityUnit", MaxOpCapacityUnit),
+                New SqlParameter("@strOperatingcapacity", OpCapacity),
+                New SqlParameter("@strOperatingCapacityUnit", OpCapacityUnit),
+                New SqlParameter("@strLimitationVelocity", LimitationVelocity),
+                New SqlParameter("@strLimitationHeatCapacity", LimitationHeatCap),
+                New SqlParameter("@strHeatingValue1A", HeatingValue1),
+                New SqlParameter("@strHeatingValue2A", HeatingValue2),
+                New SqlParameter("@strHeatingValue3A", HeatingValue3),
+                New SqlParameter("@strHeatingValueUnits", HeatingValueUnit),
+                New SqlParameter("@strHeatingValueAvg", HeatingAvg),
+                New SqlParameter("@strVelocity1A", Velocity1),
+                New SqlParameter("@strVelocity2A", Velocity2),
+                New SqlParameter("@strVelocity3A", Velocity3),
+                New SqlParameter("@strVelocityUnits", VelocityUnit),
+                New SqlParameter("@strVelocityAvg", VelocityAvg),
+                New SqlParameter("@strPercentAllowable", PercentAllowable),
+                New SqlParameter("@strReferenceNumber", txtReferenceNumber.Text)
+            }
+
+            DB.RunCommand(query, p2)
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
-    Sub SaveRata()
+    Private Sub SaveRata()
         Try
             Dim Diluent As String = "00000"
             Dim AppStandard As String = " "
@@ -14503,90 +13269,110 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                 End If
             End If
 
-            SQL = "Select strReferenceNumber " &
+            query = "Select strReferenceNumber " &
             "from ISMPReportRata " &
-            "where strReferenceNumber = '" & txtReferenceNumber.Text & "'"
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            RecExist = dr.Read
-            dr.Close()
+            "where strReferenceNumber = @ref "
 
-            If RecExist = True Then
-                SQL = "Update ISMPReportRATA set " &
-                "strDiluent = '" & Diluent & "', " &
-                "strApplicableStandard = '" & Replace(AppStandard, "'", "''") & "', " &
-                "strRelativeAccuracyPercent = '" & RelativeAccPercent & "', " &
-                "strReferenceMethod1 = '" & RefMethod1 & "', " &
-                "strReferenceMethod2 = '" & RefMethod2 & "', " &
-                "strReferenceMethod3 = '" & RefMethod3 & "', " &
-                "strReferenceMethod4 = '" & RefMethod4 & "', " &
-                "strReferenceMethod5 = '" & RefMethod5 & "', " &
-                "strReferenceMethod6 = '" & RefMethod6 & "', " &
-                "strreferenceMethod7 = '" & RefMethod7 & "', " &
-                "strreferenceMethod8 = '" & RefMethod8 & "', " &
-                "strReferenceMethod9 = '" & RefMethod9 & "', " &
-                "strReferenceMethod10 = '" & RefMethod10 & "', " &
-                "strReferenceMethod11 = '" & RefMethod11 & "', " &
-                "strReferenceMethod12 = '" & RefMethod12 & "', " &
-                "strRATAUnits = '" & RataUnits & "', " &
-                "strCMS1 = '" & CMS1 & "', " &
-                "strCMS2 = '" & CMS2 & "', " &
-                "strCMS3 = '" & CMS3 & "', " &
-                "strCMS4 = '" & CMS4 & "', " &
-                "strCMS5 = '" & CMS5 & "', " &
-                "strCMS6 = '" & CMS6 & "', " &
-                "strCMS7 = '" & CMS7 & "', " &
-                "strCMS8 = '" & CMS8 & "', " &
-                "strCMS9 = '" & CMS9 & "', " &
-                "strCMS10 = '" & CMS10 & "', " &
-                "strCMS11 = '" & CMS11 & "', " &
-                "strCMS12 = '" & CMS12 & "', " &
-                "strAccuracyChoice = '" & AccChoice & "', " &
-                "strAccuracyRequiredPercent = '" & AccRequiredPercent & "', " &
-                "strAccuracyRequiredStatement = '" & Replace(AccRequiredStatement, "'", "''") & "', " &
-                "strRunsIncludedKey = '" & IncludeKey & "' " &
-                "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
+            Dim p As New SqlParameter("@ref", txtReferenceNumber.Text)
+
+            If DB.ValueExists(query, p) Then
+                query = "Update ISMPReportRATA set " &
+                "strDiluent = @strDiluent, " &
+                "strApplicableStandard = @strApplicableStandard, " &
+                "strRelativeAccuracyPercent = @strRelativeAccuracyPercent, " &
+                "strReferenceMethod1 = @strReferenceMethod1, " &
+                "strReferenceMethod2 = @strReferenceMethod2, " &
+                "strReferenceMethod3 = @strReferenceMethod3, " &
+                "strReferenceMethod4 = @strReferenceMethod4, " &
+                "strReferenceMethod5 = @strReferenceMethod5, " &
+                "strReferenceMethod6 = @strReferenceMethod6, " &
+                "strreferenceMethod7 = @strreferenceMethod7, " &
+                "strreferenceMethod8 = @strreferenceMethod8, " &
+                "strReferenceMethod9 = @strReferenceMethod9, " &
+                "strReferenceMethod10 = @strReferenceMethod10, " &
+                "strReferenceMethod11 = @strReferenceMethod11, " &
+                "strReferenceMethod12 = @strReferenceMethod12, " &
+                "strRATAUnits = @strRATAUnits, " &
+                "strCMS1 = @strCMS1, " &
+                "strCMS2 = @strCMS2, " &
+                "strCMS3 = @strCMS3, " &
+                "strCMS4 = @strCMS4, " &
+                "strCMS5 = @strCMS5, " &
+                "strCMS6 = @strCMS6, " &
+                "strCMS7 = @strCMS7, " &
+                "strCMS8 = @strCMS8, " &
+                "strCMS9 = @strCMS9, " &
+                "strCMS10 = @strCMS10, " &
+                "strCMS11 = @strCMS11, " &
+                "strCMS12 = @strCMS12, " &
+                "strAccuracyChoice = @strAccuracyChoice, " &
+                "strAccuracyRequiredPercent = @strAccuracyRequiredPercent, " &
+                "strAccuracyRequiredStatement = @strAccuracyRequiredStatement, " &
+                "strRunsIncludedKey = @strRunsIncludedKey " &
+                "where strReferenceNumber = @strReferenceNumber "
             Else
-                SQL = "Insert into ISMPReportRATA " &
+                query = "Insert into ISMPReportRATA " &
+                    "(STRREFERENCENUMBER, STRDILUENT, STRAPPLICABLESTANDARD, STRRELATIVEACCURACYPERCENT, " &
+                    "STRREFERENCEMETHOD1, STRREFERENCEMETHOD2, STRREFERENCEMETHOD3, STRREFERENCEMETHOD4, " &
+                    "STRREFERENCEMETHOD5, STRREFERENCEMETHOD6, STRREFERENCEMETHOD7, STRREFERENCEMETHOD8, " &
+                    "STRREFERENCEMETHOD9, STRREFERENCEMETHOD10, STRREFERENCEMETHOD11, STRREFERENCEMETHOD12, " &
+                    "STRRATAUNITS, STRCMS1, STRCMS2, STRCMS3, STRCMS4, STRCMS5, STRCMS6, STRCMS7, STRCMS8, " &
+                    "STRCMS9, STRCMS10, STRCMS11, STRCMS12, STRACCURACYCHOICE, STRACCURACYREQUIREDPERCENT, " &
+                    "STRACCURACYREQUIREDSTATEMENT, STRRUNSINCLUDEDKEY) " &
                 "values " &
-                "('" & txtReferenceNumber.Text & "', " &
-                "'" & Diluent & "', " &
-                "'" & Replace(AppStandard, "'", "''") & "', " &
-                "'" & RelativeAccPercent & "', " &
-                "'" & RefMethod1 & "', '" & RefMethod2 & "', " &
-                "'" & RefMethod3 & "', '" & RefMethod4 & "', " &
-                "'" & RefMethod5 & "', '" & RefMethod6 & "', " &
-                "'" & RefMethod7 & "', '" & RefMethod8 & "', " &
-                "'" & RefMethod9 & "', '" & RefMethod10 & "', " &
-                "'" & RefMethod11 & "', '" & RefMethod12 & "', " &
-                "'" & RataUnits & "', " &
-                "'" & CMS1 & "', '" & CMS2 & "', " &
-                "'" & CMS3 & "', '" & CMS4 & "', " &
-                "'" & CMS5 & "', '" & CMS6 & "', " &
-                "'" & CMS7 & "', '" & CMS8 & "', " &
-                "'" & CMS9 & "', '" & CMS10 & "', " &
-                "'" & CMS11 & "', '" & CMS12 & "', " &
-                "'" & AccChoice & "', " &
-                "'" & AccRequiredPercent & "', " &
-                "'" & Replace(AccRequiredStatement, "'", "''") & "', " &
-                "'" & IncludeKey & "') "
+                    "(@STRREFERENCENUMBER, @STRDILUENT, @STRAPPLICABLESTANDARD, @STRRELATIVEACCURACYPERCENT, " &
+                    "@STRREFERENCEMETHOD1, @STRREFERENCEMETHOD2, @STRREFERENCEMETHOD3, @STRREFERENCEMETHOD4, " &
+                    "@STRREFERENCEMETHOD5, @STRREFERENCEMETHOD6, @STRREFERENCEMETHOD7, @STRREFERENCEMETHOD8, " &
+                    "@STRREFERENCEMETHOD9, @STRREFERENCEMETHOD10, @STRREFERENCEMETHOD11, @STRREFERENCEMETHOD12, " &
+                    "@STRRATAUNITS, @STRCMS1, @STRCMS2, @STRCMS3, @STRCMS4, @STRCMS5, @STRCMS6, @STRCMS7, @STRCMS8, " &
+                    "@STRCMS9, @STRCMS10, @STRCMS11, @STRCMS12, @STRACCURACYCHOICE, @STRACCURACYREQUIREDPERCENT, " &
+                    "@STRACCURACYREQUIREDSTATEMENT, @STRRUNSINCLUDEDKEY) "
             End If
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
+
+            Dim p2 As SqlParameter() = {
+                New SqlParameter("@strDiluent", Diluent),
+                New SqlParameter("@strApplicableStandard", AppStandard),
+                New SqlParameter("@strRelativeAccuracyPercent", RelativeAccPercent),
+                New SqlParameter("@strReferenceMethod1", RefMethod1),
+                New SqlParameter("@strReferenceMethod2", RefMethod2),
+                New SqlParameter("@strReferenceMethod3", RefMethod3),
+                New SqlParameter("@strReferenceMethod4", RefMethod4),
+                New SqlParameter("@strReferenceMethod5", RefMethod5),
+                New SqlParameter("@strReferenceMethod6", RefMethod6),
+                New SqlParameter("@strreferenceMethod7", RefMethod7),
+                New SqlParameter("@strreferenceMethod8", RefMethod8),
+                New SqlParameter("@strReferenceMethod9", RefMethod9),
+                New SqlParameter("@strReferenceMethod10", RefMethod10),
+                New SqlParameter("@strReferenceMethod11", RefMethod11),
+                New SqlParameter("@strReferenceMethod12", RefMethod12),
+                New SqlParameter("@strRATAUnits", RataUnits),
+                New SqlParameter("@strCMS1", CMS1),
+                New SqlParameter("@strCMS2", CMS2),
+                New SqlParameter("@strCMS3", CMS3),
+                New SqlParameter("@strCMS4", CMS4),
+                New SqlParameter("@strCMS5", CMS5),
+                New SqlParameter("@strCMS6", CMS6),
+                New SqlParameter("@strCMS7", CMS7),
+                New SqlParameter("@strCMS8", CMS8),
+                New SqlParameter("@strCMS9", CMS9),
+                New SqlParameter("@strCMS10", CMS10),
+                New SqlParameter("@strCMS11", CMS11),
+                New SqlParameter("@strCMS12", CMS12),
+                New SqlParameter("@strAccuracyChoice", AccChoice),
+                New SqlParameter("@strAccuracyRequiredPercent", AccRequiredPercent),
+                New SqlParameter("@strAccuracyRequiredStatement", AccRequiredStatement),
+                New SqlParameter("@strRunsIncludedKey", IncludeKey),
+                New SqlParameter("@strReferenceNumber", txtReferenceNumber.Text)
+            }
+
+            DB.RunCommand(query, p2)
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
-    Sub SaveMemorandum(ReportType As String)
+    Private Sub SaveMemorandum(ReportType As String)
         Try
             Dim MemoField As String = " "
             Dim MaxOpCapacity As String = " "
@@ -14700,61 +13486,67 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
 
             End Select
 
-            SQL = "Select strReferenceNumber " &
+            query = "Select strReferenceNumber " &
             "from ISMPReportMemo " &
-            "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            RecExist = dr.Read
-            dr.Close()
+            "where strReferenceNumber = @ref "
 
-            If RecExist = True Then
-                SQL = "Update ISMPReportMemo set " &
-                "strMemorandumField = '" & Replace(MemoField, "'", "''") & "', " &
-                "strMaxOperatingCapacity = '" & MaxOpCapacity & "', " &
-                "strMaxOperatingCapacityUnit = '" & MaxOpCapacityUnit & "', " &
-                "strOperatingCapacity = '" & OpCapacity & "', " &
-                "strOperatingCapacityUnit = '" & OpCapacityUnit & "', " &
-                "strallowableemissionRate1A = '" & AllowableEmiss1 & "', " &
-                "strAllowableEmissionRate1B = '" & AllowableEmiss2 & "', " &
-                "strAllowableEmissionRate1C = '" & AllowableEmiss3 & "', " &
-                "strAllowableEmissionRateUnit1A = '" & AllowableEmissUnit1 & "', " &
-                "strAllowableEmissionRateUnit1B = '" & AllowableEmissUnit2 & "', " &
-                "strAllowableEmissionRateUnit1C = '" & AllowableEmissUnit3 & "', " &
-                "strMonitorManufactureAndModel = '" & Replace(ManufactureAndModel, "'", "''") & "', " &
-                "strMonitorSerialNumber = '" & Replace(SerialNumber, "'", "''") & "' " &
-                "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
+            Dim p As New SqlParameter("@ref", txtReferenceNumber.Text)
+
+            If DB.ValueExists(query, p) Then
+                query = "Update ISMPReportMemo set " &
+                "strMemorandumField = @strMemorandumField, " &
+                "strMaxOperatingCapacity = @strMaxOperatingCapacity, " &
+                "strMaxOperatingCapacityUnit = @strMaxOperatingCapacityUnit, " &
+                "strOperatingCapacity = @strOperatingCapacity, " &
+                "strOperatingCapacityUnit = @strOperatingCapacityUnit, " &
+                "strallowableemissionRate1A = @strallowableemissionRate1A, " &
+                "strAllowableEmissionRate1B = @strAllowableEmissionRate1B, " &
+                "strAllowableEmissionRate1C = @strAllowableEmissionRate1C, " &
+                "strAllowableEmissionRateUnit1A = @strAllowableEmissionRateUnit1A, " &
+                "strAllowableEmissionRateUnit1B = @strAllowableEmissionRateUnit1B, " &
+                "strAllowableEmissionRateUnit1C = @strAllowableEmissionRateUnit1C, " &
+                "strMonitorManufactureAndModel = @strMonitorManufactureAndModel, " &
+                "strMonitorSerialNumber = @strMonitorSerialNumber " &
+                "where strReferenceNumber = @strReferenceNumber "
             Else
-                SQL = "Insert into ISMPReportMemo " &
+                query = "Insert into ISMPReportMemo " &
+                    "(STRREFERENCENUMBER, STRMEMORANDUMFIELD, STRMAXOPERATINGCAPACITY, STRMAXOPERATINGCAPACITYUNIT, " &
+                    "STROPERATINGCAPACITY, STROPERATINGCAPACITYUNIT, STRALLOWABLEEMISSIONRATE1A, STRALLOWABLEEMISSIONRATE1B, " &
+                    "STRALLOWABLEEMISSIONRATE1C, STRALLOWABLEEMISSIONRATEUNIT1A, STRALLOWABLEEMISSIONRATEUNIT1B, " &
+                    "STRALLOWABLEEMISSIONRATEUNIT1C, STRMONITORMANUFACTUREANDMODEL, STRMONITORSERIALNUMBER) " &
                 "values " &
-                "('" & txtReferenceNumber.Text & "', " &
-                "'" & Replace(MemoField, "'", "''") & "', " &
-                "'" & MaxOpCapacity & "', '" & MaxOpCapacityUnit & "', " &
-                "'" & OpCapacity & "', '" & OpCapacityUnit & "', " &
-                "'" & AllowableEmiss1 & "', '" & AllowableEmiss2 & "', " &
-                "'" & AllowableEmiss3 & "', " &
-                "'" & AllowableEmissUnit1 & "', '" & AllowableEmissUnit2 & "', " &
-                "'" & AllowableEmissUnit3 & "', " &
-                "'" & Replace(ManufactureAndModel, "'", "''") & "', " &
-                "'" & Replace(SerialNumber, "'", "''") & "') "
+                    "(@STRREFERENCENUMBER, @STRMEMORANDUMFIELD, @STRMAXOPERATINGCAPACITY, @STRMAXOPERATINGCAPACITYUNIT, " &
+                    "@STROPERATINGCAPACITY, @STROPERATINGCAPACITYUNIT, @STRALLOWABLEEMISSIONRATE1A, @STRALLOWABLEEMISSIONRATE1B, " &
+                    "@STRALLOWABLEEMISSIONRATE1C, @STRALLOWABLEEMISSIONRATEUNIT1A, @STRALLOWABLEEMISSIONRATEUNIT1B, " &
+                    "@STRALLOWABLEEMISSIONRATEUNIT1C, @STRMONITORMANUFACTUREANDMODEL, @STRMONITORSERIALNUMBER) "
+
             End If
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
+            Dim p2 As SqlParameter() = {
+                New SqlParameter("@strMemorandumField", MemoField),
+                New SqlParameter("@strMaxOperatingCapacity", MaxOpCapacity),
+                New SqlParameter("@strMaxOperatingCapacityUnit", MaxOpCapacityUnit),
+                New SqlParameter("@strOperatingCapacity", OpCapacity),
+                New SqlParameter("@strOperatingCapacityUnit", OpCapacityUnit),
+                New SqlParameter("@strallowableemissionRate1A", AllowableEmiss1),
+                New SqlParameter("@strAllowableEmissionRate1B", AllowableEmiss2),
+                New SqlParameter("@strAllowableEmissionRate1C", AllowableEmiss3),
+                New SqlParameter("@strAllowableEmissionRateUnit1A", AllowableEmissUnit1),
+                New SqlParameter("@strAllowableEmissionRateUnit1B", AllowableEmissUnit2),
+                New SqlParameter("@strAllowableEmissionRateUnit1C", AllowableEmissUnit3),
+                New SqlParameter("@strMonitorManufactureAndModel", ManufactureAndModel),
+                New SqlParameter("@strMonitorSerialNumber", SerialNumber),
+                New SqlParameter("@strReferenceNumber", txtReferenceNumber.Text)
+            }
+
+            DB.RunCommand(query, p2)
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
-    Sub SaveMethodOpacity(ReportType As String)
+    Private Sub SaveMethodOpacity(ReportType As String)
         Try
             Dim MaxOpCapacity1 As String = " "
             Dim MaxOpCapacity2 As String = " "
@@ -15047,104 +13839,104 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
 
             End Select
 
-            SQL = "Select strReferencenumber " &
+            query = "Select strReferencenumber " &
             "from ISMPReportOpacity " &
-            "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            RecExist = dr.Read
-            dr.Close()
+            "where strReferenceNumber = @ref "
 
-            If RecExist = True Then
-                SQL = "Update ISMPReportOpacity set " &
-                "strMaxoperatingCapacity1A = '" & MaxOpCapacity1 & "', " &
-                "strMaxOperatingCapacity2A = '" & MaxOpCapacity2 & "', " &
-                "strMaxOperatingCapacity3A = '" & MaxOpCapacity3 & "', " &
-                "strMaxOperatingCapacity4A = '" & MaxOpCapacity4 & "', " &
-                "strMaxOperatingCapacity5A = '" & MaxOpCapacity5 & "', " &
-                "strMaxOperatingCapacityUnit = '" & MaxOpCapacityUnit & "', " &
-                "strOperatingCapacity1A = '" & OpCapacity1 & "', " &
-                "strOperatingCapacity2A = '" & OpCapacity2 & "', " &
-                "strOperatingCapacity3A = '" & OpCapacity3 & "', " &
-                "strOperatingCapacity4A = '" & OpCapacity4 & "', " &
-                "strOperatingCapacity5A = '" & OpCapacity5 & "', " &
-                "strOperatingCapacityUnit = '" & OpCapacityUnit & "', " &
-                "strAllowableEmissionRate1A = '" & AllowableEmiss1 & "', " &
-                "strAllowableEmissionRate2A = '" & AllowableEmiss2 & "', " &
-                "strAllowableEmissionRate3A = '" & AllowableEmiss3 & "', " &
-                "strAllowableEmissionRate4A = '" & AllowableEmiss4 & "', " &
-                "strAllowableEmissionRate5A = '" & AllowableEmiss5 & "', " &
-                "strAllowableEmissionRateUnit = '" & AllowableEmissUnit & "', " &
-                "strallowableEmissionrate22 = '" & AllowableEmiss22 & "', " &
-                "strOpacityTestDuration = '" & TestDuration & "', " &
-                "strAccumulatedEmissionTime = '" & EmissTime & "', " &
-                "strOpacityPointA = '" & Opacity1 & "', " &
-                "strOpacityPointB = '" & Opacity2 & "', " &
-                "strOpacityPointC = '" & Opacity3 & "', " &
-                "strOpacityPointD = '" & Opacity4 & "', " &
-                "strOpacityPointE = '" & Opacity5 & "', " &
-                "strEquipmentItem1 = '" & Equip1 & "', " &
-                "strEquipmentitem2 = '" & Equip2 & "', " &
-                "strEquipmentItem3 = '" & Equip3 & "', " &
-                "strEquipmentItem4 = '" & Equip4 & "', " &
-                "strEquipmentItem5 = '" & Equip5 & "', " &
-                "STROPACITYStandard = '" & OpacityStandard & "' " &
-                "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
+            Dim p As New SqlParameter("@ref", txtReferenceNumber.Text)
+
+            If DB.ValueExists(query, p) Then
+                query = "Update ISMPReportOpacity set " &
+                "strMaxoperatingCapacity1A = @strMaxoperatingCapacity1A, " &
+                "strMaxOperatingCapacity2A = @strMaxOperatingCapacity2A, " &
+                "strMaxOperatingCapacity3A = @strMaxOperatingCapacity3A, " &
+                "strMaxOperatingCapacity4A = @strMaxOperatingCapacity4A, " &
+                "strMaxOperatingCapacity5A = @strMaxOperatingCapacity5A, " &
+                "strMaxOperatingCapacityUnit = @strMaxOperatingCapacityUnit, " &
+                "strOperatingCapacity1A = @strOperatingCapacity1A, " &
+                "strOperatingCapacity2A = @strOperatingCapacity2A, " &
+                "strOperatingCapacity3A = @strOperatingCapacity3A, " &
+                "strOperatingCapacity4A = @strOperatingCapacity4A, " &
+                "strOperatingCapacity5A = @strOperatingCapacity5A, " &
+                "strOperatingCapacityUnit = @strOperatingCapacityUnit, " &
+                "strAllowableEmissionRate1A = @strAllowableEmissionRate1A, " &
+                "strAllowableEmissionRate2A = @strAllowableEmissionRate2A, " &
+                "strAllowableEmissionRate3A = @strAllowableEmissionRate3A, " &
+                "strAllowableEmissionRate4A = @strAllowableEmissionRate4A, " &
+                "strAllowableEmissionRate5A = @strAllowableEmissionRate5A, " &
+                "strAllowableEmissionRateUnit = @strAllowableEmissionRateUnit, " &
+                "strallowableEmissionrate22 = @strallowableEmissionrate22, " &
+                "strOpacityTestDuration = @strOpacityTestDuration, " &
+                "strAccumulatedEmissionTime = @strAccumulatedEmissionTime, " &
+                "strOpacityPointA = @strOpacityPointA, " &
+                "strOpacityPointB = @strOpacityPointB, " &
+                "strOpacityPointC = @strOpacityPointC, " &
+                "strOpacityPointD = @strOpacityPointD, " &
+                "strOpacityPointE = @strOpacityPointE, " &
+                "strEquipmentItem1 = @strEquipmentItem1, " &
+                "strEquipmentitem2 = @strEquipmentitem2, " &
+                "strEquipmentItem3 = @strEquipmentItem3, " &
+                "strEquipmentItem4 = @strEquipmentItem4, " &
+                "strEquipmentItem5 = @strEquipmentItem5, " &
+                "STROPACITYStandard = @STROPACITYStandard " &
+                "where strReferenceNumber = @strReferenceNumber "
             Else
-                SQL = "Insert into ISMPReportOpacity " &
-                 "(strReferenceNumber, " &
-                 "strMaxoperatingCapacity1A,  strMaxOperatingCapacity2A, " &
-                 "strMaxOperatingCapacity3A,  strMaxOperatingCapacity4A,  " &
-                 "strMaxOperatingCapacity5A, " &
-                 "strMaxOperatingCapacityUnit, " &
-                 "strOperatingCapacity1A,  strOperatingCapacity2A, " &
-                 "strOperatingCapacity3A,  strOperatingCapacity4A, " &
-                 "strOperatingCapacity5A, " &
-                 "strOperatingCapacityUnit, " &
-                 "strAllowableEmissionRate1A, strAllowableEmissionRate2A, " &
-                 "strAllowableEmissionRate3A,  strAllowableEmissionRate4A, " &
-                 "strAllowableEmissionRate5A, " &
-                 "strAllowableEmissionRateUnit, " &
-                 "strallowableEmissionrate22, " &
-                 "strOpacityTestDuration,  strAccumulatedEmissionTime, " &
-                 "strOpacityPointA,  strOpacityPointB, " &
-                 "strOpacityPointC,  strOpacityPointD, " &
-                 "strOpacityPointE, " &
-                 "strEquipmentItem1, strEquipmentitem2, " &
-                 "strEquipmentItem3, strEquipmentItem4, " &
-                 "strEquipmentItem5, STROPACITYStandard) " &
+                query = "Insert into ISMPReportOpacity " &
+                    "(STRREFERENCENUMBER, STRMAXOPERATINGCAPACITY1A, STRMAXOPERATINGCAPACITY2A, STRMAXOPERATINGCAPACITY3A, " &
+                    "STRMAXOPERATINGCAPACITY4A, STRMAXOPERATINGCAPACITY5A, STRMAXOPERATINGCAPACITYUNIT, STROPERATINGCAPACITY1A, " &
+                    "STROPERATINGCAPACITY2A, STROPERATINGCAPACITY3A, STROPERATINGCAPACITY4A, STROPERATINGCAPACITY5A, " &
+                    "STROPERATINGCAPACITYUNIT, STRALLOWABLEEMISSIONRATE1A, STRALLOWABLEEMISSIONRATE2A, STRALLOWABLEEMISSIONRATE3A, " &
+                    "STRALLOWABLEEMISSIONRATE4A, STRALLOWABLEEMISSIONRATE5A, STRALLOWABLEEMISSIONRATEUNIT, STRALLOWABLEEMISSIONRATE22, " &
+                    "STROPACITYTESTDURATION, STRACCUMULATEDEMISSIONTIME, STROPACITYPOINTA, STROPACITYPOINTB, STROPACITYPOINTC, " &
+                    "STROPACITYPOINTD, STROPACITYPOINTE, STREQUIPMENTITEM1, STREQUIPMENTITEM2, STREQUIPMENTITEM3, STREQUIPMENTITEM4, " &
+                    "STREQUIPMENTITEM5, STROPACITYSTANDARD) " &
                 "values " &
-                "('" & txtReferenceNumber.Text & "', " &
-                "'" & MaxOpCapacity1 & "', '" & MaxOpCapacity2 & "', " &
-                "'" & MaxOpCapacity3 & "', '" & MaxOpCapacity4 & "', " &
-                "'" & MaxOpCapacity5 & "', " &
-                "'" & MaxOpCapacityUnit & "', " &
-                "'" & OpCapacity1 & "', '" & OpCapacity2 & "', " &
-                "'" & OpCapacity3 & "', '" & OpCapacity4 & "', " &
-                "'" & OpCapacity5 & "', " &
-                "'" & OpCapacityUnit & "', " &
-                "'" & AllowableEmiss1 & "', '" & AllowableEmiss2 & "', " &
-                "'" & AllowableEmiss3 & "', '" & AllowableEmiss4 & "', " &
-                "'" & AllowableEmiss5 & "', " &
-                "'" & AllowableEmissUnit & "', '" & AllowableEmiss22 & "', " &
-                "'" & TestDuration & "', '" & EmissTime & "', " &
-                "'" & Opacity1 & "', '" & Opacity2 & "', " &
-                "'" & Opacity3 & "', '" & Opacity4 & "', " &
-                "'" & Opacity5 & "', " &
-                "'" & Equip1 & "', '" & Equip2 & "', " &
-                "'" & Equip3 & "', '" & Equip4 & "', " &
-                "'" & Equip5 & "', '" & OpacityStandard & "') "
+                    "(@STRREFERENCENUMBER, @STRMAXOPERATINGCAPACITY1A, @STRMAXOPERATINGCAPACITY2A, @STRMAXOPERATINGCAPACITY3A, " &
+                    "@STRMAXOPERATINGCAPACITY4A, @STRMAXOPERATINGCAPACITY5A, @STRMAXOPERATINGCAPACITYUNIT, @STROPERATINGCAPACITY1A, " &
+                    "@STROPERATINGCAPACITY2A, @STROPERATINGCAPACITY3A, @STROPERATINGCAPACITY4A, @STROPERATINGCAPACITY5A, " &
+                    "@STROPERATINGCAPACITYUNIT, @STRALLOWABLEEMISSIONRATE1A, @STRALLOWABLEEMISSIONRATE2A, @STRALLOWABLEEMISSIONRATE3A, " &
+                    "@STRALLOWABLEEMISSIONRATE4A, @STRALLOWABLEEMISSIONRATE5A, @STRALLOWABLEEMISSIONRATEUNIT, @STRALLOWABLEEMISSIONRATE22, " &
+                    "@STROPACITYTESTDURATION, @STRACCUMULATEDEMISSIONTIME, @STROPACITYPOINTA, @STROPACITYPOINTB, @STROPACITYPOINTC, " &
+                    "@STROPACITYPOINTD, @STROPACITYPOINTE, @STREQUIPMENTITEM1, @STREQUIPMENTITEM2, @STREQUIPMENTITEM3, @STREQUIPMENTITEM4, " &
+                    "@STREQUIPMENTITEM5, @STROPACITYSTANDARD) "
             End If
 
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
+            Dim p2 As SqlParameter() = {
+                New SqlParameter("@strMaxoperatingCapacity1A", MaxOpCapacity1),
+                New SqlParameter("@strMaxOperatingCapacity2A", MaxOpCapacity2),
+                New SqlParameter("@strMaxOperatingCapacity3A", MaxOpCapacity3),
+                New SqlParameter("@strMaxOperatingCapacity4A", MaxOpCapacity4),
+                New SqlParameter("@strMaxOperatingCapacity5A", MaxOpCapacity5),
+                New SqlParameter("@strMaxOperatingCapacityUnit", MaxOpCapacityUnit),
+                New SqlParameter("@strOperatingCapacity1A", OpCapacity1),
+                New SqlParameter("@strOperatingCapacity2A", OpCapacity2),
+                New SqlParameter("@strOperatingCapacity3A", OpCapacity3),
+                New SqlParameter("@strOperatingCapacity4A", OpCapacity4),
+                New SqlParameter("@strOperatingCapacity5A", OpCapacity5),
+                New SqlParameter("@strOperatingCapacityUnit", OpCapacityUnit),
+                New SqlParameter("@strAllowableEmissionRate1A", AllowableEmiss1),
+                New SqlParameter("@strAllowableEmissionRate2A", AllowableEmiss2),
+                New SqlParameter("@strAllowableEmissionRate3A", AllowableEmiss3),
+                New SqlParameter("@strAllowableEmissionRate4A", AllowableEmiss4),
+                New SqlParameter("@strAllowableEmissionRate5A", AllowableEmiss5),
+                New SqlParameter("@strAllowableEmissionRateUnit", AllowableEmissUnit),
+                New SqlParameter("@strallowableEmissionrate22", AllowableEmiss22),
+                New SqlParameter("@strOpacityTestDuration", TestDuration),
+                New SqlParameter("@strAccumulatedEmissionTime", EmissTime),
+                New SqlParameter("@strOpacityPointA", Opacity1),
+                New SqlParameter("@strOpacityPointB", Opacity2),
+                New SqlParameter("@strOpacityPointC", Opacity3),
+                New SqlParameter("@strOpacityPointD", Opacity4),
+                New SqlParameter("@strOpacityPointE", Opacity5),
+                New SqlParameter("@strEquipmentItem1", Equip1),
+                New SqlParameter("@strEquipmentitem2", Equip2),
+                New SqlParameter("@strEquipmentItem3", Equip3),
+                New SqlParameter("@strEquipmentItem4", Equip4),
+                New SqlParameter("@strEquipmentItem5", Equip5),
+                New SqlParameter("@STROPACITYStandard", OpacityStandard), New SqlParameter("@strReferenceNumber", txtReferenceNumber.Text)
+            }
+
+            DB.RunCommand(query, p2)
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -15156,7 +13948,7 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
             OpenFormEnforcement(txtEnforcementNumber.Text)
         End If
     End Sub
-    Sub LoadConfidentialData(ConfidentialData As String)
+    Public Sub LoadConfidentialData(ConfidentialData As String)
         Try
             If Mid(ConfidentialData, 3, 1) = "1" Then
                 txtAirsNumber.BackColor = Color.Tomato
@@ -15169,11 +13961,9 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                 txtFacilityName.BackColor = Color.White
             End If
             If Mid(ConfidentialData, 5, 1) = "1" Then
-                Me.txtFacilityCity.BackColor = Color.Tomato
-                'Me.txtFacilityState.BackColor = Color.Tomato
+                txtFacilityCity.BackColor = Color.Tomato
             Else
-                Me.txtFacilityCity.BackColor = Color.White
-                'Me.txtFacilityState.BackColor = Color.White
+                txtFacilityCity.BackColor = Color.White
             End If
             If Mid(ConfidentialData, 6, 1) = "1" Then
                 cboReportType.BackColor = Color.Tomato
@@ -15181,62 +13971,62 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                 cboReportType.BackColor = Color.White
             End If
             If Mid(ConfidentialData, 7, 1) = "1" Then
-                Me.cboReviewingEngineer.BackColor = Color.Tomato
+                cboReviewingEngineer.BackColor = Color.Tomato
             Else
                 cboReviewingEngineer.BackColor = Color.White
             End If
             If Mid(ConfidentialData, 8, 1) = "1" Then
-                Me.cboISMPUnit.BackColor = Color.Tomato
+                cboISMPUnit.BackColor = Color.Tomato
             Else
                 cboISMPUnit.BackColor = Color.White
             End If
             If Mid(ConfidentialData, 9, 1) = "1" Then
-                Me.txtProgramManager.BackColor = Color.Tomato
+                txtProgramManager.BackColor = Color.Tomato
             Else
                 txtProgramManager.BackColor = Color.White
             End If
             If Mid(ConfidentialData, 10, 1) = "1" Then
-                Me.cboUnitManager.BackColor = Color.Tomato
+                cboUnitManager.BackColor = Color.Tomato
             Else
                 cboUnitManager.BackColor = Color.White
             End If
             If Mid(ConfidentialData, 11, 1) = "1" Then
-                Me.cboTestNotificationNumber.BackColor = Color.Tomato
+                cboTestNotificationNumber.BackColor = Color.Tomato
             Else
                 cboTestNotificationNumber.BackColor = Color.White
             End If
             If Mid(ConfidentialData, 12, 1) = "1" Then
-                Me.cboWitnessingEngineer.BackColor = Color.Tomato
+                cboWitnessingEngineer.BackColor = Color.Tomato
             Else
                 cboWitnessingEngineer.BackColor = Color.White
             End If
             If Mid(ConfidentialData, 13, 1) = "1" Then
-                Me.clbWitnessingEngineers.BackColor = Color.Tomato
+                clbWitnessingEngineers.BackColor = Color.Tomato
             Else
                 clbWitnessingEngineers.BackColor = Color.White
             End If
             If Mid(ConfidentialData, 14, 1) = "1" Then
-                Me.txtSourceTested.BackColor = Color.Tomato
+                txtSourceTested.BackColor = Color.Tomato
             Else
                 txtSourceTested.BackColor = Color.White
             End If
             If Mid(ConfidentialData, 15, 1) = "1" Then
-                Me.cboPollutantDetermined.BackColor = Color.Tomato
+                cboPollutantDetermined.BackColor = Color.Tomato
             Else
                 cboPollutantDetermined.BackColor = Color.White
             End If
             If Mid(ConfidentialData, 16, 1) = "1" Then
-                Me.cboMethodDetermined.BackColor = Color.Tomato
+                cboMethodDetermined.BackColor = Color.Tomato
             Else
                 cboMethodDetermined.BackColor = Color.White
             End If
             If Mid(ConfidentialData, 17, 1) = "1" Then
-                Me.cboTestingFirm.BackColor = Color.Tomato
+                cboTestingFirm.BackColor = Color.Tomato
             Else
                 cboTestingFirm.BackColor = Color.White
             End If
             If Mid(ConfidentialData, 18, 1) = "1" Then
-                Me.cboComplianceStatus.BackColor = Color.Tomato
+                cboComplianceStatus.BackColor = Color.Tomato
             Else
                 cboComplianceStatus.BackColor = Color.White
             End If
@@ -15246,34 +14036,34 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                 lblDatesTested.ForeColor = Color.White
             End If
             If Mid(ConfidentialData, 20, 1) = "1" Then
-                Me.txtDaysInAPB.BackColor = Color.Tomato
-                Me.txtDaysAssigned.BackColor = Color.Tomato
+                txtDaysInAPB.BackColor = Color.Tomato
+                txtDaysAssigned.BackColor = Color.Tomato
             Else
                 txtDaysInAPB.BackColor = Color.White
                 txtDaysAssigned.BackColor = Color.White
             End If
             If Mid(ConfidentialData, 21, 1) = "1" Then
-                Me.txtReceivedByAPB.BackColor = Color.Tomato
+                txtReceivedByAPB.BackColor = Color.Tomato
             Else
                 txtReceivedByAPB.BackColor = Color.White
             End If
             If Mid(ConfidentialData, 22, 1) = "1" Then
-                Me.txtAssignedToEngineer.BackColor = Color.Tomato
+                txtAssignedToEngineer.BackColor = Color.Tomato
             Else
                 txtAssignedToEngineer.BackColor = Color.White
             End If
             If Mid(ConfidentialData, 23, 1) = "1" Then
-                Me.txtCompleteDate.BackColor = Color.Tomato
+                txtCompleteDate.BackColor = Color.Tomato
             Else
                 txtCompleteDate.BackColor = Color.White
             End If
             If Mid(ConfidentialData, 24, 1) = "1" Then
-                Me.cboComplianceManager.BackColor = Color.Tomato
+                cboComplianceManager.BackColor = Color.Tomato
             Else
                 cboComplianceManager.BackColor = Color.White
             End If
             If Mid(ConfidentialData, 25, 1) = "1" Then
-                Me.cboccBox.BackColor = Color.Tomato
+                cboccBox.BackColor = Color.Tomato
             Else
                 cboccBox.BackColor = Color.White
             End If
@@ -15281,77 +14071,77 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                 Case "A"
                     If DocumentType = "002" Then
                         If Mid(ConfidentialData, 26, 1) = "1" Then
-                            Me.txtMaximumExpectedOperatingCapacityOneStack.BackColor = Color.Tomato
-                            Me.cboMaximumExpectedOperatingCapacityUnitsOneStack.BackColor = Color.Tomato
+                            txtMaximumExpectedOperatingCapacityOneStack.BackColor = Color.Tomato
+                            cboMaximumExpectedOperatingCapacityUnitsOneStack.BackColor = Color.Tomato
                         Else
-                            Me.txtMaximumExpectedOperatingCapacityOneStack.BackColor = Color.White
-                            Me.cboMaximumExpectedOperatingCapacityUnitsOneStack.BackColor = Color.White
+                            txtMaximumExpectedOperatingCapacityOneStack.BackColor = Color.White
+                            cboMaximumExpectedOperatingCapacityUnitsOneStack.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 27, 1) = "1" Then
-                            Me.txtOperatingCapacityOneStack.BackColor = Color.Tomato
+                            txtOperatingCapacityOneStack.BackColor = Color.Tomato
                             cboOperatingCapacityUnitsOneStack.BackColor = Color.Tomato
                         Else
-                            Me.txtOperatingCapacityOneStack.BackColor = Color.White
+                            txtOperatingCapacityOneStack.BackColor = Color.White
                             cboOperatingCapacityUnitsOneStack.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 28, 1) = "1" Then
-                            Me.txtAllowableEmissionRate1OneStack.BackColor = Color.Tomato
+                            txtAllowableEmissionRate1OneStack.BackColor = Color.Tomato
                             cboAllowableEmissionRateUnits1OneStack.BackColor = Color.Tomato
                         Else
-                            Me.txtAllowableEmissionRate1OneStack.BackColor = Color.White
+                            txtAllowableEmissionRate1OneStack.BackColor = Color.White
                             cboAllowableEmissionRateUnits1OneStack.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 29, 1) = "1" Then
-                            Me.txtAllowableEmissionRate2OneStack.BackColor = Color.Tomato
+                            txtAllowableEmissionRate2OneStack.BackColor = Color.Tomato
                             cboAllowableEmissionRateUnits2OneStack.BackColor = Color.Tomato
                         Else
-                            Me.txtAllowableEmissionRate2OneStack.BackColor = Color.White
+                            txtAllowableEmissionRate2OneStack.BackColor = Color.White
                             cboAllowableEmissionRateUnits2OneStack.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 30, 1) = "1" Then
-                            Me.txtAllowableEmissionRate3OneStack.BackColor = Color.Tomato
+                            txtAllowableEmissionRate3OneStack.BackColor = Color.Tomato
                             cboAllowableEmissionRateUnits3OneStack.BackColor = Color.Tomato
                         Else
-                            Me.txtAllowableEmissionRate3OneStack.BackColor = Color.White
+                            txtAllowableEmissionRate3OneStack.BackColor = Color.White
                             cboAllowableEmissionRateUnits3OneStack.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 31, 1) = "1" Then
-                            Me.txtApplicableRegulationOneStack.BackColor = Color.Tomato
+                            txtApplicableRegulationOneStack.BackColor = Color.Tomato
                         Else
                             txtApplicableRegulationOneStack.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 32, 1) = "1" Then
-                            Me.txtControlEquipmentOperatingDataOneStack.BackColor = Color.Tomato
+                            txtControlEquipmentOperatingDataOneStack.BackColor = Color.Tomato
                         Else
                             txtControlEquipmentOperatingDataOneStack.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 33, 1) = "1" Then
-                            Me.txtPercentAllowableOneStack.BackColor = Color.Tomato
+                            txtPercentAllowableOneStack.BackColor = Color.Tomato
                         Else
                             txtPercentAllowableOneStack.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 34, 1) = "1" Then
-                            Me.txtOtherInformationOneStack.BackColor = Color.Tomato
+                            txtOtherInformationOneStack.BackColor = Color.Tomato
                         Else
                             txtOtherInformationOneStack.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 35, 1) = "1" Then
-                            Me.txtRunNumOneStackTwoRun1A.BackColor = Color.Tomato
+                            txtRunNumOneStackTwoRun1A.BackColor = Color.Tomato
                         Else
                             txtRunNumOneStackTwoRun1A.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 36, 1) = "1" Then
-                            Me.txtGasTempOneStackTwoRun1A.BackColor = Color.Tomato
+                            txtGasTempOneStackTwoRun1A.BackColor = Color.Tomato
                         Else
                             txtGasTempOneStackTwoRun1A.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 37, 1) = "1" Then
-                            Me.txtGasMoistOneStackTwoRun1A.BackColor = Color.Tomato
+                            txtGasMoistOneStackTwoRun1A.BackColor = Color.Tomato
                         Else
-                            Me.txtGasMoistOneStackTwoRun1A.BackColor = Color.White
+                            txtGasMoistOneStackTwoRun1A.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 38, 1) = "1" Then
-                            Me.txtGasFlowACFMOneStackTwoRun1A.BackColor = Color.Tomato
+                            txtGasFlowACFMOneStackTwoRun1A.BackColor = Color.Tomato
                         Else
                             txtGasFlowACFMOneStackTwoRun1A.BackColor = Color.White
                         End If
@@ -15361,12 +14151,12 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                             txtGasFlowDSCFMOneStackTwoRun1A.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 40, 1) = "1" Then
-                            Me.txtPollConcOneStackTwoRun1A.BackColor = Color.Tomato
+                            txtPollConcOneStackTwoRun1A.BackColor = Color.Tomato
                         Else
                             txtPollConcOneStackTwoRun1A.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 41, 1) = "1" Then
-                            Me.txtEmissRateOneStackTwoRun1A.BackColor = Color.Tomato
+                            txtEmissRateOneStackTwoRun1A.BackColor = Color.Tomato
                         Else
                             txtEmissRateOneStackTwoRun1A.BackColor = Color.White
                         End If
@@ -15406,22 +14196,22 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                             txtEmissRateOneStackTwoRun1B.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 49, 1) = "1" Then
-                            Me.cboPollConUnitOneStackTwoRun.BackColor = Color.Tomato
+                            cboPollConUnitOneStackTwoRun.BackColor = Color.Tomato
                         Else
                             cboPollConUnitOneStackTwoRun.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 50, 1) = "1" Then
-                            Me.cboEmissRateUnitOneStackTwoRun.BackColor = Color.Tomato
+                            cboEmissRateUnitOneStackTwoRun.BackColor = Color.Tomato
                         Else
                             cboEmissRateUnitOneStackTwoRun.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 51, 1) = "1" Then
-                            Me.txtPollConcAvgOneStackTwoRun.BackColor = Color.Tomato
+                            txtPollConcAvgOneStackTwoRun.BackColor = Color.Tomato
                         Else
                             txtPollConcAvgOneStackTwoRun.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 52, 1) = "1" Then
-                            Me.txtEmissRateAvgOneStackTwoRun.BackColor = Color.Tomato
+                            txtEmissRateAvgOneStackTwoRun.BackColor = Color.Tomato
                         Else
                             txtEmissRateAvgOneStackTwoRun.BackColor = Color.White
                         End If
@@ -15429,77 +14219,77 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                 Case "B"
                     If DocumentType = "003" Then
                         If Mid(ConfidentialData, 26, 1) = "1" Then
-                            Me.txtMaximumExpectedOperatingCapacityOneStack.BackColor = Color.Tomato
-                            Me.cboMaximumExpectedOperatingCapacityUnitsOneStack.BackColor = Color.Tomato
+                            txtMaximumExpectedOperatingCapacityOneStack.BackColor = Color.Tomato
+                            cboMaximumExpectedOperatingCapacityUnitsOneStack.BackColor = Color.Tomato
                         Else
-                            Me.txtMaximumExpectedOperatingCapacityOneStack.BackColor = Color.White
-                            Me.cboMaximumExpectedOperatingCapacityUnitsOneStack.BackColor = Color.White
+                            txtMaximumExpectedOperatingCapacityOneStack.BackColor = Color.White
+                            cboMaximumExpectedOperatingCapacityUnitsOneStack.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 27, 1) = "1" Then
-                            Me.txtOperatingCapacityOneStack.BackColor = Color.Tomato
+                            txtOperatingCapacityOneStack.BackColor = Color.Tomato
                             cboOperatingCapacityUnitsOneStack.BackColor = Color.Tomato
                         Else
-                            Me.txtOperatingCapacityOneStack.BackColor = Color.White
+                            txtOperatingCapacityOneStack.BackColor = Color.White
                             cboOperatingCapacityUnitsOneStack.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 28, 1) = "1" Then
-                            Me.txtAllowableEmissionRate1OneStack.BackColor = Color.Tomato
+                            txtAllowableEmissionRate1OneStack.BackColor = Color.Tomato
                             cboAllowableEmissionRateUnits1OneStack.BackColor = Color.Tomato
                         Else
-                            Me.txtAllowableEmissionRate1OneStack.BackColor = Color.White
+                            txtAllowableEmissionRate1OneStack.BackColor = Color.White
                             cboAllowableEmissionRateUnits1OneStack.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 29, 1) = "1" Then
-                            Me.txtAllowableEmissionRate2OneStack.BackColor = Color.Tomato
+                            txtAllowableEmissionRate2OneStack.BackColor = Color.Tomato
                             cboAllowableEmissionRateUnits2OneStack.BackColor = Color.Tomato
                         Else
-                            Me.txtAllowableEmissionRate2OneStack.BackColor = Color.White
+                            txtAllowableEmissionRate2OneStack.BackColor = Color.White
                             cboAllowableEmissionRateUnits2OneStack.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 30, 1) = "1" Then
-                            Me.txtAllowableEmissionRate3OneStack.BackColor = Color.Tomato
+                            txtAllowableEmissionRate3OneStack.BackColor = Color.Tomato
                             cboAllowableEmissionRateUnits3OneStack.BackColor = Color.Tomato
                         Else
-                            Me.txtAllowableEmissionRate3OneStack.BackColor = Color.White
+                            txtAllowableEmissionRate3OneStack.BackColor = Color.White
                             cboAllowableEmissionRateUnits3OneStack.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 31, 1) = "1" Then
-                            Me.txtApplicableRegulationOneStack.BackColor = Color.Tomato
+                            txtApplicableRegulationOneStack.BackColor = Color.Tomato
                         Else
                             txtApplicableRegulationOneStack.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 32, 1) = "1" Then
-                            Me.txtControlEquipmentOperatingDataOneStack.BackColor = Color.Tomato
+                            txtControlEquipmentOperatingDataOneStack.BackColor = Color.Tomato
                         Else
                             txtControlEquipmentOperatingDataOneStack.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 33, 1) = "1" Then
-                            Me.txtPercentAllowableOneStack.BackColor = Color.Tomato
+                            txtPercentAllowableOneStack.BackColor = Color.Tomato
                         Else
                             txtPercentAllowableOneStack.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 34, 1) = "1" Then
-                            Me.txtOtherInformationOneStack.BackColor = Color.Tomato
+                            txtOtherInformationOneStack.BackColor = Color.Tomato
                         Else
                             txtOtherInformationOneStack.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 35, 1) = "1" Then
-                            Me.txtRunNumOneStackThreeRun1A.BackColor = Color.Tomato
+                            txtRunNumOneStackThreeRun1A.BackColor = Color.Tomato
                         Else
                             txtRunNumOneStackThreeRun1A.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 36, 1) = "1" Then
-                            Me.txtGasTempOneStackThreeRun1A.BackColor = Color.Tomato
+                            txtGasTempOneStackThreeRun1A.BackColor = Color.Tomato
                         Else
                             txtGasTempOneStackThreeRun1A.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 37, 1) = "1" Then
-                            Me.txtGasMoistOneStackThreeRun1A.BackColor = Color.Tomato
+                            txtGasMoistOneStackThreeRun1A.BackColor = Color.Tomato
                         Else
-                            Me.txtGasMoistOneStackThreeRun1A.BackColor = Color.White
+                            txtGasMoistOneStackThreeRun1A.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 38, 1) = "1" Then
-                            Me.txtGasFlowACFMOneStackThreeRun1A.BackColor = Color.Tomato
+                            txtGasFlowACFMOneStackThreeRun1A.BackColor = Color.Tomato
                         Else
                             txtGasFlowACFMOneStackThreeRun1A.BackColor = Color.White
                         End If
@@ -15509,12 +14299,12 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                             txtGasFlowDSCFMOneStackThreeRun1A.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 40, 1) = "1" Then
-                            Me.txtPollConcOneStackThreeRun1A.BackColor = Color.Tomato
+                            txtPollConcOneStackThreeRun1A.BackColor = Color.Tomato
                         Else
                             txtPollConcOneStackThreeRun1A.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 41, 1) = "1" Then
-                            Me.txtEmissRateOneStackThreeRun1A.BackColor = Color.Tomato
+                            txtEmissRateOneStackThreeRun1A.BackColor = Color.Tomato
                         Else
                             txtEmissRateOneStackThreeRun1A.BackColor = Color.White
                         End If
@@ -15589,22 +14379,22 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                             txtEmissRateOneStackThreeRun1C.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 56, 1) = "1" Then
-                            Me.cboPollConUnitOneStackThreeRun.BackColor = Color.Tomato
+                            cboPollConUnitOneStackThreeRun.BackColor = Color.Tomato
                         Else
                             cboPollConUnitOneStackThreeRun.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 57, 1) = "1" Then
-                            Me.txtPollConcAvgOneStackThreeRun.BackColor = Color.Tomato
+                            txtPollConcAvgOneStackThreeRun.BackColor = Color.Tomato
                         Else
                             txtPollConcAvgOneStackThreeRun.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 58, 1) = "1" Then
-                            Me.cboEmissRateUnitOneStackThreeRun.BackColor = Color.Tomato
+                            cboEmissRateUnitOneStackThreeRun.BackColor = Color.Tomato
                         Else
                             cboEmissRateUnitOneStackThreeRun.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 59, 1) = "1" Then
-                            Me.txtEmissRateAvgOneStackThreeRun.BackColor = Color.Tomato
+                            txtEmissRateAvgOneStackThreeRun.BackColor = Color.Tomato
                         Else
                             txtEmissRateAvgOneStackThreeRun.BackColor = Color.White
                         End If
@@ -15612,77 +14402,77 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                 Case "C"
                     If DocumentType = "004" Then
                         If Mid(ConfidentialData, 26, 1) = "1" Then
-                            Me.txtMaximumExpectedOperatingCapacityOneStack.BackColor = Color.Tomato
-                            Me.cboMaximumExpectedOperatingCapacityUnitsOneStack.BackColor = Color.Tomato
+                            txtMaximumExpectedOperatingCapacityOneStack.BackColor = Color.Tomato
+                            cboMaximumExpectedOperatingCapacityUnitsOneStack.BackColor = Color.Tomato
                         Else
-                            Me.txtMaximumExpectedOperatingCapacityOneStack.BackColor = Color.White
-                            Me.cboMaximumExpectedOperatingCapacityUnitsOneStack.BackColor = Color.White
+                            txtMaximumExpectedOperatingCapacityOneStack.BackColor = Color.White
+                            cboMaximumExpectedOperatingCapacityUnitsOneStack.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 27, 1) = "1" Then
-                            Me.txtOperatingCapacityOneStack.BackColor = Color.Tomato
+                            txtOperatingCapacityOneStack.BackColor = Color.Tomato
                             cboOperatingCapacityUnitsOneStack.BackColor = Color.Tomato
                         Else
-                            Me.txtOperatingCapacityOneStack.BackColor = Color.White
+                            txtOperatingCapacityOneStack.BackColor = Color.White
                             cboOperatingCapacityUnitsOneStack.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 28, 1) = "1" Then
-                            Me.txtAllowableEmissionRate1OneStack.BackColor = Color.Tomato
+                            txtAllowableEmissionRate1OneStack.BackColor = Color.Tomato
                             cboAllowableEmissionRateUnits1OneStack.BackColor = Color.Tomato
                         Else
-                            Me.txtAllowableEmissionRate1OneStack.BackColor = Color.White
+                            txtAllowableEmissionRate1OneStack.BackColor = Color.White
                             cboAllowableEmissionRateUnits1OneStack.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 29, 1) = "1" Then
-                            Me.txtAllowableEmissionRate2OneStack.BackColor = Color.Tomato
+                            txtAllowableEmissionRate2OneStack.BackColor = Color.Tomato
                             cboAllowableEmissionRateUnits2OneStack.BackColor = Color.Tomato
                         Else
-                            Me.txtAllowableEmissionRate2OneStack.BackColor = Color.White
+                            txtAllowableEmissionRate2OneStack.BackColor = Color.White
                             cboAllowableEmissionRateUnits2OneStack.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 30, 1) = "1" Then
-                            Me.txtAllowableEmissionRate3OneStack.BackColor = Color.Tomato
+                            txtAllowableEmissionRate3OneStack.BackColor = Color.Tomato
                             cboAllowableEmissionRateUnits3OneStack.BackColor = Color.Tomato
                         Else
-                            Me.txtAllowableEmissionRate3OneStack.BackColor = Color.White
+                            txtAllowableEmissionRate3OneStack.BackColor = Color.White
                             cboAllowableEmissionRateUnits3OneStack.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 31, 1) = "1" Then
-                            Me.txtApplicableRegulationOneStack.BackColor = Color.Tomato
+                            txtApplicableRegulationOneStack.BackColor = Color.Tomato
                         Else
                             txtApplicableRegulationOneStack.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 32, 1) = "1" Then
-                            Me.txtControlEquipmentOperatingDataOneStack.BackColor = Color.Tomato
+                            txtControlEquipmentOperatingDataOneStack.BackColor = Color.Tomato
                         Else
                             txtControlEquipmentOperatingDataOneStack.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 33, 1) = "1" Then
-                            Me.txtPercentAllowableOneStack.BackColor = Color.Tomato
+                            txtPercentAllowableOneStack.BackColor = Color.Tomato
                         Else
                             txtPercentAllowableOneStack.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 34, 1) = "1" Then
-                            Me.txtOtherInformationOneStack.BackColor = Color.Tomato
+                            txtOtherInformationOneStack.BackColor = Color.Tomato
                         Else
                             txtOtherInformationOneStack.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 35, 1) = "1" Then
-                            Me.txtRunNumOneStackFourRun1A.BackColor = Color.Tomato
+                            txtRunNumOneStackFourRun1A.BackColor = Color.Tomato
                         Else
                             txtRunNumOneStackFourRun1A.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 36, 1) = "1" Then
-                            Me.txtGasTempOneStackFourRun1A.BackColor = Color.Tomato
+                            txtGasTempOneStackFourRun1A.BackColor = Color.Tomato
                         Else
                             txtGasTempOneStackFourRun1A.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 37, 1) = "1" Then
-                            Me.txtGasMoistOneStackFourRun1A.BackColor = Color.Tomato
+                            txtGasMoistOneStackFourRun1A.BackColor = Color.Tomato
                         Else
-                            Me.txtGasMoistOneStackFourRun1A.BackColor = Color.White
+                            txtGasMoistOneStackFourRun1A.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 38, 1) = "1" Then
-                            Me.txtGasFlowACFMOneStackFourRun1A.BackColor = Color.Tomato
+                            txtGasFlowACFMOneStackFourRun1A.BackColor = Color.Tomato
                         Else
                             txtGasFlowACFMOneStackFourRun1A.BackColor = Color.White
                         End If
@@ -15692,12 +14482,12 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                             txtGasFlowDSCFMOneStackFourRun1A.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 40, 1) = "1" Then
-                            Me.txtPollConcOneStackFourRun1A.BackColor = Color.Tomato
+                            txtPollConcOneStackFourRun1A.BackColor = Color.Tomato
                         Else
                             txtPollConcOneStackFourRun1A.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 41, 1) = "1" Then
-                            Me.txtEmissRateOneStackFourRun1A.BackColor = Color.Tomato
+                            txtEmissRateOneStackFourRun1A.BackColor = Color.Tomato
                         Else
                             txtEmissRateOneStackFourRun1A.BackColor = Color.White
                         End If
@@ -15807,23 +14597,23 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                             txtEmissRateOneStackFourRun1D.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 63, 1) = "1" Then
-                            Me.cboPollConUnitOneStackFourRun.BackColor = Color.Tomato
+                            cboPollConUnitOneStackFourRun.BackColor = Color.Tomato
                         Else
                             cboPollConUnitOneStackFourRun.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 64, 1) = "1" Then
 
-                            Me.txtPollConcAvgOneStackFourRun.BackColor = Color.Tomato
+                            txtPollConcAvgOneStackFourRun.BackColor = Color.Tomato
                         Else
                             txtPollConcAvgOneStackFourRun.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 65, 1) = "1" Then
-                            Me.cboEmissRateUnitOneStackFourRun.BackColor = Color.Tomato
+                            cboEmissRateUnitOneStackFourRun.BackColor = Color.Tomato
                         Else
                             cboEmissRateUnitOneStackFourRun.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 66, 1) = "1" Then
-                            Me.txtEmissRateAvgOneStackFourRun.BackColor = Color.Tomato
+                            txtEmissRateAvgOneStackFourRun.BackColor = Color.Tomato
                         Else
                             txtEmissRateAvgOneStackFourRun.BackColor = Color.White
                         End If
@@ -15831,57 +14621,57 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                 Case "D"
                     If DocumentType = "005" Then
                         If Mid(ConfidentialData, 26, 1) = "1" Then
-                            Me.txtMaximumExpectedOperatingCapacityTwoStack.BackColor = Color.Tomato
-                            Me.cboMaximumExpectedOperatingCapacityUnitsTwoStack.BackColor = Color.Tomato
+                            txtMaximumExpectedOperatingCapacityTwoStack.BackColor = Color.Tomato
+                            cboMaximumExpectedOperatingCapacityUnitsTwoStack.BackColor = Color.Tomato
                         Else
-                            Me.txtMaximumExpectedOperatingCapacityTwoStack.BackColor = Color.White
-                            Me.cboMaximumExpectedOperatingCapacityUnitsTwoStack.BackColor = Color.White
+                            txtMaximumExpectedOperatingCapacityTwoStack.BackColor = Color.White
+                            cboMaximumExpectedOperatingCapacityUnitsTwoStack.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 27, 1) = "1" Then
-                            Me.txtOperatingCapacityTwoStack.BackColor = Color.Tomato
-                            Me.cboOperatingCapacityUnitsTwoStack.BackColor = Color.Tomato
+                            txtOperatingCapacityTwoStack.BackColor = Color.Tomato
+                            cboOperatingCapacityUnitsTwoStack.BackColor = Color.Tomato
                         Else
-                            Me.txtOperatingCapacityTwoStack.BackColor = Color.White
-                            Me.cboOperatingCapacityUnitsTwoStack.BackColor = Color.White
+                            txtOperatingCapacityTwoStack.BackColor = Color.White
+                            cboOperatingCapacityUnitsTwoStack.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 28, 1) = "1" Then
-                            Me.txtAllowableEmissionRate1TwoStack.BackColor = Color.Tomato
-                            Me.cboAllowableEmissionRateUnits1TwoStack.BackColor = Color.Tomato
+                            txtAllowableEmissionRate1TwoStack.BackColor = Color.Tomato
+                            cboAllowableEmissionRateUnits1TwoStack.BackColor = Color.Tomato
                         Else
-                            Me.txtAllowableEmissionRate1TwoStack.BackColor = Color.White
-                            Me.cboAllowableEmissionRateUnits1TwoStack.BackColor = Color.White
+                            txtAllowableEmissionRate1TwoStack.BackColor = Color.White
+                            cboAllowableEmissionRateUnits1TwoStack.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 29, 1) = "1" Then
-                            Me.txtAllowableEmissionRate2TwoStack.BackColor = Color.Tomato
-                            Me.cboAllowableEmissionRateUnits2TwoStack.BackColor = Color.Tomato
+                            txtAllowableEmissionRate2TwoStack.BackColor = Color.Tomato
+                            cboAllowableEmissionRateUnits2TwoStack.BackColor = Color.Tomato
                         Else
-                            Me.txtAllowableEmissionRate2TwoStack.BackColor = Color.White
-                            Me.cboAllowableEmissionRateUnits2TwoStack.BackColor = Color.White
+                            txtAllowableEmissionRate2TwoStack.BackColor = Color.White
+                            cboAllowableEmissionRateUnits2TwoStack.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 30, 1) = "1" Then
-                            Me.txtAllowableEmissionRate3TwoStack.BackColor = Color.Tomato
-                            Me.cboAllowableEmissionRateUnits3TwoStack.BackColor = Color.Tomato
+                            txtAllowableEmissionRate3TwoStack.BackColor = Color.Tomato
+                            cboAllowableEmissionRateUnits3TwoStack.BackColor = Color.Tomato
                         Else
-                            Me.txtAllowableEmissionRate3TwoStack.BackColor = Color.White
-                            Me.cboAllowableEmissionRateUnits3TwoStack.BackColor = Color.White
+                            txtAllowableEmissionRate3TwoStack.BackColor = Color.White
+                            cboAllowableEmissionRateUnits3TwoStack.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 31, 1) = "1" Then
-                            Me.txtApplicableRegulationTwoStack.BackColor = Color.Tomato
+                            txtApplicableRegulationTwoStack.BackColor = Color.Tomato
                         Else
                             txtApplicableRegulationTwoStack.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 32, 1) = "1" Then
-                            Me.txtControlEquipmentOperatingDataTwoStack.BackColor = Color.Tomato
+                            txtControlEquipmentOperatingDataTwoStack.BackColor = Color.Tomato
                         Else
-                            Me.txtControlEquipmentOperatingDataTwoStack.BackColor = Color.White
+                            txtControlEquipmentOperatingDataTwoStack.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 33, 1) = "1" Then
-                            Me.txtOtherInformationTwoStack.BackColor = Color.Tomato
+                            txtOtherInformationTwoStack.BackColor = Color.Tomato
                         Else
                             txtOtherInformationTwoStack.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 34, 1) = "1" Then
-                            Me.txtStackOneNameTwoStackStandard.BackColor = Color.Tomato
+                            txtStackOneNameTwoStackStandard.BackColor = Color.Tomato
                         Else
                             txtStackOneNameTwoStackStandard.BackColor = Color.White
                         End If
@@ -15891,269 +14681,269 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                             txtStackTwoNameTwoStackStandard.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 36, 1) = "1" Then
-                            Me.txtRunNumTwoStackStandard1A.BackColor = Color.Tomato
+                            txtRunNumTwoStackStandard1A.BackColor = Color.Tomato
                         Else
                             txtRunNumTwoStackStandard1A.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 37, 1) = "1" Then
-                            Me.txtGasTempTwoStackStandard1A.BackColor = Color.Tomato
+                            txtGasTempTwoStackStandard1A.BackColor = Color.Tomato
                         Else
                             txtGasTempTwoStackStandard1A.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 38, 1) = "1" Then
-                            Me.txtGasMoistTwoStackStandard1A.BackColor = Color.Tomato
+                            txtGasMoistTwoStackStandard1A.BackColor = Color.Tomato
                         Else
                             txtGasMoistTwoStackStandard1A.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 39, 1) = "1" Then
-                            Me.txtGasFlowACFMTwoStackStandard1A.BackColor = Color.Tomato
+                            txtGasFlowACFMTwoStackStandard1A.BackColor = Color.Tomato
                         Else
                             txtGasFlowACFMTwoStackStandard1A.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 40, 1) = "1" Then
-                            Me.txtGasFlowDSCFMTwoStackStandard1A.BackColor = Color.Tomato
+                            txtGasFlowDSCFMTwoStackStandard1A.BackColor = Color.Tomato
                         Else
                             txtGasFlowDSCFMTwoStackStandard1A.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 41, 1) = "1" Then
-                            Me.txtPollConcTwoStackStandard1A.BackColor = Color.Tomato
+                            txtPollConcTwoStackStandard1A.BackColor = Color.Tomato
                         Else
                             txtPollConcTwoStackStandard1A.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 42, 1) = "1" Then
-                            Me.txtEmissRateTwoStackStandard1A.BackColor = Color.Tomato
+                            txtEmissRateTwoStackStandard1A.BackColor = Color.Tomato
                         Else
                             txtEmissRateTwoStackStandard1A.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 43, 1) = "1" Then
-                            Me.txtRunNumTwoStackStandard1B.BackColor = Color.Tomato
+                            txtRunNumTwoStackStandard1B.BackColor = Color.Tomato
                         Else
                             txtRunNumTwoStackStandard1B.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 44, 1) = "1" Then
-                            Me.txtGasTempTwoStackStandard1B.BackColor = Color.Tomato
+                            txtGasTempTwoStackStandard1B.BackColor = Color.Tomato
                         Else
                             txtGasTempTwoStackStandard1B.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 45, 1) = "1" Then
-                            Me.txtGasMoistTwoStackStandard1B.BackColor = Color.Tomato
+                            txtGasMoistTwoStackStandard1B.BackColor = Color.Tomato
                         Else
                             txtGasMoistTwoStackStandard1B.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 46, 1) = "1" Then
-                            Me.txtGasFlowACFMTwoStackStandard1B.BackColor = Color.Tomato
+                            txtGasFlowACFMTwoStackStandard1B.BackColor = Color.Tomato
                         Else
                             txtGasFlowACFMTwoStackStandard1B.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 47, 1) = "1" Then
-                            Me.txtGasFlowDSCFMTwoStackStandard1B.BackColor = Color.Tomato
+                            txtGasFlowDSCFMTwoStackStandard1B.BackColor = Color.Tomato
                         Else
                             txtGasFlowDSCFMTwoStackStandard1B.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 48, 1) = "1" Then
-                            Me.txtPollConcTwoStackStandard1B.BackColor = Color.Tomato
+                            txtPollConcTwoStackStandard1B.BackColor = Color.Tomato
                         Else
                             txtPollConcTwoStackStandard1B.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 49, 1) = "1" Then
-                            Me.txtEmissRateTwoStackStandard1B.BackColor = Color.Tomato
+                            txtEmissRateTwoStackStandard1B.BackColor = Color.Tomato
                         Else
                             txtEmissRateTwoStackStandard1B.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 50, 1) = "1" Then
-                            Me.txtRunNumTwoStackStandard1C.BackColor = Color.Tomato
+                            txtRunNumTwoStackStandard1C.BackColor = Color.Tomato
                         Else
                             txtRunNumTwoStackStandard1C.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 51, 1) = "1" Then
-                            Me.txtGasTempTwoStackStandard1C.BackColor = Color.Tomato
+                            txtGasTempTwoStackStandard1C.BackColor = Color.Tomato
                         Else
                             txtGasTempTwoStackStandard1C.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 52, 1) = "1" Then
-                            Me.txtGasMoistTwoStackStandard1C.BackColor = Color.Tomato
+                            txtGasMoistTwoStackStandard1C.BackColor = Color.Tomato
                         Else
                             txtGasMoistTwoStackStandard1C.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 53, 1) = "1" Then
-                            Me.txtGasFlowACFMTwoStackStandard1C.BackColor = Color.Tomato
+                            txtGasFlowACFMTwoStackStandard1C.BackColor = Color.Tomato
                         Else
                             txtGasFlowACFMTwoStackStandard1C.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 54, 1) = "1" Then
-                            Me.txtGasFlowDSCFMTwoStackStandard1C.BackColor = Color.Tomato
+                            txtGasFlowDSCFMTwoStackStandard1C.BackColor = Color.Tomato
                         Else
                             txtGasFlowDSCFMTwoStackStandard1C.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 55, 1) = "1" Then
-                            Me.txtPollConcTwoStackStandard1C.BackColor = Color.Tomato
+                            txtPollConcTwoStackStandard1C.BackColor = Color.Tomato
                         Else
                             txtPollConcTwoStackStandard1C.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 56, 1) = "1" Then
-                            Me.txtEmissRateTwoStackStandard1C.BackColor = Color.Tomato
+                            txtEmissRateTwoStackStandard1C.BackColor = Color.Tomato
                         Else
                             txtEmissRateTwoStackStandard1C.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 57, 1) = "1" Then
-                            Me.txtRunNumTwoStackStandard2A.BackColor = Color.Tomato
+                            txtRunNumTwoStackStandard2A.BackColor = Color.Tomato
                         Else
                             txtRunNumTwoStackStandard2A.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 58, 1) = "1" Then
-                            Me.txtGasTempTwoStackStandard2A.BackColor = Color.Tomato
+                            txtGasTempTwoStackStandard2A.BackColor = Color.Tomato
                         Else
                             txtGasTempTwoStackStandard2A.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 59, 1) = "1" Then
-                            Me.txtGasMoistTwoStackStandard2A.BackColor = Color.Tomato
+                            txtGasMoistTwoStackStandard2A.BackColor = Color.Tomato
                         Else
                             txtGasMoistTwoStackStandard2A.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 60, 1) = "1" Then
-                            Me.txtGasFlowACFMTwoStackStandard2A.BackColor = Color.Tomato
+                            txtGasFlowACFMTwoStackStandard2A.BackColor = Color.Tomato
                         Else
                             txtGasFlowACFMTwoStackStandard2A.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 61, 1) = "1" Then
-                            Me.txtGasFlowDSCFMTwoStackStandard2A.BackColor = Color.Tomato
+                            txtGasFlowDSCFMTwoStackStandard2A.BackColor = Color.Tomato
                         Else
                             txtGasFlowDSCFMTwoStackStandard2A.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 62, 1) = "1" Then
-                            Me.txtPollConcTwoStackStandard2A.BackColor = Color.Tomato
+                            txtPollConcTwoStackStandard2A.BackColor = Color.Tomato
                         Else
                             txtPollConcTwoStackStandard2A.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 63, 1) = "1" Then
-                            Me.txtEmissRateTwoStackStandard2A.BackColor = Color.Tomato
+                            txtEmissRateTwoStackStandard2A.BackColor = Color.Tomato
                         Else
                             txtEmissRateTwoStackStandard2A.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 64, 1) = "1" Then
-                            Me.txtRunNumTwoStackStandard2B.BackColor = Color.Tomato
+                            txtRunNumTwoStackStandard2B.BackColor = Color.Tomato
                         Else
                             txtRunNumTwoStackStandard2B.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 65, 1) = "1" Then
-                            Me.txtGasTempTwoStackStandard2B.BackColor = Color.Tomato
+                            txtGasTempTwoStackStandard2B.BackColor = Color.Tomato
                         Else
                             txtGasTempTwoStackStandard2B.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 66, 1) = "1" Then
-                            Me.txtGasMoistTwoStackStandard2B.BackColor = Color.Tomato
+                            txtGasMoistTwoStackStandard2B.BackColor = Color.Tomato
                         Else
                             txtGasMoistTwoStackStandard2B.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 67, 1) = "1" Then
-                            Me.txtGasFlowACFMTwoStackStandard2B.BackColor = Color.Tomato
+                            txtGasFlowACFMTwoStackStandard2B.BackColor = Color.Tomato
                         Else
                             txtGasFlowACFMTwoStackStandard2B.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 68, 1) = "1" Then
-                            Me.txtGasFlowDSCFMTwoStackStandard2B.BackColor = Color.Tomato
+                            txtGasFlowDSCFMTwoStackStandard2B.BackColor = Color.Tomato
                         Else
                             txtGasFlowDSCFMTwoStackStandard2B.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 69, 1) = "1" Then
-                            Me.txtPollConcTwoStackStandard2B.BackColor = Color.Tomato
+                            txtPollConcTwoStackStandard2B.BackColor = Color.Tomato
                         Else
                             txtPollConcTwoStackStandard2B.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 70, 1) = "1" Then
-                            Me.txtEmissRateTwoStackStandard2B.BackColor = Color.Tomato
+                            txtEmissRateTwoStackStandard2B.BackColor = Color.Tomato
                         Else
                             txtEmissRateTwoStackStandard2B.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 71, 1) = "1" Then
-                            Me.txtRunNumTwoStackStandard2C.BackColor = Color.Tomato
+                            txtRunNumTwoStackStandard2C.BackColor = Color.Tomato
                         Else
                             txtRunNumTwoStackStandard2C.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 72, 1) = "1" Then
-                            Me.txtGasTempTwoStackStandard2C.BackColor = Color.Tomato
+                            txtGasTempTwoStackStandard2C.BackColor = Color.Tomato
                         Else
                             txtGasTempTwoStackStandard2C.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 73, 1) = "1" Then
-                            Me.txtGasMoistTwoStackStandard2C.BackColor = Color.Tomato
+                            txtGasMoistTwoStackStandard2C.BackColor = Color.Tomato
                         Else
                             txtGasMoistTwoStackStandard2C.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 74, 1) = "1" Then
-                            Me.txtGasFlowACFMTwoStackStandard2C.BackColor = Color.Tomato
+                            txtGasFlowACFMTwoStackStandard2C.BackColor = Color.Tomato
                         Else
                             txtGasFlowACFMTwoStackStandard2C.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 75, 1) = "1" Then
-                            Me.txtGasFlowDSCFMTwoStackStandard2C.BackColor = Color.Tomato
+                            txtGasFlowDSCFMTwoStackStandard2C.BackColor = Color.Tomato
                         Else
                             txtGasFlowDSCFMTwoStackStandard2C.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 76, 1) = "1" Then
-                            Me.txtPollConcTwoStackStandard2C.BackColor = Color.Tomato
+                            txtPollConcTwoStackStandard2C.BackColor = Color.Tomato
                         Else
                             txtPollConcTwoStackStandard2C.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 77, 1) = "1" Then
-                            Me.txtEmissRateTwoStackStandard2C.BackColor = Color.Tomato
+                            txtEmissRateTwoStackStandard2C.BackColor = Color.Tomato
                         Else
                             txtEmissRateTwoStackStandard2C.BackColor = Color.White
                         End If
 
 
                         If Mid(ConfidentialData, 78, 1) = "1" Then
-                            Me.cboPollConUnitTwoStackStandard.BackColor = Color.Tomato
+                            cboPollConUnitTwoStackStandard.BackColor = Color.Tomato
                         Else
                             cboPollConUnitTwoStackStandard.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 79, 1) = "1" Then
-                            Me.txtPollConcAvgTwoStackStandard1.BackColor = Color.Tomato
+                            txtPollConcAvgTwoStackStandard1.BackColor = Color.Tomato
                         Else
                             txtPollConcAvgTwoStackStandard1.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 80, 1) = "1" Then
-                            Me.txtPollConcAvgTwoStackStandard2.BackColor = Color.Tomato
+                            txtPollConcAvgTwoStackStandard2.BackColor = Color.Tomato
                         Else
                             txtPollConcAvgTwoStackStandard2.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 81, 1) = "1" Then
-                            Me.cboEmissRateUnitTwoStackStandard.BackColor = Color.Tomato
+                            cboEmissRateUnitTwoStackStandard.BackColor = Color.Tomato
                         Else
                             cboEmissRateUnitTwoStackStandard.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 82, 1) = "1" Then
-                            Me.txtEmissRateAvgTwoStackStandard1.BackColor = Color.Tomato
+                            txtEmissRateAvgTwoStackStandard1.BackColor = Color.Tomato
                         Else
                             txtEmissRateAvgTwoStackStandard1.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 83, 1) = "1" Then
-                            Me.txtEmissRateAvgTwoStackStandard2.BackColor = Color.Tomato
+                            txtEmissRateAvgTwoStackStandard2.BackColor = Color.Tomato
                         Else
                             txtEmissRateAvgTwoStackStandard2.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 84, 1) = "1" Then
-                            Me.txtEmissRateTotalTwoStackStandard1.BackColor = Color.Tomato
+                            txtEmissRateTotalTwoStackStandard1.BackColor = Color.Tomato
                         Else
                             txtEmissRateTotalTwoStackStandard1.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 85, 1) = "1" Then
-                            Me.txtEmissRateTotalTwoStackStandard2.BackColor = Color.Tomato
+                            txtEmissRateTotalTwoStackStandard2.BackColor = Color.Tomato
                         Else
                             txtEmissRateTotalTwoStackStandard2.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 86, 1) = "1" Then
-                            Me.txtEmissRateTotalTwoStackStandard3.BackColor = Color.Tomato
+                            txtEmissRateTotalTwoStackStandard3.BackColor = Color.Tomato
                         Else
                             txtEmissRateTotalTwoStackStandard3.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 87, 1) = "1" Then
-                            Me.txtEmissRateTotalAvgTwoStackStandard.BackColor = Color.Tomato
+                            txtEmissRateTotalAvgTwoStackStandard.BackColor = Color.Tomato
                         Else
                             txtEmissRateTotalAvgTwoStackStandard.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 88, 1) = "1" Then
-                            Me.txtPercentAllowableTwoStack.BackColor = Color.Tomato
+                            txtPercentAllowableTwoStack.BackColor = Color.Tomato
                         Else
                             txtPercentAllowableTwoStack.BackColor = Color.White
                         End If
@@ -16161,57 +14951,57 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                 Case "E"
                     If DocumentType = "006" Then
                         If Mid(ConfidentialData, 26, 1) = "1" Then
-                            Me.txtMaximumExpectedOperatingCapacityTwoStack.BackColor = Color.Tomato
-                            Me.cboMaximumExpectedOperatingCapacityUnitsTwoStack.BackColor = Color.Tomato
+                            txtMaximumExpectedOperatingCapacityTwoStack.BackColor = Color.Tomato
+                            cboMaximumExpectedOperatingCapacityUnitsTwoStack.BackColor = Color.Tomato
                         Else
-                            Me.txtMaximumExpectedOperatingCapacityTwoStack.BackColor = Color.White
-                            Me.cboMaximumExpectedOperatingCapacityUnitsTwoStack.BackColor = Color.White
+                            txtMaximumExpectedOperatingCapacityTwoStack.BackColor = Color.White
+                            cboMaximumExpectedOperatingCapacityUnitsTwoStack.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 27, 1) = "1" Then
-                            Me.txtOperatingCapacityTwoStack.BackColor = Color.Tomato
-                            Me.cboOperatingCapacityUnitsTwoStack.BackColor = Color.Tomato
+                            txtOperatingCapacityTwoStack.BackColor = Color.Tomato
+                            cboOperatingCapacityUnitsTwoStack.BackColor = Color.Tomato
                         Else
-                            Me.txtOperatingCapacityTwoStack.BackColor = Color.White
-                            Me.cboOperatingCapacityUnitsTwoStack.BackColor = Color.White
+                            txtOperatingCapacityTwoStack.BackColor = Color.White
+                            cboOperatingCapacityUnitsTwoStack.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 28, 1) = "1" Then
-                            Me.txtAllowableEmissionRate1TwoStack.BackColor = Color.Tomato
-                            Me.cboAllowableEmissionRateUnits1TwoStack.BackColor = Color.Tomato
+                            txtAllowableEmissionRate1TwoStack.BackColor = Color.Tomato
+                            cboAllowableEmissionRateUnits1TwoStack.BackColor = Color.Tomato
                         Else
-                            Me.txtAllowableEmissionRate1TwoStack.BackColor = Color.White
-                            Me.cboAllowableEmissionRateUnits1TwoStack.BackColor = Color.White
+                            txtAllowableEmissionRate1TwoStack.BackColor = Color.White
+                            cboAllowableEmissionRateUnits1TwoStack.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 29, 1) = "1" Then
-                            Me.txtAllowableEmissionRate2TwoStack.BackColor = Color.Tomato
-                            Me.cboAllowableEmissionRateUnits2TwoStack.BackColor = Color.Tomato
+                            txtAllowableEmissionRate2TwoStack.BackColor = Color.Tomato
+                            cboAllowableEmissionRateUnits2TwoStack.BackColor = Color.Tomato
                         Else
-                            Me.txtAllowableEmissionRate2TwoStack.BackColor = Color.White
-                            Me.cboAllowableEmissionRateUnits2TwoStack.BackColor = Color.White
+                            txtAllowableEmissionRate2TwoStack.BackColor = Color.White
+                            cboAllowableEmissionRateUnits2TwoStack.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 30, 1) = "1" Then
-                            Me.txtAllowableEmissionRate3TwoStack.BackColor = Color.Tomato
-                            Me.cboAllowableEmissionRateUnits3TwoStack.BackColor = Color.Tomato
+                            txtAllowableEmissionRate3TwoStack.BackColor = Color.Tomato
+                            cboAllowableEmissionRateUnits3TwoStack.BackColor = Color.Tomato
                         Else
-                            Me.txtAllowableEmissionRate3TwoStack.BackColor = Color.White
-                            Me.cboAllowableEmissionRateUnits3TwoStack.BackColor = Color.White
+                            txtAllowableEmissionRate3TwoStack.BackColor = Color.White
+                            cboAllowableEmissionRateUnits3TwoStack.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 31, 1) = "1" Then
-                            Me.txtApplicableRegulationTwoStack.BackColor = Color.Tomato
+                            txtApplicableRegulationTwoStack.BackColor = Color.Tomato
                         Else
                             txtApplicableRegulationTwoStack.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 32, 1) = "1" Then
-                            Me.txtControlEquipmentOperatingDataTwoStack.BackColor = Color.Tomato
+                            txtControlEquipmentOperatingDataTwoStack.BackColor = Color.Tomato
                         Else
-                            Me.txtControlEquipmentOperatingDataTwoStack.BackColor = Color.White
+                            txtControlEquipmentOperatingDataTwoStack.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 33, 1) = "1" Then
-                            Me.txtOtherInformationTwoStack.BackColor = Color.Tomato
+                            txtOtherInformationTwoStack.BackColor = Color.Tomato
                         Else
                             txtOtherInformationTwoStack.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 34, 1) = "1" Then
-                            Me.txtStackOneNameTwoStackDRE.BackColor = Color.Tomato
+                            txtStackOneNameTwoStackDRE.BackColor = Color.Tomato
                         Else
                             txtStackOneNameTwoStackDRE.BackColor = Color.White
                         End If
@@ -16221,237 +15011,237 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                             txtStackTwoNameTwoStackDRE.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 36, 1) = "1" Then
-                            Me.txtRunNumTwoStackDRE1A.BackColor = Color.Tomato
+                            txtRunNumTwoStackDRE1A.BackColor = Color.Tomato
                         Else
                             txtRunNumTwoStackDRE1A.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 37, 1) = "1" Then
-                            Me.txtGasTempTwoStackDRE1A.BackColor = Color.Tomato
+                            txtGasTempTwoStackDRE1A.BackColor = Color.Tomato
                         Else
                             txtGasTempTwoStackDRE1A.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 38, 1) = "1" Then
-                            Me.txtGasMoistTwoStackDRE1A.BackColor = Color.Tomato
+                            txtGasMoistTwoStackDRE1A.BackColor = Color.Tomato
                         Else
                             txtGasMoistTwoStackDRE1A.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 39, 1) = "1" Then
-                            Me.txtGasFlowACFMTwoStackDRE1A.BackColor = Color.Tomato
+                            txtGasFlowACFMTwoStackDRE1A.BackColor = Color.Tomato
                         Else
                             txtGasFlowACFMTwoStackDRE1A.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 40, 1) = "1" Then
-                            Me.txtGasFlowDSCFMTwoStackDRE1A.BackColor = Color.Tomato
+                            txtGasFlowDSCFMTwoStackDRE1A.BackColor = Color.Tomato
                         Else
                             txtGasFlowDSCFMTwoStackDRE1A.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 41, 1) = "1" Then
-                            Me.txtPollConcTwoStackDRE1A.BackColor = Color.Tomato
+                            txtPollConcTwoStackDRE1A.BackColor = Color.Tomato
                         Else
                             txtPollConcTwoStackDRE1A.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 42, 1) = "1" Then
-                            Me.txtEmissRateTwoStackDRE1A.BackColor = Color.Tomato
+                            txtEmissRateTwoStackDRE1A.BackColor = Color.Tomato
                         Else
                             txtEmissRateTwoStackDRE1A.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 43, 1) = "1" Then
-                            Me.txtRunNumTwoStackDRE1B.BackColor = Color.Tomato
+                            txtRunNumTwoStackDRE1B.BackColor = Color.Tomato
                         Else
                             txtRunNumTwoStackDRE1B.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 44, 1) = "1" Then
-                            Me.txtGasTempTwoStackDRE1B.BackColor = Color.Tomato
+                            txtGasTempTwoStackDRE1B.BackColor = Color.Tomato
                         Else
                             txtGasTempTwoStackDRE1B.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 45, 1) = "1" Then
-                            Me.txtGasMoistTwoStackDRE1B.BackColor = Color.Tomato
+                            txtGasMoistTwoStackDRE1B.BackColor = Color.Tomato
                         Else
                             txtGasMoistTwoStackDRE1B.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 46, 1) = "1" Then
-                            Me.txtGasFlowACFMTwoStackDRE1B.BackColor = Color.Tomato
+                            txtGasFlowACFMTwoStackDRE1B.BackColor = Color.Tomato
                         Else
                             txtGasFlowACFMTwoStackDRE1B.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 47, 1) = "1" Then
-                            Me.txtGasFlowDSCFMTwoStackDRE1B.BackColor = Color.Tomato
+                            txtGasFlowDSCFMTwoStackDRE1B.BackColor = Color.Tomato
                         Else
                             txtGasFlowDSCFMTwoStackDRE1B.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 48, 1) = "1" Then
-                            Me.txtPollConcTwoStackDRE1B.BackColor = Color.Tomato
+                            txtPollConcTwoStackDRE1B.BackColor = Color.Tomato
                         Else
                             txtPollConcTwoStackDRE1B.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 49, 1) = "1" Then
-                            Me.txtEmissRateTwoStackDRE1B.BackColor = Color.Tomato
+                            txtEmissRateTwoStackDRE1B.BackColor = Color.Tomato
                         Else
                             txtEmissRateTwoStackDRE1B.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 50, 1) = "1" Then
-                            Me.txtRunNumTwoStackDRE1C.BackColor = Color.Tomato
+                            txtRunNumTwoStackDRE1C.BackColor = Color.Tomato
                         Else
                             txtRunNumTwoStackDRE1C.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 51, 1) = "1" Then
-                            Me.txtGasTempTwoStackDRE1C.BackColor = Color.Tomato
+                            txtGasTempTwoStackDRE1C.BackColor = Color.Tomato
                         Else
                             txtGasTempTwoStackDRE1C.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 52, 1) = "1" Then
-                            Me.txtGasMoistTwoStackDRE1C.BackColor = Color.Tomato
+                            txtGasMoistTwoStackDRE1C.BackColor = Color.Tomato
                         Else
                             txtGasMoistTwoStackDRE1C.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 53, 1) = "1" Then
-                            Me.txtGasFlowACFMTwoStackDRE1C.BackColor = Color.Tomato
+                            txtGasFlowACFMTwoStackDRE1C.BackColor = Color.Tomato
                         Else
                             txtGasFlowACFMTwoStackDRE1C.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 54, 1) = "1" Then
-                            Me.txtGasFlowDSCFMTwoStackDRE1C.BackColor = Color.Tomato
+                            txtGasFlowDSCFMTwoStackDRE1C.BackColor = Color.Tomato
                         Else
                             txtGasFlowDSCFMTwoStackDRE1C.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 55, 1) = "1" Then
-                            Me.txtPollConcTwoStackDRE1C.BackColor = Color.Tomato
+                            txtPollConcTwoStackDRE1C.BackColor = Color.Tomato
                         Else
                             txtPollConcTwoStackDRE1C.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 56, 1) = "1" Then
-                            Me.txtEmissRateTwoStackDRE1C.BackColor = Color.Tomato
+                            txtEmissRateTwoStackDRE1C.BackColor = Color.Tomato
                         Else
                             txtEmissRateTwoStackDRE1C.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 57, 1) = "1" Then
-                            Me.txtRunNumTwoStackDRE2A.BackColor = Color.Tomato
+                            txtRunNumTwoStackDRE2A.BackColor = Color.Tomato
                         Else
                             txtRunNumTwoStackDRE2A.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 58, 1) = "1" Then
-                            Me.txtGasTempTwoStackDRE2A.BackColor = Color.Tomato
+                            txtGasTempTwoStackDRE2A.BackColor = Color.Tomato
                         Else
                             txtGasTempTwoStackDRE2A.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 59, 1) = "1" Then
-                            Me.txtGasMoistTwoStackDRE2A.BackColor = Color.Tomato
+                            txtGasMoistTwoStackDRE2A.BackColor = Color.Tomato
                         Else
                             txtGasMoistTwoStackDRE2A.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 60, 1) = "1" Then
-                            Me.txtGasFlowACFMTwoStackDRE2A.BackColor = Color.Tomato
+                            txtGasFlowACFMTwoStackDRE2A.BackColor = Color.Tomato
                         Else
                             txtGasFlowACFMTwoStackDRE2A.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 61, 1) = "1" Then
-                            Me.txtGasFlowDSCFMTwoStackDRE2A.BackColor = Color.Tomato
+                            txtGasFlowDSCFMTwoStackDRE2A.BackColor = Color.Tomato
                         Else
                             txtGasFlowDSCFMTwoStackDRE2A.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 62, 1) = "1" Then
-                            Me.txtPollConcTwoStackDRE2A.BackColor = Color.Tomato
+                            txtPollConcTwoStackDRE2A.BackColor = Color.Tomato
                         Else
                             txtPollConcTwoStackDRE2A.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 63, 1) = "1" Then
-                            Me.txtEmissRateTwoStackDRE2A.BackColor = Color.Tomato
+                            txtEmissRateTwoStackDRE2A.BackColor = Color.Tomato
                         Else
                             txtEmissRateTwoStackDRE2A.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 64, 1) = "1" Then
-                            Me.txtRunNumTwoStackDRE2B.BackColor = Color.Tomato
+                            txtRunNumTwoStackDRE2B.BackColor = Color.Tomato
                         Else
                             txtRunNumTwoStackDRE2B.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 65, 1) = "1" Then
-                            Me.txtGasTempTwoStackDRE2B.BackColor = Color.Tomato
+                            txtGasTempTwoStackDRE2B.BackColor = Color.Tomato
                         Else
                             txtGasTempTwoStackDRE2B.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 66, 1) = "1" Then
-                            Me.txtGasMoistTwoStackDRE2B.BackColor = Color.Tomato
+                            txtGasMoistTwoStackDRE2B.BackColor = Color.Tomato
                         Else
                             txtGasMoistTwoStackDRE2B.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 67, 1) = "1" Then
-                            Me.txtGasFlowACFMTwoStackDRE2B.BackColor = Color.Tomato
+                            txtGasFlowACFMTwoStackDRE2B.BackColor = Color.Tomato
                         Else
                             txtGasFlowACFMTwoStackDRE2B.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 68, 1) = "1" Then
-                            Me.txtGasFlowDSCFMTwoStackDRE2B.BackColor = Color.Tomato
+                            txtGasFlowDSCFMTwoStackDRE2B.BackColor = Color.Tomato
                         Else
                             txtGasFlowDSCFMTwoStackDRE2B.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 69, 1) = "1" Then
-                            Me.txtPollConcTwoStackDRE2B.BackColor = Color.Tomato
+                            txtPollConcTwoStackDRE2B.BackColor = Color.Tomato
                         Else
                             txtPollConcTwoStackDRE2B.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 70, 1) = "1" Then
-                            Me.txtEmissRateTwoStackDRE2B.BackColor = Color.Tomato
+                            txtEmissRateTwoStackDRE2B.BackColor = Color.Tomato
                         Else
                             txtEmissRateTwoStackDRE2B.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 71, 1) = "1" Then
-                            Me.txtRunNumTwoStackDRE2C.BackColor = Color.Tomato
+                            txtRunNumTwoStackDRE2C.BackColor = Color.Tomato
                         Else
                             txtRunNumTwoStackDRE2C.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 72, 1) = "1" Then
-                            Me.txtGasTempTwoStackDRE2C.BackColor = Color.Tomato
+                            txtGasTempTwoStackDRE2C.BackColor = Color.Tomato
                         Else
                             txtGasTempTwoStackDRE2C.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 73, 1) = "1" Then
-                            Me.txtGasMoistTwoStackDRE2C.BackColor = Color.Tomato
+                            txtGasMoistTwoStackDRE2C.BackColor = Color.Tomato
                         Else
                             txtGasMoistTwoStackDRE2C.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 74, 1) = "1" Then
-                            Me.txtGasFlowACFMTwoStackDRE2C.BackColor = Color.Tomato
+                            txtGasFlowACFMTwoStackDRE2C.BackColor = Color.Tomato
                         Else
                             txtGasFlowACFMTwoStackDRE2C.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 75, 1) = "1" Then
-                            Me.txtGasFlowDSCFMTwoStackDRE2C.BackColor = Color.Tomato
+                            txtGasFlowDSCFMTwoStackDRE2C.BackColor = Color.Tomato
                         Else
                             txtGasFlowDSCFMTwoStackDRE2C.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 76, 1) = "1" Then
-                            Me.txtPollConcTwoStackDRE2C.BackColor = Color.Tomato
+                            txtPollConcTwoStackDRE2C.BackColor = Color.Tomato
                         Else
                             txtPollConcTwoStackDRE2C.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 77, 1) = "1" Then
-                            Me.txtEmissRateTwoStackDRE2C.BackColor = Color.Tomato
+                            txtEmissRateTwoStackDRE2C.BackColor = Color.Tomato
                         Else
                             txtEmissRateTwoStackDRE2C.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 78, 1) = "1" Then
-                            Me.cboPollConUnitTwoStackDRE.BackColor = Color.Tomato
+                            cboPollConUnitTwoStackDRE.BackColor = Color.Tomato
                         Else
                             cboPollConUnitTwoStackDRE.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 79, 1) = "1" Then
-                            Me.txtPollConcAvgTwoStackDRE1.BackColor = Color.Tomato
+                            txtPollConcAvgTwoStackDRE1.BackColor = Color.Tomato
                         Else
                             txtPollConcAvgTwoStackDRE1.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 80, 1) = "1" Then
-                            Me.txtPollConcAvgTwoStackDRE2.BackColor = Color.Tomato
+                            txtPollConcAvgTwoStackDRE2.BackColor = Color.Tomato
                         Else
-                            Me.txtPollConcAvgTwoStackDRE2.BackColor = Color.White
+                            txtPollConcAvgTwoStackDRE2.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 81, 1) = "1" Then
-                            Me.cboEmissRateUnitTwoStackDRE.BackColor = Color.Tomato
+                            cboEmissRateUnitTwoStackDRE.BackColor = Color.Tomato
                         Else
                             cboEmissRateUnitTwoStackDRE.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 82, 1) = "1" Then
-                            Me.txtEmissRateAvgTwoStackDRE1.BackColor = Color.Tomato
+                            txtEmissRateAvgTwoStackDRE1.BackColor = Color.Tomato
                         Else
                             txtEmissRateAvgTwoStackDRE1.BackColor = Color.White
                         End If
@@ -16461,7 +15251,7 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                             txtEmissRateAvgTwoStackDRE2.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 84, 1) = "1" Then
-                            Me.txtDestructionEfficiencyTwoStackDRE.BackColor = Color.Tomato
+                            txtDestructionEfficiencyTwoStackDRE.BackColor = Color.Tomato
                         Else
                             txtDestructionEfficiencyTwoStackDRE.BackColor = Color.White
                         End If
@@ -16469,85 +15259,85 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                 Case "F"
                     If DocumentType = "007" Then
                         If Mid(ConfidentialData, 26, 1) = "1" Then
-                            Me.txtMaximumExpectedOperatingCapacityLoadingRack.BackColor = Color.Tomato
-                            Me.cboMaximumExpectedOperatingCapacityUnitsLoadingRack.BackColor = Color.Tomato
+                            txtMaximumExpectedOperatingCapacityLoadingRack.BackColor = Color.Tomato
+                            cboMaximumExpectedOperatingCapacityUnitsLoadingRack.BackColor = Color.Tomato
                         Else
-                            Me.txtMaximumExpectedOperatingCapacityLoadingRack.BackColor = Color.White
-                            Me.cboMaximumExpectedOperatingCapacityUnitsLoadingRack.BackColor = Color.White
+                            txtMaximumExpectedOperatingCapacityLoadingRack.BackColor = Color.White
+                            cboMaximumExpectedOperatingCapacityUnitsLoadingRack.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 27, 1) = "1" Then
-                            Me.txtOperatingCapacityLoadingRack.BackColor = Color.Tomato
-                            Me.cboOperatingCapacityUnitsLoadingRack.BackColor = Color.Tomato
+                            txtOperatingCapacityLoadingRack.BackColor = Color.Tomato
+                            cboOperatingCapacityUnitsLoadingRack.BackColor = Color.Tomato
                         Else
-                            Me.txtOperatingCapacityLoadingRack.BackColor = Color.White
-                            Me.cboOperatingCapacityUnitsLoadingRack.BackColor = Color.White
+                            txtOperatingCapacityLoadingRack.BackColor = Color.White
+                            cboOperatingCapacityUnitsLoadingRack.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 28, 1) = "1" Then
-                            Me.txtAllowableEmissionRate1LoadingRack.BackColor = Color.Tomato
-                            Me.cboAllowableEmissionRateUnits1LoadingRack.BackColor = Color.Tomato
+                            txtAllowableEmissionRate1LoadingRack.BackColor = Color.Tomato
+                            cboAllowableEmissionRateUnits1LoadingRack.BackColor = Color.Tomato
                         Else
-                            Me.txtAllowableEmissionRate1LoadingRack.BackColor = Color.White
+                            txtAllowableEmissionRate1LoadingRack.BackColor = Color.White
                             cboAllowableEmissionRateUnits1LoadingRack.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 29, 1) = "1" Then
-                            Me.txtAllowableEmissionRate2LoadingRack.BackColor = Color.Tomato
+                            txtAllowableEmissionRate2LoadingRack.BackColor = Color.Tomato
                             cboAllowableEmissionRateUnits2LoadingRack.BackColor = Color.Tomato
                         Else
-                            Me.txtAllowableEmissionRate2LoadingRack.BackColor = Color.White
+                            txtAllowableEmissionRate2LoadingRack.BackColor = Color.White
                             cboAllowableEmissionRateUnits2LoadingRack.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 30, 1) = "1" Then
-                            Me.txtAllowableEmissionRate3LoadingRack.BackColor = Color.Tomato
+                            txtAllowableEmissionRate3LoadingRack.BackColor = Color.Tomato
                             cboAllowableEmissionRateUnits3LoadingRack.BackColor = Color.Tomato
                         Else
-                            Me.txtAllowableEmissionRate3LoadingRack.BackColor = Color.White
+                            txtAllowableEmissionRate3LoadingRack.BackColor = Color.White
                             cboAllowableEmissionRateUnits3LoadingRack.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 31, 1) = "1" Then
-                            Me.txtApplicableRegulationLoadingRack.BackColor = Color.Tomato
+                            txtApplicableRegulationLoadingRack.BackColor = Color.Tomato
                         Else
                             txtApplicableRegulationLoadingRack.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 32, 1) = "1" Then
-                            Me.txtControlEquipmentOperatingDataLoadingRack.BackColor = Color.Tomato
+                            txtControlEquipmentOperatingDataLoadingRack.BackColor = Color.Tomato
                         Else
                             txtControlEquipmentOperatingDataLoadingRack.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 33, 1) = "1" Then
-                            Me.txtTestDurationLoadingRack.BackColor = Color.Tomato
-                            Me.cboTestDurationUnitsLoadingRack.BackColor = Color.Tomato
+                            txtTestDurationLoadingRack.BackColor = Color.Tomato
+                            cboTestDurationUnitsLoadingRack.BackColor = Color.Tomato
                         Else
                             txtTestDurationLoadingRack.BackColor = Color.White
-                            Me.cboTestDurationUnitsLoadingRack.BackColor = Color.White
+                            cboTestDurationUnitsLoadingRack.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 34, 1) = "1" Then
-                            Me.txtPollConcINLoadingRack.BackColor = Color.Tomato
-                            Me.cboPollConUnitINLoadingRack.BackColor = Color.Tomato
+                            txtPollConcINLoadingRack.BackColor = Color.Tomato
+                            cboPollConUnitINLoadingRack.BackColor = Color.Tomato
                         Else
                             txtPollConcINLoadingRack.BackColor = Color.White
                             cboPollConUnitINLoadingRack.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 35, 1) = "1" Then
-                            Me.txtPollConcOUTLoadingRack.BackColor = Color.Tomato
+                            txtPollConcOUTLoadingRack.BackColor = Color.Tomato
                             cboPollConUnitOUTLoadingRack.BackColor = Color.Tomato
                         Else
                             txtPollConcOUTLoadingRack.BackColor = Color.White
                             cboPollConUnitOUTLoadingRack.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 36, 1) = "1" Then
-                            Me.txtDestructionEfficiencyLoadingRack.BackColor = Color.Tomato
+                            txtDestructionEfficiencyLoadingRack.BackColor = Color.Tomato
                         Else
                             txtDestructionEfficiencyLoadingRack.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 37, 1) = "1" Then
-                            Me.txtEmissRateLoadingRack.BackColor = Color.Tomato
-                            Me.cboEmissRateUnitLoadingRack.BackColor = Color.Tomato
+                            txtEmissRateLoadingRack.BackColor = Color.Tomato
+                            cboEmissRateUnitLoadingRack.BackColor = Color.Tomato
                         Else
                             txtEmissRateLoadingRack.BackColor = Color.White
                             cboEmissRateUnitLoadingRack.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 38, 1) = "1" Then
-                            Me.txtOtherInformationLoadingRack.BackColor = Color.Tomato
+                            txtOtherInformationLoadingRack.BackColor = Color.Tomato
                         Else
                             txtOtherInformationLoadingRack.BackColor = Color.White
                         End If
@@ -16555,122 +15345,122 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                 Case "G"
                     If DocumentType = "008" Then
                         If Mid(ConfidentialData, 26, 1) = "1" Then
-                            Me.txtMaximumExpectedOperatingCapacityPond.BackColor = Color.Tomato
-                            Me.cboMaximumExpectedOperatingCapacityUnitsPond.BackColor = Color.Tomato
+                            txtMaximumExpectedOperatingCapacityPond.BackColor = Color.Tomato
+                            cboMaximumExpectedOperatingCapacityUnitsPond.BackColor = Color.Tomato
                         Else
-                            Me.txtMaximumExpectedOperatingCapacityPond.BackColor = Color.White
-                            Me.cboMaximumExpectedOperatingCapacityUnitsPond.BackColor = Color.White
+                            txtMaximumExpectedOperatingCapacityPond.BackColor = Color.White
+                            cboMaximumExpectedOperatingCapacityUnitsPond.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 27, 1) = "1" Then
-                            Me.txtOperatingCapacityPond.BackColor = Color.Tomato
-                            Me.cboOperatingCapacityUnitsPond.BackColor = Color.Tomato
+                            txtOperatingCapacityPond.BackColor = Color.Tomato
+                            cboOperatingCapacityUnitsPond.BackColor = Color.Tomato
                         Else
-                            Me.txtOperatingCapacityPond.BackColor = Color.White
-                            Me.cboOperatingCapacityUnitsPond.BackColor = Color.White
+                            txtOperatingCapacityPond.BackColor = Color.White
+                            cboOperatingCapacityUnitsPond.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 28, 1) = "1" Then
-                            Me.txtAllowableEmissionRate1Pond.BackColor = Color.Tomato
-                            Me.cboAllowableEmissionRateUnits1Pond.BackColor = Color.Tomato
+                            txtAllowableEmissionRate1Pond.BackColor = Color.Tomato
+                            cboAllowableEmissionRateUnits1Pond.BackColor = Color.Tomato
                         Else
-                            Me.txtAllowableEmissionRate1Pond.BackColor = Color.White
-                            Me.cboAllowableEmissionRateUnits1Pond.BackColor = Color.White
+                            txtAllowableEmissionRate1Pond.BackColor = Color.White
+                            cboAllowableEmissionRateUnits1Pond.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 29, 1) = "1" Then
-                            Me.txtAllowableEmissionRate2Pond.BackColor = Color.Tomato
-                            Me.cboAllowableEmissionRateUnits2Pond.BackColor = Color.Tomato
+                            txtAllowableEmissionRate2Pond.BackColor = Color.Tomato
+                            cboAllowableEmissionRateUnits2Pond.BackColor = Color.Tomato
                         Else
-                            Me.txtAllowableEmissionRate2Pond.BackColor = Color.White
-                            Me.cboAllowableEmissionRateUnits2Pond.BackColor = Color.White
+                            txtAllowableEmissionRate2Pond.BackColor = Color.White
+                            cboAllowableEmissionRateUnits2Pond.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 30, 1) = "1" Then
-                            Me.txtAllowableEmissionRate3Pond.BackColor = Color.Tomato
-                            Me.cboAllowableEmissionRateUnits3Pond.BackColor = Color.Tomato
+                            txtAllowableEmissionRate3Pond.BackColor = Color.Tomato
+                            cboAllowableEmissionRateUnits3Pond.BackColor = Color.Tomato
                         Else
-                            Me.txtAllowableEmissionRate3Pond.BackColor = Color.White
-                            Me.cboAllowableEmissionRateUnits3Pond.BackColor = Color.White
+                            txtAllowableEmissionRate3Pond.BackColor = Color.White
+                            cboAllowableEmissionRateUnits3Pond.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 31, 1) = "1" Then
-                            Me.txtApplicableRegulationPond.BackColor = Color.Tomato
+                            txtApplicableRegulationPond.BackColor = Color.Tomato
                         Else
                             txtApplicableRegulationPond.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 32, 1) = "1" Then
-                            Me.txtControlEquipmentOperatingDataPond.BackColor = Color.Tomato
+                            txtControlEquipmentOperatingDataPond.BackColor = Color.Tomato
                         Else
                             txtControlEquipmentOperatingDataPond.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 33, 1) = "1" Then
-                            Me.txtRunNumPond1A.BackColor = Color.Tomato
+                            txtRunNumPond1A.BackColor = Color.Tomato
                         Else
                             txtRunNumPond1A.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 34, 1) = "1" Then
-                            Me.txtPollConcPond1A.BackColor = Color.Tomato
+                            txtPollConcPond1A.BackColor = Color.Tomato
                         Else
                             txtPollConcPond1A.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 35, 1) = "1" Then
-                            Me.txtTreatmentRatePond1A.BackColor = Color.Tomato
+                            txtTreatmentRatePond1A.BackColor = Color.Tomato
                         Else
                             txtTreatmentRatePond1A.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 36, 1) = "1" Then
-                            Me.txtRunNumPond1B.BackColor = Color.Tomato
+                            txtRunNumPond1B.BackColor = Color.Tomato
                         Else
                             txtRunNumPond1B.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 37, 1) = "1" Then
-                            Me.txtPollConcPond1B.BackColor = Color.Tomato
+                            txtPollConcPond1B.BackColor = Color.Tomato
                         Else
                             txtPollConcPond1B.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 38, 1) = "1" Then
-                            Me.txtTreatmentRatePond1B.BackColor = Color.Tomato
+                            txtTreatmentRatePond1B.BackColor = Color.Tomato
                         Else
                             txtTreatmentRatePond1B.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 39, 1) = "1" Then
-                            Me.txtRunNumPond1C.BackColor = Color.Tomato
+                            txtRunNumPond1C.BackColor = Color.Tomato
                         Else
                             txtRunNumPond1C.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 40, 1) = "1" Then
-                            Me.txtPollConcPond1C.BackColor = Color.Tomato
+                            txtPollConcPond1C.BackColor = Color.Tomato
                         Else
                             txtPollConcPond1C.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 41, 1) = "1" Then
-                            Me.txtTreatmentRatePond1C.BackColor = Color.Tomato
+                            txtTreatmentRatePond1C.BackColor = Color.Tomato
                         Else
                             txtTreatmentRatePond1C.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 42, 1) = "1" Then
-                            Me.cboPollConUnitPond.BackColor = Color.Tomato
+                            cboPollConUnitPond.BackColor = Color.Tomato
                         Else
                             cboPollConUnitPond.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 43, 1) = "1" Then
-                            Me.txtPollConcAvgPond.BackColor = Color.Tomato
+                            txtPollConcAvgPond.BackColor = Color.Tomato
                         Else
                             txtPollConcAvgPond.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 44, 1) = "1" Then
-                            Me.cboTreatmentRateUnitPond.BackColor = Color.Tomato
+                            cboTreatmentRateUnitPond.BackColor = Color.Tomato
                         Else
                             cboTreatmentRateUnitPond.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 45, 1) = "1" Then
-                            Me.txtTreatmentRateAvgPond.BackColor = Color.Tomato
+                            txtTreatmentRateAvgPond.BackColor = Color.Tomato
                         Else
                             txtTreatmentRateAvgPond.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 46, 1) = "1" Then
-                            Me.txtDestructionEfficancyPond.BackColor = Color.Tomato
+                            txtDestructionEfficancyPond.BackColor = Color.Tomato
                         Else
                             txtDestructionEfficancyPond.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 47, 1) = "1" Then
-                            Me.txtOtherInformationPond.BackColor = Color.Tomato
+                            txtOtherInformationPond.BackColor = Color.Tomato
                         Else
                             txtOtherInformationPond.BackColor = Color.White
                         End If
@@ -16678,67 +15468,67 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                 Case "H"
                     If DocumentType = "009" Then
                         If Mid(ConfidentialData, 26, 1) = "1" Then
-                            Me.txtMaximumExpectedOperatingCapacityGas.BackColor = Color.Tomato
-                            Me.cboMaximumExpectedOperatingCapacityUnitsGas.BackColor = Color.Tomato
+                            txtMaximumExpectedOperatingCapacityGas.BackColor = Color.Tomato
+                            cboMaximumExpectedOperatingCapacityUnitsGas.BackColor = Color.Tomato
                         Else
-                            Me.txtMaximumExpectedOperatingCapacityGas.BackColor = Color.White
-                            Me.cboMaximumExpectedOperatingCapacityUnitsGas.BackColor = Color.White
+                            txtMaximumExpectedOperatingCapacityGas.BackColor = Color.White
+                            cboMaximumExpectedOperatingCapacityUnitsGas.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 27, 1) = "1" Then
-                            Me.txtOperatingCapacityGas.BackColor = Color.Tomato
-                            Me.cboOperatingCapacityUnitsGas.BackColor = Color.Tomato
+                            txtOperatingCapacityGas.BackColor = Color.Tomato
+                            cboOperatingCapacityUnitsGas.BackColor = Color.Tomato
                         Else
-                            Me.txtOperatingCapacityGas.BackColor = Color.White
-                            Me.cboOperatingCapacityUnitsGas.BackColor = Color.White
+                            txtOperatingCapacityGas.BackColor = Color.White
+                            cboOperatingCapacityUnitsGas.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 28, 1) = "1" Then
-                            Me.txtAllowableEmissionRate1Gas.BackColor = Color.Tomato
-                            Me.cboAllowableEmissionRateUnits1Gas.BackColor = Color.Tomato
+                            txtAllowableEmissionRate1Gas.BackColor = Color.Tomato
+                            cboAllowableEmissionRateUnits1Gas.BackColor = Color.Tomato
                         Else
-                            Me.txtAllowableEmissionRate1Gas.BackColor = Color.White
-                            Me.cboAllowableEmissionRateUnits1Gas.BackColor = Color.White
+                            txtAllowableEmissionRate1Gas.BackColor = Color.White
+                            cboAllowableEmissionRateUnits1Gas.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 29, 1) = "1" Then
-                            Me.txtAllowableEmissionRate2Gas.BackColor = Color.Tomato
-                            Me.cboAllowableEmissionRateUnits2Gas.BackColor = Color.Tomato
+                            txtAllowableEmissionRate2Gas.BackColor = Color.Tomato
+                            cboAllowableEmissionRateUnits2Gas.BackColor = Color.Tomato
                         Else
-                            Me.txtAllowableEmissionRate2Gas.BackColor = Color.White
-                            Me.cboAllowableEmissionRateUnits2Gas.BackColor = Color.White
+                            txtAllowableEmissionRate2Gas.BackColor = Color.White
+                            cboAllowableEmissionRateUnits2Gas.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 30, 1) = "1" Then
-                            Me.txtAllowableEmissionRate3Gas.BackColor = Color.Tomato
-                            Me.cboAllowableEmissionRateUnits3Gas.BackColor = Color.Tomato
+                            txtAllowableEmissionRate3Gas.BackColor = Color.Tomato
+                            cboAllowableEmissionRateUnits3Gas.BackColor = Color.Tomato
                         Else
-                            Me.txtAllowableEmissionRate3Gas.BackColor = Color.White
-                            Me.cboAllowableEmissionRateUnits3Gas.BackColor = Color.White
+                            txtAllowableEmissionRate3Gas.BackColor = Color.White
+                            cboAllowableEmissionRateUnits3Gas.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 31, 1) = "1" Then
-                            Me.txtApplicableRegulationGas.BackColor = Color.Tomato
+                            txtApplicableRegulationGas.BackColor = Color.Tomato
                         Else
                             txtApplicableRegulationGas.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 32, 1) = "1" Then
-                            Me.txtControlEquipmentOperatingDataGas.BackColor = Color.Tomato
+                            txtControlEquipmentOperatingDataGas.BackColor = Color.Tomato
                         Else
                             txtControlEquipmentOperatingDataGas.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 33, 1) = "1" Then
-                            Me.txtRunNumGas1A.BackColor = Color.Tomato
+                            txtRunNumGas1A.BackColor = Color.Tomato
                         Else
                             txtRunNumGas1A.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 34, 1) = "1" Then
-                            Me.txtPollConcGas1A.BackColor = Color.Tomato
+                            txtPollConcGas1A.BackColor = Color.Tomato
                         Else
                             txtPollConcGas1A.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 35, 1) = "1" Then
-                            Me.txtEmissRateGas1A.BackColor = Color.Tomato
+                            txtEmissRateGas1A.BackColor = Color.Tomato
                         Else
                             txtEmissRateGas1A.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 36, 1) = "1" Then
-                            Me.txtRunNumGas1B.BackColor = Color.Tomato
+                            txtRunNumGas1B.BackColor = Color.Tomato
                         Else
                             txtRunNumGas1B.BackColor = Color.White
                         End If
@@ -16753,7 +15543,7 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                             txtEmissRateGas1B.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 39, 1) = "1" Then
-                            Me.txtRunNumGas1C.BackColor = Color.Tomato
+                            txtRunNumGas1C.BackColor = Color.Tomato
                         Else
                             txtRunNumGas1C.BackColor = Color.White
                         End If
@@ -16768,32 +15558,32 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                             txtEmissRateGas1C.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 42, 1) = "1" Then
-                            Me.cboPollConUnitGas.BackColor = Color.Tomato
+                            cboPollConUnitGas.BackColor = Color.Tomato
                         Else
                             cboPollConUnitGas.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 43, 1) = "1" Then
-                            Me.txtPollConcAvgGas.BackColor = Color.Tomato
+                            txtPollConcAvgGas.BackColor = Color.Tomato
                         Else
                             txtPollConcAvgGas.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 44, 1) = "1" Then
-                            Me.cboEmissRateUnitGas.BackColor = Color.Tomato
+                            cboEmissRateUnitGas.BackColor = Color.Tomato
                         Else
                             cboEmissRateUnitGas.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 45, 1) = "1" Then
-                            Me.txtEmissRateAvgGas.BackColor = Color.Tomato
+                            txtEmissRateAvgGas.BackColor = Color.Tomato
                         Else
                             txtEmissRateAvgGas.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 46, 1) = "1" Then
-                            Me.txtPercentAllowableGas.BackColor = Color.Tomato
+                            txtPercentAllowableGas.BackColor = Color.Tomato
                         Else
                             txtPercentAllowableGas.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 47, 1) = "1" Then
-                            Me.txtOtherInformationGas.BackColor = Color.Tomato
+                            txtOtherInformationGas.BackColor = Color.Tomato
                         Else
                             txtOtherInformationGas.BackColor = Color.White
                         End If
@@ -16801,111 +15591,111 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                 Case "I"
                     If DocumentType = "010" Then
                         If Mid(ConfidentialData, 26, 1) = "1" Then
-                            Me.txtMaximumExpectedOperatingCapacityFlare.BackColor = Color.Tomato
-                            Me.cboMaximumExpectedOperatingCapacityUnitsFlare.BackColor = Color.Tomato
+                            txtMaximumExpectedOperatingCapacityFlare.BackColor = Color.Tomato
+                            cboMaximumExpectedOperatingCapacityUnitsFlare.BackColor = Color.Tomato
                         Else
-                            Me.txtMaximumExpectedOperatingCapacityFlare.BackColor = Color.White
-                            Me.cboMaximumExpectedOperatingCapacityUnitsFlare.BackColor = Color.White
+                            txtMaximumExpectedOperatingCapacityFlare.BackColor = Color.White
+                            cboMaximumExpectedOperatingCapacityUnitsFlare.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 27, 1) = "1" Then
-                            Me.txtOperatingCapacityFlare.BackColor = Color.Tomato
-                            Me.cboOperatingCapacityUnitsFlare.BackColor = Color.Tomato
+                            txtOperatingCapacityFlare.BackColor = Color.Tomato
+                            cboOperatingCapacityUnitsFlare.BackColor = Color.Tomato
                         Else
-                            Me.txtOperatingCapacityFlare.BackColor = Color.White
-                            Me.cboOperatingCapacityUnitsFlare.BackColor = Color.White
+                            txtOperatingCapacityFlare.BackColor = Color.White
+                            cboOperatingCapacityUnitsFlare.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 28, 1) = "1" Then
-                            Me.txtVelocityFlare.BackColor = Color.Tomato
+                            txtVelocityFlare.BackColor = Color.Tomato
                         Else
                             txtVelocityFlare.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 29, 1) = "1" Then
-                            Me.txtHeatContentFlare.BackColor = Color.Tomato
+                            txtHeatContentFlare.BackColor = Color.Tomato
                         Else
                             txtHeatContentFlare.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 30, 1) = "1" Then
-                            Me.txtApplicableRegulationFlare.BackColor = Color.Tomato
+                            txtApplicableRegulationFlare.BackColor = Color.Tomato
                         Else
                             txtApplicableRegulationFlare.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 31, 1) = "1" Then
-                            Me.txtMonitoringDataFlare.BackColor = Color.Tomato
+                            txtMonitoringDataFlare.BackColor = Color.Tomato
                         Else
                             txtMonitoringDataFlare.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 32, 1) = "1" Then
-                            Me.txtHeatingValue1AFlare.BackColor = Color.Tomato
+                            txtHeatingValue1AFlare.BackColor = Color.Tomato
                         Else
                             txtHeatingValue1AFlare.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 33, 1) = "1" Then
-                            Me.txtHeatingValue1AFlare.BackColor = Color.Tomato
+                            txtHeatingValue1AFlare.BackColor = Color.Tomato
                         Else
                             txtHeatingValue1AFlare.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 34, 1) = "1" Then
-                            Me.txtVelocity1AFlare.BackColor = Color.Tomato
+                            txtVelocity1AFlare.BackColor = Color.Tomato
                         Else
                             txtVelocity1AFlare.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 35, 1) = "1" Then
-                            Me.txtHeatingValue1BFlare.BackColor = Color.Tomato
+                            txtHeatingValue1BFlare.BackColor = Color.Tomato
                         Else
                             txtHeatingValue1BFlare.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 36, 1) = "1" Then
-                            Me.txtHeatingValue1BFlare.BackColor = Color.Tomato
+                            txtHeatingValue1BFlare.BackColor = Color.Tomato
                         Else
                             txtHeatingValue1BFlare.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 37, 1) = "1" Then
-                            Me.txtVelocity1BFlare.BackColor = Color.Tomato
+                            txtVelocity1BFlare.BackColor = Color.Tomato
                         Else
                             txtVelocity1BFlare.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 38, 1) = "1" Then
-                            Me.txtHeatingValue1CFlare.BackColor = Color.Tomato
+                            txtHeatingValue1CFlare.BackColor = Color.Tomato
                         Else
                             txtHeatingValue1CFlare.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 39, 1) = "1" Then
-                            Me.txtHeatingValue1CFlare.BackColor = Color.Tomato
+                            txtHeatingValue1CFlare.BackColor = Color.Tomato
                         Else
                             txtHeatingValue1CFlare.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 40, 1) = "1" Then
-                            Me.txtVelocity1CFlare.BackColor = Color.Tomato
+                            txtVelocity1CFlare.BackColor = Color.Tomato
                         Else
                             txtVelocity1CFlare.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 41, 1) = "1" Then
-                            Me.cboHeatingValueUnits.BackColor = Color.Tomato
+                            cboHeatingValueUnits.BackColor = Color.Tomato
                         Else
                             cboHeatingValueUnits.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 42, 1) = "1" Then
-                            Me.txtHeatingValuesAvgFlare.BackColor = Color.Tomato
+                            txtHeatingValuesAvgFlare.BackColor = Color.Tomato
                         Else
                             txtHeatingValuesAvgFlare.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 43, 1) = "1" Then
-                            Me.cboVelocityUnitsFlare.BackColor = Color.Tomato
+                            cboVelocityUnitsFlare.BackColor = Color.Tomato
                         Else
                             cboVelocityUnitsFlare.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 44, 1) = "1" Then
-                            Me.txtVelocityAvgFlare.BackColor = Color.Tomato
+                            txtVelocityAvgFlare.BackColor = Color.Tomato
                         Else
                             txtVelocityAvgFlare.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 45, 1) = "1" Then
-                            Me.txtPercentAllowableFlare.BackColor = Color.Tomato
+                            txtPercentAllowableFlare.BackColor = Color.Tomato
                         Else
                             txtPercentAllowableFlare.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 46, 1) = "1" Then
-                            Me.txtOtherInformationFlare.BackColor = Color.Tomato
+                            txtOtherInformationFlare.BackColor = Color.Tomato
                         Else
                             txtOtherInformationFlare.BackColor = Color.White
                         End If
@@ -16913,27 +15703,27 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                 Case "J"
                     If DocumentType = "011" Then
                         If Mid(ConfidentialData, 26, 1) = "1" Then
-                            Me.txtApplicableStandardRata.BackColor = Color.Tomato
+                            txtApplicableStandardRata.BackColor = Color.Tomato
                         Else
                             txtApplicableStandardRata.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 27, 1) = "1" Then
-                            Me.txtApplicableRegulationRata.BackColor = Color.Tomato
+                            txtApplicableRegulationRata.BackColor = Color.Tomato
                         Else
                             txtApplicableRegulationRata.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 28, 1) = "1" Then
-                            Me.cboDilutentMonitoredRata.BackColor = Color.Tomato
+                            cboDilutentMonitoredRata.BackColor = Color.Tomato
                         Else
                             cboDilutentMonitoredRata.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 29, 1) = "1" Then
-                            Me.txtRefMethodRata1.BackColor = Color.Tomato
+                            txtRefMethodRata1.BackColor = Color.Tomato
                         Else
                             txtRefMethodRata1.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 30, 1) = "1" Then
-                            Me.txtRefMethodRata2.BackColor = Color.Tomato
+                            txtRefMethodRata2.BackColor = Color.Tomato
                         Else
                             txtRefMethodRata2.BackColor = Color.White
                         End If
@@ -16943,112 +15733,112 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                             txtRefMethodRata3.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 32, 1) = "1" Then
-                            Me.txtRefMethodRata4.BackColor = Color.Tomato
+                            txtRefMethodRata4.BackColor = Color.Tomato
                         Else
                             txtRefMethodRata4.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 33, 1) = "1" Then
-                            Me.txtRefMethodRata5.BackColor = Color.Tomato
+                            txtRefMethodRata5.BackColor = Color.Tomato
                         Else
                             txtRefMethodRata5.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 34, 1) = "1" Then
-                            Me.txtRefMethodRata6.BackColor = Color.Tomato
+                            txtRefMethodRata6.BackColor = Color.Tomato
                         Else
                             txtRefMethodRata6.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 35, 1) = "1" Then
-                            Me.txtRefMethodRata7.BackColor = Color.Tomato
+                            txtRefMethodRata7.BackColor = Color.Tomato
                         Else
                             txtRefMethodRata7.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 36, 1) = "1" Then
-                            Me.txtRefMethodRata8.BackColor = Color.Tomato
+                            txtRefMethodRata8.BackColor = Color.Tomato
                         Else
                             txtRefMethodRata8.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 37, 1) = "1" Then
-                            Me.txtRefMethodRata9.BackColor = Color.Tomato
+                            txtRefMethodRata9.BackColor = Color.Tomato
                         Else
                             txtRefMethodRata9.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 38, 1) = "1" Then
-                            Me.txtRefMethodRata10.BackColor = Color.Tomato
+                            txtRefMethodRata10.BackColor = Color.Tomato
                         Else
                             txtRefMethodRata10.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 39, 1) = "1" Then
-                            Me.txtRefMethodRata11.BackColor = Color.Tomato
+                            txtRefMethodRata11.BackColor = Color.Tomato
                         Else
                             txtRefMethodRata11.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 40, 1) = "1" Then
-                            Me.txtRefMethodRata12.BackColor = Color.Tomato
+                            txtRefMethodRata12.BackColor = Color.Tomato
                         Else
                             txtRefMethodRata12.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 41, 1) = "1" Then
-                            Me.txtCMSRata1.BackColor = Color.Tomato
+                            txtCMSRata1.BackColor = Color.Tomato
                         Else
                             txtCMSRata1.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 42, 1) = "1" Then
-                            Me.txtCMSRata2.BackColor = Color.Tomato
+                            txtCMSRata2.BackColor = Color.Tomato
                         Else
                             txtCMSRata2.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 43, 1) = "1" Then
-                            Me.txtCMSRata3.BackColor = Color.Tomato
+                            txtCMSRata3.BackColor = Color.Tomato
                         Else
                             txtCMSRata3.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 44, 1) = "1" Then
-                            Me.txtCMSRata4.BackColor = Color.Tomato
+                            txtCMSRata4.BackColor = Color.Tomato
                         Else
                             txtCMSRata4.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 45, 1) = "1" Then
-                            Me.txtCMSRata5.BackColor = Color.Tomato
+                            txtCMSRata5.BackColor = Color.Tomato
                         Else
                             txtCMSRata5.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 46, 1) = "1" Then
-                            Me.txtCMSRata6.BackColor = Color.Tomato
+                            txtCMSRata6.BackColor = Color.Tomato
                         Else
                             txtCMSRata6.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 47, 1) = "1" Then
-                            Me.txtCMSRata7.BackColor = Color.Tomato
+                            txtCMSRata7.BackColor = Color.Tomato
                         Else
                             txtCMSRata7.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 48, 1) = "1" Then
-                            Me.txtCMSRata8.BackColor = Color.Tomato
+                            txtCMSRata8.BackColor = Color.Tomato
                         Else
                             txtCMSRata8.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 49, 1) = "1" Then
-                            Me.txtCMSRata9.BackColor = Color.Tomato
+                            txtCMSRata9.BackColor = Color.Tomato
                         Else
                             txtCMSRata9.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 50, 1) = "1" Then
-                            Me.txtCMSRata10.BackColor = Color.Tomato
+                            txtCMSRata10.BackColor = Color.Tomato
                         Else
                             txtCMSRata10.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 51, 1) = "1" Then
-                            Me.txtCMSRata11.BackColor = Color.Tomato
+                            txtCMSRata11.BackColor = Color.Tomato
                         Else
                             txtCMSRata11.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 52, 1) = "1" Then
-                            Me.txtCMSRata12.BackColor = Color.Tomato
+                            txtCMSRata12.BackColor = Color.Tomato
                         Else
                             txtCMSRata12.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 53, 1) = "1" Then
-                            Me.cboUnitsRata.BackColor = Color.Tomato
+                            cboUnitsRata.BackColor = Color.Tomato
                         Else
                             cboUnitsRata.BackColor = Color.White
                         End If
@@ -17069,7 +15859,7 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                             txtPart75Statement.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 56, 1) = "1" Then
-                            Me.txtOtherInformationRata.BackColor = Color.Tomato
+                            txtOtherInformationRata.BackColor = Color.Tomato
                         Else
                             txtOtherInformationRata.BackColor = Color.White
                         End If
@@ -17077,12 +15867,12 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                 Case "K"
                     If DocumentType = "012" Then
                         If Mid(ConfidentialData, 26, 1) = "1" Then
-                            Me.txtApplicableRegulationMemorandum.BackColor = Color.Tomato
+                            txtApplicableRegulationMemorandum.BackColor = Color.Tomato
                         Else
-                            Me.txtApplicableRegulationMemorandum.BackColor = Color.White
+                            txtApplicableRegulationMemorandum.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 27, 1) = "1" Then
-                            Me.txtMemorandumStandard.BackColor = Color.Tomato
+                            txtMemorandumStandard.BackColor = Color.Tomato
                         Else
                             txtMemorandumStandard.BackColor = Color.White
                         End If
@@ -17090,9 +15880,9 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                 Case "L"
                     If DocumentType = "013" Then
                         If Mid(ConfidentialData, 26, 1) = "1" Then
-                            Me.txtApplicableRegulationMemorandum.BackColor = Color.Tomato
+                            txtApplicableRegulationMemorandum.BackColor = Color.Tomato
                         Else
-                            Me.txtApplicableRegulationMemorandum.BackColor = Color.White
+                            txtApplicableRegulationMemorandum.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 27, 1) = "1" Then
                             txtModelMemorandumToFile.BackColor = Color.Tomato
@@ -17113,37 +15903,37 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                 Case "M"
                     If DocumentType = "014" Then
                         If Mid(ConfidentialData, 26, 1) = "1" Then
-                            Me.txtMaximumExpectedOperatingCapacityMethod9Multi1.BackColor = Color.Tomato
+                            txtMaximumExpectedOperatingCapacityMethod9Multi1.BackColor = Color.Tomato
                         Else
                             txtMaximumExpectedOperatingCapacityMethod9Multi1.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 27, 1) = "1" Then
-                            Me.txtMaximumExpectedOperatingCapacityMethod9Multi2.BackColor = Color.Tomato
+                            txtMaximumExpectedOperatingCapacityMethod9Multi2.BackColor = Color.Tomato
                         Else
                             txtMaximumExpectedOperatingCapacityMethod9Multi2.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 28, 1) = "1" Then
-                            Me.txtMaximumExpectedOperatingCapacityMethod9Multi3.BackColor = Color.Tomato
+                            txtMaximumExpectedOperatingCapacityMethod9Multi3.BackColor = Color.Tomato
                         Else
                             txtMaximumExpectedOperatingCapacityMethod9Multi3.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 29, 1) = "1" Then
-                            Me.txtMaximumExpectedOperatingCapacityMethod9Multi4.BackColor = Color.Tomato
+                            txtMaximumExpectedOperatingCapacityMethod9Multi4.BackColor = Color.Tomato
                         Else
                             txtMaximumExpectedOperatingCapacityMethod9Multi4.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 30, 1) = "1" Then
-                            Me.txtMaximumExpectedOperatingCapacityMethod9Multi5.BackColor = Color.Tomato
+                            txtMaximumExpectedOperatingCapacityMethod9Multi5.BackColor = Color.Tomato
                         Else
                             txtMaximumExpectedOperatingCapacityMethod9Multi5.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 31, 1) = "1" Then
-                            Me.cboMaximumExpectedOperatingCapacityUnitsMethod9Multi.BackColor = Color.Tomato
+                            cboMaximumExpectedOperatingCapacityUnitsMethod9Multi.BackColor = Color.Tomato
                         Else
                             cboMaximumExpectedOperatingCapacityUnitsMethod9Multi.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 32, 1) = "1" Then
-                            Me.txtOperatingCapacityMethod9Multi1.BackColor = Color.Tomato
+                            txtOperatingCapacityMethod9Multi1.BackColor = Color.Tomato
                         Else
                             txtOperatingCapacityMethod9Multi1.BackColor = Color.White
                         End If
@@ -17168,12 +15958,12 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                             txtOperatingCapacityMethod9Multi5.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 37, 1) = "1" Then
-                            Me.cboOperatingCapacityUnitsMethod9Multi.BackColor = Color.Tomato
+                            cboOperatingCapacityUnitsMethod9Multi.BackColor = Color.Tomato
                         Else
                             cboOperatingCapacityUnitsMethod9Multi.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 38, 1) = "1" Then
-                            Me.txtAllowableEmissionRate1Method9Multi.BackColor = Color.Tomato
+                            txtAllowableEmissionRate1Method9Multi.BackColor = Color.Tomato
                         Else
                             txtAllowableEmissionRate1Method9Multi.BackColor = Color.White
                         End If
@@ -17208,7 +15998,7 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                             txtApplicableRegulationMethod9Multi.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 45, 1) = "1" Then
-                            Me.txtControlEquipmentOperatingDataMethod9Multi.BackColor = Color.Tomato
+                            txtControlEquipmentOperatingDataMethod9Multi.BackColor = Color.Tomato
                         Else
                             txtControlEquipmentOperatingDataMethod9Multi.BackColor = Color.White
                         End If
@@ -17238,7 +16028,7 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                             txt6minuteAvg1EMethod9Multi.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 51, 1) = "1" Then
-                            Me.txtOtherInformationMethod9.BackColor = Color.Tomato
+                            txtOtherInformationMethod9.BackColor = Color.Tomato
                         Else
                             txtOtherInformationMethod9.BackColor = Color.White
                         End If
@@ -17271,18 +16061,18 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                 Case "N"
                     If DocumentType = "015" Then
                         If Mid(ConfidentialData, 26, 1) = "1" Then
-                            Me.txtMaximumExpectedOperatingCapacityMethod22.BackColor = Color.Tomato
-                            Me.cboMaximumExpectedOperatingCapacityUnitsMethod22.BackColor = Color.Tomato
+                            txtMaximumExpectedOperatingCapacityMethod22.BackColor = Color.Tomato
+                            cboMaximumExpectedOperatingCapacityUnitsMethod22.BackColor = Color.Tomato
                         Else
                             txtMaximumExpectedOperatingCapacityMethod22.BackColor = Color.White
-                            Me.cboMaximumExpectedOperatingCapacityUnitsMethod22.BackColor = Color.White
+                            cboMaximumExpectedOperatingCapacityUnitsMethod22.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 27, 1) = "1" Then
-                            Me.txtOperatingCapacityMethod22.BackColor = Color.Tomato
-                            Me.cboOperatingCapacityUnitsMethod22.BackColor = Color.Tomato
+                            txtOperatingCapacityMethod22.BackColor = Color.Tomato
+                            cboOperatingCapacityUnitsMethod22.BackColor = Color.Tomato
                         Else
                             txtOperatingCapacityMethod22.BackColor = Color.White
-                            Me.cboOperatingCapacityUnitsMethod22.BackColor = Color.White
+                            cboOperatingCapacityUnitsMethod22.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 28, 1) = "1" Then
                             txtAllowableEmissionRateMethod22.BackColor = Color.Tomato
@@ -17295,17 +16085,17 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                             txtApplicableRegulationMethod22.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 30, 1) = "1" Then
-                            Me.txtTestDurationMethod22.BackColor = Color.Tomato
+                            txtTestDurationMethod22.BackColor = Color.Tomato
                         Else
                             txtTestDurationMethod22.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 31, 1) = "1" Then
-                            Me.txtAccumulatedEmissionMethod22.BackColor = Color.Tomato
+                            txtAccumulatedEmissionMethod22.BackColor = Color.Tomato
                         Else
                             txtAccumulatedEmissionMethod22.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 32, 1) = "1" Then
-                            Me.txtOtherInformationMethod22.BackColor = Color.Tomato
+                            txtOtherInformationMethod22.BackColor = Color.Tomato
                         Else
                             txtOtherInformationMethod22.BackColor = Color.White
                         End If
@@ -17313,48 +16103,48 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                 Case "O"
                     If DocumentType = "016" Then
                         If Mid(ConfidentialData, 26, 1) = "1" Then
-                            Me.txtMaximumExpectedOperatingCapacityMethod9Single.BackColor = Color.Tomato
-                            Me.cboMaximumExpectedOperatingCapacityUnitsMethod9Single.BackColor = Color.Tomato
+                            txtMaximumExpectedOperatingCapacityMethod9Single.BackColor = Color.Tomato
+                            cboMaximumExpectedOperatingCapacityUnitsMethod9Single.BackColor = Color.Tomato
                         Else
                             txtMaximumExpectedOperatingCapacityMethod9Single.BackColor = Color.White
-                            Me.cboMaximumExpectedOperatingCapacityUnitsMethod9Single.BackColor = Color.White
+                            cboMaximumExpectedOperatingCapacityUnitsMethod9Single.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 27, 1) = "1" Then
-                            Me.txtOperatingCapacityMethod9Single.BackColor = Color.Tomato
-                            Me.cboOperatingCapacityUnitsMethod9Single.BackColor = Color.Tomato
+                            txtOperatingCapacityMethod9Single.BackColor = Color.Tomato
+                            cboOperatingCapacityUnitsMethod9Single.BackColor = Color.Tomato
                         Else
                             txtOperatingCapacityMethod9Single.BackColor = Color.White
-                            Me.cboOperatingCapacityUnitsMethod9Single.BackColor = Color.White
+                            cboOperatingCapacityUnitsMethod9Single.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 28, 1) = "1" Then
-                            Me.txtAllowableEmissionRate1Method9Single.BackColor = Color.Tomato
-                            Me.cboAllowableEmissionRateUnits1Method9Single.BackColor = Color.Tomato
+                            txtAllowableEmissionRate1Method9Single.BackColor = Color.Tomato
+                            cboAllowableEmissionRateUnits1Method9Single.BackColor = Color.Tomato
                         Else
                             txtAllowableEmissionRate1Method9Single.BackColor = Color.White
-                            Me.cboAllowableEmissionRateUnits1Method9Single.BackColor = Color.White
+                            cboAllowableEmissionRateUnits1Method9Single.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 29, 1) = "1" Then
-                            Me.txtApplicableRegulationMethod9Single.BackColor = Color.Tomato
+                            txtApplicableRegulationMethod9Single.BackColor = Color.Tomato
                         Else
                             txtApplicableRegulationMethod9Single.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 30, 1) = "1" Then
-                            Me.txtControlEquipmentOperatingDataMethod9Single.BackColor = Color.Tomato
+                            txtControlEquipmentOperatingDataMethod9Single.BackColor = Color.Tomato
                         Else
                             txtControlEquipmentOperatingDataMethod9Single.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 31, 1) = "1" Then
-                            Me.txtTestDurationMethod9Single.BackColor = Color.Tomato
+                            txtTestDurationMethod9Single.BackColor = Color.Tomato
                         Else
                             txtTestDurationMethod9Single.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 32, 1) = "1" Then
-                            Me.txtOpacityMethod9Single.BackColor = Color.Tomato
+                            txtOpacityMethod9Single.BackColor = Color.Tomato
                         Else
                             txtOpacityMethod9Single.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 33, 1) = "1" Then
-                            Me.txtOtherInformationMethod9.BackColor = Color.Tomato
+                            txtOtherInformationMethod9.BackColor = Color.Tomato
                         Else
                             txtOtherInformationMethod9.BackColor = Color.White
                         End If
@@ -17363,54 +16153,54 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                 Case "Q"
                     If DocumentType = "018" Then
                         If Mid(ConfidentialData, 26, 1) = "1" Then
-                            Me.txtApplicableRegulationMemorandum.BackColor = Color.Tomato
+                            txtApplicableRegulationMemorandum.BackColor = Color.Tomato
                         Else
-                            Me.txtApplicableRegulationMemorandum.BackColor = Color.White
+                            txtApplicableRegulationMemorandum.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 27, 1) = "1" Then
-                            Me.txtMaximumExpectedOperatingCapacityMemorandumPTE.BackColor = Color.Tomato
-                            Me.cboMaximumExpectedOperatingCapacityUnitsMemorandumPTE.BackColor = Color.Tomato
+                            txtMaximumExpectedOperatingCapacityMemorandumPTE.BackColor = Color.Tomato
+                            cboMaximumExpectedOperatingCapacityUnitsMemorandumPTE.BackColor = Color.Tomato
                         Else
                             txtMaximumExpectedOperatingCapacityMemorandumPTE.BackColor = Color.White
-                            Me.cboMaximumExpectedOperatingCapacityUnitsMemorandumPTE.BackColor = Color.White
+                            cboMaximumExpectedOperatingCapacityUnitsMemorandumPTE.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 28, 1) = "1" Then
-                            Me.txtOperatingCapacityMemorandumPTE.BackColor = Color.Tomato
-                            Me.cboOperatingCapacityUnitsMemorandumPTE.BackColor = Color.Tomato
+                            txtOperatingCapacityMemorandumPTE.BackColor = Color.Tomato
+                            cboOperatingCapacityUnitsMemorandumPTE.BackColor = Color.Tomato
                         Else
                             txtOperatingCapacityMemorandumPTE.BackColor = Color.White
-                            Me.cboOperatingCapacityUnitsMemorandumPTE.BackColor = Color.White
+                            cboOperatingCapacityUnitsMemorandumPTE.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 29, 1) = "1" Then
-                            Me.txtAllowableEmissionRate1MemorandumPTE.BackColor = Color.Tomato
-                            Me.cboAllowableEmissionRateUnits1MemorandumPTE.BackColor = Color.Tomato
+                            txtAllowableEmissionRate1MemorandumPTE.BackColor = Color.Tomato
+                            cboAllowableEmissionRateUnits1MemorandumPTE.BackColor = Color.Tomato
                         Else
                             txtAllowableEmissionRate1MemorandumPTE.BackColor = Color.White
-                            Me.cboAllowableEmissionRateUnits1MemorandumPTE.BackColor = Color.White
+                            cboAllowableEmissionRateUnits1MemorandumPTE.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 30, 1) = "1" Then
-                            Me.txtAllowableEmissionRate2MemorandumPTE.BackColor = Color.Tomato
-                            Me.cboAllowableEmissionRateUnits2MemorandumPTE.BackColor = Color.Tomato
+                            txtAllowableEmissionRate2MemorandumPTE.BackColor = Color.Tomato
+                            cboAllowableEmissionRateUnits2MemorandumPTE.BackColor = Color.Tomato
                         Else
                             txtAllowableEmissionRate2MemorandumPTE.BackColor = Color.White
-                            Me.cboAllowableEmissionRateUnits2MemorandumPTE.BackColor = Color.White
+                            cboAllowableEmissionRateUnits2MemorandumPTE.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 31, 1) = "1" Then
-                            Me.txtAllowableEmissionRate3MemorandumPTE.BackColor = Color.Tomato
-                            Me.cboAllowableEmissionRateUnits3MemorandumPTE.BackColor = Color.Tomato
+                            txtAllowableEmissionRate3MemorandumPTE.BackColor = Color.Tomato
+                            cboAllowableEmissionRateUnits3MemorandumPTE.BackColor = Color.Tomato
                         Else
                             txtAllowableEmissionRate3MemorandumPTE.BackColor = Color.White
-                            Me.cboAllowableEmissionRateUnits3MemorandumPTE.BackColor = Color.White
+                            cboAllowableEmissionRateUnits3MemorandumPTE.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 32, 1) = "1" Then
-                            Me.txtControlEquipmentOperatingDataMemorandumPTE.BackColor = Color.Tomato
+                            txtControlEquipmentOperatingDataMemorandumPTE.BackColor = Color.Tomato
                         Else
                             txtControlEquipmentOperatingDataMemorandumPTE.BackColor = Color.White
                         End If
                         If Mid(ConfidentialData, 33, 1) = "1" Then
-                            Me.txtMemorandumPTE.BackColor = Color.Tomato
+                            txtMemorandumPTE.BackColor = Color.Tomato
                         Else
-                            Me.txtMemorandumPTE.BackColor = Color.White
+                            txtMemorandumPTE.BackColor = Color.White
                         End If
                     End If
                 Case Else
@@ -17423,7 +16213,9 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
         Finally
         End Try
     End Sub
-#End Region
+
+#Region "checkboxes"
+
     Private Sub chbEventComplete_CheckedChanged(sender As Object, e As EventArgs) Handles chbEventComplete.CheckedChanged
         Try
             If chbEventComplete.Checked = True Then
@@ -17468,7 +16260,11 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
         End Try
 
     End Sub
+
+#End Region
+
 #Region "Tool Strip Buttons"
+
     Private Sub tsbSave_Click(sender As Object, e As EventArgs) Handles tsbSave.Click
         Try
             If AccountFormAccess(69, 3) = "1" Then
@@ -17518,9 +16314,9 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
                     LoadSSCPData()
                 End If
                 If txtReferenceNumber.Text <> "" Then
-                    Me.Text = txtReferenceNumber.Text & " - Performance Monitoring Test Reports"
+                    Text = txtReferenceNumber.Text & " - Performance Monitoring Test Reports"
                 Else
-                    Me.Text = "Performance Monitoring Test Reports"
+                    Text = "Performance Monitoring Test Reports"
                 End If
             End If
         Catch ex As Exception
@@ -17600,8 +16396,11 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
         Finally
         End Try
     End Sub
+
 #End Region
+
 #Region "Main Menu"
+
     Private Sub mmiSave_Click(sender As Object, e As EventArgs) Handles mmiSave.Click
         Try
             If AccountFormAccess(69, 3) = "1" Then
@@ -17621,9 +16420,6 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
-    End Sub
-    Private Sub mmiBack_Click(sender As Object, e As EventArgs) Handles mmiClose.Click
-        Me.Dispose()
     End Sub
     Private Sub mmiOpenTestLogNotification_Click(sender As Object, e As EventArgs) Handles mmiOpenTestLogNotification.Click
         Try
@@ -17651,8 +16447,11 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
         End Try
 
     End Sub
+
 #End Region
+
 #Region "Math Functions"
+
     Private Sub txtPollConcOneStackTwoRun1A_Leave(sender As Object, e As EventArgs) Handles txtPollConcOneStackTwoRun1A.Leave
         Try
             Dim temp As Decimal = 0
@@ -19778,7 +18577,7 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
 
         End Try
     End Sub
-    Sub RATACalc()
+    Private Sub RATACalc()
         Try
             Dim RunNum As Integer = 0
             Dim Ref1 As Decimal = 0
@@ -22487,7 +21286,11 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
 
         End Try
     End Sub
+
 #End Region
+
+#Region " random events "
+
     Private Sub txtRefMethodPercentRata_TextChanged(sender As Object, e As EventArgs) Handles txtRefMethodPercentRata.TextChanged
         Try
 
@@ -22689,7 +21492,7 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
     Private Sub tsbConfidentialData_Click(sender As Object, e As EventArgs) Handles tsbConfidentialData.Click
         Try
             If txtReferenceNumber.Text <> "" Then
-                If Me.TCDocumentTypes.TabPages.Count < 4 Then
+                If TCDocumentTypes.TabPages.Count < 4 Then
 
                     If Not IsNothing(ISMPConfidential) Then
                         ISMPConfidential.Show()
@@ -22739,5 +21542,7 @@ SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
         Finally
         End Try
     End Sub
+
+#End Region
 
 End Class
