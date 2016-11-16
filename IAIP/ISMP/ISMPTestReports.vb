@@ -21493,15 +21493,9 @@ Public Class ISMPTestReports
         Try
             If txtReferenceNumber.Text <> "" Then
                 If TCDocumentTypes.TabPages.Count < 4 Then
-
-                    If Not IsNothing(ISMPConfidential) Then
-                        ISMPConfidential.Show()
-                    Else
-                        ISMPConfidential = Nothing
-                        If ISMPConfidential Is Nothing Then ISMPConfidential = New ISMPConfidentialData
-                        ISMPConfidential.txtReferenceNumber.Text = txtReferenceNumber.Text
-                        ISMPConfidential.Show()
-                    End If
+                    Dim ISMPConfidential As New ISMPConfidentialData
+                    ISMPConfidential.txtReferenceNumber.Text = txtReferenceNumber.Text
+                    ISMPConfidential.Show()
                 Else
                     MsgBox("Please save test report before assigning confidential data.", MsgBoxStyle.Information, "Performance Test Reports")
                 End If

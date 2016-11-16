@@ -1,55 +1,25 @@
 Imports System.Data.SqlClient
-'Imports System.IO
 
 Public Class ISMPConfidentialData
-    Dim SQL As String
-    Dim cmd As SqlCommand
-    Dim dr As SqlDataReader
-    Dim RecExist As Boolean
+    Dim query As String
     Dim ConfidentialData As String = ""
     Dim DocumentType As String
 
-
-    Private Sub DEVConfidentialData_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
-        Try
-            Panel1.Text = "Mark field to be redacted..."
-            Panel2.Text = CurrentUser.AlphaName
-            Panel3.Text = TodayFormatted
-
-            LoadData()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-    End Sub
-    Private Sub DEVConfidentialData_Closing(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
-        Try
-            ISMPConfidential = Nothing
-            Me.Dispose()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
+    Private Sub ISMPConfidentialData_Load(sender As Object, e As EventArgs) Handles Me.Load
+        LoadData()
     End Sub
 
-#Region "Page Load"
-    Sub LoadData()
+    Private Sub LoadData()
         Try
-            SQL = "Select strConfidentialData, strDocumentType  " &
+            query = "Select strConfidentialData, strDocumentType  " &
             "from ISMPReportInformation " &
-            "where strReferenceNumber = '" & txtReferenceNumber.Text & "' "
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            RecExist = dr.Read
-            If RecExist = True Then
+            "where strReferenceNumber = @ref "
+
+            Dim p As New SqlParameter("@ref", txtReferenceNumber.Text)
+
+            Dim dr As DataRow = DB.GetDataRow(query, p)
+
+            If dr IsNot Nothing Then
                 If IsDBNull(dr.Item("strConfidentialData")) Then
                     ConfidentialData = ""
                 Else
@@ -61,7 +31,6 @@ Public Class ISMPConfidentialData
                     DocumentType = dr.Item("strDocumentType")
                 End If
             End If
-            dr.Close()
 
             Select Case DocumentType
                 Case "001"
@@ -2421,8 +2390,7 @@ Public Class ISMPConfidentialData
         End Try
     End Sub
 
-#End Region
-    Sub SaveConfidentialData()
+    Private Sub SaveConfidentialData()
         Try
 
             If txtReferenceNumber.Text <> "" And DocumentType <> "" Then
@@ -4554,18 +4522,20 @@ Public Class ISMPConfidentialData
 
                 If ConfidentialData.Contains("1") Then
                     ConfidentialData = "1" & Mid(ConfidentialData, 2)
-                Else
-                    'ConfidentialData = ConfidentialData
                 End If
-                SQL = "Update ISMPReportInformation set " &
-                "strConfidentialData = '" & Replace(ConfidentialData, "'", "''") & "' " &
-                "where strReferencenumber = '" & txtReferenceNumber.Text & "' "
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
+
+                query = "Update ISMPReportInformation set " &
+                "strConfidentialData = @conf " &
+                "where strReferencenumber = @ref "
+
+                Dim p As SqlParameter() = {
+                    New SqlParameter("@conf", ConfidentialData),
+                    New SqlParameter("@ref", txtReferenceNumber.Text)
+                }
+
+                If DB.RunCommand(query, p) Then
+                    MessageBox.Show("Confidential data saved")
                 End If
-                dr = cmd.ExecuteReader
-                dr.Close()
 
                 If MultiFormIsOpen(ISMPTestReports, txtReferenceNumber.Text) Then
                     Dim testReportForm As ISMPTestReports = MultiForm(ISMPTestReports.Name)(txtReferenceNumber.Text)
@@ -4603,29 +4573,5 @@ Public Class ISMPConfidentialData
 
         End Try
     End Sub
-    Private Sub mmiBack_Click(sender As Object, e As EventArgs) Handles mmiBack.Click
-        Try
-            ISMPConfidential = Nothing
-            Me.Dispose()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
 
-        End Try
-    End Sub
-    Private Sub tsbBack_Click(sender As Object, e As EventArgs) Handles tsbBack.Click
-        Try
-            ISMPConfidential = Nothing
-            Me.Dispose()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-    End Sub
-
-
-    Private Sub mmiHelp_Click(sender As Object, e As EventArgs) Handles mmiHelp.Click
-        OpenDocumentationUrl(Me)
-    End Sub
 End Class

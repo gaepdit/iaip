@@ -81,7 +81,6 @@ Module AppVariables
 
 #Region " ISMP Screens "
     Public ISMPNotificationLogForm As ISMPNotificationLog
-    Public ISMPConfidential As ISMPConfidentialData
     Public TestFirmComments As ISMPTestFirmComments
 #End Region
 
