@@ -1,22 +1,11 @@
 Imports System.Data.SqlClient
 
-
 Public Class ISMPNotificationLog
-    Dim SQL, SQL2 As String
-    Dim cmd As SqlCommand
-    Dim dr As SqlDataReader
-    Dim recExist As Boolean
-    Dim dsFacilityData As DataSet
-    Dim daFacilityData As SqlDataAdapter
-    Dim dsStaffResponsible As DataSet
-    Dim daStaffResponsible As SqlDataAdapter
+    Dim query, query2 As String
 
-    Private Sub DevNotificationLog_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub ISMPNotificationLog_Load(sender As Object, e As EventArgs) Handles Me.Load
 
         Try
-            Panel1.Text = "Select a Function..."
-            Panel2.Text = CurrentUser.AlphaName
-            Panel3.Text = TodayFormatted
 
             LoadComboBoxes()
             If txtTestNotificationNumber.Text <> "" Then
@@ -40,55 +29,18 @@ Public Class ISMPNotificationLog
         End Try
     End Sub
 
-#Region "Page Load"
-    Sub LoadComboBoxes()
+    Private Sub LoadComboBoxes()
         Try
             Dim dtFacilityData As New DataTable
             Dim dtStaffResponsible As New DataTable
-            Dim drDSRow As DataRow
-            Dim drNewRow As DataRow
 
-            SQL = "select " &
+            query = "select " &
             "SUBSTRING(strAIRSNumber, 5,8) as AIRSNumber, " &
             "strFacilityname " &
             "from APBFacilityInformation " &
             "order by strFacilityname "
 
-            SQL2 = "select " &
-            "distinct concat(strLastName, ', ' ,strFirstName) as UserName,  " &
-            "epduserprofiles.numUserID  " &
-            "from EPDUserProfiles, ISMPTestNotification  " &
-            "where (numProgram = '3' and numunit <> '14')  " &
-            "or ISMPTestNotification.strStaffResponsible = convert(varchar(3),EPDUSerProfiles.numUserID) " &
-            "order by UserName "
-
-            dsFacilityData = New DataSet
-            daFacilityData = New SqlDataAdapter(SQL, CurrentConnection)
-
-            dsStaffResponsible = New DataSet
-            daStaffResponsible = New SqlDataAdapter(SQL2, CurrentConnection)
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            daFacilityData.Fill(dsFacilityData, "FacilityData")
-            daStaffResponsible.Fill(dsStaffResponsible, "StaffResponsible")
-
-            dtFacilityData.Columns.Add("strFacilityName", GetType(System.String))
-            dtFacilityData.Columns.Add("AIRSNumber", GetType(System.String))
-
-            drNewRow = dtFacilityData.NewRow()
-            drNewRow("strFacilityName") = " "
-            drNewRow("AIRSNumber") = ""
-            dtFacilityData.Rows.Add(drNewRow)
-
-            For Each drDSRow In dsFacilityData.Tables("FacilityData").Rows()
-                drNewRow = dtFacilityData.NewRow()
-                drNewRow("strFacilityName") = drDSRow("strFacilityName")
-                drNewRow("AIRSNumber") = drDSRow("AIRSNumber")
-                dtFacilityData.Rows.Add(drNewRow)
-            Next
+            dtFacilityData = DB.GetDataTable(query)
 
             With cboAIRSNumber
                 .DataSource = dtFacilityData
@@ -104,20 +56,15 @@ Public Class ISMPNotificationLog
                 .SelectedIndex = 0
             End With
 
-            dtStaffResponsible.Columns.Add("UserName", GetType(System.String))
-            dtStaffResponsible.Columns.Add("numUserID", GetType(System.String))
+            query = "select " &
+            "distinct concat(strLastName, ', ' ,strFirstName) as UserName,  " &
+            "epduserprofiles.numUserID  " &
+            "from EPDUserProfiles, ISMPTestNotification  " &
+            "where (numProgram = '3' and numunit <> '14')  " &
+            "or ISMPTestNotification.strStaffResponsible = convert(varchar(3),EPDUSerProfiles.numUserID) " &
+            "order by UserName "
 
-            drNewRow = dtStaffResponsible.NewRow()
-            drNewRow("UserName") = " "
-            drNewRow("numUserID") = ""
-            dtStaffResponsible.Rows.Add(drNewRow)
-
-            For Each drDSRow In dsStaffResponsible.Tables("StaffResponsible").Rows()
-                drNewRow = dtStaffResponsible.NewRow()
-                drNewRow("UserName") = drDSRow("UserName")
-                drNewRow("numUserID") = drDSRow("numUserID")
-                dtStaffResponsible.Rows.Add(drNewRow)
-            Next
+            dtStaffResponsible = DB.GetDataTable(query)
 
             With cboStaffResponsible
                 .DataSource = dtStaffResponsible
@@ -130,17 +77,16 @@ Public Class ISMPNotificationLog
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-
         End Try
     End Sub
-    Sub LoadTestNotification()
+    Private Sub LoadTestNotification()
         Try
             Dim Confirm As String = ""
             Dim City As String = ""
             Dim ZipCode As String = ""
 
             If txtTestNotificationNumber.Text <> "" Then
-                SQL = "select " &
+                query = "select " &
                 "SUBSTRING(ISMPTestNotification.strAIRSNumber, 5,8) as AIRSNumber,  " &
                 "strFacilityStreet1, " &
                 "strFacilityCity, strFacilityZipCode,  " &
@@ -158,14 +104,13 @@ Public Class ISMPNotificationLog
                 "strPollutants " &
                 "from ISMPTestNotification LEFT JOIN APBFacilityInformation  " &
                 "on ISMPTestNotification.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
-                "where ISMPTestNotification.strTestLogNumber = '" & txtTestNotificationNumber.Text & "'  "
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-                If recExist = True Then
+                "where ISMPTestNotification.strTestLogNumber = @log "
+
+                Dim p As New SqlParameter("@log", txtTestNotificationNumber.Text)
+
+                Dim dr As DataRow = DB.GetDataRow(query, p)
+
+                If dr IsNot Nothing Then
                     If IsDBNull(dr.Item("AIRSNumber")) Then
                         cboAIRSNumber.Text = " "
                     Else
@@ -238,13 +183,6 @@ Public Class ISMPNotificationLog
                             Case Else
                                 Confirm = TodayFormatted
                         End Select
-                        'If Confirm.Length >= 9 Then
-                        '    If Confirm.Length > 13 And Confirm.Length > 15 Then
-                        '        Confirm = Mid(Confirm, Confirm.Length - 14, Confirm.Length - 14)
-                        '    Else
-                        '        Confirm = Mid(Confirm, Confirm.Length - 8)
-                        '    End If
-                        'End If
                         DTPTestNotification.Text = Confirm
                     End If
 
@@ -310,10 +248,7 @@ Public Class ISMPNotificationLog
                     Else
                         txtPollutants.Text = dr.Item("strPollutants")
                     End If
-                    dr.Close()
                     LoadReferenceNumbers()
-                Else
-
                 End If
 
             End If
@@ -322,131 +257,147 @@ Public Class ISMPNotificationLog
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
-
-
     End Sub
-    Sub LoadReferenceNumbers()
+    Private Sub LoadReferenceNumbers()
         Try
 
             txtReferenceNumber.Clear()
-            SQL = "Select " &
+
+            query = "Select " &
             "strReferenceNumber " &
             "from ISMPTestLogLink " &
-            "where strTestLogNumber = '" & txtTestNotificationNumber.Text & "' "
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
+            "where strTestLogNumber = @log "
+
+            Dim p As New SqlParameter("@log", txtTestNotificationNumber.Text)
+
+            Dim dt As DataTable = DB.GetDataTable(query, p)
+
+            For Each dr As DataRow In dt.Rows
                 If IsDBNull(dr.Item("strReferenceNumber")) Then
                 Else
                     txtReferenceNumber.Text = txtReferenceNumber.Text & dr.Item("strReferenceNumber") & vbCrLf
                 End If
-            End While
-            dr.Close()
+            Next
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-#End Region
-#Region "Subs and Functions"
-    Sub SaveNotification()
+
+    Private Sub SaveNotification()
         Try
             Dim temp As String
             If AccountFormAccess(66, 2) = "1" Or AccountFormAccess(66, 3) = "1" Then
                 Dim UserIDNum As String = ""
                 Dim TestPlan As String = ""
                 Dim TimelyNotification As String = ""
-                Dim TestPlanRec As String = ""
-                Dim TestNotificationDate As String = ""
+                Dim TestPlanRec As Date?
+                Dim TestNotificationDate As Date?
 
-                SQL = "select strTestLogNumber " &
+                query = "select strTestLogNumber " &
                 "from ISMPTestNotification " &
-                "where strTestLogNumber = '" & txtTestNotificationNumber.Text & "' "
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-                dr.Close()
+                "where strTestLogNumber = @log"
+
+                Dim p As New SqlParameter("@log", txtTestNotificationNumber.Text)
 
                 If chbWebContact.Checked = True Then
                     UserIDNum = " "
                 Else
-                    UserIDNum = "numUserId = '', "
+                    UserIDNum = "numUserId = null, "
                 End If
                 If rdbTestPlanAvailable.Checked = True Then
                     TestPlan = "True"
-                    TestPlanRec = DTPTestPlanReceived.Text
+                    TestPlanRec = DTPTestPlanReceived.Value
                 Else
                     If rdbTestPlanNotAvailable.Checked = True Then
                         TestPlan = "False"
-                        TestPlanRec = ""
+                        TestPlanRec = Nothing
                     Else
                         TestPlan = ""
-                        TestPlanRec = ""
+                        TestPlanRec = Nothing
                     End If
                 End If
                 If rdbTimelyNotification.Checked = True Then
                     TimelyNotification = "True"
-                    TestNotificationDate = Me.DTPTestNotification.Text
+                    TestNotificationDate = DTPTestNotification.Value
                 Else
                     If Me.rdbNoTimelyNotification.Checked = True Then
                         TimelyNotification = "False"
-                        TestNotificationDate = DTPTestNotification.Text
+                        TestNotificationDate = DTPTestNotification.Value
                     Else
                         TimelyNotification = ""
-                        TestNotificationDate = Me.DTPTestNotification.Text
+                        TestNotificationDate = DTPTestNotification.Value
                     End If
                 End If
 
-                If recExist = True Then
+                If DB.ValueExists(query, p) Then
                     'Update 
-                    SQL = "Update ISMPTestNotification set " &
-                    "strEmissionUnit = '" & Replace(txtEmissionUnit.Text, "'", "''") & "', " &
-                    "datProposedStartDate = '" & Me.DTPTestDateStart.Text & "', " &
-                    "datProposedEndDate = '" & DTPTestDateEnd.Text & "', " &
-                    "strComments = '" & Replace(Me.txtNotificationComments.Text, "'", "''") & "', " &
+                    query = "Update ISMPTestNotification set " &
+                    "strEmissionUnit = @strEmissionUnit, " &
+                    "datProposedStartDate = @datProposedStartDate, " &
+                    "datProposedEndDate = @datProposedEndDate, " &
+                    "strComments = @strComments, " &
                     UserIDNum &
-                    "strContactEmail = '" & Replace(txtContactEmailAddress.Text, "'", "''") & "', " &
-                    "strAIRSNumber = '0413" & cboAIRSNumber.SelectedValue & "', " &
-                    "strStaffresponsible  = '" & cboStaffResponsible.SelectedValue & "', " &
-                    "strTestPlanAvailable = '" & TestPlan & "', " &
-                    "strTimelyNotification = '" & TimelyNotification & "', " &
-                    "strOnlineFirstName = '" & Me.txtContactFirstName.Text & "', " &
-                    "strOnlineLastName = '" & txtContactLastName.Text & "', " &
-                    "strInternalComments = '" & Replace(txtISMPComments.Text, "'", "''") & "', " &
-                    "strmodifingstaff = '" & CurrentUser.UserID & "', " &
-                    "datModifingDate = GETDATE(), " &
-                    "datTestPlanReceived = '" & TestPlanRec & "', " &
-                    "datTestNotification = '" & TestNotificationDate & "', " &
-                    "strTelephone = '" & mtbPhoneNumber.Text & "', " &
-                    "strFax = '" & mtbFaxNumber.Text & "', " &
-                    "strPollutants = '" & Replace(txtPollutants.Text, "'", "''") & "' " &
-                    "where strtestlognumber = '" & txtTestNotificationNumber.Text & "' "
+                    "strContactEmail = @strContactEmail, " &
+                    "strAIRSNumber = @strAIRSNumber, " &
+                    "strStaffresponsible  = @strStaffresponsible, " &
+                    "strTestPlanAvailable = @strTestPlanAvailable, " &
+                    "strTimelyNotification = @strTimelyNotification, " &
+                    "strOnlineFirstName = @strOnlineFirstName, " &
+                    "strOnlineLastName = @strOnlineLastName, " &
+                    "strInternalComments = @strInternalComments, " &
+                    "strmodifingstaff = @strmodifingstaff, " &
+                    "datModifingDate = getdate(), " &
+                    "datTestPlanReceived = @datTestPlanReceived, " &
+                    "datTestNotification = @datTestNotification, " &
+                    "strTelephone = @strTelephone, " &
+                    "strFax = @strFax, " &
+                    "strPollutants = @strPollutants " &
+                    "where strtestlognumber = @strtestlognumber "
+
+                    Dim p2 As SqlParameter() = {
+                        New SqlParameter("@strEmissionUnit", txtEmissionUnit.Text),
+                        New SqlParameter("@datProposedStartDate", DTPTestDateStart.Value),
+                        New SqlParameter("@datProposedEndDate", DTPTestDateEnd.Value),
+                        New SqlParameter("@strComments", txtNotificationComments.Text),
+                        New SqlParameter("@strContactEmail", txtContactEmailAddress.Text),
+                        New SqlParameter("@strAIRSNumber", "0413" & cboAIRSNumber.SelectedValue),
+                        New SqlParameter("@strStaffresponsible", cboStaffResponsible.SelectedValue),
+                        New SqlParameter("@strTestPlanAvailable", TestPlan),
+                        New SqlParameter("@strTimelyNotification", TimelyNotification),
+                        New SqlParameter("@strOnlineFirstName", txtContactFirstName.Text),
+                        New SqlParameter("@strOnlineLastName", txtContactLastName.Text),
+                        New SqlParameter("@strInternalComments", txtISMPComments.Text),
+                        New SqlParameter("@strmodifingstaff", CurrentUser.UserID),
+                        New SqlParameter("@datTestPlanReceived", TestPlanRec),
+                        New SqlParameter("@datTestNotification", TestNotificationDate),
+                        New SqlParameter("@strTelephone", mtbPhoneNumber.Text),
+                        New SqlParameter("@strFax", mtbFaxNumber.Text),
+                        New SqlParameter("@strPollutants", txtPollutants.Text),
+                        New SqlParameter("@strtestlognumber", txtTestNotificationNumber.Text)
+                    }
+
+                    DB.RunCommand(query, p2, forceAddNullableParameters:=True)
                 Else
                     temp = ""
                     Dim testNum As String = ""
                     Dim StartDate As String = ""
 
-                    SQL = "Select " &
+                    query = "Select " &
                     "strTestLogNumber, datProposedStartDate " &
                     "from ISMPTestNotification " &
-                    "where datProposedStartDate between " &
-                    "'" & Format(DTPTestDateStart.Value.AddDays(-15), "dd-MMM-yyyy") & "' " &
-                    "and '" & Format(DTPTestDateStart.Value.AddDays(15), "dd-MMM-yyyy") & "' " &
-                    "and strAIRSNumber = '0413" & cboAIRSNumber.Text & "' "
+                    "where datProposedStartDate between @startdate and @enddate " &
+                    "and strAIRSNumber = @airs "
 
-                    cmd = New SqlCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    recExist = dr.Read
-                    If recExist = True Then
+                    Dim p3 As SqlParameter() = {
+                        New SqlParameter("@startdate", DTPTestDateStart.Value.AddDays(-15)),
+                        New SqlParameter("@enddate", DTPTestDateStart.Value.AddDays(15)),
+                        New SqlParameter("@airs", "0413" & cboAIRSNumber.Text)
+                    }
+
+                    Dim dt As DataTable = DB.GetDataTable(query, p3)
+
+                    For Each dr As DataRow In dt.Rows
                         If IsDBNull(dr.Item("strTestLogNumber")) Then
                             temp = ""
                         Else
@@ -454,8 +405,7 @@ Public Class ISMPNotificationLog
                             testNum = temp
                             StartDate = Format(dr.Item("datProposedStartDate"), "dd-MMM-yyyy")
                         End If
-                    End If
-                    dr.Close()
+                    Next
 
                     Dim result As String = "False"
                     If temp <> "" Then
@@ -475,7 +425,7 @@ Public Class ISMPNotificationLog
                     End If
 
                     'Insert 
-                    SQL = "Insert into ISMPTestNotification " &
+                    query = "Insert into ISMPTestNotification " &
                     "(strTestLogNumber, " &
                     "strEmissionUnit, " &
                     "datProposedStartDate, datProposedEndDate, " &
@@ -489,28 +439,43 @@ Public Class ISMPNotificationLog
                     "strFax, datTestPlanReceived, " &
                     "datTestNotification, strPollutants) " &
                     "values " &
-                    "('" & txtTestNotificationNumber.Text & "', " &
-                    "'" & Replace(txtEmissionUnit.Text, "'", "''") & "', " &
-                    "'" & DTPTestDateStart.Text & "', '" & DTPTestDateEnd.Text & "', " &
-                    "'" & Replace(txtNotificationComments.Text, "'", "''") & "', '', " &
-                    "'" & Replace(txtContactEmailAddress.Text, "'", "''") & "', '', " &
-                    "'" & Replace(txtContactFirstName.Text, "'", "''") & "', " &
-                    "'" & Replace(txtContactLastName.Text, "'", "''") & "', " &
-                    "'0413" & cboAIRSNumber.SelectedValue & "', " &
-                    "'" & cboStaffResponsible.SelectedValue & "', " &
-                    "'" & TestPlan & "', '" & TimelyNotification & "', " &
-                    "'" & Replace(txtISMPComments.Text, "'", "''") & "', " &
-                    "'" & CurrentUser.UserID & "',  GETDATE() , " &
-                    "'" & mtbPhoneNumber.Text & "', '" & mtbFaxNumber.Text & "', " &
-                    "'" & TestNotificationDate & "', '" & TestNotificationDate & "', " &
-                    "'" & Replace(txtPollutants.Text, "'", "''") & "') "
+                    "(@strTestLogNumber, " &
+                    "@strEmissionUnit, " &
+                    "@datProposedStartDate, @datProposedEndDate, " &
+                    "@strComments, null, " &
+                    "@strContactEmail, null, " &
+                    "@strOnlineFirstname, @strOnlineLastName, " &
+                    "@strAIRSNumber, @strStaffResponsible, " &
+                    "@strTestPlanAvailable, @strTimelyNotification, " &
+                    "@strInternalComments, @strModifingStaff, " &
+                    "getdate(), @strTelePhone, " &
+                    "@strFax, @datTestPlanReceived, " &
+                    "@datTestNotification, @strPollutants) "
+
+                    Dim p4 As SqlParameter() = {
+                        New SqlParameter("@strEmissionUnit", txtEmissionUnit.Text),
+                        New SqlParameter("@datProposedStartDate", DTPTestDateStart.Value),
+                        New SqlParameter("@datProposedEndDate", DTPTestDateEnd.Value),
+                        New SqlParameter("@strComments", txtNotificationComments.Text),
+                        New SqlParameter("@strContactEmail", txtContactEmailAddress.Text),
+                        New SqlParameter("@strAIRSNumber", "0413" & cboAIRSNumber.SelectedValue),
+                        New SqlParameter("@strStaffresponsible", cboStaffResponsible.SelectedValue),
+                        New SqlParameter("@strTestPlanAvailable", TestPlan),
+                        New SqlParameter("@strTimelyNotification", TimelyNotification),
+                        New SqlParameter("@strOnlineFirstName", txtContactFirstName.Text),
+                        New SqlParameter("@strOnlineLastName", txtContactLastName.Text),
+                        New SqlParameter("@strInternalComments", txtISMPComments.Text),
+                        New SqlParameter("@strmodifingstaff", CurrentUser.UserID),
+                        New SqlParameter("@datTestPlanReceived", TestNotificationDate),
+                        New SqlParameter("@datTestNotification", TestNotificationDate),
+                        New SqlParameter("@strTelephone", mtbPhoneNumber.Text),
+                        New SqlParameter("@strFax", mtbFaxNumber.Text),
+                        New SqlParameter("@strPollutants", txtPollutants.Text),
+                        New SqlParameter("@strtestlognumber", txtTestNotificationNumber.Text)
+                    }
+
+                    DB.RunCommand(query, p4)
                 End If
-                cmd = New SqlCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                dr.Close()
 
                 MsgBox("Information Saved.", MsgBoxStyle.Information, "Notification Log")
             Else
@@ -521,42 +486,20 @@ Public Class ISMPNotificationLog
 
         End Try
     End Sub
-    Sub SelectNewTestNotifcationNumber()
+    Private Sub SelectNewTestNotifcationNumber()
         Try
-            SQL = "Select max(convert(int, strTestLogNumber)) + 1 as TestNum " &
+            query = "Select max(convert(int, strTestLogNumber)) + 1 as TestNum " &
             "From ISMPTestnotification "
-            cmd = New SqlCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                If IsDBNull(dr.Item("TestNum")) Then
-                    txtTestNotificationNumber.Text = "1"
-                Else
-                    txtTestNotificationNumber.Text = dr.Item("TestNum")
-                End If
-            End While
-            dr.Close()
+
+            txtTestNotificationNumber.Text = DB.GetInteger(query)
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-#End Region
-#Region "Declaration"
-    Private Sub DevNotificationLog_Closing(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
-        Try
+#Region "form events"
 
-            ISMPNotificationLogForm = Nothing
-            Me.Dispose()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
-    End Sub
     Private Sub bbtSave_Click(sender As Object, e As EventArgs) Handles bbtSave.Click
         Try
             If txtTestNotificationNumber.Text <> "" Then
@@ -564,16 +507,6 @@ Public Class ISMPNotificationLog
             Else
                 MsgBox("First Select New Test Notification.", MsgBoxStyle.Exclamation, "Notification Log")
             End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Private Sub tsbBack_Click(sender As Object, e As EventArgs) Handles tsbBack.Click
-        Try
-
-            ISMPNotificationLogForm = Nothing
-            Me.Dispose()
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -599,43 +532,6 @@ Public Class ISMPNotificationLog
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub BackToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles BackToolStripMenuItem.Click
-        Try
-
-            ISMPNotificationLogForm = Nothing
-            Me.Dispose()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Private Sub CutToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CutToolStripMenuItem.Click
-        Try
-
-            SendKeys.Send("(^X)")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
-    End Sub
-    Private Sub CopyToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CopyToolStripMenuItem.Click
-        Try
-
-            SendKeys.Send("(^C)")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
-    End Sub
-    Private Sub PasteToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PasteToolStripMenuItem.Click
-        Try
-
-            SendKeys.Send("(^V)")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
-    End Sub
     Private Sub rdbTestPlanAvailable_CheckedChanged(sender As Object, e As EventArgs) Handles rdbTestPlanAvailable.CheckedChanged
         Try
             If rdbTestPlanAvailable.Checked = True Then
@@ -654,10 +550,4 @@ Public Class ISMPNotificationLog
 
 #End Region
 
-
-
-
-    Private Sub HelpToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem.Click
-        OpenDocumentationUrl(Me)
-    End Sub
 End Class

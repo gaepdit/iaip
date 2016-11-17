@@ -23,74 +23,62 @@ Partial Class ISMPNotificationLog
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(ISMPNotificationLog))
-        Me.lblStreetAddress = New System.Windows.Forms.Label
-        Me.lblCityStateZipCode = New System.Windows.Forms.Label
-        Me.Label4 = New System.Windows.Forms.Label
-        Me.Label5 = New System.Windows.Forms.Label
-        Me.Label6 = New System.Windows.Forms.Label
-        Me.Label7 = New System.Windows.Forms.Label
-        Me.Label8 = New System.Windows.Forms.Label
-        Me.Label9 = New System.Windows.Forms.Label
-        Me.txtEmissionUnit = New System.Windows.Forms.TextBox
-        Me.DTPTestDateStart = New System.Windows.Forms.DateTimePicker
-        Me.DTPTestDateEnd = New System.Windows.Forms.DateTimePicker
-        Me.txtNotificationComments = New System.Windows.Forms.TextBox
-        Me.cboAIRSNumber = New System.Windows.Forms.ComboBox
-        Me.cboFacilityName = New System.Windows.Forms.ComboBox
-        Me.Label14 = New System.Windows.Forms.Label
-        Me.Label10 = New System.Windows.Forms.Label
-        Me.ToolStrip1 = New System.Windows.Forms.ToolStrip
-        Me.bbtSave = New System.Windows.Forms.ToolStripButton
-        Me.tsbBack = New System.Windows.Forms.ToolStripButton
-        Me.MenuStrip1 = New System.Windows.Forms.MenuStrip
-        Me.FileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.SaveToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.BackToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.EditToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.CutToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.CopyToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.PasteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.StatusStrip1 = New System.Windows.Forms.StatusStrip
-        Me.Panel1 = New System.Windows.Forms.ToolStripStatusLabel
-        Me.Panel2 = New System.Windows.Forms.ToolStripStatusLabel
-        Me.Panel3 = New System.Windows.Forms.ToolStripStatusLabel
-        Me.txtContactFirstName = New System.Windows.Forms.TextBox
-        Me.txtContactLastName = New System.Windows.Forms.TextBox
-        Me.txtContactEmailAddress = New System.Windows.Forms.TextBox
-        Me.chbWebContact = New System.Windows.Forms.CheckBox
-        Me.Label1 = New System.Windows.Forms.Label
-        Me.Panel3X = New System.Windows.Forms.Panel
-        Me.rdbTestPlanNotAvailable = New System.Windows.Forms.RadioButton
-        Me.rdbTestPlanAvailable = New System.Windows.Forms.RadioButton
-        Me.Label2 = New System.Windows.Forms.Label
-        Me.Panel4 = New System.Windows.Forms.Panel
-        Me.rdbNoTimelyNotification = New System.Windows.Forms.RadioButton
-        Me.rdbTimelyNotification = New System.Windows.Forms.RadioButton
-        Me.Label3 = New System.Windows.Forms.Label
-        Me.txtTestNotificationNumber = New System.Windows.Forms.TextBox
-        Me.txtISMPComments = New System.Windows.Forms.TextBox
-        Me.Label12 = New System.Windows.Forms.Label
-        Me.Label11 = New System.Windows.Forms.Label
-        Me.cboStaffResponsible = New System.Windows.Forms.ComboBox
-        Me.btnNewTestNotification = New System.Windows.Forms.Button
-        Me.GroupBox1 = New System.Windows.Forms.GroupBox
-        Me.mtbFaxNumber = New System.Windows.Forms.MaskedTextBox
-        Me.mtbPhoneNumber = New System.Windows.Forms.MaskedTextBox
-        Me.Label16 = New System.Windows.Forms.Label
-        Me.txtPollutants = New System.Windows.Forms.TextBox
-        Me.lblFaxNumber = New System.Windows.Forms.Label
-        Me.lblPhoneNumber = New System.Windows.Forms.Label
-        Me.GroupBox2 = New System.Windows.Forms.GroupBox
-        Me.Label15 = New System.Windows.Forms.Label
-        Me.lblReceivedDate = New System.Windows.Forms.Label
-        Me.DTPTestNotification = New System.Windows.Forms.DateTimePicker
-        Me.DTPTestPlanReceived = New System.Windows.Forms.DateTimePicker
-        Me.txtReferenceNumber = New System.Windows.Forms.TextBox
-        Me.Label13 = New System.Windows.Forms.Label
+        Me.lblStreetAddress = New System.Windows.Forms.Label()
+        Me.lblCityStateZipCode = New System.Windows.Forms.Label()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.txtEmissionUnit = New System.Windows.Forms.TextBox()
+        Me.DTPTestDateStart = New System.Windows.Forms.DateTimePicker()
+        Me.DTPTestDateEnd = New System.Windows.Forms.DateTimePicker()
+        Me.txtNotificationComments = New System.Windows.Forms.TextBox()
+        Me.cboAIRSNumber = New System.Windows.Forms.ComboBox()
+        Me.cboFacilityName = New System.Windows.Forms.ComboBox()
+        Me.Label14 = New System.Windows.Forms.Label()
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
+        Me.bbtSave = New System.Windows.Forms.ToolStripButton()
+        Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
+        Me.FileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.SaveToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.txtContactFirstName = New System.Windows.Forms.TextBox()
+        Me.txtContactLastName = New System.Windows.Forms.TextBox()
+        Me.txtContactEmailAddress = New System.Windows.Forms.TextBox()
+        Me.chbWebContact = New System.Windows.Forms.CheckBox()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.Panel3X = New System.Windows.Forms.Panel()
+        Me.rdbTestPlanNotAvailable = New System.Windows.Forms.RadioButton()
+        Me.rdbTestPlanAvailable = New System.Windows.Forms.RadioButton()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.Panel4 = New System.Windows.Forms.Panel()
+        Me.rdbNoTimelyNotification = New System.Windows.Forms.RadioButton()
+        Me.rdbTimelyNotification = New System.Windows.Forms.RadioButton()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.txtTestNotificationNumber = New System.Windows.Forms.TextBox()
+        Me.txtISMPComments = New System.Windows.Forms.TextBox()
+        Me.Label12 = New System.Windows.Forms.Label()
+        Me.Label11 = New System.Windows.Forms.Label()
+        Me.cboStaffResponsible = New System.Windows.Forms.ComboBox()
+        Me.btnNewTestNotification = New System.Windows.Forms.Button()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.mtbFaxNumber = New System.Windows.Forms.MaskedTextBox()
+        Me.mtbPhoneNumber = New System.Windows.Forms.MaskedTextBox()
+        Me.Label16 = New System.Windows.Forms.Label()
+        Me.txtPollutants = New System.Windows.Forms.TextBox()
+        Me.lblFaxNumber = New System.Windows.Forms.Label()
+        Me.lblPhoneNumber = New System.Windows.Forms.Label()
+        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.Label15 = New System.Windows.Forms.Label()
+        Me.lblReceivedDate = New System.Windows.Forms.Label()
+        Me.DTPTestNotification = New System.Windows.Forms.DateTimePicker()
+        Me.DTPTestPlanReceived = New System.Windows.Forms.DateTimePicker()
+        Me.txtReferenceNumber = New System.Windows.Forms.TextBox()
+        Me.Label13 = New System.Windows.Forms.Label()
         Me.ToolStrip1.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
-        Me.StatusStrip1.SuspendLayout()
         Me.Panel3X.SuspendLayout()
         Me.Panel4.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
@@ -249,7 +237,7 @@ Partial Class ISMPNotificationLog
         '
         'ToolStrip1
         '
-        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.bbtSave, Me.tsbBack})
+        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.bbtSave})
         Me.ToolStrip1.Location = New System.Drawing.Point(0, 24)
         Me.ToolStrip1.Name = "ToolStrip1"
         Me.ToolStrip1.Size = New System.Drawing.Size(719, 25)
@@ -265,18 +253,9 @@ Partial Class ISMPNotificationLog
         Me.bbtSave.Size = New System.Drawing.Size(23, 22)
         Me.bbtSave.Text = "Save"
         '
-        'tsbBack
-        '
-        Me.tsbBack.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.tsbBack.Image = CType(resources.GetObject("tsbBack.Image"), System.Drawing.Image)
-        Me.tsbBack.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.tsbBack.Name = "tsbBack"
-        Me.tsbBack.Size = New System.Drawing.Size(23, 22)
-        Me.tsbBack.Text = "Back"
-        '
         'MenuStrip1
         '
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem, Me.EditToolStripMenuItem, Me.HelpToolStripMenuItem})
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Size = New System.Drawing.Size(719, 24)
@@ -285,7 +264,7 @@ Partial Class ISMPNotificationLog
         '
         'FileToolStripMenuItem
         '
-        Me.FileToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.SaveToolStripMenuItem, Me.BackToolStripMenuItem})
+        Me.FileToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.SaveToolStripMenuItem})
         Me.FileToolStripMenuItem.Name = "FileToolStripMenuItem"
         Me.FileToolStripMenuItem.Size = New System.Drawing.Size(37, 20)
         Me.FileToolStripMenuItem.Text = "File"
@@ -293,83 +272,8 @@ Partial Class ISMPNotificationLog
         'SaveToolStripMenuItem
         '
         Me.SaveToolStripMenuItem.Name = "SaveToolStripMenuItem"
-        Me.SaveToolStripMenuItem.Size = New System.Drawing.Size(99, 22)
+        Me.SaveToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.SaveToolStripMenuItem.Text = "Save"
-        '
-        'BackToolStripMenuItem
-        '
-        Me.BackToolStripMenuItem.Name = "BackToolStripMenuItem"
-        Me.BackToolStripMenuItem.Size = New System.Drawing.Size(99, 22)
-        Me.BackToolStripMenuItem.Text = "Back"
-        '
-        'EditToolStripMenuItem
-        '
-        Me.EditToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.CutToolStripMenuItem, Me.CopyToolStripMenuItem, Me.PasteToolStripMenuItem})
-        Me.EditToolStripMenuItem.Name = "EditToolStripMenuItem"
-        Me.EditToolStripMenuItem.Size = New System.Drawing.Size(39, 20)
-        Me.EditToolStripMenuItem.Text = "Edit"
-        '
-        'CutToolStripMenuItem
-        '
-        Me.CutToolStripMenuItem.Name = "CutToolStripMenuItem"
-        Me.CutToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
-        Me.CutToolStripMenuItem.Text = "Cut"
-        '
-        'CopyToolStripMenuItem
-        '
-        Me.CopyToolStripMenuItem.Name = "CopyToolStripMenuItem"
-        Me.CopyToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
-        Me.CopyToolStripMenuItem.Text = "Copy"
-        '
-        'PasteToolStripMenuItem
-        '
-        Me.PasteToolStripMenuItem.Name = "PasteToolStripMenuItem"
-        Me.PasteToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
-        Me.PasteToolStripMenuItem.Text = "Paste"
-        '
-        'HelpToolStripMenuItem
-        '
-        Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
-        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(44, 20)
-        Me.HelpToolStripMenuItem.Text = "Help"
-        '
-        'StatusStrip1
-        '
-        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Panel1, Me.Panel2, Me.Panel3})
-        Me.StatusStrip1.Location = New System.Drawing.Point(0, 544)
-        Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Size = New System.Drawing.Size(719, 22)
-        Me.StatusStrip1.TabIndex = 144
-        Me.StatusStrip1.Text = "StatusStrip1"
-        '
-        'Panel1
-        '
-        Me.Panel1.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.Panel1.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
-        Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(696, 17)
-        Me.Panel1.Spring = True
-        Me.Panel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'Panel2
-        '
-        Me.Panel2.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.Panel2.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
-        Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(4, 17)
-        '
-        'Panel3
-        '
-        Me.Panel3.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.Panel3.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
-        Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(4, 17)
         '
         'txtContactFirstName
         '
@@ -554,7 +458,7 @@ Partial Class ISMPNotificationLog
         'GroupBox1
         '
         Me.GroupBox1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GroupBox1.Controls.Add(Me.mtbFaxNumber)
         Me.GroupBox1.Controls.Add(Me.mtbPhoneNumber)
         Me.GroupBox1.Controls.Add(Me.Label16)
@@ -644,8 +548,8 @@ Partial Class ISMPNotificationLog
         'GroupBox2
         '
         Me.GroupBox2.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-                    Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.GroupBox2.Controls.Add(Me.Label15)
         Me.GroupBox2.Controls.Add(Me.lblReceivedDate)
         Me.GroupBox2.Controls.Add(Me.DTPTestNotification)
@@ -736,7 +640,6 @@ Partial Class ISMPNotificationLog
         Me.Controls.Add(Me.btnNewTestNotification)
         Me.Controls.Add(Me.txtTestNotificationNumber)
         Me.Controls.Add(Me.Label3)
-        Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.ToolStrip1)
         Me.Controls.Add(Me.MenuStrip1)
         Me.Name = "ISMPNotificationLog"
@@ -745,8 +648,6 @@ Partial Class ISMPNotificationLog
         Me.ToolStrip1.PerformLayout()
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
-        Me.StatusStrip1.ResumeLayout(False)
-        Me.StatusStrip1.PerformLayout()
         Me.Panel3X.ResumeLayout(False)
         Me.Panel3X.PerformLayout()
         Me.Panel4.ResumeLayout(False)
@@ -778,17 +679,8 @@ Partial Class ISMPNotificationLog
     Friend WithEvents ToolStrip1 As System.Windows.Forms.ToolStrip
     Friend WithEvents MenuStrip1 As System.Windows.Forms.MenuStrip
     Friend WithEvents FileToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents BackToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents EditToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents CutToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents CopyToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents PasteToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents bbtSave As System.Windows.Forms.ToolStripButton
-    Friend WithEvents tsbBack As System.Windows.Forms.ToolStripButton
     Friend WithEvents SaveToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents HelpToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents StatusStrip1 As System.Windows.Forms.StatusStrip
-    Friend WithEvents Panel3 As System.Windows.Forms.ToolStripStatusLabel
     Friend WithEvents txtContactFirstName As System.Windows.Forms.TextBox
     Friend WithEvents txtContactLastName As System.Windows.Forms.TextBox
     Friend WithEvents txtContactEmailAddress As System.Windows.Forms.TextBox
@@ -812,8 +704,6 @@ Partial Class ISMPNotificationLog
     Friend WithEvents GroupBox2 As System.Windows.Forms.GroupBox
     Friend WithEvents txtReferenceNumber As System.Windows.Forms.TextBox
     Friend WithEvents Label13 As System.Windows.Forms.Label
-    Friend WithEvents Panel1 As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents Panel2 As System.Windows.Forms.ToolStripStatusLabel
     Friend WithEvents lblFaxNumber As System.Windows.Forms.Label
     Friend WithEvents lblPhoneNumber As System.Windows.Forms.Label
     Friend WithEvents DTPTestNotification As System.Windows.Forms.DateTimePicker

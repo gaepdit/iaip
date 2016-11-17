@@ -16373,16 +16373,7 @@ Public Class ISMPTestReports
     End Sub
     Private Sub tsbTestLogLink_Click(sender As Object, e As EventArgs) Handles tsbTestLogLink.Click
         Try
-            If Not IsNothing(ISMPNotificationLogForm) Then
-                ISMPNotificationLogForm.txtTestNotificationNumber.Text = cboTestNotificationNumber.Text
-                ISMPNotificationLogForm.Show()
-            Else
-                ISMPNotificationLogForm = Nothing
-                If ISMPNotificationLogForm Is Nothing Then ISMPNotificationLogForm = New ISMPNotificationLog
-                ISMPNotificationLogForm.txtTestNotificationNumber.Text = cboTestNotificationNumber.Text
-                ISMPNotificationLogForm.Show()
-            End If
-            ISMPNotificationLogForm.LoadTestNotification()
+            OpenFormTestNotification(cboTestNotificationNumber.Text)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -16423,16 +16414,7 @@ Public Class ISMPTestReports
     End Sub
     Private Sub mmiOpenTestLogNotification_Click(sender As Object, e As EventArgs) Handles mmiOpenTestLogNotification.Click
         Try
-            If Not IsNothing(ISMPNotificationLogForm) Then
-                ISMPNotificationLogForm.txtTestNotificationNumber.Text = cboTestNotificationNumber.Text
-                ISMPNotificationLogForm.Show()
-            Else
-                ISMPNotificationLogForm = Nothing
-                If ISMPNotificationLogForm Is Nothing Then ISMPNotificationLogForm = New ISMPNotificationLog
-                ISMPNotificationLogForm.txtTestNotificationNumber.Text = cboTestNotificationNumber.Text
-                ISMPNotificationLogForm.Show()
-            End If
-            ISMPNotificationLogForm.LoadTestNotification()
+            OpenFormTestNotification(cboTestNotificationNumber.Text)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -21473,16 +21455,7 @@ Public Class ISMPTestReports
     Private Sub llbTestNotifiactionNumber_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbTestNotifiactionNumber.LinkClicked
         Try
             If cboTestNotificationNumber.Text <> "" Then
-                If Not IsNothing(ISMPNotificationLogForm) Then
-                    ISMPNotificationLogForm.txtTestNotificationNumber.Text = Replace(Mid(cboTestNotificationNumber.Text, 1, cboTestNotificationNumber.Text.IndexOf("-->")), " ", "")
-                    ISMPNotificationLogForm.Show()
-                Else
-                    ISMPNotificationLogForm = Nothing
-                    If ISMPNotificationLogForm Is Nothing Then ISMPNotificationLogForm = New ISMPNotificationLog
-                    ISMPNotificationLogForm.txtTestNotificationNumber.Text = Replace(Mid(cboTestNotificationNumber.Text, 1, cboTestNotificationNumber.Text.IndexOf("-->")), " ", "")
-                    ISMPNotificationLogForm.Show()
-                End If
-                ISMPNotificationLogForm.LoadTestNotification()
+                OpenFormTestNotification(Replace(Mid(cboTestNotificationNumber.Text, 1, cboTestNotificationNumber.Text.IndexOf("-->")), " ", ""))
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)

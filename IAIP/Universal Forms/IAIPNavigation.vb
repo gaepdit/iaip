@@ -263,13 +263,7 @@ Public Class IAIPNavigation
             If id = "" Then Exit Sub
 
             If DAL.Ismp.TestNotificationExists(id) Then
-                If ISMPNotificationLogForm IsNot Nothing AndAlso Not ISMPNotificationLogForm.IsDisposed Then
-                    ISMPNotificationLogForm.Dispose()
-                End If
-
-                ISMPNotificationLogForm = New ISMPNotificationLog
-                ISMPNotificationLogForm.txtTestNotificationNumber.Text = id
-                ISMPNotificationLogForm.Show()
+                OpenFormTestNotification(id)
             Else
                 MsgBox("Notification number is not in the system.", MsgBoxStyle.Information, Me.Text)
             End If

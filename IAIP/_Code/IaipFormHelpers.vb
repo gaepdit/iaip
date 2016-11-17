@@ -152,7 +152,7 @@ Module IaipFormHelpers
 
     Public Sub OpenFormTestNotification(id As String)
         If DAL.Ismp.TestNotificationExists(id) Then
-            ISMPNotificationLogForm = New ISMPNotificationLog
+            Dim ISMPNotificationLogForm As New ISMPNotificationLog
             ISMPNotificationLogForm.txtTestNotificationNumber.Text = id
             ISMPNotificationLogForm.Show()
         Else

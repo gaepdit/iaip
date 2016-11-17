@@ -1008,16 +1008,7 @@ Public Class ISMPMonitoringLog
     End Sub
     Private Sub llbSelectTestLog_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbSelectTestLog.LinkClicked
         Try
-            If Not IsNothing(ISMPNotificationLogForm) Then
-                ISMPNotificationLogForm.txtTestNotificationNumber.Text = txtTestLogNumber.Text
-                ISMPNotificationLogForm.Show()
-            Else
-                ISMPNotificationLogForm = Nothing
-                If ISMPNotificationLogForm Is Nothing Then ISMPNotificationLogForm = New ISMPNotificationLog
-                ISMPNotificationLogForm.txtTestNotificationNumber.Text = txtTestLogNumber.Text
-                ISMPNotificationLogForm.Show()
-            End If
-            ISMPNotificationLogForm.LoadTestNotification()
+            OpenFormTestNotification(txtTestLogNumber.Text)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
