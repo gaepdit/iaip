@@ -1,38 +1,36 @@
+Imports System.Collections.Generic
 Imports System.Data.SqlClient
 Imports System.IO
 
 Public Class IAIPQueryGenerator
-    Dim SQL As String
-    Dim dsCounty As DataSet
-    Dim daCounty As SqlDataAdapter
-    Dim dsDistrict As DataSet
-    Dim daDistrict As SqlDataAdapter
-    Dim dsSIPSubPart As DataSet
-    Dim daSIPSubPart As SqlDataAdapter
-    Dim dsPart61SubPart As DataSet
-    Dim daPart61SubPart As SqlDataAdapter
-    Dim dsPart60SubPart As DataSet
-    Dim daPart60SubPart As SqlDataAdapter
-    Dim dsPart63SubPart As DataSet
-    Dim daPart63SubPart As SqlDataAdapter
-    Dim dsSSCPStaff As DataSet
-    Dim daSSCPStaff As SqlDataAdapter
-    Dim dsSSCPUnit As DataSet
-    Dim daSSCPUnit As SqlDataAdapter
+    Dim query As String
+
+    Dim dtcboCountySearch1 As DataTable
+    Dim dtcboCountySearch2 As DataTable
+    Dim dtcboDistrictSearch1 As DataTable
+    Dim dtcboDistrictSearch2 As DataTable
+    Dim dtcboSIPSearch1 As DataTable
+    Dim dtcboSIPSearch2 As DataTable
+    Dim dtcboPart61Search1 As DataTable
+    Dim dtcboPart61Search2 As DataTable
+    Dim dtcboPart60Search1 As DataTable
+    Dim dtcboPart60Search2 As DataTable
+    Dim dtcboPart63Search1 As DataTable
+    Dim dtcboPart63Search2 As DataTable
+    Dim dtcboSSCPEngineerSearch1 As DataTable
+    Dim dtcboSSCPEngineerSearch2 As DataTable
+    Dim dtcboSSCPUnitSearch1 As DataTable
+    Dim dtcboSSCPUnitSearch2 As DataTable
 
     Dim dsSQLQuery As DataSet
     Dim daSQLQuery As SqlDataAdapter
 
-    Private SubmittedQuery As Generic.KeyValuePair(Of String, Integer)
+    Private SubmittedQuery As KeyValuePair(Of String, Integer)
 
-    Private Sub QueryGenerator_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub IAIPQueryGenerator_Load(sender As Object, e As EventArgs) Handles Me.Load
 
         lblQueryCount.Text = ""
         Try
-            Panel1.Text = "Select Filter options...."
-            Panel2.Text = CurrentUser.AlphaName
-            Panel3.Text = TodayFormatted
-
             cboCountySearch1.Visible = False
             cboCountySearch2.Visible = False
             cboDistrictSearch1.Visible = False
@@ -73,585 +71,274 @@ Public Class IAIPQueryGenerator
             DTPLastFCESearch2.Value = Today
             DTPLastFCESearch2.Checked = False
 
-            TCQuerryOptions.Size = New Drawing.Size(TCQuerryOptions.Size.Width, 389)
+            TCQuerryOptions.Size = New Size(TCQuerryOptions.Size.Width, 389)
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & ".APBFacilitySummary_Load")
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
     End Sub
 
 #Region "Page Load Functions"
-    Sub LoadDataSets()
-        Try
-            dsCounty = New DataSet
-            dsDistrict = New DataSet
-            dsSIPSubPart = New DataSet
-            dsPart61SubPart = New DataSet
-            dsPart60SubPart = New DataSet
-            dsPart63SubPart = New DataSet
-            dsSSCPStaff = New DataSet
-            dsSSCPUnit = New DataSet
 
-            SQL = "Select strCountyCode, strCountyName, strAttainmentStatus " &
+    Private Sub LoadDataSets()
+        Try
+
+            query = "Select strCountyCode, strCountyName, strAttainmentStatus " &
             "from LookUpCountyInformation " &
             "order by strCountyName "
 
-            daCounty = New SqlDataAdapter(SQL, CurrentConnection)
+            dtcboCountySearch1 = DB.GetDataTable(query)
+            dtcboCountySearch2 = dtcboCountySearch1.Copy
 
-            SQL = "select strDistrictCode, strDistrictName " &
+            query = "select strDistrictCode, strDistrictName " &
             "from LookUPDistricts " &
             "order by strDistrictName "
 
-            daDistrict = New SqlDataAdapter(SQL, CurrentConnection)
+            dtcboDistrictSearch1 = DB.GetDataTable(query)
+            dtcboDistrictSearch2 = dtcboDistrictSearch1.Copy
 
-            SQL = "select " &
+            query = "select " &
             "strSubPart, strSubPart as SubPartCode " &
             "from LookUpSubPartSIP " &
             "order by strSubPart "
 
-            daSIPSubPart = New SqlDataAdapter(SQL, CurrentConnection)
+            dtcboSIPSearch1 = DB.GetDataTable(query)
+            dtcboSIPSearch2 = dtcboSIPSearch1.Copy
 
-            SQL = "select " &
+            query = "select " &
             "strSubPart, strSubPart as SubPartCode " &
             "from LookUpSubPart61 " &
             "order by strSubPart "
 
-            daPart61SubPart = New SqlDataAdapter(SQL, CurrentConnection)
+            dtcboPart61Search1 = DB.GetDataTable(query)
+            dtcboPart61Search2 = dtcboPart61Search1.Copy
 
-            SQL = "select " &
+            query = "select " &
             "strSubPart, strSubPart as SubPartCode " &
             "from LookUpSubPart60 " &
             "order by strSubPart "
 
-            daPart60SubPart = New SqlDataAdapter(SQL, CurrentConnection)
+            dtcboPart60Search1 = DB.GetDataTable(query)
+            dtcboPart60Search2 = dtcboPart60Search1.Copy
 
-            SQL = "select " &
+            query = "select " &
             "strSubPart, strSubPart as SubPartCode " &
             "from LookUpSubPart63 " &
             "order by strSubPart "
 
-            daPart63SubPart = New SqlDataAdapter(SQL, CurrentConnection)
+            dtcboPart63Search1 = DB.GetDataTable(query)
+            dtcboPart63Search2 = dtcboPart63Search1.Copy
 
-            SQL = "select * " &
-                "from " &
-                "(Select  " &
-                "distinct(numUserID) as numUserID, " &
-                " concat(StrLastName, ', ', strFirstname) as Staff " &
-                "from EPDUserProfiles  " &
-                "where numProgram = '4' " &
-                "union " &
-                "Select  " &
-                "distinct(numUserID) as numUserID, " &
-                " concat(StrLastName, ', ', strFirstname) as Staff " &
-                "from EPDUserProfiles, SSCPItemMaster   " &
-                "where EPDUserProfiles.numuserID = SSCPItemMaster.strResponsibleStaff) " &
-                "order by Staff "
+            query = "SELECT numUserID AS numUserID, CONCAT(StrLastName, ', ', strFirstname) AS Staff
+                FROM EPDUserProfiles
+                WHERE numProgram = '4'
+                UNION
+                SELECT numUserID AS numUserID, CONCAT(StrLastName, ', ', strFirstname) AS Staff
+                FROM EPDUserProfiles, SSCPItemMaster
+                WHERE EPDUserProfiles.numuserID = SSCPItemMaster.strResponsibleStaff
+                ORDER BY Staff"
 
-            daSSCPStaff = New SqlDataAdapter(SQL, CurrentConnection)
+            dtcboSSCPEngineerSearch1 = DB.GetDataTable(query)
+            dtcboSSCPEngineerSearch2 = dtcboSSCPEngineerSearch1.Copy
 
-            SQL = "select " &
+            query = "select " &
             "numUnitCode, strUnitDesc " &
             "from LookUpEPDUnits " &
             "where numProgramcode = '4' "
 
-            daSSCPUnit = New SqlDataAdapter(SQL, CurrentConnection)
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            daCounty.Fill(dsCounty, "County")
-            daDistrict.Fill(dsDistrict, "District")
-            daSIPSubPart.Fill(dsSIPSubPart, "SIPSubPart")
-            daPart61SubPart.Fill(dsPart61SubPart, "Part61SubPart")
-            daPart60SubPart.Fill(dsPart60SubPart, "Part60SubPart")
-            daPart63SubPart.Fill(dsPart63SubPart, "Part63SubPart")
-            daSSCPStaff.Fill(dsSSCPStaff, "SSCPStaff")
-            daSSCPUnit.Fill(dsSSCPUnit, "SSCPUnit")
+            dtcboSSCPUnitSearch1 = DB.GetDataTable(query)
+            dtcboSSCPUnitSearch2 = dtcboSSCPUnitSearch1.Copy
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & ".LoadDataSets")
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
     End Sub
-    Sub LoadComboBoxes()
-        Try
-            Dim dtCounty As New DataTable
-            Dim dtCounty2 As New DataTable
-            Dim dtDistrict As New DataTable
-            Dim dtDistrict2 As New DataTable
-            Dim dtSIPSubPart As New DataTable
-            Dim dtSIPSubPart2 As New DataTable
-            Dim dtPart61SubPart As New DataTable
-            Dim dtPart61SubPart2 As New DataTable
-            Dim dtPart60SubPart As New DataTable
-            Dim dtPart60SubPart2 As New DataTable
-            Dim dtPart63SubPart As New DataTable
-            Dim dtPart63SubPart2 As New DataTable
-            Dim dtSSCPStaff As New DataTable
-            Dim dtSSCPStaff2 As New DataTable
-            Dim dtSSCPUnit As New DataTable
-            Dim dtSSCPUnit2 As New DataTable
-
-            Dim drDSRow As DataRow
-            Dim drNewRow As DataRow
-
-            dtCounty.Columns.Add("strCountyCode", GetType(System.String))
-            dtCounty.Columns.Add("strCountyName", GetType(System.String))
-
-            dtCounty2.Columns.Add("strCountyCode", GetType(System.String))
-            dtCounty2.Columns.Add("strCountyName", GetType(System.String))
-
-            dtDistrict.Columns.Add("strDistrictCode", GetType(System.String))
-            dtDistrict.Columns.Add("strDistrictName", GetType(System.String))
-
-            dtDistrict2.Columns.Add("strDistrictCode", GetType(System.String))
-            dtDistrict2.Columns.Add("strDistrictName", GetType(System.String))
-
-            dtSIPSubPart.Columns.Add("strSubPart", GetType(System.String))
-            dtSIPSubPart.Columns.Add("SubPartCode", GetType(System.String))
-            dtSIPSubPart2.Columns.Add("strSubPart", GetType(System.String))
-            dtSIPSubPart2.Columns.Add("SubPartCode", GetType(System.String))
-
-            dtPart61SubPart.Columns.Add("strSubPart", GetType(System.String))
-            dtPart61SubPart.Columns.Add("SubPartCode", GetType(System.String))
-            dtPart61SubPart2.Columns.Add("strSubPart", GetType(System.String))
-            dtPart61SubPart2.Columns.Add("SubPartCode", GetType(System.String))
-
-            dtPart60SubPart.Columns.Add("strSubPart", GetType(System.String))
-            dtPart60SubPart.Columns.Add("SubPartCode", GetType(System.String))
-            dtPart60SubPart2.Columns.Add("strSubPart", GetType(System.String))
-            dtPart60SubPart2.Columns.Add("SubPartCode", GetType(System.String))
-
-            dtPart63SubPart.Columns.Add("strSubPart", GetType(System.String))
-            dtPart63SubPart.Columns.Add("SubPartCode", GetType(System.String))
-            dtPart63SubPart2.Columns.Add("strSubPart", GetType(System.String))
-            dtPart63SubPart2.Columns.Add("SubPartCode", GetType(System.String))
-
-            dtSSCPStaff.Columns.Add("numUserID", GetType(System.String))
-            dtSSCPStaff.Columns.Add("Staff", GetType(System.String))
-            dtSSCPStaff2.Columns.Add("numUserID", GetType(System.String))
-            dtSSCPStaff2.Columns.Add("Staff", GetType(System.String))
-
-            dtSSCPUnit.Columns.Add("numUnitCode", GetType(System.String))
-            dtSSCPUnit.Columns.Add("strUnitDesc", GetType(System.String))
-            dtSSCPUnit2.Columns.Add("numUnitCode", GetType(System.String))
-            dtSSCPUnit2.Columns.Add("strUnitDesc", GetType(System.String))
-
-            drNewRow = dtCounty.NewRow()
-            drNewRow("strCountyCode") = " "
-            drNewRow("strCountyName") = " "
-            dtCounty.Rows.Add(drNewRow)
-
-            drNewRow = dtCounty2.NewRow()
-            drNewRow("strCountyCode") = " "
-            drNewRow("strCountyName") = " "
-            dtCounty2.Rows.Add(drNewRow)
-
-            drNewRow = dtDistrict.NewRow()
-            drNewRow("strDistrictCode") = " "
-            drNewRow("strDistrictName") = " "
-            dtDistrict.Rows.Add(drNewRow)
-
-            drNewRow = dtDistrict2.NewRow()
-            drNewRow("strDistrictCode") = " "
-            drNewRow("strDistrictName") = " "
-            dtDistrict2.Rows.Add(drNewRow)
-
-            drNewRow = dtSIPSubPart.NewRow()
-            drNewRow("strSubPart") = " "
-            drNewRow("SubPartCode") = " "
-            dtSIPSubPart.Rows.Add(drNewRow)
-
-            drNewRow = dtSIPSubPart2.NewRow()
-            drNewRow("strSubPart") = " "
-            drNewRow("SubPartCode") = " "
-            dtSIPSubPart2.Rows.Add(drNewRow)
-
-            drNewRow = dtPart61SubPart.NewRow()
-            drNewRow("strSubPart") = " "
-            drNewRow("SubPartCode") = " "
-            dtPart61SubPart.Rows.Add(drNewRow)
-
-            drNewRow = dtPart61SubPart2.NewRow()
-            drNewRow("strSubPart") = " "
-            drNewRow("SubPartCode") = " "
-            dtPart61SubPart2.Rows.Add(drNewRow)
-
-            drNewRow = dtPart60SubPart.NewRow()
-            drNewRow("strSubPart") = " "
-            drNewRow("SubPartCode") = " "
-            dtPart60SubPart.Rows.Add(drNewRow)
-
-            drNewRow = dtPart60SubPart2.NewRow()
-            drNewRow("strSubPart") = " "
-            drNewRow("SubPartCode") = " "
-            dtPart60SubPart2.Rows.Add(drNewRow)
-
-            drNewRow = dtPart63SubPart.NewRow()
-            drNewRow("strSubPart") = " "
-            drNewRow("SubPartCode") = " "
-            dtPart63SubPart.Rows.Add(drNewRow)
-
-            drNewRow = dtPart63SubPart2.NewRow()
-            drNewRow("strSubPart") = " "
-            drNewRow("SubPartCode") = " "
-            dtPart63SubPart2.Rows.Add(drNewRow)
-
-            drNewRow = dtSSCPStaff.NewRow()
-            drNewRow("numUserID") = " "
-            drNewRow("Staff") = " "
-            dtSSCPStaff.Rows.Add(drNewRow)
-
-            drNewRow = dtSSCPStaff2.NewRow()
-            drNewRow("numUserID") = " "
-            drNewRow("Staff") = " "
-            dtSSCPStaff2.Rows.Add(drNewRow)
-
-            drNewRow = dtSSCPUnit.NewRow()
-            drNewRow("numUnitCode") = " "
-            drNewRow("strUnitDesc") = " "
-            dtSSCPUnit.Rows.Add(drNewRow)
-
-            drNewRow = dtSSCPUnit2.NewRow()
-            drNewRow("numUnitCode") = " "
-            drNewRow("strUnitDesc") = " "
-            dtSSCPUnit2.Rows.Add(drNewRow)
-
-            For Each drDSRow In dsCounty.Tables("County").Rows()
-                drNewRow = dtCounty.NewRow()
-                drNewRow("strCountyCode") = drDSRow("strCountyCode")
-                drNewRow("strCountyName") = drDSRow("strCountyName")
-                dtCounty.Rows.Add(drNewRow)
-            Next
-
-            For Each drDSRow In dsCounty.Tables("County").Rows()
-                drNewRow = dtCounty2.NewRow()
-                drNewRow("strCountyCode") = drDSRow("strCountyCode")
-                drNewRow("strCountyName") = drDSRow("strCountyName")
-                dtCounty2.Rows.Add(drNewRow)
-            Next
-
-            For Each drDSRow In dsDistrict.Tables("District").Rows()
-                drNewRow = dtDistrict.NewRow()
-                drNewRow("strDistrictCode") = drDSRow("strDistrictCode")
-                drNewRow("strDistrictName") = drDSRow("strDistrictName")
-                dtDistrict.Rows.Add(drNewRow)
-            Next
-
-            For Each drDSRow In dsDistrict.Tables("District").Rows()
-                drNewRow = dtDistrict2.NewRow()
-                drNewRow("strDistrictCode") = drDSRow("strDistrictCode")
-                drNewRow("strDistrictName") = drDSRow("strDistrictName")
-                dtDistrict2.Rows.Add(drNewRow)
-            Next
-
-            For Each drDSRow In dsSIPSubPart.Tables("SIPSubPart").Rows()
-                drNewRow = dtSIPSubPart.NewRow()
-                drNewRow("strSubPart") = drDSRow("strSubPart")
-                drNewRow("SubPartCode") = drDSRow("SubPartCode")
-                dtSIPSubPart.Rows.Add(drNewRow)
-            Next
-
-            For Each drDSRow In dsSIPSubPart.Tables("SIPSubPart").Rows()
-                drNewRow = dtSIPSubPart2.NewRow()
-                drNewRow("strSubPart") = drDSRow("strSubPart")
-                drNewRow("SubPartCode") = drDSRow("SubPartCode")
-                dtSIPSubPart2.Rows.Add(drNewRow)
-            Next
-
-            For Each drDSRow In dsPart61SubPart.Tables("Part61SubPart").Rows()
-                drNewRow = dtPart61SubPart.NewRow()
-                drNewRow("strSubPart") = drDSRow("strSubPart")
-                drNewRow("SubPartCode") = drDSRow("SubPartCode")
-                dtPart61SubPart.Rows.Add(drNewRow)
-            Next
-
-            For Each drDSRow In dsPart61SubPart.Tables("Part61SubPart").Rows()
-                drNewRow = dtPart61SubPart2.NewRow()
-                drNewRow("strSubPart") = drDSRow("strSubPart")
-                drNewRow("SubPartCode") = drDSRow("SubPartCode")
-                dtPart61SubPart2.Rows.Add(drNewRow)
-            Next
-
-            For Each drDSRow In dsPart60SubPart.Tables("Part60SubPart").Rows()
-                drNewRow = dtPart60SubPart.NewRow()
-                drNewRow("strSubPart") = drDSRow("strSubPart")
-                drNewRow("SubPartCode") = drDSRow("SubPartCode")
-                dtPart60SubPart.Rows.Add(drNewRow)
-            Next
-
-            For Each drDSRow In dsPart60SubPart.Tables("Part60SubPart").Rows()
-                drNewRow = dtPart60SubPart2.NewRow()
-                drNewRow("strSubPart") = drDSRow("strSubPart")
-                drNewRow("SubPartCode") = drDSRow("SubPartCode")
-                dtPart60SubPart2.Rows.Add(drNewRow)
-            Next
-
-            For Each drDSRow In dsPart63SubPart.Tables("Part63SubPart").Rows()
-                drNewRow = dtPart63SubPart.NewRow()
-                drNewRow("strSubPart") = drDSRow("strSubPart")
-                drNewRow("SubPartCode") = drDSRow("SubPartCode")
-                dtPart63SubPart.Rows.Add(drNewRow)
-            Next
-
-            For Each drDSRow In dsPart63SubPart.Tables("Part63SubPart").Rows()
-                drNewRow = dtPart63SubPart2.NewRow()
-                drNewRow("strSubPart") = drDSRow("strSubPart")
-                drNewRow("SubPartCode") = drDSRow("SubPartCode")
-                dtPart63SubPart2.Rows.Add(drNewRow)
-            Next
-
-            For Each drDSRow In dsSSCPStaff.Tables("SSCPStaff").Rows()
-                drNewRow = dtSSCPStaff.NewRow()
-                drNewRow("numUserID") = drDSRow("numUserID")
-                drNewRow("Staff") = drDSRow("Staff")
-                dtSSCPStaff.Rows.Add(drNewRow)
-            Next
-
-            For Each drDSRow In dsSSCPStaff.Tables("SSCPStaff").Rows()
-                drNewRow = dtSSCPStaff2.NewRow()
-                drNewRow("numUserID") = drDSRow("numUserID")
-                drNewRow("Staff") = drDSRow("Staff")
-                dtSSCPStaff2.Rows.Add(drNewRow)
-            Next
-
-            For Each drDSRow In dsSSCPUnit.Tables("SSCPUnit").Rows()
-                drNewRow = dtSSCPUnit.NewRow()
-                drNewRow("numUnitCode") = drDSRow("numUnitCode")
-                drNewRow("strUnitDesc") = drDSRow("strUnitDesc")
-                dtSSCPUnit.Rows.Add(drNewRow)
-            Next
-
-            For Each drDSRow In dsSSCPUnit.Tables("SSCPUnit").Rows()
-                drNewRow = dtSSCPUnit2.NewRow()
-                drNewRow("numUnitCode") = drDSRow("numUnitCode")
-                drNewRow("strUnitDesc") = drDSRow("strUnitDesc")
-                dtSSCPUnit2.Rows.Add(drNewRow)
-            Next
-
-            With cboCountySearch1
-                .DataSource = dtCounty
-                .DisplayMember = "strCountyName"
-                .ValueMember = "strCountyCode"
-                If cboCountySearch1.SelectedIndex > -1 Then
-                    .SelectedIndex = 0
-                End If
-            End With
-            cboCountySearch1.Visible = True
-
-            With cboCountySearch2
-                .DataSource = dtCounty2
-                .DisplayMember = "strCountyName"
-                .ValueMember = "strCountyCode"
-                If cboCountySearch2.SelectedIndex > -1 Then
-                    .SelectedIndex = 0
-                End If
-            End With
-            cboCountySearch2.Visible = True
-
-            With cboDistrictSearch1
-                .DataSource = dtDistrict
-                .DisplayMember = "strDistrictName"
-                .ValueMember = "strDistrictCode"
-                If cboDistrictSearch1.SelectedIndex > -1 Then
-                    .SelectedIndex = 0
-                End If
-            End With
-            cboDistrictSearch1.Visible = True
-
-            With cboDistrictSearch2
-                .DataSource = dtDistrict2
-                .DisplayMember = "strDistrictName"
-                .ValueMember = "strDistrictCode"
-                If cboDistrictSearch2.SelectedIndex > -1 Then
-                    .SelectedIndex = 0
-                End If
-            End With
-            cboDistrictSearch2.Visible = True
-
-            With cboSIPSearch1
-                .DataSource = dtSIPSubPart
-                .DisplayMember = "strSubPart"
-                .ValueMember = "SubPartCode"
-                If cboSIPSearch1.SelectedIndex > -1 Then
-                    .SelectedIndex = 0
-                End If
-            End With
-            cboSIPSearch1.Visible = True
-
-            With cboSIPSearch2
-                .DataSource = dtSIPSubPart2
-                .DisplayMember = "strSubPart"
-                .ValueMember = "SubPartCode"
-                If cboSIPSearch2.SelectedIndex > -1 Then
-                    .SelectedIndex = 0
-                End If
-            End With
-            cboSIPSearch2.Visible = True
-
-            With cboPart61Search1
-                .DataSource = dtPart61SubPart
-                .DisplayMember = "strSubPart"
-                .ValueMember = "SubPartCode"
-                If cboPart61Search1.SelectedIndex > -1 Then
-                    .SelectedIndex = 0
-                End If
-            End With
-            cboPart61Search1.Visible = True
-
-            With cboPart61Search2
-                .DataSource = dtPart61SubPart2
-                .DisplayMember = "strSubPart"
-                .ValueMember = "SubPartCode"
-                If cboPart61Search2.SelectedIndex > -1 Then
-                    .SelectedIndex = 0
-                End If
-            End With
-            cboPart61Search2.Visible = True
-
-            With cboPart60Search1
-                .DataSource = dtPart60SubPart
-                .DisplayMember = "strSubPart"
-                .ValueMember = "SubPartCode"
-                If cboPart60Search1.SelectedIndex > -1 Then
-                    .SelectedIndex = 0
-                End If
-            End With
-            cboPart60Search1.Visible = True
-
-            With cboPart60Search2
-                .DataSource = dtPart60SubPart2
-                .DisplayMember = "strSubPart"
-                .ValueMember = "SubPartCode"
-                If cboPart60Search2.SelectedIndex > -1 Then
-                    .SelectedIndex = 0
-                End If
-            End With
-            cboPart60Search2.Visible = True
-
-            With cboPart63Search1
-                .DataSource = dtPart63SubPart
-                .DisplayMember = "strSubPart"
-                .ValueMember = "SubPartCode"
-                If cboPart63Search1.SelectedIndex > -1 Then
-                    .SelectedIndex = 0
-                End If
-            End With
-            cboPart63Search1.Visible = True
-
-            With cboPart63Search2
-                .DataSource = dtPart63SubPart2
-                .DisplayMember = "strSubPart"
-                .ValueMember = "SubPartCode"
-                If cboPart63Search2.SelectedIndex > -1 Then
-                    .SelectedIndex = 0
-                End If
-            End With
-
-            With cboSSCPEngineerSearch1
-                .DataSource = dtSSCPStaff
-                .DisplayMember = "Staff"
-                .ValueMember = "numUserID"
-                If cboSSCPEngineerSearch1.SelectedIndex > -1 Then
-                    .SelectedIndex = 0
-                End If
-            End With
-
-            With cboSSCPEngineerSearch2
-                .DataSource = dtSSCPStaff2
-                .DisplayMember = "Staff"
-                .ValueMember = "numUserID"
-                If cboSSCPEngineerSearch2.SelectedIndex > -1 Then
-                    .SelectedIndex = 0
-                End If
-            End With
-
-            With cboSSCPUnitSearch1
-                .DataSource = dtSSCPUnit
-                .DisplayMember = "strUnitDesc"
-                .ValueMember = "numUnitCode"
-                If cboSSCPUnitSearch1.SelectedIndex > -1 Then
-                    .SelectedIndex = 0
-                End If
-            End With
-
-            With cboSSCPUnitSearch2
-                .DataSource = dtSSCPUnit2
-                .DisplayMember = "strUnitDesc"
-                .ValueMember = "numUnitCode"
-                If cboSSCPUnitSearch2.SelectedIndex > -1 Then
-                    .SelectedIndex = 0
-                End If
-            End With
-
-            cboPart63Search2.Visible = True
-
-            cboOperationStatusSearch1.Text = " "
-            cboOperationStatusSearch1.Items.Add(" ")
-            cboOperationStatusSearch1.Items.Add("O - Operational")
-            cboOperationStatusSearch1.Items.Add("P - Planned")
-            cboOperationStatusSearch1.Items.Add("C - Under Construction")
-            cboOperationStatusSearch1.Items.Add("T - Temporarily Closed")
-            cboOperationStatusSearch1.Items.Add("X - Closed/Dismantled")
-            cboOperationStatusSearch1.Items.Add("I - Seasonal Operation")
-            cboOperationStatusSearch1.Visible = True
-
-            cboOperationStatusSearch2.Text = " "
-            cboOperationStatusSearch2.Items.Add(" ")
-            cboOperationStatusSearch2.Items.Add("O - Operational")
-            cboOperationStatusSearch2.Items.Add("P - Planned")
-            cboOperationStatusSearch2.Items.Add("C - Under Construction")
-            cboOperationStatusSearch2.Items.Add("T - Temporarily Closed")
-            cboOperationStatusSearch2.Items.Add("X - Closed/Dismantled")
-            cboOperationStatusSearch2.Items.Add("I - Seasonal Operation")
-            cboOperationStatusSearch2.Visible = True
-
-            cboClassificationSearch1.Text = " "
-            cboClassificationSearch1.Items.Add(" ")
-            cboClassificationSearch1.Items.Add("A")
-            cboClassificationSearch1.Items.Add("B")
-            cboClassificationSearch1.Items.Add("SM")
-            cboClassificationSearch1.Items.Add("PR")
-            cboClassificationSearch1.Items.Add("C")
-            cboClassificationSearch1.Visible = True
-
-            cboClassificationSearch2.Text = " "
-            cboClassificationSearch2.Items.Add(" ")
-            cboClassificationSearch2.Items.Add("A")
-            cboClassificationSearch2.Items.Add("B")
-            cboClassificationSearch2.Items.Add("SM")
-            cboClassificationSearch2.Items.Add("PR")
-            cboClassificationSearch2.Items.Add("C")
-            cboClassificationSearch2.Visible = True
-
-            cboCMSUniverseSearch1.Text = " "
-            cboCMSUniverseSearch1.Items.Add(" ")
-            cboCMSUniverseSearch1.Items.Add("A")
-            cboCMSUniverseSearch1.Items.Add("S")
-            'cboCMSUniverseSearch1.Items.Add("A & S")
-            cboCMSUniverseSearch1.Visible = True
-
-            cboCMSUniverseSearch2.Text = " "
-            cboCMSUniverseSearch2.Items.Add(" ")
-            cboCMSUniverseSearch2.Items.Add("A")
-            cboCMSUniverseSearch2.Items.Add("S")
-            'cboCMSUniverseSearch2.Items.Add("A & S")
-            cboCMSUniverseSearch2.Visible = True
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & ".LoadComboBoxes")
-        Finally
-
-        End Try
+
+    Private Sub ShowComboBoxes()
+
+        With cboCountySearch1
+            .DataSource = dtcboCountySearch1
+            .DisplayMember = "strCountyName"
+            .ValueMember = "strCountyCode"
+            .SelectedIndex = -1
+        End With
+
+        With cboCountySearch2
+            .DataSource = dtcboCountySearch2
+            .DisplayMember = "strCountyName"
+            .SelectedIndex = -1
+        End With
+
+        With cboDistrictSearch1
+            .DataSource = dtcboDistrictSearch1
+            .DisplayMember = "strDistrictName"
+            .ValueMember = "strDistrictCode"
+            .SelectedIndex = -1
+        End With
+
+        With cboDistrictSearch2
+            .DataSource = dtcboDistrictSearch2
+            .DisplayMember = "strDistrictName"
+            .ValueMember = "strDistrictCode"
+            .SelectedIndex = -1
+        End With
+
+        With cboSIPSearch1
+            .DataSource = dtcboSIPSearch1
+            .DisplayMember = "strSubPart"
+            .ValueMember = "SubPartCode"
+            .SelectedIndex = -1
+        End With
+
+        With cboSIPSearch2
+            .DataSource = dtcboSIPSearch2
+            .DisplayMember = "strSubPart"
+            .ValueMember = "SubPartCode"
+            .SelectedIndex = -1
+        End With
+
+        With cboPart61Search1
+            .DataSource = dtcboPart61Search1
+            .DisplayMember = "strSubPart"
+            .ValueMember = "SubPartCode"
+            .SelectedIndex = -1
+        End With
+
+        With cboPart61Search2
+            .DataSource = dtcboPart61Search2
+            .DisplayMember = "strSubPart"
+            .ValueMember = "SubPartCode"
+            .SelectedIndex = -1
+        End With
+
+        With cboPart60Search1
+            .DataSource = dtcboPart60Search1
+            .DisplayMember = "strSubPart"
+            .ValueMember = "SubPartCode"
+            .SelectedIndex = -1
+        End With
+
+        With cboPart60Search2
+            .DataSource = dtcboPart60Search2
+            .DisplayMember = "strSubPart"
+            .ValueMember = "SubPartCode"
+            .SelectedIndex = -1
+        End With
+
+        With cboPart63Search1
+            .DataSource = dtcboPart63Search1
+            .DisplayMember = "strSubPart"
+            .ValueMember = "SubPartCode"
+            .SelectedIndex = -1
+        End With
+
+        With cboPart63Search2
+            .DataSource = dtcboPart63Search2
+            .DisplayMember = "strSubPart"
+            .ValueMember = "SubPartCode"
+            .SelectedIndex = -1
+        End With
+
+        With cboSSCPEngineerSearch1
+            .DataSource = dtcboSSCPEngineerSearch1
+            .DisplayMember = "Staff"
+            .ValueMember = "numUserID"
+            .SelectedIndex = -1
+        End With
+
+        With cboSSCPEngineerSearch2
+            .DataSource = dtcboSSCPEngineerSearch2
+            .DisplayMember = "Staff"
+            .ValueMember = "numUserID"
+            .SelectedIndex = -1
+        End With
+
+        With cboSSCPUnitSearch1
+            .DataSource = dtcboSSCPUnitSearch1
+            .DisplayMember = "strUnitDesc"
+            .ValueMember = "numUnitCode"
+            .SelectedIndex = -1
+        End With
+
+        With cboSSCPUnitSearch2
+            .DataSource = dtcboSSCPUnitSearch2
+            .DisplayMember = "strUnitDesc"
+            .ValueMember = "numUnitCode"
+            .SelectedIndex = -1
+        End With
+
+        cboOperationStatusSearch1.Text = " "
+        cboOperationStatusSearch1.Items.Add(" ")
+        cboOperationStatusSearch1.Items.Add("O - Operational")
+        cboOperationStatusSearch1.Items.Add("P - Planned")
+        cboOperationStatusSearch1.Items.Add("C - Under Construction")
+        cboOperationStatusSearch1.Items.Add("T - Temporarily Closed")
+        cboOperationStatusSearch1.Items.Add("X - Closed/Dismantled")
+        cboOperationStatusSearch1.Items.Add("I - Seasonal Operation")
+
+        cboOperationStatusSearch2.Text = " "
+        cboOperationStatusSearch2.Items.Add(" ")
+        cboOperationStatusSearch2.Items.Add("O - Operational")
+        cboOperationStatusSearch2.Items.Add("P - Planned")
+        cboOperationStatusSearch2.Items.Add("C - Under Construction")
+        cboOperationStatusSearch2.Items.Add("T - Temporarily Closed")
+        cboOperationStatusSearch2.Items.Add("X - Closed/Dismantled")
+        cboOperationStatusSearch2.Items.Add("I - Seasonal Operation")
+
+        cboClassificationSearch1.Text = " "
+        cboClassificationSearch1.Items.Add(" ")
+        cboClassificationSearch1.Items.Add("A")
+        cboClassificationSearch1.Items.Add("B")
+        cboClassificationSearch1.Items.Add("SM")
+        cboClassificationSearch1.Items.Add("PR")
+        cboClassificationSearch1.Items.Add("C")
+
+
+        cboClassificationSearch2.Text = " "
+        cboClassificationSearch2.Items.Add(" ")
+        cboClassificationSearch2.Items.Add("A")
+        cboClassificationSearch2.Items.Add("B")
+        cboClassificationSearch2.Items.Add("SM")
+        cboClassificationSearch2.Items.Add("PR")
+        cboClassificationSearch2.Items.Add("C")
+
+        cboCMSUniverseSearch1.Text = " "
+        cboCMSUniverseSearch1.Items.Add(" ")
+        cboCMSUniverseSearch1.Items.Add("A")
+        cboCMSUniverseSearch1.Items.Add("S")
+
+        cboCMSUniverseSearch2.Text = " "
+        cboCMSUniverseSearch2.Items.Add(" ")
+        cboCMSUniverseSearch2.Items.Add("A")
+        cboCMSUniverseSearch2.Items.Add("S")
+
+        cboCountySearch1.Visible = True
+        cboCountySearch2.Visible = True
+        cboDistrictSearch1.Visible = True
+        cboDistrictSearch2.Visible = True
+        cboSIPSearch1.Visible = True
+        cboSIPSearch2.Visible = True
+        cboPart61Search1.Visible = True
+        cboPart61Search2.Visible = True
+        cboPart60Search1.Visible = True
+        cboPart60Search2.Visible = True
+        cboPart63Search1.Visible = True
+        cboPart63Search2.Visible = True
+        cboOperationStatusSearch1.Visible = True
+        cboOperationStatusSearch2.Visible = True
+        cboClassificationSearch1.Visible = True
+        cboClassificationSearch2.Visible = True
+        cboCMSUniverseSearch1.Visible = True
+        cboCMSUniverseSearch2.Visible = True
     End Sub
+
 #End Region
-#Region "Subs and Functions"
 
-    Sub GenerateSQL2()
+    Private Sub GenerateSQL2()
         Try
             Dim MasterSQL As String = ""
             Dim SQLSelect As String = ""
@@ -660,6 +347,7 @@ Public Class IAIPQueryGenerator
             Dim SQLOrder As String = ""
             Dim SQLWhereCase1 As String = ""
             Dim SQLWhereCase2 As String = ""
+            Dim params As New List(Of SqlParameter)
             Dim temp As String = ""
             Dim i As Integer = 0
             Dim j As Integer = 0
@@ -1520,15 +1208,17 @@ Public Class IAIPQueryGenerator
             End If
 
             If txtAIRSNumberSearch1.Text <> "" Then
-                SQLWhere = SQLWhere & " and (APBMasterAIRS.strairsnumber " & SQLWhereCase2 & " '0413%" & txtAIRSNumberSearch1.Text & "%') "
+                SQLWhere = SQLWhere & " and (APBMasterAIRS.strairsnumber " & SQLWhereCase2 & " @airs1) "
+                params.Add(New SqlParameter("@airs1", "0413%" & txtAIRSNumberSearch1.Text & "%"))
             End If
             If txtAIRSNumberSearch2.Text <> "" Then
                 If txtAIRSNumberSearch1.Text <> "" Then
                     SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 2)) &
-                    " " & SQLWhereCase1 & " APBMasterAIRS.strairsnumber " & SQLWhereCase2 & " '0413%" & txtAIRSNumberSearch2.Text & "%' ) "
+                    " " & SQLWhereCase1 & " APBMasterAIRS.strairsnumber " & SQLWhereCase2 & " @airs2 ) "
                 Else
-                    SQLWhere = SQLWhere & " and (APBMasterAIRS.strairsNumber " & SQLWhereCase2 & " '0413%" & txtAIRSNumberSearch2.Text & "%') "
+                    SQLWhere = SQLWhere & " and (APBMasterAIRS.strairsNumber " & SQLWhereCase2 & " @airs2 ) "
                 End If
+                params.Add(New SqlParameter("@airs2", "0413%" & txtAIRSNumberSearch2.Text & "%"))
             End If
 
             If rdbFacilityNameOr.Checked = True Then
@@ -1542,15 +1232,17 @@ Public Class IAIPQueryGenerator
                 SQLWhereCase2 = " Not Like "
             End If
             If txtFacilityNameSearch1.Text <> "" Then
-                SQLWhere = SQLWhere & " and (strFacilityName " & SQLWhereCase2 & " '%" & txtFacilityNameSearch1.Text & "%') "
+                SQLWhere = SQLWhere & " and (strFacilityName " & SQLWhereCase2 & " @name1 ) "
+                params.Add(New SqlParameter("@name1", "%" & txtFacilityNameSearch1.Text & "%"))
             End If
             If txtFacilityNameSearch2.Text <> "" Then
                 If txtFacilityNameSearch1.Text <> "" Then
                     SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 2)) &
-                    " " & SQLWhereCase1 & " strFacilityName " & SQLWhereCase2 & " '%" & txtFacilityNameSearch2.Text & "%' ) "
+                    " " & SQLWhereCase1 & " strFacilityName " & SQLWhereCase2 & " @name2 ) "
                 Else
-                    SQLWhere = SQLWhere & " and (strFacilityName " & SQLWhereCase2 & " '%" & txtFacilityNameSearch2.Text & "%') "
+                    SQLWhere = SQLWhere & " and (strFacilityName " & SQLWhereCase2 & " @name2) "
                 End If
+                params.Add(New SqlParameter("@name2", "%" & txtFacilityNameSearch2.Text & "%"))
             End If
 
             If chbFacilityStreet1.Checked = True Then
@@ -1565,15 +1257,17 @@ Public Class IAIPQueryGenerator
                     SQLWhereCase2 = " Not Like "
                 End If
                 If txtFacilityStreet1Search1.Text <> "" Then
-                    SQLWhere = SQLWhere & " and (strFacilityStreet1 " & SQLWhereCase2 & " '%" & txtFacilityStreet1Search1.Text & "%') "
+                    SQLWhere = SQLWhere & " and (strFacilityStreet1 " & SQLWhereCase2 & " @street1 ) "
+                    params.Add(New SqlParameter("@street1", "%" & txtFacilityStreet1Search1.Text & "%"))
                 End If
                 If txtFacilityStreet1Search2.Text <> "" Then
                     If txtFacilityStreet1Search1.Text <> "" Then
                         SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 2)) &
-                        " " & SQLWhereCase1 & " strFacilityStreet1 " & SQLWhereCase2 & " '%" & txtFacilityStreet1Search2.Text & "%' ) "
+                        " " & SQLWhereCase1 & " strFacilityStreet1 " & SQLWhereCase2 & " @street2 ) "
                     Else
-                        SQLWhere = SQLWhere & " and (strFacilityStreet1 " & SQLWhereCase2 & " '%" & txtFacilityStreet1Search2.Text & "%') "
+                        SQLWhere = SQLWhere & " and (strFacilityStreet1 " & SQLWhereCase2 & " @street2) "
                     End If
+                    params.Add(New SqlParameter("@street2", "%" & txtFacilityStreet1Search2.Text & "%"))
                 End If
             End If
 
@@ -1589,15 +1283,17 @@ Public Class IAIPQueryGenerator
                     SQLWhereCase2 = " Not Like "
                 End If
                 If txtFacilityStreet2Search1.Text <> "" Then
-                    SQLWhere = SQLWhere & " and (strFacilityStreet2 " & SQLWhereCase2 & " '%" & txtFacilityStreet2Search1.Text & "%') "
+                    SQLWhere = SQLWhere & " and (strFacilityStreet2 " & SQLWhereCase2 & " @streetB1) "
+                    params.Add(New SqlParameter("@streetB1", "%" & txtFacilityStreet2Search1.Text & "%"))
                 End If
                 If txtFacilityStreet2Search2.Text <> "" Then
                     If txtFacilityStreet2Search1.Text <> "" Then
                         SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 2)) &
-                        " " & SQLWhereCase1 & " strFacilityStreet2 " & SQLWhereCase2 & " '%" & txtFacilityStreet2Search2.Text & "%' ) "
+                        " " & SQLWhereCase1 & " strFacilityStreet2 " & SQLWhereCase2 & " @streetB2 ) "
                     Else
-                        SQLWhere = SQLWhere & " and (strFacilityStreet2 " & SQLWhereCase2 & " '%" & txtFacilityStreet2Search2.Text & "%') "
+                        SQLWhere = SQLWhere & " and (strFacilityStreet2 " & SQLWhereCase2 & " @streetB2) "
                     End If
+                    params.Add(New SqlParameter("@streetB2", "%" & txtFacilityStreet2Search2.Text & "%"))
                 End If
             End If
 
@@ -1613,15 +1309,17 @@ Public Class IAIPQueryGenerator
                     SQLWhereCase2 = " Not Like "
                 End If
                 If txtFacilityCitySearch1.Text <> "" Then
-                    SQLWhere = SQLWhere & " and (strFacilityCity " & SQLWhereCase2 & " '%" & txtFacilityCitySearch1.Text & "%') "
+                    SQLWhere = SQLWhere & " and (strFacilityCity " & SQLWhereCase2 & " @city1) "
+                    params.Add(New SqlParameter("@city1", "%" & txtFacilityCitySearch1.Text & "%"))
                 End If
                 If txtFacilityCitySearch2.Text <> "" Then
                     If txtFacilityCitySearch1.Text <> "" Then
                         SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 2)) &
-                        " " & SQLWhereCase1 & " strFacilityCity " & SQLWhereCase2 & " '%" & txtFacilityCitySearch2.Text & "%' ) "
+                        " " & SQLWhereCase1 & " strFacilityCity " & SQLWhereCase2 & " @city2 ) "
                     Else
-                        SQLWhere = SQLWhere & " and (strFacilityCity " & SQLWhereCase2 & " '%" & txtFacilityCitySearch2.Text & "%') "
+                        SQLWhere = SQLWhere & " and (strFacilityCity " & SQLWhereCase2 & " @city2) "
                     End If
+                    params.Add(New SqlParameter("@city2", "%" & txtFacilityCitySearch2.Text & "%"))
                 End If
             End If
 
@@ -1637,34 +1335,38 @@ Public Class IAIPQueryGenerator
                     SQLWhereCase2 = " Not Like "
                 End If
                 If txtFacilityZipCodeSearch1.Text <> "" Then
-                    SQLWhere = SQLWhere & " and (strFacilityZipCode " & SQLWhereCase2 & " '%" & txtFacilityZipCodeSearch1.Text & "%') "
+                    SQLWhere = SQLWhere & " and (strFacilityZipCode " & SQLWhereCase2 & " @zip1) "
+                    params.Add(New SqlParameter("@zip1", "%" & txtFacilityZipCodeSearch1.Text & "%"))
                 End If
                 If txtFacilityZipCodeSearch2.Text <> "" Then
                     If txtFacilityZipCodeSearch1.Text <> "" Then
                         SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 2)) &
-                        " " & SQLWhereCase1 & " strFacilityZipCode " & SQLWhereCase2 & " '%" & txtFacilityZipCodeSearch2.Text & "%' ) "
+                        " " & SQLWhereCase1 & " strFacilityZipCode " & SQLWhereCase2 & " @zip2 ) "
                     Else
-                        SQLWhere = SQLWhere & " and (strFacilityzipcode " & SQLWhereCase2 & " '%" & txtFacilityZipCodeSearch2.Text & "%') "
+                        SQLWhere = SQLWhere & " and (strFacilityzipcode " & SQLWhereCase2 & " @zip2) "
                     End If
+                    params.Add(New SqlParameter("@zip2", "%" & txtFacilityZipCodeSearch2.Text & "%"))
                 End If
             End If
 
             If chbFacilityLatitude.Checked = True Then
                 If txtFacilityLatitudeSearch1.Text <> "" Or txtFacilityLatitudeSearch2.Text <> "" Then
                     If txtFacilityLatitudeSearch1.Text <> "" And txtFacilityLatitudeSearch2.Text = "" Then
-                        SQLWhereCase1 = txtFacilityLatitudeSearch1.Text
-                        SQLWhereCase2 = txtFacilityLatitudeSearch1.Text
+                        params.Add(New SqlParameter("@lat1", txtFacilityLatitudeSearch1.Text))
+                        params.Add(New SqlParameter("@lat2", txtFacilityLatitudeSearch1.Text))
                     End If
                     If txtFacilityLatitudeSearch1.Text = "" And txtFacilityLatitudeSearch2.Text <> "" Then
+                        params.Add(New SqlParameter("@lat1", txtFacilityLatitudeSearch2.Text))
+                        params.Add(New SqlParameter("@lat2", txtFacilityLatitudeSearch2.Text))
                         SQLWhereCase1 = txtFacilityLatitudeSearch2.Text
                         SQLWhereCase2 = txtFacilityLatitudeSearch2.Text
                     End If
                     If txtFacilityLatitudeSearch1.Text <> "" And txtFacilityLatitudeSearch2.Text <> "" Then
-                        SQLWhereCase1 = txtFacilityLatitudeSearch1.Text
-                        SQLWhereCase2 = txtFacilityLatitudeSearch2.Text
+                        params.Add(New SqlParameter("@lat1", txtFacilityLatitudeSearch1.Text))
+                        params.Add(New SqlParameter("@lat2", txtFacilityLatitudeSearch2.Text))
                     End If
-                    SQLWhere = SQLWhere & " and (numFacilityLatitude between " & SQLWhereCase1 & " and " & SQLWhereCase2 & " or " &
-                        " numFacilityLatitude between " & SQLWhereCase2 & " and " & SQLWhereCase1 & " ) "
+                    SQLWhere = SQLWhere & " and (numFacilityLatitude between @lat1 and @lat2 or " &
+                        " numFacilityLatitude between @lat2 and @lat1 ) "
                 End If
             End If
 
@@ -1673,21 +1375,19 @@ Public Class IAIPQueryGenerator
                 OrElse (txtFacilityLongitudeSearch2.Text <> "" AndAlso IsNumeric(txtFacilityLongitudeSearch2.Text)) Then
 
                     If (txtFacilityLongitudeSearch1.Text <> "" AndAlso IsNumeric(txtFacilityLongitudeSearch1.Text)) Then
-                        SQLWhereCase1 = -Math.Abs(CType(txtFacilityLongitudeSearch1.Text, Decimal))
+                        params.Add(New SqlParameter("@long1", -Math.Abs(CType(txtFacilityLongitudeSearch1.Text, Decimal))))
+                    Else
+                        params.Add(New SqlParameter("@long1", 0))
                     End If
 
                     If (txtFacilityLongitudeSearch2.Text <> "" AndAlso IsNumeric(txtFacilityLongitudeSearch2.Text)) Then
-                        SQLWhereCase2 = -Math.Abs(CType(txtFacilityLongitudeSearch2.Text, Decimal))
+                        params.Add(New SqlParameter("@long2", -Math.Abs(CType(txtFacilityLongitudeSearch2.Text, Decimal))))
                     Else
-                        SQLWhereCase2 = SQLWhereCase1
+                        params.Add(New SqlParameter("@long2", 0))
                     End If
 
-                    If Not (txtFacilityLongitudeSearch1.Text <> "" AndAlso IsNumeric(txtFacilityLongitudeSearch1.Text)) Then
-                        SQLWhereCase1 = SQLWhereCase2
-                    End If
-
-                    SQLWhere = SQLWhere & " and (numFacilityLongitude between " & SQLWhereCase1 & " and " & SQLWhereCase2 & " or " &
-                        " numFacilityLongitude between " & SQLWhereCase2 & " and " & SQLWhereCase1 & " ) "
+                    SQLWhere = SQLWhere & " and (numFacilityLongitude between @long1 and @long2 or " &
+                        " numFacilityLongitude between @long2 and @long1 ) "
                 End If
             End If
 
@@ -1703,15 +1403,17 @@ Public Class IAIPQueryGenerator
                     SQLWhereCase2 = " Not Like "
                 End If
                 If cboCountySearch1.SelectedIndex <> -1 And cboCountySearch1.SelectedIndex <> 0 Then
-                    SQLWhere = SQLWhere & " and (SUBSTRING(APBMasterAIRS.strAIRSNumber, 5, 3) " & SQLWhereCase2 & " '" & cboCountySearch1.SelectedValue & "') "
+                    SQLWhere = SQLWhere & " and (SUBSTRING(APBMasterAIRS.strAIRSNumber, 5, 3) " & SQLWhereCase2 & " @county1 ) "
+                    params.Add(New SqlParameter("@county1", cboCountySearch1.SelectedValue))
                 End If
                 If cboCountySearch2.SelectedIndex <> -1 And cboCountySearch2.SelectedIndex <> 0 Then
                     If cboCountySearch1.SelectedIndex <> -1 And cboCountySearch1.SelectedIndex <> 0 Then
                         SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 2)) &
-                        " " & SQLWhereCase1 & " SUBSTRING(APBMasterAIRS.strAIRSNumber, 5, 3) " & SQLWhereCase2 & " '" & cboCountySearch2.SelectedValue & "' ) "
+                        " " & SQLWhereCase1 & " SUBSTRING(APBMasterAIRS.strAIRSNumber, 5, 3) " & SQLWhereCase2 & " @county2 ) "
                     Else
-                        SQLWhere = SQLWhere & " and (SUBSTRING(APBMasterAIRS.strAIRSNumber, 5, 3) " & SQLWhereCase2 & " '" & cboCountySearch2.SelectedValue & "') "
+                        SQLWhere = SQLWhere & " and (SUBSTRING(APBMasterAIRS.strAIRSNumber, 5, 3) " & SQLWhereCase2 & " @county2) "
                     End If
+                    params.Add(New SqlParameter("@county2", cboCountySearch2.SelectedValue))
                 End If
             End If
 
@@ -1727,15 +1429,17 @@ Public Class IAIPQueryGenerator
                     SQLWhereCase2 = " Not Like "
                 End If
                 If cboSSCPEngineerSearch1.SelectedIndex <> -1 And cboSSCPEngineerSearch1.SelectedIndex <> 0 Then
-                    SQLWhere = SQLWhere & " and (VW_SSCP_MOSTRECENTASSIGNMENT.numSSCPEngineer " & SQLWhereCase2 & " '" & cboSSCPEngineerSearch1.SelectedValue & "') "
+                    SQLWhere = SQLWhere & " and (VW_SSCP_MOSTRECENTASSIGNMENT.numSSCPEngineer " & SQLWhereCase2 & " @eng1) "
+                    params.Add(New SqlParameter("@eng1", cboSSCPEngineerSearch1.SelectedValue))
                 End If
                 If cboSSCPEngineerSearch2.SelectedIndex <> -1 And cboSSCPEngineerSearch2.SelectedIndex <> 0 Then
                     If cboSSCPEngineerSearch1.SelectedIndex <> -1 And cboSSCPEngineerSearch1.SelectedIndex <> 0 Then
                         SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 2)) &
-                        " " & SQLWhereCase1 & " VW_SSCP_MOSTRECENTASSIGNMENT.numSSCPEngineer " & SQLWhereCase2 & " '" & cboSSCPEngineerSearch2.SelectedValue & "' ) "
+                        " " & SQLWhereCase1 & " VW_SSCP_MOSTRECENTASSIGNMENT.numSSCPEngineer " & SQLWhereCase2 & " @eng2 ) "
                     Else
-                        SQLWhere = SQLWhere & " and (VW_SSCP_MOSTRECENTASSIGNMENT.numSSCPEngineer " & SQLWhereCase2 & " '" & cboSSCPEngineerSearch2.SelectedValue & "') "
+                        SQLWhere = SQLWhere & " and (VW_SSCP_MOSTRECENTASSIGNMENT.numSSCPEngineer " & SQLWhereCase2 & " @eng2) "
                     End If
+                    params.Add(New SqlParameter("@eng2", cboSSCPEngineerSearch2.SelectedValue))
                 End If
             End If
 
@@ -1751,15 +1455,17 @@ Public Class IAIPQueryGenerator
                     SQLWhereCase2 = " Not Like "
                 End If
                 If cboDistrictSearch1.SelectedIndex <> -1 And cboDistrictSearch1.SelectedIndex <> 0 Then
-                    SQLWhere = SQLWhere & " and (LookUpDistrictInformation.strDistrictCode " & SQLWhereCase2 & " '" & cboDistrictSearch1.SelectedValue & "') "
+                    SQLWhere = SQLWhere & " and (LookUpDistrictInformation.strDistrictCode " & SQLWhereCase2 & " @dist1) "
+                    params.Add(New SqlParameter("@dist1", cboDistrictSearch1.SelectedValue))
                 End If
                 If cboDistrictSearch2.SelectedIndex <> -1 And cboDistrictSearch2.SelectedIndex <> 0 Then
                     If cboDistrictSearch1.SelectedIndex <> -1 And cboDistrictSearch1.SelectedIndex <> 0 Then
                         SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 2)) &
-                        " " & SQLWhereCase1 & " LookUpDistrictInformation.strDistrictCode " & SQLWhereCase2 & " '" & cboDistrictSearch2.SelectedValue & "' ) "
+                        " " & SQLWhereCase1 & " LookUpDistrictInformation.strDistrictCode " & SQLWhereCase2 & " @dist2 ) "
                     Else
-                        SQLWhere = MasterSQL & " and (LookUpDistrictInformation.strDistrictCode " & SQLWhereCase2 & " '" & cboDistrictSearch2.SelectedValue & "') "
+                        SQLWhere = MasterSQL & " and (LookUpDistrictInformation.strDistrictCode " & SQLWhereCase2 & " @dist2) "
                     End If
+                    params.Add(New SqlParameter("@dist2", cboDistrictSearch2.SelectedValue))
                 End If
             End If
 
@@ -1775,15 +1481,17 @@ Public Class IAIPQueryGenerator
                     SQLWhereCase2 = " Not Like "
                 End If
                 If cboOperationStatusSearch1.Text <> "" And cboOperationStatusSearch1.Text <> " " Then
-                    SQLWhere = SQLWhere & " and (APBHeaderdata.strOperationalStatus " & SQLWhereCase2 & " '%" & Mid(cboOperationStatusSearch1.Text, 1, 1) & "%') "
+                    SQLWhere = SQLWhere & " and (APBHeaderdata.strOperationalStatus " & SQLWhereCase2 & " ) "
+                    params.Add(New SqlParameter("@op1", "%" & Mid(cboOperationStatusSearch1.Text, 1, 1) & "%"))
                 End If
                 If cboOperationStatusSearch2.Text <> "" And cboOperationStatusSearch2.Text <> " " Then
                     If cboOperationStatusSearch1.Text <> "" And cboOperationStatusSearch1.Text <> " " Then
                         SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 2)) &
-                        " " & SQLWhereCase1 & " APBHeaderdata.strOperationalStatus " & SQLWhereCase2 & " '%" & Mid(cboOperationStatusSearch2.Text, 1, 1) & "%' ) "
+                        " " & SQLWhereCase1 & " APBHeaderdata.strOperationalStatus " & SQLWhereCase2 & " @op2 ) "
                     Else
-                        SQLWhere = SQLWhere & " and (APBHeaderdata.strOperationalStatus " & SQLWhereCase2 & " '%" & Mid(cboOperationStatusSearch2.Text, 1, 1) & "%') "
+                        SQLWhere = SQLWhere & " and (APBHeaderdata.strOperationalStatus " & SQLWhereCase2 & " @op2) "
                     End If
+                    params.Add(New SqlParameter("@op2", "%" & Mid(cboOperationStatusSearch2.Text, 1, 1) & "%"))
                 End If
             End If
 
@@ -1799,15 +1507,17 @@ Public Class IAIPQueryGenerator
                     SQLWhereCase2 = " Not Like "
                 End If
                 If cboClassificationSearch1.Text <> "" And cboClassificationSearch1.Text <> " " Then
-                    SQLWhere = SQLWhere & " and (APBHeaderdata.strClass " & SQLWhereCase2 & " '%" & Mid(cboClassificationSearch1.Text, 1, 1) & "%') "
+                    SQLWhere = SQLWhere & " and (APBHeaderdata.strClass " & SQLWhereCase2 & " @class1) "
+                    params.Add(New SqlParameter("@class1", "%" & Mid(cboClassificationSearch1.Text, 1, 1) & "%"))
                 End If
                 If cboClassificationSearch2.Text <> "" And cboClassificationSearch2.Text <> " " Then
                     If cboClassificationSearch1.Text <> "" And cboClassificationSearch1.Text <> " " Then
                         SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 2)) &
-                        " " & SQLWhereCase1 & " APBHeaderdata.strClass " & SQLWhereCase2 & " '%" & Mid(cboClassificationSearch2.Text, 1, 1) & "%' ) "
+                        " " & SQLWhereCase1 & " APBHeaderdata.strClass " & SQLWhereCase2 & " @class2 ) "
                     Else
-                        SQLWhere = SQLWhere & " and (APBHeaderdata.strClass " & SQLWhereCase2 & " '%" & Mid(cboClassificationSearch2.Text, 1, 1) & "%') "
+                        SQLWhere = SQLWhere & " and (APBHeaderdata.strClass " & SQLWhereCase2 & " @class2) "
                     End If
+                    params.Add(New SqlParameter("@class2", "%" & Mid(cboClassificationSearch2.Text, 1, 1) & "%"))
                 End If
             End If
 
@@ -1823,15 +1533,17 @@ Public Class IAIPQueryGenerator
                     SQLWhereCase2 = " Not Like "
                 End If
                 If txtSICCodeSearch1.Text <> "" Then
-                    SQLWhere = SQLWhere & " and (APBHeaderdata.strSICCode " & SQLWhereCase2 & " '%" & txtSICCodeSearch1.Text & "%') "
+                    SQLWhere = SQLWhere & " and (APBHeaderdata.strSICCode " & SQLWhereCase2 & " @sic1) "
+                    params.Add(New SqlParameter("@sic1", "%" & txtSICCodeSearch1.Text & "%"))
                 End If
                 If txtSICCodeSearch2.Text <> "" Then
                     If txtSICCodeSearch1.Text <> "" Then
                         SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 2)) &
-                        " " & SQLWhereCase1 & " APBHeaderdata.strSICCode " & SQLWhereCase2 & " '%" & txtSICCodeSearch2.Text & "%' ) "
+                        " " & SQLWhereCase1 & " APBHeaderdata.strSICCode " & SQLWhereCase2 & " @sic2 ) "
                     Else
-                        SQLWhere = SQLWhere & " and (APBHeaderdata.strSICCode " & SQLWhereCase2 & " '%" & txtSICCodeSearch2.Text & "%') "
+                        SQLWhere = SQLWhere & " and (APBHeaderdata.strSICCode " & SQLWhereCase2 & " @sic2) "
                     End If
+                    params.Add(New SqlParameter("@sic2", "%" & txtSICCodeSearch2.Text & "%"))
                 End If
             End If
 
@@ -1847,69 +1559,71 @@ Public Class IAIPQueryGenerator
                     SQLWhereCase2 = " Not Like "
                 End If
                 If txtNAICSCodeSearch1.Text <> "" Then
-                    SQLWhere = SQLWhere & " and (APBHeaderdata.strNAICSCode " & SQLWhereCase2 & " '%" & txtNAICSCodeSearch1.Text & "%') "
+                    SQLWhere = SQLWhere & " and (APBHeaderdata.strNAICSCode " & SQLWhereCase2 & " @naics1) "
+                    params.Add(New SqlParameter("@naics1", "%" & txtNAICSCodeSearch1.Text & "%"))
                 End If
                 If txtNAICSCodeSearch2.Text <> "" Then
                     If txtNAICSCodeSearch1.Text <> "" Then
                         SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 2)) &
-                        " " & SQLWhereCase1 & " APBHeaderdata.strNAICSCode " & SQLWhereCase2 & " '%" & txtNAICSCodeSearch2.Text & "%' ) "
+                        " " & SQLWhereCase1 & " APBHeaderdata.strNAICSCode " & SQLWhereCase2 & " @naics2 ) "
                     Else
-                        SQLWhere = SQLWhere & " and (APBHeaderdata.strNAICSCode " & SQLWhereCase2 & " '%" & txtNAICSCodeSearch2.Text & "%') "
+                        SQLWhere = SQLWhere & " and (APBHeaderdata.strNAICSCode " & SQLWhereCase2 & " @naics2) "
                     End If
+                    params.Add(New SqlParameter("@naics2", "%" & txtNAICSCodeSearch2.Text & "%"))
                 End If
             End If
 
             If chbStartUpDate.Checked = True Then
                 If DTPStartUpDateSearch1.Checked = True Or DTPStartUpDateSearch2.Checked = True Then
                     If DTPStartUpDateSearch1.Checked = True And DTPStartUpDateSearch2.Checked = False Then
-                        SQLWhereCase1 = DTPStartUpDateSearch1.Text
-                        SQLWhereCase2 = DTPStartUpDateSearch1.Text
+                        params.Add(New SqlParameter("@stdate1", DTPStartUpDateSearch1.Value))
+                        params.Add(New SqlParameter("@stdate2", DTPStartUpDateSearch1.Value))
                     End If
                     If DTPStartUpDateSearch1.Checked = False And DTPStartUpDateSearch2.Checked = True Then
-                        SQLWhereCase1 = DTPStartUpDateSearch2.Text
-                        SQLWhereCase2 = DTPStartUpDateSearch2.Text
+                        params.Add(New SqlParameter("@stdate1", DTPStartUpDateSearch2.Value))
+                        params.Add(New SqlParameter("@stdate2", DTPStartUpDateSearch2.Value))
                     End If
                     If DTPStartUpDateSearch1.Checked = True And DTPStartUpDateSearch2.Checked = True Then
-                        SQLWhereCase1 = DTPStartUpDateSearch1.Text
-                        SQLWhereCase2 = DTPStartUpDateSearch2.Text
+                        params.Add(New SqlParameter("@stdate1", DTPStartUpDateSearch1.Value))
+                        params.Add(New SqlParameter("@stdate2", DTPStartUpDateSearch2.Value))
                     End If
-                    SQLWhere = SQLWhere & " and datStartUpDate between '" & SQLWhereCase1 & "' and '" & SQLWhereCase2 & "' "
+                    SQLWhere = SQLWhere & " and datStartUpDate between @stdate1 and @stdate2 "
                 End If
             End If
 
             If chbShutDownDate.Checked = True Then
                 If DTPShutDownDateSearch1.Checked = True Or DTPShutDownDateSearch2.Checked = True Then
                     If DTPShutDownDateSearch1.Checked = True And DTPShutDownDateSearch2.Checked = False Then
-                        SQLWhereCase1 = DTPShutDownDateSearch1.Text
-                        SQLWhereCase2 = DTPShutDownDateSearch1.Text
+                        params.Add(New SqlParameter("@shdate1", DTPShutDownDateSearch1.Value))
+                        params.Add(New SqlParameter("@shdate2", DTPShutDownDateSearch1.Value))
                     End If
                     If DTPShutDownDateSearch1.Checked = False And DTPShutDownDateSearch2.Checked = True Then
-                        SQLWhereCase1 = DTPShutDownDateSearch2.Text
-                        SQLWhereCase2 = DTPShutDownDateSearch2.Text
+                        params.Add(New SqlParameter("@shdate1", DTPShutDownDateSearch2.Value))
+                        params.Add(New SqlParameter("@shdate2", DTPShutDownDateSearch2.Value))
                     End If
                     If DTPShutDownDateSearch1.Checked = True And DTPShutDownDateSearch2.Checked = True Then
-                        SQLWhereCase1 = DTPShutDownDateSearch1.Text
-                        SQLWhereCase2 = DTPShutDownDateSearch2.Text
+                        params.Add(New SqlParameter("@shdate1", DTPShutDownDateSearch1.Value))
+                        params.Add(New SqlParameter("@shdate2", DTPShutDownDateSearch2.Value))
                     End If
-                    SQLWhere = SQLWhere & " and datShutdownDate between '" & SQLWhereCase1 & "' and '" & SQLWhereCase2 & "' "
+                    SQLWhere = SQLWhere & " and datShutdownDate between @shdate1 and @shdate2 "
                 End If
             End If
 
             If chbLastFCE.Checked = True Then
                 If DTPLastFCESearch1.Checked = True Or DTPLastFCESearch2.Checked = True Then
                     If DTPLastFCESearch1.Checked = True And DTPLastFCESearch2.Checked = False Then
-                        SQLWhereCase1 = DTPLastFCESearch1.Text
-                        SQLWhereCase2 = DTPLastFCESearch1.Text
+                        params.Add(New SqlParameter("@fcedate1", DTPLastFCESearch1.Value))
+                        params.Add(New SqlParameter("@fcedate2", DTPLastFCESearch1.Value))
                     End If
                     If DTPLastFCESearch1.Checked = False And DTPLastFCESearch2.Checked = True Then
-                        SQLWhereCase1 = DTPLastFCESearch2.Text
-                        SQLWhereCase2 = DTPLastFCESearch2.Text
+                        params.Add(New SqlParameter("@fcedate1", DTPLastFCESearch2.Value))
+                        params.Add(New SqlParameter("@fcedate2", DTPLastFCESearch2.Value))
                     End If
                     If DTPLastFCESearch1.Checked = True And DTPLastFCESearch2.Checked = True Then
-                        SQLWhereCase1 = DTPLastFCESearch1.Text
-                        SQLWhereCase2 = DTPLastFCESearch2.Text
+                        params.Add(New SqlParameter("@fcedate1", DTPLastFCESearch1.Value))
+                        params.Add(New SqlParameter("@fcedate2", DTPLastFCESearch2.Value))
                     End If
-                    SQLWhere = SQLWhere & " and LastFCE between '" & SQLWhereCase1 & "' and '" & SQLWhereCase2 & "' "
+                    SQLWhere = SQLWhere & " and LastFCE between @fcedate1 and @fcedate2 "
                 End If
             End If
 
@@ -1925,15 +1639,17 @@ Public Class IAIPQueryGenerator
                     SQLWhereCase2 = " Not Like "
                 End If
                 If cboCMSUniverseSearch1.SelectedIndex <> -1 And cboCMSUniverseSearch1.SelectedIndex <> 0 Then
-                    SQLWhere = SQLWhere & " and (APBSupplamentalData.strCMSMember " & SQLWhereCase2 & " '" & cboCMSUniverseSearch1.Text & "') "
+                    SQLWhere = SQLWhere & " and (APBSupplamentalData.strCMSMember " & SQLWhereCase2 & " @cms1) "
+                    params.Add(New SqlParameter("@cms1", cboCMSUniverseSearch1.Text))
                 End If
                 If cboCMSUniverseSearch2.SelectedIndex <> -1 And cboCMSUniverseSearch2.SelectedIndex <> 0 Then
                     If cboCMSUniverseSearch1.SelectedIndex <> -1 And cboCMSUniverseSearch1.SelectedIndex <> 0 Then
                         SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 2)) &
-                        " " & SQLWhereCase1 & " APBSupplamentalData.strCMSMember " & SQLWhereCase2 & " '" & cboCMSUniverseSearch2.Text & "' ) "
+                        " " & SQLWhereCase1 & " APBSupplamentalData.strCMSMember " & SQLWhereCase2 & " @cms2 ) "
                     Else
-                        SQLWhere = SQLWhere & " and (APBSupplamentalData.strCMSMember " & SQLWhereCase2 & " '" & cboCMSUniverseSearch2.Text & "') "
+                        SQLWhere = SQLWhere & " and (APBSupplamentalData.strCMSMember " & SQLWhereCase2 & " @cms2) "
                     End If
+                    params.Add(New SqlParameter("@cms2", cboCMSUniverseSearch2.Text))
                 End If
             End If
 
@@ -1949,15 +1665,17 @@ Public Class IAIPQueryGenerator
                     SQLWhereCase2 = " Not Like "
                 End If
                 If txtPlantDescriptionSearch1.Text <> "" Then
-                    SQLWhere = SQLWhere & " and (APBHeaderData.strPlantDescription " & SQLWhereCase2 & " '%" & txtPlantDescriptionSearch1.Text & "%') "
+                    SQLWhere = SQLWhere & " and (APBHeaderData.strPlantDescription " & SQLWhereCase2 & " @desc1) "
+                    params.Add(New SqlParameter("@desc1", "%" & txtPlantDescriptionSearch1.Text & "%"))
                 End If
                 If txtPlantDescriptionSearch2.Text <> "" Then
                     If txtPlantDescriptionSearch1.Text <> "" Then
                         SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 2)) &
-                        " " & SQLWhereCase1 & " APBHeaderData.strPlantDescription " & SQLWhereCase2 & " '%" & txtPlantDescriptionSearch2.Text & "%' ) "
+                        " " & SQLWhereCase1 & " APBHeaderData.strPlantDescription " & SQLWhereCase2 & " @desc2 ) "
                     Else
-                        SQLWhere = SQLWhere & " and (APBHeaderData.strPlantDescription " & SQLWhereCase2 & " '%" & txtPlantDescriptionSearch2.Text & "%') "
+                        SQLWhere = SQLWhere & " and (APBHeaderData.strPlantDescription " & SQLWhereCase2 & " @desc2) "
                     End If
+                    params.Add(New SqlParameter("@desc2", "%" & txtPlantDescriptionSearch2.Text & "%"))
                 End If
             End If
 
@@ -1974,15 +1692,17 @@ Public Class IAIPQueryGenerator
                     SQLWhereCase2 = " Not Like "
                 End If
                 If cboSSCPUnitSearch1.Text <> " " Then
-                    SQLWhere = SQLWhere & " and (strUnitDesc " & SQLWhereCase2 & " '%" & cboSSCPUnitSearch1.Text & "%') "
+                    SQLWhere = SQLWhere & " and (strUnitDesc " & SQLWhereCase2 & " @sscpunit1) "
+                    params.Add(New SqlParameter("@sscpunit1", "%" & cboSSCPUnitSearch1.Text & "%"))
                 End If
                 If cboSSCPUnitSearch2.Text <> " " Then
                     If cboSSCPUnitSearch1.Text <> " " Then
                         SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 2)) &
-                        " " & SQLWhereCase1 & " strUnitDesc " & SQLWhereCase2 & " '%" & cboSSCPUnitSearch2.Text & "%' ) "
+                        " " & SQLWhereCase1 & " strUnitDesc " & SQLWhereCase2 & " @sscpunit2 ) "
                     Else
-                        SQLWhere = SQLWhere & " and (strUnitDesc " & SQLWhereCase2 & " '%" & cboSSCPUnitSearch2.Text & "%') "
+                        SQLWhere = SQLWhere & " and (strUnitDesc " & SQLWhereCase2 & " @sscpunit2) "
                     End If
+                    params.Add(New SqlParameter("@sscpunit2", "%" & cboSSCPUnitSearch2.Text & "%"))
                 End If
             End If
 
@@ -2152,13 +1872,12 @@ Public Class IAIPQueryGenerator
                 SQLOrder = " Order by AIRSNumber, strFacilityName, "
             End If
 
-            SQL = Mid(SQLSelect, 1, (SQLSelect.Length - 2)) &
+            query = Mid(SQLSelect, 1, (SQLSelect.Length - 2)) &
             Mid(SQLFrom, 1, (SQLFrom.Length - 2)) &
-            SQLWhere &
-            Mid(SQLOrder, 1, (SQLOrder.Length - 2))
+            SQLWhere
 
             MasterSQL = "Select distinct * " &
-            "from (" & SQL & ") MasterSQL " &
+            "from (" & query & ") MasterSQL " &
             "Where AIRSNumber is Not Null "
 
             If chb1HrYes.Checked = True Then
@@ -2507,15 +2226,17 @@ Public Class IAIPQueryGenerator
                         SQLWhereCase2 = " <> "
                     End If
                     If cboSIPSearch1.Text <> "" And cboSIPSearch1.Text <> " " Then
-                        MasterSQL = MasterSQL & " and (GASIP " & SQLWhereCase2 & " '" & cboSIPSearch1.Text & "' ) "
+                        MasterSQL = MasterSQL & " and (GASIP " & SQLWhereCase2 & " @sip1 ) "
+                        params.Add(New SqlParameter("@sip1", cboSIPSearch1.Text))
                     End If
                     If cboSIPSearch2.Text <> "" And cboSIPSearch2.Text <> " " Then
                         If cboSIPSearch1.Text <> "" And cboSIPSearch1.Text <> " " Then
                             MasterSQL = Mid(MasterSQL, 1, (MasterSQL.Length - 2)) &
-                            " " & SQLWhereCase1 & " GASIP " & SQLWhereCase2 & " '" & cboSIPSearch2.Text & "' ) "
+                            " " & SQLWhereCase1 & " GASIP " & SQLWhereCase2 & " @sip2 ) "
                         Else
-                            MasterSQL = MasterSQL & " and (GASIP " & SQLWhereCase2 & " '" & cboSIPSearch2.Text & "') "
+                            MasterSQL = MasterSQL & " and (GASIP " & SQLWhereCase2 & " @sip2) "
                         End If
+                        params.Add(New SqlParameter("@sip2", cboSIPSearch2.Text))
                     End If
                 End If
 
@@ -2531,15 +2252,17 @@ Public Class IAIPQueryGenerator
                         SQLWhereCase2 = " <> "
                     End If
                     If cboPart61Search1.Text <> "" And cboPart61Search1.Text <> " " Then
-                        MasterSQL = MasterSQL & " and (Part61 " & SQLWhereCase2 & " '" & cboPart61Search1.Text & "' ) "
+                        MasterSQL = MasterSQL & " and (Part61 " & SQLWhereCase2 & " @p61a ) "
+                        params.Add(New SqlParameter("@p61a", cboPart61Search1.Text))
                     End If
                     If cboPart61Search2.Text <> "" And cboPart61Search2.Text <> " " Then
                         If cboPart61Search1.Text <> "" And cboPart61Search1.Text <> " " Then
                             MasterSQL = Mid(MasterSQL, 1, (MasterSQL.Length - 2)) &
-                            " " & SQLWhereCase1 & " Part61 " & SQLWhereCase2 & " '" & cboPart61Search2.Text & "' ) "
+                            " " & SQLWhereCase1 & " Part61 " & SQLWhereCase2 & " @p61b ) "
                         Else
-                            MasterSQL = MasterSQL & " and (Part61 " & SQLWhereCase2 & " '" & cboPart61Search2.Text & "') "
+                            MasterSQL = MasterSQL & " and (Part61 " & SQLWhereCase2 & " @p61b) "
                         End If
+                        params.Add(New SqlParameter("@p61b", cboPart61Search2.Text))
                     End If
                 End If
 
@@ -2556,6 +2279,7 @@ Public Class IAIPQueryGenerator
                     End If
                     If cboPart60Search1.Text <> "" And cboPart60Search1.Text <> " " Then
                         MasterSQL = MasterSQL & " and (Part60 " & SQLWhereCase2 & " '" & cboPart60Search1.Text & "' ) "
+                        params.Add(New SqlParameter("@p60a", cboPart60Search1.Text))
                     End If
                     If cboPart60Search2.Text <> "" And cboPart60Search2.Text <> " " Then
                         If cboPart60Search1.Text <> "" And cboPart60Search1.Text <> " " Then
@@ -2564,6 +2288,7 @@ Public Class IAIPQueryGenerator
                         Else
                             MasterSQL = MasterSQL & " and (Part60 " & SQLWhereCase2 & " '" & cboPart60Search2.Text & "') "
                         End If
+                        params.Add(New SqlParameter("@p60b", cboPart60Search2.Text))
                     End If
                 End If
 
@@ -2580,6 +2305,7 @@ Public Class IAIPQueryGenerator
                     End If
                     If cboPart63Search1.Text <> "" And cboPart63Search1.Text <> " " Then
                         MasterSQL = MasterSQL & " and (Part63 " & SQLWhereCase2 & " '" & cboPart63Search1.Text & "' ) "
+                        params.Add(New SqlParameter("@p63a", cboPart63Search1.Text))
                     End If
                     If cboPart63Search2.Text <> "" And cboPart63Search2.Text <> " " Then
                         If cboPart63Search1.Text <> "" And cboPart63Search1.Text <> " " Then
@@ -2588,6 +2314,7 @@ Public Class IAIPQueryGenerator
                         Else
                             MasterSQL = MasterSQL & " and (Part63 " & SQLWhereCase2 & " '" & cboPart63Search2.Text & "') "
                         End If
+                        params.Add(New SqlParameter("@p63b", cboPart63Search2.Text))
                     End If
                 End If
                 If chbSIP.Checked = True Or chbPart60Subpart.Checked = True Or chbPart61Subpart.Checked = True Or chbPart63Subpart.Checked = True Then
@@ -2612,19 +2339,11 @@ Public Class IAIPQueryGenerator
                 End If
             End If
 
-            dsSQLQuery = New DataSet
+            MasterSQL = MasterSQL & Mid(SQLOrder, 1, (SQLOrder.Length - 2))
 
-            daSQLQuery = New SqlDataAdapter(MasterSQL, CurrentConnection)
+            dgvQueryGenerator.DataSource = DB.GetDataTable(MasterSQL, params.ToArray)
 
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            daSQLQuery.Fill(dsSQLQuery, "SQLQuery")
-            dgvQueryGenerator.DataSource = dsSQLQuery
-            dgvQueryGenerator.DataMember = "SQLQuery"
-
-            Me.SubmittedQuery = New Generic.KeyValuePair(Of String, Integer)(MasterSQL, dsSQLQuery.Tables("SQLQuery").Rows.Count)
+            Me.SubmittedQuery = New KeyValuePair(Of String, Integer)(MasterSQL, dgvQueryGenerator.Rows.Count)
 
             i = 0
             dgvQueryGenerator.RowHeadersVisible = False
@@ -3074,7 +2793,7 @@ Public Class IAIPQueryGenerator
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & ".GenerateSQL2")
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -3083,7 +2802,7 @@ Public Class IAIPQueryGenerator
         dgvQueryGenerator.ExportToExcel(Me)
     End Sub
 
-    Sub ResetForm()
+    Private Sub ResetForm()
         Try
             chbAIRSNumber.Checked = True
             txtAIRSNumberSearch1.Clear()
@@ -3140,29 +2859,21 @@ Public Class IAIPQueryGenerator
             txtFacilityLongitudeOrder.Clear()
 
             chbCounty.Checked = False
-            cboCountySearch1.SelectedIndex = 0
-            cboCountySearch2.SelectedIndex = 0
             rdbCountyOr.Checked = True
             rdbCountyEqual.Checked = True
             txtCountyOrder.Clear()
 
             chbDistrict.Checked = False
-            cboDistrictSearch1.SelectedIndex = 0
-            cboDistrictSearch2.SelectedIndex = 0
             rdbDistrictOr.Checked = True
             rdbDistrictEqual.Checked = True
             txtDistrictOrder.Clear()
 
             chbOperationStatus.Checked = False
-            cboOperationStatusSearch1.SelectedIndex = 0
-            cboOperationStatusSearch2.SelectedIndex = 0
             rdbOperationalStatusOr.Checked = True
             rdbOperationStatusEqual.Checked = True
             txtOperationStatusOrder.Clear()
 
             chbClassification.Checked = False
-            cboClassificationSearch1.SelectedIndex = 0
-            cboClassificationSearch2.SelectedIndex = 0
             rdbClassificationOr.Checked = True
             rdbClassificationEqual.Checked = True
             txtClassificationOrder.Clear()
@@ -3198,8 +2909,6 @@ Public Class IAIPQueryGenerator
             txtShutDownDateOrder.Clear()
 
             chbCMSUniverse.Checked = False
-            cboCMSUniverseSearch1.SelectedIndex = 0
-            cboCMSUniverseSearch2.SelectedIndex = 0
             rdbCMSUniverseOR.Checked = True
             rdbCMSUniverseEqual.Checked = True
             txtCMSUniverseOrder.Clear()
@@ -3259,28 +2968,71 @@ Public Class IAIPQueryGenerator
             chbPart61Subpart.Checked = False
             chbPart60Subpart.Checked = False
             chbPart63Subpart.Checked = False
+
+            cboCountySearch1.SelectedIndex = -1
+            cboCountySearch2.SelectedIndex = -1
+            cboDistrictSearch1.SelectedIndex = -1
+            cboDistrictSearch2.SelectedIndex = -1
+            cboSIPSearch1.SelectedIndex = -1
+            cboSIPSearch2.SelectedIndex = -1
+            cboPart61Search1.SelectedIndex = -1
+            cboPart61Search2.SelectedIndex = -1
+            cboPart60Search1.SelectedIndex = -1
+            cboPart60Search2.SelectedIndex = -1
+            cboPart63Search1.SelectedIndex = -1
+            cboPart63Search2.SelectedIndex = -1
+            cboOperationStatusSearch1.SelectedIndex = -1
+            cboOperationStatusSearch2.SelectedIndex = -1
+            cboClassificationSearch1.SelectedIndex = -1
+            cboClassificationSearch2.SelectedIndex = -1
+            cboCMSUniverseSearch1.SelectedIndex = -1
+            cboCMSUniverseSearch2.SelectedIndex = -1
+
+            ' This repetition is intentional. If a ComboBox has an item selected, the above statements set
+            ' the SelectedIndex to 0 instead of -1! Setting it a second time below forces the SelectedIndex
+            ' to set to -1.
+
+            cboCountySearch1.SelectedIndex = -1
+            cboCountySearch2.SelectedIndex = -1
+            cboDistrictSearch1.SelectedIndex = -1
+            cboDistrictSearch2.SelectedIndex = -1
+            cboSIPSearch1.SelectedIndex = -1
+            cboSIPSearch2.SelectedIndex = -1
+            cboPart61Search1.SelectedIndex = -1
+            cboPart61Search2.SelectedIndex = -1
+            cboPart60Search1.SelectedIndex = -1
+            cboPart60Search2.SelectedIndex = -1
+            cboPart63Search1.SelectedIndex = -1
+            cboPart63Search2.SelectedIndex = -1
+            cboOperationStatusSearch1.SelectedIndex = -1
+            cboOperationStatusSearch2.SelectedIndex = -1
+            cboClassificationSearch1.SelectedIndex = -1
+            cboClassificationSearch2.SelectedIndex = -1
+            cboCMSUniverseSearch1.SelectedIndex = -1
+            cboCMSUniverseSearch2.SelectedIndex = -1
+
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & ".ResetForm")
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
     End Sub
-    Sub ResizeFilter()
+    Private Sub ResizeFilter()
         Try
 
             If TCQuerryOptions.Size.Height > 27 Then
-                TCQuerryOptions.Size = New Drawing.Size(TCQuerryOptions.Size.Width, 27)
+                TCQuerryOptions.Size = New Size(TCQuerryOptions.Size.Width, 27)
             Else
-                TCQuerryOptions.Size = New Drawing.Size(TCQuerryOptions.Size.Width, 389)
+                TCQuerryOptions.Size = New Size(TCQuerryOptions.Size.Width, 389)
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & ".ResizeFilter")
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
     End Sub
-    Sub UpdateDefaultSearch()
+    Private Sub UpdateDefaultSearch()
         Dim DefaultsText As String = ""
 
         Try
@@ -3666,11 +3418,6 @@ Public Class IAIPQueryGenerator
                 DefaultsText = DefaultsText & "tnalP"
             End If
 
-            'If System.IO.Directory.Exists("C:\APB\SQL") Then
-            'Else
-            '    System.IO.Directory.CreateDirectory("C:\APB\SQL")
-            'End If
-
             Dim path As New SaveFileDialog
             Dim DestFilePath As String = "N/A"
 
@@ -3694,7 +3441,7 @@ Public Class IAIPQueryGenerator
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & ".UpdateDefaultSearch")
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -3702,7 +3449,7 @@ Public Class IAIPQueryGenerator
 
 
     End Sub
-    Sub LoadDefaults()
+    Private Sub LoadDefaults()
         Dim DefaultsText As String = ""
         Dim AIRSNumber As String = ""
         Dim FacilityName As String = ""
@@ -3725,13 +3472,6 @@ Public Class IAIPQueryGenerator
 
         Try
 
-
-            'If System.IO.Directory.Exists("C:\APB\SQL") Then
-            'Else
-            '    System.IO.Directory.CreateDirectory("C:\APB\SQL")
-            'End If
-
-            'Dim path As New SaveFileDialog
             Dim path As New OpenFileDialog
             Dim DestFilePath As String = "N/A"
 
@@ -4219,16 +3959,14 @@ Public Class IAIPQueryGenerator
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & ".FindLogIn")
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
     End Sub
-#End Region
-#Region "Declarations"
+
     Private Sub btnRunSearch_Click(sender As Object, e As EventArgs) Handles btnRunSearch.Click
         Try
-            '  GenerateSQL()
             GenerateSQL2()
 
             Dim resultsPluralized As String = "result found"
@@ -4240,7 +3978,7 @@ Public Class IAIPQueryGenerator
             LoggingBackgroundWorker.RunWorkerAsync()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & ".btnRunSearch_Click")
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -4249,13 +3987,10 @@ Public Class IAIPQueryGenerator
         Try
             ResetForm()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & ".btnReset_Click")
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
-    End Sub
-    Private Sub mmiClose_Click(sender As Object, e As EventArgs) Handles mmiClose.Click
-        Me.Close()
     End Sub
     Private Sub tsbReSizeFilterOptions_Click(sender As Object, e As EventArgs) Handles tsbReSizeFilterOptions.Click
         Try
@@ -4263,27 +3998,26 @@ Public Class IAIPQueryGenerator
             ResizeFilter()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & ".tsbReSizeFilterOptions_Click")
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
     End Sub
 
-#End Region
     Private Sub bgwQueryGenerator_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles bgwQueryGenerator.DoWork
         Try
             LoadDataSets()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & ".bgwQueryGenerator_DoWork")
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
     Private Sub bgwQueryGenerator_RunWorkerCompleted(sender As Object, e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bgwQueryGenerator.RunWorkerCompleted
         Try
-            LoadComboBoxes()
+            ShowComboBoxes()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & ".bgwQueryGenerator_RunWorkerCompleted")
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -4296,7 +4030,7 @@ Public Class IAIPQueryGenerator
         Try
             LoadDefaults()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & ".tsbSearchQuery_Click")
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -4306,19 +4040,15 @@ Public Class IAIPQueryGenerator
         Try
             UpdateDefaultSearch()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & ".tsbSaveQuery_Click")
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
     End Sub
 
-    Private Sub mmiOnlineHelp_Click(sender As Object, e As EventArgs) Handles mmiOnlineHelp.Click
-        OpenDocumentationUrl(Me)
-    End Sub
-
     Private Sub btnRunPermitContact_Click(sender As Object, e As EventArgs) Handles btnRunPermitContact.Click
         Try
-            SQL = "select " &
+            query = "select " &
             "SUBSTRING(strAIRSNumber, 5,8) as AIRSNumber, " &
             "strFacilityName, strFacilityStreet1, " &
             "strFacilityStreet2, strFacilityCity, " &
@@ -4335,16 +4065,7 @@ Public Class IAIPQueryGenerator
             "from VW_Permit_Contact_Data " &
             "order by strAIRSNumber "
 
-            dsSQLQuery = New DataSet
-            daSQLQuery = New SqlDataAdapter(SQL, CurrentConnection)
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            daSQLQuery.Fill(dsSQLQuery, "SQLQuery")
-            dgvQueryGenerator.DataSource = dsSQLQuery
-            dgvQueryGenerator.DataMember = "SQLQuery"
+            dgvQueryGenerator.DataSource = DB.GetDataTable(query)
 
             dgvQueryGenerator.RowHeadersVisible = False
             dgvQueryGenerator.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -4432,7 +4153,7 @@ Public Class IAIPQueryGenerator
             lblQueryCount.Text = dgvQueryGenerator.RowCount.ToString
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -4442,9 +4163,9 @@ Public Class IAIPQueryGenerator
 
     Private Sub LoggingBackgroundWorker_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles LoggingBackgroundWorker.DoWork
         If Me.SubmittedQuery.Key.Length > 4000 Then
-            Me.SubmittedQuery = New Generic.KeyValuePair(Of String, Integer)("-- Truncated: " & Me.SubmittedQuery.Key.Substring(0, 3985), Me.SubmittedQuery.Value)
+            Me.SubmittedQuery = New KeyValuePair(Of String, Integer)("-- Truncated: " & Me.SubmittedQuery.Key.Substring(0, 3985), Me.SubmittedQuery.Value)
         End If
 
-        DAL.QueryGeneratorData.LogQuery(Me.SubmittedQuery)
+        DAL.LogQuery(Me.SubmittedQuery)
     End Sub
 End Class
