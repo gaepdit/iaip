@@ -22,9 +22,6 @@ Public Class IAIPQueryGenerator
     Dim dtcboSSCPUnitSearch1 As DataTable
     Dim dtcboSSCPUnitSearch2 As DataTable
 
-    Dim dsSQLQuery As DataSet
-    Dim daSQLQuery As SqlDataAdapter
-
     Private SubmittedQuery As KeyValuePair(Of String, Integer)
 
     Private Sub IAIPQueryGenerator_Load(sender As Object, e As EventArgs) Handles Me.Load

@@ -4,7 +4,6 @@
 
     Private dtCaseLogGrid As DataTable
     Private dtStaff As DataTable
-    Private dtCaseWork As DataTable
     Private dtActions As DataTable
     Private SQLAction As String
     Private SQLSearch1 As String
@@ -52,13 +51,6 @@
             "where (numBranch = '5' and numProgram = '35') "
 
             dtStaff = DB.GetDataTable(SQL)
-
-            SQL = "Select " &
-            "strWorkDescription, numActionType " &
-            "from LookUpSBEAPCaseWork " &
-            "order by strWorkDescription "
-
-            dtCaseWork = DB.GetDataTable(SQL)
 
             SQL = "Select " &
             "numActionType, strWorkDescription " &

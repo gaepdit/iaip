@@ -1,7 +1,7 @@
 Imports System.Data.SqlClient
 
 Public Class ISMPNotificationLog
-    Dim query, query2 As String
+    Dim query As String
 
     Private Sub ISMPNotificationLog_Load(sender As Object, e As EventArgs) Handles Me.Load
 

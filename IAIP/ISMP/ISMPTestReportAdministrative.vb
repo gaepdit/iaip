@@ -2,8 +2,7 @@ Imports System.Collections.Generic
 Imports System.Data.SqlClient
 
 Public Class ISMPTestReportAdministrative
-    Dim query, query2 As String
-    Dim recExist As Boolean
+    Dim query As String
     Dim dtGrid As DataTable
 
 #Region "Page Load"
@@ -388,7 +387,7 @@ Public Class ISMPTestReportAdministrative
                                   "values " &
                                   "(@ref, @airs, @user, getdate()) ")
 
-                    query2 = "Insert into ISMPReportInformation " &
+                    queryList.Add("Insert into ISMPReportInformation " &
            "(strReferenceNumber, strPollutant, strEmissionSource, " &
            "strReportType, strDocumentType, strApplicableRequirement, " &
            "strTestingFirm, strReviewingEngineer, strWitnessingEngineer, " &
@@ -441,7 +440,7 @@ Public Class ISMPTestReportAdministrative
            "'01', " &
            "'0', " &
            "@user, GETDATE() , " &
-           "'N/A', '', '')"
+           "'N/A', '', '')")
 
                 End If
 

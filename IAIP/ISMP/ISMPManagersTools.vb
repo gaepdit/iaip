@@ -1,16 +1,11 @@
 Imports System.Data.SqlClient
 
 Public Class ISMPManagersTools
-    Dim query, SQL2, SQL3 As String
-    Dim SQL4, SQL5, SQL6 As String
+    Dim query As String
     Dim dtEngineer As DataTable
-    Dim dsCounty As DataSet
-    Dim dsCity As DataSet
-    Dim dsFacilityList As DataSet
     Dim dtTestReportAssignments As DataTable
     Dim dtEngineerGrid As DataTable
     Dim dtSummaryReport As DataTable
-    Dim dsExcelFiles As DataSet
     Dim dtUnitStats As DataTable
     Dim dtMethods As DataTable
 
