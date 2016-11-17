@@ -4315,7 +4315,6 @@ Public Class SSPPStatisticalTools
             Dim StartDate As Date
             Dim EndDate As Date
             Dim query As String
-            Dim EngineerLine As String = ""
 
             If cboEPAYear.Text <> "" Then
                 If rdbJanuaryReport.Checked = True Then
@@ -4406,7 +4405,6 @@ Public Class SSPPStatisticalTools
             Dim StartDate As Date
             Dim EndDate As Date
             Dim query As String
-            Dim EngineerLine As String = ""
 
             If cboEPAYear.Text <> "" Then
                 If rdbJanuaryReport.Checked = True Then
@@ -4498,7 +4496,6 @@ Public Class SSPPStatisticalTools
         Try
             Dim EndDate As Date
             Dim query As String
-            Dim EngineerLine As String = ""
 
             If cboEPAYear.Text <> "" Then
                 If rdbJanuaryReport.Checked = True Then
@@ -4577,7 +4574,6 @@ Public Class SSPPStatisticalTools
         Try
             Dim EndDate As Date
             Dim query As String
-            Dim EngineerLine As String = ""
 
             If cboEPAYear.Text <> "" Then
                 If rdbJanuaryReport.Checked = True Then
@@ -4655,7 +4651,6 @@ Public Class SSPPStatisticalTools
         Try
             Dim EndDate As Date
             Dim query As String
-            Dim EngineerLine As String = ""
 
             If cboEPAYear.Text <> "" Then
                 If rdbJanuaryReport.Checked = True Then
@@ -4735,7 +4730,6 @@ Public Class SSPPStatisticalTools
         Try
             Dim EndDate As Date
             Dim query As String
-            Dim EngineerLine As String = ""
 
             If cboEPAYear.Text <> "" Then
                 If rdbJanuaryReport.Checked = True Then
@@ -4833,7 +4827,6 @@ Public Class SSPPStatisticalTools
             Dim StartDate As Date
             Dim EndDate As Date
             Dim query As String
-            Dim EngineerLine As String = ""
 
             If cboEPAYear.Text <> "" Then
                 If rdbJanuaryReport.Checked = True Then
@@ -4924,7 +4917,6 @@ Public Class SSPPStatisticalTools
             Dim StartDate As Date
             Dim EndDate As Date
             Dim query As String
-            Dim EngineerLine As String = ""
 
             If cboEPAYear.Text <> "" Then
                 If rdbJanuaryReport.Checked = True Then
@@ -5016,7 +5008,6 @@ Public Class SSPPStatisticalTools
             Dim StartDate As Date
             Dim EndDate As Date
             Dim query As String
-            Dim EngineerLine As String = ""
 
             If cboEPAYear.Text <> "" Then
                 If rdbJanuaryReport.Checked = True Then
@@ -5105,21 +5096,16 @@ Public Class SSPPStatisticalTools
     End Sub
     Private Sub llbViewEPA8a_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewEPA8a.LinkClicked
         Try
-            Dim StartDate As Date
             Dim EndDate As Date
             Dim query As String
-            Dim EngineerLine As String = ""
 
             If cboEPAYear.Text <> "" Then
                 If rdbJanuaryReport.Checked = True Then
-                    StartDate = New Date(cboEPAYear.SelectedValue - 1, 12, 31)
                     EndDate = New Date(cboEPAYear.SelectedValue, 7, 1)
                 Else
-                    StartDate = New Date(cboEPAYear.SelectedValue, 6, 30)
                     EndDate = New Date(cboEPAYear.SelectedValue + 1, 1, 1)
                 End If
             Else
-                StartDate = "31-Dec-" & (Now.AddMonths(-12).Year).ToString
                 EndDate = "01-Jul-" & Now.Year.ToString
             End If
 

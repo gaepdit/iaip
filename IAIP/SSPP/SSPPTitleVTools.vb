@@ -989,7 +989,7 @@ Public Class SSPPTitleVTools
 
                     Dim p2 As New SqlParameter("@mapp", temp)
 
-                    Dim dt2 As DataTable = DB.GetDataTable(query, p)
+                    Dim dt2 As DataTable = DB.GetDataTable(query, p2)
 
                     For Each dr As DataRow In dt2.Rows
                         If IsDBNull(dr.Item("strApplicationNumber")) Then
@@ -1176,9 +1176,9 @@ Public Class SSPPTitleVTools
 
                         Dim p3 As New SqlParameter("@app", LinkedApp)
 
-                        Dim dt3 As DataTable = DB.GetDataTable(query, p)
+                        Dim dt3 As DataTable = DB.GetDataTable(query, p3)
 
-                        For Each dr As DataRow In dt.Rows
+                        For Each dr As DataRow In dt3.Rows
                             If IsDBNull(dr.Item("strApplicationNumber")) Then
                                 AppNumber = ""
                             Else
@@ -1367,9 +1367,9 @@ Public Class SSPPTitleVTools
 
                         Dim p3 As New SqlParameter("@app", LinkedApp)
 
-                        Dim dt3 As DataTable = DB.GetDataTable(query, p)
+                        Dim dt3 As DataTable = DB.GetDataTable(query, p3)
 
-                        For Each dr As DataRow In dt.Rows
+                        For Each dr As DataRow In dt3.Rows
                             If IsDBNull(dr.Item("strApplicationNumber")) Then
                                 AppNumber = ""
                             Else
@@ -1749,9 +1749,9 @@ Public Class SSPPTitleVTools
 
                         Dim p3 As New SqlParameter("@app", LinkedApp)
 
-                        Dim dt3 As DataTable = DB.GetDataTable(query, p)
+                        Dim dt3 As DataTable = DB.GetDataTable(query, p3)
 
-                        For Each dr As DataRow In dt.Rows
+                        For Each dr As DataRow In dt3.Rows
                             If IsDBNull(dr.Item("strApplicationNumber")) Then
                                 AppNumber = ""
                             Else
@@ -1936,9 +1936,9 @@ Public Class SSPPTitleVTools
 
                         Dim p3 As New SqlParameter("@app", LinkedApp)
 
-                        Dim dt3 As DataTable = DB.GetDataTable(query, p)
+                        Dim dt3 As DataTable = DB.GetDataTable(query, p3)
 
-                        For Each dr As DataRow In dt.Rows
+                        For Each dr As DataRow In dt3.Rows
                             If IsDBNull(dr.Item("strApplicationNumber")) Then
                                 AppNumber = ""
                             Else
@@ -2340,9 +2340,9 @@ Public Class SSPPTitleVTools
 
                         Dim p3 As New SqlParameter("@app", LinkedApp)
 
-                        Dim dt3 As DataTable = DB.GetDataTable(query, p)
+                        Dim dt3 As DataTable = DB.GetDataTable(query, p3)
 
-                        For Each dr As DataRow In dt.Rows
+                        For Each dr As DataRow In dt3.Rows
                             If IsDBNull(dr.Item("strApplicationNumber")) Then
                                 AppNumber = ""
                             Else

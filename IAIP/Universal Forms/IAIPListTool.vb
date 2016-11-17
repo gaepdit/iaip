@@ -434,7 +434,6 @@ Public Class IAIPListTool
                 Exit Sub
             End If
 
-            Dim i As Integer = 0
             Dim temp As String = lbAccounts.SelectedValue
             Dim temp2 As String = ""
             Dim tempForm As String = ""

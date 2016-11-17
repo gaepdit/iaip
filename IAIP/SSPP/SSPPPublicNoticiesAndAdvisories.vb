@@ -217,8 +217,8 @@ Public Class SSPPPublicNoticiesAndAdvisories
 
             Dim dt2 As DataTable = DB.GetDataTable(query, p)
 
-            For Each dr As DataRow In dt.Rows
-                TVAppNumbers.Add(dr.Item("strApplicationNumber"))
+            For Each dr2 As DataRow In dt2.Rows
+                TVAppNumbers.Add(dr2.Item("strApplicationNumber"))
             Next
 
             If SIPAppNumbers.Count > 0 Then
@@ -255,27 +255,27 @@ Public Class SSPPPublicNoticiesAndAdvisories
 
                 Dim dt3 As DataTable = DB.GetDataTable(query, p3)
 
-                For Each dr As DataRow In dt.Rows
+                For Each dr3 As DataRow In dt3.Rows
                     temp = ""
-                    If IsDBNull(dr.Item("strApplicationNumber")) Then
+                    If IsDBNull(dr3.Item("strApplicationNumber")) Then
                         AppNum = ""
                     Else
-                        AppNum = dr.Item("strApplicationNumber")
+                        AppNum = dr3.Item("strApplicationNumber")
                     End If
-                    If IsDBNull(dr.Item("strFacilityName")) Then
+                    If IsDBNull(dr3.Item("strFacilityName")) Then
                         FacilityName = ""
                     Else
-                        FacilityName = dr.Item("strFacilityName")
+                        FacilityName = dr3.Item("strFacilityName")
                     End If
-                    If IsDBNull(dr.Item("strCountyName")) Then
+                    If IsDBNull(dr3.Item("strCountyName")) Then
                         County = ""
                     Else
-                        County = dr.Item("strCountyName")
+                        County = dr3.Item("strCountyName")
                     End If
-                    If IsDBNull(dr.Item("AppType")) Then
+                    If IsDBNull(dr3.Item("AppType")) Then
                         AppType = ""
                     Else
-                        AppType = dr.Item("AppType")
+                        AppType = dr3.Item("AppType")
                     End If
 
                     temp = AppNum & " - " & FacilityName
@@ -360,27 +360,27 @@ Public Class SSPPPublicNoticiesAndAdvisories
 
                 Dim dt4 As DataTable = DB.GetDataTable(query, p4)
 
-                For Each dr As DataRow In dt.Rows
+                For Each dr4 As DataRow In dt4.Rows
                     temp = ""
-                    If IsDBNull(dr.Item("strApplicationNumber")) Then
+                    If IsDBNull(dr4.Item("strApplicationNumber")) Then
                         AppNum = ""
                     Else
-                        AppNum = dr.Item("strApplicationNumber")
+                        AppNum = dr4.Item("strApplicationNumber")
                     End If
-                    If IsDBNull(dr.Item("strFacilityName")) Then
+                    If IsDBNull(dr4.Item("strFacilityName")) Then
                         FacilityName = ""
                     Else
-                        FacilityName = dr.Item("strFacilityName")
+                        FacilityName = dr4.Item("strFacilityName")
                     End If
-                    If IsDBNull(dr.Item("strCountyName")) Then
+                    If IsDBNull(dr4.Item("strCountyName")) Then
                         County = ""
                     Else
-                        County = dr.Item("strCountyName")
+                        County = dr4.Item("strCountyName")
                     End If
-                    If IsDBNull(dr.Item("AppType")) Then
+                    If IsDBNull(dr4.Item("AppType")) Then
                         AppType = ""
                     Else
-                        AppType = dr.Item("AppType")
+                        AppType = dr4.Item("AppType")
                     End If
 
                     temp = AppNum & " - " & FacilityName

@@ -2061,6 +2061,8 @@ Public Class SBEAPCaseWork
                     New SqlParameter("@DATACTIONOCCURED", DTPActionOccured.Text)
                 }
 
+                DB.RunCommand(SQL, p2)
+
                 LoadActionLog()
                 txtActionType.Text = cboActionType.Text
                 LoadActionTab()
