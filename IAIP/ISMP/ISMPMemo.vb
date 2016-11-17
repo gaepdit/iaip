@@ -27,9 +27,6 @@ Public Class ISMPMemo
         Try
 
             If txtReferenceNumber.Text <> "" Then
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
 
                 query = "Select strReferenceNumber " &
                 "from ISMPMaster " &

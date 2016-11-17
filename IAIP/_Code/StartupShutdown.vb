@@ -76,7 +76,6 @@
     ''' </summary>
     ''' <remarks></remarks>
     Friend Sub CloseIaip()
-        If CurrentConnection IsNot Nothing Then CurrentConnection.Dispose()
         Application.Exit()
     End Sub
 
@@ -106,10 +105,6 @@
 #ElseIf UAT Then
         CurrentServerEnvironment = ServerEnvironment.UAT
 #End If
-
-        ' Set one single open connection based on current server environment
-        ' This method is deprecated, but is still used throughout the project
-        CurrentConnection = New SqlClient.SqlConnection(CurrentConnectionString)
 
         ' Create EpdIt.DBHelper object based on current server environment
         ' This method is preferred and should be used for all future work
