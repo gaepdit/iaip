@@ -1019,29 +1019,16 @@ Public Class ISMPMonitoringLog
     Private Sub llbOpenComments_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbOpenComments.LinkClicked
         Try
 
-            If TestFirmComments Is Nothing Then
-                If TestFirmComments Is Nothing Then TestFirmComments = New ISMPTestFirmComments
-            Else
-                TestFirmComments.Dispose()
-                TestFirmComments = New ISMPTestFirmComments
-            End If
-            TestFirmComments.Show()
+            Dim TestFirmComments As New ISMPTestFirmComments
+
             TestFirmComments.txtAIRSNumber.Text = txtTestFirmAirsNumber.Text
             TestFirmComments.txtFacilityTested.Text = txtTestFirmFacilityName.Text
             TestFirmComments.cboTestingFirm.Text = txtTestFirmName.Text
-
-            If txtTestFirmReferenceNumber.Text <> "" Then
-                TestFirmComments.txtTestReportNumber.Text = txtTestFirmReferenceNumber.Text
-            Else
-                TestFirmComments.txtTestReportNumber.Text = ""
-            End If
-            If txtTestFirmTestLogNumber.Text <> "" Then
-                TestFirmComments.txtTestNotificationNumber.Text = txtTestFirmTestLogNumber.Text
-            Else
-                TestFirmComments.txtTestNotificationNumber.Text = ""
-            End If
+            TestFirmComments.txtTestReportNumber.Text = txtTestFirmReferenceNumber.Text
+            TestFirmComments.txtTestNotificationNumber.Text = txtTestFirmTestLogNumber.Text
             TestFirmComments.txtCommentID.Text = txtCommentNumber.Text
-            TestFirmComments.LoadTestFirmComments()
+
+            TestFirmComments.Show()
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)

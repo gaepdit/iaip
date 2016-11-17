@@ -79,14 +79,8 @@ Module AppVariables
 #Region " All Forms "
     ' TODO DWW: Remove global form variables
 
-#Region " ISMP Screens "
-    Public TestFirmComments As ISMPTestFirmComments
-#End Region
-
-#Region " SBEAP Screens "
     Public ClientSummary As SBEAPClientSummary
     Public CaseWork As SBEAPCaseWork
-#End Region
 
 #End Region
 
