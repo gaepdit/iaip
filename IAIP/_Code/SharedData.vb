@@ -103,15 +103,15 @@ Public Class SharedData
 
                     ds.Tables.Add(DAL.GetEpdBranchesAsDataTable)
                     ds.Tables(0).TableName = "Branches"
-                    ds.Tables(0).Rows.Add({0})
+                    ds.Tables(0).Rows.Add({0, ""})
 
                     ds.Tables.Add(DAL.GetEpdProgramsAsDataTable)
                     ds.Tables(1).TableName = "Programs"
-                    ds.Tables(1).Rows.Add({0})
+                    ds.Tables(1).Rows.Add({0, ""})
 
                     ds.Tables.Add(DAL.GetEpdUnitsAsDataTable)
                     ds.Tables(2).TableName = "Units"
-                    ds.Tables(2).Rows.Add({0})
+                    ds.Tables(2).Rows.Add({0, ""})
 
                 Case SharedDataSet.RuleSubparts
 
