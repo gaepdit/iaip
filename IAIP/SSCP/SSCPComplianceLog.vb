@@ -1111,8 +1111,8 @@ Public Class SSCPComplianceLog
                         Select Case DeleteStatus
                             Case DialogResult.Yes
                                 SQL = "Select strAIRSNumber " &
-                                "from AIRBRANCH.SSCPItemMaster " &
-                                "where strTrackingNumber = '" & txtWorkNumber.Text & "' "
+                                "from AIRBRANCH.SSCPFCEMASTER " &
+                                "where STRFCENUMBER = '" & txtWorkNumber.Text & "' "
 
                                 cmd = New OracleCommand(SQL, CurrentConnection)
                                 If CurrentConnection.State = ConnectionState.Closed Then
@@ -1129,34 +1129,34 @@ Public Class SSCPComplianceLog
                                 dr.Close()
 
 
-                                SQL = "Delete AIRBRANCH.AFSSSCPFCERecords " &
-                            "where strFCENumber = '" & txtWorkNumber.Text & "' "
-                                cmd = New OracleCommand(SQL, CurrentConnection)
-                                If CurrentConnection.State = ConnectionState.Closed Then
-                                    CurrentConnection.Open()
-                                End If
-                                dr = cmd.ExecuteReader
-                                dr.Close()
+                                '    SQL = "Delete AIRBRANCH.AFSSSCPFCERecords " &
+                                '"where strFCENumber = '" & txtWorkNumber.Text & "' "
+                                '    cmd = New OracleCommand(SQL, CurrentConnection)
+                                '    If CurrentConnection.State = ConnectionState.Closed Then
+                                '        CurrentConnection.Open()
+                                '    End If
+                                '    dr = cmd.ExecuteReader
+                                '    dr.Close()
 
-                                SQL2 = "Insert into AIRBRANCH.AFSDeletions " &
-                               "values " &
-                               "(" &
-                               "(select " &
-                               "case when max(numCounter) is null then 1 " &
-                               "else max(numCounter) + 1 " &
-                               "end numCounter " &
-                               "from AIRBRANCH.AFSDeletions), " &
-                               "'" & tempAIRS & "', " &
-                               "'" & Replace(SQL, "'", "''") & "', 'True', " &
-                               "'" & OracleDate & "', '', " &
-                               "'') "
+                                '    SQL2 = "Insert into AIRBRANCH.AFSDeletions " &
+                                '   "values " &
+                                '   "(" &
+                                '   "(select " &
+                                '   "case when max(numCounter) is null then 1 " &
+                                '   "else max(numCounter) + 1 " &
+                                '   "end numCounter " &
+                                '   "from AIRBRANCH.AFSDeletions), " &
+                                '   "'" & tempAIRS & "', " &
+                                '   "'" & Replace(SQL, "'", "''") & "', 'True', " &
+                                '   "'" & OracleDate & "', '', " &
+                                '   "'') "
 
-                                cmd = New OracleCommand(SQL2, CurrentConnection)
-                                If CurrentConnection.State = ConnectionState.Closed Then
-                                    CurrentConnection.Open()
-                                End If
-                                dr = cmd.ExecuteReader
-                                dr.Close()
+                                '    cmd = New OracleCommand(SQL2, CurrentConnection)
+                                '    If CurrentConnection.State = ConnectionState.Closed Then
+                                '        CurrentConnection.Open()
+                                '    End If
+                                '    dr = cmd.ExecuteReader
+                                '    dr.Close()
 
                                 SQL = "Delete AIRBRANCH.SSCPFCE " &
                                 "where strFCENumber = '" & txtWorkNumber.Text & "' "
