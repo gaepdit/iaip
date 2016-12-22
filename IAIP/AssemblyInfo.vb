@@ -31,8 +31,8 @@ Imports System.Runtime.InteropServices
 
 #Else
 
-<Assembly: AssemblyVersion("4.4.0.0")>
-<Assembly: AssemblyFileVersion("4.4.0.0")>
+<Assembly: AssemblyVersion("4.4.1.0")>
+<Assembly: AssemblyFileVersion("4.4.1.0")>
 
 #End If
 
