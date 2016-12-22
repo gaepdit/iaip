@@ -529,8 +529,8 @@ Public Class SSCPComplianceLog
                     Dim sqlList As New List(Of String)
                     Dim paramList As New List(Of SqlParameter())
 
-                    sqlList.Add("Delete AFSSSCPFCERecords where strFCENumber = @num")
-                    paramList.Add({p})
+                    'sqlList.Add("Delete AFSSSCPFCERecords where strFCENumber = @num")
+                    'paramList.Add({p})
 
                     sqlList.Add("Delete SSCPFCE where strFCENumber = @num")
                     paramList.Add({p})
