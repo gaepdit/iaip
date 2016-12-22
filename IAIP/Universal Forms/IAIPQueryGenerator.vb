@@ -3281,6 +3281,7 @@ Public Class IAIPQueryGenerator
         End Try
     End Sub
     Sub UpdateDefaultSearch()
+        monitor.TrackFeature("QueryGenerator.SaveSearch")
         Dim DefaultsText As String = ""
 
         Try
@@ -3703,6 +3704,7 @@ Public Class IAIPQueryGenerator
 
     End Sub
     Sub LoadDefaults()
+        monitor.TrackFeature("QueryGenerator.OpenSavedSearch")
         Dim DefaultsText As String = ""
         Dim AIRSNumber As String = ""
         Dim FacilityName As String = ""
@@ -4228,6 +4230,7 @@ Public Class IAIPQueryGenerator
 #Region "Declarations"
     Private Sub btnRunSearch_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnRunSearch.Click
         Try
+            monitor.TrackFeature("QueryGenerator.RunSearch")
             '  GenerateSQL()
             GenerateSQL2()
 
@@ -4317,6 +4320,7 @@ Public Class IAIPQueryGenerator
     End Sub
 
     Private Sub btnRunPermitContact_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnRunPermitContact.Click
+        monitor.TrackFeature("QueryGenerator.RunPermitContact")
         Try
             SQL = "select " &
             "substr(strAIRSNumber, 5) as AIRSNumber, " &
