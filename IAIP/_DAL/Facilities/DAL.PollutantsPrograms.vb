@@ -56,7 +56,8 @@ Namespace DAL
         End Function
 
         Public Function GetFacilityProgramPollutantStatuses(airsNumber As ApbFacilityId) As DataTable
-            Dim query As String = "SELECT SUBSTRING(app.STRAIRPOLLUTANTKEY, 13, 1) AS " &
+            Dim query As String = "SELECT app.STRAIRPOLLUTANTKEY AS [key], " &
+                "  SUBSTRING(app.STRAIRPOLLUTANTKEY, 13, 1) AS " &
                 "  [Air Program Code], lkpl.STRPOLLUTANTCODE AS " &
                 "  [Pollutant Code], lkpl.STRPOLLUTANTDESCRIPTION AS " &
                 "  [Pollutant], app.STROPERATIONALSTATUS AS " &
