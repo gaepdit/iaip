@@ -172,11 +172,12 @@ Partial Class IAIPLogIn
         '
         'LogoBox
         '
-        Me.LogoBox.Image = Global.Iaip.My.Resources.Resources.Logo
+        Me.LogoBox.Image = Global.Iaip.My.Resources.Resources.EpdLogo
         Me.LogoBox.InitialImage = Nothing
         Me.LogoBox.Location = New System.Drawing.Point(29, 55)
         Me.LogoBox.Name = "LogoBox"
         Me.LogoBox.Size = New System.Drawing.Size(256, 256)
+        Me.LogoBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
         Me.LogoBox.TabIndex = 0
         Me.LogoBox.TabStop = False
         '

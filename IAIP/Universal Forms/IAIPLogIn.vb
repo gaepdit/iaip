@@ -305,25 +305,21 @@
     Private Sub UseDbServerEnvironment()
         btnLoginButton.Text = "Log In"
 
-        Select Case CurrentServerEnvironment
-            Case ServerEnvironment.DEV
-                ' Switch to DEV environment
-                Me.BackColor = Color.PapayaWhip
-                Me.Text = APP_FRIENDLY_NAME & " — " & CurrentServerEnvironment.ToString
-                btnLoginButton.Text = "Log in to DEV"
-                mmiTestingMenu.Visible = True
-            Case ServerEnvironment.UAT
-                ' Switch to DEV environment
-                Me.BackColor = Color.Snow
-                Me.Text = APP_FRIENDLY_NAME & " — " & CurrentServerEnvironment.ToString
-                btnLoginButton.Text = "Log in to UAT"
-                Me.LogoBox.Image = My.Resources.UatLogo
-                lblIAIP.Text = "IAIP User Acceptance Testing (UAT)"
-        End Select
-
-#If SqlServer Then
-        Me.LogoBox.Image = My.Resources.SSTestLogo
-        lblIAIP.Text = "IAIP for SQL Server"
+#If DEBUG Then
+        ' Switch to DEV environment
+        Me.BackColor = Color.PapayaWhip
+        Me.Text = APP_FRIENDLY_NAME & " — DEV"
+        btnLoginButton.Text = "Log in to DEV"
+        Me.LogoBox.Image = My.Resources.DevLogo
+        mmiTestingMenu.Visible = True
+        lblIAIP.Text = "IAIP DEV"
+#ElseIf UAT Then
+        ' Switch to DEV environment
+        Me.BackColor = Color.Snow
+        Me.Text = APP_FRIENDLY_NAME & " — UAT"
+        btnLoginButton.Text = "Log in to UAT"
+        Me.LogoBox.Image = My.Resources.UatLogo
+        lblIAIP.Text = "IAIP User Acceptance Testing (UAT)"
 #End If
     End Sub
 

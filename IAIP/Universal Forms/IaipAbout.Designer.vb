@@ -36,7 +36,7 @@ Partial Class IaipAbout
         '
         Me.lblSubTitle.AutoSize = True
         Me.lblSubTitle.Font = New System.Drawing.Font("Arial", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblSubTitle.Location = New System.Drawing.Point(312, 114)
+        Me.lblSubTitle.Location = New System.Drawing.Point(299, 114)
         Me.lblSubTitle.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblSubTitle.Name = "lblSubTitle"
         Me.lblSubTitle.Size = New System.Drawing.Size(274, 48)
@@ -60,7 +60,7 @@ Partial Class IaipAbout
         '
         Me.lblTitle.AutoSize = True
         Me.lblTitle.Font = New System.Drawing.Font("Arial", 16.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblTitle.Location = New System.Drawing.Point(310, 29)
+        Me.lblTitle.Location = New System.Drawing.Point(297, 29)
         Me.lblTitle.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblTitle.Name = "lblTitle"
         Me.lblTitle.Size = New System.Drawing.Size(343, 25)
@@ -69,11 +69,12 @@ Partial Class IaipAbout
         '
         'LogoBox
         '
-        Me.LogoBox.Image = Global.Iaip.My.Resources.Resources.Logo
+        Me.LogoBox.Image = Global.Iaip.My.Resources.Resources.EpdLogo
         Me.LogoBox.InitialImage = Nothing
-        Me.LogoBox.Location = New System.Drawing.Point(29, 29)
+        Me.LogoBox.Location = New System.Drawing.Point(39, 29)
         Me.LogoBox.Name = "LogoBox"
-        Me.LogoBox.Size = New System.Drawing.Size(256, 256)
+        Me.LogoBox.Size = New System.Drawing.Size(218, 256)
+        Me.LogoBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
         Me.LogoBox.TabIndex = 0
         Me.LogoBox.TabStop = False
         '
@@ -81,7 +82,7 @@ Partial Class IaipAbout
         '
         Me.lblVersion.AutoSize = True
         Me.lblVersion.Font = New System.Drawing.Font("Arial", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblVersion.Location = New System.Drawing.Point(312, 74)
+        Me.lblVersion.Location = New System.Drawing.Point(299, 74)
         Me.lblVersion.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblVersion.Name = "lblVersion"
         Me.lblVersion.Size = New System.Drawing.Size(61, 16)
@@ -92,7 +93,7 @@ Partial Class IaipAbout
         '
         Me.lblSupport.AutoSize = True
         Me.lblSupport.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblSupport.Location = New System.Drawing.Point(312, 182)
+        Me.lblSupport.Location = New System.Drawing.Point(299, 182)
         Me.lblSupport.Name = "lblSupport"
         Me.lblSupport.Size = New System.Drawing.Size(94, 17)
         Me.lblSupport.TabIndex = 1
@@ -103,7 +104,7 @@ Partial Class IaipAbout
         '
         Me.lblDocumentation.AutoSize = True
         Me.lblDocumentation.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblDocumentation.Location = New System.Drawing.Point(312, 204)
+        Me.lblDocumentation.Location = New System.Drawing.Point(299, 204)
         Me.lblDocumentation.Name = "lblDocumentation"
         Me.lblDocumentation.Size = New System.Drawing.Size(146, 17)
         Me.lblDocumentation.TabIndex = 2
@@ -114,7 +115,7 @@ Partial Class IaipAbout
         '
         Me.lblChangelog.AutoSize = True
         Me.lblChangelog.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblChangelog.Location = New System.Drawing.Point(312, 226)
+        Me.lblChangelog.Location = New System.Drawing.Point(299, 226)
         Me.lblChangelog.Name = "lblChangelog"
         Me.lblChangelog.Size = New System.Drawing.Size(80, 17)
         Me.lblChangelog.TabIndex = 3
@@ -125,7 +126,7 @@ Partial Class IaipAbout
         '
         Me.lblUpdateCheck.AutoSize = True
         Me.lblUpdateCheck.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblUpdateCheck.Location = New System.Drawing.Point(312, 248)
+        Me.lblUpdateCheck.Location = New System.Drawing.Point(299, 248)
         Me.lblUpdateCheck.Name = "lblUpdateCheck"
         Me.lblUpdateCheck.Size = New System.Drawing.Size(123, 17)
         Me.lblUpdateCheck.TabIndex = 4
@@ -135,7 +136,7 @@ Partial Class IaipAbout
         'btnClose
         '
         Me.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.btnClose.Location = New System.Drawing.Point(315, 293)
+        Me.btnClose.Location = New System.Drawing.Point(302, 293)
         Me.btnClose.Name = "btnClose"
         Me.btnClose.Size = New System.Drawing.Size(75, 23)
         Me.btnClose.TabIndex = 0

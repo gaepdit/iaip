@@ -22,9 +22,7 @@ Public Class BaseForm
 
     Private Sub BaseForm_Load(sender As Object, e As EventArgs) Handles Me.Load
 
-#If SqlServer Then
-        Me.Icon = My.Resources.SSTestIcon
-#ElseIf DEBUG Then
+#If DEBUG Then
         Me.Icon = My.Resources.DevIcon
 #ElseIf UAT Then
         Me.Icon = My.Resources.UatIcon

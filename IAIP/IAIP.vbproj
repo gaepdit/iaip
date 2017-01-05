@@ -7,7 +7,7 @@
     <ProjectGuid>{B92680E9-391D-4109-993E-53E5B6946E93}</ProjectGuid>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ApplicationIcon>Resources\GA-outline.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\DevIcon.ico</ApplicationIcon>
     <AssemblyKeyContainerName>
     </AssemblyKeyContainerName>
     <AssemblyName>IAIP_SQL_Server</AssemblyName>
@@ -1409,14 +1409,16 @@
     <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\GA-outline.ico" />
-    <None Include="Resources\GA-outline-256.png" />
+    <None Include="Resources\EpdLogo.png" />
+    <None Include="Resources\EpdIcon.ico" />
+    <None Include="Resources\DevIcon.ico" />
+    <None Include="Resources\DevLogo.png" />
     <None Include="Resources\WarningIcon32.ico" />
     <None Include="Resources\ErrorIcon32.ico" />
     <None Include="Resources\PrintPreviewIcon.png" />
     <None Include="Resources\GeorgiaStaticMap.png" />
-    <None Include="Resources\Seal_of_Georgia_unfinished_256x256x32.png" />
-    <None Include="Resources\Seal_of_Georgia_unfinished_Win7.ico" />
+    <None Include="Resources\UatIcon.ico" />
+    <None Include="Resources\UatLogo.png" />
     <Content Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
@@ -1425,9 +1427,6 @@
     <None Include="Resources\EraseIcon.png" />
     <None Include="Resources\FindIcon.png" />
     <None Include="Resources\SaveIcon.png" />
-    <None Include="Resources\Seal_of_Georgia_gold.ico" />
-    <None Include="Resources\Seal_of_Georgia_red_small.ico" />
-    <None Include="Resources\Seal_of_Georgia_gold_256x256x32.png" />
     <Compile Include="DMU\DmuEdtErrorDetail.Designer.vb">
       <DependentUpon>DmuEdtErrorDetail.vb</DependentUpon>
     </Compile>
