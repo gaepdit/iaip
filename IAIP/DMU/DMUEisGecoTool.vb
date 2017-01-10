@@ -4653,10 +4653,10 @@ Public Class DMUEisGecoTool
             Else
                 IncorrectlyOptedOut = "0"
             End If
-            If cboEILogStatusCode.SelectedText <> "" Then
+            If cboEILogStatusCode.SelectedValue <> "" Then
                 EISStatus = cboEILogStatusCode.SelectedValue
             End If
-            If cboEILogAccessCode.SelectedText <> "" Then
+            If cboEILogAccessCode.SelectedValue <> "" Then
                 EISAccess = cboEILogAccessCode.SelectedValue
             End If
             If rdbEILogActiveYes.Checked = True Then
@@ -4699,13 +4699,13 @@ Public Class DMUEisGecoTool
 
             Dim params2 As SqlParameter() = {
                 New SqlParameter("@EISStatusCode", EISStatus),
-                New SqlParameter("@DatEISStatus", dtpEILogStatusDateSubmit.Text),
+                New SqlParameter("@DatEISStatus", dtpEILogStatusDateSubmit.Value),
                 New SqlParameter("@EISAccessCode", EISAccess),
                 New SqlParameter("@strOptOut", OptOut),
                 New SqlParameter("@strIncorrectOptOut", IncorrectlyOptedOut),
                 New SqlParameter("@strMailout", Mailout),
                 New SqlParameter("@strEnrollment", Enrollment),
-                New SqlParameter("@datEnrollment", dtpEILogDateEnrolled.Text),
+                New SqlParameter("@datEnrollment", dtpEILogDateEnrolled.Value),
                 New SqlParameter("@strComment", txtEILogComments.Text),
                 New SqlParameter("@active", ActiveStatus),
                 New SqlParameter("@updateUser", CurrentUser.AlphaName),
