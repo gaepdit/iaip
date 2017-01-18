@@ -865,7 +865,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.TPSIP.Name = "TPSIP"
         Me.TPSIP.Size = New System.Drawing.Size(776, 513)
         Me.TPSIP.TabIndex = 4
-        Me.TPSIP.Text = "0 - SIP"
+        Me.TPSIP.Text = "SIP"
         Me.TPSIP.UseVisualStyleBackColor = True
         '
         'Panel13
@@ -1139,7 +1139,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.TPPart60.Name = "TPPart60"
         Me.TPPart60.Size = New System.Drawing.Size(776, 513)
         Me.TPPart60.TabIndex = 0
-        Me.TPPart60.Text = "9 - NSPS (Part 60)"
+        Me.TPPart60.Text = "NSPS (Part 60)"
         Me.TPPart60.UseVisualStyleBackColor = True
         '
         'Panel18
@@ -1413,7 +1413,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.TPPart61.Name = "TPPart61"
         Me.TPPart61.Size = New System.Drawing.Size(776, 513)
         Me.TPPart61.TabIndex = 1
-        Me.TPPart61.Text = "8 - NESHAP (Part 61) "
+        Me.TPPart61.Text = "NESHAP (Part 61) "
         Me.TPPart61.UseVisualStyleBackColor = True
         '
         'Panel23
@@ -1688,7 +1688,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.TPPart63.Name = "TPPart63"
         Me.TPPart63.Size = New System.Drawing.Size(776, 513)
         Me.TPPart63.TabIndex = 2
-        Me.TPPart63.Text = "M - MACT (Part 63)"
+        Me.TPPart63.Text = "MACT (Part 63)"
         Me.TPPart63.UseVisualStyleBackColor = True
         '
         'Panel28
