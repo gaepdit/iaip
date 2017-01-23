@@ -28,6 +28,7 @@ Public Class IAIPEditSubParts
 
         End Try
 
+        TCSupParts.TabPages.Remove(TPEditSubParts)
     End Sub
 
 #Region "Page Load"
@@ -43,10 +44,10 @@ Public Class IAIPEditSubParts
             Dim drDSRow4 As DataRow
             Dim drNewRow As DataRow
 
-            SQL = "Select * from AIRBRANCH.LookupSubPart60 order by strSubpart "
-            SQL2 = "Select * from AIRBRANCH.LookupSubPart61 order by strSubpart "
-            SQL3 = "Select * from AIRBRANCH.LookupSubPart63 order by strSubpart "
-            SQL4 = "Select * from AIRBRANCH.LookUpSubPartSIP order by strSubPart "
+            SQL = "Select * from AIRBRANCH.LookupSubPart60 order by REPLACE (STRSUBPART, '_', '') "
+            SQL2 = "Select * from AIRBRANCH.LookupSubPart61 order by REPLACE (STRSUBPART, '_', '') "
+            SQL3 = "Select * from AIRBRANCH.LookupSubPart63 order by REPLACE (STRSUBPART, '_', '') "
+            SQL4 = "Select * from AIRBRANCH.LookUpSubPartSIP order by REPLACE (STRSUBPART, '_', '') "
 
             dsPart60 = New DataSet
             dsPart61 = New DataSet
