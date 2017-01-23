@@ -5012,7 +5012,7 @@ Public Class DMUEisGecoTool
                 Dim params2 As SqlParameter() = {
                     New SqlParameter("@AIRSNUM", txtEILogSelectedAIRSNumber.Text),
                     New SqlParameter("@INTYEAR", txtEILogSelectedYear.Text),
-                    New SqlParameter("@DATLASTSUBMIT", dtpQACompleted.Text)
+                    New SqlParameter("@DATLASTSUBMIT", dtpQACompleted.Value)
                 }
                 DB.SPRunCommand(spname, params2)
             End If

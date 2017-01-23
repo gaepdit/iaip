@@ -24,7 +24,7 @@ Public Class IAIPEditSubParts
         Property Description As String
         ReadOnly Property LongDescription As String
             Get
-                Return Subpart & " – " & Description
+                Return Subpart & " â€“ " & Description
             End Get
         End Property
 
@@ -45,6 +45,7 @@ Public Class IAIPEditSubParts
         SetUpDataGridViews()
         SetUpComboBoxes()
         SetUpCheckListBoxes()
+        TCSubparts.TabPages.Remove(TPEditSubParts)
     End Sub
 
     Private Sub SetUpDataGridViews()

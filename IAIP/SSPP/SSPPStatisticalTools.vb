@@ -4,7 +4,7 @@ Public Class SSPPStatisticalTools
     Private Property tempLoad As String = ""
 
     Private Sub SSPPStatisticalTools_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
+        TCSSPPTools.TabPages.Remove(TPSubpart)
         Try
             DTPPermitCountStart.Value = Today
             DTPPermitCountEnd.Value = Today
