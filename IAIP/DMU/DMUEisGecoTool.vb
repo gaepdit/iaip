@@ -5743,6 +5743,12 @@ Public Class DMUEisGecoTool
                 For i As Integer = 0 To dgvEISStats.Rows.Count - 1
                     temp = temp & " FacilitySiteID = '" & dgvEISStats(1, i).Value & "' or "
                 Next
+
+                If temp = "" Then
+                    MsgBox("No facilities are selected. No data changed.")
+                    Exit Sub
+                End If
+
                 temp = " and ( " & Mid(temp, 1, (temp.Length - 3)) & " ) "
 
                 SQL = "Update AIRBranch.EIS_Admin set " &
@@ -6248,7 +6254,7 @@ Public Class DMUEisGecoTool
 
                 cmd.Parameters.Add(New OracleParameter("AIRSNUM", OracleDbType.Varchar2)).Value = txtEILogSelectedAIRSNumber.Text
                 cmd.Parameters.Add(New OracleParameter("INTYEAR", OracleDbType.Decimal)).Value = txtEILogSelectedYear.Text
-                cmd.Parameters.Add(New OracleParameter("DATLASTSUBMIT", OracleDbType.Date)).Value = dtpQACompleted.Text
+                cmd.Parameters.Add(New OracleParameter("DATLASTSUBMIT", OracleDbType.Date)).Value = dtpQACompleted.Value
 
                 cmd.ExecuteNonQuery()
             End If
@@ -6979,6 +6985,12 @@ Public Class DMUEisGecoTool
                         temp = temp & " FacilitySiteID = '" & dgvEISStats(1, i).Value & "' or "
                     End If
                 Next
+
+                If temp = "" Then
+                    MsgBox("No facilities are selected. No data changed.")
+                    Exit Sub
+                End If
+
                 temp = " and ( " & Mid(temp, 1, (temp.Length - 3)) & " ) "
 
                 SQL = "Update AIRBranch.EIS_Admin set " &
