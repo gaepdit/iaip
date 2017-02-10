@@ -501,12 +501,6 @@
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Crystal Reports\SmokeSchool\crPassFailNoShow.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>crPassFailNoShow.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Crystal Reports\SSPP\CRTitleVRenewal10.vb">
       <DependentUpon>CRTitleVRenewal10.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -1010,11 +1004,6 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>crSSPPConfirmationLetter.vb</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\SmokeSchool\SmokeSchoolRoster.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>SmokeSchoolRoster.vb</LastGenOutput>
-      <CustomToolNamespace>CR.Reports</CustomToolNamespace>
-    </EmbeddedResource>
     <EmbeddedResource Include="Crystal Reports\SSCP\AccMemo.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>AccMemo.vb</LastGenOutput>
@@ -1122,10 +1111,6 @@
     <EmbeddedResource Include="Crystal Reports\Fees\TotalPayment10.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>TotalPayment10.vb</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Crystal Reports\SmokeSchool\crPassFailNoShow.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>crPassFailNoShow.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Crystal Reports\SSPP\CRTitleVRenewal10.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
@@ -1500,12 +1485,6 @@
     </Compile>
     <Compile Include="Crystal Reports\CRViewerForm.vb">
       <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Crystal Reports\SmokeSchool\SmokeSchoolRoster.vb">
-      <DependentUpon>SmokeSchoolRoster.rpt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
-      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Crystal Reports\SSCP\AccMemo.vb">
       <AutoGen>True</AutoGen>
