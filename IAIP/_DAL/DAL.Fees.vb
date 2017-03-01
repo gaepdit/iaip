@@ -35,7 +35,7 @@ Namespace DAL
             Dim feeYearDecimal As Decimal
             If Not Decimal.TryParse(feeYear, feeYearDecimal) Then Return False
 
-            Dim sp As String = "PD_FEE_STATUS"
+            Dim sp As String = "dbo.PD_FEE_STATUS"
 
             Dim parameters As SqlParameter() = New SqlParameter() {
                 New SqlParameter("@FEEYEAR", SqlDbType.Decimal) With {.Value = feeYearDecimal},

@@ -853,7 +853,7 @@ Public Class PASPFeeManagement
                     New SqlParameter("@FeeYear", SqlDbType.Decimal) With {.Value = cboAvailableFeeYears.Text},
                     New SqlParameter("@AIRSNumber", "")
                 }
-            DB.SPRunCommand("PD_FEE_DATA", p3)
+            DB.SPRunCommand("dbo.PD_FEE_DATA", p3)
 
             ViewEnrolledFacilities()
 
@@ -1041,8 +1041,8 @@ Public Class PASPFeeManagement
                     New SqlParameter("@FeeYear", SqlDbType.Decimal) With {.Value = cboAvailableFeeYears.Text},
                     New SqlParameter("@AIRSNumber", "")
                 }
-                DB.SPRunCommand("PD_FEE_MAILOUT", p2)
-                DB.SPRunCommand("PD_FEE_DATA", p2)
+                DB.SPRunCommand("dbo.PD_FEE_MAILOUT", p2)
+                DB.SPRunCommand("dbo.PD_FEE_DATA", p2)
 
                 SQL = "Update FS_Admin set " &
                     "numCurrentStatus = 2, " &

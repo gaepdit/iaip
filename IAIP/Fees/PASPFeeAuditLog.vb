@@ -3160,7 +3160,7 @@ Public Class PASPFeeAuditLog
                     New SqlParameter("@AIRSNumber", AirsNumber.DbFormattedString),
                     New SqlParameter("@FeeYear", FeeYear)
                 }
-                DB.SPRunCommand("PD_FeeAmendment", p5)
+                DB.SPRunCommand("dbo.PD_FeeAmendment", p5)
             End If
 
             If EndCollections = "True" Then
@@ -4165,7 +4165,7 @@ Public Class PASPFeeAuditLog
                     New SqlParameter("@AIRSNumber", AirsNumber.DbFormattedString),
                     New SqlParameter("@FeeYear", FeeYear)
                 }
-                DB.SPRunCommand("PD_FeeAmendment", p5)
+                DB.SPRunCommand("dbo.PD_FeeAmendment", p5)
             End If
 
             If cboStaffResponsible.SelectedValue <> "" Then
@@ -4785,8 +4785,8 @@ Public Class PASPFeeAuditLog
                "and datInitialEnrollment is null "
             DB.RunCommand(SQL, params)
 
-            DB.SPRunCommand("PD_FEE_MAILOUT", params)
-            DB.SPRunCommand("PD_FEE_DATA", params)
+            DB.SPRunCommand("dbo.PD_FEE_MAILOUT", params)
+            DB.SPRunCommand("dbo.PD_FEE_DATA", params)
 
             If Not DAL.Update_FS_Admin_Status(FeeYear, AIRSNumber.ToString) Then
                 MessageBox.Show("There was an error updating the database", "Database error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -4886,10 +4886,10 @@ Public Class PASPFeeAuditLog
             }
 
             DB.RunCommand(SQL, params2)
-            Dim spName As String = "PD_FEE_MAILOUT"
+            Dim spName As String = "dbo.PD_FEE_MAILOUT"
             DB.SPRunCommand(spName, params2)
 
-            spName = "PD_FEE_DATA"
+            spName = "dbo.PD_FEE_DATA"
             DB.SPRunCommand(spName, params2)
 
             If Not DAL.Update_FS_Admin_Status(FeeYear, AIRSNumber.ShortString) Then

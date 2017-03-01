@@ -4589,7 +4589,7 @@ Public Class DMUEisGecoTool
 
                 DB.RunCommand(queryList, paramsList)
 
-                Dim spName As String = "PD_EIS_QASTART"
+                Dim spName As String = "dbo.PD_EIS_QASTART"
                 For i As Integer = 0 To dgvEISStats.Rows.Count - 1
                     If dgvEISStats(0, i).Value = True Then
                         Dim param As SqlParameter() = {
@@ -4871,7 +4871,7 @@ Public Class DMUEisGecoTool
 
     Private Sub btnEILogAddNewFacility_Click(sender As Object, e As EventArgs) Handles btnEILogAddNewFacility.Click
         Try
-            Dim spname As String = "PD_EIS_Data"
+            Dim spname As String = "dbo.PD_EIS_Data"
             Dim params As SqlParameter() = {
                 New SqlParameter("@AIRSNUM", txtEILogSelectedAIRSNumber.Text),
                 New SqlParameter("@INTYEAR", txtEILogSelectedYear.Text)
@@ -5008,7 +5008,7 @@ Public Class DMUEisGecoTool
             LoadQASpecificData()
 
             If dtpQACompleted.Checked = True Then
-                Dim spname As String = "PD_EIS_QA_Done"
+                Dim spname As String = "dbo.PD_EIS_QA_Done"
                 Dim params2 As SqlParameter() = {
                     New SqlParameter("@AIRSNUM", txtEILogSelectedAIRSNumber.Text),
                     New SqlParameter("@INTYEAR", txtEILogSelectedYear.Text),
@@ -6207,7 +6207,7 @@ Public Class DMUEisGecoTool
 
     Private Sub btnCleanUp_Click(sender As Object, e As EventArgs) Handles btnCleanUp.Click
         Try
-            Dim spName As String = "PD_EIS_QASTART"
+            Dim spName As String = "dbo.PD_EIS_QASTART"
 
             Dim selection As Boolean = False
 
