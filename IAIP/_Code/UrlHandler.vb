@@ -25,6 +25,11 @@
         OpenUri(New Uri(PermitSearchUrlFragment & airsNumber.ToString), objectSender)
     End Sub
 
+    Public Sub OpenVesaUrl(Optional objectSender As Form = Nothing)
+        monitor.TrackFeature("Url.OpenVesa")
+        OpenUri(VesaUrl, objectSender)
+    End Sub
+
     Private Function OpenUri(uriString As String, Optional objectSender As Object = Nothing) As Boolean
         ' Reference: http://code.logos.com/blog/2008/01/using_processstart_to_link_to.html
         Try

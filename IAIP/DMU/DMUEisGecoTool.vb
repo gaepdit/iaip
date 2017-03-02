@@ -3,6 +3,7 @@ Imports Iaip.Apb.Facilities
 Imports EpdIt
 Imports System.Linq
 Imports System.Collections.Generic
+Imports Iaip.DAL
 
 Public Class DMUEisGecoTool
 
@@ -190,13 +191,17 @@ Public Class DMUEisGecoTool
         dgvEISStats.AllowUserToResizeColumns = True
         dgvEISStats.AllowUserToAddRows = False
         dgvEISStats.AllowUserToDeleteRows = False
-        dgvEISStats.AllowUserToOrderColumns = True
-        dgvEISStats.AllowUserToResizeRows = True
+        dgvEISStats.AllowUserToOrderColumns = False
+        dgvEISStats.AllowUserToResizeRows = False
         dgvEISStats.ColumnHeadersHeight = "35"
 
         Dim colSelect As New DataGridViewCheckBoxColumn
+        colSelect.ThreeState = False
+        colSelect.TrueValue = True
+        colSelect.FalseValue = False
+        colSelect.HeaderText = "Select"
+        colSelect.Name = "Select"
         dgvEISStats.Columns.Add(colSelect)
-        dgvEISStats.Columns(0).HeaderText = " "
         dgvEISStats.Columns(0).Width = 50
 
         dgvEISStats.Columns.Add("FacilitySiteID", "AIRS No.")
@@ -206,7 +211,6 @@ Public Class DMUEisGecoTool
         dgvEISStats.Columns.Add("strFacilityName", "Facility Name")
         dgvEISStats.Columns("strFacilityName").DisplayIndex = 2
         dgvEISStats.Columns("strFacilityName").Width = 250
-        dgvEISStats.Columns("strFacilityName").ReadOnly = True
 
         dgvEISStats.Columns.Add("InventoryYear", "EIS Year")
         dgvEISStats.Columns("InventoryYear").DisplayIndex = 3
@@ -3842,6 +3846,7 @@ Public Class DMUEisGecoTool
 
     Private Sub btnViewEISStats_Click(sender As Object, e As EventArgs) Handles btnViewEISStats.Click
         ViewEISStats()
+        TCEISStats.SelectTab(TPEISStatSummary)
     End Sub
 
     Private Sub ViewEISStats()
@@ -4106,7 +4111,7 @@ Public Class DMUEisGecoTool
             EIS_VIEW(txtSelectedEISStatYear.Text, "", "1", "1", "0", " and EISStatusCode >= 3 ", "", "")
 
             txtEISStatsCount.Text = dgvEISStats.RowCount.ToString
-            lblEISCount.Text = "In Progress Count"
+            lblEISCount.Text = "Submitted Count"
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -5785,7 +5790,7 @@ Public Class DMUEisGecoTool
         End Try
     End Sub
 
-    Sub ViewPollutantThresholds()
+    Private Sub ViewPollutantThresholds()
         Try
             Dim SQL As String
             If rdbThreeYearPollutants.Checked = True Then
@@ -6363,7 +6368,7 @@ Public Class DMUEisGecoTool
         End Try
     End Sub
 
-    Sub EIS_VIEW(EISYear As String, EISMailout As String, EISEnrollment As String,
+    Private Sub EIS_VIEW(EISYear As String, EISMailout As String, EISEnrollment As String,
                     EISActive As String, Optout As String, EISStatus As String,
                     EISAccess As String, QAStatus As String)
 
@@ -6676,6 +6681,181 @@ Public Class DMUEisGecoTool
         dgvOperStatusMismatch.DataSource = DB.GetDataTable(query)
         dgvOperStatusMismatch.SanelyResizeColumns
         lblOperStatusCount.Text = dgvOperStatusMismatch.RowCount.ToString
+    End Sub
+
+#End Region
+
+#Region " EIS Staging "
+
+    Private Sub lblOpenVesaUrl_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblOpenVesaUrl.LinkClicked
+        OpenVesaUrl(Me)
+    End Sub
+
+    Private Sub btnEisStageViewSubmitted_Click(sender As Object, e As EventArgs) Handles btnEisStageViewSubmitted.Click
+        If cboEISStatisticsYear.Text = "" Then
+            MessageBox.Show("Please select a valid year first.")
+            Exit Sub
+        End If
+
+        EIS_VIEW(cboEISStatisticsYear.Text, "", "1", "1", "0", " and EISStatusCode >= 3 ", "", "")
+
+        txtEISStatsCount.Text = dgvEISStats.RowCount.ToString
+        lblEISCount.Text = "Submitted Count"
+
+        DisplayEisStageCount(0)
+    End Sub
+
+    Private Sub dgvEISStats_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvEISStats.CellClick
+        If e.RowIndex <> -1 AndAlso e.RowIndex < dgvEISStats.RowCount Then
+            If dgvEISStats.Rows(e.RowIndex).Cells("Select").Value Then
+                dgvEISStats.Rows(e.RowIndex).Cells("Select").Value = False
+            Else
+                dgvEISStats.Rows(e.RowIndex).Cells("Select").Value = True
+            End If
+        End If
+
+        DisplayEisStageCount(CountSelectedEisStageFacilities)
+    End Sub
+
+    Private Sub DisplayEisStageCount(count As Integer)
+        lblEisStageSelectedCount.Text = String.Format("Selected facilities: {0}", count.ToString)
+    End Sub
+
+    Private Function CountSelectedEisStageFacilities() As Integer
+        Dim count As Integer = 0
+
+        For Each row As DataGridViewRow In dgvEISStats.Rows
+            If row.Cells("Select").Value = True Then
+                count += 1
+            End If
+        Next
+
+        Return count
+    End Function
+
+    Private Sub btnEisStageSelectAll_Click(sender As Object, e As EventArgs) Handles btnEisStageSelectAll.Click
+        For Each row As DataGridViewRow In dgvEISStats.Rows
+            row.Cells("Select").Value = True
+        Next
+
+        DisplayEisStageCount(CountSelectedEisStageFacilities)
+    End Sub
+
+    Private Sub btnEisStageSelectNone_Click(sender As Object, e As EventArgs) Handles btnEisStageSelectNone.Click
+        For Each row As DataGridViewRow In dgvEISStats.Rows
+            row.Cells("Select").Value = False
+        Next
+
+        DisplayEisStageCount(0)
+    End Sub
+
+    Private Function GatherSelectedEisFacilities(what As EisStagingSet) As List(Of String)
+        Dim facList As New List(Of String)
+
+        If what = EisStagingSet.Selected Then
+            For Each row As DataGridViewRow In dgvEISStats.Rows
+                If row.Cells("Select").Value = True Then
+                    facList.Add(row.Cells("FacilitySiteID").Value)
+                End If
+            Next
+        End If
+
+        Return facList
+    End Function
+
+    Private Enum EisStagingProcedure
+        Facility
+        PointSource
+    End Enum
+
+    Private Enum EisStagingSet
+        All
+        Selected
+    End Enum
+
+    Private Function ConfirmUserIntentions(procedure As EisStagingProcedure, what As EisStagingSet) As Boolean
+        If cboEISStatisticsYear.Text = "" Then
+            MessageBox.Show("Please select a valid year first.")
+            Return False
+        End If
+
+        Dim selectedFacilityCount As Integer = CountSelectedEisStageFacilities()
+        If what = EisStagingSet.Selected AndAlso selectedFacilityCount = 0 Then
+            MessageBox.Show("Please select desired facilities first." & vbNewLine & vbNewLine &
+                            "If you want to stage all facilities for a year, please choose one of the buttons to stage all facilities.")
+            Return False
+        End If
+
+        Dim message As String = "This will stage {3} {0} data for {1} facilit{2}. " & vbNewLine & vbNewLine &
+            "Are you sure you want to proceed?"
+
+        Dim messProc As String = ""
+        Select Case procedure
+            Case EisStagingProcedure.Facility
+                messProc = "Facility Information"
+            Case EisStagingProcedure.PointSource
+                messProc = "Point Source Emission"
+        End Select
+
+        Dim messSet As String = IIf(selectedFacilityCount = 0, "All", selectedFacilityCount.ToString)
+        Dim messSuffix As String = IIf(selectedFacilityCount = 1, "y", "ies")
+        Dim messYear As String = cboEISStatisticsYear.Text
+
+        Dim result As DialogResult = MessageBox.Show(String.Format(message, {messProc, messSet, messSuffix, messYear}),
+                                                     "Confirm", MessageBoxButtons.OKCancel)
+
+        If result = DialogResult.Cancel Then
+            Return False
+        End If
+
+        Return True
+    End Function
+
+    Private Sub StageEisData(procedure As EisStagingProcedure, what As EisStagingSet)
+        If ConfirmUserIntentions(procedure, what) Then
+            Dim facList As List(Of String) = GatherSelectedEisFacilities(what)
+
+            Dim SPName As String = ""
+
+            Select Case procedure
+                Case EisStagingProcedure.Facility
+                    SPName = "[NETWORKNODEFLOW].dbo.SP_EIS_FI_LOAD_STAGING"
+                Case EisStagingProcedure.PointSource
+                    SPName = "[NETWORKNODEFLOW].dbo.SP_EIS_PSE_LOAD_STAGING"
+            End Select
+
+            Dim params As SqlParameter() = {
+                New SqlParameter("@Inventory_Year", cboEISStatisticsYear.Text),
+                facList.AsTvpSqlParameter("@Facility_List")
+            }
+
+            Dim result As Boolean = DB.SPRunCommand(SPName, params)
+            DisplayEisStageResults(result)
+        End If
+    End Sub
+
+    Private Sub DisplayEisStageResults(result As Boolean)
+        If result Then
+            MessageBox.Show("Done!")
+        Else
+            MessageBox.Show("There was an error staging the data.")
+        End If
+    End Sub
+
+    Private Sub btnEisStageFiSelected_Click(sender As Object, e As EventArgs) Handles btnEisStageFiSelected.Click
+        StageEisData(EisStagingProcedure.Facility, EisStagingSet.Selected)
+    End Sub
+
+    Private Sub btnEisStagePseSelected_Click(sender As Object, e As EventArgs) Handles btnEisStagePseSelected.Click
+        StageEisData(EisStagingProcedure.PointSource, EisStagingSet.Selected)
+    End Sub
+
+    Private Sub btnEisStageFiAll_Click(sender As Object, e As EventArgs) Handles btnEisStageFiAll.Click
+        StageEisData(EisStagingProcedure.Facility, EisStagingSet.All)
+    End Sub
+
+    Private Sub btnEisStagePseAll_Click(sender As Object, e As EventArgs) Handles btnEisStagePseAll.Click
+        StageEisData(EisStagingProcedure.PointSource, EisStagingSet.All)
     End Sub
 
 #End Region

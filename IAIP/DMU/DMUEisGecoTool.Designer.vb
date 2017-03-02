@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class DMUEisGecoTool
     Inherits BaseForm
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class DMUEisGecoTool
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
@@ -237,7 +237,7 @@ Partial Class DMUEisGecoTool
         Me.mtbEILogAIRSNumber = New System.Windows.Forms.MaskedTextBox()
         Me.Label48 = New System.Windows.Forms.Label()
         Me.Label47 = New System.Windows.Forms.Label()
-        Me.TPEISStatistics = New System.Windows.Forms.TabPage()
+        Me.TPEisTools = New System.Windows.Forms.TabPage()
         Me.Panel17 = New System.Windows.Forms.Panel()
         Me.dgvEISStats = New System.Windows.Forms.DataGridView()
         Me.Panel18 = New System.Windows.Forms.Panel()
@@ -399,6 +399,17 @@ Partial Class DMUEisGecoTool
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.lblOperStatusCount = New System.Windows.Forms.Label()
         Me.llbOperatingStatusMismatch = New System.Windows.Forms.LinkLabel()
+        Me.TPStageData = New System.Windows.Forms.TabPage()
+        Me.lblEisStageSelectedCount = New System.Windows.Forms.Label()
+        Me.btnEisStageSelectNone = New System.Windows.Forms.Button()
+        Me.btnEisStageSelectAll = New System.Windows.Forms.Button()
+        Me.btnEisStagePseAll = New System.Windows.Forms.Button()
+        Me.btnEisStagePseSelected = New System.Windows.Forms.Button()
+        Me.btnEisStageFiAll = New System.Windows.Forms.Button()
+        Me.btnEisStageFiSelected = New System.Windows.Forms.Button()
+        Me.lblOpenVesaUrl = New System.Windows.Forms.LinkLabel()
+        Me.btnEisStageViewSubmitted = New System.Windows.Forms.Button()
+        Me.Label2 = New System.Windows.Forms.Label()
         Me.Panel21 = New System.Windows.Forms.Panel()
         Me.btnViewEISStats = New System.Windows.Forms.Button()
         Me.Label74 = New System.Windows.Forms.Label()
@@ -667,7 +678,7 @@ Partial Class DMUEisGecoTool
         Me.Panel15.SuspendLayout()
         Me.Panel14.SuspendLayout()
         Me.Panel13.SuspendLayout()
-        Me.TPEISStatistics.SuspendLayout()
+        Me.TPEisTools.SuspendLayout()
         Me.Panel17.SuspendLayout()
         CType(Me.dgvEISStats, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel18.SuspendLayout()
@@ -687,6 +698,7 @@ Partial Class DMUEisGecoTool
         Me.TPOperStatus.SuspendLayout()
         CType(Me.dgvOperStatusMismatch, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
+        Me.TPStageData.SuspendLayout()
         Me.Panel21.SuspendLayout()
         Me.TPESTools.SuspendLayout()
         Me.TabControl2.SuspendLayout()
@@ -719,11 +731,12 @@ Partial Class DMUEisGecoTool
         'TCDMUTools
         '
         Me.TCDMUTools.Controls.Add(Me.TPEISLog)
-        Me.TCDMUTools.Controls.Add(Me.TPEISStatistics)
+        Me.TCDMUTools.Controls.Add(Me.TPEisTools)
         Me.TCDMUTools.Controls.Add(Me.TPESTools)
         Me.TCDMUTools.Controls.Add(Me.TPFeeTools)
         Me.TCDMUTools.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TCDMUTools.Location = New System.Drawing.Point(0, 0)
+        Me.TCDMUTools.MinimumSize = New System.Drawing.Size(1016, 713)
         Me.TCDMUTools.Name = "TCDMUTools"
         Me.TCDMUTools.SelectedIndex = 0
         Me.TCDMUTools.Size = New System.Drawing.Size(1016, 713)
@@ -2826,16 +2839,16 @@ Partial Class DMUEisGecoTool
         Me.Label47.TabIndex = 0
         Me.Label47.Text = "EIS Year"
         '
-        'TPEISStatistics
+        'TPEisTools
         '
-        Me.TPEISStatistics.Controls.Add(Me.Panel17)
-        Me.TPEISStatistics.Controls.Add(Me.Panel19)
-        Me.TPEISStatistics.Location = New System.Drawing.Point(4, 22)
-        Me.TPEISStatistics.Name = "TPEISStatistics"
-        Me.TPEISStatistics.Size = New System.Drawing.Size(1008, 687)
-        Me.TPEISStatistics.TabIndex = 14
-        Me.TPEISStatistics.Text = "EIS Statistics"
-        Me.TPEISStatistics.UseVisualStyleBackColor = True
+        Me.TPEisTools.Controls.Add(Me.Panel17)
+        Me.TPEisTools.Controls.Add(Me.Panel19)
+        Me.TPEisTools.Location = New System.Drawing.Point(4, 22)
+        Me.TPEisTools.Name = "TPEisTools"
+        Me.TPEisTools.Size = New System.Drawing.Size(1008, 687)
+        Me.TPEisTools.TabIndex = 14
+        Me.TPEisTools.Text = "EIS Tools"
+        Me.TPEisTools.UseVisualStyleBackColor = True
         '
         'Panel17
         '
@@ -2849,10 +2862,15 @@ Partial Class DMUEisGecoTool
         '
         'dgvEISStats
         '
+        Me.dgvEISStats.AllowUserToAddRows = False
+        Me.dgvEISStats.AllowUserToDeleteRows = False
+        Me.dgvEISStats.AllowUserToResizeRows = False
         Me.dgvEISStats.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvEISStats.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.dgvEISStats.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
         Me.dgvEISStats.Location = New System.Drawing.Point(0, 52)
         Me.dgvEISStats.Name = "dgvEISStats"
+        Me.dgvEISStats.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgvEISStats.Size = New System.Drawing.Size(562, 635)
         Me.dgvEISStats.TabIndex = 1
         '
@@ -2940,6 +2958,7 @@ Partial Class DMUEisGecoTool
         Me.TCEISStats.Controls.Add(Me.TPEISEnrollment)
         Me.TCEISStats.Controls.Add(Me.TPEISThresholds)
         Me.TCEISStats.Controls.Add(Me.TPOperStatus)
+        Me.TCEISStats.Controls.Add(Me.TPStageData)
         Me.TCEISStats.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TCEISStats.Location = New System.Drawing.Point(0, 44)
         Me.TCEISStats.Name = "TCEISStats"
@@ -3826,7 +3845,7 @@ Partial Class DMUEisGecoTool
         Me.Label267.AutoSize = True
         Me.Label267.Font = New System.Drawing.Font("Times New Roman", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label267.ForeColor = System.Drawing.SystemColors.HotTrack
-        Me.Label267.Location = New System.Drawing.Point(11, 10)
+        Me.Label267.Location = New System.Drawing.Point(10, 10)
         Me.Label267.Name = "Label267"
         Me.Label267.Size = New System.Drawing.Size(179, 22)
         Me.Label267.TabIndex = 60
@@ -4462,6 +4481,120 @@ Partial Class DMUEisGecoTool
         Me.llbOperatingStatusMismatch.TabStop = True
         Me.llbOperatingStatusMismatch.Text = "View sources with mismatched operating status"
         '
+        'TPStageData
+        '
+        Me.TPStageData.Controls.Add(Me.lblEisStageSelectedCount)
+        Me.TPStageData.Controls.Add(Me.btnEisStageSelectNone)
+        Me.TPStageData.Controls.Add(Me.btnEisStageSelectAll)
+        Me.TPStageData.Controls.Add(Me.btnEisStagePseAll)
+        Me.TPStageData.Controls.Add(Me.btnEisStagePseSelected)
+        Me.TPStageData.Controls.Add(Me.btnEisStageFiAll)
+        Me.TPStageData.Controls.Add(Me.btnEisStageFiSelected)
+        Me.TPStageData.Controls.Add(Me.lblOpenVesaUrl)
+        Me.TPStageData.Controls.Add(Me.btnEisStageViewSubmitted)
+        Me.TPStageData.Controls.Add(Me.Label2)
+        Me.TPStageData.Location = New System.Drawing.Point(4, 22)
+        Me.TPStageData.Name = "TPStageData"
+        Me.TPStageData.Padding = New System.Windows.Forms.Padding(3)
+        Me.TPStageData.Size = New System.Drawing.Size(438, 617)
+        Me.TPStageData.TabIndex = 8
+        Me.TPStageData.Text = "Stage to EPA"
+        Me.TPStageData.UseVisualStyleBackColor = True
+        '
+        'lblEisStageSelectedCount
+        '
+        Me.lblEisStageSelectedCount.AutoSize = True
+        Me.lblEisStageSelectedCount.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblEisStageSelectedCount.Location = New System.Drawing.Point(181, 70)
+        Me.lblEisStageSelectedCount.Name = "lblEisStageSelectedCount"
+        Me.lblEisStageSelectedCount.Size = New System.Drawing.Size(133, 17)
+        Me.lblEisStageSelectedCount.TabIndex = 7
+        Me.lblEisStageSelectedCount.Text = "Selected facilities: 0"
+        '
+        'btnEisStageSelectNone
+        '
+        Me.btnEisStageSelectNone.Location = New System.Drawing.Point(255, 44)
+        Me.btnEisStageSelectNone.Name = "btnEisStageSelectNone"
+        Me.btnEisStageSelectNone.Size = New System.Drawing.Size(72, 23)
+        Me.btnEisStageSelectNone.TabIndex = 2
+        Me.btnEisStageSelectNone.Text = "Select none"
+        Me.btnEisStageSelectNone.UseVisualStyleBackColor = True
+        '
+        'btnEisStageSelectAll
+        '
+        Me.btnEisStageSelectAll.Location = New System.Drawing.Point(177, 44)
+        Me.btnEisStageSelectAll.Name = "btnEisStageSelectAll"
+        Me.btnEisStageSelectAll.Size = New System.Drawing.Size(72, 23)
+        Me.btnEisStageSelectAll.TabIndex = 1
+        Me.btnEisStageSelectAll.Text = "Select all"
+        Me.btnEisStageSelectAll.UseVisualStyleBackColor = True
+        '
+        'btnEisStagePseAll
+        '
+        Me.btnEisStagePseAll.Location = New System.Drawing.Point(177, 209)
+        Me.btnEisStagePseAll.Name = "btnEisStagePseAll"
+        Me.btnEisStagePseAll.Size = New System.Drawing.Size(150, 51)
+        Me.btnEisStagePseAll.TabIndex = 6
+        Me.btnEisStagePseAll.Text = "Stage Point Source Emission Data " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "for all facilities"
+        Me.btnEisStagePseAll.UseVisualStyleBackColor = True
+        '
+        'btnEisStagePseSelected
+        '
+        Me.btnEisStagePseSelected.Location = New System.Drawing.Point(177, 137)
+        Me.btnEisStagePseSelected.Name = "btnEisStagePseSelected"
+        Me.btnEisStagePseSelected.Size = New System.Drawing.Size(150, 51)
+        Me.btnEisStagePseSelected.TabIndex = 4
+        Me.btnEisStagePseSelected.Text = "Stage Point Source Emission Data " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "for selected facilities"
+        Me.btnEisStagePseSelected.UseVisualStyleBackColor = True
+        '
+        'btnEisStageFiAll
+        '
+        Me.btnEisStageFiAll.Location = New System.Drawing.Point(14, 209)
+        Me.btnEisStageFiAll.Name = "btnEisStageFiAll"
+        Me.btnEisStageFiAll.Size = New System.Drawing.Size(150, 51)
+        Me.btnEisStageFiAll.TabIndex = 5
+        Me.btnEisStageFiAll.Text = "Stage Facility Information " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "for all facilities"
+        Me.btnEisStageFiAll.UseVisualStyleBackColor = True
+        '
+        'btnEisStageFiSelected
+        '
+        Me.btnEisStageFiSelected.Location = New System.Drawing.Point(14, 137)
+        Me.btnEisStageFiSelected.Name = "btnEisStageFiSelected"
+        Me.btnEisStageFiSelected.Size = New System.Drawing.Size(150, 51)
+        Me.btnEisStageFiSelected.TabIndex = 3
+        Me.btnEisStageFiSelected.Text = "Stage Facility Information " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "for selected facilities"
+        Me.btnEisStageFiSelected.UseVisualStyleBackColor = True
+        '
+        'lblOpenVesaUrl
+        '
+        Me.lblOpenVesaUrl.AutoSize = True
+        Me.lblOpenVesaUrl.Location = New System.Drawing.Point(11, 298)
+        Me.lblOpenVesaUrl.Name = "lblOpenVesaUrl"
+        Me.lblOpenVesaUrl.Size = New System.Drawing.Size(103, 13)
+        Me.lblOpenVesaUrl.TabIndex = 7
+        Me.lblOpenVesaUrl.TabStop = True
+        Me.lblOpenVesaUrl.Text = "Open VESA website"
+        '
+        'btnEisStageViewSubmitted
+        '
+        Me.btnEisStageViewSubmitted.Location = New System.Drawing.Point(14, 44)
+        Me.btnEisStageViewSubmitted.Name = "btnEisStageViewSubmitted"
+        Me.btnEisStageViewSubmitted.Size = New System.Drawing.Size(150, 48)
+        Me.btnEisStageViewSubmitted.TabIndex = 0
+        Me.btnEisStageViewSubmitted.Text = "Display facilities that have submitted EIS data"
+        Me.btnEisStageViewSubmitted.UseVisualStyleBackColor = True
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Font = New System.Drawing.Font("Times New Roman", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label2.ForeColor = System.Drawing.SystemColors.HotTrack
+        Me.Label2.Location = New System.Drawing.Point(10, 10)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(276, 22)
+        Me.Label2.TabIndex = 2
+        Me.Label2.Text = "Stage Data for Submittal to EPA"
+        '
         'Panel21
         '
         Me.Panel21.Controls.Add(Me.btnViewEISStats)
@@ -4480,7 +4613,7 @@ Partial Class DMUEisGecoTool
         Me.btnViewEISStats.Name = "btnViewEISStats"
         Me.btnViewEISStats.Size = New System.Drawing.Size(112, 23)
         Me.btnViewEISStats.TabIndex = 9
-        Me.btnViewEISStats.Text = "View Selected Data"
+        Me.btnViewEISStats.Text = "View EIS Stats"
         Me.btnViewEISStats.UseVisualStyleBackColor = True
         '
         'Label74
@@ -6957,7 +7090,7 @@ Partial Class DMUEisGecoTool
         Me.Panel14.PerformLayout()
         Me.Panel13.ResumeLayout(False)
         Me.Panel13.PerformLayout()
-        Me.TPEISStatistics.ResumeLayout(False)
+        Me.TPEisTools.ResumeLayout(False)
         Me.Panel17.ResumeLayout(False)
         CType(Me.dgvEISStats, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel18.ResumeLayout(False)
@@ -6985,6 +7118,8 @@ Partial Class DMUEisGecoTool
         CType(Me.dgvOperStatusMismatch, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
+        Me.TPStageData.ResumeLayout(False)
+        Me.TPStageData.PerformLayout()
         Me.Panel21.ResumeLayout(False)
         Me.Panel21.PerformLayout()
         Me.TPESTools.ResumeLayout(False)
@@ -7026,9 +7161,9 @@ Partial Class DMUEisGecoTool
         Me.pnlUserEmail.ResumeLayout(False)
         Me.pnlUserEmail.PerformLayout()
         Me.ResumeLayout(False)
-        Me.PerformLayout
+        Me.PerformLayout()
 
-End Sub
+    End Sub
     Friend WithEvents TCDMUTools As System.Windows.Forms.TabControl
     Friend WithEvents TPESTools As System.Windows.Forms.TabPage
     Friend WithEvents TabControl2 As System.Windows.Forms.TabControl
@@ -7434,7 +7569,7 @@ End Sub
     Friend WithEvents Label240 As System.Windows.Forms.Label
     Friend WithEvents btnEIModifyCopy As System.Windows.Forms.Button
     Friend WithEvents btnEILogUpdate As System.Windows.Forms.Button
-    Friend WithEvents TPEISStatistics As System.Windows.Forms.TabPage
+    Friend WithEvents TPEisTools As System.Windows.Forms.TabPage
     Friend WithEvents Panel17 As System.Windows.Forms.Panel
     Friend WithEvents dgvEISStats As System.Windows.Forms.DataGridView
     Friend WithEvents Panel18 As System.Windows.Forms.Panel
@@ -7654,4 +7789,15 @@ End Sub
     Friend WithEvents Label179 As Label
     Friend WithEvents btnUpdateEisOperStatus As Button
     Friend WithEvents cbIaipOperStatus As ComboBox
+    Friend WithEvents TPStageData As TabPage
+    Friend WithEvents btnEisStageViewSubmitted As Button
+    Friend WithEvents Label2 As Label
+    Friend WithEvents lblOpenVesaUrl As LinkLabel
+    Friend WithEvents lblEisStageSelectedCount As Label
+    Friend WithEvents btnEisStageSelectNone As Button
+    Friend WithEvents btnEisStageSelectAll As Button
+    Friend WithEvents btnEisStagePseAll As Button
+    Friend WithEvents btnEisStagePseSelected As Button
+    Friend WithEvents btnEisStageFiAll As Button
+    Friend WithEvents btnEisStageFiSelected As Button
 End Class
