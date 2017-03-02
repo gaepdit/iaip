@@ -6786,10 +6786,14 @@ Public Class DMUEisGecoTool
             Return False
         End If
 
-        Dim message As String = "This will stage {3} {0} data for {1} facilit{2}. " & vbNewLine & vbNewLine &
+        Dim message As String = "This will stage {0} {1} data" & vbNewLine & "for {2} facilit{3}. " & vbNewLine & vbNewLine &
             "Are you sure you want to proceed?"
 
+        Dim messYear As String = cboEISStatisticsYear.Text
         Dim messProc As String = ""
+        Dim messSet As String = ""
+        Dim messSuffix As String = ""
+
         Select Case procedure
             Case EisStagingProcedure.Facility
                 messProc = "Facility Information"
@@ -6797,11 +6801,16 @@ Public Class DMUEisGecoTool
                 messProc = "Point Source Emission"
         End Select
 
-        Dim messSet As String = IIf(selectedFacilityCount = 0, "All", selectedFacilityCount.ToString)
-        Dim messSuffix As String = IIf(selectedFacilityCount = 1, "y", "ies")
-        Dim messYear As String = cboEISStatisticsYear.Text
+        Select Case what
+            Case EisStagingSet.All
+                messSet = "all"
+                messSuffix = "ies"
+            Case EisStagingSet.Selected
+                messSet = selectedFacilityCount.ToString
+                messSuffix = IIf(selectedFacilityCount = 1, "y", "ies")
+        End Select
 
-        Dim result As DialogResult = MessageBox.Show(String.Format(message, {messProc, messSet, messSuffix, messYear}),
+        Dim result As DialogResult = MessageBox.Show(String.Format(message, {messYear, messProc, messSet, messSuffix}),
                                                      "Confirm", MessageBoxButtons.OKCancel)
 
         If result = DialogResult.Cancel Then
@@ -6819,9 +6828,9 @@ Public Class DMUEisGecoTool
 
             Select Case procedure
                 Case EisStagingProcedure.Facility
-                    SPName = "[NETWORKNODEFLOW].dbo.SP_EIS_FI_LOAD_STAGING"
+                    SPName = "etl.SP_EIS_FI_LOAD_STAGING"
                 Case EisStagingProcedure.PointSource
-                    SPName = "[NETWORKNODEFLOW].dbo.SP_EIS_PSE_LOAD_STAGING"
+                    SPName = "etl.SP_EIS_PSE_LOAD_STAGING"
             End Select
 
             Dim params As SqlParameter() = {
@@ -6843,19 +6852,27 @@ Public Class DMUEisGecoTool
     End Sub
 
     Private Sub btnEisStageFiSelected_Click(sender As Object, e As EventArgs) Handles btnEisStageFiSelected.Click
+        Me.Cursor = Cursors.WaitCursor
         StageEisData(EisStagingProcedure.Facility, EisStagingSet.Selected)
+        Me.Cursor = Cursors.Default
     End Sub
 
     Private Sub btnEisStagePseSelected_Click(sender As Object, e As EventArgs) Handles btnEisStagePseSelected.Click
+        Me.Cursor = Cursors.WaitCursor
         StageEisData(EisStagingProcedure.PointSource, EisStagingSet.Selected)
+        Me.Cursor = Cursors.Default
     End Sub
 
     Private Sub btnEisStageFiAll_Click(sender As Object, e As EventArgs) Handles btnEisStageFiAll.Click
+        Me.Cursor = Cursors.WaitCursor
         StageEisData(EisStagingProcedure.Facility, EisStagingSet.All)
+        Me.Cursor = Cursors.Default
     End Sub
 
     Private Sub btnEisStagePseAll_Click(sender As Object, e As EventArgs) Handles btnEisStagePseAll.Click
+        Me.Cursor = Cursors.WaitCursor
         StageEisData(EisStagingProcedure.PointSource, EisStagingSet.All)
+        Me.Cursor = Cursors.Default
     End Sub
 
 #End Region
