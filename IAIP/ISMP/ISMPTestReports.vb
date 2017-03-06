@@ -8334,35 +8334,27 @@ Public Class ISMPTestReports
     Private Sub LoadTestNotifications()
         Try
 
-            query = "select " &
-            "concat(LogNumber, ' --> ' ,StartDate) as LogNumber " &
-            "from  (Select (ISMPTESTNotification.strTestLogNumber) as LogNumber, " &
-            "format(datProposedStartDate,'dd-MMM-yyyy') as StartDate " &
-            "from  ISMPTESTNotification  " &
-            "where not exists(select ISMPTestLogLink.strTestLogNumber  " &
-            "from ISMPTestLogLink " &
-            "where ISMPTestNotification.strTestLogNumber = ISMPTestLogLink.strTestLogNumber)  " &
-            "and strAIRSNumber = @airs ) NonLinked  " &
-            "UNION  " &
-            "select " &
-            "LogNumber " &
-            "from (select " &
-            "concat(ISMPTestLogLink.strTestLogNumber, ' --> ' ,datProposedStartDate) as LogNumber " &
-            "from ISMPTestLogLink, ISMPTestNotification " &
-            "where ISMPTestLogLink.strTestLogNumber = ISMPTestNotification.strTestLogNumber " &
-            "and strReferenceNumber = @ref) CurrentLink " &
-            "Union " &
-            "select  concat(LogNumber , ' --> ' ,StartDate) as LogNumber " &
-            "from " &
-            "(select distinct(ISMPTestLogLink.strTestLogNumber) as LogNumber,  " &
-            "datProposedstartdate as StartDate " &
-            "from ISMPTestLogLink, ISMPReportInformation,  " &
-            "ISMPMaster, ISMPTestNotification  " &
-            "where ISMPTEstLogLink.strReferenceNumber = ISMPREportInformation.strReferenceNumber  " &
-            "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber  " &
-            "and ISMPTestLogLink.strTestLogNumber = ISMPTestNotification.strTestLogNumber  " &
-            "and ISMPMaster.strAIRSNumber = @airs " &
-            "and strClosed <> 'True') UnclosedLinks "
+            query = "SELECT concat(LogNumber, ' --> ', StartDate) AS LogNumber
+                FROM (SELECT ISMPTESTNotification.strTestLogNumber AS LogNumber, format(datProposedStartDate, 'dd-MMM-yyyy') AS StartDate
+                FROM ISMPTESTNotification
+                WHERE NOT EXISTS (SELECT strTestLogNumber
+                FROM ISMPTestLogLink
+                WHERE ISMPTestNotification.strTestLogNumber = ISMPTestLogLink.strTestLogNumber) AND strAIRSNumber = @airs) AS NonLinked
+                UNION
+                SELECT concat(LogNumber, ' --> ', StartDate) AS LogNumber
+                FROM (SELECT l.strTestLogNumber AS LogNumber, format(datProposedStartDate, 'dd-MMM-yyyy') AS StartDate
+                FROM ISMPTestLogLink AS l
+                INNER JOIN ISMPTestNotification AS n ON l.strTestLogNumber = n.strTestLogNumber
+                WHERE strReferenceNumber = @ref) AS CurrentLink
+                UNION
+                SELECT concat(LogNumber, ' --> ', StartDate) AS LogNumber
+                FROM (SELECT DISTINCT
+                l.strTestLogNumber AS LogNumber, format(datProposedStartDate, 'dd-MMM-yyyy') AS StartDate
+                FROM ISMPTestLogLink AS l
+                INNER JOIN ISMPReportInformation AS r ON l.strReferenceNumber = r.strReferenceNumber
+                INNER JOIN ISMPMaster AS m ON m.strReferenceNumber = r.strReferenceNumber
+                INNER JOIN ISMPTestNotification AS n ON l.strTestLogNumber = n.strTestLogNumber
+                WHERE m.strAIRSNumber = @airs AND strClosed <> 'True') AS UnclosedLinks"
 
             Dim p As SqlParameter() = {
                 New SqlParameter("@airs", "0413" & txtAirsNumber.Text),
@@ -8376,11 +8368,10 @@ Public Class ISMPTestReports
                 cboTestNotificationNumber.Items.Add(dr2.Item("LogNumber"))
             Next
 
-            query = "select " &
-            "concat(ISMPTestLogLink.strTestLogNumber, ' --> ' ,datProposedStartDate) as LogNumber " &
-            "from ISMPTestLogLink, ISMPTestNotification " &
-            "where ISMPTestLogLink.strTestLogNumber = ISMPTestNotification.strTestLogNumber " &
-            "and strReferenceNumber = @ref "
+            query = "SELECT concat(ISMPTestLogLink.strTestLogNumber, ' --> ', format(datProposedStartDate, 'dd-MMM-yyyy')) AS LogNumber
+                FROM ISMPTestLogLink
+                INNER JOIN ISMPTestNotification ON ISMPTestLogLink.strTestLogNumber = ISMPTestNotification.strTestLogNumber
+                WHERE strReferenceNumber = @ref "
 
             Dim dr As DataRow = DB.GetDataRow(query, p)
 
