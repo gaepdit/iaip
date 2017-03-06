@@ -397,8 +397,8 @@ Public Class ISMPTestReportAdministrative
            "strDirector, strCommissioner, strProgramManager, " &
            "strComplianceStatus, strcc, strModifingPerson, datModifingDate, " &
            "strControlEquipmentData, strDelete, numReviewingManager) " &
-           "values " &
-           "(@strReferenceNumber, " &
+           "select " &
+           "@strReferenceNumber, " &
            "@strpollutant, " &
            "@strEmissionSource, " &
            "'004', " &
@@ -440,7 +440,7 @@ Public Class ISMPTestReportAdministrative
            "'01', " &
            "'0', " &
            "@user, GETDATE() , " &
-           "'N/A', '', '')")
+           "'N/A', '', '' ")
 
                 End If
 
@@ -458,12 +458,14 @@ Public Class ISMPTestReportAdministrative
                                   New SqlParameter("@datCompleteDate", DTPDateClosed.Text),
                                   New SqlParameter("@strClosed", RecordStatus),
                                   New SqlParameter("@strReferenceNumber", txtReferenceNumber.Text),
-                                  New SqlParameter("@airs", cboAIRSNumber.Text),
+                                  New SqlParameter("@airs", "0413" & cboAIRSNumber.Text),
                                   New SqlParameter("@user", CurrentUser.UserID),
                                   New SqlParameter("@ed", DAL.EpdManagementTypes.EpdDirector.ToString),
                                   New SqlParameter("@dc", DAL.EpdManagementTypes.DnrCommissioner.ToString),
                                   New SqlParameter("@ip", DAL.EpdManagementTypes.DnrCommissioner.ToString)
                                   })
+
+                DB.RunCommand(queryList, paramList)
 
                 bgw1.WorkerReportsProgress = True
                 bgw1.WorkerSupportsCancellation = True
