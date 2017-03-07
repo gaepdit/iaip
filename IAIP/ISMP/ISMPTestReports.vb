@@ -8984,50 +8984,23 @@ Public Class ISMPTestReports
                 If DocType <> "Non-Exist" Then
                     ClearAll()
 
-                    query = "Select " &
-                  "ISMPMaster.strReferenceNumber,  " &
-                  "SUBSTRING(ISMpMaster.strAIRSnumber, 5,8) as AIRSNumber,  " &
-                  "APBFacilityInformation.strFacilityName,  " &
-                  "strFacilityCity, strFacilityState,  " &
-                  "strPollutant, strEmissionSource,  " &
-                  "strReportType, strDocumentType,  " &
-                  "strApplicableRequirement,  " &
-                  "strTestingFirm, strReviewingEngineer,  " &
-                  "strWitnessingEngineer,  " &
-                  "strReviewingUnit,  " &
-                  "format(datReviewedByUnitManager, 'dd-MMM-yyyy') as datReviewedByUnitManager,  " &
-                  "strComplianceManager,  " &
-                  "format(datReceivedDate, 'dd-MMM-yyyy') as datReceivedDate,  " &
-                  "format(datTestDateStart, 'dd-MMM-yyyy') as datTestDateStart,  " &
-                  "format(datTestDateEnd, 'dd-MMM-yyyy') as datTestDateEnd,  " &
-                  "format(datCompleteDate, 'dd-MMM-yyyy') as datCompleteDate,  " &
-                  "mmoCommentArea,  " &
-                  "strClosed, strProgramManager,  " &
-                  "strComplianceStatus, strCC,  " &
-                  "(ISMPReportInformation.datReceivedDate - ISMPReportInformation.datTestDateEnd) as DaysFromTest,  " &
-                  "case  " &
-                  "when datCompleteDate = '04-Jul-1776' then convert(int,GETDATE()-convert(datetime,datReceivedDate))  " &
-                  "else convert(int,datCompleteDate - datReceivedDate)  " &
-                  "End APBDays,  " &
-                  "Case " &
-                  "when datCompleteDate = '04-Jul-1776' then convert(int,GETDATE()-convert(datetime,datReviewedByUnitManager))  " &
-                  "else convert(int,datCompleteDate - datReviewedByUnitManager)  " &
-                  "End EngineerDays,  " &
-                  "strDeterminationMethod, strControlEquipmentData,  " &
-                  "strOtherWitnessingEng, strConfidentialData,  " &
-                  "numReviewingManager, " &
-                  "case " &
-                  "when numReviewingManager is null then 'N/A' " &
-                  "else concat(strLastName,', ',strFirstName) " &
-                  "END UnitManager " &
-                  "from ISMPMaster " &
-                  " INNER JOIN APBFacilityInformation  " &
-                  "ON ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSNumber  " &
-                  " INNER JOIN ISMPReportInformation " &
-                  "ON ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber  " &
-                  " LEFT JOIN EPDUserProfiles     " &
-                  "ON ISMPReportInformation.numReviewingManager = EPDUserProfiles.numUserID " &
-                  "where ISMPMaster.strReferenceNumber = @RefNum "
+                    query = "SELECT m.strReferenceNumber, SUBSTRING(m.strAIRSnumber, 5, 8) AS AIRSNumber, f.strFacilityName, strFacilityCity, strFacilityState, 
+                        strPollutant, strEmissionSource, strReportType, strDocumentType, strApplicableRequirement, strTestingFirm, strReviewingEngineer, 
+                        strWitnessingEngineer, strReviewingUnit, format(datReviewedByUnitManager, 'dd-MMM-yyyy') AS datReviewedByUnitManager, 
+                        strComplianceManager, format(datReceivedDate, 'dd-MMM-yyyy') AS datReceivedDate, format(datTestDateStart, 'dd-MMM-yyyy') AS 
+                        datTestDateStart, format(datTestDateEnd, 'dd-MMM-yyyy') AS datTestDateEnd, format(datCompleteDate, 'dd-MMM-yyyy') AS datCompleteDate, 
+                        mmoCommentArea, strClosed, strProgramManager, strComplianceStatus, strCC, DATEDIFF(d, r.datTestDateEnd, r.datReceivedDate) AS DaysFromTest,
+                            CASE WHEN datCompleteDate = '04-Jul-1776' THEN DATEDIFF(d, datReceivedDate, GETDATE()) ELSE DATEDIFF(d, datReceivedDate, 
+                            datCompleteDate) END AS APBDays,
+                            CASE WHEN datCompleteDate = '04-Jul-1776' THEN DATEDIFF(d, datReviewedByUnitManager, GETDATE()) ELSE DATEDIFF(d, 
+                            datReviewedByUnitManager, datCompleteDate) END AS EngineerDays, strDeterminationMethod, strControlEquipmentData, 
+                            strOtherWitnessingEng, strConfidentialData, numReviewingManager,
+                            CASE WHEN numReviewingManager IS NULL THEN 'N/A' ELSE concat(strLastName, ', ', strFirstName) END AS UnitManager
+                        FROM ISMPMaster AS m
+                            INNER JOIN APBFacilityInformation AS f ON m.strAIRSNumber = f.strAIRSNumber
+                            INNER JOIN ISMPReportInformation AS r ON m.strReferenceNumber = r.strReferenceNumber
+                            LEFT JOIN EPDUserProfiles AS u ON r.numReviewingManager = u.numUserID
+                        WHERE m.strReferenceNumber = @RefNum"
 
                     Dim pNew As New SqlParameter("@RefNum", RefNum)
 
