@@ -8395,7 +8395,7 @@ Public Class ISMPTestReports
             Dim ComplianceManager As String = ""
             Dim DistrictManager As String = ""
 
-            query = "select max(INTYEAR), strAssigningManager " &
+            query = "select strAssigningManager " &
                   "from SSCPINSPECTIONSREQUIRED, " &
                    "(select max(intyear) as MaxYear, SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER  " &
                       "from SSCPINSPECTIONSREQUIRED " &
