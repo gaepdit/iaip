@@ -27,11 +27,11 @@ The IAIP is a Windows Forms Application and currently targets the .NET Framework
 
 ## Prerequisites for building
 
-+ [Visual Studio](https://www.visualstudio.com/) 2015 or later
++ [Visual Studio 2015](https://www.visualstudio.com/) or later
 
 + [Microsoft .NET Framework 4.5.2 Developer Pack](http://www.microsoft.com/en-us/download/details.aspx?id=42637)
 
-+ [SAP Crystal Reports, developer version for Microsoft Visual Studio](http://scn.sap.com/docs/DOC-7824), Support Pack 15 or later. Be sure to download the Install Executable, not an MSI.
++ [SAP Crystal Reports, developer version for Microsoft Visual Studio](https://wiki.scn.sap.com/wiki/display/BOBJ/Crystal+Reports%2C+Developer+for+Visual+Studio+Downloads) (Be sure to download the Install Executable, not an MSI.)
 
 + Some NuGet packages are required. They should be restored automatically. If not, open the NuGet Package Manager and click Restore to install them:
     - Oracle ODP.NET, Managed Driver
