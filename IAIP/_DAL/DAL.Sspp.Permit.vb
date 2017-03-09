@@ -65,7 +65,7 @@ Namespace DAL.Sspp
                 " FROM APBISSUEDPERMIT " &
                 " WHERE STRAIRSNUMBER = @airsnumber " &
                 " AND ACTIVE = '1' " &
-                " ORDER BY DATISSUED Nulls FIRST "
+                " ORDER BY DATISSUED "
 
             Dim parameter As New SqlParameter("@airsnumber", airsNumber)
             Return DB.GetDataTable(query, parameter)
@@ -153,9 +153,8 @@ Namespace DAL.Sspp
                 "     ACTIVE, " &
                 "     PERMITTYPECODE " &
                 "   ) " &
-                "   VALUES " &
-                "   ( " &
-                "     (select next value for PERMITID_SEQ), " &
+                "   select " &
+                "     next value for PERMITID_SEQ, " &
                 "     @AirsNumber, " &
                 "     @PermitNumber, " &
                 "     @IssuedDate, " &
@@ -165,8 +164,7 @@ Namespace DAL.Sspp
                 "     @UpdateDate, " &
                 "     @UpdatedBy, " &
                 "     @Active, " &
-                "     @PermitTypeCode " &
-                "   ) "
+                "     @PermitTypeCode "
 
             Dim parameters As SqlParameter() = {
                 New SqlParameter("@AirsNumber", permit.AirsNumber),
@@ -181,7 +179,7 @@ Namespace DAL.Sspp
                 New SqlParameter("@PermitTypeCode", permit.PermitTypeCode)
             }
 
-            Return DB.RunCommand(query, parameters)
+            Return DB.RunCommand(query, parameters, forceAddNullableParameters:=True)
         End Function
 
         Public Function RevokePermits(permits As List(Of Permit), revocationDate As Date) As Boolean
@@ -198,7 +196,7 @@ Namespace DAL.Sspp
                 " SET DATREVOKED = @RevokedDate, " &
                 "   UPDATEDATE = @UpdateDate, " &
                 "   UPDATEDBY = @UpdatedBy, " &
-                "   ACTIVE = @Active, " &
+                "   ACTIVE = @Active " &
                 " WHERE ISSUEDPERMITID IN (SELECT * FROM @ids) "
 
             Dim parameters As SqlParameter() = {

@@ -5770,18 +5770,18 @@ Public Class SSPPApplicationTrackingLog
                 query = "select strKey " &
                 "from APBContactInformation inner join SSPPApplicationContact  " &
                 "on APBContactInformation.strContactFirstName = SSPPApplicationContact.strContactFirstName " &
-                "on APBContactInformation.strContactLastName = SSPPApplicationContact.strContactLastName  " &
-                "on APBContactInformation.strContactPrefix = SSPPApplicationContact.strContactPrefix " &
-                "on APBContactInformation.strContactSuffix = SSPPApplicationContact.strContactSuffix  " &
-                "on APBContactInformation.strContactTitle = SSPPApplicationContact.strContactTitle  " &
-                "on APBContactInformation.strContactCompanyName = SSPPApplicationContact.strContactCompanyName  " &
-                "on APBContactInformation.strContactPhoneNumber1 = SSPPApplicationContact.strContactPhoneNumber1  " &
-                "on APBContactInformation.strContactFaxNumber = SSPPApplicationContact.strContactFaxNumber  " &
-                "on APBContactInformation.strContactEmail = SSPPApplicationContact.strContactEmail  " &
-                "on APBContactInformation.strCOntactAddress1 = SSPPApplicationContact.strContactAddress1  " &
-                "on APBContactInformation.strCOntactCity = SSPPApplicationContact.strContactCity  " &
-                "on APBContactInformation.strContactZipCode = SSPPApplicationcontact.strContactZipCode  " &
-                "on APBContactInformation.strContactDescription = SSPPApplicationContact.strContactDescription  " &
+                "and APBContactInformation.strContactLastName = SSPPApplicationContact.strContactLastName  " &
+                "and APBContactInformation.strContactPrefix = SSPPApplicationContact.strContactPrefix " &
+                "and APBContactInformation.strContactSuffix = SSPPApplicationContact.strContactSuffix  " &
+                "and APBContactInformation.strContactTitle = SSPPApplicationContact.strContactTitle  " &
+                "and APBContactInformation.strContactCompanyName = SSPPApplicationContact.strContactCompanyName  " &
+                "and APBContactInformation.strContactPhoneNumber1 = SSPPApplicationContact.strContactPhoneNumber1  " &
+                "and APBContactInformation.strContactFaxNumber = SSPPApplicationContact.strContactFaxNumber  " &
+                "and APBContactInformation.strContactEmail = SSPPApplicationContact.strContactEmail  " &
+                "and APBContactInformation.strCOntactAddress1 = SSPPApplicationContact.strContactAddress1  " &
+                "and APBContactInformation.strCOntactCity = SSPPApplicationContact.strContactCity  " &
+                "and APBContactInformation.strContactZipCode = SSPPApplicationcontact.strContactZipCode  " &
+                "and APBContactInformation.strContactDescription = SSPPApplicationContact.strContactDescription  " &
                 "where APBContactInformation.strContactKey = @pKey " &
                 "and SSPPApplicationContact.strApplicationNumber = @app "
 
@@ -5815,7 +5815,7 @@ Public Class SSPPApplicationTrackingLog
                         "strContactZipCode, strModifingPerson,  " &
                         "datModifingDate, strContactDescription)  " &
                         "select  " &
-                        " concat('0' , (strContactKey+1)) as strContactKey,  " &
+                        " concat('0' , convert(bigint, strContactKey) + 1) as strContactKey,  " &
                         "strAIRSnumber,  " &
                         "(strKey+1) as strKey, " &
                         "strContactFirstName, strContactLastName,  " &

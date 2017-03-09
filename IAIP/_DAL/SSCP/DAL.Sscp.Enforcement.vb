@@ -270,7 +270,7 @@ Namespace DAL.Sscp
 #Region " Save enforcement "
 
         Public Function SaveEnforcement(enforcementCase As EnforcementCase) As Integer
-            Dim spName As String = "PD_SSCPENFORCEMENT"
+            Dim spName As String = "dbo.PD_SSCPENFORCEMENT"
 
             With enforcementCase
                 Dim params As SqlParameter() = {

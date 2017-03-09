@@ -5,6 +5,8 @@ Namespace Apb.Sspp
     Public Class Permit
         Implements IEquatable(Of Permit)
 
+#Region " Constructors "
+
         Public Sub New()
         End Sub
 
@@ -24,6 +26,10 @@ Namespace Apb.Sspp
             Me.PermitTypeCode = permitTypeCode
         End Sub
 
+#End Region
+
+#Region " Properties "
+
         Public Property ID() As Integer
         Public Property AirsNumber() As String
         Public Property PermitNumber() As String
@@ -32,9 +38,15 @@ Namespace Apb.Sspp
         Public Property Active() As Boolean
         Public Property PermitTypeCode() As String
 
+#End Region
+
+#Region " Overrides "
+
         Public Overrides Function ToString() As String
             Return PermitNumber
         End Function
+
+#End Region
 
 #Region " IEquatable Interface implementation "
 
@@ -56,7 +68,7 @@ Namespace Apb.Sspp
 
 #End Region
 
-#Region " Shared functions "
+#Region " Static functions "
 
         Public Shared Function IsValidPermitNumber(permitNumber As String) As Boolean
             ' Valid permit numbers are in the form 0000-000-0000-A-00-?
