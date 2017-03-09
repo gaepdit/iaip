@@ -1629,7 +1629,7 @@ Partial Class IAIPQueryGenerator
         Me.TPHeaderInformation.Location = New System.Drawing.Point(4, 22)
         Me.TPHeaderInformation.Name = "TPHeaderInformation"
         Me.TPHeaderInformation.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPHeaderInformation.Size = New System.Drawing.Size(788, 363)
+        Me.TPHeaderInformation.Size = New System.Drawing.Size(788, 93)
         Me.TPHeaderInformation.TabIndex = 1
         Me.TPHeaderInformation.Text = "Header Information"
         Me.TPHeaderInformation.UseVisualStyleBackColor = True
@@ -2346,7 +2346,7 @@ Partial Class IAIPQueryGenerator
         Me.TPHeaderInformation2.Controls.Add(Me.chb1HrYes)
         Me.TPHeaderInformation2.Location = New System.Drawing.Point(4, 22)
         Me.TPHeaderInformation2.Name = "TPHeaderInformation2"
-        Me.TPHeaderInformation2.Size = New System.Drawing.Size(788, 363)
+        Me.TPHeaderInformation2.Size = New System.Drawing.Size(788, 93)
         Me.TPHeaderInformation2.TabIndex = 3
         Me.TPHeaderInformation2.Text = "Header Information 2"
         Me.TPHeaderInformation2.UseVisualStyleBackColor = True
@@ -2922,7 +2922,7 @@ Partial Class IAIPQueryGenerator
         Me.TPAirProgramCodes.Controls.Add(Me.chbAPC9)
         Me.TPAirProgramCodes.Location = New System.Drawing.Point(4, 22)
         Me.TPAirProgramCodes.Name = "TPAirProgramCodes"
-        Me.TPAirProgramCodes.Size = New System.Drawing.Size(788, 363)
+        Me.TPAirProgramCodes.Size = New System.Drawing.Size(788, 93)
         Me.TPAirProgramCodes.TabIndex = 2
         Me.TPAirProgramCodes.Text = "Air Program Codes"
         Me.TPAirProgramCodes.UseVisualStyleBackColor = True
@@ -3611,7 +3611,7 @@ Partial Class IAIPQueryGenerator
         Me.TPSubpartData.Controls.Add(Me.chbPart63Subpart)
         Me.TPSubpartData.Location = New System.Drawing.Point(4, 22)
         Me.TPSubpartData.Name = "TPSubpartData"
-        Me.TPSubpartData.Size = New System.Drawing.Size(788, 363)
+        Me.TPSubpartData.Size = New System.Drawing.Size(788, 93)
         Me.TPSubpartData.TabIndex = 4
         Me.TPSubpartData.Text = "Subpart Data"
         Me.TPSubpartData.UseVisualStyleBackColor = True
@@ -4016,7 +4016,7 @@ Partial Class IAIPQueryGenerator
         Me.TPComplianceInfo.Controls.Add(Me.chbSSCPEngineer)
         Me.TPComplianceInfo.Location = New System.Drawing.Point(4, 22)
         Me.TPComplianceInfo.Name = "TPComplianceInfo"
-        Me.TPComplianceInfo.Size = New System.Drawing.Size(788, 363)
+        Me.TPComplianceInfo.Size = New System.Drawing.Size(788, 93)
         Me.TPComplianceInfo.TabIndex = 5
         Me.TPComplianceInfo.Text = "Compliance Info"
         Me.TPComplianceInfo.UseVisualStyleBackColor = True
@@ -4329,10 +4329,10 @@ Partial Class IAIPQueryGenerator
         Me.Label8.AutoSize = True
         Me.Label8.Location = New System.Drawing.Point(51, 23)
         Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(175, 39)
+        Me.Label8.Size = New System.Drawing.Size(236, 52)
         Me.Label8.TabIndex = 1
-        Me.Label8.Text = "Report with all facilities" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "- Fee Contact first or Permit if no fee" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "- Last Permi" &
-    "t Issued" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
+        Me.Label8.Text = "Report with all facilities" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "- Fee Contact first or Permit Contact if no fee" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "- La" &
+    "st Permit Issued" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Warning: This report may take a long time to run." & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
         '
         'btnRunPermitContact
         '

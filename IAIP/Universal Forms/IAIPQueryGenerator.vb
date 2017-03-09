@@ -4049,6 +4049,16 @@ Public Class IAIPQueryGenerator
     Private Sub btnRunPermitContact_Click(sender As Object, e As EventArgs) Handles btnRunPermitContact.Click
         monitor.TrackFeature("QueryGenerator.RunPermitContact")
         Try
+            Dim warning As String = "This report may take a long time to run and may time out. " &
+                "If you get an error, please just try again. If you continue to get errors after " &
+                "trying three times, please contact EPD IT."
+
+            If MessageBox.Show(warning, "Warning", MessageBoxButtons.OKCancel) = DialogResult.Cancel Then
+                Exit Sub
+            End If
+
+            Me.Cursor = Cursors.WaitCursor
+
             query = "select " &
             "SUBSTRING(strAIRSNumber, 5,8) as AIRSNumber, " &
             "strFacilityName, strFacilityStreet1, " &
@@ -4153,6 +4163,7 @@ Public Class IAIPQueryGenerator
 
             lblQueryCount.Text = dgvQueryGenerator.RowCount.ToString
 
+            Me.Cursor = Cursors.Default
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
