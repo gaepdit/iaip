@@ -155,6 +155,7 @@ Partial Class MASPRegistrationTool
         Me.btnViewDetails = New System.Windows.Forms.Button()
         Me.lblEventTitle = New System.Windows.Forms.Label()
         Me.lblEventDate = New System.Windows.Forms.Label()
+        Me.Label11 = New System.Windows.Forms.Label()
         Me.Panel4.SuspendLayout()
         Me.tabsEventDetails.SuspendLayout()
         Me.tabEventOverview.SuspendLayout()
@@ -175,6 +176,7 @@ Partial Class MASPRegistrationTool
         Me.Panel4.Controls.Add(Me.chbGECOlogInRequired)
         Me.Panel4.Controls.Add(Me.txtWebsiteURL)
         Me.Panel4.Controls.Add(Me.Label48)
+        Me.Panel4.Controls.Add(Me.Label11)
         Me.Panel4.Controls.Add(Me.Label47)
         Me.Panel4.Controls.Add(Me.txtEventTitle)
         Me.Panel4.Controls.Add(Me.btnClearEventManagement)
@@ -1537,6 +1539,15 @@ Partial Class MASPRegistrationTool
         Me.lblEventDate.TabIndex = 5
         Me.lblEventDate.Text = "Event Date"
         '
+        'Label11
+        '
+        Me.Label11.AutoSize = True
+        Me.Label11.Location = New System.Drawing.Point(462, 233)
+        Me.Label11.Name = "Label11"
+        Me.Label11.Size = New System.Drawing.Size(163, 26)
+        Me.Label11.TabIndex = 449
+        Me.Label11.Text = "Enter complete website address. " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Must begin with ""http"" or ""https""." & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
+        '
         'MASPRegistrationTool
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1700,4 +1711,5 @@ Partial Class MASPRegistrationTool
     Friend WithEvents lblCancelled As System.Windows.Forms.Label
     Friend WithEvents lblEmail As System.Windows.Forms.Label
     Friend WithEvents lblFilterEvents As System.Windows.Forms.Label
+    Friend WithEvents Label11 As Label
 End Class
