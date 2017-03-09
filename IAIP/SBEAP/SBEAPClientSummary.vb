@@ -1067,7 +1067,7 @@ Public Class SBEAPClientSummary
 
             query = "Select max(ClientID) as MaxClientID " &
             "from SBEAPClients " &
-            "where ClientID like @year "
+            "where CONVERT(int, ClientID) like @year "
             Dim p As New SqlParameter("@year", CurrYear & "%")
 
             Dim dr As DataRow = DB.GetDataRow(query, p)
