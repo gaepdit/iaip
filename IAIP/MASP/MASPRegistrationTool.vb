@@ -563,6 +563,11 @@ Public Class MASPRegistrationTool
                 Exit Sub
             End If
 
+            If Not IsValidURL(txtWebsiteURL.Text) Then
+                MessageBox.Show("The website address is not valid. Please fix it and try again.", "Error")
+                Exit Sub
+            End If
+
             Dim EndDate As String = ""
             If DTPEventEndDate.Checked = True Then
                 EndDate = DTPEventDate.Text
@@ -596,6 +601,11 @@ Public Class MASPRegistrationTool
         Try
             If chbEventPasscode.Checked AndAlso chbEventPasscode.Text = "Error" Then
                 MsgBox("Passcode is invalid; please fix.", MsgBoxStyle.Exclamation, "Error")
+                Exit Sub
+            End If
+
+            If Not IsValidURL(txtWebsiteURL.Text) Then
+                MessageBox.Show("The website address is not valid. Please fix it and try again.", "Error")
                 Exit Sub
             End If
 
