@@ -46,4 +46,19 @@ Module IaipValidation
     '    Return Regex.IsMatch(phoneNumber, MatchPhoneNumberPattern)
     'End Function
 
+    ''' <summary>
+    ''' Validates whether a string is a valid URL.
+    ''' </summary>
+    ''' <param name="url">A string to validate.</param>
+    ''' <returns>True if the URL is valid; otherwise false.</returns>
+    Public Function IsValidURL(url As String) As Boolean
+        Dim validatedUri As Uri = Nothing
+
+        If Uri.TryCreate(url, UriKind.Absolute, validatedUri) Then
+            Return (validatedUri.Scheme = Uri.UriSchemeHttp Or validatedUri.Scheme = Uri.UriSchemeHttps)
+        End If
+
+        Return False
+    End Function
+
 End Module

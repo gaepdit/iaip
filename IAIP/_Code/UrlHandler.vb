@@ -34,7 +34,7 @@
         ' Reference: http://code.logos.com/blog/2008/01/using_processstart_to_link_to.html
         Try
             If objectSender IsNot Nothing Then objectSender.Cursor = Cursors.AppStarting
-            If uriString Is Nothing OrElse uriString = "" Then Return False
+            If uriString Is Nothing OrElse uriString = "" OrElse Not IsValidURL(uriString) Then Return False
 
             Process.Start(uriString)
             Return True
