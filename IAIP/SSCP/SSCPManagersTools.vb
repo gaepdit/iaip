@@ -2706,7 +2706,8 @@ Public Class SSCPManagersTools
 
     Private Sub btnRunTitleVSearch_Click(sender As Object, e As EventArgs) Handles btnRunTitleVSearch.Click
         Try
-            Dim SQL As String = "SELECT SUBSTRING(f.STRAIRSNUMBER, 5, 8) AS AIRSNumber, f.STRFACILITYNAME, h.STROPERATIONALSTATUS
+            Dim SQL As String = "SELECT SUBSTRING(f.STRAIRSNUMBER, 5, 8) AS [AIRS #], f.STRFACILITYNAME AS [Facility Name], 
+                h.STROPERATIONALSTATUS AS [Op. Status], concat(p.STRLASTNAME, ', ', p.STRFIRSTNAME) AS [Staff Responsible]
                 FROM APBFACILITYINFORMATION AS f
                 INNER JOIN APBHEADERDATA AS h ON f.STRAIRSNUMBER = h.STRAIRSNUMBER
                 INNER JOIN (
@@ -2725,7 +2726,10 @@ Public Class SSCPManagersTools
                 WHERE (m.STRAPPLICATIONTYPE IN ('14', '16', '27') OR d.STRPERMITNUMBER LIKE '%V__0') 
                 AND (a.DATPERMITISSUED BETWEEN DATEADD(month, -51, GETDATE()) AND GETDATE() AND a.DATEFFECTIVE BETWEEN DATEADD(month, -51, GETDATE()) 
                 AND GETDATE() OR a.DATRECEIVEDDATE BETWEEN DATEADD(month, -51, GETDATE()) AND GETDATE()) ) AS t ON t.STRAIRSNUMBER = f.STRAIRSNUMBER
-                ORDER BY AIRSNumber"
+                LEFT JOIN SSCPINSPECTIONSREQUIRED AS i ON i.STRAIRSNUMBER = f.STRAIRSNUMBER AND i.INTYEAR = (SELECT MAX(INTYEAR)
+                FROM SSCPINSPECTIONSREQUIRED)
+                INNER JOIN EPDUSERPROFILES AS p ON p.NUMUSERID = i.NUMSSCPENGINEER 
+                ORDER BY [AIRS #]"
 
             dgvStatisticalReports.DataSource = DB.GetDataTable(SQL)
 
@@ -2734,11 +2738,8 @@ Public Class SSCPManagersTools
             dgvStatisticalReports.AllowUserToResizeColumns = True
             dgvStatisticalReports.AllowUserToAddRows = False
             dgvStatisticalReports.AllowUserToDeleteRows = False
-            dgvStatisticalReports.AllowUserToOrderColumns = True
-            dgvStatisticalReports.AllowUserToResizeRows = True
-            dgvStatisticalReports.Columns("AIRSNumber").HeaderText = "AIRS #"
-            dgvStatisticalReports.Columns("STRFACILITYNAME").HeaderText = "Facility Name"
-            dgvStatisticalReports.Columns("STROPERATIONALSTATUS").HeaderText = "Op. Status"
+            dgvStatisticalReports.AllowUserToOrderColumns = False
+            dgvStatisticalReports.AllowUserToResizeRows = False
 
             dgvStatisticalReports.SanelyResizeColumns
 
