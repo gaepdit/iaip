@@ -22,139 +22,140 @@ Partial Class MASPRegistrationTool
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.Panel4 = New System.Windows.Forms.Panel
-        Me.chbGECOlogInRequired = New System.Windows.Forms.CheckBox
-        Me.txtWebsiteURL = New System.Windows.Forms.TextBox
-        Me.Label48 = New System.Windows.Forms.Label
-        Me.Label47 = New System.Windows.Forms.Label
-        Me.txtEventTitle = New System.Windows.Forms.TextBox
-        Me.btnClearEventManagement = New System.Windows.Forms.Button
-        Me.txtEventEndTime = New System.Windows.Forms.TextBox
-        Me.mtbEventPhoneNumber = New System.Windows.Forms.MaskedTextBox
-        Me.Label3 = New System.Windows.Forms.Label
-        Me.Label17 = New System.Windows.Forms.Label
-        Me.txtEventDescription = New System.Windows.Forms.TextBox
-        Me.cboEventContact = New System.Windows.Forms.ComboBox
-        Me.Label4 = New System.Windows.Forms.Label
-        Me.Label18 = New System.Windows.Forms.Label
-        Me.Label32 = New System.Windows.Forms.Label
-        Me.btnGeneratePasscode = New System.Windows.Forms.Button
-        Me.txtEventVenue = New System.Windows.Forms.TextBox
-        Me.Label16 = New System.Windows.Forms.Label
-        Me.DTPEventEndDate = New System.Windows.Forms.DateTimePicker
-        Me.chbEventPasscode = New System.Windows.Forms.CheckBox
-        Me.btnDeleteEvent = New System.Windows.Forms.Button
-        Me.Label5 = New System.Windows.Forms.Label
-        Me.btnUpdateEvent = New System.Windows.Forms.Button
-        Me.DTPEventDate = New System.Windows.Forms.DateTimePicker
-        Me.btnSaveNewEvent = New System.Windows.Forms.Button
-        Me.Label7 = New System.Windows.Forms.Label
-        Me.Label9 = New System.Windows.Forms.Label
-        Me.Label8 = New System.Windows.Forms.Label
-        Me.txtEventNotes = New System.Windows.Forms.TextBox
-        Me.mtbEventCapacity = New System.Windows.Forms.MaskedTextBox
-        Me.cboEventStatus = New System.Windows.Forms.ComboBox
-        Me.txtEventTime = New System.Windows.Forms.TextBox
-        Me.Label2 = New System.Windows.Forms.Label
-        Me.Label12 = New System.Windows.Forms.Label
-        Me.Label1 = New System.Windows.Forms.Label
-        Me.Label13 = New System.Windows.Forms.Label
-        Me.cboEventWebContact = New System.Windows.Forms.ComboBox
-        Me.btnMapEventLocation = New System.Windows.Forms.Button
-        Me.Label14 = New System.Windows.Forms.Label
-        Me.mtbEventZipCode = New System.Windows.Forms.MaskedTextBox
-        Me.mtbEventWebPhoneNumber = New System.Windows.Forms.MaskedTextBox
-        Me.mtbEventState = New System.Windows.Forms.MaskedTextBox
-        Me.txtEventAddress = New System.Windows.Forms.TextBox
-        Me.txtEventCity = New System.Windows.Forms.TextBox
-        Me.Label15 = New System.Windows.Forms.Label
-        Me.tabsEventDetails = New System.Windows.Forms.TabControl
-        Me.tabEventOverview = New System.Windows.Forms.TabPage
-        Me.dgvOverviewRegistrants = New System.Windows.Forms.DataGridView
-        Me.Panel9 = New System.Windows.Forms.Panel
-        Me.lblEmail = New System.Windows.Forms.Label
-        Me.chbOvLoginRequired = New System.Windows.Forms.CheckBox
-        Me.txtOvNotes = New System.Windows.Forms.TextBox
-        Me.txtOvVenue = New System.Windows.Forms.TextBox
-        Me.txtOvAPBContact = New System.Windows.Forms.TextBox
-        Me.txtOvWebContact = New System.Windows.Forms.TextBox
-        Me.txtOvCancelled = New System.Windows.Forms.TextBox
-        Me.txtOvWaitingList = New System.Windows.Forms.TextBox
-        Me.txtOvEventCapacity = New System.Windows.Forms.TextBox
-        Me.txtOvNumberRegistered = New System.Windows.Forms.TextBox
-        Me.txtOvEventStatus = New System.Windows.Forms.TextBox
-        Me.txtOvPassCode = New System.Windows.Forms.TextBox
-        Me.txtOvEventDateTime = New System.Windows.Forms.TextBox
-        Me.txtOvEvent = New System.Windows.Forms.TextBox
-        Me.txtOvDescription = New System.Windows.Forms.TextBox
-        Me.txtEmails = New System.Windows.Forms.TextBox
-        Me.Label34 = New System.Windows.Forms.Label
-        Me.Label35 = New System.Windows.Forms.Label
-        Me.btnEmailWaitList = New System.Windows.Forms.Button
-        Me.lblCancelled = New System.Windows.Forms.Label
-        Me.Label36 = New System.Windows.Forms.Label
-        Me.btnEmailRegistrants = New System.Windows.Forms.Button
-        Me.Label37 = New System.Windows.Forms.Label
-        Me.btnEmailAll = New System.Windows.Forms.Button
-        Me.Label38 = New System.Windows.Forms.Label
-        Me.btnExportRegistrantsToExcel = New System.Windows.Forms.Button
-        Me.Label39 = New System.Windows.Forms.Label
-        Me.Label40 = New System.Windows.Forms.Label
-        Me.Label42 = New System.Windows.Forms.Label
-        Me.Label43 = New System.Windows.Forms.Label
-        Me.Label44 = New System.Windows.Forms.Label
-        Me.Label45 = New System.Windows.Forms.Label
-        Me.Label46 = New System.Windows.Forms.Label
-        Me.tabEventManagement = New System.Windows.Forms.TabPage
-        Me.tabRegistrationManagement = New System.Windows.Forms.TabPage
-        Me.dgvRegistrationManagement = New System.Windows.Forms.DataGridView
-        Me.Panel8 = New System.Windows.Forms.Panel
-        Me.btnModifyRegistration = New System.Windows.Forms.Button
-        Me.Label10 = New System.Windows.Forms.Label
-        Me.txtRegID = New System.Windows.Forms.TextBox
-        Me.Label33 = New System.Windows.Forms.Label
-        Me.txtRegEmail = New System.Windows.Forms.TextBox
-        Me.Label21 = New System.Windows.Forms.Label
-        Me.txtRegComments = New System.Windows.Forms.TextBox
-        Me.DTPRegDateRegistered = New System.Windows.Forms.DateTimePicker
-        Me.Label31 = New System.Windows.Forms.Label
-        Me.txtGECOUserID = New System.Windows.Forms.TextBox
-        Me.cboRegUserType = New System.Windows.Forms.ComboBox
-        Me.Label30 = New System.Windows.Forms.Label
-        Me.mtbRegPhoneExt = New System.Windows.Forms.MaskedTextBox
-        Me.mtbRegPhoneNo = New System.Windows.Forms.MaskedTextBox
-        Me.Label28 = New System.Windows.Forms.Label
-        Me.mtbRegZipCode = New System.Windows.Forms.MaskedTextBox
-        Me.mtbRegState = New System.Windows.Forms.MaskedTextBox
-        Me.txtRegCity = New System.Windows.Forms.TextBox
-        Me.Label27 = New System.Windows.Forms.Label
-        Me.txtRegAddress = New System.Windows.Forms.TextBox
-        Me.Label26 = New System.Windows.Forms.Label
-        Me.txtRegTitle = New System.Windows.Forms.TextBox
-        Me.Label25 = New System.Windows.Forms.Label
-        Me.txtRegLastName = New System.Windows.Forms.TextBox
-        Me.Label24 = New System.Windows.Forms.Label
-        Me.txtRegFirstName = New System.Windows.Forms.TextBox
-        Me.Label23 = New System.Windows.Forms.Label
-        Me.txtRegSalutation = New System.Windows.Forms.TextBox
-        Me.cboRegStatus = New System.Windows.Forms.ComboBox
-        Me.Label22 = New System.Windows.Forms.Label
-        Me.Label20 = New System.Windows.Forms.Label
-        Me.txtRegConfirmationNum = New System.Windows.Forms.TextBox
-        Me.Label19 = New System.Windows.Forms.Label
-        Me.Label6 = New System.Windows.Forms.Label
-        Me.txtRegEventTitle = New System.Windows.Forms.TextBox
-        Me.pnlEventsAndFilter = New System.Windows.Forms.Panel
-        Me.dgvEvents = New System.Windows.Forms.DataGridView
-        Me.pnlFilterEvents = New System.Windows.Forms.Panel
-        Me.rdbEventsFilterAll = New System.Windows.Forms.RadioButton
-        Me.rdbEventsFilterPast = New System.Windows.Forms.RadioButton
-        Me.rdbEventsFilterFuture = New System.Windows.Forms.RadioButton
-        Me.pnlEventTitle = New System.Windows.Forms.Panel
-        Me.btnViewDetails = New System.Windows.Forms.Button
-        Me.lblEventTitle = New System.Windows.Forms.Label
-        Me.lblEventDate = New System.Windows.Forms.Label
-        Me.lblFilterEvents = New System.Windows.Forms.Label
+        Me.Panel4 = New System.Windows.Forms.Panel()
+        Me.chbGECOlogInRequired = New System.Windows.Forms.CheckBox()
+        Me.txtWebsiteURL = New System.Windows.Forms.TextBox()
+        Me.Label48 = New System.Windows.Forms.Label()
+        Me.Label47 = New System.Windows.Forms.Label()
+        Me.txtEventTitle = New System.Windows.Forms.TextBox()
+        Me.btnClearEventManagement = New System.Windows.Forms.Button()
+        Me.txtEventEndTime = New System.Windows.Forms.TextBox()
+        Me.mtbEventPhoneNumber = New System.Windows.Forms.MaskedTextBox()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.Label17 = New System.Windows.Forms.Label()
+        Me.txtEventDescription = New System.Windows.Forms.TextBox()
+        Me.cboEventContact = New System.Windows.Forms.ComboBox()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.Label18 = New System.Windows.Forms.Label()
+        Me.Label32 = New System.Windows.Forms.Label()
+        Me.btnGeneratePasscode = New System.Windows.Forms.Button()
+        Me.txtEventVenue = New System.Windows.Forms.TextBox()
+        Me.Label16 = New System.Windows.Forms.Label()
+        Me.DTPEventEndDate = New System.Windows.Forms.DateTimePicker()
+        Me.chbEventPasscode = New System.Windows.Forms.CheckBox()
+        Me.btnDeleteEvent = New System.Windows.Forms.Button()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.btnUpdateEvent = New System.Windows.Forms.Button()
+        Me.DTPEventDate = New System.Windows.Forms.DateTimePicker()
+        Me.btnSaveNewEvent = New System.Windows.Forms.Button()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.txtEventNotes = New System.Windows.Forms.TextBox()
+        Me.mtbEventCapacity = New System.Windows.Forms.MaskedTextBox()
+        Me.cboEventStatus = New System.Windows.Forms.ComboBox()
+        Me.txtEventTime = New System.Windows.Forms.TextBox()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.Label12 = New System.Windows.Forms.Label()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.Label13 = New System.Windows.Forms.Label()
+        Me.cboEventWebContact = New System.Windows.Forms.ComboBox()
+        Me.btnMapEventLocation = New System.Windows.Forms.Button()
+        Me.Label14 = New System.Windows.Forms.Label()
+        Me.mtbEventZipCode = New System.Windows.Forms.MaskedTextBox()
+        Me.mtbEventWebPhoneNumber = New System.Windows.Forms.MaskedTextBox()
+        Me.mtbEventState = New System.Windows.Forms.MaskedTextBox()
+        Me.txtEventAddress = New System.Windows.Forms.TextBox()
+        Me.txtEventCity = New System.Windows.Forms.TextBox()
+        Me.Label15 = New System.Windows.Forms.Label()
+        Me.tabsEventDetails = New System.Windows.Forms.TabControl()
+        Me.tabEventOverview = New System.Windows.Forms.TabPage()
+        Me.dgvOverviewRegistrants = New System.Windows.Forms.DataGridView()
+        Me.Panel9 = New System.Windows.Forms.Panel()
+        Me.lblEmail = New System.Windows.Forms.Label()
+        Me.chbOvLoginRequired = New System.Windows.Forms.CheckBox()
+        Me.txtOvNotes = New System.Windows.Forms.TextBox()
+        Me.txtOvVenue = New System.Windows.Forms.TextBox()
+        Me.txtOvAPBContact = New System.Windows.Forms.TextBox()
+        Me.txtOvWebContact = New System.Windows.Forms.TextBox()
+        Me.txtOvCancelled = New System.Windows.Forms.TextBox()
+        Me.txtOvWaitingList = New System.Windows.Forms.TextBox()
+        Me.txtOvEventCapacity = New System.Windows.Forms.TextBox()
+        Me.txtOvNumberRegistered = New System.Windows.Forms.TextBox()
+        Me.txtOvEventStatus = New System.Windows.Forms.TextBox()
+        Me.txtOvPassCode = New System.Windows.Forms.TextBox()
+        Me.txtOvEventDateTime = New System.Windows.Forms.TextBox()
+        Me.txtOvEvent = New System.Windows.Forms.TextBox()
+        Me.txtOvDescription = New System.Windows.Forms.TextBox()
+        Me.txtEmails = New System.Windows.Forms.TextBox()
+        Me.Label34 = New System.Windows.Forms.Label()
+        Me.Label35 = New System.Windows.Forms.Label()
+        Me.btnEmailWaitList = New System.Windows.Forms.Button()
+        Me.lblCancelled = New System.Windows.Forms.Label()
+        Me.Label36 = New System.Windows.Forms.Label()
+        Me.btnEmailRegistrants = New System.Windows.Forms.Button()
+        Me.Label37 = New System.Windows.Forms.Label()
+        Me.btnEmailAll = New System.Windows.Forms.Button()
+        Me.Label38 = New System.Windows.Forms.Label()
+        Me.btnExportRegistrantsToExcel = New System.Windows.Forms.Button()
+        Me.Label39 = New System.Windows.Forms.Label()
+        Me.Label40 = New System.Windows.Forms.Label()
+        Me.Label42 = New System.Windows.Forms.Label()
+        Me.Label43 = New System.Windows.Forms.Label()
+        Me.Label44 = New System.Windows.Forms.Label()
+        Me.Label45 = New System.Windows.Forms.Label()
+        Me.Label46 = New System.Windows.Forms.Label()
+        Me.tabEventManagement = New System.Windows.Forms.TabPage()
+        Me.tabRegistrationManagement = New System.Windows.Forms.TabPage()
+        Me.dgvRegistrationManagement = New System.Windows.Forms.DataGridView()
+        Me.Panel8 = New System.Windows.Forms.Panel()
+        Me.btnModifyRegistration = New System.Windows.Forms.Button()
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.txtRegID = New System.Windows.Forms.TextBox()
+        Me.Label33 = New System.Windows.Forms.Label()
+        Me.txtRegEmail = New System.Windows.Forms.TextBox()
+        Me.Label21 = New System.Windows.Forms.Label()
+        Me.txtRegComments = New System.Windows.Forms.TextBox()
+        Me.DTPRegDateRegistered = New System.Windows.Forms.DateTimePicker()
+        Me.Label31 = New System.Windows.Forms.Label()
+        Me.txtGECOUserID = New System.Windows.Forms.TextBox()
+        Me.cboRegUserType = New System.Windows.Forms.ComboBox()
+        Me.Label30 = New System.Windows.Forms.Label()
+        Me.mtbRegPhoneExt = New System.Windows.Forms.MaskedTextBox()
+        Me.mtbRegPhoneNo = New System.Windows.Forms.MaskedTextBox()
+        Me.Label28 = New System.Windows.Forms.Label()
+        Me.mtbRegZipCode = New System.Windows.Forms.MaskedTextBox()
+        Me.mtbRegState = New System.Windows.Forms.MaskedTextBox()
+        Me.txtRegCity = New System.Windows.Forms.TextBox()
+        Me.Label27 = New System.Windows.Forms.Label()
+        Me.txtRegAddress = New System.Windows.Forms.TextBox()
+        Me.Label26 = New System.Windows.Forms.Label()
+        Me.txtRegTitle = New System.Windows.Forms.TextBox()
+        Me.Label25 = New System.Windows.Forms.Label()
+        Me.txtRegLastName = New System.Windows.Forms.TextBox()
+        Me.Label24 = New System.Windows.Forms.Label()
+        Me.txtRegFirstName = New System.Windows.Forms.TextBox()
+        Me.Label23 = New System.Windows.Forms.Label()
+        Me.txtRegSalutation = New System.Windows.Forms.TextBox()
+        Me.cboRegStatus = New System.Windows.Forms.ComboBox()
+        Me.Label22 = New System.Windows.Forms.Label()
+        Me.Label20 = New System.Windows.Forms.Label()
+        Me.txtRegConfirmationNum = New System.Windows.Forms.TextBox()
+        Me.Label19 = New System.Windows.Forms.Label()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.txtRegEventTitle = New System.Windows.Forms.TextBox()
+        Me.pnlEventsAndFilter = New System.Windows.Forms.Panel()
+        Me.dgvEvents = New System.Windows.Forms.DataGridView()
+        Me.pnlFilterEvents = New System.Windows.Forms.Panel()
+        Me.lblFilterEvents = New System.Windows.Forms.Label()
+        Me.rdbEventsFilterAll = New System.Windows.Forms.RadioButton()
+        Me.rdbEventsFilterPast = New System.Windows.Forms.RadioButton()
+        Me.rdbEventsFilterFuture = New System.Windows.Forms.RadioButton()
+        Me.pnlEventTitle = New System.Windows.Forms.Panel()
+        Me.btnViewDetails = New System.Windows.Forms.Button()
+        Me.lblEventTitle = New System.Windows.Forms.Label()
+        Me.lblEventDate = New System.Windows.Forms.Label()
+        Me.Label11 = New System.Windows.Forms.Label()
         Me.Panel4.SuspendLayout()
         Me.tabsEventDetails.SuspendLayout()
         Me.tabEventOverview.SuspendLayout()
@@ -175,6 +176,7 @@ Partial Class MASPRegistrationTool
         Me.Panel4.Controls.Add(Me.chbGECOlogInRequired)
         Me.Panel4.Controls.Add(Me.txtWebsiteURL)
         Me.Panel4.Controls.Add(Me.Label48)
+        Me.Panel4.Controls.Add(Me.Label11)
         Me.Panel4.Controls.Add(Me.Label47)
         Me.Panel4.Controls.Add(Me.txtEventTitle)
         Me.Panel4.Controls.Add(Me.btnClearEventManagement)
@@ -1455,6 +1457,15 @@ Partial Class MASPRegistrationTool
         Me.pnlFilterEvents.Size = New System.Drawing.Size(139, 125)
         Me.pnlFilterEvents.TabIndex = 417
         '
+        'lblFilterEvents
+        '
+        Me.lblFilterEvents.AutoSize = True
+        Me.lblFilterEvents.Location = New System.Drawing.Point(6, 9)
+        Me.lblFilterEvents.Name = "lblFilterEvents"
+        Me.lblFilterEvents.Size = New System.Drawing.Size(33, 13)
+        Me.lblFilterEvents.TabIndex = 3
+        Me.lblFilterEvents.Text = "View:"
+        '
         'rdbEventsFilterAll
         '
         Me.rdbEventsFilterAll.Appearance = System.Windows.Forms.Appearance.Button
@@ -1526,14 +1537,14 @@ Partial Class MASPRegistrationTool
         Me.lblEventDate.TabIndex = 5
         Me.lblEventDate.Text = "Event Date"
         '
-        'lblFilterEvents
+        'Label11
         '
-        Me.lblFilterEvents.AutoSize = True
-        Me.lblFilterEvents.Location = New System.Drawing.Point(6, 9)
-        Me.lblFilterEvents.Name = "lblFilterEvents"
-        Me.lblFilterEvents.Size = New System.Drawing.Size(33, 13)
-        Me.lblFilterEvents.TabIndex = 3
-        Me.lblFilterEvents.Text = "View:"
+        Me.Label11.AutoSize = True
+        Me.Label11.Location = New System.Drawing.Point(462, 233)
+        Me.Label11.Name = "Label11"
+        Me.Label11.Size = New System.Drawing.Size(163, 26)
+        Me.Label11.TabIndex = 449
+        Me.Label11.Text = "Enter complete website address. " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Must begin with ""http"" or ""https""."
         '
         'MASPRegistrationTool
         '
@@ -1698,4 +1709,5 @@ Partial Class MASPRegistrationTool
     Friend WithEvents lblCancelled As System.Windows.Forms.Label
     Friend WithEvents lblEmail As System.Windows.Forms.Label
     Friend WithEvents lblFilterEvents As System.Windows.Forms.Label
+    Friend WithEvents Label11 As Label
 End Class
