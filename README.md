@@ -24,10 +24,9 @@ At the completion of the project, all changes will be merged back into the produ
 
 The IAIP is a Windows Forms Application and currently targets the .NET Framework version 4.5.2. 
 
+## Prerequisites for developing
 
-## Prerequisites for building
-
-+ [Visual Studio 2015](https://www.visualstudio.com/) or later
++ [Visual Studio](https://www.visualstudio.com/)
 
 + [Microsoft .NET Framework 4.5.2 Developer Pack](http://www.microsoft.com/en-us/download/details.aspx?id=42637)
 
@@ -37,6 +36,7 @@ The IAIP is a Windows Forms Application and currently targets the .NET Framework
     - Oracle ODP.NET, Managed Driver
     - Telerik Analytics Monitor
 
+**Note:** Crystal Reports [does not yet support Visual Studio 2017](https://answers.sap.com/questions/68489/crystal-reports-for-visual-studio-2017-availabilit.html). Support is expected around June 2017. Until then [Visual Studio 2015](https://my.visualstudio.com/Downloads?pid=1881) must be used, but only when editing Crystal Reports documents.
 
 ## Setup
 
