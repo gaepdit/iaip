@@ -1478,7 +1478,7 @@ Public Class IAIPQueryGenerator
                     SQLWhereCase2 = " Not Like "
                 End If
                 If cboOperationStatusSearch1.Text <> "" And cboOperationStatusSearch1.Text <> " " Then
-                    SQLWhere = SQLWhere & " and (APBHeaderdata.strOperationalStatus " & SQLWhereCase2 & " ) "
+                    SQLWhere = SQLWhere & " and (APBHeaderdata.strOperationalStatus " & SQLWhereCase2 & " @op1) "
                     params.Add(New SqlParameter("@op1", "%" & Mid(cboOperationStatusSearch1.Text, 1, 1) & "%"))
                 End If
                 If cboOperationStatusSearch2.Text <> "" And cboOperationStatusSearch2.Text <> " " Then
