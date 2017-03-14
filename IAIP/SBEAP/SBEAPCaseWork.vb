@@ -1219,7 +1219,7 @@ Public Class SBEAPCaseWork
                 "where numActionId = @actionid "
 
                 Dim p As SqlParameter() = {
-                    New SqlParameter("@ActionOccurred", DTPActionOccured.Text),
+                    New SqlParameter("@ActionOccured", DTPActionOccured.Text),
                     New SqlParameter("@actionid", txtActionID.Text)
                 }
 
