@@ -1,6 +1,7 @@
 Imports System.Data.SqlClient
 
 Public Class SBEAPCaseWork
+    Dim FixDtpCheckBox As Boolean = False
 
     Public WriteOnly Property ValueFromClientLookUp() As String
         Set(Value As String)
@@ -235,8 +236,10 @@ Public Class SBEAPCaseWork
                         DTPCaseOpened.Text = dr.Item("datCaseOpened")
                     End If
                     If IsDBNull(dr.Item("datCaseClosed")) Then
+                        FixDtpCheckBox = True
                         DTPCaseClosed.Value = Today
                         DTPCaseClosed.Checked = False
+                        FixDtpCheckBox = False
                     Else
                         DTPCaseClosed.Text = dr.Item("datCaseClosed")
                         DTPCaseClosed.Checked = True
@@ -481,12 +484,10 @@ Public Class SBEAPCaseWork
 
     Private Sub LoadAttendingStaff()
         Try
-            Dim SQL As String = "select " &
-            "NumUserID, " &
-            "concat (strLastName,', ',strFirstName) as UserName " &
-            "from EPDUserProfiles " &
-            "where numBranch = '5' " &
-            "and numProgram = '35' "
+            Dim SQL As String = "SELECT NUMUSERID
+                , concat(STRLASTNAME, ', ', STRFIRSTNAME) AS UserName
+                FROM   EPDUserProfiles
+                WHERE  NUMUNIT IN(47, 48) "
 
             With clbStaffAttending
                 .DataSource = DB.GetDataTable(SQL)
@@ -2008,12 +2009,14 @@ Public Class SBEAPCaseWork
 
     Private Sub DTPCaseClosed_ValueChanged(sender As Object, e As EventArgs) Handles DTPCaseClosed.ValueChanged
         Try
-            If DTPCaseClosed.Checked = True Then
-                FormStatus(EnableOrDisable.Disable)
-                DTPCaseClosed.Enabled = True
-                tsbSave.Enabled = True
-            Else
-                FormStatus(EnableOrDisable.Enable)
+            If Not FixDtpCheckBox Then
+                If DTPCaseClosed.Checked = True Then
+                    FormStatus(EnableOrDisable.Disable)
+                    DTPCaseClosed.Enabled = True
+                    tsbSave.Enabled = True
+                Else
+                    FormStatus(EnableOrDisable.Enable)
+                End If
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
