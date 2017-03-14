@@ -638,19 +638,19 @@ Public Class SBEAPClientSummary
                 ContactNotes = ""
             End If
 
-            query = "Insert into SBEAPClientContacts " &
-                    "(CLIENTCONTACTID, STRCLIENTFIRSTNAME, STRCLIENTLASTNAME, STRCLIENTSALUTATION, 
+            query = "Insert into SBEAPClientContacts
+                    (CLIENTCONTACTID, STRCLIENTFIRSTNAME, STRCLIENTLASTNAME, STRCLIENTSALUTATION, 
                     STRCLIENTCREDENTIALS, STRCLIENTTITLE, STRCLIENTPHONENUMBER, STRCLIENTCELLPHONE, 
                     STRCLIENTFAX, STRCLIENTEMAIL, STRCLIENTADDRESS, STRCLIENTCITY, STRCLIENTSTATE, 
                     STRCLIENTZIPCODE, STRCLIENTCREATOR, DATCLIENTCREATED, STRMODIFINGPERSON, 
-                    getdate(), STRCONTACTNOTES) " &
-                    "values " &
-                    "((select (max(ClientContactID)+1) from SBEAPClientContacts), 
+                    DATMODIFINGDATE, STRCONTACTNOTES)
+                    Select 
+                    (Select (max(ClientContactID)+1) from SBEAPClientContacts), 
                     @STRCLIENTFIRSTNAME, @STRCLIENTLASTNAME, @STRCLIENTSALUTATION, 
                     @STRCLIENTCREDENTIALS, @STRCLIENTTITLE, @STRCLIENTPHONENUMBER, @STRCLIENTCELLPHONE, 
                     @STRCLIENTFAX, @STRCLIENTEMAIL, @STRCLIENTADDRESS, @STRCLIENTCITY, @STRCLIENTSTATE, 
                     @STRCLIENTZIPCODE, @STRCLIENTCREATOR, getdate(), @STRMODIFINGPERSON, 
-                    getdate(), @STRCONTACTNOTES) "
+                    getdate(), @STRCONTACTNOTES "
 
             Dim p As SqlParameter() = {
                     New SqlParameter("@STRCLIENTFIRSTNAME", Firstname),
