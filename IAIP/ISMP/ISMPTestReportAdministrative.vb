@@ -905,7 +905,7 @@ Public Class ISMPTestReportAdministrative
                 "strResponsibleStaff, datCompleteDate, " &
                 "strModifingPerson, datModifingDate) " &
                 "values " &
-                "(SSCPTrackingNumber.nextval, @airs, " &
+                "(NEXT VALUE FOR SSCPTrackingNumber, @airs, " &
                 "@cd, '03', " &
                 "@sr, '', " &
                 "@user, GETDATE() )"

@@ -461,7 +461,7 @@ Public Class PASPDepositsAmendments
                         "  ) " &
                         "  VALUES " &
                         "  ( " &
-                        "    SEQ_FS_TRANSACTIONS.nextval, @INVOICEID, " &
+                        "    NEXT VALUE FOR SEQ_FS_TRANSACTIONS, @INVOICEID, " &
                         "    @TRANSACTIONTYPECODE, @DATTRANSACTIONDATE, @NUMPAYMENT, " &
                         "    @STRCHECKNO, @STRDEPOSITNO, @STRBATCHNO, @STRENTRYPERSON, " &
                         "    @STRCOMMENT, @ACTIVE, @UPDATEUSER, getdate(), getdate(), " &
