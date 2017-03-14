@@ -156,7 +156,8 @@ Module IaipFormHelpers
             ISMPNotificationLogForm.txtTestNotificationNumber.Text = id
             ISMPNotificationLogForm.Show()
         Else
-            MessageBox.Show("Test notification number does not exist.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Dim ISMPNotificationLogForm As New ISMPNotificationLog
+            ISMPNotificationLogForm.Show()
         End If
     End Sub
 
