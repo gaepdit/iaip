@@ -335,7 +335,6 @@ Public Class IAIPNavigation
     ''' <summary>
     ''' Enumeration of the various work list types (contexts) available on the main Navigation Screen
     ''' </summary>
-    ''' <remarks>"None" may not be useful but is included just in case</remarks>
     Public Enum NavWorkListContext
         <Description("Compliance Work")> ComplianceWork
         <Description("Late FCEs")> LateFce

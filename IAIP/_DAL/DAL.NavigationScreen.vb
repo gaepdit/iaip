@@ -104,6 +104,7 @@ Namespace DAL
 
                 Case NavWorkListContext.MonitoringTestReports
                     query = "SELECT rep.STRREFERENCENUMBER AS [Reference #], ismp.STRAIRSNUMBER AS [AIRS #], fac.STRFACILITYNAME AS Facility, fac.STRFACILITYCITY AS City, rep.STREMISSIONSOURCE AS [Emission Source], lkp.STRPOLLUTANTDESCRIPTION AS Pollutant, dt.STRDOCUMENTTYPE AS [Document Type], prof.STRLASTNAME+', '+prof.STRFIRSTNAME AS [Reviewing Engineer], rep.DATTESTDATESTART AS [Test Date],
+                            rep.DATRECEIVEDDATE AS [Date Received],
                             CASE WHEN rep.DATCOMPLETEDATE = '04-JUL-1776' THEN NULL ELSE rep.DATCOMPLETEDATE END AS [Complete Date], lks.STRCOMPLIANCESTATUS AS [Compliance Status], rep.STRPRECOMPLIANCESTATUS AS [Precompliance Status]
                             FROM ISMPREPORTINFORMATION AS rep
                             INNER JOIN ISMPMASTER AS ismp ON rep.STRREFERENCENUMBER = ismp.STRREFERENCENUMBER
