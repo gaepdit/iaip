@@ -317,7 +317,7 @@ Public Class PASPFeeAuditLog
             "FS_Admin.CreateDateTime " &
             "From FS_Admin left join FSLK_ADMIN_Status  " &
             "on FS_Admin.numCurrentStatus = FSLK_Admin_Status.ID " &
-            "and numFeeYear = @numFeeYear " &
+            "where numFeeYear = @numFeeYear " &
             "and strAIRSNumber = @strAIRSNumber "
 
             Dim params As SqlParameter() = {
