@@ -202,7 +202,7 @@ Namespace DAL.Sscp
                 New SqlParameter("@airs", airs.DbFormattedString),
                 New SqlParameter("@staffId", staffId)
             }
-            Return DB.GetDataTable(query, parameters)
+            Return DB.GetDataTable(query, parameters, True)
         End Function
 
 #End Region
