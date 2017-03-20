@@ -348,7 +348,7 @@ Namespace DAL.Sscp
                     New SqlParameter("@STRMODIFINGPERSON", CurrentUser.UserID)
                 }
 
-                Return DB.SPGetSingleValue(Of Integer)(spName, params)
+                Return DB.SPGetSingleValue(Of Integer)(spName, params, forceAddNullableParameters:=True)
             End With
         End Function
 

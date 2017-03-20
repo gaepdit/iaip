@@ -1267,6 +1267,7 @@ Public Class SscpEnforcement
         Else
             EnforcementCase.DateModified = Today
             EnforcementId = result
+            EnforcementCase.EnforcementId = result
 
             Dim message As String = "Current data saved."
             If enforcementIsNew Then message &= vbNewLine & "New enforcement ID: " & EnforcementCase.EnforcementId
