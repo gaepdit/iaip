@@ -9214,35 +9214,35 @@ Public Class ISMPTestReports
                     Dim dr3 As DataRow = DB.GetDataRow(query, pOld)
 
                     If dr3 IsNot Nothing Then
-                        If IsDBNull(dr.Item("strEmissionSource")) Then
+                        If IsDBNull(dr3.Item("strEmissionSource")) Then
                             txtSourceTested.Clear()
                         Else
-                            txtSourceTested.Text = dr.Item("strEmissionSource")
+                            txtSourceTested.Text = dr3.Item("strEmissionSource")
                         End If
-                        If IsDBNull(dr.Item("strPollutant")) Then
+                        If IsDBNull(dr3.Item("strPollutant")) Then
                             cboPollutantDetermined.SelectedValue = 0
                         Else
-                            cboPollutantDetermined.SelectedValue = dr.Item("strPollutant")
+                            cboPollutantDetermined.SelectedValue = dr3.Item("strPollutant")
                         End If
-                        If IsDBNull(dr.Item("strReportType")) Then
+                        If IsDBNull(dr3.Item("strReportType")) Then
                             cboReportType.SelectedValue = 0
                         Else
-                            cboReportType.SelectedValue = dr.Item("strReportType")
+                            cboReportType.SelectedValue = dr3.Item("strReportType")
                         End If
-                        If IsDBNull(dr.Item("strDeterminationMethod")) Then
+                        If IsDBNull(dr3.Item("strDeterminationMethod")) Then
                             cboMethodDetermined.SelectedValue = 0
                         Else
-                            cboMethodDetermined.SelectedValue = dr.Item("strDeterminationMethod")
+                            cboMethodDetermined.SelectedValue = dr3.Item("strDeterminationMethod")
                         End If
-                        If IsDBNull(dr.Item("strApplicableRequirement")) Then
+                        If IsDBNull(dr3.Item("strApplicableRequirement")) Then
                             ApplicableRequirment = ""
                         Else
-                            ApplicableRequirment = dr.Item("strApplicableRequirement")
+                            ApplicableRequirment = dr3.Item("strApplicableRequirement")
                         End If
-                        If IsDBNull(dr.Item("strControlEquipmentData")) Then
+                        If IsDBNull(dr3.Item("strControlEquipmentData")) Then
                             ControlEquipment = ""
                         Else
-                            ControlEquipment = dr.Item("strControlEquipmentData")
+                            ControlEquipment = dr3.Item("strControlEquipmentData")
                         End If
                     End If
 
