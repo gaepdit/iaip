@@ -1564,8 +1564,8 @@ Public Class PASPFeeAuditLog
             "strOfficialTitle, strPaymentPlan, " &
             "(strLastName+', '+strFirstName) as IAIPUpdate, " &
             "FS_FeeAudit.UpdateDateTime, FS_FeeAudit.CreateDateTime " &
-            "from FS_FeeAmendment " &
-            "left join FS_FeeAudit " &
+            "from FS_FeeAudit " &
+            "left join FS_FeeAmendment " &
             "on FS_FeeAudit.AuditID = FS_FeeAmendment.AuditID " &
             "inner join EPDUserProfiles " &
             "on FS_FeeAudit.UpdateUser = EPDUserProfiles.numUserID " &
