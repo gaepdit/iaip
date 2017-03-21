@@ -50,11 +50,15 @@ Module IaipValidation
     ''' Validates whether a string is a valid URL.
     ''' </summary>
     ''' <param name="url">A string to validate.</param>
+    ''' <param name="isMailto">Optional flag to indicate whether URL is a mailto. Defaults to False.</param>
     ''' <returns>True if the URL is valid; otherwise false.</returns>
-    Public Function IsValidURL(url As String) As Boolean
+    Public Function IsValidURL(url As String, Optional isMailto As Boolean = False) As Boolean
         Dim validatedUri As Uri = Nothing
 
         If Uri.TryCreate(url, UriKind.Absolute, validatedUri) Then
+            If isMailto Then
+                Return (validatedUri.Scheme = Uri.UriSchemeMailto)
+            End If
             Return (validatedUri.Scheme = Uri.UriSchemeHttp Or validatedUri.Scheme = Uri.UriSchemeHttps)
         End If
 
