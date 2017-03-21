@@ -25,11 +25,11 @@
         OpenUri(New Uri(PermitSearchUrlFragment & airsNumber.ToString), objectSender)
     End Sub
 
-    Private Function OpenUri(uriString As String, Optional objectSender As Object = Nothing) As Boolean
+    Private Function OpenUri(uriString As String, Optional objectSender As Object = Nothing, Optional isMailto As Boolean = False) As Boolean
         ' Reference: http://code.logos.com/blog/2008/01/using_processstart_to_link_to.html
         Try
             If objectSender IsNot Nothing Then objectSender.Cursor = Cursors.AppStarting
-            If uriString Is Nothing OrElse uriString = "" OrElse Not IsValidURL(uriString) Then Return False
+            If uriString Is Nothing OrElse uriString = "" OrElse Not IsValidURL(uriString, isMailto) Then Return False
 
             Process.Start(uriString)
             Return True
@@ -43,8 +43,8 @@
         End Try
     End Function
 
-    Public Function OpenUri(uri As Uri, Optional objectSender As Object = Nothing) As Boolean
-        Return OpenUri(uri.ToString, objectSender)
+    Public Function OpenUri(uri As Uri, Optional objectSender As Object = Nothing, Optional isMailto As Boolean = False) As Boolean
+        Return OpenUri(uri.ToString, objectSender, isMailto)
     End Function
 
 End Module
