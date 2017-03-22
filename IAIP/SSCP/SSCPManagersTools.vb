@@ -67,7 +67,8 @@ Public Class SSCPManagersTools
             SQL = "SELECT CONCAT(STRLASTNAME, ', ', STRFIRSTNAME) AS UserName, NUMUSERID
                 FROM EPDUSERPROFILES AS p
                 LEFT JOIN LOOKUPEPDUNITS AS l ON p.NUMUNIT = l.NUMUNITCODE
-                WHERE NUMPROGRAM IN (4, 5) AND NUMEMPLOYEESTATUS = 1
+                WHERE (NUMPROGRAM IN (4, 5) OR STRLASTNAME = 'District') 
+                AND NUMEMPLOYEESTATUS = 1
                 ORDER BY STRLASTNAME"
 
             With cboSSCPEngineer
