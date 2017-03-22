@@ -620,12 +620,12 @@ Public Class IAIPFacilityCreator
                 New SqlParameter("@STRAIRSNUMBER", AIRSNumber),
                 New SqlParameter("@STRMODIFINGPERSON", CurrentUser.UserID),
                 New SqlParameter("@STRDISTRICTOFFICE", DistrictOffice),
-                New SqlParameter("@STRCMSMEMBER", ""),
+                New SqlParameter("@STRCMSMEMBER", Nothing),
                 New SqlParameter("@STRAFSACTIONNUMBER", "00001"),
                 New SqlParameter("@STRRMPID", RMPNumber)
             }
 
-            DB.RunCommand(SQL, p5)
+            DB.RunCommand(SQL, p5, forceAddNullableParameters:=True)
 
             SQL = "insert into APBContactInformation " &
             "(strContactKey, strAIRSNumber, strKey, " &
