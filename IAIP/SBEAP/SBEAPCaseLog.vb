@@ -47,8 +47,7 @@
             "distinct concat(strLastName,', ',strFirstName) as Staff, " &
             "numUserID " &
             "from EPDUserProfiles inner join SBEAPCaseLog " &
-            "on epduserprofiles.numUserID = SBEAPCaseLog.numStaffResponsible " &
-            "where (numBranch = '5' and numProgram = '35') "
+            "on epduserprofiles.numUserID = SBEAPCaseLog.numStaffResponsible "
 
             dtStaff = DB.GetDataTable(SQL)
 
