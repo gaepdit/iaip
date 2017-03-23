@@ -315,6 +315,7 @@ Partial Class SSCPManagersTools
         Me.rdbCMSClassM.Size = New System.Drawing.Size(32, 16)
         Me.rdbCMSClassM.TabIndex = 28
         Me.rdbCMSClassM.Text = "M"
+        Me.rdbCMSClassM.Visible = False
         '
         'rdbCMSClassA
         '
