@@ -561,7 +561,7 @@ Public Class ISMPTestReportAdministrative
 
                                     Dim dr3 As DataRow = DB.GetDataRow(query, p2)
                                     If dr3 IsNot Nothing Then
-                                        AFSActionNumber = dr.Item("strAFSActionNumber")
+                                        AFSActionNumber = dr3.Item("strAFSActionNumber")
                                     End If
 
                                     query = "Insert into AFSISMPRecords " &
@@ -907,11 +907,11 @@ Public Class ISMPTestReportAdministrative
                 "values " &
                 "(NEXT VALUE FOR SSCPTrackingNumber, @airs, " &
                 "@cd, '03', " &
-                "@sr, '', " &
+                "@sr, null, " &
                 "@user, GETDATE() )"
 
                 Dim p3 As SqlParameter() = {
-                    New SqlParameter("@airs", "0413", cboAIRSNumber.Text),
+                    New SqlParameter("@airs", "0413" & cboAIRSNumber.Text),
                     New SqlParameter("@cd", DTPDateClosed.Value),
                     New SqlParameter("@sr", StaffResponsible),
                     New SqlParameter("@user", CurrentUser.UserID)
