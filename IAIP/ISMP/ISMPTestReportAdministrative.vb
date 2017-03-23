@@ -396,7 +396,7 @@ Public Class ISMPTestReportAdministrative
            "datReceivedDate, datCompleteDate, mmoCommentArea, strClosed, " &
            "strDirector, strCommissioner, strProgramManager, " &
            "strComplianceStatus, strcc, strModifingPerson, datModifingDate, " &
-           "strControlEquipmentData, strDelete, numReviewingManager) " &
+           "strControlEquipmentData) " &
            "select " &
            "@strReferenceNumber, " &
            "@strpollutant, " &
@@ -440,7 +440,7 @@ Public Class ISMPTestReportAdministrative
            "'01', " &
            "'0', " &
            "@user, GETDATE() , " &
-           "'N/A', '', '' ")
+           "'N/A' ")
 
                 End If
 
