@@ -42,18 +42,20 @@ Module IaipFormHelpers
 
 #Region " Work Item "
 
-    Public Function OpenFormSscpWorkItem(id As Integer) As Form
-        If DAL.Sscp.WorkItemExists(id) Then
+    Public Function OpenFormSscpWorkItem(id As String) As Form
+        Dim idInt As Integer
+
+        If Integer.TryParse(id, idInt) AndAlso DAL.Sscp.WorkItemExists(idInt) Then
             Dim refNum As String = ""
-            If DAL.Sscp.TryGetRefNumForWorkItem(id, refNum) Then
+            If DAL.Sscp.TryGetRefNumForWorkItem(idInt, refNum) Then
                 Return OpenMultiForm(ISMPTestReports, refNum)
             ElseIf SingleFormIsOpen(SSCPEvents) _
-                AndAlso CType(SingleForm(SSCPEvents.Name), SSCPEvents).TrackingNumber = id Then
+                    AndAlso CType(SingleForm(SSCPEvents.Name), SSCPEvents).TrackingNumber = idInt Then
                 SingleForm(SSCPEvents.Name).Activate()
                 Return SingleForm(SSCPEvents.Name)
             Else
-                Dim sscpReport As SSCPEvents = OpenSingleForm(SSCPEvents, id, closeFirst:=True)
-                sscpReport.TrackingNumber = id
+                Dim sscpReport As SSCPEvents = OpenSingleForm(SSCPEvents, idInt, closeFirst:=True)
+                sscpReport.TrackingNumber = idInt
                 Return sscpReport
             End If
         Else
@@ -111,13 +113,10 @@ Module IaipFormHelpers
         End If
     End Function
 
-    Public Function OpenFormEnforcement(airsNumber As ApbFacilityId, Optional trackingNumber As Integer = 0) As Form
+    Public Function OpenFormEnforcement(airsNumber As ApbFacilityId) As Form
         Dim parameters As New Dictionary(Of FormParameter, String)
         If DAL.AirsNumberExists(airsNumber) Then
             parameters(FormParameter.AirsNumber) = airsNumber.ToString
-            If trackingNumber <> 0 AndAlso DAL.Sscp.WorkItemExists(trackingNumber) Then
-                parameters(FormParameter.TrackingNumber) = trackingNumber.ToString
-            End If
             Return OpenMultiForm(SscpEnforcement, -Convert.ToInt32(airsNumber.ToString), parameters)
         Else
             MessageBox.Show("AIRS number does not exist.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
