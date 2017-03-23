@@ -39,7 +39,7 @@ Public Class SSPPStatisticalTools
             If cboSSPPUnits.SelectedIndex > -1 Then
                 cboSSPPUnits.SelectedIndex = 0
             End If
-            LoadSubPartData()
+            'LoadSubPartData()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
