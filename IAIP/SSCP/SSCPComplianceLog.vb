@@ -197,14 +197,16 @@ Public Class SSCPComplianceLog
                     SqlFilter = SqlFilter & " [Work Type] = 'RMP Inspection' or "
                 End If
                 If chbNotifications.Checked Then
-                    Dim NotificationData As String = "and ( "
+                    SqlFilter = SqlFilter & " ([Work Type] like 'Notification%'"
+                    Dim NotificationData As String = " and ("
                     For Each ind As Integer In clbNotifications.CheckedIndices
                         clbNotifications.SelectedIndex = ind
                         NotificationData = NotificationData & " [Notification Type] = '" & clbNotifications.SelectedValue & "' or "
                     Next
                     If NotificationData.Length > 6 Then
-                        SqlFilter = SqlFilter & " [Work Type] like 'Notification%' " & Mid(NotificationData, 1, NotificationData.Length - 3) & ") " & " or "
+                        SqlFilter = SqlFilter & Mid(NotificationData, 1, NotificationData.Length - 3) & ") "
                     End If
+                    SqlFilter = SqlFilter & ") or "
                 End If
                 If chbPerformanceTests.Checked Then
                     SqlFilter = SqlFilter & " [Work Type] = 'Performance Tests' or "
