@@ -1181,13 +1181,13 @@ Public Class IAIPQueryGenerator
                     '     SQLFrom = SQLFrom
                 Else
                     SQLFrom = SQLFrom & " VW_SSCP_MOSTRECENTASSIGNMENT, "
-                    SQLWhere = SQLWhere & " and APBMasterAIRS.strAIRSNumber = VW_SSCP_MOSTRECENTASSIGNMENT.strAIRSNumber (+)  "
+                    SQLWhere = SQLWhere & " and APBMasterAIRS.strAIRSNumber = VW_SSCP_MOSTRECENTASSIGNMENT.strAIRSNumber "
                 End If
                 If SQLFrom.IndexOf("LookUpEPDUnits") <> -1 Then
                     '   SQLFrom = SQLFrom
                 Else
                     SQLFrom = SQLFrom & " LookUpEPDUnits, "
-                    SQLWhere = SQLWhere & " and VW_SSCP_MOSTRECENTASSIGNMENT.numSSCPUnit = LookUpEPDUnits.nuMUnitCode (+) "
+                    SQLWhere = SQLWhere & " and VW_SSCP_MOSTRECENTASSIGNMENT.numSSCPUnit = LookUpEPDUnits.nuMUnitCode "
                 End If
             End If
 
@@ -1690,18 +1690,18 @@ Public Class IAIPQueryGenerator
                 Else
                     SQLWhereCase2 = " Not Like "
                 End If
-                If cboSSCPUnitSearch1.Text <> " " Then
+                If cboSSCPUnitSearch1.Text <> "" Then
                     SQLWhere = SQLWhere & " and (strUnitDesc " & SQLWhereCase2 & " @sscpunit1) "
-                    params.Add(New SqlParameter("@sscpunit1", "%" & cboSSCPUnitSearch1.Text & "%"))
+                    params.Add(New SqlParameter("@sscpunit1", cboSSCPUnitSearch1.Text))
                 End If
-                If cboSSCPUnitSearch2.Text <> " " Then
-                    If cboSSCPUnitSearch1.Text <> " " Then
+                If cboSSCPUnitSearch2.Text <> "" Then
+                    If cboSSCPUnitSearch1.Text <> "" Then
                         SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 2)) &
                         " " & SQLWhereCase1 & " strUnitDesc " & SQLWhereCase2 & " @sscpunit2 ) "
                     Else
                         SQLWhere = SQLWhere & " and (strUnitDesc " & SQLWhereCase2 & " @sscpunit2) "
                     End If
-                    params.Add(New SqlParameter("@sscpunit2", "%" & cboSSCPUnitSearch2.Text & "%"))
+                    params.Add(New SqlParameter("@sscpunit2", cboSSCPUnitSearch2.Text))
                 End If
             End If
 
