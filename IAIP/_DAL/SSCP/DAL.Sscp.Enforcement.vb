@@ -93,7 +93,7 @@ Namespace DAL.Sscp
 
             Dim result As String = DB.GetInteger(query, parameter)
 
-            If result Is Nothing Then
+            If result Is Nothing OrElse result = 0 Then
                 Return False
             Else
                 enforcementId = result
