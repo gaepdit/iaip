@@ -4,7 +4,6 @@ Public Class SSPPStatisticalTools
     Private Property tempLoad As String = ""
 
     Private Sub SSPPStatisticalTools_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        TCSSPPTools.TabPages.Remove(TPSubpart)
         Try
             DTPPermitCountStart.Value = Today
             DTPPermitCountEnd.Value = Today
@@ -18,7 +17,6 @@ Public Class SSPPStatisticalTools
             If cboSSPPUnits.SelectedIndex > -1 Then
                 cboSSPPUnits.SelectedIndex = 0
             End If
-            LoadSubPartData()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -1578,11 +1576,11 @@ Public Class SSPPStatisticalTools
                     EngineerLine = " and numUnit = '" & cboSSPPUnits.SelectedValue & "' "
                 Else
                     For Each Engineer As String In clbEngineers.CheckedItems
-                            If EngineerLine = "" Then
-                                EngineerLine = "and ( "
-                            End If
-                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
-                        Next
+                        If EngineerLine = "" Then
+                            EngineerLine = "and ( "
+                        End If
+                        EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
+                    Next
                     If EngineerLine <> "" Then
                         EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
                     End If
@@ -1774,11 +1772,11 @@ Public Class SSPPStatisticalTools
                     EngineerLine = " and numUnit = '" & cboSSPPUnits.SelectedValue & "' "
                 Else
                     For Each Engineer As String In clbEngineers.CheckedItems
-                            If EngineerLine = "" Then
-                                EngineerLine = "and ( "
-                            End If
-                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
-                        Next
+                        If EngineerLine = "" Then
+                            EngineerLine = "and ( "
+                        End If
+                        EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
+                    Next
                     If EngineerLine <> "" Then
                         EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
                     End If
@@ -1970,11 +1968,11 @@ Public Class SSPPStatisticalTools
                     EngineerLine = " and numUnit = '" & cboSSPPUnits.SelectedValue & "' "
                 Else
                     For Each Engineer As String In clbEngineers.CheckedItems
-                            If EngineerLine = "" Then
-                                EngineerLine = "and ( "
-                            End If
-                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
-                        Next
+                        If EngineerLine = "" Then
+                            EngineerLine = "and ( "
+                        End If
+                        EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
+                    Next
                     If EngineerLine <> "" Then
                         EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
                     End If
@@ -2068,11 +2066,11 @@ Public Class SSPPStatisticalTools
                     EngineerLine = " and numUnit = '" & cboSSPPUnits.SelectedValue & "' "
                 Else
                     For Each Engineer As String In clbEngineers.CheckedItems
-                            If EngineerLine = "" Then
-                                EngineerLine = "and ( "
-                            End If
-                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
-                        Next
+                        If EngineerLine = "" Then
+                            EngineerLine = "and ( "
+                        End If
+                        EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
+                    Next
                     If EngineerLine <> "" Then
                         EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
                     End If
@@ -2641,11 +2639,11 @@ Public Class SSPPStatisticalTools
                     EngineerLine = " and numUnit = '" & cboSSPPUnits2.SelectedValue & "' "
                 Else
                     For Each Engineer As String In clbEngineers2.CheckedItems
-                            If EngineerLine = "" Then
-                                EngineerLine = "and ( "
-                            End If
-                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
-                        Next
+                        If EngineerLine = "" Then
+                            EngineerLine = "and ( "
+                        End If
+                        EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
+                    Next
                     If EngineerLine <> "" Then
                         EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
                     End If
@@ -2990,11 +2988,11 @@ Public Class SSPPStatisticalTools
                     EngineerLine = " and numUnit = '" & cboSSPPUnits2.SelectedValue & "' "
                 Else
                     For Each Engineer As String In clbEngineers2.CheckedItems
-                            If EngineerLine = "" Then
-                                EngineerLine = "and ( "
-                            End If
-                            EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
-                        Next
+                        If EngineerLine = "" Then
+                            EngineerLine = "and ( "
+                        End If
+                        EngineerLine = EngineerLine & "  concat(strLastName, ', ', strFirstName) = '" & Engineer & "' or "
+                    Next
                     If EngineerLine <> "" Then
                         EngineerLine = Mid(EngineerLine, 1, (EngineerLine.Length - 3)) & " ) "
                     End If
@@ -5409,413 +5407,5 @@ Public Class SSPPStatisticalTools
     Private Sub btnExportToExcel_Click(sender As Object, e As EventArgs) Handles btnExportToExcel.Click
         dgvApplicationCount.ExportToExcel(Me)
     End Sub
-
-    Private Sub LoadSubPartData()
-        Try
-
-            Dim query1 As String = "Select * from LookupSubPart60 order by strSubpart "
-            Dim query2 As String = "Select * from LookupSubPart61 order by strSubpart "
-            Dim query3 As String = "Select * from LookupSubPart63 order by strSubpart "
-            Dim query4 As String = "Select * from LookUpSubPartSIP order by strSubPart "
-
-            dgvNSPS.DataSource = DB.GetDataTable(query1)
-            dgvNESHAP.DataSource = DB.GetDataTable(query2)
-            dgvMACT.DataSource = DB.GetDataTable(query3)
-            dgvSIP.DataSource = DB.GetDataTable(query4)
-
-            dgvNSPS.RowHeadersVisible = False
-            dgvNSPS.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvNSPS.AllowUserToResizeColumns = True
-            dgvNSPS.AllowUserToAddRows = False
-            dgvNSPS.AllowUserToDeleteRows = False
-            dgvNSPS.AllowUserToOrderColumns = True
-            dgvNSPS.AllowUserToResizeRows = True
-            dgvNSPS.Columns("strSubPart").HeaderText = "Subpart Code"
-            dgvNSPS.Columns("strSubPart").DisplayIndex = 0
-            dgvNSPS.Columns("strDescription").HeaderText = "Description"
-            dgvNSPS.Columns("strdescription").DisplayIndex = 1
-            dgvNSPS.Columns("strdescription").Width = 500
-
-            dgvNESHAP.RowHeadersVisible = False
-            dgvNESHAP.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvNESHAP.AllowUserToResizeColumns = True
-            dgvNESHAP.AllowUserToAddRows = False
-            dgvNESHAP.AllowUserToDeleteRows = False
-            dgvNESHAP.AllowUserToOrderColumns = True
-            dgvNESHAP.AllowUserToResizeRows = True
-            dgvNESHAP.Columns("strSubPart").HeaderText = "Subpart Code"
-            dgvNESHAP.Columns("strSubPart").DisplayIndex = 0
-            dgvNESHAP.Columns("strDescription").HeaderText = "Description"
-            dgvNESHAP.Columns("strdescription").DisplayIndex = 1
-            dgvNESHAP.Columns("strdescription").Width = 500
-
-            dgvMACT.RowHeadersVisible = False
-            dgvMACT.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvMACT.AllowUserToResizeColumns = True
-            dgvMACT.AllowUserToAddRows = False
-            dgvMACT.AllowUserToDeleteRows = False
-            dgvMACT.AllowUserToOrderColumns = True
-            dgvMACT.AllowUserToResizeRows = True
-            dgvMACT.Columns("strSubPart").HeaderText = "Subpart Code"
-            dgvMACT.Columns("strSubPart").DisplayIndex = 0
-            dgvMACT.Columns("strDescription").HeaderText = "Description"
-            dgvMACT.Columns("strdescription").DisplayIndex = 1
-            dgvMACT.Columns("strdescription").Width = 500
-
-            dgvSIP.RowHeadersVisible = False
-            dgvSIP.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvSIP.AllowUserToResizeColumns = True
-            dgvSIP.AllowUserToAddRows = False
-            dgvSIP.AllowUserToDeleteRows = False
-            dgvSIP.AllowUserToOrderColumns = True
-            dgvSIP.AllowUserToResizeRows = True
-            dgvSIP.Columns("strSubPart").HeaderText = "Subpart Code"
-            dgvSIP.Columns("strSubPart").DisplayIndex = 0
-            dgvSIP.Columns("strDescription").HeaderText = "Description"
-            dgvSIP.Columns("strdescription").DisplayIndex = 1
-            dgvSIP.Columns("strdescription").Width = 500
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-
-    End Sub
-
-    Private Sub btnEditSIP_Click(sender As Object, e As EventArgs) Handles btnEditSIP.Click
-        Try
-            Dim query As String
-
-            If txtSIPCode.Text <> "" And txtSIPDescription.Text <> "" Then
-                txtSIPCode.BackColor = Color.White
-                txtSIPDescription.BackColor = Color.White
-
-                query = "Select strSubPart " &
-                "From LookUpSubpartSIP " &
-                "where strSubPart = @code "
-
-                Dim p As New SqlParameter("@code", txtSIPCode.Text)
-
-                If DB.ValueExists(query, p) Then
-                    query = "Update LookUpSubpartSIP set " &
-                    "strDescription = @desc " &
-                    "where strSubpart = @code "
-                Else
-                    query = "Insert into LookUpSubpartSIP " &
-                    "(strsubpart, strdescription ) " &
-                    "values " &
-                    "(@code, @desc) "
-                End If
-
-                Dim p2 As SqlParameter() = {
-                    p,
-                    New SqlParameter("@desc", txtSIPDescription.Text)
-                }
-
-                DB.RunCommand(query, p2)
-                LoadSubPartData()
-
-            Else
-                If txtSIPCode.Text = "" Then
-                    txtSIPCode.BackColor = Color.Tomato
-                Else
-                    txtSIPCode.BackColor = Color.White
-                End If
-                If txtSIPDescription.Text = "" Then
-                    txtSIPDescription.BackColor = Color.Tomato
-                Else
-                    txtSIPDescription.BackColor = Color.White
-                End If
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-    End Sub
-    Private Sub btnEditNSPS_Click(sender As Object, e As EventArgs) Handles btnEditNSPS.Click
-        Try
-            Dim query As String
-
-            If txtNSPSCode.Text <> "" And txtNSPSDescription.Text <> "" Then
-                txtNSPSCode.BackColor = Color.White
-                txtNSPSDescription.BackColor = Color.White
-
-                query = "Select strSubPart " &
-                "From LookUpSubpart60 " &
-                "where strSubPart = @code "
-
-                Dim p As New SqlParameter("@code", txtNSPSCode.Text)
-
-                If DB.ValueExists(query, p) Then
-                    query = "Update LookUpSubpart60 set " &
-                    "strDescription = @desc " &
-                    "where strSubpart = @code "
-                Else
-                    query = "Insert into LookUpSubpart60 " &
-                    "(strsubpart, strdescription ) " &
-                    "values " &
-                    "(@code, @desc) "
-                End If
-
-                Dim p2 As SqlParameter() = {
-                    p,
-                    New SqlParameter("@desc", txtNSPSDescription.Text)
-                }
-
-                DB.RunCommand(query, p2)
-                LoadSubPartData()
-
-            Else
-                If txtNSPSCode.Text = "" Then
-                    txtNSPSCode.BackColor = Color.Tomato
-                Else
-                    txtNSPSCode.BackColor = Color.White
-                End If
-                If txtNSPSDescription.Text = "" Then
-                    txtNSPSDescription.BackColor = Color.Tomato
-                Else
-                    txtNSPSDescription.BackColor = Color.White
-                End If
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-    End Sub
-    Private Sub btnEditNESHAP_Click(sender As Object, e As EventArgs) Handles btnEditNESHAP.Click
-        Try
-            Dim query As String
-
-            If txtNESHAPCode.Text <> "" And txtNESHAPDescription.Text <> "" Then
-                txtNESHAPCode.BackColor = Color.White
-                txtNESHAPDescription.BackColor = Color.White
-
-                query = "Select strSubPart " &
-                "From LookUpSubpart61 " &
-                "where strSubPart = @code "
-
-                Dim p As New SqlParameter("@code", txtNESHAPCode.Text)
-
-                If DB.ValueExists(query, p) Then
-                    query = "Update LookUpSubpart61 set " &
-                    "strDescription = @desc " &
-                    "where strSubpart = @code "
-                Else
-                    query = "Insert into LookUpSubpart61 " &
-                    "(strsubpart, strdescription ) " &
-                    "values " &
-                    "(@code, @desc) "
-                End If
-
-                Dim p2 As SqlParameter() = {
-                    p,
-                    New SqlParameter("@desc", txtNESHAPDescription.Text)
-                }
-
-                DB.RunCommand(query, p2)
-                LoadSubPartData()
-
-            Else
-                If txtNESHAPCode.Text = "" Then
-                    txtNESHAPCode.BackColor = Color.Tomato
-                Else
-                    txtNESHAPCode.BackColor = Color.White
-                End If
-                If txtNESHAPDescription.Text = "" Then
-                    txtNESHAPDescription.BackColor = Color.Tomato
-                Else
-                    txtNESHAPDescription.BackColor = Color.White
-                End If
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-    End Sub
-    Private Sub btnEditMACT_Click(sender As Object, e As EventArgs) Handles btnEditMACT.Click
-        Try
-            Dim query As String
-
-            If txtMACTCode.Text <> "" And txtMACTDescription.Text <> "" Then
-                txtMACTCode.BackColor = Color.White
-                txtMACTDescription.BackColor = Color.White
-
-                query = "Select strSubPart " &
-                "From LookUpSubpart63 " &
-                "where strSubPart = @code "
-
-                Dim p As New SqlParameter("@code", txtMACTCode.Text)
-
-                If DB.ValueExists(query, p) Then
-                    query = "Update LookUpSubpart63 set " &
-                    "strDescription = @desc " &
-                    "where strSubpart = @code "
-                Else
-                    query = "Insert into LookUpSubpart63 " &
-                    "(strsubpart, strdescription ) " &
-                    "values " &
-                    "(@code, @desc) "
-                End If
-
-                Dim p2 As SqlParameter() = {
-                    p,
-                    New SqlParameter("@desc", txtMACTDescription.Text)
-                }
-
-                DB.RunCommand(query, p2)
-                LoadSubPartData()
-
-            Else
-                If txtMACTCode.Text = "" Then
-                    txtMACTCode.BackColor = Color.Tomato
-                Else
-                    txtMACTCode.BackColor = Color.White
-                End If
-                If txtMACTDescription.Text = "" Then
-                    txtMACTDescription.BackColor = Color.Tomato
-                Else
-                    txtMACTDescription.BackColor = Color.White
-                End If
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-    End Sub
-
-#Region " clears and mouseups "
-
-    Private Sub btnClearSIP_Click(sender As Object, e As EventArgs) Handles btnClearSIP.Click
-        Try
-            txtSIPCode.Clear()
-            txtSIPCode.BackColor = Color.White
-            txtSIPDescription.Clear()
-            txtSIPDescription.BackColor = Color.White
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-    End Sub
-    Private Sub btnClearNSPS_Click(sender As Object, e As EventArgs) Handles btnClearNSPS.Click
-        Try
-            txtNSPSCode.Clear()
-            txtNSPSCode.BackColor = Color.White
-            txtNSPSDescription.Clear()
-            txtNSPSDescription.BackColor = Color.White
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-    End Sub
-    Private Sub btnClearNESHAP_Click(sender As Object, e As EventArgs) Handles btnClearNESHAP.Click
-        Try
-            txtNESHAPCode.Clear()
-            txtNESHAPCode.BackColor = Color.White
-            txtNESHAPDescription.Clear()
-            txtNESHAPDescription.BackColor = Color.White
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-    End Sub
-    Private Sub btnClearMACT_Click(sender As Object, e As EventArgs) Handles btnClearMACT.Click
-        Try
-            txtMACTCode.Clear()
-            txtMACTCode.BackColor = Color.White
-            txtMACTDescription.Clear()
-            txtMACTDescription.BackColor = Color.White
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-    End Sub
-
-    Private Sub dgvSIP_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvSIP.MouseUp
-        Try
-            Dim hti As DataGridView.HitTestInfo = dgvSIP.HitTest(e.X, e.Y)
-            If dgvSIP.Columns(0).HeaderText = "Subpart Code" Then
-                If dgvSIP.RowCount > 0 And hti.RowIndex <> -1 Then
-                    txtSIPCode.BackColor = Color.White
-                    txtSIPDescription.BackColor = Color.White
-
-                    txtSIPCode.Text = dgvSIP(0, hti.RowIndex).Value
-                    txtSIPDescription.Text = dgvSIP(1, hti.RowIndex).Value
-                End If
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-    End Sub
-    Private Sub dgvNSPS_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvNSPS.MouseUp
-        Try
-            Dim hti As DataGridView.HitTestInfo = dgvNSPS.HitTest(e.X, e.Y)
-            If dgvNSPS.Columns(0).HeaderText = "Subpart Code" Then
-                If dgvNSPS.RowCount > 0 And hti.RowIndex <> -1 Then
-                    txtNSPSCode.BackColor = Color.White
-                    txtNSPSDescription.BackColor = Color.White
-
-                    txtNSPSCode.Text = dgvNSPS(0, hti.RowIndex).Value
-                    txtNSPSDescription.Text = dgvNSPS(1, hti.RowIndex).Value
-                End If
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-    End Sub
-    Private Sub dgvNESHAP_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvNESHAP.MouseUp
-        Try
-            Dim hti As DataGridView.HitTestInfo = dgvNESHAP.HitTest(e.X, e.Y)
-            If dgvNESHAP.Columns(0).HeaderText = "Subpart Code" Then
-                If dgvNESHAP.RowCount > 0 And hti.RowIndex <> -1 Then
-                    txtNESHAPCode.BackColor = Color.White
-                    txtNESHAPDescription.BackColor = Color.White
-
-                    txtNESHAPCode.Text = dgvNESHAP(0, hti.RowIndex).Value
-                    txtNESHAPDescription.Text = dgvNESHAP(1, hti.RowIndex).Value
-                End If
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-    End Sub
-    Private Sub dgvMACT_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvMACT.MouseUp
-        Try
-            Dim hti As DataGridView.HitTestInfo = dgvMACT.HitTest(e.X, e.Y)
-            If dgvMACT.Columns(0).HeaderText = "Subpart Code" Then
-                If dgvMACT.RowCount > 0 And hti.RowIndex <> -1 Then
-                    txtMACTCode.BackColor = Color.White
-                    txtMACTDescription.BackColor = Color.White
-
-                    txtMACTCode.Text = dgvMACT(0, hti.RowIndex).Value
-                    txtMACTDescription.Text = dgvMACT(1, hti.RowIndex).Value
-                End If
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-    End Sub
-
-#End Region
 
 End Class
