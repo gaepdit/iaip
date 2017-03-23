@@ -48,7 +48,8 @@ Namespace DAL
                             INNER JOIN APBHEADERDATA AS hd ON fm.STRAIRSNUMBER = hd.STRAIRSNUMBER
                             GROUP BY fm.STRAIRSNUMBER, fac.STRFACILITYNAME, fac.STRFACILITYCITY, sup.STRCMSMEMBER, hd.STRCLASS, hd.STROPERATIONALSTATUS) AS fci
                             WHERE (fci.STRCMSMEMBER = 'A' AND fci.LASTFCE < DATEADD(yy, -" & MIN_FCE_SPAN_CLASS_A & ", GETDATE()))
-                            OR (fci.STRCMSMEMBER = 'S' AND fci.LASTFCE < DATEADD(yy, -" & MIN_FCE_SPAN_CLASS_SM & ", GETDATE()))"
+                            OR (fci.STRCMSMEMBER = 'S' AND fci.LASTFCE < DATEADD(yy, -" & MIN_FCE_SPAN_CLASS_SM & ", GETDATE()))
+                            OR (fci.STRCMSMEMBER = 'M' AND fci.LASTFCE < DATEADD(yy, -" & MIN_FCE_SPAN_CLASS_M & ", GETDATE()))"
 
                 Case NavWorkListContext.Enforcement
                     query = "SELECT enf.STRENFORCEMENTNUMBER AS [Enforcement #], enf.STRAIRSNUMBER AS [AIRS #], fac.STRFACILITYNAME AS Facility, fac.STRFACILITYCITY AS City, enf.DATDISCOVERYDATE AS [Discovery Date],

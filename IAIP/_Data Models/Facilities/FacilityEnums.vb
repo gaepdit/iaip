@@ -71,6 +71,7 @@ Namespace Apb.Facilities
             <Description("Major")> A
             <Description("SM")> S
             <Description("None")> X
+            <Description("Mega-site")> M
         End Enum
 
 #End Region

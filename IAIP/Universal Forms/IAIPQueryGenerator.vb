@@ -307,11 +307,13 @@ Public Class IAIPQueryGenerator
         cboCMSUniverseSearch1.Items.Add(" ")
         cboCMSUniverseSearch1.Items.Add("A")
         cboCMSUniverseSearch1.Items.Add("S")
+        cboCMSUniverseSearch1.Items.Add("M")
 
         cboCMSUniverseSearch2.Text = " "
         cboCMSUniverseSearch2.Items.Add(" ")
         cboCMSUniverseSearch2.Items.Add("A")
         cboCMSUniverseSearch2.Items.Add("S")
+        cboCMSUniverseSearch2.Items.Add("M")
 
         cboCountySearch1.Visible = True
         cboCountySearch2.Visible = True

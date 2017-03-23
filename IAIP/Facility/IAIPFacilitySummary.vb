@@ -378,7 +378,8 @@ Public Class IAIPFacilitySummary
     Private Sub ColorCodeCmsDisplay()
         With ThisFacility.HeaderData
             If (.CmsMember = FacilityCmsMember.A And .Classification <> FacilityClassification.A) _
-            OrElse (.CmsMember = FacilityCmsMember.S And .Classification <> FacilityClassification.SM) Then
+            OrElse (.CmsMember = FacilityCmsMember.S And .Classification <> FacilityClassification.SM) _
+            OrElse (.CmsMember = FacilityCmsMember.M And .Classification <> FacilityClassification.A) Then
                 CmsDisplay.BackColor = IaipColors.WarningBackColor
                 CmsDisplay.ForeColor = IaipColors.WarningForeColor
             Else
