@@ -484,10 +484,21 @@ Public Class SBEAPCaseWork
 
     Private Sub LoadAttendingStaff()
         Try
-            Dim SQL As String = "SELECT NUMUSERID
-                , concat(STRLASTNAME, ', ', STRFIRSTNAME) AS UserName
-                FROM   EPDUserProfiles
-                WHERE  NUMUNIT IN(47, 48) "
+            ' Hoo boy would you look at this mess
+            Dim SQL As String = "SELECT NUMUSERID, concat(STRLASTNAME, ', ', STRFIRSTNAME) AS UserName
+                FROM EPDUSERPROFILES
+                WHERE NUMUNIT IN (47, 48)
+                UNION
+                SELECT NUMUSERID, concat(STRLASTNAME, ', ', STRFIRSTNAME) AS UserName
+                FROM (SELECT *
+                FROM (SELECT DISTINCT
+                LTRIM(RTRIM(m.n.value ('.[1]', 'varchar(8000)') )) AS StaffId
+                FROM (SELECT NUMACTIONID, CAST('<XMLRoot><RowData>'+REPLACE(STRSTAFFATTENDING, ',', '</RowData><RowData>')+'</RowData></XMLRoot>' AS xml) AS x
+                FROM SBEAPCONFERENCELOG) AS t
+                CROSS APPLY x.nodes ('/XMLRoot/RowData') AS m(n)) AS t
+                WHERE t.StaffId <> '') AS t
+                INNER JOIN EPDUSERPROFILES AS p ON p.NUMUSERID = t.StaffId
+                ORDER BY UserName"
 
             With clbStaffAttending
                 .DataSource = DB.GetDataTable(SQL)
