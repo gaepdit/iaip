@@ -53,11 +53,11 @@
     <InstallUrl>http://dmu.georgiaair.org/iaip/test/</InstallUrl>
     <ProductName>IAIP SQL Server Edition</ProductName>
     <PublisherName>State of Georgia</PublisherName>
-    <MinimumRequiredVersion>0.4.8.0</MinimumRequiredVersion>
+    <MinimumRequiredVersion>0.4.9.0</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>installer.html</WebPage>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>0.4.8.%2a</ApplicationVersion>
+    <ApplicationVersion>0.4.9.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
