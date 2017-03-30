@@ -4574,8 +4574,11 @@ Public Class DMUEisGecoTool
                 End If
 
                 ' Update EIS_QAAdmin with new facilities
-                Dim query3 As String = "INSERT INTO EIS_QAAdmin (INVENTORYYEAR, FACILITYSITEID, DATDATEQASTART, DATDATEQAPASS, QASTATUSCODE, DATQASTATUS, STRDMURESPONSIBLESTAFF, DATQACOMPLETE, STRCOMMENT, ACTIVE, UPDATEUSER, UPDATEDATETIME, CREATEDATETIME, STRFITRACKINGNUMBER, STRPOINTTRACKINGNUMBER, STRFIERROR, STRPOINTERROR)
-                    SELECT @INVENTORYYEAR, @FACILITYSITEID, GETDATE(), '', '1', GETDATE(), @UPDATEUSER, '', '', '1', @UPDATEUSER, GETDATE(), GETDATE(), '', '', '', ''
+                Dim query3 As String = "INSERT INTO EIS_QAAdmin 
+                    (INVENTORYYEAR, FACILITYSITEID, DATDATEQASTART, QASTATUSCODE, DATQASTATUS, STRDMURESPONSIBLESTAFF, ACTIVE, 
+                    UPDATEUSER, UPDATEDATETIME, CREATEDATETIME)
+                    SELECT @INVENTORYYEAR, @FACILITYSITEID, GETDATE(), '1', GETDATE(), @UPDATEUSER, '1', 
+                    @UPDATEUSER, GETDATE(), GETDATE()
                     WHERE NOT EXISTS (SELECT * FROM EIS_QAAdmin
                     WHERE inventoryYear = @INVENTORYYEAR AND FacilitySiteID = @FACILITYSITEID) 
                     AND EXISTS (SELECT * FROM EIS_Admin
@@ -6187,10 +6190,10 @@ Public Class DMUEisGecoTool
                   "EISAccessCode = '2', " &
                   "EISStatusCode = '3', " &
                   "datEISstatus = GETDATE(), " &
-                  "UpdateUser = '" & Replace(CurrentUser.AlphaName, "'", "''") & "', " &
+                  "UpdateUser = @UpdateUser, " &
                   "updatedatetime = getdate() " &
-                  "where inventoryYear = '" & EISConfirm & "' " &
-                  "and facilitysiteid = '" & txtEILogSelectedAIRSNumber.Text & "' "
+                  "where inventoryYear = @inventoryYear " &
+                  "and facilitysiteid = @facilitysiteid "
                 Dim params2 As SqlParameter() = {
                     New SqlParameter("@UpdateUser", CurrentUser.AlphaName),
                     New SqlParameter("@inventoryYear", EISConfirm),
@@ -6283,7 +6286,7 @@ Public Class DMUEisGecoTool
         Try
 
             Dim SQL As String = "Update EIS_Admin set " &
-          "strMailout = '' " &
+          "strMailout = null " &
           "where inventoryYear = @inventoryYear " &
           "and strMailout = '1' " &
           "and Active = '1' "

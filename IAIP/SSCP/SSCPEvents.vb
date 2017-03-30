@@ -1251,7 +1251,7 @@ Public Class SSCPEvents
             If txtTestReportComments.Text = "" Then
                 TestReportComments = "N/A"
             Else
-                TestReportComments = Replace(txtTestReportComments.Text, "'", "''")
+                TestReportComments = txtTestReportComments.Text
             End If
             If txtISMPReferenceNumber.Text = "" Then
                 ReferenceNumber = "N/A"

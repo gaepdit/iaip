@@ -1974,28 +1974,20 @@ Public Class ISMPTestReportAdministrative
                    "strTestingFirm, strReviewingEngineer, strWitnessingEngineer, " &
                    "strWitnessingEngineer2, strReviewingUnit, datReviewedbyUnitManager, " &
                    "strComplianceManager, datTestDateStart, datTestDateEnd, " &
-                   "datReceivedDate, datCompleteDate, mmoCommentArea, strClosed, " &
-                   "strDirector, strCommissioner, strProgramManager, " &
-                   "strComplianceStatus, strcc, strModifingPerson, datModifingDate, " &
-                   "strControlEquipmentData, strDelete, numReviewingManager) " &
-                "values " &
-                "(@strReferenceNumber, '00001', " &
-                "'N/A', '001', " &
-                "'001', 'N/A', " &
-                "'00001', '329', " &
-                "'0', '0', " &
-                "'12', @DateReceived, " &
-                "'0', '04-Jul-1776', " &
-                "'04-Jul-1776', @DateReceived , " &
-                "@DateCompleted, " &
-                "'Historical Test report added to IAIP', " &
-                "'False', @Commissioner, " &
-                "@Director, @ProgramManager, " &
-                "'01', '0', " &
-                "@user,  GETDATE() , " &
-                "'N/A', '', " &
-                "'', '', " &
-                "'', '', '') "
+                   "datReceivedDate, datCompleteDate, mmoCommentArea, " &
+                   "strClosed, strDirector, strCommissioner, " &
+                   "strProgramManager, strComplianceStatus, strcc, " &
+                   "strModifingPerson, datModifingDate, strControlEquipmentData) " &
+               "values " &
+                "(@strReferenceNumber, '00001', 'N/A', " &
+                "'001', '001', 'N/A', " &
+                "'00001', '329', '0', " &
+                "'0', '12', @DateReceived, " &
+                "'0', '04-Jul-1776', '04-Jul-1776', " &
+                "@DateReceived , @DateCompleted, 'Historical Test report added to IAIP', " &
+                "'False', @Director, @Commissioner, " &
+                "@ProgramManager, '01', '0', " &
+                "@user,  GETDATE() , 'N/A') "
 
                 Dim p4 As SqlParameter() = {
                     New SqlParameter("@strReferenceNumber", RefNum),

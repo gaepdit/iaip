@@ -893,8 +893,8 @@ Public Class PASPFeeManagement
 
             SQL = "Update FS_Admin set " &
             "strEnrolled = '0', " &
-            "datEnrollment = '', " &
-            "datInitialEnrollment = '', " &
+            "datEnrollment = null, " &
+            "datInitialEnrollment = null, " &
             "updateUser = @user, " &
             "UpdateDateTime = getdate() " &
             "where numFeeYear = @year " &

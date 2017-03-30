@@ -1864,15 +1864,15 @@ Public Class PASPFeeStatistics
                                 "INTVOCTONS, INTPMTONS, INTSO2TONS, INTNOXTONS, " &
                                 "NUMPART70FEE, NUMSMFEE, NUMNSPSFEE, NUMTOTALFEE, " &
                                 "STRNSPSEXEMPT, STRNSPSREASON, STROPERATE, NUMFEERATE, " &
-                                "STRNSPSEXEMPTREASON, STRPART70, STRSYNTHETICMINOR, NUMCALCULATEDFEE, " &
-                                "STRCLASS1, STRNSPS1, SHUTDATE, VARIANCECHECK, VARIANCECOMMENTS, NUMADMINFEE ) " &
+                                "STRPART70, STRSYNTHETICMINOR, NUMCALCULATEDFEE, " &
+                                "NUMADMINFEE ) " &
                             "values " &
                             "(@airs, @year, " &
                             "'0', '0', '0', '0', " &
                             "'0', '0', '0', '0', " &
                             "'NO', '0', 'YES', '33.0', " &
-                            "'', 'No', 'No', '0', " &
-                            "'', '', '', '', '', '0') "
+                            "'No', 'No', '0', " &
+                            "'0') "
 
                             DB.RunCommand(SQL, p)
                         End If

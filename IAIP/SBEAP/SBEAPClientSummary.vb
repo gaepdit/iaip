@@ -1391,7 +1391,6 @@ Public Class SBEAPClientSummary
                         , DATCOMPANYCREATED
                         , STRMODIFINGPERSON
                         , DATMODIFINGDATE
-                        , STRMODIFINGCOMMENTS
                         )
                         VALUES
                         ( @CLIENTID
@@ -1414,7 +1413,6 @@ Public Class SBEAPClientSummary
                         , getdate()
                         , @STRMODIFINGPERSON
                         , getdate()
-                        , ''
                         )"
 
                     Dim p As SqlParameter() = {
@@ -1457,7 +1455,6 @@ Public Class SBEAPClientSummary
                         , STRSTATEPROGRAMCODES
                         , STRMODIFINGPERSON
                         , DATMODIFINGDATE
-                        , STRMODIFINGCOMMENTS
                         , STRAIRPERMITNUMBER
                         , STRSSCPENGINEER
                         , STRSSCPUNIT
@@ -1479,7 +1476,6 @@ Public Class SBEAPClientSummary
                         , @STRSTATEPROGRAMCODES
                         , @STRMODIFINGPERSON
                         , getdate()
-                        , ''
                         , @STRAIRPERMITNUMBER
                         , @STRSSCPENGINEER
                         , @STRSSCPUNIT

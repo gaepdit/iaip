@@ -4757,11 +4757,11 @@ Public Class PASPFeeAuditLog
             End If
 
             SQL = "Insert into FS_Admin " &
-                "(NUMFEEYEAR, STRAIRSNUMBER, STRENROLLED, DATINITIALENROLLMENT, DATENROLLMENT, STRINITIALMAILOUT, " &
+                "(NUMFEEYEAR, STRAIRSNUMBER, STRENROLLED, DATENROLLMENT, STRINITIALMAILOUT, " &
                 "STRMAILOUTSENT, DATMAILOUTSENT, INTSUBMITTAL, DATSUBMITTAL, NUMCURRENTSTATUS, DATSTATUSDATE, STRCOMMENT, " &
                 "ACTIVE, UPDATEUSER, UPDATEDATETIME, CREATEDATETIME) " &
                 "values " &
-                "(@NUMFEEYEAR, @STRAIRSNUMBER, @STRENROLLED, '', @DATENROLLMENT, @STRINITIALMAILOUT, " &
+                "(@NUMFEEYEAR, @STRAIRSNUMBER, @STRENROLLED, @DATENROLLMENT, @STRINITIALMAILOUT, " &
                 "@STRMAILOUTSENT, @DATMAILOUTSENT, @INTSUBMITTAL, @DATSUBMITTAL, 1, getdate(), @STRCOMMENT, " &
                 "1, @UPDATEUSER, getdate(), getdate() ) "
 
@@ -4816,7 +4816,7 @@ Public Class PASPFeeAuditLog
 
             If Enrolled = False Then
                 SQL = SQL & "strEnrolled = '0', " &
-                "datEnrollment = '', "
+                "datEnrollment = null, "
             Else
                 SQL = SQL & "strEnrolled = '1', "
                 SQL = SQL & "datEnrollment = @datEnrollment, "
@@ -4836,7 +4836,7 @@ Public Class PASPFeeAuditLog
 
             If MailoutSent = False Then
                 SQL = SQL & "strMailOutsent = '0', " &
-                "datMailOutSent = '', "
+                "datMailOutSent = null, "
             Else
                 SQL = SQL & "strMailOutSent = '1', "
                 SQL = SQL & "datMailOutSent = @datMailOutSent, "
@@ -4844,7 +4844,7 @@ Public Class PASPFeeAuditLog
 
             If Submittal = False Then
                 SQL = SQL & "intSubmittal = '0', " &
-                "datSubmittal = '', "
+                "datSubmittal = null, "
             Else
                 SQL = SQL & "intsubmittal = '1', "
                 SQL = SQL & "datSubmittal = @datSubmittal, "

@@ -5344,9 +5344,7 @@ Public Class SSPPApplicationTrackingLog
                     }
                     Dim recordExists As Boolean = DB.ValueExists(query, parameter)
 
-                    InformationRequested = Replace(Mid(txtInformationRequested.Text, 1, 4000), "'", "''")
-
-                    InformationReceived = Mid(Replace(txtInformationReceived.Text, "'", "''"), 1, 4000)
+                    InformationReceived = Mid(txtInformationReceived.Text, 1, 4000)
 
                     If DTPInformationRequested.Checked = True Then
                         DateInfoRequested = DTPInformationRequested.Text

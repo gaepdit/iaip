@@ -454,22 +454,22 @@ Public Class IAIPFacilityCreator
                 PlantDesc = "N/A"
             End If
             If txtContactSocialTitle.Text <> "" Then
-                ContactPrefix = Replace(txtContactSocialTitle.Text, "'", "''")
+                ContactPrefix = txtContactSocialTitle.Text
             Else
                 ContactPrefix = ""
             End If
             If txtContactPedigree.Text <> "" Then
-                ContactSuffix = Replace(txtContactPedigree.Text, "'", "''")
+                ContactSuffix = txtContactPedigree.Text
             Else
                 ContactSuffix = ""
             End If
             If txtContactFirstName.Text <> "" Then
-                ContactFirstName = Replace(txtContactFirstName.Text, "'", "''")
+                ContactFirstName = txtContactFirstName.Text
             Else
                 ContactFirstName = "N/A"
             End If
             If txtContactLastName.Text <> "" Then
-                ContactLastName = Replace(txtContactLastName.Text, "'", "''")
+                ContactLastName = txtContactLastName.Text
             Else
                 ContactLastName = "N/A"
             End If
@@ -610,17 +610,16 @@ Public Class IAIPFacilityCreator
             DB.RunCommand(SQL, p4)
 
             SQL = "INSERT INTO APBSUPPLAMENTALDATA " &
-                "( STRAIRSNUMBER, DATSSCPTESTREPORTDUE, STRMODIFINGPERSON, DATMODIFINGDATE " &
-                ", STRDISTRICTOFFICE, STRCMSMEMBER, STRAFSACTIONNUMBER, STRRMPID) " &
+                "( STRAIRSNUMBER, STRMODIFINGPERSON, DATMODIFINGDATE " &
+                ", STRDISTRICTOFFICE, STRAFSACTIONNUMBER, STRRMPID) " &
                 "VALUES " &
-                "( @STRAIRSNUMBER, '', @STRMODIFINGPERSON, getdate() " &
+                "( @STRAIRSNUMBER, @STRMODIFINGPERSON, getdate() " &
                 ", @STRDISTRICTOFFICE, @STRCMSMEMBER, @STRAFSACTIONNUMBER, @STRRMPID) "
 
             Dim p5 As SqlParameter() = {
                 New SqlParameter("@STRAIRSNUMBER", AIRSNumber),
                 New SqlParameter("@STRMODIFINGPERSON", CurrentUser.UserID),
                 New SqlParameter("@STRDISTRICTOFFICE", DistrictOffice),
-                New SqlParameter("@STRCMSMEMBER", Nothing),
                 New SqlParameter("@STRAFSACTIONNUMBER", "00001"),
                 New SqlParameter("@STRRMPID", RMPNumber)
             }
