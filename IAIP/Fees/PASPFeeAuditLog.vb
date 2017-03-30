@@ -2474,7 +2474,7 @@ Public Class PASPFeeAuditLog
                     New SqlParameter("@INVOICEID", txtInvoiceID.Text),
                     New SqlParameter("@TRANSACTIONTYPECODE", cboTransactionType.SelectedValue),
                     New SqlParameter("@DATTRANSACTIONDATE", dtpTransactionDate.Value),
-                    New SqlParameter("@NUMPAYMENT", Replace(Replace(txtTransactionAmount.Text, ",", ""), "$", "")),
+                    New SqlParameter("@NUMPAYMENT", RealStringOrNothing(Replace(Replace(txtTransactionAmount.Text, ",", ""), "$", ""))),
                     New SqlParameter("@STRCHECKNO", txtTransactionCheckNo.Text),
                     New SqlParameter("@STRDEPOSITNO", txtDepositNo.Text),
                     New SqlParameter("@STRBATCHNO", txtBatchNo.Text),
@@ -2489,10 +2489,10 @@ Public Class PASPFeeAuditLog
                 DB.RunCommand(SQL, params)
             Else
                 Dim params As SqlParameter() = {
-                    New SqlParameter("@INVOICEID", ""),
+                    New SqlParameter("@INVOICEID", Nothing),
                     New SqlParameter("@TRANSACTIONTYPECODE", cboTransactionType.SelectedValue),
                     New SqlParameter("@DATTRANSACTIONDATE", dtpTransactionDate.Value),
-                    New SqlParameter("@NUMPAYMENT", Replace(Replace(txtTransactionAmount.Text, ",", ""), "$", "")),
+                    New SqlParameter("@NUMPAYMENT", RealStringOrNothing(Replace(Replace(txtTransactionAmount.Text, ",", ""), "$", ""))),
                     New SqlParameter("@STRCHECKNO", txtTransactionCheckNo.Text),
                     New SqlParameter("@STRDEPOSITNO", txtDepositNo.Text),
                     New SqlParameter("@STRBATCHNO", txtBatchNo.Text),
@@ -2697,7 +2697,7 @@ Public Class PASPFeeAuditLog
                 New SqlParameter("@invoiceid", txtInvoiceID.Text),
                 New SqlParameter("@TransactionTypecode", cboTransactionType.SelectedValue),
                 New SqlParameter("@datTransactionDate", dtpTransactionDate.Text),
-                New SqlParameter("@numPayment", Replace(Replace(txtTransactionAmount.Text, ",", ""), "$", "")),
+                New SqlParameter("@numPayment", RealStringOrNothing(Replace(Replace(txtTransactionAmount.Text, ",", ""), "$", ""))),
                 New SqlParameter("@strCheckNo", txtTransactionCheckNo.Text),
                 New SqlParameter("@strDepositNo", txtDepositNo.Text),
                 New SqlParameter("@strBatchNo", txtBatchNo.Text),
@@ -2887,57 +2887,57 @@ Public Class PASPFeeAuditLog
             If txtEditVOCTons.Text <> "" Then
                 VOCTons = txtEditVOCTons.Text
             Else
-                VOCTons = ""
+                VOCTons = Nothing
             End If
             If txtEditPMTons.Text <> "" Then
                 PMTons = txtEditPMTons.Text
             Else
-                PMTons = ""
+                PMTons = Nothing
             End If
             If txtEditSO2Tons.Text <> "" Then
                 SO2Tons = txtEditSO2Tons.Text
             Else
-                SO2Tons = ""
+                SO2Tons = Nothing
             End If
             If txtEditNOxTons.Text <> "" Then
                 NOxTons = txtEditNOxTons.Text
             Else
-                NOxTons = ""
+                NOxTons = Nothing
             End If
             If txtEditFeeRate.Text <> "" Then
                 FeeRate = txtEditFeeRate.Text
             Else
-                FeeRate = ""
+                FeeRate = Nothing
             End If
             If txtEditCalculatedFee.Text <> "" Then
                 CalculatedFee = txtEditCalculatedFee.Text
             Else
-                CalculatedFee = ""
+                CalculatedFee = Nothing
             End If
             If txtEditPart70Fee.Text <> "" Then
                 Part70Fee = txtEditPart70Fee.Text
             Else
-                Part70Fee = ""
+                Part70Fee = Nothing
             End If
             If txtEditSMFee.Text <> "" Then
                 SMFee = txtEditSMFee.Text
             Else
-                SMFee = ""
+                SMFee = Nothing
             End If
             If txtEditNSPSFee.Text <> "" Then
                 NSPSFee = txtEditNSPSFee.Text
             Else
-                NSPSFee = ""
+                NSPSFee = Nothing
             End If
             If txtEditAdminFee.Text <> "" Then
                 AdminFee = txtEditAdminFee.Text
             Else
-                AdminFee = ""
+                AdminFee = Nothing
             End If
             If txtEditTotalFees.Text <> "" Then
                 TotalFee = txtEditTotalFees.Text
             Else
-                TotalFee = ""
+                TotalFee = Nothing
             End If
             If rdbEditSMTrue.Checked = True Or rdbEditSMFalse.Checked = True Then
                 If rdbEditSMTrue.Checked = True Then
@@ -3124,7 +3124,7 @@ Public Class PASPFeeAuditLog
                     "@NUMFEERATE, @STRNSPS, @NUMNSPSFEE, @STRNSPSEXEMPT, " &
                     "@STRNSPSEXEMPTREASON, @NUMADMINFEE, @NUMTOTALFEE, @STRCLASS, " &
                     "@STROPERATE, @DATSHUTDOWN, @STROFFICIALNAME, @STROFFICIALTITLE, " &
-                    "@STRPAYMENTPLAN, @ACTIVE, @UPDATEUSER, getdate(), getdate() "
+                    "@STRPAYMENTPLAN, @ACTIVE, @UPDATEUSER, getdate(), getdate()) "
                 Dim p4 As SqlParameter() = {
                     New SqlParameter("@AUDITID", txtAuditID.Text),
                     New SqlParameter("@STRAIRSNUMBER", AirsNumber.DbFormattedString),
@@ -3685,7 +3685,7 @@ Public Class PASPFeeAuditLog
             Dim p As SqlParameter() = {
                 New SqlParameter("@STRAIRSNUMBER", AirsNumber.DbFormattedString),
                 New SqlParameter("@NUMFEEYEAR", FeeYear),
-                New SqlParameter("@NUMAMOUNT", Replace(Replace(txtAmount.Text, "$", ""), ",", "")),
+                New SqlParameter("@NUMAMOUNT", RealStringOrNothing(Replace(Replace(txtAmount.Text, "$", ""), ",", ""))),
                 New SqlParameter("@DATINVOICEDATE", DTPInvoiceDate.Value),
                 New SqlParameter("@STRCOMMENT", txtInvoiceComments.Text),
                 New SqlParameter("@UPDATEUSER", "IAIP||" & CurrentUser.AlphaName),
@@ -3934,57 +3934,57 @@ Public Class PASPFeeAuditLog
             If txtEditVOCTons.Text <> "" Then
                 VOCTons = txtEditVOCTons.Text
             Else
-                VOCTons = ""
+                VOCTons = Nothing
             End If
             If txtEditPMTons.Text <> "" Then
                 PMTons = txtEditPMTons.Text
             Else
-                PMTons = ""
+                PMTons = Nothing
             End If
             If txtEditSO2Tons.Text <> "" Then
                 SO2Tons = txtEditSO2Tons.Text
             Else
-                SO2Tons = ""
+                SO2Tons = Nothing
             End If
             If txtEditNOxTons.Text <> "" Then
                 NOxTons = txtEditNOxTons.Text
             Else
-                NOxTons = ""
+                NOxTons = Nothing
             End If
             If txtEditFeeRate.Text <> "" Then
                 FeeRate = txtEditFeeRate.Text
             Else
-                FeeRate = ""
+                FeeRate = Nothing
             End If
             If txtEditCalculatedFee.Text <> "" Then
                 CalculatedFee = txtEditCalculatedFee.Text
             Else
-                CalculatedFee = ""
+                CalculatedFee = Nothing
             End If
             If txtEditPart70Fee.Text <> "" Then
                 Part70Fee = txtEditPart70Fee.Text
             Else
-                Part70Fee = ""
+                Part70Fee = Nothing
             End If
             If txtEditSMFee.Text <> "" Then
                 SMFee = txtEditSMFee.Text
             Else
-                SMFee = ""
+                SMFee = Nothing
             End If
             If txtEditNSPSFee.Text <> "" Then
                 NSPSFee = txtEditNSPSFee.Text
             Else
-                NSPSFee = ""
+                NSPSFee = Nothing
             End If
             If txtEditAdminFee.Text <> "" Then
                 AdminFee = txtEditAdminFee.Text
             Else
-                AdminFee = ""
+                AdminFee = Nothing
             End If
             If txtEditTotalFees.Text <> "" Then
                 TotalFee = txtEditTotalFees.Text
             Else
-                TotalFee = ""
+                TotalFee = Nothing
             End If
             If rdbEditSMTrue.Checked = True Or rdbEditSMFalse.Checked = True Then
                 If rdbEditSMTrue.Checked = True Then
@@ -4192,6 +4192,8 @@ Public Class PASPFeeAuditLog
             End Select
             If txtAuditEnforcementNumber.Text <> "" Then
                 AuditENFORCEMENT = txtAuditEnforcementNumber.Text
+            Else
+                AuditENFORCEMENT = Nothing
             End If
             If txtAuditComment.Text <> "" Then
                 AuditComments = txtAuditComment.Text
