@@ -921,7 +921,7 @@ Public Class IAIPPrintOut
                     SQL = "select " &
                     "concat(strFirstName,' ',strLastName) as WitnessingEng " &
                     "from ISMPWitnessingEng inner join EPDUSerProfiles " &
-                    "on ISMPWitnessingEng.strWitnessingEngineer = EPDUSerProfiles.numUserProfiles  " &
+                    "on ISMPWitnessingEng.strWitnessingEngineer = EPDUSerProfiles.NUMUSERID " &
                     "where strReferenceNumber = @ref "
 
                     If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 13, 1) = "1" Then
