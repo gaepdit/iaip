@@ -1124,7 +1124,7 @@ Public Class IAIPPrintOut
                     SQL = "select " &
                     "(strFirstName||' '||strLastName) as WitnessingEng " &
                     "from AIRBRANCH.ISMPWitnessingEng, AIRBRANCH.EPDUSerProfiles " &
-                    "where AIRBRANCH.ISMPWitnessingEng.strWitnessingEngineer = AIRBRANCH.EPDUSerProfiles.numUserProfiles  " &
+                    "where AIRBRANCH.ISMPWitnessingEng.strWitnessingEngineer = AIRBRANCH.EPDUSerProfiles.NUMUSERID " &
                     "and strReferenceNumber = '" & Me.txtReferenceNumber.Text & "'  "
                     cmd = New OracleCommand(SQL, CurrentConnection)
                     If CurrentConnection.State = ConnectionState.Closed Then
