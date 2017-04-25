@@ -1,4 +1,5 @@
 ﻿Imports System.Collections.Generic
+Imports EpdIt
 
 Namespace Apb.Sscp
 
@@ -15,10 +16,18 @@ Namespace Apb.Sscp
         Public Property Deleted() As Boolean
         Public Property DeletedDbCode As String
             Get
-                Return DB.ConvertBooleanToDBValue(Me.Deleted, DB.BooleanDBConversionType.TrueOrDBNull)
+                If Deleted Then
+                    Return "True"
+                Else
+                    Return ""
+                End If
             End Get
             Set(value As String)
-                Me.Deleted = DB.ConvertDBValueToBoolean(value, DB.BooleanDBConversionType.TrueOrDBNull)
+                If value = "True" Then
+                    Deleted = True
+                Else
+                    Deleted = False
+                End If
             End Set
         End Property
         Public Property DateAcknowledgmentLetterSent() As Date?
@@ -27,7 +36,7 @@ Namespace Apb.Sscp
             Get
                 Return EventTypeDbCodes(EventType)
             End Get
-            Set(ByVal value As String)
+            Set(value As String)
                 Select Case value
                     Case "01"
                         EventType = WorkItemEventType.Report
@@ -57,13 +66,13 @@ Namespace Apb.Sscp
 #Region " Enums "
 
         Public Enum WorkItemEventType
-            Unknown
-            Report
-            Inspection
-            StackTest
-            Notification
-            TvAcc
-            RmpInspection
+            Unknown = 0
+            Report = 1
+            Inspection = 2
+            StackTest = 3
+            Notification = 5
+            TvAcc = 4
+            RmpInspection = 7
         End Enum
 
         Public Shared EventTypeDbCodes As New Dictionary(Of WorkItemEventType, String) From {

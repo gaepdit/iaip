@@ -23,98 +23,49 @@ Partial Class ISMPTestFirmComments
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(ISMPTestFirmComments))
-        Me.MenuStrip1 = New System.Windows.Forms.MenuStrip
-        Me.FileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.tsmBack = New System.Windows.Forms.ToolStripMenuItem
-        Me.EditToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.StatusStrip1 = New System.Windows.Forms.StatusStrip
-        Me.ToolStrip1 = New System.Windows.Forms.ToolStrip
-        Me.tsbSave = New System.Windows.Forms.ToolStripButton
-        Me.tsbBack = New System.Windows.Forms.ToolStripButton
-        Me.tsbLookUpAirNumber = New System.Windows.Forms.ToolStripButton
-        Me.SplitContainer1 = New System.Windows.Forms.SplitContainer
-        Me.Label6 = New System.Windows.Forms.Label
-        Me.txtCommentID = New System.Windows.Forms.TextBox
-        Me.btnRefreshAIRSNumber = New System.Windows.Forms.Button
-        Me.btnRefreshReportNumber = New System.Windows.Forms.Button
-        Me.btnRefreshNotifications = New System.Windows.Forms.Button
-        Me.cboTestingFirm = New System.Windows.Forms.ComboBox
-        Me.Label7 = New System.Windows.Forms.Label
-        Me.txtAIRSNumber = New System.Windows.Forms.TextBox
-        Me.txtAddComments = New System.Windows.Forms.TextBox
-        Me.btnDeleteComment = New System.Windows.Forms.Button
-        Me.btnEditComment = New System.Windows.Forms.Button
-        Me.lblComment = New System.Windows.Forms.Label
-        Me.cboCommentNumber = New System.Windows.Forms.ComboBox
-        Me.txtTestDateEnd = New System.Windows.Forms.TextBox
-        Me.txtTestDateStart = New System.Windows.Forms.TextBox
-        Me.Label5 = New System.Windows.Forms.Label
-        Me.Label4 = New System.Windows.Forms.Label
-        Me.txtTestNotificationNumber = New System.Windows.Forms.TextBox
-        Me.Label3 = New System.Windows.Forms.Label
-        Me.txtTestReportNumber = New System.Windows.Forms.TextBox
-        Me.Label2 = New System.Windows.Forms.Label
-        Me.txtFacilityTested = New System.Windows.Forms.TextBox
-        Me.Label1 = New System.Windows.Forms.Label
-        Me.btnOpenManagerTools = New System.Windows.Forms.Button
-        Me.btnSaveTestReport = New System.Windows.Forms.Button
-        Me.btnSaveDayOf = New System.Windows.Forms.Button
-        Me.btnSavePreTest = New System.Windows.Forms.Button
-        Me.txtAllComments = New System.Windows.Forms.TextBox
-        Me.MenuStrip1.SuspendLayout()
+        Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
+        Me.tsbSave = New System.Windows.Forms.ToolStripButton()
+        Me.tsbLookUpAirNumber = New System.Windows.Forms.ToolStripButton()
+        Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.txtCommentID = New System.Windows.Forms.TextBox()
+        Me.btnRefreshAIRSNumber = New System.Windows.Forms.Button()
+        Me.btnRefreshReportNumber = New System.Windows.Forms.Button()
+        Me.btnRefreshNotifications = New System.Windows.Forms.Button()
+        Me.cboTestingFirm = New System.Windows.Forms.ComboBox()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.txtAIRSNumber = New System.Windows.Forms.TextBox()
+        Me.txtAddComments = New System.Windows.Forms.TextBox()
+        Me.btnDeleteComment = New System.Windows.Forms.Button()
+        Me.btnEditComment = New System.Windows.Forms.Button()
+        Me.lblComment = New System.Windows.Forms.Label()
+        Me.cboCommentNumber = New System.Windows.Forms.ComboBox()
+        Me.txtTestDateEnd = New System.Windows.Forms.TextBox()
+        Me.txtTestDateStart = New System.Windows.Forms.TextBox()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.txtTestNotificationNumber = New System.Windows.Forms.TextBox()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.txtTestReportNumber = New System.Windows.Forms.TextBox()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.txtFacilityTested = New System.Windows.Forms.TextBox()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.btnOpenManagerTools = New System.Windows.Forms.Button()
+        Me.btnSaveTestReport = New System.Windows.Forms.Button()
+        Me.btnSaveDayOf = New System.Windows.Forms.Button()
+        Me.btnSavePreTest = New System.Windows.Forms.Button()
+        Me.txtAllComments = New System.Windows.Forms.TextBox()
         Me.ToolStrip1.SuspendLayout()
+        CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
         Me.SplitContainer1.Panel2.SuspendLayout()
         Me.SplitContainer1.SuspendLayout()
         Me.SuspendLayout()
         '
-        'MenuStrip1
-        '
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem, Me.EditToolStripMenuItem, Me.HelpToolStripMenuItem})
-        Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
-        Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(792, 24)
-        Me.MenuStrip1.TabIndex = 0
-        Me.MenuStrip1.Text = "MenuStrip1"
-        '
-        'FileToolStripMenuItem
-        '
-        Me.FileToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsmBack})
-        Me.FileToolStripMenuItem.Name = "FileToolStripMenuItem"
-        Me.FileToolStripMenuItem.Size = New System.Drawing.Size(37, 20)
-        Me.FileToolStripMenuItem.Text = "File"
-        '
-        'tsmBack
-        '
-        Me.tsmBack.Name = "tsmBack"
-        Me.tsmBack.Size = New System.Drawing.Size(99, 22)
-        Me.tsmBack.Text = "Back"
-        '
-        'EditToolStripMenuItem
-        '
-        Me.EditToolStripMenuItem.Name = "EditToolStripMenuItem"
-        Me.EditToolStripMenuItem.Size = New System.Drawing.Size(39, 20)
-        Me.EditToolStripMenuItem.Text = "Edit"
-        '
-        'HelpToolStripMenuItem
-        '
-        Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
-        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(44, 20)
-        Me.HelpToolStripMenuItem.Text = "Help"
-        '
-        'StatusStrip1
-        '
-        Me.StatusStrip1.Location = New System.Drawing.Point(0, 544)
-        Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Size = New System.Drawing.Size(792, 22)
-        Me.StatusStrip1.TabIndex = 1
-        Me.StatusStrip1.Text = "StatusStrip1"
-        '
         'ToolStrip1
         '
-        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsbSave, Me.tsbBack, Me.tsbLookUpAirNumber})
-        Me.ToolStrip1.Location = New System.Drawing.Point(0, 24)
+        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsbSave, Me.tsbLookUpAirNumber})
+        Me.ToolStrip1.Location = New System.Drawing.Point(0, 0)
         Me.ToolStrip1.Name = "ToolStrip1"
         Me.ToolStrip1.Size = New System.Drawing.Size(792, 25)
         Me.ToolStrip1.TabIndex = 2
@@ -129,15 +80,6 @@ Partial Class ISMPTestFirmComments
         Me.tsbSave.Size = New System.Drawing.Size(23, 22)
         Me.tsbSave.Text = "Save"
         '
-        'tsbBack
-        '
-        Me.tsbBack.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.tsbBack.Image = CType(resources.GetObject("tsbBack.Image"), System.Drawing.Image)
-        Me.tsbBack.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.tsbBack.Name = "tsbBack"
-        Me.tsbBack.Size = New System.Drawing.Size(23, 22)
-        Me.tsbBack.Text = "Back"
-        '
         'tsbLookUpAirNumber
         '
         Me.tsbLookUpAirNumber.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
@@ -150,7 +92,7 @@ Partial Class ISMPTestFirmComments
         'SplitContainer1
         '
         Me.SplitContainer1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.SplitContainer1.Location = New System.Drawing.Point(0, 49)
+        Me.SplitContainer1.Location = New System.Drawing.Point(0, 25)
         Me.SplitContainer1.Name = "SplitContainer1"
         Me.SplitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal
         '
@@ -187,8 +129,8 @@ Partial Class ISMPTestFirmComments
         'SplitContainer1.Panel2
         '
         Me.SplitContainer1.Panel2.Controls.Add(Me.txtAllComments)
-        Me.SplitContainer1.Size = New System.Drawing.Size(792, 495)
-        Me.SplitContainer1.SplitterDistance = 242
+        Me.SplitContainer1.Size = New System.Drawing.Size(792, 541)
+        Me.SplitContainer1.SplitterDistance = 263
         Me.SplitContainer1.SplitterWidth = 5
         Me.SplitContainer1.TabIndex = 3
         '
@@ -271,13 +213,13 @@ Partial Class ISMPTestFirmComments
         'txtAddComments
         '
         Me.txtAddComments.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-                    Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtAddComments.Location = New System.Drawing.Point(12, 97)
         Me.txtAddComments.Multiline = True
         Me.txtAddComments.Name = "txtAddComments"
         Me.txtAddComments.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.txtAddComments.Size = New System.Drawing.Size(768, 132)
+        Me.txtAddComments.Size = New System.Drawing.Size(768, 153)
         Me.txtAddComments.TabIndex = 3
         '
         'btnDeleteComment
@@ -453,13 +395,13 @@ Partial Class ISMPTestFirmComments
         'txtAllComments
         '
         Me.txtAllComments.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-                    Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtAllComments.Location = New System.Drawing.Point(12, 13)
         Me.txtAllComments.Multiline = True
         Me.txtAllComments.Name = "txtAllComments"
         Me.txtAllComments.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.txtAllComments.Size = New System.Drawing.Size(768, 219)
+        Me.txtAllComments.Size = New System.Drawing.Size(768, 243)
         Me.txtAllComments.TabIndex = 4
         '
         'ISMPTestFirmComments
@@ -469,31 +411,21 @@ Partial Class ISMPTestFirmComments
         Me.ClientSize = New System.Drawing.Size(792, 566)
         Me.Controls.Add(Me.SplitContainer1)
         Me.Controls.Add(Me.ToolStrip1)
-        Me.Controls.Add(Me.StatusStrip1)
-        Me.Controls.Add(Me.MenuStrip1)
-        Me.MainMenuStrip = Me.MenuStrip1
         Me.Name = "ISMPTestFirmComments"
         Me.Text = "ISMP Test Firm Comments"
-        Me.MenuStrip1.ResumeLayout(False)
-        Me.MenuStrip1.PerformLayout()
         Me.ToolStrip1.ResumeLayout(False)
         Me.ToolStrip1.PerformLayout()
         Me.SplitContainer1.Panel1.ResumeLayout(False)
         Me.SplitContainer1.Panel1.PerformLayout()
         Me.SplitContainer1.Panel2.ResumeLayout(False)
         Me.SplitContainer1.Panel2.PerformLayout()
+        CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SplitContainer1.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents MenuStrip1 As System.Windows.Forms.MenuStrip
-    Friend WithEvents StatusStrip1 As System.Windows.Forms.StatusStrip
-    Friend WithEvents FileToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents EditToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents HelpToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolStrip1 As System.Windows.Forms.ToolStrip
-    Friend WithEvents tsbBack As System.Windows.Forms.ToolStripButton
     Friend WithEvents SplitContainer1 As System.Windows.Forms.SplitContainer
     Friend WithEvents txtAddComments As System.Windows.Forms.TextBox
     Friend WithEvents btnSaveTestReport As System.Windows.Forms.Button
@@ -515,7 +447,6 @@ Partial Class ISMPTestFirmComments
     Friend WithEvents btnEditComment As System.Windows.Forms.Button
     Friend WithEvents lblComment As System.Windows.Forms.Label
     Friend WithEvents cboCommentNumber As System.Windows.Forms.ComboBox
-    Friend WithEvents tsmBack As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents tsbLookUpAirNumber As System.Windows.Forms.ToolStripButton
     Friend WithEvents Label7 As System.Windows.Forms.Label
     Friend WithEvents txtAIRSNumber As System.Windows.Forms.TextBox

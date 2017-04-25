@@ -22,56 +22,47 @@ Partial Class SBEAPCaseLog
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SBEAPCaseLog))
-        Me.ToolStrip1 = New System.Windows.Forms.ToolStrip
-        Me.tsbExport = New System.Windows.Forms.ToolStripButton
-        Me.tsbBack = New System.Windows.Forms.ToolStripButton
-        Me.StatusStrip1 = New System.Windows.Forms.StatusStrip
-        Me.label1 = New System.Windows.Forms.ToolStripStatusLabel
-        Me.Label2 = New System.Windows.Forms.ToolStripStatusLabel
-        Me.Label3 = New System.Windows.Forms.ToolStripStatusLabel
-        Me.MenuStrip1 = New System.Windows.Forms.MenuStrip
-        Me.FileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.mmiOpenNewCase = New System.Windows.Forms.ToolStripMenuItem
-        Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.SCCaseLog = New System.Windows.Forms.SplitContainer
-        Me.dgvCaseLog = New System.Windows.Forms.DataGridView
-        Me.GroupBox1 = New System.Windows.Forms.GroupBox
-        Me.rdbAllCases = New System.Windows.Forms.RadioButton
-        Me.Panel1 = New System.Windows.Forms.Panel
-        Me.rdbClosedCase = New System.Windows.Forms.RadioButton
-        Me.btnResetSearch = New System.Windows.Forms.Button
-        Me.rdbOpenCases = New System.Windows.Forms.RadioButton
-        Me.Label9 = New System.Windows.Forms.Label
-        Me.btnOpenCase = New System.Windows.Forms.Button
-        Me.txtCaseID = New System.Windows.Forms.TextBox
-        Me.btnSearchCaseLog = New System.Windows.Forms.Button
-        Me.Label8 = New System.Windows.Forms.Label
-        Me.cboSortOrder2 = New System.Windows.Forms.ComboBox
-        Me.Label7 = New System.Windows.Forms.Label
-        Me.cboSortType2 = New System.Windows.Forms.ComboBox
-        Me.cboSortOrder1 = New System.Windows.Forms.ComboBox
-        Me.Label6 = New System.Windows.Forms.Label
-        Me.cboSortType1 = New System.Windows.Forms.ComboBox
-        Me.Label5 = New System.Windows.Forms.Label
-        Me.DTPSearchDate3 = New System.Windows.Forms.DateTimePicker
-        Me.DTPSearchDate4 = New System.Windows.Forms.DateTimePicker
-        Me.cboSearchText2 = New System.Windows.Forms.ComboBox
-        Me.txtSearchText2 = New System.Windows.Forms.TextBox
-        Me.Label4 = New System.Windows.Forms.Label
-        Me.DTPSearchDate1 = New System.Windows.Forms.DateTimePicker
-        Me.DTPSearchDate2 = New System.Windows.Forms.DateTimePicker
-        Me.cboSearchText1 = New System.Windows.Forms.ComboBox
-        Me.txtSearchText1 = New System.Windows.Forms.TextBox
-        Me.Label39 = New System.Windows.Forms.Label
-        Me.cboFieldType2 = New System.Windows.Forms.ComboBox
-        Me.Label29 = New System.Windows.Forms.Label
-        Me.cboFieldType1 = New System.Windows.Forms.ComboBox
-        Me.Label19 = New System.Windows.Forms.Label
-        Me.bgw1 = New System.ComponentModel.BackgroundWorker
-        Me.ToolStrip1.SuspendLayout()
-        Me.StatusStrip1.SuspendLayout()
+        Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
+        Me.mmiTools = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mmiOpenNewCase = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mmiExportToExcel = New System.Windows.Forms.ToolStripMenuItem()
+        Me.SCCaseLog = New System.Windows.Forms.SplitContainer()
+        Me.dgvCaseLog = New System.Windows.Forms.DataGridView()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.rdbAllCases = New System.Windows.Forms.RadioButton()
+        Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.rdbClosedCase = New System.Windows.Forms.RadioButton()
+        Me.btnResetSearch = New System.Windows.Forms.Button()
+        Me.rdbOpenCases = New System.Windows.Forms.RadioButton()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.btnOpenCase = New System.Windows.Forms.Button()
+        Me.txtCaseID = New System.Windows.Forms.TextBox()
+        Me.btnSearchCaseLog = New System.Windows.Forms.Button()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.cboSortOrder2 = New System.Windows.Forms.ComboBox()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.cboSortType2 = New System.Windows.Forms.ComboBox()
+        Me.cboSortOrder1 = New System.Windows.Forms.ComboBox()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.cboSortType1 = New System.Windows.Forms.ComboBox()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.DTPSearchDate3 = New System.Windows.Forms.DateTimePicker()
+        Me.DTPSearchDate4 = New System.Windows.Forms.DateTimePicker()
+        Me.cboSearchText2 = New System.Windows.Forms.ComboBox()
+        Me.txtSearchText2 = New System.Windows.Forms.TextBox()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.DTPSearchDate1 = New System.Windows.Forms.DateTimePicker()
+        Me.DTPSearchDate2 = New System.Windows.Forms.DateTimePicker()
+        Me.cboSearchText1 = New System.Windows.Forms.ComboBox()
+        Me.txtSearchText1 = New System.Windows.Forms.TextBox()
+        Me.Label39 = New System.Windows.Forms.Label()
+        Me.cboFieldType2 = New System.Windows.Forms.ComboBox()
+        Me.Label29 = New System.Windows.Forms.Label()
+        Me.cboFieldType1 = New System.Windows.Forms.ComboBox()
+        Me.Label19 = New System.Windows.Forms.Label()
+        Me.bgw1 = New System.ComponentModel.BackgroundWorker()
         Me.MenuStrip1.SuspendLayout()
+        CType(Me.SCCaseLog, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SCCaseLog.Panel1.SuspendLayout()
         Me.SCCaseLog.Panel2.SuspendLayout()
         Me.SCCaseLog.SuspendLayout()
@@ -79,103 +70,38 @@ Partial Class SBEAPCaseLog
         Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
         '
-        'ToolStrip1
-        '
-        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsbExport, Me.tsbBack})
-        Me.ToolStrip1.Location = New System.Drawing.Point(0, 24)
-        Me.ToolStrip1.Name = "ToolStrip1"
-        Me.ToolStrip1.Size = New System.Drawing.Size(792, 25)
-        Me.ToolStrip1.TabIndex = 8
-        Me.ToolStrip1.Text = "ToolStrip1"
-        '
-        'tsbExport
-        '
-        Me.tsbExport.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.tsbExport.Image = CType(resources.GetObject("tsbExport.Image"), System.Drawing.Image)
-        Me.tsbExport.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.tsbExport.Name = "tsbExport"
-        Me.tsbExport.Size = New System.Drawing.Size(23, 22)
-        Me.tsbExport.Text = "Export to Excel"
-        '
-        'tsbBack
-        '
-        Me.tsbBack.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.tsbBack.Image = CType(resources.GetObject("tsbBack.Image"), System.Drawing.Image)
-        Me.tsbBack.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.tsbBack.Name = "tsbBack"
-        Me.tsbBack.Size = New System.Drawing.Size(23, 22)
-        Me.tsbBack.Text = "Back"
-        '
-        'StatusStrip1
-        '
-        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.label1, Me.Label2, Me.Label3})
-        Me.StatusStrip1.Location = New System.Drawing.Point(0, 544)
-        Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Size = New System.Drawing.Size(792, 22)
-        Me.StatusStrip1.TabIndex = 7
-        Me.StatusStrip1.Text = "StatusStrip1"
-        '
-        'label1
-        '
-        Me.label1.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.label1.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
-        Me.label1.Name = "label1"
-        Me.label1.Size = New System.Drawing.Size(769, 17)
-        Me.label1.Spring = True
-        Me.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'Label2
-        '
-        Me.Label2.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.Label2.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(4, 17)
-        '
-        'Label3
-        '
-        Me.Label3.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.Label3.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(4, 17)
-        '
         'MenuStrip1
         '
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem, Me.HelpToolStripMenuItem})
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiTools})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Size = New System.Drawing.Size(792, 24)
         Me.MenuStrip1.TabIndex = 6
         Me.MenuStrip1.Text = "MenuStrip1"
         '
-        'FileToolStripMenuItem
+        'mmiTools
         '
-        Me.FileToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiOpenNewCase})
-        Me.FileToolStripMenuItem.Name = "FileToolStripMenuItem"
-        Me.FileToolStripMenuItem.Size = New System.Drawing.Size(37, 20)
-        Me.FileToolStripMenuItem.Text = "File"
+        Me.mmiTools.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiOpenNewCase, Me.mmiExportToExcel})
+        Me.mmiTools.Name = "mmiTools"
+        Me.mmiTools.Size = New System.Drawing.Size(48, 20)
+        Me.mmiTools.Text = "&Tools"
         '
         'mmiOpenNewCase
         '
         Me.mmiOpenNewCase.Name = "mmiOpenNewCase"
         Me.mmiOpenNewCase.Size = New System.Drawing.Size(158, 22)
-        Me.mmiOpenNewCase.Text = "Open New Case"
+        Me.mmiOpenNewCase.Text = "Open &New Case"
         '
-        'HelpToolStripMenuItem
+        'mmiExportToExcel
         '
-        Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
-        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(44, 20)
-        Me.HelpToolStripMenuItem.Text = "Help"
+        Me.mmiExportToExcel.Name = "mmiExportToExcel"
+        Me.mmiExportToExcel.Size = New System.Drawing.Size(158, 22)
+        Me.mmiExportToExcel.Text = "&Export to Excel"
         '
         'SCCaseLog
         '
         Me.SCCaseLog.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.SCCaseLog.Location = New System.Drawing.Point(0, 49)
+        Me.SCCaseLog.Location = New System.Drawing.Point(0, 24)
         Me.SCCaseLog.Name = "SCCaseLog"
         Me.SCCaseLog.Orientation = System.Windows.Forms.Orientation.Horizontal
         '
@@ -186,8 +112,8 @@ Partial Class SBEAPCaseLog
         'SCCaseLog.Panel2
         '
         Me.SCCaseLog.Panel2.Controls.Add(Me.GroupBox1)
-        Me.SCCaseLog.Size = New System.Drawing.Size(792, 495)
-        Me.SCCaseLog.SplitterDistance = 310
+        Me.SCCaseLog.Size = New System.Drawing.Size(792, 542)
+        Me.SCCaseLog.SplitterDistance = 339
         Me.SCCaseLog.SplitterWidth = 10
         Me.SCCaseLog.TabIndex = 9
         '
@@ -197,7 +123,7 @@ Partial Class SBEAPCaseLog
         Me.dgvCaseLog.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvCaseLog.Location = New System.Drawing.Point(0, 0)
         Me.dgvCaseLog.Name = "dgvCaseLog"
-        Me.dgvCaseLog.Size = New System.Drawing.Size(792, 310)
+        Me.dgvCaseLog.Size = New System.Drawing.Size(792, 339)
         Me.dgvCaseLog.TabIndex = 0
         '
         'GroupBox1
@@ -236,7 +162,7 @@ Partial Class SBEAPCaseLog
         Me.GroupBox1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GroupBox1.Location = New System.Drawing.Point(0, 0)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(792, 175)
+        Me.GroupBox1.Size = New System.Drawing.Size(792, 193)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Specify Multiple Search Criteria, Select Sort Order and Click Find to Search"
@@ -339,6 +265,7 @@ Partial Class SBEAPCaseLog
         '
         Me.cboSortOrder2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
         Me.cboSortOrder2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboSortOrder2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboSortOrder2.FormattingEnabled = True
         Me.cboSortOrder2.Location = New System.Drawing.Point(183, 130)
         Me.cboSortOrder2.Name = "cboSortOrder2"
@@ -358,6 +285,7 @@ Partial Class SBEAPCaseLog
         '
         Me.cboSortType2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
         Me.cboSortType2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboSortType2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboSortType2.FormattingEnabled = True
         Me.cboSortType2.Location = New System.Drawing.Point(51, 130)
         Me.cboSortType2.Name = "cboSortType2"
@@ -368,6 +296,7 @@ Partial Class SBEAPCaseLog
         '
         Me.cboSortOrder1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
         Me.cboSortOrder1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboSortOrder1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboSortOrder1.FormattingEnabled = True
         Me.cboSortOrder1.Location = New System.Drawing.Point(183, 103)
         Me.cboSortOrder1.Name = "cboSortOrder1"
@@ -387,6 +316,7 @@ Partial Class SBEAPCaseLog
         '
         Me.cboSortType1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
         Me.cboSortType1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboSortType1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboSortType1.FormattingEnabled = True
         Me.cboSortType1.Location = New System.Drawing.Point(51, 103)
         Me.cboSortType1.Name = "cboSortType1"
@@ -424,6 +354,7 @@ Partial Class SBEAPCaseLog
         '
         Me.cboSearchText2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
         Me.cboSearchText2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboSearchText2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboSearchText2.FormattingEnabled = True
         Me.cboSearchText2.Location = New System.Drawing.Point(379, 46)
         Me.cboSearchText2.Name = "cboSearchText2"
@@ -468,6 +399,7 @@ Partial Class SBEAPCaseLog
         '
         Me.cboSearchText1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
         Me.cboSearchText1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboSearchText1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboSearchText1.FormattingEnabled = True
         Me.cboSearchText1.Location = New System.Drawing.Point(77, 46)
         Me.cboSearchText1.Name = "cboSearchText1"
@@ -495,6 +427,7 @@ Partial Class SBEAPCaseLog
         '
         Me.cboFieldType2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
         Me.cboFieldType2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboFieldType2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboFieldType2.FormattingEnabled = True
         Me.cboFieldType2.Location = New System.Drawing.Point(379, 19)
         Me.cboFieldType2.Name = "cboFieldType2"
@@ -514,6 +447,7 @@ Partial Class SBEAPCaseLog
         '
         Me.cboFieldType1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
         Me.cboFieldType1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboFieldType1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboFieldType1.FormattingEnabled = True
         Me.cboFieldType1.Location = New System.Drawing.Point(77, 19)
         Me.cboFieldType1.Name = "cboFieldType1"
@@ -538,19 +472,14 @@ Partial Class SBEAPCaseLog
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(792, 566)
         Me.Controls.Add(Me.SCCaseLog)
-        Me.Controls.Add(Me.ToolStrip1)
-        Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.MenuStrip1)
         Me.Name = "SBEAPCaseLog"
         Me.Text = "SBEAP Case Log"
-        Me.ToolStrip1.ResumeLayout(False)
-        Me.ToolStrip1.PerformLayout()
-        Me.StatusStrip1.ResumeLayout(False)
-        Me.StatusStrip1.PerformLayout()
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
         Me.SCCaseLog.Panel1.ResumeLayout(False)
         Me.SCCaseLog.Panel2.ResumeLayout(False)
+        CType(Me.SCCaseLog, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SCCaseLog.ResumeLayout(False)
         CType(Me.dgvCaseLog, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox1.ResumeLayout(False)
@@ -559,16 +488,8 @@ Partial Class SBEAPCaseLog
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents ToolStrip1 As System.Windows.Forms.ToolStrip
-    Friend WithEvents tsbExport As System.Windows.Forms.ToolStripButton
-    Friend WithEvents tsbBack As System.Windows.Forms.ToolStripButton
-    Friend WithEvents StatusStrip1 As System.Windows.Forms.StatusStrip
-    Friend WithEvents label1 As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents Label2 As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents Label3 As System.Windows.Forms.ToolStripStatusLabel
     Friend WithEvents MenuStrip1 As System.Windows.Forms.MenuStrip
-    Friend WithEvents FileToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents HelpToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents mmiTools As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents SCCaseLog As System.Windows.Forms.SplitContainer
     Friend WithEvents dgvCaseLog As System.Windows.Forms.DataGridView
     Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
@@ -605,4 +526,5 @@ Partial Class SBEAPCaseLog
     Friend WithEvents rdbAllCases As System.Windows.Forms.RadioButton
     Friend WithEvents rdbClosedCase As System.Windows.Forms.RadioButton
     Friend WithEvents rdbOpenCases As System.Windows.Forms.RadioButton
+    Friend WithEvents mmiExportToExcel As ToolStripMenuItem
 End Class

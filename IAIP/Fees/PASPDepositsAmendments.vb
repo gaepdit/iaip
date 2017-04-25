@@ -1,5 +1,4 @@
-Imports Oracle.ManagedDataAccess.Client
-
+Imports System.Data.SqlClient
 
 Public Class PASPDepositsAmendments
     Dim dtInvoice As DataTable
@@ -7,25 +6,24 @@ Public Class PASPDepositsAmendments
 
 #Region "Page Load Functions"
 
-    Private Sub PASPDepositsAmendments_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-
-        dtpBatchDepositDate.Text = Date.Today
-        dtpDepositReportStartDate.Text = Format(CDate(Date.Today).AddMonths(-1), "dd-MMM-yyyy")
-        dtpDepositReportEndDate.Text = Date.Today
+    Private Sub PASPDepositsAmendments_Load(sender As Object, e As EventArgs) Handles Me.Load
+        dtpBatchDepositDate.Value = Today
+        dtpDepositReportStartDate.Value = Today.AddMonths(-1)
+        dtpDepositReportEndDate.Value = Today
     End Sub
 
 #End Region
 
 #Region "Fee Deposits"
 
-    Private Sub LoadFacilityData(ByVal AIRSNumber As String)
+    Private Sub LoadFacilityData(AIRSNumber As String)
         Dim query As String = "Select " &
             "strFacilityName " &
-            "from AIRBRANCH.APBFacilityInformation " &
-            "where strAIRSNumber = :AIRSNumber "
-        Dim param As New OracleParameter("AIRSNumber", New Apb.ApbFacilityId(AIRSNumber).DbFormattedString)
+            "from APBFacilityInformation " &
+            "where strAIRSNumber = @AIRSNumber "
+        Dim param As New SqlParameter("@AIRSNumber", New Apb.ApbFacilityId(AIRSNumber).DbFormattedString)
 
-        Dim facName As String = DB.GetSingleValue(Of String)(query, param)
+        Dim facName As String = DB.GetString(query, param)
 
         If String.IsNullOrWhiteSpace(facName) Then
             lblFacilityName.Text = "Facility Name"
@@ -36,14 +34,14 @@ Public Class PASPDepositsAmendments
 
     Private Function ValidateData() As Boolean
         Dim query As String
-        Dim param() As OracleParameter
+        Dim param() As SqlParameter
 
         If mtbAIRSNumber.Text <> "" Then
             query = "Select " &
                 "strAIRSNumber " &
-                "from AIRBRANCH.APBFacilityInformation " &
-                "where strAIRSNumber = :AIRSNumber "
-            param = {New OracleParameter("AIRSNumber", New Apb.ApbFacilityId(mtbAIRSNumber.Text).DbFormattedString)}
+                "from APBFacilityInformation " &
+                "where strAIRSNumber = @AIRSNumber "
+            param = {New SqlParameter("@AIRSNumber", New Apb.ApbFacilityId(mtbAIRSNumber.Text).DbFormattedString)}
 
             If Not DB.ValueExists(query, param) Then
                 MsgBox("This AIRS # is not valid; please verify that it is entered correctly." & vbCrLf &
@@ -82,12 +80,12 @@ Public Class PASPDepositsAmendments
             MsgBox("Please select an Invoice Number", MsgBoxStyle.OkOnly, "No Invoice No.")
             Return False
         Else
-            query = "Select InvoiceID from AIRBranch.FS_FeeInvoice " &
-                "where invoiceID = :InvoiceID " &
-                "and strAIRSNumber = :AIRSNumber "
+            query = "Select InvoiceID from FS_FeeInvoice " &
+                "where invoiceID = @InvoiceID " &
+                "and strAIRSNumber = @AIRSNumber "
             param = {
-                New OracleParameter("InvoiceID", txtInvoiceForDeposit.Text),
-                New OracleParameter("AIRSNumber", New Apb.ApbFacilityId(mtbAIRSNumber.Text).DbFormattedString)
+                New SqlParameter("@InvoiceID", txtInvoiceForDeposit.Text),
+                New SqlParameter("@AIRSNumber", New Apb.ApbFacilityId(mtbAIRSNumber.Text).DbFormattedString)
             }
             If Not DB.ValueExists(query, param) Then
                 MsgBox("Please select a valid Invoice Number", MsgBoxStyle.OkOnly, "No Valid Invoice No.")
@@ -98,28 +96,28 @@ Public Class PASPDepositsAmendments
     End Function
 
     Private Sub DepositSearch()
-        Dim query As String = "SELECT SUBSTR(tr.STRAIRSNUMBER, 5) AS strAIRSNumber, " &
+        Dim query As String = "SELECT SUBSTRing(tr.STRAIRSNUMBER, 5, 8) AS strAIRSNumber, " &
             "  tr.STRDEPOSITNO, tr.STRBATCHNO, tr.TRANSACTIONID, " &
             "  tr.DATTRANSACTIONDATE, tr.NUMPAYMENT, tr.NUMFEEYEAR, " &
             "  tr.STRCHECKNO, tr.STRCREDITCARDNO, tr.INVOICEID, " &
             "  lpt.STRPAYTYPEDESC AS strPayType, tr.STRCOMMENT " &
-            "FROM AIRBRANCH.FS_Transactions tr " &
-            "INNER JOIN AIRBRANCH.FS_FeeInvoice fi ON tr.INVOICEID = " &
+            "FROM FS_Transactions tr " &
+            "INNER JOIN FS_FeeInvoice fi ON tr.INVOICEID = " &
             "  fi.INVOICEID " &
-            "INNER JOIN AIRBRANCH.FSLK_PayType lpt ON lpt.NUMPAYTYPEID = " &
+            "INNER JOIN FSLK_PayType lpt ON lpt.NUMPAYTYPEID = " &
             "  fi.STRPAYTYPE " &
-            "WHERE tr.DATTRANSACTIONDATE BETWEEN :StartDate AND :EndDate AND " &
+            "WHERE tr.DATTRANSACTIONDATE BETWEEN @StartDate AND @EndDate AND " &
             "  tr.ACTIVE = '1' AND fi.ACTIVE = '1' " &
             "ORDER BY tr.STRBATCHNO"
-        Dim parameters As OracleParameter() = {
-            New OracleParameter("StartDate", dtpDepositReportStartDate.Value),
-            New OracleParameter("EndDate", dtpDepositReportEndDate.Value)
+        Dim parameters As SqlParameter() = {
+            New SqlParameter("@StartDate", dtpDepositReportStartDate.Value),
+            New SqlParameter("@EndDate", dtpDepositReportEndDate.Value)
         }
 
         dtDeposit = DB.GetDataTable(query, parameters)
     End Sub
 
-    Sub DeleteInvoice()
+    Private Sub DeleteInvoice()
         Try
 
             Dim Result As DialogResult = MessageBox.Show("Are you sure you want to remove Invoice # " & txtInvoiceForDeposit.Text & " for AIRS # - " & mtbAIRSNumber.Text & "?",
@@ -129,9 +127,9 @@ Public Class PASPDepositsAmendments
                 Exit Sub
             End If
 
-            Dim query As String = "Delete AIRBRANCH.FSAddPaid " &
-            "where intPayID = :trID"
-            Dim param As New OracleParameter("trID", txtTransactionID.Text)
+            Dim query As String = "Delete FSAddPaid " &
+            "where intPayID = @trID"
+            Dim param As New SqlParameter("@trID", txtTransactionID.Text)
             DB.RunCommand(query, param)
 
             btnSearchDeposits.Enabled = False
@@ -155,35 +153,37 @@ Public Class PASPDepositsAmendments
             DTPBatchDepositDateField.Text = Date.Today
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub ViewInvoices()
+
+    Private Sub ViewInvoices()
         Dim query As String
-        Dim param() As OracleParameter
+        Dim param() As SqlParameter
 
         If txtCheckNumber.Text <> "" Then
             query = "select " &
-                "substr(AIRBRANCH.FS_FeeInvoice.strAIRSnumber, 5) as strAIRSNumber, " &
+                "substring(FS_FeeInvoice.strAIRSnumber, 5, 8) as strAIRSNumber, " &
                 "strDepositNo, datTransactionDate, " &
-                "numPayment, AIRBRANCH.FS_FeeInvoice.numFeeYear, " &
+                "numPayment, FS_FeeInvoice.numFeeYear, " &
                 "strCheckNo, strBatchNo, " &
                 "Description, TransactionID, " &
-                "AIRBRANCH.FS_Transactions.strComment, AIRBRANCH.FS_FeeInvoice.InvoiceID, " &
+                "FS_Transactions.strComment, FS_FeeInvoice.InvoiceID, " &
                 "case " &
-                "when AIRBRANCH.FS_Transactions.transactionTypeCode = '1' then numAmount " &
-                "when AIRBRANCH.FS_Transactions.TransactionTypeCode = '2' then numAmount/4 " &
+                "when FS_Transactions.transactionTypeCode = '1' then numAmount " &
+                "when FS_Transactions.TransactionTypeCode = '2' then numAmount/4 " &
                 "else numAmount " &
                 "end FeeDue " &
-                "from AIRBRANCH.FS_Transactions, AIRBRANCH.FS_FeeInvoice, " &
-                "AIRBRANCH.FSLK_TransactionType  " &
-                "where AIRBRANCH.FS_FeeInvoice.InvoiceID = AIRBRANCH.FS_Transactions.INvoiceID (+) " &
-                "and AIRBRANCH.FS_Transactions.transactionTypeCode = AIRBRANCH.FSLK_TransactionType.TransactionTypeCode (+) " &
-                "and strCheckNo like :chknum  " &
-                "and AIRBRANCH.FS_Transactions.Active = '1' " &
-                "and AIRBRANCH.FS_FeeInvoice.Active = '1' " &
+                "from FS_FeeInvoice " &
+                "left join FS_Transactions " &
+                "on FS_FeeInvoice.InvoiceID = FS_Transactions.INvoiceID " &
+                "left join FSLK_TransactionType " &
+                "on FS_Transactions.transactionTypeCode = FSLK_TransactionType.TransactionTypeCode " &
+                "where strCheckNo like @chknum  " &
+                "and FS_Transactions.Active = '1' " &
+                "and FS_FeeInvoice.Active = '1' " &
                 "order by strBatchNo  "
-            param = {New OracleParameter("chknum", "%" & txtCheckNumber.Text & "%")}
+            param = {New SqlParameter("@chknum", "%" & txtCheckNumber.Text & "%")}
         Else
             query = "select " &
                 "distinct  ALLInvoices.strAIRSNumber, strDepositNo, datTransactionDate,  " &
@@ -191,37 +191,42 @@ Public Class PASPDepositsAmendments
                 " strComment,  ALLInvoices.InvoiceID,  " &
                 "FeeDue  " &
                 "from  " &
-                "(select substr(AIRBranch.FS_FeeINvoice.strAIRSnumber, 5) as strAIRSNumber, " &
-                "AIRBranch.FS_FeeINvoice.numFeeYear, AIRBranch.FS_FeeINvoice.InvoiceID " &
-                "from  AIRBranch.FS_FeeInvoice " &
-                "where AIRBranch.FS_FeeInvoice.strAIRSnumber like :airsnum " &
-                "and AIRBranch.FS_FeeInvoice.numFeeYear = :feeyear " &
-                "and AIRBranch.FS_FeeInvoice.Active = '1' " &
+                "(select substring(FS_FeeINvoice.strAIRSnumber, 5, 8) as strAIRSNumber, " &
+                "FS_FeeINvoice.numFeeYear, FS_FeeINvoice.InvoiceID " &
+                "from  FS_FeeInvoice " &
+                "where FS_FeeInvoice.strAIRSnumber like @airsnum " &
+                "and FS_FeeInvoice.numFeeYear = @feeyear " &
+                "and FS_FeeInvoice.Active = '1' " &
                 "union " &
-                "select distinct substr(AIRBranch.FS_FeeINvoice.strAIRSnumber, 5) as strAIRSNumber, " &
-                "AIRBranch.FS_FeeINvoice.numFeeYear, AIRBranch.FS_FeeINvoice.InvoiceID " &
-                "from AIRBranch.FS_Transactions, AIRBranch.FS_FeeInvoice, AIRBranch.FSLK_TransactionType  " &
-                "where AIRBranch.FS_FeeINvoice.InvoiceID = AIRBranch.FS_Transactions.INvoiceID (+) " &
-                "and AIRBranch.FS_Transactions.transactionTypeCode = AIRBranch.FSLK_TransactionType.TransactionTypeCode (+) " &
-                "and AIRBranch.FS_FeeInvoice.strAIRSnumber like :airsnum " &
-                "and AIRBranch.FS_FeeInvoice.numFeeYear = :feeyear and AIRBranch.FS_FeeInvoice.Active = '1' " &
-                "and AIRBranch.FS_Transactions.Active = '1'  ) ALLInvoices,  " &
-                "(select distinct substr(AIRBranch.FS_FeeINvoice.strAIRSnumber, 5) as strAIRSNumber, strDepositNo, datTransactionDate, " &
-                "numPayment, AIRBranch.FS_FeeINvoice.numFeeYear, strCheckNo, strBatchNo, Description, TransactionID, " &
-                "AIRBranch.FS_Transactions.strComment, AIRBranch.FS_FeeINvoice.InvoiceID, " &
-                "case when AIRBranch.FS_Transactions.transactionTypeCode = '1' then numAmount " &
-                "when AIRBranch.FS_Transactions.TransactionTypeCode = '2' then numAmount/4 else numAmount end FeeDue " &
-                "from AIRBranch.FS_Transactions, AIRBranch.FS_FeeInvoice, AIRBranch.FSLK_TransactionType  " &
-                "where AIRBranch.FS_FeeINvoice.InvoiceID = AIRBranch.FS_Transactions.INvoiceID (+) " &
-                "and AIRBranch.FS_Transactions.transactionTypeCode = AIRBranch.FSLK_TransactionType.TransactionTypeCode (+) " &
-                "and AIRBranch.FS_FeeInvoice.strAIRSnumber like :airsnum " &
-                "and AIRBranch.FS_FeeInvoice.numFeeYear = :feeyear " &
-                "and AIRBranch.FS_FeeInvoice.Active = '1' " &
-                "and AIRBranch.FS_Transactions.Active = '1' order by strBatchNo) Transactions " &
-                "where Allinvoices.InvoiceID = Transactions.InvoiceID  (+) "
+                "select distinct substring(FS_FeeINvoice.strAIRSnumber, 5, 8) as strAIRSNumber, " &
+                "FS_FeeINvoice.numFeeYear, FS_FeeINvoice.InvoiceID " &
+                "from FS_FeeInvoice " &
+                "left join FS_Transactions " &
+                "on FS_FeeINvoice.InvoiceID = FS_Transactions.INvoiceID " &
+                "left join FSLK_TransactionType  " &
+                "on FS_Transactions.transactionTypeCode = FSLK_TransactionType.TransactionTypeCode " &
+                "where FS_FeeInvoice.strAIRSnumber like @airsnum " &
+                "and FS_FeeInvoice.numFeeYear = @feeyear and FS_FeeInvoice.Active = '1' " &
+                "and FS_Transactions.Active = '1'  ) ALLInvoices " &
+                "left join (select distinct substring(FS_FeeINvoice.strAIRSnumber, 5, 8) as strAIRSNumber, strDepositNo, datTransactionDate, " &
+                "numPayment, FS_FeeINvoice.numFeeYear, strCheckNo, strBatchNo, Description, TransactionID, " &
+                "FS_Transactions.strComment, FS_FeeINvoice.InvoiceID, " &
+                "case when FS_Transactions.transactionTypeCode = '1' then numAmount " &
+                "when FS_Transactions.TransactionTypeCode = '2' then numAmount/4 else numAmount end FeeDue " &
+                "from FS_FeeInvoice " &
+                "left join FS_Transactions " &
+                "on FS_FeeINvoice.InvoiceID = FS_Transactions.INvoiceID " &
+                "left join FSLK_TransactionType " &
+                "on FS_Transactions.transactionTypeCode = FSLK_TransactionType.TransactionTypeCode " &
+                "where FS_FeeInvoice.strAIRSnumber like @airsnum " &
+                "and FS_FeeInvoice.numFeeYear = @feeyear " &
+                "and FS_FeeInvoice.Active = '1' " &
+                "and FS_Transactions.Active = '1' ) Transactions " &
+                "on Allinvoices.InvoiceID = Transactions.InvoiceID " &
+                "order by strBatchNo "
             param = {
-                New OracleParameter("airsnum", "%" & mtbAIRSNumber.Text & "%"),
-                New OracleParameter("feeyear", mtbFeeYear.Text)
+                New SqlParameter("@airsnum", "%" & mtbAIRSNumber.Text & "%"),
+                New SqlParameter("@feeyear", mtbFeeYear.Text)
             }
 
         End If
@@ -229,7 +234,7 @@ Public Class PASPDepositsAmendments
         dtInvoice = DB.GetDataTable(query, param)
     End Sub
 
-    Private Sub btnSearchDeposits_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSearchDeposits.Click
+    Private Sub btnSearchDeposits_Click(sender As Object, e As EventArgs) Handles btnSearchDeposits.Click
         btnSearchDeposits.Enabled = False
 
         bgwDeposits.WorkerReportsProgress = True
@@ -237,7 +242,7 @@ Public Class PASPDepositsAmendments
         bgwDeposits.RunWorkerAsync()
     End Sub
 
-    Private Sub lblViewInvoices_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblViewInvoices.LinkClicked
+    Private Sub lblViewInvoices_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblViewInvoices.LinkClicked
         lblAIRSNumber.Text = "AIRS #"
         lblFacilityName.Text = "Facility Name"
         mtbFeeYear2.Clear()
@@ -263,7 +268,7 @@ Public Class PASPDepositsAmendments
         End If
     End Sub
 
-    Private Sub dgvDeposits_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvDeposits.MouseUp
+    Private Sub dgvDeposits_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvDeposits.MouseUp
         Try
             Dim hti As DataGridView.HitTestInfo = dgvDeposits.HitTest(e.X, e.Y)
 
@@ -351,11 +356,11 @@ Public Class PASPDepositsAmendments
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub dgvInvoices_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvInvoices.MouseUp
+    Private Sub dgvInvoices_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvInvoices.MouseUp
         Try
             Dim hti As DataGridView.HitTestInfo = dgvInvoices.HitTest(e.X, e.Y)
 
@@ -437,16 +442,16 @@ Public Class PASPDepositsAmendments
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub btnAddNewCheckDeposit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAddNewCheckDeposit.Click
+    Private Sub btnAddNewCheckDeposit_Click(sender As Object, e As EventArgs) Handles btnAddNewCheckDeposit.Click
         Try
             If ValidateData() Then
                 If txtTransactionID.Text = "" Then
                     Dim query As String = "INSERT " &
-                        "INTO AIRBRANCH.FS_TRANSACTIONS " &
+                        "INTO FS_TRANSACTIONS " &
                         "  ( " &
                         "    TRANSACTIONID, INVOICEID, TRANSACTIONTYPECODE, " &
                         "    DATTRANSACTIONDATE, NUMPAYMENT, STRCHECKNO, STRDEPOSITNO, " &
@@ -456,28 +461,28 @@ Public Class PASPDepositsAmendments
                         "  ) " &
                         "  VALUES " &
                         "  ( " &
-                        "    AIRBRANCH.SEQ_FS_TRANSACTIONS.nextval, :INVOICEID, " &
-                        "    :TRANSACTIONTYPECODE, :DATTRANSACTIONDATE, :NUMPAYMENT, " &
-                        "    :STRCHECKNO, :STRDEPOSITNO, :STRBATCHNO, :STRENTRYPERSON, " &
-                        "    :STRCOMMENT, :ACTIVE, :UPDATEUSER, sysdate, sysdate, " &
-                        "    :STRAIRSNUMBER, :NUMFEEYEAR, :STRCREDITCARDNO " &
+                        "    NEXT VALUE FOR SEQ_FS_TRANSACTIONS, @INVOICEID, " &
+                        "    @TRANSACTIONTYPECODE, @DATTRANSACTIONDATE, @NUMPAYMENT, " &
+                        "    @STRCHECKNO, @STRDEPOSITNO, @STRBATCHNO, @STRENTRYPERSON, " &
+                        "    @STRCOMMENT, @ACTIVE, @UPDATEUSER, getdate(), getdate(), " &
+                        "    @STRAIRSNUMBER, @NUMFEEYEAR, @STRCREDITCARDNO " &
                         "  ) "
-                    Dim param() As OracleParameter
+                    Dim param() As SqlParameter
                     param = {
-                        New OracleParameter("INVOICEID", txtInvoiceForDeposit.Text),
-                        New OracleParameter("TRANSACTIONTYPECODE", "1"),
-                        New OracleParameter("DATTRANSACTIONDATE", DTPBatchDepositDateField.Text),
-                        New OracleParameter("NUMPAYMENT", Replace(Replace(txtDepositAmount.Text, ",", ""), "$", "")),
-                        New OracleParameter("STRCHECKNO", txtCheckNumberField.Text),
-                        New OracleParameter("STRDEPOSITNO", txtDepositNumberField.Text),
-                        New OracleParameter("STRBATCHNO", txtBatchNoField.Text),
-                        New OracleParameter("STRENTRYPERSON", CurrentUser.UserID),
-                        New OracleParameter("STRCOMMENT", txtDepositComments.Text),
-                        New OracleParameter("ACTIVE", "1"),
-                        New OracleParameter("UPDATEUSER", CurrentUser.UserID),
-                        New OracleParameter("STRAIRSNUMBER", "0413" & mtbAIRSNumber.Text),
-                        New OracleParameter("NUMFEEYEAR", mtbFeeYear2.Text),
-                        New OracleParameter("STRCREDITCARDNO", txtCreditCardNo.Text)
+                        New SqlParameter("@INVOICEID", txtInvoiceForDeposit.Text),
+                        New SqlParameter("@TRANSACTIONTYPECODE", "1"),
+                        New SqlParameter("@DATTRANSACTIONDATE", DTPBatchDepositDateField.Text),
+                        New SqlParameter("@NUMPAYMENT", Replace(Replace(txtDepositAmount.Text, ",", ""), "$", "")),
+                        New SqlParameter("@STRCHECKNO", txtCheckNumberField.Text),
+                        New SqlParameter("@STRDEPOSITNO", txtDepositNumberField.Text),
+                        New SqlParameter("@STRBATCHNO", txtBatchNoField.Text),
+                        New SqlParameter("@STRENTRYPERSON", CurrentUser.UserID),
+                        New SqlParameter("@STRCOMMENT", txtDepositComments.Text),
+                        New SqlParameter("@ACTIVE", "1"),
+                        New SqlParameter("@UPDATEUSER", CurrentUser.UserID),
+                        New SqlParameter("@STRAIRSNUMBER", "0413" & mtbAIRSNumber.Text),
+                        New SqlParameter("@NUMFEEYEAR", mtbFeeYear2.Text),
+                        New SqlParameter("@STRCREDITCARDNO", txtCreditCardNo.Text)
                     }
                     DB.RunCommand(query, param)
 
@@ -508,73 +513,73 @@ Public Class PASPDepositsAmendments
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub InvoiceStatusCheck(ByVal invoiceID As String)
+    Private Sub InvoiceStatusCheck(invoiceID As String)
         Try
             Dim query As String = "select " &
             "(invoiceTotal - PaymentTotal) as Balance " &
             "from (select " &
             "sum(numAmount) as InvoiceTotal " &
-            "from airbranch.FS_Feeinvoice " &
-            "where invoiceid = :invID " &
+            "from FS_Feeinvoice " &
+            "where invoiceid = @invID " &
             "and Active = '1' ) INVOICED, " &
             "(select " &
             "sum(numPayment) as PaymentTotal " &
-            "from airbranch.FS_TRANSACTIONS " &
-            "where invoiceid = :invID " &
+            "from FS_TRANSACTIONS " &
+            "where invoiceid = @invID " &
             "and Active = '1' ) Payments "
-            Dim param As New OracleParameter("invID", invoiceID)
+            Dim param As New SqlParameter("@invID", invoiceID)
 
-            Dim result As String = DB.GetSingleValue(Of String)(query, param)
+            Dim result As String = DB.GetString(query, param)
             If String.IsNullOrWhiteSpace(result) Then
                 result = "1"
             End If
 
             If result <> "0" Then
-                query = "Update AIRBRANCH.FS_FeeInvoice set " &
+                query = "Update FS_FeeInvoice set " &
                 "strInvoicestatus = '0' " &
-                "where invoiceId = :invID "
+                "where invoiceId = @invID "
             Else
-                query = "Update AIRBRANCH.FS_FeeInvoice set " &
+                query = "Update FS_FeeInvoice set " &
                 "strInvoicestatus = '1' " &
-                "where invoiceId = : invID "
+                "where invoiceId = @invID "
             End If
             DB.RunCommand(query, param)
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub btnUpdateExistingDeposit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnUpdateExistingDeposit.Click
+    Private Sub btnUpdateExistingDeposit_Click(sender As Object, e As EventArgs) Handles btnUpdateExistingDeposit.Click
         Try
             If txtTransactionID.Text <> "" Then
                 If ValidateData() Then
                     If txtTransactionID.Text <> "" Then
-                        Dim query As String = "UPDATE AIRBRANCH.FS_TRANSACTIONS " &
-                            "SET INVOICEID = :INVOICEID, TRANSACTIONTYPECODE = " &
-                            "  :TRANSACTIONTYPECODE, DATTRANSACTIONDATE = " &
-                            "  :DATTRANSACTIONDATE, NUMPAYMENT = :NUMPAYMENT, STRCHECKNO = " &
-                            "  :STRCHECKNO, STRDEPOSITNO = :STRDEPOSITNO, STRBATCHNO = " &
-                            "  :STRBATCHNO, STRCOMMENT = :STRCOMMENT, ACTIVE = :ACTIVE, " &
-                            "  UPDATEUSER = :UPDATEUSER, UPDATEDATETIME = sysdate, " &
-                            "  STRCREDITCARDNO = :STRCREDITCARDNO " &
-                            "WHERE TRANSACTIONID = :TRANSACTIONID "
-                        Dim param As OracleParameter() = {
-                            New OracleParameter("INVOICEID", txtInvoiceForDeposit.Text),
-                            New OracleParameter("TRANSACTIONTYPECODE", "1"),
-                            New OracleParameter("DATTRANSACTIONDATE", DTPBatchDepositDateField.Text),
-                            New OracleParameter("NUMPAYMENT", Replace(Replace(txtDepositAmount.Text, ",", ""), "$", "")),
-                            New OracleParameter("STRCHECKNO", txtCheckNumberField.Text),
-                            New OracleParameter("STRDEPOSITNO", txtDepositNumberField.Text),
-                            New OracleParameter("STRBATCHNO", txtBatchNoField.Text),
-                            New OracleParameter("STRCOMMENT", txtDepositComments.Text),
-                            New OracleParameter("ACTIVE", "1"),
-                            New OracleParameter("UPDATEUSER", CurrentUser.UserID),
-                            New OracleParameter("STRCREDITCARDNO", txtCreditCardNo.Text),
-                            New OracleParameter("TRANSACTIONID", txtTransactionID.Text)
+                        Dim query As String = "UPDATE FS_TRANSACTIONS " &
+                            "SET INVOICEID = @INVOICEID, TRANSACTIONTYPECODE = " &
+                            "  @TRANSACTIONTYPECODE, DATTRANSACTIONDATE = " &
+                            "  @DATTRANSACTIONDATE, NUMPAYMENT = @NUMPAYMENT, STRCHECKNO = " &
+                            "  @STRCHECKNO, STRDEPOSITNO = @STRDEPOSITNO, STRBATCHNO = " &
+                            "  @STRBATCHNO, STRCOMMENT = @STRCOMMENT, ACTIVE = @ACTIVE, " &
+                            "  UPDATEUSER = @UPDATEUSER, UPDATEDATETIME = getdate(), " &
+                            "  STRCREDITCARDNO = @STRCREDITCARDNO " &
+                            "WHERE TRANSACTIONID = @TRANSACTIONID "
+                        Dim param As SqlParameter() = {
+                            New SqlParameter("@INVOICEID", txtInvoiceForDeposit.Text),
+                            New SqlParameter("@TRANSACTIONTYPECODE", "1"),
+                            New SqlParameter("@DATTRANSACTIONDATE", DTPBatchDepositDateField.Text),
+                            New SqlParameter("@NUMPAYMENT", Replace(Replace(txtDepositAmount.Text, ",", ""), "$", "")),
+                            New SqlParameter("@STRCHECKNO", txtCheckNumberField.Text),
+                            New SqlParameter("@STRDEPOSITNO", txtDepositNumberField.Text),
+                            New SqlParameter("@STRBATCHNO", txtBatchNoField.Text),
+                            New SqlParameter("@STRCOMMENT", txtDepositComments.Text),
+                            New SqlParameter("@ACTIVE", "1"),
+                            New SqlParameter("@UPDATEUSER", CurrentUser.UserID),
+                            New SqlParameter("@STRCREDITCARDNO", txtCreditCardNo.Text),
+                            New SqlParameter("@TRANSACTIONID", txtTransactionID.Text)
                         }
                         DB.RunCommand(query, param)
                     Else
@@ -609,11 +614,11 @@ Public Class PASPDepositsAmendments
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub btnDeleteCheckDeposit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDeleteCheckDeposit.Click
+    Private Sub btnDeleteCheckDeposit_Click(sender As Object, e As EventArgs) Handles btnDeleteCheckDeposit.Click
         Try
             If txtTransactionID.Text = "" Then
                 MsgBox("Select a transaction first.", MsgBoxStyle.Information, Me.Text)
@@ -625,10 +630,10 @@ Public Class PASPDepositsAmendments
                                                          "PASP Fee Tool", MessageBoxButtons.YesNoCancel,
                                                          MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
             If result = System.Windows.Forms.DialogResult.Yes Then
-                Dim query As String = "Update AIRBRANCH.FS_Transactions set " &
+                Dim query As String = "Update FS_Transactions set " &
                         "active = '0' " &
-                        "where TransactionId = :trID "
-                Dim param As New OracleParameter("trID", txtTransactionID.Text)
+                        "where TransactionId = @trID "
+                Dim param As New SqlParameter("@trID", txtTransactionID.Text)
                 DB.RunCommand(query, param)
 
                 btnSearchDeposits.Enabled = False
@@ -659,128 +664,134 @@ Public Class PASPDepositsAmendments
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub btnDeleteInventoryRecords_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDeleteInventoryRecords.Click
+    Private Sub btnDeleteInventoryRecords_Click(sender As Object, e As EventArgs) Handles btnDeleteInventoryRecords.Click
         If txtTransactionID.Text <> "" Then
             DeleteInvoice()
         End If
     End Sub
 
-    Private Sub bgwDeposits_DoWork(ByVal sender As Object, ByVal e As System.ComponentModel.DoWorkEventArgs) Handles bgwDeposits.DoWork
+    Private Sub bgwDeposits_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles bgwDeposits.DoWork
         DepositSearch()
     End Sub
 
-    Private Sub bgwDeposits_RunWorkerCompleted(ByVal sender As Object, ByVal e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bgwDeposits.RunWorkerCompleted
+    Private Sub bgwDeposits_RunWorkerCompleted(sender As Object, e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bgwDeposits.RunWorkerCompleted
         Try
             dgvDeposits.DataSource = dtDeposit
 
-            dgvDeposits.RowHeadersVisible = False
-            dgvDeposits.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvDeposits.AllowUserToResizeColumns = True
-            dgvDeposits.AllowUserToAddRows = False
-            dgvDeposits.AllowUserToDeleteRows = False
-            dgvDeposits.AllowUserToOrderColumns = True
-            dgvDeposits.AllowUserToResizeRows = True
-            dgvDeposits.ColumnHeadersHeight = "35"
-            dgvDeposits.Columns("strairsnumber").HeaderText = "AIRS Number"
-            dgvDeposits.Columns("strairsnumber").DisplayIndex = 0
-            dgvDeposits.Columns("strdepositno").HeaderText = "Deposit Number"
-            dgvDeposits.Columns("strdepositno").DisplayIndex = 1
-            dgvDeposits.Columns("datTransactionDate").HeaderText = "Transaction Date"
-            dgvDeposits.Columns("datTransactionDate").DisplayIndex = 2
-            dgvDeposits.Columns("datTransactionDate").DefaultCellStyle.Format = "dd-MMM-yyyy"
-            dgvDeposits.Columns("numpayment").HeaderText = "Payment"
-            dgvDeposits.Columns("numpayment").DisplayIndex = 3
-            dgvDeposits.Columns("numpayment").DefaultCellStyle.Format = "c"
-            dgvDeposits.Columns("nuMFeeyear").HeaderText = "Year"
-            dgvDeposits.Columns("numFeeyear").DisplayIndex = 4
-            dgvDeposits.Columns("strcheckno").HeaderText = "Check Number"
-            dgvDeposits.Columns("strcheckno").DisplayIndex = 5
-            dgvDeposits.Columns("strCreditCardNo").HeaderText = "Credit Card Conf. #"
-            dgvDeposits.Columns("strCreditCardNo").DisplayIndex = 6
+            If dtDeposit IsNot Nothing Then
+                dgvDeposits.RowHeadersVisible = False
+                dgvDeposits.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
+                dgvDeposits.AllowUserToResizeColumns = True
+                dgvDeposits.AllowUserToAddRows = False
+                dgvDeposits.AllowUserToDeleteRows = False
+                dgvDeposits.AllowUserToOrderColumns = True
+                dgvDeposits.AllowUserToResizeRows = True
+                dgvDeposits.ColumnHeadersHeight = "35"
+                dgvDeposits.Columns("strairsnumber").HeaderText = "AIRS Number"
+                dgvDeposits.Columns("strairsnumber").DisplayIndex = 0
+                dgvDeposits.Columns("strdepositno").HeaderText = "Deposit Number"
+                dgvDeposits.Columns("strdepositno").DisplayIndex = 1
+                dgvDeposits.Columns("datTransactionDate").HeaderText = "Transaction Date"
+                dgvDeposits.Columns("datTransactionDate").DisplayIndex = 2
+                dgvDeposits.Columns("datTransactionDate").DefaultCellStyle.Format = "dd-MMM-yyyy"
+                dgvDeposits.Columns("numpayment").HeaderText = "Payment"
+                dgvDeposits.Columns("numpayment").DisplayIndex = 3
+                dgvDeposits.Columns("numpayment").DefaultCellStyle.Format = "c"
+                dgvDeposits.Columns("nuMFeeyear").HeaderText = "Year"
+                dgvDeposits.Columns("numFeeyear").DisplayIndex = 4
+                dgvDeposits.Columns("strcheckno").HeaderText = "Check Number"
+                dgvDeposits.Columns("strcheckno").DisplayIndex = 5
+                dgvDeposits.Columns("strCreditCardNo").HeaderText = "Credit Card Conf. #"
+                dgvDeposits.Columns("strCreditCardNo").DisplayIndex = 6
 
-            dgvDeposits.Columns("strbatchno").HeaderText = "Batch Number"
-            dgvDeposits.Columns("strbatchno").DisplayIndex = 7
-            dgvDeposits.Columns("strpaytype").HeaderText = "Payment Type"
-            dgvDeposits.Columns("strpaytype").DisplayIndex = 8
-            dgvDeposits.Columns("TransactionID").HeaderText = "Transaction ID"
-            dgvDeposits.Columns("TransactionID").DisplayIndex = 9
-            dgvDeposits.Columns("TransactionID").Visible = True
-            dgvDeposits.Columns("strcomment").HeaderText = "Comments"
-            dgvDeposits.Columns("strcomment").DisplayIndex = 10
-            dgvDeposits.Columns("strcomment").Visible = False
-            dgvDeposits.Columns("invoiceID").HeaderText = "Invoice Number"
-            dgvDeposits.Columns("invoiceID").DisplayIndex = 11
-            dgvDeposits.Columns("invoiceID").Visible = True
+                dgvDeposits.Columns("strbatchno").HeaderText = "Batch Number"
+                dgvDeposits.Columns("strbatchno").DisplayIndex = 7
+                dgvDeposits.Columns("strpaytype").HeaderText = "Payment Type"
+                dgvDeposits.Columns("strpaytype").DisplayIndex = 8
+                dgvDeposits.Columns("TransactionID").HeaderText = "Transaction ID"
+                dgvDeposits.Columns("TransactionID").DisplayIndex = 9
+                dgvDeposits.Columns("TransactionID").Visible = True
+                dgvDeposits.Columns("strcomment").HeaderText = "Comments"
+                dgvDeposits.Columns("strcomment").DisplayIndex = 10
+                dgvDeposits.Columns("strcomment").Visible = False
+                dgvDeposits.Columns("invoiceID").HeaderText = "Invoice Number"
+                dgvDeposits.Columns("invoiceID").DisplayIndex = 11
+                dgvDeposits.Columns("invoiceID").Visible = True
 
+            End If
             txtDepositCount.Text = dgvDeposits.RowCount.ToString
+
             btnSearchDeposits.Enabled = True
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub bgwInvoices_DoWork(ByVal sender As Object, ByVal e As System.ComponentModel.DoWorkEventArgs) Handles bgwInvoices.DoWork
+    Private Sub bgwInvoices_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles bgwInvoices.DoWork
         ViewInvoices()
     End Sub
 
-    Private Sub bgwInvoices_RunWorkerCompleted(ByVal sender As Object, ByVal e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bgwInvoices.RunWorkerCompleted
+    Private Sub bgwInvoices_RunWorkerCompleted(sender As Object, e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bgwInvoices.RunWorkerCompleted
         Try
             dgvInvoices.DataSource = dtInvoice
 
-            dgvInvoices.RowHeadersVisible = False
-            dgvInvoices.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvInvoices.AllowUserToResizeColumns = True
-            dgvInvoices.AllowUserToAddRows = False
-            dgvInvoices.AllowUserToDeleteRows = False
-            dgvInvoices.AllowUserToOrderColumns = True
-            dgvInvoices.AllowUserToResizeRows = True
-            dgvInvoices.ColumnHeadersHeight = "35"
-            dgvInvoices.Columns("strairsnumber").HeaderText = "AIRS Number"
-            dgvInvoices.Columns("strairsnumber").DisplayIndex = 0
-            dgvInvoices.Columns("strdepositno").HeaderText = "Deposit Number"
-            dgvInvoices.Columns("strdepositno").DisplayIndex = 1
-            dgvInvoices.Columns("datTransactionDate").HeaderText = "Deposit Date"
-            dgvInvoices.Columns("datTransactionDate").DisplayIndex = 2
-            dgvInvoices.Columns("datTransactionDate").DefaultCellStyle.Format = "dd-MMM-yyyy"
-            dgvInvoices.Columns("numpayment").HeaderText = "Payment"
-            dgvInvoices.Columns("numpayment").DisplayIndex = 3
-            dgvInvoices.Columns("numpayment").DefaultCellStyle.Format = "c"
-            dgvInvoices.Columns("numFeeyear").HeaderText = "Year"
-            dgvInvoices.Columns("numFeeyear").DisplayIndex = 4
-            dgvInvoices.Columns("strcheckno").HeaderText = "Check Number"
-            dgvInvoices.Columns("strcheckno").DisplayIndex = 5
-            dgvInvoices.Columns("strbatchno").HeaderText = "Batch Number"
-            dgvInvoices.Columns("strbatchno").DisplayIndex = 6
-            dgvInvoices.Columns("Description").HeaderText = "Payment Type"
-            dgvInvoices.Columns("Description").DisplayIndex = 7
-            dgvInvoices.Columns("TransactionID").HeaderText = "Transaction ID"
-            dgvInvoices.Columns("TransactionID").DisplayIndex = 8
-            dgvInvoices.Columns("TransactionID").Visible = False
-            dgvInvoices.Columns("strcomment").HeaderText = "Comments"
-            dgvInvoices.Columns("strcomment").DisplayIndex = 9
-            dgvInvoices.Columns("strcomment").Visible = False
-            dgvInvoices.Columns("InvoiceID").HeaderText = "Invoice Number"
-            dgvInvoices.Columns("InvoiceID").DisplayIndex = 10
-            dgvInvoices.Columns("InvoiceID").Visible = True
-            dgvInvoices.Columns("FeeDue").HeaderText = "Fees Due"
-            dgvInvoices.Columns("FeeDue").DisplayIndex = 11
-            dgvInvoices.Columns("FeeDue").Visible = True
+            If dtInvoice IsNot Nothing Then
+                dgvInvoices.RowHeadersVisible = False
+                dgvInvoices.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
+                dgvInvoices.AllowUserToResizeColumns = True
+                dgvInvoices.AllowUserToAddRows = False
+                dgvInvoices.AllowUserToDeleteRows = False
+                dgvInvoices.AllowUserToOrderColumns = True
+                dgvInvoices.AllowUserToResizeRows = True
+                dgvInvoices.ColumnHeadersHeight = "35"
+                dgvInvoices.Columns("strairsnumber").HeaderText = "AIRS Number"
+                dgvInvoices.Columns("strairsnumber").DisplayIndex = 0
+                dgvInvoices.Columns("strdepositno").HeaderText = "Deposit Number"
+                dgvInvoices.Columns("strdepositno").DisplayIndex = 1
+                dgvInvoices.Columns("datTransactionDate").HeaderText = "Deposit Date"
+                dgvInvoices.Columns("datTransactionDate").DisplayIndex = 2
+                dgvInvoices.Columns("datTransactionDate").DefaultCellStyle.Format = "dd-MMM-yyyy"
+                dgvInvoices.Columns("numpayment").HeaderText = "Payment"
+                dgvInvoices.Columns("numpayment").DisplayIndex = 3
+                dgvInvoices.Columns("numpayment").DefaultCellStyle.Format = "c"
+                dgvInvoices.Columns("numFeeyear").HeaderText = "Year"
+                dgvInvoices.Columns("numFeeyear").DisplayIndex = 4
+                dgvInvoices.Columns("strcheckno").HeaderText = "Check Number"
+                dgvInvoices.Columns("strcheckno").DisplayIndex = 5
+                dgvInvoices.Columns("strbatchno").HeaderText = "Batch Number"
+                dgvInvoices.Columns("strbatchno").DisplayIndex = 6
+                dgvInvoices.Columns("Description").HeaderText = "Payment Type"
+                dgvInvoices.Columns("Description").DisplayIndex = 7
+                dgvInvoices.Columns("TransactionID").HeaderText = "Transaction ID"
+                dgvInvoices.Columns("TransactionID").DisplayIndex = 8
+                dgvInvoices.Columns("TransactionID").Visible = False
+                dgvInvoices.Columns("strcomment").HeaderText = "Comments"
+                dgvInvoices.Columns("strcomment").DisplayIndex = 9
+                dgvInvoices.Columns("strcomment").Visible = False
+                dgvInvoices.Columns("InvoiceID").HeaderText = "Invoice Number"
+                dgvInvoices.Columns("InvoiceID").DisplayIndex = 10
+                dgvInvoices.Columns("InvoiceID").Visible = True
+                dgvInvoices.Columns("FeeDue").HeaderText = "Fees Due"
+                dgvInvoices.Columns("FeeDue").DisplayIndex = 11
+                dgvInvoices.Columns("FeeDue").Visible = True
+            End If
+
             txtCountInvoices.Text = dgvInvoices.RowCount.ToString
             lblViewInvoices.Enabled = True
 
             If mtbAIRSNumber.Text <> "" And dgvInvoices.RowCount = 0 Then
                 Dim query As String = "Select " &
                 "strFacilityName " &
-                "from AIRBRANCH.APBFacilityInformation " &
-                "where strAIRSNumber = :AIRSNumber "
-                Dim param As New OracleParameter("AIRSNumber", New Apb.ApbFacilityId(mtbAIRSNumber.Text).DbFormattedString)
+                "from APBFacilityInformation " &
+                "where strAIRSNumber = @AIRSNumber "
+                Dim param As New SqlParameter("@AIRSNumber", New Apb.ApbFacilityId(mtbAIRSNumber.Text).DbFormattedString)
 
-                Dim facName As String = DB.GetSingleValue(Of String)(query, param)
+                Dim facName As String = DB.GetString(query, param)
 
                 If String.IsNullOrWhiteSpace(facName) Then
                     lblAIRSNumber.Text = "AIRS #: "
@@ -792,7 +803,7 @@ Public Class PASPDepositsAmendments
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
@@ -813,7 +824,7 @@ Public Class PASPDepositsAmendments
         txtCreditCardNo.Clear()
     End Sub
 
-    Private Sub btnClearEntryInformation_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClearEntryInformation.Click
+    Private Sub btnClearEntryInformation_Click(sender As Object, e As EventArgs) Handles btnClearEntryInformation.Click
         ClearForm()
 
         lblViewInvoices.Enabled = False
@@ -825,7 +836,7 @@ Public Class PASPDepositsAmendments
 
 #End Region
 
-    Private Sub btnClearForm_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClearForm.Click
+    Private Sub btnClearForm_Click(sender As Object, e As EventArgs) Handles btnClearForm.Click
         Try
             ClearForm()
             txtBatchNumber.Clear()
@@ -844,11 +855,11 @@ Public Class PASPDepositsAmendments
             bgwInvoices.RunWorkerAsync()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub llbSearchForCheck_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbSearchForCheck.LinkClicked
+    Private Sub llbSearchForCheck_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbSearchForCheck.LinkClicked
         Try
             lblAIRSNumber.Text = "AIRS #"
             lblFacilityName.Text = "Facility Name"
@@ -873,13 +884,13 @@ Public Class PASPDepositsAmendments
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub llbSearchForInvoice_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbSearchForInvoice.LinkClicked
+    Private Sub llbSearchForInvoice_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbSearchForInvoice.LinkClicked
         Dim query As String
-        Dim param As OracleParameter()
+        Dim param As SqlParameter()
 
         Try
             lblAIRSNumber.Text = "AIRS #"
@@ -903,34 +914,39 @@ Public Class PASPDepositsAmendments
                     " strComment,  ALLInvoices.InvoiceID,  " &
                     "FeeDue  " &
                     "from  " &
-                    "(select substr(AIRBranch.FS_FeeINvoice.strAIRSnumber, 5) as strAIRSNumber, " &
-                    "AIRBranch.FS_FeeINvoice.numFeeYear, AIRBranch.FS_FeeINvoice.InvoiceID " &
-                    "from  AIRBranch.FS_FeeInvoice " &
-                    "where AIRBRANCH.FS_FeeInvoice.InvoiceID like :invID " &
-                    "and AIRBranch.FS_FeeInvoice.Active = '1' " &
+                    "(select substring(FS_FeeINvoice.strAIRSnumber, 5, 8) as strAIRSNumber, " &
+                    "FS_FeeINvoice.numFeeYear, FS_FeeINvoice.InvoiceID " &
+                    "from  FS_FeeInvoice " &
+                    "where FS_FeeInvoice.InvoiceID like @invID " &
+                    "and FS_FeeInvoice.Active = '1' " &
                     "union " &
-                    "select distinct substr(AIRBranch.FS_FeeINvoice.strAIRSnumber, 5) as strAIRSNumber, " &
-                    "AIRBranch.FS_FeeINvoice.numFeeYear, AIRBranch.FS_FeeINvoice.InvoiceID " &
-                    "from AIRBranch.FS_Transactions, AIRBranch.FS_FeeInvoice, AIRBranch.FSLK_TransactionType  " &
-                    "where AIRBranch.FS_FeeINvoice.InvoiceID = AIRBranch.FS_Transactions.INvoiceID (+) " &
-                    "and AIRBranch.FS_Transactions.transactionTypeCode = AIRBranch.FSLK_TransactionType.TransactionTypeCode (+) " &
-                    "and AIRBRANCH.FS_FeeInvoice.InvoiceID like :invID " &
-                    "and AIRBranch.FS_FeeInvoice.Active = '1' " &
-                    "and AIRBranch.FS_Transactions.Active = '1'  ) ALLInvoices,  " &
-                    "(select distinct substr(AIRBranch.FS_FeeINvoice.strAIRSnumber, 5) as strAIRSNumber, " &
+                    "select distinct substring(FS_FeeINvoice.strAIRSnumber, 5, 8) as strAIRSNumber, " &
+                    "FS_FeeINvoice.numFeeYear, FS_FeeINvoice.InvoiceID " &
+                    "from FS_Transactions " &
+                    "right join FS_FeeInvoice " &
+                    "on FS_FeeINvoice.InvoiceID = FS_Transactions.INvoiceID " &
+                    "left join FSLK_TransactionType  " &
+                    "on FS_Transactions.transactionTypeCode = FSLK_TransactionType.TransactionTypeCode " &
+                    "where FS_FeeInvoice.InvoiceID like @invID " &
+                    "and FS_FeeInvoice.Active = '1' " &
+                    "and FS_Transactions.Active = '1'  ) ALLInvoices " &
+                    "left join (select distinct substring(FS_FeeINvoice.strAIRSnumber, 5, 8) as strAIRSNumber, " &
                     "strDepositNo, datTransactionDate, " &
-                    "numPayment, AIRBranch.FS_FeeINvoice.numFeeYear, strCheckNo, strBatchNo, Description, TransactionID, " &
-                    "AIRBranch.FS_Transactions.strComment, AIRBranch.FS_FeeINvoice.InvoiceID, " &
-                    "case when AIRBranch.FS_Transactions.transactionTypeCode = '1' then numAmount " &
-                    "when AIRBranch.FS_Transactions.TransactionTypeCode = '2' then numAmount/4 else numAmount end FeeDue " &
-                    "from AIRBranch.FS_Transactions, AIRBranch.FS_FeeInvoice, AIRBranch.FSLK_TransactionType  " &
-                    "where AIRBranch.FS_FeeINvoice.InvoiceID = AIRBranch.FS_Transactions.INvoiceID (+) " &
-                    "and AIRBranch.FS_Transactions.transactionTypeCode = AIRBranch.FSLK_TransactionType.TransactionTypeCode (+) " &
-                    "and AIRBranch.FS_FeeInvoice.Active = '1' " &
-                    "and AIRBranch.FS_Transactions.Active = '1' order by strBatchNo) Transactions " &
-                    "where Allinvoices.InvoiceID = Transactions.InvoiceID  (+) "
+                    "numPayment, FS_FeeINvoice.numFeeYear, strCheckNo, strBatchNo, Description, TransactionID, " &
+                    "FS_Transactions.strComment, FS_FeeINvoice.InvoiceID, " &
+                    "case when FS_Transactions.transactionTypeCode = '1' then numAmount " &
+                    "when FS_Transactions.TransactionTypeCode = '2' then numAmount/4 else numAmount end FeeDue " &
+                    "from FS_Transactions " &
+                    "right join FS_FeeInvoice " &
+                    "on FS_FeeINvoice.InvoiceID = FS_Transactions.INvoiceID " &
+                    "left join FSLK_TransactionType  " &
+                    "on FS_Transactions.transactionTypeCode = FSLK_TransactionType.TransactionTypeCode " &
+                    "where FS_FeeInvoice.Active = '1' " &
+                    "and FS_Transactions.Active = '1' ) Transactions " &
+                    "on Allinvoices.InvoiceID = Transactions.InvoiceID " &
+                    "order by strBatchNo "
 
-                    param = {New OracleParameter("invID", "%" & txtSearchInvoice.Text & "%")}
+                    param = {New SqlParameter("@invID", "%" & txtSearchInvoice.Text & "%")}
                 Else
                     query = "select " &
                         "distinct  ALLInvoices.strAIRSNumber, strDepositNo, datTransactionDate,  " &
@@ -938,37 +954,42 @@ Public Class PASPDepositsAmendments
                         " strComment,  ALLInvoices.InvoiceID,  " &
                         "FeeDue  " &
                         "from  " &
-                        "(select substr(AIRBranch.FS_FeeINvoice.strAIRSnumber, 5) as strAIRSNumber, " &
-                        "AIRBranch.FS_FeeINvoice.numFeeYear, AIRBranch.FS_FeeINvoice.InvoiceID " &
-                        "from  AIRBranch.FS_FeeInvoice " &
-                        "where AIRBranch.FS_FeeInvoice.strAIRSnumber like :airs " &
-                        "and AIRBranch.FS_FeeInvoice.numFeeYear = :feeyear " &
-                        "and AIRBranch.FS_FeeInvoice.Active = '1' " &
+                        "(select substring(FS_FeeINvoice.strAIRSnumber, 5, 8) as strAIRSNumber, " &
+                        "FS_FeeINvoice.numFeeYear, FS_FeeINvoice.InvoiceID " &
+                        "from  FS_FeeInvoice " &
+                        "where FS_FeeInvoice.strAIRSnumber like @airs " &
+                        "and FS_FeeInvoice.numFeeYear = @feeyear " &
+                        "and FS_FeeInvoice.Active = '1' " &
                         "union " &
-                        "select distinct substr(AIRBranch.FS_FeeINvoice.strAIRSnumber, 5) as strAIRSNumber, " &
-                        "AIRBranch.FS_FeeINvoice.numFeeYear, AIRBranch.FS_FeeINvoice.InvoiceID " &
-                        "from AIRBranch.FS_Transactions, AIRBranch.FS_FeeInvoice, AIRBranch.FSLK_TransactionType  " &
-                        "where AIRBranch.FS_FeeINvoice.InvoiceID = AIRBranch.FS_Transactions.INvoiceID (+) " &
-                        "and AIRBranch.FS_Transactions.transactionTypeCode = AIRBranch.FSLK_TransactionType.TransactionTypeCode (+) " &
-                        "and AIRBranch.FS_FeeInvoice.strAIRSnumber like :airs " &
-                        "and AIRBranch.FS_FeeInvoice.numFeeYear = :feeyear and AIRBranch.FS_FeeInvoice.Active = '1' " &
-                        "and AIRBranch.FS_Transactions.Active = '1'  ) ALLInvoices,  " &
-                        "(select distinct substr(AIRBranch.FS_FeeINvoice.strAIRSnumber, 5) as strAIRSNumber, strDepositNo, datTransactionDate, " &
-                        "numPayment, AIRBranch.FS_FeeINvoice.numFeeYear, strCheckNo, strBatchNo, Description, TransactionID, " &
-                        "AIRBranch.FS_Transactions.strComment, AIRBranch.FS_FeeINvoice.InvoiceID, " &
-                        "case when AIRBranch.FS_Transactions.transactionTypeCode = '1' then numAmount " &
-                        "when AIRBranch.FS_Transactions.TransactionTypeCode = '2' then numAmount/4 else numAmount end FeeDue " &
-                        "from AIRBranch.FS_Transactions, AIRBranch.FS_FeeInvoice, AIRBranch.FSLK_TransactionType  " &
-                        "where AIRBranch.FS_FeeINvoice.InvoiceID = AIRBranch.FS_Transactions.INvoiceID (+) " &
-                        "and AIRBranch.FS_Transactions.transactionTypeCode = AIRBranch.FSLK_TransactionType.TransactionTypeCode (+) " &
-                        "and AIRBranch.FS_FeeInvoice.strAIRSnumber like :airsnum " &
-                        "and AIRBranch.FS_FeeInvoice.numFeeYear = :feeyear " &
-                        "and AIRBranch.FS_FeeInvoice.Active = '1' " &
-                        "and AIRBranch.FS_Transactions.Active = '1' order by InvoiceID desc) Transactions " &
-                        "where Allinvoices.InvoiceID = Transactions.InvoiceID  (+) "
+                        "select distinct substring(FS_FeeINvoice.strAIRSnumber, 5, 8) as strAIRSNumber, " &
+                        "FS_FeeINvoice.numFeeYear, FS_FeeINvoice.InvoiceID " &
+                        "from FS_Transactions " &
+                        "right join FS_FeeInvoice " &
+                        "on FS_FeeINvoice.InvoiceID = FS_Transactions.INvoiceID " &
+                        "left join FSLK_TransactionType  " &
+                        "on FS_Transactions.transactionTypeCode = FSLK_TransactionType.TransactionTypeCode " &
+                        "where FS_FeeInvoice.strAIRSnumber like @airs " &
+                        "and FS_FeeInvoice.numFeeYear = @feeyear and FS_FeeInvoice.Active = '1' " &
+                        "and FS_Transactions.Active = '1'  ) ALLInvoices " &
+                        "left join (select distinct substring(FS_FeeINvoice.strAIRSnumber, 5, 8) as strAIRSNumber, strDepositNo, datTransactionDate, " &
+                        "numPayment, FS_FeeINvoice.numFeeYear, strCheckNo, strBatchNo, Description, TransactionID, " &
+                        "FS_Transactions.strComment, FS_FeeINvoice.InvoiceID, " &
+                        "case when FS_Transactions.transactionTypeCode = '1' then numAmount " &
+                        "when FS_Transactions.TransactionTypeCode = '2' then numAmount/4 else numAmount end FeeDue " &
+                        "from FS_Transactions " &
+                        "right join FS_FeeInvoice " &
+                        "on FS_FeeINvoice.InvoiceID = FS_Transactions.INvoiceID " &
+                        "left join FSLK_TransactionType  " &
+                        "on FS_Transactions.transactionTypeCode = FSLK_TransactionType.TransactionTypeCode " &
+                        "where FS_FeeInvoice.strAIRSnumber like @airsnum " &
+                        "and FS_FeeInvoice.numFeeYear = @feeyear " &
+                        "and FS_FeeInvoice.Active = '1' " &
+                        "and FS_Transactions.Active = '1' ) Transactions " &
+                        "on Allinvoices.InvoiceID = Transactions.InvoiceID " &
+                        "order by InvoiceID desc "
                     param = {
-                        New OracleParameter("airs", "0413%" & mtbAIRSNumber.Text & "%"),
-                        New OracleParameter("feeyear", mtbFeeYear.Text)
+                        New SqlParameter("@airs", "0413%" & mtbAIRSNumber.Text & "%"),
+                        New SqlParameter("@feeyear", mtbFeeYear.Text)
                     }
                 End If
                 dtInvoice = DB.GetDataTable(query, param)
@@ -1019,11 +1040,11 @@ Public Class PASPDepositsAmendments
                 If mtbAIRSNumber.Text <> "" And dgvInvoices.RowCount = 0 Then
                     query = "Select " &
                         "strFacilityName " &
-                        "from AIRBRANCH.APBFacilityInformation " &
-                        "where strAIRSNumber = :AIRSNumber "
-                    param = {New OracleParameter("AIRSNumber", New Apb.ApbFacilityId(mtbAIRSNumber.Text).DbFormattedString)}
+                        "from APBFacilityInformation " &
+                        "where strAIRSNumber = @AIRSNumber "
+                    param = {New SqlParameter("@AIRSNumber", New Apb.ApbFacilityId(mtbAIRSNumber.Text).DbFormattedString)}
 
-                    Dim facName As String = DB.GetSingleValue(Of String)(query, param)
+                    Dim facName As String = DB.GetString(query, param)
 
                     If String.IsNullOrWhiteSpace(facName) Then
                         lblAIRSNumber.Text = "AIRS #: "
@@ -1038,7 +1059,7 @@ Public Class PASPDepositsAmendments
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 

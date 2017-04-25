@@ -23,183 +23,166 @@ Partial Class PASPFeeManagement
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(PASPFeeManagement))
-        Me.FeeManagementTabControl = New System.Windows.Forms.TabControl
-        Me.TPFeeAdminTools = New System.Windows.Forms.TabPage
-        Me.TabControl2 = New System.Windows.Forms.TabControl
-        Me.TabPage1 = New System.Windows.Forms.TabPage
-        Me.Panel12 = New System.Windows.Forms.Panel
-        Me.dgvFeeRates = New System.Windows.Forms.DataGridView
-        Me.Label16 = New System.Windows.Forms.Label
-        Me.txtNonAttainmentThreshold = New System.Windows.Forms.TextBox
-        Me.Label15 = New System.Windows.Forms.Label
-        Me.txtAttainmentThreshold = New System.Windows.Forms.TextBox
-        Me.Label12 = New System.Windows.Forms.Label
-        Me.dtpFourthQrtDue = New System.Windows.Forms.DateTimePicker
-        Me.Label14 = New System.Windows.Forms.Label
-        Me.dtpThirdQrtDue = New System.Windows.Forms.DateTimePicker
-        Me.Label11 = New System.Windows.Forms.Label
-        Me.dtpSecondQrtDue = New System.Windows.Forms.DateTimePicker
-        Me.Label9 = New System.Windows.Forms.Label
-        Me.dtpFirstQrtDue = New System.Windows.Forms.DateTimePicker
-        Me.btnReloadFeeRate = New System.Windows.Forms.Button
-        Me.Label19 = New System.Windows.Forms.Label
-        Me.Label37 = New System.Windows.Forms.Label
-        Me.dtpFeeDueDate = New System.Windows.Forms.DateTimePicker
-        Me.btnViewDeletedFeeRates = New System.Windows.Forms.Button
-        Me.btnDeleteFeeRate = New System.Windows.Forms.Button
-        Me.btnClearFeeData = New System.Windows.Forms.Button
-        Me.btnUpdateFeeData = New System.Windows.Forms.Button
-        Me.Label36 = New System.Windows.Forms.Label
-        Me.txtFeeNotes = New System.Windows.Forms.TextBox
-        Me.Label35 = New System.Windows.Forms.Label
-        Me.txtFeeYear = New System.Windows.Forms.TextBox
-        Me.Label34 = New System.Windows.Forms.Label
-        Me.txtFeeID = New System.Windows.Forms.TextBox
-        Me.Label248 = New System.Windows.Forms.Label
-        Me.dtpFeePeriodStart = New System.Windows.Forms.DateTimePicker
-        Me.txtAdminFeePercent = New System.Windows.Forms.TextBox
-        Me.dtpFeePeriodEnd = New System.Windows.Forms.DateTimePicker
-        Me.Label55 = New System.Windows.Forms.Label
-        Me.Label3 = New System.Windows.Forms.Label
-        Me.txtperTonRate = New System.Windows.Forms.TextBox
-        Me.Label2 = New System.Windows.Forms.Label
-        Me.Label57 = New System.Windows.Forms.Label
-        Me.Label1 = New System.Windows.Forms.Label
-        Me.txtTitleVfee = New System.Windows.Forms.TextBox
-        Me.Label58 = New System.Windows.Forms.Label
-        Me.btnsaveRate = New System.Windows.Forms.Button
-        Me.Label59 = New System.Windows.Forms.Label
-        Me.dtpAdminApplicable = New System.Windows.Forms.DateTimePicker
-        Me.txtAnnualNSPSFee = New System.Windows.Forms.TextBox
-        Me.Label60 = New System.Windows.Forms.Label
-        Me.txtAnnualSMFee = New System.Windows.Forms.TextBox
-        Me.TabPage3 = New System.Windows.Forms.TabPage
-        Me.pnlNSPSExemptions = New System.Windows.Forms.Panel
-        Me.Panel14 = New System.Windows.Forms.Panel
-        Me.Panel13 = New System.Windows.Forms.Panel
-        Me.Label100 = New System.Windows.Forms.Label
-        Me.dgvNSPSExemptions = New System.Windows.Forms.DataGridView
-        Me.btnSelectForm = New System.Windows.Forms.Button
-        Me.btnSelectAllForms = New System.Windows.Forms.Button
-        Me.Label109 = New System.Windows.Forms.Label
-        Me.btnUnselectForm = New System.Windows.Forms.Button
-        Me.btnUnselectAllForms = New System.Windows.Forms.Button
-        Me.btnUpdateNSPSbyYear = New System.Windows.Forms.Button
-        Me.btnViewNSPSExemptionsByYear = New System.Windows.Forms.Button
-        Me.dgvNSPSExemptionsByYear = New System.Windows.Forms.DataGridView
-        Me.Label108 = New System.Windows.Forms.Label
-        Me.cboNSPSExemptionYear = New System.Windows.Forms.ComboBox
-        Me.TabPage2 = New System.Windows.Forms.TabPage
-        Me.Panel15 = New System.Windows.Forms.Panel
-        Me.btnClearNSPSExemptions = New System.Windows.Forms.Button
-        Me.btnRefreshNSPSExemptions = New System.Windows.Forms.Button
-        Me.Label4 = New System.Windows.Forms.Label
-        Me.dgvExistingExemptions = New System.Windows.Forms.DataGridView
-        Me.btnUpdateNSPSExemption = New System.Windows.Forms.Button
-        Me.btnViewDeletedNSPS = New System.Windows.Forms.Button
-        Me.txtNSPSExemption = New System.Windows.Forms.TextBox
-        Me.Label101 = New System.Windows.Forms.Label
-        Me.btnAddNSPSExemption = New System.Windows.Forms.Button
-        Me.btnDeleteNSPSExemption = New System.Windows.Forms.Button
-        Me.txtDeleteNSPSExemptions = New System.Windows.Forms.TextBox
-        Me.Label107 = New System.Windows.Forms.Label
-        Me.TPFeeManagementTools = New System.Windows.Forms.TabPage
-        Me.FeeManagementSidePanel = New System.Windows.Forms.Panel
-        Me.dgvFeeManagementLists = New System.Windows.Forms.DataGridView
-        Me.btnExportToExcel = New System.Windows.Forms.Button
-        Me.FeeManagementListCountLabel = New System.Windows.Forms.Label
-        Me.mtbCheckAIRSNumber = New System.Windows.Forms.MaskedTextBox
-        Me.btnOpenFeesLog = New System.Windows.Forms.Button
-        Me.FeeManagementToolPanel = New System.Windows.Forms.Panel
-        Me.EnrollmentGroupbox = New System.Windows.Forms.GroupBox
-        Me.btnUnenrollFeeYear = New System.Windows.Forms.Button
-        Me.btnFirstEnrollment = New System.Windows.Forms.Button
-        Me.btnViewMailout = New System.Windows.Forms.Button
-        Me.btnViewEnrolledFacilities = New System.Windows.Forms.Button
-        Me.btnViewFacilitiesSubjectToFees = New System.Windows.Forms.Button
-        Me.cboAvailableFeeYears = New System.Windows.Forms.ComboBox
-        Me.Label18 = New System.Windows.Forms.Label
-        Me.InitialMailoutGroupbox = New System.Windows.Forms.GroupBox
-        Me.dtpDateMailoutSent = New System.Windows.Forms.DateTimePicker
-        Me.btnSetMailoutDate = New System.Windows.Forms.Button
-        Me.btnGenerateMailoutList = New System.Windows.Forms.Button
-        Me.btnUpdateContactData = New System.Windows.Forms.Button
-        Me.TPWebTools = New System.Windows.Forms.TabPage
-        Me.TabControl3 = New System.Windows.Forms.TabControl
-        Me.TPWebUsers = New System.Windows.Forms.TabPage
-        Me.pnlUser = New System.Windows.Forms.Panel
-        Me.dgvUsers = New System.Windows.Forms.DataGridView
-        Me.PanelFacility = New System.Windows.Forms.Panel
-        Me.lblFaciltyName = New System.Windows.Forms.Label
-        Me.lblFacility = New System.Windows.Forms.Label
-        Me.cboUsers = New System.Windows.Forms.ComboBox
-        Me.Label177 = New System.Windows.Forms.Label
-        Me.Label28 = New System.Windows.Forms.Label
-        Me.mtbAIRSNumber = New System.Windows.Forms.MaskedTextBox
-        Me.btnDelete = New System.Windows.Forms.Button
-        Me.llbViewUserData = New System.Windows.Forms.LinkLabel
-        Me.btnUpdate = New System.Windows.Forms.Button
-        Me.btnAddUser = New System.Windows.Forms.Button
-        Me.Label29 = New System.Windows.Forms.Label
-        Me.txtEmail = New System.Windows.Forms.TextBox
-        Me.TPWebUsers1 = New System.Windows.Forms.TabPage
-        Me.pnlUserFacility = New System.Windows.Forms.Panel
-        Me.dgvUserFacilities = New System.Windows.Forms.DataGridView
-        Me.pnlUserInfo = New System.Windows.Forms.Panel
-        Me.btnChangeEmailAddress = New System.Windows.Forms.Button
-        Me.mtbFacilityToAdd = New System.Windows.Forms.MaskedTextBox
-        Me.txtEditEmail = New System.Windows.Forms.TextBox
-        Me.cboFacilityToDelete = New System.Windows.Forms.ComboBox
-        Me.lblConfirmDate = New System.Windows.Forms.Label
-        Me.Label75 = New System.Windows.Forms.Label
-        Me.lblLastLogIn = New System.Windows.Forms.Label
-        Me.btnDeleteFacilityUser = New System.Windows.Forms.Button
-        Me.txtEditUserPassword = New System.Windows.Forms.TextBox
-        Me.btnUpdateUser = New System.Windows.Forms.Button
-        Me.Label53 = New System.Windows.Forms.Label
-        Me.btnUpdatePassword = New System.Windows.Forms.Button
-        Me.btnAddFacilitytoUser = New System.Windows.Forms.Button
-        Me.txtWebUserID = New System.Windows.Forms.TextBox
-        Me.btnSaveEditedData = New System.Windows.Forms.Button
-        Me.mtbEditZipCode = New System.Windows.Forms.MaskedTextBox
-        Me.mtbEditState = New System.Windows.Forms.MaskedTextBox
-        Me.mtbEditFaxNumber = New System.Windows.Forms.MaskedTextBox
-        Me.mtbEditPhoneNumber = New System.Windows.Forms.MaskedTextBox
-        Me.txtEditCity = New System.Windows.Forms.TextBox
-        Me.txtEditAddress = New System.Windows.Forms.TextBox
-        Me.txtEditCompany = New System.Windows.Forms.TextBox
-        Me.txtEditTitle = New System.Windows.Forms.TextBox
-        Me.txtEditLastName = New System.Windows.Forms.TextBox
-        Me.txtEditFirstName = New System.Windows.Forms.TextBox
-        Me.btnEditUserData = New System.Windows.Forms.Button
-        Me.lblCityStateZip = New System.Windows.Forms.Label
-        Me.lblAddress = New System.Windows.Forms.Label
-        Me.Label30 = New System.Windows.Forms.Label
-        Me.lblFaxNo = New System.Windows.Forms.Label
-        Me.lblPhoneNo = New System.Windows.Forms.Label
-        Me.lblCoName = New System.Windows.Forms.Label
-        Me.lblTitle = New System.Windows.Forms.Label
-        Me.lblLName = New System.Windows.Forms.Label
-        Me.lblFName = New System.Windows.Forms.Label
-        Me.Label31 = New System.Windows.Forms.Label
-        Me.pnlUserEmail = New System.Windows.Forms.Panel
-        Me.lblViewEmailData = New System.Windows.Forms.LinkLabel
-        Me.Label39 = New System.Windows.Forms.Label
-        Me.txtWebUserEmail = New System.Windows.Forms.TextBox
-        Me.cboUserEmail = New System.Windows.Forms.ComboBox
-        Me.lblViewFacility = New System.Windows.Forms.LinkLabel
-        Me.Label52 = New System.Windows.Forms.Label
-        Me.TPActivate = New System.Windows.Forms.TabPage
-        Me.btnActivateUser = New System.Windows.Forms.Button
-        Me.Label54 = New System.Windows.Forms.Label
-        Me.txtEmailAddress = New System.Windows.Forms.TextBox
-        Me.TPFeeFacility = New System.Windows.Forms.TabPage
-        Me.mtbyear = New System.Windows.Forms.MaskedTextBox
-        Me.mtbFeeAirsNumber = New System.Windows.Forms.MaskedTextBox
-        Me.btnRemoveFacility = New System.Windows.Forms.Button
-        Me.Label74 = New System.Windows.Forms.Label
-        Me.Label72 = New System.Windows.Forms.Label
-        Me.btnAddFacility = New System.Windows.Forms.Button
+        Me.FeeManagementTabControl = New System.Windows.Forms.TabControl()
+        Me.TPFeeAdminTools = New System.Windows.Forms.TabPage()
+        Me.TabControl2 = New System.Windows.Forms.TabControl()
+        Me.TabPage1 = New System.Windows.Forms.TabPage()
+        Me.Panel12 = New System.Windows.Forms.Panel()
+        Me.dgvFeeRates = New System.Windows.Forms.DataGridView()
+        Me.Label16 = New System.Windows.Forms.Label()
+        Me.txtNonAttainmentThreshold = New System.Windows.Forms.TextBox()
+        Me.Label15 = New System.Windows.Forms.Label()
+        Me.txtAttainmentThreshold = New System.Windows.Forms.TextBox()
+        Me.Label12 = New System.Windows.Forms.Label()
+        Me.dtpFourthQrtDue = New System.Windows.Forms.DateTimePicker()
+        Me.Label14 = New System.Windows.Forms.Label()
+        Me.dtpThirdQrtDue = New System.Windows.Forms.DateTimePicker()
+        Me.Label11 = New System.Windows.Forms.Label()
+        Me.dtpSecondQrtDue = New System.Windows.Forms.DateTimePicker()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.dtpFirstQrtDue = New System.Windows.Forms.DateTimePicker()
+        Me.btnReloadFeeRate = New System.Windows.Forms.Button()
+        Me.Label19 = New System.Windows.Forms.Label()
+        Me.Label37 = New System.Windows.Forms.Label()
+        Me.dtpFeeDueDate = New System.Windows.Forms.DateTimePicker()
+        Me.btnClearFeeData = New System.Windows.Forms.Button()
+        Me.btnUpdateFeeData = New System.Windows.Forms.Button()
+        Me.Label36 = New System.Windows.Forms.Label()
+        Me.txtFeeNotes = New System.Windows.Forms.TextBox()
+        Me.Label35 = New System.Windows.Forms.Label()
+        Me.txtFeeYear = New System.Windows.Forms.TextBox()
+        Me.Label34 = New System.Windows.Forms.Label()
+        Me.txtFeeID = New System.Windows.Forms.TextBox()
+        Me.Label248 = New System.Windows.Forms.Label()
+        Me.dtpFeePeriodStart = New System.Windows.Forms.DateTimePicker()
+        Me.txtAdminFeePercent = New System.Windows.Forms.TextBox()
+        Me.dtpFeePeriodEnd = New System.Windows.Forms.DateTimePicker()
+        Me.Label55 = New System.Windows.Forms.Label()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.txtperTonRate = New System.Windows.Forms.TextBox()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.Label57 = New System.Windows.Forms.Label()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.txtTitleVfee = New System.Windows.Forms.TextBox()
+        Me.Label58 = New System.Windows.Forms.Label()
+        Me.Label59 = New System.Windows.Forms.Label()
+        Me.dtpAdminApplicable = New System.Windows.Forms.DateTimePicker()
+        Me.txtAnnualNSPSFee = New System.Windows.Forms.TextBox()
+        Me.Label60 = New System.Windows.Forms.Label()
+        Me.txtAnnualSMFee = New System.Windows.Forms.TextBox()
+        Me.TabPage3 = New System.Windows.Forms.TabPage()
+        Me.pnlNSPSExemptions = New System.Windows.Forms.Panel()
+        Me.Panel14 = New System.Windows.Forms.Panel()
+        Me.Panel13 = New System.Windows.Forms.Panel()
+        Me.Label100 = New System.Windows.Forms.Label()
+        Me.dgvNSPSExemptions = New System.Windows.Forms.DataGridView()
+        Me.btnSelectForm = New System.Windows.Forms.Button()
+        Me.btnSelectAllForms = New System.Windows.Forms.Button()
+        Me.Label109 = New System.Windows.Forms.Label()
+        Me.btnUnselectForm = New System.Windows.Forms.Button()
+        Me.btnUnselectAllForms = New System.Windows.Forms.Button()
+        Me.btnUpdateNSPSbyYear = New System.Windows.Forms.Button()
+        Me.btnViewNSPSExemptionsByYear = New System.Windows.Forms.Button()
+        Me.dgvNSPSExemptionsByYear = New System.Windows.Forms.DataGridView()
+        Me.Label108 = New System.Windows.Forms.Label()
+        Me.cboNSPSExemptionYear = New System.Windows.Forms.ComboBox()
+        Me.TabPage2 = New System.Windows.Forms.TabPage()
+        Me.Panel15 = New System.Windows.Forms.Panel()
+        Me.btnClearNSPSExemptions = New System.Windows.Forms.Button()
+        Me.btnRefreshNSPSExemptions = New System.Windows.Forms.Button()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.dgvExistingExemptions = New System.Windows.Forms.DataGridView()
+        Me.btnUpdateNSPSExemption = New System.Windows.Forms.Button()
+        Me.btnViewDeletedNSPS = New System.Windows.Forms.Button()
+        Me.txtNSPSExemption = New System.Windows.Forms.TextBox()
+        Me.Label101 = New System.Windows.Forms.Label()
+        Me.btnAddNSPSExemption = New System.Windows.Forms.Button()
+        Me.btnDeleteNSPSExemption = New System.Windows.Forms.Button()
+        Me.txtDeleteNSPSExemptions = New System.Windows.Forms.TextBox()
+        Me.Label107 = New System.Windows.Forms.Label()
+        Me.TPFeeManagementTools = New System.Windows.Forms.TabPage()
+        Me.FeeManagementSidePanel = New System.Windows.Forms.Panel()
+        Me.dgvFeeManagementLists = New System.Windows.Forms.DataGridView()
+        Me.btnExportToExcel = New System.Windows.Forms.Button()
+        Me.FeeManagementListCountLabel = New System.Windows.Forms.Label()
+        Me.mtbCheckAIRSNumber = New System.Windows.Forms.MaskedTextBox()
+        Me.btnOpenFeesLog = New System.Windows.Forms.Button()
+        Me.FeeManagementToolPanel = New System.Windows.Forms.Panel()
+        Me.EnrollmentGroupbox = New System.Windows.Forms.GroupBox()
+        Me.btnUnenrollFeeYear = New System.Windows.Forms.Button()
+        Me.btnFirstEnrollment = New System.Windows.Forms.Button()
+        Me.btnViewMailout = New System.Windows.Forms.Button()
+        Me.btnViewEnrolledFacilities = New System.Windows.Forms.Button()
+        Me.btnViewFacilitiesSubjectToFees = New System.Windows.Forms.Button()
+        Me.cboAvailableFeeYears = New System.Windows.Forms.ComboBox()
+        Me.Label18 = New System.Windows.Forms.Label()
+        Me.InitialMailoutGroupbox = New System.Windows.Forms.GroupBox()
+        Me.dtpDateMailoutSent = New System.Windows.Forms.DateTimePicker()
+        Me.btnSetMailoutDate = New System.Windows.Forms.Button()
+        Me.btnGenerateMailoutList = New System.Windows.Forms.Button()
+        Me.btnUpdateContactData = New System.Windows.Forms.Button()
+        Me.TPWebTools = New System.Windows.Forms.TabPage()
+        Me.TabControl3 = New System.Windows.Forms.TabControl()
+        Me.TPWebUsers = New System.Windows.Forms.TabPage()
+        Me.pnlUser = New System.Windows.Forms.Panel()
+        Me.dgvUsers = New System.Windows.Forms.DataGridView()
+        Me.PanelFacility = New System.Windows.Forms.Panel()
+        Me.lblFaciltyName = New System.Windows.Forms.Label()
+        Me.lblFacility = New System.Windows.Forms.Label()
+        Me.cboUsers = New System.Windows.Forms.ComboBox()
+        Me.Label177 = New System.Windows.Forms.Label()
+        Me.Label28 = New System.Windows.Forms.Label()
+        Me.mtbAIRSNumber = New System.Windows.Forms.MaskedTextBox()
+        Me.btnDelete = New System.Windows.Forms.Button()
+        Me.llbViewUserData = New System.Windows.Forms.LinkLabel()
+        Me.btnUpdate = New System.Windows.Forms.Button()
+        Me.btnAddUser = New System.Windows.Forms.Button()
+        Me.Label29 = New System.Windows.Forms.Label()
+        Me.txtEmail = New System.Windows.Forms.TextBox()
+        Me.TPWebUsers1 = New System.Windows.Forms.TabPage()
+        Me.pnlUserFacility = New System.Windows.Forms.Panel()
+        Me.dgvUserFacilities = New System.Windows.Forms.DataGridView()
+        Me.pnlUserInfo = New System.Windows.Forms.Panel()
+        Me.btnChangeEmailAddress = New System.Windows.Forms.Button()
+        Me.mtbFacilityToAdd = New System.Windows.Forms.MaskedTextBox()
+        Me.txtEditEmail = New System.Windows.Forms.TextBox()
+        Me.cboFacilityToDelete = New System.Windows.Forms.ComboBox()
+        Me.lblConfirmDate = New System.Windows.Forms.Label()
+        Me.Label75 = New System.Windows.Forms.Label()
+        Me.lblLastLogIn = New System.Windows.Forms.Label()
+        Me.btnDeleteFacilityUser = New System.Windows.Forms.Button()
+        Me.txtEditUserPassword = New System.Windows.Forms.TextBox()
+        Me.btnUpdateUser = New System.Windows.Forms.Button()
+        Me.Label53 = New System.Windows.Forms.Label()
+        Me.btnUpdatePassword = New System.Windows.Forms.Button()
+        Me.btnAddFacilitytoUser = New System.Windows.Forms.Button()
+        Me.txtWebUserID = New System.Windows.Forms.TextBox()
+        Me.btnSaveEditedData = New System.Windows.Forms.Button()
+        Me.mtbEditZipCode = New System.Windows.Forms.MaskedTextBox()
+        Me.mtbEditState = New System.Windows.Forms.MaskedTextBox()
+        Me.mtbEditFaxNumber = New System.Windows.Forms.MaskedTextBox()
+        Me.mtbEditPhoneNumber = New System.Windows.Forms.MaskedTextBox()
+        Me.txtEditCity = New System.Windows.Forms.TextBox()
+        Me.txtEditAddress = New System.Windows.Forms.TextBox()
+        Me.txtEditCompany = New System.Windows.Forms.TextBox()
+        Me.txtEditTitle = New System.Windows.Forms.TextBox()
+        Me.txtEditLastName = New System.Windows.Forms.TextBox()
+        Me.txtEditFirstName = New System.Windows.Forms.TextBox()
+        Me.btnEditUserData = New System.Windows.Forms.Button()
+        Me.lblCityStateZip = New System.Windows.Forms.Label()
+        Me.lblAddress = New System.Windows.Forms.Label()
+        Me.Label30 = New System.Windows.Forms.Label()
+        Me.lblFaxNo = New System.Windows.Forms.Label()
+        Me.lblPhoneNo = New System.Windows.Forms.Label()
+        Me.lblCoName = New System.Windows.Forms.Label()
+        Me.lblTitle = New System.Windows.Forms.Label()
+        Me.lblLName = New System.Windows.Forms.Label()
+        Me.lblFName = New System.Windows.Forms.Label()
+        Me.Label31 = New System.Windows.Forms.Label()
+        Me.pnlUserEmail = New System.Windows.Forms.Panel()
+        Me.lblViewEmailData = New System.Windows.Forms.LinkLabel()
+        Me.Label39 = New System.Windows.Forms.Label()
+        Me.txtWebUserEmail = New System.Windows.Forms.TextBox()
         Me.FeeManagementTabControl.SuspendLayout()
         Me.TPFeeAdminTools.SuspendLayout()
         Me.TabControl2.SuspendLayout()
@@ -232,8 +215,6 @@ Partial Class PASPFeeManagement
         CType(Me.dgvUserFacilities, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.pnlUserInfo.SuspendLayout()
         Me.pnlUserEmail.SuspendLayout()
-        Me.TPActivate.SuspendLayout()
-        Me.TPFeeFacility.SuspendLayout()
         Me.SuspendLayout()
         '
         'FeeManagementTabControl
@@ -301,8 +282,6 @@ Partial Class PASPFeeManagement
         Me.Panel12.Controls.Add(Me.Label19)
         Me.Panel12.Controls.Add(Me.Label37)
         Me.Panel12.Controls.Add(Me.dtpFeeDueDate)
-        Me.Panel12.Controls.Add(Me.btnViewDeletedFeeRates)
-        Me.Panel12.Controls.Add(Me.btnDeleteFeeRate)
         Me.Panel12.Controls.Add(Me.btnClearFeeData)
         Me.Panel12.Controls.Add(Me.btnUpdateFeeData)
         Me.Panel12.Controls.Add(Me.Label36)
@@ -323,7 +302,6 @@ Partial Class PASPFeeManagement
         Me.Panel12.Controls.Add(Me.Label1)
         Me.Panel12.Controls.Add(Me.txtTitleVfee)
         Me.Panel12.Controls.Add(Me.Label58)
-        Me.Panel12.Controls.Add(Me.btnsaveRate)
         Me.Panel12.Controls.Add(Me.Label59)
         Me.Panel12.Controls.Add(Me.dtpAdminApplicable)
         Me.Panel12.Controls.Add(Me.txtAnnualNSPSFee)
@@ -338,8 +316,8 @@ Partial Class PASPFeeManagement
         'dgvFeeRates
         '
         Me.dgvFeeRates.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-                    Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dgvFeeRates.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvFeeRates.Location = New System.Drawing.Point(0, 0)
         Me.dgvFeeRates.Name = "dgvFeeRates"
@@ -505,32 +483,6 @@ Partial Class PASPFeeManagement
         Me.dtpFeeDueDate.Name = "dtpFeeDueDate"
         Me.dtpFeeDueDate.Size = New System.Drawing.Size(100, 20)
         Me.dtpFeeDueDate.TabIndex = 411
-        '
-        'btnViewDeletedFeeRates
-        '
-        Me.btnViewDeletedFeeRates.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnViewDeletedFeeRates.AutoSize = True
-        Me.btnViewDeletedFeeRates.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnViewDeletedFeeRates.Location = New System.Drawing.Point(827, 565)
-        Me.btnViewDeletedFeeRates.Name = "btnViewDeletedFeeRates"
-        Me.btnViewDeletedFeeRates.Size = New System.Drawing.Size(146, 23)
-        Me.btnViewDeletedFeeRates.TabIndex = 410
-        Me.btnViewDeletedFeeRates.Text = "View All Deleted Fee Rates"
-        Me.btnViewDeletedFeeRates.UseVisualStyleBackColor = True
-        Me.btnViewDeletedFeeRates.Visible = False
-        '
-        'btnDeleteFeeRate
-        '
-        Me.btnDeleteFeeRate.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnDeleteFeeRate.AutoSize = True
-        Me.btnDeleteFeeRate.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnDeleteFeeRate.Location = New System.Drawing.Point(700, 565)
-        Me.btnDeleteFeeRate.Name = "btnDeleteFeeRate"
-        Me.btnDeleteFeeRate.Size = New System.Drawing.Size(121, 23)
-        Me.btnDeleteFeeRate.TabIndex = 409
-        Me.btnDeleteFeeRate.Text = "Delete Fee Rate Data"
-        Me.btnDeleteFeeRate.UseVisualStyleBackColor = True
-        Me.btnDeleteFeeRate.Visible = False
         '
         'btnClearFeeData
         '
@@ -727,19 +679,6 @@ Partial Class PASPFeeManagement
         Me.Label58.TabIndex = 383
         Me.Label58.Text = "Admin Fee Date: "
         '
-        'btnsaveRate
-        '
-        Me.btnsaveRate.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnsaveRate.AutoSize = True
-        Me.btnsaveRate.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnsaveRate.Location = New System.Drawing.Point(700, 536)
-        Me.btnsaveRate.Name = "btnsaveRate"
-        Me.btnsaveRate.Size = New System.Drawing.Size(109, 23)
-        Me.btnsaveRate.TabIndex = 14
-        Me.btnsaveRate.Text = "Add Fee Rate Data"
-        Me.btnsaveRate.UseVisualStyleBackColor = True
-        Me.btnsaveRate.Visible = False
-        '
         'Label59
         '
         Me.Label59.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
@@ -934,8 +873,8 @@ Partial Class PASPFeeManagement
         'dgvNSPSExemptionsByYear
         '
         Me.dgvNSPSExemptionsByYear.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-                    Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dgvNSPSExemptionsByYear.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvNSPSExemptionsByYear.Location = New System.Drawing.Point(1, 55)
         Me.dgvNSPSExemptionsByYear.Name = "dgvNSPSExemptionsByYear"
@@ -1028,8 +967,8 @@ Partial Class PASPFeeManagement
         'dgvExistingExemptions
         '
         Me.dgvExistingExemptions.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-                    Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dgvExistingExemptions.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvExistingExemptions.Location = New System.Drawing.Point(0, 235)
         Me.dgvExistingExemptions.Name = "dgvExistingExemptions"
@@ -1146,8 +1085,8 @@ Partial Class PASPFeeManagement
         Me.dgvFeeManagementLists.AllowUserToOrderColumns = True
         Me.dgvFeeManagementLists.AllowUserToResizeRows = False
         Me.dgvFeeManagementLists.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-                    Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dgvFeeManagementLists.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvFeeManagementLists.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
         Me.dgvFeeManagementLists.GridColor = System.Drawing.SystemColors.ControlLight
@@ -1358,8 +1297,6 @@ Partial Class PASPFeeManagement
         '
         Me.TabControl3.Controls.Add(Me.TPWebUsers)
         Me.TabControl3.Controls.Add(Me.TPWebUsers1)
-        Me.TabControl3.Controls.Add(Me.TPActivate)
-        Me.TabControl3.Controls.Add(Me.TPFeeFacility)
         Me.TabControl3.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TabControl3.Location = New System.Drawing.Point(0, 0)
         Me.TabControl3.Name = "TabControl3"
@@ -1928,9 +1865,6 @@ Partial Class PASPFeeManagement
         Me.pnlUserEmail.Controls.Add(Me.lblViewEmailData)
         Me.pnlUserEmail.Controls.Add(Me.Label39)
         Me.pnlUserEmail.Controls.Add(Me.txtWebUserEmail)
-        Me.pnlUserEmail.Controls.Add(Me.cboUserEmail)
-        Me.pnlUserEmail.Controls.Add(Me.lblViewFacility)
-        Me.pnlUserEmail.Controls.Add(Me.Label52)
         Me.pnlUserEmail.Dock = System.Windows.Forms.DockStyle.Top
         Me.pnlUserEmail.Location = New System.Drawing.Point(0, 0)
         Me.pnlUserEmail.Name = "pnlUserEmail"
@@ -1965,147 +1899,6 @@ Partial Class PASPFeeManagement
         Me.txtWebUserEmail.Name = "txtWebUserEmail"
         Me.txtWebUserEmail.Size = New System.Drawing.Size(196, 20)
         Me.txtWebUserEmail.TabIndex = 287
-        '
-        'cboUserEmail
-        '
-        Me.cboUserEmail.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
-        Me.cboUserEmail.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cboUserEmail.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cboUserEmail.Location = New System.Drawing.Point(618, 9)
-        Me.cboUserEmail.Name = "cboUserEmail"
-        Me.cboUserEmail.Size = New System.Drawing.Size(244, 21)
-        Me.cboUserEmail.TabIndex = 1
-        '
-        'lblViewFacility
-        '
-        Me.lblViewFacility.AutoSize = True
-        Me.lblViewFacility.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblViewFacility.Location = New System.Drawing.Point(868, 13)
-        Me.lblViewFacility.Name = "lblViewFacility"
-        Me.lblViewFacility.Size = New System.Drawing.Size(56, 13)
-        Me.lblViewFacility.TabIndex = 143
-        Me.lblViewFacility.TabStop = True
-        Me.lblViewFacility.Text = "View Data"
-        '
-        'Label52
-        '
-        Me.Label52.AutoSize = True
-        Me.Label52.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label52.Location = New System.Drawing.Point(511, 13)
-        Me.Label52.Name = "Label52"
-        Me.Label52.Size = New System.Drawing.Size(101, 13)
-        Me.Label52.TabIndex = 106
-        Me.Label52.Text = "User Email Address:"
-        Me.Label52.TextAlign = System.Drawing.ContentAlignment.BottomLeft
-        '
-        'TPActivate
-        '
-        Me.TPActivate.Controls.Add(Me.btnActivateUser)
-        Me.TPActivate.Controls.Add(Me.Label54)
-        Me.TPActivate.Controls.Add(Me.txtEmailAddress)
-        Me.TPActivate.Location = New System.Drawing.Point(4, 22)
-        Me.TPActivate.Name = "TPActivate"
-        Me.TPActivate.Size = New System.Drawing.Size(985, 640)
-        Me.TPActivate.TabIndex = 3
-        Me.TPActivate.Text = "Activate User Account"
-        Me.TPActivate.UseVisualStyleBackColor = True
-        '
-        'btnActivateUser
-        '
-        Me.btnActivateUser.AutoSize = True
-        Me.btnActivateUser.Location = New System.Drawing.Point(361, 12)
-        Me.btnActivateUser.Name = "btnActivateUser"
-        Me.btnActivateUser.Size = New System.Drawing.Size(61, 23)
-        Me.btnActivateUser.TabIndex = 2
-        Me.btnActivateUser.Text = "Activate"
-        Me.btnActivateUser.UseVisualStyleBackColor = True
-        '
-        'Label54
-        '
-        Me.Label54.AutoSize = True
-        Me.Label54.Location = New System.Drawing.Point(4, 17)
-        Me.Label54.Name = "Label54"
-        Me.Label54.Size = New System.Drawing.Size(101, 13)
-        Me.Label54.TabIndex = 1
-        Me.Label54.Text = "User Email Address:"
-        '
-        'txtEmailAddress
-        '
-        Me.txtEmailAddress.Location = New System.Drawing.Point(111, 14)
-        Me.txtEmailAddress.Name = "txtEmailAddress"
-        Me.txtEmailAddress.Size = New System.Drawing.Size(244, 20)
-        Me.txtEmailAddress.TabIndex = 0
-        '
-        'TPFeeFacility
-        '
-        Me.TPFeeFacility.Controls.Add(Me.mtbyear)
-        Me.TPFeeFacility.Controls.Add(Me.mtbFeeAirsNumber)
-        Me.TPFeeFacility.Controls.Add(Me.btnRemoveFacility)
-        Me.TPFeeFacility.Controls.Add(Me.Label74)
-        Me.TPFeeFacility.Controls.Add(Me.Label72)
-        Me.TPFeeFacility.Controls.Add(Me.btnAddFacility)
-        Me.TPFeeFacility.Location = New System.Drawing.Point(4, 22)
-        Me.TPFeeFacility.Name = "TPFeeFacility"
-        Me.TPFeeFacility.Size = New System.Drawing.Size(985, 640)
-        Me.TPFeeFacility.TabIndex = 4
-        Me.TPFeeFacility.Text = "Add/Remove Fee Facility"
-        Me.TPFeeFacility.UseVisualStyleBackColor = True
-        '
-        'mtbyear
-        '
-        Me.mtbyear.Location = New System.Drawing.Point(260, 14)
-        Me.mtbyear.Mask = "0000"
-        Me.mtbyear.Name = "mtbyear"
-        Me.mtbyear.Size = New System.Drawing.Size(39, 20)
-        Me.mtbyear.TabIndex = 9
-        Me.mtbyear.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'mtbFeeAirsNumber
-        '
-        Me.mtbFeeAirsNumber.Location = New System.Drawing.Point(88, 14)
-        Me.mtbFeeAirsNumber.Mask = "000-00000"
-        Me.mtbFeeAirsNumber.Name = "mtbFeeAirsNumber"
-        Me.mtbFeeAirsNumber.Size = New System.Drawing.Size(76, 20)
-        Me.mtbFeeAirsNumber.TabIndex = 8
-        Me.mtbFeeAirsNumber.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.mtbFeeAirsNumber.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals
-        '
-        'btnRemoveFacility
-        '
-        Me.btnRemoveFacility.AutoSize = True
-        Me.btnRemoveFacility.Location = New System.Drawing.Point(449, 12)
-        Me.btnRemoveFacility.Name = "btnRemoveFacility"
-        Me.btnRemoveFacility.Size = New System.Drawing.Size(155, 23)
-        Me.btnRemoveFacility.TabIndex = 7
-        Me.btnRemoveFacility.Text = "Remove Facility from Fee List"
-        Me.btnRemoveFacility.UseVisualStyleBackColor = True
-        '
-        'Label74
-        '
-        Me.Label74.AutoSize = True
-        Me.Label74.Location = New System.Drawing.Point(219, 17)
-        Me.Label74.Name = "Label74"
-        Me.Label74.Size = New System.Drawing.Size(35, 13)
-        Me.Label74.TabIndex = 6
-        Me.Label74.Text = "Year: "
-        '
-        'Label72
-        '
-        Me.Label72.AutoSize = True
-        Me.Label72.Location = New System.Drawing.Point(4, 17)
-        Me.Label72.Name = "Label72"
-        Me.Label72.Size = New System.Drawing.Size(78, 13)
-        Me.Label72.TabIndex = 2
-        Me.Label72.Text = "AIRS Number: "
-        '
-        'btnAddFacility
-        '
-        Me.btnAddFacility.AutoSize = True
-        Me.btnAddFacility.Location = New System.Drawing.Point(320, 12)
-        Me.btnAddFacility.Name = "btnAddFacility"
-        Me.btnAddFacility.Size = New System.Drawing.Size(123, 23)
-        Me.btnAddFacility.TabIndex = 1
-        Me.btnAddFacility.Text = "Add Facility to Fee List"
         '
         'PASPFeeManagement
         '
@@ -2156,10 +1949,6 @@ Partial Class PASPFeeManagement
         Me.pnlUserInfo.PerformLayout()
         Me.pnlUserEmail.ResumeLayout(False)
         Me.pnlUserEmail.PerformLayout()
-        Me.TPActivate.ResumeLayout(False)
-        Me.TPActivate.PerformLayout()
-        Me.TPFeeFacility.ResumeLayout(False)
-        Me.TPFeeFacility.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -2172,8 +1961,6 @@ Partial Class PASPFeeManagement
     Friend WithEvents Label19 As System.Windows.Forms.Label
     Friend WithEvents Label37 As System.Windows.Forms.Label
     Friend WithEvents dtpFeeDueDate As System.Windows.Forms.DateTimePicker
-    Friend WithEvents btnViewDeletedFeeRates As System.Windows.Forms.Button
-    Friend WithEvents btnDeleteFeeRate As System.Windows.Forms.Button
     Friend WithEvents btnClearFeeData As System.Windows.Forms.Button
     Friend WithEvents btnUpdateFeeData As System.Windows.Forms.Button
     Friend WithEvents Label36 As System.Windows.Forms.Label
@@ -2194,7 +1981,6 @@ Partial Class PASPFeeManagement
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents txtTitleVfee As System.Windows.Forms.TextBox
     Friend WithEvents Label58 As System.Windows.Forms.Label
-    Friend WithEvents btnsaveRate As System.Windows.Forms.Button
     Friend WithEvents Label59 As System.Windows.Forms.Label
     Friend WithEvents dtpAdminApplicable As System.Windows.Forms.DateTimePicker
     Friend WithEvents txtAnnualNSPSFee As System.Windows.Forms.TextBox
@@ -2305,20 +2091,6 @@ Partial Class PASPFeeManagement
     Friend WithEvents lblViewEmailData As System.Windows.Forms.LinkLabel
     Friend WithEvents Label39 As System.Windows.Forms.Label
     Friend WithEvents txtWebUserEmail As System.Windows.Forms.TextBox
-    Friend WithEvents cboUserEmail As System.Windows.Forms.ComboBox
-    Friend WithEvents lblViewFacility As System.Windows.Forms.LinkLabel
-    Friend WithEvents Label52 As System.Windows.Forms.Label
-    Friend WithEvents TPActivate As System.Windows.Forms.TabPage
-    Friend WithEvents btnActivateUser As System.Windows.Forms.Button
-    Friend WithEvents Label54 As System.Windows.Forms.Label
-    Friend WithEvents txtEmailAddress As System.Windows.Forms.TextBox
-    Friend WithEvents TPFeeFacility As System.Windows.Forms.TabPage
-    Friend WithEvents mtbyear As System.Windows.Forms.MaskedTextBox
-    Friend WithEvents mtbFeeAirsNumber As System.Windows.Forms.MaskedTextBox
-    Friend WithEvents btnRemoveFacility As System.Windows.Forms.Button
-    Friend WithEvents Label74 As System.Windows.Forms.Label
-    Friend WithEvents Label72 As System.Windows.Forms.Label
-    Friend WithEvents btnAddFacility As System.Windows.Forms.Button
     Friend WithEvents dgvUsers As System.Windows.Forms.DataGridView
     Friend WithEvents lblFacility As System.Windows.Forms.Label
     Friend WithEvents lblFaciltyName As System.Windows.Forms.Label

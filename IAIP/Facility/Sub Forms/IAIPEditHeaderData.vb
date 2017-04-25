@@ -6,45 +6,18 @@ Public Class IAIPEditHeaderData
 
 #Region " Form properties and variables "
 
-    Private _airsNumber As ApbFacilityId
     Public Property AirsNumber() As ApbFacilityId
-        Get
-            Return _airsNumber
-        End Get
-        Set(ByVal value As ApbFacilityId)
-            _airsNumber = value
-        End Set
-    End Property
-
-    Private _facilityName As String
     Public Property FacilityName() As String
-        Get
-            Return _facilityName
-        End Get
-        Set(ByVal value As String)
-            _facilityName = value
-        End Set
-    End Property
+    Public Property SomethingWasSaved() As Boolean
 
     Private FacilityHeaderDataHistory As DataTable
-
     Private CurrentFacilityHeaderData As FacilityHeaderData
-
-    Private _somethingSaved As Boolean = False
-    Public Property SomethingWasSaved() As Boolean
-        Get
-            Return _somethingSaved
-        End Get
-        Set(ByVal value As Boolean)
-            _somethingSaved = value
-        End Set
-    End Property
 
 #End Region
 
 #Region " Form Load "
 
-    Private Sub IAIPEditHeaderData_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+    Private Sub IAIPEditHeaderData_Load(sender As Object, e As EventArgs) Handles Me.Load
 
 
         AirsNumberDisplay.Text = Me.AirsNumber.FormattedString
@@ -68,9 +41,10 @@ Public Class IAIPEditHeaderData
     End Sub
 
     Private Sub LoadFacilityData()
-        FacilityHeaderDataHistory = DAL.FacilityHeaderDataData.GetFacilityHeaderDataHistoryAsDataTable(AirsNumber)
+        FacilityHeaderDataHistory = DAL.GetFacilityHeaderDataHistoryAsDataTable(AirsNumber)
+        FacilityHeaderDataHistory.Columns("STRKEY").AllowDBNull = True
 
-        Dim currentData As DataRow = DAL.FacilityHeaderDataData.GetFacilityHeaderDataAsDataRow(AirsNumber)
+        Dim currentData As DataRow = DAL.GetFacilityHeaderDataAsDataRow(AirsNumber)
 
         FacilityHeaderDataHistory.ImportRow(currentData)
 
@@ -83,7 +57,7 @@ Public Class IAIPEditHeaderData
         FacilityHistoryDataGridView.Rows(0).Selected = True
     End Sub
 
-    Private Sub BindFacilityHistoryDisplay(ByVal dt As DataTable)
+    Private Sub BindFacilityHistoryDisplay(dt As DataTable)
         FacilityHistoryDataGridView.DataSource = dt
 
         FacilityHistoryDataGridView.Columns("WhoModified").HeaderText = "Modified By"
@@ -116,13 +90,13 @@ Public Class IAIPEditHeaderData
         FacilityHistoryDataGridView.Columns("STRFIRSTNAME").Visible = False
         FacilityHistoryDataGridView.Columns("STRMODIFINGPERSON").Visible = False
 
-        FacilityHistoryDataGridView.Sort(FacilityHistoryDataGridView.Columns("DATMODIFINGDATE"), System.ComponentModel.ListSortDirection.Descending)
+        FacilityHistoryDataGridView.Sort(FacilityHistoryDataGridView.Columns("DATMODIFINGDATE"), ComponentModel.ListSortDirection.Descending)
         FacilityHistoryDataGridView.SanelyResizeColumns()
 
         AddHandler FacilityHistoryDataGridView.CurrentCellChanged, AddressOf FacilityHistoryDataGridView_CurrentCellChanged
     End Sub
 
-    Private Sub FacilityHistoryDataGridView_CellFormatting(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellFormattingEventArgs) _
+    Private Sub FacilityHistoryDataGridView_CellFormatting(sender As Object, e As DataGridViewCellFormattingEventArgs) _
     Handles FacilityHistoryDataGridView.CellFormatting
         If e.ColumnIndex = 16 Then
             e.Value = DirectCast(CType(e.Value, Integer), HeaderDataModificationLocation).GetDescription
@@ -199,7 +173,7 @@ Public Class IAIPEditHeaderData
         DisplayCurrentRow()
     End Sub
 
-    Private Sub EditData_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles EditData.CheckedChanged
+    Private Sub EditData_CheckedChanged(sender As Object, e As EventArgs) Handles EditData.CheckedChanged
         If EditData.Checked Then
             EnableEditing()
         Else
@@ -207,23 +181,23 @@ Public Class IAIPEditHeaderData
         End If
     End Sub
 
-    Private Sub CancelEditButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CancelEditButton.Click
+    Private Sub CancelEditButton_Click(sender As Object, e As EventArgs) Handles CancelEditButton.Click
         If EditData.Checked Then
             EditData.Checked = False
         End If
     End Sub
 
-    Private Sub SaveChangesButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles SaveChangesButton.Click
+    Private Sub SaveChangesButton_Click(sender As Object, e As EventArgs) Handles SaveChangesButton.Click
         SaveEditedData()
     End Sub
 
-    Private Sub IAIPEditHeaderData_KeyDown(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles MyBase.KeyDown
+    Private Sub IAIPEditHeaderData_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
         If e.KeyCode = Keys.Escape AndAlso EditData.Checked Then
             EditData.Checked = False
         End If
     End Sub
 
-    Private Sub OperationalDropDown_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OperationalDropDown.SelectedIndexChanged
+    Private Sub OperationalDropDown_SelectedIndexChanged(sender As Object, e As EventArgs) Handles OperationalDropDown.SelectedIndexChanged
         If EditData.Checked Then
             Dim NonShutdownControls As Control() = {
                 ClassificationDropDown,
@@ -268,7 +242,7 @@ Public Class IAIPEditHeaderData
 
 #Region " Item selection and display "
 
-    Private Sub FacilityHistoryDataGridView_CurrentCellChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
+    Private Sub FacilityHistoryDataGridView_CurrentCellChanged(sender As Object, e As EventArgs)
         ' Handler added after initial load of data
         DisplayCurrentRow()
     End Sub
@@ -281,14 +255,14 @@ Public Class IAIPEditHeaderData
         End If
     End Sub
 
-    Private Sub DisplayFacilityData(ByVal row As DataRow)
+    Private Sub DisplayFacilityData(row As DataRow)
         Dim displayedFacility As FacilityHeaderData = New FacilityHeaderData(AirsNumber)
-        DAL.FacilityHeaderDataData.FillFacilityHeaderDataFromDataRow(row, displayedFacility)
+        DAL.FillFacilityHeaderDataFromDataRow(row, displayedFacility)
 
         DisplayFacilityData(displayedFacility)
     End Sub
 
-    Private Sub DisplayFacilityData(ByVal displayedFacility As FacilityHeaderData)
+    Private Sub DisplayFacilityData(displayedFacility As FacilityHeaderData)
         With displayedFacility
 
             ClassificationDropDown.SelectedValue = .Classification
@@ -402,7 +376,7 @@ Public Class IAIPEditHeaderData
         Return facilityHeaderData
     End Function
 
-    Private Function PreSaveCheck(ByVal editedFacility As FacilityHeaderData) As Boolean
+    Private Function PreSaveCheck(editedFacility As FacilityHeaderData) As Boolean
 
         ' See if facility is being shut down & check permissions
         If UserIsTryingToCloseFacility() Then
@@ -436,7 +410,7 @@ Public Class IAIPEditHeaderData
         Return True
     End Function
 
-    Private Function FacilityHeaderDataDiffers(ByVal facility1 As FacilityHeaderData, ByVal facility2 As FacilityHeaderData) As Boolean
+    Private Function FacilityHeaderDataDiffers(facility1 As FacilityHeaderData, facility2 As FacilityHeaderData) As Boolean
         If facility1.AirProgramClassificationsCode <> facility2.AirProgramClassificationsCode Then Return True
         If facility1.AirProgramsCode <> facility2.AirProgramsCode Then Return True
         If facility1.ClassificationCode <> facility2.ClassificationCode Then Return True
@@ -459,7 +433,7 @@ Public Class IAIPEditHeaderData
                                MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2)
     End Function
 
-    Private Function ValidateAllFields(ByVal editedFacility As FacilityHeaderData, <Runtime.InteropServices.Out()> ByRef invalidControls As List(Of Control)) As Boolean
+    Private Function ValidateAllFields(editedFacility As FacilityHeaderData, <Runtime.InteropServices.Out()> ByRef invalidControls As List(Of Control)) As Boolean
         Dim valid As Boolean = True
         invalidControls = New List(Of Control)
 
@@ -499,14 +473,14 @@ Public Class IAIPEditHeaderData
             invalidControls.Add(OperationalStatusLabel)
         End If
 
-        If Not DAL.FacilityHeaderDataData.SicCodeIsValid(SicCode.Text) Then
+        If Not DAL.SicCodeIsValid(SicCode.Text) Then
             MessageBox.Show("Please enter a valid SIC code.",
                             "Invalid SIC", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             valid = False
             invalidControls.Add(SicCodeLabel)
         End If
 
-        If Not DAL.FacilityHeaderDataData.NaicsCodeIsValid(NaicsCode.Text) Then
+        If Not DAL.NaicsCodeIsValid(NaicsCode.Text) Then
             MessageBox.Show("Please enter a valid NAICS code.",
                             "Invalid NAICS", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             valid = False
@@ -526,7 +500,7 @@ Public Class IAIPEditHeaderData
         Return valid
     End Function
 
-    Private Sub HighlightControls(ByVal controls As List(Of Control))
+    Private Sub HighlightControls(controls As List(Of Control))
         For Each c As Control In controls
             c.BackColor = Color.Yellow
         Next
@@ -546,7 +520,7 @@ Public Class IAIPEditHeaderData
         })
 
         For Each c As Control In resetableControls
-            c.BackColor = System.Drawing.SystemColors.Control
+            c.BackColor = SystemColors.Control
         Next
     End Sub
 
@@ -578,7 +552,7 @@ Public Class IAIPEditHeaderData
                 CurrentFacilityHeaderData = editedFacility
 
                 ' Add to datagridview
-                Dim currentData As DataRow = DAL.FacilityHeaderDataData.GetFacilityHeaderDataAsDataRow(AirsNumber)
+                Dim currentData As DataRow = DAL.GetFacilityHeaderDataAsDataRow(AirsNumber)
 
                 FacilityHeaderDataHistory.ImportRow(currentData)
                 FacilityHistoryDataGridView.CurrentCell = FacilityHistoryDataGridView.Rows(0).Cells(2)

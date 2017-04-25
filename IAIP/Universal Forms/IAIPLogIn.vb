@@ -1,6 +1,4 @@
-﻿Imports Oracle.ManagedDataAccess.Client
-
-Public Class IAIPLogIn
+﻿Public Class IAIPLogIn
 
 #Region " Properties "
 
@@ -34,12 +32,8 @@ Public Class IAIPLogIn
     Private Sub IAIPLogIn_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         monitor.TrackFeature("Main." & Me.Name)
         monitor.TrackFeature("Forms." & Me.Name)
-        Try
-            CheckLanguageRegistrySetting()
-            ChooseDbServerEnvironment()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        UseDbServerEnvironment()
+        CheckDBAvailability()
     End Sub
 
     Private Sub DisableLogin(Optional messageText As String = Nothing)
@@ -70,11 +64,7 @@ Public Class IAIPLogIn
         Dim msgText As String
         Dim msg As IaipMessage
 
-#If UAT Then
-        currentVersion = GetCurrentVersion()
-#Else
         currentVersion = GetCurrentVersionAsMajorMinorBuild()
-#End If
 
         If AppUpdated Then
             msgText = String.Format("The IAIP has been updated. Current version: {0}", currentVersion.ToString)
@@ -95,7 +85,7 @@ Public Class IAIPLogIn
         Dim prr As String = GetUserSetting(UserSetting.PasswordResetRequestedDate)
         If prr <> "" Then
             Dim prrd As DateTime = DateTime.ParseExact(prr, DateParseExactFormat, Nothing)
-            If DateTime.Compare(prrd, Date.Now.AddHours(-8)) > 0 Then
+            If Date.Compare(prrd, Date.Now.AddHours(-24)) > 0 Then
                 mmiPasswordReset.Visible = True
             Else
                 ResetUserSetting(UserSetting.PasswordResetRequestedDate)
@@ -103,18 +93,7 @@ Public Class IAIPLogIn
         End If
     End Sub
 
-    Private Sub CheckLanguageRegistrySetting()
-        Dim currentSetting As String
-        currentSetting = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Environment", "NLS_LANG", Nothing)
-        If currentSetting Is Nothing Or currentSetting <> "AMERICAN" Then
-            My.Computer.Registry.SetValue("HKEY_CURRENT_USER\Environment", "NLS_LANG", "AMERICAN")
-            DisableLogin("Language settings have been updated. Please close and restart the Platform.")
-        End If
-    End Sub
-
     Private Function CheckDBAvailability() As Boolean
-        Console.WriteLine("CurrentServerEnvironment: " & CurrentServerEnvironment.ToString)
-
         If DAL.AppIsEnabled Then
             EnableLogin()
             RetryButton.Visible = False
@@ -323,35 +302,25 @@ Public Class IAIPLogIn
 
 #Region " Database Environment "
 
-    Private Sub ChooseDbServerEnvironment()
+    Private Sub UseDbServerEnvironment()
         btnLoginButton.Text = "Log In"
 
 #If DEBUG Then
-        CurrentServerEnvironment = DB.ServerEnvironment.DEV
+        ' Switch to DEV environment
+        Me.BackColor = Color.PapayaWhip
+        Me.Text = APP_FRIENDLY_NAME & " — DEV"
+        btnLoginButton.Text = "Log in to DEV"
+        Me.LogoBox.Image = My.Resources.DevLogo
+        mmiTestingMenu.Visible = True
+        lblIAIP.Text = "IAIP DEV"
 #ElseIf UAT Then
-        CurrentServerEnvironment = DB.ServerEnvironment.UAT
+        ' Switch to DEV environment
+        Me.BackColor = Color.Snow
+        Me.Text = APP_FRIENDLY_NAME & " — UAT"
+        btnLoginButton.Text = "Log in to UAT"
+        Me.LogoBox.Image = My.Resources.UatLogo
+        lblIAIP.Text = "IAIP User Acceptance Testing (UAT)"
 #End If
-
-        Select Case CurrentServerEnvironment
-            Case DB.ServerEnvironment.DEV
-                ' Switch to DEV environment
-                Me.BackColor = Color.PapayaWhip
-                Me.Text = APP_FRIENDLY_NAME & " — " & CurrentServerEnvironment.ToString
-                btnLoginButton.Text = "Log in to DEV"
-                mmiTestingMenu.Visible = True
-            Case DB.ServerEnvironment.UAT
-                ' Switch to DEV environment
-                Me.BackColor = Color.Snow
-                Me.Text = APP_FRIENDLY_NAME & " — " & CurrentServerEnvironment.ToString
-                btnLoginButton.Text = "Log in to UAT"
-                Me.LogoBox.Image = My.Resources.UatLogo
-                lblIAIP.Text = "IAIP User Acceptance Testing (UAT)"
-        End Select
-
-        ' Reset current connection based on current connection environment
-        ' and check connection/app availability
-        CurrentConnection = New OracleConnection(DB.CurrentConnectionString)
-        CheckDBAvailability()
     End Sub
 
 #End Region
@@ -426,6 +395,18 @@ Public Class IAIPLogIn
 
     Private Sub PasswordResetMenuItem_Click(sender As Object, e As EventArgs) Handles mmiPasswordReset.Click
         ShowPasswordResetForm()
+    End Sub
+
+    Private Sub mmiThrowUnhandledError_Click(sender As Object, e As EventArgs) Handles mmiThrowUnhandledError.Click
+        Throw New Exception("Unhandled exception testing")
+    End Sub
+
+    Private Sub mmiThrowHandledError_Click(sender As Object, e As EventArgs) Handles mmiThrowHandledError.Click
+        Try
+            Throw New Exception("Unhandled exception testing")
+        Catch ex As Exception
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
     End Sub
 
 #End Region

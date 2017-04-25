@@ -1,642 +1,180 @@
-'Imports System.DateTime
-Imports Oracle.ManagedDataAccess.Client
-
+Imports System.Data.SqlClient
+Imports System.Collections.Generic
+Imports System.Linq
+Imports Iaip.SharedData
+Imports Iaip.DAL
 
 Public Class IAIPDistrictSourceTool
-    Dim SQL, SQL2 As String
-    Dim cmd As OracleCommand
-    Dim dr As OracleDataReader
-    Dim recExist As Boolean
-    Dim dsDistrict As DataSet
-    Dim daDistrict As OracleDataAdapter
-    Dim dsDistrictStaff As DataSet
-    Dim daDistrictStaff As OracleDataAdapter
-
-
-    Private Sub IAIPDistrictSourcesTool_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-
-        Try
-
-
-            Panel1.Text = "Select a Function..."
-            Panel2.Text = CurrentUser.AlphaName
-            Panel3.Text = OracleDate
-
-            LoadDistrictListBox()
-            LoadDistrictStaff()
-            LoadCountyListBox("PageLoad")
-
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-
-    End Sub
+    Private DistrictCountyAssignments As DataTable
 
 #Region "Page Load"
-    Sub LoadCountyListBox(ByVal LoadSource As String)
-        Dim SQLLine As String = ""
 
-        Try
-
-            clbCounties.Items.Clear()
-
-            Select Case LoadSource
-                Case "PageLoad"
-                    SQL = "Select strCountyName, strCountyCode " &
-                    "from AIRBRANCH.LookUpCountyInformation " &
-                    "Order by strCountyName"
-                Case "District"
-                    For x As Integer = 0 To clbDistricts.Items.Count - 1
-                        If clbDistricts.GetItemChecked(x) = True Then
-                            clbDistricts.SelectedIndex = x
-                            SQLLine = SQLLine & "strDistrictCode = '" & clbDistricts.SelectedValue & "' OR "
-                        End If
-                    Next
-                    Select Case SQLLine
-                        Case ""
-                            SQLLine = ""
-                        Case Else
-                            SQLLine = "AND (" & Mid(SQLLine, 1, Len(SQLLine) - 4) & ") "
-                    End Select
-
-                    SQL = "Select strCountyName, strCountyCode " &
-                    "from AIRBRANCH.LookUpCountyInformation, AIRBRANCH.LookUpDistrictInformation " &
-                    "Where strCountyCode = strDistrictCounty " &
-                    " " & SQLLine & " Order by strCountyName "
-
-            End Select
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            dr = cmd.ExecuteReader
-            While dr.Read
-                clbCounties.Items.Add(dr.Item("strCountyname"))
-            End While
-
-
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
+    Private Sub IAIPDistrictSourcesTool_Load(sender As Object, e As EventArgs) Handles Me.Load
+        LoadCounties()
+        LoadDistrictData()
+        LoadCountyAssignments()
     End Sub
-    Sub LoadDistrictListBox()
-        Dim dtDistrict As New DataTable
-        Dim dtDistrict2 As New DataTable
-        Dim dtDistrict3 As New DataTable
-        Dim dtDistrict4 As New DataTable
-        Dim drDSRow As DataRow
-        Dim drDSRow2 As DataRow
-        Dim drDSRow3 As DataRow
-        Dim drDSRow4 As DataRow
-        Dim drNewRow As DataRow
-        Dim drNewRow2 As DataRow
-        Dim drNewRow3 As DataRow
-        Dim drNewRow4 As DataRow
 
-        Try
-
-            SQL = "Select strDistrictName, strDistrictCode " &
-                   "from AIRBRANCH.LookUPDistricts " &
-                   "order by StrDistrictName"
-
-            dsDistrict = New DataSet
-            daDistrict = New OracleDataAdapter(SQL, CurrentConnection)
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daDistrict.Fill(dsDistrict, "District")
-
-
-            dtDistrict.Columns.Add("strDistrictName", GetType(System.String))
-            dtDistrict.Columns.Add("strDistrictCode", GetType(System.String))
-            dtDistrict2.Columns.Add("strDistrictName", GetType(System.String))
-            dtDistrict2.Columns.Add("strDistrictCode", GetType(System.String))
-            dtDistrict3.Columns.Add("strDistrictName", GetType(System.String))
-            dtDistrict3.Columns.Add("strDistrictCode", GetType(System.String))
-            dtDistrict4.Columns.Add("strDistrictName", GetType(System.String))
-            dtDistrict4.Columns.Add("strDistrictCode", GetType(System.String))
-
-            drNewRow = dtDistrict.NewRow()
-            drNewRow("strDistrictName") = " "
-            drNewRow("strDistrictCode") = " "
-            dtDistrict.Rows.Add(drNewRow)
-
-            drNewRow3 = dtDistrict3.NewRow()
-            drNewRow3("strDistrictName") = " "
-            drNewRow3("strDistrictCode") = " "
-            dtDistrict3.Rows.Add(drNewRow3)
-
-            For Each drDSRow In dsDistrict.Tables("District").Rows()
-                drNewRow = dtDistrict.NewRow()
-                drNewRow("strDistrictName") = drDSRow("strDistrictName")
-                drNewRow("strDistrictCode") = drDSRow("strDistrictCode")
-                dtDistrict.Rows.Add(drNewRow)
-            Next
-            For Each drDSRow2 In dsDistrict.Tables("District").Rows()
-                drNewRow2 = dtDistrict2.NewRow()
-                drNewRow2("strDistrictName") = drDSRow2("strDistrictName") & " - " & drDSRow2("strDistrictCode")
-                drNewRow2("strDistrictCode") = drDSRow2("strDistrictCode")
-                dtDistrict2.Rows.Add(drNewRow2)
-            Next
-            For Each drDSRow3 In dsDistrict.Tables("District").Rows()
-                drNewRow3 = dtDistrict3.NewRow()
-                drNewRow3("strDistrictName") = drDSRow3("strDistrictName")
-                drNewRow3("strDistrictCode") = drDSRow3("strDistrictCode")
-                dtDistrict3.Rows.Add(drNewRow3)
-            Next
-            For Each drDSRow4 In dsDistrict.Tables("District").Rows()
-                drNewRow4 = dtDistrict4.NewRow()
-                drNewRow4("strDistrictName") = drDSRow4("strDistrictName")
-                drNewRow4("strDistrictCode") = drDSRow4("strDistrictCode")
-                dtDistrict4.Rows.Add(drNewRow4)
-            Next
-
-            With cboDistricts
-                .DataSource = dtDistrict
-                .DisplayMember = "strDistrictName"
-                .ValueMember = "strDistrictCode"
-                .SelectedIndex = 0
-            End With
-
-            With lsbDistricts
-                .DataSource = dtDistrict2
-                .DisplayMember = "strDistrictName"
-                .ValueMember = "strDistrictName"
-                .SelectedIndex = 0
-            End With
-
-            With cboDistrictToRemove
-                .DataSource = dtDistrict3
-                .DisplayMember = "strDistrictName"
-                .ValueMember = "strDistrictCode"
-                .SelectedIndex = 0
-            End With
-
-            With clbDistricts
-                .DataSource = dtDistrict4
-                .DisplayMember = "strDistrictName"
-                .ValueMember = "strDistrictCode"
-                .SelectedIndex = 0
-            End With
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-
+    Private Sub LoadCounties()
+        With clbCounties
+            .DataSource = GetSharedData(SharedTable.Counties).Copy
+            .DisplayMember = "County"
+            .ValueMember = "CountyCode"
+        End With
     End Sub
-    Sub LoadDistrictStaff()
-        Try
-            Dim dtDistrictStaff As New DataTable
-            Dim drDSRow As DataRow
-            Dim drNewRow As DataRow
 
-            SQL = "Select  " &
-            "(strFirstName||' '||strLastName) as Username,   " &
-            "AIRBRANCH.EPDUserProfiles.numUserID,  " &
-            "striaipPermissions  " &
-            "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.IAIPPermissions     " &
-            "where AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.IAIPPermissions.numUserID  " &
-            "and ((numProgram = '4' and numUnit is null)  " &
-            "or strIAIPPermissions like '%(21)%'  " &
-            "or strIAIPPermissions like '%(23)%' " &
-            "or strIAIPPermissions like '%(25)%' " &
-            "or (numBranch = '5' and numProgram <> '35' and numEmployeeStatus = '1')) "
+    Private Sub LoadDistrictData()
+        With cboDistricts
+            .DataSource = GetSharedData(SharedTable.DistrictOffices).Copy
+            .DisplayMember = "DistrictName"
+            .ValueMember = "DistrictCode"
+            .SelectedIndex = -1
+            AddHandler .SelectedIndexChanged, AddressOf cboDistricts_SelectedIndexChanged
+        End With
 
-            dsDistrictStaff = New DataSet
-            daDistrictStaff = New OracleDataAdapter(SQL, CurrentConnection)
+        With lsbDistricts
+            .DataSource = GetSharedData(SharedTable.DistrictOffices).Copy
+            .DisplayMember = "DistrictName"
+            .ValueMember = "DistrictCode"
+            .SelectedIndex = -1
+            AddHandler .SelectedIndexChanged, AddressOf lsbDistricts_SelectedIndexChanged
+        End With
 
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daDistrictStaff.Fill(dsDistrictStaff, "DistrictStaff")
+        With cboDistrictManager
+            .DataSource = GetStaffAsDataTableByBranch(5)
+            .DisplayMember = "UserName"
+            .ValueMember = "UserID"
+            .SelectedIndex = -1
+        End With
+    End Sub
 
-            dtDistrictStaff.Columns.Add("Username", GetType(System.String))
-            dtDistrictStaff.Columns.Add("numUserID", GetType(System.String))
-
-            drNewRow = dtDistrictStaff.NewRow()
-            drNewRow("Username") = " "
-            drNewRow("numUserID") = " "
-            dtDistrictStaff.Rows.Add(drNewRow)
-
-            For Each drDSRow In dsDistrictStaff.Tables("DistrictStaff").Rows()
-                drNewRow = dtDistrictStaff.NewRow()
-                drNewRow("Username") = drDSRow("Username")
-                drNewRow("numUserID") = drDSRow("numUserID")
-                dtDistrictStaff.Rows.Add(drNewRow)
-            Next
-
-            With cboDistrictManager
-                .DataSource = dtDistrictStaff
-                .DisplayMember = "Username"
-                .ValueMember = "numUserID"
-                .SelectedIndex = 0
-            End With
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
+    Private Sub LoadCountyAssignments()
+        DistrictCountyAssignments = GetDistrictCountyAssignments()
     End Sub
 
 #End Region
-#Region "Subs and Functions"
-    Sub SaveDistrictList()
-        Dim strObject As String
 
-        Try
+    Private Sub SaveDistrictList()
+        Dim SQL As String = "UPDATE LOOKUPDISTRICTINFORMATION
+            SET STRDISTRICTCODE = @districtcode
+            WHERE STRDISTRICTCOUNTY IN (SELECT * FROM @counties)"
 
-            If cboDistricts.SelectedIndex > 0 Then
-                For Each strObject In clbCounties.CheckedItems
-                    SQL = "Update AIRBRANCH.LookupDistrictInformation set " &
-                    "strDistrictCode = '" & cboDistricts.SelectedValue & "' " &
-                    "where strDistrictCounty = (select strCountyCode " &
-                    "from AIRBRANCH.LookUpCountyInformation where " &
-                    "strCountyName = '" & strObject & "') "
+        Dim counties As New HashSet(Of String)
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
+        For Each drv As DataRowView In clbCounties.CheckedItems
+            counties.Add(drv.Item("CountyCode"))
+        Next
 
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                Next
-            End If
+        Dim p As SqlParameter() = {
+            New SqlParameter("@districtcode", cboDistricts.SelectedValue),
+            counties.AsEnumerable.AsTvpSqlParameter("@counties")
+        }
 
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
+        DB.RunCommand(SQL, p)
 
-        End Try
+        Dim dr As DataRow
 
+        For Each cc As String In counties
+            dr = DistrictCountyAssignments.Select("CountyCode=" & cc)(0)
+            dr.Item("DistrictCode") = cboDistricts.SelectedValue
+        Next
     End Sub
-    Sub SaveNewDistricts()
-        Try
 
-            If txtNewDistrict.Text <> "" And txtNewDistrictCode.Text <> "" Then
-                SQL = "Select strDistrictCode from AIRBRANCH.LookUPDistricts " &
-                "where strDistrictCode = '" & txtNewDistrictCode.Text & "' "
+    Private Sub SaveNewDistricts()
+        If txtNewDistrict.Text <> "" And txtNewDistrictCode.Text <> "" And cboDistrictManager.SelectedIndex > -1 Then
+            Dim exists As Boolean = (GetSharedData(SharedTable.DistrictOffices).AsEnumerable.Any(Function(dr) dr.Item("DistrictCode") = txtNewDistrictCode.Text))
+            Dim SQL As String
+            Dim countycode As String = txtNewDistrictCode.Text
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-                If recExist = True Then
-                    SQL = "Update AIRBRANCH.LookUPDistricts set " &
-                    "strDistrictName = '" & txtNewDistrict.Text & "', " &
-                    "strDistrictManager = '" & cboDistrictManager.SelectedValue & "' " &
-                    "where strDistrictCode = '" & txtNewDistrictCode.Text & "' "
-                Else
-                    SQL = "Insert into AIRBRANCH.LookUPDistricts " &
-                    "(strDistrictCode, strDistrictName, " &
-                    "strDistrictManager) " &
+            If exists Then
+                SQL = "Update LookUPDistricts set " &
+                    "strDistrictName = @name, " &
+                    "strDistrictManager = @mgr " &
+                    "where strDistrictCode = @code "
+            Else
+                SQL = "Insert into LookUPDistricts " &
+                    "(strDistrictCode, strDistrictName, strDistrictManager) " &
                     "values " &
-                    "('" & txtNewDistrictCode.Text & "', " &
-                    "'" & txtNewDistrict.Text & "', " &
-                    "'" & cboDistrictManager.SelectedValue & "') "
-                End If
-
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                dr = cmd.ExecuteReader
-
-                LoadDistrictListBox()
-
-                lsbDistricts.SelectedValue = txtNewDistrict.Text & " - " & txtNewDistrictCode.Text
-
-
+                    "(@code, @name, @mgr) "
             End If
 
-            If chbRemoveDistrict.Checked = True Then
-                SQL = "Delete AIRBRANCH.LookUPDistricts " &
-                "where strDistrictCode = '" & Me.cboDistrictToRemove.SelectedValue & "' "
+            Dim p As SqlParameter() = {
+                New SqlParameter("@name", txtNewDistrict.Text),
+                New SqlParameter("@code", countycode),
+                New SqlParameter("@mgr", cboDistrictManager.SelectedValue)
+            }
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
+            DB.RunCommand(SQL, p)
 
-                dr = cmd.ExecuteReader
+            ClearSharedData(SharedTable.DistrictOffices)
 
+            RemoveHandler lsbDistricts.SelectedIndexChanged, AddressOf lsbDistricts_SelectedIndexChanged
+            RemoveHandler cboDistricts.SelectedIndexChanged, AddressOf cboDistricts_SelectedIndexChanged
 
-                LoadDistrictListBox()
-                chbRemoveDistrict.Checked = False
-            End If
+            LoadDistrictData()
+            ClearChecks()
 
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-
+            lsbDistricts.SelectedValue = countycode
+        End If
     End Sub
-    Sub Clear()
-        Try
 
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
+#Region " Form events "
 
-        End Try
-
+    Private Sub btnClearChecks_Click(sender As Object, e As EventArgs) Handles btnClearChecks.Click
+        ClearChecks()
     End Sub
-    Sub Back()
-        Try
 
-            Me.Dispose()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
+    Private Sub btnSaveDistricts_Click(sender As Object, e As EventArgs) Handles btnSaveDistricts.Click
+        SaveDistrictList()
+    End Sub
 
-        End Try
+    Private Sub btnAddUpdateInfo_Click(sender As Object, e As EventArgs) Handles btnAddUpdateInfo.Click
+        SaveNewDistricts()
+    End Sub
 
+    Private Sub cboDistricts_SelectedIndexChanged(sender As Object, e As EventArgs)
+        ViewDistrictAssignments()
+    End Sub
+
+    Private Sub lsbDistricts_SelectedIndexChanged(sender As Object, e As EventArgs)
+        DisplaySelectedDistrict()
     End Sub
 
 #End Region
-#Region "Declaration"
-    Private Sub MmiBack_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiBack.Click
-        Try
 
-            Back()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
+    Private Sub DisplaySelectedDistrict()
+        If lsbDistricts.SelectedIndex >= 0 Then
+            Dim drv As DataRowView = CType(lsbDistricts.SelectedItem, DataRowView)
 
-        End Try
+            txtNewDistrictCode.Text = drv.Item("DistrictCode")
+            txtNewDistrict.Text = drv.Item("DistrictName")
 
+            Dim exists As Boolean = (CType(cboDistrictManager.DataSource, DataTable).Select("UserId=" & drv.Item("Manager").ToString).Count > 0)
+            If exists Then
+                cboDistrictManager.SelectedValue = drv.Item("Manager")
+            End If
+        End If
     End Sub
-    Private Sub mmiCut_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiCut.Click
-        Try
 
-            SendKeys.Send("^(X)")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
+    Private Sub ClearChecks()
+        For i As Integer = 0 To clbCounties.Items.Count - 1
+            clbCounties.SetItemChecked(i, False)
+        Next
     End Sub
-    Private Sub mmiCopy_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiCopy.Click
-        Try
 
-            SendKeys.Send("^(C)")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
+    Private Sub ViewDistrictAssignments()
+        Dim cty As String
+        Dim dst As String = cboDistricts.SelectedValue
 
-        End Try
+        ClearChecks()
 
-    End Sub
-    Private Sub mmiPaste_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiPaste.Click
-        Try
+        For i As Integer = 0 To clbCounties.Items.Count - 1
+            cty = CType(clbCounties.Items.Item(i), DataRowView).Item("CountyCode")
 
-            SendKeys.Send("^(V)")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub mmiClear_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiClear.Click
-        Try
-
-            Clear()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub mmiHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiHelp.Click
-        OpenDocumentationUrl(Me)
-    End Sub
-    Private Sub TBManagingDistricts_ButtonClick(ByVal sender As Object, ByVal e As System.Windows.Forms.ToolBarButtonClickEventArgs) Handles TBManagingDistricts.ButtonClick
-        Try
-
-            Select Case TBManagingDistricts.Buttons.IndexOf(e.Button)
-                Case 0
-                    Clear()
-                Case 1
-                    Back()
-                Case Else
-
-            End Select
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub llbViewDistricts_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbViewDistricts.LinkClicked
-        Try
-
-            Select Case clbDistricts.CheckedItems.Count
-                Case 0
-                    MsgBox("Please select a District from the right.", MsgBoxStyle.Information, "SSCP District Liasion")
-                Case Else
-                    LoadCountyListBox("District")
-            End Select
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub btnCheckAllCounties_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCheckAllCounties.Click
-        Dim i As Integer
-
-        Try
-
-            For i = 0 To clbCounties.Items.Count - 1
+            If DistrictCountyAssignments.AsEnumerable.Any(Function(dr) dr.Item("CountyCode") = cty And dr.Item("DistrictCode") = dst) Then
                 clbCounties.SetItemChecked(i, True)
-            Next
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub btnClearChecks_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClearChecks.Click
-        Dim i As Integer
-        Try
-
-            For i = 0 To clbCounties.Items.Count - 1
-                clbCounties.SetItemChecked(i, False)
-            Next
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub IAIPDistrictSourcesTool_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
-        Try
-
-            Back()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub BtnSaveDistricts_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles BtnSaveDistricts.Click
-        Try
-
-            SaveDistrictList()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub btnAddUpdateInfo_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAddUpdateInfo.Click
-        Try
-
-            SaveNewDistricts()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub lsbDistricts_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles lsbDistricts.MouseUp
-        Try
-            txtNewDistrictCode.Text = Mid(lsbDistricts.SelectedValue, ((lsbDistricts.SelectedValue).ToString.IndexOf("-") + 3))
-
-            If txtNewDistrictCode.Text <> "" Then
-                SQL = "Select " &
-                "strDistrictName, strDistrictManager " &
-                "from AIRBRANCH.LookUPDistricts " &
-                "where strDistrictCode = '" & txtNewDistrictCode.Text & "' "
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-                If recExist = True Then
-                    If IsDBNull(dr.Item("strDistrictName")) Then
-                        txtNewDistrict.Clear()
-                    Else
-                        txtNewDistrict.Text = dr.Item("strDistrictName")
-                    End If
-                    If IsDBNull(dr.Item("strDistrictManager")) Then
-                        cboDistrictManager.Text = ""
-                        cboDistrictManager.SelectedIndex = 0
-                    Else
-                        cboDistrictManager.SelectedValue = dr.Item("strDistrictManager")
-                    End If
-                Else
-                    txtNewDistrict.Clear()
-                    cboDistrictManager.Text = ""
-                    cboDistrictManager.SelectedIndex = 0
-                End If
             End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
+        Next
     End Sub
 
-#End Region
-
-
-
-
-
-
-
-
-
-    Private Sub btnViewDistrict_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnViewDistrict.Click
-        Dim CountyName As String = ""
-        Dim i As Integer = 0
-
-        Try
-
-            clbCounties.Items.Clear()
-
-            SQL = "Select strCountyName, strCountyCode " &
-            "from AIRBRANCH.LookUpCountyInformation " &
-            "Order by strCountyName"
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            dr = cmd.ExecuteReader
-            While dr.Read
-                CountyName = dr.Item("strCountyname")
-                clbCounties.Items.Add(CountyName)
-
-                SQL2 = "Select " &
-                "strCountyName " &
-                "from AIRBRANCH.LookUpCountyInformation, AIRBRANCH.LookUpDistrictInformation " &
-                "Where strCountyCode = strDistrictCounty " &
-                "and strDistrictCode = '" & clbDistricts.SelectedValue & "' " &
-                "and strCountyName = '" & CountyName & "' "
-
-                cmd = New OracleCommand(SQL2, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr2 = cmd.ExecuteReader
-
-                recExist = dr2.Read
-                If recExist = True Then
-                    If dr2.Item("strCountyName") = CountyName Then
-                        clbCounties.SetItemChecked(i, True)
-                    Else
-                        clbCounties.SetItemChecked(i, False)
-                    End If
-                End If
-                dr2.Close()
-                i += 1
-            End While
-            dr.Close()
-
-
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
 End Class

@@ -455,7 +455,7 @@ Public Class IaipUserManagement
                 Case StringValidationResult.Empty
                     EP.SetError(ProfileUsername, "Username is required")
                 Case StringValidationResult.TooShort
-                    EP.SetError(ProfileUsername, "Username must be at least " & MinUsernameLength.ToString & " characters long")
+                    EP.SetError(ProfileUsername, "Username must be at least " & MIN_USERNAME_LENGTH.ToString & " characters long")
                 Case StringValidationResult.InvalidCharacters
                     EP.SetError(ProfileUsername, "Username may only contain alphanumeric characters.")
             End Select

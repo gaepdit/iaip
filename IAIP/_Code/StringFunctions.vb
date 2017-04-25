@@ -9,7 +9,7 @@ Public Module StringFunctions
     ''' <param name="items">An array of strings to concatenate</param>
     ''' <returns>A concatenated string separated by the specified separator. Null or empty strings are ignored.</returns>
     ''' <remarks></remarks>
-    Public Function ConcatNonEmptyStrings(ByVal separator As String, ByVal items As String()) As String
+    Public Function ConcatNonEmptyStrings(separator As String, items As String()) As String
         Return String.Join(separator, Array.FindAll(items, Function(s) Not String.IsNullOrEmpty(s)))
     End Function
 
@@ -20,7 +20,7 @@ Public Module StringFunctions
     ''' <param name="formal">Whether to format the telephone number as "(999) 999-9999" (if True) or "999-999-9999" (if False).</param>
     ''' <returns>A formatted telephone number.</returns>
     ''' <remarks></remarks>
-    Public Function FormatDigitsAsPhoneNumber(ByVal p As String, Optional ByVal formal As Boolean = True) As String
+    Public Function FormatDigitsAsPhoneNumber(p As String, Optional formal As Boolean = True) As String
         If p Is Nothing Then Return p
         If Not Regex.IsMatch(p, NumericPattern) Then Return p
         If Not (p.Length = 7 Or p.Length >= 10) Then Return p
@@ -42,7 +42,7 @@ Public Module StringFunctions
         End If
     End Function
 
-    Public Function RealStringOrNothing(ByVal s As String) As String
+    Public Function RealStringOrNothing(s As String) As String
         If String.IsNullOrEmpty(s) Then
             Return Nothing
         Else

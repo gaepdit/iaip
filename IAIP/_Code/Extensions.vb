@@ -1,9 +1,10 @@
 ﻿Imports System.Runtime.CompilerServices
-Imports System.Runtime.InteropServices
 Imports System.IO
 Imports System.Collections.Generic
 Imports System.Reflection
 Imports System.ComponentModel
+Imports System.Linq
+Imports Microsoft.SqlServer.Server
 
 Module Extensions
 
@@ -12,8 +13,8 @@ Module Extensions
 #Region " DataGridView Columns "
 
     <Extension()>
-    Public Sub SanelyResizeColumns(ByVal datagridview As DataGridView,
-                                   Optional ByVal maxWidth As Integer = 275)
+    Public Sub SanelyResizeColumns(datagridview As DataGridView,
+                                   Optional maxWidth As Integer = 275)
 
         ' Resize all columns to fit current content:
         datagridview.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells
@@ -33,19 +34,19 @@ Module Extensions
     End Sub
 
     <Extension()>
-    Public Sub MakeColumnsLookLikeLinks(ByVal dgv As DataGridView, ByVal col As Integer)
+    Public Sub MakeColumnsLookLikeLinks(dgv As DataGridView, col As Integer)
         dgv.MakeColumnsLookLikeLinks(New Integer() {col})
     End Sub
 
     <Extension()>
-    Public Sub MakeColumnsLookLikeLinks(ByVal dgv As DataGridView, ByVal cols As Integer())
+    Public Sub MakeColumnsLookLikeLinks(dgv As DataGridView, cols As Integer())
         For Each col As Integer In cols
             dgv.Columns(col).DefaultCellStyle.ForeColor = SystemColors.HotTrack
         Next
     End Sub
 
     <Extension()>
-    Public Sub MakeCellLookLikeHoveredLink(ByVal dgv As DataGridView, ByVal row As Integer, ByVal col As Integer, Optional ByVal hover As Boolean = True)
+    Public Sub MakeCellLookLikeHoveredLink(dgv As DataGridView, row As Integer, col As Integer, Optional hover As Boolean = True)
         If hover Then
             dgv.Cursor = Cursors.Hand
             dgv.Rows(row).Cells(col).Style.ForeColor = Color.Blue
@@ -64,14 +65,14 @@ Module Extensions
 #Region " DataGridView Excel export "
 
     <Extension()>
-    Public Sub ExportToExcel(ByVal dataGridView As DataGridView, Optional ByVal sender As Object = Nothing)
+    Public Sub ExportToExcel(dataGridView As DataGridView, Optional sender As Object = Nothing)
         If dataGridView Is Nothing OrElse dataGridView.RowCount = 0 Then Exit Sub
 
         Dim dataTable As DataTable = GetDataTableFromDataGridView(dataGridView)
         dataTable.ExportToExcel(sender)
     End Sub
 
-    Private Function GetDataTableFromDataGridView(ByVal dataGridView As DataGridView) As DataTable
+    Private Function GetDataTableFromDataGridView(dataGridView As DataGridView) As DataTable
         If dataGridView Is Nothing OrElse dataGridView.RowCount = 0 Then Return Nothing
 
         Dim dataTable As New DataTable
@@ -109,7 +110,7 @@ Module Extensions
 #Region " DataTable "
 
     <Extension()>
-    Public Sub ExportToExcel(ByVal dataTable As DataTable, Optional ByVal sender As Object = Nothing)
+    Public Sub ExportToExcel(dataTable As DataTable, Optional sender As Object = Nothing)
         If dataTable Is Nothing OrElse dataTable.Rows.Count = 0 Then Exit Sub
 
         If sender IsNot Nothing Then
@@ -120,7 +121,7 @@ Module Extensions
         With dialog
             .Filter = "Excel File (*.xlsx)|*.xlsx"
             .DefaultExt = ".xlsx"
-            .FileName = "Export_" & System.DateTime.Now.ToString("yyyy-MM-dd_HH.mm.ss") & ".xlsx"
+            .FileName = "Export_" & Date.Now.ToString("yyyy-MM-dd_HH.mm.ss") & ".xlsx"
             .InitialDirectory = GetUserSetting(UserSetting.ExcelExportLocation)
         End With
 
@@ -131,14 +132,14 @@ Module Extensions
             Try
                 result = CreateExcelFileFromDataTable(dialog.FileName, dataTable, errorMessage)
             Catch ex As Exception
-                ErrorReport(ex, errorMessage, System.Reflection.MethodBase.GetCurrentMethod.Name)
+                ErrorReport(ex, errorMessage, MethodBase.GetCurrentMethod.Name)
             End Try
 
             If result Then
                 If Not Path.GetDirectoryName(dialog.FileName) = dialog.InitialDirectory Then
                     SaveUserSetting(UserSetting.ExcelExportLocation, Path.GetDirectoryName(dialog.FileName))
                 End If
-                System.Diagnostics.Process.Start(dialog.FileName)
+                Process.Start(dialog.FileName)
             Else
                 MessageBox.Show(errorMessage)
             End If
@@ -156,7 +157,7 @@ Module Extensions
 #Region " Dictionary "
 
     <Extension()>
-    Public Sub AddBlankRow(ByRef d As Dictionary(Of Integer, String), Optional ByVal blankPrompt As String = "")
+    Public Sub AddBlankRow(ByRef d As Dictionary(Of Integer, String), Optional blankPrompt As String = "")
         d.Add(0, blankPrompt)
     End Sub
 
@@ -172,7 +173,7 @@ Module Extensions
     ''' <remarks>If the desired SplitterDistance is incompatible with the dimension of the 
     ''' SplitContainer, nothing is changed and no error is returned</remarks>
     <Extension()>
-    Public Sub SanelySetSplitterDistance(ByVal sc As SplitContainer, ByVal dist As Integer)
+    Public Sub SanelySetSplitterDistance(sc As SplitContainer, dist As Integer)
         Dim i As Integer = dist
 
         If sc.Orientation = Orientation.Horizontal Then
@@ -206,7 +207,7 @@ Module Extensions
     ''' <remarks>The order of the parameters does not matter. If either parameter is incompatible with 
     ''' the dimension of the SplitContainer, nothing is changed and no error is returned.</remarks>
     <Extension()>
-    Public Sub ToggleSplitterDistance(ByVal sc As SplitContainer, ByVal a As Integer, ByVal b As Integer)
+    Public Sub ToggleSplitterDistance(sc As SplitContainer, a As Integer, b As Integer)
         ' Bail if a or b are outside the allowable values for SplitterDistance
         If (a < sc.Panel1MinSize) OrElse (b < sc.Panel1MinSize) Then Exit Sub
         If (sc.Orientation = Orientation.Vertical) Then
@@ -240,7 +241,7 @@ Module Extensions
     ''' <remarks>http://stackoverflow.com/a/14772005/212978</remarks>
     <DebuggerStepThrough>
     <Extension>
-    Public Function GetDescription(ByVal e As [Enum]) As String
+    Public Function GetDescription(e As [Enum]) As String
         Dim enumType As Type = e.GetType()
         Dim name As String = e.ToString()
 
@@ -324,7 +325,7 @@ Module Extensions
 #Region " Combobox "
 
     <Extension()>
-    Public Sub BindToDictionary(ByVal c As ComboBox, ByVal d As Dictionary(Of Integer, String))
+    Public Sub BindToDictionary(c As ComboBox, d As Dictionary(Of Integer, String))
         With c
             .DataSource = New BindingSource(d, Nothing)
             .DisplayMember = "Value"
@@ -333,7 +334,7 @@ Module Extensions
     End Sub
 
     <Extension()>
-    Public Sub BindToSortedDictionary(ByVal c As ComboBox, ByVal d As SortedDictionary(Of Integer, String))
+    Public Sub BindToSortedDictionary(c As ComboBox, d As SortedDictionary(Of Integer, String))
         With c
             .DataSource = New BindingSource(d, Nothing)
             .DisplayMember = "Value"
@@ -342,7 +343,7 @@ Module Extensions
     End Sub
 
     <Extension()>
-    Public Sub BindToDictionary(Of T)(ByVal c As ComboBox, ByVal d As Dictionary(Of T, String))
+    Public Sub BindToDictionary(Of T)(c As ComboBox, d As Dictionary(Of T, String))
         With c
             .DataSource = New BindingSource(d, Nothing)
             .DisplayMember = "Value"
@@ -351,7 +352,7 @@ Module Extensions
     End Sub
 
     <Extension()>
-    Public Sub BindToKeyValuePairs(ByVal c As ComboBox, ByVal l As List(Of KeyValuePair(Of Integer, String)))
+    Public Sub BindToKeyValuePairs(c As ComboBox, l As Dictionary(Of Integer, String))
         With c
             .DataSource = New BindingSource(l, Nothing)
             .DisplayMember = "Value"
@@ -365,7 +366,7 @@ Module Extensions
     ''' <typeparam name="TEnum">The Enum to bind to.</typeparam>
     ''' <param name="c">The Combobox to bind.</param>
     <Extension()>
-    Public Sub BindToEnum(Of TEnum)(ByVal c As ComboBox)
+    Public Sub BindToEnum(Of TEnum)(c As ComboBox)
         Dim enumType As Type = GetType(TEnum)
 
         If enumType.BaseType IsNot GetType([Enum]) Then
@@ -373,17 +374,13 @@ Module Extensions
         End If
 
         Dim enumItems As Array = [Enum].GetValues(enumType)
-        Dim enumDict As New Generic.Dictionary(Of [Enum], String)
+        Dim enumDict As New Dictionary(Of [Enum], String)
 
         For Each enumItem As [Enum] In enumItems
             enumDict(enumItem) = enumItem.GetDescription
         Next
 
-        With c
-            .DataSource = New BindingSource(enumDict, Nothing)
-            .DisplayMember = "Value"
-            .ValueMember = "Key"
-        End With
+        c.BindToDictionary(enumDict)
     End Sub
 
 #End Region

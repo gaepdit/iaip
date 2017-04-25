@@ -3,8 +3,7 @@
     Public Property AirsNumber As Apb.ApbFacilityId
     Public Property FacilityName As String
 
-    Private Sub IaipFacilitySummaryPrintLoad(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        
+    Private Sub IaipFacilitySummaryPrintLoad(sender As Object, e As EventArgs) Handles MyBase.Load
         FullPrintStartDate.Value = Today.AddMonths(-12)
         FullPrintEndDate.Value = Today
         If AirsNumber IsNot Nothing Then
@@ -12,7 +11,7 @@
         End If
     End Sub
 
-    Private Sub ShowReport(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ShowBasicReportButton.Click, ShowFullReportButton.Click
+    Private Sub ShowReport(sender As Object, e As EventArgs) Handles ShowBasicReportButton.Click, ShowFullReportButton.Click
         If AirsNumber Is Nothing Then
             MessageBox.Show("The AIRS number is invalid")
             Exit Sub
@@ -23,9 +22,9 @@
         End If
 
         Select Case sender.Name.ToString
-            Case ShowBasicReportButton.Name.ToString
+            Case NameOf(ShowBasicReportButton)
                 ShowBasicReport()
-            Case ShowFullReportButton.Name.ToString
+            Case NameOf(ShowFullReportButton)
                 ShowFullReport()
         End Select
 

@@ -1,11 +1,11 @@
-﻿Imports Oracle.ManagedDataAccess.Client
+﻿Imports System.Data.SqlClient
+Imports EpdIt
 
 Public Class DMUIaipErrorLog
 
 #Region " Page Load Functions "
 
-    Private Sub DMUDeveloperTools_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-
+    Private Sub DMUDeveloperTools_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         LoadPermissions()
     End Sub
 
@@ -99,12 +99,13 @@ Public Class DMUIaipErrorLog
     Private Sub LoadErrorLog()
         Dim query As String = "Select " &
             " strErrorNumber, " &
-            " (strLastName||', '||strFirstName) as ErrorUser, " &
+            " concat(strLastName, ', ', strFirstName) as ErrorUser, " &
             " strErrorLocation, strErrorMessage, " &
-            " to_char(datErrorDate, 'DD-Mon-YYYY') as ErrorDate, " &
+            " datErrorDate as ErrorDate, " &
             " strSolution " &
-            " from AIRBranch.IAIPErrorLog, AIRBranch.EPDUserProfiles " &
-            " where AIRBranch.IAIPErrorLog.strUser = AIRBranch.EPDUserProfiles.numUserID "
+            " from IAIPErrorLog inner join EPDUserProfiles " &
+            " on IAIPErrorLog.strUser = EPDUserProfiles.numUserID " &
+            " where 1=1 "
 
         If rdbViewResolvedErrors.Checked = True Then
             query = query & " and strSolution IS NOT NUll "
@@ -113,9 +114,9 @@ Public Class DMUIaipErrorLog
         End If
 
         If rdbLast30Days.Checked = True Then
-            query = query & " and datErrorDate > add_months(sysdate, -1) "
+            query = query & " and datErrorDate > dateadd(mm, -1, getdate()) "
         ElseIf rdbLast60days.Checked = True Then
-            query = query & " and datErrorDate > add_months(sysdate, -2) "
+            query = query & " and datErrorDate > dateadd(mm, -2, getdate()) "
         End If
 
         query = query & " Order by strErrornumber desc "
@@ -143,6 +144,7 @@ Public Class DMUIaipErrorLog
         dgvErrorList.Columns("ErrorDate").DisplayIndex = 4
         dgvErrorList.Columns("strSolution").HeaderText = "Solution"
         dgvErrorList.Columns("strSolution").DisplayIndex = 5
+        dgvErrorList.SanelyResizeColumns
 
         txtErrorCount.Text = ErrorLog.Rows.Count.ToString
 
@@ -154,7 +156,7 @@ Public Class DMUIaipErrorLog
             "strIPAddress, strUserEmail, " &
             "strErrorPage, dateTimeStamp, " &
             "strErrorMsg, strSolution " &
-            "From AIRBranch.OLAPERRORLog "
+            "From OLAPERRORLog "
 
         If rdbResolvedWebErrors.Checked = True Then
             query = query & " where strSolution IS NOT NULL "
@@ -169,11 +171,11 @@ Public Class DMUIaipErrorLog
 
     End Sub
 
-    Private Sub btnFilterErrors_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFilterErrors.Click
+    Private Sub btnFilterErrors_Click(sender As Object, e As EventArgs) Handles btnFilterErrors.Click
         LoadErrorLog()
     End Sub
 
-    Private Sub btnSaveError_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSaveError.Click
+    Private Sub btnSaveError_Click(sender As Object, e As EventArgs) Handles btnSaveError.Click
         Dim ErrorSolution As String = ""
 
         If txtErrorSolution.Text <> "" Then
@@ -181,13 +183,13 @@ Public Class DMUIaipErrorLog
         End If
 
         If txtErrorNumber.Text <> "" Then
-            Dim query As String = "Update AIRBRANCH.IAIPErrorLog set " &
-            "strSolution = :errSol " &
-            "where strErrornumber = :errNum "
+            Dim query As String = "Update IAIPErrorLog set " &
+            "strSolution = @errSol " &
+            "where strErrornumber = @errNum "
 
-            Dim Parameters As OracleParameter() = {
-            New OracleParameter("errSol", ErrorSolution),
-            New OracleParameter("errNum", txtErrorNumber.Text)
+            Dim Parameters As SqlParameter() = {
+                New SqlParameter("@errSol", ErrorSolution),
+                New SqlParameter("@errNum", txtErrorNumber.Text)
             }
 
             DB.RunCommand(query, Parameters)
@@ -198,11 +200,11 @@ Public Class DMUIaipErrorLog
         End If
     End Sub
 
-    Private Sub btnFilterWebErrors_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFilterWebErrors.Click
+    Private Sub btnFilterWebErrors_Click(sender As Object, e As EventArgs) Handles btnFilterWebErrors.Click
         LoadWebErrorLog()
     End Sub
 
-    Private Sub dgrWebErrorList_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgrWebErrorList.MouseUp
+    Private Sub dgrWebErrorList_MouseUp(sender As Object, e As MouseEventArgs) Handles dgrWebErrorList.MouseUp
         Dim hti As DataGrid.HitTestInfo = dgrWebErrorList.HitTest(e.X, e.Y)
 
         Try
@@ -220,30 +222,30 @@ Public Class DMUIaipErrorLog
                     " strIPAddress, strUserEmail, " &
                     " strErrorPage, dateTimeStamp, " &
                     " strErrorMsg, strSolution " &
-                    " From AIRBRANCH.OLAPERRORLog " &
-                    " where numError = :errNum "
+                    " From OLAPERRORLog " &
+                    " where numError = @errNum "
 
-                    Dim parameter As OracleParameter = New OracleParameter("errNum", txtWebErrorNumber.Text)
+                    Dim parameter As SqlParameter = New SqlParameter("@errNum", txtWebErrorNumber.Text)
 
                     Dim row As DataRow = DB.GetDataRow(query, parameter)
 
                     If row IsNot Nothing Then
-                        txtIPAddress.Text = DB.GetNullable(Of String)(row("strIPAddress"))
-                        txtWebErrorUser.Text = DB.GetNullable(Of String)(row("strUserEmail"))
-                        txtWebErrorLocation.Text = DB.GetNullable(Of String)(row("strErrorPage"))
-                        txtWebErrorDate.Text = DB.GetNullable(Of String)(row("dateTimeStamp"))
-                        txtWebErrorMessage.Text = DB.GetNullable(Of String)(row("strErrorMsg"))
-                        txtWebErrorSolution.Text = DB.GetNullable(Of String)(row("strSolution"))
+                        txtIPAddress.Text = DBUtilities.GetNullable(Of String)(row("strIPAddress"))
+                        txtWebErrorUser.Text = DBUtilities.GetNullable(Of String)(row("strUserEmail"))
+                        txtWebErrorLocation.Text = DBUtilities.GetNullable(Of String)(row("strErrorPage"))
+                        txtWebErrorDate.Text = DBUtilities.GetNullable(Of String)(row("dateTimeStamp"))
+                        txtWebErrorMessage.Text = DBUtilities.GetNullable(Of String)(row("strErrorMsg"))
+                        txtWebErrorSolution.Text = DBUtilities.GetNullable(Of String)(row("strSolution"))
                     End If
 
                 End If
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub btnSaveWebErrorSolution_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSaveWebErrorSolution.Click
+    Private Sub btnSaveWebErrorSolution_Click(sender As Object, e As EventArgs) Handles btnSaveWebErrorSolution.Click
         Dim ErrorSolution As String = ""
 
         If txtWebErrorSolution.Text <> "" Then
@@ -251,13 +253,13 @@ Public Class DMUIaipErrorLog
         End If
 
         If txtWebErrorNumber.Text <> "" Then
-            Dim query As String = "Update AIRBRANCH.OLAPErrorLog set " &
-            "strSolution = :errSol " &
-            "where numError = :errNum "
+            Dim query As String = "Update OLAPErrorLog set " &
+            "strSolution = @errSol " &
+            "where numError = @errNum "
 
-            Dim Parameters As OracleParameter() = {
-            New OracleParameter("errSol", ErrorSolution),
-            New OracleParameter("errNum", txtWebErrorNumber.Text)
+            Dim Parameters As SqlParameter() = {
+                New SqlParameter("@errSol", ErrorSolution),
+                New SqlParameter("@errNum", txtWebErrorNumber.Text)
             }
 
             DB.RunCommand(query, Parameters)
@@ -268,7 +270,7 @@ Public Class DMUIaipErrorLog
         End If
     End Sub
 
-    Private Sub dgvErrorList_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvErrorList.MouseUp
+    Private Sub dgvErrorList_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvErrorList.MouseUp
         Try
             Dim hti As DataGridView.HitTestInfo = dgvErrorList.HitTest(e.X, e.Y)
             If dgvErrorList.RowCount > 0 And hti.RowIndex <> -1 Then
@@ -282,30 +284,30 @@ Public Class DMUIaipErrorLog
 
                     Dim query As String = "Select " &
                     "strErrorNumber, " &
-                    "(strLastName||', '||strFirstName) as ErrorUser,  " &
+                    "concat(strLastName, ', ', strFirstName) as ErrorUser,  " &
                     "strErrorLocation, strErrorMessage,  " &
-                    "to_char(datErrorDate, 'DD-Mon-YYYY') as ErrorDate,  " &
+                    "datErrorDate as ErrorDate,  " &
                     "strSolution  " &
-                    "from AIRBRANCH.IAIPErrorLog, AIRBRANCH.EPDUserProfiles  " &
-                    "where AIRBRANCH.IAIPErrorLog.strUser = AIRBRANCH.EPDUserProfiles.numUserID " &
-                    "and strErrorNumber = '" & txtErrorNumber.Text & "' "
+                    "from IAIPErrorLog inner join EPDUserProfiles  " &
+                    "on IAIPErrorLog.strUser = EPDUserProfiles.numUserID " &
+                    "where strErrorNumber = @errNum "
 
-                    Dim parameter As OracleParameter = New OracleParameter("errNum", txtErrorNumber.Text)
+                    Dim parameter As SqlParameter = New SqlParameter("@errNum", txtErrorNumber.Text)
 
                     Dim row As DataRow = DB.GetDataRow(query, parameter)
 
                     If row IsNot Nothing Then
-                        txtErrorUser.Text = DB.GetNullable(Of String)(row("ErrorUser"))
-                        txtErrorLocation.Text = DB.GetNullable(Of String)(row("strErrorLocation"))
-                        txtErrorDate.Text = DB.GetNullable(Of String)(row("ErrorDate"))
-                        txtErrorSolution.Text = DB.GetNullable(Of String)(row("strSolution"))
-                        txtErrorMessage.Text = DB.GetNullable(Of String)(row("strErrorMessage"))
+                        txtErrorUser.Text = DBUtilities.GetNullable(Of String)(row("ErrorUser"))
+                        txtErrorLocation.Text = DBUtilities.GetNullable(Of String)(row("strErrorLocation"))
+                        txtErrorDate.Text = DBUtilities.GetNullable(Of String)(row("ErrorDate"))
+                        txtErrorSolution.Text = DBUtilities.GetNullable(Of String)(row("strSolution"))
+                        txtErrorMessage.Text = DBUtilities.GetNullable(Of String)(row("strErrorMessage"))
                     End If
 
                 End If
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 

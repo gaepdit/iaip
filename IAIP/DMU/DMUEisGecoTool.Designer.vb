@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class DMUEisGecoTool
     Inherits BaseForm
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class DMUEisGecoTool
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
@@ -78,7 +78,6 @@ Partial Class DMUEisGecoTool
         Me.txtEISMailoutEditComments = New System.Windows.Forms.TextBox()
         Me.txtEISMailoutComments = New System.Windows.Forms.TextBox()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
-        Me.btnRefreshMailoutData = New System.Windows.Forms.Button()
         Me.Label65 = New System.Windows.Forms.Label()
         Me.txtEISMailoutEmail = New System.Windows.Forms.TextBox()
         Me.txtEISMailoutEditEmailAddress = New System.Windows.Forms.TextBox()
@@ -118,62 +117,43 @@ Partial Class DMUEisGecoTool
         Me.txtEISMailoutFacilityName = New System.Windows.Forms.TextBox()
         Me.TPEISContacts = New System.Windows.Forms.TabPage()
         Me.Panel16 = New System.Windows.Forms.Panel()
-        Me.Label227 = New System.Windows.Forms.Label()
         Me.Label228 = New System.Windows.Forms.Label()
-        Me.btnEISContactUpdate = New System.Windows.Forms.Button()
         Me.Label225 = New System.Windows.Forms.Label()
         Me.txtEISContactUpdateDateTime = New System.Windows.Forms.TextBox()
         Me.Label226 = New System.Windows.Forms.Label()
         Me.txtEISContactUpdateUser = New System.Windows.Forms.TextBox()
         Me.Label224 = New System.Windows.Forms.Label()
-        Me.txtEISContactEditDescription = New System.Windows.Forms.TextBox()
         Me.txtEISContactDescription = New System.Windows.Forms.TextBox()
         Me.Label223 = New System.Windows.Forms.Label()
-        Me.txtEISContactEditZipCode = New System.Windows.Forms.TextBox()
         Me.txtEISContactZipCode = New System.Windows.Forms.TextBox()
         Me.Label222 = New System.Windows.Forms.Label()
-        Me.txtEISContactEditState = New System.Windows.Forms.TextBox()
         Me.txtEISContactState = New System.Windows.Forms.TextBox()
         Me.Label221 = New System.Windows.Forms.Label()
-        Me.txtEISContactEditCity = New System.Windows.Forms.TextBox()
         Me.txtEISContactCity = New System.Windows.Forms.TextBox()
         Me.Label220 = New System.Windows.Forms.Label()
-        Me.txtEISContactEditAddress2 = New System.Windows.Forms.TextBox()
         Me.txtEISContactAddress2 = New System.Windows.Forms.TextBox()
         Me.Label219 = New System.Windows.Forms.Label()
-        Me.txtEISContactEditPhone = New System.Windows.Forms.TextBox()
         Me.txtEISContactPhone = New System.Windows.Forms.TextBox()
         Me.Label218 = New System.Windows.Forms.Label()
-        Me.txtEISContactEditPhone2 = New System.Windows.Forms.TextBox()
         Me.txtEISContactPhone2 = New System.Windows.Forms.TextBox()
         Me.Label217 = New System.Windows.Forms.Label()
-        Me.txtEISContactEditFax = New System.Windows.Forms.TextBox()
         Me.txtEISContactFax = New System.Windows.Forms.TextBox()
         Me.Label216 = New System.Windows.Forms.Label()
-        Me.txtEISContactEditEmail = New System.Windows.Forms.TextBox()
         Me.txtEISContactEmail = New System.Windows.Forms.TextBox()
         Me.Label215 = New System.Windows.Forms.Label()
-        Me.txtEISContactEditAddress = New System.Windows.Forms.TextBox()
         Me.txtEISContactAddress = New System.Windows.Forms.TextBox()
         Me.Label214 = New System.Windows.Forms.Label()
-        Me.txtEISContactEditCompanyName = New System.Windows.Forms.TextBox()
         Me.txtEISContactCompanyName = New System.Windows.Forms.TextBox()
         Me.Label213 = New System.Windows.Forms.Label()
-        Me.txtEISContactEditTitle = New System.Windows.Forms.TextBox()
         Me.txtEISContactTitle = New System.Windows.Forms.TextBox()
         Me.Label212 = New System.Windows.Forms.Label()
-        Me.txtEISContactEditSuffix = New System.Windows.Forms.TextBox()
         Me.txtEISContactSuffix = New System.Windows.Forms.TextBox()
         Me.Label211 = New System.Windows.Forms.Label()
-        Me.txtEISContactEditPrefix = New System.Windows.Forms.TextBox()
         Me.txtEISContactPrefix = New System.Windows.Forms.TextBox()
         Me.Label210 = New System.Windows.Forms.Label()
-        Me.txtEISContactEditLastName = New System.Windows.Forms.TextBox()
         Me.txtEISContactLastName = New System.Windows.Forms.TextBox()
-        Me.Label206 = New System.Windows.Forms.Label()
         Me.Label207 = New System.Windows.Forms.Label()
         Me.Label203 = New System.Windows.Forms.Label()
-        Me.txtEISContactEditFirstName = New System.Windows.Forms.TextBox()
         Me.txtEISContactFirstName = New System.Windows.Forms.TextBox()
         Me.TPQAProcess = New System.Windows.Forms.TabPage()
         Me.pnlQAProcess = New System.Windows.Forms.Panel()
@@ -257,7 +237,7 @@ Partial Class DMUEisGecoTool
         Me.mtbEILogAIRSNumber = New System.Windows.Forms.MaskedTextBox()
         Me.Label48 = New System.Windows.Forms.Label()
         Me.Label47 = New System.Windows.Forms.Label()
-        Me.TPEISStatistics = New System.Windows.Forms.TabPage()
+        Me.TPEisTools = New System.Windows.Forms.TabPage()
         Me.Panel17 = New System.Windows.Forms.Panel()
         Me.dgvEISStats = New System.Windows.Forms.DataGridView()
         Me.Panel18 = New System.Windows.Forms.Panel()
@@ -279,7 +259,6 @@ Partial Class DMUEisGecoTool
         Me.llbEISStatsFipassed = New System.Windows.Forms.LinkLabel()
         Me.txtEISFIPassed = New System.Windows.Forms.TextBox()
         Me.Label297 = New System.Windows.Forms.Label()
-        Me.btnClearInactiveData = New System.Windows.Forms.Button()
         Me.btnEISComplete = New System.Windows.Forms.Button()
         Me.HRule2 = New System.Windows.Forms.Label()
         Me.llbEISStatsOptedOutSubmittedToEPA = New System.Windows.Forms.LinkLabel()
@@ -385,7 +364,6 @@ Partial Class DMUEisGecoTool
         Me.btnViewEISEnrolled = New System.Windows.Forms.Button()
         Me.txtEISStatsEnrollmentYear = New System.Windows.Forms.TextBox()
         Me.Label275 = New System.Windows.Forms.Label()
-        Me.llbEISStatsViewEnrollment = New System.Windows.Forms.LinkLabel()
         Me.btnEISStatsRemoveEnrollment = New System.Windows.Forms.Button()
         Me.btnEISStatsEnrollment = New System.Windows.Forms.Button()
         Me.TPEISThresholds = New System.Windows.Forms.TabPage()
@@ -421,6 +399,17 @@ Partial Class DMUEisGecoTool
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.lblOperStatusCount = New System.Windows.Forms.Label()
         Me.llbOperatingStatusMismatch = New System.Windows.Forms.LinkLabel()
+        Me.TPStageData = New System.Windows.Forms.TabPage()
+        Me.lblEisStageSelectedCount = New System.Windows.Forms.Label()
+        Me.btnEisStageSelectNone = New System.Windows.Forms.Button()
+        Me.btnEisStageSelectAll = New System.Windows.Forms.Button()
+        Me.btnEisStagePseAll = New System.Windows.Forms.Button()
+        Me.btnEisStagePseSelected = New System.Windows.Forms.Button()
+        Me.btnEisStageFiAll = New System.Windows.Forms.Button()
+        Me.btnEisStageFiSelected = New System.Windows.Forms.Button()
+        Me.lblOpenVesaUrl = New System.Windows.Forms.LinkLabel()
+        Me.btnEisStageViewSubmitted = New System.Windows.Forms.Button()
+        Me.Label2 = New System.Windows.Forms.Label()
         Me.Panel21 = New System.Windows.Forms.Panel()
         Me.btnViewEISStats = New System.Windows.Forms.Button()
         Me.Label74 = New System.Windows.Forms.Label()
@@ -524,7 +513,6 @@ Partial Class DMUEisGecoTool
         Me.txtESContactLastName = New System.Windows.Forms.TextBox()
         Me.Label113 = New System.Windows.Forms.Label()
         Me.lblViewESData = New System.Windows.Forms.LinkLabel()
-        Me.btnPrint = New System.Windows.Forms.Button()
         Me.txtFirstConfirmedDate = New System.Windows.Forms.TextBox()
         Me.Label114 = New System.Windows.Forms.Label()
         Me.txtNOXEmission = New System.Windows.Forms.TextBox()
@@ -534,10 +522,6 @@ Partial Class DMUEisGecoTool
         Me.Label117 = New System.Windows.Forms.Label()
         Me.txtConfirmationNbr = New System.Windows.Forms.TextBox()
         Me.txtConfirmationNumber = New System.Windows.Forms.TextBox()
-        Me.txtNox = New System.Windows.Forms.TextBox()
-        Me.txtVoc = New System.Windows.Forms.TextBox()
-        Me.Label118 = New System.Windows.Forms.Label()
-        Me.Label119 = New System.Windows.Forms.Label()
         Me.Label120 = New System.Windows.Forms.Label()
         Me.Label121 = New System.Windows.Forms.Label()
         Me.txtESEmail = New System.Windows.Forms.TextBox()
@@ -671,13 +655,9 @@ Partial Class DMUEisGecoTool
         Me.lblFName = New System.Windows.Forms.Label()
         Me.Label44 = New System.Windows.Forms.Label()
         Me.pnlUserEmail = New System.Windows.Forms.Panel()
-        Me.cboUserEmail = New System.Windows.Forms.ComboBox()
-        Me.lblViewFacility = New System.Windows.Forms.LinkLabel()
         Me.lblViewEmailData = New System.Windows.Forms.LinkLabel()
         Me.Label39 = New System.Windows.Forms.Label()
-        Me.Label52 = New System.Windows.Forms.Label()
         Me.txtWebUserEmail = New System.Windows.Forms.TextBox()
-        Me.btnActivateEmail = New System.Windows.Forms.Button()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.TCDMUTools.SuspendLayout()
         Me.TPEISLog.SuspendLayout()
@@ -698,7 +678,7 @@ Partial Class DMUEisGecoTool
         Me.Panel15.SuspendLayout()
         Me.Panel14.SuspendLayout()
         Me.Panel13.SuspendLayout()
-        Me.TPEISStatistics.SuspendLayout()
+        Me.TPEisTools.SuspendLayout()
         Me.Panel17.SuspendLayout()
         CType(Me.dgvEISStats, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel18.SuspendLayout()
@@ -718,6 +698,7 @@ Partial Class DMUEisGecoTool
         Me.TPOperStatus.SuspendLayout()
         CType(Me.dgvOperStatusMismatch, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel1.SuspendLayout()
+        Me.TPStageData.SuspendLayout()
         Me.Panel21.SuspendLayout()
         Me.TPESTools.SuspendLayout()
         Me.TabControl2.SuspendLayout()
@@ -750,11 +731,12 @@ Partial Class DMUEisGecoTool
         'TCDMUTools
         '
         Me.TCDMUTools.Controls.Add(Me.TPEISLog)
-        Me.TCDMUTools.Controls.Add(Me.TPEISStatistics)
+        Me.TCDMUTools.Controls.Add(Me.TPEisTools)
         Me.TCDMUTools.Controls.Add(Me.TPESTools)
         Me.TCDMUTools.Controls.Add(Me.TPFeeTools)
         Me.TCDMUTools.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TCDMUTools.Location = New System.Drawing.Point(0, 0)
+        Me.TCDMUTools.MinimumSize = New System.Drawing.Size(1016, 713)
         Me.TCDMUTools.Name = "TCDMUTools"
         Me.TCDMUTools.SelectedIndex = 0
         Me.TCDMUTools.Size = New System.Drawing.Size(1016, 713)
@@ -1278,7 +1260,6 @@ Partial Class DMUEisGecoTool
         '
         'GroupBox2
         '
-        Me.GroupBox2.Controls.Add(Me.btnRefreshMailoutData)
         Me.GroupBox2.Controls.Add(Me.Label65)
         Me.GroupBox2.Controls.Add(Me.txtEISMailoutEmail)
         Me.GroupBox2.Controls.Add(Me.txtEISMailoutEditEmailAddress)
@@ -1316,17 +1297,6 @@ Partial Class DMUEisGecoTool
         Me.GroupBox2.TabIndex = 0
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Contact Info"
-        '
-        'btnRefreshMailoutData
-        '
-        Me.btnRefreshMailoutData.AutoSize = True
-        Me.btnRefreshMailoutData.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnRefreshMailoutData.Location = New System.Drawing.Point(782, 11)
-        Me.btnRefreshMailoutData.Name = "btnRefreshMailoutData"
-        Me.btnRefreshMailoutData.Size = New System.Drawing.Size(161, 23)
-        Me.btnRefreshMailoutData.TabIndex = 20
-        Me.btnRefreshMailoutData.Text = "Refresh with current IAIP Data"
-        Me.btnRefreshMailoutData.UseVisualStyleBackColor = True
         '
         'Label65
         '
@@ -1648,78 +1618,49 @@ Partial Class DMUEisGecoTool
         '
         'Panel16
         '
-        Me.Panel16.Controls.Add(Me.Label227)
         Me.Panel16.Controls.Add(Me.Label228)
-        Me.Panel16.Controls.Add(Me.btnEISContactUpdate)
         Me.Panel16.Controls.Add(Me.Label225)
         Me.Panel16.Controls.Add(Me.txtEISContactUpdateDateTime)
         Me.Panel16.Controls.Add(Me.Label226)
         Me.Panel16.Controls.Add(Me.txtEISContactUpdateUser)
         Me.Panel16.Controls.Add(Me.Label224)
-        Me.Panel16.Controls.Add(Me.txtEISContactEditDescription)
         Me.Panel16.Controls.Add(Me.txtEISContactDescription)
         Me.Panel16.Controls.Add(Me.Label223)
-        Me.Panel16.Controls.Add(Me.txtEISContactEditZipCode)
         Me.Panel16.Controls.Add(Me.txtEISContactZipCode)
         Me.Panel16.Controls.Add(Me.Label222)
-        Me.Panel16.Controls.Add(Me.txtEISContactEditState)
         Me.Panel16.Controls.Add(Me.txtEISContactState)
         Me.Panel16.Controls.Add(Me.Label221)
-        Me.Panel16.Controls.Add(Me.txtEISContactEditCity)
         Me.Panel16.Controls.Add(Me.txtEISContactCity)
         Me.Panel16.Controls.Add(Me.Label220)
-        Me.Panel16.Controls.Add(Me.txtEISContactEditAddress2)
         Me.Panel16.Controls.Add(Me.txtEISContactAddress2)
         Me.Panel16.Controls.Add(Me.Label219)
-        Me.Panel16.Controls.Add(Me.txtEISContactEditPhone)
         Me.Panel16.Controls.Add(Me.txtEISContactPhone)
         Me.Panel16.Controls.Add(Me.Label218)
-        Me.Panel16.Controls.Add(Me.txtEISContactEditPhone2)
         Me.Panel16.Controls.Add(Me.txtEISContactPhone2)
         Me.Panel16.Controls.Add(Me.Label217)
-        Me.Panel16.Controls.Add(Me.txtEISContactEditFax)
         Me.Panel16.Controls.Add(Me.txtEISContactFax)
         Me.Panel16.Controls.Add(Me.Label216)
-        Me.Panel16.Controls.Add(Me.txtEISContactEditEmail)
         Me.Panel16.Controls.Add(Me.txtEISContactEmail)
         Me.Panel16.Controls.Add(Me.Label215)
-        Me.Panel16.Controls.Add(Me.txtEISContactEditAddress)
         Me.Panel16.Controls.Add(Me.txtEISContactAddress)
         Me.Panel16.Controls.Add(Me.Label214)
-        Me.Panel16.Controls.Add(Me.txtEISContactEditCompanyName)
         Me.Panel16.Controls.Add(Me.txtEISContactCompanyName)
         Me.Panel16.Controls.Add(Me.Label213)
-        Me.Panel16.Controls.Add(Me.txtEISContactEditTitle)
         Me.Panel16.Controls.Add(Me.txtEISContactTitle)
         Me.Panel16.Controls.Add(Me.Label212)
-        Me.Panel16.Controls.Add(Me.txtEISContactEditSuffix)
         Me.Panel16.Controls.Add(Me.txtEISContactSuffix)
         Me.Panel16.Controls.Add(Me.Label211)
-        Me.Panel16.Controls.Add(Me.txtEISContactEditPrefix)
         Me.Panel16.Controls.Add(Me.txtEISContactPrefix)
         Me.Panel16.Controls.Add(Me.Label210)
-        Me.Panel16.Controls.Add(Me.txtEISContactEditLastName)
         Me.Panel16.Controls.Add(Me.txtEISContactLastName)
-        Me.Panel16.Controls.Add(Me.Label206)
         Me.Panel16.Controls.Add(Me.Label207)
         Me.Panel16.Controls.Add(Me.Label203)
-        Me.Panel16.Controls.Add(Me.txtEISContactEditFirstName)
         Me.Panel16.Controls.Add(Me.txtEISContactFirstName)
         Me.Panel16.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel16.Location = New System.Drawing.Point(3, 3)
         Me.Panel16.Name = "Panel16"
         Me.Panel16.Size = New System.Drawing.Size(994, 486)
         Me.Panel16.TabIndex = 0
-        '
-        'Label227
-        '
-        Me.Label227.AutoSize = True
-        Me.Label227.Location = New System.Drawing.Point(921, 9)
-        Me.Label227.Name = "Label227"
-        Me.Label227.Size = New System.Drawing.Size(55, 13)
-        Me.Label227.TabIndex = 114
-        Me.Label227.Text = "New Data"
-        Me.Label227.Visible = False
         '
         'Label228
         '
@@ -1729,18 +1670,6 @@ Partial Class DMUEisGecoTool
         Me.Label228.Size = New System.Drawing.Size(53, 13)
         Me.Label228.TabIndex = 113
         Me.Label228.Text = "IAIP Data"
-        '
-        'btnEISContactUpdate
-        '
-        Me.btnEISContactUpdate.AutoSize = True
-        Me.btnEISContactUpdate.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnEISContactUpdate.Location = New System.Drawing.Point(87, 346)
-        Me.btnEISContactUpdate.Name = "btnEISContactUpdate"
-        Me.btnEISContactUpdate.Size = New System.Drawing.Size(87, 23)
-        Me.btnEISContactUpdate.TabIndex = 18
-        Me.btnEISContactUpdate.Text = "Make Updates"
-        Me.btnEISContactUpdate.UseVisualStyleBackColor = True
-        Me.btnEISContactUpdate.Visible = False
         '
         'Label225
         '
@@ -1785,15 +1714,6 @@ Partial Class DMUEisGecoTool
         Me.Label224.TabIndex = 105
         Me.Label224.Text = "Description"
         '
-        'txtEISContactEditDescription
-        '
-        Me.txtEISContactEditDescription.Location = New System.Drawing.Point(924, 211)
-        Me.txtEISContactEditDescription.Multiline = True
-        Me.txtEISContactEditDescription.Name = "txtEISContactEditDescription"
-        Me.txtEISContactEditDescription.Size = New System.Drawing.Size(52, 46)
-        Me.txtEISContactEditDescription.TabIndex = 106
-        Me.txtEISContactEditDescription.Visible = False
-        '
         'txtEISContactDescription
         '
         Me.txtEISContactDescription.Location = New System.Drawing.Point(422, 177)
@@ -1813,14 +1733,6 @@ Partial Class DMUEisGecoTool
         Me.Label223.TabIndex = 102
         Me.Label223.Text = "Zip Code"
         '
-        'txtEISContactEditZipCode
-        '
-        Me.txtEISContactEditZipCode.Location = New System.Drawing.Point(924, 155)
-        Me.txtEISContactEditZipCode.Name = "txtEISContactEditZipCode"
-        Me.txtEISContactEditZipCode.Size = New System.Drawing.Size(52, 20)
-        Me.txtEISContactEditZipCode.TabIndex = 103
-        Me.txtEISContactEditZipCode.Visible = False
-        '
         'txtEISContactZipCode
         '
         Me.txtEISContactZipCode.Location = New System.Drawing.Point(422, 151)
@@ -1837,14 +1749,6 @@ Partial Class DMUEisGecoTool
         Me.Label222.Size = New System.Drawing.Size(32, 13)
         Me.Label222.TabIndex = 99
         Me.Label222.Text = "State"
-        '
-        'txtEISContactEditState
-        '
-        Me.txtEISContactEditState.Location = New System.Drawing.Point(924, 129)
-        Me.txtEISContactEditState.Name = "txtEISContactEditState"
-        Me.txtEISContactEditState.Size = New System.Drawing.Size(52, 20)
-        Me.txtEISContactEditState.TabIndex = 100
-        Me.txtEISContactEditState.Visible = False
         '
         'txtEISContactState
         '
@@ -1863,14 +1767,6 @@ Partial Class DMUEisGecoTool
         Me.Label221.TabIndex = 96
         Me.Label221.Text = "City"
         '
-        'txtEISContactEditCity
-        '
-        Me.txtEISContactEditCity.Location = New System.Drawing.Point(924, 103)
-        Me.txtEISContactEditCity.Name = "txtEISContactEditCity"
-        Me.txtEISContactEditCity.Size = New System.Drawing.Size(52, 20)
-        Me.txtEISContactEditCity.TabIndex = 97
-        Me.txtEISContactEditCity.Visible = False
-        '
         'txtEISContactCity
         '
         Me.txtEISContactCity.Location = New System.Drawing.Point(422, 99)
@@ -1887,14 +1783,6 @@ Partial Class DMUEisGecoTool
         Me.Label220.Size = New System.Drawing.Size(77, 13)
         Me.Label220.TabIndex = 93
         Me.Label220.Text = "Address Line 2"
-        '
-        'txtEISContactEditAddress2
-        '
-        Me.txtEISContactEditAddress2.Location = New System.Drawing.Point(924, 77)
-        Me.txtEISContactEditAddress2.Name = "txtEISContactEditAddress2"
-        Me.txtEISContactEditAddress2.Size = New System.Drawing.Size(52, 20)
-        Me.txtEISContactEditAddress2.TabIndex = 94
-        Me.txtEISContactEditAddress2.Visible = False
         '
         'txtEISContactAddress2
         '
@@ -1913,14 +1801,6 @@ Partial Class DMUEisGecoTool
         Me.Label219.TabIndex = 90
         Me.Label219.Text = "Phone #"
         '
-        'txtEISContactEditPhone
-        '
-        Me.txtEISContactEditPhone.Location = New System.Drawing.Point(863, 155)
-        Me.txtEISContactEditPhone.Name = "txtEISContactEditPhone"
-        Me.txtEISContactEditPhone.Size = New System.Drawing.Size(52, 20)
-        Me.txtEISContactEditPhone.TabIndex = 91
-        Me.txtEISContactEditPhone.Visible = False
-        '
         'txtEISContactPhone
         '
         Me.txtEISContactPhone.Location = New System.Drawing.Point(87, 155)
@@ -1937,14 +1817,6 @@ Partial Class DMUEisGecoTool
         Me.Label218.Size = New System.Drawing.Size(57, 13)
         Me.Label218.TabIndex = 87
         Me.Label218.Text = "Phone # 2"
-        '
-        'txtEISContactEditPhone2
-        '
-        Me.txtEISContactEditPhone2.Location = New System.Drawing.Point(863, 181)
-        Me.txtEISContactEditPhone2.Name = "txtEISContactEditPhone2"
-        Me.txtEISContactEditPhone2.Size = New System.Drawing.Size(52, 20)
-        Me.txtEISContactEditPhone2.TabIndex = 88
-        Me.txtEISContactEditPhone2.Visible = False
         '
         'txtEISContactPhone2
         '
@@ -1963,14 +1835,6 @@ Partial Class DMUEisGecoTool
         Me.Label217.TabIndex = 84
         Me.Label217.Text = "Fax #"
         '
-        'txtEISContactEditFax
-        '
-        Me.txtEISContactEditFax.Location = New System.Drawing.Point(863, 207)
-        Me.txtEISContactEditFax.Name = "txtEISContactEditFax"
-        Me.txtEISContactEditFax.Size = New System.Drawing.Size(52, 20)
-        Me.txtEISContactEditFax.TabIndex = 85
-        Me.txtEISContactEditFax.Visible = False
-        '
         'txtEISContactFax
         '
         Me.txtEISContactFax.Location = New System.Drawing.Point(87, 207)
@@ -1987,14 +1851,6 @@ Partial Class DMUEisGecoTool
         Me.Label216.Size = New System.Drawing.Size(32, 13)
         Me.Label216.TabIndex = 81
         Me.Label216.Text = "Email"
-        '
-        'txtEISContactEditEmail
-        '
-        Me.txtEISContactEditEmail.Location = New System.Drawing.Point(863, 233)
-        Me.txtEISContactEditEmail.Name = "txtEISContactEditEmail"
-        Me.txtEISContactEditEmail.Size = New System.Drawing.Size(52, 20)
-        Me.txtEISContactEditEmail.TabIndex = 82
-        Me.txtEISContactEditEmail.Visible = False
         '
         'txtEISContactEmail
         '
@@ -2013,14 +1869,6 @@ Partial Class DMUEisGecoTool
         Me.Label215.TabIndex = 78
         Me.Label215.Text = "Address Line 1"
         '
-        'txtEISContactEditAddress
-        '
-        Me.txtEISContactEditAddress.Location = New System.Drawing.Point(924, 51)
-        Me.txtEISContactEditAddress.Name = "txtEISContactEditAddress"
-        Me.txtEISContactEditAddress.Size = New System.Drawing.Size(52, 20)
-        Me.txtEISContactEditAddress.TabIndex = 79
-        Me.txtEISContactEditAddress.Visible = False
-        '
         'txtEISContactAddress
         '
         Me.txtEISContactAddress.Location = New System.Drawing.Point(422, 47)
@@ -2037,14 +1885,6 @@ Partial Class DMUEisGecoTool
         Me.Label214.Size = New System.Drawing.Size(82, 13)
         Me.Label214.TabIndex = 75
         Me.Label214.Text = "Company Name"
-        '
-        'txtEISContactEditCompanyName
-        '
-        Me.txtEISContactEditCompanyName.Location = New System.Drawing.Point(924, 25)
-        Me.txtEISContactEditCompanyName.Name = "txtEISContactEditCompanyName"
-        Me.txtEISContactEditCompanyName.Size = New System.Drawing.Size(52, 20)
-        Me.txtEISContactEditCompanyName.TabIndex = 76
-        Me.txtEISContactEditCompanyName.Visible = False
         '
         'txtEISContactCompanyName
         '
@@ -2063,14 +1903,6 @@ Partial Class DMUEisGecoTool
         Me.Label213.TabIndex = 72
         Me.Label213.Text = "Title"
         '
-        'txtEISContactEditTitle
-        '
-        Me.txtEISContactEditTitle.Location = New System.Drawing.Point(863, 129)
-        Me.txtEISContactEditTitle.Name = "txtEISContactEditTitle"
-        Me.txtEISContactEditTitle.Size = New System.Drawing.Size(52, 20)
-        Me.txtEISContactEditTitle.TabIndex = 73
-        Me.txtEISContactEditTitle.Visible = False
-        '
         'txtEISContactTitle
         '
         Me.txtEISContactTitle.Location = New System.Drawing.Point(87, 129)
@@ -2087,14 +1919,6 @@ Partial Class DMUEisGecoTool
         Me.Label212.Size = New System.Drawing.Size(33, 13)
         Me.Label212.TabIndex = 69
         Me.Label212.Text = "Suffix"
-        '
-        'txtEISContactEditSuffix
-        '
-        Me.txtEISContactEditSuffix.Location = New System.Drawing.Point(863, 103)
-        Me.txtEISContactEditSuffix.Name = "txtEISContactEditSuffix"
-        Me.txtEISContactEditSuffix.Size = New System.Drawing.Size(52, 20)
-        Me.txtEISContactEditSuffix.TabIndex = 70
-        Me.txtEISContactEditSuffix.Visible = False
         '
         'txtEISContactSuffix
         '
@@ -2113,14 +1937,6 @@ Partial Class DMUEisGecoTool
         Me.Label211.TabIndex = 66
         Me.Label211.Text = "Prefix"
         '
-        'txtEISContactEditPrefix
-        '
-        Me.txtEISContactEditPrefix.Location = New System.Drawing.Point(863, 77)
-        Me.txtEISContactEditPrefix.Name = "txtEISContactEditPrefix"
-        Me.txtEISContactEditPrefix.Size = New System.Drawing.Size(52, 20)
-        Me.txtEISContactEditPrefix.TabIndex = 67
-        Me.txtEISContactEditPrefix.Visible = False
-        '
         'txtEISContactPrefix
         '
         Me.txtEISContactPrefix.Location = New System.Drawing.Point(87, 77)
@@ -2138,14 +1954,6 @@ Partial Class DMUEisGecoTool
         Me.Label210.TabIndex = 63
         Me.Label210.Text = "Last Name"
         '
-        'txtEISContactEditLastName
-        '
-        Me.txtEISContactEditLastName.Location = New System.Drawing.Point(863, 51)
-        Me.txtEISContactEditLastName.Name = "txtEISContactEditLastName"
-        Me.txtEISContactEditLastName.Size = New System.Drawing.Size(52, 20)
-        Me.txtEISContactEditLastName.TabIndex = 64
-        Me.txtEISContactEditLastName.Visible = False
-        '
         'txtEISContactLastName
         '
         Me.txtEISContactLastName.Location = New System.Drawing.Point(87, 51)
@@ -2153,16 +1961,6 @@ Partial Class DMUEisGecoTool
         Me.txtEISContactLastName.ReadOnly = True
         Me.txtEISContactLastName.Size = New System.Drawing.Size(197, 20)
         Me.txtEISContactLastName.TabIndex = 1
-        '
-        'Label206
-        '
-        Me.Label206.AutoSize = True
-        Me.Label206.Location = New System.Drawing.Point(860, 9)
-        Me.Label206.Name = "Label206"
-        Me.Label206.Size = New System.Drawing.Size(55, 13)
-        Me.Label206.TabIndex = 62
-        Me.Label206.Text = "New Data"
-        Me.Label206.Visible = False
         '
         'Label207
         '
@@ -2181,14 +1979,6 @@ Partial Class DMUEisGecoTool
         Me.Label203.Size = New System.Drawing.Size(57, 13)
         Me.Label203.TabIndex = 19
         Me.Label203.Text = "First Name"
-        '
-        'txtEISContactEditFirstName
-        '
-        Me.txtEISContactEditFirstName.Location = New System.Drawing.Point(863, 25)
-        Me.txtEISContactEditFirstName.Name = "txtEISContactEditFirstName"
-        Me.txtEISContactEditFirstName.Size = New System.Drawing.Size(52, 20)
-        Me.txtEISContactEditFirstName.TabIndex = 20
-        Me.txtEISContactEditFirstName.Visible = False
         '
         'txtEISContactFirstName
         '
@@ -2769,7 +2559,7 @@ Partial Class DMUEisGecoTool
         Me.btnEILogAddNewFacility.Name = "btnEILogAddNewFacility"
         Me.btnEILogAddNewFacility.Size = New System.Drawing.Size(133, 23)
         Me.btnEILogAddNewFacility.TabIndex = 17
-        Me.btnEILogAddNewFacility.Text = "Add New Faciltiy to Year"
+        Me.btnEILogAddNewFacility.Text = "Add New Facility to Year"
         Me.btnEILogAddNewFacility.UseVisualStyleBackColor = True
         '
         'btnEILogUpdate
@@ -2886,7 +2676,7 @@ Partial Class DMUEisGecoTool
         Me.Panel15.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.Panel15.Controls.Add(Me.rdbEILogOpOutNo)
         Me.Panel15.Controls.Add(Me.rdbEILogOpOutYes)
-        Me.Panel15.Location = New System.Drawing.Point(59, 115)
+        Me.Panel15.Location = New System.Drawing.Point(59, 116)
         Me.Panel15.Name = "Panel15"
         Me.Panel15.Size = New System.Drawing.Size(91, 22)
         Me.Panel15.TabIndex = 5
@@ -2928,7 +2718,7 @@ Partial Class DMUEisGecoTool
         Me.Panel14.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.Panel14.Controls.Add(Me.rdbEILogMailoutNo)
         Me.Panel14.Controls.Add(Me.rdbEILogMailoutYes)
-        Me.Panel14.Location = New System.Drawing.Point(59, 57)
+        Me.Panel14.Location = New System.Drawing.Point(59, 58)
         Me.Panel14.Name = "Panel14"
         Me.Panel14.Size = New System.Drawing.Size(91, 22)
         Me.Panel14.TabIndex = 3
@@ -2970,7 +2760,7 @@ Partial Class DMUEisGecoTool
         Me.Panel13.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.Panel13.Controls.Add(Me.rdbEILogEnrolledNo)
         Me.Panel13.Controls.Add(Me.rdbEILogEnrolledYes)
-        Me.Panel13.Location = New System.Drawing.Point(59, 85)
+        Me.Panel13.Location = New System.Drawing.Point(59, 86)
         Me.Panel13.Name = "Panel13"
         Me.Panel13.Size = New System.Drawing.Size(91, 22)
         Me.Panel13.TabIndex = 4
@@ -3049,16 +2839,16 @@ Partial Class DMUEisGecoTool
         Me.Label47.TabIndex = 0
         Me.Label47.Text = "EIS Year"
         '
-        'TPEISStatistics
+        'TPEisTools
         '
-        Me.TPEISStatistics.Controls.Add(Me.Panel17)
-        Me.TPEISStatistics.Controls.Add(Me.Panel19)
-        Me.TPEISStatistics.Location = New System.Drawing.Point(4, 22)
-        Me.TPEISStatistics.Name = "TPEISStatistics"
-        Me.TPEISStatistics.Size = New System.Drawing.Size(1008, 687)
-        Me.TPEISStatistics.TabIndex = 14
-        Me.TPEISStatistics.Text = "EIS Statistics"
-        Me.TPEISStatistics.UseVisualStyleBackColor = True
+        Me.TPEisTools.Controls.Add(Me.Panel17)
+        Me.TPEisTools.Controls.Add(Me.Panel19)
+        Me.TPEisTools.Location = New System.Drawing.Point(4, 22)
+        Me.TPEisTools.Name = "TPEisTools"
+        Me.TPEisTools.Size = New System.Drawing.Size(1008, 687)
+        Me.TPEisTools.TabIndex = 14
+        Me.TPEisTools.Text = "EIS Tools"
+        Me.TPEisTools.UseVisualStyleBackColor = True
         '
         'Panel17
         '
@@ -3072,10 +2862,15 @@ Partial Class DMUEisGecoTool
         '
         'dgvEISStats
         '
+        Me.dgvEISStats.AllowUserToAddRows = False
+        Me.dgvEISStats.AllowUserToDeleteRows = False
+        Me.dgvEISStats.AllowUserToResizeRows = False
         Me.dgvEISStats.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvEISStats.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.dgvEISStats.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
         Me.dgvEISStats.Location = New System.Drawing.Point(0, 52)
         Me.dgvEISStats.Name = "dgvEISStats"
+        Me.dgvEISStats.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgvEISStats.Size = New System.Drawing.Size(562, 635)
         Me.dgvEISStats.TabIndex = 1
         '
@@ -3163,6 +2958,7 @@ Partial Class DMUEisGecoTool
         Me.TCEISStats.Controls.Add(Me.TPEISEnrollment)
         Me.TCEISStats.Controls.Add(Me.TPEISThresholds)
         Me.TCEISStats.Controls.Add(Me.TPOperStatus)
+        Me.TCEISStats.Controls.Add(Me.TPStageData)
         Me.TCEISStats.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TCEISStats.Location = New System.Drawing.Point(0, 44)
         Me.TCEISStats.Name = "TCEISStats"
@@ -3193,7 +2989,6 @@ Partial Class DMUEisGecoTool
         Me.Panel22.Controls.Add(Me.llbEISStatsFipassed)
         Me.Panel22.Controls.Add(Me.txtEISFIPassed)
         Me.Panel22.Controls.Add(Me.Label297)
-        Me.Panel22.Controls.Add(Me.btnClearInactiveData)
         Me.Panel22.Controls.Add(Me.btnEISComplete)
         Me.Panel22.Controls.Add(Me.HRule2)
         Me.Panel22.Controls.Add(Me.llbEISStatsOptedOutSubmittedToEPA)
@@ -3261,7 +3056,7 @@ Partial Class DMUEisGecoTool
         'llbEISStatsSubmittedBeganwithBothErrors
         '
         Me.llbEISStatsSubmittedBeganwithBothErrors.AutoSize = True
-        Me.llbEISStatsSubmittedBeganwithBothErrors.Location = New System.Drawing.Point(204, 412)
+        Me.llbEISStatsSubmittedBeganwithBothErrors.Location = New System.Drawing.Point(200, 422)
         Me.llbEISStatsSubmittedBeganwithBothErrors.Name = "llbEISStatsSubmittedBeganwithBothErrors"
         Me.llbEISStatsSubmittedBeganwithBothErrors.Size = New System.Drawing.Size(74, 13)
         Me.llbEISStatsSubmittedBeganwithBothErrors.TabIndex = 157
@@ -3271,7 +3066,7 @@ Partial Class DMUEisGecoTool
         'llbEISStatsSubmittedBeganwFIErrors
         '
         Me.llbEISStatsSubmittedBeganwFIErrors.AutoSize = True
-        Me.llbEISStatsSubmittedBeganwFIErrors.Location = New System.Drawing.Point(204, 381)
+        Me.llbEISStatsSubmittedBeganwFIErrors.Location = New System.Drawing.Point(200, 391)
         Me.llbEISStatsSubmittedBeganwFIErrors.Name = "llbEISStatsSubmittedBeganwFIErrors"
         Me.llbEISStatsSubmittedBeganwFIErrors.Size = New System.Drawing.Size(88, 13)
         Me.llbEISStatsSubmittedBeganwFIErrors.TabIndex = 156
@@ -3281,7 +3076,7 @@ Partial Class DMUEisGecoTool
         'llbEISStatsSubmittedBeganwithoutErrors
         '
         Me.llbEISStatsSubmittedBeganwithoutErrors.AutoSize = True
-        Me.llbEISStatsSubmittedBeganwithoutErrors.Location = New System.Drawing.Point(204, 427)
+        Me.llbEISStatsSubmittedBeganwithoutErrors.Location = New System.Drawing.Point(200, 437)
         Me.llbEISStatsSubmittedBeganwithoutErrors.Name = "llbEISStatsSubmittedBeganwithoutErrors"
         Me.llbEISStatsSubmittedBeganwithoutErrors.Size = New System.Drawing.Size(82, 13)
         Me.llbEISStatsSubmittedBeganwithoutErrors.TabIndex = 155
@@ -3291,7 +3086,7 @@ Partial Class DMUEisGecoTool
         'llbEISStatsSubmittedBeganwithEIErrors
         '
         Me.llbEISStatsSubmittedBeganwithEIErrors.AutoSize = True
-        Me.llbEISStatsSubmittedBeganwithEIErrors.Location = New System.Drawing.Point(204, 397)
+        Me.llbEISStatsSubmittedBeganwithEIErrors.Location = New System.Drawing.Point(200, 407)
         Me.llbEISStatsSubmittedBeganwithEIErrors.Name = "llbEISStatsSubmittedBeganwithEIErrors"
         Me.llbEISStatsSubmittedBeganwithEIErrors.Size = New System.Drawing.Size(89, 13)
         Me.llbEISStatsSubmittedBeganwithEIErrors.TabIndex = 154
@@ -3335,18 +3130,6 @@ Partial Class DMUEisGecoTool
         Me.Label297.Size = New System.Drawing.Size(54, 13)
         Me.Label297.TabIndex = 150
         Me.Label297.Text = "FI Passed"
-        '
-        'btnClearInactiveData
-        '
-        Me.btnClearInactiveData.AutoSize = True
-        Me.btnClearInactiveData.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnClearInactiveData.Location = New System.Drawing.Point(264, 487)
-        Me.btnClearInactiveData.Name = "btnClearInactiveData"
-        Me.btnClearInactiveData.Size = New System.Drawing.Size(108, 23)
-        Me.btnClearInactiveData.TabIndex = 149
-        Me.btnClearInactiveData.Text = "Clear Inactive Data"
-        Me.btnClearInactiveData.UseVisualStyleBackColor = True
-        Me.btnClearInactiveData.Visible = False
         '
         'btnEISComplete
         '
@@ -3516,9 +3299,9 @@ Partial Class DMUEisGecoTool
         Me.btnCloseOutEIS.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.btnCloseOutEIS.Location = New System.Drawing.Point(325, 32)
         Me.btnCloseOutEIS.Name = "btnCloseOutEIS"
-        Me.btnCloseOutEIS.Size = New System.Drawing.Size(81, 23)
+        Me.btnCloseOutEIS.Size = New System.Drawing.Size(101, 36)
         Me.btnCloseOutEIS.TabIndex = 126
-        Me.btnCloseOutEIS.Text = "Close out EIS"
+        Me.btnCloseOutEIS.Text = "Close out EIS for " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "displayed facilities"
         Me.btnCloseOutEIS.UseVisualStyleBackColor = True
         '
         'btnEISBeginQA
@@ -3527,9 +3310,9 @@ Partial Class DMUEisGecoTool
         Me.btnEISBeginQA.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.btnEISBeginQA.Location = New System.Drawing.Point(85, 365)
         Me.btnEISBeginQA.Name = "btnEISBeginQA"
-        Me.btnEISBeginQA.Size = New System.Drawing.Size(98, 23)
+        Me.btnEISBeginQA.Size = New System.Drawing.Size(195, 23)
         Me.btnEISBeginQA.TabIndex = 125
-        Me.btnEISBeginQA.Text = "Start QA Process"
+        Me.btnEISBeginQA.Text = "Start QA process for selected facilities"
         Me.btnEISBeginQA.UseVisualStyleBackColor = True
         '
         'llbEISNoActivity
@@ -3963,9 +3746,9 @@ Partial Class DMUEisGecoTool
         '
         'btnAddtoEISMailout
         '
-        Me.btnAddtoEISMailout.Location = New System.Drawing.Point(395, 9)
+        Me.btnAddtoEISMailout.Location = New System.Drawing.Point(259, 9)
         Me.btnAddtoEISMailout.Name = "btnAddtoEISMailout"
-        Me.btnAddtoEISMailout.Size = New System.Drawing.Size(19, 23)
+        Me.btnAddtoEISMailout.Size = New System.Drawing.Size(155, 23)
         Me.btnAddtoEISMailout.TabIndex = 71
         Me.btnAddtoEISMailout.Text = "Add selected to Maillout"
         Me.btnAddtoEISMailout.UseVisualStyleBackColor = True
@@ -4062,7 +3845,7 @@ Partial Class DMUEisGecoTool
         Me.Label267.AutoSize = True
         Me.Label267.Font = New System.Drawing.Font("Times New Roman", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label267.ForeColor = System.Drawing.SystemColors.HotTrack
-        Me.Label267.Location = New System.Drawing.Point(11, 10)
+        Me.Label267.Location = New System.Drawing.Point(10, 10)
         Me.Label267.Name = "Label267"
         Me.Label267.Size = New System.Drawing.Size(179, 22)
         Me.Label267.TabIndex = 60
@@ -4277,7 +4060,6 @@ Partial Class DMUEisGecoTool
         Me.TPEISEnrollment.Controls.Add(Me.btnViewEISEnrolled)
         Me.TPEISEnrollment.Controls.Add(Me.txtEISStatsEnrollmentYear)
         Me.TPEISEnrollment.Controls.Add(Me.Label275)
-        Me.TPEISEnrollment.Controls.Add(Me.llbEISStatsViewEnrollment)
         Me.TPEISEnrollment.Controls.Add(Me.btnEISStatsRemoveEnrollment)
         Me.TPEISEnrollment.Controls.Add(Me.btnEISStatsEnrollment)
         Me.TPEISEnrollment.Location = New System.Drawing.Point(4, 22)
@@ -4338,17 +4120,6 @@ Partial Class DMUEisGecoTool
         Me.Label275.Size = New System.Drawing.Size(206, 22)
         Me.Label275.TabIndex = 62
         Me.Label275.Text = "Enrollment list for Year "
-        '
-        'llbEISStatsViewEnrollment
-        '
-        Me.llbEISStatsViewEnrollment.AutoSize = True
-        Me.llbEISStatsViewEnrollment.Location = New System.Drawing.Point(186, 46)
-        Me.llbEISStatsViewEnrollment.Name = "llbEISStatsViewEnrollment"
-        Me.llbEISStatsViewEnrollment.Size = New System.Drawing.Size(82, 13)
-        Me.llbEISStatsViewEnrollment.TabIndex = 24
-        Me.llbEISStatsViewEnrollment.TabStop = True
-        Me.llbEISStatsViewEnrollment.Text = "View Enrollment"
-        Me.llbEISStatsViewEnrollment.Visible = False
         '
         'btnEISStatsRemoveEnrollment
         '
@@ -4710,6 +4481,120 @@ Partial Class DMUEisGecoTool
         Me.llbOperatingStatusMismatch.TabStop = True
         Me.llbOperatingStatusMismatch.Text = "View sources with mismatched operating status"
         '
+        'TPStageData
+        '
+        Me.TPStageData.Controls.Add(Me.lblEisStageSelectedCount)
+        Me.TPStageData.Controls.Add(Me.btnEisStageSelectNone)
+        Me.TPStageData.Controls.Add(Me.btnEisStageSelectAll)
+        Me.TPStageData.Controls.Add(Me.btnEisStagePseAll)
+        Me.TPStageData.Controls.Add(Me.btnEisStagePseSelected)
+        Me.TPStageData.Controls.Add(Me.btnEisStageFiAll)
+        Me.TPStageData.Controls.Add(Me.btnEisStageFiSelected)
+        Me.TPStageData.Controls.Add(Me.lblOpenVesaUrl)
+        Me.TPStageData.Controls.Add(Me.btnEisStageViewSubmitted)
+        Me.TPStageData.Controls.Add(Me.Label2)
+        Me.TPStageData.Location = New System.Drawing.Point(4, 22)
+        Me.TPStageData.Name = "TPStageData"
+        Me.TPStageData.Padding = New System.Windows.Forms.Padding(3)
+        Me.TPStageData.Size = New System.Drawing.Size(438, 617)
+        Me.TPStageData.TabIndex = 8
+        Me.TPStageData.Text = "Stage to EPA"
+        Me.TPStageData.UseVisualStyleBackColor = True
+        '
+        'lblEisStageSelectedCount
+        '
+        Me.lblEisStageSelectedCount.AutoSize = True
+        Me.lblEisStageSelectedCount.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblEisStageSelectedCount.Location = New System.Drawing.Point(181, 70)
+        Me.lblEisStageSelectedCount.Name = "lblEisStageSelectedCount"
+        Me.lblEisStageSelectedCount.Size = New System.Drawing.Size(133, 17)
+        Me.lblEisStageSelectedCount.TabIndex = 7
+        Me.lblEisStageSelectedCount.Text = "Selected facilities: 0"
+        '
+        'btnEisStageSelectNone
+        '
+        Me.btnEisStageSelectNone.Location = New System.Drawing.Point(255, 44)
+        Me.btnEisStageSelectNone.Name = "btnEisStageSelectNone"
+        Me.btnEisStageSelectNone.Size = New System.Drawing.Size(72, 23)
+        Me.btnEisStageSelectNone.TabIndex = 2
+        Me.btnEisStageSelectNone.Text = "Select none"
+        Me.btnEisStageSelectNone.UseVisualStyleBackColor = True
+        '
+        'btnEisStageSelectAll
+        '
+        Me.btnEisStageSelectAll.Location = New System.Drawing.Point(177, 44)
+        Me.btnEisStageSelectAll.Name = "btnEisStageSelectAll"
+        Me.btnEisStageSelectAll.Size = New System.Drawing.Size(72, 23)
+        Me.btnEisStageSelectAll.TabIndex = 1
+        Me.btnEisStageSelectAll.Text = "Select all"
+        Me.btnEisStageSelectAll.UseVisualStyleBackColor = True
+        '
+        'btnEisStagePseAll
+        '
+        Me.btnEisStagePseAll.Location = New System.Drawing.Point(177, 209)
+        Me.btnEisStagePseAll.Name = "btnEisStagePseAll"
+        Me.btnEisStagePseAll.Size = New System.Drawing.Size(150, 51)
+        Me.btnEisStagePseAll.TabIndex = 6
+        Me.btnEisStagePseAll.Text = "Stage Point Source Emission Data " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "for all facilities"
+        Me.btnEisStagePseAll.UseVisualStyleBackColor = True
+        '
+        'btnEisStagePseSelected
+        '
+        Me.btnEisStagePseSelected.Location = New System.Drawing.Point(177, 137)
+        Me.btnEisStagePseSelected.Name = "btnEisStagePseSelected"
+        Me.btnEisStagePseSelected.Size = New System.Drawing.Size(150, 51)
+        Me.btnEisStagePseSelected.TabIndex = 4
+        Me.btnEisStagePseSelected.Text = "Stage Point Source Emission Data " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "for selected facilities"
+        Me.btnEisStagePseSelected.UseVisualStyleBackColor = True
+        '
+        'btnEisStageFiAll
+        '
+        Me.btnEisStageFiAll.Location = New System.Drawing.Point(14, 209)
+        Me.btnEisStageFiAll.Name = "btnEisStageFiAll"
+        Me.btnEisStageFiAll.Size = New System.Drawing.Size(150, 51)
+        Me.btnEisStageFiAll.TabIndex = 5
+        Me.btnEisStageFiAll.Text = "Stage Facility Information " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "for all facilities"
+        Me.btnEisStageFiAll.UseVisualStyleBackColor = True
+        '
+        'btnEisStageFiSelected
+        '
+        Me.btnEisStageFiSelected.Location = New System.Drawing.Point(14, 137)
+        Me.btnEisStageFiSelected.Name = "btnEisStageFiSelected"
+        Me.btnEisStageFiSelected.Size = New System.Drawing.Size(150, 51)
+        Me.btnEisStageFiSelected.TabIndex = 3
+        Me.btnEisStageFiSelected.Text = "Stage Facility Information " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "for selected facilities"
+        Me.btnEisStageFiSelected.UseVisualStyleBackColor = True
+        '
+        'lblOpenVesaUrl
+        '
+        Me.lblOpenVesaUrl.AutoSize = True
+        Me.lblOpenVesaUrl.Location = New System.Drawing.Point(11, 298)
+        Me.lblOpenVesaUrl.Name = "lblOpenVesaUrl"
+        Me.lblOpenVesaUrl.Size = New System.Drawing.Size(103, 13)
+        Me.lblOpenVesaUrl.TabIndex = 7
+        Me.lblOpenVesaUrl.TabStop = True
+        Me.lblOpenVesaUrl.Text = "Open VESA website"
+        '
+        'btnEisStageViewSubmitted
+        '
+        Me.btnEisStageViewSubmitted.Location = New System.Drawing.Point(14, 44)
+        Me.btnEisStageViewSubmitted.Name = "btnEisStageViewSubmitted"
+        Me.btnEisStageViewSubmitted.Size = New System.Drawing.Size(150, 48)
+        Me.btnEisStageViewSubmitted.TabIndex = 0
+        Me.btnEisStageViewSubmitted.Text = "Display facilities that have submitted EIS data"
+        Me.btnEisStageViewSubmitted.UseVisualStyleBackColor = True
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Font = New System.Drawing.Font("Times New Roman", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label2.ForeColor = System.Drawing.SystemColors.HotTrack
+        Me.Label2.Location = New System.Drawing.Point(10, 10)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(276, 22)
+        Me.Label2.TabIndex = 2
+        Me.Label2.Text = "Stage Data for Submittal to EPA"
+        '
         'Panel21
         '
         Me.Panel21.Controls.Add(Me.btnViewEISStats)
@@ -4728,7 +4613,7 @@ Partial Class DMUEisGecoTool
         Me.btnViewEISStats.Name = "btnViewEISStats"
         Me.btnViewEISStats.Size = New System.Drawing.Size(112, 23)
         Me.btnViewEISStats.TabIndex = 9
-        Me.btnViewEISStats.Text = "View Selected Data"
+        Me.btnViewEISStats.Text = "View EIS Stats"
         Me.btnViewEISStats.UseVisualStyleBackColor = True
         '
         'Label74
@@ -4948,7 +4833,7 @@ Partial Class DMUEisGecoTool
         'lblviewextraNonresponse
         '
         Me.lblviewextraNonresponse.AutoSize = True
-        Me.lblviewextraNonresponse.Location = New System.Drawing.Point(315, 191)
+        Me.lblviewextraNonresponse.Location = New System.Drawing.Point(274, 186)
         Me.lblviewextraNonresponse.Name = "lblviewextraNonresponse"
         Me.lblviewextraNonresponse.Size = New System.Drawing.Size(30, 13)
         Me.lblviewextraNonresponse.TabIndex = 11
@@ -4957,7 +4842,7 @@ Partial Class DMUEisGecoTool
         '
         'txtESextranonresponder
         '
-        Me.txtESextranonresponder.Location = New System.Drawing.Point(157, 188)
+        Me.txtESextranonresponder.Location = New System.Drawing.Point(168, 183)
         Me.txtESextranonresponder.Name = "txtESextranonresponder"
         Me.txtESextranonresponder.Size = New System.Drawing.Size(100, 20)
         Me.txtESextranonresponder.TabIndex = 10
@@ -4965,7 +4850,7 @@ Partial Class DMUEisGecoTool
         'Label197
         '
         Me.Label197.AutoSize = True
-        Me.Label197.Location = New System.Drawing.Point(26, 191)
+        Me.Label197.Location = New System.Drawing.Point(26, 186)
         Me.Label197.Name = "Label197"
         Me.Label197.Size = New System.Drawing.Size(108, 13)
         Me.Label197.TabIndex = 51
@@ -4974,7 +4859,7 @@ Partial Class DMUEisGecoTool
         'lblviewmailoutnonresponder
         '
         Me.lblviewmailoutnonresponder.AutoSize = True
-        Me.lblviewmailoutnonresponder.Location = New System.Drawing.Point(315, 165)
+        Me.lblviewmailoutnonresponder.Location = New System.Drawing.Point(274, 160)
         Me.lblviewmailoutnonresponder.Name = "lblviewmailoutnonresponder"
         Me.lblviewmailoutnonresponder.Size = New System.Drawing.Size(30, 13)
         Me.lblviewmailoutnonresponder.TabIndex = 9
@@ -4983,7 +4868,7 @@ Partial Class DMUEisGecoTool
         '
         'txtESmailoutNonResponder
         '
-        Me.txtESmailoutNonResponder.Location = New System.Drawing.Point(157, 162)
+        Me.txtESmailoutNonResponder.Location = New System.Drawing.Point(168, 157)
         Me.txtESmailoutNonResponder.Name = "txtESmailoutNonResponder"
         Me.txtESmailoutNonResponder.Size = New System.Drawing.Size(100, 20)
         Me.txtESmailoutNonResponder.TabIndex = 8
@@ -4991,16 +4876,16 @@ Partial Class DMUEisGecoTool
         'Label196
         '
         Me.Label196.AutoSize = True
-        Me.Label196.Location = New System.Drawing.Point(23, 165)
+        Me.Label196.Location = New System.Drawing.Point(26, 160)
         Me.Label196.Name = "Label196"
-        Me.Label196.Size = New System.Drawing.Size(121, 13)
+        Me.Label196.Size = New System.Drawing.Size(118, 13)
         Me.Label196.TabIndex = 48
-        Me.Label196.Text = "Mailout Non- Response:"
+        Me.Label196.Text = "Mailout Non-Response:"
         '
         'lblviewESremovedfacility
         '
         Me.lblviewESremovedfacility.AutoSize = True
-        Me.lblviewESremovedfacility.Location = New System.Drawing.Point(315, 139)
+        Me.lblviewESremovedfacility.Location = New System.Drawing.Point(274, 134)
         Me.lblviewESremovedfacility.Name = "lblviewESremovedfacility"
         Me.lblviewESremovedfacility.Size = New System.Drawing.Size(30, 13)
         Me.lblviewESremovedfacility.TabIndex = 7
@@ -5009,7 +4894,7 @@ Partial Class DMUEisGecoTool
         '
         'txtESremovedFacilities
         '
-        Me.txtESremovedFacilities.Location = New System.Drawing.Point(157, 136)
+        Me.txtESremovedFacilities.Location = New System.Drawing.Point(168, 131)
         Me.txtESremovedFacilities.Name = "txtESremovedFacilities"
         Me.txtESremovedFacilities.Size = New System.Drawing.Size(100, 20)
         Me.txtESremovedFacilities.TabIndex = 6
@@ -5017,7 +4902,7 @@ Partial Class DMUEisGecoTool
         'Label195
         '
         Me.Label195.AutoSize = True
-        Me.Label195.Location = New System.Drawing.Point(23, 139)
+        Me.Label195.Location = New System.Drawing.Point(26, 134)
         Me.Label195.Name = "Label195"
         Me.Label195.Size = New System.Drawing.Size(136, 13)
         Me.Label195.TabIndex = 45
@@ -5026,7 +4911,7 @@ Partial Class DMUEisGecoTool
         'lblviewESextraresponder
         '
         Me.lblviewESextraresponder.AutoSize = True
-        Me.lblviewESextraresponder.Location = New System.Drawing.Point(272, 87)
+        Me.lblviewESextraresponder.Location = New System.Drawing.Point(274, 82)
         Me.lblviewESextraresponder.Name = "lblviewESextraresponder"
         Me.lblviewESextraresponder.Size = New System.Drawing.Size(30, 13)
         Me.lblviewESextraresponder.TabIndex = 3
@@ -5035,7 +4920,7 @@ Partial Class DMUEisGecoTool
         '
         'txtESextraResponders
         '
-        Me.txtESextraResponders.Location = New System.Drawing.Point(103, 84)
+        Me.txtESextraResponders.Location = New System.Drawing.Point(103, 79)
         Me.txtESextraResponders.Name = "txtESextraResponders"
         Me.txtESextraResponders.Size = New System.Drawing.Size(100, 20)
         Me.txtESextraResponders.TabIndex = 2
@@ -5043,7 +4928,7 @@ Partial Class DMUEisGecoTool
         'Label194
         '
         Me.Label194.AutoSize = True
-        Me.Label194.Location = New System.Drawing.Point(12, 87)
+        Me.Label194.Location = New System.Drawing.Point(12, 82)
         Me.Label194.Name = "Label194"
         Me.Label194.Size = New System.Drawing.Size(85, 13)
         Me.Label194.TabIndex = 42
@@ -5052,7 +4937,7 @@ Partial Class DMUEisGecoTool
         'lblViewMailOut
         '
         Me.lblViewMailOut.AutoSize = True
-        Me.lblViewMailOut.Location = New System.Drawing.Point(271, 55)
+        Me.lblViewMailOut.Location = New System.Drawing.Point(274, 53)
         Me.lblViewMailOut.Name = "lblViewMailOut"
         Me.lblViewMailOut.Size = New System.Drawing.Size(30, 13)
         Me.lblViewMailOut.TabIndex = 1
@@ -5062,7 +4947,7 @@ Partial Class DMUEisGecoTool
         'Label76
         '
         Me.Label76.AutoSize = True
-        Me.Label76.Location = New System.Drawing.Point(12, 225)
+        Me.Label76.Location = New System.Drawing.Point(12, 223)
         Me.Label76.Name = "Label76"
         Me.Label76.Size = New System.Drawing.Size(58, 13)
         Me.Label76.TabIndex = 8
@@ -5070,7 +4955,7 @@ Partial Class DMUEisGecoTool
         '
         'txtResponseCount
         '
-        Me.txtResponseCount.Location = New System.Drawing.Point(103, 225)
+        Me.txtResponseCount.Location = New System.Drawing.Point(103, 220)
         Me.txtResponseCount.Name = "txtResponseCount"
         Me.txtResponseCount.Size = New System.Drawing.Size(100, 20)
         Me.txtResponseCount.TabIndex = 12
@@ -5078,7 +4963,7 @@ Partial Class DMUEisGecoTool
         'lblViewTotalResponse
         '
         Me.lblViewTotalResponse.AutoSize = True
-        Me.lblViewTotalResponse.Location = New System.Drawing.Point(275, 427)
+        Me.lblViewTotalResponse.Location = New System.Drawing.Point(274, 408)
         Me.lblViewTotalResponse.Name = "lblViewTotalResponse"
         Me.lblViewTotalResponse.Size = New System.Drawing.Size(30, 13)
         Me.lblViewTotalResponse.TabIndex = 24
@@ -5087,7 +4972,7 @@ Partial Class DMUEisGecoTool
         '
         'txtTotalResponse
         '
-        Me.txtTotalResponse.Location = New System.Drawing.Point(100, 424)
+        Me.txtTotalResponse.Location = New System.Drawing.Point(103, 405)
         Me.txtTotalResponse.Name = "txtTotalResponse"
         Me.txtTotalResponse.Size = New System.Drawing.Size(100, 20)
         Me.txtTotalResponse.TabIndex = 23
@@ -5095,7 +4980,7 @@ Partial Class DMUEisGecoTool
         'Label77
         '
         Me.Label77.AutoSize = True
-        Me.Label77.Location = New System.Drawing.Point(12, 509)
+        Me.Label77.Location = New System.Drawing.Point(12, 492)
         Me.Label77.Name = "Label77"
         Me.Label77.Size = New System.Drawing.Size(95, 13)
         Me.Label77.TabIndex = 34
@@ -5104,7 +4989,7 @@ Partial Class DMUEisGecoTool
         'lblViewExtraOptOut
         '
         Me.lblViewExtraOptOut.AutoSize = True
-        Me.lblViewExtraOptOut.Location = New System.Drawing.Point(275, 378)
+        Me.lblViewExtraOptOut.Location = New System.Drawing.Point(274, 368)
         Me.lblViewExtraOptOut.Name = "lblViewExtraOptOut"
         Me.lblViewExtraOptOut.Size = New System.Drawing.Size(30, 13)
         Me.lblViewExtraOptOut.TabIndex = 22
@@ -5113,7 +4998,7 @@ Partial Class DMUEisGecoTool
         '
         'txtExtraOptout
         '
-        Me.txtExtraOptout.Location = New System.Drawing.Point(156, 375)
+        Me.txtExtraOptout.Location = New System.Drawing.Point(156, 365)
         Me.txtExtraOptout.Name = "txtExtraOptout"
         Me.txtExtraOptout.Size = New System.Drawing.Size(100, 20)
         Me.txtExtraOptout.TabIndex = 21
@@ -5121,7 +5006,7 @@ Partial Class DMUEisGecoTool
         'Label78
         '
         Me.Label78.AutoSize = True
-        Me.Label78.Location = New System.Drawing.Point(103, 375)
+        Me.Label78.Location = New System.Drawing.Point(103, 368)
         Me.Label78.Name = "Label78"
         Me.Label78.Size = New System.Drawing.Size(47, 13)
         Me.Label78.TabIndex = 22
@@ -5130,7 +5015,7 @@ Partial Class DMUEisGecoTool
         'lblViewExtraOptIn
         '
         Me.lblViewExtraOptIn.AutoSize = True
-        Me.lblViewExtraOptIn.Location = New System.Drawing.Point(275, 352)
+        Me.lblViewExtraOptIn.Location = New System.Drawing.Point(274, 342)
         Me.lblViewExtraOptIn.Name = "lblViewExtraOptIn"
         Me.lblViewExtraOptIn.Size = New System.Drawing.Size(30, 13)
         Me.lblViewExtraOptIn.TabIndex = 20
@@ -5139,7 +5024,7 @@ Partial Class DMUEisGecoTool
         '
         'txtExtraOptin
         '
-        Me.txtExtraOptin.Location = New System.Drawing.Point(156, 349)
+        Me.txtExtraOptin.Location = New System.Drawing.Point(156, 339)
         Me.txtExtraOptin.Name = "txtExtraOptin"
         Me.txtExtraOptin.Size = New System.Drawing.Size(100, 20)
         Me.txtExtraOptin.TabIndex = 19
@@ -5147,7 +5032,7 @@ Partial Class DMUEisGecoTool
         'Label79
         '
         Me.Label79.AutoSize = True
-        Me.Label79.Location = New System.Drawing.Point(111, 352)
+        Me.Label79.Location = New System.Drawing.Point(111, 342)
         Me.Label79.Name = "Label79"
         Me.Label79.Size = New System.Drawing.Size(39, 13)
         Me.Label79.TabIndex = 19
@@ -5156,7 +5041,7 @@ Partial Class DMUEisGecoTool
         'lblViewOptOut
         '
         Me.lblViewOptOut.AutoSize = True
-        Me.lblViewOptOut.Location = New System.Drawing.Point(275, 280)
+        Me.lblViewOptOut.Location = New System.Drawing.Point(274, 275)
         Me.lblViewOptOut.Name = "lblViewOptOut"
         Me.lblViewOptOut.Size = New System.Drawing.Size(30, 13)
         Me.lblViewOptOut.TabIndex = 16
@@ -5165,7 +5050,7 @@ Partial Class DMUEisGecoTool
         '
         'txtMailOutOptOut
         '
-        Me.txtMailOutOptOut.Location = New System.Drawing.Point(156, 277)
+        Me.txtMailOutOptOut.Location = New System.Drawing.Point(156, 272)
         Me.txtMailOutOptOut.Name = "txtMailOutOptOut"
         Me.txtMailOutOptOut.Size = New System.Drawing.Size(100, 20)
         Me.txtMailOutOptOut.TabIndex = 15
@@ -5173,7 +5058,7 @@ Partial Class DMUEisGecoTool
         'Label80
         '
         Me.Label80.AutoSize = True
-        Me.Label80.Location = New System.Drawing.Point(103, 280)
+        Me.Label80.Location = New System.Drawing.Point(103, 275)
         Me.Label80.Name = "Label80"
         Me.Label80.Size = New System.Drawing.Size(47, 13)
         Me.Label80.TabIndex = 13
@@ -5182,7 +5067,7 @@ Partial Class DMUEisGecoTool
         'lblViewOptIn
         '
         Me.lblViewOptIn.AutoSize = True
-        Me.lblViewOptIn.Location = New System.Drawing.Point(275, 251)
+        Me.lblViewOptIn.Location = New System.Drawing.Point(274, 249)
         Me.lblViewOptIn.Name = "lblViewOptIn"
         Me.lblViewOptIn.Size = New System.Drawing.Size(30, 13)
         Me.lblViewOptIn.TabIndex = 14
@@ -5191,7 +5076,7 @@ Partial Class DMUEisGecoTool
         '
         'txtMailoutOptin
         '
-        Me.txtMailoutOptin.Location = New System.Drawing.Point(156, 251)
+        Me.txtMailoutOptin.Location = New System.Drawing.Point(156, 246)
         Me.txtMailoutOptin.Name = "txtMailoutOptin"
         Me.txtMailoutOptin.Size = New System.Drawing.Size(100, 20)
         Me.txtMailoutOptin.TabIndex = 13
@@ -5199,7 +5084,7 @@ Partial Class DMUEisGecoTool
         'Label81
         '
         Me.Label81.AutoSize = True
-        Me.Label81.Location = New System.Drawing.Point(111, 254)
+        Me.Label81.Location = New System.Drawing.Point(111, 249)
         Me.Label81.Name = "Label81"
         Me.Label81.Size = New System.Drawing.Size(39, 13)
         Me.Label81.TabIndex = 10
@@ -5208,7 +5093,7 @@ Partial Class DMUEisGecoTool
         'Label82
         '
         Me.Label82.AutoSize = True
-        Me.Label82.Location = New System.Drawing.Point(12, 427)
+        Me.Label82.Location = New System.Drawing.Point(12, 408)
         Me.Label82.Name = "Label82"
         Me.Label82.Size = New System.Drawing.Size(85, 13)
         Me.Label82.TabIndex = 25
@@ -5217,7 +5102,7 @@ Partial Class DMUEisGecoTool
         'lblextraResponse
         '
         Me.lblextraResponse.AutoSize = True
-        Me.lblextraResponse.Location = New System.Drawing.Point(275, 326)
+        Me.lblextraResponse.Location = New System.Drawing.Point(274, 314)
         Me.lblextraResponse.Name = "lblextraResponse"
         Me.lblextraResponse.Size = New System.Drawing.Size(30, 13)
         Me.lblextraResponse.TabIndex = 18
@@ -5226,7 +5111,7 @@ Partial Class DMUEisGecoTool
         '
         'txtextraResponse
         '
-        Me.txtextraResponse.Location = New System.Drawing.Point(103, 316)
+        Me.txtextraResponse.Location = New System.Drawing.Point(103, 311)
         Me.txtextraResponse.Name = "txtextraResponse"
         Me.txtextraResponse.Size = New System.Drawing.Size(100, 20)
         Me.txtextraResponse.TabIndex = 17
@@ -5234,7 +5119,7 @@ Partial Class DMUEisGecoTool
         'Label83
         '
         Me.Label83.AutoSize = True
-        Me.Label83.Location = New System.Drawing.Point(13, 323)
+        Me.Label83.Location = New System.Drawing.Point(12, 314)
         Me.Label83.Name = "Label83"
         Me.Label83.Size = New System.Drawing.Size(85, 13)
         Me.Label83.TabIndex = 16
@@ -5243,7 +5128,7 @@ Partial Class DMUEisGecoTool
         'lblViewNonResponse
         '
         Me.lblViewNonResponse.AutoSize = True
-        Me.lblViewNonResponse.Location = New System.Drawing.Point(315, 113)
+        Me.lblViewNonResponse.Location = New System.Drawing.Point(274, 108)
         Me.lblViewNonResponse.Name = "lblViewNonResponse"
         Me.lblViewNonResponse.Size = New System.Drawing.Size(30, 13)
         Me.lblViewNonResponse.TabIndex = 5
@@ -5253,7 +5138,7 @@ Partial Class DMUEisGecoTool
         'lblViewOutofcompliance
         '
         Me.lblViewOutofcompliance.AutoSize = True
-        Me.lblViewOutofcompliance.Location = New System.Drawing.Point(275, 560)
+        Me.lblViewOutofcompliance.Location = New System.Drawing.Point(274, 541)
         Me.lblViewOutofcompliance.Name = "lblViewOutofcompliance"
         Me.lblViewOutofcompliance.Size = New System.Drawing.Size(30, 13)
         Me.lblViewOutofcompliance.TabIndex = 33
@@ -5263,7 +5148,7 @@ Partial Class DMUEisGecoTool
         'lblViewINCompliance
         '
         Me.lblViewINCompliance.AutoSize = True
-        Me.lblViewINCompliance.Location = New System.Drawing.Point(275, 534)
+        Me.lblViewINCompliance.Location = New System.Drawing.Point(274, 515)
         Me.lblViewINCompliance.Name = "lblViewINCompliance"
         Me.lblViewINCompliance.Size = New System.Drawing.Size(30, 13)
         Me.lblViewINCompliance.TabIndex = 30
@@ -5273,7 +5158,7 @@ Partial Class DMUEisGecoTool
         'lblViewTotalOptOut
         '
         Me.lblViewTotalOptOut.AutoSize = True
-        Me.lblViewTotalOptOut.Location = New System.Drawing.Point(275, 479)
+        Me.lblViewTotalOptOut.Location = New System.Drawing.Point(274, 460)
         Me.lblViewTotalOptOut.Name = "lblViewTotalOptOut"
         Me.lblViewTotalOptOut.Size = New System.Drawing.Size(30, 13)
         Me.lblViewTotalOptOut.TabIndex = 28
@@ -5283,7 +5168,7 @@ Partial Class DMUEisGecoTool
         'lblViewTotalOptin
         '
         Me.lblViewTotalOptin.AutoSize = True
-        Me.lblViewTotalOptin.Location = New System.Drawing.Point(275, 453)
+        Me.lblViewTotalOptin.Location = New System.Drawing.Point(274, 434)
         Me.lblViewTotalOptin.Name = "lblViewTotalOptin"
         Me.lblViewTotalOptin.Size = New System.Drawing.Size(30, 13)
         Me.lblViewTotalOptin.TabIndex = 26
@@ -5292,7 +5177,7 @@ Partial Class DMUEisGecoTool
         '
         'txtTotaloutofcompliance
         '
-        Me.txtTotaloutofcompliance.Location = New System.Drawing.Point(117, 557)
+        Me.txtTotaloutofcompliance.Location = New System.Drawing.Point(117, 538)
         Me.txtTotaloutofcompliance.Name = "txtTotaloutofcompliance"
         Me.txtTotaloutofcompliance.Size = New System.Drawing.Size(100, 20)
         Me.txtTotaloutofcompliance.TabIndex = 31
@@ -5300,7 +5185,7 @@ Partial Class DMUEisGecoTool
         'Label84
         '
         Me.Label84.AutoSize = True
-        Me.Label84.Location = New System.Drawing.Point(14, 557)
+        Me.Label84.Location = New System.Drawing.Point(14, 541)
         Me.Label84.Name = "Label84"
         Me.Label84.Size = New System.Drawing.Size(97, 13)
         Me.Label84.TabIndex = 38
@@ -5308,7 +5193,7 @@ Partial Class DMUEisGecoTool
         '
         'txtTotalincompliance
         '
-        Me.txtTotalincompliance.Location = New System.Drawing.Point(117, 531)
+        Me.txtTotalincompliance.Location = New System.Drawing.Point(117, 512)
         Me.txtTotalincompliance.Name = "txtTotalincompliance"
         Me.txtTotalincompliance.Size = New System.Drawing.Size(100, 20)
         Me.txtTotalincompliance.TabIndex = 29
@@ -5316,7 +5201,7 @@ Partial Class DMUEisGecoTool
         'Label85
         '
         Me.Label85.AutoSize = True
-        Me.Label85.Location = New System.Drawing.Point(34, 534)
+        Me.Label85.Location = New System.Drawing.Point(34, 515)
         Me.Label85.Name = "Label85"
         Me.Label85.Size = New System.Drawing.Size(77, 13)
         Me.Label85.TabIndex = 35
@@ -5324,7 +5209,7 @@ Partial Class DMUEisGecoTool
         '
         'txtNonResponseCount
         '
-        Me.txtNonResponseCount.Location = New System.Drawing.Point(157, 110)
+        Me.txtNonResponseCount.Location = New System.Drawing.Point(168, 105)
         Me.txtNonResponseCount.Name = "txtNonResponseCount"
         Me.txtNonResponseCount.Size = New System.Drawing.Size(100, 20)
         Me.txtNonResponseCount.TabIndex = 4
@@ -5332,7 +5217,7 @@ Partial Class DMUEisGecoTool
         'Label86
         '
         Me.Label86.AutoSize = True
-        Me.Label86.Location = New System.Drawing.Point(27, 113)
+        Me.Label86.Location = New System.Drawing.Point(26, 108)
         Me.Label86.Name = "Label86"
         Me.Label86.Size = New System.Drawing.Size(81, 13)
         Me.Label86.TabIndex = 5
@@ -5340,7 +5225,7 @@ Partial Class DMUEisGecoTool
         '
         'txtTotalOptOutCount
         '
-        Me.txtTotalOptOutCount.Location = New System.Drawing.Point(156, 476)
+        Me.txtTotalOptOutCount.Location = New System.Drawing.Point(156, 457)
         Me.txtTotalOptOutCount.Name = "txtTotalOptOutCount"
         Me.txtTotalOptOutCount.Size = New System.Drawing.Size(100, 20)
         Me.txtTotalOptOutCount.TabIndex = 27
@@ -5348,7 +5233,7 @@ Partial Class DMUEisGecoTool
         'Label87
         '
         Me.Label87.AutoSize = True
-        Me.Label87.Location = New System.Drawing.Point(103, 479)
+        Me.Label87.Location = New System.Drawing.Point(103, 460)
         Me.Label87.Name = "Label87"
         Me.Label87.Size = New System.Drawing.Size(47, 13)
         Me.Label87.TabIndex = 31
@@ -5356,7 +5241,7 @@ Partial Class DMUEisGecoTool
         '
         'txtTotalOptInCount
         '
-        Me.txtTotalOptInCount.Location = New System.Drawing.Point(156, 450)
+        Me.txtTotalOptInCount.Location = New System.Drawing.Point(156, 431)
         Me.txtTotalOptInCount.Name = "txtTotalOptInCount"
         Me.txtTotalOptInCount.Size = New System.Drawing.Size(100, 20)
         Me.txtTotalOptInCount.TabIndex = 25
@@ -5364,7 +5249,7 @@ Partial Class DMUEisGecoTool
         'Label89
         '
         Me.Label89.AutoSize = True
-        Me.Label89.Location = New System.Drawing.Point(111, 457)
+        Me.Label89.Location = New System.Drawing.Point(111, 434)
         Me.Label89.Name = "Label89"
         Me.Label89.Size = New System.Drawing.Size(39, 13)
         Me.Label89.TabIndex = 28
@@ -5372,7 +5257,7 @@ Partial Class DMUEisGecoTool
         '
         'txtESMailOutCount
         '
-        Me.txtESMailOutCount.Location = New System.Drawing.Point(103, 55)
+        Me.txtESMailOutCount.Location = New System.Drawing.Point(103, 50)
         Me.txtESMailOutCount.Name = "txtESMailOutCount"
         Me.txtESMailOutCount.Size = New System.Drawing.Size(100, 20)
         Me.txtESMailOutCount.TabIndex = 0
@@ -5380,7 +5265,7 @@ Partial Class DMUEisGecoTool
         'Label92
         '
         Me.Label92.AutoSize = True
-        Me.Label92.Location = New System.Drawing.Point(13, 62)
+        Me.Label92.Location = New System.Drawing.Point(12, 53)
         Me.Label92.Name = "Label92"
         Me.Label92.Size = New System.Drawing.Size(71, 13)
         Me.Label92.TabIndex = 2
@@ -5391,7 +5276,7 @@ Partial Class DMUEisGecoTool
         Me.lblYear.AutoSize = True
         Me.lblYear.Font = New System.Drawing.Font("Times New Roman", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblYear.ForeColor = System.Drawing.SystemColors.HotTrack
-        Me.lblYear.Location = New System.Drawing.Point(346, 18)
+        Me.lblYear.Location = New System.Drawing.Point(339, 16)
         Me.lblYear.Name = "lblYear"
         Me.lblYear.Size = New System.Drawing.Size(48, 22)
         Me.lblYear.TabIndex = 1
@@ -5402,7 +5287,7 @@ Partial Class DMUEisGecoTool
         Me.Label93.AutoSize = True
         Me.Label93.Font = New System.Drawing.Font("Times New Roman", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label93.ForeColor = System.Drawing.SystemColors.HotTrack
-        Me.Label93.Location = New System.Drawing.Point(15, 18)
+        Me.Label93.Location = New System.Drawing.Point(11, 16)
         Me.Label93.Name = "Label93"
         Me.Label93.Size = New System.Drawing.Size(322, 22)
         Me.Label93.TabIndex = 0
@@ -5466,11 +5351,11 @@ Partial Class DMUEisGecoTool
         'Label94
         '
         Me.Label94.AutoSize = True
-        Me.Label94.Location = New System.Drawing.Point(271, 137)
+        Me.Label94.Location = New System.Drawing.Point(263, 136)
         Me.Label94.Name = "Label94"
-        Me.Label94.Size = New System.Drawing.Size(104, 13)
+        Me.Label94.Size = New System.Drawing.Size(107, 13)
         Me.Label94.TabIndex = 20
-        Me.Label94.Text = "Company Address1: "
+        Me.Label94.Text = "Company Address 1: "
         '
         'btnESDelete
         '
@@ -5516,7 +5401,7 @@ Partial Class DMUEisGecoTool
         'Label98
         '
         Me.Label98.AutoSize = True
-        Me.Label98.Location = New System.Drawing.Point(311, 241)
+        Me.Label98.Location = New System.Drawing.Point(314, 241)
         Me.Label98.Name = "Label98"
         Me.Label98.Size = New System.Drawing.Size(56, 13)
         Me.Label98.TabIndex = 28
@@ -5532,7 +5417,7 @@ Partial Class DMUEisGecoTool
         'Label99
         '
         Me.Label99.AutoSize = True
-        Me.Label99.Location = New System.Drawing.Point(285, 215)
+        Me.Label99.Location = New System.Drawing.Point(288, 215)
         Me.Label99.Name = "Label99"
         Me.Label99.Size = New System.Drawing.Size(82, 13)
         Me.Label99.TabIndex = 26
@@ -5564,11 +5449,11 @@ Partial Class DMUEisGecoTool
         'Label105
         '
         Me.Label105.AutoSize = True
-        Me.Label105.Location = New System.Drawing.Point(271, 163)
+        Me.Label105.Location = New System.Drawing.Point(263, 162)
         Me.Label105.Name = "Label105"
-        Me.Label105.Size = New System.Drawing.Size(104, 13)
+        Me.Label105.Size = New System.Drawing.Size(107, 13)
         Me.Label105.TabIndex = 22
-        Me.Label105.Text = "Company Address2: "
+        Me.Label105.Text = "Company Address 2: "
         '
         'txtEScompanyName
         '
@@ -5580,7 +5465,7 @@ Partial Class DMUEisGecoTool
         'Label106
         '
         Me.Label106.AutoSize = True
-        Me.Label106.Location = New System.Drawing.Point(8, 267)
+        Me.Label106.Location = New System.Drawing.Point(9, 267)
         Me.Label106.Name = "Label106"
         Me.Label106.Size = New System.Drawing.Size(88, 13)
         Me.Label106.TabIndex = 18
@@ -5596,7 +5481,7 @@ Partial Class DMUEisGecoTool
         'Label107
         '
         Me.Label107.AutoSize = True
-        Me.Label107.Location = New System.Drawing.Point(11, 241)
+        Me.Label107.Location = New System.Drawing.Point(9, 241)
         Me.Label107.Name = "Label107"
         Me.Label107.Size = New System.Drawing.Size(64, 13)
         Me.Label107.TabIndex = 16
@@ -5612,7 +5497,7 @@ Partial Class DMUEisGecoTool
         'Label108
         '
         Me.Label108.AutoSize = True
-        Me.Label108.Location = New System.Drawing.Point(14, 215)
+        Me.Label108.Location = New System.Drawing.Point(9, 215)
         Me.Label108.Name = "Label108"
         Me.Label108.Size = New System.Drawing.Size(63, 13)
         Me.Label108.TabIndex = 14
@@ -5628,7 +5513,7 @@ Partial Class DMUEisGecoTool
         'Label109
         '
         Me.Label109.AutoSize = True
-        Me.Label109.Location = New System.Drawing.Point(14, 189)
+        Me.Label109.Location = New System.Drawing.Point(9, 189)
         Me.Label109.Name = "Label109"
         Me.Label109.Size = New System.Drawing.Size(39, 13)
         Me.Label109.TabIndex = 12
@@ -5644,7 +5529,7 @@ Partial Class DMUEisGecoTool
         'Label110
         '
         Me.Label110.AutoSize = True
-        Me.Label110.Location = New System.Drawing.Point(14, 163)
+        Me.Label110.Location = New System.Drawing.Point(9, 163)
         Me.Label110.Name = "Label110"
         Me.Label110.Size = New System.Drawing.Size(76, 13)
         Me.Label110.TabIndex = 10
@@ -5660,7 +5545,7 @@ Partial Class DMUEisGecoTool
         'Label111
         '
         Me.Label111.AutoSize = True
-        Me.Label111.Location = New System.Drawing.Point(14, 137)
+        Me.Label111.Location = New System.Drawing.Point(9, 137)
         Me.Label111.Name = "Label111"
         Me.Label111.Size = New System.Drawing.Size(50, 13)
         Me.Label111.TabIndex = 6
@@ -5674,7 +5559,6 @@ Partial Class DMUEisGecoTool
         Me.TabDetails.Controls.Add(Me.txtESContactLastName)
         Me.TabDetails.Controls.Add(Me.Label113)
         Me.TabDetails.Controls.Add(Me.lblViewESData)
-        Me.TabDetails.Controls.Add(Me.btnPrint)
         Me.TabDetails.Controls.Add(Me.txtFirstConfirmedDate)
         Me.TabDetails.Controls.Add(Me.Label114)
         Me.TabDetails.Controls.Add(Me.txtNOXEmission)
@@ -5684,10 +5568,6 @@ Partial Class DMUEisGecoTool
         Me.TabDetails.Controls.Add(Me.Label117)
         Me.TabDetails.Controls.Add(Me.txtConfirmationNbr)
         Me.TabDetails.Controls.Add(Me.txtConfirmationNumber)
-        Me.TabDetails.Controls.Add(Me.txtNox)
-        Me.TabDetails.Controls.Add(Me.txtVoc)
-        Me.TabDetails.Controls.Add(Me.Label118)
-        Me.TabDetails.Controls.Add(Me.Label119)
         Me.TabDetails.Controls.Add(Me.Label120)
         Me.TabDetails.Controls.Add(Me.Label121)
         Me.TabDetails.Controls.Add(Me.txtESEmail)
@@ -5788,15 +5668,6 @@ Partial Class DMUEisGecoTool
         Me.lblViewESData.TabStop = True
         Me.lblViewESData.Text = "View All ES Data"
         '
-        'btnPrint
-        '
-        Me.btnPrint.Location = New System.Drawing.Point(373, 445)
-        Me.btnPrint.Name = "btnPrint"
-        Me.btnPrint.Size = New System.Drawing.Size(50, 23)
-        Me.btnPrint.TabIndex = 62
-        Me.btnPrint.Text = "Print"
-        Me.btnPrint.UseVisualStyleBackColor = True
-        '
         'txtFirstConfirmedDate
         '
         Me.txtFirstConfirmedDate.Location = New System.Drawing.Point(373, 408)
@@ -5874,44 +5745,6 @@ Partial Class DMUEisGecoTool
         Me.txtConfirmationNumber.Size = New System.Drawing.Size(73, 20)
         Me.txtConfirmationNumber.TabIndex = 57
         Me.txtConfirmationNumber.Visible = False
-        '
-        'txtNox
-        '
-        Me.txtNox.Location = New System.Drawing.Point(120, 489)
-        Me.txtNox.Name = "txtNox"
-        Me.txtNox.Size = New System.Drawing.Size(148, 20)
-        Me.txtNox.TabIndex = 119
-        Me.txtNox.Visible = False
-        '
-        'txtVoc
-        '
-        Me.txtVoc.Location = New System.Drawing.Point(373, 486)
-        Me.txtVoc.Name = "txtVoc"
-        Me.txtVoc.Size = New System.Drawing.Size(148, 20)
-        Me.txtVoc.TabIndex = 118
-        Me.txtVoc.Visible = False
-        '
-        'Label118
-        '
-        Me.Label118.AutoSize = True
-        Me.Label118.Font = New System.Drawing.Font("Times New Roman", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label118.Location = New System.Drawing.Point(328, 492)
-        Me.Label118.Name = "Label118"
-        Me.Label118.Size = New System.Drawing.Size(29, 14)
-        Me.Label118.TabIndex = 115
-        Me.Label118.Text = "VOC"
-        Me.Label118.Visible = False
-        '
-        'Label119
-        '
-        Me.Label119.AutoSize = True
-        Me.Label119.Font = New System.Drawing.Font("Times New Roman", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label119.Location = New System.Drawing.Point(74, 492)
-        Me.Label119.Name = "Label119"
-        Me.Label119.Size = New System.Drawing.Size(29, 14)
-        Me.Label119.TabIndex = 114
-        Me.Label119.Text = "NOx"
-        Me.Label119.Visible = False
         '
         'Label120
         '
@@ -7170,41 +7003,14 @@ Partial Class DMUEisGecoTool
         '
         'pnlUserEmail
         '
-        Me.pnlUserEmail.Controls.Add(Me.cboUserEmail)
-        Me.pnlUserEmail.Controls.Add(Me.lblViewFacility)
         Me.pnlUserEmail.Controls.Add(Me.lblViewEmailData)
         Me.pnlUserEmail.Controls.Add(Me.Label39)
-        Me.pnlUserEmail.Controls.Add(Me.Label52)
         Me.pnlUserEmail.Controls.Add(Me.txtWebUserEmail)
-        Me.pnlUserEmail.Controls.Add(Me.btnActivateEmail)
         Me.pnlUserEmail.Dock = System.Windows.Forms.DockStyle.Top
         Me.pnlUserEmail.Location = New System.Drawing.Point(0, 0)
         Me.pnlUserEmail.Name = "pnlUserEmail"
         Me.pnlUserEmail.Size = New System.Drawing.Size(1000, 45)
         Me.pnlUserEmail.TabIndex = 147
-        '
-        'cboUserEmail
-        '
-        Me.cboUserEmail.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
-        Me.cboUserEmail.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cboUserEmail.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cboUserEmail.Location = New System.Drawing.Point(637, 8)
-        Me.cboUserEmail.Name = "cboUserEmail"
-        Me.cboUserEmail.Size = New System.Drawing.Size(244, 21)
-        Me.cboUserEmail.TabIndex = 1
-        Me.cboUserEmail.Visible = False
-        '
-        'lblViewFacility
-        '
-        Me.lblViewFacility.AutoSize = True
-        Me.lblViewFacility.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblViewFacility.Location = New System.Drawing.Point(887, 11)
-        Me.lblViewFacility.Name = "lblViewFacility"
-        Me.lblViewFacility.Size = New System.Drawing.Size(56, 13)
-        Me.lblViewFacility.TabIndex = 143
-        Me.lblViewFacility.TabStop = True
-        Me.lblViewFacility.Text = "View Data"
-        Me.lblViewFacility.Visible = False
         '
         'lblViewEmailData
         '
@@ -7228,36 +7034,12 @@ Partial Class DMUEisGecoTool
         Me.Label39.Text = "User Email Address:"
         Me.Label39.TextAlign = System.Drawing.ContentAlignment.BottomLeft
         '
-        'Label52
-        '
-        Me.Label52.AutoSize = True
-        Me.Label52.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label52.Location = New System.Drawing.Point(531, 12)
-        Me.Label52.Name = "Label52"
-        Me.Label52.Size = New System.Drawing.Size(101, 13)
-        Me.Label52.TabIndex = 106
-        Me.Label52.Text = "User Email Address:"
-        Me.Label52.TextAlign = System.Drawing.ContentAlignment.BottomLeft
-        Me.Label52.Visible = False
-        '
         'txtWebUserEmail
         '
         Me.txtWebUserEmail.Location = New System.Drawing.Point(114, 8)
         Me.txtWebUserEmail.Name = "txtWebUserEmail"
         Me.txtWebUserEmail.Size = New System.Drawing.Size(224, 20)
         Me.txtWebUserEmail.TabIndex = 0
-        '
-        'btnActivateEmail
-        '
-        Me.btnActivateEmail.AutoSize = True
-        Me.btnActivateEmail.BackColor = System.Drawing.Color.YellowGreen
-        Me.btnActivateEmail.Location = New System.Drawing.Point(409, 9)
-        Me.btnActivateEmail.Name = "btnActivateEmail"
-        Me.btnActivateEmail.Size = New System.Drawing.Size(105, 23)
-        Me.btnActivateEmail.TabIndex = 174
-        Me.btnActivateEmail.Text = "Activate Tool"
-        Me.btnActivateEmail.UseVisualStyleBackColor = False
-        Me.btnActivateEmail.Visible = False
         '
         'Label1
         '
@@ -7308,7 +7090,7 @@ Partial Class DMUEisGecoTool
         Me.Panel14.PerformLayout()
         Me.Panel13.ResumeLayout(False)
         Me.Panel13.PerformLayout()
-        Me.TPEISStatistics.ResumeLayout(False)
+        Me.TPEisTools.ResumeLayout(False)
         Me.Panel17.ResumeLayout(False)
         CType(Me.dgvEISStats, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel18.ResumeLayout(False)
@@ -7336,6 +7118,8 @@ Partial Class DMUEisGecoTool
         CType(Me.dgvOperStatusMismatch, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
+        Me.TPStageData.ResumeLayout(False)
+        Me.TPStageData.PerformLayout()
         Me.Panel21.ResumeLayout(False)
         Me.Panel21.PerformLayout()
         Me.TPESTools.ResumeLayout(False)
@@ -7377,9 +7161,9 @@ Partial Class DMUEisGecoTool
         Me.pnlUserEmail.ResumeLayout(False)
         Me.pnlUserEmail.PerformLayout()
         Me.ResumeLayout(False)
-        Me.PerformLayout
+        Me.PerformLayout()
 
-End Sub
+    End Sub
     Friend WithEvents TCDMUTools As System.Windows.Forms.TabControl
     Friend WithEvents TPESTools As System.Windows.Forms.TabPage
     Friend WithEvents TabControl2 As System.Windows.Forms.TabControl
@@ -7483,7 +7267,6 @@ End Sub
     Friend WithEvents txtESContactLastName As System.Windows.Forms.TextBox
     Friend WithEvents Label113 As System.Windows.Forms.Label
     Friend WithEvents lblViewESData As System.Windows.Forms.LinkLabel
-    Friend WithEvents btnPrint As System.Windows.Forms.Button
     Friend WithEvents txtFirstConfirmedDate As System.Windows.Forms.TextBox
     Friend WithEvents Label114 As System.Windows.Forms.Label
     Friend WithEvents txtNOXEmission As System.Windows.Forms.TextBox
@@ -7493,10 +7276,6 @@ End Sub
     Friend WithEvents Label117 As System.Windows.Forms.Label
     Friend WithEvents txtConfirmationNbr As System.Windows.Forms.TextBox
     Friend WithEvents txtConfirmationNumber As System.Windows.Forms.TextBox
-    Friend WithEvents txtNox As System.Windows.Forms.TextBox
-    Friend WithEvents txtVoc As System.Windows.Forms.TextBox
-    Friend WithEvents Label118 As System.Windows.Forms.Label
-    Friend WithEvents Label119 As System.Windows.Forms.Label
     Friend WithEvents Label120 As System.Windows.Forms.Label
     Friend WithEvents Label121 As System.Windows.Forms.Label
     Friend WithEvents txtESEmail As System.Windows.Forms.TextBox
@@ -7570,13 +7349,9 @@ End Sub
     Friend WithEvents TPWebUsers As System.Windows.Forms.TabPage
     Friend WithEvents TPWebUsers1 As System.Windows.Forms.TabPage
     Friend WithEvents pnlUserEmail As System.Windows.Forms.Panel
-    Friend WithEvents cboUserEmail As System.Windows.Forms.ComboBox
-    Friend WithEvents lblViewFacility As System.Windows.Forms.LinkLabel
     Friend WithEvents lblViewEmailData As System.Windows.Forms.LinkLabel
     Friend WithEvents Label39 As System.Windows.Forms.Label
-    Friend WithEvents Label52 As System.Windows.Forms.Label
     Friend WithEvents txtWebUserEmail As System.Windows.Forms.TextBox
-    Friend WithEvents btnActivateEmail As System.Windows.Forms.Button
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents Panel4 As System.Windows.Forms.Panel
     Friend WithEvents Panel5 As System.Windows.Forms.Panel
@@ -7729,58 +7504,39 @@ End Sub
     Friend WithEvents Label204 As System.Windows.Forms.Label
     Friend WithEvents Panel16 As System.Windows.Forms.Panel
     Friend WithEvents Label203 As System.Windows.Forms.Label
-    Friend WithEvents txtEISContactEditFirstName As System.Windows.Forms.TextBox
     Friend WithEvents txtEISContactFirstName As System.Windows.Forms.TextBox
     Friend WithEvents Label219 As System.Windows.Forms.Label
-    Friend WithEvents txtEISContactEditPhone As System.Windows.Forms.TextBox
     Friend WithEvents txtEISContactPhone As System.Windows.Forms.TextBox
     Friend WithEvents Label218 As System.Windows.Forms.Label
-    Friend WithEvents txtEISContactEditPhone2 As System.Windows.Forms.TextBox
     Friend WithEvents txtEISContactPhone2 As System.Windows.Forms.TextBox
     Friend WithEvents Label217 As System.Windows.Forms.Label
-    Friend WithEvents txtEISContactEditFax As System.Windows.Forms.TextBox
     Friend WithEvents txtEISContactFax As System.Windows.Forms.TextBox
     Friend WithEvents Label216 As System.Windows.Forms.Label
-    Friend WithEvents txtEISContactEditEmail As System.Windows.Forms.TextBox
     Friend WithEvents txtEISContactEmail As System.Windows.Forms.TextBox
     Friend WithEvents Label215 As System.Windows.Forms.Label
-    Friend WithEvents txtEISContactEditAddress As System.Windows.Forms.TextBox
     Friend WithEvents txtEISContactAddress As System.Windows.Forms.TextBox
     Friend WithEvents Label214 As System.Windows.Forms.Label
-    Friend WithEvents txtEISContactEditCompanyName As System.Windows.Forms.TextBox
     Friend WithEvents txtEISContactCompanyName As System.Windows.Forms.TextBox
     Friend WithEvents Label213 As System.Windows.Forms.Label
-    Friend WithEvents txtEISContactEditTitle As System.Windows.Forms.TextBox
     Friend WithEvents txtEISContactTitle As System.Windows.Forms.TextBox
     Friend WithEvents Label212 As System.Windows.Forms.Label
-    Friend WithEvents txtEISContactEditSuffix As System.Windows.Forms.TextBox
     Friend WithEvents txtEISContactSuffix As System.Windows.Forms.TextBox
     Friend WithEvents Label211 As System.Windows.Forms.Label
-    Friend WithEvents txtEISContactEditPrefix As System.Windows.Forms.TextBox
     Friend WithEvents txtEISContactPrefix As System.Windows.Forms.TextBox
     Friend WithEvents Label210 As System.Windows.Forms.Label
-    Friend WithEvents txtEISContactEditLastName As System.Windows.Forms.TextBox
     Friend WithEvents txtEISContactLastName As System.Windows.Forms.TextBox
-    Friend WithEvents Label206 As System.Windows.Forms.Label
     Friend WithEvents Label207 As System.Windows.Forms.Label
     Friend WithEvents Label224 As System.Windows.Forms.Label
-    Friend WithEvents txtEISContactEditDescription As System.Windows.Forms.TextBox
     Friend WithEvents txtEISContactDescription As System.Windows.Forms.TextBox
     Friend WithEvents Label223 As System.Windows.Forms.Label
-    Friend WithEvents txtEISContactEditZipCode As System.Windows.Forms.TextBox
     Friend WithEvents txtEISContactZipCode As System.Windows.Forms.TextBox
     Friend WithEvents Label222 As System.Windows.Forms.Label
-    Friend WithEvents txtEISContactEditState As System.Windows.Forms.TextBox
     Friend WithEvents txtEISContactState As System.Windows.Forms.TextBox
     Friend WithEvents Label221 As System.Windows.Forms.Label
-    Friend WithEvents txtEISContactEditCity As System.Windows.Forms.TextBox
     Friend WithEvents txtEISContactCity As System.Windows.Forms.TextBox
     Friend WithEvents Label220 As System.Windows.Forms.Label
-    Friend WithEvents txtEISContactEditAddress2 As System.Windows.Forms.TextBox
     Friend WithEvents txtEISContactAddress2 As System.Windows.Forms.TextBox
-    Friend WithEvents Label227 As System.Windows.Forms.Label
     Friend WithEvents Label228 As System.Windows.Forms.Label
-    Friend WithEvents btnEISContactUpdate As System.Windows.Forms.Button
     Friend WithEvents Label225 As System.Windows.Forms.Label
     Friend WithEvents txtEISContactUpdateDateTime As System.Windows.Forms.TextBox
     Friend WithEvents Label226 As System.Windows.Forms.Label
@@ -7813,8 +7569,7 @@ End Sub
     Friend WithEvents Label240 As System.Windows.Forms.Label
     Friend WithEvents btnEIModifyCopy As System.Windows.Forms.Button
     Friend WithEvents btnEILogUpdate As System.Windows.Forms.Button
-    Friend WithEvents btnRefreshMailoutData As System.Windows.Forms.Button
-    Friend WithEvents TPEISStatistics As System.Windows.Forms.TabPage
+    Friend WithEvents TPEisTools As System.Windows.Forms.TabPage
     Friend WithEvents Panel17 As System.Windows.Forms.Panel
     Friend WithEvents dgvEISStats As System.Windows.Forms.DataGridView
     Friend WithEvents Panel18 As System.Windows.Forms.Panel
@@ -7903,7 +7658,6 @@ End Sub
     Friend WithEvents Label268 As System.Windows.Forms.Label
     Friend WithEvents cboESYear As System.Windows.Forms.ComboBox
     Friend WithEvents Label189 As System.Windows.Forms.Label
-    Friend WithEvents llbEISStatsViewEnrollment As System.Windows.Forms.LinkLabel
     Friend WithEvents btnEISStatsRemoveEnrollment As System.Windows.Forms.Button
     Friend WithEvents btnEISStatsEnrollment As System.Windows.Forms.Button
     Friend WithEvents TPEISThresholds As System.Windows.Forms.TabPage
@@ -7974,7 +7728,6 @@ End Sub
     Friend WithEvents dtpEISDeadline As System.Windows.Forms.DateTimePicker
     Friend WithEvents llbClearEISYear As System.Windows.Forms.LinkLabel
     Friend WithEvents mtbThresholdYear As System.Windows.Forms.MaskedTextBox
-    Friend WithEvents btnClearInactiveData As System.Windows.Forms.Button
     Friend WithEvents btnLoadEISLog As System.Windows.Forms.Button
     Friend WithEvents mtbEISLogAIRSNumber As System.Windows.Forms.MaskedTextBox
     Friend WithEvents Label254 As System.Windows.Forms.Label
@@ -8036,4 +7789,15 @@ End Sub
     Friend WithEvents Label179 As Label
     Friend WithEvents btnUpdateEisOperStatus As Button
     Friend WithEvents cbIaipOperStatus As ComboBox
+    Friend WithEvents TPStageData As TabPage
+    Friend WithEvents btnEisStageViewSubmitted As Button
+    Friend WithEvents Label2 As Label
+    Friend WithEvents lblOpenVesaUrl As LinkLabel
+    Friend WithEvents lblEisStageSelectedCount As Label
+    Friend WithEvents btnEisStageSelectNone As Button
+    Friend WithEvents btnEisStageSelectAll As Button
+    Friend WithEvents btnEisStagePseAll As Button
+    Friend WithEvents btnEisStagePseSelected As Button
+    Friend WithEvents btnEisStageFiAll As Button
+    Friend WithEvents btnEisStageFiSelected As Button
 End Class

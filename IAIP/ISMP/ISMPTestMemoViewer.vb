@@ -1,86 +1,23 @@
-Imports Oracle.ManagedDataAccess.Client
-
-
+Imports System.Data.SqlClient
 
 Public Class ISMPTestMemoViewer
-    Inherits BaseForm
-    Dim statusBar1 As New StatusBar
-    Dim panel1 As New StatusBarPanel
-    Dim panel2 As New StatusBarPanel
-    Dim panel3 As New StatusBarPanel
-    Dim dsMemo As DataSet
-    Dim daMemo As OracleDataAdapter
 
-
-    Private Sub ISMPTestMemoViewer_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Load
+    Private Sub ISMPTestMemoViewer_Load(sender As Object, e As EventArgs) Handles Me.Load
 
         Try
-
-            CreateStatusBar()
 
             LoadDataSet(True)
             FormatdgrTestReportViewer()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
 
-
-#Region "Page Load Functions"
-    Sub CreateStatusBar()
-        Try
-
-            panel1.Text = "Select a Function..."
-            panel2.Text = CurrentUser.AlphaName
-            panel3.Text = OracleDate
-
-            panel1.AutoSize = StatusBarPanelAutoSize.Spring
-            panel2.AutoSize = StatusBarPanelAutoSize.Contents
-            panel3.AutoSize = StatusBarPanelAutoSize.Contents
-
-            panel1.BorderStyle = StatusBarPanelBorderStyle.Sunken
-            panel2.BorderStyle = StatusBarPanelBorderStyle.Sunken
-            panel3.BorderStyle = StatusBarPanelBorderStyle.Sunken
-
-            panel1.Alignment = HorizontalAlignment.Left
-            panel2.Alignment = HorizontalAlignment.Left
-            panel3.Alignment = HorizontalAlignment.Right
-
-            ' Display panels in the StatusBar control.
-            statusBar1.ShowPanels = True
-
-            ' Add both panels to the StatusBarPanelCollection of the StatusBar.            
-            statusBar1.Panels.Add(panel1)
-            statusBar1.Panels.Add(panel2)
-            statusBar1.Panels.Add(panel3)
-
-            ' Add the StatusBar to the form.
-            Me.Controls.Add(statusBar1)
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-
-
-#End Region
-
-    Private Sub ISMPTestMemoViewer_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
-        Try
-            Me.Dispose()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
-    End Sub
-#Region "Functions"
-    Sub LoadDataSet(ByVal Loading As String)
-        Dim SQL As String
+    Private Sub LoadDataSet(Loading As String)
+        Dim query As String
         Dim SQLLine As String = " "
         Dim SQLLine2 As String = "AND ("
         Dim SQLLine3 As String = "AND ("
@@ -89,14 +26,12 @@ Public Class ISMPTestMemoViewer
         Try
 
             If Loading = True Then
-                SQLLine = "and AIRBRANCH.ISMPReportInformation.strReviewingEngineer = '" & CurrentUser.UserID & "' " &
+                SQLLine = "and ISMPReportInformation.strReviewingEngineer = @user " &
                 "and strClosed = 'False' "
             End If
 
             If txtFilterText1.Text <> "" Then
-                SQLLine = "And Upper(strMemorandumField) like Upper('%" & txtFilterText1.Text & "%') "
-            Else
-                'SQLLine = SQLLine
+                SQLLine = "And strMemorandumField like @text1 "
             End If
 
             If chbOpen.Checked = True Then
@@ -112,19 +47,19 @@ Public Class ISMPTestMemoViewer
             End If
 
             If chbComplianceStatus1.Checked = True Then
-                SQLLine3 = SQLLine3 & "AIRBRANCH.ISMPReportInformation.strCOmplianceStatus = '01' or "
+                SQLLine3 = SQLLine3 & "ISMPReportInformation.strCOmplianceStatus = '01' or "
             End If
             If chbComplianceStatus2.Checked = True Then
-                SQLLine3 = SQLLine3 & "AIRBRANCH.ISMPReportInformation.strCOmplianceStatus = '02' or "
+                SQLLine3 = SQLLine3 & "ISMPReportInformation.strCOmplianceStatus = '02' or "
             End If
             If chbComplianceStatus3.Checked = True Then
-                SQLLine3 = SQLLine3 & "AIRBRANCH.ISMPReportInformation.strCOmplianceStatus = '03' or "
+                SQLLine3 = SQLLine3 & "ISMPReportInformation.strCOmplianceStatus = '03' or "
             End If
             If chbComplianceStatus4.Checked = True Then
-                SQLLine3 = SQLLine3 & "AIRBRANCH.ISMPReportInformation.strCOmplianceStatus = '04' or "
+                SQLLine3 = SQLLine3 & "ISMPReportInformation.strCOmplianceStatus = '04' or "
             End If
             If chbComplianceStatus5.Checked = True Then
-                SQLLine3 = SQLLine3 & "AIRBRANCH.ISMPReportInformation.strCOmplianceStatus = '05' or "
+                SQLLine3 = SQLLine3 & "ISMPReportInformation.strCOmplianceStatus = '05' or "
             End If
             If SQLLine3 = "AND (" Then
                 SQLLine3 = ""
@@ -132,39 +67,36 @@ Public Class ISMPTestMemoViewer
                 SQLLine3 = Mid(SQLLine3, 1, (Len(SQLLine3) - 4)) & ") "
             End If
             If chbDelete.Checked = True Then
-                SQLLine4 = "And AIRBRANCH.ISMPReportInformation.strDelete = 'DELETE' "
+                SQLLine4 = "And ISMPReportInformation.strDelete = 'DELETE' "
             Else
-                SQLLine4 = "And AIRBRANCH.ISMPReportInformation.strDelete is NULL "
+                SQLLine4 = "And ISMPReportInformation.strDelete is NULL "
             End If
 
-            SQL = "select AIRBRANCH.ISMPTestREportMemo.strReferenceNumber, strMemorandumField " &
-            "from AIRBRANCH.ISMPTestREportMemo, AIRBRANCH.ISMPReportInformation " &
-            "where AIRBRANCH.ISMPTestREportMemo.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
+            query = "select ISMPTestREportMemo.strReferenceNumber, strMemorandumField " &
+            "from ISMPTestREportMemo, ISMPReportInformation " &
+            "where ISMPTestREportMemo.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
             SQLLine & SQLLine2 & SQLLine3 & SQLLine4
 
-            dsMemo = New DataSet
 
-            Dim cmd As New OracleCommand(SQL, CurrentConnection)
+            Dim p As SqlParameter() = {
+                New SqlParameter("@user", CurrentUser.UserID),
+                New SqlParameter("@text1", "%" & txtFilterText1.Text & "%")
+            }
 
-            daMemo = New OracleDataAdapter(cmd)
+            Dim dt As DataTable = DB.GetDataTable(query, p)
+            dt.TableName = "TestMemoViewer"
 
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            daMemo.Fill(dsMemo, "TestMemoViewer")
-            dgrMemoViewer.DataSource = dsMemo
-            dgrMemoViewer.DataMember = "TestMemoViewer"
+            dgrMemoViewer.DataSource = dt
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
 
     End Sub
-    Sub FormatdgrTestReportViewer()
+    Private Sub FormatdgrTestReportViewer()
         Try
 
             'Formatting our DataGrid
@@ -202,13 +134,13 @@ Public Class ISMPTestMemoViewer
             dgrMemoViewer.CaptionText = "Test Memo Viewer"
             dgrMemoViewer.ColumnHeadersVisible = True
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Sub ResetOptions()
+    Private Sub ResetOptions()
         Try
 
             txtFilterText1.Clear()
@@ -223,156 +155,64 @@ Public Class ISMPTestMemoViewer
             txtReferenceNumber.Clear()
             txtReferenceNumber2.Clear()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Sub SelectTestReport()
+    Private Sub SelectTestReport()
         Try
             Dim id As String = txtReferenceNumber.Text
             If DAL.Ismp.StackTestExists(id) Then OpenMultiForm(ISMPTestReports, id)
             Me.Hide()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-#End Region
 
-    Private Sub TBTestMemoViewer_ButtonClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.ToolBarButtonClickEventArgs) Handles TBTestMemoViewer.ButtonClick
+    Private Sub TBTestMemoViewer_ButtonClick(sender As Object, e As ToolBarButtonClickEventArgs) Handles TBTestMemoViewer.ButtonClick
         Try
 
             Select Case TBTestMemoViewer.Buttons.IndexOf(e.Button)
                 Case 0
                     ResetOptions()
-                Case 1
-                    Me.Close()
-                Case 2
-                    Me.Close()
                 Case Else
                     MsgBox("try clicking again")
             End Select
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiBack_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiBack.Click
-        Try
-
-            Me.Close()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub MmiExit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiExit.Click
-        Try
-
-            Me.Close()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub mmiCut_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiCut.Click
-        Try
-
-            SendKeys.Send("^(x)")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub MmiCopy_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiCopy.Click
-        Try
-
-            SendKeys.Send("^(c)")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub MmiPaste_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiPaste.Click
-        Try
-
-            SendKeys.Send("^(v)")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub MmiReset_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiReset.Click
-        Try
-
-            ResetOptions()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub mmiShowToolbar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiShowToolbar.Click
-        Try
-
-            If TBTestMemoViewer.Visible = True Then
-                TBTestMemoViewer.Visible = False
-                mmiShowToolbar.Checked = True
-            Else
-                TBTestMemoViewer.Visible = True
-                mmiShowToolbar.Checked = False
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub MmiHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiHelp.Click
-        OpenDocumentationUrl(Me)
-    End Sub
-    Private Sub LLSelectReport_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles LLSelectReport.LinkClicked
+    Private Sub LLSelectReport_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LLSelectReport.LinkClicked
         Try
 
             SelectTestReport()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub LLViewMemo_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles LLViewMemo.LinkClicked
+    Private Sub LLViewMemo_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LLViewMemo.LinkClicked
         OpenFormTestMemo(Me.txtReferenceNumber2.Text)
     End Sub
-    Private Sub LLRunSearch_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles LLRunSearch.LinkClicked
+    Private Sub LLRunSearch_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LLRunSearch.LinkClicked
         Try
 
-            dsMemo.Clear()
             LoadDataSet(False)
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub dgrMemoViewer_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgrMemoViewer.MouseUp
+    Private Sub dgrMemoViewer_MouseUp(sender As Object, e As MouseEventArgs) Handles dgrMemoViewer.MouseUp
         Dim hti As DataGrid.HitTestInfo = dgrMemoViewer.HitTest(e.X, e.Y)
 
         Try
@@ -388,7 +228,7 @@ Public Class ISMPTestMemoViewer
                 End If
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try

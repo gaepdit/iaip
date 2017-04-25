@@ -1,12 +1,9 @@
 ﻿Imports System.Collections.Generic
 Imports System.Text
 Imports System.IO
-
 Imports Iaip.Apb.Sscp
 Imports Iaip.DAL.Sscp
 Imports Iaip.DAL.DocumentData
-
-Imports Oracle.ManagedDataAccess.Types
 
 Public Class SscpDocuments
 
@@ -39,8 +36,7 @@ Public Class SscpDocuments
 
 #Region "Page Load"
 
-    Private Sub SscpDocuments_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        
+    Private Sub SscpDocuments_Load(sender As Object, e As EventArgs) Handles Me.Load
         LoadDocumentTypes()
         ClearEverything()
         If enforcementInfo IsNot Nothing Then ShowEnforcement()
@@ -48,7 +44,7 @@ Public Class SscpDocuments
 
     Private Sub LoadDocumentTypes()
         ' Get list of various document types and bind that list to the comboboxes
-        Dim documentTypes As Dictionary(Of Integer, String) = DAL.GetEnforcementDocumentTypesDict
+        Dim documentTypes As Dictionary(Of Integer, String) = GetEnforcementDocumentTypesDict()
 
         If documentTypes.Count > 0 Then
             ddlNewDocumentType.BindToDictionary(documentTypes)
@@ -70,7 +66,7 @@ Public Class SscpDocuments
 
 #Region "Enforcement fetcher"
 
-    Private Sub btnFindEnforcement_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFindEnforcement.Click
+    Private Sub btnFindEnforcement_Click(sender As Object, e As EventArgs) Handles btnFindEnforcement.Click
         ClearEverything()
         FindEnforcement()
     End Sub
@@ -169,14 +165,14 @@ Public Class SscpDocuments
         End With
     End Sub
 
-    Private Sub dataGridView_CellFormatting(ByVal sender As Object, ByVal e As DataGridViewCellFormattingEventArgs) Handles dgvDocumentList.CellFormatting
+    Private Sub dataGridView_CellFormatting(sender As Object, e As DataGridViewCellFormattingEventArgs) Handles dgvDocumentList.CellFormatting
         If TypeOf e.CellStyle.FormatProvider Is ICustomFormatter Then
             e.Value = TryCast(e.CellStyle.FormatProvider.GetFormat(GetType(ICustomFormatter)), ICustomFormatter).Format(e.CellStyle.Format, e.Value, e.CellStyle.FormatProvider)
             e.FormattingApplied = True
         End If
     End Sub
 
-    Private Sub dgvDocumentList_DataBindingComplete(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewBindingCompleteEventArgs) Handles dgvDocumentList.DataBindingComplete
+    Private Sub dgvDocumentList_DataBindingComplete(sender As Object, e As DataGridViewBindingCompleteEventArgs) Handles dgvDocumentList.DataBindingComplete
         FormatDocumentList()
         CType(sender, DataGridView).SanelyResizeColumns()
         CType(sender, DataGridView).ClearSelection()
@@ -187,13 +183,16 @@ Public Class SscpDocuments
 #Region "Enable/Disable Form Regions"
 
 #Region "Document (update/delete/download)"
+
     Private Sub EnableDocument()
-        EnableOrDisableDocument(True)
+        EnableOrDisableDocument(EnableOrDisable.Enable)
     End Sub
+
     Private Sub DisableDocument()
-        EnableOrDisableDocument(False)
+        EnableOrDisableDocument(EnableOrDisable.Disable)
     End Sub
-    Private Sub EnableOrDisableDocument(ByVal enable As Boolean)
+
+    Private Sub EnableOrDisableDocument(enable As EnableOrDisable)
         With pnlDocument
             .Enabled = enable
             .Visible = enable
@@ -204,16 +203,20 @@ Public Class SscpDocuments
             lblDocumentName.Text = dgvDocumentList.CurrentRow.Cells("FileName").Value
         End If
     End Sub
+
 #End Region
 
 #Region "New Document"
+
     Private Sub EnableNewDocument()
-        EnableOrDisableNewDocument(True)
+        EnableOrDisableNewDocument(EnableOrDisable.Enable)
     End Sub
+
     Private Sub DisableNewDocument()
-        EnableOrDisableNewDocument(False)
+        EnableOrDisableNewDocument(EnableOrDisable.Disable)
     End Sub
-    Private Sub EnableOrDisableNewDocument(ByVal enable As Boolean)
+
+    Private Sub EnableOrDisableNewDocument(enable As EnableOrDisable)
         With pnlNewDocument
             .Enabled = enable
         End With
@@ -224,16 +227,20 @@ Public Class SscpDocuments
             End With
         End If
     End Sub
+
 #End Region
 
 #Region "New Document Details"
+
     Private Sub EnableNewDocumentDetails()
-        EnableOrDisableNewDocumentDetails(True)
+        EnableOrDisableNewDocumentDetails(EnableOrDisable.Enable)
     End Sub
+
     Private Sub DisableNewDocumentDetails()
-        EnableOrDisableNewDocumentDetails(False)
+        EnableOrDisableNewDocumentDetails(EnableOrDisable.Disable)
     End Sub
-    Private Sub EnableOrDisableNewDocumentDetails(ByVal enable As Boolean)
+
+    Private Sub EnableOrDisableNewDocumentDetails(enable As EnableOrDisable)
         With pnlNewDocumentDetails
             .Enabled = enable
             .Visible = enable
@@ -242,6 +249,7 @@ Public Class SscpDocuments
             txtNewDocumentDescription.Text = ""
         End If
     End Sub
+
 #End Region
 
 #End Region
@@ -280,7 +288,7 @@ Public Class SscpDocuments
 
 #Region "Select document"
 
-    Private Sub btnNewDocumentSelect_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNewDocumentSelect.Click
+    Private Sub btnNewDocumentSelect_Click(sender As Object, e As EventArgs) Handles btnNewDocumentSelect.Click
 
         Dim openFileDialog As New OpenFileDialog With { _
             .InitialDirectory = GetUserSetting(UserSetting.EnforcementUploadLocation), _
@@ -318,11 +326,11 @@ Public Class SscpDocuments
 
 #Region "New document actions"
 
-    Private Sub btnNewDocumentCancel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNewDocumentCancel.Click
+    Private Sub btnNewDocumentCancel_Click(sender As Object, e As EventArgs) Handles btnNewDocumentCancel.Click
         ClearNewDocument()
     End Sub
 
-    Private Sub btnNewDocumentUpload_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNewDocumentUpload.Click
+    Private Sub btnNewDocumentUpload_Click(sender As Object, e As EventArgs) Handles btnNewDocumentUpload.Click
         If Message IsNot Nothing Then Message.Clear()
         Dim fileInfo As New FileInfo(NewDocumentPath)
 
@@ -382,7 +390,7 @@ Public Class SscpDocuments
         Return If(index = -1, False, True)
     End Function
 
-    Private Sub ddlDocumentType_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs)
+    Private Sub ddlDocumentType_SelectedIndexChanged(sender As Object, e As EventArgs)
         If Message IsNot Nothing Then Message.Clear()
         ' Check if similar document has already been uploaded
         If DocumentTypeAlreadyExists() Then
@@ -396,7 +404,7 @@ Public Class SscpDocuments
 
 #Region "Document update/download/delete"
 
-    Private Sub dgvDocumentList_SelectionChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles dgvDocumentList.SelectionChanged
+    Private Sub dgvDocumentList_SelectionChanged(sender As Object, e As EventArgs) Handles dgvDocumentList.SelectionChanged
         If dgvDocumentList.SelectedRows.Count = 1 Then
             EnableDocument()
         Else
@@ -404,7 +412,7 @@ Public Class SscpDocuments
         End If
     End Sub
 
-    Private Sub btnDocumentDelete_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDocumentDelete.Click
+    Private Sub btnDocumentDelete_Click(sender As Object, e As EventArgs) Handles btnDocumentDelete.Click
         Dim m As String = String.Format(GetDocumentMessage(DocumentMessageType.ConfirmDelete), lblDocumentName.Text)
         Dim response As DialogResult = _
             MessageBox.Show(m, "Delete File?", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2)
@@ -422,7 +430,7 @@ Public Class SscpDocuments
         End If
     End Sub
 
-    Private Sub btnDocumentDownload_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDocumentDownload.Click
+    Private Sub btnDocumentDownload_Click(sender As Object, e As EventArgs) Handles btnDocumentDownload.Click
         If Message IsNot Nothing Then Message.Clear()
 
         Dim doc As EnforcementDocument = EnforcementDocumentFromFileListRow(dgvDocumentList.CurrentRow)
@@ -437,7 +445,7 @@ Public Class SscpDocuments
         End If
     End Sub
 
-    Private Sub btnDocumentUpdate_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDocumentUpdate.Click
+    Private Sub btnDocumentUpdate_Click(sender As Object, e As EventArgs) Handles btnDocumentUpdate.Click
         Dim doc As EnforcementDocument = EnforcementDocumentFromFileListRow(dgvDocumentList.CurrentRow)
         doc.Comment = txtDocumentDescription.Text
         doc.DocumentTypeId = ddlDocumentType.SelectedValue
@@ -450,7 +458,7 @@ Public Class SscpDocuments
         End If
     End Sub
 
-    Private Function EnforcementDocumentFromFileListRow(ByVal row As DataGridViewRow) As EnforcementDocument
+    Private Function EnforcementDocumentFromFileListRow(row As DataGridViewRow) As EnforcementDocument
         Dim doc As New EnforcementDocument
         With doc
             .EnforcementNumber = row.Cells("EnforcementNumber").Value
@@ -470,22 +478,22 @@ Public Class SscpDocuments
 
 #Region "Change Accept Button"
 
-    Private Sub NoAcceptButton(ByVal sender As System.Object, ByVal e As System.EventArgs) _
+    Private Sub NoAcceptButton(sender As Object, e As EventArgs) _
     Handles txtFindEnforcement.Leave, txtDocumentDescription.Leave, txtNewDocumentDescription.Leave, ddlNewDocumentType.Leave
         Me.AcceptButton = Nothing
     End Sub
 
-    Private Sub txtFindEnforcement_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) _
+    Private Sub txtFindEnforcement_Enter(sender As Object, e As EventArgs) _
     Handles txtFindEnforcement.Enter
         Me.AcceptButton = btnFindEnforcement
     End Sub
 
-    Private Sub txtNewDocument_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) _
+    Private Sub txtNewDocument_Enter(sender As Object, e As EventArgs) _
     Handles txtNewDocumentDescription.Enter
         Me.AcceptButton = btnNewDocumentUpload
     End Sub
 
-    Private Sub FileProperties_Enter(ByVal sender As System.Object, ByVal e As System.EventArgs) _
+    Private Sub FileProperties_Enter(sender As Object, e As EventArgs) _
     Handles txtDocumentDescription.Enter, ddlDocumentType.Enter
         Me.AcceptButton = btnDocumentUpdate
     End Sub

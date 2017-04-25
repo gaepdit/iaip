@@ -1,236 +1,128 @@
-Imports Oracle.ManagedDataAccess.Client
-
+Imports System.Data.SqlClient
 
 Public Class ISMPMonitoringLog
-    Dim SQL As String
-    Dim cmd As OracleCommand
-    Dim dr As OracleDataReader
-    Dim recExist As Boolean
-    Dim dsTestReportViewer As DataSet
-    Dim daTestReportViewer As OracleDataAdapter
-    Dim dsNotificationViewer As DataSet
-    Dim daNotificationViewer As OracleDataAdapter
-    Dim dsTestFirmComments As DataSet
-    Dim daTestFirmComments As OracleDataAdapter
-    Dim dsEngineer As DataSet
-    Dim daEngineer As OracleDataAdapter
-    Dim dsPollutants As DataSet
-    Dim daPollutants As OracleDataAdapter
 
-    Private Sub ISMPMonitoringLog_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+    Private Sub ISMPMonitoringLog_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         Try
 
-            DTPStartDate.Text = Format(Date.Today.AddDays(-30), "dd-MMM-yyyy")
-            DTPEndDate.Text = OracleDate
+            DTPStartDate.Value = Today.AddDays(-30)
+            DTPEndDate.Value = Today
 
             chbReviewingEngineer.Text = CurrentUser.AlphaName
             chbWitnessingEngineer.Text = CurrentUser.AlphaName
 
-            LoadEngineerDataSet()
             LoadComboBoxes()
             LoadDataSet()
 
             SCMonitoringLog.SanelySetSplitterDistance(500)
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-#Region "Page Load Functions"
-    Sub LoadEngineerDataSet()
-        Dim SQL As String
-
+    Private Sub LoadComboBoxes()
         Try
 
-            SQL = "select " &
-            "distinct(strLastName|| ', ' ||strFirstName) as UserName, " &
+            Dim query As String = "select " &
+            "concat(strLastName, ', ' ,strFirstName) as UserName, " &
             "numUserID " &
-            "from AIrbranch.epduserprofiles, " &
+            "from epduserprofiles, " &
             "(select distinct(strStaffResponsible) as NotificationStaff " &
-            "from AIRBranch.ISMPTestNotification) Notification " &
-            "where to_char(AIRBranch.EPDUserProfiles.numUserId) = Notification.NotificationStaff " &
+            "from ISMPTestNotification) Notification " &
+            "where convert(varchar(3),EPDUserProfiles.numUserId) = Notification.NotificationStaff " &
             "Union " &
             "Select " &
-            "distinct(strLastName|| ', ' ||strFirstName) as UserName, " &
+            "concat(strLastName, ', ' ,strFirstName) as UserName, " &
             "numUserID " &
-            "from AIRBranch.EPDUserProfiles, " &
+            "from EPDUserProfiles, " &
             "(select distinct(strReviewingEngineer) " &
-            "from AIRBranch.ISMPReportInformation) ISMPUsers " &
-            "where to_char(AIRBranch.EPDUserProfiles.numUserID) = ISMPUsers.strReviewingEngineer  "
-
-            dsEngineer = New DataSet
-
-            daEngineer = New OracleDataAdapter(SQL, CurrentConnection)
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            daEngineer.Fill(dsEngineer, "Engineers")
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Sub LoadComboBoxes()
-        Dim dtStaff As New DataTable
-        Dim dtWitnessingEng As New DataTable
-        Dim drDSRow As DataRow
-        Dim drNewRow As DataRow
-        Dim drNewRow2 As DataRow
-
-        Try
-
-            dtStaff.Columns.Add("UserName", GetType(System.String))
-            dtStaff.Columns.Add("numUserID", GetType(System.String))
-
-            For Each drDSRow In dsEngineer.Tables("Engineers").Rows()
-                drNewRow = dtStaff.NewRow
-                drNewRow("UserName") = drDSRow("UserName")
-                drNewRow("numUserID") = drDSRow("numUserID")
-                dtStaff.Rows.Add(drNewRow)
-            Next
+            "from ISMPReportInformation) ISMPUsers " &
+            "where convert(varchar(3),EPDUserProfiles.numUserID) = ISMPUsers.strReviewingEngineer  "
 
             With clbEngineer
-                .DataSource = dtStaff
+                .DataSource = DB.GetDataTable(query)
                 .DisplayMember = "UserName"
                 .ValueMember = "numUserID"
             End With
-
-            dtWitnessingEng.Columns.Add("UserName", GetType(System.String))
-            dtWitnessingEng.Columns.Add("numUserID", GetType(System.String))
-
-            For Each drDSRow In dsEngineer.Tables("Engineers").Rows()
-                drNewRow2 = dtWitnessingEng.NewRow
-                drNewRow2("UserName") = drDSRow("UserName")
-                drNewRow2("numUserID") = drDSRow("numUserID")
-                dtWitnessingEng.Rows.Add(drNewRow2)
-            Next
 
             With clbWitnessingStaff
-                .DataSource = dtWitnessingEng
+                .DataSource = CType(clbEngineer.DataSource, DataTable).Copy
                 .DisplayMember = "UserName"
                 .ValueMember = "numUserID"
             End With
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Sub LoadPollutants()
-        Dim dtPollutants As New DataTable
-        Dim drDSRow As DataRow
-        Dim drNewRow As DataRow
 
-        Try
+    Private Sub LoadDataSet()
+        Dim SQLWhere As String = ""
+        Dim query As String = ""
 
-            SQL = "Select strPollutantCode, strPollutantDescription " &
-                "from AIRBRANCH.LookUPPollutants " &
-                "order by strPollutantDescription"
-
-            dsPollutants = New DataSet
-
-            daPollutants = New OracleDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            daPollutants.Fill(dsPollutants, "Pollutants")
-
-            dtPollutants.Columns.Add("strPOllutantDescription", GetType(System.String))
-            dtPollutants.Columns.Add("strPollutantCode", GetType(System.String))
-
-            drNewRow = dtPollutants.NewRow()
-            drNewRow("strPOllutantDescription") = " "
-            drNewRow("strPollutantCode") = " "
-            dtPollutants.Rows.Add(drNewRow)
-
-            For Each drDSRow In dsPollutants.Tables("Pollutants").Rows()
-                drNewRow = dtPollutants.NewRow()
-                drNewRow("strPOllutantDescription") = drDSRow("strPOllutantDescription")
-                drNewRow("strPollutantCode") = drDSRow("strPollutantCode")
-                dtPollutants.Rows.Add(drNewRow)
-            Next
-
-            'With cboPollutants
-            '    .DataSource = dtPollutants
-            '    .DisplayMember = "strPOllutantDescription"
-            '    .ValueMember = "strPollutantCode"
-            '    .SelectedIndex = 0
-            'End With
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-#End Region
-#Region "Functions & Subs"
-#Region "DataSet(s)"
-    Sub LoadDataSet()
-        Dim SQLWhere As String = " "
         Try
 
             If chbTestReports.Checked = True Then
                 SQLWhere = ""
-                SQL = "select " &
-                "AIRBRANCH.ISMPMaster.strReferenceNumber,  " &
-                "substr(AIRBRANCH.ISMPMaster.strAIRSNumber, 5) as strAIRSNumber,  " &
-                "AIRBRANCH.APBFacilityInformation.strFacilityName,  " &
-                "AIRBRANCH.APBFacilityInformation.strFacilityCity,  " &
-                "AIRBRANCH.LookupCountyInformation.strCountyName,  " &
-                "AIRBRANCH.ISMPReportInformation.strEmissionSource,  " &
-                "AIRBRANCH.LookUpPollutants.strPollutantDescription,  " &
-                "AIRBRANCH.ISMPReportType.strReportType,  " &
-                "AIRBRANCH.ISMPDocumentType.strDocumentType,  " &
-                "(strLastName|| ', ' ||strFirstName) as StaffResponsible,  " &
-                "AIRBRANCH.ISMPREportInformation.datTestDateStart,  " &
-                "AIRBRANCH.ISMPREportInformation.datReceivedDate,  " &
-                "(AIRBRANCH.ISMPREportINformation.datReceivedDate - " &
-                "AIRBRANCH.ISMPReportInformation.datTestDateEnd) as daysToReceived, " &
+
+                query = "select " &
+                "ISMPMaster.strReferenceNumber,  " &
+                "SUBSTRING(ISMPMaster.strAIRSNumber, 5,8) as strAIRSNumber,  " &
+                "APBFacilityInformation.strFacilityName,  " &
+                "APBFacilityInformation.strFacilityCity,  " &
+                "LookupCountyInformation.strCountyName,  " &
+                "ISMPReportInformation.strEmissionSource,  " &
+                "LookUpPollutants.strPollutantDescription,  " &
+                "ISMPReportType.strReportType,  " &
+                "ISMPDocumentType.strDocumentType,  " &
+                "concat(strLastName, ', ' , strFirstName) as StaffResponsible,  " &
+                "ISMPREportInformation.datTestDateStart,  " &
+                "ISMPREportInformation.datReceivedDate,  " &
+                "DATEDIFF(day, ISMPREportINformation.datTestDateEnd, " &
+                "ISMPReportInformation.datReceivedDate) as daysToReceived, " &
                 "case " &
-                "when strClosed <> 'True' then trunc(abs(sysdate - AIRBRANCH.ISMPREportInformation.datReceivedDate), 0) " &
-                "else trunc(abs(AIRBranch.ISMPReportInformation.datCompleteDate - AIRBranch.ISMPReportInformation.datReceivedDate)) " &
+                "when strClosed <> 'True' then ROUND( DATEDIFF(day, ISMPREportInformation.datReceivedDate, GETDATE() ), 0) " &
+                "else DATEDIFF(day, ISMPReportInformation.datCompleteDate, ISMPReportInformation.datReceivedDate) " &
                 "End daysInAPB, " &
                 "case " &
-                "when AIRBRANCH.ISMPReportInformation.datCompleteDate = '04-Jul-1776' then Null " &
-                "else AIRBRANCH.ISMPReportInformation.datCompleteDate " &
+                "when ISMPReportInformation.datCompleteDate = '04-Jul-1776' then Null " &
+                "else ISMPReportInformation.datCompleteDate " &
                 "end datCompleteDate, " &
-                "AIRBRANCH.ISMPREportInformation.strClosed,  " &
-                "AIRBRANCH.LookUpISMPComplianceStatus.strComplianceStatus,  " &
-                "AIRBRANCH.ISMPREportInformation.mmoCommentArea,  " &
-                "AIRBRANCH.LookUpEPDUnits.strUnitDesc, " &
-                "AIRBRANCH.ISMPTestLogLink.strTestLogNumber, " &
+                "ISMPREportInformation.strClosed,  " &
+                "LookUpISMPComplianceStatus.strComplianceStatus,  " &
+                "ISMPREportInformation.mmoCommentArea,  " &
+                "LookUpEPDUnits.strUnitDesc, " &
+                "ISMPTestLogLink.strTestLogNumber, " &
                 "strPreComplianceStatus " &
-                "From AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation,  " &
-                "AIRBRANCH.LookUpCountyInformation, AIRBRANCH.ISMPReportInformation, " &
-                "AIRBRANCH.LookUpPollutants, AIRBRANCH.ISMPReportType,  " &
-                "AIRBRANCH.ISMPDocumentType, AIRBRANCH.EPDUSerProfiles,  " &
-                "AIRBRANCH.LookUpISMPComplianceStatus,  " &
-                "AIRBRANCH.ISMPTestLogLink, AIRBRANCH.ISMPWitnessingEng, " &
-                "AIRBRANCH.LookUpEPDUnits " &
-                "where AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPREportInformation.strReferenceNumber  " &
-                "and AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSnumber " &
-                "and AIRBRANCH.ISMPREportInformation.strReviewingEngineer = AIRBRANCH.EPDUserProfiles.numUserID (+)  " &
-                "and AIRBRANCH.ISMPREportINformation.strReportType = AIRBRANCH.ISMPREportType.strKey " &
-                "and substr(AIRBRANCH.ISMPMaster.strAIRSNumber, 5, 3) = AIRBRANCH.LookupCountyInformation.strCountyCode  " &
-                "and AIRBRANCH.ISMPReportInformation.strpollutant = AIRBRANCH.LookUpPollutants.strPollutantCode (+)  " &
-                "and AIRBRANCH.ISMPREportINformation.strDocumentType = AIRBRANCH.ISMPDocumentType.strKey (+)  " &
-                "and AIRBRANCH.ISMPReportInformation.strComplianceStatus = AIRBRANCH.LookUpISMPComplianceStatus.strComplianceKey (+) " &
-                "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPTestLogLink.strReferenceNumber (+) " &
-                "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPWitnessingEng.strReferenceNumber (+) " &
-                "and AIRBRANCH.EPDUserProfiles.numUnit = AIRBRANCH.LookUpEPDUnits.numUnitCode " &
-                "and (strDelete is Null or strDelete <> 'DELETE') "
+                "FROM ISMPMaster " &
+                " INNER JOIN APBFacilityInformation  " &
+                " ON ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSnumber " &
+                " INNER JOIN LookUpCountyInformation " &
+                " ON SUBSTRING(ISMPMaster.strAIRSNumber, 5, 3) = LookupCountyInformation.strCountyCode  " &
+                " INNER JOIN ISMPReportInformation " &
+                " ON ISMPMaster.strReferenceNumber = ISMPREportInformation.strReferenceNumber  " &
+                " LEFT JOIN LookUpPollutants " &
+                " ON ISMPReportInformation.strpollutant = LookUpPollutants.strPollutantCode " &
+                " INNER JOIN ISMPReportType  " &
+                " ON ISMPREportINformation.strReportType = ISMPREportType.strKey " &
+                " LEFT JOIN ISMPDocumentType " &
+                " ON ISMPREportINformation.strDocumentType = ISMPDocumentType.strKey " &
+                " LEFT JOIN EPDUSerProfiles  " &
+                " ON ISMPREportInformation.strReviewingEngineer = EPDUserProfiles.numUserID " &
+                " LEFT JOIN LookUpISMPComplianceStatus  " &
+                " ON ISMPReportInformation.strComplianceStatus = LookUpISMPComplianceStatus.strComplianceKey " &
+                " LEFT JOIN ISMPTestLogLink " &
+                " ON ISMPMaster.strReferenceNumber = ISMPTestLogLink.strReferenceNumber " &
+                " LEFT JOIN ISMPWitnessingEng " &
+                " ON ISMPMaster.strReferenceNumber = ISMPWitnessingEng.strReferenceNumber " &
+                " INNER JOIN LookUpEPDUnits " &
+                " ON EPDUserProfiles.numUnit = LookUpEPDUnits.numUnitCode " &
+                "WHERE (strDelete is Null or strDelete <> 'DELETE') "
 
                 If chbReviewingEngineer.Checked = True Then
                     SQLWhere = SQLWhere & " and ( "
@@ -263,20 +155,20 @@ Public Class ISMPMonitoringLog
                         For x As Integer = 0 To clbWitnessingStaff.Items.Count - 1
                             If clbWitnessingStaff.GetItemChecked(x) = True Then
                                 clbWitnessingStaff.SelectedIndex = x
-                                SQLWhere = SQLWhere & " AIRBRANCH.ISMPReportInformation.strWitnessingengineer = '" & clbWitnessingStaff.SelectedValue & "' Or " &
-                                                            " AIRBRANCH.ISMPWitnessingEng.strWitnessingEngineer = '" & clbWitnessingStaff.SelectedValue & "' or "
+                                SQLWhere = SQLWhere & " ISMPReportInformation.strWitnessingengineer = '" & clbWitnessingStaff.SelectedValue & "' Or " &
+                                                            " ISMPWitnessingEng.strWitnessingEngineer = '" & clbWitnessingStaff.SelectedValue & "' or "
                             End If
                         Next
                     End If
-                    SQLWhere = SQLWhere & " AIRBRANCH.ISMPReportInformation.strWitnessingengineer = '" & CurrentUser.UserID & "' or strWitnessingengineer2 = '" & CurrentUser.UserID & "' ) "
+                    SQLWhere = SQLWhere & " ISMPReportInformation.strWitnessingengineer = '" & CurrentUser.UserID & "' or strWitnessingengineer2 = '" & CurrentUser.UserID & "' ) "
                 Else
                     If clbWitnessingStaff.CheckedItems.Count > 0 Then
                         SQLWhere = SQLWhere & " and ( "
                         For x As Integer = 0 To clbWitnessingStaff.Items.Count - 1
                             If clbWitnessingStaff.GetItemChecked(x) = True Then
                                 clbWitnessingStaff.SelectedIndex = x
-                                SQLWhere = SQLWhere & "  AIRBRANCH.ISMPReportInformation.strWitnessingengineer = '" & clbWitnessingStaff.SelectedValue & "' Or " &
-                                                            " AIRBRANCH.ISMPWitnessingEng.strWitnessingEngineer = '" & clbWitnessingStaff.SelectedValue & "' or "
+                                SQLWhere = SQLWhere & "  ISMPReportInformation.strWitnessingengineer = '" & clbWitnessingStaff.SelectedValue & "' Or " &
+                                                            " ISMPWitnessingEng.strWitnessingEngineer = '" & clbWitnessingStaff.SelectedValue & "' or "
                             End If
                         Next
                         SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 3))
@@ -303,58 +195,58 @@ Public Class ISMPMonitoringLog
                         SQLWhere = SQLWhere & " and ( "
 
                         If chbUnassigned.Checked = True Then
-                            SQLWhere = SQLWhere & " AIRBRANCH.ISMPDocumentType.strKey = '001' Or "
+                            SQLWhere = SQLWhere & " ISMPDocumentType.strKey = '001' Or "
                         End If
                         If chbOneStackTwoRun.Checked = True Then
-                            SQLWhere = SQLWhere & " AIRBRANCH.ISMPDocumentType.strKey = '002' Or "
+                            SQLWhere = SQLWhere & " ISMPDocumentType.strKey = '002' Or "
                         End If
                         If chbOneStackThreeRun.Checked = True Then
-                            SQLWhere = SQLWhere & " AIRBRANCH.ISMPDocumentType.strKey = '003' Or "
+                            SQLWhere = SQLWhere & " ISMPDocumentType.strKey = '003' Or "
                         End If
                         If chbOneStackFourRun.Checked = True Then
-                            SQLWhere = SQLWhere & " AIRBRANCH.ISMPDocumentType.strKey = '004' Or "
+                            SQLWhere = SQLWhere & " ISMPDocumentType.strKey = '004' Or "
                         End If
                         If chbTwoStackStandard.Checked = True Then
-                            SQLWhere = SQLWhere & " AIRBRANCH.ISMPDocumentType.strKey = '005' Or "
+                            SQLWhere = SQLWhere & " ISMPDocumentType.strKey = '005' Or "
                         End If
                         If chbTwoStackDRE.Checked = True Then
-                            SQLWhere = SQLWhere & " AIRBRANCH.ISMPDocumentType.strKey = '006' Or "
+                            SQLWhere = SQLWhere & " ISMPDocumentType.strKey = '006' Or "
                         End If
                         If chbLoadingRack.Checked = True Then
-                            SQLWhere = SQLWhere & " AIRBRANCH.ISMPDocumentType.strKey = '007' Or "
+                            SQLWhere = SQLWhere & " ISMPDocumentType.strKey = '007' Or "
                         End If
                         If chbPondTreatment.Checked = True Then
-                            SQLWhere = SQLWhere & " AIRBRANCH.ISMPDocumentType.strKey = '008' Or "
+                            SQLWhere = SQLWhere & " ISMPDocumentType.strKey = '008' Or "
                         End If
                         If chbGasConcentration.Checked = True Then
-                            SQLWhere = SQLWhere & " AIRBRANCH.ISMPDocumentType.strKey = '009' Or "
+                            SQLWhere = SQLWhere & " ISMPDocumentType.strKey = '009' Or "
                         End If
                         If chbFlare.Checked = True Then
-                            SQLWhere = SQLWhere & " AIRBRANCH.ISMPDocumentType.strKey = '010' Or "
+                            SQLWhere = SQLWhere & " ISMPDocumentType.strKey = '010' Or "
                         End If
                         If chbRata.Checked = True Then
-                            SQLWhere = SQLWhere & " AIRBRANCH.ISMPDocumentType.strKey = '011' Or "
+                            SQLWhere = SQLWhere & " ISMPDocumentType.strKey = '011' Or "
                         End If
                         If chbMemorandumStandard.Checked = True Then
-                            SQLWhere = SQLWhere & " AIRBRANCH.ISMPDocumentType.strKey = '012' Or "
+                            SQLWhere = SQLWhere & " ISMPDocumentType.strKey = '012' Or "
                         End If
                         If chbMemorandumToFile.Checked = True Then
-                            SQLWhere = SQLWhere & " AIRBRANCH.ISMPDocumentType.strKey = '013' Or "
+                            SQLWhere = SQLWhere & " ISMPDocumentType.strKey = '013' Or "
                         End If
                         If chbMethod9Single.Checked = True Then
-                            SQLWhere = SQLWhere & " AIRBRANCH.ISMPDocumentType.strKey = '016' Or "
+                            SQLWhere = SQLWhere & " ISMPDocumentType.strKey = '016' Or "
                         End If
                         If chbMethod9Multi.Checked = True Then
-                            SQLWhere = SQLWhere & " AIRBRANCH.ISMPDocumentType.strKey = '014' Or "
+                            SQLWhere = SQLWhere & " ISMPDocumentType.strKey = '014' Or "
                         End If
                         If chbMethod22.Checked = True Then
-                            SQLWhere = SQLWhere & " AIRBRANCH.ISMPDocumentType.strKey = '015' Or "
+                            SQLWhere = SQLWhere & " ISMPDocumentType.strKey = '015' Or "
                         End If
                         If chbPEMS.Checked = True Then
-                            SQLWhere = SQLWhere & " AIRBRANCH.ISMPDocumentType.strKey = '017' Or "
+                            SQLWhere = SQLWhere & " ISMPDocumentType.strKey = '017' Or "
                         End If
                         If chbPTE.Checked = True Then
-                            SQLWhere = SQLWhere & " AIRBRANCH.ISMPDocumentType.strKey = '018' Or "
+                            SQLWhere = SQLWhere & " ISMPDocumentType.strKey = '018' Or "
                         End If
                         SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 3)) & " ) "
                     End If
@@ -366,19 +258,19 @@ Public Class ISMPMonitoringLog
                     SQLWhere = SQLWhere & " and ( "
 
                     If chbMonitorCertification.Checked = True Then
-                        SQLWhere = SQLWhere & " AIRBRANCH.ISMPReportInformation. strReportType = '001' Or "
+                        SQLWhere = SQLWhere & " ISMPReportInformation.strReportType = '001' Or "
                     End If
                     If chbPEMSDevelopment.Checked = True Then
-                        SQLWhere = SQLWhere & " AIRBRANCH.ISMPReportInformation. strReportType = '002' Or "
+                        SQLWhere = SQLWhere & " ISMPReportInformation.strReportType = '002' Or "
                     End If
                     If chbRATAandCEMS.Checked = True Then
-                        SQLWhere = SQLWhere & " AIRBRANCH.ISMPReportInformation. strReportType = '003' Or "
+                        SQLWhere = SQLWhere & " ISMPReportInformation.strReportType = '003' Or "
                     End If
                     If chbSourceTest.Checked = True Then
-                        SQLWhere = SQLWhere & " AIRBRANCH.ISMPReportInformation. strReportType = '004' Or "
+                        SQLWhere = SQLWhere & " ISMPReportInformation.strReportType = '004' Or "
                     End If
                     If chbOther.Checked = True Then
-                        SQLWhere = SQLWhere & " AIRBRANCH.ISMPReportInformation. strReportType = '005' Or "
+                        SQLWhere = SQLWhere & " ISMPReportInformation.strReportType = '005' Or "
                     End If
                     SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 3)) & " ) "
 
@@ -391,19 +283,19 @@ Public Class ISMPMonitoringLog
                     SQLWhere = SQLWhere & " and ( "
 
                     If chbComplianceStatus1.Checked = True Then
-                        SQLWhere = SQLWhere & " AIRBRANCH.ISMPReportInformation.strComplianceStatus = '01' Or "
+                        SQLWhere = SQLWhere & " ISMPReportInformation.strComplianceStatus = '01' Or "
                     End If
                     If chbComplianceStatus2.Checked = True Then
-                        SQLWhere = SQLWhere & " AIRBRANCH.ISMPReportInformation.strComplianceStatus = '02' Or "
+                        SQLWhere = SQLWhere & " ISMPReportInformation.strComplianceStatus = '02' Or "
                     End If
                     If chbComplianceStatus3.Checked = True Then
-                        SQLWhere = SQLWhere & " AIRBRANCH.ISMPReportInformation.strComplianceStatus = '03' Or "
+                        SQLWhere = SQLWhere & " ISMPReportInformation.strComplianceStatus = '03' Or "
                     End If
                     If chbComplianceStatus4.Checked = True Then
-                        SQLWhere = SQLWhere & " AIRBRANCH.ISMPReportInformation.strComplianceStatus = '04' Or "
+                        SQLWhere = SQLWhere & " ISMPReportInformation.strComplianceStatus = '04' Or "
                     End If
                     If chbComplianceStatus5.Checked = True Then
-                        SQLWhere = SQLWhere & " AIRBRANCH.ISMPReportInformation.strComplianceStatus = '05' Or "
+                        SQLWhere = SQLWhere & " ISMPReportInformation.strComplianceStatus = '05' Or "
                     End If
                     SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 3)) & " ) "
                 End If
@@ -423,49 +315,40 @@ Public Class ISMPMonitoringLog
                 End If
 
                 If txtAIRSNumberFilter.Text <> "" Then
-                    SQLWhere = SQLWhere & " and AIRBRANCH.ISMPMaster.strAIRSnumber like '%" & txtAIRSNumberFilter.Text & "%' "
+                    SQLWhere = SQLWhere & " and ISMPMaster.strAIRSnumber like '%" & txtAIRSNumberFilter.Text & "%' "
                 End If
                 If txtFacilityNameFilter.Text <> "" Then
-                    SQLWhere = SQLWhere & " and Upper(AIRBRANCH.APBFacilityInformation.strFacilityName) like Upper('%" & txtFacilityNameFilter.Text & "%') "
+                    SQLWhere = SQLWhere & " and APBFacilityInformation.strFacilityName like '%" & txtFacilityNameFilter.Text & "%' "
                 End If
                 If txtReferenceNumberFilter.Text <> "" Then
-                    SQLWhere = SQLWhere & " and AIRBRANCH.ISMPMaster.strReferenceNumber like '%" & txtReferenceNumberFilter.Text & "%' "
+                    SQLWhere = SQLWhere & " and ISMPMaster.strReferenceNumber like '%" & txtReferenceNumberFilter.Text & "%' "
                 End If
                 If txtNotificationNumberFilter.Text <> "" Then
-                    SQLWhere = SQLWhere & " and AIRBRANCH.ISMPTestLogLink.strTestLogNumber like '%" & txtNotificationNumberFilter.Text & "%' "
+                    SQLWhere = SQLWhere & " and ISMPTestLogLink.strTestLogNumber like '%" & txtNotificationNumberFilter.Text & "%' "
                 End If
                 If txtCityFilter.Text <> "" Then
-                    SQLWhere = SQLWhere & " and upper(AIRBRANCH.APBFacilityInformation.strFacilityCity) like Upper('%" & txtCityFilter.Text & "%') "
+                    SQLWhere = SQLWhere & " and APBFacilityInformation.strFacilityCity like '%" & txtCityFilter.Text & "%' "
                 End If
                 If txtCountyFilter.Text <> "" Then
-                    SQLWhere = SQLWhere & " and Upper(AIRBRANCH.LookUpCountyInformation.strCountyName) like Upper('%" & txtCountyFilter.Text & "%') "
+                    SQLWhere = SQLWhere & " and LookUpCountyInformation.strCountyName like '%" & txtCountyFilter.Text & "%' "
                 End If
                 If txtEmissionSourceTestedFilter.Text <> "" Then
-                    SQLWhere = SQLWhere & " and Upper(AIRBRANCH.ISMPReportInformation.strEmissionSource) " &
-                                               "like upper('%" & txtEmissionSourceTestedFilter.Text & "%') "
+                    SQLWhere = SQLWhere & " and ISMPReportInformation.strEmissionSource " &
+                                               "like '%" & txtEmissionSourceTestedFilter.Text & "%' "
                 End If
                 If txtCommentFieldFilter.Text <> "" Then
-                    SQLWhere = SQLWhere & " and Upper(AIRBRANCH.ISMPReportInformation.mmoCommentArea) " &
-                                               "like Upper('%" & txtCommentFieldFilter.Text & "%') "
+                    SQLWhere = SQLWhere & " and ISMPReportInformation.mmoCommentArea " &
+                                               "like '%" & txtCommentFieldFilter.Text & "%' "
                 End If
 
                 If txtPollutantFilter.Text <> "" Then
-                    SQLWhere = SQLWhere & " and Upper(AIRBRANCH.LookUpPollutants.strPollutantDescription) " &
-                                               "like Upper('%" & txtPollutantFilter.Text & "%') "
+                    SQLWhere = SQLWhere & " and LookUpPollutants.strPollutantDescription " &
+                                               "like '%" & txtPollutantFilter.Text & "%' "
                 End If
 
-                SQL = SQL & SQLWhere
+                query = query & SQLWhere
 
-                dsTestReportViewer = New DataSet
-                daTestReportViewer = New OracleDataAdapter(SQL, CurrentConnection)
-
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-
-                daTestReportViewer.Fill(dsTestReportViewer, "TestReportViewer")
-                dgvTestReportViewer.DataSource = dsTestReportViewer
-                dgvTestReportViewer.DataMember = "TestReportViewer"
+                dgvTestReportViewer.DataSource = DB.GetDataTable(query)
 
                 dgvTestReportViewer.RowHeadersVisible = False
                 dgvTestReportViewer.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -528,25 +411,29 @@ Public Class ISMPMonitoringLog
 
             If Me.chbNotifications.Checked = True Then
                 SQLWhere = ""
-                SQL = "select distinct " &
-               "substr(AIRBRANCH.ISMPTEstNotification.strAIRSNumber, 5) as AIRSNumber, " &
-               "AIRBRANCH.APBFacilityInformation.strFacilityName,  " &
+                query = "select distinct " &
+               "SUBSTRING(ISMPTEstNotification.strAIRSNumber, 5,8) as AIRSNumber, " &
+               "APBFacilityInformation.strFacilityName,  " &
                "strFacilityCity,  " &
                "strCountyName,  " &
-               "to_number(AIRBRANCH.ISMPTestNotification.strTestLogNumber) as strTestLogNumber,    " &
+               "convert(int, ISMPTestNotification.strTestLogNumber) as strTestLogNumber,    " &
                "strEmissionUnit,  datProposedStartDate,    " &
-               "(strLastName|| ', ' ||strFirstName) as StaffResponsible,   " &
+               "concat(strLastName, ', ' , strFirstName) as StaffResponsible,   " &
                "strUnitDesc, " &
-               "AIRBRANCH.ISMPTestNotification.strcomments,  " &
+               "ISMPTestNotification.strcomments,  " &
                "strReferenceNumber " &
-               "from AIRBRANCH.ISMPTestNotification, AIRBRANCH.ISMPTestLogLink,  " &
-               "AIRBRANCH.EPDUserProfiles, AIRBRANCH.APBFacilityINformation,  " &
-               "AIRBRANCH.LookUpCountyInformation, AIRBRANCH.LookUpEPDUnits  " &
-               "where  AIRBRANCH.ISMPTestNotification.strTestLogNumber = AIRBRANCH.ISMPTestLogLink.strTestLognumber (+)    " &
-               "and AIRBRANCH.ISMPTestNotification.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber (+) " &
-               "and substr(AIRBRANCH.ISMPTestNotification.strAIRSNumber, 5, 3) = AIRBRANCH.LookUpCountyInformation.strcountycode (+)  " &
-               "and AIRBRANCH.EPDUserProfiles.numUnit = AIRBRANCH.LookUpEPDUnits.numUnitCode (+) " &
-               "and strStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID (+)  "
+               "from ISMPTestNotification " &
+               " LEFT JOIN ISMPTestLogLink  " &
+               "ON ISMPTestNotification.strTestLogNumber = ISMPTestLogLink.strTestLognumber " &
+               " LEFT JOIN EPDUserProfiles " &
+               "ON strStaffResponsible = EPDUserProfiles.numUserID " &
+               " LEFT JOIN APBFacilityINformation  " &
+               "ON ISMPTestNotification.strAIRSNumber = APBFacilityInformation.strAIRSNumber " &
+               " LEFT JOIN LookUpCountyInformation  " &
+               "ON SUBSTRING(ISMPTestNotification.strAIRSNumber, 5, 3) = LookUpCountyInformation.strcountycode " &
+               " LEFT JOIN LookUpEPDUnits  " &
+               "ON EPDUserProfiles.numUnit = LookUpEPDUnits.numUnitCode " &
+               " where 1=1 "
 
                 If chbReviewingEngineer.Checked = True Then
                     SQLWhere = SQLWhere & " and ( "
@@ -574,33 +461,33 @@ Public Class ISMPMonitoringLog
                 End If
 
                 If chbOpen.Checked = True Then
-                    SQLWhere = SQLWhere & " and to_date(datproposedstartdate) > to_date(sysdate - 90) "
+                    SQLWhere = SQLWhere & " and datproposedstartdate > DATEADD(day, -90, GETDATE()) "
                 End If
                 If txtAIRSNumberFilter.Text <> "" Then
-                    SQLWhere = SQLWhere & " and AIRBRANCH.ISMPTestNotification.strAIRSnumber like '%" & txtAIRSNumberFilter.Text & "%' "
+                    SQLWhere = SQLWhere & " and ISMPTestNotification.strAIRSnumber like '%" & txtAIRSNumberFilter.Text & "%' "
                 End If
                 If txtFacilityNameFilter.Text <> "" Then
-                    SQLWhere = SQLWhere & " and Upper(AIRBRANCH.APBFacilityInformation.strFacilityName) like Upper('%" & txtFacilityNameFilter.Text & "%') "
+                    SQLWhere = SQLWhere & " and APBFacilityInformation.strFacilityName like '%" & txtFacilityNameFilter.Text & "%' "
                 End If
                 If txtReferenceNumberFilter.Text <> "" Then
-                    SQLWhere = SQLWhere & " and AIRBRANCH.ISMPTestLogLink.strReferenceNumber like '%" & txtReferenceNumberFilter.Text & "%' "
+                    SQLWhere = SQLWhere & " and ISMPTestLogLink.strReferenceNumber like '%" & txtReferenceNumberFilter.Text & "%' "
                 End If
                 If txtNotificationNumberFilter.Text <> "" Then
-                    SQLWhere = SQLWhere & " and AIRBRANCH.ISMPTestNotification.strTestLogNumber like '%" & txtNotificationNumberFilter.Text & "%' "
+                    SQLWhere = SQLWhere & " and ISMPTestNotification.strTestLogNumber like '%" & txtNotificationNumberFilter.Text & "%' "
                 End If
                 If txtCityFilter.Text <> "" Then
-                    SQLWhere = SQLWhere & " and upper(AIRBRANCH.APBFacilityInformation.strFacilityCity) like Upper('%" & txtCityFilter.Text & "%') "
+                    SQLWhere = SQLWhere & " and APBFacilityInformation.strFacilityCity like '%" & txtCityFilter.Text & "%' "
                 End If
                 If txtCountyFilter.Text <> "" Then
-                    SQLWhere = SQLWhere & " and Upper(AIRBRANCH.LookUpCountyInformation.strCountyName) like Upper('%" & txtCountyFilter.Text & "%') "
+                    SQLWhere = SQLWhere & " and LookUpCountyInformation.strCountyName like '%" & txtCountyFilter.Text & "%' "
                 End If
                 If txtEmissionSourceTestedFilter.Text <> "" Then
-                    SQLWhere = SQLWhere & " and Upper(AIRBRANCH.ISMPTestNotification.strEmissionUnit) " &
-                                               "like upper('%" & txtEmissionSourceTestedFilter.Text & "%') "
+                    SQLWhere = SQLWhere & " and ISMPTestNotification.strEmissionUnit " &
+                                               "like '%" & txtEmissionSourceTestedFilter.Text & "%' "
                 End If
                 If txtCommentFieldFilter.Text <> "" Then
-                    SQLWhere = SQLWhere & " and Upper(AIRBRANCH.ISMPTestNotification.mmoComments) " &
-                                               "like Upper('%" & txtCommentFieldFilter.Text & "%') "
+                    SQLWhere = SQLWhere & " and ISMPTestNotification.mmoComments " &
+                                               "like '%" & txtCommentFieldFilter.Text & "%' "
                 End If
                 If txtPollutantFilter.Text <> "" Then
 
@@ -612,18 +499,9 @@ Public Class ISMPMonitoringLog
                     SQLWhere = SQLWhere & " and strReferenceNumber is Null "
                 End If
 
-                SQL = SQL & SQLWhere
+                query = query & SQLWhere
 
-                dsNotificationViewer = New DataSet
-                daNotificationViewer = New OracleDataAdapter(SQL, CurrentConnection)
-
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-
-                daNotificationViewer.Fill(dsNotificationViewer, "NotificationViewer")
-                dgvNotificationLog.DataSource = dsNotificationViewer
-                dgvNotificationLog.DataMember = "NotificationViewer"
+                dgvNotificationLog.DataSource = DB.GetDataTable(query)
 
                 dgvNotificationLog.RowHeadersVisible = False
                 dgvNotificationLog.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -643,9 +521,6 @@ Public Class ISMPMonitoringLog
                 dgvNotificationLog.Columns("strCountyName").DisplayIndex = 5
                 dgvNotificationLog.Columns("strTestLogNumber").HeaderText = "Test Log #"
                 dgvNotificationLog.Columns("strTestLogNumber").DisplayIndex = 0
-                '   dgvNotificationLog.Columns("strTestLogNumber").DefaultCellStyle.Format = 
-
-
                 dgvNotificationLog.Columns("strEmissionUnit").HeaderText = "Unit Tested"
                 dgvNotificationLog.Columns("strEmissionUnit").DisplayIndex = 6
                 dgvNotificationLog.Columns("datProposedStartDate").HeaderText = "Purposed Test Date"
@@ -663,14 +538,14 @@ Public Class ISMPMonitoringLog
             End If
 
             If chbTestFirmComments.Checked = True Then
-                SQL = ""
+                query = ""
                 SQLWhere = ""
 
-                SQL = "select " &
+                query = "select " &
                "numcommentsID, strTestingFirm, " &
-               "substr(AIRBRANCH.ISMPTestFirmComments.strAIRSNumber, 5) as AIRSNumber, " &
+               "SUBSTRING(ISMPTestFirmComments.strAIRSNumber, 5,8) as AIRSNumber, " &
                "strFacilityName, " &
-               "AIRBRANCH.ISMPTestFirmComments.strTestLogNumber, strReferenceNumber, " &
+               "ISMPTestFirmComments.strTestLogNumber, strReferenceNumber, " &
                "case " &
                "when strCommentType is Null then 'Unknown' " &
                "when strCommentType = '1' then 'Pre-test Comment' " &
@@ -678,38 +553,40 @@ Public Class ISMPMonitoringLog
                "when strCommentType = '3' then 'Post-test Comment' " &
                "else 'Unknown' " &
                "end CommentType, " &
-               "(strLastName|| ', ' ||strFirstName) as StaffResponsible, " &
+               "concat(strLastName, ', ' , strFirstName) as StaffResponsible, " &
                "datCommentDate, strComment, " &
                "strFacilityCity, " &
-               "AIRBRANCH.LookUpCountyInformation.strCountyName " &
-               "from AIRBRANCH.ISMPTestFirmComments, AIRBRANCH.LookUpTestingFirms, " &
-               "AIRBRANCH.APBFacilityInformation, AIRBRANCH.EPDUserProfiles,  " &
-               "AIRBRANCH.ISMPTestNotification, AIRBRANCH.LookUpCountyInformation " &
-               "where AIRBRANCH.ISMPTestFirmComments.strTestingFirmKey = AIRBRANCH.LooKUpTestingFirms.strTestingFirmKey " &
-               "and AIRBRANCH.ISMPTestFirmComments.strAIRSnumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber (+) " &
-               "and AIRBRANCH.ISMPTestFirmComments.strStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID (+) " &
-               "and substr(AIRBRANCH.ISMPTestFirmComments.strAIRSNUmber, 5, 3)  = AIRBRANCH.LookUpCountyInformation.strCountycode (+) " &
-               "and AIRBRANCH.ismptestfirmcomments.strtestlognumber = AIRBRANCH.ismptestnotification.strtestlognumber (+) "
+               "LookUpCountyInformation.strCountyName " &
+               "from ISMPTestFirmComments " &
+               " INNER JOIN LookUpTestingFirms " &
+               "ON ISMPTestFirmComments.strTestingFirmKey = LooKUpTestingFirms.strTestingFirmKey " &
+               " LEFT JOIN APBFacilityInformation " &
+               "ON ISMPTestFirmComments.strAIRSnumber = APBFacilityInformation.strAIRSNumber " &
+               " LEFT JOIN EPDUserProfiles  " &
+               "ON ISMPTestFirmComments.strStaffResponsible = EPDUserProfiles.numUserID " &
+               " LEFT JOIN ISMPTestNotification " &
+               "ON ismptestfirmcomments.strtestlognumber = ismptestnotification.strtestlognumber " &
+               " LEFT JOIN LookUpCountyInformation " &
+               "ON SUBSTRING(ISMPTestFirmComments.strAIRSNUmber, 5, 3)  = LookUpCountyInformation.strCountycode "
 
-
-                If chbReviewingEngineer.Checked = True Then
+                                If chbReviewingEngineer.Checked = True Then
                     SQLWhere = SQLWhere & " and ( "
                     If clbEngineer.CheckedItems.Count > 0 Then
                         For x As Integer = 0 To clbEngineer.Items.Count - 1
                             If clbEngineer.GetItemChecked(x) = True Then
                                 clbEngineer.SelectedIndex = x
-                                SQLWhere = SQLWhere & " AIRBRANCH.ISMPTestFirmComments.strStaffResponsible = '" & clbEngineer.SelectedValue & "' Or "
+                                SQLWhere = SQLWhere & " ISMPTestFirmComments.strStaffResponsible = '" & clbEngineer.SelectedValue & "' Or "
                             End If
                         Next
                     End If
-                    SQLWhere = SQLWhere & " AIRBRANCH.ISMPTestFirmComments.strStaffResponsible = '" & CurrentUser.UserID & "' ) "
+                    SQLWhere = SQLWhere & " ISMPTestFirmComments.strStaffResponsible = '" & CurrentUser.UserID & "' ) "
                 Else
                     If clbEngineer.CheckedItems.Count > 0 Then
                         SQLWhere = SQLWhere & " and ( "
                         For x As Integer = 0 To clbEngineer.Items.Count - 1
                             If clbEngineer.GetItemChecked(x) = True Then
                                 clbEngineer.SelectedIndex = x
-                                SQLWhere = SQLWhere & " AIRBRANCH.ISMPTestFirmComments.strStaffResponsible = '" & clbEngineer.SelectedValue & "' Or "
+                                SQLWhere = SQLWhere & " ISMPTestFirmComments.strStaffResponsible = '" & clbEngineer.SelectedValue & "' Or "
                             End If
                         Next
                         SQLWhere = Mid(SQLWhere, 1, (SQLWhere.Length - 3))
@@ -718,49 +595,40 @@ Public Class ISMPMonitoringLog
                 End If
 
                 If txtAIRSNumberFilter.Text <> "" Then
-                    SQLWhere = SQLWhere & " and AIRBRANCH.ISMPTestFirmComments.strAIRSnumber like '%" & txtAIRSNumberFilter.Text & "%' "
+                    SQLWhere = SQLWhere & " and ISMPTestFirmComments.strAIRSnumber like '%" & txtAIRSNumberFilter.Text & "%' "
                 End If
                 If txtFacilityNameFilter.Text <> "" Then
-                    SQLWhere = SQLWhere & " and Upper(AIRBRANCH.APBFacilityInformation.strFacilityName) like Upper('%" & txtFacilityNameFilter.Text & "%') "
+                    SQLWhere = SQLWhere & " and APBFacilityInformation.strFacilityName like '%" & txtFacilityNameFilter.Text & "%' "
                 End If
                 If txtReferenceNumberFilter.Text <> "" Then
-                    SQLWhere = SQLWhere & " and AIRBRANCH.ISMPTestFirmComments.strReferenceNumber like '%" & txtReferenceNumberFilter.Text & "%' "
+                    SQLWhere = SQLWhere & " and ISMPTestFirmComments.strReferenceNumber like '%" & txtReferenceNumberFilter.Text & "%' "
                 End If
                 If txtNotificationNumberFilter.Text <> "" Then
-                    SQLWhere = SQLWhere & " and AIRBRANCH.ISMPTestFirmComments.strTestLogNumber like '%" & txtNotificationNumberFilter.Text & "%' "
+                    SQLWhere = SQLWhere & " and ISMPTestFirmComments.strTestLogNumber like '%" & txtNotificationNumberFilter.Text & "%' "
                 End If
                 If txtCityFilter.Text <> "" Then
-                    SQLWhere = SQLWhere & " and upper(AIRBRANCH.APBFacilityInformation.strFacilityCity) like Upper('%" & txtCityFilter.Text & "%') "
+                    SQLWhere = SQLWhere & " and APBFacilityInformation.strFacilityCity like '%" & txtCityFilter.Text & "%' "
                 End If
                 If txtCountyFilter.Text <> "" Then
-                    SQLWhere = SQLWhere & " and Upper(AIRBRANCH.LookUpCountyInformation.strCountyName) like Upper('%" & txtCountyFilter.Text & "%') "
+                    SQLWhere = SQLWhere & " and LookUpCountyInformation.strCountyName like '%" & txtCountyFilter.Text & "%' "
                 End If
                 If txtEmissionSourceTestedFilter.Text <> "" Then
-                    SQLWhere = SQLWhere & " and Upper(AIRBRANCH.ISMPTestNotification.strEmissionUnit) " &
-                                               "like upper('%" & txtEmissionSourceTestedFilter.Text & "%') "
+                    SQLWhere = SQLWhere & " and ISMPTestNotification.strEmissionUnit " &
+                                               "like '%" & txtEmissionSourceTestedFilter.Text & "%' "
                 End If
                 If txtCommentFieldFilter.Text <> "" Then
-                    SQLWhere = SQLWhere & " and Upper(AIRBRANCH.ISMPTestFirmComments.strComments) " &
-                                               "like Upper('%" & Replace(txtCommentFieldFilter.Text, "'", "''") & "%') "
+                    SQLWhere = SQLWhere & " and ISMPTestFirmComments.strComments " &
+                                               "like '%" & Replace(txtCommentFieldFilter.Text, "'", "''") & "%' "
                 End If
 
                 If txtTestingFirm.Text <> "" Then
-                    SQLWhere = SQLWhere & "and Upper(AIRBRANCH.LookUpTestingFirms.strTestingFirm) " &
-                                                "like Upper('%" & Replace(txtTestingFirm.Text, "'", "''") & "%') "
+                    SQLWhere = SQLWhere & "and LookUpTestingFirms.strTestingFirm " &
+                                                "like '%" & Replace(txtTestingFirm.Text, "'", "''") & "%' "
                 End If
 
-                SQL = SQL & SQLWhere
+                query = query & SQLWhere
 
-                dsTestFirmComments = New DataSet
-                daTestFirmComments = New OracleDataAdapter(SQL, CurrentConnection)
-
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-
-                daTestFirmComments.Fill(dsTestFirmComments, "TestFirmComments")
-                dgvTestFirmComments.DataSource = dsTestFirmComments
-                dgvTestFirmComments.DataMember = "TestFirmComments"
+                dgvTestFirmComments.DataSource = DB.GetDataTable(query)
 
                 dgvTestFirmComments.RowHeadersVisible = False
                 dgvTestFirmComments.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -800,40 +668,39 @@ Public Class ISMPMonitoringLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, SQL, "ISMPTestReportViewer.LoadDataSet")
+            ErrorReport(ex, query, "ISMPTestReportViewer.LoadDataSet")
         Finally
 
         End Try
 
 
     End Sub
-#End Region
-    Sub LoadTestLogData()
+
+    Private Sub LoadTestLogData()
         Try
+            Dim query As String
 
             If txtTestLogNumber.Text <> "" Then
-                SQL = "Select " &
+                query = "Select " &
                 "strTestLogNumber,  " &
-                "AIRBRANCH.APBFacilityInformation.strFacilityName,  " &
-                "substr(AIRBRANCH.APBFacilityInformation.strAIRSnumber, 5) as AIRSNumber,  " &
+                "APBFacilityInformation.strFacilityName,  " &
+                "SUBSTRING(APBFacilityInformation.strAIRSnumber, 5,8) as AIRSNumber,  " &
                 "strEmissionUnit,  " &
-                "AIRBRANCH.APBFacilityInformation.strFacilityCity,  " &
+                "APBFacilityInformation.strFacilityCity,  " &
                 "strCountyName,  " &
                 "datProposedStartDate  " &
-                "from AIRBRANCH.APBFacilityINformation, AIRBRANCH.ISMPTestNotification,  " &
-                "AIRBRANCH.LookUpCountyInformation  " &
-                "where '0413'||AIRBRANCH.ISMPTestNotification.strAIRSnumber = AIRBRANCH.APBFacilityInformation.strAIRSNumber (+) " &
-                "and substr(AIRBRANCH.ISMPTestNotification.strAIRSNumber, 1, 3) = AIRBRANCH.LookUpCountyInformation.strCountyCode (+)  " &
-                "and strTestLogNumber = '" & txtTestLogNumber.Text & "' "
+                " FROM ISMPTestNotification " &
+                " LEFT JOIN APBFacilityINformation " &
+                "ON concat('0413',ISMPTestNotification.strAIRSnumber) = APBFacilityInformation.strAIRSNumber " &
+                " LEFT JOIN LookUpCountyInformation  " &
+                "ON SUBSTRING(ISMPTestNotification.strAIRSNumber, 1, 3) = LookUpCountyInformation.strCountyCode " &
+                "WHERE strTestLogNumber = @log "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
+                Dim p As New SqlParameter("@log", txtTestLogNumber.Text)
 
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-                If recExist = True Then
+                Dim dr As DataRow = DB.GetDataRow(query, p)
+
+                If dr IsNot Nothing Then
                     If IsDBNull(dr.Item("strFacilityName")) Then
                         txtNotificationFacilityName.Text = " "
                     Else
@@ -869,13 +736,13 @@ Public Class ISMPMonitoringLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Sub SelectTestReport()
+    Private Sub SelectTestReport()
         Try
             Dim id As String = txtReferenceNumber.Text
             If id = "" Then Exit Sub
@@ -885,12 +752,9 @@ Public Class ISMPMonitoringLog
                     OpenMultiForm(ISMPTestReports, id)
                 Else
                     If DAL.Ismp.StackTestIsClosedOut(id) Then
-                        If PrintOut IsNot Nothing AndAlso Not PrintOut.IsDisposed Then
-                            PrintOut.Dispose()
-                        End If
-                        PrintOut = New IAIPPrintOut
-                        PrintOut.txtReferenceNumber.Text = txtReferenceNumber.Text
-                        PrintOut.txtPrintType.Text = "SSCP"
+                        Dim PrintOut As New IAIPPrintOut
+                        PrintOut.ReferenceValue = txtReferenceNumber.Text
+                        PrintOut.PrintoutType = IAIPPrintOut.PrintType.IsmpTestReport
                         PrintOut.Show()
                     Else
                         MsgBox("This test has not been completely reviewed by ISMP.", MsgBoxStyle.Information, "Facility Summary")
@@ -900,15 +764,15 @@ Public Class ISMPMonitoringLog
                 MsgBox("Reference number is not in the system.", MsgBoxStyle.Information, Me.Text)
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub ResetOptions()
+    Private Sub ResetOptions()
         Try
 
             rdbFacilityDateReceived.Checked = True
-            DTPStartDate.Text = Format(Date.Today.AddDays(-30), "dd-MMM-yyyy")
-            DTPEndDate.Text = OracleDate
+            DTPStartDate.Value = Today.AddDays(-30)
+            DTPEndDate.Value = Today
             chbOpen.Checked = False
             chbClosed.Checked = False
             chbComplianceStatus1.Checked = False
@@ -928,58 +792,48 @@ Public Class ISMPMonitoringLog
             txtFacilityCounty.Clear()
             txtPollutant.Clear()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-#End Region
-    Private Sub ISMPTestReportViewer_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
-        Try
-            Me.Dispose()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
 
-        End Try
-
-    End Sub
-    Private Sub LLSelectReport_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles LLSelectReport.LinkClicked
+    Private Sub LLSelectReport_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LLSelectReport.LinkClicked
         Try
 
             SelectTestReport()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub btnRunFilter_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnRunFilter.Click
+    Private Sub btnRunFilter_Click(sender As Object, e As EventArgs) Handles btnRunFilter.Click
         Try
 
             LoadDataSet()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiReset_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiReset.Click
+    Private Sub MmiReset_Click(sender As Object, e As EventArgs) Handles mmiReset.Click
         Try
 
             ResetOptions()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub dgvTestReportViewer_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvTestReportViewer.MouseUp
+    Private Sub dgvTestReportViewer_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvTestReportViewer.MouseUp
         Dim hti As DataGridView.HitTestInfo = dgvTestReportViewer.HitTest(e.X, e.Y)
 
         Try
@@ -1025,13 +879,13 @@ Public Class ISMPMonitoringLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub dgvTestFirmComments_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvTestFirmComments.MouseUp
+    Private Sub dgvTestFirmComments_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvTestFirmComments.MouseUp
         Dim hti As DataGridView.HitTestInfo = dgvTestFirmComments.HitTest(e.X, e.Y)
 
         Try
@@ -1085,21 +939,21 @@ Public Class ISMPMonitoringLog
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
 
     End Sub
-    Private Sub tsbResize_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbResize.Click
+    Private Sub tsbResize_Click(sender As Object, e As EventArgs) Handles tsbResize.Click
         Try
             SCMonitoringLog.ToggleSplitterDistance(235, 500)
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub dgvNotificationLog_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvNotificationLog.MouseUp
+    Private Sub dgvNotificationLog_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvNotificationLog.MouseUp
         Dim hti As DataGridView.HitTestInfo = dgvNotificationLog.HitTest(e.X, e.Y)
 
         Try
@@ -1141,76 +995,47 @@ Public Class ISMPMonitoringLog
 
                 Else
                     txtReferenceNumber.Text = dgvNotificationLog(10, hti.RowIndex).Value
-                    'txtTestFirmReferenceNumber.Text = dgvNotificationLog(10, hti.RowIndex).Value
                 End If
 
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub llbSelectTestLog_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbSelectTestLog.LinkClicked
+    Private Sub llbSelectTestLog_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbSelectTestLog.LinkClicked
         Try
-            If Not IsNothing(ISMPNotificationLogForm) Then
-                ISMPNotificationLogForm.txtTestNotificationNumber.Text = txtTestLogNumber.Text
-                ISMPNotificationLogForm.Show()
-            Else
-                ISMPNotificationLogForm = Nothing
-                If ISMPNotificationLogForm Is Nothing Then ISMPNotificationLogForm = New ISMPNotificationLog
-                ISMPNotificationLogForm.txtTestNotificationNumber.Text = txtTestLogNumber.Text
-                ISMPNotificationLogForm.Show()
-            End If
-            ISMPNotificationLogForm.LoadTestNotification()
+            OpenFormTestNotification(txtTestLogNumber.Text)
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub llbOpenComments_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbOpenComments.LinkClicked
+    Private Sub llbOpenComments_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbOpenComments.LinkClicked
         Try
 
-            If TestFirmComments Is Nothing Then
-                If TestFirmComments Is Nothing Then TestFirmComments = New ISMPTestFirmComments
-            Else
-                TestFirmComments.Dispose()
-                TestFirmComments = New ISMPTestFirmComments
-            End If
-            TestFirmComments.Show()
+            Dim TestFirmComments As New ISMPTestFirmComments
+
             TestFirmComments.txtAIRSNumber.Text = txtTestFirmAirsNumber.Text
             TestFirmComments.txtFacilityTested.Text = txtTestFirmFacilityName.Text
             TestFirmComments.cboTestingFirm.Text = txtTestFirmName.Text
-
-            If txtTestFirmReferenceNumber.Text <> "" Then
-                TestFirmComments.txtTestReportNumber.Text = txtTestFirmReferenceNumber.Text
-            Else
-                TestFirmComments.txtTestReportNumber.Text = ""
-            End If
-            If txtTestFirmTestLogNumber.Text <> "" Then
-                TestFirmComments.txtTestNotificationNumber.Text = txtTestFirmTestLogNumber.Text
-            Else
-                TestFirmComments.txtTestNotificationNumber.Text = ""
-            End If
+            TestFirmComments.txtTestReportNumber.Text = txtTestFirmReferenceNumber.Text
+            TestFirmComments.txtTestNotificationNumber.Text = txtTestFirmTestLogNumber.Text
             TestFirmComments.txtCommentID.Text = txtCommentNumber.Text
-            TestFirmComments.LoadTestFirmComments()
+
+            TestFirmComments.Show()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
     End Sub
-
-    Public WriteOnly Property ValueFromFacilityLookUp() As String
-        Set(ByVal Value As String)
-            txtAIRSNumberFilter.Text = Value
-        End Set
-    End Property
 
     Private Sub OpenFacilityLookupTool()
         Try
@@ -1218,32 +1043,30 @@ Public Class ISMPMonitoringLog
             facilityLookupDialog.ShowDialog()
             If facilityLookupDialog.DialogResult = DialogResult.OK _
             AndAlso facilityLookupDialog.SelectedAirsNumber <> "" Then
-                Me.ValueFromFacilityLookUp = facilityLookupDialog.SelectedAirsNumber
+                txtAIRSNumberFilter.Text = facilityLookupDialog.SelectedAirsNumber
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub tsbFacilitySearch_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbFacilitySearch.Click
+    Private Sub tsbFacilitySearch_Click(sender As Object, e As EventArgs) Handles tsbFacilitySearch.Click
         OpenFacilityLookupTool()
     End Sub
 
-    Private Sub tsbExportToExcel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbExportToExcel.Click
+    Private Sub tsbExportToExcel_Click(sender As Object, e As EventArgs) Handles tsbExportToExcel.Click
         dgvTestReportViewer.ExportToExcel(Me)
     End Sub
-    Sub LoadCompliaceColor()
+    Private Sub LoadCompliaceColor()
         Try
             For Each row As DataGridViewRow In dgvTestReportViewer.Rows
                 If Not row.IsNewRow Then
                     If Not row.Cells(20).Value Is DBNull.Value Then
-                        temp = row.Cells(20).Value
                         If row.Cells(20).Value = "True" Then
                             row.DefaultCellStyle.BackColor = Color.Pink
                         End If
                     End If
                     If Not row.Cells(16).Value Is DBNull.Value Then
-                        temp = row.Cells(16).Value
                         If row.Cells(16).Value = "Not In Compliance" Then
                             row.DefaultCellStyle.BackColor = Color.Tomato
                         End If
@@ -1255,31 +1078,21 @@ Public Class ISMPMonitoringLog
         End Try
     End Sub
 
-    Private Sub dgvTestReportViewer_Sorted(ByVal sender As Object, ByVal e As System.EventArgs) Handles dgvTestReportViewer.Sorted
+    Private Sub dgvTestReportViewer_Sorted(sender As Object, e As EventArgs) Handles dgvTestReportViewer.Sorted
         Try
             LoadCompliaceColor()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub mmiReports_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiReports.Click
-        Try
-            If StaffReports Is Nothing Then
-                If StaffReports Is Nothing Then StaffReports = New ISMPStaffReports
-            Else
-                StaffReports.Dispose()
-                StaffReports = New ISMPStaffReports
-                If StaffReports Is Nothing Then StaffReports = New ISMPStaffReports
-            End If
-            StaffReports.Show()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+    Private Sub mmiReports_Click(sender As Object, e As EventArgs) Handles mmiReports.Click
+        Dim StaffReports As New ISMPStaffReports
+        StaffReports.Show()
     End Sub
 
     Private Sub tsbClear_Click(sender As Object, e As EventArgs) Handles tsbClear.Click
         ResetOptions()
     End Sub
+
 End Class

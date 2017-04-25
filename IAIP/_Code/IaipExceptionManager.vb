@@ -57,7 +57,7 @@ Public Class IaipExceptionManager
     '-- turns exception into something an average user can hopefully
     '-- understand; still very technical
     '--
-    Private Shared Function FormatExceptionForUser(ByVal exc As Exception) As String
+    Private Shared Function FormatExceptionForUser(exc As Exception) As String
         Dim sb As New System.Text.StringBuilder
         With sb
             .Append("Detailed error information follows:")
@@ -71,7 +71,7 @@ Public Class IaipExceptionManager
     '--
     '-- translate exception object to string, with additional system info
     '--
-    Private Shared Function ExceptionToString(ByVal exc As Exception) As String
+    Private Shared Function ExceptionToString(exc As Exception) As String
         Dim sb As New System.Text.StringBuilder
 
         If Not (exc.InnerException Is Nothing) Then
@@ -141,7 +141,7 @@ Public Class IaipExceptionManager
     '-- gather some system information that is helpful to diagnosing
     '-- exception
     '--
-    Private Shared Function SysInfoToString(Optional ByVal blnIncludeStackTrace As Boolean = False) As String
+    Private Shared Function SysInfoToString(Optional blnIncludeStackTrace As Boolean = False) As String
         Dim objStringBuilder As New System.Text.StringBuilder
 
         With objStringBuilder
@@ -192,8 +192,8 @@ Public Class IaipExceptionManager
     '--
     '-- enhanced stack trace generator
     '--
-    Private Shared Function EnhancedStackTrace(ByVal objStackTrace As StackTrace, _
-        Optional ByVal strSkipClassName As String = "") As String
+    Private Shared Function EnhancedStackTrace(objStackTrace As StackTrace, _
+        Optional strSkipClassName As String = "") As String
         Dim intFrame As Integer
 
         Dim sb As New System.Text.StringBuilder
@@ -221,7 +221,7 @@ Public Class IaipExceptionManager
     '--
     '-- enhanced stack trace generator (exception)
     '--
-    Private Shared Function EnhancedStackTrace(ByVal objException As Exception) As String
+    Private Shared Function EnhancedStackTrace(objException As Exception) As String
         Dim objStackTrace As New StackTrace(objException, True)
         Return EnhancedStackTrace(objStackTrace)
     End Function
@@ -272,7 +272,7 @@ Public Class IaipExceptionManager
     '--
     '-- turns a single stack frame object into an informative string
     '--
-    Private Shared Function StackFrameToString(ByVal sf As StackFrame) As String
+    Private Shared Function StackFrameToString(sf As StackFrame) As String
         Dim sb As New System.Text.StringBuilder
         Dim intParam As Integer
         Dim mi As MemberInfo = sf.GetMethod

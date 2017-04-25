@@ -8,11 +8,11 @@
     ''' <param name="bitField">The bit field string to convert to enumeration flags.</param>
     ''' <param name="reversed">Whether the input bit field string is reversed (i.e., read left-to-right).</param>
     ''' <returns>An enumeration of type TEnum with flags set.</returns>
-    Public Function ConvertBitFieldToEnum(Of TEnum)(ByVal bitField As String, Optional ByVal reversed As Boolean = True) As TEnum
+    Public Function ConvertBitFieldToEnum(Of TEnum)(bitField As String, Optional reversed As Boolean = True) As TEnum
         Return ConvertIntegerToEnum(Of TEnum)(ConvertBitFieldToInteger(bitField, reversed))
     End Function
 
-    Private Function ConvertBitFieldToInteger(ByVal bitField As String, Optional ByVal reversed As Boolean = True) As Int32
+    Private Function ConvertBitFieldToInteger(bitField As String, Optional reversed As Boolean = True) As Int32
         ' bitFlags must contain only zeros and ones (and not be empty)
         If bitField Is Nothing OrElse Not System.Text.RegularExpressions.Regex.IsMatch(bitField, "^[0-1]+$") Then
             Return 0
@@ -24,7 +24,7 @@
         Return Convert.ToInt32(bitField, 2)
     End Function
 
-    Private Function ConvertIntegerToEnum(Of TEnum)(ByVal i As Int32) As TEnum
+    Private Function ConvertIntegerToEnum(Of TEnum)(i As Int32) As TEnum
         'If [Enum].IsDefined(GetType(TEnum), i) Then
         Return DirectCast([Enum].ToObject(GetType(TEnum), i), TEnum)
         'Else
@@ -42,11 +42,11 @@
     ''' characters padded with zeros.</param>
     ''' <param name="reverse">Whether the output string should be reversed (i.e., read left-to-right).</param>
     ''' <returns>A bit field string.</returns>
-    Public Function ConvertEnumToBitFlags(Of TEnum)(ByVal enumeration As TEnum, ByVal totalWidth As Integer, Optional ByVal reverse As Boolean = True) As String
+    Public Function ConvertEnumToBitFlags(Of TEnum)(enumeration As TEnum, totalWidth As Integer, Optional reverse As Boolean = True) As String
         Return ConvertIntegerToBitFlags(Convert.ToInt32(enumeration), totalWidth, reverse)
     End Function
 
-    Private Function ConvertIntegerToBitFlags(ByVal i As Int32, ByVal totalWidth As Integer, Optional ByVal reverse As Boolean = True) As String
+    Private Function ConvertIntegerToBitFlags(i As Int32, totalWidth As Integer, Optional reverse As Boolean = True) As String
         Dim bfs As String = Convert.ToString(i, 2).PadLeft(totalWidth, "0"c)
         If reverse Then bfs = StrReverse(bfs)
         Return bfs

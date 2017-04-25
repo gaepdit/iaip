@@ -12,7 +12,7 @@
         End Get
     End Property
 
-    Public Property FileSize() As Integer
+    Public Property FileSize() As Integer?
     Public Property DocumentType() As String
     Public Property DocumentTypeId() As Integer
     Public Property Comment() As String

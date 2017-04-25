@@ -1,77 +1,37 @@
-﻿Imports Oracle.ManagedDataAccess.Client
-Imports System.Collections
-Imports System.Reflection
-'Imports Microsoft.Reporting.WinForms
-'Imports Microsoft.ReportingServices.ReportRendering
+﻿Imports System.Data.SqlClient
 
 Public Class SBEAPReports
-    Dim SQL, SQL2 As String
-    Dim dsView As DataSet
-    Dim daView As OracleDataAdapter
-    Dim dsCombo As DataSet
-    Dim daCombo As OracleDataAdapter
-    Dim dsAction As DataSet
-    Dim daAction As OracleDataAdapter
+    Private dtAction As DataTable
 
-    Private Sub SBEAPReports_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+    Private Sub SBEAPReports_Load(sender As Object, e As EventArgs) Handles Me.Load
+        DTPReportStartDate.Value = Today.AddMonths(-3)
+        DTPReportEndDate.Value = Today
 
-        Try
-            DTPReportStartDate.Text = Format(Date.Today.AddMonths(-3), "dd-MMM-yyyy")
-            DTPReportEndDate.Text = OracleDate
-
-            LoadComboBoxes()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        LoadComboBoxes()
     End Sub
-    Sub LoadComboBoxes()
+
+    Private Sub LoadComboBoxes()
         Try
-            Dim dtActionTypes As New DataTable
-            Dim drDSRow As DataRow
-            Dim drNewRow As DataRow
-
-            dsCombo = New DataSet
-
-            SQL = "select " &
-            "numActionType, strWorkDescription " &
-            "from AIRBranch.LookUpSBEAPCaseWOrk " &
+            Dim query As String = "select " &
+            "'' as numActionType, ' ' as strWorkDescription " &
+            " union select " &
+            "convert(varchar(max),numActionType), strWorkDescription " &
+            "from LookUpSBEAPCaseWOrk " &
             "order by strWorkDescription "
 
-            daCombo = New OracleDataAdapter(SQL, CurrentConnection)
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daCombo.Fill(dsCombo, "Combo")
-
-            dtActionTypes.Columns.Add("strWorkDescription", GetType(System.String))
-            dtActionTypes.Columns.Add("numActionType", GetType(System.String))
-
-            drNewRow = dtActionTypes.NewRow()
-            drNewRow("strWorkDescription") = ""
-            drNewRow("numActionType") = " "
-            dtActionTypes.Rows.Add(drNewRow)
-
-            For Each drDSRow In dsCombo.Tables("Combo").Rows()
-                drNewRow = dtActionTypes.NewRow()
-                drNewRow("strWorkDescription") = drDSRow("strWorkDescription")
-                drNewRow("numActionType") = drDSRow("numActionType")
-                dtActionTypes.Rows.Add(drNewRow)
-            Next
             With cboActionTypes
-                .DataSource = dtActionTypes
+                .DataSource = DB.GetDataTable(query)
                 .DisplayMember = "strWorkDescription"
                 .ValueMember = "numActionType"
                 .SelectedIndex = 0
             End With
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-#Region "Subs and Functions"
-    Sub ClearReport()
+
+    Private Sub ClearReport()
         Try
             txtNewClientCount.Clear()
             txtClientAssistCount.Clear()
@@ -83,82 +43,55 @@ Public Class SBEAPReports
             txtActionTypeCount.Clear()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub RunReport()
+
+    Private Sub RunReport()
         Try
             ClearReport()
 
-            SQL = "Select count(*) as Count " &
-            "from AIRBRANCH.SBEAPClients " &
-            "where datCompanyCreated between '" & DTPReportStartDate.Text & "' and '" & DTPReportEndDate.Text & "' "
+            Dim p As SqlParameter() = {
+                New SqlParameter("@sdate", DTPReportStartDate.Value),
+                New SqlParameter("@edate", DTPReportEndDate.Value)
+            }
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                txtNewClientCount.Text = dr.Item("Count")
-            End While
-            dr.Close()
+            Dim query As String = "Select count(*) " &
+            "from SBEAPClients " &
+            "where datCompanyCreated between @sdate and @edate "
 
-            SQL = "select count(*) as Count " &
+            txtNewClientCount.Text = DB.GetInteger(query, p)
+
+            query = "select count(*) " &
             "from (select " &
-            "distinct(AIRBRANCH.SBEAPActionLog.numCaseID) as CaseID " &
-            "from AIRBRANCH.SBEAPActionLog, AIRBRANCH.SBEAPCaseLog, " &
-            "AIRBRANCH.SBEAPCaseLogLink, AIRBRANCH.SBEAPClients  " &
-            "where AIRBRANCH.SBEAPActionLog.numCaseID = AIRBRANCH.SBEAPCaseLog.numCaseID " &
-            "and AIRBRANCH.SBEAPActionLog.numCaseID = AIRBRANCH.SBEAPCaseLogLink.numCaseID " &
-            "and AIRBRANCH.SBEAPCaseLogLink.ClientID = AIRBRANCH.SBEAPClients.ClientID " &
-            "and  (datActionOccured between '" & DTPReportStartDate.Text & "' and '" & DTPReportEndDate.Text & "' " &
-            "or datCaseOpened between '" & DTPReportStartDate.Text & "' and '" & DTPReportEndDate.Text & "' " &
-            "or datCaseClosed between '" & DTPReportStartDate.Text & "' and '" & DTPReportEndDate.Text & "') ) "
+            "distinct(SBEAPActionLog.numCaseID) as CaseID " &
+            "from SBEAPActionLog, SBEAPCaseLog, " &
+            "SBEAPCaseLogLink, SBEAPClients  " &
+            "where SBEAPActionLog.numCaseID = SBEAPCaseLog.numCaseID " &
+            "and SBEAPActionLog.numCaseID = SBEAPCaseLogLink.numCaseID " &
+            "and SBEAPCaseLogLink.ClientID = SBEAPClients.ClientID " &
+            "and  (datActionOccured between @sdate and @edate " &
+            "or datCaseOpened between @sdate and @edate " &
+            "or datCaseClosed between @sdate and @edate ) ) t "
 
+            txtClientAssistCount.Text = DB.GetInteger(query, p)
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                txtClientAssistCount.Text = dr.Item("Count")
-            End While
-            dr.Close()
+            query = "select count(*) " &
+            "from SBEAPCaseLog " &
+            "where datCaseOpened between @sdate and @edate "
 
-            SQL = "select count(*) as Count " &
-            "from AIRBranch.SBEAPCaseLog " &
-            "where datCaseOpened between '" & DTPReportStartDate.Text & "' and '" & DTPReportEndDate.Text & "' "
+            txtNewCaseCount.Text = DB.GetInteger(query, p)
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                txtNewCaseCount.Text = dr.Item("Count")
-            End While
-            dr.Close()
+            query = "select count(*) as Count " &
+            "from (select distinct(SBEAPCaseLog.numCaseID) " &
+            "from SBEAPCaseLog, SBEAPActionLog  " &
+            "where SBEAPCaseLog.numCaseID = SBEAPActionLog.numCaseID " &
+            "and datCaseOpened < @sdate " &
+            "and (datActionOccured between @sdate and @edate " &
+            "or datCaseClosed between @sdate and @edate " &
+            "or sbeapActionLog.datCreationDate between @sdate and @edate )) t "
 
-            SQL = "select count(*) as Count " &
-            "from (select distinct(AIRBRANCH.SBEAPCaseLog.numCaseID) " &
-            "from AIRBRANCH.SBEAPCaseLog, AIRBRANCH.SBEAPActionLog  " &
-            "where AIRBRANCH.SBEAPCaseLog.numCaseID = AIRBRANCH.SBEAPActionLog.numCaseID " &
-            "and datCaseOpened < '" & DTPReportStartDate.Text & "' " &
-            "and (datActionOccured between '" & DTPReportStartDate.Text & "' and '" & DTPReportEndDate.Text & "' " &
-            "or datCaseClosed between '" & DTPReportStartDate.Text & "' and '" & DTPReportEndDate.Text & "'  " &
-            "or AIRBRANCH.sbeapActionLog.datCreationDate between '" & DTPReportStartDate.Text & "' and '" & DTPReportEndDate.Text & "')) "
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                txtExistingCaseCount.Text = dr.Item("Count")
-            End While
-            dr.Close()
+            txtExistingCaseCount.Text = DB.GetInteger(query, p)
 
             If txtNewCaseCount.Text = "" Then
                 txtNewCaseCount.Text = "0"
@@ -169,72 +102,41 @@ Public Class SBEAPReports
 
             txtTotalCaseCount.Text = CInt(txtNewCaseCount.Text) + CInt(txtExistingCaseCount.Text)
 
-            SQL = "select Count(*) as Count " &
-            "from AIRBranch.SBEAPCaseLog " &
-            "where datCasecLosed between '" & DTPReportStartDate.Text & "' and '" & DTPReportEndDate.Text & "' "
+            query = "select Count(*)  " &
+            "from SBEAPCaseLog " &
+            "where datCasecLosed between @sdate and @edate "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                txtCaseClosedCount.Text = dr.Item("Count")
-            End While
-            dr.Close()
+            txtCaseClosedCount.Text = DB.GetInteger(query, p)
 
-            SQL = "select count(*) as Count " &
-            "from AIRBRANCH.SBEAPActionLog " &
-            "where datActionOccured between '" & DTPReportStartDate.Text & "' and '" & DTPReportEndDate.Text & "' "
+            query = "select count(*)  " &
+            "from SBEAPActionLog " &
+            "where datActionOccured between @sdate and @edate "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                txtTotalActionCount.Text = dr.Item("Count")
-            End While
-            dr.Close()
+            txtTotalActionCount.Text = DB.GetInteger(query, p)
 
-            SQL = "Select count(*) as Count " &
-            "from AIRBRANCH.SBEAPActionLog, " &
-            "AIRBRANCH.SBEAPPhoneLog " &
-            "where AIRBRANCH.SBEAPActionLog.numActionID = AIRBRANCH.SBEAPPhoneLog.numActionID " &
-            "and datActionOccured between '" & DTPReportStartDate.Text & "' and '" & DTPReportEndDate.Text & "' " &
+            query = "Select count(*)  " &
+            "from SBEAPActionLog, " &
+            "SBEAPPhoneLog " &
+            "where SBEAPActionLog.numActionID = SBEAPPhoneLog.numActionID " &
+            "and datActionOccured between @sdate and @edate " &
             "and strFrontDeskCall is not Null " &
             "and strFrontDeskCall = 'True' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                txtFrontDeskCallCount.Text = dr.Item("Count")
-            End While
-            dr.Close()
+            txtFrontDeskCallCount.Text = DB.GetInteger(query, p)
 
-            dsAction = New DataSet
-
-            SQL = "select Count(*) as Count, numActionType " &
-            "from AIRBranch.SBEAPActionLog " &
-            "where datActionOccured between '" & DTPReportStartDate.Text & "' and '" & DTPReportEndDate.Text & "' " &
+            query = "select Count(*) as Count, numActionType " &
+            "from SBEAPActionLog " &
+            "where datActionOccured between @sdate and @edate " &
             "group by numActionType "
 
-            daAction = New OracleDataAdapter(SQL, CurrentConnection)
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daAction.Fill(dsAction, "ActionCount")
+            dtAction = DB.GetDataTable(query, p)
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-#End Region
-    Private Sub btnViewCase_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnViewCase.Click
+
+    Private Sub btnViewCase_Click(sender As Object, e As EventArgs) Handles btnViewCase.Click
         Try
             If txtCaseID.Text <> "" Then
                 If CaseWork Is Nothing Then
@@ -248,33 +150,29 @@ Public Class SBEAPReports
                 CaseWork.LoadCaseLogData()
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnRunSBEAPReport_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnRunSBEAPReport.Click
-        Try
-            RunReport()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Private Sub llbViewNewClient_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbViewNewClient.LinkClicked
-        Try
-            SQL = "select " &
-            "AIRBRANCH.SBEAPClients.ClientID, strCompanyName, " &
-            "to_date(datCompanyCreated, 'dd-Mon-RRRR') as datCompanyCreated, STRCLIENTDESCRIPTION " &
-            "from AIRBRANCH.SBEAPClients, AIRBRANCH.SBEAPCLientData " &
-            "where AIRBRANCH.SBEAPClients.ClientID = AIRBRANCH.SBEAPClientData.ClientID " &
-            "and datCompanyCreated between '" & DTPReportStartDate.Text & "' and '" & DTPReportEndDate.Text & "' "
 
-            dsView = New DataSet
-            daView = New OracleDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daView.Fill(dsView, "ViewCount")
-            dgvCaseWork.DataSource = dsView
-            dgvCaseWork.DataMember = "ViewCount"
+    Private Sub btnRunSBEAPReport_Click(sender As Object, e As EventArgs) Handles btnRunSBEAPReport.Click
+        RunReport()
+    End Sub
+
+    Private Sub llbViewNewClient_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewNewClient.LinkClicked
+        Try
+            Dim p As SqlParameter() = {
+                New SqlParameter("@sdate", DTPReportStartDate.Value),
+                New SqlParameter("@edate", DTPReportEndDate.Value)
+            }
+
+            Dim query As String = "select " &
+            "SBEAPClients.ClientID, strCompanyName, " &
+            "datCompanyCreated as datCompanyCreated, STRCLIENTDESCRIPTION " &
+            "from SBEAPClients, SBEAPCLientData " &
+            "where SBEAPClients.ClientID = SBEAPClientData.ClientID " &
+            "and datCompanyCreated between @sdate and @edate "
+
+            dgvCaseWork.DataSource = DB.GetDataTable(query, p)
 
             dgvCaseWork.RowHeadersVisible = False
             dgvCaseWork.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -293,46 +191,45 @@ Public Class SBEAPReports
             dgvCaseWork.Columns("datCompanyCreated").HeaderText = "Date Client Created"
             dgvCaseWork.Columns("datCompanyCreated").DisplayIndex = 2
             dgvCaseWork.Columns("datCompanyCreated").DefaultCellStyle.Format = "dd-MMM-yyyy"
-
+            dgvCaseWork.SanelyResizeColumns
 
             txtCount.Text = dgvCaseWork.RowCount.ToString
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub llbClientsAssisted_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbClientsAssisted.LinkClicked
+
+    Private Sub llbClientsAssisted_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbClientsAssisted.LinkClicked
         Try
-            SQL = "select " &
-            "distinct(AIRBRANCH.SBEAPActionLog.numCaseID) as CaseID, " &
-            "AIRBRANCH.SBEAPClients.ClientID, strCompanyName, " &
+            Dim p As SqlParameter() = {
+                New SqlParameter("@sdate", DTPReportStartDate.Value),
+                New SqlParameter("@edate", DTPReportEndDate.Value)
+            }
+
+            Dim query As String = "select " &
+            "distinct(SBEAPActionLog.numCaseID) as CaseID, " &
+            "SBEAPClients.ClientID, strCompanyName, " &
             "case " &
-            "when datCaseOpened between '" & DTPReportStartDate.Text & "' and '" & DTPReportEndDate.Text & "' then 'Case Opened' " &
-            "when datCaseClosed between '" & DTPReportStartDate.Text & "' and '" & DTPReportEndDate.Text & "'  then 'Case Closed' " &
-            "when datActionOccured between '" & DTPReportStartDate.Text & "' and '" & DTPReportEndDate.Text & "' then 'Action Occured' " &
+            "when datCaseOpened between @sdate and @edate then 'Case Opened' " &
+            "when datCaseClosed between @sdate and @edate  then 'Case Closed' " &
+            "when datActionOccured between @sdate and @edate then 'Action Occured' " &
             "end CountReason, " &
             "case " &
-            "when datCaseOpened between '" & DTPReportStartDate.Text & "' and '" & DTPReportEndDate.Text & "' then to_date(datCaseOpened, 'dd-Mon-RRRR') " &
-            "when datCaseClosed between '" & DTPReportStartDate.Text & "' and '" & DTPReportEndDate.Text & "' then to_date(datCaseClosed, 'dd-Mon-RRRR') " &
+            "when datCaseOpened between @sdate and @edate then datCaseOpened " &
+            "when datCaseClosed between @sdate and @edate then datCaseClosed " &
             "else null   " &
             "end CountDate, strCaseSummary " &
-            "from AIRBRANCH.SBEAPActionLog, AIRBRANCH.SBEAPCaseLog, " &
-            "AIRBRANCH.SBEAPCaseLogLink, AIRBRANCH.SBEAPClients  " &
-            "where AIRBRANCH.SBEAPActionLog.numCaseID = AIRBRANCH.SBEAPCaseLog.numCaseID " &
-            "and AIRBRANCH.SBEAPActionLog.numCaseID = AIRBRANCH.SBEAPCaseLogLink.numCaseID " &
-            "and AIRBRANCH.SBEAPCaseLogLink.ClientID = AIRBRANCH.SBEAPClients.ClientID " &
-            "and  (datActionOccured between '" & DTPReportStartDate.Text & "' and '" & DTPReportEndDate.Text & "' " &
-            "or datCaseOpened between '" & DTPReportStartDate.Text & "' and '" & DTPReportEndDate.Text & "' " &
-            "or datCaseClosed between '" & DTPReportStartDate.Text & "' and '" & DTPReportEndDate.Text & "') "
+            "from SBEAPActionLog, SBEAPCaseLog, " &
+            "SBEAPCaseLogLink, SBEAPClients  " &
+            "where SBEAPActionLog.numCaseID = SBEAPCaseLog.numCaseID " &
+            "and SBEAPActionLog.numCaseID = SBEAPCaseLogLink.numCaseID " &
+            "and SBEAPCaseLogLink.ClientID = SBEAPClients.ClientID " &
+            "and  (datActionOccured between @sdate and @edate " &
+            "or datCaseOpened between @sdate and @edate " &
+            "or datCaseClosed between @sdate and @edate) "
 
-            dsView = New DataSet
-            daView = New OracleDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daView.Fill(dsView, "ViewCount")
-            dgvCaseWork.DataSource = dsView
-            dgvCaseWork.DataMember = "ViewCount"
+            dgvCaseWork.DataSource = DB.GetDataTable(query, p)
 
             dgvCaseWork.RowHeadersVisible = False
             dgvCaseWork.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -355,37 +252,36 @@ Public Class SBEAPReports
             dgvCaseWork.Columns("CaseID").DisplayIndex = 4
             dgvCaseWork.Columns("strCaseSummary").HeaderText = "Case Summary"
             dgvCaseWork.Columns("strCaseSummary").DisplayIndex = 4
+            dgvCaseWork.SanelyResizeColumns
 
             txtCount.Text = dgvCaseWork.RowCount.ToString
-
-
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub llbNewCases_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbNewCases.LinkClicked
+    Private Sub llbNewCases_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbNewCases.LinkClicked
         Try
-            SQL = "select AIRBRANCH.SBEAPCaseLog.numCaseID, " &
-            "AIRBRANCH.SBEAPClients.ClientID, strCompanyName, " &
-            "strCaseSummary, " &
-            "to_date(datCaseOpened, 'dd-Mon-RRRR') as datCaseOpened, " &
-            "(strLastName|| ', ' ||strFirstName) as StaffResponsible " &
-            "from AIRBRANCH.SBEAPCaseLog, AIRBRANCH.SBEAPClients, " &
-            "AIRBRANCH.SBEAPCaseLogLink, AIRBRANCH.EPDUserProfiles " &
-            "where AIRBRANCH.SBEAPCaseLog.numCaseID  = AIRBRANCH.SBEAPCaseLogLink.numCaseID (+) " &
-            "and AIRBRANCH.SBEAPCaseLogLink.ClientID = AIRBRANCH.SbeapClients.CLientID  (+) " &
-            "and AIRBRANCH.SBEAPCaseLog.numStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID (+) " &
-            "and datCaseOpened between '" & DTPReportStartDate.Text & "' and '" & DTPReportEndDate.Text & "' "
+            Dim p As SqlParameter() = {
+                New SqlParameter("@sdate", DTPReportStartDate.Value),
+                New SqlParameter("@edate", DTPReportEndDate.Value)
+            }
 
-            dsView = New DataSet
-            daView = New OracleDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daView.Fill(dsView, "ViewCount")
-            dgvCaseWork.DataSource = dsView
-            dgvCaseWork.DataMember = "ViewCount"
+            Dim query As String = "select SBEAPCaseLog.numCaseID, " &
+            "SBEAPClients.ClientID, strCompanyName, " &
+            "strCaseSummary, " &
+            "datCaseOpened as datCaseOpened, " &
+            "concat(strLastName, ', ' ,strFirstName) as StaffResponsible " &
+            "from SBEAPCaseLog " &
+            "left join SBEAPCaseLogLink " &
+            "on SBEAPCaseLog.numCaseID  = SBEAPCaseLogLink.numCaseID " &
+            "left join SBEAPClients " &
+            "on SBEAPCaseLogLink.ClientID = SbeapClients.CLientID " &
+            "left join EPDUserProfiles " &
+            "on SBEAPCaseLog.numStaffResponsible = EPDUserProfiles.numUserID " &
+            "where datCaseOpened between @sdate and @edate "
+
+            dgvCaseWork.DataSource = DB.GetDataTable(query, p)
 
             dgvCaseWork.RowHeadersVisible = False
             dgvCaseWork.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -408,47 +304,48 @@ Public Class SBEAPReports
             dgvCaseWork.Columns("numCaseID").DisplayIndex = 4
             dgvCaseWork.Columns("StaffResponsible").HeaderText = "Staff Responsible"
             dgvCaseWork.Columns("StaffResponsible").DisplayIndex = 5
+            dgvCaseWork.SanelyResizeColumns
 
             txtCount.Text = dgvCaseWork.RowCount.ToString
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub llbExistingCases_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbExistingCases.LinkClicked
+
+    Private Sub llbExistingCases_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbExistingCases.LinkClicked
         Try
-            SQL = "select distinct(AIRBRANCH.SBEAPCaseLog.numCaseID), " &
-            "AIRBRANCH.SBEAPClients.ClientID, strCompanyName, " &
+            Dim p As SqlParameter() = {
+                New SqlParameter("@sdate", DTPReportStartDate.Value),
+                New SqlParameter("@edate", DTPReportEndDate.Value)
+            }
+
+            Dim query As String = "select distinct(SBEAPCaseLog.numCaseID), " &
+            "SBEAPClients.ClientID, strCompanyName, " &
             "strCaseSummary, " &
             "Case " &
-            "when datActionOccured between '" & DTPReportStartDate.Text & "' and '" & DTPReportEndDate.Text & "' then 'Action Occured' " &
-            "when datCaseClosed between '" & DTPReportStartDate.Text & "' and '" & DTPReportEndDate.Text & "' then 'Case Closed' " &
+            "when datActionOccured between @sdate and @edate then 'Action Occured' " &
+            "when datCaseClosed between @sdate and @edate then 'Case Closed' " &
             "end CountReason, " &
-            "to_date(datCaseOpened, 'dd-Mon-RRRR') as datCaseOpened, " &
-            "(strLastName|| ', ' ||strFirstName) as StaffResponsible,  " &
+            "datCaseOpened as datCaseOpened, " &
+            "concat(strLastName, ', ' ,strFirstName) as StaffResponsible,  " &
             "case " &
             "when strComplaintBased = 'True' then 'True' " &
             "else 'False' " &
             "end ComplaintBased " &
-            "from AIRBRANCH.SBEAPCaseLog, AIRBRANCH.SBEAPActionLog, " &
-            "AIRBRANCH.SBEAPCaseLogLink, AIRBRANCH.SBEAPClients, " &
-            "AIRBRANCH.EPDUserProfiles " &
-            "where AIRBRANCH.SBEAPCaseLog.numCaseID = AIRBRANCH.SBEAPActionLog.numCaseID  " &
-            "and AIRBRANCH.SBEAPCaseLog.numCaseID = AIRBRANCH.SBEAPCaseLogLink.numCaseId (+) " &
-            "and AIRBRANCH.SBEAPCaseLogLink.ClientID = AIRBRANCH.SBEAPClients.ClientID  (+) " &
-            "and AIRBRANCH.SBEAPCaseLog.numStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID (+) " &
-            "and datCaseOpened < '" & DTPReportStartDate.Text & "'  " &
-            "and (datActionOccured between '" & DTPReportStartDate.Text & "' and '" & DTPReportEndDate.Text & "'  " &
-            "or datCaseClosed between '" & DTPReportStartDate.Text & "' and '" & DTPReportEndDate.Text & "' " &
-            "or AIRBRANCH.sbeapActionLog.datCreationDate between '" & DTPReportStartDate.Text & "' and '" & DTPReportEndDate.Text & "') "
+            "from SBEAPCaseLog inner join SBEAPActionLog " &
+            "on SBEAPCaseLog.numCaseID = SBEAPActionLog.numCaseID  " &
+            "left join SBEAPCaseLogLink " &
+            "on SBEAPCaseLog.numCaseID = SBEAPCaseLogLink.numCaseId " &
+            "left join SBEAPClients " &
+            "on SBEAPCaseLogLink.ClientID = SBEAPClients.ClientID " &
+            "left join EPDUserProfiles " &
+            "on SBEAPCaseLog.numStaffResponsible = EPDUserProfiles.numUserID " &
+            "where datCaseOpened < @sdate  " &
+            "and (datActionOccured between @sdate and @edate  " &
+            "or datCaseClosed between @sdate and @edate " &
+            "or sbeapActionLog.datCreationDate between @sdate and @edate) "
 
-            dsView = New DataSet
-            daView = New OracleDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daView.Fill(dsView, "ViewCount")
-            dgvCaseWork.DataSource = dsView
-            dgvCaseWork.DataMember = "ViewCount"
+            dgvCaseWork.DataSource = DB.GetDataTable(query, p)
 
             dgvCaseWork.RowHeadersVisible = False
             dgvCaseWork.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -475,56 +372,59 @@ Public Class SBEAPReports
             dgvCaseWork.Columns("StaffResponsible").DisplayIndex = 6
             dgvCaseWork.Columns("ComplaintBased").HeaderText = "Enforcement Based"
             dgvCaseWork.Columns("ComplaintBased").DisplayIndex = 7
+            dgvCaseWork.SanelyResizeColumns
 
             txtCount.Text = dgvCaseWork.RowCount.ToString
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub llbTotalCases_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbTotalCases.LinkClicked
+
+    Private Sub llbTotalCases_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbTotalCases.LinkClicked
         Try
-            SQL = "select AIRBRANCH.SBEAPCaseLog.numCaseID, " &
-            "AIRBRANCH.SBEAPClients.ClientID, strCompanyName, " &
+            Dim p As SqlParameter() = {
+                New SqlParameter("@sdate", DTPReportStartDate.Value),
+                New SqlParameter("@edate", DTPReportEndDate.Value)
+            }
+
+            Dim query As String = "select SBEAPCaseLog.numCaseID, " &
+            "SBEAPClients.ClientID, strCompanyName, " &
             "strCaseSummary, " &
-            "to_date(datCaseOpened, 'dd-Mon-RRRR') as datCaseOpened, " &
+            "datCaseOpened as datCaseOpened, " &
             "'Case Opened' as CountReason,  " &
-            "(strLastName|| ', ' ||strFirstName) as StaffResponsible  " &
-            "from AIRBRANCH.SBEAPCaseLog, AIRBRANCH.SBEAPClients, " &
-            "AIRBRANCH.SBEAPCaseLogLink, " &
-            "AIRBRANCH.EPDUserProfiles " &
-            "where AIRBRANCH.SBEAPCaseLog.numCaseID = AIRBRANCH.SBEAPCaseLogLink.numCaseID (+) " &
-            "and AIRBRANCH.SBEAPCaseLogLink.ClientID = AIRBRANCH.SbeapClients.CLientID (+) " &
-              "and AIRBRANCH.SBEAPCaseLog.numStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID (+) " &
-            "and datCaseOpened between '" & DTPReportStartDate.Text & "' and '" & DTPReportEndDate.Text & "' " &
+            "concat(strLastName, ', ' ,strFirstName) as StaffResponsible  " &
+            "from SBEAPCaseLog " &
+            "left join SBEAPCaseLogLink " &
+            "on SBEAPCaseLog.numCaseID = SBEAPCaseLogLink.numCaseID " &
+            "left join SBEAPClients " &
+            "on  SBEAPCaseLogLink.ClientID = SbeapClients.CLientID " &
+            "left join EPDUserProfiles " &
+            "on SBEAPCaseLog.numStaffResponsible = EPDUserProfiles.numUserID " &
+            "where datCaseOpened between @sdate and @edate " &
             "union " &
-            "select distinct(AIRBRANCH.SBEAPCaseLog.numCaseID), " &
-            "AIRBRANCH.SBEAPClients.ClientID, strCompanyName, " &
+            "select distinct(SBEAPCaseLog.numCaseID), " &
+            "SBEAPClients.ClientID, strCompanyName, " &
             "strCaseSummary, " &
             "datCaseOpened , " &
             "Case " &
-            "when datActionOccured between '" & DTPReportStartDate.Text & "' and '" & DTPReportEndDate.Text & "' then 'Action Occured' " &
-            "when datCaseClosed between '" & DTPReportStartDate.Text & "' and '" & DTPReportEndDate.Text & "' then 'Case Closed' " &
-            "end CountReason, (strLastName|| ', ' ||strFirstName) as StaffResponsible   " &
-            "from AIRBRANCH.SBEAPCaseLog, AIRBRANCH.SBEAPActionLog, " &
-            "AIRBRANCH.SBEAPCaseLogLink, AIRBRANCH.SBEAPClients, " &
-            "AIRBRANCH.EPDUserProfiles " &
-            "where AIRBRANCH.SBEAPCaseLog.numCaseID = AIRBRANCH.SBEAPActionLog.numCaseID " &
-            "and AIRBRANCH.SBEAPCaseLog.numCaseID = AIRBRANCH.SBEAPCaseLogLink.numCaseId (+) " &
-            "and AIRBRANCH.SBEAPCaseLogLink.ClientID = AIRBRANCH.SBEAPClients.ClientID (+) " &
-            "and AIRBRANCH.SBEAPCaseLog.numStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID (+) " &
-            "and datCaseOpened < '" & DTPReportStartDate.Text & "' " &
-            "and (datActionOccured between '" & DTPReportStartDate.Text & "' and '" & DTPReportEndDate.Text & "' " &
-            "or datCaseClosed between '" & DTPReportStartDate.Text & "' and '" & DTPReportEndDate.Text & "' " &
-            "or AIRBRANCH.sbeapActionLog.datCreationDate between '" & DTPReportStartDate.Text & "' and '" & DTPReportEndDate.Text & "') "
+            "when datActionOccured between @sdate and @edate then 'Action Occured' " &
+            "when datCaseClosed between @sdate and @edate then 'Case Closed' " &
+            "end CountReason, concat(strLastName, ', ' ,strFirstName) as StaffResponsible   " &
+            "from SBEAPCaseLog " &
+            "inner join SBEAPActionLog " &
+            "on SBEAPCaseLog.numCaseID = SBEAPActionLog.numCaseID " &
+            "left join SBEAPCaseLogLink " &
+            "on SBEAPCaseLog.numCaseID = SBEAPCaseLogLink.numCaseId " &
+            "left join SBEAPClients " &
+            "on SBEAPCaseLogLink.ClientID = SBEAPClients.ClientID " &
+            "left join EPDUserProfiles " &
+            "on SBEAPCaseLog.numStaffResponsible = EPDUserProfiles.numUserID " &
+            "where datCaseOpened < @sdate " &
+            "and (datActionOccured between @sdate and @edate " &
+            "or datCaseClosed between @sdate and @edate " &
+            "or sbeapActionLog.datCreationDate between @sdate and @edate) "
 
-            dsView = New DataSet
-            daView = New OracleDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daView.Fill(dsView, "ViewCount")
-            dgvCaseWork.DataSource = dsView
-            dgvCaseWork.DataMember = "ViewCount"
+            dgvCaseWork.DataSource = DB.GetDataTable(query, p)
 
             dgvCaseWork.RowHeadersVisible = False
             dgvCaseWork.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -549,38 +449,38 @@ Public Class SBEAPReports
             dgvCaseWork.Columns("numCaseID").DisplayIndex = 5
             dgvCaseWork.Columns("StaffResponsible").HeaderText = "Staff Responsible"
             dgvCaseWork.Columns("StaffResponsible").DisplayIndex = 6
-
+            dgvCaseWork.SanelyResizeColumns
 
             txtCount.Text = dgvCaseWork.RowCount.ToString
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub llbCasesClosed_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbCasesClosed.LinkClicked
-        Try
-            SQL = "select " &
-            "distinct(AIRBRANCH.SBEAPCaseLog.numCaseID), " &
-            "AIRBRANCH.SBEAPClients.clientID, strCompanyName, " &
-            "to_date(datCaseOpened, 'dd-Mon-RRRR') as datCaseOpened, " &
-            "strCaseSummary, " &
-            "(strLastName|| ', ' ||strFirstName) as StaffResponsible, " &
-            "datCaseClosed " &
-            "from AIRBRANCH.SBEAPCaseLog, AIRBRANCH.SBEAPCaseLogLink, " &
-            "AIRBRANCH.SBEAPClients, " &
-            "AIRBRANCH.EPDUserProfiles " &
-            "where AIRBRANCH.SBEAPCaseLog.numCaseID = AIRBRANCH.SBEAPCaseLogLink.numCaseID (+) " &
-            "and AIRBRANCH.SBEAPCaseLogLink.ClientID = AIRBRANCH.SBEAPClients.ClientID (+) " &
-            "and AIRBRANCH.SBEAPCaseLog.numStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID (+) " &
-            "and datCasecLosed between '" & DTPReportStartDate.Text & "' and '" & DTPReportEndDate.Text & "' "
 
-            dsView = New DataSet
-            daView = New OracleDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daView.Fill(dsView, "ViewCount")
-            dgvCaseWork.DataSource = dsView
-            dgvCaseWork.DataMember = "ViewCount"
+    Private Sub llbCasesClosed_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbCasesClosed.LinkClicked
+        Try
+            Dim p As SqlParameter() = {
+                New SqlParameter("@sdate", DTPReportStartDate.Value),
+                New SqlParameter("@edate", DTPReportEndDate.Value)
+            }
+
+            Dim query As String = "select " &
+            "distinct(SBEAPCaseLog.numCaseID), " &
+            "SBEAPClients.clientID, strCompanyName, " &
+            "datCaseOpened as datCaseOpened, " &
+            "strCaseSummary, " &
+            "concat(strLastName, ', ' ,strFirstName) as StaffResponsible, " &
+            "datCaseClosed " &
+            "from SBEAPCaseLog " &
+            "left join SBEAPCaseLogLink " &
+            "on SBEAPCaseLog.numCaseID = SBEAPCaseLogLink.numCaseID " &
+            "left join SBEAPClients " &
+            "on SBEAPCaseLogLink.ClientID = SBEAPClients.ClientID " &
+            "left join EPDUserProfiles " &
+            "on SBEAPCaseLog.numStaffResponsible = EPDUserProfiles.numUserID " &
+            "where datCasecLosed between @sdate and @edate "
+
+            dgvCaseWork.DataSource = DB.GetDataTable(query, p)
 
             dgvCaseWork.RowHeadersVisible = False
             dgvCaseWork.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -606,44 +506,47 @@ Public Class SBEAPReports
             dgvCaseWork.Columns("numCaseID").DisplayIndex = 5
             dgvCaseWork.Columns("StaffResponsible").HeaderText = "Staff Responsible"
             dgvCaseWork.Columns("StaffResponsible").DisplayIndex = 6
+            dgvCaseWork.SanelyResizeColumns
 
             txtCount.Text = dgvCaseWork.RowCount.ToString
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub llbFrontDestCalls_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbFrontDestCalls.LinkClicked
+
+    Private Sub llbFrontDestCalls_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbFrontDestCalls.LinkClicked
         Try
-            SQL = "select " &
-           "distinct(AIRBRANCH.SBEAPActionLog.numActionID), " &
-           "AIRBRANCH.sbeapCaseLog.numCaseID, " &
-           "AIRBRANCH.SBEAPClients.ClientID, " &
+            Dim p As SqlParameter() = {
+                New SqlParameter("@sdate", DTPReportStartDate.Value),
+                New SqlParameter("@edate", DTPReportEndDate.Value)
+            }
+
+            Dim query As String = "select " &
+           "distinct(SBEAPActionLog.numActionID), " &
+           "sbeapCaseLog.numCaseID, " &
+           "SBEAPClients.ClientID, " &
            "strCompanyName, strWorkDescription, " &
-           "to_date(datActionOccured, 'dd-Mon-RRRR') as datActionOccured, " &
-           "(strLastName|| ', ' ||strFirstName) as StaffResponsible     " &
-           "from AIRBRANCH.SBEAPActionLog, AIRBRANCH.LookUpSBEAPCaseWork, " &
-           "AIRBRANCH.SBEAPCaseLog, AIRBRANCH.SBEAPCaseLogLink, " &
-           "AIRBRANCH.SBEAPClients, AIRBRANCH.EPDUserProfiles,  " &
-           "AIRBRANCH.SBEAPPhoneLog " &
-           "where AIRBRANCH.SBEAPActionLog.numActionType = AIRBRANCH.LookUpSBEAPCaseWork.numActionType  " &
-           "and AIRBRANCH.SBEAPActionlog.numCaseID = AIRBRANCH.SBEAPCaseLog.numCaseID   " &
-           "and AIRBRANCH.SBEAPCaseLog.numCaseID = AIRBRANCH.SBEAPCaseLogLink.numCaseID (+) " &
-           "and AIRBRANCH.SBEAPCaseLogLink.ClientID = AIRBRANCH.SBEAPClients.ClientID  (+) " &
-           "and AIRBRANCH.SBEAPCaseLog.numStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID (+) " &
-           "and AIRBRANCH.SBEAPActionLog.numActionID = AIRBRANCH.SBEAPPhoneLog.numActionID " &
-           "and datActionOccured between '" & DTPReportStartDate.Text & "' and '" & DTPReportEndDate.Text & "' " &
-           "and AIRBRANCH.SBEAPActionLog.numActionType = '6' " &
+           "datActionOccured as datActionOccured, " &
+           "concat(strLastName, ', ' ,strFirstName) as StaffResponsible     " &
+           "from SBEAPActionLog " &
+           "inner join LookUpSBEAPCaseWork " &
+           "on SBEAPActionLog.numActionType = LookUpSBEAPCaseWork.numActionType  " &
+           "inner join SBEAPCaseLog " &
+           "on  SBEAPActionlog.numCaseID = SBEAPCaseLog.numCaseID   " &
+           "left join SBEAPCaseLogLink " &
+           "on SBEAPCaseLog.numCaseID = SBEAPCaseLogLink.numCaseID  " &
+           "left join SBEAPClients " &
+           "on SBEAPCaseLogLink.ClientID = SBEAPClients.ClientID  " &
+           "left join EPDUserProfiles  " &
+           "on SBEAPCaseLog.numStaffResponsible = EPDUserProfiles.numUserID  " &
+           "inner join SBEAPPhoneLog " &
+           "on SBEAPActionLog.numActionID = SBEAPPhoneLog.numActionID " &
+           "where datActionOccured between @sdate and @edate " &
+           "and SBEAPActionLog.numActionType = '6' " &
            "and strFrontDeskCall is not Null " &
            "and strFrontDeskCall = 'True' "
 
-            dsView = New DataSet
-            daView = New OracleDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daView.Fill(dsView, "ViewCount")
-            dgvCaseWork.DataSource = dsView
-            dgvCaseWork.DataMember = "ViewCount"
+            dgvCaseWork.DataSource = DB.GetDataTable(query, p)
 
             dgvCaseWork.RowHeadersVisible = False
             dgvCaseWork.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -669,40 +572,43 @@ Public Class SBEAPReports
             dgvCaseWork.Columns("numActionID").HeaderText = "Action ID"
             dgvCaseWork.Columns("numActionID").DisplayIndex = 6
             dgvCaseWork.Columns("numActionID").Visible = False
+            dgvCaseWork.SanelyResizeColumns
 
             txtCount.Text = dgvCaseWork.RowCount.ToString
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub llbTotalActions_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbTotalActions.LinkClicked
+
+    Private Sub llbTotalActions_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbTotalActions.LinkClicked
         Try
-            SQL = "select " &
-            "distinct(AIRBRANCH.SBEAPActionLog.numActionID), " &
-            "AIRBRANCH.sbeapCaseLog.numCaseID, " &
-            "AIRBRANCH.SBEAPClients.ClientID, " &
+            Dim p As SqlParameter() = {
+                New SqlParameter("@sdate", DTPReportStartDate.Value),
+                New SqlParameter("@edate", DTPReportEndDate.Value)
+            }
+
+            Dim query As String = "select " &
+            "distinct(SBEAPActionLog.numActionID), " &
+            "sbeapCaseLog.numCaseID, " &
+            "SBEAPClients.ClientID, " &
             "strCompanyName, strWorkDescription, " &
-            "to_date(datActionOccured, 'dd-Mon-RRRR') as datActionOccured, " &
-            "(strLastName|| ', ' ||strFirstName) as StaffResponsible     " &
-            "from AIRBRANCH.SBEAPActionLog, AIRBRANCH.LookUpSBEAPCaseWork, " &
-            "AIRBRANCH.SBEAPCaseLog, AIRBRANCH.SBEAPCaseLogLink, " &
-            "AIRBRANCH.SBEAPClients, AIRBRANCH.EPDUserProfiles  " &
-            "where AIRBRANCH.SBEAPActionLog.numActionType = AIRBRANCH.LookUpSBEAPCaseWork.numActionType  " &
-            "and AIRBRANCH.SBEAPActionlog.numCaseID = AIRBRANCH.SBEAPCaseLog.numCaseID   " &
-            "and AIRBRANCH.SBEAPCaseLog.numCaseID = AIRBRANCH.SBEAPCaseLogLink.numCaseID (+) " &
-            "and AIRBRANCH.SBEAPCaseLogLink.ClientID = AIRBRANCH.SBEAPClients.ClientID  (+) " &
-            "and AIRBRANCH.SBEAPCaseLog.numStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID (+) " &
-            "and datActionOccured between '" & DTPReportStartDate.Text & "' and '" & DTPReportEndDate.Text & "' "
+            "datActionOccured as datActionOccured, " &
+            "concat(strLastName, ', ' ,strFirstName) as StaffResponsible     " &
+            "from SBEAPActionLog " &
+            "inner join LookUpSBEAPCaseWork " &
+            "on SBEAPActionLog.numActionType = LookUpSBEAPCaseWork.numActionType  " &
+            "inner join SBEAPCaseLog " &
+            "on SBEAPActionlog.numCaseID = SBEAPCaseLog.numCaseID   " &
+            "left join SBEAPCaseLogLink " &
+            "on SBEAPCaseLog.numCaseID = SBEAPCaseLogLink.numCaseID " &
+            "left join SBEAPClients " &
+            "on SBEAPCaseLogLink.ClientID = SBEAPClients.ClientID  " &
+            "left join EPDUserProfiles  " &
+            "on SBEAPCaseLog.numStaffResponsible = EPDUserProfiles.numUserID  " &
+            "where datActionOccured between @sdate and @edate "
 
-            dsView = New DataSet
-            daView = New OracleDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daView.Fill(dsView, "ViewCount")
-            dgvCaseWork.DataSource = dsView
-            dgvCaseWork.DataMember = "ViewCount"
+            dgvCaseWork.DataSource = DB.GetDataTable(query, p)
 
             dgvCaseWork.RowHeadersVisible = False
             dgvCaseWork.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -731,60 +637,67 @@ Public Class SBEAPReports
 
             txtCount.Text = dgvCaseWork.RowCount.ToString
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub llbViewOther_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbActionTypes.LinkClicked
+
+    Private Sub llbViewOther_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbActionTypes.LinkClicked
         Try
+            Dim p As SqlParameter() = {
+                New SqlParameter("@sdate", DTPReportStartDate.Value),
+                New SqlParameter("@edate", DTPReportEndDate.Value),
+                New SqlParameter("@actiontype", cboActionTypes.SelectedValue)
+            }
+
+            Dim query As String
+
             If txtActionTypeCount.Text <> "" And txtActionTypeCount.Text <> "0" And txtActionTypeCount.Text <> " " Then
-                SQL = "select " &
-                "distinct(AIRBRANCH.SBEAPActionLog.numActionID), " &
-                "AIRBRANCH.sbeapCaseLog.numCaseID, " &
-                "AIRBRANCH.SBEAPClients.ClientID, " &
+                query = "select " &
+                "distinct(SBEAPActionLog.numActionID), " &
+                "sbeapCaseLog.numCaseID, " &
+                "SBEAPClients.ClientID, " &
                 "strCompanyName, strWorkDescription, " &
-                "to_date(datActionOccured, 'dd-Mon-RRRR') as datActionOccured, " &
-                "(strLastName|| ', ' ||strFirstName) as StaffResponsible, " &
+                "datActionOccured as datActionOccured, " &
+                "concat(strLastName, ', ' ,strFirstName) as StaffResponsible, " &
                 "strCaseSummary " &
-                "from AIRBRANCH.SBEAPActionLog, AIRBRANCH.LookUpSBEAPCaseWork, " &
-                "AIRBRANCH.SBEAPCaseLog, AIRBRANCH.SBEAPCaseLogLink, " &
-                "AIRBRANCH.SBEAPClients, AIRBRANCH.EPDUserProfiles  " &
-                "where AIRBRANCH.SBEAPActionLog.numActionType = AIRBRANCH.LookUpSBEAPCaseWork.numActionType  " &
-                "and AIRBRANCH.SBEAPActionlog.numCaseID = AIRBRANCH.SBEAPCaseLog.numCaseID   " &
-                "and AIRBRANCH.SBEAPCaseLog.numCaseID = AIRBRANCH.SBEAPCaseLogLink.numCaseID (+) " &
-                "and AIRBRANCH.SBEAPCaseLogLink.ClientID = AIRBRANCH.SBEAPClients.ClientID  (+) " &
-                "and AIRBRANCH.SBEAPCaseLog.numStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID (+) " &
-                "and datActionOccured between '" & DTPReportStartDate.Text & "' and '" & DTPReportEndDate.Text & "' " &
-                "and AIRBRANCH.SBEAPActionLog.numActionType = '" & cboActionTypes.SelectedValue & "' "
+                "from SBEAPActionLog " &
+                "inner join LookUpSBEAPCaseWork " &
+                "on SBEAPActionLog.numActionType = LookUpSBEAPCaseWork.numActionType  " &
+                "inner join SBEAPCaseLog " &
+                "on SBEAPActionlog.numCaseID = SBEAPCaseLog.numCaseID   " &
+                "left join SBEAPCaseLogLink " &
+                "on SBEAPCaseLog.numCaseID = SBEAPCaseLogLink.numCaseID " &
+                "left join SBEAPClients " &
+                "on SBEAPCaseLogLink.ClientID = SBEAPClients.ClientID   " &
+                "left join EPDUserProfiles  " &
+                "on SBEAPCaseLog.numStaffResponsible = EPDUserProfiles.numUserID  " &
+                "where datActionOccured between @sdate and @edate " &
+                "and SBEAPActionLog.numActionType = @actiontype "
             Else
-                SQL = "select " &
-              "distinct(AIRBRANCH.SBEAPActionLog.numActionID), " &
-              "AIRBRANCH.sbeapCaseLog.numCaseID, " &
-              "AIRBRANCH.SBEAPClients.ClientID, " &
-              "strCompanyName, strWorkDescription, " &
-              "to_date(datActionOccured, 'dd-Mon-RRRR') as datActionOccured, " &
-              "(strLastName|| ', ' ||strFirstName) as StaffResponsible, " &
-              "strCaseSummary " &
-              "from AIRBRANCH.SBEAPActionLog, AIRBRANCH.LookUpSBEAPCaseWork, " &
-              "AIRBRANCH.SBEAPCaseLog, AIRBRANCH.SBEAPCaseLogLink, " &
-              "AIRBRANCH.SBEAPClients, AIRBRANCH.EPDUserProfiles  " &
-              "where AIRBRANCH.SBEAPActionLog.numActionType = AIRBRANCH.LookUpSBEAPCaseWork.numActionType  " &
-              "and AIRBRANCH.SBEAPActionlog.numCaseID = AIRBRANCH.SBEAPCaseLog.numCaseID   " &
-              "and AIRBRANCH.SBEAPCaseLog.numCaseID = AIRBRANCH.SBEAPCaseLogLink.numCaseID (+) " &
-              "and AIRBRANCH.SBEAPCaseLogLink.ClientID = AIRBRANCH.SBEAPClients.ClientID  (+) " &
-              "and AIRBRANCH.SBEAPCaseLog.numStaffResponsible = AIRBRANCH.EPDUserProfiles.numUserID (+) " &
-              "and datActionOccured between '" & DTPReportStartDate.Text & "' and '" & DTPReportEndDate.Text & "' " &
-              "and AIRBRANCH.SBEAPActionLog.numActionType = '0' "
+                query = "select " &
+                "distinct(SBEAPActionLog.numActionID), " &
+                "sbeapCaseLog.numCaseID, " &
+                "SBEAPClients.ClientID, " &
+                "strCompanyName, strWorkDescription, " &
+                "datActionOccured, " &
+                "concat(strLastName, ', ' ,strFirstName) as StaffResponsible, " &
+                "strCaseSummary " &
+                "from SBEAPActionLog " &
+                "inner join LookUpSBEAPCaseWork " &
+                "on SBEAPActionLog.numActionType = LookUpSBEAPCaseWork.numActionType  " &
+                "inner join SBEAPCaseLog " &
+                "on SBEAPActionlog.numCaseID = SBEAPCaseLog.numCaseID   " &
+                "left join SBEAPCaseLogLink " &
+                "on SBEAPCaseLog.numCaseID = SBEAPCaseLogLink.numCaseID " &
+                "left join SBEAPClients " &
+                "on SBEAPCaseLogLink.ClientID = SBEAPClients.ClientID  " &
+                "left join EPDUserProfiles  " &
+                "on SBEAPCaseLog.numStaffResponsible = EPDUserProfiles.numUserID " &
+                "where datActionOccured between @sdate and @edate " &
+                "and SBEAPActionLog.numActionType = '0' "
             End If
 
-            dsView = New DataSet
-            daView = New OracleDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daView.Fill(dsView, "ViewCount")
-
-            dgvCaseWork.DataSource = dsView
-            dgvCaseWork.DataMember = "ViewCount"
+            dgvCaseWork.DataSource = DB.GetDataTable(query, p)
 
             dgvCaseWork.RowHeadersVisible = False
             dgvCaseWork.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -816,10 +729,11 @@ Public Class SBEAPReports
 
             txtCount.Text = dgvCaseWork.RowCount.ToString
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub dgvCaseWork_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvCaseWork.MouseUp
+
+    Private Sub dgvCaseWork_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvCaseWork.MouseUp
         Try
             Dim hti As DataGridView.HitTestInfo = dgvCaseWork.HitTest(e.X, e.Y)
             If dgvCaseWork.RowCount > 0 And hti.RowIndex <> -1 Then
@@ -833,56 +747,46 @@ Public Class SBEAPReports
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnExportToExcel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExportToExcel.Click
+
+    Private Sub btnExportToExcel_Click(sender As Object, e As EventArgs) Handles btnExportToExcel.Click
         dgvCaseWork.ExportToExcel(Me)
     End Sub
-    Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
-        Try
-            Dim cmd2 As OracleCommand
-            Dim dr2 As OracleDataReader
 
-            SQL = "Select " &
-            "numActionID, " &
-            "to_char(datCreationDate, 'dd-Mon-yyyy') as datCreationDate " &
-            "from AIRBranch.SBEAPActionLog " &
-            "where datActionoccured is null "
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        Dim query As String = "Select " &
+        "numActionID, " &
+        "datCreationDate " &
+        "from SBEAPActionLog " &
+        "where datActionoccured is null " &
+        " and datCreationDate is not null "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                If IsDBNull(dr.Item("datCreationDate")) Then
-                Else
-                    SQL2 = "Update AIRBranch.SBEAPActionLog set " &
-                    "datActionOccured = '" & dr.Item("datCreationDate") & "' " &
-                    "where numActionID = '" & dr.Item("numActionID") & "' "
-                    cmd2 = New OracleCommand(SQL2, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr2 = cmd2.ExecuteReader
-                    dr2.Close()
-                End If
-            End While
-            dr.Close()
+        Dim dr As DataRow = DB.GetDataRow(query)
 
-        Catch ex As Exception
+        If dr IsNot Nothing Then
+            query = "Update SBEAPActionLog set " &
+            "datActionOccured = @actiondate " &
+            "where numActionID = @actionid "
 
-        End Try
+            Dim p As SqlParameter() = {
+                New SqlParameter("@actiondate", dr.Item("datCreationDate")),
+                New SqlParameter("@actionid", dr.Item("numActionID"))
+            }
+
+            DB.RunCommand(query, p)
+        End If
     End Sub
-    Private Sub cboActionTypes_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles cboActionTypes.TextChanged
+
+    Private Sub cboActionTypes_TextChanged(sender As Object, e As EventArgs) Handles cboActionTypes.TextChanged
         Try
             If txtTotalActionCount.Text <> "" And txtTotalActionCount.Text <> "0" Then
                 If cboActionTypes.SelectedValue <> " " Then
                     txtActionTypeCount.Text = "1"
                     Dim drDSRow As DataRow
                     Dim temp As String = 0
-                    For Each drDSRow In dsAction.Tables("ActionCount").Select("numActionType = " & cboActionTypes.SelectedValue)
+                    For Each drDSRow In dtAction.Select("numActionType = " & cboActionTypes.SelectedValue)
                         If Not IsDBNull(drDSRow("Count")) Then
                             temp = drDSRow("Count")
                         Else
@@ -898,7 +802,7 @@ Public Class SBEAPReports
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 

@@ -71,6 +71,7 @@ Namespace Apb.Facilities
             <Description("Major")> A
             <Description("SM")> S
             <Description("None")> X
+            <Description("Mega-site")> M
         End Enum
 
 #End Region
@@ -155,6 +156,16 @@ Namespace Apb.Facilities
             None = 0
             <Description("NSR/PSD Major")> NsrMajor = 1
             <Description("HAPs Major")> HapMajor = 2
+        End Enum
+
+        ''' <summary>
+        ''' Air Programs (Rules) that have subparts
+        ''' </summary>
+        Public Enum RulePart
+            SIP
+            NSPS
+            NESHAP
+            MACT
         End Enum
 
 #End Region

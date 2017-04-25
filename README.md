@@ -1,22 +1,42 @@
 # Integrated Air Information Platform (IAIP)
 
+## SQL Server Fork
+
+This repository is a fork of the IAIP for the purpose of migrating the database back-end from Oracle to SQL Server. All of the original information below still applies, with the following additions to the branching model:
+
+* `ss-develop`: The main branch for all database migration work
+* `ss-master`: The stable branch for UAT releases
+* `ss-release/...`: Transient branches for preparation of UAT releases
+
+Published UAT releases (in the `ss-master` branch) should be tagged with `ss-version/...`. (See versioning section below.)
+
+Work done on production IAIP will routinely be pulled into this fork by merging from remote `iaip/develop` into `ss-develop`.
+
+### Versioning
+
+Version numbering of UAT releases from the SQL Server fork is completely independent of production IAIP versioning. UAT releases will be numbered "0.1", "0.2", etc. 
+
+At the completion of the project, all changes will be merged back into the production IAIP repository and be released as IAIP 5.0. See the [Go Live Plan](Go Live Plan.md) for more information.
+
+---
+
 ## Application
 
 The IAIP is a Windows Forms Application and currently targets the .NET Framework version 4.5.2. 
 
+## Prerequisites for developing
 
-## Prerequisites for building
-
-+ [Visual Studio](https://www.visualstudio.com/) 2015 or later
++ [Visual Studio](https://www.visualstudio.com/)
 
 + [Microsoft .NET Framework 4.5.2 Developer Pack](http://www.microsoft.com/en-us/download/details.aspx?id=42637)
 
-+ [SAP Crystal Reports, developer version for Microsoft Visual Studio](http://scn.sap.com/docs/DOC-7824), Support Pack 15 or later. Be sure to download the Install Executable, not an MSI.
++ [SAP Crystal Reports, developer version for Microsoft Visual Studio](https://wiki.scn.sap.com/wiki/display/BOBJ/Crystal+Reports%2C+Developer+for+Visual+Studio+Downloads) (Be sure to download the Install Executable, not an MSI.)
 
 + Some NuGet packages are required. They should be restored automatically. If not, open the NuGet Package Manager and click Restore to install them:
     - Oracle ODP.NET, Managed Driver
     - Telerik Analytics Monitor
 
+**Note:** Crystal Reports [does not yet support Visual Studio 2017](https://answers.sap.com/questions/68489/crystal-reports-for-visual-studio-2017-availabilit.html). Support is expected around June 2017. Until then [Visual Studio 2015](https://my.visualstudio.com/Downloads?pid=1881) must be used, but only when editing Crystal Reports documents.
 
 ## Setup
 

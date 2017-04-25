@@ -1,54 +1,115 @@
-﻿Imports Oracle.ManagedDataAccess.Client
-Imports Iaip.Apb.Sscp
+﻿Imports System.Data.SqlClient
+Imports EpdIt
 
 Namespace DAL.Sscp
 
     Module FacilityAssignments
 
-        Public Function FacilityAssignmentExists(ByVal airsNumber As String, ByVal targetYear As Integer) As Boolean
+        Public Function FacilityAssignmentYearExists(airsNumber As String, targetYear As Integer) As Boolean
             If Not Apb.ApbFacilityId.IsValidAirsNumberFormat(airsNumber) Then
                 Return False
             Else
-                Return FacilityAssignmentExists(CType(airsNumber, Apb.ApbFacilityId), targetYear)
+                Return FacilityAssignmentYearExists(CType(airsNumber, Apb.ApbFacilityId), targetYear)
             End If
         End Function
 
-        Public Function FacilityAssignmentExists(ByVal airsNumber As Apb.ApbFacilityId, ByVal targetYear As Integer) As Boolean
-            Dim query As String = "SELECT '" & Boolean.TrueString & "' " &
-                " FROM AIRBRANCH.SSCPINSPECTIONSREQUIRED " &
-                " WHERE RowNum = 1 " &
-                " AND INTYEAR = :year " &
-                " AND STRAIRSNUMBER = :airs "
+        Public Function FacilityAssignmentYearExists(airsNumber As Apb.ApbFacilityId, targetYear As Integer) As Boolean
+            Dim query As String = "SELECT CONVERT( bit, COUNT(*)) " &
+                " FROM SSCPINSPECTIONSREQUIRED " &
+                " WHERE INTYEAR = @year " &
+                " AND STRAIRSNUMBER = @airs "
 
-            Dim parameters As OracleParameter() = New OracleParameter() {
-                New OracleParameter("year", targetYear),
-                New OracleParameter("airs", airsNumber.DbFormattedString)
+            Dim parameters As SqlParameter() = New SqlParameter() {
+                New SqlParameter("@year", targetYear),
+                New SqlParameter("@airs", airsNumber.DbFormattedString)
             }
 
-            Dim result As String = DB.GetSingleValue(Of String)(query, parameters)
-            Return Convert.ToBoolean(result)
+            Return DB.GetBoolean(query, parameters)
         End Function
 
-        Public Function AssignmentYearExists(ByVal targetYear As Integer) As Boolean
-            Dim query As String = "SELECT '" & Boolean.TrueString & "' " &
-                " FROM AIRBRANCH.SSCPINSPECTIONSREQUIRED " &
-                " WHERE RowNum = 1 " &
-                " AND INTYEAR = :year "
-            Dim parameter As New OracleParameter("year", targetYear)
+        Public Function SetFacilityStaffAssignment(airsNumber As Apb.ApbFacilityId, targetYear As Integer, staffAssignee As Integer, mgrAssignor As Integer) As Boolean
+            Dim SQL As String
 
-            Dim result As String = DB.GetSingleValue(Of String)(query, parameter)
-            Return Convert.ToBoolean(result)
+            If FacilityAssignmentYearExists(airsNumber, targetYear) Then
+                SQL = "Update SSCPInspectionsRequired set " &
+                    "numSSCPEngineer = @user, " &
+                    "strAssigningManager = @mgr , " &
+                    "DATASSIGNINGDATE =  GETDATE()  " &
+                    "where strAIRSNumber = @airs " &
+                    "and intYear = @year "
+            Else
+                SQL = "Insert into SSCPInspectionsRequired " &
+                    "(numKey, strAIRSNumber, intYear, " &
+                    " numSSCPEngineer, strAssigningManager, " &
+                    " DATASSIGNINGDATE) " &
+                    "values " &
+                    "((select max(numKey) + 1 from SSCPInspectionsRequired), " &
+                    " @airs, @year, " &
+                    " @user, @mgr, " &
+                    " GETDATE() ) "
+            End If
+
+            Dim parameters As SqlParameter() = {
+                New SqlParameter("@user", staffAssignee),
+                New SqlParameter("@mgr", mgrAssignor),
+                New SqlParameter("@airs", airsNumber.DbFormattedString),
+                New SqlParameter("@year", targetYear)
+            }
+
+            Return DB.RunCommand(SQL, parameters, forceAddNullableParameters:=True)
         End Function
 
-        Public Function DeleteAssignmentYear(ByVal targetYear As Integer) As Boolean
-            Dim query As String = " DELETE FROM AIRBRANCH.SSCPINSPECTIONSREQUIRED " &
-                " WHERE INTYEAR = :year "
-            Dim parameter As New OracleParameter("year", targetYear)
+        Public Function SetFacilityUnitAssignment(airsNumber As Apb.ApbFacilityId, targetYear As Integer, unitAssignee As Integer, mgrAssignor As Integer) As Boolean
+            Dim SQL As String
+
+            If FacilityAssignmentYearExists(airsNumber, targetYear) Then
+                SQL = "Update SSCPInspectionsRequired set " &
+                    "numSSCPUnit = @unit, " &
+                    "strAssigningManager = @mgr , " &
+                    "DATASSIGNINGDATE =  GETDATE()  " &
+                    "where strAIRSNumber = @airs " &
+                    "and intYear = @year "
+            Else
+                SQL = "Insert into SSCPInspectionsRequired " &
+                    "(numKey, strAIRSNumber, intYear, " &
+                    " numSSCPUnit, strAssigningManager, " &
+                    " DATASSIGNINGDATE) " &
+                    "values " &
+                    "((select max(numKey) + 1 from SSCPInspectionsRequired), " &
+                    " @airs, @year, " &
+                    " @unit, @mgr, " &
+                    " GETDATE() ) "
+            End If
+
+            Dim parameters As SqlParameter() = {
+                New SqlParameter("@unit", unitAssignee),
+                New SqlParameter("@mgr", mgrAssignor),
+                New SqlParameter("@airs", airsNumber.DbFormattedString),
+                New SqlParameter("@year", targetYear)
+            }
+
+            Return DB.RunCommand(SQL, parameters, forceAddNullableParameters:=True)
+        End Function
+
+        Public Function AssignmentYearExists(targetYear As Integer) As Boolean
+            Dim query As String = "SELECT CONVERT( bit, COUNT(*)) " &
+                " FROM SSCPINSPECTIONSREQUIRED " &
+                " WHERE INTYEAR = @year "
+
+            Dim parameter As New SqlParameter("@year", targetYear)
+
+            Return DB.GetBoolean(query, parameter)
+        End Function
+
+        Public Function DeleteAssignmentYear(targetYear As Integer) As Boolean
+            Dim query As String = " DELETE FROM SSCPINSPECTIONSREQUIRED " &
+                " WHERE INTYEAR = @year "
+            Dim parameter As New SqlParameter("@year", targetYear)
 
             Return DB.RunCommand(query, parameter)
         End Function
 
-        Public Function CopyAssignmentYear(ByVal oldYear As Integer, ByVal targetYear As Integer) As Integer
+        Public Function CopyAssignmentYear(oldYear As Integer, targetYear As Integer) As Integer
             ' I realize this Function is horrible and should be moved into a Stored Procedure,
             ' but the expected number of times this Function will be called in the life of this 
             ' application is approximately one (plus or minus one). It is not worth the extra
@@ -58,20 +119,21 @@ Namespace DAL.Sscp
             Dim recordsInserted As Integer = 0
 
             Dim query1 As String = " SELECT   STRAIRSNUMBER " &
-                "  FROM AIRBRANCH.SSCPINSPECTIONSREQUIRED " &
-                "  WHERE INTYEAR = :oldYear " &
+                "  FROM SSCPINSPECTIONSREQUIRED " &
+                "  WHERE INTYEAR = @oldYear " &
                 "  ORDER BY STRAIRSNUMBER "
-            Dim parameter1 As New OracleParameter("oldYear", oldYear)
+            Dim parameter1 As New SqlParameter("@oldYear", oldYear)
             Dim dataTable As DataTable = DB.GetDataTable(query1, parameter1)
 
             If dataTable IsNot Nothing AndAlso dataTable.Rows.Count > 0 Then
                 For Each row As DataRow In dataTable.Rows
-                    Dim airsNumberString As String = DB.GetNullable(Of String)(row("STRAIRSNUMBER"))
+                    Dim airsNumberString As String = DBUtilities.GetNullable(Of String)(row("STRAIRSNUMBER"))
+
                     If Apb.ApbFacilityId.IsValidAirsNumberFormat(airsNumberString) AndAlso
-                    Not FacilityAssignmentExists(airsNumberString, targetYear) Then
+                    Not FacilityAssignmentYearExists(airsNumberString, targetYear) Then
 
                         Dim query2 As String = "INSERT " &
-                            "  INTO AIRBRANCH.SSCPINSPECTIONSREQUIRED " &
+                            "  INTO SSCPINSPECTIONSREQUIRED " &
                             "    ( " &
                             "      NUMKEY " &
                             "    , STRAIRSNUMBER " &
@@ -84,24 +146,24 @@ Namespace DAL.Sscp
                             "    , DATASSIGNINGDATE " &
                             "    ) " &
                             " SELECT " &
-                            "    (SELECT MAX(NUMKEY) + 1 FROM AIRBRANCH.SSCPINSPECTIONSREQUIRED " &
+                            "    (SELECT MAX(NUMKEY) + 1 FROM SSCPINSPECTIONSREQUIRED " &
                             "    ) AS NEWKEY " &
                             "  , STRAIRSNUMBER " &
-                            "  , :targetyear " &
+                            "  , @targetyear " &
                             "  , NUMSSCPENGINEER " &
                             "  , NUMSSCPUNIT " &
                             "  , STRINSPECTIONREQUIRED " &
                             "  , STRFCEREQUIRED " &
                             "  , STRASSIGNINGMANAGER " &
                             "  , DATASSIGNINGDATE " &
-                            "  FROM AIRBRANCH.SSCPINSPECTIONSREQUIRED " &
-                            "  WHERE INTYEAR       = :oldyear " &
-                            "    AND STRAIRSNUMBER = :airsnumber "
+                            "  FROM SSCPINSPECTIONSREQUIRED " &
+                            "  WHERE INTYEAR       = @oldyear " &
+                            "    AND STRAIRSNUMBER = @airsnumber "
 
-                        Dim parameters2 As OracleParameter() = New OracleParameter() {
-                            New OracleParameter("targetyear", targetYear) _
-                            , New OracleParameter("oldyear", oldYear) _
-                            , New OracleParameter("airsnumber", airsNumberString)
+                        Dim parameters2 As SqlParameter() = New SqlParameter() {
+                            New SqlParameter("@targetyear", targetYear) _
+                            , New SqlParameter("@oldyear", oldYear) _
+                            , New SqlParameter("@airsnumber", airsNumberString)
                         }
 
                         Dim recordInserted As Integer = 0

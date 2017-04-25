@@ -1,6 +1,6 @@
-﻿Imports Oracle.ManagedDataAccess.Client
+﻿Imports System.Data.SqlClient
 Imports Iaip.Dmu
-Imports System.Collections.Generic
+Imports EpdIt
 
 Namespace DAL.Dmu
 
@@ -13,30 +13,23 @@ Namespace DAL.Dmu
         ''' </summary>
         ''' <param name="errorCode">The EDT Error Code to retrieve information about</param>
         ''' <returns>An EdtErrorMessage object</returns>
-        Public Function GetErrorMessageDetail(ByVal errorCode As String) As EdtErrorMessage
+        Public Function GetErrorMessageDetail(errorCode As String) As EdtErrorMessage
             Dim em As New EdtErrorMessage
-            Dim spName As String = "AIRBRANCH.ICIS_EDT.GetErrorMessageDetail"
-            Dim parameters As OracleParameter() = {
-                New OracleParameter("ERRORCODE", OracleDbType.Varchar2, errorCode, ParameterDirection.Input),
-                New OracleParameter("ERRORMESSAGE", OracleDbType.Varchar2, 4000, Nothing, ParameterDirection.Output),
-                New OracleParameter("CATEGORY", OracleDbType.Varchar2, 100, Nothing, ParameterDirection.Output),
-                New OracleParameter("BUSINESSRULECODE", OracleDbType.Varchar2, 10, Nothing, ParameterDirection.Output),
-                New OracleParameter("BUSINESSRULE", OracleDbType.Varchar2, 4000, Nothing, ParameterDirection.Output),
-                New OracleParameter("DefaultUserID", OracleDbType.Int32, 22, Nothing, ParameterDirection.Output),
-                New OracleParameter("DefaultUserName", OracleDbType.Varchar2, 202, Nothing, ParameterDirection.Output)
-            }
+            Dim spName As String = "icis_edt.GetErrorMessageDetail"
 
-            Dim result As Boolean = DB.SPRunCommand(spName, parameters)
+            Dim parameter As New SqlParameter("@ErrorCode", errorCode)
 
-            If result Then
+            Dim dr As DataRow = DB.SPGetDataRow(spName, parameter)
+
+            If dr IsNot Nothing Then
                 With em
                     .ErrorCode = errorCode
-                    .ErrorMessage = DB.GetNullable(Of String)(parameters(1).Value.ToString)
-                    .ErrorCategory = DB.GetNullable(Of String)(parameters(2).Value.ToString)
-                    .BusinessRuleCode = DB.GetNullable(Of String)(parameters(3).Value.ToString)
-                    .BusinessRuleMessage = DB.GetNullable(Of String)(parameters(4).Value.ToString)
-                    .DefaultUserID = DB.GetNullable(Of Integer)(parameters(5).Value.ToString)
-                    .DefaultUserName = DB.GetNullable(Of String)(parameters(6).Value.ToString)
+                    .ErrorMessage = DBUtilities.GetNullable(Of String)(dr("ErrorMessage"))
+                    .ErrorCategory = DBUtilities.GetNullable(Of String)(dr("ErrorCategory"))
+                    .BusinessRuleCode = DBUtilities.GetNullable(Of String)(dr("BusinessRuleCode"))
+                    .BusinessRuleMessage = DBUtilities.GetNullable(Of String)(dr("BusinessRuleMessage"))
+                    .DefaultUserID = DBUtilities.GetNullable(Of Integer)(dr("DefaultUserID"))
+                    .DefaultUserName = DBUtilities.GetNullable(Of String)(dr("DefaultUserName"))
                 End With
             End If
 
@@ -49,9 +42,9 @@ Namespace DAL.Dmu
         ''' </summary>
         ''' <param name="userID">The user ID for which to return error counts</param>
         ''' <returns>A DataTable</returns>
-        Public Function GetErrorCounts(ByVal userID As Integer) As DataTable
-            Dim spName As String = "AIRBRANCH.ICIS_EDT.GetErrorCounts"
-            Dim parameter As OracleParameter = New OracleParameter("userID", userID)
+        Public Function GetErrorCounts(userID As Integer) As DataTable
+            Dim spName As String = "icis_edt.GetErrorCounts"
+            Dim parameter As SqlParameter = New SqlParameter("@userID", userID)
             Return DB.SPGetDataTable(spName, parameter)
         End Function
 
@@ -60,9 +53,9 @@ Namespace DAL.Dmu
         ''' </summary>
         ''' <param name="errorCode">The Error Code for which to return errors</param>
         ''' <returns>A DataTable</returns>
-        Public Function GetErrors(ByVal errorCode As String) As DataTable
-            Dim spName As String = "AIRBRANCH.ICIS_EDT.GetErrors"
-            Dim parameter As OracleParameter = New OracleParameter("errorCode", errorCode)
+        Public Function GetErrors(errorCode As String) As DataTable
+            Dim spName As String = "icis_edt.GetErrors"
+            Dim parameter As SqlParameter = New SqlParameter("@ErrorCode", errorCode)
             Return DB.SPGetDataTable(spName, parameter)
         End Function
 
@@ -71,11 +64,11 @@ Namespace DAL.Dmu
         ''' </summary>
         ''' <param name="errorID">The Error ID to retrieve</param>
         ''' <returns>An EdtError Object</returns>
-        Public Function GetErrorDetail(ByVal errorID As String) As EdtError
+        Public Function GetErrorDetail(errorID As String) As EdtError
             Dim er As EdtError = Nothing
 
-            Dim spName As String = "AIRBRANCH.ICIS_EDT.GetErrorDetail"
-            Dim parameter As OracleParameter = New OracleParameter("errorID", errorID)
+            Dim spName As String = "icis_edt.GetErrorDetail"
+            Dim parameter As SqlParameter = New SqlParameter("@errorId", errorID)
 
             Dim dt As DataTable = DB.SPGetDataTable(spName, parameter)
 
@@ -87,42 +80,42 @@ Namespace DAL.Dmu
             Return er
         End Function
 
-        Private Function MakeEdtErrorDetailFrom(ByVal row As DataRow) As EdtError
+        Private Function MakeEdtErrorDetailFrom(row As DataRow) As EdtError
             If row Is Nothing Then Return Nothing
 
             Dim es As New EdtSubmission
             With es
-                .EdtForeignKeyID = DB.GetNullable(Of String)(row("FOREIGNKEY"))
-                .EdtID = DB.GetNullable(Of String)(row("EdtID"))
-                .EdtOperation = DB.GetNullable(Of String)(row("OPERATION"))
-                .EdtStatus = DB.GetNullable(Of String)(row("STATUS"))
-                .EdtSubmitDate = DB.GetNullable(Of Date)(row("SUBMITDATE"))
-                .EdtTableName = DB.GetNullable(Of String)(row("TABLENAME"))
-                .IaipID = DB.GetNullable(Of String)(row("IAIPID"))
-                [Enum].TryParse(DB.GetNullable(Of String)(row("IAIPIDCATEGORY")), .IaipIDCategory)
-                .IaipForeignID = DB.GetNullable(Of String)(row("IAIPFOREIGNID"))
-                [Enum].TryParse(DB.GetNullable(Of String)(row("IAIPFOREIGNIDCATEGORY")), .IaipForeignIDCategory)
+                .EdtForeignKeyID = DBUtilities.GetNullable(Of String)(row("FOREIGNKEY"))
+                .EdtID = DBUtilities.GetNullable(Of String)(row("EdtID"))
+                .EdtOperation = DBUtilities.GetNullable(Of String)(row("OPERATION"))
+                .EdtStatus = DBUtilities.GetNullable(Of String)(row("STATUS"))
+                .EdtSubmitDate = DBUtilities.GetNullable(Of Date)(row("SUBMITDATE"))
+                .EdtTableName = DBUtilities.GetNullable(Of String)(row("TABLENAME"))
+                .IaipID = DBUtilities.GetNullable(Of String)(row("IAIPID"))
+                [Enum].TryParse(DBUtilities.GetNullable(Of String)(row("IAIPIDCATEGORY")), .IaipIDCategory)
+                .IaipForeignID = DBUtilities.GetNullable(Of String)(row("IAIPFOREIGNID"))
+                [Enum].TryParse(DBUtilities.GetNullable(Of String)(row("IAIPFOREIGNIDCATEGORY")), .IaipForeignIDCategory)
             End With
 
             Dim em As New EdtErrorMessage
             With em
-                .BusinessRuleCode = DB.GetNullable(Of String)(row("BUSINESSRULECODE"))
-                .BusinessRuleMessage = DB.GetNullable(Of String)(row("BUSINESSRULE"))
-                .ErrorCategory = DB.GetNullable(Of String)(row("CATEGORY"))
-                .ErrorCode = DB.GetNullable(Of String)(row("ERRORCODE"))
-                .ErrorMessage = DB.GetNullable(Of String)(row("ERRORMESSAGE"))
+                .BusinessRuleCode = DBUtilities.GetNullable(Of String)(row("BUSINESSRULECODE"))
+                .BusinessRuleMessage = DBUtilities.GetNullable(Of String)(row("BUSINESSRULE"))
+                .ErrorCategory = DBUtilities.GetNullable(Of String)(row("CATEGORY"))
+                .ErrorCode = DBUtilities.GetNullable(Of String)(row("ERRORCODE"))
+                .ErrorMessage = DBUtilities.GetNullable(Of String)(row("ERRORMESSAGE"))
             End With
 
             Dim er As New EdtError
             With er
-                .AssignedToUserID = DB.GetNullable(Of Integer)(row("ASSIGNEDTOUSER"))
-                .EdtErrorMessageDetail = DB.GetNullable(Of String)(row("STATUSDETAIL"))
+                .AssignedToUserID = DBUtilities.GetNullable(Of Integer)(row("ASSIGNEDTOUSER"))
+                .EdtErrorMessageDetail = DBUtilities.GetNullable(Of String)(row("STATUSDETAIL"))
                 .EdtSubmission = es
                 .ErrorMessage = em
-                .Resolved = Convert.ToBoolean(DB.GetNullable(Of String)(row("RESOLVED")))
-                .ResolvedByUserID = DB.GetNullable(Of Integer)(row("RESOLVEDBYUSERID"))
-                .ResolvedByUserName = DB.GetNullable(Of String)(row("ResolvedByUserName"))
-                .ResolvedDate = DB.GetNullable(Of Date)(row("RESOLVEDDATE"))
+                .Resolved = Convert.ToBoolean(DBUtilities.GetNullable(Of String)(row("RESOLVED")))
+                .ResolvedByUserID = DBUtilities.GetNullable(Of Integer)(row("RESOLVEDBYUSERID"))
+                .ResolvedByUserName = DBUtilities.GetNullable(Of String)(row("ResolvedByUserName"))
+                .ResolvedDate = DBUtilities.GetNullable(Of Date)(row("RESOLVEDDATE"))
             End With
 
             Return er
@@ -138,12 +131,12 @@ Namespace DAL.Dmu
         ''' <param name="errorCode">The EDT error code for which to specify the default user</param>
         ''' <param name="defaultUserID">The User ID to set as the default for the error code</param>
         ''' <returns>True if the action was successful; otherwise false</returns>
-        Public Function SetDefaultUser(ByVal errorCode As String, ByVal defaultUserID As Integer) As Boolean
-            Dim spName As String = "AIRBRANCH.ICIS_EDT.SetDefaultUser"
+        Public Function SetDefaultUser(errorCode As String, defaultUserID As Integer) As Boolean
+            Dim spName As String = "icis_edt.SetDefaultUser"
 
-            Dim parameters As OracleParameter() = { _
-                New OracleParameter("ErrorCode", errorCode), _
-                New OracleParameter("UserID", defaultUserID) _
+            Dim parameters As SqlParameter() = {
+                New SqlParameter("@ErrorCode", errorCode),
+                New SqlParameter("@UserId", defaultUserID)
             }
 
             Return DB.SPRunCommand(spName, parameters)
@@ -155,7 +148,7 @@ Namespace DAL.Dmu
         ''' <param name="resolved">True to set as resolved; false to set as open</param>
         ''' <param name="errorID">The EDT error ID</param>
         ''' <returns>True if the action was successful; otherwise false</returns>
-        Public Function SetResolvedStatus(ByVal resolved As Boolean, ByVal errorID As Integer) As Boolean
+        Public Function SetResolvedStatus(resolved As Boolean, errorID As Integer) As Boolean
             Dim errorIDs As Integer() = {errorID}
             Return SetResolvedStatus(resolved, errorIDs)
         End Function
@@ -166,22 +159,14 @@ Namespace DAL.Dmu
         ''' <param name="resolved">True to set as resolved; false to set as open</param>
         ''' <param name="errorIDs">An array of EDT error IDs to modify</param>
         ''' <returns>True if the action was successful; otherwise false</returns>
-        Public Function SetResolvedStatus(ByVal resolved As Boolean, ByVal errorIDs As Integer()) As Boolean
-            Dim spName As String = "AIRBRANCH.ICIS_EDT.SetResolvedStatus"
+        Public Function SetResolvedStatus(resolved As Boolean, errorIDs As Integer()) As Boolean
+            Dim spName As String = "icis_edt.SetResolvedStatus"
 
-            Dim p1 As OracleParameter = New OracleParameter("Resolved", resolved.ToString)
-
-            Dim p2 As OracleParameter = New OracleParameter("UserID", CurrentUser.UserID)
-
-            Dim p3 As New OracleParameter
-            p3.ParameterName = "ErrorIdArray"
-            p3.OracleDbType = OracleDbType.Int32
-            p3.Direction = ParameterDirection.Input
-            p3.CollectionType = OracleCollectionType.PLSQLAssociativeArray
-            p3.Value = errorIDs
-            p3.Size = errorIDs.Length
-
-            Dim parameters As OracleParameter() = {p1, p2, p3}
+            Dim parameters As SqlParameter() = {
+                New SqlParameter("@Resolved", resolved.ToString),
+                New SqlParameter("@UserId", CurrentUser.UserID),
+                errorIDs.AsTvpSqlParameter("@ErrorIdArray")
+            }
 
             Return DB.SPRunCommand(spName, parameters)
         End Function
@@ -192,7 +177,7 @@ Namespace DAL.Dmu
         ''' <param name="userId">The user ID of the user assigned to the error</param>
         ''' <param name="errorID">The EDT error ID to modify</param>
         ''' <returns>True if the action was successful; otherwise false</returns>
-        Public Function AssignErrorToUser(ByVal userId As Integer, ByVal errorID As Integer) As Boolean
+        Public Function AssignErrorToUser(userId As Integer, errorID As Integer) As Boolean
             Dim errorIDs As Integer() = {errorID}
             Return AssignErrorToUser(userId, errorIDs)
         End Function
@@ -203,20 +188,13 @@ Namespace DAL.Dmu
         ''' <param name="userId">The user ID of the user assigned to the errors</param>
         ''' <param name="errorIDs">An array of EDT error IDs to modify</param>
         ''' <returns>True if the action was successful; otherwise false</returns>
-        Public Function AssignErrorToUser(ByVal userId As Integer, ByVal errorIDs As Integer()) As Boolean
-            Dim spName As String = "AIRBRANCH.ICIS_EDT.AssignErrors"
+        Public Function AssignErrorToUser(userId As Integer, errorIDs As Integer()) As Boolean
+            Dim spName As String = "icis_edt.AssignErrors"
 
-            Dim p1 As OracleParameter = New OracleParameter("UserID", userId)
-
-            Dim p2 As New OracleParameter
-            p2.ParameterName = "ErrorIdArray"
-            p2.OracleDbType = OracleDbType.Int32
-            p2.Direction = ParameterDirection.Input
-            p2.CollectionType = OracleCollectionType.PLSQLAssociativeArray
-            p2.Value = errorIDs
-            p2.Size = errorIDs.Length
-
-            Dim parameters As OracleParameter() = {p1, p2}
+            Dim parameters As SqlParameter() = {
+                New SqlParameter("@UserId", userId),
+                errorIDs.AsTvpSqlParameter("ErrorIdArray")
+            }
 
             Return DB.SPRunCommand(spName, parameters)
         End Function

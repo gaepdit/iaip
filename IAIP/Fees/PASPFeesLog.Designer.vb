@@ -22,42 +22,41 @@ Partial Class PASPFeesLog
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.GroupBox1 = New System.Windows.Forms.GroupBox
-        Me.btnExportToExcel = New System.Windows.Forms.Button
-        Me.txtResultsCount = New System.Windows.Forms.TextBox
-        Me.Label8 = New System.Windows.Forms.Label
-        Me.dtpEndShutDown = New System.Windows.Forms.DateTimePicker
-        Me.Label6 = New System.Windows.Forms.Label
-        Me.dtpStartShutDown = New System.Windows.Forms.DateTimePicker
-        Me.chbShutdown = New System.Windows.Forms.CheckBox
-        Me.chbOwesFees = New System.Windows.Forms.CheckBox
-        Me.GroupBox4 = New System.Windows.Forms.GroupBox
-        Me.chbSeasonal = New System.Windows.Forms.CheckBox
-        Me.chbTempClosed = New System.Windows.Forms.CheckBox
-        Me.chbClosed = New System.Windows.Forms.CheckBox
-        Me.chbConstruction = New System.Windows.Forms.CheckBox
-        Me.chbPlanned = New System.Windows.Forms.CheckBox
-        Me.chbOperating = New System.Windows.Forms.CheckBox
-        Me.GroupBox3 = New System.Windows.Forms.GroupBox
-        Me.Label7 = New System.Windows.Forms.Label
-        Me.mtbSearchAirsNumber = New System.Windows.Forms.MaskedTextBox
-        Me.txtSearchFacilityName = New System.Windows.Forms.TextBox
-        Me.Label1 = New System.Windows.Forms.Label
-        Me.txtInvoice = New System.Windows.Forms.TextBox
-        Me.Label5 = New System.Windows.Forms.Label
-        Me.GroupBox2 = New System.Windows.Forms.GroupBox
-        Me.clbFeeYear = New System.Windows.Forms.CheckedListBox
-        Me.btnRunFilter = New System.Windows.Forms.Button
-        Me.TabControl1 = New System.Windows.Forms.TabControl
-        Me.TPFacilitySpecific = New System.Windows.Forms.TabPage
-        Me.mtbSelectedFeeYear = New System.Windows.Forms.MaskedTextBox
-        Me.mtbSelectedAIRSNumber = New System.Windows.Forms.MaskedTextBox
-        Me.btnOpenFeeWorkTool = New System.Windows.Forms.Button
-        Me.Label4 = New System.Windows.Forms.Label
-        Me.txtSelectedFacilityName = New System.Windows.Forms.TextBox
-        Me.Label3 = New System.Windows.Forms.Label
-        Me.Label2 = New System.Windows.Forms.Label
-        Me.dgvExistingYearAdmin = New System.Windows.Forms.DataGridView
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.btnExportToExcel = New System.Windows.Forms.Button()
+        Me.txtResultsCount = New System.Windows.Forms.TextBox()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.dtpEndShutDown = New System.Windows.Forms.DateTimePicker()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.dtpStartShutDown = New System.Windows.Forms.DateTimePicker()
+        Me.chbShutdown = New System.Windows.Forms.CheckBox()
+        Me.chbOwesFees = New System.Windows.Forms.CheckBox()
+        Me.GroupBox4 = New System.Windows.Forms.GroupBox()
+        Me.chbSeasonal = New System.Windows.Forms.CheckBox()
+        Me.chbTempClosed = New System.Windows.Forms.CheckBox()
+        Me.chbClosed = New System.Windows.Forms.CheckBox()
+        Me.chbConstruction = New System.Windows.Forms.CheckBox()
+        Me.chbPlanned = New System.Windows.Forms.CheckBox()
+        Me.chbOperating = New System.Windows.Forms.CheckBox()
+        Me.GroupBox3 = New System.Windows.Forms.GroupBox()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.mtbSearchAirsNumber = New System.Windows.Forms.MaskedTextBox()
+        Me.txtSearchFacilityName = New System.Windows.Forms.TextBox()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.clbFeeYear = New System.Windows.Forms.CheckedListBox()
+        Me.btnRunFilter = New System.Windows.Forms.Button()
+        Me.TabControl1 = New System.Windows.Forms.TabControl()
+        Me.TPFacilitySpecific = New System.Windows.Forms.TabPage()
+        Me.mtbSelectedFeeYear = New System.Windows.Forms.MaskedTextBox()
+        Me.mtbSelectedAIRSNumber = New System.Windows.Forms.MaskedTextBox()
+        Me.btnOpenFeeWorkTool = New System.Windows.Forms.Button()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.txtSelectedFacilityName = New System.Windows.Forms.TextBox()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.dgvExistingYearAdmin = New System.Windows.Forms.DataGridView()
+        Me.chbShowInvoices = New System.Windows.Forms.CheckBox()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
@@ -76,6 +75,7 @@ Partial Class PASPFeesLog
         Me.GroupBox1.Controls.Add(Me.Label6)
         Me.GroupBox1.Controls.Add(Me.dtpStartShutDown)
         Me.GroupBox1.Controls.Add(Me.chbShutdown)
+        Me.GroupBox1.Controls.Add(Me.chbShowInvoices)
         Me.GroupBox1.Controls.Add(Me.chbOwesFees)
         Me.GroupBox1.Controls.Add(Me.GroupBox4)
         Me.GroupBox1.Controls.Add(Me.GroupBox3)
@@ -85,7 +85,7 @@ Partial Class PASPFeesLog
         Me.GroupBox1.Dock = System.Windows.Forms.DockStyle.Top
         Me.GroupBox1.Location = New System.Drawing.Point(0, 0)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(792, 241)
+        Me.GroupBox1.Size = New System.Drawing.Size(720, 241)
         Me.GroupBox1.TabIndex = 3
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Filter and Sort Options"
@@ -122,7 +122,7 @@ Partial Class PASPFeesLog
         '
         Me.dtpEndShutDown.CustomFormat = "dd-MMM-yyyy"
         Me.dtpEndShutDown.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpEndShutDown.Location = New System.Drawing.Point(323, 210)
+        Me.dtpEndShutDown.Location = New System.Drawing.Point(319, 214)
         Me.dtpEndShutDown.Name = "dtpEndShutDown"
         Me.dtpEndShutDown.Size = New System.Drawing.Size(100, 20)
         Me.dtpEndShutDown.TabIndex = 452
@@ -130,7 +130,7 @@ Partial Class PASPFeesLog
         'Label6
         '
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(292, 214)
+        Me.Label6.Location = New System.Drawing.Point(288, 216)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(25, 13)
         Me.Label6.TabIndex = 7
@@ -140,7 +140,7 @@ Partial Class PASPFeesLog
         '
         Me.dtpStartShutDown.CustomFormat = "dd-MMM-yyyy"
         Me.dtpStartShutDown.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpStartShutDown.Location = New System.Drawing.Point(186, 211)
+        Me.dtpStartShutDown.Location = New System.Drawing.Point(182, 214)
         Me.dtpStartShutDown.Name = "dtpStartShutDown"
         Me.dtpStartShutDown.Size = New System.Drawing.Size(100, 20)
         Me.dtpStartShutDown.TabIndex = 451
@@ -148,7 +148,7 @@ Partial Class PASPFeesLog
         'chbShutdown
         '
         Me.chbShutdown.AutoSize = True
-        Me.chbShutdown.Location = New System.Drawing.Point(16, 213)
+        Me.chbShutdown.Location = New System.Drawing.Point(12, 215)
         Me.chbShutdown.Name = "chbShutdown"
         Me.chbShutdown.Size = New System.Drawing.Size(164, 17)
         Me.chbShutdown.TabIndex = 8
@@ -158,7 +158,7 @@ Partial Class PASPFeesLog
         'chbOwesFees
         '
         Me.chbOwesFees.AutoSize = True
-        Me.chbOwesFees.Location = New System.Drawing.Point(16, 188)
+        Me.chbOwesFees.Location = New System.Drawing.Point(12, 192)
         Me.chbOwesFees.Name = "chbOwesFees"
         Me.chbOwesFees.Size = New System.Drawing.Size(182, 17)
         Me.chbOwesFees.TabIndex = 7
@@ -180,7 +180,7 @@ Partial Class PASPFeesLog
         Me.GroupBox4.Size = New System.Drawing.Size(146, 154)
         Me.GroupBox4.TabIndex = 4
         Me.GroupBox4.TabStop = False
-        Me.GroupBox4.Text = "Op. Status"
+        Me.GroupBox4.Text = "Operating Status"
         '
         'chbSeasonal
         '
@@ -248,8 +248,6 @@ Partial Class PASPFeesLog
         Me.GroupBox3.Controls.Add(Me.mtbSearchAirsNumber)
         Me.GroupBox3.Controls.Add(Me.txtSearchFacilityName)
         Me.GroupBox3.Controls.Add(Me.Label1)
-        Me.GroupBox3.Controls.Add(Me.txtInvoice)
-        Me.GroupBox3.Controls.Add(Me.Label5)
         Me.GroupBox3.Location = New System.Drawing.Point(106, 48)
         Me.GroupBox3.Name = "GroupBox3"
         Me.GroupBox3.Size = New System.Drawing.Size(201, 115)
@@ -290,28 +288,12 @@ Partial Class PASPFeesLog
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "AIRS #"
         '
-        'txtInvoice
-        '
-        Me.txtInvoice.Location = New System.Drawing.Point(80, 71)
-        Me.txtInvoice.Name = "txtInvoice"
-        Me.txtInvoice.Size = New System.Drawing.Size(100, 20)
-        Me.txtInvoice.TabIndex = 5
-        '
-        'Label5
-        '
-        Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(22, 74)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(52, 13)
-        Me.Label5.TabIndex = 6
-        Me.Label5.Text = "Invoice #"
-        '
         'GroupBox2
         '
         Me.GroupBox2.Controls.Add(Me.clbFeeYear)
         Me.GroupBox2.Location = New System.Drawing.Point(6, 48)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(94, 100)
+        Me.GroupBox2.Size = New System.Drawing.Size(94, 115)
         Me.GroupBox2.TabIndex = 2
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Fee Year"
@@ -323,7 +305,7 @@ Partial Class PASPFeesLog
         Me.clbFeeYear.FormattingEnabled = True
         Me.clbFeeYear.Location = New System.Drawing.Point(3, 16)
         Me.clbFeeYear.Name = "clbFeeYear"
-        Me.clbFeeYear.Size = New System.Drawing.Size(88, 79)
+        Me.clbFeeYear.Size = New System.Drawing.Size(88, 96)
         Me.clbFeeYear.TabIndex = 0
         '
         'btnRunFilter
@@ -340,11 +322,10 @@ Partial Class PASPFeesLog
         'TabControl1
         '
         Me.TabControl1.Controls.Add(Me.TPFacilitySpecific)
-        Me.TabControl1.Dock = System.Windows.Forms.DockStyle.Right
-        Me.TabControl1.Location = New System.Drawing.Point(539, 16)
+        Me.TabControl1.Location = New System.Drawing.Point(465, 16)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(250, 222)
+        Me.TabControl1.Size = New System.Drawing.Size(252, 222)
         Me.TabControl1.TabIndex = 0
         '
         'TPFacilitySpecific
@@ -359,7 +340,7 @@ Partial Class PASPFeesLog
         Me.TPFacilitySpecific.Location = New System.Drawing.Point(4, 22)
         Me.TPFacilitySpecific.Name = "TPFacilitySpecific"
         Me.TPFacilitySpecific.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPFacilitySpecific.Size = New System.Drawing.Size(242, 196)
+        Me.TPFacilitySpecific.Size = New System.Drawing.Size(244, 196)
         Me.TPFacilitySpecific.TabIndex = 0
         Me.TPFacilitySpecific.Text = "Select Facility Specific"
         Me.TPFacilitySpecific.UseVisualStyleBackColor = True
@@ -432,16 +413,27 @@ Partial Class PASPFeesLog
         Me.dgvExistingYearAdmin.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvExistingYearAdmin.Location = New System.Drawing.Point(0, 241)
         Me.dgvExistingYearAdmin.Name = "dgvExistingYearAdmin"
-        Me.dgvExistingYearAdmin.Size = New System.Drawing.Size(792, 325)
+        Me.dgvExistingYearAdmin.Size = New System.Drawing.Size(720, 270)
         Me.dgvExistingYearAdmin.TabIndex = 4
+        '
+        'chbShowInvoices
+        '
+        Me.chbShowInvoices.AutoSize = True
+        Me.chbShowInvoices.Location = New System.Drawing.Point(12, 169)
+        Me.chbShowInvoices.Name = "chbShowInvoices"
+        Me.chbShowInvoices.Size = New System.Drawing.Size(95, 17)
+        Me.chbShowInvoices.TabIndex = 7
+        Me.chbShowInvoices.Text = "Show invoices"
+        Me.chbShowInvoices.UseVisualStyleBackColor = True
         '
         'PASPFeesLog
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(792, 566)
+        Me.ClientSize = New System.Drawing.Size(720, 511)
         Me.Controls.Add(Me.dgvExistingYearAdmin)
         Me.Controls.Add(Me.GroupBox1)
+        Me.MinimumSize = New System.Drawing.Size(736, 333)
         Me.Name = "PASPFeesLog"
         Me.Text = "Fees Log"
         Me.GroupBox1.ResumeLayout(False)
@@ -484,8 +476,6 @@ Partial Class PASPFeesLog
     Friend WithEvents chbSeasonal As System.Windows.Forms.CheckBox
     Friend WithEvents chbTempClosed As System.Windows.Forms.CheckBox
     Friend WithEvents chbOwesFees As System.Windows.Forms.CheckBox
-    Friend WithEvents Label5 As System.Windows.Forms.Label
-    Friend WithEvents txtInvoice As System.Windows.Forms.TextBox
     Friend WithEvents chbShutdown As System.Windows.Forms.CheckBox
     Friend WithEvents dtpEndShutDown As System.Windows.Forms.DateTimePicker
     Friend WithEvents Label6 As System.Windows.Forms.Label
@@ -494,4 +484,5 @@ Partial Class PASPFeesLog
     Friend WithEvents txtResultsCount As System.Windows.Forms.TextBox
     Friend WithEvents Label8 As System.Windows.Forms.Label
     Friend WithEvents btnExportToExcel As System.Windows.Forms.Button
+    Friend WithEvents chbShowInvoices As CheckBox
 End Class

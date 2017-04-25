@@ -31,25 +31,13 @@ Partial Class ISMPMemo
     Friend WithEvents TPInternalMemo As System.Windows.Forms.TabPage
     Friend WithEvents SplitContainer1 As System.Windows.Forms.SplitContainer
     Friend WithEvents Panel4 As System.Windows.Forms.Panel
-    Friend WithEvents TPFuturePrintOption As System.Windows.Forms.TabPage
     Friend WithEvents txtMemoOut As System.Windows.Forms.TextBox
     Friend WithEvents TBMemo As System.Windows.Forms.ToolBar
-    Friend WithEvents MmiPaste As System.Windows.Forms.MenuItem
-    Friend WithEvents MmiCut As System.Windows.Forms.MenuItem
-    Friend WithEvents MmiCopy As System.Windows.Forms.MenuItem
     Friend WithEvents txtReferenceNumber As System.Windows.Forms.TextBox
     Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents Label1 As System.Windows.Forms.Label
-    Friend WithEvents MmiClose As System.Windows.Forms.MenuItem
     Friend WithEvents txtMemoIN As System.Windows.Forms.TextBox
-    Friend WithEvents TbbClose As System.Windows.Forms.ToolBarButton
     Friend WithEvents TbbSave As System.Windows.Forms.ToolBarButton
-    Friend WithEvents MenuItem5 As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem2 As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem10 As System.Windows.Forms.MenuItem
-    Friend WithEvents MmiSave As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem1 As System.Windows.Forms.MenuItem
-    Friend WithEvents MainMenu1 As System.Windows.Forms.MainMenu
     Friend WithEvents Image_List_All As System.Windows.Forms.ImageList
     Private components As System.ComponentModel.IContainer
 
@@ -58,19 +46,8 @@ Partial Class ISMPMemo
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(ISMPMemo))
         Me.Image_List_All = New System.Windows.Forms.ImageList(Me.components)
-        Me.MainMenu1 = New System.Windows.Forms.MainMenu(Me.components)
-        Me.MenuItem1 = New System.Windows.Forms.MenuItem()
-        Me.MmiSave = New System.Windows.Forms.MenuItem()
-        Me.MenuItem10 = New System.Windows.Forms.MenuItem()
-        Me.MmiClose = New System.Windows.Forms.MenuItem()
-        Me.MenuItem2 = New System.Windows.Forms.MenuItem()
-        Me.MmiCopy = New System.Windows.Forms.MenuItem()
-        Me.MmiCut = New System.Windows.Forms.MenuItem()
-        Me.MmiPaste = New System.Windows.Forms.MenuItem()
-        Me.MenuItem5 = New System.Windows.Forms.MenuItem()
         Me.TBMemo = New System.Windows.Forms.ToolBar()
         Me.TbbSave = New System.Windows.Forms.ToolBarButton()
-        Me.TbbClose = New System.Windows.Forms.ToolBarButton()
         Me.txtMemoIN = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
@@ -79,7 +56,6 @@ Partial Class ISMPMemo
         Me.TCISMPMemo = New System.Windows.Forms.TabControl()
         Me.TPInternalMemo = New System.Windows.Forms.TabPage()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
-        Me.TPFuturePrintOption = New System.Windows.Forms.TabPage()
         Me.Panel4 = New System.Windows.Forms.Panel()
         Me.TCISMPMemo.SuspendLayout()
         Me.TPInternalMemo.SuspendLayout()
@@ -180,60 +156,9 @@ Partial Class ISMPMemo
         Me.Image_List_All.Images.SetKeyName(83, "")
         Me.Image_List_All.Images.SetKeyName(84, "")
         '
-        'MainMenu1
-        '
-        Me.MainMenu1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MenuItem1, Me.MenuItem2, Me.MenuItem5})
-        '
-        'MenuItem1
-        '
-        Me.MenuItem1.Index = 0
-        Me.MenuItem1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MmiSave, Me.MenuItem10, Me.MmiClose})
-        Me.MenuItem1.Text = "File"
-        '
-        'MmiSave
-        '
-        Me.MmiSave.Index = 0
-        Me.MmiSave.Text = "Save"
-        '
-        'MenuItem10
-        '
-        Me.MenuItem10.Index = 1
-        Me.MenuItem10.Text = "-"
-        '
-        'MmiClose
-        '
-        Me.MmiClose.Index = 2
-        Me.MmiClose.Text = "Close"
-        '
-        'MenuItem2
-        '
-        Me.MenuItem2.Index = 1
-        Me.MenuItem2.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MmiCopy, Me.MmiCut, Me.MmiPaste})
-        Me.MenuItem2.Text = "Edit"
-        '
-        'MmiCopy
-        '
-        Me.MmiCopy.Index = 0
-        Me.MmiCopy.Text = "Copy"
-        '
-        'MmiCut
-        '
-        Me.MmiCut.Index = 1
-        Me.MmiCut.Text = "Cut"
-        '
-        'MmiPaste
-        '
-        Me.MmiPaste.Index = 2
-        Me.MmiPaste.Text = "Paste"
-        '
-        'MenuItem5
-        '
-        Me.MenuItem5.Index = 2
-        Me.MenuItem5.Text = "Help"
-        '
         'TBMemo
         '
-        Me.TBMemo.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.TbbSave, Me.TbbClose})
+        Me.TBMemo.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.TbbSave})
         Me.TBMemo.ButtonSize = New System.Drawing.Size(23, 22)
         Me.TBMemo.DropDownArrows = True
         Me.TBMemo.ImageList = Me.Image_List_All
@@ -247,11 +172,6 @@ Partial Class ISMPMemo
         '
         Me.TbbSave.ImageIndex = 65
         Me.TbbSave.Name = "TbbSave"
-        '
-        'TbbClose
-        '
-        Me.TbbClose.ImageIndex = 2
-        Me.TbbClose.Name = "TbbClose"
         '
         'txtMemoIN
         '
@@ -311,7 +231,6 @@ Partial Class ISMPMemo
         'TCISMPMemo
         '
         Me.TCISMPMemo.Controls.Add(Me.TPInternalMemo)
-        Me.TCISMPMemo.Controls.Add(Me.TPFuturePrintOption)
         Me.TCISMPMemo.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TCISMPMemo.Location = New System.Drawing.Point(0, 58)
         Me.TCISMPMemo.Name = "TCISMPMemo"
@@ -349,16 +268,6 @@ Partial Class ISMPMemo
         Me.SplitContainer1.SplitterWidth = 10
         Me.SplitContainer1.TabIndex = 54
         '
-        'TPFuturePrintOption
-        '
-        Me.TPFuturePrintOption.Location = New System.Drawing.Point(4, 22)
-        Me.TPFuturePrintOption.Name = "TPFuturePrintOption"
-        Me.TPFuturePrintOption.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPFuturePrintOption.Size = New System.Drawing.Size(942, 554)
-        Me.TPFuturePrintOption.TabIndex = 1
-        Me.TPFuturePrintOption.Text = "Future Print option"
-        Me.TPFuturePrintOption.UseVisualStyleBackColor = True
-        '
         'Panel4
         '
         Me.Panel4.Controls.Add(Me.Label1)
@@ -377,7 +286,6 @@ Partial Class ISMPMemo
         Me.Controls.Add(Me.TCISMPMemo)
         Me.Controls.Add(Me.Panel4)
         Me.Controls.Add(Me.TBMemo)
-        Me.Menu = Me.MainMenu1
         Me.Name = "ISMPMemo"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual
         Me.Text = "ISMP Memo"

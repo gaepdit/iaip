@@ -1,7 +1,4 @@
-﻿Imports System.Collections.Generic
-Imports Oracle.ManagedDataAccess.Client
-
-Module ErrorReporting
+﻿Module ErrorReporting
 
     ''' <summary>
     ''' Handles logging and reporting of errors.
@@ -28,7 +25,7 @@ Module ErrorReporting
         If Not String.IsNullOrEmpty(supplementalMessage) Then
             errorMessage = errorMessage & Environment.NewLine & Environment.NewLine & supplementalMessage
         End If
-        LogError(errorMessage, contextMessage)
+        DAL.LogError(errorMessage, contextMessage)
 
         ' Third display a dialog to the user describing the error and next steps.
         If displayErrorToUser Then
@@ -60,22 +57,5 @@ Module ErrorReporting
             IaipExceptionManager.ShowErrorDialog(exc, WhatHappened, WhatUserCanDo)
         End If
     End Sub
-
-    Private Function LogError(errorMessage As String, errorLocation As String) As Boolean
-        Dim query As String = "INSERT INTO AIRBRANCH.IAIPERRORLOG " &
-            " (STRERRORNUMBER, STRUSER, STRERRORLOCATION, STRERRORMESSAGE, DATERRORDATE) " &
-            " values (AIRBRANCH.IAIPERRORNUMBER.NEXTVAL, :UserID, :ErrorLocation, :ErrorMessage, SYSDATE) "
-        Dim parameters As OracleParameter() = New OracleParameter() {
-            New OracleParameter("UserID", If(CurrentUser IsNot Nothing, CurrentUser.UserID, 0)),
-            New OracleParameter("ErrorLocation", errorLocation),
-            New OracleParameter("ErrorMessage", errorMessage)
-        }
-
-        Try
-            Return DB.RunCommandIgnoreErrors(query, parameters)
-        Catch ex As Exception
-            Return False
-        End Try
-    End Function
 
 End Module

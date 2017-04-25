@@ -47,7 +47,7 @@
     ''' <param name="displayLabel">The label in which to display the message.</param>
     ''' <param name="errorProvider">The optional ErrorProvider.</param>
     ''' <param name="errorControl">The optional control to attach the ErrorProvider to. If not set, then displayLabel is used.</param>
-    Public Sub Display(ByVal displayLabel As Label, Optional ByVal errorProvider As ErrorProvider = Nothing, Optional ByVal errorControl As Control = Nothing)
+    Public Sub Display(displayLabel As Label, Optional errorProvider As ErrorProvider = Nothing, Optional errorControl As Control = Nothing)
         If Me Is Nothing Then Exit Sub
 
         Me.DisplayLabel = displayLabel
@@ -91,8 +91,8 @@
         If DisplayLabel IsNot Nothing Then
             DisplayLabel.Text = ""
             DisplayLabel.Visible = False
-            DisplayLabel.ForeColor = SystemColors.ControlText
-            DisplayLabel.BackColor = SystemColors.Control
+            DisplayLabel.ForeColor = Color.Empty
+            DisplayLabel.BackColor = Color.Empty
         End If
 
         If ErrorProvider IsNot Nothing Then ErrorProvider.Clear()

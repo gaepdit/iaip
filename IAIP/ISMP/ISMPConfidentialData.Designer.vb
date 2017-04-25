@@ -23,18 +23,11 @@ Partial Class ISMPConfidentialData
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(ISMPConfidentialData))
-        Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
-        Me.Panel1 = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.Panel2 = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.Panel3 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
         Me.tsbSave = New System.Windows.Forms.ToolStripButton()
-        Me.tsbBack = New System.Windows.Forms.ToolStripButton()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.mmiFile = New System.Windows.Forms.ToolStripMenuItem()
         Me.mmiSave = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mmiBack = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mmiHelp = New System.Windows.Forms.ToolStripMenuItem()
         Me.TCDocuments = New System.Windows.Forms.TabControl()
         Me.TPOneStack = New System.Windows.Forms.TabPage()
         Me.chbOneStackOtherInfo = New System.Windows.Forms.CheckBox()
@@ -451,7 +444,6 @@ Partial Class ISMPConfidentialData
         Me.chbSourceTested = New System.Windows.Forms.CheckBox()
         Me.txtReferenceNumber = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.StatusStrip1.SuspendLayout()
         Me.ToolStrip1.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.TCDocuments.SuspendLayout()
@@ -481,47 +473,9 @@ Partial Class ISMPConfidentialData
         Me.TPMethod22.SuspendLayout()
         Me.SuspendLayout()
         '
-        'StatusStrip1
-        '
-        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Panel1, Me.Panel2, Me.Panel3})
-        Me.StatusStrip1.Location = New System.Drawing.Point(0, 603)
-        Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Size = New System.Drawing.Size(794, 22)
-        Me.StatusStrip1.TabIndex = 5
-        Me.StatusStrip1.Text = "StatusStrip1"
-        '
-        'Panel1
-        '
-        Me.Panel1.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.Panel1.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
-        Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(771, 17)
-        Me.Panel1.Spring = True
-        Me.Panel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'Panel2
-        '
-        Me.Panel2.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.Panel2.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
-        Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(4, 17)
-        '
-        'Panel3
-        '
-        Me.Panel3.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.Panel3.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
-        Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(4, 17)
-        '
         'ToolStrip1
         '
-        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsbSave, Me.tsbBack})
+        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsbSave})
         Me.ToolStrip1.Location = New System.Drawing.Point(0, 24)
         Me.ToolStrip1.Name = "ToolStrip1"
         Me.ToolStrip1.Size = New System.Drawing.Size(794, 25)
@@ -537,18 +491,9 @@ Partial Class ISMPConfidentialData
         Me.tsbSave.Size = New System.Drawing.Size(23, 22)
         Me.tsbSave.Text = "Save"
         '
-        'tsbBack
-        '
-        Me.tsbBack.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.tsbBack.Image = CType(resources.GetObject("tsbBack.Image"), System.Drawing.Image)
-        Me.tsbBack.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.tsbBack.Name = "tsbBack"
-        Me.tsbBack.Size = New System.Drawing.Size(23, 22)
-        Me.tsbBack.Text = "Back"
-        '
         'MenuStrip1
         '
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiFile, Me.mmiHelp})
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiFile})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Size = New System.Drawing.Size(794, 24)
@@ -557,7 +502,7 @@ Partial Class ISMPConfidentialData
         '
         'mmiFile
         '
-        Me.mmiFile.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiSave, Me.mmiBack})
+        Me.mmiFile.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiSave})
         Me.mmiFile.Name = "mmiFile"
         Me.mmiFile.Size = New System.Drawing.Size(37, 20)
         Me.mmiFile.Text = "File"
@@ -565,20 +510,8 @@ Partial Class ISMPConfidentialData
         'mmiSave
         '
         Me.mmiSave.Name = "mmiSave"
-        Me.mmiSave.Size = New System.Drawing.Size(99, 22)
+        Me.mmiSave.Size = New System.Drawing.Size(152, 22)
         Me.mmiSave.Text = "Save"
-        '
-        'mmiBack
-        '
-        Me.mmiBack.Name = "mmiBack"
-        Me.mmiBack.Size = New System.Drawing.Size(99, 22)
-        Me.mmiBack.Text = "Back"
-        '
-        'mmiHelp
-        '
-        Me.mmiHelp.Name = "mmiHelp"
-        Me.mmiHelp.Size = New System.Drawing.Size(44, 20)
-        Me.mmiHelp.Text = "Help"
         '
         'TCDocuments
         '
@@ -594,7 +527,7 @@ Partial Class ISMPConfidentialData
         Me.TCDocuments.Controls.Add(Me.TPMethod22)
         Me.TCDocuments.Controls.Add(Me.TPSSCPWork)
         Me.TCDocuments.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.TCDocuments.Location = New System.Drawing.Point(0, 262)
+        Me.TCDocuments.Location = New System.Drawing.Point(0, 284)
         Me.TCDocuments.Name = "TCDocuments"
         Me.TCDocuments.SelectedIndex = 0
         Me.TCDocuments.Size = New System.Drawing.Size(794, 341)
@@ -5512,7 +5445,6 @@ Partial Class ISMPConfidentialData
         Me.Controls.Add(Me.txtReferenceNumber)
         Me.Controls.Add(Me.TCDocuments)
         Me.Controls.Add(Me.chbComplianceManager)
-        Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.chbCompletedByISMP)
         Me.Controls.Add(Me.ToolStrip1)
         Me.Controls.Add(Me.chbAssignedToEngineer)
@@ -5541,8 +5473,6 @@ Partial Class ISMPConfidentialData
         Me.Name = "ISMPConfidentialData"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.Manual
         Me.Text = "ISMP Confidential Data"
-        Me.StatusStrip1.ResumeLayout(False)
-        Me.StatusStrip1.PerformLayout()
         Me.ToolStrip1.ResumeLayout(False)
         Me.ToolStrip1.PerformLayout()
         Me.MenuStrip1.ResumeLayout(False)
@@ -5595,18 +5525,11 @@ Partial Class ISMPConfidentialData
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents StatusStrip1 As System.Windows.Forms.StatusStrip
-    Friend WithEvents Panel1 As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents Panel2 As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents Panel3 As System.Windows.Forms.ToolStripStatusLabel
     Friend WithEvents ToolStrip1 As System.Windows.Forms.ToolStrip
     Friend WithEvents tsbSave As System.Windows.Forms.ToolStripButton
-    Friend WithEvents tsbBack As System.Windows.Forms.ToolStripButton
     Friend WithEvents MenuStrip1 As System.Windows.Forms.MenuStrip
     Friend WithEvents mmiFile As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mmiSave As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents mmiBack As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents mmiHelp As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents TCDocuments As System.Windows.Forms.TabControl
     Friend WithEvents TPOneStack As System.Windows.Forms.TabPage
     Friend WithEvents TPLoadingRack As System.Windows.Forms.TabPage

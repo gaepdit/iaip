@@ -1,19 +1,11 @@
-Imports Oracle.ManagedDataAccess.Client
-
+Imports System.Data.SqlClient
 
 Public Class ISMPTestFirmComments
-    Dim SQL As String
-    Dim cmd As OracleCommand
-    Dim dr As OracleDataReader
-    Dim recExist As Boolean
+    Dim query As String
 
-    Dim dsTestingFirms As DataSet
-    Dim daTestingFirms As OracleDataAdapter
-
-    Private Sub ISMPTestFirmComments_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+    Private Sub ISMPTestFirmComments_Load(sender As Object, e As EventArgs) Handles Me.Load
 
         Try
-            ClearPage()
             lblComment.Visible = False
             cboCommentNumber.Visible = False
             btnDeleteComment.Visible = False
@@ -25,9 +17,6 @@ Public Class ISMPTestFirmComments
                 SplitContainer1.SanelySetSplitterDistance(465)
             Else
                 SplitContainer1.SanelySetSplitterDistance(242)
-            End If
-            If txtTestNotificationNumber.Text <> "" Or txtTestReportNumber.Text <> "" Then
-                LoadTestFirmComments()
             End If
             If AccountFormAccess(67, 3) = "1" Then
                 btnOpenManagerTools.Visible = True
@@ -43,59 +32,34 @@ Public Class ISMPTestFirmComments
                 btnSaveTestReport.Visible = False
             End If
 
+            LoadTestFirmComments()
+
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
 
-#Region "Page Load"
-    Sub LoadTestingFirms()
-        Dim dtTestingFirm As New DataTable
-        Dim drDSRow As DataRow
-        Dim drNewRow As DataRow
-
+    Private Sub LoadTestingFirms()
         Try
-            SQL = "Select " &
+            query = "Select " &
             "strTestingFirmKey, strTestingFirm " &
-            "from AIRBRANCH.LookUpTestingFirms " &
+            "from LookUpTestingFirms " &
             "order by strTestingFirm "
 
-            dsTestingFirms = New DataSet
-            daTestingFirms = New OracleDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            daTestingFirms.Fill(dsTestingFirms, "TestingFirms")
-
-            dtTestingFirm.Columns.Add("strTestingFirmKey", GetType(System.String))
-            dtTestingFirm.Columns.Add("strTestingFirm", GetType(System.String))
-
-            drNewRow = dtTestingFirm.NewRow()
-            drNewRow("strTestingFirmKey") = " "
-            drNewRow("strTestingFirm") = " "
-            dtTestingFirm.Rows.Add(drNewRow)
-
-            For Each drDSRow In dsTestingFirms.Tables("TestingFirms").Rows()
-                drNewRow = dtTestingFirm.NewRow()
-                drNewRow("strTestingFirmKey") = drDSRow("strTestingFirmKey")
-                drNewRow("strTestingFirm") = drDSRow("strTestingFirm")
-                dtTestingFirm.Rows.Add(drNewRow)
-            Next
-
             With cboTestingFirm
-                .DataSource = dtTestingFirm
+                .DataSource = DB.GetDataTable(query)
                 .DisplayMember = "strTestingFirm"
                 .ValueMember = "strTestingFirmKey"
                 .SelectedIndex = 0
             End With
+
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
-    Sub LoadTestFirmComments()
+    Private Sub LoadTestFirmComments()
         Try
             Dim CommentType As String = ""
             Dim CommentLine As String = ""
@@ -104,35 +68,39 @@ Public Class ISMPTestFirmComments
             txtAllComments.Clear()
             txtAddComments.Clear()
 
-            SQL = "select " &
+            query = "select " &
             "numCommentsID, strCommentType, " &
             "strComment, " &
-            "to_char(datCommentDate, 'dd-Mon-yyyy') as CommentDate, " &
-            "(strLastName|| ', ' ||strFirstName) as StaffResponsible " &
-            "from AIRBRANCH.ismptestfirmcomments, AIRBRANCH.EPDUSerProfiles " &
-            "where AIRBRANCH.ismptestfirmcomments.strStaffResponsible = AIRBRANCH.EPDUSerProfiles.numUserID "
+            "format(datCommentDate, 'dd-MMM-yyyy') as CommentDate, " &
+            "concat(strLastName, ', ' ,strFirstName) as StaffResponsible " &
+            "from ismptestfirmcomments, EPDUSerProfiles " &
+            "where ismptestfirmcomments.strStaffResponsible = EPDUSerProfiles.numUserID "
 
             If txtTestNotificationNumber.Text <> "" Then
-                SQL = SQL & " and strTestLogNumber = '" & txtTestNotificationNumber.Text & "' "
+                query = query & " and strTestLogNumber = @log "
             End If
             If Me.txtTestReportNumber.Text <> "" Then
-                SQL = SQL & " and strReferenceNumber = '" & txtTestReportNumber.Text & "' "
+                query = query & " and strReferenceNumber = @ref "
             End If
             If txtAIRSNumber.Text <> "" Then
-                SQL = SQL & " and strAIRSNumber = '0413" & txtAIRSNumber.Text & "' "
+                query = query & " and strAIRSNumber = @airs "
             End If
             If Me.cboTestingFirm.SelectedIndex > 1 Then
-                SQL = SQL & " and strTestingFirmkey = '" & cboTestingFirm.SelectedValue & "' "
+                query = query & " and strTestingFirmkey = @key "
             End If
 
-            SQL = SQL & " order by numCommentsID desc "
+            query = query & " order by numCommentsID desc "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
+            Dim p As SqlParameter() = {
+                New SqlParameter("@log", txtTestNotificationNumber.Text),
+                New SqlParameter("@ref", txtTestReportNumber.Text),
+                New SqlParameter("@airs", "0413" & txtAIRSNumber.Text),
+                New SqlParameter("@key", cboTestingFirm.SelectedValue)
+            }
+
+            Dim dt As DataTable = DB.GetDataTable(query, p)
+
+            For Each dr As DataRow In dt.Rows
                 If txtAllComments.Text <> "" Then
                     txtAllComments.Text = txtAllComments.Text & "-------------" & vbCrLf
                 End If
@@ -156,8 +124,7 @@ Public Class ISMPTestFirmComments
                      dr.Item("strComment") & vbCrLf
 
                 cboCommentNumber.Items.Add(dr.Item("numCommentsId"))
-            End While
-            dr.Close()
+            Next
 
             If txtAllComments.Text = "" Then
                 SplitContainer1.SanelySetSplitterDistance(465)
@@ -169,65 +136,42 @@ Public Class ISMPTestFirmComments
                 txtTestDateEnd.Visible = False
                 txtTestDateStart.Clear()
 
-                SQL = "Select " &
-                "to_char(datTestDateStart, 'dd-Mon-yyyy') as datTestDateStart, " &
-                "to_char(datTestDateEnd, 'dd-Mon-yyyy') as datTestDateEnd " &
-                "from AIRBRANCH.ISMPReportInformation " &
-                "where strReferenceNumber = '" & txtTestReportNumber.Text & "' "
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-                If recExist = True Then
-                    If IsDBNull(dr.Item("datTestDateEnd")) Then
-                        If IsDBNull(dr.Item("datTestDateStart")) Then
+                query = "Select " &
+                "format(datTestDateStart, 'dd-MMM-yyyy') as datTestDateStart, " &
+                "format(datTestDateEnd, 'dd-MMM-yyyy') as datTestDateEnd " &
+                "from ISMPReportInformation " &
+                "where strReferenceNumber = @ref "
+
+                Dim p2 As New SqlParameter("@ref", txtTestReportNumber.Text)
+
+                Dim dr2 As DataRow = DB.GetDataRow(query, p2)
+                If dr2 IsNot Nothing Then
+                    If IsDBNull(dr2.Item("datTestDateEnd")) Then
+                        If IsDBNull(dr2.Item("datTestDateStart")) Then
 
                         Else
-                            txtTestDateStart.Text = dr.Item("datTestDateStart")
+                            txtTestDateStart.Text = dr2.Item("datTestDateStart")
                         End If
                     Else
-                        If dr.Item("datTestDateEnd") = dr.Item("datTestDateStart") Then
-                            txtTestDateStart.Text = dr.Item("datTestDateStart")
+                        If dr2.Item("datTestDateEnd") = dr2.Item("datTestDateStart") Then
+                            txtTestDateStart.Text = dr2.Item("datTestDateStart")
                         Else
-                            txtTestDateStart.Text = dr.Item("datTestDateStart")
-                            txtTestDateEnd.Text = dr.Item("datTestDateEnd")
+                            txtTestDateStart.Text = dr2.Item("datTestDateStart")
+                            txtTestDateEnd.Text = dr2.Item("datTestDateEnd")
                         End If
                     End If
                 Else
 
                 End If
-                dr.Close()
 
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
 
-#End Region
-#Region "Subs and Functions"
-    Sub ClearPage()
-        Try
-            txtFacilityTested.Clear()
-            cboTestingFirm.Text = ""
-            txtTestNotificationNumber.Clear()
-            txtTestReportNumber.Clear()
-            txtTestDateStart.Clear()
-            txtTestDateEnd.Clear()
-            txtTestDateEnd.Visible = False
-            txtAddComments.Clear()
-            txtAllComments.Clear()
-            cboCommentNumber.Items.Clear()
-            cboCommentNumber.Text = ""
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-        End Try
-    End Sub
-    Sub SaveCommentData(ByVal SaveType As String)
+    Private Sub SaveCommentData(SaveType As String)
         Try
             Dim CommentID As String = ""
             Dim TestFirmKey As String = ""
@@ -240,11 +184,6 @@ Public Class ISMPTestFirmComments
                 MsgBox("Please Select a Testing Firm before saving comments.", MsgBoxStyle.Exclamation, "ISMP Test Firm Comments")
             Else
                 CommentID = ""
-                'If cboCommentNumber.Text <> "" Then
-                '    CommentID = ""    'cboCommentNumber.Text
-                'Else
-                '    CommentID = ""
-                'End If
                 TestFirmKey = cboTestingFirm.SelectedValue
                 If txtAIRSNumber.Text <> "" Then
                     AIRSNum = "0413" & txtAIRSNumber.Text
@@ -268,98 +207,89 @@ Public Class ISMPTestFirmComments
                 End If
 
                 If CommentID = "" Then
-                    SQL = "Insert into AIRBRANCH.ISMPTestFirmComments " &
+                    query = "Insert into ISMPTestFirmComments " &
+                        "(NUMCOMMENTSID, STRTESTINGFIRMKEY, STRAIRSNUMBER, STRTESTLOGNUMBER, " &
+                        "STRREFERENCENUMBER, STRCOMMENTTYPE, STRSTAFFRESPONSIBLE, DATCOMMENTDATE, " &
+                        "STRCOMMENT, STRMODIFINGPERSON, DATMODIFINGDATE) " &
                     "values " &
-                    "((select max(AIRBRANCH.ismptestfirmcomments.numcommentsid) + 1 " &
-                    "from AIRBRANCH.ismptestfirmcomments ),   " &
-                    "'" & TestFirmKey & "', " &
-                    "'" & AIRSNum & "', '" & TestLogNum & "', " &
-                    "'" & RefNum & "', '" & SaveType & "', " &
-                    "'" & CurrentUser.UserID & "', sysdate, " &
-                    "'" & Replace(Comment, "'", "''") & "', '" & CurrentUser.UserID & "', " &
-                    "sysdate) "
+                    "((select max(ismptestfirmcomments.numcommentsid) + 1 " &
+                    "from ismptestfirmcomments ),   " &
+                        "@STRTESTINGFIRMKEY, @STRAIRSNUMBER, @STRTESTLOGNUMBER, " &
+                        "@STRREFERENCENUMBER, @STRCOMMENTTYPE, @STRSTAFFRESPONSIBLE, getdate(), " &
+                        "@STRCOMMENT, @STRMODIFINGPERSON, getdate()) "
                 Else
-                    SQL = "Update AIRBRANCH.ISMPTestFirmComments set " &
-                    "strTestingFirmKey = '" & TestFirmKey & "', " &
-                    "strAIRSNumber = '" & AIRSNum & "', " &
-                    "strTestLogNumber = '" & TestLogNum & "', " &
-                    "strReferenceNumber = '" & RefNum & "', " &
-                    "strCommentType = '" & SaveType & "', " &
-                    "strStaffresponsible = '" & CurrentUser.UserID & "', " &
-                    "datCommentDate = sysdate, " &
-                    "strComment = '" & Replace(Comment, "'", "''") & "', " &
-                    "strModifingPerson = '" & CurrentUser.UserID & "', " &
-                    "datModifingdate = sysdate " &
-                    "where numcommentsID = '" & CommentID & "' "
+                    query = "Update ISMPTestFirmComments set " &
+                    "strTestingFirmKey = @strTestingFirmKey, " &
+                    "strAIRSNumber = @strAIRSNumber, " &
+                    "strTestLogNumber = @strTestLogNumber, " &
+                    "strReferenceNumber = @strReferenceNumber, " &
+                    "strCommentType = @strCommentType, " &
+                    "strStaffresponsible = @strStaffresponsible, " &
+                    "datCommentDate = GETDATE(), " &
+                    "strComment = @strComment, " &
+                    "strModifingPerson = @strModifingPerson, " &
+                    "datModifingdate = GETDATE() " &
+                    "where numcommentsID = @numcommentsID "
                 End If
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                dr.Close()
+
+                Dim p As SqlParameter() = {
+                    New SqlParameter("@strTestingFirmKey", TestFirmKey),
+                    New SqlParameter("@strAIRSNumber", AIRSNum),
+                    New SqlParameter("@strTestLogNumber", TestLogNum),
+                    New SqlParameter("@strReferenceNumber", RefNum),
+                    New SqlParameter("@strCommentType", SaveType),
+                    New SqlParameter("@strStaffresponsible", CurrentUser.UserID),
+                    New SqlParameter("@strComment", Comment),
+                    New SqlParameter("@strModifingPerson", CurrentUser.UserID),
+                    New SqlParameter("@numcommentsID", CommentID)
+                }
+
+                DB.RunCommand(query, p)
 
                 LoadTestFirmComments()
 
                 If CommentID = "" Then
-                    SQL = "Select " &
-                    "max(AIRBRANCH.ISMPTestFirmComments.numcommentsid) " &
-                    "from AIRBRANCH.ISMPTestFirmComments "
+                    query = "Select " &
+                    "max(ISMPTestFirmComments.numcommentsid) " &
+                    "from ISMPTestFirmComments "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    CommentID = dr.Read
-                    dr.Close()
+                    CommentID = DB.GetInteger(query)
                 End If
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Sub LoadHeaderData(ByVal RefreshType As String)
+    Private Sub LoadHeaderData(RefreshType As String)
         Try
             Select Case RefreshType
                 Case "AIRS Number"
-                    SQL = "select " &
-                    "substr(AIRBRANCH.APBFacilityInformation.strAIRSnumber, 5) as strAIRSnumber, " &
+                    query = "select " &
                     "strFacilityName " &
-                    "from AIRBRANCH.APBFacilityInformation " &
-                    "where strAIRSnumber = '0413" & txtAIRSNumber.Text & "'"
+                    "from APBFacilityInformation " &
+                    "where strAIRSnumber = @airs "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    While dr.Read
-                        If IsDBNull(dr.Item("strFacilityname")) Then
-                            txtFacilityTested.Clear()
-                        Else
-                            txtFacilityTested.Text = dr.Item("strFacilityName")
-                        End If
-                    End While
-                    dr.Close()
+                    Dim p As New SqlParameter("@airs", "0413" & txtAIRSNumber.Text)
+
+                    txtFacilityTested.Text = DB.GetString(query, p)
                 Case "Notification"
-                    SQL = "select " &
-                    "substr(AIRBRANCH.APBFacilityInformation.strAIRSNumber, 5) as strAIRSNumber, " &
+                    query = "select " &
+                    "SUBSTRING(APBFacilityInformation.strAIRSNumber, 5,8) as strAIRSNumber, " &
                     "strFacilityName, " &
                     "strTestLogNumber " &
-                    "from AIRBRANCH.APBFacilityInformation, AIRBRANCH.ISMPTestNotification " &
-                    "where AIRBRANCH.APBFacilityInformation.strAIRSNumber = AIRBRANCH.ISMPTestNotification.strAIRSNumber (+) " &
-                    "and AIRBRANCH.ISMPTestNotification.strTestLogNumber = '" & txtTestNotificationNumber.Text & "' "
-                    cmd = New OracleCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    While dr.Read
+                    "from APBFacilityInformation LEFT JOIN ISMPTestNotification " &
+                    "ON APBFacilityInformation.strAIRSNumber = ISMPTestNotification.strAIRSNumber " &
+                    "WHERE ISMPTestNotification.strTestLogNumber = @log "
+
+                    Dim p As New SqlParameter("@log", txtTestNotificationNumber.Text)
+
+                    Dim dr As DataRow = DB.GetDataRow(query, p)
+
+                    If dr IsNot Nothing Then
                         If IsDBNull(dr.Item("strAIRSnumber")) Then
                             txtAIRSNumber.Clear()
                         Else
@@ -370,28 +300,31 @@ Public Class ISMPTestFirmComments
                         Else
                             txtFacilityTested.Text = dr.Item("strFacilityName")
                         End If
-                    End While
-                    dr.Close()
-                Case "Test Report"
-                    SQL = "select " &
-                    "AIRBRANCH.ISMPMaster.strReferenceNumber,  " &
-                    "substr(AIRBRANCH.APBFacilityInformation.strAIRSnumber, 5) as strAIRSNUmber, " &
-                    "strFacilityName,  strTestLogNumber,  " &
-                    "to_char(datTestDateStart, 'dd-Mon-yyyy') as datTestDateStart, " &
-                    "to_char(datTestDateEnd, 'dd-Mon-yyyy') as datTestDateEnd " &
-                    "from AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation,  " &
-                    "AIRBRANCH.ISMPTestNotification, AIRBRANCH.ISMPReportInformation " &
-                    "where AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.APBFacilityInformation.strAIRSnumber  " &
-                    "and AIRBRANCH.ISMPMaster.strAIRSNumber = AIRBRANCH.ISMpTestNotification.strAIRSNumber (+)  " &
-                    "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber (+) " &
-                    "and AIRBRANCH.ISMPMaster.strReferenceNumber = '" & txtTestReportNumber.Text & "'  "
-
-                    cmd = New OracleCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
+                    Else
+                        txtAIRSNumber.Clear()
+                        txtFacilityTested.Clear()
                     End If
-                    dr = cmd.ExecuteReader
-                    While dr.Read
+                Case "Test Report"
+                    query = "select " &
+                    "ISMPMaster.strReferenceNumber,  " &
+                    "SUBSTRING(APBFacilityInformation.strAIRSnumber, 5,8) as strAIRSNUmber, " &
+                    "strFacilityName,  strTestLogNumber,  " &
+                    "format(datTestDateStart, 'dd-MMM-yyyy') as datTestDateStart, " &
+                    "format(datTestDateEnd, 'dd-MMM-yyyy') as datTestDateEnd " &
+                    "from ISMPMaster " &
+                    " INNER JOIN APBFacilityInformation  " &
+                    "ON ISMPMaster.strAIRSNumber = APBFacilityInformation.strAIRSnumber  " &
+                    " LEFT JOIN ISMPTestNotification " &
+                    "ON ISMPMaster.strAIRSNumber = ISMpTestNotification.strAIRSNumber " &
+                    " LEFT JOIN ISMPReportInformation " &
+                    "ON ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
+                    "where ISMPMaster.strReferenceNumber = @ref "
+
+                    Dim p As New SqlParameter("@ref", txtTestReportNumber.Text)
+
+                    Dim dr As DataRow = DB.GetDataRow(query, p)
+
+                    If dr IsNot Nothing Then
                         If IsDBNull(dr.Item("strAIRSNumber")) Then
                             txtAIRSNumber.Clear()
                         Else
@@ -422,19 +355,23 @@ Public Class ISMPTestFirmComments
                                 txtTestDateEnd.Text = dr.Item("datTestDateEnd")
                             End If
                         End If
-
-                    End While
-                    dr.Close()
+                    Else
+                        txtAIRSNumber.Clear()
+                        txtFacilityTested.Clear()
+                        txtTestNotificationNumber.Clear()
+                        txtTestDateStart.Clear()
+                        txtTestDateEnd.Clear()
+                    End If
                 Case Else
 
             End Select
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
-    Sub SaveHeaderData()
+    Private Sub SaveHeaderData()
         Try
             Dim CommentID As String = ""
             Dim TestFirmKey As String = ""
@@ -464,20 +401,25 @@ Public Class ISMPTestFirmComments
                 End If
 
                 If CommentID <> "" Then
-                    SQL = "Update AIRBRANCH.ISMPTestFirmComments set " &
-                    "strTestingFirmKey = '" & TestFirmKey & "', " &
-                    "strAIRSNumber = '" & AIRSNum & "', " &
-                    "strTestLogNumber = '" & TestLogNum & "', " &
-                    "strReferenceNumber = '" & RefNum & "', " &
-                    "strModifingPerson = '" & CurrentUser.UserID & "', " &
-                    "datModifingdate = sysdate " &
-                    "where numcommentsID = '" & CommentID & "' "
-                    cmd = New OracleCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    dr.Close()
+                    query = "Update ISMPTestFirmComments set " &
+                    "strTestingFirmKey = @strTestingFirmKey, " &
+                    "strAIRSNumber = @strAIRSNumber, " &
+                    "strTestLogNumber = @strTestLogNumber, " &
+                    "strReferenceNumber = @strReferenceNumber, " &
+                    "strModifingPerson = @strModifingPerson, " &
+                    "datModifingdate = GETDATE() " &
+                    "where numcommentsID = @numcommentsID "
+
+                    Dim p As SqlParameter() = {
+                        New SqlParameter("@strTestingFirmKey", TestFirmKey),
+                        New SqlParameter("@strAIRSNumber", AIRSNum),
+                        New SqlParameter("@strTestLogNumber", TestLogNum),
+                        New SqlParameter("@strReferenceNumber", RefNum),
+                        New SqlParameter("@strModifingPerson", CurrentUser.UserID),
+                        New SqlParameter("@numcommentsID", CommentID)
+                    }
+
+                    DB.RunCommand(query, p)
 
                     LoadTestFirmComments()
 
@@ -488,48 +430,46 @@ Public Class ISMPTestFirmComments
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
 
-#End Region
-#Region "Declarations"
-    Private Sub btnSavePreTest_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSavePreTest.Click
+    Private Sub btnSavePreTest_Click(sender As Object, e As EventArgs) Handles btnSavePreTest.Click
         Try
             SaveCommentData("1")
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
-    Private Sub btnSaveDayOf_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSaveDayOf.Click
+    Private Sub btnSaveDayOf_Click(sender As Object, e As EventArgs) Handles btnSaveDayOf.Click
         Try
             SaveCommentData("2")
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
-    Private Sub btnSaveTestReport_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSaveTestReport.Click
+    Private Sub btnSaveTestReport_Click(sender As Object, e As EventArgs) Handles btnSaveTestReport.Click
         Try
             SaveCommentData("3")
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
-    Private Sub btnOpenManagerTools_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOpenManagerTools.Click
+    Private Sub btnOpenManagerTools_Click(sender As Object, e As EventArgs) Handles btnOpenManagerTools.Click
         Try
 
             If txtAddComments.Size.Width > (Me.Size.Width) - 212 Then
-                txtAddComments.Size = New Drawing.Size(Me.Size.Width - 212, txtAddComments.Size.Height)
+                txtAddComments.Size = New Size(Me.Size.Width - 212, txtAddComments.Size.Height)
                 lblComment.Visible = True
                 cboCommentNumber.Visible = True
                 btnDeleteComment.Visible = True
                 btnEditComment.Visible = True
             Else
-                txtAddComments.Size = New Drawing.Size(Me.Size.Width - 32, txtAddComments.Size.Height)
+                txtAddComments.Size = New Size(Me.Size.Width - 32, txtAddComments.Size.Height)
                 lblComment.Visible = False
                 cboCommentNumber.Visible = False
                 btnDeleteComment.Visible = False
@@ -537,23 +477,7 @@ Public Class ISMPTestFirmComments
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-        End Try
-    End Sub
-    Private Sub tsbBack_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbBack.Click
-        Try
-            Me.Hide()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-        End Try
-    End Sub
-    Private Sub tsmBack_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsmBack.Click
-        Try
-            Me.Hide()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
@@ -563,60 +487,37 @@ Public Class ISMPTestFirmComments
             facilityLookupDialog.ShowDialog()
             If facilityLookupDialog.DialogResult = DialogResult.OK _
             AndAlso facilityLookupDialog.SelectedAirsNumber <> "" Then
-                Me.ValueFromFacilityLookUp = facilityLookupDialog.SelectedAirsNumber
-                Me.ValueFromFacilityLookUp2 = facilityLookupDialog.SelectedFacilityName
+                txtAIRSNumber.Text = facilityLookupDialog.SelectedAirsNumber
+                txtFacilityTested.Text = facilityLookupDialog.SelectedFacilityName
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub tsbLookUpAirNumber_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbLookUpAirNumber.Click
+    Private Sub tsbLookUpAirNumber_Click(sender As Object, e As EventArgs) Handles tsbLookUpAirNumber.Click
         OpenFacilityLookupTool()
     End Sub
-    Public WriteOnly Property ValueFromFacilityLookUp() As String
-        Set(ByVal Value As String)
-            txtAIRSNumber.Text = Value
-        End Set
-    End Property
-    Public WriteOnly Property ValueFromFacilityLookUp2() As String
-        Set(ByVal Value2 As String)
-            txtFacilityTested.Text = Value2
-        End Set
-    End Property
-    Private Sub cboCommentNumber_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles cboCommentNumber.TextChanged
+    Private Sub cboCommentNumber_TextChanged(sender As Object, e As EventArgs) Handles cboCommentNumber.TextChanged
         Try
             If cboCommentNumber.Text <> "" Then
-                SQL = "Select " &
+                query = "Select " &
                 "strComment " &
-                "from AIRBRANCH.ISMPTestFirmComments " &
-                "where numCommentsID = '" & cboCommentNumber.Text & "' "
+                "from ISMPTestFirmComments " &
+                "where numCommentsID = @co "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-                If recExist = True Then
-                    If IsDBNull(dr.Item("strComment")) Then
-                        txtAddComments.Clear()
-                    Else
-                        txtAddComments.Text = dr.Item("strComment")
-                    End If
-                Else
-                    txtAddComments.Clear()
-                End If
-                dr.Close()
+                Dim p As New SqlParameter("@co", cboCommentNumber.Text)
+
+                txtAddComments.Text = DB.GetString(query, p)
             Else
                 txtAddComments.Clear()
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
-    Private Sub btnEditComment_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnEditComment.Click
+    Private Sub btnEditComment_Click(sender As Object, e As EventArgs) Handles btnEditComment.Click
         Try
             Dim CommentID As String = ""
             Dim TestFirmKey As String = ""
@@ -643,24 +544,30 @@ Public Class ISMPTestFirmComments
                     RefNum = ""
                 End If
 
-                SQL = "Update AIRBRANCH.ISMPTestFirmComments set " &
-                "strTestingFirmKey = '" & TestFirmKey & "', " &
-                "strAIRSNumber = '" & AIRSNum & "', " &
-                "strTestLogNumber = '" & TestLogNum & "', " &
-                "strReferenceNumber = '" & RefNum & "', " &
-                "strComment = '" & Replace(txtAddComments.Text, "'", "''") & "', " &
-                "strStaffresponsible = '" & CurrentUser.UserID & "', " &
-                "datCommentDate = sysdate, " &
-                "strModifingPerson = '" & CurrentUser.UserID & "', " &
-                "datModifingDate = sysdate " &
-                "where numCommentsID = '" & CommentID & "' "
+                query = "Update ISMPTestFirmComments set " &
+                "strTestingFirmKey = @strTestingFirmKey, " &
+                "strAIRSNumber = @strAIRSNumber, " &
+                "strTestLogNumber = @strTestLogNumber, " &
+                "strReferenceNumber = @strReferenceNumber, " &
+                "strComment = @strComment, " &
+                "strStaffresponsible = @strStaffresponsible, " &
+                "datCommentDate = GETDATE(), " &
+                "strModifingPerson = @strModifingPerson, " &
+                "datModifingDate = GETDATE() " &
+                "where numCommentsID = @numCommentsID "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                dr.Close()
+                Dim p As SqlParameter() = {
+                    New SqlParameter("@strTestingFirmKey", TestFirmKey),
+                    New SqlParameter("@strAIRSNumber", AIRSNum),
+                    New SqlParameter("@strTestLogNumber", TestLogNum),
+                    New SqlParameter("@strReferenceNumber", RefNum),
+                    New SqlParameter("@strComment", txtAddComments.Text),
+                    New SqlParameter("@strStaffresponsible", CurrentUser.UserID),
+                    New SqlParameter("@strModifingPerson", CurrentUser.UserID),
+                    New SqlParameter("@numCommentsID", CommentID)
+                }
+
+                DB.RunCommand(query, p)
 
                 txtAddComments.Clear()
                 txtAllComments.Clear()
@@ -669,22 +576,19 @@ Public Class ISMPTestFirmComments
 
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
-    Private Sub btnDeleteComment_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnDeleteComment.Click
+    Private Sub btnDeleteComment_Click(sender As Object, e As EventArgs) Handles btnDeleteComment.Click
         Try
             If cboCommentNumber.Text <> "" Then
-                SQL = "Delete AIRBRANCH.ISMPTestFirmComments " &
-                "where numCommentsId = '" & cboCommentNumber.Text & "' "
+                query = "Delete ISMPTestFirmComments " &
+                "where numCommentsId = @co "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                dr.Close()
+                Dim p As New SqlParameter("@co", cboCommentNumber.Text)
+
+                DB.RunCommand(query, p)
 
                 txtAddComments.Clear()
                 txtAllComments.Clear()
@@ -692,48 +596,44 @@ Public Class ISMPTestFirmComments
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
-    Private Sub btnRefreshNotifications_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnRefreshNotifications.Click
+    Private Sub btnRefreshNotifications_Click(sender As Object, e As EventArgs) Handles btnRefreshNotifications.Click
         Try
             LoadHeaderData("Notification")
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
-    Private Sub btnRefreshReportNumber_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnRefreshReportNumber.Click
+    Private Sub btnRefreshReportNumber_Click(sender As Object, e As EventArgs) Handles btnRefreshReportNumber.Click
         Try
             LoadHeaderData("Test Report")
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
-    Private Sub btnRefreshAIRSNumber_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnRefreshAIRSNumber.Click
+    Private Sub btnRefreshAIRSNumber_Click(sender As Object, e As EventArgs) Handles btnRefreshAIRSNumber.Click
         Try
             LoadHeaderData("AIRS Number")
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
-    Private Sub tsbSave_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbSave.Click
+    Private Sub tsbSave_Click(sender As Object, e As EventArgs) Handles tsbSave.Click
         Try
             SaveHeaderData()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
     End Sub
-#End Region
 
-    Private Sub HelpToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HelpToolStripMenuItem.Click
-        OpenDocumentationUrl(Me)
-    End Sub
 End Class

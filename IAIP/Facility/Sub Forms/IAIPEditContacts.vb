@@ -1,52 +1,19 @@
-Imports Oracle.ManagedDataAccess.Client
-Imports Iaip.Apb.Facilities
+Imports System.Data.SqlClient
 Imports Iaip.DAL
 
 Public Class IAIPEditContacts
 
 #Region "Properties"
 
-    Private _airsNumber As Apb.ApbFacilityId
     Public Property AirsNumber() As Apb.ApbFacilityId
-        Get
-            Return _airsNumber
-        End Get
-        Set(ByVal value As Apb.ApbFacilityId)
-            _airsNumber = value
-        End Set
-    End Property
-
-    Private _facilityName As String
     Public Property FacilityName() As String
-        Get
-            Return _facilityName
-        End Get
-        Set(ByVal value As String)
-            _facilityName = value
-        End Set
-    End Property
-
-    Private _key As ContactKey
     Friend Property Key() As ContactKey
-        Get
-            Return _key
-        End Get
-        Set(ByVal value As ContactKey)
-            _key = value
-        End Set
-    End Property
 
 #End Region
 
-    Dim SQL As String
-    Dim cmd As OracleCommand
-    Dim dsContacts As DataSet
-    Dim daContacts As OracleDataAdapter
-
 #Region "Page Load"
 
-    Private Sub APBAddContacts_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles MyBase.Load
-
+    Private Sub APBAddContacts_Load(sender As Object, e As EventArgs) Handles Me.Load
         ParseParameters()
         LoadContactsDataset()
         If Key <> ContactKey.None AndAlso [Enum].IsDefined(GetType(ContactKey), Key) Then
@@ -78,7 +45,7 @@ Public Class IAIPEditContacts
         Try
             If AirsNumber.ToString IsNot Nothing Then
 
-                SQL = "Select " &
+                Dim SQL As String = "Select " &
                 "case " &
                 "when strKey = '10' then 'Current Monitoring Contact'" &
                 "when strKey = '20' then 'Current Compliance Contact' " &
@@ -113,16 +80,13 @@ Public Class IAIPEditContacts
                  "    when strContactDescription is Null then '' " &
                  "    ELSE strContactDescription " &
                  "END as ContactDescription " &
-                 "from AIRBRANCH.APBContactInformation " &
-                 "where strAIRSnumber = '" & AirsNumber.DbFormattedString & "' " &
-                 "order by substr(strKey, 2), strKey "
+                 "from APBContactInformation " &
+                 "where strAIRSnumber = @airs " &
+                 "order by substring(strKey, 2, 1), strKey "
 
-                dsContacts = New DataSet
-                daContacts = New OracleDataAdapter(SQL, CurrentConnection)
+                Dim p As New SqlParameter("@airs", AirsNumber.DbFormattedString)
 
-                daContacts.Fill(dsContacts, "Contacts")
-                ContactsDataGrid.DataSource = dsContacts
-                ContactsDataGrid.DataMember = "Contacts"
+                ContactsDataGrid.DataSource = DB.GetDataTable(SQL, p)
 
                 ContactsDataGrid.RowHeadersVisible = False
                 ContactsDataGrid.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -188,122 +152,104 @@ Public Class IAIPEditContacts
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
-
     End Sub
 
 #End Region
 
 #Region "Grid click"
 
-    Sub NewContactDataLoad()
+    Private Sub NewContactDataLoad()
         Try
             If Me.AirsNumber.ToString IsNot Nothing And Key <> ContactKey.None Then
-                Dim query As String = "Select * from AIRBRANCH.APBContactInformation " &
-                "where strAIRSNumber = :airsnumber " &
-                "and strKey = :key "
+                Dim query As String = "Select * from APBContactInformation " &
+                "where strAIRSNumber = @airsnumber " &
+                "and strKey = @key "
 
-                Dim parameters As OracleParameter() = New OracleParameter() {
-                    New OracleParameter("airsnumber", Me.AirsNumber.DbFormattedString),
-                    New OracleParameter("key", Key.ToString("D"))
+                Dim parameters As SqlParameter() = New SqlParameter() {
+                    New SqlParameter("@airsnumber", Me.AirsNumber.DbFormattedString),
+                    New SqlParameter("@key", Key.ToString("D"))
                 }
 
-                Using connection As New OracleConnection(DB.CurrentConnectionString)
-                    Using command As New OracleCommand(query, connection)
-                        command.CommandType = CommandType.Text
-                        command.BindByName = True
-                        command.Parameters.AddRange(parameters)
-                        command.Connection.Open()
-
-                        Dim dr As OracleDataReader = command.ExecuteReader
-                        While dr.Read
-                            If IsDBNull(dr.Item("strContactFirstName")) Then
-                                txtNewFirstName.Clear()
-                            Else
-                                txtNewFirstName.Text = dr.Item("strContactFirstName")
-                            End If
-                            If IsDBNull(dr.Item("strContactLastName")) Then
-                                txtNewLastName.Clear()
-                            Else
-                                txtNewLastName.Text = dr.Item("strContactLastName")
-                            End If
-                            If IsDBNull(dr.Item("strContactPrefix")) Then
-                                txtNewPrefix.Clear()
-                            Else
-                                txtNewPrefix.Text = dr.Item("strContactPrefix")
-                            End If
-                            If IsDBNull(dr.Item("strContactSuffix")) Then
-                                txtNewSuffix.Clear()
-                            Else
-                                txtNewSuffix.Text = dr.Item("strContactSuffix")
-                            End If
-                            If IsDBNull(dr.Item("STRCONTACTTITLE")) Then
-                                txtNewTitle.Clear()
-                            Else
-                                txtNewTitle.Text = dr.Item("STRCONTACTTITLE")
-                            End If
-                            If IsDBNull(dr.Item("STRCONTACTCOMPANYNAME")) Then
-                                txtNewCompany.Clear()
-                            Else
-                                txtNewCompany.Text = dr.Item("STRCONTACTCOMPANYNAME")
-                            End If
-                            If IsDBNull(dr.Item("STRCONTACTPHONENUMBER1")) Then
-                                mtbNewPhoneNumber.Clear()
-                            Else
-                                mtbNewPhoneNumber.Text = dr.Item("STRCONTACTPHONENUMBER1")
-                            End If
-                            If IsDBNull(dr.Item("STRCONTACTPHONENUMBER2")) Then
-                                mtbNewPhoneNumber2.Clear()
-                            Else
-                                mtbNewPhoneNumber2.Text = dr.Item("STRCONTACTPHONENUMBER2")
-                            End If
-                            If IsDBNull(dr.Item("STRCONTACTFAXNUMBER")) Then
-                                mtbNewFaxNumber.Clear()
-                            Else
-                                mtbNewFaxNumber.Text = dr.Item("STRCONTACTFAXNUMBER")
-                            End If
-                            If IsDBNull(dr.Item("STRCONTACTEMAIL")) Then
-                                txtNewEmail.Clear()
-                            Else
-                                txtNewEmail.Text = dr.Item("STRCONTACTEMAIL")
-                            End If
-                            If IsDBNull(dr.Item("STRCONTACTADDRESS1")) Then
-                                txtNewAddress.Clear()
-                            Else
-                                txtNewAddress.Text = dr.Item("STRCONTACTADDRESS1")
-                            End If
-                            'If IsDBNull(dr.Item("STRCONTACTADDRESS2")) Then
-                            '    txtNewFirstName.Clear()
-                            'Else
-                            '    txtNewFirstName.Text = dr.Item("STRCONTACTADDRESS2")
-                            'End If
-                            If IsDBNull(dr.Item("STRCONTACTCITY")) Then
-                                txtNewCity.Clear()
-                            Else
-                                txtNewCity.Text = dr.Item("STRCONTACTCITY")
-                            End If
-                            If IsDBNull(dr.Item("STRCONTACTSTATE")) Then
-                                txtNewState.Clear()
-                            Else
-                                txtNewState.Text = dr.Item("STRCONTACTSTATE")
-                            End If
-                            If IsDBNull(dr.Item("STRCONTACTZIPCODE")) Then
-                                mtbNewZipCode.Clear()
-                            Else
-                                mtbNewZipCode.Text = dr.Item("STRCONTACTZIPCODE")
-                            End If
-                            If IsDBNull(dr.Item("STRCONTACTDESCRIPTION")) Then
-                                txtNewDescrption.Clear()
-                            Else
-                                txtNewDescrption.Text = dr.Item("STRCONTACTDESCRIPTION")
-                            End If
-                        End While
-                        dr.Close()
-
-                        command.Connection.Close()
-                    End Using
-                End Using
+                Dim dr As DataRow = DB.GetDataRow(query, parameters)
+                If dr IsNot Nothing Then
+                    If IsDBNull(dr.Item("strContactFirstName")) Then
+                        txtNewFirstName.Clear()
+                    Else
+                        txtNewFirstName.Text = dr.Item("strContactFirstName")
+                    End If
+                    If IsDBNull(dr.Item("strContactLastName")) Then
+                        txtNewLastName.Clear()
+                    Else
+                        txtNewLastName.Text = dr.Item("strContactLastName")
+                    End If
+                    If IsDBNull(dr.Item("strContactPrefix")) Then
+                        txtNewPrefix.Clear()
+                    Else
+                        txtNewPrefix.Text = dr.Item("strContactPrefix")
+                    End If
+                    If IsDBNull(dr.Item("strContactSuffix")) Then
+                        txtNewSuffix.Clear()
+                    Else
+                        txtNewSuffix.Text = dr.Item("strContactSuffix")
+                    End If
+                    If IsDBNull(dr.Item("STRCONTACTTITLE")) Then
+                        txtNewTitle.Clear()
+                    Else
+                        txtNewTitle.Text = dr.Item("STRCONTACTTITLE")
+                    End If
+                    If IsDBNull(dr.Item("STRCONTACTCOMPANYNAME")) Then
+                        txtNewCompany.Clear()
+                    Else
+                        txtNewCompany.Text = dr.Item("STRCONTACTCOMPANYNAME")
+                    End If
+                    If IsDBNull(dr.Item("STRCONTACTPHONENUMBER1")) Then
+                        mtbNewPhoneNumber.Clear()
+                    Else
+                        mtbNewPhoneNumber.Text = dr.Item("STRCONTACTPHONENUMBER1")
+                    End If
+                    If IsDBNull(dr.Item("STRCONTACTPHONENUMBER2")) Then
+                        mtbNewPhoneNumber2.Clear()
+                    Else
+                        mtbNewPhoneNumber2.Text = dr.Item("STRCONTACTPHONENUMBER2")
+                    End If
+                    If IsDBNull(dr.Item("STRCONTACTFAXNUMBER")) Then
+                        mtbNewFaxNumber.Clear()
+                    Else
+                        mtbNewFaxNumber.Text = dr.Item("STRCONTACTFAXNUMBER")
+                    End If
+                    If IsDBNull(dr.Item("STRCONTACTEMAIL")) Then
+                        txtNewEmail.Clear()
+                    Else
+                        txtNewEmail.Text = dr.Item("STRCONTACTEMAIL")
+                    End If
+                    If IsDBNull(dr.Item("STRCONTACTADDRESS1")) Then
+                        txtNewAddress.Clear()
+                    Else
+                        txtNewAddress.Text = dr.Item("STRCONTACTADDRESS1")
+                    End If
+                    If IsDBNull(dr.Item("STRCONTACTCITY")) Then
+                        txtNewCity.Clear()
+                    Else
+                        txtNewCity.Text = dr.Item("STRCONTACTCITY")
+                    End If
+                    If IsDBNull(dr.Item("STRCONTACTSTATE")) Then
+                        txtNewState.Clear()
+                    Else
+                        txtNewState.Text = dr.Item("STRCONTACTSTATE")
+                    End If
+                    If IsDBNull(dr.Item("STRCONTACTZIPCODE")) Then
+                        mtbNewZipCode.Clear()
+                    Else
+                        mtbNewZipCode.Text = dr.Item("STRCONTACTZIPCODE")
+                    End If
+                    If IsDBNull(dr.Item("STRCONTACTDESCRIPTION")) Then
+                        txtNewDescrption.Clear()
+                    Else
+                        txtNewDescrption.Text = dr.Item("STRCONTACTDESCRIPTION")
+                    End If
+                End If
 
                 rdbNewMonitoringContact.Checked = False
                 rdbNewComplianceContact.Checked = False
@@ -338,11 +284,11 @@ Public Class IAIPEditContacts
 
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub dgrContacts_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles ContactsDataGrid.MouseUp
+    Private Sub dgrContacts_MouseUp(sender As Object, e As MouseEventArgs) Handles ContactsDataGrid.MouseUp
         Dim hti As DataGridView.HitTestInfo = ContactsDataGrid.HitTest(e.X, e.Y)
 
         Try
@@ -354,16 +300,15 @@ Public Class IAIPEditContacts
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
-
     End Sub
 
 #End Region
 
 #Region "Buttons"
 
-    Private Sub btnNewClear_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNewClear.Click
+    Private Sub btnNewClear_Click(sender As Object, e As EventArgs) Handles btnNewClear.Click
         txtNewAddress.Clear()
         txtNewCity.Clear()
         txtNewCompany.Clear()
@@ -382,7 +327,7 @@ Public Class IAIPEditContacts
         Key = ContactKey.None
     End Sub
 
-    Private Sub btnNewUpdate_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNewUpdate.Click
+    Private Sub btnNewUpdate_Click(sender As Object, e As EventArgs) Handles btnNewUpdate.Click
         Try
             Dim newKey As String = ""
 
@@ -397,32 +342,49 @@ Public Class IAIPEditContacts
                 End If
 
                 If Key <> ContactKey.None Then
-                    SQL = "Update airbranch.APBContactInformation set " &
-                    "STRCONTACTFIRSTNAME = '" & Replace(txtNewFirstName.Text, "'", "''") & "', " &
-                    "STRCONTACTLASTNAME = '" & Replace(txtNewLastName.Text, "'", "''") & "', " &
-                    "STRCONTACTPREFIX = '" & Replace(txtNewPrefix.Text, "'", "''") & "', " &
-                    "STRCONTACTSUFFIX = '" & Replace(txtNewSuffix.Text, "'", "''") & "', " &
-                    "STRCONTACTTITLE = '" & Replace(txtNewTitle.Text, "'", "''") & "', " &
-                    "STRCONTACTCOMPANYNAME = '" & Replace(txtNewCompany.Text, "'", "''") & "', " &
-                    "STRCONTACTPHONENUMBER1 = '" & mtbNewPhoneNumber.Text & "', " &
-                    "STRCONTACTPHONENUMBER2 = '" & mtbNewPhoneNumber2.Text & "', " &
-                    "STRCONTACTFAXNUMBER = '" & mtbNewFaxNumber.Text & "'," &
-                    "STRCONTACTEMAIL = '" & Replace(txtNewEmail.Text, "'", "''") & "', " &
-                    "STRCONTACTADDRESS1 = '" & Replace(txtNewAddress.Text, "'", "''") & "', " &
-                    "STRCONTACTCITY = '" & Replace(txtNewCity.Text, "'", "''") & "', " &
-                    "STRCONTACTSTATE = '" & Replace(txtNewState.Text, "'", "''") & "', " &
-                    "STRCONTACTZIPCODE = '" & mtbNewZipCode.Text & "', " &
-                    "STRMODIFINGPERSON = '" & CurrentUser.UserID & "', " &
-                    "DATMODIFINGDATE = sysdate,  " &
-                    "STRCONTACTDESCRIPTION = '" & Replace(txtNewDescrption.Text, "'", "''") & "' " &
-                    "where strAIRSnumber = '" & AirsNumber.DbFormattedString & "' " &
-                    "and strKey = '" & Key.ToString("D") & "' "
+                    Dim Sql As String = "UPDATE APBCONTACTINFORMATION " &
+                        "SET STRCONTACTFIRSTNAME = @STRCONTACTFIRSTNAME " &
+                        ", STRCONTACTLASTNAME = @STRCONTACTLASTNAME " &
+                        ", STRCONTACTPREFIX = @STRCONTACTPREFIX " &
+                        ", STRCONTACTSUFFIX = @STRCONTACTSUFFIX " &
+                        ", STRCONTACTTITLE = @STRCONTACTTITLE " &
+                        ", STRCONTACTCOMPANYNAME = @STRCONTACTCOMPANYNAME " &
+                        ", STRCONTACTPHONENUMBER1 = @STRCONTACTPHONENUMBER1 " &
+                        ", STRCONTACTPHONENUMBER2 = @STRCONTACTPHONENUMBER2 " &
+                        ", STRCONTACTFAXNUMBER = @STRCONTACTFAXNUMBER " &
+                        ", STRCONTACTEMAIL = @STRCONTACTEMAIL " &
+                        ", STRCONTACTADDRESS1 = @STRCONTACTADDRESS1 " &
+                        ", STRCONTACTCITY = @STRCONTACTCITY " &
+                        ", STRCONTACTSTATE = @STRCONTACTSTATE " &
+                        ", STRCONTACTZIPCODE = @STRCONTACTZIPCODE " &
+                        ", STRMODIFINGPERSON = @STRMODIFINGPERSON " &
+                        ", DATMODIFINGDATE = GETDATE() " &
+                        ", STRCONTACTDESCRIPTION = @STRCONTACTDESCRIPTION " &
+                        "WHERE  STRAIRSNUMBER = @STRAIRSNUMBER " &
+                        "AND STRKEY = @STRKEY "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    cmd.ExecuteReader()
+                    Dim p As SqlParameter() = {
+                        New SqlParameter("@STRCONTACTFIRSTNAME", txtNewFirstName.Text),
+                        New SqlParameter("@STRCONTACTLASTNAME", txtNewLastName.Text),
+                        New SqlParameter("@STRCONTACTPREFIX", txtNewPrefix.Text),
+                        New SqlParameter("@STRCONTACTSUFFIX", txtNewSuffix.Text),
+                        New SqlParameter("@STRCONTACTTITLE", txtNewTitle.Text),
+                        New SqlParameter("@STRCONTACTCOMPANYNAME", txtNewCompany.Text),
+                        New SqlParameter("@STRCONTACTPHONENUMBER1", mtbNewPhoneNumber.Text),
+                        New SqlParameter("@STRCONTACTPHONENUMBER2", mtbNewPhoneNumber2.Text),
+                        New SqlParameter("@STRCONTACTFAXNUMBER", mtbNewFaxNumber.Text),
+                        New SqlParameter("@STRCONTACTEMAIL", txtNewEmail.Text),
+                        New SqlParameter("@STRCONTACTADDRESS1", txtNewAddress.Text),
+                        New SqlParameter("@STRCONTACTCITY", txtNewCity.Text),
+                        New SqlParameter("@STRCONTACTSTATE", txtNewState.Text),
+                        New SqlParameter("@STRCONTACTZIPCODE", mtbNewZipCode.Text),
+                        New SqlParameter("@STRMODIFINGPERSON", CurrentUser.UserID),
+                        New SqlParameter("@STRCONTACTDESCRIPTION", txtNewDescrption.Text),
+                        New SqlParameter("@STRAIRSNUMBER", AirsNumber.DbFormattedString),
+                        New SqlParameter("@STRKEY", Key.ToString("D"))
+                    }
+
+                    DB.RunCommand(Sql, p)
                 Else
                     If rdbNewMonitoringContact.Checked = True Then
                         newKey = "10"
@@ -445,31 +407,49 @@ Public Class IAIPEditContacts
                     End If
 
                     If newKey <> "" Then
-                        SQL = "Update airbranch.APBContactInformation set " &
-                       "STRCONTACTFIRSTNAME = '" & Replace(txtNewFirstName.Text, "'", "''") & "', " &
-                       "STRCONTACTLASTNAME = '" & Replace(txtNewLastName.Text, "'", "''") & "', " &
-                       "STRCONTACTPREFIX = '" & Replace(txtNewPrefix.Text, "'", "''") & "', " &
-                       "STRCONTACTSUFFIX = '" & Replace(txtNewSuffix.Text, "'", "''") & "', " &
-                       "STRCONTACTTITLE = '" & Replace(txtNewTitle.Text, "'", "''") & "', " &
-                       "STRCONTACTCOMPANYNAME = '" & Replace(txtNewCompany.Text, "'", "''") & "', " &
-                       "STRCONTACTPHONENUMBER1 = '" & mtbNewPhoneNumber.Text & "', " &
-                       "STRCONTACTPHONENUMBER2 = '" & mtbNewPhoneNumber2.Text & "', " &
-                       "STRCONTACTFAXNUMBER = '" & mtbNewFaxNumber.Text & "'," &
-                       "STRCONTACTEMAIL = '" & Replace(txtNewEmail.Text, "'", "''") & "', " &
-                       "STRCONTACTADDRESS1 = '" & Replace(txtNewAddress.Text, "'", "''") & "', " &
-                       "STRCONTACTCITY = '" & Replace(txtNewCity.Text, "'", "''") & "', " &
-                       "STRCONTACTSTATE = '" & Replace(txtNewState.Text, "'", "''") & "', " &
-                       "STRCONTACTZIPCODE = '" & mtbNewZipCode.Text & "', " &
-                       "STRMODIFINGPERSON = '" & CurrentUser.UserID & "', " &
-                       "DATMODIFINGDATE = sysdate,  " &
-                       "STRCONTACTDESCRIPTION = '" & Replace(txtNewDescrption.Text, "'", "''") & "' " &
-                       "where strAIRSnumber = '" & AirsNumber.DbFormattedString & "' " &
-                       "and strKey = '" & newKey & "' "
-                        cmd = New OracleCommand(SQL, CurrentConnection)
-                        If CurrentConnection.State = ConnectionState.Closed Then
-                            CurrentConnection.Open()
-                        End If
-                        cmd.ExecuteReader()
+                        Dim Sql As String = "UPDATE APBCONTACTINFORMATION " &
+                            "SET STRCONTACTFIRSTNAME = @STRCONTACTFIRSTNAME " &
+                            ", STRCONTACTLASTNAME = @STRCONTACTLASTNAME " &
+                            ", STRCONTACTPREFIX = @STRCONTACTPREFIX " &
+                            ", STRCONTACTSUFFIX = @STRCONTACTSUFFIX " &
+                            ", STRCONTACTTITLE = @STRCONTACTTITLE " &
+                            ", STRCONTACTCOMPANYNAME = @STRCONTACTCOMPANYNAME " &
+                            ", STRCONTACTPHONENUMBER1 = @STRCONTACTPHONENUMBER1 " &
+                            ", STRCONTACTPHONENUMBER2 = @STRCONTACTPHONENUMBER2 " &
+                            ", STRCONTACTFAXNUMBER = @STRCONTACTFAXNUMBER " &
+                            ", STRCONTACTEMAIL = @STRCONTACTEMAIL " &
+                            ", STRCONTACTADDRESS1 = @STRCONTACTADDRESS1 " &
+                            ", STRCONTACTCITY = @STRCONTACTCITY " &
+                            ", STRCONTACTSTATE = @STRCONTACTSTATE " &
+                            ", STRCONTACTZIPCODE = @STRCONTACTZIPCODE " &
+                            ", STRMODIFINGPERSON = @STRMODIFINGPERSON " &
+                            ", DATMODIFINGDATE = GETDATE() " &
+                            ", STRCONTACTDESCRIPTION = @STRCONTACTDESCRIPTION " &
+                            "WHERE  STRAIRSNUMBER = @STRAIRSNUMBER " &
+                            "AND STRKEY = @STRKEY "
+
+                        Dim p As SqlParameter() = {
+                            New SqlParameter("@STRCONTACTFIRSTNAME", txtNewFirstName.Text),
+                            New SqlParameter("@STRCONTACTLASTNAME", txtNewLastName.Text),
+                            New SqlParameter("@STRCONTACTPREFIX", txtNewPrefix.Text),
+                            New SqlParameter("@STRCONTACTSUFFIX", txtNewSuffix.Text),
+                            New SqlParameter("@STRCONTACTTITLE", txtNewTitle.Text),
+                            New SqlParameter("@STRCONTACTCOMPANYNAME", txtNewCompany.Text),
+                            New SqlParameter("@STRCONTACTPHONENUMBER1", mtbNewPhoneNumber.Text),
+                            New SqlParameter("@STRCONTACTPHONENUMBER2", mtbNewPhoneNumber2.Text),
+                            New SqlParameter("@STRCONTACTFAXNUMBER", mtbNewFaxNumber.Text),
+                            New SqlParameter("@STRCONTACTEMAIL", txtNewEmail.Text),
+                            New SqlParameter("@STRCONTACTADDRESS1", txtNewAddress.Text),
+                            New SqlParameter("@STRCONTACTCITY", txtNewCity.Text),
+                            New SqlParameter("@STRCONTACTSTATE", txtNewState.Text),
+                            New SqlParameter("@STRCONTACTZIPCODE", mtbNewZipCode.Text),
+                            New SqlParameter("@STRMODIFINGPERSON", CurrentUser.UserID),
+                            New SqlParameter("@STRCONTACTDESCRIPTION", txtNewDescrption.Text),
+                            New SqlParameter("@STRAIRSNUMBER", AirsNumber.DbFormattedString),
+                            New SqlParameter("@STRKEY", newKey)
+                        }
+
+                        DB.RunCommand(Sql, p)
                     End If
 
                 End If
@@ -478,13 +458,14 @@ Public Class IAIPEditContacts
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub btnNewSave_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnNewSave.Click
+    Private Sub btnNewSave_Click(sender As Object, e As EventArgs) Handles btnNewSave.Click
         Try
             Dim newKey As String = ""
+            Dim SQL As String = ""
 
             If AirsNumber.ToString <> "" Then
                 If rdbNewMonitoringContact.Checked = True Then
@@ -513,97 +494,116 @@ Public Class IAIPEditContacts
                 Else
                     Select Case newKey
                         Case "10", "20", "30", "50", "60", "70"
-                            SQL = "delete airbranch.APBContactInformation " &
-                            "where strAIRSnumber = '" & AirsNumber.DbFormattedString & "' " &
-                            "and strKey = '" & Mid(newKey, 1, 1) & "9' "
+                            SQL = "delete APBContactInformation " &
+                            "where strAIRSnumber = @airs " &
+                            "and strKey = @key "
 
-                            cmd = New OracleCommand(SQL, CurrentConnection)
-                            If CurrentConnection.State = ConnectionState.Closed Then
-                                CurrentConnection.Open()
-                            End If
-                            cmd.ExecuteReader()
+                            Dim p As SqlParameter() = {
+                                New SqlParameter("@airs", AirsNumber.DbFormattedString),
+                                New SqlParameter("@key", Mid(newKey, 1, 1) & "9")
+                            }
 
-                            SQL = "Update AIRBranch.APBContactInformation set " &
-                            "strKey = substr(strKey, 1,1) || (substr(strKey, 2,1) + 1), " &
-                            "strContactKey = substr(strContactKey, 1, 13) || (substr(strContactKey, 14, 1) + 1) " &
-                            "where strAIRSNumber = '" & AirsNumber.DbFormattedString & "' " &
-                            "and strKey like '" & Mid(newKey, 1, 1) & "%' "
-                            cmd = New OracleCommand(SQL, CurrentConnection)
-                            If CurrentConnection.State = ConnectionState.Closed Then
-                                CurrentConnection.Open()
-                            End If
-                            cmd.ExecuteReader()
+                            DB.RunCommand(SQL, p)
 
-                            SQL = "Insert into airbranch.APBContactInformation " &
-                            "(STRCONTACTKEY, STRAIRSNUMBER,  " &
-                            "STRKEY, STRCONTACTFIRSTNAME,  " &
-                            "STRCONTACTLASTNAME, STRCONTACTPREFIX,  " &
-                            "STRCONTACTSUFFIX, STRCONTACTTITLE,  " &
-                            "STRCONTACTCOMPANYNAME, STRCONTACTPHONENUMBER1,  " &
-                            "STRCONTACTPHONENUMBER2, STRCONTACTFAXNUMBER,  " &
-                            "STRCONTACTEMAIL, STRCONTACTADDRESS1,  " &
-                            "STRCONTACTADDRESS2, STRCONTACTCITY,  " &
-                            "STRCONTACTSTATE, STRCONTACTZIPCODE,  " &
-                            "STRMODIFINGPERSON, DATMODIFINGDATE,  " &
-                            "STRCONTACTDESCRIPTION)  " &
-                            "(Select  " &
-                            "'" & AirsNumber.DbFormattedString & newKey & "', '" & AirsNumber.DbFormattedString & "', " &
-                            "'" & newKey & "', '" & Replace(txtNewFirstName.Text, "'", "''") & "', " &
-                            "'" & Replace(txtNewLastName.Text, "'", "''") & "',  '" & Replace(txtNewPrefix.Text, "'", "''") & "', " &
-                            " '" & Replace(txtNewSuffix.Text, "'", "''") & "', '" & Replace(txtNewTitle.Text, "'", "''") & "', " &
-                            " '" & Replace(txtNewCompany.Text, "'", "''") & "', '" & mtbNewPhoneNumber.Text & "', " &
-                            " '" & mtbNewPhoneNumber2.Text & "',  '" & mtbNewFaxNumber.Text & "', " &
-                            " '" & Replace(txtNewEmail.Text, "'", "''") & "', '" & Replace(txtNewAddress.Text, "'", "''") & "', " &
-                            " '', '" & Replace(txtNewCity.Text, "'", "''") & "', " &
-                            " '" & Replace(txtNewState.Text, "'", "''") & "',  '" & mtbNewZipCode.Text & "', " &
-                            " '" & CurrentUser.UserID & "',  sysdate, " &
-                            " '" & Replace(txtNewDescrption.Text, "'", "''") & "' " &
-                            "from dual  " &
-                            "where not exists (select * from AIRBranch.APBContactInformation  " &
-                            "where strKey = '" & newKey & "' " &
-                            "and strAIRSNumber = '" & AirsNumber.DbFormattedString & "')) "
+                            SQL = "Update APBContactInformation set " &
+                            "strKey = substring(strKey, 1,1) + (substring(strKey, 2,1) + 1), " &
+                            "strContactKey = substring(strContactKey, 1, 13) + (substring(strContactKey, 14, 1) + 1) " &
+                            "where strAIRSNumber = @airs " &
+                            "and strKey like @key '" & Mid(newKey, 1, 1) & "%' "
 
-                            cmd = New OracleCommand(SQL, CurrentConnection)
-                            If CurrentConnection.State = ConnectionState.Closed Then
-                                CurrentConnection.Open()
-                            End If
-                            cmd.ExecuteReader()
+                            Dim p2 As SqlParameter() = {
+                                New SqlParameter("@airs", AirsNumber.DbFormattedString),
+                                New SqlParameter("@key", Mid(newKey, 1, 1) & "%")
+                            }
+
+                            DB.RunCommand(SQL, p2)
+
+                            SQL = "INSERT INTO APBCONTACTINFORMATION " &
+                                "(STRCONTACTKEY, STRAIRSNUMBER, STRKEY, STRCONTACTFIRSTNAME, " &
+                                "STRCONTACTLASTNAME, STRCONTACTPREFIX, STRCONTACTSUFFIX, STRCONTACTTITLE, " &
+                                "STRCONTACTCOMPANYNAME, STRCONTACTPHONENUMBER1, STRCONTACTPHONENUMBER2, STRCONTACTFAXNUMBER, " &
+                                "STRCONTACTEMAIL, STRCONTACTADDRESS1, STRCONTACTADDRESS2, STRCONTACTCITY, " &
+                                "STRCONTACTSTATE, STRCONTACTZIPCODE, STRMODIFINGPERSON, DATMODIFINGDATE, " &
+                                "STRCONTACTDESCRIPTION) " &
+                                "select " &
+                                "(@STRCONTACTKEY, @STRAIRSNUMBER, @STRKEY, @STRCONTACTFIRSTNAME, " &
+                                "@STRCONTACTLASTNAME, @STRCONTACTPREFIX, @STRCONTACTSUFFIX, @STRCONTACTTITLE, " &
+                                "@STRCONTACTCOMPANYNAME, @STRCONTACTPHONENUMBER1, @STRCONTACTPHONENUMBER2, @STRCONTACTFAXNUMBER, " &
+                                "@STRCONTACTEMAIL, @STRCONTACTADDRESS1, @STRCONTACTADDRESS2, @STRCONTACTCITY, " &
+                                "@STRCONTACTSTATE, @STRCONTACTZIPCODE, @STRMODIFINGPERSON, getdate(), " &
+                                "@STRCONTACTDESCRIPTION) " &
+                                "WHERE NOT EXISTS " &
+                                "(SELECT * FROM APBCONTACTINFORMATION " &
+                                "WHERE STRKEY = @STRKEY " &
+                                "AND STRAIRSNUMBER = @STRAIRSNUMBER) "
+                            Dim p3 As SqlParameter() = {
+                                New SqlParameter("@STRCONTACTKEY", AirsNumber.DbFormattedString & newKey),
+                                New SqlParameter("@STRAIRSNUMBER", AirsNumber.DbFormattedString),
+                                New SqlParameter("@STRKEY", newKey),
+                                New SqlParameter("@STRCONTACTFIRSTNAME", txtNewFirstName.Text),
+                                New SqlParameter("@STRCONTACTLASTNAME", txtNewLastName.Text),
+                                New SqlParameter("@STRCONTACTPREFIX", txtNewPrefix.Text),
+                                New SqlParameter("@STRCONTACTSUFFIX", txtNewSuffix.Text),
+                                New SqlParameter("@STRCONTACTTITLE", txtNewTitle.Text),
+                                New SqlParameter("@STRCONTACTCOMPANYNAME", txtNewCompany.Text),
+                                New SqlParameter("@STRCONTACTPHONENUMBER1", mtbNewPhoneNumber.Text),
+                                New SqlParameter("@STRCONTACTPHONENUMBER2", mtbNewPhoneNumber2.Text),
+                                New SqlParameter("@STRCONTACTFAXNUMBER", mtbNewFaxNumber.Text),
+                                New SqlParameter("@STRCONTACTEMAIL", txtNewEmail.Text),
+                                New SqlParameter("@STRCONTACTADDRESS1", txtNewAddress.Text),
+                                New SqlParameter("@STRCONTACTADDRESS2", ""),
+                                New SqlParameter("@STRCONTACTCITY", txtNewCity.Text),
+                                New SqlParameter("@STRCONTACTSTATE", txtNewState.Text),
+                                New SqlParameter("@STRCONTACTZIPCODE", mtbNewZipCode.Text),
+                                New SqlParameter("@STRMODIFINGPERSON", CurrentUser.UserID),
+                                New SqlParameter("@STRCONTACTDESCRIPTION", txtNewDescrption.Text)
+                            }
+
+                            DB.RunCommand(SQL, p3)
 
                         Case Else
-                            SQL = "Insert into airbranch.APBContactInformation " &
-                            "(STRCONTACTKEY, STRAIRSNUMBER,  " &
-                            "STRKEY, STRCONTACTFIRSTNAME,  " &
-                            "STRCONTACTLASTNAME, STRCONTACTPREFIX,  " &
-                            "STRCONTACTSUFFIX, STRCONTACTTITLE,  " &
-                            "STRCONTACTCOMPANYNAME, STRCONTACTPHONENUMBER1,  " &
-                            "STRCONTACTPHONENUMBER2, STRCONTACTFAXNUMBER,  " &
-                            "STRCONTACTEMAIL, STRCONTACTADDRESS1,  " &
-                            "STRCONTACTADDRESS2, STRCONTACTCITY,  " &
-                            "STRCONTACTSTATE, STRCONTACTZIPCODE,  " &
-                            "STRMODIFINGPERSON, DATMODIFINGDATE,  " &
-                            "STRCONTACTDESCRIPTION)  " &
-                            "(Select  " &
-                            "'" & AirsNumber.DbFormattedString & newKey & "', '" & AirsNumber.DbFormattedString & "', " &
-                            "'" & newKey & "', '" & Replace(txtNewFirstName.Text, "'", "''") & "', " &
-                            "'" & Replace(txtNewLastName.Text, "'", "''") & "',  '" & Replace(txtNewPrefix.Text, "'", "''") & "', " &
-                            " '" & Replace(txtNewSuffix.Text, "'", "''") & "', '" & Replace(txtNewTitle.Text, "'", "''") & "', " &
-                            " '" & Replace(txtNewCompany.Text, "'", "''") & "', '" & mtbNewPhoneNumber.Text & "', " &
-                            " '" & mtbNewPhoneNumber2.Text & "',  '" & mtbNewFaxNumber.Text & "', " &
-                            " '" & Replace(txtNewEmail.Text, "'", "''") & "', '" & Replace(txtNewAddress.Text, "'", "''") & "', " &
-                            " '', '" & Replace(txtNewCity.Text, "'", "''") & "', " &
-                            " '" & Replace(txtNewState.Text, "'", "''") & "',  '" & mtbNewZipCode.Text & "', " &
-                            " '" & CurrentUser.UserID & "',  sysdate, " &
-                            " '" & Replace(txtNewDescrption.Text, "'", "''") & "' " &
-                            "from dual  " &
-                            "where not exists (select * from AIRBranch.APBContactInformation  " &
-                            "where strKey = '" & newKey & "' " &
-                            "and strAIRSNumber = '" & AirsNumber.DbFormattedString & "')) "
+                            SQL = "INSERT INTO APBCONTACTINFORMATION " &
+                                "(STRCONTACTKEY, STRAIRSNUMBER, STRKEY, STRCONTACTFIRSTNAME, " &
+                                "STRCONTACTLASTNAME, STRCONTACTPREFIX, STRCONTACTSUFFIX, STRCONTACTTITLE, " &
+                                "STRCONTACTCOMPANYNAME, STRCONTACTPHONENUMBER1, STRCONTACTPHONENUMBER2, STRCONTACTFAXNUMBER, " &
+                                "STRCONTACTEMAIL, STRCONTACTADDRESS1, STRCONTACTADDRESS2, STRCONTACTCITY, " &
+                                "STRCONTACTSTATE, STRCONTACTZIPCODE, STRMODIFINGPERSON, DATMODIFINGDATE, " &
+                                "STRCONTACTDESCRIPTION) " &
+                                "select " &
+                                "(@STRCONTACTKEY, @STRAIRSNUMBER, @STRKEY, @STRCONTACTFIRSTNAME, " &
+                                "@STRCONTACTLASTNAME, @STRCONTACTPREFIX, @STRCONTACTSUFFIX, @STRCONTACTTITLE, " &
+                                "@STRCONTACTCOMPANYNAME, @STRCONTACTPHONENUMBER1, @STRCONTACTPHONENUMBER2, @STRCONTACTFAXNUMBER, " &
+                                "@STRCONTACTEMAIL, @STRCONTACTADDRESS1, @STRCONTACTADDRESS2, @STRCONTACTCITY, " &
+                                "@STRCONTACTSTATE, @STRCONTACTZIPCODE, @STRMODIFINGPERSON, getdate(), " &
+                                "@STRCONTACTDESCRIPTION) " &
+                                "WHERE NOT EXISTS " &
+                                "(SELECT * FROM APBCONTACTINFORMATION " &
+                                "WHERE STRKEY = @STRKEY " &
+                                "AND STRAIRSNUMBER = @STRAIRSNUMBER) "
+                            Dim p3 As SqlParameter() = {
+                                New SqlParameter("@STRCONTACTKEY", AirsNumber.DbFormattedString & newKey),
+                                New SqlParameter("@STRAIRSNUMBER", AirsNumber.DbFormattedString),
+                                New SqlParameter("@STRKEY", newKey),
+                                New SqlParameter("@STRCONTACTFIRSTNAME", txtNewFirstName.Text),
+                                New SqlParameter("@STRCONTACTLASTNAME", txtNewLastName.Text),
+                                New SqlParameter("@STRCONTACTPREFIX", txtNewPrefix.Text),
+                                New SqlParameter("@STRCONTACTSUFFIX", txtNewSuffix.Text),
+                                New SqlParameter("@STRCONTACTTITLE", txtNewTitle.Text),
+                                New SqlParameter("@STRCONTACTCOMPANYNAME", txtNewCompany.Text),
+                                New SqlParameter("@STRCONTACTPHONENUMBER1", mtbNewPhoneNumber.Text),
+                                New SqlParameter("@STRCONTACTPHONENUMBER2", mtbNewPhoneNumber2.Text),
+                                New SqlParameter("@STRCONTACTFAXNUMBER", mtbNewFaxNumber.Text),
+                                New SqlParameter("@STRCONTACTEMAIL", txtNewEmail.Text),
+                                New SqlParameter("@STRCONTACTADDRESS1", txtNewAddress.Text),
+                                New SqlParameter("@STRCONTACTADDRESS2", ""),
+                                New SqlParameter("@STRCONTACTCITY", txtNewCity.Text),
+                                New SqlParameter("@STRCONTACTSTATE", txtNewState.Text),
+                                New SqlParameter("@STRCONTACTZIPCODE", mtbNewZipCode.Text),
+                                New SqlParameter("@STRMODIFINGPERSON", CurrentUser.UserID),
+                                New SqlParameter("@STRCONTACTDESCRIPTION", txtNewDescrption.Text)
+                            }
 
-                            cmd = New OracleCommand(SQL, CurrentConnection)
-                            If CurrentConnection.State = ConnectionState.Closed Then
-                                CurrentConnection.Open()
-                            End If
-                            cmd.ExecuteReader()
+                            DB.RunCommand(SQL, p3)
                     End Select
 
                     LoadContactsDataset()
@@ -612,7 +612,7 @@ Public Class IAIPEditContacts
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 

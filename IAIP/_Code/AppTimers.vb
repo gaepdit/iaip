@@ -4,14 +4,11 @@
 
     Public Sub StartAppTimers()
         StartTimer(AppDurationTimer, AppDurationTimerInterval, AddressOf AppDurationTimerElapsed, False)
-        StartTimer(DbPingTimer, DbPingTimerInterval, AddressOf DbPingTimerElapsed)
-        'StartTimer(DbPingTimer, TimeSpan.FromMinutes(2), AddressOf DbPingTimerElapsed) ' 2 minutes (for testing purposes)
     End Sub
 
     Public Sub StopAppTimers()
         StopTimer(AppDurationTimer)
         StopTimer(ShutdownWarningTimer)
-        StopTimer(DbPingTimer)
     End Sub
 
     ''' <summary>
@@ -22,9 +19,9 @@
     ''' <param name="timerElapsedEventHandler">The procedure to handle the Timer Elapsed event.</param>
     ''' <param name="autoReset">A value indicating whether the Timer Elapsed event should recur or not.</param>
     ''' <remarks></remarks>
-    Private Sub StartTimer(ByRef timer As Timers.Timer, ByVal interval As TimeSpan,
-                           ByVal timerElapsedEventHandler As Timers.ElapsedEventHandler,
-                           Optional ByVal autoReset As Boolean = True)
+    Private Sub StartTimer(ByRef timer As Timers.Timer, interval As TimeSpan,
+                           timerElapsedEventHandler As Timers.ElapsedEventHandler,
+                           Optional autoReset As Boolean = True)
         timer = New Timers.Timer(interval.TotalMilliseconds)
         AddHandler timer.Elapsed, timerElapsedEventHandler
         timer.AutoReset = autoReset
@@ -35,28 +32,10 @@
     ''' Stops and disposes of a Timer.
     ''' </summary>
     ''' <param name="timer">The Timer to stop</param>
-    Private Sub StopTimer(ByVal timer As Timers.Timer)
+    Private Sub StopTimer(timer As Timers.Timer)
         If timer IsNot Nothing Then
             timer.Stop()
             timer.Dispose()
-        End If
-    End Sub
-
-#End Region
-
-#Region " Database ping timer "
-
-    Private DbPingTimer As Timers.Timer
-    Private DbPingTimerInterval As TimeSpan = TimeSpan.FromMinutes(35) ' 35 minutes 
-
-    Private Sub DbPingTimerElapsed()
-        monitor.TrackFeature("Timers.DbPingTimer")
-        Dim result As Boolean = DB.PingDBConnection(CurrentConnection)
-        If Not result Then
-            monitor.TrackFeature("Timers.DbPingFailure")
-            MessageBox.Show("The database connection has been lost. " & vbNewLine &
-                            "Please close and restart the IAIP.",
-                            "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End If
     End Sub
 

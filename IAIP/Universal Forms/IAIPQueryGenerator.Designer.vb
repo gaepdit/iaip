@@ -26,16 +26,6 @@ Partial Class IAIPQueryGenerator
         Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
-        Me.mmiFile = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mmiClose = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.SaveSearchQueryToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.OpenSavedSearchToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
-        Me.mmiExport = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mmiHelp = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mmiOnlineHelp = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
         Me.tsbExport = New System.Windows.Forms.ToolStripButton()
         Me.tsbSearchQuery = New System.Windows.Forms.ToolStripButton()
@@ -67,10 +57,6 @@ Partial Class IAIPQueryGenerator
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.btnRunSearch = New System.Windows.Forms.Button()
-        Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
-        Me.Panel1 = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.Panel2 = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.Panel3 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.PanelAll = New System.Windows.Forms.Panel()
         Me.Splitter1 = New System.Windows.Forms.Splitter()
         Me.dgvQueryGenerator = New System.Windows.Forms.DataGridView()
@@ -425,13 +411,17 @@ Partial Class IAIPQueryGenerator
         Me.lblQueryCount = New System.Windows.Forms.Label()
         Me.bgwQueryGenerator = New System.ComponentModel.BackgroundWorker()
         Me.LoggingBackgroundWorker = New System.ComponentModel.BackgroundWorker()
-        Me.MenuStrip1.SuspendLayout()
+        Me.ToolsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.SaveSearchQueryToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.OpenSavedSearchToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
+        Me.mmiExport = New System.Windows.Forms.ToolStripMenuItem()
+        Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.ToolStrip1.SuspendLayout()
         Me.Panel6.SuspendLayout()
         Me.Panel35.SuspendLayout()
         Me.Panel36.SuspendLayout()
         Me.Panel37.SuspendLayout()
-        Me.StatusStrip1.SuspendLayout()
         Me.PanelAll.SuspendLayout()
         CType(Me.dgvQueryGenerator, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TCQuerryOptions.SuspendLayout()
@@ -512,74 +502,8 @@ Partial Class IAIPQueryGenerator
         Me.Panel69.SuspendLayout()
         Me.TPCannedReports.SuspendLayout()
         Me.GBBasic.SuspendLayout()
+        Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
-        '
-        'MenuStrip1
-        '
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiFile, Me.ToolsToolStripMenuItem, Me.mmiHelp})
-        Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
-        Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(796, 24)
-        Me.MenuStrip1.TabIndex = 0
-        Me.MenuStrip1.Text = "MenuStrip1"
-        '
-        'mmiFile
-        '
-        Me.mmiFile.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiClose})
-        Me.mmiFile.Name = "mmiFile"
-        Me.mmiFile.Size = New System.Drawing.Size(37, 20)
-        Me.mmiFile.Text = "&File"
-        '
-        'mmiClose
-        '
-        Me.mmiClose.Name = "mmiClose"
-        Me.mmiClose.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.W), System.Windows.Forms.Keys)
-        Me.mmiClose.Size = New System.Drawing.Size(148, 22)
-        Me.mmiClose.Text = "&Close"
-        '
-        'ToolsToolStripMenuItem
-        '
-        Me.ToolsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.SaveSearchQueryToolStripMenuItem, Me.OpenSavedSearchToolStripMenuItem, Me.ToolStripSeparator1, Me.mmiExport})
-        Me.ToolsToolStripMenuItem.Name = "ToolsToolStripMenuItem"
-        Me.ToolsToolStripMenuItem.Size = New System.Drawing.Size(48, 20)
-        Me.ToolsToolStripMenuItem.Text = "&Tools"
-        '
-        'SaveSearchQueryToolStripMenuItem
-        '
-        Me.SaveSearchQueryToolStripMenuItem.Name = "SaveSearchQueryToolStripMenuItem"
-        Me.SaveSearchQueryToolStripMenuItem.Size = New System.Drawing.Size(172, 22)
-        Me.SaveSearchQueryToolStripMenuItem.Text = "&Save Search Query"
-        '
-        'OpenSavedSearchToolStripMenuItem
-        '
-        Me.OpenSavedSearchToolStripMenuItem.Name = "OpenSavedSearchToolStripMenuItem"
-        Me.OpenSavedSearchToolStripMenuItem.Size = New System.Drawing.Size(172, 22)
-        Me.OpenSavedSearchToolStripMenuItem.Text = "&Open Saved Query"
-        '
-        'ToolStripSeparator1
-        '
-        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(169, 6)
-        '
-        'mmiExport
-        '
-        Me.mmiExport.Name = "mmiExport"
-        Me.mmiExport.Size = New System.Drawing.Size(172, 22)
-        Me.mmiExport.Text = "&Export to Excel"
-        '
-        'mmiHelp
-        '
-        Me.mmiHelp.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiOnlineHelp})
-        Me.mmiHelp.Name = "mmiHelp"
-        Me.mmiHelp.Size = New System.Drawing.Size(44, 20)
-        Me.mmiHelp.Text = "&Help"
-        '
-        'mmiOnlineHelp
-        '
-        Me.mmiOnlineHelp.Name = "mmiOnlineHelp"
-        Me.mmiOnlineHelp.ShortcutKeys = System.Windows.Forms.Keys.F1
-        Me.mmiOnlineHelp.Size = New System.Drawing.Size(156, 22)
-        Me.mmiOnlineHelp.Text = "Online &Help"
         '
         'ToolStrip1
         '
@@ -852,43 +776,6 @@ Partial Class IAIPQueryGenerator
         Me.btnRunSearch.TabIndex = 15
         Me.btnRunSearch.Text = "Run Search"
         '
-        'StatusStrip1
-        '
-        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Panel1, Me.Panel2, Me.Panel3})
-        Me.StatusStrip1.Location = New System.Drawing.Point(0, 639)
-        Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Size = New System.Drawing.Size(796, 22)
-        Me.StatusStrip1.TabIndex = 6
-        Me.StatusStrip1.Text = "StatusStrip1"
-        '
-        'Panel1
-        '
-        Me.Panel1.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.Panel1.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
-        Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(773, 17)
-        Me.Panel1.Spring = True
-        '
-        'Panel2
-        '
-        Me.Panel2.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.Panel2.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
-        Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(4, 17)
-        '
-        'Panel3
-        '
-        Me.Panel3.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.Panel3.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
-        Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(4, 17)
-        '
         'PanelAll
         '
         Me.PanelAll.AutoScroll = True
@@ -899,7 +786,7 @@ Partial Class IAIPQueryGenerator
         Me.PanelAll.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PanelAll.Location = New System.Drawing.Point(0, 49)
         Me.PanelAll.Name = "PanelAll"
-        Me.PanelAll.Size = New System.Drawing.Size(796, 590)
+        Me.PanelAll.Size = New System.Drawing.Size(796, 612)
         Me.PanelAll.TabIndex = 9
         '
         'Splitter1
@@ -942,7 +829,7 @@ Partial Class IAIPQueryGenerator
         DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
         DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.dgvQueryGenerator.RowHeadersDefaultCellStyle = DataGridViewCellStyle3
-        Me.dgvQueryGenerator.Size = New System.Drawing.Size(796, 105)
+        Me.dgvQueryGenerator.Size = New System.Drawing.Size(796, 127)
         Me.dgvQueryGenerator.TabIndex = 13
         '
         'TCQuerryOptions
@@ -1177,6 +1064,7 @@ Partial Class IAIPQueryGenerator
         '
         Me.cboDistrictSearch2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboDistrictSearch2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboDistrictSearch2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboDistrictSearch2.Location = New System.Drawing.Point(281, 184)
         Me.cboDistrictSearch2.Name = "cboDistrictSearch2"
         Me.cboDistrictSearch2.Size = New System.Drawing.Size(127, 21)
@@ -1186,6 +1074,7 @@ Partial Class IAIPQueryGenerator
         '
         Me.cboDistrictSearch1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboDistrictSearch1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboDistrictSearch1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboDistrictSearch1.Location = New System.Drawing.Point(141, 184)
         Me.cboDistrictSearch1.Name = "cboDistrictSearch1"
         Me.cboDistrictSearch1.Size = New System.Drawing.Size(127, 21)
@@ -1195,6 +1084,7 @@ Partial Class IAIPQueryGenerator
         '
         Me.cboCountySearch2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboCountySearch2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboCountySearch2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboCountySearch2.Location = New System.Drawing.Point(281, 159)
         Me.cboCountySearch2.Name = "cboCountySearch2"
         Me.cboCountySearch2.Size = New System.Drawing.Size(127, 21)
@@ -1204,6 +1094,7 @@ Partial Class IAIPQueryGenerator
         '
         Me.cboCountySearch1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboCountySearch1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboCountySearch1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboCountySearch1.Location = New System.Drawing.Point(141, 159)
         Me.cboCountySearch1.Name = "cboCountySearch1"
         Me.cboCountySearch1.Size = New System.Drawing.Size(127, 21)
@@ -1738,7 +1629,7 @@ Partial Class IAIPQueryGenerator
         Me.TPHeaderInformation.Location = New System.Drawing.Point(4, 22)
         Me.TPHeaderInformation.Name = "TPHeaderInformation"
         Me.TPHeaderInformation.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPHeaderInformation.Size = New System.Drawing.Size(788, 363)
+        Me.TPHeaderInformation.Size = New System.Drawing.Size(788, 93)
         Me.TPHeaderInformation.TabIndex = 1
         Me.TPHeaderInformation.Text = "Header Information"
         Me.TPHeaderInformation.UseVisualStyleBackColor = True
@@ -1867,6 +1758,7 @@ Partial Class IAIPQueryGenerator
         '
         Me.cboOperationStatusSearch2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboOperationStatusSearch2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboOperationStatusSearch2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboOperationStatusSearch2.Location = New System.Drawing.Point(283, 7)
         Me.cboOperationStatusSearch2.Name = "cboOperationStatusSearch2"
         Me.cboOperationStatusSearch2.Size = New System.Drawing.Size(132, 21)
@@ -1876,6 +1768,7 @@ Partial Class IAIPQueryGenerator
         '
         Me.cboOperationStatusSearch1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboOperationStatusSearch1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboOperationStatusSearch1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboOperationStatusSearch1.Location = New System.Drawing.Point(145, 7)
         Me.cboOperationStatusSearch1.Name = "cboOperationStatusSearch1"
         Me.cboOperationStatusSearch1.Size = New System.Drawing.Size(132, 21)
@@ -1931,6 +1824,7 @@ Partial Class IAIPQueryGenerator
         '
         Me.cboCMSUniverseSearch2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboCMSUniverseSearch2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboCMSUniverseSearch2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboCMSUniverseSearch2.Location = New System.Drawing.Point(283, 157)
         Me.cboCMSUniverseSearch2.Name = "cboCMSUniverseSearch2"
         Me.cboCMSUniverseSearch2.Size = New System.Drawing.Size(132, 21)
@@ -1940,6 +1834,7 @@ Partial Class IAIPQueryGenerator
         '
         Me.cboCMSUniverseSearch1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboCMSUniverseSearch1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboCMSUniverseSearch1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboCMSUniverseSearch1.Location = New System.Drawing.Point(145, 157)
         Me.cboCMSUniverseSearch1.Name = "cboCMSUniverseSearch1"
         Me.cboCMSUniverseSearch1.Size = New System.Drawing.Size(132, 21)
@@ -2302,6 +2197,7 @@ Partial Class IAIPQueryGenerator
         '
         Me.cboClassificationSearch2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboClassificationSearch2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboClassificationSearch2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboClassificationSearch2.Location = New System.Drawing.Point(283, 35)
         Me.cboClassificationSearch2.Name = "cboClassificationSearch2"
         Me.cboClassificationSearch2.Size = New System.Drawing.Size(132, 21)
@@ -2311,6 +2207,7 @@ Partial Class IAIPQueryGenerator
         '
         Me.cboClassificationSearch1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboClassificationSearch1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboClassificationSearch1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboClassificationSearch1.Location = New System.Drawing.Point(145, 35)
         Me.cboClassificationSearch1.Name = "cboClassificationSearch1"
         Me.cboClassificationSearch1.Size = New System.Drawing.Size(132, 21)
@@ -2449,7 +2346,7 @@ Partial Class IAIPQueryGenerator
         Me.TPHeaderInformation2.Controls.Add(Me.chb1HrYes)
         Me.TPHeaderInformation2.Location = New System.Drawing.Point(4, 22)
         Me.TPHeaderInformation2.Name = "TPHeaderInformation2"
-        Me.TPHeaderInformation2.Size = New System.Drawing.Size(788, 363)
+        Me.TPHeaderInformation2.Size = New System.Drawing.Size(788, 93)
         Me.TPHeaderInformation2.TabIndex = 3
         Me.TPHeaderInformation2.Text = "Header Information 2"
         Me.TPHeaderInformation2.UseVisualStyleBackColor = True
@@ -3025,7 +2922,7 @@ Partial Class IAIPQueryGenerator
         Me.TPAirProgramCodes.Controls.Add(Me.chbAPC9)
         Me.TPAirProgramCodes.Location = New System.Drawing.Point(4, 22)
         Me.TPAirProgramCodes.Name = "TPAirProgramCodes"
-        Me.TPAirProgramCodes.Size = New System.Drawing.Size(788, 363)
+        Me.TPAirProgramCodes.Size = New System.Drawing.Size(788, 93)
         Me.TPAirProgramCodes.TabIndex = 2
         Me.TPAirProgramCodes.Text = "Air Program Codes"
         Me.TPAirProgramCodes.UseVisualStyleBackColor = True
@@ -3714,7 +3611,7 @@ Partial Class IAIPQueryGenerator
         Me.TPSubpartData.Controls.Add(Me.chbPart63Subpart)
         Me.TPSubpartData.Location = New System.Drawing.Point(4, 22)
         Me.TPSubpartData.Name = "TPSubpartData"
-        Me.TPSubpartData.Size = New System.Drawing.Size(788, 363)
+        Me.TPSubpartData.Size = New System.Drawing.Size(788, 93)
         Me.TPSubpartData.TabIndex = 4
         Me.TPSubpartData.Text = "Subpart Data"
         Me.TPSubpartData.UseVisualStyleBackColor = True
@@ -3817,6 +3714,7 @@ Partial Class IAIPQueryGenerator
         '
         'cboPart63Search2
         '
+        Me.cboPart63Search2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboPart63Search2.FormattingEnabled = True
         Me.cboPart63Search2.Location = New System.Drawing.Point(299, 100)
         Me.cboPart63Search2.Name = "cboPart63Search2"
@@ -3825,6 +3723,7 @@ Partial Class IAIPQueryGenerator
         '
         'cboPart60Search2
         '
+        Me.cboPart60Search2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboPart60Search2.FormattingEnabled = True
         Me.cboPart60Search2.Location = New System.Drawing.Point(299, 76)
         Me.cboPart60Search2.Name = "cboPart60Search2"
@@ -3833,6 +3732,7 @@ Partial Class IAIPQueryGenerator
         '
         'cboPart63Search1
         '
+        Me.cboPart63Search1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboPart63Search1.FormattingEnabled = True
         Me.cboPart63Search1.Location = New System.Drawing.Point(159, 100)
         Me.cboPart63Search1.Name = "cboPart63Search1"
@@ -3841,6 +3741,7 @@ Partial Class IAIPQueryGenerator
         '
         'cboPart60Search1
         '
+        Me.cboPart60Search1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboPart60Search1.FormattingEnabled = True
         Me.cboPart60Search1.Location = New System.Drawing.Point(159, 76)
         Me.cboPart60Search1.Name = "cboPart60Search1"
@@ -3849,6 +3750,7 @@ Partial Class IAIPQueryGenerator
         '
         'cboPart61Search2
         '
+        Me.cboPart61Search2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboPart61Search2.FormattingEnabled = True
         Me.cboPart61Search2.Location = New System.Drawing.Point(299, 51)
         Me.cboPart61Search2.Name = "cboPart61Search2"
@@ -3857,6 +3759,7 @@ Partial Class IAIPQueryGenerator
         '
         'cboPart61Search1
         '
+        Me.cboPart61Search1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboPart61Search1.FormattingEnabled = True
         Me.cboPart61Search1.Location = New System.Drawing.Point(159, 51)
         Me.cboPart61Search1.Name = "cboPart61Search1"
@@ -3865,6 +3768,7 @@ Partial Class IAIPQueryGenerator
         '
         'cboSIPSearch2
         '
+        Me.cboSIPSearch2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboSIPSearch2.FormattingEnabled = True
         Me.cboSIPSearch2.Location = New System.Drawing.Point(298, 26)
         Me.cboSIPSearch2.Name = "cboSIPSearch2"
@@ -3873,6 +3777,7 @@ Partial Class IAIPQueryGenerator
         '
         'cboSIPSearch1
         '
+        Me.cboSIPSearch1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboSIPSearch1.FormattingEnabled = True
         Me.cboSIPSearch1.Location = New System.Drawing.Point(159, 26)
         Me.cboSIPSearch1.Name = "cboSIPSearch1"
@@ -4111,7 +4016,7 @@ Partial Class IAIPQueryGenerator
         Me.TPComplianceInfo.Controls.Add(Me.chbSSCPEngineer)
         Me.TPComplianceInfo.Location = New System.Drawing.Point(4, 22)
         Me.TPComplianceInfo.Name = "TPComplianceInfo"
-        Me.TPComplianceInfo.Size = New System.Drawing.Size(788, 363)
+        Me.TPComplianceInfo.Size = New System.Drawing.Size(788, 93)
         Me.TPComplianceInfo.TabIndex = 5
         Me.TPComplianceInfo.Text = "Compliance Info"
         Me.TPComplianceInfo.UseVisualStyleBackColor = True
@@ -4250,6 +4155,7 @@ Partial Class IAIPQueryGenerator
         '
         Me.cboSSCPUnitSearch2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboSSCPUnitSearch2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboSSCPUnitSearch2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboSSCPUnitSearch2.Location = New System.Drawing.Point(279, 36)
         Me.cboSSCPUnitSearch2.Name = "cboSSCPUnitSearch2"
         Me.cboSSCPUnitSearch2.Size = New System.Drawing.Size(132, 21)
@@ -4259,6 +4165,7 @@ Partial Class IAIPQueryGenerator
         '
         Me.cboSSCPUnitSearch1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboSSCPUnitSearch1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboSSCPUnitSearch1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboSSCPUnitSearch1.Location = New System.Drawing.Point(141, 36)
         Me.cboSSCPUnitSearch1.Name = "cboSSCPUnitSearch1"
         Me.cboSSCPUnitSearch1.Size = New System.Drawing.Size(132, 21)
@@ -4344,6 +4251,7 @@ Partial Class IAIPQueryGenerator
         '
         Me.cboSSCPEngineerSearch2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboSSCPEngineerSearch2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboSSCPEngineerSearch2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboSSCPEngineerSearch2.Location = New System.Drawing.Point(279, 9)
         Me.cboSSCPEngineerSearch2.Name = "cboSSCPEngineerSearch2"
         Me.cboSSCPEngineerSearch2.Size = New System.Drawing.Size(132, 21)
@@ -4353,6 +4261,7 @@ Partial Class IAIPQueryGenerator
         '
         Me.cboSSCPEngineerSearch1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboSSCPEngineerSearch1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboSSCPEngineerSearch1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboSSCPEngineerSearch1.Location = New System.Drawing.Point(141, 9)
         Me.cboSSCPEngineerSearch1.Name = "cboSSCPEngineerSearch1"
         Me.cboSSCPEngineerSearch1.Size = New System.Drawing.Size(132, 21)
@@ -4420,10 +4329,10 @@ Partial Class IAIPQueryGenerator
         Me.Label8.AutoSize = True
         Me.Label8.Location = New System.Drawing.Point(51, 23)
         Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(175, 39)
+        Me.Label8.Size = New System.Drawing.Size(236, 52)
         Me.Label8.TabIndex = 1
-        Me.Label8.Text = "Report with all facilities" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "- Fee Contact first or Permit if no fee" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "- Last Permi" &
-    "t Issued" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
+        Me.Label8.Text = "Report with all facilities" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "- Fee Contact first or Permit Contact if no fee" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "- La" &
+    "st Permit Issued" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Warning: This report may take a long time to run." & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
         '
         'btnRunPermitContact
         '
@@ -4479,6 +4388,45 @@ Partial Class IAIPQueryGenerator
         'LoggingBackgroundWorker
         '
         '
+        'ToolsToolStripMenuItem
+        '
+        Me.ToolsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.SaveSearchQueryToolStripMenuItem, Me.OpenSavedSearchToolStripMenuItem, Me.ToolStripSeparator1, Me.mmiExport})
+        Me.ToolsToolStripMenuItem.Name = "ToolsToolStripMenuItem"
+        Me.ToolsToolStripMenuItem.Size = New System.Drawing.Size(48, 20)
+        Me.ToolsToolStripMenuItem.Text = "&Tools"
+        '
+        'SaveSearchQueryToolStripMenuItem
+        '
+        Me.SaveSearchQueryToolStripMenuItem.Name = "SaveSearchQueryToolStripMenuItem"
+        Me.SaveSearchQueryToolStripMenuItem.Size = New System.Drawing.Size(172, 22)
+        Me.SaveSearchQueryToolStripMenuItem.Text = "&Save Search Query"
+        '
+        'OpenSavedSearchToolStripMenuItem
+        '
+        Me.OpenSavedSearchToolStripMenuItem.Name = "OpenSavedSearchToolStripMenuItem"
+        Me.OpenSavedSearchToolStripMenuItem.Size = New System.Drawing.Size(172, 22)
+        Me.OpenSavedSearchToolStripMenuItem.Text = "&Open Saved Query"
+        '
+        'ToolStripSeparator1
+        '
+        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(169, 6)
+        '
+        'mmiExport
+        '
+        Me.mmiExport.Name = "mmiExport"
+        Me.mmiExport.Size = New System.Drawing.Size(172, 22)
+        Me.mmiExport.Text = "&Export to Excel"
+        '
+        'MenuStrip1
+        '
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolsToolStripMenuItem})
+        Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
+        Me.MenuStrip1.Name = "MenuStrip1"
+        Me.MenuStrip1.Size = New System.Drawing.Size(796, 24)
+        Me.MenuStrip1.TabIndex = 0
+        Me.MenuStrip1.Text = "MenuStrip1"
+        '
         'IAIPQueryGenerator
         '
         Me.AcceptButton = Me.btnRunSearch
@@ -4486,14 +4434,11 @@ Partial Class IAIPQueryGenerator
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(796, 661)
         Me.Controls.Add(Me.PanelAll)
-        Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.ToolStrip1)
         Me.Controls.Add(Me.MenuStrip1)
         Me.MainMenuStrip = Me.MenuStrip1
         Me.Name = "IAIPQueryGenerator"
         Me.Text = "Query Generator"
-        Me.MenuStrip1.ResumeLayout(False)
-        Me.MenuStrip1.PerformLayout()
         Me.ToolStrip1.ResumeLayout(False)
         Me.ToolStrip1.PerformLayout()
         Me.Panel6.ResumeLayout(False)
@@ -4502,8 +4447,6 @@ Partial Class IAIPQueryGenerator
         Me.Panel36.ResumeLayout(False)
         Me.Panel37.ResumeLayout(False)
         Me.Panel37.PerformLayout()
-        Me.StatusStrip1.ResumeLayout(False)
-        Me.StatusStrip1.PerformLayout()
         Me.PanelAll.ResumeLayout(False)
         CType(Me.dgvQueryGenerator, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TCQuerryOptions.ResumeLayout(False)
@@ -4661,14 +4604,12 @@ Partial Class IAIPQueryGenerator
         Me.TPCannedReports.PerformLayout()
         Me.GBBasic.ResumeLayout(False)
         Me.GBBasic.PerformLayout()
+        Me.MenuStrip1.ResumeLayout(False)
+        Me.MenuStrip1.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents MenuStrip1 As System.Windows.Forms.MenuStrip
-    Friend WithEvents mmiFile As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents mmiClose As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents mmiHelp As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolStrip1 As System.Windows.Forms.ToolStrip
     Friend WithEvents tsbExport As System.Windows.Forms.ToolStripButton
     Friend WithEvents tsbSearchQuery As System.Windows.Forms.ToolStripButton
@@ -4699,10 +4640,6 @@ Partial Class IAIPQueryGenerator
     Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents btnRunSearch As System.Windows.Forms.Button
-    Friend WithEvents StatusStrip1 As System.Windows.Forms.StatusStrip
-    Friend WithEvents Panel1 As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents Panel2 As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents Panel3 As System.Windows.Forms.ToolStripStatusLabel
     Friend WithEvents PanelAll As System.Windows.Forms.Panel
     Friend WithEvents GBBasic As System.Windows.Forms.GroupBox
     Friend WithEvents dgvQueryGenerator As System.Windows.Forms.DataGridView
@@ -5057,11 +4994,11 @@ Partial Class IAIPQueryGenerator
     Friend WithEvents rdbDistrictResponsibleTrue As System.Windows.Forms.RadioButton
     Friend WithEvents chbDistrictResponsible As System.Windows.Forms.CheckBox
     Friend WithEvents lblQueryCount As System.Windows.Forms.Label
-    Friend WithEvents mmiOnlineHelp As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents ToolsToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents mmiExport As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents OpenSavedSearchToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents SaveSearchQueryToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents ToolStripSeparator1 As System.Windows.Forms.ToolStripSeparator
     Private WithEvents LoggingBackgroundWorker As System.ComponentModel.BackgroundWorker
+    Friend WithEvents ToolsToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents SaveSearchQueryToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents OpenSavedSearchToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ToolStripSeparator1 As ToolStripSeparator
+    Friend WithEvents mmiExport As ToolStripMenuItem
+    Friend WithEvents MenuStrip1 As MenuStrip
 End Class
