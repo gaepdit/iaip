@@ -1,14 +1,7 @@
 Imports System.Reflection
 Imports System.Runtime.InteropServices
 
-#If SqlServer Then
-
-<Assembly: AssemblyTitle("IAIP for SQL Server")>
-<Assembly: AssemblyDescription("GA Air Protection Branch integrated database system; SQL Server Edition")>
-<Assembly: AssemblyProduct("IAIP for SQL Server")> 
-<Assembly: Guid("3de1d3bd-80ec-462f-84ba-749620c13b3f")>
-
-#ElseIf UAT Then
+#If UAT Then
 
 <Assembly: AssemblyTitle("IAIP Horizon")>
 <Assembly: AssemblyDescription("GA Air Protection Branch integrated database system; user acceptance testing version")>
@@ -24,18 +17,8 @@ Imports System.Runtime.InteropServices
 
 #End If
 
-#If SqlServer Then
-
-<Assembly: AssemblyVersion("0.4.9.0")>
-<Assembly: AssemblyFileVersion("0.4.9.0")>
-
-#Else
-
 <Assembly: AssemblyVersion("4.5.3.0")>
 <Assembly: AssemblyFileVersion("4.5.3.0")>
-
-#End If
-
 <Assembly: AssemblyCompany("State of Georgia")>
 <Assembly: AssemblyCopyright("")>
 <Assembly: AssemblyTrademark("")>
