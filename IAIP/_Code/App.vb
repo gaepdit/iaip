@@ -28,7 +28,7 @@ Public Module App
         Return GetVersionAsMajorMinorBuild(GetCurrentVersion)
     End Function
 
-    Private Function GetVersionAsMajorMinorBuild(ByVal v As Version) As Version
+    Private Function GetVersionAsMajorMinorBuild(v As Version) As Version
         ' This converts a Version from four components to three
         If v.Revision = -1 Then Return v ' (A version with fewer than four components gets returned as-is)
         Return New Version(v.Major, v.Minor, v.Build)
@@ -114,7 +114,7 @@ Public Module App
 
     Public Sub TestCrystalReportsInstallation()
         Try
-            System.Reflection.Assembly.Load("CrystalDecisions.Windows.Forms, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304")
+            Assembly.Load("CrystalDecisions.Windows.Forms, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304")
         Catch ex As FileNotFoundException
             ShowCrystalReportsSupportMessage()
         End Try

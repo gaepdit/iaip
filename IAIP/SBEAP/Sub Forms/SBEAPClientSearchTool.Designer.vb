@@ -60,7 +60,7 @@ Partial Class SBEAPClientSearchTool
         Me.txtSearchAIRSNumber = New System.Windows.Forms.TextBox()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.TPNumberOfEmployees = New System.Windows.Forms.TabPage()
-        Me.mtbSearchNumberOfEmployees = New System.Windows.Forms.MaskedTextBox()
+        Me.mtbSearchNumberOfEmployees = New System.Windows.Forms.TextBox()
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.rdbEmployeeGreaterThan = New System.Windows.Forms.RadioButton()
         Me.rdbEmployeeLessThan = New System.Windows.Forms.RadioButton()
@@ -449,12 +449,9 @@ Partial Class SBEAPClientSearchTool
         'mtbSearchNumberOfEmployees
         '
         Me.mtbSearchNumberOfEmployees.Location = New System.Drawing.Point(93, 6)
-        Me.mtbSearchNumberOfEmployees.Mask = "00000"
         Me.mtbSearchNumberOfEmployees.Name = "mtbSearchNumberOfEmployees"
         Me.mtbSearchNumberOfEmployees.Size = New System.Drawing.Size(40, 20)
-        Me.mtbSearchNumberOfEmployees.TabIndex = 7
-        Me.mtbSearchNumberOfEmployees.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals
-        Me.mtbSearchNumberOfEmployees.ValidatingType = GetType(Integer)
+        Me.mtbSearchNumberOfEmployees.TabIndex = 8
         '
         'Panel2
         '
@@ -474,13 +471,13 @@ Partial Class SBEAPClientSearchTool
         Me.rdbEmployeeGreaterThan.Name = "rdbEmployeeGreaterThan"
         Me.rdbEmployeeGreaterThan.Size = New System.Drawing.Size(37, 17)
         Me.rdbEmployeeGreaterThan.TabIndex = 1
-        Me.rdbEmployeeGreaterThan.TabStop = True
         Me.rdbEmployeeGreaterThan.Text = ">="
         Me.rdbEmployeeGreaterThan.UseVisualStyleBackColor = True
         '
         'rdbEmployeeLessThan
         '
         Me.rdbEmployeeLessThan.AutoSize = True
+        Me.rdbEmployeeLessThan.Checked = True
         Me.rdbEmployeeLessThan.Location = New System.Drawing.Point(3, 3)
         Me.rdbEmployeeLessThan.Name = "rdbEmployeeLessThan"
         Me.rdbEmployeeLessThan.Size = New System.Drawing.Size(37, 17)
@@ -677,8 +674,8 @@ Partial Class SBEAPClientSearchTool
     Friend WithEvents Label11 As System.Windows.Forms.Label
     Friend WithEvents rdbEmployeeGreaterThan As System.Windows.Forms.RadioButton
     Friend WithEvents rdbEmployeeLessThan As System.Windows.Forms.RadioButton
-    Friend WithEvents mtbSearchNumberOfEmployees As System.Windows.Forms.MaskedTextBox
     Friend WithEvents Panel2 As System.Windows.Forms.Panel
     Friend WithEvents Cancel As System.Windows.Forms.Button
     Friend WithEvents lblSearchResults As System.Windows.Forms.Label
+    Friend WithEvents mtbSearchNumberOfEmployees As TextBox
 End Class

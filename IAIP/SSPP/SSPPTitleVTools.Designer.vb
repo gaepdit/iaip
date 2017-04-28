@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class SSPPTitleVTools
     Inherits BaseForm
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,137 +20,86 @@ Partial Class SSPPTitleVTools
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container
+        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SSPPTitleVTools))
-        Me.bgwTransfer = New System.ComponentModel.BackgroundWorker
+        Me.bgwTransfer = New System.ComponentModel.BackgroundWorker()
         Me.Image_List_All = New System.Windows.Forms.ImageList(Me.components)
-        Me.TCDMUTools = New System.Windows.Forms.TabControl
-        Me.TPWebPublishing = New System.Windows.Forms.TabPage
-        Me.dgrWebPublisher = New System.Windows.Forms.DataGrid
-        Me.Panel4 = New System.Windows.Forms.Panel
-        Me.Label12 = New System.Windows.Forms.Label
-        Me.txtTVCount = New System.Windows.Forms.TextBox
-        Me.Label101 = New System.Windows.Forms.Label
-        Me.txtFacilityInformation = New System.Windows.Forms.TextBox
-        Me.chbPNExpires = New System.Windows.Forms.CheckBox
-        Me.DTPPNExpires = New System.Windows.Forms.DateTimePicker
-        Me.DTPExperationDate = New System.Windows.Forms.DateTimePicker
-        Me.Label68 = New System.Windows.Forms.Label
-        Me.chbExpirationDate = New System.Windows.Forms.CheckBox
-        Me.chbNotifiedAppReceived = New System.Windows.Forms.CheckBox
-        Me.DTPNotifiedAppReceived = New System.Windows.Forms.DateTimePicker
-        Me.lbLinkApplications = New System.Windows.Forms.ListBox
-        Me.btnReloadGrid = New System.Windows.Forms.Button
-        Me.btnViewApplication = New System.Windows.Forms.Button
-        Me.lblLinkWarning = New System.Windows.Forms.Label
-        Me.btnSearchForApplication = New System.Windows.Forms.Button
-        Me.btnClear = New System.Windows.Forms.Button
-        Me.txtWebPublisherApplicationNumber = New System.Windows.Forms.TextBox
-        Me.Label1 = New System.Windows.Forms.Label
-        Me.btnSaveWebPublisher = New System.Windows.Forms.Button
-        Me.chbEffectiveDateOfPermit = New System.Windows.Forms.CheckBox
-        Me.chbEPANotifiedPermitOnWeb = New System.Windows.Forms.CheckBox
-        Me.chbFinalOnWeb = New System.Windows.Forms.CheckBox
-        Me.chbEPAandStatesNotified = New System.Windows.Forms.CheckBox
-        Me.chbDraftOnWeb = New System.Windows.Forms.CheckBox
-        Me.txtEPATargetedComments = New System.Windows.Forms.TextBox
-        Me.Label43 = New System.Windows.Forms.Label
-        Me.DTPEffectiveDateofPermit = New System.Windows.Forms.DateTimePicker
-        Me.DTPEPANotifiedPermitOnWeb = New System.Windows.Forms.DateTimePicker
-        Me.DTPFinalOnWeb = New System.Windows.Forms.DateTimePicker
-        Me.DTPEPAStatesNotified = New System.Windows.Forms.DateTimePicker
-        Me.DTPDraftOnWeb = New System.Windows.Forms.DateTimePicker
-        Me.TPTVEmails = New System.Windows.Forms.TabPage
-        Me.Panel8 = New System.Windows.Forms.Panel
-        Me.txtEmailLetter = New System.Windows.Forms.TextBox
-        Me.Panel7 = New System.Windows.Forms.Panel
-        Me.clbTitleVEmailList = New System.Windows.Forms.CheckedListBox
-        Me.Panel6 = New System.Windows.Forms.Panel
-        Me.Label70 = New System.Windows.Forms.Label
-        Me.Label60 = New System.Windows.Forms.Label
-        Me.txtApplicationCount = New System.Windows.Forms.TextBox
-        Me.Label26 = New System.Windows.Forms.Label
-        Me.btnMinorModOnWebState = New System.Windows.Forms.Button
-        Me.btnMinorModOnWebEPD = New System.Windows.Forms.Button
-        Me.btnPreviewMinorMod = New System.Windows.Forms.Button
-        Me.btnEmailDraftOnWebState = New System.Windows.Forms.Button
-        Me.txtEmailType = New System.Windows.Forms.TextBox
-        Me.Label25 = New System.Windows.Forms.Label
-        Me.btnAddApplicationToList = New System.Windows.Forms.Button
-        Me.txtApplicationNumberToAdd = New System.Windows.Forms.TextBox
-        Me.btnEmailESNReceived = New System.Windows.Forms.Button
-        Me.btnPreviewFinalOnWeb = New System.Windows.Forms.Button
-        Me.btnPreviewESNReceived = New System.Windows.Forms.Button
-        Me.btnEmailFinalOnWeb = New System.Windows.Forms.Button
-        Me.btnEmailDraftOnWeb = New System.Windows.Forms.Button
-        Me.btnPreviewDraftOnWeb = New System.Windows.Forms.Button
-        Me.TPTitleVRenewals = New System.Windows.Forms.TabPage
-        Me.clbTitleVRenewals = New System.Windows.Forms.CheckedListBox
-        Me.GBTitleVRenewals = New System.Windows.Forms.GroupBox
-        Me.lblEndDate = New System.Windows.Forms.Label
-        Me.lblStartDate = New System.Windows.Forms.Label
-        Me.btnPrintSingleTitleVRenewal = New System.Windows.Forms.Button
-        Me.txtTitleVSingleLetter = New System.Windows.Forms.TextBox
-        Me.btnPrintRenewalLetters = New System.Windows.Forms.Button
-        Me.DTPTitleVRenewalEnd = New System.Windows.Forms.DateTimePicker
-        Me.DTPTitleVRenewalStart = New System.Windows.Forms.DateTimePicker
-        Me.btnRunTitleVReport = New System.Windows.Forms.Button
-        Me.txtRenewalCount = New System.Windows.Forms.TextBox
-        Me.Label57 = New System.Windows.Forms.Label
-        Me.Label56 = New System.Windows.Forms.Label
-        Me.TPPermittingContact = New System.Windows.Forms.TabPage
-        Me.txtContactDescriptionCompliance = New System.Windows.Forms.TextBox
-        Me.txtContactEmailAddressCompliance = New System.Windows.Forms.TextBox
-        Me.mtbContactFaxNumberCompliance = New System.Windows.Forms.MaskedTextBox
-        Me.mtbContactPhoneNumberCompliance = New System.Windows.Forms.MaskedTextBox
-        Me.mtbContactZipCodeCompliance = New System.Windows.Forms.MaskedTextBox
-        Me.txtContactStateCompliance = New System.Windows.Forms.TextBox
-        Me.txtContactCityCompliance = New System.Windows.Forms.TextBox
-        Me.txtContactStreetAddressCompliance = New System.Windows.Forms.TextBox
-        Me.txtContactTitleCompliance = New System.Windows.Forms.TextBox
-        Me.txtContactCompanyNameCompliance = New System.Windows.Forms.TextBox
-        Me.txtContactPedigreeCompliance = New System.Windows.Forms.TextBox
-        Me.txtContactLastNameCompliance = New System.Windows.Forms.TextBox
-        Me.txtContactFirstNameCompliance = New System.Windows.Forms.TextBox
-        Me.txtContactSocialTitleCompliance = New System.Windows.Forms.TextBox
-        Me.btnLoadFromWarehouse = New System.Windows.Forms.Button
-        Me.txtAIRSNumber = New System.Windows.Forms.TextBox
-        Me.Label5 = New System.Windows.Forms.Label
-        Me.btnSaveContactApp = New System.Windows.Forms.Button
-        Me.btnLoadAppContact = New System.Windows.Forms.Button
-        Me.Label4 = New System.Windows.Forms.Label
-        Me.txtApplicationNumber = New System.Windows.Forms.TextBox
-        Me.btnGetCurrentPermittingContact = New System.Windows.Forms.Button
-        Me.mtbContactZipCode = New System.Windows.Forms.MaskedTextBox
-        Me.mtbContactFaxNumber = New System.Windows.Forms.MaskedTextBox
-        Me.mtbContactPhoneNumber = New System.Windows.Forms.MaskedTextBox
-        Me.txtContactDescription = New System.Windows.Forms.TextBox
-        Me.txtContactEmailAddress = New System.Windows.Forms.TextBox
-        Me.txtContactState = New System.Windows.Forms.TextBox
-        Me.txtContactCity = New System.Windows.Forms.TextBox
-        Me.txtContactStreetAddress = New System.Windows.Forms.TextBox
-        Me.txtContactTitle = New System.Windows.Forms.TextBox
-        Me.txtContactCompanyName = New System.Windows.Forms.TextBox
-        Me.txtContactPedigree = New System.Windows.Forms.TextBox
-        Me.txtContactSocialTitle = New System.Windows.Forms.TextBox
-        Me.txtContactLastName = New System.Windows.Forms.TextBox
-        Me.txtContactFirstName = New System.Windows.Forms.TextBox
-        Me.Label46 = New System.Windows.Forms.Label
-        Me.Label45 = New System.Windows.Forms.Label
-        Me.Label40 = New System.Windows.Forms.Label
-        Me.Label39 = New System.Windows.Forms.Label
-        Me.Label44 = New System.Windows.Forms.Label
-        Me.Label41 = New System.Windows.Forms.Label
-        Me.Label38 = New System.Windows.Forms.Label
-        Me.Label32 = New System.Windows.Forms.Label
-        Me.Label27 = New System.Windows.Forms.Label
-        Me.Label2 = New System.Windows.Forms.Label
-        Me.Label20 = New System.Windows.Forms.Label
-        Me.Label18 = New System.Windows.Forms.Label
-        Me.Label3 = New System.Windows.Forms.Label
-        Me.Label11 = New System.Windows.Forms.Label
+        Me.TCDMUTools = New System.Windows.Forms.TabControl()
+        Me.TPWebPublishing = New System.Windows.Forms.TabPage()
+        Me.dgrWebPublisher = New System.Windows.Forms.DataGrid()
+        Me.Panel4 = New System.Windows.Forms.Panel()
+        Me.Label12 = New System.Windows.Forms.Label()
+        Me.txtTVCount = New System.Windows.Forms.TextBox()
+        Me.Label101 = New System.Windows.Forms.Label()
+        Me.txtFacilityInformation = New System.Windows.Forms.TextBox()
+        Me.chbPNExpires = New System.Windows.Forms.CheckBox()
+        Me.DTPPNExpires = New System.Windows.Forms.DateTimePicker()
+        Me.DTPExperationDate = New System.Windows.Forms.DateTimePicker()
+        Me.Label68 = New System.Windows.Forms.Label()
+        Me.chbExpirationDate = New System.Windows.Forms.CheckBox()
+        Me.chbNotifiedAppReceived = New System.Windows.Forms.CheckBox()
+        Me.DTPNotifiedAppReceived = New System.Windows.Forms.DateTimePicker()
+        Me.lbLinkApplications = New System.Windows.Forms.ListBox()
+        Me.btnReloadGrid = New System.Windows.Forms.Button()
+        Me.btnViewApplication = New System.Windows.Forms.Button()
+        Me.lblLinkWarning = New System.Windows.Forms.Label()
+        Me.btnSearchForApplication = New System.Windows.Forms.Button()
+        Me.btnClear = New System.Windows.Forms.Button()
+        Me.txtWebPublisherApplicationNumber = New System.Windows.Forms.TextBox()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.btnSaveWebPublisher = New System.Windows.Forms.Button()
+        Me.chbEffectiveDateOfPermit = New System.Windows.Forms.CheckBox()
+        Me.chbEPANotifiedPermitOnWeb = New System.Windows.Forms.CheckBox()
+        Me.chbFinalOnWeb = New System.Windows.Forms.CheckBox()
+        Me.chbEPAandStatesNotified = New System.Windows.Forms.CheckBox()
+        Me.chbDraftOnWeb = New System.Windows.Forms.CheckBox()
+        Me.txtEPATargetedComments = New System.Windows.Forms.TextBox()
+        Me.Label43 = New System.Windows.Forms.Label()
+        Me.DTPEffectiveDateofPermit = New System.Windows.Forms.DateTimePicker()
+        Me.DTPEPANotifiedPermitOnWeb = New System.Windows.Forms.DateTimePicker()
+        Me.DTPFinalOnWeb = New System.Windows.Forms.DateTimePicker()
+        Me.DTPEPAStatesNotified = New System.Windows.Forms.DateTimePicker()
+        Me.DTPDraftOnWeb = New System.Windows.Forms.DateTimePicker()
+        Me.TPTVEmails = New System.Windows.Forms.TabPage()
+        Me.Panel8 = New System.Windows.Forms.Panel()
+        Me.txtEmailLetter = New System.Windows.Forms.TextBox()
+        Me.Panel7 = New System.Windows.Forms.Panel()
+        Me.clbTitleVEmailList = New System.Windows.Forms.CheckedListBox()
+        Me.Panel6 = New System.Windows.Forms.Panel()
+        Me.Label70 = New System.Windows.Forms.Label()
+        Me.Label60 = New System.Windows.Forms.Label()
+        Me.txtApplicationCount = New System.Windows.Forms.TextBox()
+        Me.Label26 = New System.Windows.Forms.Label()
+        Me.btnMinorModOnWebState = New System.Windows.Forms.Button()
+        Me.btnMinorModOnWebEPD = New System.Windows.Forms.Button()
+        Me.btnPreviewMinorMod = New System.Windows.Forms.Button()
+        Me.btnEmailDraftOnWebState = New System.Windows.Forms.Button()
+        Me.txtEmailType = New System.Windows.Forms.TextBox()
+        Me.Label25 = New System.Windows.Forms.Label()
+        Me.btnAddApplicationToList = New System.Windows.Forms.Button()
+        Me.txtApplicationNumberToAdd = New System.Windows.Forms.TextBox()
+        Me.btnEmailESNReceived = New System.Windows.Forms.Button()
+        Me.btnPreviewFinalOnWeb = New System.Windows.Forms.Button()
+        Me.btnPreviewESNReceived = New System.Windows.Forms.Button()
+        Me.btnEmailFinalOnWeb = New System.Windows.Forms.Button()
+        Me.btnEmailDraftOnWeb = New System.Windows.Forms.Button()
+        Me.btnPreviewDraftOnWeb = New System.Windows.Forms.Button()
+        Me.TPTitleVRenewals = New System.Windows.Forms.TabPage()
+        Me.clbTitleVRenewals = New System.Windows.Forms.CheckedListBox()
+        Me.GBTitleVRenewals = New System.Windows.Forms.GroupBox()
+        Me.lblEndDate = New System.Windows.Forms.Label()
+        Me.lblStartDate = New System.Windows.Forms.Label()
+        Me.btnPrintSingleTitleVRenewal = New System.Windows.Forms.Button()
+        Me.txtTitleVSingleLetter = New System.Windows.Forms.TextBox()
+        Me.btnPrintRenewalLetters = New System.Windows.Forms.Button()
+        Me.DTPTitleVRenewalEnd = New System.Windows.Forms.DateTimePicker()
+        Me.DTPTitleVRenewalStart = New System.Windows.Forms.DateTimePicker()
+        Me.btnRunTitleVReport = New System.Windows.Forms.Button()
+        Me.txtRenewalCount = New System.Windows.Forms.TextBox()
+        Me.Label57 = New System.Windows.Forms.Label()
+        Me.Label56 = New System.Windows.Forms.Label()
         Me.TCDMUTools.SuspendLayout()
         Me.TPWebPublishing.SuspendLayout()
         CType(Me.dgrWebPublisher, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -161,7 +110,6 @@ Partial Class SSPPTitleVTools
         Me.Panel6.SuspendLayout()
         Me.TPTitleVRenewals.SuspendLayout()
         Me.GBTitleVRenewals.SuspendLayout()
-        Me.TPPermittingContact.SuspendLayout()
         Me.SuspendLayout()
         '
         'Image_List_All
@@ -259,7 +207,6 @@ Partial Class SSPPTitleVTools
         Me.TCDMUTools.Controls.Add(Me.TPWebPublishing)
         Me.TCDMUTools.Controls.Add(Me.TPTVEmails)
         Me.TCDMUTools.Controls.Add(Me.TPTitleVRenewals)
-        Me.TCDMUTools.Controls.Add(Me.TPPermittingContact)
         Me.TCDMUTools.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TCDMUTools.Location = New System.Drawing.Point(0, 0)
         Me.TCDMUTools.Name = "TCDMUTools"
@@ -680,7 +627,7 @@ Partial Class SSPPTitleVTools
         Me.clbTitleVEmailList.FormattingEnabled = True
         Me.clbTitleVEmailList.Location = New System.Drawing.Point(0, 0)
         Me.clbTitleVEmailList.Name = "clbTitleVEmailList"
-        Me.clbTitleVEmailList.Size = New System.Drawing.Size(815, 184)
+        Me.clbTitleVEmailList.Size = New System.Drawing.Size(815, 185)
         Me.clbTitleVEmailList.TabIndex = 9
         '
         'Panel6
@@ -901,7 +848,7 @@ Partial Class SSPPTitleVTools
         Me.clbTitleVRenewals.Location = New System.Drawing.Point(0, 147)
         Me.clbTitleVRenewals.Name = "clbTitleVRenewals"
         Me.clbTitleVRenewals.ScrollAlwaysVisible = True
-        Me.clbTitleVRenewals.Size = New System.Drawing.Size(815, 364)
+        Me.clbTitleVRenewals.Size = New System.Drawing.Size(815, 369)
         Me.clbTitleVRenewals.TabIndex = 1
         '
         'GBTitleVRenewals
@@ -1023,493 +970,6 @@ Partial Class SSPPTitleVTools
         Me.Label56.TabIndex = 374
         Me.Label56.Text = "Start Date:"
         '
-        'TPPermittingContact
-        '
-        Me.TPPermittingContact.Controls.Add(Me.txtContactDescriptionCompliance)
-        Me.TPPermittingContact.Controls.Add(Me.txtContactEmailAddressCompliance)
-        Me.TPPermittingContact.Controls.Add(Me.mtbContactFaxNumberCompliance)
-        Me.TPPermittingContact.Controls.Add(Me.mtbContactPhoneNumberCompliance)
-        Me.TPPermittingContact.Controls.Add(Me.mtbContactZipCodeCompliance)
-        Me.TPPermittingContact.Controls.Add(Me.txtContactStateCompliance)
-        Me.TPPermittingContact.Controls.Add(Me.txtContactCityCompliance)
-        Me.TPPermittingContact.Controls.Add(Me.txtContactStreetAddressCompliance)
-        Me.TPPermittingContact.Controls.Add(Me.txtContactTitleCompliance)
-        Me.TPPermittingContact.Controls.Add(Me.txtContactCompanyNameCompliance)
-        Me.TPPermittingContact.Controls.Add(Me.txtContactPedigreeCompliance)
-        Me.TPPermittingContact.Controls.Add(Me.txtContactLastNameCompliance)
-        Me.TPPermittingContact.Controls.Add(Me.txtContactFirstNameCompliance)
-        Me.TPPermittingContact.Controls.Add(Me.txtContactSocialTitleCompliance)
-        Me.TPPermittingContact.Controls.Add(Me.btnLoadFromWarehouse)
-        Me.TPPermittingContact.Controls.Add(Me.txtAIRSNumber)
-        Me.TPPermittingContact.Controls.Add(Me.Label5)
-        Me.TPPermittingContact.Controls.Add(Me.btnSaveContactApp)
-        Me.TPPermittingContact.Controls.Add(Me.btnLoadAppContact)
-        Me.TPPermittingContact.Controls.Add(Me.Label4)
-        Me.TPPermittingContact.Controls.Add(Me.txtApplicationNumber)
-        Me.TPPermittingContact.Controls.Add(Me.btnGetCurrentPermittingContact)
-        Me.TPPermittingContact.Controls.Add(Me.mtbContactZipCode)
-        Me.TPPermittingContact.Controls.Add(Me.mtbContactFaxNumber)
-        Me.TPPermittingContact.Controls.Add(Me.mtbContactPhoneNumber)
-        Me.TPPermittingContact.Controls.Add(Me.txtContactDescription)
-        Me.TPPermittingContact.Controls.Add(Me.txtContactEmailAddress)
-        Me.TPPermittingContact.Controls.Add(Me.txtContactState)
-        Me.TPPermittingContact.Controls.Add(Me.txtContactCity)
-        Me.TPPermittingContact.Controls.Add(Me.txtContactStreetAddress)
-        Me.TPPermittingContact.Controls.Add(Me.txtContactTitle)
-        Me.TPPermittingContact.Controls.Add(Me.txtContactCompanyName)
-        Me.TPPermittingContact.Controls.Add(Me.txtContactPedigree)
-        Me.TPPermittingContact.Controls.Add(Me.txtContactSocialTitle)
-        Me.TPPermittingContact.Controls.Add(Me.txtContactLastName)
-        Me.TPPermittingContact.Controls.Add(Me.txtContactFirstName)
-        Me.TPPermittingContact.Controls.Add(Me.Label46)
-        Me.TPPermittingContact.Controls.Add(Me.Label45)
-        Me.TPPermittingContact.Controls.Add(Me.Label40)
-        Me.TPPermittingContact.Controls.Add(Me.Label39)
-        Me.TPPermittingContact.Controls.Add(Me.Label44)
-        Me.TPPermittingContact.Controls.Add(Me.Label41)
-        Me.TPPermittingContact.Controls.Add(Me.Label38)
-        Me.TPPermittingContact.Controls.Add(Me.Label32)
-        Me.TPPermittingContact.Controls.Add(Me.Label27)
-        Me.TPPermittingContact.Controls.Add(Me.Label2)
-        Me.TPPermittingContact.Controls.Add(Me.Label20)
-        Me.TPPermittingContact.Controls.Add(Me.Label18)
-        Me.TPPermittingContact.Controls.Add(Me.Label3)
-        Me.TPPermittingContact.Controls.Add(Me.Label11)
-        Me.TPPermittingContact.Location = New System.Drawing.Point(4, 22)
-        Me.TPPermittingContact.Name = "TPPermittingContact"
-        Me.TPPermittingContact.Size = New System.Drawing.Size(815, 516)
-        Me.TPPermittingContact.TabIndex = 10
-        Me.TPPermittingContact.Text = " Permitting App Contact"
-        Me.TPPermittingContact.UseVisualStyleBackColor = True
-        '
-        'txtContactDescriptionCompliance
-        '
-        Me.txtContactDescriptionCompliance.Location = New System.Drawing.Point(736, 276)
-        Me.txtContactDescriptionCompliance.Name = "txtContactDescriptionCompliance"
-        Me.txtContactDescriptionCompliance.Size = New System.Drawing.Size(13, 20)
-        Me.txtContactDescriptionCompliance.TabIndex = 416
-        Me.txtContactDescriptionCompliance.Visible = False
-        '
-        'txtContactEmailAddressCompliance
-        '
-        Me.txtContactEmailAddressCompliance.Location = New System.Drawing.Point(392, 241)
-        Me.txtContactEmailAddressCompliance.Name = "txtContactEmailAddressCompliance"
-        Me.txtContactEmailAddressCompliance.Size = New System.Drawing.Size(13, 20)
-        Me.txtContactEmailAddressCompliance.TabIndex = 415
-        Me.txtContactEmailAddressCompliance.Visible = False
-        '
-        'mtbContactFaxNumberCompliance
-        '
-        Me.mtbContactFaxNumberCompliance.Location = New System.Drawing.Point(194, 210)
-        Me.mtbContactFaxNumberCompliance.Mask = "(999) 000-0000"
-        Me.mtbContactFaxNumberCompliance.Name = "mtbContactFaxNumberCompliance"
-        Me.mtbContactFaxNumberCompliance.Size = New System.Drawing.Size(16, 20)
-        Me.mtbContactFaxNumberCompliance.TabIndex = 414
-        Me.mtbContactFaxNumberCompliance.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals
-        Me.mtbContactFaxNumberCompliance.Visible = False
-        '
-        'mtbContactPhoneNumberCompliance
-        '
-        Me.mtbContactPhoneNumberCompliance.Location = New System.Drawing.Point(194, 184)
-        Me.mtbContactPhoneNumberCompliance.Mask = "(999) 000-0000"
-        Me.mtbContactPhoneNumberCompliance.Name = "mtbContactPhoneNumberCompliance"
-        Me.mtbContactPhoneNumberCompliance.Size = New System.Drawing.Size(16, 20)
-        Me.mtbContactPhoneNumberCompliance.TabIndex = 413
-        Me.mtbContactPhoneNumberCompliance.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals
-        Me.mtbContactPhoneNumberCompliance.Visible = False
-        '
-        'mtbContactZipCodeCompliance
-        '
-        Me.mtbContactZipCodeCompliance.Location = New System.Drawing.Point(736, 149)
-        Me.mtbContactZipCodeCompliance.Mask = "00000-9999"
-        Me.mtbContactZipCodeCompliance.Name = "mtbContactZipCodeCompliance"
-        Me.mtbContactZipCodeCompliance.Size = New System.Drawing.Size(13, 20)
-        Me.mtbContactZipCodeCompliance.TabIndex = 412
-        Me.mtbContactZipCodeCompliance.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals
-        Me.mtbContactZipCodeCompliance.Visible = False
-        '
-        'txtContactStateCompliance
-        '
-        Me.txtContactStateCompliance.Location = New System.Drawing.Point(594, 150)
-        Me.txtContactStateCompliance.Name = "txtContactStateCompliance"
-        Me.txtContactStateCompliance.Size = New System.Drawing.Size(13, 20)
-        Me.txtContactStateCompliance.TabIndex = 411
-        Me.txtContactStateCompliance.Visible = False
-        '
-        'txtContactCityCompliance
-        '
-        Me.txtContactCityCompliance.Location = New System.Drawing.Point(502, 149)
-        Me.txtContactCityCompliance.Name = "txtContactCityCompliance"
-        Me.txtContactCityCompliance.Size = New System.Drawing.Size(13, 20)
-        Me.txtContactCityCompliance.TabIndex = 410
-        Me.txtContactCityCompliance.Visible = False
-        '
-        'txtContactStreetAddressCompliance
-        '
-        Me.txtContactStreetAddressCompliance.Location = New System.Drawing.Point(735, 122)
-        Me.txtContactStreetAddressCompliance.Name = "txtContactStreetAddressCompliance"
-        Me.txtContactStreetAddressCompliance.Size = New System.Drawing.Size(13, 20)
-        Me.txtContactStreetAddressCompliance.TabIndex = 409
-        Me.txtContactStreetAddressCompliance.Visible = False
-        '
-        'txtContactTitleCompliance
-        '
-        Me.txtContactTitleCompliance.Location = New System.Drawing.Point(735, 95)
-        Me.txtContactTitleCompliance.Name = "txtContactTitleCompliance"
-        Me.txtContactTitleCompliance.Size = New System.Drawing.Size(13, 20)
-        Me.txtContactTitleCompliance.TabIndex = 408
-        Me.txtContactTitleCompliance.Visible = False
-        '
-        'txtContactCompanyNameCompliance
-        '
-        Me.txtContactCompanyNameCompliance.Location = New System.Drawing.Point(735, 68)
-        Me.txtContactCompanyNameCompliance.Name = "txtContactCompanyNameCompliance"
-        Me.txtContactCompanyNameCompliance.Size = New System.Drawing.Size(13, 20)
-        Me.txtContactCompanyNameCompliance.TabIndex = 407
-        Me.txtContactCompanyNameCompliance.Visible = False
-        '
-        'txtContactPedigreeCompliance
-        '
-        Me.txtContactPedigreeCompliance.Location = New System.Drawing.Point(157, 150)
-        Me.txtContactPedigreeCompliance.Name = "txtContactPedigreeCompliance"
-        Me.txtContactPedigreeCompliance.Size = New System.Drawing.Size(13, 20)
-        Me.txtContactPedigreeCompliance.TabIndex = 406
-        Me.txtContactPedigreeCompliance.Visible = False
-        '
-        'txtContactLastNameCompliance
-        '
-        Me.txtContactLastNameCompliance.Location = New System.Drawing.Point(238, 122)
-        Me.txtContactLastNameCompliance.Name = "txtContactLastNameCompliance"
-        Me.txtContactLastNameCompliance.Size = New System.Drawing.Size(13, 20)
-        Me.txtContactLastNameCompliance.TabIndex = 405
-        Me.txtContactLastNameCompliance.Visible = False
-        '
-        'txtContactFirstNameCompliance
-        '
-        Me.txtContactFirstNameCompliance.Location = New System.Drawing.Point(238, 94)
-        Me.txtContactFirstNameCompliance.Name = "txtContactFirstNameCompliance"
-        Me.txtContactFirstNameCompliance.Size = New System.Drawing.Size(13, 20)
-        Me.txtContactFirstNameCompliance.TabIndex = 404
-        Me.txtContactFirstNameCompliance.Visible = False
-        '
-        'txtContactSocialTitleCompliance
-        '
-        Me.txtContactSocialTitleCompliance.Location = New System.Drawing.Point(159, 67)
-        Me.txtContactSocialTitleCompliance.Name = "txtContactSocialTitleCompliance"
-        Me.txtContactSocialTitleCompliance.Size = New System.Drawing.Size(13, 20)
-        Me.txtContactSocialTitleCompliance.TabIndex = 403
-        Me.txtContactSocialTitleCompliance.Visible = False
-        '
-        'btnLoadFromWarehouse
-        '
-        Me.btnLoadFromWarehouse.AutoSize = True
-        Me.btnLoadFromWarehouse.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnLoadFromWarehouse.Location = New System.Drawing.Point(83, 38)
-        Me.btnLoadFromWarehouse.Name = "btnLoadFromWarehouse"
-        Me.btnLoadFromWarehouse.Size = New System.Drawing.Size(218, 23)
-        Me.btnLoadFromWarehouse.TabIndex = 402
-        Me.btnLoadFromWarehouse.Text = "Load Contact Info. from GATV Warehouse"
-        Me.btnLoadFromWarehouse.UseVisualStyleBackColor = True
-        '
-        'txtAIRSNumber
-        '
-        Me.txtAIRSNumber.Location = New System.Drawing.Point(449, 13)
-        Me.txtAIRSNumber.MaxLength = 12
-        Me.txtAIRSNumber.Name = "txtAIRSNumber"
-        Me.txtAIRSNumber.Size = New System.Drawing.Size(67, 20)
-        Me.txtAIRSNumber.TabIndex = 400
-        '
-        'Label5
-        '
-        Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(373, 16)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(72, 13)
-        Me.Label5.TabIndex = 401
-        Me.Label5.Text = "AIRS Number"
-        '
-        'btnSaveContactApp
-        '
-        Me.btnSaveContactApp.AutoSize = True
-        Me.btnSaveContactApp.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnSaveContactApp.Location = New System.Drawing.Point(102, 393)
-        Me.btnSaveContactApp.Name = "btnSaveContactApp"
-        Me.btnSaveContactApp.Size = New System.Drawing.Size(149, 23)
-        Me.btnSaveContactApp.TabIndex = 15
-        Me.btnSaveContactApp.Text = "Save Contact to Application"
-        Me.btnSaveContactApp.UseVisualStyleBackColor = True
-        '
-        'btnLoadAppContact
-        '
-        Me.btnLoadAppContact.AutoSize = True
-        Me.btnLoadAppContact.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnLoadAppContact.Location = New System.Drawing.Point(156, 10)
-        Me.btnLoadAppContact.Name = "btnLoadAppContact"
-        Me.btnLoadAppContact.Size = New System.Drawing.Size(183, 23)
-        Me.btnLoadAppContact.TabIndex = 398
-        Me.btnLoadAppContact.Text = "Load Contact Info. from Application"
-        Me.btnLoadAppContact.UseVisualStyleBackColor = True
-        '
-        'Label4
-        '
-        Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(3, 16)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(79, 13)
-        Me.Label4.TabIndex = 397
-        Me.Label4.Text = "Application No."
-        '
-        'txtApplicationNumber
-        '
-        Me.txtApplicationNumber.Location = New System.Drawing.Point(83, 12)
-        Me.txtApplicationNumber.MaxLength = 10
-        Me.txtApplicationNumber.Name = "txtApplicationNumber"
-        Me.txtApplicationNumber.Size = New System.Drawing.Size(67, 20)
-        Me.txtApplicationNumber.TabIndex = 0
-        '
-        'btnGetCurrentPermittingContact
-        '
-        Me.btnGetCurrentPermittingContact.AutoSize = True
-        Me.btnGetCurrentPermittingContact.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnGetCurrentPermittingContact.Location = New System.Drawing.Point(522, 10)
-        Me.btnGetCurrentPermittingContact.Name = "btnGetCurrentPermittingContact"
-        Me.btnGetCurrentPermittingContact.Size = New System.Drawing.Size(189, 23)
-        Me.btnGetCurrentPermittingContact.TabIndex = 395
-        Me.btnGetCurrentPermittingContact.Text = "Load Contact Info. from Facility Data"
-        Me.btnGetCurrentPermittingContact.UseVisualStyleBackColor = True
-        '
-        'mtbContactZipCode
-        '
-        Me.mtbContactZipCode.Location = New System.Drawing.Point(662, 150)
-        Me.mtbContactZipCode.Mask = "00000-9999"
-        Me.mtbContactZipCode.Name = "mtbContactZipCode"
-        Me.mtbContactZipCode.Size = New System.Drawing.Size(68, 20)
-        Me.mtbContactZipCode.TabIndex = 10
-        Me.mtbContactZipCode.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals
-        '
-        'mtbContactFaxNumber
-        '
-        Me.mtbContactFaxNumber.Location = New System.Drawing.Point(102, 210)
-        Me.mtbContactFaxNumber.Mask = "(999) 000-0000"
-        Me.mtbContactFaxNumber.Name = "mtbContactFaxNumber"
-        Me.mtbContactFaxNumber.Size = New System.Drawing.Size(89, 20)
-        Me.mtbContactFaxNumber.TabIndex = 12
-        Me.mtbContactFaxNumber.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals
-        '
-        'mtbContactPhoneNumber
-        '
-        Me.mtbContactPhoneNumber.Location = New System.Drawing.Point(102, 184)
-        Me.mtbContactPhoneNumber.Mask = "(999) 000-0000"
-        Me.mtbContactPhoneNumber.Name = "mtbContactPhoneNumber"
-        Me.mtbContactPhoneNumber.Size = New System.Drawing.Size(89, 20)
-        Me.mtbContactPhoneNumber.TabIndex = 11
-        Me.mtbContactPhoneNumber.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals
-        '
-        'txtContactDescription
-        '
-        Me.txtContactDescription.Location = New System.Drawing.Point(102, 276)
-        Me.txtContactDescription.Multiline = True
-        Me.txtContactDescription.Name = "txtContactDescription"
-        Me.txtContactDescription.Size = New System.Drawing.Size(628, 96)
-        Me.txtContactDescription.TabIndex = 14
-        '
-        'txtContactEmailAddress
-        '
-        Me.txtContactEmailAddress.Location = New System.Drawing.Point(102, 241)
-        Me.txtContactEmailAddress.Name = "txtContactEmailAddress"
-        Me.txtContactEmailAddress.Size = New System.Drawing.Size(284, 20)
-        Me.txtContactEmailAddress.TabIndex = 13
-        '
-        'txtContactState
-        '
-        Me.txtContactState.Location = New System.Drawing.Point(553, 150)
-        Me.txtContactState.MaxLength = 2
-        Me.txtContactState.Name = "txtContactState"
-        Me.txtContactState.Size = New System.Drawing.Size(40, 20)
-        Me.txtContactState.TabIndex = 9
-        '
-        'txtContactCity
-        '
-        Me.txtContactCity.Location = New System.Drawing.Point(345, 150)
-        Me.txtContactCity.Name = "txtContactCity"
-        Me.txtContactCity.Size = New System.Drawing.Size(152, 20)
-        Me.txtContactCity.TabIndex = 8
-        '
-        'txtContactStreetAddress
-        '
-        Me.txtContactStreetAddress.Location = New System.Drawing.Point(345, 122)
-        Me.txtContactStreetAddress.Name = "txtContactStreetAddress"
-        Me.txtContactStreetAddress.Size = New System.Drawing.Size(385, 20)
-        Me.txtContactStreetAddress.TabIndex = 7
-        '
-        'txtContactTitle
-        '
-        Me.txtContactTitle.Location = New System.Drawing.Point(345, 94)
-        Me.txtContactTitle.Name = "txtContactTitle"
-        Me.txtContactTitle.Size = New System.Drawing.Size(385, 20)
-        Me.txtContactTitle.TabIndex = 6
-        '
-        'txtContactCompanyName
-        '
-        Me.txtContactCompanyName.Location = New System.Drawing.Point(345, 68)
-        Me.txtContactCompanyName.Name = "txtContactCompanyName"
-        Me.txtContactCompanyName.Size = New System.Drawing.Size(385, 20)
-        Me.txtContactCompanyName.TabIndex = 5
-        '
-        'txtContactPedigree
-        '
-        Me.txtContactPedigree.Location = New System.Drawing.Point(81, 150)
-        Me.txtContactPedigree.Name = "txtContactPedigree"
-        Me.txtContactPedigree.Size = New System.Drawing.Size(72, 20)
-        Me.txtContactPedigree.TabIndex = 4
-        '
-        'txtContactSocialTitle
-        '
-        Me.txtContactSocialTitle.Location = New System.Drawing.Point(81, 68)
-        Me.txtContactSocialTitle.Name = "txtContactSocialTitle"
-        Me.txtContactSocialTitle.Size = New System.Drawing.Size(72, 20)
-        Me.txtContactSocialTitle.TabIndex = 1
-        '
-        'txtContactLastName
-        '
-        Me.txtContactLastName.Location = New System.Drawing.Point(81, 122)
-        Me.txtContactLastName.Name = "txtContactLastName"
-        Me.txtContactLastName.Size = New System.Drawing.Size(153, 20)
-        Me.txtContactLastName.TabIndex = 3
-        '
-        'txtContactFirstName
-        '
-        Me.txtContactFirstName.Location = New System.Drawing.Point(81, 94)
-        Me.txtContactFirstName.Name = "txtContactFirstName"
-        Me.txtContactFirstName.Size = New System.Drawing.Size(153, 20)
-        Me.txtContactFirstName.TabIndex = 2
-        '
-        'Label46
-        '
-        Me.Label46.AutoSize = True
-        Me.Label46.Location = New System.Drawing.Point(19, 279)
-        Me.Label46.Name = "Label46"
-        Me.Label46.Size = New System.Drawing.Size(60, 13)
-        Me.Label46.TabIndex = 394
-        Me.Label46.Text = "Description"
-        '
-        'Label45
-        '
-        Me.Label45.AutoSize = True
-        Me.Label45.Location = New System.Drawing.Point(257, 72)
-        Me.Label45.Name = "Label45"
-        Me.Label45.Size = New System.Drawing.Size(82, 13)
-        Me.Label45.TabIndex = 393
-        Me.Label45.Text = "Company Name"
-        '
-        'Label40
-        '
-        Me.Label40.AutoSize = True
-        Me.Label40.Location = New System.Drawing.Point(19, 72)
-        Me.Label40.Name = "Label40"
-        Me.Label40.Size = New System.Drawing.Size(59, 13)
-        Me.Label40.TabIndex = 392
-        Me.Label40.Text = "Social Title"
-        '
-        'Label39
-        '
-        Me.Label39.AutoSize = True
-        Me.Label39.Location = New System.Drawing.Point(19, 154)
-        Me.Label39.Name = "Label39"
-        Me.Label39.Size = New System.Drawing.Size(33, 13)
-        Me.Label39.TabIndex = 391
-        Me.Label39.Text = "Suffix"
-        '
-        'Label44
-        '
-        Me.Label44.AutoSize = True
-        Me.Label44.Location = New System.Drawing.Point(522, 154)
-        Me.Label44.Name = "Label44"
-        Me.Label44.Size = New System.Drawing.Size(32, 13)
-        Me.Label44.TabIndex = 390
-        Me.Label44.Text = "State"
-        '
-        'Label41
-        '
-        Me.Label41.AutoSize = True
-        Me.Label41.Location = New System.Drawing.Point(606, 154)
-        Me.Label41.Name = "Label41"
-        Me.Label41.Size = New System.Drawing.Size(50, 13)
-        Me.Label41.TabIndex = 389
-        Me.Label41.Text = "Zip Code"
-        '
-        'Label38
-        '
-        Me.Label38.AutoSize = True
-        Me.Label38.Location = New System.Drawing.Point(19, 126)
-        Me.Label38.Name = "Label38"
-        Me.Label38.Size = New System.Drawing.Size(58, 13)
-        Me.Label38.TabIndex = 388
-        Me.Label38.Text = "Last Name"
-        '
-        'Label32
-        '
-        Me.Label32.AutoSize = True
-        Me.Label32.Location = New System.Drawing.Point(257, 98)
-        Me.Label32.Name = "Label32"
-        Me.Label32.Size = New System.Drawing.Size(27, 13)
-        Me.Label32.TabIndex = 387
-        Me.Label32.Text = "Title"
-        '
-        'Label27
-        '
-        Me.Label27.AutoSize = True
-        Me.Label27.Location = New System.Drawing.Point(18, 188)
-        Me.Label27.Name = "Label27"
-        Me.Label27.Size = New System.Drawing.Size(78, 13)
-        Me.Label27.TabIndex = 386
-        Me.Label27.Text = "Phone Number"
-        '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(19, 213)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(64, 13)
-        Me.Label2.TabIndex = 385
-        Me.Label2.Text = "Fax Number"
-        '
-        'Label20
-        '
-        Me.Label20.AutoSize = True
-        Me.Label20.Location = New System.Drawing.Point(19, 244)
-        Me.Label20.Name = "Label20"
-        Me.Label20.Size = New System.Drawing.Size(73, 13)
-        Me.Label20.TabIndex = 384
-        Me.Label20.Text = "Email Address"
-        '
-        'Label18
-        '
-        Me.Label18.AutoSize = True
-        Me.Label18.Location = New System.Drawing.Point(257, 126)
-        Me.Label18.Name = "Label18"
-        Me.Label18.Size = New System.Drawing.Size(76, 13)
-        Me.Label18.TabIndex = 383
-        Me.Label18.Text = "Street Address"
-        '
-        'Label3
-        '
-        Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(257, 154)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(24, 13)
-        Me.Label3.TabIndex = 382
-        Me.Label3.Text = "City"
-        '
-        'Label11
-        '
-        Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(19, 98)
-        Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(57, 13)
-        Me.Label11.TabIndex = 381
-        Me.Label11.Text = "First Name"
-        '
         'SSPPTitleVTools
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1533,8 +993,6 @@ Partial Class SSPPTitleVTools
         Me.TPTitleVRenewals.ResumeLayout(False)
         Me.GBTitleVRenewals.ResumeLayout(False)
         Me.GBTitleVRenewals.PerformLayout()
-        Me.TPPermittingContact.ResumeLayout(False)
-        Me.TPPermittingContact.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -1614,55 +1072,4 @@ Partial Class SSPPTitleVTools
     Friend WithEvents txtRenewalCount As System.Windows.Forms.TextBox
     Friend WithEvents Label57 As System.Windows.Forms.Label
     Friend WithEvents Label56 As System.Windows.Forms.Label
-    Friend WithEvents TPPermittingContact As System.Windows.Forms.TabPage
-    Friend WithEvents btnGetCurrentPermittingContact As System.Windows.Forms.Button
-    Friend WithEvents mtbContactZipCode As System.Windows.Forms.MaskedTextBox
-    Friend WithEvents mtbContactFaxNumber As System.Windows.Forms.MaskedTextBox
-    Friend WithEvents mtbContactPhoneNumber As System.Windows.Forms.MaskedTextBox
-    Friend WithEvents txtContactDescription As System.Windows.Forms.TextBox
-    Friend WithEvents txtContactEmailAddress As System.Windows.Forms.TextBox
-    Friend WithEvents txtContactState As System.Windows.Forms.TextBox
-    Friend WithEvents txtContactCity As System.Windows.Forms.TextBox
-    Friend WithEvents txtContactStreetAddress As System.Windows.Forms.TextBox
-    Friend WithEvents txtContactTitle As System.Windows.Forms.TextBox
-    Friend WithEvents txtContactCompanyName As System.Windows.Forms.TextBox
-    Friend WithEvents txtContactPedigree As System.Windows.Forms.TextBox
-    Friend WithEvents txtContactSocialTitle As System.Windows.Forms.TextBox
-    Friend WithEvents txtContactLastName As System.Windows.Forms.TextBox
-    Friend WithEvents txtContactFirstName As System.Windows.Forms.TextBox
-    Friend WithEvents Label46 As System.Windows.Forms.Label
-    Friend WithEvents Label45 As System.Windows.Forms.Label
-    Friend WithEvents Label40 As System.Windows.Forms.Label
-    Friend WithEvents Label39 As System.Windows.Forms.Label
-    Friend WithEvents Label44 As System.Windows.Forms.Label
-    Friend WithEvents Label41 As System.Windows.Forms.Label
-    Friend WithEvents Label38 As System.Windows.Forms.Label
-    Friend WithEvents Label32 As System.Windows.Forms.Label
-    Friend WithEvents Label27 As System.Windows.Forms.Label
-    Friend WithEvents Label2 As System.Windows.Forms.Label
-    Friend WithEvents Label20 As System.Windows.Forms.Label
-    Friend WithEvents Label18 As System.Windows.Forms.Label
-    Friend WithEvents Label3 As System.Windows.Forms.Label
-    Friend WithEvents Label11 As System.Windows.Forms.Label
-    Friend WithEvents btnSaveContactApp As System.Windows.Forms.Button
-    Friend WithEvents btnLoadAppContact As System.Windows.Forms.Button
-    Friend WithEvents Label4 As System.Windows.Forms.Label
-    Friend WithEvents txtApplicationNumber As System.Windows.Forms.TextBox
-    Friend WithEvents txtAIRSNumber As System.Windows.Forms.TextBox
-    Friend WithEvents Label5 As System.Windows.Forms.Label
-    Friend WithEvents btnLoadFromWarehouse As System.Windows.Forms.Button
-    Friend WithEvents txtContactLastNameCompliance As System.Windows.Forms.TextBox
-    Friend WithEvents txtContactFirstNameCompliance As System.Windows.Forms.TextBox
-    Friend WithEvents txtContactSocialTitleCompliance As System.Windows.Forms.TextBox
-    Friend WithEvents txtContactDescriptionCompliance As System.Windows.Forms.TextBox
-    Friend WithEvents txtContactEmailAddressCompliance As System.Windows.Forms.TextBox
-    Friend WithEvents mtbContactFaxNumberCompliance As System.Windows.Forms.MaskedTextBox
-    Friend WithEvents mtbContactPhoneNumberCompliance As System.Windows.Forms.MaskedTextBox
-    Friend WithEvents mtbContactZipCodeCompliance As System.Windows.Forms.MaskedTextBox
-    Friend WithEvents txtContactStateCompliance As System.Windows.Forms.TextBox
-    Friend WithEvents txtContactCityCompliance As System.Windows.Forms.TextBox
-    Friend WithEvents txtContactStreetAddressCompliance As System.Windows.Forms.TextBox
-    Friend WithEvents txtContactTitleCompliance As System.Windows.Forms.TextBox
-    Friend WithEvents txtContactCompanyNameCompliance As System.Windows.Forms.TextBox
-    Friend WithEvents txtContactPedigreeCompliance As System.Windows.Forms.TextBox
 End Class

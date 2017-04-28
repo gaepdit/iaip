@@ -1,6 +1,5 @@
-﻿Imports Oracle.ManagedDataAccess.Client
-Imports Iaip.Apb.Sscp
-Imports System.Collections.Generic
+﻿Imports System.Collections.Generic
+Imports System.Data.SqlClient
 
 Namespace DAL.Sscp
 
@@ -14,10 +13,10 @@ Namespace DAL.Sscp
         Public Function GetFacilityIdByFceId(fceNumber As String) As Apb.ApbFacilityId
             If fceNumber = "" OrElse Not Integer.TryParse(fceNumber, Nothing) Then Return Nothing
 
-            Dim query As String = "SELECT STRAIRSNUMBER FROM AIRBRANCH.SSCPFCEMASTER WHERE STRFCENUMBER = :fceNumber"
-            Dim parameter As New OracleParameter("fceNumber", fceNumber)
+            Dim query As String = "SELECT STRAIRSNUMBER FROM SSCPFCEMASTER WHERE STRFCENUMBER = @fceNumber"
+            Dim parameter As New SqlParameter("@fceNumber", fceNumber)
 
-            Return New Apb.ApbFacilityId(DB.GetSingleValue(Of String)(query, parameter))
+            Return New Apb.ApbFacilityId(DB.GetString(query, parameter))
         End Function
 
         ''' <summary>
@@ -31,19 +30,28 @@ Namespace DAL.Sscp
                 Optional airs As Apb.ApbFacilityId = Nothing,
                 Optional staffId As String = Nothing,
                 Optional year As String = Nothing) As DataTable
+
             Dim query As String =
-                "SELECT * FROM AIRBRANCH.VW_SSCP_FCES " &
+                "SELECT * FROM VW_SSCP_FCES " &
                 " WHERE 1=1 "
+            Dim params As New List(Of SqlParameter)
 
-            If airs IsNot Nothing Then query &= " AND STRAIRSNUMBER = :airs "
-            If Not String.IsNullOrEmpty(staffId) Then query &= " AND STRREVIEWER = :staffId "
-            If Not String.IsNullOrEmpty(year) Then query &= " AND STRFCEYEAR = :year "
+            If airs IsNot Nothing Then
+                query &= " AND STRAIRSNUMBER = @airs "
+                params.Add(New SqlParameter("@airs", airs.DbFormattedString))
+            End If
 
-            Dim parameters As OracleParameter() = {
-                New OracleParameter("airs", airs.DbFormattedString),
-                New OracleParameter("staffId", staffId),
-                New OracleParameter("year", year)
-            }
+            If Not String.IsNullOrEmpty(staffId) Then
+                query &= " AND STRREVIEWER = @staffId "
+                params.Add(New SqlParameter("@staffId", staffId))
+            End If
+
+            If Not String.IsNullOrEmpty(year) Then
+                query &= " AND STRFCEYEAR = @year "
+                params.Add(New SqlParameter("@year", year))
+            End If
+
+            Dim parameters As SqlParameter() = params.ToArray
             Return DB.GetDataTable(query, parameters)
         End Function
 
@@ -58,25 +66,36 @@ Namespace DAL.Sscp
         ''' <returns>A DataTable of FCE data</returns>
         Public Function GetFceDataTable(
                 dateRangeStart As Date, dateRangeEnd As Date,
-                Optional airs As Apb.ApbFacilityId = Nothing,
+                airs As Apb.ApbFacilityId,
                 Optional staffId As String = Nothing,
                 Optional year As String = Nothing) As DataTable
+
             Dim query As String =
-                "SELECT * FROM AIRBRANCH.VW_SSCP_FCES " &
-                " WHERE TRUNC(DATFCECOMPLETED) BETWEEN :datestart AND :dateend "
+                "SELECT * FROM VW_SSCP_FCES " &
+                " WHERE DATFCECOMPLETED BETWEEN @datestart AND @dateend "
 
-            If airs IsNot Nothing Then query &= " AND STRAIRSNUMBER = :airs "
-            If Not String.IsNullOrEmpty(staffId) Then query &= " AND STRREVIEWER = :staffId "
-            If Not String.IsNullOrEmpty(year) Then query &= " AND STRFCEYEAR = :year "
-
-            Dim parameters As OracleParameter() = {
-                New OracleParameter("datestart", dateRangeStart),
-                New OracleParameter("dateend", dateRangeEnd),
-                New OracleParameter("airs", airs.DbFormattedString),
-                New OracleParameter("staffId", staffId),
-                New OracleParameter("year", year)
+            Dim params As New List(Of SqlParameter) From {
+                New SqlParameter("@datestart", dateRangeStart),
+                New SqlParameter("@dateend", dateRangeEnd)
             }
-            Return DB.GetDataTable(query, parameters)
+
+            If airs IsNot Nothing Then
+                query &= " AND STRAIRSNUMBER = @airs "
+                params.Add(New SqlParameter("@airs", airs.DbFormattedString))
+            End If
+
+            If Not String.IsNullOrEmpty(staffId) Then
+                query &= " AND STRREVIEWER = @staffId "
+                params.Add(New SqlParameter("@staffId", staffId))
+            End If
+
+            If Not String.IsNullOrEmpty(year) Then
+                query &= " AND STRFCEYEAR = @year "
+                params.Add(New SqlParameter("@year", year))
+            End If
+
+            Dim parameters As SqlParameter() = params.ToArray
+            Return DB.GetDataTable(query, parameters, True)
         End Function
 
     End Module

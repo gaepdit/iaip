@@ -27,6 +27,12 @@
             My.Settings.Save()
         End If
 
+        ' Language settings
+        CheckLanguageRegistrySetting()
+
+        ' DB Environment
+        SetUpDbServerEnvironment()
+
         ' EQATEC analytics monitor
         InitializeMonitor()
 
@@ -70,7 +76,6 @@
     ''' </summary>
     ''' <remarks></remarks>
     Friend Sub CloseIaip()
-        If CurrentConnection IsNot Nothing Then CurrentConnection.Dispose()
         Application.Exit()
     End Sub
 
@@ -80,6 +85,30 @@
         monitor.TrackFeature("Main.LogOut")
         StopMonitor()
         InitializeMonitor()
+    End Sub
+
+    Private Sub CheckLanguageRegistrySetting()
+        Dim currentSetting As String
+        currentSetting = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Environment", "NLS_LANG", Nothing)
+        If currentSetting Is Nothing Or currentSetting <> "AMERICAN" Then
+            My.Computer.Registry.SetValue("HKEY_CURRENT_USER\Environment", "NLS_LANG", "AMERICAN")
+            Application.Restart()
+        End If
+    End Sub
+
+    Private Sub SetUpDbServerEnvironment()
+
+        ' Set current server environment based on project build parameters
+        CurrentServerEnvironment = ServerEnvironment.PRD
+#If DEBUG Then
+        CurrentServerEnvironment = ServerEnvironment.DEV
+#ElseIf UAT Then
+        CurrentServerEnvironment = ServerEnvironment.UAT
+#End If
+
+        ' Create EpdIt.DBHelper object based on current server environment
+        ' This method is preferred and should be used for all future work
+        DB = New EpdIt.DBHelper(CurrentConnectionString)
     End Sub
 
 End Module

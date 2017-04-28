@@ -37,6 +37,8 @@ Partial Class IAIPLogIn
         Me.mmiSeparator3 = New System.Windows.Forms.MenuItem()
         Me.mmiAbout = New System.Windows.Forms.MenuItem()
         Me.mmiTestingMenu = New System.Windows.Forms.MenuItem()
+        Me.mmiThrowUnhandledError = New System.Windows.Forms.MenuItem()
+        Me.mmiThrowHandledError = New System.Windows.Forms.MenuItem()
         Me.btnLoginButton = New System.Windows.Forms.Button()
         Me.LogoBox = New System.Windows.Forms.PictureBox()
         Me.lblCurrentVersionMessage = New System.Windows.Forms.Label()
@@ -143,8 +145,19 @@ Partial Class IAIPLogIn
         'mmiTestingMenu
         '
         Me.mmiTestingMenu.Index = 3
+        Me.mmiTestingMenu.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiThrowUnhandledError, Me.mmiThrowHandledError})
         Me.mmiTestingMenu.Text = "T&est"
         Me.mmiTestingMenu.Visible = False
+        '
+        'mmiThrowUnhandledError
+        '
+        Me.mmiThrowUnhandledError.Index = 0
+        Me.mmiThrowUnhandledError.Text = "Throw unhandled error"
+        '
+        'mmiThrowHandledError
+        '
+        Me.mmiThrowHandledError.Index = 1
+        Me.mmiThrowHandledError.Text = "Throw handled error"
         '
         'btnLoginButton
         '
@@ -159,11 +172,12 @@ Partial Class IAIPLogIn
         '
         'LogoBox
         '
-        Me.LogoBox.Image = Global.Iaip.My.Resources.Resources.Logo
+        Me.LogoBox.Image = Global.Iaip.My.Resources.Resources.EpdLogo
         Me.LogoBox.InitialImage = Nothing
         Me.LogoBox.Location = New System.Drawing.Point(29, 55)
         Me.LogoBox.Name = "LogoBox"
         Me.LogoBox.Size = New System.Drawing.Size(256, 256)
+        Me.LogoBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
         Me.LogoBox.TabIndex = 0
         Me.LogoBox.TabStop = False
         '
@@ -385,4 +399,6 @@ Partial Class IAIPLogIn
     Friend WithEvents ForgotUsernameLink As LinkLabel
     Friend WithEvents mmiPasswordReset As MenuItem
     Friend WithEvents RetryButton As Button
+    Friend WithEvents mmiThrowUnhandledError As MenuItem
+    Friend WithEvents mmiThrowHandledError As MenuItem
 End Class

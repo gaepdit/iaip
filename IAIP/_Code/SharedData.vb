@@ -1,10 +1,11 @@
 ﻿Imports System.Collections.Generic
+Imports Iaip.Apb.Facilities
 
 Public Class SharedData
     Private Shared _initLock As Object = New Object()
     Private Shared _tDictionary As Dictionary(Of SharedTable, DataTable)
     Private Shared _dsDictionary As Dictionary(Of SharedDataSet, DataSet)
-    Private Shared _kvlDictionary As Dictionary(Of SharedKeyValueList, List(Of KeyValuePair(Of Integer, String)))
+    Private Shared _dictDictionary As Dictionary(Of SharedLookupDictionary, Dictionary(Of Integer, String))
 
 #Region " Enums: Available shared data "
 
@@ -18,6 +19,9 @@ Public Class SharedData
         IaipAccountRoles
         AllFeeFacilities
         EpdManagers
+        SscpNotificationTypes
+        Counties
+        DistrictOffices
     End Enum
 
     ''' <summary>
@@ -25,13 +29,15 @@ Public Class SharedData
     ''' </summary>
     Public Enum SharedDataSet
         EpdOrganization
+        RuleSubparts
     End Enum
 
     ''' <summary>
     ''' Enum delineating all the available shared Lists of KeyValuePairs in the SharedData service
     ''' </summary>
-    Public Enum SharedKeyValueList
+    Public Enum SharedLookupDictionary
         ActiveUsers
+        Counties
     End Enum
 
 #End Region
@@ -49,25 +55,30 @@ Public Class SharedData
 
                 Case SharedTable.ViolationTypes
                     dt = DAL.Sscp.GetViolationTypes()
-                    dt.PrimaryKey = New DataColumn() {dt.Columns("AIRVIOLATIONTYPECODE")}
 
                 Case SharedTable.AllComplianceStaff
-                    dt = DAL.StaffData.GetComplianceStaff()
+                    dt = DAL.GetComplianceStaff()
 
                 Case SharedTable.Pollutants
                     dt = DAL.GetPollutantsTable()
-                    dt.PrimaryKey = New DataColumn() {dt.Columns("Pollutant Code")}
 
                 Case SharedTable.IaipAccountRoles
-                    dt = DAL.GetIaipAccountRoles
-                    dt.PrimaryKey = New DataColumn() {dt.Columns("RoleCode")}
+                    dt = DAL.GetIaipAccountRoles()
 
                 Case SharedTable.AllFeeFacilities
-                    dt = DAL.GetAllFeeFacilities
-                    dt.PrimaryKey = New DataColumn() {dt.Columns("STRAIRSNUMBER")}
+                    dt = DAL.GetAllFeeFacilities()
 
                 Case SharedTable.EpdManagers
-                    dt = DAL.GetEpdManagersAsDataTable
+                    dt = DAL.GetEpdManagersAsDataTable()
+
+                Case SharedTable.SscpNotificationTypes
+                    dt = DAL.Sscp.GetSscpNotificationTypes()
+
+                Case SharedTable.Counties
+                    dt = DAL.GetCountiesAsDataTable()
+
+                Case SharedTable.DistrictOffices
+                    dt = DAL.GetDistrictOffices()
 
             End Select
 
@@ -92,15 +103,29 @@ Public Class SharedData
 
                     ds.Tables.Add(DAL.GetEpdBranchesAsDataTable)
                     ds.Tables(0).TableName = "Branches"
-                    ds.Tables(0).Rows.Add({0})
+                    ds.Tables(0).Rows.Add({0, ""})
 
                     ds.Tables.Add(DAL.GetEpdProgramsAsDataTable)
                     ds.Tables(1).TableName = "Programs"
-                    ds.Tables(1).Rows.Add({0})
+                    ds.Tables(1).Rows.Add({0, ""})
 
                     ds.Tables.Add(DAL.GetEpdUnitsAsDataTable)
                     ds.Tables(2).TableName = "Units"
-                    ds.Tables(2).Rows.Add({0})
+                    ds.Tables(2).Rows.Add({0, ""})
+
+                Case SharedDataSet.RuleSubparts
+
+                    ds.Tables.Add(DAL.GetRuleSubpartsAsDataTable(RulePart.NSPS))
+                    ds.Tables(0).TableName = RulePart.NSPS.ToString
+
+                    ds.Tables.Add(DAL.GetRuleSubpartsAsDataTable(RulePart.NESHAP))
+                    ds.Tables(1).TableName = RulePart.NESHAP.ToString
+
+                    ds.Tables.Add(DAL.GetRuleSubpartsAsDataTable(RulePart.MACT))
+                    ds.Tables(2).TableName = RulePart.MACT.ToString
+
+                    ds.Tables.Add(DAL.GetRuleSubpartsAsDataTable(RulePart.SIP))
+                    ds.Tables(3).TableName = RulePart.SIP.ToString
 
             End Select
 
@@ -112,22 +137,25 @@ Public Class SharedData
         End SyncLock
     End Sub
 
-    Private Shared Sub InitializeData(keyValueList As SharedKeyValueList)
+    Private Shared Sub InitializeData(lookupDictionary As SharedLookupDictionary)
         SyncLock _initLock
 
-            Dim kvl As New List(Of KeyValuePair(Of Integer, String))
+            Dim dict As New Dictionary(Of Integer, String)
 
-            Select Case keyValueList
+            Select Case lookupDictionary
 
-                Case SharedKeyValueList.ActiveUsers
-                    kvl = DAL.GetActiveUsers()
+                Case SharedLookupDictionary.ActiveUsers
+                    dict = DAL.GetActiveUsers()
+
+                Case SharedLookupDictionary.Counties
+                    dict = DAL.GetCountiesAsDictionary()
 
             End Select
 
-            If _kvlDictionary.ContainsKey(keyValueList) Then
-                _kvlDictionary.Remove(keyValueList)
+            If _dictDictionary.ContainsKey(lookupDictionary) Then
+                _dictDictionary.Remove(lookupDictionary)
             End If
-            _kvlDictionary.Add(keyValueList, kvl)
+            _dictDictionary.Add(lookupDictionary, dict)
 
         End SyncLock
     End Sub
@@ -180,18 +208,19 @@ Public Class SharedData
     ''' Returns data from the shared data service. If data has not been intialized, 
     ''' first retrieves the data from the database. Data is only retrieved the first
     ''' time it is used when the IAIP is run.
-    ''' <param name="keyValueList">The shared List of KeyValuePairs to return.</param>
+    ''' </summary>
+    ''' <param name="lookupDictionary">The shared List of KeyValuePairs to return.</param>
     ''' <returns>List of integer-indexed KeyValuePairs from the shared data service.</returns>
-    Public Shared Function GetSharedData(keyValueList As SharedKeyValueList) As List(Of KeyValuePair(Of Integer, String))
-        If _kvlDictionary Is Nothing Then
-            _kvlDictionary = New Dictionary(Of SharedKeyValueList, List(Of KeyValuePair(Of Integer, String)))
+    Public Shared Function GetSharedData(lookupDictionary As SharedLookupDictionary) As Dictionary(Of Integer, String)
+        If _dictDictionary Is Nothing Then
+            _dictDictionary = New Dictionary(Of SharedLookupDictionary, Dictionary(Of Integer, String))
         End If
 
-        If Not _kvlDictionary.ContainsKey(keyValueList) OrElse _kvlDictionary(keyValueList) Is Nothing Then
-            InitializeData(keyValueList)
+        If Not _dictDictionary.ContainsKey(lookupDictionary) OrElse _dictDictionary(lookupDictionary) Is Nothing Then
+            InitializeData(lookupDictionary)
         End If
 
-        Return _kvlDictionary(keyValueList)
+        Return _dictDictionary(lookupDictionary)
     End Function
 
 #End Region
@@ -199,15 +228,15 @@ Public Class SharedData
 #Region " Public functions for clearing shared data "
 
     Public Shared Sub ClearSharedData(table As SharedTable)
-        If _tDictionary.ContainsKey(table) Then _tDictionary.Remove(table)
+        If _tDictionary IsNot Nothing AndAlso _tDictionary.ContainsKey(table) Then
+            _tDictionary.Remove(table)
+        End If
     End Sub
 
     Public Shared Sub ClearSharedData(dataSet As SharedDataSet)
-        If _dsDictionary.ContainsKey(dataSet) Then _dsDictionary.Remove(dataSet)
-    End Sub
-
-    Public Shared Sub ClearSharedData(keyValueList As SharedKeyValueList)
-        If _kvlDictionary.ContainsKey(keyValueList) Then _kvlDictionary.Remove(keyValueList)
+        If _dsDictionary IsNot Nothing AndAlso _dsDictionary.ContainsKey(dataSet) Then
+            _dsDictionary.Remove(dataSet)
+        End If
     End Sub
 
 #End Region

@@ -73,9 +73,7 @@ Partial Class SSCPEvents
     Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents btnReportMoreOptions As System.Windows.Forms.Button
     Friend WithEvents btnEnforcementProcess As System.Windows.Forms.Button
-    Friend WithEvents txtTrackingNumber As System.Windows.Forms.TextBox
     Friend WithEvents Label1 As System.Windows.Forms.Label
-    Friend WithEvents txtAIRSNumber As System.Windows.Forms.TextBox
     Friend WithEvents txtEventInformation As System.Windows.Forms.TextBox
     Friend WithEvents txtFacilityInformation As System.Windows.Forms.TextBox
     Friend WithEvents txtEnforcementNumber As System.Windows.Forms.TextBox
@@ -261,18 +259,16 @@ Partial Class SSCPEvents
         Me.mmiTools = New System.Windows.Forms.MenuItem()
         Me.mmiDelete = New System.Windows.Forms.MenuItem()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.cboStaffResponsible = New System.Windows.Forms.ComboBox()
         Me.lblRMPID = New System.Windows.Forms.Label()
         Me.txtRMPID = New System.Windows.Forms.TextBox()
-        Me.Label35 = New System.Windows.Forms.Label()
-        Me.cboStaffResponsible = New System.Windows.Forms.ComboBox()
         Me.DTPAcknowledgmentLetterSent = New System.Windows.Forms.DateTimePicker()
+        Me.Label13 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.txtAIRSNumber = New System.Windows.Forms.TextBox()
         Me.txtEnforcementNumber = New System.Windows.Forms.TextBox()
         Me.chbEventComplete = New System.Windows.Forms.CheckBox()
         Me.DTPEventCompleteDate = New System.Windows.Forms.DateTimePicker()
-        Me.txtTrackingNumber = New System.Windows.Forms.TextBox()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.txtFacilityInformation = New System.Windows.Forms.TextBox()
         Me.txtEventInformation = New System.Windows.Forms.TextBox()
@@ -562,18 +558,16 @@ Partial Class SSCPEvents
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.cboStaffResponsible)
         Me.GroupBox1.Controls.Add(Me.lblRMPID)
         Me.GroupBox1.Controls.Add(Me.txtRMPID)
-        Me.GroupBox1.Controls.Add(Me.Label35)
-        Me.GroupBox1.Controls.Add(Me.cboStaffResponsible)
         Me.GroupBox1.Controls.Add(Me.DTPAcknowledgmentLetterSent)
+        Me.GroupBox1.Controls.Add(Me.Label13)
         Me.GroupBox1.Controls.Add(Me.Label2)
         Me.GroupBox1.Controls.Add(Me.Label1)
-        Me.GroupBox1.Controls.Add(Me.txtAIRSNumber)
         Me.GroupBox1.Controls.Add(Me.txtEnforcementNumber)
         Me.GroupBox1.Controls.Add(Me.chbEventComplete)
         Me.GroupBox1.Controls.Add(Me.DTPEventCompleteDate)
-        Me.GroupBox1.Controls.Add(Me.txtTrackingNumber)
         Me.GroupBox1.Controls.Add(Me.Label3)
         Me.GroupBox1.Controls.Add(Me.txtFacilityInformation)
         Me.GroupBox1.Controls.Add(Me.txtEventInformation)
@@ -585,6 +579,15 @@ Partial Class SSCPEvents
         Me.GroupBox1.TabIndex = 48
         Me.GroupBox1.TabStop = False
         '
+        'cboStaffResponsible
+        '
+        Me.cboStaffResponsible.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboStaffResponsible.FormattingEnabled = True
+        Me.cboStaffResponsible.Location = New System.Drawing.Point(622, 122)
+        Me.cboStaffResponsible.Name = "cboStaffResponsible"
+        Me.cboStaffResponsible.Size = New System.Drawing.Size(154, 21)
+        Me.cboStaffResponsible.TabIndex = 348
+        '
         'lblRMPID
         '
         Me.lblRMPID.AutoSize = True
@@ -593,7 +596,6 @@ Partial Class SSCPEvents
         Me.lblRMPID.Size = New System.Drawing.Size(45, 13)
         Me.lblRMPID.TabIndex = 347
         Me.lblRMPID.Text = "RMP ID"
-        Me.lblRMPID.Visible = False
         '
         'txtRMPID
         '
@@ -602,26 +604,6 @@ Partial Class SSCPEvents
         Me.txtRMPID.ReadOnly = True
         Me.txtRMPID.Size = New System.Drawing.Size(100, 20)
         Me.txtRMPID.TabIndex = 346
-        Me.txtRMPID.Visible = False
-        '
-        'Label35
-        '
-        Me.Label35.AutoSize = True
-        Me.Label35.Location = New System.Drawing.Point(530, 126)
-        Me.Label35.Name = "Label35"
-        Me.Label35.Size = New System.Drawing.Size(90, 13)
-        Me.Label35.TabIndex = 344
-        Me.Label35.Text = "Staff Responsible"
-        '
-        'cboStaffResponsible
-        '
-        Me.cboStaffResponsible.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
-        Me.cboStaffResponsible.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cboStaffResponsible.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cboStaffResponsible.Location = New System.Drawing.Point(622, 122)
-        Me.cboStaffResponsible.Name = "cboStaffResponsible"
-        Me.cboStaffResponsible.Size = New System.Drawing.Size(154, 21)
-        Me.cboStaffResponsible.TabIndex = 345
         '
         'DTPAcknowledgmentLetterSent
         '
@@ -633,6 +615,15 @@ Partial Class SSCPEvents
         Me.DTPAcknowledgmentLetterSent.Size = New System.Drawing.Size(116, 20)
         Me.DTPAcknowledgmentLetterSent.TabIndex = 118
         Me.DTPAcknowledgmentLetterSent.Value = New Date(2005, 4, 21, 0, 0, 0, 0)
+        '
+        'Label13
+        '
+        Me.Label13.AutoSize = True
+        Me.Label13.Location = New System.Drawing.Point(523, 125)
+        Me.Label13.Name = "Label13"
+        Me.Label13.Size = New System.Drawing.Size(93, 13)
+        Me.Label13.TabIndex = 117
+        Me.Label13.Text = "Staff Responsible:"
         '
         'Label2
         '
@@ -653,18 +644,9 @@ Partial Class SSCPEvents
         Me.Label1.Text = "Event Information:"
         Me.Label1.TextAlign = System.Drawing.ContentAlignment.BottomLeft
         '
-        'txtAIRSNumber
-        '
-        Me.txtAIRSNumber.Location = New System.Drawing.Point(8, 24)
-        Me.txtAIRSNumber.Name = "txtAIRSNumber"
-        Me.txtAIRSNumber.ReadOnly = True
-        Me.txtAIRSNumber.Size = New System.Drawing.Size(16, 20)
-        Me.txtAIRSNumber.TabIndex = 114
-        Me.txtAIRSNumber.Visible = False
-        '
         'txtEnforcementNumber
         '
-        Me.txtEnforcementNumber.Location = New System.Drawing.Point(174, 145)
+        Me.txtEnforcementNumber.Location = New System.Drawing.Point(153, 145)
         Me.txtEnforcementNumber.Name = "txtEnforcementNumber"
         Me.txtEnforcementNumber.ReadOnly = True
         Me.txtEnforcementNumber.Size = New System.Drawing.Size(56, 20)
@@ -687,15 +669,6 @@ Partial Class SSCPEvents
         Me.DTPEventCompleteDate.Name = "DTPEventCompleteDate"
         Me.DTPEventCompleteDate.Size = New System.Drawing.Size(100, 20)
         Me.DTPEventCompleteDate.TabIndex = 107
-        '
-        'txtTrackingNumber
-        '
-        Me.txtTrackingNumber.Location = New System.Drawing.Point(30, 24)
-        Me.txtTrackingNumber.Name = "txtTrackingNumber"
-        Me.txtTrackingNumber.ReadOnly = True
-        Me.txtTrackingNumber.Size = New System.Drawing.Size(12, 20)
-        Me.txtTrackingNumber.TabIndex = 105
-        Me.txtTrackingNumber.Visible = False
         '
         'Label3
         '
@@ -733,9 +706,9 @@ Partial Class SSCPEvents
         Me.btnEnforcementProcess.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.btnEnforcementProcess.Location = New System.Drawing.Point(8, 143)
         Me.btnEnforcementProcess.Name = "btnEnforcementProcess"
-        Me.btnEnforcementProcess.Size = New System.Drawing.Size(163, 23)
+        Me.btnEnforcementProcess.Size = New System.Drawing.Size(136, 23)
         Me.btnEnforcementProcess.TabIndex = 110
-        Me.btnEnforcementProcess.Text = "Add/Edit Enforcement Process"
+        Me.btnEnforcementProcess.Text = "Open linked enforcement"
         '
         'TCItems
         '
@@ -1165,7 +1138,7 @@ Partial Class SSCPEvents
         Me.TPTestReports.Controls.Add(Me.PanelSSCPCompliance2)
         Me.TPTestReports.Location = New System.Drawing.Point(4, 22)
         Me.TPTestReports.Name = "TPTestReports"
-        Me.TPTestReports.Size = New System.Drawing.Size(784, 342)
+        Me.TPTestReports.Size = New System.Drawing.Size(784, 370)
         Me.TPTestReports.TabIndex = 2
         Me.TPTestReports.Text = "ISMP Test Report"
         '
@@ -1199,7 +1172,7 @@ Partial Class SSCPEvents
         Me.PanelSSCPCompliance2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PanelSSCPCompliance2.Location = New System.Drawing.Point(0, 0)
         Me.PanelSSCPCompliance2.Name = "PanelSSCPCompliance2"
-        Me.PanelSSCPCompliance2.Size = New System.Drawing.Size(784, 342)
+        Me.PanelSSCPCompliance2.Size = New System.Drawing.Size(784, 370)
         Me.PanelSSCPCompliance2.TabIndex = 161
         '
         'DTPTestReportReceivedDate
@@ -1443,7 +1416,7 @@ Partial Class SSCPEvents
         Me.TPInspection.Controls.Add(Me.Panel11)
         Me.TPInspection.Location = New System.Drawing.Point(4, 22)
         Me.TPInspection.Name = "TPInspection"
-        Me.TPInspection.Size = New System.Drawing.Size(784, 342)
+        Me.TPInspection.Size = New System.Drawing.Size(784, 370)
         Me.TPInspection.TabIndex = 1
         Me.TPInspection.Text = "Inspection"
         '
@@ -1478,7 +1451,7 @@ Partial Class SSCPEvents
         Me.Panel11.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel11.Location = New System.Drawing.Point(0, 0)
         Me.Panel11.Name = "Panel11"
-        Me.Panel11.Size = New System.Drawing.Size(784, 342)
+        Me.Panel11.Size = New System.Drawing.Size(784, 370)
         Me.Panel11.TabIndex = 81
         '
         'Panel21
@@ -1730,7 +1703,7 @@ Partial Class SSCPEvents
         '
         'dtpInspectionTimeEnd
         '
-        Me.dtpInspectionTimeEnd.CustomFormat = "HH:mm:ss"
+        Me.dtpInspectionTimeEnd.CustomFormat = "h:mm tt"
         Me.dtpInspectionTimeEnd.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.dtpInspectionTimeEnd.Location = New System.Drawing.Point(266, 48)
         Me.dtpInspectionTimeEnd.Name = "dtpInspectionTimeEnd"
@@ -1741,21 +1714,21 @@ Partial Class SSCPEvents
         '
         'dtpInspectionTimeStart
         '
-        Me.dtpInspectionTimeStart.CustomFormat = "HH:mm:ss"
+        Me.dtpInspectionTimeStart.CustomFormat = "h:mm tt"
         Me.dtpInspectionTimeStart.Format = System.Windows.Forms.DateTimePickerFormat.Custom
         Me.dtpInspectionTimeStart.Location = New System.Drawing.Point(160, 48)
         Me.dtpInspectionTimeStart.Name = "dtpInspectionTimeStart"
         Me.dtpInspectionTimeStart.ShowUpDown = True
         Me.dtpInspectionTimeStart.Size = New System.Drawing.Size(100, 20)
         Me.dtpInspectionTimeStart.TabIndex = 12
-        Me.dtpInspectionTimeStart.Value = New Date(2005, 6, 5, 12, 0, 0, 0)
+        Me.dtpInspectionTimeStart.Value = New Date(2005, 6, 5, 8, 0, 0, 0)
         '
         'TPNotifications
         '
         Me.TPNotifications.Controls.Add(Me.Panel16)
         Me.TPNotifications.Location = New System.Drawing.Point(4, 22)
         Me.TPNotifications.Name = "TPNotifications"
-        Me.TPNotifications.Size = New System.Drawing.Size(784, 342)
+        Me.TPNotifications.Size = New System.Drawing.Size(784, 370)
         Me.TPNotifications.TabIndex = 3
         Me.TPNotifications.Text = "Notifications"
         '
@@ -1783,7 +1756,7 @@ Partial Class SSCPEvents
         Me.Panel16.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel16.Location = New System.Drawing.Point(0, 0)
         Me.Panel16.Name = "Panel16"
-        Me.Panel16.Size = New System.Drawing.Size(784, 342)
+        Me.Panel16.Size = New System.Drawing.Size(784, 370)
         Me.Panel16.TabIndex = 144
         '
         'Label10
@@ -1983,7 +1956,7 @@ Partial Class SSCPEvents
         Me.TPACC.Controls.Add(Me.DGRACCResubmittal)
         Me.TPACC.Location = New System.Drawing.Point(4, 22)
         Me.TPACC.Name = "TPACC"
-        Me.TPACC.Size = New System.Drawing.Size(784, 342)
+        Me.TPACC.Size = New System.Drawing.Size(784, 370)
         Me.TPACC.TabIndex = 4
         Me.TPACC.Text = "Annual Compliance Certifications"
         '
@@ -1993,7 +1966,7 @@ Partial Class SSCPEvents
         Me.PanelACC.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PanelACC.Location = New System.Drawing.Point(15, 0)
         Me.PanelACC.Name = "PanelACC"
-        Me.PanelACC.Size = New System.Drawing.Size(769, 342)
+        Me.PanelACC.Size = New System.Drawing.Size(769, 370)
         Me.PanelACC.TabIndex = 79
         '
         'Panel20
@@ -2046,7 +2019,7 @@ Partial Class SSCPEvents
         Me.Panel20.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel20.Location = New System.Drawing.Point(0, 0)
         Me.Panel20.Name = "Panel20"
-        Me.Panel20.Size = New System.Drawing.Size(769, 342)
+        Me.Panel20.Size = New System.Drawing.Size(769, 370)
         Me.Panel20.TabIndex = 0
         '
         'dtpAccReportingYear
@@ -2684,7 +2657,7 @@ Partial Class SSCPEvents
         Me.SplitterACC.BackColor = System.Drawing.SystemColors.Highlight
         Me.SplitterACC.Location = New System.Drawing.Point(10, 0)
         Me.SplitterACC.Name = "SplitterACC"
-        Me.SplitterACC.Size = New System.Drawing.Size(5, 342)
+        Me.SplitterACC.Size = New System.Drawing.Size(5, 370)
         Me.SplitterACC.TabIndex = 78
         Me.SplitterACC.TabStop = False
         '
@@ -2698,7 +2671,7 @@ Partial Class SSCPEvents
         Me.DGRACCResubmittal.Name = "DGRACCResubmittal"
         Me.DGRACCResubmittal.ReadOnly = True
         Me.DGRACCResubmittal.RowHeadersVisible = False
-        Me.DGRACCResubmittal.Size = New System.Drawing.Size(10, 342)
+        Me.DGRACCResubmittal.Size = New System.Drawing.Size(10, 370)
         Me.DGRACCResubmittal.TabIndex = 18
         Me.DGRACCResubmittal.TabStop = False
         '
@@ -2771,6 +2744,7 @@ Partial Class SSCPEvents
         Me.btnPrint.Name = "btnPrint"
         Me.btnPrint.Size = New System.Drawing.Size(52, 22)
         Me.btnPrint.Text = "Print"
+        Me.btnPrint.Visible = False
         '
         'SSCPEvents
         '
@@ -2839,4 +2813,6 @@ Partial Class SSCPEvents
     Friend WithEvents ToolStrip1 As ToolStrip
     Friend WithEvents btnSave As ToolStripButton
     Friend WithEvents btnPrint As ToolStripButton
+    Friend WithEvents Label13 As Label
+    Friend WithEvents cboStaffResponsible As ComboBox
 End Class

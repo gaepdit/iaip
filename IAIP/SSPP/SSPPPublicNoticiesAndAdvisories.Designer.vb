@@ -22,16 +22,6 @@ Partial Class SSPPPublicNoticiesAndAdvisories
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SSPPPublicNoticiesAndAdvisories))
-        Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
-        Me.mmiFile = New System.Windows.Forms.ToolStripMenuItem()
-        Me.mmiHelp = New System.Windows.Forms.ToolStripMenuItem()
-        Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
-        Me.Panel1 = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.Panel2 = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.Panel3 = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
-        Me.tsbBack = New System.Windows.Forms.ToolStripButton()
         Me.TCPublicNotices = New System.Windows.Forms.TabControl()
         Me.TPPreview = New System.Windows.Forms.TabPage()
         Me.SCPreviewAndGenerate = New System.Windows.Forms.SplitContainer()
@@ -76,9 +66,6 @@ Partial Class SSPPPublicNoticiesAndAdvisories
         Me.Label3 = New System.Windows.Forms.Label()
         Me.cboPAPNReports = New System.Windows.Forms.ComboBox()
         Me.btnViewOldPDFs = New System.Windows.Forms.Button()
-        Me.MenuStrip1.SuspendLayout()
-        Me.StatusStrip1.SuspendLayout()
-        Me.ToolStrip1.SuspendLayout()
         Me.TCPublicNotices.SuspendLayout()
         Me.TPPreview.SuspendLayout()
         CType(Me.SCPreviewAndGenerate, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -99,94 +86,16 @@ Partial Class SSPPPublicNoticiesAndAdvisories
         Me.TPOldDocuments.SuspendLayout()
         Me.SuspendLayout()
         '
-        'MenuStrip1
-        '
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiFile, Me.mmiHelp})
-        Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
-        Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(792, 24)
-        Me.MenuStrip1.TabIndex = 0
-        Me.MenuStrip1.Text = "MenuStrip1"
-        '
-        'mmiFile
-        '
-        Me.mmiFile.Name = "mmiFile"
-        Me.mmiFile.Size = New System.Drawing.Size(37, 20)
-        Me.mmiFile.Text = "File"
-        '
-        'mmiHelp
-        '
-        Me.mmiHelp.Name = "mmiHelp"
-        Me.mmiHelp.Size = New System.Drawing.Size(44, 20)
-        Me.mmiHelp.Text = "Help"
-        '
-        'StatusStrip1
-        '
-        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Panel1, Me.Panel2, Me.Panel3})
-        Me.StatusStrip1.Location = New System.Drawing.Point(0, 544)
-        Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Size = New System.Drawing.Size(792, 22)
-        Me.StatusStrip1.TabIndex = 1
-        Me.StatusStrip1.Text = "StatusStrip1"
-        '
-        'Panel1
-        '
-        Me.Panel1.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.Panel1.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
-        Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(769, 17)
-        Me.Panel1.Spring = True
-        Me.Panel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'Panel2
-        '
-        Me.Panel2.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.Panel2.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
-        Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(4, 17)
-        Me.Panel2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'Panel3
-        '
-        Me.Panel3.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-            Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.Panel3.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
-        Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(4, 17)
-        Me.Panel3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'ToolStrip1
-        '
-        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsbBack})
-        Me.ToolStrip1.Location = New System.Drawing.Point(0, 24)
-        Me.ToolStrip1.Name = "ToolStrip1"
-        Me.ToolStrip1.Size = New System.Drawing.Size(792, 25)
-        Me.ToolStrip1.TabIndex = 2
-        Me.ToolStrip1.Text = "ToolStrip1"
-        '
-        'tsbBack
-        '
-        Me.tsbBack.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.tsbBack.Image = CType(resources.GetObject("tsbBack.Image"), System.Drawing.Image)
-        Me.tsbBack.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.tsbBack.Name = "tsbBack"
-        Me.tsbBack.Size = New System.Drawing.Size(23, 22)
-        '
         'TCPublicNotices
         '
         Me.TCPublicNotices.Controls.Add(Me.TPPreview)
         Me.TCPublicNotices.Controls.Add(Me.TPPublishDocument)
         Me.TCPublicNotices.Controls.Add(Me.TPOldDocuments)
         Me.TCPublicNotices.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TCPublicNotices.Location = New System.Drawing.Point(0, 49)
+        Me.TCPublicNotices.Location = New System.Drawing.Point(0, 0)
         Me.TCPublicNotices.Name = "TCPublicNotices"
         Me.TCPublicNotices.SelectedIndex = 0
-        Me.TCPublicNotices.Size = New System.Drawing.Size(792, 495)
+        Me.TCPublicNotices.Size = New System.Drawing.Size(792, 566)
         Me.TCPublicNotices.TabIndex = 3
         '
         'TPPreview
@@ -195,7 +104,7 @@ Partial Class SSPPPublicNoticiesAndAdvisories
         Me.TPPreview.Location = New System.Drawing.Point(4, 22)
         Me.TPPreview.Name = "TPPreview"
         Me.TPPreview.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPPreview.Size = New System.Drawing.Size(784, 469)
+        Me.TPPreview.Size = New System.Drawing.Size(784, 540)
         Me.TPPreview.TabIndex = 0
         Me.TPPreview.Text = "Add/Remove Apps to PA/PN"
         Me.TPPreview.UseVisualStyleBackColor = True
@@ -214,8 +123,8 @@ Partial Class SSPPPublicNoticiesAndAdvisories
         'SCPreviewAndGenerate.Panel2
         '
         Me.SCPreviewAndGenerate.Panel2.Controls.Add(Me.SCGenerate)
-        Me.SCPreviewAndGenerate.Size = New System.Drawing.Size(778, 463)
-        Me.SCPreviewAndGenerate.SplitterDistance = 229
+        Me.SCPreviewAndGenerate.Size = New System.Drawing.Size(778, 534)
+        Me.SCPreviewAndGenerate.SplitterDistance = 264
         Me.SCPreviewAndGenerate.TabIndex = 2
         '
         'dgvPublicNotice
@@ -225,7 +134,7 @@ Partial Class SSPPPublicNoticiesAndAdvisories
         Me.dgvPublicNotice.Location = New System.Drawing.Point(0, 0)
         Me.dgvPublicNotice.Name = "dgvPublicNotice"
         Me.dgvPublicNotice.ReadOnly = True
-        Me.dgvPublicNotice.Size = New System.Drawing.Size(778, 229)
+        Me.dgvPublicNotice.Size = New System.Drawing.Size(778, 264)
         Me.dgvPublicNotice.TabIndex = 0
         '
         'SCGenerate
@@ -250,7 +159,7 @@ Partial Class SSPPPublicNoticiesAndAdvisories
         'SCGenerate.Panel2
         '
         Me.SCGenerate.Panel2.Controls.Add(Me.lsbApplicationList)
-        Me.SCGenerate.Size = New System.Drawing.Size(778, 230)
+        Me.SCGenerate.Size = New System.Drawing.Size(778, 266)
         Me.SCGenerate.SplitterDistance = 322
         Me.SCGenerate.TabIndex = 0
         '
@@ -383,7 +292,7 @@ Partial Class SSPPPublicNoticiesAndAdvisories
         Me.lsbApplicationList.ItemHeight = 14
         Me.lsbApplicationList.Location = New System.Drawing.Point(0, 0)
         Me.lsbApplicationList.Name = "lsbApplicationList"
-        Me.lsbApplicationList.Size = New System.Drawing.Size(452, 230)
+        Me.lsbApplicationList.Size = New System.Drawing.Size(452, 266)
         Me.lsbApplicationList.TabIndex = 1
         '
         'TPPublishDocument
@@ -392,7 +301,7 @@ Partial Class SSPPPublicNoticiesAndAdvisories
         Me.TPPublishDocument.Location = New System.Drawing.Point(4, 22)
         Me.TPPublishDocument.Name = "TPPublishDocument"
         Me.TPPublishDocument.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPPublishDocument.Size = New System.Drawing.Size(784, 469)
+        Me.TPPublishDocument.Size = New System.Drawing.Size(784, 540)
         Me.TPPublishDocument.TabIndex = 1
         Me.TPPublishDocument.Text = "Publish PA/PN"
         Me.TPPublishDocument.UseVisualStyleBackColor = True
@@ -423,7 +332,7 @@ Partial Class SSPPPublicNoticiesAndAdvisories
         Me.SCPublicNoticeTab.Panel2.Controls.Add(Me.txtPublicNoticeDocument)
         Me.SCPublicNoticeTab.Panel2.Controls.Add(Me.CRVPublicNotices)
         Me.SCPublicNoticeTab.Panel2MinSize = 75
-        Me.SCPublicNoticeTab.Size = New System.Drawing.Size(778, 463)
+        Me.SCPublicNoticeTab.Size = New System.Drawing.Size(778, 534)
         Me.SCPublicNoticeTab.SplitterDistance = 140
         Me.SCPublicNoticeTab.SplitterWidth = 5
         Me.SCPublicNoticeTab.TabIndex = 0
@@ -545,7 +454,7 @@ Partial Class SSPPPublicNoticiesAndAdvisories
         Me.txtPublicNoticeDocument.Dock = System.Windows.Forms.DockStyle.Fill
         Me.txtPublicNoticeDocument.Location = New System.Drawing.Point(0, 0)
         Me.txtPublicNoticeDocument.Name = "txtPublicNoticeDocument"
-        Me.txtPublicNoticeDocument.Size = New System.Drawing.Size(633, 463)
+        Me.txtPublicNoticeDocument.Size = New System.Drawing.Size(633, 534)
         Me.txtPublicNoticeDocument.TabIndex = 9
         Me.txtPublicNoticeDocument.Text = ""
         '
@@ -554,7 +463,6 @@ Partial Class SSPPPublicNoticiesAndAdvisories
         Me.CRVPublicNotices.ActiveViewIndex = -1
         Me.CRVPublicNotices.AutoScroll = True
         Me.CRVPublicNotices.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.CRVPublicNotices.CachedPageNumberPerDoc = 10
         Me.CRVPublicNotices.Cursor = System.Windows.Forms.Cursors.Default
         Me.CRVPublicNotices.DisplayStatusBar = False
         Me.CRVPublicNotices.DisplayToolbar = False
@@ -581,7 +489,7 @@ Partial Class SSPPPublicNoticiesAndAdvisories
         Me.TPOldDocuments.Controls.Add(Me.btnViewOldPDFs)
         Me.TPOldDocuments.Location = New System.Drawing.Point(4, 22)
         Me.TPOldDocuments.Name = "TPOldDocuments"
-        Me.TPOldDocuments.Size = New System.Drawing.Size(784, 469)
+        Me.TPOldDocuments.Size = New System.Drawing.Size(784, 540)
         Me.TPOldDocuments.TabIndex = 2
         Me.TPOldDocuments.Text = "PA/PN Documents"
         Me.TPOldDocuments.UseVisualStyleBackColor = True
@@ -639,7 +547,7 @@ Partial Class SSPPPublicNoticiesAndAdvisories
         Me.rtbPAPNDocument2.Dock = System.Windows.Forms.DockStyle.Right
         Me.rtbPAPNDocument2.Location = New System.Drawing.Point(143, 0)
         Me.rtbPAPNDocument2.Name = "rtbPAPNDocument2"
-        Me.rtbPAPNDocument2.Size = New System.Drawing.Size(641, 469)
+        Me.rtbPAPNDocument2.Size = New System.Drawing.Size(641, 540)
         Me.rtbPAPNDocument2.TabIndex = 17
         Me.rtbPAPNDocument2.Text = ""
         '
@@ -654,6 +562,7 @@ Partial Class SSPPPublicNoticiesAndAdvisories
         '
         'cboPAPNReports
         '
+        Me.cboPAPNReports.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboPAPNReports.FormattingEnabled = True
         Me.cboPAPNReports.Location = New System.Drawing.Point(8, 42)
         Me.cboPAPNReports.Name = "cboPAPNReports"
@@ -676,18 +585,8 @@ Partial Class SSPPPublicNoticiesAndAdvisories
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(792, 566)
         Me.Controls.Add(Me.TCPublicNotices)
-        Me.Controls.Add(Me.ToolStrip1)
-        Me.Controls.Add(Me.StatusStrip1)
-        Me.Controls.Add(Me.MenuStrip1)
-        Me.MainMenuStrip = Me.MenuStrip1
         Me.Name = "SSPPPublicNoticiesAndAdvisories"
         Me.Text = "SSPP Public Noticies And Advisories"
-        Me.MenuStrip1.ResumeLayout(False)
-        Me.MenuStrip1.PerformLayout()
-        Me.StatusStrip1.ResumeLayout(False)
-        Me.StatusStrip1.PerformLayout()
-        Me.ToolStrip1.ResumeLayout(False)
-        Me.ToolStrip1.PerformLayout()
         Me.TCPublicNotices.ResumeLayout(False)
         Me.TPPreview.ResumeLayout(False)
         Me.SCPreviewAndGenerate.Panel1.ResumeLayout(False)
@@ -711,18 +610,8 @@ Partial Class SSPPPublicNoticiesAndAdvisories
         Me.TPOldDocuments.ResumeLayout(False)
         Me.TPOldDocuments.PerformLayout()
         Me.ResumeLayout(False)
-        Me.PerformLayout()
 
     End Sub
-    Friend WithEvents MenuStrip1 As System.Windows.Forms.MenuStrip
-    Friend WithEvents mmiFile As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents mmiHelp As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents StatusStrip1 As System.Windows.Forms.StatusStrip
-    Friend WithEvents Panel1 As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents Panel2 As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents Panel3 As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents ToolStrip1 As System.Windows.Forms.ToolStrip
-    Friend WithEvents tsbBack As System.Windows.Forms.ToolStripButton
     Friend WithEvents TCPublicNotices As System.Windows.Forms.TabControl
     Friend WithEvents TPPreview As System.Windows.Forms.TabPage
     Friend WithEvents TPPublishDocument As System.Windows.Forms.TabPage

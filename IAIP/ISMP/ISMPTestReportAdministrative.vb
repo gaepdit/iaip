@@ -1,45 +1,26 @@
-'Imports System.DateTime
-Imports Oracle.ManagedDataAccess.Client
-
-Imports System.Windows.Forms
+Imports System.Collections.Generic
+Imports System.Data.SqlClient
 
 Public Class ISMPTestReportAdministrative
-    Dim SQL, SQL2 As String
-    Dim cmd As OracleCommand
-    Dim dr As OracleDataReader
-    Dim recExist As Boolean
-    Dim dsPollutant As DataSet
-    Dim daPollutant As OracleDataAdapter
-    Dim dsTestingFirms As DataSet
-    Dim daTestingFirms As OracleDataAdapter
-    Dim dsGrid As DataSet
-    Dim daGrid As OracleDataAdapter
-    Dim dsFacility As DataSet
-    Dim daFacility As OracleDataAdapter
+    Dim query As String
+    Dim dtGrid As DataTable
 
-    Private Sub DevTestReportAdministrative_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+#Region "Page Load"
+
+    Private Sub ISMPTestReportAdministrative_Load(sender As Object, e As EventArgs) Handles Me.Load
 
         Try
 
-            DTPDateReceived.Text = Date.Today
-            DTPTestDateStart.Text = Date.Today
-            DTPTestDateEnd.Text = Date.Today
-            DTPTestDateStart.Value = Date.Today
-            DTPTestDateEnd.Value = Date.Today
+            DTPDateReceived.Value = Today
+            DTPTestDateStart.Value = Today
+            DTPTestDateEnd.Value = Today
+            DTPTestDateStart.Value = Today
+            DTPTestDateEnd.Value = Today
 
-            DTPDateClosed.Text = Date.Today
+            DTPDateClosed.Value = Today
             rdbOpenReport.Checked = False
             rdbCloseReport.Checked = False
 
-            Panel1.Text = "Select a Function..."
-            Panel2.Text = CurrentUser.AlphaName
-            Panel3.Text = OracleDate
-
-            'These two were commented out to speed up the loading of this form
-            'FillFacilityDataSet()
-            'FillFacilityAndAIRSCombos()
-
-            FillPollutantandTestingFirms()
             FillPollutantCombo()
             FillTestingFirmsCombo()
 
@@ -47,77 +28,28 @@ Public Class ISMPTestReportAdministrative
             bgw1.WorkerSupportsCancellation = True
             bgw1.RunWorkerAsync()
 
-            dtpAddTestReportDateReceived.Text = OracleDate
-            DTPAddTestReportDateCompleted.Text = OracleDate
-
+            dtpAddTestReportDateReceived.Value = Today
+            DTPAddTestReportDateCompleted.Value = Today
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-#Region "Page Load"
-    Private Sub FillFacilityDataSet()
+
+    Private Sub FillFacilityAndAIRSCombos()
         Try
 
-            SQL = "select strFacilityName, substr(strAIRSNumber, 5) as strAIRSNumber, " &
+            query = "select strFacilityName, SUBSTRING(strAIRSNumber, 5,8) as strAIRSNumber, " &
             "strFacilityStreet1, strFacilityCity, strFacilityState, " &
             "strFacilityZipCode " &
-            "from AIRBRANCH.APBFacilityInformation order by strFacilityName"
+            "from APBFacilityInformation " &
+            "union select ' ', ' ', ' ', ' ', ' ', ' ' " &
+            "order by strFacilityName"
 
-            dsFacility = New DataSet
-
-            daFacility = New OracleDataAdapter(SQL, CurrentConnection)
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            daFacility.Fill(dsFacility, "APBFacilities")
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-
-    End Sub
-    Private Sub FillFacilityAndAIRSCombos()
-        Dim dtFacility As New DataTable
-        Dim drDSRow As DataRow
-        Dim drNewRow As DataRow
-
-        Try
-
-            dtFacility.Columns.Add("strFacilityName", GetType(System.String))
-            dtFacility.Columns.Add("strAIRSNumber", GetType(System.String))
-            dtFacility.Columns.Add("strFacilityStreet1", GetType(System.String))
-            dtFacility.Columns.Add("strFacilityCity", GetType(System.String))
-            dtFacility.Columns.Add("strFacilityState", GetType(System.String))
-            dtFacility.Columns.Add("strFacilityZipCode", GetType(System.String))
-
-            drNewRow = dtFacility.NewRow()
-            drNewRow("strFacilityName") = " "
-            drNewRow("strAIRSNumber") = " "
-            drNewRow("strFacilityStreet1") = " "
-            drNewRow("strFacilityCity") = " "
-            drNewRow("strFacilityState") = " "
-            drNewRow("strFacilityZipCode") = " "
-            dtFacility.Rows.Add(drNewRow)
-
-            For Each drDSRow In dsFacility.Tables("APBFacilities").Rows()
-                drNewRow = dtFacility.NewRow()
-                drNewRow("strFacilityName") = drDSRow("strFacilityName")
-                drNewRow("strAIRSNumber") = drDSRow("strAIRSNumber")
-                drNewRow("strFacilityStreet1") = drDSRow("strFacilityStreet1")
-                drNewRow("strFacilityCity") = drDSRow("strFacilityCity")
-                drNewRow("strFacilityState") = drDSRow("strFacilityState")
-                drNewRow("strFacilityZipCode") = drDSRow("strFacilityZipCode")
-                dtFacility.Rows.Add(drNewRow)
-            Next
+            Dim dtFacility As DataTable = DB.GetDataTable(query)
 
             With cboAIRSNumber
                 .DataSource = dtFacility
@@ -149,33 +81,7 @@ Public Class ISMPTestReportAdministrative
                 .DataBindings.Add(New Binding("Text", dtFacility, "strFacilityZipCode"))
             End With
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub FillPollutantandTestingFirms()
-        Try
-
-            SQL = "Select strPollutantCode, strPollutantDescription from AIRBRANCH.LookUPPollutants order by strPollutantDescription"
-            SQL2 = "Select strTestingFirmKey, strTestingFirm from AIRBRANCH.LookUPTestingFirms order by strTestingFirm"
-
-            dsPollutant = New DataSet
-            dsTestingFirms = New DataSet
-
-            daPollutant = New OracleDataAdapter(SQL, CurrentConnection)
-            daTestingFirms = New OracleDataAdapter(SQL2, CurrentConnection)
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            daPollutant.Fill(dsPollutant, "Pollutant")
-            daTestingFirms.Fill(dsTestingFirms, "TestingFirms")
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -183,113 +89,54 @@ Public Class ISMPTestReportAdministrative
     End Sub
     Private Sub FillPollutantCombo()
 
-        Dim dtPollutant As New DataTable
+        query = "Select strPollutantCode, strPollutantDescription from LookUPPollutants " &
+            "union select ' ', ' ' " &
+            " order by strPollutantDescription"
 
-        Dim drDSRow As DataRow
-        Dim drNewRow As DataRow
-
-        Try
-
-            dtPollutant.Columns.Add("strPollutantDescription", GetType(System.String))
-            dtPollutant.Columns.Add("strPollutantCode", GetType(System.String))
-
-            drNewRow = dtPollutant.NewRow()
-            drNewRow("strPollutantDescription") = " "
-            drNewRow("strPollutantCode") = " "
-            dtPollutant.Rows.Add(drNewRow)
-
-
-            For Each drDSRow In dsPollutant.Tables("Pollutant").Rows()
-                drNewRow = dtPollutant.NewRow()
-                drNewRow("strPollutantDescription") = drDSRow("strPollutantDescription")
-                drNewRow("strPollutantCode") = drDSRow("strPollutantCode")
-                dtPollutant.Rows.Add(drNewRow)
-            Next
-
-            With cboPollutant
-                .DataSource = dtPollutant
-                .DisplayMember = "strPollutantDescription"
-                .ValueMember = "strPollutantCode"
-                .SelectedIndex = 0
-            End With
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
+        With cboPollutant
+            .DataSource = DB.GetDataTable(query)
+            .DisplayMember = "strPollutantDescription"
+            .ValueMember = "strPollutantCode"
+            .SelectedIndex = 0
+        End With
 
     End Sub
     Private Sub FillTestingFirmsCombo()
-        Dim dtTestingFirm As New DataTable
-        Dim drDSRow As DataRow
-        Dim drNewRow As DataRow
+        query = "Select strTestingFirmKey, strTestingFirm from LookUPTestingFirms " &
+            "union select ' ', ' ' " &
+            "order by strTestingFirm"
 
-        Try
-            dtTestingFirm.Columns.Add("strTestingFirm", GetType(System.String))
-            dtTestingFirm.Columns.Add("strTestingFirmKey", GetType(System.String))
-
-            drNewRow = dtTestingFirm.NewRow()
-            drNewRow("strTestingFirm") = " "
-            drNewRow("strTestingFirmKey") = " "
-            dtTestingFirm.Rows.Add(drNewRow)
-
-            For Each drDSRow In dsTestingFirms.Tables("TestingFirms").Rows()
-                drNewRow = dtTestingFirm.NewRow()
-                drNewRow("strTestingFirm") = drDSRow("strTestingFirm")
-                drNewRow("strTestingFirmKey") = drDSRow("strTestingFirmKey")
-                dtTestingFirm.Rows.Add(drNewRow)
-            Next
-
-            With cboTestingFirms
-                .DataSource = dtTestingFirm
-                .DisplayMember = "strTestingFirm"
-                .ValueMember = "strTestingFirmKey"
-                .SelectedIndex = 0
-            End With
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
+        With cboTestingFirms
+            .DataSource = DB.GetDataTable(query)
+            .DisplayMember = "strTestingFirm"
+            .ValueMember = "strTestingFirmKey"
+            .SelectedIndex = 0
+        End With
     End Sub
     Private Sub FillDateGrid()
-        Dim SQL As String
-
-        SQL = "select AIRBRANCH.ISMPMaster.strReferenceNumber, " &
-        "to_char(datReceivedDate, 'dd-Mon-yyyy') as forDatReceivedDate, " &
-        "to_char(datTestDateStart, 'dd-Mon-yyyy') as forDatTestDateStart, " &
-        " substr(AIRBRANCH.ISMPMaster.strAirsnumber, 5) as StrAIRSNumber, " &
-        "strFacilityName, AIRBRANCH.ISMPDocumentType.strDocumentType " &
-        "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.ISMPDocumentType, " &
-        "AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation " &
-        "where AIRBRANCH.APBFacilityInformation.strairsnumber = AIRBRANCH.ISMPMaster.strairsnumber " &
-        "and AIRBRANCH.ISMPDocumentType.strKey = AIRBRANCH.ISMPReportInformation.strDocumentType " &
-        "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
+        query = "select ISMPMaster.strReferenceNumber, " &
+        "format(datReceivedDate, 'dd-MMM-yyyy') as forDatReceivedDate, " &
+        "format(datTestDateStart, 'dd-MMM-yyyy') as forDatTestDateStart, " &
+        " SUBSTRING(ISMPMaster.strAirsnumber, 5,8) as StrAIRSNumber, " &
+        "strFacilityName, ISMPDocumentType.strDocumentType " &
+        "from ISMPReportInformation, ISMPDocumentType, " &
+        "ISMPMaster, APBFacilityInformation " &
+        "where APBFacilityInformation.strairsnumber = ISMPMaster.strairsnumber " &
+        "and ISMPDocumentType.strKey = ISMPReportInformation.strDocumentType " &
+        "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
         "and strDelete is NULL " &
         "and strClosed = 'False' " &
-        "order by AIRBRANCH.ISMPMaster.strReferenceNumber"
+        "order by ISMPMaster.strReferenceNumber"
 
-        dsGrid = New DataSet
-        daGrid = New OracleDataAdapter(SQL, CurrentConnection)
-
-        If CurrentConnection.State = ConnectionState.Closed Then
-            CurrentConnection.Open()
-        End If
-
-        daGrid.Fill(dsGrid, "Grid")
+        dtGrid = DB.GetDataTable(query)
 
     End Sub
 
 #End Region
 
-#Region "Subs and Functions"
     Private Sub LoadAddress()
-        Dim SQL As String
         Dim temp As String
         Try
-
 
             If btnSearchForAIRS.Visible = True And cboAIRSNumber.Text <> "" And cboAIRSNumber.Text.Length = 8 Then
                 cboFacilityName.Text = ""
@@ -298,20 +145,18 @@ Public Class ISMPTestReportAdministrative
                 txtFacilityState.Clear()
                 txtFacilityZipCode.Clear()
 
-                SQL = "select " &
+                query = "select " &
                 "strFacilityName, strFacilityStreet1, " &
                 "strFacilityCity, " &
                 "strFacilityState, strFacilityZipcode " &
-                "from AIRBRANCH.APBFacilityInformation " &
-                "where strAIRSNumber = '0413" & cboAIRSNumber.Text & "' "
+                "from APBFacilityInformation " &
+                "where strAIRSNumber = @airs "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-                If recExist = True Then
+                Dim p As New SqlParameter("@airs", "0413" & cboAIRSNumber.Text)
+
+                Dim dr As DataRow = DB.GetDataRow(query, p)
+
+                If dr IsNot Nothing Then
                     If IsDBNull(dr.Item("strFacilityName")) Then
                         cboFacilityName.Text = ""
                     Else
@@ -338,24 +183,22 @@ Public Class ISMPTestReportAdministrative
                         txtFacilityZipCode.Text = dr.Item("strFacilityZipCode")
                     End If
                 End If
-                dr.Close()
+
                 Exit Sub
             End If
 
             If cboAIRSNumber.SelectedIndex <> -1 Then
 
-                SQL = "Select strFacilityName, strFacilityStreet1, " &
+                query = "Select strFacilityName, strFacilityStreet1, " &
                 "strFacilityCity, strFacilityState, strFacilityZipCode " &
-                "from AIRBRANCH.APBFacilityInformation " &
-                "where strAIRSNumber = '0413" & cboAIRSNumber.Text & "'"
+                "from APBFacilityInformation " &
+                "where strAIRSNumber = @airs "
 
-                Dim cmd As New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                Dim dr As OracleDataReader = cmd.ExecuteReader
-                Dim recExist As Boolean = dr.Read
-                If recExist Then
+                Dim p As New SqlParameter("@airs", "0413" & cboAIRSNumber.Text)
+
+                Dim dr As DataRow = DB.GetDataRow(query, p)
+
+                If dr IsNot Nothing Then
                     temp = dr.Item("strFacilityName")
                     If temp <> cboFacilityName.Text Then
                         txtFacilityAddress.Text = ""
@@ -382,89 +225,73 @@ Public Class ISMPTestReportAdministrative
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Sub FillTestReportList()
+    Private Sub FillTestReportList()
         Try
-
-
-            Me.clbReferenceNumbers.Items.Clear()
+            clbReferenceNumbers.Items.Clear()
 
             If DTPDateReceived.Text <> "" And cboAIRSNumber.Text <> "" Then
-                SQL = "Select " &
-                "AIRBRANCH.ISMPMaster.strReferenceNumber, " &
+                query = "Select " &
+                "ISMPMaster.strReferenceNumber, " &
                 "strEmissionSource, strPollutantDescription " &
-                "from AIRBRANCH.ISMPMaster, AIRBRANCH.ISMPReportInformation, " &
-                "AIRBRANCH.LookUPPollutants " &
-                "where AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
-                "and AIRBRANCH.ISMPReportInformation.strPollutant = AIRBRANCH.LookUPPollutants.strPollutantCode " &
-                "and strAIRSNumber = '0413" & cboAIRSNumber.Text & "' " &
-                "and datReceivedDate = '" & DTPDateReceived.Text & "' " &
+                "from ISMPMaster, ISMPReportInformation, " &
+                "LookUPPollutants " &
+                "where ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
+                "and ISMPReportInformation.strPollutant = LookUPPollutants.strPollutantCode " &
+                "and strAIRSNumber = @airs " &
+                "and datReceivedDate = @date " &
                 "and strClosed <> 'True' " &
                 "and (strDelete <> 'DELETE' " &
                 "or strDelete is NUll) " &
-                "Order by AIRBRANCH.ISMPMaster.strReferenceNumber "
+                "Order by ISMPMaster.strReferenceNumber "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                While dr.Read
+                Dim p As SqlParameter() = {
+                    New SqlParameter("@airs", "0413" & cboAIRSNumber.Text),
+                    New SqlParameter("@date", DTPDateReceived.Value)
+                }
+
+                Dim dt As DataTable = DB.GetDataTable(query, p)
+
+                For Each dr As DataRow In dt.Rows
                     clbReferenceNumbers.Items.Add(dr.Item("strReferenceNumber") & " - " & dr.Item("strEmissionSource") & " - " & dr.Item("strPollutantDescription"))
                     If clbReferenceNumbers.Items.Contains(txtReferenceNumber.Text _
                              & " - " & dr.Item("strEmissionSource") & " - " & dr.Item("strPollutantDescription")) Then
                         clbReferenceNumbers.SetItemCheckState(clbReferenceNumbers.FindString(txtReferenceNumber.Text), CheckState.Checked)
                     End If
-                End While
-                dr.Close()
+                Next
 
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
     Private Sub GetNextReferenceNumber()
-        Dim SQL As String = ""
-        Dim RefNum As String = ""
-        Dim RefYear As String = Now.Year.ToString
+        Dim query As String
 
         Try
 
-
-            SQL = "select " &
-            "case when max(strReferenceNumber) is null then to_char(sysdate, 'YYYY')||'00001'  " &
-            "else to_char(max(to_number(strReferenceNumber) + 1 )) " &
+            query = "select " &
+            "case when max(strReferenceNumber) is null then CONCAT(YEAR(GETDATE()), '00001')  " &
+            "else max(convert(int, strReferenceNumber) + 1 ) " &
             "end MaxRefNum  " &
-            "from AIRBRANCH.ISMPMaster  " &
-            "where strReferenceNumber like '" & RefYear & "%' "
+            "from ISMPMaster  " &
+            "where strReferenceNumber like @ref "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                If IsDBNull(dr.Item("MaxRefNum")) Then
-                    RefNum = RefYear & "00001"
-                Else
-                    RefNum = dr.Item("MaxRefNum")
-                End If
-            End While
-            dr.Close()
+            Dim p As New SqlParameter("@ref", Today.Year.ToString & "%")
 
-            txtReferenceNumber.Text = RefNum
+            txtReferenceNumber.Text = DB.GetString(query, p)
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -525,44 +352,42 @@ Public Class ISMPTestReportAdministrative
                 txtEmissionSource.Text = "N/A"
             End If
 
-            '   If txtReferenceNumber.Text <> "" And txtReferenceNumber.Text.Length = 9 Then
             If txtReferenceNumber.Text <> "" Then
                 If rdbOpenReport.Checked = False And rdbCloseReport.Checked = False Then
                     rdbOpenReport.Checked = True
                 End If
 
-                SQL = "Select strReferenceNumber from AIRBRANCH.ISMPMaster where strReferenceNumber = '" & txtReferenceNumber.Text & "'"
+                query = "Select strReferenceNumber from ISMPMaster where strReferenceNumber = @ref "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-                dr.Close()
+                Dim p As New SqlParameter("@ref", txtReferenceNumber.Text)
 
-                If recExist = True Then
-                    SQL = "Update AIRBRANCH.ISMPMaster set " &
-                    "strAIRSNumber = '0413" & AIRSNumber & "' " &
-                    "where strReferenceNumber = '" & txtReferenceNumber.Text & "'"
+                Dim queryList As New List(Of String)
 
-                    SQL2 = "Update AIRBRANCH.ISMPReportInformation set " &
-                    "strPollutant = '" & cboPollutant.SelectedValue & "', " &
-                    "strEmissionSource = '" & txtEmissionSource.Text & "', " &
-                    "strTestingFirm = '" & cboTestingFirms.SelectedValue & "', " &
-                    "datTestDateStart = '" & DTPTestDateStart.Text & "', " &
-                    "datTestDateEnd = '" & DTPTestDateEnd.Text & "', " &
-                    "datReceivedDate = '" & DTPDateReceived.Text & "', " &
-                    "datCompleteDate = '" & DTPDateClosed.Text & "', " &
-                    "strClosed = '" & RecordStatus & "', " &
-                    "strDelete = '' " &
-                    "where strReferenceNumber = '" & txtReferenceNumber.Text & "'"
+                Dim paramList As New List(Of SqlParameter())
+
+                If DB.ValueExists(query, p) Then
+                    queryList.Add("Update ISMPMaster set " &
+                    "strAIRSNumber = @airs " &
+                    "where strReferenceNumber = @ref ")
+
+                    queryList.Add("Update ISMPReportInformation set " &
+                    "strPollutant = @strPollutant, " &
+                    "strEmissionSource = @strEmissionSource, " &
+                    "strTestingFirm = @strTestingFirm, " &
+                    "datTestDateStart = @datTestDateStart, " &
+                    "datTestDateEnd = @datTestDateEnd, " &
+                    "datReceivedDate = @datReceivedDate, " &
+                    "datCompleteDate = @datCompleteDate, " &
+                    "strClosed = @strClosed, " &
+                    "strDelete = null " &
+                    "where strReferenceNumber = @strReferenceNumber ")
                 Else
-                    SQL = "Insert into AIRBRANCH.ISMPMaster values ('" & txtReferenceNumber.Text & "', " &
-                    "'0413" & AIRSNumber & "', '" & CurrentUser.UserID & "', " &
-                    "'" & OracleDate & "')"
+                    queryList.Add("Insert into ISMPMaster " &
+                                  "(STRREFERENCENUMBER, STRAIRSNUMBER, STRMODIFINGPERSON, DATMODIFINGDATE) " &
+                                  "values " &
+                                  "(@ref, @airs, @user, getdate()) ")
 
-                    SQL2 = "Insert into AIRBRANCH.ISMPReportInformation " &
+                    queryList.Add("Insert into ISMPReportInformation " &
            "(strReferenceNumber, strPollutant, strEmissionSource, " &
            "strReportType, strDocumentType, strApplicableRequirement, " &
            "strTestingFirm, strReviewingEngineer, strWitnessingEngineer, " &
@@ -571,76 +396,76 @@ Public Class ISMPTestReportAdministrative
            "datReceivedDate, datCompleteDate, mmoCommentArea, strClosed, " &
            "strDirector, strCommissioner, strProgramManager, " &
            "strComplianceStatus, strcc, strModifingPerson, datModifingDate, " &
-           "strControlEquipmentData, strDelete, numReviewingManager) " &
-           "values " &
-           "('" & txtReferenceNumber.Text & "', " &
-           "'" & cboPollutant.SelectedValue & "', " &
-           "'" & Replace(txtEmissionSource.Text, "'", "''") & "', " &
+           "strControlEquipmentData) " &
+           "select " &
+           "@strReferenceNumber, " &
+           "@strpollutant, " &
+           "@strEmissionSource, " &
            "'004', " &
            "'001', " &
            "'Incomplete', " &
-           "'" & cboTestingFirms.SelectedValue & "', " &
+           "@strTestingFirm, " &
            "'0', '0', '0', " &
            "'0', " &
            "'04-Jul-1776', " &
            "(SELECT " &
            "CASE  WHEN strDistrictResponsible <> 'False' AND strDistrictResponsible IS NOT NULL         THEN strDistrictManager  " &
-           "WHEN to_char(TABLE1.STRASSIGNINGMANAGER) <> '1' AND to_char(TABLE1.STRASSIGNINGMANAGER) IS NOT NULL THEN to_char(TABLE1.STRASSIGNINGMANAGER) " &
+           "WHEN convert(int,TABLE1.STRASSIGNINGMANAGER) <> 1 AND TABLE1.STRASSIGNINGMANAGER IS NOT NULL THEN convert(int,TABLE1.STRASSIGNINGMANAGER) " &
            " ELSE '0' " &
            "END ManagerResponsible  " &
-           "from AIRBRANCH.LookUPDistricts, AIRBRANCH.LOOKUPDISTRICTINFORMATION,  " &
-           "AIRBRANCH.SSCPDISTRICTRESPONSIBLE,     " &
-           "(select AIRBRANCH.SSCPINSPECTIONSREQUIRED.STRASSIGNINGMANAGER, " &
-           "AIRBRANCH.SSCPINSPECTIONSREQUIRED.strAIRSNumber " &
-           "from AIRBRANCH.SSCPINSPECTIONSREQUIRED, " &
+           "from LookUPDistricts " &
+           " RIGHT JOIN LOOKUPDISTRICTINFORMATION  " &
+           "ON LOOKUPDISTRICTINFORMATION.strDistrictCode = LookUPDistricts.strDistrictCode " &
+           " RIGHT JOIN SSCPDISTRICTRESPONSIBLE     " &
+           "ON SUBSTRING(SSCPDistrictResponsible.strAIRSNumber, 5, 3) = strDistrictCounty " &
+           " LEFT JOIN (select SSCPINSPECTIONSREQUIRED.STRASSIGNINGMANAGER, " &
+           "SSCPINSPECTIONSREQUIRED.strAIRSNumber " &
+           "from SSCPINSPECTIONSREQUIRED, " &
            "(select max(INTYEAR) as MAXYEAR, STRAIRSNUMBER " &
-           "from AIRBRANCH.SSCPINSPECTIONSREQUIRED " &
+           "from SSCPINSPECTIONSREQUIRED " &
            "group by STRAIRSNUMBER) MAXRESULTS " &
-           "where AIRBRANCH.SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER = MAXRESULTS.STRAIRSNUMBER " &
-           "and AIRBRANCH.SSCPINSPECTIONSREQUIRED.INTYEAR = MAXRESULTS.MAXYEAR) Table1 " &
-           "WHERE AIRBRANCH.LOOKUPDISTRICTINFORMATION.strDistrictCode = AIRBRANCH.LookUPDistricts.strDistrictCode (+) " &
-           "AND AIRBRANCH.SSCPDistrictResponsible.strAIRSNumber = Table1.strAIRSnumber (+) " &
-           "AND SUBSTR(AIRBRANCH.SSCPDistrictResponsible.strAIRSNumber, 5, 3) = strDistrictCounty (+) " &
-           "and AIRBRANCH.SSCPDISTRICTRESPONSIBLE.STRAIRSNUMBER = '0413" & cboAIRSNumber.Text & "'), " &
-           "'" & DTPTestDateStart.Text & "', '" & DTPTestDateEnd.Text & "', " &
-           "'" & DTPDateReceived.Text & "', " &
-           "'04-Jul-1776', 'N/A', '" & RecordStatus & "', " &
-           "(select strManagementName from AIRBRANCH.LookUpAPBManagementType " &
-           "where strKey = '" & DAL.EpdManagementTypes.EpdDirector.ToString & "' and strCurrentContact = 'C' ), " &
-           "(select strManagementName from AIRBRANCH.LookUpAPBManagementType " &
-           "where strKey = '" & DAL.EpdManagementTypes.DnrCommissioner.ToString & "' and strCurrentContact = 'C' ), " &
-           "(select strManagementName from AIRBRANCH.LookUpAPBManagementType " &
-           "where strKey = '" & DAL.EpdManagementTypes.IsmpProgramManager.ToString & "' and strCurrentContact = 'C' ), " &
+           "where SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER = MAXRESULTS.STRAIRSNUMBER " &
+           "and SSCPINSPECTIONSREQUIRED.INTYEAR = MAXRESULTS.MAXYEAR) Table1 " &
+           "ON SSCPDistrictResponsible.strAIRSNumber = Table1.strAIRSnumber " &
+           "where  SSCPDISTRICTRESPONSIBLE.STRAIRSNUMBER = @airs), " &
+           "@datTestDateStart, @datTestDateEnd, " &
+           "@datReceivedDate, " &
+           "'04-Jul-1776', 'N/A', @strClosed, " &
+           "(select strManagementName from LookUpAPBManagementType " &
+           "where strKey = @ed and strCurrentContact = 'C' ), " &
+           "(select strManagementName from LookUpAPBManagementType " &
+           "where strKey = @dc and strCurrentContact = 'C' ), " &
+           "(select strManagementName from LookUpAPBManagementType " &
+           "where strKey = @ip and strCurrentContact = 'C' ), " &
            "'01', " &
            "'0', " &
-           "'" & CurrentUser.UserID & "', '" & OracleDate & "', " &
-           "'N/A', '', '')"
+           "@user, GETDATE() , " &
+           "'N/A' ")
 
                 End If
 
-                Try
+                paramList.Add({New SqlParameter("@airs", "0413" & AIRSNumber),
+                                  New SqlParameter("@ref", txtReferenceNumber.Text),
+                                  New SqlParameter("@user", CurrentUser.UserID)})
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    dr.Close()
-                Catch ex As Exception
-                    ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name & ".Save1")
-                End Try
+                paramList.Add({
+                                  New SqlParameter("@strPollutant", cboPollutant.SelectedValue),
+                                  New SqlParameter("@strEmissionSource", txtEmissionSource.Text),
+                                  New SqlParameter("@strTestingFirm", cboTestingFirms.SelectedValue),
+                                  New SqlParameter("@datTestDateStart", DTPTestDateStart.Text),
+                                  New SqlParameter("@datTestDateEnd", DTPTestDateEnd.Text),
+                                  New SqlParameter("@datReceivedDate", DTPDateReceived.Text),
+                                  New SqlParameter("@datCompleteDate", DTPDateClosed.Text),
+                                  New SqlParameter("@strClosed", RecordStatus),
+                                  New SqlParameter("@strReferenceNumber", txtReferenceNumber.Text),
+                                  New SqlParameter("@airs", "0413" & cboAIRSNumber.Text),
+                                  New SqlParameter("@user", CurrentUser.UserID),
+                                  New SqlParameter("@ed", DAL.EpdManagementTypes.EpdDirector.ToString),
+                                  New SqlParameter("@dc", DAL.EpdManagementTypes.DnrCommissioner.ToString),
+                                  New SqlParameter("@ip", DAL.EpdManagementTypes.DnrCommissioner.ToString)
+                                  })
 
-                Try
-
-                    cmd = New OracleCommand(SQL2, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    dr.Close()
-                Catch ex As Exception
-                    ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name & ".Save2")
-                End Try
+                DB.RunCommand(queryList, paramList)
 
                 bgw1.WorkerReportsProgress = True
                 bgw1.WorkerSupportsCancellation = True
@@ -657,13 +482,13 @@ Public Class ISMPTestReportAdministrative
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, txtReferenceNumber.Text, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, txtReferenceNumber.Text, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Sub CloseTestReport()
+    Private Sub CloseTestReport()
         Try
             Dim AFSActionNumber As String = ""
             Dim UpdateCode As String
@@ -687,102 +512,87 @@ Public Class ISMPTestReportAdministrative
                                 MsgBoxStyle.Exclamation, "Test Report Administration")
                         Exit Sub
                     End If
-                    SQL = "Select strComplianceStatus " &
-                    "from AIRBRANCH.ISMPReportInformation " &
-                    "where strReferenceNumber = '" & RefNum & "' "
+                    query = "Select strComplianceStatus " &
+                    "from ISMPReportInformation " &
+                    "where strReferenceNumber = @ref "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    recExist = dr.Read
-                    If recExist = True Then
+                    Dim p As New SqlParameter("@ref", RefNum)
+
+                    Dim dr As DataRow = DB.GetDataRow(query, p)
+                    If dr IsNot Nothing Then
                         ComplianceStatus = dr.Item("strComplianceStatus")
                     Else
                         ComplianceStatus = "00"
                     End If
-                    dr.Close()
+
                     Select Case ComplianceStatus
                         Case "00"
-                            SQL = ""
+                            query = ""
                         Case "01"
-                            SQL = ""
+                            query = ""
                         Case Else
-                            SQL = "Select strUpdateStatus " &
-                            "from AIRBRANCH.AFSISMPRecords " &
-                            "where strReferenceNumber = '" & RefNum & "' "
-                            cmd = New OracleCommand(SQL, CurrentConnection)
-                            If CurrentConnection.State = ConnectionState.Closed Then
-                                CurrentConnection.Open()
-                            End If
-                            dr = cmd.ExecuteReader
-                            recExist = dr.Read
-                            If recExist = True Then
-                                UpdateCode = dr.Item("strupdateStatus")
+                            query = "Select strUpdateStatus " &
+                            "from AFSISMPRecords " &
+                            "where strReferenceNumber = @ref "
+
+                            Dim dr2 As DataRow = DB.GetDataRow(query, p)
+                            If dr2 IsNot Nothing Then
+                                UpdateCode = dr2.Item("strupdateStatus")
                             Else
                                 UpdateCode = ""
                             End If
-                            dr.Close()
                             Select Case UpdateCode
                                 Case "A"
                                     'Leave it alone
                                 Case "C"
                                     'Leave it alone
                                 Case "N"
-                                    SQL = "Update AIRBRANCH.AFSISMPRecords set " &
+                                    query = "Update AFSISMPRecords set " &
                                     "strUpDateStatus = 'C' " &
-                                    "where strReferenceNumber = '" & RefNum & "' "
-                                    cmd = New OracleCommand(SQL, CurrentConnection)
-                                    If CurrentConnection.State = ConnectionState.Closed Then
-                                        CurrentConnection.Open()
-                                    End If
-                                    dr = cmd.ExecuteReader
-                                    dr.Close()
+                                    "where strReferenceNumber = @ref "
+                                    DB.RunCommand(query, p)
+
                                 Case ""
-                                    SQL = "Select strAFSActionNumber " &
-                                    "from AIRBRANCH.APBSupplamentalData " &
-                                    "where strAIRSNumber = '0413" & AIRSNumber & "' "
+                                    query = "Select strAFSActionNumber " &
+                                    "from APBSupplamentalData " &
+                                    "where strAIRSNumber = @airs "
 
-                                    cmd = New OracleCommand(SQL, CurrentConnection)
-                                    If CurrentConnection.State = ConnectionState.Closed Then
-                                        CurrentConnection.Open()
+                                    Dim p2 As New SqlParameter("@airs", "0413" & AIRSNumber)
+
+                                    Dim dr3 As DataRow = DB.GetDataRow(query, p2)
+                                    If dr3 IsNot Nothing Then
+                                        AFSActionNumber = dr3.Item("strAFSActionNumber")
                                     End If
-                                    dr = cmd.ExecuteReader
-                                    While dr.Read
-                                        AFSActionNumber = dr.Item("strAFSActionNumber")
-                                    End While
-                                    dr.Close()
 
-                                    SQL = "Insert into AIRBRANCH.AFSISMPRecords " &
+                                    query = "Insert into AFSISMPRecords " &
                                     "(strReferenceNumber, strAFSActionNumber, " &
                                     "strUpDateStatus, strModifingPerson, " &
                                     "datModifingDate) " &
                                     "values " &
-                                    "('" & RefNum & "', '" & AFSActionNumber & "', " &
-                                    "'A', '" & CurrentUser.UserID & "', " &
-                                    "'" & OracleDate & "') "
+                                    "(@strReferenceNumber, @strAFSActionNumber, " &
+                                    "'A', @strModifingPerson, " &
+                                    "getdate()) "
 
-                                    cmd = New OracleCommand(SQL, CurrentConnection)
-                                    If CurrentConnection.State = ConnectionState.Closed Then
-                                        CurrentConnection.Open()
-                                    End If
-                                    dr = cmd.ExecuteReader
-                                    dr.Close()
+                                    Dim p3 As SqlParameter() = {
+                                        New SqlParameter("@strReferenceNumber", RefNum),
+                                        New SqlParameter("@strAFSActionNumber", AFSActionNumber),
+                                        New SqlParameter("@strModifingPerson", CurrentUser.UserID)
+                                    }
+
+                                    DB.RunCommand(query, p3)
 
                                     AFSActionNumber = CInt(AFSActionNumber) + 1
 
-                                    SQL = "Update AIRBRANCH.APBSupplamentalData set " &
-                                    "strAFSActionNumber = '" & AFSActionNumber & "' " &
-                                    "where strAIRSNumber = '0413" & AIRSNumber & "' "
+                                    query = "Update APBSupplamentalData set " &
+                                    "strAFSActionNumber =@afs " &
+                                    "where strAIRSNumber = @airs "
 
-                                    cmd = New OracleCommand(SQL, CurrentConnection)
-                                    If CurrentConnection.State = ConnectionState.Closed Then
-                                        CurrentConnection.Open()
-                                    End If
-                                    dr = cmd.ExecuteReader
-                                    dr.Close()
+                                    Dim p4 As SqlParameter() = {
+                                        New SqlParameter("@afs", AFSActionNumber),
+                                        New SqlParameter("@airs", "0413" & AIRSNumber)
+                                    }
 
+                                    DB.RunCommand(query, p4)
                                 Case Else
                                     'Leave it alone
                             End Select
@@ -798,21 +608,20 @@ Public Class ISMPTestReportAdministrative
                               MsgBoxStyle.Exclamation, "ISMP Test Report Information")
                             Exit Sub
                         Case Else
-                            SQL = "Update AIRBRANCH.ISMPReportInformation set " &
+                            query = "Update ISMPReportInformation set " &
                             "strClosed = 'True', " &
-                            "datCompleteDate = '" & DTPDateClosed.Text & "' " &
-                            "where strReferenceNumber = '" & RefNum.ToString & "' "
-                            cmd = New OracleCommand(SQL, CurrentConnection)
-                            If CurrentConnection.State = ConnectionState.Closed Then
-                                CurrentConnection.Open()
-                            End If
-                            dr = cmd.ExecuteReader
-                            dr.Close()
+                            "datCompleteDate = @cd " &
+                            "where strReferenceNumber = @ref "
+
+                            Dim p5 As SqlParameter() = {
+                                New SqlParameter("@cd", DTPDateClosed.Text),
+                                New SqlParameter("@ref", RefNum.ToString)
+                            }
+                            DB.RunCommand(query, p5)
                     End Select
                     StartComplianceWork(RefNum)
                 Next
             End If
-
 
             bgw1.WorkerReportsProgress = True
             bgw1.WorkerSupportsCancellation = True
@@ -824,7 +633,7 @@ Public Class ISMPTestReportAdministrative
             MsgBox("Done", MsgBoxStyle.Exclamation, "ISMP Test Report Information")
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -833,86 +642,80 @@ Public Class ISMPTestReportAdministrative
 
     End Sub
     Private Sub Find()
-        Dim SQL As String
+        Dim query As String
 
         Try
 
 
             If txtReferenceNumber.Text <> "" Then
 
-                SQL = "Select strAIRSNumber from AIRBRANCH.ISMPMaster where strReferenceNumber = '" & txtReferenceNumber.Text & "'"
-                Dim cmd As New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
+                query = "Select strAIRSNumber from ISMPMaster where strReferenceNumber = @ref "
+                Dim p As New SqlParameter("@ref", txtReferenceNumber.Text)
 
-                Dim dr As OracleDataReader = cmd.ExecuteReader
+                Dim dr As DataRow = DB.GetDataRow(query, p)
 
-                Dim recExist As Boolean = dr.Read
-
-                If recExist Then
+                If dr IsNot Nothing Then
                     cboAIRSNumber.Text = Mid(dr.Item("strAirsnumber"), 5)
-                    dr.Close()
 
                     LoadAddress()
 
-
-                    SQL = "Select  " &
-              "AIRBRANCH.ISMPReportInformation.strReferenceNumber, " &
-              "to_char(datReceivedDate, 'dd-Mon-yyyy') as forDatReceivedDate, " &
-              "to_char(datTestDateStart, 'dd-Mon-yyyy') as forDatTestDateStart, " &
-              "to_char(datTestDateEnd, 'dd-Mon-yyyy') as forDatTestDateEnd, " &
-              "to_char(datReviewedByUnitmanager, 'dd-Mon-yyyy') as forDatReviewedByUnitManager, " &
-              "to_char(datCompleteDate, 'dd-Mon-yyyy') as forDateComplete, " &
+                    query = "Select  " &
+              "ISMPReportInformation.strReferenceNumber, " &
+              "format(datReceivedDate, 'dd-MMM-yyyy') as forDatReceivedDate, " &
+              "format(datTestDateStart, 'dd-MMM-yyyy') as forDatTestDateStart, " &
+              "format(datTestDateEnd, 'dd-MMM-yyyy') as forDatTestDateEnd, " &
+              "format(datReviewedByUnitmanager, 'dd-MMM-yyyy') as forDatReviewedByUnitManager, " &
+              "format(datCompleteDate, 'dd-MMM-yyyy') as forDateComplete, " &
               "strClosed, " &
-              "AIRBRANCH.ISMpReportType.strReportType, " &
-              "(select (strLastName||', '||strFirstName) as ReviewingEngineer " &
-               "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.ISMPReportInformation " &
-               "where AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.ISMPReportInformation.strReviewingEngineer " &
-               "and AIRBRANCH.ISMPReportInformation.strReferencenumber = '" & txtReferenceNumber.Text & "') as ReviewingENgineer,  " &
-              "(strLastName||', '||strFirstName) as UnitManager, " &
+              "ISMpReportType.strReportType, " &
+              "(select concat(strLastName,', ',strFirstName) as ReviewingEngineer " &
+               "from EPDUserProfiles, ISMPReportInformation " &
+               "where EPDUserProfiles.numUserID = ISMPReportInformation.strReviewingEngineer " &
+               "and ISMPReportInformation.strReferencenumber = @ref ) as ReviewingENgineer,  " &
+              "concat(strLastName,', ',strFirstName) as UnitManager, " &
                "strEmissionSource, " &
-               "AIRBRANCH.LookUpTestingFirms.strTestingFirm, " &
-               "AIRBRANCH.LookUpPollutants.strPollutantDescription,  " &
-               "AIRBRANCH.LookUpEPDUnits.strUnitDesc, " &
-               "AIRBRANCH.ISMPDocumentType.strDocumentType, " &
-               "AIRBRANCH.LookUpISMPComplianceStatus.strComplianceStatus " &
-            "from AIRBRANCH.ISMPMaster, AIRBRANCH.ISMPReportInformation, " &
-              "AIRBRANCH.ISMPReportType, AIRBRANCH.LookUpTestingFirms, " &
-              "AIRBRANCH.LookUpPollutants, AIRBRANCH.LookUpEPDUnits, " &
-              "AIRBRANCH.EPDUSerPRofiles, AIRBRANCH.ISMPDocumentType,  " &
-              "AIRBRANCH.LookUpISMpComplianceStatus " &
-            "where AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
-              "and AIRBRANCH.ISMPReportInformation.strReportType = AIRBRANCH.ISMpReportType.strKey " &
-              "and AIRBRANCH.ISMPREportINformation.strTestingFirm = AIRBRANCH.LookUpTestingFirms.strTestingFirmKey " &
-              "and AIRBRANCH.ISMPReportInformation.strPollutant = AIRBRANCH.LookUpPollutants.strPollutantCode " &
-              "and AIRBRANCH.ISMPREportInformation.numReviewingManager = AIRBRANCH.EPDUserProfiles.numUserID (+) " &
-              "and AIRBRANCH.EPDUserPRofiles.numUnit = AIRBRANCH.LookUpEPDUnits.numUnitCode (+) " &
-              "and AIRBRANCH.ISMPReportInformation.strDocumentTYpe = AIRBRANCH.ISMPDocumentType.strKEy " &
-              "and AIRBRANCH.ISMPReportINformation.strComplianceStatus = AIRBRANCH.LookUpISMPComplianceStatus.strComplianceKey " &
-              "and AIRBRANCH.ISMPMaster.strReferenceNumber = '" & txtReferenceNumber.Text & "' "
+               "LookUpTestingFirms.strTestingFirm, " &
+               "LookUpPollutants.strPollutantDescription,  " &
+               "LookUpEPDUnits.strUnitDesc, " &
+               "ISMPDocumentType.strDocumentType, " &
+               "LookUpISMPComplianceStatus.strComplianceStatus " &
+                "from ISMPMaster " &
+                " INNER JOIN ISMPReportInformation " &
+                "ON ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
+                " INNER JOIN ISMPReportType " &
+                "ON ISMPReportInformation.strReportType = ISMpReportType.strKey " &
+                " INNER JOIN LookUpTestingFirms " &
+                "ON ISMPREportINformation.strTestingFirm = LookUpTestingFirms.strTestingFirmKey " &
+                " INNER JOIN LookUpPollutants " &
+                "ON ISMPReportInformation.strPollutant = LookUpPollutants.strPollutantCode " &
+                " LEFT JOIN EPDUSerPRofiles " &
+                "ON ISMPREportInformation.numReviewingManager = EPDUserProfiles.numUserID " &
+                " LEFT JOIN LookUpEPDUnits " &
+                "ON EPDUserPRofiles.numUnit = LookUpEPDUnits.numUnitCode " &
+                " INNER JOIN ISMPDocumentType " &
+                "ON ISMPReportInformation.strDocumentTYpe = ISMPDocumentType.strKEy " &
+                " INNER JOIN LookUpISMpComplianceStatus " &
+                "ON ISMPReportINformation.strComplianceStatus = LookUpISMPComplianceStatus.strComplianceKey " &
+                "where ISMPMaster.strReferenceNumber = @ref "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
+                    Dim p1 As New SqlParameter("@ref", txtReferenceNumber.Text)
 
-                    While dr.Read
-                        DTPDateReceived.Text = dr.Item("forDatReceivedDate")
-                        txtEmissionSource.Text = dr.Item("strEmissionSource")
-                        cboTestingFirms.Text = dr.Item("strTestingFirm")
-                        cboPollutant.Text = dr.Item("strPollutantDescription")
-                        DTPTestDateStart.Text = dr.Item("forDatTestDateStart")
-                        DTPTestDateEnd.Text = dr.Item("fordatTestDateEnd")
-                        DTPTestDateStart.Text = dr.Item("forDatTestDateStart")
-                        DTPTestDateEnd.Text = dr.Item("forDatTestDateEnd")
-                        If dr.Item("forDateComplete") = "04-Jul-1776" Then
-                            txtDaysInAPB.Text = DateDiff(DateInterval.Day, CDate(dr.Item("forDatReceivedDate")), CDate(OracleDate))
+                    Dim dr2 As DataRow = DB.GetDataRow(query, p1)
+                    If dr2 IsNot Nothing Then
+                        DTPDateReceived.Text = dr2.Item("forDatReceivedDate")
+                        txtEmissionSource.Text = dr2.Item("strEmissionSource")
+                        cboTestingFirms.Text = dr2.Item("strTestingFirm")
+                        cboPollutant.Text = dr2.Item("strPollutantDescription")
+                        DTPTestDateStart.Text = dr2.Item("forDatTestDateStart")
+                        DTPTestDateEnd.Text = dr2.Item("fordatTestDateEnd")
+                        DTPTestDateStart.Text = dr2.Item("forDatTestDateStart")
+                        DTPTestDateEnd.Text = dr2.Item("forDatTestDateEnd")
+                        If dr2.Item("forDateComplete") = "04-Jul-1776" Then
+                            txtDaysInAPB.Text = DateDiff(DateInterval.Day, CDate(dr2.Item("forDatReceivedDate")), Today)
                         Else
-                            txtDaysInAPB.Text = DateDiff(DateInterval.Day, CDate(dr.Item("forDatReceivedDate")), CDate(dr.Item("forDateComplete")))
+                            txtDaysInAPB.Text = DateDiff(DateInterval.Day, CDate(dr2.Item("forDatReceivedDate")), CDate(dr2.Item("forDateComplete")))
                         End If
-                        If dr.Item("strClosed") = "True" Then
+                        If dr2.Item("strClosed") = "True" Then
                             rdbOpenReport.Checked = False
                             rdbCloseReport.Checked = True
                             TBFacilityInfo.Buttons.Item(0).Enabled = False
@@ -922,23 +725,20 @@ Public Class ISMPTestReportAdministrative
                             TBFacilityInfo.Buttons.Item(0).Enabled = True
                         End If
 
-                        If dr.Item("forDateComplete") <> "04-Jul-1776" Then
-                            DTPDateClosed.Text = dr.Item("forDateComplete")
+                        If dr2.Item("forDateComplete") <> "04-Jul-1776" Then
+                            DTPDateClosed.Text = dr2.Item("forDateComplete")
                         Else
-                            DTPDateClosed.Text = OracleDate
+                            DTPDateClosed.Value = Today
                         End If
-                    End While
-                    dr.Close()
+                    End If
 
                     FillTestReportList()
-                Else
+                    End If
 
                 End If
 
-            End If
-
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -965,16 +765,16 @@ Public Class ISMPTestReportAdministrative
             txtFacilityCity.Clear()
             txtFacilityState.Clear()
             txtFacilityZipCode.Clear()
-            DTPDateReceived.Value = OracleDate
-            DTPTestDateStart.Value = OracleDate
-            DTPTestDateEnd.Value = OracleDate
+            DTPDateReceived.Value = Today
+            DTPTestDateStart.Value = Today
+            DTPTestDateEnd.Value = Today
             txtEmissionSource.Clear()
             cboTestingFirms.Text = ""
             cboPollutant.Text = ""
             txtDaysInAPB.Clear()
             rdbOpenReport.Checked = True
             rdbCloseReport.Checked = False
-            DTPDateClosed.Text = OracleDate
+            DTPDateClosed.Value = Today
             TBFacilityInfo.Buttons.Item(0).Enabled = True
             If cboTestingFirms.SelectedIndex > -1 Then
                 cboTestingFirms.SelectedIndex = 0
@@ -985,25 +785,25 @@ Public Class ISMPTestReportAdministrative
             clbReferenceNumbers.Items.Clear()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Sub MoveOn()
+    Private Sub MoveOn()
         Try
             Dim id As String = txtReferenceNumber.Text
             If DAL.Ismp.StackTestExists(id) Then OpenMultiForm(ISMPTestReports, id)
             Me.Hide()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub OpenMemo()
+    Private Sub OpenMemo()
         OpenFormTestMemo(Me.txtReferenceNumber.Text)
     End Sub
-    Sub DeleteTestReport()
+    Private Sub DeleteTestReport()
         Try
             If MessageBox.Show("Are you sure you want to delete these test reports?", "Confirm Delete",
                                MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) _
@@ -1015,20 +815,20 @@ Public Class ISMPTestReportAdministrative
                 RefNum = Mid(RefNum, 1, (RefNum.IndexOf(" -")))
 
                 If DAL.Ismp.StackTestExists(RefNum) Then
-                    Dim parameter As New OracleParameter("ref", RefNum)
+                    Dim parameter As New SqlParameter("@ref", RefNum)
 
-                    SQL = "Update AIRBRANCH.ISMPReportInformation set " &
-                        " strDelete = 'DELETE' where strReferenceNumber = :ref"
-                    DB.RunCommand(SQL, parameter)
+                    query = "Update ISMPReportInformation set " &
+                        " strDelete = 'DELETE' where strReferenceNumber = @ref"
+                    DB.RunCommand(query, parameter)
 
-                    SQL = "SELECT STRTRACKINGNUMBER FROM AIRBRANCH.SSCPTESTREPORTS WHERE STRREFERENCENUMBER = :ref"
-                    Dim trackingNumber As String = DB.GetSingleValue(Of String)(SQL, parameter)
+                    query = "SELECT STRTRACKINGNUMBER FROM SSCPTESTREPORTS WHERE STRREFERENCENUMBER = @ref"
+                    Dim trackingNumber As String = DB.GetString(query, parameter)
 
                     If trackingNumber IsNot Nothing Then
-                        parameter = New OracleParameter("trackingnum", trackingNumber)
-                        SQL = " UPDATE AIRBRANCH.SSCPITEMMASTER SET STRDELETE = '" & Boolean.TrueString & "' " &
-                        " WHERE STRTRACKINGNUMBER = :trackingnum "
-                        DB.RunCommand(SQL, parameter)
+                        parameter = New SqlParameter("@trackingnum", trackingNumber)
+                        query = " UPDATE SSCPITEMMASTER SET STRDELETE = '" & Boolean.TrueString & "' " &
+                        " WHERE STRTRACKINGNUMBER = @trackingnum "
+                        DB.RunCommand(query, parameter)
                     End If
 
                     MessageBox.Show("Test no. " & RefNum & " deleted.", "Success", MessageBoxButtons.OK, MessageBoxIcon.None)
@@ -1044,10 +844,10 @@ Public Class ISMPTestReportAdministrative
 
             Clear()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub StartComplianceWork(ByVal RefNum As String)
+    Private Sub StartComplianceWork(RefNum As String)
         Try
 
             Dim StaffResponsible As String = ""
@@ -1055,257 +855,175 @@ Public Class ISMPTestReportAdministrative
             Dim TestReportDue As String = ""
 
             If cboAIRSNumber.Text <> "" Then
-                SQL = "select " &
+                query = "select " &
                 "strTrackingNumber " &
-                "from AIRBRANCH.SSCPTestReports " &
-                "where strReferenceNumber = '" & RefNum & "' "
+                "from SSCPTestReports " &
+                "where strReferenceNumber = @ref "
+                Dim p As New SqlParameter("@ref", RefNum)
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-                dr.Close()
-                If recExist = True Then
+                If DB.ValueExists(query, p) Then
                     Exit Sub
                 End If
 
-                SQL = "Select " &
+                query = "Select " &
                 "numSSCPEngineer " &
-                "from AIRBRANCH.SSCPInspectionsRequired, " &
-                "(select max(intyear) as MaxYear, AIRBRANCH.SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER  " &
-                "from AIRBRANCH.SSCPINSPECTIONSREQUIRED " &
-                "where AIRBRANCH.SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER = '0413" & cboAIRSNumber.Text & "' " &
-                "group by AIRBRANCH.SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER ) MaxResults " &
-                "where AIRBRANCH.SSCPINSPECTIONSREQUIRED.strAIRSNumber = '0413" & cboAIRSNumber.Text & "' " &
-                "and AIRBRANCH.SSCPINSPECTIONSREQUIRED.intyear = maxresults.maxyear " &
+                "from SSCPInspectionsRequired, " &
+                "(select max(intyear) as MaxYear, SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER  " &
+                "from SSCPINSPECTIONSREQUIRED " &
+                "where SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER = @airs " &
+                "group by SSCPINSPECTIONSREQUIRED.STRAIRSNUMBER ) MaxResults " &
+                "where SSCPINSPECTIONSREQUIRED.strAIRSNumber = @airs " &
+                "and SSCPINSPECTIONSREQUIRED.intyear = maxresults.maxyear " &
                 "group by numSSCPEngineer "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-                If recExist = True Then
+                Dim p2 As New SqlParameter("@airs", "0413" & cboAIRSNumber.Text)
+                Dim dr As DataRow = DB.GetDataRow(query, p2)
+                If dr IsNot Nothing Then
                     StaffResponsible = dr.Item("numSSCPEngineer")
                 Else
                     StaffResponsible = "0"
                 End If
-                dr.Close()
 
-                SQL = "select datSSCPTestReportDue " &
-                "from AIRBRANCH.APBSupplamentalData " &
-                "where strAIRSNumber = '0413" & cboAIRSNumber.Text & "' "
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-                If recExist = True Then
-                    If IsDBNull(dr.Item("datSSCPTestReportDue")) Then
+                query = "select datSSCPTestReportDue " &
+                "from APBSupplamentalData " &
+                "where strAIRSNumber = @airs "
+
+                Dim dr2 As DataRow = DB.GetDataRow(query, p2)
+                If dr2 IsNot Nothing Then
+                    If IsDBNull(dr2.Item("datSSCPTestReportDue")) Then
                         TestReportDue = DTPDateClosed.Text
                     Else
-                        TestReportDue = Format(dr.Item("datSSCPTestReportDue"), "dd-MMM-yyyy")
+                        TestReportDue = Format(dr2.Item("datSSCPTestReportDue"), "dd-MMM-yyyy")
                     End If
                 Else
                     TestReportDue = DTPDateClosed.Text
                 End If
-                dr.Close()
 
-                SQL = "Insert into AIRBRANCH.SSCPItemMaster " &
+                query = "Insert into SSCPItemMaster " &
                 "(strTrackingNumber, strAIRSNumber, " &
                 "datReceivedDate, strEventType, " &
                 "strResponsibleStaff, datCompleteDate, " &
                 "strModifingPerson, datModifingDate) " &
                 "values " &
-                "(AIRBRANCH.SSCPTrackingNumber.nextval, '0413" & cboAIRSNumber.Text & "', " &
-                "'" & DTPDateClosed.Text & "', '03', " &
-                "'" & StaffResponsible & "', '', " &
-                "'" & CurrentUser.UserID & "', '" & OracleDate & "')"
+                "(NEXT VALUE FOR SSCPTrackingNumber, @airs, " &
+                "@cd, '03', " &
+                "@sr, null, " &
+                "@user, GETDATE() )"
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                dr.Close()
+                Dim p3 As SqlParameter() = {
+                    New SqlParameter("@airs", "0413" & cboAIRSNumber.Text),
+                    New SqlParameter("@cd", DTPDateClosed.Value),
+                    New SqlParameter("@sr", StaffResponsible),
+                    New SqlParameter("@user", CurrentUser.UserID)
+                }
+                DB.RunCommand(query, p3)
 
-                SQL = "Select AIRBRANCH.SSCPTrackingNumber.currval from dual "
+                query = "select current_value FROM sys.sequences WHERE name = 'sscptrackingnumber'"
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                While dr.Read
-                    TrackingNumber = dr.Item(0)
-                End While
-                dr.Close()
+                TrackingNumber = DB.GetString(query)
 
-                SQL = "Insert into AIRBRANCH.SSCPTestReports " &
+                query = "Insert into SSCPTestReports " &
                 "(strTrackingNumber, strReferenceNumber, " &
                 "datTestReportDue, " &
                 "strTestReportComments, strTestReportFollowUp, " &
                 "strModifingPerson, datModifingDate) " &
                 "Values " &
-                "('" & TrackingNumber & "', '" & RefNum & "', " &
-                "'" & TestReportDue & "', " &
+                "(@strTrackingNumber, @strReferenceNumber, " &
+                "@datTestReportDue, " &
                 "' ', 'False', " &
-                "'" & CurrentUser.UserID & "', '" & OracleDate & "') "
+                "@strModifingPerson, getdate()) "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                dr.Close()
+                Dim p4 As SqlParameter() = {
+                    New SqlParameter("@strTrackingNumber", TrackingNumber),
+                    New SqlParameter("@strReferenceNumber", RefNum),
+                    New SqlParameter("@datTestReportDue", TestReportDue),
+                    New SqlParameter("@strModifingPerson", CurrentUser.UserID)
+                }
+
+                DB.RunCommand(query, p4)
 
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
+
 #Region "Main Menu"
-    Private Sub MmiSave_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiSave.Click
+
+    Private Sub MmiSave_Click(sender As Object, e As EventArgs) Handles MmiSave.Click
         Try
 
             Save()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiBack_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiBack.Click
-        Try
-
-            Me.Close()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub MmiReferenceNumber_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiReferenceNumber.Click
+    Private Sub MmiReferenceNumber_Click(sender As Object, e As EventArgs) Handles MmiReferenceNumber.Click
         Try
 
             GetNextReferenceNumber()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiExit_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiExit.Click
-        Try
-
-            Me.Close()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub MmiCut_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiCut.Click
-        Try
-
-            SendKeys.Send("^(x)")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub MmiCopy_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiCopy.Click
-        Try
-
-            SendKeys.Send("^(c)")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub MmiPaste_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiPaste.Click
-        Try
-
-            SendKeys.Send("^(v)")
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub MmiClear_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiClear.Click
+    Private Sub MmiClear_Click(sender As Object, e As EventArgs) Handles MmiClear.Click
         Try
 
             Clear()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiDelete_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiDelete.Click
+    Private Sub MmiDelete_Click(sender As Object, e As EventArgs) Handles MmiDelete.Click
         DeleteTestReport()
     End Sub
-    Private Sub MmiShowDeletedRecords_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiShowDeletedRecords.Click
-        Dim SQL As String
+    Private Sub MmiShowDeletedRecords_Click(sender As Object, e As EventArgs) Handles MmiShowDeletedRecords.Click
+        Dim query As String
 
         Try
 
-            SQL = "select AIRBRANCH.ISMPMaster.strReferenceNumber,  " &
-            "to_char(datReceivedDate, 'dd-Mon-yyyy') as forDatReceivedDate, " &
-                  "to_char(datTestDateStart, 'dd-Mon-yyyy') as forDatTestDateStart, " &
-                  "substr(AIRBRANCH.ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " &
-                  "AIRBRANCH.ISMPDocumentType.strDocumentType " &
-                  "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.ISMPDocumentType, AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation " &
-                  "where AIRBRANCH.APBFacilityInformation.strairsnumber = AIRBRANCH.ISMPMaster.strairsnumber " &
-                  "and AIRBRANCH.ISMPDocumentType.strKey = AIRBRANCH.ISMPReportInformation.strDocumentType " &
-                  "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
+            query = "select ISMPMaster.strReferenceNumber,  " &
+            "format(datReceivedDate, 'dd-MMM-yyyy') as forDatReceivedDate, " &
+                  "format(datTestDateStart, 'dd-MMM-yyyy') as forDatTestDateStart, " &
+                  "SUBSTRING(ISMPMaster.strAirsnumber, 5,8) as strAIRSNumber, strFacilityName, " &
+                  "ISMPDocumentType.strDocumentType " &
+                  "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
+                  "where APBFacilityInformation.strairsnumber = ISMPMaster.strairsnumber " &
+                  "and ISMPDocumentType.strKey = ISMPReportInformation.strDocumentType " &
+                  "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
                   "and strDelete = 'DELETE' " &
-                  "order by AIRBRANCH.ISMPMaster.strReferenceNumber"
+                  "order by ISMPMaster.strReferenceNumber"
 
-            dsGrid = New DataSet
+            dtGrid = DB.GetDataTable(query)
 
-            daGrid = New OracleDataAdapter(SQL, CurrentConnection)
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            daGrid.Fill(dsGrid, "Grid")
-            dgvFacilityInfo.DataSource = dsGrid
-            dgvFacilityInfo.DataMember = "Grid"
+            dgvFacilityInfo.DataSource = dtGrid
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiViewByTestType_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiViewByTestType.Click
+    Private Sub MmiViewByTestType_Click(sender As Object, e As EventArgs) Handles MmiViewByTestType.Click
         Try
 
             MsgBox("Select a Test Report Type from the drop down list.", MsgBoxStyle.MsgBoxHelp, "View by Test Report Type.")
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -1313,801 +1031,614 @@ Public Class ISMPTestReportAdministrative
     End Sub
 
 #Region "View by Test Reports"
-    Private Sub MmiUnassigned_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiUnassigned.Click
-        Dim SQL As String
+
+    Private Sub MmiUnassigned_Click(sender As Object, e As EventArgs) Handles MmiUnassigned.Click
+        Dim query As String
 
         Try
 
-            SQL = "select AIRBRANCH.ISMPMaster.strReferenceNumber,  " &
-            "to_char(datReceivedDate, 'dd-Mon-yyyy') as forDatReceivedDate, " &
-            "to_char(datTestDateStart, 'dd-Mon-yyyy') as forDatTestDateStart, " &
-            "substr(AIRBRANCH.ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " &
-            "AIRBRANCH.ISMPDocumentType.strDocumentType " &
-            "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.ISMPDocumentType, AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation " &
-            "where AIRBRANCH.APBFacilityInformation.strairsnumber = AIRBRANCH.ISMPMaster.strairsnumber " &
-            "and AIRBRANCH.ISMPDocumentType.strKey = AIRBRANCH.ISMPReportInformation.strDocumentType " &
-            "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
+            query = "select ISMPMaster.strReferenceNumber,  " &
+            "format(datReceivedDate, 'dd-MMM-yyyy') as forDatReceivedDate, " &
+            "format(datTestDateStart, 'dd-MMM-yyyy') as forDatTestDateStart, " &
+            "SUBSTRING(ISMPMaster.strAirsnumber, 5,8) as strAIRSNumber, strFacilityName, " &
+            "ISMPDocumentType.strDocumentType " &
+            "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
+            "where APBFacilityInformation.strairsnumber = ISMPMaster.strairsnumber " &
+            "and ISMPDocumentType.strKey = ISMPReportInformation.strDocumentType " &
+            "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
             "and strDelete is NULL " &
              "and strClosed = 'False' " &
-            "and AIRBRANCH.ISMPDocumentType.strDocumentType = 'Unassigned' " &
-            "order by AIRBRANCH.ISMPMaster.strReferenceNumber"
+            "and ISMPDocumentType.strDocumentType = 'Unassigned' " &
+            "order by ISMPMaster.strReferenceNumber"
 
-            dsGrid = New DataSet
-
-            daGrid = New OracleDataAdapter(SQL, CurrentConnection)
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            daGrid.Fill(dsGrid, "Grid")
-            dgvFacilityInfo.DataSource = dsGrid
-            dgvFacilityInfo.DataMember = "Grid"
+            dtGrid = DB.GetDataTable(query)
+            dgvFacilityInfo.DataSource = dtGrid
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiOneStackTwoRun_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiOneStackTwoRun.Click
-        Dim SQL As String
+    Private Sub MmiOneStackTwoRun_Click(sender As Object, e As EventArgs) Handles MmiOneStackTwoRun.Click
+        Dim query As String
 
         Try
 
-            SQL = "select AIRBRANCH.ISMPMaster.strReferenceNumber, " &
-            "to_char(datReceivedDate, 'dd-Mon-yyyy') as forDatReceivedDate, " &
-                 "to_char(datTestDateStart, 'dd-Mon-yyyy') as forDatTestDateStart, " &
-                 "substr(AIRBRANCH.ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " &
-                 "AIRBRANCH.ISMPDocumentType.strDocumentType " &
-                 "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.ISMPDocumentType, AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation " &
-                 "where AIRBRANCH.APBFacilityInformation.strairsnumber = AIRBRANCH.ISMPMaster.strairsnumber " &
-                 "and AIRBRANCH.ISMPDocumentType.strKey = AIRBRANCH.ISMPReportInformation.strDocumentType " &
-                 "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
+            query = "select ISMPMaster.strReferenceNumber, " &
+            "format(datReceivedDate, 'dd-MMM-yyyy') as forDatReceivedDate, " &
+                 "format(datTestDateStart, 'dd-MMM-yyyy') as forDatTestDateStart, " &
+                 "SUBSTRING(ISMPMaster.strAirsnumber, 5,8) as strAIRSNumber, strFacilityName, " &
+                 "ISMPDocumentType.strDocumentType " &
+                 "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
+                 "where APBFacilityInformation.strairsnumber = ISMPMaster.strairsnumber " &
+                 "and ISMPDocumentType.strKey = ISMPReportInformation.strDocumentType " &
+                 "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
                  "and strDelete is NULL " &
                   "and strClosed = 'False' " &
-                 "and AIRBRANCH.ISMPDocumentType.strDocumentType = 'One Stack (Two Runs)' " &
-                 "order by AIRBRANCH.ISMPMaster.strReferenceNumber"
+                 "and ISMPDocumentType.strDocumentType = 'One Stack (Two Runs)' " &
+                 "order by ISMPMaster.strReferenceNumber"
 
-            dsGrid = New DataSet
-
-            daGrid = New OracleDataAdapter(SQL, CurrentConnection)
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            daGrid.Fill(dsGrid, "Grid")
-            dgvFacilityInfo.DataSource = dsGrid
-            dgvFacilityInfo.DataMember = "Grid"
+            dtGrid = DB.GetDataTable(query)
+            dgvFacilityInfo.DataSource = dtGrid
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiOneStackThreeRun_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiOneStackThreeRun.Click
-        Dim SQL As String
+    Private Sub MmiOneStackThreeRun_Click(sender As Object, e As EventArgs) Handles MmiOneStackThreeRun.Click
+        Dim query As String
 
         Try
 
-            SQL = "select AIRBRANCH.ISMPMaster.strReferenceNumber, " &
-            "to_char(datReceivedDate, 'dd-Mon-yyyy') as forDatReceivedDate, " &
-                "to_char(datTestDateStart, 'dd-Mon-yyyy') as forDatTestDateStart, " &
-                "substr(AIRBRANCH.ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " &
-                "AIRBRANCH.ISMPDocumentType.strDocumentType " &
-                "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.ISMPDocumentType, AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation " &
-                "where AIRBRANCH.APBFacilityInformation.strairsnumber = AIRBRANCH.ISMPMaster.strairsnumber " &
-                "and AIRBRANCH.ISMPDocumentType.strKey = AIRBRANCH.ISMPReportInformation.strDocumentType " &
-                "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
+            query = "select ISMPMaster.strReferenceNumber, " &
+            "format(datReceivedDate, 'dd-MMM-yyyy') as forDatReceivedDate, " &
+                "format(datTestDateStart, 'dd-MMM-yyyy') as forDatTestDateStart, " &
+                "SUBSTRING(ISMPMaster.strAirsnumber, 5,8) as strAIRSNumber, strFacilityName, " &
+                "ISMPDocumentType.strDocumentType " &
+                "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
+                "where APBFacilityInformation.strairsnumber = ISMPMaster.strairsnumber " &
+                "and ISMPDocumentType.strKey = ISMPReportInformation.strDocumentType " &
+                "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
                 "and strDelete is NULL " &
                  "and strClosed = 'False' " &
-                "and AIRBRANCH.ISMPDocumentType.strDocumentType = 'One Stack (Three Runs)' " &
-                "order by AIRBRANCH.ISMPMaster.strReferenceNumber"
+                "and ISMPDocumentType.strDocumentType = 'One Stack (Three Runs)' " &
+                "order by ISMPMaster.strReferenceNumber"
 
-            dsGrid = New DataSet
-
-            daGrid = New OracleDataAdapter(SQL, CurrentConnection)
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            daGrid.Fill(dsGrid, "Grid")
-            dgvFacilityInfo.DataSource = dsGrid
-            dgvFacilityInfo.DataMember = "Grid"
+            dtGrid = DB.GetDataTable(query)
+            dgvFacilityInfo.DataSource = dtGrid
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiOneStackFourRun_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiOneStackFourRun.Click
-        Dim SQL As String
+    Private Sub MmiOneStackFourRun_Click(sender As Object, e As EventArgs) Handles MmiOneStackFourRun.Click
+        Dim query As String
 
         Try
 
-            SQL = "select AIRBRANCH.ISMPMaster.strReferenceNumber, " &
-            "to_char(datReceivedDate, 'dd-Mon-yyyy') as forDatReceivedDate, " &
-                 "to_char(datTestDateStart, 'dd-Mon-yyyy') as forDatTestDateStart, " &
-                 "substr(AIRBRANCH.ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " &
-                 "AIRBRANCH.ISMPDocumentType.strDocumentType " &
-                 "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.ISMPDocumentType, AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation " &
-                 "where AIRBRANCH.APBFacilityInformation.strairsnumber = AIRBRANCH.ISMPMaster.strairsnumber " &
-                 "and AIRBRANCH.ISMPDocumentType.strKey = AIRBRANCH.ISMPReportInformation.strDocumentType " &
-                 "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
+            query = "select ISMPMaster.strReferenceNumber, " &
+            "format(datReceivedDate, 'dd-MMM-yyyy') as forDatReceivedDate, " &
+                 "format(datTestDateStart, 'dd-MMM-yyyy') as forDatTestDateStart, " &
+                 "SUBSTRING(ISMPMaster.strAirsnumber, 5,8) as strAIRSNumber, strFacilityName, " &
+                 "ISMPDocumentType.strDocumentType " &
+                 "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
+                 "where APBFacilityInformation.strairsnumber = ISMPMaster.strairsnumber " &
+                 "and ISMPDocumentType.strKey = ISMPReportInformation.strDocumentType " &
+                 "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
                  "and strDelete is NULL " &
                   "and strClosed = 'False' " &
-                 "and AIRBRANCH.ISMPDocumentType.strDocumentType = 'One Stack (Four Runs)' " &
-                 "order by AIRBRANCH.ISMPMaster.strReferenceNumber"
+                 "and ISMPDocumentType.strDocumentType = 'One Stack (Four Runs)' " &
+                 "order by ISMPMaster.strReferenceNumber"
 
-            dsGrid = New DataSet
-
-            daGrid = New OracleDataAdapter(SQL, CurrentConnection)
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            daGrid.Fill(dsGrid, "Grid")
-            dgvFacilityInfo.DataSource = dsGrid
-            dgvFacilityInfo.DataMember = "Grid"
+            dtGrid = DB.GetDataTable(query)
+            dgvFacilityInfo.DataSource = dtGrid
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiTwoStackStandard_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiTwoStackStandard.Click
-        Dim SQL As String
+    Private Sub MmiTwoStackStandard_Click(sender As Object, e As EventArgs) Handles MmiTwoStackStandard.Click
+        Dim query As String
 
         Try
 
-            SQL = "select AIRBRANCH.ISMPMaster.strReferenceNumber, " &
-            "to_char(datReceivedDate, 'dd-Mon-yyyy') as forDatReceivedDate, " &
-                "to_char(datTestDateStart, 'dd-Mon-yyyy') as forDatTestDateStart, " &
-                "substr(AIRBRANCH.ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " &
-                "AIRBRANCH.ISMPDocumentType.strDocumentType " &
-                "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.ISMPDocumentType, AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation " &
-                "where AIRBRANCH.APBFacilityInformation.strairsnumber = AIRBRANCH.ISMPMaster.strairsnumber " &
-                "and AIRBRANCH.ISMPDocumentType.strKey = AIRBRANCH.ISMPReportInformation.strDocumentType " &
-                "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
+            query = "select ISMPMaster.strReferenceNumber, " &
+            "format(datReceivedDate, 'dd-MMM-yyyy') as forDatReceivedDate, " &
+                "format(datTestDateStart, 'dd-MMM-yyyy') as forDatTestDateStart, " &
+                "SUBSTRING(ISMPMaster.strAirsnumber, 5,8) as strAIRSNumber, strFacilityName, " &
+                "ISMPDocumentType.strDocumentType " &
+                "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
+                "where APBFacilityInformation.strairsnumber = ISMPMaster.strairsnumber " &
+                "and ISMPDocumentType.strKey = ISMPReportInformation.strDocumentType " &
+                "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
                 "and strDelete is NULL " &
                  "and strClosed = 'False' " &
-                "and AIRBRANCH.ISMPDocumentType.strDocumentType = 'Two Stack (Standard)' " &
-                "order by AIRBRANCH.ISMPMaster.strReferenceNumber"
+                "and ISMPDocumentType.strDocumentType = 'Two Stack (Standard)' " &
+                "order by ISMPMaster.strReferenceNumber"
 
-            dsGrid = New DataSet
-
-            daGrid = New OracleDataAdapter(SQL, CurrentConnection)
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            daGrid.Fill(dsGrid, "Grid")
-            dgvFacilityInfo.DataSource = dsGrid
-            dgvFacilityInfo.DataMember = "Grid"
+            dtGrid = DB.GetDataTable(query)
+            dgvFacilityInfo.DataSource = dtGrid
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiTwoStackDRE_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiTwoStackDRE.Click
-        Dim SQL As String
+    Private Sub MmiTwoStackDRE_Click(sender As Object, e As EventArgs) Handles MmiTwoStackDRE.Click
+        Dim query As String
 
         Try
 
-            SQL = "select AIRBRANCH.ISMPMaster.strReferenceNumber, " &
-            "to_char(datReceivedDate, 'dd-Mon-yyyy') as forDatReceivedDate, " &
-                 "to_char(datTestDateStart, 'dd-Mon-yyyy') as forDatTestDateStart, " &
-                 "substr(AIRBRANCH.ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " &
-                 "AIRBRANCH.ISMPDocumentType.strDocumentType " &
-                 "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.ISMPDocumentType, AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation " &
-                 "where AIRBRANCH.APBFacilityInformation.strairsnumber = AIRBRANCH.ISMPMaster.strairsnumber " &
-                 "and AIRBRANCH.ISMPDocumentType.strKey = AIRBRANCH.ISMPReportInformation.strDocumentType " &
-                 "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
+            query = "select ISMPMaster.strReferenceNumber, " &
+            "format(datReceivedDate, 'dd-MMM-yyyy') as forDatReceivedDate, " &
+                 "format(datTestDateStart, 'dd-MMM-yyyy') as forDatTestDateStart, " &
+                 "SUBSTRING(ISMPMaster.strAirsnumber, 5,8) as strAIRSNumber, strFacilityName, " &
+                 "ISMPDocumentType.strDocumentType " &
+                 "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
+                 "where APBFacilityInformation.strairsnumber = ISMPMaster.strairsnumber " &
+                 "and ISMPDocumentType.strKey = ISMPReportInformation.strDocumentType " &
+                 "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
                  "and strDelete is NULL " &
                   "and strClosed = 'False' " &
-                 "and AIRBRANCH.ISMPDocumentType.strDocumentType = 'Two Stack (DRE)' " &
-                 "order by AIRBRANCH.ISMPMaster.strReferenceNumber"
+                 "and ISMPDocumentType.strDocumentType = 'Two Stack (DRE)' " &
+                 "order by ISMPMaster.strReferenceNumber"
 
-            dsGrid = New DataSet
-
-            daGrid = New OracleDataAdapter(SQL, CurrentConnection)
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            daGrid.Fill(dsGrid, "Grid")
-            dgvFacilityInfo.DataSource = dsGrid
-            dgvFacilityInfo.DataMember = "Grid"
+            dtGrid = DB.GetDataTable(query)
+            dgvFacilityInfo.DataSource = dtGrid
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiLoadingRack_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiLoadingRack.Click
-        Dim SQL As String
+    Private Sub MmiLoadingRack_Click(sender As Object, e As EventArgs) Handles MmiLoadingRack.Click
+        Dim query As String
 
         Try
 
-            SQL = "select AIRBRANCH.ISMPMaster.strReferenceNumber, " &
-            "to_char(datReceivedDate, 'dd-Mon-yyyy') as forDatReceivedDate, " &
-               "to_char(datTestDateStart, 'dd-Mon-yyyy') as forDatTestDateStart, " &
-               "substr(AIRBRANCH.ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " &
-               "AIRBRANCH.ISMPDocumentType.strDocumentType " &
-               "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.ISMPDocumentType, AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation " &
-               "where AIRBRANCH.APBFacilityInformation.strairsnumber = AIRBRANCH.ISMPMaster.strairsnumber " &
-               "and AIRBRANCH.ISMPDocumentType.strKey = AIRBRANCH.ISMPReportInformation.strDocumentType " &
-               "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
+            query = "select ISMPMaster.strReferenceNumber, " &
+            "format(datReceivedDate, 'dd-MMM-yyyy') as forDatReceivedDate, " &
+               "format(datTestDateStart, 'dd-MMM-yyyy') as forDatTestDateStart, " &
+               "SUBSTRING(ISMPMaster.strAirsnumber, 5,8) as strAIRSNumber, strFacilityName, " &
+               "ISMPDocumentType.strDocumentType " &
+               "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
+               "where APBFacilityInformation.strairsnumber = ISMPMaster.strairsnumber " &
+               "and ISMPDocumentType.strKey = ISMPReportInformation.strDocumentType " &
+               "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
                "and strDelete is NULL " &
                 "and strClosed = 'False' " &
-               "and AIRBRANCH.ISMPDocumentType.strDocumentType = 'Loading Rack' " &
-               "order by AIRBRANCH.ISMPMaster.strReferenceNumber"
+               "and ISMPDocumentType.strDocumentType = 'Loading Rack' " &
+               "order by ISMPMaster.strReferenceNumber"
 
-            dsGrid = New DataSet
-
-            daGrid = New OracleDataAdapter(SQL, CurrentConnection)
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            daGrid.Fill(dsGrid, "Grid")
-            dgvFacilityInfo.DataSource = dsGrid
-            dgvFacilityInfo.DataMember = "Grid"
+            dtGrid = DB.GetDataTable(query)
+            dgvFacilityInfo.DataSource = dtGrid
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiFlare_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiFlare.Click
-        Dim SQL As String
+    Private Sub MmiFlare_Click(sender As Object, e As EventArgs) Handles MmiFlare.Click
+        Dim query As String
 
         Try
 
-            SQL = "select AIRBRANCH.ISMPMaster.strReferenceNumber,  " &
-            "to_char(datReceivedDate, 'dd-Mon-yyyy') as forDatReceivedDate, " &
-                 "to_char(datTestDateStart, 'dd-Mon-yyyy') as forDatTestDateStart, " &
-                 "substr(AIRBRANCH.ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " &
-                 "AIRBRANCH.ISMPDocumentType.strDocumentType " &
-                 "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.ISMPDocumentType, AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation " &
-                 "where AIRBRANCH.APBFacilityInformation.strairsnumber = AIRBRANCH.ISMPMaster.strairsnumber " &
-                 "and AIRBRANCH.ISMPDocumentType.strKey = AIRBRANCH.ISMPReportInformation.strDocumentType " &
-                 "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
+            query = "select ISMPMaster.strReferenceNumber,  " &
+            "format(datReceivedDate, 'dd-MMM-yyyy') as forDatReceivedDate, " &
+                 "format(datTestDateStart, 'dd-MMM-yyyy') as forDatTestDateStart, " &
+                 "SUBSTRING(ISMPMaster.strAirsnumber, 5,8) as strAIRSNumber, strFacilityName, " &
+                 "ISMPDocumentType.strDocumentType " &
+                 "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
+                 "where APBFacilityInformation.strairsnumber = ISMPMaster.strairsnumber " &
+                 "and ISMPDocumentType.strKey = ISMPReportInformation.strDocumentType " &
+                 "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
                  "and strDelete is NULL " &
                   "and strClosed = 'False' " &
-                 "and AIRBRANCH.ISMPDocumentType.strDocumentType = 'Flare' " &
-                 "order by AIRBRANCH.ISMPMaster.strReferenceNumber"
+                 "and ISMPDocumentType.strDocumentType = 'Flare' " &
+                 "order by ISMPMaster.strReferenceNumber"
 
-            dsGrid = New DataSet
-
-            daGrid = New OracleDataAdapter(SQL, CurrentConnection)
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            daGrid.Fill(dsGrid, "Grid")
-            dgvFacilityInfo.DataSource = dsGrid
-            dgvFacilityInfo.DataMember = "Grid"
+            dtGrid = DB.GetDataTable(query)
+            dgvFacilityInfo.DataSource = dtGrid
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiPondTreatment_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiPondTreatment.Click
-        Dim SQL As String
+    Private Sub MmiPondTreatment_Click(sender As Object, e As EventArgs) Handles MmiPondTreatment.Click
+        Dim query As String
 
         Try
 
-            SQL = "select AIRBRANCH.ISMPMaster.strReferenceNumber, " &
-            "to_char(datReceivedDate, 'dd-Mon-yyyy') as forDatReceivedDate, " &
-                 "to_char(datTestDateStart, 'dd-Mon-yyyy') as forDatTestDateStart, " &
-                 "substr(AIRBRANCH.ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " &
-                 "AIRBRANCH.ISMPDocumentType.strDocumentType " &
-                 "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.ISMPDocumentType, AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation " &
-                 "where AIRBRANCH.APBFacilityInformation.strairsnumber = AIRBRANCH.ISMPMaster.strairsnumber " &
-                 "and AIRBRANCH.ISMPDocumentType.strKey = AIRBRANCH.ISMPReportInformation.strDocumentType " &
-                 "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
+            query = "select ISMPMaster.strReferenceNumber, " &
+            "format(datReceivedDate, 'dd-MMM-yyyy') as forDatReceivedDate, " &
+                 "format(datTestDateStart, 'dd-MMM-yyyy') as forDatTestDateStart, " &
+                 "SUBSTRING(ISMPMaster.strAirsnumber, 5,8) as strAIRSNumber, strFacilityName, " &
+                 "ISMPDocumentType.strDocumentType " &
+                 "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
+                 "where APBFacilityInformation.strairsnumber = ISMPMaster.strairsnumber " &
+                 "and ISMPDocumentType.strKey = ISMPReportInformation.strDocumentType " &
+                 "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
                  "and strDelete is NULL " &
                   "and strClosed = 'False' " &
-                 "and AIRBRANCH.ISMPDocumentType.strDocumentType = 'Pond Treatment' " &
-                 "order by AIRBRANCH.ISMPMaster.strReferenceNumber"
+                 "and ISMPDocumentType.strDocumentType = 'Pond Treatment' " &
+                 "order by ISMPMaster.strReferenceNumber"
 
-            dsGrid = New DataSet
-
-            daGrid = New OracleDataAdapter(SQL, CurrentConnection)
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            daGrid.Fill(dsGrid, "Grid")
-            dgvFacilityInfo.DataSource = dsGrid
-            dgvFacilityInfo.DataMember = "Grid"
+            dtGrid = DB.GetDataTable(query)
+            dgvFacilityInfo.DataSource = dtGrid
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiGasConcentration_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiGasConcentration.Click
-        Dim SQL As String
+    Private Sub MmiGasConcentration_Click(sender As Object, e As EventArgs) Handles MmiGasConcentration.Click
+        Dim query As String
 
         Try
 
-            SQL = "select AIRBRANCH.ISMPMaster.strReferenceNumber,  " &
-            "to_char(datReceivedDate, 'dd-Mon-yyyy') as forDatReceivedDate, " &
-                 "to_char(datTestDateStart, 'dd-Mon-yyyy') as forDatTestDateStart, " &
-                 "substr(AIRBRANCH.ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " &
-                 "AIRBRANCH.ISMPDocumentType.strDocumentType " &
-                 "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.ISMPDocumentType, AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation " &
-                 "where AIRBRANCH.APBFacilityInformation.strairsnumber = AIRBRANCH.ISMPMaster.strairsnumber " &
-                 "and AIRBRANCH.ISMPDocumentType.strKey = AIRBRANCH.ISMPReportInformation.strDocumentType " &
-                 "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
+            query = "select ISMPMaster.strReferenceNumber,  " &
+            "format(datReceivedDate, 'dd-MMM-yyyy') as forDatReceivedDate, " &
+                 "format(datTestDateStart, 'dd-MMM-yyyy') as forDatTestDateStart, " &
+                 "SUBSTRING(ISMPMaster.strAirsnumber, 5,8) as strAIRSNumber, strFacilityName, " &
+                 "ISMPDocumentType.strDocumentType " &
+                 "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
+                 "where APBFacilityInformation.strairsnumber = ISMPMaster.strairsnumber " &
+                 "and ISMPDocumentType.strKey = ISMPReportInformation.strDocumentType " &
+                 "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
                  "and strDelete is NULL " &
                   "and strClosed = 'False' " &
-                 "and AIRBRANCH.ISMPDocumentType.strDocumentType = 'Gas Concentration' " &
-                 "order by AIRBRANCH.ISMPMaster.strReferenceNumber"
+                 "and ISMPDocumentType.strDocumentType = 'Gas Concentration' " &
+                 "order by ISMPMaster.strReferenceNumber"
 
-            dsGrid = New DataSet
-
-            daGrid = New OracleDataAdapter(SQL, CurrentConnection)
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            daGrid.Fill(dsGrid, "Grid")
-            dgvFacilityInfo.DataSource = dsGrid
-            dgvFacilityInfo.DataMember = "Grid"
+            dtGrid = DB.GetDataTable(query)
+            dgvFacilityInfo.DataSource = dtGrid
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiRata_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiRata.Click
-        Dim SQL As String
+    Private Sub MmiRata_Click(sender As Object, e As EventArgs) Handles MmiRata.Click
+        Dim query As String
 
         Try
 
-            SQL = "select AIRBRANCH.ISMPMaster.strReferenceNumber, " &
-            "to_char(datReceivedDate, 'dd-Mon-yyyy') as forDatReceivedDate, " &
-                 "to_char(datTestDateStart, 'dd-Mon-yyyy') as forDatTestDateStart, " &
-                 "substr(AIRBRANCH.ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " &
-                 "AIRBRANCH.ISMPDocumentType.strDocumentType " &
-                 "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.ISMPDocumentType, AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation " &
-                 "where AIRBRANCH.APBFacilityInformation.strairsnumber = AIRBRANCH.ISMPMaster.strairsnumber " &
-                 "and AIRBRANCH.ISMPDocumentType.strKey = AIRBRANCH.ISMPReportInformation.strDocumentType " &
-                 "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
+            query = "select ISMPMaster.strReferenceNumber, " &
+            "format(datReceivedDate, 'dd-MMM-yyyy') as forDatReceivedDate, " &
+                 "format(datTestDateStart, 'dd-MMM-yyyy') as forDatTestDateStart, " &
+                 "SUBSTRING(ISMPMaster.strAirsnumber, 5,8) as strAIRSNumber, strFacilityName, " &
+                 "ISMPDocumentType.strDocumentType " &
+                 "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
+                 "where APBFacilityInformation.strairsnumber = ISMPMaster.strairsnumber " &
+                 "and ISMPDocumentType.strKey = ISMPReportInformation.strDocumentType " &
+                 "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
                  "and strDelete is NULL " &
                   "and strClosed = 'False' " &
-                 "and AIRBRANCH.ISMPDocumentType.strDocumentType = 'Rata' " &
-                 "order by AIRBRANCH.ISMPMaster.strReferenceNumber"
+                 "and ISMPDocumentType.strDocumentType = 'Rata' " &
+                 "order by ISMPMaster.strReferenceNumber"
 
-            dsGrid = New DataSet
-
-            daGrid = New OracleDataAdapter(SQL, CurrentConnection)
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            daGrid.Fill(dsGrid, "Grid")
-            dgvFacilityInfo.DataSource = dsGrid
-            dgvFacilityInfo.DataMember = "Grid"
+            dtGrid = DB.GetDataTable(query)
+            dgvFacilityInfo.DataSource = dtGrid
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiPEMS_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiPEMS.Click
-        Dim SQL As String
+    Private Sub MmiPEMS_Click(sender As Object, e As EventArgs) Handles MmiPEMS.Click
+        Dim query As String
 
         Try
 
-            SQL = "select AIRBRANCH.ISMPMaster.strReferenceNumber,  " &
-            "to_char(datReceivedDate, 'dd-Mon-yyyy') as forDatReceivedDate, " &
-                "to_char(datTestDateStart, 'dd-Mon-yyyy') as forDatTestDateStart, " &
-                "substr(AIRBRANCH.ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " &
-                "AIRBRANCH.ISMPDocumentType.strDocumentType " &
-                "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.ISMPDocumentType, AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation " &
-                "where AIRBRANCH.APBFacilityInformation.strairsnumber = AIRBRANCH.ISMPMaster.strairsnumber " &
-                "and AIRBRANCH.ISMPDocumentType.strKey = AIRBRANCH.ISMPReportInformation.strDocumentType " &
-                "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
+            query = "select ISMPMaster.strReferenceNumber,  " &
+            "format(datReceivedDate, 'dd-MMM-yyyy') as forDatReceivedDate, " &
+                "format(datTestDateStart, 'dd-MMM-yyyy') as forDatTestDateStart, " &
+                "SUBSTRING(ISMPMaster.strAirsnumber, 5,8) as strAIRSNumber, strFacilityName, " &
+                "ISMPDocumentType.strDocumentType " &
+                "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
+                "where APBFacilityInformation.strairsnumber = ISMPMaster.strairsnumber " &
+                "and ISMPDocumentType.strKey = ISMPReportInformation.strDocumentType " &
+                "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
                 "and strDelete is NULL " &
                  "and strClosed = 'False' " &
-                "and AIRBRANCH.ISMPDocumentType.strDocumentType = 'PEMS' " &
-                "order by AIRBRANCH.ISMPMaster.strReferenceNumber"
+                "and ISMPDocumentType.strDocumentType = 'PEMS' " &
+                "order by ISMPMaster.strReferenceNumber"
 
-            dsGrid = New DataSet
-
-            daGrid = New OracleDataAdapter(SQL, CurrentConnection)
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            daGrid.Fill(dsGrid, "Grid")
-            dgvFacilityInfo.DataSource = dsGrid
-            dgvFacilityInfo.DataMember = "Grid"
+            dtGrid = DB.GetDataTable(query)
+            dgvFacilityInfo.DataSource = dtGrid
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiMemoStandard_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiMemoStandard.Click
-        Dim SQL As String
+    Private Sub MmiMemoStandard_Click(sender As Object, e As EventArgs) Handles MmiMemoStandard.Click
+        Dim query As String
 
         Try
 
-            SQL = "select AIRBRANCH.ISMPMaster.strReferenceNumber, " &
-            "to_char(datReceivedDate, 'dd-Mon-yyyy') as forDatReceivedDate, " &
-                "to_char(datTestDateStart, 'dd-Mon-yyyy') as forDatTestDateStart, " &
-                "substr(AIRBRANCH.ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " &
-                "AIRBRANCH.ISMPDocumentType.strDocumentType " &
-                "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.ISMPDocumentType, AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation " &
-                "where AIRBRANCH.APBFacilityInformation.strairsnumber = AIRBRANCH.ISMPMaster.strairsnumber " &
-                "and AIRBRANCH.ISMPDocumentType.strKey = AIRBRANCH.ISMPReportInformation.strDocumentType " &
-                "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
+            query = "select ISMPMaster.strReferenceNumber, " &
+            "format(datReceivedDate, 'dd-MMM-yyyy') as forDatReceivedDate, " &
+                "format(datTestDateStart, 'dd-MMM-yyyy') as forDatTestDateStart, " &
+                "SUBSTRING(ISMPMaster.strAirsnumber, 5,8) as strAIRSNumber, strFacilityName, " &
+                "ISMPDocumentType.strDocumentType " &
+                "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
+                "where APBFacilityInformation.strairsnumber = ISMPMaster.strairsnumber " &
+                "and ISMPDocumentType.strKey = ISMPReportInformation.strDocumentType " &
+                "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
                 "and strDelete is NULL " &
                  "and strClosed = 'False' " &
-                "and AIRBRANCH.ISMPDocumentType.strDocumentType = 'Memorandum (Standard)' " &
-                "order by AIRBRANCH.ISMPMaster.strReferenceNumber"
+                "and ISMPDocumentType.strDocumentType = 'Memorandum (Standard)' " &
+                "order by ISMPMaster.strReferenceNumber"
 
-            dsGrid = New DataSet
-
-            daGrid = New OracleDataAdapter(SQL, CurrentConnection)
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            daGrid.Fill(dsGrid, "Grid")
-            dgvFacilityInfo.DataSource = dsGrid
-            dgvFacilityInfo.DataMember = "Grid"
+            dtGrid = DB.GetDataTable(query)
+            dgvFacilityInfo.DataSource = dtGrid
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiMemoToFile_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiMemoToFile.Click
-        Dim SQL As String
+    Private Sub MmiMemoToFile_Click(sender As Object, e As EventArgs) Handles MmiMemoToFile.Click
+        Dim query As String
 
         Try
 
-            SQL = "select AIRBRANCH.ISMPMaster.strReferenceNumber,  " &
-            "to_char(datReceivedDate, 'dd-Mon-yyyy') as forDatReceivedDate, " &
-                "to_char(datTestDateStart, 'dd-Mon-yyyy') as forDatTestDateStart, " &
-                "substr(AIRBRANCH.ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " &
-                "AIRBRANCH.ISMPDocumentType.strDocumentType " &
-                "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.ISMPDocumentType, AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation " &
-                "where AIRBRANCH.APBFacilityInformation.strairsnumber = AIRBRANCH.ISMPMaster.strairsnumber " &
-                "and AIRBRANCH.ISMPDocumentType.strKey = AIRBRANCH.ISMPReportInformation.strDocumentType " &
-                "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
+            query = "select ISMPMaster.strReferenceNumber,  " &
+            "format(datReceivedDate, 'dd-MMM-yyyy') as forDatReceivedDate, " &
+                "format(datTestDateStart, 'dd-MMM-yyyy') as forDatTestDateStart, " &
+                "SUBSTRING(ISMPMaster.strAirsnumber, 5,8) as strAIRSNumber, strFacilityName, " &
+                "ISMPDocumentType.strDocumentType " &
+                "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
+                "where APBFacilityInformation.strairsnumber = ISMPMaster.strairsnumber " &
+                "and ISMPDocumentType.strKey = ISMPReportInformation.strDocumentType " &
+                "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
                 "and strDelete is NULL " &
                  "and strClosed = 'False' " &
-                "and AIRBRANCH.ISMPDocumentType.strDocumentType = 'Memorandum (To File)' " &
-                "order by AIRBRANCH.ISMPMaster.strReferenceNumber"
+                "and ISMPDocumentType.strDocumentType = 'Memorandum (To File)' " &
+                "order by ISMPMaster.strReferenceNumber"
 
-            dsGrid = New DataSet
-
-            daGrid = New OracleDataAdapter(SQL, CurrentConnection)
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            daGrid.Fill(dsGrid, "Grid")
-            dgvFacilityInfo.DataSource = dsGrid
-            dgvFacilityInfo.DataMember = "Grid"
+            dtGrid = DB.GetDataTable(query)
+            dgvFacilityInfo.DataSource = dtGrid
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiMemoPTE_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiMemoPTE.Click
-        Dim SQL As String
+    Private Sub MmiMemoPTE_Click(sender As Object, e As EventArgs) Handles MmiMemoPTE.Click
+        Dim query As String
 
         Try
 
-            SQL = "select AIRBRANCH.ISMPMaster.strReferenceNumber,  " &
-            "to_char(datReceivedDate, 'dd-Mon-yyyy') as forDatReceivedDate, " &
-                  "to_char(datTestDateStart, 'dd-Mon-yyyy') as forDatTestDateStart, " &
-                  "substr(AIRBRANCH.ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " &
-                  "AIRBRANCH.ISMPDocumentType.strDocumentType " &
-                  "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.ISMPDocumentType, AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation " &
-                  "where AIRBRANCH.APBFacilityInformation.strairsnumber = AIRBRANCH.ISMPMaster.strairsnumber " &
-                  "and AIRBRANCH.ISMPDocumentType.strKey = AIRBRANCH.ISMPReportInformation.strDocumentType " &
-                  "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
+            query = "select ISMPMaster.strReferenceNumber,  " &
+            "format(datReceivedDate, 'dd-MMM-yyyy') as forDatReceivedDate, " &
+                  "format(datTestDateStart, 'dd-MMM-yyyy') as forDatTestDateStart, " &
+                  "SUBSTRING(ISMPMaster.strAirsnumber, 5,8) as strAIRSNumber, strFacilityName, " &
+                  "ISMPDocumentType.strDocumentType " &
+                  "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
+                  "where APBFacilityInformation.strairsnumber = ISMPMaster.strairsnumber " &
+                  "and ISMPDocumentType.strKey = ISMPReportInformation.strDocumentType " &
+                  "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
                   "and strDelete is NULL " &
                    "and strClosed = 'False' " &
-                  "and AIRBRANCH.ISMPDocumentType.strDocumentType = 'PTE (Perminate Total Enclosure)' " &
-                  "order by AIRBRANCH.ISMPMaster.strReferenceNumber"
+                  "and ISMPDocumentType.strDocumentType = 'PTE (Perminate Total Enclosure)' " &
+                  "order by ISMPMaster.strReferenceNumber"
 
-            dsGrid = New DataSet
-
-            daGrid = New OracleDataAdapter(SQL, CurrentConnection)
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            daGrid.Fill(dsGrid, "Grid")
-            dgvFacilityInfo.DataSource = dsGrid
-            dgvFacilityInfo.DataMember = "Grid"
+            dtGrid = DB.GetDataTable(query)
+            dgvFacilityInfo.DataSource = dtGrid
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiMethod9Single_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiMethod9Single.Click
-        Dim SQL As String
+    Private Sub MmiMethod9Single_Click(sender As Object, e As EventArgs) Handles MmiMethod9Single.Click
+        Dim query As String
 
         Try
 
-            SQL = "select AIRBRANCH.ISMPMaster.strReferenceNumber,  " &
-            "to_char(datReceivedDate, 'dd-Mon-yyyy') as forDatReceivedDate, " &
-                   "to_char(datTestDateStart, 'dd-Mon-yyyy') as forDatTestDateStart, " &
-                   "substr(AIRBRANCH.ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " &
-                   "AIRBRANCH.ISMPDocumentType.strDocumentType " &
-                   "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.ISMPDocumentType, AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation " &
-                   "where AIRBRANCH.APBFacilityInformation.strairsnumber = AIRBRANCH.ISMPMaster.strairsnumber " &
-                   "and AIRBRANCH.ISMPDocumentType.strKey = AIRBRANCH.ISMPReportInformation.strDocumentType " &
-                   "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
+            query = "select ISMPMaster.strReferenceNumber,  " &
+            "format(datReceivedDate, 'dd-MMM-yyyy') as forDatReceivedDate, " &
+                   "format(datTestDateStart, 'dd-MMM-yyyy') as forDatTestDateStart, " &
+                   "SUBSTRING(ISMPMaster.strAirsnumber, 5,8) as strAIRSNumber, strFacilityName, " &
+                   "ISMPDocumentType.strDocumentType " &
+                   "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
+                   "where APBFacilityInformation.strairsnumber = ISMPMaster.strairsnumber " &
+                   "and ISMPDocumentType.strKey = ISMPReportInformation.strDocumentType " &
+                   "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
                    "and strDelete is NULL " &
                     "and strClosed = 'False' " &
-                   "and AIRBRANCH.ISMPDocumentType.strDocumentType = 'Method9 (Single)' " &
-                   "order by AIRBRANCH.ISMPMaster.strReferenceNumber"
+                   "and ISMPDocumentType.strDocumentType = 'Method9 (Single)' " &
+                   "order by ISMPMaster.strReferenceNumber"
 
-            dsGrid = New DataSet
-
-            daGrid = New OracleDataAdapter(SQL, CurrentConnection)
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            daGrid.Fill(dsGrid, "Grid")
-            dgvFacilityInfo.DataSource = dsGrid
-            dgvFacilityInfo.DataMember = "Grid"
+            dtGrid = DB.GetDataTable(query)
+            dgvFacilityInfo.DataSource = dtGrid
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiMethod9Multi_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiMethod9Multi.Click
-        Dim SQL As String
+    Private Sub MmiMethod9Multi_Click(sender As Object, e As EventArgs) Handles MmiMethod9Multi.Click
+        Dim query As String
 
         Try
 
-            SQL = "select AIRBRANCH.ISMPMaster.strReferenceNumber, " &
-            "to_char(datReceivedDate, 'dd-Mon-yyyy') as forDatReceivedDate, " &
-                 "to_char(datTestDateStart, 'dd-Mon-yyyy') as forDatTestDateStart, " &
-                 "substr(AIRBRANCH.ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " &
-                 "AIRBRANCH.ISMPDocumentType.strDocumentType " &
-                 "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.ISMPDocumentType, AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation " &
-                 "where AIRBRANCH.APBFacilityInformation.strairsnumber = AIRBRANCH.ISMPMaster.strairsnumber " &
-                 "and AIRBRANCH.ISMPDocumentType.strKey = AIRBRANCH.ISMPReportInformation.strDocumentType " &
-                 "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
+            query = "select ISMPMaster.strReferenceNumber, " &
+            "format(datReceivedDate, 'dd-MMM-yyyy') as forDatReceivedDate, " &
+                 "format(datTestDateStart, 'dd-MMM-yyyy') as forDatTestDateStart, " &
+                 "SUBSTRING(ISMPMaster.strAirsnumber, 5,8) as strAIRSNumber, strFacilityName, " &
+                 "ISMPDocumentType.strDocumentType " &
+                 "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
+                 "where APBFacilityInformation.strairsnumber = ISMPMaster.strairsnumber " &
+                 "and ISMPDocumentType.strKey = ISMPReportInformation.strDocumentType " &
+                 "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
                  "and strDelete is NULL " &
                   "and strClosed = 'False' " &
-                 "and AIRBRANCH.ISMPDocumentType.strDocumentType = 'Method 9 (Multi.)' " &
-                 "order by AIRBRANCH.ISMPMaster.strReferenceNumber"
+                 "and ISMPDocumentType.strDocumentType = 'Method 9 (Multi.)' " &
+                 "order by ISMPMaster.strReferenceNumber"
 
-            dsGrid = New DataSet
-
-            daGrid = New OracleDataAdapter(SQL, CurrentConnection)
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            daGrid.Fill(dsGrid, "Grid")
-            dgvFacilityInfo.DataSource = dsGrid
-            dgvFacilityInfo.DataMember = "Grid"
+            dtGrid = DB.GetDataTable(query)
+            dgvFacilityInfo.DataSource = dtGrid
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiMethod22_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiMethod22.Click
-        Dim SQL As String
+    Private Sub MmiMethod22_Click(sender As Object, e As EventArgs) Handles MmiMethod22.Click
+        Dim query As String
 
         Try
 
-            SQL = "select AIRBRANCH.ISMPMaster.strReferenceNumber,  " &
-            "to_char(datReceivedDate, 'dd-Mon-yyyy') as forDatReceivedDate, " &
-                "to_char(datTestDateStart, 'dd-Mon-yyyy') as forDatTestDateStart, " &
-                "substr(AIRBRANCH.ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " &
-                "AIRBRANCH.ISMPDocumentType.strDocumentType " &
-                "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.ISMPDocumentType, AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation " &
-                "where AIRBRANCH.APBFacilityInformation.strairsnumber = AIRBRANCH.ISMPMaster.strairsnumber " &
-                "and AIRBRANCH.ISMPDocumentType.strKey = AIRBRANCH.ISMPReportInformation.strDocumentType " &
-                "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
+            query = "select ISMPMaster.strReferenceNumber,  " &
+            "format(datReceivedDate, 'dd-MMM-yyyy') as forDatReceivedDate, " &
+                "format(datTestDateStart, 'dd-MMM-yyyy') as forDatTestDateStart, " &
+                "SUBSTRING(ISMPMaster.strAirsnumber, 5,8) as strAIRSNumber, strFacilityName, " &
+                "ISMPDocumentType.strDocumentType " &
+                "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
+                "where APBFacilityInformation.strairsnumber = ISMPMaster.strairsnumber " &
+                "and ISMPDocumentType.strKey = ISMPReportInformation.strDocumentType " &
+                "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
                 "and strDelete is NULL " &
                  "and strClosed = 'False' " &
-                "and AIRBRANCH.ISMPDocumentType.strDocumentType = 'Method 22' " &
-                "order by AIRBRANCH.ISMPMaster.strReferenceNumber"
+                "and ISMPDocumentType.strDocumentType = 'Method 22' " &
+                "order by ISMPMaster.strReferenceNumber"
 
-            dsGrid = New DataSet
-
-            daGrid = New OracleDataAdapter(SQL, CurrentConnection)
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            daGrid.Fill(dsGrid, "Grid")
-            dgvFacilityInfo.DataSource = dsGrid
-            dgvFacilityInfo.DataMember = "Grid"
+            dtGrid = DB.GetDataTable(query)
+            dgvFacilityInfo.DataSource = dtGrid
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiAllTestReports_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiAllTestReports.Click
-        Dim SQL As String
+    Private Sub MmiAllTestReports_Click(sender As Object, e As EventArgs) Handles MmiAllTestReports.Click
+        Dim query As String
 
         Try
 
-            SQL = "select AIRBRANCH.ISMPMaster.strReferenceNumber, " &
-            "to_char(datReceivedDate, 'dd-Mon-yyyy') as forDatReceivedDate, " &
-                  "to_char(datTestDateStart, 'dd-Mon-yyyy') as forDatTestDateStart, " &
-                  "substr(AIRBRANCH.ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " &
-                  "AIRBRANCH.ISMPDocumentType.strDocumentType " &
-                  "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.ISMPDocumentType, AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation " &
-                  "where AIRBRANCH.APBFacilityInformation.strairsnumber = AIRBRANCH.ISMPMaster.strairsnumber " &
-                  "and AIRBRANCH.ISMPDocumentType.strKey = AIRBRANCH.ISMPReportInformation.strDocumentType " &
-                  "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
+            query = "select ISMPMaster.strReferenceNumber, " &
+            "format(datReceivedDate, 'dd-MMM-yyyy') as forDatReceivedDate, " &
+                  "format(datTestDateStart, 'dd-MMM-yyyy') as forDatTestDateStart, " &
+                  "SUBSTRING(ISMPMaster.strAirsnumber, 5,8) as strAIRSNumber, strFacilityName, " &
+                  "ISMPDocumentType.strDocumentType " &
+                  "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
+                  "where APBFacilityInformation.strairsnumber = ISMPMaster.strairsnumber " &
+                  "and ISMPDocumentType.strKey = ISMPReportInformation.strDocumentType " &
+                  "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
                   "and strDelete is NULL " &
                    "and strClosed = 'False' " &
-                  "order by AIRBRANCH.ISMPMaster.strReferenceNumber"
+                  "order by ISMPMaster.strReferenceNumber"
 
-            dsGrid = New DataSet
-
-            daGrid = New OracleDataAdapter(SQL, CurrentConnection)
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            daGrid.Fill(dsGrid, "Grid")
-            dgvFacilityInfo.DataSource = dsGrid
-            dgvFacilityInfo.DataMember = "Grid"
+            dtGrid = DB.GetDataTable(query)
+            dgvFacilityInfo.DataSource = dtGrid
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiOpenRecords_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiOpenRecords.Click
-        Dim SQL As String
+    Private Sub MmiOpenRecords_Click(sender As Object, e As EventArgs) Handles MmiOpenRecords.Click
+        Dim query As String
 
         Try
 
-            SQL = "select AIRBRANCH.ISMPMaster.strReferenceNumber,  " &
-            "to_char(datReceivedDate, 'dd-Mon-yyyy') as forDatReceivedDate, " &
-               "to_char(datTestDateStart, 'dd-Mon-yyyy') as forDatTestDateStart, " &
-               "substr(AIRBRANCH.ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " &
-               "AIRBRANCH.ISMPDocumentType.strDocumentType " &
-               "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.ISMPDocumentType, AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation " &
-               "where AIRBRANCH.APBFacilityInformation.strairsnumber = AIRBRANCH.ISMPMaster.strairsnumber " &
-               "and AIRBRANCH.ISMPDocumentType.strKey = AIRBRANCH.ISMPReportInformation.strDocumentType " &
-               "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
+            query = "select ISMPMaster.strReferenceNumber,  " &
+            "format(datReceivedDate, 'dd-MMM-yyyy') as forDatReceivedDate, " &
+               "format(datTestDateStart, 'dd-MMM-yyyy') as forDatTestDateStart, " &
+               "SUBSTRING(ISMPMaster.strAirsnumber, 5,8) as strAIRSNumber, strFacilityName, " &
+               "ISMPDocumentType.strDocumentType " &
+               "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
+               "where APBFacilityInformation.strairsnumber = ISMPMaster.strairsnumber " &
+               "and ISMPDocumentType.strKey = ISMPReportInformation.strDocumentType " &
+               "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
                "and strDelete is NULL " &
                "and strClosed = 'False' " &
-               "order by AIRBRANCH.ISMPMaster.strReferenceNumber"
+               "order by ISMPMaster.strReferenceNumber"
 
-            dsGrid = New DataSet
-
-            daGrid = New OracleDataAdapter(SQL, CurrentConnection)
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            daGrid.Fill(dsGrid, "Grid")
-            dgvFacilityInfo.DataSource = dsGrid
-            dgvFacilityInfo.DataMember = "Grid"
+            dtGrid = DB.GetDataTable(query)
+            dgvFacilityInfo.DataSource = dtGrid
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub MmiClosedRecords_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiClosedRecords.Click
-        Dim SQL As String
+    Private Sub MmiClosedRecords_Click(sender As Object, e As EventArgs) Handles MmiClosedRecords.Click
+        Dim query As String
 
         Try
 
-            SQL = "select AIRBRANCH.ISMPMaster.strReferenceNumber, " &
-            "to_char(datReceivedDate, 'dd-Mon-yyyy') as forDatReceivedDate, " &
-            "to_char(datTestDateStart, 'dd-Mon-yyyy') as forDatTestDateStart, " &
-            "substr(AIRBRANCH.ISMPMaster.strAirsnumber, 5) as strAIRSNumber, strFacilityName, " &
-            "AIRBRANCH.ISMPDocumentType.strDocumentType " &
-            "from AIRBRANCH.ISMPReportInformation, AIRBRANCH.ISMPDocumentType, AIRBRANCH.ISMPMaster, AIRBRANCH.APBFacilityInformation " &
-            "where AIRBRANCH.APBFacilityInformation.strairsnumber = AIRBRANCH.ISMPMaster.strairsnumber " &
-            "and AIRBRANCH.ISMPDocumentType.strKey = AIRBRANCH.ISMPReportInformation.strDocumentType " &
-            "and AIRBRANCH.ISMPMaster.strReferenceNumber = AIRBRANCH.ISMPReportInformation.strReferenceNumber " &
+            query = "select ISMPMaster.strReferenceNumber, " &
+            "format(datReceivedDate, 'dd-MMM-yyyy') as forDatReceivedDate, " &
+            "format(datTestDateStart, 'dd-MMM-yyyy') as forDatTestDateStart, " &
+            "SUBSTRING(ISMPMaster.strAirsnumber, 5,8) as strAIRSNumber, strFacilityName, " &
+            "ISMPDocumentType.strDocumentType " &
+            "from ISMPReportInformation, ISMPDocumentType, ISMPMaster, APBFacilityInformation " &
+            "where APBFacilityInformation.strairsnumber = ISMPMaster.strairsnumber " &
+            "and ISMPDocumentType.strKey = ISMPReportInformation.strDocumentType " &
+            "and ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
             "and strDelete is NULL " &
             "and strClosed = 'True' " &
-            "order by AIRBRANCH.ISMPMaster.strReferenceNumber"
+            "order by ISMPMaster.strReferenceNumber"
 
-            dsGrid = New DataSet
-
-            daGrid = New OracleDataAdapter(SQL, CurrentConnection)
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            daGrid.Fill(dsGrid, "Grid")
-            dgvFacilityInfo.DataSource = dsGrid
-            dgvFacilityInfo.DataMember = "Grid"
+            dtGrid = DB.GetDataTable(query)
+            dgvFacilityInfo.DataSource = dtGrid
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
+
 #End Region
 
     Private Sub OpenFacilityLookupTool()
@@ -2116,22 +1647,17 @@ Public Class ISMPTestReportAdministrative
             facilityLookupDialog.ShowDialog()
             If facilityLookupDialog.DialogResult = DialogResult.OK _
             AndAlso facilityLookupDialog.SelectedAirsNumber <> "" Then
-                Me.ValueFromFacilityLookUp = facilityLookupDialog.SelectedAirsNumber
+                cboAIRSNumber.Text = facilityLookupDialog.SelectedAirsNumber
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub MmiViewByFacility_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiViewByFacility.Click
+    Private Sub MmiViewByFacility_Click(sender As Object, e As EventArgs) Handles MmiViewByFacility.Click
         OpenFacilityLookupTool()
     End Sub
-    Public WriteOnly Property ValueFromFacilityLookUp() As String
-        Set(ByVal Value As String)
-            cboAIRSNumber.Text = Value
-        End Set
-    End Property
-    Private Sub MmiShowToolbar_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiShowToolbar.Click
+    Private Sub MmiShowToolbar_Click(sender As Object, e As EventArgs) Handles MmiShowToolbar.Click
         Try
 
             If TBFacilityInfo.Visible = True Then
@@ -2142,7 +1668,7 @@ Public Class ISMPTestReportAdministrative
                 MmiShowToolbar.Checked = False
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -2151,20 +1677,7 @@ Public Class ISMPTestReportAdministrative
 
 #End Region
 
-
-#End Region
-
-#Region "Delcarations"
-    Private Sub DevTestReportAdministrative_Closing(ByVal sender As Object, ByVal e As System.ComponentModel.CancelEventArgs) Handles MyBase.Closing
-        Try
-
-            Me.Dispose()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-
-    End Sub
-    Private Sub TBFacilityInfo_ButtonClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.ToolBarButtonClickEventArgs) Handles TBFacilityInfo.ButtonClick
+    Private Sub TBFacilityInfo_ButtonClick(sender As Object, e As ToolBarButtonClickEventArgs) Handles TBFacilityInfo.ButtonClick
         Try
 
             Dim temp As String
@@ -2193,14 +1706,14 @@ Public Class ISMPTestReportAdministrative
             End Select
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
 
     End Sub
-    Private Sub dgvFacilityInfo_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvFacilityInfo.MouseUp
+    Private Sub dgvFacilityInfo_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvFacilityInfo.MouseUp
         Dim hti As DataGridView.HitTestInfo = dgvFacilityInfo.HitTest(e.X, e.Y)
 
         Try
@@ -2213,44 +1726,39 @@ Public Class ISMPTestReportAdministrative
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub txtReferenceNumber_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtReferenceNumber.TextChanged
+    Private Sub txtReferenceNumber_TextChanged(sender As Object, e As EventArgs) Handles txtReferenceNumber.TextChanged
         Try
 
             If txtReferenceNumber.Text <> "" Then
                 Find()
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub cmiPrintTestReport_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmiPrintTestReport.Click
+    Private Sub cmiPrintTestReport_Click(sender As Object, e As EventArgs) Handles cmiPrintTestReport.Click
         Try
-
-            PrintOut = Nothing
-            If PrintOut Is Nothing Then PrintOut = New IAIPPrintOut
-            PrintOut.txtPrintType.Text = "ISMPTestReport"
-            PrintOut.txtReferenceNumber.Text = Me.txtReferenceNumber.Text
+            Dim PrintOut As New IAIPPrintOut
+            PrintOut.PrintoutType = IAIPPrintOut.PrintType.IsmpTestReport
+            PrintOut.ReferenceValue = txtReferenceNumber.Text
             PrintOut.Show()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
-
     End Sub
-    Private Sub LLFacilityName_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles LLFacilityName.LinkClicked
+    Private Sub LLFacilityName_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LLFacilityName.LinkClicked
         OpenFacilityLookupTool()
     End Sub
-    Private Sub rdbCloseReport_CheckedChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles rdbCloseReport.CheckedChanged
+    Private Sub rdbCloseReport_CheckedChanged(sender As Object, e As EventArgs) Handles rdbCloseReport.CheckedChanged
         Try
 
             If rdbCloseReport.Checked = False And TBFacilityInfo.Buttons.Item(0).Enabled = False Then
@@ -2268,23 +1776,23 @@ Public Class ISMPTestReportAdministrative
                 btnCloseTestReport.Enabled = False
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
 
     End Sub
-    Private Sub mmiMemo_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiMemo.Click
+    Private Sub mmiMemo_Click(sender As Object, e As EventArgs) Handles mmiMemo.Click
         Try
 
             OpenMemo()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub chbOverright_CheckedChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles chbOverright.CheckedChanged
+    Private Sub chbOverright_CheckedChanged(sender As Object, e As EventArgs) Handles chbOverright.CheckedChanged
         Try
 
             If chbOverright.Checked = True Then
@@ -2294,105 +1802,89 @@ Public Class ISMPTestReportAdministrative
                 txtReferenceNumber.Clear()
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub mmiAddTestingFirm_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiAddTestingFirm.Click
+    Private Sub mmiAddTestingFirm_Click(sender As Object, e As EventArgs) Handles mmiAddTestingFirm.Click
         Try
-
-            ISMPAddTestingFirm = Nothing
-            If ISMPAddTestingFirm Is Nothing Then ISMPAddTestingFirm = New ISMPAddTestingFirms
+            Dim ISMPAddTestingFirm As New ISMPAddTestingFirms
             ISMPAddTestingFirm.Show()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub mmiAddPollutant_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiAddPollutant.Click
-        Try
-
-            ISMPAddPollutant = Nothing
-            If ISMPAddPollutant Is Nothing Then ISMPAddPollutant = New ISMPAddPollutants
-            ISMPAddPollutant.Show()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
+    Private Sub mmiAddPollutant_Click(sender As Object, e As EventArgs) Handles mmiAddPollutant.Click
+        Dim ISMPAddPollutant As New ISMPAddPollutants
+        ISMPAddPollutant.Show()
     End Sub
-    Private Sub mmiRefreshLists_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiRefreshLists.Click
+    Private Sub mmiRefreshLists_Click(sender As Object, e As EventArgs) Handles mmiRefreshLists.Click
         Try
 
-            dsPollutant = New DataSet
-            cboPollutant.DataSource = dsPollutant
-            dsTestingFirms = New DataSet
-            cboTestingFirms.DataSource = dsTestingFirms
-            FillPollutantandTestingFirms()
+            cboPollutant.DataSource = Nothing
+            cboTestingFirms.DataSource = Nothing
             FillPollutantCombo()
             FillTestingFirmsCombo()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub btnInsert_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnInsert.Click
+    Private Sub btnInsert_Click(sender As Object, e As EventArgs) Handles btnInsert.Click
         Try
 
             Save()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub btnDeleteTestReport_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDeleteTestReport.Click
+    Private Sub btnDeleteTestReport_Click(sender As Object, e As EventArgs) Handles btnDeleteTestReport.Click
         Try
 
             DeleteTestReport()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub btnClearReferenceNumber_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClearReferenceNumber.Click
+    Private Sub btnClearReferenceNumber_Click(sender As Object, e As EventArgs) Handles btnClearReferenceNumber.Click
         Try
             txtReferenceNumber.Clear()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub btnCloseTestReport_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCloseTestReport.Click
+    Private Sub btnCloseTestReport_Click(sender As Object, e As EventArgs) Handles btnCloseTestReport.Click
         Try
 
             CloseTestReport()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
 
-#End Region
-
-    Private Sub btnAddTestReport_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAddTestReport.Click
+    Private Sub btnAddTestReport_Click(sender As Object, e As EventArgs) Handles btnAddTestReport.Click
         Try
             Dim RefNum As String
             Dim AIRSNumber As String
@@ -2440,75 +1932,74 @@ Public Class ISMPTestReportAdministrative
                 DateReceived = dtpAddTestReportDateReceived.Text
                 DateCompleted = DTPAddTestReportDateCompleted.Text
 
-                SQL = "Select " &
+                query = "Select " &
                 "strReferenceNumber " &
-                "from AIRBRANCH.ISMPMaster " &
-                "where strReferenceNumber = '" & RefNum & "' "
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-                dr.Close()
-                If recExist = True Then
+                "from ISMPMaster " &
+                "where strReferenceNumber = @ref "
+
+                Dim p As New SqlParameter("@ref", RefNum)
+
+                If DB.ValueExists(query, p) Then
                     MsgBox("This Refernece Number already exists in the system.", MsgBoxStyle.Information, "Add Test Report")
                     Exit Sub
                 End If
 
-                SQL = "Select " &
+                query = "Select " &
                 "strAIRSNumber " &
-                "from AIRBRANCH.APBMasterAIRS " &
-                "where strAIRSNumber = '0413" & AIRSNumber & "' "
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-                dr.Close()
-                If recExist = False Then
+                "from APBMasterAIRS " &
+                "where strAIRSNumber = @airs "
+
+                Dim p2 As New SqlParameter("@airs", "0413" & AIRSNumber)
+
+                If Not DB.ValueExists(query, p2) Then
                     MsgBox("This AIRS Number does not exist in the system.", MsgBoxStyle.Information, "Add Test Report")
                     Exit Sub
                 End If
 
-                SQL = "Insert into AIRBRANCH.ISMPMaster " &
-                "values " &
-                "('" & RefNum & "', '0413" & AIRSNumber & "', " &
-                "'" & CurrentUser.UserID & "', '" & OracleDate & "') "
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                dr.Close()
+                query = "Insert into ISMPMaster " &
+                    "(STRREFERENCENUMBER, STRAIRSNUMBER, STRMODIFINGPERSON, DATMODIFINGDATE) " &
+                    "values " &
+                    "(@ref, @airs, @user, getdate()) "
 
-                SQL = "Insert into AIRBRANCH.ISMPReportInformation " &
-                "values " &
-                "('" & RefNum & "', '00001', " &
-                "'N/A', '001', " &
-                "'001', 'N/A', " &
-                "'00001', '329', " &
-                "'0', '0', " &
-                "'12', '" & DateReceived & "', " &
-                "'0', '04-Jul-1776', " &
-                "'04-Jul-1776', '" & DateReceived & "', " &
-                "'" & DateCompleted & "', " &
-                "'Historical Test report added to IAIP, assigned to Richard Taylor - Chemical & VOC Source Monitoring Unit', " &
-                "'False', '" & Replace(Commissioner, "'", "''") & "', " &
-                "'" & Replace(Director, "'", "''") & "', '" & Replace(ProgramManager, "'", "''") & "', " &
-                "'01', '0', " &
-                "'" & CurrentUser.UserID & "', '" & OracleDate & "', " &
-                "'N/A', '', " &
-                "'', '', " &
-                "'', '', '') "
+                Dim p3 As SqlParameter() = {
+                    New SqlParameter("@ref", RefNum),
+                    New SqlParameter("@airs", "0413" & AIRSNumber),
+                    New SqlParameter("@user", CurrentUser.UserID)
+                }
+                DB.RunCommand(query, p3)
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                dr.Close()
+                query = "Insert into ISMPReportInformation " &
+                   "(strReferenceNumber, strPollutant, strEmissionSource, " &
+                   "strReportType, strDocumentType, strApplicableRequirement, " &
+                   "strTestingFirm, strReviewingEngineer, strWitnessingEngineer, " &
+                   "strWitnessingEngineer2, strReviewingUnit, datReviewedbyUnitManager, " &
+                   "strComplianceManager, datTestDateStart, datTestDateEnd, " &
+                   "datReceivedDate, datCompleteDate, mmoCommentArea, " &
+                   "strClosed, strDirector, strCommissioner, " &
+                   "strProgramManager, strComplianceStatus, strcc, " &
+                   "strModifingPerson, datModifingDate, strControlEquipmentData) " &
+               "values " &
+                "(@strReferenceNumber, '00001', 'N/A', " &
+                "'001', '001', 'N/A', " &
+                "'00001', '329', '0', " &
+                "'0', '12', @DateReceived, " &
+                "'0', '04-Jul-1776', '04-Jul-1776', " &
+                "@DateReceived , @DateCompleted, 'Historical Test report added to IAIP', " &
+                "'False', @Director, @Commissioner, " &
+                "@ProgramManager, '01', '0', " &
+                "@user,  GETDATE() , 'N/A') "
+
+                Dim p4 As SqlParameter() = {
+                    New SqlParameter("@strReferenceNumber", RefNum),
+                    New SqlParameter("@DateReceived", DateReceived),
+                    New SqlParameter("@DateCompleted", DateCompleted),
+                    New SqlParameter("@Commissioner", Commissioner),
+                    New SqlParameter("@Director", Director),
+                    New SqlParameter("@ProgramManager", ProgramManager),
+                    New SqlParameter("@user", CurrentUser.UserID)
+                }
+
+                DB.RunCommand(query, p4)
 
                 bgw1.WorkerReportsProgress = True
                 bgw1.WorkerSupportsCancellation = True
@@ -2524,11 +2015,11 @@ Public Class ISMPTestReportAdministrative
 
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub btnClearAddTestReport_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClearAddTestReport.Click
+    Private Sub btnClearAddTestReport_Click(sender As Object, e As EventArgs) Handles btnClearAddTestReport.Click
         Try
             txtAddTestReportRefNum.Clear()
             txtAddTestReportRefNum.BackColor = Color.White
@@ -2540,24 +2031,23 @@ Public Class ISMPTestReportAdministrative
             txtAddTestReportProgramManager.BackColor = Color.White
             mtbAddTestReportAIRSNumber.Clear()
             mtbAddTestReportAIRSNumber.BackColor = Color.White
-            dtpAddTestReportDateReceived.Text = OracleDate
+            dtpAddTestReportDateReceived.Value = Today
             dtpAddTestReportDateReceived.BackColor = Color.White
-            DTPAddTestReportDateCompleted.Text = OracleDate
+            DTPAddTestReportDateCompleted.Value = Today
             DTPAddTestReportDateCompleted.BackColor = Color.White
 
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub bgw1_DoWork(ByVal sender As Object, ByVal e As System.ComponentModel.DoWorkEventArgs) Handles bgw1.DoWork
+    Private Sub bgw1_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles bgw1.DoWork
         FillDateGrid()
     End Sub
 
-    Private Sub bgw1_RunWorkerCompleted(ByVal sender As Object, ByVal e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bgw1.RunWorkerCompleted
-        dgvFacilityInfo.DataSource = dsGrid
-        dgvFacilityInfo.DataMember = "Grid"
+    Private Sub bgw1_RunWorkerCompleted(sender As Object, e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bgw1.RunWorkerCompleted
+        dgvFacilityInfo.DataSource = dtGrid
 
         dgvFacilityInfo.RowHeadersVisible = False
         dgvFacilityInfo.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -2567,51 +2057,36 @@ Public Class ISMPTestReportAdministrative
         dgvFacilityInfo.AllowUserToOrderColumns = True
         dgvFacilityInfo.AllowUserToResizeRows = True
         dgvFacilityInfo.Columns("strReferenceNumber").HeaderText = "Reference #"
-        'dgvFacilityInfo.Columns("strReferenceNumber").AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader
         dgvFacilityInfo.Columns("strReferenceNumber").DisplayIndex = 0
         dgvFacilityInfo.Columns("StrAIRSNumber").HeaderText = "AIRS #"
-        'dgvFacilityInfo.Columns("StrAIRSNumber").AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader
         dgvFacilityInfo.Columns("StrAIRSNumber").DisplayIndex = 1
         dgvFacilityInfo.Columns("strFacilityName").HeaderText = "Facility Name"
-        'dgvFacilityInfo.Columns("strFacilityName").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
         dgvFacilityInfo.Columns("strFacilityName").DisplayIndex = 2
         dgvFacilityInfo.Columns("forDatReceivedDate").HeaderText = "Received Date"
-        'dgvFacilityInfo.Columns("forDatReceivedDate").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
         dgvFacilityInfo.Columns("forDatReceivedDate").DisplayIndex = 3
         dgvFacilityInfo.Columns("forDatTestDateStart").HeaderText = "Date Test Started"
-        'dgvFacilityInfo.Columns("forDatTestDateStart").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
         dgvFacilityInfo.Columns("forDatTestDateStart").DisplayIndex = 4
         dgvFacilityInfo.Columns("strDocumentType").HeaderText = "Document Type"
-        'dgvFacilityInfo.Columns("strDocumentType").AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
         dgvFacilityInfo.Columns("strDocumentType").DisplayIndex = 5
     End Sub
 
-
-    Private Sub btnCloseHistoricTestReport_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnCloseHistoricTestReport.Click
+    Private Sub btnCloseHistoricTestReport_Click(sender As Object, e As EventArgs) Handles btnCloseHistoricTestReport.Click
         Try
             If txtCloseTestReportRefNum.Text <> "" Then
-                SQL = "Select " &
+                query = "Select " &
                 "strReferenceNumber " &
-                "from AIRBRANCH.ISMPReportInformation " &
-                "where strReferenceNumber = '" & txtCloseTestReportRefNum.Text & "' "
+                "from ISMPReportInformation " &
+                "where strReferenceNumber = @ref "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-                dr.Close()
-                If recExist = True Then
-                    SQL = "Update AIRBRANCH.ISMPReportInformation set " &
+                Dim p As New SqlParameter("@ref", txtCloseTestReportRefNum.Text)
+
+                If DB.ValueExists(query, p) Then
+                    query = "Update ISMPReportInformation set " &
                     "strClosed = 'True' " &
-                    "where strReferenceNumber = '" & txtCloseTestReportRefNum.Text & "' "
-                    cmd = New OracleCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    dr.Close()
+                    "where strReferenceNumber = @ref "
+
+                    DB.RunCommand(query, p)
+
                     bgw1.WorkerReportsProgress = True
                     bgw1.WorkerSupportsCancellation = True
                     bgw1.RunWorkerAsync()
@@ -2622,35 +2097,27 @@ Public Class ISMPTestReportAdministrative
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub btnReOpenHistoricTestReport_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnReOpenHistoricTestReport.Click
+    Private Sub btnReOpenHistoricTestReport_Click(sender As Object, e As EventArgs) Handles btnReOpenHistoricTestReport.Click
         Try
             If txtCloseTestReportRefNum.Text <> "" Then
-                SQL = "Select " &
+                query = "Select " &
                 "strReferenceNumber " &
-                "from AIRBRANCH.ISMPReportInformation " &
-                "where strReferenceNumber = '" & txtCloseTestReportRefNum.Text & "' "
+                "from ISMPReportInformation " &
+                "where strReferenceNumber = @ref "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-                dr.Close()
-                If recExist = True Then
-                    SQL = "Update AIRBRANCH.ISMPReportInformation set " &
+                Dim p As New SqlParameter("@ref", txtCloseTestReportRefNum.Text)
+
+                If DB.ValueExists(query, p) Then
+                    query = "Update ISMPReportInformation set " &
                     "strClosed = 'False' " &
-                    "where strReferenceNumber = '" & txtCloseTestReportRefNum.Text & "' "
-                    cmd = New OracleCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    dr.Close()
+                    "where strReferenceNumber = @ref "
+
+                    DB.RunCommand(query, p)
+
                     bgw1.WorkerReportsProgress = True
                     bgw1.WorkerSupportsCancellation = True
                     bgw1.RunWorkerAsync()
@@ -2661,21 +2128,20 @@ Public Class ISMPTestReportAdministrative
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub btnOpenTestReport_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOpenTestReport.Click
+    Private Sub btnOpenTestReport_Click(sender As Object, e As EventArgs) Handles btnOpenTestReport.Click
         Try
             Dim id As String = txtAddTestReportRefNum.Text
             If DAL.Ismp.StackTestExists(id) Then OpenMultiForm(ISMPTestReports, id)
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-
-    Private Sub btnSearchForAIRS_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSearchForAIRS.Click
+    Private Sub btnSearchForAIRS_Click(sender As Object, e As EventArgs) Handles btnSearchForAIRS.Click
         Try
             If cboAIRSNumber.Text <> "" And cboAIRSNumber.Text.Length = 8 Then
                 cboFacilityName.Text = ""
@@ -2684,20 +2150,17 @@ Public Class ISMPTestReportAdministrative
                 txtFacilityState.Clear()
                 txtFacilityZipCode.Clear()
 
-                SQL = "select " &
+                query = "select " &
                 "strFacilityName, strFacilityStreet1, " &
                 "strFacilityCity, " &
                 "strFacilityState, strFacilityZipcode " &
-                "from AIRBRANCH.APBFacilityInformation " &
-                "where strAIRSNumber = '0413" & cboAIRSNumber.Text & "' "
+                "from APBFacilityInformation " &
+                "where strAIRSNumber = @airs "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-                If recExist = True Then
+                Dim p As New SqlParameter("@airs", "0413" & cboAIRSNumber.Text)
+
+                Dim dr As DataRow = DB.GetDataRow(query, p)
+                If dr IsNot Nothing Then
                     If IsDBNull(dr.Item("strFacilityName")) Then
                         cboFacilityName.Text = ""
                     Else
@@ -2724,29 +2187,23 @@ Public Class ISMPTestReportAdministrative
                         txtFacilityZipCode.Text = dr.Item("strFacilityZipCode")
                     End If
                 End If
-                dr.Close()
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
+    Private Sub btnLoadCombos_Click(sender As Object, e As EventArgs) Handles btnLoadCombos.Click
+        btnSearchForAIRS.Visible = False
+        cboAIRSNumber.Text = ""
+        cboFacilityName.Text = ""
+        txtFacilityAddress.Clear()
+        txtFacilityCity.Clear()
+        txtFacilityState.Clear()
+        txtFacilityZipCode.Clear()
 
-    Private Sub btnLoadCombos_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnLoadCombos.Click
-        Try
-            btnSearchForAIRS.Visible = False
-            cboAIRSNumber.Text = ""
-            cboFacilityName.Text = ""
-            txtFacilityAddress.Clear()
-            txtFacilityCity.Clear()
-            txtFacilityState.Clear()
-            txtFacilityZipCode.Clear()
-
-            FillFacilityDataSet()
-            FillFacilityAndAIRSCombos()
-        Catch ex As Exception
-
-        End Try
+        FillFacilityAndAIRSCombos()
     End Sub
+
 End Class

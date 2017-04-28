@@ -25,7 +25,6 @@ Partial Class SBEAPMiscTools
         Me.dgvMiscTools = New System.Windows.Forms.DataGridView()
         Me.pnlMiscTools = New System.Windows.Forms.Panel()
         Me.ExportToExcel = New System.Windows.Forms.Button()
-        Me.Label6 = New System.Windows.Forms.Label()
         Me.txtCount = New System.Windows.Forms.TextBox()
         Me.lblCount = New System.Windows.Forms.Label()
         Me.btnGetContactData = New System.Windows.Forms.Button()
@@ -45,7 +44,6 @@ Partial Class SBEAPMiscTools
         'pnlMiscTools
         '
         Me.pnlMiscTools.Controls.Add(Me.ExportToExcel)
-        Me.pnlMiscTools.Controls.Add(Me.Label6)
         Me.pnlMiscTools.Controls.Add(Me.txtCount)
         Me.pnlMiscTools.Controls.Add(Me.lblCount)
         Me.pnlMiscTools.Controls.Add(Me.btnGetContactData)
@@ -64,15 +62,6 @@ Partial Class SBEAPMiscTools
         Me.ExportToExcel.TabIndex = 5
         Me.ExportToExcel.Text = "Export to Excel"
         Me.ExportToExcel.UseVisualStyleBackColor = True
-        '
-        'Label6
-        '
-        Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(118, 22)
-        Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(264, 13)
-        Me.Label6.TabIndex = 4
-        Me.Label6.Text = "WARNING - This tool may take several minutes to run."
         '
         'txtCount
         '
@@ -112,7 +101,7 @@ Partial Class SBEAPMiscTools
         Me.Controls.Add(Me.pnlMiscTools)
         Me.MinimumSize = New System.Drawing.Size(677, 341)
         Me.Name = "SBEAPMiscTools"
-        Me.Text = "SBEAP Miscellaneous Tools"
+        Me.Text = "SBEAP Contact Data"
         CType(Me.dgvMiscTools, System.ComponentModel.ISupportInitialize).EndInit()
         Me.pnlMiscTools.ResumeLayout(False)
         Me.pnlMiscTools.PerformLayout()
@@ -124,6 +113,5 @@ Partial Class SBEAPMiscTools
     Friend WithEvents btnGetContactData As System.Windows.Forms.Button
     Friend WithEvents txtCount As System.Windows.Forms.TextBox
     Friend WithEvents lblCount As System.Windows.Forms.Label
-    Friend WithEvents Label6 As System.Windows.Forms.Label
     Friend WithEvents ExportToExcel As System.Windows.Forms.Button
 End Class

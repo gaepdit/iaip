@@ -1,23 +1,24 @@
 ﻿Imports System.Collections.Generic
-Imports Oracle.ManagedDataAccess.Client
+Imports System.Data.SqlClient
 Imports Iaip.Apb.Sspp
+Imports EpdIt
 
 Namespace DAL.Sspp
     Module PermitData
 
 #Region " Read "
 
-        Public Function PermitExists(ByVal permitNumber As String) As Boolean
-            Dim query As String = "SELECT '" & Boolean.TrueString & "' " &
-                " FROM AIRBRANCH.APBISSUEDPERMIT " &
-                " WHERE RowNum = 1 " &
-                " AND STRPERMITNUMBER = :permitnumber "
-            Dim parameter As New OracleParameter("permitnumber", permitNumber)
+        Public Function PermitExists(permitNumber As String) As Boolean
+            Dim query As String = "SELECT CONVERT( bit, COUNT(*)) " &
+                " FROM APBISSUEDPERMIT " &
+                " WHERE STRPERMITNUMBER = @permitnumber "
+
+            Dim parameter As New SqlParameter("@permitnumber", permitNumber)
 
             Return DB.GetBoolean(query, parameter)
         End Function
 
-        Public Function GetPermit(ByVal permitNumber As String) As Permit
+        Public Function GetPermit(permitNumber As String) As Permit
             Dim query As String =
                 " SELECT ISSUEDPERMITID, " &
                 "   STRAIRSNUMBER, " &
@@ -26,17 +27,17 @@ Namespace DAL.Sspp
                 "   DATREVOKED, " &
                 "   ACTIVE, " &
                 "   PERMITTYPECODE " &
-                " FROM AIRBRANCH.APBISSUEDPERMIT " &
-                " WHERE STRPERMITNUMBER = :permitnumber " &
+                " FROM APBISSUEDPERMIT " &
+                " WHERE STRPERMITNUMBER = @permitnumber " &
                 " ORDER BY DATISSUED DESC"
 
-            Dim parameter As New OracleParameter("permitnumber", permitNumber)
+            Dim parameter As New SqlParameter("@permitnumber", permitNumber)
             Dim dr As DataRow = DB.GetDataRow(query, parameter)
 
             Return GetPermitFromDataRow(dr)
         End Function
 
-        Public Function GetActivePermitsAsList(ByVal airsNumber As String) As List(Of Permit)
+        Public Function GetActivePermitsAsList(airsNumber As String) As List(Of Permit)
 
             Dim permitList As New List(Of Permit)
             Dim permit As New Permit
@@ -51,7 +52,7 @@ Namespace DAL.Sspp
             Return permitList
         End Function
 
-        Public Function GetActivePermitsAsTable(ByVal airsNumber As String) As DataTable
+        Public Function GetActivePermitsAsTable(airsNumber As String) As DataTable
             Dim query As String =
                 " SELECT ISSUEDPERMITID, " &
                 "   STRAIRSNUMBER, " &
@@ -61,25 +62,25 @@ Namespace DAL.Sspp
                 "   UPDATEDBY, " &
                 "   ACTIVE, " &
                 "   PERMITTYPECODE " &
-                " FROM AIRBRANCH.APBISSUEDPERMIT " &
-                " WHERE STRAIRSNUMBER = :airsnumber " &
+                " FROM APBISSUEDPERMIT " &
+                " WHERE STRAIRSNUMBER = @airsnumber " &
                 " AND ACTIVE = '1' " &
-                " ORDER BY DATISSUED Nulls FIRST "
+                " ORDER BY DATISSUED "
 
-            Dim parameter As New OracleParameter("airsnumber", airsNumber)
+            Dim parameter As New SqlParameter("@airsnumber", airsNumber)
             Return DB.GetDataTable(query, parameter)
         End Function
 
-        Private Function GetPermitFromDataRow(ByVal row As DataRow) As Permit
+        Private Function GetPermitFromDataRow(row As DataRow) As Permit
             Dim permit As New Permit
             With permit
-                .Active = Convert.ToBoolean(Convert.ToInt32(DB.GetNullable(Of String)(row("ACTIVE"))))
-                .AirsNumber = DB.GetNullable(Of String)(row("STRAIRSNUMBER"))
-                .ID = DB.GetNullable(Of String)(row("ISSUEDPERMITID"))
-                .IssuedDate = DB.GetNullable(Of Date)(row("DATISSUED"))
-                .PermitNumber = DB.GetNullable(Of String)(row("STRPERMITNUMBER"))
-                .PermitTypeCode = DB.GetNullable(Of String)(row("PERMITTYPECODE"))
-                .RevokedDate = DB.GetNullable(Of Date?)(row("DATREVOKED"))
+                .Active = ConvertDBValueToBoolean(DBUtilities.GetNullable(Of String)(row("ACTIVE")), BooleanDBConversionType.OneOrZero)
+                .AirsNumber = DBUtilities.GetNullable(Of String)(row("STRAIRSNUMBER"))
+                .ID = DBUtilities.GetNullable(Of String)(row("ISSUEDPERMITID"))
+                .IssuedDate = DBUtilities.GetNullable(Of Date)(row("DATISSUED"))
+                .PermitNumber = DBUtilities.GetNullable(Of String)(row("STRPERMITNUMBER"))
+                .PermitTypeCode = DBUtilities.GetNullable(Of String)(row("PERMITTYPECODE"))
+                .RevokedDate = DBUtilities.GetNullable(Of Date?)(row("DATREVOKED"))
             End With
             Return permit
         End Function
@@ -88,37 +89,37 @@ Namespace DAL.Sspp
 
 #Region " Write "
 
-        Public Function UpdatePermits(ByVal permits As List(Of Permit)) As Boolean
+        Public Function UpdatePermits(permits As List(Of Permit)) As Boolean
             If permits Is Nothing OrElse permits.Count = 0 Then Return False
 
             Dim query As String =
-                " UPDATE AIRBRANCH.APBISSUEDPERMIT " &
-                " SET STRAIRSNUMBER    = :AirsNumber, " &
-                "   STRPERMITNUMBER    = :PermitNumber, " &
-                "   DATISSUED          = :IssuedDate, " &
-                "   DATREVOKED         = :RevokedDate, " &
-                "   UPDATEDATE         = :UpdateDate, " &
-                "   UPDATEDBY          = :UpdatedBy, " &
-                "   ACTIVE             = :Active, " &
-                "   PERMITTYPECODE     = :PermitTypeCode " &
-                " WHERE ISSUEDPERMITID = :ID "
+                " UPDATE APBISSUEDPERMIT " &
+                " SET STRAIRSNUMBER    = @AirsNumber, " &
+                "   STRPERMITNUMBER    = @PermitNumber, " &
+                "   DATISSUED          = @IssuedDate, " &
+                "   DATREVOKED         = @RevokedDate, " &
+                "   UPDATEDATE         = @UpdateDate, " &
+                "   UPDATEDBY          = @UpdatedBy, " &
+                "   ACTIVE             = @Active, " &
+                "   PERMITTYPECODE     = @PermitTypeCode " &
+                " WHERE ISSUEDPERMITID = @ID "
 
             Dim queryList As New List(Of String)
-            Dim parametersList As New List(Of OracleParameter())
-            Dim parameters As OracleParameter()
+            Dim parametersList As New List(Of SqlParameter())
+            Dim parameters As SqlParameter()
 
             For Each permit As Permit In permits
                 queryList.Add(query)
-                parameters = New OracleParameter() {
-                    New OracleParameter("AirsNumber", permit.AirsNumber),
-                    New OracleParameter("PermitNumber", permit.PermitNumber),
-                    New OracleParameter("IssuedDate", permit.IssuedDate),
-                    New OracleParameter("RevokedDate", permit.RevokedDate),
-                    New OracleParameter("UpdateDate", Date.Now),
-                    New OracleParameter("UpdatedBy", CurrentUser.UserID),
-                    New OracleParameter("Active", Convert.ToInt32(permit.Active)),
-                    New OracleParameter("PermitTypeCode", permit.PermitTypeCode),
-                    New OracleParameter("ID", permit.ID)
+                parameters = New SqlParameter() {
+                    New SqlParameter("@AirsNumber", permit.AirsNumber),
+                    New SqlParameter("@PermitNumber", permit.PermitNumber),
+                    New SqlParameter("@IssuedDate", permit.IssuedDate),
+                    New SqlParameter("@RevokedDate", permit.RevokedDate),
+                    New SqlParameter("@UpdateDate", Date.Now),
+                    New SqlParameter("@UpdatedBy", CurrentUser.UserID),
+                    New SqlParameter("@Active", ConvertBooleanToDBValue(permit.Active, BooleanDBConversionType.OneOrZero)),
+                    New SqlParameter("@PermitTypeCode", permit.PermitTypeCode),
+                    New SqlParameter("@ID", permit.ID)
                 }
                 parametersList.Add(parameters)
             Next
@@ -126,19 +127,19 @@ Namespace DAL.Sspp
             Return DB.RunCommand(queryList, parametersList)
         End Function
 
-        Public Function UpdatePermit(ByVal permit As Permit) As Boolean
+        Public Function UpdatePermit(permit As Permit) As Boolean
             If permit Is Nothing Then Return False
             Dim permitList As New List(Of Permit)
             permitList.Add(permit)
             Return UpdatePermits(permitList)
         End Function
 
-        Public Function AddPermit(ByVal permit As Permit) As Boolean
+        Public Function AddPermit(permit As Permit) As Boolean
             If permit Is Nothing Then Return False
 
             Dim query As String =
                 " INSERT " &
-                " INTO AIRBRANCH.APBISSUEDPERMIT " &
+                " INTO APBISSUEDPERMIT " &
                 "   ( " &
                 "     ISSUEDPERMITID, " &
                 "     STRAIRSNUMBER, " &
@@ -152,32 +153,58 @@ Namespace DAL.Sspp
                 "     ACTIVE, " &
                 "     PERMITTYPECODE " &
                 "   ) " &
-                "   VALUES " &
-                "   ( " &
-                "     AIRBRANCH.PERMITID_SEQ.NEXTVAL, " &
-                "     :AirsNumber, " &
-                "     :PermitNumber, " &
-                "     :IssuedDate, " &
-                "     :RevokedDate, " &
-                "     :CreateDate, " &
-                "     :CreatedBy, " &
-                "     :UpdateDate, " &
-                "     :UpdatedBy, " &
-                "     :Active, " &
-                "     :PermitTypeCode " &
-                "   ) "
+                "   select " &
+                "     next value for PERMITID_SEQ, " &
+                "     @AirsNumber, " &
+                "     @PermitNumber, " &
+                "     @IssuedDate, " &
+                "     @RevokedDate, " &
+                "     @CreateDate, " &
+                "     @CreatedBy, " &
+                "     @UpdateDate, " &
+                "     @UpdatedBy, " &
+                "     @Active, " &
+                "     @PermitTypeCode "
 
-            Dim parameters As OracleParameter() = {
-                New OracleParameter("AirsNumber", permit.AirsNumber),
-                New OracleParameter("PermitNumber", permit.PermitNumber),
-                New OracleParameter("IssuedDate", permit.IssuedDate),
-                New OracleParameter("RevokedDate", permit.RevokedDate),
-                New OracleParameter("CreateDate", Date.Now),
-                New OracleParameter("CreatedBy", CurrentUser.UserID),
-                New OracleParameter("UpdateDate", Date.Now),
-                New OracleParameter("UpdatedBy", CurrentUser.UserID),
-                New OracleParameter("Active", Convert.ToInt32(permit.Active)),
-                New OracleParameter("PermitTypeCode", permit.PermitTypeCode)
+            Dim parameters As SqlParameter() = {
+                New SqlParameter("@AirsNumber", permit.AirsNumber),
+                New SqlParameter("@PermitNumber", permit.PermitNumber),
+                New SqlParameter("@IssuedDate", permit.IssuedDate),
+                New SqlParameter("@RevokedDate", permit.RevokedDate),
+                New SqlParameter("@CreateDate", Date.Now),
+                New SqlParameter("@CreatedBy", CurrentUser.UserID),
+                New SqlParameter("@UpdateDate", Date.Now),
+                New SqlParameter("@UpdatedBy", CurrentUser.UserID),
+                New SqlParameter("@Active", ConvertBooleanToDBValue(permit.Active, BooleanDBConversionType.OneOrZero)),
+                New SqlParameter("@PermitTypeCode", permit.PermitTypeCode)
+            }
+
+            Return DB.RunCommand(query, parameters, forceAddNullableParameters:=True)
+        End Function
+
+        Public Function RevokePermits(permits As List(Of Permit), revocationDate As Date) As Boolean
+            If permits Is Nothing OrElse permits.Count = 0 Then Return False
+
+            Dim permitIds As New List(Of Integer)
+
+            For Each permit As Permit In permits
+                permitIds.Add(permit.ID)
+            Next
+
+            Dim query As String =
+                " UPDATE APBISSUEDPERMIT " &
+                " SET DATREVOKED = @RevokedDate, " &
+                "   UPDATEDATE = @UpdateDate, " &
+                "   UPDATEDBY = @UpdatedBy, " &
+                "   ACTIVE = @Active " &
+                " WHERE ISSUEDPERMITID IN (SELECT * FROM @ids) "
+
+            Dim parameters As SqlParameter() = {
+                New SqlParameter("@RevokedDate", revocationDate),
+                New SqlParameter("@UpdateDate", Date.Now),
+                New SqlParameter("@UpdatedBy", CurrentUser.UserID),
+                New SqlParameter("@Active", ConvertBooleanToDBValue(False, BooleanDBConversionType.OneOrZero)),
+                permitIds.AsTvpSqlParameter("@ids")
             }
 
             Return DB.RunCommand(query, parameters)

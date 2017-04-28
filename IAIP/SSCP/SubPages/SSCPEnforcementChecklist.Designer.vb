@@ -33,10 +33,8 @@ Partial Class SSCPEnforcementChecklist
     Friend WithEvents chbReports As System.Windows.Forms.CheckBox
     Friend WithEvents chbPerformanceTests As System.Windows.Forms.CheckBox
     Friend WithEvents chbInspections As System.Windows.Forms.CheckBox
-    Friend WithEvents chbAllWork As System.Windows.Forms.CheckBox
     Friend WithEvents txtWorkCount As System.Windows.Forms.TextBox
     Friend WithEvents Label8 As System.Windows.Forms.Label
-    Friend WithEvents dgrComplianceEvents As System.Windows.Forms.DataGrid
     Friend WithEvents DTPEndDate As System.Windows.Forms.DateTimePicker
     Friend WithEvents DTPStartDate As System.Windows.Forms.DateTimePicker
     Friend WithEvents Label5 As System.Windows.Forms.Label
@@ -44,8 +42,6 @@ Partial Class SSCPEnforcementChecklist
     Friend WithEvents chbFilterDates As System.Windows.Forms.CheckBox
     Friend WithEvents Panel6 As System.Windows.Forms.Panel
     Friend WithEvents btnRunFilter As System.Windows.Forms.Button
-    Friend WithEvents Panel5 As System.Windows.Forms.Panel
-    Friend WithEvents chbWorkType As System.Windows.Forms.CheckBox
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents Panel4 As System.Windows.Forms.Panel
     Friend WithEvents OpenFilterOptions As System.Windows.Forms.CheckBox
@@ -57,6 +53,7 @@ Partial Class SSCPEnforcementChecklist
 
 
     <System.Diagnostics.DebuggerStepThrough()> Private Sub InitializeComponent()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.Panel4 = New System.Windows.Forms.Panel()
         Me.OpenFilterOptions = New System.Windows.Forms.CheckBox()
         Me.Cancel = New System.Windows.Forms.Button()
@@ -65,7 +62,6 @@ Partial Class SSCPEnforcementChecklist
         Me.Label1 = New System.Windows.Forms.Label()
         Me.EnforcementInfo = New System.Windows.Forms.Label()
         Me.FacilityInfo = New System.Windows.Forms.Label()
-        Me.dgrComplianceEvents = New System.Windows.Forms.DataGrid()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.txtWorkCount = New System.Windows.Forms.TextBox()
         Me.Panel6 = New System.Windows.Forms.Panel()
@@ -75,19 +71,16 @@ Partial Class SSCPEnforcementChecklist
         Me.Label4 = New System.Windows.Forms.Label()
         Me.chbFilterDates = New System.Windows.Forms.CheckBox()
         Me.btnRunFilter = New System.Windows.Forms.Button()
-        Me.chbWorkType = New System.Windows.Forms.CheckBox()
-        Me.Panel5 = New System.Windows.Forms.Panel()
         Me.chbInspections = New System.Windows.Forms.CheckBox()
         Me.chbPerformanceTests = New System.Windows.Forms.CheckBox()
         Me.chbReports = New System.Windows.Forms.CheckBox()
         Me.chbACCs = New System.Windows.Forms.CheckBox()
-        Me.chbAllWork = New System.Windows.Forms.CheckBox()
         Me.FilterOptionsPanel = New System.Windows.Forms.Panel()
+        Me.dgvComplianceEvents = New System.Windows.Forms.DataGridView()
         Me.Panel4.SuspendLayout()
-        CType(Me.dgrComplianceEvents, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel6.SuspendLayout()
-        Me.Panel5.SuspendLayout()
         Me.FilterOptionsPanel.SuspendLayout()
+        CType(Me.dgvComplianceEvents, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'Panel4
@@ -137,10 +130,10 @@ Partial Class SSCPEnforcementChecklist
         'TrackingNumberDisplay
         '
         Me.TrackingNumberDisplay.AutoSize = True
-        Me.TrackingNumberDisplay.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TrackingNumberDisplay.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TrackingNumberDisplay.Location = New System.Drawing.Point(191, 65)
         Me.TrackingNumberDisplay.Name = "TrackingNumberDisplay"
-        Me.TrackingNumberDisplay.Size = New System.Drawing.Size(16, 17)
+        Me.TrackingNumberDisplay.Size = New System.Drawing.Size(17, 17)
         Me.TrackingNumberDisplay.TabIndex = 3
         Me.TrackingNumberDisplay.Text = "#"
         '
@@ -176,21 +169,10 @@ Partial Class SSCPEnforcementChecklist
         Me.FacilityInfo.Text = "Facility"
         Me.FacilityInfo.TextAlign = System.Drawing.ContentAlignment.BottomLeft
         '
-        'dgrComplianceEvents
-        '
-        Me.dgrComplianceEvents.DataMember = ""
-        Me.dgrComplianceEvents.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.dgrComplianceEvents.HeaderForeColor = System.Drawing.SystemColors.ControlText
-        Me.dgrComplianceEvents.Location = New System.Drawing.Point(0, 380)
-        Me.dgrComplianceEvents.Name = "dgrComplianceEvents"
-        Me.dgrComplianceEvents.ReadOnly = True
-        Me.dgrComplianceEvents.Size = New System.Drawing.Size(367, 122)
-        Me.dgrComplianceEvents.TabIndex = 2
-        '
         'Label8
         '
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(266, 190)
+        Me.Label8.Location = New System.Drawing.Point(266, 161)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(73, 13)
         Me.Label8.TabIndex = 289
@@ -198,7 +180,7 @@ Partial Class SSCPEnforcementChecklist
         '
         'txtWorkCount
         '
-        Me.txtWorkCount.Location = New System.Drawing.Point(266, 206)
+        Me.txtWorkCount.Location = New System.Drawing.Point(266, 177)
         Me.txtWorkCount.Name = "txtWorkCount"
         Me.txtWorkCount.ReadOnly = True
         Me.txtWorkCount.Size = New System.Drawing.Size(90, 20)
@@ -211,7 +193,7 @@ Partial Class SSCPEnforcementChecklist
         Me.Panel6.Controls.Add(Me.DTPStartDate)
         Me.Panel6.Controls.Add(Me.Label5)
         Me.Panel6.Controls.Add(Me.Label4)
-        Me.Panel6.Location = New System.Drawing.Point(17, 151)
+        Me.Panel6.Location = New System.Drawing.Point(17, 122)
         Me.Panel6.Name = "Panel6"
         Me.Panel6.Size = New System.Drawing.Size(237, 75)
         Me.Panel6.TabIndex = 3
@@ -259,7 +241,7 @@ Partial Class SSCPEnforcementChecklist
         'chbFilterDates
         '
         Me.chbFilterDates.AutoSize = True
-        Me.chbFilterDates.Location = New System.Drawing.Point(12, 142)
+        Me.chbFilterDates.Location = New System.Drawing.Point(12, 113)
         Me.chbFilterDates.Name = "chbFilterDates"
         Me.chbFilterDates.Size = New System.Drawing.Size(98, 17)
         Me.chbFilterDates.TabIndex = 2
@@ -274,34 +256,9 @@ Partial Class SSCPEnforcementChecklist
         Me.btnRunFilter.TabIndex = 4
         Me.btnRunFilter.Text = "Run Filter"
         '
-        'chbWorkType
-        '
-        Me.chbWorkType.AutoSize = True
-        Me.chbWorkType.Checked = True
-        Me.chbWorkType.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chbWorkType.Location = New System.Drawing.Point(12, 6)
-        Me.chbWorkType.Name = "chbWorkType"
-        Me.chbWorkType.Size = New System.Drawing.Size(79, 17)
-        Me.chbWorkType.TabIndex = 0
-        Me.chbWorkType.Text = "Work Type"
-        '
-        'Panel5
-        '
-        Me.Panel5.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.Panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Panel5.Controls.Add(Me.chbInspections)
-        Me.Panel5.Controls.Add(Me.chbPerformanceTests)
-        Me.Panel5.Controls.Add(Me.chbReports)
-        Me.Panel5.Controls.Add(Me.chbACCs)
-        Me.Panel5.Controls.Add(Me.chbAllWork)
-        Me.Panel5.Location = New System.Drawing.Point(16, 14)
-        Me.Panel5.Name = "Panel5"
-        Me.Panel5.Size = New System.Drawing.Size(238, 113)
-        Me.Panel5.TabIndex = 1
-        '
         'chbInspections
         '
-        Me.chbInspections.Location = New System.Drawing.Point(16, 44)
+        Me.chbInspections.Location = New System.Drawing.Point(12, 34)
         Me.chbInspections.Name = "chbInspections"
         Me.chbInspections.Size = New System.Drawing.Size(104, 24)
         Me.chbInspections.TabIndex = 2
@@ -309,7 +266,7 @@ Partial Class SSCPEnforcementChecklist
         '
         'chbPerformanceTests
         '
-        Me.chbPerformanceTests.Location = New System.Drawing.Point(16, 63)
+        Me.chbPerformanceTests.Location = New System.Drawing.Point(12, 54)
         Me.chbPerformanceTests.Name = "chbPerformanceTests"
         Me.chbPerformanceTests.Size = New System.Drawing.Size(136, 24)
         Me.chbPerformanceTests.TabIndex = 3
@@ -317,7 +274,7 @@ Partial Class SSCPEnforcementChecklist
         '
         'chbReports
         '
-        Me.chbReports.Location = New System.Drawing.Point(16, 82)
+        Me.chbReports.Location = New System.Drawing.Point(12, 74)
         Me.chbReports.Name = "chbReports"
         Me.chbReports.Size = New System.Drawing.Size(104, 24)
         Me.chbReports.TabIndex = 4
@@ -325,36 +282,47 @@ Partial Class SSCPEnforcementChecklist
         '
         'chbACCs
         '
-        Me.chbACCs.Location = New System.Drawing.Point(16, 26)
+        Me.chbACCs.Location = New System.Drawing.Point(12, 14)
         Me.chbACCs.Name = "chbACCs"
         Me.chbACCs.Size = New System.Drawing.Size(208, 24)
         Me.chbACCs.TabIndex = 1
         Me.chbACCs.Text = "Annual Compliance Certifications"
         '
-        'chbAllWork
-        '
-        Me.chbAllWork.Checked = True
-        Me.chbAllWork.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.chbAllWork.Location = New System.Drawing.Point(16, 8)
-        Me.chbAllWork.Name = "chbAllWork"
-        Me.chbAllWork.Size = New System.Drawing.Size(104, 24)
-        Me.chbAllWork.TabIndex = 0
-        Me.chbAllWork.Text = "All"
-        '
         'FilterOptionsPanel
         '
+        Me.FilterOptionsPanel.Controls.Add(Me.chbInspections)
         Me.FilterOptionsPanel.Controls.Add(Me.chbFilterDates)
-        Me.FilterOptionsPanel.Controls.Add(Me.chbWorkType)
+        Me.FilterOptionsPanel.Controls.Add(Me.chbPerformanceTests)
         Me.FilterOptionsPanel.Controls.Add(Me.txtWorkCount)
+        Me.FilterOptionsPanel.Controls.Add(Me.chbReports)
         Me.FilterOptionsPanel.Controls.Add(Me.Label8)
+        Me.FilterOptionsPanel.Controls.Add(Me.chbACCs)
         Me.FilterOptionsPanel.Controls.Add(Me.Panel6)
         Me.FilterOptionsPanel.Controls.Add(Me.btnRunFilter)
-        Me.FilterOptionsPanel.Controls.Add(Me.Panel5)
         Me.FilterOptionsPanel.Dock = System.Windows.Forms.DockStyle.Top
         Me.FilterOptionsPanel.Location = New System.Drawing.Point(0, 138)
         Me.FilterOptionsPanel.Name = "FilterOptionsPanel"
-        Me.FilterOptionsPanel.Size = New System.Drawing.Size(367, 242)
+        Me.FilterOptionsPanel.Size = New System.Drawing.Size(367, 217)
         Me.FilterOptionsPanel.TabIndex = 1
+        '
+        'dgvComplianceEvents
+        '
+        Me.dgvComplianceEvents.AllowUserToAddRows = False
+        Me.dgvComplianceEvents.AllowUserToDeleteRows = False
+        Me.dgvComplianceEvents.AllowUserToOrderColumns = True
+        Me.dgvComplianceEvents.AllowUserToResizeRows = False
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvComplianceEvents.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        Me.dgvComplianceEvents.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvComplianceEvents.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.dgvComplianceEvents.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
+        Me.dgvComplianceEvents.Location = New System.Drawing.Point(0, 355)
+        Me.dgvComplianceEvents.MultiSelect = False
+        Me.dgvComplianceEvents.Name = "dgvComplianceEvents"
+        Me.dgvComplianceEvents.RowHeadersVisible = False
+        Me.dgvComplianceEvents.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.dgvComplianceEvents.Size = New System.Drawing.Size(367, 147)
+        Me.dgvComplianceEvents.TabIndex = 3
         '
         'SSCPEnforcementChecklist
         '
@@ -362,7 +330,7 @@ Partial Class SSCPEnforcementChecklist
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.CancelButton = Me.Cancel
         Me.ClientSize = New System.Drawing.Size(367, 502)
-        Me.Controls.Add(Me.dgrComplianceEvents)
+        Me.Controls.Add(Me.dgvComplianceEvents)
         Me.Controls.Add(Me.FilterOptionsPanel)
         Me.Controls.Add(Me.Panel4)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow
@@ -371,14 +339,14 @@ Partial Class SSCPEnforcementChecklist
         Me.Text = "Enforcement Linking tool"
         Me.Panel4.ResumeLayout(False)
         Me.Panel4.PerformLayout()
-        CType(Me.dgrComplianceEvents, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel6.ResumeLayout(False)
         Me.Panel6.PerformLayout()
-        Me.Panel5.ResumeLayout(False)
         Me.FilterOptionsPanel.ResumeLayout(False)
         Me.FilterOptionsPanel.PerformLayout()
+        CType(Me.dgvComplianceEvents, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
 
+    Friend WithEvents dgvComplianceEvents As DataGridView
 End Class

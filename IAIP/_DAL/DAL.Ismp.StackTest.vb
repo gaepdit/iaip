@@ -1,6 +1,7 @@
-﻿Imports Oracle.ManagedDataAccess.Client
+﻿Imports System.Data.SqlClient
 Imports Iaip.Apb.Sscp
 Imports System.Collections.Generic
+Imports System.Text.RegularExpressions
 
 Namespace DAL.Ismp
 
@@ -11,14 +12,13 @@ Namespace DAL.Ismp
         ''' </summary>
         ''' <param name="referenceNumber">The stack test reference number to check</param>
         ''' <returns>True if the reference number exists; otherwise, false.</returns>
-        Public Function StackTestExists(ByVal referenceNumber As String) As Boolean
+        Public Function StackTestExists(referenceNumber As String) As Boolean
             If referenceNumber = "" OrElse Not Integer.TryParse(referenceNumber, Nothing) Then Return False
 
-            Dim query As String = "SELECT '" & Boolean.TrueString & "' " &
-                " FROM AIRBRANCH.ISMPREPORTINFORMATION " &
-                " WHERE RowNum = 1 " &
-                " AND STRREFERENCENUMBER = :ReferenceNumber "
-            Dim parameter As New OracleParameter("ReferenceNumber", referenceNumber)
+            Dim query As String = "SELECT CONVERT( bit, COUNT(*)) " &
+                " FROM ISMPREPORTINFORMATION " &
+                " WHERE STRREFERENCENUMBER = @ReferenceNumber "
+            Dim parameter As New SqlParameter("@ReferenceNumber", referenceNumber)
 
             Return DB.GetBoolean(query, parameter)
         End Function
@@ -28,14 +28,13 @@ Namespace DAL.Ismp
         ''' </summary>
         ''' <param name="notificationNumber">The stack test notification number to check</param>
         ''' <returns>True if the notification exists; otherwise, false.</returns>
-        Public Function TestNotificationExists(ByVal notificationNumber As String) As Boolean
+        Public Function TestNotificationExists(notificationNumber As String) As Boolean
             If notificationNumber = "" OrElse Not Integer.TryParse(notificationNumber, Nothing) Then Return False
 
-            Dim query As String = "SELECT '" & Boolean.TrueString & "' " &
-                " FROM AIRBRANCH.ISMPTESTNOTIFICATION " &
-                " WHERE RowNum = 1 " &
-                " AND STRTESTLOGNUMBER = :NotificationNumber "
-            Dim parameter As New OracleParameter("NotificationNumber", notificationNumber)
+            Dim query As String = "SELECT CONVERT( bit, COUNT(*)) " &
+                " FROM ISMPTESTNOTIFICATION " &
+                " WHERE STRTESTLOGNUMBER = @NotificationNumber "
+            Dim parameter As New SqlParameter("@NotificationNumber", notificationNumber)
 
             Return DB.GetBoolean(query, parameter)
         End Function
@@ -45,30 +44,40 @@ Namespace DAL.Ismp
         ''' </summary>
         ''' <param name="referenceNumber">The stack test reference number to check</param>
         ''' <returns>True if the stack test has been closed out; otherwise, false.</returns>
-        Public Function StackTestIsClosedOut(ByVal referenceNumber As String) As Boolean
+        Public Function StackTestIsClosedOut(referenceNumber As String) As Boolean
             If referenceNumber = "" OrElse Not Integer.TryParse(referenceNumber, Nothing) Then Return False
 
             Dim query As String = "SELECT STRCLOSED " &
-                " FROM AIRBRANCH.ISMPREPORTINFORMATION " &
-                " WHERE STRREFERENCENUMBER = :ReferenceNumber "
-            Dim parameter As New OracleParameter("ReferenceNumber", referenceNumber)
+                " FROM ISMPREPORTINFORMATION " &
+                " WHERE STRREFERENCENUMBER = @ReferenceNumber "
+            Dim parameter As New SqlParameter("@ReferenceNumber", referenceNumber)
 
             Return DB.GetBoolean(query, parameter)
         End Function
 
-        Private Function GetStackTestDbTable(ByVal referenceNumber As String) As String
+        Private Function GetStackTestDbTable(referenceNumber As String) As String
             If referenceNumber = "" OrElse Not Integer.TryParse(referenceNumber, Nothing) Then Return Nothing
 
             Dim query As String =
             "SELECT dt.STRTABLENAME " &
-            "FROM AIRBRANCH.ISMPDocumentType dt " &
-            "INNER JOIN AIRBRANCH.ISMPReportInformation ri " &
+            "FROM ISMPDocumentType dt " &
+            "INNER JOIN ISMPReportInformation ri " &
             "ON ri.STRDOCUMENTTYPE = dt.STRKEY " &
-            "WHERE ri.STRREFERENCENUMBER = :ReferenceNumber"
+            "WHERE ri.STRREFERENCENUMBER = @ReferenceNumber"
 
-            Dim parameter As New OracleParameter("ReferenceNumber", referenceNumber)
+            Dim parameter As New SqlParameter("@ReferenceNumber", referenceNumber)
 
-            Return DB.GetSingleValue(Of String)(query, parameter)
+            Return DB.GetString(query, parameter)
+        End Function
+
+        Public Function GetStackTestDocumentType(referenceNumber As String) As String
+            Dim query As String = "SELECT t.STRDOCUMENTTYPE
+                FROM ISMPDOCUMENTTYPE AS t
+                INNER JOIN ISMPREPORTINFORMATION AS i ON i.STRDOCUMENTTYPE = t.STRKEY
+                WHERE i.STRREFERENCENUMBER = @ref"
+            Dim parameter As New SqlParameter("@ref", referenceNumber)
+
+            Return DB.GetString(query, parameter)
         End Function
 
         ''' <summary>
@@ -76,7 +85,7 @@ Namespace DAL.Ismp
         ''' </summary>
         ''' <param name="referenceNumber">The reference number of the stack test to clear.</param>
         ''' <returns>True if the action was successful; otherwise, false.</returns>
-        Public Function ClearStackTestData(ByVal referenceNumber As String) As Boolean
+        Public Function ClearStackTestData(referenceNumber As String) As Boolean
             If referenceNumber = "" OrElse Not Integer.TryParse(referenceNumber, Nothing) Then Return Nothing
 
             Dim tableName As String = GetStackTestDbTable(referenceNumber)
@@ -85,21 +94,21 @@ Namespace DAL.Ismp
                 Return Nothing
             End If
 
+            tableName = Regex.Replace(tableName, NonAlphabeticPattern, "")
+
             Dim queryList As New List(Of String)
-            Dim parametersList As New List(Of OracleParameter())
-            Dim parameter As OracleParameter() = New OracleParameter() {
-                New OracleParameter("ReferenceNumber", referenceNumber)
-            }
+            Dim parametersList As New List(Of SqlParameter())
+            Dim parameter As New SqlParameter("@ReferenceNumber", referenceNumber)
 
             If tableName <> "UNASSIGNED" Then
-                queryList.Add("DELETE FROM AIRBRANCH." & tableName & " WHERE strReferenceNumber = :ReferenceNumber")
-                parametersList.Add(parameter)
+                queryList.Add("DELETE FROM " & tableName & " WHERE strReferenceNumber = @ReferenceNumber")
+                parametersList.Add({parameter})
             End If
 
-            queryList.Add(" UPDATE AIRBRANCH.ISMPReportInformation " &
+            queryList.Add(" UPDATE ISMPReportInformation " &
                           " SET strDocumentType      = '001' " &
-                          " WHERE strReferenceNumber = :ReferenceNumber ")
-            parametersList.Add(parameter)
+                          " WHERE strReferenceNumber = @ReferenceNumber ")
+            parametersList.Add({parameter})
 
             Return DB.RunCommand(queryList, parametersList)
         End Function

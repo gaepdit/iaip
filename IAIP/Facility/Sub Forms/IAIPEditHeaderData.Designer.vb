@@ -19,57 +19,57 @@ Partial Class IAIPEditHeaderData
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle
-        Me.FacilityDescription = New System.Windows.Forms.TextBox
-        Me.FacilityDescriptionLabel = New System.Windows.Forms.Label
-        Me.FacilityHistoryDataGridView = New System.Windows.Forms.DataGridView
-        Me.Comments = New System.Windows.Forms.TextBox
-        Me.CommentsLabel = New System.Windows.Forms.Label
-        Me.PermitRevocationDateLabel = New System.Windows.Forms.Label
-        Me.StartupDateLabel = New System.Windows.Forms.Label
-        Me.StartUpDate = New System.Windows.Forms.DateTimePicker
-        Me.ShutdownDate = New System.Windows.Forms.DateTimePicker
-        Me.ClassificationLabel = New System.Windows.Forms.Label
-        Me.ClassificationDropDown = New System.Windows.Forms.ComboBox
-        Me.OperationalStatusLabel = New System.Windows.Forms.Label
-        Me.OperationalDropDown = New System.Windows.Forms.ComboBox
-        Me.SicCodeLabel = New System.Windows.Forms.Label
-        Me.SicCode = New System.Windows.Forms.TextBox
-        Me.AirProgramCodes = New System.Windows.Forms.GroupBox
-        Me.ApcRmp = New System.Windows.Forms.CheckBox
-        Me.ApcAcid = New System.Windows.Forms.CheckBox
-        Me.ApcFesop = New System.Windows.Forms.CheckBox
-        Me.ApcTitleV = New System.Windows.Forms.CheckBox
-        Me.ApcMact = New System.Windows.Forms.CheckBox
-        Me.ApcNativeAmerican = New System.Windows.Forms.CheckBox
-        Me.ApcNsps = New System.Windows.Forms.CheckBox
-        Me.ApcNeshap = New System.Windows.Forms.CheckBox
-        Me.ApcNsr = New System.Windows.Forms.CheckBox
-        Me.ApcPsd = New System.Windows.Forms.CheckBox
-        Me.ApcCfc = New System.Windows.Forms.CheckBox
-        Me.ApcNonfederalSip = New System.Windows.Forms.CheckBox
-        Me.ApcFederalSip = New System.Windows.Forms.CheckBox
-        Me.ApcSip = New System.Windows.Forms.CheckBox
-        Me.HapMajor = New System.Windows.Forms.CheckBox
-        Me.NsrMajor = New System.Windows.Forms.CheckBox
-        Me.RmpIdLabel = New System.Windows.Forms.Label
-        Me.RmpId = New System.Windows.Forms.MaskedTextBox
-        Me.ModifiedDescDisplay = New System.Windows.Forms.Label
-        Me.FacilityNameDisplay = New System.Windows.Forms.Label
-        Me.AirsNumberDisplay = New System.Windows.Forms.Label
-        Me.NonattainmentStatuses = New System.Windows.Forms.GroupBox
-        Me.PmFineDropDown = New System.Windows.Forms.ComboBox
-        Me.EightHourOzoneDropDown = New System.Windows.Forms.ComboBox
-        Me.OneHourOzoneDropDown = New System.Windows.Forms.ComboBox
-        Me.Label97 = New System.Windows.Forms.Label
-        Me.Label96 = New System.Windows.Forms.Label
-        Me.Label94 = New System.Windows.Forms.Label
-        Me.NaicsCodeLabel = New System.Windows.Forms.Label
-        Me.NaicsCode = New System.Windows.Forms.TextBox
-        Me.SaveChangesButton = New System.Windows.Forms.Button
-        Me.CancelEditButton = New System.Windows.Forms.Button
-        Me.EditData = New System.Windows.Forms.CheckBox
-        Me.AirProgramClassificationsGroupbox = New System.Windows.Forms.GroupBox
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Me.FacilityDescription = New System.Windows.Forms.TextBox()
+        Me.FacilityDescriptionLabel = New System.Windows.Forms.Label()
+        Me.FacilityHistoryDataGridView = New System.Windows.Forms.DataGridView()
+        Me.Comments = New System.Windows.Forms.TextBox()
+        Me.CommentsLabel = New System.Windows.Forms.Label()
+        Me.PermitRevocationDateLabel = New System.Windows.Forms.Label()
+        Me.StartupDateLabel = New System.Windows.Forms.Label()
+        Me.StartUpDate = New System.Windows.Forms.DateTimePicker()
+        Me.ShutdownDate = New System.Windows.Forms.DateTimePicker()
+        Me.ClassificationLabel = New System.Windows.Forms.Label()
+        Me.ClassificationDropDown = New System.Windows.Forms.ComboBox()
+        Me.OperationalStatusLabel = New System.Windows.Forms.Label()
+        Me.OperationalDropDown = New System.Windows.Forms.ComboBox()
+        Me.SicCodeLabel = New System.Windows.Forms.Label()
+        Me.SicCode = New System.Windows.Forms.TextBox()
+        Me.AirProgramCodes = New System.Windows.Forms.GroupBox()
+        Me.ApcRmp = New System.Windows.Forms.CheckBox()
+        Me.ApcAcid = New System.Windows.Forms.CheckBox()
+        Me.ApcFesop = New System.Windows.Forms.CheckBox()
+        Me.ApcTitleV = New System.Windows.Forms.CheckBox()
+        Me.ApcMact = New System.Windows.Forms.CheckBox()
+        Me.ApcNativeAmerican = New System.Windows.Forms.CheckBox()
+        Me.ApcNsps = New System.Windows.Forms.CheckBox()
+        Me.ApcNeshap = New System.Windows.Forms.CheckBox()
+        Me.ApcNsr = New System.Windows.Forms.CheckBox()
+        Me.ApcPsd = New System.Windows.Forms.CheckBox()
+        Me.ApcCfc = New System.Windows.Forms.CheckBox()
+        Me.ApcNonfederalSip = New System.Windows.Forms.CheckBox()
+        Me.ApcFederalSip = New System.Windows.Forms.CheckBox()
+        Me.ApcSip = New System.Windows.Forms.CheckBox()
+        Me.HapMajor = New System.Windows.Forms.CheckBox()
+        Me.NsrMajor = New System.Windows.Forms.CheckBox()
+        Me.RmpIdLabel = New System.Windows.Forms.Label()
+        Me.RmpId = New System.Windows.Forms.MaskedTextBox()
+        Me.ModifiedDescDisplay = New System.Windows.Forms.Label()
+        Me.FacilityNameDisplay = New System.Windows.Forms.Label()
+        Me.AirsNumberDisplay = New System.Windows.Forms.Label()
+        Me.NonattainmentStatuses = New System.Windows.Forms.GroupBox()
+        Me.PmFineDropDown = New System.Windows.Forms.ComboBox()
+        Me.EightHourOzoneDropDown = New System.Windows.Forms.ComboBox()
+        Me.OneHourOzoneDropDown = New System.Windows.Forms.ComboBox()
+        Me.Label97 = New System.Windows.Forms.Label()
+        Me.Label96 = New System.Windows.Forms.Label()
+        Me.Label94 = New System.Windows.Forms.Label()
+        Me.NaicsCodeLabel = New System.Windows.Forms.Label()
+        Me.NaicsCode = New System.Windows.Forms.TextBox()
+        Me.SaveChangesButton = New System.Windows.Forms.Button()
+        Me.CancelEditButton = New System.Windows.Forms.Button()
+        Me.EditData = New System.Windows.Forms.CheckBox()
+        Me.AirProgramClassificationsGroupbox = New System.Windows.Forms.GroupBox()
         CType(Me.FacilityHistoryDataGridView, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.AirProgramCodes.SuspendLayout()
         Me.NonattainmentStatuses.SuspendLayout()
@@ -106,8 +106,8 @@ Partial Class IAIPEditHeaderData
         DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
         Me.FacilityHistoryDataGridView.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.FacilityHistoryDataGridView.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-                    Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.FacilityHistoryDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.FacilityHistoryDataGridView.GridColor = System.Drawing.SystemColors.ControlLight
         Me.FacilityHistoryDataGridView.Location = New System.Drawing.Point(0, 395)
@@ -240,6 +240,7 @@ Partial Class IAIPEditHeaderData
         'SicCode
         '
         Me.SicCode.Location = New System.Drawing.Point(523, 56)
+        Me.SicCode.MaxLength = 4
         Me.SicCode.Name = "SicCode"
         Me.SicCode.Size = New System.Drawing.Size(71, 20)
         Me.SicCode.TabIndex = 6
@@ -563,6 +564,7 @@ Partial Class IAIPEditHeaderData
         'NaicsCode
         '
         Me.NaicsCode.Location = New System.Drawing.Point(523, 83)
+        Me.NaicsCode.MaxLength = 6
         Me.NaicsCode.Name = "NaicsCode"
         Me.NaicsCode.Size = New System.Drawing.Size(71, 20)
         Me.NaicsCode.TabIndex = 7
@@ -578,7 +580,7 @@ Partial Class IAIPEditHeaderData
         Me.SaveChangesButton.Padding = New System.Windows.Forms.Padding(3, 0, 0, 0)
         Me.SaveChangesButton.Size = New System.Drawing.Size(108, 23)
         Me.SaveChangesButton.TabIndex = 14
-        Me.SaveChangesButton.Text = "     Save Changes"
+        Me.SaveChangesButton.Text = "     &Save Changes"
         Me.SaveChangesButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.SaveChangesButton.UseVisualStyleBackColor = True
         '
@@ -589,7 +591,7 @@ Partial Class IAIPEditHeaderData
         Me.CancelEditButton.Name = "CancelEditButton"
         Me.CancelEditButton.Size = New System.Drawing.Size(76, 23)
         Me.CancelEditButton.TabIndex = 15
-        Me.CancelEditButton.Text = "Cancel"
+        Me.CancelEditButton.Text = "&Cancel"
         Me.CancelEditButton.UseVisualStyleBackColor = True
         '
         'EditData

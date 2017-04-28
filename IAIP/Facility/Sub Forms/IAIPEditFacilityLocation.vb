@@ -1,155 +1,115 @@
-Imports Oracle.ManagedDataAccess.Client
-
+Imports System.Data.SqlClient
+Imports EpdIt
 
 Public Class IAIPEditFacilityLocation
-    Dim SQL, SQL2 As String
-    Dim cmd As OracleCommand
-    Dim dr As OracleDataReader
-    Dim dsFacilityInformation As DataSet
-    Dim daFacilityInformation As OracleDataAdapter
-    Dim daFacilityInformation2 As OracleDataAdapter
 
-    Private Sub IAIPEditFacilityLocation_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+    Public Property AirsNumber As Apb.ApbFacilityId
+    Private Property drCurrentData As DataRow
 
-        Try
-            If Apb.ApbFacilityId.IsValidAirsNumberFormat(txtAirsNumber.Text) Then
-                LoadFacilityInformation()
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+    Private Sub IAIPEditFacilityLocation_Load(sender As Object, e As EventArgs) Handles Me.Load
+        ParseParameters()
+
+        If AirsNumber IsNot Nothing Then
+            LoadCurrentFacilityInformation()
+            LoadHistoricalFacilityInformation()
+        End If
     End Sub
 
-#Region "Page Load"
-    Sub LoadFacilityInformation()
-        Dim ModifingPerson As String
-        Dim ModifingDate As String
-        Dim ModifingLocation As String
+    Private Sub ParseParameters()
+        If Parameters IsNot Nothing AndAlso Parameters.ContainsKey(FormParameter.AirsNumber) Then
+            Try
+                Me.AirsNumber = Parameters(FormParameter.AirsNumber)
+                lblAirsNumber.Text = Me.AirsNumber.FormattedString
+                Me.Text = Me.Text & " - " & Me.AirsNumber.FormattedString
+            Catch ex As Exception
+                Me.AirsNumber = Nothing
+            End Try
+        End If
+    End Sub
 
-        Try
+    Private Sub LoadCurrentFacilityInformation()
+        Dim query As String = "Select * " &
+            "from VW_APBFacilityLocation " &
+            "where strAIRSNumber = @strAIRSNumber "
 
-            SQL = "Select * " &
-            "from AIRBRANCH.VW_APBFacilityLocation " &
-            "where strAIRSNumber = '0413" & txtAirsNumber.Text & "' "
+        Dim param As New SqlParameter("@strAIRSNumber", AirsNumber.DbFormattedString)
 
-            SQL2 = "Select * " &
-            "from AIRBRANCH.VW_HB_APBFacilityLocation " &
-            "where strAIRSNumber = '0413" & txtAirsNumber.Text & "' " &
+        drCurrentData = DB.GetDataRow(query, param)
+
+        If drCurrentData IsNot Nothing Then
+            Dim ModifingPerson As String
+            Dim ModifingDate As String
+            Dim ModifingLocation As String
+
+            txtFacilityName.Text = DBUtilities.GetNullable(Of String)(drCurrentData.Item("STRFACILITYNAME"))
+            txtStreetAddress.Text = DBUtilities.GetNullable(Of String)(drCurrentData.Item("STRFACILITYSTREET1"))
+            txtStreetAddress2.Text = DBUtilities.GetNullable(Of String)(drCurrentData.Item("STRFACILITYSTREET2"))
+            txtFacilityCity.Text = DBUtilities.GetNullable(Of String)(drCurrentData.Item("STRFACILITYCITY"))
+            txtFacilityState.Text = DBUtilities.GetNullable(Of String)(drCurrentData.Item("STRFACILITYSTATE"))
+            mtbFacilityZipCode.Text = DBUtilities.GetNullable(Of String)(drCurrentData.Item("STRFACILITYZIPCODE"))
+            txtFacilityLatitude.Text = DBUtilities.GetNullable(Of String)(drCurrentData.Item("NUMFACILITYLATITUDE"))
+            txtFacilityLongitude.Text = DBUtilities.GetNullable(Of String)(drCurrentData.Item("NUMFACILITYLONGITUDE"))
+            txtComments.Text = DBUtilities.GetNullable(Of String)(drCurrentData.Item("STRCOMMENTS"))
+
+            ModifingPerson = If(DBUtilities.GetNullable(Of String)(drCurrentData.Item("USERNAME")), "Unknown")
+            ModifingDate = If(DBUtilities.GetNullable(Of String)(drCurrentData.Item("MODIFINGDATE")), "Unknown Date")
+            ModifingLocation = If(DBUtilities.GetNullable(Of String)(drCurrentData.Item("STRMODIFINGLOCATION")), "Unknown Location")
+            lblModifiedNote.Text = "Modified on " & ModifingDate & " by " & ModifingPerson & " from " & ModifingLocation
+        End If
+    End Sub
+
+    Private Sub LoadHistoricalFacilityInformation()
+        Dim query As String = "Select * " &
+            "from VW_HB_APBFacilityLocation " &
+            "where strAIRSNumber = @strAIRSNumber " &
             "Order by strKey DESC "
 
-            dsFacilityInformation = New DataSet
-            daFacilityInformation = New OracleDataAdapter(SQL, CurrentConnection)
-            daFacilityInformation2 = New OracleDataAdapter(SQL2, CurrentConnection)
+        Dim param As New SqlParameter("@strAIRSNumber", AirsNumber.DbFormattedString)
 
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
+        Dim dtHistoricalData As DataTable = DB.GetDataTable(query, param)
 
-            daFacilityInformation.Fill(dsFacilityInformation, "Current")
-            daFacilityInformation2.Fill(dsFacilityInformation, "Historical")
-
-            txtFacilityName.Text = dsFacilityInformation.Tables("Current").Rows(0).Item(1).ToString()
-            txtStreetAddress.Text = dsFacilityInformation.Tables("Current").Rows(0).Item(2).ToString()
-            txtStreetAddress2.Text = dsFacilityInformation.Tables("Current").Rows(0).Item(3).ToString()
-            txtFacilityCity.Text = dsFacilityInformation.Tables("Current").Rows(0).Item(4).ToString()
-            txtFacilityState.Text = dsFacilityInformation.Tables("Current").Rows(0).Item(5).ToString()
-            mtbFacilityZipCode.Text = dsFacilityInformation.Tables("Current").Rows(0).Item(6).ToString
-
-            If IsDBNull(dsFacilityInformation.Tables("Current").Rows(0).Item(8).ToString()) Then
-                txtFacilityLatitude.Text = "00.0000"
-            Else
-                txtFacilityLatitude.Text = dsFacilityInformation.Tables("Current").Rows(0).Item(8).ToString()
-            End If
-            If IsDBNull(dsFacilityInformation.Tables("Current").Rows(0).Item(7).ToString()) Then
-                txtFacilityLongitude.Text = "00.0000"
-            Else
-                txtFacilityLongitude.Text = dsFacilityInformation.Tables("Current").Rows(0).Item(7).ToString()
-            End If
-
-            If IsDBNull(dsFacilityInformation.Tables("Current").Rows(0).Item(12).ToString()) Then
-                ModifingPerson = "Unknown"
-            Else
-                ModifingPerson = dsFacilityInformation.Tables("Current").Rows(0).Item(12).ToString()
-            End If
-            If IsDBNull(dsFacilityInformation.Tables("Current").Rows(0).Item(13).ToString()) Then
-                ModifingDate = "Unknown Date"
-            Else
-                ModifingDate = dsFacilityInformation.Tables("Current").Rows(0).Item(13).ToString()
-            End If
-            If IsDBNull(dsFacilityInformation.Tables("Current").Rows(0).Item(15).ToString()) Then
-                ModifingLocation = "Unknown Location"
-            Else
-                ModifingLocation = dsFacilityInformation.Tables("Current").Rows(0).Item(15).ToString()
-            End If
-            txtModifingComments.Text = "Modified on " & ModifingDate & " by " & ModifingPerson & " from " & ModifingLocation
-            txtComments.Text = dsFacilityInformation.Tables("Current").Rows(0).Item(14).ToString()
-
-            dgvFaciltiyInformaitonHistory.DataSource = dsFacilityInformation
-            dgvFaciltiyInformaitonHistory.DataMember = "Historical"
-            dgvFaciltiyInformaitonHistory.RowHeadersVisible = False
-            dgvFaciltiyInformaitonHistory.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvFaciltiyInformaitonHistory.AllowUserToResizeColumns = True
-            dgvFaciltiyInformaitonHistory.AllowUserToAddRows = False
-            dgvFaciltiyInformaitonHistory.AllowUserToDeleteRows = False
-            dgvFaciltiyInformaitonHistory.AllowUserToOrderColumns = True
-            dgvFaciltiyInformaitonHistory.AllowUserToResizeRows = True
-            dgvFaciltiyInformaitonHistory.Columns("strKey").HeaderText = "Key"
-            dgvFaciltiyInformaitonHistory.Columns("strKey").AutoSizeMode = DataGridViewAutoSizeColumnMode.ColumnHeader
-            dgvFaciltiyInformaitonHistory.Columns("strKey").DisplayIndex = 0
-            dgvFaciltiyInformaitonHistory.Columns("strKey").Visible = False
-            dgvFaciltiyInformaitonHistory.Columns("ModifingDate").HeaderText = "Date Modified"
-            dgvFaciltiyInformaitonHistory.Columns("ModifingDate").AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
-            dgvFaciltiyInformaitonHistory.Columns("ModifingDate").DisplayIndex = 1
-            dgvFaciltiyInformaitonHistory.Columns("UserName").HeaderText = "Modifing Person"
-            dgvFaciltiyInformaitonHistory.Columns("UserName").AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
-            dgvFaciltiyInformaitonHistory.Columns("UserName").DisplayIndex = 2
-            dgvFaciltiyInformaitonHistory.Columns("strModifingLocation").HeaderText = "Modifing Location"
-            dgvFaciltiyInformaitonHistory.Columns("strModifingLocation").AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
-            dgvFaciltiyInformaitonHistory.Columns("strModifingLocation").DisplayIndex = 3
-            dgvFaciltiyInformaitonHistory.Columns("strFacilityName").HeaderText = "Facility Name"
-            dgvFaciltiyInformaitonHistory.Columns("strFacilityName").AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
-            dgvFaciltiyInformaitonHistory.Columns("strFacilityName").DisplayIndex = 4
-            dgvFaciltiyInformaitonHistory.Columns("strFacilityStreet1").HeaderText = "Facility Address"
-            dgvFaciltiyInformaitonHistory.Columns("strFacilityStreet1").AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
-            dgvFaciltiyInformaitonHistory.Columns("strFacilityStreet1").DisplayIndex = 5
-            dgvFaciltiyInformaitonHistory.Columns("strFacilityStreet2").HeaderText = "Facility Address 2"
-            dgvFaciltiyInformaitonHistory.Columns("strFacilityStreet2").AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
-            dgvFaciltiyInformaitonHistory.Columns("strFacilityStreet2").DisplayIndex = 6
-            dgvFaciltiyInformaitonHistory.Columns("strFacilityCity").HeaderText = "City"
-            dgvFaciltiyInformaitonHistory.Columns("strFacilityCity").AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
-            dgvFaciltiyInformaitonHistory.Columns("strFacilityCity").DisplayIndex = 7
-            dgvFaciltiyInformaitonHistory.Columns("strFacilityState").HeaderText = "State"
-            dgvFaciltiyInformaitonHistory.Columns("strFacilityState").AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
-            dgvFaciltiyInformaitonHistory.Columns("strFacilityState").DisplayIndex = 8
-            dgvFaciltiyInformaitonHistory.Columns("strFacilityZipCode").HeaderText = "Zip Code"
-            dgvFaciltiyInformaitonHistory.Columns("strFacilityZipCode").AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
-            dgvFaciltiyInformaitonHistory.Columns("strFacilityZipCode").DisplayIndex = 9
-            dgvFaciltiyInformaitonHistory.Columns("numFacilityLongitude").HeaderText = "Longitude"
-            dgvFaciltiyInformaitonHistory.Columns("numFacilityLongitude").AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
-            dgvFaciltiyInformaitonHistory.Columns("numFacilityLongitude").DisplayIndex = 10
-            dgvFaciltiyInformaitonHistory.Columns("numFacilityLatitude").HeaderText = "Latitude"
-            dgvFaciltiyInformaitonHistory.Columns("numFacilityLatitude").AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
-            dgvFaciltiyInformaitonHistory.Columns("numFacilityLatitude").DisplayIndex = 11
-            dgvFaciltiyInformaitonHistory.Columns("strComments").HeaderText = "Comment(s)"
-            dgvFaciltiyInformaitonHistory.Columns("strComments").AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
-            dgvFaciltiyInformaitonHistory.Columns("strComments").DisplayIndex = 12
-            dgvFaciltiyInformaitonHistory.Columns("strAIRSNumber").HeaderText = "AIRS Number"
-            dgvFaciltiyInformaitonHistory.Columns("strAIRSNumber").AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
-            dgvFaciltiyInformaitonHistory.Columns("strAIRSNumber").DisplayIndex = 13
-            dgvFaciltiyInformaitonHistory.Columns("strAIRSNumber").Visible = False
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
+        If dtHistoricalData IsNot Nothing Then
+            dgvFacilityInformationHistory.DataSource = dtHistoricalData
+            dgvFacilityInformationHistory.Columns("strKey").HeaderText = "Key"
+            dgvFacilityInformationHistory.Columns("strKey").DisplayIndex = 0
+            dgvFacilityInformationHistory.Columns("strKey").Visible = False
+            dgvFacilityInformationHistory.Columns("ModifingDate").HeaderText = "Date Modified"
+            dgvFacilityInformationHistory.Columns("ModifingDate").DisplayIndex = 1
+            dgvFacilityInformationHistory.Columns("UserName").HeaderText = "Modifing Person"
+            dgvFacilityInformationHistory.Columns("UserName").DisplayIndex = 2
+            dgvFacilityInformationHistory.Columns("strModifingLocation").HeaderText = "Modifing Location"
+            dgvFacilityInformationHistory.Columns("strModifingLocation").DisplayIndex = 3
+            dgvFacilityInformationHistory.Columns("strFacilityName").HeaderText = "Facility Name"
+            dgvFacilityInformationHistory.Columns("strFacilityName").DisplayIndex = 4
+            dgvFacilityInformationHistory.Columns("strFacilityStreet1").HeaderText = "Facility Address"
+            dgvFacilityInformationHistory.Columns("strFacilityStreet1").DisplayIndex = 5
+            dgvFacilityInformationHistory.Columns("strFacilityStreet2").HeaderText = "Facility Address 2"
+            dgvFacilityInformationHistory.Columns("strFacilityStreet2").DisplayIndex = 6
+            dgvFacilityInformationHistory.Columns("strFacilityCity").HeaderText = "City"
+            dgvFacilityInformationHistory.Columns("strFacilityCity").DisplayIndex = 7
+            dgvFacilityInformationHistory.Columns("strFacilityState").HeaderText = "State"
+            dgvFacilityInformationHistory.Columns("strFacilityState").DisplayIndex = 8
+            dgvFacilityInformationHistory.Columns("strFacilityZipCode").HeaderText = "Zip Code"
+            dgvFacilityInformationHistory.Columns("strFacilityZipCode").DisplayIndex = 9
+            dgvFacilityInformationHistory.Columns("numFacilityLongitude").HeaderText = "Longitude"
+            dgvFacilityInformationHistory.Columns("numFacilityLongitude").DisplayIndex = 10
+            dgvFacilityInformationHistory.Columns("numFacilityLatitude").HeaderText = "Latitude"
+            dgvFacilityInformationHistory.Columns("numFacilityLatitude").DisplayIndex = 11
+            dgvFacilityInformationHistory.Columns("strComments").HeaderText = "Comment(s)"
+            dgvFacilityInformationHistory.Columns("strComments").DisplayIndex = 12
+            dgvFacilityInformationHistory.Columns("strAIRSNumber").HeaderText = "AIRS Number"
+            dgvFacilityInformationHistory.Columns("strAIRSNumber").DisplayIndex = 13
+            dgvFacilityInformationHistory.Columns("strAIRSNumber").Visible = False
+            dgvFacilityInformationHistory.SanelyResizeColumns
+        End If
     End Sub
-#End Region
 
-#Region "Subs and Functions"
-    Sub Save()
-        Dim ErrorCheck As Boolean = False
+    Private Sub Save()
+        If Not (AccountFormAccess(28, 2) = "1" Or AccountFormAccess(28, 3) = "1" Or AccountFormAccess(28, 4) = "1") Then
+            MessageBox.Show("You do not have permissions to change facility location information.")
+            Exit Sub
+        End If
+
         Dim FacilityName As String = ""
         Dim Street1 As String = ""
         Dim Street2 As String = ""
@@ -160,370 +120,208 @@ Public Class IAIPEditFacilityLocation
         Dim Latitude As String = ""
         Dim Comments As String = ""
 
-        Try
+        txtFacilityName.BackColor = Color.Empty
+        txtStreetAddress.BackColor = Color.Empty
+        txtStreetAddress2.BackColor = Color.Empty
+        txtFacilityCity.BackColor = Color.Empty
+        txtFacilityState.BackColor = Color.Empty
+        mtbFacilityZipCode.BackColor = Color.Empty
+        txtFacilityLatitude.BackColor = Color.Empty
+        txtFacilityLongitude.BackColor = Color.Empty
+        txtComments.BackColor = Color.Empty
 
-            txtFacilityName.BackColor = Color.White
-            txtStreetAddress.BackColor = Color.White
-            txtStreetAddress2.BackColor = Color.White
-            txtFacilityCity.BackColor = Color.White
-            txtFacilityState.BackColor = Color.White
-            mtbFacilityZipCode.BackColor = Color.White
-            txtFacilityLongitude.BackColor = Color.White
-            txtFacilityLatitude.BackColor = Color.White
-            txtComments.BackColor = Color.White
-
-            If AccountFormAccess(28, 2) = "1" Or AccountFormAccess(28, 3) = "1" Or AccountFormAccess(28, 4) = "1" Then
-                'End If
-                'If UserProgram = "5" Or (UserBranch = "1" And UserUnit = "---") _
-                '  Or (UserProgram = "3" And AccountArray(68, 3) = "1") Then
-                If txtFacilityName.Text <> "" Then
-                    txtFacilityName.Text = Apb.Facilities.Facility.SanitizeFacilityNameForDb(txtFacilityName.Text)
-                    If txtFacilityName.Text <> dsFacilityInformation.Tables("Current").Rows(0).Item(1).ToString() Then
-                        FacilityName = Replace(txtFacilityName.Text, "'", "''")
-                    Else
-                        FacilityName = ""
-                    End If
-                Else
-                    ErrorCheck = True
-                    txtFacilityName.BackColor = Color.Yellow
-                End If
-                If txtStreetAddress.Text <> "" Then
-                    If txtStreetAddress.Text <> dsFacilityInformation.Tables("Current").Rows(0).Item(2).ToString() Then
-                        Street1 = Replace(txtStreetAddress.Text, "'", "''")
-                    Else
-                        Street1 = ""
-                    End If
-                Else
-                    ErrorCheck = True
-                    txtStreetAddress.BackColor = Color.Yellow
-                End If
-                If txtStreetAddress2.Text <> "" Then
-                    If txtStreetAddress2.Text <> dsFacilityInformation.Tables("Current").Rows(0).Item(3).ToString() Then
-                        Street2 = Replace(txtStreetAddress2.Text, "'", "''")
-                    Else
-                        Street2 = ""
-                    End If
-                Else
-                    ErrorCheck = True
-                    txtStreetAddress2.BackColor = Color.Yellow
-                End If
-                If txtFacilityCity.Text <> "" Then
-                    If txtFacilityCity.Text <> dsFacilityInformation.Tables("Current").Rows(0).Item(4).ToString() Then
-                        City = Replace(txtFacilityCity.Text, "'", "''")
-                    Else
-                        City = ""
-                    End If
-                Else
-                    ErrorCheck = True
-                    txtFacilityCity.BackColor = Color.Yellow
-                End If
-                If txtFacilityState.Text <> "" Then
-                    If txtFacilityState.Text <> dsFacilityInformation.Tables("Current").Rows(0).Item(5).ToString() Then
-                        State = Replace(txtFacilityState.Text, "'", "''")
-                    Else
-                        State = ""
-                    End If
-                Else
-                    ErrorCheck = True
-                    txtFacilityState.BackColor = Color.Yellow
-                End If
-                If mtbFacilityZipCode.Text <> "" Then
-                    If Replace(mtbFacilityZipCode.Text, "-", "") <> Replace(dsFacilityInformation.Tables("Current").Rows(0).Item(6).ToString(), "-", "") Then
-                        ZipCode = Replace(mtbFacilityZipCode.Text, "-", "")
-                    Else
-                        ZipCode = ""
-                    End If
-                Else
-                    ErrorCheck = True
-                    mtbFacilityZipCode.BackColor = Color.Yellow
-                End If
-
-                If txtFacilityLongitude.Text <> "" Then
-                    If txtFacilityLongitude.Text <> dsFacilityInformation.Tables("Current").Rows(0).Item(7).ToString() Then
-                        If IsNumeric(txtFacilityLongitude.Text) Then
-                            Longitude = txtFacilityLongitude.Text
-                        Else
-                            Longitude = "00.0000"
-                        End If
-                    Else
-                        Longitude = ""
-                    End If
-                Else
-                    Longitude = ""
-                End If
-                If txtFacilityLatitude.Text <> "" Then
-                    If txtFacilityLatitude.Text <> dsFacilityInformation.Tables("Current").Rows(0).Item(8).ToString() Then
-                        If IsNumeric(txtFacilityLatitude.Text) Then
-                            Latitude = txtFacilityLatitude.Text
-                        Else
-                            Latitude = "00.0000"
-                        End If
-                    Else
-                        Latitude = ""
-                    End If
-                Else
-                    Latitude = ""
-                End If
-                If txtComments.Text <> "" Then
-                    If txtComments.Text <> dsFacilityInformation.Tables("Current").Rows(0).Item(14).ToString() Then
-                        Comments = Replace(txtComments.Text, "'", "''")
-                    Else
-                        MsgBox("Since this is a direct change to the data, " & vbCrLf &
-                        "please make a unique comment. " & vbCrLf &
-                        "So future users know why the data was changed." & vbCrLf &
-                        "No data will be saved at this time.",
-                         MsgBoxStyle.Information, "Edit Facility Location Data")
-                        Comments = "Error"
-                    End If
-                Else
-                    MsgBox("Since this is a direct change to the data, " & vbCrLf &
-                    "please make a unique comment. " & vbCrLf &
-                    "So future users know why the data was changed." & vbCrLf &
-                    "No data will be saved at this time.",
-                     MsgBoxStyle.Information, "Edit Facility Location Data")
-                    Comments = "Error"
-                End If
-
-                If ErrorCheck <> True Then
-                    If Comments <> "Error" Then
-                        If FacilityName <> "" Or Street1 <> "" Or
-                          Street2 <> "" Or City <> "" Or
-                          State <> "" Or ZipCode <> "" Or
-                          Longitude <> "" Or Latitude <> "" Or
-                          Comments <> "" Then
-
-                            SQL = "Update AIRBRANCH.APBFacilityInformation set "
-                            If FacilityName <> "" Then
-                                SQL = SQL & "strFacilityName = '" & FacilityName & "', "
-                            End If
-                            If Street1 <> "" Then
-                                SQL = SQL & "strFacilityStreet1 = '" & Street1 & "', "
-                            End If
-                            If Street2 <> "" Then
-                                SQL = SQL & "strFacilityStreet2 = '" & Street2 & "', "
-                            End If
-                            If City <> "" Then
-                                SQL = SQL & "strFacilityCity = '" & City & "', "
-                            End If
-                            If State <> "" Then
-                                SQL = SQL & "strFacilityState = '" & State & "', "
-                            End If
-                            If ZipCode <> "" Then
-                                SQL = SQL & "strFacilityZipCode = '" & ZipCode & "', "
-                            End If
-                            If Longitude <> "" Then
-                                SQL = SQL & "numFacilityLongitude = '" & Longitude & "', "
-                            End If
-                            If Latitude <> "" Then
-                                SQL = SQL & "numFacilityLatitude = '" & Latitude & "', "
-                            End If
-                            If Comments <> "" Then
-                                SQL = SQL & "strComments = '" & Comments & "', "
-                            End If
-                            SQL = SQL & "strModifingPerson = '" & CurrentUser.UserID & "', " &
-                            "datModifingDate = '" & OracleDate & "', " &
-                            "strModifingLocation = '2' " &
-                            "where strAIRSNumber = '0413" & txtAirsNumber.Text & "' "
-
-                            cmd = New OracleCommand(SQL, CurrentConnection)
-                            If CurrentConnection.State = ConnectionState.Closed Then
-                                CurrentConnection.Open()
-                            End If
-                            Try
-
-                                dr = cmd.ExecuteReader
-                            Catch ex As Exception
-                                MsgBox(ex.ToString())
-                            End Try
-
-
-                            dr.Close()
-
-                            If FacilityName <> "" Then
-                                SQL = "Update AIRBRANCH.OLAPUserAccess set " &
-                                "strFacilityName = '" & FacilityName & "' " &
-                                "where strAIRSNumber = '0413" & txtAirsNumber.Text & "' "
-
-                                cmd = New OracleCommand(SQL, CurrentConnection)
-                                If CurrentConnection.State = ConnectionState.Closed Then
-                                    CurrentConnection.Open()
-                                End If
-                                dr = cmd.ExecuteReader
-                                dr.Close()
-
-                                SQL = "Update airbranch.EIS_FacilitySite set " &
-                                "strFacilitySiteName = '" & FacilityName & "', " &
-                                "strFacilitySiteComment = 'Facility Name updated.', " &
-                                "UpdateUSer = '" & CurrentUser.AlphaName & "', " &
-                                "updateDateTime = sysdate " &
-                                "where facilitySiteID = '" & txtAirsNumber.Text & "' "
-
-                                cmd = New OracleCommand(SQL, CurrentConnection)
-                                If CurrentConnection.State = ConnectionState.Closed Then
-                                    CurrentConnection.Open()
-                                End If
-                                cmd.ExecuteReader()
-                            End If
-
-                            LoadFacilityInformation()
-                            MsgBox("Data Updated", MsgBoxStyle.Information, "Edit Facility Location Data")
-                        Else
-                            MsgBox("No data was changed", MsgBoxStyle.Information, "Edit Facility Location Data")
-                        End If
-                    End If
-                Else
-                    MsgBox("The data was not save due to bad data.",
-                            MsgBoxStyle.Information, "Edit Facility Location Data")
-                End If
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-
-    End Sub
-
-#End Region
-#Region "Declaration"
-    Private Sub dgvFaciltiyInformaitonHistory_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvFaciltiyInformaitonHistory.MouseUp
-        Dim hti As DataGridView.HitTestInfo = dgvFaciltiyInformaitonHistory.HitTest(e.X, e.Y)
-
-        Try
-
-
-            If dgvFaciltiyInformaitonHistory.RowCount > 0 And hti.RowIndex <> -1 Then
-                txtKey.Text = dgvFaciltiyInformaitonHistory(1, hti.RowIndex).Value
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-    Private Sub txtKey_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtKey.TextChanged
-        Try
-            Dim ModifingPerson As String
-            Dim ModifingDate As String
-            Dim ModifingLocation As String
-
-            If txtKey.Text <> "" Then
-                SQL = "Select * " &
-                "from AIRBRANCH.VW_HB_APBFacilityLocation " &
-                "where strKey = '" & txtKey.Text & "' " &
-                "Order by strKey DESC "
-
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-
-                dr = cmd.ExecuteReader
-                While dr.Read
-                    If IsDBNull(dr.Item("strFacilityName")) Then
-                        txtFacilityName.Text = ""
-                    Else
-                        txtFacilityName.Text = dr.Item("strFacilityName")
-                    End If
-                    If IsDBNull(dr.Item("strFacilityStreet1")) Then
-                        txtStreetAddress.Text = ""
-                    Else
-                        txtStreetAddress.Text = dr.Item("strFacilityStreet1")
-                    End If
-                    If IsDBNull(dr.Item("strFacilityStreet2")) Then
-                        txtStreetAddress2.Text = ""
-                    Else
-                        txtStreetAddress2.Text = dr.Item("strFacilityStreet2")
-                    End If
-                    If IsDBNull(dr.Item("strFacilityCity")) Then
-                        txtFacilityCity.Text = ""
-                    Else
-                        txtFacilityCity.Text = dr.Item("strFacilityCity")
-                    End If
-                    If IsDBNull(dr.Item("strFacilityState")) Then
-                        txtFacilityState.Text = "GA"
-                    Else
-                        txtFacilityState.Text = dr.Item("strFacilityState")
-                    End If
-                    If IsDBNull(dr.Item("strFacilityZipCode")) Then
-                        mtbFacilityZipCode.Text = ""
-                    Else
-                        mtbFacilityZipCode.Text = dr.Item("strFacilityZipCode")
-                    End If
-                    If IsDBNull(dr.Item("numFacilityLongitude")) Then
-                        txtFacilityLongitude.Text = ""
-                    Else
-                        txtFacilityLongitude.Text = dr.Item("numFacilityLongitude")
-                    End If
-                    If IsDBNull(dr.Item("numFacilityLatitude")) Then
-                        txtFacilityLatitude.Text = ""
-                    Else
-                        txtFacilityLatitude.Text = dr.Item("numFacilityLatitude")
-                    End If
-
-                    If IsDBNull(dr.Item("UserName")) Then
-                        ModifingPerson = "Unknown"
-                    Else
-                        ModifingPerson = dr.Item("USERName")
-                    End If
-                    If IsDBNull(dr.Item("ModifingDate")) Then
-                        ModifingDate = "Unknown Date"
-                    Else
-                        ModifingDate = dr.Item("ModifingDate")
-                    End If
-                    If IsDBNull(dr.Item("strModifingLocation")) Then
-                        ModifingLocation = "Unknown Location"
-                    Else
-                        ModifingLocation = dr.Item("strModifingLocation")
-                    End If
-                    txtModifingComments.Text = "Modified on " & ModifingDate & " by " & ModifingPerson & " from " & ModifingLocation
-
-                    If IsDBNull(dr.Item("strComments")) Then
-                        txtComments.Text = ""
-                    Else
-                        txtComments.Text = dr.Item("strComments")
-                    End If
-                End While
-
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-
-    End Sub
-    Private Sub llbCurrentData_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbCurrentData.LinkClicked
-        Try
-            txtKey.Text = ""
-            LoadFacilityInformation()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
-#Region "Main Menu and Toolbar"
-
-    Private Sub SaveButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles SaveButton.Click
-        Save()
-    End Sub
-
-#End Region
-
-#End Region
-
-    Private Sub txtAirsNumber_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtAirsNumber.TextChanged
-        If Apb.ApbFacilityId.IsValidAirsNumberFormat(txtAirsNumber.Text) Then
-            LoadFacilityInformation()
+        If Not ValidateData() Then
+            MessageBox.Show("Please correct the missing data.")
+            Exit Sub
         End If
+
+        txtFacilityName.Text = Apb.Facilities.Facility.SanitizeFacilityNameForDb(txtFacilityName.Text)
+
+        If txtFacilityName.Text <> drCurrentData.Item("STRFACILITYNAME") Then
+            FacilityName = txtFacilityName.Text
+        Else
+            FacilityName = ""
+        End If
+
+        If txtStreetAddress.Text <> drCurrentData.Item("STRFACILITYSTREET1") Then
+            Street1 = txtStreetAddress.Text
+        Else
+            Street1 = ""
+        End If
+
+        If txtStreetAddress2.Text <> drCurrentData.Item("STRFACILITYSTREET2") Then
+            Street2 = txtStreetAddress2.Text
+        Else
+            Street2 = ""
+        End If
+
+        If txtFacilityCity.Text <> drCurrentData.Item("STRFACILITYCITY") Then
+            City = txtFacilityCity.Text
+        Else
+            City = ""
+        End If
+
+        If txtFacilityState.Text <> drCurrentData.Item("STRFACILITYSTATE") Then
+            State = txtFacilityState.Text
+        Else
+            State = ""
+        End If
+
+        If Replace(mtbFacilityZipCode.Text, "-", "") <> drCurrentData.Item("STRFACILITYZIPCODE") Then
+            ZipCode = Replace(mtbFacilityZipCode.Text, "-", "")
+        Else
+            ZipCode = ""
+        End If
+
+        If txtFacilityLongitude.Text <> drCurrentData.Item("NUMFACILITYLONGITUDE") Then
+            Longitude = txtFacilityLongitude.Text
+        Else
+            Longitude = ""
+        End If
+
+        If txtFacilityLatitude.Text <> drCurrentData.Item("NUMFACILITYLATITUDE") Then
+            Latitude = txtFacilityLatitude.Text
+        Else
+            Latitude = ""
+        End If
+
+        Comments = txtComments.Text
+
+        If String.Join("", {FacilityName, Street1, Street2, City, State, ZipCode, Longitude, Latitude}) = "" Then
+            MessageBox.Show("No data has been modified")
+            Exit Sub
+        End If
+
+        Dim query1 As String = "Update APBFacilityInformation set "
+
+        If FacilityName <> "" Then query1 = query1 & " strFacilityName = @strFacilityName, "
+        If Street1 <> "" Then query1 = query1 & " strFacilityStreet1 = @strFacilityStreet1, "
+        If Street2 <> "" Then query1 = query1 & " strFacilityStreet2 = @strFacilityStreet2, "
+        If City <> "" Then query1 = query1 & " strFacilityCity = @strFacilityCity, "
+        If State <> "" Then query1 = query1 & " strFacilityState = @strFacilityState, "
+        If ZipCode <> "" Then query1 = query1 & " strFacilityZipCode = @strFacilityZipCode, "
+        If Longitude <> "" Then query1 = query1 & " numFacilityLongitude = @numFacilityLongitude, "
+        If Latitude <> "" Then query1 = query1 & " numFacilityLatitude = @numFacilityLatitude, "
+        If Comments <> "" Then query1 = query1 & " strComments = @strComments, "
+
+        query1 = query1 & " strModifingPerson = @strModifingPerson, " &
+            " datModifingDate = getdate(), " &
+            " strModifingLocation = '2' " &
+            " where strAIRSNumber = @strAIRSNumber "
+
+        Dim params1 As SqlParameter() = {
+            New SqlParameter("@strFacilityName", FacilityName),
+            New SqlParameter("@strFacilityStreet1", Street1),
+            New SqlParameter("@strFacilityStreet2", Street2),
+            New SqlParameter("@strFacilityCity", City),
+            New SqlParameter("@strFacilityState", State),
+            New SqlParameter("@strFacilityZipCode", ZipCode),
+            New SqlParameter("@numFacilityLongitude", Longitude),
+            New SqlParameter("@numFacilityLatitude", Latitude),
+            New SqlParameter("@strComments", Comments),
+            New SqlParameter("@strModifingPerson", CurrentUser.UserID),
+            New SqlParameter("@strAIRSNumber", AirsNumber.DbFormattedString)
+        }
+
+        Dim queryList As New Generic.List(Of String)
+        queryList.Add(query1)
+
+        Dim paramsList As New Generic.List(Of SqlParameter())
+        paramsList.Add(params1)
+
+        If FacilityName <> "" Then
+            Dim query2 As String = "Update OLAPUserAccess set " &
+                "strFacilityName = @strFacilityName " &
+                "where strAIRSNumber = @strAIRSNumber "
+            Dim params2 As SqlParameter() = {
+                New SqlParameter("@strFacilityName", FacilityName),
+                New SqlParameter("@strAIRSNumber", AirsNumber.DbFormattedString)
+            }
+
+            queryList.Add(query2)
+            paramsList.Add(params2)
+
+            Dim query3 As String = "Update EIS_FacilitySite set " &
+                "strFacilitySiteName = @strFacilitySiteName, " &
+                "strFacilitySiteComment = 'Facility Name updated.', " &
+                "UpdateUSer = @UpdateUSer, " &
+                "updateDateTime = getdate() " &
+                "where facilitySiteID = @facilitySiteID "
+            Dim params3 As SqlParameter() = {
+                New SqlParameter("@strFacilitySiteName", FacilityName),
+                New SqlParameter("@UpdateUSer", CurrentUser.AlphaName),
+                New SqlParameter("@facilitySiteID", AirsNumber.DbFormattedString)
+            }
+
+            queryList.Add(query3)
+            paramsList.Add(params3)
+        End If
+
+        If DB.RunCommand(queryList, paramsList) Then
+            LoadCurrentFacilityInformation()
+            LoadHistoricalFacilityInformation()
+
+            MessageBox.Show("Data updated successfully")
+        Else
+            MessageBox.Show("An unknown error occurred. Please try again.")
+        End If
+    End Sub
+
+    Private Function ValidateData() As Boolean
+        Dim DataIsValid As Boolean = True
+
+        If txtFacilityName.Text = "" Then
+            DataIsValid = False
+            txtFacilityName.BackColor = Color.Yellow
+        End If
+
+        If txtStreetAddress.Text = "" Then
+            DataIsValid = False
+            txtStreetAddress.BackColor = Color.Yellow
+        End If
+
+        If txtStreetAddress2.Text = "" Then
+            DataIsValid = False
+            txtStreetAddress2.BackColor = Color.Yellow
+        End If
+
+        If txtFacilityCity.Text = "" Then
+            DataIsValid = False
+            txtFacilityCity.BackColor = Color.Yellow
+        End If
+
+        If txtFacilityState.Text = "" Then
+            DataIsValid = False
+            txtFacilityState.BackColor = Color.Yellow
+        End If
+
+        If mtbFacilityZipCode.Text = "" Then
+            DataIsValid = False
+            mtbFacilityZipCode.BackColor = Color.Yellow
+        End If
+
+        If Not (txtFacilityLatitude.Text = "" Or IsNumeric(txtFacilityLatitude.Text)) Then
+            DataIsValid = False
+            txtFacilityLatitude.BackColor = Color.Yellow
+        End If
+
+        If Not (txtFacilityLongitude.Text = "" Or IsNumeric(txtFacilityLongitude.Text)) Then
+            DataIsValid = False
+            txtFacilityLongitude.BackColor = Color.Yellow
+        End If
+
+        If txtComments.Text = "" OrElse txtComments.Text = DBUtilities.GetNullable(Of String)(drCurrentData.Item("STRCOMMENTS")) Then
+            DataIsValid = False
+            txtComments.BackColor = Color.Yellow
+            MessageBox.Show("Since this is a direct change to the data, please make a unique comment" &
+                            " so future users will know why the data was changed.")
+        End If
+
+        Return DataIsValid
+    End Function
+
+    Private Sub SaveButton_Click(sender As Object, e As EventArgs) Handles SaveButton.Click
+        Save()
     End Sub
 
 End Class

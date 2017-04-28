@@ -19,103 +19,43 @@ Partial Class SSPPAttainmentStatus
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container
+        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SSPPAttainmentStatus))
-        Me.StatusStrip1 = New System.Windows.Forms.StatusStrip
-        Me.ToolStripProgressBar1 = New System.Windows.Forms.ToolStripProgressBar
-        Me.Panel1 = New System.Windows.Forms.ToolStripStatusLabel
-        Me.Panel2 = New System.Windows.Forms.ToolStripStatusLabel
-        Me.Panel3 = New System.Windows.Forms.ToolStripStatusLabel
         Me.Image_List_All = New System.Windows.Forms.ImageList(Me.components)
-        Me.MainMenu1 = New System.Windows.Forms.MainMenu(Me.components)
-        Me.MmiFile = New System.Windows.Forms.MenuItem
-        Me.mmiSave = New System.Windows.Forms.MenuItem
-        Me.MenuItem1 = New System.Windows.Forms.MenuItem
-        Me.MmiBack = New System.Windows.Forms.MenuItem
-        Me.MmiView = New System.Windows.Forms.MenuItem
-        Me.MenuItem2 = New System.Windows.Forms.MenuItem
-        Me.MmiHelp = New System.Windows.Forms.MenuItem
-        Me.TBAttainmentStatus = New System.Windows.Forms.ToolBar
-        Me.TBBSave = New System.Windows.Forms.ToolBarButton
-        Me.TBBBack = New System.Windows.Forms.ToolBarButton
-        Me.GroupBox1 = New System.Windows.Forms.GroupBox
-        Me.GroupBox4 = New System.Windows.Forms.GroupBox
-        Me.btnPMFineChanges = New System.Windows.Forms.Button
-        Me.rdbPMFineNo = New System.Windows.Forms.RadioButton
-        Me.rdbPMFineMacon = New System.Windows.Forms.RadioButton
-        Me.rdbPMFineFloyd = New System.Windows.Forms.RadioButton
-        Me.rdbPMFineChattanooga = New System.Windows.Forms.RadioButton
-        Me.rdbPMFineAtlanta = New System.Windows.Forms.RadioButton
-        Me.GroupBox3 = New System.Windows.Forms.GroupBox
-        Me.btnEightHourChanges = New System.Windows.Forms.Button
-        Me.rdbEightHourNo = New System.Windows.Forms.RadioButton
-        Me.rdbEightHourMacon = New System.Windows.Forms.RadioButton
-        Me.rdbEightHourAtlanta = New System.Windows.Forms.RadioButton
-        Me.GroupBox2 = New System.Windows.Forms.GroupBox
-        Me.btnOneHourChanges = New System.Windows.Forms.Button
-        Me.rdbOneHourNo = New System.Windows.Forms.RadioButton
-        Me.rdbOneHourCont = New System.Windows.Forms.RadioButton
-        Me.rdbOneHourYes = New System.Windows.Forms.RadioButton
-        Me.btnClear = New System.Windows.Forms.Button
-        Me.btnSaveChanges = New System.Windows.Forms.Button
-        Me.btnViewCountyInfo = New System.Windows.Forms.Button
-        Me.Label2 = New System.Windows.Forms.Label
-        Me.cboCounty = New System.Windows.Forms.ComboBox
-        Me.btnViewSelectedData = New System.Windows.Forms.Button
-        Me.Label1 = New System.Windows.Forms.Label
-        Me.cboNonAttainmentStatus = New System.Windows.Forms.ComboBox
-        Me.dgvAttainmentStatus = New System.Windows.Forms.DataGridView
-        Me.StatusStrip1.SuspendLayout()
+        Me.TBAttainmentStatus = New System.Windows.Forms.ToolBar()
+        Me.TBBSave = New System.Windows.Forms.ToolBarButton()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.GroupBox4 = New System.Windows.Forms.GroupBox()
+        Me.btnPMFineChanges = New System.Windows.Forms.Button()
+        Me.rdbPMFineNo = New System.Windows.Forms.RadioButton()
+        Me.rdbPMFineMacon = New System.Windows.Forms.RadioButton()
+        Me.rdbPMFineFloyd = New System.Windows.Forms.RadioButton()
+        Me.rdbPMFineChattanooga = New System.Windows.Forms.RadioButton()
+        Me.rdbPMFineAtlanta = New System.Windows.Forms.RadioButton()
+        Me.GroupBox3 = New System.Windows.Forms.GroupBox()
+        Me.btnEightHourChanges = New System.Windows.Forms.Button()
+        Me.rdbEightHourNo = New System.Windows.Forms.RadioButton()
+        Me.rdbEightHourMacon = New System.Windows.Forms.RadioButton()
+        Me.rdbEightHourAtlanta = New System.Windows.Forms.RadioButton()
+        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.btnOneHourChanges = New System.Windows.Forms.Button()
+        Me.rdbOneHourNo = New System.Windows.Forms.RadioButton()
+        Me.rdbOneHourCont = New System.Windows.Forms.RadioButton()
+        Me.rdbOneHourYes = New System.Windows.Forms.RadioButton()
+        Me.btnSaveChanges = New System.Windows.Forms.Button()
+        Me.btnViewCountyInfo = New System.Windows.Forms.Button()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.cboCounty = New System.Windows.Forms.ComboBox()
+        Me.btnViewSelectedData = New System.Windows.Forms.Button()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.cboNonAttainmentStatus = New System.Windows.Forms.ComboBox()
+        Me.dgvAttainmentStatus = New System.Windows.Forms.DataGridView()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         CType(Me.dgvAttainmentStatus, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
-        '
-        'StatusStrip1
-        '
-        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripProgressBar1, Me.Panel1, Me.Panel2, Me.Panel3})
-        Me.StatusStrip1.Location = New System.Drawing.Point(0, 523)
-        Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Size = New System.Drawing.Size(792, 22)
-        Me.StatusStrip1.TabIndex = 255
-        Me.StatusStrip1.Text = "StatusStrip1"
-        '
-        'ToolStripProgressBar1
-        '
-        Me.ToolStripProgressBar1.Name = "ToolStripProgressBar1"
-        Me.ToolStripProgressBar1.Size = New System.Drawing.Size(100, 16)
-        '
-        'Panel1
-        '
-        Me.Panel1.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.Panel1.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
-        Me.Panel1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
-        Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(667, 17)
-        Me.Panel1.Spring = True
-        Me.Panel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'Panel2
-        '
-        Me.Panel2.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.Panel2.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
-        Me.Panel2.Name = "Panel2"
-        Me.Panel2.Size = New System.Drawing.Size(4, 17)
-        '
-        'Panel3
-        '
-        Me.Panel3.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.Panel3.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
-        Me.Panel3.Name = "Panel3"
-        Me.Panel3.Size = New System.Drawing.Size(4, 17)
         '
         'Image_List_All
         '
@@ -207,49 +147,9 @@ Partial Class SSPPAttainmentStatus
         Me.Image_List_All.Images.SetKeyName(83, "")
         Me.Image_List_All.Images.SetKeyName(84, "")
         '
-        'MainMenu1
-        '
-        Me.MainMenu1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.MmiFile, Me.MmiView, Me.MenuItem2, Me.MmiHelp})
-        '
-        'MmiFile
-        '
-        Me.MmiFile.Index = 0
-        Me.MmiFile.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiSave, Me.MenuItem1, Me.MmiBack})
-        Me.MmiFile.Text = "File"
-        '
-        'mmiSave
-        '
-        Me.mmiSave.Index = 0
-        Me.mmiSave.Text = "Save"
-        '
-        'MenuItem1
-        '
-        Me.MenuItem1.Index = 1
-        Me.MenuItem1.Text = "-"
-        '
-        'MmiBack
-        '
-        Me.MmiBack.Index = 2
-        Me.MmiBack.Text = "Back"
-        '
-        'MmiView
-        '
-        Me.MmiView.Index = 1
-        Me.MmiView.Text = "View"
-        '
-        'MenuItem2
-        '
-        Me.MenuItem2.Index = 2
-        Me.MenuItem2.Text = "Tools"
-        '
-        'MmiHelp
-        '
-        Me.MmiHelp.Index = 3
-        Me.MmiHelp.Text = "Help"
-        '
         'TBAttainmentStatus
         '
-        Me.TBAttainmentStatus.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.TBBSave, Me.TBBBack})
+        Me.TBAttainmentStatus.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.TBBSave})
         Me.TBAttainmentStatus.DropDownArrows = True
         Me.TBAttainmentStatus.ImageList = Me.Image_List_All
         Me.TBAttainmentStatus.Location = New System.Drawing.Point(0, 0)
@@ -263,17 +163,11 @@ Partial Class SSPPAttainmentStatus
         Me.TBBSave.ImageIndex = 65
         Me.TBBSave.Name = "TBBSave"
         '
-        'TBBBack
-        '
-        Me.TBBBack.ImageIndex = 2
-        Me.TBBBack.Name = "TBBBack"
-        '
         'GroupBox1
         '
         Me.GroupBox1.Controls.Add(Me.GroupBox4)
         Me.GroupBox1.Controls.Add(Me.GroupBox3)
         Me.GroupBox1.Controls.Add(Me.GroupBox2)
-        Me.GroupBox1.Controls.Add(Me.btnClear)
         Me.GroupBox1.Controls.Add(Me.btnSaveChanges)
         Me.GroupBox1.Controls.Add(Me.btnViewCountyInfo)
         Me.GroupBox1.Controls.Add(Me.Label2)
@@ -481,15 +375,6 @@ Partial Class SSPPAttainmentStatus
         Me.rdbOneHourYes.Text = "1 hr Non-Attainment (Yes)"
         Me.rdbOneHourYes.UseVisualStyleBackColor = True
         '
-        'btnClear
-        '
-        Me.btnClear.Location = New System.Drawing.Point(675, 59)
-        Me.btnClear.Name = "btnClear"
-        Me.btnClear.Size = New System.Drawing.Size(75, 23)
-        Me.btnClear.TabIndex = 18
-        Me.btnClear.Text = "Clear"
-        Me.btnClear.UseVisualStyleBackColor = True
-        '
         'btnSaveChanges
         '
         Me.btnSaveChanges.AutoSize = True
@@ -523,6 +408,7 @@ Partial Class SSPPAttainmentStatus
         '
         Me.cboCounty.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboCounty.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboCounty.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboCounty.FormattingEnabled = True
         Me.cboCounty.Location = New System.Drawing.Point(28, 30)
         Me.cboCounty.Name = "cboCounty"
@@ -552,6 +438,7 @@ Partial Class SSPPAttainmentStatus
         '
         Me.cboNonAttainmentStatus.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboNonAttainmentStatus.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboNonAttainmentStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboNonAttainmentStatus.FormattingEnabled = True
         Me.cboNonAttainmentStatus.Location = New System.Drawing.Point(453, 30)
         Me.cboNonAttainmentStatus.Name = "cboNonAttainmentStatus"
@@ -568,7 +455,7 @@ Partial Class SSPPAttainmentStatus
         Me.dgvAttainmentStatus.Location = New System.Drawing.Point(0, 277)
         Me.dgvAttainmentStatus.Name = "dgvAttainmentStatus"
         Me.dgvAttainmentStatus.ReadOnly = True
-        Me.dgvAttainmentStatus.Size = New System.Drawing.Size(792, 246)
+        Me.dgvAttainmentStatus.Size = New System.Drawing.Size(792, 268)
         Me.dgvAttainmentStatus.TabIndex = 258
         '
         'SSPPAttainmentStatus
@@ -579,12 +466,8 @@ Partial Class SSPPAttainmentStatus
         Me.Controls.Add(Me.dgvAttainmentStatus)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.TBAttainmentStatus)
-        Me.Controls.Add(Me.StatusStrip1)
-        Me.Menu = Me.MainMenu1
         Me.Name = "SSPPAttainmentStatus"
         Me.Text = "SSPP Attainment Status"
-        Me.StatusStrip1.ResumeLayout(False)
-        Me.StatusStrip1.PerformLayout()
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         Me.GroupBox4.ResumeLayout(False)
@@ -598,23 +481,9 @@ Partial Class SSPPAttainmentStatus
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents StatusStrip1 As System.Windows.Forms.StatusStrip
-    Friend WithEvents ToolStripProgressBar1 As System.Windows.Forms.ToolStripProgressBar
-    Friend WithEvents Panel1 As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents Panel2 As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents Panel3 As System.Windows.Forms.ToolStripStatusLabel
     Friend WithEvents Image_List_All As System.Windows.Forms.ImageList
-    Friend WithEvents MainMenu1 As System.Windows.Forms.MainMenu
-    Friend WithEvents MmiFile As System.Windows.Forms.MenuItem
-    Friend WithEvents mmiSave As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem1 As System.Windows.Forms.MenuItem
-    Friend WithEvents MmiBack As System.Windows.Forms.MenuItem
-    Friend WithEvents MmiView As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem2 As System.Windows.Forms.MenuItem
-    Friend WithEvents MmiHelp As System.Windows.Forms.MenuItem
     Friend WithEvents TBAttainmentStatus As System.Windows.Forms.ToolBar
     Friend WithEvents TBBSave As System.Windows.Forms.ToolBarButton
-    Friend WithEvents TBBBack As System.Windows.Forms.ToolBarButton
     Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents cboNonAttainmentStatus As System.Windows.Forms.ComboBox
@@ -624,14 +493,11 @@ Partial Class SSPPAttainmentStatus
     Friend WithEvents cboCounty As System.Windows.Forms.ComboBox
     Friend WithEvents btnSaveChanges As System.Windows.Forms.Button
     Friend WithEvents btnViewCountyInfo As System.Windows.Forms.Button
-    Friend WithEvents btnClear As System.Windows.Forms.Button
     Friend WithEvents GroupBox2 As System.Windows.Forms.GroupBox
-    Friend WithEvents btnOneHourChanges As System.Windows.Forms.Button
     Friend WithEvents rdbOneHourNo As System.Windows.Forms.RadioButton
     Friend WithEvents rdbOneHourCont As System.Windows.Forms.RadioButton
     Friend WithEvents rdbOneHourYes As System.Windows.Forms.RadioButton
     Friend WithEvents GroupBox3 As System.Windows.Forms.GroupBox
-    Friend WithEvents btnEightHourChanges As System.Windows.Forms.Button
     Friend WithEvents rdbEightHourNo As System.Windows.Forms.RadioButton
     Friend WithEvents rdbEightHourMacon As System.Windows.Forms.RadioButton
     Friend WithEvents rdbEightHourAtlanta As System.Windows.Forms.RadioButton
@@ -641,5 +507,7 @@ Partial Class SSPPAttainmentStatus
     Friend WithEvents rdbPMFineFloyd As System.Windows.Forms.RadioButton
     Friend WithEvents rdbPMFineChattanooga As System.Windows.Forms.RadioButton
     Friend WithEvents rdbPMFineAtlanta As System.Windows.Forms.RadioButton
-    Friend WithEvents btnPMFineChanges As System.Windows.Forms.Button
+    Friend WithEvents btnPMFineChanges As Button
+    Friend WithEvents btnEightHourChanges As Button
+    Friend WithEvents btnOneHourChanges As Button
 End Class

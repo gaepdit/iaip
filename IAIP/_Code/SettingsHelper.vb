@@ -41,13 +41,13 @@ Friend Class SettingsHelper
         End SyncLock
     End Sub
 
-    Private Shared Sub HandleSettingsLoad(ByVal sender As Object, ByVal e As EventArgs)
+    Private Shared Sub HandleSettingsLoad(sender As Object, e As EventArgs)
         If (_keySettingsDictionary Is Nothing) Then
             InitializeDictionary()
         End If
     End Sub
 
-    Private Shared Sub HandleSettingsSaving(ByVal sender As Object, ByVal e As EventArgs)
+    Private Shared Sub HandleSettingsSaving(sender As Object, e As EventArgs)
         ' Ensure User Setting value is updated before save.
         Dim ser As New Json.DataContractJsonSerializer(GetType(Dictionary(Of String, String)))
         Using memStream As New IO.MemoryStream()

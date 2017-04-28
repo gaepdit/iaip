@@ -1,24 +1,26 @@
-﻿Imports Oracle.ManagedDataAccess.Client
-Imports Oracle.ManagedDataAccess.Types
+﻿Imports System.Data.SqlClient
 
 Namespace DAL
     Module QueryGeneratorData
 
-        Public Function LogQuery(ByVal kvp As Generic.KeyValuePair(Of String, Integer)) As Boolean
-
+        Public Function LogQuery(kvp As Generic.KeyValuePair(Of String, Integer)) As Boolean
             Dim query As String =
-                " INSERT INTO AIRBRANCH.IAIP_LOG_QUERYGENERATOR " &
+                " INSERT INTO IAIP_LOG_QUERYGENERATOR " &
                 " (USERSUBMITTING, DATESUBMITTED, ROWSRETURNED, QUERYSUBMITTED) " &
-                " VALUES (:UserSubmitting, :DateSubmitted, :RowsReturned, :QuerySubmitted) "
+                " VALUES (@UserSubmitting, @DateSubmitted, @RowsReturned, @QuerySubmitted) "
 
-            Dim parameters As OracleParameter() = {
-                New OracleParameter("UserSubmitting", CurrentUser.UserID),
-                New OracleParameter("DateSubmitted", Date.Now),
-                New OracleParameter("RowsReturned", kvp.Value),
-                New OracleParameter("QuerySubmitted", kvp.Key)
+            Dim parameters As SqlParameter() = {
+                New SqlParameter("@UserSubmitting", CurrentUser.UserID),
+                New SqlParameter("@DateSubmitted", Date.Now),
+                New SqlParameter("@RowsReturned", kvp.Value),
+                New SqlParameter("@QuerySubmitted", kvp.Key)
             }
 
-            Return DB.RunCommand(query, parameters, failSilently:=True)
+            Try
+                Return DB.RunCommand(query, parameters)
+            Catch ex As Exception
+                Return False
+            End Try
         End Function
 
     End Module

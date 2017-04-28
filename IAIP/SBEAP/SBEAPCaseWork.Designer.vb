@@ -20,185 +20,176 @@ Partial Class SBEAPCaseWork
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SBEAPCaseWork))
-        Me.ToolStrip1 = New System.Windows.Forms.ToolStrip
-        Me.tsbSave = New System.Windows.Forms.ToolStripButton
-        Me.tsbClientSearch = New System.Windows.Forms.ToolStripButton
-        Me.tsbPrint = New System.Windows.Forms.ToolStripButton
-        Me.tsbClearFrom = New System.Windows.Forms.ToolStripButton
-        Me.tsbBack = New System.Windows.Forms.ToolStripButton
-        Me.StatusStrip1 = New System.Windows.Forms.StatusStrip
-        Me.Label1 = New System.Windows.Forms.ToolStripStatusLabel
-        Me.Label2 = New System.Windows.Forms.ToolStripStatusLabel
-        Me.Label3 = New System.Windows.Forms.ToolStripStatusLabel
-        Me.MenuStrip1 = New System.Windows.Forms.MenuStrip
-        Me.FileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.ToolToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.mmiAddNewClient = New System.Windows.Forms.ToolStripMenuItem
-        Me.tsmDeleteCaseWork = New System.Windows.Forms.ToolStripMenuItem
-        Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.txtCaseID = New System.Windows.Forms.TextBox
-        Me.Label199 = New System.Windows.Forms.Label
-        Me.Label299 = New System.Windows.Forms.Label
-        Me.txtCaseNotes = New System.Windows.Forms.TextBox
-        Me.Label399 = New System.Windows.Forms.Label
-        Me.cboInteragency = New System.Windows.Forms.ComboBox
-        Me.cboStaffResponsible = New System.Windows.Forms.ComboBox
-        Me.Label4 = New System.Windows.Forms.Label
-        Me.DTPCaseOpened = New System.Windows.Forms.DateTimePicker
-        Me.Label5 = New System.Windows.Forms.Label
-        Me.cboActionType = New System.Windows.Forms.ComboBox
-        Me.Label6 = New System.Windows.Forms.Label
-        Me.Label7 = New System.Windows.Forms.Label
-        Me.DTPCaseClosed = New System.Windows.Forms.DateTimePicker
-        Me.Label8 = New System.Windows.Forms.Label
-        Me.txtLastModifingStaff = New System.Windows.Forms.TextBox
-        Me.Label9 = New System.Windows.Forms.Label
-        Me.DTPLastModified = New System.Windows.Forms.DateTimePicker
-        Me.Label10 = New System.Windows.Forms.Label
-        Me.txtClientID = New System.Windows.Forms.TextBox
-        Me.txtClientInformation = New System.Windows.Forms.TextBox
-        Me.Label12 = New System.Windows.Forms.Label
-        Me.txtOutstandingCases = New System.Windows.Forms.TextBox
-        Me.btnRefreshClient = New System.Windows.Forms.Button
-        Me.TCCaseSpecificData = New System.Windows.Forms.TabControl
-        Me.TPComplianceAssistance = New System.Windows.Forms.TabPage
-        Me.Label44 = New System.Windows.Forms.Label
-        Me.txtComplianceAssistanceComments = New System.Windows.Forms.TextBox
-        Me.chbOtherAssist = New System.Windows.Forms.CheckBox
-        Me.chbStormWaterAssist = New System.Windows.Forms.CheckBox
-        Me.chbHazardousWasteAssist = New System.Windows.Forms.CheckBox
-        Me.chbSolidWasteAssist = New System.Windows.Forms.CheckBox
-        Me.chbUSTAssist = New System.Windows.Forms.CheckBox
-        Me.chbScrapTireAssist = New System.Windows.Forms.CheckBox
-        Me.chbLeadAndAsbestosAssist = New System.Windows.Forms.CheckBox
-        Me.chbAirAssist = New System.Windows.Forms.CheckBox
-        Me.TPTechnicalAssist = New System.Windows.Forms.TabPage
-        Me.txtTechnicalAssistNotes = New System.Windows.Forms.TextBox
-        Me.Label37 = New System.Windows.Forms.Label
-        Me.Panel5 = New System.Windows.Forms.Panel
-        Me.chbPollSovent = New System.Windows.Forms.CheckBox
-        Me.chbPollWater = New System.Windows.Forms.CheckBox
-        Me.chbPollOther = New System.Windows.Forms.CheckBox
-        Me.chbPollWaste = New System.Windows.Forms.CheckBox
-        Me.chbPollEnergy = New System.Windows.Forms.CheckBox
-        Me.Label25 = New System.Windows.Forms.Label
-        Me.Panel4 = New System.Windows.Forms.Panel
-        Me.chbGeneralOther = New System.Windows.Forms.CheckBox
-        Me.chbGeneralEMS = New System.Windows.Forms.CheckBox
-        Me.chbGeneralMultiMedia = New System.Windows.Forms.CheckBox
-        Me.Label24 = New System.Windows.Forms.Label
-        Me.Panel3 = New System.Windows.Forms.Panel
-        Me.chbWasteOther = New System.Windows.Forms.CheckBox
-        Me.chbWasteHazWaste = New System.Windows.Forms.CheckBox
-        Me.chbWasteSolidWaste = New System.Windows.Forms.CheckBox
-        Me.chbWasteUST = New System.Windows.Forms.CheckBox
-        Me.chbWasteAST = New System.Windows.Forms.CheckBox
-        Me.chbWasteTier2 = New System.Windows.Forms.CheckBox
-        Me.chbWasteFormR = New System.Windows.Forms.CheckBox
-        Me.Label22 = New System.Windows.Forms.Label
-        Me.Panel2 = New System.Windows.Forms.Panel
-        Me.chbWaterOther = New System.Windows.Forms.CheckBox
-        Me.chbWaterWetlands = New System.Windows.Forms.CheckBox
-        Me.chbWaterSPCCC = New System.Windows.Forms.CheckBox
-        Me.chbWaterEandS = New System.Windows.Forms.CheckBox
-        Me.chbWaterNPDES = New System.Windows.Forms.CheckBox
-        Me.chbWaterPOTW = New System.Windows.Forms.CheckBox
-        Me.chbWaterIndustrial = New System.Windows.Forms.CheckBox
-        Me.chbWaterConstruction = New System.Windows.Forms.CheckBox
-        Me.Label23 = New System.Windows.Forms.Label
-        Me.Panel1 = New System.Windows.Forms.Panel
-        Me.txtAIRSNumber = New System.Windows.Forms.TextBox
-        Me.Label21 = New System.Windows.Forms.Label
-        Me.chbAirOther = New System.Windows.Forms.CheckBox
-        Me.chbAirCompCert = New System.Windows.Forms.CheckBox
-        Me.chbAirPermitAssit = New System.Windows.Forms.CheckBox
-        Me.chbAirRecordAssist = New System.Windows.Forms.CheckBox
-        Me.chbAirEnforceAssist = New System.Windows.Forms.CheckBox
-        Me.chbAirEmissInv = New System.Windows.Forms.CheckBox
-        Me.chbAirAppPrep = New System.Windows.Forms.CheckBox
-        Me.Label20 = New System.Windows.Forms.Label
-        Me.DTPTechAssistStart = New System.Windows.Forms.DateTimePicker
-        Me.Label18 = New System.Windows.Forms.Label
-        Me.DTPTechAssistEnd = New System.Windows.Forms.DateTimePicker
-        Me.Label17 = New System.Windows.Forms.Label
-        Me.DTPTechAssistInitialContact = New System.Windows.Forms.DateTimePicker
-        Me.Label16 = New System.Windows.Forms.Label
-        Me.cboTechAssistType = New System.Windows.Forms.ComboBox
-        Me.Label15 = New System.Windows.Forms.Label
-        Me.TPPhoneCalls = New System.Windows.Forms.TabPage
-        Me.chbOnetimeAssist = New System.Windows.Forms.CheckBox
-        Me.chbFrontDeskCall = New System.Windows.Forms.CheckBox
-        Me.txtPhoneCallNotes = New System.Windows.Forms.TextBox
-        Me.Label38 = New System.Windows.Forms.Label
-        Me.mtbPhoneNumber = New System.Windows.Forms.MaskedTextBox
-        Me.Label26 = New System.Windows.Forms.Label
-        Me.txtCallName = New System.Windows.Forms.TextBox
-        Me.Label19 = New System.Windows.Forms.Label
-        Me.TPConferences = New System.Windows.Forms.TabPage
-        Me.clbStaffAttending = New System.Windows.Forms.CheckedListBox
-        Me.Label40 = New System.Windows.Forms.Label
-        Me.txtConferenceNotes = New System.Windows.Forms.TextBox
-        Me.Label39 = New System.Windows.Forms.Label
-        Me.txtConferenceFollowUp = New System.Windows.Forms.TextBox
-        Me.Label36 = New System.Windows.Forms.Label
-        Me.txtConferenceAttendees = New System.Windows.Forms.TextBox
-        Me.Label35 = New System.Windows.Forms.Label
-        Me.DTPConferenceEnd = New System.Windows.Forms.DateTimePicker
-        Me.Label34 = New System.Windows.Forms.Label
-        Me.DTPConferenceStart = New System.Windows.Forms.DateTimePicker
-        Me.Label33 = New System.Windows.Forms.Label
-        Me.txtListOfBusinessSectors = New System.Windows.Forms.TextBox
-        Me.Label32 = New System.Windows.Forms.Label
-        Me.Panel7 = New System.Windows.Forms.Panel
-        Me.rdbSBEAPPresentationYes = New System.Windows.Forms.RadioButton
-        Me.rdbSBEAPPresentationNo = New System.Windows.Forms.RadioButton
-        Me.Label31 = New System.Windows.Forms.Label
-        Me.txtConferenceTopic = New System.Windows.Forms.TextBox
-        Me.Label30 = New System.Windows.Forms.Label
-        Me.txtConferenceLocation = New System.Windows.Forms.TextBox
-        Me.Label29 = New System.Windows.Forms.Label
-        Me.txtConferenceAttended = New System.Windows.Forms.TextBox
-        Me.Label27 = New System.Windows.Forms.Label
-        Me.TPOtherCases = New System.Windows.Forms.TabPage
-        Me.txtReferralInformation = New System.Windows.Forms.TextBox
-        Me.Label28 = New System.Windows.Forms.Label
-        Me.pnlBasicCaseData = New System.Windows.Forms.Panel
-        Me.chbCaseClosureLetter = New System.Windows.Forms.CheckBox
-        Me.pnlMultiClient = New System.Windows.Forms.Panel
-        Me.btnRemoveClient = New System.Windows.Forms.Button
-        Me.txtDeleteClient = New System.Windows.Forms.TextBox
-        Me.txtMultiClients = New System.Windows.Forms.TextBox
-        Me.Label42 = New System.Windows.Forms.Label
-        Me.btnAddClients = New System.Windows.Forms.Button
-        Me.txtAddMultiClient = New System.Windows.Forms.TextBox
-        Me.Label13 = New System.Windows.Forms.Label
-        Me.txtMultiClientList = New System.Windows.Forms.TextBox
-        Me.Panel9 = New System.Windows.Forms.Panel
-        Me.rdbMultiClient = New System.Windows.Forms.RadioButton
-        Me.rdbSingleClient = New System.Windows.Forms.RadioButton
-        Me.pnlSingleClient = New System.Windows.Forms.Panel
-        Me.chbComplaintBased = New System.Windows.Forms.CheckBox
-        Me.txtCaseDescription = New System.Windows.Forms.TextBox
-        Me.Label11 = New System.Windows.Forms.Label
-        Me.DTPReferralDate = New System.Windows.Forms.DateTimePicker
-        Me.Label14 = New System.Windows.Forms.Label
-        Me.pnlModifingData = New System.Windows.Forms.Panel
-        Me.GroupBox1 = New System.Windows.Forms.GroupBox
-        Me.Panel6 = New System.Windows.Forms.Panel
-        Me.DTPActionOccured = New System.Windows.Forms.DateTimePicker
-        Me.Label43 = New System.Windows.Forms.Label
-        Me.txtCreationDate = New System.Windows.Forms.TextBox
-        Me.Label41 = New System.Windows.Forms.Label
-        Me.txtActionCount = New System.Windows.Forms.TextBox
-        Me.btnDeleteAction = New System.Windows.Forms.Button
-        Me.btnClearActions = New System.Windows.Forms.Button
-        Me.txtActionType = New System.Windows.Forms.TextBox
-        Me.btnAddNewAction = New System.Windows.Forms.Button
-        Me.txtActionID = New System.Windows.Forms.TextBox
-        Me.dgvActionLog = New System.Windows.Forms.DataGridView
-        Me.btnViewActionType = New System.Windows.Forms.Button
+        Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
+        Me.tsbSave = New System.Windows.Forms.ToolStripButton()
+        Me.tsbClientSearch = New System.Windows.Forms.ToolStripButton()
+        Me.tsbClearFrom = New System.Windows.Forms.ToolStripButton()
+        Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
+        Me.ToolToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mmiAddNewClient = New System.Windows.Forms.ToolStripMenuItem()
+        Me.tsmDeleteCaseWork = New System.Windows.Forms.ToolStripMenuItem()
+        Me.txtCaseID = New System.Windows.Forms.TextBox()
+        Me.Label199 = New System.Windows.Forms.Label()
+        Me.Label299 = New System.Windows.Forms.Label()
+        Me.txtCaseNotes = New System.Windows.Forms.TextBox()
+        Me.Label399 = New System.Windows.Forms.Label()
+        Me.cboInteragency = New System.Windows.Forms.ComboBox()
+        Me.cboStaffResponsible = New System.Windows.Forms.ComboBox()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.DTPCaseOpened = New System.Windows.Forms.DateTimePicker()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.cboActionType = New System.Windows.Forms.ComboBox()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.DTPCaseClosed = New System.Windows.Forms.DateTimePicker()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.txtLastModifingStaff = New System.Windows.Forms.TextBox()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.DTPLastModified = New System.Windows.Forms.DateTimePicker()
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.txtClientID = New System.Windows.Forms.TextBox()
+        Me.txtClientInformation = New System.Windows.Forms.TextBox()
+        Me.Label12 = New System.Windows.Forms.Label()
+        Me.txtOutstandingCases = New System.Windows.Forms.TextBox()
+        Me.btnRefreshClient = New System.Windows.Forms.Button()
+        Me.TCCaseSpecificData = New System.Windows.Forms.TabControl()
+        Me.TPComplianceAssistance = New System.Windows.Forms.TabPage()
+        Me.Label44 = New System.Windows.Forms.Label()
+        Me.txtComplianceAssistanceComments = New System.Windows.Forms.TextBox()
+        Me.chbOtherAssist = New System.Windows.Forms.CheckBox()
+        Me.chbStormWaterAssist = New System.Windows.Forms.CheckBox()
+        Me.chbHazardousWasteAssist = New System.Windows.Forms.CheckBox()
+        Me.chbSolidWasteAssist = New System.Windows.Forms.CheckBox()
+        Me.chbUSTAssist = New System.Windows.Forms.CheckBox()
+        Me.chbScrapTireAssist = New System.Windows.Forms.CheckBox()
+        Me.chbLeadAndAsbestosAssist = New System.Windows.Forms.CheckBox()
+        Me.chbAirAssist = New System.Windows.Forms.CheckBox()
+        Me.TPTechnicalAssist = New System.Windows.Forms.TabPage()
+        Me.txtTechnicalAssistNotes = New System.Windows.Forms.TextBox()
+        Me.Label37 = New System.Windows.Forms.Label()
+        Me.Panel5 = New System.Windows.Forms.Panel()
+        Me.chbPollSovent = New System.Windows.Forms.CheckBox()
+        Me.chbPollWater = New System.Windows.Forms.CheckBox()
+        Me.chbPollOther = New System.Windows.Forms.CheckBox()
+        Me.chbPollWaste = New System.Windows.Forms.CheckBox()
+        Me.chbPollEnergy = New System.Windows.Forms.CheckBox()
+        Me.Label25 = New System.Windows.Forms.Label()
+        Me.Panel4 = New System.Windows.Forms.Panel()
+        Me.chbGeneralOther = New System.Windows.Forms.CheckBox()
+        Me.chbGeneralEMS = New System.Windows.Forms.CheckBox()
+        Me.chbGeneralMultiMedia = New System.Windows.Forms.CheckBox()
+        Me.Label24 = New System.Windows.Forms.Label()
+        Me.Panel3 = New System.Windows.Forms.Panel()
+        Me.chbWasteOther = New System.Windows.Forms.CheckBox()
+        Me.chbWasteHazWaste = New System.Windows.Forms.CheckBox()
+        Me.chbWasteSolidWaste = New System.Windows.Forms.CheckBox()
+        Me.chbWasteUST = New System.Windows.Forms.CheckBox()
+        Me.chbWasteAST = New System.Windows.Forms.CheckBox()
+        Me.chbWasteTier2 = New System.Windows.Forms.CheckBox()
+        Me.chbWasteFormR = New System.Windows.Forms.CheckBox()
+        Me.Label22 = New System.Windows.Forms.Label()
+        Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.chbWaterOther = New System.Windows.Forms.CheckBox()
+        Me.chbWaterWetlands = New System.Windows.Forms.CheckBox()
+        Me.chbWaterSPCCC = New System.Windows.Forms.CheckBox()
+        Me.chbWaterEandS = New System.Windows.Forms.CheckBox()
+        Me.chbWaterNPDES = New System.Windows.Forms.CheckBox()
+        Me.chbWaterPOTW = New System.Windows.Forms.CheckBox()
+        Me.chbWaterIndustrial = New System.Windows.Forms.CheckBox()
+        Me.chbWaterConstruction = New System.Windows.Forms.CheckBox()
+        Me.Label23 = New System.Windows.Forms.Label()
+        Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.txtAIRSNumber = New System.Windows.Forms.TextBox()
+        Me.Label21 = New System.Windows.Forms.Label()
+        Me.chbAirOther = New System.Windows.Forms.CheckBox()
+        Me.chbAirCompCert = New System.Windows.Forms.CheckBox()
+        Me.chbAirPermitAssit = New System.Windows.Forms.CheckBox()
+        Me.chbAirRecordAssist = New System.Windows.Forms.CheckBox()
+        Me.chbAirEnforceAssist = New System.Windows.Forms.CheckBox()
+        Me.chbAirEmissInv = New System.Windows.Forms.CheckBox()
+        Me.chbAirAppPrep = New System.Windows.Forms.CheckBox()
+        Me.Label20 = New System.Windows.Forms.Label()
+        Me.DTPTechAssistStart = New System.Windows.Forms.DateTimePicker()
+        Me.Label18 = New System.Windows.Forms.Label()
+        Me.DTPTechAssistEnd = New System.Windows.Forms.DateTimePicker()
+        Me.Label17 = New System.Windows.Forms.Label()
+        Me.DTPTechAssistInitialContact = New System.Windows.Forms.DateTimePicker()
+        Me.Label16 = New System.Windows.Forms.Label()
+        Me.cboTechAssistType = New System.Windows.Forms.ComboBox()
+        Me.Label15 = New System.Windows.Forms.Label()
+        Me.TPPhoneCalls = New System.Windows.Forms.TabPage()
+        Me.chbOnetimeAssist = New System.Windows.Forms.CheckBox()
+        Me.chbFrontDeskCall = New System.Windows.Forms.CheckBox()
+        Me.txtPhoneCallNotes = New System.Windows.Forms.TextBox()
+        Me.Label38 = New System.Windows.Forms.Label()
+        Me.mtbPhoneNumber = New System.Windows.Forms.MaskedTextBox()
+        Me.Label26 = New System.Windows.Forms.Label()
+        Me.txtCallName = New System.Windows.Forms.TextBox()
+        Me.Label19 = New System.Windows.Forms.Label()
+        Me.TPConferences = New System.Windows.Forms.TabPage()
+        Me.clbStaffAttending = New System.Windows.Forms.CheckedListBox()
+        Me.Label40 = New System.Windows.Forms.Label()
+        Me.txtConferenceNotes = New System.Windows.Forms.TextBox()
+        Me.Label39 = New System.Windows.Forms.Label()
+        Me.txtConferenceFollowUp = New System.Windows.Forms.TextBox()
+        Me.Label36 = New System.Windows.Forms.Label()
+        Me.txtConferenceAttendees = New System.Windows.Forms.TextBox()
+        Me.Label35 = New System.Windows.Forms.Label()
+        Me.DTPConferenceEnd = New System.Windows.Forms.DateTimePicker()
+        Me.Label34 = New System.Windows.Forms.Label()
+        Me.DTPConferenceStart = New System.Windows.Forms.DateTimePicker()
+        Me.Label33 = New System.Windows.Forms.Label()
+        Me.txtListOfBusinessSectors = New System.Windows.Forms.TextBox()
+        Me.Label32 = New System.Windows.Forms.Label()
+        Me.Panel7 = New System.Windows.Forms.Panel()
+        Me.rdbSBEAPPresentationYes = New System.Windows.Forms.RadioButton()
+        Me.rdbSBEAPPresentationNo = New System.Windows.Forms.RadioButton()
+        Me.Label31 = New System.Windows.Forms.Label()
+        Me.txtConferenceTopic = New System.Windows.Forms.TextBox()
+        Me.Label30 = New System.Windows.Forms.Label()
+        Me.txtConferenceLocation = New System.Windows.Forms.TextBox()
+        Me.Label29 = New System.Windows.Forms.Label()
+        Me.txtConferenceAttended = New System.Windows.Forms.TextBox()
+        Me.Label27 = New System.Windows.Forms.Label()
+        Me.TPOtherCases = New System.Windows.Forms.TabPage()
+        Me.txtReferralInformation = New System.Windows.Forms.TextBox()
+        Me.Label28 = New System.Windows.Forms.Label()
+        Me.pnlBasicCaseData = New System.Windows.Forms.Panel()
+        Me.chbCaseClosureLetter = New System.Windows.Forms.CheckBox()
+        Me.pnlMultiClient = New System.Windows.Forms.Panel()
+        Me.btnRemoveClient = New System.Windows.Forms.Button()
+        Me.txtDeleteClient = New System.Windows.Forms.TextBox()
+        Me.txtMultiClients = New System.Windows.Forms.TextBox()
+        Me.Label42 = New System.Windows.Forms.Label()
+        Me.btnAddClients = New System.Windows.Forms.Button()
+        Me.txtAddMultiClient = New System.Windows.Forms.TextBox()
+        Me.Label13 = New System.Windows.Forms.Label()
+        Me.txtMultiClientList = New System.Windows.Forms.TextBox()
+        Me.Panel9 = New System.Windows.Forms.Panel()
+        Me.rdbMultiClient = New System.Windows.Forms.RadioButton()
+        Me.rdbSingleClient = New System.Windows.Forms.RadioButton()
+        Me.pnlSingleClient = New System.Windows.Forms.Panel()
+        Me.chbComplaintBased = New System.Windows.Forms.CheckBox()
+        Me.txtCaseDescription = New System.Windows.Forms.TextBox()
+        Me.Label11 = New System.Windows.Forms.Label()
+        Me.DTPReferralDate = New System.Windows.Forms.DateTimePicker()
+        Me.Label14 = New System.Windows.Forms.Label()
+        Me.pnlModifingData = New System.Windows.Forms.Panel()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.Panel6 = New System.Windows.Forms.Panel()
+        Me.DTPActionOccured = New System.Windows.Forms.DateTimePicker()
+        Me.Label43 = New System.Windows.Forms.Label()
+        Me.txtCreationDate = New System.Windows.Forms.TextBox()
+        Me.Label41 = New System.Windows.Forms.Label()
+        Me.txtActionCount = New System.Windows.Forms.TextBox()
+        Me.btnDeleteAction = New System.Windows.Forms.Button()
+        Me.btnClearActions = New System.Windows.Forms.Button()
+        Me.txtActionType = New System.Windows.Forms.TextBox()
+        Me.btnAddNewAction = New System.Windows.Forms.Button()
+        Me.txtActionID = New System.Windows.Forms.TextBox()
+        Me.dgvActionLog = New System.Windows.Forms.DataGridView()
+        Me.btnViewActionType = New System.Windows.Forms.Button()
         Me.ToolStrip1.SuspendLayout()
-        Me.StatusStrip1.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         Me.TCCaseSpecificData.SuspendLayout()
         Me.TPComplianceAssistance.SuspendLayout()
@@ -224,7 +215,7 @@ Partial Class SBEAPCaseWork
         '
         'ToolStrip1
         '
-        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsbSave, Me.tsbClientSearch, Me.tsbPrint, Me.tsbClearFrom, Me.tsbBack})
+        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsbSave, Me.tsbClientSearch, Me.tsbClearFrom})
         Me.ToolStrip1.Location = New System.Drawing.Point(0, 24)
         Me.ToolStrip1.Name = "ToolStrip1"
         Me.ToolStrip1.Size = New System.Drawing.Size(1016, 25)
@@ -249,17 +240,6 @@ Partial Class SBEAPCaseWork
         Me.tsbClientSearch.Size = New System.Drawing.Size(23, 22)
         Me.tsbClientSearch.Text = "Client Search"
         '
-        'tsbPrint
-        '
-        Me.tsbPrint.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.tsbPrint.Enabled = False
-        Me.tsbPrint.Image = CType(resources.GetObject("tsbPrint.Image"), System.Drawing.Image)
-        Me.tsbPrint.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.tsbPrint.Name = "tsbPrint"
-        Me.tsbPrint.Size = New System.Drawing.Size(23, 22)
-        Me.tsbPrint.Text = "Print Case Work"
-        Me.tsbPrint.Visible = False
-        '
         'tsbClearFrom
         '
         Me.tsbClearFrom.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
@@ -269,67 +249,14 @@ Partial Class SBEAPCaseWork
         Me.tsbClearFrom.Size = New System.Drawing.Size(23, 22)
         Me.tsbClearFrom.Text = "ToolStripButton1"
         '
-        'tsbBack
-        '
-        Me.tsbBack.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.tsbBack.Image = CType(resources.GetObject("tsbBack.Image"), System.Drawing.Image)
-        Me.tsbBack.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.tsbBack.Name = "tsbBack"
-        Me.tsbBack.Size = New System.Drawing.Size(23, 22)
-        Me.tsbBack.Text = "Back"
-        '
-        'StatusStrip1
-        '
-        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.Label1, Me.Label2, Me.Label3})
-        Me.StatusStrip1.Location = New System.Drawing.Point(0, 792)
-        Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Size = New System.Drawing.Size(1016, 22)
-        Me.StatusStrip1.TabIndex = 4
-        Me.StatusStrip1.Text = "StatusStrip1"
-        '
-        'Label1
-        '
-        Me.Label1.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.Label1.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(993, 17)
-        Me.Label1.Spring = True
-        Me.Label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'Label2
-        '
-        Me.Label2.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.Label2.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(4, 17)
-        '
-        'Label3
-        '
-        Me.Label3.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.Label3.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(4, 17)
-        '
         'MenuStrip1
         '
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem, Me.ToolToolStripMenuItem, Me.HelpToolStripMenuItem})
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
         Me.MenuStrip1.Size = New System.Drawing.Size(1016, 24)
         Me.MenuStrip1.TabIndex = 3
         Me.MenuStrip1.Text = "MenuStrip1"
-        '
-        'FileToolStripMenuItem
-        '
-        Me.FileToolStripMenuItem.Name = "FileToolStripMenuItem"
-        Me.FileToolStripMenuItem.Size = New System.Drawing.Size(37, 20)
-        Me.FileToolStripMenuItem.Text = "File"
         '
         'ToolToolStripMenuItem
         '
@@ -349,12 +276,6 @@ Partial Class SBEAPCaseWork
         Me.tsmDeleteCaseWork.Name = "tsmDeleteCaseWork"
         Me.tsmDeleteCaseWork.Size = New System.Drawing.Size(166, 22)
         Me.tsmDeleteCaseWork.Text = "Delete Case Work"
-        '
-        'HelpToolStripMenuItem
-        '
-        Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
-        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(44, 20)
-        Me.HelpToolStripMenuItem.Text = "Help"
         '
         'txtCaseID
         '
@@ -404,6 +325,7 @@ Partial Class SBEAPCaseWork
         '
         Me.cboInteragency.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
         Me.cboInteragency.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboInteragency.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboInteragency.FormattingEnabled = True
         Me.cboInteragency.Location = New System.Drawing.Point(663, 50)
         Me.cboInteragency.Name = "cboInteragency"
@@ -414,6 +336,7 @@ Partial Class SBEAPCaseWork
         '
         Me.cboStaffResponsible.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
         Me.cboStaffResponsible.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboStaffResponsible.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboStaffResponsible.FormattingEnabled = True
         Me.cboStaffResponsible.Location = New System.Drawing.Point(663, 24)
         Me.cboStaffResponsible.Name = "cboStaffResponsible"
@@ -451,6 +374,7 @@ Partial Class SBEAPCaseWork
         '
         Me.cboActionType.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
         Me.cboActionType.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboActionType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboActionType.FormattingEnabled = True
         Me.cboActionType.Location = New System.Drawing.Point(207, 83)
         Me.cboActionType.Name = "cboActionType"
@@ -587,7 +511,7 @@ Partial Class SBEAPCaseWork
         Me.TCCaseSpecificData.Location = New System.Drawing.Point(0, 340)
         Me.TCCaseSpecificData.Name = "TCCaseSpecificData"
         Me.TCCaseSpecificData.SelectedIndex = 0
-        Me.TCCaseSpecificData.Size = New System.Drawing.Size(1016, 424)
+        Me.TCCaseSpecificData.Size = New System.Drawing.Size(1016, 446)
         Me.TCCaseSpecificData.TabIndex = 33
         '
         'TPComplianceAssistance
@@ -604,7 +528,7 @@ Partial Class SBEAPCaseWork
         Me.TPComplianceAssistance.Controls.Add(Me.chbAirAssist)
         Me.TPComplianceAssistance.Location = New System.Drawing.Point(4, 22)
         Me.TPComplianceAssistance.Name = "TPComplianceAssistance"
-        Me.TPComplianceAssistance.Size = New System.Drawing.Size(1008, 398)
+        Me.TPComplianceAssistance.Size = New System.Drawing.Size(1008, 420)
         Me.TPComplianceAssistance.TabIndex = 4
         Me.TPComplianceAssistance.Text = "Compliance Assistance"
         Me.TPComplianceAssistance.UseVisualStyleBackColor = True
@@ -727,7 +651,7 @@ Partial Class SBEAPCaseWork
         Me.TPTechnicalAssist.Location = New System.Drawing.Point(4, 22)
         Me.TPTechnicalAssist.Name = "TPTechnicalAssist"
         Me.TPTechnicalAssist.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPTechnicalAssist.Size = New System.Drawing.Size(1008, 398)
+        Me.TPTechnicalAssist.Size = New System.Drawing.Size(1008, 420)
         Me.TPTechnicalAssist.TabIndex = 1
         Me.TPTechnicalAssist.Text = "Permit Assistance"
         Me.TPTechnicalAssist.UseVisualStyleBackColor = True
@@ -1285,7 +1209,7 @@ Partial Class SBEAPCaseWork
         Me.TPPhoneCalls.Controls.Add(Me.Label19)
         Me.TPPhoneCalls.Location = New System.Drawing.Point(4, 22)
         Me.TPPhoneCalls.Name = "TPPhoneCalls"
-        Me.TPPhoneCalls.Size = New System.Drawing.Size(1008, 398)
+        Me.TPPhoneCalls.Size = New System.Drawing.Size(1008, 420)
         Me.TPPhoneCalls.TabIndex = 2
         Me.TPPhoneCalls.Text = "Phone Call Made/Received"
         Me.TPPhoneCalls.UseVisualStyleBackColor = True
@@ -1391,7 +1315,7 @@ Partial Class SBEAPCaseWork
         Me.TPConferences.Controls.Add(Me.Label27)
         Me.TPConferences.Location = New System.Drawing.Point(4, 22)
         Me.TPConferences.Name = "TPConferences"
-        Me.TPConferences.Size = New System.Drawing.Size(1008, 398)
+        Me.TPConferences.Size = New System.Drawing.Size(1008, 420)
         Me.TPConferences.TabIndex = 3
         Me.TPConferences.Text = "Meeting/Conferences Attended"
         Me.TPConferences.UseVisualStyleBackColor = True
@@ -1628,7 +1552,7 @@ Partial Class SBEAPCaseWork
         Me.TPOtherCases.Location = New System.Drawing.Point(4, 22)
         Me.TPOtherCases.Name = "TPOtherCases"
         Me.TPOtherCases.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPOtherCases.Size = New System.Drawing.Size(1008, 398)
+        Me.TPOtherCases.Size = New System.Drawing.Size(1008, 420)
         Me.TPOtherCases.TabIndex = 0
         Me.TPOtherCases.Text = "Other"
         Me.TPOtherCases.UseVisualStyleBackColor = True
@@ -1883,7 +1807,7 @@ Partial Class SBEAPCaseWork
         Me.pnlModifingData.Controls.Add(Me.Label8)
         Me.pnlModifingData.Controls.Add(Me.Label9)
         Me.pnlModifingData.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.pnlModifingData.Location = New System.Drawing.Point(0, 764)
+        Me.pnlModifingData.Location = New System.Drawing.Point(0, 786)
         Me.pnlModifingData.Name = "pnlModifingData"
         Me.pnlModifingData.Size = New System.Drawing.Size(1016, 28)
         Me.pnlModifingData.TabIndex = 35
@@ -2043,14 +1967,11 @@ Partial Class SBEAPCaseWork
         Me.Controls.Add(Me.pnlModifingData)
         Me.Controls.Add(Me.pnlBasicCaseData)
         Me.Controls.Add(Me.ToolStrip1)
-        Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.MenuStrip1)
         Me.Name = "SBEAPCaseWork"
         Me.Text = "Case Work"
         Me.ToolStrip1.ResumeLayout(False)
         Me.ToolStrip1.PerformLayout()
-        Me.StatusStrip1.ResumeLayout(False)
-        Me.StatusStrip1.PerformLayout()
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
         Me.TCCaseSpecificData.ResumeLayout(False)
@@ -2096,14 +2017,7 @@ Partial Class SBEAPCaseWork
     End Sub
     Friend WithEvents ToolStrip1 As System.Windows.Forms.ToolStrip
     Friend WithEvents tsbSave As System.Windows.Forms.ToolStripButton
-    Friend WithEvents tsbBack As System.Windows.Forms.ToolStripButton
-    Friend WithEvents StatusStrip1 As System.Windows.Forms.StatusStrip
-    Friend WithEvents Label1 As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents Label2 As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents Label3 As System.Windows.Forms.ToolStripStatusLabel
     Friend WithEvents MenuStrip1 As System.Windows.Forms.MenuStrip
-    Friend WithEvents FileToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents HelpToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents txtCaseID As System.Windows.Forms.TextBox
     Friend WithEvents Label199 As System.Windows.Forms.Label
     Friend WithEvents Label299 As System.Windows.Forms.Label
@@ -2258,7 +2172,6 @@ Partial Class SBEAPCaseWork
     Friend WithEvents DTPActionOccured As System.Windows.Forms.DateTimePicker
     Friend WithEvents Label43 As System.Windows.Forms.Label
     Friend WithEvents tsmDeleteCaseWork As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents tsbPrint As System.Windows.Forms.ToolStripButton
     Friend WithEvents chbCaseClosureLetter As System.Windows.Forms.CheckBox
     Friend WithEvents TPComplianceAssistance As System.Windows.Forms.TabPage
     Friend WithEvents chbStormWaterAssist As System.Windows.Forms.CheckBox

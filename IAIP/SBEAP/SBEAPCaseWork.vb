@@ -1,26 +1,15 @@
-Imports Oracle.ManagedDataAccess.Client
+Imports System.Data.SqlClient
 
 Public Class SBEAPCaseWork
-    Dim SQL, SQL2 As String
-    Dim dsCaseWork As DataSet
-    Dim daCaseWork As OracleDataAdapter
-    Dim dsStaff As DataSet
-    Dim daStaff As OracleDataAdapter
-    Dim dsStaffList As DataSet
-    Dim daStaffList As OracleDataAdapter
-    Dim dsActionLog As DataSet
-    Dim daActionLog As OracleDataAdapter
-    Dim temp As String
-    Dim i As Integer
+    Dim FixDtpCheckBox As Boolean = False
 
     Public WriteOnly Property ValueFromClientLookUp() As String
-        Set(ByVal Value As String)
+        Set(Value As String)
             txtClientID.Text = Value
         End Set
     End Property
 
-    Private Sub SBEAPCaseLog_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-
+    Private Sub SBEAPCaseLog_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
             If IsNumeric(txtCaseID.Text) = True Then
                 btnAddNewAction.Enabled = True
@@ -35,135 +24,66 @@ Public Class SBEAPCaseWork
             LoadComboBoxes()
             LoadAttendingStaff()
 
-            Label1.Text = "Enter Case Work data..."
-            Label2.Text = CurrentUser.AlphaName
-            Label3.Text = OracleDate
-
-            FormStatus("Enable")
+            FormStatus(EnableOrDisable.Enable)
 
             TCCaseSpecificData.Visible = False
-
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-#Region "Page Load"
-    Sub LoadComboBoxes()
+    Private Sub LoadComboBoxes()
         Try
-            Dim dtCaseLog As New DataTable
-            Dim dtStaff As New DataTable
-            Dim drDSRow As DataRow
-            Dim drNewRow As DataRow
-            Dim drNewRow2 As DataRow
-
-            dsCaseWork = New DataSet
-
-            SQL = "Select " &
-            "numActionType, strWorkDescription " &
-            "from AIRBRANCH.LookUpSBEAPCaseWork " &
+            Dim SQL As String = "Select " &
+            "'' as numActionType, '' as strWorkDescription " &
+            "union select " &
+            "convert(varchar(max),numActionType), strWorkDescription " &
+            "from LookUpSBEAPCaseWork " &
             "order by strWorkDescription "
 
-            daCaseWork = New OracleDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daCaseWork.Fill(dsCaseWork, "CaseWork")
-
-            dtCaseLog.Columns.Add("numActionType", GetType(System.String))
-            dtCaseLog.Columns.Add("strWorkDescription", GetType(System.String))
-
-            drNewRow = dtCaseLog.NewRow
-            drNewRow("numActionType") = ""
-            drNewRow("strWorkDescription") = ""
-            dtCaseLog.Rows.Add(drNewRow)
-
-            For Each drDSRow In dsCaseWork.Tables("CaseWork").Rows()
-                drNewRow = dtCaseLog.NewRow
-                drNewRow("numActionType") = drDSRow("numActionType")
-                drNewRow("strWorkDescription") = drDSRow("strWorkDescription")
-                dtCaseLog.Rows.Add(drNewRow)
-            Next
-
             With cboActionType
-                .DataSource = dtCaseLog
+                .DataSource = DB.GetDataTable(SQL)
                 .DisplayMember = "strWorkDescription"
                 .ValueMember = "numActionType"
             End With
 
-            SQL = "Select strOfficeName " &
-            "from AIRBRANCH.LookUpDistrictOffice " &
+            SQL = "Select STRDISTRICTNAME " &
+            "from LOOKUPDISTRICTS " &
             "Union " &
             "select 'APB' " &
-            "from dual " &
             "Union " &
             "select 'LBP' " &
-            "from dual " &
             "Union " &
             "select 'WPB' " &
-            "from dual " &
             "Union " &
             "select 'P2AD' " &
-            "from dual " &
             "Union " &
             "select 'GDED' " &
-            "from dual " &
             "Union " &
             "select 'GEFA' " &
-            "from dual " &
             "Union " &
-            "select 'NSBEAP' " &
-            "from dual "
+            "select 'NSBEAP' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                Me.cboInteragency.Items.Add(dr.Item("strOfficeName"))
-            End While
-            dr.Close()
-
-            dsStaff = New DataSet
+            cboInteragency.DataSource = DB.GetDataTable(SQL)
 
             SQL = "select " &
-            "NumUserID, " &
-            "(strLastName||', '||strFirstName) as UserName " &
-            "from AIRBRANCH.EPDUserProfiles " &
+            "'' as NumUserID, '' as UserName " &
+            "union select " &
+            "convert(varchar(max),NumUserID), " &
+            "concat(strLastName,', ',strFirstName) as UserName " &
+            "from EPDUserProfiles " &
             "where numBranch = '5' " &
             "and numProgram = '35' " &
             "union " &
             "select " &
-            "distinct(NumUserID) as NumUserID, " &
-            "(strLastName||', '||strFirstName) as UserName " &
-            "from AIRBRANCH.EPDUserProfiles, AIRBRANCH.SBEAPCaseLog " &
-            "where AIRBRANCH.EPDUserProfiles.numUserID = AIRBRANCH.SBEAPCaseLog.numStaffResponsible " &
+            "distinct convert(varchar(max),NumUserID) as NumUserID, " &
+            "concat(strLastName,', ',strFirstName) as UserName " &
+            "from EPDUserProfiles inner join SBEAPCaseLog " &
+            "on EPDUserProfiles.numUserID = SBEAPCaseLog.numStaffResponsible " &
             "Order by UserName "
 
-            daStaff = New OracleDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daStaff.Fill(dsStaff, "Staff")
-
-            dtStaff.Columns.Add("NumUserID", GetType(System.String))
-            dtStaff.Columns.Add("UserName", GetType(System.String))
-
-            drNewRow2 = dtStaff.NewRow
-            drNewRow2("NumUserID") = ""
-            drNewRow2("UserName") = ""
-            dtStaff.Rows.Add(drNewRow2)
-
-            For Each drDSRow In dsStaff.Tables("Staff").Rows()
-                drNewRow2 = dtStaff.NewRow
-                drNewRow2("NumUserID") = drDSRow("NumUserID")
-                drNewRow2("UserName") = drDSRow("UserName")
-                dtStaff.Rows.Add(drNewRow2)
-            Next
-
             With cboStaffResponsible
-                .DataSource = dtStaff
+                .DataSource = DB.GetDataTable(SQL)
                 .DisplayMember = "UserName"
                 .ValueMember = "NumUserID"
             End With
@@ -174,59 +94,36 @@ Public Class SBEAPCaseWork
             cboTechAssistType.Items.Add("3 - Hard")
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub FormStatus(ByVal Status As String)
-        Try
-            If Status = "Disable" Then
-                tsbSave.Enabled = False
-                txtCaseID.Enabled = False
-                txtClientID.Enabled = False
-                btnRefreshClient.Enabled = False
-                cboStaffResponsible.Enabled = False
-                cboActionType.Enabled = False
-                cboInteragency.Enabled = False
-                DTPCaseOpened.Enabled = False
-                DTPCaseClosed.Enabled = False
-                TCCaseSpecificData.Enabled = False
-                btnDeleteAction.Enabled = False
-                btnAddNewAction.Enabled = False
-                txtCaseDescription.Enabled = False
-                txtReferralInformation.Enabled = False
-                DTPReferralDate.Enabled = False
-            Else
-                tsbSave.Enabled = True
-                txtCaseID.Enabled = True
-                txtClientID.Enabled = True
-                btnRefreshClient.Enabled = True
-                cboStaffResponsible.Enabled = True
-                cboActionType.Enabled = True
-                cboInteragency.Enabled = True
-                DTPCaseOpened.Enabled = True
-                DTPCaseClosed.Enabled = True
-                TCCaseSpecificData.Enabled = True
-                btnDeleteAction.Enabled = True
-                btnAddNewAction.Enabled = True
-                txtCaseDescription.Enabled = True
-                txtReferralInformation.Enabled = True
-                DTPReferralDate.Enabled = True
-            End If
 
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+    Private Sub FormStatus(status As EnableOrDisable)
+        tsbSave.Enabled = status
+        txtCaseID.Enabled = status
+        txtClientID.Enabled = status
+        btnRefreshClient.Enabled = status
+        cboStaffResponsible.Enabled = status
+        cboActionType.Enabled = status
+        cboInteragency.Enabled = status
+        DTPCaseOpened.Enabled = status
+        DTPCaseClosed.Enabled = status
+        TCCaseSpecificData.Enabled = status
+        btnDeleteAction.Enabled = status
+        btnAddNewAction.Enabled = status
+        txtCaseDescription.Enabled = status
+        txtReferralInformation.Enabled = status
+        DTPReferralDate.Enabled = status
     End Sub
-#End Region
-#Region "Subs and Functions"
-    Sub LoadClientInfo()
+
+    Public Sub LoadClientInfo()
         Try
             Dim ClientID As String = ""
             Dim CompanyName As String = ""
             Dim CompanyAddress As String = ""
             Dim County As String = ""
 
-            SQL = "select " &
+            Dim SQL As String = "select " &
             "clientID, " &
             "strCompanyName, " &
             "strCompanyAddress, " &
@@ -234,16 +131,15 @@ Public Class SBEAPCaseWork
             "strCompanyState, " &
             "strCompanyZipCode, " &
             "strCountyName " &
-            "from AIRBRANCH.SBEAPClients, AIRBRANCH.LookUpCountyInformation " &
-            "where AIRBRANCH.SBEAPClients.strCompanyCounty = AIRBRANCH.LookUpCountyInformation.strCountyCode (+) " &
-            "and ClientId = '" & txtClientID.Text & "' "
+            "from SBEAPClients left join LookUpCountyInformation " &
+            "on SBEAPClients.strCompanyCounty = LookUpCountyInformation.strCountyCode " &
+            "where ClientId = @clientid "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
+            Dim p As New SqlParameter("@clientid", txtClientID.Text)
+
+            Dim dr As DataRow = DB.GetDataRow(SQL, p)
+
+            If dr IsNot Nothing Then
                 If IsDBNull(dr.Item("ClientID")) Then
                     ClientID = "Client ID: " & vbCrLf & vbCrLf
                 Else
@@ -279,74 +175,71 @@ Public Class SBEAPCaseWork
                 Else
                     County = "County- " & dr.Item("strCountyName")
                 End If
-            End While
-            dr.Close()
+            End If
+
             txtClientInformation.Text = ClientID & CompanyName & CompanyAddress & County
 
             SQL = "select " &
             "count(*) as Outstanding " &
-            "from AIRBRANCH.SBEAPCaseLog " &
-            "where ClientID = '" & txtClientID.Text & "' " &
+            "from SBEAPCaseLog " &
+            "where ClientID = @clientid " &
             "and datCaseClosed is null"
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                If IsDBNull(dr.Item("Outstanding")) Then
+
+            Dim dr2 As DataRow = DB.GetDataRow(SQL, p)
+
+            If dr2 IsNot Nothing Then
+                If IsDBNull(dr2.Item("Outstanding")) Then
                     txtOutstandingCases.Text = "0"
                 Else
-                    txtOutstandingCases.Text = dr.Item("Outstanding")
+                    txtOutstandingCases.Text = dr2.Item("Outstanding")
                 End If
-            End While
-            dr.Close()
+            End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub LoadCaseLogData()
+
+    Public Sub LoadCaseLogData()
         Try
             If txtCaseID.Text <> "" Then
-                SQL = "Select " &
+                Dim SQL As String = "Select " &
                 "numStaffResponsible, datCaseOpened, " &
                 "strCaseSummary, " &
                 "datCaseClosed, " &
                 "case " &
                 "when numModifingStaff is Null then ' ' " &
-                "else (strLastName|| ', '||strFirstName) " &
+                "else concat(strLastName, ', ',strFirstName) " &
                 "END ModifingStaff, " &
                 "numModifingStaff, " &
                 "datModifingDate, " &
                 "strInterAgency, strReferralComments, " &
                 "datReferralDate, strComplaintBased, " &
                 "strCaseClosureLetterSent " &
-                "from AIRBRANCH.SBEAPCaseLog, AIRBRANCH.EPDUserProfiles " &
-                "where AIRBRANCH.SBEAPCaseLog.numModifingStaff = AIRBRANCH.EPDUserProfiles.numUserID (+) " &
-                "and numCaseID = '" & txtCaseID.Text & "' "
+                "from SBEAPCaseLog left join EPDUserProfiles " &
+                "on SBEAPCaseLog.numModifingStaff = EPDUserProfiles.numUserID " &
+                "where numCaseID = @caseid "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                While dr.Read
+                Dim p As New SqlParameter("@caseid", txtCaseID.Text)
+
+                Dim dr As DataRow = DB.GetDataRow(SQL, p)
+
+                If dr IsNot Nothing Then
                     If IsDBNull(dr.Item("numStaffResponsible")) Then
                         cboStaffResponsible.SelectedValue = 0
                     Else
                         cboStaffResponsible.SelectedValue = dr.Item("numStaffResponsible")
                     End If
                     If IsDBNull(dr.Item("datCaseOpened")) Then
-                        DTPCaseOpened.Text = OracleDate
+                        DTPCaseOpened.Value = Today
                     Else
                         DTPCaseOpened.Text = dr.Item("datCaseOpened")
                     End If
                     If IsDBNull(dr.Item("datCaseClosed")) Then
-                        temp = "Data Load"
-                        DTPCaseClosed.Text = OracleDate
+                        FixDtpCheckBox = True
+                        DTPCaseClosed.Value = Today
                         DTPCaseClosed.Checked = False
-                        temp = ""
+                        FixDtpCheckBox = False
                     Else
                         DTPCaseClosed.Text = dr.Item("datCaseClosed")
                         DTPCaseClosed.Checked = True
@@ -357,7 +250,7 @@ Public Class SBEAPCaseWork
                         txtLastModifingStaff.Text = dr.Item("ModifingStaff")
                     End If
                     If IsDBNull(dr.Item("datModifingDate")) Then
-                        DTPLastModified.Text = OracleDate
+                        DTPLastModified.Value = Today
                     Else
                         DTPLastModified.Text = dr.Item("datModifingDate")
                     End If
@@ -377,7 +270,7 @@ Public Class SBEAPCaseWork
                         txtReferralInformation.Text = dr.Item("strReferralComments")
                     End If
                     If IsDBNull(dr.Item("datReferralDate")) Then
-                        DTPReferralDate.Text = OracleDate
+                        DTPReferralDate.Value = Today
                         DTPReferralDate.Checked = False
                     Else
                         DTPReferralDate.Text = dr.Item("datReferralDate")
@@ -401,10 +294,10 @@ Public Class SBEAPCaseWork
                             chbCaseClosureLetter.Checked = True
                         End If
                     End If
-                End While
-                dr.Close()
+                End If
 
                 LoadActionLog()
+
                 If txtActionCount.Text = "1" Then
                     txtActionID.Text = dgvActionLog(0, 0).Value
                     txtActionType.Text = dgvActionLog(2, 0).Value
@@ -413,141 +306,106 @@ Public Class SBEAPCaseWork
                 End If
 
                 SQL = "Select " &
-                "count(*) as ClientCount " &
-                "from AIRBRANCH.SBEAPCaseLogLink " &
-                "where numCaseID = '" & txtCaseID.Text & "' "
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                While dr.Read
-                    If IsDBNull(dr.Item("ClientCount")) Then
-                        temp = "0"
-                    Else
-                        temp = dr.Item("ClientCount")
+                "count(*) " &
+                "from SBEAPCaseLogLink " &
+                "where numCaseID = @caseid "
+
+                Dim ClientCount As Integer = DB.GetInteger(SQL, p)
+
+                If ClientCount = 1 Then
+                    rdbSingleClient.Checked = True
+
+                    SQL = "Select " &
+                        "ClientID " &
+                        "from SBEAPCaseLogLink " &
+                        "where numCaseID = @caseid "
+
+                    txtClientID.Text = DB.GetString(SQL, p)
+
+                    If txtClientID.Text <> "" Then
+                        LoadClientInfo()
                     End If
-                End While
-                dr.Close()
+                ElseIf ClientCount > 1 Then
+                    rdbMultiClient.Checked = True
+                    txtMultiClientList.Clear()
 
-                Select Case temp
-                    Case 0
-
-                    Case 1
-                        rdbSingleClient.Checked = True
-
-                        SQL = "Select " &
+                    SQL = "Select " &
                         "ClientID " &
-                        "from AIRBRANCH.SBEAPCaseLogLink " &
-                        "where numCaseID = '" & txtCaseID.Text & "' "
+                        "from SBEAPCaseLogLink " &
+                        "where numCaseID = @caseid "
 
-                        cmd = New OracleCommand(SQL, CurrentConnection)
-                        If CurrentConnection.State = ConnectionState.Closed Then
-                            CurrentConnection.Open()
-                        End If
-                        dr = cmd.ExecuteReader
-                        While dr.Read
-                            If IsDBNull(dr.Item("ClientID")) Then
-                                txtClientID.Text = ""
-                            Else
-                                txtClientID.Text = dr.Item("ClientID")
-                            End If
-                        End While
-                        dr.Close()
-                        If txtClientID.Text <> "" Then
-                            LoadClientInfo()
-                        End If
-                    Case Else
-                        rdbMultiClient.Checked = True
-                        txtMultiClientList.Clear()
+                    Dim dt As DataTable = DB.GetDataTable(SQL, p)
 
-                        SQL = "Select " &
-                        "ClientID " &
-                        "from AIRBRANCH.SBEAPCaseLogLink " &
-                        "where numCaseID = '" & txtCaseID.Text & "' "
+                    For Each dr2 As DataRow In dt.Rows
+                        txtMultiClientList.Text = txtMultiClientList.Text & dr2.Item("ClientID") & vbCrLf
+                    Next
 
-                        cmd = New OracleCommand(SQL, CurrentConnection)
-                        If CurrentConnection.State = ConnectionState.Closed Then
-                            CurrentConnection.Open()
-                        End If
-                        dr = cmd.ExecuteReader
-                        While dr.Read
-                            If IsDBNull(dr.Item("ClientID")) Then
-                                txtMultiClientList.Text = txtMultiClientList.Text
-                            Else
-                                txtMultiClientList.Text = txtMultiClientList.Text & dr.Item("ClientID") & vbCrLf
-                            End If
-                        End While
-                        dr.Close()
-
-                        LoadMultiClientList()
-                End Select
+                    LoadMultiClientList()
+                End If
             End If
-
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub LoadActionLog()
+
+    Private Sub LoadActionLog()
         Try
-            SQL = "select " &
+            Dim SQL As String = "select " &
             "numActionID, " &
             "numCaseID, " &
             "case " &
-            "when AIRBRANCH.SBEAPActionLog.numActionType is null then ' ' " &
+            "when SBEAPActionLog.numActionType is null then ' ' " &
             "else strWorkDescription " &
             "end ActionDescription, " &
-            "to_date(datCreationDate, 'dd-Mon-RRRR') as CreationDate,  " &
-            "to_date(datActionOccured, 'dd-Mon-RRRR') as OccuredDate " &
-            "from AIRBRANCH.SBEAPActionLog, AIRBRANCH.LookUpSBEAPCaseWork " &
-            "where AIRBRANCH.SBEAPActionLog.numActionType = AIRBRANCH.LookUpSBEAPCaseWork.numActionType (+)  " &
-            "and AIRBRANCH.SBEAPActionLog.numCaseID = '" & txtCaseID.Text & "' " &
+            "datCreationDate as CreationDate,  " &
+            "datActionOccured as OccuredDate " &
+            "from SBEAPActionLog left join LookUpSBEAPCaseWork " &
+            "on SBEAPActionLog.numActionType = LookUpSBEAPCaseWork.numActionType " &
+            "where SBEAPActionLog.numCaseID = @caseid " &
             "order by numActionID desc "
 
-            dsActionLog = New DataSet
-            daActionLog = New OracleDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
+            Dim p As New SqlParameter("@caseid", txtCaseID.Text)
+
+            Dim dt As DataTable = DB.GetDataTable(SQL, p)
+            dgvActionLog.DataSource = dt
+
+            If dt IsNot Nothing Then
+                dgvActionLog.RowHeadersVisible = False
+                dgvActionLog.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
+                dgvActionLog.AllowUserToResizeColumns = True
+                dgvActionLog.AllowUserToAddRows = False
+                dgvActionLog.AllowUserToDeleteRows = False
+                dgvActionLog.AllowUserToOrderColumns = True
+                dgvActionLog.AllowUserToResizeRows = True
+                dgvActionLog.ColumnHeadersHeight = "35"
+                dgvActionLog.Columns("numActionID").HeaderText = "Action ID"
+                dgvActionLog.Columns("numActionID").DisplayIndex = 1
+                dgvActionLog.Columns("numActionID").Width = 100
+                dgvActionLog.Columns("numActionID").Visible = False
+                dgvActionLog.Columns("numCaseID").HeaderText = "Client ID"
+                dgvActionLog.Columns("numCaseID").DisplayIndex = 2
+                dgvActionLog.Columns("numCaseID").Visible = False
+                dgvActionLog.Columns("ActionDescription").HeaderText = "Action Description"
+                dgvActionLog.Columns("ActionDescription").DisplayIndex = 3
+                dgvActionLog.Columns("ActionDescription").Width = (dgvActionLog.Width - dgvActionLog.Columns("numActionID").Width)
+                dgvActionLog.Columns("CreationDate").HeaderText = "Date Action Created"
+                dgvActionLog.Columns("CreationDate").DisplayIndex = 4
+                dgvActionLog.Columns("CreationDate").Width = 100
+                dgvActionLog.Columns("CreationDate").DefaultCellStyle.Format = "dd-MMM-yyyy"
+
+                dgvActionLog.Columns("OccuredDate").HeaderText = "Date Action Occured"
+                dgvActionLog.Columns("OccuredDate").DisplayIndex = 0
+                dgvActionLog.Columns("OccuredDate").Width = 100
+                dgvActionLog.Columns("OccuredDate").DefaultCellStyle.Format = "dd-MMM-yyyy"
             End If
-            daActionLog.Fill(dsActionLog, "ActionLog")
-
-            dgvActionLog.DataSource = dsActionLog
-            dgvActionLog.DataMember = "ActionLog"
-
-            dgvActionLog.RowHeadersVisible = False
-            dgvActionLog.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvActionLog.AllowUserToResizeColumns = True
-            dgvActionLog.AllowUserToAddRows = False
-            dgvActionLog.AllowUserToDeleteRows = False
-            dgvActionLog.AllowUserToOrderColumns = True
-            dgvActionLog.AllowUserToResizeRows = True
-            dgvActionLog.ColumnHeadersHeight = "35"
-            dgvActionLog.Columns("numActionID").HeaderText = "Action ID"
-            dgvActionLog.Columns("numActionID").DisplayIndex = 1
-            dgvActionLog.Columns("numActionID").Width = 100
-            dgvActionLog.Columns("numActionID").Visible = False
-            dgvActionLog.Columns("numCaseID").HeaderText = "Client ID"
-            dgvActionLog.Columns("numCaseID").DisplayIndex = 2
-            dgvActionLog.Columns("numCaseID").Visible = False
-            dgvActionLog.Columns("ActionDescription").HeaderText = "Action Description"
-            dgvActionLog.Columns("ActionDescription").DisplayIndex = 3
-            dgvActionLog.Columns("ActionDescription").Width = (dgvActionLog.Width - dgvActionLog.Columns("numActionID").Width)
-            dgvActionLog.Columns("CreationDate").HeaderText = "Date Action Created"
-            dgvActionLog.Columns("CreationDate").DisplayIndex = 4
-            dgvActionLog.Columns("CreationDate").Width = 100
-            dgvActionLog.Columns("CreationDate").DefaultCellStyle.Format = "dd-MMM-yyyy"
-
-            dgvActionLog.Columns("OccuredDate").HeaderText = "Date Action Occured"
-            dgvActionLog.Columns("OccuredDate").DisplayIndex = 0
-            dgvActionLog.Columns("OccuredDate").Width = 100
-            dgvActionLog.Columns("OccuredDate").DefaultCellStyle.Format = "dd-MMM-yyyy"
 
             txtActionCount.Text = dgvActionLog.RowCount.ToString
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub LoadActionTab()
+
+    Private Sub LoadActionTab()
         Try
             If txtActionID.Text <> "" Then
                 TCCaseSpecificData.TabPages.Remove(TPOtherCases)
@@ -620,51 +478,39 @@ Public Class SBEAPCaseWork
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub LoadAttendingStaff()
+
+    Private Sub LoadAttendingStaff()
         Try
-            'clbStaffAttending
-            Dim dtStaffList As New DataTable
-            Dim drDSRow As DataRow
-            Dim drNewRow As DataRow
-
-            SQL = "select " &
-            "NumUserID, " &
-            "(strLastName||', '||strFirstName) as UserName " &
-            "from AIRBRANCH.EPDUserProfiles " &
-            "where numBranch = '5' " &
-            "and numProgram = '35' "
-
-            dsStaffList = New DataSet
-
-            daStaffList = New OracleDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            daStaffList.Fill(dsStaffList, "StaffList")
-
-            dtStaffList.Columns.Add("NumUserID", GetType(System.String))
-            dtStaffList.Columns.Add("UserName", GetType(System.String))
-
-            For Each drDSRow In dsStaff.Tables("Staff").Rows()
-                drNewRow = dtStaffList.NewRow
-                drNewRow("NumUserID") = drDSRow("NumUserID")
-                drNewRow("UserName") = drDSRow("UserName")
-                dtStaffList.Rows.Add(drNewRow)
-            Next
+            ' Hoo boy would you look at this mess
+            Dim SQL As String = "SELECT NUMUSERID, concat(STRLASTNAME, ', ', STRFIRSTNAME) AS UserName
+                FROM EPDUSERPROFILES
+                WHERE NUMUNIT IN (47, 48)
+                UNION
+                SELECT NUMUSERID, concat(STRLASTNAME, ', ', STRFIRSTNAME) AS UserName
+                FROM (SELECT *
+                FROM (SELECT DISTINCT
+                LTRIM(RTRIM(m.n.value ('.[1]', 'varchar(8000)') )) AS StaffId
+                FROM (SELECT NUMACTIONID, CAST('<XMLRoot><RowData>'+REPLACE(STRSTAFFATTENDING, ',', '</RowData><RowData>')+'</RowData></XMLRoot>' AS xml) AS x
+                FROM SBEAPCONFERENCELOG) AS t
+                CROSS APPLY x.nodes ('/XMLRoot/RowData') AS m(n)) AS t
+                WHERE t.StaffId <> '') AS t
+                INNER JOIN EPDUSERPROFILES AS p ON p.NUMUSERID = t.StaffId
+                ORDER BY UserName"
 
             With clbStaffAttending
-                .DataSource = dtStaffList
+                .DataSource = DB.GetDataTable(SQL)
                 .DisplayMember = "UserName"
                 .ValueMember = "NumUserID"
             End With
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub LoadComplianceAssist()
+
+    Private Sub LoadComplianceAssist()
         Try
             chbAirAssist.Checked = False
             chbStormWaterAssist.Checked = False
@@ -676,22 +522,21 @@ Public Class SBEAPCaseWork
             chbOtherAssist.Checked = False
             txtComplianceAssistanceComments.Clear()
 
-            SQL = "Select " &
+            Dim SQL As String = "Select " &
             "strAIRAssist, strStormWaterAssist, " &
             "strHazWasteAssist, strSolidWasteAssist, " &
             "strUSTAssist, strScrapTireAssist, " &
             "strLeadAssist, strOtherAssist, " &
-            "strComment, strModifingStaff, " &
+            "strComments, strModifingStaff, " &
             "datModifingDate " &
-            "from AIRBRANCH.SBEAPComplianceAssist " &
-            "where numActionID = '" & txtActionID.Text & "' "
+            "from SBEAPComplianceAssist " &
+            "where numActionID = @actionid "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
+            Dim p As New SqlParameter("@actionid", txtActionID.Text)
+
+            Dim dr As DataRow = DB.GetDataRow(SQL, p)
+            If dr IsNot Nothing Then
+
                 If IsDBNull(dr.Item("strAirAssist")) Then
                     chbAirAssist.Checked = False
                 Else
@@ -764,57 +609,55 @@ Public Class SBEAPCaseWork
                         chbOtherAssist.Checked = False
                     End If
                 End If
-                If IsDBNull(dr.Item("strComment")) Then
+                If IsDBNull(dr.Item("strComments")) Then
                     txtComplianceAssistanceComments.Clear()
                 Else
-                    txtComplianceAssistanceComments.Text = dr.Item("strComment")
+                    txtComplianceAssistanceComments.Text = dr.Item("strComments")
                 End If
-            End While
-            dr.Close()
+            End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub LoadTechnicalAssist()
+
+    Private Sub LoadTechnicalAssist()
         Try
             Dim AssistanceRequest As String = ""
 
-            SQL = "Select " &
+            Dim SQL As String = "Select " &
             "strTechnicalAssistType, datInitialContactDate, " &
             "datAssistStartDate, datAssistEndDate, " &
             "strAssistanceRequest, strAIRSnumber, " &
             "strTechnicalAssistNotes " &
-            "from AIRBRANCH.SBEAPTechnicalAssist " &
-            "where numActionID = '" & txtActionID.Text & "' "
+            "from SBEAPTechnicalAssist " &
+            "where numActionID = @actionid "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
+            Dim p As New SqlParameter("@actionid", txtActionID.Text)
+
+            Dim dr As DataRow = DB.GetDataRow(SQL, p)
+            If dr IsNot Nothing Then
                 If IsDBNull(dr.Item("strTechnicalAssistType")) Then
                     cboTechAssistType.Text = " "
                 Else
                     cboTechAssistType.Text = dr.Item("strTEchnicalAssistType")
                 End If
                 If IsDBNull(dr.Item("datInitialContactDate")) Then
-                    DTPTechAssistInitialContact.Text = OracleDate
+                    DTPTechAssistInitialContact.Value = Today
                     DTPTechAssistInitialContact.Checked = False
                 Else
                     DTPTechAssistInitialContact.Text = dr.Item("datInitialContactDate")
                     DTPTechAssistInitialContact.Checked = True
                 End If
                 If IsDBNull(dr.Item("datAssistStartDate")) Then
-                    DTPTechAssistStart.Text = OracleDate
+                    DTPTechAssistStart.Value = Today
                     DTPTechAssistStart.Checked = False
                 Else
                     DTPTechAssistStart.Text = dr.Item("datAssistStartDate")
                     DTPTechAssistStart.Checked = True
                 End If
                 If IsDBNull(dr.Item("datAssistEndDate")) Then
-                    DTPTechAssistEnd.Text = OracleDate
+                    DTPTechAssistEnd.Value = Today
                     DTPTechAssistEnd.Checked = False
                 Else
                     DTPTechAssistEnd.Text = dr.Item("datAssistEndDate")
@@ -835,8 +678,7 @@ Public Class SBEAPCaseWork
                 Else
                     txtTechnicalAssistNotes.Text = dr.Item("strTechnicalAssistNotes")
                 End If
-            End While
-            dr.Close()
+            End If
 
             If AssistanceRequest <> "" Then
                 If Mid(AssistanceRequest, 1, 1) = "1" Then
@@ -1022,26 +864,26 @@ Public Class SBEAPCaseWork
                 chbPollOther.Checked = False
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub LoadPhoneCall()
+
+    Private Sub LoadPhoneCall()
         Try
-            SQL = "Select " &
+            Dim SQL As String = "Select " &
             "strCallerInformation, " &
             "numCallerPhoneNumber, " &
             "strPhoneLogNotes, " &
             "strOneTimeAssist, " &
             "strFrontDeskCall " &
-            "from AIRBRANCH.SBEAPPhoneLog " &
-            "where numActionID = '" & txtActionID.Text & "' "
+            "from SBEAPPhoneLog " &
+            "where numActionID = @actionid "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
+            Dim p As New SqlParameter("@actionid", txtActionID.Text)
+
+            Dim dr As DataRow = DB.GetDataRow(SQL, p)
+
+            If dr IsNot Nothing Then
                 If IsDBNull(dr.Item("strCallerInformation")) Then
                     txtCallName.Clear()
                 Else
@@ -1075,33 +917,31 @@ Public Class SBEAPCaseWork
                         chbFrontDeskCall.Checked = False
                     End If
                 End If
-
-            End While
-            dr.Close()
+            End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub LoadConference()
+
+    Private Sub LoadConference()
         Try
             Dim StaffAttending As String = ""
 
-            SQL = "Select " &
+            Dim SQL As String = "Select " &
             "strConferenceAttended, strConferenceLocation, " &
             "strConferenceTopic, strAttendees, " &
             "datConferenceStarted, datConferenceEnded, " &
             "strSBEAPPresentation, strListOfBusinessSectors, " &
             "strCOnferenceFollowUp, strStaffAttending " &
-            "from AIRBRANCH.SBEAPConferenceLog " &
-            "where numActionID = '" & txtActionID.Text & "' "
+            "from SBEAPConferenceLog " &
+            "where numActionID = @actionid "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
+            Dim p As New SqlParameter("@actionid", txtActionID.Text)
+
+            Dim dr As DataRow = DB.GetDataRow(SQL, p)
+
+            If dr IsNot Nothing Then
                 If IsDBNull(dr.Item("strConferenceAttended")) Then
                     txtConferenceAttended.Clear()
                 Else
@@ -1123,12 +963,12 @@ Public Class SBEAPCaseWork
                     txtConferenceAttendees.Text = dr.Item("strAttendees")
                 End If
                 If IsDBNull(dr.Item("datConferenceStarted")) Then
-                    DTPConferenceStart.Text = OracleDate
+                    DTPConferenceStart.Value = Today
                 Else
                     DTPConferenceStart.Text = dr.Item("datConferenceStarted")
                 End If
                 If IsDBNull(dr.Item("datConferenceEnded")) Then
-                    DTPConferenceEnd.Text = OracleDate
+                    DTPConferenceEnd.Value = Today
                 Else
                     DTPConferenceEnd.Text = dr.Item("datConferenceEnded")
                 End If
@@ -1157,10 +997,10 @@ Public Class SBEAPCaseWork
                 Else
                     StaffAttending = dr.Item("strStaffAttending")
                 End If
-            End While
-            dr.Close()
+            End If
 
             If StaffAttending <> "" Then
+                Dim temp As String = ""
                 Do While StaffAttending <> ""
                     If StaffAttending.Contains(",") Then
                         temp = Mid(StaffAttending, 1, (InStr(StaffAttending, ",") - 1))
@@ -1168,7 +1008,7 @@ Public Class SBEAPCaseWork
                         temp = StaffAttending
                     End If
                     clbStaffAttending.SelectedValue = temp
-                    i = clbStaffAttending.SelectedIndex
+                    Dim i As Integer = clbStaffAttending.SelectedIndex
                     If i <> -1 Then
                         clbStaffAttending.SetItemCheckState(i, CheckState.Checked)
                     End If
@@ -1182,35 +1022,31 @@ Public Class SBEAPCaseWork
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub LoadOther()
-        Try
-            SQL = "Select " &
-            "strCaseNotes " &
-            "from AIRBRANCH.SBEAPOtherLog " &
-            "where numActionID = '" & txtActionID.Text & "' "
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            txtCaseNotes.Clear()
-            While dr.Read
-                If IsDBNull(dr.Item("strCaseNotes")) Then
-                    txtCaseNotes.Clear()
-                Else
-                    txtCaseNotes.Text = dr.Item("strCaseNotes")
-                End If
-            End While
-            dr.Close()
 
+    Private Sub LoadOther()
+        Try
+            Dim SQL As String = "Select " &
+            "strCaseNotes " &
+            "from SBEAPOtherLog " &
+            "where numActionID = @actionid "
+
+            txtCaseNotes.Clear()
+
+            Dim p As New SqlParameter("@actionid", txtActionID.Text)
+
+            txtCaseNotes.Text = DB.GetString(SQL, p)
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub UpdateCaseLog(ByVal Origin As String)
+
+    Private Sub UpdateCaseLog(Origin As String)
+        Dim SQL As String = ""
+        Dim SQL2 As String
+
         Try
             Dim ClientList As String = ""
             Dim Staff As String = ""
@@ -1259,103 +1095,92 @@ Public Class SBEAPCaseWork
             End If
 
             If txtCaseID.Text = "" Then
-                SQL = "Insert into AIRBRANCH.SBEAPCaseLog " &
+                SQL = "Insert into SBEAPCaseLog " &
+                "(NUMCASEID, " &
+                " NUMSTAFFRESPONSIBLE, DATCASEOPENED, STRCASESUMMARY, CLIENTID, DATCASECLOSED, " &
+                " NUMMODIFINGSTAFF, DATMODIFINGDATE, STRINTERAGENCY, STRREFERRALCOMMENTS, DATREFERRALDATE, " &
+                " STRCOMPLAINTBASED, STRCASECLOSURELETTERSENT) " &
                 "values " &
                 "((Select " &
                 "case " &
-                "when (select max(numCaseID) from AIRBRANCH.SBEAPCaseLog) is Null then 1 " &
-                "else (select max(numCaseID) + 1 from AIRBRANCH.SBEAPCaseLog) " &
-                "End CaseID " &
-                "from dual), " &
-                "'" & Staff & "', '" & DTPCaseOpened.Text & "', " &
-                "'" & Replace(txtCaseDescription.Text, "'", "''") & "', " &
-                "'', '" & CloseDate & "', " &
-                "'" & CurrentUser.UserID & "', '" & OracleDate & "', " &
-                "'" & Replace(InterAgency, "'", "''") & "', '" & Replace(ReferralComments, "'", "''") & "', " &
-                "'" & ReferralDate & "', '" & ComplaintBased & "', " &
-                "'" & CaseClosedLetter & "') "
+                "when (select max(numCaseID) from SBEAPCaseLog) is Null then 1 " &
+                "else (select max(numCaseID) + 1 from SBEAPCaseLog) " &
+                "End CaseID), " &
+                " @NUMSTAFFRESPONSIBLE, @DATCASEOPENED, @STRCASESUMMARY, @CLIENTID, @DATCASECLOSED, " &
+                " @NUMMODIFINGSTAFF, GETDATE(), @STRINTERAGENCY, @STRREFERRALCOMMENTS, @DATREFERRALDATE, " &
+                " @STRCOMPLAINTBASED, @STRCASECLOSURELETTERSENT) "
 
-                SQL2 = "Select max(numCaseID) as CaseID from AIRBRANCH.SBEAPCaseLog "
+                SQL2 = "Select max(numCaseID) as CaseID from SBEAPCaseLog "
             Else
-                SQL = "Update AIRBRANCH.SBEAPCaseLog set " &
-                "numStaffResponsible = '" & Staff & "', " &
-                "datCaseOpened = '" & DTPCaseOpened.Text & "', " &
-                "strCaseSummary = '" & Replace(txtCaseDescription.Text, "'", "''") & "', " &
-                "datCaseClosed = '" & CloseDate & "', " &
-                "numModifingStaff = '" & CurrentUser.UserID & "', " &
-                "datModifingDate = '" & OracleDate & "', " &
-                "strInterAgency = '" & Replace(InterAgency, "'", "''") & "', " &
-                "strReferralComments = '" & Replace(ReferralComments, "'", "''") & "', " &
-                "datReferralDate = '" & ReferralDate & "', " &
-                "strComplaintBased = '" & ComplaintBased & "', " &
-                "strCaseClosureLetterSent = '" & CaseClosedLetter & "' " &
-                "where numCaseID = '" & txtCaseID.Text & "' "
+                SQL = "Update SBEAPCaseLog set " &
+                "numStaffResponsible = @numStaffResponsible, " &
+                "datCaseOpened = @datCaseOpened, " &
+                "strCaseSummary = @strCaseSummary, " &
+                "datCaseClosed = @datCaseClosed, " &
+                "numModifingStaff = @numModifingStaff, " &
+                "datModifingDate = getdate(), " &
+                "strInterAgency = @strInterAgency, " &
+                "strReferralComments = @strReferralComments, " &
+                "datReferralDate = @datReferralDate, " &
+                "strComplaintBased = @strComplaintBased, " &
+                "strCaseClosureLetterSent = @strCaseClosureLetterSent " &
+                "where numCaseID = @numCaseID "
 
                 SQL2 = ""
             End If
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
+
+            Dim p As SqlParameter() = {
+                New SqlParameter("@NUMSTAFFRESPONSIBLE", Staff),
+                New SqlParameter("@DATCASEOPENED", DTPCaseOpened.Value),
+                New SqlParameter("@STRCASESUMMARY", txtCaseDescription.Text),
+                New SqlParameter("@CLIENTID", ""),
+                New SqlParameter("@DATCASECLOSED", CloseDate),
+                New SqlParameter("@NUMMODIFINGSTAFF", CurrentUser.UserID),
+                New SqlParameter("@STRINTERAGENCY", InterAgency),
+                New SqlParameter("@STRREFERRALCOMMENTS", ReferralComments),
+                New SqlParameter("@DATREFERRALDATE", ReferralDate),
+                New SqlParameter("@STRCOMPLAINTBASED", ComplaintBased),
+                New SqlParameter("@STRCASECLOSURELETTERSENT", CaseClosedLetter),
+                New SqlParameter("@NUMCASEID", txtCaseID.Text)
+            }
+
+            DB.RunCommand(SQL, p)
 
             If SQL2 <> "" Then
-                cmd = New OracleCommand(SQL2, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                While dr.Read
-                    If IsDBNull(dr.Item("CaseID")) Then
-                        txtCaseID.Text = ""
-                    Else
-                        txtCaseID.Text = dr.Item("CaseID")
-                    End If
-                End While
-                dr.Close()
+                txtCaseID.Text = DB.GetString(SQL2)
             End If
 
             If rdbSingleClient.Checked = True Then
-                If txtClientID.Text <> "" Then
-                    ClientID = txtClientID.Text
-                Else
-                    ClientID = ""
-                End If
+                ClientID = txtClientID.Text
 
-                SQL = "Delete AIRBRANCH.SBEAPCaseLogLink " &
-                "where numCaseID = '" & txtCaseID.Text & "' "
+                SQL = "Delete SBEAPCaseLogLink " &
+                "where numCaseID = @caseid "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                dr.Close()
+                Dim p2 As New SqlParameter("@caseid", txtCaseID.Text)
 
-                SQL = "Insert into AIRBRANCH.SBEAPCaseLogLink " &
-                "values " &
-                "('" & txtCaseID.Text & "', '" & ClientID & "') "
+                DB.RunCommand(SQL, p2)
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                dr.Close()
+                SQL = "Insert into SBEAPCaseLogLink " &
+                    "(NUMCASEID, CLIENTID ) " &
+                    "values " &
+                    "(@NUMCASEID, @CLIENTID ) "
+
+                Dim p3 As SqlParameter() = {
+                    New SqlParameter("@NUMCASEID", txtCaseID.Text),
+                    New SqlParameter("@CLIENTID", ClientID)
+                }
+
+                DB.RunCommand(SQL, p3)
             Else
                 ClientList = txtMultiClientList.Text
 
                 If ClientList <> "" Then
-                    SQL = "Delete AIRBRANCH.SBEAPCaseLogLink " &
-                    "where numCaseID = '" & txtCaseID.Text & "' "
+                    SQL = "Delete SBEAPCaseLogLink " &
+                        "where numCaseID = @caseid "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    dr.Close()
+                    Dim p4 As New SqlParameter("@caseid", txtCaseID.Text)
+
+                    DB.RunCommand(SQL, p4)
 
                     Do While txtMultiClientList.Text <> ""
                         If txtMultiClientList.Text.StartsWith(vbCrLf) Then
@@ -1369,17 +1194,17 @@ Public Class SBEAPCaseWork
 
                         txtMultiClientList.Text = Replace(txtMultiClientList.Text, ClientID, "")
 
-                        If ClientID <> "" Then
-                            SQL = "Insert into AIRBRANCH.SBEAPCaseLogLink " &
+                        SQL = "Insert into SBEAPCaseLogLink " &
+                            "(NUMCASEID, CLIENTID ) " &
                             "values " &
-                            "('" & txtCaseID.Text & "', '" & ClientID & "') "
-                            cmd = New OracleCommand(SQL, CurrentConnection)
+                            "(@NUMCASEID, @CLIENTID ) "
 
-                            If CurrentConnection.State = ConnectionState.Closed Then
-                                CurrentConnection.Open()
-                            End If
-                            dr = cmd.ExecuteReader
-                            dr.Close()
+                        If ClientID <> "" Then
+                            Dim p5 As SqlParameter() = {
+                                New SqlParameter("@NUMCASEID", txtCaseID.Text),
+                                New SqlParameter("@CLIENTID", ClientID)
+                            }
+                            DB.RunCommand(SQL, p5)
                         End If
                     Loop
                 End If
@@ -1394,35 +1219,23 @@ Public Class SBEAPCaseWork
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, SQL, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, SQL, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
-
     End Sub
-    Sub SaveActionData()
-        Try
-            Dim ActionOccured As String = DTPActionOccured.Text
 
-            SQL = "Select " &
-            "numActionId " &
-            "from AIRBRANCH.SBEAPActionLog " &
-            "where numActionID = '" & txtActionID.Text & "' "
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            recExist = dr.Read
-            dr.Close()
-            If recExist = True Then
-                SQL = "Update AIRBRANCH.SBEAPActionLog set " &
-                "datActionOccured = '" & ActionOccured & "' " &
-                "where numActionId = '" & txtActionID.Text & "' "
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                dr.Close()
+    Private Sub SaveActionData()
+        Try
+            If DAL.Sbeap.ActionExists(txtActionID.Text) Then
+                Dim SQL As String = "Update SBEAPActionLog set " &
+                "datActionOccured = @ActionOccured " &
+                "where numActionId = @actionid "
+
+                Dim p As SqlParameter() = {
+                    New SqlParameter("@ActionOccured", DTPActionOccured.Text),
+                    New SqlParameter("@actionid", txtActionID.Text)
+                }
+
+                DB.RunCommand(SQL, p)
             End If
 
             Select Case txtActionType.Text
@@ -1439,10 +1252,11 @@ Public Class SBEAPCaseWork
             End Select
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub SaveComplianceAssist()
+
+    Private Sub SaveComplianceAssist()
         Try
             Dim AirAssist As String = ""
             Dim StormWaterAssist As String = ""
@@ -1496,60 +1310,54 @@ Public Class SBEAPCaseWork
             End If
             Comments = txtComplianceAssistanceComments.Text
 
-            SQL = "Select " &
-            "numActionID " &
-            "from AIRBRANCH.SBEAPComplianceAssist " &
-            "where numActionID = '" & txtActionID.Text & "' "
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            Dim SQL As String
 
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            recExist = dr.Read
-            dr.Close()
-            If recExist = False Then
-                SQL = "Insert into AIRBRANCH.SBEAPComplianceAssist " &
-                "values " &
-                "('" & txtActionID.Text & "', " &
-                "'" & Replace(AirAssist, "'", "''") & "', " &
-                "'" & Replace(StormWaterAssist, "'", "''") & "', " &
-                "'" & Replace(HazWasteAssist, "'", "''") & "', " &
-                "'" & Replace(SolidWasteAssist, "'", "''") & "', " &
-                "'" & Replace(USTAssist, "'", "''") & "', " &
-                "'" & Replace(ScrapTireAssist, "'", "''") & "', " &
-                "'" & Replace(LeadAssist, "'", "''") & "', " &
-                "'" & Replace(OtherAssist, "'", "''") & "', " &
-                "'" & Replace(Comments, "'", "''") & "', " &
-                "'" & CurrentUser.UserID & "', '" & OracleDate & "') "
+            If Not DAL.Sbeap.ComplianceAssistExists(txtActionID.Text) Then
+                SQL = "Insert into SBEAPComplianceAssist " &
+                    "(NUMACTIONID, STRAIRASSIST, STRSTORMWATERASSIST, STRHAZWASTEASSIST, 
+                    STRSOLIDWASTEASSIST, STRUSTASSIST, STRSCRAPTIREASSIST, STRLEADASSIST, 
+                    STROTHERASSIST, STRCOMMENTS, STRMODIFINGSTAFF, DATMODIFINGDATE) " &
+                    "values " &
+                    "(@NUMACTIONID, @STRAIRASSIST, @STRSTORMWATERASSIST, @STRHAZWASTEASSIST, 
+                    @STRSOLIDWASTEASSIST, @STRUSTASSIST, @STRSCRAPTIREASSIST, @STRLEADASSIST, 
+                    @STROTHERASSIST, @STRCOMMENTS, @STRMODIFINGSTAFF, GETDATE()) "
             Else
-                SQL = "Update AIRBRANCH.SBEAPComplianceAssist set " &
-                "strAirAssist = '" & Replace(AirAssist, "'", "''") & "', " &
-                "strStormWaterAssist = '" & StormWaterAssist & "', " &
-                "strHazWasteAssist = '" & HazWasteAssist & "', " &
-                "strSolidWasteAssist = '" & SolidWasteAssist & "', " &
-                "strUSTAssist = '" & USTAssist & "', " &
-                "strScrapTireAssist = '" & Replace(ScrapTireAssist, "'", "''") & "', " &
-                "strLeadAssist = '" & Replace(LeadAssist, "'", "''") & "', " &
-                "strOtherAssist = '" & Replace(OtherAssist, "'", "''") & "', " &
-                "strComment =  '" & Replace(Comments, "'", "''") & "', " &
-                "strModifingStaff = '" & CurrentUser.UserID & "', " &
-                "datModifingDate = '" & OracleDate & "' " &
-                "where numActionID = '" & txtActionID.Text & "' "
+                SQL = "Update SBEAPComplianceAssist set " &
+                    "strAirAssist = @STRAIRASSIST, " &
+                    "strStormWaterAssist = @STRSTORMWATERASSIST, " &
+                    "strHazWasteAssist = @STRHAZWASTEASSIST, " &
+                    "strSolidWasteAssist = @STRSOLIDWASTEASSIST, " &
+                    "strUSTAssist = @STRUSTASSIST, " &
+                    "strScrapTireAssist = @STRSCRAPTIREASSIST, " &
+                    "strLeadAssist = @STRLEADASSIST, " &
+                    "strOtherAssist = @STROTHERASSIST, " &
+                    "strComments = @STRCOMMENTS, " &
+                    "strModifingStaff = @STRMODIFINGSTAFF " &
+                    "datModifingDate =  GETDATE()  " &
+                    "where numActionID = @NUMACTIONID "
             End If
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
 
+            Dim p As SqlParameter() = {
+                New SqlParameter("@NUMACTIONID", txtActionID.Text),
+                New SqlParameter("@STRAIRASSIST", AirAssist),
+                New SqlParameter("@STRSTORMWATERASSIST", StormWaterAssist),
+                New SqlParameter("@STRHAZWASTEASSIST", HazWasteAssist),
+                New SqlParameter("@STRSOLIDWASTEASSIST", SolidWasteAssist),
+                New SqlParameter("@STRUSTASSIST", USTAssist),
+                New SqlParameter("@STRSCRAPTIREASSIST", ScrapTireAssist),
+                New SqlParameter("@STRLEADASSIST", LeadAssist),
+                New SqlParameter("@STROTHERASSIST", OtherAssist),
+                New SqlParameter("@STRCOMMENTS", Comments),
+                New SqlParameter("@STRMODIFINGSTAFF", CurrentUser.UserID)
+            }
 
+            DB.RunCommand(SQL, p)
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub SaveTechnicalAssist()
+
+    Private Sub SaveTechnicalAssist()
         Try
             Dim AssistType As String = ""
             Dim ContactDate As String = ""
@@ -1740,53 +1548,50 @@ Public Class SBEAPCaseWork
                 TechnicalAssistComments = ""
             End If
 
-            SQL = "Select " &
-            "numActionID " &
-            "from AIRBRANCH.SBEAPTechnicalAssist " &
-            "where numActionID = '" & txtActionID.Text & "' "
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            Dim SQL As String
 
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            recExist = dr.Read
-            dr.Close()
-            If recExist = False Then
-                SQL = "Insert into AIRBRANCH.SBEAPTechnicalAssist " &
-                "values " &
-                "('" & txtActionID.Text & "', " &
-                "'" & Replace(AssistType, "'", "''") & "', " &
-                "'" & ContactDate & "', '" & AssistStart & "', " &
-                "'" & AssistEnd & "', '" & AssistRequest & "', " &
-                "'" & Replace(AIRSNumber, "'", "''") & "', " &
-                "'" & Replace(TechnicalAssistComments, "'", "''") & "', " &
-                "'" & CurrentUser.UserID & "', '" & OracleDate & "') "
+            If Not DAL.Sbeap.TechnicalAssistExists(txtActionID.Text) Then
+                SQL = "Insert into SBEAPTechnicalAssist " &
+                    "(NUMACTIONID, STRTECHNICALASSISTTYPE, DATINITIALCONTACTDATE, DATASSISTSTARTDATE, 
+                    DATASSISTENDDATE, STRASSISTANCEREQUEST, STRAIRSNUMBER, STRTECHNICALASSISTNOTES, 
+                    STRMODIFINGSTAFF, DATMODIFINGDATE) " &
+                    "values " &
+                    "(@NUMACTIONID, @STRTECHNICALASSISTTYPE, @DATINITIALCONTACTDATE, @DATASSISTSTARTDATE, 
+                    @DATASSISTENDDATE, @STRASSISTANCEREQUEST, @STRAIRSNUMBER, @STRTECHNICALASSISTNOTES, 
+                    @STRMODIFINGSTAFF, @DATMODIFINGDATE) "
             Else
-                SQL = "Update AIRBRANCH.SBEAPTechnicalAssist set " &
-                "strTechnicalAssistType = '" & Replace(AssistType, "'", "''") & "', " &
-                "datInitialContactDate = '" & ContactDate & "', " &
-                "datAssistStartDate = '" & AssistStart & "', " &
-                "datAssistEndDate = '" & AssistEnd & "', " &
-                "strAssistanceRequest = '" & AssistRequest & "', " &
-                "strAIRSNumber = '" & Replace(AIRSNumber, "'", "''") & "', " &
-                "strTechnicalAssistNotes = '" & Replace(TechnicalAssistComments, "'", "''") & "', " &
-                "strModifingStaff = '" & CurrentUser.UserID & "', " &
-                "datModifingDate = '" & OracleDate & "' " &
-                "where numActionID = '" & txtActionID.Text & "' "
+                SQL = "Update SBEAPTechnicalAssist set " &
+                    "strTechnicalAssistType = @STRTECHNICALASSISTTYPE, " &
+                    "datInitialContactDate = @DATINITIALCONTACTDATE, " &
+                    "datAssistStartDate = @DATASSISTSTARTDATE, " &
+                    "datAssistEndDate = @DATASSISTENDDATE, " &
+                    "strAssistanceRequest = @STRASSISTANCEREQUEST, " &
+                    "strAIRSNumber = @STRAIRSNUMBER, " &
+                    "strTechnicalAssistNotes = @STRTECHNICALASSISTNOTES, " &
+                    "strModifingStaff = @STRMODIFINGSTAFF, " &
+                    "datModifingDate =  GETDATE() " &
+                    "where numActionID = @NUMACTIONID "
             End If
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
 
+            Dim p As SqlParameter() = {
+                New SqlParameter("@NUMACTIONID", txtActionID.Text),
+                New SqlParameter("@STRTECHNICALASSISTTYPE", AssistType),
+                New SqlParameter("@DATINITIALCONTACTDATE", ContactDate),
+                New SqlParameter("@DATASSISTSTARTDATE", AssistStart),
+                New SqlParameter("@DATASSISTENDDATE", AssistEnd),
+                New SqlParameter("@STRASSISTANCEREQUEST", AssistRequest),
+                New SqlParameter("@STRAIRSNUMBER", AIRSNumber),
+                New SqlParameter("@STRTECHNICALASSISTNOTES", TechnicalAssistComments),
+                New SqlParameter("@STRMODIFINGSTAFF", CurrentUser.UserID)
+            }
+
+            DB.RunCommand(SQL, p)
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub SavePhoneCall()
+
+    Private Sub SavePhoneCall()
         Try
             Dim CallerInfo As String = ""
             Dim CallerPhone As String = ""
@@ -1820,50 +1625,44 @@ Public Class SBEAPCaseWork
                 FrontDeskCall = "False"
             End If
 
+            Dim SQL As String
 
-            SQL = "Select " &
-            "numActionID " &
-            "from AIRBRANCH.SBEAPPhoneLog " &
-            "where numActionID = '" & txtActionID.Text & "' "
-            cmd = New OracleCommand(SQL, CurrentConnection)
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            recExist = dr.Read
-            dr.Close()
-            If recExist = False Then
-                SQL = "Insert into AIRBRANCH.SBEAPPhoneLog " &
-                "values " &
-                "('" & txtActionID.Text & "', '" & Replace(CallerInfo, "'", "''") & "', " &
-                "'" & Replace(CallerPhone, "'", "''") & "', " &
-                "'" & Replace(PhoneCallNotes, "'", "''") & "', " &
-                "'" & OneTimeAssist & "', '" & FrontDeskCall & "', " &
-                "'" & CurrentUser.UserID & "', '" & OracleDate & "') "
+            If Not DAL.Sbeap.PhoneLogExists(txtActionID.Text) Then
+                SQL = "INSERT INTO SBEAPPHONELOG 
+                    (NUMACTIONID, STRCALLERINFORMATION, NUMCALLERPHONENUMBER, STRPHONELOGNOTES, 
+                    STRONETIMEASSIST, STRFRONTDESKCALL, STRMODIFINGSTAFF, DATMODIFINGDATE)
+                    VALUES 
+                    (@NUMACTIONID, @STRCALLERINFORMATION, @NUMCALLERPHONENUMBER, @STRPHONELOGNOTES, 
+                    @STRONETIMEASSIST, @STRFRONTDESKCALL, @STRMODIFINGSTAFF, GETDATE())"
             Else
-                SQL = "Update AIRBRANCH.SBEAPPhoneLog set " &
-                "strCallerInformation = '" & Replace(CallerInfo, "'", "''") & "', " &
-                "numCallerPhoneNumber = '" & CallerPhone & "', " &
-                "strPhoneLogNotes = '" & Replace(PhoneCallNotes, "'", "''") & "', " &
-                "strOneTimeAssist = '" & OneTimeAssist & "', " &
-                "strFrontDeskCall = '" & FrontDeskCall & "', " &
-                "strModifingStaff = '" & CurrentUser.UserID & "', " &
-                "datModifingDate = '" & OracleDate & "' " &
-                "where numActionID = '" & txtActionID.Text & "' "
+                SQL = "Update SBEAPPhoneLog set " &
+                    "strCallerInformation = @STRCALLERINFORMATION, " &
+                    "numCallerPhoneNumber = @NUMCALLERPHONENUMBER, " &
+                    "strPhoneLogNotes = @STRPHONELOGNOTES, " &
+                    "strOneTimeAssist = @STRONETIMEASSIST, " &
+                    "strFrontDeskCall = @STRFRONTDESKCALL, " &
+                    "strModifingStaff = @STRMODIFINGSTAFF, " &
+                    "datModifingDate =  GETDATE()  " &
+                    "where numActionID = @NUMACTIONID "
             End If
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
 
+            Dim p As SqlParameter() = {
+                New SqlParameter("@NUMACTIONID", txtActionID.Text),
+                New SqlParameter("@STRCALLERINFORMATION", CallerInfo),
+                New SqlParameter("@NUMCALLERPHONENUMBER", CallerPhone),
+                New SqlParameter("@STRPHONELOGNOTES", PhoneCallNotes),
+                New SqlParameter("@STRONETIMEASSIST", OneTimeAssist),
+                New SqlParameter("@STRFRONTDESKCALL", FrontDeskCall),
+                New SqlParameter("@STRMODIFINGSTAFF", CurrentUser.UserID)
+            }
+
+            DB.RunCommand(SQL, p)
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub SaveConference()
+
+    Private Sub SaveConference()
         Try
             Dim ConferenceAttended As String = ""
             Dim ConferenceLocation As String = ""
@@ -1920,7 +1719,6 @@ Public Class SBEAPCaseWork
             End If
 
             For i = 0 To clbStaffAttending.Items.Count - 1
-                temp = i
                 If clbStaffAttending.GetItemChecked(i) = True Then
                     clbStaffAttending.SelectedIndex = i
                     StaffAttendies = StaffAttendies & clbStaffAttending.SelectedValue & ","
@@ -1930,57 +1728,58 @@ Public Class SBEAPCaseWork
                 StaffAttendies = Mid(StaffAttendies, 1, (StaffAttendies.Length - 1))
             End If
 
-            SQL = "Select " &
-            "numActionID " &
-            "from AIRBRANCH.SBEAPConferenceLog " &
-            "where numActionID = '" & txtActionID.Text & "' "
+            Dim SQL As String
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            recExist = dr.Read
-            dr.Close()
-            If recExist = False Then
-                SQL = "Insert into AIRBRANCH.SBEAPConferenceLog " &
-                "values " &
-                "('" & txtActionID.Text & "', '" & Replace(ConferenceAttended, "'", "''") & "', " &
-                "'" & Replace(ConferenceLocation, "'", "''") & "', '" & Replace(ConferenceTopic, "'", "''") & "', " &
-                "'" & Replace(Attendees, "'", "''") & "', '" & Replace(ConferenceStart, "'", "''") & "', " &
-                "'" & Replace(ConferenceEnd, "'", "'''") & "', '" & Replace(SBEAPPresentation, "'", "''") & "', " &
-                "'" & Replace(ListofBusinesses, "'", "''") & "', '" & Replace(FollowUp, "'", "''") & "', " &
-                "'" & StaffAttendies & "', '" & CurrentUser.UserID & "', '" & OracleDate & "') "
+            If Not DAL.Sbeap.ConferenceLogExists(txtActionID.Text) Then
+                SQL = "INSERT INTO SBEAPConferenceLog 
+                    (NUMACTIONID, STRCONFERENCEATTENDED, STRCONFERENCELOCATION, 
+                    STRCONFERENCETOPIC, STRATTENDEES, DATCONFERENCESTARTED, DATCONFERENCEENDED, 
+                    STRSBEAPPRESENTATION, STRLISTOFBUSINESSSECTORS, STRCONFERENCEFOLLOWUP, 
+                    STRSTAFFATTENDING, STRMODIFINGSTAFF, DATMODIFINGDATE)
+                    VALUES 
+                    (@NUMACTIONID, @STRCONFERENCEATTENDED, @STRCONFERENCELOCATION, 
+                    @STRCONFERENCETOPIC, @STRATTENDEES, @DATCONFERENCESTARTED, @DATCONFERENCEENDED, 
+                    @STRSBEAPPRESENTATION, @STRLISTOFBUSINESSSECTORS, @STRCONFERENCEFOLLOWUP, 
+                    @STRSTAFFATTENDING, @STRMODIFINGSTAFF, GETDATE())"
             Else
-                SQL = "Update AIRBRANCH.SBEAPConferenceLog set " &
-                "strConferenceAttended = '" & Replace(ConferenceAttended, "'", "''") & "', " &
-                "strConferenceLocation = '" & Replace(ConferenceLocation, "'", "''") & "', " &
-                "strConferenceTopic = '" & Replace(ConferenceTopic, "'", "''") & "', " &
-                "strAttendees = '" & Replace(Attendees, "'", "''") & "', " &
-                "datConferenceStarted = '" & ConferenceStart & "', " &
-                "datConferenceEnded = '" & ConferenceEnd & "', " &
-                "strSBEAPPresentation = '" & Replace(SBEAPPresentation, "'", "''") & "', " &
-                "strListOfBusinessSectors = '" & Replace(ListofBusinesses, "'", "''") & "', " &
-                "strConferenceFollowUp = '" & Replace(FollowUp, "'", "''") & "', " &
-                "strStaffAttending = '" & StaffAttendies & "', " &
-                "strModifingStaff = '" & CurrentUser.UserID & "', " &
-                "datModifingDate = '" & OracleDate & "' " &
-                "where numActionID = '" & txtActionID.Text & "' "
+                SQL = "Update SBEAPConferenceLog set " &
+                    "strConferenceAttended = @STRCONFERENCEATTENDED, " &
+                    "strConferenceLocation = @STRCONFERENCELOCATION, " &
+                    "strConferenceTopic = @STRCONFERENCETOPIC, " &
+                    "strAttendees = @STRATTENDEES, " &
+                    "datConferenceStarted = @DATCONFERENCESTARTED, " &
+                    "datConferenceEnded = @DATCONFERENCEENDED, " &
+                    "strSBEAPPresentation = @STRSBEAPPRESENTATION, " &
+                    "strListOfBusinessSectors = @STRLISTOFBUSINESSSECTORS, " &
+                    "strConferenceFollowUp = @STRCONFERENCEFOLLOWUP, " &
+                    "strStaffAttending = @STRSTAFFATTENDING, " &
+                    "strModifingStaff = @STRMODIFINGSTAFF, " &
+                    "datModifingDate =  GETDATE()  " &
+                    "where numActionID = @NUMACTIONID "
             End If
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
+            Dim p As SqlParameter() = {
+                New SqlParameter("@NUMACTIONID", txtActionID.Text),
+                New SqlParameter("@STRCONFERENCEATTENDED", ConferenceAttended),
+                New SqlParameter("@STRCONFERENCELOCATION", ConferenceLocation),
+                New SqlParameter("@STRCONFERENCETOPIC", ConferenceTopic),
+                New SqlParameter("@STRATTENDEES", Attendees),
+                New SqlParameter("@DATCONFERENCESTARTED", ConferenceStart),
+                New SqlParameter("@DATCONFERENCEENDED", ConferenceEnd),
+                New SqlParameter("@STRSBEAPPRESENTATION", SBEAPPresentation),
+                New SqlParameter("@STRLISTOFBUSINESSSECTORS", ListofBusinesses),
+                New SqlParameter("@STRCONFERENCEFOLLOWUP", FollowUp),
+                New SqlParameter("@STRSTAFFATTENDING", StaffAttendies),
+                New SqlParameter("@STRMODIFINGSTAFF", CurrentUser.UserID)
+            }
 
+            DB.RunCommand(SQL, p)
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub SaveOther()
+
+    Private Sub SaveOther()
         Try
             Dim CaseNotes As String = ""
 
@@ -1990,42 +1789,32 @@ Public Class SBEAPCaseWork
                 CaseNotes = ""
             End If
 
-            SQL = "Select " &
-            "numActionID " &
-            "from AIRBRANCH.SBEAPOtherLog " &
-            "where numActionID = '" & txtActionID.Text & "' "
-            cmd = New OracleCommand(SQL, CurrentConnection)
+            Dim SQL As String
 
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            recExist = dr.Read
-            dr.Close()
-            If recExist = False Then
-                SQL = "Insert into AIRBRANCH.SBEAPOtherLog " &
-                "values " &
-                "('" & txtActionID.Text & "', '" & Replace(CaseNotes, "'", "''") & "', " &
-                "'" & CurrentUser.UserID & "', '" & OracleDate & "') "
+            If Not DAL.Sbeap.OtherLogExists(txtActionID.Text) Then
+                SQL = "INSERT INTO SBEAPOtherLog (NUMACTIONID, STRCASENOTES, STRMODIFINGSTAFF, DATMODIFINGDATE)
+                    VALUES (@NUMACTIONID, @STRCASENOTES, @STRMODIFINGSTAFF, GETDATE())"
             Else
-                SQL = "Update AIRBRANCH.SBEAPOtherLog set " &
-                "strCaseNotes = '" & Replace(CaseNotes, "'", "''") & "', " &
-                "strModifingStaff = '" & CurrentUser.UserID & "', " &
-                "datModifingDate = '" & OracleDate & "' " &
-                "where numActionID = '" & txtActionID.Text & "' "
+                SQL = "Update SBEAPOtherLog set " &
+                    "strCaseNotes = @STRCASENOTES, " &
+                    "strModifingStaff = @STRMODIFINGSTAFF , " &
+                    "datModifingDate = GETDATE() " &
+                    "where numActionID = @NUMACTIONID "
             End If
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
 
+            Dim p As SqlParameter() = {
+                New SqlParameter("@NUMACTIONID", txtActionID.Text),
+                New SqlParameter("@STRCASENOTES", CaseNotes),
+                New SqlParameter("@STRMODIFINGSTAFF", CurrentUser.UserID)
+            }
+
+            DB.RunCommand(SQL, p)
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub ClearForm()
+
+    Private Sub ClearForm()
         Try
 
             ClearActions()
@@ -2034,17 +1823,16 @@ Public Class SBEAPCaseWork
             txtActionType.Clear()
             TCCaseSpecificData.Visible = False
 
-            dsActionLog = New DataSet
-            dgvActionLog.DataSource = dsActionLog
+            dgvActionLog.DataSource = Nothing
             txtActionCount.Clear()
-            DTPReferralDate.Text = OracleDate
+            DTPReferralDate.Value = Today
             DTPReferralDate.Checked = False
             txtReferralInformation.Clear()
             cboInteragency.Text = ""
             cboStaffResponsible.SelectedValue = CurrentUser.UserID
-            DTPCaseClosed.Text = OracleDate
+            DTPCaseClosed.Value = Today
             DTPCaseClosed.Checked = False
-            DTPCaseOpened.Text = OracleDate
+            DTPCaseOpened.Value = Today
             txtCaseDescription.Clear()
             txtClientInformation.Clear()
             txtOutstandingCases.Clear()
@@ -2054,37 +1842,35 @@ Public Class SBEAPCaseWork
             chbCaseClosureLetter.Checked = False
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub ClearActions()
+
+    Private Sub ClearActions()
         Try
             Dim i As Integer
 
             txtCaseNotes.Clear()
             txtCallName.Clear()
             mtbPhoneNumber.Clear()
-            'txtReferralInformation.Clear()
             txtPhoneCallNotes.Clear()
             txtConferenceAttended.Clear()
             txtConferenceLocation.Clear()
-            DTPConferenceStart.Text = OracleDate
-            DTPConferenceEnd.Text = OracleDate
+            DTPConferenceStart.Value = Today
+            DTPConferenceEnd.Value = Today
             txtListOfBusinessSectors.Clear()
             txtConferenceTopic.Clear()
             For i = 0 To clbStaffAttending.Items.Count - 1
                 clbStaffAttending.SetItemCheckState(i, CheckState.Unchecked)
             Next
-            '            clbStaffAttending
             rdbSBEAPPresentationYes.Checked = False
             rdbSBEAPPresentationNo.Checked = False
             txtConferenceAttendees.Clear()
             txtConferenceFollowUp.Clear()
-            'DTPReferralDate.Text = OracleDate
             cboTechAssistType.Text = ""
-            DTPTechAssistInitialContact.Text = OracleDate
-            DTPTechAssistStart.Text = OracleDate
-            DTPTechAssistEnd.Text = OracleDate
+            DTPTechAssistInitialContact.Value = Today
+            DTPTechAssistStart.Value = Today
+            DTPTechAssistEnd.Value = Today
             txtTechnicalAssistNotes.Clear()
             chbAirAppPrep.Checked = False
             chbAirEmissInv.Checked = False
@@ -2117,7 +1903,6 @@ Public Class SBEAPCaseWork
             chbPollSovent.Checked = False
             chbPollWater.Checked = False
             chbPollOther.Checked = False
-            'DTPReferralDate.Checked = False
             DTPTechAssistInitialContact.Checked = False
             DTPTechAssistStart.Checked = False
             DTPTechAssistEnd.Checked = False
@@ -2132,12 +1917,12 @@ Public Class SBEAPCaseWork
             chbLeadAndAsbestosAssist.Checked = False
             chbOtherAssist.Checked = False
             txtComplianceAssistanceComments.Clear()
-
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub LoadMultiClientList()
+
+    Private Sub LoadMultiClientList()
         Try
             Dim ClientList As String = ""
             Dim Client As String = ""
@@ -2157,21 +1942,19 @@ Public Class SBEAPCaseWork
                     Client = txtMultiClientList.Text
                 End If
 
-                '                Client = Mid(txtMultiClientList.Text, 1, 8)
                 txtMultiClientList.Text = Replace(txtMultiClientList.Text, Client, "")
 
-                SQL = "Select " &
+                Dim SQL As String = "Select " &
                       "strCompanyName, strCompanyAddress, " &
                       "strCompanyCity " &
-                      "from AIRBRANCH.SBEAPClients " &
-                      "where ClientID = '" & Client & "' "
+                      "from SBEAPClients " &
+                      "where ClientID = @clientid "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                While dr.Read
+                Dim p As New SqlParameter("@clientid", Client)
+
+                Dim dr As DataRow = DB.GetDataRow(SQL, p)
+
+                If dr IsNot Nothing Then
                     If IsDBNull(dr.Item("strCompanyName")) Then
                         CompanyName = ""
                     Else
@@ -2187,8 +1970,8 @@ Public Class SBEAPCaseWork
                     Else
                         CompanyCity = dr.Item("strCompanyCity")
                     End If
-                End While
-                dr.Close()
+                End If
+
                 If Client.Length > 7 Then
                     If txtMultiClients.Text.Contains(Client) Then
                     Else
@@ -2198,22 +1981,16 @@ Public Class SBEAPCaseWork
             Loop
 
             txtMultiClientList.Text = ClientList
-
-
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-#End Region
-    Private Sub tsbSave_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbSave.Click
-        Try
-            UpdateCaseLog("Non Action")
 
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+    Private Sub tsbSave_Click(sender As Object, e As EventArgs) Handles tsbSave.Click
+        UpdateCaseLog("Non Action")
     End Sub
-    Private Sub tsbClientSearch_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbClientSearch.Click
+
+    Private Sub tsbClientSearch_Click(sender As Object, e As EventArgs) Handles tsbClientSearch.Click
         Try
             Dim clientSearchDialog As New SBEAPClientSearchTool
             clientSearchDialog.ShowDialog()
@@ -2222,10 +1999,11 @@ Public Class SBEAPCaseWork
                 LoadClientInfo()
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnRefreshClient_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnRefreshClient.Click
+
+    Private Sub btnRefreshClient_Click(sender As Object, e As EventArgs) Handles btnRefreshClient.Click
         Try
             If txtClientID.Text <> "" Then
                 LoadClientInfo()
@@ -2236,76 +2014,68 @@ Public Class SBEAPCaseWork
                 txtOutstandingCases.Clear()
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub DTPCaseClosed_ValueChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles DTPCaseClosed.ValueChanged
+
+    Private Sub DTPCaseClosed_ValueChanged(sender As Object, e As EventArgs) Handles DTPCaseClosed.ValueChanged
         Try
-            If temp <> "Data Load" Then
+            If Not FixDtpCheckBox Then
                 If DTPCaseClosed.Checked = True Then
-                    FormStatus("Disable")
+                    FormStatus(EnableOrDisable.Disable)
                     DTPCaseClosed.Enabled = True
                     tsbSave.Enabled = True
                 Else
-                    FormStatus("Enable")
+                    FormStatus(EnableOrDisable.Enable)
                 End If
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnAddNewAction_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAddNewAction.Click
+
+    Private Sub btnAddNewAction_Click(sender As Object, e As EventArgs) Handles btnAddNewAction.Click
         Try
+            Dim SQL As String
             If cboActionType.Text <> "" And cboActionType.SelectedIndex > 0 Then
                 ClearActions()
                 If txtCaseID.Text = "" Then
                     UpdateCaseLog("New Action")
                 Else
-                    SQL = "Update AIRBRANCH.SBEAPCaseLog set " &
-                    "datModifingDate = '" & OracleDate & "' " &
-                    "where numCaseID = '" & txtCaseID.Text & "' "
+                    SQL = "Update SBEAPCaseLog set " &
+                        "datModifingDate =  GETDATE()  " &
+                        "where numCaseID = @caseid "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    dr.Close()
+                    Dim p As New SqlParameter("@caseid", txtCaseID.Text)
+
+                    DB.RunCommand(SQL, p)
                 End If
 
                 SQL = "select " &
                 "case " &
-                "when (select max(numActionID) from AIRBRANCH.SBEAPActionLog) is Null then 1 " &
-                "else (select max(numActionID) + 1 from AIRBRANCH.SBEAPActionLog)   " &
-                "end ActionNumber " &
-                "from dual  "
+                "when (select max(numActionID) from SBEAPActionLog) is Null then 1 " &
+                "else (select max(numActionID) + 1 from SBEAPActionLog)   " &
+                "end ActionNumber "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                While dr.Read
-                    If IsDBNull(dr.Item("ActionNumber")) Then
-                        txtActionID.Text = "1"
-                    Else
-                        txtActionID.Text = dr.Item("ActionNumber")
-                    End If
-                End While
-                dr.Close()
+                txtActionID.Text = DB.GetString(SQL)
 
-                SQL = "Insert into AIRBRANCH.SBEAPActionLog " &
-                "values " &
-                "('" & txtActionID.Text & "', '" & txtCaseID.Text & "', " &
-                "'" & cboActionType.SelectedValue & "', '" & CurrentUser.UserID & "', " &
-                "'" & OracleDate & "', '" & CurrentUser.UserID & "', " &
-                "'" & OracleDate & "', '" & DTPActionOccured.Text & "') "
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                dr.Close()
+                SQL = "INSERT INTO SBEAPACTIONLOG 
+                    (NUMACTIONID, NUMCASEID, NUMACTIONTYPE, NUMMODIFINGSTAFF, 
+                    DATMODIFINGDATE, STRCREATINGSTAFF, DATCREATIONDATE, DATACTIONOCCURED)
+                    VALUES 
+                    (@NUMACTIONID, @NUMCASEID, @NUMACTIONTYPE, @NUMMODIFINGSTAFF, 
+                    GETDATE(), @STRCREATINGSTAFF, GETDATE(), @DATACTIONOCCURED)"
+
+                Dim p2 As SqlParameter() = {
+                    New SqlParameter("@NUMACTIONID", txtActionID.Text),
+                    New SqlParameter("@NUMCASEID", txtCaseID.Text),
+                    New SqlParameter("@NUMACTIONTYPE", cboActionType.SelectedValue),
+                    New SqlParameter("@NUMMODIFINGSTAFF", CurrentUser.UserID),
+                    New SqlParameter("@STRCREATINGSTAFF", CurrentUser.UserID),
+                    New SqlParameter("@DATACTIONOCCURED", DTPActionOccured.Text)
+                }
+
+                DB.RunCommand(SQL, p2)
 
                 LoadActionLog()
                 txtActionType.Text = cboActionType.Text
@@ -2313,23 +2083,21 @@ Public Class SBEAPCaseWork
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub txtCaseID_TextChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles txtCaseID.TextChanged
-        Try
-            If IsNumeric(txtCaseID.Text) = True Then
-                btnAddNewAction.Enabled = True
-                btnViewActionType.Enabled = True
-            Else
-                btnAddNewAction.Enabled = False
-                btnViewActionType.Enabled = False
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+
+    Private Sub txtCaseID_TextChanged(sender As Object, e As EventArgs) Handles txtCaseID.TextChanged
+        If IsNumeric(txtCaseID.Text) = True Then
+            btnAddNewAction.Enabled = True
+            btnViewActionType.Enabled = True
+        Else
+            btnAddNewAction.Enabled = False
+            btnViewActionType.Enabled = False
+        End If
     End Sub
-    Private Sub dgvActionLog_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvActionLog.MouseUp
+
+    Private Sub dgvActionLog_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvActionLog.MouseUp
         Try
             Dim hti As DataGridView.HitTestInfo = dgvActionLog.HitTest(e.X, e.Y)
             If dgvActionLog.RowCount > 0 And hti.RowIndex <> -1 Then
@@ -2338,49 +2106,33 @@ Public Class SBEAPCaseWork
                     txtActionType.Text = dgvActionLog(2, hti.RowIndex).Value
                     txtCreationDate.Text = Format(dgvActionLog(3, hti.RowIndex).Value, "dd-MMM-yyyy")
                     If IsDBNull(dgvActionLog(4, hti.RowIndex).Value) Then
-                        DTPActionOccured.Text = OracleDate
+                        DTPActionOccured.Value = Today
                     Else
                         DTPActionOccured.Text = Format(dgvActionLog(4, hti.RowIndex).Value, "dd-MMM-yyyy")
                     End If
                 End If
             End If
+        Catch ex As Exception
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Sub
 
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-        End Try
+    Private Sub btnViewActionType_Click(sender As Object, e As EventArgs) Handles btnViewActionType.Click
+        LoadActionTab()
     End Sub
-    Private Sub btnViewActionType_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnViewActionType.Click
-        Try
-            LoadActionTab()
 
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+    Private Sub btnClearActions_Click(sender As Object, e As EventArgs) Handles btnClearActions.Click
+        ClearActions()
+        txtActionID.Clear()
+        txtCreationDate.Clear()
+        txtActionType.Clear()
+        TCCaseSpecificData.Visible = False
     End Sub
-    Private Sub btnClearActions_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClearActions.Click
-        Try
-            ClearActions()
-            txtActionID.Clear()
-            txtCreationDate.Clear()
-            txtActionType.Clear()
-            TCCaseSpecificData.Visible = False
 
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Private Sub tsbBack_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbBack.Click
-        Try
-            CaseWork = Nothing
-            Me.Close()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Private Sub btnDeleteAction_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDeleteAction.Click
+    Private Sub btnDeleteAction_Click(sender As Object, e As EventArgs) Handles btnDeleteAction.Click
         Try
             Dim Result As DialogResult
+            Dim SQL As String = ""
             If txtActionID.Text <> "" Then
                 Result = MessageBox.Show("Are you certain that you want to delete this Action?",
                   "Action Delete", MessageBoxButtons.YesNoCancel,
@@ -2392,35 +2144,29 @@ Public Class SBEAPCaseWork
                             Case "Compliance Assistance"
 
                             Case "Permit Assistance"
-                                SQL = "delete AIRBRANCH.SBEAPTechnicalAssist " &
-                                "where numActionID = '" & txtActionID.Text & "' "
+                                SQL = "delete SBEAPTechnicalAssist " &
+                                "where numActionID = @actionid "
                             Case "Phone Call Made/Received"
-                                SQL = "delete AIRBRANCH.SBEAPPhoneLog " &
-                                "where numActionID = '" & txtActionID.Text & "' "
+                                SQL = "delete SBEAPPhoneLog " &
+                                "where numActionID = @actionid "
                             Case "Meeting/Conferences Attended"
-                                SQL = "delete AIRBRANCH.SBEAPConferenceLog " &
-                                 "where numActionID = '" & txtActionID.Text & "' "
+                                SQL = "delete SBEAPConferenceLog " &
+                                "where numActionID = @actionid "
                             Case Else
-                                SQL = "delete AIRBRANCH.SBEAPOtherLog " &
-                                "where numActionID = '" & txtActionID.Text & "' "
+                                SQL = "delete SBEAPOtherLog " &
+                                "where numActionID = @actionid "
                         End Select
 
-                        cmd = New OracleCommand(SQL, CurrentConnection)
-                        If CurrentConnection.State = ConnectionState.Closed Then
-                            CurrentConnection.Open()
-                        End If
-                        dr = cmd.ExecuteReader
-                        dr.Close()
+                        Dim p As New SqlParameter("@actionid", txtActionID.Text)
 
-                        SQL = "delete AIRBRANCH.SBEAPActionLog " &
-                        "where numActionID = '" & txtActionID.Text & "' "
-
-                        cmd = New OracleCommand(SQL, CurrentConnection)
-                        If CurrentConnection.State = ConnectionState.Closed Then
-                            CurrentConnection.Open()
+                        If SQL <> "" Then
+                            DB.RunCommand(SQL, p)
                         End If
-                        dr = cmd.ExecuteReader
-                        dr.Close()
+
+                        SQL = "delete SBEAPActionLog " &
+                            "where numActionID = @actionid "
+
+                        DB.RunCommand(SQL, p)
 
                         ClearActions()
                         txtActionID.Clear()
@@ -2428,16 +2174,15 @@ Public Class SBEAPCaseWork
                         txtCreationDate.Clear()
                         LoadActionLog()
                         TCCaseSpecificData.Visible = False
-                    Case Else
-
                 End Select
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub mmiAddNewClient_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles mmiAddNewClient.Click
+
+    Private Sub mmiAddNewClient_Click(sender As Object, e As EventArgs) Handles mmiAddNewClient.Click
         Try
             If ClientSummary Is Nothing Then
 
@@ -2447,54 +2192,45 @@ Public Class SBEAPCaseWork
             ClientSummary = New SBEAPClientSummary
             ClientSummary.Show()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub tsbClearFrom_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbClearFrom.Click
-        Try
 
-            ClearForm()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+    Private Sub tsbClearFrom_Click(sender As Object, e As EventArgs) Handles tsbClearFrom.Click
+        ClearForm()
     End Sub
-    Private Sub rdbSingleClient_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles rdbSingleClient.CheckedChanged
-        Try
-            If rdbSingleClient.Checked = True Then
-                pnlSingleClient.Visible = True
-                pnlMultiClient.Visible = False
-            Else
-                If rdbMultiClient.Checked = True Then
-                    pnlMultiClient.Visible = True
-                    pnlSingleClient.Visible = False
-                Else
-                    pnlSingleClient.Visible = False
-                    pnlMultiClient.Visible = False
-                End If
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Private Sub rdbMultiClient_CheckedChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles rdbMultiClient.CheckedChanged
-        Try
+
+    Private Sub rdbSingleClient_CheckedChanged(sender As Object, e As EventArgs) Handles rdbSingleClient.CheckedChanged
+        If rdbSingleClient.Checked = True Then
+            pnlSingleClient.Visible = True
+            pnlMultiClient.Visible = False
+        Else
             If rdbMultiClient.Checked = True Then
                 pnlMultiClient.Visible = True
                 pnlSingleClient.Visible = False
             Else
-                If rdbSingleClient.Checked = True Then
-                    pnlSingleClient.Visible = True
-                    pnlMultiClient.Visible = False
-                Else
-                    pnlSingleClient.Visible = False
-                    pnlMultiClient.Visible = False
-                End If
+                pnlSingleClient.Visible = False
+                pnlMultiClient.Visible = False
             End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        End If
     End Sub
-    Private Sub btnAddClients_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAddClients.Click
+
+    Private Sub rdbMultiClient_CheckedChanged(sender As Object, e As EventArgs) Handles rdbMultiClient.CheckedChanged
+        If rdbMultiClient.Checked = True Then
+            pnlMultiClient.Visible = True
+            pnlSingleClient.Visible = False
+        Else
+            If rdbSingleClient.Checked = True Then
+                pnlSingleClient.Visible = True
+                pnlMultiClient.Visible = False
+            Else
+                pnlSingleClient.Visible = False
+                pnlMultiClient.Visible = False
+            End If
+        End If
+    End Sub
+
+    Private Sub btnAddClients_Click(sender As Object, e As EventArgs) Handles btnAddClients.Click
         Try
             Dim Client As String = ""
 
@@ -2515,10 +2251,11 @@ Public Class SBEAPCaseWork
             txtAddMultiClient.Clear()
             LoadMultiClientList()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnRemoveClient_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnRemoveClient.Click
+
+    Private Sub btnRemoveClient_Click(sender As Object, e As EventArgs) Handles btnRemoveClient.Click
         Try
             If txtDeleteClient.Text.Length = 8 Then
                 txtMultiClientList.Text = Replace(txtMultiClientList.Text, (txtDeleteClient.Text & vbCrLf), "")
@@ -2528,15 +2265,16 @@ Public Class SBEAPCaseWork
             txtDeleteClient.Clear()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub DeleteCase()
+
+    Private Sub DeleteCase()
         Try
             Dim Result As DialogResult
             Dim ActionID As String = ""
             Dim ActionType As String = ""
-
+            Dim SQL As String = ""
             If txtCaseID.Text <> "" Then
                 Result = MessageBox.Show("Are you certain that you want to delete this Case?",
                   "Case Delete", MessageBoxButtons.YesNoCancel,
@@ -2544,19 +2282,19 @@ Public Class SBEAPCaseWork
 
                 Select Case Result
                     Case DialogResult.Yes
+                        Dim p As New SqlParameter("@caseid", txtCaseID.Text)
+
                         Do While ActionID <> "Done"
                             ActionID = "Done"
 
                             SQL = "Select " &
-                            "numActionID, numActionType " &
-                            "from AIRBRANCH.SBEAPActionLog " &
-                            "where numCaseID = '" & txtCaseID.Text & "' "
-                            cmd = New OracleCommand(SQL, CurrentConnection)
-                            If CurrentConnection.State = ConnectionState.Closed Then
-                                CurrentConnection.Open()
-                            End If
-                            dr = cmd.ExecuteReader
-                            While dr.Read
+                                "numActionID, numActionType " &
+                                "from SBEAPActionLog " &
+                                "where numCaseID = @caseid "
+
+                            Dim dr As DataRow = DB.GetDataRow(SQL, p)
+
+                            If dr IsNot Nothing Then
                                 If IsDBNull(dr.Item("numActionID")) Then
                                     ActionID = "Done"
                                 Else
@@ -2567,186 +2305,93 @@ Public Class SBEAPCaseWork
                                 Else
                                     ActionType = dr.Item("numActionType")
                                 End If
-                            End While
-                            dr.Close()
+                            End If
 
                             If ActionID <> "" And ActionID <> "Done" Then
+                                Dim p2 As New SqlParameter("@actionid", ActionID)
+
                                 Select Case ActionType
                                     Case "4"
-                                        SQL = "Delete AIRBRANCH.SBEAPConferenceLog " &
-                                        "where numActionID = '" & ActionID & "'  "
-                                        cmd = New OracleCommand(SQL, CurrentConnection)
-                                        If CurrentConnection.State = ConnectionState.Closed Then
-                                            CurrentConnection.Open()
-                                        End If
-                                        dr = cmd.ExecuteReader
-                                        dr.Close()
+                                        SQL = "Delete SBEAPConferenceLog " &
+                                            "where numActionID = @actionid "
+                                        DB.RunCommand(SQL, p2)
 
-                                        SQL = "Delete AIRBRANCH.SBEAPActionLog " &
-                                        "where numActionID = '" & ActionID & "'  "
-                                        cmd = New OracleCommand(SQL, CurrentConnection)
-                                        If CurrentConnection.State = ConnectionState.Closed Then
-                                            CurrentConnection.Open()
-                                        End If
-                                        dr = cmd.ExecuteReader
-                                        dr.Close()
+                                        SQL = "Delete SBEAPActionLog " &
+                                            "where numActionID = @actionid "
+                                        DB.RunCommand(SQL, p2)
+
                                     Case "6"
-                                        SQL = "Delete AIRBRANCH.SBEAPPhoneLog " &
-                                        "where numActionID = '" & ActionID & "'  "
-                                        cmd = New OracleCommand(SQL, CurrentConnection)
-                                        If CurrentConnection.State = ConnectionState.Closed Then
-                                            CurrentConnection.Open()
-                                        End If
-                                        dr = cmd.ExecuteReader
-                                        dr.Close()
+                                        SQL = "Delete SBEAPPhoneLog " &
+                                            "where numActionID = @actionid "
+                                        DB.RunCommand(SQL, p2)
 
-                                        SQL = "Delete AIRBRANCH.SBEAPActionLog " &
-                                        "where numActionID = '" & ActionID & "'  "
-                                        cmd = New OracleCommand(SQL, CurrentConnection)
-                                        If CurrentConnection.State = ConnectionState.Closed Then
-                                            CurrentConnection.Open()
-                                        End If
-                                        dr = cmd.ExecuteReader
-                                        dr.Close()
+                                        SQL = "Delete SBEAPActionLog " &
+                                            "where numActionID = @actionid "
+                                        DB.RunCommand(SQL, p2)
+
                                     Case "10"
-                                        SQL = "Delete AIRBRANCH.SBEAPTechnicalAssist " &
-                                        "where numActionID = '" & ActionID & "'  "
-                                        cmd = New OracleCommand(SQL, CurrentConnection)
-                                        If CurrentConnection.State = ConnectionState.Closed Then
-                                            CurrentConnection.Open()
-                                        End If
-                                        dr = cmd.ExecuteReader
-                                        dr.Close()
+                                        SQL = "Delete SBEAPTechnicalAssist " &
+                                            "where numActionID = @actionid "
+                                        DB.RunCommand(SQL, p2)
 
-                                        SQL = "Delete AIRBRANCH.SBEAPActionLog " &
-                                        "where numActionID = '" & ActionID & "'  "
-                                        cmd = New OracleCommand(SQL, CurrentConnection)
-                                        If CurrentConnection.State = ConnectionState.Closed Then
-                                            CurrentConnection.Open()
-                                        End If
-                                        dr = cmd.ExecuteReader
-                                        dr.Close()
+                                        SQL = "Delete SBEAPActionLog " &
+                                            "where numActionID = @actionid "
+                                        DB.RunCommand(SQL, p2)
+
                                     Case "1" Or "2" Or "3" Or "5" Or "7" Or "8" Or "9" Or "11" Or "12"
-                                        SQL = "Delete AIRBRANCH.SBEAPOtherLog " &
-                                        "where numActionID = '" & ActionID & "'  "
-                                        cmd = New OracleCommand(SQL, CurrentConnection)
-                                        If CurrentConnection.State = ConnectionState.Closed Then
-                                            CurrentConnection.Open()
-                                        End If
-                                        dr = cmd.ExecuteReader
-                                        dr.Close()
+                                        SQL = "Delete SBEAPOtherLog " &
+                                            "where numActionID = @actionid "
+                                        DB.RunCommand(SQL, p2)
 
-                                        SQL = "Delete AIRBRANCH.SBEAPActionLog " &
-                                        "where numActionID = '" & ActionID & "'  "
-                                        cmd = New OracleCommand(SQL, CurrentConnection)
-                                        If CurrentConnection.State = ConnectionState.Closed Then
-                                            CurrentConnection.Open()
-                                        End If
-                                        dr = cmd.ExecuteReader
-                                        dr.Close()
+                                        SQL = "Delete SBEAPActionLog " &
+                                            "where numActionID = @actionid "
+                                        DB.RunCommand(SQL, p2)
+
                                     Case Else
-                                        SQL = "Delete AIRBRANCH.SBEAPConferenceLog " &
-                                        "where numActionID = '" & ActionID & "'  "
-                                        cmd = New OracleCommand(SQL, CurrentConnection)
-                                        If CurrentConnection.State = ConnectionState.Closed Then
-                                            CurrentConnection.Open()
-                                        End If
-                                        dr = cmd.ExecuteReader
-                                        dr.Close()
+                                        SQL = "Delete SBEAPConferenceLog " &
+                                            "where numActionID = @actionid "
+                                        DB.RunCommand(SQL, p2)
 
-                                        SQL = "Delete AIRBRANCH.SBEAPPhoneLog " &
-                                        "where numActionID = '" & ActionID & "'  "
-                                        cmd = New OracleCommand(SQL, CurrentConnection)
-                                        If CurrentConnection.State = ConnectionState.Closed Then
-                                            CurrentConnection.Open()
-                                        End If
-                                        dr = cmd.ExecuteReader
-                                        dr.Close()
+                                        SQL = "Delete SBEAPPhoneLog " &
+                                            "where numActionID = @actionid "
+                                        DB.RunCommand(SQL, p2)
 
-                                        SQL = "Delete AIRBRANCH.SBEAPTechnicalAssist " &
-                                        "where numActionID = '" & ActionID & "'  "
-                                        cmd = New OracleCommand(SQL, CurrentConnection)
-                                        If CurrentConnection.State = ConnectionState.Closed Then
-                                            CurrentConnection.Open()
-                                        End If
-                                        dr = cmd.ExecuteReader
-                                        dr.Close()
+                                        SQL = "Delete SBEAPTechnicalAssist " &
+                                            "where numActionID = @actionid "
+                                        DB.RunCommand(SQL, p2)
 
-                                        SQL = "Delete AIRBRANCH.SBEAPOtherLog " &
-                                        "where numActionID = '" & ActionID & "'  "
-                                        cmd = New OracleCommand(SQL, CurrentConnection)
-                                        If CurrentConnection.State = ConnectionState.Closed Then
-                                            CurrentConnection.Open()
-                                        End If
-                                        dr = cmd.ExecuteReader
-                                        dr.Close()
+                                        SQL = "Delete SBEAPOtherLog " &
+                                            "where numActionID = @actionid "
+                                        DB.RunCommand(SQL, p2)
 
-                                        SQL = "Delete AIRBRANCH.SBEAPActionLog " &
-                                        "where numActionID = '" & ActionID & "'  "
-                                        cmd = New OracleCommand(SQL, CurrentConnection)
-                                        If CurrentConnection.State = ConnectionState.Closed Then
-                                            CurrentConnection.Open()
-                                        End If
-                                        dr = cmd.ExecuteReader
-                                        dr.Close()
+                                        SQL = "Delete SBEAPActionLog " &
+                                            "where numActionID = @actionid "
+                                        DB.RunCommand(SQL, p2)
+
                                 End Select
                             End If
                         Loop
 
-                        SQL = "Delete AIRBRANCH.SBEAPCaseLog " &
-                        "where numCaseID = '" & txtCaseID.Text & "' "
-                        cmd = New OracleCommand(SQL, CurrentConnection)
-                        If CurrentConnection.State = ConnectionState.Closed Then
-                            CurrentConnection.Open()
-                        End If
-                        dr = cmd.ExecuteReader
-                        dr.Close()
+                        SQL = "Delete SBEAPCaseLog " &
+                            "where numCaseID = @caseid "
+                        DB.RunCommand(SQL, p)
 
-                        SQL = "Delete AIRBRANCH.SBEAPCaseLogLink " &
-                        "where numCaseID = '" & txtCaseID.Text & "' "
-                        cmd = New OracleCommand(SQL, CurrentConnection)
-                        If CurrentConnection.State = ConnectionState.Closed Then
-                            CurrentConnection.Open()
-                        End If
-                        dr = cmd.ExecuteReader
-                        dr.Close()
+                        SQL = "Delete SBEAPCaseLogLink " &
+                            "where numCaseID = @caseid "
+                        DB.RunCommand(SQL, p)
 
                         ClearForm()
-                    Case Else
-                        Exit Sub
                 End Select
-                Exit Sub
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Private Sub tsmDeleteCaseWork_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsmDeleteCaseWork.Click
-        Try
-
-            If txtCaseID.Text <> "" Then
-                DeleteCase()
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    'Private Sub tsbPrint_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsbPrint.Click
-    '    Try
+    Private Sub tsmDeleteCaseWork_Click(sender As Object, e As EventArgs) Handles tsmDeleteCaseWork.Click
+        If txtCaseID.Text <> "" Then
+            DeleteCase()
+        End If
+    End Sub
 
-    '        If PrintForm Is Nothing Then
-    '        Else
-    '            PrintForm.Dispose()
-    '        End If
-    '        PrintForm = New SBEAPPrintForms
-    '        PrintForm.txtSource.Text = txtCaseID.Text
-    '        PrintForm.txtOrigin.Text = "Case Work"
-    '        PrintForm.Show()
-
-    '    Catch ex As Exception
-    '        ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-    '    End Try
-    'End Sub
 End Class

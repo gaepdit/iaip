@@ -5,6 +5,7 @@
     Friend Const NumericPattern As String = "^[0-9]+$"
     Friend Const AtLeastOneDigitPattern As String = "\d"
     Friend Const AtLeastOneLetterPattern As String = "[a-zA-Z]"
+    Friend Const NonAlphabeticPattern As String = "[^a-zA-Z]"
 
     ' Valid AIRS numbers are in the form 000-00000 or 04-13-000-0000
     ' (with or without the dashes)

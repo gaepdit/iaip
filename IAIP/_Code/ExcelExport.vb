@@ -34,10 +34,10 @@ Module ExcelExport
     ''' GC.Collect()
     ''' GC.WaitForPendingFinalizers()
     ''' </remarks>
-    Public Function CreateExcelFileFromDataTable(ByVal FileName As String, _
-                                           ByVal Table As DataTable, _
+    Public Function CreateExcelFileFromDataTable(FileName As String, _
+                                           Table As DataTable, _
                                            <Out()> Optional ByRef ErrorMessage As String = "", _
-                                           Optional ByVal SheetName As String = "Sheet1" _
+                                           Optional SheetName As String = "Sheet1" _
                                                                                   ) As Boolean
 
         Dim result As Boolean = False
@@ -99,7 +99,7 @@ Module ExcelExport
 
         Return result
     End Function
-    Private Function GetData(ByVal dt As DataTable) As Object(,)
+    Private Function GetData(dt As DataTable) As Object(,)
         Dim Data As Object(,) = New Object((dt.Rows.Count + 1) - 1, dt.Columns.Count - 1) {}
         For j As Integer = 0 To dt.Columns.Count - 1
             Data(0, j) = dt.Columns(j).Caption
@@ -130,7 +130,7 @@ Module ExcelExport
         Next
         Return Data
     End Function
-    Private Function ExcelColumnName(ByVal index As Integer) As String
+    Private Function ExcelColumnName(index As Integer) As String
         ' http://stackoverflow.com/a/297214/212978
         Static chars() As Char = {"A"c, "B"c, "C"c, "D"c, "E"c, "F"c, "G"c, "H"c, "I"c, "J"c, "K"c, "L"c, "M"c, "N"c, "O"c, "P"c, "Q"c, "R"c, "S"c, "T"c, "U"c, "V"c, "W"c, "X"c, "Y"c, "Z"c}
 

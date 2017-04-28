@@ -1,8 +1,9 @@
 ﻿Imports System.Collections.Generic
 Imports Iaip.Apb
-Imports Iaip.Apb.ApbFacilityId
 Imports Iaip.Apb.Facilities
 Imports Iaip.DAL.FacilitySummaryData
+Imports EpdIt
+Imports System.ComponentModel
 
 Public Class IAIPFacilitySummary
 
@@ -13,7 +14,7 @@ Public Class IAIPFacilitySummary
         Get
             Return _airsNumber
         End Get
-        Set(ByVal value As ApbFacilityId)
+        Set(value As ApbFacilityId)
             If _airsNumber Is Nothing AndAlso value Is Nothing Then Return
             'If _airsNumber IsNot Nothing AndAlso _airsNumber.Equals(value) Then Return
             _airsNumber = value
@@ -23,6 +24,8 @@ Public Class IAIPFacilitySummary
 
     Private ThisFacility As Facility
     Private FacilitySummaryDataSet As DataSet
+    Private DataDates As DataRow
+    Private bgw As BackgroundWorker
 
     Friend Enum FacilityDataTable
         ComplianceWork
@@ -53,14 +56,14 @@ Public Class IAIPFacilitySummary
 
 #Region " Form Load "
 
-    Private Sub IAIPFacilitySummary_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-        
+    Private Sub IAIPFacilitySummary_Load(sender As Object, e As EventArgs) Handles Me.Load
+
         LoadPermissions()
         InitializeDataTables()
         InitializeGridEvents()
     End Sub
 
-    Private Sub IAIPFacilitySummary_Shown(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Shown
+    Private Sub IAIPFacilitySummary_Shown(sender As Object, e As EventArgs) Handles Me.Shown
         If Me.AirsNumber Is Nothing Then
             ClearAllData()
             AirsNumberEntry.Focus()
@@ -117,7 +120,7 @@ Public Class IAIPFacilitySummary
         AddDataTable(FacilityDataTable.EiPre2009)
     End Sub
 
-    Private Sub AddDataTable(ByVal whichTable As FacilityDataTable)
+    Private Sub AddDataTable(whichTable As FacilityDataTable)
         FacilitySummaryDataSet.Tables.Add(whichTable.ToString)
     End Sub
 
@@ -185,9 +188,9 @@ Public Class IAIPFacilitySummary
 
 #Region " Basic Info data "
 
-    Private Sub EditFacilityLocationButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles EditFacilityLocationButton.Click
-        Dim editFacilityLocation As IAIPEditFacilityLocation = OpenMultiForm(IAIPEditFacilityLocation, Me.AirsNumber.GetHashCode)
-        editFacilityLocation.txtAirsNumber.Text = Me.AirsNumber.ToString
+    Private Sub EditFacilityLocationButton_Click(sender As Object, e As EventArgs) Handles EditFacilityLocationButton.Click
+        Dim parameters As New Dictionary(Of FormParameter, String) From {{FormParameter.AirsNumber, Me.AirsNumber.ToString}}
+        OpenMultiForm(IAIPEditFacilityLocation, Me.AirsNumber.GetHashCode, parameters)
     End Sub
 
     Private Sub ClearBasicFacilityData()
@@ -295,7 +298,7 @@ Public Class IAIPFacilitySummary
             End With
 
             'Compliance Status
-            Dim enforcementCount As Integer = DAL.Sscp.GetEnforcementCountForFacility(AirsNumber)
+            Dim enforcementCount As Integer = DAL.Sscp.GetOpenEnforcementCountForFacility(AirsNumber)
             If enforcementCount = 0 Then
                 ComplianceStatusDisplay.Text = "No open enforcement cases"
             ElseIf enforcementCount = 1 Then
@@ -312,15 +315,49 @@ Public Class IAIPFacilitySummary
             EpaFacilityIdDisplay.Text = .AirsNumber.EpaFacilityIdentifier
         End With
 
-        'Data Dates
-        Dim dataDates As DataRow = DAL.FacilityData.GetDataExchangeDates(Me.AirsNumber)
-        If dataDates IsNot Nothing Then
-            CreatedDateDisplay.Text = String.Format(DateStringFormat, dataDates("DbRecordCreated"))
-            FisDateDisplay.Text = String.Format(DateStringFormat, dataDates("FisExchangeDate"))
-            EpaDateDisplay.Text = String.Format(DateStringFormat, dataDates("EpaExchangeDate"))
-            DataUpdateDateDisplay.Text = String.Format(DateStringFormat, dataDates("DataModifiedOn"))
+        DataDates = Nothing
+        SpinUpDataDatesBackgroundWorker()
+    End Sub
+
+    Private Sub SpinUpDataDatesBackgroundWorker()
+        If bgw IsNot Nothing Then
+            If bgw.IsBusy Then bgw.CancelAsync()
+            bgw.Dispose()
         End If
 
+        CreatedDateDisplay.Text = "..."
+        FisDateDisplay.Text = "..."
+        EpaDateDisplay.Text = "..."
+        DataUpdateDateDisplay.Text = "..."
+
+        bgw = New BackgroundWorker
+        bgw.WorkerSupportsCancellation = True
+        AddHandler bgw.DoWork, AddressOf DataDatesBackgroundWorker_DoWork
+        AddHandler bgw.RunWorkerCompleted, AddressOf DataDatesBackgroundWorker_RunWorkerCompleted
+        bgw.RunWorkerAsync()
+    End Sub
+
+    Private Sub DataDatesBackgroundWorker_DoWork(sender As Object, e As DoWorkEventArgs)
+        Dim dt As DataRow = DAL.GetDataExchangeDates(Me.AirsNumber)
+        If Not CType(sender, BackgroundWorker).CancellationPending Then DataDates = dt
+    End Sub
+
+    Private Sub DataDatesBackgroundWorker_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs)
+        If Not e.Cancelled Then DisplayDataDates()
+    End Sub
+
+    Private Sub DisplayDataDates()
+        If DataDates IsNot Nothing Then
+            CreatedDateDisplay.Text = String.Format(DateStringFormat, DataDates("DbRecordCreated"))
+            FisDateDisplay.Text = String.Format(DateStringFormat, DataDates("FisExchangeDate"))
+            EpaDateDisplay.Text = String.Format(DateStringFormat, DataDates("EpaExchangeDate"))
+            DataUpdateDateDisplay.Text = String.Format(DateStringFormat, DataDates("DataModifiedOn"))
+        Else
+            CreatedDateDisplay.Text = Nothing
+            FisDateDisplay.Text = Nothing
+            EpaDateDisplay.Text = Nothing
+            DataUpdateDateDisplay.Text = Nothing
+        End If
     End Sub
 
     Private Sub ColorCodeComplianceStatusDisplay(num As Integer)
@@ -341,7 +378,8 @@ Public Class IAIPFacilitySummary
     Private Sub ColorCodeCmsDisplay()
         With ThisFacility.HeaderData
             If (.CmsMember = FacilityCmsMember.A And .Classification <> FacilityClassification.A) _
-            OrElse (.CmsMember = FacilityCmsMember.S And .Classification <> FacilityClassification.SM) Then
+            OrElse (.CmsMember = FacilityCmsMember.S And .Classification <> FacilityClassification.SM) _
+            OrElse (.CmsMember = FacilityCmsMember.M And .Classification <> FacilityClassification.A) Then
                 CmsDisplay.BackColor = IaipColors.WarningBackColor
                 CmsDisplay.ForeColor = IaipColors.WarningForeColor
             Else
@@ -351,7 +389,7 @@ Public Class IAIPFacilitySummary
         End With
     End Sub
 
-    Private Sub MapAddressLink_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles MapAddressLink.LinkClicked
+    Private Sub MapAddressLink_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles MapAddressLink.LinkClicked
         OpenMapUrl(ThisFacility.FacilityLocation.Address.ToLinearString, Me)
     End Sub
 
@@ -359,7 +397,7 @@ Public Class IAIPFacilitySummary
         OpenMapUrl(ThisFacility.FacilityLocation.County & " County", Me)
     End Sub
 
-    Private Sub MapLatLonLink_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles MapLatLonLink.LinkClicked
+    Private Sub MapLatLonLink_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles MapLatLonLink.LinkClicked
         OpenMapUrl(ThisFacility.FacilityLocation.Latitude.ToString & "," &
                    ThisFacility.FacilityLocation.Longitude.ToString, Me)
     End Sub
@@ -369,8 +407,8 @@ Public Class IAIPFacilitySummary
 
         MapPictureBox.Visible = False
 
-        Dim StaticMapsUrl As New System.Text.StringBuilder("https://maps.googleapis.com/maps/api/staticmap?")
-        StaticMapsUrl.Append("key=" & GoogleMapsApiKey)
+        Dim StaticMapsUrl As New Text.StringBuilder("https://maps.googleapis.com/maps/api/staticmap?")
+        StaticMapsUrl.Append("key=" & GOOGLE_MAPS_API_KEY)
         StaticMapsUrl.Append("&size=" & MapPictureBox.Width.ToString & "x" & MapPictureBox.Height.ToString)
         StaticMapsUrl.Append("&zoom=6&center=32.9,-83.3")
 
@@ -397,7 +435,7 @@ Public Class IAIPFacilitySummary
 
 #Region " Header data "
 
-    Private Sub EditPollutantsButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles EditPollutantsButton.Click
+    Private Sub EditPollutantsButton_Click(sender As Object, e As EventArgs) Handles EditPollutantsButton.Click
         Using editProgPollDialog As New IAIPEditAirProgramPollutants
             With editProgPollDialog
                 .AirsNumber = AirsNumber
@@ -407,12 +445,12 @@ Public Class IAIPFacilitySummary
         End Using
     End Sub
 
-    Private Sub EditSubpartsButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles EditSubpartsButton.Click
+    Private Sub EditSubpartsButton_Click(sender As Object, e As EventArgs) Handles EditSubpartsButton.Click
         Dim editSubParts As IAIPEditSubParts = OpenMultiForm(IAIPEditSubParts, Me.AirsNumber.GetHashCode)
-        editSubParts.txtAIRSNumber.Text = Me.AirsNumber.ToString
+        editSubParts.AirsNumber = AirsNumber
     End Sub
 
-    Private Sub EditHeaderDataButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles EditHeaderDataButton.Click
+    Private Sub EditHeaderDataButton_Click(sender As Object, e As EventArgs) Handles EditHeaderDataButton.Click
         If Apb.ApbFacilityId.IsValidAirsNumberFormat(Me.AirsNumber.ToString) Then
 
             Dim editHeaderDataDialog As New IAIPEditHeaderData
@@ -505,7 +543,7 @@ Public Class IAIPFacilitySummary
 
 #Region " Generic data table procedures "
 
-    Private Sub LoadDataTable(ByVal whichTable As FacilityDataTable)
+    Private Sub LoadDataTable(whichTable As FacilityDataTable)
         If Me.AirsNumber Is Nothing OrElse Me.ThisFacility Is Nothing Then Exit Sub
         If TableDataExists(whichTable) Then Exit Sub
 
@@ -516,11 +554,11 @@ Public Class IAIPFacilitySummary
         End If
     End Sub
 
-    Private Function TableDataExists(ByVal whichTable As FacilityDataTable) As Boolean
+    Private Function TableDataExists(whichTable As FacilityDataTable) As Boolean
         Return FacilitySummaryDataSet.Tables(whichTable.ToString).Rows.Count > 0
     End Function
 
-    Private Sub SetUpData(ByVal table As FacilityDataTable)
+    Private Sub SetUpData(table As FacilityDataTable)
         Select Case table
 
             ' Compliance
@@ -588,12 +626,12 @@ Public Class IAIPFacilitySummary
 
 #Region " AcceptButton "
 
-    Private Sub AddAcceptButton(ByVal sender As System.Object, ByVal e As System.EventArgs) _
+    Private Sub AddAcceptButton(sender As Object, e As EventArgs) _
     Handles AirsNumberEntry.Enter
         Me.AcceptButton = ViewDataButton
     End Sub
 
-    Private Sub RemoveAcceptButton(ByVal sender As System.Object, ByVal e As System.EventArgs) _
+    Private Sub RemoveAcceptButton(sender As Object, e As EventArgs) _
     Handles AirsNumberEntry.Leave
         Me.AcceptButton = Nothing
     End Sub
@@ -602,7 +640,7 @@ Public Class IAIPFacilitySummary
 
 #Region " Grid Item events "
 
-    Private Sub OpenItem(ByVal dgv As DataGridView, ByVal id As String)
+    Private Sub OpenItem(dgv As DataGridView, id As String)
         Select Case dgv.Name
 
             ' Compliance
@@ -655,7 +693,7 @@ Public Class IAIPFacilitySummary
 
     End Sub
 
-    Private Sub HandleGrid_CellClick(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs)
+    Private Sub HandleGrid_CellClick(sender As Object, e As DataGridViewCellEventArgs)
         ' Only within the cell content of first column
         Dim dgv As DataGridView = CType(sender, DataGridView)
         If e.RowIndex <> -1 And e.RowIndex < dgv.RowCount And e.ColumnIndex = 0 Then
@@ -663,7 +701,7 @@ Public Class IAIPFacilitySummary
         End If
     End Sub
 
-    Private Sub HandleGrid_CellDoubleClick(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs)
+    Private Sub HandleGrid_CellDoubleClick(sender As Object, e As DataGridViewCellEventArgs)
         'Double-click within the cell content (but exclude first column to avoid double-firing)
         Dim dgv As DataGridView = CType(sender, DataGridView)
         If e.RowIndex <> -1 And e.RowIndex < dgv.RowCount And e.ColumnIndex <> 0 Then
@@ -671,13 +709,13 @@ Public Class IAIPFacilitySummary
         End If
     End Sub
 
-    Private Sub HandleGrid_KeyDown(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyEventArgs)
+    Private Sub HandleGrid_KeyDown(sender As Object, e As KeyEventArgs)
         If e.KeyCode = Keys.Enter Then
             e.Handled = True
         End If
     End Sub
 
-    Private Sub HandleGrid_KeyUp(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs)
+    Private Sub HandleGrid_KeyUp(sender As Object, e As KeyEventArgs)
         If e.KeyCode = Keys.Enter Then
             Dim dgv As DataGridView = CType(sender, DataGridView)
             If dgv.RowCount > 0 Then
@@ -686,7 +724,7 @@ Public Class IAIPFacilitySummary
         End If
     End Sub
 
-    Private Sub HandleGrid_MouseEnter(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs)
+    Private Sub HandleGrid_MouseEnter(sender As Object, e As DataGridViewCellEventArgs)
         ' Change cursor and text color when hovering over first column (treats text like a hyperlink)
         Dim dgv As DataGridView = CType(sender, DataGridView)
         If e.RowIndex <> -1 And e.RowIndex < dgv.RowCount And e.ColumnIndex = 0 Then
@@ -694,7 +732,7 @@ Public Class IAIPFacilitySummary
         End If
     End Sub
 
-    Private Sub HandleGrid_MouseLeave(ByVal sender As Object, ByVal e As System.Windows.Forms.DataGridViewCellEventArgs)
+    Private Sub HandleGrid_MouseLeave(sender As Object, e As DataGridViewCellEventArgs)
         ' Reset cursor and text color when mouse leaves (un-hovers) a cell
         Dim dgv As DataGridView = CType(sender, DataGridView)
         If e.RowIndex <> -1 And e.RowIndex < dgv.RowCount And e.ColumnIndex = 0 Then
@@ -716,12 +754,6 @@ Public Class IAIPFacilitySummary
         With ComplianceWorkGrid
             If .DataSource Is Nothing Then
                 .DataSource = FacilitySummaryDataSet.Tables(FacilityDataTable.ComplianceWork.ToString)
-                .Columns("STRTRACKINGNUMBER").HeaderText = "Tracking Number"
-                .Columns("STRTRACKINGNUMBER").DisplayIndex = 0
-                .Columns("STRACTIVITYNAME").HeaderText = "Event Type"
-                .Columns("RECEIVEDDATE").HeaderText = "Date Received"
-                .Columns("RECEIVEDDATE").DefaultCellStyle.Format = DateFormat
-
                 .MakeColumnsLookLikeLinks(0)
                 .SanelyResizeColumns()
             End If
@@ -732,13 +764,6 @@ Public Class IAIPFacilitySummary
         With ComplianceEnforcementGrid
             If .DataSource Is Nothing Then
                 .DataSource = FacilitySummaryDataSet.Tables(FacilityDataTable.ComplianceEnforcement.ToString)
-                .Columns("STRENFORCEMENTNUMBER").HeaderText = "Enforcement Number"
-                .Columns("STRENFORCEMENTNUMBER").DisplayIndex = 0
-                .Columns("ViolationDate").HeaderText = "Discovery Date"
-                .Columns("ViolationDate").DefaultCellStyle.Format = DateFormat
-                .Columns("HPVStatus").HeaderText = "HPV Status"
-                .Columns("Status").HeaderText = "Status"
-
                 .MakeColumnsLookLikeLinks(0)
                 .SanelyResizeColumns()
             End If
@@ -749,18 +774,6 @@ Public Class IAIPFacilitySummary
         With ComplianceFceGrid
             If .DataSource Is Nothing Then
                 .DataSource = FacilitySummaryDataSet.Tables(FacilityDataTable.ComplianceFCE.ToString)
-                .Columns("FCEYear").HeaderText = "FCE Year"
-                .Columns("FCEYear").DisplayIndex = 0
-                .Columns("FCECompleted").HeaderText = "Date Completed"
-                .Columns("FCECompleted").DefaultCellStyle.Format = DateFormat
-                .Columns("FCECompleted").DisplayIndex = 1
-                .Columns("ReviewingEngineer").HeaderText = "Reviewing Engineer"
-                .Columns("ReviewingEngineer").DisplayIndex = 2
-                .Columns("STRFCECOMMENTS").HeaderText = "Comments"
-                .Columns("STRFCECOMMENTS").DisplayIndex = 3
-                .Columns("STRFCENUMBER").Visible = False
-                .Columns("STRFCENUMBER").DisplayIndex = 4
-
                 .MakeColumnsLookLikeLinks(0)
                 .SanelyResizeColumns()
             End If
@@ -832,9 +845,9 @@ Public Class IAIPFacilitySummary
         End If
     End Sub
 
-    Private Sub BindingFormatTons(ByVal sender As Object, ByVal cevent As ConvertEventArgs)
+    Private Sub BindingFormatTons(sender As Object, cevent As ConvertEventArgs)
         Dim num As Decimal = 0
-        cevent.Value = DB.GetNullable(Of String)(cevent.Value)
+        cevent.Value = DBUtilities.GetNullable(Of String)(cevent.Value)
 
         If Decimal.TryParse(cevent.Value, num) Then
             cevent.Value = num.ToString("N0") & " ton"
@@ -842,18 +855,18 @@ Public Class IAIPFacilitySummary
         End If
     End Sub
 
-    Private Sub BindingFormatDollars(ByVal sender As Object, ByVal cevent As ConvertEventArgs)
+    Private Sub BindingFormatDollars(sender As Object, cevent As ConvertEventArgs)
         Dim num As Decimal = 0
-        cevent.Value = DB.GetNullable(Of String)(cevent.Value)
+        cevent.Value = DBUtilities.GetNullable(Of String)(cevent.Value)
 
         If Decimal.TryParse(cevent.Value, num) Then
             cevent.Value = "$" & num.ToString("N0")
         End If
     End Sub
 
-    Private Sub BindingFormatDollarsPerTon(ByVal sender As Object, ByVal cevent As ConvertEventArgs)
+    Private Sub BindingFormatDollarsPerTon(sender As Object, cevent As ConvertEventArgs)
         Dim num As Decimal = 0
-        cevent.Value = DB.GetNullable(Of String)(cevent.Value)
+        cevent.Value = DBUtilities.GetNullable(Of String)(cevent.Value)
 
         If Decimal.TryParse(cevent.Value, num) Then
             cevent.Value = "$" & num.ToString("N2") & " /ton"
@@ -864,7 +877,7 @@ Public Class IAIPFacilitySummary
 
 #Region " Contacts data "
 
-    Private Sub EditContactsButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles EditContactsButton.Click
+    Private Sub EditContactsButton_Click(sender As Object, e As EventArgs) Handles EditContactsButton.Click
         Dim parameters As New Dictionary(Of FormParameter, String)
         parameters(FormParameter.AirsNumber) = Me.AirsNumber.ShortString
         parameters(FormParameter.FacilityName) = Me.ThisFacility.FacilityName
@@ -884,9 +897,7 @@ Public Class IAIPFacilitySummary
         With ContactsStateGrid
             If .DataSource Is Nothing Then
                 .DataSource = FacilitySummaryDataSet.Tables(FacilityDataTable.ContactsState.ToString)
-                .Columns("AirProgram").HeaderText = "Program"
-                .Columns("Staff").HeaderText = "Staff"
-                .Columns("Unit").HeaderText = "Unit"
+                .SanelyResizeColumns
             End If
         End With
     End Sub
@@ -895,15 +906,7 @@ Public Class IAIPFacilitySummary
         With ContactsWebSiteGrid
             If .DataSource Is Nothing Then
                 .DataSource = FacilitySummaryDataSet.Tables(FacilityDataTable.ContactsWebSite.ToString)
-                .Columns("strContactKey").Visible = False
-                .Columns("ContactName").HeaderText = "Name"
-                .Columns("strContactTitle").HeaderText = "Title"
-                .Columns("strContactCompanyName").HeaderText = "Company"
-                .Columns("strContactPhoneNumber1").HeaderText = "Phone"
-                .Columns("strContactFaxNumber").HeaderText = "Fax"
-                .Columns("strContactEmail").HeaderText = "Email"
-                .Columns("Address").HeaderText = "Address"
-                .Columns("strContactDescription").HeaderText = "User Type"
+                .SanelyResizeColumns
             End If
         End With
     End Sub
@@ -912,15 +915,7 @@ Public Class IAIPFacilitySummary
         With ContactsPermittingGrid
             If .DataSource Is Nothing Then
                 .DataSource = FacilitySummaryDataSet.Tables(FacilityDataTable.ContactsPermitting.ToString)
-                .Columns("strContactKey").Visible = False
-                .Columns("ContactName").HeaderText = "Name"
-                .Columns("strContactTitle").HeaderText = "Title"
-                .Columns("strContactCompanyName").HeaderText = "Company"
-                .Columns("strContactPhoneNumber1").HeaderText = "Phone"
-                .Columns("strContactFaxNumber").HeaderText = "Fax"
-                .Columns("strContactEmail").HeaderText = "Email"
-                .Columns("Address").HeaderText = "Address"
-                .Columns("strContactDescription").HeaderText = "User Type"
+                .SanelyResizeColumns
             End If
         End With
     End Sub
@@ -929,15 +924,7 @@ Public Class IAIPFacilitySummary
         With ContactsTestingGrid
             If .DataSource Is Nothing Then
                 .DataSource = FacilitySummaryDataSet.Tables(FacilityDataTable.ContactsTesting.ToString)
-                .Columns("strContactKey").Visible = False
-                .Columns("ContactName").HeaderText = "Name"
-                .Columns("strContactTitle").HeaderText = "Title"
-                .Columns("strContactCompanyName").HeaderText = "Company"
-                .Columns("strContactPhoneNumber1").HeaderText = "Phone"
-                .Columns("strContactFaxNumber").HeaderText = "Fax"
-                .Columns("strContactEmail").HeaderText = "Email"
-                .Columns("Address").HeaderText = "Address"
-                .Columns("strContactDescription").HeaderText = "User Type"
+                .SanelyResizeColumns
             End If
         End With
     End Sub
@@ -946,15 +933,7 @@ Public Class IAIPFacilitySummary
         With ContactsComplianceGrid
             If .DataSource Is Nothing Then
                 .DataSource = FacilitySummaryDataSet.Tables(FacilityDataTable.ContactsCompliance.ToString)
-                .Columns("strContactKey").Visible = False
-                .Columns("ContactName").HeaderText = "Name"
-                .Columns("strContactTitle").HeaderText = "Title"
-                .Columns("strContactCompanyName").HeaderText = "Company"
-                .Columns("strContactPhoneNumber1").HeaderText = "Phone"
-                .Columns("strContactFaxNumber").HeaderText = "Fax"
-                .Columns("strContactEmail").HeaderText = "Email"
-                .Columns("Address").HeaderText = "Address"
-                .Columns("strContactDescription").HeaderText = "User Type"
+                .SanelyResizeColumns
             End If
         End With
     End Sub
@@ -963,15 +942,7 @@ Public Class IAIPFacilitySummary
         With ContactsGecoGrid
             If .DataSource Is Nothing Then
                 .DataSource = FacilitySummaryDataSet.Tables(FacilityDataTable.ContactsGeco.ToString)
-                .Columns("NUMUSERID").Visible = False
-                .Columns("STRUSERTYPE").HeaderText = "User Type"
-                .Columns("GECOContact").HeaderText = "Name"
-                .Columns("STRTITLE").HeaderText = "Title"
-                .Columns("STRUSEREMAIL").HeaderText = "Email"
-                .Columns("STRPHONENUMBER").HeaderText = "Phone"
-                .Columns("STRFAXNUMBER").HeaderText = "Fax"
-                .Columns("STRCOMPANYNAME").HeaderText = "Company"
-                .Columns("Address").HeaderText = "Address"
+                .SanelyResizeColumns
             End If
         End With
     End Sub
@@ -989,19 +960,6 @@ Public Class IAIPFacilitySummary
         With EiPost2009Grid
             If .DataSource Is Nothing Then
                 .DataSource = FacilitySummaryDataSet.Tables(FacilityDataTable.EiPost2009.ToString)
-                .Columns("INTINVENTORYYEAR").HeaderText = "Year"
-                .Columns("LEADEMISSIONS").HeaderText = "Lead"
-                .Columns("COEMISSIONS").HeaderText = "Carbon Monoxide"
-                .Columns("NH3EMISSIONS").HeaderText = "Ammonia"
-                .Columns("NOXEMISSIONS").HeaderText = "Nitrogen Oxides"
-                .Columns("PMCONEMISSIONS").HeaderText = "Condensible PM (less than 1 micron)"
-                .Columns("PM10FILEMISSIONS").HeaderText = "Filterable PM10"
-                .Columns("PM10PRIEMISSIONS").HeaderText = "Primary PM10 (includes filterables + condensibles)"
-                .Columns("PM25FILEMISSIONS").HeaderText = "Filterable PM2.5"
-                .Columns("PM25PRIEMISSIONS").HeaderText = "Primary PM2.5 (includes filterables + condensibles)"
-                .Columns("SO2EMISSIONS").HeaderText = "Sulfur Dioxide"
-                .Columns("VOCEMISSIONS").HeaderText = "Volatile Organic Compounds"
-
                 .SanelyResizeColumns()
             End If
         End With
@@ -1011,18 +969,6 @@ Public Class IAIPFacilitySummary
         With EiPre2009Grid
             If .DataSource Is Nothing Then
                 .DataSource = FacilitySummaryDataSet.Tables(FacilityDataTable.EiPre2009.ToString)
-                .Columns("STRINVENTORYYEAR").HeaderText = "Year"
-                .Columns("LEAD").HeaderText = "Lead"
-                .Columns("CO").HeaderText = "Carbon Monoxide"
-                .Columns("NH3").HeaderText = "Ammonia"
-                .Columns("NOX").HeaderText = "Nitrogen Oxides"
-                .Columns("PM").HeaderText = "PM"
-                .Columns("PM10").HeaderText = "PM10"
-                .Columns("PM25").HeaderText = "PM2.5"
-                .Columns("SO2").HeaderText = "Sulfur Dioxide"
-                .Columns("VOC").HeaderText = "Volatile Organic Compounds"
-                .Columns("PMFIL").HeaderText = "PMFIL"
-
                 .SanelyResizeColumns()
             End If
         End With
@@ -1042,32 +988,6 @@ Public Class IAIPFacilitySummary
         With FinancialFeeGrid
             If .DataSource Is Nothing Then
                 .DataSource = FacilitySummaryDataSet.Tables(FacilityDataTable.FinancialFees.ToString)
-                .Columns("NUMFEEYEAR").HeaderText = "Year"
-                .Columns("INTVOCTONS").HeaderText = "VOC tons"
-                .Columns("INTPMTONS").HeaderText = "PM tons"
-                .Columns("INTSO2TONS").HeaderText = "SO2 tons"
-                .Columns("INTNOXTONS").HeaderText = "NOx tons"
-                .Columns("NUMPART70FEE").HeaderText = "Part 70 Fee"
-                .Columns("NUMSMFEE").HeaderText = "SM Fee"
-                .Columns("NUMTOTALFEE").HeaderText = "Total Fee"
-                .Columns("strNSPSExempt").HeaderText = "NSPS Exempt"
-                .Columns("strNSPSReason").HeaderText = "NSPS Exempt Reason"
-                .Columns("strOperate").HeaderText = "Operating"
-                .Columns("NUMFEERATE").HeaderText = "Fee Rate"
-                .Columns("STRNSPSEXEMPTREASON").HeaderText = "NSPS Exempt Reason"
-                .Columns("strPart70").HeaderText = "Part 70 Status"
-                .Columns("strSyntheticMinor").HeaderText = "SM Status"
-                .Columns("NUMCALCULATEDFEE").HeaderText = "Calculated Fee"
-                .Columns("STRCLASS").HeaderText = "Class"
-                .Columns("strNSPS").HeaderText = "NSPS"
-                .Columns("DATSHUTDOWN").HeaderText = "Shutdown Date"
-                .Columns("STRPAYMENTPLAN").HeaderText = "Payment Type"
-                .Columns("STROFFICIALNAME").HeaderText = "Official Name"
-                .Columns("STROFFICIALTITLE").HeaderText = "Official Title"
-                .Columns("intSubmittal").HeaderText = "Submitted"
-                .Columns("DATSUBMITTAL").HeaderText = "Date Submitted"
-                .Columns("DATSUBMITTAL").DefaultCellStyle.Format = "dd-MMM-yyyy"
-
                 .SanelyResizeColumns()
             End If
         End With
@@ -1077,19 +997,6 @@ Public Class IAIPFacilitySummary
         With FinancialDepositsGrid
             If .DataSource Is Nothing Then
                 .DataSource = FacilitySummaryDataSet.Tables(FacilityDataTable.FinancialDeposits.ToString)
-                .Columns("NUMFEEYEAR").HeaderText = "Year"
-                .Columns("NUMPAYMENT").HeaderText = "Amount Paid"
-                .Columns("DATTRANSACTIONDATE").HeaderText = "Payment Date"
-                .Columns("DATTRANSACTIONDATE").DefaultCellStyle.Format = "dd-MMM-yyyy"
-                .Columns("INVOICEID").HeaderText = "Invoice #"
-                .Columns("STRCHECKNO").HeaderText = "Check #"
-                .Columns("STRDEPOSITNO").HeaderText = "Deposit #"
-                .Columns("TRANSACTIONTYPECODE").HeaderText = "Payment Type"
-                .Columns("STRBATCHNO").HeaderText = "Batch #"
-                .Columns("strEntryPerson").HeaderText = "Entry Person"
-                .Columns("STRCOMMENT").HeaderText = "Comment"
-                .Columns("TRANSACTIONID").HeaderText = "Transaction ID"
-
                 .SanelyResizeColumns()
             End If
         End With
@@ -1099,16 +1006,6 @@ Public Class IAIPFacilitySummary
         With FinancialInvoicesGrid
             If .DataSource Is Nothing Then
                 .DataSource = FacilitySummaryDataSet.Tables(FacilityDataTable.FinancialInvoices.ToString)
-                .Columns("NUMFEEYEAR").HeaderText = "Fee Year"
-                .Columns("INVOICEID").HeaderText = "Invoice ID"
-                .Columns("NUMAMOUNT").HeaderText = "Invoice Amount"
-                .Columns("DATINVOICEDATE").HeaderText = "Invoice Date"
-                .Columns("DATINVOICEDATE").DefaultCellStyle.Format = "dd-MMM-yyyy"
-                .Columns("InvoiceStatus").HeaderText = "Invoice Status"
-                .Columns("STRPAYTYPEDESC").HeaderText = "Invoice Type"
-                .Columns("PayStatus").HeaderText = "Payment Status"
-                .Columns("STRCOMMENT").HeaderText = "Comment"
-
                 .SanelyResizeColumns()
             End If
         End With
@@ -1118,7 +1015,7 @@ Public Class IAIPFacilitySummary
 
 #Region " Permitting data "
 
-    Private Sub PermitsLink_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles PermitsLink.LinkClicked
+    Private Sub PermitsLink_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles PermitsLink.LinkClicked
         OpenPermitSearchUrl(Me.AirsNumber, Me)
     End Sub
 
@@ -1133,21 +1030,6 @@ Public Class IAIPFacilitySummary
         With PermitApplicationGrid
             If .DataSource Is Nothing Then
                 .DataSource = FacilitySummaryDataSet.Tables(FacilityDataTable.PermitApplications.ToString)
-
-                .Columns("ApplicationNumber").HeaderText = "Application #"
-                .Columns("STRFACILITYNAME").HeaderText = "Facility Name"
-                .Columns("STRAPPLICATIONTYPEDESC").HeaderText = "Type"
-                .Columns("DATRECEIVEDDATE").HeaderText = "Date Received"
-                .Columns("DATRECEIVEDDATE").DefaultCellStyle.Format = "dd-MMM-yyyy"
-                .Columns("PermitNumber").HeaderText = "Permit Number"
-                .Columns("DATPERMITISSUED").HeaderText = "Date Permit Issued"
-                .Columns("DATPERMITISSUED").DefaultCellStyle.Format = "dd-MMM-yyyy"
-                .Columns("StaffResponsible").HeaderText = "Staff Responsible"
-                .Columns("STRPERMITTYPEDESCRIPTION").HeaderText = "Action Type"
-                .Columns("AppStatus").HeaderText = "Status"
-                .Columns("StatusDate").HeaderText = "Status Date"
-                .Columns("StatusDate").DefaultCellStyle.Format = "dd-MMM-yyyy"
-
                 .MakeColumnsLookLikeLinks(0)
                 .SanelyResizeColumns()
             End If
@@ -1158,12 +1040,6 @@ Public Class IAIPFacilitySummary
         With PermitRulesGrid
             If .DataSource Is Nothing Then
                 .DataSource = FacilitySummaryDataSet.Tables(FacilityDataTable.PermitRules.ToString)
-                .Columns("Part").HeaderText = "Part"
-                .Columns("STRSUBPART").HeaderText = "Subpart"
-                .Columns("STRDESCRIPTION").HeaderText = "Description"
-                .Columns("CREATEDATETIME").HeaderText = "Date added"
-                .Columns("CREATEDATETIME").DefaultCellStyle.Format = "dd-MMM-yyyy"
-
                 .SanelyResizeColumns()
             End If
         End With
@@ -1173,14 +1049,6 @@ Public Class IAIPFacilitySummary
         With PermitRuleHistoryGrid
             If .DataSource Is Nothing Then
                 .DataSource = FacilitySummaryDataSet.Tables(FacilityDataTable.PermitRuleHistory.ToString)
-                .Columns("STRAPPLICATIONNUMBER").HeaderText = "Application #"
-                .Columns("AppActivity").HeaderText = "Action"
-                .Columns("Part").HeaderText = "Part"
-                .Columns("STRSUBPART").HeaderText = "Subpart"
-                .Columns("CREATEDATETIME").HeaderText = "Action Date"
-                .Columns("CREATEDATETIME").DefaultCellStyle.Format = "dd-MMM-yyyy"
-                .Columns("STRDESCRIPTION").HeaderText = "Description"
-
                 .SanelyResizeColumns()
             End If
         End With
@@ -1190,19 +1058,7 @@ Public Class IAIPFacilitySummary
         With PermitsGrid
             If .DataSource Is Nothing Then
                 .DataSource = FacilitySummaryDataSet.Tables(FacilityDataTable.Permits.ToString)
-                .Columns("STRPERMITNUMBER").HeaderText = "Permit Number"
-                .Columns("STRPERMITNUMBER").Width = 150
-                .Columns("DATISSUED").HeaderText = "Date Issued"
-                .Columns("DATISSUED").DefaultCellStyle.Format = "dd-MMM-yyyy"
-                .Columns("DATREVOKED").HeaderText = "Date Revoked"
-                .Columns("DATREVOKED").DefaultCellStyle.Format = "dd-MMM-yyyy"
-                .Columns("ACTIVE").HeaderText = "Active"
-                .Columns("ACTIVE").DefaultCellStyle.FormatProvider = New BooleanFormatProvider
-                .Columns("ACTIVE").DefaultCellStyle.Format = BooleanFormatProvider.BooleanFormatProviderFormat.YesNo.ToString
-
                 .SanelyResizeColumns()
-
-                AddHandler .CellFormatting, AddressOf DataGridView_CellFormatting
             End If
         End With
     End Sub
@@ -1221,19 +1077,6 @@ Public Class IAIPFacilitySummary
         With TestReportsGrid
             If .DataSource Is Nothing Then
                 .DataSource = FacilitySummaryDataSet.Tables(FacilityDataTable.TestReports.ToString)
-                .Columns("STRREFERENCENUMBER").HeaderText = "Reference Number"
-                .Columns("STATUS").HeaderText = "Status"
-                .Columns("STREMISSIONSOURCE").HeaderText = "Source"
-                .Columns("STRPOLLUTANTDESCRIPTION").HeaderText = "Pollutant"
-                .Columns("STRREPORTTYPE").HeaderText = "Report Type"
-                .Columns("REVIEWINGENGINEER").HeaderText = "Reviewer"
-                .Columns("TESTDATESTART").HeaderText = "Tested"
-                .Columns("RECEIVEDDATE").HeaderText = "Received"
-                .Columns("COMPLETEDATE").HeaderText = "Complete"
-                .Columns("STRCOMPLIANCESTATUS").HeaderText = "Compliance Status"
-                .Columns("STRPRECOMPLIANCESTATUS").HeaderText = "Pre-Compliance Status"
-
-                FormatTestReportsGrid()
                 .MakeColumnsLookLikeLinks(0)
                 .SanelyResizeColumns()
             End If
@@ -1245,14 +1088,6 @@ Public Class IAIPFacilitySummary
         With TestNotificationsGrid
             If .DataSource Is Nothing Then
                 .DataSource = FacilitySummaryDataSet.Tables(FacilityDataTable.TestNotifications.ToString)
-                .Columns("STRTESTLOGNUMBER").HeaderText = "Test Log Number"
-                .Columns("Staff").HeaderText = "Staff"
-                .Columns("STREMISSIONUNIT").HeaderText = "Source"
-                .Columns("STRUNITDESC").HeaderText = "Unit"
-                .Columns("DATTESTNOTIFICATION").HeaderText = "Notified"
-                .Columns("DATPROPOSEDSTARTDATE").HeaderText = "Proposed Start Date"
-                .Columns("DATPROPOSEDENDDATE").HeaderText = "Proposed End Date"
-
                 .MakeColumnsLookLikeLinks(0)
                 .SanelyResizeColumns()
             End If
@@ -1263,68 +1098,10 @@ Public Class IAIPFacilitySummary
         With TestMemosGrid
             If .DataSource Is Nothing Then
                 .DataSource = FacilitySummaryDataSet.Tables(FacilityDataTable.TestMemos.ToString)
-                .Columns("STRREFERENCENUMBER").HeaderText = "Reference Number"
-                .Columns("MemoField").HeaderText = "Memo Field"
-
                 .MakeColumnsLookLikeLinks(0)
                 .SanelyResizeColumns()
             End If
         End With
-    End Sub
-
-#End Region
-
-#Region " DataGridView CellFormatting "
-
-    Private Sub DataGridView_CellFormatting(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellFormattingEventArgs)
-        If TypeOf e.CellStyle.FormatProvider Is ICustomFormatter Then
-            e.Value = TryCast(e.CellStyle.FormatProvider.GetFormat(GetType(ICustomFormatter)), ICustomFormatter).Format(e.CellStyle.Format, e.Value, e.CellStyle.FormatProvider)
-            e.FormattingApplied = True
-        End If
-    End Sub
-
-    Private Sub TestReportsGrid_CellFormatting(ByVal sender As System.Object, ByVal e As System.Windows.Forms.DataGridViewCellFormattingEventArgs) Handles TestReportsGrid.CellFormatting
-        If TestReportsGrid.Columns(e.ColumnIndex).Name = "STRPRECOMPLIANCESTATUS" Then
-            If e.Value.ToString = "True" Then
-                e.Value = "Potentially non-compliant"
-            Else
-                e.Value = ""
-            End If
-        End If
-    End Sub
-
-    Private Sub FormatTestReportsGrid()
-        With TestReportsGrid
-            .DefaultCellStyle.SelectionBackColor = .DefaultCellStyle.BackColor
-            .DefaultCellStyle.SelectionForeColor = Color.MidnightBlue
-            .AlternatingRowsDefaultCellStyle = .DefaultCellStyle
-        End With
-        For Each row As DataGridViewRow In TestReportsGrid.Rows
-            With row
-                .Cells("STRREFERENCENUMBER").Style.SelectionBackColor = SystemColors.Highlight
-                .Cells("STRREFERENCENUMBER").Style.SelectionForeColor = SystemColors.HighlightText
-                .Cells("STRREFERENCENUMBER").Style.ForeColor = SystemColors.HotTrack
-                If .Cells("STRCOMPLIANCESTATUS").Value.ToString = "Not In Compliance" Then
-                    .DefaultCellStyle.BackColor = Color.Pink
-                    .DefaultCellStyle.SelectionBackColor = Color.Pink
-                    .DefaultCellStyle.SelectionForeColor = Color.MidnightBlue
-                ElseIf .Cells("STATUS").Value.ToString = "Open" Then
-                    .DefaultCellStyle.SelectionForeColor = Color.MidnightBlue
-                    If (.Cells("STRPRECOMPLIANCESTATUS").Value.ToString = "Potentially non-compliant" _
-                        OrElse .Cells("STRPRECOMPLIANCESTATUS").Value.ToString = "True") Then
-                        .DefaultCellStyle.BackColor = Color.LemonChiffon
-                        .DefaultCellStyle.SelectionBackColor = Color.LemonChiffon
-                    Else
-                        .DefaultCellStyle.BackColor = Color.AliceBlue
-                        .DefaultCellStyle.SelectionBackColor = Color.AliceBlue
-                    End If
-                End If
-            End With
-        Next
-    End Sub
-
-    Private Sub TestReportsGrid_Sorted(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles TestReportsGrid.Sorted
-        FormatTestReportsGrid()
     End Sub
 
 #End Region
@@ -1347,11 +1124,11 @@ Public Class IAIPFacilitySummary
 
 #Region " Navigation Panel "
 
-    Private Sub FacilityApprovalLinkLabel_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles FacilityApprovalLinkLabel.LinkClicked
+    Private Sub FacilityApprovalLinkLabel_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles FacilityApprovalLinkLabel.LinkClicked
         OpenSingleForm(IAIPFacilityCreator)
     End Sub
 
-    Private Sub ViewData_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ViewDataButton.Click
+    Private Sub ViewData_Click(sender As Object, e As EventArgs) Handles ViewDataButton.Click
         If AirsNumberEntry.Text = "" Then
             ClearAllData()
         Else
@@ -1366,7 +1143,7 @@ Public Class IAIPFacilitySummary
         End If
     End Sub
 
-    Private Sub FacilitySearchButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles FacilitySearchButton.Click
+    Private Sub FacilitySearchButton_Click(sender As Object, e As EventArgs) Handles FacilitySearchButton.Click
         OpenFacilityLookupTool()
     End Sub
 
@@ -1384,31 +1161,31 @@ Public Class IAIPFacilitySummary
 
 #Region " Menu Strip "
 
-    Private Sub LookUpFacilityToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles LookUpFacilityMenuItem.Click
+    Private Sub LookUpFacilityToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles LookUpFacilityMenuItem.Click
         OpenFacilityLookupTool()
     End Sub
 
-    Private Sub PrintFacilitySummaryToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles PrintFacilitySummaryMenuItem.Click
+    Private Sub PrintFacilitySummaryToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PrintFacilitySummaryMenuItem.Click
         OpenFacilitySummaryPrintTool()
     End Sub
 
-    Private Sub ClearFormToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ClearFormMenuItem.Click
+    Private Sub ClearFormToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ClearFormMenuItem.Click
         Me.AirsNumber = Nothing
     End Sub
 
-    Private Sub CloseToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CloseMenuItem.Click
+    Private Sub CloseToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CloseMenuItem.Click
         Me.Close()
     End Sub
 
-    Private Sub FacilityCreatorToolToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles CreateFacilityMenuItem.Click
+    Private Sub FacilityCreatorToolToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CreateFacilityMenuItem.Click
         OpenSingleForm(IAIPFacilityCreator)
     End Sub
 
-    Private Sub UpdateAllDataSentToEPAToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles UpdateEpaMenuItem.Click
+    Private Sub UpdateAllDataSentToEPAToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles UpdateEpaMenuItem.Click
         UpdateEpaData()
     End Sub
 
-    Private Sub OnlineHelpToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles HelpMenuItem.Click
+    Private Sub OnlineHelpToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HelpMenuItem.Click
         OpenDocumentationUrl(Me)
     End Sub
 
@@ -1416,7 +1193,7 @@ Public Class IAIPFacilitySummary
 
 #Region " Form-level events "
 
-    Private Sub FSMainTabControl_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles FSMainTabControl.SelectedIndexChanged
+    Private Sub FSMainTabControl_SelectedIndexChanged(sender As Object, e As EventArgs) Handles FSMainTabControl.SelectedIndexChanged
         monitor.TrackFeature("FacilitySummaryTab." & FSMainTabControl.SelectedTab.Name)
 
         Select Case FSMainTabControl.SelectedTab.Name
@@ -1445,7 +1222,7 @@ Public Class IAIPFacilitySummary
         End Select
     End Sub
 
-    Private Sub TabControl_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) _
+    Private Sub TabControl_SelectedIndexChanged(sender As Object, e As EventArgs) _
     Handles ContactsTabControl.SelectedIndexChanged, TestingTabControl.SelectedIndexChanged,
     PermittingTabControl.SelectedIndexChanged, ComplianceTabControl.SelectedIndexChanged,
     FinancialTabControl.SelectedIndexChanged, EiTabControl.SelectedIndexChanged
@@ -1455,13 +1232,13 @@ Public Class IAIPFacilitySummary
 
     End Sub
 
-    Private Sub IAIPFacilitySummary_KeyUp(ByVal sender As System.Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles MyBase.KeyUp
+    Private Sub IAIPFacilitySummary_KeyUp(sender As Object, e As KeyEventArgs) Handles MyBase.KeyUp
         If e.KeyCode = Keys.A AndAlso e.Alt Then
             AirsNumberEntry.Focus()
         End If
     End Sub
 
-    Private Sub DisplayEmptyTextBoxAsNA(ByVal sender As System.Object, ByVal e As System.EventArgs) _
+    Private Sub DisplayEmptyTextBoxAsNA(sender As Object, e As EventArgs) _
     Handles InfoDescDisplay.TextChanged, LocationDisplay.TextChanged, LatLonDisplay.TextChanged,
         InfoDescDisplay.TextChanged, InfoClassDisplay.TextChanged, InfoOperStatusDisplay.TextChanged,
         CmsDisplay.TextChanged, ComplianceStatusDisplay.TextChanged, DistrictOfficeDisplay.TextChanged,

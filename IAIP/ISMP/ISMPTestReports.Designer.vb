@@ -966,14 +966,14 @@ Partial Class ISMPTestReports
         '
         Me.mmiSave.Name = "mmiSave"
         Me.mmiSave.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.S), System.Windows.Forms.Keys)
-        Me.mmiSave.Size = New System.Drawing.Size(152, 22)
+        Me.mmiSave.Size = New System.Drawing.Size(148, 22)
         Me.mmiSave.Text = "Save"
         '
         'mmiClose
         '
         Me.mmiClose.Name = "mmiClose"
         Me.mmiClose.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.W), System.Windows.Forms.Keys)
-        Me.mmiClose.Size = New System.Drawing.Size(152, 22)
+        Me.mmiClose.Size = New System.Drawing.Size(148, 22)
         Me.mmiClose.Text = "Close"
         '
         'mmiView
@@ -986,7 +986,7 @@ Partial Class ISMPTestReports
         'mmiOpenMemo
         '
         Me.mmiOpenMemo.Name = "mmiOpenMemo"
-        Me.mmiOpenMemo.Size = New System.Drawing.Size(152, 22)
+        Me.mmiOpenMemo.Size = New System.Drawing.Size(141, 22)
         Me.mmiOpenMemo.Text = "Open Memo"
         '
         'mmiTool
@@ -1281,6 +1281,7 @@ Partial Class ISMPTestReports
         '
         Me.cboTestNotificationNumber.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboTestNotificationNumber.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboTestNotificationNumber.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboTestNotificationNumber.Location = New System.Drawing.Point(152, 237)
         Me.cboTestNotificationNumber.Name = "cboTestNotificationNumber"
         Me.cboTestNotificationNumber.Size = New System.Drawing.Size(150, 21)
@@ -9869,6 +9870,7 @@ Partial Class ISMPTestReports
         Me.txtEnforcementNumber.ReadOnly = True
         Me.txtEnforcementNumber.Size = New System.Drawing.Size(77, 20)
         Me.txtEnforcementNumber.TabIndex = 412
+        Me.txtEnforcementNumber.Visible = False
         '
         'chbEventComplete
         '
@@ -9895,6 +9897,7 @@ Partial Class ISMPTestReports
         Me.btnEnforcementProcess.Size = New System.Drawing.Size(144, 23)
         Me.btnEnforcementProcess.TabIndex = 413
         Me.btnEnforcementProcess.Text = "Enforcement Process"
+        Me.btnEnforcementProcess.Visible = False
         '
         'btnSaveSSCPData
         '

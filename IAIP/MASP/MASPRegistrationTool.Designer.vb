@@ -506,6 +506,7 @@ Partial Class MASPRegistrationTool
         '
         Me.cboEventStatus.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboEventStatus.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboEventStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboEventStatus.FormattingEnabled = True
         Me.cboEventStatus.Location = New System.Drawing.Point(89, 179)
         Me.cboEventStatus.Name = "cboEventStatus"
@@ -1360,6 +1361,7 @@ Partial Class MASPRegistrationTool
         '
         Me.cboRegStatus.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboRegStatus.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
+        Me.cboRegStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboRegStatus.FormattingEnabled = True
         Me.cboRegStatus.Location = New System.Drawing.Point(111, 70)
         Me.cboRegStatus.Name = "cboRegStatus"
@@ -1544,7 +1546,7 @@ Partial Class MASPRegistrationTool
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(163, 26)
         Me.Label11.TabIndex = 449
-        Me.Label11.Text = "Enter complete website address. " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Must begin with ""http"" or ""https""."
+        Me.Label11.Text = "Enter complete website address. " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Must begin with ""http"" or ""https""." & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
         '
         'MASPRegistrationTool
         '

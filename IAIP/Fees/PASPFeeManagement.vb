@@ -1,23 +1,17 @@
-﻿Imports Oracle.ManagedDataAccess.Client
+﻿Imports System.Data.SqlClient
 Imports System.Collections.Generic
 
 Public Class PASPFeeManagement
-    Dim SQL As String
-    Dim ds As DataSet
-    Dim da As OracleDataAdapter
 
-    Private Sub PASPFeeManagement_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-
+    Private Sub PASPFeeManagement_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Try
-            LoadFeeRates("1")
-            LoadNSPSExemptions("1")
+            LoadFeeRates()
+            LoadNSPSExemptions()
             LoadNSPSExemptions2("1")
             LoadFeeYears()
             LoadSelectedNSPSExemptions()
 
             FormatWebUsers()
-            TabControl3.TabPages.Remove(TPActivate)
-            TabControl3.TabPages.Remove(TPFeeFacility)
 
             btnGenerateMailoutList.Enabled = False
             btnFirstEnrollment.Enabled = False
@@ -30,14 +24,14 @@ Public Class PASPFeeManagement
             btnExportToExcel.Visible = False
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-#Region "Subs and Functions"
-
-    Sub LoadFeeRates(ByVal ActiveStatus As String)
+    Private Sub LoadFeeRates()
         Try
+            Dim SQL As String
+
             SQL = "Select " &
             "numFeeRateID, " &
             "numFeeYear, " &
@@ -50,18 +44,11 @@ Public Class PASPFeeManagement
             "datThirdQrtDue, datFourthQrtDue, " &
             "strComments, " &
             "numAAThres, numNAThres " &
-            "from AIRBRANCH.FS_FeeRate " &
-            "where Active = '" & ActiveStatus & "' " &
+            "from FS_FeeRate " &
+            "where Active = '1' " &
             "order by numFeeYear desc "
 
-            ds = New DataSet
-            da = New OracleDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            da.Fill(ds, "FeeRates")
-            dgvFeeRates.DataSource = ds
-            dgvFeeRates.DataMember = "FeeRates"
+            dgvFeeRates.DataSource = DB.GetDataTable(SQL)
 
             dgvFeeRates.RowHeadersVisible = False
             dgvFeeRates.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -108,8 +95,6 @@ Public Class PASPFeeManagement
             dgvFeeRates.Columns("numNAThres").DisplayIndex = 9
             dgvFeeRates.Columns("numNAThres").Width = 75
 
-
-
             dgvFeeRates.Columns("datFeeDueDate").HeaderText = "Due Date"
             dgvFeeRates.Columns("datFeeDueDate").DisplayIndex = 10
             dgvFeeRates.Columns("datFeeDueDate").Width = 75
@@ -117,7 +102,6 @@ Public Class PASPFeeManagement
             dgvFeeRates.Columns("numAdminFeeRate").HeaderText = "Admin Fee"
             dgvFeeRates.Columns("numAdminFeeRate").DisplayIndex = 11
             dgvFeeRates.Columns("numAdminFeeRate").Width = 75
-            '  dgvFeeRates.Columns("numAdminFeeRate").DefaultCellStyle.Format = "p2"
             dgvFeeRates.Columns("datAdminApplicable").HeaderText = "Admin. Fee Applicable"
             dgvFeeRates.Columns("datAdminApplicable").DisplayIndex = 12
             dgvFeeRates.Columns("datAdminApplicable").Width = 75
@@ -145,51 +129,43 @@ Public Class PASPFeeManagement
             dgvFeeRates.Columns("strComments").Width = 200
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub ClearFeeData()
-        Try
-            txtFeeID.Clear()
-            txtFeeYear.Clear()
-            dtpFeePeriodStart.Text = OracleDate
-            dtpFeePeriodEnd.Text = OracleDate
-            txtTitleVfee.Clear()
-            txtAnnualSMFee.Clear()
-            txtAnnualNSPSFee.Clear()
-            txtperTonRate.Clear()
-            dtpFeeDueDate.Text = OracleDate
-            txtAdminFeePercent.Clear()
-            dtpAdminApplicable.Text = OracleDate
-            txtFeeNotes.Clear()
 
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+    Private Sub ClearFeeData()
+        txtFeeID.Clear()
+        txtFeeYear.Clear()
+        dtpFeePeriodStart.Value = Today
+        dtpFeePeriodEnd.Value = Today
+        txtTitleVfee.Clear()
+        txtAnnualSMFee.Clear()
+        txtAnnualNSPSFee.Clear()
+        txtperTonRate.Clear()
+        dtpFeeDueDate.Value = Today
+        txtAdminFeePercent.Clear()
+        dtpAdminApplicable.Value = Today
+        txtFeeNotes.Clear()
     End Sub
-    Sub LoadNSPSExemptions(ByVal ActiveStatus As String)
+
+    Private Sub LoadNSPSExemptions()
         Try
+            Dim SQL As String
+
             SQL = "Select " &
             "NSPSReasonCode, Description, " &
-            "(strLastName||', '||strFirstName) as UpdatingUser, " &
+            "(strLastName+', '+strFirstName) as UpdatingUser, " &
             "UpdateDateTime, CreateDateTime, " &
             "case " &
             "when Active = '0' then 'Flagged as deleted' " &
             "else 'Active' " &
             "end ActiveStatus " &
-            "from AIRBRANCH.FSLK_NSPSReason, AIRBRANCH.EPDUserProfiles " &
-            "where AIRBRANCH.FSLK_NSPSReason.UpdateUser = AIRBRANCH.EPDUserProfiles.numUserID " &
-            "and Active = '" & ActiveStatus & "' " &
+            "from FSLK_NSPSReason inner join EPDUserProfiles " &
+            "on FSLK_NSPSReason.UpdateUser = EPDUserProfiles.numUserID " &
+            "where Active = '1' " &
             "order by NSPSReasonCode "
 
-            ds = New DataSet
-            da = New OracleDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            da.Fill(ds, "NSPSExemptions")
-            dgvNSPSExemptions.DataSource = ds
-            dgvNSPSExemptions.DataMember = "NSPSExemptions"
+            dgvNSPSExemptions.DataSource = DB.GetDataTable(SQL)
 
             dgvNSPSExemptions.RowHeadersVisible = False
             dgvNSPSExemptions.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -200,7 +176,6 @@ Public Class PASPFeeManagement
             dgvNSPSExemptions.AllowUserToOrderColumns = True
             dgvNSPSExemptions.Columns("NSPSReasonCode").HeaderText = "ID"
             dgvNSPSExemptions.Columns("NSPSReasonCode").DisplayIndex = 0
-            '  dgvNSPSExemptions.Columns("NSPSReasonCode").Visible = False
             dgvNSPSExemptions.Columns("Description").HeaderText = "NSPS Exemption Reason"
             dgvNSPSExemptions.Columns("Description").DisplayIndex = 1
             dgvNSPSExemptions.Columns("UpdatingUser").HeaderText = "Updating User"
@@ -217,33 +192,30 @@ Public Class PASPFeeManagement
             dgvNSPSExemptions.AutoResizeColumns()
             dgvNSPSExemptions.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub LoadNSPSExemptions2(ByVal ActiveStatus As String)
+
+    Private Sub LoadNSPSExemptions2(ActiveStatus As String)
         Try
+            Dim SQL As String
+
             SQL = "Select " &
             "NSPSReasonCode, Description, " &
-            "(strLastName||', '||strFirstName) as UpdatingUser, " &
+            "(strLastName+', '+strFirstName) as UpdatingUser, " &
             "UpdateDateTime, CreateDateTime, " &
             "case " &
             "when Active = '0' then 'Flagged as deleted' " &
             "else 'Active' " &
             "end ActiveStatus " &
-            "from AIRBRANCH.FSLK_NSPSReason, AIRBRANCH.EPDUserProfiles " &
-            "where AIRBRANCH.FSLK_NSPSReason.UpdateUser = AIRBRANCH.EPDUserProfiles.numUserID " &
-            "and Active = '" & ActiveStatus & "' " &
+            "from FSLK_NSPSReason inner join EPDUserProfiles " &
+            "on FSLK_NSPSReason.UpdateUser = EPDUserProfiles.numUserID " &
+            "where Active = @Active " &
             "order by NSPSReasonCode "
 
-            ds = New DataSet
-            da = New OracleDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            da.Fill(ds, "NSPSExemptions")
+            Dim p As New SqlParameter("@Active", ActiveStatus)
 
-            dgvExistingExemptions.DataSource = ds
-            dgvExistingExemptions.DataMember = "NSPSExemptions"
+            dgvExistingExemptions.DataSource = DB.GetDataTable(SQL, p)
 
             dgvExistingExemptions.RowHeadersVisible = False
             dgvExistingExemptions.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -270,23 +242,18 @@ Public Class PASPFeeManagement
             dgvExistingExemptions.AutoResizeColumns()
             dgvExistingExemptions.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells
 
-
-
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
     Private Sub LoadFeeYears()
         Dim allFeeYears As List(Of String) = DAL.GetAllFeeYears().AddBlankRowToList()
-
-        cboNSPSExemptionYear.Items.Clear()
         cboNSPSExemptionYear.DataSource = allFeeYears
-
-        cboAvailableFeeYears.Items.Clear()
         cboAvailableFeeYears.DataSource = allFeeYears
     End Sub
-    Sub LoadSelectedNSPSExemptions()
+
+    Private Sub LoadSelectedNSPSExemptions()
         Try
             dgvNSPSExemptionsByYear.RowHeadersVisible = False
             dgvNSPSExemptionsByYear.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -317,20 +284,15 @@ Public Class PASPFeeManagement
             dgvNSPSExemptionsByYear.Columns("Description").Width = (dgvNSPSExemptionsByYear.Width * 0.6)
             dgvNSPSExemptionsByYear.Columns("Description").ReadOnly = True
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-#End Region
-
-    Private Sub btnClearFeeData_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClearFeeData.Click
-        Try
-            ClearFeeData()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+    Private Sub btnClearFeeData_Click(sender As Object, e As EventArgs) Handles btnClearFeeData.Click
+        ClearFeeData()
     End Sub
-    Private Sub dgvFeeRates_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvFeeRates.MouseUp
+
+    Private Sub dgvFeeRates_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvFeeRates.MouseUp
         Try
             Dim hti As DataGridView.HitTestInfo = dgvFeeRates.HitTest(e.X, e.Y)
 
@@ -348,12 +310,12 @@ Public Class PASPFeeManagement
                     txtFeeYear.Text = dgvFeeRates(1, hti.RowIndex).Value
                 End If
                 If IsDBNull(dgvFeeRates(2, hti.RowIndex).Value) Then
-                    dtpFeePeriodStart.Text = OracleDate
+                    dtpFeePeriodStart.Value = Today
                 Else
                     dtpFeePeriodStart.Text = dgvFeeRates(2, hti.RowIndex).Value
                 End If
                 If IsDBNull(dgvFeeRates(3, hti.RowIndex).Value) Then
-                    dtpFeePeriodEnd.Text = OracleDate
+                    dtpFeePeriodEnd.Value = Today
                 Else
                     dtpFeePeriodEnd.Text = dgvFeeRates(3, hti.RowIndex).Value
                 End If
@@ -363,7 +325,7 @@ Public Class PASPFeeManagement
                     txtTitleVfee.Text = dgvFeeRates(4, hti.RowIndex).Value
                 End If
                 If IsDBNull(dgvFeeRates(5, hti.RowIndex).Value) Then
-                    txtAnnualSMFee.Clear() 'this was missing for some reason on 3/19/2012 -Mfloyd
+                    txtAnnualSMFee.Clear()
                 Else
                     txtAnnualSMFee.Text = dgvFeeRates(5, hti.RowIndex).Value
                 End If
@@ -389,7 +351,7 @@ Public Class PASPFeeManagement
                 End If
 
                 If IsDBNull(dgvFeeRates(8, hti.RowIndex).Value) Then
-                    dtpFeeDueDate.Text = OracleDate
+                    dtpFeeDueDate.Value = Today
                 Else
                     dtpFeeDueDate.Text = dgvFeeRates(8, hti.RowIndex).Value
                 End If
@@ -399,28 +361,28 @@ Public Class PASPFeeManagement
                     txtAdminFeePercent.Text = dgvFeeRates(9, hti.RowIndex).Value
                 End If
                 If IsDBNull(dgvFeeRates(10, hti.RowIndex).Value) Then
-                    dtpAdminApplicable.Text = OracleDate
+                    dtpAdminApplicable.Value = Today
                 Else
                     dtpAdminApplicable.Text = dgvFeeRates(10, hti.RowIndex).Value
                 End If
 
                 If IsDBNull(dgvFeeRates(11, hti.RowIndex).Value) Then
-                    dtpFirstQrtDue.Text = OracleDate
+                    dtpFirstQrtDue.Value = Today
                 Else
                     dtpFirstQrtDue.Text = dgvFeeRates(11, hti.RowIndex).Value
                 End If
                 If IsDBNull(dgvFeeRates(12, hti.RowIndex).Value) Then
-                    dtpSecondQrtDue.Text = OracleDate
+                    dtpSecondQrtDue.Value = Today
                 Else
                     dtpSecondQrtDue.Text = dgvFeeRates(12, hti.RowIndex).Value
                 End If
                 If IsDBNull(dgvFeeRates(13, hti.RowIndex).Value) Then
-                    dtpThirdQrtDue.Text = OracleDate
+                    dtpThirdQrtDue.Value = Today
                 Else
                     dtpThirdQrtDue.Text = dgvFeeRates(13, hti.RowIndex).Value
                 End If
                 If IsDBNull(dgvFeeRates(14, hti.RowIndex).Value) Then
-                    dtpFourthQrtDue.Text = OracleDate
+                    dtpFourthQrtDue.Value = Today
                 Else
                     dtpFourthQrtDue.Text = dgvFeeRates(14, hti.RowIndex).Value
                 End If
@@ -431,36 +393,13 @@ Public Class PASPFeeManagement
                     txtFeeNotes.Text = dgvFeeRates(15, hti.RowIndex).Value
                 End If
 
-
-
-
             End If
-
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnsaveRate_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnsaveRate.Click
-        Try
-            If Insert_FS_FeeRate(txtFeeYear.Text, dtpFeePeriodStart.Text, dtpFeePeriodEnd.Text,
-                               txtTitleVfee.Text, txtAnnualSMFee.Text, txtperTonRate.Text, txtAnnualNSPSFee.Text,
-                               dtpFeeDueDate.Text, txtAdminFeePercent.Text, dtpAdminApplicable.Text,
-                               txtFeeNotes.Text, dtpFirstQrtDue.Text, dtpSecondQrtDue.Text,
-                               dtpThirdQrtDue.Text, dtpFourthQrtDue.Text, txtAttainmentThreshold.Text,
-                               txtNonAttainmentThreshold.Text) = True Then
 
-                LoadFeeRates("1")
-                MsgBox("Save completed", MsgBoxStyle.Information, Me.Text)
-            Else
-                MsgBox("Did not Save", MsgBoxStyle.Information, Me.Text)
-            End If
-
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Private Sub btnUpdateFeeData_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnUpdateFeeData.Click
+    Private Sub btnUpdateFeeData_Click(sender As Object, e As EventArgs) Handles btnUpdateFeeData.Click
         Try
             If txtFeeID.Text <> "" Then
                 If Update_FS_FeeRate(txtFeeID.Text, txtFeeYear.Text, dtpFeePeriodStart.Text, dtpFeePeriodEnd.Text,
@@ -470,7 +409,7 @@ Public Class PASPFeeManagement
                                          dtpThirdQrtDue.Text, dtpFourthQrtDue.Text, txtAttainmentThreshold.Text,
                                          txtNonAttainmentThreshold.Text) = True Then
 
-                    LoadFeeRates("1")
+                    LoadFeeRates()
                     ClearFeeData()
                     MsgBox("Update completed", MsgBoxStyle.Information, Me.Text)
                 Else
@@ -479,62 +418,30 @@ Public Class PASPFeeManagement
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnDeleteFeeRate_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDeleteFeeRate.Click
-        Try
-            If txtFeeID.Text <> "" Then
-                If Update_FS_FeeRate(txtFeeID.Text, txtFeeYear.Text, dtpFeePeriodStart.Text, dtpFeePeriodEnd.Text,
-                                         txtTitleVfee.Text, txtAnnualSMFee.Text, txtperTonRate.Text, txtAnnualNSPSFee.Text,
-                                         dtpFeeDueDate.Text, txtAdminFeePercent.Text, dtpAdminApplicable.Text,
-                                         txtFeeNotes.Text, "0", dtpFirstQrtDue.Text, dtpSecondQrtDue.Text,
-                                         dtpThirdQrtDue.Text, dtpFourthQrtDue.Text, txtAttainmentThreshold.Text,
-                                         txtNonAttainmentThreshold.Text) = True Then
 
-                    LoadFeeRates("1")
-                    MsgBox("Delete completed", MsgBoxStyle.Information, Me.Text)
-                Else
-                    MsgBox("Did not Delete", MsgBoxStyle.Information, Me.Text)
-                End If
-            End If
-        Catch ex As Exception
-
-        End Try
-    End Sub
-    Private Sub btnViewDeletedFeeRates_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnViewDeletedFeeRates.Click
-        Try
-
-            LoadFeeRates("0")
-
-        Catch ex As Exception
-
-        End Try
-    End Sub
-    Sub LoadNSPSExemptionByYear()
+    Private Sub LoadNSPSExemptionByYear()
         Try
             Dim NSPStemp As String = ""
             Dim ReasonID As String = ""
             Dim DisplayOrder As String = ""
             Dim dgvRow As New DataGridViewRow
             Dim i As Integer = 1
-
+            Dim SQL As String
 
             SQL = "Select " &
             "NSPSReasonCode, DisplayOrder " &
-            "from AIRBRANCH.FSLK_NSPSReasonYear " &
-            "where numFeeYear = '" & cboNSPSExemptionYear.Text & "' " &
+            "from FSLK_NSPSReasonYear " &
+            "where numFeeYear = @year " &
             " and active = '1' " &
             "order by NSPSReasonCode "
+            Dim p As New SqlParameter("@year", cboNSPSExemptionYear.Text)
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
+            Dim dt As DataTable = DB.GetDataTable(SQL, p)
+            For Each dr As DataRow In dt.Rows
                 If IsDBNull(dr.Item("NSPSReasonCode")) Then
-                    'NSPStemp = NSPStemp
                 Else
                     NSPStemp = NSPStemp & dr.Item("NSPSReasonCode")
                     If IsDBNull(dr.Item("DisplayOrder")) Then
@@ -547,8 +454,7 @@ Public Class PASPFeeManagement
                         End If
                     End If
                 End If
-            End While
-            dr.Close()
+            Next
 
             dgvNSPSExemptionsByYear.Rows.Clear()
 
@@ -580,17 +486,18 @@ Public Class PASPFeeManagement
                                 dgvNSPSExemptionsByYear.Rows.Add(dgvRow)
                             End If
                         End If
-                        System.Math.Min(System.Threading.Interlocked.Increment(y), y - 1)
+                        Math.Min(Threading.Interlocked.Increment(y), y - 1)
                     End While
-                    System.Math.Min(System.Threading.Interlocked.Increment(x), x - 1)
+                    Math.Min(Threading.Interlocked.Increment(x), x - 1)
                 End While
             Loop
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnSelectForm_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSelectForm.Click
+
+    Private Sub btnSelectForm_Click(sender As Object, e As EventArgs) Handles btnSelectForm.Click
         Try
             Dim dgvRow As New DataGridViewRow
             Dim temp As String
@@ -624,21 +531,17 @@ Public Class PASPFeeManagement
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnViewNSPSExemptionsByYear_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnViewNSPSExemptionsByYear.Click
-        Try
-            If cboNSPSExemptionYear.Text <> "" Then
-                LoadNSPSExemptionByYear()
-            End If
 
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+    Private Sub btnViewNSPSExemptionsByYear_Click(sender As Object, e As EventArgs) Handles btnViewNSPSExemptionsByYear.Click
+        If cboNSPSExemptionYear.Text <> "" Then
+            LoadNSPSExemptionByYear()
+        End If
     End Sub
-    Private Sub btnSelectAllForms_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSelectAllForms.Click
+
+    Private Sub btnSelectAllForms_Click(sender As Object, e As EventArgs) Handles btnSelectAllForms.Click
         Try
             Dim dgvRow As New DataGridViewRow
             Dim i As Integer = 0
@@ -655,87 +558,86 @@ Public Class PASPFeeManagement
             Next
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnUnselectForm_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnUnselectForm.Click
+
+    Private Sub btnUnselectForm_Click(sender As Object, e As EventArgs) Handles btnUnselectForm.Click
         Try
-            Dim ReasonID As String = ""
-
             If dgvNSPSExemptionsByYear.RowCount > 0 Then
-                ReasonID = dgvNSPSExemptionsByYear(1, dgvNSPSExemptionsByYear.CurrentRow.Index).Value
+                Dim ReasonID As String = dgvNSPSExemptionsByYear(1, dgvNSPSExemptionsByYear.CurrentRow.Index).Value
 
-                SQL = "Select " &
-                "strNSPSReason " &
-                "from AIRBRANCH.FSCalculations " &
-                "where intYear = '" & dgvNSPSExemptionsByYear(0, dgvNSPSExemptionsByYear.CurrentRow.Index).Value & "' " &
-                "and (strNSPSReason like '%" & ReasonID & ",' or strNSPSReason = '" & ReasonID & "' or strNSPSReason like '%," & ReasonID & "') "
+                Dim SQL As String = "SELECT COUNT(*) " &
+                    "FROM FSCALCULATIONS " &
+                    "WHERE INTYEAR = @year " &
+                    "AND (STRNSPSREASON LIKE @reason1 " &
+                    "OR STRNSPSREASON = @reason2 " &
+                    "OR STRNSPSREASON LIKE @reason3 " &
+                    "OR STRNSPSREASON LIKE @reason4) "
+                Dim p As SqlParameter() = {
+                    New SqlParameter("@year", dgvNSPSExemptionsByYear(0, dgvNSPSExemptionsByYear.CurrentRow.Index).Value),
+                    New SqlParameter("@reason1", ReasonID & ",%"),
+                    New SqlParameter("@reason2", ReasonID),
+                    New SqlParameter("@reason3", "%," & ReasonID),
+                    New SqlParameter("@reason4", "%," & ReasonID & ",%")
+                }
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-                dr.Close()
-                If recExist = True Then
+                If DB.GetInteger(SQL, p) > 0 Then
                     MessageBox.Show("Unable to Remove this exemption from this year because this exemption has been used.")
-                    Exit Sub
                 Else
                     dgvNSPSExemptionsByYear.Rows.Remove(dgvNSPSExemptionsByYear.CurrentRow)
                 End If
             End If
 
-
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnUnselectAllForms_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnUnselectAllForms.Click
+
+    Private Sub btnUnselectAllForms_Click(sender As Object, e As EventArgs) Handles btnUnselectAllForms.Click
         Try
             Dim ReasonID As String = ""
             Dim i As Integer = 0
+            Dim SQL As String = "SELECT COUNT(*) " &
+                "FROM FSCALCULATIONS " &
+                "WHERE INTYEAR = @year " &
+                "AND (STRNSPSREASON LIKE @reason1 " &
+                "OR STRNSPSREASON = @reason2 " &
+                "OR STRNSPSREASON LIKE @reason3 " &
+                "OR STRNSPSREASON LIKE @reason4) "
 
             If dgvNSPSExemptionsByYear.RowCount > 0 Then
-                'dgvNSPSExemptionsByYear.Rows.Clear()
 
                 i = 0
                 While i < dgvNSPSExemptionsByYear.RowCount
-                    ' For i = 0 To dgvNSPSExemptionsByYear.RowCount - 1
 
                     dgvNSPSExemptionsByYear.Rows(i).Selected = True
                     ReasonID = dgvNSPSExemptionsByYear(1, i).Value
-                    SQL = "Select " &
-                    "strNSPSReason " &
-                    "from AIRBRANCH.FSCalculations " &
-                    "where intYear = '" & dgvNSPSExemptionsByYear(0, dgvNSPSExemptionsByYear.CurrentRow.Index).Value & "' " &
-                    "and (strNSPSReason like '%" & ReasonID & ",' or strNSPSReason = '" & ReasonID & "' or strNSPSReason like '%," & ReasonID & "') "
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    recExist = dr.Read
-                    dr.Close()
-                    If recExist = True Then
+                    Dim p As SqlParameter() = {
+                        New SqlParameter("@year", dgvNSPSExemptionsByYear(0, dgvNSPSExemptionsByYear.CurrentRow.Index).Value),
+                        New SqlParameter("@reason1", ReasonID & ",%"),
+                        New SqlParameter("@reason2", ReasonID),
+                        New SqlParameter("@reason3", "%," & ReasonID),
+                        New SqlParameter("@reason4", "%," & ReasonID & ",%")
+                    }
+
+                    If DB.GetInteger(SQL, p) > 0 Then
                         i += 1
                     Else
-
                         dgvNSPSExemptionsByYear.Rows(i).Selected = True
                         dgvNSPSExemptionsByYear.Rows.Remove(dgvNSPSExemptionsByYear.CurrentRow)
                         dgvNSPSExemptionsByYear.Rows(i).Selected = False
                     End If
                 End While
-                'Next
 
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnUpdateNSPSbyYear_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnUpdateNSPSbyYear.Click
+
+    Private Sub btnUpdateNSPSbyYear_Click(sender As Object, e As EventArgs) Handles btnUpdateNSPSbyYear.Click
         If cboNSPSExemptionYear.Text = "" OrElse Not IsNumeric(cboNSPSExemptionYear.Text) Then
             MessageBox.Show("Please select a Fee Year first.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Exit Sub
@@ -747,25 +649,21 @@ Public Class PASPFeeManagement
             Dim Order As String
             Dim temp As String = ""
             Dim ExistingID As String = ""
+            Dim SQL As String
 
             SQL = "Select " &
             "NSPSReasonCode " &
-            "from AIRBRANCH.FSLK_NSPSReasonYear " &
-            "where numFeeYear = '" & cboNSPSExemptionYear.Text & "' "
+            "from FSLK_NSPSReasonYear " &
+            "where numFeeYear = @year "
+            Dim p As New SqlParameter("@year", cboNSPSExemptionYear.Text)
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
+            Dim dt As DataTable = DB.GetDataTable(SQL, p)
+            For Each dr As DataRow In dt.Rows
                 If IsDBNull(dr.Item("NSPSReasonCode")) Then
-                    'ExistingID = ExistingID
                 Else
                     ExistingID = ExistingID & "(" & dr.Item("NSPSReasonCode") & ")"
                 End If
-            End While
-            dr.Close()
+            Next
 
             While x < dgvNSPSExemptionsByYear.Rows.Count
                 ReasonID = dgvNSPSExemptionsByYear(1, x).Value
@@ -774,23 +672,21 @@ Public Class PASPFeeManagement
 
                 SQL = "Select " &
                 "DisplayOrder " &
-                "from AIRBRANCH.FSLK_NSPSReasonYear " &
-                "where numFeeYear = '" & cboNSPSExemptionYear.Text & "' " &
-                "and NSPSReasonCode = '" & ReasonID & "' "
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                temp = ""
-                While dr.Read
+                "from FSLK_NSPSReasonYear " &
+                "where numFeeYear = @year " &
+                "and NSPSReasonCode = @reasoncode "
+                Dim p2 As SqlParameter() = {
+                    New SqlParameter("@year", cboNSPSExemptionYear.Text),
+                    New SqlParameter("@reasoncode", ReasonID)
+                }
+                Dim dr As DataRow = DB.GetDataRow(SQL, p2)
+                If dr IsNot Nothing Then
                     If IsDBNull(dr.Item("DisplayOrder")) Then
                         temp = "NULL"
                     Else
                         temp = dr.Item("DisplayOrder")
                     End If
-                End While
-                dr.Close()
+                End If
 
                 If temp <> Order Then
                     Select Case temp
@@ -826,89 +722,61 @@ Public Class PASPFeeManagement
             MessageBox.Show("Update Complete", Me.Text, MessageBoxButtons.OK)
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnAddNSPSExemption_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAddNSPSExemption.Click
+
+    Private Sub btnAddNSPSExemption_Click(sender As Object, e As EventArgs) Handles btnAddNSPSExemption.Click
         Try
             If Insert_FSLK_NSPSReason(txtNSPSExemption.Text) = True Then
                 txtNSPSExemption.Clear()
-                LoadNSPSExemptions("1")
+                LoadNSPSExemptions()
                 MsgBox("Save completed", MsgBoxStyle.Information, Me.Text)
 
-                Dim maxRow As Integer
-                maxRow = dgvNSPSExemptions.RowCount - 1
+                Dim maxRow As Integer = dgvNSPSExemptions.RowCount - 1
                 If dgvNSPSExemptions.Rows.Count >= maxRow AndAlso maxRow >= 1 Then
                     dgvNSPSExemptions.FirstDisplayedScrollingRowIndex = maxRow
                     dgvNSPSExemptions.Rows(maxRow).Selected = True
                 End If
-                LoadNSPSExemptions("1")
+                LoadNSPSExemptions()
                 LoadNSPSExemptions2("1")
             Else
                 MsgBox("Did not Save", MsgBoxStyle.Information, Me.Text)
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnDeleteNSPSExemption_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDeleteNSPSExemption.Click
+
+    Private Sub btnDeleteNSPSExemption_Click(sender As Object, e As EventArgs) Handles btnDeleteNSPSExemption.Click
         Try
-            'Update_FSLK_NSPSReason
             If txtDeleteNSPSExemptions.Text <> "" Then
                 If Update_FSLK_NSPSReason(txtDeleteNSPSExemptions.Text, "", "0") = True Then
                     txtDeleteNSPSExemptions.Clear()
                     txtNSPSExemption.Clear()
-                    LoadNSPSExemptions("1")
+                    LoadNSPSExemptions()
                     LoadNSPSExemptions2("1")
                     MsgBox("Exemption Deleted", MsgBoxStyle.Information, Me.Text)
                 End If
             End If
 
-
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnViewDeletedNSPS_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnViewDeletedNSPS.Click
-        Try
-            LoadNSPSExemptions2("0")
 
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+    Private Sub btnViewDeletedNSPS_Click(sender As Object, e As EventArgs) Handles btnViewDeletedNSPS.Click
+        LoadNSPSExemptions2("0")
     End Sub
-    Private Sub dgvNSPSExemptions_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvNSPSExemptions.MouseUp
-        Try
-            'Dim hti As DataGridView.HitTestInfo = dgvNSPSExemptions.HitTest(e.X, e.Y)
 
-            'If dgvNSPSExemptions.RowCount > 0 And hti.RowIndex <> -1 Then
-
-            '    txtDeleteNSPSExemptions.Clear()
-            '    txtNSPSExemption.Clear()
-            '    If IsDBNull(dgvNSPSExemptions(0, hti.RowIndex).Value) Then
-            '        Exit Sub
-            '    Else
-            '        txtDeleteNSPSExemptions.Text = dgvNSPSExemptions(0, hti.RowIndex).Value
-            '    End If
-            '    If IsDBNull(dgvNSPSExemptions(1, hti.RowIndex).Value) Then
-            '        txtNSPSExemption.Clear()
-            '    Else
-            '        txtNSPSExemption.Text = dgvNSPSExemptions(1, hti.RowIndex).Value
-            '    End If
-            'End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Private Sub btnUpdateNSPSExemption_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnUpdateNSPSExemption.Click
+    Private Sub btnUpdateNSPSExemption_Click(sender As Object, e As EventArgs) Handles btnUpdateNSPSExemption.Click
         Try
             If txtDeleteNSPSExemptions.Text <> "" Then
                 If Update_FSLK_NSPSReason(txtDeleteNSPSExemptions.Text, txtNSPSExemption.Text, "1") = True Then
                     txtDeleteNSPSExemptions.Clear()
                     txtNSPSExemption.Clear()
-                    LoadNSPSExemptions("1")
+                    LoadNSPSExemptions()
                     LoadNSPSExemptions2("1")
 
                     MsgBox("Exemption Updated", MsgBoxStyle.Information, Me.Text)
@@ -916,30 +784,22 @@ Public Class PASPFeeManagement
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnReloadFeeRate_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnReloadFeeRate.Click
-        Try
 
-            LoadFeeRates("1")
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+    Private Sub btnReloadFeeRate_Click(sender As Object, e As EventArgs) Handles btnReloadFeeRate.Click
+        LoadFeeRates()
     End Sub
-    Private Sub btnViewEnrolledFacilities_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnViewEnrolledFacilities.Click
-        Try
 
-            ViewEnrolledFacilities()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+    Private Sub btnViewEnrolledFacilities_Click(sender As Object, e As EventArgs) Handles btnViewEnrolledFacilities.Click
+        ViewEnrolledFacilities()
     End Sub
-    Private Sub btnFirstEnrollment_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFirstEnrollment.Click
+
+    Private Sub btnFirstEnrollment_Click(sender As Object, e As EventArgs) Handles btnFirstEnrollment.Click
         Try
             Dim EnrollCheck As String = ""
+            Dim SQL As String
 
             If cboAvailableFeeYears.Text = "" Then
                 MsgBox("NO FACILITIES ENROLLED." & vbCrLf & "Select a fee year first.", MsgBoxStyle.Exclamation, Me.Text)
@@ -948,79 +808,66 @@ Public Class PASPFeeManagement
 
             SQL = "Select " &
             "count(*) as EnrollCheck " &
-            "from AIRBRANCH.FS_Admin " &
-            "where numFeeYear = '" & cboAvailableFeeYears.Text & "' " &
+            "from FS_Admin " &
+            "where numFeeYear = @year " &
             "and strEnrolled = '1' " &
             "and ACTIVE = '1' "
+            Dim p As New SqlParameter("@year", cboAvailableFeeYears.Text)
+            Dim dr As DataRow = DB.GetDataRow(SQL, p)
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
+            If dr IsNot Nothing Then
                 If IsDBNull(dr.Item("EnrollCheck")) Then
                     EnrollCheck = "0"
                 Else
                     EnrollCheck = dr.Item("EnrollCheck")
                 End If
-            End While
-            dr.Close()
+            End If
             If EnrollCheck > 0 Then
                 MsgBox("NO FACILITIES ENROLLED." & vbCrLf & "There are already facilities enrolled for this fee year.",
                         MsgBoxStyle.Exclamation, Me.Text)
                 Exit Sub
             End If
 
-            SQL = "Update AIRBRANCH.FS_Admin set " &
+            SQL = "Update FS_Admin set " &
             "strEnrolled = '1', " &
-            "datEnrollment = sysdate, " &
-            "updateUser = 'IAIP||" & CurrentUser.AlphaName & "', " &
-            "UpdateDateTime = '" & OracleDate & "', " &
+            "datEnrollment = getdate(), " &
+            "updateUser = @user , " &
+            "UpdateDateTime = getdate(), " &
              "numCurrentStatus = 3 " &
-            "where numFeeYear = '" & cboAvailableFeeYears.Text & "' " &
+            "where numFeeYear = @year " &
             "and ACTIVE = '1' "
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
+            Dim p2 As SqlParameter() = {
+                New SqlParameter("@user", "IAIP||" & CurrentUser.AlphaName),
+                New SqlParameter("@year", cboAvailableFeeYears.Text)
+            }
+            DB.RunCommand(SQL, p2)
 
-            SQL = "Update AIRBRANCH.FS_Admin set " &
+            SQL = "Update FS_Admin set " &
             "datInitialEnrollment = datEnrollment " &
-            "where numFeeYear = '" & cboAvailableFeeYears.Text & "' " &
+            "where numFeeYear = @year " &
             "and datInitialEnrollment is null " &
             "and ACTIVE = '1' "
+            DB.RunCommand(SQL, p)
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            cmd = New OracleCommand("AIRBranch.PD_FEE_DATA", CurrentConnection)
-            cmd.CommandType = CommandType.StoredProcedure
-
-            cmd.Parameters.Add(New OracleParameter("FeeYear", OracleDbType.Decimal)).Value = cboAvailableFeeYears.Text
-            cmd.Parameters.Add(New OracleParameter("AIRSNumber", OracleDbType.Varchar2)).Value = ""
-
-            cmd.ExecuteNonQuery()
+            Dim p3 As SqlParameter() = {
+                    New SqlParameter("@FeeYear", SqlDbType.Decimal) With {.Value = cboAvailableFeeYears.Text},
+                    New SqlParameter("@AIRSNumber", "")
+                }
+            DB.SPRunCommand("dbo.PD_FEE_DATA", p3)
 
             ViewEnrolledFacilities()
 
             MsgBox("Facilities Enrolled for the selected fee year.", MsgBoxStyle.Information, Me.Text)
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnUnenrollFeeYear_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnUnenrollFeeYear.Click
+
+    Private Sub btnUnenrollFeeYear_Click(sender As Object, e As EventArgs) Handles btnUnenrollFeeYear.Click
         Try
+            Dim SQL As String
+
             If cboAvailableFeeYears.Text = "" Then
                 MsgBox("NO FACILITIES ENROLLED." & vbCrLf & "Select a fee year first.", MsgBoxStyle.Exclamation, Me.Text)
                 Exit Sub
@@ -1044,72 +891,66 @@ Public Class PASPFeeManagement
                     Exit Sub
             End Select
 
-            SQL = "Update AIRBRANCH.FS_Admin set " &
+            SQL = "Update FS_Admin set " &
             "strEnrolled = '0', " &
-            "datEnrollment = '', " &
-            "datInitialEnrollment = '', " &
-            "updateUser = 'IAIP||" & CurrentUser.AlphaName & "', " &
-            "UpdateDateTime = '" & OracleDate & "' " &
-            "where numFeeYear = '" & cboAvailableFeeYears.Text & "' " &
+            "datEnrollment = null, " &
+            "datInitialEnrollment = null, " &
+            "updateUser = @user, " &
+            "UpdateDateTime = getdate() " &
+            "where numFeeYear = @year " &
             "and ACTIVE = '1' "
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
+            Dim p2 As SqlParameter() = {
+                New SqlParameter("@user", "IAIP||" & CurrentUser.AlphaName),
+                New SqlParameter("@year", cboAvailableFeeYears.Text)
+            }
+            DB.RunCommand(SQL, p2)
 
             ViewEnrolledFacilities()
 
             MsgBox("Facilities Unenrolled.", MsgBoxStyle.Information, Me.Text)
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub ViewEnrolledFacilities()
-        Try
-            SQL = "Select " &
-            "substr(fS_Admin.strAIRSnumber, 5) as AIRSNumber,  " &
-            "strFacilityname,  " &
-            "strFacilityAddress1, strFacilityCity,  " &
-            "strFacilityZipCode,  " &
-            "strFirstName, strLastName, " &
-            "strContactCoName, strContactAddress1,  " &
-            "strContactCity, strcontactState,  " &
-            "strContactZipCode, strGECOUserEmail,  " &
-            "case " &
-            "when strOperationalStatus = '1' then 'Yes' " &
-            "when strOperationalStatus = '0' then 'No' " &
-            "else 'No' " &
-            "end strOperationalStatus, " &
-            "strClass,  " &
-            "case " &
-            "when strNSPS = '1' then 'Yes' " &
-            "when strNSPS = '0' then 'No' " &
-            "else 'No' " &
-            "end strNSPS, " &
-            "case " &
-            "when strPart70 = '1' then 'Yes' " &
-            "when strPart70 = '0' then 'No' " &
-            "else 'No' " &
-            "end strPart70, " &
-            "datShutdowndate  " &
-            "From AIRBRANCH.FS_Admin, AIRBRANCH.FS_MailOut  " &
-            "where AIRBRANCH.FS_Admin.strAIRSnumber = AIRBRANCH.FS_MailOut.strAIRSnumber  " &
-            "and AIRBRANCH.FS_Admin.numFeeYear = AIRBRANCH.FS_MailOut.numFeeYear  " &
-            "and  AIRBRANCH.FS_Admin.numFeeYear = '" & cboAvailableFeeYears.Text & "'  " &
-            "and (strEnrolled = '1')  " &
-            "AND AIRBRANCH.FS_Admin.Active = '1' "
 
-            ds = New DataSet
-            da = New OracleDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            da.Fill(ds, "MailOutList")
-            dgvFeeManagementLists.DataSource = ds
-            dgvFeeManagementLists.DataMember = "MailOutList"
+    Private Sub ViewEnrolledFacilities()
+        Try
+            Dim SQL As String = "Select " &
+                "substring(fS_Admin.strAIRSnumber, 5, 8) as AIRSNumber,  " &
+                "strFacilityname,  " &
+                "strFacilityAddress1, strFacilityCity,  " &
+                "strFacilityZipCode,  " &
+                "strFirstName, strLastName, " &
+                "strContactCoName, strContactAddress1,  " &
+                "strContactCity, strcontactState,  " &
+                "strContactZipCode, strGECOUserEmail,  " &
+                "case " &
+                "when strOperationalStatus = '1' then 'Yes' " &
+                "when strOperationalStatus = '0' then 'No' " &
+                "else 'No' " &
+                "end strOperationalStatus, " &
+                "strClass,  " &
+                "case " &
+                "when strNSPS = '1' then 'Yes' " &
+                "when strNSPS = '0' then 'No' " &
+                "else 'No' " &
+                "end strNSPS, " &
+                "case " &
+                "when strPart70 = '1' then 'Yes' " &
+                "when strPart70 = '0' then 'No' " &
+                "else 'No' " &
+                "end strPart70, " &
+                "datShutdowndate  " &
+                "From FS_Admin inner join FS_MailOut  " &
+                "on FS_Admin.strAIRSnumber = FS_MailOut.strAIRSnumber  " &
+                "and FS_Admin.numFeeYear = FS_MailOut.numFeeYear  " &
+                "where FS_Admin.numFeeYear = @year " &
+                "and (strEnrolled = '1')  " &
+                "AND FS_Admin.Active = '1' "
+            Dim p As New SqlParameter("@year", cboAvailableFeeYears.Text)
+
+            dgvFeeManagementLists.DataSource = DB.GetDataTable(SQL, p)
 
             dgvFeeManagementLists.RowHeadersVisible = False
             dgvFeeManagementLists.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -1164,125 +1005,98 @@ Public Class PASPFeeManagement
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnViewMailout_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnViewMailout.Click
+
+    Private Sub btnViewMailout_Click(sender As Object, e As EventArgs) Handles btnViewMailout.Click
         ViewMailOut()
     End Sub
-    Private Sub btnGenerateMailoutList_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnGenerateMailoutList.Click
+
+    Private Sub btnGenerateMailoutList_Click(sender As Object, e As EventArgs) Handles btnGenerateMailoutList.Click
         Try
+            Dim temp As String = ""
+            Dim SQL As String
+
             If cboAvailableFeeYears.Text = "" OrElse Not IsNumeric(cboAvailableFeeYears.Text) Then
                 MsgBox("Select a valid fee year first.", MsgBoxStyle.Exclamation, Me.Text)
                 Exit Sub
             End If
 
             SQL = "select count(*) as ContactTotals " &
-            "from AIRBranch.FS_MailOut " &
-            "where numfeeyear = '" & cboAvailableFeeYears.Text & "' "
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
+                "from FS_MailOut " &
+                "where numfeeyear = @year "
+            Dim p As New SqlParameter("@year", cboAvailableFeeYears.Text)
+            Dim dr As DataRow = DB.GetDataRow(SQL, p)
+            If dr IsNot Nothing Then
                 If IsDBNull(dr.Item("ContactTotals")) Then
                     temp = "0"
                 Else
                     temp = dr.Item("ContactTotals")
                 End If
-            End While
-            dr.Close()
+            End If
 
             If temp < 1 Then
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                cmd = New OracleCommand("AIRBranch.PD_FEE_MAILOUT", CurrentConnection)
-                cmd.CommandType = CommandType.StoredProcedure
+                Dim p2 As SqlParameter() = {
+                    New SqlParameter("@FeeYear", SqlDbType.Decimal) With {.Value = cboAvailableFeeYears.Text},
+                    New SqlParameter("@AIRSNumber", "")
+                }
+                DB.SPRunCommand("dbo.PD_FEE_MAILOUT", p2)
+                DB.SPRunCommand("dbo.PD_FEE_DATA", p2)
 
-                cmd.Parameters.Add(New OracleParameter("FeeYear", OracleDbType.Decimal)).Value = cboAvailableFeeYears.Text
-                cmd.Parameters.Add(New OracleParameter("AIRSNumber", OracleDbType.Varchar2)).Value = ""
-
-                cmd.ExecuteNonQuery()
-
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                cmd = New OracleCommand("AIRBranch.PD_FEE_DATA", CurrentConnection)
-                cmd.CommandType = CommandType.StoredProcedure
-
-                cmd.Parameters.Add(New OracleParameter("FeeYear", OracleDbType.Decimal)).Value = cboAvailableFeeYears.Text
-                cmd.Parameters.Add(New OracleParameter("AIRSNumber", OracleDbType.Varchar2)).Value = ""
-
-                cmd.ExecuteNonQuery()
-
-                SQL = "Update AIRBRANCH.FS_Admin set " &
-                "numCurrentStatus = 2, " &
-                "strInitialMailout = '1'  " &
-                "where numFeeYear = '" & cboAvailableFeeYears.Text & "' " &
-                "and strInitialMailout ='0' " &
-                "and strMailoutSent <> '0' " &
-                "and numCurrentStatus < 5 "
-
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                dr.Close()
-
+                SQL = "Update FS_Admin set " &
+                    "numCurrentStatus = 2, " &
+                    "strInitialMailout = '1'  " &
+                    "where numFeeYear = @year " &
+                    "and strInitialMailout ='0' " &
+                    "and strMailoutSent <> '0' " &
+                    "and numCurrentStatus < 5 "
+                DB.RunCommand(SQL, p)
             End If
 
             ViewMailOut()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Sub ViewMailOut()
-        Try
-            SQL = "Select " &
-            "substr(fS_Admin.strAIRSnumber, 5) as AIRSNumber,  " &
-            "strFacilityname,  " &
-            "strFacilityAddress1, strFacilityCity,  " &
-            "strFacilityZipCode,  " &
-            "strFirstName, strLastName, " &
-            "strContactCoName, strContactAddress1,  " &
-            "strContactCity, strcontactState,  " &
-            "strContactZipCode, strGECOUserEmail,  " &
-            "case " &
-            "when strOperationalStatus = '1' then 'Yes' " &
-            "when strOperationalStatus = 'X' then 'No' " &
-            "else 'Yes' " &
-            "end strOperationalStatus, " &
-            "strClass, " &
-            "case " &
-            "when strNSPS = '1' then 'Yes' " &
-            "when strNSPS = '0' then 'No' " &
-            "else 'No' " &
-            "end strNSPS, " &
-            "case " &
-            "when strPart70 = '1' then 'Yes'" &
-            "when strPart70 = '0' then 'No' " &
-            "else 'No' " &
-            "end strPart70, " &
-            "datShutdowndate  " &
-            "From AIRBRANCH.FS_Admin, AIRBRANCH.FS_MailOut   " &
-            "where AIRBRANCH.FS_Admin.strAIRSnumber = AIRBRANCH.FS_MailOut.strAIRSnumber  " &
-            "and AIRBRANCH.FS_Admin.numFeeYear = AIRBRANCH.FS_MailOut.numFeeYear  " &
-            "and  AIRBRANCH.FS_Admin.numFeeYear = '" & cboAvailableFeeYears.Text & "'  " &
-            "AND AIRBRANCH.FS_Admin.Active = '1' "
 
-            ds = New DataSet
-            da = New OracleDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            da.Fill(ds, "MailOutList")
-            dgvFeeManagementLists.DataSource = ds
-            dgvFeeManagementLists.DataMember = "MailOutList"
+    Private Sub ViewMailOut()
+        Try
+            Dim SQL As String = "Select " &
+                "substring(fS_Admin.strAIRSnumber, 5, 8) as AIRSNumber,  " &
+                "strFacilityname,  " &
+                "strFacilityAddress1, strFacilityCity,  " &
+                "strFacilityZipCode,  " &
+                "strFirstName, strLastName, " &
+                "strContactCoName, strContactAddress1,  " &
+                "strContactCity, strcontactState,  " &
+                "strContactZipCode, strGECOUserEmail,  " &
+                "case " &
+                "when strOperationalStatus = '1' then 'Yes' " &
+                "when strOperationalStatus = 'X' then 'No' " &
+                "else 'Yes' " &
+                "end strOperationalStatus, " &
+                "strClass, " &
+                "case " &
+                "when strNSPS = '1' then 'Yes' " &
+                "when strNSPS = '0' then 'No' " &
+                "else 'No' " &
+                "end strNSPS, " &
+                "case " &
+                "when strPart70 = '1' then 'Yes'" &
+                "when strPart70 = '0' then 'No' " &
+                "else 'No' " &
+                "end strPart70, " &
+                "datShutdowndate  " &
+                "From FS_Admin inner join FS_MailOut " &
+                "on FS_Admin.strAIRSnumber = FS_MailOut.strAIRSnumber " &
+                "and FS_Admin.numFeeYear = FS_MailOut.numFeeYear  " &
+                "where FS_Admin.numFeeYear = @year " &
+                "AND FS_Admin.Active = '1' "
+            Dim p As New SqlParameter("@year", cboAvailableFeeYears.Text)
+
+            dgvFeeManagementLists.DataSource = DB.GetDataTable(SQL, p)
 
             dgvFeeManagementLists.RowHeadersVisible = False
             dgvFeeManagementLists.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -1337,10 +1151,11 @@ Public Class PASPFeeManagement
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnUpdateContactData_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnUpdateContactData.Click
+
+    Private Sub btnUpdateContactData_Click(sender As Object, e As EventArgs) Handles btnUpdateContactData.Click
         ' Warn user
         Dim confirm As DialogResult = MessageBox.Show("This will replace mailout contact data with the current " & vbNewLine &
             "fee contact for all sources in the mailout list. " &
@@ -1364,17 +1179,14 @@ Public Class PASPFeeManagement
             Dim ContactState As String = ""
             Dim ContactZipCode As String = ""
 
-            SQL = "Select " &
-            "strAIRSNumber " &
-            "from AIRBRANCH.FS_Admin " &
-            "where numFeeYear = '" & cboAvailableFeeYears.Text & "' "
+            Dim SQL As String = "Select " &
+                "strAIRSNumber " &
+                "from FS_Admin " &
+                "where numFeeYear = @year "
+            Dim p As New SqlParameter("@year", cboAvailableFeeYears.Text)
+            Dim dr As DataRow = DB.GetDataRow(SQL, p)
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
+            If dr IsNot Nothing Then
                 If IsDBNull(dr.Item("strAIRSNumber")) Then
                     AIRSNumber = ""
                 Else
@@ -1382,16 +1194,13 @@ Public Class PASPFeeManagement
                 End If
                 If AIRSNumber <> "" Then
                     SQL = "Select * " &
-                    "from AIRBRANCH.APBContactInformation " &
-                    "where strAIRSNumber = '" & AIRSNumber & "' " &
-                    "and strKey = '40' "
+                        "from APBContactInformation " &
+                        "where strAIRSNumber = @airs " &
+                        "and strKey = '40' "
+                    Dim p2 As New SqlParameter("@airs", AIRSNumber)
+                    Dim dr2 As DataRow = DB.GetDataRow(SQL, p2)
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr2 = cmd.ExecuteReader
-                    While dr2.Read
+                    If dr2 IsNot Nothing Then
                         If IsDBNull(dr2.Item("strContactFirstname")) Then
                             ContactFirstName = ""
                         Else
@@ -1442,54 +1251,52 @@ Public Class PASPFeeManagement
                         Else
                             ContactZipCode = dr2.Item("strContactZipCode")
                         End If
-                    End While
-                    dr2.Close()
+                    End If
 
-                    SQL = "Update AIRBRANCH.FS_MailOut set " &
-                    "strFirstName = :ContactFirstName, " &
-                    "strLastName = :ContactLastName, " &
-                    "strPrefix = :ContactPrefix,  " &
-                    "strTitle = :ContactSuffix, " &
-                    "strContactCoName = :ContactCompanyName, " &
-                    "strContactAddress1 = :ContactAddress1, " &
-                    "strContactAddress2 = :ContactAddress2, " &
-                    "strContactCity = :ContactCity, " &
-                    "strContactState = :ContactState, " &
-                    "strcontactZipCode = :ContactZipCode " &
-                    "where strAIRSNumber = :AIRSNumber " &
-                    "and numFeeYear = :AvailableFeeYears "
+                    SQL = "Update FS_MailOut set " &
+                        "strFirstName = @ContactFirstName, " &
+                        "strLastName = @ContactLastName, " &
+                        "strPrefix = @ContactPrefix,  " &
+                        "strTitle = @ContactSuffix, " &
+                        "strContactCoName = @ContactCompanyName, " &
+                        "strContactAddress1 = @ContactAddress1, " &
+                        "strContactAddress2 = @ContactAddress2, " &
+                        "strContactCity = @ContactCity, " &
+                        "strContactState = @ContactState, " &
+                        "strcontactZipCode = @ContactZipCode " &
+                        "where strAIRSNumber = @AIRSNumber " &
+                        "and numFeeYear = @AvailableFeeYears "
 
-                    Dim parameters As OracleParameter()
-                    parameters = New OracleParameter() {
-                        New OracleParameter("ContactFirstName", ContactFirstName),
-                        New OracleParameter("ContactLastName", ContactLastName),
-                        New OracleParameter("ContactPrefix", ContactPrefix),
-                        New OracleParameter("ContactSuffix", ContactSuffix),
-                        New OracleParameter("ContactCompanyName", ContactCompanyName),
-                        New OracleParameter("ContactAddress1", ContactAddress1),
-                        New OracleParameter("ContactAddress2", ContactAddress2),
-                        New OracleParameter("ContactCity", ContactCity),
-                        New OracleParameter("ContactState", ContactState),
-                        New OracleParameter("ContactZipCode", ContactZipCode),
-                        New OracleParameter("AIRSNumber", AIRSNumber),
-                        New OracleParameter("AvailableFeeYears", cboAvailableFeeYears.Text)
+                    Dim parameters As SqlParameter()
+                    parameters = New SqlParameter() {
+                        New SqlParameter("@ContactFirstName", ContactFirstName),
+                        New SqlParameter("@ContactLastName", ContactLastName),
+                        New SqlParameter("@ContactPrefix", ContactPrefix),
+                        New SqlParameter("@ContactSuffix", ContactSuffix),
+                        New SqlParameter("@ContactCompanyName", ContactCompanyName),
+                        New SqlParameter("@ContactAddress1", ContactAddress1),
+                        New SqlParameter("@ContactAddress2", ContactAddress2),
+                        New SqlParameter("@ContactCity", ContactCity),
+                        New SqlParameter("@ContactState", ContactState),
+                        New SqlParameter("@ContactZipCode", ContactZipCode),
+                        New SqlParameter("@AIRSNumber", AIRSNumber),
+                        New SqlParameter("@AvailableFeeYears", cboAvailableFeeYears.Text)
                     }
                     DB.RunCommand(SQL, parameters)
 
                 End If
-            End While
-            dr.Close()
+            End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub btnExportToExcel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnExportToExcel.Click
+    Private Sub btnExportToExcel_Click(sender As Object, e As EventArgs) Handles btnExportToExcel.Click
         dgvFeeManagementLists.ExportToExcel(Me)
     End Sub
 
-    Private Sub dgvExistingExemptions_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvExistingExemptions.MouseUp
+    Private Sub dgvExistingExemptions_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvExistingExemptions.MouseUp
         Try
             Dim hti As DataGridView.HitTestInfo = dgvExistingExemptions.HitTest(e.X, e.Y)
 
@@ -1510,70 +1317,63 @@ Public Class PASPFeeManagement
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnRefreshNSPSExemptions_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnRefreshNSPSExemptions.Click
+
+    Private Sub btnRefreshNSPSExemptions_Click(sender As Object, e As EventArgs) Handles btnRefreshNSPSExemptions.Click
         Try
             LoadNSPSExemptions2("1")
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnClearNSPSExemptions_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClearNSPSExemptions.Click
-        Try
-            txtDeleteNSPSExemptions.Clear()
-            txtNSPSExemption.Clear()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-    Private Sub btnViewFacilitiesSubjectToFees_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnViewFacilitiesSubjectToFees.Click
-        Try
-            SQL = "Select " &
-          "substr(fS_Admin.strAIRSnumber, 5) as AIRSNumber,  " &
-          "strFacilityname,  " &
-          "strFacilityStreet1, strFacilityCity,  " &
-          "strFacilityZipCode,  " &
-          "strOperationalStatus, strClass,  " &
-          "case " &
-          "when substr(strAIRProgramCodes, 8, 1) = '1' then 'Yes' " &
-          "else 'No' " &
-          "end strNSPS, " &
-          "case " &
-          "when substr(strAIRProgramCodes, 13, 1) = '1' then 'Yes' " &
-          "else 'No' " &
-          "end strPArt70, " &
-          "case " &
-          "when strOperationalStatus = 'X' then datShutDownDate " &
-          "end datShutdowndate,  " &
-          "case " &
-          "when strEnrolled = '1' then 'Yes' " &
-          "else 'No' " &
-          "end strEnrolled, " &
-          "case " &
-          "when strInitialMailout = '1' then 'Yes' " &
-          "else 'No' " &
-          "end strInitialMailout, " &
-          "case " &
-          "when strMailoutSent = '1' then 'Yes' " &
-          "else 'No' " &
-          "end strMailoutSent " &
-          "From AIRBRANCH.FS_Admin, AIRBRANCH.APBFacilityInformation,  " &
-          "AIRBRANCH.APBHeaderData " &
-          "where AIRBRANCH.FS_Admin.strAIRSnumber = AIRBRANCH.APBFacilityInformation.strAIRSnumber  " &
-          "and AIRBRANCH.FS_admin.strAIRSNumber = AIRBRANCH.APBheaderData.strAIRSNumber " &
-          "and  AIRBRANCH.FS_Admin.numFeeYear = '" & cboAvailableFeeYears.Text & "'  " &
-          "AND AIRBRANCH.FS_Admin.Active = '1' "
 
-            ds = New DataSet
-            da = New OracleDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            da.Fill(ds, "MailOutList")
-            dgvFeeManagementLists.DataSource = ds
-            dgvFeeManagementLists.DataMember = "MailOutList"
+    Private Sub btnClearNSPSExemptions_Click(sender As Object, e As EventArgs) Handles btnClearNSPSExemptions.Click
+        txtDeleteNSPSExemptions.Clear()
+        txtNSPSExemption.Clear()
+    End Sub
+
+    Private Sub btnViewFacilitiesSubjectToFees_Click(sender As Object, e As EventArgs) Handles btnViewFacilitiesSubjectToFees.Click
+        Try
+            Dim SQL As String = "Select " &
+                "substring(fS_Admin.strAIRSnumber, 5, 8) as AIRSNumber,  " &
+                "strFacilityname,  " &
+                "strFacilityStreet1, strFacilityCity,  " &
+                "strFacilityZipCode,  " &
+                "strOperationalStatus, strClass,  " &
+                "case " &
+                "when substring(strAIRProgramCodes, 8, 1) = '1' then 'Yes' " &
+                "else 'No' " &
+                "end strNSPS, " &
+                "case " &
+                "when substring(strAIRProgramCodes, 13, 1) = '1' then 'Yes' " &
+                "else 'No' " &
+                "end strPArt70, " &
+                "case " &
+                "when strOperationalStatus = 'X' then datShutDownDate " &
+                "end datShutdowndate,  " &
+                "case " &
+                "when strEnrolled = '1' then 'Yes' " &
+                "else 'No' " &
+                "end strEnrolled, " &
+                "case " &
+                "when strInitialMailout = '1' then 'Yes' " &
+                "else 'No' " &
+                "end strInitialMailout, " &
+                "case " &
+                "when strMailoutSent = '1' then 'Yes' " &
+                "else 'No' " &
+                "end strMailoutSent " &
+                "From FS_Admin inner join APBFacilityInformation " &
+                "on FS_Admin.strAIRSnumber = APBFacilityInformation.strAIRSnumber " &
+                "inner join APBHeaderData " &
+                "on FS_admin.strAIRSNumber = APBheaderData.strAIRSNumber " &
+                "where FS_Admin.numFeeYear = @year " &
+                "AND FS_Admin.Active = '1' "
+            Dim p As New SqlParameter("@year", cboAvailableFeeYears.Text)
+
+            dgvFeeManagementLists.DataSource = DB.GetDataTable(SQL, p)
 
             dgvFeeManagementLists.RowHeadersVisible = False
             dgvFeeManagementLists.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -1621,10 +1421,11 @@ Public Class PASPFeeManagement
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnSetMailoutDate_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSetMailoutDate.Click
+
+    Private Sub btnSetMailoutDate_Click(sender As Object, e As EventArgs) Handles btnSetMailoutDate.Click
         Dim confirm As DialogResult = MessageBox.Show("Are you sure you want to set the initial mailout date for all sources in the mailout list?",
             "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button1)
         If confirm = DialogResult.No Then
@@ -1632,31 +1433,29 @@ Public Class PASPFeeManagement
         End If
 
         Try
-            SQL = "Update AIRBRANCH.FS_Admin set " &
-            " datMailoutSent = '" & dtpDateMailoutSent.Text & "', " &
+            Dim SQL As String = "Update FS_Admin set " &
+            " datMailoutSent = @date, " &
             " numcurrentstatus = 4, " &
             " STRINITIALMAILOUT = '1' , " &
             " strMailOutSent = '1' " &
-            " where numFeeYear = '" & cboAvailableFeeYears.Text & "' " &
+            " where numFeeYear = @year " &
             " and datMailoutSent is null " &
             " and strEnrolled = '1' " &
             " and active = '1' "
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
+            Dim p As SqlParameter() = {
+                New SqlParameter("@date", dtpDateMailoutSent.Value),
+                New SqlParameter("@year", cboAvailableFeeYears.Text)
+            }
+            DB.RunCommand(SQL, p)
 
             MsgBox("Mailout Sent date set.", MsgBoxStyle.Information, Me.Text)
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Sub FormatWebUsers()
+    Private Sub FormatWebUsers()
         Try
             dgvUsers.RowHeadersVisible = False
             dgvUsers.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -1731,19 +1530,18 @@ Public Class PASPFeeManagement
             dgvUserFacilities.Columns(5).HeaderText = "ES Access"
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub llbViewUserData_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbViewUserData.LinkClicked
-        Try
-            ViewFacilitySpecificUsers()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+
+    Private Sub llbViewUserData_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewUserData.LinkClicked
+        ViewFacilitySpecificUsers()
     End Sub
-    Sub ViewFacilitySpecificUsers()
+
+    Private Sub ViewFacilitySpecificUsers()
         Try
             Dim dgvRow As New DataGridViewRow
+            Dim SQL As String
 
             If mtbAIRSNumber.Text.Length <> 8 Then
                 MsgBox("Please enter a complete 8 digit AIRS #.", MsgBoxStyle.Information, "Error")
@@ -1751,25 +1549,22 @@ Public Class PASPFeeManagement
                 txtEmail.Clear()
 
                 SQL = "Select strFacilityName " &
-                "from AIRBRANCH.APBFacilityInformation " &
-                "where strAIRSNumber = '0413" & mtbAIRSNumber.Text & "' "
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                While dr.Read
-                    If IsDBNull(dr.Item("strFacilityName")) Then
+                "from APBFacilityInformation " &
+                "where strAIRSNumber = @airs "
+                Dim p As New SqlParameter("@airs", "0413" & mtbAIRSNumber.Text)
+                Dim dr2 As DataRow = DB.GetDataRow(SQL, p)
+
+                If dr2 IsNot Nothing Then
+                    If IsDBNull(dr2.Item("strFacilityName")) Then
                         lblFaciltyName.Text = " - "
                     Else
-                        lblFaciltyName.Text = Apb.Facilities.Facility.SanitizeFacilityNameForDb(dr.Item("strFacilityName"))
+                        lblFaciltyName.Text = Apb.Facilities.Facility.SanitizeFacilityNameForDb(dr2.Item("strFacilityName"))
                     End If
-                End While
-                dr.Close()
+                End If
 
                 SQL = "SELECT " &
-                "AIRBRANCH.OlapUserAccess.NumUserID as ID, AIRBRANCH.OlapUserLogin.numuserid, " &
-                "AIRBRANCH.OlapUserLogin.strUserEmail as Email, " &
+                "OlapUserAccess.NumUserID as ID, OlapUserLogin.numuserid, " &
+                "OlapUserLogin.strUserEmail as Email, " &
                 "Case " &
                 "When intAdminAccess = 0 Then 'False' " &
                 "When intAdminAccess = 1 Then 'True' " &
@@ -1786,19 +1581,13 @@ Public Class PASPFeeManagement
                 "When intESAccess = 0 Then 'False' " &
                 "When intESAccess = 1 Then 'True' " &
                 "End as intESAccess " &
-                "FROM AIRBRANCH.OlapUserAccess, AIRBRANCH.OlapUserLogin " &
-                "WHERE AIRBRANCH.OLAPUserAccess.NumUserId = AIRBRANCH.OlapUserLogin.NumUserID " &
-                "AND AIRBRANCH.OlapUserAccess.strAirsNumber = '0413" & mtbAIRSNumber.Text & "' order by email"
+                "FROM OlapUserAccess inner join OlapUserLogin " &
+                "on OLAPUserAccess.NumUserId = OlapUserLogin.NumUserID " &
+                "where OlapUserAccess.strAirsNumber = @airs order by email"
 
                 dgvUsers.Rows.Clear()
-                ds = New DataSet
-
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                While dr.Read
+                Dim dt As DataTable = DB.GetDataTable(SQL, p)
+                For Each dr As DataRow In dt.Rows
                     dgvRow = New DataGridViewRow
                     dgvRow.CreateCells(dgvUsers)
                     If IsDBNull(dr.Item("ID")) Then
@@ -1838,50 +1627,41 @@ Public Class PASPFeeManagement
                         dgvRow.Cells(6).Value = dr.Item("intESAccess")
                     End If
                     dgvUsers.Rows.Add(dgvRow)
-                End While
-                dr.Close()
+                Next
 
-                da = New OracleDataAdapter(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                da.Fill(ds, "FacilityUsers")
-
-                cboUsers.DataSource = ds.Tables("FacilityUsers")
+                cboUsers.DataSource = dt
                 cboUsers.DisplayMember = "Email"
                 cboUsers.ValueMember = "ID"
                 cboUsers.Text = ""
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnAddUser_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAddUser.Click
+
+    Private Sub btnAddUser_Click(sender As Object, e As EventArgs) Handles btnAddUser.Click
         Try
             Dim userID As Integer
+            Dim SQL As String = "Select numUserId " &
+            "from olapuserlogin " &
+            "where struseremail = @email "
+            Dim p As New SqlParameter("@email", txtEmail.Text)
+            Dim dr As DataRow = DB.GetDataRow(SQL, p)
 
-            SQL = "Select numUserId " &
-            "from AIRBRANCH.olapuserlogin " &
-            "where struseremail = '" & Replace(UCase(txtEmail.Text), "'", "''") & "' "
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            recExist = dr.Read
-
-            If recExist = True Then 'Email address is registered
+            If dr IsNot Nothing Then 'Email address is registered
                 userID = dr.Item("numUserId")
-                Dim InsertString As String = "Insert into AIRBRANCH.OlapUserAccess " &
-                "(numUserId, strAirsNumber, strFacilityName) values( " &
-                "'" & userID & "', '0413" & mtbAIRSNumber.Text & "', '" & Replace(lblFaciltyName.Text, "'", "''") & "') "
 
-                Dim cmd1 As New OracleCommand(InsertString, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                cmd1.ExecuteNonQuery()
+                Dim InsertString As String = "Insert into OlapUserAccess " &
+                "(numUserId, strAirsNumber, strFacilityName) values " &
+                "(@numUserId, @strAirsNumber, @strFacilityName) "
+
+                Dim p2 As SqlParameter() = {
+                    New SqlParameter("@numUserId", userID),
+                    New SqlParameter("@strAirsNumber", "0413" & mtbAIRSNumber.Text),
+                    New SqlParameter("@strFacilityName", lblFaciltyName.Text)
+                }
+                DB.RunCommand(InsertString, p2)
 
                 ViewFacilitySpecificUsers()
 
@@ -1890,37 +1670,37 @@ Public Class PASPFeeManagement
                 MsgBox("This Email Address is not registered", MsgBoxStyle.OkOnly, "Insert Failed!")
             End If
 
-            If dr.IsClosed = False Then dr.Close()
-
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnDelete_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDelete.Click
-        Try
-            SQL = "DELETE AIRBRANCH.OlapUserAccess " &
-            "WHERE numUserID = '" & cboUsers.SelectedValue & "' " &
-            "and strAirsNumber = '0413" & mtbAIRSNumber.Text & "' "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            cmd.ExecuteNonQuery()
+    Private Sub btnDelete_Click(sender As Object, e As EventArgs) Handles btnDelete.Click
+        Try
+            Dim SQL As String = "DELETE OlapUserAccess " &
+            "WHERE numUserID = @user " &
+            "and strAirsNumber = @airs "
+            Dim p As SqlParameter() = {
+                New SqlParameter("@user", cboUsers.SelectedValue),
+                New SqlParameter("@airs", "0413" & mtbAIRSNumber.Text)
+            }
+            DB.RunCommand(SQL, p)
 
             ViewFacilitySpecificUsers()
             MsgBox("The User has been removed for this facility", MsgBoxStyle.Information, "User Removed!")
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnUpdate_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnUpdate.Click
+
+    Private Sub btnUpdate_Click(sender As Object, e As EventArgs) Handles btnUpdate.Click
         Try
             Dim adminaccess As String
             Dim feeaccess As String
             Dim eiaccess As String
             Dim esaccess As String
+            Dim SQL As String
 
             For i As Integer = 0 To dgvUsers.Rows.Count - 1
                 If dgvUsers(3, i).Value = True Then
@@ -1944,41 +1724,41 @@ Public Class PASPFeeManagement
                     esaccess = "0"
                 End If
 
-                SQL = "UPDATE AIRBRANCH.OlapUserAccess " &
-                "SET intadminaccess = '" & adminaccess & "', " &
-                "intFeeAccess = '" & feeaccess & "', " &
-                "intEIAccess = '" & eiaccess & "', " &
-                "intESAccess = '" & esaccess & "' " &
-                "WHERE numUserID = '" & dgvUsers(1, i).Value & "' " &
-                "and strAirsNumber = '0413" & mtbAIRSNumber.Text & "' "
-
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                cmd.ExecuteNonQuery()
+                SQL = "UPDATE OlapUserAccess " &
+                    "SET intadminaccess = @intadminaccess, " &
+                    "intFeeAccess = @intFeeAccess, " &
+                    "intEIAccess = @intEIAccess, " &
+                    "intESAccess = @intESAccess " &
+                    "WHERE numUserID = @numUserID " &
+                    "and strAirsNumber = @strAirsNumber "
+                Dim p As SqlParameter() = {
+                    New SqlParameter("@intadminaccess", adminaccess),
+                    New SqlParameter("@intFeeAccess", feeaccess),
+                    New SqlParameter("@intEIAccess", eiaccess),
+                    New SqlParameter("@intESAccess", esaccess),
+                    New SqlParameter("@numUserID", dgvUsers(1, i).Value),
+                    New SqlParameter("@strAirsNumber", "0413" & mtbAIRSNumber.Text)
+                }
+                DB.RunCommand(SQL, p)
             Next
 
             ViewFacilitySpecificUsers()
             MsgBox("The records have been updated", MsgBoxStyle.Information, "Update Success!")
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub lblViewEmailData_LinkClicked(ByVal sender As System.Object, ByVal e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles lblViewEmailData.LinkClicked
-        Try
-            LoadUserInfo(txtWebUserEmail.Text)
-            LoadUserFacilityInfo(txtWebUserEmail.Text)
 
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+    Private Sub lblViewEmailData_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblViewEmailData.LinkClicked
+        LoadUserInfo(txtWebUserEmail.Text)
+        LoadUserFacilityInfo(txtWebUserEmail.Text)
     End Sub
-    Sub LoadUserInfo(ByVal UserData As String)
+
+    Private Sub LoadUserInfo(UserData As String)
         Try
-            SQL = "Select " &
-            "AIRBRANCH.OLAPUserProfile.numUserID, " &
+            Dim SQL As String = "Select " &
+            "OLAPUserProfile.numUserID, " &
             "strfirstname, strlastname, " &
             "strtitle, strcompanyname, " &
             "straddress, strcity, " &
@@ -1986,18 +1766,13 @@ Public Class PASPFeeManagement
             "strphonenumber, strfaxnumber, " &
             "datLastLogIn, strConfirm, " &
             "strUserEmail " &
-            "from AIRBRANCH.OlapUserProfile, AIRBRANCH.OLAPUserLogIn " &
-            "where AIRBRANCH.OLAPUserProfile.numUserID = AIRBRANCH.OLAPUserLogIn.numuserid " &
-            "and strUserEmail = upper('" & UserData & "') "
+            "from OlapUserProfile inner join OLAPUserLogIn " &
+            "on OLAPUserProfile.numUserID = OLAPUserLogIn.numuserid " &
+            "where strUserEmail = @email "
+            Dim p As New SqlParameter("@email", UserData)
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            dr = cmd.ExecuteReader
-            recExist = dr.Read
-            If recExist = True Then
+            Dim dr As DataRow = DB.GetDataRow(SQL, p)
+            If dr IsNot Nothing Then
                 If IsDBNull(dr.Item("numUserID")) Then
                     txtWebUserID.Clear()
                 Else
@@ -2105,33 +1880,31 @@ Public Class PASPFeeManagement
             btnUpdatePassword.Visible = False
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
     End Sub
-    Sub LoadUserFacilityInfo(ByVal EmailLoc As String)
+
+    Private Sub LoadUserFacilityInfo(EmailLoc As String)
         Try
             Dim dgvRow As New DataGridViewRow
+            Dim SQL As String
 
-            SQL = "SELECT substr(strairsnumber, 5) as strAIRSNumber, strfacilityname, " &
+            SQL = "SELECT substring(strairsnumber, 5, 8) as strAIRSNumber, strfacilityname, " &
              "Case When intAdminAccess = 0 Then 'False' When intAdminAccess = 1 Then 'True' End as intAdminAccess, " &
              "Case When intFeeAccess = 0 Then 'False' When intFeeAccess = 1 Then 'True' End as intFeeAccess, " &
              "Case When intEIAccess = 0 Then 'False' When intEIAccess = 1 Then 'True' End as intEIAccess, " &
              "Case When intESAccess = 0 Then 'False' When intESAccess = 1 Then 'True' End as intESAccess " &
-             "FROM AIRBRANCH.OlapUserAccess, AIRBRANCH.OLAPUserLogIn  " &
-             "WHERE AIRBRANCH.OlapUserAccess.numUserId = AIRBRANCH.OLAPUserLogIn.numUserId " &
-             "and  strUserEmail = upper('" & EmailLoc & "') " &
+             "FROM OlapUserAccess, OLAPUserLogIn  " &
+             "WHERE OlapUserAccess.numUserId = OLAPUserLogIn.numUserId " &
+             "and  strUserEmail = @email " &
              "order by strfacilityname"
+            Dim p As New SqlParameter("@email", EmailLoc)
+            Dim dt As DataTable = DB.GetDataTable(SQL, p)
 
             dgvUserFacilities.Rows.Clear()
-            ds = New DataSet
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
+            For Each dr As DataRow In dt.Rows
                 dgvRow = New DataGridViewRow
                 dgvRow.CreateCells(dgvUserFacilities)
                 If IsDBNull(dr.Item("strAIRSNumber")) Then
@@ -2167,26 +1940,19 @@ Public Class PASPFeeManagement
                     dgvRow.Cells(5).Value = dr.Item("intESAccess")
                 End If
                 dgvUserFacilities.Rows.Add(dgvRow)
-            End While
-            dr.Close()
+            Next
 
-            da = New OracleDataAdapter(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            da.Fill(ds, "FacilityUsers")
-
-            cboFacilityToDelete.DataSource = ds.Tables("FacilityUsers")
+            cboFacilityToDelete.DataSource = dt
             cboFacilityToDelete.DisplayMember = "strfacilityname"
             cboFacilityToDelete.ValueMember = "strairsnumber"
             cboFacilityToDelete.Text = ""
 
-
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnEditUserData_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEditUserData.Click
+
+    Private Sub btnEditUserData_Click(sender As Object, e As EventArgs) Handles btnEditUserData.Click
         Try
             txtEditFirstName.Visible = True
             txtEditLastName.Visible = True
@@ -2205,10 +1971,11 @@ Public Class PASPFeeManagement
             btnUpdatePassword.Visible = True
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnSaveEditedData_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSaveEditedData.Click
+
+    Private Sub btnSaveEditedData_Click(sender As Object, e As EventArgs) Handles btnSaveEditedData.Click
         Try
             Dim FirstName As String = " "
             Dim LastName As String = " "
@@ -2220,51 +1987,59 @@ Public Class PASPFeeManagement
             Dim Zip As String = " "
             Dim PhoneNumber As String = " "
             Dim FaxNumber As String = " "
+            Dim SQL As String
 
             If txtWebUserID.Text <> "" Then
                 If txtEditFirstName.Text <> "" Then
-                    FirstName = " strFirstName = '" & Replace(txtEditFirstName.Text, "'", "''") & "', "
+                    FirstName = " strFirstName = @strFirstName, "
                 End If
                 If txtEditLastName.Text <> "" Then
-                    LastName = " strLastName = '" & Replace(txtEditLastName.Text, "'", "''") & "', "
+                    LastName = " strLastName = @strLastName, "
                 End If
                 If txtEditTitle.Text <> "" Then
-                    Title = " strTitle = '" & Replace(txtEditTitle.Text, "'", "''") & "', "
+                    Title = " strTitle = @strTitle, "
                 End If
                 If txtEditCompany.Text <> "" Then
-                    Company = " strCompanyName = '" & Replace(txtEditCompany.Text, "'", "''") & "', "
+                    Company = " strCompanyName = @strCompanyName, "
                 End If
                 If txtEditAddress.Text <> "" Then
-                    Address = " strAddress = '" & Replace(txtEditAddress.Text, "'", "''") & "', "
+                    Address = " strAddress = @strAddress, "
                 End If
                 If txtEditCity.Text <> "" Then
-                    City = " strCity = '" & Replace(txtEditCity.Text, "'", "''") & "', "
+                    City = " strCity = @strCity, "
                 End If
                 If mtbEditState.Text <> "" Then
-                    State = " strState = '" & Replace(mtbEditState.Text, "'", "''") & "', "
+                    State = " strState = @strState, "
                 End If
                 If mtbEditZipCode.Text <> "" Then
-                    Zip = " strZip = '" & Replace(mtbEditZipCode.Text, "'", "''") & "', "
+                    Zip = " strZip = @strZip, "
                 End If
                 If mtbEditPhoneNumber.Text <> "" Then
-                    PhoneNumber = " strPhoneNumber = '" & Replace(mtbEditPhoneNumber.Text, "'", "''") & "', "
+                    PhoneNumber = " strPhoneNumber = @strPhoneNumber, "
                 End If
                 If mtbEditFaxNumber.Text <> "" Then
-                    FaxNumber = " strFaxNumber = '" & Replace(mtbEditFaxNumber.Text, "'", "''") & "', "
+                    FaxNumber = " strFaxNumber = @strFaxNumber, "
                 End If
 
-                SQL = "Update AIRBRANCH.OLAPUserProfile set " &
-                FirstName & LastName & Title & Company & Address &
-                City & State & Zip & PhoneNumber & FaxNumber &
-                "numUserID = '" & txtWebUserID.Text & "' " &
-                "where numUserID = '" & txtWebUserID.Text & "' "
-
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                dr.Close()
+                SQL = "Update OLAPUserProfile set " &
+                    FirstName & LastName & Title & Company & Address &
+                    City & State & Zip & PhoneNumber & FaxNumber &
+                    "numUserID = @user " &
+                    "where numUserID = @user "
+                Dim p As SqlParameter() = {
+                    New SqlParameter("@strFirstName", txtEditFirstName.Text),
+                    New SqlParameter("@strLastName", txtEditLastName.Text),
+                    New SqlParameter("@strTitle", txtEditTitle.Text),
+                    New SqlParameter("@strCompanyName", txtEditCompany.Text),
+                    New SqlParameter("@strAddress", txtEditAddress.Text),
+                    New SqlParameter("@strCity", txtEditCity.Text),
+                    New SqlParameter("@strState", mtbEditState.Text),
+                    New SqlParameter("@strZip", mtbEditZipCode.Text),
+                    New SqlParameter("@strPhoneNumber", mtbEditPhoneNumber.Text),
+                    New SqlParameter("@strFaxNumber", mtbEditFaxNumber.Text),
+                    New SqlParameter("@user", txtWebUserID.Text)
+                }
+                DB.RunCommand(SQL, p)
 
                 lblFName.Text = "First Name: " & txtEditFirstName.Text
                 lblLName.Text = "Last Name: " & txtEditLastName.Text
@@ -2290,28 +2065,26 @@ Public Class PASPFeeManagement
                 btnChangeEmailAddress.Visible = False
                 txtEditEmail.Visible = False
                 btnUpdatePassword.Visible = False
-            Else
-
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnUpdatePassword_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnUpdatePassword.Click
-        Try
-            If txtWebUserID.Text <> "" And txtEditUserPassword.Text <> "" Then
-                'New password change code 6/30/2010
-                SQL = "Update AIRBRANCH.OLAPUserLogIN set " &
-                "strUserPassword = '" & getMd5Hash(txtEditUserPassword.Text) & "' " &
-                "where numUserID = '" & txtWebUserID.Text & "' "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                dr.Close()
+    Private Sub btnUpdatePassword_Click(sender As Object, e As EventArgs) Handles btnUpdatePassword.Click
+        Try
+            Dim SQL As String
+
+            If txtWebUserID.Text <> "" And txtEditUserPassword.Text <> "" Then
+                SQL = "Update OLAPUserLogIN set " &
+                "strUserPassword = @pass " &
+                "where numUserID = @user "
+                Dim p As SqlParameter() = {
+                    New SqlParameter("@pass", getMd5Hash(txtEditUserPassword.Text)),
+                    New SqlParameter("@user", txtWebUserID.Text)
+                }
+                DB.RunCommand(SQL, p)
 
                 txtEditUserPassword.Clear()
                 txtEditFirstName.Visible = False
@@ -2331,55 +2104,45 @@ Public Class PASPFeeManagement
                 btnUpdatePassword.Visible = False
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnChangeEmailAddress_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnChangeEmailAddress.Click
+
+    Private Sub btnChangeEmailAddress_Click(sender As Object, e As EventArgs) Handles btnChangeEmailAddress.Click
         Try
+            Dim SQL As String
+
             If txtWebUserID.Text <> "" Then
                 If IsValidEmailAddress(txtEditEmail.Text) Then
                     SQL = "Select " &
-                    "numUserID, strUserPassword " &
-                    "from AIRBRANCH.OLAPUserLogIN " &
-                    "where upper(strUserEmail) = '" & Replace(txtEditEmail.Text.ToUpper, "'", "''") & "' "
+                        "numUserID " &
+                        "from OLAPUserLogIN " &
+                        "where strUserEmail = @email "
+                    Dim p As New SqlParameter("@email", txtEditEmail.Text)
+                    Dim dr As DataRow = DB.GetDataRow(SQL, p)
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    recExist = dr.Read
-                    dr.Close()
-                    If recExist = True Then
-                        dr = cmd.ExecuteReader
-                        While dr.Read
-                            If IsDBNull(dr.Item("numUserID")) Then
-                            Else
-                                If txtWebUserID.Text <> dr.Item("numUserID") Then
-                                    MsgBox("Another user already has this email address and it would violate a unique constraint if you were " &
+                    If dr IsNot Nothing Then
+                        If IsDBNull(dr.Item("numUserID")) Then
+                        Else
+                            If txtWebUserID.Text <> dr.Item("numUserID") Then
+                                MsgBox("Another user already has this email address and it would violate a unique constraint if you were " &
                                            "to add this email to this user.", MsgBoxStyle.Exclamation, "Mailout and Stats")
-                                    Exit Sub
-                                End If
+                                Exit Sub
                             End If
-                        End While
-                        dr.Close()
+                        End If
                     End If
 
-                    SQL = "Update AIRBRANCH.OLAPUserLogIn set " &
-                    "strUserEmail = '" & Replace(txtEditEmail.Text.ToUpper, "'", "''") & "' " &
-                    "where numUserID = '" & txtWebUserID.Text & "' "
+                    SQL = "Update OLAPUserLogIn set " &
+                        "strUserEmail = @email " &
+                        "where numUserID = @user "
+                    Dim p2 As SqlParameter() = {
+                        p,
+                        New SqlParameter("@user", txtWebUserID.Text)
+                    }
+                    DB.RunCommand(SQL, p2)
 
-                    cmd = New OracleCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    dr = cmd.ExecuteReader
-                    dr.Close()
-
-                    cboUserEmail.Text = ""
                     txtWebUserEmail.Text = txtEditEmail.Text
 
-                    '  LoadDataGridFacility(txtWebUserEmail.Text)
                     LoadUserInfo(txtWebUserEmail.Text)
 
                     If txtWebUserID.Text = "" Then
@@ -2395,40 +2158,35 @@ Public Class PASPFeeManagement
                 End If
             End If
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
-    Private Sub btnAddFacilitytoUser_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnAddFacilitytoUser.Click
+
+    Private Sub btnAddFacilitytoUser_Click(sender As Object, e As EventArgs) Handles btnAddFacilitytoUser.Click
         Try
+            Dim SQL As String
+
             If txtWebUserID.Text <> "" And mtbFacilityToAdd.Text <> "" Then
                 SQL = "Select " &
                 "numUserId " &
-                "from AIRBRANCH.OlapUserAccess " &
-                "where numUserId = '" & txtWebUserID.Text & "' " &
-                "and strAirsNumber = '0413" & mtbFacilityToAdd.Text & "' "
+                "from OlapUserAccess " &
+                "where numUserId = @user " &
+                "and strAirsNumber = @airs "
+                Dim p As SqlParameter() = {
+                    New SqlParameter("@user", txtWebUserID.Text),
+                    New SqlParameter("@airs", "0413" & mtbFacilityToAdd.Text)
+                }
+                Dim recExist As Boolean = DB.ValueExists(SQL, p)
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr = cmd.ExecuteReader
-                recExist = dr.Read
-                dr.Close()
-
-                If recExist = False Then
-                    SQL = "Insert into AIRBRANCH.OlapUserAccess " &
-                     "(numUserId, strAirsNumber, strFacilityName) " &
-                     "values " &
-                     "('" & txtWebUserID.Text & "', '0413" & mtbFacilityToAdd.Text & "', " &
-                     "(select strFacilityName " &
-                     "from AIRBRANCH.APBFacilityInformation " &
-                     "where strAIRSnumber = '0413" & mtbFacilityToAdd.Text & "')) "
-
-                    cmd = New OracleCommand(SQL, CurrentConnection)
-                    If CurrentConnection.State = ConnectionState.Closed Then
-                        CurrentConnection.Open()
-                    End If
-                    cmd.ExecuteNonQuery()
+                If Not recExist Then
+                    SQL = "Insert into OlapUserAccess " &
+                        "(numUserId, strAirsNumber, strFacilityName) " &
+                        "values " &
+                        "(@user, @airs, " &
+                        " (select strFacilityName " &
+                        " from APBFacilityInformation " &
+                        " where strAIRSnumber = @airs)) "
+                    DB.RunCommand(SQL, p)
 
                     LoadUserFacilityInfo(txtWebUserEmail.Text)
                     MsgBox("The facility has beed added to this user", MsgBoxStyle.Information, "Insert Success!")
@@ -2438,40 +2196,40 @@ Public Class PASPFeeManagement
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-
-    Private Sub btnDeleteFacilityUser_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnDeleteFacilityUser.Click
+    Private Sub btnDeleteFacilityUser_Click(sender As Object, e As EventArgs) Handles btnDeleteFacilityUser.Click
         Try
-            If txtWebUserID.Text <> "" And cboFacilityToDelete.Text <> "" Then
-                SQL = "DELETE AIRBRANCH.OlapUserAccess " &
-                "WHERE numUserID = '" & txtWebUserID.Text & "' " &
-                "and strAirsNumber = '0413" & cboFacilityToDelete.SelectedValue & "' "
+            Dim SQL As String
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                cmd.ExecuteNonQuery()
+            If txtWebUserID.Text <> "" And cboFacilityToDelete.Text <> "" Then
+                SQL = "DELETE OlapUserAccess " &
+                    "WHERE numUserID = @user " &
+                    "and strAirsNumber = @airs "
+                Dim p As SqlParameter() = {
+                    New SqlParameter("@user", txtWebUserID.Text),
+                    New SqlParameter("@airs", "0413" & cboFacilityToDelete.SelectedValue)
+                }
+                DB.RunCommand(SQL, p)
 
                 LoadUserFacilityInfo(txtWebUserEmail.Text)
                 MsgBox("The facility has been removed for this user", MsgBoxStyle.Information, "Facility Removed!")
-
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub btnUpdateUser_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnUpdateUser.Click
+    Private Sub btnUpdateUser_Click(sender As Object, e As EventArgs) Handles btnUpdateUser.Click
         Try
             Dim adminaccess As String
             Dim feeaccess As String
             Dim eiaccess As String
             Dim esaccess As String
+            Dim SQL As String
 
             For i As Integer = 0 To dgvUserFacilities.Rows.Count - 1
                 If dgvUserFacilities(2, i).Value = True Then
@@ -2495,30 +2253,34 @@ Public Class PASPFeeManagement
                     esaccess = "0"
                 End If
 
-                SQL = "UPDATE AIRBRANCH.OlapUserAccess " &
-                "SET intadminaccess = '" & adminaccess & "', " &
-                "intFeeAccess = '" & feeaccess & "', " &
-                "intEIAccess = '" & eiaccess & "', " &
-                "intESAccess = '" & esaccess & "' " &
-                "WHERE numUserID = '" & txtWebUserID.Text & "' " &
-                "and strAirsNumber = '0413" & dgvUserFacilities(0, i).Value & "' "
+                SQL = "UPDATE OlapUserAccess " &
+                    "SET intadminaccess = @intadminaccess, " &
+                    "intFeeAccess = @intFeeAccess, " &
+                    "intEIAccess = @intEIAccess, " &
+                    "intESAccess = @intESAccess " &
+                    "WHERE numUserID = @numUserID " &
+                    "and strAirsNumber = @strAirsNumber "
 
-                cmd = New OracleCommand(SQL, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                cmd.ExecuteNonQuery()
+                Dim p As SqlParameter() = {
+                    New SqlParameter("@intadminaccess", adminaccess),
+                    New SqlParameter("@intFeeAccess", feeaccess),
+                    New SqlParameter("@intEIAccess", eiaccess),
+                    New SqlParameter("@intESAccess", esaccess),
+                    New SqlParameter("@numUserID", txtWebUserID.Text),
+                    New SqlParameter("@strAirsNumber", "0413" & dgvUserFacilities(0, i).Value)
+                }
+                DB.RunCommand(SQL, p)
             Next
 
             LoadUserFacilityInfo(txtWebUserEmail.Text)
             MsgBox("The records have been updated", MsgBoxStyle.Information, "Update Success!")
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub cboAvailableFeeYears_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cboAvailableFeeYears.SelectedIndexChanged
+    Private Sub cboAvailableFeeYears_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboAvailableFeeYears.SelectedIndexChanged
         If cboAvailableFeeYears.SelectedIndex > 1 Then
             btnGenerateMailoutList.Enabled = False
             btnFirstEnrollment.Enabled = False
@@ -2536,8 +2298,8 @@ Public Class PASPFeeManagement
         End If
     End Sub
 
-    Private Sub btnOpenFeesLog_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOpenFeesLog.Click
-        Dim parameters As New Generic.Dictionary(Of BaseForm.FormParameter, String)
+    Private Sub btnOpenFeesLog_Click(sender As Object, e As EventArgs) Handles btnOpenFeesLog.Click
+        Dim parameters As New Dictionary(Of FormParameter, String)
         If Apb.ApbFacilityId.IsValidAirsNumberFormat(mtbCheckAIRSNumber.Text) Then
             parameters(FormParameter.AirsNumber) = mtbCheckAIRSNumber.Text
         End If
@@ -2546,126 +2308,20 @@ Public Class PASPFeeManagement
         OpenSingleForm(PASPFeeAuditLog, parameters:=parameters, closeFirst:=True)
     End Sub
 
-    Private Sub dgvFeeManagementLists_SelectionChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles dgvFeeManagementLists.SelectionChanged
+    Private Sub dgvFeeManagementLists_SelectionChanged(sender As Object, e As EventArgs) Handles dgvFeeManagementLists.SelectionChanged
         mtbCheckAIRSNumber.Clear()
         If dgvFeeManagementLists.SelectedRows.Count = 1 Then
             mtbCheckAIRSNumber.Text = dgvFeeManagementLists.CurrentRow.Cells("AIRSNumber").Value.ToString
         End If
     End Sub
 
-#Region " CodeFile "
-    ' Code that was formerly in CodeFile.vb but is only used in this form anyway
-
-    Function Insert_FS_FeeRate(ByVal FeeYear As String, ByVal PeriodStart As String,
-                          ByVal PeriodEnd As String, ByVal Part70Fee As String, ByVal SMFee As String,
-                          ByVal PerTonRate As String, ByVal NSPSFee As String, ByVal FeeDueDate As String,
-                          ByVal AdminFee As String, ByVal AdminApplicable As String, ByVal Comments As String,
-                           ByVal FirstQrtDue As String, ByVal SecondQrtDue As String,
-                          ByVal ThirdQrtDue As String, ByVal FourthQrtDue As String, ByVal AAThres As String,
-                          ByVal NAThres As String) As Boolean
-        Try
-            If IsDBNull(FeeYear) Or FeeYear = "" Then
-                Return False
-            Else
-                If IsNumeric(FeeYear) Then
-                Else
-                    Return False
-                End If
-            End If
-
-            If IsDBNull(Part70Fee) Or Part70Fee = "" Then
-            Else
-                If IsNumeric(Part70Fee) Then
-                Else
-                    Return False
-                End If
-            End If
-
-            If IsDBNull(SMFee) Or SMFee = "" Then
-            Else
-                If IsNumeric(SMFee) Then
-                Else
-                    Return False
-                End If
-            End If
-
-            If IsDBNull(PerTonRate) Or PerTonRate = "" Then
-            Else
-                If IsNumeric(PerTonRate) Then
-                Else
-                    Return False
-                End If
-            End If
-
-            If IsDBNull(NSPSFee) Or NSPSFee = "" Then
-            Else
-                If IsNumeric(NSPSFee) Then
-                Else
-                    Return False
-                End If
-            End If
-
-            If IsDBNull(AdminFee) Or AdminFee = "" Then
-            Else
-                If IsNumeric(AdminFee) Then
-                Else
-                    Return False
-                End If
-            End If
-
-            If IsDBNull(AAThres) Or AAThres = "" Then
-            Else
-                If IsNumeric(AAThres) Then
-                Else
-                    Return False
-                End If
-            End If
-
-            If IsDBNull(NAThres) Or NAThres = "" Then
-            Else
-                If IsNumeric(NAThres) Then
-                Else
-                    Return False
-                End If
-            End If
-
-            Dim SQL As String = "Insert into FS_FeeRate " &
-            "values " &
-            "((Select max(numFeeRateID) + 1 from AIRBRANCH.FS_FeeRate), " &
-            "'" & FeeYear & "', '" & PeriodStart & "', " &
-            "'" & PeriodEnd & "', '" & Part70Fee & "', " &
-            "'" & SMFee & "', '" & PerTonRate & "', " &
-            "'" & NSPSFee & "', '" & FeeDueDate & "', " &
-            "'" & AdminFee & "', " &
-            "'" & AdminApplicable & "', '" & Replace(Comments, "'", "''") & "', " &
-            "'1', '" & CurrentUser.UserID & "', " &
-            "(to_char(sysdate, 'DD-mon-YY HH12:MI:SS')), " &
-            "(to_char(sysdate, 'DD-mon-YY HH12:MI:SS')), " &
-            "'" & FirstQrtDue & "', '" & SecondQrtDue & "', " &
-            "'" & ThirdQrtDue & "', '" & FourthQrtDue & "', " &
-            "'', '" & AAThres & "', '" & NAThres & "') "
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
-
-            Return True
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Function
-
-    Function Update_FS_FeeRate(ByVal FeeRateID As String, ByVal FeeYear As String, ByVal PeriodStart As String,
-                          ByVal PeriodEnd As String, ByVal Part70Fee As String, ByVal SMFee As String,
-                          ByVal PerTonRate As String, ByVal NSPSFee As String, ByVal FeeDueDate As String,
-                          ByVal AdminFee As String, ByVal AdminApplicable As String, ByVal Comments As String,
-                          ByVal Active As String, ByVal FirstQrtDue As String, ByVal SecondQrtDue As String,
-                          ByVal ThridQrtDue As String, ByVal FourthQrtDue As String, ByVal AAThres As String,
-                          ByVal NAThres As String) As Boolean
+    Private Function Update_FS_FeeRate(FeeRateID As String, FeeYear As String, PeriodStart As String,
+                          PeriodEnd As String, Part70Fee As String, SMFee As String,
+                          PerTonRate As String, NSPSFee As String, FeeDueDate As String,
+                          AdminFee As String, AdminApplicable As String, Comments As String,
+                          Active As String, FirstQrtDue As String, SecondQrtDue As String,
+                          ThridQrtDue As String, FourthQrtDue As String, AAThres As String,
+                          NAThres As String) As Boolean
         Try
             If IsNumeric(FeeRateID) Then
             Else
@@ -2735,141 +2391,152 @@ Public Class PASPFeeManagement
                 End If
             End If
 
-            Dim SQL As String = "Update AIRBRANCH.FS_FeeRate set " &
-            "numFeeYear = '" & FeeYear & "', " &
-            "datFeePeriodStart = '" & PeriodStart & "', " &
-            "datFeePeriodEnd = '" & PeriodEnd & "', " &
-            "numPart70Fee = '" & Part70Fee & "', " &
-            "numSMFee = '" & SMFee & "', " &
-            "numPerTonRate = '" & PerTonRate & "', " &
-            "numNSPSFee = '" & NSPSFee & "', " &
-            "datFeeDueDate = '" & FeeDueDate & "', " &
-            "numAdminFeeRate = '" & AdminFee & "', " &
-            "datAdminApplicable = '" & AdminApplicable & "', " &
-            "strComments = '" & Replace(Comments, "'", "''") & "', " &
-            "Active = '" & Active & "', " &
-            "UpdateUser = '" & CurrentUser.UserID & "', " &
-            "upDateDateTime = (to_char(sysdate, 'DD-Mon-YY HH12:MI:SS')), " &
-            "datFirstQrtDue = '" & FirstQrtDue & "', " &
-            "datSecondQrtDue = '" & SecondQrtDue & "', " &
-            "datThirdQrtDue = '" & ThridQrtDue & "', " &
-            "datFourthQrtDue = '" & FourthQrtDue & "',  " &
-            "numAAThres = '" & AAThres & "', " &
-            "numNAThres = '" & NAThres & "' " &
-            "where numFeeRateID = '" & FeeRateID & "' "
+            Dim SQL As String = "Update FS_FeeRate set " &
+            "numFeeYear = @numFeeYear, " &
+            "datFeePeriodStart = @datFeePeriodStart, " &
+            "datFeePeriodEnd = @datFeePeriodEnd, " &
+            "numPart70Fee = @numPart70Fee, " &
+            "numSMFee = @numSMFee, " &
+            "numPerTonRate = @numPerTonRate, " &
+            "numNSPSFee = @numNSPSFee, " &
+            "datFeeDueDate = @datFeeDueDate, " &
+            "numAdminFeeRate = @numAdminFeeRate, " &
+            "datAdminApplicable = @datAdminApplicable, " &
+            "strComments = @strComments, " &
+            "Active = @Active, " &
+            "UpdateUser = @UpdateUser, " &
+            "upDateDateTime = getdate(), " &
+            "datFirstQrtDue = @datFirstQrtDue, " &
+            "datSecondQrtDue = @datSecondQrtDue, " &
+            "datThirdQrtDue = @datThirdQrtDue, " &
+            "datFourthQrtDue = @datFourthQrtDue, " &
+            "numAAThres = @numAAThres, " &
+            "numNAThres = @numNAThres " &
+            "where numFeeRateID = @numFeeRateID "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
+            Dim p As SqlParameter() = {
+                New SqlParameter("@numFeeYear", FeeYear),
+                New SqlParameter("@datFeePeriodStart", PeriodStart),
+                New SqlParameter("@datFeePeriodEnd", PeriodEnd),
+                New SqlParameter("@numPart70Fee", Part70Fee),
+                New SqlParameter("@numSMFee", SMFee),
+                New SqlParameter("@numPerTonRate", PerTonRate),
+                New SqlParameter("@numNSPSFee", NSPSFee),
+                New SqlParameter("@datFeeDueDate", FeeDueDate),
+                New SqlParameter("@numAdminFeeRate", AdminFee),
+                New SqlParameter("@datAdminApplicable", AdminApplicable),
+                New SqlParameter("@strComments", Comments),
+                New SqlParameter("@Active", Active),
+                New SqlParameter("@UpdateUser", CurrentUser.UserID),
+                New SqlParameter("@datFirstQrtDue", FirstQrtDue),
+                New SqlParameter("@datSecondQrtDue", SecondQrtDue),
+                New SqlParameter("@datThirdQrtDue", ThridQrtDue),
+                New SqlParameter("@datFourthQrtDue", FourthQrtDue),
+                New SqlParameter("@numAAThres", AAThres),
+                New SqlParameter("@numNAThres", NAThres),
+                New SqlParameter("@numFeeRateID", FeeRateID)
+            }
 
-            Return True
+            Return DB.RunCommand(SQL, p)
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Function
 
-    Function Insert_FSLK_NSPSReason(ByVal Description As String) As Boolean
+    Private Function Insert_FSLK_NSPSReason(Description As String) As Boolean
         Try
-            Dim SQL As String = "Insert into AIRBRANCH.FSLK_NSPSReason " &
-            "Values " &
-            "((select max(NSPSReasonCode) + 1 from AIRBRANCH.FSLK_NSPSReason), " &
-            "'" & Replace(Description, "'", "''") & "', " &
-            "'1', '" & CurrentUser.UserID & "', " &
-            "'" & OracleDate & "', '" & OracleDate & "') "
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
-
+            Dim SQL As String = "INSERT INTO FSLK_NSPSREASON (NSPSREASONCODE, DESCRIPTION, ACTIVE, UPDATEUSER, UPDATEDATETIME, CREATEDATETIME)" &
+                "VALUES ((SELECT MAX(NSPSREASONCODE) + 1 FROM FSLK_NSPSREASON), @DESCRIPTION, '1', @UPDATEUSER, getdate(), getdate() )"
+            Dim p As SqlParameter() = {
+                New SqlParameter("@DESCRIPTION", Description),
+                New SqlParameter("@UPDATEUSER", CurrentUser.UserID)
+            }
+            DB.RunCommand(SQL, p)
             Return True
-
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Function
 
-    Function Update_FSLK_NSPSReason(ByVal NSPSReasonCode As String, ByVal Description As String, ByVal ActiveStatus As String) As Boolean
+    Private Function Update_FSLK_NSPSReason(NSPSReasonCode As String, Description As String, ActiveStatus As String) As Boolean
         Try
             Dim SQL As String
+
             If Description = "" Then
-                SQL = "Update AIRBRANCH.FSLK_NSPSReason set " &
-                "Active = '" & ActiveStatus & "', " &
-                "updateUser = '" & CurrentUser.UserID & "', " &
-                "UpdateDateTime = '" & OracleDate & "' " &
-                "where NSPSReasonCode = '" & NSPSReasonCode & "' "
+                SQL = "Update FSLK_NSPSReason set " &
+                "Active = @active , " &
+                "updateUser = @user , " &
+                "UpdateDateTime = getdate() " &
+                "where NSPSReasonCode = @reason "
+                Dim p As SqlParameter() = {
+                    New SqlParameter("@active", ActiveStatus),
+                    New SqlParameter("@user", CurrentUser.UserID),
+                    New SqlParameter("@reason", NSPSReasonCode)
+                }
+                DB.RunCommand(SQL, p)
             Else
-                SQL = "Update AIRBRANCH.FSLK_NSPSReason set " &
-                "Description = '" & Replace(Description, "'", "''") & "', " &
-                "Active = '" & ActiveStatus & "', " &
-                "updateUser = '" & CurrentUser.UserID & "', " &
-                "UpdateDateTime = '" & OracleDate & "' " &
-                "where NSPSReasonCode = '" & NSPSReasonCode & "' "
+                SQL = "Update FSLK_NSPSReason set " &
+                "Description = @description , " &
+                "Active = @active , " &
+                "updateUser = @user , " &
+                "UpdateDateTime = getdate() " &
+                "where NSPSReasonCode = @reason "
+                Dim p As SqlParameter() = {
+                    New SqlParameter("@description", Description),
+                    New SqlParameter("@active", ActiveStatus),
+                    New SqlParameter("@user", CurrentUser.UserID),
+                    New SqlParameter("@reason", NSPSReasonCode)
+                }
+                DB.RunCommand(SQL, p)
             End If
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
-
-            Return True
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Function
-
-    Function Insert_FSLK_NSPSReasonYear(ByVal numFeeYear As String, ByVal NSPSReasonCode As String, ByVal DisplayOrder As String) As Boolean
-        Try
-            Dim SQL As String = "Insert into AIRBRANCH.FSLK_NSPSReasonYear " &
-            "values " &
-            "('" & numFeeYear & "', '" & NSPSReasonCode & "', " &
-            "'" & DisplayOrder & "', '1', " &
-            "'" & CurrentUser.UserID & "', '" & OracleDate & "', " &
-            "'" & OracleDate & "') "
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Function
-
-    Function Update_FSLK_NSPSReasonYear(ByVal numFeeYear As String, ByVal NSPSReasonCode As String, ByVal DisplayOrder As String,
-                                       ByVal ActiveStatus As String) As Boolean
-        Try
-            Dim SQL As String = "Update AIRBRANCH.FSLK_NSPSReasonYear set " &
-            "NSPSReasonCode = '" & NSPSReasonCode & "', " &
-            "DisplayOrder = '" & DisplayOrder & "', " &
-            "Active = '" & ActiveStatus & "', " &
-            "updateUser = '" & CurrentUser.UserID & "', " &
-            "updateDateTime = '" & OracleDate & "' " &
-            "where numFeeYear = '" & numFeeYear & "' " &
-            "and NSPSReasonCode = '" & NSPSReasonCode & "' "
-
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
             Return True
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Function
 
-#End Region
+    Private Function Insert_FSLK_NSPSReasonYear(numFeeYear As String, NSPSReasonCode As String, DisplayOrder As String) As Boolean
+        Try
+            Dim SQL As String = "Insert into FSLK_NSPSReasonYear " &
+                " ( NUMFEEYEAR, NSPSREASONCODE, DISPLAYORDER, ACTIVE, UPDATEUSER, UPDATEDATETIME, CREATEDATETIME ) " &
+                " values " &
+                " ( @NUMFEEYEAR, @NSPSREASONCODE, @DISPLAYORDER, 1, @UPDATEUSER, getdate(), getdate() ) "
+            Dim p As SqlParameter() = {
+                New SqlParameter("NUMFEEYEAR", numFeeYear),
+                New SqlParameter("NSPSREASONCODE", NSPSReasonCode),
+                New SqlParameter("DISPLAYORDER", DisplayOrder),
+                New SqlParameter("UPDATEUSER", CurrentUser.UserID)
+            }
+            DB.RunCommand(SQL, p)
+            Return True
+        Catch ex As Exception
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Function
+
+    Private Function Update_FSLK_NSPSReasonYear(numFeeYear As String, NSPSReasonCode As String, DisplayOrder As String,
+                                       ActiveStatus As String) As Boolean
+        Try
+            Dim SQL As String = "Update FSLK_NSPSReasonYear set " &
+                "DisplayOrder = @DisplayOrder, " &
+                "Active = @Active, " &
+                "updateUser = @updateUser, " &
+                "updateDateTime = getdate() " &
+                "where numFeeYear = @numFeeYear " &
+                "and NSPSReasonCode = @NSPSReasonCode "
+            Dim p As SqlParameter() = {
+                New SqlParameter("@DisplayOrder", DisplayOrder),
+                New SqlParameter("@Active", ActiveStatus),
+                New SqlParameter("@updateUser", CurrentUser.UserID),
+                New SqlParameter("@numFeeYear", numFeeYear),
+                New SqlParameter("@NSPSReasonCode", NSPSReasonCode)
+            }
+
+            DB.RunCommand(SQL, p)
+            Return True
+        Catch ex As Exception
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
+    End Function
 
 End Class

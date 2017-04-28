@@ -5,7 +5,7 @@ Module MD5
 
     ' Hash an input string and return the hash as
     ' a 32 character hexadecimal string.
-    Function getMd5Hash(ByVal input As String) As String
+    Function getMd5Hash(input As String) As String
         ' Create a new instance of the MD5CryptoServiceProvider object.
         Dim md5Hasher As New MD5CryptoServiceProvider()
 

@@ -7,7 +7,7 @@
     <ProjectGuid>{B92680E9-391D-4109-993E-53E5B6946E93}</ProjectGuid>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ApplicationIcon>Resources\Seal_of_Georgia_gold.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\EpdIcon.ico</ApplicationIcon>
     <AssemblyKeyContainerName>
     </AssemblyKeyContainerName>
     <AssemblyName>IAIP</AssemblyName>
@@ -31,7 +31,7 @@
     </UpgradeBackupLocation>
     <TargetZone>LocalIntranet</TargetZone>
     <GenerateManifests>true</GenerateManifests>
-    <ManifestCertificateThumbprint>755723B31A2B05F36DFB67C559B6AE9751AD22B5</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>114A69E86BA4219ABC3489DBC242BE823DE335FF</ManifestCertificateThumbprint>
     <ManifestKeyFile>IAIP_TemporaryKey.pfx</ManifestKeyFile>
     <SignManifests>true</SignManifests>
     <IsWebBootstrapper>true</IsWebBootstrapper>
@@ -53,11 +53,11 @@
     <InstallUrl>http://dmu.georgiaair.org/iaip/install/</InstallUrl>
     <ProductName>Integrated Air Information Platform</ProductName>
     <PublisherName>State of Georgia</PublisherName>
-    <MinimumRequiredVersion>4.5.2.0</MinimumRequiredVersion>
+    <MinimumRequiredVersion>5.0.0.0</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>installer.html</WebPage>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>4.5.3.0</ApplicationVersion>
+    <ApplicationVersion>5.0.0.0</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -76,6 +76,7 @@
     <PlatformTarget>x86</PlatformTarget>
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <CodeAnalysisRuleSet>..\Code Analysis\IAIP.ruleset</CodeAnalysisRuleSet>
+    <DocumentationFile>IAIP.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -83,8 +84,7 @@
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\x86\Debug\</OutputPath>
     <BaseAddress>285212672</BaseAddress>
-    <DocumentationFile>
-    </DocumentationFile>
+    <DocumentationFile>IAIP.xml</DocumentationFile>
     <WarningLevel>1</WarningLevel>
     <NoWarn>42016,42017,42018,42019,42032,42353,42354,42355</NoWarn>
     <DebugType>full</DebugType>
@@ -97,8 +97,7 @@
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\x86\Release\</OutputPath>
     <BaseAddress>285212672</BaseAddress>
-    <DocumentationFile>
-    </DocumentationFile>
+    <DocumentationFile>IAIP.xml</DocumentationFile>
     <Optimize>true</Optimize>
     <WarningLevel>1</WarningLevel>
     <NoWarn>42016,42017,42018,42019,42032,42353,42354,42355</NoWarn>
@@ -115,6 +114,10 @@
     <Reference Include="CrystalDecisions.ReportSource, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="CrystalDecisions.Shared, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="CrystalDecisions.Windows.Forms, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="EpdIt.DbHelper, Version=1.2.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\EpdIt.DbHelper.1.2.1\lib\net452\EpdIt.DbHelper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="EQATEC.Analytics.Monitor, Version=3.3.43.0, Culture=neutral, PublicKeyToken=213c7c68adb58a17, processorArchitecture=MSIL">
       <HintPath>..\packages\EQATEC.Analytics.Monitor.3.3.43\lib\Net20\EQATEC.Analytics.Monitor.dll</HintPath>
       <Private>True</Private>
@@ -201,13 +204,19 @@
     <Compile Include="Users\IaipRequestUsername.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="_Code\IntegerConvert.vb" />
     <Compile Include="_Code\BooleanEnums.vb" />
+    <Compile Include="_Code\BooleanConvert.vb" />
     <Compile Include="_Code\DateFunctions.vb" />
+    <Compile Include="_Code\SaveFile.vb" />
     <Compile Include="_Code\StringFunctions.vb" />
     <Compile Include="_Code\UrlHandler.vb" />
+    <Compile Include="_DAL\DAL.IaipErrorLogging.vb" />
     <Compile Include="_DAL\DAL.Organization.vb" />
+    <Compile Include="_DAL\DAL.State.vb" />
+    <Compile Include="_DAL\DAL.Rules.vb" />
+    <Compile Include="_DAL\TableValuedParameter.vb" />
     <Compile Include="_Data Models\Users\IaipRoles.vb" />
-    <Compile Include="_DB\DB.SPFunctions.vb" />
     <Compile Include="_Code\RegexPatterns.vb" />
     <Compile Include="_Code\IaipValidation.vb" />
     <EmbeddedResource Include="Users\IaipResetPassword.resx">
@@ -768,12 +777,6 @@
     <Compile Include="SSCP\SubPages\SSCPEnforcementChecklist.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SSCP\SubPages\SSCPEnforcementSelector.Designer.vb">
-      <DependentUpon>SSCPEnforcementSelector.vb</DependentUpon>
-    </Compile>
-    <Compile Include="SSCP\SubPages\SSCPEnforcementSelector.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="SSPP\SSPPPublicNoticiesAndAdvisories.Designer.vb">
       <DependentUpon>SSPPPublicNoticiesAndAdvisories.vb</DependentUpon>
     </Compile>
@@ -823,7 +826,6 @@
     <Compile Include="_Data Models\SSCP\Work Item\Apb.Sscp.RmpInspection.vb" />
     <Compile Include="_Data Models\SSCP\Work Item\Apb.Sscp.StackTest.vb" />
     <Compile Include="_Code\SharedData.vb" />
-    <Compile Include="_DB\DB.QueryFunctions.vb" />
     <Compile Include="_Code\ErrorReporting.vb" />
     <Compile Include="_Code\ExcelExport.vb" />
     <Compile Include="_Code\Extensions.vb" />
@@ -900,10 +902,10 @@
     <Compile Include="Facility\Sub Forms\IAIPEditHeaderData.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Facility\Sub Forms\IAIPEditSubParts.Designer.vb">
-      <DependentUpon>IAIPEditSubParts.vb</DependentUpon>
+    <Compile Include="Facility\Sub Forms\IAIPEditSubparts.Designer.vb">
+      <DependentUpon>IAIPEditSubparts.vb</DependentUpon>
     </Compile>
-    <Compile Include="Facility\Sub Forms\IAIPEditSubParts.vb">
+    <Compile Include="Facility\Sub Forms\IAIPEditSubparts.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Facility\Sub Forms\IAIPEditContacts.Designer.vb">
@@ -1314,10 +1316,6 @@
       <DependentUpon>SSCPEnforcementChecklist.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SSCP\SubPages\SSCPEnforcementSelector.resx">
-      <DependentUpon>SSCPEnforcementSelector.vb</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="SSPP\SSPPPublicNoticiesAndAdvisories.resx">
       <DependentUpon>SSPPPublicNoticiesAndAdvisories.vb</DependentUpon>
       <SubType>Designer</SubType>
@@ -1385,9 +1383,9 @@
       <SubType>Designer</SubType>
       <DependentUpon>IAIPEditHeaderData.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Facility\Sub Forms\IAIPEditSubParts.resx">
+    <EmbeddedResource Include="Facility\Sub Forms\IAIPEditSubparts.resx">
       <SubType>Designer</SubType>
-      <DependentUpon>IAIPEditSubParts.vb</DependentUpon>
+      <DependentUpon>IAIPEditSubparts.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Facility\Sub Forms\IAIPEditContacts.resx">
       <SubType>Designer</SubType>
@@ -1411,12 +1409,16 @@
     <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\EpdLogo.png" />
+    <None Include="Resources\EpdIcon.ico" />
+    <None Include="Resources\DevIcon.ico" />
+    <None Include="Resources\DevLogo.png" />
     <None Include="Resources\WarningIcon32.ico" />
     <None Include="Resources\ErrorIcon32.ico" />
     <None Include="Resources\PrintPreviewIcon.png" />
     <None Include="Resources\GeorgiaStaticMap.png" />
-    <None Include="Resources\Seal_of_Georgia_unfinished_256x256x32.png" />
-    <None Include="Resources\Seal_of_Georgia_unfinished_Win7.ico" />
+    <None Include="Resources\UatIcon.ico" />
+    <None Include="Resources\UatLogo.png" />
     <Content Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
@@ -1425,9 +1427,6 @@
     <None Include="Resources\EraseIcon.png" />
     <None Include="Resources\FindIcon.png" />
     <None Include="Resources\SaveIcon.png" />
-    <None Include="Resources\Seal_of_Georgia_gold.ico" />
-    <None Include="Resources\Seal_of_Georgia_red_small.ico" />
-    <None Include="Resources\Seal_of_Georgia_gold_256x256x32.png" />
     <Compile Include="DMU\DmuEdtErrorDetail.Designer.vb">
       <DependentUpon>DmuEdtErrorDetail.vb</DependentUpon>
     </Compile>
@@ -1464,7 +1463,7 @@
     <Compile Include="_Data Models\Facilities\FacilityHeaderData.vb" />
     <Compile Include="_Data Models\SSPP\Apb.Sspp.Permit.vb" />
     <Compile Include="_DAL\DAL.Dmu.EdtError.vb" />
-    <Compile Include="_DAL\Facilities\DAL.FacilitySummary.vb" />
+    <Compile Include="_DAL\Facilities\DAL.FacilitySummaryData.vb" />
     <Compile Include="_DAL\DAL.Ismp.StackTest.vb">
       <SubType>Code</SubType>
     </Compile>
@@ -1479,7 +1478,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="_DAL\DAL.Sspp.Permit.vb" />
-    <Compile Include="_DB\DB.Connections.vb" />
+    <Compile Include="_Code\DbConnections.vb" />
     <Compile Include="Crystal Reports\CRViewerForm.Designer.vb">
       <DependentUpon>CRViewerForm.vb</DependentUpon>
     </Compile>
@@ -1553,7 +1552,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="_Data Models\SSCP\Work Item\Apb.Sscp.Acc.vb" />
-    <Compile Include="_DAL\Facilities\DAL.Facility.vb" />
+    <Compile Include="_DAL\Facilities\DAL.FacilityData.vb" />
     <Compile Include="_DAL\DAL.Staff.vb" />
     <Compile Include="SSCP\SscpDocuments.Designer.vb">
       <DependentUpon>SscpDocuments.vb</DependentUpon>
@@ -1582,7 +1581,6 @@
     <Compile Include="_DAL\SSCP\DAL.Sscp.Enforcement.vb" />
     <Compile Include="_DAL\DAL.Documents.vb" />
     <Compile Include="_DAL\DAL.EventRegistration.vb" />
-    <Compile Include="_DB\DB.Utilities.vb" />
     <Compile Include="_Code\EqatecAnalytics.vb" />
     <Compile Include="_Code\BitFields.vb" />
     <Compile Include="_Code\CrystalReports.vb" />
@@ -1598,7 +1596,6 @@
     <Compile Include="_Code\MD5.vb" />
     <Compile Include="_Code\DocumentMessages.vb" />
     <Compile Include="_Code\OutlookEmail.vb" />
-    <Compile Include="_Code\SimpleCrypt.vb" />
     <Compile Include="_Code\StartupShutdown.vb">
       <SubType>Code</SubType>
     </Compile>
@@ -1652,8 +1649,6 @@
       <IncludeHash>True</IncludeHash>
       <FileType>Assembly</FileType>
     </PublishFile>
-  </ItemGroup>
-  <ItemGroup>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />

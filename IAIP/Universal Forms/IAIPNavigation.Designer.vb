@@ -20,7 +20,7 @@ Partial Class IAIPNavigation
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.MainMenu1 = New System.Windows.Forms.MainMenu(Me.components)
         Me.mmiFile = New System.Windows.Forms.MenuItem()
         Me.mmiExit = New System.Windows.Forms.MenuItem()
@@ -28,6 +28,7 @@ Partial Class IAIPNavigation
         Me.mmiExport = New System.Windows.Forms.MenuItem()
         Me.ProfileMenuItem = New System.Windows.Forms.MenuItem()
         Me.UsernameDisplay = New System.Windows.Forms.MenuItem()
+        Me.UsernameSeparator = New System.Windows.Forms.MenuItem()
         Me.UpdateProfile = New System.Windows.Forms.MenuItem()
         Me.ChangePassword = New System.Windows.Forms.MenuItem()
         Me.LogOut = New System.Windows.Forms.MenuItem()
@@ -37,8 +38,7 @@ Partial Class IAIPNavigation
         Me.mmiSeparator1 = New System.Windows.Forms.MenuItem()
         Me.mmiAbout = New System.Windows.Forms.MenuItem()
         Me.TestingMenu = New System.Windows.Forms.MenuItem()
-        Me.TestPingDb = New System.Windows.Forms.MenuItem()
-        Me.TestThrowError = New System.Windows.Forms.MenuItem()
+        Me.RunTest = New System.Windows.Forms.MenuItem()
         Me.lblTitle = New System.Windows.Forms.Label()
         Me.flpNavButtons = New System.Windows.Forms.FlowLayoutPanel()
         Me.grpQuickAccess = New System.Windows.Forms.GroupBox()
@@ -72,26 +72,26 @@ Partial Class IAIPNavigation
         Me.pnlProgram = New System.Windows.Forms.ToolStripStatusLabel()
         Me.pnlDate = New System.Windows.Forms.ToolStripStatusLabel()
         Me.pnlDbEnv = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.rdbPMView = New System.Windows.Forms.RadioButton()
-        Me.rdbUCView = New System.Windows.Forms.RadioButton()
+        Me.rdbAllView = New System.Windows.Forms.RadioButton()
+        Me.rdbUnitView = New System.Windows.Forms.RadioButton()
         Me.rdbStaffView = New System.Windows.Forms.RadioButton()
-        Me.btnChangeWorkViewerContext = New System.Windows.Forms.Button()
+        Me.btnLoadNavWorkList = New System.Windows.Forms.Button()
         Me.lblWorkViewerContext = New System.Windows.Forms.Label()
-        Me.cboWorkViewerContext = New System.Windows.Forms.ComboBox()
         Me.lblResultsCount = New System.Windows.Forms.Label()
         Me.bgrLoadWorkViewer = New System.ComponentModel.BackgroundWorker()
         Me.lblMessageLabel = New System.Windows.Forms.Label()
         Me.bgrUserPermissions = New System.ComponentModel.BackgroundWorker()
         Me.pnlCurrentList = New System.Windows.Forms.Panel()
-        Me.ListChangerPanel = New System.Windows.Forms.Panel()
-        Me.pnlContextSubView = New System.Windows.Forms.Panel()
+        Me.NavWorkListChangerPanel = New System.Windows.Forms.Panel()
+        Me.cboNavWorkListContext = New System.Windows.Forms.ComboBox()
+        Me.NavWorkListScopePanel = New System.Windows.Forms.Panel()
         Me.dgvWorkViewer = New System.Windows.Forms.DataGridView()
         Me.grpQuickAccess.SuspendLayout()
         Me.SbeapQuickAccessPanel.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
         Me.pnlCurrentList.SuspendLayout()
-        Me.ListChangerPanel.SuspendLayout()
-        Me.pnlContextSubView.SuspendLayout()
+        Me.NavWorkListChangerPanel.SuspendLayout()
+        Me.NavWorkListScopePanel.SuspendLayout()
         CType(Me.dgvWorkViewer, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -125,7 +125,7 @@ Partial Class IAIPNavigation
         'ProfileMenuItem
         '
         Me.ProfileMenuItem.Index = 2
-        Me.ProfileMenuItem.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.UsernameDisplay, Me.UpdateProfile, Me.ChangePassword, Me.LogOut})
+        Me.ProfileMenuItem.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.UsernameDisplay, Me.UsernameSeparator, Me.UpdateProfile, Me.ChangePassword, Me.LogOut})
         Me.ProfileMenuItem.Text = "&Account"
         '
         'UsernameDisplay
@@ -134,19 +134,24 @@ Partial Class IAIPNavigation
         Me.UsernameDisplay.Index = 0
         Me.UsernameDisplay.Text = "Logged in as username"
         '
+        'UsernameSeparator
+        '
+        Me.UsernameSeparator.Index = 1
+        Me.UsernameSeparator.Text = "-"
+        '
         'UpdateProfile
         '
-        Me.UpdateProfile.Index = 1
+        Me.UpdateProfile.Index = 2
         Me.UpdateProfile.Text = "&Update profile"
         '
         'ChangePassword
         '
-        Me.ChangePassword.Index = 2
+        Me.ChangePassword.Index = 3
         Me.ChangePassword.Text = "&Change password"
         '
         'LogOut
         '
-        Me.LogOut.Index = 3
+        Me.LogOut.Index = 4
         Me.LogOut.Text = "&Log out"
         '
         'mmiHelp
@@ -179,20 +184,14 @@ Partial Class IAIPNavigation
         'TestingMenu
         '
         Me.TestingMenu.Index = 4
-        Me.TestingMenu.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.TestPingDb, Me.TestThrowError})
+        Me.TestingMenu.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.RunTest})
         Me.TestingMenu.Text = "T&esting"
         Me.TestingMenu.Visible = False
         '
-        'TestPingDb
+        'RunTest
         '
-        Me.TestPingDb.Index = 0
-        Me.TestPingDb.Text = "PingDB"
-        Me.TestPingDb.Visible = False
-        '
-        'TestThrowError
-        '
-        Me.TestThrowError.Index = 1
-        Me.TestThrowError.Text = "Throw error"
+        Me.RunTest.Index = 0
+        Me.RunTest.Text = "Run test"
         '
         'lblTitle
         '
@@ -603,52 +602,52 @@ Partial Class IAIPNavigation
         Me.pnlDbEnv.Size = New System.Drawing.Size(83, 19)
         Me.pnlDbEnv.Text = "Environment"
         '
-        'rdbPMView
+        'rdbAllView
         '
-        Me.rdbPMView.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.rdbPMView.AutoSize = True
-        Me.rdbPMView.Location = New System.Drawing.Point(158, 7)
-        Me.rdbPMView.Name = "rdbPMView"
-        Me.rdbPMView.Size = New System.Drawing.Size(90, 17)
-        Me.rdbPMView.TabIndex = 4
-        Me.rdbPMView.Text = "Program View"
-        Me.rdbPMView.UseVisualStyleBackColor = True
+        Me.rdbAllView.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.rdbAllView.AutoSize = True
+        Me.rdbAllView.Location = New System.Drawing.Point(158, 8)
+        Me.rdbAllView.Name = "rdbAllView"
+        Me.rdbAllView.Size = New System.Drawing.Size(62, 17)
+        Me.rdbAllView.TabIndex = 4
+        Me.rdbAllView.Text = "View All"
+        Me.rdbAllView.UseVisualStyleBackColor = True
         '
-        'rdbUCView
+        'rdbUnitView
         '
-        Me.rdbUCView.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.rdbUCView.AutoSize = True
-        Me.rdbUCView.Location = New System.Drawing.Point(82, 7)
-        Me.rdbUCView.Name = "rdbUCView"
-        Me.rdbUCView.Size = New System.Drawing.Size(70, 17)
-        Me.rdbUCView.TabIndex = 3
-        Me.rdbUCView.Text = "Unit View"
-        Me.rdbUCView.UseVisualStyleBackColor = True
+        Me.rdbUnitView.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.rdbUnitView.AutoSize = True
+        Me.rdbUnitView.Location = New System.Drawing.Point(82, 8)
+        Me.rdbUnitView.Name = "rdbUnitView"
+        Me.rdbUnitView.Size = New System.Drawing.Size(70, 17)
+        Me.rdbUnitView.TabIndex = 3
+        Me.rdbUnitView.Text = "View Unit"
+        Me.rdbUnitView.UseVisualStyleBackColor = True
         '
         'rdbStaffView
         '
         Me.rdbStaffView.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.rdbStaffView.AutoSize = True
         Me.rdbStaffView.Checked = True
-        Me.rdbStaffView.Location = New System.Drawing.Point(3, 7)
+        Me.rdbStaffView.Location = New System.Drawing.Point(3, 8)
         Me.rdbStaffView.Name = "rdbStaffView"
         Me.rdbStaffView.Size = New System.Drawing.Size(73, 17)
         Me.rdbStaffView.TabIndex = 2
         Me.rdbStaffView.TabStop = True
-        Me.rdbStaffView.Text = "Staff View"
+        Me.rdbStaffView.Text = "View Staff"
         Me.rdbStaffView.UseVisualStyleBackColor = True
         '
-        'btnChangeWorkViewerContext
+        'btnLoadNavWorkList
         '
-        Me.btnChangeWorkViewerContext.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnChangeWorkViewerContext.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnChangeWorkViewerContext.Enabled = False
-        Me.btnChangeWorkViewerContext.Location = New System.Drawing.Point(272, 5)
-        Me.btnChangeWorkViewerContext.Name = "btnChangeWorkViewerContext"
-        Me.btnChangeWorkViewerContext.Size = New System.Drawing.Size(61, 23)
-        Me.btnChangeWorkViewerContext.TabIndex = 1
-        Me.btnChangeWorkViewerContext.Text = "Loading…"
-        Me.btnChangeWorkViewerContext.UseVisualStyleBackColor = True
+        Me.btnLoadNavWorkList.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnLoadNavWorkList.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.btnLoadNavWorkList.Enabled = False
+        Me.btnLoadNavWorkList.Location = New System.Drawing.Point(272, 5)
+        Me.btnLoadNavWorkList.Name = "btnLoadNavWorkList"
+        Me.btnLoadNavWorkList.Size = New System.Drawing.Size(61, 23)
+        Me.btnLoadNavWorkList.TabIndex = 1
+        Me.btnLoadNavWorkList.Text = "Loadingâ€¦"
+        Me.btnLoadNavWorkList.UseVisualStyleBackColor = True
         '
         'lblWorkViewerContext
         '
@@ -659,17 +658,6 @@ Partial Class IAIPNavigation
         Me.lblWorkViewerContext.Size = New System.Drawing.Size(63, 13)
         Me.lblWorkViewerContext.TabIndex = 294
         Me.lblWorkViewerContext.Text = "Current List:"
-        '
-        'cboWorkViewerContext
-        '
-        Me.cboWorkViewerContext.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.cboWorkViewerContext.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cboWorkViewerContext.FormattingEnabled = True
-        Me.cboWorkViewerContext.Location = New System.Drawing.Point(73, 6)
-        Me.cboWorkViewerContext.Name = "cboWorkViewerContext"
-        Me.cboWorkViewerContext.Size = New System.Drawing.Size(193, 21)
-        Me.cboWorkViewerContext.TabIndex = 0
         '
         'lblResultsCount
         '
@@ -704,7 +692,7 @@ Partial Class IAIPNavigation
         '
         'pnlCurrentList
         '
-        Me.pnlCurrentList.Controls.Add(Me.ListChangerPanel)
+        Me.pnlCurrentList.Controls.Add(Me.NavWorkListChangerPanel)
         Me.pnlCurrentList.Controls.Add(Me.lblResultsCount)
         Me.pnlCurrentList.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.pnlCurrentList.Location = New System.Drawing.Point(118, 220)
@@ -712,30 +700,41 @@ Partial Class IAIPNavigation
         Me.pnlCurrentList.Size = New System.Drawing.Size(686, 37)
         Me.pnlCurrentList.TabIndex = 1
         '
-        'ListChangerPanel
+        'NavWorkListChangerPanel
         '
-        Me.ListChangerPanel.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+        Me.NavWorkListChangerPanel.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ListChangerPanel.Controls.Add(Me.btnChangeWorkViewerContext)
-        Me.ListChangerPanel.Controls.Add(Me.lblWorkViewerContext)
-        Me.ListChangerPanel.Controls.Add(Me.cboWorkViewerContext)
-        Me.ListChangerPanel.Controls.Add(Me.pnlContextSubView)
-        Me.ListChangerPanel.Location = New System.Drawing.Point(0, 0)
-        Me.ListChangerPanel.MaximumSize = New System.Drawing.Size(630, 37)
-        Me.ListChangerPanel.Name = "ListChangerPanel"
-        Me.ListChangerPanel.Size = New System.Drawing.Size(594, 37)
-        Me.ListChangerPanel.TabIndex = 296
+        Me.NavWorkListChangerPanel.Controls.Add(Me.cboNavWorkListContext)
+        Me.NavWorkListChangerPanel.Controls.Add(Me.btnLoadNavWorkList)
+        Me.NavWorkListChangerPanel.Controls.Add(Me.lblWorkViewerContext)
+        Me.NavWorkListChangerPanel.Controls.Add(Me.NavWorkListScopePanel)
+        Me.NavWorkListChangerPanel.Location = New System.Drawing.Point(0, 0)
+        Me.NavWorkListChangerPanel.MaximumSize = New System.Drawing.Size(630, 37)
+        Me.NavWorkListChangerPanel.Name = "NavWorkListChangerPanel"
+        Me.NavWorkListChangerPanel.Size = New System.Drawing.Size(594, 37)
+        Me.NavWorkListChangerPanel.TabIndex = 296
         '
-        'pnlContextSubView
+        'cboNavWorkListContext
         '
-        Me.pnlContextSubView.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.pnlContextSubView.Controls.Add(Me.rdbStaffView)
-        Me.pnlContextSubView.Controls.Add(Me.rdbUCView)
-        Me.pnlContextSubView.Controls.Add(Me.rdbPMView)
-        Me.pnlContextSubView.Location = New System.Drawing.Point(342, 0)
-        Me.pnlContextSubView.Name = "pnlContextSubView"
-        Me.pnlContextSubView.Size = New System.Drawing.Size(252, 30)
-        Me.pnlContextSubView.TabIndex = 295
+        Me.cboNavWorkListContext.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.cboNavWorkListContext.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboNavWorkListContext.FormattingEnabled = True
+        Me.cboNavWorkListContext.Location = New System.Drawing.Point(73, 6)
+        Me.cboNavWorkListContext.Name = "cboNavWorkListContext"
+        Me.cboNavWorkListContext.Size = New System.Drawing.Size(193, 21)
+        Me.cboNavWorkListContext.TabIndex = 266
+        '
+        'NavWorkListScopePanel
+        '
+        Me.NavWorkListScopePanel.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.NavWorkListScopePanel.Controls.Add(Me.rdbStaffView)
+        Me.NavWorkListScopePanel.Controls.Add(Me.rdbUnitView)
+        Me.NavWorkListScopePanel.Controls.Add(Me.rdbAllView)
+        Me.NavWorkListScopePanel.Location = New System.Drawing.Point(342, 0)
+        Me.NavWorkListScopePanel.Name = "NavWorkListScopePanel"
+        Me.NavWorkListScopePanel.Size = New System.Drawing.Size(252, 30)
+        Me.NavWorkListScopePanel.TabIndex = 295
         '
         'dgvWorkViewer
         '
@@ -743,8 +742,8 @@ Partial Class IAIPNavigation
         Me.dgvWorkViewer.AllowUserToDeleteRows = False
         Me.dgvWorkViewer.AllowUserToOrderColumns = True
         Me.dgvWorkViewer.AllowUserToResizeRows = False
-        DataGridViewCellStyle2.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgvWorkViewer.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvWorkViewer.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.dgvWorkViewer.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
         Me.dgvWorkViewer.ColumnHeadersHeight = 35
         Me.dgvWorkViewer.Dock = System.Windows.Forms.DockStyle.Fill
@@ -782,10 +781,10 @@ Partial Class IAIPNavigation
         Me.StatusStrip1.ResumeLayout(False)
         Me.StatusStrip1.PerformLayout()
         Me.pnlCurrentList.ResumeLayout(False)
-        Me.ListChangerPanel.ResumeLayout(False)
-        Me.ListChangerPanel.PerformLayout()
-        Me.pnlContextSubView.ResumeLayout(False)
-        Me.pnlContextSubView.PerformLayout()
+        Me.NavWorkListChangerPanel.ResumeLayout(False)
+        Me.NavWorkListChangerPanel.PerformLayout()
+        Me.NavWorkListScopePanel.ResumeLayout(False)
+        Me.NavWorkListScopePanel.PerformLayout()
         CType(Me.dgvWorkViewer, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
@@ -813,19 +812,17 @@ Partial Class IAIPNavigation
     Friend WithEvents lblMessageLabel As System.Windows.Forms.Label
     Friend WithEvents mmiOnlineHelp As System.Windows.Forms.MenuItem
     Friend WithEvents Label8 As System.Windows.Forms.Label
-    Friend WithEvents btnChangeWorkViewerContext As System.Windows.Forms.Button
+    Friend WithEvents btnLoadNavWorkList As System.Windows.Forms.Button
     Friend WithEvents lblWorkViewerContext As System.Windows.Forms.Label
-    Friend WithEvents cboWorkViewerContext As System.Windows.Forms.ComboBox
-    Friend WithEvents rdbPMView As System.Windows.Forms.RadioButton
-    Friend WithEvents rdbUCView As System.Windows.Forms.RadioButton
+    Friend WithEvents rdbAllView As System.Windows.Forms.RadioButton
+    Friend WithEvents rdbUnitView As System.Windows.Forms.RadioButton
     Friend WithEvents rdbStaffView As System.Windows.Forms.RadioButton
     Friend WithEvents mmiExport As System.Windows.Forms.MenuItem
     Friend WithEvents mmiSeparator1 As System.Windows.Forms.MenuItem
     Friend WithEvents TestingMenu As System.Windows.Forms.MenuItem
     Friend WithEvents mmiResetForm As System.Windows.Forms.MenuItem
     Friend WithEvents pnlCurrentList As System.Windows.Forms.Panel
-    Friend WithEvents pnlContextSubView As System.Windows.Forms.Panel
-    Friend WithEvents TestPingDb As System.Windows.Forms.MenuItem
+    Friend WithEvents NavWorkListScopePanel As System.Windows.Forms.Panel
     Friend WithEvents flpNavButtons As System.Windows.Forms.FlowLayoutPanel
     Friend WithEvents SbeapCaseLogNumberLabel As System.Windows.Forms.Label
     Friend WithEvents SbeapClientIDLabel As System.Windows.Forms.Label
@@ -849,11 +846,13 @@ Partial Class IAIPNavigation
     Private WithEvents bgrLoadWorkViewer As System.ComponentModel.BackgroundWorker
     Private WithEvents bgrUserPermissions As System.ComponentModel.BackgroundWorker
     Friend WithEvents dgvWorkViewer As System.Windows.Forms.DataGridView
-    Friend WithEvents ListChangerPanel As System.Windows.Forms.Panel
-    Friend WithEvents TestThrowError As System.Windows.Forms.MenuItem
+    Friend WithEvents NavWorkListChangerPanel As System.Windows.Forms.Panel
+    Friend WithEvents RunTest As System.Windows.Forms.MenuItem
     Friend WithEvents ProfileMenuItem As System.Windows.Forms.MenuItem
     Friend WithEvents UpdateProfile As System.Windows.Forms.MenuItem
     Friend WithEvents ChangePassword As System.Windows.Forms.MenuItem
     Friend WithEvents LogOut As System.Windows.Forms.MenuItem
     Friend WithEvents UsernameDisplay As MenuItem
+    Friend WithEvents cboNavWorkListContext As ComboBox
+    Friend WithEvents UsernameSeparator As MenuItem
 End Class

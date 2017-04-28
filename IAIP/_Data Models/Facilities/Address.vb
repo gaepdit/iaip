@@ -18,14 +18,19 @@
 
     Private Function CompileAddressString(linear As Boolean) As String
         Dim cityState As String = ConcatNonEmptyStrings(", ", {Me.City, Me.State})
-        Dim zip As String = Me.PostalCode
-        If zip IsNot Nothing AndAlso zip.Length = 9 AndAlso IsNumeric(zip) Then
-            zip = zip.Insert(5, "-")
-        End If
+        Dim zip As String = FormatPostalCode(Me.PostalCode)
         If linear Then
             Return ConcatNonEmptyStrings(", ", {Me.Street, Me.Street2, cityState & " " & zip})
         Else
             Return ConcatNonEmptyStrings(Constants.vbNewLine, {Me.Street, Me.Street2, cityState & " " & zip})
+        End If
+    End Function
+
+    Public Shared Function FormatPostalCode(postalCode As String) As String
+        If postalCode IsNot Nothing AndAlso postalCode.Length = 9 AndAlso IsNumeric(postalCode) Then
+            Return postalCode.Insert(5, "-")
+        Else
+            Return postalCode
         End If
     End Function
 

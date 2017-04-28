@@ -1,42 +1,14 @@
-Imports Oracle.ManagedDataAccess.Client
-
+Imports System.Data.SqlClient
 
 Public Class SSPPAttainmentStatus
-    Dim SQL, SQL2 As String
-    Dim cmd, cmd2 As OracleCommand
-    Dim dr, dr2 As OracleDataReader
-    Dim recExist As Boolean
-    Dim dsAttainment As DataSet
-    Dim daAttainment As OracleDataAdapter
-    Dim dsCounty As DataSet
-    Dim daCounty As OracleDataAdapter
 
-
-    Private Sub SSPPAttainmentStatus_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-
-        Try
-
-
-            LoadAttainmentStatusComboBoxes()
-            LoadCountyComboBox()
-
-            Panel1.Text = "Select a county...."
-            Panel2.Text = CurrentUser.AlphaName
-            Panel3.Text = OracleDate
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
+    Private Sub SSPPAttainmentStatus_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        LoadAttainmentStatusComboBoxes()
+        LoadCountyComboBox()
     End Sub
 
-#Region "Page Load"
-    Sub LoadAttainmentStatusComboBoxes()
+    Private Sub LoadAttainmentStatusComboBoxes()
         Try
-
-
             cboNonAttainmentStatus.Items.Clear()
             cboNonAttainmentStatus.Items.Add("-Select an Attainment Status-")
             cboNonAttainmentStatus.Items.Add("-View All-")
@@ -55,79 +27,37 @@ Public Class SSPPAttainmentStatus
             cboNonAttainmentStatus.Text = cboNonAttainmentStatus.Items.Item(0)
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
-
-
     End Sub
-    Sub LoadCountyComboBox()
+
+    Private Sub LoadCountyComboBox()
         Try
-
-
-            Dim dtCounty As New DataTable
-
-            Dim drNewRow As DataRow
-            Dim drDSRow As DataRow
-
-            SQL = "select strCountyCode, strCountyname " &
-            "from AIRBRANCH.LookUpCountyInformation " &
+            Dim query As String = "select strCountyCode, strCountyname " &
+            "from LookUpCountyInformation " &
             "order by strcountyName"
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            dsCounty = New DataSet
-            daCounty = New OracleDataAdapter(SQL, CurrentConnection)
-
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-
-            daCounty.Fill(dsCounty, "County")
-
-
-
-            dtCounty.Columns.Add("strCountyCode", GetType(System.String))
-            dtCounty.Columns.Add("strCountyName", GetType(System.String))
-
-            drNewRow = dtCounty.NewRow()
-            drNewRow("strCountyCode") = "000"
-            drNewRow("strCountyName") = "-County-"
-            dtCounty.Rows.Add(drNewRow)
-
-            For Each drDSRow In dsCounty.Tables("County").Rows()
-                drNewRow = dtCounty.NewRow
-                drNewRow("strCountyCode") = drDSRow("strCountyCode")
-                drNewRow("strCountyName") = drDSRow("strCountyName")
-                dtCounty.Rows.Add(drNewRow)
-            Next
 
             With cboCounty
-                .DataSource = dtCounty
+                .DataSource = DB.GetDataTable(query)
                 .DisplayMember = "strCountyName"
                 .ValueMember = "strCountyCode"
                 .SelectedIndex = 0
             End With
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
 
-#End Region
-#Region "Subs and Functions"
-    Sub ViewSelectedData()
+    Private Sub ViewSelectedData()
         Dim SQLClause As String = ""
 
         Select Case cboNonAttainmentStatus.Text
-            Case ("-Select an Attainment Status-")
-                SQLClause = "Where strNonAttainment like '____1'"
             Case ("-View All-")
                 SQLClause = "Where strNonAttainment like '_____'"
             Case ("1 hr Maintenance (Yes)")
@@ -156,24 +86,12 @@ Public Class SSPPAttainmentStatus
                 SQLClause = "Where strNonAttainment like '____1'"
         End Select
 
-        SQL = "Select " &
+        Dim query As String = "Select " &
         "strCountyName, strCountyCode, strNonAttainment  " &
-        "from AIRBRANCH.LookUpCountyInformation  " &
+        "from LookUpCountyInformation  " &
         SQLClause
 
-        dsAttainment = New DataSet
-        daAttainment = New OracleDataAdapter(SQL, CurrentConnection)
-
-        If CurrentConnection.State = ConnectionState.Closed Then
-            CurrentConnection.Open()
-        End If
-
-        daAttainment.Fill(dsAttainment, "Attainment")
-
-
-
-        dgvAttainmentStatus.DataSource = dsAttainment
-        dgvAttainmentStatus.DataMember = "Attainment"
+        dgvAttainmentStatus.DataSource = DB.GetDataTable(query)
 
         dgvAttainmentStatus.RowHeadersVisible = False
         dgvAttainmentStatus.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
@@ -195,28 +113,19 @@ Public Class SSPPAttainmentStatus
         dgvAttainmentStatus.Columns("strNonAttainment").Visible = False
 
     End Sub
-    Sub ViewCountyInformation()
+
+    Private Sub ViewCountyInformation()
         Try
             Dim Attainment As String = ""
 
-
-
-            SQL = "select " &
+            Dim query As String = "select " &
             "strNonAttainment " &
-            "from AIRBRANCH.LookUpCountyInformation " &
-            "where strCountyCode = '" & cboCounty.SelectedValue & "'"
+            "from LookUpCountyInformation " &
+            "where strCountyCode = @cty "
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            recExist = dr.Read
-            If recExist = True Then
-                Attainment = dr.Item("strNonAttainment")
-            End If
+            Dim p As New SqlParameter("@cty", cboCounty.SelectedValue)
 
-
+            Attainment = DB.GetString(query, p)
 
             If Attainment <> "" Then
                 Select Case Mid(Attainment, 2, 1)
@@ -258,7 +167,7 @@ Public Class SSPPAttainmentStatus
 
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -266,7 +175,8 @@ Public Class SSPPAttainmentStatus
 
 
     End Sub
-    Sub ClearForm()
+
+    Private Sub ClearForm()
         Try
 
 
@@ -276,33 +186,24 @@ Public Class SSPPAttainmentStatus
             rdbEightHourNo.Checked = True
             rdbPMFineNo.Checked = True
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Sub SaveOneHourChanges()
-        Try
 
+    Private Sub SaveOneHourChanges()
+        Try
             Dim AttainmentStatus As String = "00000"
 
-            SQL = "select strNonAttainment " &
-            "from AIRBRANCH.LookUpCountyInformation " &
-            "where strCountyCode = '" & cboCounty.SelectedValue & "' "
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                If IsDBNull(dr.Item("strNonAttainment")) Then
-                    AttainmentStatus = "00000"
-                Else
-                    AttainmentStatus = dr.Item("strNonAttainment")
-                End If
-            End While
-            dr.Close()
+            Dim query As String = "select strNonAttainment " &
+            "from LookUpCountyInformation " &
+            "where strCountyCode = @cty "
+
+            Dim p As New SqlParameter("@cty", cboCounty.SelectedValue)
+
+            AttainmentStatus = DB.GetString(query, p)
 
             If rdbOneHourNo.Checked = True Then
                 AttainmentStatus = Mid(AttainmentStatus, 1, 1) & "0" & Mid(AttainmentStatus, 3)
@@ -314,93 +215,73 @@ Public Class SSPPAttainmentStatus
                 AttainmentStatus = Mid(AttainmentStatus, 1, 1) & "2" & Mid(AttainmentStatus, 3)
             End If
 
-            SQL = "Update AIRBRANCH.LookUpCountyInformation set " &
-            "strNonAttainment = '" & AttainmentStatus & "' " &
-            "where strCountyCode = '" & cboCounty.SelectedValue & "' "
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
+            query = "Update LookUpCountyInformation set " &
+            "strNonAttainment = @att " &
+            "where strCountyCode = @cty "
 
-            SQL = "Select strAttainmentStatus, strAIRSNumber " &
-            "from AIRBRANCH.APBHeaderData " &
-            "where substr(strAIRSNumber, 5, 3) = '" & cboCounty.SelectedValue & "' "
+            Dim p2 As SqlParameter() = {
+                New SqlParameter("@att", AttainmentStatus),
+                p
+            }
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
+            DB.RunCommand(query, p2)
+
+            query = "Select strAttainmentStatus, strAIRSNumber " &
+            "from APBHeaderData " &
+            "where SUBSTRING(strAIRSNumber, 5, 3) = @cty "
+
+            Dim dt As DataTable = DB.GetDataTable(query, p)
+
+            Dim query2 As String = "Update APBHeaderData set " &
+                "strAttainmentStatus = @st " &
+                "where strAIRSNumber = @airs "
+
+            For Each dr As DataRow In dt.Rows
+                If IsDBNull(dr.Item("strAttainmentStatus")) Then
+                    AttainmentStatus = "00000"
+                Else
+                    AttainmentStatus = dr.Item("strAttainmentStatus")
+                End If
+
                 If rdbOneHourNo.Checked = True Then
-                    If IsDBNull(dr.Item("strAttainmentStatus")) Then
-                        AttainmentStatus = "00000"
-                    Else
-                        AttainmentStatus = dr.Item("strAttainmentStatus")
-                        AttainmentStatus = Mid(AttainmentStatus, 1, 1) & "0" & Mid(AttainmentStatus, 3)
-                    End If
+                    AttainmentStatus = Mid(AttainmentStatus, 1, 1) & "0" & Mid(AttainmentStatus, 3)
                 End If
+
                 If rdbOneHourYes.Checked = True Then
-                    If IsDBNull(dr.Item("strAttainmentStatus")) Then
-                        AttainmentStatus = "01000"
-                    Else
-                        AttainmentStatus = dr.Item("strAttainmentStatus")
-                        AttainmentStatus = Mid(AttainmentStatus, 1, 1) & "1" & Mid(AttainmentStatus, 3)
-                    End If
+                    AttainmentStatus = Mid(AttainmentStatus, 1, 1) & "1" & Mid(AttainmentStatus, 3)
                 End If
+
                 If rdbOneHourCont.Checked = True Then
-                    If IsDBNull(dr.Item("strAttainmentStatus")) Then
-                        AttainmentStatus = "02000"
-                    Else
-                        AttainmentStatus = dr.Item("strAttainmentStatus")
-                        AttainmentStatus = Mid(AttainmentStatus, 1, 1) & "2" & Mid(AttainmentStatus, 3)
-                    End If
+                    AttainmentStatus = Mid(AttainmentStatus, 1, 1) & "2" & Mid(AttainmentStatus, 3)
                 End If
 
-                SQL2 = "Update AIRBRANCH.APBHeaderData set " &
-                "strAttainmentStatus = '" & AttainmentStatus & "' " &
-                "where strAIRSNumber = '" & dr.Item("strAirsNumber") & "' "
+                Dim p3 As SqlParameter() = {
+                    New SqlParameter("@st", AttainmentStatus),
+                    New SqlParameter("@airs", dr.Item("strAirsNumber"))
+                }
 
-                cmd2 = New OracleCommand(SQL2, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr2 = cmd2.ExecuteReader
-                dr2.Close()
-            End While
-
-            dr.Close()
+                DB.RunCommand(query2, p3)
+            Next
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Sub SaveEightHourChanges()
-        Try
 
+    Private Sub SaveEightHourChanges()
+        Try
             Dim AttainmentStatus As String = "00000"
 
-            SQL = "select strNonAttainment " &
-            "from AIRBRANCH.LookUpCountyInformation " &
-            "where strCountyCode = '" & cboCounty.SelectedValue & "' "
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                If IsDBNull(dr.Item("strNonAttainment")) Then
-                    AttainmentStatus = "00000"
-                Else
-                    AttainmentStatus = dr.Item("strNonAttainment")
-                End If
-            End While
-            dr.Close()
+            Dim query As String = "select strNonAttainment " &
+            "from LookUpCountyInformation " &
+            "where strCountyCode = @cty "
+
+            Dim p As New SqlParameter("@cty", cboCounty.SelectedValue)
+
+            AttainmentStatus = DB.GetString(query, p)
 
             If rdbEightHourNo.Checked = True Then
                 AttainmentStatus = Mid(AttainmentStatus, 1, 2) & "0" & Mid(AttainmentStatus, 4)
@@ -412,92 +293,73 @@ Public Class SSPPAttainmentStatus
                 AttainmentStatus = Mid(AttainmentStatus, 1, 2) & "2" & Mid(AttainmentStatus, 4)
             End If
 
-            SQL = "Update AIRBRANCH.LookUpCountyInformation set " &
-            "strNonAttainment = '" & AttainmentStatus & "' " &
-            "where strCountyCode = '" & cboCounty.SelectedValue & "' "
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
+            query = "Update LookUpCountyInformation set " &
+            "strNonAttainment = @att " &
+            "where strCountyCode = @cty "
 
-            SQL = "Select strAttainmentStatus, strAIRSNumber " &
-            "from AIRBRANCH.APBHeaderData " &
-            "where substr(strAIRSNumber, 5, 3) = '" & cboCounty.SelectedValue & "' "
+            Dim p2 As SqlParameter() = {
+                New SqlParameter("@att", AttainmentStatus),
+                p
+            }
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
+            DB.RunCommand(query, p2)
+
+            query = "Select strAttainmentStatus, strAIRSNumber " &
+            "from APBHeaderData " &
+            "where SUBSTRING(strAIRSNumber, 5, 3) = @cty "
+
+            Dim dt As DataTable = DB.GetDataTable(query, p)
+
+            Dim query2 As String = "Update APBHeaderData set " &
+                "strAttainmentStatus = @st " &
+                "where strAIRSNumber = @airs "
+
+            For Each dr As DataRow In dt.Rows
+                If IsDBNull(dr.Item("strAttainmentStatus")) Then
+                    AttainmentStatus = "00000"
+                Else
+                    AttainmentStatus = dr.Item("strAttainmentStatus")
+                End If
+
                 If rdbEightHourNo.Checked = True Then
-                    If IsDBNull(dr.Item("strAttainmentStatus")) Then
-                        AttainmentStatus = "00000"
-                    Else
-                        AttainmentStatus = dr.Item("strAttainmentStatus")
-                        AttainmentStatus = Mid(AttainmentStatus, 1, 2) & "0" & Mid(AttainmentStatus, 4)
-                    End If
+                    AttainmentStatus = Mid(AttainmentStatus, 1, 2) & "0" & Mid(AttainmentStatus, 4)
                 End If
+
                 If rdbEightHourAtlanta.Checked = True Then
-                    If IsDBNull(dr.Item("strAttainmentStatus")) Then
-                        AttainmentStatus = "00100"
-                    Else
-                        AttainmentStatus = dr.Item("strAttainmentStatus")
-                        AttainmentStatus = Mid(AttainmentStatus, 1, 2) & "1" & Mid(AttainmentStatus, 4)
-                    End If
+                    AttainmentStatus = Mid(AttainmentStatus, 1, 2) & "1" & Mid(AttainmentStatus, 4)
                 End If
+
                 If rdbEightHourMacon.Checked = True Then
-                    If IsDBNull(dr.Item("strAttainmentStatus")) Then
-                        AttainmentStatus = "00200"
-                    Else
-                        AttainmentStatus = dr.Item("strAttainmentStatus")
-                        AttainmentStatus = Mid(AttainmentStatus, 1, 2) & "2" & Mid(AttainmentStatus, 4)
-                    End If
+                    AttainmentStatus = Mid(AttainmentStatus, 1, 2) & "2" & Mid(AttainmentStatus, 4)
                 End If
 
-                SQL2 = "Update AIRBRANCH.APBHeaderData set " &
-                "strAttainmentStatus = '" & AttainmentStatus & "' " &
-                "where strAIRSNumber = '" & dr.Item("strAirsNumber") & "' "
+                Dim p3 As SqlParameter() = {
+                    New SqlParameter("@st", AttainmentStatus),
+                    New SqlParameter("@airs", dr.Item("strAirsNumber"))
+                }
 
-                cmd2 = New OracleCommand(SQL2, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr2 = cmd2.ExecuteReader
-                dr2.Close()
-            End While
+                DB.RunCommand(query2, p3)
+            Next
 
-            dr.Close()
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Sub SavePMFineChanges()
-        Try
 
+    Private Sub SavePMFineChanges()
+        Try
             Dim AttainmentStatus As String = "00000"
 
-            SQL = "select strNonAttainment " &
-            "from AIRBRANCH.LookUpCountyInformation " &
-            "where strCountyCode = '" & cboCounty.SelectedValue & "' "
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
-                If IsDBNull(dr.Item("strNonAttainment")) Then
-                    AttainmentStatus = "00000"
-                Else
-                    AttainmentStatus = dr.Item("strNonAttainment")
-                End If
-            End While
-            dr.Close()
+            Dim query As String = "select strNonAttainment " &
+            "from LookUpCountyInformation " &
+            "where strCountyCode = @cty "
+
+            Dim p As New SqlParameter("@cty", cboCounty.SelectedValue)
+
+            AttainmentStatus = DB.GetString(query, p)
 
             If rdbPMFineNo.Checked = True Then
                 AttainmentStatus = Mid(AttainmentStatus, 1, 3) & "0" & Mid(AttainmentStatus, 5)
@@ -515,104 +377,86 @@ Public Class SSPPAttainmentStatus
                 AttainmentStatus = Mid(AttainmentStatus, 1, 3) & "4" & Mid(AttainmentStatus, 5)
             End If
 
-            SQL = "Update AIRBRANCH.LookUpCountyInformation set " &
-            "strNonAttainment = '" & AttainmentStatus & "' " &
-            "where strCountyCode = '" & cboCounty.SelectedValue & "' "
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            dr.Close()
+            query = "Update LookUpCountyInformation set " &
+            "strNonAttainment = @att " &
+            "where strCountyCode = @cty "
 
-            SQL = "Select strAttainmentStatus, strAIRSNumber " &
-            "from AIRBRANCH.APBHeaderData " &
-            "where substr(strAIRSNumber, 5, 3) = '" & cboCounty.SelectedValue & "' "
+            Dim p2 As SqlParameter() = {
+                New SqlParameter("@att", AttainmentStatus),
+                p
+            }
 
-            cmd = New OracleCommand(SQL, CurrentConnection)
-            If CurrentConnection.State = ConnectionState.Closed Then
-                CurrentConnection.Open()
-            End If
-            dr = cmd.ExecuteReader
-            While dr.Read
+            DB.RunCommand(query, p2)
+
+            query = "Select strAttainmentStatus, strAIRSNumber " &
+            "from APBHeaderData " &
+            "where SUBSTRING(strAIRSNumber, 5, 3) = @cty "
+
+            Dim dt As DataTable = DB.GetDataTable(query, p)
+
+            Dim query2 As String = "Update APBHeaderData set " &
+                "strAttainmentStatus = @st " &
+                "where strAIRSNumber = @airs "
+
+            For Each dr As DataRow In dt.Rows
+                If IsDBNull(dr.Item("strAttainmentStatus")) Then
+                    AttainmentStatus = "00000"
+                Else
+                    AttainmentStatus = dr.Item("strAttainmentStatus")
+                End If
+
                 If rdbPMFineNo.Checked = True Then
-                    If IsDBNull(dr.Item("strAttainmentStatus")) Then
-                        AttainmentStatus = "00000"
-                    Else
-                        AttainmentStatus = dr.Item("strAttainmentStatus")
-                        AttainmentStatus = Mid(AttainmentStatus, 1, 3) & "0" & Mid(AttainmentStatus, 5)
-                    End If
+                    AttainmentStatus = Mid(AttainmentStatus, 1, 3) & "0" & Mid(AttainmentStatus, 5)
                 End If
+
                 If rdbPMFineAtlanta.Checked = True Then
-                    If IsDBNull(dr.Item("strAttainmentStatus")) Then
-                        AttainmentStatus = "00010"
-                    Else
-                        AttainmentStatus = dr.Item("strAttainmentStatus")
-                        AttainmentStatus = Mid(AttainmentStatus, 1, 3) & "1" & Mid(AttainmentStatus, 5)
-                    End If
+                    AttainmentStatus = Mid(AttainmentStatus, 1, 3) & "1" & Mid(AttainmentStatus, 5)
                 End If
+
                 If rdbPMFineChattanooga.Checked = True Then
-                    If IsDBNull(dr.Item("strAttainmentStatus")) Then
-                        AttainmentStatus = "00020"
-                    Else
-                        AttainmentStatus = dr.Item("strAttainmentStatus")
-                        AttainmentStatus = Mid(AttainmentStatus, 1, 3) & "2" & Mid(AttainmentStatus, 5)
-                    End If
+                    AttainmentStatus = Mid(AttainmentStatus, 1, 3) & "2" & Mid(AttainmentStatus, 5)
                 End If
+
                 If rdbPMFineFloyd.Checked = True Then
-                    If IsDBNull(dr.Item("strAttainmentStatus")) Then
-                        AttainmentStatus = "00030"
-                    Else
-                        AttainmentStatus = dr.Item("strAttainmentStatus")
-                        AttainmentStatus = Mid(AttainmentStatus, 1, 3) & "3" & Mid(AttainmentStatus, 5)
-                    End If
+                    AttainmentStatus = Mid(AttainmentStatus, 1, 3) & "3" & Mid(AttainmentStatus, 5)
                 End If
+
                 If rdbPMFineMacon.Checked = True Then
-                    If IsDBNull(dr.Item("strAttainmentStatus")) Then
-                        AttainmentStatus = "00040"
-                    Else
-                        AttainmentStatus = dr.Item("strAttainmentStatus")
-                        AttainmentStatus = Mid(AttainmentStatus, 1, 3) & "4" & Mid(AttainmentStatus, 5)
-                    End If
+                    AttainmentStatus = Mid(AttainmentStatus, 1, 3) & "4" & Mid(AttainmentStatus, 5)
                 End If
 
-                SQL2 = "Update AIRBRANCH.APBHeaderData set " &
-                "strAttainmentStatus = '" & AttainmentStatus & "' " &
-                "where strAIRSNumber = '" & dr.Item("strAirsNumber") & "' "
+                Dim p3 As SqlParameter() = {
+                    New SqlParameter("@st", AttainmentStatus),
+                    New SqlParameter("@airs", dr.Item("strAirsNumber"))
+                }
 
-                cmd2 = New OracleCommand(SQL2, CurrentConnection)
-                If CurrentConnection.State = ConnectionState.Closed Then
-                    CurrentConnection.Open()
-                End If
-                dr2 = cmd2.ExecuteReader
-                dr2.Close()
-            End While
-
-            dr.Close()
+                DB.RunCommand(query2, p3)
+            Next
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
 
-#End Region
-#Region "Declarations"
-    Private Sub btnViewSelectedData_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnViewSelectedData.Click
+#Region " Button and DGV click events "
+
+    Private Sub btnViewSelectedData_Click(sender As Object, e As EventArgs) Handles btnViewSelectedData.Click
         Try
 
 
             ViewSelectedData()
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub btnViewCountyInfo_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnViewCountyInfo.Click
+
+    Private Sub btnViewCountyInfo_Click(sender As Object, e As EventArgs) Handles btnViewCountyInfo.Click
         Try
 
 
@@ -620,13 +464,14 @@ Public Class SSPPAttainmentStatus
 
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub dgvAttainmentStatus_MouseUp(ByVal sender As Object, ByVal e As System.Windows.Forms.MouseEventArgs) Handles dgvAttainmentStatus.MouseUp
+
+    Private Sub dgvAttainmentStatus_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvAttainmentStatus.MouseUp
         Dim hti As DataGridView.HitTestInfo = dgvAttainmentStatus.HitTest(e.X, e.Y)
 
         Try
@@ -640,7 +485,7 @@ Public Class SSPPAttainmentStatus
             End If
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
@@ -648,19 +493,8 @@ Public Class SSPPAttainmentStatus
 
 
     End Sub
-    Private Sub btnClear_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnClear.Click
-        Try
 
-            ClearForm()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-
-    End Sub
-    Private Sub btnSaveChanges_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnSaveChanges.Click
+    Private Sub btnSaveChanges_Click(sender As Object, e As EventArgs) Handles btnSaveChanges.Click
         Try
 
 
@@ -670,49 +504,53 @@ Public Class SSPPAttainmentStatus
 
             MsgBox("Done", MsgBoxStyle.Information, "Attainment Status Update")
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub btnOneHourChanges_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnOneHourChanges.Click
+
+    Private Sub btnOneHourChanges_Click(sender As Object, e As EventArgs) Handles btnOneHourChanges.Click
         Try
 
             SaveOneHourChanges()
             MsgBox("Done", MsgBoxStyle.Information, "Attainment Status Update")
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub btnEightHourChanges_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnEightHourChanges.Click
+
+    Private Sub btnEightHourChanges_Click(sender As Object, e As EventArgs) Handles btnEightHourChanges.Click
         Try
 
             SaveEightHourChanges()
             MsgBox("Done", MsgBoxStyle.Information, "Attainment Status Update")
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub btnPMFineChanges_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnPMFineChanges.Click
+
+    Private Sub btnPMFineChanges_Click(sender As Object, e As EventArgs) Handles btnPMFineChanges.Click
         Try
 
             SavePMFineChanges()
             MsgBox("Done", MsgBoxStyle.Information, "Attainment Status Update")
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
-    Private Sub TBAttainmentStatus_ButtonClick(ByVal sender As System.Object, ByVal e As System.Windows.Forms.ToolBarButtonClickEventArgs) Handles TBAttainmentStatus.ButtonClick
+
+    Private Sub TBAttainmentStatus_ButtonClick(sender As Object, e As ToolBarButtonClickEventArgs) Handles TBAttainmentStatus.ButtonClick
         Try
 
             Select Case TBAttainmentStatus.Buttons.IndexOf(e.Button)
@@ -721,23 +559,16 @@ Public Class SSPPAttainmentStatus
                     SaveEightHourChanges()
                     SavePMFineChanges()
                     MsgBox("Done", MsgBoxStyle.Information, "Attainment Status Update")
-                Case 1
-                    Me.Close()
-                Case Else
-
             End Select
 
         Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
 
         End Try
 
     End Sub
+
 #End Region
 
-
-    Private Sub MmiHelp_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MmiHelp.Click
-        OpenDocumentationUrl(Me)
-    End Sub
 End Class

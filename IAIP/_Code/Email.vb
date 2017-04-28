@@ -1,10 +1,10 @@
 ﻿Public Module Email
 
-    Public Function CreateEmail(Optional ByVal subject As String = Nothing,
-                         Optional ByVal body As String = Nothing,
-                         Optional ByVal recipientsTo As String() = Nothing,
-                         Optional ByVal recipientsCC As String() = Nothing,
-                         Optional ByVal recipientsBCC As String() = Nothing) As Boolean
+    Public Function CreateEmail(Optional subject As String = Nothing,
+                         Optional body As String = Nothing,
+                         Optional recipientsTo As String() = Nothing,
+                         Optional recipientsCC As String() = Nothing,
+                         Optional recipientsBCC As String() = Nothing) As Boolean
 
         monitor.TrackFeature("Email.SendUrlEmail")
 
@@ -39,7 +39,7 @@
 
             Return result
         Catch ex As Exception
-            ErrorReport(ex, System.Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
 
     End Function

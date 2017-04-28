@@ -19,148 +19,137 @@ Partial Class SSCPEmissionSummaryTool
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.StatusStrip1 = New System.Windows.Forms.StatusStrip
-        Me.pnl1 = New System.Windows.Forms.ToolStripStatusLabel
-        Me.pnl2 = New System.Windows.Forms.ToolStripStatusLabel
-        Me.pnl3 = New System.Windows.Forms.ToolStripStatusLabel
-        Me.MenuStrip1 = New System.Windows.Forms.MenuStrip
-        Me.FileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.mmiBack = New System.Windows.Forms.ToolStripMenuItem
-        Me.EditToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.SplitContainer1 = New System.Windows.Forms.SplitContainer
-        Me.TabControl3 = New System.Windows.Forms.TabControl
-        Me.tabSummary = New System.Windows.Forms.TabPage
-        Me.lblViewMailOut = New System.Windows.Forms.LinkLabel
-        Me.btnoutofcomplianceExport = New System.Windows.Forms.Button
-        Me.Label76 = New System.Windows.Forms.Label
-        Me.txtResponseCount = New System.Windows.Forms.TextBox
-        Me.lblViewTotalResponse = New System.Windows.Forms.LinkLabel
-        Me.txtTotalResponse = New System.Windows.Forms.TextBox
-        Me.Label77 = New System.Windows.Forms.Label
-        Me.lblViewExtraOptOut = New System.Windows.Forms.LinkLabel
-        Me.txtExtraOptout = New System.Windows.Forms.TextBox
-        Me.Label78 = New System.Windows.Forms.Label
-        Me.lblViewExtraOptIn = New System.Windows.Forms.LinkLabel
-        Me.txtExtraOptin = New System.Windows.Forms.TextBox
-        Me.Label79 = New System.Windows.Forms.Label
-        Me.lblViewOptOut = New System.Windows.Forms.LinkLabel
-        Me.txtMailOutOptOut = New System.Windows.Forms.TextBox
-        Me.Label80 = New System.Windows.Forms.Label
-        Me.lblViewOptIn = New System.Windows.Forms.LinkLabel
-        Me.txtMailoutOptin = New System.Windows.Forms.TextBox
-        Me.Label81 = New System.Windows.Forms.Label
-        Me.Label82 = New System.Windows.Forms.Label
-        Me.lblextraResponse = New System.Windows.Forms.LinkLabel
-        Me.txtextraResponse = New System.Windows.Forms.TextBox
-        Me.Label83 = New System.Windows.Forms.Label
-        Me.lblViewNonResponse = New System.Windows.Forms.LinkLabel
-        Me.lblViewOutofcompliance = New System.Windows.Forms.LinkLabel
-        Me.lblViewINCompliance = New System.Windows.Forms.LinkLabel
-        Me.lblViewTotalOptOut = New System.Windows.Forms.LinkLabel
-        Me.lblViewTotalOptin = New System.Windows.Forms.LinkLabel
-        Me.txtTotaloutofcompliance = New System.Windows.Forms.TextBox
-        Me.Label84 = New System.Windows.Forms.Label
-        Me.txtTotalincompliance = New System.Windows.Forms.TextBox
-        Me.Label85 = New System.Windows.Forms.Label
-        Me.txtNonResponseCount = New System.Windows.Forms.TextBox
-        Me.Label86 = New System.Windows.Forms.Label
-        Me.txtTotalOptOutCount = New System.Windows.Forms.TextBox
-        Me.Label87 = New System.Windows.Forms.Label
-        Me.txtTotalOptInCount = New System.Windows.Forms.TextBox
-        Me.Label89 = New System.Windows.Forms.Label
-        Me.txtMailOutCount = New System.Windows.Forms.TextBox
-        Me.Label92 = New System.Windows.Forms.Label
-        Me.lblYear = New System.Windows.Forms.Label
-        Me.Label93 = New System.Windows.Forms.Label
-        Me.TabDetails = New System.Windows.Forms.TabPage
-        Me.txtEmail = New System.Windows.Forms.TextBox
-        Me.txtContactLastName = New System.Windows.Forms.TextBox
-        Me.txtContactFirstName = New System.Windows.Forms.TextBox
-        Me.txtESAirsNo = New System.Windows.Forms.TextBox
-        Me.Label112 = New System.Windows.Forms.Label
-        Me.Label113 = New System.Windows.Forms.Label
-        Me.lblViewESData = New System.Windows.Forms.LinkLabel
-        Me.btnPrint = New System.Windows.Forms.Button
-        Me.txtFirstConfirmedDate = New System.Windows.Forms.TextBox
-        Me.Label114 = New System.Windows.Forms.Label
-        Me.txtNOXEmission = New System.Windows.Forms.TextBox
-        Me.txtVOCEmission = New System.Windows.Forms.TextBox
-        Me.Label115 = New System.Windows.Forms.Label
-        Me.Label116 = New System.Windows.Forms.Label
-        Me.Label117 = New System.Windows.Forms.Label
-        Me.txtConfirmationNbr = New System.Windows.Forms.TextBox
-        Me.txtConfirmationNumber = New System.Windows.Forms.TextBox
-        Me.Label120 = New System.Windows.Forms.Label
-        Me.Label121 = New System.Windows.Forms.Label
-        Me.txtFax = New System.Windows.Forms.TextBox
-        Me.txtPhone = New System.Windows.Forms.TextBox
-        Me.Label122 = New System.Windows.Forms.Label
-        Me.txtZip = New System.Windows.Forms.TextBox
-        Me.txtState = New System.Windows.Forms.TextBox
-        Me.txtCity = New System.Windows.Forms.TextBox
-        Me.txtAddress2 = New System.Windows.Forms.TextBox
-        Me.txtAddress1 = New System.Windows.Forms.TextBox
-        Me.txtCompany = New System.Windows.Forms.TextBox
-        Me.txtTitle = New System.Windows.Forms.TextBox
-        Me.Label123 = New System.Windows.Forms.Label
-        Me.Label124 = New System.Windows.Forms.Label
-        Me.Label125 = New System.Windows.Forms.Label
-        Me.Label126 = New System.Windows.Forms.Label
-        Me.Label127 = New System.Windows.Forms.Label
-        Me.Label128 = New System.Windows.Forms.Label
-        Me.Label129 = New System.Windows.Forms.Label
-        Me.Label130 = New System.Windows.Forms.Label
-        Me.Label131 = New System.Windows.Forms.Label
-        Me.Label132 = New System.Windows.Forms.Label
-        Me.txtHORIZONTALREFERENCECODE = New System.Windows.Forms.TextBox
-        Me.txtFACILITYADDRESS = New System.Windows.Forms.TextBox
-        Me.txtFACILITYCITY = New System.Windows.Forms.TextBox
-        Me.txtFACILITYSTATE = New System.Windows.Forms.TextBox
-        Me.txtFACILITYZIP = New System.Windows.Forms.TextBox
-        Me.txtCOUNTY = New System.Windows.Forms.TextBox
-        Me.txtXCOORDINATE = New System.Windows.Forms.TextBox
-        Me.txtYCOORDINATE = New System.Windows.Forms.TextBox
-        Me.txtHORIZONTALCOLLECTIONCODE = New System.Windows.Forms.TextBox
-        Me.txtHORIZONTALACCURACYMEASURE = New System.Windows.Forms.TextBox
-        Me.txtFACILITYNAME = New System.Windows.Forms.TextBox
-        Me.Label133 = New System.Windows.Forms.Label
-        Me.Label134 = New System.Windows.Forms.Label
-        Me.Label135 = New System.Windows.Forms.Label
-        Me.Label136 = New System.Windows.Forms.Label
-        Me.Label137 = New System.Windows.Forms.Label
-        Me.Label138 = New System.Windows.Forms.Label
-        Me.Label139 = New System.Windows.Forms.Label
-        Me.Label140 = New System.Windows.Forms.Label
-        Me.Label141 = New System.Windows.Forms.Label
-        Me.Label142 = New System.Windows.Forms.Label
-        Me.Label143 = New System.Windows.Forms.Label
-        Me.Label144 = New System.Windows.Forms.Label
-        Me.Label145 = New System.Windows.Forms.Label
-        Me.PnlESYear = New System.Windows.Forms.Panel
-        Me.txtESYear = New System.Windows.Forms.TextBox
-        Me.btnView = New System.Windows.Forms.Button
-        Me.Label31 = New System.Windows.Forms.Label
-        Me.cboYear = New System.Windows.Forms.ComboBox
-        Me.dgvESDataCount = New System.Windows.Forms.DataGridView
-        Me.Btn = New System.Windows.Forms.GroupBox
-        Me.txtRecordNumber = New System.Windows.Forms.TextBox
-        Me.TCEmissionTools = New System.Windows.Forms.TabControl
-        Me.TPESTools = New System.Windows.Forms.TabPage
-        Me.TPEITools = New System.Windows.Forms.TabPage
-        Me.dgvEIResults = New System.Windows.Forms.DataGridView
-        Me.Panel1 = New System.Windows.Forms.Panel
-        Me.txtEICount = New System.Windows.Forms.TextBox
-        Me.Label3 = New System.Windows.Forms.Label
-        Me.Label2 = New System.Windows.Forms.Label
-        Me.cboEIPollutants = New System.Windows.Forms.ComboBox
-        Me.btnViewEISummaryByPollutant = New System.Windows.Forms.Button
-        Me.btnExportEItoExcel = New System.Windows.Forms.Button
-        Me.btnEISummary = New System.Windows.Forms.Button
-        Me.Label1 = New System.Windows.Forms.Label
-        Me.cboEIYear = New System.Windows.Forms.ComboBox
-        Me.StatusStrip1.SuspendLayout()
-        Me.MenuStrip1.SuspendLayout()
+        Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
+        Me.TabControl3 = New System.Windows.Forms.TabControl()
+        Me.tabSummary = New System.Windows.Forms.TabPage()
+        Me.lblViewMailOut = New System.Windows.Forms.LinkLabel()
+        Me.btnoutofcomplianceExport = New System.Windows.Forms.Button()
+        Me.Label76 = New System.Windows.Forms.Label()
+        Me.txtResponseCount = New System.Windows.Forms.TextBox()
+        Me.lblViewTotalResponse = New System.Windows.Forms.LinkLabel()
+        Me.txtTotalResponse = New System.Windows.Forms.TextBox()
+        Me.Label77 = New System.Windows.Forms.Label()
+        Me.lblViewExtraOptOut = New System.Windows.Forms.LinkLabel()
+        Me.txtExtraOptout = New System.Windows.Forms.TextBox()
+        Me.Label78 = New System.Windows.Forms.Label()
+        Me.lblViewExtraOptIn = New System.Windows.Forms.LinkLabel()
+        Me.txtExtraOptin = New System.Windows.Forms.TextBox()
+        Me.Label79 = New System.Windows.Forms.Label()
+        Me.lblViewOptOut = New System.Windows.Forms.LinkLabel()
+        Me.txtMailOutOptOut = New System.Windows.Forms.TextBox()
+        Me.Label80 = New System.Windows.Forms.Label()
+        Me.lblViewOptIn = New System.Windows.Forms.LinkLabel()
+        Me.txtMailoutOptin = New System.Windows.Forms.TextBox()
+        Me.Label81 = New System.Windows.Forms.Label()
+        Me.Label82 = New System.Windows.Forms.Label()
+        Me.lblextraResponse = New System.Windows.Forms.LinkLabel()
+        Me.txtextraResponse = New System.Windows.Forms.TextBox()
+        Me.Label83 = New System.Windows.Forms.Label()
+        Me.lblViewNonResponse = New System.Windows.Forms.LinkLabel()
+        Me.lblViewOutofcompliance = New System.Windows.Forms.LinkLabel()
+        Me.lblViewINCompliance = New System.Windows.Forms.LinkLabel()
+        Me.lblViewTotalOptOut = New System.Windows.Forms.LinkLabel()
+        Me.lblViewTotalOptin = New System.Windows.Forms.LinkLabel()
+        Me.txtTotaloutofcompliance = New System.Windows.Forms.TextBox()
+        Me.Label84 = New System.Windows.Forms.Label()
+        Me.txtTotalincompliance = New System.Windows.Forms.TextBox()
+        Me.Label85 = New System.Windows.Forms.Label()
+        Me.txtNonResponseCount = New System.Windows.Forms.TextBox()
+        Me.Label86 = New System.Windows.Forms.Label()
+        Me.txtTotalOptOutCount = New System.Windows.Forms.TextBox()
+        Me.Label87 = New System.Windows.Forms.Label()
+        Me.txtTotalOptInCount = New System.Windows.Forms.TextBox()
+        Me.Label89 = New System.Windows.Forms.Label()
+        Me.txtMailOutCount = New System.Windows.Forms.TextBox()
+        Me.Label92 = New System.Windows.Forms.Label()
+        Me.lblYear = New System.Windows.Forms.Label()
+        Me.Label93 = New System.Windows.Forms.Label()
+        Me.TabDetails = New System.Windows.Forms.TabPage()
+        Me.txtEmail = New System.Windows.Forms.TextBox()
+        Me.txtContactLastName = New System.Windows.Forms.TextBox()
+        Me.txtContactFirstName = New System.Windows.Forms.TextBox()
+        Me.txtESAirsNo = New System.Windows.Forms.TextBox()
+        Me.Label112 = New System.Windows.Forms.Label()
+        Me.Label113 = New System.Windows.Forms.Label()
+        Me.lblViewESData = New System.Windows.Forms.LinkLabel()
+        Me.txtFirstConfirmedDate = New System.Windows.Forms.TextBox()
+        Me.Label114 = New System.Windows.Forms.Label()
+        Me.txtNOXEmission = New System.Windows.Forms.TextBox()
+        Me.txtVOCEmission = New System.Windows.Forms.TextBox()
+        Me.Label115 = New System.Windows.Forms.Label()
+        Me.Label116 = New System.Windows.Forms.Label()
+        Me.Label117 = New System.Windows.Forms.Label()
+        Me.txtConfirmationNbr = New System.Windows.Forms.TextBox()
+        Me.txtConfirmationNumber = New System.Windows.Forms.TextBox()
+        Me.Label120 = New System.Windows.Forms.Label()
+        Me.Label121 = New System.Windows.Forms.Label()
+        Me.txtFax = New System.Windows.Forms.TextBox()
+        Me.txtPhone = New System.Windows.Forms.TextBox()
+        Me.Label122 = New System.Windows.Forms.Label()
+        Me.txtZip = New System.Windows.Forms.TextBox()
+        Me.txtState = New System.Windows.Forms.TextBox()
+        Me.txtCity = New System.Windows.Forms.TextBox()
+        Me.txtAddress2 = New System.Windows.Forms.TextBox()
+        Me.txtAddress1 = New System.Windows.Forms.TextBox()
+        Me.txtCompany = New System.Windows.Forms.TextBox()
+        Me.txtTitle = New System.Windows.Forms.TextBox()
+        Me.Label123 = New System.Windows.Forms.Label()
+        Me.Label124 = New System.Windows.Forms.Label()
+        Me.Label125 = New System.Windows.Forms.Label()
+        Me.Label126 = New System.Windows.Forms.Label()
+        Me.Label127 = New System.Windows.Forms.Label()
+        Me.Label128 = New System.Windows.Forms.Label()
+        Me.Label129 = New System.Windows.Forms.Label()
+        Me.Label130 = New System.Windows.Forms.Label()
+        Me.Label131 = New System.Windows.Forms.Label()
+        Me.Label132 = New System.Windows.Forms.Label()
+        Me.txtHORIZONTALREFERENCECODE = New System.Windows.Forms.TextBox()
+        Me.txtFACILITYADDRESS = New System.Windows.Forms.TextBox()
+        Me.txtFACILITYCITY = New System.Windows.Forms.TextBox()
+        Me.txtFACILITYSTATE = New System.Windows.Forms.TextBox()
+        Me.txtFACILITYZIP = New System.Windows.Forms.TextBox()
+        Me.txtCOUNTY = New System.Windows.Forms.TextBox()
+        Me.txtXCOORDINATE = New System.Windows.Forms.TextBox()
+        Me.txtYCOORDINATE = New System.Windows.Forms.TextBox()
+        Me.txtHORIZONTALCOLLECTIONCODE = New System.Windows.Forms.TextBox()
+        Me.txtHORIZONTALACCURACYMEASURE = New System.Windows.Forms.TextBox()
+        Me.txtFACILITYNAME = New System.Windows.Forms.TextBox()
+        Me.Label133 = New System.Windows.Forms.Label()
+        Me.Label134 = New System.Windows.Forms.Label()
+        Me.Label135 = New System.Windows.Forms.Label()
+        Me.Label136 = New System.Windows.Forms.Label()
+        Me.Label137 = New System.Windows.Forms.Label()
+        Me.Label138 = New System.Windows.Forms.Label()
+        Me.Label139 = New System.Windows.Forms.Label()
+        Me.Label140 = New System.Windows.Forms.Label()
+        Me.Label141 = New System.Windows.Forms.Label()
+        Me.Label142 = New System.Windows.Forms.Label()
+        Me.Label143 = New System.Windows.Forms.Label()
+        Me.Label144 = New System.Windows.Forms.Label()
+        Me.Label145 = New System.Windows.Forms.Label()
+        Me.PnlESYear = New System.Windows.Forms.Panel()
+        Me.txtESYear = New System.Windows.Forms.TextBox()
+        Me.btnView = New System.Windows.Forms.Button()
+        Me.Label31 = New System.Windows.Forms.Label()
+        Me.cboYear = New System.Windows.Forms.ComboBox()
+        Me.dgvESDataCount = New System.Windows.Forms.DataGridView()
+        Me.Btn = New System.Windows.Forms.GroupBox()
+        Me.txtRecordNumber = New System.Windows.Forms.TextBox()
+        Me.TCEmissionTools = New System.Windows.Forms.TabControl()
+        Me.TPESTools = New System.Windows.Forms.TabPage()
+        Me.TPEITools = New System.Windows.Forms.TabPage()
+        Me.dgvEIResults = New System.Windows.Forms.DataGridView()
+        Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.txtEICount = New System.Windows.Forms.TextBox()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.cboEIPollutants = New System.Windows.Forms.ComboBox()
+        Me.btnViewEISummaryByPollutant = New System.Windows.Forms.Button()
+        Me.btnExportEItoExcel = New System.Windows.Forms.Button()
+        Me.btnEISummary = New System.Windows.Forms.Button()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.cboEIYear = New System.Windows.Forms.ComboBox()
+        CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
         Me.SplitContainer1.Panel2.SuspendLayout()
         Me.SplitContainer1.SuspendLayout()
@@ -177,78 +166,6 @@ Partial Class SSCPEmissionSummaryTool
         Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
         '
-        'StatusStrip1
-        '
-        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.pnl1, Me.pnl2, Me.pnl3})
-        Me.StatusStrip1.Location = New System.Drawing.Point(0, 654)
-        Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Size = New System.Drawing.Size(1007, 22)
-        Me.StatusStrip1.TabIndex = 8
-        Me.StatusStrip1.Text = "StatusStrip1"
-        '
-        'pnl1
-        '
-        Me.pnl1.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.pnl1.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
-        Me.pnl1.Name = "pnl1"
-        Me.pnl1.Size = New System.Drawing.Size(984, 17)
-        Me.pnl1.Spring = True
-        Me.pnl1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'pnl2
-        '
-        Me.pnl2.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.pnl2.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
-        Me.pnl2.Name = "pnl2"
-        Me.pnl2.Size = New System.Drawing.Size(4, 17)
-        '
-        'pnl3
-        '
-        Me.pnl3.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.pnl3.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken
-        Me.pnl3.Name = "pnl3"
-        Me.pnl3.Size = New System.Drawing.Size(4, 17)
-        '
-        'MenuStrip1
-        '
-        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem, Me.EditToolStripMenuItem, Me.HelpToolStripMenuItem})
-        Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
-        Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(1007, 24)
-        Me.MenuStrip1.TabIndex = 7
-        Me.MenuStrip1.Text = "MenuStrip1"
-        '
-        'FileToolStripMenuItem
-        '
-        Me.FileToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiBack})
-        Me.FileToolStripMenuItem.Name = "FileToolStripMenuItem"
-        Me.FileToolStripMenuItem.Size = New System.Drawing.Size(37, 20)
-        Me.FileToolStripMenuItem.Text = "File"
-        '
-        'mmiBack
-        '
-        Me.mmiBack.Name = "mmiBack"
-        Me.mmiBack.Size = New System.Drawing.Size(99, 22)
-        Me.mmiBack.Text = "Back"
-        '
-        'EditToolStripMenuItem
-        '
-        Me.EditToolStripMenuItem.Name = "EditToolStripMenuItem"
-        Me.EditToolStripMenuItem.Size = New System.Drawing.Size(39, 20)
-        Me.EditToolStripMenuItem.Text = "Edit"
-        '
-        'HelpToolStripMenuItem
-        '
-        Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
-        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(44, 20)
-        Me.HelpToolStripMenuItem.Text = "Help"
-        '
         'SplitContainer1
         '
         Me.SplitContainer1.Dock = System.Windows.Forms.DockStyle.Fill
@@ -264,7 +181,7 @@ Partial Class SSCPEmissionSummaryTool
         '
         Me.SplitContainer1.Panel2.Controls.Add(Me.dgvESDataCount)
         Me.SplitContainer1.Panel2.Controls.Add(Me.Btn)
-        Me.SplitContainer1.Size = New System.Drawing.Size(993, 598)
+        Me.SplitContainer1.Size = New System.Drawing.Size(993, 644)
         Me.SplitContainer1.SplitterDistance = 548
         Me.SplitContainer1.TabIndex = 9
         '
@@ -276,7 +193,7 @@ Partial Class SSCPEmissionSummaryTool
         Me.TabControl3.Location = New System.Drawing.Point(0, 48)
         Me.TabControl3.Name = "TabControl3"
         Me.TabControl3.SelectedIndex = 0
-        Me.TabControl3.Size = New System.Drawing.Size(548, 550)
+        Me.TabControl3.Size = New System.Drawing.Size(548, 596)
         Me.TabControl3.TabIndex = 12
         '
         'tabSummary
@@ -327,7 +244,7 @@ Partial Class SSCPEmissionSummaryTool
         Me.tabSummary.Location = New System.Drawing.Point(4, 22)
         Me.tabSummary.Name = "tabSummary"
         Me.tabSummary.Padding = New System.Windows.Forms.Padding(3)
-        Me.tabSummary.Size = New System.Drawing.Size(540, 524)
+        Me.tabSummary.Size = New System.Drawing.Size(540, 570)
         Me.tabSummary.TabIndex = 0
         Me.tabSummary.Text = "Summary"
         Me.tabSummary.UseVisualStyleBackColor = True
@@ -710,7 +627,6 @@ Partial Class SSCPEmissionSummaryTool
         Me.TabDetails.Controls.Add(Me.Label112)
         Me.TabDetails.Controls.Add(Me.Label113)
         Me.TabDetails.Controls.Add(Me.lblViewESData)
-        Me.TabDetails.Controls.Add(Me.btnPrint)
         Me.TabDetails.Controls.Add(Me.txtFirstConfirmedDate)
         Me.TabDetails.Controls.Add(Me.Label114)
         Me.TabDetails.Controls.Add(Me.txtNOXEmission)
@@ -768,7 +684,7 @@ Partial Class SSCPEmissionSummaryTool
         Me.TabDetails.Controls.Add(Me.Label145)
         Me.TabDetails.Location = New System.Drawing.Point(4, 22)
         Me.TabDetails.Name = "TabDetails"
-        Me.TabDetails.Size = New System.Drawing.Size(540, 524)
+        Me.TabDetails.Size = New System.Drawing.Size(540, 570)
         Me.TabDetails.TabIndex = 2
         Me.TabDetails.Text = "Details"
         Me.TabDetails.UseVisualStyleBackColor = True
@@ -831,15 +747,6 @@ Partial Class SSCPEmissionSummaryTool
         Me.lblViewESData.TabIndex = 0
         Me.lblViewESData.TabStop = True
         Me.lblViewESData.Text = "View All ES Data"
-        '
-        'btnPrint
-        '
-        Me.btnPrint.Location = New System.Drawing.Point(373, 445)
-        Me.btnPrint.Name = "btnPrint"
-        Me.btnPrint.Size = New System.Drawing.Size(50, 23)
-        Me.btnPrint.TabIndex = 62
-        Me.btnPrint.Text = "Print"
-        Me.btnPrint.UseVisualStyleBackColor = True
         '
         'txtFirstConfirmedDate
         '
@@ -1365,6 +1272,7 @@ Partial Class SSCPEmissionSummaryTool
         '
         'cboYear
         '
+        Me.cboYear.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboYear.FormattingEnabled = True
         Me.cboYear.Location = New System.Drawing.Point(93, 12)
         Me.cboYear.Name = "cboYear"
@@ -1378,7 +1286,7 @@ Partial Class SSCPEmissionSummaryTool
         Me.dgvESDataCount.Location = New System.Drawing.Point(0, 51)
         Me.dgvESDataCount.Name = "dgvESDataCount"
         Me.dgvESDataCount.ReadOnly = True
-        Me.dgvESDataCount.Size = New System.Drawing.Size(441, 547)
+        Me.dgvESDataCount.Size = New System.Drawing.Size(441, 593)
         Me.dgvESDataCount.TabIndex = 2
         '
         'Btn
@@ -1404,10 +1312,10 @@ Partial Class SSCPEmissionSummaryTool
         Me.TCEmissionTools.Controls.Add(Me.TPESTools)
         Me.TCEmissionTools.Controls.Add(Me.TPEITools)
         Me.TCEmissionTools.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TCEmissionTools.Location = New System.Drawing.Point(0, 24)
+        Me.TCEmissionTools.Location = New System.Drawing.Point(0, 0)
         Me.TCEmissionTools.Name = "TCEmissionTools"
         Me.TCEmissionTools.SelectedIndex = 0
-        Me.TCEmissionTools.Size = New System.Drawing.Size(1007, 630)
+        Me.TCEmissionTools.Size = New System.Drawing.Size(1007, 676)
         Me.TCEmissionTools.TabIndex = 10
         '
         'TPESTools
@@ -1416,7 +1324,7 @@ Partial Class SSCPEmissionSummaryTool
         Me.TPESTools.Location = New System.Drawing.Point(4, 22)
         Me.TPESTools.Name = "TPESTools"
         Me.TPESTools.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPESTools.Size = New System.Drawing.Size(999, 604)
+        Me.TPESTools.Size = New System.Drawing.Size(999, 650)
         Me.TPESTools.TabIndex = 0
         Me.TPESTools.Text = "Emissions Statement Tools"
         Me.TPESTools.UseVisualStyleBackColor = True
@@ -1428,7 +1336,7 @@ Partial Class SSCPEmissionSummaryTool
         Me.TPEITools.Location = New System.Drawing.Point(4, 22)
         Me.TPEITools.Name = "TPEITools"
         Me.TPEITools.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPEITools.Size = New System.Drawing.Size(999, 604)
+        Me.TPEITools.Size = New System.Drawing.Size(999, 650)
         Me.TPEITools.TabIndex = 1
         Me.TPEITools.Text = "Emissions Inventory Tools"
         Me.TPEITools.UseVisualStyleBackColor = True
@@ -1440,7 +1348,7 @@ Partial Class SSCPEmissionSummaryTool
         Me.dgvEIResults.Location = New System.Drawing.Point(3, 112)
         Me.dgvEIResults.Name = "dgvEIResults"
         Me.dgvEIResults.ReadOnly = True
-        Me.dgvEIResults.Size = New System.Drawing.Size(993, 489)
+        Me.dgvEIResults.Size = New System.Drawing.Size(993, 535)
         Me.dgvEIResults.TabIndex = 0
         '
         'Panel1
@@ -1488,6 +1396,7 @@ Partial Class SSCPEmissionSummaryTool
         '
         'cboEIPollutants
         '
+        Me.cboEIPollutants.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboEIPollutants.FormattingEnabled = True
         Me.cboEIPollutants.Location = New System.Drawing.Point(55, 66)
         Me.cboEIPollutants.Name = "cboEIPollutants"
@@ -1535,6 +1444,7 @@ Partial Class SSCPEmissionSummaryTool
         '
         'cboEIYear
         '
+        Me.cboEIYear.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboEIYear.FormattingEnabled = True
         Me.cboEIYear.Location = New System.Drawing.Point(83, 8)
         Me.cboEIYear.Name = "cboEIYear"
@@ -1547,16 +1457,11 @@ Partial Class SSCPEmissionSummaryTool
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1007, 676)
         Me.Controls.Add(Me.TCEmissionTools)
-        Me.Controls.Add(Me.StatusStrip1)
-        Me.Controls.Add(Me.MenuStrip1)
         Me.Name = "SSCPEmissionSummaryTool"
         Me.Text = "Emissions Summary Tool"
-        Me.StatusStrip1.ResumeLayout(False)
-        Me.StatusStrip1.PerformLayout()
-        Me.MenuStrip1.ResumeLayout(False)
-        Me.MenuStrip1.PerformLayout()
         Me.SplitContainer1.Panel1.ResumeLayout(False)
         Me.SplitContainer1.Panel2.ResumeLayout(False)
+        CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SplitContainer1.ResumeLayout(False)
         Me.TabControl3.ResumeLayout(False)
         Me.tabSummary.ResumeLayout(False)
@@ -1575,17 +1480,8 @@ Partial Class SSCPEmissionSummaryTool
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
         Me.ResumeLayout(False)
-        Me.PerformLayout()
 
     End Sub
-    Friend WithEvents StatusStrip1 As System.Windows.Forms.StatusStrip
-    Friend WithEvents pnl1 As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents pnl2 As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents pnl3 As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents MenuStrip1 As System.Windows.Forms.MenuStrip
-    Friend WithEvents FileToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents EditToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents HelpToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents SplitContainer1 As System.Windows.Forms.SplitContainer
     Friend WithEvents dgvESDataCount As System.Windows.Forms.DataGridView
     Friend WithEvents Btn As System.Windows.Forms.GroupBox
@@ -1644,7 +1540,6 @@ Partial Class SSCPEmissionSummaryTool
     Friend WithEvents Label112 As System.Windows.Forms.Label
     Friend WithEvents Label113 As System.Windows.Forms.Label
     Friend WithEvents lblViewESData As System.Windows.Forms.LinkLabel
-    Friend WithEvents btnPrint As System.Windows.Forms.Button
     Friend WithEvents txtFirstConfirmedDate As System.Windows.Forms.TextBox
     Friend WithEvents Label114 As System.Windows.Forms.Label
     Friend WithEvents txtNOXEmission As System.Windows.Forms.TextBox
@@ -1703,7 +1598,6 @@ Partial Class SSCPEmissionSummaryTool
     Friend WithEvents txtEmail As System.Windows.Forms.TextBox
     Friend WithEvents txtContactLastName As System.Windows.Forms.TextBox
     Friend WithEvents txtContactFirstName As System.Windows.Forms.TextBox
-    Friend WithEvents mmiBack As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents TCEmissionTools As System.Windows.Forms.TabControl
     Friend WithEvents TPESTools As System.Windows.Forms.TabPage
     Friend WithEvents TPEITools As System.Windows.Forms.TabPage

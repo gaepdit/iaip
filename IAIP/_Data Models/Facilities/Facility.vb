@@ -12,7 +12,7 @@ Namespace Apb.Facilities
         Public Sub New()
         End Sub
 
-        Public Sub New(ByVal airsNumber As ApbFacilityId)
+        Public Sub New(airsNumber As ApbFacilityId)
             Me.AirsNumber = airsNumber
         End Sub
 #End Region
@@ -63,7 +63,7 @@ Namespace Apb.Facilities
         ''' <param name="name">The string to sanitize.</param>
         ''' <returns>A sanitized string.</returns>
         ''' <remarks>This is required because of a quirk in the current database setup.</remarks>
-        Public Shared Function SanitizeFacilityNameForDb(ByVal name As String) As String
+        Public Shared Function SanitizeFacilityNameForDb(name As String) As String
             If String.IsNullOrEmpty(name) Then
                 Return Nothing
             End If

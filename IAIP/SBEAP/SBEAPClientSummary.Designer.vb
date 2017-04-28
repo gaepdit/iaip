@@ -23,167 +23,152 @@ Partial Class SBEAPClientSummary
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SBEAPClientSummary))
-        Me.MenuStrip1 = New System.Windows.Forms.MenuStrip
-        Me.FileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.ToolToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.mmiDeleteClient = New System.Windows.Forms.ToolStripMenuItem
-        Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem
-        Me.StatusStrip1 = New System.Windows.Forms.StatusStrip
-        Me.pnl1 = New System.Windows.Forms.ToolStripStatusLabel
-        Me.pnl2 = New System.Windows.Forms.ToolStripStatusLabel
-        Me.pnl3 = New System.Windows.Forms.ToolStripStatusLabel
-        Me.ToolStrip1 = New System.Windows.Forms.ToolStrip
-        Me.tsbSave = New System.Windows.Forms.ToolStripButton
-        Me.tsbSearchTool = New System.Windows.Forms.ToolStripButton
-        Me.tsbClear = New System.Windows.Forms.ToolStripButton
-        Me.tsbBack = New System.Windows.Forms.ToolStripButton
-        Me.Panel1 = New System.Windows.Forms.Panel
-        Me.btnAddNewCase = New System.Windows.Forms.Button
-        Me.btnViewClientSummary = New System.Windows.Forms.Button
-        Me.txtClientID = New System.Windows.Forms.TextBox
-        Me.Label2 = New System.Windows.Forms.Label
-        Me.dtpStartDate = New System.Windows.Forms.DateTimePicker
-        Me.Label16 = New System.Windows.Forms.Label
-        Me.txtCompanyName = New System.Windows.Forms.TextBox
-        Me.Label1 = New System.Windows.Forms.Label
-        Me.TCClientData = New System.Windows.Forms.TabControl
-        Me.TPSiteLocation = New System.Windows.Forms.TabPage
-        Me.txtClientModifier = New System.Windows.Forms.TextBox
-        Me.Label32 = New System.Windows.Forms.Label
-        Me.txtClientCreator = New System.Windows.Forms.TextBox
-        Me.Label33 = New System.Windows.Forms.Label
-        Me.txtMailingState = New System.Windows.Forms.TextBox
-        Me.mtbMailingZipCode = New System.Windows.Forms.MaskedTextBox
-        Me.txtMailingCity = New System.Windows.Forms.TextBox
-        Me.txtMailingAddress2 = New System.Windows.Forms.TextBox
-        Me.txtMailingAddress = New System.Windows.Forms.TextBox
-        Me.Label9 = New System.Windows.Forms.Label
-        Me.Label8 = New System.Windows.Forms.Label
-        Me.mtbLongitude = New System.Windows.Forms.MaskedTextBox
-        Me.mtbLatitude = New System.Windows.Forms.MaskedTextBox
-        Me.Label7 = New System.Windows.Forms.Label
-        Me.txtDistrictInformation = New System.Windows.Forms.TextBox
-        Me.Label6 = New System.Windows.Forms.Label
-        Me.cboCounty = New System.Windows.Forms.ComboBox
-        Me.txtState = New System.Windows.Forms.TextBox
-        Me.mtbZipCode = New System.Windows.Forms.MaskedTextBox
-        Me.txtCity = New System.Windows.Forms.TextBox
-        Me.Label5 = New System.Windows.Forms.Label
-        Me.Label4 = New System.Windows.Forms.Label
-        Me.txtStreetAddress2 = New System.Windows.Forms.TextBox
-        Me.txtStreetAddress = New System.Windows.Forms.TextBox
-        Me.Label3 = New System.Windows.Forms.Label
-        Me.TPCompanyInformation = New System.Windows.Forms.TabPage
-        Me.lblNAICS = New System.Windows.Forms.Label
-        Me.lblSIC = New System.Windows.Forms.Label
-        Me.llbNAICSSearch = New System.Windows.Forms.LinkLabel
-        Me.llbSICSearch = New System.Windows.Forms.LinkLabel
-        Me.Label38 = New System.Windows.Forms.Label
-        Me.TCMultiMedia = New System.Windows.Forms.TabControl
-        Me.TPAir = New System.Windows.Forms.TabPage
-        Me.txtISMPUnit = New System.Windows.Forms.TextBox
-        Me.Label37 = New System.Windows.Forms.Label
-        Me.txtISMPContact = New System.Windows.Forms.TextBox
-        Me.txtSSPPUnit = New System.Windows.Forms.TextBox
-        Me.Label36 = New System.Windows.Forms.Label
-        Me.txtSSPPContact = New System.Windows.Forms.TextBox
-        Me.txtSSCPUnit = New System.Windows.Forms.TextBox
-        Me.Label35 = New System.Windows.Forms.Label
-        Me.txtSSCPContact = New System.Windows.Forms.TextBox
-        Me.Label34 = New System.Windows.Forms.Label
-        Me.txtAIRPermitNumber = New System.Windows.Forms.TextBox
-        Me.mtbAIRSNumber = New System.Windows.Forms.MaskedTextBox
-        Me.btnRefreshAIRSData = New System.Windows.Forms.Button
-        Me.Panel2 = New System.Windows.Forms.Panel
-        Me.chbHAPs = New System.Windows.Forms.CheckBox
-        Me.chbNSRPSD = New System.Windows.Forms.CheckBox
-        Me.chbTitleV = New System.Windows.Forms.CheckBox
-        Me.chbMACT = New System.Windows.Forms.CheckBox
-        Me.chbNativeAmer = New System.Windows.Forms.CheckBox
-        Me.chbFESOP = New System.Windows.Forms.CheckBox
-        Me.chbAcidPrecip = New System.Windows.Forms.CheckBox
-        Me.chbNSPS = New System.Windows.Forms.CheckBox
-        Me.chbNESHAP = New System.Windows.Forms.CheckBox
-        Me.chbNSR = New System.Windows.Forms.CheckBox
-        Me.chbPSD = New System.Windows.Forms.CheckBox
-        Me.chbCFCTracking = New System.Windows.Forms.CheckBox
-        Me.chbNonFedSIP = New System.Windows.Forms.CheckBox
-        Me.chbFederalSIP = New System.Windows.Forms.CheckBox
-        Me.chbSIP = New System.Windows.Forms.CheckBox
-        Me.Label15 = New System.Windows.Forms.Label
-        Me.Label10 = New System.Windows.Forms.Label
-        Me.txtAirDescription = New System.Windows.Forms.TextBox
-        Me.Label17 = New System.Windows.Forms.Label
-        Me.TPStormWater = New System.Windows.Forms.TabPage
-        Me.TPWasteWater = New System.Windows.Forms.TabPage
-        Me.TPSolidWaste = New System.Windows.Forms.TabPage
-        Me.TPLand = New System.Windows.Forms.TabPage
-        Me.TPHazardousWaste = New System.Windows.Forms.TabPage
-        Me.txtDescription = New System.Windows.Forms.TextBox
-        Me.mtbNumberOfEmployees = New System.Windows.Forms.MaskedTextBox
-        Me.Label14 = New System.Windows.Forms.Label
-        Me.txtWebSite = New System.Windows.Forms.TextBox
-        Me.Label11 = New System.Windows.Forms.Label
-        Me.mtbSIC = New System.Windows.Forms.MaskedTextBox
-        Me.Label12 = New System.Windows.Forms.Label
-        Me.mtbNAICS = New System.Windows.Forms.MaskedTextBox
-        Me.Label13 = New System.Windows.Forms.Label
-        Me.TPContactInformation = New System.Windows.Forms.TabPage
-        Me.dgvContactInformation = New System.Windows.Forms.DataGridView
-        Me.Panel3 = New System.Windows.Forms.Panel
-        Me.Label39 = New System.Windows.Forms.Label
-        Me.txtContactNotes = New System.Windows.Forms.TextBox
-        Me.btnGetSiteAddress = New System.Windows.Forms.Button
-        Me.btnDeleteContact = New System.Windows.Forms.Button
-        Me.btnAddNewContact = New System.Windows.Forms.Button
-        Me.btnClearContact = New System.Windows.Forms.Button
-        Me.chbMainClientContact = New System.Windows.Forms.CheckBox
-        Me.btnSearchForContact = New System.Windows.Forms.Button
-        Me.btnAddContact = New System.Windows.Forms.Button
-        Me.txtContactLastModified = New System.Windows.Forms.TextBox
-        Me.Label31 = New System.Windows.Forms.Label
-        Me.txtContactCreationInfo = New System.Windows.Forms.TextBox
-        Me.Label30 = New System.Windows.Forms.Label
-        Me.txtContactState = New System.Windows.Forms.TextBox
-        Me.mtbContactZipCode = New System.Windows.Forms.MaskedTextBox
-        Me.txtContactCity = New System.Windows.Forms.TextBox
-        Me.Label29 = New System.Windows.Forms.Label
-        Me.txtContactAddress = New System.Windows.Forms.TextBox
-        Me.Label28 = New System.Windows.Forms.Label
-        Me.txtEmail = New System.Windows.Forms.TextBox
-        Me.Label27 = New System.Windows.Forms.Label
-        Me.mtbFaxNumber = New System.Windows.Forms.MaskedTextBox
-        Me.Label26 = New System.Windows.Forms.Label
-        Me.mtbCellPhone = New System.Windows.Forms.MaskedTextBox
-        Me.Label25 = New System.Windows.Forms.Label
-        Me.mtbPhoneNumber = New System.Windows.Forms.MaskedTextBox
-        Me.Label24 = New System.Windows.Forms.Label
-        Me.txtTitle = New System.Windows.Forms.TextBox
-        Me.Label23 = New System.Windows.Forms.Label
-        Me.txtCredentials = New System.Windows.Forms.TextBox
-        Me.Label22 = New System.Windows.Forms.Label
-        Me.txtSalutation = New System.Windows.Forms.TextBox
-        Me.Label21 = New System.Windows.Forms.Label
-        Me.txtLastName = New System.Windows.Forms.TextBox
-        Me.Label20 = New System.Windows.Forms.Label
-        Me.txtFirstName = New System.Windows.Forms.TextBox
-        Me.Label19 = New System.Windows.Forms.Label
-        Me.txtContactID = New System.Windows.Forms.TextBox
-        Me.Label18 = New System.Windows.Forms.Label
-        Me.TPSummaryOfWork = New System.Windows.Forms.TabPage
-        Me.Label40 = New System.Windows.Forms.Label
-        Me.btnOpenCase = New System.Windows.Forms.Button
-        Me.txtCaseID = New System.Windows.Forms.TextBox
-        Me.dgvCaseLog = New System.Windows.Forms.DataGridView
+        Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
+        Me.FileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.mmiDeleteClient = New System.Windows.Forms.ToolStripMenuItem()
+        Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
+        Me.tsbSave = New System.Windows.Forms.ToolStripButton()
+        Me.tsbSearchTool = New System.Windows.Forms.ToolStripButton()
+        Me.tsbClear = New System.Windows.Forms.ToolStripButton()
+        Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.btnAddNewCase = New System.Windows.Forms.Button()
+        Me.btnViewClientSummary = New System.Windows.Forms.Button()
+        Me.txtClientID = New System.Windows.Forms.TextBox()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.dtpStartDate = New System.Windows.Forms.DateTimePicker()
+        Me.Label16 = New System.Windows.Forms.Label()
+        Me.txtCompanyName = New System.Windows.Forms.TextBox()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.TCClientData = New System.Windows.Forms.TabControl()
+        Me.TPSiteLocation = New System.Windows.Forms.TabPage()
+        Me.txtClientModifier = New System.Windows.Forms.TextBox()
+        Me.Label32 = New System.Windows.Forms.Label()
+        Me.txtClientCreator = New System.Windows.Forms.TextBox()
+        Me.Label33 = New System.Windows.Forms.Label()
+        Me.txtMailingState = New System.Windows.Forms.TextBox()
+        Me.mtbMailingZipCode = New System.Windows.Forms.MaskedTextBox()
+        Me.txtMailingCity = New System.Windows.Forms.TextBox()
+        Me.txtMailingAddress2 = New System.Windows.Forms.TextBox()
+        Me.txtMailingAddress = New System.Windows.Forms.TextBox()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.Label8 = New System.Windows.Forms.Label()
+        Me.mtbLongitude = New System.Windows.Forms.MaskedTextBox()
+        Me.mtbLatitude = New System.Windows.Forms.MaskedTextBox()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.txtDistrictInformation = New System.Windows.Forms.TextBox()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.cboCounty = New System.Windows.Forms.ComboBox()
+        Me.txtState = New System.Windows.Forms.TextBox()
+        Me.mtbZipCode = New System.Windows.Forms.MaskedTextBox()
+        Me.txtCity = New System.Windows.Forms.TextBox()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.txtStreetAddress2 = New System.Windows.Forms.TextBox()
+        Me.txtStreetAddress = New System.Windows.Forms.TextBox()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.TPCompanyInformation = New System.Windows.Forms.TabPage()
+        Me.lblNAICS = New System.Windows.Forms.Label()
+        Me.lblSIC = New System.Windows.Forms.Label()
+        Me.llbNAICSSearch = New System.Windows.Forms.LinkLabel()
+        Me.llbSICSearch = New System.Windows.Forms.LinkLabel()
+        Me.Label38 = New System.Windows.Forms.Label()
+        Me.txtISMPUnit = New System.Windows.Forms.TextBox()
+        Me.Label37 = New System.Windows.Forms.Label()
+        Me.txtISMPContact = New System.Windows.Forms.TextBox()
+        Me.txtSSPPUnit = New System.Windows.Forms.TextBox()
+        Me.Label36 = New System.Windows.Forms.Label()
+        Me.txtSSPPContact = New System.Windows.Forms.TextBox()
+        Me.txtSSCPUnit = New System.Windows.Forms.TextBox()
+        Me.Label35 = New System.Windows.Forms.Label()
+        Me.txtSSCPContact = New System.Windows.Forms.TextBox()
+        Me.Label34 = New System.Windows.Forms.Label()
+        Me.txtAIRPermitNumber = New System.Windows.Forms.TextBox()
+        Me.mtbAIRSNumber = New System.Windows.Forms.MaskedTextBox()
+        Me.btnRefreshAIRSData = New System.Windows.Forms.Button()
+        Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.chbHAPs = New System.Windows.Forms.CheckBox()
+        Me.chbNSRPSD = New System.Windows.Forms.CheckBox()
+        Me.chbTitleV = New System.Windows.Forms.CheckBox()
+        Me.chbMACT = New System.Windows.Forms.CheckBox()
+        Me.chbNativeAmer = New System.Windows.Forms.CheckBox()
+        Me.chbFESOP = New System.Windows.Forms.CheckBox()
+        Me.chbAcidPrecip = New System.Windows.Forms.CheckBox()
+        Me.chbNSPS = New System.Windows.Forms.CheckBox()
+        Me.chbNESHAP = New System.Windows.Forms.CheckBox()
+        Me.chbNSR = New System.Windows.Forms.CheckBox()
+        Me.chbPSD = New System.Windows.Forms.CheckBox()
+        Me.chbCFCTracking = New System.Windows.Forms.CheckBox()
+        Me.chbNonFedSIP = New System.Windows.Forms.CheckBox()
+        Me.chbFederalSIP = New System.Windows.Forms.CheckBox()
+        Me.chbSIP = New System.Windows.Forms.CheckBox()
+        Me.Label15 = New System.Windows.Forms.Label()
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.txtAirDescription = New System.Windows.Forms.TextBox()
+        Me.Label17 = New System.Windows.Forms.Label()
+        Me.txtDescription = New System.Windows.Forms.TextBox()
+        Me.mtbNumberOfEmployees = New System.Windows.Forms.MaskedTextBox()
+        Me.Label14 = New System.Windows.Forms.Label()
+        Me.txtWebSite = New System.Windows.Forms.TextBox()
+        Me.Label11 = New System.Windows.Forms.Label()
+        Me.mtbSIC = New System.Windows.Forms.MaskedTextBox()
+        Me.Label12 = New System.Windows.Forms.Label()
+        Me.mtbNAICS = New System.Windows.Forms.MaskedTextBox()
+        Me.Label13 = New System.Windows.Forms.Label()
+        Me.TPContactInformation = New System.Windows.Forms.TabPage()
+        Me.dgvContactInformation = New System.Windows.Forms.DataGridView()
+        Me.Panel3 = New System.Windows.Forms.Panel()
+        Me.Label39 = New System.Windows.Forms.Label()
+        Me.txtContactNotes = New System.Windows.Forms.TextBox()
+        Me.btnGetSiteAddress = New System.Windows.Forms.Button()
+        Me.btnDeleteContact = New System.Windows.Forms.Button()
+        Me.btnAddNewContact = New System.Windows.Forms.Button()
+        Me.btnClearContact = New System.Windows.Forms.Button()
+        Me.chbMainClientContact = New System.Windows.Forms.CheckBox()
+        Me.btnSearchForContact = New System.Windows.Forms.Button()
+        Me.btnAddContact = New System.Windows.Forms.Button()
+        Me.txtContactLastModified = New System.Windows.Forms.TextBox()
+        Me.Label31 = New System.Windows.Forms.Label()
+        Me.txtContactCreationInfo = New System.Windows.Forms.TextBox()
+        Me.Label30 = New System.Windows.Forms.Label()
+        Me.txtContactState = New System.Windows.Forms.TextBox()
+        Me.mtbContactZipCode = New System.Windows.Forms.MaskedTextBox()
+        Me.txtContactCity = New System.Windows.Forms.TextBox()
+        Me.Label29 = New System.Windows.Forms.Label()
+        Me.txtContactAddress = New System.Windows.Forms.TextBox()
+        Me.Label28 = New System.Windows.Forms.Label()
+        Me.txtEmail = New System.Windows.Forms.TextBox()
+        Me.Label27 = New System.Windows.Forms.Label()
+        Me.mtbFaxNumber = New System.Windows.Forms.MaskedTextBox()
+        Me.Label26 = New System.Windows.Forms.Label()
+        Me.mtbCellPhone = New System.Windows.Forms.MaskedTextBox()
+        Me.Label25 = New System.Windows.Forms.Label()
+        Me.mtbPhoneNumber = New System.Windows.Forms.MaskedTextBox()
+        Me.Label24 = New System.Windows.Forms.Label()
+        Me.txtTitle = New System.Windows.Forms.TextBox()
+        Me.Label23 = New System.Windows.Forms.Label()
+        Me.txtCredentials = New System.Windows.Forms.TextBox()
+        Me.Label22 = New System.Windows.Forms.Label()
+        Me.txtSalutation = New System.Windows.Forms.TextBox()
+        Me.Label21 = New System.Windows.Forms.Label()
+        Me.txtLastName = New System.Windows.Forms.TextBox()
+        Me.Label20 = New System.Windows.Forms.Label()
+        Me.txtFirstName = New System.Windows.Forms.TextBox()
+        Me.Label19 = New System.Windows.Forms.Label()
+        Me.txtContactID = New System.Windows.Forms.TextBox()
+        Me.Label18 = New System.Windows.Forms.Label()
+        Me.TPSummaryOfWork = New System.Windows.Forms.TabPage()
+        Me.Label40 = New System.Windows.Forms.Label()
+        Me.btnOpenCase = New System.Windows.Forms.Button()
+        Me.txtCaseID = New System.Windows.Forms.TextBox()
+        Me.dgvCaseLog = New System.Windows.Forms.DataGridView()
         Me.MenuStrip1.SuspendLayout()
-        Me.StatusStrip1.SuspendLayout()
         Me.ToolStrip1.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.TCClientData.SuspendLayout()
         Me.TPSiteLocation.SuspendLayout()
         Me.TPCompanyInformation.SuspendLayout()
-        Me.TCMultiMedia.SuspendLayout()
-        Me.TPAir.SuspendLayout()
         Me.Panel2.SuspendLayout()
         Me.TPContactInformation.SuspendLayout()
         CType(Me.dgvContactInformation, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -226,44 +211,9 @@ Partial Class SBEAPClientSummary
         Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(44, 20)
         Me.HelpToolStripMenuItem.Text = "Help"
         '
-        'StatusStrip1
-        '
-        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.pnl1, Me.pnl2, Me.pnl3})
-        Me.StatusStrip1.Location = New System.Drawing.Point(0, 544)
-        Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Size = New System.Drawing.Size(792, 22)
-        Me.StatusStrip1.TabIndex = 1
-        Me.StatusStrip1.Text = "StatusStrip1"
-        '
-        'pnl1
-        '
-        Me.pnl1.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.pnl1.Name = "pnl1"
-        Me.pnl1.Size = New System.Drawing.Size(769, 17)
-        Me.pnl1.Spring = True
-        Me.pnl1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'pnl2
-        '
-        Me.pnl2.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.pnl2.Name = "pnl2"
-        Me.pnl2.Size = New System.Drawing.Size(4, 17)
-        '
-        'pnl3
-        '
-        Me.pnl3.BorderSides = CType((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) _
-                    Or System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom), System.Windows.Forms.ToolStripStatusLabelBorderSides)
-        Me.pnl3.Name = "pnl3"
-        Me.pnl3.Size = New System.Drawing.Size(4, 17)
-        '
         'ToolStrip1
         '
-        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsbSave, Me.tsbSearchTool, Me.tsbClear, Me.tsbBack})
+        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsbSave, Me.tsbSearchTool, Me.tsbClear})
         Me.ToolStrip1.Location = New System.Drawing.Point(0, 24)
         Me.ToolStrip1.Name = "ToolStrip1"
         Me.ToolStrip1.Size = New System.Drawing.Size(792, 25)
@@ -296,15 +246,6 @@ Partial Class SBEAPClientSummary
         Me.tsbClear.Name = "tsbClear"
         Me.tsbClear.Size = New System.Drawing.Size(23, 22)
         Me.tsbClear.Text = "Clear"
-        '
-        'tsbBack
-        '
-        Me.tsbBack.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.tsbBack.Image = CType(resources.GetObject("tsbBack.Image"), System.Drawing.Image)
-        Me.tsbBack.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.tsbBack.Name = "tsbBack"
-        Me.tsbBack.Size = New System.Drawing.Size(23, 22)
-        Me.tsbBack.Text = "Back"
         '
         'Panel1
         '
@@ -404,7 +345,7 @@ Partial Class SBEAPClientSummary
         Me.TCClientData.Location = New System.Drawing.Point(0, 120)
         Me.TCClientData.Name = "TCClientData"
         Me.TCClientData.SelectedIndex = 0
-        Me.TCClientData.Size = New System.Drawing.Size(792, 424)
+        Me.TCClientData.Size = New System.Drawing.Size(792, 446)
         Me.TCClientData.TabIndex = 4
         '
         'TPSiteLocation
@@ -438,7 +379,7 @@ Partial Class SBEAPClientSummary
         Me.TPSiteLocation.Location = New System.Drawing.Point(4, 22)
         Me.TPSiteLocation.Name = "TPSiteLocation"
         Me.TPSiteLocation.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPSiteLocation.Size = New System.Drawing.Size(784, 398)
+        Me.TPSiteLocation.Size = New System.Drawing.Size(784, 420)
         Me.TPSiteLocation.TabIndex = 0
         Me.TPSiteLocation.Text = "Site Location"
         Me.TPSiteLocation.UseVisualStyleBackColor = True
@@ -656,25 +597,42 @@ Partial Class SBEAPClientSummary
         'TPCompanyInformation
         '
         Me.TPCompanyInformation.AutoScroll = True
+        Me.TPCompanyInformation.Controls.Add(Me.txtISMPUnit)
         Me.TPCompanyInformation.Controls.Add(Me.lblNAICS)
+        Me.TPCompanyInformation.Controls.Add(Me.Label37)
         Me.TPCompanyInformation.Controls.Add(Me.lblSIC)
+        Me.TPCompanyInformation.Controls.Add(Me.txtISMPContact)
         Me.TPCompanyInformation.Controls.Add(Me.llbNAICSSearch)
+        Me.TPCompanyInformation.Controls.Add(Me.txtSSPPUnit)
         Me.TPCompanyInformation.Controls.Add(Me.llbSICSearch)
+        Me.TPCompanyInformation.Controls.Add(Me.Label36)
         Me.TPCompanyInformation.Controls.Add(Me.Label38)
-        Me.TPCompanyInformation.Controls.Add(Me.TCMultiMedia)
+        Me.TPCompanyInformation.Controls.Add(Me.txtSSPPContact)
+        Me.TPCompanyInformation.Controls.Add(Me.txtSSCPUnit)
         Me.TPCompanyInformation.Controls.Add(Me.txtDescription)
+        Me.TPCompanyInformation.Controls.Add(Me.Label35)
         Me.TPCompanyInformation.Controls.Add(Me.mtbNumberOfEmployees)
+        Me.TPCompanyInformation.Controls.Add(Me.txtSSCPContact)
         Me.TPCompanyInformation.Controls.Add(Me.Label14)
+        Me.TPCompanyInformation.Controls.Add(Me.Label34)
         Me.TPCompanyInformation.Controls.Add(Me.txtWebSite)
+        Me.TPCompanyInformation.Controls.Add(Me.txtAIRPermitNumber)
         Me.TPCompanyInformation.Controls.Add(Me.Label11)
+        Me.TPCompanyInformation.Controls.Add(Me.mtbAIRSNumber)
         Me.TPCompanyInformation.Controls.Add(Me.mtbSIC)
+        Me.TPCompanyInformation.Controls.Add(Me.btnRefreshAIRSData)
         Me.TPCompanyInformation.Controls.Add(Me.Label12)
+        Me.TPCompanyInformation.Controls.Add(Me.Panel2)
         Me.TPCompanyInformation.Controls.Add(Me.mtbNAICS)
+        Me.TPCompanyInformation.Controls.Add(Me.Label15)
         Me.TPCompanyInformation.Controls.Add(Me.Label13)
+        Me.TPCompanyInformation.Controls.Add(Me.Label10)
+        Me.TPCompanyInformation.Controls.Add(Me.Label17)
+        Me.TPCompanyInformation.Controls.Add(Me.txtAirDescription)
         Me.TPCompanyInformation.Location = New System.Drawing.Point(4, 22)
         Me.TPCompanyInformation.Name = "TPCompanyInformation"
         Me.TPCompanyInformation.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPCompanyInformation.Size = New System.Drawing.Size(784, 398)
+        Me.TPCompanyInformation.Size = New System.Drawing.Size(784, 420)
         Me.TPCompanyInformation.TabIndex = 1
         Me.TPCompanyInformation.Text = "Company Information"
         Me.TPCompanyInformation.UseVisualStyleBackColor = True
@@ -724,52 +682,9 @@ Partial Class SBEAPClientSummary
         Me.Label38.TabIndex = 30
         Me.Label38.Text = "Client Description:"
         '
-        'TCMultiMedia
-        '
-        Me.TCMultiMedia.Controls.Add(Me.TPAir)
-        Me.TCMultiMedia.Controls.Add(Me.TPStormWater)
-        Me.TCMultiMedia.Controls.Add(Me.TPWasteWater)
-        Me.TCMultiMedia.Controls.Add(Me.TPSolidWaste)
-        Me.TCMultiMedia.Controls.Add(Me.TPLand)
-        Me.TCMultiMedia.Controls.Add(Me.TPHazardousWaste)
-        Me.TCMultiMedia.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.TCMultiMedia.Location = New System.Drawing.Point(3, 93)
-        Me.TCMultiMedia.Name = "TCMultiMedia"
-        Me.TCMultiMedia.SelectedIndex = 0
-        Me.TCMultiMedia.Size = New System.Drawing.Size(778, 302)
-        Me.TCMultiMedia.TabIndex = 17
-        '
-        'TPAir
-        '
-        Me.TPAir.Controls.Add(Me.txtISMPUnit)
-        Me.TPAir.Controls.Add(Me.Label37)
-        Me.TPAir.Controls.Add(Me.txtISMPContact)
-        Me.TPAir.Controls.Add(Me.txtSSPPUnit)
-        Me.TPAir.Controls.Add(Me.Label36)
-        Me.TPAir.Controls.Add(Me.txtSSPPContact)
-        Me.TPAir.Controls.Add(Me.txtSSCPUnit)
-        Me.TPAir.Controls.Add(Me.Label35)
-        Me.TPAir.Controls.Add(Me.txtSSCPContact)
-        Me.TPAir.Controls.Add(Me.Label34)
-        Me.TPAir.Controls.Add(Me.txtAIRPermitNumber)
-        Me.TPAir.Controls.Add(Me.mtbAIRSNumber)
-        Me.TPAir.Controls.Add(Me.btnRefreshAIRSData)
-        Me.TPAir.Controls.Add(Me.Panel2)
-        Me.TPAir.Controls.Add(Me.Label15)
-        Me.TPAir.Controls.Add(Me.Label10)
-        Me.TPAir.Controls.Add(Me.txtAirDescription)
-        Me.TPAir.Controls.Add(Me.Label17)
-        Me.TPAir.Location = New System.Drawing.Point(4, 22)
-        Me.TPAir.Name = "TPAir"
-        Me.TPAir.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPAir.Size = New System.Drawing.Size(770, 276)
-        Me.TPAir.TabIndex = 0
-        Me.TPAir.Text = "Air"
-        Me.TPAir.UseVisualStyleBackColor = True
-        '
         'txtISMPUnit
         '
-        Me.txtISMPUnit.Location = New System.Drawing.Point(382, 247)
+        Me.txtISMPUnit.Location = New System.Drawing.Point(380, 359)
         Me.txtISMPUnit.Name = "txtISMPUnit"
         Me.txtISMPUnit.Size = New System.Drawing.Size(228, 20)
         Me.txtISMPUnit.TabIndex = 28
@@ -777,7 +692,7 @@ Partial Class SBEAPClientSummary
         'Label37
         '
         Me.Label37.AutoSize = True
-        Me.Label37.Location = New System.Drawing.Point(8, 251)
+        Me.Label37.Location = New System.Drawing.Point(6, 363)
         Me.Label37.Name = "Label37"
         Me.Label37.Size = New System.Drawing.Size(128, 13)
         Me.Label37.TabIndex = 27
@@ -785,14 +700,14 @@ Partial Class SBEAPClientSummary
         '
         'txtISMPContact
         '
-        Me.txtISMPContact.Location = New System.Drawing.Point(148, 247)
+        Me.txtISMPContact.Location = New System.Drawing.Point(146, 359)
         Me.txtISMPContact.Name = "txtISMPContact"
         Me.txtISMPContact.Size = New System.Drawing.Size(228, 20)
         Me.txtISMPContact.TabIndex = 26
         '
         'txtSSPPUnit
         '
-        Me.txtSSPPUnit.Location = New System.Drawing.Point(382, 221)
+        Me.txtSSPPUnit.Location = New System.Drawing.Point(380, 333)
         Me.txtSSPPUnit.Name = "txtSSPPUnit"
         Me.txtSSPPUnit.Size = New System.Drawing.Size(228, 20)
         Me.txtSSPPUnit.TabIndex = 25
@@ -800,7 +715,7 @@ Partial Class SBEAPClientSummary
         'Label36
         '
         Me.Label36.AutoSize = True
-        Me.Label36.Location = New System.Drawing.Point(8, 225)
+        Me.Label36.Location = New System.Drawing.Point(6, 337)
         Me.Label36.Name = "Label36"
         Me.Label36.Size = New System.Drawing.Size(125, 13)
         Me.Label36.TabIndex = 24
@@ -808,14 +723,14 @@ Partial Class SBEAPClientSummary
         '
         'txtSSPPContact
         '
-        Me.txtSSPPContact.Location = New System.Drawing.Point(148, 221)
+        Me.txtSSPPContact.Location = New System.Drawing.Point(146, 333)
         Me.txtSSPPContact.Name = "txtSSPPContact"
         Me.txtSSPPContact.Size = New System.Drawing.Size(228, 20)
         Me.txtSSPPContact.TabIndex = 23
         '
         'txtSSCPUnit
         '
-        Me.txtSSCPUnit.Location = New System.Drawing.Point(382, 195)
+        Me.txtSSCPUnit.Location = New System.Drawing.Point(380, 307)
         Me.txtSSCPUnit.Name = "txtSSCPUnit"
         Me.txtSSCPUnit.Size = New System.Drawing.Size(228, 20)
         Me.txtSSCPUnit.TabIndex = 22
@@ -823,7 +738,7 @@ Partial Class SBEAPClientSummary
         'Label35
         '
         Me.Label35.AutoSize = True
-        Me.Label35.Location = New System.Drawing.Point(8, 199)
+        Me.Label35.Location = New System.Drawing.Point(6, 311)
         Me.Label35.Name = "Label35"
         Me.Label35.Size = New System.Drawing.Size(134, 13)
         Me.Label35.TabIndex = 21
@@ -831,7 +746,7 @@ Partial Class SBEAPClientSummary
         '
         'txtSSCPContact
         '
-        Me.txtSSCPContact.Location = New System.Drawing.Point(148, 195)
+        Me.txtSSCPContact.Location = New System.Drawing.Point(146, 307)
         Me.txtSSCPContact.Name = "txtSSCPContact"
         Me.txtSSCPContact.Size = New System.Drawing.Size(228, 20)
         Me.txtSSCPContact.TabIndex = 20
@@ -839,7 +754,7 @@ Partial Class SBEAPClientSummary
         'Label34
         '
         Me.Label34.AutoSize = True
-        Me.Label34.Location = New System.Drawing.Point(8, 37)
+        Me.Label34.Location = New System.Drawing.Point(6, 149)
         Me.Label34.Name = "Label34"
         Me.Label34.Size = New System.Drawing.Size(86, 13)
         Me.Label34.TabIndex = 19
@@ -847,14 +762,14 @@ Partial Class SBEAPClientSummary
         '
         'txtAIRPermitNumber
         '
-        Me.txtAIRPermitNumber.Location = New System.Drawing.Point(100, 34)
+        Me.txtAIRPermitNumber.Location = New System.Drawing.Point(98, 146)
         Me.txtAIRPermitNumber.Name = "txtAIRPermitNumber"
         Me.txtAIRPermitNumber.Size = New System.Drawing.Size(169, 20)
         Me.txtAIRPermitNumber.TabIndex = 18
         '
         'mtbAIRSNumber
         '
-        Me.mtbAIRSNumber.Location = New System.Drawing.Point(93, 7)
+        Me.mtbAIRSNumber.Location = New System.Drawing.Point(91, 119)
         Me.mtbAIRSNumber.Mask = "000-00000"
         Me.mtbAIRSNumber.Name = "mtbAIRSNumber"
         Me.mtbAIRSNumber.Size = New System.Drawing.Size(64, 20)
@@ -866,7 +781,7 @@ Partial Class SBEAPClientSummary
         Me.btnRefreshAIRSData.AutoSize = True
         Me.btnRefreshAIRSData.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.btnRefreshAIRSData.Image = CType(resources.GetObject("btnRefreshAIRSData.Image"), System.Drawing.Image)
-        Me.btnRefreshAIRSData.Location = New System.Drawing.Point(171, 6)
+        Me.btnRefreshAIRSData.Location = New System.Drawing.Point(169, 118)
         Me.btnRefreshAIRSData.Name = "btnRefreshAIRSData"
         Me.btnRefreshAIRSData.Size = New System.Drawing.Size(22, 22)
         Me.btnRefreshAIRSData.TabIndex = 2
@@ -890,7 +805,7 @@ Partial Class SBEAPClientSummary
         Me.Panel2.Controls.Add(Me.chbNonFedSIP)
         Me.Panel2.Controls.Add(Me.chbFederalSIP)
         Me.Panel2.Controls.Add(Me.chbSIP)
-        Me.Panel2.Location = New System.Drawing.Point(95, 64)
+        Me.Panel2.Location = New System.Drawing.Point(93, 176)
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Size = New System.Drawing.Size(374, 120)
         Me.Panel2.TabIndex = 7
@@ -1048,7 +963,7 @@ Partial Class SBEAPClientSummary
         'Label15
         '
         Me.Label15.AutoSize = True
-        Me.Label15.Location = New System.Drawing.Point(4, 64)
+        Me.Label15.Location = New System.Drawing.Point(2, 176)
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(86, 13)
         Me.Label15.TabIndex = 12
@@ -1057,7 +972,7 @@ Partial Class SBEAPClientSummary
         'Label10
         '
         Me.Label10.AutoSize = True
-        Me.Label10.Location = New System.Drawing.Point(233, 11)
+        Me.Label10.Location = New System.Drawing.Point(231, 123)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(149, 13)
         Me.Label10.TabIndex = 2
@@ -1065,7 +980,7 @@ Partial Class SBEAPClientSummary
         '
         'txtAirDescription
         '
-        Me.txtAirDescription.Location = New System.Drawing.Point(388, 7)
+        Me.txtAirDescription.Location = New System.Drawing.Point(386, 119)
         Me.txtAirDescription.Name = "txtAirDescription"
         Me.txtAirDescription.Size = New System.Drawing.Size(228, 20)
         Me.txtAirDescription.TabIndex = 0
@@ -1073,57 +988,11 @@ Partial Class SBEAPClientSummary
         'Label17
         '
         Me.Label17.AutoSize = True
-        Me.Label17.Location = New System.Drawing.Point(12, 11)
+        Me.Label17.Location = New System.Drawing.Point(10, 123)
         Me.Label17.Name = "Label17"
         Me.Label17.Size = New System.Drawing.Size(75, 13)
         Me.Label17.TabIndex = 16
         Me.Label17.Text = "AIRS Number:"
-        '
-        'TPStormWater
-        '
-        Me.TPStormWater.Location = New System.Drawing.Point(4, 22)
-        Me.TPStormWater.Name = "TPStormWater"
-        Me.TPStormWater.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPStormWater.Size = New System.Drawing.Size(770, 276)
-        Me.TPStormWater.TabIndex = 1
-        Me.TPStormWater.Text = "Storm Water"
-        Me.TPStormWater.UseVisualStyleBackColor = True
-        '
-        'TPWasteWater
-        '
-        Me.TPWasteWater.Location = New System.Drawing.Point(4, 22)
-        Me.TPWasteWater.Name = "TPWasteWater"
-        Me.TPWasteWater.Size = New System.Drawing.Size(770, 276)
-        Me.TPWasteWater.TabIndex = 2
-        Me.TPWasteWater.Text = "Waste Water"
-        Me.TPWasteWater.UseVisualStyleBackColor = True
-        '
-        'TPSolidWaste
-        '
-        Me.TPSolidWaste.Location = New System.Drawing.Point(4, 22)
-        Me.TPSolidWaste.Name = "TPSolidWaste"
-        Me.TPSolidWaste.Size = New System.Drawing.Size(770, 276)
-        Me.TPSolidWaste.TabIndex = 3
-        Me.TPSolidWaste.Text = "Solid Waste"
-        Me.TPSolidWaste.UseVisualStyleBackColor = True
-        '
-        'TPLand
-        '
-        Me.TPLand.Location = New System.Drawing.Point(4, 22)
-        Me.TPLand.Name = "TPLand"
-        Me.TPLand.Size = New System.Drawing.Size(770, 276)
-        Me.TPLand.TabIndex = 4
-        Me.TPLand.Text = "Land"
-        Me.TPLand.UseVisualStyleBackColor = True
-        '
-        'TPHazardousWaste
-        '
-        Me.TPHazardousWaste.Location = New System.Drawing.Point(4, 22)
-        Me.TPHazardousWaste.Name = "TPHazardousWaste"
-        Me.TPHazardousWaste.Size = New System.Drawing.Size(770, 276)
-        Me.TPHazardousWaste.TabIndex = 5
-        Me.TPHazardousWaste.Text = "Hazardous Waste"
-        Me.TPHazardousWaste.UseVisualStyleBackColor = True
         '
         'txtDescription
         '
@@ -1206,7 +1075,7 @@ Partial Class SBEAPClientSummary
         Me.TPContactInformation.Controls.Add(Me.Panel3)
         Me.TPContactInformation.Location = New System.Drawing.Point(4, 22)
         Me.TPContactInformation.Name = "TPContactInformation"
-        Me.TPContactInformation.Size = New System.Drawing.Size(784, 398)
+        Me.TPContactInformation.Size = New System.Drawing.Size(784, 420)
         Me.TPContactInformation.TabIndex = 2
         Me.TPContactInformation.Text = "Contact Information"
         Me.TPContactInformation.UseVisualStyleBackColor = True
@@ -1217,7 +1086,7 @@ Partial Class SBEAPClientSummary
         Me.dgvContactInformation.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvContactInformation.Location = New System.Drawing.Point(0, 182)
         Me.dgvContactInformation.Name = "dgvContactInformation"
-        Me.dgvContactInformation.Size = New System.Drawing.Size(784, 216)
+        Me.dgvContactInformation.Size = New System.Drawing.Size(784, 238)
         Me.dgvContactInformation.TabIndex = 0
         '
         'Panel3
@@ -1619,7 +1488,7 @@ Partial Class SBEAPClientSummary
         Me.TPSummaryOfWork.Controls.Add(Me.dgvCaseLog)
         Me.TPSummaryOfWork.Location = New System.Drawing.Point(4, 22)
         Me.TPSummaryOfWork.Name = "TPSummaryOfWork"
-        Me.TPSummaryOfWork.Size = New System.Drawing.Size(784, 398)
+        Me.TPSummaryOfWork.Size = New System.Drawing.Size(784, 420)
         Me.TPSummaryOfWork.TabIndex = 3
         Me.TPSummaryOfWork.Text = "Summary of Client Work"
         Me.TPSummaryOfWork.UseVisualStyleBackColor = True
@@ -1653,7 +1522,7 @@ Partial Class SBEAPClientSummary
         '
         Me.dgvCaseLog.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvCaseLog.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.dgvCaseLog.Location = New System.Drawing.Point(0, 48)
+        Me.dgvCaseLog.Location = New System.Drawing.Point(0, 70)
         Me.dgvCaseLog.Name = "dgvCaseLog"
         Me.dgvCaseLog.Size = New System.Drawing.Size(784, 350)
         Me.dgvCaseLog.TabIndex = 0
@@ -1666,15 +1535,12 @@ Partial Class SBEAPClientSummary
         Me.Controls.Add(Me.TCClientData)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.ToolStrip1)
-        Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.MenuStrip1)
         Me.MainMenuStrip = Me.MenuStrip1
         Me.Name = "SBEAPClientSummary"
         Me.Text = "Customer Summary"
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
-        Me.StatusStrip1.ResumeLayout(False)
-        Me.StatusStrip1.PerformLayout()
         Me.ToolStrip1.ResumeLayout(False)
         Me.ToolStrip1.PerformLayout()
         Me.Panel1.ResumeLayout(False)
@@ -1684,9 +1550,6 @@ Partial Class SBEAPClientSummary
         Me.TPSiteLocation.PerformLayout()
         Me.TPCompanyInformation.ResumeLayout(False)
         Me.TPCompanyInformation.PerformLayout()
-        Me.TCMultiMedia.ResumeLayout(False)
-        Me.TPAir.ResumeLayout(False)
-        Me.TPAir.PerformLayout()
         Me.Panel2.ResumeLayout(False)
         Me.Panel2.PerformLayout()
         Me.TPContactInformation.ResumeLayout(False)
@@ -1703,13 +1566,8 @@ Partial Class SBEAPClientSummary
     Friend WithEvents MenuStrip1 As System.Windows.Forms.MenuStrip
     Friend WithEvents FileToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents HelpToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents StatusStrip1 As System.Windows.Forms.StatusStrip
-    Friend WithEvents pnl1 As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents pnl2 As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents pnl3 As System.Windows.Forms.ToolStripStatusLabel
     Friend WithEvents ToolStrip1 As System.Windows.Forms.ToolStrip
     Friend WithEvents tsbSave As System.Windows.Forms.ToolStripButton
-    Friend WithEvents tsbBack As System.Windows.Forms.ToolStripButton
     Friend WithEvents Panel1 As System.Windows.Forms.Panel
     Friend WithEvents txtCompanyName As System.Windows.Forms.TextBox
     Friend WithEvents Label1 As System.Windows.Forms.Label
@@ -1816,13 +1674,6 @@ Partial Class SBEAPClientSummary
     Friend WithEvents btnAddNewContact As System.Windows.Forms.Button
     Friend WithEvents btnDeleteContact As System.Windows.Forms.Button
     Friend WithEvents btnGetSiteAddress As System.Windows.Forms.Button
-    Friend WithEvents TCMultiMedia As System.Windows.Forms.TabControl
-    Friend WithEvents TPAir As System.Windows.Forms.TabPage
-    Friend WithEvents TPStormWater As System.Windows.Forms.TabPage
-    Friend WithEvents TPWasteWater As System.Windows.Forms.TabPage
-    Friend WithEvents TPSolidWaste As System.Windows.Forms.TabPage
-    Friend WithEvents TPLand As System.Windows.Forms.TabPage
-    Friend WithEvents TPHazardousWaste As System.Windows.Forms.TabPage
     Friend WithEvents mtbAIRSNumber As System.Windows.Forms.MaskedTextBox
     Friend WithEvents Label34 As System.Windows.Forms.Label
     Friend WithEvents txtAIRPermitNumber As System.Windows.Forms.TextBox

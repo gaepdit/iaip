@@ -1,29 +1,28 @@
 ﻿Imports Iaip.Apb
 Imports Iaip.Apb.Facilities
-Imports Iaip.Apb.Sscp
-Imports Oracle.ManagedDataAccess.Client
+Imports System.Data.SqlClient
 
 Namespace DAL
 
     Module PollutantsPrograms
 
-        Public Function GetFacilityPollutants(airsNumber As Apb.ApbFacilityId) As DataTable
+        Public Function GetFacilityPollutants(airsNumber As ApbFacilityId) As DataTable
             Dim query As String = "SELECT DISTINCT(poll.STRPOLLUTANTKEY), " &
                 "  lkpoll.STRPOLLUTANTDESCRIPTION " &
-                "FROM AIRBRANCH.APBAIRPROGRAMPOLLUTANTS poll " &
-                "INNER JOIN AIRBRANCH.LOOKUPPOLLUTANTS lkpoll ON " &
+                "FROM APBAIRPROGRAMPOLLUTANTS poll " &
+                "INNER JOIN LOOKUPPOLLUTANTS lkpoll ON " &
                 "  poll.STRPOLLUTANTKEY = lkpoll.STRPOLLUTANTCODE " &
-                "WHERE poll.STRAIRSNUMBER = :airsNumber"
-            Dim parameter As New OracleParameter("airsNumber", airsNumber.DbFormattedString)
+                "WHERE poll.STRAIRSNUMBER = @airsNumber"
+            Dim parameter As New SqlParameter("@airsNumber", airsNumber.DbFormattedString)
             Dim dt As DataTable = DB.GetDataTable(query, parameter)
             dt.PrimaryKey = New DataColumn() {dt.Columns("STRPOLLUTANTKEY")}
             Return dt
         End Function
 
-        Public Function GetFacilityAirPrograms(airsNumber As Apb.ApbFacilityId) As AirProgram
-            Dim query As String = "SELECT STRAIRPROGRAMCODES FROM AIRBRANCH.APBHEADERDATA WHERE STRAIRSNUMBER = :airsNumber"
-            Dim parameter As New OracleParameter("airsNumber", airsNumber.DbFormattedString)
-            Dim apc As String = DB.GetSingleValue(Of String)(query, parameter)
+        Public Function GetFacilityAirPrograms(airsNumber As ApbFacilityId) As AirProgram
+            Dim query As String = "SELECT STRAIRPROGRAMCODES FROM APBHEADERDATA WHERE STRAIRSNUMBER = @airsNumber"
+            Dim parameter As New SqlParameter("@airsNumber", airsNumber.DbFormattedString)
+            Dim apc As String = DB.GetString(query, parameter)
 
             If apc Is Nothing Then
                 Return AirProgram.None
@@ -32,7 +31,7 @@ Namespace DAL
             End If
         End Function
 
-        Public Function GetFacilityAirProgramsAsDataTable(airsNumber As Apb.ApbFacilityId, Stringify As Boolean) As DataTable
+        Public Function GetFacilityAirProgramsAsDataTable(airsNumber As ApbFacilityId, Stringify As Boolean) As DataTable
             Dim airPrograms As AirProgram = GetFacilityAirPrograms(airsNumber)
 
             If (airPrograms = AirProgram.None) Then Return Nothing
@@ -57,21 +56,22 @@ Namespace DAL
         End Function
 
         Public Function GetFacilityProgramPollutantStatuses(airsNumber As ApbFacilityId) As DataTable
-            Dim query As String = "SELECT SUBSTR(app.STRAIRPOLLUTANTKEY, 13, 1) AS " &
-                "  ""Air Program Code"", lkpl.STRPOLLUTANTCODE AS " &
-                "  ""Pollutant Code"", lkpl.STRPOLLUTANTDESCRIPTION AS " &
-                "  ""Pollutant"", app.STROPERATIONALSTATUS AS " &
-                "  ""Operating Status Code"", app.DATMODIFINGDATE AS " &
-                "  ""Date Modified"",(up.STRLASTNAME || ', ' || up.STRFIRSTNAME) " &
-                "  AS ""Modified By"" " &
-                "FROM AIRBRANCH.APBAirProgramPollutants app " &
-                "INNER JOIN AIRBRANCH.LookUPPollutants lkpl ON " &
+            Dim query As String = "SELECT app.STRAIRPOLLUTANTKEY AS [key], " &
+                "  SUBSTRING(app.STRAIRPOLLUTANTKEY, 13, 1) AS " &
+                "  [Air Program Code], lkpl.STRPOLLUTANTCODE AS " &
+                "  [Pollutant Code], lkpl.STRPOLLUTANTDESCRIPTION AS " &
+                "  [Pollutant], app.STROPERATIONALSTATUS AS " &
+                "  [Operating Status Code], app.DATMODIFINGDATE AS " &
+                "  [Date Modified], CONCAT(up.STRLASTNAME, ', ', up.STRFIRSTNAME) " &
+                "  AS [Modified By] " &
+                "FROM APBAirProgramPollutants app " &
+                "INNER JOIN LookUPPollutants lkpl ON " &
                 "  app.STRPOLLUTANTKEY = lkpl.STRPOLLUTANTCODE " &
-                "INNER JOIN AIRBRANCH.EPDUserProfiles up ON " &
+                "INNER JOIN EPDUserProfiles up ON " &
                 "  app.STRMODIFINGPERSON = up.NUMUSERID " &
-                "WHERE app.STRAIRSNUMBER = :airsNumber " &
-                "ORDER BY ""Air Program Code"", ""Pollutant Code"""
-            Dim parameter As New OracleParameter("airsNumber", airsNumber.DbFormattedString)
+                "WHERE app.STRAIRSNUMBER = @airsNumber " &
+                "ORDER BY [Air Program Code], [Pollutant Code]"
+            Dim parameter As New SqlParameter("@airsNumber", airsNumber.DbFormattedString)
             Return DB.GetDataTable(query, parameter)
         End Function
 
@@ -95,7 +95,7 @@ Namespace DAL
                                                            ) As Boolean
 
             Dim query As String = "INSERT " &
-                "INTO AIRBRANCH.APBAIRPROGRAMPOLLUTANTS " &
+                "INTO APBAIRPROGRAMPOLLUTANTS " &
                 "  ( " &
                 "    STRAIRSNUMBER, STRAIRPOLLUTANTKEY, STRPOLLUTANTKEY, " &
                 "    STROPERATIONALSTATUS, " &
@@ -103,17 +103,17 @@ Namespace DAL
                 "  ) " &
                 "  VALUES " &
                 "  ( " &
-                "    :STRAIRSNUMBER, :STRAIRPOLLUTANTKEY, :STRPOLLUTANTKEY, " &
-                "    :STROPERATIONALSTATUS, " &
-                "    :STRMODIFINGPERSON, sysdate " &
+                "    @STRAIRSNUMBER, @STRAIRPOLLUTANTKEY, @STRPOLLUTANTKEY, " &
+                "    @STROPERATIONALSTATUS, " &
+                "    @STRMODIFINGPERSON, getdate() " &
                 "  )"
 
-            Dim parameters As OracleParameter() = {
-                New OracleParameter("STRAIRSNUMBER", airsNumber.DbFormattedString),
-                New OracleParameter("STRAIRPOLLUTANTKEY", airsNumber.DbFormattedString & FacilityHeaderData.ConvertAirProgramToLegacyCode(airProgram.ToString)),
-                New OracleParameter("STRPOLLUTANTKEY", pollutantCode),
-                New OracleParameter("STROPERATIONALSTATUS", operatingStatus.ToString),
-                New OracleParameter("STRMODIFINGPERSON", CurrentUser.UserID)
+            Dim parameters As SqlParameter() = {
+                New SqlParameter("@STRAIRSNUMBER", airsNumber.DbFormattedString),
+                New SqlParameter("@STRAIRPOLLUTANTKEY", airsNumber.DbFormattedString & FacilityHeaderData.ConvertAirProgramToLegacyCode(airProgram.ToString)),
+                New SqlParameter("@STRPOLLUTANTKEY", pollutantCode),
+                New SqlParameter("@STROPERATIONALSTATUS", operatingStatus.ToString),
+                New SqlParameter("@STRMODIFINGPERSON", CurrentUser.UserID)
             }
 
             Return DB.RunCommand(query, parameters)
@@ -125,18 +125,18 @@ Namespace DAL
                                                            operatingStatus As FacilityOperationalStatus
                                                            ) As Boolean
 
-            Dim query As String = "UPDATE AIRBRANCH.APBAIRPROGRAMPOLLUTANTS " &
-                "SET STROPERATIONALSTATUS = :STROPERATIONALSTATUS, " &
-                "  STRMODIFINGPERSON = :STRMODIFINGPERSON, " &
-                "  DATMODIFINGDATE = sysdate " &
-                "WHERE STRAIRPOLLUTANTKEY = :STRAIRPOLLUTANTKEY AND " &
-                "  STRPOLLUTANTKEY = :STRPOLLUTANTKEY "
+            Dim query As String = "UPDATE APBAIRPROGRAMPOLLUTANTS " &
+                "SET STROPERATIONALSTATUS = @STROPERATIONALSTATUS, " &
+                "  STRMODIFINGPERSON = @STRMODIFINGPERSON, " &
+                "  DATMODIFINGDATE = getdate() " &
+                "WHERE STRAIRPOLLUTANTKEY = @STRAIRPOLLUTANTKEY AND " &
+                "  STRPOLLUTANTKEY = @STRPOLLUTANTKEY "
 
-            Dim parameters As OracleParameter() = {
-                New OracleParameter("STROPERATIONALSTATUS", operatingStatus.ToString),
-                New OracleParameter("STRMODIFINGPERSON", CurrentUser.UserID),
-                New OracleParameter("STRAIRPOLLUTANTKEY", airsNumber.DbFormattedString & FacilityHeaderData.ConvertAirProgramToLegacyCode(airProgram.ToString)),
-                New OracleParameter("STRPOLLUTANTKEY", pollutantCode)
+            Dim parameters As SqlParameter() = {
+                New SqlParameter("@STROPERATIONALSTATUS", operatingStatus.ToString),
+                New SqlParameter("@STRMODIFINGPERSON", CurrentUser.UserID),
+                New SqlParameter("@STRAIRPOLLUTANTKEY", airsNumber.DbFormattedString & FacilityHeaderData.ConvertAirProgramToLegacyCode(airProgram.ToString)),
+                New SqlParameter("@STRPOLLUTANTKEY", pollutantCode)
             }
 
             Return DB.RunCommand(query, parameters)
@@ -148,25 +148,27 @@ Namespace DAL
                                                            ) As Boolean
 
             Dim query As String = "SELECT STRAIRSNUMBER " &
-                "FROM AIRBRANCH.APBAIRPROGRAMPOLLUTANTS " &
-                "WHERE STRAIRPOLLUTANTKEY = :STRAIRPOLLUTANTKEY " &
-                " AND STRPOLLUTANTKEY = :STRPOLLUTANTKEY "
+                "FROM APBAIRPROGRAMPOLLUTANTS " &
+                "WHERE STRAIRPOLLUTANTKEY = @STRAIRPOLLUTANTKEY " &
+                " AND STRPOLLUTANTKEY = @STRPOLLUTANTKEY "
 
-            Dim parameters As OracleParameter() = {
-                New OracleParameter("STRAIRPOLLUTANTKEY", airsNumber.DbFormattedString & FacilityHeaderData.ConvertAirProgramToLegacyCode(airProgram.ToString)),
-                New OracleParameter("STRPOLLUTANTKEY", pollutantCode)
+            Dim parameters As SqlParameter() = {
+                New SqlParameter("@STRAIRPOLLUTANTKEY", airsNumber.DbFormattedString & FacilityHeaderData.ConvertAirProgramToLegacyCode(airProgram.ToString)),
+                New SqlParameter("@STRPOLLUTANTKEY", pollutantCode)
             }
 
             Return DB.ValueExists(query, parameters)
         End Function
 
         Public Function GetPollutantsTable() As DataTable
-            Dim query As String = "SELECT STRPOLLUTANTCODE AS ""Pollutant Code"", " &
-                "  STRPOLLUTANTDESCRIPTION AS ""Pollutant"" " &
-                "FROM AIRBRANCH.LOOKUPPOLLUTANTS " &
+            Dim query As String = "SELECT STRPOLLUTANTCODE AS [Pollutant Code], " &
+                "  STRPOLLUTANTDESCRIPTION AS [Pollutant] " &
+                "FROM LOOKUPPOLLUTANTS " &
                 "WHERE STRAFSCODE = 'True' " &
                 "ORDER BY STRPOLLUTANTDESCRIPTION"
-            Return DB.GetDataTable(query)
+            Dim dt As DataTable = DB.GetDataTable(query)
+            dt.PrimaryKey = New DataColumn() {dt.Columns("Pollutant Code")}
+            Return dt
         End Function
 
     End Module

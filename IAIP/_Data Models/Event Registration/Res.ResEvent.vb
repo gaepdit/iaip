@@ -3,10 +3,12 @@ Namespace Apb.Res
 
     Public Class ResEvent
 
-        Public Sub New(ByVal id As Integer)
+        Public Sub New(id As Integer)
             Me.EventId = id
             Dim dataRow As DataRow = GetResEventByIdAsDataRow(id)
-            FillResEventInfoFromDataRow(dataRow, Me)
+            If dataRow IsNot Nothing Then
+                FillResEventInfoFromDataRow(dataRow, Me)
+            End If
         End Sub
 
         Public Property EventId() As Integer
