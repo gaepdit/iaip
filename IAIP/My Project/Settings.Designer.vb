@@ -116,7 +116,7 @@ Namespace My
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.SpecialSettingAttribute(Global.System.Configuration.SpecialSetting.ConnectionString),  _
          Global.System.Configuration.DefaultSettingValueAttribute("Data Source=167.192.209.7;Initial Catalog=airbranch;Persist Security Info=True;Us"& _ 
-            "er ID=iaip_app_user;Password=&724@&7Y$2ja")>  _
+            "er ID=iaip_app_user;Password=qu10B49W$8kR")>  _
         Public ReadOnly Property PRD() As String
             Get
                 Return CType(Me("PRD"),String)
