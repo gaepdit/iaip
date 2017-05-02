@@ -552,38 +552,41 @@ Public Class SSCPEvents
             If AccountFormAccess(49, 2) = "0" And AccountFormAccess(49, 3) = "0" And AccountFormAccess(49, 4) = "0" Then
                 MsgBox("You do not have sufficent permission to save Compliance Events.", MsgBoxStyle.Information, "Compliance Events")
             Else
+                Dim result As Boolean = False
                 Select Case EventType
                     Case WorkItemEventType.Report
-                        SaveReport()
+                        result = SaveReport()
                         LoadReportSubmittalDGR()
                     Case WorkItemEventType.Inspection, WorkItemEventType.RmpInspection
-                        SaveInspection()
+                        result = SaveInspection()
                     Case WorkItemEventType.TvAcc
-                        SaveACC()
+                        result = SaveACC()
                         LoadACCSubmittalDGR()
                     Case WorkItemEventType.StackTest
-                        SaveISMPTestReport()
+                        result = SaveISMPTestReport()
                     Case WorkItemEventType.Notification
                         If cboNotificationType.SelectedValue = "07" Or cboNotificationType.SelectedValue = "08" Then
                             MsgBox("Malfunctions/deviations are no longer saved as notifications." & vbCrLf &
                                    "Please save this as a Report.", MsgBoxStyle.Exclamation, Me.Text)
                             Exit Sub
                         End If
-                        SaveNotifications()
+                        result = SaveNotifications()
                     Case WorkItemEventType.Unknown
                         Exit Sub
                 End Select
+
+                If result Then
+                    If SaveDate() Then
+                        MsgBox("Save Complete", MsgBoxStyle.Information, "SSCP Events")
+                    End If
+                End If
             End If
-
-            SaveDate()
-
-            MsgBox("Save Complete", MsgBoxStyle.Information, "SSCP Events")
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
-    Private Sub SaveReport()
+    Private Function SaveReport() As Boolean
         Dim PeriodComments As String
         Dim GeneralComments As String
         Dim sqlList As New List(Of String)
@@ -596,6 +599,7 @@ Public Class SSCPEvents
                     Or wrnReportPeriod.Visible = True Or wrnShowDeviation.Visible = True _
                     Or wrnReportSubmittal.Visible = True Then
                 MsgBox("Data not saved")
+                Return False
             Else
                 If txtReportPeriodComments.Text = "" Then
                     PeriodComments = "N/A"
@@ -676,8 +680,7 @@ Public Class SSCPEvents
                         New SqlParameter("@strmodifingperson", CurrentUser.UserID)
                     })
 
-                    DB.RunCommand(sqlList, paramList)
-
+                    Return DB.RunCommand(sqlList, paramList)
                 Else
                     sqlList.Add("Update SSCPREports set " &
                         "strSubmittalNumber = @strSubmittalNumber, " &
@@ -787,27 +790,27 @@ Public Class SSCPEvents
                             New SqlParameter("@strmodifingperson", CurrentUser.UserID)
                         })
                     End If
+                End If
 
-                    If chbReportReceivedByAPB.Checked = True Then
-                        sqlList.Add("Update SSCPItemMaster set " &
+                If chbReportReceivedByAPB.Checked = True Then
+                    sqlList.Add("Update SSCPItemMaster set " &
                             "datReceivedDate = @date " &
                             "where strTrackingNumber = @num ")
 
-                        paramList.Add({
+                    paramList.Add({
                             New SqlParameter("@date", DTPReportReceivedDate.Value),
                             pTrkNum
                         })
-                    End If
-
-                    DB.RunCommand(sqlList, paramList)
                 End If
+
+                Return DB.RunCommand(sqlList, paramList)
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
-    End Sub
+    End Function
 
-    Private Sub SaveInspection()
+    Private Function SaveInspection() As Boolean
         Dim InspectionDateTimeStart As Date
         Dim InspectionDateTimeEnd As Date
         Dim InspectionGuide As String
@@ -823,6 +826,8 @@ Public Class SSCPEvents
                 Or wrnInspectionComplianceStatus.Visible = True _
                 Or wrnInspectionDates.Visible = True Then
                 MsgBox("Data not saved")
+
+                Return False
             Else
                 If cboInspectionReason.Items.Contains(cboInspectionReason.Text) And cboInspectionReason.Text <> cboInspectionReason.Items.Item(0) Then
                     InspectionReason = cboInspectionReason.Text
@@ -900,14 +905,14 @@ Public Class SSCPEvents
                         New SqlParameter("@strModifingPerson", CurrentUser.UserID)
                     }
 
-                DB.RunCommand(SQL, p2)
+                Return DB.RunCommand(SQL, p2)
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
-    End Sub
+    End Function
 
-    Private Sub SaveACC()
+    Private Function SaveACC() As Boolean
         Dim PostedOnTime As String
         Dim SignedByRO As String
         Dim CorrectACCForm As String
@@ -935,6 +940,7 @@ Public Class SSCPEvents
             Or wrnACCResubmittalRequested.Visible _
             Or wrnACCRO.Visible = True Or wrnACCSubmittal.Visible = True Then
                 MsgBox("Data not saved", MsgBoxStyle.Information, "SSCP Events.")
+                Return False
             Else
 
                 If dtpAccReportingYear.Checked Then
@@ -1080,7 +1086,7 @@ Public Class SSCPEvents
                         New SqlParameter("@STRRESUBMITTALREQUIRED", ResubmittalRequested)
                     })
 
-                Else  'ValueExists = False 
+                Else  'ValueExists = True 
                     sqlList.Add("Update SSCPACCS set " &
                         "strSubmittalNumber = @strSubmittalNumber, " &
                         "strPostMarkedOnTime = @strPostMarkedOnTime, " &
@@ -1216,7 +1222,7 @@ Public Class SSCPEvents
                         })
                     End If
 
-                    DB.RunCommand(sqlList, paramList)
+                    Return DB.RunCommand(sqlList, paramList)
 
                 End If 'If ValueExists in the SSCPACCS table
             End If  'Warnings Check
@@ -1224,9 +1230,9 @@ Public Class SSCPEvents
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
-    End Sub
+    End Function
 
-    Private Sub SaveISMPTestReport()
+    Private Function SaveISMPTestReport() As Boolean
         Dim TestReportDue As String
         Dim TestReportComments As String
         Dim TestReportFollowUp As String
@@ -1319,13 +1325,13 @@ Public Class SSCPEvents
                 })
             End If
 
-            DB.RunCommand(sqlList, plist)
+            Return DB.RunCommand(sqlList, plist)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
-    End Sub
+    End Function
 
-    Private Sub SaveNotifications()
+    Private Function SaveNotifications() As Boolean
         Dim NotificationDue As String = "True"
         Dim NotificationDueDate As Object
         Dim NotificationSent As String = "True"
@@ -1333,6 +1339,8 @@ Public Class SSCPEvents
         Dim NotificationTypeOther As String = ""
         Dim NotificationComment As String = ""
         Dim NotificationFollowUp As String = ""
+        Dim sqlList As New List(Of String)
+        Dim plist As New List(Of SqlParameter())
 
         Try
 
@@ -1370,7 +1378,7 @@ Public Class SSCPEvents
             Dim p As New SqlParameter("@num", TrackingNumber)
 
             If DB.ValueExists(SQL, p) Then
-                SQL = "UPdate SSCPNotifications set " &
+                sqlList.Add("UPdate SSCPNotifications set " &
                     "datNotificationDue = @datNotificationDue, " &
                     "strNotificationDue = @strNotificationDue, " &
                     "datNotificationSent = @datNotificationSent, " &
@@ -1381,9 +1389,9 @@ Public Class SSCPEvents
                     "strNotificationFollowUp = @strNotificationFollowUp, " &
                     "strModifingPerson = @strModifingPerson, " &
                     "datModifingDate =  GETDATE()  " &
-                    "where strTrackingNumber = @num"
+                    "where strTrackingNumber = @num")
             Else
-                SQL = "Insert into SSCPNotifications " &
+                sqlList.Add("Insert into SSCPNotifications " &
                     "(strTrackingNumber, datNotificationDue, " &
                     "strNotificationDue, datNotificationSent, " &
                     "strNotificationSent, strNotificationType, " &
@@ -1396,10 +1404,10 @@ Public Class SSCPEvents
                     "@strNotificationSent, @strNotificationType, " &
                     "@strNotificationTypeOther, @strNotificationComment, " &
                     "@strNotificationFollowUp, @strModifingPerson, " &
-                    "GETDATE() ) "
+                    "GETDATE() ) ")
             End If
 
-            Dim p2 As SqlParameter() = {
+            plist.Add({
                 New SqlParameter("@datNotificationDue", NotificationDueDate),
                 New SqlParameter("@strNotificationDue", NotificationDue),
                 New SqlParameter("@datNotificationSent", NotificationSentDate),
@@ -1410,29 +1418,26 @@ Public Class SSCPEvents
                 New SqlParameter("@strNotificationFollowUp", NotificationFollowUp),
                 New SqlParameter("@strModifingPerson", CurrentUser.UserID),
                 New SqlParameter("@strTrackingNumber", TrackingNumber)
-            }
-
-            DB.RunCommand(SQL, p2)
+            })
 
             If chbNotificationReceivedByAPB.Checked = True Then
-                SQL = "Update SSCPItemMaster set " &
+                sqlList.Add("Update SSCPItemMaster set " &
                     "datReceivedDate = @date " &
-                    "where strTrackingNumber = @num"
+                    "where strTrackingNumber = @num")
 
-                Dim pa As SqlParameter() = {
+                plist.Add({
                     New SqlParameter("@date", DTPNotificationReceived.Value),
                     New SqlParameter("@num", TrackingNumber)
-                }
-
-                DB.RunCommand(SQL, pa)
+                })
             End If
 
+            Return DB.RunCommand(sqlList, plist)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
-    End Sub
+    End Function
 
-    Private Sub SaveDate()
+    Private Function SaveDate() As Boolean
         Dim Staff As Integer
         Dim SqlList As New List(Of String)
         Dim ParamList As New List(Of SqlParameter())
@@ -1478,18 +1483,6 @@ Public Class SSCPEvents
 
                     ParamList.Add({New SqlParameter("@num", TrackingNumber)})
 
-                    SqlList.Add("INSERT INTO AFSSSCPRecords " &
-                                "(strTrackingNumber, strAFSActionNumber, strUpDateStatus, strModifingPerson, datModifingdate) " &
-                                "SELECT @num, " &
-                                "(Select strAFSActionNumber from APBSupplamentalData where strAIRSNumber = @airs), " &
-                                "'A', @user, GETDATE() " &
-                                "WHERE @num NOT IN " &
-                                "(SELECT strTrackingNumber FROM AFSSSCPRecords)")
-
-                    ParamList.Add({New SqlParameter("@num", TrackingNumber),
-                                  New SqlParameter("@airs", AirsNumber.DbFormattedString),
-                                  New SqlParameter("@user", CurrentUser.UserID)})
-
                     SqlList.Add("UPDATE APBSUPPLAMENTALDATA " &
                                 "SET STRAFSACTIONNUMBER = STRAFSACTIONNUMBER + 1 " &
                                 "WHERE STRAIRSNUMBER = @airs " &
@@ -1497,6 +1490,18 @@ Public Class SSCPEvents
 
                     ParamList.Add({New SqlParameter("@airs", AirsNumber.DbFormattedString),
                                   New SqlParameter("@num", TrackingNumber)})
+
+                    SqlList.Add("INSERT INTO AFSSSCPRecords " &
+                                "(strTrackingNumber, strAFSActionNumber, strUpDateStatus, strModifingPerson, datModifingdate) " &
+                                "SELECT @num, " &
+                                "(Select strAFSActionNumber - 1 from APBSupplamentalData where strAIRSNumber = @airs), " &
+                                "'A', @user, GETDATE() " &
+                                "WHERE @num NOT IN " &
+                                "(SELECT strTrackingNumber FROM AFSSSCPRecords)")
+
+                    ParamList.Add({New SqlParameter("@num", TrackingNumber),
+                                  New SqlParameter("@airs", AirsNumber.DbFormattedString),
+                                  New SqlParameter("@user", CurrentUser.UserID)})
 
                 Case WorkItemEventType.Notification, WorkItemEventType.RmpInspection
                     SqlList.Add("Update AFSSSCPRecords set " &
@@ -1507,8 +1512,6 @@ Public Class SSCPEvents
                     ParamList.Add({New SqlParameter("@num", TrackingNumber)})
 
             End Select
-
-            DB.RunCommand(SqlList, ParamList)
 
             If EventType = WorkItemEventType.TvAcc Then
                 SqlList.Add("INSERT INTO AFSSSCPRecords " &
@@ -1532,12 +1535,11 @@ Public Class SSCPEvents
                               New SqlParameter("@num", TrackingNumber + 1)})
             End If
 
-            DB.RunCommand(SqlList, ParamList)
-
+            Return DB.RunCommand(SqlList, ParamList)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
-    End Sub
+    End Function
 
 #End Region
 
