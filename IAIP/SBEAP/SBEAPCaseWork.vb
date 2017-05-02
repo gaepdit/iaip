@@ -47,7 +47,7 @@ Public Class SBEAPCaseWork
                 .ValueMember = "numActionType"
             End With
 
-            SQL = "Select STRDISTRICTNAME " &
+            SQL = "Select STRDISTRICTNAME as dn " &
             "from LOOKUPDISTRICTS " &
             "Union " &
             "select 'APB' " &
@@ -64,7 +64,11 @@ Public Class SBEAPCaseWork
             "Union " &
             "select 'NSBEAP' "
 
-            cboInteragency.DataSource = DB.GetDataTable(SQL)
+            With cboInteragency
+                .DataSource = DB.GetDataTable(SQL)
+                .DisplayMember = "dn"
+                .ValueMember = "dn"
+            End With
 
             SQL = "select " &
             "'' as NumUserID, '' as UserName " &
@@ -1051,37 +1055,33 @@ Public Class SBEAPCaseWork
             Dim ClientList As String = ""
             Dim Staff As String = ""
             Dim ClientID As String = ""
-            Dim CloseDate As String = ""
+            Dim CloseDate As Date? = Nothing
             Dim InterAgency As String = ""
             Dim ReferralComments As String = ""
-            Dim ReferralDate As String = ""
+            Dim ReferralDate As Date? = Nothing
             Dim ComplaintBased As String = ""
             Dim CaseClosedLetter As String = ""
 
             If cboStaffResponsible.Text <> "" Then
                 Staff = cboStaffResponsible.SelectedValue
             Else
-                Staff = ""
+                Staff = Nothing
             End If
             If DTPCaseClosed.Checked = True Then
-                CloseDate = DTPCaseClosed.Text
-            Else
-                CloseDate = ""
+                CloseDate = DTPCaseClosed.Value
             End If
             If cboInteragency.Text <> "" Then
                 InterAgency = cboInteragency.Text
             Else
-                InterAgency = ""
+                InterAgency = Nothing
             End If
             If txtReferralInformation.Text <> "" Then
                 ReferralComments = txtReferralInformation.Text
             Else
-                ReferralComments = ""
+                ReferralComments = Nothing
             End If
             If DTPReferralDate.Checked = True Then
-                ReferralDate = DTPReferralDate.Text
-            Else
-                ReferralDate = ""
+                ReferralDate = DTPReferralDate.Value
             End If
             If chbComplaintBased.Checked = True Then
                 ComplaintBased = "True"
@@ -1106,7 +1106,7 @@ Public Class SBEAPCaseWork
                 "when (select max(numCaseID) from SBEAPCaseLog) is Null then 1 " &
                 "else (select max(numCaseID) + 1 from SBEAPCaseLog) " &
                 "End CaseID), " &
-                " @NUMSTAFFRESPONSIBLE, @DATCASEOPENED, @STRCASESUMMARY, @CLIENTID, @DATCASECLOSED, " &
+                " @NUMSTAFFRESPONSIBLE, @DATCASEOPENED, @STRCASESUMMARY, null, @DATCASECLOSED, " &
                 " @NUMMODIFINGSTAFF, GETDATE(), @STRINTERAGENCY, @STRREFERRALCOMMENTS, @DATREFERRALDATE, " &
                 " @STRCOMPLAINTBASED, @STRCASECLOSURELETTERSENT) "
 
@@ -1133,7 +1133,6 @@ Public Class SBEAPCaseWork
                 New SqlParameter("@NUMSTAFFRESPONSIBLE", Staff),
                 New SqlParameter("@DATCASEOPENED", DTPCaseOpened.Value),
                 New SqlParameter("@STRCASESUMMARY", txtCaseDescription.Text),
-                New SqlParameter("@CLIENTID", ""),
                 New SqlParameter("@DATCASECLOSED", CloseDate),
                 New SqlParameter("@NUMMODIFINGSTAFF", CurrentUser.UserID),
                 New SqlParameter("@STRINTERAGENCY", InterAgency),
@@ -1144,7 +1143,7 @@ Public Class SBEAPCaseWork
                 New SqlParameter("@NUMCASEID", txtCaseID.Text)
             }
 
-            DB.RunCommand(SQL, p)
+            DB.RunCommand(SQL, p, forceAddNullableParameters:=True)
 
             If SQL2 <> "" Then
                 txtCaseID.Text = DB.GetString(SQL2)
@@ -1360,9 +1359,9 @@ Public Class SBEAPCaseWork
     Private Sub SaveTechnicalAssist()
         Try
             Dim AssistType As String = ""
-            Dim ContactDate As String = ""
-            Dim AssistStart As String = ""
-            Dim AssistEnd As String = ""
+            Dim ContactDate As Date? = Nothing
+            Dim AssistStart As Date? = Nothing
+            Dim AssistEnd As Date? = Nothing
             Dim AssistRequest As String = ""
             Dim AIRSNumber As String = ""
             Dim TechnicalAssistComments As String = ""
@@ -1373,19 +1372,13 @@ Public Class SBEAPCaseWork
                 AssistType = ""
             End If
             If DTPTechAssistInitialContact.Checked = True Then
-                ContactDate = DTPTechAssistInitialContact.Text
-            Else
-                ContactDate = ""
+                ContactDate = DTPTechAssistInitialContact.Value
             End If
             If DTPTechAssistStart.Checked = True Then
-                AssistStart = DTPTechAssistStart.Text
-            Else
-                AssistStart = ""
+                AssistStart = DTPTechAssistStart.Value
             End If
             If DTPTechAssistEnd.Checked = True Then
-                AssistEnd = DTPTechAssistEnd.Text
-            Else
-                AssistEnd = ""
+                AssistEnd = DTPTechAssistEnd.Value
             End If
             If chbAirAppPrep.Checked = True Then
                 AssistRequest = "1"
@@ -1540,12 +1533,12 @@ Public Class SBEAPCaseWork
             If txtAIRSNumber.Text <> "" Then
                 AIRSNumber = txtAIRSNumber.Text
             Else
-                AIRSNumber = ""
+                AIRSNumber = Nothing
             End If
             If txtTechnicalAssistNotes.Text <> "" Then
                 TechnicalAssistComments = txtTechnicalAssistNotes.Text
             Else
-                TechnicalAssistComments = ""
+                TechnicalAssistComments = Nothing
             End If
 
             Dim SQL As String
@@ -1585,7 +1578,7 @@ Public Class SBEAPCaseWork
                 New SqlParameter("@STRMODIFINGSTAFF", CurrentUser.UserID)
             }
 
-            DB.RunCommand(SQL, p)
+            DB.RunCommand(SQL, p, forceAddNullableParameters:=True)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -1602,17 +1595,17 @@ Public Class SBEAPCaseWork
             If txtCallName.Text <> "" Then
                 CallerInfo = txtCallName.Text
             Else
-                CallerInfo = ""
+                CallerInfo = Nothing
             End If
             If mtbPhoneNumber.Text <> "" Then
                 CallerPhone = mtbPhoneNumber.Text
             Else
-                CallerPhone = ""
+                CallerPhone = Nothing
             End If
             If txtPhoneCallNotes.Text <> "" Then
                 PhoneCallNotes = txtPhoneCallNotes.Text
             Else
-                PhoneCallNotes = ""
+                PhoneCallNotes = Nothing
             End If
             If chbOnetimeAssist.Checked = True Then
                 OneTimeAssist = "True"
@@ -1656,7 +1649,7 @@ Public Class SBEAPCaseWork
                 New SqlParameter("@STRMODIFINGSTAFF", CurrentUser.UserID)
             }
 
-            DB.RunCommand(SQL, p)
+            DB.RunCommand(SQL, p, forceAddNullableParameters:=True)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -1668,8 +1661,8 @@ Public Class SBEAPCaseWork
             Dim ConferenceLocation As String = ""
             Dim ConferenceTopic As String = ""
             Dim Attendees As String = ""
-            Dim ConferenceStart As String = ""
-            Dim ConferenceEnd As String = ""
+            Dim ConferenceStart As Date? = Nothing
+            Dim ConferenceEnd As Date? = Nothing
             Dim SBEAPPresentation As String = ""
             Dim ListofBusinesses As String = ""
             Dim FollowUp As String = ""
@@ -1679,28 +1672,28 @@ Public Class SBEAPCaseWork
             If txtConferenceAttended.Text <> "" Then
                 ConferenceAttended = txtConferenceAttended.Text
             Else
-                ConferenceAttended = ""
+                ConferenceAttended = Nothing
             End If
             If txtConferenceLocation.Text <> "" Then
                 ConferenceLocation = txtConferenceLocation.Text
             Else
-                ConferenceLocation = ""
+                ConferenceLocation = Nothing
             End If
             If txtConferenceTopic.Text <> "" Then
                 ConferenceTopic = txtConferenceTopic.Text
             Else
-                ConferenceTopic = ""
+                ConferenceTopic = Nothing
             End If
             If txtConferenceAttendees.Text <> "" Then
                 Attendees = txtConferenceAttendees.Text
             Else
-                Attendees = ""
+                Attendees = Nothing
             End If
-            ConferenceStart = DTPConferenceStart.Text
+            ConferenceStart = DTPConferenceStart.Value
             If DTPConferenceEnd.Value < DTPConferenceStart.Value Then
                 ConferenceEnd = ConferenceStart
             Else
-                ConferenceEnd = DTPConferenceEnd.Text
+                ConferenceEnd = DTPConferenceEnd.Value
             End If
             If rdbSBEAPPresentationYes.Checked = True Then
                 SBEAPPresentation = "True"
@@ -1710,12 +1703,12 @@ Public Class SBEAPCaseWork
             If txtListOfBusinessSectors.Text <> "" Then
                 ListofBusinesses = txtListOfBusinessSectors.Text
             Else
-                ListofBusinesses = ""
+                ListofBusinesses = Nothing
             End If
             If txtConferenceFollowUp.Text <> "" Then
                 FollowUp = txtConferenceFollowUp.Text
             Else
-                FollowUp = ""
+                FollowUp = Nothing
             End If
 
             For i = 0 To clbStaffAttending.Items.Count - 1
@@ -1773,7 +1766,7 @@ Public Class SBEAPCaseWork
                 New SqlParameter("@STRMODIFINGSTAFF", CurrentUser.UserID)
             }
 
-            DB.RunCommand(SQL, p)
+            DB.RunCommand(SQL, p, forceAddNullableParameters:=True)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -1786,7 +1779,7 @@ Public Class SBEAPCaseWork
             If txtCaseNotes.Text <> "" Then
                 CaseNotes = txtCaseNotes.Text
             Else
-                CaseNotes = ""
+                CaseNotes = Nothing
             End If
 
             Dim SQL As String
@@ -1808,7 +1801,7 @@ Public Class SBEAPCaseWork
                 New SqlParameter("@STRMODIFINGSTAFF", CurrentUser.UserID)
             }
 
-            DB.RunCommand(SQL, p)
+            DB.RunCommand(SQL, p, forceAddNullableParameters:=True)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
