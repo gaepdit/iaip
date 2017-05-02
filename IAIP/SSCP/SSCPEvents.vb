@@ -1399,7 +1399,7 @@ Public Class SSCPEvents
                     "strNotificationFollowUp, strModifingPerson, " &
                     "datModifingDate) " &
                     "values " &
-                    "(@strTrackingNumber, @datNotificationDue, " &
+                    "(@num, @datNotificationDue, " &
                     "@strNotificationDue, @datNotificationSent, " &
                     "@strNotificationSent, @strNotificationType, " &
                     "@strNotificationTypeOther, @strNotificationComment, " &
@@ -1417,7 +1417,7 @@ Public Class SSCPEvents
                 New SqlParameter("@strNotificationComment", NotificationComment),
                 New SqlParameter("@strNotificationFollowUp", NotificationFollowUp),
                 New SqlParameter("@strModifingPerson", CurrentUser.UserID),
-                New SqlParameter("@strTrackingNumber", TrackingNumber)
+                New SqlParameter("@num", TrackingNumber)
             })
 
             If chbNotificationReceivedByAPB.Checked = True Then
