@@ -337,7 +337,7 @@ Public Class SSCPComplianceLog
                 SQL = SQL & " and [AIRS #] like @airs "
             End If
             If txtFacilityNameFilter.Text <> "" Then
-                SQL = SQL & " [Facility Name] and  like @fac ) "
+                SQL = SQL & " and [Facility Name] like @fac "
             End If
 
             Dim p As SqlParameter() = {
