@@ -563,7 +563,7 @@ Public Class IAIPFacilityCreator
 
             DB.RunCommand(SQL, p2)
 
-            Dim AttainmentStatus As String = ""
+            Dim AttainmentStatus As String = "00000"
 
             SQL = "select " &
                 "strNonAttainment " &
@@ -614,7 +614,7 @@ Public Class IAIPFacilityCreator
                 ", STRDISTRICTOFFICE, STRAFSACTIONNUMBER, STRRMPID) " &
                 "VALUES " &
                 "( @STRAIRSNUMBER, @STRMODIFINGPERSON, getdate() " &
-                ", @STRDISTRICTOFFICE, @STRCMSMEMBER, @STRAFSACTIONNUMBER, @STRRMPID) "
+                ", @STRDISTRICTOFFICE, @STRAFSACTIONNUMBER, @STRRMPID) "
 
             Dim p5 As SqlParameter() = {
                 New SqlParameter("@STRAIRSNUMBER", AIRSNumber),
