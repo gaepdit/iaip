@@ -10573,7 +10573,7 @@ Public Class SSPPApplicationTrackingLog
                     SubPart = dgvSIPSubParts.Item(1, i).Value
 
                     query = "select " &
-                    "SSPPApplicationMaster.strApplicationNumber,  " &
+                    "SSPPSubpartData.strApplicationNumber,  " &
                     "strSubpart, strApplicationActivity,   " &
                     "CreateDateTime " &
                     "from SSPPApplicationMaster, SSPPSubpartData   " &
@@ -10670,7 +10670,7 @@ Public Class SSPPApplicationTrackingLog
 
             query = "select  " &
             "strAIRSNumber, " &
-            "SSPPApplicationMaster.strApplicationNumber,  " &
+            "SSPPSubpartData.strApplicationNumber,  " &
             "SSPPSubPartData.strSubpart, strDescription,  " &
             "case when strApplicationActivity = '0' then 'Removed'  " &
             "when strApplicationActivity ='1' then 'Added'  " &
@@ -11442,7 +11442,7 @@ Public Class SSPPApplicationTrackingLog
                     SubPart = dgvNSPSSubParts.Item(1, i).Value
 
                     query = "select " &
-                    "SSPPAPPLICATIONMASTER.STRAPPLICATIONNUMBER,  " &
+                    "SSPPSubpartData.STRAPPLICATIONNUMBER,  " &
                     "strSubpart, strApplicationActivity,   " &
                     "CreateDateTime " &
                     "from SSPPApplicationMaster, SSPPSubpartData   " &
@@ -11454,7 +11454,7 @@ Public Class SSPPApplicationTrackingLog
                     "order by createdatetime "
 
                     parameter = {
-                        New SqlParameter("@airsnum", txtApplicationNumber.Text),
+                        New SqlParameter("@airsnum", "0413" & txtAIRSNumber.Text),
                         New SqlParameter("@Subpart", SubPart),
                         New SqlParameter("@appnum", txtApplicationNumber.Text)
                     }
@@ -11540,7 +11540,7 @@ Public Class SSPPApplicationTrackingLog
 
             query = "select  " &
             "strAIRSNumber, " &
-            "SSPPApplicationMaster.strApplicationNumber,  " &
+            "SSPPSubpartData.strApplicationNumber,  " &
             "SSPPSubPartData.strSubpart, strDescription,  " &
             "case when strApplicationActivity = '0' then 'Removed'  " &
             "when strApplicationActivity ='1' then 'Added'  " &
@@ -12608,7 +12608,7 @@ Public Class SSPPApplicationTrackingLog
                     SubPart = dgvNESHAPSubParts.Item(1, i).Value
 
                     query = "select " &
-                    "SSPPApplicationMaster.strApplicationNumber,  " &
+                    "SSPPSubpartData.strApplicationNumber,  " &
                     "strSubpart, strApplicationActivity,   " &
                     "CreateDateTime " &
                     "from SSPPApplicationMaster, SSPPSubpartData   " &
@@ -12705,7 +12705,7 @@ Public Class SSPPApplicationTrackingLog
 
             query = "select  " &
             "strAIRSNumber, " &
-            "SSPPApplicationMaster.strApplicationNumber,  " &
+            "SSPPSubpartData.strApplicationNumber,  " &
             "SSPPSubPartData.strSubpart, strDescription,  " &
             "case when strApplicationActivity = '0' then 'Removed'  " &
             "when strApplicationActivity ='1' then 'Added'  " &
@@ -13484,7 +13484,7 @@ Public Class SSPPApplicationTrackingLog
                     SubPart = dgvMACTSubParts.Item(1, i).Value
 
                     query = "select " &
-                    "SSPPApplicationMaster.strApplicationNumber,  " &
+                    "SSPPSubpartData.strApplicationNumber,  " &
                     "strSubpart, strApplicationActivity,   " &
                     "CreateDateTime " &
                     "from SSPPApplicationMaster, SSPPSubpartData   " &
@@ -13581,7 +13581,7 @@ Public Class SSPPApplicationTrackingLog
 
             query = "select  " &
             "strAIRSNumber, " &
-            "SSPPApplicationMaster.strApplicationNumber,  " &
+            "SSPPSubpartData.strApplicationNumber,  " &
             "SSPPSubPartData.strSubpart, strDescription,  " &
             "case when strApplicationActivity = '0' then 'Removed'  " &
             "when strApplicationActivity ='1' then 'Added'  " &
