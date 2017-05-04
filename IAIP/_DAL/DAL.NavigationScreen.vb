@@ -141,7 +141,7 @@ Namespace DAL
                         Case NavWorkListScope.StaffView
                             query = query & " AND app.STRSTAFFRESPONSIBLE = @pid "
                         Case NavWorkListScope.UnitView
-                            query = query & " AND prof.NUMUNIT = @pid "
+                            query = query & " AND (prof.NUMUNIT = @pid or app.APBUNIT = @pid) "
                     End Select
 
                 Case NavWorkListContext.SbeapCases
