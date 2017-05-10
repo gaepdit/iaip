@@ -48,12 +48,12 @@ Partial Class IaipAbout
         '
         Me.lblLicenseLabel.AutoSize = True
         Me.lblLicenseLabel.Font = New System.Drawing.Font("Arial", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblLicenseLabel.Location = New System.Drawing.Point(75, 288)
+        Me.lblLicenseLabel.Location = New System.Drawing.Point(66, 288)
         Me.lblLicenseLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblLicenseLabel.Name = "lblLicenseLabel"
         Me.lblLicenseLabel.Size = New System.Drawing.Size(164, 28)
         Me.lblLicenseLabel.TabIndex = 37
-        Me.lblLicenseLabel.Text = "This product is licensed to State " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "of Georgia employees only"
+        Me.lblLicenseLabel.Text = "This product is licensed to " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "State of Georgia employees only"
         Me.lblLicenseLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
         'lblTitle

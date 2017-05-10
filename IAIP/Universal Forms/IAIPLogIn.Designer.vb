@@ -185,10 +185,10 @@ Partial Class IAIPLogIn
         '
         Me.lblCurrentVersionMessage.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblCurrentVersionMessage.ForeColor = System.Drawing.SystemColors.GrayText
-        Me.lblCurrentVersionMessage.Location = New System.Drawing.Point(26, 369)
+        Me.lblCurrentVersionMessage.Location = New System.Drawing.Point(29, 369)
         Me.lblCurrentVersionMessage.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblCurrentVersionMessage.Name = "lblCurrentVersionMessage"
-        Me.lblCurrentVersionMessage.Size = New System.Drawing.Size(259, 36)
+        Me.lblCurrentVersionMessage.Size = New System.Drawing.Size(256, 36)
         Me.lblCurrentVersionMessage.TabIndex = 38
         Me.lblCurrentVersionMessage.Text = "Current Version Placeholder"
         Me.lblCurrentVersionMessage.TextAlign = System.Drawing.ContentAlignment.TopCenter
@@ -196,13 +196,13 @@ Partial Class IAIPLogIn
         '
         'lblLicenseLabel
         '
-        Me.lblLicenseLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblLicenseLabel.Location = New System.Drawing.Point(26, 314)
+        Me.lblLicenseLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblLicenseLabel.Location = New System.Drawing.Point(29, 314)
         Me.lblLicenseLabel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblLicenseLabel.Name = "lblLicenseLabel"
-        Me.lblLicenseLabel.Size = New System.Drawing.Size(259, 36)
+        Me.lblLicenseLabel.Size = New System.Drawing.Size(256, 36)
         Me.lblLicenseLabel.TabIndex = 37
-        Me.lblLicenseLabel.Text = "This product is licensed to Georgia" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "DNR/EPD/APB employees only"
+        Me.lblLicenseLabel.Text = "This product is licensed to " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "State of Georgia employees only"
         Me.lblLicenseLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
         'lblPassword
