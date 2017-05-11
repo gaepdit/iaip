@@ -122,6 +122,17 @@ Namespace My
                 Return CType(Me("PRD"),String)
             End Get
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute()>  _
+        Public Property SavedSession() As Global.System.Collections.Specialized.StringCollection
+            Get
+                Return CType(Me("SavedSession"),Global.System.Collections.Specialized.StringCollection)
+            End Get
+            Set
+                Me("SavedSession") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

@@ -47,13 +47,14 @@ Partial Class IAIPLogIn
         Me.lblUserID = New System.Windows.Forms.Label()
         Me.txtUserPassword = New System.Windows.Forms.TextBox()
         Me.txtUserID = New System.Windows.Forms.TextBox()
-        Me.lblIAIP = New System.Windows.Forms.Label()
         Me.lblSubTitle = New System.Windows.Forms.Label()
         Me.lblTitle = New System.Windows.Forms.Label()
         Me.lblGeneralMessage = New System.Windows.Forms.Label()
         Me.ForgotUsernameLink = New System.Windows.Forms.LinkLabel()
         Me.ForgotPasswordLink = New System.Windows.Forms.LinkLabel()
         Me.RetryButton = New System.Windows.Forms.Button()
+        Me.chkRemember = New System.Windows.Forms.CheckBox()
+        Me.lblIAIP = New System.Windows.Forms.Label()
         CType(Me.LogoBox, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -162,11 +163,11 @@ Partial Class IAIPLogIn
         'btnLoginButton
         '
         Me.btnLoginButton.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnLoginButton.Location = New System.Drawing.Point(418, 259)
+        Me.btnLoginButton.Location = New System.Drawing.Point(418, 249)
         Me.btnLoginButton.Margin = New System.Windows.Forms.Padding(2)
         Me.btnLoginButton.Name = "btnLoginButton"
         Me.btnLoginButton.Size = New System.Drawing.Size(175, 38)
-        Me.btnLoginButton.TabIndex = 2
+        Me.btnLoginButton.TabIndex = 3
         Me.btnLoginButton.Text = "Log In"
         Me.btnLoginButton.UseVisualStyleBackColor = False
         '
@@ -209,7 +210,7 @@ Partial Class IAIPLogIn
         '
         Me.lblPassword.AutoSize = True
         Me.lblPassword.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblPassword.Location = New System.Drawing.Point(331, 223)
+        Me.lblPassword.Location = New System.Drawing.Point(331, 185)
         Me.lblPassword.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblPassword.Name = "lblPassword"
         Me.lblPassword.Size = New System.Drawing.Size(78, 20)
@@ -220,7 +221,7 @@ Partial Class IAIPLogIn
         '
         Me.lblUserID.AutoSize = True
         Me.lblUserID.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblUserID.Location = New System.Drawing.Point(331, 184)
+        Me.lblUserID.Location = New System.Drawing.Point(331, 146)
         Me.lblUserID.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblUserID.Name = "lblUserID"
         Me.lblUserID.Size = New System.Drawing.Size(83, 20)
@@ -230,7 +231,7 @@ Partial Class IAIPLogIn
         'txtUserPassword
         '
         Me.txtUserPassword.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtUserPassword.Location = New System.Drawing.Point(418, 220)
+        Me.txtUserPassword.Location = New System.Drawing.Point(418, 182)
         Me.txtUserPassword.Margin = New System.Windows.Forms.Padding(2)
         Me.txtUserPassword.Name = "txtUserPassword"
         Me.txtUserPassword.Size = New System.Drawing.Size(175, 26)
@@ -241,23 +242,12 @@ Partial Class IAIPLogIn
         'txtUserID
         '
         Me.txtUserID.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtUserID.Location = New System.Drawing.Point(418, 181)
+        Me.txtUserID.Location = New System.Drawing.Point(418, 143)
         Me.txtUserID.Margin = New System.Windows.Forms.Padding(2)
         Me.txtUserID.Name = "txtUserID"
         Me.txtUserID.Size = New System.Drawing.Size(175, 26)
         Me.txtUserID.TabIndex = 0
         Me.txtUserID.WordWrap = False
-        '
-        'lblIAIP
-        '
-        Me.lblIAIP.AutoSize = True
-        Me.lblIAIP.Font = New System.Drawing.Font("Microsoft Sans Serif", 16.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblIAIP.Location = New System.Drawing.Point(330, 128)
-        Me.lblIAIP.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.lblIAIP.Name = "lblIAIP"
-        Me.lblIAIP.Size = New System.Drawing.Size(345, 26)
-        Me.lblIAIP.TabIndex = 32
-        Me.lblIAIP.Text = "Integrated Air Information Platform" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
         '
         'lblSubTitle
         '
@@ -266,9 +256,9 @@ Partial Class IAIPLogIn
         Me.lblSubTitle.Location = New System.Drawing.Point(330, 55)
         Me.lblSubTitle.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblSubTitle.Name = "lblSubTitle"
-        Me.lblSubTitle.Size = New System.Drawing.Size(339, 52)
+        Me.lblSubTitle.Size = New System.Drawing.Size(339, 26)
         Me.lblSubTitle.TabIndex = 32
-        Me.lblSubTitle.Text = "Environmental Protection Division" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Air Protection Branch" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
+        Me.lblSubTitle.Text = "Environmental Protection Division" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
         '
         'lblTitle
         '
@@ -285,7 +275,7 @@ Partial Class IAIPLogIn
         '
         Me.lblGeneralMessage.AutoSize = True
         Me.lblGeneralMessage.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblGeneralMessage.Location = New System.Drawing.Point(332, 314)
+        Me.lblGeneralMessage.Location = New System.Drawing.Point(332, 299)
         Me.lblGeneralMessage.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblGeneralMessage.MaximumSize = New System.Drawing.Size(382, 96)
         Me.lblGeneralMessage.Name = "lblGeneralMessage"
@@ -299,7 +289,7 @@ Partial Class IAIPLogIn
         Me.ForgotUsernameLink.AutoSize = True
         Me.ForgotUsernameLink.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ForgotUsernameLink.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline
-        Me.ForgotUsernameLink.Location = New System.Drawing.Point(598, 184)
+        Me.ForgotUsernameLink.Location = New System.Drawing.Point(598, 146)
         Me.ForgotUsernameLink.Name = "ForgotUsernameLink"
         Me.ForgotUsernameLink.Size = New System.Drawing.Size(143, 20)
         Me.ForgotUsernameLink.TabIndex = 39
@@ -312,7 +302,7 @@ Partial Class IAIPLogIn
         Me.ForgotPasswordLink.AutoSize = True
         Me.ForgotPasswordLink.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ForgotPasswordLink.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline
-        Me.ForgotPasswordLink.Location = New System.Drawing.Point(598, 223)
+        Me.ForgotPasswordLink.Location = New System.Drawing.Point(598, 185)
         Me.ForgotPasswordLink.Name = "ForgotPasswordLink"
         Me.ForgotPasswordLink.Size = New System.Drawing.Size(138, 20)
         Me.ForgotPasswordLink.TabIndex = 39
@@ -323,20 +313,43 @@ Partial Class IAIPLogIn
         'RetryButton
         '
         Me.RetryButton.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.RetryButton.Location = New System.Drawing.Point(335, 371)
+        Me.RetryButton.Location = New System.Drawing.Point(335, 361)
         Me.RetryButton.Name = "RetryButton"
         Me.RetryButton.Size = New System.Drawing.Size(99, 31)
-        Me.RetryButton.TabIndex = 41
+        Me.RetryButton.TabIndex = 4
         Me.RetryButton.Text = "Try again"
         Me.RetryButton.UseVisualStyleBackColor = True
         Me.RetryButton.Visible = False
+        '
+        'chkRemember
+        '
+        Me.chkRemember.AutoSize = True
+        Me.chkRemember.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.chkRemember.Location = New System.Drawing.Point(419, 219)
+        Me.chkRemember.Name = "chkRemember"
+        Me.chkRemember.Size = New System.Drawing.Size(119, 21)
+        Me.chkRemember.TabIndex = 2
+        Me.chkRemember.Text = "Remember Me"
+        Me.chkRemember.UseVisualStyleBackColor = True
+        '
+        'lblIAIP
+        '
+        Me.lblIAIP.AutoSize = True
+        Me.lblIAIP.Font = New System.Drawing.Font("Microsoft Sans Serif", 16.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblIAIP.Location = New System.Drawing.Point(330, 94)
+        Me.lblIAIP.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.lblIAIP.Name = "lblIAIP"
+        Me.lblIAIP.Size = New System.Drawing.Size(345, 26)
+        Me.lblIAIP.TabIndex = 32
+        Me.lblIAIP.Text = "Integrated Air Information Platform" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
         '
         'IAIPLogIn
         '
         Me.AcceptButton = Me.btnLoginButton
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(742, 414)
+        Me.ClientSize = New System.Drawing.Size(742, 406)
+        Me.Controls.Add(Me.chkRemember)
         Me.Controls.Add(Me.RetryButton)
         Me.Controls.Add(Me.ForgotPasswordLink)
         Me.Controls.Add(Me.ForgotUsernameLink)
@@ -383,7 +396,6 @@ Partial Class IAIPLogIn
     Friend WithEvents mmiOnlineHelp As System.Windows.Forms.MenuItem
     Friend WithEvents lblCurrentVersionMessage As System.Windows.Forms.Label
     Friend WithEvents lblGeneralMessage As System.Windows.Forms.Label
-    Friend WithEvents lblIAIP As System.Windows.Forms.Label
     Friend WithEvents LogoBox As System.Windows.Forms.PictureBox
     Friend WithEvents mmiSeparator2 As System.Windows.Forms.MenuItem
     Friend WithEvents mmiAbout As System.Windows.Forms.MenuItem
@@ -401,4 +413,6 @@ Partial Class IAIPLogIn
     Friend WithEvents RetryButton As Button
     Friend WithEvents mmiThrowUnhandledError As MenuItem
     Friend WithEvents mmiThrowHandledError As MenuItem
+    Friend WithEvents chkRemember As CheckBox
+    Friend WithEvents lblIAIP As Label
 End Class

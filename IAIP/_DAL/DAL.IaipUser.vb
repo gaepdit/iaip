@@ -298,5 +298,65 @@ Namespace DAL
             Return DB.SPRunCommand(spName, parameters)
         End Function
 
+        Public Function SaveSession(userId As Integer) As String
+            If userId = 0 Then Return Nothing
+
+            Dim spName As String = "iaip_user.SaveSession"
+            Dim parameters As SqlParameter() = {
+                New SqlParameter("@userId", userId),
+                New SqlParameter("@machineName", Environment.MachineName),
+                New SqlParameter("@windowsUserName", Environment.UserName),
+                New SqlParameter("@windowsDomainName", Environment.UserDomainName),
+                New SqlParameter("@osVersion", OSFriendlyName)
+            }
+
+            Return DB.SPGetString(spName, parameters)
+        End Function
+
+        Public Function ValidateSession(userId As Integer, token As String) As String
+            Dim spName As String = "iaip_user.ValidateSession"
+            Dim parameters As SqlParameter() = {
+                New SqlParameter("@userId", userId),
+                New SqlParameter("@machineName", Environment.MachineName),
+                New SqlParameter("@windowsUserName", Environment.UserName),
+                New SqlParameter("@windowsDomainName", Environment.UserDomainName),
+                New SqlParameter("@token", token)
+            }
+
+            Return DB.SPGetString(spName, parameters)
+        End Function
+
+        Public Function RevokeSession(sessionId As String) As Boolean
+            If String.IsNullOrEmpty(sessionId) Then Return False
+
+            Dim spName As String = "iaip_user.RevokeSessionId"
+            Dim parameters As SqlParameter() = {
+                New SqlParameter("@sessionId", sessionId)
+            }
+
+            Return DB.SPRunCommand(spName, parameters)
+        End Function
+
+        Public Function RevokeSession(userId As Integer) As Boolean
+            Dim spName As String = "iaip_user.RevokeSession"
+            Dim parameters As SqlParameter() = {
+                New SqlParameter("@userId", userId),
+                New SqlParameter("@machineName", Environment.MachineName),
+                New SqlParameter("@windowsUserName", Environment.UserName),
+                New SqlParameter("@windowsDomainName", Environment.UserDomainName)
+            }
+
+            Return DB.SPRunCommand(spName, parameters)
+        End Function
+
+        Public Function RevokeAllSession(userId As Integer) As Boolean
+            Dim spName As String = "iaip_user.RevokeAllSessions"
+            Dim parameters As SqlParameter() = {
+                New SqlParameter("@userId", userId)
+            }
+
+            Return DB.SPRunCommand(spName, parameters)
+        End Function
+
     End Module
 End Namespace

@@ -14,6 +14,8 @@
         End Set
     End Property
 
+    Private Property DBIsAvailable As Boolean = False
+
 #End Region
 
 #Region " Page Load "
@@ -27,23 +29,36 @@
         If AppFirstRun Or AppUpdated Then
             App.TestCrystalReportsInstallation()
         End If
+        CheckDBAvailability()
     End Sub
 
     Private Sub IAIPLogIn_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         monitor.TrackFeature("Main." & Me.Name)
         monitor.TrackFeature("Forms." & Me.Name)
         UseDbServerEnvironment()
-        CheckDBAvailability()
+    End Sub
+
+    Private Sub AttemptSessionLogin()
+        Dim userId As Integer = ValidateSession()
+
+        If userId > 0 Then
+            CurrentUser = DAL.GetIaipUserByUserId(userId)
+            If CurrentUser Is Nothing OrElse CurrentUser.RequirePasswordChange OrElse Not ValidateUserData() Then
+                CurrentUser = Nothing
+            Else
+                LogInAlready()
+            End If
+        End If
     End Sub
 
     Private Sub DisableLogin(Optional messageText As String = Nothing)
-        DisableControls({txtUserID, lblUserID, txtUserPassword, lblPassword, btnLoginButton})
+        DisableControls({txtUserID, lblUserID, txtUserPassword, lblPassword, btnLoginButton, chkRemember})
         Me.AcceptButton = Nothing
         Me.Message = New IaipMessage(messageText, IaipMessage.WarningLevels.Warning)
     End Sub
 
     Private Sub EnableLogin()
-        EnableControls({txtUserID, lblUserID, txtUserPassword, lblPassword, btnLoginButton})
+        EnableControls({txtUserID, lblUserID, txtUserPassword, lblPassword, btnLoginButton, chkRemember})
 
         Me.AcceptButton = btnLoginButton
         If Message IsNot Nothing Then Message.Clear()
@@ -93,20 +108,24 @@
         End If
     End Sub
 
-    Private Function CheckDBAvailability() As Boolean
-        If DAL.AppIsEnabled Then
+    Private Sub CheckDBAvailability()
+        DBIsAvailable = DAL.AppIsEnabled()
+        If DBIsAvailable Then AttemptSessionLogin()
+        DisplayDBAvailability()
+    End Sub
+
+    Private Sub DisplayDBAvailability()
+        If DBIsAvailable Then
             EnableLogin()
             RetryButton.Visible = False
-            Return True
         Else
             DisableLogin("Can't connect. Please check your Internet " &
                          "connection. If you are working remotely, you must " &
                          "connect to the VPN before using the IAIP. ")
             RetryButton.Visible = True
             RetryButton.Select()
-            Return False
         End If
-    End Function
+    End Sub
 
     Private Sub RetryButton_Click(sender As Object, e As EventArgs) Handles RetryButton.Click
         CheckDBAvailability()
@@ -123,7 +142,7 @@
         ForgotPasswordLink.Visible = False
         ForgotUsernameLink.Visible = False
 
-        If txtUserID.Text = "" OrElse txtUserPassword.Text = "" OrElse Not CheckDBAvailability() Then
+        If txtUserID.Text = "" OrElse txtUserPassword.Text = "" OrElse Not DBIsAvailable Then
             CancelLogin(ClearPasswordField.Yes)
         Else
             Dim authenticationResult As DAL.IaipAuthenticationResult = DAL.AuthenticateIaipUser(txtUserID.Text, txtUserPassword.Text)
@@ -155,6 +174,7 @@
                         Me.Message = New IaipMessage("Your profile must be completed before you can use the IAIP.", IaipMessage.WarningLevels.Warning)
                         CancelLogin(ClearPasswordField.No)
                     Else
+                        UpdateSession(chkRemember.Checked)
                         LogInAlready()
                     End If
 
@@ -166,7 +186,6 @@
         AddMonitorLoginData()
         SaveUserSetting(UserSetting.PrefillLoginId, txtUserID.Text)
         ResetUserSetting(UserSetting.PasswordResetRequestedDate)
-        mmiPasswordReset.Visible = False
         OpenSingleForm(IAIPNavigation)
         Me.Close()
     End Sub
