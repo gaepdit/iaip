@@ -1,4 +1,4 @@
-﻿Public Module SavedSession
+﻿Public Module SavedSessions
 
     Public Sub UpdateSession(save As Boolean)
         If save Then

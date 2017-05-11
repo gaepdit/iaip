@@ -14,7 +14,8 @@ Module Extensions
 
     <Extension()>
     Public Sub SanelyResizeColumns(datagridview As DataGridView,
-                                   Optional maxWidth As Integer = 275)
+                                   Optional maxWidth As Integer = 275,
+                                   Optional minWidth As Integer = 40)
 
         ' Resize all columns to fit current content:
         datagridview.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells
@@ -25,7 +26,8 @@ Module Extensions
             column.AutoSizeMode = DataGridViewAutoSizeColumnMode.DisplayedCells
             currentWidth = column.Width
             column.AutoSizeMode = DataGridViewAutoSizeColumnMode.None
-            column.Width = Math.Min(maxWidth, currentWidth)
+            column.Width = Math.Max(minWidth, currentWidth)
+            column.Width = Math.Min(maxWidth, column.Width)
         Next
 
         ' Allow user resizing of columns:

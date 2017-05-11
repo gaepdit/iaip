@@ -26,12 +26,13 @@ Partial Class IAIPNavigation
         Me.mmiExit = New System.Windows.Forms.MenuItem()
         Me.mmiTools = New System.Windows.Forms.MenuItem()
         Me.mmiExport = New System.Windows.Forms.MenuItem()
-        Me.ProfileMenuItem = New System.Windows.Forms.MenuItem()
-        Me.UsernameDisplay = New System.Windows.Forms.MenuItem()
-        Me.UsernameSeparator = New System.Windows.Forms.MenuItem()
-        Me.UpdateProfile = New System.Windows.Forms.MenuItem()
-        Me.ChangePassword = New System.Windows.Forms.MenuItem()
-        Me.LogOut = New System.Windows.Forms.MenuItem()
+        Me.mmiAccount = New System.Windows.Forms.MenuItem()
+        Me.mmiUsernameDisplay = New System.Windows.Forms.MenuItem()
+        Me.mmiUsernameSeparator = New System.Windows.Forms.MenuItem()
+        Me.mmiUpdateProfile = New System.Windows.Forms.MenuItem()
+        Me.mmiChangePassword = New System.Windows.Forms.MenuItem()
+        Me.mmiSecurity = New System.Windows.Forms.MenuItem()
+        Me.mmiLogOut = New System.Windows.Forms.MenuItem()
         Me.mmiHelp = New System.Windows.Forms.MenuItem()
         Me.mmiOnlineHelp = New System.Windows.Forms.MenuItem()
         Me.mmiResetForm = New System.Windows.Forms.MenuItem()
@@ -97,7 +98,7 @@ Partial Class IAIPNavigation
         '
         'MainMenu1
         '
-        Me.MainMenu1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiFile, Me.mmiTools, Me.ProfileMenuItem, Me.mmiHelp, Me.TestingMenu})
+        Me.MainMenu1.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiFile, Me.mmiTools, Me.mmiAccount, Me.mmiHelp, Me.TestingMenu})
         '
         'mmiFile
         '
@@ -122,37 +123,42 @@ Partial Class IAIPNavigation
         Me.mmiExport.Index = 0
         Me.mmiExport.Text = "&Export list to Excel"
         '
-        'ProfileMenuItem
+        'mmiAccount
         '
-        Me.ProfileMenuItem.Index = 2
-        Me.ProfileMenuItem.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.UsernameDisplay, Me.UsernameSeparator, Me.UpdateProfile, Me.ChangePassword, Me.LogOut})
-        Me.ProfileMenuItem.Text = "&Account"
+        Me.mmiAccount.Index = 2
+        Me.mmiAccount.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiUsernameDisplay, Me.mmiUsernameSeparator, Me.mmiUpdateProfile, Me.mmiChangePassword, Me.mmiSecurity, Me.mmiLogOut})
+        Me.mmiAccount.Text = "&Account"
         '
-        'UsernameDisplay
+        'mmiUsernameDisplay
         '
-        Me.UsernameDisplay.Enabled = False
-        Me.UsernameDisplay.Index = 0
-        Me.UsernameDisplay.Text = "Logged in as username"
+        Me.mmiUsernameDisplay.Enabled = False
+        Me.mmiUsernameDisplay.Index = 0
+        Me.mmiUsernameDisplay.Text = "Logged in as username"
         '
-        'UsernameSeparator
+        'mmiUsernameSeparator
         '
-        Me.UsernameSeparator.Index = 1
-        Me.UsernameSeparator.Text = "-"
+        Me.mmiUsernameSeparator.Index = 1
+        Me.mmiUsernameSeparator.Text = "-"
         '
-        'UpdateProfile
+        'mmiUpdateProfile
         '
-        Me.UpdateProfile.Index = 2
-        Me.UpdateProfile.Text = "&Update profile"
+        Me.mmiUpdateProfile.Index = 2
+        Me.mmiUpdateProfile.Text = "&Update profile"
         '
-        'ChangePassword
+        'mmiChangePassword
         '
-        Me.ChangePassword.Index = 3
-        Me.ChangePassword.Text = "&Change password"
+        Me.mmiChangePassword.Index = 3
+        Me.mmiChangePassword.Text = "&Change password"
         '
-        'LogOut
+        'mmiSecurity
         '
-        Me.LogOut.Index = 4
-        Me.LogOut.Text = "&Log out"
+        Me.mmiSecurity.Index = 4
+        Me.mmiSecurity.Text = "&Security"
+        '
+        'mmiLogOut
+        '
+        Me.mmiLogOut.Index = 5
+        Me.mmiLogOut.Text = "&Log out"
         '
         'mmiHelp
         '
@@ -848,11 +854,12 @@ Partial Class IAIPNavigation
     Friend WithEvents dgvWorkViewer As System.Windows.Forms.DataGridView
     Friend WithEvents NavWorkListChangerPanel As System.Windows.Forms.Panel
     Friend WithEvents RunTest As System.Windows.Forms.MenuItem
-    Friend WithEvents ProfileMenuItem As System.Windows.Forms.MenuItem
-    Friend WithEvents UpdateProfile As System.Windows.Forms.MenuItem
-    Friend WithEvents ChangePassword As System.Windows.Forms.MenuItem
-    Friend WithEvents LogOut As System.Windows.Forms.MenuItem
-    Friend WithEvents UsernameDisplay As MenuItem
+    Friend WithEvents mmiAccount As System.Windows.Forms.MenuItem
+    Friend WithEvents mmiUpdateProfile As System.Windows.Forms.MenuItem
+    Friend WithEvents mmiChangePassword As System.Windows.Forms.MenuItem
+    Friend WithEvents mmiLogOut As System.Windows.Forms.MenuItem
+    Friend WithEvents mmiUsernameDisplay As MenuItem
     Friend WithEvents cboNavWorkListContext As ComboBox
-    Friend WithEvents UsernameSeparator As MenuItem
+    Friend WithEvents mmiUsernameSeparator As MenuItem
+    Friend WithEvents mmiSecurity As MenuItem
 End Class

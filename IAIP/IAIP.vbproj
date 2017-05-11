@@ -204,6 +204,12 @@
     <Compile Include="Users\IaipRequestUsername.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Users\IaipUserSecurity.Designer.vb">
+      <DependentUpon>IaipUserSecurity.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Users\IaipUserSecurity.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="_Code\IntegerConvert.vb" />
     <Compile Include="_Code\BooleanEnums.vb" />
     <Compile Include="_Code\BooleanConvert.vb" />
