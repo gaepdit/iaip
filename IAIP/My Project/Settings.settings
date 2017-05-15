@@ -35,5 +35,8 @@
 &lt;/SerializableConnectionString&gt;</DesignTimeValue>
       <Value Profile="(Default)">Data Source=167.192.209.7;Initial Catalog=airbranch;Persist Security Info=True;User ID=iaip_app_user;Password=qu10B49W$8kR</Value>
     </Setting>
+    <Setting Name="SavedSession" Type="System.Collections.Specialized.StringCollection" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>

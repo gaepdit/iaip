@@ -42,7 +42,7 @@ Public Class IAIPNavigation
     End Sub
 
     Private Sub DisplayUsername()
-        UsernameDisplay.Text = "Logged in as " & CurrentUser.Username
+        mmiUsernameDisplay.Text = "Logged in as " & CurrentUser.Username
     End Sub
 
     Private Sub IAIPNavigation_Shown(sender As Object, e As EventArgs) Handles Me.Shown
@@ -860,7 +860,7 @@ Public Class IAIPNavigation
         dgvWorkViewer.ExportToExcel(Me)
     End Sub
 
-    Private Sub UpdateProfile_Click(sender As Object, e As EventArgs) Handles UpdateProfile.Click
+    Private Sub mmiUpdateProfile_Click(sender As Object, e As EventArgs) Handles mmiUpdateProfile.Click
         Dim pf As New IaipUserProfile
         pf.ShowDialog()
         If pf.DialogResult = DialogResult.OK Then
@@ -868,7 +868,7 @@ Public Class IAIPNavigation
         End If
     End Sub
 
-    Private Sub ChangePassword_Click(sender As Object, e As EventArgs) Handles ChangePassword.Click
+    Private Sub mmiChangePassword_Click(sender As Object, e As EventArgs) Handles mmiChangePassword.Click
         Dim cp As New IaipChangePassword
         cp.ShowDialog()
         If cp.DialogResult = DialogResult.OK Then
@@ -876,7 +876,11 @@ Public Class IAIPNavigation
         End If
     End Sub
 
-    Private Sub LogOut_Click(sender As Object, e As EventArgs) Handles LogOut.Click
+    Private Sub mmiSecurity_Click(sender As Object, e As EventArgs) Handles mmiSecurity.Click
+        OpenSingleForm(IaipUserSecurity)
+    End Sub
+
+    Private Sub mmiLogOut_Click(sender As Object, e As EventArgs) Handles mmiLogOut.Click
         Dim currentlyOpenForms As FormCollection = Application.OpenForms
 
         If currentlyOpenForms Is Nothing Then

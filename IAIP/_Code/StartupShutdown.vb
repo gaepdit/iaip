@@ -80,6 +80,7 @@
     End Sub
 
     Friend Sub LogOutUser()
+        UpdateSession(False)
         CurrentUser = Nothing
         Array.Clear(AccountFormAccess, 0, AccountFormAccess.Length)
         monitor.TrackFeature("Main.LogOut")
