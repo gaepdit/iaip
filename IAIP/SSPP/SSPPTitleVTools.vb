@@ -248,8 +248,6 @@ Public Class SSPPTitleVTools
     Private Sub LoadWebPublisherApplicationData()
         Try
 
-            Dim AppType As String = ""
-
             query = "Select " &
             "datDraftOnWeb, datEPAStatesNotified, " &
             "datFinalONWeb, DatEPANotified, " &
@@ -316,23 +314,13 @@ Public Class SSPPTitleVTools
                     chbExpirationDate.Checked = True
                     DTPExperationDate.Text = dr.Item("datExperationDate")
                 End If
-                If IsDBNull(dr.Item("strApplicationType")) Then
-                    chbPNExpires.Visible = False
-                    DTPPNExpires.Visible = False
-                Else
-                    AppType = dr.Item("strApplicationType")
-                    Select Case AppType
-                        Case 22
+
+                chbPNExpires.Visible = False
+                DTPPNExpires.Visible = False
+                If Not IsDBNull(dr.Item("strApplicationType")) Then
+                    Select Case dr.Item("strApplicationType").ToString
+                        Case "22", "21", "14", "16", "2"
                             chbPNExpires.Visible = True
-                        Case 21
-                            chbPNExpires.Visible = True
-                        Case 14
-                            chbPNExpires.Visible = True
-                        Case 16
-                            chbPNExpires.Visible = True
-                        Case Else
-                            chbPNExpires.Visible = False
-                            DTPPNExpires.Visible = False
                     End Select
                 End If
                 If IsDBNull(dr.Item("datPNExpires")) Then
@@ -340,9 +328,9 @@ Public Class SSPPTitleVTools
                     DTPPNExpires.Value = Today
                 Else
                     chbPNExpires.Checked = True
+                    DTPPNExpires.Visible = chbPNExpires.Visible
                     DTPPNExpires.Text = dr.Item("datPNExpires")
                 End If
-
 
             End If
             CheckForLinks()
@@ -687,8 +675,7 @@ Public Class SSPPTitleVTools
             " LEFT JOIN LookUpEPDUnits " &
             "ON EPDUserProfiles.numUnit = LookUpEPDUnits.numUnitCode " &
             "where (strAppReceivedNotification is Null or strAppReceivedNotification = 'False') " &
-            "and (strApplicationType = '19'  or strApplicationType = '20' or strApplicationType = '21' " &
-            "or strApplicationType = '22') " &
+            "and strApplicationType IN ('19', '20', '21', '22', '2') " &
             "order by strFacilityName, strAPplicationNumber DESC "
 
             Dim dt As DataTable = DB.GetDataTable(query)
@@ -2814,19 +2801,7 @@ Public Class SSPPTitleVTools
 
     End Sub
     Private Sub chbPNExpires_CheckedChanged(sender As Object, e As EventArgs) Handles chbPNExpires.CheckedChanged
-        Try
-
-            If chbPNExpires.Checked = True Then
-                DTPPNExpires.Visible = True
-            Else
-                DTPPNExpires.Visible = False
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
+        DTPPNExpires.Visible = chbPNExpires.Checked And chbPNExpires.Visible
     End Sub
     Private Sub chbEPAandStatesNotified_CheckedChanged(sender As Object, e As EventArgs) Handles chbEPAandStatesNotified.CheckedChanged
         Try

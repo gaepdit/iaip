@@ -462,7 +462,7 @@ Public Class ISMPTestReportAdministrative
                                   New SqlParameter("@user", CurrentUser.UserID),
                                   New SqlParameter("@ed", DAL.EpdManagementTypes.EpdDirector.ToString),
                                   New SqlParameter("@dc", DAL.EpdManagementTypes.DnrCommissioner.ToString),
-                                  New SqlParameter("@ip", DAL.EpdManagementTypes.DnrCommissioner.ToString)
+                                  New SqlParameter("@ip", DAL.EpdManagementTypes.IsmpProgramManager.ToString)
                                   })
 
                 DB.RunCommand(queryList, paramList)
