@@ -520,26 +520,30 @@ Public Class SSCPEvents
         End If
     End Sub
 
-    Private Sub CheckEnforcement()
+    Private Function CheckEnforcement() As Boolean
         Dim enfNum As Integer
         If DAL.Sscp.TryGetEnforcementForTrackingNumber(TrackingNumber, enfNum) Then
             txtEnforcementNumber.Text = enfNum
             txtEnforcementNumber.Visible = True
-            btnEnforcementProcess.Visible = True
+            btnEnforcementProcess.Text = "Open linked enforcement"
+            Return True
         Else
             txtEnforcementNumber.Text = "N/A"
             txtEnforcementNumber.Visible = False
-            btnEnforcementProcess.Visible = False
+            btnEnforcementProcess.Text = "Create enforcement action"
+            Return False
         End If
-    End Sub
+    End Function
 
 #End Region
 
-#Region " Opening Enforcement Actions "
+#Region " Enforcement Actions "
 
     Private Sub OpenEnforcement()
-        If txtEnforcementNumber.Text <> "" And txtEnforcementNumber.Text <> "N/A" Then
+        If CheckEnforcement() Then
             OpenFormEnforcement(txtEnforcementNumber.Text)
+        Else
+            OpenFormEnforcement(AirsNumber, TrackingNumber)
         End If
     End Sub
 

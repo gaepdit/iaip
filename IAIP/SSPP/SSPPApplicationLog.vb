@@ -51,7 +51,7 @@ Public Class SSPPApplicationLog
 
     Private Sub SSPPApplicationLog_Load(sender As Object, e As EventArgs) Handles Me.Load
         dgvApplicationLog.Visible = False
-        lblMessage.Text = "Loading…"
+        lblMessage.Text = "Loading..."
         lblMessage.Visible = True
 
         btnFind.Enabled = True
@@ -181,112 +181,32 @@ Public Class SSPPApplicationLog
         cboFieldType2.Items.Add("Subpart - MACT (Part 63)")
 
         cboSort1.Items.Add("AIRS No.")
-        cboSort1.Items.Add("Applicable Rules")
         cboSort1.Items.Add("Application No.")
         cboSort1.Items.Add("Application Status")
         cboSort1.Items.Add("Application Type")
-        cboSort1.Items.Add("Application Unit")
-        cboSort1.Items.Add("Applog Comments")
-        cboSort1.Items.Add("Date Acknowledged")
-        cboSort1.Items.Add("Date APL Dated")
         cboSort1.Items.Add("Date APL Received")
-        cboSort1.Items.Add("Date Assigned")
-        cboSort1.Items.Add("Date Draft Issued")
-        cboSort1.Items.Add("Date PA Expires")
         cboSort1.Items.Add("Date Finalized")
-        cboSort1.Items.Add("Date PN Expires")
-        cboSort1.Items.Add("Date Reassigned")
-        cboSort1.Items.Add("Date to BC")
-        cboSort1.Items.Add("Date to DO")
-        cboSort1.Items.Add("Date to PM")
-        cboSort1.Items.Add("Date to UC")
-        cboSort1.Items.Add("Deadline")
-        cboSort1.Items.Add("Engineer Firstname")
-        cboSort1.Items.Add("Engineer Lastname")
-        cboSort1.Items.Add("EPA 45-day Waived")
-        cboSort1.Items.Add("EPA 45-day Ends")
-        cboSort1.Items.Add("Facility City")
+        cboSort1.Items.Add("Engineer Unit Code")
         cboSort1.Items.Add("Facility County")
         cboSort1.Items.Add("Facility Name")
-        cboSort1.Items.Add("Facility Street")
-        cboSort1.Items.Add("NAA 1Hr-Yes")
-        cboSort1.Items.Add("NAA 1Hr-Contr.")
-        cboSort1.Items.Add("NAA 1Hr-No")
-        cboSort1.Items.Add("NAA 8Hr-Atlanta")
-        cboSort1.Items.Add("NAA 8Hr-Macon")
-        cboSort1.Items.Add("NAA 8Hr-No")
-        cboSort1.Items.Add("NAA PM-Atlanta")
-        cboSort1.Items.Add("NAA PM-Chattanooga")
-        cboSort1.Items.Add("NAA PM-Floyd")
-        cboSort1.Items.Add("NAA PM-Macon")
-        cboSort1.Items.Add("NAA PM-No")
-        cboSort1.Items.Add("PA Ready")
         cboSort1.Items.Add("Permit Number")
         cboSort1.Items.Add("Permit Type")
         cboSort1.Items.Add("Plant Description")
-        cboSort1.Items.Add("PN Ready")
-        cboSort1.Items.Add("Public Advisory")
-        cboSort1.Items.Add("Reason APL Submitted")
-        cboSort1.Items.Add("Regional District")
         cboSort1.Items.Add("SIC Code")
-        cboSort1.Items.Add("Subpart - SIP")
-        cboSort1.Items.Add("Subpart - NESHAP (Part 61)")
-        cboSort1.Items.Add("Subpart - NSPS (Part 60)")
-        cboSort1.Items.Add("Subpart - MACT (Part 63)")
 
         cboSort2.Items.Add("AIRS No.")
-        cboSort2.Items.Add("Applicable Rules")
         cboSort2.Items.Add("Application No.")
         cboSort2.Items.Add("Application Status")
         cboSort2.Items.Add("Application Type")
-        cboSort2.Items.Add("Application Unit")
-        cboSort2.Items.Add("Applog Comments")
-        cboSort2.Items.Add("Date Acknowledged")
-        cboSort2.Items.Add("Date APL Dated")
         cboSort2.Items.Add("Date APL Received")
-        cboSort2.Items.Add("Date Assigned")
-        cboSort2.Items.Add("Date Draft Issued")
-        cboSort2.Items.Add("Date PA Expires")
         cboSort2.Items.Add("Date Finalized")
-        cboSort2.Items.Add("Date PN Expires")
-        cboSort2.Items.Add("Date Reassigned")
-        cboSort2.Items.Add("Date to BC")
-        cboSort2.Items.Add("Date to DO")
-        cboSort2.Items.Add("Date to PM")
-        cboSort2.Items.Add("Date to UC")
-        cboSort2.Items.Add("Deadline")
-        cboSort2.Items.Add("Engineer Firstname")
-        cboSort2.Items.Add("Engineer Lastname")
-        cboSort2.Items.Add("EPA 45-day Waived")
-        cboSort2.Items.Add("EPA 45-day Ends")
-        cboSort2.Items.Add("Facility City")
+        cboSort2.Items.Add("Engineer Unit Code")
         cboSort2.Items.Add("Facility County")
         cboSort2.Items.Add("Facility Name")
-        cboSort2.Items.Add("Facility Street")
-        cboSort2.Items.Add("NAA 1Hr-Yes")
-        cboSort2.Items.Add("NAA 1Hr-Contr.")
-        cboSort2.Items.Add("NAA 1Hr-No")
-        cboSort2.Items.Add("NAA 8Hr-Atlanta")
-        cboSort2.Items.Add("NAA 8Hr-Macon")
-        cboSort2.Items.Add("NAA 8Hr-No")
-        cboSort2.Items.Add("NAA PM-Atlanta")
-        cboSort2.Items.Add("NAA PM-Chattanooga")
-        cboSort2.Items.Add("NAA PM-Floyd")
-        cboSort2.Items.Add("NAA PM-Macon")
-        cboSort2.Items.Add("NAA PM-No")
-        cboSort2.Items.Add("PA Ready")
         cboSort2.Items.Add("Permit Number")
         cboSort2.Items.Add("Permit Type")
         cboSort2.Items.Add("Plant Description")
-        cboSort2.Items.Add("PN Ready")
-        cboSort2.Items.Add("Public Advisory")
-        cboSort2.Items.Add("Reason APL Submitted")
-        cboSort2.Items.Add("Regional District")
         cboSort2.Items.Add("SIC Code")
-        cboSort2.Items.Add("Subpart - SIP")
-        cboSort2.Items.Add("Subpart - NESHAP (Part 61)")
-        cboSort2.Items.Add("Subpart - NSPS (Part 60)")
-        cboSort2.Items.Add("Subpart - MACT (Part 63)")
 
         cboSortOrder1.Items.Add("Ascending Order")
         cboSortOrder1.Items.Add("Descending Order")
@@ -443,7 +363,7 @@ Public Class SSPPApplicationLog
         selectedApp = ""
 
         dgvApplicationLog.Visible = False
-        lblMessage.Text = "Loading…"
+        lblMessage.Text = "Loading..."
         lblMessage.Visible = True
 
         btnFind.Enabled = False
@@ -1078,100 +998,22 @@ Public Class SSPPApplicationLog
                     SQLOrder = SQLOrder & " AppStatus " & SortOrder1
                 Case "Application Type"
                     SQLOrder = SQLOrder & " strApplicationType " & SortOrder1
-                Case "Application Unit"
-                    SQLOrder = SQLOrder & " strUnitDesc " & SortOrder1
-                Case "Applog Comments"
-                    SQLOrder = SQLOrder & " strComments " & SortOrder1
-                Case "Date Acknowledged"
-                    SQLOrder = SQLOrder & " datAcknowledgementLetterSent " & SortOrder1
-                Case "Date APL Completed"
-                    SQLOrder = SQLOrder & " datApplicationPackageComplete " & SortOrder1
-                Case "Date APL Dated"
-                    SQLOrder = SQLOrder & " datSentByFacility " & SortOrder1
                 Case "Date APL Received"
                     SQLOrder = SQLOrder & " datReceivedDate " & SortOrder1
-                Case "Date Assigned"
-                    SQLOrder = SQLOrder & " datAssignedtoEngineer " & SortOrder1
-                Case "Date Draft Issued"
-                    SQLOrder = SQLOrder & " datDraftIssued " & SortOrder1
-                Case "Date PA Expires"
-                    SQLOrder = SQLOrder & " datPAExpires " & SortOrder1
                 Case "Date Finalized"
                     SQLOrder = SQLOrder & " datPermitIssued " & SortOrder1
-                Case "Date PN Expires"
-                    SQLOrder = SQLOrder & " datPNExpires " & SortOrder1
-                Case "Date Reassigned"
-                    SQLOrder = SQLOrder & " datReassignedToEngineer " & SortOrder1
-                Case "Date Started Review"
-                    SQLOrder = SQLOrder & " datApplicationStarted " & SortOrder1
-                Case "Date to BC"
-                    SQLOrder = SQLOrder & " datToBranchCheif " & SortOrder1
-                Case "Date to DO"
-                    SQLOrder = SQLOrder & " datToDirector " & SortOrder1
-                Case "Date to PM"
-                    SQLOrder = SQLOrder & " datToPMII " & SortOrder1
-                Case "Date to UC"
-                    SQLOrder = SQLOrder & " datToPMI " & SortOrder1
-                Case "Date Withdrawn"
-                    SQLOrder = SQLOrder & " datWithdrawn " & SortOrder1
-                Case "Deadline"
-                    SQLOrder = SQLOrder & " datApplicationDeadLine " & SortOrder1
-                Case "Engineer Firstname"
-                    SQLOrder = SQLOrder & " strFirstName " & SortOrder1
-                Case "Engineer Lastname"
-                    SQLOrder = SQLOrder & " strLastName " & SortOrder1
                 Case "Engineer Unit Code"
                     SQLOrder = SQLOrder & " APBUnit " & SortOrder1
-                Case "EPA 45-day Waived"
-                    SQLOrder = SQLOrder & " datEPAWaived " & SortOrder1
-                Case "EPA 45-day Ends"
-                    SQLOrder = SQLOrder & " datEPAEnds " & SortOrder1
-                Case "Facility City"
-                    SQLOrder = SQLOrder & " strFacilityCity " & SortOrder1
                 Case "Facility County"
                     SQLOrder = SQLOrder & " strCountyName " & SortOrder1
                 Case "Facility Name"
                     SQLOrder = SQLOrder & " strFacilityName " & SortOrder1
-                Case "Facility Street"
-                    SQLOrder = SQLOrder & " strFacilityStreet1 " & SortOrder1
-                Case "NAA 1Hr-Yes"
-                    SQLOrder = SQLOrder & " strAttainmentStatus " & SortOrder1
-                Case "NAA 1Hr-Contr."
-                    SQLOrder = SQLOrder & " strAttainmentStatus " & SortOrder1
-                Case "NAA 1Hr-No"
-                    SQLOrder = SQLOrder & " strAttainmentStatus " & SortOrder1
-                Case "NAA 8Hr-Atlanta"
-                    SQLOrder = SQLOrder & " strAttainmentStatus " & SortOrder1
-                Case "NAA 8Hr-Macon"
-                    SQLOrder = SQLOrder & " strAttainmentStatus " & SortOrder1
-                Case "NAA 8Hr-No"
-                    SQLOrder = SQLOrder & " strAttainmentStatus " & SortOrder1
-                Case "NAA PM-Atlanta"
-                    SQLOrder = SQLOrder & " strAttainmentStatus " & SortOrder1
-                Case "NAA PM-Chattanooga"
-                    SQLOrder = SQLOrder & " strAttainmentStatus " & SortOrder1
-                Case "NAA PM-Floyd"
-                    SQLOrder = SQLOrder & " strAttainmentStatus " & SortOrder1
-                Case "NAA PM-Macon"
-                    SQLOrder = SQLOrder & " strAttainmentStatus " & SortOrder1
-                Case "NAA PM-No"
-                    SQLOrder = SQLOrder & " strAttainmentStatus " & SortOrder1
-                Case "PA Ready"
-                    SQLOrder = SQLOrder & " strPAReady " & SortOrder1
                 Case "Permit Number"
                     SQLOrder = SQLOrder & " strPermitNumber " & SortOrder1
                 Case "Permit Type"
                     SQLOrder = SQLOrder & " strPermitType " & SortOrder1
                 Case "Plant Description"
                     SQLOrder = SQLOrder & " strPlantDescription " & SortOrder1
-                Case "PN Ready"
-                    SQLOrder = SQLOrder & " strPNReady " & SortOrder1
-                Case "Public Advisory"
-                    SQLOrder = SQLOrder & " strPublicInvolvement " & SortOrder1
-                Case "Reason APL Submitted"
-                    SQLOrder = SQLOrder & " strApplicationNotes " & SortOrder1
-                Case "Regional District"
-                    SQLOrder = SQLOrder & " strDistrictName " & SortOrder1
                 Case "SIC Code"
                     SQLOrder = SQLOrder & " strSICCode " & SortOrder1
             End Select
@@ -1200,100 +1042,22 @@ Public Class SSPPApplicationLog
                     SQLOrder = SQLOrder & " AppStatus " & SortOrder2
                 Case "Application Type"
                     SQLOrder = SQLOrder & " strApplicationType " & SortOrder2
-                Case "Application Unit"
-                    SQLOrder = SQLOrder & " strUnitDesc " & SortOrder2
-                Case "Applog Comments"
-                    SQLOrder = SQLOrder & " strComments " & SortOrder2
-                Case "Date Acknowledged"
-                    SQLOrder = SQLOrder & " datAcknowledgementLetterSent " & SortOrder2
-                Case "Date APL Completed"
-                    SQLOrder = SQLOrder & " datApplicationPackageComplete " & SortOrder2
-                Case "Date APL Dated"
-                    SQLOrder = SQLOrder & " datSentByFacility " & SortOrder2
                 Case "Date APL Received"
                     SQLOrder = SQLOrder & " datReceivedDate " & SortOrder2
-                Case "Date Assigned"
-                    SQLOrder = SQLOrder & " datAssignedtoEngineer " & SortOrder2
-                Case "Date Draft Issued"
-                    SQLOrder = SQLOrder & " datDraftIssued " & SortOrder2
-                Case "Date PA Expires"
-                    SQLOrder = SQLOrder & " datPAExpires " & SortOrder2
                 Case "Date Finalized"
                     SQLOrder = SQLOrder & " datPermitIssued " & SortOrder2
-                Case "Date PN Expires"
-                    SQLOrder = SQLOrder & " datPNExpires " & SortOrder2
-                Case "Date Reassigned"
-                    SQLOrder = SQLOrder & " datReassignedToEngineer " & SortOrder2
-                Case "Date Started Review"
-                    SQLOrder = SQLOrder & " datApplicationStarted " & SortOrder2
-                Case "Date to BC"
-                    SQLOrder = SQLOrder & " datToBranchCheif " & SortOrder2
-                Case "Date to DO"
-                    SQLOrder = SQLOrder & " datToDirector " & SortOrder2
-                Case "Date to PM"
-                    SQLOrder = SQLOrder & " datToPMII " & SortOrder2
-                Case "Date to UC"
-                    SQLOrder = SQLOrder & " datToPMI " & SortOrder2
-                Case "Date Withdrawn"
-                    SQLOrder = SQLOrder & " datWithdrawn " & SortOrder2
-                Case "Deadline"
-                    SQLOrder = SQLOrder & " datApplicationDeadLine " & SortOrder2
-                Case "Engineer Firstname"
-                    SQLOrder = SQLOrder & " strFirstName " & SortOrder2
-                Case "Engineer Lastname"
-                    SQLOrder = SQLOrder & " strLastName " & SortOrder2
                 Case "Engineer Unit Code"
                     SQLOrder = SQLOrder & " APBUnit " & SortOrder2
-                Case "EPA 45-day Waived"
-                    SQLOrder = SQLOrder & " datEPAWaived " & SortOrder2
-                Case "EPA 45-day Ends"
-                    SQLOrder = SQLOrder & " datEPAEnds " & SortOrder2
-                Case "Facility City"
-                    SQLOrder = SQLOrder & " strFacilityCity " & SortOrder2
                 Case "Facility County"
                     SQLOrder = SQLOrder & " strCountyName " & SortOrder2
                 Case "Facility Name"
                     SQLOrder = SQLOrder & " strFacilityName " & SortOrder2
-                Case "Facility Street"
-                    SQLOrder = SQLOrder & " strFacilityStreet1 " & SortOrder2
-                Case "NAA 1Hr-Yes"
-                    SQLOrder = SQLOrder & " strAttainmentStatus " & SortOrder2
-                Case "NAA 1Hr-Contr."
-                    SQLOrder = SQLOrder & " strAttainmentStatus " & SortOrder2
-                Case "NAA 1Hr-No"
-                    SQLOrder = SQLOrder & " strAttainmentStatus " & SortOrder2
-                Case "NAA 8Hr-Atlanta"
-                    SQLOrder = SQLOrder & " strAttainmentStatus " & SortOrder2
-                Case "NAA 8Hr-Macon"
-                    SQLOrder = SQLOrder & " strAttainmentStatus " & SortOrder2
-                Case "NAA 8Hr-No"
-                    SQLOrder = SQLOrder & " strAttainmentStatus " & SortOrder2
-                Case "NAA PM-Atlanta"
-                    SQLOrder = SQLOrder & " strAttainmentStatus " & SortOrder2
-                Case "NAA PM-Chattanooga"
-                    SQLOrder = SQLOrder & " strAttainmentStatus " & SortOrder2
-                Case "NAA PM-Floyd"
-                    SQLOrder = SQLOrder & " strAttainmentStatus " & SortOrder2
-                Case "NAA PM-Macon"
-                    SQLOrder = SQLOrder & " strAttainmentStatus " & SortOrder2
-                Case "NAA PM-No"
-                    SQLOrder = SQLOrder & " strAttainmentStatus " & SortOrder2
-                Case "PA Ready"
-                    SQLOrder = SQLOrder & " strPAReady " & SortOrder2
                 Case "Permit Number"
                     SQLOrder = SQLOrder & " strPermitNumber " & SortOrder2
                 Case "Permit Type"
                     SQLOrder = SQLOrder & " strPermitType " & SortOrder2
                 Case "Plant Description"
                     SQLOrder = SQLOrder & " strPlantDescription " & SortOrder2
-                Case "PN Ready"
-                    SQLOrder = SQLOrder & " strPNReady " & SortOrder2
-                Case "Public Advisory"
-                    SQLOrder = SQLOrder & " strPublicInvolvement " & SortOrder2
-                Case "Reason APL Submitted"
-                    SQLOrder = SQLOrder & " strApplicationNotes " & SortOrder2
-                Case "Regional District"
-                    SQLOrder = SQLOrder & " strDistrictName " & SortOrder2
                 Case "SIC Code"
                     SQLOrder = SQLOrder & " strSICCode " & SortOrder2
             End Select

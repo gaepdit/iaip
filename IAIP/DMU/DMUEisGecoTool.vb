@@ -980,18 +980,7 @@ Public Class DMUEisGecoTool
                                 End If
                             End If
                         End If
-                        If dgvESDataCount.Columns(3).HeaderText = "Confirmation Number" Then
-                            If IsDBNull(dgvESDataCount(3, hti.RowIndex).Value) Then
-                                txtESAirsNo.Text = dgvESDataCount(0, hti.RowIndex).Value
-                                txtFACILITYNAME.Text = dgvESDataCount(1, hti.RowIndex).Value
-                            Else
-                                ClearMailOut()
-                                txtESAirsNo.Text = dgvESDataCount(0, hti.RowIndex).Value
-                                txtFACILITYNAME.Text = dgvESDataCount(1, hti.RowIndex).Value
-                                txtConfirmationNumber.Text = dgvESDataCount(3, hti.RowIndex).Value
-                                findESData()
-                            End If
-                        Else
+                        If dgvESDataCount.ColumnCount > 3 Then
                             If dgvESDataCount.Columns(3).HeaderText = "Confirmation Number" Then
                                 If IsDBNull(dgvESDataCount(3, hti.RowIndex).Value) Then
                                     txtESAirsNo.Text = dgvESDataCount(0, hti.RowIndex).Value
@@ -1000,8 +989,21 @@ Public Class DMUEisGecoTool
                                     ClearMailOut()
                                     txtESAirsNo.Text = dgvESDataCount(0, hti.RowIndex).Value
                                     txtFACILITYNAME.Text = dgvESDataCount(1, hti.RowIndex).Value
-                                    findESData()
                                     txtConfirmationNumber.Text = dgvESDataCount(3, hti.RowIndex).Value
+                                    findESData()
+                                End If
+                            Else
+                                If dgvESDataCount.Columns(3).HeaderText = "Confirmation Number" Then
+                                    If IsDBNull(dgvESDataCount(3, hti.RowIndex).Value) Then
+                                        txtESAirsNo.Text = dgvESDataCount(0, hti.RowIndex).Value
+                                        txtFACILITYNAME.Text = dgvESDataCount(1, hti.RowIndex).Value
+                                    Else
+                                        ClearMailOut()
+                                        txtESAirsNo.Text = dgvESDataCount(0, hti.RowIndex).Value
+                                        txtFACILITYNAME.Text = dgvESDataCount(1, hti.RowIndex).Value
+                                        findESData()
+                                        txtConfirmationNumber.Text = dgvESDataCount(3, hti.RowIndex).Value
+                                    End If
                                 End If
                             End If
                         End If

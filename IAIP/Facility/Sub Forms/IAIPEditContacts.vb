@@ -509,7 +509,7 @@ Public Class IAIPEditContacts
                             "strKey = substring(strKey, 1,1) + (substring(strKey, 2,1) + 1), " &
                             "strContactKey = substring(strContactKey, 1, 13) + (substring(strContactKey, 14, 1) + 1) " &
                             "where strAIRSNumber = @airs " &
-                            "and strKey like @key '" & Mid(newKey, 1, 1) & "%' "
+                            "and strKey like @key "
 
                             Dim p2 As SqlParameter() = {
                                 New SqlParameter("@airs", AirsNumber.DbFormattedString),
