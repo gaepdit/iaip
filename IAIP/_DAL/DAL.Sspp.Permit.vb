@@ -124,7 +124,7 @@ Namespace DAL.Sspp
                 parametersList.Add(parameters)
             Next
 
-            Return DB.RunCommand(queryList, parametersList)
+            Return DB.RunCommand(queryList, parametersList, forceAddNullableParameters:=True)
         End Function
 
         Public Function UpdatePermit(permit As Permit) As Boolean
