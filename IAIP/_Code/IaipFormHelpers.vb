@@ -124,6 +124,18 @@ Module IaipFormHelpers
         End If
     End Function
 
+    Public Function OpenFormEnforcement(airsNumber As ApbFacilityId, trackingNumber As Integer) As Form
+        Dim parameters As New Dictionary(Of FormParameter, String)
+        If DAL.AirsNumberExists(airsNumber) Then
+            parameters(FormParameter.AirsNumber) = airsNumber.ToString()
+            parameters(FormParameter.TrackingNumber) = trackingNumber.ToString()
+            Return OpenMultiForm(SscpEnforcement, -Convert.ToInt32(airsNumber.ToString), parameters)
+        Else
+            MessageBox.Show("AIRS number does not exist.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Return Nothing
+        End If
+    End Function
+
 #End Region
 
 #End Region
