@@ -5344,6 +5344,8 @@ Public Class SSPPApplicationTrackingLog
                     }
                     Dim recordExists As Boolean = DB.ValueExists(query, parameter)
 
+                    InformationRequested = Mid(txtInformationRequested.Text, 1, 4000)
+
                     InformationReceived = Mid(txtInformationReceived.Text, 1, 4000)
 
                     If DTPInformationRequested.Checked = True Then
