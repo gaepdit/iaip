@@ -158,9 +158,9 @@ Public Class SSCPManagersTools
 
             With cboCMSFrequency.Items
                 .Add("All")
-                .Add("A")
-                .Add("S")
-                .Add("M")
+                .Add("A - Major source")
+                .Add("S - Synthetic Minor")
+                .Add("M - Mega-site")
                 .Add("Not in CMS")
             End With
 
@@ -340,16 +340,16 @@ Public Class SSCPManagersTools
         Dim CMSStatus As String = ""
 
         Try
-            Select Case cboCMSFrequency.Text
-                Case "A"
+            Select Case Strings.Left(cboCMSFrequency.Text, 2)
+                Case "A "
                     CMSStatus = " and strCMSMember = 'A' "
-                Case "S"
+                Case "S "
                     CMSStatus = " and strCMSMember = 'S' "
-                Case "M"
+                Case "M "
                     CMSStatus = " and strCMSMember = 'M' "
-                Case "Not in CMS"
+                Case "No"
                     CMSStatus = " and strCMSMember is null "
-                Case "All"
+                Case "Al"
                     CMSStatus = " and strCMSMember is not null "
             End Select
 
@@ -417,7 +417,11 @@ Public Class SSCPManagersTools
                     New SqlParameter("@r", CMSState)
                 }
 
-                DB.RunCommand(SQL, params, forceAddNullableParameters:=True)
+                If DB.RunCommand(SQL, params, forceAddNullableParameters:=True) Then
+                    MessageBox.Show("CMS status saved", "Success")
+                Else
+                    MessageBox.Show("There was an error saving the CMS status", "Error")
+                End If
             Else
                 MsgBox("Select a CMS status first.", MsgBoxStyle.Information, "SSCP Managers Tools")
             End If

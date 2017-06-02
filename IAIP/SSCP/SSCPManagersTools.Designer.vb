@@ -297,42 +297,44 @@ Partial Class SSCPManagersTools
         Me.CmsClassSelectionPanel.Controls.Add(Me.rdbCMSClassS)
         Me.CmsClassSelectionPanel.Location = New System.Drawing.Point(11, 132)
         Me.CmsClassSelectionPanel.Name = "CmsClassSelectionPanel"
-        Me.CmsClassSelectionPanel.Size = New System.Drawing.Size(238, 25)
+        Me.CmsClassSelectionPanel.Size = New System.Drawing.Size(238, 92)
         Me.CmsClassSelectionPanel.TabIndex = 25
         '
         'rdbCMSClassNone
         '
-        Me.rdbCMSClassNone.Location = New System.Drawing.Point(126, 3)
+        Me.rdbCMSClassNone.AutoSize = True
+        Me.rdbCMSClassNone.Location = New System.Drawing.Point(3, 72)
         Me.rdbCMSClassNone.Name = "rdbCMSClassNone"
-        Me.rdbCMSClassNone.Size = New System.Drawing.Size(52, 17)
+        Me.rdbCMSClassNone.Size = New System.Drawing.Size(51, 17)
         Me.rdbCMSClassNone.TabIndex = 28
         Me.rdbCMSClassNone.Text = "None"
         '
         'rdbCMSClassM
         '
-        Me.rdbCMSClassM.Location = New System.Drawing.Point(88, 3)
+        Me.rdbCMSClassM.AutoSize = True
+        Me.rdbCMSClassM.Location = New System.Drawing.Point(3, 49)
         Me.rdbCMSClassM.Name = "rdbCMSClassM"
-        Me.rdbCMSClassM.Size = New System.Drawing.Size(32, 16)
+        Me.rdbCMSClassM.Size = New System.Drawing.Size(89, 17)
         Me.rdbCMSClassM.TabIndex = 28
-        Me.rdbCMSClassM.Text = "M"
-        Me.rdbCMSClassM.Visible = False
+        Me.rdbCMSClassM.Text = "M - Mega-site"
         '
         'rdbCMSClassA
         '
+        Me.rdbCMSClassA.AutoSize = True
         Me.rdbCMSClassA.Location = New System.Drawing.Point(3, 3)
         Me.rdbCMSClassA.Name = "rdbCMSClassA"
-        Me.rdbCMSClassA.Size = New System.Drawing.Size(32, 16)
+        Me.rdbCMSClassA.Size = New System.Drawing.Size(102, 17)
         Me.rdbCMSClassA.TabIndex = 23
-        Me.rdbCMSClassA.Text = "A"
+        Me.rdbCMSClassA.Text = "A - Major source"
         '
         'rdbCMSClassS
         '
         Me.rdbCMSClassS.AutoSize = True
-        Me.rdbCMSClassS.Location = New System.Drawing.Point(41, 3)
+        Me.rdbCMSClassS.Location = New System.Drawing.Point(3, 26)
         Me.rdbCMSClassS.Name = "rdbCMSClassS"
-        Me.rdbCMSClassS.Size = New System.Drawing.Size(41, 17)
+        Me.rdbCMSClassS.Size = New System.Drawing.Size(123, 17)
         Me.rdbCMSClassS.TabIndex = 24
-        Me.rdbCMSClassS.Text = "SM"
+        Me.rdbCMSClassS.Text = "SM - Synthetic Minor"
         '
         'Splitter2
         '
@@ -365,7 +367,7 @@ Partial Class SSCPManagersTools
         '
         'btnExportCmsUniverseToExcel
         '
-        Me.btnExportCmsUniverseToExcel.Location = New System.Drawing.Point(11, 238)
+        Me.btnExportCmsUniverseToExcel.Location = New System.Drawing.Point(11, 316)
         Me.btnExportCmsUniverseToExcel.Name = "btnExportCmsUniverseToExcel"
         Me.btnExportCmsUniverseToExcel.Size = New System.Drawing.Size(122, 24)
         Me.btnExportCmsUniverseToExcel.TabIndex = 26
@@ -375,7 +377,7 @@ Partial Class SSCPManagersTools
         'btnAddToCmsUniverse
         '
         Me.btnAddToCmsUniverse.AutoSize = True
-        Me.btnAddToCmsUniverse.Location = New System.Drawing.Point(11, 163)
+        Me.btnAddToCmsUniverse.Location = New System.Drawing.Point(11, 230)
         Me.btnAddToCmsUniverse.Name = "btnAddToCmsUniverse"
         Me.btnAddToCmsUniverse.Size = New System.Drawing.Size(161, 23)
         Me.btnAddToCmsUniverse.TabIndex = 27
@@ -412,7 +414,7 @@ Partial Class SSCPManagersTools
         'llbViewCMSUniverse
         '
         Me.llbViewCMSUniverse.AutoSize = True
-        Me.llbViewCMSUniverse.Location = New System.Drawing.Point(158, 15)
+        Me.llbViewCMSUniverse.Location = New System.Drawing.Point(195, 15)
         Me.llbViewCMSUniverse.Name = "llbViewCMSUniverse"
         Me.llbViewCMSUniverse.Size = New System.Drawing.Size(138, 13)
         Me.llbViewCMSUniverse.TabIndex = 1
@@ -424,7 +426,7 @@ Partial Class SSCPManagersTools
         Me.cboCMSFrequency.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboCMSFrequency.Location = New System.Drawing.Point(72, 12)
         Me.cboCMSFrequency.Name = "cboCMSFrequency"
-        Me.cboCMSFrequency.Size = New System.Drawing.Size(80, 21)
+        Me.cboCMSFrequency.Size = New System.Drawing.Size(117, 21)
         Me.cboCMSFrequency.TabIndex = 2
         '
         'Label5
@@ -1723,7 +1725,7 @@ Partial Class SSCPManagersTools
         Me.TPACCStats.Location = New System.Drawing.Point(4, 22)
         Me.TPACCStats.Name = "TPACCStats"
         Me.TPACCStats.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPACCStats.Size = New System.Drawing.Size(477, 607)
+        Me.TPACCStats.Size = New System.Drawing.Size(477, 605)
         Me.TPACCStats.TabIndex = 0
         Me.TPACCStats.Text = "ACC Stats"
         Me.TPACCStats.UseVisualStyleBackColor = True
@@ -1732,7 +1734,7 @@ Partial Class SSCPManagersTools
         '
         Me.Label2.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(148, 268)
+        Me.Label2.Location = New System.Drawing.Point(148, 266)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(43, 13)
         Me.Label2.TabIndex = 38
@@ -1742,7 +1744,7 @@ Partial Class SSCPManagersTools
         '
         Me.Label1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(6, 268)
+        Me.Label1.Location = New System.Drawing.Point(6, 266)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(30, 13)
         Me.Label1.TabIndex = 38
@@ -1760,7 +1762,7 @@ Partial Class SSCPManagersTools
         Me.TCComplianceStaff.Multiline = True
         Me.TCComplianceStaff.Name = "TCComplianceStaff"
         Me.TCComplianceStaff.SelectedIndex = 0
-        Me.TCComplianceStaff.Size = New System.Drawing.Size(322, 250)
+        Me.TCComplianceStaff.Size = New System.Drawing.Size(322, 248)
         Me.TCComplianceStaff.TabIndex = 13
         '
         'TPAirToxics
@@ -1769,7 +1771,7 @@ Partial Class SSCPManagersTools
         Me.TPAirToxics.Location = New System.Drawing.Point(4, 22)
         Me.TPAirToxics.Name = "TPAirToxics"
         Me.TPAirToxics.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPAirToxics.Size = New System.Drawing.Size(314, 224)
+        Me.TPAirToxics.Size = New System.Drawing.Size(314, 222)
         Me.TPAirToxics.TabIndex = 1
         Me.TPAirToxics.Text = "Air Toxics"
         Me.TPAirToxics.UseVisualStyleBackColor = True
@@ -1782,7 +1784,7 @@ Partial Class SSCPManagersTools
         Me.clbAirToxicUnit.Location = New System.Drawing.Point(3, 3)
         Me.clbAirToxicUnit.Name = "clbAirToxicUnit"
         Me.clbAirToxicUnit.ScrollAlwaysVisible = True
-        Me.clbAirToxicUnit.Size = New System.Drawing.Size(308, 218)
+        Me.clbAirToxicUnit.Size = New System.Drawing.Size(308, 216)
         Me.clbAirToxicUnit.TabIndex = 1
         '
         'TPChemicals
@@ -1790,7 +1792,7 @@ Partial Class SSCPManagersTools
         Me.TPChemicals.Controls.Add(Me.clbChemicalsMinerals)
         Me.TPChemicals.Location = New System.Drawing.Point(4, 22)
         Me.TPChemicals.Name = "TPChemicals"
-        Me.TPChemicals.Size = New System.Drawing.Size(314, 224)
+        Me.TPChemicals.Size = New System.Drawing.Size(314, 222)
         Me.TPChemicals.TabIndex = 2
         Me.TPChemicals.Text = "Chemicals/Minerals"
         Me.TPChemicals.UseVisualStyleBackColor = True
@@ -1803,7 +1805,7 @@ Partial Class SSCPManagersTools
         Me.clbChemicalsMinerals.Location = New System.Drawing.Point(0, 0)
         Me.clbChemicalsMinerals.Name = "clbChemicalsMinerals"
         Me.clbChemicalsMinerals.ScrollAlwaysVisible = True
-        Me.clbChemicalsMinerals.Size = New System.Drawing.Size(314, 224)
+        Me.clbChemicalsMinerals.Size = New System.Drawing.Size(314, 222)
         Me.clbChemicalsMinerals.TabIndex = 1
         '
         'TPVOC
@@ -1811,7 +1813,7 @@ Partial Class SSCPManagersTools
         Me.TPVOC.Controls.Add(Me.clbVOCCombustion)
         Me.TPVOC.Location = New System.Drawing.Point(4, 22)
         Me.TPVOC.Name = "TPVOC"
-        Me.TPVOC.Size = New System.Drawing.Size(314, 224)
+        Me.TPVOC.Size = New System.Drawing.Size(314, 222)
         Me.TPVOC.TabIndex = 3
         Me.TPVOC.Text = "VOC/Combustion"
         Me.TPVOC.UseVisualStyleBackColor = True
@@ -1824,7 +1826,7 @@ Partial Class SSCPManagersTools
         Me.clbVOCCombustion.Location = New System.Drawing.Point(0, 0)
         Me.clbVOCCombustion.Name = "clbVOCCombustion"
         Me.clbVOCCombustion.ScrollAlwaysVisible = True
-        Me.clbVOCCombustion.Size = New System.Drawing.Size(314, 224)
+        Me.clbVOCCombustion.Size = New System.Drawing.Size(314, 222)
         Me.clbVOCCombustion.TabIndex = 1
         '
         'TPDistricts
@@ -1832,7 +1834,7 @@ Partial Class SSCPManagersTools
         Me.TPDistricts.Controls.Add(Me.clbDistricts)
         Me.TPDistricts.Location = New System.Drawing.Point(4, 22)
         Me.TPDistricts.Name = "TPDistricts"
-        Me.TPDistricts.Size = New System.Drawing.Size(314, 224)
+        Me.TPDistricts.Size = New System.Drawing.Size(314, 222)
         Me.TPDistricts.TabIndex = 4
         Me.TPDistricts.Text = "Districts"
         Me.TPDistricts.UseVisualStyleBackColor = True
@@ -1845,14 +1847,14 @@ Partial Class SSCPManagersTools
         Me.clbDistricts.Location = New System.Drawing.Point(0, 0)
         Me.clbDistricts.Name = "clbDistricts"
         Me.clbDistricts.ScrollAlwaysVisible = True
-        Me.clbDistricts.Size = New System.Drawing.Size(314, 224)
+        Me.clbDistricts.Size = New System.Drawing.Size(314, 222)
         Me.clbDistricts.TabIndex = 2
         '
         'llbACCLONTaken
         '
         Me.llbACCLONTaken.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.llbACCLONTaken.AutoSize = True
-        Me.llbACCLONTaken.Location = New System.Drawing.Point(260, 583)
+        Me.llbACCLONTaken.Location = New System.Drawing.Point(260, 581)
         Me.llbACCLONTaken.Name = "llbACCLONTaken"
         Me.llbACCLONTaken.Size = New System.Drawing.Size(30, 13)
         Me.llbACCLONTaken.TabIndex = 37
@@ -1863,7 +1865,7 @@ Partial Class SSCPManagersTools
         '
         Me.llbACCNOVTaken.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.llbACCNOVTaken.AutoSize = True
-        Me.llbACCNOVTaken.Location = New System.Drawing.Point(260, 562)
+        Me.llbACCNOVTaken.Location = New System.Drawing.Point(260, 560)
         Me.llbACCNOVTaken.Name = "llbACCNOVTaken"
         Me.llbACCNOVTaken.Size = New System.Drawing.Size(30, 13)
         Me.llbACCNOVTaken.TabIndex = 36
@@ -1885,7 +1887,7 @@ Partial Class SSCPManagersTools
         '
         Me.llbACCCOTaken.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.llbACCCOTaken.AutoSize = True
-        Me.llbACCCOTaken.Location = New System.Drawing.Point(260, 541)
+        Me.llbACCCOTaken.Location = New System.Drawing.Point(260, 539)
         Me.llbACCCOTaken.Name = "llbACCCOTaken"
         Me.llbACCCOTaken.Size = New System.Drawing.Size(30, 13)
         Me.llbACCCOTaken.TabIndex = 35
@@ -1896,7 +1898,7 @@ Partial Class SSCPManagersTools
         '
         Me.llbACCEnforcementTaken.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.llbACCEnforcementTaken.AutoSize = True
-        Me.llbACCEnforcementTaken.Location = New System.Drawing.Point(260, 520)
+        Me.llbACCEnforcementTaken.Location = New System.Drawing.Point(260, 518)
         Me.llbACCEnforcementTaken.Name = "llbACCEnforcementTaken"
         Me.llbACCEnforcementTaken.Size = New System.Drawing.Size(30, 13)
         Me.llbACCEnforcementTaken.TabIndex = 34
@@ -1908,7 +1910,7 @@ Partial Class SSCPManagersTools
         Me.DTPSearchDateStart.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.DTPSearchDateStart.CustomFormat = "dd-MMM-yyyy"
         Me.DTPSearchDateStart.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPSearchDateStart.Location = New System.Drawing.Point(42, 265)
+        Me.DTPSearchDateStart.Location = New System.Drawing.Point(42, 263)
         Me.DTPSearchDateStart.Name = "DTPSearchDateStart"
         Me.DTPSearchDateStart.Size = New System.Drawing.Size(100, 20)
         Me.DTPSearchDateStart.TabIndex = 6
@@ -1919,7 +1921,7 @@ Partial Class SSCPManagersTools
         Me.DTPSearchDateEnd.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.DTPSearchDateEnd.CustomFormat = "dd-MMM-yyyy"
         Me.DTPSearchDateEnd.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPSearchDateEnd.Location = New System.Drawing.Point(197, 265)
+        Me.DTPSearchDateEnd.Location = New System.Drawing.Point(197, 263)
         Me.DTPSearchDateEnd.Name = "DTPSearchDateEnd"
         Me.DTPSearchDateEnd.Size = New System.Drawing.Size(100, 20)
         Me.DTPSearchDateEnd.TabIndex = 7
@@ -1929,7 +1931,7 @@ Partial Class SSCPManagersTools
         '
         Me.llbACCDeviationsNotReported.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.llbACCDeviationsNotReported.AutoSize = True
-        Me.llbACCDeviationsNotReported.Location = New System.Drawing.Point(260, 499)
+        Me.llbACCDeviationsNotReported.Location = New System.Drawing.Point(260, 497)
         Me.llbACCDeviationsNotReported.Name = "llbACCDeviationsNotReported"
         Me.llbACCDeviationsNotReported.Size = New System.Drawing.Size(30, 13)
         Me.llbACCDeviationsNotReported.TabIndex = 33
@@ -1940,7 +1942,7 @@ Partial Class SSCPManagersTools
         '
         Me.llbACCDeviationsInFinal.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.llbACCDeviationsInFinal.AutoSize = True
-        Me.llbACCDeviationsInFinal.Location = New System.Drawing.Point(260, 478)
+        Me.llbACCDeviationsInFinal.Location = New System.Drawing.Point(260, 476)
         Me.llbACCDeviationsInFinal.Name = "llbACCDeviationsInFinal"
         Me.llbACCDeviationsInFinal.Size = New System.Drawing.Size(30, 13)
         Me.llbACCDeviationsInFinal.TabIndex = 32
@@ -1951,7 +1953,7 @@ Partial Class SSCPManagersTools
         '
         Me.llbACCDeviationsIncorrectlyReported.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.llbACCDeviationsIncorrectlyReported.AutoSize = True
-        Me.llbACCDeviationsIncorrectlyReported.Location = New System.Drawing.Point(260, 447)
+        Me.llbACCDeviationsIncorrectlyReported.Location = New System.Drawing.Point(260, 445)
         Me.llbACCDeviationsIncorrectlyReported.Name = "llbACCDeviationsIncorrectlyReported"
         Me.llbACCDeviationsIncorrectlyReported.Size = New System.Drawing.Size(30, 13)
         Me.llbACCDeviationsIncorrectlyReported.TabIndex = 31
@@ -1962,7 +1964,7 @@ Partial Class SSCPManagersTools
         '
         Me.llbACCDeviationsReportedCorrectly.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.llbACCDeviationsReportedCorrectly.AutoSize = True
-        Me.llbACCDeviationsReportedCorrectly.Location = New System.Drawing.Point(260, 428)
+        Me.llbACCDeviationsReportedCorrectly.Location = New System.Drawing.Point(260, 426)
         Me.llbACCDeviationsReportedCorrectly.Name = "llbACCDeviationsReportedCorrectly"
         Me.llbACCDeviationsReportedCorrectly.Size = New System.Drawing.Size(30, 13)
         Me.llbACCDeviationsReportedCorrectly.TabIndex = 30
@@ -1973,7 +1975,7 @@ Partial Class SSCPManagersTools
         '
         Me.llbACCDeviationsReported.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.llbACCDeviationsReported.AutoSize = True
-        Me.llbACCDeviationsReported.Location = New System.Drawing.Point(260, 386)
+        Me.llbACCDeviationsReported.Location = New System.Drawing.Point(260, 384)
         Me.llbACCDeviationsReported.Name = "llbACCDeviationsReported"
         Me.llbACCDeviationsReported.Size = New System.Drawing.Size(30, 13)
         Me.llbACCDeviationsReported.TabIndex = 29
@@ -1984,7 +1986,7 @@ Partial Class SSCPManagersTools
         '
         Me.llbACCSubmittedLate.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.llbACCSubmittedLate.AutoSize = True
-        Me.llbACCSubmittedLate.Location = New System.Drawing.Point(260, 365)
+        Me.llbACCSubmittedLate.Location = New System.Drawing.Point(260, 363)
         Me.llbACCSubmittedLate.Name = "llbACCSubmittedLate"
         Me.llbACCSubmittedLate.Size = New System.Drawing.Size(30, 13)
         Me.llbACCSubmittedLate.TabIndex = 28
@@ -1995,7 +1997,7 @@ Partial Class SSCPManagersTools
         '
         Me.llbACCRequiringResubmittal.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.llbACCRequiringResubmittal.AutoSize = True
-        Me.llbACCRequiringResubmittal.Location = New System.Drawing.Point(260, 344)
+        Me.llbACCRequiringResubmittal.Location = New System.Drawing.Point(260, 342)
         Me.llbACCRequiringResubmittal.Name = "llbACCRequiringResubmittal"
         Me.llbACCRequiringResubmittal.Size = New System.Drawing.Size(30, 13)
         Me.llbACCRequiringResubmittal.TabIndex = 27
@@ -2006,7 +2008,7 @@ Partial Class SSCPManagersTools
         '
         Me.llbACCReporting.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.llbACCReporting.AutoSize = True
-        Me.llbACCReporting.Location = New System.Drawing.Point(260, 323)
+        Me.llbACCReporting.Location = New System.Drawing.Point(260, 321)
         Me.llbACCReporting.Name = "llbACCReporting"
         Me.llbACCReporting.Size = New System.Drawing.Size(30, 13)
         Me.llbACCReporting.TabIndex = 26
@@ -2017,7 +2019,7 @@ Partial Class SSCPManagersTools
         '
         Me.llbViewACCTotalAssigned.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.llbViewACCTotalAssigned.AutoSize = True
-        Me.llbViewACCTotalAssigned.Location = New System.Drawing.Point(260, 302)
+        Me.llbViewACCTotalAssigned.Location = New System.Drawing.Point(260, 300)
         Me.llbViewACCTotalAssigned.Name = "llbViewACCTotalAssigned"
         Me.llbViewACCTotalAssigned.Size = New System.Drawing.Size(30, 13)
         Me.llbViewACCTotalAssigned.TabIndex = 25
@@ -2027,7 +2029,7 @@ Partial Class SSCPManagersTools
         'txtLONTaken
         '
         Me.txtLONTaken.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.txtLONTaken.Location = New System.Drawing.Point(185, 579)
+        Me.txtLONTaken.Location = New System.Drawing.Point(185, 577)
         Me.txtLONTaken.Name = "txtLONTaken"
         Me.txtLONTaken.ReadOnly = True
         Me.txtLONTaken.Size = New System.Drawing.Size(59, 20)
@@ -2037,7 +2039,7 @@ Partial Class SSCPManagersTools
         '
         Me.Label44.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label44.AutoSize = True
-        Me.Label44.Location = New System.Drawing.Point(6, 583)
+        Me.Label44.Location = New System.Drawing.Point(6, 581)
         Me.Label44.Name = "Label44"
         Me.Label44.Size = New System.Drawing.Size(29, 13)
         Me.Label44.TabIndex = 23
@@ -2046,7 +2048,7 @@ Partial Class SSCPManagersTools
         'txtNOVTaken
         '
         Me.txtNOVTaken.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.txtNOVTaken.Location = New System.Drawing.Point(185, 558)
+        Me.txtNOVTaken.Location = New System.Drawing.Point(185, 556)
         Me.txtNOVTaken.Name = "txtNOVTaken"
         Me.txtNOVTaken.ReadOnly = True
         Me.txtNOVTaken.Size = New System.Drawing.Size(59, 20)
@@ -2056,7 +2058,7 @@ Partial Class SSCPManagersTools
         '
         Me.Label43.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label43.AutoSize = True
-        Me.Label43.Location = New System.Drawing.Point(6, 562)
+        Me.Label43.Location = New System.Drawing.Point(6, 560)
         Me.Label43.Name = "Label43"
         Me.Label43.Size = New System.Drawing.Size(30, 13)
         Me.Label43.TabIndex = 21
@@ -2065,7 +2067,7 @@ Partial Class SSCPManagersTools
         'txtCOTaken
         '
         Me.txtCOTaken.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.txtCOTaken.Location = New System.Drawing.Point(185, 537)
+        Me.txtCOTaken.Location = New System.Drawing.Point(185, 535)
         Me.txtCOTaken.Name = "txtCOTaken"
         Me.txtCOTaken.ReadOnly = True
         Me.txtCOTaken.Size = New System.Drawing.Size(59, 20)
@@ -2075,7 +2077,7 @@ Partial Class SSCPManagersTools
         '
         Me.Label42.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label42.AutoSize = True
-        Me.Label42.Location = New System.Drawing.Point(6, 541)
+        Me.Label42.Location = New System.Drawing.Point(6, 539)
         Me.Label42.Name = "Label42"
         Me.Label42.Size = New System.Drawing.Size(22, 13)
         Me.Label42.TabIndex = 19
@@ -2084,7 +2086,7 @@ Partial Class SSCPManagersTools
         'txtEnforcementActionTaken
         '
         Me.txtEnforcementActionTaken.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.txtEnforcementActionTaken.Location = New System.Drawing.Point(185, 516)
+        Me.txtEnforcementActionTaken.Location = New System.Drawing.Point(185, 514)
         Me.txtEnforcementActionTaken.Name = "txtEnforcementActionTaken"
         Me.txtEnforcementActionTaken.ReadOnly = True
         Me.txtEnforcementActionTaken.Size = New System.Drawing.Size(59, 20)
@@ -2094,7 +2096,7 @@ Partial Class SSCPManagersTools
         '
         Me.Label41.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label41.AutoSize = True
-        Me.Label41.Location = New System.Drawing.Point(6, 520)
+        Me.Label41.Location = New System.Drawing.Point(6, 518)
         Me.Label41.Name = "Label41"
         Me.Label41.Size = New System.Drawing.Size(129, 13)
         Me.Label41.TabIndex = 17
@@ -2103,7 +2105,7 @@ Partial Class SSCPManagersTools
         'txtDeviationsNotPreviouslyReported
         '
         Me.txtDeviationsNotPreviouslyReported.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.txtDeviationsNotPreviouslyReported.Location = New System.Drawing.Point(185, 495)
+        Me.txtDeviationsNotPreviouslyReported.Location = New System.Drawing.Point(185, 493)
         Me.txtDeviationsNotPreviouslyReported.Name = "txtDeviationsNotPreviouslyReported"
         Me.txtDeviationsNotPreviouslyReported.ReadOnly = True
         Me.txtDeviationsNotPreviouslyReported.Size = New System.Drawing.Size(59, 20)
@@ -2113,7 +2115,7 @@ Partial Class SSCPManagersTools
         '
         Me.Label40.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label40.AutoSize = True
-        Me.Label40.Location = New System.Drawing.Point(6, 499)
+        Me.Label40.Location = New System.Drawing.Point(6, 497)
         Me.Label40.Name = "Label40"
         Me.Label40.Size = New System.Drawing.Size(167, 13)
         Me.Label40.TabIndex = 15
@@ -2122,7 +2124,7 @@ Partial Class SSCPManagersTools
         'txtDeviationsReportedInFinal
         '
         Me.txtDeviationsReportedInFinal.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.txtDeviationsReportedInFinal.Location = New System.Drawing.Point(185, 474)
+        Me.txtDeviationsReportedInFinal.Location = New System.Drawing.Point(185, 472)
         Me.txtDeviationsReportedInFinal.Name = "txtDeviationsReportedInFinal"
         Me.txtDeviationsReportedInFinal.ReadOnly = True
         Me.txtDeviationsReportedInFinal.Size = New System.Drawing.Size(59, 20)
@@ -2132,7 +2134,7 @@ Partial Class SSCPManagersTools
         '
         Me.Label38.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label38.AutoSize = True
-        Me.Label38.Location = New System.Drawing.Point(6, 478)
+        Me.Label38.Location = New System.Drawing.Point(6, 476)
         Me.Label38.Name = "Label38"
         Me.Label38.Size = New System.Drawing.Size(132, 13)
         Me.Label38.TabIndex = 13
@@ -2141,7 +2143,7 @@ Partial Class SSCPManagersTools
         'txtDeviationsIncorrectlyReported
         '
         Me.txtDeviationsIncorrectlyReported.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.txtDeviationsIncorrectlyReported.Location = New System.Drawing.Point(185, 443)
+        Me.txtDeviationsIncorrectlyReported.Location = New System.Drawing.Point(185, 441)
         Me.txtDeviationsIncorrectlyReported.Name = "txtDeviationsIncorrectlyReported"
         Me.txtDeviationsIncorrectlyReported.ReadOnly = True
         Me.txtDeviationsIncorrectlyReported.Size = New System.Drawing.Size(59, 20)
@@ -2150,7 +2152,7 @@ Partial Class SSCPManagersTools
         'txtDeviationsCorrectlyReported
         '
         Me.txtDeviationsCorrectlyReported.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.txtDeviationsCorrectlyReported.Location = New System.Drawing.Point(185, 424)
+        Me.txtDeviationsCorrectlyReported.Location = New System.Drawing.Point(185, 422)
         Me.txtDeviationsCorrectlyReported.Name = "txtDeviationsCorrectlyReported"
         Me.txtDeviationsCorrectlyReported.ReadOnly = True
         Me.txtDeviationsCorrectlyReported.Size = New System.Drawing.Size(59, 20)
@@ -2160,7 +2162,7 @@ Partial Class SSCPManagersTools
         '
         Me.Label37.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label37.AutoSize = True
-        Me.Label37.Location = New System.Drawing.Point(6, 416)
+        Me.Label37.Location = New System.Drawing.Point(6, 414)
         Me.Label37.Name = "Label37"
         Me.Label37.Size = New System.Drawing.Size(168, 39)
         Me.Label37.TabIndex = 10
@@ -2169,7 +2171,7 @@ Partial Class SSCPManagersTools
         'txtDeviationsReportedInOrigional
         '
         Me.txtDeviationsReportedInOrigional.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.txtDeviationsReportedInOrigional.Location = New System.Drawing.Point(185, 382)
+        Me.txtDeviationsReportedInOrigional.Location = New System.Drawing.Point(185, 380)
         Me.txtDeviationsReportedInOrigional.Name = "txtDeviationsReportedInOrigional"
         Me.txtDeviationsReportedInOrigional.ReadOnly = True
         Me.txtDeviationsReportedInOrigional.Size = New System.Drawing.Size(59, 20)
@@ -2179,7 +2181,7 @@ Partial Class SSCPManagersTools
         '
         Me.Label36.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label36.AutoSize = True
-        Me.Label36.Location = New System.Drawing.Point(6, 386)
+        Me.Label36.Location = New System.Drawing.Point(6, 384)
         Me.Label36.Name = "Label36"
         Me.Label36.Size = New System.Drawing.Size(151, 13)
         Me.Label36.TabIndex = 8
@@ -2188,7 +2190,7 @@ Partial Class SSCPManagersTools
         'txtSubmittedLate
         '
         Me.txtSubmittedLate.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.txtSubmittedLate.Location = New System.Drawing.Point(185, 361)
+        Me.txtSubmittedLate.Location = New System.Drawing.Point(185, 359)
         Me.txtSubmittedLate.Name = "txtSubmittedLate"
         Me.txtSubmittedLate.ReadOnly = True
         Me.txtSubmittedLate.Size = New System.Drawing.Size(59, 20)
@@ -2198,7 +2200,7 @@ Partial Class SSCPManagersTools
         '
         Me.Label35.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label35.AutoSize = True
-        Me.Label35.Location = New System.Drawing.Point(6, 365)
+        Me.Label35.Location = New System.Drawing.Point(6, 363)
         Me.Label35.Name = "Label35"
         Me.Label35.Size = New System.Drawing.Size(121, 13)
         Me.Label35.TabIndex = 6
@@ -2207,7 +2209,7 @@ Partial Class SSCPManagersTools
         'txtResubmittals
         '
         Me.txtResubmittals.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.txtResubmittals.Location = New System.Drawing.Point(185, 340)
+        Me.txtResubmittals.Location = New System.Drawing.Point(185, 338)
         Me.txtResubmittals.Name = "txtResubmittals"
         Me.txtResubmittals.ReadOnly = True
         Me.txtResubmittals.Size = New System.Drawing.Size(59, 20)
@@ -2217,7 +2219,7 @@ Partial Class SSCPManagersTools
         '
         Me.Label34.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label34.AutoSize = True
-        Me.Label34.Location = New System.Drawing.Point(6, 344)
+        Me.Label34.Location = New System.Drawing.Point(6, 342)
         Me.Label34.Name = "Label34"
         Me.Label34.Size = New System.Drawing.Size(153, 13)
         Me.Label34.TabIndex = 4
@@ -2226,7 +2228,7 @@ Partial Class SSCPManagersTools
         'txtFacilitiesReporting
         '
         Me.txtFacilitiesReporting.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.txtFacilitiesReporting.Location = New System.Drawing.Point(185, 319)
+        Me.txtFacilitiesReporting.Location = New System.Drawing.Point(185, 317)
         Me.txtFacilitiesReporting.Name = "txtFacilitiesReporting"
         Me.txtFacilitiesReporting.ReadOnly = True
         Me.txtFacilitiesReporting.Size = New System.Drawing.Size(59, 20)
@@ -2236,7 +2238,7 @@ Partial Class SSCPManagersTools
         '
         Me.Label32.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label32.AutoSize = True
-        Me.Label32.Location = New System.Drawing.Point(6, 323)
+        Me.Label32.Location = New System.Drawing.Point(6, 321)
         Me.Label32.Name = "Label32"
         Me.Label32.Size = New System.Drawing.Size(96, 13)
         Me.Label32.TabIndex = 2
@@ -2245,7 +2247,7 @@ Partial Class SSCPManagersTools
         'txtTotalFacilities
         '
         Me.txtTotalFacilities.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.txtTotalFacilities.Location = New System.Drawing.Point(185, 298)
+        Me.txtTotalFacilities.Location = New System.Drawing.Point(185, 296)
         Me.txtTotalFacilities.Name = "txtTotalFacilities"
         Me.txtTotalFacilities.ReadOnly = True
         Me.txtTotalFacilities.Size = New System.Drawing.Size(59, 20)
@@ -2255,7 +2257,7 @@ Partial Class SSCPManagersTools
         '
         Me.Label31.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label31.AutoSize = True
-        Me.Label31.Location = New System.Drawing.Point(6, 302)
+        Me.Label31.Location = New System.Drawing.Point(6, 300)
         Me.Label31.Name = "Label31"
         Me.Label31.Size = New System.Drawing.Size(157, 13)
         Me.Label31.TabIndex = 0
