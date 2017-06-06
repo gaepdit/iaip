@@ -1281,7 +1281,6 @@ Partial Class ISMPTestReports
         '
         Me.cboTestNotificationNumber.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.cboTestNotificationNumber.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
-        Me.cboTestNotificationNumber.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboTestNotificationNumber.Location = New System.Drawing.Point(152, 237)
         Me.cboTestNotificationNumber.Name = "cboTestNotificationNumber"
         Me.cboTestNotificationNumber.Size = New System.Drawing.Size(150, 21)
