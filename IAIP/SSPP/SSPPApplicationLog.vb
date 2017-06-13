@@ -426,12 +426,10 @@ Public Class SSPPApplicationLog
                 CONVERT(int, m.STRAPPLICATIONNUMBER) AS strApplicationNumber,
                 CASE WHEN la.STRAPPLICATIONTYPEDESC IS NULL THEN '' 
                 ELSE la.STRAPPLICATIONTYPEDESC END AS strApplicationType,
-                CASE WHEN t.DATRECEIVEDDATE IS NULL THEN '' 
-                ELSE format(t.DATRECEIVEDDATE, 'd-MMM-yyyy') END AS datReceivedDate,
+                t.DATRECEIVEDDATE,
                 CASE WHEN d.STRPERMITNUMBER IS NULL THEN '' 
                 ELSE CONCAT(SUBSTRING(d.STRPERMITNUMBER, 1, 4), '-', SUBSTRING(d.STRPERMITNUMBER, 5, 3), '-', SUBSTRING(d.STRPERMITNUMBER, 8, 4), '-', SUBSTRING(d.STRPERMITNUMBER, 12, 1), '-', SUBSTRING(d.STRPERMITNUMBER, 13, 2), '-', SUBSTRING(d.STRPERMITNUMBER, 15, 1)) END AS strPermitNumber,
-                CASE WHEN t.DATPERMITISSUED IS NULL THEN '' 
-                ELSE format(t.DATPERMITISSUED, 'd-MMM-yyyy') END AS datPermitIssued,
+                t.DATPERMITISSUED,
                 CASE WHEN u.NUMUSERID = '0' THEN '' 
                 WHEN u.NUMUSERID IS NULL THEN '' 
                 ELSE CONCAT(u.STRLASTNAME, ', ', u.STRFIRSTNAME) END AS StaffResponsible,
@@ -454,19 +452,19 @@ Public Class SSPPApplicationLog
                 ELSE '01 - At Engineer' END AS AppStatus,
                 CASE WHEN lp.STRPERMITTYPEDESCRIPTION IS NULL THEN '' 
                 ELSE lp.STRPERMITTYPEDESCRIPTION END AS strPermitType,
-                CASE WHEN t.DATPERMITISSUED IS NOT NULL THEN format(t.DATPERMITISSUED, 'd-MMM-yyyy') 
-                WHEN m.DATFINALIZEDDATE IS NOT NULL THEN format(m.DATFINALIZEDDATE, 'd-MMM-yyyy') 
-                WHEN t.DATTODIRECTOR IS NOT NULL AND m.DATFINALIZEDDATE IS NULL AND (t.DATDRAFTISSUED IS NULL OR t.DATDRAFTISSUED < t.DATTODIRECTOR) THEN format(t.DATTODIRECTOR, 'd-MMM-yyyy') 
-                WHEN t.DATTOBRANCHCHEIF IS NOT NULL AND m.DATFINALIZEDDATE IS NULL AND t.DATTODIRECTOR IS NULL AND (t.DATDRAFTISSUED IS NULL OR t.DATDRAFTISSUED < t.DATTOBRANCHCHEIF) THEN format(t.DATTOBRANCHCHEIF, 'd-MMM-yyyy') 
-                WHEN t.DATEPAENDS IS NOT NULL THEN format(t.DATEPAENDS, 'd-MMM-yyyy') 
-                WHEN t.DATPNEXPIRES IS NOT NULL AND t.DATPNEXPIRES < GETDATE() THEN format(t.DATPNEXPIRES, 'd-MMM-yyyy') 
-                WHEN t.DATPNEXPIRES IS NOT NULL AND t.DATPNEXPIRES >= GETDATE() THEN format(t.DATPNEXPIRES, 'd-MMM-yyyy') 
-                WHEN t.DATDRAFTISSUED IS NOT NULL AND t.DATPNEXPIRES IS NULL THEN format(t.DATDRAFTISSUED, 'd-MMM-yyyy') 
-                WHEN t.DATTOPMII IS NOT NULL THEN format(t.DATTOPMII, 'd-MMM-yyyy') 
-                WHEN t.DATTOPMI IS NOT NULL THEN format(t.DATTOPMI, 'd-MMM-yyyy') 
-                WHEN t.DATREVIEWSUBMITTED IS NOT NULL AND (d.STRSSCPUNIT <> '0' OR d.STRISMPUNIT <> '0') THEN format(t.DATREVIEWSUBMITTED, 'd-MMM-yyyy') 
-                WHEN m.STRSTAFFRESPONSIBLE IS NULL OR m.STRSTAFFRESPONSIBLE = '0' THEN 'Unknown' 
-                ELSE format(t.DATASSIGNEDTOENGINEER, 'd-MMM-yyyy') END AS StatusDate, 
+                CASE WHEN t.DATPERMITISSUED IS NOT NULL THEN t.DATPERMITISSUED
+                WHEN m.DATFINALIZEDDATE IS NOT NULL THEN m.DATFINALIZEDDATE
+                WHEN t.DATTODIRECTOR IS NOT NULL AND m.DATFINALIZEDDATE IS NULL AND (t.DATDRAFTISSUED IS NULL OR t.DATDRAFTISSUED < t.DATTODIRECTOR) THEN t.DATTODIRECTOR
+                WHEN t.DATTOBRANCHCHEIF IS NOT NULL AND m.DATFINALIZEDDATE IS NULL AND t.DATTODIRECTOR IS NULL AND (t.DATDRAFTISSUED IS NULL OR t.DATDRAFTISSUED < t.DATTOBRANCHCHEIF) THEN t.DATTOBRANCHCHEIF
+                WHEN t.DATEPAENDS IS NOT NULL THEN t.DATEPAENDS
+                WHEN t.DATPNEXPIRES IS NOT NULL AND t.DATPNEXPIRES < GETDATE() THEN t.DATPNEXPIRES
+                WHEN t.DATPNEXPIRES IS NOT NULL AND t.DATPNEXPIRES >= GETDATE() THEN t.DATPNEXPIRES
+                WHEN t.DATDRAFTISSUED IS NOT NULL AND t.DATPNEXPIRES IS NULL THEN t.DATDRAFTISSUED
+                WHEN t.DATTOPMII IS NOT NULL THEN t.DATTOPMII
+                WHEN t.DATTOPMI IS NOT NULL THEN t.DATTOPMI
+                WHEN t.DATREVIEWSUBMITTED IS NOT NULL AND (d.STRSSCPUNIT <> '0' OR d.STRISMPUNIT <> '0') THEN t.DATREVIEWSUBMITTED
+                WHEN m.STRSTAFFRESPONSIBLE IS NULL OR m.STRSTAFFRESPONSIBLE = '0' THEN null 
+                ELSE t.DATASSIGNEDTOENGINEER END AS StatusDate, 
                 d.STRSICCODE, d.STRPLANTDESCRIPTION,
                 lc.STRCOUNTYNAME,
                 case when e.STRUNITDESC is null then '' else e.STRUNITDESC end as APBUnit,
@@ -1146,9 +1144,11 @@ Public Class SSPPApplicationLog
             dgvApplicationLog.Columns("strApplicationType").DisplayIndex = 4
             dgvApplicationLog.Columns("datReceivedDate").HeaderText = "APL Rcvd"
             dgvApplicationLog.Columns("datReceivedDate").DisplayIndex = 5
-            dgvApplicationLog.Columns("datPermitIssued").HeaderText = "Date Finalized"
+            dgvApplicationLog.Columns("datReceivedDate").DefaultCellStyle.Format = DateFormat
+            dgvApplicationLog.Columns("datPermitIssued").HeaderText = "Permit Issued"
             dgvApplicationLog.Columns("datPermitIssued").DisplayIndex = 6
             dgvApplicationLog.Columns("datPermitIssued").Visible = False
+            dgvApplicationLog.Columns("datPermitIssued").DefaultCellStyle.Format = DateFormat
             dgvApplicationLog.Columns("StaffResponsible").HeaderText = "Staff Responsible"
             dgvApplicationLog.Columns("StaffResponsible").DisplayIndex = 3
             dgvApplicationLog.Columns("strFacilityName").HeaderText = "Facility Name"
@@ -1163,6 +1163,8 @@ Public Class SSPPApplicationLog
             dgvApplicationLog.Columns("AppStatus").DisplayIndex = 9
             dgvApplicationLog.Columns("StatusDate").HeaderText = "Status Date"
             dgvApplicationLog.Columns("StatusDate").DisplayIndex = 10
+            dgvApplicationLog.Columns("StatusDate").DefaultCellStyle.Format = DateFormat
+            'dgvApplicationLog.Columns("StatusDate").DefaultCellStyle.NullValue = "Unknown"
             dgvApplicationLog.Columns("strSICCode").HeaderText = "SIC Code"
             dgvApplicationLog.Columns("strSICCode").DisplayIndex = 11
             dgvApplicationLog.Columns("strPlantDescription").HeaderText = "Plant Description"
