@@ -945,93 +945,217 @@ Public Class SSCPEvents
             Or wrnACCRO.Visible = True Or wrnACCSubmittal.Visible = True Then
                 MsgBox("Data not saved", MsgBoxStyle.Information, "SSCP Events.")
                 Return False
+            End If
+
+            If dtpAccReportingYear.Checked Then
+                AccReportingYear = dtpAccReportingYear.Value
             Else
+                AccReportingYear = DBNull.Value
+            End If
+            If rdbACCPostmarkYes.Checked = True Then
+                PostedOnTime = "True"
+            Else
+                PostedOnTime = "False"
+            End If
+            If rdbACCROYes.Checked = True Then
+                SignedByRO = "True"
+            Else
+                SignedByRO = "False"
+            End If
+            If rdbACCCorrectACCYes.Checked = True Then
+                CorrectACCForm = "True"
+            Else
+                CorrectACCForm = "False"
+            End If
+            If rdbACCConditionsYes.Checked = True Then
+                TitleVConditions = "True"
+            Else
+                TitleVConditions = "False"
+            End If
+            If rdbACCCorrectYes.Checked = True Then
+                ACCCorrectlyFilledOut = "True"
+            Else
+                ACCCorrectlyFilledOut = "False"
+            End If
+            If rdbACCDeviationsReportedYes.Checked = True Then
+                ReportedDeviations = "True"
+            Else
+                ReportedDeviations = "False"
+            End If
+            If rdbACCPreviouslyUnreportedDeviationsYes.Checked = True Then
+                ReportedUnReportedDeviations = "True"
+            Else
+                ReportedUnReportedDeviations = "False"
+            End If
+            If txtACCComments.Text = "" Then
+                ACCComments = "N/A"
+            Else
+                ACCComments = txtACCComments.Text
+            End If
+            If rdbACCEnforcementNeededYes.Checked = True Then
+                EnforcementNeeded = "True"
+            Else
+                EnforcementNeeded = "False"
+            End If
+            If rdbACCAllDeviationsReportedYes.Checked Then
+                AllDeviationsReported = "True"
+            Else
+                AllDeviationsReported = "False"
+            End If
+            If rdbACCResubmittalRequestedYes.Checked Then
+                ResubmittalRequested = "True"
+            Else
+                ResubmittalRequested = "False"
+            End If
 
-                If dtpAccReportingYear.Checked Then
-                    AccReportingYear = dtpAccReportingYear.Value
-                Else
-                    AccReportingYear = DBNull.Value
-                End If
-                If rdbACCPostmarkYes.Checked = True Then
-                    PostedOnTime = "True"
-                Else
-                    PostedOnTime = "False"
-                End If
-                If rdbACCROYes.Checked = True Then
-                    SignedByRO = "True"
-                Else
-                    SignedByRO = "False"
-                End If
-                If rdbACCCorrectACCYes.Checked = True Then
-                    CorrectACCForm = "True"
-                Else
-                    CorrectACCForm = "False"
-                End If
-                If rdbACCConditionsYes.Checked = True Then
-                    TitleVConditions = "True"
-                Else
-                    TitleVConditions = "False"
-                End If
-                If rdbACCCorrectYes.Checked = True Then
-                    ACCCorrectlyFilledOut = "True"
-                Else
-                    ACCCorrectlyFilledOut = "False"
-                End If
-                If rdbACCDeviationsReportedYes.Checked = True Then
-                    ReportedDeviations = "True"
-                Else
-                    ReportedDeviations = "False"
-                End If
-                If rdbACCPreviouslyUnreportedDeviationsYes.Checked = True Then
-                    ReportedUnReportedDeviations = "True"
-                Else
-                    ReportedUnReportedDeviations = "False"
-                End If
-                If txtACCComments.Text = "" Then
-                    ACCComments = "N/A"
-                Else
-                    ACCComments = txtACCComments.Text
-                End If
-                If rdbACCEnforcementNeededYes.Checked = True Then
-                    EnforcementNeeded = "True"
-                Else
-                    EnforcementNeeded = "False"
-                End If
-                If rdbACCAllDeviationsReportedYes.Checked Then
-                    AllDeviationsReported = "True"
-                Else
-                    AllDeviationsReported = "False"
-                End If
-                If rdbACCResubmittalRequestedYes.Checked Then
-                    ResubmittalRequested = "True"
-                Else
-                    ResubmittalRequested = "False"
-                End If
+            Dim SQL As String = "Select 1 from SSCPACCS where strTrackingNumber = @num"
+            Dim p As New SqlParameter("@num", TrackingNumber)
 
-                Dim SQL As String = "Select 1 from SSCPACCS where strTrackingNumber = @num"
-                Dim p As New SqlParameter("@num", TrackingNumber)
+            If Not DB.ValueExists(SQL, p) Then
+                NUPACCSubmittal.Value = 1
 
-                If Not DB.ValueExists(SQL, p) Then
-                    NUPACCSubmittal.Value = 1
+                sqlList.Add("Insert into SSCPACCS " &
+                    "(strTrackingNumber, strSubmittalNumber, " &
+                    "strPostMarkedOnTime, DATPostMarkDate, " &
+                    "strsignedbyRO, strCorrectACCFOrms, " &
+                    "strTitleVConditionsListed, strACCCorrectlyFilledOut, " &
+                    "strReportedDeviations, strDeviationsUnreported, " &
+                    "strcomments, strEnforcementneeded, " &
+                    "strModifingPerson, DatModifingDate, datAccReportingYear, " &
+                    "STRKNOWNDEVIATIONSREPORTED, STRRESUBMITTALREQUIRED) " &
+                    "values " &
+                    "(@strTrackingNumber, @strSubmittalNumber, " &
+                    "@strPostMarkedOnTime, @DATPostMarkDate, " &
+                    "@strsignedbyRO, @strCorrectACCFOrms, " &
+                    "@strTitleVConditionsListed, @strACCCorrectlyFilledOut, " &
+                    "@strReportedDeviations, @strDeviationsUnreported, " &
+                    "@strcomments, @strEnforcementneeded, " &
+                    "@strModifingPerson, GETDATE(), @datAccReportingYear, " &
+                    "@STRKNOWNDEVIATIONSREPORTED, @STRRESUBMITTALREQUIRED) ")
 
-                    sqlList.Add("Insert into SSCPACCS " &
-                        "(strTrackingNumber, strSubmittalNumber, " &
-                        "strPostMarkedOnTime, DATPostMarkDate, " &
-                        "strsignedbyRO, strCorrectACCFOrms, " &
-                        "strTitleVConditionsListed, strACCCorrectlyFilledOut, " &
-                        "strReportedDeviations, strDeviationsUnreported, " &
-                        "strcomments, strEnforcementneeded, " &
-                        "strModifingPerson, DatModifingDate, datAccReportingYear, " &
-                        "STRKNOWNDEVIATIONSREPORTED, STRRESUBMITTALREQUIRED) " &
-                        "values " &
-                        "(@strTrackingNumber, @strSubmittalNumber, " &
-                        "@strPostMarkedOnTime, @DATPostMarkDate, " &
-                        "@strsignedbyRO, @strCorrectACCFOrms, " &
-                        "@strTitleVConditionsListed, @strACCCorrectlyFilledOut, " &
-                        "@strReportedDeviations, @strDeviationsUnreported, " &
-                        "@strcomments, @strEnforcementneeded, " &
-                        "@strModifingPerson, GETDATE(), @datAccReportingYear, " &
-                        "@STRKNOWNDEVIATIONSREPORTED, @STRRESUBMITTALREQUIRED) ")
+                paramList.Add({
+                    New SqlParameter("@strTrackingNumber", TrackingNumber),
+                    New SqlParameter("@strSubmittalNumber", NUPACCSubmittal.Value),
+                    New SqlParameter("@strPostMarkedOnTime", PostedOnTime),
+                    New SqlParameter("@DATPostMarkDate", DTPACCPostmarked.Value),
+                    New SqlParameter("@strsignedbyRO", SignedByRO),
+                    New SqlParameter("@strCorrectACCFOrms", CorrectACCForm),
+                    New SqlParameter("@strTitleVConditionsListed", TitleVConditions),
+                    New SqlParameter("@strACCCorrectlyFilledOut", ACCCorrectlyFilledOut),
+                    New SqlParameter("@strReportedDeviations", ReportedDeviations),
+                    New SqlParameter("@strDeviationsUnreported", ReportedUnReportedDeviations),
+                    New SqlParameter("@strcomments", ACCComments),
+                    New SqlParameter("@strEnforcementneeded", EnforcementNeeded),
+                    New SqlParameter("@strModifingPerson", CurrentUser.UserID),
+                    New SqlParameter("@datAccReportingYear", AccReportingYear),
+                    New SqlParameter("@STRKNOWNDEVIATIONSREPORTED", AllDeviationsReported),
+                    New SqlParameter("@STRRESUBMITTALREQUIRED", ResubmittalRequested)
+                })
+
+                sqlList.Add("Insert into SSCPACCSHistory " &
+                    "(strTrackingNumber, strSubmittalNumber, " &
+                    "strPostMarkedOnTime, DATPostMarkDate, " &
+                    "strsignedbyRO, StrCorrectACCForms, " &
+                    "strTitleVConditionsListed, strACCCorrectlyFilledOut, " &
+                    "strReportedDeviations, strDeviationsUnreported, " &
+                    "strcomments, strEnforcementneeded, " &
+                    "strModifingPerson, DatModifingDate, datAccReportingYear, " &
+                    "STRKNOWNDEVIATIONSREPORTED, STRRESUBMITTALREQUIRED) " &
+                    "values " &
+                    "(@strTrackingNumber, @strSubmittalNumber, " &
+                    "@strPostMarkedOnTime, @DATPostMarkDate, " &
+                    "@strsignedbyRO, @StrCorrectACCForms, " &
+                    "@strTitleVConditionsListed, @strACCCorrectlyFilledOut, " &
+                    "@strReportedDeviations, @strDeviationsUnreported, " &
+                    "@strcomments, @strEnforcementneeded, " &
+                    "@strModifingPerson, GETDATE(), @datAccReportingYear, " &
+                    "@STRKNOWNDEVIATIONSREPORTED, @STRRESUBMITTALREQUIRED) ")
+
+                paramList.Add({
+                    New SqlParameter("@strTrackingNumber", TrackingNumber),
+                    New SqlParameter("@strSubmittalNumber", NUPACCSubmittal.Value),
+                    New SqlParameter("@strPostMarkedOnTime", PostedOnTime),
+                    New SqlParameter("@DATPostMarkDate", DTPACCPostmarked.Value),
+                    New SqlParameter("@strsignedbyRO", SignedByRO),
+                    New SqlParameter("@StrCorrectACCForms", CorrectACCForm),
+                    New SqlParameter("@strTitleVConditionsListed", TitleVConditions),
+                    New SqlParameter("@strACCCorrectlyFilledOut", ACCCorrectlyFilledOut),
+                    New SqlParameter("@strReportedDeviations", ReportedDeviations),
+                    New SqlParameter("@strDeviationsUnreported", ReportedUnReportedDeviations),
+                    New SqlParameter("@strcomments", ACCComments),
+                    New SqlParameter("@strEnforcementneeded", EnforcementNeeded),
+                    New SqlParameter("@strModifingPerson", CurrentUser.UserID),
+                    New SqlParameter("@datAccReportingYear", AccReportingYear),
+                    New SqlParameter("@STRKNOWNDEVIATIONSREPORTED", AllDeviationsReported),
+                    New SqlParameter("@STRRESUBMITTALREQUIRED", ResubmittalRequested)
+                })
+
+            Else  'ValueExists = True 
+                sqlList.Add("Update SSCPACCS set " &
+                    "strSubmittalNumber = @strSubmittalNumber, " &
+                    "strPostMarkedOnTime = @strPostMarkedOnTime, " &
+                    "DATPostMarkDate = @DATPostMarkDate, " &
+                    "strsignedbyRO = @strsignedbyRO, " &
+                    "StrCorrectACCFOrms = @StrCorrectACCFOrms, " &
+                    "strTitleVConditionsListed = @strTitleVConditionsListed, " &
+                    "strACCCorrectlyFilledOut = @strACCCorrectlyFilledOut, " &
+                    "strReportedDeviations = @strReportedDeviations, " &
+                    "strDeviationsUnreported = @strDeviationsUnreported, " &
+                    "strcomments = @strcomments, " &
+                    "strEnforcementneeded = @strEnforcementneeded, " &
+                    "strModifingPerson = @strModifingPerson, " &
+                    "DatModifingDate = GETDATE(), " &
+                    "datAccReportingYear = @datAccReportingYear, " &
+                    "STRKNOWNDEVIATIONSREPORTED = @STRKNOWNDEVIATIONSREPORTED, " &
+                    "STRRESUBMITTALREQUIRED = @STRRESUBMITTALREQUIRED " &
+                    "where strTrackingnumber = @strTrackingnumber ")
+
+                paramList.Add({
+                    New SqlParameter("@strTrackingNumber", TrackingNumber),
+                    New SqlParameter("@strSubmittalNumber", NUPACCSubmittal.Value),
+                    New SqlParameter("@strPostMarkedOnTime", PostedOnTime),
+                    New SqlParameter("@DATPostMarkDate", DTPACCPostmarked.Value),
+                    New SqlParameter("@strsignedbyRO", SignedByRO),
+                    New SqlParameter("@StrCorrectACCForms", CorrectACCForm),
+                    New SqlParameter("@strTitleVConditionsListed", TitleVConditions),
+                    New SqlParameter("@strACCCorrectlyFilledOut", ACCCorrectlyFilledOut),
+                    New SqlParameter("@strReportedDeviations", ReportedDeviations),
+                    New SqlParameter("@strDeviationsUnreported", ReportedUnReportedDeviations),
+                    New SqlParameter("@strcomments", ACCComments),
+                    New SqlParameter("@strEnforcementneeded", EnforcementNeeded),
+                    New SqlParameter("@strModifingPerson", CurrentUser.UserID),
+                    New SqlParameter("@datAccReportingYear", AccReportingYear),
+                    New SqlParameter("@STRKNOWNDEVIATIONSREPORTED", AllDeviationsReported),
+                    New SqlParameter("@STRRESUBMITTALREQUIRED", ResubmittalRequested)
+                })
+
+                SQL = "Select 1 from SSCPACCSHistory where strTrackingNumber = @num and strSubmittalNumber = @sub "
+
+                Dim p2 As SqlParameter() = {
+                    New SqlParameter("@num", TrackingNumber),
+                    New SqlParameter("@sub", NUPACCSubmittal.Text)
+                }
+
+                If DB.ValueExists(SQL, p2) Then
+                    sqlList.Add("Update SSCPACCSHistory set " &
+                        "strSubmittalNumber = @strSubmittalNumber, " &
+                        "strPostMarkedOnTime = @strPostMarkedOnTime, " &
+                        "DATPostMarkDate = @DATPostMarkDate, " &
+                        "strsignedbyRO = @strsignedbyRO, " &
+                        "StrCorrectACCFOrms = @StrCorrectACCFOrms, " &
+                        "strTitleVConditionsListed = @strTitleVConditionsListed, " &
+                        "strACCCorrectlyFilledOut = @strACCCorrectlyFilledOut, " &
+                        "strReportedDeviations = @strReportedDeviations, " &
+                        "strDeviationsUnreported = @strDeviationsUnreported, " &
+                        "strcomments = @strcomments, " &
+                        "strEnforcementneeded = @strEnforcementneeded, " &
+                        "strModifingPerson = @strModifingPerson, " &
+                        "DatModifingDate = GETDATE(), " &
+                        "datAccReportingYear = @datAccReportingYear, " &
+                        "STRKNOWNDEVIATIONSREPORTED = @STRKNOWNDEVIATIONSREPORTED, " &
+                        "STRRESUBMITTALREQUIRED = @STRRESUBMITTALREQUIRED " &
+                        "where strTrackingnumber = @strTrackingnumber " &
+                        "and strSubmittalNumber = @strSubmittalNumber ")
 
                     paramList.Add({
                         New SqlParameter("@strTrackingNumber", TrackingNumber),
@@ -1039,7 +1163,7 @@ Public Class SSCPEvents
                         New SqlParameter("@strPostMarkedOnTime", PostedOnTime),
                         New SqlParameter("@DATPostMarkDate", DTPACCPostmarked.Value),
                         New SqlParameter("@strsignedbyRO", SignedByRO),
-                        New SqlParameter("@strCorrectACCFOrms", CorrectACCForm),
+                        New SqlParameter("@StrCorrectACCForms", CorrectACCForm),
                         New SqlParameter("@strTitleVConditionsListed", TitleVConditions),
                         New SqlParameter("@strACCCorrectlyFilledOut", ACCCorrectlyFilledOut),
                         New SqlParameter("@strReportedDeviations", ReportedDeviations),
@@ -1051,7 +1175,7 @@ Public Class SSCPEvents
                         New SqlParameter("@STRKNOWNDEVIATIONSREPORTED", AllDeviationsReported),
                         New SqlParameter("@STRRESUBMITTALREQUIRED", ResubmittalRequested)
                     })
-
+                Else
                     sqlList.Add("Insert into SSCPACCSHistory " &
                         "(strTrackingNumber, strSubmittalNumber, " &
                         "strPostMarkedOnTime, DATPostMarkDate, " &
@@ -1089,147 +1213,22 @@ Public Class SSCPEvents
                         New SqlParameter("@STRKNOWNDEVIATIONSREPORTED", AllDeviationsReported),
                         New SqlParameter("@STRRESUBMITTALREQUIRED", ResubmittalRequested)
                     })
+                End If
 
-                Else  'ValueExists = True 
-                    sqlList.Add("Update SSCPACCS set " &
-                        "strSubmittalNumber = @strSubmittalNumber, " &
-                        "strPostMarkedOnTime = @strPostMarkedOnTime, " &
-                        "DATPostMarkDate = @DATPostMarkDate, " &
-                        "strsignedbyRO = @strsignedbyRO, " &
-                        "StrCorrectACCFOrms = @StrCorrectACCFOrms, " &
-                        "strTitleVConditionsListed = @strTitleVConditionsListed, " &
-                        "strACCCorrectlyFilledOut = @strACCCorrectlyFilledOut, " &
-                        "strReportedDeviations = @strReportedDeviations, " &
-                        "strDeviationsUnreported = @strDeviationsUnreported, " &
-                        "strcomments = @strcomments, " &
-                        "strEnforcementneeded = @strEnforcementneeded, " &
-                        "strModifingPerson = @strModifingPerson, " &
-                        "DatModifingDate = GETDATE(), " &
-                        "datAccReportingYear = @datAccReportingYear, " &
-                        "STRKNOWNDEVIATIONSREPORTED = @STRKNOWNDEVIATIONSREPORTED, " &
-                        "STRRESUBMITTALREQUIRED = @STRRESUBMITTALREQUIRED " &
-                        "where strTrackingnumber = @strTrackingnumber ")
+                If chbACCReceivedByAPB.Checked = True Then
+                    sqlList.Add("Update SSCPItemMaster set " &
+                        "datReceivedDate = @date " &
+                        "where strTrackingNumber = @num ")
 
                     paramList.Add({
-                        New SqlParameter("@strTrackingNumber", TrackingNumber),
-                        New SqlParameter("@strSubmittalNumber", NUPACCSubmittal.Value),
-                        New SqlParameter("@strPostMarkedOnTime", PostedOnTime),
-                        New SqlParameter("@DATPostMarkDate", DTPACCPostmarked.Value),
-                        New SqlParameter("@strsignedbyRO", SignedByRO),
-                        New SqlParameter("@StrCorrectACCForms", CorrectACCForm),
-                        New SqlParameter("@strTitleVConditionsListed", TitleVConditions),
-                        New SqlParameter("@strACCCorrectlyFilledOut", ACCCorrectlyFilledOut),
-                        New SqlParameter("@strReportedDeviations", ReportedDeviations),
-                        New SqlParameter("@strDeviationsUnreported", ReportedUnReportedDeviations),
-                        New SqlParameter("@strcomments", ACCComments),
-                        New SqlParameter("@strEnforcementneeded", EnforcementNeeded),
-                        New SqlParameter("@strModifingPerson", CurrentUser.UserID),
-                        New SqlParameter("@datAccReportingYear", AccReportingYear),
-                        New SqlParameter("@STRKNOWNDEVIATIONSREPORTED", AllDeviationsReported),
-                        New SqlParameter("@STRRESUBMITTALREQUIRED", ResubmittalRequested)
+                        New SqlParameter("@date", DTPACCReceivedDate.Value),
+                        New SqlParameter("@num", TrackingNumber)
                     })
+                End If
 
-                    SQL = "Select 1 from SSCPACCSHistory where strTrackingNumber = @num and strSubmittalNumber = @sub "
+            End If 'If ValueExists in the SSCPACCS table
 
-                    Dim p2 As SqlParameter() = {
-                        New SqlParameter("@num", TrackingNumber),
-                        New SqlParameter("@sub", NUPACCSubmittal.Text)
-                    }
-
-                    If DB.ValueExists(SQL, p2) Then
-                        sqlList.Add("Update SSCPACCSHistory set " &
-                            "strSubmittalNumber = @strSubmittalNumber, " &
-                            "strPostMarkedOnTime = @strPostMarkedOnTime, " &
-                            "DATPostMarkDate = @DATPostMarkDate, " &
-                            "strsignedbyRO = @strsignedbyRO, " &
-                            "StrCorrectACCFOrms = @StrCorrectACCFOrms, " &
-                            "strTitleVConditionsListed = @strTitleVConditionsListed, " &
-                            "strACCCorrectlyFilledOut = @strACCCorrectlyFilledOut, " &
-                            "strReportedDeviations = @strReportedDeviations, " &
-                            "strDeviationsUnreported = @strDeviationsUnreported, " &
-                            "strcomments = @strcomments, " &
-                            "strEnforcementneeded = @strEnforcementneeded, " &
-                            "strModifingPerson = @strModifingPerson, " &
-                            "DatModifingDate = GETDATE(), " &
-                            "datAccReportingYear = @datAccReportingYear, " &
-                            "STRKNOWNDEVIATIONSREPORTED = @STRKNOWNDEVIATIONSREPORTED, " &
-                            "STRRESUBMITTALREQUIRED = @STRRESUBMITTALREQUIRED " &
-                            "where strTrackingnumber = @strTrackingnumber " &
-                            "and strSubmittalNumber = @strSubmittalNumber ")
-
-                        paramList.Add({
-                            New SqlParameter("@strTrackingNumber", TrackingNumber),
-                            New SqlParameter("@strSubmittalNumber", NUPACCSubmittal.Value),
-                            New SqlParameter("@strPostMarkedOnTime", PostedOnTime),
-                            New SqlParameter("@DATPostMarkDate", DTPACCPostmarked.Value),
-                            New SqlParameter("@strsignedbyRO", SignedByRO),
-                            New SqlParameter("@StrCorrectACCForms", CorrectACCForm),
-                            New SqlParameter("@strTitleVConditionsListed", TitleVConditions),
-                            New SqlParameter("@strACCCorrectlyFilledOut", ACCCorrectlyFilledOut),
-                            New SqlParameter("@strReportedDeviations", ReportedDeviations),
-                            New SqlParameter("@strDeviationsUnreported", ReportedUnReportedDeviations),
-                            New SqlParameter("@strcomments", ACCComments),
-                            New SqlParameter("@strEnforcementneeded", EnforcementNeeded),
-                            New SqlParameter("@strModifingPerson", CurrentUser.UserID),
-                            New SqlParameter("@datAccReportingYear", AccReportingYear),
-                            New SqlParameter("@STRKNOWNDEVIATIONSREPORTED", AllDeviationsReported),
-                            New SqlParameter("@STRRESUBMITTALREQUIRED", ResubmittalRequested)
-                        })
-                    Else
-                        sqlList.Add("Insert into SSCPACCSHistory " &
-                            "(strTrackingNumber, strSubmittalNumber, " &
-                            "strPostMarkedOnTime, DATPostMarkDate, " &
-                            "strsignedbyRO, StrCorrectACCForms, " &
-                            "strTitleVConditionsListed, strACCCorrectlyFilledOut, " &
-                            "strReportedDeviations, strDeviationsUnreported, " &
-                            "strcomments, strEnforcementneeded, " &
-                            "strModifingPerson, DatModifingDate, datAccReportingYear, " &
-                            "STRKNOWNDEVIATIONSREPORTED, STRRESUBMITTALREQUIRED) " &
-                            "values " &
-                            "(@strTrackingNumber, @strSubmittalNumber, " &
-                            "@strPostMarkedOnTime, @DATPostMarkDate, " &
-                            "@strsignedbyRO, @StrCorrectACCForms, " &
-                            "@strTitleVConditionsListed, @strACCCorrectlyFilledOut, " &
-                            "@strReportedDeviations, @strDeviationsUnreported, " &
-                            "@strcomments, @strEnforcementneeded, " &
-                            "@strModifingPerson, GETDATE(), @datAccReportingYear, " &
-                            "@STRKNOWNDEVIATIONSREPORTED, @STRRESUBMITTALREQUIRED) ")
-
-                        paramList.Add({
-                            New SqlParameter("@strTrackingNumber", TrackingNumber),
-                            New SqlParameter("@strSubmittalNumber", NUPACCSubmittal.Value),
-                            New SqlParameter("@strPostMarkedOnTime", PostedOnTime),
-                            New SqlParameter("@DATPostMarkDate", DTPACCPostmarked.Value),
-                            New SqlParameter("@strsignedbyRO", SignedByRO),
-                            New SqlParameter("@StrCorrectACCForms", CorrectACCForm),
-                            New SqlParameter("@strTitleVConditionsListed", TitleVConditions),
-                            New SqlParameter("@strACCCorrectlyFilledOut", ACCCorrectlyFilledOut),
-                            New SqlParameter("@strReportedDeviations", ReportedDeviations),
-                            New SqlParameter("@strDeviationsUnreported", ReportedUnReportedDeviations),
-                            New SqlParameter("@strcomments", ACCComments),
-                            New SqlParameter("@strEnforcementneeded", EnforcementNeeded),
-                            New SqlParameter("@strModifingPerson", CurrentUser.UserID),
-                            New SqlParameter("@datAccReportingYear", AccReportingYear),
-                            New SqlParameter("@STRKNOWNDEVIATIONSREPORTED", AllDeviationsReported),
-                            New SqlParameter("@STRRESUBMITTALREQUIRED", ResubmittalRequested)
-                        })
-                    End If
-
-                    If chbACCReceivedByAPB.Checked = True Then
-                        sqlList.Add("Update SSCPItemMaster set " &
-                            "datReceivedDate = @date " &
-                            "where strTrackingNumber = @num ")
-
-                        paramList.Add({
-                            New SqlParameter("@date", DTPACCReceivedDate.Value),
-                            New SqlParameter("@num", TrackingNumber)
-                        })
-                    End If
-
-                    Return DB.RunCommand(sqlList, paramList)
-
-                End If 'If ValueExists in the SSCPACCS table
-            End If  'Warnings Check
+            Return DB.RunCommand(sqlList, paramList)
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
