@@ -506,8 +506,8 @@ Public Class IAIPEditContacts
                             DB.RunCommand(SQL, p)
 
                             SQL = "Update APBContactInformation set " &
-                            "strKey = substring(strKey, 1,1) + (substring(strKey, 2,1) + 1), " &
-                            "strContactKey = substring(strContactKey, 1, 13) + (substring(strContactKey, 14, 1) + 1) " &
+                            "strKey = concat(substring(strKey, 1,1), substring(strKey, 2,1) + 1), " &
+                            "strContactKey = concat(substring(strContactKey, 1, 13), substring(strContactKey, 14, 1) + 1) " &
                             "where strAIRSNumber = @airs " &
                             "and strKey like @key "
 
@@ -526,12 +526,12 @@ Public Class IAIPEditContacts
                                 "STRCONTACTSTATE, STRCONTACTZIPCODE, STRMODIFINGPERSON, DATMODIFINGDATE, " &
                                 "STRCONTACTDESCRIPTION) " &
                                 "select " &
-                                "(@STRCONTACTKEY, @STRAIRSNUMBER, @STRKEY, @STRCONTACTFIRSTNAME, " &
+                                "@STRCONTACTKEY, @STRAIRSNUMBER, @STRKEY, @STRCONTACTFIRSTNAME, " &
                                 "@STRCONTACTLASTNAME, @STRCONTACTPREFIX, @STRCONTACTSUFFIX, @STRCONTACTTITLE, " &
                                 "@STRCONTACTCOMPANYNAME, @STRCONTACTPHONENUMBER1, @STRCONTACTPHONENUMBER2, @STRCONTACTFAXNUMBER, " &
                                 "@STRCONTACTEMAIL, @STRCONTACTADDRESS1, @STRCONTACTADDRESS2, @STRCONTACTCITY, " &
                                 "@STRCONTACTSTATE, @STRCONTACTZIPCODE, @STRMODIFINGPERSON, getdate(), " &
-                                "@STRCONTACTDESCRIPTION) " &
+                                "@STRCONTACTDESCRIPTION " &
                                 "WHERE NOT EXISTS " &
                                 "(SELECT * FROM APBCONTACTINFORMATION " &
                                 "WHERE STRKEY = @STRKEY " &
@@ -570,12 +570,12 @@ Public Class IAIPEditContacts
                                 "STRCONTACTSTATE, STRCONTACTZIPCODE, STRMODIFINGPERSON, DATMODIFINGDATE, " &
                                 "STRCONTACTDESCRIPTION) " &
                                 "select " &
-                                "(@STRCONTACTKEY, @STRAIRSNUMBER, @STRKEY, @STRCONTACTFIRSTNAME, " &
+                                "@STRCONTACTKEY, @STRAIRSNUMBER, @STRKEY, @STRCONTACTFIRSTNAME, " &
                                 "@STRCONTACTLASTNAME, @STRCONTACTPREFIX, @STRCONTACTSUFFIX, @STRCONTACTTITLE, " &
                                 "@STRCONTACTCOMPANYNAME, @STRCONTACTPHONENUMBER1, @STRCONTACTPHONENUMBER2, @STRCONTACTFAXNUMBER, " &
                                 "@STRCONTACTEMAIL, @STRCONTACTADDRESS1, @STRCONTACTADDRESS2, @STRCONTACTCITY, " &
                                 "@STRCONTACTSTATE, @STRCONTACTZIPCODE, @STRMODIFINGPERSON, getdate(), " &
-                                "@STRCONTACTDESCRIPTION) " &
+                                "@STRCONTACTDESCRIPTION " &
                                 "WHERE NOT EXISTS " &
                                 "(SELECT * FROM APBCONTACTINFORMATION " &
                                 "WHERE STRKEY = @STRKEY " &

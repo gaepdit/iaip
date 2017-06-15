@@ -13,6 +13,10 @@ Public Class SSPPPublicNoticiesAndAdvisories
             TCPublicNotices.TabPages.Remove(TPPublishDocument)
             LoadOldPDFs()
 
+            lblFileName.Text = ""
+            lblPAPNExpiresDate2.Text = ""
+            lblPAPNDocumentName.Text = ""
+
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -310,14 +314,14 @@ Public Class SSPPPublicNoticiesAndAdvisories
                     If lsbApplicationList.Items.Contains(temp) Then
                     Else
                         If lsbApplicationList.Items.Contains("Public Advisories") Then
-                            If lsbApplicationList.Items.Contains("Public Noticies") Then
-                                lsbApplicationList.Items.Insert(lsbApplicationList.Items.IndexOf("Public Noticies") - 1, temp)
+                            If lsbApplicationList.Items.Contains("Public Notices") Then
+                                lsbApplicationList.Items.Insert(lsbApplicationList.Items.IndexOf("Public Notices") - 1, temp)
                             Else
                                 lsbApplicationList.Items.Insert(lsbApplicationList.Items.IndexOf(" "), temp)
                             End If
                         Else
-                            If lsbApplicationList.Items.Contains("Public Noticies") Then
-                                lsbApplicationList.Items.Insert(lsbApplicationList.Items.IndexOf("Public Noticies") - 1, temp)
+                            If lsbApplicationList.Items.Contains("Public Notices") Then
+                                lsbApplicationList.Items.Insert(lsbApplicationList.Items.IndexOf("Public Notices") - 1, temp)
                             Else
                                 lsbApplicationList.Items.Insert(0, "Public Advisories")
                                 lsbApplicationList.Items.Insert(1, temp)
@@ -329,10 +333,10 @@ Public Class SSPPPublicNoticiesAndAdvisories
             End If
 
             If TVAppNumbers.Count > 0 Then
-                If lsbApplicationList.Items.Contains("Public Noticies") Then
+                If lsbApplicationList.Items.Contains("Public Notices") Then
 
                 Else
-                    lsbApplicationList.Items.Add("Public Noticies")
+                    lsbApplicationList.Items.Add("Public Notices")
                 End If
 
                 query = "Select " &
@@ -356,7 +360,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
                 "(select * from @tvappnumbers)  " &
                     "order by strCountyName "
 
-                Dim p4 As SqlParameter = SIPAppNumbers.AsTvpSqlParameter("@tvappnumbers")
+                Dim p4 As SqlParameter = TVAppNumbers.AsTvpSqlParameter("@tvappnumbers")
 
                 Dim dt4 As DataTable = DB.GetDataTable(query, p4)
 
@@ -414,10 +418,10 @@ Public Class SSPPPublicNoticiesAndAdvisories
 
                     If lsbApplicationList.Items.Contains(temp) Then
                     Else
-                        If lsbApplicationList.Items.Contains("Public Noticies") Then
+                        If lsbApplicationList.Items.Contains("Public Notices") Then
                             lsbApplicationList.Items.Add(temp)
                         Else
-                            lsbApplicationList.Items.Add("Public Noticies")
+                            lsbApplicationList.Items.Add("Public Notices")
                             lsbApplicationList.Items.Add(temp)
                         End If
                     End If
@@ -425,7 +429,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
             End If
 
             If SIPAppNumbers.Count = 0 And TVAppNumbers.Count = 0 Then
-                lsbApplicationList.Items.Add("No Public Advisories and No Public Noticies")
+                lsbApplicationList.Items.Add("No Public Advisories and No Public Notices")
             End If
 
         Catch ex As Exception
@@ -527,12 +531,12 @@ Public Class SSPPPublicNoticiesAndAdvisories
             End Select
 
             If lsbApplicationList.Items.Contains(temp) Then
-                MsgBox("The list already contains this application.", MsgBoxStyle.Information, "SSPP Public Noticies And Advisories")
+                MsgBox("The list already contains this application.", MsgBoxStyle.Information, "SSPP Public Notices And Advisories")
             Else
                 If rdbPublicAdvisories.Checked = True Then
                     If lsbApplicationList.Items.Contains("Public Advisories") Then
-                        If lsbApplicationList.Items.Contains("Public Noticies") Then
-                            lsbApplicationList.Items.Insert(lsbApplicationList.Items.IndexOf("Public Noticies") - 1, temp)
+                        If lsbApplicationList.Items.Contains("Public Notices") Then
+                            lsbApplicationList.Items.Insert(lsbApplicationList.Items.IndexOf("Public Notices") - 1, temp)
                         Else
                             lsbApplicationList.Items.Insert(lsbApplicationList.Items.IndexOf(" ") - 1, temp)
                         End If
@@ -542,10 +546,10 @@ Public Class SSPPPublicNoticiesAndAdvisories
                         lsbApplicationList.Items.Insert(2, " ")
                     End If
                 Else
-                    If lsbApplicationList.Items.Contains("Public Noticies") Then
+                    If lsbApplicationList.Items.Contains("Public Notices") Then
                         lsbApplicationList.Items.Add(temp)
                     Else
-                        lsbApplicationList.Items.Add("Public Noticies")
+                        lsbApplicationList.Items.Add("Public Notices")
                         lsbApplicationList.Items.Add(temp)
                     End If
                 End If
@@ -652,7 +656,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
             If lsbApplicationList.Items.Contains(temp) Then
                 lsbApplicationList.Items.Remove(temp)
             Else
-                MsgBox("The list does not contains this application.", MsgBoxStyle.Information, "SSPP Public Noticies And Advisories")
+                MsgBox("The list does not contains this application.", MsgBoxStyle.Information, "SSPP Public Notices And Advisories")
             End If
 
         Catch ex As Exception
@@ -678,8 +682,8 @@ Public Class SSPPPublicNoticiesAndAdvisories
             Else
                 PublicAd = "X"
             End If
-            If lsbApplicationList.Items.Contains("Public Noticies") Then
-                PublicNo = lsbApplicationList.Items.IndexOf("Public Noticies")
+            If lsbApplicationList.Items.Contains("Public Notices") Then
+                PublicNo = lsbApplicationList.Items.IndexOf("Public Notices")
             Else
                 PublicNo = "X"
             End If
@@ -969,7 +973,6 @@ Public Class SSPPPublicNoticiesAndAdvisories
                 "and SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber " &
                 " and SSPPApplicationMaster.strApplicationNumber in " &
                 " (select * from @appnumbers)  " &
-                "and strApplicationType = '16'  " &
                 "and (strApplicationType = '21' or strApplicationType = '22')  " &
                 "order by strCountyName "
 
@@ -1688,7 +1691,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
 
         End Try
     End Sub
-    Private Sub DevPublicNoticiesAndAdvisories_SizeChanged(sender As Object, e As EventArgs) Handles Me.SizeChanged
+    Private Sub DevPublicNoticiesAndAdvisories_SizeChanged(sender As Object, e As EventArgs) 'Handles Me.SizeChanged
         Try
             If Me.Size.Width > 200 Then
                 If Me.Size.Width > 0 Then
