@@ -13,10 +13,6 @@ Public Class SSPPPublicNoticiesAndAdvisories
             TCPublicNotices.TabPages.Remove(TPPublishDocument)
             LoadOldPDFs()
 
-            lblFileName.Text = ""
-            lblPAPNExpiresDate2.Text = ""
-            lblPAPNDocumentName.Text = ""
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
