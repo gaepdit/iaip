@@ -356,7 +356,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
                 "(select * from @tvappnumbers)  " &
                     "order by strCountyName "
 
-                Dim p4 As SqlParameter = SIPAppNumbers.AsTvpSqlParameter("@tvappnumbers")
+                Dim p4 As SqlParameter = TVAppNumbers.AsTvpSqlParameter("@tvappnumbers")
 
                 Dim dt4 As DataTable = DB.GetDataTable(query, p4)
 
@@ -969,7 +969,6 @@ Public Class SSPPPublicNoticiesAndAdvisories
                 "and SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber " &
                 " and SSPPApplicationMaster.strApplicationNumber in " &
                 " (select * from @appnumbers)  " &
-                "and strApplicationType = '16'  " &
                 "and (strApplicationType = '21' or strApplicationType = '22')  " &
                 "order by strCountyName "
 
