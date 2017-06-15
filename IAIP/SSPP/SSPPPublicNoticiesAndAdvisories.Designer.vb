@@ -22,6 +22,9 @@ Partial Class SSPPPublicNoticiesAndAdvisories
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.TCPublicNotices = New System.Windows.Forms.TabControl()
         Me.TPPreview = New System.Windows.Forms.TabPage()
         Me.SCPreviewAndGenerate = New System.Windows.Forms.SplitContainer()
@@ -57,15 +60,16 @@ Partial Class SSPPPublicNoticiesAndAdvisories
         Me.txtPublicNoticeDocument = New System.Windows.Forms.RichTextBox()
         Me.CRVPublicNotices = New CrystalDecisions.Windows.Forms.CrystalReportViewer()
         Me.TPOldDocuments = New System.Windows.Forms.TabPage()
-        Me.btnSavePAPNChanges = New System.Windows.Forms.Button()
-        Me.lblPAPNExpiresDate2 = New System.Windows.Forms.Label()
-        Me.Label9 = New System.Windows.Forms.Label()
-        Me.lblPAPNDocumentName = New System.Windows.Forms.Label()
-        Me.btnOpenPAPN = New System.Windows.Forms.Button()
         Me.rtbPAPNDocument2 = New System.Windows.Forms.RichTextBox()
-        Me.Label3 = New System.Windows.Forms.Label()
-        Me.cboPAPNReports = New System.Windows.Forms.ComboBox()
+        Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.btnOpenPAPN = New System.Windows.Forms.Button()
+        Me.btnSavePAPNChanges = New System.Windows.Forms.Button()
         Me.btnViewOldPDFs = New System.Windows.Forms.Button()
+        Me.lblPAPNExpiresDate2 = New System.Windows.Forms.Label()
+        Me.cboPAPNReports = New System.Windows.Forms.ComboBox()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.lblPAPNDocumentName = New System.Windows.Forms.Label()
         Me.TCPublicNotices.SuspendLayout()
         Me.TPPreview.SuspendLayout()
         CType(Me.SCPreviewAndGenerate, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -84,6 +88,7 @@ Partial Class SSPPPublicNoticiesAndAdvisories
         Me.SCPublicNoticeTab.Panel2.SuspendLayout()
         Me.SCPublicNoticeTab.SuspendLayout()
         Me.TPOldDocuments.SuspendLayout()
+        Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
         '
         'TCPublicNotices
@@ -95,7 +100,7 @@ Partial Class SSPPPublicNoticiesAndAdvisories
         Me.TCPublicNotices.Location = New System.Drawing.Point(0, 0)
         Me.TCPublicNotices.Name = "TCPublicNotices"
         Me.TCPublicNotices.SelectedIndex = 0
-        Me.TCPublicNotices.Size = New System.Drawing.Size(792, 566)
+        Me.TCPublicNotices.Size = New System.Drawing.Size(652, 619)
         Me.TCPublicNotices.TabIndex = 3
         '
         'TPPreview
@@ -104,7 +109,7 @@ Partial Class SSPPPublicNoticiesAndAdvisories
         Me.TPPreview.Location = New System.Drawing.Point(4, 22)
         Me.TPPreview.Name = "TPPreview"
         Me.TPPreview.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPPreview.Size = New System.Drawing.Size(784, 540)
+        Me.TPPreview.Size = New System.Drawing.Size(644, 593)
         Me.TPPreview.TabIndex = 0
         Me.TPPreview.Text = "Add/Remove Apps to PA/PN"
         Me.TPPreview.UseVisualStyleBackColor = True
@@ -112,6 +117,7 @@ Partial Class SSPPPublicNoticiesAndAdvisories
         'SCPreviewAndGenerate
         '
         Me.SCPreviewAndGenerate.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.SCPreviewAndGenerate.FixedPanel = System.Windows.Forms.FixedPanel.Panel2
         Me.SCPreviewAndGenerate.Location = New System.Drawing.Point(3, 3)
         Me.SCPreviewAndGenerate.Name = "SCPreviewAndGenerate"
         Me.SCPreviewAndGenerate.Orientation = System.Windows.Forms.Orientation.Horizontal
@@ -123,23 +129,48 @@ Partial Class SSPPPublicNoticiesAndAdvisories
         'SCPreviewAndGenerate.Panel2
         '
         Me.SCPreviewAndGenerate.Panel2.Controls.Add(Me.SCGenerate)
-        Me.SCPreviewAndGenerate.Size = New System.Drawing.Size(778, 534)
-        Me.SCPreviewAndGenerate.SplitterDistance = 264
+        Me.SCPreviewAndGenerate.Size = New System.Drawing.Size(638, 587)
+        Me.SCPreviewAndGenerate.SplitterDistance = 322
         Me.SCPreviewAndGenerate.TabIndex = 2
         '
         'dgvPublicNotice
         '
+        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvPublicNotice.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
         Me.dgvPublicNotice.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvPublicNotice.DefaultCellStyle = DataGridViewCellStyle2
         Me.dgvPublicNotice.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvPublicNotice.Location = New System.Drawing.Point(0, 0)
         Me.dgvPublicNotice.Name = "dgvPublicNotice"
         Me.dgvPublicNotice.ReadOnly = True
-        Me.dgvPublicNotice.Size = New System.Drawing.Size(778, 264)
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvPublicNotice.RowHeadersDefaultCellStyle = DataGridViewCellStyle3
+        Me.dgvPublicNotice.Size = New System.Drawing.Size(638, 322)
         Me.dgvPublicNotice.TabIndex = 0
         '
         'SCGenerate
         '
         Me.SCGenerate.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.SCGenerate.FixedPanel = System.Windows.Forms.FixedPanel.Panel1
         Me.SCGenerate.Location = New System.Drawing.Point(0, 0)
         Me.SCGenerate.Name = "SCGenerate"
         '
@@ -159,15 +190,15 @@ Partial Class SSPPPublicNoticiesAndAdvisories
         'SCGenerate.Panel2
         '
         Me.SCGenerate.Panel2.Controls.Add(Me.lsbApplicationList)
-        Me.SCGenerate.Size = New System.Drawing.Size(778, 266)
-        Me.SCGenerate.SplitterDistance = 322
+        Me.SCGenerate.Size = New System.Drawing.Size(638, 261)
+        Me.SCGenerate.SplitterDistance = 284
         Me.SCGenerate.TabIndex = 0
         '
         'btnClearPreview
         '
         Me.btnClearPreview.AutoSize = True
         Me.btnClearPreview.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnClearPreview.Location = New System.Drawing.Point(205, 30)
+        Me.btnClearPreview.Location = New System.Drawing.Point(144, 30)
         Me.btnClearPreview.Name = "btnClearPreview"
         Me.btnClearPreview.Size = New System.Drawing.Size(60, 23)
         Me.btnClearPreview.TabIndex = 12
@@ -180,15 +211,15 @@ Partial Class SSPPPublicNoticiesAndAdvisories
         Me.Panel4.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.Panel4.Controls.Add(Me.rdbPublicNotice)
         Me.Panel4.Controls.Add(Me.rdbPublicAdvisories)
-        Me.Panel4.Location = New System.Drawing.Point(38, 104)
+        Me.Panel4.Location = New System.Drawing.Point(38, 111)
         Me.Panel4.Name = "Panel4"
-        Me.Panel4.Size = New System.Drawing.Size(103, 45)
+        Me.Panel4.Size = New System.Drawing.Size(103, 46)
         Me.Panel4.TabIndex = 11
         '
         'rdbPublicNotice
         '
         Me.rdbPublicNotice.AutoSize = True
-        Me.rdbPublicNotice.Location = New System.Drawing.Point(3, 25)
+        Me.rdbPublicNotice.Location = New System.Drawing.Point(3, 26)
         Me.rdbPublicNotice.Name = "rdbPublicNotice"
         Me.rdbPublicNotice.Size = New System.Drawing.Size(88, 17)
         Me.rdbPublicNotice.TabIndex = 2
@@ -211,7 +242,7 @@ Partial Class SSPPPublicNoticiesAndAdvisories
         '
         Me.btnRemoveFromApplicationList.AutoSize = True
         Me.btnRemoveFromApplicationList.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnRemoveFromApplicationList.Location = New System.Drawing.Point(38, 155)
+        Me.btnRemoveFromApplicationList.Location = New System.Drawing.Point(38, 160)
         Me.btnRemoveFromApplicationList.Name = "btnRemoveFromApplicationList"
         Me.btnRemoveFromApplicationList.Size = New System.Drawing.Size(154, 23)
         Me.btnRemoveFromApplicationList.TabIndex = 10
@@ -220,7 +251,7 @@ Partial Class SSPPPublicNoticiesAndAdvisories
         '
         'txtPreviewCount
         '
-        Me.txtPreviewCount.Location = New System.Drawing.Point(41, 4)
+        Me.txtPreviewCount.Location = New System.Drawing.Point(49, 4)
         Me.txtPreviewCount.Name = "txtPreviewCount"
         Me.txtPreviewCount.ReadOnly = True
         Me.txtPreviewCount.Size = New System.Drawing.Size(42, 20)
@@ -229,7 +260,7 @@ Partial Class SSPPPublicNoticiesAndAdvisories
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(3, 7)
+        Me.Label2.Location = New System.Drawing.Point(5, 7)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(38, 13)
         Me.Label2.TabIndex = 6
@@ -238,7 +269,7 @@ Partial Class SSPPPublicNoticiesAndAdvisories
         'btnGeneratePublicNotice
         '
         Me.btnGeneratePublicNotice.AutoSize = True
-        Me.btnGeneratePublicNotice.Location = New System.Drawing.Point(8, 202)
+        Me.btnGeneratePublicNotice.Location = New System.Drawing.Point(5, 202)
         Me.btnGeneratePublicNotice.Name = "btnGeneratePublicNotice"
         Me.btnGeneratePublicNotice.Size = New System.Drawing.Size(179, 23)
         Me.btnGeneratePublicNotice.TabIndex = 5
@@ -249,7 +280,7 @@ Partial Class SSPPPublicNoticiesAndAdvisories
         '
         Me.btnPreview.AutoSize = True
         Me.btnPreview.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnPreview.Location = New System.Drawing.Point(8, 30)
+        Me.btnPreview.Location = New System.Drawing.Point(5, 30)
         Me.btnPreview.Name = "btnPreview"
         Me.btnPreview.Size = New System.Drawing.Size(133, 23)
         Me.btnPreview.TabIndex = 0
@@ -260,7 +291,7 @@ Partial Class SSPPPublicNoticiesAndAdvisories
         '
         Me.btnAddToApplicationList.AutoSize = True
         Me.btnAddToApplicationList.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnAddToApplicationList.Location = New System.Drawing.Point(145, 76)
+        Me.btnAddToApplicationList.Location = New System.Drawing.Point(144, 83)
         Me.btnAddToApplicationList.Name = "btnAddToApplicationList"
         Me.btnAddToApplicationList.Size = New System.Drawing.Size(122, 23)
         Me.btnAddToApplicationList.TabIndex = 4
@@ -270,7 +301,7 @@ Partial Class SSPPPublicNoticiesAndAdvisories
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(13, 62)
+        Me.Label1.Location = New System.Drawing.Point(5, 69)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(99, 13)
         Me.Label1.TabIndex = 2
@@ -278,7 +309,7 @@ Partial Class SSPPPublicNoticiesAndAdvisories
         '
         'txtApplicationNumberEditor
         '
-        Me.txtApplicationNumberEditor.Location = New System.Drawing.Point(39, 78)
+        Me.txtApplicationNumberEditor.Location = New System.Drawing.Point(38, 85)
         Me.txtApplicationNumberEditor.Name = "txtApplicationNumberEditor"
         Me.txtApplicationNumberEditor.Size = New System.Drawing.Size(100, 20)
         Me.txtApplicationNumberEditor.TabIndex = 3
@@ -292,7 +323,7 @@ Partial Class SSPPPublicNoticiesAndAdvisories
         Me.lsbApplicationList.ItemHeight = 14
         Me.lsbApplicationList.Location = New System.Drawing.Point(0, 0)
         Me.lsbApplicationList.Name = "lsbApplicationList"
-        Me.lsbApplicationList.Size = New System.Drawing.Size(452, 266)
+        Me.lsbApplicationList.Size = New System.Drawing.Size(350, 261)
         Me.lsbApplicationList.TabIndex = 1
         '
         'TPPublishDocument
@@ -301,7 +332,7 @@ Partial Class SSPPPublicNoticiesAndAdvisories
         Me.TPPublishDocument.Location = New System.Drawing.Point(4, 22)
         Me.TPPublishDocument.Name = "TPPublishDocument"
         Me.TPPublishDocument.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPPublishDocument.Size = New System.Drawing.Size(784, 540)
+        Me.TPPublishDocument.Size = New System.Drawing.Size(644, 593)
         Me.TPPublishDocument.TabIndex = 1
         Me.TPPublishDocument.Text = "Publish PA/PN"
         Me.TPPublishDocument.UseVisualStyleBackColor = True
@@ -309,6 +340,7 @@ Partial Class SSPPPublicNoticiesAndAdvisories
         'SCPublicNoticeTab
         '
         Me.SCPublicNoticeTab.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.SCPublicNoticeTab.FixedPanel = System.Windows.Forms.FixedPanel.Panel1
         Me.SCPublicNoticeTab.Location = New System.Drawing.Point(3, 3)
         Me.SCPublicNoticeTab.Name = "SCPublicNoticeTab"
         '
@@ -332,15 +364,15 @@ Partial Class SSPPPublicNoticiesAndAdvisories
         Me.SCPublicNoticeTab.Panel2.Controls.Add(Me.txtPublicNoticeDocument)
         Me.SCPublicNoticeTab.Panel2.Controls.Add(Me.CRVPublicNotices)
         Me.SCPublicNoticeTab.Panel2MinSize = 75
-        Me.SCPublicNoticeTab.Size = New System.Drawing.Size(778, 534)
-        Me.SCPublicNoticeTab.SplitterDistance = 140
+        Me.SCPublicNoticeTab.Size = New System.Drawing.Size(638, 587)
+        Me.SCPublicNoticeTab.SplitterDistance = 142
         Me.SCPublicNoticeTab.SplitterWidth = 5
         Me.SCPublicNoticeTab.TabIndex = 0
         '
         'Label11
         '
         Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(6, 147)
+        Me.Label11.Location = New System.Drawing.Point(5, 169)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(77, 13)
         Me.Label11.TabIndex = 16
@@ -349,7 +381,7 @@ Partial Class SSPPPublicNoticiesAndAdvisories
         'lsbPublicNoticies
         '
         Me.lsbPublicNoticies.FormattingEnabled = True
-        Me.lsbPublicNoticies.Location = New System.Drawing.Point(5, 163)
+        Me.lsbPublicNoticies.Location = New System.Drawing.Point(5, 185)
         Me.lsbPublicNoticies.Name = "lsbPublicNoticies"
         Me.lsbPublicNoticies.Size = New System.Drawing.Size(123, 82)
         Me.lsbPublicNoticies.TabIndex = 15
@@ -357,7 +389,7 @@ Partial Class SSPPPublicNoticiesAndAdvisories
         'Label10
         '
         Me.Label10.AutoSize = True
-        Me.Label10.Location = New System.Drawing.Point(6, 55)
+        Me.Label10.Location = New System.Drawing.Point(5, 68)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(87, 13)
         Me.Label10.TabIndex = 14
@@ -366,7 +398,7 @@ Partial Class SSPPPublicNoticiesAndAdvisories
         'lsbPublicAdvisories
         '
         Me.lsbPublicAdvisories.FormattingEnabled = True
-        Me.lsbPublicAdvisories.Location = New System.Drawing.Point(5, 71)
+        Me.lsbPublicAdvisories.Location = New System.Drawing.Point(5, 84)
         Me.lsbPublicAdvisories.Name = "lsbPublicAdvisories"
         Me.lsbPublicAdvisories.Size = New System.Drawing.Size(123, 69)
         Me.lsbPublicAdvisories.TabIndex = 10
@@ -374,7 +406,7 @@ Partial Class SSPPPublicNoticiesAndAdvisories
         'lblFileName
         '
         Me.lblFileName.AutoSize = True
-        Me.lblFileName.Location = New System.Drawing.Point(12, 440)
+        Me.lblFileName.Location = New System.Drawing.Point(20, 464)
         Me.lblFileName.Name = "lblFileName"
         Me.lblFileName.Size = New System.Drawing.Size(72, 13)
         Me.lblFileName.TabIndex = 13
@@ -384,7 +416,7 @@ Partial Class SSPPPublicNoticiesAndAdvisories
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(4, 425)
+        Me.Label5.Location = New System.Drawing.Point(5, 451)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(91, 13)
         Me.Label5.TabIndex = 9
@@ -394,18 +426,18 @@ Partial Class SSPPPublicNoticiesAndAdvisories
         '
         Me.DTPPADeadline.Checked = False
         Me.DTPPADeadline.CustomFormat = "dd-MMM-yyyy"
-        Me.DTPPADeadline.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DTPPADeadline.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DTPPADeadline.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPPADeadline.Location = New System.Drawing.Point(3, 265)
+        Me.DTPPADeadline.Location = New System.Drawing.Point(5, 299)
         Me.DTPPADeadline.Name = "DTPPADeadline"
         Me.DTPPADeadline.ShowCheckBox = True
-        Me.DTPPADeadline.Size = New System.Drawing.Size(125, 22)
+        Me.DTPPADeadline.Size = New System.Drawing.Size(123, 21)
         Me.DTPPADeadline.TabIndex = 9
         '
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(6, 249)
+        Me.Label4.Location = New System.Drawing.Point(5, 283)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(104, 13)
         Me.Label4.TabIndex = 9
@@ -422,9 +454,9 @@ Partial Class SSPPPublicNoticiesAndAdvisories
         'btnPublishPDF
         '
         Me.btnPublishPDF.AutoSize = True
-        Me.btnPublishPDF.Location = New System.Drawing.Point(5, 333)
+        Me.btnPublishPDF.Location = New System.Drawing.Point(5, 382)
         Me.btnPublishPDF.Name = "btnPublishPDF"
-        Me.btnPublishPDF.Size = New System.Drawing.Size(90, 53)
+        Me.btnPublishPDF.Size = New System.Drawing.Size(123, 53)
         Me.btnPublishPDF.TabIndex = 12
         Me.btnPublishPDF.Text = "Publish PA/PN"
         Me.btnPublishPDF.UseVisualStyleBackColor = True
@@ -432,9 +464,9 @@ Partial Class SSPPPublicNoticiesAndAdvisories
         'btnOpenApplication
         '
         Me.btnOpenApplication.AutoSize = True
-        Me.btnOpenApplication.Location = New System.Drawing.Point(3, 29)
+        Me.btnOpenApplication.Location = New System.Drawing.Point(5, 29)
         Me.btnOpenApplication.Name = "btnOpenApplication"
-        Me.btnOpenApplication.Size = New System.Drawing.Size(119, 23)
+        Me.btnOpenApplication.Size = New System.Drawing.Size(123, 23)
         Me.btnOpenApplication.TabIndex = 11
         Me.btnOpenApplication.Text = "Open Application Log"
         Me.btnOpenApplication.UseVisualStyleBackColor = True
@@ -442,9 +474,9 @@ Partial Class SSPPPublicNoticiesAndAdvisories
         'btnGeneratePNReport
         '
         Me.btnGeneratePNReport.AutoSize = True
-        Me.btnGeneratePNReport.Location = New System.Drawing.Point(3, 291)
+        Me.btnGeneratePNReport.Location = New System.Drawing.Point(5, 340)
         Me.btnGeneratePNReport.Name = "btnGeneratePNReport"
-        Me.btnGeneratePNReport.Size = New System.Drawing.Size(96, 23)
+        Me.btnGeneratePNReport.Size = New System.Drawing.Size(123, 23)
         Me.btnGeneratePNReport.TabIndex = 10
         Me.btnGeneratePNReport.Text = "Refresh PA/PN"
         Me.btnGeneratePNReport.UseVisualStyleBackColor = True
@@ -454,7 +486,7 @@ Partial Class SSPPPublicNoticiesAndAdvisories
         Me.txtPublicNoticeDocument.Dock = System.Windows.Forms.DockStyle.Fill
         Me.txtPublicNoticeDocument.Location = New System.Drawing.Point(0, 0)
         Me.txtPublicNoticeDocument.Name = "txtPublicNoticeDocument"
-        Me.txtPublicNoticeDocument.Size = New System.Drawing.Size(633, 534)
+        Me.txtPublicNoticeDocument.Size = New System.Drawing.Size(491, 587)
         Me.txtPublicNoticeDocument.TabIndex = 9
         Me.txtPublicNoticeDocument.Text = ""
         '
@@ -478,113 +510,122 @@ Partial Class SSPPPublicNoticiesAndAdvisories
         '
         'TPOldDocuments
         '
-        Me.TPOldDocuments.Controls.Add(Me.btnSavePAPNChanges)
-        Me.TPOldDocuments.Controls.Add(Me.lblPAPNExpiresDate2)
-        Me.TPOldDocuments.Controls.Add(Me.Label9)
-        Me.TPOldDocuments.Controls.Add(Me.lblPAPNDocumentName)
-        Me.TPOldDocuments.Controls.Add(Me.btnOpenPAPN)
         Me.TPOldDocuments.Controls.Add(Me.rtbPAPNDocument2)
-        Me.TPOldDocuments.Controls.Add(Me.Label3)
-        Me.TPOldDocuments.Controls.Add(Me.cboPAPNReports)
-        Me.TPOldDocuments.Controls.Add(Me.btnViewOldPDFs)
+        Me.TPOldDocuments.Controls.Add(Me.Panel1)
         Me.TPOldDocuments.Location = New System.Drawing.Point(4, 22)
         Me.TPOldDocuments.Name = "TPOldDocuments"
-        Me.TPOldDocuments.Size = New System.Drawing.Size(784, 540)
+        Me.TPOldDocuments.Size = New System.Drawing.Size(644, 593)
         Me.TPOldDocuments.TabIndex = 2
         Me.TPOldDocuments.Text = "PA/PN Documents"
         Me.TPOldDocuments.UseVisualStyleBackColor = True
         '
+        'rtbPAPNDocument2
+        '
+        Me.rtbPAPNDocument2.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.rtbPAPNDocument2.Location = New System.Drawing.Point(150, 0)
+        Me.rtbPAPNDocument2.Name = "rtbPAPNDocument2"
+        Me.rtbPAPNDocument2.Size = New System.Drawing.Size(494, 593)
+        Me.rtbPAPNDocument2.TabIndex = 17
+        Me.rtbPAPNDocument2.Text = ""
+        '
+        'Panel1
+        '
+        Me.Panel1.Controls.Add(Me.btnOpenPAPN)
+        Me.Panel1.Controls.Add(Me.btnSavePAPNChanges)
+        Me.Panel1.Controls.Add(Me.btnViewOldPDFs)
+        Me.Panel1.Controls.Add(Me.lblPAPNExpiresDate2)
+        Me.Panel1.Controls.Add(Me.cboPAPNReports)
+        Me.Panel1.Controls.Add(Me.Label9)
+        Me.Panel1.Controls.Add(Me.Label3)
+        Me.Panel1.Controls.Add(Me.lblPAPNDocumentName)
+        Me.Panel1.Dock = System.Windows.Forms.DockStyle.Left
+        Me.Panel1.Location = New System.Drawing.Point(0, 0)
+        Me.Panel1.Name = "Panel1"
+        Me.Panel1.Size = New System.Drawing.Size(150, 593)
+        Me.Panel1.TabIndex = 23
+        '
+        'btnOpenPAPN
+        '
+        Me.btnOpenPAPN.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.btnOpenPAPN.Location = New System.Drawing.Point(8, 59)
+        Me.btnOpenPAPN.Name = "btnOpenPAPN"
+        Me.btnOpenPAPN.Size = New System.Drawing.Size(123, 23)
+        Me.btnOpenPAPN.TabIndex = 18
+        Me.btnOpenPAPN.Text = "Open PA/PN"
+        Me.btnOpenPAPN.UseVisualStyleBackColor = True
+        '
         'btnSavePAPNChanges
         '
         Me.btnSavePAPNChanges.AutoSize = True
-        Me.btnSavePAPNChanges.Location = New System.Drawing.Point(8, 369)
+        Me.btnSavePAPNChanges.Location = New System.Drawing.Point(8, 292)
         Me.btnSavePAPNChanges.Name = "btnSavePAPNChanges"
-        Me.btnSavePAPNChanges.Size = New System.Drawing.Size(102, 46)
+        Me.btnSavePAPNChanges.Size = New System.Drawing.Size(123, 46)
         Me.btnSavePAPNChanges.TabIndex = 22
         Me.btnSavePAPNChanges.Text = "Save changes " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "to PA/PN"
         Me.btnSavePAPNChanges.UseVisualStyleBackColor = True
         '
+        'btnViewOldPDFs
+        '
+        Me.btnViewOldPDFs.AutoSize = True
+        Me.btnViewOldPDFs.Location = New System.Drawing.Point(8, 211)
+        Me.btnViewOldPDFs.Name = "btnViewOldPDFs"
+        Me.btnViewOldPDFs.Size = New System.Drawing.Size(123, 46)
+        Me.btnViewOldPDFs.TabIndex = 16
+        Me.btnViewOldPDFs.Text = "Download PA/PN"
+        Me.btnViewOldPDFs.UseVisualStyleBackColor = True
+        '
         'lblPAPNExpiresDate2
         '
         Me.lblPAPNExpiresDate2.AutoSize = True
-        Me.lblPAPNExpiresDate2.Location = New System.Drawing.Point(20, 194)
+        Me.lblPAPNExpiresDate2.Location = New System.Drawing.Point(17, 166)
         Me.lblPAPNExpiresDate2.Name = "lblPAPNExpiresDate2"
         Me.lblPAPNExpiresDate2.Size = New System.Drawing.Size(101, 13)
         Me.lblPAPNExpiresDate2.TabIndex = 21
         Me.lblPAPNExpiresDate2.Text = "date PA/PN expires"
         '
+        'cboPAPNReports
+        '
+        Me.cboPAPNReports.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboPAPNReports.FormattingEnabled = True
+        Me.cboPAPNReports.Location = New System.Drawing.Point(8, 32)
+        Me.cboPAPNReports.Name = "cboPAPNReports"
+        Me.cboPAPNReports.Size = New System.Drawing.Size(123, 21)
+        Me.cboPAPNReports.TabIndex = 14
+        '
         'Label9
         '
         Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(3, 178)
+        Me.Label9.Location = New System.Drawing.Point(8, 153)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(119, 13)
         Me.Label9.TabIndex = 20
         Me.Label9.Text = "PA/PN Expiration Date:"
         '
-        'lblPAPNDocumentName
-        '
-        Me.lblPAPNDocumentName.AutoSize = True
-        Me.lblPAPNDocumentName.Location = New System.Drawing.Point(20, 134)
-        Me.lblPAPNDocumentName.Name = "lblPAPNDocumentName"
-        Me.lblPAPNDocumentName.Size = New System.Drawing.Size(95, 13)
-        Me.lblPAPNDocumentName.TabIndex = 19
-        Me.lblPAPNDocumentName.Text = "PA/PN Doc Name"
-        '
-        'btnOpenPAPN
-        '
-        Me.btnOpenPAPN.AutoSize = True
-        Me.btnOpenPAPN.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnOpenPAPN.Location = New System.Drawing.Point(8, 13)
-        Me.btnOpenPAPN.Name = "btnOpenPAPN"
-        Me.btnOpenPAPN.Size = New System.Drawing.Size(80, 23)
-        Me.btnOpenPAPN.TabIndex = 18
-        Me.btnOpenPAPN.Text = "Open PA/PN"
-        Me.btnOpenPAPN.UseVisualStyleBackColor = True
-        '
-        'rtbPAPNDocument2
-        '
-        Me.rtbPAPNDocument2.Dock = System.Windows.Forms.DockStyle.Right
-        Me.rtbPAPNDocument2.Location = New System.Drawing.Point(143, 0)
-        Me.rtbPAPNDocument2.Name = "rtbPAPNDocument2"
-        Me.rtbPAPNDocument2.Size = New System.Drawing.Size(641, 540)
-        Me.rtbPAPNDocument2.TabIndex = 17
-        Me.rtbPAPNDocument2.Text = ""
-        '
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(3, 118)
+        Me.Label3.Location = New System.Drawing.Point(8, 114)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(134, 13)
         Me.Label3.TabIndex = 15
         Me.Label3.Text = "Viewing PA/PN document:"
         '
-        'cboPAPNReports
+        'lblPAPNDocumentName
         '
-        Me.cboPAPNReports.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cboPAPNReports.FormattingEnabled = True
-        Me.cboPAPNReports.Location = New System.Drawing.Point(8, 42)
-        Me.cboPAPNReports.Name = "cboPAPNReports"
-        Me.cboPAPNReports.Size = New System.Drawing.Size(88, 21)
-        Me.cboPAPNReports.TabIndex = 14
-        '
-        'btnViewOldPDFs
-        '
-        Me.btnViewOldPDFs.AutoSize = True
-        Me.btnViewOldPDFs.Location = New System.Drawing.Point(8, 260)
-        Me.btnViewOldPDFs.Name = "btnViewOldPDFs"
-        Me.btnViewOldPDFs.Size = New System.Drawing.Size(102, 46)
-        Me.btnViewOldPDFs.TabIndex = 16
-        Me.btnViewOldPDFs.Text = "Download PA/PN"
-        Me.btnViewOldPDFs.UseVisualStyleBackColor = True
+        Me.lblPAPNDocumentName.AutoSize = True
+        Me.lblPAPNDocumentName.Location = New System.Drawing.Point(17, 127)
+        Me.lblPAPNDocumentName.Name = "lblPAPNDocumentName"
+        Me.lblPAPNDocumentName.Size = New System.Drawing.Size(95, 13)
+        Me.lblPAPNDocumentName.TabIndex = 19
+        Me.lblPAPNDocumentName.Text = "PA/PN Doc Name"
         '
         'SSPPPublicNoticiesAndAdvisories
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(792, 566)
+        Me.ClientSize = New System.Drawing.Size(652, 619)
         Me.Controls.Add(Me.TCPublicNotices)
+        Me.MinimumSize = New System.Drawing.Size(500, 556)
         Me.Name = "SSPPPublicNoticiesAndAdvisories"
         Me.Text = "SSPP Public Noticies And Advisories"
         Me.TCPublicNotices.ResumeLayout(False)
@@ -608,7 +649,8 @@ Partial Class SSPPPublicNoticiesAndAdvisories
         CType(Me.SCPublicNoticeTab, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SCPublicNoticeTab.ResumeLayout(False)
         Me.TPOldDocuments.ResumeLayout(False)
-        Me.TPOldDocuments.PerformLayout()
+        Me.Panel1.ResumeLayout(False)
+        Me.Panel1.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -656,4 +698,5 @@ Partial Class SSPPPublicNoticiesAndAdvisories
     Friend WithEvents CRVPublicNotices As CrystalDecisions.Windows.Forms.CrystalReportViewer
     Friend WithEvents btnClearPreview As System.Windows.Forms.Button
     Friend WithEvents btnSavePAPNChanges As System.Windows.Forms.Button
+    Friend WithEvents Panel1 As Panel
 End Class
