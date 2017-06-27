@@ -10229,17 +10229,16 @@ Public Class SSPPApplicationTrackingLog
             Dim URL As String = ""
             Dim PDFFile As String = ""
 
-            Dim query As String = "select " &
-            "distinct(APBPermits.strFileName),  " &
-            "strDocFileSize, strPDFFileSize " &
-            "from APBpermits left join SSPPApplicationLinking " &
-            "on SUBSTRING(APBpermits.strFileName, 4,10) = " &
-            "SSPPAPPlicationLinking.strmasterapplication " &
-            "where (SSPPApplicationLinking.strApplicationNumber = @MasterApp " &
-            "or APBPermits.strFileName like @MasterAppFn ) "
+            Dim query As String = "SELECT strFileName
+                                         , strDocFileSize
+                                         , strPDFFileSize
+                                    FROM   APBpermits
+                                    WHERE  strFileName LIKE @MasterAppFn
+                                           AND (strFileName LIKE '%VF%'
+                                                OR strFileName LIKE '%PI%'
+                                                OR strFileName LIKE '%OP%') "
 
             Dim parameter As SqlParameter() = {
-                New SqlParameter("@MasterApp", MasterApp),
                 New SqlParameter("@MasterAppFn", "%-" & MasterApp)
             }
 
@@ -10257,21 +10256,21 @@ Public Class SSPPApplicationTrackingLog
             Select Case Mid(temp, 1, 1)
                 Case "V"
                     If PDFFile <> "" Then
-                        URL = "http://search.georgiaair.org/permit.aspx?id=PDF-VF-" & txtApplicationNumber.Text
+                        URL = "http://permitsearch.gaepd.org/permit.aspx?id=PDF-VF-" & MasterApp
                     Else
-                        URL = "http://search.georgiaair.org/permit.aspx?id=DOC-VF-" & txtApplicationNumber.Text
+                        URL = "http://permitsearch.gaepd.org/permit.aspx?id=DOC-VF-" & MasterApp
                     End If
                 Case "P"
                     If PDFFile <> "" Then
-                        URL = "http://search.georgiaair.org/permit.aspx?id=PDF-PI-" & txtApplicationNumber.Text
+                        URL = "http://permitsearch.gaepd.org/permit.aspx?id=PDF-PI-" & MasterApp
                     Else
-                        URL = "http://search.georgiaair.org/permit.aspx?id=DOC-PI-" & txtApplicationNumber.Text
+                        URL = "http://permitsearch.gaepd.org/permit.aspx?id=DOC-PI-" & MasterApp
                     End If
                 Case Else
                     If PDFFile <> "" Then
-                        URL = "http://search.georgiaair.org/permit.aspx?id=PDF-OP-" & txtApplicationNumber.Text
+                        URL = "http://permitsearch.gaepd.org/permit.aspx?id=PDF-OP-" & MasterApp
                     Else
-                        URL = "http://search.georgiaair.org/permit.aspx?id=DOC-OP-" & txtApplicationNumber.Text
+                        URL = "http://permitsearch.gaepd.org/permit.aspx?id=DOC-OP-" & MasterApp
                     End If
             End Select
 
@@ -10451,7 +10450,7 @@ Public Class SSPPApplicationTrackingLog
                 vbNewLine & vbNewLine &
                 "To track the status of the air quality permit application, log on to Georgia Environmental " &
                 "Protection Division's Georgia Environmental Connections Online (GECO) at the web address " &
-                "http://geco.georgiaair.org (registration required) and follow the online instructions." &
+                "http://geco.gaepd.org/ (registration required) and follow the online instructions." &
                 vbNewLine & vbNewLine &
                 "If your company qualifies as a small business (generally those with fewer than 100 " &
                 "employees), you may contact our Small Business Environmental Assistance Program at " &
