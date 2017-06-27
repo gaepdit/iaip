@@ -32,13 +32,13 @@ Namespace DAL
             If Not Apb.ApbFacilityId.IsValidAirsNumberFormat(airsNumber) Then Return False
             Dim aN As Apb.ApbFacilityId = airsNumber
 
-            Dim feeYearDecimal As Decimal
-            If Not Decimal.TryParse(feeYear, feeYearDecimal) Then Return False
+            Dim feeYearInt As Integer
+            If Not Integer.TryParse(feeYear, feeYearInt) Then Return False
 
             Dim sp As String = "dbo.PD_FEE_STATUS"
 
             Dim parameters As SqlParameter() = New SqlParameter() {
-                New SqlParameter("@FEEYEAR", SqlDbType.Decimal) With {.Value = feeYearDecimal},
+                New SqlParameter("@FEEYEAR", SqlDbType.Int) With {.Value = feeYearInt},
                 New SqlParameter("@AIRSNUMBER", aN.DbFormattedString)
             }
 

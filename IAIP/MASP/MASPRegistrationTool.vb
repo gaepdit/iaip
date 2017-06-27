@@ -536,7 +536,7 @@ Public Class MASPRegistrationTool
                 Exit Sub
             End If
 
-            If Not IsValidURL(txtWebsiteURL.Text) Then
+            If Not (txtWebsiteURL.Text = "" OrElse IsValidURL(txtWebsiteURL.Text)) Then
                 MessageBox.Show("The website address is not valid. Please fix it and try again.", "Error")
                 Exit Sub
             End If
@@ -577,7 +577,7 @@ Public Class MASPRegistrationTool
                 Exit Sub
             End If
 
-            If Not IsValidURL(txtWebsiteURL.Text) Then
+            If Not (txtWebsiteURL.Text = "" OrElse IsValidURL(txtWebsiteURL.Text)) Then
                 MessageBox.Show("The website address is not valid. Please fix it and try again.", "Error")
                 Exit Sub
             End If

@@ -2383,7 +2383,7 @@ Public Class SSPPTitleVTools
                 txtEmailLetter.Text = txtEmailLetter.Text & "The final permit, permit review narrative and in most cases the " &
                 "permit application will be available from the Georgia Air Permit Search Engine web page located at: " &
                 vbCrLf & vbCrLf &
-                "http://search.georgiaair.org/" & vbCrLf & vbCrLf &
+                "http://permitsearch.gaepd.org/" & vbCrLf & vbCrLf &
                 "Please reply to acknowledge receipt of this notification. Any questions regarding the final permits " &
                 "may be directed to: " & vbCrLf & vbCrLf &
                 "Eric Cornwell " & vbCrLf & "Program Manager" & vbCrLf &

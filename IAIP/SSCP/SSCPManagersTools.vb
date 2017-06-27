@@ -2611,7 +2611,7 @@ Public Class SSCPManagersTools
             End If
 
             Dim SQL As String
-            Dim CMSStatus As String = ""
+            Dim CMSStatus As String = "X"
 
             If rdbCMS_A.Checked Then
                 CMSStatus = "A"
