@@ -170,10 +170,10 @@ Public Class PASPFeeManagement
             dgvNSPSExemptions.RowHeadersVisible = False
             dgvNSPSExemptions.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
             dgvNSPSExemptions.AllowUserToResizeColumns = True
-            dgvNSPSExemptions.AllowUserToResizeRows = True
+            dgvNSPSExemptions.AllowUserToResizeRows = False
             dgvNSPSExemptions.AllowUserToAddRows = False
             dgvNSPSExemptions.AllowUserToDeleteRows = False
-            dgvNSPSExemptions.AllowUserToOrderColumns = True
+            dgvNSPSExemptions.AllowUserToOrderColumns = False
             dgvNSPSExemptions.Columns("NSPSReasonCode").HeaderText = "ID"
             dgvNSPSExemptions.Columns("NSPSReasonCode").DisplayIndex = 0
             dgvNSPSExemptions.Columns("Description").HeaderText = "NSPS Exemption Reason"
@@ -260,8 +260,8 @@ Public Class PASPFeeManagement
             dgvNSPSExemptionsByYear.AllowUserToResizeColumns = True
             dgvNSPSExemptionsByYear.AllowUserToAddRows = False
             dgvNSPSExemptionsByYear.AllowUserToDeleteRows = False
-            dgvNSPSExemptionsByYear.AllowUserToOrderColumns = True
-            dgvNSPSExemptionsByYear.AllowUserToResizeRows = True
+            dgvNSPSExemptionsByYear.AllowUserToOrderColumns = False
+            dgvNSPSExemptionsByYear.AllowUserToResizeRows = False
             dgvNSPSExemptionsByYear.ColumnHeadersHeight = "35"
 
             dgvNSPSExemptionsByYear.Columns.Add("numFeeYear", "Year")
@@ -492,6 +492,8 @@ Public Class PASPFeeManagement
                 End While
             Loop
 
+            dgvNSPSExemptionsByYear.AutoResizeColumns()
+            dgvNSPSExemptionsByYear.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -680,6 +682,7 @@ Public Class PASPFeeManagement
                     New SqlParameter("@reasoncode", ReasonID)
                 }
                 Dim dr As DataRow = DB.GetDataRow(SQL, p2)
+                temp = ""
                 If dr IsNot Nothing Then
                     If IsDBNull(dr.Item("DisplayOrder")) Then
                         temp = "NULL"
@@ -691,19 +694,9 @@ Public Class PASPFeeManagement
                 If temp <> Order Then
                     Select Case temp
                         Case ""
-                            If Insert_FSLK_NSPSReasonYear(cboNSPSExemptionYear.Text, ReasonID, Order) = True Then
-
-                            End If
-
-                        Case "NULL"
-                            If Update_FSLK_NSPSReasonYear(cboNSPSExemptionYear.Text, ReasonID, Order, "1") = True Then
-
-                            End If
-
+                            Insert_FSLK_NSPSReasonYear(cboNSPSExemptionYear.Text, ReasonID, Order)
                         Case Else
-                            If Update_FSLK_NSPSReasonYear(cboNSPSExemptionYear.Text, ReasonID, Order, "1") = True Then
-
-                            End If
+                            Update_FSLK_NSPSReasonYear(cboNSPSExemptionYear.Text, ReasonID, Order, "1")
                     End Select
                 End If
                 ExistingID = Replace(ExistingID, ("(" & ReasonID & ")"), "")
@@ -713,9 +706,7 @@ Public Class PASPFeeManagement
                 Do While ExistingID <> ""
                     ReasonID = Mid(ExistingID, InStr(ExistingID, "(", CompareMethod.Text) + 1, InStr(ExistingID, ")", CompareMethod.Text) - 2)
                     ExistingID = Replace(ExistingID, ("(" & ReasonID & ")"), "")
-                    If Update_FSLK_NSPSReasonYear(cboNSPSExemptionYear.Text, ReasonID, "0", "0") = True Then
-
-                    End If
+                    Update_FSLK_NSPSReasonYear(cboNSPSExemptionYear.Text, ReasonID, "0", "0")
                 Loop
             End If
             LoadFeeYears()
