@@ -788,9 +788,11 @@ Partial Class PASPFeeManagement
         '
         Me.dgvNSPSExemptions.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvNSPSExemptions.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.dgvNSPSExemptions.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
         Me.dgvNSPSExemptions.Location = New System.Drawing.Point(0, 35)
         Me.dgvNSPSExemptions.Name = "dgvNSPSExemptions"
         Me.dgvNSPSExemptions.ReadOnly = True
+        Me.dgvNSPSExemptions.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgvNSPSExemptions.Size = New System.Drawing.Size(971, 232)
         Me.dgvNSPSExemptions.TabIndex = 0
         '
@@ -876,9 +878,11 @@ Partial Class PASPFeeManagement
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dgvNSPSExemptionsByYear.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvNSPSExemptionsByYear.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
         Me.dgvNSPSExemptionsByYear.Location = New System.Drawing.Point(1, 55)
         Me.dgvNSPSExemptionsByYear.Name = "dgvNSPSExemptionsByYear"
         Me.dgvNSPSExemptionsByYear.ReadOnly = True
+        Me.dgvNSPSExemptionsByYear.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgvNSPSExemptionsByYear.Size = New System.Drawing.Size(971, 288)
         Me.dgvNSPSExemptionsByYear.TabIndex = 403
         '
