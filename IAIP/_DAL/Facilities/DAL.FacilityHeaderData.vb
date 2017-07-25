@@ -30,10 +30,11 @@ Namespace DAL
         ''' Returns whether an NAICS Code exists in the database lookup table
         ''' </summary>
         ''' <param name="naicsCode">The NAICS Code to test.</param>
+        ''' <param name="allowEmpty">A flag to indicate whether an empty NAICS code is valid.</param>
         ''' <returns>True if the NAICS Code exists; otherwise false.</returns>
         ''' <remarks>Does not make any judgments about appropriateness of NAICS Code otherwise.</remarks>
-        Public Function NaicsCodeIsValid(naicsCode As String) As Boolean
-            If naicsCode Is Nothing OrElse String.IsNullOrEmpty(naicsCode) Then Return False
+        Public Function NaicsCodeIsValid(naicsCode As String, Optional allowEmpty As Boolean = True) As Boolean
+            If naicsCode Is Nothing OrElse String.IsNullOrEmpty(naicsCode) Then Return allowEmpty
             If Not Regex.IsMatch(naicsCode, NaicsCodePattern) Then Return False
 
             Dim spName As String = "iaip_facility.IsNaicsValid"
