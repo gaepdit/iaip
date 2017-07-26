@@ -4631,7 +4631,7 @@ Public Class SSPPApplicationTrackingLog
                     Exit Sub
                 End If
 
-                If DAL.FacilityHeaderDataData.NaicsCodeIsValid(txtNAICSCode.Text) = False Then
+                If Not DAL.FacilityHeaderDataData.NaicsCodeIsValid(txtNAICSCode.Text) Then
                     MsgBox("ERROR" & vbNewLine & "The NAICS Code is not valid and must be fixed before proceeding.", MsgBoxStyle.Exclamation, Me.Text)
                     Exit Sub
                 End If

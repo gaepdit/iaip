@@ -306,7 +306,7 @@ Public Class IAIPFacilityCreator
                 "No Data saved.", MsgBoxStyle.Information, Me.Name)
                 Exit Sub
             End If
-            If Not DAL.NaicsCodeIsValid(mtbCDSNAICSCode.Text) Then
+            If Not DAL.NaicsCodeIsValid(mtbCDSNAICSCode.Text, False) Then
                 MsgBox("The NAICS Code is not valid and must be fixed before proceeding." &
                   "No Data saved.", MsgBoxStyle.Information, Me.Name)
                 Exit Sub
@@ -1735,8 +1735,8 @@ Public Class IAIPFacilityCreator
                        MsgBoxStyle.Information, Me.Text)
                 Exit Sub
             End If
-            If DAL.NaicsCodeIsValid(mtbCDSNAICSCode.Text) = False Then
-                MsgBox("The NACIS Code is not valid." &
+            If Not DAL.NaicsCodeIsValid(mtbCDSNAICSCode.Text, False) Then
+                MsgBox("The NAICS Code is not valid." &
                   "No Data saved.", MsgBoxStyle.Information, Me.Name)
                 Exit Sub
             End If
