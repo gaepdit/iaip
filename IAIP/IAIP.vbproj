@@ -1607,7 +1607,6 @@
     <Compile Include="_Code\StartupShutdown.vb">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="_Code\AppTimers.vb" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">

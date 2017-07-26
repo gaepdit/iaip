@@ -31,9 +31,6 @@ Public Class IAIPNavigation
         EnableConnectionEnvironmentOptions()
         DisplayUsername()
 
-        ' Start various Timers
-        AppTimers.StartAppTimers()
-
 #If SqlServer Then
         Me.Text = "IAIP SQL Server Edition"
 #ElseIf UAT Then
