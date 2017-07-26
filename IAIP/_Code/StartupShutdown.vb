@@ -46,16 +46,11 @@
     ''' </summary>
     ''' <remarks> Called by MyApplication_Shutdown -> StartupShutdown.Finish() </remarks>
     Friend Sub Finish()
-
-        ' Timers
-        AppTimers.StopAppTimers()
-
         ' Form settings
         SaveAllFormSettings()
 
         ' EQATEC analytics monitor
         StopMonitor()
-
     End Sub
 
     ''' <summary>

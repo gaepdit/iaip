@@ -118,6 +118,7 @@ Public Class PASPFeesLog
                 dgvExistingYearAdmin.Columns("ShutDownDate").HeaderText = "Shut Down Date"
                 dgvExistingYearAdmin.Columns("ShutDownDate").DisplayIndex = 4
                 dgvExistingYearAdmin.Columns("ShutDownDate").DefaultCellStyle.Format = "dd-MMM-yyyy"
+                dgvExistingYearAdmin.Columns("STRIAIPDESC").HeaderText = "Description"
             Else
                 SQL = "SELECT SUBSTRING(a.STRAIRSNUMBER, 5, 12) AS AIRSNumber, f.STRFACILITYNAME, a.NUMFEEYEAR, i.INVOICEID, " & "h.STROPERATIONALSTATUS, " &
                     "CASE WHEN h.STROPERATIONALSTATUS <> 'O' THEN h.DATSHUTDOWNDATE ELSE NULL END AS ShutDownDate, k.STRIAIPDESC " &
@@ -143,6 +144,7 @@ Public Class PASPFeesLog
                 dgvExistingYearAdmin.Columns("ShutDownDate").HeaderText = "Shut Down Date"
                 dgvExistingYearAdmin.Columns("ShutDownDate").DisplayIndex = 5
                 dgvExistingYearAdmin.Columns("ShutDownDate").DefaultCellStyle.Format = "dd-MMM-yyyy"
+                dgvExistingYearAdmin.Columns("STRIAIPDESC").HeaderText = "Description"
             End If
 
 
@@ -173,7 +175,6 @@ Public Class PASPFeesLog
 
             If dgvExistingYearAdmin.RowCount > 0 And hti.RowIndex <> -1 Then
                 mtbSelectedAIRSNumber.Text = dgvExistingYearAdmin(0, hti.RowIndex).Value
-                txtSelectedFacilityName.Text = dgvExistingYearAdmin(1, hti.RowIndex).Value
                 mtbSelectedFeeYear.Text = dgvExistingYearAdmin(2, hti.RowIndex).Value
             End If
 
@@ -196,4 +197,19 @@ Public Class PASPFeesLog
         dgvExistingYearAdmin.ExportToExcel(Me)
     End Sub
 
+    Private Sub GroupBox1_Enter(sender As Object, e As EventArgs) Handles GroupBox1.Enter
+        AcceptButton = btnRunFilter
+    End Sub
+
+    Private Sub GroupBox1_Leave(sender As Object, e As EventArgs) Handles GroupBox1.Leave
+        AcceptButton = Nothing
+    End Sub
+
+    Private Sub GroupBox5_Enter(sender As Object, e As EventArgs) Handles GroupBox5.Enter
+        AcceptButton = btnOpenFeeWorkTool
+    End Sub
+
+    Private Sub GroupBox5_Leave(sender As Object, e As EventArgs) Handles GroupBox5.Leave
+        AcceptButton = Nothing
+    End Sub
 End Class
