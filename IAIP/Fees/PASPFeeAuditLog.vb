@@ -1155,6 +1155,46 @@ Public Class PASPFeeAuditLog
             "and TRANSACTIONS.NUMFEEYEAR  =  INVOICES.NUMFEEYEAR  " &
             "and TRANSACTIONS.INVOICEID  =  INVOICES.INVOICEID  " &
             "left join EPDUSERPROFILES " &
+            "on TRANSACTIONS.UPDATEUSER  = epduserProfiles.numUserID   " &
+            " union " &
+            "select " &
+            "TRANSACTIONID,  INVOICES.INVOICEID, DATTRANSACTIONDATE, " &
+            "NUMPAYMENT, STRCHECKNO, STRDEPOSITNO, STRBATCHNO, " &
+            "ENTRYPERSON, " &
+            "STRCOMMENT, STRCREDITCARDNO, TRANSACTIONTYPECODE, " &
+            "case " &
+            "when TRANSACTIONS.UPDATEUSER is not null then (STRLASTNAME+', '+STRFIRSTNAME) " &
+            "else '' " &
+            "end  UpdateUser, " &
+            "TRANSACTIONS.UPDATEDATETIME, " &
+            "TRANSACTIONS.CREATEDATETIME, strPayTypeDesc " &
+            " from " &
+            "(select " &
+            "TRANSACTIONID,  INVOICEID, DATTRANSACTIONDATE, " &
+            "NUMPAYMENT, STRCHECKNO, STRDEPOSITNO, STRBATCHNO, " &
+            "(STRLASTNAME+', '+STRFIRSTNAME) as ENTRYPERSON, " &
+            "STRCOMMENT, strCreditcardno, " &
+            "transactiontypecode, " &
+            "UPDATEUSER, UPDATEDATETIME, " &
+            "createDateTime, strairsnumber, numfeeyear " &
+            "from FS_TRANSACTIONS left join EPDUSERPROFILES " &
+            "on FS_TRANSACTIONS.STRENTRYPERSON = EPDUSERPROFILES.NUMUSERID " &
+            "where FS_TRANSACTIONS.STRAIRSNUMBER = @airs " &
+            "and FS_TRANSACTIONS.NUMFEEYEAR = @year " &
+            "and active = 1) as TRANSACTIONS right join  " &
+            "(select " &
+            "INVOICEID, " &
+            "FS_feeINVOICE.UPDATEUSER, FS_feeINVOICE.UPDATEDATETIME, " &
+            "FS_feeINVOICE.CREATEDATETIME, STRAIRSNUMBER, NUMFEEYEAR, strPayTypeDesc " &
+            "from FS_feeINVOICE inner join fsLK_Paytype " &
+            "on FS_feeINVOICE.strPayType = fsLK_Paytype.numPayTypeID " &
+            "where STRAIRSNUMBER = @airs " &
+            "and NUMFEEYEAR = @year " &
+            "and FS_feeINVOICE.Active = '1') as INVOICES " &
+            "on INVOICES.STRAIRSNUMBER  = TRANSACTIONS.STRAIRSNUMBER " &
+            "and INVOICES.NUMFEEYEAR  =  TRANSACTIONS.NUMFEEYEAR  " &
+            "and INVOICES.INVOICEID  =  TRANSACTIONS.INVOICEID " &
+            "left join EPDUSERPROFILES " &
             "on TRANSACTIONS.UPDATEUSER  = epduserProfiles.numUserID "
 
             Dim params As SqlParameter() = {
@@ -4548,7 +4588,18 @@ Public Class PASPFeeAuditLog
                     "LEFT JOIN (SELECT i.INVOICEID, i.UPDATEUSER, i.UPDATEDATETIME, i.CREATEDATETIME, i.STRAIRSNUMBER, i.NUMFEEYEAR " &
                     "FROM FS_feeINVOICE AS i " &
                     "WHERE i.STRAIRSNUMBER = @airs AND i.ACTIVE = '1') AS inv ON tr.INVOICEID = inv.INVOICEID AND tr.STRAIRSNUMBER = inv.STRAIRSNUMBER AND tr.NUMFEEYEAR = inv.NUMFEEYEAR " &
-                    "LEFT JOIN EPDUSERPROFILES AS u ON tr.UPDATEUSER = u.NUMUSERID "
+                    "LEFT JOIN EPDUSERPROFILES AS u ON tr.UPDATEUSER = u.NUMUSERID " &
+                    "UNION " &
+                    "SELECT tr.TRANSACTIONID, inv.INVOICEID, tr.DATTRANSACTIONDATE, tr.NUMPAYMENT, tr.STRCHECKNO, tr.STRDEPOSITNO, tr.STRBATCHNO, tr.ENTRYPERSON, tr.STRCOMMENT, tr.STRCREDITCARDNO, tr.TRANSACTIONTYPECODE, " &
+                    "CASE WHEN tr.UPDATEUSER IS NOT NULL THEN p.STRLASTNAME+', '+p.STRFIRSTNAME ELSE '' END AS UpdateUser, tr.UPDATEDATETIME, tr.CREATEDATETIME, tr.NUMFEEYEAR " &
+                    "FROM (SELECT t.TRANSACTIONID, t.INVOICEID, t.DATTRANSACTIONDATE, t.NUMPAYMENT, t.STRCHECKNO, t.STRDEPOSITNO, t.STRBATCHNO, p.STRLASTNAME+', '+p.STRFIRSTNAME AS ENTRYPERSON, t.STRCOMMENT, t.STRCREDITCARDNO, t.TRANSACTIONTYPECODE, t.UPDATEUSER, t.UPDATEDATETIME, t.CREATEDATETIME, t.STRAIRSNUMBER, t.NUMFEEYEAR " &
+                    "FROM FS_TRANSACTIONS AS t " &
+                    "INNER JOIN EPDUSERPROFILES AS p ON t.STRENTRYPERSON = p.NUMUSERID " &
+                    "WHERE t.STRAIRSNUMBER = @airs AND t.ACTIVE = 1) AS tr " &
+                    "LEFT JOIN EPDUSERPROFILES AS p ON tr.UPDATEUSER = p.NUMUSERID " &
+                    "RIGHT JOIN (SELECT i.INVOICEID, i.UPDATEUSER, i.UPDATEDATETIME, i.CREATEDATETIME, i.STRAIRSNUMBER, i.NUMFEEYEAR " &
+                    "FROM FS_feeINVOICE AS i " &
+                    "WHERE i.STRAIRSNUMBER = @airs AND i.ACTIVE = '1') AS inv ON inv.INVOICEID = tr.INVOICEID AND inv.STRAIRSNUMBER = tr.STRAIRSNUMBER AND inv.NUMFEEYEAR = tr.NUMFEEYEAR "
 
                 Dim p As New SqlParameter("@airs", AirsNumber.DbFormattedString)
 
