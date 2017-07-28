@@ -1179,16 +1179,16 @@ Public Class PASPFeeAuditLog
             "createDateTime, strairsnumber, numfeeyear " &
             "from FS_TRANSACTIONS left join EPDUSERPROFILES " &
             "on FS_TRANSACTIONS.STRENTRYPERSON = EPDUSERPROFILES.NUMUSERID " &
-            "and FS_TRANSACTIONS.STRAIRSNUMBER = @airs " &
+            "where FS_TRANSACTIONS.STRAIRSNUMBER = @airs " &
             "and FS_TRANSACTIONS.NUMFEEYEAR = @year " &
             "and active = 1) as TRANSACTIONS right join  " &
             "(select " &
             "INVOICEID, " &
             "FS_feeINVOICE.UPDATEUSER, FS_feeINVOICE.UPDATEDATETIME, " &
             "FS_feeINVOICE.CREATEDATETIME, STRAIRSNUMBER, NUMFEEYEAR, strPayTypeDesc " &
-            "from FS_feeINVOICE, fsLK_Paytype " &
-            "where FS_feeINVOICE.strPayType = fsLK_Paytype.numPayTypeID " &
-            "and STRAIRSNUMBER = @airs " &
+            "from FS_feeINVOICE inner join fsLK_Paytype " &
+            "on FS_feeINVOICE.strPayType = fsLK_Paytype.numPayTypeID " &
+            "where STRAIRSNUMBER = @airs " &
             "and NUMFEEYEAR = @year " &
             "and FS_feeINVOICE.Active = '1') as INVOICES " &
             "on INVOICES.STRAIRSNUMBER  = TRANSACTIONS.STRAIRSNUMBER " &
