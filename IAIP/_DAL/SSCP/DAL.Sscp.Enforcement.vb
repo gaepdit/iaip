@@ -393,11 +393,12 @@ Namespace DAL.Sscp
         End Function
 
         Public Function GetNextStipulatedPenaltyKey(enforcementId As String) As Integer
-            Dim query As String = "SELECT MAX(STRENFORCEMENTKEY) + 1 " &
+            Dim query As String = "SELECT MAX(STRENFORCEMENTKEY) " &
                 "FROM SSCPENFORCEMENTSTIPULATED " &
                 "WHERE STRENFORCEMENTNUMBER = @enforcementId"
             Dim parameter As New SqlParameter("@enforcementId", enforcementId)
-            Return DB.GetInteger(query, parameter)
+            Dim key As Integer = DB.GetInteger(query, parameter)
+            Return key + 1
         End Function
 
         Public Function SaveNewStipulatedPenalty(enforcementId As String, airsNumber As Apb.ApbFacilityId,

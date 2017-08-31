@@ -436,7 +436,7 @@ Public Class IAIPNavigation
     End Sub
 
     Private Sub dgvWorkViewer_CellFormatting(sender As Object, e As DataGridViewCellFormattingEventArgs) Handles dgvWorkViewer.CellFormatting
-        If e IsNot Nothing AndAlso e.Value IsNot Nothing Then
+        If e IsNot Nothing AndAlso e.Value IsNot Nothing AndAlso Not IsDBNull(e.Value) Then
             If dgvWorkViewer.Columns(e.ColumnIndex).HeaderText.ToUpper = "AIRS #" AndAlso Apb.ApbFacilityId.IsValidAirsNumberFormat(e.Value) Then
                 e.Value = New Apb.ApbFacilityId(e.Value).FormattedString
             ElseIf TypeOf e.Value Is Date Then

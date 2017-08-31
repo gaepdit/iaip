@@ -4,17 +4,17 @@ Public Class ISMPNotificationLog
     Dim query As String
 
     Private Sub ISMPNotificationLog_Load(sender As Object, e As EventArgs) Handles Me.Load
-
         Try
-
             LoadComboBoxes()
-            If txtTestNotificationNumber.Text <> "" Then
-                LoadTestNotification()
-            End If
+
             DTPTestPlanReceived.Value = Today
             DTPTestNotification.Value = Today
             DTPTestDateStart.Value = Today
             DTPTestDateEnd.Value = Today
+
+            If txtTestNotificationNumber.Text <> "" Then
+                LoadTestNotification()
+            End If
 
             If AccountFormAccess(66, 2) <> "1" And AccountFormAccess(66, 3) <> "1" Then
                 bbtSave.Visible = False
