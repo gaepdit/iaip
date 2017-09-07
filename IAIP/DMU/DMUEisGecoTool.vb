@@ -1,8 +1,9 @@
-﻿Imports System.Data.SqlClient
-Imports Iaip.Apb.Facilities
-Imports EpdIt
+﻿Imports System.Collections.Generic
+Imports System.Data.SqlClient
+Imports System.Data.SqlTypes
 Imports System.Linq
-Imports System.Collections.Generic
+Imports EpdIt
+Imports Iaip.Apb.Facilities
 Imports Iaip.DAL
 
 Public Class DMUEisGecoTool
@@ -4575,7 +4576,7 @@ Public Class DMUEisGecoTool
                     paramsList.Add(paramList2.ToArray)
                 End If
 
-                ' Update EIS_QAAdmin with new facilities
+                ' Insert EIS_QAAdmin with new facilities
                 Dim query3 As String = "INSERT INTO EIS_QAAdmin 
                     (INVENTORYYEAR, FACILITYSITEID, DATDATEQASTART, QASTATUSCODE, DATQASTATUS, STRDMURESPONSIBLESTAFF, ACTIVE, 
                     UPDATEUSER, UPDATEDATETIME, CREATEDATETIME)
@@ -4850,18 +4851,18 @@ Public Class DMUEisGecoTool
                "and FacilitySiteID = @FacilitySiteID "
 
                 Dim params4 As SqlParameter() = {
-                    New SqlParameter("@datDateQAStart", QAStart),
-                    New SqlParameter("@datDateQAPass", QAPass),
-                    New SqlParameter("@QAStatusCode", QAStatusCode),
-                    New SqlParameter("@datQAStatus", QAStatusDate),
+                    New SqlParameter("@datDateQAStart", If(QAStart = "", SqlString.Null, QAStart)),
+                    New SqlParameter("@datDateQAPass", If(QAPass = "", SqlString.Null, QAPass)),
+                    New SqlParameter("@QAStatusCode", If(QAStatusCode = "", SqlString.Null, QAStatusCode)),
+                    New SqlParameter("@datQAStatus", If(QAStatusDate = "", SqlString.Null, QAStatusDate)),
                     New SqlParameter("@strDMUResponsibleStaff", StaffResponsible),
-                    New SqlParameter("@datQAComplete", QAComplete),
+                    New SqlParameter("@datQAComplete", If(QAComplete = "", SqlString.Null, QAComplete)),
                     New SqlParameter("@strComment", QAComments),
-                    New SqlParameter("@updateuser", CurrentUser.AlphaName),
-                    New SqlParameter("@strFITrackingnumber", FITracking),
-                    New SqlParameter("@strFIError", FIError),
+                    New SqlParameter("@updateuser", CurrentUser),
+                    New SqlParameter("@strFITrackingnumber", If(FITracking = "", SqlString.Null, FITracking)),
+                    New SqlParameter("@strFIError", If(FIError = "", SqlString.Null, FIError)),
                     New SqlParameter("@STRPOINTTRACKINGNUMBER", pointTracking),
-                    New SqlParameter("@strpointerror", pointError),
+                    New SqlParameter("@strpointerror", If(pointError = "", SqlString.Null, pointError)),
                     New SqlParameter("@INventoryyear", cboEILogYear.Text),
                     New SqlParameter("@FacilitySiteID", mtbEILogAIRSNumber.Text)
                 }
@@ -4979,36 +4980,36 @@ Public Class DMUEisGecoTool
             End If
 
             Dim SQL As String = "Update eis_QAAdmin set " &
-            "datDateQAStart = @QAStart & " &
-            "datDateQAPass = @QAPass & " &
+            "datDateQAStart = @datDateQAStart & " &
+            "datDateQAPass = @datDateQAPass & " &
             "QAStatusCode = @QAStatusCode & " &
-            "datQAStatus = @QAStatusDate & " &
-            "strDMUResponsibleStaff = @StaffResponsible, " &
-            "datQAComplete = @QAComplete & " &
-            "strComment = @QAComments, " &
+            "datQAStatus = @datQAStatus & " &
+            "strDMUResponsibleStaff = @strDMUResponsibleStaff, " &
+            "datQAComplete = @datQAComplete & " &
+            "strComment = @strComment, " &
             "active = '1', " &
-            "updateuser = @CurrentUser, " &
+            "updateuser = @updateuser, " &
             "updateDateTime = getdate(), " &
-            "strFITrackingnumber = @FITracking, " &
-            "strFIError = @FIError, " &
-            "STRPOINTTRACKINGNUMBER = @PointTracking, " &
-            "strpointerror = @PointError," &
-            "where INventoryyear = @cboEILogYear " &
-            "and FacilitySiteID = @mtbEILogAIRSNumber "
+            "strFITrackingnumber = @strFITrackingnumber, " &
+            "strFIError = @strFIError, " &
+            "STRPOINTTRACKINGNUMBER = @STRPOINTTRACKINGNUMBER, " &
+            "strpointerror = @strpointerror," &
+            "where INventoryyear = @INventoryyear " &
+            "and FacilitySiteID = @FacilitySiteID "
 
             Dim params As SqlParameter() = {
-                New SqlParameter("@datDateQAStart", QAStart),
-                New SqlParameter("@datDateQAPass", QAPass),
-                New SqlParameter("@QAStatusCode", QAStatusCode),
-                New SqlParameter("@datQAStatus", QAStatusDate),
+                New SqlParameter("@datDateQAStart", If(QAStart = "", SqlString.Null, QAStart)),
+                New SqlParameter("@datDateQAPass", If(QAPass = "", SqlString.Null, QAPass)),
+                New SqlParameter("@QAStatusCode", If(QAStatusCode = "", SqlString.Null, QAStatusCode)),
+                New SqlParameter("@datQAStatus", If(QAStatusDate = "", SqlString.Null, QAStatusDate)),
                 New SqlParameter("@strDMUResponsibleStaff", StaffResponsible),
-                New SqlParameter("@datQAComplete", QAComplete),
+                New SqlParameter("@datQAComplete", If(QAComplete = "", SqlString.Null, QAComplete)),
                 New SqlParameter("@strComment", QAComments),
-                New SqlParameter("@updateuser", CurrentUser),
-                New SqlParameter("@strFITrackingnumber", FITracking),
-                New SqlParameter("@strFIError", FIError),
+                New SqlParameter("@updateuser", CurrentUser.AlphaName),
+                New SqlParameter("@strFITrackingnumber", If(FITracking = "", SqlString.Null, FITracking)),
+                New SqlParameter("@strFIError", If(FIError = "", SqlString.Null, FIError)),
                 New SqlParameter("@STRPOINTTRACKINGNUMBER", PointTracking),
-                New SqlParameter("@strpointerror", PointError),
+                New SqlParameter("@strpointerror", If(PointError = "", SqlString.Null, PointError)),
                 New SqlParameter("@INventoryyear", cboEILogYear.Text),
                 New SqlParameter("@FacilitySiteID", mtbEILogAIRSNumber.Text)
             }
