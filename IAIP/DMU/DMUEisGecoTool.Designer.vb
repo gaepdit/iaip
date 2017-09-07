@@ -243,7 +243,6 @@ Partial Class DMUEisGecoTool
         Me.Panel18 = New System.Windows.Forms.Panel()
         Me.btnLoadEISLog = New System.Windows.Forms.Button()
         Me.mtbEISLogAIRSNumber = New System.Windows.Forms.MaskedTextBox()
-        Me.Label254 = New System.Windows.Forms.Label()
         Me.lblEISCount = New System.Windows.Forms.Label()
         Me.txtEISStatsCount = New System.Windows.Forms.TextBox()
         Me.btnEISSummaryToExcel = New System.Windows.Forms.Button()
@@ -2876,9 +2875,11 @@ Partial Class DMUEisGecoTool
         '
         'Panel18
         '
+        Me.Panel18.Controls.Add(Me.lblEisStageSelectedCount)
         Me.Panel18.Controls.Add(Me.btnLoadEISLog)
+        Me.Panel18.Controls.Add(Me.btnEisStageSelectNone)
         Me.Panel18.Controls.Add(Me.mtbEISLogAIRSNumber)
-        Me.Panel18.Controls.Add(Me.Label254)
+        Me.Panel18.Controls.Add(Me.btnEisStageSelectAll)
         Me.Panel18.Controls.Add(Me.lblEISCount)
         Me.Panel18.Controls.Add(Me.txtEISStatsCount)
         Me.Panel18.Controls.Add(Me.btnEISSummaryToExcel)
@@ -2890,7 +2891,7 @@ Partial Class DMUEisGecoTool
         '
         'btnLoadEISLog
         '
-        Me.btnLoadEISLog.Location = New System.Drawing.Point(392, 21)
+        Me.btnLoadEISLog.Location = New System.Drawing.Point(178, 24)
         Me.btnLoadEISLog.Name = "btnLoadEISLog"
         Me.btnLoadEISLog.Size = New System.Drawing.Size(95, 23)
         Me.btnLoadEISLog.TabIndex = 108
@@ -2899,26 +2900,17 @@ Partial Class DMUEisGecoTool
         '
         'mtbEISLogAIRSNumber
         '
-        Me.mtbEISLogAIRSNumber.Location = New System.Drawing.Point(323, 24)
+        Me.mtbEISLogAIRSNumber.Location = New System.Drawing.Point(109, 26)
         Me.mtbEISLogAIRSNumber.Mask = "000-00000"
         Me.mtbEISLogAIRSNumber.Name = "mtbEISLogAIRSNumber"
         Me.mtbEISLogAIRSNumber.Size = New System.Drawing.Size(63, 20)
         Me.mtbEISLogAIRSNumber.TabIndex = 107
         Me.mtbEISLogAIRSNumber.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals
         '
-        'Label254
-        '
-        Me.Label254.AutoSize = True
-        Me.Label254.Location = New System.Drawing.Point(275, 29)
-        Me.Label254.Name = "Label254"
-        Me.Label254.Size = New System.Drawing.Size(42, 13)
-        Me.Label254.TabIndex = 106
-        Me.Label254.Text = "AIRS #"
-        '
         'lblEISCount
         '
         Me.lblEISCount.AutoSize = True
-        Me.lblEISCount.Location = New System.Drawing.Point(23, 7)
+        Me.lblEISCount.Location = New System.Drawing.Point(6, 10)
         Me.lblEISCount.Name = "lblEISCount"
         Me.lblEISCount.Size = New System.Drawing.Size(38, 13)
         Me.lblEISCount.TabIndex = 104
@@ -2926,15 +2918,15 @@ Partial Class DMUEisGecoTool
         '
         'txtEISStatsCount
         '
-        Me.txtEISStatsCount.Location = New System.Drawing.Point(49, 24)
+        Me.txtEISStatsCount.Location = New System.Drawing.Point(6, 26)
         Me.txtEISStatsCount.Name = "txtEISStatsCount"
         Me.txtEISStatsCount.ReadOnly = True
-        Me.txtEISStatsCount.Size = New System.Drawing.Size(100, 20)
+        Me.txtEISStatsCount.Size = New System.Drawing.Size(84, 20)
         Me.txtEISStatsCount.TabIndex = 103
         '
         'btnEISSummaryToExcel
         '
-        Me.btnEISSummaryToExcel.Location = New System.Drawing.Point(155, 22)
+        Me.btnEISSummaryToExcel.Location = New System.Drawing.Point(461, 24)
         Me.btnEISSummaryToExcel.Name = "btnEISSummaryToExcel"
         Me.btnEISSummaryToExcel.Size = New System.Drawing.Size(95, 23)
         Me.btnEISSummaryToExcel.TabIndex = 105
@@ -4483,9 +4475,6 @@ Partial Class DMUEisGecoTool
         '
         'TPStageData
         '
-        Me.TPStageData.Controls.Add(Me.lblEisStageSelectedCount)
-        Me.TPStageData.Controls.Add(Me.btnEisStageSelectNone)
-        Me.TPStageData.Controls.Add(Me.btnEisStageSelectAll)
         Me.TPStageData.Controls.Add(Me.btnEisStagePseAll)
         Me.TPStageData.Controls.Add(Me.btnEisStagePseSelected)
         Me.TPStageData.Controls.Add(Me.btnEisStageFiAll)
@@ -4504,16 +4493,16 @@ Partial Class DMUEisGecoTool
         'lblEisStageSelectedCount
         '
         Me.lblEisStageSelectedCount.AutoSize = True
-        Me.lblEisStageSelectedCount.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblEisStageSelectedCount.Location = New System.Drawing.Point(181, 70)
+        Me.lblEisStageSelectedCount.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblEisStageSelectedCount.Location = New System.Drawing.Point(290, 8)
         Me.lblEisStageSelectedCount.Name = "lblEisStageSelectedCount"
-        Me.lblEisStageSelectedCount.Size = New System.Drawing.Size(133, 17)
+        Me.lblEisStageSelectedCount.Size = New System.Drawing.Size(61, 13)
         Me.lblEisStageSelectedCount.TabIndex = 7
-        Me.lblEisStageSelectedCount.Text = "Selected facilities: 0"
+        Me.lblEisStageSelectedCount.Text = "Selected: 0"
         '
         'btnEisStageSelectNone
         '
-        Me.btnEisStageSelectNone.Location = New System.Drawing.Point(255, 44)
+        Me.btnEisStageSelectNone.Location = New System.Drawing.Point(371, 24)
         Me.btnEisStageSelectNone.Name = "btnEisStageSelectNone"
         Me.btnEisStageSelectNone.Size = New System.Drawing.Size(72, 23)
         Me.btnEisStageSelectNone.TabIndex = 2
@@ -4522,7 +4511,7 @@ Partial Class DMUEisGecoTool
         '
         'btnEisStageSelectAll
         '
-        Me.btnEisStageSelectAll.Location = New System.Drawing.Point(177, 44)
+        Me.btnEisStageSelectAll.Location = New System.Drawing.Point(293, 24)
         Me.btnEisStageSelectAll.Name = "btnEisStageSelectAll"
         Me.btnEisStageSelectAll.Size = New System.Drawing.Size(72, 23)
         Me.btnEisStageSelectAll.TabIndex = 1
@@ -7056,6 +7045,7 @@ Partial Class DMUEisGecoTool
         Me.ClientSize = New System.Drawing.Size(1016, 713)
         Me.Controls.Add(Me.TCDMUTools)
         Me.Controls.Add(Me.Label1)
+        Me.MinimumSize = New System.Drawing.Size(1032, 751)
         Me.Name = "DMUEisGecoTool"
         Me.Text = "EIS & GECO Tools"
         Me.TCDMUTools.ResumeLayout(False)
@@ -7730,7 +7720,6 @@ Partial Class DMUEisGecoTool
     Friend WithEvents mtbThresholdYear As System.Windows.Forms.MaskedTextBox
     Friend WithEvents btnLoadEISLog As System.Windows.Forms.Button
     Friend WithEvents mtbEISLogAIRSNumber As System.Windows.Forms.MaskedTextBox
-    Friend WithEvents Label254 As System.Windows.Forms.Label
     Friend WithEvents lblEISCount As System.Windows.Forms.Label
     Friend WithEvents txtEISStatsCount As System.Windows.Forms.TextBox
     Friend WithEvents btnEISSummaryToExcel As System.Windows.Forms.Button

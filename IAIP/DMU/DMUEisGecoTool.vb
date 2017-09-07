@@ -6724,7 +6724,7 @@ Public Class DMUEisGecoTool
     End Sub
 
     Private Sub DisplayEisStageCount(count As Integer)
-        lblEisStageSelectedCount.Text = String.Format("Selected facilities: {0}", count.ToString)
+        lblEisStageSelectedCount.Text = String.Format("Selected: {0}", count.ToString)
     End Sub
 
     Private Function CountSelectedEisStageFacilities() As Integer
