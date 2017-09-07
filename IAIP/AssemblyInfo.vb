@@ -17,8 +17,8 @@ Imports System.Runtime.InteropServices
 
 #End If
 
-<Assembly: AssemblyVersion("5.3.4.0")>
-<Assembly: AssemblyFileVersion("5.3.4.0")>
+<Assembly: AssemblyVersion("5.3.5.0")>
+<Assembly: AssemblyFileVersion("5.3.5.0")>
 <Assembly: AssemblyCompany("State of Georgia")>
 <Assembly: AssemblyCopyright("")>
 <Assembly: AssemblyTrademark("")>
