@@ -4980,22 +4980,22 @@ Public Class DMUEisGecoTool
             End If
 
             Dim SQL As String = "Update eis_QAAdmin set " &
-            "datDateQAStart = @QAStart & " &
-            "datDateQAPass = @QAPass & " &
+            "datDateQAStart = @datDateQAStart & " &
+            "datDateQAPass = @datDateQAPass & " &
             "QAStatusCode = @QAStatusCode & " &
-            "datQAStatus = @QAStatusDate & " &
-            "strDMUResponsibleStaff = @StaffResponsible, " &
-            "datQAComplete = @QAComplete & " &
-            "strComment = @QAComments, " &
+            "datQAStatus = @datQAStatus & " &
+            "strDMUResponsibleStaff = @strDMUResponsibleStaff, " &
+            "datQAComplete = @datQAComplete & " &
+            "strComment = @strComment, " &
             "active = '1', " &
-            "updateuser = @CurrentUser, " &
+            "updateuser = @updateuser, " &
             "updateDateTime = getdate(), " &
-            "strFITrackingnumber = @FITracking, " &
-            "strFIError = @FIError, " &
-            "STRPOINTTRACKINGNUMBER = @PointTracking, " &
-            "strpointerror = @PointError," &
-            "where INventoryyear = @cboEILogYear " &
-            "and FacilitySiteID = @mtbEILogAIRSNumber "
+            "strFITrackingnumber = @strFITrackingnumber, " &
+            "strFIError = @strFIError, " &
+            "STRPOINTTRACKINGNUMBER = @STRPOINTTRACKINGNUMBER, " &
+            "strpointerror = @strpointerror," &
+            "where INventoryyear = @INventoryyear " &
+            "and FacilitySiteID = @FacilitySiteID "
 
             Dim params As SqlParameter() = {
                 New SqlParameter("@datDateQAStart", If(QAStart = "", SqlString.Null, QAStart)),
@@ -5005,7 +5005,7 @@ Public Class DMUEisGecoTool
                 New SqlParameter("@strDMUResponsibleStaff", StaffResponsible),
                 New SqlParameter("@datQAComplete", If(QAComplete = "", SqlString.Null, QAComplete)),
                 New SqlParameter("@strComment", QAComments),
-                New SqlParameter("@updateuser", CurrentUser),
+                New SqlParameter("@updateuser", CurrentUser.AlphaName),
                 New SqlParameter("@strFITrackingnumber", If(FITracking = "", SqlString.Null, FITracking)),
                 New SqlParameter("@strFIError", If(FIError = "", SqlString.Null, FIError)),
                 New SqlParameter("@STRPOINTTRACKINGNUMBER", PointTracking),
