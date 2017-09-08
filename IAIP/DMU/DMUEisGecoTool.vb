@@ -4858,7 +4858,7 @@ Public Class DMUEisGecoTool
                     New SqlParameter("@strDMUResponsibleStaff", StaffResponsible),
                     New SqlParameter("@datQAComplete", If(QAComplete = "", SqlString.Null, QAComplete)),
                     New SqlParameter("@strComment", QAComments),
-                    New SqlParameter("@updateuser", CurrentUser),
+                    New SqlParameter("@updateuser", CurrentUser.AlphaName),
                     New SqlParameter("@strFITrackingnumber", If(FITracking = "", SqlString.Null, FITracking)),
                     New SqlParameter("@strFIError", If(FIError = "", SqlString.Null, FIError)),
                     New SqlParameter("@STRPOINTTRACKINGNUMBER", pointTracking),
@@ -4980,12 +4980,12 @@ Public Class DMUEisGecoTool
             End If
 
             Dim SQL As String = "Update eis_QAAdmin set " &
-            "datDateQAStart = @datDateQAStart & " &
-            "datDateQAPass = @datDateQAPass & " &
-            "QAStatusCode = @QAStatusCode & " &
-            "datQAStatus = @datQAStatus & " &
+            "datDateQAStart = @datDateQAStart, " &
+            "datDateQAPass = @datDateQAPass, " &
+            "QAStatusCode = @QAStatusCode, " &
+            "datQAStatus = @datQAStatus, " &
             "strDMUResponsibleStaff = @strDMUResponsibleStaff, " &
-            "datQAComplete = @datQAComplete & " &
+            "datQAComplete = @datQAComplete, " &
             "strComment = @strComment, " &
             "active = '1', " &
             "updateuser = @updateuser, " &
@@ -4993,7 +4993,7 @@ Public Class DMUEisGecoTool
             "strFITrackingnumber = @strFITrackingnumber, " &
             "strFIError = @strFIError, " &
             "STRPOINTTRACKINGNUMBER = @STRPOINTTRACKINGNUMBER, " &
-            "strpointerror = @strpointerror," &
+            "strpointerror = @strpointerror " &
             "where INventoryyear = @INventoryyear " &
             "and FacilitySiteID = @FacilitySiteID "
 
