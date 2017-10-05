@@ -6841,7 +6841,8 @@ Public Class DMUEisGecoTool
 
             Dim params As SqlParameter() = {
                 New SqlParameter("@Inventory_Year", cboEISStatisticsYear.Text),
-                facList.AsTvpSqlParameter("@Facility_List")
+                facList.AsTvpSqlParameter("@Facility_List"),
+                New SqlParameter("@User", CurrentUser.EmailAddress)
             }
 
             Dim result As Boolean = DB.SPRunCommand(SPName, params)
