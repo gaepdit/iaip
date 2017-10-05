@@ -31,7 +31,7 @@
     </UpgradeBackupLocation>
     <TargetZone>LocalIntranet</TargetZone>
     <GenerateManifests>true</GenerateManifests>
-    <ManifestCertificateThumbprint>114A69E86BA4219ABC3489DBC242BE823DE335FF</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>D98399E018B3B5C194D0FE2C3CE98A21F340376D</ManifestCertificateThumbprint>
     <ManifestKeyFile>IAIP_TemporaryKey.pfx</ManifestKeyFile>
     <SignManifests>true</SignManifests>
     <IsWebBootstrapper>true</IsWebBootstrapper>
@@ -242,7 +242,9 @@
     <EmbeddedResource Include="Users\IaipUserProfile.resx">
       <DependentUpon>IaipUserProfile.vb</DependentUpon>
     </EmbeddedResource>
-    <None Include="app.config" />
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Crystal Reports\CrDataSet.xsc">
       <DependentUpon>CrDataSet.xsd</DependentUpon>
     </None>
