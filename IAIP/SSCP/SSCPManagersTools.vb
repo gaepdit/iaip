@@ -2450,7 +2450,7 @@ Public Class SSCPManagersTools
                         "where strAIRSNumber = @airs " &
                         "and intYear = @year "
                 Else
-                    'Modified by TK for Jira issue: IAIP-603 “Syntax errors in SSCP Managers Tools” - 10/5/2017
+                    'Modified by TK for Jira issue: IAIP-603 "Syntax errors in SSCP Managers Tools" - 10/5/2017
                     SQL = "Insert into SSCPInspectionsRequired " &
                         "(numKey, strAIRSNumber, intYear, strInspectionRequired, strAssigningManager, datAssigningDate) " &
                         "values " &
@@ -2497,7 +2497,7 @@ Public Class SSCPManagersTools
                         "where strAIRSNumber = @airs " &
                         "And intYear = @year "
                 Else
-                    'Modified by TK for Jira issue: IAIP-603 “Syntax errors in SSCP Managers Tools” - 10/5/2017
+                    'Modified by TK for Jira issue: IAIP-603 "Syntax errors in SSCP Managers Tools" - 10/5/2017
                     SQL = "Insert into SSCPInspectionsRequired" &
                         "(numKey, strAIRSNumber, intYear, strFCERequired, strAssigningManager, datAssigningDate) " &
                         "values " &
