@@ -23,6 +23,7 @@ Public Class MASPRegistrationTool
         lblEventTitle.Text = ""
         lblEventDate.Text = ""
         btnViewDetails.Enabled = False
+        btnDeleteEvent.Enabled = False
 
         btnGeneratePasscode.Visible = False
         chbEventPasscode.Text = ""
@@ -89,7 +90,8 @@ Public Class MASPRegistrationTool
 
     Private Sub LoadRegistrationStatusCombo()
         ' Get list of Registration Status types and bind that list to the combobox
-        Dim statuses As SortedDictionary(Of Integer, String) = GetRegistrationStatusesAsDictionary(True, "Select a status…")
+        'Changed first Arg of function to False, so invalid DB entry is avoided.   by TK 10/16/17  for Jira: GECO-218
+        Dim statuses As SortedDictionary(Of Integer, String) = GetRegistrationStatusesAsDictionary(False, "Select a status…")
         If statuses.Count > 0 Then
             cboRegStatus.BindToSortedDictionary(statuses)
         End If
@@ -431,36 +433,48 @@ Public Class MASPRegistrationTool
                 Else
                     txtWebsiteURL.Text = dr.Item("strWebURL")
                 End If
+                'Added to disable delete button until an Event is loaded - By TK  10/16/17 for Jira: GECO-218
+                btnDeleteEvent.Enabled = True
             End If
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub LoadRegistrationManagement()
         Try
-            query = "select " &
-            "Res_Registration.numRes_registrationID, " &
-            "Res_Event.strTitle as eventTitle,  " &
-            "datRegistrationDateTime, " &
-            "strConfirmationNumber, strComments, " &
-            "STRREGISTRATIONSTATUS, Res_Registration.numGECouserID, " &
-            "strSalutation, strFirstName, " &
-            "strLastName, strUserEmail, " &
-            "OlapUserProfile.strAddress, OlapUserProfile.strCity, " &
-            "OlapUserProfile.strState, strZip, " &
-            "strCompanyName, strPhonenumber, " &
-            "strUserType, " &
-            "OLAPUserProfile.strTitle as UserTitle " &
-            "from Res_Registration, OLAPUSERProfile, " &
-            "res_event, OLAPUserLogIn,  " &
-            "RESLK_RegistrationStatus " &
-            "where Res_Registration.numGECouserID = OlapUserProfile.numUserID " &
-            "and Res_registration.numRes_eventid = Res_Event.numRes_EventId  " &
-            "and Res_registration.numRegistrationStatusCode = " &
-            "RESLK_RegistrationStatus.NUMRESLK_REGISTRATIONSTATUSID " &
-            "and Res_Registration.numGECouserID = OLAPUserLogIn.numuserid " &
-            "and convert(int,Res_registration.numRes_EventID) = @eventid "
+            'Cleaned and formatted this up a bit for easier reading -- TK  10/17  for Jira: GECO-218
+            query = "SELECT 
+                   Res_Registration.numRes_registrationID,
+                   Res_Event.strTitle AS eventTitle,
+                   Res_Registration.datRegistrationDateTime,
+                   Res_Registration.strConfirmationNumber,
+                   Res_Registration.strComments,
+                   RESLK_RegistrationStatus.STRREGISTRATIONSTATUS,
+                   Res_Registration.numGECouserID,
+                   OlapUserProfile.strSalutation,
+                   OlapUserProfile.strFirstName,
+                   OlapUserProfile.strLastName,
+                   OLAPUserLogIn.strUserEmail,
+                   OlapUserProfile.strAddress,
+                   OlapUserProfile.strCity,
+                   OlapUserProfile.strState,
+                   OlapUserProfile.strZip,
+                   OlapUserProfile.strCompanyName,
+                   OlapUserProfile.strPhonenumber,
+                   OlapUserProfile.strUserType,
+                   OLAPUserProfile.strTitle AS UserTitle
+            FROM Res_Registration,
+                 OLAPUSERProfile,
+                 res_event,
+                 OLAPUserLogIn,
+                 RESLK_RegistrationStatus
+            WHERE Res_Registration.numGECouserID = OlapUserProfile.numUserID
+                  AND Res_registration.numRes_eventid = Res_Event.numRes_EventId
+                  AND Res_registration.numRegistrationStatusCode = RESLK_RegistrationStatus.NUMRESLK_REGISTRATIONSTATUSID
+                  AND Res_Registration.numGECouserID = OLAPUserLogIn.numuserid
+                  AND CONVERT(INT, Res_registration.numRes_EventID)  = @eventid"
 
             Dim p As New SqlParameter("@eventid", selectedEventId)
 
@@ -529,6 +543,7 @@ Public Class MASPRegistrationTool
 #End Region
 
 #Region "Events Management"
+
     Private Sub btnSaveNewEvent_Click(sender As Object, e As EventArgs) Handles btnSaveNewEvent.Click
         Try
             If chbEventPasscode.Checked AndAlso chbEventPasscode.Text = "Error" Then
@@ -570,6 +585,7 @@ Public Class MASPRegistrationTool
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub btnUpdateEvent_Click(sender As Object, e As EventArgs) Handles btnUpdateEvent.Click
         Try
             If chbEventPasscode.Checked AndAlso chbEventPasscode.Text = "Error" Then
@@ -605,11 +621,14 @@ Public Class MASPRegistrationTool
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub btnDeleteEvent_Click(sender As Object, e As EventArgs) Handles btnDeleteEvent.Click
         Try
+            'Changed second argument from "" to "1", so that RES_EVENT.NUMEVENTSTATUSCODE matches up 
+            'With LookUp field RESLK_EVENTSTATUS.NUMRESLK_EVENTSTATUSID  -- TK  10/17   for Jira: GECO-218
             If Update_RES_Event(selectedEventId,
-                                "", "", "",
-                             "", "", "",
+                                "1", "", "",
+                              "", "", "",
                              "", "", "",
                              "", "", "",
                              "", "", "",
@@ -618,7 +637,6 @@ Public Class MASPRegistrationTool
             Else
                 MsgBox("Data NOT Saved/Updated", MsgBoxStyle.Exclamation, Me.Text)
             End If
-
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -660,10 +678,12 @@ Public Class MASPRegistrationTool
     Private Sub btnClearEventManagement_Click(sender As Object, e As EventArgs) Handles btnClearEventManagement.Click
         ClearEventSelection()
     End Sub
+
     Private Sub ClearEventSelection()
         dgvEvents.ClearSelection()
         ClearEventManagementForm()
     End Sub
+
     Private Sub ClearEventManagementForm()
         txtEventTitle.Clear()
         txtEventDescription.Clear()
@@ -685,6 +705,16 @@ Public Class MASPRegistrationTool
         mtbEventCapacity.Clear()
         txtEventNotes.Clear()
         txtWebsiteURL.Clear()
+        'added to avoid exception error by TK 10/16/2017    for Jira: GECO-218
+        btnUpdateEvent.Enabled = False
+        btnDeleteEvent.Enabled = False
+    End Sub
+
+    'added by TK  10/16/17 to enable btnUpdateEvent (after a "clear") to avoid exception error   for Jira: GECO-218
+    Private Sub txtEventTitle_TextChanged(sender As Object, e As EventArgs) Handles txtEventTitle.TextChanged
+        If txtEventTitle.Text.Trim <> "" Then
+            btnUpdateEvent.Enabled = True
+        End If
     End Sub
 
 #End Region
@@ -810,10 +840,18 @@ Public Class MASPRegistrationTool
 
     Private Sub btnModifyRegistration_Click(sender As Object, e As EventArgs) Handles btnModifyRegistration.Click
         Try
+            'First check to see if event is already at capacity and if admin is trying to add (making it overbooked) 
+            'or the registrant may already be confimed and updating DateRegistered ... Added by TK -- 10/17   for Jira: GECO-218
+            If txtOvNumberRegistered.Text = txtOvEventCapacity.Text And cboRegStatus.SelectedValue.ToString = "1" Then
+                'Give the admin a warning that they may be overbooking the event, and ask if they want to continue. If not, don't update.
+                If MessageBox.Show(Me, "Event is already at Capacity. If this Registrant wasn't previously confirmed, the Event will be booked over capacity. 
+Would you like to continue?", "Event is at Capacity", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) = DialogResult.No Then
+                    Exit Try
+                End If
+            End If
 
             If Update_RES_Registration(txtRegID.Text, txtRegConfirmationNum.Text,
-                                       cboRegStatus.SelectedValue, DTPRegDateRegistered.Text) = True Then
-
+                    cboRegStatus.SelectedValue, DTPRegDateRegistered.Text) = True Then
                 MsgBox("Data Saved/Updated", MsgBoxStyle.Information, Me.Text)
                 LoadRegistrationManagement()
             Else
@@ -821,14 +859,12 @@ Public Class MASPRegistrationTool
             End If
 
         Catch ex As Exception
-
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
     Private Sub btnMapEventLocation_Click(sender As Object, e As EventArgs) Handles btnMapEventLocation.Click
         Try
-
-
             Dim StreetAddress As String = "4244 International Parkway"
             Dim City As String = "Atlanta"
             Dim State As String = "GA"
@@ -855,9 +891,6 @@ Public Class MASPRegistrationTool
         Finally
 
         End Try
-
-
-
     End Sub
 
     Private Sub btnExportRegistrantsToExcel_Click(sender As Object, e As EventArgs) Handles btnExportRegistrantsToExcel.Click

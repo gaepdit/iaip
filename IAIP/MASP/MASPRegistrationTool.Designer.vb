@@ -22,10 +22,12 @@ Partial Class MASPRegistrationTool
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(MASPRegistrationTool))
         Me.Panel4 = New System.Windows.Forms.Panel()
         Me.chbGECOlogInRequired = New System.Windows.Forms.CheckBox()
         Me.txtWebsiteURL = New System.Windows.Forms.TextBox()
         Me.Label48 = New System.Windows.Forms.Label()
+        Me.Label11 = New System.Windows.Forms.Label()
         Me.Label47 = New System.Windows.Forms.Label()
         Me.txtEventTitle = New System.Windows.Forms.TextBox()
         Me.btnClearEventManagement = New System.Windows.Forms.Button()
@@ -155,7 +157,6 @@ Partial Class MASPRegistrationTool
         Me.btnViewDetails = New System.Windows.Forms.Button()
         Me.lblEventTitle = New System.Windows.Forms.Label()
         Me.lblEventDate = New System.Windows.Forms.Label()
-        Me.Label11 = New System.Windows.Forms.Label()
         Me.Panel4.SuspendLayout()
         Me.tabsEventDetails.SuspendLayout()
         Me.tabEventOverview.SuspendLayout()
@@ -250,6 +251,15 @@ Partial Class MASPRegistrationTool
         Me.Label48.Size = New System.Drawing.Size(55, 13)
         Me.Label48.TabIndex = 452
         Me.Label48.Text = "End Time:"
+        '
+        'Label11
+        '
+        Me.Label11.AutoSize = True
+        Me.Label11.Location = New System.Drawing.Point(462, 233)
+        Me.Label11.Name = "Label11"
+        Me.Label11.Size = New System.Drawing.Size(163, 26)
+        Me.Label11.TabIndex = 449
+        Me.Label11.Text = "Enter complete website address. " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Must begin with ""http"" or ""https""." & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
         '
         'Label47
         '
@@ -667,10 +677,14 @@ Partial Class MASPRegistrationTool
         Me.dgvOverviewRegistrants.AllowUserToDeleteRows = False
         Me.dgvOverviewRegistrants.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvOverviewRegistrants.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.dgvOverviewRegistrants.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
         Me.dgvOverviewRegistrants.Location = New System.Drawing.Point(0, 168)
+        Me.dgvOverviewRegistrants.MultiSelect = False
         Me.dgvOverviewRegistrants.Name = "dgvOverviewRegistrants"
         Me.dgvOverviewRegistrants.ReadOnly = True
         Me.dgvOverviewRegistrants.RowHeadersVisible = False
+        Me.dgvOverviewRegistrants.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.dgvOverviewRegistrants.ShowEditingIcon = False
         Me.dgvOverviewRegistrants.Size = New System.Drawing.Size(784, 218)
         Me.dgvOverviewRegistrants.TabIndex = 421
         '
@@ -1050,10 +1064,17 @@ Partial Class MASPRegistrationTool
         '
         'dgvRegistrationManagement
         '
+        Me.dgvRegistrationManagement.AllowUserToAddRows = False
+        Me.dgvRegistrationManagement.AllowUserToDeleteRows = False
         Me.dgvRegistrationManagement.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvRegistrationManagement.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.dgvRegistrationManagement.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
         Me.dgvRegistrationManagement.Location = New System.Drawing.Point(3, 3)
+        Me.dgvRegistrationManagement.MultiSelect = False
         Me.dgvRegistrationManagement.Name = "dgvRegistrationManagement"
+        Me.dgvRegistrationManagement.ReadOnly = True
+        Me.dgvRegistrationManagement.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.dgvRegistrationManagement.ShowEditingIcon = False
         Me.dgvRegistrationManagement.Size = New System.Drawing.Size(404, 380)
         Me.dgvRegistrationManagement.TabIndex = 0
         '
@@ -1539,15 +1560,6 @@ Partial Class MASPRegistrationTool
         Me.lblEventDate.TabIndex = 5
         Me.lblEventDate.Text = "Event Date"
         '
-        'Label11
-        '
-        Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(462, 233)
-        Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(163, 26)
-        Me.Label11.TabIndex = 449
-        Me.Label11.Text = "Enter complete website address. " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Must begin with ""http"" or ""https""." & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
-        '
         'MASPRegistrationTool
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -1555,6 +1567,7 @@ Partial Class MASPRegistrationTool
         Me.ClientSize = New System.Drawing.Size(792, 572)
         Me.Controls.Add(Me.pnlEventsAndFilter)
         Me.Controls.Add(Me.tabsEventDetails)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "MASPRegistrationTool"
         Me.Text = "Registration Tool"
         Me.Panel4.ResumeLayout(False)
