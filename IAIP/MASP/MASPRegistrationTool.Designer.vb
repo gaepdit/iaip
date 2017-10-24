@@ -22,7 +22,6 @@ Partial Class MASPRegistrationTool
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(MASPRegistrationTool))
         Me.Panel4 = New System.Windows.Forms.Panel()
         Me.chbGECOlogInRequired = New System.Windows.Forms.CheckBox()
         Me.txtWebsiteURL = New System.Windows.Forms.TextBox()
@@ -1567,7 +1566,6 @@ Partial Class MASPRegistrationTool
         Me.ClientSize = New System.Drawing.Size(792, 572)
         Me.Controls.Add(Me.pnlEventsAndFilter)
         Me.Controls.Add(Me.tabsEventDetails)
-        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "MASPRegistrationTool"
         Me.Text = "Registration Tool"
         Me.Panel4.ResumeLayout(False)
