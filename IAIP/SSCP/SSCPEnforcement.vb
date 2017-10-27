@@ -9,11 +9,16 @@ Public Class SscpEnforcement
 
 #Region " Properties and Fields "
 
-    Public Property EnforcementId() As String
-    Public Property EnforcementCase() As New EnforcementCase
+    Public Property EnforcementId As Integer = 0
+    Public Property EnforcementCase As New EnforcementCase
     Public Property AirsNumber As Apb.ApbFacilityId
     Public Property Facility As Apb.Facilities.Facility
-    Public Property LinkedEventId As Integer
+
+    ''' <summary>
+    ''' Only used when creating enforcement for a work item not 
+    ''' currently associated with enforcement
+    ''' </summary>
+    Public Property InitialLinkedEventId As Integer
 
     Private violationTypes As DataTable
     Private existingFiles As List(Of EnforcementDocument)
@@ -72,13 +77,18 @@ Public Class SscpEnforcement
 
         ' Parse parameters load initial data
         ParseParameters()
-        LoadCurrentEnforcement()
+        If EnforcementId > 0 Then
+            LoadCurrentEnforcement()
+        End If
+        LoadLinkedEvents()
+        If InitialLinkedEventId > 0 Then
+            LoadInitialLinkedEvent()
+        End If
         LoadCurrentFacility()
 
         ' Display initial data
         DisplayFacility()
         DisplayEnforcementCase()
-        DisplayLinkedEvent()
 
         ' Programs/Pollutants
         LoadFacilityPollutants()
@@ -167,7 +177,7 @@ Public Class SscpEnforcement
             StipulatedPenaltyControls.Enabled = False
             DocumentUpdateButton.Enabled = False
             LinkToEvent.Enabled = False
-            ClearLinkedEvent.Enabled = False
+            RemoveLinkedEvent.Enabled = False
 
         End If
     End Sub
@@ -178,23 +188,27 @@ Public Class SscpEnforcement
 
     Private Sub ParseParameters()
         If Parameters IsNot Nothing Then
-            If Parameters.ContainsKey(FormParameter.EnforcementId) Then EnforcementId = Parameters(FormParameter.EnforcementId)
+            If Parameters.ContainsKey(FormParameter.EnforcementId) Then EnforcementId = CInt(Parameters(FormParameter.EnforcementId))
             If Parameters.ContainsKey(FormParameter.AirsNumber) Then AirsNumber = Parameters(FormParameter.AirsNumber)
-            If Parameters.ContainsKey(FormParameter.TrackingNumber) Then LinkedEventId = CInt(Parameters(FormParameter.TrackingNumber))
+            If Parameters.ContainsKey(FormParameter.TrackingNumber) Then InitialLinkedEventId = CInt(Parameters(FormParameter.TrackingNumber))
         End If
     End Sub
 
     Private Sub LoadCurrentEnforcement()
-        If EnforcementId Is Nothing Then Exit Sub
+        If EnforcementId = 0 Then Exit Sub
         EnforcementCase = DAL.Sscp.GetEnforcementCase(EnforcementId)
         If EnforcementCase Is Nothing Then
             MessageBox.Show("Invalid enforcement number", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Me.Close()
+            Close()
         End If
         AirsNumber = EnforcementCase.AirsNumber
-        LinkedEventId = EnforcementCase.LinkedWorkItemId
         ShowCorrectTabs()
         LoadDocuments()
+    End Sub
+
+    Private Sub LoadInitialLinkedEvent()
+        Dim workItem As DataRow = DAL.Sscp.GetWorkItemBasics(InitialLinkedEventId)
+        AddLinkedEventToList(workItem)
     End Sub
 
     Private Sub ShowCorrectTabs()
@@ -234,7 +248,7 @@ Public Class SscpEnforcement
         Else
             With EnforcementCase
                 ' Form
-                Text = "Enforcement #" & .EnforcementId & " — " & AirsNumber.FormattedString & ", " & Facility.FacilityName
+                Text = "Enforcement #" & .EnforcementId.ToString() & " — " & AirsNumber.FormattedString & ", " & Facility.FacilityName
                 ShowAuditHistoryMenuItem.Visible = True
                 ShowEpaActionNumbersMenuItem.Visible = True
                 EnforcementToolStripSeparator.Visible = True
@@ -242,7 +256,7 @@ Public Class SscpEnforcement
                 DeleteEnforcementToolStripSeparator.Visible = True
 
                 ' Header
-                EnforcementIdDisplay.Text = "Enforcement #" & .EnforcementId
+                EnforcementIdDisplay.Text = "Enforcement #" & .EnforcementId.ToString()
                 EnforcementStatusDisplay.Visible = True
                 EnforcementStatusDisplay.Text = .EnforcementStatus.GetDescription
                 ColorCodeEnforcementStatusDisplay()
@@ -513,55 +527,124 @@ Public Class SscpEnforcement
 
 #End Region
 
-#Region " General tab: Link work item "
+#Region " General tab: Linked compliance events "
+
+    Private Sub LoadLinkedEvents()
+        Dim dt As DataTable = DAL.Sscp.GetLinkedComplianceEvents(EnforcementId)
+        With LinkedEvents
+            .DataSource = dt
+            .SanelyResizeColumns
+            .ClearSelection()
+        End With
+    End Sub
+
+    Private Sub LinkedEvents_SelectionChanged(sender As Object, e As EventArgs) Handles LinkedEvents.SelectionChanged
+        If LinkedEvents.SelectedRows.Count = 1 Then
+            OpenLinkedEvent.Visible = True
+            RemoveLinkedEvent.Visible = True
+        Else
+            OpenLinkedEvent.Visible = False
+            RemoveLinkedEvent.Visible = False
+        End If
+    End Sub
 
     Private Sub LinkToEvent_Click(sender As Object, e As EventArgs) Handles LinkToEvent.Click
-        OpenEventLinker()
-    End Sub
-
-    Private Sub ClearLinkedEvent_Click(sender As Object, e As EventArgs) Handles ClearLinkedEvent.Click
-        LinkedEventId = 0
-        DisplayLinkedEvent()
-    End Sub
-
-    Private Sub DisplayLinkedEvent()
-        If LinkedEventId = 0 Then
-            LinkedEventDisplay.Visible = False
-            ClearLinkedEvent.Visible = False
-            LinkToEvent.Visible = True
-        Else
-            LinkedEventDisplay.Visible = True
-            ClearLinkedEvent.Visible = True
-            LinkToEvent.Visible = False
-            LinkedEventDisplay.Text = "Discovery Event: " & LinkedEventId.ToString
-            LinkedEventDisplay.LinkArea = New LinkArea(17, LinkedEventId.ToString.Length)
-        End If
-    End Sub
-
-    Private Sub OpenEventLinker()
-        If EnforcementId Is Nothing Then
-            GeneralMessage = New IaipMessage("Current enforcement must be saved before linking a discovery event.", IaipMessage.WarningLevels.Warning)
-            Exit Sub
-        End If
-
         Dim discoveryEventDialog As New SSCPEnforcementChecklist
         With discoveryEventDialog
             .AirsNumber = AirsNumber
             .EnforcementNumber = EnforcementId
-            .SelectedDiscoveryEvent = LinkedEventId
             .ShowDialog()
         End With
 
         If discoveryEventDialog.DialogResult = DialogResult.OK Then
-            LinkedEventId = discoveryEventDialog.SelectedDiscoveryEvent
-            DisplayLinkedEvent()
+            Dim linkedEventId As Integer = discoveryEventDialog.SelectedDiscoveryEvent
+            Dim workItem As DataRow = DAL.Sscp.GetWorkItemBasics(linkedEventId)
+            If workItem Is Nothing Then
+                GeneralMessage = New IaipMessage("No compliance discovery event was selected.", IaipMessage.WarningLevels.Warning)
+            Else
+                If EnforcementId = 0 Then
+                    AddLinkedEventToList(workItem)
+                    GeneralMessage = New IaipMessage("The compliance discovery event was linked. All linked events will be saved when the current enforcement is saved.", IaipMessage.WarningLevels.Success)
+                Else
+                    If SaveLinkedEvent(workItem("Tracking #")) Then
+                        AddLinkedEventToList(workItem)
+                        GeneralMessage = New IaipMessage("The compliance discovery event was linked.", IaipMessage.WarningLevels.Success)
+                    Else
+                        GeneralMessage = New IaipMessage("There was an error linking the compliance discovery event.", IaipMessage.WarningLevels.ErrorReport)
+                    End If
+                End If
+            End If
         End If
 
         discoveryEventDialog.Dispose()
     End Sub
 
-    Private Sub LinkedEventDisplay_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkedEventDisplay.LinkClicked
-        If LinkedEventId > 0 Then OpenFormSscpWorkItem(LinkedEventId)
+    Private Sub AddLinkedEventToList(workItem As DataRow)
+        Dim dt As DataTable = LinkedEvents.DataSource
+        Dim dr As DataRow = dt.NewRow()
+        dr("Tracking #") = workItem("Tracking #")
+        dr("Type") = workItem("Type")
+        dr("Event Date") = workItem("Event Date")
+        dr("AIRS #") = workItem("AIRS #")
+        dr("Date Linked") = Today
+        dt.Rows.Add(dr)
+    End Sub
+
+    Private Sub OpenLinkedEvent_Click(sender As Object, e As EventArgs) Handles OpenLinkedEvent.Click
+        If LinkedEvents.SelectedRows.Count = 1 Then
+            OpenFormSscpWorkItem(LinkedEvents.SelectedRows.Item(0).Cells("Tracking #").Value)
+        End If
+    End Sub
+
+    Private Sub RemoveLinkedEvent_Click(sender As Object, e As EventArgs) Handles RemoveLinkedEvent.Click
+        If LinkedEvents.SelectedRows.Count = 1 Then
+            If EnforcementId = 0 Then
+                LinkedEvents.Rows.RemoveAt(LinkedEvents.CurrentRow.Index)
+                GeneralMessage = New IaipMessage("The linked compliance event was removed.", IaipMessage.WarningLevels.Success)
+            Else
+                If DAL.Sscp.DeleteLinkedComplianceEvent(EnforcementId, LinkedEvents.SelectedRows.Item(0).Cells("Tracking #").Value) Then
+                    LinkedEvents.Rows.RemoveAt(LinkedEvents.CurrentRow.Index)
+                    GeneralMessage = New IaipMessage("The linked compliance event was removed.", IaipMessage.WarningLevels.Success)
+                Else
+                    LoadLinkedEvents()
+                    GeneralMessage = New IaipMessage("An error occurred removing the linked compliance event. Please check the list and try again.", IaipMessage.WarningLevels.ErrorReport)
+                End If
+            End If
+        Else
+            OpenLinkedEvent.Visible = False
+            RemoveLinkedEvent.Visible = False
+        End If
+    End Sub
+
+    Private Function SaveAllLinkedEvents() As Boolean
+        Dim success As Boolean = True
+        For Each row As DataGridViewRow In LinkedEvents.Rows
+            success = success And SaveLinkedEvent(row.Cells("Tracking #").Value)
+        Next
+        Return success
+    End Function
+
+    Private Function SaveLinkedEvent(trackingNumber As Integer) As Boolean
+        Return DAL.Sscp.SaveLinkedComplianceEvent(EnforcementId, trackingNumber)
+    End Function
+
+    Private Sub LinkedEvents_CellFormatting(sender As Object, e As DataGridViewCellFormattingEventArgs) Handles LinkedEvents.CellFormatting
+        If e IsNot Nothing AndAlso e.Value IsNot Nothing AndAlso Not IsDBNull(e.Value) Then
+            If LinkedEvents.Columns(e.ColumnIndex).HeaderText.ToUpper = "AIRS #" AndAlso Apb.ApbFacilityId.IsValidAirsNumberFormat(e.Value) Then
+                e.Value = New Apb.ApbFacilityId(e.Value).FormattedString
+            ElseIf TypeOf e.Value Is Date Then
+                e.CellStyle.Format = DateFormat
+            End If
+        End If
+    End Sub
+
+    Private Sub LinkedEvents_MouseUp(sender As Object, e As MouseEventArgs) Handles LinkedEvents.MouseUp
+        ' See if the left mouse button was clicked
+        If e.Button = MouseButtons.Left Then
+            If LinkedEvents.HitTest(e.X, e.Y).Type = DataGridViewHitTestType.None Then
+                LinkedEvents.ClearSelection()
+            End If
+        End If
     End Sub
 
 #End Region
@@ -576,7 +659,7 @@ Public Class SscpEnforcement
             NovCheckBox.Enabled = False
             ViolationTypeNone.Checked = True
             ViolationTypeGroupbox.Visible = False
-            If Not EnforcementCase.SubmittedToUc And EnforcementId IsNot Nothing Then
+            If Not EnforcementCase.SubmittedToUc And EnforcementId > 0 Then
                 SubmitToUC.Visible = True
             End If
         Else
@@ -628,10 +711,10 @@ Public Class SscpEnforcement
         If enabler = EnableOrDisable.Enable Then
             LonCheckBox.Enabled = False
             ViolationTypeGroupbox.Visible = True
-            If Not EnforcementCase.SubmittedToUc And EnforcementId IsNot Nothing Then
+            If Not EnforcementCase.SubmittedToUc And EnforcementId > 0 Then
                 SubmitToUC.Visible = True
             End If
-            If Not EnforcementCase.SubmittedToEpa And EnforcementId IsNot Nothing Then
+            If Not EnforcementCase.SubmittedToEpa And EnforcementId > 0 Then
                 SubmitToEpa.Visible = True
                 SubmitToEpa2.Visible = True
                 NotSubmittedToEpaLabel.Visible = True
@@ -704,7 +787,7 @@ Public Class SscpEnforcement
 
     Public Sub DisplayEnforcementPollutants()
         ' Pollutants associated with this case
-        If EnforcementId Is Nothing OrElse EnforcementCase Is Nothing Then Exit Sub
+        If EnforcementId = 0 OrElse EnforcementCase Is Nothing Then Exit Sub
         If EnforcementCase.Pollutants IsNot Nothing Then
             For i As Integer = 0 To PollutantsListView.Items.Count - 1
                 If EnforcementCase.Pollutants.Contains(PollutantsListView.Items(i).SubItems(1).Text) Then
@@ -725,7 +808,7 @@ Public Class SscpEnforcement
 
     Private Sub DisplayEnforcementAirPrograms()
         ' Programs associated with this case
-        If EnforcementId Is Nothing OrElse EnforcementCase Is Nothing Then Exit Sub
+        If EnforcementId = 0 OrElse EnforcementCase Is Nothing Then Exit Sub
         If EnforcementCase.AirPrograms IsNot Nothing Then
             For i As Integer = 0 To ProgramsListView.Items.Count - 1
                 If EnforcementCase.AirPrograms.Contains(ProgramsListView.Items(i).SubItems(1).Text) Then
@@ -804,7 +887,7 @@ Public Class SscpEnforcement
     End Sub
 
     Private Sub SaveNewStipulatedPenalty_Click(sender As Object, e As EventArgs) Handles SaveNewStipulatedPenaltyButton.Click
-        If EnforcementId Is Nothing Then
+        If EnforcementId = 0 Then
             GeneralMessage = New IaipMessage("Current enforcement must be saved before saving stipulated penalties.", IaipMessage.WarningLevels.Warning)
         ElseIf String.IsNullOrEmpty(StipulatedPenaltyAmount.Text) Then
             GeneralMessage = New IaipMessage("Enter a stipulated penalty amount first.", IaipMessage.WarningLevels.Warning)
@@ -828,7 +911,7 @@ Public Class SscpEnforcement
     End Sub
 
     Private Sub UpdateStipulatedPenalty_Click(sender As Object, e As EventArgs) Handles UpdateStipulatedPenaltyButton.Click
-        If EnforcementId Is Nothing Then
+        If EnforcementId = 0 Then
             GeneralMessage = New IaipMessage("Current enforcement must be saved before modifying stipulated penalties.", IaipMessage.WarningLevels.Warning)
         ElseIf selectedStipulatedPenaltyItem = 0 Then
             GeneralMessage = New IaipMessage("Select an existing stipulated penalty first.", IaipMessage.WarningLevels.Warning)
@@ -854,7 +937,7 @@ Public Class SscpEnforcement
     End Sub
 
     Private Sub DeleteStipulatedPenalty_Click(sender As Object, e As EventArgs) Handles DeleteStipulatedPenaltyButton.Click
-        If EnforcementId Is Nothing Then
+        If EnforcementId = 0 Then
             GeneralMessage = New IaipMessage("Current enforcement must be saved before modifying stipulated penalties.", IaipMessage.WarningLevels.Warning)
         ElseIf selectedStipulatedPenaltyItem = 0 Then
             GeneralMessage = New IaipMessage("Select an existing stipulated penalty first.", IaipMessage.WarningLevels.Warning)
@@ -1269,9 +1352,21 @@ Public Class SscpEnforcement
             EnforcementId = result
             EnforcementCase.EnforcementId = result
 
-            Dim message As String = "Current data saved."
-            If enforcementIsNew Then message &= vbNewLine & "New enforcement ID: " & EnforcementCase.EnforcementId
-            GeneralMessage = New IaipMessage(message, IaipMessage.WarningLevels.Success)
+            Dim linkedEventSuccess As Boolean = SaveAllLinkedEvents()
+
+            Dim message As String = String.Empty
+
+            If enforcementIsNew Then
+                message = vbNewLine & "New enforcement ID: " & EnforcementCase.EnforcementId.ToString()
+            End If
+
+            If linkedEventSuccess Then
+                message = "Current data saved." & message
+                GeneralMessage = New IaipMessage(message, IaipMessage.WarningLevels.Success)
+            Else
+                message = "Current enforcement data saved, but there was an error saving the linked compliance discovery events." & message
+                GeneralMessage = New IaipMessage(message, IaipMessage.WarningLevels.Warning)
+            End If
 
             DisplayEnforcementCase()
             Return True
@@ -1367,7 +1462,7 @@ Public Class SscpEnforcement
             ValidateViolationType() And
             ValidatePrograms() And
             ValidatePollutants() And
-            ValidateLinkedEvent() And
+            ValidateLinkedEvents() And
             ValidateFacility() And
             ValidatePenaltyAmount()
     End Function
@@ -1409,14 +1504,16 @@ Public Class SscpEnforcement
         Return True
     End Function
 
-    Private Function ValidateLinkedEvent() As Boolean
-        If EnforcementCase.SubmittedToEpa And LinkedEventId = 0 Then
-            Dim dr As DialogResult = MessageBox.Show(
-                "There is no discovery event linked to this enforcement case. Do you want to submit to EPA without an initiating action?",
+    Private Function ValidateLinkedEvents() As Boolean
+        If EnforcementCase.SubmittedToEpa Then
+            If LinkedEvents.Rows.Count = 0 Then
+                Dim dr As DialogResult = MessageBox.Show(
+                "There are no compliance discovery events linked to this enforcement case. Do you want to submit to EPA without an initiating action?",
                 "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
-            If dr = DialogResult.No Then
-                validationErrors.Add(LinkToEvent, "Missing discovery event.")
-                Return False
+                If dr = DialogResult.No Then
+                    validationErrors.Add(LinkToEvent, "Missing discovery event.")
+                    Return False
+                End If
             End If
         End If
         Return True
@@ -1710,7 +1807,7 @@ Public Class SscpEnforcement
 #Region " Delete enforcement data "
 
     Private Sub DeleteEnforcement()
-        If EnforcementId Is Nothing OrElse EnforcementId = 0 Then
+        If EnforcementId = 0 Then
             GeneralMessage = New IaipMessage("Current enforcement must be saved before you can delete it. I know, sounds weird, right?", IaipMessage.WarningLevels.ErrorReport)
             Exit Sub
         End If
@@ -1721,8 +1818,9 @@ Public Class SscpEnforcement
         End If
 
         Dim dr As DialogResult = MessageBox.Show(
-            "Are you sure you want to delete enforcement case #" & EnforcementId.ToString &
-            "? This cannot be undone.",
+            "Are you sure you want to delete enforcement case #" &
+            EnforcementId.ToString & "? " &
+            "This cannot be undone.",
             "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
         If dr = DialogResult.Yes Then
             If DAL.Sscp.DeleteEnforcement(EnforcementId) Then
@@ -1751,7 +1849,6 @@ Public Class SscpEnforcement
             .Comment = GeneralComments.Text
             .DayZeroDate = DetermineDayZeroFromForm()
             .EnforcementId = EnforcementId
-            .LinkedWorkItemId = LinkedEventId
             .Open = Not ResolvedCheckBox.Checked
             .Pollutants = ReadPollutantsFromForm()
             .LegacyAirPrograms = ReadProgramsFromForm()

@@ -886,10 +886,8 @@ Partial Class ISMPTestReports
         Me.Label315 = New System.Windows.Forms.Label()
         Me.chbAcknoledgmentLetterSent = New System.Windows.Forms.CheckBox()
         Me.DTPAcknoledgmentLetterSent = New System.Windows.Forms.DateTimePicker()
-        Me.txtEnforcementNumber = New System.Windows.Forms.TextBox()
         Me.chbEventComplete = New System.Windows.Forms.CheckBox()
         Me.DTPEventCompleteDate = New System.Windows.Forms.DateTimePicker()
-        Me.btnEnforcementProcess = New System.Windows.Forms.Button()
         Me.btnSaveSSCPData = New System.Windows.Forms.Button()
         Me.txtTestReportReceivedbySSCPDate = New System.Windows.Forms.TextBox()
         Me.Label320 = New System.Windows.Forms.Label()
@@ -907,6 +905,7 @@ Partial Class ISMPTestReports
         Me.Label326 = New System.Windows.Forms.Label()
         Me.txtTestReportDueDate = New System.Windows.Forms.TextBox()
         Me.DeletedTestFlag = New System.Windows.Forms.Label()
+        Me.llEnforcementCases = New System.Windows.Forms.LinkLabel()
         Me.MenuStrip1.SuspendLayout()
         Me.ToolStrip1.SuspendLayout()
         CType(Me.SCTestReports, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -9774,16 +9773,15 @@ Partial Class ISMPTestReports
         'TPSSCPWork
         '
         Me.TPSSCPWork.AutoScroll = True
+        Me.TPSSCPWork.Controls.Add(Me.llEnforcementCases)
         Me.TPSSCPWork.Controls.Add(Me.cboStaffResponsible)
         Me.TPSSCPWork.Controls.Add(Me.Label223)
         Me.TPSSCPWork.Controls.Add(Me.txtTrackingNumber)
         Me.TPSSCPWork.Controls.Add(Me.Label315)
         Me.TPSSCPWork.Controls.Add(Me.chbAcknoledgmentLetterSent)
         Me.TPSSCPWork.Controls.Add(Me.DTPAcknoledgmentLetterSent)
-        Me.TPSSCPWork.Controls.Add(Me.txtEnforcementNumber)
         Me.TPSSCPWork.Controls.Add(Me.chbEventComplete)
         Me.TPSSCPWork.Controls.Add(Me.DTPEventCompleteDate)
-        Me.TPSSCPWork.Controls.Add(Me.btnEnforcementProcess)
         Me.TPSSCPWork.Controls.Add(Me.btnSaveSSCPData)
         Me.TPSSCPWork.Controls.Add(Me.txtTestReportReceivedbySSCPDate)
         Me.TPSSCPWork.Controls.Add(Me.Label320)
@@ -9813,7 +9811,7 @@ Partial Class ISMPTestReports
         Me.cboStaffResponsible.Location = New System.Drawing.Point(118, 61)
         Me.cboStaffResponsible.Name = "cboStaffResponsible"
         Me.cboStaffResponsible.Size = New System.Drawing.Size(204, 21)
-        Me.cboStaffResponsible.TabIndex = 502
+        Me.cboStaffResponsible.TabIndex = 3
         '
         'Label223
         '
@@ -9831,7 +9829,7 @@ Partial Class ISMPTestReports
         Me.txtTrackingNumber.Name = "txtTrackingNumber"
         Me.txtTrackingNumber.ReadOnly = True
         Me.txtTrackingNumber.Size = New System.Drawing.Size(69, 20)
-        Me.txtTrackingNumber.TabIndex = 420
+        Me.txtTrackingNumber.TabIndex = 1
         '
         'Label315
         '
@@ -9849,7 +9847,7 @@ Partial Class ISMPTestReports
         Me.chbAcknoledgmentLetterSent.Location = New System.Drawing.Point(397, 65)
         Me.chbAcknoledgmentLetterSent.Name = "chbAcknoledgmentLetterSent"
         Me.chbAcknoledgmentLetterSent.Size = New System.Drawing.Size(133, 17)
-        Me.chbAcknoledgmentLetterSent.TabIndex = 505
+        Me.chbAcknoledgmentLetterSent.TabIndex = 4
         Me.chbAcknoledgmentLetterSent.Text = "Acknowledgment Sent"
         '
         'DTPAcknoledgmentLetterSent
@@ -9859,17 +9857,8 @@ Partial Class ISMPTestReports
         Me.DTPAcknoledgmentLetterSent.Location = New System.Drawing.Point(542, 63)
         Me.DTPAcknoledgmentLetterSent.Name = "DTPAcknoledgmentLetterSent"
         Me.DTPAcknoledgmentLetterSent.Size = New System.Drawing.Size(100, 20)
-        Me.DTPAcknoledgmentLetterSent.TabIndex = 506
+        Me.DTPAcknoledgmentLetterSent.TabIndex = 5
         Me.DTPAcknoledgmentLetterSent.Value = New Date(2005, 4, 21, 0, 0, 0, 0)
-        '
-        'txtEnforcementNumber
-        '
-        Me.txtEnforcementNumber.Location = New System.Drawing.Point(541, 35)
-        Me.txtEnforcementNumber.Name = "txtEnforcementNumber"
-        Me.txtEnforcementNumber.ReadOnly = True
-        Me.txtEnforcementNumber.Size = New System.Drawing.Size(77, 20)
-        Me.txtEnforcementNumber.TabIndex = 412
-        Me.txtEnforcementNumber.Visible = False
         '
         'chbEventComplete
         '
@@ -9887,16 +9876,7 @@ Partial Class ISMPTestReports
         Me.DTPEventCompleteDate.Location = New System.Drawing.Point(84, 9)
         Me.DTPEventCompleteDate.Name = "DTPEventCompleteDate"
         Me.DTPEventCompleteDate.Size = New System.Drawing.Size(100, 20)
-        Me.DTPEventCompleteDate.TabIndex = 501
-        '
-        'btnEnforcementProcess
-        '
-        Me.btnEnforcementProcess.Location = New System.Drawing.Point(386, 34)
-        Me.btnEnforcementProcess.Name = "btnEnforcementProcess"
-        Me.btnEnforcementProcess.Size = New System.Drawing.Size(144, 23)
-        Me.btnEnforcementProcess.TabIndex = 413
-        Me.btnEnforcementProcess.Text = "Enforcement Process"
-        Me.btnEnforcementProcess.Visible = False
+        Me.DTPEventCompleteDate.TabIndex = 0
         '
         'btnSaveSSCPData
         '
@@ -9914,7 +9894,7 @@ Partial Class ISMPTestReports
         Me.txtTestReportReceivedbySSCPDate.Name = "txtTestReportReceivedbySSCPDate"
         Me.txtTestReportReceivedbySSCPDate.ReadOnly = True
         Me.txtTestReportReceivedbySSCPDate.Size = New System.Drawing.Size(137, 20)
-        Me.txtTestReportReceivedbySSCPDate.TabIndex = 408
+        Me.txtTestReportReceivedbySSCPDate.TabIndex = 6
         '
         'Label320
         '
@@ -9983,7 +9963,7 @@ Partial Class ISMPTestReports
         Me.DTPTestReportDueDate.Location = New System.Drawing.Point(180, 156)
         Me.DTPTestReportDueDate.Name = "DTPTestReportDueDate"
         Me.DTPTestReportDueDate.Size = New System.Drawing.Size(100, 20)
-        Me.DTPTestReportDueDate.TabIndex = 504
+        Me.DTPTestReportDueDate.TabIndex = 11
         Me.DTPTestReportDueDate.Value = New Date(2005, 4, 21, 0, 0, 0, 0)
         '
         'chbTestReportChangeDueDate
@@ -9992,7 +9972,7 @@ Partial Class ISMPTestReports
         Me.chbTestReportChangeDueDate.Location = New System.Drawing.Point(39, 156)
         Me.chbTestReportChangeDueDate.Name = "chbTestReportChangeDueDate"
         Me.chbTestReportChangeDueDate.Size = New System.Drawing.Size(135, 17)
-        Me.chbTestReportChangeDueDate.TabIndex = 503
+        Me.chbTestReportChangeDueDate.TabIndex = 10
         Me.chbTestReportChangeDueDate.Text = "Change Required Date"
         '
         'DTPTestReportNewDueDate
@@ -10002,7 +9982,7 @@ Partial Class ISMPTestReports
         Me.DTPTestReportNewDueDate.Location = New System.Drawing.Point(558, 131)
         Me.DTPTestReportNewDueDate.Name = "DTPTestReportNewDueDate"
         Me.DTPTestReportNewDueDate.Size = New System.Drawing.Size(100, 20)
-        Me.DTPTestReportNewDueDate.TabIndex = 507
+        Me.DTPTestReportNewDueDate.TabIndex = 9
         Me.DTPTestReportNewDueDate.Value = New Date(2005, 4, 21, 0, 0, 0, 0)
         '
         'Label325
@@ -10011,7 +9991,7 @@ Partial Class ISMPTestReports
         Me.Label325.Location = New System.Drawing.Point(386, 136)
         Me.Label325.Name = "Label325"
         Me.Label325.Size = New System.Drawing.Size(160, 13)
-        Me.Label325.TabIndex = 400
+        Me.Label325.TabIndex = 8
         Me.Label325.Text = "Date for Next Performance Test:"
         '
         'txtTestReportComments
@@ -10022,7 +10002,7 @@ Partial Class ISMPTestReports
         Me.txtTestReportComments.Multiline = True
         Me.txtTestReportComments.Name = "txtTestReportComments"
         Me.txtTestReportComments.Size = New System.Drawing.Size(615, 88)
-        Me.txtTestReportComments.TabIndex = 508
+        Me.txtTestReportComments.TabIndex = 12
         '
         'Label326
         '
@@ -10039,7 +10019,7 @@ Partial Class ISMPTestReports
         Me.txtTestReportDueDate.Name = "txtTestReportDueDate"
         Me.txtTestReportDueDate.ReadOnly = True
         Me.txtTestReportDueDate.Size = New System.Drawing.Size(120, 20)
-        Me.txtTestReportDueDate.TabIndex = 397
+        Me.txtTestReportDueDate.TabIndex = 7
         '
         'DeletedTestFlag
         '
@@ -10051,6 +10031,17 @@ Partial Class ISMPTestReports
         Me.DeletedTestFlag.TabIndex = 465
         Me.DeletedTestFlag.Text = "TEST REPORT IS FLAGGED AS DELETED"
         Me.DeletedTestFlag.Visible = False
+        '
+        'llEnforcementCases
+        '
+        Me.llEnforcementCases.AutoSize = True
+        Me.llEnforcementCases.Location = New System.Drawing.Point(205, 38)
+        Me.llEnforcementCases.Name = "llEnforcementCases"
+        Me.llEnforcementCases.Size = New System.Drawing.Size(101, 13)
+        Me.llEnforcementCases.TabIndex = 2
+        Me.llEnforcementCases.TabStop = True
+        Me.llEnforcementCases.Text = "Enforcement cases:"
+        Me.llEnforcementCases.Visible = False
         '
         'ISMPTestReports
         '
@@ -10975,10 +10966,8 @@ End Sub
     Friend WithEvents Label315 As System.Windows.Forms.Label
     Friend WithEvents chbAcknoledgmentLetterSent As System.Windows.Forms.CheckBox
     Friend WithEvents DTPAcknoledgmentLetterSent As System.Windows.Forms.DateTimePicker
-    Friend WithEvents txtEnforcementNumber As System.Windows.Forms.TextBox
     Friend WithEvents chbEventComplete As System.Windows.Forms.CheckBox
     Friend WithEvents DTPEventCompleteDate As System.Windows.Forms.DateTimePicker
-    Friend WithEvents btnEnforcementProcess As System.Windows.Forms.Button
     Friend WithEvents btnSaveSSCPData As System.Windows.Forms.Button
     Friend WithEvents txtTestReportReceivedbySSCPDate As System.Windows.Forms.TextBox
     Friend WithEvents Label320 As System.Windows.Forms.Label
@@ -11018,4 +11007,5 @@ End Sub
     Friend WithEvents lblMemoEntered As System.Windows.Forms.Label
     Friend WithEvents DeletedTestFlag As System.Windows.Forms.Label
     Friend WithEvents cboUnitManager As ComboBox
+    Friend WithEvents llEnforcementCases As LinkLabel
 End Class

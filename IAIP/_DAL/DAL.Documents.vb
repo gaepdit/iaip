@@ -82,7 +82,7 @@ Namespace DAL
 
 #Region "Retrieve Enforcement Documents"
 
-        Public Function GetEnforcementDocumentsAsList(enfNum As String) As List(Of EnforcementDocument)
+        Public Function GetEnforcementDocumentsAsList(enfNum As Integer) As List(Of EnforcementDocument)
             Dim docsList As New List(Of EnforcementDocument)
             Dim doc As New EnforcementDocument
 
@@ -96,7 +96,7 @@ Namespace DAL
             Return docsList
         End Function
 
-        Public Function GetEnforcementDocumentsAsTable(enfNum As String) As DataTable
+        Public Function GetEnforcementDocumentsAsTable(enfNum As Integer) As DataTable
             Dim query As String =
                 " SELECT " &
                 "   IAIP_LK_SSCPDOCUMENTTYPE.STRDOCUMENTTYPE, " &
