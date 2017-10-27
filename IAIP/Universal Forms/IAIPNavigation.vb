@@ -102,7 +102,7 @@ Public Class IAIPNavigation
                 pnlDbEnv.BackColor = Color.SpringGreen
                 pnlDbEnv.Visible = True
                 lblTitle.Text = "IAIP Navigation Screen — UAT"
-                TestingMenu.Visible = True
+                'TestingMenu.Visible = True
         End Select
 
 #If SqlServer Then
@@ -918,10 +918,7 @@ Public Class IAIPNavigation
 #Region " Testing Menu click events "
 
     Private Sub RunTest_Click(sender As Object, e As EventArgs) Handles RunTest.Click
-        Dim StaffReports As New ISMPStaffReports
-        StaffReports.Show()
-
-        'Throw New Exception("Unhandled exception testing")
+        Throw New Exception("Unhandled exception testing")
     End Sub
 
 #End Region
