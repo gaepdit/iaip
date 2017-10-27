@@ -6574,8 +6574,7 @@ Public Class PASPFeeStatistics
                         "INNER JOIN APBfacilityInformation AS af ON Invoices.STRAIRSNUMBER = af.STRAIRSNUMBER " &
                         "LEFT JOIN (SELECT fa.STRAIRSNUMBER, fa.NUMTOTALFEE " &
                         "FROM FS_FeeAuditedData AS fa " &
-                        "WHERE fa.NUMFEEYEAR = @year AND fa.ACTIVE = '1') AS Reported ON Invoices.STRAIRSNUMBER = Reported.STRAIRSNUMBER) AS allData " &
-                        "ORDER BY strairsnumber "
+                        "WHERE fa.NUMFEEYEAR = @year AND fa.ACTIVE = '1') AS Reported ON Invoices.STRAIRSNUMBER = Reported.STRAIRSNUMBER) AS allData "
 
                 Case "ANNUAL"
                     SQL = "SELECT SUBSTRING(allData.STRAIRSNUMBER, 5, 8) AS strAIRSNumber, allData.STRFACILITYNAME, allData.NUMFEEYEAR, allData.Payment, allData.AmountOwed, allData.Balance, allData.PayType, allData.FeeReported " &
@@ -6594,8 +6593,7 @@ Public Class PASPFeeStatistics
                         "INNER JOIN APBfacilityInformation AS af ON Invoices.STRAIRSNUMBER = af.STRAIRSNUMBER " &
                         "LEFT JOIN (SELECT fa.STRAIRSNUMBER, fa.NUMTOTALFEE " &
                         "FROM FS_FeeAuditedData AS fa " &
-                        "WHERE fa.NUMFEEYEAR = @year AND fa.ACTIVE = '1') AS Reported ON Invoices.STRAIRSNUMBER = Reported.STRAIRSNUMBER) AS allData " &
-                        "ORDER BY strairsnumber "
+                        "WHERE fa.NUMFEEYEAR = @year AND fa.ACTIVE = '1') AS Reported ON Invoices.STRAIRSNUMBER = Reported.STRAIRSNUMBER) AS allData "
 
                 Case "ALL QUARTERS"
                     SQL = "SELECT SUBSTRING(allData.STRAIRSNUMBER, 5, 8) AS strAIRSNumber, allData.STRFACILITYNAME, allData.NUMFEEYEAR, allData.Payment, allData.AmountOwed, allData.Balance, allData.PayType, allData.FeeReported " &
@@ -6614,8 +6612,7 @@ Public Class PASPFeeStatistics
                         "INNER JOIN APBfacilityInformation ON Invoices.STRAIRSNUMBER = APBfacilityInformation.STRAIRSNUMBER " &
                         "LEFT JOIN (SELECT fa.STRAIRSNUMBER, fa.NUMTOTALFEE " &
                         "FROM FS_FeeAuditedData AS fa " &
-                        "WHERE fa.NUMFEEYEAR = @year AND fa.ACTIVE = '1') AS Reported ON Invoices.STRAIRSNUMBER = Reported.STRAIRSNUMBER) AS allData " &
-                        "ORDER BY strairsnumber "
+                        "WHERE fa.NUMFEEYEAR = @year AND fa.ACTIVE = '1') AS Reported ON Invoices.STRAIRSNUMBER = Reported.STRAIRSNUMBER) AS allData "
 
                 Case "QUARTER ONE"
                     SQL = "SELECT SUBSTRING(allData.STRAIRSNUMBER, 5, 8) AS strAIRSNumber, allData.STRFACILITYNAME, allData.NUMFEEYEAR, allData.Payment, allData.AmountOwed, allData.Balance, allData.PayType, allData.FeeReported " &
@@ -6635,8 +6632,7 @@ Public Class PASPFeeStatistics
                         "INNER JOIN APBfacilityInformation AS af ON Invoices.STRAIRSNUMBER = af.STRAIRSNUMBER " &
                         "LEFT JOIN (SELECT fa.STRAIRSNUMBER, fa.NUMTOTALFEE " &
                         "FROM FS_FeeAuditedData AS fa " &
-                        "WHERE fa.NUMFEEYEAR = @year AND fa.ACTIVE = '1') AS Reported ON Invoices.STRAIRSNUMBER = Reported.STRAIRSNUMBER) AS allData " &
-                        "ORDER BY strairsnumber "
+                        "WHERE fa.NUMFEEYEAR = @year AND fa.ACTIVE = '1') AS Reported ON Invoices.STRAIRSNUMBER = Reported.STRAIRSNUMBER) AS allData "
 
                 Case "QUARTER TWO"
                     SQL = "SELECT SUBSTRING(allData.STRAIRSNUMBER, 5, 8) AS strAIRSNumber, allData.STRFACILITYNAME, allData.NUMFEEYEAR, allData.Payment, allData.AmountOwed, allData.Balance, allData.PayType, allData.FeeReported " &
@@ -6656,8 +6652,7 @@ Public Class PASPFeeStatistics
                         "INNER JOIN APBfacilityInformation AS af ON Invoices.STRAIRSNUMBER = af.STRAIRSNUMBER " &
                         "LEFT JOIN (SELECT fa.STRAIRSNUMBER, fa.NUMTOTALFEE " &
                         "FROM FS_FeeAuditedData AS fa " &
-                        "WHERE fa.NUMFEEYEAR = @year AND fa.ACTIVE = '1') AS Reported ON Invoices.STRAIRSNUMBER = Reported.STRAIRSNUMBER) AS allData " &
-                        "ORDER BY strairsnumber "
+                        "WHERE fa.NUMFEEYEAR = @year AND fa.ACTIVE = '1') AS Reported ON Invoices.STRAIRSNUMBER = Reported.STRAIRSNUMBER) AS allData "
 
                 Case "QUARTER THREE"
                     SQL = "SELECT SUBSTRING(allData.STRAIRSNUMBER, 5, 8) AS strAIRSNumber, allData.STRFACILITYNAME, allData.NUMFEEYEAR, allData.Payment, allData.AmountOwed, allData.Balance, allData.PayType, allData.FeeReported " &
@@ -6677,8 +6672,7 @@ Public Class PASPFeeStatistics
                         "INNER JOIN APBfacilityInformation AS af ON Invoices.STRAIRSNUMBER = af.STRAIRSNUMBER " &
                         "LEFT JOIN (SELECT fa.STRAIRSNUMBER, fa.NUMTOTALFEE " &
                         "FROM FS_FeeAuditedData AS fa " &
-                        "WHERE fa.NUMFEEYEAR = @year AND fa.ACTIVE = '1') AS Reported ON Invoices.STRAIRSNUMBER = Reported.STRAIRSNUMBER) AS allData " &
-                        "ORDER BY strairsnumber "
+                        "WHERE fa.NUMFEEYEAR = @year AND fa.ACTIVE = '1') AS Reported ON Invoices.STRAIRSNUMBER = Reported.STRAIRSNUMBER) AS allData "
 
                 Case "QUARTER FOUR"
                     SQL = "SELECT SUBSTRING(allData.STRAIRSNUMBER, 5, 8) AS strAIRSNumber, allData.STRFACILITYNAME, allData.NUMFEEYEAR, allData.Payment, allData.AmountOwed, allData.Balance, allData.PayType, allData.FeeReported " &
@@ -6698,8 +6692,7 @@ Public Class PASPFeeStatistics
                         "INNER JOIN APBfacilityInformation AS af ON Invoices.STRAIRSNUMBER = af.STRAIRSNUMBER " &
                         "LEFT JOIN (SELECT fa.STRAIRSNUMBER, fa.NUMTOTALFEE " &
                         "FROM FS_FeeAuditedData AS fa " &
-                        "WHERE fa.NUMFEEYEAR = @year AND fa.ACTIVE = '1') AS Reported ON Invoices.STRAIRSNUMBER = Reported.STRAIRSNUMBER) AS allData " &
-                        "ORDER BY strairsnumber "
+                        "WHERE fa.NUMFEEYEAR = @year AND fa.ACTIVE = '1') AS Reported ON Invoices.STRAIRSNUMBER = Reported.STRAIRSNUMBER) AS allData "
 
                 Case Else
                     SQL = "SELECT SUBSTRING(allData.STRAIRSNUMBER, 5, 8) AS strAIRSNumber, allData.STRFACILITYNAME, allData.NUMFEEYEAR, allData.Payment, allData.AmountOwed, allData.Balance, allData.PayType, allData.FeeReported " &
@@ -6718,14 +6711,15 @@ Public Class PASPFeeStatistics
                         "INNER JOIN APBfacilityInformation AS af ON Invoices.STRAIRSNUMBER = af.STRAIRSNUMBER " &
                         "LEFT JOIN (SELECT fa.STRAIRSNUMBER, fa.NUMTOTALFEE " &
                         "FROM FS_FeeAuditedData AS fa " &
-                        "WHERE fa.NUMFEEYEAR = @year AND fa.ACTIVE = '1') AS Reported ON Invoices.STRAIRSNUMBER = Reported.STRAIRSNUMBER) AS allData " &
-                        "ORDER BY strairsnumber "
+                        "WHERE fa.NUMFEEYEAR = @year AND fa.ACTIVE = '1') AS Reported ON Invoices.STRAIRSNUMBER = Reported.STRAIRSNUMBER) AS allData "
 
             End Select
 
             If chbNonZeroBalance.Checked = True Then
-                SQL = SQL & " where balance <> 0   "
+                SQL = SQL & " where balance <> 0 "
             End If
+
+            SQL = SQL & " ORDER BY strairsnumber "
 
             Dim p As New SqlParameter("@year", cboStatYear.Text)
 

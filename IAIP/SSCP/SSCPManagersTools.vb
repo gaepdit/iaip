@@ -2450,13 +2450,11 @@ Public Class SSCPManagersTools
                         "where strAIRSNumber = @airs " &
                         "and intYear = @year "
                 Else
+                    'Modified by TK for Jira issue: IAIP-603 "Syntax errors in SSCP Managers Tools" - 10/5/2017
                     SQL = "Insert into SSCPInspectionsRequired " &
-                        "(numKey, strAIRSNumber, intYear, " &
-                        "strInspectionRequired, strAssigningManager, datAssigningDate) " &
+                        "(numKey, strAIRSNumber, intYear, strInspectionRequired, strAssigningManager, datAssigningDate) " &
                         "values " &
-                        "((select max(numKey) + 1 from SSCPInspectionsRequired), " &
-                        "(@airs, @year, " &
-                        " @i, @mgr,  GETDATE() ) "
+                        "((select max(numKey) + 1 from SSCPInspectionsRequired), @airs, @year, @i, @mgr,  GETDATE())"
                 End If
 
                 Dim parameters As SqlParameter() = {
@@ -2497,15 +2495,13 @@ Public Class SSCPManagersTools
                         "strAssigningManager = @mgr, " &
                         "datAssigningDate =  GETDATE()  " &
                         "where strAIRSNumber = @airs " &
-                        "and intYear = @year "
+                        "And intYear = @year "
                 Else
-                    SQL = "Insert into SSCPInspectionsRequired " &
-                        "(numKey, strAIRSNumber, intYear, " &
-                        "strFCERequired, strAssigningManager, datAssigningDate) " &
+                    'Modified by TK for Jira issue: IAIP-603 "Syntax errors in SSCP Managers Tools" - 10/5/2017
+                    SQL = "Insert into SSCPInspectionsRequired" &
+                        "(numKey, strAIRSNumber, intYear, strFCERequired, strAssigningManager, datAssigningDate) " &
                         "values " &
-                        "((select max(numKey) + 1 from SSCPInspectionsRequired), " &
-                        "(@airs, @year, " &
-                        " @i, @mgr,  GETDATE() ) "
+                        "((select max(numKey) + 1 from SSCPInspectionsRequired), @airs, @year, @i, @mgr, GETDATE())"
                 End If
 
                 Dim parameters As SqlParameter() = {
@@ -2557,7 +2553,7 @@ Public Class SSCPManagersTools
 
                     lblSelectedCount.Text = "Count: " & dgvSelectedFacilityList.Rows.Count.ToString
                 Else
-                    MsgBox("AIRS # does not exist in the database.", MsgBoxStyle.Exclamation, "SSCP Managers Tools")
+                    MsgBox("AIRS # does Not exist in the database.", MsgBoxStyle.Exclamation, "SSCP Managers Tools")
                 End If
             Else
                 MsgBox("Invalid AIRS #.", MsgBoxStyle.Exclamation, "SSCP Managers Tools")

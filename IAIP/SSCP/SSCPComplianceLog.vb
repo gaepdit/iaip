@@ -695,7 +695,8 @@ Public Class SSCPComplianceLog
     End Sub
 
     Private Sub btnAddNewEnTry_Click(sender As Object, e As EventArgs) Handles btnAddNewEntry.Click
-        If Apb.ApbFacilityId.IsValidAirsNumberFormat(txtNewAIRSNumber.Text) Then
+        If Apb.ApbFacilityId.IsValidAirsNumberFormat(txtNewAIRSNumber.Text) _
+            AndAlso DAL.AirsNumberExists(txtNewAIRSNumber.Text) Then
             AddNewEvent()
         Else
             MsgBox("Invalid AIRS Number.", MsgBoxStyle.Information, "Work Entry")
