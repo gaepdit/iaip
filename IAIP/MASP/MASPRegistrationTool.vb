@@ -492,7 +492,7 @@ Public Class MASPRegistrationTool
             dgvRegistrationManagement.AllowUserToAddRows = False
             dgvRegistrationManagement.AllowUserToDeleteRows = False
             dgvRegistrationManagement.AllowUserToOrderColumns = True
-            dgvRegistrationManagement.AllowUserToResizeRows = True
+            dgvRegistrationManagement.AllowUserToResizeRows = False
 
 
             dgvRegistrationManagement.Columns("numRes_registrationID").HeaderText = "ID"
