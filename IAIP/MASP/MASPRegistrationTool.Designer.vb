@@ -674,6 +674,7 @@ Partial Class MASPRegistrationTool
         '
         Me.dgvOverviewRegistrants.AllowUserToAddRows = False
         Me.dgvOverviewRegistrants.AllowUserToDeleteRows = False
+        Me.dgvOverviewRegistrants.AllowUserToResizeRows = False
         Me.dgvOverviewRegistrants.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvOverviewRegistrants.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvOverviewRegistrants.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
@@ -1065,6 +1066,7 @@ Partial Class MASPRegistrationTool
         '
         Me.dgvRegistrationManagement.AllowUserToAddRows = False
         Me.dgvRegistrationManagement.AllowUserToDeleteRows = False
+        Me.dgvRegistrationManagement.AllowUserToResizeRows = False
         Me.dgvRegistrationManagement.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvRegistrationManagement.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvRegistrationManagement.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
@@ -1456,6 +1458,7 @@ Partial Class MASPRegistrationTool
         Me.dgvEvents.AllowUserToAddRows = False
         Me.dgvEvents.AllowUserToDeleteRows = False
         Me.dgvEvents.AllowUserToOrderColumns = True
+        Me.dgvEvents.AllowUserToResizeRows = False
         Me.dgvEvents.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvEvents.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvEvents.Location = New System.Drawing.Point(0, 0)

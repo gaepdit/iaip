@@ -572,7 +572,7 @@ Public Class MASPRegistrationTool
             resultcode = 1
 
             resultcode = MessageBox.Show("This will create a new Event." & vbCrLf &
-                  "Click Ok to create a new event.", Me.Text,
+                  "Click OK to create a new event.", Me.Text,
                   MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
             If resultcode = DialogResult.OK Then
                 Insert_RES_Event(cboEventStatus.SelectedValue, txtEventTitle.Text, txtEventDescription.Text,
@@ -632,7 +632,7 @@ Public Class MASPRegistrationTool
         Try
             If Update_RES_Event(selectedEventId,
                                 "", "", "",
-                              "", "", "",
+                             "", "", "",
                              "", "", "",
                              "", "", "",
                              "", "", "",
