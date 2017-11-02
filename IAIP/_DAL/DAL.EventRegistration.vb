@@ -166,29 +166,31 @@ Namespace DAL
 #Region "Event Registrants"
 
         Public Function GetRegistrantsByEventId(id As Integer) As DataTable
-            Dim query As String =
-                " SELECT RES_REGISTRATION.NUMRES_REGISTRATIONID, " &
-                "   RES_REGISTRATION.DATREGISTRATIONDATETIME, " &
-                "   RES_REGISTRATION.STRCOMMENTS, " &
-                "   RESLK_REGISTRATIONSTATUS.STRREGISTRATIONSTATUS, " &
-                "   OLAPUSERPROFILE.STRFIRSTNAME, " &
-                "   OLAPUSERPROFILE.STRLASTNAME, " &
-                "   OLAPUSERLOGIN.STRUSEREMAIL, " &
-                "   OLAPUSERPROFILE.STRCOMPANYNAME, " &
-                "   OLAPUSERPROFILE.STRPHONENUMBER, " &
-                "   RES_REGISTRATION.NUMREGISTRATIONSTATUSCODE " &
-                " FROM RES_REGISTRATION, " &
-                "   OLAPUSERPROFILE, " &
-                "   OLAPUSERLOGIN, " &
-                "   RESLK_REGISTRATIONSTATUS " &
-                " WHERE RES_REGISTRATION.NUMGECOUSERID           = OLAPUSERPROFILE.NUMUSERID " &
-                " AND RES_REGISTRATION.NUMREGISTRATIONSTATUSCODE = RESLK_REGISTRATIONSTATUS.NUMRESLK_REGISTRATIONSTATUSID " &
-                " AND RES_REGISTRATION.NUMGECOUSERID             = OLAPUSERLOGIN.NUMUSERID " &
-                " AND convert(int,RES_REGISTRATION.NUMRES_EVENTID)           = @pId "
+            Try
+                Dim query As String =
+                "Select RR.NUMRES_REGISTRATIONID,
+                        RR.DATREGISTRATIONDATETIME,
+                        RR.STRCOMMENTS,
+                        RESLK.STRREGISTRATIONSTATUS,
+                        OPROF.STRFIRSTNAME,
+                        OPROF.STRLASTNAME,
+                        RR.UPDATEUSER As STRUSEREMAIL,
+                        OPROF.STRCOMPANYNAME,
+                        OPROF.STRPHONENUMBER,
+                        RR.NUMREGISTRATIONSTATUSCODE
+                From RES_REGISTRATION RR
+                        Left Join RESLK_REGISTRATIONSTATUS RESLK ON RR.NUMREGISTRATIONSTATUSCODE = RESLK.NUMRESLK_REGISTRATIONSTATUSID
+                        Left Join OLAPUSERPROFILE OPROF ON RR.NUMGECOUSERID = OPROF.NUMUSERID
+                WHERE Convert(Int, RR.NUMRES_EVENTID) = @pId"
 
-            Dim parameter As New SqlParameter("@pId", id)
+                Dim parameter As New SqlParameter("@pId", id)
 
-            Return DB.GetDataTable(query, parameter)
+                Return DB.GetDataTable(query, parameter)
+
+            Catch ex As Exception
+                ErrorReport(ex, "Module DAL.EventRegistrationData." & Reflection.MethodBase.GetCurrentMethod.Name)
+                Return Nothing
+            End Try
         End Function
 
 #End Region
