@@ -5189,9 +5189,6 @@ Public Class ISMPTestReports
                 mmiOpenTestLogNotification.Visible = False
                 mmiOpenExcelFile.Visible = False
                 tsbDelete.Visible = False
-                If txtEnforcementNumber.Text = "" Or txtEnforcementNumber.Text = "N/A" Then
-                    btnEnforcementProcess.Visible = False
-                End If
                 If txtCompleteDate.Text = "" Then
                     TCDocumentTypes.Visible = False
                 End If
@@ -8250,29 +8247,7 @@ Public Class ISMPTestReports
                     End If
                 End If
 
-                query = "Select strEnforcementNumber " &
-                "from SSCP_AuditedEnforcement " &
-                "where convert(int,strTrackingNumber) = convert(int,@track) "
-
-                Dim p2 As New SqlParameter("@track", txtTrackingNumber.Text)
-
-                Dim dr2 As DataRow = DB.GetDataRow(query, p2)
-
-                If dr2 IsNot Nothing Then
-                    If IsDBNull(dr2.Item("strEnforcementNumber")) Then
-                        txtEnforcementNumber.Text = ""
-                        txtEnforcementNumber.Visible = False
-                        btnEnforcementProcess.Visible = False
-                    Else
-                        txtEnforcementNumber.Text = dr2.Item("strEnforcementNumber")
-                        txtEnforcementNumber.Visible = True
-                        btnEnforcementProcess.Visible = True
-                    End If
-                Else
-                    txtEnforcementNumber.Text = ""
-                    txtEnforcementNumber.Visible = False
-                    btnEnforcementProcess.Visible = False
-                End If
+                DisplayEnforcementCases()
 
                 query = "Select datSSCPTestReportDue " &
                 "from APBSupplamentalData " &
@@ -8936,7 +8911,8 @@ Public Class ISMPTestReports
 
             DTPEventCompleteDate.Value = Today
             txtTrackingNumber.Clear()
-            txtEnforcementNumber.Clear()
+            llEnforcementCases.Visible = False
+            llEnforcementCases.Text = "Enforcement cases:"
             cboStaffResponsible.SelectedValue = 0
             DTPAcknoledgmentLetterSent.Value = Today
             txtTestReportReceivedbySSCPDate.Clear()
@@ -13907,11 +13883,35 @@ Public Class ISMPTestReports
         Finally
         End Try
     End Sub
-    Private Sub OpenEnforcement()
-        If txtEnforcementNumber.Text <> "" And txtEnforcementNumber.Text <> "N/A" Then
-            OpenFormEnforcement(txtEnforcementNumber.Text)
+
+    Private Sub llEnforcementCases_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llEnforcementCases.LinkClicked
+        OpenFormEnforcement(e.Link.LinkData)
+    End Sub
+
+    Private Sub DisplayEnforcementCases()
+        Dim dt As DataTable = DAL.Sscp.GetAllEnforcementForTrackingNumber(txtTrackingNumber.Text)
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 Then
+            llEnforcementCases.Links.Clear()
+            Dim i As Int16 = 0
+            For Each row As DataRow In dt.Rows
+                i += 1
+                Dim enfNum As String = row(0).ToString()
+                Dim start As Int16 = llEnforcementCases.Text.Length + 1
+                Dim linkLength As Int16 = enfNum.Length
+                llEnforcementCases.Text &= " " & enfNum
+                llEnforcementCases.Links.Add(start, linkLength, enfNum)
+                If i < dt.Rows.Count Then
+                    llEnforcementCases.Text &= ","
+                End If
+            Next
+            llEnforcementCases.Visible = True
+            llEnforcementCases.TabStop = True
+        Else
+            llEnforcementCases.Visible = False
+            llEnforcementCases.Text = "Enforcement cases:"
         End If
     End Sub
+
     Public Sub LoadConfidentialData(ConfidentialData As String)
         Try
             If Mid(ConfidentialData, 3, 1) = "1" Then
@@ -21405,16 +21405,6 @@ Public Class ISMPTestReports
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
-    End Sub
-    Private Sub btnEnforcementProcess_Click(sender As Object, e As EventArgs) Handles btnEnforcementProcess.Click
-        Try
-
-            OpenEnforcement()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-        End Try
-
     End Sub
     Private Sub llbTestNotifiactionNumber_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbTestNotifiactionNumber.LinkClicked
         Try

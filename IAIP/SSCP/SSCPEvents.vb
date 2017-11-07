@@ -188,7 +188,7 @@ Public Class SSCPEvents
         AddAirProgramCodes(dr.Item("StrAirProgramCodes"))
         CheckCompleteDate()
         CompleteReport()
-        CheckEnforcement()
+        DisplayEnforcementCases()
 
     End Sub
 
@@ -520,31 +520,41 @@ Public Class SSCPEvents
         End If
     End Sub
 
-    Private Function CheckEnforcement() As Boolean
-        Dim enfNum As Integer
-        If DAL.Sscp.TryGetEnforcementForTrackingNumber(TrackingNumber, enfNum) Then
-            txtEnforcementNumber.Text = enfNum
-            txtEnforcementNumber.Visible = True
-            btnEnforcementProcess.Text = "Open linked enforcement"
-            Return True
+    Private Sub DisplayEnforcementCases()
+        Dim dt As DataTable = DAL.Sscp.GetAllEnforcementForTrackingNumber(TrackingNumber)
+        If dt IsNot Nothing AndAlso dt.Rows.Count > 0 Then
+            llEnforcementCases.Links.Clear()
+            Dim i As Int16 = 0
+            For Each row As DataRow In dt.Rows
+                i += 1
+                Dim enfNum As String = row(0).ToString()
+                Dim start As Int16 = llEnforcementCases.Text.Length + 1
+                Dim linkLength As Int16 = enfNum.Length
+                llEnforcementCases.Text &= " " & enfNum
+                llEnforcementCases.Links.Add(start, linkLength, enfNum)
+                If i < dt.Rows.Count Then
+                    llEnforcementCases.Text &= ","
+                End If
+            Next
+            btnEnforcementProcess.Visible = False
+            llEnforcementCases.Visible = True
+            llEnforcementCases.TabStop = True
         Else
-            txtEnforcementNumber.Text = "N/A"
-            txtEnforcementNumber.Visible = False
-            btnEnforcementProcess.Text = "Create enforcement action"
-            Return False
+            llEnforcementCases.Visible = False
+            llEnforcementCases.Text = "Enforcement cases:"
         End If
-    End Function
+    End Sub
 
 #End Region
 
 #Region " Enforcement Actions "
 
-    Private Sub OpenEnforcement()
-        If CheckEnforcement() Then
-            OpenFormEnforcement(txtEnforcementNumber.Text)
-        Else
-            OpenFormEnforcement(AirsNumber, TrackingNumber)
-        End If
+    Private Sub llEnforcementCases_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llEnforcementCases.LinkClicked
+        OpenFormEnforcement(e.Link.LinkData)
+    End Sub
+
+    Private Sub btnEnforcementProcess_Click(sender As Object, e As EventArgs) Handles btnEnforcementProcess.Click
+        OpenFormEnforcement(AirsNumber, TrackingNumber)
     End Sub
 
 #End Region
@@ -2394,13 +2404,15 @@ Public Class SSCPEvents
     Private Sub DeleteSSCPData()
         Try
             If EventType = WorkItemEventType.StackTest Then
-                MessageBox.Show("Performance tests must be deleted by ISMP.", "Can't Delete", MessageBoxButtons.OK, MessageBoxIcon.Stop)
+                MessageBox.Show("Performance tests must be deleted by ISMP.",
+                                "Can't Delete", MessageBoxButtons.OK, MessageBoxIcon.Stop)
                 Exit Sub
             End If
 
-            If txtEnforcementNumber.Text <> "" And txtEnforcementNumber.Text <> "N/A" Then
-                MsgBox("This Compliance Action is currently linked to an Enforcement Action." & vbCrLf &
-                      "Disassociate this action from any enforcement before deleting.", MsgBoxStyle.Exclamation, "SSCP Events")
+            If DAL.Sscp.TrackingNumberHasEnforcement(TrackingNumber) Then
+                MessageBox.Show("This Compliance Action is currently linked to enforcement." & vbCrLf &
+                                "Disassociate this action from any enforcement before deleting.",
+                                "Can't Delete", MessageBoxButtons.OK, MessageBoxIcon.Stop)
                 Exit Sub
             End If
 
@@ -2973,10 +2985,6 @@ Public Class SSCPEvents
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
-    End Sub
-
-    Private Sub btnEnforcementProcess_Click(sender As Object, e As EventArgs) Handles btnEnforcementProcess.Click
-        OpenEnforcement()
     End Sub
 
     Private Sub btnReportMoreOptions_Click(sender As Object, e As EventArgs) Handles btnReportMoreOptions.Click

@@ -23,6 +23,8 @@ Public Class MASPRegistrationTool
         lblEventTitle.Text = ""
         lblEventDate.Text = ""
         btnViewDetails.Enabled = False
+        btnDeleteEvent.Enabled = False
+        btnUpdateEvent.Enabled = False
 
         btnGeneratePasscode.Visible = False
         chbEventPasscode.Text = ""
@@ -89,7 +91,7 @@ Public Class MASPRegistrationTool
 
     Private Sub LoadRegistrationStatusCombo()
         ' Get list of Registration Status types and bind that list to the combobox
-        Dim statuses As SortedDictionary(Of Integer, String) = GetRegistrationStatusesAsDictionary(True, "Select a status…")
+        Dim statuses As SortedDictionary(Of Integer, String) = GetRegistrationStatusesAsDictionary(False, "Select a status…")
         If statuses.Count > 0 Then
             cboRegStatus.BindToSortedDictionary(statuses)
         End If
@@ -191,6 +193,12 @@ Public Class MASPRegistrationTool
             LoadEventOverview()
             LoadEventManagement()
             LoadRegistrationManagement()
+            'Added to disable delete and update buttons until an Event is loaded 
+            btnDeleteEvent.Enabled = True
+            btnUpdateEvent.Enabled = True
+        Else
+            btnDeleteEvent.Enabled = False
+            btnUpdateEvent.Enabled = False
         End If
     End Sub
 
@@ -304,20 +312,28 @@ Public Class MASPRegistrationTool
 
     Private Sub LoadEventManagement()
         Try
-            query = "Select " &
-            "numEventStatusCode, strUserGCode, " &
-            "strTitle, strDescription, " &
-            "datStartDate, datEndDate, " &
-            "strVenue, " &
-            "numCapacity, strNotes, " &
-            "strLoginRequired, strPassCode, " &
-            "strAddress, strCity, " &
-            "strState, numZipCode, " &
-            "numAPBContact, numWebPhoneNumber, " &
-            "strEventStartTime, strEventEndTime, " &
-            "strWebURL " &
-            "From RES_Event " &
-            "where convert(int,NUMRES_EVENTID) = @eventid "
+            query = "SELECT numEventStatusCode,
+                           strUserGCode,
+                           strTitle,
+                           strDescription,
+                           datStartDate,
+                           datEndDate,
+                           strVenue,
+                           numCapacity,
+                           strNotes,
+                           strLoginRequired,
+                           strPassCode,
+                           strAddress,
+                           strCity,
+                           strState,
+                           numZipCode,
+                           numAPBContact,
+                           numWebPhoneNumber,
+                           strEventStartTime,
+                           strEventEndTime,
+                           strWebURL
+                    FROM RES_Event
+                    WHERE CONVERT(INT, NUMRES_EVENTID) = @eventid "
 
             Dim p As New SqlParameter("@eventid", selectedEventId)
 
@@ -431,36 +447,40 @@ Public Class MASPRegistrationTool
                 Else
                     txtWebsiteURL.Text = dr.Item("strWebURL")
                 End If
+
             End If
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub LoadRegistrationManagement()
         Try
-            query = "select " &
-            "Res_Registration.numRes_registrationID, " &
-            "Res_Event.strTitle as eventTitle,  " &
-            "datRegistrationDateTime, " &
-            "strConfirmationNumber, strComments, " &
-            "STRREGISTRATIONSTATUS, Res_Registration.numGECouserID, " &
-            "strSalutation, strFirstName, " &
-            "strLastName, strUserEmail, " &
-            "OlapUserProfile.strAddress, OlapUserProfile.strCity, " &
-            "OlapUserProfile.strState, strZip, " &
-            "strCompanyName, strPhonenumber, " &
-            "strUserType, " &
-            "OLAPUserProfile.strTitle as UserTitle " &
-            "from Res_Registration, OLAPUSERProfile, " &
-            "res_event, OLAPUserLogIn,  " &
-            "RESLK_RegistrationStatus " &
-            "where Res_Registration.numGECouserID = OlapUserProfile.numUserID " &
-            "and Res_registration.numRes_eventid = Res_Event.numRes_EventId  " &
-            "and Res_registration.numRegistrationStatusCode = " &
-            "RESLK_RegistrationStatus.NUMRESLK_REGISTRATIONSTATUSID " &
-            "and Res_Registration.numGECouserID = OLAPUserLogIn.numuserid " &
-            "and convert(int,Res_registration.numRes_EventID) = @eventid "
+            query = "SELECT RR.numRes_registrationID,
+                            REvt.strTitle AS eventTitle,
+                            RR.datRegistrationDateTime,
+                            RR.strConfirmationNumber,
+                            RR.strComments,
+                            RLU.STRREGISTRATIONSTATUS,
+                            RR.numGECouserID,
+                            OProf.strSalutation,
+                            OProf.strFirstName,
+                            OProf.strLastName,
+                            RR.UPDATEUSER as strUserEmail,
+                            OProf.strAddress,
+                            OProf.strCity,
+                            OProf.strState,
+                            OProf.strZip,
+                            OProf.strCompanyName,
+                            OProf.strPhonenumber,
+                            OProf.strUserType,
+                            OProf.strTitle AS UserTitle
+                    FROM Res_Registration RR
+                            left join OLAPUSERProfile OProf on RR.numGECouserID = OProf.numUserID
+                            left join res_event REvt on RR.numRes_eventid = REvt.numRes_EventId
+                            left join RESLK_RegistrationStatus RLU on RR.numRegistrationStatusCode = RLU.NUMRESLK_REGISTRATIONSTATUSID
+                    WHERE CONVERT(INT, RR.numRes_EventID)  = @eventid"
 
             Dim p As New SqlParameter("@eventid", selectedEventId)
 
@@ -472,7 +492,7 @@ Public Class MASPRegistrationTool
             dgvRegistrationManagement.AllowUserToAddRows = False
             dgvRegistrationManagement.AllowUserToDeleteRows = False
             dgvRegistrationManagement.AllowUserToOrderColumns = True
-            dgvRegistrationManagement.AllowUserToResizeRows = True
+            dgvRegistrationManagement.AllowUserToResizeRows = False
 
 
             dgvRegistrationManagement.Columns("numRes_registrationID").HeaderText = "ID"
@@ -529,6 +549,7 @@ Public Class MASPRegistrationTool
 #End Region
 
 #Region "Events Management"
+
     Private Sub btnSaveNewEvent_Click(sender As Object, e As EventArgs) Handles btnSaveNewEvent.Click
         Try
             If chbEventPasscode.Checked AndAlso chbEventPasscode.Text = "Error" Then
@@ -551,7 +572,7 @@ Public Class MASPRegistrationTool
             resultcode = 1
 
             resultcode = MessageBox.Show("This will create a new Event." & vbCrLf &
-                  "Click Ok to create a new event.", Me.Text,
+                  "Click OK to create a new event.", Me.Text,
                   MessageBoxButtons.OKCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
             If resultcode = DialogResult.OK Then
                 Insert_RES_Event(cboEventStatus.SelectedValue, txtEventTitle.Text, txtEventDescription.Text,
@@ -570,6 +591,7 @@ Public Class MASPRegistrationTool
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub btnUpdateEvent_Click(sender As Object, e As EventArgs) Handles btnUpdateEvent.Click
         Try
             If chbEventPasscode.Checked AndAlso chbEventPasscode.Text = "Error" Then
@@ -605,6 +627,7 @@ Public Class MASPRegistrationTool
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub btnDeleteEvent_Click(sender As Object, e As EventArgs) Handles btnDeleteEvent.Click
         Try
             If Update_RES_Event(selectedEventId,
@@ -618,7 +641,6 @@ Public Class MASPRegistrationTool
             Else
                 MsgBox("Data NOT Saved/Updated", MsgBoxStyle.Exclamation, Me.Text)
             End If
-
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -660,10 +682,12 @@ Public Class MASPRegistrationTool
     Private Sub btnClearEventManagement_Click(sender As Object, e As EventArgs) Handles btnClearEventManagement.Click
         ClearEventSelection()
     End Sub
+
     Private Sub ClearEventSelection()
         dgvEvents.ClearSelection()
         ClearEventManagementForm()
     End Sub
+
     Private Sub ClearEventManagementForm()
         txtEventTitle.Clear()
         txtEventDescription.Clear()
@@ -685,11 +709,17 @@ Public Class MASPRegistrationTool
         mtbEventCapacity.Clear()
         txtEventNotes.Clear()
         txtWebsiteURL.Clear()
+        'added to avoid exception error
+        btnUpdateEvent.Enabled = False
+        btnDeleteEvent.Enabled = False
+        selectedEventId = Nothing
+
     End Sub
 
 #End Region
 
 #Region "Registration Management"
+
     Private Sub dgvRegistrationManagement_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvRegistrationManagement.MouseUp
         Try
             Dim hti As DataGridView.HitTestInfo = dgvRegistrationManagement.HitTest(e.X, e.Y)
@@ -810,10 +840,17 @@ Public Class MASPRegistrationTool
 
     Private Sub btnModifyRegistration_Click(sender As Object, e As EventArgs) Handles btnModifyRegistration.Click
         Try
+            'First check to see if event is already at capacity
+            If txtOvNumberRegistered.Text = txtOvEventCapacity.Text And cboRegStatus.SelectedValue.ToString = "1" Then
+                'Give the admin a warning that they may be overbooking the event
+                If MessageBox.Show(Me, "Event is already at Capacity. If this Registrant wasn't previously confirmed, the Event will be booked over capacity. 
+Would you like to continue?", "Event is at Capacity", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) = DialogResult.No Then
+                    Exit Try
+                End If
+            End If
 
             If Update_RES_Registration(txtRegID.Text, txtRegConfirmationNum.Text,
-                                       cboRegStatus.SelectedValue, DTPRegDateRegistered.Text) = True Then
-
+                    cboRegStatus.SelectedValue, DTPRegDateRegistered.Text) = True Then
                 MsgBox("Data Saved/Updated", MsgBoxStyle.Information, Me.Text)
                 LoadRegistrationManagement()
             Else
@@ -821,14 +858,12 @@ Public Class MASPRegistrationTool
             End If
 
         Catch ex As Exception
-
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
     Private Sub btnMapEventLocation_Click(sender As Object, e As EventArgs) Handles btnMapEventLocation.Click
         Try
-
-
             Dim StreetAddress As String = "4244 International Parkway"
             Dim City As String = "Atlanta"
             Dim State As String = "GA"
@@ -855,9 +890,6 @@ Public Class MASPRegistrationTool
         Finally
 
         End Try
-
-
-
     End Sub
 
     Private Sub btnExportRegistrantsToExcel_Click(sender As Object, e As EventArgs) Handles btnExportRegistrantsToExcel.Click
