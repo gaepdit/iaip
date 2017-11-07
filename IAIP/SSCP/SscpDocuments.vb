@@ -96,7 +96,7 @@ Public Class SscpDocuments
         If enforcementInfo IsNot Nothing Then
             Dim infoDisplay As New StringBuilder
 
-            infoDisplay.AppendFormat("Enforcement #{0}", enforcementInfo.EnforcementNumber).AppendLine()
+            infoDisplay.AppendFormat("Enforcement #{0}", enforcementInfo.EnforcementNumber.ToString()).AppendLine()
             infoDisplay.AppendFormat("AIRS # {0}: {1}", enforcementInfo.Facility.AirsNumber.FormattedString, enforcementInfo.Facility.FacilityName).AppendLine()
             lblEnforcementInfo.Text = infoDisplay.ToString
 

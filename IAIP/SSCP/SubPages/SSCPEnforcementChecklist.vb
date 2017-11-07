@@ -5,9 +5,9 @@ Public Class SSCPEnforcementChecklist
 
 #Region " Properties "
 
-    Public Property EnforcementNumber As String
+    Public Property EnforcementNumber As Integer
     Public Property AirsNumber As Apb.ApbFacilityId
-    Public Property SelectedDiscoveryEvent As String
+    Public Property SelectedDiscoveryEvent As Integer
 
 #End Region
 
@@ -39,15 +39,20 @@ Public Class SSCPEnforcementChecklist
 #Region " Display work items "
 
     Private Sub FilterWork()
-        Dim SQL As String = "SELECT CONVERT(int, i.STRTRACKINGNUMBER) AS [Tracking Number], " &
-            "i.DATRECEIVEDDATE AS [Date Received], " &
-            "l.STRACTIVITYNAME AS [Work Type], " &
-            "CONCAT(u.STRLASTNAME, ', ', u.STRFIRSTNAME) AS [Responsible Staff] " &
-            "FROM SSCPITEMMASTER AS i " &
-            "INNER JOIN LOOKUPCOMPLIANCEACTIVITIES AS l ON i.STREVENTTYPE = l.STRACTIVITYTYPE " &
-            "INNER JOIN APBFACILITYINFORMATION AS f ON i.STRAIRSNUMBER = f.STRAIRSNUMBER " &
-            "INNER JOIN EPDUSERPROFILES AS u ON u.NUMUSERID = i.STRRESPONSIBLESTAFF " &
-            "WHERE i.STRAIRSNUMBER = @airsnumber AND i.STREVENTTYPE <> '05' "
+        Dim SQL As String = "SELECT
+                CONVERT(INT, i.STRTRACKINGNUMBER)           AS [Tracking Number],
+                i.DATRECEIVEDDATE                           AS [Date Received],
+                l.STRACTIVITYNAME                           AS [Work Type],
+                CONCAT(u.STRLASTNAME, ', ', u.STRFIRSTNAME) AS [Responsible Staff]
+            FROM SSCPITEMMASTER AS i
+                INNER JOIN LOOKUPCOMPLIANCEACTIVITIES AS l ON i.STREVENTTYPE = l.STRACTIVITYTYPE
+                INNER JOIN EPDUSERPROFILES AS u ON u.NUMUSERID = i.STRRESPONSIBLESTAFF
+            WHERE i.STRAIRSNUMBER = @airsnumber
+                  AND i.STREVENTTYPE <> '05'
+                  AND i.STRTRACKINGNUMBER NOT IN (
+                SELECT TrackingNumber
+                FROM SSCP_EnforcementEvents
+                WHERE EnforcementNumber = @enforcementNumber)"
 
         Dim eventTypes As New List(Of String)
 
@@ -77,6 +82,7 @@ Public Class SSCPEnforcementChecklist
 
         Dim p As SqlParameter() = {
             New SqlParameter("@airsnumber", AirsNumber.DbFormattedString),
+            New SqlParameter("@enforcementNumber", EnforcementNumber),
             New SqlParameter("@startdate", DTPStartDate.Value),
             New SqlParameter("@enddate", DTPEndDate.Value)
         }
@@ -96,7 +102,7 @@ Public Class SSCPEnforcementChecklist
 
     Private Sub OpenFilterOptions_CheckedChanged(sender As Object, e As EventArgs) Handles OpenFilterOptions.CheckedChanged
         If OpenFilterOptions.Checked Then
-            FilterOptionsPanel.Size = New Size(FilterOptionsPanel.Width, 260)
+            FilterOptionsPanel.Size = New Size(FilterOptionsPanel.Width, 217)
         Else
             FilterOptionsPanel.Size = New Size(FilterOptionsPanel.Width, 0)
         End If

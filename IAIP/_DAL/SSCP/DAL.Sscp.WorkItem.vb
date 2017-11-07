@@ -17,10 +17,23 @@ Namespace DAL.Sscp
 
             Dim query As String = "SELECT 1 " &
                 " FROM SSCPITEMMASTER " &
-                " WHERE STRTRACKINGNUMBER = @id "
-            Dim parameter As New SqlParameter("@id", trackingNumber.ToString)
-
+                " WHERE STRTRACKINGNUMBER = @trackingNumber "
+            Dim parameter As New SqlParameter("@trackingNumber", trackingNumber)
             Return DB.ValueExists(query, parameter)
+        End Function
+
+        Public Function GetWorkItemBasics(trackingNumber As Integer) As DataRow
+            Dim query As String = "SELECT
+                    im.STRTRACKINGNUMBER AS [Tracking #],
+                    lk.STRACTIVITYNAME   AS [Type],
+                    im.DATRECEIVEDDATE   AS [Event Date],
+                    im.STRAIRSNUMBER     AS [AIRS #]
+                FROM SSCPITEMMASTER im
+                    INNER JOIN LOOKUPCOMPLIANCEACTIVITIES AS lk
+                        ON im.STREVENTTYPE = lk.STRACTIVITYTYPE
+                WHERE im.STRTRACKINGNUMBER = @trackingNumber"
+            Dim parameter As New SqlParameter("@trackingNumber", trackingNumber)
+            Return DB.GetDataRow(query, parameter)
         End Function
 
 #End Region

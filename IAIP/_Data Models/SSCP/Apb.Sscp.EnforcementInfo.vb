@@ -4,7 +4,7 @@ Namespace Apb.Sscp
     Public Class EnforcementInfo
 
         Public Property Facility() As Facility
-        Public Property EnforcementNumber() As String
+        Public Property EnforcementNumber() As Integer
         Public Property EnforcementTypeCode() As String
         Public Property DiscoveryDate() As Date?
         Public Property StaffResponsible() As IaipUser

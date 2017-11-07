@@ -3,7 +3,7 @@
     Public Class EnforcementDocument
         Inherits Document
 
-        Public Property EnforcementNumber() As String
+        Public Property EnforcementNumber() As Integer
 
     End Class
 

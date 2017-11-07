@@ -76,7 +76,6 @@ Partial Class SSCPEvents
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents txtEventInformation As System.Windows.Forms.TextBox
     Friend WithEvents txtFacilityInformation As System.Windows.Forms.TextBox
-    Friend WithEvents txtEnforcementNumber As System.Windows.Forms.TextBox
     Friend WithEvents DTPEventCompleteDate As System.Windows.Forms.DateTimePicker
     Friend WithEvents chbEventComplete As System.Windows.Forms.CheckBox
     Friend WithEvents Label73 As System.Windows.Forms.Label
@@ -259,6 +258,7 @@ Partial Class SSCPEvents
         Me.mmiTools = New System.Windows.Forms.MenuItem()
         Me.mmiDelete = New System.Windows.Forms.MenuItem()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.llEnforcementCases = New System.Windows.Forms.LinkLabel()
         Me.cboStaffResponsible = New System.Windows.Forms.ComboBox()
         Me.lblRMPID = New System.Windows.Forms.Label()
         Me.txtRMPID = New System.Windows.Forms.TextBox()
@@ -266,7 +266,6 @@ Partial Class SSCPEvents
         Me.Label13 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.txtEnforcementNumber = New System.Windows.Forms.TextBox()
         Me.chbEventComplete = New System.Windows.Forms.CheckBox()
         Me.DTPEventCompleteDate = New System.Windows.Forms.DateTimePicker()
         Me.Label3 = New System.Windows.Forms.Label()
@@ -558,6 +557,7 @@ Partial Class SSCPEvents
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.llEnforcementCases)
         Me.GroupBox1.Controls.Add(Me.cboStaffResponsible)
         Me.GroupBox1.Controls.Add(Me.lblRMPID)
         Me.GroupBox1.Controls.Add(Me.txtRMPID)
@@ -565,7 +565,6 @@ Partial Class SSCPEvents
         Me.GroupBox1.Controls.Add(Me.Label13)
         Me.GroupBox1.Controls.Add(Me.Label2)
         Me.GroupBox1.Controls.Add(Me.Label1)
-        Me.GroupBox1.Controls.Add(Me.txtEnforcementNumber)
         Me.GroupBox1.Controls.Add(Me.chbEventComplete)
         Me.GroupBox1.Controls.Add(Me.DTPEventCompleteDate)
         Me.GroupBox1.Controls.Add(Me.Label3)
@@ -576,8 +575,19 @@ Partial Class SSCPEvents
         Me.GroupBox1.Location = New System.Drawing.Point(0, 25)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Size = New System.Drawing.Size(792, 169)
-        Me.GroupBox1.TabIndex = 48
+        Me.GroupBox1.TabIndex = 1
         Me.GroupBox1.TabStop = False
+        '
+        'llEnforcementCases
+        '
+        Me.llEnforcementCases.AutoSize = True
+        Me.llEnforcementCases.Location = New System.Drawing.Point(12, 148)
+        Me.llEnforcementCases.Name = "llEnforcementCases"
+        Me.llEnforcementCases.Size = New System.Drawing.Size(101, 13)
+        Me.llEnforcementCases.TabIndex = 8
+        Me.llEnforcementCases.TabStop = True
+        Me.llEnforcementCases.Text = "Enforcement cases:"
+        Me.llEnforcementCases.Visible = False
         '
         'cboStaffResponsible
         '
@@ -586,7 +596,7 @@ Partial Class SSCPEvents
         Me.cboStaffResponsible.Location = New System.Drawing.Point(622, 122)
         Me.cboStaffResponsible.Name = "cboStaffResponsible"
         Me.cboStaffResponsible.Size = New System.Drawing.Size(154, 21)
-        Me.cboStaffResponsible.TabIndex = 348
+        Me.cboStaffResponsible.TabIndex = 5
         '
         'lblRMPID
         '
@@ -603,7 +613,7 @@ Partial Class SSCPEvents
         Me.txtRMPID.Name = "txtRMPID"
         Me.txtRMPID.ReadOnly = True
         Me.txtRMPID.Size = New System.Drawing.Size(100, 20)
-        Me.txtRMPID.TabIndex = 346
+        Me.txtRMPID.TabIndex = 6
         '
         'DTPAcknowledgmentLetterSent
         '
@@ -613,7 +623,7 @@ Partial Class SSCPEvents
         Me.DTPAcknowledgmentLetterSent.Name = "DTPAcknowledgmentLetterSent"
         Me.DTPAcknowledgmentLetterSent.ShowCheckBox = True
         Me.DTPAcknowledgmentLetterSent.Size = New System.Drawing.Size(116, 20)
-        Me.DTPAcknowledgmentLetterSent.TabIndex = 118
+        Me.DTPAcknowledgmentLetterSent.TabIndex = 4
         Me.DTPAcknowledgmentLetterSent.Value = New Date(2005, 4, 21, 0, 0, 0, 0)
         '
         'Label13
@@ -644,21 +654,13 @@ Partial Class SSCPEvents
         Me.Label1.Text = "Event Information:"
         Me.Label1.TextAlign = System.Drawing.ContentAlignment.BottomLeft
         '
-        'txtEnforcementNumber
-        '
-        Me.txtEnforcementNumber.Location = New System.Drawing.Point(153, 145)
-        Me.txtEnforcementNumber.Name = "txtEnforcementNumber"
-        Me.txtEnforcementNumber.ReadOnly = True
-        Me.txtEnforcementNumber.Size = New System.Drawing.Size(56, 20)
-        Me.txtEnforcementNumber.TabIndex = 110
-        '
         'chbEventComplete
         '
         Me.chbEventComplete.AutoSize = True
         Me.chbEventComplete.Location = New System.Drawing.Point(11, 98)
         Me.chbEventComplete.Name = "chbEventComplete"
         Me.chbEventComplete.Size = New System.Drawing.Size(73, 17)
-        Me.chbEventComplete.TabIndex = 108
+        Me.chbEventComplete.TabIndex = 2
         Me.chbEventComplete.Text = "Complete:"
         '
         'DTPEventCompleteDate
@@ -668,7 +670,7 @@ Partial Class SSCPEvents
         Me.DTPEventCompleteDate.Location = New System.Drawing.Point(84, 96)
         Me.DTPEventCompleteDate.Name = "DTPEventCompleteDate"
         Me.DTPEventCompleteDate.Size = New System.Drawing.Size(100, 20)
-        Me.DTPEventCompleteDate.TabIndex = 107
+        Me.DTPEventCompleteDate.TabIndex = 3
         '
         'Label3
         '
@@ -688,7 +690,7 @@ Partial Class SSCPEvents
         Me.txtFacilityInformation.ReadOnly = True
         Me.txtFacilityInformation.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.txtFacilityInformation.Size = New System.Drawing.Size(272, 86)
-        Me.txtFacilityInformation.TabIndex = 110
+        Me.txtFacilityInformation.TabIndex = 0
         '
         'txtEventInformation
         '
@@ -698,17 +700,17 @@ Partial Class SSCPEvents
         Me.txtEventInformation.ReadOnly = True
         Me.txtEventInformation.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.txtEventInformation.Size = New System.Drawing.Size(288, 86)
-        Me.txtEventInformation.TabIndex = 111
+        Me.txtEventInformation.TabIndex = 1
         '
         'btnEnforcementProcess
         '
         Me.btnEnforcementProcess.AutoSize = True
         Me.btnEnforcementProcess.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnEnforcementProcess.Location = New System.Drawing.Point(8, 143)
+        Me.btnEnforcementProcess.Location = New System.Drawing.Point(11, 143)
         Me.btnEnforcementProcess.Name = "btnEnforcementProcess"
         Me.btnEnforcementProcess.Size = New System.Drawing.Size(136, 23)
-        Me.btnEnforcementProcess.TabIndex = 110
-        Me.btnEnforcementProcess.Text = "Open linked enforcement"
+        Me.btnEnforcementProcess.TabIndex = 7
+        Me.btnEnforcementProcess.Text = "Create enforcement case"
         '
         'TCItems
         '
@@ -722,7 +724,7 @@ Partial Class SSCPEvents
         Me.TCItems.Name = "TCItems"
         Me.TCItems.SelectedIndex = 0
         Me.TCItems.Size = New System.Drawing.Size(792, 396)
-        Me.TCItems.TabIndex = 49
+        Me.TCItems.TabIndex = 0
         '
         'TPReport
         '
@@ -789,7 +791,7 @@ Partial Class SSCPEvents
         Me.DTPReportReceivedDate.Location = New System.Drawing.Point(152, 110)
         Me.DTPReportReceivedDate.Name = "DTPReportReceivedDate"
         Me.DTPReportReceivedDate.Size = New System.Drawing.Size(100, 20)
-        Me.DTPReportReceivedDate.TabIndex = 303
+        Me.DTPReportReceivedDate.TabIndex = 6
         Me.DTPReportReceivedDate.Value = New Date(2005, 4, 21, 0, 0, 0, 0)
         '
         'chbReportReceivedByAPB
@@ -799,7 +801,7 @@ Partial Class SSCPEvents
         Me.chbReportReceivedByAPB.Location = New System.Drawing.Point(24, 115)
         Me.chbReportReceivedByAPB.Name = "chbReportReceivedByAPB"
         Me.chbReportReceivedByAPB.Size = New System.Drawing.Size(122, 17)
-        Me.chbReportReceivedByAPB.TabIndex = 302
+        Me.chbReportReceivedByAPB.TabIndex = 5
         Me.chbReportReceivedByAPB.Text = "Received by GEPD:"
         Me.chbReportReceivedByAPB.UseVisualStyleBackColor = True
         '
@@ -812,7 +814,7 @@ Partial Class SSCPEvents
         Me.btnReportMoreOptions.Location = New System.Drawing.Point(0, 0)
         Me.btnReportMoreOptions.Name = "btnReportMoreOptions"
         Me.btnReportMoreOptions.Size = New System.Drawing.Size(74, 19)
-        Me.btnReportMoreOptions.TabIndex = 293
+        Me.btnReportMoreOptions.TabIndex = 0
         Me.btnReportMoreOptions.Text = "Submittal History"
         '
         'wrnReportSubmittal
@@ -823,7 +825,7 @@ Partial Class SSCPEvents
         Me.wrnReportSubmittal.Location = New System.Drawing.Point(198, 28)
         Me.wrnReportSubmittal.Name = "wrnReportSubmittal"
         Me.wrnReportSubmittal.Size = New System.Drawing.Size(135, 13)
-        Me.wrnReportSubmittal.TabIndex = 108
+        Me.wrnReportSubmittal.TabIndex = 2
         Me.wrnReportSubmittal.Text = "Warning-value not selected"
         Me.wrnReportSubmittal.Visible = False
         '
@@ -834,7 +836,7 @@ Partial Class SSCPEvents
         Me.NUPReportSubmittal.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.NUPReportSubmittal.Name = "NUPReportSubmittal"
         Me.NUPReportSubmittal.Size = New System.Drawing.Size(40, 20)
-        Me.NUPReportSubmittal.TabIndex = 107
+        Me.NUPReportSubmittal.TabIndex = 0
         Me.NUPReportSubmittal.Value = New Decimal(New Integer() {1, 0, 0, 0})
         '
         'lblResubmittal
@@ -866,7 +868,7 @@ Partial Class SSCPEvents
         Me.wrnShowDeviation.Location = New System.Drawing.Point(445, 242)
         Me.wrnShowDeviation.Name = "wrnShowDeviation"
         Me.wrnShowDeviation.Size = New System.Drawing.Size(135, 13)
-        Me.wrnShowDeviation.TabIndex = 104
+        Me.wrnShowDeviation.TabIndex = 14
         Me.wrnShowDeviation.Text = "Warning-value not selected"
         Me.wrnShowDeviation.Visible = False
         '
@@ -878,7 +880,7 @@ Partial Class SSCPEvents
         Me.wrnEnforcementNeeded.Location = New System.Drawing.Point(445, 220)
         Me.wrnEnforcementNeeded.Name = "wrnEnforcementNeeded"
         Me.wrnEnforcementNeeded.Size = New System.Drawing.Size(135, 13)
-        Me.wrnEnforcementNeeded.TabIndex = 103
+        Me.wrnEnforcementNeeded.TabIndex = 13
         Me.wrnEnforcementNeeded.Text = "Warning-value not selected"
         Me.wrnEnforcementNeeded.Visible = False
         '
@@ -890,7 +892,7 @@ Partial Class SSCPEvents
         Me.wrnCompleteReport.Location = New System.Drawing.Point(445, 198)
         Me.wrnCompleteReport.Name = "wrnCompleteReport"
         Me.wrnCompleteReport.Size = New System.Drawing.Size(135, 13)
-        Me.wrnCompleteReport.TabIndex = 102
+        Me.wrnCompleteReport.TabIndex = 12
         Me.wrnCompleteReport.Text = "Warning-value not selected"
         Me.wrnCompleteReport.Visible = False
         '
@@ -946,7 +948,7 @@ Partial Class SSCPEvents
         Me.cboReportSchedule.Location = New System.Drawing.Point(152, 48)
         Me.cboReportSchedule.Name = "cboReportSchedule"
         Me.cboReportSchedule.Size = New System.Drawing.Size(164, 21)
-        Me.cboReportSchedule.TabIndex = 78
+        Me.cboReportSchedule.TabIndex = 1
         '
         'txtReportPeriodComments
         '
@@ -956,7 +958,7 @@ Partial Class SSCPEvents
         Me.txtReportPeriodComments.Multiline = True
         Me.txtReportPeriodComments.Name = "txtReportPeriodComments"
         Me.txtReportPeriodComments.Size = New System.Drawing.Size(376, 32)
-        Me.txtReportPeriodComments.TabIndex = 82
+        Me.txtReportPeriodComments.TabIndex = 4
         '
         'DTPSentDate
         '
@@ -965,7 +967,7 @@ Partial Class SSCPEvents
         Me.DTPSentDate.Location = New System.Drawing.Point(152, 162)
         Me.DTPSentDate.Name = "DTPSentDate"
         Me.DTPSentDate.Size = New System.Drawing.Size(100, 20)
-        Me.DTPSentDate.TabIndex = 87
+        Me.DTPSentDate.TabIndex = 8
         Me.DTPSentDate.Value = New Date(2005, 4, 21, 0, 0, 0, 0)
         '
         'dtpDueDate
@@ -975,7 +977,7 @@ Partial Class SSCPEvents
         Me.dtpDueDate.Location = New System.Drawing.Point(152, 136)
         Me.dtpDueDate.Name = "dtpDueDate"
         Me.dtpDueDate.Size = New System.Drawing.Size(100, 20)
-        Me.dtpDueDate.TabIndex = 86
+        Me.dtpDueDate.TabIndex = 7
         Me.dtpDueDate.Value = New Date(2005, 4, 21, 0, 0, 0, 0)
         '
         'Panel5
@@ -992,7 +994,7 @@ Partial Class SSCPEvents
         Me.rdbReportCompleteYes.Location = New System.Drawing.Point(0, 0)
         Me.rdbReportCompleteYes.Name = "rdbReportCompleteYes"
         Me.rdbReportCompleteYes.Size = New System.Drawing.Size(48, 16)
-        Me.rdbReportCompleteYes.TabIndex = 19
+        Me.rdbReportCompleteYes.TabIndex = 0
         Me.rdbReportCompleteYes.Text = "Yes"
         '
         'rdbReportCompleteNo
@@ -1000,7 +1002,7 @@ Partial Class SSCPEvents
         Me.rdbReportCompleteNo.Location = New System.Drawing.Point(48, 0)
         Me.rdbReportCompleteNo.Name = "rdbReportCompleteNo"
         Me.rdbReportCompleteNo.Size = New System.Drawing.Size(48, 16)
-        Me.rdbReportCompleteNo.TabIndex = 20
+        Me.rdbReportCompleteNo.TabIndex = 1
         Me.rdbReportCompleteNo.Text = "No"
         '
         'Label59
@@ -1009,7 +1011,7 @@ Partial Class SSCPEvents
         Me.Label59.Location = New System.Drawing.Point(149, 196)
         Me.Label59.Name = "Label59"
         Me.Label59.Size = New System.Drawing.Size(86, 13)
-        Me.Label59.TabIndex = 99
+        Me.Label59.TabIndex = 9
         Me.Label59.Text = "Complete Report"
         '
         'Label62
@@ -1018,7 +1020,7 @@ Partial Class SSCPEvents
         Me.Label62.Location = New System.Drawing.Point(149, 218)
         Me.Label62.Name = "Label62"
         Me.Label62.Size = New System.Drawing.Size(108, 13)
-        Me.Label62.TabIndex = 94
+        Me.Label62.TabIndex = 10
         Me.Label62.Text = "Enforcement Needed"
         '
         'Label63
@@ -1027,7 +1029,7 @@ Partial Class SSCPEvents
         Me.Label63.Location = New System.Drawing.Point(149, 240)
         Me.Label63.Name = "Label63"
         Me.Label63.Size = New System.Drawing.Size(82, 13)
-        Me.Label63.TabIndex = 95
+        Me.Label63.TabIndex = 11
         Me.Label63.Text = "Show Deviation"
         '
         'Panel17
@@ -1044,7 +1046,7 @@ Partial Class SSCPEvents
         Me.rdbReportDeviationYes.Location = New System.Drawing.Point(0, 0)
         Me.rdbReportDeviationYes.Name = "rdbReportDeviationYes"
         Me.rdbReportDeviationYes.Size = New System.Drawing.Size(48, 16)
-        Me.rdbReportDeviationYes.TabIndex = 19
+        Me.rdbReportDeviationYes.TabIndex = 0
         Me.rdbReportDeviationYes.Text = "Yes"
         '
         'rdbReportDeviationNo
@@ -1069,7 +1071,7 @@ Partial Class SSCPEvents
         Me.rdbReportEnforcementYes.Location = New System.Drawing.Point(0, 0)
         Me.rdbReportEnforcementYes.Name = "rdbReportEnforcementYes"
         Me.rdbReportEnforcementYes.Size = New System.Drawing.Size(48, 16)
-        Me.rdbReportEnforcementYes.TabIndex = 19
+        Me.rdbReportEnforcementYes.TabIndex = 0
         Me.rdbReportEnforcementYes.Text = "Yes"
         '
         'rdbReportEnforcementNo
@@ -1089,7 +1091,7 @@ Partial Class SSCPEvents
         Me.txtReportsGeneralComments.Name = "txtReportsGeneralComments"
         Me.txtReportsGeneralComments.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.txtReportsGeneralComments.Size = New System.Drawing.Size(376, 72)
-        Me.txtReportsGeneralComments.TabIndex = 88
+        Me.txtReportsGeneralComments.TabIndex = 9
         '
         'DTPReportPeriodEnd
         '
@@ -1098,7 +1100,7 @@ Partial Class SSCPEvents
         Me.DTPReportPeriodEnd.Location = New System.Drawing.Point(428, 48)
         Me.DTPReportPeriodEnd.Name = "DTPReportPeriodEnd"
         Me.DTPReportPeriodEnd.Size = New System.Drawing.Size(100, 20)
-        Me.DTPReportPeriodEnd.TabIndex = 81
+        Me.DTPReportPeriodEnd.TabIndex = 3
         Me.DTPReportPeriodEnd.Value = New Date(2005, 4, 21, 0, 0, 0, 0)
         '
         'DTPReportPeriodStart
@@ -1108,7 +1110,7 @@ Partial Class SSCPEvents
         Me.DTPReportPeriodStart.Location = New System.Drawing.Point(322, 48)
         Me.DTPReportPeriodStart.Name = "DTPReportPeriodStart"
         Me.DTPReportPeriodStart.Size = New System.Drawing.Size(100, 20)
-        Me.DTPReportPeriodStart.TabIndex = 80
+        Me.DTPReportPeriodStart.TabIndex = 2
         Me.DTPReportPeriodStart.Value = New Date(2005, 4, 21, 0, 0, 0, 0)
         '
         'SplitterReport
@@ -1183,7 +1185,7 @@ Partial Class SSCPEvents
         Me.DTPTestReportReceivedDate.Location = New System.Drawing.Point(208, 32)
         Me.DTPTestReportReceivedDate.Name = "DTPTestReportReceivedDate"
         Me.DTPTestReportReceivedDate.Size = New System.Drawing.Size(100, 20)
-        Me.DTPTestReportReceivedDate.TabIndex = 301
+        Me.DTPTestReportReceivedDate.TabIndex = 3
         Me.DTPTestReportReceivedDate.Value = New Date(2005, 4, 21, 0, 0, 0, 0)
         '
         'chbISMPTestReportReceivedByAPB
@@ -1193,7 +1195,7 @@ Partial Class SSCPEvents
         Me.chbISMPTestReportReceivedByAPB.Location = New System.Drawing.Point(82, 32)
         Me.chbISMPTestReportReceivedByAPB.Name = "chbISMPTestReportReceivedByAPB"
         Me.chbISMPTestReportReceivedByAPB.Size = New System.Drawing.Size(122, 17)
-        Me.chbISMPTestReportReceivedByAPB.TabIndex = 300
+        Me.chbISMPTestReportReceivedByAPB.TabIndex = 2
         Me.chbISMPTestReportReceivedByAPB.Text = "Received by GEPD:"
         Me.chbISMPTestReportReceivedByAPB.UseVisualStyleBackColor = True
         '
@@ -1203,7 +1205,7 @@ Partial Class SSCPEvents
         Me.txtPollutantTested.Name = "txtPollutantTested"
         Me.txtPollutantTested.ReadOnly = True
         Me.txtPollutantTested.Size = New System.Drawing.Size(264, 20)
-        Me.txtPollutantTested.TabIndex = 299
+        Me.txtPollutantTested.TabIndex = 9
         '
         'txtUnitTested
         '
@@ -1211,7 +1213,7 @@ Partial Class SSCPEvents
         Me.txtUnitTested.Name = "txtUnitTested"
         Me.txtUnitTested.ReadOnly = True
         Me.txtUnitTested.Size = New System.Drawing.Size(264, 20)
-        Me.txtUnitTested.TabIndex = 298
+        Me.txtUnitTested.TabIndex = 8
         '
         'Label23
         '
@@ -1248,7 +1250,7 @@ Partial Class SSCPEvents
         Me.btnViewTestReport.Location = New System.Drawing.Point(330, 7)
         Me.btnViewTestReport.Name = "btnViewTestReport"
         Me.btnViewTestReport.Size = New System.Drawing.Size(24, 23)
-        Me.btnViewTestReport.TabIndex = 294
+        Me.btnViewTestReport.TabIndex = 1
         '
         'txtTestReportReceivedbySSCPDate
         '
@@ -1256,7 +1258,7 @@ Partial Class SSCPEvents
         Me.txtTestReportReceivedbySSCPDate.Name = "txtTestReportReceivedbySSCPDate"
         Me.txtTestReportReceivedbySSCPDate.ReadOnly = True
         Me.txtTestReportReceivedbySSCPDate.Size = New System.Drawing.Size(120, 20)
-        Me.txtTestReportReceivedbySSCPDate.TabIndex = 167
+        Me.txtTestReportReceivedbySSCPDate.TabIndex = 10
         '
         'Label5
         '
@@ -1273,7 +1275,7 @@ Partial Class SSCPEvents
         Me.txtTestReportISMPCompleteDate.Name = "txtTestReportISMPCompleteDate"
         Me.txtTestReportISMPCompleteDate.ReadOnly = True
         Me.txtTestReportISMPCompleteDate.Size = New System.Drawing.Size(120, 20)
-        Me.txtTestReportISMPCompleteDate.TabIndex = 165
+        Me.txtTestReportISMPCompleteDate.TabIndex = 6
         '
         'Label4
         '
@@ -1298,7 +1300,7 @@ Partial Class SSCPEvents
         Me.rdbTestReportFollowUpYes.Location = New System.Drawing.Point(0, 0)
         Me.rdbTestReportFollowUpYes.Name = "rdbTestReportFollowUpYes"
         Me.rdbTestReportFollowUpYes.Size = New System.Drawing.Size(48, 16)
-        Me.rdbTestReportFollowUpYes.TabIndex = 19
+        Me.rdbTestReportFollowUpYes.TabIndex = 0
         Me.rdbTestReportFollowUpYes.Text = "Yes"
         '
         'rdbTestReportFollowUpNo
@@ -1306,7 +1308,7 @@ Partial Class SSCPEvents
         Me.rdbTestReportFollowUpNo.Location = New System.Drawing.Point(48, 0)
         Me.rdbTestReportFollowUpNo.Name = "rdbTestReportFollowUpNo"
         Me.rdbTestReportFollowUpNo.Size = New System.Drawing.Size(48, 16)
-        Me.rdbTestReportFollowUpNo.TabIndex = 20
+        Me.rdbTestReportFollowUpNo.TabIndex = 1
         Me.rdbTestReportFollowUpNo.Text = "No"
         '
         'Label71
@@ -1334,7 +1336,7 @@ Partial Class SSCPEvents
         Me.DTPTestReportDueDate.Location = New System.Drawing.Point(472, 56)
         Me.DTPTestReportDueDate.Name = "DTPTestReportDueDate"
         Me.DTPTestReportDueDate.Size = New System.Drawing.Size(100, 20)
-        Me.DTPTestReportDueDate.TabIndex = 160
+        Me.DTPTestReportDueDate.TabIndex = 7
         Me.DTPTestReportDueDate.Value = New Date(2005, 4, 21, 0, 0, 0, 0)
         Me.DTPTestReportDueDate.Visible = False
         '
@@ -1344,7 +1346,7 @@ Partial Class SSCPEvents
         Me.chbTestReportChangeDueDate.Location = New System.Drawing.Point(600, 34)
         Me.chbTestReportChangeDueDate.Name = "chbTestReportChangeDueDate"
         Me.chbTestReportChangeDueDate.Size = New System.Drawing.Size(112, 17)
-        Me.chbTestReportChangeDueDate.TabIndex = 159
+        Me.chbTestReportChangeDueDate.TabIndex = 5
         Me.chbTestReportChangeDueDate.Text = "Change Due Date"
         '
         'Label68
@@ -1362,7 +1364,7 @@ Partial Class SSCPEvents
         Me.txtISMPReferenceNumber.MaxLength = 9
         Me.txtISMPReferenceNumber.Name = "txtISMPReferenceNumber"
         Me.txtISMPReferenceNumber.Size = New System.Drawing.Size(120, 20)
-        Me.txtISMPReferenceNumber.TabIndex = 153
+        Me.txtISMPReferenceNumber.TabIndex = 0
         '
         'DTPTestReportNewDueDate
         '
@@ -1371,7 +1373,7 @@ Partial Class SSCPEvents
         Me.DTPTestReportNewDueDate.Location = New System.Drawing.Point(208, 256)
         Me.DTPTestReportNewDueDate.Name = "DTPTestReportNewDueDate"
         Me.DTPTestReportNewDueDate.Size = New System.Drawing.Size(100, 20)
-        Me.DTPTestReportNewDueDate.TabIndex = 150
+        Me.DTPTestReportNewDueDate.TabIndex = 12
         Me.DTPTestReportNewDueDate.Value = New Date(2005, 4, 21, 0, 0, 0, 0)
         '
         'Label50
@@ -1392,7 +1394,7 @@ Partial Class SSCPEvents
         Me.txtTestReportComments.Name = "txtTestReportComments"
         Me.txtTestReportComments.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.txtTestReportComments.Size = New System.Drawing.Size(400, 88)
-        Me.txtTestReportComments.TabIndex = 148
+        Me.txtTestReportComments.TabIndex = 11
         '
         'Label46
         '
@@ -1409,7 +1411,7 @@ Partial Class SSCPEvents
         Me.txtTestReportDueDate.Name = "txtTestReportDueDate"
         Me.txtTestReportDueDate.ReadOnly = True
         Me.txtTestReportDueDate.Size = New System.Drawing.Size(120, 20)
-        Me.txtTestReportDueDate.TabIndex = 143
+        Me.txtTestReportDueDate.TabIndex = 4
         '
         'TPInspection
         '
@@ -1468,7 +1470,7 @@ Partial Class SSCPEvents
         Me.rdbInspectionFollowUpYes.Location = New System.Drawing.Point(0, 0)
         Me.rdbInspectionFollowUpYes.Name = "rdbInspectionFollowUpYes"
         Me.rdbInspectionFollowUpYes.Size = New System.Drawing.Size(48, 16)
-        Me.rdbInspectionFollowUpYes.TabIndex = 19
+        Me.rdbInspectionFollowUpYes.TabIndex = 0
         Me.rdbInspectionFollowUpYes.Text = "Yes"
         '
         'rdbInspectionFollowUpNo
@@ -1476,7 +1478,7 @@ Partial Class SSCPEvents
         Me.rdbInspectionFollowUpNo.Location = New System.Drawing.Point(48, 0)
         Me.rdbInspectionFollowUpNo.Name = "rdbInspectionFollowUpNo"
         Me.rdbInspectionFollowUpNo.Size = New System.Drawing.Size(48, 16)
-        Me.rdbInspectionFollowUpNo.TabIndex = 20
+        Me.rdbInspectionFollowUpNo.TabIndex = 1
         Me.rdbInspectionFollowUpNo.Text = "No"
         '
         'Label34
@@ -1531,7 +1533,7 @@ Partial Class SSCPEvents
         Me.DTPInspectionDateStart.Location = New System.Drawing.Point(160, 24)
         Me.DTPInspectionDateStart.Name = "DTPInspectionDateStart"
         Me.DTPInspectionDateStart.Size = New System.Drawing.Size(100, 20)
-        Me.DTPInspectionDateStart.TabIndex = 3
+        Me.DTPInspectionDateStart.TabIndex = 0
         Me.DTPInspectionDateStart.Value = New Date(2005, 4, 21, 0, 0, 0, 0)
         '
         'cboInspectionComplianceStatus
@@ -1540,7 +1542,7 @@ Partial Class SSCPEvents
         Me.cboInspectionComplianceStatus.Location = New System.Drawing.Point(160, 176)
         Me.cboInspectionComplianceStatus.Name = "cboInspectionComplianceStatus"
         Me.cboInspectionComplianceStatus.Size = New System.Drawing.Size(206, 21)
-        Me.cboInspectionComplianceStatus.TabIndex = 15
+        Me.cboInspectionComplianceStatus.TabIndex = 7
         '
         'txtWeatherConditions
         '
@@ -1548,7 +1550,7 @@ Partial Class SSCPEvents
         Me.txtWeatherConditions.MaxLength = 100
         Me.txtWeatherConditions.Name = "txtWeatherConditions"
         Me.txtWeatherConditions.Size = New System.Drawing.Size(206, 20)
-        Me.txtWeatherConditions.TabIndex = 80
+        Me.txtWeatherConditions.TabIndex = 5
         '
         'wrnInspectionDates
         '
@@ -1600,7 +1602,7 @@ Partial Class SSCPEvents
         Me.rdbInspectionFacilityOperatingYes.Location = New System.Drawing.Point(0, 0)
         Me.rdbInspectionFacilityOperatingYes.Name = "rdbInspectionFacilityOperatingYes"
         Me.rdbInspectionFacilityOperatingYes.Size = New System.Drawing.Size(48, 16)
-        Me.rdbInspectionFacilityOperatingYes.TabIndex = 19
+        Me.rdbInspectionFacilityOperatingYes.TabIndex = 0
         Me.rdbInspectionFacilityOperatingYes.Text = "Yes"
         '
         'rdbInspectionFacilityOperatingNo
@@ -1626,7 +1628,7 @@ Partial Class SSCPEvents
         Me.cboInspectionReason.Location = New System.Drawing.Point(160, 72)
         Me.cboInspectionReason.Name = "cboInspectionReason"
         Me.cboInspectionReason.Size = New System.Drawing.Size(206, 21)
-        Me.cboInspectionReason.TabIndex = 31
+        Me.cboInspectionReason.TabIndex = 4
         '
         'DTPInspectionDateEnd
         '
@@ -1635,7 +1637,7 @@ Partial Class SSCPEvents
         Me.DTPInspectionDateEnd.Location = New System.Drawing.Point(266, 24)
         Me.DTPInspectionDateEnd.Name = "DTPInspectionDateEnd"
         Me.DTPInspectionDateEnd.Size = New System.Drawing.Size(100, 20)
-        Me.DTPInspectionDateEnd.TabIndex = 29
+        Me.DTPInspectionDateEnd.TabIndex = 1
         Me.DTPInspectionDateEnd.Value = New Date(2005, 4, 21, 0, 0, 0, 0)
         '
         'Label24
@@ -1664,7 +1666,7 @@ Partial Class SSCPEvents
         Me.txtInspectionConclusion.Multiline = True
         Me.txtInspectionConclusion.Name = "txtInspectionConclusion"
         Me.txtInspectionConclusion.Size = New System.Drawing.Size(552, 88)
-        Me.txtInspectionConclusion.TabIndex = 21
+        Me.txtInspectionConclusion.TabIndex = 8
         '
         'Label21
         '
@@ -1681,7 +1683,7 @@ Partial Class SSCPEvents
         Me.txtInspectionGuide.MaxLength = 100
         Me.txtInspectionGuide.Name = "txtInspectionGuide"
         Me.txtInspectionGuide.Size = New System.Drawing.Size(206, 20)
-        Me.txtInspectionGuide.TabIndex = 19
+        Me.txtInspectionGuide.TabIndex = 6
         '
         'Label20
         '
@@ -1709,7 +1711,7 @@ Partial Class SSCPEvents
         Me.dtpInspectionTimeEnd.Name = "dtpInspectionTimeEnd"
         Me.dtpInspectionTimeEnd.ShowUpDown = True
         Me.dtpInspectionTimeEnd.Size = New System.Drawing.Size(100, 20)
-        Me.dtpInspectionTimeEnd.TabIndex = 13
+        Me.dtpInspectionTimeEnd.TabIndex = 3
         Me.dtpInspectionTimeEnd.Value = New Date(2005, 6, 5, 12, 0, 0, 0)
         '
         'dtpInspectionTimeStart
@@ -1720,7 +1722,7 @@ Partial Class SSCPEvents
         Me.dtpInspectionTimeStart.Name = "dtpInspectionTimeStart"
         Me.dtpInspectionTimeStart.ShowUpDown = True
         Me.dtpInspectionTimeStart.Size = New System.Drawing.Size(100, 20)
-        Me.dtpInspectionTimeStart.TabIndex = 12
+        Me.dtpInspectionTimeStart.TabIndex = 2
         Me.dtpInspectionTimeStart.Value = New Date(2005, 6, 5, 8, 0, 0, 0)
         '
         'TPNotifications
@@ -1805,7 +1807,7 @@ Partial Class SSCPEvents
         Me.DTPNotificationReceived.Location = New System.Drawing.Point(136, 10)
         Me.DTPNotificationReceived.Name = "DTPNotificationReceived"
         Me.DTPNotificationReceived.Size = New System.Drawing.Size(100, 20)
-        Me.DTPNotificationReceived.TabIndex = 168
+        Me.DTPNotificationReceived.TabIndex = 1
         Me.DTPNotificationReceived.Value = New Date(2005, 4, 21, 0, 0, 0, 0)
         '
         'chbNotificationReceivedByAPB
@@ -1815,7 +1817,7 @@ Partial Class SSCPEvents
         Me.chbNotificationReceivedByAPB.Location = New System.Drawing.Point(7, 13)
         Me.chbNotificationReceivedByAPB.Name = "chbNotificationReceivedByAPB"
         Me.chbNotificationReceivedByAPB.Size = New System.Drawing.Size(122, 17)
-        Me.chbNotificationReceivedByAPB.TabIndex = 167
+        Me.chbNotificationReceivedByAPB.TabIndex = 0
         Me.chbNotificationReceivedByAPB.Text = "Received by GEPD:"
         Me.chbNotificationReceivedByAPB.UseVisualStyleBackColor = True
         '
@@ -1833,7 +1835,7 @@ Partial Class SSCPEvents
         Me.rdbNotificationFollowUpYes.Location = New System.Drawing.Point(0, 0)
         Me.rdbNotificationFollowUpYes.Name = "rdbNotificationFollowUpYes"
         Me.rdbNotificationFollowUpYes.Size = New System.Drawing.Size(48, 16)
-        Me.rdbNotificationFollowUpYes.TabIndex = 19
+        Me.rdbNotificationFollowUpYes.TabIndex = 0
         Me.rdbNotificationFollowUpYes.Text = "Yes"
         '
         'rdbNotificationFollowUpNo
@@ -1866,7 +1868,7 @@ Partial Class SSCPEvents
         Me.txtNotificationTypeOther.Location = New System.Drawing.Point(568, 64)
         Me.txtNotificationTypeOther.Name = "txtNotificationTypeOther"
         Me.txtNotificationTypeOther.Size = New System.Drawing.Size(192, 20)
-        Me.txtNotificationTypeOther.TabIndex = 31
+        Me.txtNotificationTypeOther.TabIndex = 5
         Me.txtNotificationTypeOther.Visible = False
         '
         'cboNotificationType
@@ -1875,7 +1877,7 @@ Partial Class SSCPEvents
         Me.cboNotificationType.Location = New System.Drawing.Point(568, 40)
         Me.cboNotificationType.Name = "cboNotificationType"
         Me.cboNotificationType.Size = New System.Drawing.Size(192, 21)
-        Me.cboNotificationType.TabIndex = 30
+        Me.cboNotificationType.TabIndex = 4
         '
         'Label66
         '
@@ -1895,7 +1897,7 @@ Partial Class SSCPEvents
         Me.dtpNotificationDate2.Name = "dtpNotificationDate2"
         Me.dtpNotificationDate2.ShowCheckBox = True
         Me.dtpNotificationDate2.Size = New System.Drawing.Size(120, 20)
-        Me.dtpNotificationDate2.TabIndex = 28
+        Me.dtpNotificationDate2.TabIndex = 3
         Me.dtpNotificationDate2.Value = New Date(2005, 4, 21, 0, 0, 0, 0)
         '
         'lblNotificationDate2
@@ -1926,7 +1928,7 @@ Partial Class SSCPEvents
         Me.txtNotificationComments.Name = "txtNotificationComments"
         Me.txtNotificationComments.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.txtNotificationComments.Size = New System.Drawing.Size(752, 182)
-        Me.txtNotificationComments.TabIndex = 18
+        Me.txtNotificationComments.TabIndex = 6
         '
         'dtpNotificationDate
         '
@@ -1937,7 +1939,7 @@ Partial Class SSCPEvents
         Me.dtpNotificationDate.Name = "dtpNotificationDate"
         Me.dtpNotificationDate.ShowCheckBox = True
         Me.dtpNotificationDate.Size = New System.Drawing.Size(120, 20)
-        Me.dtpNotificationDate.TabIndex = 16
+        Me.dtpNotificationDate.TabIndex = 2
         Me.dtpNotificationDate.Value = New Date(2005, 4, 21, 0, 0, 0, 0)
         '
         'lblNotificationDate
@@ -2031,7 +2033,7 @@ Partial Class SSCPEvents
         Me.dtpAccReportingYear.ShowCheckBox = True
         Me.dtpAccReportingYear.ShowUpDown = True
         Me.dtpAccReportingYear.Size = New System.Drawing.Size(70, 20)
-        Me.dtpAccReportingYear.TabIndex = 13
+        Me.dtpAccReportingYear.TabIndex = 2
         '
         'Label25
         '
@@ -2050,7 +2052,7 @@ Partial Class SSCPEvents
         Me.DTPACCReceivedDate.Location = New System.Drawing.Point(639, 59)
         Me.DTPACCReceivedDate.Name = "DTPACCReceivedDate"
         Me.DTPACCReceivedDate.Size = New System.Drawing.Size(100, 20)
-        Me.DTPACCReceivedDate.TabIndex = 15
+        Me.DTPACCReceivedDate.TabIndex = 4
         Me.DTPACCReceivedDate.Value = New Date(2005, 4, 21, 0, 0, 0, 0)
         '
         'chbACCReceivedByAPB
@@ -2060,7 +2062,7 @@ Partial Class SSCPEvents
         Me.chbACCReceivedByAPB.Location = New System.Drawing.Point(514, 62)
         Me.chbACCReceivedByAPB.Name = "chbACCReceivedByAPB"
         Me.chbACCReceivedByAPB.Size = New System.Drawing.Size(122, 17)
-        Me.chbACCReceivedByAPB.TabIndex = 14
+        Me.chbACCReceivedByAPB.TabIndex = 3
         Me.chbACCReceivedByAPB.Text = "Received by GEPD:"
         Me.chbACCReceivedByAPB.UseVisualStyleBackColor = True
         '
@@ -2184,7 +2186,7 @@ Partial Class SSCPEvents
         Me.DTPACCPostmarked.Location = New System.Drawing.Point(639, 113)
         Me.DTPACCPostmarked.Name = "DTPACCPostmarked"
         Me.DTPACCPostmarked.Size = New System.Drawing.Size(100, 20)
-        Me.DTPACCPostmarked.TabIndex = 16
+        Me.DTPACCPostmarked.TabIndex = 5
         Me.DTPACCPostmarked.Value = New Date(2007, 1, 25, 0, 0, 0, 0)
         '
         'wrnACCPostmark
@@ -2303,7 +2305,7 @@ Partial Class SSCPEvents
         Me.txtACCComments.Name = "txtACCComments"
         Me.txtACCComments.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.txtACCComments.Size = New System.Drawing.Size(384, 80)
-        Me.txtACCComments.TabIndex = 12
+        Me.txtACCComments.TabIndex = 1
         '
         'wrnACCPreviousDeviations
         '
@@ -2708,7 +2710,7 @@ Partial Class SSCPEvents
         Me.Splitter3.Location = New System.Drawing.Point(0, 194)
         Me.Splitter3.Name = "Splitter3"
         Me.Splitter3.Size = New System.Drawing.Size(792, 5)
-        Me.Splitter3.TabIndex = 230
+        Me.Splitter3.TabIndex = 0
         Me.Splitter3.TabStop = False
         '
         'PanelSSCPCompliance
@@ -2726,7 +2728,7 @@ Partial Class SSCPEvents
         Me.ToolStrip1.Location = New System.Drawing.Point(0, 0)
         Me.ToolStrip1.Name = "ToolStrip1"
         Me.ToolStrip1.Size = New System.Drawing.Size(792, 25)
-        Me.ToolStrip1.TabIndex = 232
+        Me.ToolStrip1.TabIndex = 0
         Me.ToolStrip1.Text = "ToolStrip1"
         '
         'btnSave
@@ -2815,4 +2817,5 @@ Partial Class SSCPEvents
     Friend WithEvents btnPrint As ToolStripButton
     Friend WithEvents Label13 As Label
     Friend WithEvents cboStaffResponsible As ComboBox
+    Friend WithEvents llEnforcementCases As LinkLabel
 End Class

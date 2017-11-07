@@ -14,7 +14,7 @@ Namespace Apb.Sscp
         ' General Info
         Public Property AirsNumber As ApbFacilityId ' STRAIRSNUMBER	VARCHAR2(12 BYTE)
         Public Property StaffResponsibleId As Integer ' NUMSTAFFRESPONSIBLE	NUMBER
-        Public Property LinkedWorkItemId As Integer ' STRTRACKINGNUMBER	NUMBER(10,0)
+        'Public Property LinkedWorkItemId As Integer ' STRTRACKINGNUMBER	NUMBER(10,0)
         Public Property Comment As String ' STRGENERALCOMMENTS	VARCHAR2(4000 BYTE)
 
         ' Enforcement Info
