@@ -2121,7 +2121,7 @@ Public Class SSPPTitleVTools
                     "ON SSPPApplicationMaster.strStaffResponsible = EPDuserPRofiles.numUserID  " &
                     " LEFT JOIN LookUpEPDUnits  " &
                     "ON EPDUserProfiles.numUnit = LookUpEPDunits.numUnitCode " &
-                    "and SSPPApplicationMaster.strApplicationNumber = @app "
+                    "where SSPPApplicationMaster.strApplicationNumber = @app "
 
                     Dim p2 As New SqlParameter("@app", temp)
 
@@ -2241,7 +2241,7 @@ Public Class SSPPTitleVTools
                     "ON SSPPApplicationMaster.strApplicationType = LookUpApplicationTypes.strApplicationTypeCode  " &
                     " inner JOIN SSPPApplicationTracking " &
                     "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber " &
-                    "and SSPPApplicationMaster.strApplicationNumber = @app "
+                    "where SSPPApplicationMaster.strApplicationNumber = @app "
 
                     Dim dt As DataTable = DB.GetDataTable(query, p)
 
