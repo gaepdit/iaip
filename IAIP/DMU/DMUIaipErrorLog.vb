@@ -176,7 +176,7 @@ Public Class DMUIaipErrorLog
     End Sub
 
     Private Sub btnSaveError_Click(sender As Object, e As EventArgs) Handles btnSaveError.Click
-        Dim ErrorSolution As String = ""
+        Dim ErrorSolution As String = Nothing
 
         If txtErrorSolution.Text <> "" Then
             ErrorSolution = Mid(txtErrorSolution.Text, 1, 4000)
@@ -192,7 +192,7 @@ Public Class DMUIaipErrorLog
                 New SqlParameter("@errNum", txtErrorNumber.Text)
             }
 
-            DB.RunCommand(query, Parameters)
+            DB.RunCommand(query, Parameters, forceAddNullableParameters:=True)
 
             MessageBox.Show("Solution Saved", "Date Management Tools", MessageBoxButtons.OK)
         Else

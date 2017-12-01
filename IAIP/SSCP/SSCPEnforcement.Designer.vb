@@ -643,7 +643,7 @@ Partial Class SscpEnforcement
         Me.ViolationTypeGroupbox.Location = New System.Drawing.Point(19, 297)
         Me.ViolationTypeGroupbox.Name = "ViolationTypeGroupbox"
         Me.ViolationTypeGroupbox.Size = New System.Drawing.Size(502, 77)
-        Me.ViolationTypeGroupbox.TabIndex = 9
+        Me.ViolationTypeGroupbox.TabIndex = 7
         Me.ViolationTypeGroupbox.TabStop = False
         Me.ViolationTypeGroupbox.Text = "Violation Type"
         Me.ViolationTypeGroupbox.Visible = False
@@ -790,7 +790,7 @@ Partial Class SscpEnforcement
         Me.SubmitToEpa.Location = New System.Drawing.Point(553, 207)
         Me.SubmitToEpa.Name = "SubmitToEpa"
         Me.SubmitToEpa.Size = New System.Drawing.Size(149, 23)
-        Me.SubmitToEpa.TabIndex = 8
+        Me.SubmitToEpa.TabIndex = 9
         Me.SubmitToEpa.Text = "Submit to EPA"
         Me.SubmitToEpa.Visible = False
         '
@@ -817,7 +817,7 @@ Partial Class SscpEnforcement
         Me.SubmitToUC.Location = New System.Drawing.Point(553, 178)
         Me.SubmitToUC.Name = "SubmitToUC"
         Me.SubmitToUC.Size = New System.Drawing.Size(149, 23)
-        Me.SubmitToUC.TabIndex = 7
+        Me.SubmitToUC.TabIndex = 8
         Me.SubmitToUC.Text = "Submit to UC"
         Me.SubmitToUC.Visible = False
         '

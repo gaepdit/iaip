@@ -416,7 +416,7 @@ Public Class SSPPTitleVTools
                     New SqlParameter("@strApplicationNumber", txtWebPublisherApplicationNumber.Text)
                 }
 
-                DB.RunCommand(query2, p2)
+                DB.RunCommand(query2, p2, forceAddNullableParameters:=True)
 
                 If lblLinkWarning.Visible = True Then
                     Dim LinkedApplication As String
@@ -449,7 +449,7 @@ Public Class SSPPTitleVTools
                                 New SqlParameter("@strApplicationNumber", LinkedApplication)
                             }
 
-                            DB.RunCommand(query2, p4)
+                            DB.RunCommand(query2, p4, forceAddNullableParameters:=True)
                         End If
                     Next
                 End If
