@@ -500,29 +500,38 @@ Public Class SscpEnforcement
         Handles ViolationTypeFrv.CheckedChanged, ViolationTypeHpv.CheckedChanged,
         ViolationTypeNonFrv.CheckedChanged, ViolationTypeNone.CheckedChanged
 
-        Dim rowFilter As String
+        If Not CType(sender, RadioButton).Checked Then
+            ' Prevents sub from firing twice (once for unchecking one button and once for checking another)
+            Exit Sub
+        End If
+
+        Dim rowFilter As String = Nothing
 
         ViolationTypeSelect.SelectedValue = "BLANK"
 
         If ViolationTypeNone.Checked Then
             ViolationTypeSelect.Enabled = False
-        ElseIf ViolationTypeFrv.Checked Then
+        End If
+
+        If ViolationTypeFrv.Checked Then
             rowFilter = "(SEVERITYCODE='FRV' AND DEPRECATED = 'FALSE') OR " &
                 "(AIRVIOLATIONTYPECODE = 'BLANK')"
-            ViolationTypeSelect.Enabled = True
-            ApplyViolationSelectFilter(rowFilter)
-        ElseIf ViolationTypeHpv.Checked Then
+        End If
+
+        If ViolationTypeHpv.Checked Then
             rowFilter = "(SEVERITYCODE='HPV' AND DEPRECATED = 'FALSE') OR " &
                 "(AIRVIOLATIONTYPECODE = 'BLANK')"
-            ViolationTypeSelect.Enabled = True
-            ApplyViolationSelectFilter(rowFilter)
-        ElseIf ViolationTypeNonFrv.Checked Then
+        End If
+
+        If ViolationTypeNonFrv.Checked Then
             rowFilter = "(SEVERITYCODE<>'FRV' AND SEVERITYCODE<>'HPV' AND DEPRECATED = 'FALSE') OR " &
                 "(AIRVIOLATIONTYPECODE = 'BLANK')"
+        End If
+
+        If rowFilter IsNot Nothing Then
             ViolationTypeSelect.Enabled = True
             ApplyViolationSelectFilter(rowFilter)
         End If
-
     End Sub
 
 #End Region
