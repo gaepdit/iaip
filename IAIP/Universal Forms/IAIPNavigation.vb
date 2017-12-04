@@ -794,6 +794,7 @@ Public Class IAIPNavigation
         AddNavButtonIfAccountHasFormAccess(1, "Facility Summary", NameOf(IAIPFacilitySummary), NavButtonCategories.General)
         AddNavButtonIfAccountHasFormAccess(7, "Query Generator", NameOf(IAIPQueryGenerator), NavButtonCategories.General)
         AddNavButtonIfAccountHasFormAccess(8, "User Management", NameOf(IaipUserManagement), NavButtonCategories.General)
+        AddNavButtonIfUserHasPermission({118, 119, 123, 124}, "GECO User Management", NameOf(GecoTool), NavButtonCategories.General)
 
         ' SSPP
         AddNavButtonIfAccountHasFormAccess(3, "Application Log", NameOf(SSPPApplicationLog), NavButtonCategories.SSPP)
@@ -832,7 +833,7 @@ Public Class IAIPNavigation
 
         ' EIS
         AddNavButtonIfAccountHasFormAccess(20, "Emissions Summary Tool", NameOf(SSCPEmissionSummaryTool), NavButtonCategories.EIS)
-        AddNavButtonIfAccountHasFormAccess(130, "EIS && GECO Tools", NameOf(DMUEisGecoTool), NavButtonCategories.EIS)
+        AddNavButtonIfAccountHasFormAccess(130, "Emission Inventory Tools", NameOf(EisTool), NavButtonCategories.EIS)
 
         'SBEAP
         AddNavButtonIfUserHasPermission({142, 143, 118}, "Customer Summary", NameOf(SBEAPClientSummary), NavButtonCategories.SBEAP)
