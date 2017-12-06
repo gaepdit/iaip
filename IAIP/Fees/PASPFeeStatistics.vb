@@ -2782,6 +2782,10 @@ Public Class PASPFeeStatistics
 #End Region
 
     Private Sub btnViewStats_Click(sender As Object, e As EventArgs) Handles btnViewStats.Click
+        ViewFeeStats()
+    End Sub
+
+    Private Sub ViewFeeStats()
         Try
 
             Dim SQL As String = "SELECT (SELECT COUNT(*) FROM FS_Admin " &
@@ -6169,7 +6173,9 @@ Public Class PASPFeeStatistics
 
     Private Sub btnCheckInvoices_Click(sender As Object, e As EventArgs) Handles btnCheckInvoices.Click
         Try
-            If cboFeeStatYear.Text <> "" Then
+            If cboFeeStatYear.Text IsNot Nothing Then
+                Dim feeYear As Integer = CInt(cboFeeStatYear.Text)
+
                 Dim query As String = "Update FS_FeeInvoice set " &
                 "strInvoiceStatus = '1', " &
                 "UpdateUser = @Username,  " &
@@ -6179,9 +6185,11 @@ Public Class PASPFeeStatistics
                 "and strInvoiceStatus = '0' " &
                 "and active = '1' "
 
+                Dim feeYearParam As SqlParameter = New SqlParameter("@FeeYear", SqlDbType.SmallInt) With {.Value = feeYear}
+
                 Dim parameters As SqlParameter() = New SqlParameter() {
                     New SqlParameter("@Username", CurrentUser.AlphaName),
-                    New SqlParameter("@FeeYear", cboFeeStatYear.Text)
+                    feeYearParam
                 }
 
                 If Not DB.RunCommand(query, parameters) Then
@@ -6189,24 +6197,11 @@ Public Class PASPFeeStatistics
                     Exit Sub
                 End If
 
-                query = "Select " &
-                "strAirsnumber " &
-                "from FS_FeeInvoice " &
-                "where numAmount = '0' " &
-                "and strInvoiceStatus = '1' " &
-                "and Active = '1' " &
-                "and updateUser = @Username " &
-                "and numFeeyear = @FeeYear "
-
-                Dim dt As DataTable = DB.GetDataTable(query, parameters)
-
-                For Each row As DataRow In dt.Rows
-                    If Not IsDBNull(row.Item("strAIRSNumber")) Then
-                        DAL.Update_FS_Admin_Status(cboFeeStatYear.Text, row.Item("strAIRSNumber"))
-                    End If
-                Next
+                DB.SPRunCommand("dbo.PD_FEE_STATUSES", feeYearParam)
 
                 MsgBox("Fee Invoices validated.", MsgBoxStyle.Information, Me.Text)
+
+                ViewFeeStats()
             End If
 
         Catch ex As Exception
