@@ -36,21 +36,9 @@ Public Class PASPDepositsAmendments
         Dim query As String
         Dim param() As SqlParameter
 
-        If mtbAIRSNumber.Text <> "" Then
-            query = "Select " &
-                "strAIRSNumber " &
-                "from APBFacilityInformation " &
-                "where strAIRSNumber = @AIRSNumber "
-            param = {New SqlParameter("@AIRSNumber", New Apb.ApbFacilityId(mtbAIRSNumber.Text).DbFormattedString)}
-
-            If Not DB.ValueExists(query, param) Then
-                MsgBox("This AIRS # is not valid; please verify that it is entered correctly." & vbCrLf &
+        If Not DAL.AirsNumberExists(mtbAIRSNumber.Text) Then
+            MsgBox("This AIRS # is not valid; please verify that it is entered correctly." & vbCrLf &
                        "If you get this message in error, contact the Data Management Unit for help.", MsgBoxStyle.OkOnly, "Incorrect AIRS Number")
-                Return False
-            End If
-        Else
-            MsgBox("This AIRS # is not a valid AIRS # please verify that the value entered it correct." & vbCrLf &
-             "If you get this message in error contact Data Management Unit for help.", MsgBoxStyle.OkOnly, "Incorrect AIRS Number")
             Return False
         End If
 
@@ -92,6 +80,7 @@ Public Class PASPDepositsAmendments
                 Return False
             End If
         End If
+
         Return True
     End Function
 

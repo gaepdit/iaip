@@ -28,22 +28,14 @@ Namespace DAL
             Return DB.GetDataTable(query, parameters)
         End Function
 
-        Public Function Update_FS_Admin_Status(feeYear As String, airsNumber As String) As Boolean
-            If Not Apb.ApbFacilityId.IsValidAirsNumberFormat(airsNumber) Then Return False
-            Dim aN As Apb.ApbFacilityId = airsNumber
-
-            Dim feeYearInt As Integer
-            If Not Integer.TryParse(feeYear, feeYearInt) Then Return False
-
-            Dim sp As String = "dbo.PD_FEE_STATUS"
-
+        Public Function Update_FS_Admin_Status(feeYear As Integer, airsNumber As Apb.ApbFacilityId) As Boolean
             Dim parameters As SqlParameter() = New SqlParameter() {
-                New SqlParameter("@FEEYEAR", SqlDbType.Int) With {.Value = feeYearInt},
-                New SqlParameter("@AIRSNUMBER", aN.DbFormattedString)
+                New SqlParameter("@FEEYEAR", SqlDbType.SmallInt) With {.Value = feeYear},
+                New SqlParameter("@AIRSNUMBER", SqlDbType.VarChar) With {.Value = airsNumber.DbFormattedString}
             }
 
             Try
-                Return DB.SPRunCommand(sp, parameters)
+                Return DB.SPRunCommand("dbo.PD_FEE_STATUS", parameters)
             Catch ex As Exception
                 Return False
             End Try
