@@ -168,7 +168,6 @@ Partial Class PASPFeeStatistics
         Me.Label39 = New System.Windows.Forms.Label()
         Me.txtFSNotPaid = New System.Windows.Forms.TextBox()
         Me.llbDetailNotPaid = New System.Windows.Forms.LinkLabel()
-        Me.Label50 = New System.Windows.Forms.Label()
         Me.llbFSSummaryFinalized = New System.Windows.Forms.LinkLabel()
         Me.Label30 = New System.Windows.Forms.Label()
         Me.txtFSFinalized = New System.Windows.Forms.TextBox()
@@ -1399,7 +1398,6 @@ Partial Class PASPFeeStatistics
         Me.Panel10.Controls.Add(Me.Label39)
         Me.Panel10.Controls.Add(Me.txtFSNotPaid)
         Me.Panel10.Controls.Add(Me.llbDetailNotPaid)
-        Me.Panel10.Controls.Add(Me.Label50)
         Me.Panel10.Controls.Add(Me.llbFSSummaryFinalized)
         Me.Panel10.Controls.Add(Me.Label30)
         Me.Panel10.Controls.Add(Me.txtFSFinalized)
@@ -1451,11 +1449,11 @@ Partial Class PASPFeeStatistics
         '
         Me.btnCheckInvoices.AutoSize = True
         Me.btnCheckInvoices.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnCheckInvoices.Location = New System.Drawing.Point(104, 478)
+        Me.btnCheckInvoices.Location = New System.Drawing.Point(23, 478)
         Me.btnCheckInvoices.Name = "btnCheckInvoices"
-        Me.btnCheckInvoices.Size = New System.Drawing.Size(111, 23)
+        Me.btnCheckInvoices.Size = New System.Drawing.Size(124, 23)
         Me.btnCheckInvoices.TabIndex = 218
-        Me.btnCheckInvoices.Text = "Validate all Invoices"
+        Me.btnCheckInvoices.Text = "Revalidate all Invoices"
         Me.btnCheckInvoices.UseVisualStyleBackColor = True
         '
         'llbFSSummaryPaidNotFinalized
@@ -1649,7 +1647,7 @@ Partial Class PASPFeeStatistics
         'Label58
         '
         Me.Label58.AutoSize = True
-        Me.Label58.Location = New System.Drawing.Point(9, 387)
+        Me.Label58.Location = New System.Drawing.Point(20, 388)
         Me.Label58.Name = "Label58"
         Me.Label58.Size = New System.Drawing.Size(89, 13)
         Me.Label58.TabIndex = 202
@@ -1833,15 +1831,6 @@ Partial Class PASPFeeStatistics
         Me.llbDetailNotPaid.Text = "Detail"
         Me.llbDetailNotPaid.UseCompatibleTextRendering = True
         '
-        'Label50
-        '
-        Me.Label50.AutoSize = True
-        Me.Label50.Location = New System.Drawing.Point(5, 483)
-        Me.Label50.Name = "Label50"
-        Me.Label50.Size = New System.Drawing.Size(93, 13)
-        Me.Label50.TabIndex = 168
-        Me.Label50.Text = "Check Processing"
-        '
         'llbFSSummaryFinalized
         '
         Me.llbFSSummaryFinalized.AutoSize = True
@@ -1959,7 +1948,7 @@ Partial Class PASPFeeStatistics
         'Label24
         '
         Me.Label24.AutoSize = True
-        Me.Label24.Location = New System.Drawing.Point(4, 277)
+        Me.Label24.Location = New System.Drawing.Point(20, 277)
         Me.Label24.Name = "Label24"
         Me.Label24.Size = New System.Drawing.Size(94, 13)
         Me.Label24.TabIndex = 155
@@ -2207,7 +2196,7 @@ Partial Class PASPFeeStatistics
         'btnViewStats
         '
         Me.btnViewStats.AutoSize = True
-        Me.btnViewStats.Location = New System.Drawing.Point(190, 55)
+        Me.btnViewStats.Location = New System.Drawing.Point(203, 56)
         Me.btnViewStats.Name = "btnViewStats"
         Me.btnViewStats.Size = New System.Drawing.Size(40, 23)
         Me.btnViewStats.TabIndex = 119
@@ -2217,7 +2206,7 @@ Partial Class PASPFeeStatistics
         'Label9
         '
         Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(10, 58)
+        Me.Label9.Location = New System.Drawing.Point(20, 60)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(74, 13)
         Me.Label9.TabIndex = 121
@@ -2227,7 +2216,7 @@ Partial Class PASPFeeStatistics
         '
         Me.cboFeeStatYear.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboFeeStatYear.FormattingEnabled = True
-        Me.cboFeeStatYear.Location = New System.Drawing.Point(87, 55)
+        Me.cboFeeStatYear.Location = New System.Drawing.Point(100, 57)
         Me.cboFeeStatYear.Name = "cboFeeStatYear"
         Me.cboFeeStatYear.Size = New System.Drawing.Size(97, 21)
         Me.cboFeeStatYear.TabIndex = 118
@@ -3360,7 +3349,6 @@ Partial Class PASPFeeStatistics
     Friend WithEvents btnClassChange As System.Windows.Forms.Button
     Friend WithEvents TPGeneral As System.Windows.Forms.TabPage
     Friend WithEvents btnFacInfoChange As System.Windows.Forms.Button
-    Friend WithEvents CRFeesReports As CrystalDecisions.Windows.Forms.CrystalReportViewer
     Friend WithEvents TPFeeStatistics2 As System.Windows.Forms.TabPage
     Friend WithEvents dgvFeeStats As System.Windows.Forms.DataGridView
     Friend WithEvents Panel10 As System.Windows.Forms.Panel
@@ -3421,7 +3409,6 @@ Partial Class PASPFeeStatistics
     Friend WithEvents Label39 As System.Windows.Forms.Label
     Friend WithEvents txtFSNotPaid As System.Windows.Forms.TextBox
     Friend WithEvents llbDetailNotPaid As System.Windows.Forms.LinkLabel
-    Friend WithEvents Label50 As System.Windows.Forms.Label
     Friend WithEvents Label54 As System.Windows.Forms.Label
     Friend WithEvents txtFSQuarterly As System.Windows.Forms.TextBox
     Friend WithEvents Label53 As System.Windows.Forms.Label
@@ -3485,4 +3472,5 @@ Partial Class PASPFeeStatistics
     Friend WithEvents dtpDepositReportEndDate As DateTimePicker
     Friend WithEvents dtpDepositReportStartDate As DateTimePicker
     Friend WithEvents Label2 As Label
+    Private WithEvents CRFeesReports As CrystalDecisions.Windows.Forms.CrystalReportViewer
 End Class

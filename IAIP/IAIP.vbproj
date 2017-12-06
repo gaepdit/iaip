@@ -57,7 +57,7 @@
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>installer.html</WebPage>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>5.4.2.0</ApplicationVersion>
+    <ApplicationVersion>5.4.3.0</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -179,6 +179,12 @@
     <Import Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GECO\GecoTool.Designer.vb">
+      <DependentUpon>GecoTool.vb</DependentUpon>
+    </Compile>
+    <Compile Include="GECO\GecoTool.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="GlobalSuppressions.vb" />
     <Compile Include="Users\IaipResetPassword.Designer.vb">
       <DependentUpon>IaipResetPassword.vb</DependentUpon>
@@ -227,6 +233,9 @@
     <Compile Include="_Data Models\Users\IaipRoles.vb" />
     <Compile Include="_Code\RegexPatterns.vb" />
     <Compile Include="_Code\IaipValidation.vb" />
+    <EmbeddedResource Include="GECO\GecoTool.resx">
+      <DependentUpon>GecoTool.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Users\IaipResetPassword.resx">
       <DependentUpon>IaipResetPassword.vb</DependentUpon>
     </EmbeddedResource>
@@ -529,10 +538,10 @@
     <Compile Include="DMU\DMUIaipErrorLog.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DMU\DMUEisGecoTool.Designer.vb">
-      <DependentUpon>DMUEisGecoTool.vb</DependentUpon>
+    <Compile Include="EIS\EisTool.Designer.vb">
+      <DependentUpon>EisTool.vb</DependentUpon>
     </Compile>
-    <Compile Include="DMU\DMUEisGecoTool.vb">
+    <Compile Include="EIS\EisTool.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="SSPP\SSPPTitleVTools.Designer.vb">
@@ -1135,8 +1144,8 @@
       <DependentUpon>DMUIaipErrorLog.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="DMU\DMUEisGecoTool.resx">
-      <DependentUpon>DMUEisGecoTool.vb</DependentUpon>
+    <EmbeddedResource Include="EIS\EisTool.resx">
+      <DependentUpon>EisTool.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="SSPP\SSPPTitleVTools.resx">

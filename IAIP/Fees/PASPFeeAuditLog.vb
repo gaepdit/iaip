@@ -2469,43 +2469,23 @@ Public Class PASPFeeAuditLog
                     "@STRCREDITCARDNO) "
 
 
-            If txtInvoiceID.Text <> "" Then
-                Dim params As SqlParameter() = {
-                    New SqlParameter("@INVOICEID", txtInvoiceID.Text),
-                    New SqlParameter("@TRANSACTIONTYPECODE", cboTransactionType.SelectedValue),
-                    New SqlParameter("@DATTRANSACTIONDATE", dtpTransactionDate.Value),
-                    New SqlParameter("@NUMPAYMENT", RealStringOrNothing(Replace(Replace(txtTransactionAmount.Text, ",", ""), "$", ""))),
-                    New SqlParameter("@STRCHECKNO", txtTransactionCheckNo.Text),
-                    New SqlParameter("@STRDEPOSITNO", txtDepositNo.Text),
-                    New SqlParameter("@STRBATCHNO", txtBatchNo.Text),
-                    New SqlParameter("@STRENTRYPERSON", CurrentUser.UserID),
-                    New SqlParameter("@STRCOMMENT", txtAPBComments.Text),
-                    New SqlParameter("@UPDATEUSER", CurrentUser.UserID),
-                    New SqlParameter("@STRAIRSNUMBER", AirsNumber.DbFormattedString),
-                    New SqlParameter("@NUMFEEYEAR", FeeYear),
-                    New SqlParameter("@STRCREDITCARDNO", txtTransactionCreditCardNo.Text)
-                }
+            Dim params As SqlParameter() = {
+                New SqlParameter("@INVOICEID", RealStringOrNothing(txtInvoiceID.Text)),
+                New SqlParameter("@TRANSACTIONTYPECODE", cboTransactionType.SelectedValue),
+                New SqlParameter("@DATTRANSACTIONDATE", dtpTransactionDate.Value),
+                New SqlParameter("@NUMPAYMENT", RealStringOrNothing(Replace(Replace(txtTransactionAmount.Text, ",", ""), "$", ""))),
+                New SqlParameter("@STRCHECKNO", txtTransactionCheckNo.Text),
+                New SqlParameter("@STRDEPOSITNO", txtDepositNo.Text),
+                New SqlParameter("@STRBATCHNO", txtBatchNo.Text),
+                New SqlParameter("@STRENTRYPERSON", CurrentUser.UserID),
+                New SqlParameter("@STRCOMMENT", txtAPBComments.Text),
+                New SqlParameter("@UPDATEUSER", CurrentUser.UserID),
+                New SqlParameter("@STRAIRSNUMBER", AirsNumber.DbFormattedString),
+                New SqlParameter("@NUMFEEYEAR", FeeYear),
+                New SqlParameter("@STRCREDITCARDNO", txtTransactionCreditCardNo.Text)
+            }
 
-                DB.RunCommand(SQL, params)
-            Else
-                Dim params As SqlParameter() = {
-                    New SqlParameter("@INVOICEID", Nothing),
-                    New SqlParameter("@TRANSACTIONTYPECODE", cboTransactionType.SelectedValue),
-                    New SqlParameter("@DATTRANSACTIONDATE", dtpTransactionDate.Value),
-                    New SqlParameter("@NUMPAYMENT", RealStringOrNothing(Replace(Replace(txtTransactionAmount.Text, ",", ""), "$", ""))),
-                    New SqlParameter("@STRCHECKNO", txtTransactionCheckNo.Text),
-                    New SqlParameter("@STRDEPOSITNO", txtDepositNo.Text),
-                    New SqlParameter("@STRBATCHNO", txtBatchNo.Text),
-                    New SqlParameter("@STRENTRYPERSON", CurrentUser.UserID),
-                    New SqlParameter("@STRCOMMENT", txtAPBComments.Text),
-                    New SqlParameter("@UPDATEUSER", CurrentUser.UserID),
-                    New SqlParameter("@STRAIRSNUMBER", AirsNumber.DbFormattedString),
-                    New SqlParameter("@NUMFEEYEAR", FeeYear),
-                    New SqlParameter("@STRCREDITCARDNO", txtTransactionCreditCardNo.Text)
-                }
-
-                DB.RunCommand(SQL, params)
-            End If
+            DB.RunCommand(SQL, params, forceAddNullableParameters:=True)
 
             SQL = "Select max(TransactionID) " &
             "from FS_TRANSACTIONS "
@@ -2519,7 +2499,7 @@ Public Class PASPFeeAuditLog
             End If
 
             InvoiceStatusCheck(txtInvoiceID.Text)
-            If Not DAL.Update_FS_Admin_Status(FeeYear, AirsNumber.ShortString) Then
+            If Not DAL.Update_FS_Admin_Status(FeeYear, AirsNumber) Then
                 MessageBox.Show("There was an error updating the database", "Database error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End If
 
@@ -2711,7 +2691,7 @@ Public Class PASPFeeAuditLog
 
             InvoiceStatusCheck(txtInvoiceID.Text)
 
-            If Not DAL.Update_FS_Admin_Status(Me.FeeYear, Me.AirsNumber.ShortString) Then
+            If Not DAL.Update_FS_Admin_Status(Me.FeeYear, Me.AirsNumber) Then
                 MessageBox.Show("There was an error updating the database", "Database error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End If
             RefreshAdminStatus()
@@ -2758,7 +2738,7 @@ Public Class PASPFeeAuditLog
             DB.RunCommand(SQL, p)
 
             InvoiceStatusCheck(txtInvoiceID.Text)
-            If Not DAL.Update_FS_Admin_Status(Me.FeeYear, Me.AirsNumber.ShortString) Then
+            If Not DAL.Update_FS_Admin_Status(Me.FeeYear, Me.AirsNumber) Then
                 MessageBox.Show("There was an error updating the database", "Database error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End If
             RefreshAdminStatus()
@@ -3697,7 +3677,7 @@ Public Class PASPFeeAuditLog
 
             DB.RunCommand(SQL, p)
 
-            If Not DAL.Update_FS_Admin_Status(FeeYear, AirsNumber.ToString) Then
+            If Not DAL.Update_FS_Admin_Status(FeeYear, AirsNumber) Then
                 MessageBox.Show("There was an error updating the database", "Database error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End If
 
@@ -4787,15 +4767,19 @@ Public Class PASPFeeAuditLog
                "and datInitialEnrollment is null "
             DB.RunCommand(SQL, params)
 
-            DB.SPRunCommand("dbo.PD_FEE_MAILOUT", params)
-            DB.SPRunCommand("dbo.PD_FEE_DATA", params)
+            Try
+                DB.SPRunCommand("dbo.PD_FEE_MAILOUT", params)
+                DB.SPRunCommand("dbo.PD_FEE_DATA", params)
+            Catch ex As Exception
+                ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+                MessageBox.Show("There was an error updating the database", "Database error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End Try
 
-            If Not DAL.Update_FS_Admin_Status(FeeYear, AIRSNumber.ToString) Then
+            If Not DAL.Update_FS_Admin_Status(FeeYear, AIRSNumber) Then
                 MessageBox.Show("There was an error updating the database", "Database error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End If
 
             Return True
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -4843,25 +4827,23 @@ Public Class PASPFeeAuditLog
             End If
 
             If Submittal = False Then
-                SQL = SQL & "intSubmittal = '0', " &
-                "datSubmittal = null, "
+                SQL = SQL & "intSubmittal = '0', "
+                SQL = SQL & "datSubmittal = null, "
             Else
                 SQL = SQL & "intsubmittal = '1', "
                 SQL = SQL & "datSubmittal = @datSubmittal, "
             End If
 
-            SQL = SQL & "strComment = @strComment, "
-
             If SQL = "" Then
                 Return False
             Else
-                SQL = SQL &
-                "updateUser = @updateUser, " &
-                "updateDateTime = getdate() "
+                SQL = SQL & "strComment = @strComment, "
+                SQL = SQL & "updateUser = @updateUser, "
+                SQL = SQL & "updateDateTime = getdate() "
             End If
 
             SQL = "Update FS_Admin set " & SQL &
-            "where numFeeYear = @year " &
+            " where numFeeYear = @year " &
             "and strAIRSNumber = @airs "
 
             Dim params As SqlParameter() = {
@@ -4874,7 +4856,7 @@ Public Class PASPFeeAuditLog
                 New SqlParameter("@updateUser", "IAIP||" & CurrentUser.AlphaName)
             }
 
-            DB.RunCommand(SQL, params)
+            DB.RunCommand(SQL, params, forceAddNullableParameters:=True)
 
             SQL = "Update FS_Admin set " &
             "datInitialEnrollment = datEnrollment " &
@@ -4883,18 +4865,20 @@ Public Class PASPFeeAuditLog
             "and datInitialEnrollment is null "
 
             Dim params2 As SqlParameter() = {
-                New SqlParameter("@FeeYear", SqlDbType.Decimal) With {.Value = FeeYear},
+                New SqlParameter("@FeeYear", SqlDbType.SmallInt) With {.Value = FeeYear},
                 New SqlParameter("@AIRSNumber", SqlDbType.VarChar) With {.Value = AIRSNumber.DbFormattedString}
             }
-
             DB.RunCommand(SQL, params2)
-            Dim spName As String = "dbo.PD_FEE_MAILOUT"
-            DB.SPRunCommand(spName, params2)
 
-            spName = "dbo.PD_FEE_DATA"
-            DB.SPRunCommand(spName, params2)
+            Try
+                DB.SPRunCommand("dbo.PD_FEE_MAILOUT", params)
+                DB.SPRunCommand("dbo.PD_FEE_DATA", params)
+            Catch ex As Exception
+                ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+                MessageBox.Show("There was an error updating the database", "Database error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End Try
 
-            If Not DAL.Update_FS_Admin_Status(FeeYear, AIRSNumber.ShortString) Then
+            If Not DAL.Update_FS_Admin_Status(FeeYear, AIRSNumber) Then
                 MessageBox.Show("There was an error updating the database", "Database error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End If
 
@@ -4905,7 +4889,7 @@ Public Class PASPFeeAuditLog
         End Try
     End Function
 
-    Private Sub Validate_FS_Invoices(FeeYear As String, AirsNumber As Apb.ApbFacilityId)
+    Private Sub Validate_FS_Invoices(FeeYear As Integer, AirsNumber As Apb.ApbFacilityId)
         Try
             Dim SQL As String = "Update FS_FeeInvoice set " &
             "strInvoiceStatus = '1', " &
@@ -4926,7 +4910,7 @@ Public Class PASPFeeAuditLog
             If Not DB.RunCommand(SQL, parameters) Then
                 MessageBox.Show("There was an error updating the database", "Database error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Else
-                If Not DAL.Update_FS_Admin_Status(FeeYear, AirsNumber.ToString) Then
+                If Not DAL.Update_FS_Admin_Status(FeeYear, AirsNumber) Then
                     MessageBox.Show("There was an error updating the database", "Database error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 End If
             End If
