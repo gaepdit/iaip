@@ -82,17 +82,17 @@ Public Class IAIPNavigation
 
     Private Sub EnableConnectionEnvironmentOptions()
         Select Case CurrentServerEnvironment
-            Case ServerEnvironment.DEV
+            Case ServerEnvironment.Development
                 pnlDbEnv.Text = "DEV database"
                 pnlDbEnv.BackColor = Color.Tomato
                 pnlDbEnv.Visible = True
                 lblTitle.Text = "IAIP Navigation Screen — DEV"
                 TestingMenu.Visible = True
-            Case ServerEnvironment.PRD
+            Case ServerEnvironment.Production
                 pnlDbEnv.Text = "PRD"
                 pnlDbEnv.Visible = False
                 TestingMenu.Visible = False
-            Case ServerEnvironment.UAT
+            Case ServerEnvironment.Staging
                 pnlDbEnv.Text = "UAT database"
                 pnlDbEnv.BackColor = Color.SpringGreen
                 pnlDbEnv.Visible = True
@@ -885,7 +885,11 @@ Public Class IAIPNavigation
 #Region " Testing Menu click events "
 
     Private Sub RunTest_Click(sender As Object, e As EventArgs) Handles RunTest.Click
-        Throw New Exception("Unhandled exception testing")
+        Try
+            Throw New Exception("Handled exception testing")
+        Catch ex As Exception
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
     End Sub
 
 #End Region

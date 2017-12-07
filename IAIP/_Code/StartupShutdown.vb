@@ -33,7 +33,8 @@
         ' DB Environment
         SetUpDbServerEnvironment()
 
-        ' TODO: Start analytics monitor
+        ' Start exception monitor
+        SetUpExceptionLogger()
 
         ' Initialize form settings
         AllFormSettings = GetAllFormSettings()
@@ -47,8 +48,6 @@
     Friend Sub Finish()
         ' Form settings
         SaveAllFormSettings()
-
-        ' TODO: Stop analytics monitor
     End Sub
 
     ''' <summary>
@@ -76,7 +75,8 @@
         UpdateSession(False)
         CurrentUser = Nothing
         Array.Clear(AccountFormAccess, 0, AccountFormAccess.Length)
-        ' TODO: Refresh analytics with user change
+        ' Remove username from analytics
+        ExceptionLogger.Tags.Remove("IaipUser")
     End Sub
 
     Private Sub CheckLanguageRegistrySetting()
@@ -90,16 +90,23 @@
 
     Private Sub SetUpDbServerEnvironment()
         ' Set current server environment based on project build parameters
-        CurrentServerEnvironment = ServerEnvironment.PRD
+        CurrentServerEnvironment = ServerEnvironment.Production
 #If DEBUG Then
-        CurrentServerEnvironment = ServerEnvironment.DEV
+        CurrentServerEnvironment = ServerEnvironment.Development
 #ElseIf UAT Then
-        CurrentServerEnvironment = ServerEnvironment.UAT
+        CurrentServerEnvironment = ServerEnvironment.Staging
 #End If
 
         ' Create EpdIt.DBHelper object based on current server environment
         ' This method is preferred and should be used for all future work
         DB = New EpdIt.DBHelper(CurrentConnectionString)
+    End Sub
+
+    Private Sub SetUpExceptionLogger()
+        ExceptionLogger = New SharpRaven.RavenClient(SENTRY_DSN) With {
+            .Environment = CurrentServerEnvironment.ToString,
+            .Release = GetCurrentVersionAsMajorMinorBuild().ToString
+        }
     End Sub
 
 End Module

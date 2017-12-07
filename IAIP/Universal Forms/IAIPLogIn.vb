@@ -179,7 +179,8 @@
     End Sub
 
     Private Sub LogInAlready()
-        ' TODO: refresh analytics with new user
+        ' Tag exception logger with new user
+        ExceptionLogger.Tags.Add("IaipUser", CurrentUser.Username)
         SaveUserSetting(UserSetting.PrefillLoginId, txtUserID.Text)
         ResetUserSetting(UserSetting.PasswordResetRequestedDate)
         OpenSingleForm(IAIPNavigation)
@@ -417,7 +418,7 @@
 
     Private Sub mmiThrowHandledError_Click(sender As Object, e As EventArgs) Handles mmiThrowHandledError.Click
         Try
-            Throw New Exception("Unhandled exception testing")
+            Throw New Exception("Handled exception testing")
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try

@@ -11,7 +11,9 @@ Public Class IaipExceptionManager
         ' Handles Application.ThreadException
         ' Handler added in StartupShutdown.Init
 
-        ' TODO: Track exception
+        ' Log exception
+        e.Exception.Data.Add("Sender", sender.ToString)
+        ExceptionLogger.Capture(New SharpRaven.Data.SentryEvent(e.Exception))
 
         Dim WhatHappened As String = "An unexpected error has occurred." & Environment.NewLine & Environment.NewLine &
             "The action you requested was not performed. When you click Exit, the IAIP will close."
