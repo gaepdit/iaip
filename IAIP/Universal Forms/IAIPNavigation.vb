@@ -19,9 +19,6 @@ Public Class IAIPNavigation
 #Region " Form events "
 
     Private Sub IAIPNavigation_Load(sender As Object, e As EventArgs) Handles Me.Load
-        monitor.TrackFeature("Main." & Me.Name)
-        monitor.TrackFeature("Forms." & Me.Name)
-
         ' UI adjustments
         AssociateQuickNavButtons()
         SetUpNavWorkListContextChanger()
@@ -43,8 +40,6 @@ Public Class IAIPNavigation
     End Sub
 
     Private Sub IAIPNavigation_Shown(sender As Object, e As EventArgs) Handles Me.Shown
-        monitor.TrackFeatureStop("Startup.LoggingIn")
-
         ' Start the bgrUserPermissions background worker
         BuildAccountPermissions()
 
@@ -128,8 +123,6 @@ Public Class IAIPNavigation
     Private Sub QuickAccessButton_Click(sender As Object, e As EventArgs) _
     Handles btnOpenFacilitySummary.Click, btnOpenTestReport.Click, btnOpenTestLog.Click, btnOpenSscpItem.Click, btnOpenSbeapClient.Click, btnOpenSbeapCaseLog.Click, btnOpenEnforcement.Click, btnOpenApplication.Click
         Dim thisButton As Button = CType(sender, Button)
-        monitor.TrackFeature("QuickAccess." & thisButton.Name)
-        monitor.TrackFeature("NavScreen.QuickAccess")
         Select Case thisButton.Name
             Case btnOpenApplication.Name
                 OpenApplication()
@@ -344,7 +337,6 @@ Public Class IAIPNavigation
     End Sub
 
     Private Sub btnLoadNavWorkList_Click(sender As Object, e As EventArgs) Handles btnLoadNavWorkList.Click
-        monitor.TrackFeature("NavScreen.ChangeWorkViewer")
         LoadWorkViewerData()
         SaveUserSetting(UserSetting.SelectedNavWorkListContext, CurrentNavWorkListContext.ToString)
         SaveUserSetting(UserSetting.SelectedNavWorkListScope, CurrentNavWorkListScope.ToString)
@@ -526,8 +518,6 @@ Public Class IAIPNavigation
     End Sub
 
     Private Sub OpenSelectedItem()
-        monitor.TrackFeature("NavScreen.WorkViewerLink")
-        monitor.TrackFeature("WorkViewerLink." & dgvWorkViewer.Columns(0).HeaderText.Replace(" ", "_"))
         Select Case dgvWorkViewer.Columns(0).HeaderText
             Case "Case ID" ' SBEAP cases
                 OpenSbeapCaseLog()
@@ -701,8 +691,6 @@ Public Class IAIPNavigation
 
     Private Sub NavButton_Click(sender As Object, e As EventArgs)
         Dim nb As NavButton = CType(sender, Button).Tag
-        monitor.TrackFeature("NavScreen.NavButton")
-        monitor.TrackFeature("NavButton." & nb.FormName)
         OpenSingleForm(nb.FormName)
     End Sub
 

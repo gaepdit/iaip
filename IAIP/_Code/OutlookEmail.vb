@@ -19,7 +19,6 @@ Module OutlookEmail
                 Optional recipientsCC As String() = Nothing, _
                 Optional recipientsBCC As String() = Nothing _
                 ) As Boolean
-        monitor.TrackFeature("Email.SendOutlookEmail")
 
         If Not IsOutlookRunning() Then
             MsgBox("Microsoft Outlook must be running first. Please start Outlook and try again.", MsgBoxStyle.OkOnly, "Error")

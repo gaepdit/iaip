@@ -152,15 +152,6 @@ Public Class IAIPFacilitySummary
         UpdateEpaMenuItem.Enabled = False
         PrintFacilitySummaryMenuItem.Enabled = False
 
-        ' Don't track tab index changes when clearing form
-        RemoveHandler FSMainTabControl.SelectedIndexChanged, AddressOf TabControl_SelectedIndexChanged
-        RemoveHandler ContactsTabControl.SelectedIndexChanged, AddressOf TabControl_SelectedIndexChanged
-        RemoveHandler TestingTabControl.SelectedIndexChanged, AddressOf TabControl_SelectedIndexChanged
-        RemoveHandler PermittingTabControl.SelectedIndexChanged, AddressOf TabControl_SelectedIndexChanged
-        RemoveHandler ComplianceTabControl.SelectedIndexChanged, AddressOf TabControl_SelectedIndexChanged
-        RemoveHandler FinancialTabControl.SelectedIndexChanged, AddressOf TabControl_SelectedIndexChanged
-        RemoveHandler EiTabControl.SelectedIndexChanged, AddressOf TabControl_SelectedIndexChanged
-
         FSMainTabControl.SelectedTab = FSInfo
         ContactsTabControl.SelectedTab = TPStateContacts
         TestingTabControl.SelectedTab = TPTestReport
@@ -168,14 +159,6 @@ Public Class IAIPFacilitySummary
         PermittingTabControl.SelectedTab = TPAppLog
         FinancialTabControl.SelectedTab = TPFeeData
         EiTabControl.SelectedTab = TPEiPost2009
-
-        AddHandler FSMainTabControl.SelectedIndexChanged, AddressOf TabControl_SelectedIndexChanged
-        AddHandler ContactsTabControl.SelectedIndexChanged, AddressOf TabControl_SelectedIndexChanged
-        AddHandler TestingTabControl.SelectedIndexChanged, AddressOf TabControl_SelectedIndexChanged
-        AddHandler PermittingTabControl.SelectedIndexChanged, AddressOf TabControl_SelectedIndexChanged
-        AddHandler ComplianceTabControl.SelectedIndexChanged, AddressOf TabControl_SelectedIndexChanged
-        AddHandler FinancialTabControl.SelectedIndexChanged, AddressOf TabControl_SelectedIndexChanged
-        AddHandler EiTabControl.SelectedIndexChanged, AddressOf TabControl_SelectedIndexChanged
     End Sub
 
     Private Sub EnableFacilityTools()
@@ -1194,8 +1177,6 @@ Public Class IAIPFacilitySummary
 #Region " Form-level events "
 
     Private Sub FSMainTabControl_SelectedIndexChanged(sender As Object, e As EventArgs) Handles FSMainTabControl.SelectedIndexChanged
-        monitor.TrackFeature("FacilitySummaryTab." & FSMainTabControl.SelectedTab.Name)
-
         Select Case FSMainTabControl.SelectedTab.Name
 
             Case FSCompliance.Name
@@ -1220,16 +1201,6 @@ Public Class IAIPFacilitySummary
                 LoadTestingData()
 
         End Select
-    End Sub
-
-    Private Sub TabControl_SelectedIndexChanged(sender As Object, e As EventArgs) _
-    Handles ContactsTabControl.SelectedIndexChanged, TestingTabControl.SelectedIndexChanged,
-    PermittingTabControl.SelectedIndexChanged, ComplianceTabControl.SelectedIndexChanged,
-    FinancialTabControl.SelectedIndexChanged, EiTabControl.SelectedIndexChanged
-
-        Dim tabcontrol As TabControl = CType(sender, TabControl)
-        monitor.TrackFeature("FacilitySummaryTab." & tabcontrol.SelectedTab.Name)
-
     End Sub
 
     Private Sub IAIPFacilitySummary_KeyUp(sender As Object, e As KeyEventArgs) Handles MyBase.KeyUp

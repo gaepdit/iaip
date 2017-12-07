@@ -14,7 +14,6 @@ Public Class IaipCreateUser
 #End Region
 
     Private Sub IaipUserProfile_Load(sender As Object, e As EventArgs) Handles Me.Load
-        monitor.TrackFeature("Forms." & Me.Name)
         LoadComboBoxData()
     End Sub
 

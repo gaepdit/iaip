@@ -3391,7 +3391,6 @@ Public Class PASPFeeAuditLog
             Dim dt As DataTable = DB.GetDataTable(SQL, p2)
 
             rpt = New crFS_Invoice
-            monitor.TrackFeature("Report." & rpt.ResourceName)
 
             'Do this just once at the start
             ParameterFields = New ParameterFields

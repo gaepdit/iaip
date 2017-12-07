@@ -45,8 +45,6 @@ Public Class IAIPFacilityLookUpTool
 #Region " Search Procedure "
 
     Private Sub SearchBy(SearchType As SearchByType)
-        monitor.TrackFeature("FacilitySearch. " & SearchType.ToString)
-
         Dim query As String = ""
         Dim parameter As SqlParameter = Nothing
 

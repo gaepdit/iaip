@@ -1,32 +1,26 @@
 ﻿Public Module UrlHandler
 
     Public Sub OpenDocumentationUrl(Optional objectSender As Form = Nothing)
-        monitor.TrackFeature("Url.OpenHelp")
         OpenUri(DocumentationUrl, objectSender)
     End Sub
 
     Public Sub OpenSupportUrl(Optional objectSender As Form = Nothing)
-        monitor.TrackFeature("Url.OpenSupport")
         OpenUri(SupportUrl, objectSender)
     End Sub
 
     Public Sub OpenChangelogUrl(Optional objectSender As Form = Nothing)
-        monitor.TrackFeature("Url.OpenChangelog")
         OpenUri(ChangelogUrl, objectSender)
     End Sub
 
     Public Sub OpenMapUrl(addressString As String, Optional objectSender As Form = Nothing)
-        monitor.TrackFeature("Url.OpenMap")
         OpenUri(New Uri(MapUrlFragment & addressString), objectSender)
     End Sub
 
     Public Sub OpenPermitSearchUrl(airsNumber As Apb.ApbFacilityId, Optional objectSender As Form = Nothing)
-        monitor.TrackFeature("Url.OpenPermitSearch")
         OpenUri(New Uri(PermitSearchUrlFragment & airsNumber.ToString), objectSender)
     End Sub
 
     Public Sub OpenVesaUrl(Optional objectSender As Form = Nothing)
-        monitor.TrackFeature("Url.OpenVesa")
         OpenUri(VesaUrl, objectSender)
     End Sub
 

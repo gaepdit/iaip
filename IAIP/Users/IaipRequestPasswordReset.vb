@@ -6,10 +6,6 @@ Public Class IaipRequestPasswordReset
     Friend Property Message As New IaipMessage
     Private Property InvalidEntries As New List(Of Control)
 
-    Private Sub IaipRequestPasswordReset_Load(sender As Object, e As EventArgs) Handles Me.Load
-        monitor.TrackFeature("Forms." & Me.Name)
-    End Sub
-
     Private Sub DoResetPassword_Click(sender As Object, e As EventArgs) Handles DoResetPassword.Click
         EP.Clear()
         InvalidEntries.Clear()

@@ -33,8 +33,7 @@
         ' DB Environment
         SetUpDbServerEnvironment()
 
-        ' EQATEC analytics monitor
-        InitializeMonitor()
+        ' TODO: Start analytics monitor
 
         ' Initialize form settings
         AllFormSettings = GetAllFormSettings()
@@ -49,8 +48,7 @@
         ' Form settings
         SaveAllFormSettings()
 
-        ' EQATEC analytics monitor
-        StopMonitor()
+        ' TODO: Stop analytics monitor
     End Sub
 
     ''' <summary>
@@ -78,9 +76,7 @@
         UpdateSession(False)
         CurrentUser = Nothing
         Array.Clear(AccountFormAccess, 0, AccountFormAccess.Length)
-        monitor.TrackFeature("Main.LogOut")
-        StopMonitor()
-        InitializeMonitor()
+        ' TODO: Refresh analytics with user change
     End Sub
 
     Private Sub CheckLanguageRegistrySetting()
@@ -93,7 +89,6 @@
     End Sub
 
     Private Sub SetUpDbServerEnvironment()
-
         ' Set current server environment based on project build parameters
         CurrentServerEnvironment = ServerEnvironment.PRD
 #If DEBUG Then

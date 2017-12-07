@@ -124,10 +124,6 @@
       <HintPath>..\packages\EpdIt.DbHelper.1.2.1\lib\net452\EpdIt.DbHelper.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="EQATEC.Analytics.Monitor, Version=3.3.43.0, Culture=neutral, PublicKeyToken=213c7c68adb58a17, processorArchitecture=MSIL">
-      <HintPath>..\packages\EQATEC.Analytics.Monitor.3.3.43\lib\Net20\EQATEC.Analytics.Monitor.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
       <EmbedInteropTypes>True</EmbedInteropTypes>
       <HintPath>..\packages\Microsoft.Office.Interop.Excel.15.0.4795.1000\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
@@ -1602,7 +1598,6 @@
     <Compile Include="_DAL\SSCP\DAL.Sscp.Enforcement.vb" />
     <Compile Include="_DAL\DAL.Documents.vb" />
     <Compile Include="_DAL\DAL.EventRegistration.vb" />
-    <Compile Include="_Code\EqatecAnalytics.vb" />
     <Compile Include="_Code\BitFields.vb" />
     <Compile Include="_Code\CrystalReports.vb" />
     <Compile Include="_Code\CueTextBox.vb">

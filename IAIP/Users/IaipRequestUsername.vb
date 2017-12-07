@@ -6,10 +6,6 @@ Public Class IaipRequestUsername
     Friend Property Message As New IaipMessage
     Private Property InvalidEntries As New List(Of Control)
 
-    Private Sub IaipRequestUsername_Load(sender As Object, e As EventArgs) Handles Me.Load
-        monitor.TrackFeature("Forms." & Me.Name)
-    End Sub
-
     Private Sub Request_Click(sender As Object, e As EventArgs) Handles DoRequestUsername.Click
         EP.Clear()
         InvalidEntries.Clear()

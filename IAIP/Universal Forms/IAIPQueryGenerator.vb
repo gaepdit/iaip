@@ -2993,7 +2993,6 @@ Public Class IAIPQueryGenerator
         End Try
     End Sub
     Private Sub UpdateDefaultSearch()
-        monitor.TrackFeature("QueryGenerator.SaveSearch")
         Dim DefaultsText As String = ""
 
         Try
@@ -3411,7 +3410,6 @@ Public Class IAIPQueryGenerator
 
     End Sub
     Private Sub LoadDefaults()
-        monitor.TrackFeature("QueryGenerator.OpenSavedSearch")
         Dim DefaultsText As String = ""
         Dim AIRSNumber As String = ""
         Dim FacilityName As String = ""
@@ -3929,7 +3927,6 @@ Public Class IAIPQueryGenerator
 
     Private Sub btnRunSearch_Click(sender As Object, e As EventArgs) Handles btnRunSearch.Click
         Try
-            monitor.TrackFeature("QueryGenerator.RunSearch")
             GenerateSQL2()
 
             Dim resultsPluralized As String = "result found"
@@ -4010,7 +4007,6 @@ Public Class IAIPQueryGenerator
     End Sub
 
     Private Sub btnRunPermitContact_Click(sender As Object, e As EventArgs) Handles btnRunPermitContact.Click
-        monitor.TrackFeature("QueryGenerator.RunPermitContact")
         Try
             Dim warning As String = "This report may take a long time to run and may time out. " &
                 "If you get an error, please just try again. If you continue to get errors after " &

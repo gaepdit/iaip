@@ -18,8 +18,6 @@ Public Class IAIPEditAirProgramPollutants
 #Region " Form load "
 
     Private Sub IAIPEditAirProgramPollutants_Load(sender As Object, e As EventArgs) Handles Me.Load
-        monitor.TrackFeature("Forms." & Me.Name)
-
         If AirsNumber Is Nothing OrElse Not DAL.AirsNumberExists(AirsNumber) Then
             MessageBox.Show("Invalid AIRS number.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Me.Close()

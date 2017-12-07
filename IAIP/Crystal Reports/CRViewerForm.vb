@@ -128,8 +128,6 @@ Public Class CRViewerForm
     End Sub
 
     Private Sub CrystalReportViewerForm_Load(sender As Object, e As EventArgs) Handles Me.Load
-        monitor.TrackFeature("Report." & CRReportDocument.ResourceName)
-
         If Me.CRReportDocument IsNot Nothing Then
             If Me.CRParameters IsNot Nothing Then CRSetParameters(CRReportDocument, CRParameters)
             CRViewerControl.ReportSource = Me.CRReportDocument

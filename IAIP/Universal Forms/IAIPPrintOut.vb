@@ -108,8 +108,6 @@ Public Class IAIPPrintOut
 
     Private Sub LoadOneStackTwoRun()
         Dim rpt As New CROneStackTwoRuns
-        monitor.TrackFeature("Report." & rpt.ResourceName)
-
         Dim ParameterFields As ParameterFields
         Dim ParameterField As ParameterField
         Dim spValue As ParameterDiscreteValue
@@ -989,8 +987,6 @@ Public Class IAIPPrintOut
 
     Private Sub LoadOneStackThreeRun()
         Dim rpt As New CROneStackThreeRuns
-        monitor.TrackFeature("Report." & rpt.ResourceName)
-
         Dim ParameterFields As ParameterFields
         Dim ParameterField As ParameterField
         Dim spValue As ParameterDiscreteValue
@@ -1958,8 +1954,6 @@ Public Class IAIPPrintOut
 
     Private Sub LoadOneStackFourRun()
         Dim rpt As New CROneStackFourRuns
-        monitor.TrackFeature("Report." & rpt.ResourceName)
-
         Dim ParameterFields As ParameterFields
         Dim ParameterField As ParameterField
         Dim spValue As ParameterDiscreteValue
@@ -3009,8 +3003,6 @@ Public Class IAIPPrintOut
 
     Private Sub LoadTwoStackStandard()
         Dim rpt As New CRTwoStackStandard
-        monitor.TrackFeature("Report." & rpt.ResourceName)
-
         Dim ParameterFields As ParameterFields
         Dim ParameterField As ParameterField
         Dim spValue As ParameterDiscreteValue
@@ -4309,8 +4301,6 @@ Public Class IAIPPrintOut
 
     Private Sub LoadTwoStackDRE()
         Dim rpt As New CRTwoStackDRE
-        monitor.TrackFeature("Report." & rpt.ResourceName)
-
         Dim ParameterFields As ParameterFields
         Dim ParameterField As ParameterField
         Dim spValue As ParameterDiscreteValue
@@ -5560,8 +5550,6 @@ Public Class IAIPPrintOut
 
     Private Sub LoadLoadingRack()
         Dim rpt As New CRLoadingRack
-        monitor.TrackFeature("Report." & rpt.ResourceName)
-
         Dim ParameterFields As ParameterFields
         Dim ParameterField As ParameterField
         Dim spValue As ParameterDiscreteValue
@@ -6267,8 +6255,6 @@ Public Class IAIPPrintOut
 
     Private Sub LoadPondTreatment()
         Dim rpt As New CRPondTreatment
-        monitor.TrackFeature("Report." & rpt.ResourceName)
-
         Dim ParameterFields As ParameterFields
         Dim ParameterField As ParameterField
         Dim spValue As ParameterDiscreteValue
@@ -7073,8 +7059,6 @@ Public Class IAIPPrintOut
 
     Private Sub LoadGasConcentration()
         Dim rpt As New CRGasConcentration
-        monitor.TrackFeature("Report." & rpt.ResourceName)
-
         Dim ParameterFields As ParameterFields
         Dim ParameterField As ParameterField
         Dim spValue As ParameterDiscreteValue
@@ -7908,8 +7892,6 @@ Public Class IAIPPrintOut
 
     Private Sub LoadFlare()
         Dim rpt As New CRFlare
-        monitor.TrackFeature("Report." & rpt.ResourceName)
-
         Dim ParameterFields As ParameterFields
         Dim ParameterField As ParameterField
         Dim spValue As ParameterDiscreteValue
@@ -8602,8 +8584,6 @@ Public Class IAIPPrintOut
 
     Private Sub LoadMemorandumStandard()
         Dim rpt As New CRMemorandumStandard
-        monitor.TrackFeature("Report." & rpt.ResourceName)
-
         Dim ParameterFields As ParameterFields
         Dim ParameterField As ParameterField
         Dim spValue As ParameterDiscreteValue
@@ -9037,8 +9017,6 @@ Public Class IAIPPrintOut
 
     Private Sub LoadMemorandumToFile()
         Dim rpt As New CRMemorandumToFile
-        monitor.TrackFeature("Report." & rpt.ResourceName)
-
         Dim ParameterFields As ParameterFields
         Dim ParameterField As ParameterField
         Dim spValue As ParameterDiscreteValue
@@ -9493,8 +9471,6 @@ Public Class IAIPPrintOut
 
     Private Sub LoadPTE()
         Dim rpt As New CRMemorandumPTE
-        monitor.TrackFeature("Report." & rpt.ResourceName)
-
         Dim ParameterFields As ParameterFields
         Dim ParameterField As ParameterField
         Dim spValue As ParameterDiscreteValue
@@ -10136,8 +10112,6 @@ Public Class IAIPPrintOut
 
     Private Sub LoadMethod22()
         Dim rpt As New CRMethod22
-        monitor.TrackFeature("Report." & rpt.ResourceName)
-
         Dim ParameterFields As ParameterFields
         Dim ParameterField As ParameterField
         Dim spValue As ParameterDiscreteValue
@@ -10689,7 +10663,6 @@ Public Class IAIPPrintOut
 
     Private Sub LoadMethod9Single()
         Dim rpt As New CRMethod9Single
-        monitor.TrackFeature("Report." & rpt.ResourceName)
         Dim temp As String
 
         Dim ParameterFields As ParameterFields
@@ -11297,7 +11270,6 @@ Public Class IAIPPrintOut
 
     Private Sub LoadMethod9Multi()
         Dim rpt As New CRMethod9Multi
-        monitor.TrackFeature("Report." & rpt.ResourceName)
         Dim temp As String
 
         Dim ParameterFields As ParameterFields
@@ -12171,7 +12143,6 @@ Public Class IAIPPrintOut
 
     Private Sub LoadRata()
         Dim rpt As New CRRata
-        monitor.TrackFeature("Report." & rpt.ResourceName)
         Dim temp As String
 
         Dim ParameterFields As ParameterFields
@@ -13259,7 +13230,6 @@ Public Class IAIPPrintOut
         ds.Tables.Add(dt)
 
         Dim rpt As New crAPBPrintOut2
-        monitor.TrackFeature("Report." & rpt.ResourceName)
         rpt.SetDataSource(ds)
 
         CRViewer.ParameterFieldInfo = ParameterFields
@@ -13300,7 +13270,6 @@ Public Class IAIPPrintOut
             ParameterFields.AddParameterField("ProgramManager", GetEpdManagerName(EpdManagementTypes.SsppProgramManager))
 
             Dim rpt As New CRTitleVRenewal10
-            monitor.TrackFeature("Report." & rpt.ResourceName)
             rpt.SetDataSource(dt)
 
             CRViewer.ParameterFieldInfo = ParameterFields
