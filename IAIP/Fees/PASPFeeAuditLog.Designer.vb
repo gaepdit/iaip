@@ -5294,7 +5294,6 @@ Partial Class PASPFeeAuditLog
     Friend WithEvents Label156 As System.Windows.Forms.Label
     Friend WithEvents Panel32 As System.Windows.Forms.Panel
     Friend WithEvents Panel31 As System.Windows.Forms.Panel
-    Friend WithEvents crFeeStatsAndInvoices As CrystalDecisions.Windows.Forms.CrystalReportViewer
     Friend WithEvents Panel33 As System.Windows.Forms.Panel
     Friend WithEvents dgvInvoices As System.Windows.Forms.DataGridView
     Friend WithEvents Panel34 As System.Windows.Forms.Panel
@@ -5378,4 +5377,5 @@ Partial Class PASPFeeAuditLog
     Friend WithEvents MailoutCancelEditingContactButton As System.Windows.Forms.Button
     Friend WithEvents MailoutSaveFacilityButton As System.Windows.Forms.Button
     Friend WithEvents MailoutCancelEditFacilityButton As System.Windows.Forms.Button
+    Private WithEvents crFeeStatsAndInvoices As CrystalDecisions.Windows.Forms.CrystalReportViewer
 End Class

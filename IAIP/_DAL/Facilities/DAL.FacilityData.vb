@@ -27,7 +27,7 @@ Namespace DAL
         ''' <returns>The facility name, or an empty string if facility AIRS number does not exist.</returns>
         Public Function GetFacilityName(airsNumber As ApbFacilityId) As String
             Dim fac As Facility = GetFacility(airsNumber)
-            Return fac.FacilityName
+            Return fac?.FacilityName
         End Function
 
         ''' <summary>
