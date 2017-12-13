@@ -189,7 +189,7 @@ Public Class MASPRegistrationTool
 
     Private Sub btnViewDetails_Click(sender As Object, e As EventArgs) Handles btnViewDetails.Click
         If selectedEventId IsNot Nothing Then
-            selectedEvent = New ResEvent(selectedEventId)
+            selectedEvent = New ResEvent(selectedEventId.Value)
             LoadEventOverview()
             LoadEventManagement()
             LoadRegistrationManagement()
@@ -231,7 +231,7 @@ Public Class MASPRegistrationTool
 
     Private Sub LoadEventOverviewRegistrants()
         Try
-            Dim registrants As DataTable = GetRegistrantsByEventId(selectedEventId)
+            Dim registrants As DataTable = GetRegistrantsByEventId(selectedEventId.Value)
 
             dgvOverviewRegistrants.DataSource = registrants
             FormatEventOverviewRegistrants()
@@ -280,6 +280,22 @@ Public Class MASPRegistrationTool
             With .Columns("STRCOMPANYNAME")
                 .HeaderText = "Company Name"
                 .DisplayIndex = 7
+            End With
+            With .Columns("STRADDRESS")
+                .HeaderText = "Address"
+                .DisplayIndex = 8
+            End With
+            With .Columns("STRCITY")
+                .HeaderText = "City"
+                .DisplayIndex = 9
+            End With
+            With .Columns("STRSTATE")
+                .HeaderText = "State"
+                .DisplayIndex = 10
+            End With
+            With .Columns("STRZIP")
+                .HeaderText = "Zip"
+                .DisplayIndex = 11
             End With
             With .Columns("NUMREGISTRATIONSTATUSCODE")
                 .Visible = False

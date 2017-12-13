@@ -168,20 +168,25 @@ Namespace DAL
         Public Function GetRegistrantsByEventId(id As Integer) As DataTable
             Try
                 Dim query As String =
-                "Select RR.NUMRES_REGISTRATIONID,
-                        RR.DATREGISTRATIONDATETIME,
-                        RR.STRCOMMENTS,
-                        RESLK.STRREGISTRATIONSTATUS,
-                        OPROF.STRFIRSTNAME,
-                        OPROF.STRLASTNAME,
-                        RR.UPDATEUSER As STRUSEREMAIL,
-                        OPROF.STRCOMPANYNAME,
-                        OPROF.STRPHONENUMBER,
-                        RR.NUMREGISTRATIONSTATUSCODE
-                From RES_REGISTRATION RR
-                        Left Join RESLK_REGISTRATIONSTATUS RESLK ON RR.NUMREGISTRATIONSTATUSCODE = RESLK.NUMRESLK_REGISTRATIONSTATUSID
-                        Left Join OLAPUSERPROFILE OPROF ON RR.NUMGECOUSERID = OPROF.NUMUSERID
-                WHERE Convert(Int, RR.NUMRES_EVENTID) = @pId"
+                "SELECT
+                    RR.NUMRES_REGISTRATIONID,
+                    RR.DATREGISTRATIONDATETIME,
+                    OPROF.STRFIRSTNAME,
+                    OPROF.STRLASTNAME,
+                    RR.STRCOMMENTS,
+                    RESLK.STRREGISTRATIONSTATUS,
+                    RR.UPDATEUSER AS STRUSEREMAIL,
+                    OPROF.STRCOMPANYNAME,
+                    OPROF.STRPHONENUMBER,
+                    OPROF.STRADDRESS,
+                    OPROF.STRCITY,
+                    OPROF.STRSTATE,
+                    OPROF.STRZIP,
+                    RR.NUMREGISTRATIONSTATUSCODE
+                FROM RES_REGISTRATION RR
+                    LEFT JOIN RESLK_REGISTRATIONSTATUS RESLK ON RR.NUMREGISTRATIONSTATUSCODE = RESLK.NUMRESLK_REGISTRATIONSTATUSID
+                    LEFT JOIN OLAPUSERPROFILE OPROF ON RR.NUMGECOUSERID = OPROF.NUMUSERID
+                WHERE Convert(INT, RR.NUMRES_EVENTID) = @pId"
 
                 Dim parameter As New SqlParameter("@pId", id)
 
