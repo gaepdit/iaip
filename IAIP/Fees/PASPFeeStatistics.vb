@@ -53,24 +53,20 @@ Public Class PASPFeeStatistics
             Dim dt As DataTable = DB.GetDataTable(SQL)
 
             For Each dr As DataRow In dt.Rows
-                If IsDBNull(dr.Item("FeeYear")) Then
-                    Year = Today.Year.ToString
-                Else
-                    Year = dr.Item("FeeYear")
-                End If
+                Year = dr.Item("FeeYear").ToString
 
-                If cboStatYear.Items.Contains(Year) Then
-                Else
+                If Not cboStatYear.Items.Contains(Year) Then
                     cboStatYear.Items.Add(Year)
                 End If
 
-                If cboFeeStatYear.Items.Contains(Year) Then
-                Else
+                If Not cboFeeStatYear.Items.Contains(Year) Then
                     cboFeeStatYear.Items.Add(Year)
                 End If
 
                 If TCMailoutAndStats.TabPages.Contains(TPNonRespondersReport) Then
-                    cboFeeYear.Items.Add(Year)
+                    If Not cboFeeYear.Items.Contains(Year) Then
+                        cboFeeYear.Items.Add(Year)
+                    End If
                 End If
             Next
 
@@ -87,8 +83,9 @@ Public Class PASPFeeStatistics
                 cboStatPayType.Items.Add(dr.Item("strPayTypeDesc"))
             Next
 
-            cboStatYear.Text = cboStatYear.Items.Item(0)
-            cboStatPayType.Text = cboStatPayType.Items.Item(0)
+            cboStatYear.SelectedIndex = 0
+            cboStatPayType.SelectedIndex = 0
+            cboFeeYear.SelectedIndex = 0
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
