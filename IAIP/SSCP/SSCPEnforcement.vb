@@ -1675,7 +1675,7 @@ Public Class SscpEnforcement
 
         If NfaToPM.Checked Then
             result = result And CheckTheseDates(
-                NfaToUC.Value,
+                NfaToPM.Value,
                 antecedents:=New List(Of DateTimePicker) From
                 {DiscoveryDate, NovToUC, NovToPM, NfaToUC},
                 subsequents:=New List(Of DateTimePicker) From {NfaSent})
