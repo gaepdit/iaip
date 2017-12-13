@@ -7424,17 +7424,17 @@ Public Class SSPPApplicationTrackingLog
     End Sub
 
     Private Sub PreSaveCheckThenSave()
+        Dim query As String = "Select " &
+                "datModifingdate " &
+                "from SSPPApplicationMaster " &
+                "where strApplicationNumber = @appnumber "
+        Dim parameter As New SqlParameter("@appnumber", txtApplicationNumber.Text)
+        Dim temp As DateTimeOffset = DB.GetSingleValue(Of DateTimeOffset)(query, parameter)
+
         If CurrentUser.ProgramID = 5 _
             Or (AccountFormAccess(51, 1) = "1" And CurrentUser.UnitId = 14) _
             Or AccountFormAccess(51, 3) = "1" _
             Or AccountFormAccess(51, 4) = "1" Then  'SSPP users and Web Users 
-
-            Dim query As String = "Select " &
-                "datModifingdate " &
-                "from SSPPApplicationMaster " &
-                "where strApplicationNumber = @appnumber "
-            Dim parameter As New SqlParameter("@appnumber", txtApplicationNumber.Text)
-            Dim temp As DateTimeOffset = DB.GetSingleValue(Of DateTimeOffset)(query, parameter)
 
             If TimeStamp <> Nothing AndAlso TimeStamp <> temp Then
                 MessageBox.Show("The application has been updated since you last opened it." & vbNewLine &
@@ -7446,22 +7446,26 @@ Public Class SSPPApplicationTrackingLog
             SaveApplicationData()
         End If
 
-        If DTPReviewSubmitted.Checked = True Then
-            SaveApplicationSubmitForReview()
-        End If
-        If DTPSSCPReview.Checked = True Then
-            SaveSSCPReview()
-        End If
-        If DTPISMPReview.Checked = True Then
-            SaveISMPReview()
-        End If
-        If TCApplicationTrackingLog.Contains(Me.TPContactInformation) Then
-            If Me.txtContactFirstName.Text <> "" And txtContactLastName.Text <> "" Then
-                SaveApplicationContact()
+        If temp <> Nothing Then
+            If DTPReviewSubmitted.Checked = True Then
+                SaveApplicationSubmitForReview()
             End If
-        End If
+            If DTPSSCPReview.Checked = True Then
+                SaveSSCPReview()
+            End If
+            If DTPISMPReview.Checked = True Then
+                SaveISMPReview()
+            End If
+            If TCApplicationTrackingLog.Contains(Me.TPContactInformation) Then
+                If Me.txtContactFirstName.Text <> "" And txtContactLastName.Text <> "" Then
+                    SaveApplicationContact()
+                End If
+            End If
 
-        MsgBox("Application Information Saved.", MsgBoxStyle.Information, "Application Tracking Log")
+            MsgBox("Application Information Saved.", MsgBoxStyle.Information, "Application Tracking Log")
+        Else
+            MessageBox.Show("There was an error saving the Application.", "Application Tracking Log", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End If
     End Sub
 
     Private Sub mmiSave_Click(sender As Object, e As EventArgs) Handles mmiSave.Click
