@@ -4043,7 +4043,7 @@ Public Class SSPPApplicationTrackingLog
             CloseOutApplication(CloseOut)
 
         Catch ex As Exception
-            ErrorReport(ex, temp, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+            ErrorReport(ex, "App #: " & txtApplicationNumber.Text & "; temp: " & temp, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
     Private Sub ReLoadBasicFacilityInfo()
