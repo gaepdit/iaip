@@ -524,12 +524,12 @@ Public Class SSCPEvents
         Dim dt As DataTable = DAL.Sscp.GetAllEnforcementForTrackingNumber(TrackingNumber)
         If dt IsNot Nothing AndAlso dt.Rows.Count > 0 Then
             llEnforcementCases.Links.Clear()
-            Dim i As Int16 = 0
+            Dim i As Integer = 0
             For Each row As DataRow In dt.Rows
                 i += 1
                 Dim enfNum As String = row(0).ToString()
-                Dim start As Int16 = llEnforcementCases.Text.Length + 1
-                Dim linkLength As Int16 = enfNum.Length
+                Dim start As Integer = llEnforcementCases.Text.Length + 1
+                Dim linkLength As Integer = enfNum.Length
                 llEnforcementCases.Text &= " " & enfNum
                 llEnforcementCases.Links.Add(start, linkLength, enfNum)
                 If i < dt.Rows.Count Then
@@ -579,7 +579,7 @@ Public Class SSCPEvents
                     Case WorkItemEventType.StackTest
                         result = SaveISMPTestReport()
                     Case WorkItemEventType.Notification
-                        If cboNotificationType.SelectedValue = "07" Or cboNotificationType.SelectedValue = "08" Then
+                        If cboNotificationType.SelectedValue.ToString = "07" Or cboNotificationType.SelectedValue.ToString = "08" Then
                             MsgBox("Malfunctions/deviations are no longer saved as notifications." & vbCrLf &
                                    "Please save this as a Report.", MsgBoxStyle.Exclamation, Me.Text)
                             Exit Sub
@@ -1242,6 +1242,7 @@ Public Class SSCPEvents
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+            Return False
         End Try
     End Function
 

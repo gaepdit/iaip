@@ -19,7 +19,7 @@ Public Class ISMPTestReports
     Dim DocumentType As String
     Dim ApplicableRequirment As String
     Dim ReportComments As String
-    Dim ReportStatus As String
+    Dim ReportClosed As Boolean
     Dim ControlEquipment As String
 
     Public Property ReferenceNumber() As String
@@ -1049,9 +1049,9 @@ Public Class ISMPTestReports
                     ReportComments = dr.Item("mmoCommentArea")
                 End If
                 If IsDBNull(dr.Item("strClosed")) Then
-                    ReportStatus = "False"
+                    ReportClosed = False
                 Else
-                    ReportStatus = dr.Item("strClosed")
+                    ReportClosed = CBool(dr.Item("strClosed"))
                 End If
                 If IsDBNull(dr.Item("strProgramManager")) Then
                     txtProgramManager.Clear()
@@ -1245,7 +1245,7 @@ Public Class ISMPTestReports
                 LoadOtherWitnessingEng()
             End If
 
-            If ReportStatus = "True" Then
+            If ReportClosed Then
                 TCDocumentTypes.TabPages.Add(TPSSCPWork)
             Else
                 TCDocumentTypes.TabPages.Remove(TPSSCPWork)
@@ -5204,7 +5204,7 @@ Public Class ISMPTestReports
                 mmiDefaultCompliance.Visible = False
             End If
 
-            If AccountFormAccess(69, 3) = "1" And ReportStatus <> "True" Then
+            If AccountFormAccess(69, 3) = "1" And Not ReportClosed Then
                 txtSourceTested.ReadOnly = False
                 cboPollutantDetermined.Enabled = True
                 cboMethodDetermined.Enabled = True
@@ -8180,25 +8180,25 @@ Public Class ISMPTestReports
                     If IsDBNull(dr.Item("strTrackingNumber")) Then
                         txtTrackingNumber.Text = ""
                     Else
-                        txtTrackingNumber.Text = dr.Item("strTrackingNumber")
+                        txtTrackingNumber.Text = CType(dr.Item("strTrackingNumber"), String)
                     End If
                     If IsDBNull(dr.Item("datTestReportDue")) Then
                         txtTestReportDueDate.Text = ""
                         DTPTestReportDueDate.Value = Today
                     Else
                         txtTestReportDueDate.Text = Format(dr.Item("datTestReportDue"), "dd-MMM-yyyy")
-                        DTPTestReportDueDate.Text = Format(dr.Item("datTestReportDue"), "dd-MMM-yyyy")
+                        DTPTestReportDueDate.Value = CDate(dr.Item("datTestReportDue"))
                     End If
                     If IsDBNull(dr.Item("strTestReportComments")) Then
                         txtTestReportComments.Text = ""
                     Else
-                        txtTestReportComments.Text = dr.Item("strTestReportComments")
+                        txtTestReportComments.Text = CType(dr.Item("strTestReportComments"), String)
                     End If
                     If IsDBNull(dr.Item("strTestReportFollowup")) Then
                         rdbTestReportFollowUpYes.Checked = False
                         rdbTestReportFollowUpNo.Checked = False
                     Else
-                        If dr.Item("strTestReportFollowUp") = "False" Then
+                        If CBool(dr.Item("strTestReportFollowUp")) = False Then
                             rdbTestReportFollowUpYes.Checked = False
                             rdbTestReportFollowUpNo.Checked = True
                         Else
@@ -8207,19 +8207,19 @@ Public Class ISMPTestReports
                         End If
                     End If
                     If IsDBNull(dr.Item("datCompleteDate")) Then
-                        DTPEventCompleteDate.Text = ""
+                        DTPEventCompleteDate.Value = Nothing
                         chbEventComplete.Checked = False
                     Else
-                        DTPEventCompleteDate.Text = Format(dr.Item("datCompleteDate"), "dd-MMM-yyyy")
+                        DTPEventCompleteDate.Value = CDate(dr.Item("datCompleteDate"))
                         chbEventComplete.Checked = True
                     End If
 
                     If IsDBNull(dr.Item("datAcknoledgmentLetterSent")) Then
-                        DTPAcknoledgmentLetterSent.Text = ""
+                        DTPAcknoledgmentLetterSent.Value = Nothing
                         chbAcknoledgmentLetterSent.Checked = False
                         DTPAcknoledgmentLetterSent.Visible = False
                     Else
-                        DTPAcknoledgmentLetterSent.Text = Format(dr.Item("datAcknoledgmentLetterSent"), "dd-MMM-yyyy")
+                        DTPAcknoledgmentLetterSent.Value = CDate(dr.Item("datAcknoledgmentLetterSent"))
                         chbAcknoledgmentLetterSent.Checked = True
                         DTPAcknoledgmentLetterSent.Visible = True
                     End If
@@ -8261,7 +8261,7 @@ Public Class ISMPTestReports
                     If IsDBNull(dr3.Item("datSSCPTestReportDue")) Then
                         DTPTestReportNewDueDate.Value = Today
                     Else
-                        DTPTestReportNewDueDate.Text = Format(dr3.Item("datSSCPTestReportDue"), "dd-MMM-yyyy")
+                        DTPTestReportNewDueDate.Value = CDate(dr3.Item("datSSCPTestReportDue"))
                     End If
                 Else
                     DTPTestReportNewDueDate.Value = Today
@@ -9083,9 +9083,9 @@ Public Class ISMPTestReports
                             ReportComments = dr.Item("mmoCommentArea")
                         End If
                         If IsDBNull(dr.Item("strClosed")) Then
-                            ReportStatus = "Open"
+                            ReportClosed = False
                         Else
-                            ReportStatus = dr.Item("strClosed")
+                            ReportClosed = CBool(dr.Item("strClosed"))
                         End If
                         If IsDBNull(dr.Item("strProgramManager")) Then
                             txtProgramManager.Clear()
@@ -10282,59 +10282,56 @@ Public Class ISMPTestReports
     End Sub
     Private Sub SaveSSCPWork()
         Try
-            Dim StaffResponsible As String = CurrentUser.UserID
-            Dim CompleteDate As String = TodayFormatted
-            Dim AckLetter As String = TodayFormatted
-            Dim TestDue As String = TodayFormatted
-            Dim NextTest As String = TodayFormatted
-            Dim ReportComments As String = " "
-            Dim FollowUp As String = "False"
+            Dim StaffResponsible As Integer = CurrentUser.UserID
+            Dim CompleteDate As Date = Today
+            Dim AckLetter As Date = Today
+            Dim TestDue As Date = Today
+            Dim NextTest As Date = Today
+            Dim TestReportComments As String = " "
+            Dim FollowUp As Boolean = False
 
-            If cboStaffResponsible.Text <> " " And cboStaffResponsible.Text <> "" Then
-                StaffResponsible = cboStaffResponsible.SelectedValue
-                If StaffResponsible = "" Then
-                    StaffResponsible = CurrentUser.UserID
-                End If
+            If cboStaffResponsible.SelectedValue IsNot Nothing AndAlso cboStaffResponsible.Text <> " " AndAlso cboStaffResponsible.Text <> "" Then
+                StaffResponsible = CInt(cboStaffResponsible.SelectedValue)
             Else
                 StaffResponsible = CurrentUser.UserID
             End If
             If chbEventComplete.Checked = True Then
-                CompleteDate = DTPEventCompleteDate.Text
+                CompleteDate = DTPEventCompleteDate.Value
             Else
-                CompleteDate = ""
+                CompleteDate = Nothing
             End If
             If chbAcknoledgmentLetterSent.Checked = True Then
-                AckLetter = DTPAcknoledgmentLetterSent.Text
+                AckLetter = DTPAcknoledgmentLetterSent.Value
             Else
-                AckLetter = ""
+                AckLetter = Nothing
             End If
             If DTPTestReportNewDueDate.Text <> "" Then
-                NextTest = DTPTestReportNewDueDate.Text
+                NextTest = DTPTestReportNewDueDate.Value
             Else
                 If txtTestReportDueDate.Text <> "" Then
-                    NextTest = Format(CDate(txtTestReportDueDate.Text).AddYears(1), "dd-MMM-yyyy")
+                    NextTest = CDate(txtTestReportDueDate.Text).AddYears(1)
                 Else
-                    NextTest = Format(Today.AddYears(1), "dd-MMM-yyyy")
+                    NextTest = Today.AddYears(1)
                 End If
             End If
             If chbTestReportChangeDueDate.Checked = True Then
-                TestDue = DTPTestReportDueDate.Text
+                TestDue = DTPTestReportDueDate.Value
             Else
                 If txtTestReportDueDate.Text <> "" Then
-                    TestDue = txtTestReportDueDate.Text
+                    TestDue = CDate(txtTestReportDueDate.Text)
                 Else
-                    TestDue = Format(CDate(txtReceivedByAPB.Text), "dd-MMM-yyyy")
+                    TestDue = CDate(txtReceivedByAPB.Text)
                 End If
             End If
             If txtTestReportComments.Text <> "" Then
-                ReportComments = txtTestReportComments.Text
+                TestReportComments = txtTestReportComments.Text
             Else
-                ReportComments = " "
+                TestReportComments = " "
             End If
             If rdbTestReportFollowUpYes.Checked = True Then
-                FollowUp = "True"
+                FollowUp = True
             Else
-                FollowUp = "False"
+                FollowUp = False
             End If
             If txtTrackingNumber.Text = "" Then
                 query = "Insert into SSCPItemMaster " &
@@ -10404,7 +10401,7 @@ Public Class ISMPTestReports
                         New SqlParameter("@strTrackingNumber", txtTrackingNumber.Text)
                     }
 
-                    DB.RunCommand(query, p9)
+                    DB.RunCommand(query, p9, forceAddNullableParameters:=True)
 
                     query = "Select strTrackingNumber " &
                     "from SSCPTestReports " &
@@ -10421,13 +10418,13 @@ Public Class ISMPTestReports
 
                         Dim p10 As SqlParameter() = {
                             New SqlParameter("@datTestReportDue", TestDue),
-                            New SqlParameter("@strTestReportComments", ReportComments),
-                            New SqlParameter("@strTestReportFollowUp", FollowUp),
+                            New SqlParameter("@strTestReportComments", TestReportComments),
+                            New SqlParameter("@strTestReportFollowUp", FollowUp.ToString),
                             New SqlParameter("@strModifingPerson", CurrentUser.UserID),
                             New SqlParameter("@strTrackingNumber", txtTrackingNumber.Text)
                         }
 
-                        DB.RunCommand(query, p10)
+                        DB.RunCommand(query, p10, forceAddNullableParameters:=True)
                     End If
 
                     If txtAirsNumber.Text.Length = 8 Then
@@ -13885,19 +13882,24 @@ Public Class ISMPTestReports
     End Sub
 
     Private Sub llEnforcementCases_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llEnforcementCases.LinkClicked
-        OpenFormEnforcement(e.Link.LinkData)
+        OpenFormEnforcement(e.Link.LinkData.ToString)
     End Sub
 
     Private Sub DisplayEnforcementCases()
-        Dim dt As DataTable = DAL.Sscp.GetAllEnforcementForTrackingNumber(txtTrackingNumber.Text)
+        Dim dt As New DataTable
+        Try
+            dt = DAL.Sscp.GetAllEnforcementForTrackingNumber(CInt(txtTrackingNumber.Text))
+        Catch ex As Exception
+            ErrorReport(ex, "Ref #: " & ReferenceNumber & "; Tracking #: " & txtTrackingNumber.Text, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
         If dt IsNot Nothing AndAlso dt.Rows.Count > 0 Then
             llEnforcementCases.Links.Clear()
-            Dim i As Int16 = 0
+            Dim i As Integer = 0
             For Each row As DataRow In dt.Rows
                 i += 1
                 Dim enfNum As String = row(0).ToString()
-                Dim start As Int16 = llEnforcementCases.Text.Length + 1
-                Dim linkLength As Int16 = enfNum.Length
+                Dim start As Integer = llEnforcementCases.Text.Length + 1
+                Dim linkLength As Integer = enfNum.Length
                 llEnforcementCases.Text &= " " & enfNum
                 llEnforcementCases.Links.Add(start, linkLength, enfNum)
                 If i < dt.Rows.Count Then
@@ -21353,7 +21355,7 @@ Public Class ISMPTestReports
     Private Sub cboDiluentRata_MouseDown(sender As Object, e As MouseEventArgs) Handles cboDiluentRata.MouseDown
         Try
 
-            If ReportStatus = True Then
+            If ReportClosed Then
                 cboDiluentRata.Enabled = False
             Else
                 cboDiluentRata.Enabled = True
@@ -21368,7 +21370,7 @@ Public Class ISMPTestReports
     Private Sub cboDiluentRata_KeyDown(sender As Object, e As KeyEventArgs) Handles cboDiluentRata.KeyDown
         Try
 
-            If ReportStatus = True Then
+            If ReportClosed Then
                 cboDiluentRata.Enabled = False
             Else
                 cboDiluentRata.Enabled = True
@@ -21383,7 +21385,7 @@ Public Class ISMPTestReports
     Private Sub cboDiluentRata_GotFocus(sender As Object, e As EventArgs) Handles cboDiluentRata.GotFocus
         Try
 
-            If ReportStatus = True Then
+            If ReportClosed Then
                 cboDiluentRata.Enabled = False
             Else
                 cboDiluentRata.Enabled = True
