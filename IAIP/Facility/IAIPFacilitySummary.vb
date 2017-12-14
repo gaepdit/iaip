@@ -653,7 +653,7 @@ Public Class IAIPFacilitySummary
 
                 ' Testing
             Case TestReportsGrid.Name
-                OpenFormTestPrintout(id)
+                OpenFormTestReport(id)
             Case TestNotificationsGrid.Name
                 OpenFormTestNotification(id)
             Case TestMemosGrid.Name

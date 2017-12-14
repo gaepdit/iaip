@@ -1,5 +1,4 @@
 ﻿Imports System.Data.SqlClient
-Imports Iaip.Apb.Sscp
 Imports System.Collections.Generic
 Imports System.Text.RegularExpressions
 
@@ -13,7 +12,7 @@ Namespace DAL.Ismp
         ''' <param name="referenceNumber">The stack test reference number to check</param>
         ''' <returns>True if the reference number exists; otherwise, false.</returns>
         Public Function StackTestExists(referenceNumber As String) As Boolean
-            If referenceNumber = "" OrElse Not Integer.TryParse(referenceNumber, Nothing) Then Return False
+            If String.IsNullOrEmpty(referenceNumber) Then Return False
 
             Dim query As String = "SELECT CONVERT( bit, COUNT(*)) " &
                 " FROM ISMPREPORTINFORMATION " &
@@ -45,7 +44,7 @@ Namespace DAL.Ismp
         ''' <param name="referenceNumber">The stack test reference number to check</param>
         ''' <returns>True if the stack test has been closed out; otherwise, false.</returns>
         Public Function StackTestIsClosedOut(referenceNumber As String) As Boolean
-            If referenceNumber = "" OrElse Not Integer.TryParse(referenceNumber, Nothing) Then Return False
+            If String.IsNullOrEmpty(referenceNumber) Then Return False
 
             Dim query As String = "SELECT STRCLOSED " &
                 " FROM ISMPREPORTINFORMATION " &
@@ -56,7 +55,7 @@ Namespace DAL.Ismp
         End Function
 
         Private Function GetStackTestDbTable(referenceNumber As String) As String
-            If referenceNumber = "" OrElse Not Integer.TryParse(referenceNumber, Nothing) Then Return Nothing
+            If String.IsNullOrEmpty(referenceNumber) Then Return False
 
             Dim query As String =
             "SELECT dt.STRTABLENAME " &
@@ -71,6 +70,8 @@ Namespace DAL.Ismp
         End Function
 
         Public Function GetStackTestDocumentType(referenceNumber As String) As String
+            If String.IsNullOrEmpty(referenceNumber) Then Return Nothing
+
             Dim query As String = "SELECT t.STRDOCUMENTTYPE
                 FROM ISMPDOCUMENTTYPE AS t
                 INNER JOIN ISMPREPORTINFORMATION AS i ON i.STRDOCUMENTTYPE = t.STRKEY
@@ -86,7 +87,7 @@ Namespace DAL.Ismp
         ''' <param name="referenceNumber">The reference number of the stack test to clear.</param>
         ''' <returns>True if the action was successful; otherwise, false.</returns>
         Public Function ClearStackTestData(referenceNumber As String) As Boolean
-            If referenceNumber = "" OrElse Not Integer.TryParse(referenceNumber, Nothing) Then Return Nothing
+            If String.IsNullOrEmpty(referenceNumber) Then Return False
 
             Dim tableName As String = GetStackTestDbTable(referenceNumber)
 

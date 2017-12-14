@@ -3006,10 +3006,7 @@ Public Class SSCPEvents
     Private Sub btnViewTestReport_Click(sender As Object, e As EventArgs) Handles btnViewTestReport.Click
         Try
             If txtISMPReferenceNumber.Text <> "N/A" Then
-                Dim PrintOut As New IAIPPrintOut
-                PrintOut.ReferenceValue = txtISMPReferenceNumber.Text
-                PrintOut.PrintoutType = IAIPPrintOut.PrintType.IsmpTestReport
-                PrintOut.Show()
+                OpenFormTestReportPrintout(txtISMPReferenceNumber.Text)
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)

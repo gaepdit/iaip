@@ -14,6 +14,7 @@ Public Class BaseForm
         EnforcementId
         FacilityName
         Key
+        ReferenceNumber
     End Enum
 
 #End Region

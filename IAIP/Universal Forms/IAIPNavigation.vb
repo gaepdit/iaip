@@ -217,29 +217,7 @@ Public Class IAIPNavigation
     End Sub
 
     Private Sub OpenTestReport()
-        Try
-            Dim id As String = txtOpenTestReport.Text
-            If id = "" Then Exit Sub
-
-            If DAL.Ismp.StackTestExists(id) Then
-                If CurrentUser.ProgramID = 3 Then
-                    OpenMultiForm(ISMPTestReports, id)
-                Else
-                    If DAL.Ismp.StackTestIsClosedOut(id) Then
-                        Dim PrintOut As New IAIPPrintOut
-                        PrintOut.ReferenceValue = txtOpenTestReport.Text
-                        PrintOut.PrintoutType = IAIPPrintOut.PrintType.IsmpTestReport
-                        PrintOut.Show()
-                    Else
-                        MsgBox("This test has not been completely reviewed by ISMP.", MsgBoxStyle.Information, "Facility Summary")
-                    End If
-                End If
-            Else
-                MsgBox("Reference number is not in the system.", MsgBoxStyle.Information, Me.Text)
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        OpenFormTestReport(txtOpenTestReport.Text)
     End Sub
 
     Private Sub OpenEnforcement()

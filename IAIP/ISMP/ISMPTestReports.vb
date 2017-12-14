@@ -19,30 +19,15 @@ Public Class ISMPTestReports
     Dim DocumentType As String
     Dim ApplicableRequirment As String
     Dim ReportComments As String
-    Dim ReportClosed As Boolean
+    Dim ReportClosed As Boolean = False
     Dim ControlEquipment As String
 
-    Public Property ReferenceNumber() As String
-        Get
-            If Me.ID = -1 Then
-                Return ""
-            Else
-                Return Me.ID.ToString
-            End If
-        End Get
-        Set(value As String)
-            Dim i As Integer = -1
-            If Integer.TryParse(value, i) Then
-                Me.ID = i
-            Else
-                Me.ID = -1
-            End If
-        End Set
-    End Property
+    Public Property ReferenceNumber As String = ""
 
     Private Sub ISMPTestReports_Load(sender As Object, e As EventArgs) Handles Me.Load
-
         Try
+            ParseParameters()
+
             txtReferenceNumber.Text = ReferenceNumber
 
             SCTestReports.SanelySetSplitterDistance(190)
@@ -51,10 +36,10 @@ Public Class ISMPTestReports
             LoadCombos()
             LoadUcCombo()
 
-            If txtReferenceNumber.Text = "" Then
+            If String.IsNullOrEmpty(ReferenceNumber) Then
                 DefaultTabs()
             Else
-                LoadData(txtReferenceNumber.Text)
+                LoadData()
                 LoadTestNotifications()
                 If cboTestNotificationNumber.Text <> " " And cboTestNotificationNumber.Text <> "" Then
                     llbTestNotifiactionNumber.Visible = True
@@ -69,10 +54,10 @@ Public Class ISMPTestReports
             If TCDocumentTypes.TabPages.Contains(TPSSCPWork) Then
                 LoadSSCPData()
             End If
-            If txtReferenceNumber.Text <> "" Then
-                Text = txtReferenceNumber.Text & " - Performance Monitoring Test Reports"
-            Else
+            If String.IsNullOrEmpty(ReferenceNumber) Then
                 Text = "Performance Monitoring Test Reports"
+            Else
+                Text = ReferenceNumber & " - Performance Monitoring Test Reports"
             End If
 
             If DocumentType = "001" Then
@@ -84,6 +69,14 @@ Public Class ISMPTestReports
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
         End Try
+    End Sub
+
+    Private Sub ParseParameters()
+        If Parameters IsNot Nothing AndAlso Parameters.ContainsKey(FormParameter.ReferenceNumber) Then
+            ReferenceNumber = Parameters(FormParameter.ReferenceNumber)
+        Else
+            ReferenceNumber = ""
+        End If
     End Sub
 
     Private Sub LoadDataSets()
@@ -857,7 +850,7 @@ Public Class ISMPTestReports
         Finally
         End Try
     End Sub
-    Private Sub LoadData(RefNumber As String)
+    Private Sub LoadData()
         Try
             Dim OtherWitnessingEng As String = "0"
             Dim ConfidentialData As String = "0"
@@ -913,7 +906,7 @@ Public Class ISMPTestReports
             "ON fac.STRAIRSNUMBER = mas.STRAIRSNUMBER " &
             "WHERE mas.STRREFERENCENUMBER = @RefNumber"
 
-            Dim p As SqlParameter = New SqlParameter("@RefNumber", RefNumber)
+            Dim p As SqlParameter = New SqlParameter("@RefNumber", ReferenceNumber)
 
             Dim dr As DataRow = DB.GetDataRow(query, p)
 
@@ -1201,41 +1194,26 @@ Public Class ISMPTestReports
 
             If DocumentType <> "" Then
                 Select Case DocumentType
-                    Case "001"
-                        TCDocumentTypes.TabPages.Remove(TPSSCPWork)
-                        LoadDefaultComplianceManager()
-                    Case "002"
-                        LoadOneStack(txtReferenceNumber.Text)
-                    Case "003"
-                        LoadOneStack(txtReferenceNumber.Text)
-                    Case "004"
-                        LoadOneStack(txtReferenceNumber.Text)
-                    Case "005"
-                        LoadTwoStack(txtReferenceNumber.Text)
-                    Case "006"
-                        LoadTwoStack(txtReferenceNumber.Text)
+                    Case "002", "003", "004"
+                        LoadOneStack(ReferenceNumber)
+                    Case "005", "006"
+                        LoadTwoStack(ReferenceNumber)
                     Case "007"
-                        LoadLoadingRack(txtReferenceNumber.Text)
+                        LoadLoadingRack(ReferenceNumber)
                     Case "008"
-                        LoadPondTreatment(txtReferenceNumber.Text)
+                        LoadPondTreatment(ReferenceNumber)
                     Case "009"
-                        LoadGasConcentration(txtReferenceNumber.Text)
+                        LoadGasConcentration(ReferenceNumber)
                     Case "010"
-                        LoadFlare(txtReferenceNumber.Text)
+                        LoadFlare(ReferenceNumber)
                     Case "011"
-                        LoadRata(txtReferenceNumber.Text)
-                    Case "012"
-                        LoadMemo(txtReferenceNumber.Text)
-                    Case "013"
-                        LoadMemo(txtReferenceNumber.Text)
-                    Case "014"
-                        LoadMethod9(txtReferenceNumber.Text)
+                        LoadRata(ReferenceNumber)
+                    Case "012", "013", "018"
+                        LoadMemo(ReferenceNumber)
+                    Case "014", "016"
+                        LoadMethod9(ReferenceNumber)
                     Case "015"
-                        LoadMethod22(txtReferenceNumber.Text)
-                    Case "016"
-                        LoadMethod9(txtReferenceNumber.Text)
-                    Case "018"
-                        LoadMemo(txtReferenceNumber.Text)
+                        LoadMethod22(ReferenceNumber)
                     Case Else
                         TCDocumentTypes.TabPages.Remove(TPSSCPWork)
                         LoadDefaultComplianceManager()
@@ -8136,7 +8114,7 @@ Public Class ISMPTestReports
             "From ISMPWitnessingEng " &
             "where strReferenceNumber = @RefNum "
 
-            Dim p As New SqlParameter("@RefNum", txtReferenceNumber.Text)
+            Dim p As New SqlParameter("@RefNum", ReferenceNumber)
 
             Dim dr As DataRow = DB.GetDataRow(query, p)
 
@@ -8172,7 +8150,7 @@ Public Class ISMPTestReports
                 "where SSCPTestReports.strTrackingNumber = SSCPItemMaster.strTrackingNumber " &
                 "and strReferenceNumber = @RefNum "
 
-                Dim p As New SqlParameter("@RefNum", txtReferenceNumber.Text)
+                Dim p As New SqlParameter("@RefNum", ReferenceNumber)
 
                 Dim dr As DataRow = DB.GetDataRow(query, p)
 
@@ -8333,7 +8311,7 @@ Public Class ISMPTestReports
 
             Dim p As SqlParameter() = {
                 New SqlParameter("@airs", "0413" & txtAirsNumber.Text),
-                New SqlParameter("@ref", txtReferenceNumber.Text)
+                New SqlParameter("@ref", ReferenceNumber)
             }
 
             Dim dt As DataTable = DB.GetDataTable(query, p)
@@ -8417,6 +8395,7 @@ Public Class ISMPTestReports
 
     Private Sub ClearAll()
         Try
+            ReferenceNumber = ""
             txtReferenceNumber.Clear()
             txtAirsNumber.Clear()
             txtFacilityName.Clear()
@@ -8939,7 +8918,7 @@ Public Class ISMPTestReports
             Dim OldRefNum As String
             Dim DocType As String
 
-            RefNum = txtReferenceNumber.Text
+            RefNum = ReferenceNumber
             OldRefNum = InputBox("Enter Old Reference Number.", "PrePopulate Tool.")
 
             If OldRefNum <> "" Then
@@ -9222,22 +9201,14 @@ Public Class ISMPTestReports
                         End If
                     End If
 
-                    txtReferenceNumber.Text = RefNum
+                    ReferenceNumber = RefNum
 
                     DocumentType = DocType
                     If DocumentType <> "" Then
                         Select Case DocumentType
-                            Case "001"
-                                TCDocumentTypes.TabPages.Remove(TPSSCPWork)
-                            Case "002"
+                            Case "002", "003", "004"
                                 LoadOneStack(OldRefNum)
-                            Case "003"
-                                LoadOneStack(OldRefNum)
-                            Case "004"
-                                LoadOneStack(OldRefNum)
-                            Case "005"
-                                LoadTwoStack(OldRefNum)
-                            Case "006"
+                            Case "005", "006"
                                 LoadTwoStack(OldRefNum)
                             Case "007"
                                 LoadLoadingRack(OldRefNum)
@@ -9249,18 +9220,12 @@ Public Class ISMPTestReports
                                 LoadFlare(OldRefNum)
                             Case "011"
                                 LoadRata(OldRefNum)
-                            Case "012"
+                            Case "012", "013", "018"
                                 LoadMemo(OldRefNum)
-                            Case "013"
-                                LoadMemo(OldRefNum)
-                            Case "014"
+                            Case "014", "016"
                                 LoadMethod9(OldRefNum)
                             Case "015"
                                 LoadMethod22(OldRefNum)
-                            Case "016"
-                                LoadMethod9(OldRefNum)
-                            Case "018"
-                                LoadMemo(OldRefNum)
                             Case Else
                                 TCDocumentTypes.TabPages.Remove(TPSSCPWork)
                         End Select
@@ -9279,23 +9244,25 @@ Public Class ISMPTestReports
     End Sub
 
     Private Sub OpenMemo()
-        OpenFormTestMemo(txtReferenceNumber.Text)
+        OpenFormTestMemo(ReferenceNumber)
     End Sub
 
     Private Sub ClearTestReportData()
         Dim diag As DialogResult = MessageBox.Show("This will clear all data from this test repot. Are you sure you want to proceed?", "Delete all data", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2)
 
         If diag = DialogResult.Yes Then
-            Dim result As Boolean = DAL.Ismp.ClearStackTestData(txtReferenceNumber.Text)
+            Dim result As Boolean = DAL.Ismp.ClearStackTestData(ReferenceNumber)
 
             If result Then
                 MessageBox.Show("The test report data has been cleared. " &
                                 "A new document type can now be selected.", "Success", MessageBoxButtons.OK)
 
-                Dim temp As String = txtReferenceNumber.Text
+                Dim temp As String = ReferenceNumber
                 ClearAll()
-                txtReferenceNumber.Text = temp
-                LoadData(txtReferenceNumber.Text)
+                ReferenceNumber = temp
+                txtReferenceNumber.Text = ReferenceNumber
+
+                LoadData()
             Else
                 MessageBox.Show("There was an error deleting the data.", "Error", MessageBoxButtons.OK)
             End If
@@ -9315,7 +9282,7 @@ Public Class ISMPTestReports
             Dim ReviewingEngineer As String = "0"
             Dim WitnessingEng As String = "0"
             Dim WitnessingEng2 As String = "0"
-            Dim OtherWitnessing As String = "0"
+            Dim OtherWitnessing As Integer = 0
             Dim ReviewingUnit As String = "0"
             Dim ComplianceManager As String = "0"
             Dim CC As String = "0"
@@ -9413,7 +9380,7 @@ Public Class ISMPTestReports
             If clbWitnessingEngineers.CheckedItems.Count > 0 Then
                 OtherWitnessing = clbWitnessingEngineers.CheckedItems.Count
             Else
-                OtherWitnessing = "0"
+                OtherWitnessing = 0
             End If
             If txtAssignedToEngineer.Text = "04-Jul-1776" Then
                 AssignedDate = TodayFormatted
@@ -9967,7 +9934,7 @@ Public Class ISMPTestReports
                 New SqlParameter("@strModifingPerson", CurrentUser.UserID),
                 New SqlParameter("@numReviewingManager", UnitManager),
                 New SqlParameter("@strOtherWitnessingEng", OtherWitnessing),
-                New SqlParameter("@strReferenceNumber", txtReferenceNumber.Text)
+                New SqlParameter("@strReferenceNumber", ReferenceNumber)
             }
 
             DB.RunCommand(query, p)
@@ -10017,7 +9984,7 @@ Public Class ISMPTestReports
                     query = "Delete ISMPWitnessingEng " &
                     "where strReferenceNumber = @ref "
 
-                    Dim p2 As New SqlParameter("@ref", txtReferenceNumber.Text)
+                    Dim p2 As New SqlParameter("@ref", ReferenceNumber)
 
                     DB.RunCommand(query, p2)
 
@@ -10031,7 +9998,7 @@ Public Class ISMPTestReports
                                 "(@STRREFERENCENUMBER, @STRWITNESSINGENGINEER) "
 
                             Dim p3 As SqlParameter() = {
-                                New SqlParameter("@STRREFERENCENUMBER", txtReferenceNumber.Text),
+                                New SqlParameter("@STRREFERENCENUMBER", ReferenceNumber),
                                 New SqlParameter("@STRWITNESSINGENGINEER", temp)
                             }
 
@@ -10044,7 +10011,7 @@ Public Class ISMPTestReports
             query = "delete ISMPTestLogLink " &
                 "where strReferenceNumber = @ref "
 
-            Dim p4 As New SqlParameter("@ref", txtReferenceNumber.Text)
+            Dim p4 As New SqlParameter("@ref", ReferenceNumber)
 
             DB.RunCommand(query, p4)
 
@@ -10062,7 +10029,7 @@ Public Class ISMPTestReports
                     "(@STRREFERENCENUMBER, @STRTESTLOGNUMBER) "
 
                 Dim p5 As SqlParameter() = {
-                    New SqlParameter("@STRREFERENCENUMBER", txtReferenceNumber.Text),
+                    New SqlParameter("@STRREFERENCENUMBER", ReferenceNumber),
                     New SqlParameter("@STRTESTLOGNUMBER", NotificationNumber)
                 }
 
@@ -10283,10 +10250,10 @@ Public Class ISMPTestReports
     Private Sub SaveSSCPWork()
         Try
             Dim StaffResponsible As Integer = CurrentUser.UserID
-            Dim CompleteDate As Date = Today
-            Dim AckLetter As Date = Today
-            Dim TestDue As Date = Today
-            Dim NextTest As Date = Today
+            Dim CompleteDate As Date? = Today
+            Dim AckLetter As Date? = Today
+            Dim TestDue As Date? = Today
+            Dim NextTest As Date? = Today
             Dim TestReportComments As String = " "
             Dim FollowUp As Boolean = False
 
@@ -10370,7 +10337,7 @@ Public Class ISMPTestReports
 
                 Dim p7 As SqlParameter() = {
                     New SqlParameter("@track", txtTrackingNumber.Text),
-                    New SqlParameter("@ref", txtReferenceNumber.Text),
+                    New SqlParameter("@ref", ReferenceNumber),
                     New SqlParameter("@user", CurrentUser.UserID)
                 }
 
@@ -11003,7 +10970,7 @@ Public Class ISMPTestReports
             "From ISMPReportOneStack " &
             "where strReferenceNumber = @ref "
 
-            Dim p As New SqlParameter("@ref", txtReferenceNumber.Text)
+            Dim p As New SqlParameter("@ref", ReferenceNumber)
 
             If DB.ValueExists(query, p) Then
                 query = "Update ISMPReportOneStack Set " &
@@ -11120,7 +11087,7 @@ Public Class ISMPTestReports
                 New SqlParameter("@strEmissionRateUnit", EmissRateUnit),
                 New SqlParameter("@strEmissionRateAvg", EmissRateAvg),
                 New SqlParameter("@strPercentAllowable", PercentAllowable),
-                New SqlParameter("@strReferenceNumber", txtReferenceNumber.Text)
+                New SqlParameter("@strReferenceNumber", ReferenceNumber)
             }
 
             DB.RunCommand(query, p2)
@@ -11818,7 +11785,7 @@ Public Class ISMPTestReports
             "From ISMPReportTwoStack " &
             "where strReferenceNumber = @ref "
 
-            Dim p As New SqlParameter("@ref", txtReferenceNumber.Text)
+            Dim p As New SqlParameter("@ref", ReferenceNumber)
 
             If DB.ValueExists(query, p) Then
                 query = "Update ISMPReportTwoStack set " &
@@ -11963,7 +11930,7 @@ Public Class ISMPTestReports
                 New SqlParameter("@strEmissionRateTotalAvg", EmissTotalAvg),
                 New SqlParameter("@strDestructionPercent", Destruct),
                 New SqlParameter("@strPercentAllowable", PercentAllowable),
-                New SqlParameter("@strReferenceNumber", txtReferenceNumber.Text)
+                New SqlParameter("@strReferenceNumber", ReferenceNumber)
             }
 
             DB.RunCommand(query, p2)
@@ -12122,7 +12089,7 @@ Public Class ISMPTestReports
             "from ISMPReportFlare " &
             "where strReferenceNumber = @ref "
 
-            Dim p As New SqlParameter("@ref", txtReferenceNumber.Text)
+            Dim p As New SqlParameter("@ref", ReferenceNumber)
 
             If DB.ValueExists(query, p) Then
                 query = "Update ISMPReportFlare set " &
@@ -12185,7 +12152,7 @@ Public Class ISMPTestReports
                 New SqlParameter("@strEmissionRate", EmissRate),
                 New SqlParameter("@strEmissionRateUnit", EmissRateUnit),
                 New SqlParameter("@strDestructionEfficiency", Destruct),
-                New SqlParameter("@strReferenceNumber", txtReferenceNumber.Text)
+                New SqlParameter("@strReferenceNumber", ReferenceNumber)
             }
 
             DB.RunCommand(query, p2)
@@ -12369,7 +12336,7 @@ Public Class ISMPTestReports
             "from ISMPReportPondAndGas " &
             "where strReferenceNumber = @ref "
 
-            Dim p As New SqlParameter("@ref", txtReferenceNumber.Text)
+            Dim p As New SqlParameter("@ref", ReferenceNumber)
 
             If DB.ValueExists(query, p) Then
                 query = "Update ISMPReportPondAndGas set " &
@@ -12442,7 +12409,7 @@ Public Class ISMPTestReports
                 New SqlParameter("@strTreatmentRateUnit", TreatmentUnit),
                 New SqlParameter("@strTreatmentRateAvg", TreatmentAvg),
                 New SqlParameter("@strPercentallowable", Destruct),
-                New SqlParameter("@strReferenceNumber", txtReferenceNumber.Text)
+                New SqlParameter("@strReferenceNumber", ReferenceNumber)
             }
 
             DB.RunCommand(query, p2)
@@ -12626,7 +12593,7 @@ Public Class ISMPTestReports
             "from ISMPReportPondAndGas " &
             "where strReferenceNumber = @ref "
 
-            Dim p As New SqlParameter("@ref", txtReferenceNumber.Text)
+            Dim p As New SqlParameter("@ref", ReferenceNumber)
 
             If DB.ValueExists(query, p) Then
                 query = "Update ISMPReportPondAndGas set " &
@@ -12699,7 +12666,7 @@ Public Class ISMPTestReports
                 New SqlParameter("@strEmissionRateUnit", EmissionUnit),
                 New SqlParameter("@strEmissionRateAvg", EmissionAvg),
                 New SqlParameter("@strPercentAllowable", PercentAllowable),
-                New SqlParameter("@strReferenceNumber", txtReferenceNumber.Text)
+                New SqlParameter("@strReferenceNumber", ReferenceNumber)
             }
 
             DB.RunCommand(query, p2)
@@ -12831,7 +12798,7 @@ Public Class ISMPTestReports
             "from ISMPReportFlare " &
             "where strReferenceNumber = @ref "
 
-            Dim p As New SqlParameter("@ref", txtReferenceNumber.Text)
+            Dim p As New SqlParameter("@ref", ReferenceNumber)
 
             If DB.ValueExists(query, p) Then
                 query = "Update ISMPReportFlare set " &
@@ -12862,35 +12829,13 @@ Public Class ISMPTestReports
                     "STRHEATINGVALUEAVG, STRVELOCITY1A, STRVELOCITY2A, STRVELOCITY3A, STRVELOCITYUNITS, STRVELOCITYAVG, " &
                     "STRTESTDURATION, STRTESTDURATIONUNIT, STRPOLLUTANTCONCENIN, STRPOLLUTANTCONCENUNITIN, STRPOLLUTANTCONCENOUT, " &
                     "STRPOLLUTANTCONCENUNITOUT, STREMISSIONRATE, STREMISSIONRATEUNIT, STRDESTRUCTIONEFFICIENCY, STRPERCENTALLOWABLE) " &
-                "values " &
+                    "values " &
                     "(@STRREFERENCENUMBER, @STRMAXOPERATINGCAPACITY, @STRMAXOPERATINGCAPACITYUNIT, @STROPERATINGCAPACITY, " &
                     "@STROPERATINGCAPACITYUNIT, @STRLIMITATIONVELOCITY, @STRLIMITATIONHEATCAPACITY, ' ', " &
                     "' ', ' ', ' ', ' ', " &
                     "' ', @STRHEATINGVALUE1A, @STRHEATINGVALUE2A, @STRHEATINGVALUE3A, @STRHEATINGVALUEUNITS, " &
                     "@STRHEATINGVALUEAVG, @STRVELOCITY1A, @STRVELOCITY2A, @STRVELOCITY3A, @STRVELOCITYUNITS, @STRVELOCITYAVG, " &
                     "' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', @STRPERCENTALLOWABLE) "
-
-                query = "Insert into ISMPReportFlare " &
-                "values " &
-                "('" & txtReferenceNumber.Text & "', " &
-                "'" & MaxOpCapacity & "', '" & MaxOpCapacityUnit & "', " &
-                "'" & OpCapacity & "', '" & OpCapacityUnit & "', " &
-                "'" & LimitationVelocity & "', '" & LimitationHeatCap & "', " &
-                "' ', ' ', " &
-                "' ', " &
-                "' ', ' ', " &
-                "' ', " &
-                "'" & HeatingValue1 & "', '" & HeatingValue2 & "', " &
-                "'" & HeatingValue3 & "', '" & HeatingValueUnit & "', " &
-                "'" & HeatingAvg & "', " &
-                "'" & Velocity1 & "', '" & Velocity2 & "', " &
-                "'" & Velocity3 & "', '" & VelocityUnit & "', " &
-                "'" & VelocityAvg & "', " &
-                "' ', ' ', " &
-                "' ', ' ', " &
-                "' ', ' ', " &
-                "' ', ' ', " &
-                "' ', '" & PercentAllowable & "')  "
             End If
 
             Dim p2 As SqlParameter() = {
@@ -12911,7 +12856,7 @@ Public Class ISMPTestReports
                 New SqlParameter("@strVelocityUnits", VelocityUnit),
                 New SqlParameter("@strVelocityAvg", VelocityAvg),
                 New SqlParameter("@strPercentAllowable", PercentAllowable),
-                New SqlParameter("@strReferenceNumber", txtReferenceNumber.Text)
+                New SqlParameter("@strReferenceNumber", ReferenceNumber)
             }
 
             DB.RunCommand(query, p2)
@@ -13210,7 +13155,7 @@ Public Class ISMPTestReports
             "from ISMPReportRata " &
             "where strReferenceNumber = @ref "
 
-            Dim p As New SqlParameter("@ref", txtReferenceNumber.Text)
+            Dim p As New SqlParameter("@ref", ReferenceNumber)
 
             If DB.ValueExists(query, p) Then
                 query = "Update ISMPReportRATA set " &
@@ -13299,7 +13244,7 @@ Public Class ISMPTestReports
                 New SqlParameter("@strAccuracyRequiredPercent", AccRequiredPercent),
                 New SqlParameter("@strAccuracyRequiredStatement", AccRequiredStatement),
                 New SqlParameter("@strRunsIncludedKey", IncludeKey),
-                New SqlParameter("@strReferenceNumber", txtReferenceNumber.Text)
+                New SqlParameter("@strReferenceNumber", ReferenceNumber)
             }
 
             DB.RunCommand(query, p2)
@@ -13427,7 +13372,7 @@ Public Class ISMPTestReports
             "from ISMPReportMemo " &
             "where strReferenceNumber = @ref "
 
-            Dim p As New SqlParameter("@ref", txtReferenceNumber.Text)
+            Dim p As New SqlParameter("@ref", ReferenceNumber)
 
             If DB.ValueExists(query, p) Then
                 query = "Update ISMPReportMemo set " &
@@ -13473,7 +13418,7 @@ Public Class ISMPTestReports
                 New SqlParameter("@strAllowableEmissionRateUnit1C", AllowableEmissUnit3),
                 New SqlParameter("@strMonitorManufactureAndModel", ManufactureAndModel),
                 New SqlParameter("@strMonitorSerialNumber", SerialNumber),
-                New SqlParameter("@strReferenceNumber", txtReferenceNumber.Text)
+                New SqlParameter("@strReferenceNumber", ReferenceNumber)
             }
 
             DB.RunCommand(query, p2)
@@ -13780,7 +13725,7 @@ Public Class ISMPTestReports
             "from ISMPReportOpacity " &
             "where strReferenceNumber = @ref "
 
-            Dim p As New SqlParameter("@ref", txtReferenceNumber.Text)
+            Dim p As New SqlParameter("@ref", ReferenceNumber)
 
             If DB.ValueExists(query, p) Then
                 query = "Update ISMPReportOpacity set " &
@@ -13870,7 +13815,7 @@ Public Class ISMPTestReports
                 New SqlParameter("@strEquipmentItem3", Equip3),
                 New SqlParameter("@strEquipmentItem4", Equip4),
                 New SqlParameter("@strEquipmentItem5", Equip5),
-                New SqlParameter("@STROPACITYStandard", OpacityStandard), New SqlParameter("@strReferenceNumber", txtReferenceNumber.Text)
+                New SqlParameter("@STROPACITYStandard", OpacityStandard), New SqlParameter("@strReferenceNumber", ReferenceNumber)
             }
 
             DB.RunCommand(query, p2)
@@ -16253,19 +16198,17 @@ Public Class ISMPTestReports
     End Sub
     Private Sub tsbSearch_Click(sender As Object, e As EventArgs) Handles tsbSearch.Click
         Try
-
             Dim result As String
 
             result = InputBox("Type in the Reference Number you are searching for.")
 
             If result <> "" Then
                 ClearAll()
-                txtReferenceNumber.Text = result
+                If DAL.Ismp.StackTestExists(result) Then
+                    ReferenceNumber = result
+                    txtReferenceNumber.Text = result
 
-                If txtReferenceNumber.Text = "" Then
-                    DefaultTabs()
-                Else
-                    LoadData(txtReferenceNumber.Text)
+                    LoadData()
                     LoadTestNotifications()
                     If cboTestNotificationNumber.Text <> " " And cboTestNotificationNumber.Text <> "" Then
                         llbTestNotifiactionNumber.Visible = True
@@ -16274,22 +16217,22 @@ Public Class ISMPTestReports
                         llbTestNotifiactionNumber.Visible = False
                         labTestNotificationNumber.Visible = True
                     End If
-                End If
-                LoadUserPermissions()
-                If TCDocumentTypes.TabPages.Contains(TPSSCPWork) Then
-                    LoadSSCPData()
-                End If
-                If txtReferenceNumber.Text <> "" Then
-                    Text = txtReferenceNumber.Text & " - Performance Monitoring Test Reports"
+                    LoadUserPermissions()
+                    If TCDocumentTypes.TabPages.Contains(TPSSCPWork) Then
+                        LoadSSCPData()
+                    End If
+                    If String.IsNullOrEmpty(ReferenceNumber) Then
+                        Text = "Performance Monitoring Test Reports"
+                    Else
+                        Text = ReferenceNumber & " - Performance Monitoring Test Reports"
+                    End If
                 Else
-                    Text = "Performance Monitoring Test Reports"
+                    MessageBox.Show("That reference number does not exist in the system.", "No result")
                 End If
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
         End Try
-
     End Sub
     Private Sub tsbPrePopulate_Click(sender As Object, e As EventArgs) Handles tsbPrePopulate.Click
         Try
@@ -16302,10 +16245,7 @@ Public Class ISMPTestReports
     End Sub
     Private Sub tsbPrint_Click(sender As Object, e As EventArgs) Handles tsbPrint.Click
         Try
-            Dim PrintOut As New IAIPPrintOut
-            PrintOut.PrintoutType = IAIPPrintOut.PrintType.IsmpTestReport
-            PrintOut.ReferenceValue = txtReferenceNumber.Text
-            PrintOut.Show()
+            OpenFormTestReportPrintout(ReferenceNumber)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -21420,11 +21360,9 @@ Public Class ISMPTestReports
     End Sub
     Private Sub tsbConfidentialData_Click(sender As Object, e As EventArgs) Handles tsbConfidentialData.Click
         Try
-            If txtReferenceNumber.Text <> "" Then
+            If ReferenceNumber <> "" Then
                 If TCDocumentTypes.TabPages.Count < 4 Then
-                    Dim ISMPConfidential As New ISMPConfidentialData
-                    ISMPConfidential.txtReferenceNumber.Text = txtReferenceNumber.Text
-                    ISMPConfidential.Show()
+                    OpenFormConfidentialTestData(ReferenceNumber)
                 Else
                     MsgBox("Please save test report before assigning confidential data.", MsgBoxStyle.Information, "Performance Test Reports")
                 End If
@@ -21446,11 +21384,7 @@ Public Class ISMPTestReports
     End Sub
     Private Sub mmiPrintNonConf_Click(sender As Object, e As EventArgs) Handles mmiPrintNonConf.Click
         Try
-            Dim PrintOut As New IAIPPrintOut
-            PrintOut.PrintoutType = IAIPPrintOut.PrintType.IsmpTestReport
-            PrintOut.ReferenceValue = txtReferenceNumber.Text
-            PrintOut.PrintoutSubtype = IAIPPrintOut.PrintSubtype.ToFile
-            PrintOut.Show()
+            OpenFormTestReportNonConfPrintout(ReferenceNumber)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally

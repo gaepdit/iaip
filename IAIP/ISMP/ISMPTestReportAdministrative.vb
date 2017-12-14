@@ -793,9 +793,8 @@ Public Class ISMPTestReportAdministrative
     End Sub
     Private Sub MoveOn()
         Try
-            Dim id As String = txtReferenceNumber.Text
-            If DAL.Ismp.StackTestExists(id) Then OpenMultiForm(ISMPTestReports, id)
-            Me.Hide()
+            OpenFormTestReport(txtReferenceNumber.Text)
+            Close()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -1747,10 +1746,7 @@ Public Class ISMPTestReportAdministrative
     End Sub
     Private Sub cmiPrintTestReport_Click(sender As Object, e As EventArgs) Handles cmiPrintTestReport.Click
         Try
-            Dim PrintOut As New IAIPPrintOut
-            PrintOut.PrintoutType = IAIPPrintOut.PrintType.IsmpTestReport
-            PrintOut.ReferenceValue = txtReferenceNumber.Text
-            PrintOut.Show()
+            OpenFormTestReportPrintout(txtReferenceNumber.Text)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -2134,8 +2130,7 @@ Public Class ISMPTestReportAdministrative
 
     Private Sub btnOpenTestReport_Click(sender As Object, e As EventArgs) Handles btnOpenTestReport.Click
         Try
-            Dim id As String = txtAddTestReportRefNum.Text
-            If DAL.Ismp.StackTestExists(id) Then OpenMultiForm(ISMPTestReports, id)
+            OpenFormTestReport(txtAddTestReportRefNum.Text)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
