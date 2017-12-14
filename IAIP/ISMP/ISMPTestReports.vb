@@ -13815,7 +13815,8 @@ Public Class ISMPTestReports
                 New SqlParameter("@strEquipmentItem3", Equip3),
                 New SqlParameter("@strEquipmentItem4", Equip4),
                 New SqlParameter("@strEquipmentItem5", Equip5),
-                New SqlParameter("@STROPACITYStandard", OpacityStandard), New SqlParameter("@strReferenceNumber", ReferenceNumber)
+                New SqlParameter("@STROPACITYStandard", OpacityStandard),
+                New SqlParameter("@strReferenceNumber", ReferenceNumber)
             }
 
             DB.RunCommand(query, p2)
@@ -13831,6 +13832,10 @@ Public Class ISMPTestReports
     End Sub
 
     Private Sub DisplayEnforcementCases()
+        If String.IsNullOrEmpty(txtTrackingNumber.Text) Then
+            Exit Sub
+        End If
+
         Dim dt As New DataTable
         Try
             dt = DAL.Sscp.GetAllEnforcementForTrackingNumber(CInt(txtTrackingNumber.Text))
