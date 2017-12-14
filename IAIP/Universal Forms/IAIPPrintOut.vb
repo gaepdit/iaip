@@ -12081,7 +12081,11 @@ Public Class IAIPPrintOut
                 spValue = New ParameterDiscreteValue
 
                 ParameterField.ParameterFieldName = "OpacityStandard"
-                temp = dr.Item("strOpacityStandard")
+                If IsDBNull(dr.Item("strOpacityStandard")) Then
+                    temp = "6"
+                Else
+                    temp = dr.Item("strOpacityStandard")
+                End If
                 Select Case temp
                     Case "6"
                         spValue.Value = "(Highest 6-minute average)"
