@@ -7,10 +7,10 @@
     <ProjectGuid>{B92680E9-391D-4109-993E-53E5B6946E93}</ProjectGuid>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ApplicationIcon>Resources\EpdIcon.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\UatIcon.ico</ApplicationIcon>
     <AssemblyKeyContainerName>
     </AssemblyKeyContainerName>
-    <AssemblyName>IAIP</AssemblyName>
+    <AssemblyName>IaipHorizon</AssemblyName>
     <AssemblyOriginatorKeyFile>
     </AssemblyOriginatorKeyFile>
     <AssemblyOriginatorKeyMode>None</AssemblyOriginatorKeyMode>
@@ -40,7 +40,7 @@
     <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
     <TargetFrameworkProfile />
-    <PublishUrl>ftp://167.195.92.4/dmu.georgiaair.org/iaip/install/</PublishUrl>
+    <PublishUrl>ftp://167.195.92.4/dmu.georgiaair.org/iaip/uat/</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Web</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
@@ -50,8 +50,8 @@
     <UpdatePeriodically>true</UpdatePeriodically>
     <UpdateRequired>true</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <InstallUrl>http://dmu.georgiaair.org/iaip/install/</InstallUrl>
-    <ProductName>Integrated Air Information Platform</ProductName>
+    <InstallUrl>http://dmu.georgiaair.org/iaip/uat/</InstallUrl>
+    <ProductName>IAIP UAT</ProductName>
     <PublisherName>State of Georgia</PublisherName>
     <MinimumRequiredVersion>5.6.0.0</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
@@ -77,7 +77,7 @@
     <PlatformTarget>x86</PlatformTarget>
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <CodeAnalysisRuleSet>..\Code Analysis\IAIP.ruleset</CodeAnalysisRuleSet>
-    <DocumentationFile>IAIP.xml</DocumentationFile>
+    <DocumentationFile>IaipHorizon.xml</DocumentationFile>
     <WarningsAsErrors>42020,42021,42022</WarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
@@ -86,7 +86,7 @@
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\x86\Debug\</OutputPath>
     <BaseAddress>285212672</BaseAddress>
-    <DocumentationFile>IAIP.xml</DocumentationFile>
+    <DocumentationFile>IaipHorizon.xml</DocumentationFile>
     <WarningLevel>1</WarningLevel>
     <NoWarn>
     </NoWarn>
@@ -101,7 +101,7 @@
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\x86\Release\</OutputPath>
     <BaseAddress>285212672</BaseAddress>
-    <DocumentationFile>IAIP.xml</DocumentationFile>
+    <DocumentationFile>IaipHorizon.xml</DocumentationFile>
     <Optimize>true</Optimize>
     <WarningLevel>1</WarningLevel>
     <NoWarn>
