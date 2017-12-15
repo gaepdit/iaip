@@ -21,13 +21,24 @@ Namespace DAL
         End Function
 
         ''' <summary>
+        ''' Returns whether an AIRS number already exists in the database
+        ''' </summary>
+        ''' <param name="airsNumber">The AIRS number to test.</param>
+        ''' <returns>True if the AIRS number exists; otherwise false.</returns>
+        ''' <remarks>Looks for value in APBMASTERAIRS table. Does not make any judgments about state of facility otherwise.</remarks>
+        Public Function AirsNumberExists(airsNumber As String) As Boolean
+            If String.IsNullOrEmpty(airsNumber) Then Return False
+            Return AirsNumberExists(New ApbFacilityId(airsNumber))
+        End Function
+
+        ''' <summary>
         ''' Returns the facility name for a given AIRS number.
         ''' </summary>
         ''' <param name="airsNumber">The AIRS number to search for.</param>
         ''' <returns>The facility name, or an empty string if facility AIRS number does not exist.</returns>
         Public Function GetFacilityName(airsNumber As ApbFacilityId) As String
             Dim fac As Facility = GetFacility(airsNumber)
-            Return fac.FacilityName
+            Return fac?.FacilityName
         End Function
 
         ''' <summary>

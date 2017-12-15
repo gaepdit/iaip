@@ -17,7 +17,6 @@ Public Class SsppPermitRevocationDialog
 #Region " Form Events "
 
     Private Sub SsppPermitRevocationDialog_Load(sender As Object, e As EventArgs) Handles Me.Load
-        monitor.TrackFeature("Forms." & Me.Name)
         For Each p As Permit In ActivePermits
             ActivePermitsCheckedListBox.Items.Add(p)
         Next

@@ -163,9 +163,8 @@ Public Class ISMPTestMemoViewer
     End Sub
     Private Sub SelectTestReport()
         Try
-            Dim id As String = txtReferenceNumber.Text
-            If DAL.Ismp.StackTestExists(id) Then OpenMultiForm(ISMPTestReports, id)
-            Me.Hide()
+            OpenFormTestReport(txtReferenceNumber.Text)
+            Close()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try

@@ -19,9 +19,6 @@ Public Class IAIPNavigation
 #Region " Form events "
 
     Private Sub IAIPNavigation_Load(sender As Object, e As EventArgs) Handles Me.Load
-        monitor.TrackFeature("Main." & Me.Name)
-        monitor.TrackFeature("Forms." & Me.Name)
-
         ' UI adjustments
         AssociateQuickNavButtons()
         SetUpNavWorkListContextChanger()
@@ -43,8 +40,6 @@ Public Class IAIPNavigation
     End Sub
 
     Private Sub IAIPNavigation_Shown(sender As Object, e As EventArgs) Handles Me.Shown
-        monitor.TrackFeatureStop("Startup.LoggingIn")
-
         ' Start the bgrUserPermissions background worker
         BuildAccountPermissions()
 
@@ -87,17 +82,17 @@ Public Class IAIPNavigation
 
     Private Sub EnableConnectionEnvironmentOptions()
         Select Case CurrentServerEnvironment
-            Case ServerEnvironment.DEV
+            Case ServerEnvironment.Development
                 pnlDbEnv.Text = "DEV database"
                 pnlDbEnv.BackColor = Color.Tomato
                 pnlDbEnv.Visible = True
                 lblTitle.Text = "IAIP Navigation Screen — DEV"
                 TestingMenu.Visible = True
-            Case ServerEnvironment.PRD
+            Case ServerEnvironment.Production
                 pnlDbEnv.Text = "PRD"
                 pnlDbEnv.Visible = False
                 TestingMenu.Visible = False
-            Case ServerEnvironment.UAT
+            Case ServerEnvironment.Staging
                 pnlDbEnv.Text = "UAT database"
                 pnlDbEnv.BackColor = Color.SpringGreen
                 pnlDbEnv.Visible = True
@@ -128,8 +123,6 @@ Public Class IAIPNavigation
     Private Sub QuickAccessButton_Click(sender As Object, e As EventArgs) _
     Handles btnOpenFacilitySummary.Click, btnOpenTestReport.Click, btnOpenTestLog.Click, btnOpenSscpItem.Click, btnOpenSbeapClient.Click, btnOpenSbeapCaseLog.Click, btnOpenEnforcement.Click, btnOpenApplication.Click
         Dim thisButton As Button = CType(sender, Button)
-        monitor.TrackFeature("QuickAccess." & thisButton.Name)
-        monitor.TrackFeature("NavScreen.QuickAccess")
         Select Case thisButton.Name
             Case btnOpenApplication.Name
                 OpenApplication()
@@ -217,29 +210,7 @@ Public Class IAIPNavigation
     End Sub
 
     Private Sub OpenTestReport()
-        Try
-            Dim id As String = txtOpenTestReport.Text
-            If id = "" Then Exit Sub
-
-            If DAL.Ismp.StackTestExists(id) Then
-                If CurrentUser.ProgramID = 3 Then
-                    OpenMultiForm(ISMPTestReports, id)
-                Else
-                    If DAL.Ismp.StackTestIsClosedOut(id) Then
-                        Dim PrintOut As New IAIPPrintOut
-                        PrintOut.ReferenceValue = txtOpenTestReport.Text
-                        PrintOut.PrintoutType = IAIPPrintOut.PrintType.IsmpTestReport
-                        PrintOut.Show()
-                    Else
-                        MsgBox("This test has not been completely reviewed by ISMP.", MsgBoxStyle.Information, "Facility Summary")
-                    End If
-                End If
-            Else
-                MsgBox("Reference number is not in the system.", MsgBoxStyle.Information, Me.Text)
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        OpenFormTestReport(txtOpenTestReport.Text)
     End Sub
 
     Private Sub OpenEnforcement()
@@ -366,7 +337,6 @@ Public Class IAIPNavigation
     End Sub
 
     Private Sub btnLoadNavWorkList_Click(sender As Object, e As EventArgs) Handles btnLoadNavWorkList.Click
-        monitor.TrackFeature("NavScreen.ChangeWorkViewer")
         LoadWorkViewerData()
         SaveUserSetting(UserSetting.SelectedNavWorkListContext, CurrentNavWorkListContext.ToString)
         SaveUserSetting(UserSetting.SelectedNavWorkListScope, CurrentNavWorkListScope.ToString)
@@ -548,8 +518,6 @@ Public Class IAIPNavigation
     End Sub
 
     Private Sub OpenSelectedItem()
-        monitor.TrackFeature("NavScreen.WorkViewerLink")
-        monitor.TrackFeature("WorkViewerLink." & dgvWorkViewer.Columns(0).HeaderText.Replace(" ", "_"))
         Select Case dgvWorkViewer.Columns(0).HeaderText
             Case "Case ID" ' SBEAP cases
                 OpenSbeapCaseLog()
@@ -723,8 +691,6 @@ Public Class IAIPNavigation
 
     Private Sub NavButton_Click(sender As Object, e As EventArgs)
         Dim nb As NavButton = CType(sender, Button).Tag
-        monitor.TrackFeature("NavScreen.NavButton")
-        monitor.TrackFeature("NavButton." & nb.FormName)
         OpenSingleForm(nb.FormName)
     End Sub
 
@@ -919,7 +885,11 @@ Public Class IAIPNavigation
 #Region " Testing Menu click events "
 
     Private Sub RunTest_Click(sender As Object, e As EventArgs) Handles RunTest.Click
-        Throw New Exception("Unhandled exception testing")
+        Try
+            Throw New Exception("Handled exception testing")
+        Catch ex As Exception
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
     End Sub
 
 #End Region

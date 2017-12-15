@@ -90,7 +90,7 @@ Public Class IAIPFacilityCreator
                     "(select substring(AFSFacilityData.strAIRSNumber, 5, 8) as AIRSNumber, " &
                     "case " &
                     "when numApprovingSSCP is not null then concat(strLastName, ', ', strFirstName) " &
-                    "else '' " &
+                    "else null " &
                     "end SSCPApprover " &
                     "from AFSFacilityData " &
                     "inner join APBSupplamentalData " &
@@ -103,7 +103,7 @@ Public Class IAIPFacilityCreator
                     "(select substring(AFSFacilityData.strAIRSNumber, 5, 8) as AIRSNumber, " &
                     "case " &
                     "when numApprovingSSPP is not null then concat(strLastName, ', ', strFirstName) " &
-                    "else '' " &
+                    "else null " &
                     "end SSPPApprover " &
                     "from AFSFacilityData, APBSupplamentalData, " &
                     "EPDUserProfiles " &
@@ -140,7 +140,7 @@ Public Class IAIPFacilityCreator
                     "(select substring(AFSFacilityData.strAIRSNumber, 5, 8) as AIRSNumber, " &
                     "case " &
                     "when numApprovingSSCP is not null then concat(strLastName, ', ', strFirstName) " &
-                    "else '' " &
+                    "else null " &
                     "end SSCPApprover " &
                     "from AFSFacilityData " &
                     "inner join APBSupplamentalData " &
@@ -153,7 +153,7 @@ Public Class IAIPFacilityCreator
                     "(select substring(AFSFacilityData.strAIRSNumber, 5, 8) as AIRSNumber, " &
                     "case " &
                     "when numApprovingSSPP is not null then concat(strLastName, ', ', strFirstName) " &
-                    "else '' " &
+                    "else null " &
                     "end SSPPApprover " &
                     "from AFSFacilityData " &
                     "inner join APBSupplamentalData " &

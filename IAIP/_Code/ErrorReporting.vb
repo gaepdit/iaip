@@ -16,9 +16,8 @@
     ''' <param name="supplementalMessage">A string containing supplementary information to be logged.</param>
     ''' <param name="contextMessage">A string representing the calling function.</param>
     Public Sub ErrorReport(exc As Exception, supplementalMessage As String, contextMessage As String, Optional displayErrorToUser As Boolean = True)
-
-        ' First, track the exception using our analytics program. This is more reliable.
-        monitor.TrackException(exc, contextMessage)
+        ' First, log the exception using our analytics program. This is more reliable.
+        ExceptionLogger.Capture(New SharpRaven.Data.SentryEvent(exc))
 
         ' Second, try logging the error message to the IAIP database. This requires a connection so will sometimes fail.
         Dim errorMessage As String = exc.Message

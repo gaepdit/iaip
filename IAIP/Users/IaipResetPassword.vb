@@ -7,8 +7,6 @@ Public Class IaipResetPassword
     Private Property InvalidEntries As New List(Of Control)
 
     Private Sub IaipResetPassword_Load(sender As Object, e As EventArgs) Handles Me.Load
-        monitor.TrackFeature("Forms." & Me.Name)
-
         Message = New IaipMessage("Check your email for password reset information. Please allow up to 15 minutes for delivery.", IaipMessage.WarningLevels.Info)
         Message.Display(MessageDisplay)
     End Sub

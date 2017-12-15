@@ -10,13 +10,11 @@ The IAIP is a Windows Forms Application and currently targets the .NET Framework
 
 + [Microsoft .NET Framework 4.5.2 Developer Pack](http://www.microsoft.com/en-us/download/details.aspx?id=42637)
 
-+ [SAP Crystal Reports, developer version for Microsoft Visual Studio](https://wiki.scn.sap.com/wiki/display/BOBJ/Crystal+Reports%2C+Developer+for+Visual+Studio+Downloads) (Be sure to download the Install Executable, not an MSI.)
++ [SAP Crystal Reports, developer version for Microsoft Visual Studio SP 20](http://downloads.businessobjects.com/akdlm/cr4vs2010/CRforVS_13_0_20.exe) and [Crystal Reports runtime engine SP 20](http://downloads.businessobjects.com/akdlm/cr4vs2010/CRforVS_redist_install_32bit_13_0_20.zip)
+ 
++ Some NuGet packages are required. They should be restored automatically. If not, open the NuGet Package Manager and click Restore to install them.
 
-+ Some NuGet packages are required. They should be restored automatically. If not, open the NuGet Package Manager and click Restore to install them:
-    - Oracle ODP.NET, Managed Driver
-    - Telerik Analytics Monitor
-
-**Note:** Crystal Reports [does not yet support Visual Studio 2017](https://answers.sap.com/questions/68489/crystal-reports-for-visual-studio-2017-availabilit.html). Support is expected around June 2017. Until then [Visual Studio 2015](https://my.visualstudio.com/Downloads?pid=1881) must be used, but only when editing Crystal Reports documents.
+**Important Note:** Crystal Reports SP 21 supports Visual Studio 2017, but SP 21 of the CR runtime engine is *not compatible* with previous versions. Since the IAIP was originally deployed using an earlier version of the runtime, in order to avoid needing to update all users' machines, SP 21 cannot be used. Instead, use [Visual Studio 2015](https://my.visualstudio.com/Downloads?pid=1881) when editing Crystal Reports documents.
 
 ## Setup
 

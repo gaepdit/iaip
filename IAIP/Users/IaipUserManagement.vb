@@ -20,8 +20,6 @@ Public Class IaipUserManagement
 #Region " Page Load "
 
     Private Sub IAIPUserAdminTool_Load(sender As Object, e As EventArgs) Handles Me.Load
-        monitor.TrackFeature("Forms." & Me.Name)
-
         LoadComboBoxData()
         SetFormPermissions()
         SearchLastName.Focus()

@@ -1,6 +1,6 @@
 ﻿Public Class Document
 
-    Public Shared MaxFileSize As Integer = Math.Min(Oracle.ManagedDataAccess.Types.OracleBlob.MaxSize, 500000000)
+    Public Shared MaxFileSize As Integer = 500000000
 
     Public Property DocumentId() As Integer
     Public Property BinaryFileId() As Integer

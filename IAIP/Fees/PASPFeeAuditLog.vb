@@ -71,7 +71,7 @@ Public Class PASPFeeAuditLog
         If Parameters IsNot Nothing Then
             If Parameters.ContainsKey(FormParameter.AirsNumber) Then
                 Try
-                    Me.AirsNumber = Parameters(FormParameter.AirsNumber)
+                    Me.AirsNumber = CType(Parameters(FormParameter.AirsNumber), Apb.ApbFacilityId)
                     mtbAirsNumber.Text = Me.AirsNumber.FormattedString
                 Catch ex As Apb.InvalidAirsNumberException
                     Me.AirsNumber = Nothing
@@ -95,8 +95,12 @@ Public Class PASPFeeAuditLog
         MailoutEditingToggle(False, False)
 
         If Me.AirsNumber.ToString IsNot Nothing AndAlso Me.FeeYear IsNot Nothing Then
-            LoadAdminData()
-            LoadAuditedData()
+            If DAL.AirsNumberExists(AirsNumber) Then
+                LoadAdminData()
+                LoadAuditedData()
+            Else
+                MessageBox.Show("Invalid AIRS # or Fee Year.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End If
         End If
     End Sub
 
@@ -2053,8 +2057,14 @@ Public Class PASPFeeAuditLog
             MailoutEditingToggle(False)
             MailoutEditingToggle(False, False)
 
-            LoadAdminData()
-            LoadAuditedData()
+            If Me.AirsNumber.ToString IsNot Nothing AndAlso Me.FeeYear IsNot Nothing Then
+                If DAL.AirsNumberExists(AirsNumber) Then
+                    LoadAdminData()
+                    LoadAuditedData()
+                Else
+                    MessageBox.Show("Invalid AIRS # or Fee Year.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End If
+            End If
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -2208,8 +2218,14 @@ Public Class PASPFeeAuditLog
                     ClearInvoices()
                     ClearAuditData()
 
-                    LoadAdminData()
-                    LoadAuditedData()
+                    If Me.AirsNumber.ToString IsNot Nothing AndAlso Me.FeeYear IsNot Nothing Then
+                        If DAL.AirsNumberExists(AirsNumber) Then
+                            LoadAdminData()
+                            LoadAuditedData()
+                        Else
+                            MessageBox.Show("Invalid AIRS # or Fee Year.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                        End If
+                    End If
                 End If
 
                 MsgBox("Save completed", MsgBoxStyle.Information, Me.Text)
@@ -3375,7 +3391,6 @@ Public Class PASPFeeAuditLog
             Dim dt As DataTable = DB.GetDataTable(SQL, p2)
 
             rpt = New crFS_Invoice
-            monitor.TrackFeature("Report." & rpt.ResourceName)
 
             'Do this just once at the start
             ParameterFields = New ParameterFields

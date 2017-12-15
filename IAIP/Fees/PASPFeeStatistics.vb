@@ -53,24 +53,20 @@ Public Class PASPFeeStatistics
             Dim dt As DataTable = DB.GetDataTable(SQL)
 
             For Each dr As DataRow In dt.Rows
-                If IsDBNull(dr.Item("FeeYear")) Then
-                    Year = Today.Year.ToString
-                Else
-                    Year = dr.Item("FeeYear")
-                End If
+                Year = dr.Item("FeeYear").ToString
 
-                If cboStatYear.Items.Contains(Year) Then
-                Else
+                If Not cboStatYear.Items.Contains(Year) Then
                     cboStatYear.Items.Add(Year)
                 End If
 
-                If cboFeeStatYear.Items.Contains(Year) Then
-                Else
+                If Not cboFeeStatYear.Items.Contains(Year) Then
                     cboFeeStatYear.Items.Add(Year)
                 End If
 
                 If TCMailoutAndStats.TabPages.Contains(TPNonRespondersReport) Then
-                    cboFeeYear.Items.Add(Year)
+                    If Not cboFeeYear.Items.Contains(Year) Then
+                        cboFeeYear.Items.Add(Year)
+                    End If
                 End If
             Next
 
@@ -87,8 +83,9 @@ Public Class PASPFeeStatistics
                 cboStatPayType.Items.Add(dr.Item("strPayTypeDesc"))
             Next
 
-            cboStatYear.Text = cboStatYear.Items.Item(0)
-            cboStatPayType.Text = cboStatPayType.Items.Item(0)
+            cboStatYear.SelectedIndex = 0
+            cboStatPayType.SelectedIndex = 0
+            cboFeeYear.SelectedIndex = 0
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -2404,7 +2401,6 @@ Public Class PASPFeeStatistics
         Try
             Me.Cursor = Cursors.WaitCursor
             Dim rpt As ReportClass = New FacilityFee10
-            monitor.TrackFeature("Report." & rpt.ResourceName)
 
             Dim SQL As String = "Select * from VW_Facility_Fee " &
             "where strAIRSNumber = @airs "
@@ -2438,7 +2434,6 @@ Public Class PASPFeeStatistics
         Try
             Me.Cursor = Cursors.WaitCursor
             Dim rpt As ReportClass = New TotalFee10
-            monitor.TrackFeature("Report." & rpt.ResourceName)
 
             Dim SQL As String = "SELECT  intYear, sum(intVOCTons) as intvoctons, " &
             "sum(intPMTons) as intPMTons, " &
@@ -2468,7 +2463,6 @@ Public Class PASPFeeStatistics
         Try
             Me.Cursor = Cursors.WaitCursor
             Dim rpt As ReportClass = New FacilityClassification10
-            monitor.TrackFeature("Report." & rpt.ResourceName)
 
             Dim SQL As String = "Select * from VW_Facility_Class_Counts "
 
@@ -2506,7 +2500,6 @@ Public Class PASPFeeStatistics
             Else
                 rpt = New FacilityBalancewithZero10
             End If
-            monitor.TrackFeature("Report." & rpt.ResourceName)
 
             Dim SQL As String = "SELECT " &
         "strFacilityName, " &
@@ -2570,7 +2563,6 @@ Public Class PASPFeeStatistics
         Try
             Me.Cursor = Cursors.Default
             Dim rpt As ReportClass = New TotalPayment10
-            monitor.TrackFeature("Report." & rpt.ResourceName)
             Dim SQL As String = "Select * from VW_Total_PAYMENT "
 
             rpt.SetDataSource(DB.GetDataTable(SQL))
@@ -2590,7 +2582,6 @@ Public Class PASPFeeStatistics
         Try
             Me.Cursor = Cursors.WaitCursor
             Dim rpt As ReportClass = New feeByYear10
-            monitor.TrackFeature("Report." & rpt.ResourceName)
             Dim SQL As String = "Select * from FeesDue "
 
             rpt.SetDataSource(DB.GetDataTable(SQL))
@@ -2626,7 +2617,6 @@ Public Class PASPFeeStatistics
         }
 
         Dim rpt As ReportClass = New DepositQA11
-        monitor.TrackFeature("Report." & rpt.ResourceName & ".byDate")
         rpt.SetDataSource(DB.GetDataTable(query, parameters))
 
         SetUpCrystalReportViewer(rpt, CRFeesReports, "Deposits")
@@ -2646,7 +2636,6 @@ Public Class PASPFeeStatistics
             Dim parameter As New SqlParameter("@airs", "0413" & cboAirs.Text)
 
             Dim rpt As ReportClass = New DepositQA11
-            monitor.TrackFeature("Report." & rpt.ResourceName & ".byAirs")
             rpt.SetDataSource(DB.GetDataTable(query, parameter))
 
             SetUpCrystalReportViewer(rpt, CRFeesReports, "Deposits")
@@ -2661,7 +2650,6 @@ Public Class PASPFeeStatistics
         Try
             Me.Cursor = Cursors.WaitCursor
             Dim rpt As ReportClass = New ClassChanged10
-            monitor.TrackFeature("Report." & rpt.ResourceName)
 
             Dim SQL As String = "select * from VW_Class_Changed"
 
@@ -2685,7 +2673,6 @@ Public Class PASPFeeStatistics
             "and STRnspsexempt = '1'"
 
             Dim rpt As ReportClass = New NSPSStatus10
-            monitor.TrackFeature("Report." & rpt.ResourceName)
             rpt.SetDataSource(DB.GetDataTable(SQL))
 
             SetUpCrystalReportViewer(rpt, CRFeesReports, "NSPS Exempt - Subject but exempt")
@@ -2700,7 +2687,6 @@ Public Class PASPFeeStatistics
         Try
             Me.Cursor = Cursors.WaitCursor
             Dim rpt As ReportClass = New NSPSStatus1_10
-            monitor.TrackFeature("Report." & rpt.ResourceName)
             Dim SQL As String = "Select * " &
             "from VW_NSPS_Status " &
             "where Strnsps1 = 'YES' " &
@@ -2720,7 +2706,6 @@ Public Class PASPFeeStatistics
         Try
             Me.Cursor = Cursors.WaitCursor
             Dim rpt As ReportClass = New NSPSStatus2_10
-            monitor.TrackFeature("Report." & rpt.ResourceName)
             Dim SQL As String = "Select * " &
             "from VW_NSPS_Status " &
             "where strnsps = 'YES' " &
@@ -2740,7 +2725,6 @@ Public Class PASPFeeStatistics
         Try
             Me.Cursor = Cursors.WaitCursor
             Dim rpt As ReportClass = New NoOperate10
-            monitor.TrackFeature("Report." & rpt.ResourceName)
             Dim SQL As String = "Select * from VW_No_Operate "
 
             rpt.SetDataSource(DB.GetDataTable(SQL))
@@ -2763,8 +2747,6 @@ Public Class PASPFeeStatistics
         Try
             Me.Cursor = Cursors.WaitCursor
             Dim rpt As ReportClass = New FacilityInfo10
-            monitor.TrackFeature("Report." & rpt.ResourceName)
-
             Dim SQL As String = "Select * from VW_Facility_Info "
 
             rpt.SetDataSource(DB.GetDataTable(SQL))

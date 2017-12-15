@@ -2547,8 +2547,7 @@ Public Class ISMPManagersTools
     End Sub
     Private Sub llbViewReport_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewReport.LinkClicked
         Try
-            Dim id As String = txtReferenceNumber.Text
-            If DAL.Ismp.StackTestExists(id) Then OpenMultiForm(ISMPTestReports, id)
+            OpenFormTestReport(txtReferenceNumber.Text)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -2655,8 +2654,7 @@ Public Class ISMPManagersTools
     End Sub
     Private Sub btnViewTestReport_Click(sender As Object, e As EventArgs) Handles btnViewTestReport.Click
         Try
-            Dim id As String = txtUnitStatReferenceNumber.Text
-            If DAL.Ismp.StackTestExists(id) Then OpenMultiForm(ISMPTestReports, id)
+            OpenFormTestReport(txtUnitStatReferenceNumber.Text)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try

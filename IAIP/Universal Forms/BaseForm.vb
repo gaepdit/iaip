@@ -14,6 +14,7 @@ Public Class BaseForm
         EnforcementId
         FacilityName
         Key
+        ReferenceNumber
     End Enum
 
 #End Region
@@ -32,8 +33,6 @@ Public Class BaseForm
     End Sub
 
     Private Sub BaseForm_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
-        LogPageView()
-
         SaveThisFormSettings()
 
         If MultiForm IsNot Nothing AndAlso
@@ -44,10 +43,6 @@ Public Class BaseForm
         SingleForm.ContainsKey(Me.Name) Then
             SingleForm.Remove(Me.Name)
         End If
-    End Sub
-
-    Private Sub LogPageView()
-        monitor.TrackFeature("Forms." & Me.Name)
     End Sub
 
 #End Region

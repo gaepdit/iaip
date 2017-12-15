@@ -381,12 +381,7 @@ Public Class SSCPComplianceLog
                 OpenFormFce(New Apb.ApbFacilityId(txtNewAIRSNumber.Text))
 
             ElseIf rdbPerformanceTest.Checked Then
-                If DAL.Ismp.StackTestExists(txtTrackingNumber.Text) Then
-                    OpenMultiForm(ISMPTestReports, txtTrackingNumber.Text)
-                Else
-                    MsgBox("The Reference Number is not valid." & vbCrLf &
-                           "Please check the number you entered.", MsgBoxStyle.Information, "Compliance Log")
-                End If
+                OpenFormTestReport(txtTrackingNumber.Text)
 
             ElseIf rdbOther.Checked Then
                 If cboEvent.SelectedIndex > -1 Then

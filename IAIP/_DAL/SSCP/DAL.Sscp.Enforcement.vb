@@ -61,7 +61,7 @@ Namespace DAL.Sscp
         ''' <param name="enforcementId">The enforcement ID to check.</param>
         ''' <returns>A boolean indicating where the enforcement ID exists.</returns>
         Public Function EnforcementExists(enforcementId As String) As Boolean
-            If enforcementId = "" OrElse Not Integer.TryParse(enforcementId, Nothing) Then Return False
+            If String.IsNullOrEmpty(enforcementId) OrElse Not Integer.TryParse(enforcementId, Nothing) Then Return False
 
             Dim query As String = "SELECT CONVERT( bit, COUNT(*)) FROM SSCP_AUDITEDENFORCEMENT " &
                 " WHERE STRENFORCEMENTNUMBER = @enforcementId "

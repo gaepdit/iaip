@@ -6,8 +6,6 @@
                          Optional recipientsCC As String() = Nothing,
                          Optional recipientsBCC As String() = Nothing) As Boolean
 
-        monitor.TrackFeature("Email.SendUrlEmail")
-
         Try
             Dim subjectParam As String = Nothing
             Dim bodyParam As String = Nothing

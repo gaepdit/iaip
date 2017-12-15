@@ -7,7 +7,6 @@ Public Class IaipUserProfile
     Private Property InvalidEntries As New List(Of Control)
 
     Private Sub IaipUserProfile_Load(sender As Object, e As EventArgs) Handles Me.Load
-        monitor.TrackFeature("Forms." & Me.Name)
         If CurrentUser Is Nothing Then
             MessageBox.Show("Something has gone awry.", "Unknown error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Me.Close()

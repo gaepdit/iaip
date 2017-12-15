@@ -2654,7 +2654,7 @@ Partial Class PASPFeeStatistics
         '
         Me.btnExportFeeReport.AutoSize = True
         Me.btnExportFeeReport.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnExportFeeReport.Location = New System.Drawing.Point(526, 7)
+        Me.btnExportFeeReport.Location = New System.Drawing.Point(532, 6)
         Me.btnExportFeeReport.Name = "btnExportFeeReport"
         Me.btnExportFeeReport.Size = New System.Drawing.Size(88, 23)
         Me.btnExportFeeReport.TabIndex = 28
@@ -2665,7 +2665,7 @@ Partial Class PASPFeeStatistics
         '
         Me.btnRunReport.AutoSize = True
         Me.btnRunReport.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnRunReport.Location = New System.Drawing.Point(208, 6)
+        Me.btnRunReport.Location = New System.Drawing.Point(212, 6)
         Me.btnRunReport.Name = "btnRunReport"
         Me.btnRunReport.Size = New System.Drawing.Size(93, 23)
         Me.btnRunReport.TabIndex = 5
@@ -2674,7 +2674,7 @@ Partial Class PASPFeeStatistics
         '
         'txtFeeCount
         '
-        Me.txtFeeCount.Location = New System.Drawing.Point(667, 7)
+        Me.txtFeeCount.Location = New System.Drawing.Point(667, 8)
         Me.txtFeeCount.Name = "txtFeeCount"
         Me.txtFeeCount.ReadOnly = True
         Me.txtFeeCount.Size = New System.Drawing.Size(63, 20)
@@ -2693,7 +2693,7 @@ Partial Class PASPFeeStatistics
         '
         Me.btnRunLateFeeReport.AutoSize = True
         Me.btnRunLateFeeReport.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnRunLateFeeReport.Location = New System.Drawing.Point(311, 5)
+        Me.btnRunLateFeeReport.Location = New System.Drawing.Point(311, 6)
         Me.btnRunLateFeeReport.Name = "btnRunLateFeeReport"
         Me.btnRunLateFeeReport.Size = New System.Drawing.Size(123, 23)
         Me.btnRunLateFeeReport.TabIndex = 2
@@ -2704,7 +2704,7 @@ Partial Class PASPFeeStatistics
         '
         Me.cboFeeYear.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboFeeYear.FormattingEnabled = True
-        Me.cboFeeYear.Location = New System.Drawing.Point(81, 8)
+        Me.cboFeeYear.Location = New System.Drawing.Point(85, 7)
         Me.cboFeeYear.Name = "cboFeeYear"
         Me.cboFeeYear.Size = New System.Drawing.Size(121, 21)
         Me.cboFeeYear.TabIndex = 1

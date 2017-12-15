@@ -67,8 +67,6 @@ Public Class SscpEnforcement
 #Region " Form load/closing events "
 
     Private Sub SscpEnforcement_Load(sender As Object, e As EventArgs) Handles Me.Load
-        monitor.TrackFeature("Forms." & Me.Name)
-
         ' Set up form/defaults/permissions
         GetLookupTables()
         LoadComboBoxes()
@@ -1675,7 +1673,7 @@ Public Class SscpEnforcement
 
         If NfaToPM.Checked Then
             result = result And CheckTheseDates(
-                NfaToUC.Value,
+                NfaToPM.Value,
                 antecedents:=New List(Of DateTimePicker) From
                 {DiscoveryDate, NovToUC, NovToPM, NfaToUC},
                 subsequents:=New List(Of DateTimePicker) From {NfaSent})

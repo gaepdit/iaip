@@ -14,7 +14,6 @@
         If sc IsNot Nothing AndAlso sc.Count = 2 Then
             Dim userId As Integer
             If Integer.TryParse(sc(0), userId) Then
-                monitor.TrackFeatureStart("Startup.ValidatingSession")
                 Dim newToken As String = DAL.ValidateSession(userId, sc(1))
                 If Not String.IsNullOrEmpty(newToken) Then
                     SaveLocalSession(userId, newToken)

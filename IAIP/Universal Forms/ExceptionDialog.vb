@@ -19,8 +19,6 @@ Friend Class ExceptionDialog
     Public Property Unrecoverable As Boolean = False
 
     Private Sub UserErrorDialog_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        monitor.TrackFeature("Forms." & Name)
-
         '-- make sure our window is on top
         TopMost = True
         TopMost = False

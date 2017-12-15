@@ -25,7 +25,6 @@
         FocusLogin()
         DisplayVersion()
         CheckForPasswordResetRequest()
-        monitor.TrackFeatureStop("Startup.Loading")
         If AppFirstRun Or AppUpdated Then
             App.TestCrystalReportsInstallation()
         End If
@@ -33,8 +32,6 @@
     End Sub
 
     Private Sub IAIPLogIn_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        monitor.TrackFeature("Main." & Me.Name)
-        monitor.TrackFeature("Forms." & Me.Name)
         UseDbServerEnvironment()
     End Sub
 
@@ -137,7 +134,6 @@
 
     Private Sub LogInCheck()
         Me.Cursor = Cursors.WaitCursor
-        monitor.TrackFeatureStart("Startup.LoggingIn")
         If Message IsNot Nothing Then Message.Clear()
         ForgotPasswordLink.Visible = False
         ForgotUsernameLink.Visible = False
@@ -183,7 +179,8 @@
     End Sub
 
     Private Sub LogInAlready()
-        AddMonitorLoginData()
+        ' Tag exception logger with new user
+        ExceptionLogger.Tags.Add("IaipUser", CurrentUser.Username)
         SaveUserSetting(UserSetting.PrefillLoginId, txtUserID.Text)
         ResetUserSetting(UserSetting.PasswordResetRequestedDate)
         OpenSingleForm(IAIPNavigation)
@@ -191,7 +188,6 @@
     End Sub
 
     Private Sub CancelLogin(Optional clearPasswordField As ClearPasswordField = ClearPasswordField.No)
-        monitor.TrackFeatureCancel("Startup.LoggingIn")
         CurrentUser = Nothing
         If clearPasswordField = ClearPasswordField.Yes Then txtUserPassword.Clear()
         FocusLogin()
@@ -422,7 +418,7 @@
 
     Private Sub mmiThrowHandledError_Click(sender As Object, e As EventArgs) Handles mmiThrowHandledError.Click
         Try
-            Throw New Exception("Unhandled exception testing")
+            Throw New Exception("Handled exception testing")
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try

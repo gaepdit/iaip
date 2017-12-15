@@ -3,13 +3,12 @@
 Module DbConnections
 
     ''' <summary>
-    ''' ServerEnvironment can be PRD (production), UAT (testing), or DEV (development)
+    ''' ServerEnvironment can be Production, Staging (UAT), or Development
     ''' </summary>
-    ''' <remarks>Until UAT database instance is created, DEV and UAT will connect to DEV database</remarks>
     Public Enum ServerEnvironment
-        PRD
-        UAT
-        DEV
+        Production
+        Staging
+        Development
     End Enum
 
     ''' <summary>
