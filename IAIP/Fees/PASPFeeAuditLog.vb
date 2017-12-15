@@ -94,7 +94,7 @@ Public Class PASPFeeAuditLog
         MailoutEditingToggle(False)
         MailoutEditingToggle(False, False)
 
-        If Me.AirsNumber.ToString IsNot Nothing AndAlso Me.FeeYear IsNot Nothing Then
+        If AirsNumber IsNot Nothing AndAlso FeeYear IsNot Nothing Then
             If DAL.AirsNumberExists(AirsNumber) Then
                 LoadAdminData()
                 LoadAuditedData()
