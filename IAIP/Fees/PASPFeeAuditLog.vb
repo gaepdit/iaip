@@ -3224,14 +3224,19 @@ Public Class PASPFeeAuditLog
                 Exit Sub
             End If
 
-            Dim SQL As String = "select " &
-            "FSLK_NspsReason.NSPSREasonCode , Description " &
-            "from FSLK_NSPSReason inner join fslk_NSPSReasonYear " &
-            "on FSLK_NspsReason.NSPSREasonCode = FSLK_NSPSREasonYear.nspsreasoncode  " &
-            "where numFeeYear = 2009 " &
-            "order by displayorder "
+            '*** numFeeYear = 2009 changed ***
+            Dim SQL As String = "select
+                        FSLK_NSPSReason.NSPSREasonCode,
+                        Description
+                        from FSLK_NSPSReason
+                        inner join fslk_NSPSReasonYear on FSLK_NspsReason.NSPSREasonCode = FSLK_NSPSREasonYear.nspsreasoncode
+                        where numFeeYear = @FeeYear
+                        and FSLK_NSPSREasonYear.ACTIVE = '1'
+                        order by FSLK_NSPSREasonYear.DISPLAYORDER"
 
-            Dim dt As DataTable = DB.GetDataTable(SQL)
+            Dim p As New SqlParameter("@FeeYear", FeeYear)
+
+            Dim dt As DataTable = DB.GetDataTable(SQL, p)
 
             dgvEditExemptions.Rows.Clear()
 
