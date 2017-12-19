@@ -269,7 +269,7 @@ Public Class PASPFeeAuditLog
     End Sub
 
     Private Sub LoadAdminData()
-        If Me.AirsNumber.ToString Is Nothing OrElse Me.FeeYear Is Nothing Then
+        If AirsNumber Is Nothing OrElse FeeYear Is Nothing Then
             Exit Sub
         End If
 
@@ -1259,7 +1259,7 @@ Public Class PASPFeeAuditLog
     End Sub
 
     Private Sub LoadAuditedData()
-        If Me.AirsNumber.ToString Is Nothing OrElse Me.FeeYear Is Nothing Then
+        If AirsNumber Is Nothing OrElse FeeYear Is Nothing Then
             Exit Sub
         End If
 
@@ -1684,7 +1684,7 @@ Public Class PASPFeeAuditLog
 
     Private Sub RefreshAdminStatus()
         Try
-            If Me.AirsNumber.ToString IsNot Nothing AndAlso Me.FeeYear IsNot Nothing Then
+            If AirsNumber Is Nothing OrElse FeeYear Is Nothing Then
                 Dim SQL As String = "select " &
                 "strIAIPDesc " &
                 "From FS_Admin " &
@@ -2018,7 +2018,7 @@ Public Class PASPFeeAuditLog
 #End Region
 
     Private Sub EditContactsButton_Click(sender As Object, e As EventArgs) Handles EditContactsButton.Click
-        If AirsNumber.ToString Is Nothing OrElse (mtbAirsNumber.Text <> AirsNumber.FormattedString) Then
+        If AirsNumber Is Nothing OrElse (mtbAirsNumber.Text <> AirsNumber.FormattedString) Then
             MessageBox.Show("Please select a valid AIRS number first.",
                             "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Exit Sub
@@ -2042,8 +2042,8 @@ Public Class PASPFeeAuditLog
                 Exit Sub
             End If
 
-            Me.FeeYear = FeeYearsComboBox.Text
-            Me.AirsNumber = mtbAirsNumber.Text
+            FeeYear = FeeYearsComboBox.Text
+            AirsNumber = mtbAirsNumber.Text
 
             ClearForm()
 
@@ -2057,7 +2057,7 @@ Public Class PASPFeeAuditLog
             MailoutEditingToggle(False)
             MailoutEditingToggle(False, False)
 
-            If Me.AirsNumber.ToString IsNot Nothing AndAlso Me.FeeYear IsNot Nothing Then
+            If AirsNumber IsNot Nothing AndAlso FeeYear IsNot Nothing Then
                 If DAL.AirsNumberExists(AirsNumber) Then
                     LoadAdminData()
                     LoadAuditedData()
@@ -2218,7 +2218,7 @@ Public Class PASPFeeAuditLog
                     ClearInvoices()
                     ClearAuditData()
 
-                    If Me.AirsNumber.ToString IsNot Nothing AndAlso Me.FeeYear IsNot Nothing Then
+                    If AirsNumber Is Nothing OrElse FeeYear Is Nothing Then
                         If DAL.AirsNumberExists(AirsNumber) Then
                             LoadAdminData()
                             LoadAuditedData()
@@ -3218,13 +3218,18 @@ Public Class PASPFeeAuditLog
 
     Private Sub rdbEditNSPSExemptTrue_CheckedChanged(sender As Object, e As EventArgs) Handles rdbEditNSPSExemptTrue.CheckedChanged
         Try
-            Dim dgvRow As New DataGridViewRow
-
             If rdbEditNSPSExemptTrue.Checked = False Then
                 Exit Sub
             End If
 
-            '*** numFeeYear = 2009 changed ***
+            If AirsNumber Is Nothing OrElse FeeYear Is Nothing Then
+                MessageBox.Show("Please select a valid AIRS number and year first.",
+                            "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                Exit Sub
+            End If
+
+            Dim dgvRow As New DataGridViewRow
+
             Dim SQL As String = "select
                         FSLK_NSPSReason.NSPSREasonCode,
                         Description
@@ -3248,6 +3253,7 @@ Public Class PASPFeeAuditLog
                 dgvRow.Cells(2).Value = dr.Item("description")
                 dgvEditExemptions.Rows.Add(dgvRow)
             Next
+            dgvEditExemptions.SanelyResizeColumns()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
