@@ -2547,7 +2547,7 @@ Public Class ISMPManagersTools
     End Sub
     Private Sub llbViewReport_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbViewReport.LinkClicked
         Try
-            OpenFormTestReport(txtReferenceNumber.Text)
+            OpenFormTestReportEntry(txtReferenceNumber.Text)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -2654,7 +2654,7 @@ Public Class ISMPManagersTools
     End Sub
     Private Sub btnViewTestReport_Click(sender As Object, e As EventArgs) Handles btnViewTestReport.Click
         Try
-            OpenFormTestReport(txtUnitStatReferenceNumber.Text)
+            OpenFormTestReportEntry(txtUnitStatReferenceNumber.Text)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try

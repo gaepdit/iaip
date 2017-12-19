@@ -4537,7 +4537,7 @@ Public Class ISMPConfidentialData
                     MessageBox.Show("Confidential data saved")
                 End If
 
-                Dim testReportForm As ISMPTestReports = OpenFormTestReport(txtReferenceNumber.Text)
+                Dim testReportForm As ISMPTestReports = OpenFormTestReportEntry(txtReferenceNumber.Text)
                 If testReportForm IsNot Nothing Then
                     testReportForm.LoadConfidentialData(ConfidentialData)
                 End If

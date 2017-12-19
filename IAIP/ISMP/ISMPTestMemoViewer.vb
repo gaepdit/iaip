@@ -163,7 +163,7 @@ Public Class ISMPTestMemoViewer
     End Sub
     Private Sub SelectTestReport()
         Try
-            OpenFormTestReport(txtReferenceNumber.Text)
+            OpenFormTestReportEntry(txtReferenceNumber.Text)
             Close()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)

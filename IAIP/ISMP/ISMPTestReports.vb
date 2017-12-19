@@ -21389,7 +21389,7 @@ Public Class ISMPTestReports
     End Sub
     Private Sub mmiPrintNonConf_Click(sender As Object, e As EventArgs) Handles mmiPrintNonConf.Click
         Try
-            OpenFormTestReportNonConfPrintout(ReferenceNumber)
+            OpenFormTestReportPrintout(ReferenceNumber, noConf:=True)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally

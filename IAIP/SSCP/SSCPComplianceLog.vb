@@ -381,7 +381,7 @@ Public Class SSCPComplianceLog
                 OpenFormFce(New Apb.ApbFacilityId(txtNewAIRSNumber.Text))
 
             ElseIf rdbPerformanceTest.Checked Then
-                OpenFormTestReport(txtTrackingNumber.Text)
+                OpenFormTestReportEntry(txtTrackingNumber.Text)
 
             ElseIf rdbOther.Checked Then
                 If cboEvent.SelectedIndex > -1 Then
@@ -793,7 +793,7 @@ Public Class SSCPComplianceLog
     End Sub
 
     Private Sub mmiClose_Click(sender As Object, e As EventArgs) Handles mmiClose.Click
-        Me.Close()
+        Close()
     End Sub
 
     Private Sub mmiExport_Click(sender As Object, e As EventArgs) Handles mmiExport.Click
