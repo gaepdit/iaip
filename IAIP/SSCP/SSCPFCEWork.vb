@@ -1396,13 +1396,7 @@ Public Class SSCPFCEWork
     End Sub
 
     Private Sub llbISMPSummaryReports_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbISMPSummaryReports.LinkClicked
-        If txtISMPReferenceNumber.Text <> "" Then
-            If DAL.Ismp.StackTestIsClosedOut(txtISMPReferenceNumber.Text) Then
-                OpenFormTestReportPrintout(txtISMPReferenceNumber.Text)
-            Else
-                MsgBox("This Test Summary has not been completely reviewed by ISMP Engineer", MsgBoxStyle.Information, "FCE Form")
-            End If
-        End If
+        OpenFormTestReportPrintout(txtISMPReferenceNumber.Text)
     End Sub
 
     Private Sub llbFCEEnforcement_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbFCEEnforcement.LinkClicked

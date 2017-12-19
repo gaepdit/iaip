@@ -793,8 +793,7 @@ Public Class ISMPTestReportAdministrative
     End Sub
     Private Sub MoveOn()
         Try
-            OpenFormTestReport(txtReferenceNumber.Text)
-            Close()
+            OpenFormTestReportEntry(txtReferenceNumber.Text)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -2130,7 +2129,7 @@ Public Class ISMPTestReportAdministrative
 
     Private Sub btnOpenTestReport_Click(sender As Object, e As EventArgs) Handles btnOpenTestReport.Click
         Try
-            OpenFormTestReport(txtAddTestReportRefNum.Text)
+            OpenFormTestReportEntry(txtAddTestReportRefNum.Text)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try

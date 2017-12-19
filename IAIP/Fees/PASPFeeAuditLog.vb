@@ -94,7 +94,7 @@ Public Class PASPFeeAuditLog
         MailoutEditingToggle(False)
         MailoutEditingToggle(False, False)
 
-        If Me.AirsNumber.ToString IsNot Nothing AndAlso Me.FeeYear IsNot Nothing Then
+        If AirsNumber IsNot Nothing AndAlso FeeYear IsNot Nothing Then
             If DAL.AirsNumberExists(AirsNumber) Then
                 LoadAdminData()
                 LoadAuditedData()
@@ -4886,8 +4886,8 @@ Public Class PASPFeeAuditLog
             DB.RunCommand(SQL, params2)
 
             Try
-                DB.SPRunCommand("dbo.PD_FEE_MAILOUT", params)
-                DB.SPRunCommand("dbo.PD_FEE_DATA", params)
+                DB.SPRunCommand("dbo.PD_FEE_MAILOUT", params2)
+                DB.SPRunCommand("dbo.PD_FEE_DATA", params2)
             Catch ex As Exception
                 ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
                 MessageBox.Show("There was an error updating the database", "Database error", MessageBoxButtons.OK, MessageBoxIcon.Error)

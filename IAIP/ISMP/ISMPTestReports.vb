@@ -8185,7 +8185,7 @@ Public Class ISMPTestReports
                         End If
                     End If
                     If IsDBNull(dr.Item("datCompleteDate")) Then
-                        DTPEventCompleteDate.Value = Nothing
+                        DTPEventCompleteDate.Value = Today
                         chbEventComplete.Checked = False
                     Else
                         DTPEventCompleteDate.Value = CDate(dr.Item("datCompleteDate"))
@@ -8193,7 +8193,7 @@ Public Class ISMPTestReports
                     End If
 
                     If IsDBNull(dr.Item("datAcknoledgmentLetterSent")) Then
-                        DTPAcknoledgmentLetterSent.Value = Nothing
+                        DTPAcknoledgmentLetterSent.Value = Today
                         chbAcknoledgmentLetterSent.Checked = False
                         DTPAcknoledgmentLetterSent.Visible = False
                     Else
@@ -16133,21 +16133,9 @@ Public Class ISMPTestReports
 #Region "checkboxes"
 
     Private Sub chbEventComplete_CheckedChanged(sender As Object, e As EventArgs) Handles chbEventComplete.CheckedChanged
-        Try
-            If chbEventComplete.Checked = True Then
-                DTPEventCompleteDate.Enabled = True
-                CloseSSCPWork(True)
-            Else
-                DTPEventCompleteDate.Enabled = False
-                CloseSSCPWork(False)
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-        End Try
-
+        CloseSSCPWork(chbEventComplete.Checked)
     End Sub
+
     Private Sub chbTestReportChangeDueDate_CheckedChanged(sender As Object, e As EventArgs) Handles chbTestReportChangeDueDate.CheckedChanged
         Try
             If chbTestReportChangeDueDate.Checked = True Then
@@ -16162,6 +16150,7 @@ Public Class ISMPTestReports
         End Try
 
     End Sub
+
     Private Sub chbAcknoledgmentLetterSent_CheckedChanged(sender As Object, e As EventArgs) Handles chbAcknoledgmentLetterSent.CheckedChanged
         Try
             If chbAcknoledgmentLetterSent.Checked = True Then
@@ -21389,7 +21378,7 @@ Public Class ISMPTestReports
     End Sub
     Private Sub mmiPrintNonConf_Click(sender As Object, e As EventArgs) Handles mmiPrintNonConf.Click
         Try
-            OpenFormTestReportNonConfPrintout(ReferenceNumber)
+            OpenFormTestReportPrintout(ReferenceNumber, noConf:=True)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
