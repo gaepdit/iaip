@@ -12,21 +12,20 @@ Public Class ISMPNotificationLog
             DTPTestDateStart.Value = Today
             DTPTestDateEnd.Value = Today
 
-            If txtTestNotificationNumber.Text <> "" Then
-                LoadTestNotification()
-            End If
-
             If AccountFormAccess(66, 2) <> "1" And AccountFormAccess(66, 3) <> "1" Then
                 bbtSave.Visible = False
                 SaveToolStripMenuItem.Visible = False
                 btnNewTestNotification.Visible = False
             End If
-
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
+    End Sub
+
+    Private Sub ISMPNotificationLog_Shown(sender As Object, e As EventArgs) Handles Me.Shown
+        If txtTestNotificationNumber.Text <> "" Then
+            LoadTestNotification()
+        End If
     End Sub
 
     Private Sub LoadComboBoxes()
