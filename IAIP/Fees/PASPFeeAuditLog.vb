@@ -4886,8 +4886,8 @@ Public Class PASPFeeAuditLog
             DB.RunCommand(SQL, params2)
 
             Try
-                DB.SPRunCommand("dbo.PD_FEE_MAILOUT", params)
-                DB.SPRunCommand("dbo.PD_FEE_DATA", params)
+                DB.SPRunCommand("dbo.PD_FEE_MAILOUT", params2)
+                DB.SPRunCommand("dbo.PD_FEE_DATA", params2)
             Catch ex As Exception
                 ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
                 MessageBox.Show("There was an error updating the database", "Database error", MessageBoxButtons.OK, MessageBoxIcon.Error)
