@@ -180,153 +180,166 @@ Public Class SSCPFCEWork
     End Sub
 
     Private Sub LoadFCEACCData()
-        Dim SQL As String = "select SSCPItemMaster.strTrackingNumber, " &
-            "datReceivedDate as ReceivedDate, " &
-            "CONCAT(strLastName, ', ', strFirstName) as ReviewingEngineer, " &
-            "strPostMarkedOnTime, " &
-            "datPostMarkDate as PostmarkDate, " &
-            "strSignedByRO, strCorrectACCForms, strTitleVConditionsListed, " &
-            "strACCCorrectlyFilledOut, strReportedDeviations, " &
-            "strDeviationsUnreported, strComments, strEnforcementNeeded, " &
-            "datCompleteDate as CompleteDate " &
-            "from SSCPACCS, SSCPItemMaster, EPDUSerProfiles " &
-            "where " &
-            "EPDUSerProfiles.numUserID = SSCPItemMaster.strModifingperson " &
-            "and SSCPItemMaster.strTrackingNumber = SSCPACCS.strTrackingNumber " &
-            "and ((datCompleteDate between @startDate and @endDate ) " &
-            "or (datReceivedDate between @startDate and @endDate )) " &
-            "and SSCPItemMaster.strAIrsnumber = @airs " &
-            "and (strDelete is Null or strDelete <> 'True') "
+        Dim SQL As String = "SELECT
+            b.strTrackingNumber,
+            datReceivedDate                         AS ReceivedDate,
+            CONCAT(strLastName, ', ', strFirstName) AS ReviewingEngineer,
+            strPostMarkedOnTime,
+            datPostMarkDate                         AS PostmarkDate,
+            strSignedByRO,
+            strCorrectACCForms,
+            strTitleVConditionsListed,
+            strACCCorrectlyFilledOut,
+            strReportedDeviations,
+            strDeviationsUnreported,
+            strComments,
+            strEnforcementNeeded,
+            datCompleteDate                         AS CompleteDate
+        FROM SSCPACCS a
+            INNER JOIN SSCPItemMaster b
+                ON b.strTrackingNumber = a.strTrackingNumber
+            INNER JOIN EPDUSerProfiles c
+                ON c.numUserID = b.strModifingperson
+        WHERE ((datCompleteDate BETWEEN @startDate AND @endDate)
+               OR (datReceivedDate BETWEEN @startDate AND @endDate))
+              AND b.strAIrsnumber = @airs
+              AND (strDelete IS NULL OR strDelete <> 'True')"
 
         dgrFCEACC.DataSource = DB.GetDataTable(SQL, paramWithDates)
     End Sub
 
     Private Sub LoadFCEReports()
-        Dim SQL As String = "select SSCPItemMaster.strTrackingNumber, " &
-             "datReceivedDate as ReceivedDate, " &
-             "strReportPeriod, " &
-             "DatReportingPeriodStart as ReportingStartDate, " &
-             "datReportingPeriodEnd as ReportingEndDate, " &
-             "strReportingPeriodComments, " &
-             "datReportDueDate as ReportDueDate, " &
-             "datSentByFacilityDate as DateSentByFacility, " &
-             "strCompleteStatus, strEnforcementNeeded, strShowDeviation, " &
-             "strGeneralComments " &
-             "from SSCPREports, SSCPItemMaster " &
-             "where SSCPItemMaster.strTrackingNumber = SSCPREports.strTrackingNumber " &
-             "and ((datCompleteDate between @startDate and @endDate) " &
-             "or " &
-             "(datReceivedDate between @startDate and @endDate)) " &
-              "and (strDelete is Null or strDelete <> 'True') " &
-            "and SSCPItemMaster.strAIrsnumber = @airs "
+        Dim SQL As String = "SELECT
+            b.strTrackingNumber,
+            datReceivedDate         AS ReceivedDate,
+            strReportPeriod,
+            DatReportingPeriodStart AS ReportingStartDate,
+            datReportingPeriodEnd   AS ReportingEndDate,
+            strReportingPeriodComments,
+            datReportDueDate        AS ReportDueDate,
+            datSentByFacilityDate   AS DateSentByFacility,
+            strCompleteStatus,
+            strEnforcementNeeded,
+            strShowDeviation,
+            strGeneralComments
+        FROM SSCPREports a
+            INNER JOIN SSCPItemMaster b
+                ON b.strTrackingNumber = a.strTrackingNumber
+        WHERE ((datCompleteDate BETWEEN @startDate AND @endDate)
+               OR (datReceivedDate BETWEEN @startDate AND @endDate))
+              AND (strDelete IS NULL OR strDelete <> 'True')
+              AND b.strAIrsnumber = @airs"
 
         dgrFCEReports.DataSource = DB.GetDataTable(SQL, paramWithDates)
     End Sub
 
     Private Sub LoadFCECorrespondance()
-        Dim SQL As String = "select SSCPItemMaster.strTrackingNumber, " &
-             "datReceivedDate as ReceivedDate, " &
-             "CASE " &
-             "    when strNotificationDue = 'True' then datNotificationDue " &
-             "    when strNotificationDue = 'False' then null " &
-             "End as NotificationDate, " &
-             "CASE " &
-             "    when strNotificationSent = 'True' then DatNotificationSent " &
-             "    when strNotificationSent = 'False' then null " &
-             "End as NotificationSent, " &
-             "CASE " &
-             "    when strNotificationType = '01' then strNotificationTypeOther " &
-             "    ELSE (select strNotificationDesc " &
-             "     from LookUPSSCPNotifications, SSCPNotifications " &
-             "     where LookUPSSCPNotifications.strNotificationKey = sscpNotifications.strnotificationType " &
-             "     and sscpNotifications.strTrackingNumber = SSCPItemMaster.strTrackingNumber) " &
-             "END as Notification, " &
-             "strNotificationComment " &
-             "from SSCPNotifications, SSCPItemMaster " &
-             "where SSCPItemMaster.strTrackingNumber = SSCPNotifications.strTrackingNumber " &
-             "and ((datCompleteDate between @startDate and @endDate) " &
-             "or " &
-             "(datReceivedDate between @startDate and @endDate)) " &
-              "and (strDelete is Null or strDelete <> 'True') " &
-                         "and SSCPItemMaster.strAIrsnumber = @airs "
+        Dim SQL As String = "SELECT
+            b.strTrackingNumber,
+            datReceivedDate                AS ReceivedDate,
+            CASE WHEN strNotificationDue = 'True'
+                THEN datNotificationDue
+            WHEN strNotificationDue = 'False'
+                THEN NULL END              AS NotificationDate,
+            CASE WHEN strNotificationSent = 'True'
+                THEN DatNotificationSent
+            WHEN strNotificationSent = 'False'
+                THEN NULL END              AS NotificationSent,
+            CASE WHEN strNotificationType = '01'
+                THEN strNotificationTypeOther
+            ELSE j.strNotificationDesc END AS Notification,
+            strNotificationComment
+        FROM SSCPNotifications a
+            INNER JOIN SSCPItemMaster b
+                ON b.strTrackingNumber = a.strTrackingNumber
+            LEFT JOIN LookUPSSCPNotifications j
+                ON j.STRNOTIFICATIONKEY = a.STRNOTIFICATIONTYPE
+        WHERE ((datCompleteDate BETWEEN @startDate AND @endDate)
+               OR (datReceivedDate BETWEEN @startDate AND @endDate))
+              AND (strDelete IS NULL OR strDelete <> 'True')
+              AND b.strAIrsnumber = @airs"
 
         dgrFCECorrespondance.DataSource = DB.GetDataTable(SQL, paramWithDates)
     End Sub
 
     Private Sub LoadFCESummaryReports()
-        Dim SQL As String = "Select ISMPReportInformation.strReferenceNumber,  " &
-         "strEmissionSource, LookUPPollutants.strPollutantDescription,  " &
-         "ISMPReportType.strReportType,  " &
-         "CONCAT(strLastName, ', ', strFirstName) as ReviewingEngineer, " &
-         "datTestDateStart as TestDateStart,  " &
-         "datReceivedDate as REceivedDate,  " &
-         "Case  " &
-         "  when datCompleteDate = '04-Jul-1776' Then 'Open'  " &
-         "  when datCompleteDate <> '04-Jul-1776' Then datCompleteDate  " &
-         "END as CompleteDate,  " &
-         "LookUPISMPComplianceStatus.strComplianceStatus,  " &
-         "Case  " &
-         "  when strClosed = 'False' then 'Open'   " &
-         "  when strClosed = 'True' then 'Closed'  " &
-         "END as Status,  " &
-         "mmoCommentArea, ISMPDocumentType.strDocumentType,   " &
-         "strApplicableRequirement,  " &
-         "LookUpEPDUnits.strUnitDesc  " &
-         "from ISMPMaster, ISMPReportInformation,  " &
-         "LookUPPollutants, ISMPReportType, EPDUserProfiles,  " &
-         "LookUPISMPComplianceStatus, ISMPDocumentType,  " &
-         "LookUpEPDUnits    " &
-         "where  " &
-         "ISMPReportInformation.strREferenceNumber = ISMPMaster.strReferenceNumber  " &
-         "and LookUPPollutants.strPOllutantCode = ISMPReportInformation.strPOllutant  " &
-         "and ISMPReportType.strKey = ISMPReportInformation.strReportType  " &
-         "and EPDUserProfiles.numUserID = ISMPReportInformation.strReviewingEngineer  " &
-         "and LookUPISMPComplianceStatus.strComplianceKey = ISMPReportInformation.strComplianceStatus  " &
-         "and ISMPDocumentType.strKey = ISMPReportInformation.strDocumentType  " &
-         "and strDelete is Null  " &
-         "and ISMPReportInformation.strReviewingUnit = LookUpEPDUnits.numUnitCode " &
-         "and strAIRSNumber = @airs " &
-         "and ((datCompleteDate between @startDate and @endDate)   " &
-          "or  (datReceivedDate between @startDate and @endDate))   " &
-         "and (strDelete is Null or strDelete <> 'True')   " &
-         "order by ISMPReportInformation.strReferenceNumber DESC  "
+        Dim SQL As String = "SELECT
+            b.strReferenceNumber,
+            b.strEmissionSource,
+            c.strPollutantDescription,
+            d.strReportType,
+            CONCAT(e.strLastName, ', ', e.strFirstName) AS ReviewingEngineer,
+            b.datTestDateStart                          AS TestDateStart,
+            b.datReceivedDate                           AS REceivedDate,
+            CASE WHEN b.datCompleteDate = '04-Jul-1776'
+                THEN NULL
+            ELSE b.datCompleteDate END                  AS CompleteDate,
+            f.strComplianceStatus,
+            CASE WHEN b.strClosed = 'False'
+                THEN 'Open'
+            ELSE 'Closed' END                           AS Status,
+            b.mmoCommentArea,
+            g.strDocumentType,
+            b.strApplicableRequirement,
+            h.strUnitDesc
+        FROM ISMPMaster a
+            INNER JOIN ISMPReportInformation b
+                ON b.strREferenceNumber = a.strReferenceNumber
+            INNER JOIN LookUPPollutants c
+                ON c.strPOllutantCode = b.strPOllutant
+            INNER JOIN ISMPReportType d
+                ON d.strKey = b.strReportType
+            INNER JOIN EPDUserProfiles e
+                ON e.numUserID = b.strReviewingEngineer
+            INNER JOIN LookUPISMPComplianceStatus
+                       f ON f.strComplianceKey = b.strComplianceStatus
+            INNER JOIN ISMPDocumentType g
+                ON g.strKey = b.strDocumentType
+            INNER JOIN LookUpEPDUnits h
+                ON b.strReviewingUnit = h.numUnitCode
+        WHERE a.strAIRSNumber = @airs
+              AND ((b.datCompleteDate BETWEEN @startDate AND @endDate)
+                   OR (b.datReceivedDate BETWEEN @startDate AND @endDate))
+              AND (b.strDelete IS NULL OR b.strDelete <> 'True')
+        ORDER BY b.strReferenceNumber DESC"
 
         dgrISMPSummaryReports.DataSource = DB.GetDataTable(SQL, paramWithDates)
     End Sub
 
     Private Sub LoadFCEPerformanceTests()
-        Dim SQL As String = "Select " &
-             "SSCPTestReports.strTrackingNumber, " &
-             "datReceivedDate as ReceivedDate, " &
-             "CONCAT(strLastName, ', ', strFirstName) as ReviewingEngineer, " &
-             "strReferenceNumber, strTestReportComments, " &
-             "datCompleteDate as CompleteDate, " &
-             "strTestReportFollowUp " &
-             "from SSCPItemMaster " &
-             "inner join SSCPTestReports " &
-             "on SSCPItemMaster.strTrackingNumber = SSCPTestReports.strTrackingNumber " &
-             "left join EPDUserProfiles " &
-             "on EPDUserProfiles.numUserID = SSCPItemMaster.strResponsibleStaff " &
-             "where ((datCompleteDate between @startDate and @endDate) " &
-             " or " &
-             "(datReceivedDate between @startDate and @endDate)) " &
-              "and (strDelete is Null or strDelete <> 'True') " &
-                         "and SSCPItemMaster.strAIrsnumber = @airs "
+        Dim SQL As String = "SELECT
+            b.strTrackingNumber,
+            datReceivedDate                         AS ReceivedDate,
+            CONCAT(strLastName, ', ', strFirstName) AS ReviewingEngineer,
+            strReferenceNumber,
+            strTestReportComments,
+            datCompleteDate                         AS CompleteDate,
+            strTestReportFollowUp
+        FROM SSCPItemMaster a
+            INNER JOIN SSCPTestReports b
+                ON a.strTrackingNumber = b.strTrackingNumber
+            LEFT JOIN EPDUserProfiles c
+                ON c.numUserID = a.strResponsibleStaff
+        WHERE ((datCompleteDate BETWEEN @startDate AND @endDate)
+               OR (datReceivedDate BETWEEN @startDate AND @endDate))
+              AND (strDelete IS NULL OR strDelete <> 'True')
+              AND a.strAIrsnumber = @airs"
 
         dgrPerformanceTests.DataSource = DB.GetDataTable(SQL, paramWithDates)
     End Sub
 
     Private Sub LoadFCEEnforcement()
-        Dim SQL As String = "Select " &
-             "SSCP_AuditedEnforcement.strEnforcementNumber, " &
-             "datEnforcementFinalized as EnforcementFinalized, " &
-             "CONCAT(strLastName, ', ', strFirstName) as StaffResponsible, " &
-             "strActionType  " &
-             "from SSCP_AuditedEnforcement, EPDUserProfiles " &
-             "where EPDUserProfiles.numUserID = SSCP_AuditedEnforcement.numStaffResponsible " &
-              "and datDiscoveryDate between @startDate and @endDate " &
-              "and (strStatus is Null or strStatus <> 'True') " &
-                         "and strAIrsnumber = @airs "
+        Dim SQL As String = "SELECT
+            a.strEnforcementNumber,
+            datEnforcementFinalized                 AS EnforcementFinalized,
+            CONCAT(strLastName, ', ', strFirstName) AS StaffResponsible,
+            strActionType
+        FROM SSCP_AuditedEnforcement a
+            INNER JOIN EPDUserProfiles b
+                ON b.numUserID = a.numStaffResponsible
+        WHERE datDiscoveryDate BETWEEN @startDate AND @endDate
+              AND (strStatus IS NULL OR strStatus <> 'True')
+              AND strAIrsnumber = @airs"
 
         dgrFCEEnforcement.DataSource = DB.GetDataTable(SQL, paramWithDates)
     End Sub
@@ -1083,17 +1096,16 @@ Public Class SSCPFCEWork
                 DTPFCECompleteDate.Value = Today
                 txtFCEComments.Clear()
             Else
-                Dim SQL As String = "select " &
-                "datFCECompleted as datFCECompleted,  " &
-                "strFCEComments,  " &
-                "Case " &
-                "  when strSiteInspection is Null then 'False' " &
-                "else strSiteInspection  " &
-                "End strSiteInspection,  " &
-                "strReviewer,  " &
-                "strFCEYear " &
-                "from SSCPFCE  " &
-                "where strFCENumber = @fce "
+                Dim SQL As String = "SELECT
+                    datFCECompleted,
+                    strFCEComments,
+                    CASE WHEN strSiteInspection IS NULL
+                        THEN 'False'
+                    ELSE strSiteInspection END strSiteInspection,
+                    strReviewer,
+                    strFCEYear
+                FROM SSCPFCE
+                WHERE strFCENumber = @fce"
 
                 Dim p As New SqlParameter("@fce", txtFCENumber.Text)
 
