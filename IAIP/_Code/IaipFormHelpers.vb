@@ -145,10 +145,15 @@ Module IaipFormHelpers
     Public Function OpenFormTestReport(referenceNumber As String) As ISMPTestReports
         If CurrentUser.ProgramID = 3 Then
             Return OpenFormTestReportEntry(referenceNumber)
-        Else
-            OpenFormTestReportPrintout(referenceNumber)
+        End If
+
+        If Not DAL.Ismp.StackTestIsClosedOut(referenceNumber) Then
+            MessageBox.Show("Test report has not been closed out by ISMP.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return Nothing
         End If
+
+        OpenFormTestReportPrintout(referenceNumber)
+        Return Nothing
     End Function
 
     Public Function OpenFormTestReportEntry(referenceNumber As String) As ISMPTestReports
@@ -195,11 +200,6 @@ Module IaipFormHelpers
 
         If Not DAL.Ismp.StackTestExists(referenceNumber) Then
             MessageBox.Show("Reference number does not exist in the system.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-            Return Nothing
-        End If
-
-        If Not DAL.Ismp.StackTestIsClosedOut(referenceNumber) Then
-            MessageBox.Show("Test report has not been closed out by ISMP.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return Nothing
         End If
 
