@@ -13,16 +13,21 @@
     ''' Handles logging and reporting of errors.
     ''' </summary>
     ''' <param name="exc">The exception to be handled.</param>
-    ''' <param name="supplementalMessage">A string containing supplementary information to be logged.</param>
+    ''' <param name="SupplementalMessage">A string containing supplementary information to be logged.</param>
     ''' <param name="contextMessage">A string representing the calling function.</param>
-    Public Sub ErrorReport(exc As Exception, supplementalMessage As String, contextMessage As String, Optional displayErrorToUser As Boolean = True)
+    Public Sub ErrorReport(exc As Exception, SupplementalMessage As String, contextMessage As String, Optional displayErrorToUser As Boolean = True)
         ' First, log the exception using our analytics program. This is more reliable.
+#If Not DEBUG Then
+        ExceptionLogger.Tags.Add("context", contextMessage)
+        exc.Data.Add(NameOf(SupplementalMessage), "Test supplemental message")
         ExceptionLogger.Capture(New SharpRaven.Data.SentryEvent(exc))
+        ExceptionLogger.Tags.Remove("context")
+#End If
 
         ' Second, try logging the error message to the IAIP database. This requires a connection so will sometimes fail.
         Dim errorMessage As String = exc.Message
-        If Not String.IsNullOrEmpty(supplementalMessage) Then
-            errorMessage = errorMessage & Environment.NewLine & Environment.NewLine & supplementalMessage
+        If Not String.IsNullOrEmpty(SupplementalMessage) Then
+            errorMessage = errorMessage & Environment.NewLine & Environment.NewLine & SupplementalMessage
         End If
         DAL.LogError(errorMessage, contextMessage)
 
