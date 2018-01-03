@@ -57,7 +57,6 @@ Partial Class IAIPQueryGenerator
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.btnRunSearch = New System.Windows.Forms.Button()
-        Me.PanelAll = New System.Windows.Forms.Panel()
         Me.Splitter1 = New System.Windows.Forms.Splitter()
         Me.dgvQueryGenerator = New System.Windows.Forms.DataGridView()
         Me.TCQuerryOptions = New System.Windows.Forms.TabControl()
@@ -410,7 +409,6 @@ Partial Class IAIPQueryGenerator
         Me.GBBasic = New System.Windows.Forms.GroupBox()
         Me.lblQueryCount = New System.Windows.Forms.Label()
         Me.bgwQueryGenerator = New System.ComponentModel.BackgroundWorker()
-        Me.LoggingBackgroundWorker = New System.ComponentModel.BackgroundWorker()
         Me.ToolsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.SaveSearchQueryToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.OpenSavedSearchToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -422,7 +420,6 @@ Partial Class IAIPQueryGenerator
         Me.Panel35.SuspendLayout()
         Me.Panel36.SuspendLayout()
         Me.Panel37.SuspendLayout()
-        Me.PanelAll.SuspendLayout()
         CType(Me.dgvQueryGenerator, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TCQuerryOptions.SuspendLayout()
         Me.TPPhysicalLocation.SuspendLayout()
@@ -776,23 +773,10 @@ Partial Class IAIPQueryGenerator
         Me.btnRunSearch.TabIndex = 15
         Me.btnRunSearch.Text = "Run Search"
         '
-        'PanelAll
-        '
-        Me.PanelAll.AutoScroll = True
-        Me.PanelAll.Controls.Add(Me.Splitter1)
-        Me.PanelAll.Controls.Add(Me.dgvQueryGenerator)
-        Me.PanelAll.Controls.Add(Me.TCQuerryOptions)
-        Me.PanelAll.Controls.Add(Me.GBBasic)
-        Me.PanelAll.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.PanelAll.Location = New System.Drawing.Point(0, 49)
-        Me.PanelAll.Name = "PanelAll"
-        Me.PanelAll.Size = New System.Drawing.Size(796, 612)
-        Me.PanelAll.TabIndex = 9
-        '
         'Splitter1
         '
         Me.Splitter1.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Splitter1.Location = New System.Drawing.Point(0, 485)
+        Me.Splitter1.Location = New System.Drawing.Point(0, 534)
         Me.Splitter1.Name = "Splitter1"
         Me.Splitter1.Size = New System.Drawing.Size(796, 5)
         Me.Splitter1.TabIndex = 14
@@ -818,7 +802,7 @@ Partial Class IAIPQueryGenerator
         DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
         Me.dgvQueryGenerator.DefaultCellStyle = DataGridViewCellStyle2
         Me.dgvQueryGenerator.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.dgvQueryGenerator.Location = New System.Drawing.Point(0, 485)
+        Me.dgvQueryGenerator.Location = New System.Drawing.Point(0, 539)
         Me.dgvQueryGenerator.Name = "dgvQueryGenerator"
         Me.dgvQueryGenerator.ReadOnly = True
         DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
@@ -829,7 +813,7 @@ Partial Class IAIPQueryGenerator
         DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
         DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.dgvQueryGenerator.RowHeadersDefaultCellStyle = DataGridViewCellStyle3
-        Me.dgvQueryGenerator.Size = New System.Drawing.Size(796, 127)
+        Me.dgvQueryGenerator.Size = New System.Drawing.Size(796, 122)
         Me.dgvQueryGenerator.TabIndex = 13
         '
         'TCQuerryOptions
@@ -842,7 +826,7 @@ Partial Class IAIPQueryGenerator
         Me.TCQuerryOptions.Controls.Add(Me.TPComplianceInfo)
         Me.TCQuerryOptions.Controls.Add(Me.TPCannedReports)
         Me.TCQuerryOptions.Dock = System.Windows.Forms.DockStyle.Top
-        Me.TCQuerryOptions.Location = New System.Drawing.Point(0, 96)
+        Me.TCQuerryOptions.Location = New System.Drawing.Point(0, 145)
         Me.TCQuerryOptions.Name = "TCQuerryOptions"
         Me.TCQuerryOptions.SelectedIndex = 0
         Me.TCQuerryOptions.Size = New System.Drawing.Size(796, 389)
@@ -1629,7 +1613,7 @@ Partial Class IAIPQueryGenerator
         Me.TPHeaderInformation.Location = New System.Drawing.Point(4, 22)
         Me.TPHeaderInformation.Name = "TPHeaderInformation"
         Me.TPHeaderInformation.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPHeaderInformation.Size = New System.Drawing.Size(788, 93)
+        Me.TPHeaderInformation.Size = New System.Drawing.Size(788, 363)
         Me.TPHeaderInformation.TabIndex = 1
         Me.TPHeaderInformation.Text = "Header Information"
         Me.TPHeaderInformation.UseVisualStyleBackColor = True
@@ -2346,7 +2330,7 @@ Partial Class IAIPQueryGenerator
         Me.TPHeaderInformation2.Controls.Add(Me.chb1HrYes)
         Me.TPHeaderInformation2.Location = New System.Drawing.Point(4, 22)
         Me.TPHeaderInformation2.Name = "TPHeaderInformation2"
-        Me.TPHeaderInformation2.Size = New System.Drawing.Size(788, 93)
+        Me.TPHeaderInformation2.Size = New System.Drawing.Size(788, 363)
         Me.TPHeaderInformation2.TabIndex = 3
         Me.TPHeaderInformation2.Text = "Header Information 2"
         Me.TPHeaderInformation2.UseVisualStyleBackColor = True
@@ -2922,7 +2906,7 @@ Partial Class IAIPQueryGenerator
         Me.TPAirProgramCodes.Controls.Add(Me.chbAPC9)
         Me.TPAirProgramCodes.Location = New System.Drawing.Point(4, 22)
         Me.TPAirProgramCodes.Name = "TPAirProgramCodes"
-        Me.TPAirProgramCodes.Size = New System.Drawing.Size(788, 93)
+        Me.TPAirProgramCodes.Size = New System.Drawing.Size(788, 363)
         Me.TPAirProgramCodes.TabIndex = 2
         Me.TPAirProgramCodes.Text = "Air Program Codes"
         Me.TPAirProgramCodes.UseVisualStyleBackColor = True
@@ -3611,7 +3595,7 @@ Partial Class IAIPQueryGenerator
         Me.TPSubpartData.Controls.Add(Me.chbPart63Subpart)
         Me.TPSubpartData.Location = New System.Drawing.Point(4, 22)
         Me.TPSubpartData.Name = "TPSubpartData"
-        Me.TPSubpartData.Size = New System.Drawing.Size(788, 93)
+        Me.TPSubpartData.Size = New System.Drawing.Size(788, 363)
         Me.TPSubpartData.TabIndex = 4
         Me.TPSubpartData.Text = "Subpart Data"
         Me.TPSubpartData.UseVisualStyleBackColor = True
@@ -4016,7 +4000,7 @@ Partial Class IAIPQueryGenerator
         Me.TPComplianceInfo.Controls.Add(Me.chbSSCPEngineer)
         Me.TPComplianceInfo.Location = New System.Drawing.Point(4, 22)
         Me.TPComplianceInfo.Name = "TPComplianceInfo"
-        Me.TPComplianceInfo.Size = New System.Drawing.Size(788, 93)
+        Me.TPComplianceInfo.Size = New System.Drawing.Size(788, 363)
         Me.TPComplianceInfo.TabIndex = 5
         Me.TPComplianceInfo.Text = "Compliance Info"
         Me.TPComplianceInfo.UseVisualStyleBackColor = True
@@ -4367,7 +4351,7 @@ Partial Class IAIPQueryGenerator
         Me.GBBasic.Controls.Add(Me.txtAIRSNumberSearch2)
         Me.GBBasic.Controls.Add(Me.Panel37)
         Me.GBBasic.Dock = System.Windows.Forms.DockStyle.Top
-        Me.GBBasic.Location = New System.Drawing.Point(0, 0)
+        Me.GBBasic.Location = New System.Drawing.Point(0, 49)
         Me.GBBasic.Name = "GBBasic"
         Me.GBBasic.Size = New System.Drawing.Size(796, 96)
         Me.GBBasic.TabIndex = 0
@@ -4383,9 +4367,6 @@ Partial Class IAIPQueryGenerator
         Me.lblQueryCount.Text = "Hello"
         '
         'bgwQueryGenerator
-        '
-        '
-        'LoggingBackgroundWorker
         '
         '
         'ToolsToolStripMenuItem
@@ -4433,7 +4414,10 @@ Partial Class IAIPQueryGenerator
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(796, 661)
-        Me.Controls.Add(Me.PanelAll)
+        Me.Controls.Add(Me.dgvQueryGenerator)
+        Me.Controls.Add(Me.Splitter1)
+        Me.Controls.Add(Me.TCQuerryOptions)
+        Me.Controls.Add(Me.GBBasic)
         Me.Controls.Add(Me.ToolStrip1)
         Me.Controls.Add(Me.MenuStrip1)
         Me.MainMenuStrip = Me.MenuStrip1
@@ -4447,7 +4431,6 @@ Partial Class IAIPQueryGenerator
         Me.Panel36.ResumeLayout(False)
         Me.Panel37.ResumeLayout(False)
         Me.Panel37.PerformLayout()
-        Me.PanelAll.ResumeLayout(False)
         CType(Me.dgvQueryGenerator, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TCQuerryOptions.ResumeLayout(False)
         Me.TPPhysicalLocation.ResumeLayout(False)
@@ -4640,7 +4623,6 @@ Partial Class IAIPQueryGenerator
     Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents btnRunSearch As System.Windows.Forms.Button
-    Friend WithEvents PanelAll As System.Windows.Forms.Panel
     Friend WithEvents GBBasic As System.Windows.Forms.GroupBox
     Friend WithEvents dgvQueryGenerator As System.Windows.Forms.DataGridView
     Friend WithEvents TCQuerryOptions As System.Windows.Forms.TabControl
@@ -4994,7 +4976,6 @@ Partial Class IAIPQueryGenerator
     Friend WithEvents rdbDistrictResponsibleTrue As System.Windows.Forms.RadioButton
     Friend WithEvents chbDistrictResponsible As System.Windows.Forms.CheckBox
     Friend WithEvents lblQueryCount As System.Windows.Forms.Label
-    Private WithEvents LoggingBackgroundWorker As System.ComponentModel.BackgroundWorker
     Friend WithEvents ToolsToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents SaveSearchQueryToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents OpenSavedSearchToolStripMenuItem As ToolStripMenuItem
