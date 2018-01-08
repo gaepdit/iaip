@@ -29,8 +29,6 @@ Public Class PASPFeeStatistics
 
             mtbFacilityBalanceYear.Text = Today.Year.ToString
 
-            cboFeeStatYear.Text = cboFeeStatYear.Items.Item(0)
-
             If AccountFormAccess(135, 1) = "1" Or AccountFormAccess(135, 2) = "1" Or AccountFormAccess(135, 3) = "1" Or AccountFormAccess(135, 4) = "1" Then
                 btnOpenFeesLog.Visible = True
                 txtFeeStatAirsNumber.Visible = True
@@ -811,7 +809,7 @@ Public Class PASPFeeStatistics
                         "and numPayTypeID = '7' "
 
                 Case Else
-                    Sql = "select " &
+                    SQL = "select " &
                         "substring(APBFacilityInformation.strAIRSNumber, 5, 8) as AIRSNumber, " &
                         "strFacilityName, " &
                         "strPaymentPlan, strPayTypedesc, numPayment, strDepositNo, " &
@@ -836,7 +834,7 @@ Public Class PASPFeeStatistics
 
             Dim p As New SqlParameter("@year", cboStatYear.Text)
 
-            dgvDepositsAndPayments.DataSource = DB.GetDataTable(Sql, p)
+            dgvDepositsAndPayments.DataSource = DB.GetDataTable(SQL, p)
 
             dgvDepositsAndPayments.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
             dgvDepositsAndPayments.AllowUserToResizeColumns = True
@@ -6689,7 +6687,6 @@ Public Class PASPFeeStatistics
                         "LEFT JOIN (SELECT fa.STRAIRSNUMBER, fa.NUMTOTALFEE " &
                         "FROM FS_FeeAuditedData AS fa " &
                         "WHERE fa.NUMFEEYEAR = @year AND fa.ACTIVE = '1') AS Reported ON Invoices.STRAIRSNUMBER = Reported.STRAIRSNUMBER) AS allData "
-
             End Select
 
             If chbNonZeroBalance.Checked = True Then
