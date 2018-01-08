@@ -247,6 +247,7 @@ Partial Class PASPFeeManagement
         Me.dgvFeeRates.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvFeeRates.Location = New System.Drawing.Point(0, 0)
         Me.dgvFeeRates.Name = "dgvFeeRates"
+        Me.dgvFeeRates.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgvFeeRates.Size = New System.Drawing.Size(682, 628)
         Me.dgvFeeRates.TabIndex = 404
         '
@@ -902,6 +903,8 @@ Partial Class PASPFeeManagement
         Me.dgvExistingExemptions.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvExistingExemptions.Location = New System.Drawing.Point(0, 235)
         Me.dgvExistingExemptions.Name = "dgvExistingExemptions"
+        Me.dgvExistingExemptions.ReadOnly = True
+        Me.dgvExistingExemptions.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgvExistingExemptions.Size = New System.Drawing.Size(977, 397)
         Me.dgvExistingExemptions.TabIndex = 403
         '
