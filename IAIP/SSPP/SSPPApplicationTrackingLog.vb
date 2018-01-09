@@ -8086,12 +8086,13 @@ Public Class SSPPApplicationTrackingLog
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub rdbTitleVPermit_CheckedChanged(sender As Object, e As EventArgs) Handles rdbTitleVPermit.CheckedChanged
         Try
-            Dim TVNarrative As String = ""
-            Dim TVDraft As String = ""
-            Dim TVNotice As String = ""
-            Dim TVFinal As String = ""
+            Dim TVNarrative As Boolean = False
+            Dim TVDraft As Boolean = False
+            Dim TVNotice As Boolean = False
+            Dim TVFinal As Boolean = False
 
             chbTVNarrative.Checked = False
             chbTVDraft.Checked = False
@@ -8106,30 +8107,35 @@ Public Class SSPPApplicationTrackingLog
                     "from APBPermits " &
                     "where strFileName like @filename "
                 Dim parameter As New SqlParameter("@filename", "V_-" & MasterApp)
-                Dim fn As String = DB.GetString(query, parameter)
+                Dim fn As DataTable = DB.GetDataTable(query, parameter)
 
-                If fn <> "" Then
-                    Select Case Mid(fn, 1, 2)
-                        Case "VN"
-                            TVNarrative = "True"
-                        Case "VD"
-                            TVDraft = "True"
-                        Case "VP"
-                            TVNotice = "True"
-                        Case "VF"
-                            TVFinal = "True"
-                    End Select
+                If fn IsNot Nothing Then
+                    For Each row As DataRow In fn.Rows
+                        If row IsNot Nothing Then
+                            Select Case Mid(row(0), 1, 2)
+                                Case "VN"
+                                    TVNarrative = True
+                                Case "VD"
+                                    TVDraft = True
+                                Case "VP"
+                                    TVNotice = True
+                                Case "VF"
+                                    TVFinal = True
+                            End Select
+                        End If
+                    Next
                 End If
-                If TVNarrative = "True" Then
+
+                If TVNarrative Then
                     chbTVNarrative.Checked = True
                 End If
-                If TVDraft = "True" Then
+                If TVDraft Then
                     chbTVDraft.Checked = True
                 End If
-                If TVNotice = "True" Then
+                If TVNotice Then
                     chbTVPublicNotice.Checked = True
                 End If
-                If TVFinal = "True" Then
+                If TVFinal Then
                     chbTVFinal.Checked = True
                 End If
             End If
@@ -8138,16 +8144,17 @@ Public Class SSPPApplicationTrackingLog
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub rdbPSDPermit_CheckedChanged(sender As Object, e As EventArgs) Handles rdbPSDPermit.CheckedChanged
         Try
-            Dim PSDAppSummary As String = ""
-            Dim PSDPrelimDet As String = ""
-            Dim PSDNarrative As String = ""
-            Dim PSDDraft As String = ""
-            Dim PSDNotice As String = ""
-            Dim PSDHearing As String = ""
-            Dim PSDFinal As String = ""
-            Dim PSDPermit As String = ""
+            Dim PSDAppSummary As Boolean = False
+            Dim PSDPrelimDet As Boolean = False
+            Dim PSDNarrative As Boolean = False
+            Dim PSDDraft As Boolean = False
+            Dim PSDNotice As Boolean = False
+            Dim PSDHearing As Boolean = False
+            Dim PSDFinal As Boolean = False
+            Dim PSDPermit As Boolean = False
 
             chbPSDApplicationSummary.Checked = False
             chbPSDPrelimDet.Checked = False
@@ -8167,51 +8174,55 @@ Public Class SSPPApplicationTrackingLog
                     "from APBPermits " &
                     "where strFileName like @filename "
                 Dim parameter As New SqlParameter("@filename", "P_-" & MasterApp)
-                Dim fn As String = DB.GetString(query, parameter)
+                Dim fn As DataTable = DB.GetDataTable(query, parameter)
 
-                If fn <> "" Then
-                    Select Case Mid(fn, 1, 2)
-                        Case "PA"
-                            PSDAppSummary = "True"
-                        Case "PP"
-                            PSDPrelimDet = "True"
-                        Case "PT"
-                            PSDNarrative = "True"
-                        Case "PD"
-                            PSDDraft = "True"
-                        Case "PN"
-                            PSDNotice = "True"
-                        Case "PH"
-                            PSDHearing = "True"
-                        Case "PF"
-                            PSDFinal = "True"
-                        Case "PI"
-                            PSDPermit = "True"
-                    End Select
+                If fn IsNot Nothing Then
+                    For Each row As DataRow In fn.Rows
+                        If row IsNot Nothing Then
+                            Select Case Mid(row(0), 1, 2)
+                                Case "PA"
+                                    PSDAppSummary = True
+                                Case "PP"
+                                    PSDPrelimDet = True
+                                Case "PT"
+                                    PSDNarrative = True
+                                Case "PD"
+                                    PSDDraft = True
+                                Case "PN"
+                                    PSDNotice = True
+                                Case "PH"
+                                    PSDHearing = True
+                                Case "PF"
+                                    PSDFinal = True
+                                Case "PI"
+                                    PSDPermit = True
+                            End Select
+                        End If
+                    Next
                 End If
 
-                If PSDAppSummary = "True" Then
+                If PSDAppSummary Then
                     chbPSDApplicationSummary.Checked = True
                 End If
-                If PSDPrelimDet = "True" Then
+                If PSDPrelimDet Then
                     chbPSDPrelimDet.Checked = True
                 End If
-                If PSDNarrative = "True" Then
+                If PSDNarrative Then
                     chbPSDNarrative.Checked = True
                 End If
-                If PSDDraft = "True" Then
+                If PSDDraft Then
                     chbPSDDraftPermit.Checked = True
                 End If
-                If PSDNotice = "True" Then
+                If PSDNotice Then
                     chbPSDPublicNotice.Checked = True
                 End If
-                If PSDHearing = "True" Then
+                If PSDHearing Then
                     chbPSDHearingNotice.Checked = True
                 End If
-                If PSDFinal = "True" Then
+                If PSDFinal Then
                     chbPSDFinalDet.Checked = True
                 End If
-                If PSDPermit = "True" Then
+                If PSDPermit Then
                     chbPSDFinalPermit.Checked = True
                 End If
             End If
@@ -8220,10 +8231,11 @@ Public Class SSPPApplicationTrackingLog
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
     Private Sub rdbOtherPermit_CheckedChanged(sender As Object, e As EventArgs) Handles rdbOtherPermit.CheckedChanged
         Try
-            Dim OtherNarrative As String = ""
-            Dim OtherPermit As String = ""
+            Dim OtherNarrative As Boolean = False
+            Dim OtherPermit As Boolean = False
 
             chbOtherNarrative.Checked = False
             chbOtherPermit.Checked = False
@@ -8237,21 +8249,25 @@ Public Class SSPPApplicationTrackingLog
                     "from APBPermits " &
                     "where strFileName like @filename "
                 Dim parameter As New SqlParameter("@filename", "O_-" & MasterApp)
-                Dim fn As String = DB.GetString(query, parameter)
+                Dim fn As DataTable = DB.GetDataTable(query, parameter)
 
-                If fn <> "" Then
-                    Select Case Mid(fn, 1, 2)
-                        Case "ON"
-                            OtherNarrative = "True"
-                        Case "OP"
-                            OtherPermit = "True"
-                    End Select
+                If fn IsNot Nothing Then
+                    For Each row As DataRow In fn.Rows
+                        If row IsNot Nothing Then
+                            Select Case Mid(row(0), 1, 2)
+                                Case "ON"
+                                    OtherNarrative = True
+                                Case "OP"
+                                    OtherPermit = True
+                            End Select
+                        End If
+                    Next
                 End If
 
-                If OtherNarrative = "True" Then
+                If OtherNarrative Then
                     chbOtherNarrative.Checked = True
                 End If
-                If OtherPermit = "True" Then
+                If OtherPermit Then
                     chbOtherPermit.Checked = True
                 End If
             End If
