@@ -19,6 +19,7 @@ Partial Class PASPDepositsAmendments
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(PASPDepositsAmendments))
         Me.SplitContainer2 = New System.Windows.Forms.SplitContainer()
         Me.Panel5 = New System.Windows.Forms.Panel()
         Me.Panel6 = New System.Windows.Forms.Panel()
@@ -67,6 +68,10 @@ Partial Class PASPDepositsAmendments
         Me.mtbAIRSNumber = New System.Windows.Forms.MaskedTextBox()
         Me.txtCheckNumber = New System.Windows.Forms.TextBox()
         Me.pnlDepositSearchs = New System.Windows.Forms.Panel()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.dtpDepositReportEndDate = New System.Windows.Forms.DateTimePicker()
+        Me.dtpDepositReportStartDate = New System.Windows.Forms.DateTimePicker()
         Me.btnClearForm = New System.Windows.Forms.Button()
         Me.txtBatchNumber = New System.Windows.Forms.TextBox()
         Me.Label45 = New System.Windows.Forms.Label()
@@ -74,12 +79,6 @@ Partial Class PASPDepositsAmendments
         Me.Label46 = New System.Windows.Forms.Label()
         Me.btnSearchDeposits = New System.Windows.Forms.Button()
         Me.dgvDeposits = New System.Windows.Forms.DataGridView()
-        Me.bgwDeposits = New System.ComponentModel.BackgroundWorker()
-        Me.bgwInvoices = New System.ComponentModel.BackgroundWorker()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.Label3 = New System.Windows.Forms.Label()
-        Me.dtpDepositReportEndDate = New System.Windows.Forms.DateTimePicker()
-        Me.dtpDepositReportStartDate = New System.Windows.Forms.DateTimePicker()
         CType(Me.SplitContainer2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer2.Panel1.SuspendLayout()
         Me.SplitContainer2.Panel2.SuspendLayout()
@@ -107,7 +106,7 @@ Partial Class PASPDepositsAmendments
         '
         Me.SplitContainer2.Panel2.Controls.Add(Me.dgvDeposits)
         Me.SplitContainer2.Size = New System.Drawing.Size(811, 698)
-        Me.SplitContainer2.SplitterDistance = 490
+        Me.SplitContainer2.SplitterDistance = 485
         Me.SplitContainer2.SplitterWidth = 10
         Me.SplitContainer2.TabIndex = 33
         '
@@ -120,7 +119,7 @@ Partial Class PASPDepositsAmendments
         Me.Panel5.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel5.Location = New System.Drawing.Point(0, 0)
         Me.Panel5.Name = "Panel5"
-        Me.Panel5.Size = New System.Drawing.Size(811, 490)
+        Me.Panel5.Size = New System.Drawing.Size(811, 485)
         Me.Panel5.TabIndex = 1
         '
         'Panel6
@@ -156,7 +155,7 @@ Partial Class PASPDepositsAmendments
         Me.Panel6.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel6.Location = New System.Drawing.Point(0, 313)
         Me.Panel6.Name = "Panel6"
-        Me.Panel6.Size = New System.Drawing.Size(811, 177)
+        Me.Panel6.Size = New System.Drawing.Size(811, 172)
         Me.Panel6.TabIndex = 35
         '
         'txtCreditCardNo
@@ -424,6 +423,7 @@ Partial Class PASPDepositsAmendments
         Me.dgvInvoices.Location = New System.Drawing.Point(0, 113)
         Me.dgvInvoices.Name = "dgvInvoices"
         Me.dgvInvoices.ReadOnly = True
+        Me.dgvInvoices.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgvInvoices.Size = New System.Drawing.Size(811, 200)
         Me.dgvInvoices.TabIndex = 13
         '
@@ -594,6 +594,42 @@ Partial Class PASPDepositsAmendments
         Me.pnlDepositSearchs.Size = New System.Drawing.Size(811, 54)
         Me.pnlDepositSearchs.TabIndex = 33
         '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Location = New System.Drawing.Point(118, 9)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(52, 13)
+        Me.Label2.TabIndex = 412
+        Me.Label2.Text = "End Date"
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Location = New System.Drawing.Point(12, 9)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(55, 13)
+        Me.Label3.TabIndex = 411
+        Me.Label3.Text = "Start Date"
+        '
+        'dtpDepositReportEndDate
+        '
+        Me.dtpDepositReportEndDate.CustomFormat = "dd-MMM-yyyy"
+        Me.dtpDepositReportEndDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+        Me.dtpDepositReportEndDate.Location = New System.Drawing.Point(121, 25)
+        Me.dtpDepositReportEndDate.Name = "dtpDepositReportEndDate"
+        Me.dtpDepositReportEndDate.Size = New System.Drawing.Size(100, 20)
+        Me.dtpDepositReportEndDate.TabIndex = 410
+        '
+        'dtpDepositReportStartDate
+        '
+        Me.dtpDepositReportStartDate.CustomFormat = "dd-MMM-yyyy"
+        Me.dtpDepositReportStartDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
+        Me.dtpDepositReportStartDate.Location = New System.Drawing.Point(15, 25)
+        Me.dtpDepositReportStartDate.Name = "dtpDepositReportStartDate"
+        Me.dtpDepositReportStartDate.Size = New System.Drawing.Size(100, 20)
+        Me.dtpDepositReportStartDate.TabIndex = 409
+        '
         'btnClearForm
         '
         Me.btnClearForm.AutoSize = True
@@ -658,50 +694,9 @@ Partial Class PASPDepositsAmendments
         Me.dgvDeposits.Location = New System.Drawing.Point(0, 0)
         Me.dgvDeposits.Name = "dgvDeposits"
         Me.dgvDeposits.ReadOnly = True
-        Me.dgvDeposits.Size = New System.Drawing.Size(811, 198)
+        Me.dgvDeposits.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.dgvDeposits.Size = New System.Drawing.Size(811, 203)
         Me.dgvDeposits.TabIndex = 28
-        '
-        'bgwDeposits
-        '
-        '
-        'bgwInvoices
-        '
-        '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(118, 9)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(52, 13)
-        Me.Label2.TabIndex = 412
-        Me.Label2.Text = "End Date"
-        '
-        'Label3
-        '
-        Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(12, 9)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(55, 13)
-        Me.Label3.TabIndex = 411
-        Me.Label3.Text = "Start Date"
-        '
-        'dtpDepositReportEndDate
-        '
-        Me.dtpDepositReportEndDate.CustomFormat = "dd-MMM-yyyy"
-        Me.dtpDepositReportEndDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpDepositReportEndDate.Location = New System.Drawing.Point(121, 25)
-        Me.dtpDepositReportEndDate.Name = "dtpDepositReportEndDate"
-        Me.dtpDepositReportEndDate.Size = New System.Drawing.Size(100, 20)
-        Me.dtpDepositReportEndDate.TabIndex = 410
-        '
-        'dtpDepositReportStartDate
-        '
-        Me.dtpDepositReportStartDate.CustomFormat = "dd-MMM-yyyy"
-        Me.dtpDepositReportStartDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpDepositReportStartDate.Location = New System.Drawing.Point(15, 25)
-        Me.dtpDepositReportStartDate.Name = "dtpDepositReportStartDate"
-        Me.dtpDepositReportStartDate.Size = New System.Drawing.Size(100, 20)
-        Me.dtpDepositReportStartDate.TabIndex = 409
         '
         'PASPDepositsAmendments
         '
@@ -727,8 +722,6 @@ Partial Class PASPDepositsAmendments
         Me.ResumeLayout(False)
 
     End Sub
-    Friend WithEvents bgwDeposits As System.ComponentModel.BackgroundWorker
-    Friend WithEvents bgwInvoices As System.ComponentModel.BackgroundWorker
     Friend WithEvents SplitContainer2 As System.Windows.Forms.SplitContainer
     Friend WithEvents Panel5 As System.Windows.Forms.Panel
     Friend WithEvents dgvInvoices As System.Windows.Forms.DataGridView

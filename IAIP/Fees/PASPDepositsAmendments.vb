@@ -17,19 +17,25 @@ Public Class PASPDepositsAmendments
 #Region "Fee Deposits"
 
     Private Sub LoadFacilityData(AIRSNumber As String)
-        Dim query As String = "Select " &
-            "strFacilityName " &
-            "from APBFacilityInformation " &
-            "where strAIRSNumber = @AIRSNumber "
-        Dim param As New SqlParameter("@AIRSNumber", New Apb.ApbFacilityId(AIRSNumber).DbFormattedString)
 
-        Dim facName As String = DB.GetString(query, param)
+        If AIRSNumber.Trim <> "" Then
+            Dim query As String = "Select " &
+                       "strFacilityName " &
+                       "from APBFacilityInformation " &
+                       "where strAIRSNumber = @AIRSNumber "
+            Dim param As New SqlParameter("@AIRSNumber", New Apb.ApbFacilityId(AIRSNumber).DbFormattedString)
 
-        If String.IsNullOrWhiteSpace(facName) Then
-            lblFacilityName.Text = "Facility Name"
+            Dim facName As String = DB.GetString(query, param)
+
+            If String.IsNullOrWhiteSpace(facName) Then
+                lblFacilityName.Text = "Facility Name"
+            Else
+                lblFacilityName.Text = "Facility Name: " & facName
+            End If
         Else
-            lblFacilityName.Text = "Facility Name: " & facName
+            MsgBox("Cannot find facility AIRS number", MsgBoxStyle.Exclamation, "No AIRS number")
         End If
+
     End Sub
 
     Private Function ValidateData() As Boolean
@@ -82,10 +88,12 @@ Public Class PASPDepositsAmendments
         End If
 
         Return True
+
     End Function
 
-    Private Sub DepositSearch()
-        Dim query As String = "SELECT SUBSTRing(tr.STRAIRSNUMBER, 5, 8) AS strAIRSNumber, " &
+    Private Function DepositSearch() As Boolean
+        Try
+            Dim query As String = "SELECT SUBSTRing(tr.STRAIRSNUMBER, 5, 8) AS strAIRSNumber, " &
             "  tr.STRDEPOSITNO, tr.STRBATCHNO, tr.TRANSACTIONID, " &
             "  tr.DATTRANSACTIONDATE, tr.NUMPAYMENT, tr.NUMFEEYEAR, " &
             "  tr.STRCHECKNO, tr.STRCREDITCARDNO, tr.INVOICEID, " &
@@ -98,163 +106,208 @@ Public Class PASPDepositsAmendments
             "WHERE tr.DATTRANSACTIONDATE BETWEEN @StartDate AND @EndDate AND " &
             "  tr.ACTIVE = '1' AND fi.ACTIVE = '1' " &
             "ORDER BY tr.STRBATCHNO"
-        Dim parameters As SqlParameter() = {
-            New SqlParameter("@StartDate", dtpDepositReportStartDate.Value),
-            New SqlParameter("@EndDate", dtpDepositReportEndDate.Value)
-        }
+            Dim parameters As SqlParameter() = {
+                New SqlParameter("@StartDate", dtpDepositReportStartDate.Value),
+                New SqlParameter("@EndDate", dtpDepositReportEndDate.Value)
+            }
 
-        dtDeposit = DB.GetDataTable(query, parameters)
-    End Sub
+            dtDeposit = DB.GetDataTable(query, parameters)
 
-    Private Sub DeleteInvoice()
+            Return True
+
+        Catch ex As Exception
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+            Return False
+        End Try
+    End Function
+
+    Private Function DeleteInvoice() As Boolean
         Try
-
             Dim Result As DialogResult = MessageBox.Show("Are you sure you want to remove Invoice # " & txtInvoiceForDeposit.Text & " for AIRS # - " & mtbAIRSNumber.Text & "?",
                                                          "PASP Fee Tool", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1)
 
             If Result <> DialogResult.Yes Then
-                Exit Sub
+                Exit Function
             End If
 
-            Dim query As String = "Delete FSAddPaid " &
-            "where intPayID = @trID"
+            Dim query As String = "Delete from FSAddPaid where intPayID = @trID"
             Dim param As New SqlParameter("@trID", txtTransactionID.Text)
-            DB.RunCommand(query, param)
 
-            btnSearchDeposits.Enabled = False
+            If DB.RunCommand(query, param) = True Then
 
-            bgwDeposits.WorkerReportsProgress = True
-            bgwDeposits.WorkerSupportsCancellation = True
-            bgwDeposits.RunWorkerAsync()
+                btnSearchDeposits.Enabled = False
 
-            lblViewInvoices.Enabled = False
+                If DepositSearch() = False Then
+                    MsgBox("There was an error loading deposits", MsgBoxStyle.Exclamation, "Deposit Search Error")
+                Else
+                    If LoadDepositsGridview() = False Then
+                        MsgBox("There was an error Filling the deposits Grid", MsgBoxStyle.Exclamation, "Deposit Search Error")
+                    End If
+                End If
 
-            bgwInvoices.WorkerReportsProgress = True
-            bgwInvoices.WorkerSupportsCancellation = True
-            bgwInvoices.RunWorkerAsync()
+                lblViewInvoices.Enabled = False
 
+                If ViewInvoices() = False Then
+                    MsgBox("There was an error loading invoices", MsgBoxStyle.Exclamation, "Invoice Search Error")
+                Else
+                    If LoadInvoicesGridview() = False Then
+                        MsgBox("There was an error Filling the invoices Grid", MsgBoxStyle.Exclamation, "Invoice Search Error")
+                    End If
+                End If
+
+                txtTransactionID.Clear()
+                txtDepositComments.Clear()
+                txtDepositAmount.Clear()
+                txtDepositNumberField.Clear()
+                txtBatchNoField.Clear()
+                txtCheckNumberField.Clear()
+                DTPBatchDepositDateField.Text = Date.Today
+
+                Return True
+            End If
+
+        Catch ex As Exception
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+            Return False
+        End Try
+    End Function
+
+    Private Function ViewInvoices() As Boolean
+
+        Try
+            Dim query As String
+            Dim param() As SqlParameter
+
+            If txtCheckNumber.Text <> "" Then
+                query = "select " &
+                    "substring(FS_FeeInvoice.strAIRSnumber, 5, 8) as strAIRSNumber, " &
+                    "strDepositNo, datTransactionDate, " &
+                    "numPayment, FS_FeeInvoice.numFeeYear, " &
+                    "strCheckNo, strBatchNo, " &
+                    "Description, TransactionID, " &
+                    "FS_Transactions.strComment, FS_FeeInvoice.InvoiceID, " &
+                    "case " &
+                    "when FS_Transactions.transactionTypeCode = '1' then numAmount " &
+                    "when FS_Transactions.TransactionTypeCode = '2' then numAmount/4 " &
+                    "else numAmount " &
+                    "end FeeDue " &
+                    "from FS_FeeInvoice " &
+                    "left join FS_Transactions " &
+                    "on FS_FeeInvoice.InvoiceID = FS_Transactions.INvoiceID " &
+                    "left join FSLK_TransactionType " &
+                    "on FS_Transactions.transactionTypeCode = FSLK_TransactionType.TransactionTypeCode " &
+                    "where strCheckNo like @chknum  " &
+                    "and FS_Transactions.Active = '1' " &
+                    "and FS_FeeInvoice.Active = '1' " &
+                    "order by strBatchNo  "
+                param = {New SqlParameter("@chknum", "%" & txtCheckNumber.Text & "%")}
+            Else
+                query = "select " &
+                    "distinct  ALLInvoices.strAIRSNumber, strDepositNo, datTransactionDate,  " &
+                    "numPayment,  ALLInvoices.numFeeYear, strCheckNo, strBatchNo, Description, TransactionID,  " &
+                    " strComment,  ALLInvoices.InvoiceID,  " &
+                    "FeeDue  " &
+                    "from  " &
+                    "(select substring(FS_FeeINvoice.strAIRSnumber, 5, 8) as strAIRSNumber, " &
+                    "FS_FeeINvoice.numFeeYear, FS_FeeINvoice.InvoiceID " &
+                    "from  FS_FeeInvoice " &
+                    "where FS_FeeInvoice.strAIRSnumber like @airsnum " &
+                    "and FS_FeeInvoice.numFeeYear = @feeyear " &
+                    "and FS_FeeInvoice.Active = '1' " &
+                    "union " &
+                    "select distinct substring(FS_FeeINvoice.strAIRSnumber, 5, 8) as strAIRSNumber, " &
+                    "FS_FeeINvoice.numFeeYear, FS_FeeINvoice.InvoiceID " &
+                    "from FS_FeeInvoice " &
+                    "left join FS_Transactions " &
+                    "on FS_FeeINvoice.InvoiceID = FS_Transactions.INvoiceID " &
+                    "left join FSLK_TransactionType  " &
+                    "on FS_Transactions.transactionTypeCode = FSLK_TransactionType.TransactionTypeCode " &
+                    "where FS_FeeInvoice.strAIRSnumber like @airsnum " &
+                    "and FS_FeeInvoice.numFeeYear = @feeyear and FS_FeeInvoice.Active = '1' " &
+                    "and FS_Transactions.Active = '1'  ) ALLInvoices " &
+                    "left join (select distinct substring(FS_FeeINvoice.strAIRSnumber, 5, 8) as strAIRSNumber, strDepositNo, datTransactionDate, " &
+                    "numPayment, FS_FeeINvoice.numFeeYear, strCheckNo, strBatchNo, Description, TransactionID, " &
+                    "FS_Transactions.strComment, FS_FeeINvoice.InvoiceID, " &
+                    "case when FS_Transactions.transactionTypeCode = '1' then numAmount " &
+                    "when FS_Transactions.TransactionTypeCode = '2' then numAmount/4 else numAmount end FeeDue " &
+                    "from FS_FeeInvoice " &
+                    "left join FS_Transactions " &
+                    "on FS_FeeINvoice.InvoiceID = FS_Transactions.INvoiceID " &
+                    "left join FSLK_TransactionType " &
+                    "on FS_Transactions.transactionTypeCode = FSLK_TransactionType.TransactionTypeCode " &
+                    "where FS_FeeInvoice.strAIRSnumber like @airsnum " &
+                    "and FS_FeeInvoice.numFeeYear = @feeyear " &
+                    "and FS_FeeInvoice.Active = '1' " &
+                    "and FS_Transactions.Active = '1' ) Transactions " &
+                    "on Allinvoices.InvoiceID = Transactions.InvoiceID " &
+                    "order by strBatchNo "
+                param = {
+                    New SqlParameter("@airsnum", "%" & mtbAIRSNumber.Text & "%"),
+                    New SqlParameter("@feeyear", mtbFeeYear.Text)
+                }
+
+            End If
+
+            dtInvoice = DB.GetDataTable(query, param)
+
+            Return True
+
+        Catch ex As Exception
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+            Return False
+        End Try
+    End Function
+
+    Private Sub btnSearchDeposits_Click(sender As Object, e As EventArgs) Handles btnSearchDeposits.Click
+
+        btnSearchDeposits.Enabled = False
+
+        If DepositSearch() = False Then
+            MsgBox("There was an error in your search. Check the Start and End Dates for your Search", MsgBoxStyle.Exclamation, "Deposit Search Error")
+        Else
+            If LoadDepositsGridview() = False Then
+                MsgBox("There was an error Filling the deposits Grid", MsgBoxStyle.Exclamation, "Deposit Search Error")
+            End If
+        End If
+
+    End Sub
+
+    Private Sub lblViewInvoices_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblViewInvoices.LinkClicked
+
+        Try
+            lblAIRSNumber.Text = "AIRS #"
+            lblFacilityName.Text = "Facility Name"
+            mtbFeeYear2.Clear()
+            txtDepositAmount.Clear()
             txtTransactionID.Clear()
             txtDepositComments.Clear()
-            txtDepositAmount.Clear()
             txtDepositNumberField.Clear()
             txtBatchNoField.Clear()
             txtCheckNumberField.Clear()
             DTPBatchDepositDateField.Text = Date.Today
+            txtCheckNumber.Clear()
+
+            If mtbAIRSNumber.Text <> "" Then
+                If mtbFeeYear.Text <> "" Then
+                    lblViewInvoices.Enabled = False
+
+                    If ViewInvoices() = False Then
+                        MsgBox("There was an error loading invoices", MsgBoxStyle.Exclamation, "Invoice Search Error")
+                    Else
+                        If LoadInvoicesGridview() = False Then
+                            MsgBox("There was an error Filling the invoices Grid", MsgBoxStyle.Exclamation, "Invoice Search Error")
+                        End If
+                    End If
+                Else
+                    MsgBox("Select a year to check for invoices.", MsgBoxStyle.Information, "PASP Deposit Amendments")
+                End If
+            Else
+                MsgBox("Please Enter an AIRS # to check for invoices.", MsgBoxStyle.Information, "PASP Deposit Amendments")
+            End If
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
-    End Sub
-
-    Private Sub ViewInvoices()
-        Dim query As String
-        Dim param() As SqlParameter
-
-        If txtCheckNumber.Text <> "" Then
-            query = "select " &
-                "substring(FS_FeeInvoice.strAIRSnumber, 5, 8) as strAIRSNumber, " &
-                "strDepositNo, datTransactionDate, " &
-                "numPayment, FS_FeeInvoice.numFeeYear, " &
-                "strCheckNo, strBatchNo, " &
-                "Description, TransactionID, " &
-                "FS_Transactions.strComment, FS_FeeInvoice.InvoiceID, " &
-                "case " &
-                "when FS_Transactions.transactionTypeCode = '1' then numAmount " &
-                "when FS_Transactions.TransactionTypeCode = '2' then numAmount/4 " &
-                "else numAmount " &
-                "end FeeDue " &
-                "from FS_FeeInvoice " &
-                "left join FS_Transactions " &
-                "on FS_FeeInvoice.InvoiceID = FS_Transactions.INvoiceID " &
-                "left join FSLK_TransactionType " &
-                "on FS_Transactions.transactionTypeCode = FSLK_TransactionType.TransactionTypeCode " &
-                "where strCheckNo like @chknum  " &
-                "and FS_Transactions.Active = '1' " &
-                "and FS_FeeInvoice.Active = '1' " &
-                "order by strBatchNo  "
-            param = {New SqlParameter("@chknum", "%" & txtCheckNumber.Text & "%")}
-        Else
-            query = "select " &
-                "distinct  ALLInvoices.strAIRSNumber, strDepositNo, datTransactionDate,  " &
-                "numPayment,  ALLInvoices.numFeeYear, strCheckNo, strBatchNo, Description, TransactionID,  " &
-                " strComment,  ALLInvoices.InvoiceID,  " &
-                "FeeDue  " &
-                "from  " &
-                "(select substring(FS_FeeINvoice.strAIRSnumber, 5, 8) as strAIRSNumber, " &
-                "FS_FeeINvoice.numFeeYear, FS_FeeINvoice.InvoiceID " &
-                "from  FS_FeeInvoice " &
-                "where FS_FeeInvoice.strAIRSnumber like @airsnum " &
-                "and FS_FeeInvoice.numFeeYear = @feeyear " &
-                "and FS_FeeInvoice.Active = '1' " &
-                "union " &
-                "select distinct substring(FS_FeeINvoice.strAIRSnumber, 5, 8) as strAIRSNumber, " &
-                "FS_FeeINvoice.numFeeYear, FS_FeeINvoice.InvoiceID " &
-                "from FS_FeeInvoice " &
-                "left join FS_Transactions " &
-                "on FS_FeeINvoice.InvoiceID = FS_Transactions.INvoiceID " &
-                "left join FSLK_TransactionType  " &
-                "on FS_Transactions.transactionTypeCode = FSLK_TransactionType.TransactionTypeCode " &
-                "where FS_FeeInvoice.strAIRSnumber like @airsnum " &
-                "and FS_FeeInvoice.numFeeYear = @feeyear and FS_FeeInvoice.Active = '1' " &
-                "and FS_Transactions.Active = '1'  ) ALLInvoices " &
-                "left join (select distinct substring(FS_FeeINvoice.strAIRSnumber, 5, 8) as strAIRSNumber, strDepositNo, datTransactionDate, " &
-                "numPayment, FS_FeeINvoice.numFeeYear, strCheckNo, strBatchNo, Description, TransactionID, " &
-                "FS_Transactions.strComment, FS_FeeINvoice.InvoiceID, " &
-                "case when FS_Transactions.transactionTypeCode = '1' then numAmount " &
-                "when FS_Transactions.TransactionTypeCode = '2' then numAmount/4 else numAmount end FeeDue " &
-                "from FS_FeeInvoice " &
-                "left join FS_Transactions " &
-                "on FS_FeeINvoice.InvoiceID = FS_Transactions.INvoiceID " &
-                "left join FSLK_TransactionType " &
-                "on FS_Transactions.transactionTypeCode = FSLK_TransactionType.TransactionTypeCode " &
-                "where FS_FeeInvoice.strAIRSnumber like @airsnum " &
-                "and FS_FeeInvoice.numFeeYear = @feeyear " &
-                "and FS_FeeInvoice.Active = '1' " &
-                "and FS_Transactions.Active = '1' ) Transactions " &
-                "on Allinvoices.InvoiceID = Transactions.InvoiceID " &
-                "order by strBatchNo "
-            param = {
-                New SqlParameter("@airsnum", "%" & mtbAIRSNumber.Text & "%"),
-                New SqlParameter("@feeyear", mtbFeeYear.Text)
-            }
-
-        End If
-
-        dtInvoice = DB.GetDataTable(query, param)
-    End Sub
-
-    Private Sub btnSearchDeposits_Click(sender As Object, e As EventArgs) Handles btnSearchDeposits.Click
-        btnSearchDeposits.Enabled = False
-
-        bgwDeposits.WorkerReportsProgress = True
-        bgwDeposits.WorkerSupportsCancellation = True
-        bgwDeposits.RunWorkerAsync()
-    End Sub
-
-    Private Sub lblViewInvoices_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblViewInvoices.LinkClicked
-        lblAIRSNumber.Text = "AIRS #"
-        lblFacilityName.Text = "Facility Name"
-        mtbFeeYear2.Clear()
-        txtDepositAmount.Clear()
-        txtTransactionID.Clear()
-        txtDepositComments.Clear()
-        txtDepositNumberField.Clear()
-        txtBatchNoField.Clear()
-        txtCheckNumberField.Clear()
-        DTPBatchDepositDateField.Text = Date.Today
-        txtCheckNumber.Clear()
-
-        If mtbAIRSNumber.Text <> "" Then
-            If mtbFeeYear.Text <> "" Then
-                lblViewInvoices.Enabled = False
-
-                bgwInvoices.WorkerReportsProgress = True
-                bgwInvoices.WorkerSupportsCancellation = True
-                bgwInvoices.RunWorkerAsync()
-            Else
-                MsgBox("Select a year to check for invoices.", MsgBoxStyle.Information, "PASP Deposit Amendments")
-            End If
-        End If
     End Sub
 
     Private Sub dgvDeposits_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvDeposits.MouseUp
@@ -269,10 +322,12 @@ Public Class PASPDepositsAmendments
                         mtbAIRSNumber.Text = dgvDeposits(0, hti.RowIndex).Value
                         LoadFacilityData(dgvDeposits(0, hti.RowIndex).Value)
                         lblAIRSNumber.Text = "AIRS #: " & dgvDeposits(0, hti.RowIndex).Value
+
                         If IsDBNull(dgvDeposits(3, hti.RowIndex).Value) Then
                         Else
                             txtTransactionID.Text = dgvDeposits(3, hti.RowIndex).Value
                         End If
+
                         If IsDBNull(dgvDeposits(2, hti.RowIndex).Value) Then
                             txtBatchNumber.Clear()
                         Else
@@ -295,11 +350,13 @@ Public Class PASPDepositsAmendments
                             dtpBatchDepositDate.Text = dgvDeposits(4, hti.RowIndex).FormattedValue
                             DTPBatchDepositDateField.Text = dgvDeposits(4, hti.RowIndex).FormattedValue
                         End If
+
                         If IsDBNull(dgvDeposits(5, hti.RowIndex).Value) Then
                             txtDepositAmount.Clear()
                         Else
                             txtDepositAmount.Text = dgvDeposits(5, hti.RowIndex).Value
                         End If
+
                         If IsDBNull(dgvDeposits(6, hti.RowIndex).Value) Then
                             mtbFeeYear.Clear()
                             mtbFeeYear2.Clear()
@@ -321,11 +378,13 @@ Public Class PASPDepositsAmendments
                             txtSearchInvoice.Text = dgvDeposits(9, hti.RowIndex).Value
                             txtInvoiceForDeposit.Text = dgvDeposits(9, hti.RowIndex).Value
                         End If
+
                         If IsDBNull(dgvDeposits(7, hti.RowIndex).Value) Then
                             txtCheckNumber.Clear()
                         Else
                             txtCheckNumber.Text = dgvDeposits(7, hti.RowIndex).Value
                         End If
+
                         If IsDBNull(dgvDeposits(7, hti.RowIndex).Value) Then
                             txtCheckNumberField.Clear()
                             If txtCheckNumber.Text <> "" Then
@@ -334,6 +393,7 @@ Public Class PASPDepositsAmendments
                         Else
                             txtCheckNumberField.Text = dgvDeposits(7, hti.RowIndex).Value
                         End If
+
                         If IsDBNull(dgvDeposits(1, hti.RowIndex).Value) Then
                             txtDepositNumberField.Clear()
                         Else
@@ -360,16 +420,19 @@ Public Class PASPDepositsAmendments
                         mtbAIRSNumber.Text = dgvInvoices(0, hti.RowIndex).Value
                         LoadFacilityData(dgvInvoices(0, hti.RowIndex).Value)
                         lblAIRSNumber.Text = "AIRS #: " & dgvInvoices(0, hti.RowIndex).Value
+
                         If IsDBNull(dgvInvoices(8, hti.RowIndex).Value) Then
                             txtTransactionID.Text = ""
                         Else
                             txtTransactionID.Text = dgvInvoices(8, hti.RowIndex).Value
                         End If
+
                         If IsDBNull(dgvInvoices(1, hti.RowIndex).Value) Then
                             txtDepositNumberField.Clear()
                         Else
                             txtDepositNumberField.Text = dgvInvoices(1, hti.RowIndex).Value
                         End If
+
                         If IsDBNull(dgvInvoices(11, hti.RowIndex).Value) Then
                             If IsDBNull(dgvInvoices(3, hti.RowIndex).Value) Then
                                 txtDepositAmount.Clear()
@@ -395,6 +458,7 @@ Public Class PASPDepositsAmendments
                             mtbFeeYear.Text = dgvInvoices(4, hti.RowIndex).Value
                             mtbFeeYear2.Text = dgvInvoices(4, hti.RowIndex).Value
                         End If
+
                         If IsDBNull(dgvInvoices(5, hti.RowIndex).Value) Then
                             txtCheckNumberField.Clear()
                             If txtCheckNumber.Text <> "" Then
@@ -403,6 +467,7 @@ Public Class PASPDepositsAmendments
                         Else
                             txtCheckNumberField.Text = dgvInvoices(5, hti.RowIndex).Value
                         End If
+
                         If IsDBNull(dgvInvoices(6, hti.RowIndex).Value) Then
                             txtBatchNoField.Clear()
                             If txtBatchNumber.Text <> "" Then
@@ -411,16 +476,19 @@ Public Class PASPDepositsAmendments
                         Else
                             txtBatchNoField.Text = dgvInvoices(6, hti.RowIndex).Value
                         End If
+
                         If IsDBNull(dgvInvoices(9, hti.RowIndex).Value) Then
                             txtDepositComments.Clear()
                         Else
                             txtDepositComments.Text = dgvInvoices(9, hti.RowIndex).Value
                         End If
+
                         If IsDBNull(dgvInvoices(10, hti.RowIndex).Value) Then
                             txtInvoiceForDeposit.Clear()
                         Else
                             txtInvoiceForDeposit.Text = dgvInvoices(10, hti.RowIndex).Value
                         End If
+
                         If IsDBNull(dgvInvoices(2, hti.RowIndex).Value) Then
                             DTPBatchDepositDateField.Text = dtpBatchDepositDate.Text
                         Else
@@ -475,7 +543,13 @@ Public Class PASPDepositsAmendments
                     }
                     DB.RunCommand(query, param)
 
-                    InvoiceStatusCheck(txtInvoiceForDeposit.Text)
+                    If txtInvoiceForDeposit.Text.Trim <> "" Then
+                        If InvoiceStatusCheck(txtInvoiceForDeposit.Text) = False Then
+                            MsgBox("There was a problem updating the Invoice Status", MsgBoxStyle.Exclamation, "Invoice Status not updated")
+                        End If
+                    Else
+                        MsgBox("There is no Invoice associated with this deposit", MsgBoxStyle.Information, "No Invoice Number")
+                    End If
                 Else
                     MsgBox("Use the Update Existing Check Deposit instead.", MsgBoxStyle.Information, Me.Text)
                     Exit Sub
@@ -487,15 +561,23 @@ Public Class PASPDepositsAmendments
 
                 btnSearchDeposits.Enabled = False
 
-                bgwDeposits.WorkerReportsProgress = True
-                bgwDeposits.WorkerSupportsCancellation = True
-                bgwDeposits.RunWorkerAsync()
+                If DepositSearch() = False Then
+                    MsgBox("There was an error loading deposits", MsgBoxStyle.Exclamation, "Deposit Search Error")
+                Else
+                    If LoadDepositsGridview() = False Then
+                        MsgBox("There was an error Filling the deposits Grid", MsgBoxStyle.Exclamation, "Deposit Search Error")
+                    End If
+                End If
 
                 lblViewInvoices.Enabled = False
 
-                bgwInvoices.WorkerReportsProgress = True
-                bgwInvoices.WorkerSupportsCancellation = True
-                bgwInvoices.RunWorkerAsync()
+                If ViewInvoices() = False Then
+                    MsgBox("There was an error loading invoices", MsgBoxStyle.Exclamation, "Invoice Search Error")
+                Else
+                    If LoadInvoicesGridview() = False Then
+                        MsgBox("There was an error Filling the invoices Grid", MsgBoxStyle.Exclamation, "Invoice Search Error")
+                    End If
+                End If
 
                 ClearForm()
                 MsgBox("The record was added successfully", MsgBoxStyle.Information, Me.Text)
@@ -506,7 +588,7 @@ Public Class PASPDepositsAmendments
         End Try
     End Sub
 
-    Private Sub InvoiceStatusCheck(invoiceID As String)
+    Private Function InvoiceStatusCheck(invoiceID As String) As Boolean
         Try
             Dim query As String = "select " &
             "(invoiceTotal - PaymentTotal) as Balance " &
@@ -536,11 +618,18 @@ Public Class PASPDepositsAmendments
                 "strInvoicestatus = '1' " &
                 "where invoiceId = @invID "
             End If
-            DB.RunCommand(query, param)
+
+            If DB.RunCommand(query, param) = True Then
+                Return True
+            Else
+                Return False
+            End If
+
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+            Return False
         End Try
-    End Sub
+    End Function
 
     Private Sub btnUpdateExistingDeposit_Click(sender As Object, e As EventArgs) Handles btnUpdateExistingDeposit.Click
         Try
@@ -580,19 +669,33 @@ Public Class PASPDepositsAmendments
                         MessageBox.Show("There was an error updating the database", "Database error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                     End If
 
-                    InvoiceStatusCheck(txtInvoiceForDeposit.Text)
+                    If txtInvoiceForDeposit.Text.Trim <> "" Then
+                        If InvoiceStatusCheck(txtInvoiceForDeposit.Text) = False Then
+                            MsgBox("There was a problem updating the Invoice Status", MsgBoxStyle.Exclamation, "Invoice Status not updated")
+                        End If
+                    Else
+                        MsgBox("There is no Invoice associated with this deposit", MsgBoxStyle.Information, "No Invoice Number")
+                    End If
 
                     btnSearchDeposits.Enabled = False
 
-                    bgwDeposits.WorkerReportsProgress = True
-                    bgwDeposits.WorkerSupportsCancellation = True
-                    bgwDeposits.RunWorkerAsync()
+                    If DepositSearch() = False Then
+                        MsgBox("There was an error loading deposits", MsgBoxStyle.Exclamation, "Deposit Search Error")
+                    Else
+                        If LoadDepositsGridview() = False Then
+                            MsgBox("There was an error Filling the deposits Grid", MsgBoxStyle.Exclamation, "Deposit Search Error")
+                        End If
+                    End If
 
                     lblViewInvoices.Enabled = False
 
-                    bgwInvoices.WorkerReportsProgress = True
-                    bgwInvoices.WorkerSupportsCancellation = True
-                    bgwInvoices.RunWorkerAsync()
+                    If ViewInvoices() = False Then
+                        MsgBox("There was an error loading invoices", MsgBoxStyle.Exclamation, "Invoice Search Error")
+                    Else
+                        If LoadInvoicesGridview() = False Then
+                            MsgBox("There was an error Filling the invoices Grid", MsgBoxStyle.Exclamation, "Invoice Search Error")
+                        End If
+                    End If
 
                     ClearForm()
                     MsgBox("The record has been updated successfully", MsgBoxStyle.Information, Me.Text)
@@ -623,33 +726,40 @@ Public Class PASPDepositsAmendments
                         "active = '0' " &
                         "where TransactionId = @trID "
                 Dim param As New SqlParameter("@trID", txtTransactionID.Text)
-                DB.RunCommand(query, param)
 
-                btnSearchDeposits.Enabled = False
+                If DB.RunCommand(query, param) = True Then
+                    btnSearchDeposits.Enabled = False
+                    If DepositSearch() = False Then
+                        MsgBox("There was an error loading deposits", MsgBoxStyle.Exclamation, "Deposit Search Error")
+                    Else
+                        If LoadDepositsGridview() = False Then
+                            MsgBox("There was an error Filling the deposits Grid", MsgBoxStyle.Exclamation, "Deposit Search Error")
+                        End If
+                    End If
 
-                bgwDeposits.WorkerReportsProgress = True
-                bgwDeposits.WorkerSupportsCancellation = True
-                bgwDeposits.RunWorkerAsync()
+                    lblViewInvoices.Enabled = False
+                    If ViewInvoices() = False Then
+                        MsgBox("There was an error loading invoices", MsgBoxStyle.Exclamation, "Invoice Search Error")
+                    Else
+                        If LoadInvoicesGridview() = False Then
+                            MsgBox("There was an error Filling the invoices Grid", MsgBoxStyle.Exclamation, "Invoice Search Error")
+                        End If
+                    End If
 
-                lblViewInvoices.Enabled = False
+                    txtCheckNumber.Clear()
+                    lblAIRSNumber.Text = "AIRS #"
+                    lblFacilityName.Text = "Facility Name"
+                    mtbFeeYear2.Clear()
+                    txtDepositAmount.Clear()
+                    txtTransactionID.Clear()
+                    txtDepositComments.Clear()
+                    txtDepositNumberField.Clear()
+                    txtBatchNoField.Clear()
+                    txtCheckNumberField.Clear()
+                    DTPBatchDepositDateField.Text = Date.Today
 
-                bgwInvoices.WorkerReportsProgress = True
-                bgwInvoices.WorkerSupportsCancellation = True
-                bgwInvoices.RunWorkerAsync()
-
-                txtCheckNumber.Clear()
-                lblAIRSNumber.Text = "AIRS #"
-                lblFacilityName.Text = "Facility Name"
-                mtbFeeYear2.Clear()
-                txtDepositAmount.Clear()
-                txtTransactionID.Clear()
-                txtDepositComments.Clear()
-                txtDepositNumberField.Clear()
-                txtBatchNoField.Clear()
-                txtCheckNumberField.Clear()
-                DTPBatchDepositDateField.Text = Date.Today
-
-                MsgBox("The record has been deleted successfully", MsgBoxStyle.Information, Me.Text)
+                    MsgBox("The record has been deleted successfully", MsgBoxStyle.Information, Me.Text)
+                End If
             End If
 
         Catch ex As Exception
@@ -659,15 +769,13 @@ Public Class PASPDepositsAmendments
 
     Private Sub btnDeleteInventoryRecords_Click(sender As Object, e As EventArgs) Handles btnDeleteInventoryRecords.Click
         If txtTransactionID.Text <> "" Then
-            DeleteInvoice()
+            If DeleteInvoice() = True Then
+                MsgBox("The Invoice record was deleted successfully", MsgBoxStyle.Information, Me.Text)
+            End If
         End If
     End Sub
 
-    Private Sub bgwDeposits_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles bgwDeposits.DoWork
-        DepositSearch()
-    End Sub
-
-    Private Sub bgwDeposits_RunWorkerCompleted(sender As Object, e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bgwDeposits.RunWorkerCompleted
+    Private Function LoadDepositsGridview() As Boolean
         Try
             dgvDeposits.DataSource = dtDeposit
 
@@ -716,16 +824,15 @@ Public Class PASPDepositsAmendments
 
             btnSearchDeposits.Enabled = True
 
+            Return True
+
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+            Return False
         End Try
-    End Sub
+    End Function
 
-    Private Sub bgwInvoices_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles bgwInvoices.DoWork
-        ViewInvoices()
-    End Sub
-
-    Private Sub bgwInvoices_RunWorkerCompleted(sender As Object, e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bgwInvoices.RunWorkerCompleted
+    Private Function LoadInvoicesGridview() As Boolean
         Try
             dgvInvoices.DataSource = dtInvoice
 
@@ -791,10 +898,13 @@ Public Class PASPDepositsAmendments
                 End If
             End If
 
+            Return True
+
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+            Return False
         End Try
-    End Sub
+    End Function
 
     Private Sub ClearForm()
         txtCheckNumber.Clear()
@@ -814,13 +924,12 @@ Public Class PASPDepositsAmendments
     End Sub
 
     Private Sub btnClearEntryInformation_Click(sender As Object, e As EventArgs) Handles btnClearEntryInformation.Click
-        ClearForm()
-
-        lblViewInvoices.Enabled = False
-
-        bgwInvoices.WorkerReportsProgress = True
-        bgwInvoices.WorkerSupportsCancellation = True
-        bgwInvoices.RunWorkerAsync()
+        Try
+            ClearForm()
+            dgvInvoices.DataSource = Nothing
+        Catch ex As Exception
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+        End Try
     End Sub
 
 #End Region
@@ -830,19 +939,8 @@ Public Class PASPDepositsAmendments
             ClearForm()
             txtBatchNumber.Clear()
             dtpBatchDepositDate.Text = Date.Today
-
-            btnSearchDeposits.Enabled = False
-
-            bgwDeposits.WorkerReportsProgress = True
-            bgwDeposits.WorkerSupportsCancellation = True
-            bgwDeposits.RunWorkerAsync()
-
-            lblViewInvoices.Enabled = False
-
-            bgwInvoices.WorkerReportsProgress = True
-            bgwInvoices.WorkerSupportsCancellation = True
-            bgwInvoices.RunWorkerAsync()
-
+            dgvDeposits.DataSource = Nothing
+            dgvInvoices.DataSource = Nothing
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -863,13 +961,15 @@ Public Class PASPDepositsAmendments
 
             If txtCheckNumber.Text <> "" Then
                 lblViewInvoices.Enabled = False
-
-                bgwInvoices.WorkerReportsProgress = True
-                bgwInvoices.WorkerSupportsCancellation = True
-                bgwInvoices.RunWorkerAsync()
+                If ViewInvoices() = False Then
+                    MsgBox("There was an error loading invoices", MsgBoxStyle.Exclamation, "Invoice Search Error")
+                Else
+                    If LoadInvoicesGridview() = False Then
+                        MsgBox("There was an error Filling the invoices Grid", MsgBoxStyle.Exclamation, "Invoice Search Error")
+                    End If
+                End If
             Else
                 MsgBox("You must enter a check # (Partial or complete).", MsgBoxStyle.Information, "PASP Deposit Amendments")
-
             End If
 
         Catch ex As Exception
@@ -878,10 +978,10 @@ Public Class PASPDepositsAmendments
     End Sub
 
     Private Sub llbSearchForInvoice_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbSearchForInvoice.LinkClicked
-        Dim query As String
-        Dim param As SqlParameter()
-
         Try
+            Dim query As String
+            Dim param As SqlParameter()
+
             lblAIRSNumber.Text = "AIRS #"
             lblFacilityName.Text = "Facility Name"
             mtbFeeYear2.Clear()
