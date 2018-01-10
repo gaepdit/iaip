@@ -22,7 +22,6 @@ Partial Class PASPFeeStatistics
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.bgwEmails = New System.ComponentModel.BackgroundWorker()
         Me.TCMailoutAndStats = New System.Windows.Forms.TabControl()
         Me.TPDepositAndPaymentStats = New System.Windows.Forms.TabPage()
         Me.dgvDepositsAndPayments = New System.Windows.Forms.DataGridView()
@@ -329,10 +328,6 @@ Partial Class PASPFeeStatistics
         Me.TPNsps.SuspendLayout()
         Me.TPGeneral.SuspendLayout()
         Me.SuspendLayout()
-        '
-        'bgwEmails
-        '
-        Me.bgwEmails.WorkerSupportsCancellation = True
         '
         'TCMailoutAndStats
         '
