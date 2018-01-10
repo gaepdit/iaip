@@ -3711,12 +3711,10 @@ Public Class SSPPApplicationTrackingLog
                             DTPDateAcknowledge.Checked = True
                         End If
                         If IsDBNull(dr.Item("strPublicInvolvement")) Then
-                            cboPublicAdvisory.Text = ""
+                            cboPublicAdvisory.Text = "Not Decided"
                         Else
                             temp = dr.Item("strPublicInvolvement")
                             Select Case temp
-                                Case "0"
-                                    cboPublicAdvisory.Text = "Not Decided"
                                 Case "1"
                                     cboPublicAdvisory.Text = "PA Needed"
                                 Case "2"
@@ -4598,7 +4596,7 @@ Public Class SSPPApplicationTrackingLog
         Dim ReAssignedToEngineer As String = Nothing
         Dim PackageCompleteDate As String = Nothing
         Dim AcknowledgementLetter As String = Nothing
-        Dim PublicInvolved As String = ""
+        Dim PublicInvolved As String = "0"
         Dim ToPMI As String = Nothing
         Dim ToPMII As String = Nothing
         Dim ReturnToEngineer As String = Nothing
@@ -4903,20 +4901,14 @@ Public Class SSPPApplicationTrackingLog
                 If cboPublicAdvisory.Visible = False Then
                     PublicInvolved = "0"
                 Else
-                    If cboPublicAdvisory.Text <> "" Then
-                        Select Case cboPublicAdvisory.Text
-                            Case "Not Decided"
-                                PublicInvolved = "0"
-                            Case "PA Needed"
-                                PublicInvolved = "1"
-                            Case "PA Not Needed"
-                                PublicInvolved = "2"
-                            Case Else
-                                PublicInvolved = "0"
-                        End Select
-                    Else
-                        PublicInvolved = "0"
-                    End If
+                    Select Case cboPublicAdvisory.Text
+                        Case "PA Needed"
+                            PublicInvolved = "1"
+                        Case "PA Not Needed"
+                            PublicInvolved = "2"
+                        Case Else
+                            PublicInvolved = "0"
+                    End Select
                 End If
 
                 query = "Update SSPPApplicationData set " &
