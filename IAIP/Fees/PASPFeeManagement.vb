@@ -290,111 +290,105 @@ Public Class PASPFeeManagement
         ClearFeeData()
     End Sub
 
-    Private Sub dgvFeeRates_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvFeeRates.MouseUp
-        Try
-            Dim hti As DataGridView.HitTestInfo = dgvFeeRates.HitTest(e.X, e.Y)
+    Private Sub dgvFeeRates_SelectionChanged(sender As Object, e As EventArgs) Handles dgvFeeRates.SelectionChanged
+        If dgvFeeRates.SelectedRows.Count = 1 Then
+            Dim row As DataGridViewRow = dgvFeeRates.CurrentRow
 
-            If dgvFeeRates.RowCount > 0 And hti.RowIndex <> -1 Then
-
-                ClearFeeData()
-                If IsDBNull(dgvFeeRates(0, hti.RowIndex).Value) Then
-                    Exit Sub
-                Else
-                    txtFeeID.Text = dgvFeeRates(0, hti.RowIndex).Value
-                End If
-                If IsDBNull(dgvFeeRates(1, hti.RowIndex).Value) Then
-                    txtFeeYear.Clear()
-                Else
-                    txtFeeYear.Text = dgvFeeRates(1, hti.RowIndex).Value
-                End If
-                If IsDBNull(dgvFeeRates(2, hti.RowIndex).Value) Then
-                    dtpFeePeriodStart.Value = Today
-                Else
-                    dtpFeePeriodStart.Text = dgvFeeRates(2, hti.RowIndex).Value
-                End If
-                If IsDBNull(dgvFeeRates(3, hti.RowIndex).Value) Then
-                    dtpFeePeriodEnd.Value = Today
-                Else
-                    dtpFeePeriodEnd.Text = dgvFeeRates(3, hti.RowIndex).Value
-                End If
-                If IsDBNull(dgvFeeRates(4, hti.RowIndex).Value) Then
-                    txtTitleVfee.Clear()
-                Else
-                    txtTitleVfee.Text = dgvFeeRates(4, hti.RowIndex).Value
-                End If
-                If IsDBNull(dgvFeeRates(5, hti.RowIndex).Value) Then
-                    txtAnnualSMFee.Clear()
-                Else
-                    txtAnnualSMFee.Text = dgvFeeRates(5, hti.RowIndex).Value
-                End If
-                If IsDBNull(dgvFeeRates(7, hti.RowIndex).Value) Then
-                    txtAnnualNSPSFee.Clear()
-                Else
-                    txtAnnualNSPSFee.Text = dgvFeeRates(7, hti.RowIndex).Value
-                End If
-                If IsDBNull(dgvFeeRates(6, hti.RowIndex).Value) Then
-                    txtperTonRate.Clear()
-                Else
-                    txtperTonRate.Text = dgvFeeRates(6, hti.RowIndex).Value
-                End If
-                If IsDBNull(dgvFeeRates(16, hti.RowIndex).Value) Then
-                    txtAttainmentThreshold.Clear()
-                Else
-                    txtAttainmentThreshold.Text = dgvFeeRates(16, hti.RowIndex).Value
-                End If
-                If IsDBNull(dgvFeeRates(17, hti.RowIndex).Value) Then
-                    txtNonAttainmentThreshold.Clear()
-                Else
-                    txtNonAttainmentThreshold.Text = dgvFeeRates(17, hti.RowIndex).Value
-                End If
-
-                If IsDBNull(dgvFeeRates(8, hti.RowIndex).Value) Then
-                    dtpFeeDueDate.Value = Today
-                Else
-                    dtpFeeDueDate.Text = dgvFeeRates(8, hti.RowIndex).Value
-                End If
-                If IsDBNull(dgvFeeRates(9, hti.RowIndex).Value) Then
-                    txtAdminFeePercent.Clear()
-                Else
-                    txtAdminFeePercent.Text = dgvFeeRates(9, hti.RowIndex).Value
-                End If
-                If IsDBNull(dgvFeeRates(10, hti.RowIndex).Value) Then
-                    dtpAdminApplicable.Value = Today
-                Else
-                    dtpAdminApplicable.Text = dgvFeeRates(10, hti.RowIndex).Value
-                End If
-
-                If IsDBNull(dgvFeeRates(11, hti.RowIndex).Value) Then
-                    dtpFirstQrtDue.Value = Today
-                Else
-                    dtpFirstQrtDue.Text = dgvFeeRates(11, hti.RowIndex).Value
-                End If
-                If IsDBNull(dgvFeeRates(12, hti.RowIndex).Value) Then
-                    dtpSecondQrtDue.Value = Today
-                Else
-                    dtpSecondQrtDue.Text = dgvFeeRates(12, hti.RowIndex).Value
-                End If
-                If IsDBNull(dgvFeeRates(13, hti.RowIndex).Value) Then
-                    dtpThirdQrtDue.Value = Today
-                Else
-                    dtpThirdQrtDue.Text = dgvFeeRates(13, hti.RowIndex).Value
-                End If
-                If IsDBNull(dgvFeeRates(14, hti.RowIndex).Value) Then
-                    dtpFourthQrtDue.Value = Today
-                Else
-                    dtpFourthQrtDue.Text = dgvFeeRates(14, hti.RowIndex).Value
-                End If
-
-                If IsDBNull(dgvFeeRates(15, hti.RowIndex).Value) Then
-                    txtFeeNotes.Clear()
-                Else
-                    txtFeeNotes.Text = dgvFeeRates(15, hti.RowIndex).Value
-                End If
-
+            ClearFeeData()
+            If IsDBNull(row.Cells(0).Value) Then
+                Exit Sub
+            Else
+                txtFeeID.Text = row.Cells(0).Value
             End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+            If IsDBNull(row.Cells(1).Value) Then
+                txtFeeYear.Clear()
+            Else
+                txtFeeYear.Text = row.Cells(1).Value
+            End If
+            If IsDBNull(row.Cells(2).Value) Then
+                dtpFeePeriodStart.Value = Today
+            Else
+                dtpFeePeriodStart.Text = row.Cells(2).Value
+            End If
+            If IsDBNull(row.Cells(3).Value) Then
+                dtpFeePeriodEnd.Value = Today
+            Else
+                dtpFeePeriodEnd.Text = row.Cells(3).Value
+            End If
+            If IsDBNull(row.Cells(4).Value) Then
+                txtTitleVfee.Clear()
+            Else
+                txtTitleVfee.Text = row.Cells(4).Value
+            End If
+            If IsDBNull(row.Cells(5).Value) Then
+                txtAnnualSMFee.Clear()
+            Else
+                txtAnnualSMFee.Text = row.Cells(5).Value
+            End If
+            If IsDBNull(row.Cells(7).Value) Then
+                txtAnnualNSPSFee.Clear()
+            Else
+                txtAnnualNSPSFee.Text = row.Cells(7).Value
+            End If
+            If IsDBNull(row.Cells(6).Value) Then
+                txtperTonRate.Clear()
+            Else
+                txtperTonRate.Text = row.Cells(6).Value
+            End If
+            If IsDBNull(row.Cells(16).Value) Then
+                txtAttainmentThreshold.Clear()
+            Else
+                txtAttainmentThreshold.Text = row.Cells(16).Value
+            End If
+            If IsDBNull(row.Cells(17).Value) Then
+                txtNonAttainmentThreshold.Clear()
+            Else
+                txtNonAttainmentThreshold.Text = row.Cells(17).Value
+            End If
+
+            If IsDBNull(row.Cells(8).Value) Then
+                dtpFeeDueDate.Value = Today
+            Else
+                dtpFeeDueDate.Text = row.Cells(8).Value
+            End If
+            If IsDBNull(row.Cells(9).Value) Then
+                txtAdminFeePercent.Clear()
+            Else
+                txtAdminFeePercent.Text = row.Cells(9).Value
+            End If
+            If IsDBNull(row.Cells(10).Value) Then
+                dtpAdminApplicable.Value = Today
+            Else
+                dtpAdminApplicable.Text = row.Cells(10).Value
+            End If
+
+            If IsDBNull(row.Cells(11).Value) Then
+                dtpFirstQrtDue.Value = Today
+            Else
+                dtpFirstQrtDue.Text = row.Cells(11).Value
+            End If
+            If IsDBNull(row.Cells(12).Value) Then
+                dtpSecondQrtDue.Value = Today
+            Else
+                dtpSecondQrtDue.Text = row.Cells(12).Value
+            End If
+            If IsDBNull(row.Cells(13).Value) Then
+                dtpThirdQrtDue.Value = Today
+            Else
+                dtpThirdQrtDue.Text = row.Cells(13).Value
+            End If
+            If IsDBNull(row.Cells(14).Value) Then
+                dtpFourthQrtDue.Value = Today
+            Else
+                dtpFourthQrtDue.Text = row.Cells(14).Value
+            End If
+
+            If IsDBNull(row.Cells(15).Value) Then
+                txtFeeNotes.Clear()
+            Else
+                txtFeeNotes.Text = row.Cells(15).Value
+            End If
+        End If
     End Sub
 
     Private Sub btnUpdateFeeData_Click(sender As Object, e As EventArgs) Handles btnUpdateFeeData.Click
@@ -1285,29 +1279,23 @@ Public Class PASPFeeManagement
         dgvFeeManagementLists.ExportToExcel(Me)
     End Sub
 
-    Private Sub dgvExistingExemptions_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvExistingExemptions.MouseUp
-        Try
-            Dim hti As DataGridView.HitTestInfo = dgvExistingExemptions.HitTest(e.X, e.Y)
+    Private Sub dgvExistingExemptions_SelectionChanged(sender As Object, e As EventArgs) Handles dgvExistingExemptions.SelectionChanged
+        If dgvExistingExemptions.SelectedRows.Count = 1 Then
+            Dim row As DataGridViewRow = dgvExistingExemptions.CurrentRow
 
-            If dgvExistingExemptions.RowCount > 0 And hti.RowIndex <> -1 Then
-
-                txtDeleteNSPSExemptions.Clear()
-                txtNSPSExemption.Clear()
-                If IsDBNull(dgvExistingExemptions(0, hti.RowIndex).Value) Then
-                    Exit Sub
-                Else
-                    txtDeleteNSPSExemptions.Text = dgvExistingExemptions(0, hti.RowIndex).Value
-                End If
-                If IsDBNull(dgvExistingExemptions(1, hti.RowIndex).Value) Then
-                    txtNSPSExemption.Clear()
-                Else
-                    txtNSPSExemption.Text = dgvExistingExemptions(1, hti.RowIndex).Value
-                End If
+            txtDeleteNSPSExemptions.Clear()
+            txtNSPSExemption.Clear()
+            If IsDBNull(row.Cells(0).Value) Then
+                Exit Sub
+            Else
+                txtDeleteNSPSExemptions.Text = row.Cells(0).Value
             End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+            If IsDBNull(row.Cells(1).Value) Then
+                txtNSPSExemption.Clear()
+            Else
+                txtNSPSExemption.Text = row.Cells(1).Value
+            End If
+        End If
     End Sub
 
     Private Sub btnRefreshNSPSExemptions_Click(sender As Object, e As EventArgs) Handles btnRefreshNSPSExemptions.Click
