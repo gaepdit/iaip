@@ -245,7 +245,9 @@ Partial Class PASPFeeManagement
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dgvFeeRates.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvFeeRates.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
         Me.dgvFeeRates.Location = New System.Drawing.Point(0, 0)
+        Me.dgvFeeRates.MultiSelect = False
         Me.dgvFeeRates.Name = "dgvFeeRates"
         Me.dgvFeeRates.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgvFeeRates.Size = New System.Drawing.Size(682, 628)
@@ -717,6 +719,7 @@ Partial Class PASPFeeManagement
         Me.dgvNSPSExemptions.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.dgvNSPSExemptions.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
         Me.dgvNSPSExemptions.Location = New System.Drawing.Point(0, 35)
+        Me.dgvNSPSExemptions.MultiSelect = False
         Me.dgvNSPSExemptions.Name = "dgvNSPSExemptions"
         Me.dgvNSPSExemptions.ReadOnly = True
         Me.dgvNSPSExemptions.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
@@ -807,6 +810,7 @@ Partial Class PASPFeeManagement
         Me.dgvNSPSExemptionsByYear.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvNSPSExemptionsByYear.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
         Me.dgvNSPSExemptionsByYear.Location = New System.Drawing.Point(1, 55)
+        Me.dgvNSPSExemptionsByYear.MultiSelect = False
         Me.dgvNSPSExemptionsByYear.Name = "dgvNSPSExemptionsByYear"
         Me.dgvNSPSExemptionsByYear.ReadOnly = True
         Me.dgvNSPSExemptionsByYear.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
@@ -901,7 +905,9 @@ Partial Class PASPFeeManagement
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dgvExistingExemptions.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvExistingExemptions.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
         Me.dgvExistingExemptions.Location = New System.Drawing.Point(0, 235)
+        Me.dgvExistingExemptions.MultiSelect = False
         Me.dgvExistingExemptions.Name = "dgvExistingExemptions"
         Me.dgvExistingExemptions.ReadOnly = True
         Me.dgvExistingExemptions.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
@@ -1024,6 +1030,7 @@ Partial Class PASPFeeManagement
         Me.dgvFeeManagementLists.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
         Me.dgvFeeManagementLists.GridColor = System.Drawing.SystemColors.ControlLight
         Me.dgvFeeManagementLists.Location = New System.Drawing.Point(0, 39)
+        Me.dgvFeeManagementLists.MultiSelect = False
         Me.dgvFeeManagementLists.Name = "dgvFeeManagementLists"
         Me.dgvFeeManagementLists.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgvFeeManagementLists.ShowEditingIcon = False

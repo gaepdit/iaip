@@ -54,7 +54,7 @@ Public Class PASPFeeManagement
             dgvFeeRates.AllowUserToAddRows = False
             dgvFeeRates.AllowUserToDeleteRows = False
             dgvFeeRates.AllowUserToOrderColumns = True
-            dgvFeeRates.AllowUserToResizeRows = True
+            dgvFeeRates.AllowUserToResizeRows = False
 
             dgvFeeRates.Columns("numFeeRateID").HeaderText = "ID"
             dgvFeeRates.Columns("numFeeRateID").DisplayIndex = 0
@@ -218,7 +218,7 @@ Public Class PASPFeeManagement
             dgvExistingExemptions.RowHeadersVisible = False
             dgvExistingExemptions.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
             dgvExistingExemptions.AllowUserToResizeColumns = True
-            dgvExistingExemptions.AllowUserToResizeRows = True
+            dgvExistingExemptions.AllowUserToResizeRows = False
             dgvExistingExemptions.AllowUserToAddRows = False
             dgvExistingExemptions.AllowUserToDeleteRows = False
             dgvExistingExemptions.AllowUserToOrderColumns = True
@@ -947,7 +947,7 @@ Public Class PASPFeeManagement
             dgvFeeManagementLists.AllowUserToAddRows = False
             dgvFeeManagementLists.AllowUserToDeleteRows = False
             dgvFeeManagementLists.AllowUserToOrderColumns = True
-            dgvFeeManagementLists.AllowUserToResizeRows = True
+            dgvFeeManagementLists.AllowUserToResizeRows = False
 
             dgvFeeManagementLists.Columns("AIRSNumber").HeaderText = "Airs No."
             dgvFeeManagementLists.Columns("AIRSNumber").DisplayIndex = 0
