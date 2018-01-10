@@ -296,6 +296,7 @@ Partial Class PASPFeeStatistics
         Me.lblNSPS1 = New System.Windows.Forms.LinkLabel()
         Me.TPGeneral = New System.Windows.Forms.TabPage()
         Me.btnFacInfoChange = New System.Windows.Forms.Button()
+        Me.Label4 = New System.Windows.Forms.Label()
         Me.TCMailoutAndStats.SuspendLayout()
         Me.TPDepositAndPaymentStats.SuspendLayout()
         CType(Me.dgvDepositsAndPayments, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -3044,6 +3045,7 @@ Partial Class PASPFeeStatistics
         '
         'TPCompliance
         '
+        Me.TPCompliance.Controls.Add(Me.Label4)
         Me.TPCompliance.Controls.Add(Me.btnClassChange)
         Me.TPCompliance.Controls.Add(Me.btnNoOperate)
         Me.TPCompliance.Location = New System.Drawing.Point(4, 22)
@@ -3144,6 +3146,15 @@ Partial Class PASPFeeStatistics
         Me.btnFacInfoChange.Text = "Change in Facility Info"
         Me.btnFacInfoChange.UseVisualStyleBackColor = False
         '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Location = New System.Drawing.Point(236, 9)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(128, 13)
+        Me.Label4.TabIndex = 4
+        Me.Label4.Text = "(Most recent 5 years only)"
+        '
         'PASPFeeStatistics
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -3192,6 +3203,7 @@ Partial Class PASPFeeStatistics
         Me.TPDeposits.ResumeLayout(False)
         Me.TPDeposits.PerformLayout()
         Me.TPCompliance.ResumeLayout(False)
+        Me.TPCompliance.PerformLayout()
         Me.TPNsps.ResumeLayout(False)
         Me.TPNsps.PerformLayout()
         Me.TPGeneral.ResumeLayout(False)
@@ -3473,4 +3485,5 @@ Partial Class PASPFeeStatistics
     Friend WithEvents dtpDepositReportStartDate As DateTimePicker
     Friend WithEvents Label2 As Label
     Private WithEvents CRFeesReports As CrystalDecisions.Windows.Forms.CrystalReportViewer
+    Friend WithEvents Label4 As Label
 End Class

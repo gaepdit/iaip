@@ -2651,7 +2651,7 @@ Public Class PASPFeeStatistics
             Me.Cursor = Cursors.WaitCursor
             Dim rpt As ReportClass = New ClassChanged10
 
-            Dim SQL As String = "select * from VW_Class_Changed"
+            Dim SQL As String = "SELECT * FROM VW_CLASS_CHANGED WHERE INTYEAR >= (year(getdate()) - 5)"
 
             rpt.SetDataSource(DB.GetDataTable(SQL))
 
@@ -2725,7 +2725,7 @@ Public Class PASPFeeStatistics
         Try
             Me.Cursor = Cursors.WaitCursor
             Dim rpt As ReportClass = New NoOperate10
-            Dim SQL As String = "Select * from VW_No_Operate "
+            Dim SQL As String = "SELECT * FROM VW_NO_OPERATE WHERE INTYEAR >= (year(getdate()) - 5)"
 
             rpt.SetDataSource(DB.GetDataTable(SQL))
 
