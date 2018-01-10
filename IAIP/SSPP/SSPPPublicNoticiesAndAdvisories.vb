@@ -77,8 +77,6 @@ Public Class SSPPPublicNoticiesAndAdvisories
 
             dgvPublicNotice.DataSource = DB.GetDataTable(query)
 
-            txtPreviewCount.Text = dgvPublicNotice.RowCount.ToString
-
             dgvPublicNotice.RowHeadersVisible = False
             dgvPublicNotice.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
             dgvPublicNotice.AllowUserToResizeColumns = True
@@ -112,6 +110,8 @@ Public Class SSPPPublicNoticiesAndAdvisories
             dgvPublicNotice.Columns("strPNPosted").DisplayIndex = 9
 
             dgvPublicNotice.SanelyResizeColumns
+
+            txtPreviewCount.Text = dgvPublicNotice.RowCount.ToString
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -147,26 +147,21 @@ Public Class SSPPPublicNoticiesAndAdvisories
             Dim County As String = ""
             Dim AppType As String = ""
 
-            Dim AppNumbers As New List(Of String)
+            Dim AppNumbers As New List(Of Integer)
             Dim SIPAppNumbers As New List(Of String)
             Dim TVAppNumbers As New List(Of String)
 
             Dim temp As String = ""
             Dim i As Integer
-
-
+            
             For i = 0 To dgvPublicNotice.RowCount - 1
-                AppNumbers.Add(dgvPublicNotice(0, i).Value.ToString)
+                AppNumbers.Add(CInt(dgvPublicNotice(0, i).Value))
             Next
 
+            Dim p As SqlParameter = AppNumbers.AsTvpSqlParameter("@appnumbers")
+
             Dim query As String = "Select " &
-            "SSPPApplicationMaster.strApplicationNumber, " &
-            "SSPPApplicationData.strFacilityName, " &
-            "strCountyName, " &
-            "case " &
-            "   when strApplicationType is Null then null " &
-            "   else LookUpApplicationTypes.strApplicationTypeDesc " &
-            "End AppType " &
+            "SSPPApplicationMaster.strApplicationNumber " &
             "FROM SSPPApplicationMaster " &
             " INNER JOIN SSPPApplicationData  " &
             "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber  " &
@@ -183,8 +178,6 @@ Public Class SSPPPublicNoticiesAndAdvisories
             " and SSPPApplicationMaster.strApplicationNumber in " &
             "(select * from @appnumbers) "
 
-            Dim p As SqlParameter = AppNumbers.AsTvpSqlParameter("@appnumbers")
-
             Dim dt As DataTable = DB.GetDataTable(query, p)
 
             For Each dr As DataRow In dt.Rows
@@ -192,13 +185,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
             Next
 
             query = "Select " &
-            "SSPPApplicationMaster.strApplicationNumber, " &
-            "SSPPApplicationData.strFacilityName, " &
-            "strCountyName, " &
-            "case " &
-            "   when strApplicationType is Null then '' " &
-            "   else LookUpApplicationTypes.strApplicationTypeDesc " &
-            "End AppType " &
+            "SSPPApplicationMaster.strApplicationNumber " &
             "FROM SSPPApplicationMaster " &
             " INNER JOIN SSPPApplicationData  " &
             "ON SSPPApplicationMaster.strApplicationNumber = SSPPApplicationData.strApplicationNumber  " &

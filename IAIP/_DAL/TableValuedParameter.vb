@@ -12,6 +12,7 @@ Namespace DAL
         ''' <param name="values">An Integer IEnumerable.</param>
         ''' <returns>A table-valued SqlParameter of Integers, containing the supplied values.</returns>
         <Extension>
+        <DebuggerStepThrough>
         Public Function AsTvpSqlParameter(values As IEnumerable(Of Integer), parameterName As String) As SqlParameter
             Return EpdIt.DBUtilities.TvpSqlParameter(Of Integer)(parameterName, values, "dbo.IntegerTableType", "Item")
         End Function
@@ -23,6 +24,7 @@ Namespace DAL
         ''' <param name="values">A String IEnumerable.</param>
         ''' <returns>A table-valued SqlParameter of Strings, containing the supplied values.</returns>
         <Extension>
+        <DebuggerStepThrough>
         Public Function AsTvpSqlParameter(values As IEnumerable(Of String), parameterName As String) As SqlParameter
             Return EpdIt.DBUtilities.TvpSqlParameter(Of String)(parameterName, values, "dbo.StringTableType", "Item")
         End Function

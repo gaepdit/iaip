@@ -2303,7 +2303,7 @@ Public Class IAIPQueryGenerator
 
             dgvQueryGenerator.DataSource = DB.GetDataTable(MasterSQL, params.ToArray)
 
-            Me.SubmittedQuery = New KeyValuePair(Of String, Integer)(MasterSQL, dgvQueryGenerator.Rows.Count)
+            SubmittedQuery = New KeyValuePair(Of String, Integer)(MasterSQL, dgvQueryGenerator.Rows.Count)
 
             i = 0
             dgvQueryGenerator.RowHeadersVisible = False
@@ -3935,7 +3935,7 @@ Public Class IAIPQueryGenerator
 
             dgvQueryGenerator.SanelyResizeColumns()
 
-            LoggingBackgroundWorker.RunWorkerAsync()
+            LogQuery()
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -4132,11 +4132,11 @@ Public Class IAIPQueryGenerator
         ExportToExcel()
     End Sub
 
-    Private Sub LoggingBackgroundWorker_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles LoggingBackgroundWorker.DoWork
-        If Me.SubmittedQuery.Key.Length > 4000 Then
-            Me.SubmittedQuery = New KeyValuePair(Of String, Integer)("-- Truncated: " & Me.SubmittedQuery.Key.Substring(0, 3985), Me.SubmittedQuery.Value)
+    Private Sub LogQuery()
+        If SubmittedQuery.Key.Length > 4000 Then
+            SubmittedQuery = New KeyValuePair(Of String, Integer)("-- Truncated: " & Me.SubmittedQuery.Key.Substring(0, 3985), Me.SubmittedQuery.Value)
         End If
 
-        DAL.LogQuery(Me.SubmittedQuery)
+        DAL.LogQuery(SubmittedQuery)
     End Sub
 End Class

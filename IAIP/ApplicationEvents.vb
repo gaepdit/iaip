@@ -24,8 +24,12 @@ Namespace My
         Private Sub MyApplication_UnhandledException(sender As Object, e As UnhandledExceptionEventArgs) _
             Handles Me.UnhandledException
             ' Log exception
+#If Not DEBUG Then
+            ExceptionLogger.Tags.Add("context", NameOf(MyApplication_UnhandledException))
             e.Exception.Data.Add("Sender", sender.ToString)
             ExceptionLogger.Capture(New SharpRaven.Data.SentryEvent(e.Exception))
+            ExceptionLogger.Tags.Remove("context")
+#End If
         End Sub
     End Class
 
