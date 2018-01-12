@@ -91,6 +91,7 @@ Partial Class PASPDepositsAmendments
         Me.pnlDepositsEntry.Controls.Add(Me.Label56)
         Me.pnlDepositsEntry.Controls.Add(Me.txtInvoiceForDeposit)
         Me.pnlDepositsEntry.Controls.Add(Me.mtbFeeYear2)
+        Me.pnlDepositsEntry.Controls.Add(Me.btnClearForm)
         Me.pnlDepositsEntry.Controls.Add(Me.dtpBatchDepositDateField)
         Me.pnlDepositsEntry.Controls.Add(Me.Label37)
         Me.pnlDepositsEntry.Controls.Add(Me.txtCheckNumberField)
@@ -112,10 +113,10 @@ Partial Class PASPDepositsAmendments
         Me.pnlDepositsEntry.Controls.Add(Me.btnDeleteCheckDeposit)
         Me.pnlDepositsEntry.Controls.Add(Me.btnAddNewCheckDeposit)
         Me.pnlDepositsEntry.Controls.Add(Me.btnUpdateExistingDeposit)
-        Me.pnlDepositsEntry.Dock = System.Windows.Forms.DockStyle.Top
-        Me.pnlDepositsEntry.Location = New System.Drawing.Point(0, 0)
+        Me.pnlDepositsEntry.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.pnlDepositsEntry.Location = New System.Drawing.Point(0, 276)
         Me.pnlDepositsEntry.Name = "pnlDepositsEntry"
-        Me.pnlDepositsEntry.Size = New System.Drawing.Size(811, 213)
+        Me.pnlDepositsEntry.Size = New System.Drawing.Size(811, 208)
         Me.pnlDepositsEntry.TabIndex = 0
         '
         'txtCreditCardNo
@@ -356,8 +357,9 @@ Partial Class PASPDepositsAmendments
         '
         'txtDepositCount
         '
+        Me.txtDepositCount.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.txtDepositCount.AutoSize = True
-        Me.txtDepositCount.Location = New System.Drawing.Point(750, 29)
+        Me.txtDepositCount.Location = New System.Drawing.Point(750, 33)
         Me.txtDepositCount.Name = "txtDepositCount"
         Me.txtDepositCount.Size = New System.Drawing.Size(13, 13)
         Me.txtDepositCount.TabIndex = 64
@@ -365,9 +367,10 @@ Partial Class PASPDepositsAmendments
         '
         'Label4
         '
+        Me.Label4.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label4.AutoSize = True
         Me.Label4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label4.Location = New System.Drawing.Point(12, 16)
+        Me.Label4.Location = New System.Drawing.Point(12, 20)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(100, 13)
         Me.Label4.TabIndex = 63
@@ -375,8 +378,9 @@ Partial Class PASPDepositsAmendments
         '
         'Label47
         '
+        Me.Label47.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label47.AutoSize = True
-        Me.Label47.Location = New System.Drawing.Point(706, 29)
+        Me.Label47.Location = New System.Drawing.Point(706, 33)
         Me.Label47.Name = "Label47"
         Me.Label47.Size = New System.Drawing.Size(38, 13)
         Me.Label47.TabIndex = 52
@@ -386,11 +390,11 @@ Partial Class PASPDepositsAmendments
         '
         Me.dgvInvoices.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvInvoices.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.dgvInvoices.Location = New System.Drawing.Point(0, 77)
+        Me.dgvInvoices.Location = New System.Drawing.Point(0, 71)
         Me.dgvInvoices.Name = "dgvInvoices"
         Me.dgvInvoices.ReadOnly = True
         Me.dgvInvoices.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvInvoices.Size = New System.Drawing.Size(811, 198)
+        Me.dgvInvoices.Size = New System.Drawing.Size(811, 205)
         Me.dgvInvoices.TabIndex = 1
         '
         'pnlInvoiceSearch
@@ -399,7 +403,6 @@ Partial Class PASPDepositsAmendments
         Me.pnlInvoiceSearch.Controls.Add(Me.btnSearchForInvoice)
         Me.pnlInvoiceSearch.Controls.Add(Me.btnSearchForCheck)
         Me.pnlInvoiceSearch.Controls.Add(Me.txtCountInvoices)
-        Me.pnlInvoiceSearch.Controls.Add(Me.btnClearForm)
         Me.pnlInvoiceSearch.Controls.Add(Me.Label1)
         Me.pnlInvoiceSearch.Controls.Add(Me.txtSearchInvoice)
         Me.pnlInvoiceSearch.Controls.Add(Me.Label55)
@@ -413,12 +416,13 @@ Partial Class PASPDepositsAmendments
         Me.pnlInvoiceSearch.Dock = System.Windows.Forms.DockStyle.Top
         Me.pnlInvoiceSearch.Location = New System.Drawing.Point(0, 0)
         Me.pnlInvoiceSearch.Name = "pnlInvoiceSearch"
-        Me.pnlInvoiceSearch.Size = New System.Drawing.Size(811, 77)
+        Me.pnlInvoiceSearch.Size = New System.Drawing.Size(811, 71)
         Me.pnlInvoiceSearch.TabIndex = 0
         '
         'btnViewInvoices
         '
-        Me.btnViewInvoices.Location = New System.Drawing.Point(320, 16)
+        Me.btnViewInvoices.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.btnViewInvoices.Location = New System.Drawing.Point(320, 10)
         Me.btnViewInvoices.Name = "btnViewInvoices"
         Me.btnViewInvoices.Size = New System.Drawing.Size(142, 23)
         Me.btnViewInvoices.TabIndex = 2
@@ -427,7 +431,8 @@ Partial Class PASPDepositsAmendments
         '
         'btnSearchForInvoice
         '
-        Me.btnSearchForInvoice.Location = New System.Drawing.Point(484, 45)
+        Me.btnSearchForInvoice.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.btnSearchForInvoice.Location = New System.Drawing.Point(484, 39)
         Me.btnSearchForInvoice.Name = "btnSearchForInvoice"
         Me.btnSearchForInvoice.Size = New System.Drawing.Size(142, 23)
         Me.btnSearchForInvoice.TabIndex = 7
@@ -436,7 +441,8 @@ Partial Class PASPDepositsAmendments
         '
         'btnSearchForCheck
         '
-        Me.btnSearchForCheck.Location = New System.Drawing.Point(172, 45)
+        Me.btnSearchForCheck.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.btnSearchForCheck.Location = New System.Drawing.Point(172, 39)
         Me.btnSearchForCheck.Name = "btnSearchForCheck"
         Me.btnSearchForCheck.Size = New System.Drawing.Size(142, 23)
         Me.btnSearchForCheck.TabIndex = 5
@@ -445,8 +451,9 @@ Partial Class PASPDepositsAmendments
         '
         'txtCountInvoices
         '
+        Me.txtCountInvoices.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.txtCountInvoices.AutoSize = True
-        Me.txtCountInvoices.Location = New System.Drawing.Point(750, 61)
+        Me.txtCountInvoices.Location = New System.Drawing.Point(750, 55)
         Me.txtCountInvoices.Name = "txtCountInvoices"
         Me.txtCountInvoices.Size = New System.Drawing.Size(13, 13)
         Me.txtCountInvoices.TabIndex = 61
@@ -455,7 +462,7 @@ Partial Class PASPDepositsAmendments
         'btnClearForm
         '
         Me.btnClearForm.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnClearForm.Location = New System.Drawing.Point(709, 12)
+        Me.btnClearForm.Location = New System.Drawing.Point(709, 11)
         Me.btnClearForm.Name = "btnClearForm"
         Me.btnClearForm.Size = New System.Drawing.Size(90, 31)
         Me.btnClearForm.TabIndex = 3
@@ -464,9 +471,10 @@ Partial Class PASPDepositsAmendments
         '
         'Label1
         '
+        Me.Label1.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(12, 21)
+        Me.Label1.Location = New System.Drawing.Point(12, 15)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(93, 13)
         Me.Label1.TabIndex = 60
@@ -474,15 +482,17 @@ Partial Class PASPDepositsAmendments
         '
         'txtSearchInvoice
         '
-        Me.txtSearchInvoice.Location = New System.Drawing.Point(378, 47)
+        Me.txtSearchInvoice.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.txtSearchInvoice.Location = New System.Drawing.Point(378, 41)
         Me.txtSearchInvoice.Name = "txtSearchInvoice"
         Me.txtSearchInvoice.Size = New System.Drawing.Size(100, 20)
         Me.txtSearchInvoice.TabIndex = 6
         '
         'Label55
         '
+        Me.Label55.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label55.AutoSize = True
-        Me.Label55.Location = New System.Drawing.Point(320, 50)
+        Me.Label55.Location = New System.Drawing.Point(320, 44)
         Me.Label55.Name = "Label55"
         Me.Label55.Size = New System.Drawing.Size(52, 13)
         Me.Label55.TabIndex = 57
@@ -490,8 +500,9 @@ Partial Class PASPDepositsAmendments
         '
         'Label48
         '
+        Me.Label48.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label48.AutoSize = True
-        Me.Label48.Location = New System.Drawing.Point(706, 61)
+        Me.Label48.Location = New System.Drawing.Point(706, 55)
         Me.Label48.Name = "Label48"
         Me.Label48.Size = New System.Drawing.Size(38, 13)
         Me.Label48.TabIndex = 54
@@ -499,7 +510,8 @@ Partial Class PASPDepositsAmendments
         '
         'mtbFeeYear
         '
-        Me.mtbFeeYear.Location = New System.Drawing.Point(278, 18)
+        Me.mtbFeeYear.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.mtbFeeYear.Location = New System.Drawing.Point(278, 12)
         Me.mtbFeeYear.Mask = "0000"
         Me.mtbFeeYear.Name = "mtbFeeYear"
         Me.mtbFeeYear.Size = New System.Drawing.Size(36, 20)
@@ -508,8 +520,9 @@ Partial Class PASPDepositsAmendments
         '
         'Label41
         '
+        Me.Label41.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label41.AutoSize = True
-        Me.Label41.Location = New System.Drawing.Point(243, 21)
+        Me.Label41.Location = New System.Drawing.Point(243, 15)
         Me.Label41.Name = "Label41"
         Me.Label41.Size = New System.Drawing.Size(29, 13)
         Me.Label41.TabIndex = 7
@@ -517,8 +530,9 @@ Partial Class PASPDepositsAmendments
         '
         'Label42
         '
+        Me.Label42.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label42.AutoSize = True
-        Me.Label42.Location = New System.Drawing.Point(12, 50)
+        Me.Label42.Location = New System.Drawing.Point(12, 44)
         Me.Label42.Name = "Label42"
         Me.Label42.Size = New System.Drawing.Size(48, 13)
         Me.Label42.TabIndex = 4
@@ -526,8 +540,9 @@ Partial Class PASPDepositsAmendments
         '
         'Label43
         '
+        Me.Label43.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label43.AutoSize = True
-        Me.Label43.Location = New System.Drawing.Point(124, 21)
+        Me.Label43.Location = New System.Drawing.Point(124, 15)
         Me.Label43.Name = "Label43"
         Me.Label43.Size = New System.Drawing.Size(42, 13)
         Me.Label43.TabIndex = 0
@@ -535,7 +550,8 @@ Partial Class PASPDepositsAmendments
         '
         'mtbAIRSNumber
         '
-        Me.mtbAIRSNumber.Location = New System.Drawing.Point(172, 18)
+        Me.mtbAIRSNumber.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.mtbAIRSNumber.Location = New System.Drawing.Point(172, 12)
         Me.mtbAIRSNumber.Mask = "000-00000"
         Me.mtbAIRSNumber.Name = "mtbAIRSNumber"
         Me.mtbAIRSNumber.Size = New System.Drawing.Size(62, 20)
@@ -544,7 +560,8 @@ Partial Class PASPDepositsAmendments
         '
         'txtCheckNumber
         '
-        Me.txtCheckNumber.Location = New System.Drawing.Point(66, 47)
+        Me.txtCheckNumber.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.txtCheckNumber.Location = New System.Drawing.Point(66, 41)
         Me.txtCheckNumber.Name = "txtCheckNumber"
         Me.txtCheckNumber.Size = New System.Drawing.Size(100, 20)
         Me.txtCheckNumber.TabIndex = 4
@@ -561,15 +578,16 @@ Partial Class PASPDepositsAmendments
         Me.pnlDepositSearchs.Controls.Add(Me.btnSearchDeposits)
         Me.pnlDepositSearchs.Controls.Add(Me.Label47)
         Me.pnlDepositSearchs.Dock = System.Windows.Forms.DockStyle.Top
-        Me.pnlDepositSearchs.Location = New System.Drawing.Point(0, 213)
+        Me.pnlDepositSearchs.Location = New System.Drawing.Point(0, 0)
         Me.pnlDepositSearchs.Name = "pnlDepositSearchs"
-        Me.pnlDepositSearchs.Size = New System.Drawing.Size(811, 45)
+        Me.pnlDepositSearchs.Size = New System.Drawing.Size(811, 49)
         Me.pnlDepositSearchs.TabIndex = 1
         '
         'Label2
         '
+        Me.Label2.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(291, 16)
+        Me.Label2.Location = New System.Drawing.Point(291, 20)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(52, 13)
         Me.Label2.TabIndex = 412
@@ -577,8 +595,9 @@ Partial Class PASPDepositsAmendments
         '
         'Label3
         '
+        Me.Label3.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(124, 16)
+        Me.Label3.Location = New System.Drawing.Point(124, 20)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(55, 13)
         Me.Label3.TabIndex = 411
@@ -586,26 +605,29 @@ Partial Class PASPDepositsAmendments
         '
         'dtpDepositReportEndDate
         '
+        Me.dtpDepositReportEndDate.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.dtpDepositReportEndDate.CustomFormat = "dd-MMM-yyyy"
         Me.dtpDepositReportEndDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpDepositReportEndDate.Location = New System.Drawing.Point(349, 12)
+        Me.dtpDepositReportEndDate.Location = New System.Drawing.Point(349, 16)
         Me.dtpDepositReportEndDate.Name = "dtpDepositReportEndDate"
         Me.dtpDepositReportEndDate.Size = New System.Drawing.Size(100, 20)
         Me.dtpDepositReportEndDate.TabIndex = 1
         '
         'dtpDepositReportStartDate
         '
+        Me.dtpDepositReportStartDate.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.dtpDepositReportStartDate.CustomFormat = "dd-MMM-yyyy"
         Me.dtpDepositReportStartDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpDepositReportStartDate.Location = New System.Drawing.Point(185, 12)
+        Me.dtpDepositReportStartDate.Location = New System.Drawing.Point(185, 16)
         Me.dtpDepositReportStartDate.Name = "dtpDepositReportStartDate"
         Me.dtpDepositReportStartDate.Size = New System.Drawing.Size(100, 20)
         Me.dtpDepositReportStartDate.TabIndex = 0
         '
         'btnSearchDeposits
         '
+        Me.btnSearchDeposits.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.btnSearchDeposits.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnSearchDeposits.Location = New System.Drawing.Point(455, 11)
+        Me.btnSearchDeposits.Location = New System.Drawing.Point(455, 15)
         Me.btnSearchDeposits.Name = "btnSearchDeposits"
         Me.btnSearchDeposits.Size = New System.Drawing.Size(142, 23)
         Me.btnSearchDeposits.TabIndex = 2
@@ -616,7 +638,7 @@ Partial Class PASPDepositsAmendments
         '
         Me.dgvDeposits.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvDeposits.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.dgvDeposits.Location = New System.Drawing.Point(0, 258)
+        Me.dgvDeposits.Location = New System.Drawing.Point(0, 49)
         Me.dgvDeposits.Name = "dgvDeposits"
         Me.dgvDeposits.ReadOnly = True
         Me.dgvDeposits.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
@@ -636,17 +658,17 @@ Partial Class PASPDepositsAmendments
         Me.SplitContainer1.Panel1.BackColor = System.Drawing.SystemColors.Control
         Me.SplitContainer1.Panel1.Controls.Add(Me.dgvInvoices)
         Me.SplitContainer1.Panel1.Controls.Add(Me.pnlInvoiceSearch)
-        Me.SplitContainer1.Panel1MinSize = 140
+        Me.SplitContainer1.Panel1.Controls.Add(Me.pnlDepositsEntry)
+        Me.SplitContainer1.Panel1MinSize = 335
         '
         'SplitContainer1.Panel2
         '
         Me.SplitContainer1.Panel2.BackColor = System.Drawing.SystemColors.Control
         Me.SplitContainer1.Panel2.Controls.Add(Me.dgvDeposits)
         Me.SplitContainer1.Panel2.Controls.Add(Me.pnlDepositSearchs)
-        Me.SplitContainer1.Panel2.Controls.Add(Me.pnlDepositsEntry)
-        Me.SplitContainer1.Panel2MinSize = 240
+        Me.SplitContainer1.Panel2MinSize = 120
         Me.SplitContainer1.Size = New System.Drawing.Size(811, 690)
-        Me.SplitContainer1.SplitterDistance = 275
+        Me.SplitContainer1.SplitterDistance = 484
         Me.SplitContainer1.TabIndex = 35
         '
         'PASPDepositsAmendments
