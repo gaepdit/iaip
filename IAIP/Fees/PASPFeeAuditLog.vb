@@ -3722,8 +3722,6 @@ Public Class PASPFeeAuditLog
 
     Private Sub btnVOIDInvoice_Click(sender As Object, e As EventArgs) Handles btnVOIDInvoice.Click
         Try
-            Dim Payment As String = "0"
-
             If (mtbAirsNumber.Text <> AirsNumber.FormattedString) OrElse (FeeYearsComboBox.SelectedItem.ToString <> FeeYear) Then
                 MessageBox.Show("The selected AIRS number or fee year don't match the displayed information. " &
                                 "Please double-check and try again." &
@@ -3732,7 +3730,13 @@ Public Class PASPFeeAuditLog
                 Exit Sub
             End If
 
-            Dim SQL As String = "Select " &
+            If txtInvoice.Text Is Nothing OrElse Not Integer.TryParse(txtInvoice.Text, Nothing) Then
+                MessageBox.Show("Please select an invoice first and try again.",
+                                "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Exit Sub
+            End If
+
+            Dim query As String = "Select " &
             "numPayment " &
             "from FS_Transactions " &
             "where invoiceID = @invoiceID " &
@@ -3740,27 +3744,20 @@ Public Class PASPFeeAuditLog
 
             Dim p As New SqlParameter("@invoiceID", txtInvoice.Text)
 
-            Dim dr As DataRow = DB.GetDataRow(SQL, p)
-            If dr IsNot Nothing Then
-                If IsDBNull(dr.Item("numPayment")) Then
-                    Payment = "0"
-                Else
-                    Payment = dr.Item("numPayment")
-                End If
-            End If
+            Dim payment As Double = DB.GetSingleValue(Of Double)(query, p)
 
-            If Payment <> "0" Then
-                MsgBox("There already exists a transaction for this invoice." & vbCrLf &
+            If payment <> 0 Then
+                MsgBox("There already exists a transaction for this invoice. " &
                        "Any Transaction needs to be deleted or zeroed out to VOID an Invoice.",
                          MsgBoxStyle.Exclamation, Me.Text)
                 Exit Sub
             End If
 
-            SQL = "Update FS_FeeInvoice set " &
+            query = "Update FS_FeeInvoice set " &
             "Active = '0' " &
             "where invoiceID = @invoiceID "
 
-            DB.RunCommand(SQL, p)
+            DB.RunCommand(query, p)
 
             ViewAllInvoices()
             LoadTransactionData()
