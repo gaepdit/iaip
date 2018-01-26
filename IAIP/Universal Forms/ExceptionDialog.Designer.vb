@@ -30,7 +30,6 @@ Partial Class ExceptionDialog
     Friend WithEvents btnMore As System.Windows.Forms.Button
     Friend WithEvents ActionMessage As System.Windows.Forms.TextBox
     Friend WithEvents ErrorMessage As System.Windows.Forms.TextBox
-    Friend WithEvents btnCopy As System.Windows.Forms.Button
     Friend WithEvents ErrorDetails As System.Windows.Forms.TextBox
     Friend WithEvents ActionHeading As System.Windows.Forms.Label
     Friend WithEvents ErrorHeading As System.Windows.Forms.Label
@@ -44,16 +43,16 @@ Partial Class ExceptionDialog
         Me.btnOK = New System.Windows.Forms.Button()
         Me.ErrorDetails = New System.Windows.Forms.TextBox()
         Me.btnMore = New System.Windows.Forms.Button()
-        Me.btnCopy = New System.Windows.Forms.Button()
         Me.ErrorMessage = New System.Windows.Forms.TextBox()
         Me.ActionMessage = New System.Windows.Forms.TextBox()
+        Me.IntroMessage = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
         'ErrorHeading
         '
         Me.ErrorHeading.AutoSize = True
         Me.ErrorHeading.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Bold)
-        Me.ErrorHeading.Location = New System.Drawing.Point(12, 9)
+        Me.ErrorHeading.Location = New System.Drawing.Point(12, 41)
         Me.ErrorHeading.Name = "ErrorHeading"
         Me.ErrorHeading.Size = New System.Drawing.Size(99, 13)
         Me.ErrorHeading.TabIndex = 0
@@ -63,7 +62,7 @@ Partial Class ExceptionDialog
         '
         Me.ActionHeading.AutoSize = True
         Me.ActionHeading.Font = New System.Drawing.Font("Tahoma", 8.0!, System.Drawing.FontStyle.Bold)
-        Me.ActionHeading.Location = New System.Drawing.Point(12, 161)
+        Me.ActionHeading.Location = New System.Drawing.Point(12, 180)
         Me.ActionHeading.Name = "ActionHeading"
         Me.ActionHeading.Size = New System.Drawing.Size(104, 13)
         Me.ActionHeading.TabIndex = 4
@@ -71,8 +70,7 @@ Partial Class ExceptionDialog
         '
         'btnOK
         '
-        Me.btnOK.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnOK.Location = New System.Drawing.Point(347, 477)
+        Me.btnOK.Location = New System.Drawing.Point(12, 316)
         Me.btnOK.Name = "btnOK"
         Me.btnOK.Size = New System.Drawing.Size(75, 24)
         Me.btnOK.TabIndex = 2
@@ -90,33 +88,24 @@ Partial Class ExceptionDialog
         Me.ErrorDetails.Name = "ErrorDetails"
         Me.ErrorDetails.ReadOnly = True
         Me.ErrorDetails.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.ErrorDetails.Size = New System.Drawing.Size(410, 125)
+        Me.ErrorDetails.Size = New System.Drawing.Size(410, 150)
         Me.ErrorDetails.TabIndex = 3
         Me.ErrorDetails.Text = "(detailed information, such as exception details)"
         '
         'btnMore
         '
-        Me.btnMore.Location = New System.Drawing.Point(12, 316)
+        Me.btnMore.Location = New System.Drawing.Point(293, 316)
         Me.btnMore.Name = "btnMore"
         Me.btnMore.Size = New System.Drawing.Size(129, 24)
         Me.btnMore.TabIndex = 0
         Me.btnMore.Text = "Show error details >>"
-        '
-        'btnCopy
-        '
-        Me.btnCopy.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnCopy.Location = New System.Drawing.Point(347, 316)
-        Me.btnCopy.Name = "btnCopy"
-        Me.btnCopy.Size = New System.Drawing.Size(75, 24)
-        Me.btnCopy.TabIndex = 1
-        Me.btnCopy.Text = "Copy"
         '
         'ErrorMessage
         '
         Me.ErrorMessage.BackColor = System.Drawing.SystemColors.Control
         Me.ErrorMessage.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.ErrorMessage.Enabled = False
-        Me.ErrorMessage.Location = New System.Drawing.Point(15, 25)
+        Me.ErrorMessage.Location = New System.Drawing.Point(15, 57)
         Me.ErrorMessage.Multiline = True
         Me.ErrorMessage.Name = "ErrorMessage"
         Me.ErrorMessage.ReadOnly = True
@@ -130,22 +119,32 @@ Partial Class ExceptionDialog
         Me.ActionMessage.BackColor = System.Drawing.SystemColors.Control
         Me.ActionMessage.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.ActionMessage.Enabled = False
-        Me.ActionMessage.Location = New System.Drawing.Point(15, 177)
+        Me.ActionMessage.Location = New System.Drawing.Point(15, 196)
         Me.ActionMessage.Multiline = True
         Me.ActionMessage.Name = "ActionMessage"
         Me.ActionMessage.ReadOnly = True
-        Me.ActionMessage.Size = New System.Drawing.Size(407, 120)
+        Me.ActionMessage.Size = New System.Drawing.Size(407, 114)
         Me.ActionMessage.TabIndex = 7
         Me.ActionMessage.TabStop = False
         Me.ActionMessage.Text = "Restart the IAIP and try repeating your last action."
         '
+        'IntroMessage
+        '
+        Me.IntroMessage.AutoSize = True
+        Me.IntroMessage.Location = New System.Drawing.Point(12, 9)
+        Me.IntroMessage.Name = "IntroMessage"
+        Me.IntroMessage.Size = New System.Drawing.Size(263, 13)
+        Me.IntroMessage.TabIndex = 8
+        Me.IntroMessage.Text = "A copy of this error message has been sent to EPD-IT."
+        '
         'ExceptionDialog
         '
+        Me.AcceptButton = Me.btnOK
         Me.AutoScaleBaseSize = New System.Drawing.Size(5, 13)
         Me.ClientSize = New System.Drawing.Size(434, 508)
+        Me.Controls.Add(Me.IntroMessage)
         Me.Controls.Add(Me.ActionMessage)
         Me.Controls.Add(Me.ErrorMessage)
-        Me.Controls.Add(Me.btnCopy)
         Me.Controls.Add(Me.btnMore)
         Me.Controls.Add(Me.ErrorDetails)
         Me.Controls.Add(Me.btnOK)
@@ -164,4 +163,5 @@ Partial Class ExceptionDialog
 
     End Sub
 
+    Friend WithEvents IntroMessage As Label
 End Class
