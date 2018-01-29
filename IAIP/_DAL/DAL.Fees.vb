@@ -18,13 +18,15 @@ Namespace DAL
             Dim query As String =
                 "SELECT * FROM VW_FEES_FACILITY_SUMMARY " &
                 " WHERE NUMFEEYEAR BETWEEN @startFeeYear AND @endFeeYear " &
-                " AND (@airs IS NULL OR STRAIRSNUMBER = @airs) "
+                " AND (@airs IS NULL OR STRAIRSNUMBER = @airs) " &
+                " ORDER BY STRAIRSNUMBER, NUMFEEYEAR DESC "
 
             Dim parameters As SqlParameter() = {
                 New SqlParameter("@startFeeYear", startFeeYear),
                 New SqlParameter("@endFeeYear", endFeeYear),
                 New SqlParameter("@airs", airs.DbFormattedString)
             }
+
             Return DB.GetDataTable(query, parameters)
         End Function
 
