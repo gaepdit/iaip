@@ -46,12 +46,15 @@ Namespace DAL.Sscp
 
             If Not String.IsNullOrEmpty(staffId) Then query &= " AND NUMSTAFFRESPONSIBLE = @staffId "
 
+            query &= " ORDER BY STRAIRSNUMBER, ENFORCEMENTDATE DESC, STRENFORCEMENTNUMBER DESC "
+
             Dim parameters As SqlParameter() = {
                 New SqlParameter("@datestart", dateRangeStart),
                 New SqlParameter("@dateend", dateRangeEnd),
                 New SqlParameter("@airs", airs.DbFormattedString),
                 New SqlParameter("@staffId", staffId)
             }
+
             Return DB.GetDataTable(query, parameters, True)
         End Function
 

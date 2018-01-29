@@ -14,7 +14,6 @@ Friend Class ExceptionDialog
 
     Const _intSpacing As Integer = 10
     Const showMoreText As String = "Show error details >>"
-    Const hideMoreText As String = "Hide error details <<"
 
     Public Property Unrecoverable As Boolean = False
 
@@ -33,7 +32,6 @@ Friend Class ExceptionDialog
         btnMore.Text = showMoreText
         ErrorDetails.Anchor = AnchorStyles.None
         ErrorDetails.Visible = False
-        btnCopy.Visible = False
 
         '-- size the labels' height to accommodate the amount of text in them
         SizeBox(ErrorMessage)
@@ -42,12 +40,11 @@ Friend Class ExceptionDialog
         '-- now shift everything up
         ActionHeading.Top = ErrorMessage.Top + ErrorMessage.Height + _intSpacing
         ActionMessage.Top = ActionHeading.Top + ActionHeading.Height + _intSpacing
-
-        btnMore.Top = ActionMessage.Top + ActionMessage.Height + _intSpacing - 3
-        btnCopy.Top = btnMore.Top
+        btnMore.Top = ActionMessage.Top + ActionMessage.Height + _intSpacing + _intSpacing - 3
+        btnOK.Top = ActionMessage.Top + ActionMessage.Height + _intSpacing + _intSpacing - 3
 
         '-- now shift bottom of dialog up
-        ClientSize = New Size(ClientSize.Width, btnMore.Top + btnMore.Height + _intSpacing + btnOK.Height + _intSpacing)
+        ClientSize = New Size(ClientSize.Width, btnOK.Top + btnOK.Height + _intSpacing)
 
         CenterToScreen()
     End Sub
@@ -65,32 +62,16 @@ Friend Class ExceptionDialog
     End Sub
 
     Private Sub btnMore_Click(sender As Object, e As EventArgs) Handles btnMore.Click
-        If btnMore.Text = showMoreText Then
-            Height = Height + 300
-            With ErrorDetails
-                .Location = New Point(btnMore.Left, btnMore.Top + btnMore.Height + _intSpacing)
-                .Height = ClientSize.Height - ErrorDetails.Top - _intSpacing - btnOK.Height - _intSpacing
-                .Anchor = AnchorStyles.Top Or AnchorStyles.Bottom _
-                            Or AnchorStyles.Left Or AnchorStyles.Right
-                .Visible = True
-            End With
-            btnMore.Text = hideMoreText
-            btnCopy.Visible = True
-            btnCopy.Focus()
-        Else
-            SuspendLayout()
-            btnMore.Text = showMoreText
-            ClientSize = New Size(ClientSize.Width, btnMore.Top + btnMore.Height + _intSpacing + btnOK.Height + _intSpacing)
-            ErrorDetails.Anchor = AnchorStyles.None
-            ErrorDetails.Visible = False
-            btnCopy.Visible = False
-            ResumeLayout()
-        End If
-    End Sub
+        Height = Height + 300
 
-    Private Sub btnCopy_Click(sender As Object, e As EventArgs) Handles btnCopy.Click
-        Clipboard.SetText(ErrorDetails.Text)
-        btnCopy.Text = "Copied!"
+        With ErrorDetails
+            .Location = New Point(btnOK.Left, btnOK.Top + btnOK.Height + _intSpacing)
+            .Height = ClientSize.Height - ErrorDetails.Top - _intSpacing
+            .Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right
+            .Visible = True
+        End With
+
+        btnMore.Visible = False
     End Sub
 
     Private Sub btnOK_Click(sender As Object, e As EventArgs) Handles btnOK.Click

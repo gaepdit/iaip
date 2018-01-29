@@ -34,7 +34,7 @@ Public Class SSPPStatisticalTools
             Year = Year - 1
         Loop
 
-        cboEPAYear.SelectedItem = Today.Year
+        cboEPAYear.Text = Today.Year.ToString
     End Sub
     Private Sub LoadComboBoxs()
         Try
@@ -1051,11 +1051,11 @@ Public Class SSPPStatisticalTools
 
             If cboEPAYear.Text <> "" Then
                 If rdbJanuaryReport.Checked = True Then
-                    StartDate = New Date((CDate("31-Dec-" & cboEPAYear.Text).AddMonths(-12).Year), 12, 31)
-                    EndDate = New Date(cboEPAYear.Text, 7, 1)
+                    StartDate = New Date(CInt(cboEPAYear.Text) - 1, 12, 31)
+                    EndDate = New Date(CInt(cboEPAYear.Text), 7, 1)
                 Else
-                    StartDate = New Date(cboEPAYear.Text, 6, 30)
-                    EndDate = New Date((CDate("01-Jan-" & cboEPAYear.Text).AddMonths(12).Year), 1, 1)
+                    StartDate = New Date(CInt(cboEPAYear.Text), 6, 30)
+                    EndDate = New Date(CInt(cboEPAYear.Text) + 1, 1, 1)
                 End If
             Else
                 StartDate = New Date((Now.AddMonths(-12).Year), 12, 31)
@@ -4101,8 +4101,7 @@ Public Class SSPPStatisticalTools
             If cboEPAYear.Text <> "" And (rdbJanuaryReport.Checked = True Or rdbJulyReport.Checked = True) Then
                 RunEPAReport()
             Else
-                MsgBox("Either a year is not selected or the Reporting period is not selected.", MsgBoxStyle.Information, "Reports and Statistical Tools")
-
+                MsgBox("Either a year is not selected or the reporting period is not selected.", MsgBoxStyle.Information, "Reports and Statistical Tools")
             End If
 
         Catch ex As Exception
@@ -4316,15 +4315,15 @@ Public Class SSPPStatisticalTools
 
             If cboEPAYear.Text <> "" Then
                 If rdbJanuaryReport.Checked = True Then
-                    StartDate = New Date(cboEPAYear.SelectedValue - 1, 12, 31)
-                    EndDate = New Date(cboEPAYear.SelectedValue, 7, 1)
+                    StartDate = New Date(CInt(cboEPAYear.Text) - 1, 12, 31)
+                    EndDate = New Date(CInt(cboEPAYear.Text), 7, 1)
                 Else
-                    StartDate = New Date(cboEPAYear.SelectedValue, 6, 30)
-                    EndDate = New Date(cboEPAYear.SelectedValue + 1, 1, 1)
+                    StartDate = New Date(CInt(cboEPAYear.Text), 6, 30)
+                    EndDate = New Date(CInt(cboEPAYear.Text) + 1, 1, 1)
                 End If
             Else
-                StartDate = "31-Dec-" & (Now.AddMonths(-12).Year).ToString
-                EndDate = "01-Jul-" & Now.Year.ToString
+                StartDate = New Date((Now.AddMonths(-12).Year), 12, 31)
+                EndDate = New Date(Now.Year, 7, 1)
             End If
 
             Dim p As SqlParameter() = {
@@ -4406,15 +4405,15 @@ Public Class SSPPStatisticalTools
 
             If cboEPAYear.Text <> "" Then
                 If rdbJanuaryReport.Checked = True Then
-                    StartDate = New Date(cboEPAYear.SelectedValue - 1, 12, 31)
-                    EndDate = New Date(cboEPAYear.SelectedValue, 7, 1)
+                    StartDate = New Date(CInt(cboEPAYear.Text) - 1, 12, 31)
+                    EndDate = New Date(CInt(cboEPAYear.Text), 7, 1)
                 Else
-                    StartDate = New Date(cboEPAYear.SelectedValue, 6, 30)
-                    EndDate = New Date(cboEPAYear.SelectedValue + 1, 1, 1)
+                    StartDate = New Date(CInt(cboEPAYear.Text), 6, 30)
+                    EndDate = New Date(CInt(cboEPAYear.Text) + 1, 1, 1)
                 End If
             Else
-                StartDate = "31-Dec-" & (Now.AddMonths(-12).Year).ToString
-                EndDate = "01-Jul-" & Now.Year.ToString
+                StartDate = New Date((Now.AddMonths(-12).Year), 12, 31)
+                EndDate = New Date(Now.Year, 7, 1)
             End If
 
             Dim p As SqlParameter() = {
@@ -4497,12 +4496,12 @@ Public Class SSPPStatisticalTools
 
             If cboEPAYear.Text <> "" Then
                 If rdbJanuaryReport.Checked = True Then
-                    EndDate = New Date(cboEPAYear.SelectedValue, 7, 1)
+                    EndDate = New Date(CInt(cboEPAYear.Text), 7, 1)
                 Else
-                    EndDate = New Date(cboEPAYear.SelectedValue + 1, 1, 1)
+                    EndDate = New Date(CInt(cboEPAYear.Text) + 1, 1, 1)
                 End If
             Else
-                EndDate = "01-Jul-" & Now.Year.ToString
+                EndDate = New Date(Now.Year, 7, 1)
             End If
 
             Dim p As New SqlParameter("@EndDate", EndDate)
@@ -4575,12 +4574,12 @@ Public Class SSPPStatisticalTools
 
             If cboEPAYear.Text <> "" Then
                 If rdbJanuaryReport.Checked = True Then
-                    EndDate = New Date(cboEPAYear.SelectedValue, 7, 1)
+                    EndDate = New Date(CInt(cboEPAYear.Text), 7, 1)
                 Else
-                    EndDate = New Date(cboEPAYear.SelectedValue + 1, 1, 1)
+                    EndDate = New Date(CInt(cboEPAYear.Text) + 1, 1, 1)
                 End If
             Else
-                EndDate = "01-Jul-" & Now.Year.ToString
+                EndDate = New Date(Now.Year, 7, 1)
             End If
 
             Dim p As New SqlParameter("@EndDate", EndDate)
@@ -4652,48 +4651,54 @@ Public Class SSPPStatisticalTools
 
             If cboEPAYear.Text <> "" Then
                 If rdbJanuaryReport.Checked = True Then
-                    EndDate = New Date(cboEPAYear.SelectedValue, 7, 1)
+                    EndDate = New Date(CInt(cboEPAYear.Text), 7, 1)
                 Else
-                    EndDate = New Date(cboEPAYear.SelectedValue + 1, 1, 1)
+                    EndDate = New Date(CInt(cboEPAYear.Text) + 1, 1, 1)
                 End If
             Else
-                EndDate = "01-Jul-" & Now.Year.ToString
+                EndDate = New Date(Now.Year, 7, 1)
             End If
 
             Dim p As New SqlParameter("@EndDate", EndDate)
 
             If txtEPA6b.Text <> "" Then
-                query = "select " &
-            "distinct(SUBSTRING(SSPPApplicationMaster.strAIRSnumber, 5,8) ) as AIRSNumber,  " &
-            "strFacilityName, " &
-            "format(MaxDate, 'yyyy-MM-dd') as MaxDate " &
-            "from SSPPApplicationMaster,  " &
-            "SSPPApplicationTracking, APBHeaderData,  " &
-            "APBFacilityInformation,   " &
-            "(select  " &
-         "strAIRSNumber,  " &
-            "max(datEffective) as MaxDate  " &
-            "from SSPPApplicationMaster, SSPPApplicationTracking  " &
-            "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
-            "and datEffective is not null  " &
-            "group by strAIRSnumber) Effect,  " &
-            "(Select  " &
-            "distinct(SSPPApplicationMaster.strAIRSnumber) as AIRSNumber " &
-            "from SSPPApplicationMaster, SSPPApplicationTracking  " &
-            "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
-            "and datReceiveddate < DATEADD(month, -6, @EndDate)  " &
-            "and datReceivedDate > DATEADD(month, -54, @EndDate)  " &
-            "and (strApplicationType = '16' or strApplicationType = '12')) PermitRequests   " &
-            "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationnumber " &
-            "and APBHeaderData.strAIRSNumber = SSPPApplicationMaster.strAIRSNumber   " &
-            "and APBHeaderData.strAIRSNumber = APBFacilityInformation.strAIRSNumber  " &
-            "and SSPPApplicationMaster.strAIRSNumber = Effect.strAIRSnumber  " &
-            "and MaxDate = SSPPApplicationTracking.datEffective " &
-            "and maxDate < DATEADD(month, , @EndDate) " &
-            "and strOperationalStatus = 'O'  " &
-            "and SUBSTRING(strAirProgramCodes, 13, 1) = '1'  " &
-            "and SSPPApplicationMaster.strAIRSNumber = PermitRequests.AIRSNumber  " &
-            "order by AIRSNumber "
+                query = "SELECT DISTINCT
+                        SUBSTRING(m.strAIRSnumber, 5, 8) AS AIRSNumber,
+                        strFacilityName,
+                        format(MaxDate, 'yyyy-MM-dd')    AS MaxDate
+                    FROM SSPPApplicationMaster m
+                        INNER JOIN SSPPApplicationTracking t
+                            ON m.strApplicationNumber = t.strApplicationnumber
+                        INNER JOIN APBHeaderData h
+                            ON h.strAIRSNumber = m.strAIRSNumber
+                        INNER JOIN APBFacilityInformation i
+                            ON h.strAIRSNumber = i.strAIRSNumber
+                        INNER JOIN
+                        (
+                            SELECT
+                                strAIRSNumber,
+                                max(datEffective) AS MaxDate
+                            FROM SSPPApplicationMaster m
+                                INNER JOIN SSPPApplicationTracking t
+                                    ON m.strApplicationNumber = t.strApplicationNumber
+                            WHERE datEffective IS NOT NULL
+                            GROUP BY strAIRSnumber) Effect
+                            ON m.strAIRSNumber = Effect.strAIRSnumber
+                        INNER JOIN
+                        (
+                            SELECT DISTINCT (m.strAIRSnumber) AS AIRSNumber
+                            FROM SSPPApplicationMaster m
+                                INNER JOIN SSPPApplicationTracking t
+                                    ON m.strApplicationNumber = t.strApplicationNumber
+                            WHERE datReceiveddate < DATEADD(MONTH, -6, @EndDate)
+                                  AND datReceivedDate > DATEADD(MONTH, -54, @EndDate)
+                                  AND (strApplicationType = '16' OR strApplicationType = '12')) PermitRequests
+                            ON m.strAIRSNumber = PermitRequests.AIRSNumber
+                    WHERE MaxDate = t.datEffective
+                          AND maxDate < DATEADD(MONTH, -54, @EndDate)
+                          AND strOperationalStatus = 'O'
+                          AND SUBSTRING(strAirProgramCodes, 13, 1) = '1'
+                    ORDER BY AIRSNumber "
 
                 dgvApplicationCount.DataSource = DB.GetDataTable(query, p)
 
@@ -4731,66 +4736,104 @@ Public Class SSPPStatisticalTools
 
             If cboEPAYear.Text <> "" Then
                 If rdbJanuaryReport.Checked = True Then
-                    EndDate = New Date(cboEPAYear.SelectedValue, 7, 1)
+                    EndDate = New Date(CInt(cboEPAYear.Text), 7, 1)
                 Else
-                    EndDate = New Date(cboEPAYear.SelectedValue + 1, 1, 1)
+                    EndDate = New Date(CInt(cboEPAYear.Text) + 1, 1, 1)
                 End If
             Else
-                EndDate = "01-Jul-" & Now.Year.ToString
+                EndDate = New Date(Now.Year, 7, 1)
             End If
 
             Dim p As New SqlParameter("@EndDate", EndDate)
 
             If txtEPA6C.Text <> "" Then
-                query = "select * " &
-                "from (Select *  From  " &
-                "(select  " &
-                "distinct(SUBSTRING(SSPPApplicationMaster.strAIRSnumber, 5,8)) as AIRSNumber,   " &
-                "strFacilityName, MaxDate  " &
-                "from SSPPApplicationMaster,  SSPPApplicationTracking,  " &
-                "APBHeaderData, APBFacilityInformation,  " &
-                "(select  strAIRSNumber,  " &
-                "max(datEffective) as MaxDate   " &
-                "from SSPPApplicationMaster, SSPPApplicationTracking   " &
-                "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber   " &
-                "and datEffective is not null  GROUP BY strAIRSNumber) Effect,   " &
-                "(Select  distinct(SSPPApplicationMaster.strAIRSnumber) as AIRSNumber  " &
-                "from SSPPApplicationMaster, SSPPApplicationTracking   " &
-                "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber  " &
-                "and datReceiveddate < DATEADD(month, -6, @EndDate)   " &
-                "and datReceivedDate > DATEADD(month, -54, @EndDate)   " &
-                "and strApplicationType <> '16'   " &
-                "and strApplicationType <> '12') PermitRequests    " &
-                "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationnumber  " &
-                "and APBHeaderData.strAIRSnumber = APBFacilityInformation.strAIRSNumber " &
-                "and APBHeaderData.strAIRSNumber = SSPPApplicationMaster.strAIRSNumber    " &
-                "and SSPPApplicationMaster.strAIRSNumber = Effect.strAIRSnumber   " &
-                "and MaxDate = SSPPApplicationTracking.datEffective  " &
-                "and maxDate < DATEADD(month, -54, @EndDate) " &
-                "and strOperationalStatus = 'O'   " &
-                "and SUBSTRING(strAirProgramCodes, 13, 1) = '1'  " &
-                "and SSPPApplicationMaster.strAIRSNumber = PermitRequests.AIRSNumber))  EPA6A " &
-                "where not exists  " &
-                "(select * from (Select *   " &
-                "From (select distinct(SUBSTRING(SSPPApplicationMaster.strAIRSnumber, 5,8) ) as AIRSNumber,   " &
-                "strFacilityName, MaxDate from SSPPApplicationMaster,  SSPPApplicationTracking, APBHeaderData,   " &
-                "APBFacilityInformation,   (select  strAIRSNumber,  max(datEffective) as MaxDate  from SSPPApplicationMaster,  " &
-                "SSPPApplicationTracking   " &
-                "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber   " &
-                "and datEffective is not null  group by strAIRSnumber) Effect,   " &
-                "(Select  distinct(SSPPApplicationMaster.strAIRSnumber) as AIRSNumber from SSPPApplicationMaster,  " &
-                "SSPPApplicationTracking   " &
-                "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationNumber   " &
-                "and datReceiveddate < DATEADD(month, -6, @EndDate )  and datReceivedDate > DATEADD(month, -54, @EndDate)   " &
-                "and (strApplicationType = '16' or strApplicationType = '12')) PermitRequests    " &
-                "where SSPPApplicationMaster.strApplicationNumber = SSPPApplicationTracking.strApplicationnumber  " &
-                "and APBHeaderData.strAIRSNumber = SSPPApplicationMaster.strAIRSNumber    " &
-                "and APBHeaderData.strAIRSNumber = APBFacilityInformation.strAIRSNumber  " &
-                "and SSPPApplicationMaster.strAIRSNumber = Effect.strAIRSnumber  " &
-                "and MaxDate = SSPPApplicationTracking.datEffective  " &
-                "and maxDate < DATEADD(month, -54, @EndDate)  " &
-                "and strOperationalStatus = 'O'  and SUBSTRING(strAirProgramCodes, 13, 1) = '1'   " &
-                "and SSPPApplicationMaster.strAIRSNumber = PermitRequests.AIRSNumber)  ) EPA6b where  EPA6A.airsnumber = EPA6b.airsNumber) "
+                query = "SELECT *
+                    FROM (
+                             SELECT DISTINCT
+                                 SUBSTRING(m.strAIRSnumber, 5, 8) AS AIRSNumber,
+                                 strFacilityName,
+                                 MaxDate
+                             FROM SSPPApplicationMaster m
+                                 INNER JOIN SSPPApplicationTracking t
+                                     ON m.strApplicationNumber = t.strApplicationnumber
+                                 INNER JOIN APBHeaderData h
+                                     ON h.strAIRSNumber = m.strAIRSNumber
+                                 INNER JOIN APBFacilityInformation i
+                                     ON h.strAIRSnumber = i.strAIRSNumber
+                                 INNER JOIN
+                                 (
+                                     SELECT
+                                         strAIRSNumber,
+                                         max(datEffective) AS MaxDate
+                                     FROM
+                                         SSPPApplicationMaster m
+                                         INNER JOIN SSPPApplicationTracking t
+                                             ON m.strApplicationNumber = t.strApplicationNumber
+                                     WHERE datEffective IS NOT NULL
+                                     GROUP BY strAIRSNumber
+                                 ) Effect
+                                     ON m.strAIRSNumber = Effect.strAIRSnumber
+                                 INNER JOIN
+                                 (
+                                     SELECT DISTINCT (strAIRSnumber) AS AIRSNumber
+                                     FROM SSPPApplicationMaster m
+                                         INNER JOIN SSPPApplicationTracking t
+                                             ON m.strApplicationNumber = t.strApplicationNumber
+                                     WHERE datReceiveddate < DATEADD(MONTH, -6, @EndDate)
+                                           AND datReceivedDate > DATEADD(MONTH, -54, @EndDate)
+                                           AND strApplicationType <> '16'
+                                           AND strApplicationType <> '12'
+                                 ) PermitRequests
+                                     ON m.strAIRSNumber = PermitRequests.AIRSNumber
+                             WHERE MaxDate = t.datEffective
+                                   AND maxDate < DATEADD(MONTH, -54, @EndDate)
+                                   AND strOperationalStatus = 'O'
+                                   AND SUBSTRING(strAirProgramCodes, 13, 1) = '1'
+                         ) EPA6A
+                    WHERE NOT exists(
+                        SELECT *
+                        FROM (
+                                 SELECT DISTINCT
+                                     SUBSTRING(m.strAIRSnumber, 5, 8) AS AIRSNumber,
+                                     strFacilityName,
+                                     MaxDate
+                                 FROM SSPPApplicationMaster m
+                                     INNER JOIN SSPPApplicationTracking t
+                                         ON m.strApplicationNumber = t.strApplicationnumber
+                                     INNER JOIN APBHeaderData h
+                                         ON h.strAIRSNumber = m.strAIRSNumber
+                                     INNER JOIN APBFacilityInformation i
+                                         ON h.strAIRSNumber = i.strAIRSNumber
+                                     INNER JOIN
+                                     (
+                                         SELECT
+                                             strAIRSNumber,
+                                             max(datEffective) AS MaxDate
+                                         FROM SSPPApplicationMaster,
+                                             SSPPApplicationTracking
+                                         WHERE SSPPApplicationMaster.strApplicationNumber =
+                                               SSPPApplicationTracking.strApplicationNumber
+                                               AND datEffective IS NOT NULL
+                                         GROUP BY strAIRSnumber
+                                     ) Effect
+                                         ON m.strAIRSNumber = Effect.strAIRSnumber
+                                     INNER JOIN
+                                     (
+                                         SELECT DISTINCT (m.strAIRSnumber) AS AIRSNumber
+                                         FROM SSPPApplicationMaster m
+                                             INNER JOIN SSPPApplicationTracking t
+                                                 ON m.strApplicationNumber = t.strApplicationNumber
+                                         WHERE datReceiveddate < DATEADD(MONTH, -6, @EndDate)
+                                               AND datReceivedDate > DATEADD(MONTH, -54, @EndDate)
+                                               AND (strApplicationType = '16' OR strApplicationType = '12')
+                                     ) PermitRequests
+                                         ON m.strAIRSNumber = PermitRequests.AIRSNumber
+                                 WHERE MaxDate = t.datEffective
+                                       AND maxDate < DATEADD(MONTH, -54, @EndDate)
+                                       AND strOperationalStatus = 'O'
+                                       AND SUBSTRING(strAirProgramCodes, 13, 1) = '1'
+                             ) EPA6b
+                        WHERE EPA6A.airsnumber = EPA6b.airsNumber) "
 
                 dgvApplicationCount.DataSource = DB.GetDataTable(query, p)
 
@@ -4828,15 +4871,15 @@ Public Class SSPPStatisticalTools
 
             If cboEPAYear.Text <> "" Then
                 If rdbJanuaryReport.Checked = True Then
-                    StartDate = New Date(cboEPAYear.SelectedValue - 1, 12, 31)
-                    EndDate = New Date(cboEPAYear.SelectedValue, 7, 1)
+                    StartDate = New Date(CInt(cboEPAYear.Text) - 1, 12, 31)
+                    EndDate = New Date(CInt(cboEPAYear.Text), 7, 1)
                 Else
-                    StartDate = New Date(cboEPAYear.SelectedValue, 6, 30)
-                    EndDate = New Date(cboEPAYear.SelectedValue + 1, 1, 1)
+                    StartDate = New Date(CInt(cboEPAYear.Text), 6, 30)
+                    EndDate = New Date(CInt(cboEPAYear.Text) + 1, 1, 1)
                 End If
             Else
-                StartDate = "31-Dec-" & (Now.AddMonths(-12).Year).ToString
-                EndDate = "01-Jul-" & Now.Year.ToString
+                StartDate = New Date((Now.AddMonths(-12).Year), 12, 31)
+                EndDate = New Date(Now.Year, 7, 1)
             End If
 
             Dim p As SqlParameter() = {
@@ -4918,15 +4961,15 @@ Public Class SSPPStatisticalTools
 
             If cboEPAYear.Text <> "" Then
                 If rdbJanuaryReport.Checked = True Then
-                    StartDate = New Date(cboEPAYear.SelectedValue - 1, 12, 31)
-                    EndDate = New Date(cboEPAYear.SelectedValue, 7, 1)
+                    StartDate = New Date(CInt(cboEPAYear.Text) - 1, 12, 31)
+                    EndDate = New Date(CInt(cboEPAYear.Text), 7, 1)
                 Else
-                    StartDate = New Date(cboEPAYear.SelectedValue, 6, 30)
-                    EndDate = New Date(cboEPAYear.SelectedValue + 1, 1, 1)
+                    StartDate = New Date(CInt(cboEPAYear.Text), 6, 30)
+                    EndDate = New Date(CInt(cboEPAYear.Text) + 1, 1, 1)
                 End If
             Else
-                StartDate = "31-Dec-" & (Now.AddMonths(-12).Year).ToString
-                EndDate = "01-Jul-" & Now.Year.ToString
+                StartDate = New Date((Now.AddMonths(-12).Year), 12, 31)
+                EndDate = New Date(Now.Year, 7, 1)
             End If
 
             Dim p As SqlParameter() = {
@@ -5009,15 +5052,15 @@ Public Class SSPPStatisticalTools
 
             If cboEPAYear.Text <> "" Then
                 If rdbJanuaryReport.Checked = True Then
-                    StartDate = New Date(cboEPAYear.SelectedValue - 1, 12, 31)
-                    EndDate = New Date(cboEPAYear.SelectedValue, 7, 1)
+                    StartDate = New Date(CInt(cboEPAYear.Text) - 1, 12, 31)
+                    EndDate = New Date(CInt(cboEPAYear.Text), 7, 1)
                 Else
-                    StartDate = New Date(cboEPAYear.SelectedValue, 6, 30)
-                    EndDate = New Date(cboEPAYear.SelectedValue + 1, 1, 1)
+                    StartDate = New Date(CInt(cboEPAYear.Text), 6, 30)
+                    EndDate = New Date(CInt(cboEPAYear.Text) + 1, 1, 1)
                 End If
             Else
-                StartDate = "31-Dec-" & (Now.AddMonths(-12).Year).ToString
-                EndDate = "01-Jul-" & Now.Year.ToString
+                StartDate = New Date((Now.AddMonths(-12).Year), 12, 31)
+                EndDate = New Date(Now.Year, 7, 1)
             End If
 
             Dim p As SqlParameter() = {
@@ -5099,12 +5142,12 @@ Public Class SSPPStatisticalTools
 
             If cboEPAYear.Text <> "" Then
                 If rdbJanuaryReport.Checked = True Then
-                    EndDate = New Date(cboEPAYear.SelectedValue, 7, 1)
+                    EndDate = New Date(CInt(cboEPAYear.Text), 7, 1)
                 Else
-                    EndDate = New Date(cboEPAYear.SelectedValue + 1, 1, 1)
+                    EndDate = New Date(CInt(cboEPAYear.Text) + 1, 1, 1)
                 End If
             Else
-                EndDate = "01-Jul-" & Now.Year.ToString
+                EndDate = New Date(Now.Year, 7, 1)
             End If
 
             Dim p As SqlParameter() = {

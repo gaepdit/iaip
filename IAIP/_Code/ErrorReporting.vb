@@ -6,7 +6,7 @@
     ''' <param name="exc">The exception to be handled.</param>
     ''' <param name="contextMessage">A string representing the context of the error.</param>
     Public Sub ErrorReport(exc As Exception, contextMessage As String, Optional displayErrorToUser As Boolean = True)
-        ErrorReport(exc, "", contextMessage, displayErrorToUser)
+        ErrorReport(exc, Nothing, contextMessage, displayErrorToUser)
     End Sub
 
     ''' <summary>
@@ -19,7 +19,9 @@
         ' First, log the exception using our analytics program. This is more reliable.
 #If Not DEBUG Then
         ExceptionLogger.Tags.Add("context", contextMessage)
-        exc.Data.Add(NameOf(SupplementalMessage), "Test supplemental message")
+        If Not String.IsNullOrEmpty(SupplementalMessage) Then
+            exc.Data.Add(NameOf(SupplementalMessage), SupplementalMessage)
+        End If
         ExceptionLogger.Capture(New SharpRaven.Data.SentryEvent(exc))
         ExceptionLogger.Tags.Remove("context")
 #End If

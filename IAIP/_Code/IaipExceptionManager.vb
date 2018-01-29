@@ -15,11 +15,12 @@ Public Class IaipExceptionManager
 #If Not DEBUG Then
         ExceptionLogger.Tags.Add("context", NameOf(Application_ThreadException))
         e.Exception.Data.Add("Sender", sender.ToString)
+        e.Exception.Data.Add("Unrecoverable", True)
         ExceptionLogger.Capture(New SharpRaven.Data.SentryEvent(e.Exception))
         ExceptionLogger.Tags.Remove("context")
 #End If
 
-        Dim WhatHappened As String = "An unexpected error has occurred." & Environment.NewLine & Environment.NewLine &
+        Dim WhatHappened As String = "An unrecoverable error has occurred." & Environment.NewLine & Environment.NewLine &
             "The action you requested was not performed. When you click Exit, the IAIP will close."
 
         Dim WhatUserCanDo As String = "• Restart the IAIP and try repeating your last action." & Environment.NewLine & Environment.NewLine &
@@ -40,8 +41,7 @@ Public Class IaipExceptionManager
                                            ) As DialogResult
 
         If WhatHappened = "" Then
-            WhatHappened = "An unexpected error has occurred. The action you requested was not performed." & Environment.NewLine & Environment.NewLine &
-            "When you click OK, the IAIP will close."
+            WhatHappened = "An unexpected error has occurred. The action you requested was not performed."
         End If
 
         If WhatUserCanDo = "" Then
