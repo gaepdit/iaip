@@ -51,6 +51,8 @@ Namespace DAL.Sscp
                 params.Add(New SqlParameter("@year", year))
             End If
 
+            query &= " ORDER BY STRAIRSNUMBER, STRFCEYEAR DESC "
+
             Dim parameters As SqlParameter() = params.ToArray
             Return DB.GetDataTable(query, parameters)
         End Function

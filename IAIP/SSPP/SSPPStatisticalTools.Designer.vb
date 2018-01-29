@@ -164,6 +164,7 @@ Partial Class SSPPStatisticalTools
         Me.Label40 = New System.Windows.Forms.Label()
         Me.Label41 = New System.Windows.Forms.Label()
         Me.TPEPAReport = New System.Windows.Forms.TabPage()
+        Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
         Me.Panel4 = New System.Windows.Forms.Panel()
         Me.llbViewEPA6c = New System.Windows.Forms.LinkLabel()
         Me.txtEPA6C = New System.Windows.Forms.TextBox()
@@ -229,8 +230,9 @@ Partial Class SSPPStatisticalTools
         Me.Label6 = New System.Windows.Forms.Label()
         Me.Label46 = New System.Windows.Forms.Label()
         Me.Label44 = New System.Windows.Forms.Label()
-        Me.GroupBox6 = New System.Windows.Forms.GroupBox()
         Me.txtEPAReportText = New System.Windows.Forms.TextBox()
+        Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.Label73 = New System.Windows.Forms.Label()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.btnExportToExcel = New System.Windows.Forms.Button()
         Me.txtApplicationCount = New System.Windows.Forms.TextBox()
@@ -252,8 +254,12 @@ Partial Class SSPPStatisticalTools
         Me.GroupBox4.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
         Me.TPEPAReport.SuspendLayout()
+        CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.SplitContainer1.Panel1.SuspendLayout()
+        Me.SplitContainer1.Panel2.SuspendLayout()
+        Me.SplitContainer1.SuspendLayout()
         Me.Panel4.SuspendLayout()
-        Me.GroupBox6.SuspendLayout()
+        Me.Panel1.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
         CType(Me.dgvApplicationCount, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -902,7 +908,7 @@ Partial Class SSPPStatisticalTools
         Me.TPOpenApplications.Location = New System.Drawing.Point(4, 22)
         Me.TPOpenApplications.Name = "TPOpenApplications"
         Me.TPOpenApplications.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPOpenApplications.Size = New System.Drawing.Size(508, 616)
+        Me.TPOpenApplications.Size = New System.Drawing.Size(508, 648)
         Me.TPOpenApplications.TabIndex = 1
         Me.TPOpenApplications.Text = "Open Applications"
         Me.TPOpenApplications.UseVisualStyleBackColor = True
@@ -915,7 +921,7 @@ Partial Class SSPPStatisticalTools
         Me.TabControl1.Location = New System.Drawing.Point(3, 3)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(502, 610)
+        Me.TabControl1.Size = New System.Drawing.Size(502, 642)
         Me.TabControl1.TabIndex = 0
         '
         'TPAllOpenApplications
@@ -955,7 +961,7 @@ Partial Class SSPPStatisticalTools
         Me.TPAllOpenApplications.Location = New System.Drawing.Point(4, 22)
         Me.TPAllOpenApplications.Name = "TPAllOpenApplications"
         Me.TPAllOpenApplications.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPAllOpenApplications.Size = New System.Drawing.Size(494, 584)
+        Me.TPAllOpenApplications.Size = New System.Drawing.Size(494, 616)
         Me.TPAllOpenApplications.TabIndex = 0
         Me.TPAllOpenApplications.Text = "All Open Application(s)"
         Me.TPAllOpenApplications.UseVisualStyleBackColor = True
@@ -1259,7 +1265,7 @@ Partial Class SSPPStatisticalTools
         Me.TPAgeofOpenApplications.Location = New System.Drawing.Point(4, 22)
         Me.TPAgeofOpenApplications.Name = "TPAgeofOpenApplications"
         Me.TPAgeofOpenApplications.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPAgeofOpenApplications.Size = New System.Drawing.Size(494, 584)
+        Me.TPAgeofOpenApplications.Size = New System.Drawing.Size(494, 616)
         Me.TPAgeofOpenApplications.TabIndex = 1
         Me.TPAgeofOpenApplications.Text = "Age of Open Application(s)"
         Me.TPAgeofOpenApplications.UseVisualStyleBackColor = True
@@ -1697,14 +1703,36 @@ Partial Class SSPPStatisticalTools
         '
         'TPEPAReport
         '
-        Me.TPEPAReport.Controls.Add(Me.Panel4)
-        Me.TPEPAReport.Controls.Add(Me.GroupBox6)
+        Me.TPEPAReport.Controls.Add(Me.SplitContainer1)
         Me.TPEPAReport.Location = New System.Drawing.Point(4, 22)
         Me.TPEPAReport.Name = "TPEPAReport"
-        Me.TPEPAReport.Size = New System.Drawing.Size(508, 616)
+        Me.TPEPAReport.Size = New System.Drawing.Size(508, 648)
         Me.TPEPAReport.TabIndex = 2
         Me.TPEPAReport.Text = "Semi-Annual EPA Report"
         Me.TPEPAReport.UseVisualStyleBackColor = True
+        '
+        'SplitContainer1
+        '
+        Me.SplitContainer1.BackColor = System.Drawing.SystemColors.Highlight
+        Me.SplitContainer1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.SplitContainer1.Location = New System.Drawing.Point(0, 0)
+        Me.SplitContainer1.Name = "SplitContainer1"
+        Me.SplitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal
+        '
+        'SplitContainer1.Panel1
+        '
+        Me.SplitContainer1.Panel1.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.SplitContainer1.Panel1.Controls.Add(Me.Panel4)
+        '
+        'SplitContainer1.Panel2
+        '
+        Me.SplitContainer1.Panel2.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.SplitContainer1.Panel2.Controls.Add(Me.txtEPAReportText)
+        Me.SplitContainer1.Panel2.Controls.Add(Me.Panel1)
+        Me.SplitContainer1.Panel2MinSize = 100
+        Me.SplitContainer1.Size = New System.Drawing.Size(508, 648)
+        Me.SplitContainer1.SplitterDistance = 436
+        Me.SplitContainer1.TabIndex = 7
         '
         'Panel4
         '
@@ -1712,7 +1740,6 @@ Partial Class SSPPStatisticalTools
         Me.Panel4.Controls.Add(Me.llbViewEPA6c)
         Me.Panel4.Controls.Add(Me.txtEPA6C)
         Me.Panel4.Controls.Add(Me.Label81)
-        Me.Panel4.Controls.Add(Me.btnUpdateEPAReport)
         Me.Panel4.Controls.Add(Me.llbViewEPA8a)
         Me.Panel4.Controls.Add(Me.llbViewEPA7c)
         Me.Panel4.Controls.Add(Me.llbViewEPA7b)
@@ -1776,13 +1803,13 @@ Partial Class SSPPStatisticalTools
         Me.Panel4.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel4.Location = New System.Drawing.Point(0, 0)
         Me.Panel4.Name = "Panel4"
-        Me.Panel4.Size = New System.Drawing.Size(508, 399)
+        Me.Panel4.Size = New System.Drawing.Size(508, 436)
         Me.Panel4.TabIndex = 14
         '
         'llbViewEPA6c
         '
         Me.llbViewEPA6c.AutoSize = True
-        Me.llbViewEPA6c.Location = New System.Drawing.Point(359, 867)
+        Me.llbViewEPA6c.Location = New System.Drawing.Point(346, 857)
         Me.llbViewEPA6c.Name = "llbViewEPA6c"
         Me.llbViewEPA6c.Size = New System.Drawing.Size(30, 13)
         Me.llbViewEPA6c.TabIndex = 82
@@ -1791,7 +1818,7 @@ Partial Class SSPPStatisticalTools
         '
         'txtEPA6C
         '
-        Me.txtEPA6C.Location = New System.Drawing.Point(301, 867)
+        Me.txtEPA6C.Location = New System.Drawing.Point(288, 854)
         Me.txtEPA6C.Name = "txtEPA6C"
         Me.txtEPA6C.Size = New System.Drawing.Size(52, 20)
         Me.txtEPA6C.TabIndex = 81
@@ -1799,7 +1826,7 @@ Partial Class SSPPStatisticalTools
         'Label81
         '
         Me.Label81.AutoSize = True
-        Me.Label81.Location = New System.Drawing.Point(101, 867)
+        Me.Label81.Location = New System.Drawing.Point(99, 854)
         Me.Label81.Name = "Label81"
         Me.Label81.Size = New System.Drawing.Size(125, 52)
         Me.Label81.TabIndex = 80
@@ -1809,17 +1836,17 @@ Partial Class SSPPStatisticalTools
         'btnUpdateEPAReport
         '
         Me.btnUpdateEPAReport.AutoSize = True
-        Me.btnUpdateEPAReport.Location = New System.Drawing.Point(285, 44)
+        Me.btnUpdateEPAReport.Location = New System.Drawing.Point(98, 5)
         Me.btnUpdateEPAReport.Name = "btnUpdateEPAReport"
-        Me.btnUpdateEPAReport.Size = New System.Drawing.Size(87, 23)
+        Me.btnUpdateEPAReport.Size = New System.Drawing.Size(63, 23)
         Me.btnUpdateEPAReport.TabIndex = 79
-        Me.btnUpdateEPAReport.Text = "Update Report"
+        Me.btnUpdateEPAReport.Text = "Update"
         Me.btnUpdateEPAReport.UseVisualStyleBackColor = True
         '
         'llbViewEPA8a
         '
         Me.llbViewEPA8a.AutoSize = True
-        Me.llbViewEPA8a.Location = New System.Drawing.Point(360, 1121)
+        Me.llbViewEPA8a.Location = New System.Drawing.Point(346, 1112)
         Me.llbViewEPA8a.Name = "llbViewEPA8a"
         Me.llbViewEPA8a.Size = New System.Drawing.Size(30, 13)
         Me.llbViewEPA8a.TabIndex = 78
@@ -1829,7 +1856,7 @@ Partial Class SSPPStatisticalTools
         'llbViewEPA7c
         '
         Me.llbViewEPA7c.AutoSize = True
-        Me.llbViewEPA7c.Location = New System.Drawing.Point(360, 1050)
+        Me.llbViewEPA7c.Location = New System.Drawing.Point(346, 1041)
         Me.llbViewEPA7c.Name = "llbViewEPA7c"
         Me.llbViewEPA7c.Size = New System.Drawing.Size(30, 13)
         Me.llbViewEPA7c.TabIndex = 77
@@ -1839,7 +1866,7 @@ Partial Class SSPPStatisticalTools
         'llbViewEPA7b
         '
         Me.llbViewEPA7b.AutoSize = True
-        Me.llbViewEPA7b.Location = New System.Drawing.Point(360, 981)
+        Me.llbViewEPA7b.Location = New System.Drawing.Point(346, 972)
         Me.llbViewEPA7b.Name = "llbViewEPA7b"
         Me.llbViewEPA7b.Size = New System.Drawing.Size(30, 13)
         Me.llbViewEPA7b.TabIndex = 76
@@ -1849,7 +1876,7 @@ Partial Class SSPPStatisticalTools
         'llbViewEPA7a
         '
         Me.llbViewEPA7a.AutoSize = True
-        Me.llbViewEPA7a.Location = New System.Drawing.Point(360, 924)
+        Me.llbViewEPA7a.Location = New System.Drawing.Point(346, 915)
         Me.llbViewEPA7a.Name = "llbViewEPA7a"
         Me.llbViewEPA7a.Size = New System.Drawing.Size(30, 13)
         Me.llbViewEPA7a.TabIndex = 75
@@ -1859,7 +1886,7 @@ Partial Class SSPPStatisticalTools
         'llbViewEPA6b
         '
         Me.llbViewEPA6b.AutoSize = True
-        Me.llbViewEPA6b.Location = New System.Drawing.Point(360, 824)
+        Me.llbViewEPA6b.Location = New System.Drawing.Point(346, 815)
         Me.llbViewEPA6b.Name = "llbViewEPA6b"
         Me.llbViewEPA6b.Size = New System.Drawing.Size(30, 13)
         Me.llbViewEPA6b.TabIndex = 74
@@ -1869,7 +1896,7 @@ Partial Class SSPPStatisticalTools
         'llbViewEPA6a
         '
         Me.llbViewEPA6a.AutoSize = True
-        Me.llbViewEPA6a.Location = New System.Drawing.Point(360, 778)
+        Me.llbViewEPA6a.Location = New System.Drawing.Point(346, 769)
         Me.llbViewEPA6a.Name = "llbViewEPA6a"
         Me.llbViewEPA6a.Size = New System.Drawing.Size(30, 13)
         Me.llbViewEPA6a.TabIndex = 73
@@ -1879,7 +1906,7 @@ Partial Class SSPPStatisticalTools
         'llbViewEPA5a
         '
         Me.llbViewEPA5a.AutoSize = True
-        Me.llbViewEPA5a.Location = New System.Drawing.Point(360, 714)
+        Me.llbViewEPA5a.Location = New System.Drawing.Point(346, 705)
         Me.llbViewEPA5a.Name = "llbViewEPA5a"
         Me.llbViewEPA5a.Size = New System.Drawing.Size(30, 13)
         Me.llbViewEPA5a.TabIndex = 72
@@ -1889,7 +1916,7 @@ Partial Class SSPPStatisticalTools
         'llbViewEPA4b
         '
         Me.llbViewEPA4b.AutoSize = True
-        Me.llbViewEPA4b.Location = New System.Drawing.Point(360, 641)
+        Me.llbViewEPA4b.Location = New System.Drawing.Point(346, 632)
         Me.llbViewEPA4b.Name = "llbViewEPA4b"
         Me.llbViewEPA4b.Size = New System.Drawing.Size(30, 13)
         Me.llbViewEPA4b.TabIndex = 71
@@ -1899,7 +1926,7 @@ Partial Class SSPPStatisticalTools
         'llbViewEPA4a
         '
         Me.llbViewEPA4a.AutoSize = True
-        Me.llbViewEPA4a.Location = New System.Drawing.Point(360, 580)
+        Me.llbViewEPA4a.Location = New System.Drawing.Point(346, 571)
         Me.llbViewEPA4a.Name = "llbViewEPA4a"
         Me.llbViewEPA4a.Size = New System.Drawing.Size(30, 13)
         Me.llbViewEPA4a.TabIndex = 70
@@ -1909,7 +1936,7 @@ Partial Class SSPPStatisticalTools
         'llbViewEPA3a
         '
         Me.llbViewEPA3a.AutoSize = True
-        Me.llbViewEPA3a.Location = New System.Drawing.Point(362, 531)
+        Me.llbViewEPA3a.Location = New System.Drawing.Point(346, 522)
         Me.llbViewEPA3a.Name = "llbViewEPA3a"
         Me.llbViewEPA3a.Size = New System.Drawing.Size(30, 13)
         Me.llbViewEPA3a.TabIndex = 69
@@ -1919,7 +1946,7 @@ Partial Class SSPPStatisticalTools
         'llbViewEPA2d
         '
         Me.llbViewEPA2d.AutoSize = True
-        Me.llbViewEPA2d.Location = New System.Drawing.Point(360, 429)
+        Me.llbViewEPA2d.Location = New System.Drawing.Point(346, 420)
         Me.llbViewEPA2d.Name = "llbViewEPA2d"
         Me.llbViewEPA2d.Size = New System.Drawing.Size(30, 13)
         Me.llbViewEPA2d.TabIndex = 68
@@ -1929,7 +1956,7 @@ Partial Class SSPPStatisticalTools
         'llbViewEPA2a
         '
         Me.llbViewEPA2a.AutoSize = True
-        Me.llbViewEPA2a.Location = New System.Drawing.Point(362, 168)
+        Me.llbViewEPA2a.Location = New System.Drawing.Point(346, 155)
         Me.llbViewEPA2a.Name = "llbViewEPA2a"
         Me.llbViewEPA2a.Size = New System.Drawing.Size(30, 13)
         Me.llbViewEPA2a.TabIndex = 65
@@ -1940,67 +1967,66 @@ Partial Class SSPPStatisticalTools
         '
         Me.txtEPA9a.AcceptsReturn = True
         Me.txtEPA9a.AcceptsTab = True
-        Me.txtEPA9a.Location = New System.Drawing.Point(104, 1179)
+        Me.txtEPA9a.Location = New System.Drawing.Point(102, 1166)
         Me.txtEPA9a.Multiline = True
         Me.txtEPA9a.Name = "txtEPA9a"
-        Me.txtEPA9a.Size = New System.Drawing.Size(288, 88)
+        Me.txtEPA9a.Size = New System.Drawing.Size(288, 85)
         Me.txtEPA9a.TabIndex = 48
         '
         'txtEPA8a
         '
-        Me.txtEPA8a.Location = New System.Drawing.Point(302, 1121)
+        Me.txtEPA8a.Location = New System.Drawing.Point(288, 1109)
         Me.txtEPA8a.Name = "txtEPA8a"
         Me.txtEPA8a.Size = New System.Drawing.Size(52, 20)
         Me.txtEPA8a.TabIndex = 47
         '
         'txtEPA7c
         '
-        Me.txtEPA7c.Location = New System.Drawing.Point(302, 1050)
+        Me.txtEPA7c.Location = New System.Drawing.Point(288, 1038)
         Me.txtEPA7c.Name = "txtEPA7c"
         Me.txtEPA7c.Size = New System.Drawing.Size(52, 20)
         Me.txtEPA7c.TabIndex = 46
         '
         'txtEPA7b
         '
-        Me.txtEPA7b.Location = New System.Drawing.Point(302, 981)
+        Me.txtEPA7b.Location = New System.Drawing.Point(288, 969)
         Me.txtEPA7b.Name = "txtEPA7b"
         Me.txtEPA7b.Size = New System.Drawing.Size(52, 20)
         Me.txtEPA7b.TabIndex = 45
         '
         'txtEPA7a
         '
-        Me.txtEPA7a.Location = New System.Drawing.Point(302, 924)
+        Me.txtEPA7a.Location = New System.Drawing.Point(288, 912)
         Me.txtEPA7a.Name = "txtEPA7a"
         Me.txtEPA7a.Size = New System.Drawing.Size(52, 20)
         Me.txtEPA7a.TabIndex = 44
         '
         'txtEPA6b
         '
-        Me.txtEPA6b.Location = New System.Drawing.Point(302, 824)
+        Me.txtEPA6b.Location = New System.Drawing.Point(288, 812)
         Me.txtEPA6b.Name = "txtEPA6b"
         Me.txtEPA6b.Size = New System.Drawing.Size(52, 20)
         Me.txtEPA6b.TabIndex = 43
         '
         'txtEPA6a
         '
-        Me.txtEPA6a.Location = New System.Drawing.Point(302, 778)
+        Me.txtEPA6a.Location = New System.Drawing.Point(288, 766)
         Me.txtEPA6a.Name = "txtEPA6a"
         Me.txtEPA6a.Size = New System.Drawing.Size(52, 20)
         Me.txtEPA6a.TabIndex = 42
         '
         'Label70
         '
-        Me.Label70.AutoSize = True
-        Me.Label70.Location = New System.Drawing.Point(5, 1179)
+        Me.Label70.Location = New System.Drawing.Point(3, 1166)
         Me.Label70.Name = "Label70"
-        Me.Label70.Size = New System.Drawing.Size(74, 52)
+        Me.Label70.Size = New System.Drawing.Size(74, 99)
         Me.Label70.TabIndex = 41
         Me.Label70.Text = "9. Comments " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "    and " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "    Additional " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "    Information "
         '
         'Label69
         '
         Me.Label69.AutoSize = True
-        Me.Label69.Location = New System.Drawing.Point(102, 1121)
+        Me.Label69.Location = New System.Drawing.Point(100, 1108)
         Me.Label69.Name = "Label69"
         Me.Label69.Size = New System.Drawing.Size(143, 52)
         Me.Label69.TabIndex = 40
@@ -2010,7 +2036,7 @@ Partial Class SSPPStatisticalTools
         'Label68
         '
         Me.Label68.AutoSize = True
-        Me.Label68.Location = New System.Drawing.Point(5, 1121)
+        Me.Label68.Location = New System.Drawing.Point(3, 1108)
         Me.Label68.Name = "Label68"
         Me.Label68.Size = New System.Drawing.Size(81, 52)
         Me.Label68.TabIndex = 39
@@ -2019,7 +2045,7 @@ Partial Class SSPPStatisticalTools
         'Label67
         '
         Me.Label67.AutoSize = True
-        Me.Label67.Location = New System.Drawing.Point(102, 1050)
+        Me.Label67.Location = New System.Drawing.Point(100, 1037)
         Me.Label67.Name = "Label67"
         Me.Label67.Size = New System.Drawing.Size(136, 65)
         Me.Label67.TabIndex = 38
@@ -2029,7 +2055,7 @@ Partial Class SSPPStatisticalTools
         'Label66
         '
         Me.Label66.AutoSize = True
-        Me.Label66.Location = New System.Drawing.Point(102, 981)
+        Me.Label66.Location = New System.Drawing.Point(100, 968)
         Me.Label66.Name = "Label66"
         Me.Label66.Size = New System.Drawing.Size(136, 65)
         Me.Label66.TabIndex = 37
@@ -2039,7 +2065,7 @@ Partial Class SSPPStatisticalTools
         'Label65
         '
         Me.Label65.AutoSize = True
-        Me.Label65.Location = New System.Drawing.Point(102, 924)
+        Me.Label65.Location = New System.Drawing.Point(100, 911)
         Me.Label65.Name = "Label65"
         Me.Label65.Size = New System.Drawing.Size(133, 52)
         Me.Label65.TabIndex = 36
@@ -2049,7 +2075,7 @@ Partial Class SSPPStatisticalTools
         'Label64
         '
         Me.Label64.AutoSize = True
-        Me.Label64.Location = New System.Drawing.Point(5, 924)
+        Me.Label64.Location = New System.Drawing.Point(3, 911)
         Me.Label64.Name = "Label64"
         Me.Label64.Size = New System.Drawing.Size(84, 78)
         Me.Label64.TabIndex = 35
@@ -2059,7 +2085,7 @@ Partial Class SSPPStatisticalTools
         'Label63
         '
         Me.Label63.AutoSize = True
-        Me.Label63.Location = New System.Drawing.Point(102, 824)
+        Me.Label63.Location = New System.Drawing.Point(100, 811)
         Me.Label63.Name = "Label63"
         Me.Label63.Size = New System.Drawing.Size(129, 39)
         Me.Label63.TabIndex = 34
@@ -2068,7 +2094,7 @@ Partial Class SSPPStatisticalTools
         'Label62
         '
         Me.Label62.AutoSize = True
-        Me.Label62.Location = New System.Drawing.Point(102, 778)
+        Me.Label62.Location = New System.Drawing.Point(100, 765)
         Me.Label62.Name = "Label62"
         Me.Label62.Size = New System.Drawing.Size(141, 39)
         Me.Label62.TabIndex = 33
@@ -2077,7 +2103,7 @@ Partial Class SSPPStatisticalTools
         'Label61
         '
         Me.Label61.AutoSize = True
-        Me.Label61.Location = New System.Drawing.Point(5, 778)
+        Me.Label61.Location = New System.Drawing.Point(3, 765)
         Me.Label61.Name = "Label61"
         Me.Label61.Size = New System.Drawing.Size(79, 52)
         Me.Label61.TabIndex = 32
@@ -2085,7 +2111,7 @@ Partial Class SSPPStatisticalTools
         '
         'txtEPA5a
         '
-        Me.txtEPA5a.Location = New System.Drawing.Point(302, 714)
+        Me.txtEPA5a.Location = New System.Drawing.Point(288, 702)
         Me.txtEPA5a.Name = "txtEPA5a"
         Me.txtEPA5a.Size = New System.Drawing.Size(52, 20)
         Me.txtEPA5a.TabIndex = 30
@@ -2093,7 +2119,7 @@ Partial Class SSPPStatisticalTools
         'Label59
         '
         Me.Label59.AutoSize = True
-        Me.Label59.Location = New System.Drawing.Point(102, 714)
+        Me.Label59.Location = New System.Drawing.Point(100, 701)
         Me.Label59.Name = "Label59"
         Me.Label59.Size = New System.Drawing.Size(137, 39)
         Me.Label59.TabIndex = 29
@@ -2103,7 +2129,7 @@ Partial Class SSPPStatisticalTools
         'Label58
         '
         Me.Label58.AutoSize = True
-        Me.Label58.Location = New System.Drawing.Point(5, 714)
+        Me.Label58.Location = New System.Drawing.Point(3, 701)
         Me.Label58.Name = "Label58"
         Me.Label58.Size = New System.Drawing.Size(83, 52)
         Me.Label58.TabIndex = 28
@@ -2111,14 +2137,14 @@ Partial Class SSPPStatisticalTools
         '
         'txtEPA4b
         '
-        Me.txtEPA4b.Location = New System.Drawing.Point(302, 641)
+        Me.txtEPA4b.Location = New System.Drawing.Point(288, 629)
         Me.txtEPA4b.Name = "txtEPA4b"
         Me.txtEPA4b.Size = New System.Drawing.Size(52, 20)
         Me.txtEPA4b.TabIndex = 27
         '
         'txtEPA4a
         '
-        Me.txtEPA4a.Location = New System.Drawing.Point(302, 580)
+        Me.txtEPA4a.Location = New System.Drawing.Point(288, 568)
         Me.txtEPA4a.Name = "txtEPA4a"
         Me.txtEPA4a.Size = New System.Drawing.Size(52, 20)
         Me.txtEPA4a.TabIndex = 26
@@ -2126,7 +2152,7 @@ Partial Class SSPPStatisticalTools
         'Label57
         '
         Me.Label57.AutoSize = True
-        Me.Label57.Location = New System.Drawing.Point(102, 641)
+        Me.Label57.Location = New System.Drawing.Point(100, 628)
         Me.Label57.Name = "Label57"
         Me.Label57.Size = New System.Drawing.Size(137, 65)
         Me.Label57.TabIndex = 25
@@ -2136,7 +2162,7 @@ Partial Class SSPPStatisticalTools
         'Label56
         '
         Me.Label56.AutoSize = True
-        Me.Label56.Location = New System.Drawing.Point(102, 580)
+        Me.Label56.Location = New System.Drawing.Point(100, 567)
         Me.Label56.Name = "Label56"
         Me.Label56.Size = New System.Drawing.Size(136, 52)
         Me.Label56.TabIndex = 24
@@ -2146,7 +2172,7 @@ Partial Class SSPPStatisticalTools
         'Label55
         '
         Me.Label55.AutoSize = True
-        Me.Label55.Location = New System.Drawing.Point(5, 580)
+        Me.Label55.Location = New System.Drawing.Point(3, 567)
         Me.Label55.Name = "Label55"
         Me.Label55.Size = New System.Drawing.Size(83, 52)
         Me.Label55.TabIndex = 23
@@ -2154,7 +2180,7 @@ Partial Class SSPPStatisticalTools
         '
         'txtEPA3a
         '
-        Me.txtEPA3a.Location = New System.Drawing.Point(302, 531)
+        Me.txtEPA3a.Location = New System.Drawing.Point(288, 519)
         Me.txtEPA3a.Name = "txtEPA3a"
         Me.txtEPA3a.Size = New System.Drawing.Size(52, 20)
         Me.txtEPA3a.TabIndex = 22
@@ -2162,7 +2188,7 @@ Partial Class SSPPStatisticalTools
         'Label54
         '
         Me.Label54.AutoSize = True
-        Me.Label54.Location = New System.Drawing.Point(102, 531)
+        Me.Label54.Location = New System.Drawing.Point(100, 518)
         Me.Label54.Name = "Label54"
         Me.Label54.Size = New System.Drawing.Size(137, 26)
         Me.Label54.TabIndex = 21
@@ -2170,28 +2196,28 @@ Partial Class SSPPStatisticalTools
         '
         'txtEPA2d
         '
-        Me.txtEPA2d.Location = New System.Drawing.Point(302, 429)
+        Me.txtEPA2d.Location = New System.Drawing.Point(288, 417)
         Me.txtEPA2d.Name = "txtEPA2d"
         Me.txtEPA2d.Size = New System.Drawing.Size(52, 20)
         Me.txtEPA2d.TabIndex = 20
         '
         'txtEPA2c
         '
-        Me.txtEPA2c.Location = New System.Drawing.Point(302, 399)
+        Me.txtEPA2c.Location = New System.Drawing.Point(288, 387)
         Me.txtEPA2c.Name = "txtEPA2c"
         Me.txtEPA2c.Size = New System.Drawing.Size(52, 20)
         Me.txtEPA2c.TabIndex = 19
         '
         'txtEPA2b
         '
-        Me.txtEPA2b.Location = New System.Drawing.Point(302, 262)
+        Me.txtEPA2b.Location = New System.Drawing.Point(288, 250)
         Me.txtEPA2b.Name = "txtEPA2b"
         Me.txtEPA2b.Size = New System.Drawing.Size(52, 20)
         Me.txtEPA2b.TabIndex = 18
         '
         'txtEPA2a
         '
-        Me.txtEPA2a.Location = New System.Drawing.Point(302, 164)
+        Me.txtEPA2a.Location = New System.Drawing.Point(288, 152)
         Me.txtEPA2a.Name = "txtEPA2a"
         Me.txtEPA2a.Size = New System.Drawing.Size(52, 20)
         Me.txtEPA2a.TabIndex = 17
@@ -2199,7 +2225,7 @@ Partial Class SSPPStatisticalTools
         'Label53
         '
         Me.Label53.AutoSize = True
-        Me.Label53.Location = New System.Drawing.Point(5, 531)
+        Me.Label53.Location = New System.Drawing.Point(3, 518)
         Me.Label53.Name = "Label53"
         Me.Label53.Size = New System.Drawing.Size(79, 39)
         Me.Label53.TabIndex = 16
@@ -2208,7 +2234,7 @@ Partial Class SSPPStatisticalTools
         'Label52
         '
         Me.Label52.AutoSize = True
-        Me.Label52.Location = New System.Drawing.Point(102, 429)
+        Me.Label52.Location = New System.Drawing.Point(100, 416)
         Me.Label52.Name = "Label52"
         Me.Label52.Size = New System.Drawing.Size(137, 91)
         Me.Label52.TabIndex = 15
@@ -2217,7 +2243,7 @@ Partial Class SSPPStatisticalTools
         'Label51
         '
         Me.Label51.AutoSize = True
-        Me.Label51.Location = New System.Drawing.Point(102, 399)
+        Me.Label51.Location = New System.Drawing.Point(100, 386)
         Me.Label51.Name = "Label51"
         Me.Label51.Size = New System.Drawing.Size(129, 26)
         Me.Label51.TabIndex = 14
@@ -2226,7 +2252,7 @@ Partial Class SSPPStatisticalTools
         'Label50
         '
         Me.Label50.AutoSize = True
-        Me.Label50.Location = New System.Drawing.Point(102, 262)
+        Me.Label50.Location = New System.Drawing.Point(100, 249)
         Me.Label50.Name = "Label50"
         Me.Label50.Size = New System.Drawing.Size(138, 130)
         Me.Label50.TabIndex = 13
@@ -2235,7 +2261,7 @@ Partial Class SSPPStatisticalTools
         'Label49
         '
         Me.Label49.AutoSize = True
-        Me.Label49.Location = New System.Drawing.Point(102, 164)
+        Me.Label49.Location = New System.Drawing.Point(100, 151)
         Me.Label49.Name = "Label49"
         Me.Label49.Size = New System.Drawing.Size(139, 91)
         Me.Label49.TabIndex = 12
@@ -2247,7 +2273,7 @@ Partial Class SSPPStatisticalTools
         '
         Me.rdbJulyReport.AutoSize = True
         Me.rdbJulyReport.CheckAlign = System.Drawing.ContentAlignment.TopLeft
-        Me.rdbJulyReport.Location = New System.Drawing.Point(131, 8)
+        Me.rdbJulyReport.Location = New System.Drawing.Point(138, 8)
         Me.rdbJulyReport.Name = "rdbJulyReport"
         Me.rdbJulyReport.Size = New System.Drawing.Size(144, 30)
         Me.rdbJulyReport.TabIndex = 2
@@ -2257,7 +2283,7 @@ Partial Class SSPPStatisticalTools
         'Label48
         '
         Me.Label48.AutoSize = True
-        Me.Label48.Location = New System.Drawing.Point(5, 164)
+        Me.Label48.Location = New System.Drawing.Point(3, 151)
         Me.Label48.Name = "Label48"
         Me.Label48.Size = New System.Drawing.Size(96, 65)
         Me.Label48.TabIndex = 11
@@ -2269,7 +2295,7 @@ Partial Class SSPPStatisticalTools
         Me.rdbJanuaryReport.AutoSize = True
         Me.rdbJanuaryReport.CheckAlign = System.Drawing.ContentAlignment.TopLeft
         Me.rdbJanuaryReport.Checked = True
-        Me.rdbJanuaryReport.Location = New System.Drawing.Point(2, 8)
+        Me.rdbJanuaryReport.Location = New System.Drawing.Point(8, 8)
         Me.rdbJanuaryReport.Name = "rdbJanuaryReport"
         Me.rdbJanuaryReport.Size = New System.Drawing.Size(124, 30)
         Me.rdbJanuaryReport.TabIndex = 1
@@ -2279,7 +2305,7 @@ Partial Class SSPPStatisticalTools
         '
         'txtEPA1c
         '
-        Me.txtEPA1c.Location = New System.Drawing.Point(302, 130)
+        Me.txtEPA1c.Location = New System.Drawing.Point(288, 118)
         Me.txtEPA1c.Name = "txtEPA1c"
         Me.txtEPA1c.Size = New System.Drawing.Size(52, 20)
         Me.txtEPA1c.TabIndex = 10
@@ -2288,30 +2314,30 @@ Partial Class SSPPStatisticalTools
         '
         Me.cboEPAYear.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cboEPAYear.FormattingEnabled = True
-        Me.cboEPAYear.Location = New System.Drawing.Point(302, 8)
+        Me.cboEPAYear.Location = New System.Drawing.Point(288, 8)
         Me.cboEPAYear.Name = "cboEPAYear"
         Me.cboEPAYear.Size = New System.Drawing.Size(90, 21)
         Me.cboEPAYear.TabIndex = 3
         '
         'txtEPA1b
         '
-        Me.txtEPA1b.Location = New System.Drawing.Point(302, 101)
+        Me.txtEPA1b.Location = New System.Drawing.Point(288, 89)
         Me.txtEPA1b.Name = "txtEPA1b"
         Me.txtEPA1b.Size = New System.Drawing.Size(52, 20)
         Me.txtEPA1b.TabIndex = 9
         '
         'btnRunEPAReport
         '
-        Me.btnRunEPAReport.Location = New System.Drawing.Point(8, 44)
+        Me.btnRunEPAReport.Location = New System.Drawing.Point(384, 7)
         Me.btnRunEPAReport.Name = "btnRunEPAReport"
-        Me.btnRunEPAReport.Size = New System.Drawing.Size(75, 23)
+        Me.btnRunEPAReport.Size = New System.Drawing.Size(88, 23)
         Me.btnRunEPAReport.TabIndex = 0
         Me.btnRunEPAReport.Text = "Run Report"
         Me.btnRunEPAReport.UseVisualStyleBackColor = True
         '
         'txtEPA1a
         '
-        Me.txtEPA1a.Location = New System.Drawing.Point(302, 74)
+        Me.txtEPA1a.Location = New System.Drawing.Point(288, 62)
         Me.txtEPA1a.Name = "txtEPA1a"
         Me.txtEPA1a.Size = New System.Drawing.Size(52, 20)
         Me.txtEPA1a.TabIndex = 8
@@ -2319,7 +2345,7 @@ Partial Class SSPPStatisticalTools
         'Label47
         '
         Me.Label47.AutoSize = True
-        Me.Label47.Location = New System.Drawing.Point(102, 124)
+        Me.Label47.Location = New System.Drawing.Point(100, 111)
         Me.Label47.Name = "Label47"
         Me.Label47.Size = New System.Drawing.Size(136, 26)
         Me.Label47.TabIndex = 7
@@ -2328,7 +2354,7 @@ Partial Class SSPPStatisticalTools
         'Label6
         '
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(5, 78)
+        Me.Label6.Location = New System.Drawing.Point(3, 65)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(79, 39)
         Me.Label6.TabIndex = 4
@@ -2337,7 +2363,7 @@ Partial Class SSPPStatisticalTools
         'Label46
         '
         Me.Label46.AutoSize = True
-        Me.Label46.Location = New System.Drawing.Point(102, 95)
+        Me.Label46.Location = New System.Drawing.Point(100, 82)
         Me.Label46.Name = "Label46"
         Me.Label46.Size = New System.Drawing.Size(105, 26)
         Me.Label46.TabIndex = 6
@@ -2346,34 +2372,42 @@ Partial Class SSPPStatisticalTools
         'Label44
         '
         Me.Label44.AutoSize = True
-        Me.Label44.Location = New System.Drawing.Point(102, 78)
+        Me.Label44.Location = New System.Drawing.Point(100, 65)
         Me.Label44.Name = "Label44"
         Me.Label44.Size = New System.Drawing.Size(130, 13)
         Me.Label44.TabIndex = 5
         Me.Label44.Text = "a) Number of final actions:"
-        '
-        'GroupBox6
-        '
-        Me.GroupBox6.Controls.Add(Me.txtEPAReportText)
-        Me.GroupBox6.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.GroupBox6.Location = New System.Drawing.Point(0, 399)
-        Me.GroupBox6.Name = "GroupBox6"
-        Me.GroupBox6.Size = New System.Drawing.Size(508, 217)
-        Me.GroupBox6.TabIndex = 5
-        Me.GroupBox6.TabStop = False
-        Me.GroupBox6.Text = "EPA Report Text"
         '
         'txtEPAReportText
         '
         Me.txtEPAReportText.AcceptsReturn = True
         Me.txtEPAReportText.AcceptsTab = True
         Me.txtEPAReportText.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.txtEPAReportText.Location = New System.Drawing.Point(3, 16)
+        Me.txtEPAReportText.Location = New System.Drawing.Point(0, 35)
         Me.txtEPAReportText.Multiline = True
         Me.txtEPAReportText.Name = "txtEPAReportText"
         Me.txtEPAReportText.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.txtEPAReportText.Size = New System.Drawing.Size(502, 198)
+        Me.txtEPAReportText.Size = New System.Drawing.Size(508, 173)
         Me.txtEPAReportText.TabIndex = 6
+        '
+        'Panel1
+        '
+        Me.Panel1.Controls.Add(Me.Label73)
+        Me.Panel1.Controls.Add(Me.btnUpdateEPAReport)
+        Me.Panel1.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel1.Location = New System.Drawing.Point(0, 0)
+        Me.Panel1.Name = "Panel1"
+        Me.Panel1.Size = New System.Drawing.Size(508, 35)
+        Me.Panel1.TabIndex = 7
+        '
+        'Label73
+        '
+        Me.Label73.AutoSize = True
+        Me.Label73.Location = New System.Drawing.Point(5, 10)
+        Me.Label73.Name = "Label73"
+        Me.Label73.Size = New System.Drawing.Size(87, 13)
+        Me.Label73.TabIndex = 0
+        Me.Label73.Text = "EPA Report Text"
         '
         'GroupBox1
         '
@@ -2480,10 +2514,15 @@ Partial Class SSPPStatisticalTools
         Me.GroupBox3.ResumeLayout(False)
         Me.GroupBox3.PerformLayout()
         Me.TPEPAReport.ResumeLayout(False)
+        Me.SplitContainer1.Panel1.ResumeLayout(False)
+        Me.SplitContainer1.Panel2.ResumeLayout(False)
+        Me.SplitContainer1.Panel2.PerformLayout()
+        CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.SplitContainer1.ResumeLayout(False)
         Me.Panel4.ResumeLayout(False)
         Me.Panel4.PerformLayout()
-        Me.GroupBox6.ResumeLayout(False)
-        Me.GroupBox6.PerformLayout()
+        Me.Panel1.ResumeLayout(False)
+        Me.Panel1.PerformLayout()
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         CType(Me.dgvApplicationCount, System.ComponentModel.ISupportInitialize).EndInit()
@@ -2631,7 +2670,6 @@ Partial Class SSPPStatisticalTools
     Friend WithEvents rdbJulyReport As System.Windows.Forms.RadioButton
     Friend WithEvents rdbJanuaryReport As System.Windows.Forms.RadioButton
     Friend WithEvents btnRunEPAReport As System.Windows.Forms.Button
-    Friend WithEvents GroupBox6 As System.Windows.Forms.GroupBox
     Friend WithEvents txtEPAReportText As System.Windows.Forms.TextBox
     Friend WithEvents Label44 As System.Windows.Forms.Label
     Friend WithEvents Label6 As System.Windows.Forms.Label
@@ -2708,4 +2746,7 @@ Partial Class SSPPStatisticalTools
     Friend WithEvents llbViewEPA6c As System.Windows.Forms.LinkLabel
     Friend WithEvents txtEPA6C As System.Windows.Forms.TextBox
     Friend WithEvents Label81 As System.Windows.Forms.Label
+    Friend WithEvents SplitContainer1 As SplitContainer
+    Friend WithEvents Panel1 As Panel
+    Friend WithEvents Label73 As Label
 End Class
