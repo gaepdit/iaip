@@ -3240,7 +3240,7 @@ Public Class EisTool
             If txtSelectedEISStatYear.Text = "" Then
                 Exit Sub
             End If
-            EIS_VIEW(txtSelectedEISStatYear.Text, "", "0", "1", "", "", "", "")
+            EIS_VIEW(txtSelectedEISStatYear.Text, "1", "0", "1", "", "", "", "")
             txtEISStatsCount.Text = dgvEISStats.RowCount.ToString
             lblEISCount.Text = "Unenrolled Count"
         Catch ex As Exception
@@ -3812,7 +3812,7 @@ Public Class EisTool
     Private Sub btnEILogUpdate_Click(sender As Object, e As EventArgs) Handles btnEILogUpdate.Click
         Try
             Dim EISAccess As String = " "
-            Dim OptOut As String = ""
+            Dim OptOut As String = Nothing
             Dim EISStatus As String = ""
             Dim Enrollment As String = ""
             Dim Mailout As String = ""
@@ -3839,12 +3839,8 @@ Public Class EisTool
             End If
             If rdbEILogOpOutYes.Checked = True Then
                 OptOut = "1"
-            Else
-                If rdbEILogOpOutNo.Checked = True Then
-                    OptOut = "0"
-                Else
-                    OptOut = ""
-                End If
+            ElseIf rdbEILogOpOutNo.Checked = True Then
+                OptOut = "0"
             End If
             If chbOptedOutIncorrectly.Checked = True Then
                 IncorrectlyOptedOut = "1"
@@ -3911,7 +3907,7 @@ Public Class EisTool
                 New SqlParameter("@FacilitySiteID", mtbEILogAIRSNumber.Text)
             }
 
-            DB.RunCommand(SQL, params2)
+            DB.RunCommand(SQL, params2, forceAddNullableParameters:=True)
 
             If dtpDeadlineEIS.Checked = True Then
                 Dim DeadLineComments As String = ""
