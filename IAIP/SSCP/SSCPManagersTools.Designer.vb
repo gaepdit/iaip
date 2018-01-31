@@ -2278,19 +2278,17 @@ Partial Class SSCPManagersTools
         '
         Me.Label66.Location = New System.Drawing.Point(107, 23)
         Me.Label66.Name = "Label66"
-        Me.Label66.Size = New System.Drawing.Size(350, 97)
+        Me.Label66.Size = New System.Drawing.Size(350, 47)
         Me.Label66.TabIndex = 42
-        Me.Label66.Text = "The number of facilities that have not submitted a Title V Renewal Permit applica" &
-    "tion that are less than 9 months from the 5-year expiration date of the previous" &
-    " Initial/Renewal TV permit issuance."
+        Me.Label66.Text = "Facilities that are less than 9 months from the 5-year expiration date of the Tit" &
+    "le V permit issuance that have not submitted a renewal permit application."
         '
         'btnRunTitleVSearch
         '
-        Me.btnRunTitleVSearch.AutoSize = True
         Me.btnRunTitleVSearch.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.btnRunTitleVSearch.Location = New System.Drawing.Point(15, 23)
         Me.btnRunTitleVSearch.Name = "btnRunTitleVSearch"
-        Me.btnRunTitleVSearch.Size = New System.Drawing.Size(74, 23)
+        Me.btnRunTitleVSearch.Size = New System.Drawing.Size(86, 39)
         Me.btnRunTitleVSearch.TabIndex = 41
         Me.btnRunTitleVSearch.Text = "Run Search"
         Me.btnRunTitleVSearch.UseVisualStyleBackColor = True
@@ -2592,7 +2590,6 @@ Partial Class SSCPManagersTools
         Me.TPVOC.ResumeLayout(False)
         Me.TPDistricts.ResumeLayout(False)
         Me.TPTitleVRenewals.ResumeLayout(False)
-        Me.TPTitleVRenewals.PerformLayout()
         CType(Me.dgvStatisticalReports, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TPDocuments.ResumeLayout(False)
         Me.TPDocuments.PerformLayout()
