@@ -181,6 +181,7 @@
     Private Sub LogInAlready()
         ' Tag exception logger with new user
         ExceptionLogger.Tags.Add("IaipUser", CurrentUser.Username)
+        ExceptionLogger.Tags.Add("IaipUserID", CurrentUser.UserID)
         SaveUserSetting(UserSetting.PrefillLoginId, txtUserID.Text)
         ResetUserSetting(UserSetting.PasswordResetRequestedDate)
         OpenSingleForm(IAIPNavigation)
