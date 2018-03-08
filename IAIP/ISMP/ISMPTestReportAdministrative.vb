@@ -259,8 +259,7 @@ Public Class ISMPTestReportAdministrative
 
                 For Each dr As DataRow In dt.Rows
                     clbReferenceNumbers.Items.Add(dr.Item("strReferenceNumber") & " - " & dr.Item("strEmissionSource") & " - " & dr.Item("strPollutantDescription"))
-                    If clbReferenceNumbers.Items.Contains(txtReferenceNumber.Text _
-                             & " - " & dr.Item("strEmissionSource") & " - " & dr.Item("strPollutantDescription")) Then
+                    If clbReferenceNumbers.Items.Contains(txtReferenceNumber.Text & " - " & dr.Item("strEmissionSource") & " - " & dr.Item("strPollutantDescription")) Then
                         clbReferenceNumbers.SetItemCheckState(clbReferenceNumbers.FindString(txtReferenceNumber.Text), CheckState.Checked)
                     End If
                 Next
