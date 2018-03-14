@@ -753,7 +753,7 @@ Public Class SSPPTitleVTools
             Dim temp As String = ""
             Dim strObject As Object
 
-            If clbTitleVEmailList.Items.Count > 0 Then
+            If clbTitleVEmailList.Items.Count > 0 AndAlso clbTitleVEmailList.CheckedItems.Count > 0 Then
                 txtEmailLetter.Text = "In accordance with 40 CFR 70.7(e)(2),(3), and (4) and 70.8(a)(1) and (b)(1), you are hereby notified that " &
                 "Georgia EPD has received an application for the modification of an existing Part 70 permit for the " &
                 "following source(s): " & vbCrLf & vbCrLf
@@ -840,7 +840,7 @@ Public Class SSPPTitleVTools
 
             Else
                 txtEmailLetter.Clear()
-                MsgBox("Click Preview button first.", MsgBoxStyle.Information, "Title V Emails.")
+                MsgBox("Click preview button first and ensure at least one applications is selected.", MsgBoxStyle.Information, "Title V Emails.")
             End If
 
         Catch ex As Exception
