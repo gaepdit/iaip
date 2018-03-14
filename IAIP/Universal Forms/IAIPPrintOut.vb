@@ -34,8 +34,13 @@ Public Class IAIPPrintOut
 #Region " Form events "
 
     Private Sub IAIPPrintOut_Load(sender As Object, e As EventArgs) Handles Me.Load
-        LoadCorrectReport()
-        CRViewer.ShowHideViewerTabs(VisibleOrNot.NotVisible)
+        Try
+            LoadCorrectReport()
+            CRViewer.ShowHideViewerTabs(VisibleOrNot.NotVisible)
+        Catch ex As CrystalDecisions.CrystalReports.Engine.LoadSaveReportException
+            ShowCrystalReportsSupportMessage()
+            Close()
+        End Try
     End Sub
 
     Private Sub IAIPPrintOut_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
