@@ -1031,38 +1031,40 @@ Public Class SSPPApplicationLog
                 Exit Sub
             End If
 
-            Select Case Sort2
-                Case "AIRS No."
-                    SQLOrder = SQLOrder & " strAIRSNumber " & SortOrder2
-                Case "Application No."
-                    SQLOrder = SQLOrder & " strApplicationNumber " & SortOrder2
-                Case "Application Status"
-                    SQLOrder = SQLOrder & " AppStatus " & SortOrder2
-                Case "Application Type"
-                    SQLOrder = SQLOrder & " strApplicationType " & SortOrder2
-                Case "Date APL Received"
-                    SQLOrder = SQLOrder & " datReceivedDate " & SortOrder2
-                Case "Date Finalized"
-                    SQLOrder = SQLOrder & " datPermitIssued " & SortOrder2
-                Case "Engineer Unit Code"
-                    SQLOrder = SQLOrder & " APBUnit " & SortOrder2
-                Case "Facility County"
-                    SQLOrder = SQLOrder & " strCountyName " & SortOrder2
-                Case "Facility Name"
-                    SQLOrder = SQLOrder & " strFacilityName " & SortOrder2
-                Case "Permit Number"
-                    SQLOrder = SQLOrder & " strPermitNumber " & SortOrder2
-                Case "Permit Type"
-                    SQLOrder = SQLOrder & " strPermitType " & SortOrder2
-                Case "Plant Description"
-                    SQLOrder = SQLOrder & " strPlantDescription " & SortOrder2
-                Case "SIC Code"
-                    SQLOrder = SQLOrder & " strSICCode " & SortOrder2
-            End Select
+            If Sort1 <> Sort2 Then
+                Select Case Sort2
+                    Case "AIRS No."
+                        SQLOrder = SQLOrder & " strAIRSNumber " & SortOrder2
+                    Case "Application No."
+                        SQLOrder = SQLOrder & " strApplicationNumber " & SortOrder2
+                    Case "Application Status"
+                        SQLOrder = SQLOrder & " AppStatus " & SortOrder2
+                    Case "Application Type"
+                        SQLOrder = SQLOrder & " strApplicationType " & SortOrder2
+                    Case "Date APL Received"
+                        SQLOrder = SQLOrder & " datReceivedDate " & SortOrder2
+                    Case "Date Finalized"
+                        SQLOrder = SQLOrder & " datPermitIssued " & SortOrder2
+                    Case "Engineer Unit Code"
+                        SQLOrder = SQLOrder & " APBUnit " & SortOrder2
+                    Case "Facility County"
+                        SQLOrder = SQLOrder & " strCountyName " & SortOrder2
+                    Case "Facility Name"
+                        SQLOrder = SQLOrder & " strFacilityName " & SortOrder2
+                    Case "Permit Number"
+                        SQLOrder = SQLOrder & " strPermitNumber " & SortOrder2
+                    Case "Permit Type"
+                        SQLOrder = SQLOrder & " strPermitType " & SortOrder2
+                    Case "Plant Description"
+                        SQLOrder = SQLOrder & " strPlantDescription " & SortOrder2
+                    Case "SIC Code"
+                        SQLOrder = SQLOrder & " strSICCode " & SortOrder2
+                End Select
 
-            If bgwApplicationLog.CancellationPending Then
-                e.Cancel = True
-                Exit Sub
+                If bgwApplicationLog.CancellationPending Then
+                    e.Cancel = True
+                    Exit Sub
+                End If
             End If
 
             If Mid(SQLOrder, (Len(SQLOrder) - 1)) = ", " Then
