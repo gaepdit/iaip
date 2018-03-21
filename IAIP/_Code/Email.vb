@@ -15,9 +15,9 @@
 
             If subject IsNot Nothing Then subjectParam = "subject=" & Uri.EscapeDataString(subject)
             If body IsNot Nothing Then bodyParam = "body=" & Uri.EscapeDataString(body)
-            If recipientsTo IsNot Nothing Then toParam = String.Join(";", recipientsTo)
-            If recipientsCC IsNot Nothing Then ccParam = "cc=" & Uri.EscapeDataString(String.Join(";", recipientsCC))
-            If recipientsBCC IsNot Nothing Then bccParam = "bcc=" & Uri.EscapeDataString(String.Join(";", recipientsBCC))
+            If recipientsTo IsNot Nothing Then toParam = Uri.EscapeDataString(String.Join(",", recipientsTo))
+            If recipientsCC IsNot Nothing Then ccParam = "cc=" & Uri.EscapeDataString(String.Join(",", recipientsCC))
+            If recipientsBCC IsNot Nothing Then bccParam = "bcc=" & Uri.EscapeDataString(String.Join(",", recipientsBCC))
 
             Dim uriQueryParams As String() = {subjectParam, bodyParam, ccParam, bccParam}
             Dim uriQueryString As String = ConcatNonEmptyStrings("&", uriQueryParams)
