@@ -10397,10 +10397,16 @@ Public Class SSPPApplicationTrackingLog
             Exit Sub
         End If
         If txtApplicationNumber.Text <> "" Then
-            Dim PrintOut As New IAIPPrintOut
-            PrintOut.PrintoutType = IAIPPrintOut.PrintType.SsppConfirm
-            PrintOut.ReferenceValue = txtApplicationNumber.Text
-            PrintOut.Show()
+            Dim PrintOut As New IAIPPrintOut With {
+                .PrintoutType = IAIPPrintOut.PrintType.SsppConfirm,
+                .ReferenceValue = txtApplicationNumber.Text
+            }
+
+            If PrintOut IsNot Nothing AndAlso Not PrintOut.IsDisposed Then
+                PrintOut.Show()
+            Else
+                MessageBox.Show("There was an error displaying the printout.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End If
         End If
     End Sub
     Private Sub btnEmailAcknowledgmentLetter_Click(sender As Object, e As EventArgs) Handles btnEmailAcknowledgmentLetter.Click
@@ -14606,9 +14612,12 @@ Public Class SSPPApplicationTrackingLog
 
     Private Sub btnUpdateFeeContact_Click(sender As Object, e As EventArgs) Handles btnGoToFeeContact.Click
         Dim feeContact As New SSPP_FeeContact
-        feeContact.txtAIRSNumber.Text = txtAIRSNumber.Text
-        feeContact.txtApplicationNumber.Text = txtApplicationNumber.Text
-        feeContact.Show()
+
+        If feeContact IsNot Nothing AndAlso Not feeContact.IsDisposed Then
+            feeContact.txtAIRSNumber.Text = txtAIRSNumber.Text
+            feeContact.txtApplicationNumber.Text = txtApplicationNumber.Text
+            feeContact.Show()
+        End If
     End Sub
 
     Private Sub SaveButton_Click(sender As Object, e As EventArgs) Handles SaveButton.Click

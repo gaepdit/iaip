@@ -2379,15 +2379,19 @@ Public Class SBEAPClientSummary
     Private Sub btnOpenCase_Click(sender As Object, e As EventArgs) Handles btnOpenCase.Click
         Try
             If txtCaseID.Text <> "" Then
-                If CaseWork Is Nothing Then
-
-                Else
+                If CaseWork IsNot Nothing Then
                     CaseWork.Dispose()
                 End If
+
                 CaseWork = New SBEAPCaseWork
-                CaseWork.txtCaseID.Text = txtCaseID.Text
-                CaseWork.Show()
-                CaseWork.LoadCaseLogData()
+
+                If CaseWork IsNot Nothing AndAlso Not CaseWork.IsDisposed Then
+                    CaseWork.txtCaseID.Text = txtCaseID.Text
+                    CaseWork.Show()
+                    CaseWork.LoadCaseLogData()
+                Else
+                    MessageBox.Show("There was an error opening the Case.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End If
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -2414,20 +2418,24 @@ Public Class SBEAPClientSummary
 
     Private Sub btnAddNewCase_Click(sender As Object, e As EventArgs) Handles btnAddNewCase.Click
         Try
-            If CaseWork Is Nothing Then
-
-            Else
+            If CaseWork IsNot Nothing Then
                 CaseWork.Dispose()
             End If
-            CaseWork = New SBEAPCaseWork
-            CaseWork.Show()
-            CaseWork.LoadCaseLogData()
-            If txtClientID.Text <> "" Then
-                CaseWork.txtClientID.Text = txtClientID.Text
-                CaseWork.LoadClientInfo()
-                CaseWork.txtClientInformation.BackColor = Color.White
-            End If
 
+            CaseWork = New SBEAPCaseWork
+
+            If CaseWork IsNot Nothing AndAlso Not CaseWork.IsDisposed Then
+                CaseWork.Show()
+                CaseWork.LoadCaseLogData()
+
+                If txtClientID.Text <> "" Then
+                    CaseWork.txtClientID.Text = txtClientID.Text
+                    CaseWork.LoadClientInfo()
+                    CaseWork.txtClientInformation.BackColor = Color.White
+                End If
+            Else
+                MessageBox.Show("There was an error opening the Case.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try

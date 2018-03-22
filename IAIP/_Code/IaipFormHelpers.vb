@@ -8,8 +8,14 @@ Module IaipFormHelpers
 
     Public Function OpenFormFacilitySummary() As Form
         Dim facilitySummary As IAIPFacilitySummary = New IAIPFacilitySummary
-        facilitySummary.Show()
-        Return facilitySummary
+
+        If facilitySummary IsNot Nothing AndAlso Not facilitySummary.IsDisposed Then
+            facilitySummary.Show()
+            Return facilitySummary
+        Else
+            MessageBox.Show("There was an error opening the Facility Summary.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return Nothing
+        End If
     End Function
 
     Public Function OpenFormFacilitySummary(airsNumber As String) As Form
@@ -30,9 +36,15 @@ Module IaipFormHelpers
             Return Nothing
         Else
             Dim facilitySummary As IAIPFacilitySummary = New IAIPFacilitySummary
-            facilitySummary.Show()
-            facilitySummary.AirsNumber = airsNumber
-            Return facilitySummary
+
+            If facilitySummary IsNot Nothing AndAlso Not facilitySummary.IsDisposed Then
+                facilitySummary.Show()
+                facilitySummary.AirsNumber = airsNumber
+                Return facilitySummary
+            Else
+                MessageBox.Show("There was an error opening the Facility Summary.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Return Nothing
+            End If
         End If
     End Function
 
@@ -73,13 +85,20 @@ Module IaipFormHelpers
             MessageBox.Show("AIRS number does not exist.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Return Nothing
         Else
-            Dim SSCPFCE As SSCPFCEWork = New SSCPFCEWork
-            SSCPFCE.AirsNumber = airsNumber
-            SSCPFCE.Show()
-            If Not String.IsNullOrEmpty(year) Then
-                SSCPFCE.SetFceYear(CInt(year))
+            Dim SSCPFCE As SSCPFCEWork = New SSCPFCEWork With {
+                .AirsNumber = airsNumber
+            }
+
+            If SSCPFCE IsNot Nothing AndAlso Not SSCPFCE.IsDisposed Then
+                SSCPFCE.Show()
+                If Not String.IsNullOrEmpty(year) Then
+                    SSCPFCE.SetFceYear(CInt(year))
+                End If
+                Return SSCPFCE
+            Else
+                MessageBox.Show("There was an error opening the FCE.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Return Nothing
             End If
-            Return SSCPFCE
         End If
     End Function
 
@@ -174,11 +193,18 @@ Module IaipFormHelpers
 
     Public Function OpenFormTestNotification(id As String) As ISMPNotificationLog
         Dim ISMPNotificationLogForm As ISMPNotificationLog = CType(OpenSingleForm(ISMPNotificationLog, closeFirst:=True), ISMPNotificationLog)
-        If DAL.Ismp.TestNotificationExists(id) Then
-            ISMPNotificationLogForm.txtTestNotificationNumber.Text = id
+
+        If ISMPNotificationLogForm IsNot Nothing AndAlso Not ISMPNotificationLogForm.IsDisposed Then
+            If DAL.Ismp.TestNotificationExists(id) Then
+                ISMPNotificationLogForm.txtTestNotificationNumber.Text = id
+            End If
+
+            ISMPNotificationLogForm.Show()
+            Return ISMPNotificationLogForm
+        Else
+            MessageBox.Show("There was an error displaying the test notification.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return Nothing
         End If
-        ISMPNotificationLogForm.Show()
-        Return ISMPNotificationLogForm
     End Function
 
     Public Function OpenFormTestMemo(referenceNumber As String) As ISMPMemo
@@ -205,15 +231,17 @@ Module IaipFormHelpers
 
         Dim PrintOut As New IAIPPrintOut With {
             .ReferenceValue = referenceNumber,
-            .PrintoutType = IAIPPrintOut.PrintType.IsmpTestReport
+            .PrintoutType = IAIPPrintOut.PrintType.IsmpTestReport,
+            .PrintoutSubtype = If(noConf, IAIPPrintOut.PrintSubtype.ToFile, IAIPPrintOut.PrintSubtype.Other)
         }
 
-        If noConf Then
-            PrintOut.PrintoutSubtype = IAIPPrintOut.PrintSubtype.ToFile
+        If PrintOut IsNot Nothing AndAlso Not PrintOut.IsDisposed Then
+            PrintOut.Show()
+            Return PrintOut
+        Else
+            MessageBox.Show("There was an error displaying the printout.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return Nothing
         End If
-
-        PrintOut.Show()
-        Return PrintOut
     End Function
 
     Public Function OpenFormConfidentialTestData(referenceNumber As String) As ISMPConfidentialData

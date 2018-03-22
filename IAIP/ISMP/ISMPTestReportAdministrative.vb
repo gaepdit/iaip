@@ -1805,7 +1805,10 @@ Public Class ISMPTestReportAdministrative
     Private Sub mmiAddTestingFirm_Click(sender As Object, e As EventArgs) Handles mmiAddTestingFirm.Click
         Try
             Dim ISMPAddTestingFirm As New ISMPAddTestingFirms
-            ISMPAddTestingFirm.Show()
+
+            If ISMPAddTestingFirm IsNot Nothing AndAlso Not ISMPAddTestingFirm.IsDisposed Then
+                ISMPAddTestingFirm.Show()
+            End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -1815,7 +1818,10 @@ Public Class ISMPTestReportAdministrative
     End Sub
     Private Sub mmiAddPollutant_Click(sender As Object, e As EventArgs) Handles mmiAddPollutant.Click
         Dim ISMPAddPollutant As New ISMPAddPollutants
-        ISMPAddPollutant.Show()
+
+        If ISMPAddPollutant IsNot Nothing AndAlso Not ISMPAddPollutant.IsDisposed Then
+            ISMPAddPollutant.Show()
+        End If
     End Sub
     Private Sub mmiRefreshLists_Click(sender As Object, e As EventArgs) Handles mmiRefreshLists.Click
         Try

@@ -2976,13 +2976,19 @@ Public Class SSPPTitleVTools
     End Sub
     Private Sub btnPrintRenewalLetters_Click(sender As Object, e As EventArgs) Handles btnPrintRenewalLetters.Click
         Try
-            If Me.txtRenewalCount.Text <> "" And txtRenewalCount.Text <> "0" Then
-                Dim PrintOut As New IAIPPrintOut
-                PrintOut.PrintoutType = IAIPPrintOut.PrintType.TitleVRenewal
-                PrintOut.ReferenceValue = "*"
-                PrintOut.StartDate = DTPTitleVRenewalStart.Value.AddMonths(-51)
-                PrintOut.EndDate = DTPTitleVRenewalEnd.Value.AddMonths(-51)
-                PrintOut.Show()
+            If txtRenewalCount.Text <> "" And txtRenewalCount.Text <> "0" Then
+                Dim PrintOut As New IAIPPrintOut With {
+                    .PrintoutType = IAIPPrintOut.PrintType.TitleVRenewal,
+                    .ReferenceValue = "*",
+                    .StartDate = DTPTitleVRenewalStart.Value.AddMonths(-51),
+                    .EndDate = DTPTitleVRenewalEnd.Value.AddMonths(-51)
+                }
+
+                If PrintOut IsNot Nothing AndAlso Not PrintOut.IsDisposed Then
+                    PrintOut.Show()
+                Else
+                    MessageBox.Show("There was an error displaying the printout.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End If
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -3320,12 +3326,18 @@ Public Class SSPPTitleVTools
             End If
 
             If (Me.txtRenewalCount.Text <> "" And txtRenewalCount.Text <> "0") Or txtTitleVSingleLetter.Text <> "" Then
-                Dim PrintOut As New IAIPPrintOut
-                PrintOut.PrintoutType = IAIPPrintOut.PrintType.TitleVRenewal
-                PrintOut.ReferenceValue = AppNumber
-                PrintOut.StartDate = New Date(1990, 1, 1)
-                PrintOut.EndDate = New Date(2099, 1, 1)
-                PrintOut.Show()
+                Dim PrintOut As New IAIPPrintOut With {
+                    .PrintoutType = IAIPPrintOut.PrintType.TitleVRenewal,
+                    .ReferenceValue = AppNumber,
+                    .StartDate = New Date(1990, 1, 1),
+                    .EndDate = New Date(2099, 1, 1)
+                }
+
+                If PrintOut IsNot Nothing AndAlso Not PrintOut.IsDisposed Then
+                    PrintOut.Show()
+                Else
+                    MessageBox.Show("There was an error displaying the printout.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End If
             End If
 
         Catch ex As Exception

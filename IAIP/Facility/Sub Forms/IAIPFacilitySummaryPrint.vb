@@ -46,7 +46,10 @@
         rpt.Subreports("FacilityBasicInfo.rpt").SetDataSource(dt)
 
         Dim crv As New CRViewerForm(rpt)
-        crv.Show()
+
+        If crv IsNot Nothing AndAlso Not crv.IsDisposed Then
+            crv.Show()
+        End If
 
         Cursor = Nothing
     End Sub
@@ -109,7 +112,10 @@
         }
 
         Dim crv As New CRViewerForm(rpt, pd)
-        crv.Show()
+
+        If crv IsNot Nothing AndAlso Not crv.IsDisposed Then
+            crv.Show()
+        End If
 
         Cursor = Nothing
     End Sub

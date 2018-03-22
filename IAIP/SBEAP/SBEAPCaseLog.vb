@@ -511,15 +511,19 @@
     Private Sub btnOpenCase_Click(sender As Object, e As EventArgs) Handles btnOpenCase.Click
         Try
             If txtCaseID.Text <> "" Then
-                If CaseWork Is Nothing Then
-
-                Else
+                If CaseWork IsNot Nothing Then
                     CaseWork.Dispose()
                 End If
+
                 CaseWork = New SBEAPCaseWork
-                CaseWork.txtCaseID.Text = txtCaseID.Text
-                CaseWork.Show()
-                CaseWork.LoadCaseLogData()
+
+                If CaseWork IsNot Nothing AndAlso Not CaseWork.IsDisposed Then
+                    CaseWork.txtCaseID.Text = txtCaseID.Text
+                    CaseWork.Show()
+                    CaseWork.LoadCaseLogData()
+                Else
+                    MessageBox.Show("There was an error opening the Case.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End If
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -534,15 +538,20 @@
                         txtCaseID.Text = ""
                     Else
                         txtCaseID.Text = dgvCaseLog(0, e.RowIndex).Value
-                        If CaseWork Is Nothing Then
 
-                        Else
+                        If CaseWork IsNot Nothing Then
                             CaseWork.Dispose()
                         End If
+
                         CaseWork = New SBEAPCaseWork
-                        CaseWork.txtCaseID.Text = txtCaseID.Text
-                        CaseWork.Show()
-                        CaseWork.LoadCaseLogData()
+
+                        If CaseWork IsNot Nothing AndAlso Not CaseWork.IsDisposed Then
+                            CaseWork.txtCaseID.Text = txtCaseID.Text
+                            CaseWork.Show()
+                            CaseWork.LoadCaseLogData()
+                        Else
+                            MessageBox.Show("There was an error opening the Case.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                        End If
                     End If
                 End If
             End If
@@ -581,14 +590,18 @@
 
     Private Sub mmiOpenNewCase_Click(sender As Object, e As EventArgs) Handles mmiOpenNewCase.Click
         Try
-            If CaseWork Is Nothing Then
-
-            Else
+            If CaseWork IsNot Nothing Then
                 CaseWork.Dispose()
             End If
+
             CaseWork = New SBEAPCaseWork
-            CaseWork.Show()
-            CaseWork.LoadCaseLogData()
+
+            If CaseWork IsNot Nothing AndAlso Not CaseWork.IsDisposed Then
+                CaseWork.Show()
+                CaseWork.LoadCaseLogData()
+            Else
+                MessageBox.Show("There was an error opening the Case.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
