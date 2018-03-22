@@ -19,6 +19,8 @@
 
         Cursor = Cursors.AppStarting
 
+        Try
+
             Select Case CType(sender, Button).Name.ToString
                 Case NameOf(ShowBasicReportButton)
                     ShowBasicReport()
@@ -26,11 +28,17 @@
                     ShowFullReport()
             End Select
 
-            Cursor = Nothing
+        Catch ex As TypeInitializationException
+            ShowCrystalReportsSupportMessage()
+            Close()
+            Exit Sub
+        End Try
+
+        Cursor = Nothing
     End Sub
 
     Private Sub ShowBasicReport()
-        Me.Cursor = Cursors.WaitCursor
+        Cursor = Cursors.WaitCursor
 
         Dim rpt As New CR.Reports.FacilityBasicReport
 
@@ -40,11 +48,11 @@
         Dim crv As New CRViewerForm(rpt)
         crv.Show()
 
-        Me.Cursor = Cursors.Default
+        Cursor = Nothing
     End Sub
 
     Private Sub ShowFullReport()
-        Me.Cursor = Cursors.WaitCursor
+        Cursor = Cursors.WaitCursor
 
         Dim rpt As New CR.Reports.FacilityDetailedReport
 
@@ -103,7 +111,7 @@
         Dim crv As New CRViewerForm(rpt, pd)
         crv.Show()
 
-        Me.Cursor = Cursors.Default
+        Cursor = Nothing
     End Sub
 
 End Class

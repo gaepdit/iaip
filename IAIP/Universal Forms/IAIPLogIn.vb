@@ -25,9 +25,9 @@
         FocusLogin()
         DisplayVersion()
         CheckForPasswordResetRequest()
-        If AppFirstRun Or AppUpdated Then
-            App.TestCrystalReportsInstallation()
-        End If
+        'If AppFirstRun Or AppUpdated Then
+
+        'End If
         CheckDBAvailability()
     End Sub
 
