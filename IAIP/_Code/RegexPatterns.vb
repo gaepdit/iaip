@@ -7,7 +7,7 @@
     Friend Const AtLeastOneLetterPattern As String = "[a-zA-Z]"
     Friend Const NonAlphabeticPattern As String = "[^a-zA-Z]"
 
-    ' Valid AIRS numbers are in the form 000-00000 or 04-13-000-0000
+    ' Valid AIRS numbers are in the form 000-00000 or 04-13-000-00000
     ' (with or without the dashes)
     Friend Const AirsNumberPattern As String = "^(04-?13-?)?\d{3}-?\d{5}$"
 
