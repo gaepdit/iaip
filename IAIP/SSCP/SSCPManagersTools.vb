@@ -2869,7 +2869,7 @@ Public Class SSCPManagersTools
             Else
                 Dim max As Integer = 0
                 For Each row As DataGridViewRow In dgvEnfDocumentTypes.Rows
-                    max = Math.Max(row.Cells("Ordinal").Value, max)
+                    max = Math.Max(CInt(row.Cells("Ordinal").Value), max)
                 Next
                 .Ordinal = max + 1
             End If

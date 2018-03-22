@@ -17,20 +17,16 @@
             Exit Sub
         End If
 
-        If sender IsNot Nothing Then
-            sender.Cursor = Cursors.AppStarting
-        End If
+        Cursor = Cursors.AppStarting
 
-        Select Case sender.Name.ToString
-            Case NameOf(ShowBasicReportButton)
-                ShowBasicReport()
-            Case NameOf(ShowFullReportButton)
-                ShowFullReport()
-        End Select
+            Select Case CType(sender, Button).Name.ToString
+                Case NameOf(ShowBasicReportButton)
+                    ShowBasicReport()
+                Case NameOf(ShowFullReportButton)
+                    ShowFullReport()
+            End Select
 
-        If sender IsNot Nothing Then
-            sender.Cursor = Nothing
-        End If
+            Cursor = Nothing
     End Sub
 
     Private Sub ShowBasicReport()
