@@ -135,17 +135,9 @@ Public Module App
 
 #Region " Crystal Reports "
 
-    Public Sub TestCrystalReportsInstallation()
-        Try
-            Assembly.Load("CrystalDecisions.Windows.Forms, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304")
-        Catch ex As FileNotFoundException
-            ShowCrystalReportsSupportMessage()
-        End Try
-    End Sub
-
     Public Sub ShowCrystalReportsSupportMessage()
         MessageBox.Show("You must install Crystal Reports in order to print reports. " &
-                        "Click the Help button to download the installer, or contact the Data Management Unit for assistance.",
+                        "Click the Help button to download the installer, or contact EPD-IT for assistance.",
                         "Missing Crystal Reports Runtime",
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Exclamation,

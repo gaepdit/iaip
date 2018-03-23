@@ -1209,13 +1209,14 @@ Public Class ISMPManagersTools
                   vbTab & "|" & vbTab & "|" & vbTab & "|" & vbTab & "|" & vbTab & "|" & vbTab & "|" & vbTab & "|" & vbTab & "|" & vbTab & "|" & vbTab & "|" & vbTab & "|"
 
                 For j = 0 To i - 1
-                    If dgrTestSummary.Item(j, 0).length > 6 Then
+                    If dgrTestSummary.Item(j, 0).ToString.Length > 6 Then
                         WordText = WordText &
-                        vbCrLf & dgrTestSummary.Item(j, 0) & vbTab & dgrTestSummary.Item(j, 1) & vbTab & vbTab & vbTab & dgrTestSummary.Item(j, 2) & vbTab & vbTab & vbTab & dgrTestSummary.Item(j, 3) &
-                        vbCrLf & line
+                        vbCrLf & dgrTestSummary.Item(j, 0).ToString & vbTab & dgrTestSummary.Item(j, 1).ToString & vbTab & vbTab & vbTab &
+                        dgrTestSummary.Item(j, 2).ToString & vbTab & vbTab & vbTab & dgrTestSummary.Item(j, 3).ToString & vbCrLf & line
                     Else
                         WordText = WordText &
-                        vbCrLf & dgrTestSummary.Item(j, 0) & vbTab & vbTab & dgrTestSummary.Item(j, 1) & vbTab & vbTab & vbTab & dgrTestSummary.Item(j, 2) & vbTab & vbTab & vbTab & dgrTestSummary.Item(j, 3) &
+                        vbCrLf & dgrTestSummary.Item(j, 0).ToString & vbTab & vbTab & dgrTestSummary.Item(j, 1).ToString & vbTab & vbTab & vbTab &
+                        dgrTestSummary.Item(j, 2).ToString & vbTab & vbTab & vbTab & dgrTestSummary.Item(j, 3).ToString &
                         vbCrLf & line
                     End If
                 Next

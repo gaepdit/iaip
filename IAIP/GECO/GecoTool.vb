@@ -1,5 +1,6 @@
 ﻿Imports System.Data.SqlClient
 Imports Iaip.Apb.Facilities
+Imports Iaip.DAL.FacilityData
 
 Public Class GecoTool
 
@@ -706,38 +707,45 @@ Public Class GecoTool
 
     Private Sub btnAddFacilitytoUser_Click(sender As Object, e As EventArgs) Handles btnAddFacilitytoUser.Click
         Try
-            If txtWebUserID.Text <> "" And mtbFacilityToAdd.Text <> "" Then
-                Dim SQL As String = "Select " &
-                "1 " &
-                "from OlapUserAccess " &
-                "where numUserId = @numUserId " &
-                " And strAirsNumber = @strAirsNumber "
-                Dim params As SqlParameter() = {
+            If txtWebUserID.Text <> "" Then
+                Dim Result As AirsNumberValidationResult = ValidateAirsFacility(mtbFacilityToAdd.Text)
+                If Result = AirsNumberValidationResult.Valid Then
+                    Dim SQL As String = "Select " &
+                    "1 " &
+                    "from OlapUserAccess " &
+                    "where numUserId = @numUserId " &
+                    " And strAirsNumber = @strAirsNumber "
+                    Dim params As SqlParameter() = {
                     New SqlParameter("@numUserId", txtWebUserID.Text),
                     New SqlParameter("@strAirsNumber", "0413" & mtbFacilityToAdd.Text)
-                }
-
-                If Not DB.GetBoolean(SQL, params) Then
-                    SQL = "Insert into OlapUserAccess " &
-                        "(numUserId, strAirsNumber, strFacilityName) " &
-                        "values " &
-                        "(@numUserId, @strAirsNumber, " &
-                        "(select strFacilityName " &
-                        "from APBFacilityInformation " &
-                        "where strAIRSnumber = @strAirsNumber)) "
-
-                    Dim params2 As SqlParameter() = {
-                        New SqlParameter("@numUserId", txtWebUserID.Text),
-                        New SqlParameter("@strAirsNumber", "0413" & mtbFacilityToAdd.Text)
                     }
 
-                    DB.RunCommand(SQL, params2)
+                    If Not DB.GetBoolean(SQL, params) Then
+                        SQL = "Insert into OlapUserAccess " &
+                            "(numUserId, strAirsNumber, strFacilityName) " &
+                            "values " &
+                            "(@numUserId, @strAirsNumber, " &
+                            "(select strFacilityName " &
+                            "from APBFacilityInformation " &
+                            "where strAIRSnumber = @strAirsNumber)) "
 
-                    LoadUserFacilityInfo(txtWebUserEmail.Text)
-                    MsgBox("The facility has been added to this user", MsgBoxStyle.Information, "Insert Success!")
+                        Dim params2 As SqlParameter() = {
+                            New SqlParameter("@numUserId", txtWebUserID.Text),
+                            New SqlParameter("@strAirsNumber", "0413" & mtbFacilityToAdd.Text)
+                        }
+
+                        DB.RunCommand(SQL, params2)
+
+                        LoadUserFacilityInfo(txtWebUserEmail.Text)
+                        MessageBox.Show(Me, "The facility has been added to this user", "Insert Success!", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    Else
+                        MessageBox.Show(Me, "The facility already exists for this user." & vbCrLf & "NO DATA SAVED", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                    End If
                 Else
-                    MsgBox("The facility already exists for this user." & vbCrLf & "NO DATA SAVED", MsgBoxStyle.Exclamation, Me.Text)
+                    MessageBox.Show(Me, GetAirsValidationMsg(Result), Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 End If
+            Else
+                MessageBox.Show(Me, "You must enter a User's e-mail address.", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)

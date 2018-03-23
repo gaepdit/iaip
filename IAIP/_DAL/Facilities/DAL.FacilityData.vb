@@ -2,6 +2,7 @@
 Imports Iaip.Apb
 Imports Iaip.Apb.Facilities
 Imports EpdIt
+Imports System.Text.RegularExpressions
 
 Namespace DAL
     Module FacilityData
@@ -182,6 +183,67 @@ Namespace DAL
             Dim spName As String = "iaip_facility.TriggerDataUpdateAtEPA"
             Dim parameter As SqlParameter = New SqlParameter("@AirsNumber", airsnumber.DbFormattedString)
             Return DB.SPRunCommand(spName, parameter)
+        End Function
+
+#End Region
+
+#Region "AIRS Number Validation"
+        'Region added to validate that a number entered as an Airs Number, not only isn't null, but also adheres to the correct Airs Number Format
+        'Used when you don't know whether an Airs Number entry by the user is in a valid format or exists already in the database 
+
+        Public Enum AirsNumberValidationResult
+            Valid
+            Empty
+            InvalidCharacters
+            NonExistent
+        End Enum
+
+        'Added to make sure AirsNumber entered is Not Null and is of the correct Pattern and can be used seperately from ValidateAirsNumber
+        Public Function ValidateAirsPattern(ByVal airsInput As String) As AirsNumberValidationResult
+            If airsInput = "" Then
+                Return AirsNumberValidationResult.Empty
+            End If
+
+            If Not Regex.IsMatch(airsInput, AirsNumberPattern) Then
+                Return AirsNumberValidationResult.InvalidCharacters
+            End If
+
+            Return AirsNumberValidationResult.Valid
+        End Function
+
+        'Added to make sure that an AirsNumber entered by user actually exists in the database
+        Public Function ValidateAirsFacility(ByVal airsInput As String) As AirsNumberValidationResult
+            If airsInput = "" Then
+                Return AirsNumberValidationResult.Empty
+            End If
+
+            If Not Regex.IsMatch(airsInput, AirsNumberPattern) Then
+                Return AirsNumberValidationResult.InvalidCharacters
+            End If
+
+            If Not AirsNumberExists(airsInput) Then
+                Return AirsNumberValidationResult.NonExistent
+            End If
+
+            Return AirsNumberValidationResult.Valid
+        End Function
+
+        Public Function GetAirsValidationMsg(ByVal result As AirsNumberValidationResult) As String
+            Select Case result
+                Case AirsNumberValidationResult.InvalidCharacters
+                    Return "The AIRS Number is not formatted correctly. " &
+                        "Please try again."
+
+                Case AirsNumberValidationResult.NonExistent
+                    Return "No facility with that AIRS Number exists. " &
+                        "Please try again."
+
+                Case AirsNumberValidationResult.Empty
+                    Return "Please enter an AIRS Number."
+
+                Case Else
+                    Return Nothing
+            End Select
         End Function
 
 #End Region

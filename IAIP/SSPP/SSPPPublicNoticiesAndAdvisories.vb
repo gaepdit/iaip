@@ -1587,7 +1587,10 @@ Public Class SSPPPublicNoticiesAndAdvisories
         End Try
 
     End Sub
+
     Private Sub ExportPDF()
+        Cursor = Cursors.WaitCursor
+
         Try
             Dim rpt As New SSPPPublicNotice
             Dim ParameterFields As CrystalDecisions.Shared.ParameterFields
@@ -1613,13 +1616,15 @@ Public Class SSPPPublicNoticiesAndAdvisories
 
             CRVPublicNotices.ExportReport()
 
+        Catch ex As TypeInitializationException
+            ShowCrystalReportsSupportMessage()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-
+            Cursor = Nothing
         End Try
-
     End Sub
+
     Private Sub OpenOldPAPN()
         Try
             Dim DestFilePath As String = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "temp.rtf")
@@ -1870,7 +1875,10 @@ Public Class SSPPPublicNoticiesAndAdvisories
 
         End Try
     End Sub
+
     Private Sub btnViewOldPDFs_Click(sender As Object, e As EventArgs) Handles btnViewOldPDFs.Click
+        Cursor = Cursors.WaitCursor
+
         Try
             Dim rpt As New SSPPPublicNotice
             Dim ParameterFields As CrystalDecisions.Shared.ParameterFields
@@ -1896,12 +1904,15 @@ Public Class SSPPPublicNoticiesAndAdvisories
 
             CRVPublicNotices.ExportReport()
 
+        Catch ex As TypeInitializationException
+            ShowCrystalReportsSupportMessage()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-
+            Cursor = Nothing
         End Try
     End Sub
+
     Private Sub btnClearPreview_Click(sender As Object, e As EventArgs) Handles btnClearPreview.Click
         Try
 

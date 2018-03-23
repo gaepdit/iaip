@@ -24,13 +24,17 @@
         OpenUri(VesaUrl, objectSender)
     End Sub
 
-    Private Function OpenUri(uriString As String, Optional objectSender As Object = Nothing, Optional isMailto As Boolean = False) As Boolean
+    Private Function OpenUri(uriString As String, Optional sender As Object = Nothing, Optional isMailto As Boolean = False) As Boolean
         ' Reference: http://code.logos.com/blog/2008/01/using_processstart_to_link_to.html
         Try
-            If objectSender IsNot Nothing Then objectSender.Cursor = Cursors.AppStarting
+            If sender IsNot Nothing AndAlso TypeOf sender Is Form Then
+                CType(sender, Form).Cursor = Cursors.AppStarting
+            End If
+
             If uriString Is Nothing OrElse uriString = "" OrElse Not IsValidURL(uriString, isMailto) Then Return False
 
             Process.Start(uriString)
+
             Return True
         Catch ee As Exception When _
         TypeOf ee Is ComponentModel.Win32Exception OrElse
@@ -38,7 +42,9 @@
         TypeOf ee Is IO.FileNotFoundException
             Return False
         Finally
-            If objectSender IsNot Nothing Then objectSender.Cursor = Nothing
+            If sender IsNot Nothing AndAlso TypeOf sender Is Form Then
+                CType(sender, Form).Cursor = Nothing
+            End If
         End Try
     End Function
 

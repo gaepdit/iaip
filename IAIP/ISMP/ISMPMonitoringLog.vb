@@ -1003,14 +1003,16 @@ Public Class ISMPMonitoringLog
 
             Dim TestFirmComments As New ISMPTestFirmComments
 
-            TestFirmComments.txtAIRSNumber.Text = txtTestFirmAirsNumber.Text
-            TestFirmComments.txtFacilityTested.Text = txtTestFirmFacilityName.Text
-            TestFirmComments.cboTestingFirm.Text = txtTestFirmName.Text
-            TestFirmComments.txtTestReportNumber.Text = txtTestFirmReferenceNumber.Text
-            TestFirmComments.txtTestNotificationNumber.Text = txtTestFirmTestLogNumber.Text
-            TestFirmComments.txtCommentID.Text = txtCommentNumber.Text
+            If TestFirmComments IsNot Nothing AndAlso Not TestFirmComments.IsDisposed Then
+                TestFirmComments.txtAIRSNumber.Text = txtTestFirmAirsNumber.Text
+                TestFirmComments.txtFacilityTested.Text = txtTestFirmFacilityName.Text
+                TestFirmComments.cboTestingFirm.Text = txtTestFirmName.Text
+                TestFirmComments.txtTestReportNumber.Text = txtTestFirmReferenceNumber.Text
+                TestFirmComments.txtTestNotificationNumber.Text = txtTestFirmTestLogNumber.Text
+                TestFirmComments.txtCommentID.Text = txtCommentNumber.Text
 
-            TestFirmComments.Show()
+                TestFirmComments.Show()
+            End If
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -1070,7 +1072,10 @@ Public Class ISMPMonitoringLog
 
     Private Sub mmiReports_Click(sender As Object, e As EventArgs) Handles mmiReports.Click
         Dim StaffReports As New ISMPStaffReports
-        StaffReports.Show()
+
+        If StaffReports IsNot Nothing AndAlso Not StaffReports.IsDisposed Then
+            StaffReports.Show()
+        End If
     End Sub
 
     Private Sub tsbClear_Click(sender As Object, e As EventArgs) Handles tsbClear.Click

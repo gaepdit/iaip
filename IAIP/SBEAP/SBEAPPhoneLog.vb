@@ -454,13 +454,15 @@ Public Class SBEAPPhoneLog
 
     Private Sub btnCreateNewClient_Click(sender As Object, e As EventArgs) Handles btnCreateNewClient.Click
         Try
-            If ClientSummary Is Nothing Then
-
-            Else
+            If ClientSummary IsNot Nothing Then
                 ClientSummary.Dispose()
             End If
+
             ClientSummary = New SBEAPClientSummary
-            ClientSummary.Show()
+
+            If ClientSummary IsNot Nothing AndAlso Not ClientSummary.IsDisposed Then
+                ClientSummary.Show()
+            End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try

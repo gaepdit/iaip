@@ -10,10 +10,10 @@ Public Class EisTool
 
     Private Sub EisTool_Load(sender As Object, e As EventArgs) Handles Me.Load
         LoadPermissions()
-        loadYear()
-        loadMailOutYear()
-        loadESEnrollmentYear()
-        loadcboEISstatusCodes()
+        LoadESYear()
+        LoadMailOutYear()
+        LoadESEnrollmentYear()
+        LoadcboEISstatusCodes()
         LoadEISLog()
         LoadStats()
         LoadEISYear()
@@ -33,7 +33,7 @@ Public Class EisTool
         End If
     End Sub
 
-    Private Sub loadYear()
+    Private Sub LoadESYear()
         Dim SQL As String = "Select " &
         "distinct intESYear " &
         "from esschema " &
@@ -47,7 +47,7 @@ Public Class EisTool
         cboYear.SelectedIndex = 0
     End Sub
 
-    Private Sub loadMailOutYear()
+    Private Sub LoadMailOutYear()
         Dim SQL As String = "Select distinct STRESYEAR " &
             "from esmailout " &
             "order by STRESYEAR desc"
@@ -1614,7 +1614,7 @@ Public Class EisTool
             Dim param As New SqlParameter("strESyear", ESYear)
 
             If DB.ValueExists(SQL, param) Then
-                MsgBox("That year is already being used." & vbCrLf & "If you want to use that year," & vbCrLf & "you must first delete that year from the database.")
+                MsgBox("That year is already being used." & vbCrLf & "If you want to use that year," & vbCrLf & "you must first delete it from the database.")
             Else
                 If cboMailoutYear.Text <> "" Then
                     SQL = "SELECT dt_ESContact.STRAIRSNUMBER, fi.STRFACILITYNAME, hd.STROPERATIONALSTATUS, hd.STRCLASS,
@@ -1841,7 +1841,7 @@ Public Class EisTool
         Try
             GenerateESMailOut()
             cboMailoutYear.Items.Clear()
-            loadMailOutYear()
+            LoadMailOutYear()
             cboMailoutYear.Text = ""
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -1852,7 +1852,7 @@ Public Class EisTool
         Try
             deleteESmailOutbyYear()
             cboMailoutYear.Items.Clear()
-            loadMailOutYear()
+            LoadMailOutYear()
             cboMailoutYear.Text = ""
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -1926,7 +1926,7 @@ Public Class EisTool
 
 #Region "EI Tool"
 
-    Private Sub loadESEnrollmentYear()
+    Private Sub LoadESEnrollmentYear()
         'Load MailOut Year dropdown boxes
         Dim SQL As String = "Select distinct STRESYEAR " &
                   "from ESMAILOUT  " &
@@ -1947,7 +1947,7 @@ Public Class EisTool
             Else
                 ESMailoutenrollment()
                 cboESYear.Items.Clear()
-                loadESEnrollmentYear()
+                LoadESEnrollmentYear()
                 cboESYear.Text = ""
             End If
         Catch ex As Exception
@@ -1968,7 +1968,7 @@ Public Class EisTool
             Dim param As New SqlParameter("@ESYear", ESYear)
 
             If DB.ValueExists(SQL, param) Then
-                MsgBox("That year " & ESYear & " is already enrolled.", MsgBoxStyle.Information, "EI Enrollment")
+                MsgBox("The year " & ESYear & " is already enrolled.", MsgBoxStyle.Information, "EI Enrollment")
             Else
                 SQL = "Select ESMAILOUT.STRAIRSNUMBER, ESMAILOUT.STRFACILITYNAME " &
                 "FROM ESMAILOUT " &
@@ -2036,7 +2036,7 @@ Public Class EisTool
                 End Select
 
                 cboESYear.Items.Clear()
-                loadESEnrollmentYear()
+                LoadESEnrollmentYear()
                 cboESYear.Text = ""
             End If
         Catch ex As Exception
@@ -2400,7 +2400,7 @@ Public Class EisTool
         End Try
     End Sub
 
-    Private Sub loadcboEISstatusCodes()
+    Private Sub LoadcboEISstatusCodes()
         Dim SQL As String = "Select '' as EISSTATUSCODE, '- Select EIS Status Code -' as STRDESC " &
             " union select distinct  EISSTATUSCODE, STRDESC " &
             " from EISLK_EISSTATUSCODE "

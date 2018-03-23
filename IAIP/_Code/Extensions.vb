@@ -80,9 +80,9 @@ Module Extensions
         Dim dataTable As New DataTable
 
         If TypeOf dataGridView.DataSource Is DataSet Then
-            dataTable = dataGridView.DataSource.Tables(dataGridView.DataMember)
+            dataTable = CType(dataGridView.DataSource, DataSet).Tables(dataGridView.DataMember)
         ElseIf TypeOf dataGridView.DataSource Is DataTable Then
-            dataTable = dataGridView.DataSource
+            dataTable = CType(dataGridView.DataSource, DataTable)
         Else
             Dim dtRow As DataRow
             For Each dgvColumn As DataGridViewColumn In dataGridView.Columns
@@ -115,8 +115,8 @@ Module Extensions
     Public Sub ExportToExcel(dataTable As DataTable, Optional sender As Object = Nothing)
         If dataTable Is Nothing OrElse dataTable.Rows.Count = 0 Then Exit Sub
 
-        If sender IsNot Nothing Then
-            sender.Cursor = Cursors.AppStarting
+        If sender IsNot Nothing AndAlso TypeOf sender Is Form Then
+            CType(sender, Form).Cursor = Cursors.AppStarting
         End If
 
         Dim dialog As New SaveFileDialog()
@@ -149,8 +149,8 @@ Module Extensions
 
         dialog.Dispose()
 
-        If sender IsNot Nothing Then
-            sender.Cursor = Nothing
+        If sender IsNot Nothing AndAlso TypeOf sender Is Form Then
+            CType(sender, Form).Cursor = Nothing
         End If
     End Sub
 
