@@ -1,10 +1,8 @@
-﻿Imports System.Runtime.CompilerServices
-Imports System.IO
-Imports System.Collections.Generic
-Imports System.Reflection
+﻿Imports System.Collections.Generic
 Imports System.ComponentModel
-Imports System.Linq
-Imports Microsoft.SqlServer.Server
+Imports System.IO
+Imports System.Reflection
+Imports System.Runtime.CompilerServices
 
 Module Extensions
 
