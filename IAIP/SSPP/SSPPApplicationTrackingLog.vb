@@ -10411,7 +10411,6 @@ Public Class SSPPApplicationTrackingLog
     End Sub
     Private Sub btnEmailAcknowledgmentLetter_Click(sender As Object, e As EventArgs) Handles btnEmailAcknowledgmentLetter.Click
         Try
-            Dim EmailAddress As String = ""
             Dim Subject As String = ""
             Dim Body As String = ""
             Dim StaffPhone As String = ""
@@ -10423,19 +10422,18 @@ Public Class SSPPApplicationTrackingLog
                 Exit Sub
             End If
 
-            If Not IsValidEmailAddress(txtContactEmailAddress.Text) Then
-                MessageBox.Show("Invalid Email Address", "Application Tracking Log", MessageBoxButtons.OKCancel)
+            If Not txtContactEmailAddress.Text.IsValidEmailAddress Then
+                MessageBox.Show("The email address is not valid", "Application Tracking Log", MessageBoxButtons.OK)
                 Exit Sub
-            Else
-                EmailAddress = txtContactEmailAddress.Text
             End If
 
             Me.Cursor = Cursors.AppStarting
 
             Dim query As String = "select " &
-            "strEmailAddress, strPhone " &
-            "from EPDUserProfiles " &
-            "where numUserID = @UserGCode "
+                "strEmailAddress, strPhone " &
+                "from EPDUserProfiles " &
+                "where numUserID = @UserGCode "
+
             Dim parameter As New SqlParameter("@UserGCode", CurrentUser.UserID)
 
             Dim dr As DataRow = DB.GetDataRow(query, parameter)
@@ -10475,9 +10473,15 @@ Public Class SSPPApplicationTrackingLog
                 "should reference the above application number that has been assigned to this application " &
                 "and the facility's AIRS number."
 
-            If Not CreateEmail(Subject, Body, {EmailAddress}) Then
-                MsgBox("There was an error sending the message. Please try again.", MsgBoxStyle.OkOnly, "Error")
-            End If
+            Select Case CreateEmail(Subject, Body, {txtContactEmailAddress.Text})
+
+                Case CreateEmailResult.Failure, CreateEmailResult.FunctionError
+                    MessageBox.Show("There was an error sending the message. Please try again.", "Error", MessageBoxButtons.OK)
+
+                Case CreateEmailResult.InvalidEmail
+                    MessageBox.Show("The email address is not valid.", "Application Tracking Log", MessageBoxButtons.OK)
+
+            End Select
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)

@@ -916,29 +916,45 @@ Would you like to continue?", "Event is at Capacity", MessageBoxButtons.YesNo, M
 
     Private Sub SendEmail(Optional whichSet As String = "")
         Dim subject As String = selectedEvent.Title & " – " & selectedEvent.StartDate
+
         Dim body As String = selectedEvent.Title & vbNewLine & vbNewLine &
             selectedEvent.Description & vbNewLine & vbNewLine &
             "Starts on: " & selectedEvent.StartDate.Value.ToString(DateFormat)
+
         If selectedEvent.StartTime IsNot Nothing Then
             body &= ", " & selectedEvent.StartTime
         End If
+
         body &= vbNewLine & "Venue: " & selectedEvent.Venue & vbNewLine & vbNewLine &
             selectedEvent.Address.ToString
 
         Dim recipientsBCC As List(Of String) = GetCorrectRecipients(whichSet)
 
-        Me.Cursor = Cursors.AppStarting
-        If Not CreateEmail(subject, body, recipientsBCC:=recipientsBCC.ToArray) Then
-            MsgBox("There was an error sending the message. Please try again.", MsgBoxStyle.OkOnly, "Error")
+        If recipientsBCC Is Nothing OrElse recipientsBCC.Count = 0 Then
+            MessageBox.Show("There are no recipients to email.", "Error", MessageBoxButtons.OK)
+            Exit Sub
         End If
-        Me.Cursor = Nothing
+
+        Cursor = Cursors.AppStarting
+
+        Select Case CreateEmail(subject, body, recipientsBCC:=recipientsBCC.ToArray)
+
+            Case CreateEmailResult.Failure, CreateEmailResult.FunctionError
+                MessageBox.Show("There was an error sending the message. Please try again.", "Error", MessageBoxButtons.OK)
+
+            Case CreateEmailResult.InvalidEmail
+                MessageBox.Show("One or more email addresses are not valid", "Error", MessageBoxButtons.OK)
+
+        End Select
+
+        Cursor = Nothing
     End Sub
 
     Private Function GetCorrectRecipients(Optional statusFilter As String = "") As List(Of String)
         Dim recipients As New List(Of String)
 
         For Each row As DataGridViewRow In dgvOverviewRegistrants.Rows
-            If statusFilter = "" OrElse row.Cells("STRREGISTRATIONSTATUS").Value = statusFilter Then
+            If statusFilter = "" OrElse row.Cells("STRREGISTRATIONSTATUS").Value.ToString() = statusFilter Then
                 recipients.Add(row.Cells("STRUSEREMAIL").Value.ToString)
             End If
         Next
