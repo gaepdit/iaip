@@ -460,7 +460,8 @@ Public Class SSPPTitleVTools
                     "where strApplicationNumber = @app "
 
                     Dim p5 As New SqlParameter("@app", txtWebPublisherApplicationNumber.Text)
-                    DB.RunCommand(query2, p5)
+
+                    DB.RunCommand(query, p5)
                 End If
 
                 MsgBox("Web Information Saved", MsgBoxStyle.Information, "Application Tracking Log")
