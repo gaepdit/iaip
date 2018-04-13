@@ -1628,7 +1628,7 @@ Public Class SscpEnforcement
                 NovToPM.Value,
                 antecedents:=New List(Of DateTimePicker) From {DiscoveryDate, NovToUC},
                 subsequents:=New List(Of DateTimePicker) From
-                {NovSent, NovResponseReceived, NfaToUC, NfaToPM, NfaSent,
+                {NovSent, NovResponseReceived, NfaToPM, NfaSent,
                 COToUC, COToPM, COProposed, COReceivedfromCompany, COReceivedFromDirector,
                 COExecuted, COResolved})
         End If
@@ -1638,7 +1638,7 @@ Public Class SscpEnforcement
                 NovSent.Value,
                 antecedents:=New List(Of DateTimePicker) From {DiscoveryDate, NovToUC, NovToPM},
                 subsequents:=New List(Of DateTimePicker) From
-                {NovResponseReceived, NfaToUC, NfaToPM, NfaSent,
+                {NovResponseReceived, NfaSent,
                 COToUC, COToPM, COProposed, COReceivedfromCompany, COReceivedFromDirector,
                 COExecuted, COResolved})
         End If
@@ -1648,8 +1648,7 @@ Public Class SscpEnforcement
                 NovResponseReceived.Value,
                 antecedents:=New List(Of DateTimePicker) From {DiscoveryDate, NovToUC, NovToPM},
                 subsequents:=New List(Of DateTimePicker) From
-                {NfaToUC, NfaToPM, NfaSent,
-                COToUC, COToPM, COProposed, COReceivedfromCompany, COReceivedFromDirector,
+                {COToUC, COToPM, COProposed, COReceivedfromCompany, COReceivedFromDirector,
                 COExecuted, COResolved},
                 requiredAntecedents:=New List(Of DateTimePicker) From {NovSent})
         End If
