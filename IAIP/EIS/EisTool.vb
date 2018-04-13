@@ -3811,8 +3811,13 @@ Public Class EisTool
 
     Private Sub btnEILogUpdate_Click(sender As Object, e As EventArgs) Handles btnEILogUpdate.Click
         Try
-            Dim EISAccess As String = " "
-            Dim OptOut As String = Nothing
+            If cboEILogAccessCode.SelectedValue.ToString = "" OrElse cboEILogStatusCode.SelectedValue.ToString = "" Then
+                MessageBox.Show("Select a valid access code and status code before saving data.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Exit Sub
+            End If
+
+            Dim EISAccess As String = ""
+                Dim OptOut As String = Nothing
             Dim EISStatus As String = ""
             Dim Enrollment As String = ""
             Dim Mailout As String = ""
@@ -3847,13 +3852,9 @@ Public Class EisTool
             Else
                 IncorrectlyOptedOut = "0"
             End If
-            If cboEILogStatusCode.SelectedValue <> "" Then
-                EISStatus = cboEILogStatusCode.SelectedValue
-            End If
-            If cboEILogAccessCode.SelectedValue <> "" Then
-                EISAccess = cboEILogAccessCode.SelectedValue
-            End If
-            If rdbEILogActiveYes.Checked = True Then
+            EISStatus = cboEILogStatusCode.SelectedValue.ToString
+            EISAccess = cboEILogAccessCode.SelectedValue.ToString
+                If rdbEILogActiveYes.Checked = True Then
                 ActiveStatus = "1"
             Else
                 ActiveStatus = "0"
