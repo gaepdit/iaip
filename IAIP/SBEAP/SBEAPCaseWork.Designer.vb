@@ -307,6 +307,7 @@ Partial Class SBEAPCaseWork
         '
         Me.txtCaseNotes.AcceptsReturn = True
         Me.txtCaseNotes.Location = New System.Drawing.Point(25, 27)
+        Me.txtCaseNotes.MaxLength = 3999
         Me.txtCaseNotes.Multiline = True
         Me.txtCaseNotes.Name = "txtCaseNotes"
         Me.txtCaseNotes.Size = New System.Drawing.Size(959, 353)

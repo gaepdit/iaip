@@ -400,31 +400,50 @@ Public Class GecoTool
 
     Private Sub btnAddUser_Click(sender As Object, e As EventArgs) Handles btnAddUser.Click
         Try
-            Dim userID As Integer?
+            Dim result As AirsNumberValidationResult = ValidateAirsFacility(mtbAIRSNumber.Text)
 
-            Dim SQL As String = "Select numUserId " &
-            "from olapuserlogin " &
-            "where struseremail = @struseremail "
-            Dim param As New SqlParameter("@struseremail", UCase(txtEmail.Text))
-            userID = DB.GetSingleValue(Of Decimal?)(SQL, param)
-
-            If userID IsNot Nothing Then 'Email address is registered
-                SQL = "Insert into OlapUserAccess " &
-                    "(numUserId, strAirsNumber, strFacilityName) values " &
-                    "(@numUserId, @strAirsNumber, @strFacilityName) "
-                Dim params As SqlParameter() = {
-                    New SqlParameter("@numUserId", userID),
-                    New SqlParameter("@strAirsNumber", "0413" & mtbAIRSNumber.Text),
-                    New SqlParameter("@strFacilityName", lblFaciltyName.Text)
-                }
-                DB.RunCommand(SQL, params)
-
-                ViewFacilitySpecificUsers()
-
-                MsgBox("The User has beed added to this facility", MsgBoxStyle.Information, "Insert Success!")
-            Else 'email address not registered
-                MsgBox("This Email Address is not registered", MsgBoxStyle.OkOnly, "Insert Failed!")
+            If result <> AirsNumberValidationResult.Valid Then
+                MessageBox.Show("The AIRS number is not valid.", "Error")
+                Exit Sub
             End If
+
+
+            Dim query As String = "Select numUserId from olapuserlogin " &
+                " where struseremail = @struseremail "
+
+            Dim param As New SqlParameter("@struseremail", UCase(txtEmail.Text))
+
+            Dim userID As Integer = DB.GetInteger(query, param)
+
+            If userID = 0 Then ' Email address is not registered
+                MessageBox.Show("This Email Address is not registered", "Error")
+                Exit Sub
+            End If
+
+            query = "select convert(bit, count(*)) from OLAPUSERACCESS " &
+                " where NUMUSERID = @NUMUSERID and STRAIRSNUMBER = @STRAIRSNUMBER "
+
+            Dim params As SqlParameter() = {
+                    New SqlParameter("@NUMUSERID", userID),
+                    New SqlParameter("@STRAIRSNUMBER", "0413" & mtbAIRSNumber.Text),
+                    New SqlParameter("@STRFACILITYNAME", lblFaciltyName.Text)
+                }
+
+            If DB.GetBoolean(query, params) Then ' already assigned
+                MessageBox.Show("This user already has access to this facility.")
+                Exit Sub
+            End If
+
+            query = "Insert into OlapUserAccess " &
+                    " (numUserId, strAirsNumber, strFacilityName) values " &
+                    " (@NUMUSERID, @STRAIRSNUMBER, @STRFACILITYNAME) "
+
+            DB.RunCommand(query, params)
+
+            ViewFacilitySpecificUsers()
+
+            MessageBox.Show("The User has been added to this facility", "Success")
+
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
