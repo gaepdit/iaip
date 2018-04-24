@@ -81,9 +81,17 @@ Public Class PASPFeeStatistics
                 cboStatPayType.Items.Add(dr.Item("strPayTypeDesc"))
             Next
 
-            cboStatYear.SelectedIndex = 0
-            cboStatPayType.SelectedIndex = 0
-            cboFeeYear.SelectedIndex = 0
+            If cboStatYear.Items.Count > 0 Then
+                cboStatYear.SelectedIndex = 0
+            End If
+
+            If cboStatPayType.Items.Count > 0 Then
+                cboStatPayType.SelectedIndex = 0
+            End If
+
+            If cboFeeYear.Items.Count > 0 Then
+                cboFeeYear.SelectedIndex = 0
+            End If
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)

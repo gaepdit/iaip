@@ -1,5 +1,6 @@
 ﻿Imports System.Data.SqlClient
 Imports Iaip.Apb.Facilities
+Imports Iaip.DAL.FacilityData
 
 Public Class GecoTool
 
@@ -399,31 +400,50 @@ Public Class GecoTool
 
     Private Sub btnAddUser_Click(sender As Object, e As EventArgs) Handles btnAddUser.Click
         Try
-            Dim userID As Integer?
+            Dim result As AirsNumberValidationResult = ValidateAirsFacility(mtbAIRSNumber.Text)
 
-            Dim SQL As String = "Select numUserId " &
-            "from olapuserlogin " &
-            "where struseremail = @struseremail "
-            Dim param As New SqlParameter("@struseremail", UCase(txtEmail.Text))
-            userID = DB.GetSingleValue(Of Decimal?)(SQL, param)
-
-            If userID IsNot Nothing Then 'Email address is registered
-                SQL = "Insert into OlapUserAccess " &
-                    "(numUserId, strAirsNumber, strFacilityName) values " &
-                    "(@numUserId, @strAirsNumber, @strFacilityName) "
-                Dim params As SqlParameter() = {
-                    New SqlParameter("@numUserId", userID),
-                    New SqlParameter("@strAirsNumber", "0413" & mtbAIRSNumber.Text),
-                    New SqlParameter("@strFacilityName", lblFaciltyName.Text)
-                }
-                DB.RunCommand(SQL, params)
-
-                ViewFacilitySpecificUsers()
-
-                MsgBox("The User has beed added to this facility", MsgBoxStyle.Information, "Insert Success!")
-            Else 'email address not registered
-                MsgBox("This Email Address is not registered", MsgBoxStyle.OkOnly, "Insert Failed!")
+            If result <> AirsNumberValidationResult.Valid Then
+                MessageBox.Show("The AIRS number is not valid.", "Error")
+                Exit Sub
             End If
+
+
+            Dim query As String = "Select numUserId from olapuserlogin " &
+                " where struseremail = @struseremail "
+
+            Dim param As New SqlParameter("@struseremail", UCase(txtEmail.Text))
+
+            Dim userID As Integer = DB.GetInteger(query, param)
+
+            If userID = 0 Then ' Email address is not registered
+                MessageBox.Show("This Email Address is not registered", "Error")
+                Exit Sub
+            End If
+
+            query = "select convert(bit, count(*)) from OLAPUSERACCESS " &
+                " where NUMUSERID = @NUMUSERID and STRAIRSNUMBER = @STRAIRSNUMBER "
+
+            Dim params As SqlParameter() = {
+                    New SqlParameter("@NUMUSERID", userID),
+                    New SqlParameter("@STRAIRSNUMBER", "0413" & mtbAIRSNumber.Text),
+                    New SqlParameter("@STRFACILITYNAME", lblFaciltyName.Text)
+                }
+
+            If DB.GetBoolean(query, params) Then ' already assigned
+                MessageBox.Show("This user already has access to this facility.")
+                Exit Sub
+            End If
+
+            query = "Insert into OlapUserAccess " &
+                    " (numUserId, strAirsNumber, strFacilityName) values " &
+                    " (@NUMUSERID, @STRAIRSNUMBER, @STRFACILITYNAME) "
+
+            DB.RunCommand(query, params)
+
+            ViewFacilitySpecificUsers()
+
+            MessageBox.Show("The User has been added to this facility", "Success")
+
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -706,38 +726,45 @@ Public Class GecoTool
 
     Private Sub btnAddFacilitytoUser_Click(sender As Object, e As EventArgs) Handles btnAddFacilitytoUser.Click
         Try
-            If txtWebUserID.Text <> "" And mtbFacilityToAdd.Text <> "" Then
-                Dim SQL As String = "Select " &
-                "1 " &
-                "from OlapUserAccess " &
-                "where numUserId = @numUserId " &
-                " And strAirsNumber = @strAirsNumber "
-                Dim params As SqlParameter() = {
+            If txtWebUserID.Text <> "" Then
+                Dim Result As AirsNumberValidationResult = ValidateAirsFacility(mtbFacilityToAdd.Text)
+                If Result = AirsNumberValidationResult.Valid Then
+                    Dim SQL As String = "Select " &
+                    "1 " &
+                    "from OlapUserAccess " &
+                    "where numUserId = @numUserId " &
+                    " And strAirsNumber = @strAirsNumber "
+                    Dim params As SqlParameter() = {
                     New SqlParameter("@numUserId", txtWebUserID.Text),
                     New SqlParameter("@strAirsNumber", "0413" & mtbFacilityToAdd.Text)
-                }
-
-                If Not DB.GetBoolean(SQL, params) Then
-                    SQL = "Insert into OlapUserAccess " &
-                        "(numUserId, strAirsNumber, strFacilityName) " &
-                        "values " &
-                        "(@numUserId, @strAirsNumber, " &
-                        "(select strFacilityName " &
-                        "from APBFacilityInformation " &
-                        "where strAIRSnumber = @strAirsNumber)) "
-
-                    Dim params2 As SqlParameter() = {
-                        New SqlParameter("@numUserId", txtWebUserID.Text),
-                        New SqlParameter("@strAirsNumber", "0413" & mtbFacilityToAdd.Text)
                     }
 
-                    DB.RunCommand(SQL, params2)
+                    If Not DB.GetBoolean(SQL, params) Then
+                        SQL = "Insert into OlapUserAccess " &
+                            "(numUserId, strAirsNumber, strFacilityName) " &
+                            "values " &
+                            "(@numUserId, @strAirsNumber, " &
+                            "(select strFacilityName " &
+                            "from APBFacilityInformation " &
+                            "where strAIRSnumber = @strAirsNumber)) "
 
-                    LoadUserFacilityInfo(txtWebUserEmail.Text)
-                    MsgBox("The facility has been added to this user", MsgBoxStyle.Information, "Insert Success!")
+                        Dim params2 As SqlParameter() = {
+                            New SqlParameter("@numUserId", txtWebUserID.Text),
+                            New SqlParameter("@strAirsNumber", "0413" & mtbFacilityToAdd.Text)
+                        }
+
+                        DB.RunCommand(SQL, params2)
+
+                        LoadUserFacilityInfo(txtWebUserEmail.Text)
+                        MessageBox.Show(Me, "The facility has been added to this user", "Insert Success!", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                    Else
+                        MessageBox.Show(Me, "The facility already exists for this user." & vbCrLf & "NO DATA SAVED", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                    End If
                 Else
-                    MsgBox("The facility already exists for this user." & vbCrLf & "NO DATA SAVED", MsgBoxStyle.Exclamation, Me.Text)
+                    MessageBox.Show(Me, GetAirsValidationMsg(Result), Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 End If
+            Else
+                MessageBox.Show(Me, "You must enter a User's e-mail address.", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)

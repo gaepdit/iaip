@@ -550,7 +550,7 @@ Public Class SSCPEvents
 #Region " Enforcement Actions "
 
     Private Sub llEnforcementCases_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llEnforcementCases.LinkClicked
-        OpenFormEnforcement(e.Link.LinkData)
+        OpenFormEnforcement(e.Link.LinkData.ToString)
     End Sub
 
     Private Sub btnEnforcementProcess_Click(sender As Object, e As EventArgs) Handles btnEnforcementProcess.Click

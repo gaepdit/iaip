@@ -5858,26 +5858,22 @@ Public Class SSPPApplicationTrackingLog
                             "Where strCOntactKey = @oldKey),  " &
                             "strContactPhoneNumber1 = (select strContactPhoneNumber1 from APBContactInformation " &
                             "Where strCOntactKey = @oldKey),  " &
-                            "strContactPhoneNumber2 = (select strContactPhoneNumber2 from APBContactInformation " &
-                            "Where strCOntactKey = @oldKey),  " &
+                            "strContactPhoneNumber2 = null,  " &
                             "strContactFaxNumber = (select strContactFaxNumber from APBContactInformation " &
                             "Where strCOntactKey = @oldKey),  " &
                             "strContactEmail = (select strContactEmail from APBContactInformation " &
                             "Where strCOntactKey = @oldKey),  " &
                             "strContactAddress1 = (select strContactAddress1 from APBContactInformation " &
                             "Where strCOntactKey = @oldKey),  " &
-                            "strContactAddress2 = (select strContactAddress2 from APBContactInformation " &
-                            "Where strCOntactKey = @oldKey),  " &
+                            "strContactAddress2 = null,  " &
                             "strContactCity = (select strContactCity from APBContactInformation " &
                             "Where strCOntactKey = @oldKey),  " &
                             "strContactState = (select strContactState from APBContactInformation " &
                             "Where strCOntactKey = @oldKey),  " &
                             "strContactZipCode = (select strContactZipCode from APBContactInformation " &
                             "Where strCOntactKey = @oldKey),  " &
-                            "strModifingPerson = (select strModifingPerson from APBContactInformation " &
-                            "Where strCOntactKey = @oldKey),  " &
-                            "datModifingDate = (select datModifingDate from APBContactInformation " &
-                            "Where strCOntactKey = @oldKey),  " &
+                            "strModifingPerson = '0',  " &
+                            "datModifingDate = getdate(),  " &
                             "strContactDescription = (select strContactDescription from APBContactInformation " &
                             "Where strCOntactKey = @oldKey) " &
                             "where strContactKey = @newKey "
@@ -10401,15 +10397,20 @@ Public Class SSPPApplicationTrackingLog
             Exit Sub
         End If
         If txtApplicationNumber.Text <> "" Then
-            Dim PrintOut As New IAIPPrintOut
-            PrintOut.PrintoutType = IAIPPrintOut.PrintType.SsppConfirm
-            PrintOut.ReferenceValue = txtApplicationNumber.Text
-            PrintOut.Show()
+            Dim PrintOut As New IAIPPrintOut With {
+                .PrintoutType = IAIPPrintOut.PrintType.SsppConfirm,
+                .ReferenceValue = txtApplicationNumber.Text
+            }
+
+            If PrintOut IsNot Nothing AndAlso Not PrintOut.IsDisposed Then
+                PrintOut.Show()
+            Else
+                MessageBox.Show("There was an error displaying the printout.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End If
         End If
     End Sub
     Private Sub btnEmailAcknowledgmentLetter_Click(sender As Object, e As EventArgs) Handles btnEmailAcknowledgmentLetter.Click
         Try
-            Dim EmailAddress As String = ""
             Dim Subject As String = ""
             Dim Body As String = ""
             Dim StaffPhone As String = ""
@@ -10421,19 +10422,18 @@ Public Class SSPPApplicationTrackingLog
                 Exit Sub
             End If
 
-            If Not IsValidEmailAddress(txtContactEmailAddress.Text) Then
-                MessageBox.Show("Invalid Email Address", "Application Tracking Log", MessageBoxButtons.OKCancel)
+            If Not txtContactEmailAddress.Text.IsValidEmailAddress Then
+                MessageBox.Show("The email address is not valid", "Application Tracking Log", MessageBoxButtons.OK)
                 Exit Sub
-            Else
-                EmailAddress = txtContactEmailAddress.Text
             End If
 
             Me.Cursor = Cursors.AppStarting
 
             Dim query As String = "select " &
-            "strEmailAddress, strPhone " &
-            "from EPDUserProfiles " &
-            "where numUserID = @UserGCode "
+                "strEmailAddress, strPhone " &
+                "from EPDUserProfiles " &
+                "where numUserID = @UserGCode "
+
             Dim parameter As New SqlParameter("@UserGCode", CurrentUser.UserID)
 
             Dim dr As DataRow = DB.GetDataRow(query, parameter)
@@ -10473,9 +10473,15 @@ Public Class SSPPApplicationTrackingLog
                 "should reference the above application number that has been assigned to this application " &
                 "and the facility's AIRS number."
 
-            If Not CreateEmail(Subject, Body, {EmailAddress}) Then
-                MsgBox("There was an error sending the message. Please try again.", MsgBoxStyle.OkOnly, "Error")
-            End If
+            Select Case CreateEmail(Subject, Body, {txtContactEmailAddress.Text})
+
+                Case CreateEmailResult.Failure, CreateEmailResult.FunctionError
+                    MessageBox.Show("There was an error sending the message. Please try again.", "Error", MessageBoxButtons.OK)
+
+                Case CreateEmailResult.InvalidEmail
+                    MessageBox.Show("The email address is not valid.", "Application Tracking Log", MessageBoxButtons.OK)
+
+            End Select
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -14610,9 +14616,12 @@ Public Class SSPPApplicationTrackingLog
 
     Private Sub btnUpdateFeeContact_Click(sender As Object, e As EventArgs) Handles btnGoToFeeContact.Click
         Dim feeContact As New SSPP_FeeContact
-        feeContact.txtAIRSNumber.Text = txtAIRSNumber.Text
-        feeContact.txtApplicationNumber.Text = txtApplicationNumber.Text
-        feeContact.Show()
+
+        If feeContact IsNot Nothing AndAlso Not feeContact.IsDisposed Then
+            feeContact.txtAIRSNumber.Text = txtAIRSNumber.Text
+            feeContact.txtApplicationNumber.Text = txtApplicationNumber.Text
+            feeContact.Show()
+        End If
     End Sub
 
     Private Sub SaveButton_Click(sender As Object, e As EventArgs) Handles SaveButton.Click

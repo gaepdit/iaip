@@ -139,15 +139,17 @@ Public Class SBEAPReports
     Private Sub btnViewCase_Click(sender As Object, e As EventArgs) Handles btnViewCase.Click
         Try
             If txtCaseID.Text <> "" Then
-                If CaseWork Is Nothing Then
-
-                Else
+                If CaseWork IsNot Nothing Then
                     CaseWork.Dispose()
                 End If
+
                 CaseWork = New SBEAPCaseWork
-                CaseWork.txtCaseID.Text = txtCaseID.Text
-                CaseWork.Show()
-                CaseWork.LoadCaseLogData()
+
+                If CaseWork IsNot Nothing AndAlso Not CaseWork.IsDisposed Then
+                    CaseWork.txtCaseID.Text = txtCaseID.Text
+                    CaseWork.Show()
+                    CaseWork.LoadCaseLogData()
+                End If
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & Reflection.MethodBase.GetCurrentMethod.Name)

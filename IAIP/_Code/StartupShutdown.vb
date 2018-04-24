@@ -77,6 +77,7 @@
         Array.Clear(AccountFormAccess, 0, AccountFormAccess.Length)
         ' Remove username from analytics
         ExceptionLogger.Tags.Remove("IaipUser")
+        ExceptionLogger.Tags.Remove("IaipUserID")
     End Sub
 
     Private Sub CheckLanguageRegistrySetting()

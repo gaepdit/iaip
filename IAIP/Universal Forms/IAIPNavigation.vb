@@ -274,9 +274,14 @@ Public Class IAIPNavigation
                 End If
 
                 CaseWork = New SBEAPCaseWork
-                CaseWork.Show()
-                CaseWork.txtCaseID.Text = id
-                CaseWork.LoadCaseLogData()
+
+                If CaseWork IsNot Nothing AndAlso Not CaseWork.IsDisposed Then
+                    CaseWork.Show()
+                    CaseWork.txtCaseID.Text = id
+                    CaseWork.LoadCaseLogData()
+                Else
+                    MessageBox.Show("There was an error displaying the Case Log.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End If
             Else
                 MsgBox("Case number is not in the system.", MsgBoxStyle.Information, Me.Text)
             End If

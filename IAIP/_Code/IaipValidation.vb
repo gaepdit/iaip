@@ -1,4 +1,5 @@
-﻿Imports System.Text.RegularExpressions
+﻿Imports System.Runtime.CompilerServices
+Imports System.Text.RegularExpressions
 
 Module IaipValidation
 
@@ -9,6 +10,7 @@ Module IaipValidation
     End Function
 
     <CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId:="testEmail")>
+    <Extension>
     Public Function IsValidEmailAddress(emailAddress As String, Optional requireDnrAddress As Boolean = False) As Boolean
         If String.IsNullOrEmpty(emailAddress) Then Return False
         If requireDnrAddress AndAlso Not Regex.IsMatch(emailAddress, DnrEmailPattern) Then Return False
@@ -18,8 +20,23 @@ Module IaipValidation
         Catch ex As Exception
             Return False
         End Try
+
         Return True
     End Function
+
+    <Extension>
+    Public Function AreValidEmailAddresses(emailAddresses As String(), Optional requireDnrAddress As Boolean = False) As Boolean
+        If emailAddresses Is Nothing Then Return False
+
+        For Each emailAddress As String In emailAddresses
+            If Not emailAddress.IsValidEmailAddress(requireDnrAddress) Then
+                Return False
+            End If
+        Next
+
+        Return True
+    End Function
+
 
     Public Enum StringValidationResult
         Valid

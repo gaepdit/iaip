@@ -25,9 +25,9 @@
         FocusLogin()
         DisplayVersion()
         CheckForPasswordResetRequest()
-        If AppFirstRun Or AppUpdated Then
-            App.TestCrystalReportsInstallation()
-        End If
+        'If AppFirstRun Or AppUpdated Then
+
+        'End If
         CheckDBAvailability()
     End Sub
 
@@ -181,6 +181,7 @@
     Private Sub LogInAlready()
         ' Tag exception logger with new user
         ExceptionLogger.Tags.Add("IaipUser", CurrentUser.Username)
+        ExceptionLogger.Tags.Add("IaipUserID", CurrentUser.UserID)
         SaveUserSetting(UserSetting.PrefillLoginId, txtUserID.Text)
         ResetUserSetting(UserSetting.PasswordResetRequestedDate)
         OpenSingleForm(IAIPNavigation)

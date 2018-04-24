@@ -148,12 +148,12 @@ Public Class SSPPPublicNoticiesAndAdvisories
             Dim AppType As String = ""
 
             Dim AppNumbers As New List(Of Integer)
-            Dim SIPAppNumbers As New List(Of String)
-            Dim TVAppNumbers As New List(Of String)
+            Dim SIPAppNumbers As New List(Of Integer)
+            Dim TVAppNumbers As New List(Of Integer)
 
             Dim temp As String = ""
             Dim i As Integer
-            
+
             For i = 0 To dgvPublicNotice.RowCount - 1
                 AppNumbers.Add(CInt(dgvPublicNotice(0, i).Value))
             Next
@@ -181,7 +181,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
             Dim dt As DataTable = DB.GetDataTable(query, p)
 
             For Each dr As DataRow In dt.Rows
-                SIPAppNumbers.Add(dr.Item("strApplicationNumber"))
+                SIPAppNumbers.Add(CInt(dr.Item("strApplicationNumber")))
             Next
 
             query = "Select " &
@@ -205,7 +205,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
             Dim dt2 As DataTable = DB.GetDataTable(query, p)
 
             For Each dr2 As DataRow In dt2.Rows
-                TVAppNumbers.Add(dr2.Item("strApplicationNumber"))
+                TVAppNumbers.Add(CInt(dr2.Item("strApplicationNumber")))
             Next
 
             If SIPAppNumbers.Count > 0 Then
@@ -716,13 +716,13 @@ Public Class SSPPPublicNoticiesAndAdvisories
         Dim TVSigMod As String = ""
         Dim Deadline As String = ""
 
-        Dim AdvAppNumbers As New List(Of String)
-        Dim NotAppNumbers As New List(Of String)
+        Dim AdvAppNumbers As New List(Of Integer)
+        Dim NotAppNumbers As New List(Of Integer)
 
         Try
             If lsbPublicAdvisories.Items.Count > 0 Then
                 For i = 0 To lsbPublicAdvisories.Items.Count - 1
-                    AdvAppNumbers.Add(lsbPublicAdvisories.Items.Item(i))
+                    AdvAppNumbers.Add(CInt(lsbPublicAdvisories.Items.Item(i)))
                 Next
 
                 query = "select " &
@@ -798,7 +798,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
 
             If lsbPublicNoticies.Items.Count > 0 Then
                 For i = 0 To lsbPublicNoticies.Items.Count - 1
-                    NotAppNumbers.Add(lsbPublicNoticies.Items.Item(i))
+                    NotAppNumbers.Add(CInt(lsbPublicNoticies.Items.Item(i)))
                 Next
 
                 query = "Select  " &
@@ -1533,10 +1533,10 @@ Public Class SSPPPublicNoticiesAndAdvisories
                 "where strApplicationNumber in " &
                 "(select * from @appnums)  "
 
-                Dim AppNums As New List(Of String)
+                Dim AppNums As New List(Of Integer)
 
                 For i = 0 To lsbPublicAdvisories.Items.Count - 1
-                    AppNums.Add(lsbPublicAdvisories.Items.Item(i))
+                    AppNums.Add(CInt(lsbPublicAdvisories.Items.Item(i)))
                 Next
 
                 Dim p As SqlParameter() = {
@@ -1566,10 +1566,10 @@ Public Class SSPPPublicNoticiesAndAdvisories
                 "where strApplicationNumber in " &
                 "(select * from @appnums)  "
 
-                Dim AppNums As New List(Of String)
+                Dim AppNums As New List(Of Integer)
 
                 For i = 0 To lsbPublicNoticies.Items.Count - 1
-                    AppNums.Add(lsbPublicNoticies.Items.Item(i))
+                    AppNums.Add(CInt(lsbPublicNoticies.Items.Item(i)))
                 Next
 
                 Dim p As SqlParameter() = {
@@ -1587,7 +1587,10 @@ Public Class SSPPPublicNoticiesAndAdvisories
         End Try
 
     End Sub
+
     Private Sub ExportPDF()
+        Cursor = Cursors.WaitCursor
+
         Try
             Dim rpt As New SSPPPublicNotice
             Dim ParameterFields As CrystalDecisions.Shared.ParameterFields
@@ -1613,13 +1616,15 @@ Public Class SSPPPublicNoticiesAndAdvisories
 
             CRVPublicNotices.ExportReport()
 
+        Catch ex As TypeInitializationException
+            ShowCrystalReportsSupportMessage()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-
+            Cursor = Nothing
         End Try
-
     End Sub
+
     Private Sub OpenOldPAPN()
         Try
             Dim DestFilePath As String = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "temp.rtf")
@@ -1870,7 +1875,10 @@ Public Class SSPPPublicNoticiesAndAdvisories
 
         End Try
     End Sub
+
     Private Sub btnViewOldPDFs_Click(sender As Object, e As EventArgs) Handles btnViewOldPDFs.Click
+        Cursor = Cursors.WaitCursor
+
         Try
             Dim rpt As New SSPPPublicNotice
             Dim ParameterFields As CrystalDecisions.Shared.ParameterFields
@@ -1896,12 +1904,15 @@ Public Class SSPPPublicNoticiesAndAdvisories
 
             CRVPublicNotices.ExportReport()
 
+        Catch ex As TypeInitializationException
+            ShowCrystalReportsSupportMessage()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
-
+            Cursor = Nothing
         End Try
     End Sub
+
     Private Sub btnClearPreview_Click(sender As Object, e As EventArgs) Handles btnClearPreview.Click
         Try
 

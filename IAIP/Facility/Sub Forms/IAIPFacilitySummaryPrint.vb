@@ -17,24 +17,28 @@
             Exit Sub
         End If
 
-        If sender IsNot Nothing Then
-            sender.Cursor = Cursors.AppStarting
-        End If
+        Cursor = Cursors.AppStarting
 
-        Select Case sender.Name.ToString
-            Case NameOf(ShowBasicReportButton)
-                ShowBasicReport()
-            Case NameOf(ShowFullReportButton)
-                ShowFullReport()
-        End Select
+        Try
 
-        If sender IsNot Nothing Then
-            sender.Cursor = Nothing
-        End If
+            Select Case CType(sender, Button).Name.ToString
+                Case NameOf(ShowBasicReportButton)
+                    ShowBasicReport()
+                Case NameOf(ShowFullReportButton)
+                    ShowFullReport()
+            End Select
+
+        Catch ex As TypeInitializationException
+            ShowCrystalReportsSupportMessage()
+            Close()
+            Exit Sub
+        End Try
+
+        Cursor = Nothing
     End Sub
 
     Private Sub ShowBasicReport()
-        Me.Cursor = Cursors.WaitCursor
+        Cursor = Cursors.WaitCursor
 
         Dim rpt As New CR.Reports.FacilityBasicReport
 
@@ -42,13 +46,16 @@
         rpt.Subreports("FacilityBasicInfo.rpt").SetDataSource(dt)
 
         Dim crv As New CRViewerForm(rpt)
-        crv.Show()
 
-        Me.Cursor = Cursors.Default
+        If crv IsNot Nothing AndAlso Not crv.IsDisposed Then
+            crv.Show()
+        End If
+
+        Cursor = Nothing
     End Sub
 
     Private Sub ShowFullReport()
-        Me.Cursor = Cursors.WaitCursor
+        Cursor = Cursors.WaitCursor
 
         Dim rpt As New CR.Reports.FacilityDetailedReport
 
@@ -105,9 +112,12 @@
         }
 
         Dim crv As New CRViewerForm(rpt, pd)
-        crv.Show()
 
-        Me.Cursor = Cursors.Default
+        If crv IsNot Nothing AndAlso Not crv.IsDisposed Then
+            crv.Show()
+        End If
+
+        Cursor = Nothing
     End Sub
 
 End Class

@@ -460,7 +460,8 @@ Public Class SSPPTitleVTools
                     "where strApplicationNumber = @app "
 
                     Dim p5 As New SqlParameter("@app", txtWebPublisherApplicationNumber.Text)
-                    DB.RunCommand(query2, p5)
+
+                    DB.RunCommand(query, p5)
                 End If
 
                 MsgBox("Web Information Saved", MsgBoxStyle.Information, "Application Tracking Log")
@@ -753,7 +754,7 @@ Public Class SSPPTitleVTools
             Dim temp As String = ""
             Dim strObject As Object
 
-            If clbTitleVEmailList.Items.Count > 0 Then
+            If clbTitleVEmailList.Items.Count > 0 AndAlso clbTitleVEmailList.CheckedItems.Count > 0 Then
                 txtEmailLetter.Text = "In accordance with 40 CFR 70.7(e)(2),(3), and (4) and 70.8(a)(1) and (b)(1), you are hereby notified that " &
                 "Georgia EPD has received an application for the modification of an existing Part 70 permit for the " &
                 "following source(s): " & vbCrLf & vbCrLf
@@ -840,7 +841,7 @@ Public Class SSPPTitleVTools
 
             Else
                 txtEmailLetter.Clear()
-                MsgBox("Click Preview button first.", MsgBoxStyle.Information, "Title V Emails.")
+                MsgBox("Click preview button first and ensure at least one applications is selected.", MsgBoxStyle.Information, "Title V Emails.")
             End If
 
         Catch ex As Exception
@@ -2976,13 +2977,19 @@ Public Class SSPPTitleVTools
     End Sub
     Private Sub btnPrintRenewalLetters_Click(sender As Object, e As EventArgs) Handles btnPrintRenewalLetters.Click
         Try
-            If Me.txtRenewalCount.Text <> "" And txtRenewalCount.Text <> "0" Then
-                Dim PrintOut As New IAIPPrintOut
-                PrintOut.PrintoutType = IAIPPrintOut.PrintType.TitleVRenewal
-                PrintOut.ReferenceValue = "*"
-                PrintOut.StartDate = DTPTitleVRenewalStart.Value.AddMonths(-51)
-                PrintOut.EndDate = DTPTitleVRenewalEnd.Value.AddMonths(-51)
-                PrintOut.Show()
+            If txtRenewalCount.Text <> "" And txtRenewalCount.Text <> "0" Then
+                Dim PrintOut As New IAIPPrintOut With {
+                    .PrintoutType = IAIPPrintOut.PrintType.TitleVRenewal,
+                    .ReferenceValue = "*",
+                    .StartDate = DTPTitleVRenewalStart.Value.AddMonths(-51),
+                    .EndDate = DTPTitleVRenewalEnd.Value.AddMonths(-51)
+                }
+
+                If PrintOut IsNot Nothing AndAlso Not PrintOut.IsDisposed Then
+                    PrintOut.Show()
+                Else
+                    MessageBox.Show("There was an error displaying the printout.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End If
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -3320,12 +3327,18 @@ Public Class SSPPTitleVTools
             End If
 
             If (Me.txtRenewalCount.Text <> "" And txtRenewalCount.Text <> "0") Or txtTitleVSingleLetter.Text <> "" Then
-                Dim PrintOut As New IAIPPrintOut
-                PrintOut.PrintoutType = IAIPPrintOut.PrintType.TitleVRenewal
-                PrintOut.ReferenceValue = AppNumber
-                PrintOut.StartDate = New Date(1990, 1, 1)
-                PrintOut.EndDate = New Date(2099, 1, 1)
-                PrintOut.Show()
+                Dim PrintOut As New IAIPPrintOut With {
+                    .PrintoutType = IAIPPrintOut.PrintType.TitleVRenewal,
+                    .ReferenceValue = AppNumber,
+                    .StartDate = New Date(1990, 1, 1),
+                    .EndDate = New Date(2099, 1, 1)
+                }
+
+                If PrintOut IsNot Nothing AndAlso Not PrintOut.IsDisposed Then
+                    PrintOut.Show()
+                Else
+                    MessageBox.Show("There was an error displaying the printout.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End If
             End If
 
         Catch ex As Exception

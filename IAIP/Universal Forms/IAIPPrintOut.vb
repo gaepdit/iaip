@@ -34,8 +34,16 @@ Public Class IAIPPrintOut
 #Region " Form events "
 
     Private Sub IAIPPrintOut_Load(sender As Object, e As EventArgs) Handles Me.Load
-        LoadCorrectReport()
-        CRViewer.ShowHideViewerTabs(VisibleOrNot.NotVisible)
+        Try
+            LoadCorrectReport()
+            CRViewer.ShowHideViewerTabs(VisibleOrNot.NotVisible)
+        Catch ex As TypeInitializationException
+            ShowCrystalReportsSupportMessage()
+            Close()
+        Catch ex As Exception
+            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+            Close()
+        End Try
     End Sub
 
     Private Sub IAIPPrintOut_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
@@ -56,7 +64,7 @@ Public Class IAIPPrintOut
                 PrintOutTitleVRenewals()
             Case Else
                 MsgBox("Unable to print; please contact EPD IT.")
-                Me.Close()
+                Close()
         End Select
     End Sub
 
@@ -102,7 +110,7 @@ Public Class IAIPPrintOut
                 LoadPTE()
             Case Else
                 MsgBox("Unable to Print at this time.")
-                Me.Close()
+                Close()
         End Select
     End Sub
 
@@ -13238,46 +13246,42 @@ Public Class IAIPPrintOut
     End Sub
 
     Private Sub PrintOutTitleVRenewals()
-        Try
-            Dim SQL As String
+        Dim SQL As String
 
-            If ReferenceValue = "*" Then
-                SQL = "Select * " &
-                    "from VW_Title_V_Renewals " &
-                    "where datPermitIssued between @start " &
-                    "and @end " &
-                    "or datEffective between @start " &
-                    "and @end "
-            Else
-                SQL = "Select * " &
-                    "from VW_Title_V_Renewals " &
-                    "where strApplicationNumber = @ref "
-            End If
+        If ReferenceValue = "*" Then
+            SQL = "Select * " &
+                "from VW_Title_V_Renewals " &
+                "where datPermitIssued between @start " &
+                "and @end " &
+                "or datEffective between @start " &
+                "and @end "
+        Else
+            SQL = "Select * " &
+                "from VW_Title_V_Renewals " &
+                "where strApplicationNumber = @ref "
+        End If
 
-            Dim p As SqlParameter() = {
-                New SqlParameter("@start", StartDate),
-                New SqlParameter("@end", EndDate),
-                New SqlParameter("@ref", ReferenceValue)
-            }
+        Dim p As SqlParameter() = {
+            New SqlParameter("@start", StartDate),
+            New SqlParameter("@end", EndDate),
+            New SqlParameter("@ref", ReferenceValue)
+        }
 
-            Dim dt As DataTable = DB.GetDataTable(SQL, p)
-            dt.TableName = "VW_Title_V_Renewals"
+        Dim dt As DataTable = DB.GetDataTable(SQL, p)
+        dt.TableName = "VW_Title_V_Renewals"
 
-            Dim ParameterFields As New ParameterFields
+        Dim ParameterFields As New ParameterFields
 
-            ParameterFields.AddParameterField("Director", GetEpdManagerName(EpdManagementTypes.EpdDirector))
-            ParameterFields.AddParameterField("Commissioner", GetEpdManagerName(EpdManagementTypes.DnrCommissioner))
-            ParameterFields.AddParameterField("ProgramManager", GetEpdManagerName(EpdManagementTypes.SsppProgramManager))
+        ParameterFields.AddParameterField("Director", GetEpdManagerName(EpdManagementTypes.EpdDirector))
+        ParameterFields.AddParameterField("Commissioner", GetEpdManagerName(EpdManagementTypes.DnrCommissioner))
+        ParameterFields.AddParameterField("ProgramManager", GetEpdManagerName(EpdManagementTypes.SsppProgramManager))
 
-            Dim rpt As New CRTitleVRenewal10
-            rpt.SetDataSource(dt)
+        Dim rpt As New CRTitleVRenewal10
+        rpt.SetDataSource(dt)
 
-            CRViewer.ParameterFieldInfo = ParameterFields
-            CRViewer.ReportSource = rpt
-            CRViewer.Refresh()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        CRViewer.ParameterFieldInfo = ParameterFields
+        CRViewer.ReportSource = rpt
+        CRViewer.Refresh()
     End Sub
 
 #End Region

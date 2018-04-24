@@ -1227,10 +1227,14 @@ Public Class IAIPFacilitySummary
     End Sub
 
     Private Sub OpenFacilitySummaryPrintTool()
-        Dim facilityPrintOut As New IaipFacilitySummaryPrint
-        facilityPrintOut.AirsNumber = Me.AirsNumber
-        facilityPrintOut.FacilityName = Me.ThisFacility.FacilityName
-        facilityPrintOut.Show()
+        Dim facilityPrintOut As New IaipFacilitySummaryPrint With {
+            .AirsNumber = AirsNumber,
+            .FacilityName = ThisFacility.FacilityName
+        }
+
+        If facilityPrintOut IsNot Nothing AndAlso Not facilityPrintOut.IsDisposed Then
+            facilityPrintOut.Show()
+        End If
     End Sub
 
 #End Region

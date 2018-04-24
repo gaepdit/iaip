@@ -2471,6 +2471,8 @@ Public Class PASPFeeAuditLog
                 Exit Sub
             End If
 
+            Dim payment As Double? = CType(RealStringOrNothing(Replace(Replace(txtTransactionAmount.Text, ",", ""), "$", "")), Double?)
+
             Dim SQL As String = "Insert into FS_Transactions " &
                     "(TRANSACTIONID, INVOICEID, TRANSACTIONTYPECODE, DATTRANSACTIONDATE, " &
                     "NUMPAYMENT, STRCHECKNO, STRDEPOSITNO, STRBATCHNO, " &
@@ -2489,7 +2491,7 @@ Public Class PASPFeeAuditLog
                 New SqlParameter("@INVOICEID", RealStringOrNothing(txtInvoiceID.Text)),
                 New SqlParameter("@TRANSACTIONTYPECODE", cboTransactionType.SelectedValue),
                 New SqlParameter("@DATTRANSACTIONDATE", dtpTransactionDate.Value),
-                New SqlParameter("@NUMPAYMENT", RealStringOrNothing(Replace(Replace(txtTransactionAmount.Text, ",", ""), "$", ""))),
+                New SqlParameter("@NUMPAYMENT", payment),
                 New SqlParameter("@STRCHECKNO", txtTransactionCheckNo.Text),
                 New SqlParameter("@STRDEPOSITNO", txtDepositNo.Text),
                 New SqlParameter("@STRBATCHNO", txtBatchNo.Text),
@@ -2674,6 +2676,8 @@ Public Class PASPFeeAuditLog
                 Exit Sub
             End If
 
+            Dim payment As Double? = CType(RealStringOrNothing(Replace(Replace(txtTransactionAmount.Text, ",", ""), "$", "")), Double?)
+
             Dim SQL As String = "Update FS_Transactions set " &
             "invoiceid = @invoiceid, " &
             "TransactionTypecode = @TransactionTypecode, " &
@@ -2693,7 +2697,7 @@ Public Class PASPFeeAuditLog
                 New SqlParameter("@invoiceid", txtInvoiceID.Text),
                 New SqlParameter("@TransactionTypecode", cboTransactionType.SelectedValue),
                 New SqlParameter("@datTransactionDate", dtpTransactionDate.Text),
-                New SqlParameter("@numPayment", RealStringOrNothing(Replace(Replace(txtTransactionAmount.Text, ",", ""), "$", ""))),
+                New SqlParameter("@numPayment", payment),
                 New SqlParameter("@strCheckNo", txtTransactionCheckNo.Text),
                 New SqlParameter("@strDepositNo", txtDepositNo.Text),
                 New SqlParameter("@strBatchNo", txtBatchNo.Text),
@@ -2703,11 +2707,11 @@ Public Class PASPFeeAuditLog
                 New SqlParameter("@TransactionID", txtTransactionID.Text)
             }
 
-            DB.RunCommand(SQL, p)
+            DB.RunCommand(SQL, p, forceAddNullableParameters:=True)
 
             InvoiceStatusCheck(txtInvoiceID.Text)
 
-            If Not DAL.Update_FS_Admin_Status(Me.FeeYear, Me.AirsNumber) Then
+            If Not DAL.Update_FS_Admin_Status(FeeYear, AirsNumber) Then
                 MessageBox.Show("There was an error updating the database", "Database error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End If
             RefreshAdminStatus()
@@ -3532,6 +3536,8 @@ Public Class PASPFeeAuditLog
             crFeeStatsAndInvoices.ReportSource = rpt
             crFeeStatsAndInvoices.Refresh()
 
+        Catch ex As TypeInitializationException
+            ShowCrystalReportsSupportMessage()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
