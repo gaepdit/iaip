@@ -11,13 +11,6 @@ Public Class PASPFeeManagement
             LoadFeeYears()
             LoadSelectedNSPSExemptions()
 
-            btnGenerateMailoutList.Enabled = False
-            btnFirstEnrollment.Enabled = False
-            btnUnenrollFeeYear.Enabled = False
-            btnUpdateContactData.Enabled = False
-            btnSetMailoutDate.Enabled = False
-            dtpDateMailoutSent.Enabled = False
-
             FeeManagementListCountLabel.Text = ""
             btnExportToExcel.Visible = False
 
@@ -1433,7 +1426,7 @@ Public Class PASPFeeManagement
     End Sub
 
     Private Sub cboAvailableFeeYears_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cboAvailableFeeYears.SelectedIndexChanged
-        If cboAvailableFeeYears.SelectedIndex > 1 Then
+        If cboAvailableFeeYears.SelectedIndex > 0 Then
             btnGenerateMailoutList.Enabled = False
             btnFirstEnrollment.Enabled = False
             btnUnenrollFeeYear.Enabled = False
