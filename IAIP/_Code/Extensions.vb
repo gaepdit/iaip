@@ -410,8 +410,8 @@ Module Extensions
 #Region " List "
 
     <Extension>
-    Public Function AddBlankRowToList(l As List(Of String), Optional blankPrompt As String = "") As List(Of String)
-        l.Insert(0, blankPrompt)
+    Public Function AddRowToList(l As List(Of String), item As String) As List(Of String)
+        l.Insert(0, item)
         Return l
     End Function
 

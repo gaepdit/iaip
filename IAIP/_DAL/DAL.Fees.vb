@@ -53,10 +53,28 @@ Namespace DAL
         End Function
 
         Private Function GetAllFeeYearsAsDataTable() As DataTable
-            Dim query As String = "SELECT DISTINCT(NUMFEEYEAR) AS FEEYEAR " &
-                "FROM FSLK_NSPSREASONYEAR " &
-                "ORDER BY FEEYEAR DESC"
+            Dim query As String = "select distinct (convert(int, NUMFEEYEAR)) as FeeYear
+                from FSLK_NSPSREASONYEAR
+                ORDER BY FeeYear DESC "
             Return DB.GetDataTable(query)
+        End Function
+
+        Public Function GetFeePaymentTypes() As DataTable
+            Dim query As String = "select
+                    NUMPAYTYPEID,
+                    STRPAYTYPEDESC
+                from FSLK_PAYTYPE
+                where ACTIVE = 1"
+            Return DB.GetDataTable(query)
+        End Function
+
+        Public Function GetFeePaymentTypesAsList() As List(Of String)
+            Dim list As New List(Of String)
+            Dim dt As DataTable = GetFeePaymentTypes()
+            For Each row As DataRow In dt.Rows
+                list.Add(row("STRPAYTYPEDESC").ToString)
+            Next
+            Return list
         End Function
 
         Public Function FeeMailoutEntryExists(airsNumber As Apb.ApbFacilityId, feeYear As String) As Boolean

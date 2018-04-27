@@ -2,6 +2,7 @@
 Imports CrystalDecisions.Shared
 Imports CrystalDecisions.CrystalReports.Engine
 Imports Iaip.SharedData
+Imports System.Collections.Generic
 
 Public Class PASPFeeStatistics
 
@@ -43,55 +44,34 @@ Public Class PASPFeeStatistics
 
     Private Sub loadDepositAndPayment()
         Try
-            Dim Year As String
+            Dim allFeeYears As List(Of String) = DAL.GetAllFeeYears()
 
-            Dim SQL As String = "Select distinct(numFeeYear) as FeeYear " &
-            "from FS_Admin " &
-            "order by numFeeYear desc "
-            Dim dt As DataTable = DB.GetDataTable(SQL)
+            With cboStatYear
+                .DataSource = allFeeYears
+                .SelectedIndex = 0
+            End With
 
-            For Each dr As DataRow In dt.Rows
-                Year = dr.Item("FeeYear").ToString
+            With cboFeeStatYear
+                .DataSource = allFeeYears
+                .SelectedIndex = 0
+            End With
 
-                If Not cboStatYear.Items.Contains(Year) Then
-                    cboStatYear.Items.Add(Year)
-                End If
+            With cbReportedYear
+                .DataSource = allFeeYears
+                .SelectedIndex = 0
+            End With
 
-                If Not cboFeeStatYear.Items.Contains(Year) Then
-                    cboFeeStatYear.Items.Add(Year)
-                End If
-
-                If TCMailoutAndStats.TabPages.Contains(TPNonRespondersReport) Then
-                    If Not cboFeeYear.Items.Contains(Year) Then
-                        cboFeeYear.Items.Add(Year)
-                    End If
-                End If
-            Next
-
-            cboStatPayType.Items.Add("ALL")
-            cboStatPayType.Items.Add("ALL QUARTERS")
-
-            SQL = "Select strPayTypeDesc " &
-            "from FSLK_PayType " &
-            "where Active = '1' " &
-            "order by numPaytypeID "
-            Dim dt2 As DataTable = DB.GetDataTable(SQL)
-
-            For Each dr As DataRow In dt2.Rows
-                cboStatPayType.Items.Add(dr.Item("strPayTypeDesc"))
-            Next
-
-            If cboStatYear.Items.Count > 0 Then
-                cboStatYear.SelectedIndex = 0
+            If TCMailoutAndStats.TabPages.Contains(TPNonRespondersReport) Then
+                With cboFeeYear
+                    .DataSource = allFeeYears
+                    .SelectedIndex = 0
+                End With
             End If
 
-            If cboStatPayType.Items.Count > 0 Then
-                cboStatPayType.SelectedIndex = 0
-            End If
-
-            If cboFeeYear.Items.Count > 0 Then
-                cboFeeYear.SelectedIndex = 0
-            End If
+            With cboStatPayType
+                .DataSource = DAL.GetFeePaymentTypesAsList().AddRowToList("ALL QUARTERS").AddRowToList("ALL")
+                .SelectedIndex = 0
+            End With
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -521,11 +501,6 @@ Public Class PASPFeeStatistics
             dgvDepositsAndPayments.DataSource = DB.GetDataTable(SQL, p)
 
             dgvDepositsAndPayments.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvDepositsAndPayments.AllowUserToResizeColumns = True
-            dgvDepositsAndPayments.AllowUserToResizeRows = True
-            dgvDepositsAndPayments.AllowUserToAddRows = False
-            dgvDepositsAndPayments.AllowUserToDeleteRows = False
-            dgvDepositsAndPayments.AllowUserToOrderColumns = True
             dgvDepositsAndPayments.Columns("AIRSNUmber").HeaderText = "AIRS Number"
             dgvDepositsAndPayments.Columns("AIRSNUmber").DisplayIndex = 0
             dgvDepositsAndPayments.Columns("strFacilityName").HeaderText = "Facility Name"
@@ -903,23 +878,21 @@ Public Class PASPFeeStatistics
     End Sub
 
     Private Sub btnViewSelectedFeeData_Click(sender As Object, e As EventArgs) Handles btnViewSelectedFeeData.Click
-        Try
-            If pnlDetails.Dock = DockStyle.None Then
-                pnlDetails.Dock = DockStyle.Top
-            Else
-                pnlDetails.Dock = DockStyle.None
-            End If
-
-            If txtSelectedAIRSNumber.Text <> "" And txtSelectedAIRSNumber.Text.Length = 8 And txtSelectedYear.Text <> "" Then
-                LoadSelectedFeeData()
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        If pnlDetails.Dock = DockStyle.None Then
+            pnlDetails.Dock = DockStyle.Top
+            LoadSelectedFeeData()
+            btnViewSelectedFeeData.Text = "Hide Details ↑"
+        Else
+            pnlDetails.Dock = DockStyle.None
+            btnViewSelectedFeeData.Text = "View Details ↓"
+        End If
     End Sub
 
     Private Sub LoadSelectedFeeData()
+        If txtSelectedAIRSNumber.Text = "" OrElse txtSelectedAIRSNumber.Text.Length <> 8 OrElse txtSelectedYear.Text = "" Then
+            Exit Sub
+        End If
+
         Try
             Dim temp As String
             Dim SQL2 As String = ""
@@ -977,7 +950,6 @@ Public Class PASPFeeStatistics
             "strClass, strNSPS, " &
             "datshutDown,  " &
             "numAdminFee, " &
-            "(numTotalFee) as AllFees, " &
             "strPaymentPlan " &
             "from FS_FeeAuditedData " &
             "where strAIRSNumber = @airs " &
@@ -1019,11 +991,6 @@ Public Class PASPFeeStatistics
                     txtNSPSfee.Clear()
                 Else
                     txtNSPSfee.Text = Format(dr.Item("numNSPSFee"), "c")
-                End If
-                If IsDBNull(dr.Item("numTotalFee")) Then
-                    txtTotalFee.Clear()
-                Else
-                    txtTotalFee.Text = Format(dr.Item("numTotalFee"), "c")
                 End If
                 If IsDBNull(dr.Item("strNSPSExempt")) Then
                     txtNSPSExempt.Clear()
@@ -1106,10 +1073,10 @@ Public Class PASPFeeStatistics
                 Else
                     txtAdminFee.Text = Format(dr.Item("numAdminFee"), "c")
                 End If
-                If IsDBNull(dr.Item("AllFees")) Then
+                If IsDBNull(dr.Item("numTotalFee")) Then
                     txtAllFees.Text = "ERROR"
                 Else
-                    txtAllFees.Text = Format(dr.Item("AllFees"), "c")
+                    txtAllFees.Text = Format(dr.Item("numTotalFee"), "c")
                 End If
                 If IsDBNull(dr.Item("strPaymentPlan")) Then
                     txtPaymentType.Text = ""
@@ -1220,32 +1187,15 @@ Public Class PASPFeeStatistics
         End Try
     End Sub
 
-    Private Sub dgvDepositsAndPayments_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvDepositsAndPayments.MouseUp
-        Dim hti As DataGridView.HitTestInfo = dgvDepositsAndPayments.HitTest(e.X, e.Y)
-        Try
-            If dgvDepositsAndPayments.RowCount > 0 And hti.RowIndex <> -1 Then
-                txtSelectedAIRSNumber.Text = dgvDepositsAndPayments(0, hti.RowIndex).Value
-                txtSelectedFacilityName.Text = dgvDepositsAndPayments(1, hti.RowIndex).Value
-                txtSelectedYear.Text = cboStatYear.Text
-                pnlDetails.Dock = DockStyle.None
+    Private Sub dgvDepositsAndPayments_SelectionChanged(sender As Object, e As EventArgs) Handles dgvDepositsAndPayments.SelectionChanged
+        If dgvDepositsAndPayments.SelectedRows.Count = 1 Then
+            txtSelectedAIRSNumber.Text = dgvDepositsAndPayments.CurrentRow.Cells(0).Value
+            txtSelectedFacilityName.Text = dgvDepositsAndPayments.CurrentRow.Cells(1).Value
+            txtSelectedYear.Text = cboStatYear.Text
+            If pnlDetails.Dock <> DockStyle.None Then
+                LoadSelectedFeeData()
             End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-
-    Private Sub btnHideResults_Click(sender As Object, e As EventArgs) Handles btnHideResults.Click
-        Try
-            If pnlDetails.Dock = DockStyle.None Then
-                pnlDetails.Dock = DockStyle.Top
-            Else
-                pnlDetails.Dock = DockStyle.None
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        End If
     End Sub
 
     Private Sub btnExportToExcel_Click(sender As Object, e As EventArgs) Handles btnExportToExcel.Click
@@ -2436,34 +2386,6 @@ Public Class PASPFeeStatistics
 #End Region
 
 #Region "Year Specific"
-    Private Sub btnFeesandEmissions_Click(sender As Object, e As EventArgs) Handles btnFeesandEmissions.Click
-        Try
-            Me.Cursor = Cursors.WaitCursor
-            Dim rpt As ReportClass = New TotalFee10
-
-            Dim SQL As String = "SELECT  intYear, sum(intVOCTons) as intvoctons, " &
-            "sum(intPMTons) as intPMTons, " &
-            "sum(intSO2Tons) as intSO2Tons, " &
-            "sum(intNOXtons) as intNOXTons, " &
-            "sum(numSMFee) as numSMFee, " &
-            "sum(numNSPSFee) as numNSPSFee, " &
-            "sum(numTotalFee) as numTotalFee, " &
-            "round(avg(numFeeRate),0) as numFeeRate, " &
-            "Round(avg(titlevminfee),0) as titlevminfee, " &
-            "round(avg(titlevfee),0) as titlevfee  " &
-            "from vw_total_fee " &
-            "group by intyear "
-
-            rpt.SetDataSource(DB.GetDataTable(SQL))
-
-            SetUpCrystalReportViewer(rpt, CRFeesReports, "Annual Emission and Fee")
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-            Me.Cursor = Cursors.Default
-        End Try
-    End Sub
 
     Private Sub btnClassification_Click(sender As Object, e As EventArgs) Handles btnClassification.Click
         Try
@@ -6740,6 +6662,48 @@ Public Class PASPFeeStatistics
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
+    End Sub
+
+    Private Sub btnExportedRun_Click(sender As Object, e As EventArgs) Handles btnExportedRun.Click
+        If String.IsNullOrEmpty(cbReportedYear.Text) Then
+            Exit Sub
+        End If
+
+        Dim query As String = "SELECT
+            concat(substring(d.STRAIRSNUMBER, 5, 3), '-', right(d.STRAIRSNUMBER, 5))
+                              as [AIRS Number],
+            f.STRFACILITYNAME as [Facility Name],
+            STRCLASS          as [Classification],
+            case
+            when STROPERATE = 0
+                then 'No'
+            when STROPERATE = 1
+                then 'Yes'
+            else ''
+            end               as [Operated],
+            INTVOCTONS        as [VOC Tons],
+            INTPMTONS         as [PM Tons],
+            INTSO2TONS        as [SO2 Tons],
+            INTNOXTONS        as [NOx Tons],
+            NUMFEERATE        as [$ Per Ton Fee Rate],
+            NUMPART70FEE      as [Part 70 Fees],
+            NUMSMFEE          as [SM Fees],
+            NUMNSPSFEE        as [NSPS Fees],
+            NUMADMINFEE       as [Admin Fees],
+            NUMTOTALFEE       as [Total Fees]
+        from FS_FEEAUDITEDDATA d
+            left JOIN APBFACILITYINFORMATION f
+                on f.STRAIRSNUMBER = d.STRAIRSNUMBER
+        where NUMFEEYEAR = @year"
+
+        Dim param As New SqlParameter("@year", cbReportedYear.Text)
+
+        dgvReported.DataSource = DB.GetDataTable(query, param)
+        dgvReported.SanelyResizeColumns()
+    End Sub
+
+    Private Sub btnReportedExport_Click(sender As Object, e As EventArgs) Handles btnReportedExport.Click
+        dgvReported.ExportToExcel(Me)
     End Sub
 
 End Class

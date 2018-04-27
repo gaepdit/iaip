@@ -105,47 +105,16 @@ Public Class PASPFeeAuditLog
     End Sub
 
     Private Sub LoadFeeYears()
-        FeeYearsComboBox.DataSource = DAL.GetAllFeeYears().AddBlankRowToList("Select…")
+        FeeYearsComboBox.DataSource = DAL.GetAllFeeYears().AddRowToList("Select…")
     End Sub
 
     Private Sub LoadPayTypes()
-        Try
-            Dim dtPayTypes As New DataTable
-            Dim drDSRow As DataRow
-            Dim drNewRow As DataRow
-
-            Dim SQL As String = "select " &
-            "numPayTypeID, strPayTypeDesc " &
-            "from FSLK_PayType " &
-            "order by numPayTypeID "
-
-            Dim dt As DataTable = DB.GetDataTable(SQL)
-
-            dtPayTypes.Columns.Add("numPayTypeID", GetType(String))
-            dtPayTypes.Columns.Add("strPayTypeDesc", GetType(String))
-
-            drNewRow = dtPayTypes.NewRow()
-            drNewRow("numPayTypeID") = ""
-            drNewRow("strPayTypeDesc") = ""
-            dtPayTypes.Rows.Add(drNewRow)
-
-            For Each drDSRow In dt.Rows()
-                drNewRow = dtPayTypes.NewRow()
-                drNewRow("numPayTypeID") = drDSRow("numPayTypeID")
-                drNewRow("strPayTypeDesc") = drDSRow("strPayTypeDesc")
-                dtPayTypes.Rows.Add(drNewRow)
-            Next
-
-            With cboInvoiceType
-                .DataSource = dtPayTypes
-                .DisplayMember = "strPayTypeDesc"
-                .ValueMember = "numPayTypeID"
-                .SelectedIndex = 0
-            End With
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        With cboInvoiceType
+            .DataSource = DAL.GetFeePaymentTypes()
+            .DisplayMember = "strPayTypeDesc"
+            .ValueMember = "numPayTypeID"
+            .SelectedIndex = 0
+        End With
     End Sub
 
     Private Sub LoadTransactionTypes()
