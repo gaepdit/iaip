@@ -1109,6 +1109,7 @@ Partial Class PASPFeeAuditLog
         Me.dgvGECOFeeContacts.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvGECOFeeContacts.Location = New System.Drawing.Point(0, 156)
         Me.dgvGECOFeeContacts.Name = "dgvGECOFeeContacts"
+        Me.dgvGECOFeeContacts.ReadOnly = True
         Me.dgvGECOFeeContacts.Size = New System.Drawing.Size(1008, 301)
         Me.dgvGECOFeeContacts.TabIndex = 481
         '
@@ -1450,6 +1451,7 @@ Partial Class PASPFeeAuditLog
         Me.dgvInvoices.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvInvoices.Location = New System.Drawing.Point(0, 0)
         Me.dgvInvoices.Name = "dgvInvoices"
+        Me.dgvInvoices.ReadOnly = True
         Me.dgvInvoices.Size = New System.Drawing.Size(473, 177)
         Me.dgvInvoices.TabIndex = 0
         '
@@ -3391,6 +3393,7 @@ Partial Class PASPFeeAuditLog
         Me.dgvAuditHistory.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvAuditHistory.Location = New System.Drawing.Point(0, 40)
         Me.dgvAuditHistory.Name = "dgvAuditHistory"
+        Me.dgvAuditHistory.ReadOnly = True
         Me.dgvAuditHistory.Size = New System.Drawing.Size(653, 391)
         Me.dgvAuditHistory.TabIndex = 1
         '

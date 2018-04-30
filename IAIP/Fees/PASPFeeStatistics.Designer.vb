@@ -22,7 +22,6 @@ Partial Class PASPFeeStatistics
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.bgwEmails = New System.ComponentModel.BackgroundWorker()
         Me.TCMailoutAndStats = New System.Windows.Forms.TabControl()
         Me.TPDepositAndPaymentStats = New System.Windows.Forms.TabPage()
         Me.dgvDepositsAndPayments = New System.Windows.Forms.DataGridView()
@@ -36,7 +35,6 @@ Partial Class PASPFeeStatistics
         Me.Label48 = New System.Windows.Forms.Label()
         Me.txtSMfee = New System.Windows.Forms.TextBox()
         Me.txtNSPSfee = New System.Windows.Forms.TextBox()
-        Me.btnHideResults = New System.Windows.Forms.Button()
         Me.dgvStats = New System.Windows.Forms.DataGridView()
         Me.Label93 = New System.Windows.Forms.Label()
         Me.Label90 = New System.Windows.Forms.Label()
@@ -58,8 +56,6 @@ Partial Class PASPFeeStatistics
         Me.txtOperate = New System.Windows.Forms.TextBox()
         Me.Label80 = New System.Windows.Forms.Label()
         Me.txtNSPSExempt = New System.Windows.Forms.TextBox()
-        Me.Label79 = New System.Windows.Forms.Label()
-        Me.txtTotalFee = New System.Windows.Forms.TextBox()
         Me.Label78 = New System.Windows.Forms.Label()
         Me.Label77 = New System.Windows.Forms.Label()
         Me.txtPMTons = New System.Windows.Forms.TextBox()
@@ -258,6 +254,12 @@ Partial Class PASPFeeStatistics
         Me.btnRunLateFeeReport = New System.Windows.Forms.Button()
         Me.cboFeeYear = New System.Windows.Forms.ComboBox()
         Me.Label94 = New System.Windows.Forms.Label()
+        Me.TPReported = New System.Windows.Forms.TabPage()
+        Me.dgvReported = New System.Windows.Forms.DataGridView()
+        Me.Panel6 = New System.Windows.Forms.Panel()
+        Me.cbReportedYear = New System.Windows.Forms.ComboBox()
+        Me.btnReportedExport = New System.Windows.Forms.Button()
+        Me.btnExportedRun = New System.Windows.Forms.Button()
         Me.TPReports = New System.Windows.Forms.TabPage()
         Me.CRFeesReports = New CrystalDecisions.Windows.Forms.CrystalReportViewer()
         Me.tabReport = New System.Windows.Forms.TabControl()
@@ -270,9 +272,6 @@ Partial Class PASPFeeStatistics
         Me.TPFinancial = New System.Windows.Forms.TabPage()
         Me.btnFeeByYear = New System.Windows.Forms.Button()
         Me.btnPayment = New System.Windows.Forms.Button()
-        Me.TPYearSpecific = New System.Windows.Forms.TabPage()
-        Me.btnClassification = New System.Windows.Forms.Button()
-        Me.btnFeesandEmissions = New System.Windows.Forms.Button()
         Me.TPAnnualBalance = New System.Windows.Forms.TabPage()
         Me.mtbFacilityBalanceYear = New System.Windows.Forms.MaskedTextBox()
         Me.chbFacilityBalance = New System.Windows.Forms.CheckBox()
@@ -288,13 +287,15 @@ Partial Class PASPFeeStatistics
         Me.cboAirs = New System.Windows.Forms.ComboBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.TPCompliance = New System.Windows.Forms.TabPage()
+        Me.Label4 = New System.Windows.Forms.Label()
         Me.btnClassChange = New System.Windows.Forms.Button()
         Me.btnNoOperate = New System.Windows.Forms.Button()
         Me.TPNsps = New System.Windows.Forms.TabPage()
         Me.lblNSPS3 = New System.Windows.Forms.LinkLabel()
         Me.lblNSPS2 = New System.Windows.Forms.LinkLabel()
         Me.lblNSPS1 = New System.Windows.Forms.LinkLabel()
-        Me.TPGeneral = New System.Windows.Forms.TabPage()
+        Me.TPFacility = New System.Windows.Forms.TabPage()
+        Me.btnClassification = New System.Windows.Forms.Button()
         Me.btnFacInfoChange = New System.Windows.Forms.Button()
         Me.TCMailoutAndStats.SuspendLayout()
         Me.TPDepositAndPaymentStats.SuspendLayout()
@@ -317,27 +318,26 @@ Partial Class PASPFeeStatistics
         Me.TPFullReport.SuspendLayout()
         CType(Me.dgvLateFeePayerReport, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel2.SuspendLayout()
+        Me.TPReported.SuspendLayout()
+        CType(Me.dgvReported, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.Panel6.SuspendLayout()
         Me.TPReports.SuspendLayout()
         Me.tabReport.SuspendLayout()
         Me.TPFacilitySpecific.SuspendLayout()
         Me.TPFinancial.SuspendLayout()
-        Me.TPYearSpecific.SuspendLayout()
         Me.TPAnnualBalance.SuspendLayout()
         Me.TPDeposits.SuspendLayout()
         Me.TPCompliance.SuspendLayout()
         Me.TPNsps.SuspendLayout()
-        Me.TPGeneral.SuspendLayout()
+        Me.TPFacility.SuspendLayout()
         Me.SuspendLayout()
-        '
-        'bgwEmails
-        '
-        Me.bgwEmails.WorkerSupportsCancellation = True
         '
         'TCMailoutAndStats
         '
         Me.TCMailoutAndStats.Controls.Add(Me.TPDepositAndPaymentStats)
         Me.TCMailoutAndStats.Controls.Add(Me.TPFeeStatistics2)
         Me.TCMailoutAndStats.Controls.Add(Me.TPNonRespondersReport)
+        Me.TCMailoutAndStats.Controls.Add(Me.TPReported)
         Me.TCMailoutAndStats.Controls.Add(Me.TPReports)
         Me.TCMailoutAndStats.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TCMailoutAndStats.Location = New System.Drawing.Point(0, 0)
@@ -360,12 +360,19 @@ Partial Class PASPFeeStatistics
         '
         'dgvDepositsAndPayments
         '
+        Me.dgvDepositsAndPayments.AllowUserToAddRows = False
+        Me.dgvDepositsAndPayments.AllowUserToDeleteRows = False
+        Me.dgvDepositsAndPayments.AllowUserToResizeRows = False
         Me.dgvDepositsAndPayments.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvDepositsAndPayments.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.dgvDepositsAndPayments.Location = New System.Drawing.Point(0, 565)
+        Me.dgvDepositsAndPayments.Location = New System.Drawing.Point(0, 525)
+        Me.dgvDepositsAndPayments.MultiSelect = False
         Me.dgvDepositsAndPayments.Name = "dgvDepositsAndPayments"
         Me.dgvDepositsAndPayments.ReadOnly = True
-        Me.dgvDepositsAndPayments.Size = New System.Drawing.Size(936, 127)
+        Me.dgvDepositsAndPayments.RowHeadersVisible = False
+        Me.dgvDepositsAndPayments.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing
+        Me.dgvDepositsAndPayments.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.dgvDepositsAndPayments.Size = New System.Drawing.Size(936, 167)
         Me.dgvDepositsAndPayments.TabIndex = 7
         '
         'pnlDetails
@@ -379,7 +386,6 @@ Partial Class PASPFeeStatistics
         Me.pnlDetails.Controls.Add(Me.Label48)
         Me.pnlDetails.Controls.Add(Me.txtSMfee)
         Me.pnlDetails.Controls.Add(Me.txtNSPSfee)
-        Me.pnlDetails.Controls.Add(Me.btnHideResults)
         Me.pnlDetails.Controls.Add(Me.dgvStats)
         Me.pnlDetails.Controls.Add(Me.Label93)
         Me.pnlDetails.Controls.Add(Me.Label90)
@@ -401,8 +407,6 @@ Partial Class PASPFeeStatistics
         Me.pnlDetails.Controls.Add(Me.txtOperate)
         Me.pnlDetails.Controls.Add(Me.Label80)
         Me.pnlDetails.Controls.Add(Me.txtNSPSExempt)
-        Me.pnlDetails.Controls.Add(Me.Label79)
-        Me.pnlDetails.Controls.Add(Me.txtTotalFee)
         Me.pnlDetails.Controls.Add(Me.Label78)
         Me.pnlDetails.Controls.Add(Me.Label77)
         Me.pnlDetails.Controls.Add(Me.txtPMTons)
@@ -425,7 +429,7 @@ Partial Class PASPFeeStatistics
         Me.pnlDetails.Dock = System.Windows.Forms.DockStyle.Top
         Me.pnlDetails.Location = New System.Drawing.Point(0, 163)
         Me.pnlDetails.Name = "pnlDetails"
-        Me.pnlDetails.Size = New System.Drawing.Size(936, 402)
+        Me.pnlDetails.Size = New System.Drawing.Size(936, 362)
         Me.pnlDetails.TabIndex = 8
         '
         'txtIAIPStatus
@@ -507,21 +511,10 @@ Partial Class PASPFeeStatistics
         Me.txtNSPSfee.Size = New System.Drawing.Size(89, 20)
         Me.txtNSPSfee.TabIndex = 393
         '
-        'btnHideResults
-        '
-        Me.btnHideResults.AutoSize = True
-        Me.btnHideResults.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnHideResults.Location = New System.Drawing.Point(11, 360)
-        Me.btnHideResults.Name = "btnHideResults"
-        Me.btnHideResults.Size = New System.Drawing.Size(77, 23)
-        Me.btnHideResults.TabIndex = 60
-        Me.btnHideResults.Text = "Hide Results"
-        Me.btnHideResults.UseVisualStyleBackColor = True
-        '
         'dgvStats
         '
         Me.dgvStats.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvStats.Location = New System.Drawing.Point(106, 252)
+        Me.dgvStats.Location = New System.Drawing.Point(106, 222)
         Me.dgvStats.Name = "dgvStats"
         Me.dgvStats.ReadOnly = True
         Me.dgvStats.Size = New System.Drawing.Size(824, 131)
@@ -530,7 +523,7 @@ Partial Class PASPFeeStatistics
         'Label93
         '
         Me.Label93.AutoSize = True
-        Me.Label93.Location = New System.Drawing.Point(3, 252)
+        Me.Label93.Location = New System.Drawing.Point(3, 222)
         Me.Label93.Name = "Label93"
         Me.Label93.Size = New System.Drawing.Size(98, 13)
         Me.Label93.TabIndex = 58
@@ -699,23 +692,6 @@ Partial Class PASPFeeStatistics
         Me.txtNSPSExempt.ReadOnly = True
         Me.txtNSPSExempt.Size = New System.Drawing.Size(143, 20)
         Me.txtNSPSExempt.TabIndex = 31
-        '
-        'Label79
-        '
-        Me.Label79.AutoSize = True
-        Me.Label79.Location = New System.Drawing.Point(502, 78)
-        Me.Label79.Name = "Label79"
-        Me.Label79.Size = New System.Drawing.Size(53, 13)
-        Me.Label79.TabIndex = 30
-        Me.Label79.Text = "Sub Total"
-        '
-        'txtTotalFee
-        '
-        Me.txtTotalFee.Location = New System.Drawing.Point(559, 74)
-        Me.txtTotalFee.Name = "txtTotalFee"
-        Me.txtTotalFee.ReadOnly = True
-        Me.txtTotalFee.Size = New System.Drawing.Size(89, 20)
-        Me.txtTotalFee.TabIndex = 29
         '
         'Label78
         '
@@ -1090,7 +1066,7 @@ Partial Class PASPFeeStatistics
         '
         Me.btnExportToExcel.AutoSize = True
         Me.btnExportToExcel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnExportToExcel.Location = New System.Drawing.Point(842, 133)
+        Me.btnExportToExcel.Location = New System.Drawing.Point(842, 134)
         Me.btnExportToExcel.Name = "btnExportToExcel"
         Me.btnExportToExcel.Size = New System.Drawing.Size(88, 23)
         Me.btnExportToExcel.TabIndex = 27
@@ -1166,9 +1142,9 @@ Partial Class PASPFeeStatistics
         Me.btnViewSelectedFeeData.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.btnViewSelectedFeeData.Location = New System.Drawing.Point(653, 134)
         Me.btnViewSelectedFeeData.Name = "btnViewSelectedFeeData"
-        Me.btnViewSelectedFeeData.Size = New System.Drawing.Size(40, 23)
+        Me.btnViewSelectedFeeData.Size = New System.Drawing.Size(90, 23)
         Me.btnViewSelectedFeeData.TabIndex = 19
-        Me.btnViewSelectedFeeData.Text = "View"
+        Me.btnViewSelectedFeeData.Text = "View Details ↓"
         Me.btnViewSelectedFeeData.UseVisualStyleBackColor = True
         '
         'Label56
@@ -2718,6 +2694,72 @@ Partial Class PASPFeeStatistics
         Me.Label94.TabIndex = 0
         Me.Label94.Text = "Select a Year"
         '
+        'TPReported
+        '
+        Me.TPReported.Controls.Add(Me.dgvReported)
+        Me.TPReported.Controls.Add(Me.Panel6)
+        Me.TPReported.Location = New System.Drawing.Point(4, 22)
+        Me.TPReported.Name = "TPReported"
+        Me.TPReported.Padding = New System.Windows.Forms.Padding(3)
+        Me.TPReported.Size = New System.Drawing.Size(936, 692)
+        Me.TPReported.TabIndex = 8
+        Me.TPReported.Text = "Reported Emissions/Fees"
+        Me.TPReported.UseVisualStyleBackColor = True
+        '
+        'dgvReported
+        '
+        Me.dgvReported.AllowUserToAddRows = False
+        Me.dgvReported.AllowUserToDeleteRows = False
+        Me.dgvReported.AllowUserToOrderColumns = True
+        Me.dgvReported.AllowUserToResizeRows = False
+        Me.dgvReported.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvReported.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.dgvReported.Location = New System.Drawing.Point(3, 52)
+        Me.dgvReported.Name = "dgvReported"
+        Me.dgvReported.ReadOnly = True
+        Me.dgvReported.RowHeadersVisible = False
+        Me.dgvReported.Size = New System.Drawing.Size(930, 637)
+        Me.dgvReported.TabIndex = 1
+        '
+        'Panel6
+        '
+        Me.Panel6.Controls.Add(Me.cbReportedYear)
+        Me.Panel6.Controls.Add(Me.btnReportedExport)
+        Me.Panel6.Controls.Add(Me.btnExportedRun)
+        Me.Panel6.Dock = System.Windows.Forms.DockStyle.Top
+        Me.Panel6.Location = New System.Drawing.Point(3, 3)
+        Me.Panel6.Name = "Panel6"
+        Me.Panel6.Size = New System.Drawing.Size(930, 49)
+        Me.Panel6.TabIndex = 0
+        '
+        'cbReportedYear
+        '
+        Me.cbReportedYear.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cbReportedYear.FormattingEnabled = True
+        Me.cbReportedYear.Location = New System.Drawing.Point(14, 14)
+        Me.cbReportedYear.Name = "cbReportedYear"
+        Me.cbReportedYear.Size = New System.Drawing.Size(83, 21)
+        Me.cbReportedYear.TabIndex = 1
+        '
+        'btnReportedExport
+        '
+        Me.btnReportedExport.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnReportedExport.Location = New System.Drawing.Point(825, 13)
+        Me.btnReportedExport.Name = "btnReportedExport"
+        Me.btnReportedExport.Size = New System.Drawing.Size(100, 23)
+        Me.btnReportedExport.TabIndex = 0
+        Me.btnReportedExport.Text = "Export to Excel"
+        Me.btnReportedExport.UseVisualStyleBackColor = True
+        '
+        'btnExportedRun
+        '
+        Me.btnExportedRun.Location = New System.Drawing.Point(103, 13)
+        Me.btnExportedRun.Name = "btnExportedRun"
+        Me.btnExportedRun.Size = New System.Drawing.Size(75, 23)
+        Me.btnExportedRun.TabIndex = 0
+        Me.btnExportedRun.Text = "View Data"
+        Me.btnExportedRun.UseVisualStyleBackColor = True
+        '
         'TPReports
         '
         Me.TPReports.Controls.Add(Me.CRFeesReports)
@@ -2749,12 +2791,11 @@ Partial Class PASPFeeStatistics
         '
         Me.tabReport.Controls.Add(Me.TPFacilitySpecific)
         Me.tabReport.Controls.Add(Me.TPFinancial)
-        Me.tabReport.Controls.Add(Me.TPYearSpecific)
         Me.tabReport.Controls.Add(Me.TPAnnualBalance)
         Me.tabReport.Controls.Add(Me.TPDeposits)
         Me.tabReport.Controls.Add(Me.TPCompliance)
         Me.tabReport.Controls.Add(Me.TPNsps)
-        Me.tabReport.Controls.Add(Me.TPGeneral)
+        Me.tabReport.Controls.Add(Me.TPFacility)
         Me.tabReport.Dock = System.Windows.Forms.DockStyle.Top
         Me.tabReport.Location = New System.Drawing.Point(0, 0)
         Me.tabReport.Margin = New System.Windows.Forms.Padding(2)
@@ -2863,38 +2904,6 @@ Partial Class PASPFeeStatistics
         Me.btnPayment.Size = New System.Drawing.Size(113, 23)
         Me.btnPayment.TabIndex = 0
         Me.btnPayment.Text = "Overall Fee Balance"
-        '
-        'TPYearSpecific
-        '
-        Me.TPYearSpecific.Controls.Add(Me.btnClassification)
-        Me.TPYearSpecific.Controls.Add(Me.btnFeesandEmissions)
-        Me.TPYearSpecific.Location = New System.Drawing.Point(4, 22)
-        Me.TPYearSpecific.Margin = New System.Windows.Forms.Padding(2)
-        Me.TPYearSpecific.Name = "TPYearSpecific"
-        Me.TPYearSpecific.Size = New System.Drawing.Size(928, 88)
-        Me.TPYearSpecific.TabIndex = 2
-        Me.TPYearSpecific.Text = "Annual Totals"
-        Me.TPYearSpecific.UseVisualStyleBackColor = True
-        '
-        'btnClassification
-        '
-        Me.btnClassification.CausesValidation = False
-        Me.btnClassification.Location = New System.Drawing.Point(133, 4)
-        Me.btnClassification.Margin = New System.Windows.Forms.Padding(2)
-        Me.btnClassification.Name = "btnClassification"
-        Me.btnClassification.Size = New System.Drawing.Size(145, 23)
-        Me.btnClassification.TabIndex = 1
-        Me.btnClassification.Text = "Facility Classification Totals"
-        '
-        'btnFeesandEmissions
-        '
-        Me.btnFeesandEmissions.CausesValidation = False
-        Me.btnFeesandEmissions.Location = New System.Drawing.Point(4, 4)
-        Me.btnFeesandEmissions.Margin = New System.Windows.Forms.Padding(2)
-        Me.btnFeesandEmissions.Name = "btnFeesandEmissions"
-        Me.btnFeesandEmissions.Size = New System.Drawing.Size(125, 23)
-        Me.btnFeesandEmissions.TabIndex = 0
-        Me.btnFeesandEmissions.Text = "Total Fees && Emissions"
         '
         'TPAnnualBalance
         '
@@ -3044,6 +3053,7 @@ Partial Class PASPFeeStatistics
         '
         'TPCompliance
         '
+        Me.TPCompliance.Controls.Add(Me.Label4)
         Me.TPCompliance.Controls.Add(Me.btnClassChange)
         Me.TPCompliance.Controls.Add(Me.btnNoOperate)
         Me.TPCompliance.Location = New System.Drawing.Point(4, 22)
@@ -3053,6 +3063,15 @@ Partial Class PASPFeeStatistics
         Me.TPCompliance.TabIndex = 4
         Me.TPCompliance.Text = "Compliance"
         Me.TPCompliance.UseVisualStyleBackColor = True
+        '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Location = New System.Drawing.Point(236, 9)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(128, 13)
+        Me.Label4.TabIndex = 4
+        Me.Label4.Text = "(Most recent 5 years only)"
         '
         'btnClassChange
         '
@@ -3121,16 +3140,27 @@ Partial Class PASPFeeStatistics
         Me.lblNSPS1.TabStop = True
         Me.lblNSPS1.Text = "All facilities that are subject to NSPS, but chose to exempt from NSPS"
         '
-        'TPGeneral
+        'TPFacility
         '
-        Me.TPGeneral.Controls.Add(Me.btnFacInfoChange)
-        Me.TPGeneral.Location = New System.Drawing.Point(4, 22)
-        Me.TPGeneral.Margin = New System.Windows.Forms.Padding(2)
-        Me.TPGeneral.Name = "TPGeneral"
-        Me.TPGeneral.Size = New System.Drawing.Size(928, 88)
-        Me.TPGeneral.TabIndex = 5
-        Me.TPGeneral.Text = "General"
-        Me.TPGeneral.UseVisualStyleBackColor = True
+        Me.TPFacility.Controls.Add(Me.btnClassification)
+        Me.TPFacility.Controls.Add(Me.btnFacInfoChange)
+        Me.TPFacility.Location = New System.Drawing.Point(4, 22)
+        Me.TPFacility.Margin = New System.Windows.Forms.Padding(2)
+        Me.TPFacility.Name = "TPFacility"
+        Me.TPFacility.Size = New System.Drawing.Size(928, 88)
+        Me.TPFacility.TabIndex = 5
+        Me.TPFacility.Text = "Facility Info"
+        Me.TPFacility.UseVisualStyleBackColor = True
+        '
+        'btnClassification
+        '
+        Me.btnClassification.CausesValidation = False
+        Me.btnClassification.Location = New System.Drawing.Point(129, 4)
+        Me.btnClassification.Margin = New System.Windows.Forms.Padding(2)
+        Me.btnClassification.Name = "btnClassification"
+        Me.btnClassification.Size = New System.Drawing.Size(145, 23)
+        Me.btnClassification.TabIndex = 4
+        Me.btnClassification.Text = "Facility Classification Totals"
         '
         'btnFacInfoChange
         '
@@ -3150,6 +3180,7 @@ Partial Class PASPFeeStatistics
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(944, 718)
         Me.Controls.Add(Me.TCMailoutAndStats)
+        Me.MinimumSize = New System.Drawing.Size(960, 756)
         Me.Name = "PASPFeeStatistics"
         Me.Text = "Fee Statistics and Reports"
         Me.TCMailoutAndStats.ResumeLayout(False)
@@ -3181,21 +3212,24 @@ Partial Class PASPFeeStatistics
         CType(Me.dgvLateFeePayerReport, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel2.ResumeLayout(False)
         Me.Panel2.PerformLayout()
+        Me.TPReported.ResumeLayout(False)
+        CType(Me.dgvReported, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Panel6.ResumeLayout(False)
         Me.TPReports.ResumeLayout(False)
         Me.tabReport.ResumeLayout(False)
         Me.TPFacilitySpecific.ResumeLayout(False)
         Me.TPFacilitySpecific.PerformLayout()
         Me.TPFinancial.ResumeLayout(False)
-        Me.TPYearSpecific.ResumeLayout(False)
         Me.TPAnnualBalance.ResumeLayout(False)
         Me.TPAnnualBalance.PerformLayout()
         Me.TPDeposits.ResumeLayout(False)
         Me.TPDeposits.PerformLayout()
         Me.TPCompliance.ResumeLayout(False)
+        Me.TPCompliance.PerformLayout()
         Me.TPNsps.ResumeLayout(False)
         Me.TPNsps.PerformLayout()
-        Me.TPGeneral.ResumeLayout(False)
-        Me.TPGeneral.PerformLayout()
+        Me.TPFacility.ResumeLayout(False)
+        Me.TPFacility.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -3211,7 +3245,6 @@ Partial Class PASPFeeStatistics
     Friend WithEvents Label48 As System.Windows.Forms.Label
     Friend WithEvents txtSMfee As System.Windows.Forms.TextBox
     Friend WithEvents txtNSPSfee As System.Windows.Forms.TextBox
-    Friend WithEvents btnHideResults As System.Windows.Forms.Button
     Friend WithEvents dgvStats As System.Windows.Forms.DataGridView
     Friend WithEvents Label93 As System.Windows.Forms.Label
     Friend WithEvents Label90 As System.Windows.Forms.Label
@@ -3233,8 +3266,6 @@ Partial Class PASPFeeStatistics
     Friend WithEvents txtOperate As System.Windows.Forms.TextBox
     Friend WithEvents Label80 As System.Windows.Forms.Label
     Friend WithEvents txtNSPSExempt As System.Windows.Forms.TextBox
-    Friend WithEvents Label79 As System.Windows.Forms.Label
-    Friend WithEvents txtTotalFee As System.Windows.Forms.TextBox
     Friend WithEvents Label78 As System.Windows.Forms.Label
     Friend WithEvents Label77 As System.Windows.Forms.Label
     Friend WithEvents txtPMTons As System.Windows.Forms.TextBox
@@ -3338,16 +3369,13 @@ Partial Class PASPFeeStatistics
     Friend WithEvents TPFinancial As System.Windows.Forms.TabPage
     Friend WithEvents btnFeeByYear As System.Windows.Forms.Button
     Friend WithEvents btnPayment As System.Windows.Forms.Button
-    Friend WithEvents TPYearSpecific As System.Windows.Forms.TabPage
-    Friend WithEvents btnClassification As System.Windows.Forms.Button
-    Friend WithEvents btnFeesandEmissions As System.Windows.Forms.Button
     Friend WithEvents TPDeposits As System.Windows.Forms.TabPage
     Friend WithEvents cboAirs As System.Windows.Forms.ComboBox
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents TPCompliance As System.Windows.Forms.TabPage
     Friend WithEvents btnNoOperate As System.Windows.Forms.Button
     Friend WithEvents btnClassChange As System.Windows.Forms.Button
-    Friend WithEvents TPGeneral As System.Windows.Forms.TabPage
+    Friend WithEvents TPFacility As System.Windows.Forms.TabPage
     Friend WithEvents btnFacInfoChange As System.Windows.Forms.Button
     Friend WithEvents TPFeeStatistics2 As System.Windows.Forms.TabPage
     Friend WithEvents dgvFeeStats As System.Windows.Forms.DataGridView
@@ -3473,4 +3501,12 @@ Partial Class PASPFeeStatistics
     Friend WithEvents dtpDepositReportStartDate As DateTimePicker
     Friend WithEvents Label2 As Label
     Private WithEvents CRFeesReports As CrystalDecisions.Windows.Forms.CrystalReportViewer
+    Friend WithEvents Label4 As Label
+    Friend WithEvents TPReported As TabPage
+    Friend WithEvents dgvReported As DataGridView
+    Friend WithEvents Panel6 As Panel
+    Friend WithEvents cbReportedYear As ComboBox
+    Friend WithEvents btnReportedExport As Button
+    Friend WithEvents btnExportedRun As Button
+    Friend WithEvents btnClassification As Button
 End Class
