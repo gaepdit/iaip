@@ -40,7 +40,7 @@
     <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
     <TargetFrameworkProfile />
-    <PublishUrl>ftp://167.195.92.4/dmu.georgiaair.org/iaip/install/</PublishUrl>
+    <PublishUrl>ftp://167.192.208.134/iaip.gaepd.org/install/</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Web</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
@@ -50,14 +50,14 @@
     <UpdatePeriodically>true</UpdatePeriodically>
     <UpdateRequired>true</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <InstallUrl>http://dmu.georgiaair.org/iaip/install/</InstallUrl>
+    <InstallUrl>https://iaip.gaepd.org/install/</InstallUrl>
     <ProductName>Integrated Air Information Platform</ProductName>
     <PublisherName>State of Georgia</PublisherName>
-    <MinimumRequiredVersion>5.6.0.12</MinimumRequiredVersion>
+    <MinimumRequiredVersion>5.6.1.0</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>installer.html</WebPage>
-    <ApplicationRevision>11</ApplicationRevision>
-    <ApplicationVersion>5.6.0.12</ApplicationVersion>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>5.6.1.0</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>

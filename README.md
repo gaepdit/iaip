@@ -14,7 +14,7 @@ The IAIP is a Windows Forms Application and currently targets the .NET Framework
  
 + Some NuGet packages are required. They should be restored automatically. If not, open the NuGet Package Manager and click Restore to install them.
 
-**Important Note:** Crystal Reports SP 21 supports Visual Studio 2017, but SP 21 of the CR runtime engine is *not compatible* with previous versions. Since the IAIP was originally deployed using an earlier version of the runtime, in order to avoid needing to update all users' machines, SP 21 cannot be used. Instead, use [Visual Studio 2015](https://my.visualstudio.com/Downloads?pid=1881) when editing Crystal Reports documents.
+**Important Note:** Crystal Reports SP 21 supports Visual Studio 2017, but SP 21 of the CR runtime engine is *not compatible* with previous versions. Since the IAIP was originally deployed using an earlier version of the runtime, in order to avoid needing to update all users' machines, SP 21 cannot be used. Instead, *install SP 20* and use [Visual Studio 2015](https://my.visualstudio.com/Downloads?pid=1881) when editing Crystal Reports documents.
 
 ## Setup
 
@@ -30,10 +30,8 @@ The IAIP repository uses the [git-flow branching model](http://nvie.com/posts/a-
 * `master` contains production-ready code. Releases are built from `master` and tagged with the version number.
 * `develop` is an integration branch for new feature development. 
 
-There are several transient branch families as well:
+There `release` branch is transient:
 
-* `feature/...` branches are for work on new features. They branch off from `develop` and merge back into `develop` when ready.
-* `hotfix/...` branches are for bug fixes on production releases. They branch off from `master` and merge into *both* `master` and `develop` when finished.
 * `release/...` branches are for preparing new production releases. They branch off from `develop` and merge into *both* `master` and `develop` when a production release is ready
 
 Production releases (in the `master` branch) are tagged with the version number as `version/X.X.X`.
