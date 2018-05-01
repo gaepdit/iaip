@@ -143,7 +143,7 @@ Public Module App
                         MessageBoxIcon.Exclamation,
                         MessageBoxDefaultButton.Button2,
                         0,
-                        "http://dmu.georgiaair.org/iaip/pre-install/")
+                        "https://iaip.gaepd.org/pre-install/")
     End Sub
 
 #End Region
