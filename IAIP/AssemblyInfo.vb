@@ -6,7 +6,7 @@ Imports System.Runtime.InteropServices
 <Assembly: AssemblyTitle("IAIP Horizon")>
 <Assembly: AssemblyDescription("GA Air Protection Branch integrated database system; user acceptance testing version")>
 <Assembly: AssemblyProduct("IAIP Horizon")> 
-<Assembly: Guid("4d6ff346-89e3-4388-9b75-0077e47a7e46")> 
+<Assembly: Guid("4d6ff346-89e3-4388-9b75-0077e47a7e46")>
 
 #Else
 
@@ -17,8 +17,8 @@ Imports System.Runtime.InteropServices
 
 #End If
 
-<Assembly: AssemblyVersion("5.6.0.0")>
-<Assembly: AssemblyFileVersion("5.6.0.0")>
+<Assembly: AssemblyVersion("5.6.1.0")>
+<Assembly: AssemblyFileVersion("5.6.1.0")>
 <Assembly: AssemblyCompany("State of Georgia")>
 <Assembly: AssemblyCopyright("")>
 <Assembly: AssemblyTrademark("")>
