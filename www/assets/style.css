@@ -476,6 +476,13 @@ figcaption {
   }
 }
 
+@media print {
+  #gagov_external_blocks-topper,
+  #gagov_external_blocks-footer {
+    display: none;
+  }
+}
+
 /* === Download links === */
 
 a[href$=".application"],
