@@ -74,13 +74,16 @@ Public Class IAIPFacilitySummary
         ' TODO DWW: Better permissions definition
 
         ' Menu items
-        UpdateEpaMenuItem.Available = (CurrentUser.UserID = "1" Or CurrentUser.UserID = "345")
-        CreateFacilityMenuItem.Available = (AccountFormAccess(138, 0) IsNot Nothing _
-                                          AndAlso AccountFormAccess(138, 0) = "138" _
-                                          AndAlso (AccountFormAccess(138, 1) = "1" _
-                                                   Or AccountFormAccess(138, 2) = "1" _
-                                                   Or AccountFormAccess(138, 3) = "1" _
-                                                   Or AccountFormAccess(138, 4) = "1"))
+        UpdateEpaMenuItem.Available = CurrentUser.HasRole({19, 118})
+
+        CreateFacilityMenuItem.Available = (
+            AccountFormAccess(138, 0) IsNot Nothing AndAlso
+            AccountFormAccess(138, 0) = "138" AndAlso
+            (AccountFormAccess(138, 1) = "1" Or
+            AccountFormAccess(138, 2) = "1" Or
+            AccountFormAccess(138, 3) = "1" Or
+            AccountFormAccess(138, 4) = "1"))
+
         ToolsMenuSeparator.Visible = (CreateFacilityMenuItem.Available And UpdateEpaMenuItem.Available)
 
         ' Edit location/header data
