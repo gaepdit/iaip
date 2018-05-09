@@ -2,6 +2,10 @@
 
 *Previously:* [2017](changelog-2017.html) | [2016](changelog-2016.html) | [2015](changelog-2015.html) | [2014](changelog-2014.html) | [2013](changelog-2013.html)
 
+## Version 5.6.2 <span>(2018-05-09)</span>
+
+Adjusted some permissions in compliance.
+
 ## Version 5.6.1 <span>(2018-05-01)</span>
 
 Moved IAIP installation website to [iaip.gaepd.org](https://iaip.gaepd.org/).
