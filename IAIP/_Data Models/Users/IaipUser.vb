@@ -102,7 +102,7 @@
                 ' === Facility caps
             Case UserCan.AddPollutantsToFacility
                 ' Air Branch
-                Return (BranchID = 1)
+                Return (BranchID = 1 OrElse BranchID = 5)
 
             Case UserCan.EditFacilityHeaderData
                 ' Branch Chief; SSCP Unit Manager; or SSCP, ISMP, or SSPP Program Manager
@@ -125,6 +125,8 @@
                     HasRoleType(RoleType.UnitManager) Or
                     HasRoleType(RoleType.DistrictManager)
 
+            Case Else
+                Return False
         End Select
     End Function
 
