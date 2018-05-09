@@ -129,20 +129,20 @@ Namespace Apb.Facilities
         <Flags()>
         Public Enum AirProgram
             None = 0
-            <Description("SIP")> SIP = 1
-            <Description("Federal SIP")> FederalSIP = 2
-            <Description("Non-Federal SIP")> NonFederalSIP = 4
-            <Description("CFC Tracking")> CfcTracking = 8
-            <Description("PSD")> PSD = 16
-            <Description("NSR")> NSR = 32
-            <Description("NESHAP")> NESHAP = 64
-            <Description("NSPS")> NSPS = 128
-            <Description("FESOP")> FESOP = 256
-            <Description("Acid Precipitation")> AcidPrecipitation = 512
-            <Description("Native American")> NativeAmerican = 1024
-            <Description("MACT")> MACT = 2048
-            <Description("Title V")> TitleV = 4096
-            <Description("Risk Management Plan")> RMP = 8192
+            <Description("SIP")> SIP = 1 ' 100000000000000
+            <Description("Federal SIP")> FederalSIP = 2 ' 010000000000000
+            <Description("Non-Federal SIP")> NonFederalSIP = 4 ' 001000000000000
+            <Description("CFC Tracking")> CfcTracking = 8 ' 000100000000000
+            <Description("PSD")> PSD = 16 ' 000010000000000
+            <Description("NSR")> NSR = 32 ' 000001000000000
+            <Description("NESHAP")> NESHAP = 64 ' 000000100000000
+            <Description("NSPS")> NSPS = 128 ' 000000010000000
+            <Description("FESOP")> FESOP = 256 ' 000000001000000
+            <Description("Acid Precipitation")> AcidPrecipitation = 512 ' 000000000100000
+            <Description("Native American")> NativeAmerican = 1024 ' 000000000010000
+            <Description("MACT")> MACT = 2048 ' 000000000001000
+            <Description("Title V")> TitleV = 4096 ' 000000000000100
+            <Description("Risk Management Plan")> RMP = 8192 ' 000000000000010
         End Enum
 
         ''' <summary>
