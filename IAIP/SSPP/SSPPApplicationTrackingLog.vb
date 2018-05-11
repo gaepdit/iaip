@@ -6979,10 +6979,11 @@ Public Class SSPPApplicationTrackingLog
             Dim query As String = ""
             Dim parameter As New SqlParameter("@FileName", fileName)
 
-            Dim sfd As New SaveFileDialog
-            sfd.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal)
-            sfd.FileName = fileName
-            sfd.FilterIndex = 1
+            Dim sfd As New SaveFileDialog With {
+                .InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal),
+                .FileName = fileName,
+                .FilterIndex = 1
+            }
 
             Select Case fileType
                 Case "10", "11"

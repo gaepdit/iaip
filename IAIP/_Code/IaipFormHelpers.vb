@@ -247,6 +247,7 @@ Module IaipFormHelpers
     Public Function OpenFormConfidentialTestData(referenceNumber As String) As ISMPConfidentialData
         Dim conf As ISMPConfidentialData = CType(OpenMultiForm(ISMPConfidentialData, NormalizeReferenceId(referenceNumber)), ISMPConfidentialData)
         conf.txtReferenceNumber.Text = referenceNumber
+        conf.LoadData()
         Return conf
     End Function
 
