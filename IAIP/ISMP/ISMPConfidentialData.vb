@@ -1,17 +1,12 @@
 Imports System.Data.SqlClient
 
 Public Class ISMPConfidentialData
-    Dim query As String
-    Dim ConfidentialData As String = ""
-    Dim DocumentType As String
+    Private Property ConfidentialData As String = ""
+    Private Property DocumentType As String
 
-    Private Sub ISMPConfidentialData_Load(sender As Object, e As EventArgs) Handles Me.Load
-        LoadData()
-    End Sub
-
-    Private Sub LoadData()
+    Public Sub LoadData()
         Try
-            query = "Select strConfidentialData, strDocumentType  " &
+            Dim query As String = "Select strConfidentialData, strDocumentType  " &
             "from ISMPReportInformation " &
             "where strReferenceNumber = @ref "
 
@@ -23,12 +18,12 @@ Public Class ISMPConfidentialData
                 If IsDBNull(dr.Item("strConfidentialData")) Then
                     ConfidentialData = ""
                 Else
-                    ConfidentialData = dr.Item("strConfidentialData")
+                    ConfidentialData = dr.Item("strConfidentialData").ToString
                 End If
                 If IsDBNull(dr.Item("strDocumentType")) Then
                     DocumentType = ""
                 Else
-                    DocumentType = dr.Item("strDocumentType")
+                    DocumentType = dr.Item("strDocumentType").ToString
                 End If
             End If
 
@@ -4524,7 +4519,7 @@ Public Class ISMPConfidentialData
                     ConfidentialData = "1" & Mid(ConfidentialData, 2)
                 End If
 
-                query = "Update ISMPReportInformation set " &
+                Dim query As String = "Update ISMPReportInformation set " &
                 "strConfidentialData = @conf " &
                 "where strReferencenumber = @ref "
 
@@ -4552,26 +4547,11 @@ Public Class ISMPConfidentialData
     End Sub
 
     Private Sub tsbSave_Click(sender As Object, e As EventArgs) Handles tsbSave.Click
-        Try
-
-            SaveConfidentialData()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
+        SaveConfidentialData()
     End Sub
+
     Private Sub mmiSave_Click(sender As Object, e As EventArgs) Handles mmiSave.Click
-        Try
-
-            SaveConfidentialData()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
+        SaveConfidentialData()
     End Sub
 
 End Class
