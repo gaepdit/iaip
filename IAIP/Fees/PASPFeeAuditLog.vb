@@ -165,7 +165,7 @@ Public Class PASPFeeAuditLog
             dgvEditExemptions.AllowUserToDeleteRows = False
             dgvEditExemptions.AllowUserToOrderColumns = True
             dgvEditExemptions.AllowUserToResizeRows = True
-            dgvEditExemptions.ColumnHeadersHeight = "35"
+            dgvEditExemptions.ColumnHeadersHeight = 35
 
             Dim colWrite As New DataGridViewCheckBoxColumn
             dgvEditExemptions.Columns.Add(colWrite)
@@ -3225,6 +3225,9 @@ Public Class PASPFeeAuditLog
     End Sub
 
     Private Sub dgvEditExemptions_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvEditExemptions.MouseUp
+        If dgvEditExemptions.Rows.Count < 1 Then
+            Exit Sub
+        End If
         Try
             Dim hti As DataGridView.HitTestInfo = dgvEditExemptions.HitTest(e.X, e.Y)
             Dim i As Integer = 0
