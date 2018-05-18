@@ -88,7 +88,7 @@ Public Class PASPFeeAuditLog
             FeeYearsComboBox.SelectedItem = Me.FeeYear
         Else
             FeeYearsComboBox.SelectedIndex = 0
-            Me.FeeYear = Nothing
+            Me.FeeYear = FeeYearsComboBox.SelectedItem.ToString()
         End If
 
         MailoutEditingToggle(False)
@@ -105,7 +105,7 @@ Public Class PASPFeeAuditLog
     End Sub
 
     Private Sub LoadFeeYears()
-        FeeYearsComboBox.DataSource = DAL.GetAllFeeYears().AddRowToList("Select…")
+        FeeYearsComboBox.DataSource = DAL.GetAllFeeYears()
     End Sub
 
     Private Sub LoadPayTypes()
@@ -2002,10 +2002,6 @@ Public Class PASPFeeAuditLog
 
     Private Sub ReloadButton_Click(sender As Object, e As EventArgs) Handles ReloadButton.Click
         Try
-            If FeeYearsComboBox.SelectedIndex = 0 Then
-                MessageBox.Show("Please select a Fee Year", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                Exit Sub
-            End If
             If Not Apb.ApbFacilityId.IsValidAirsNumberFormat(mtbAirsNumber.Text) Then
                 MessageBox.Show("AIRS number is not valid", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Exit Sub
@@ -2408,10 +2404,9 @@ Public Class PASPFeeAuditLog
     Private Sub btnTransactionNew_Click(sender As Object, e As EventArgs) Handles btnTransactionNew.Click
         Try
 
-            If (mtbAirsNumber.Text <> Me.AirsNumber.FormattedString) _
-                Or (FeeYearsComboBox.SelectedItem.ToString <> txtYear.Text) _
-                Or txtAIRSNumber.Text = "" Or FeeYearsComboBox.SelectedIndex = 0 _
-                Or txtYear.Text = "" Then
+            If (mtbAirsNumber.Text <> Me.AirsNumber.FormattedString) OrElse
+                (FeeYearsComboBox.SelectedItem.ToString <> txtYear.Text) OrElse
+                txtAIRSNumber.Text = "" OrElse txtYear.Text = "" Then
                 MsgBox("The currently selected AIRS # does not match the selecting AIRS #." &
                        vbCrLf & "NO DATA HAS BEEN SAVED", MsgBoxStyle.Exclamation, Me.Text)
                 Exit Sub
@@ -2430,7 +2425,7 @@ Public Class PASPFeeAuditLog
                         Exit Sub
                 End Select
             End If
-            If cboTransactionType.SelectedValue Is Nothing Or cboTransactionType.SelectedValue = "" Then
+            If cboTransactionType.SelectedValue Is Nothing OrElse cboTransactionType.SelectedValue.ToString = "" Then
                 MsgBox("A transaction type must be selected before continuing." & vbCrLf & "No data Saved", MsgBoxStyle.Information, Me.Text)
                 Exit Sub
             End If
@@ -2622,10 +2617,9 @@ Public Class PASPFeeAuditLog
     Private Sub btnTransactionUpdate_Click(sender As Object, e As EventArgs) Handles btnTransactionUpdate.Click
         Try
 
-            If (mtbAirsNumber.Text <> Me.AirsNumber.FormattedString) _
-                Or (FeeYearsComboBox.SelectedItem.ToString <> txtYear.Text) _
-                Or txtAIRSNumber.Text = "" Or FeeYearsComboBox.SelectedIndex = 0 _
-                Or txtYear.Text = "" Then
+            If (mtbAirsNumber.Text <> Me.AirsNumber.FormattedString) OrElse
+                (FeeYearsComboBox.SelectedItem.ToString <> txtYear.Text) OrElse
+                txtAIRSNumber.Text = "" OrElse txtYear.Text = "" Then
                 MsgBox("The currently selected AIRS # does not match the selecting AIRS #." &
                        vbCrLf & "NO DATA HAS BEEN SAVED", MsgBoxStyle.Exclamation, Me.Text)
                 Exit Sub
@@ -2695,10 +2689,9 @@ Public Class PASPFeeAuditLog
     Private Sub btnTransactionDelete_Click(sender As Object, e As EventArgs) Handles btnTransactionDelete.Click
         Try
 
-            If (mtbAirsNumber.Text <> Me.AirsNumber.FormattedString) _
-                Or (FeeYearsComboBox.SelectedItem.ToString <> txtYear.Text) _
-                Or txtAIRSNumber.Text = "" Or FeeYearsComboBox.SelectedIndex = 0 _
-                Or txtYear.Text = "" Then
+            If (mtbAirsNumber.Text <> Me.AirsNumber.FormattedString) OrElse
+                (FeeYearsComboBox.SelectedItem.ToString <> txtYear.Text) OrElse
+                txtAIRSNumber.Text = "" OrElse txtYear.Text = "" Then
                 MsgBox("The currently selected AIRS # does not match the selecting AIRS #." &
                        vbCrLf & "NO DATA HAS BEEN SAVED", MsgBoxStyle.Exclamation, Me.Text)
                 Exit Sub
@@ -2823,10 +2816,9 @@ Public Class PASPFeeAuditLog
             Dim EndCollections As String = ""
             Dim CollectionsDate As String = ""
 
-            If (mtbAirsNumber.Text <> Me.AirsNumber.FormattedString) _
-                Or (FeeYearsComboBox.SelectedItem.ToString <> txtYear.Text) _
-                Or txtAIRSNumber.Text = "" Or FeeYearsComboBox.SelectedIndex = 0 _
-                Or txtYear.Text = "" Then
+            If (mtbAirsNumber.Text <> Me.AirsNumber.FormattedString) OrElse
+                (FeeYearsComboBox.SelectedItem.ToString <> txtYear.Text) OrElse
+                txtAIRSNumber.Text = "" OrElse txtYear.Text = "" Then
                 MsgBox("The currently selected AIRS # does not match the selecting AIRS #." &
                        vbCrLf & "NO DATA HAS BEEN SAVED", MsgBoxStyle.Exclamation, Me.Text)
                 Exit Sub
@@ -3634,10 +3626,9 @@ Public Class PASPFeeAuditLog
         Try
             Dim InvoiceStatus As String = "0"
 
-            If (mtbAirsNumber.Text <> Me.AirsNumber.FormattedString) _
-                Or (FeeYearsComboBox.SelectedItem.ToString <> txtYear.Text) _
-                Or txtAIRSNumber.Text = "" Or FeeYearsComboBox.SelectedIndex = 0 _
-                Or txtYear.Text = "" Then
+            If (mtbAirsNumber.Text <> Me.AirsNumber.FormattedString) OrElse
+                (FeeYearsComboBox.SelectedItem.ToString <> txtYear.Text) OrElse
+                txtAIRSNumber.Text = "" OrElse txtYear.Text = "" Then
                 MsgBox("The currently selected AIRS # does not match the selecting AIRS #." &
                        vbCrLf & "NO DATA HAS BEEN SAVED", MsgBoxStyle.Exclamation, Me.Text)
                 Exit Sub
