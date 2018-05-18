@@ -3509,6 +3509,9 @@ Public Class PASPFeeAuditLog
     End Sub
 
     Private Sub ViewAllInvoices()
+        If AirsNumber Is Nothing Then
+            Exit Sub
+        End If
         Try
             Dim SQL As String = "select distinct " &
             "FS_FeeInvoice.InvoiceID, " &
