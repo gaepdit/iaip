@@ -1048,7 +1048,7 @@ Public Class EisTool
                 CASE WHEN DBLVOCEMISSION = '-1' THEN 'No Value' ELSE CAST(DBLVOCEMISSION AS VARCHAR(MAX)) END AS DBLVOCEMISSION, esSchema.STRCONFIRMATIONNBR,
                 CASE WHEN DBLNOXEMISSION = '-1' THEN 'No Value' ELSE CAST(DBLNOXEMISSION AS VARCHAR(MAX)) END AS DBLNOXEMISSION, esSchema.STRDATEFIRSTCONFIRM
                 FROM esSchema
-                WHERE esSchema.intESyear = '2014'
+                WHERE esSchema.intESyear = @year
                 ORDER BY esSchema.STRFACILITYNAME"
 
             Dim param As New SqlParameter("@year", cboYear.SelectedItem)
