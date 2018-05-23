@@ -231,35 +231,41 @@ Public Class ISMPTestReportAdministrative
         End Try
 
     End Sub
+
     Private Sub FillTestReportList()
+        Dim dt As New DataTable()
+
         Try
             clbReferenceNumbers.Items.Clear()
 
             If DTPDateReceived.Text <> "" And cboAIRSNumber.Text <> "" Then
-                query = "Select " &
-                "ISMPMaster.strReferenceNumber, " &
-                "strEmissionSource, strPollutantDescription " &
-                "from ISMPMaster, ISMPReportInformation, " &
-                "LookUPPollutants " &
-                "where ISMPMaster.strReferenceNumber = ISMPReportInformation.strReferenceNumber " &
-                "and ISMPReportInformation.strPollutant = LookUPPollutants.strPollutantCode " &
-                "and strAIRSNumber = @airs " &
-                "and datReceivedDate = @date " &
-                "and strClosed <> 'True' " &
-                "and (strDelete <> 'DELETE' " &
-                "or strDelete is NUll) " &
-                "Order by ISMPMaster.strReferenceNumber "
+                query = "select
+                    m.STRREFERENCENUMBER,
+                    STREMISSIONSOURCE,
+                    STRPOLLUTANTDESCRIPTION
+                from ISMPMASTER m
+                    inner join ISMPREPORTINFORMATION i
+                        on m.STRREFERENCENUMBER = i.STRREFERENCENUMBER
+                    inner join LOOKUPPOLLUTANTS l
+                        on l.STRPOLLUTANTCODE = i.STRPOLLUTANT
+                where STRAIRSNUMBER = @airs
+                      and DATRECEIVEDDATE = @date
+                      and STRCLOSED <> 'True'
+                      and (STRDELETE <> 'DELETE'
+                           or STRDELETE is NUll)
+                ORDER BY m.STRREFERENCENUMBER "
 
                 Dim p As SqlParameter() = {
                     New SqlParameter("@airs", "0413" & cboAIRSNumber.Text),
                     New SqlParameter("@date", DTPDateReceived.Value)
                 }
 
-                Dim dt As DataTable = DB.GetDataTable(query, p)
+                dt = DB.GetDataTable(query, p)
 
                 For Each dr As DataRow In dt.Rows
-                    clbReferenceNumbers.Items.Add(dr.Item("strReferenceNumber") & " - " & dr.Item("strEmissionSource") & " - " & dr.Item("strPollutantDescription"))
-                    If clbReferenceNumbers.Items.Contains(txtReferenceNumber.Text & " - " & dr.Item("strEmissionSource") & " - " & dr.Item("strPollutantDescription")) Then
+                    clbReferenceNumbers.Items.Add(String.Concat(dr.Item("strReferenceNumber"), " - ", dr.Item("strEmissionSource"), " - ", dr.Item("strPollutantDescription")))
+
+                    If clbReferenceNumbers.Items.Contains(String.Concat(txtReferenceNumber.Text, " - ", dr.Item("strEmissionSource"), " - ", dr.Item("strPollutantDescription"))) Then
                         clbReferenceNumbers.SetItemCheckState(clbReferenceNumbers.FindString(txtReferenceNumber.Text), CheckState.Checked)
                     End If
                 Next
@@ -267,12 +273,14 @@ Public Class ISMPTestReportAdministrative
             End If
 
         Catch ex As Exception
+            ex.Data.Add("AIRS#", cboAIRSNumber.Text)
+            ex.Data.Add("Date", DTPDateReceived.Value)
+            ex.Data.Add("DataTable", dt)
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
         End Try
 
     End Sub
+
     Private Sub GetNextReferenceNumber()
         Dim query As String
 
