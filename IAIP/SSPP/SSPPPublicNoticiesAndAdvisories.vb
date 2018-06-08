@@ -652,42 +652,34 @@ Public Class SSPPPublicNoticiesAndAdvisories
     Private Sub FillApplicationList()
         Try
             Dim temp As String
-            Dim i As Integer
-
-            Dim PublicAd As String
-            Dim PublicNo As String
+            Dim PublicNo As Integer = -1
 
             lsbPublicAdvisories.Items.Clear()
             lsbPublicNoticies.Items.Clear()
 
-            If lsbApplicationList.Items.Contains("Public Advisories") Then
-                PublicAd = lsbApplicationList.Items.IndexOf("Public Advisorires")
-            Else
-                PublicAd = "X"
-            End If
             If lsbApplicationList.Items.Contains("Public Notices") Then
                 PublicNo = lsbApplicationList.Items.IndexOf("Public Notices")
-            Else
-                PublicNo = "X"
             End If
-            If PublicAd <> "X" Then
-                If PublicNo <> "X" Then
-                    For i = 1 To PublicNo - 2
-                        temp = lsbApplicationList.Items.Item(i)
+
+            If lsbApplicationList.Items.Contains("Public Advisories") Then
+                If PublicNo > -1 Then
+                    For i As Integer = 1 To PublicNo - 2
+                        temp = lsbApplicationList.Items.Item(i).ToString
                         lsbPublicAdvisories.Items.Add(Mid(temp, 1, (InStr(temp, " -", CompareMethod.Text)) - 1))
                     Next
                 Else
-                    For i = 1 To lsbApplicationList.Items.Count - 1
-                        temp = lsbApplicationList.Items.Item(i)
+                    For i As Integer = 1 To lsbApplicationList.Items.Count - 1
+                        temp = lsbApplicationList.Items.Item(i).ToString
                         If temp <> " " Then
                             lsbPublicAdvisories.Items.Add(Mid(temp, 1, (InStr(temp, " -", CompareMethod.Text)) - 1))
                         End If
                     Next
                 End If
             End If
-            If PublicNo <> "X" Then
-                For i = PublicNo + 1 To lsbApplicationList.Items.Count - 1
-                    temp = lsbApplicationList.Items.Item(i)
+
+            If PublicNo > -1 Then
+                For i As Integer = PublicNo + 1 To lsbApplicationList.Items.Count - 1
+                    temp = lsbApplicationList.Items.Item(i).ToString
                     If temp <> " " Then
                         lsbPublicNoticies.Items.Add(Mid(temp, 1, (InStr(temp, " -", CompareMethod.Text)) - 1))
                     End If

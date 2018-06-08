@@ -2055,27 +2055,29 @@ Public Class ISMPTestReportAdministrative
     End Sub
 
     Private Sub bgw1_RunWorkerCompleted(sender As Object, e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bgw1.RunWorkerCompleted
-        dgvFacilityInfo.DataSource = dtGrid
+        If dtGrid IsNot Nothing Then
+            dgvFacilityInfo.DataSource = dtGrid
 
-        dgvFacilityInfo.RowHeadersVisible = False
-        dgvFacilityInfo.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-        dgvFacilityInfo.AllowUserToResizeColumns = True
-        dgvFacilityInfo.AllowUserToAddRows = False
-        dgvFacilityInfo.AllowUserToDeleteRows = False
-        dgvFacilityInfo.AllowUserToOrderColumns = True
-        dgvFacilityInfo.AllowUserToResizeRows = True
-        dgvFacilityInfo.Columns("strReferenceNumber").HeaderText = "Reference #"
-        dgvFacilityInfo.Columns("strReferenceNumber").DisplayIndex = 0
-        dgvFacilityInfo.Columns("StrAIRSNumber").HeaderText = "AIRS #"
-        dgvFacilityInfo.Columns("StrAIRSNumber").DisplayIndex = 1
-        dgvFacilityInfo.Columns("strFacilityName").HeaderText = "Facility Name"
-        dgvFacilityInfo.Columns("strFacilityName").DisplayIndex = 2
-        dgvFacilityInfo.Columns("forDatReceivedDate").HeaderText = "Received Date"
-        dgvFacilityInfo.Columns("forDatReceivedDate").DisplayIndex = 3
-        dgvFacilityInfo.Columns("forDatTestDateStart").HeaderText = "Date Test Started"
-        dgvFacilityInfo.Columns("forDatTestDateStart").DisplayIndex = 4
-        dgvFacilityInfo.Columns("strDocumentType").HeaderText = "Document Type"
-        dgvFacilityInfo.Columns("strDocumentType").DisplayIndex = 5
+            dgvFacilityInfo.RowHeadersVisible = False
+            dgvFacilityInfo.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
+            dgvFacilityInfo.AllowUserToResizeColumns = True
+            dgvFacilityInfo.AllowUserToAddRows = False
+            dgvFacilityInfo.AllowUserToDeleteRows = False
+            dgvFacilityInfo.AllowUserToOrderColumns = True
+            dgvFacilityInfo.AllowUserToResizeRows = True
+            dgvFacilityInfo.Columns("strReferenceNumber").HeaderText = "Reference #"
+            dgvFacilityInfo.Columns("strReferenceNumber").DisplayIndex = 0
+            dgvFacilityInfo.Columns("StrAIRSNumber").HeaderText = "AIRS #"
+            dgvFacilityInfo.Columns("StrAIRSNumber").DisplayIndex = 1
+            dgvFacilityInfo.Columns("strFacilityName").HeaderText = "Facility Name"
+            dgvFacilityInfo.Columns("strFacilityName").DisplayIndex = 2
+            dgvFacilityInfo.Columns("forDatReceivedDate").HeaderText = "Received Date"
+            dgvFacilityInfo.Columns("forDatReceivedDate").DisplayIndex = 3
+            dgvFacilityInfo.Columns("forDatTestDateStart").HeaderText = "Date Test Started"
+            dgvFacilityInfo.Columns("forDatTestDateStart").DisplayIndex = 4
+            dgvFacilityInfo.Columns("strDocumentType").HeaderText = "Document Type"
+            dgvFacilityInfo.Columns("strDocumentType").DisplayIndex = 5
+        End If
     End Sub
 
     Private Sub btnCloseHistoricTestReport_Click(sender As Object, e As EventArgs) Handles btnCloseHistoricTestReport.Click
