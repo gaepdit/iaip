@@ -18,12 +18,13 @@ Module DbConnections
     ''' <remarks></remarks>
     Public ReadOnly Property CurrentConnectionString() As String
         Get
-            Dim cs As ConnectionStringSettings = ConfigurationManager.ConnectionStrings("Iaip.My.MySettings." & CurrentServerEnvironment.ToString)
-            If Not cs Is Nothing Then
-                Return cs.ConnectionString
-            Else
-                Return Nothing
+            Dim cs As ConnectionStringSettings = ConfigurationManager.ConnectionStrings("AirbranchDB")
+
+            If cs Is Nothing Then
+                CloseIaip()
             End If
+
+            Return cs.ConnectionString
         End Get
     End Property
 

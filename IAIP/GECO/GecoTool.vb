@@ -848,10 +848,12 @@ Public Class GecoTool
 
 #Region " Accept button "
 
-    Private Sub txtWebUserEmail_Leave(sender As Object, e As EventArgs) _
+    Private Sub NoAcceptButton(sender As Object, e As EventArgs) _
         Handles txtWebUserEmail.Leave, mtbAIRSNumber.Leave, txtEditUserPassword.Leave,
-        txtEditEmail.Leave, mtbFacilityToAdd.Leave
+        txtEditEmail.Leave, mtbFacilityToAdd.Leave, txtEmail.Leave
+
         AcceptButton = Nothing
+
     End Sub
 
     Private Sub mtbAIRSNumber_Enter(sender As Object, e As EventArgs) Handles mtbAIRSNumber.Enter
@@ -872,6 +874,10 @@ Public Class GecoTool
 
     Private Sub mtbFacilityToAdd_Enter(sender As Object, e As EventArgs) Handles mtbFacilityToAdd.Enter
         AcceptButton = btnAddFacilitytoUser
+    End Sub
+
+    Private Sub txtEmail_Enter(sender As Object, e As EventArgs) Handles txtEmail.Enter
+        AcceptButton = btnAddUser
     End Sub
 
 #End Region

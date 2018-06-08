@@ -1,3 +1,5 @@
+Imports System.Configuration
+
 Module AppVariables
 
     ' Global variables 
@@ -38,8 +40,8 @@ Module AppVariables
 
 #Region " API Keys "
 
-    Friend Const SENTRY_DSN As String = "https://2ceae142a217499390b72d0911648656:f00a4864aa384638968b52fba9370447@sentry.io/256218"
-    Friend Const GOOGLE_MAPS_API_KEY As String = "AIzaSyAOMeyIrtZeEJb1Pci5jgtn_Uh3wr0NP14"
+    Friend ReadOnly SENTRY_DSN As String = ConfigurationManager.AppSettings("SENTRY_DSN")
+    Friend ReadOnly GOOGLE_MAPS_API_KEY As String = ConfigurationManager.AppSettings("GOOGLE_MAPS_API_KEY")
 
 #End Region
 

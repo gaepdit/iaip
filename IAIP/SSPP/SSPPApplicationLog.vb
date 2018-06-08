@@ -1132,7 +1132,7 @@ Public Class SSPPApplicationLog
             Exit Sub
         End If
 
-        If dtApplicationLog.Rows.Count = 0 Then
+        If dtApplicationLog Is Nothing OrElse dtApplicationLog.Rows.Count = 0 Then
             dgvApplicationLog.Visible = False
             Panel1.Text = "No applications found"
             lblMessage.Text = "No applications found"

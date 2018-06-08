@@ -1,0 +1,23 @@
+Contacts 
+
+10 - ISMP
+20 - SSCP
+30 - SSPP
+(40) - Web Contacts
+    40 - Fees Contact
+    41 - EI Contact
+    42 - ES Contact
+50 - Ambient Monitoring
+60 - Planning & Support
+70 - District
+
+10 - 'Current Monitoring Contact'
+20 - 'Current Compliance Contact' 
+30 - 'Current Permitting Contact' 
+40 - 'Current Fee Contact' 
+41 - 'Current EIS Contact' 
+42 - 'Current ES Contact' 
+50 - 'Current Ambient Contact' 
+60 - 'Current Planning Contact' 
+70 - 'Current District Contact' 
+ 

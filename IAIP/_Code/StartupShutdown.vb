@@ -1,4 +1,6 @@
-﻿Friend Module StartupShutdown
+﻿Imports System.Configuration
+
+Friend Module StartupShutdown
 
     ''' <summary>
     ''' All the procedures to run as the application is starting up
@@ -19,8 +21,6 @@
         ' before getting here.)
         If My.Settings.JustInstalled Then
             AppFirstRun = True
-
-            DeleteOldShortcuts()
 
             ' Prevents this from running in the future
             My.Settings.JustInstalled = False
@@ -51,19 +51,6 @@
     End Sub
 
     ''' <summary>
-    ''' Deletes old IAIP shortcuts from user's Desktop and Start Menu
-    ''' </summary>
-    ''' <remarks>Actually moves them to Recycle Bin</remarks>
-    Private Sub DeleteOldShortcuts()
-        Dim shortcutName As String = "\IAIP.lnk"
-
-        DeleteFileIfPossible(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) & shortcutName)
-        DeleteFileIfPossible(Environment.GetFolderPath(Environment.SpecialFolder.CommonDesktopDirectory) & shortcutName)
-        DeleteFileIfPossible(Environment.GetFolderPath(Environment.SpecialFolder.StartMenu) & shortcutName)
-        DeleteFileIfPossible(Environment.GetFolderPath(Environment.SpecialFolder.CommonStartMenu) & shortcutName)
-    End Sub
-
-    ''' <summary>
     ''' Shuts down the running IAIP application
     ''' </summary>
     ''' <remarks></remarks>
@@ -82,7 +69,7 @@
 
     Private Sub CheckLanguageRegistrySetting()
         Dim currentSetting As String
-        currentSetting = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Environment", "NLS_LANG", Nothing)
+        currentSetting = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Environment", "NLS_LANG", Nothing).ToString
         If currentSetting Is Nothing Or currentSetting <> "AMERICAN" Then
             My.Computer.Registry.SetValue("HKEY_CURRENT_USER\Environment", "NLS_LANG", "AMERICAN")
             Application.Restart()
@@ -90,13 +77,10 @@
     End Sub
 
     Private Sub SetUpDbServerEnvironment()
-        ' Set current server environment based on project build parameters
-        CurrentServerEnvironment = ServerEnvironment.Production
-#If DEBUG Then
-        CurrentServerEnvironment = ServerEnvironment.Development
-#ElseIf UAT Then
-        CurrentServerEnvironment = ServerEnvironment.Staging
-#End If
+        ' Set current server environment based on environment
+        If Not [Enum].TryParse(ConfigurationManager.AppSettings("Environment"), CurrentServerEnvironment) Then
+            CloseIaip()
+        End If
 
         ' Create EpdIt.DBHelper object based on current server environment
         ' This method is preferred and should be used for all future work

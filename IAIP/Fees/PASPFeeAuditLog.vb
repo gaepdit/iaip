@@ -2816,10 +2816,11 @@ Public Class PASPFeeAuditLog
             Dim EndCollections As String = ""
             Dim CollectionsDate As String = ""
 
-            If (mtbAirsNumber.Text <> Me.AirsNumber.FormattedString) OrElse
+            If Me.AirsNumber Is Nothing OrElse FeeYear Is Nothing OrElse
+                (mtbAirsNumber.Text <> Me.AirsNumber.FormattedString) OrElse
                 (FeeYearsComboBox.SelectedItem.ToString <> txtYear.Text) OrElse
                 txtAIRSNumber.Text = "" OrElse txtYear.Text = "" Then
-                MsgBox("The currently selected AIRS # does not match the selecting AIRS #." &
+                MsgBox("Reload a facility and year before continuing." &
                        vbCrLf & "NO DATA HAS BEEN SAVED", MsgBoxStyle.Exclamation, Me.Text)
                 Exit Sub
             End If
