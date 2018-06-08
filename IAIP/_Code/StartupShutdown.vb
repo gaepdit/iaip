@@ -22,8 +22,6 @@ Friend Module StartupShutdown
         If My.Settings.JustInstalled Then
             AppFirstRun = True
 
-            DeleteOldShortcuts()
-
             ' Prevents this from running in the future
             My.Settings.JustInstalled = False
             My.Settings.Save()
@@ -50,19 +48,6 @@ Friend Module StartupShutdown
     Friend Sub Finish()
         ' Form settings
         SaveAllFormSettings()
-    End Sub
-
-    ''' <summary>
-    ''' Deletes old IAIP shortcuts from user's Desktop and Start Menu
-    ''' </summary>
-    ''' <remarks>Actually moves them to Recycle Bin</remarks>
-    Private Sub DeleteOldShortcuts()
-        Dim shortcutName As String = "\IAIP.lnk"
-
-        DeleteFileIfPossible(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) & shortcutName)
-        DeleteFileIfPossible(Environment.GetFolderPath(Environment.SpecialFolder.CommonDesktopDirectory) & shortcutName)
-        DeleteFileIfPossible(Environment.GetFolderPath(Environment.SpecialFolder.StartMenu) & shortcutName)
-        DeleteFileIfPossible(Environment.GetFolderPath(Environment.SpecialFolder.CommonStartMenu) & shortcutName)
     End Sub
 
     ''' <summary>
