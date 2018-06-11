@@ -13,6 +13,7 @@ Public Class IAIPNavigation
     Private Property CurrentNavWorkListParameter As String = ""
     Private Property ExitWhenClosed As Boolean = True
     Private Property NavWorkListContextDictionary As Dictionary(Of NavWorkListContext, String)
+    Private Property CrystalReportsMissing As Boolean = False
 
 #End Region
 
@@ -45,6 +46,26 @@ Public Class IAIPNavigation
 
         ' Start loading the Nav Work List background worker
         LoadWorkViewerData()
+
+        bgwCRTest.RunWorkerAsync()
+    End Sub
+
+    Private Sub bgwCRTest_DoWork(sender As Object, e As DoWorkEventArgs) Handles bgwCRTest.DoWork
+        Dim testAssembly As Reflection.Assembly
+
+        Try
+            testAssembly = Reflection.Assembly.ReflectionOnlyLoad("CrystalDecisions.Web, Version=13.0.2000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304")
+        Catch ex As Exception
+            CrystalReportsMissing = True
+        Finally
+            testAssembly = Nothing
+        End Try
+    End Sub
+
+    Private Sub bgwCRTest_RunWorkerCompleted(sender As Object, e As RunWorkerCompletedEventArgs) Handles bgwCRTest.RunWorkerCompleted
+        If CrystalReportsMissing Then
+            ShowCrystalReportsSupportMessage()
+        End If
     End Sub
 
     Private Sub IAIPNavigation_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed

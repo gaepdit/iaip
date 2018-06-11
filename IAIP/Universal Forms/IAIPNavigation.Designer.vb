@@ -87,6 +87,7 @@ Partial Class IAIPNavigation
         Me.cboNavWorkListContext = New System.Windows.Forms.ComboBox()
         Me.NavWorkListScopePanel = New System.Windows.Forms.Panel()
         Me.dgvWorkViewer = New System.Windows.Forms.DataGridView()
+        Me.bgwCRTest = New System.ComponentModel.BackgroundWorker()
         Me.grpQuickAccess.SuspendLayout()
         Me.SbeapQuickAccessPanel.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
@@ -762,6 +763,9 @@ Partial Class IAIPNavigation
         Me.dgvWorkViewer.Size = New System.Drawing.Size(686, 187)
         Me.dgvWorkViewer.TabIndex = 4
         '
+        'bgwCRTest
+        '
+        '
         'IAIPNavigation
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -862,4 +866,5 @@ Partial Class IAIPNavigation
     Friend WithEvents cboNavWorkListContext As ComboBox
     Friend WithEvents mmiUsernameSeparator As MenuItem
     Friend WithEvents mmiSecurity As MenuItem
+    Friend WithEvents bgwCRTest As System.ComponentModel.BackgroundWorker
 End Class
