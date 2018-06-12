@@ -36,37 +36,27 @@
 
         ' Third, display a dialog to the user describing the error and next steps.
         If displayErrorToUser Then
-            If (TypeOf exc Is TypeInitializationException AndAlso
-                errorMessage.Contains("The type initializer for 'CrystalDecisions.CrystalReports.Engine.ReportDocument' threw an exception")) OrElse
-                TypeOf exc Is CrystalDecisions.CrystalReports.Engine.LoadSaveReportException Then
+            Dim WhatHappened As String = ""
+            Dim WhatUserCanDo As String = ""
 
-                ShowCrystalReportsSupportMessage()
-
-            Else
-
-                Dim WhatHappened As String = ""
-                Dim WhatUserCanDo As String = ""
-
-                If errorMessage.Contains("This BackgroundWorker is currently busy and cannot run multiple tasks concurrently") Then
-                    WhatHappened = "The IAIP is running multiple processing threads and needs time to complete them. Please allow time for the process to run."
-                    WhatUserCanDo = "• Wait for the process to finish before continuing." & Environment.NewLine & Environment.NewLine
-                ElseIf errorMessage.Contains("ORA-") Then
-                    WhatHappened = "The IAIP experienced a database connection error."
-                    WhatUserCanDo = "• Check your Internet connection. " & Environment.NewLine & Environment.NewLine &
+            If errorMessage.Contains("This BackgroundWorker is currently busy and cannot run multiple tasks concurrently") Then
+                WhatHappened = "The IAIP is running multiple processing threads and needs time to complete them. Please allow time for the process to run."
+                WhatUserCanDo = "• Wait for the process to finish before continuing." & Environment.NewLine & Environment.NewLine
+            ElseIf errorMessage.Contains("ORA-") Then
+                WhatHappened = "The IAIP experienced a database connection error."
+                WhatUserCanDo = "• Check your Internet connection. " & Environment.NewLine & Environment.NewLine &
                         "• If operating from a remote location, check your VPN connection. " & Environment.NewLine & Environment.NewLine
-                ElseIf errorMessage.Contains("Exception of type 'System.OutOfMemoryException' was thrown") Then
-                    WhatHappened = "This computer has run out of memory."
-                    WhatUserCanDo = "• Try freeing up memory by closing other open computer applications." & Environment.NewLine & Environment.NewLine
-                Else
-                    WhatHappened = "An error has occurred."
-                End If
+            ElseIf errorMessage.Contains("Exception of type 'System.OutOfMemoryException' was thrown") Then
+                WhatHappened = "This computer has run out of memory."
+                WhatUserCanDo = "• Try freeing up memory by closing other open computer applications." & Environment.NewLine & Environment.NewLine
+            Else
+                WhatHappened = "An error has occurred."
+            End If
 
-                WhatUserCanDo = WhatUserCanDo & "• Close and restart the IAIP and try repeating your last action." & Environment.NewLine & Environment.NewLine &
+            WhatUserCanDo = WhatUserCanDo & "• Close and restart the IAIP and try repeating your last action." & Environment.NewLine & Environment.NewLine &
                     "• If you continue to see this error, please email EPD IT. Describe what you were doing and paste the error details below into your email."
 
-                IaipExceptionManager.ShowErrorDialog(exc, WhatHappened, WhatUserCanDo)
-
-            End If
+            IaipExceptionManager.ShowErrorDialog(exc, WhatHappened, WhatUserCanDo)
         End If
 
     End Sub

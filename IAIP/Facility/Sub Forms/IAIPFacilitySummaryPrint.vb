@@ -12,6 +12,10 @@
     End Sub
 
     Private Sub ShowReport(sender As Object, e As EventArgs) Handles ShowBasicReportButton.Click, ShowFullReportButton.Click
+        If Not CrystalReportsIsAvailable() Then
+            Exit Sub
+        End If
+
         If AirsNumber Is Nothing Then
             MessageBox.Show("The AIRS number is invalid")
             Exit Sub
@@ -19,20 +23,12 @@
 
         Cursor = Cursors.AppStarting
 
-        Try
-
-            Select Case CType(sender, Button).Name.ToString
-                Case NameOf(ShowBasicReportButton)
-                    ShowBasicReport()
-                Case NameOf(ShowFullReportButton)
-                    ShowFullReport()
-            End Select
-
-        Catch ex As TypeInitializationException
-            ShowCrystalReportsSupportMessage()
-            Close()
-            Exit Sub
-        End Try
+        Select Case CType(sender, Button).Name.ToString
+            Case NameOf(ShowBasicReportButton)
+                ShowBasicReport()
+            Case NameOf(ShowFullReportButton)
+                ShowFullReport()
+        End Select
 
         Cursor = Nothing
     End Sub

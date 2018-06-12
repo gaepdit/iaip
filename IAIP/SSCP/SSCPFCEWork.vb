@@ -1420,6 +1420,10 @@ Public Class SSCPFCEWork
 #Region "Print"
 
     Private Sub LoadSSCPFCEReport()
+        If Not CrystalReportsIsAvailable() Then
+            Exit Sub
+        End If
+
         Cursor = Cursors.WaitCursor
 
         Try
@@ -1477,8 +1481,6 @@ Public Class SSCPFCEWork
             Dim cr As New CRViewerForm(rpt, pd)
             cr.Show()
 
-        Catch ex As TypeInitializationException
-            ShowCrystalReportsSupportMessage()
         Finally
             Cursor = Nothing
         End Try

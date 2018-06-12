@@ -1,7 +1,6 @@
-﻿Imports System.IO
-Imports System.Reflection
-Imports System.Deployment.Application
+﻿Imports System.Deployment.Application
 Imports System.Linq
+Imports System.Reflection
 
 Public Module App
 
@@ -130,21 +129,6 @@ Public Module App
             End If
         End Get
     End Property
-
-#End Region
-
-#Region " Crystal Reports "
-
-    Public Sub ShowCrystalReportsSupportMessage()
-        MessageBox.Show("You must install Crystal Reports in order to print reports. " &
-                        "Click the Help button to download the installer, or contact EPD-IT for assistance.",
-                        "Missing Crystal Reports Runtime",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Exclamation,
-                        MessageBoxDefaultButton.Button2,
-                        0,
-                        "https://iaip.gaepd.org/pre-install/")
-    End Sub
 
 #End Region
 
