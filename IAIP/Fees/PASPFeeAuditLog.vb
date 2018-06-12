@@ -3254,6 +3254,11 @@ Public Class PASPFeeAuditLog
     End Sub
 
     Private Sub btnGenerateInvoice_Click(sender As Object, e As EventArgs) Handles btnViewPrintableInvoice.Click
+
+        If Not CrystalReportsIsAvailable() Then
+            Exit Sub
+        End If
+
         Try
             Dim rpt As New ReportClass
             Dim Director As String = DAL.GetEpdManagerName(DAL.EpdManagementTypes.EpdDirector)
@@ -3501,8 +3506,6 @@ Public Class PASPFeeAuditLog
             crFeeStatsAndInvoices.ReportSource = rpt
             crFeeStatsAndInvoices.Refresh()
 
-        Catch ex As TypeInitializationException
-            ShowCrystalReportsSupportMessage()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try

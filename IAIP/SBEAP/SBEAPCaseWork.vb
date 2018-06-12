@@ -1586,36 +1586,17 @@ Public Class SBEAPCaseWork
 
     Private Sub SavePhoneCall()
         Try
-            Dim CallerInfo As String = ""
-            Dim CallerPhone As String = ""
-            Dim PhoneCallNotes As String = ""
-            Dim OneTimeAssist As String = ""
-            Dim FrontDeskCall As String = ""
 
-            If txtCallName.Text <> "" Then
-                CallerInfo = txtCallName.Text
-            Else
-                CallerInfo = Nothing
-            End If
-            If mtbPhoneNumber.Text <> "" Then
-                CallerPhone = mtbPhoneNumber.Text
-            Else
-                CallerPhone = Nothing
-            End If
-            If txtPhoneCallNotes.Text <> "" Then
-                PhoneCallNotes = txtPhoneCallNotes.Text
-            Else
-                PhoneCallNotes = Nothing
-            End If
-            If chbOnetimeAssist.Checked = True Then
-                OneTimeAssist = "True"
-            Else
-                OneTimeAssist = "False"
-            End If
-            If chbFrontDeskCall.Checked = True Then
-                FrontDeskCall = "True"
-            Else
-                FrontDeskCall = "False"
+            Dim CallerInfo As String = txtCallName.Text
+            Dim CallerPhone As String = mtbPhoneNumber.Text
+            Dim PhoneCallNotes As String = txtPhoneCallNotes.Text
+            Dim OneTimeAssist As String = chbOnetimeAssist.Checked.ToString
+            Dim FrontDeskCall As String = chbFrontDeskCall.Checked.ToString
+
+            If CallerPhone <> "" AndAlso Not IsNumeric(CallerPhone) Then
+                MessageBox.Show("Phone call could not be saved because there is a problem with the phone number. " &
+                                "Please fix and try again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Exit Sub
             End If
 
             Dim SQL As String

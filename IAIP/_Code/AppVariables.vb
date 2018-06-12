@@ -17,6 +17,8 @@ Module AppVariables
     Friend DocumentationUrl As New Uri("https://sites.google.com/site/iaipdocs/")
     Friend SupportUrl As New Uri("https://iaip.gaepd.org/")
     Friend ChangelogUrl As New Uri("https://iaip.gaepd.org/changelog/")
+    Friend PrereqInstallUrl As New Uri("https://iaip.gaepd.org/pre-install/")
+
     Friend MapUrlFragment As String = "http://maps.google.com/maps?q="
     Friend PermitSearchUrlFragment As String = "http://permitsearch.gaepd.org/?AirsNumber="
     Friend VesaUrl As New Uri("https://vnap.cloudapp.net/vnap")

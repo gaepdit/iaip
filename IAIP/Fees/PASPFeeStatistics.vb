@@ -2354,6 +2354,10 @@ Public Class PASPFeeStatistics
 #Region "Facility Specific"
 
     Private Sub btnViewFacilitySpecificData_Click(sender As Object, e As EventArgs) Handles btnViewFacilitySpecificData.Click
+        If Not CrystalReportsIsAvailable() Then
+            Exit Sub
+        End If
+
         Try
             Me.Cursor = Cursors.WaitCursor
             Dim rpt As ReportClass = New FacilityFee10
@@ -2388,6 +2392,10 @@ Public Class PASPFeeStatistics
 #Region "Year Specific"
 
     Private Sub btnClassification_Click(sender As Object, e As EventArgs) Handles btnClassification.Click
+        If Not CrystalReportsIsAvailable() Then
+            Exit Sub
+        End If
+
         Try
             Me.Cursor = Cursors.WaitCursor
             Dim rpt As ReportClass = New FacilityClassification10
@@ -2406,6 +2414,10 @@ Public Class PASPFeeStatistics
     End Sub
 
     Private Sub btnRunBalanceReport_Click(sender As Object, e As EventArgs) Handles btnRunBalanceReport.Click
+        If Not CrystalReportsIsAvailable() Then
+            Exit Sub
+        End If
+
         Try
             Me.Cursor = Cursors.WaitCursor
             Dim selectedYear As Integer = 0
@@ -2488,6 +2500,10 @@ Public Class PASPFeeStatistics
 
 #Region "Financial"
     Private Sub btnPayment_Click(sender As Object, e As EventArgs) Handles btnPayment.Click
+        If Not CrystalReportsIsAvailable() Then
+            Exit Sub
+        End If
+
         Try
             Me.Cursor = Cursors.Default
             Dim rpt As ReportClass = New TotalPayment10
@@ -2507,6 +2523,10 @@ Public Class PASPFeeStatistics
     End Sub
 
     Private Sub btnFeeByYear_Click(sender As Object, e As EventArgs) Handles btnFeeByYear.Click
+        If Not CrystalReportsIsAvailable() Then
+            Exit Sub
+        End If
+
         Try
             Me.Cursor = Cursors.WaitCursor
             Dim rpt As ReportClass = New feeByYear10
@@ -2529,6 +2549,10 @@ Public Class PASPFeeStatistics
 #Region "Deposits"
 
     Private Sub btnViewDepositsReportByDate_Click(sender As Object, e As EventArgs) Handles btnViewDepositsReportByDate.Click
+        If Not CrystalReportsIsAvailable() Then
+            Exit Sub
+        End If
+
         Me.Cursor = Cursors.WaitCursor
         Dim query As String = "SELECT TRANSACTIONID, INVOICEID, TRANSACTIONTYPECODE, " &
         "  DATTRANSACTIONDATE, NUMPAYMENT, STRCHECKNO, STRDEPOSITNO, " &
@@ -2552,6 +2576,10 @@ Public Class PASPFeeStatistics
     End Sub
 
     Private Sub btnViewFacilityDepositsReport_Click(sender As Object, e As EventArgs) Handles btnViewFacilityDepositsReport.Click
+        If Not CrystalReportsIsAvailable() Then
+            Exit Sub
+        End If
+
         If cboAirs.Text <> "" Then
             Dim query As String = "SELECT TRANSACTIONID, INVOICEID, TRANSACTIONTYPECODE, " &
                 "  DATTRANSACTIONDATE, NUMPAYMENT, STRCHECKNO, STRDEPOSITNO, " &
@@ -2575,6 +2603,10 @@ Public Class PASPFeeStatistics
 #Region "Compliance"
 
     Private Sub btnClassChange_Click(sender As Object, e As EventArgs) Handles btnClassChange.Click
+        If Not CrystalReportsIsAvailable() Then
+            Exit Sub
+        End If
+
         Try
             Me.Cursor = Cursors.WaitCursor
             Dim rpt As ReportClass = New ClassChanged10
@@ -2592,6 +2624,10 @@ Public Class PASPFeeStatistics
     End Sub
 
     Private Sub lblNSPS1_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblNSPS1.LinkClicked
+        If Not CrystalReportsIsAvailable() Then
+            Exit Sub
+        End If
+
         Try
             Me.Cursor = Cursors.WaitCursor
 
@@ -2612,6 +2648,10 @@ Public Class PASPFeeStatistics
     End Sub
 
     Private Sub lblNSPS2_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblNSPS2.LinkClicked
+        If Not CrystalReportsIsAvailable() Then
+            Exit Sub
+        End If
+
         Try
             Me.Cursor = Cursors.WaitCursor
             Dim rpt As ReportClass = New NSPSStatus1_10
@@ -2631,6 +2671,10 @@ Public Class PASPFeeStatistics
     End Sub
 
     Private Sub lblNSPS3_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblNSPS3.LinkClicked
+        If Not CrystalReportsIsAvailable() Then
+            Exit Sub
+        End If
+
         Try
             Me.Cursor = Cursors.WaitCursor
             Dim rpt As ReportClass = New NSPSStatus2_10
@@ -2650,6 +2694,10 @@ Public Class PASPFeeStatistics
     End Sub
 
     Private Sub btnNoOperate_Click(sender As Object, e As EventArgs) Handles btnNoOperate.Click
+        If Not CrystalReportsIsAvailable() Then
+            Exit Sub
+        End If
+
         Try
             Me.Cursor = Cursors.WaitCursor
             Dim rpt As ReportClass = New NoOperate10
@@ -2672,6 +2720,10 @@ Public Class PASPFeeStatistics
 #Region "General"
 
     Private Sub btnFacInfoChange_Click(sender As Object, e As EventArgs) Handles btnFacInfoChange.Click
+        If Not CrystalReportsIsAvailable() Then
+            Exit Sub
+        End If
+
         Try
             Me.Cursor = Cursors.WaitCursor
             Dim rpt As ReportClass = New FacilityInfo10

@@ -1581,6 +1581,10 @@ Public Class SSPPPublicNoticiesAndAdvisories
     End Sub
 
     Private Sub ExportPDF()
+        If Not CrystalReportsIsAvailable() Then
+            Exit Sub
+        End If
+
         Cursor = Cursors.WaitCursor
 
         Try
@@ -1608,8 +1612,6 @@ Public Class SSPPPublicNoticiesAndAdvisories
 
             CRVPublicNotices.ExportReport()
 
-        Catch ex As TypeInitializationException
-            ShowCrystalReportsSupportMessage()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
@@ -1869,6 +1871,10 @@ Public Class SSPPPublicNoticiesAndAdvisories
     End Sub
 
     Private Sub btnViewOldPDFs_Click(sender As Object, e As EventArgs) Handles btnViewOldPDFs.Click
+        If Not CrystalReportsIsAvailable() Then
+            Exit Sub
+        End If
+
         Cursor = Cursors.WaitCursor
 
         Try
@@ -1896,8 +1902,6 @@ Public Class SSPPPublicNoticiesAndAdvisories
 
             CRVPublicNotices.ExportReport()
 
-        Catch ex As TypeInitializationException
-            ShowCrystalReportsSupportMessage()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally

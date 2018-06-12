@@ -12,6 +12,10 @@
         OpenUri(ChangelogUrl, objectSender)
     End Sub
 
+    Public Sub OpenPrereqInstallUrl(Optional objectSender As Form = Nothing)
+        OpenUri(PrereqInstallUrl, objectSender)
+    End Sub
+
     Public Sub OpenMapUrl(addressString As String, Optional objectSender As Form = Nothing)
         OpenUri(New Uri(MapUrlFragment & addressString), objectSender)
     End Sub
