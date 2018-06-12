@@ -920,16 +920,10 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 If WitnessingEngineer2 = "M/W" Then
-                    SQL = "select " &
-                    "concat(strFirstName,' ',strLastName) as WitnessingEng " &
-                    "from ISMPWitnessingEng inner join EPDUSerProfiles " &
-                    "on ISMPWitnessingEng.strWitnessingEngineer = EPDUSerProfiles.NUMUSERID " &
-                    "where strReferenceNumber = @ref "
-
                     If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 13, 1) = "1" Then
                         WitnessingEngineer2 = "--Conf--"
                     Else
-                        WitnessingEngineer2 = DB.GetString(SQL, p)
+                        WitnessingEngineer2 = GetPrintableWitnessesList(ReferenceValue)
                     End If
                 Else
                     WitnessingEngineer2 = " "
@@ -956,10 +950,10 @@ Public Class IAIPPrintOut
                                 If WitnessingEngineer2 = " " Then
                                     WitnessingEngineer = "Not Witnessed"
                                 Else
-                                    WitnessingEngineer = "--" & WitnessingEngineer2
+                                    WitnessingEngineer = "-- " & WitnessingEngineer2
                                 End If
                             Else
-                                WitnessingEngineer = WitnessingEngineer & WitnessingEngineer2
+                                WitnessingEngineer = ConcatNonEmptyStrings(", ", {WitnessingEngineer, Trim(WitnessingEngineer2)})
                             End If
                         End If
                     End If
@@ -1887,16 +1881,10 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 If WitnessingEngineer2 = "M/W" Then
-                    SQL = "select " &
-                    "concat(strFirstName,' ',strLastName) as WitnessingEng " &
-                    "from ISMPWitnessingEng inner join EPDUSerProfiles " &
-                    "on ISMPWitnessingEng.strWitnessingEngineer = EPDUSerProfiles.NUMUSERID " &
-                    "where strReferenceNumber = @ref "
-
                     If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 13, 1) = "1" Then
                         WitnessingEngineer2 = "--Conf--"
                     Else
-                        WitnessingEngineer2 = DB.GetString(SQL, p)
+                        WitnessingEngineer2 = GetPrintableWitnessesList(ReferenceValue)
                     End If
                 Else
                     WitnessingEngineer2 = " "
@@ -1923,10 +1911,10 @@ Public Class IAIPPrintOut
                                 If WitnessingEngineer2 = " " Then
                                     WitnessingEngineer = "Not Witnessed"
                                 Else
-                                    WitnessingEngineer = "--" & WitnessingEngineer2
+                                    WitnessingEngineer = "-- " & WitnessingEngineer2
                                 End If
                             Else
-                                WitnessingEngineer = WitnessingEngineer & WitnessingEngineer2
+                                WitnessingEngineer = ConcatNonEmptyStrings(", ", {WitnessingEngineer, Trim(WitnessingEngineer2)})
                             End If
                         End If
                     End If
@@ -2937,16 +2925,10 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 If WitnessingEngineer2 = "M/W" Then
-                    SQL = "select " &
-                    "concat(strFirstName,' ',strLastName) as WitnessingEng " &
-                    "from ISMPWitnessingEng inner join EPDUSerProfiles " &
-                    "on ISMPWitnessingEng.strWitnessingEngineer = EPDUSerProfiles.NUMUSERID " &
-                    "where strReferenceNumber = @ref "
-
                     If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 13, 1) = "1" Then
                         WitnessingEngineer2 = "--Conf--"
                     Else
-                        WitnessingEngineer2 = DB.GetString(SQL, p)
+                        WitnessingEngineer2 = GetPrintableWitnessesList(ReferenceValue)
                     End If
                 Else
                     WitnessingEngineer2 = " "
@@ -2973,10 +2955,10 @@ Public Class IAIPPrintOut
                                 If WitnessingEngineer2 = " " Then
                                     WitnessingEngineer = "Not Witnessed"
                                 Else
-                                    WitnessingEngineer = "--" & WitnessingEngineer2
+                                    WitnessingEngineer = "-- " & WitnessingEngineer2
                                 End If
                             Else
-                                WitnessingEngineer = WitnessingEngineer & WitnessingEngineer2
+                                WitnessingEngineer = ConcatNonEmptyStrings(", ", {WitnessingEngineer, Trim(WitnessingEngineer2)})
                             End If
                         End If
                     End If
@@ -4234,16 +4216,10 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 If WitnessingEngineer2 = "M/W" Then
-                    SQL = "select " &
-                    "concat(strFirstName,' ',strLastName) as WitnessingEng " &
-                    "from ISMPWitnessingEng inner join EPDUSerProfiles " &
-                    "on ISMPWitnessingEng.strWitnessingEngineer = EPDUSerProfiles.NUMUSERID " &
-                    "where strReferenceNumber = @ref "
-
                     If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 13, 1) = "1" Then
                         WitnessingEngineer2 = "--Conf--"
                     Else
-                        WitnessingEngineer2 = DB.GetString(SQL, p)
+                        WitnessingEngineer2 = GetPrintableWitnessesList(ReferenceValue)
                     End If
                 Else
                     WitnessingEngineer2 = " "
@@ -4270,10 +4246,10 @@ Public Class IAIPPrintOut
                                 If WitnessingEngineer2 = " " Then
                                     WitnessingEngineer = "Not Witnessed"
                                 Else
-                                    WitnessingEngineer = "--" & WitnessingEngineer2
+                                    WitnessingEngineer = "-- " & WitnessingEngineer2
                                 End If
                             Else
-                                WitnessingEngineer = WitnessingEngineer & WitnessingEngineer2
+                                WitnessingEngineer = ConcatNonEmptyStrings(", ", {WitnessingEngineer, Trim(WitnessingEngineer2)})
                             End If
                         End If
                     End If
@@ -5483,16 +5459,10 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 If WitnessingEngineer2 = "M/W" Then
-                    SQL = "select " &
-                    "concat(strFirstName,' ',strLastName) as WitnessingEng " &
-                    "from ISMPWitnessingEng inner join EPDUSerProfiles " &
-                    "on ISMPWitnessingEng.strWitnessingEngineer = EPDUSerProfiles.NUMUSERID " &
-                    "where strReferenceNumber = @ref "
-
                     If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 13, 1) = "1" Then
                         WitnessingEngineer2 = "--Conf--"
                     Else
-                        WitnessingEngineer2 = DB.GetString(SQL, p)
+                        WitnessingEngineer2 = GetPrintableWitnessesList(ReferenceValue)
                     End If
                 Else
                     WitnessingEngineer2 = " "
@@ -5519,10 +5489,10 @@ Public Class IAIPPrintOut
                                 If WitnessingEngineer2 = " " Then
                                     WitnessingEngineer = "Not Witnessed"
                                 Else
-                                    WitnessingEngineer = "--" & WitnessingEngineer2
+                                    WitnessingEngineer = "-- " & WitnessingEngineer2
                                 End If
                             Else
-                                WitnessingEngineer = WitnessingEngineer & WitnessingEngineer2
+                                WitnessingEngineer = ConcatNonEmptyStrings(", ", {WitnessingEngineer, Trim(WitnessingEngineer2)})
                             End If
                         End If
                     End If
@@ -6188,16 +6158,10 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 If WitnessingEngineer2 = "M/W" Then
-                    SQL = "select " &
-                    "concat(strFirstName,' ',strLastName) as WitnessingEng " &
-                    "from ISMPWitnessingEng inner join EPDUSerProfiles " &
-                    "on ISMPWitnessingEng.strWitnessingEngineer = EPDUSerProfiles.NUMUSERID  " &
-                    "where strReferenceNumber = @ref "
-
                     If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 13, 1) = "1" Then
                         WitnessingEngineer2 = "--Conf--"
                     Else
-                        WitnessingEngineer2 = DB.GetString(SQL, p)
+                        WitnessingEngineer2 = GetPrintableWitnessesList(ReferenceValue)
                     End If
                 Else
                     WitnessingEngineer2 = " "
@@ -6224,10 +6188,10 @@ Public Class IAIPPrintOut
                                 If WitnessingEngineer2 = " " Then
                                     WitnessingEngineer = "Not Witnessed"
                                 Else
-                                    WitnessingEngineer = "--" & WitnessingEngineer2
+                                    WitnessingEngineer = "-- " & WitnessingEngineer2
                                 End If
                             Else
-                                WitnessingEngineer = WitnessingEngineer & WitnessingEngineer2
+                                WitnessingEngineer = ConcatNonEmptyStrings(", ", {WitnessingEngineer, Trim(WitnessingEngineer2)})
                             End If
                         End If
                     End If
@@ -6992,16 +6956,10 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 If WitnessingEngineer2 = "M/W" Then
-                    SQL = "select " &
-                    "concat(strFirstName,' ',strLastName) as WitnessingEng " &
-                    "from ISMPWitnessingEng inner join EPDUSerProfiles " &
-                    "on ISMPWitnessingEng.strWitnessingEngineer = EPDUSerProfiles.NUMUSERID " &
-                    "where strReferenceNumber = @ref "
-
                     If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 13, 1) = "1" Then
                         WitnessingEngineer2 = "--Conf--"
                     Else
-                        WitnessingEngineer2 = DB.GetString(SQL, p)
+                        WitnessingEngineer2 = GetPrintableWitnessesList(ReferenceValue)
                     End If
                 Else
                     WitnessingEngineer2 = " "
@@ -7028,10 +6986,10 @@ Public Class IAIPPrintOut
                                 If WitnessingEngineer2 = " " Then
                                     WitnessingEngineer = "Not Witnessed"
                                 Else
-                                    WitnessingEngineer = "--" & WitnessingEngineer2
+                                    WitnessingEngineer = "-- " & WitnessingEngineer2
                                 End If
                             Else
-                                WitnessingEngineer = WitnessingEngineer & WitnessingEngineer2
+                                WitnessingEngineer = ConcatNonEmptyStrings(", ", {WitnessingEngineer, Trim(WitnessingEngineer2)})
                             End If
                         End If
                     End If
@@ -7826,16 +7784,10 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 If WitnessingEngineer2 = "M/W" Then
-                    SQL = "select " &
-                    "concat(strFirstName,' ',strLastName) as WitnessingEng " &
-                    "from ISMPWitnessingEng inner join EPDUSerProfiles " &
-                    "on ISMPWitnessingEng.strWitnessingEngineer = EPDUSerProfiles.NUMUSERID  " &
-                    "where strReferenceNumber = @ref "
-
                     If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 13, 1) = "1" Then
                         WitnessingEngineer2 = "--Conf--"
                     Else
-                        WitnessingEngineer2 = DB.GetString(SQL, p)
+                        WitnessingEngineer2 = GetPrintableWitnessesList(ReferenceValue)
                     End If
                 Else
                     WitnessingEngineer2 = " "
@@ -7862,10 +7814,10 @@ Public Class IAIPPrintOut
                                 If WitnessingEngineer2 = " " Or WitnessingEngineer2 = "" Then
                                     WitnessingEngineer = "Not Witnessed"
                                 Else
-                                    WitnessingEngineer = "--" & WitnessingEngineer2
+                                    WitnessingEngineer = "-- " & WitnessingEngineer2
                                 End If
                             Else
-                                WitnessingEngineer = WitnessingEngineer & WitnessingEngineer2
+                                WitnessingEngineer = ConcatNonEmptyStrings(", ", {WitnessingEngineer, Trim(WitnessingEngineer2)})
                             End If
                         End If
                     End If
@@ -8518,16 +8470,10 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 If WitnessingEngineer2 = "M/W" Then
-                    SQL = "select " &
-                    "concat(strFirstName,' ',strLastName) as WitnessingEng " &
-                    "from ISMPWitnessingEng inner join EPDUSerProfiles " &
-                    "on ISMPWitnessingEng.strWitnessingEngineer = EPDUSerProfiles.NUMUSERID  " &
-                    "where strReferenceNumber = @ref "
-
                     If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 13, 1) = "1" Then
                         WitnessingEngineer2 = "--Conf--"
                     Else
-                        WitnessingEngineer2 = DB.GetString(SQL, p)
+                        WitnessingEngineer2 = GetPrintableWitnessesList(ReferenceValue)
                     End If
                 Else
                     WitnessingEngineer2 = " "
@@ -8554,10 +8500,10 @@ Public Class IAIPPrintOut
                                 If WitnessingEngineer2 = " " Then
                                     WitnessingEngineer = "Not Witnessed"
                                 Else
-                                    WitnessingEngineer = "--" & WitnessingEngineer2
+                                    WitnessingEngineer = "-- " & WitnessingEngineer2
                                 End If
                             Else
-                                WitnessingEngineer = WitnessingEngineer & WitnessingEngineer2
+                                WitnessingEngineer = ConcatNonEmptyStrings(", ", {WitnessingEngineer, Trim(WitnessingEngineer2)})
                             End If
                         End If
                     End If
@@ -8951,16 +8897,10 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 If WitnessingEngineer2 = "M/W" Then
-                    SQL = "select " &
-                    "concat(strFirstName,' ',strLastName) as WitnessingEng " &
-                    "from ISMPWitnessingEng inner join EPDUSerProfiles " &
-                    "on ISMPWitnessingEng.strWitnessingEngineer = EPDUSerProfiles.NUMUSERID  " &
-                    "where strReferenceNumber = @ref "
-
                     If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 13, 1) = "1" Then
                         WitnessingEngineer2 = "--Conf--"
                     Else
-                        WitnessingEngineer2 = DB.GetString(SQL, p)
+                        WitnessingEngineer2 = GetPrintableWitnessesList(ReferenceValue)
                     End If
                 Else
                     WitnessingEngineer2 = " "
@@ -8987,10 +8927,10 @@ Public Class IAIPPrintOut
                                 If WitnessingEngineer2 = " " Then
                                     WitnessingEngineer = "Not Witnessed"
                                 Else
-                                    WitnessingEngineer = "--" & WitnessingEngineer2
+                                    WitnessingEngineer = "-- " & WitnessingEngineer2
                                 End If
                             Else
-                                WitnessingEngineer = WitnessingEngineer & WitnessingEngineer2
+                                WitnessingEngineer = ConcatNonEmptyStrings(", ", {WitnessingEngineer, Trim(WitnessingEngineer2)})
                             End If
                         End If
                     End If
@@ -9404,16 +9344,10 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 If WitnessingEngineer2 = "M/W" Then
-                    SQL = "select " &
-                    "concat(strFirstName,' ',strLastName) as WitnessingEng " &
-                    "from ISMPWitnessingEng inner join EPDUSerProfiles " &
-                    "on ISMPWitnessingEng.strWitnessingEngineer = EPDUSerProfiles.NUMUSERID  " &
-                    "where strReferenceNumber = @ref "
-
                     If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 13, 1) = "1" Then
                         WitnessingEngineer2 = "--Conf--"
                     Else
-                        WitnessingEngineer2 = DB.GetString(SQL, p)
+                        WitnessingEngineer2 = GetPrintableWitnessesList(ReferenceValue)
                     End If
                 Else
                     WitnessingEngineer2 = " "
@@ -9440,10 +9374,10 @@ Public Class IAIPPrintOut
                                 If WitnessingEngineer2 = " " Then
                                     WitnessingEngineer = "Not Witnessed"
                                 Else
-                                    WitnessingEngineer = "--" & WitnessingEngineer2
+                                    WitnessingEngineer = "-- " & WitnessingEngineer2
                                 End If
                             Else
-                                WitnessingEngineer = WitnessingEngineer & WitnessingEngineer2
+                                WitnessingEngineer = ConcatNonEmptyStrings(", ", {WitnessingEngineer, Trim(WitnessingEngineer2)})
                             End If
                         End If
                     End If
@@ -10045,16 +9979,10 @@ Public Class IAIPPrintOut
                 End If
 
                 If WitnessingEngineer2 = "M/W" Then
-                    SQL = "select " &
-                    "concat(strFirstName,' ',strLastName) as WitnessingEng " &
-                    "from ISMPWitnessingEng inner join EPDUSerProfiles " &
-                    "on ISMPWitnessingEng.strWitnessingEngineer = EPDUSerProfiles.NUMUSERID  " &
-                    "where strReferenceNumber = @ref "
-
                     If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 13, 1) = "1" Then
                         WitnessingEngineer2 = "--Conf--"
                     Else
-                        WitnessingEngineer2 = DB.GetString(SQL, p)
+                        WitnessingEngineer2 = GetPrintableWitnessesList(ReferenceValue)
                     End If
                 Else
                     WitnessingEngineer2 = " "
@@ -10081,10 +10009,10 @@ Public Class IAIPPrintOut
                                 If WitnessingEngineer2 = " " Then
                                     WitnessingEngineer = "Not Witnessed"
                                 Else
-                                    WitnessingEngineer = "--" & WitnessingEngineer2
+                                    WitnessingEngineer = "-- " & WitnessingEngineer2
                                 End If
                             Else
-                                WitnessingEngineer = WitnessingEngineer & WitnessingEngineer2
+                                WitnessingEngineer = ConcatNonEmptyStrings(", ", {WitnessingEngineer, Trim(WitnessingEngineer2)})
                             End If
                         End If
                     End If
@@ -10596,16 +10524,10 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 If WitnessingEngineer2 = "M/W" Then
-                    SQL = "select " &
-                    "concat(strFirstName,' ',strLastName) as WitnessingEng " &
-                    "from ISMPWitnessingEng inner join EPDUSerProfiles " &
-                    "on ISMPWitnessingEng.strWitnessingEngineer = EPDUSerProfiles.NUMUSERID  " &
-                    "where strReferenceNumber = @ref "
-
                     If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 13, 1) = "1" Then
                         WitnessingEngineer2 = "--Conf--"
                     Else
-                        WitnessingEngineer2 = DB.GetString(SQL, p)
+                        WitnessingEngineer2 = GetPrintableWitnessesList(ReferenceValue)
                     End If
                 Else
                     WitnessingEngineer2 = " "
@@ -10632,10 +10554,10 @@ Public Class IAIPPrintOut
                                 If WitnessingEngineer2 = " " Then
                                     WitnessingEngineer = "Not Witnessed"
                                 Else
-                                    WitnessingEngineer = "--" & WitnessingEngineer2
+                                    WitnessingEngineer = "-- " & WitnessingEngineer2
                                 End If
                             Else
-                                WitnessingEngineer = WitnessingEngineer & WitnessingEngineer2
+                                WitnessingEngineer = ConcatNonEmptyStrings(", ", {WitnessingEngineer, Trim(WitnessingEngineer2)})
                             End If
                         End If
                     End If
@@ -11202,16 +11124,10 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 If WitnessingEngineer2 = "M/W" Then
-                    SQL = "select " &
-                    "concat(strFirstName,' ',strLastName) as WitnessingEng " &
-                    "from ISMPWitnessingEng inner join EPDUSerProfiles " &
-                    "on ISMPWitnessingEng.strWitnessingEngineer = EPDUSerProfiles.NUMUSERID  " &
-                    "where strReferenceNumber = @ref "
-
                     If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 13, 1) = "1" Then
                         WitnessingEngineer2 = "--Conf--"
                     Else
-                        WitnessingEngineer2 = DB.GetString(SQL, p)
+                        WitnessingEngineer2 = GetPrintableWitnessesList(ReferenceValue)
                     End If
                 Else
                     WitnessingEngineer2 = " "
@@ -11238,10 +11154,10 @@ Public Class IAIPPrintOut
                                 If WitnessingEngineer2 = " " Then
                                     WitnessingEngineer = "Not Witnessed"
                                 Else
-                                    WitnessingEngineer = "--" & WitnessingEngineer2
+                                    WitnessingEngineer = "-- " & WitnessingEngineer2
                                 End If
                             Else
-                                WitnessingEngineer = WitnessingEngineer & WitnessingEngineer2
+                                WitnessingEngineer = ConcatNonEmptyStrings(", ", {WitnessingEngineer, Trim(WitnessingEngineer2)})
                             End If
                         End If
                     End If
@@ -12075,16 +11991,10 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 If WitnessingEngineer2 = "M/W" Then
-                    SQL = "select " &
-                    "concat(strFirstName,' ',strLastName) as WitnessingEng " &
-                    "from ISMPWitnessingEng inner join EPDUSerProfiles " &
-                    "on ISMPWitnessingEng.strWitnessingEngineer = EPDUSerProfiles.NUMUSERID  " &
-                    "where strReferenceNumber = @ref "
-
                     If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 13, 1) = "1" Then
                         WitnessingEngineer2 = "--Conf--"
                     Else
-                        WitnessingEngineer2 = DB.GetString(SQL, p)
+                        WitnessingEngineer2 = GetPrintableWitnessesList(ReferenceValue)
                     End If
                 Else
                     WitnessingEngineer2 = " "
@@ -12111,10 +12021,10 @@ Public Class IAIPPrintOut
                                 If WitnessingEngineer2 = " " Then
                                     WitnessingEngineer = "Not Witnessed"
                                 Else
-                                    WitnessingEngineer = "--" & WitnessingEngineer2
+                                    WitnessingEngineer = "-- " & WitnessingEngineer2
                                 End If
                             Else
-                                WitnessingEngineer = WitnessingEngineer & WitnessingEngineer2
+                                WitnessingEngineer = ConcatNonEmptyStrings(", ", {WitnessingEngineer, Trim(WitnessingEngineer2)})
                             End If
                         End If
                     End If
@@ -13142,16 +13052,10 @@ Public Class IAIPPrintOut
                 ParameterFields.Add(ParameterField)
 
                 If WitnessingEngineer2 = "M/W" Then
-                    SQL = "select " &
-                    "concat(strFirstName,' ',strLastName) as WitnessingEng " &
-                    "from ISMPWitnessingEng inner join EPDUSerProfiles " &
-                    "on ISMPWitnessingEng.strWitnessingEngineer = EPDUSerProfiles.NUMUSERID  " &
-                    "where strReferenceNumber = @ref "
-
                     If Mid(ConfidentialData, 1, 1) <> "0" And Mid(ConfidentialData, 13, 1) = "1" Then
                         WitnessingEngineer2 = "--Conf--"
                     Else
-                        WitnessingEngineer2 = DB.GetString(SQL, p)
+                        WitnessingEngineer2 = GetPrintableWitnessesList(ReferenceValue)
                     End If
                 Else
                     WitnessingEngineer2 = " "
@@ -13178,10 +13082,10 @@ Public Class IAIPPrintOut
                                 If WitnessingEngineer2 = " " Then
                                     WitnessingEngineer = "Not Witnessed"
                                 Else
-                                    WitnessingEngineer = "--" & WitnessingEngineer2
+                                    WitnessingEngineer = "-- " & WitnessingEngineer2
                                 End If
                             Else
-                                WitnessingEngineer = WitnessingEngineer & WitnessingEngineer2
+                                WitnessingEngineer = ConcatNonEmptyStrings(", ", {WitnessingEngineer, Trim(WitnessingEngineer2)})
                             End If
                         End If
                     End If
@@ -13210,6 +13114,31 @@ Public Class IAIPPrintOut
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
+
+    Private Function GetPrintableWitnessesList(refNumber As String) As String
+        Dim query As String =
+            "select concat(strFirstName, ' ', strLastName)
+            from ISMPWitnessingEng e
+                inner join EPDUSerProfiles p
+                    on e.strWitnessingEngineer = p.NUMUSERID
+            where strReferenceNumber = @ref "
+
+        Dim param As New SqlParameter("@ref", refNumber)
+
+        Dim dt As DataTable = DB.GetDataTable(query, param)
+
+        If dt.Rows.Count = 0 Then
+            Return ""
+        End If
+
+        Dim results As New Generic.List(Of String)
+
+        For Each dr As DataRow In dt.Rows
+            results.Add(dr(0).ToString())
+        Next
+
+        Return ConcatNonEmptyStrings(", ", results)
+    End Function
 
 #End Region
 
