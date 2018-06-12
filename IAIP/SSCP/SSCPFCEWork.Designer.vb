@@ -697,6 +697,7 @@ Partial Class SSCPFCEWork
         '
         Me.txtFCEComments.AcceptsReturn = True
         Me.txtFCEComments.Location = New System.Drawing.Point(476, 31)
+        Me.txtFCEComments.MaxLength = 3900
         Me.txtFCEComments.Multiline = True
         Me.txtFCEComments.Name = "txtFCEComments"
         Me.txtFCEComments.Size = New System.Drawing.Size(384, 56)
