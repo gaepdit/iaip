@@ -2636,7 +2636,6 @@ Partial Class SscpEnforcement
         '
         'ShowAuditHistoryMenuItem
         '
-        Me.ShowAuditHistoryMenuItem.Enabled = False
         Me.ShowAuditHistoryMenuItem.Name = "ShowAuditHistoryMenuItem"
         Me.ShowAuditHistoryMenuItem.ShortcutKeys = CType((System.Windows.Forms.Keys.Control Or System.Windows.Forms.Keys.H), System.Windows.Forms.Keys)
         Me.ShowAuditHistoryMenuItem.Size = New System.Drawing.Size(219, 22)

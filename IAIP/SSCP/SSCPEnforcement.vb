@@ -1179,7 +1179,6 @@ Public Class SscpEnforcement
         AuditHistory.Columns("DATDAYZERO").DefaultCellStyle.Format = "dd-MMM-yyyy"
         AuditHistory.Columns("STRHPV").HeaderText = "Violation Type"
         AuditHistory.Columns("STRPOLLUTANTS").HeaderText = "Pollutants"
-        AuditHistory.Columns("STRPOLLUTANTSTATUS").HeaderText = "Compliance Status"
         AuditHistory.Columns("DATLONTOUC").HeaderText = "Date LON to UC"
         AuditHistory.Columns("DATLONTOUC").DefaultCellStyle.Format = "dd-MMM-yyyy"
         AuditHistory.Columns("DATLONSENT").HeaderText = "Date LON Sent"
@@ -1229,7 +1228,7 @@ Public Class SscpEnforcement
         AuditHistory.Columns("STRAOCOMMENT").HeaderText = "AO Comments"
         AuditHistory.Columns("ModifiedBy").HeaderText = "Modified By"
         AuditHistory.Columns("DATMODIFINGDATE").HeaderText = "Date Modified"
-        AuditHistory.Columns("DATMODIFINGDATE").DefaultCellStyle.Format = "dd-MMM-yyyy"
+        AuditHistory.Columns("DATMODIFINGDATE").DefaultCellStyle.Format = "dd-MMM-yyyy HH:mm:ss"
 
         AuditHistory.SanelyResizeColumns()
     End Sub
