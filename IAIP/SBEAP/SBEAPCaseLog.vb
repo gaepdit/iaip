@@ -640,11 +640,13 @@
                 dgvCaseLog.Columns("strCompanyName").Width = "200"
                 dgvCaseLog.Columns("ClientID").HeaderText = "Customer ID"
                 dgvCaseLog.Columns("ClientID").DisplayIndex = 2
-                dgvCaseLog.Columns("numStaffResponsible").HeaderText = "Staff Responsible"
+                dgvCaseLog.Columns("numStaffResponsible").HeaderText = "Staff Responsible ID"
                 dgvCaseLog.Columns("numStaffResponsible").DisplayIndex = 7
                 dgvCaseLog.Columns("numStaffResponsible").Visible = False
                 dgvCaseLog.Columns("strCaseSummary").HeaderText = "Case Description"
                 dgvCaseLog.Columns("strCaseSummary").DisplayIndex = 5
+                dgvCaseLog.Columns("LASTUPDATED").HeaderText = "Date Last Updated"
+
 
                 LoadCaseColors()
                 btnSearchCaseLog.Enabled = True
@@ -700,7 +702,14 @@
     End Sub
 
     Private Sub mmiExportToExcel_Click(sender As Object, e As EventArgs) Handles mmiExportToExcel.Click
+        ExportCaseLogToExcel()
+    End Sub
+
+    Private Sub ExportCaseLogToExcel()
         dgvCaseLog.ExportToExcel(Me)
     End Sub
 
+    Private Sub btnExportToExcel_Click(sender As Object, e As EventArgs) Handles btnExportToExcel.Click
+        ExportCaseLogToExcel()
+    End Sub
 End Class

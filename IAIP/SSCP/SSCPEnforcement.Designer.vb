@@ -1961,7 +1961,7 @@ Partial Class SscpEnforcement
         '
         Me.RefreshAuditHistory.AutoSize = True
         Me.RefreshAuditHistory.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.RefreshAuditHistory.Location = New System.Drawing.Point(117, 19)
+        Me.RefreshAuditHistory.Location = New System.Drawing.Point(129, 19)
         Me.RefreshAuditHistory.Name = "RefreshAuditHistory"
         Me.RefreshAuditHistory.Size = New System.Drawing.Size(54, 23)
         Me.RefreshAuditHistory.TabIndex = 1
@@ -1972,11 +1972,13 @@ Partial Class SscpEnforcement
         '
         Me.ExportAuditHistory.AutoSize = True
         Me.ExportAuditHistory.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.ExportAuditHistory.Image = Global.Iaip.My.Resources.Resources.SpreadsheetIcon
         Me.ExportAuditHistory.Location = New System.Drawing.Point(19, 19)
         Me.ExportAuditHistory.Name = "ExportAuditHistory"
-        Me.ExportAuditHistory.Size = New System.Drawing.Size(88, 23)
+        Me.ExportAuditHistory.Size = New System.Drawing.Size(104, 23)
         Me.ExportAuditHistory.TabIndex = 0
         Me.ExportAuditHistory.Text = "Export to Excel"
+        Me.ExportAuditHistory.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         Me.ExportAuditHistory.UseVisualStyleBackColor = True
         '
         'EpaValuesTabPage

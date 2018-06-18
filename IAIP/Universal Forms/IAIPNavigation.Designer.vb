@@ -20,7 +20,7 @@ Partial Class IAIPNavigation
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.MainMenu1 = New System.Windows.Forms.MainMenu(Me.components)
         Me.mmiFile = New System.Windows.Forms.MenuItem()
         Me.mmiExit = New System.Windows.Forms.MenuItem()
@@ -78,7 +78,6 @@ Partial Class IAIPNavigation
         Me.rdbStaffView = New System.Windows.Forms.RadioButton()
         Me.btnLoadNavWorkList = New System.Windows.Forms.Button()
         Me.lblWorkViewerContext = New System.Windows.Forms.Label()
-        Me.lblResultsCount = New System.Windows.Forms.Label()
         Me.bgrLoadWorkViewer = New System.ComponentModel.BackgroundWorker()
         Me.lblMessageLabel = New System.Windows.Forms.Label()
         Me.bgrUserPermissions = New System.ComponentModel.BackgroundWorker()
@@ -87,6 +86,7 @@ Partial Class IAIPNavigation
         Me.cboNavWorkListContext = New System.Windows.Forms.ComboBox()
         Me.NavWorkListScopePanel = New System.Windows.Forms.Panel()
         Me.dgvWorkViewer = New System.Windows.Forms.DataGridView()
+        Me.btnExportToExcel = New System.Windows.Forms.Button()
         Me.grpQuickAccess.SuspendLayout()
         Me.SbeapQuickAccessPanel.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
@@ -610,7 +610,6 @@ Partial Class IAIPNavigation
         '
         'rdbAllView
         '
-        Me.rdbAllView.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.rdbAllView.AutoSize = True
         Me.rdbAllView.Location = New System.Drawing.Point(158, 8)
         Me.rdbAllView.Name = "rdbAllView"
@@ -621,7 +620,6 @@ Partial Class IAIPNavigation
         '
         'rdbUnitView
         '
-        Me.rdbUnitView.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.rdbUnitView.AutoSize = True
         Me.rdbUnitView.Location = New System.Drawing.Point(82, 8)
         Me.rdbUnitView.Name = "rdbUnitView"
@@ -632,7 +630,6 @@ Partial Class IAIPNavigation
         '
         'rdbStaffView
         '
-        Me.rdbStaffView.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.rdbStaffView.AutoSize = True
         Me.rdbStaffView.Checked = True
         Me.rdbStaffView.Location = New System.Drawing.Point(3, 8)
@@ -665,19 +662,6 @@ Partial Class IAIPNavigation
         Me.lblWorkViewerContext.TabIndex = 294
         Me.lblWorkViewerContext.Text = "Current List:"
         '
-        'lblResultsCount
-        '
-        Me.lblResultsCount.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.lblResultsCount.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblResultsCount.Location = New System.Drawing.Point(599, 10)
-        Me.lblResultsCount.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.lblResultsCount.Name = "lblResultsCount"
-        Me.lblResultsCount.Size = New System.Drawing.Size(83, 15)
-        Me.lblResultsCount.TabIndex = 253
-        Me.lblResultsCount.Text = "99999 results"
-        Me.lblResultsCount.TextAlign = System.Drawing.ContentAlignment.TopRight
-        Me.lblResultsCount.Visible = False
-        '
         'bgrLoadWorkViewer
         '
         Me.bgrLoadWorkViewer.WorkerSupportsCancellation = True
@@ -698,12 +682,12 @@ Partial Class IAIPNavigation
         '
         'pnlCurrentList
         '
+        Me.pnlCurrentList.Controls.Add(Me.btnExportToExcel)
         Me.pnlCurrentList.Controls.Add(Me.NavWorkListChangerPanel)
-        Me.pnlCurrentList.Controls.Add(Me.lblResultsCount)
         Me.pnlCurrentList.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.pnlCurrentList.Location = New System.Drawing.Point(118, 220)
+        Me.pnlCurrentList.Location = New System.Drawing.Point(118, 203)
         Me.pnlCurrentList.Name = "pnlCurrentList"
-        Me.pnlCurrentList.Size = New System.Drawing.Size(686, 37)
+        Me.pnlCurrentList.Size = New System.Drawing.Size(686, 54)
         Me.pnlCurrentList.TabIndex = 1
         '
         'NavWorkListChangerPanel
@@ -739,7 +723,7 @@ Partial Class IAIPNavigation
         Me.NavWorkListScopePanel.Controls.Add(Me.rdbAllView)
         Me.NavWorkListScopePanel.Location = New System.Drawing.Point(342, 0)
         Me.NavWorkListScopePanel.Name = "NavWorkListScopePanel"
-        Me.NavWorkListScopePanel.Size = New System.Drawing.Size(252, 30)
+        Me.NavWorkListScopePanel.Size = New System.Drawing.Size(231, 30)
         Me.NavWorkListScopePanel.TabIndex = 295
         '
         'dgvWorkViewer
@@ -748,8 +732,8 @@ Partial Class IAIPNavigation
         Me.dgvWorkViewer.AllowUserToDeleteRows = False
         Me.dgvWorkViewer.AllowUserToOrderColumns = True
         Me.dgvWorkViewer.AllowUserToResizeRows = False
-        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgvWorkViewer.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle4.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvWorkViewer.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle4
         Me.dgvWorkViewer.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
         Me.dgvWorkViewer.ColumnHeadersHeight = 35
         Me.dgvWorkViewer.Dock = System.Windows.Forms.DockStyle.Fill
@@ -759,8 +743,24 @@ Partial Class IAIPNavigation
         Me.dgvWorkViewer.ReadOnly = True
         Me.dgvWorkViewer.RowHeadersVisible = False
         Me.dgvWorkViewer.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvWorkViewer.Size = New System.Drawing.Size(686, 187)
+        Me.dgvWorkViewer.Size = New System.Drawing.Size(686, 170)
         Me.dgvWorkViewer.TabIndex = 4
+        '
+        'btnExportToExcel
+        '
+        Me.btnExportToExcel.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnExportToExcel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.btnExportToExcel.FlatAppearance.BorderSize = 0
+        Me.btnExportToExcel.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnExportToExcel.Image = Global.Iaip.My.Resources.Resources.SpreadsheetIcon
+        Me.btnExportToExcel.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.btnExportToExcel.Location = New System.Drawing.Point(585, 3)
+        Me.btnExportToExcel.Name = "btnExportToExcel"
+        Me.btnExportToExcel.Size = New System.Drawing.Size(98, 25)
+        Me.btnExportToExcel.TabIndex = 297
+        Me.btnExportToExcel.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.btnExportToExcel.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage
+        Me.btnExportToExcel.UseVisualStyleBackColor = True
         '
         'IAIPNavigation
         '
@@ -807,7 +807,6 @@ Partial Class IAIPNavigation
     Friend WithEvents lblOpenSscpItem As System.Windows.Forms.Label
     Friend WithEvents Label6 As System.Windows.Forms.Label
     Friend WithEvents lblOpenEnforcement As System.Windows.Forms.Label
-    Friend WithEvents lblResultsCount As System.Windows.Forms.Label
     Friend WithEvents lblOpenTestReport As System.Windows.Forms.Label
     Friend WithEvents StatusStrip1 As System.Windows.Forms.StatusStrip
     Friend WithEvents pnlProgram As System.Windows.Forms.ToolStripStatusLabel
@@ -862,4 +861,5 @@ Partial Class IAIPNavigation
     Friend WithEvents cboNavWorkListContext As ComboBox
     Friend WithEvents mmiUsernameSeparator As MenuItem
     Friend WithEvents mmiSecurity As MenuItem
+    Friend WithEvents btnExportToExcel As Button
 End Class

@@ -24,7 +24,7 @@ Partial Class SBEAPMiscTools
     Private Sub InitializeComponent()
         Me.dgvMiscTools = New System.Windows.Forms.DataGridView()
         Me.pnlMiscTools = New System.Windows.Forms.Panel()
-        Me.ExportToExcel = New System.Windows.Forms.Button()
+        Me.btnExportToExcel = New System.Windows.Forms.Button()
         Me.txtCount = New System.Windows.Forms.TextBox()
         Me.lblCount = New System.Windows.Forms.Label()
         Me.btnGetContactData = New System.Windows.Forms.Button()
@@ -43,7 +43,7 @@ Partial Class SBEAPMiscTools
         '
         'pnlMiscTools
         '
-        Me.pnlMiscTools.Controls.Add(Me.ExportToExcel)
+        Me.pnlMiscTools.Controls.Add(Me.btnExportToExcel)
         Me.pnlMiscTools.Controls.Add(Me.txtCount)
         Me.pnlMiscTools.Controls.Add(Me.lblCount)
         Me.pnlMiscTools.Controls.Add(Me.btnGetContactData)
@@ -53,20 +53,22 @@ Partial Class SBEAPMiscTools
         Me.pnlMiscTools.Size = New System.Drawing.Size(682, 60)
         Me.pnlMiscTools.TabIndex = 13
         '
-        'ExportToExcel
+        'btnExportToExcel
         '
-        Me.ExportToExcel.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ExportToExcel.Location = New System.Drawing.Point(554, 15)
-        Me.ExportToExcel.Name = "ExportToExcel"
-        Me.ExportToExcel.Size = New System.Drawing.Size(116, 27)
-        Me.ExportToExcel.TabIndex = 5
-        Me.ExportToExcel.Text = "Export to Excel"
-        Me.ExportToExcel.UseVisualStyleBackColor = True
+        Me.btnExportToExcel.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnExportToExcel.Image = Global.Iaip.My.Resources.Resources.SpreadsheetIcon
+        Me.btnExportToExcel.Location = New System.Drawing.Point(546, 15)
+        Me.btnExportToExcel.Name = "btnExportToExcel"
+        Me.btnExportToExcel.Size = New System.Drawing.Size(124, 27)
+        Me.btnExportToExcel.TabIndex = 5
+        Me.btnExportToExcel.Text = "Export to Excel"
+        Me.btnExportToExcel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
+        Me.btnExportToExcel.UseVisualStyleBackColor = True
         '
         'txtCount
         '
         Me.txtCount.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.txtCount.Location = New System.Drawing.Point(448, 19)
+        Me.txtCount.Location = New System.Drawing.Point(440, 19)
         Me.txtCount.Name = "txtCount"
         Me.txtCount.ReadOnly = True
         Me.txtCount.Size = New System.Drawing.Size(100, 20)
@@ -76,7 +78,7 @@ Partial Class SBEAPMiscTools
         '
         Me.lblCount.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblCount.AutoSize = True
-        Me.lblCount.Location = New System.Drawing.Point(407, 22)
+        Me.lblCount.Location = New System.Drawing.Point(399, 22)
         Me.lblCount.Name = "lblCount"
         Me.lblCount.Size = New System.Drawing.Size(35, 13)
         Me.lblCount.TabIndex = 2
@@ -113,5 +115,5 @@ Partial Class SBEAPMiscTools
     Friend WithEvents btnGetContactData As System.Windows.Forms.Button
     Friend WithEvents txtCount As System.Windows.Forms.TextBox
     Friend WithEvents lblCount As System.Windows.Forms.Label
-    Friend WithEvents ExportToExcel As System.Windows.Forms.Button
+    Friend WithEvents btnExportToExcel As System.Windows.Forms.Button
 End Class

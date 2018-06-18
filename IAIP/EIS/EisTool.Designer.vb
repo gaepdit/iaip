@@ -22,8 +22,8 @@ Partial Class EisTool
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.TCDMUTools = New System.Windows.Forms.TabControl()
         Me.TPEISLog = New System.Windows.Forms.TabPage()
         Me.TabControl6 = New System.Windows.Forms.TabControl()
@@ -247,7 +247,6 @@ Partial Class EisTool
         Me.mtbEISLogAIRSNumber = New System.Windows.Forms.MaskedTextBox()
         Me.btnEisStageSelectAll = New System.Windows.Forms.Button()
         Me.lblEISCount = New System.Windows.Forms.Label()
-        Me.txtEISStatsCount = New System.Windows.Forms.TextBox()
         Me.btnEISSummaryToExcel = New System.Windows.Forms.Button()
         Me.Panel19 = New System.Windows.Forms.Panel()
         Me.TCEISStats = New System.Windows.Forms.TabControl()
@@ -417,10 +416,8 @@ Partial Class EisTool
         Me.TabControl2 = New System.Windows.Forms.TabControl()
         Me.TabPage3 = New System.Windows.Forms.TabPage()
         Me.Panel10 = New System.Windows.Forms.Panel()
-        Me.Btn = New System.Windows.Forms.GroupBox()
         Me.dgvESDataCount = New System.Windows.Forms.DataGridView()
         Me.Panel4 = New System.Windows.Forms.Panel()
-        Me.txtRecordNumber = New System.Windows.Forms.TextBox()
         Me.btnExporttoExcel = New System.Windows.Forms.Button()
         Me.Panel5 = New System.Windows.Forms.Panel()
         Me.TabControl3 = New System.Windows.Forms.TabControl()
@@ -596,7 +593,10 @@ Partial Class EisTool
         Me.btnView = New System.Windows.Forms.Button()
         Me.Label31 = New System.Windows.Forms.Label()
         Me.cboYear = New System.Windows.Forms.ComboBox()
-        Me.Label1 = New System.Windows.Forms.Label()
+        Me.lblEISStatsCount = New System.Windows.Forms.Label()
+        Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.lblRecordNumber = New System.Windows.Forms.Label()
+        Me.Label3 = New System.Windows.Forms.Label()
         Me.TCDMUTools.SuspendLayout()
         Me.TPEISLog.SuspendLayout()
         Me.TabControl6.SuspendLayout()
@@ -642,7 +642,6 @@ Partial Class EisTool
         Me.TabControl2.SuspendLayout()
         Me.TabPage3.SuspendLayout()
         Me.Panel10.SuspendLayout()
-        Me.Btn.SuspendLayout()
         CType(Me.dgvESDataCount, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel4.SuspendLayout()
         Me.Panel5.SuspendLayout()
@@ -654,6 +653,7 @@ Partial Class EisTool
         Me.tabenroll.SuspendLayout()
         Me.tabaddRemovefacility.SuspendLayout()
         Me.PnlESYear.SuspendLayout()
+        Me.Panel2.SuspendLayout()
         Me.SuspendLayout()
         '
         'TCDMUTools
@@ -2808,8 +2808,8 @@ Partial Class EisTool
         Me.Panel18.Controls.Add(Me.btnEisStageSelectNone)
         Me.Panel18.Controls.Add(Me.mtbEISLogAIRSNumber)
         Me.Panel18.Controls.Add(Me.btnEisStageSelectAll)
+        Me.Panel18.Controls.Add(Me.lblEISStatsCount)
         Me.Panel18.Controls.Add(Me.lblEISCount)
-        Me.Panel18.Controls.Add(Me.txtEISStatsCount)
         Me.Panel18.Controls.Add(Me.btnEISSummaryToExcel)
         Me.Panel18.Dock = System.Windows.Forms.DockStyle.Top
         Me.Panel18.Location = New System.Drawing.Point(0, 0)
@@ -2821,7 +2821,7 @@ Partial Class EisTool
         '
         Me.lblEisStageSelectedCount.AutoSize = True
         Me.lblEisStageSelectedCount.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblEisStageSelectedCount.Location = New System.Drawing.Point(290, 8)
+        Me.lblEisStageSelectedCount.Location = New System.Drawing.Point(198, 8)
         Me.lblEisStageSelectedCount.Name = "lblEisStageSelectedCount"
         Me.lblEisStageSelectedCount.Size = New System.Drawing.Size(61, 13)
         Me.lblEisStageSelectedCount.TabIndex = 7
@@ -2829,7 +2829,7 @@ Partial Class EisTool
         '
         'btnLoadEISLog
         '
-        Me.btnLoadEISLog.Location = New System.Drawing.Point(178, 24)
+        Me.btnLoadEISLog.Location = New System.Drawing.Point(78, 24)
         Me.btnLoadEISLog.Name = "btnLoadEISLog"
         Me.btnLoadEISLog.Size = New System.Drawing.Size(95, 23)
         Me.btnLoadEISLog.TabIndex = 108
@@ -2838,7 +2838,7 @@ Partial Class EisTool
         '
         'btnEisStageSelectNone
         '
-        Me.btnEisStageSelectNone.Location = New System.Drawing.Point(371, 24)
+        Me.btnEisStageSelectNone.Location = New System.Drawing.Point(279, 24)
         Me.btnEisStageSelectNone.Name = "btnEisStageSelectNone"
         Me.btnEisStageSelectNone.Size = New System.Drawing.Size(72, 23)
         Me.btnEisStageSelectNone.TabIndex = 2
@@ -2847,7 +2847,7 @@ Partial Class EisTool
         '
         'mtbEISLogAIRSNumber
         '
-        Me.mtbEISLogAIRSNumber.Location = New System.Drawing.Point(109, 26)
+        Me.mtbEISLogAIRSNumber.Location = New System.Drawing.Point(9, 26)
         Me.mtbEISLogAIRSNumber.Mask = "000-00000"
         Me.mtbEISLogAIRSNumber.Name = "mtbEISLogAIRSNumber"
         Me.mtbEISLogAIRSNumber.Size = New System.Drawing.Size(63, 20)
@@ -2856,7 +2856,7 @@ Partial Class EisTool
         '
         'btnEisStageSelectAll
         '
-        Me.btnEisStageSelectAll.Location = New System.Drawing.Point(293, 24)
+        Me.btnEisStageSelectAll.Location = New System.Drawing.Point(201, 24)
         Me.btnEisStageSelectAll.Name = "btnEisStageSelectAll"
         Me.btnEisStageSelectAll.Size = New System.Drawing.Size(72, 23)
         Me.btnEisStageSelectAll.TabIndex = 1
@@ -2872,21 +2872,16 @@ Partial Class EisTool
         Me.lblEISCount.TabIndex = 104
         Me.lblEISCount.Text = "Count:"
         '
-        'txtEISStatsCount
-        '
-        Me.txtEISStatsCount.Location = New System.Drawing.Point(6, 26)
-        Me.txtEISStatsCount.Name = "txtEISStatsCount"
-        Me.txtEISStatsCount.ReadOnly = True
-        Me.txtEISStatsCount.Size = New System.Drawing.Size(84, 20)
-        Me.txtEISStatsCount.TabIndex = 103
-        '
         'btnEISSummaryToExcel
         '
-        Me.btnEISSummaryToExcel.Location = New System.Drawing.Point(461, 24)
+        Me.btnEISSummaryToExcel.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnEISSummaryToExcel.Image = Global.Iaip.My.Resources.Resources.SpreadsheetIcon
+        Me.btnEISSummaryToExcel.Location = New System.Drawing.Point(435, 24)
         Me.btnEISSummaryToExcel.Name = "btnEISSummaryToExcel"
-        Me.btnEISSummaryToExcel.Size = New System.Drawing.Size(95, 23)
+        Me.btnEISSummaryToExcel.Size = New System.Drawing.Size(121, 23)
         Me.btnEISSummaryToExcel.TabIndex = 105
-        Me.btnEISSummaryToExcel.Text = "Export To Excel"
+        Me.btnEISSummaryToExcel.Text = " Export To Excel"
+        Me.btnEISSummaryToExcel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         Me.btnEISSummaryToExcel.UseVisualStyleBackColor = True
         '
         'Panel19
@@ -4585,7 +4580,7 @@ Partial Class EisTool
         '
         'Panel10
         '
-        Me.Panel10.Controls.Add(Me.Btn)
+        Me.Panel10.Controls.Add(Me.Panel2)
         Me.Panel10.Controls.Add(Me.Panel5)
         Me.Panel10.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel10.Location = New System.Drawing.Point(3, 3)
@@ -4593,69 +4588,53 @@ Partial Class EisTool
         Me.Panel10.Size = New System.Drawing.Size(994, 655)
         Me.Panel10.TabIndex = 0
         '
-        'Btn
-        '
-        Me.Btn.AutoSize = True
-        Me.Btn.Controls.Add(Me.dgvESDataCount)
-        Me.Btn.Controls.Add(Me.Panel4)
-        Me.Btn.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.Btn.Location = New System.Drawing.Point(556, 0)
-        Me.Btn.Name = "Btn"
-        Me.Btn.Size = New System.Drawing.Size(438, 655)
-        Me.Btn.TabIndex = 9
-        Me.Btn.TabStop = False
-        Me.Btn.Text = "View Data"
-        '
         'dgvESDataCount
         '
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.dgvESDataCount.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.dgvESDataCount.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle3
         Me.dgvESDataCount.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
-        DataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window
-        DataGridViewCellStyle2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        DataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText
-        DataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
-        Me.dgvESDataCount.DefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft
+        DataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window
+        DataGridViewCellStyle4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        DataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText
+        DataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.[False]
+        Me.dgvESDataCount.DefaultCellStyle = DataGridViewCellStyle4
         Me.dgvESDataCount.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.dgvESDataCount.Location = New System.Drawing.Point(3, 55)
+        Me.dgvESDataCount.Location = New System.Drawing.Point(0, 39)
         Me.dgvESDataCount.Name = "dgvESDataCount"
         Me.dgvESDataCount.ReadOnly = True
-        Me.dgvESDataCount.Size = New System.Drawing.Size(432, 597)
+        Me.dgvESDataCount.Size = New System.Drawing.Size(438, 616)
         Me.dgvESDataCount.TabIndex = 1
         '
         'Panel4
         '
-        Me.Panel4.Controls.Add(Me.txtRecordNumber)
+        Me.Panel4.Controls.Add(Me.lblRecordNumber)
+        Me.Panel4.Controls.Add(Me.Label3)
         Me.Panel4.Controls.Add(Me.btnExporttoExcel)
         Me.Panel4.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Panel4.Location = New System.Drawing.Point(3, 16)
+        Me.Panel4.Location = New System.Drawing.Point(0, 0)
         Me.Panel4.Name = "Panel4"
-        Me.Panel4.Size = New System.Drawing.Size(432, 39)
+        Me.Panel4.Size = New System.Drawing.Size(438, 39)
         Me.Panel4.TabIndex = 2
-        '
-        'txtRecordNumber
-        '
-        Me.txtRecordNumber.Location = New System.Drawing.Point(6, 10)
-        Me.txtRecordNumber.Name = "txtRecordNumber"
-        Me.txtRecordNumber.Size = New System.Drawing.Size(100, 20)
-        Me.txtRecordNumber.TabIndex = 0
         '
         'btnExporttoExcel
         '
-        Me.btnExporttoExcel.Location = New System.Drawing.Point(112, 8)
+        Me.btnExporttoExcel.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnExporttoExcel.Image = Global.Iaip.My.Resources.Resources.SpreadsheetIcon
+        Me.btnExporttoExcel.Location = New System.Drawing.Point(313, 10)
         Me.btnExporttoExcel.Name = "btnExporttoExcel"
-        Me.btnExporttoExcel.Size = New System.Drawing.Size(126, 23)
+        Me.btnExporttoExcel.Size = New System.Drawing.Size(122, 23)
         Me.btnExporttoExcel.TabIndex = 1
-        Me.btnExporttoExcel.Text = "Export to Excel"
+        Me.btnExporttoExcel.Text = " Export to Excel"
+        Me.btnExporttoExcel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         Me.btnExporttoExcel.UseVisualStyleBackColor = True
         '
         'Panel5
@@ -6353,13 +6332,42 @@ Partial Class EisTool
         Me.cboYear.Size = New System.Drawing.Size(97, 21)
         Me.cboYear.TabIndex = 0
         '
-        'Label1
+        'lblEISStatsCount
         '
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(731, 132)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(0, 13)
-        Me.Label1.TabIndex = 258
+        Me.lblEISStatsCount.AutoSize = True
+        Me.lblEISStatsCount.Location = New System.Drawing.Point(41, 10)
+        Me.lblEISStatsCount.Name = "lblEISStatsCount"
+        Me.lblEISStatsCount.Size = New System.Drawing.Size(13, 13)
+        Me.lblEISStatsCount.TabIndex = 104
+        Me.lblEISStatsCount.Text = "0"
+        '
+        'Panel2
+        '
+        Me.Panel2.Controls.Add(Me.dgvESDataCount)
+        Me.Panel2.Controls.Add(Me.Panel4)
+        Me.Panel2.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Panel2.Location = New System.Drawing.Point(556, 0)
+        Me.Panel2.Name = "Panel2"
+        Me.Panel2.Size = New System.Drawing.Size(438, 655)
+        Me.Panel2.TabIndex = 3
+        '
+        'lblRecordNumber
+        '
+        Me.lblRecordNumber.AutoSize = True
+        Me.lblRecordNumber.Location = New System.Drawing.Point(41, 15)
+        Me.lblRecordNumber.Name = "lblRecordNumber"
+        Me.lblRecordNumber.Size = New System.Drawing.Size(13, 13)
+        Me.lblRecordNumber.TabIndex = 105
+        Me.lblRecordNumber.Text = "0"
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Location = New System.Drawing.Point(6, 15)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(38, 13)
+        Me.Label3.TabIndex = 106
+        Me.Label3.Text = "Count:"
         '
         'EisTool
         '
@@ -6367,7 +6375,6 @@ Partial Class EisTool
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1016, 713)
         Me.Controls.Add(Me.TCDMUTools)
-        Me.Controls.Add(Me.Label1)
         Me.MinimumSize = New System.Drawing.Size(1032, 751)
         Me.Name = "EisTool"
         Me.Text = "Emission Inventory Tools"
@@ -6439,8 +6446,6 @@ Partial Class EisTool
         Me.TabControl2.ResumeLayout(False)
         Me.TabPage3.ResumeLayout(False)
         Me.Panel10.ResumeLayout(False)
-        Me.Panel10.PerformLayout()
-        Me.Btn.ResumeLayout(False)
         CType(Me.dgvESDataCount, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel4.ResumeLayout(False)
         Me.Panel4.PerformLayout()
@@ -6460,8 +6465,8 @@ Partial Class EisTool
         Me.tabaddRemovefacility.PerformLayout()
         Me.PnlESYear.ResumeLayout(False)
         Me.PnlESYear.PerformLayout()
+        Me.Panel2.ResumeLayout(False)
         Me.ResumeLayout(False)
-        Me.PerformLayout()
 
     End Sub
     Friend WithEvents TCDMUTools As System.Windows.Forms.TabControl
@@ -6474,9 +6479,7 @@ Partial Class EisTool
     Friend WithEvents btnView As System.Windows.Forms.Button
     Friend WithEvents Label31 As System.Windows.Forms.Label
     Friend WithEvents cboYear As System.Windows.Forms.ComboBox
-    Friend WithEvents Btn As System.Windows.Forms.GroupBox
     Friend WithEvents dgvESDataCount As System.Windows.Forms.DataGridView
-    Friend WithEvents txtRecordNumber As System.Windows.Forms.TextBox
     Friend WithEvents TabControl3 As System.Windows.Forms.TabControl
     Friend WithEvents tabSummary As System.Windows.Forms.TabPage
     Friend WithEvents lblviewextraNonresponse As System.Windows.Forms.LinkLabel
@@ -6644,7 +6647,6 @@ Partial Class EisTool
     Friend WithEvents btnaddfacilitytoES As System.Windows.Forms.Button
     Friend WithEvents Label193 As System.Windows.Forms.Label
     Friend WithEvents txtESairNumber As System.Windows.Forms.TextBox
-    Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents Panel4 As System.Windows.Forms.Panel
     Friend WithEvents Panel5 As System.Windows.Forms.Panel
     Friend WithEvents TPEISLog As System.Windows.Forms.TabPage
@@ -6970,7 +6972,6 @@ Partial Class EisTool
     Friend WithEvents btnLoadEISLog As System.Windows.Forms.Button
     Friend WithEvents mtbEISLogAIRSNumber As System.Windows.Forms.MaskedTextBox
     Friend WithEvents lblEISCount As System.Windows.Forms.Label
-    Friend WithEvents txtEISStatsCount As System.Windows.Forms.TextBox
     Friend WithEvents btnEISSummaryToExcel As System.Windows.Forms.Button
     Friend WithEvents Label273 As System.Windows.Forms.Label
     Friend WithEvents txtAllQAComments As System.Windows.Forms.TextBox
@@ -7038,4 +7039,8 @@ Partial Class EisTool
     Friend WithEvents btnEisStagePseSelected As Button
     Friend WithEvents btnEisStageFiAll As Button
     Friend WithEvents btnEisStageFiSelected As Button
+    Friend WithEvents lblEISStatsCount As Label
+    Friend WithEvents Panel2 As Panel
+    Friend WithEvents lblRecordNumber As Label
+    Friend WithEvents Label3 As Label
 End Class

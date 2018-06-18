@@ -104,7 +104,7 @@ Partial Class PASPFeeStatistics
         Me.btnViewSelectedFeeData = New System.Windows.Forms.Button()
         Me.Label56 = New System.Windows.Forms.Label()
         Me.txtCount = New System.Windows.Forms.TextBox()
-        Me.bntViewTotalPaid = New System.Windows.Forms.Button()
+        Me.btnViewTotalPaid = New System.Windows.Forms.Button()
         Me.btnViewPaymentDue = New System.Windows.Forms.Button()
         Me.txtBalance = New System.Windows.Forms.TextBox()
         Me.txtTotalPaid = New System.Windows.Forms.TextBox()
@@ -889,7 +889,7 @@ Partial Class PASPFeeStatistics
         Me.Panel1.Controls.Add(Me.btnViewSelectedFeeData)
         Me.Panel1.Controls.Add(Me.Label56)
         Me.Panel1.Controls.Add(Me.txtCount)
-        Me.Panel1.Controls.Add(Me.bntViewTotalPaid)
+        Me.Panel1.Controls.Add(Me.btnViewTotalPaid)
         Me.Panel1.Controls.Add(Me.btnViewPaymentDue)
         Me.Panel1.Controls.Add(Me.txtBalance)
         Me.Panel1.Controls.Add(Me.txtTotalPaid)
@@ -1066,11 +1066,13 @@ Partial Class PASPFeeStatistics
         '
         Me.btnExportToExcel.AutoSize = True
         Me.btnExportToExcel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnExportToExcel.Location = New System.Drawing.Point(842, 134)
+        Me.btnExportToExcel.Image = Global.Iaip.My.Resources.Resources.SpreadsheetIcon
+        Me.btnExportToExcel.Location = New System.Drawing.Point(826, 133)
         Me.btnExportToExcel.Name = "btnExportToExcel"
-        Me.btnExportToExcel.Size = New System.Drawing.Size(88, 23)
+        Me.btnExportToExcel.Size = New System.Drawing.Size(104, 23)
         Me.btnExportToExcel.TabIndex = 27
         Me.btnExportToExcel.Text = "Export to Excel"
+        Me.btnExportToExcel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         Me.btnExportToExcel.UseVisualStyleBackColor = True
         '
         'chbNonZeroBalance
@@ -1140,7 +1142,7 @@ Partial Class PASPFeeStatistics
         '
         Me.btnViewSelectedFeeData.AutoSize = True
         Me.btnViewSelectedFeeData.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnViewSelectedFeeData.Location = New System.Drawing.Point(653, 134)
+        Me.btnViewSelectedFeeData.Location = New System.Drawing.Point(648, 134)
         Me.btnViewSelectedFeeData.Name = "btnViewSelectedFeeData"
         Me.btnViewSelectedFeeData.Size = New System.Drawing.Size(90, 23)
         Me.btnViewSelectedFeeData.TabIndex = 19
@@ -1159,22 +1161,22 @@ Partial Class PASPFeeStatistics
         '
         'txtCount
         '
-        Me.txtCount.Location = New System.Drawing.Point(764, 136)
+        Me.txtCount.Location = New System.Drawing.Point(748, 135)
         Me.txtCount.Name = "txtCount"
         Me.txtCount.ReadOnly = True
         Me.txtCount.Size = New System.Drawing.Size(72, 20)
         Me.txtCount.TabIndex = 17
         '
-        'bntViewTotalPaid
+        'btnViewTotalPaid
         '
-        Me.bntViewTotalPaid.AutoSize = True
-        Me.bntViewTotalPaid.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.bntViewTotalPaid.Location = New System.Drawing.Point(623, 43)
-        Me.bntViewTotalPaid.Name = "bntViewTotalPaid"
-        Me.bntViewTotalPaid.Size = New System.Drawing.Size(91, 23)
-        Me.bntViewTotalPaid.TabIndex = 14
-        Me.bntViewTotalPaid.Text = "View Total Paid"
-        Me.bntViewTotalPaid.UseVisualStyleBackColor = True
+        Me.btnViewTotalPaid.AutoSize = True
+        Me.btnViewTotalPaid.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.btnViewTotalPaid.Location = New System.Drawing.Point(623, 43)
+        Me.btnViewTotalPaid.Name = "btnViewTotalPaid"
+        Me.btnViewTotalPaid.Size = New System.Drawing.Size(91, 23)
+        Me.btnViewTotalPaid.TabIndex = 14
+        Me.btnViewTotalPaid.Text = "View Total Paid"
+        Me.btnViewTotalPaid.UseVisualStyleBackColor = True
         '
         'btnViewPaymentDue
         '
@@ -1314,11 +1316,13 @@ Partial Class PASPFeeStatistics
         '
         'btnExportFeeStats
         '
-        Me.btnExportFeeStats.Location = New System.Drawing.Point(330, 7)
+        Me.btnExportFeeStats.Image = Global.Iaip.My.Resources.Resources.SpreadsheetIcon
+        Me.btnExportFeeStats.Location = New System.Drawing.Point(330, 6)
         Me.btnExportFeeStats.Name = "btnExportFeeStats"
-        Me.btnExportFeeStats.Size = New System.Drawing.Size(95, 23)
+        Me.btnExportFeeStats.Size = New System.Drawing.Size(117, 23)
         Me.btnExportFeeStats.TabIndex = 3
         Me.btnExportFeeStats.Text = "Export To Excel"
+        Me.btnExportFeeStats.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         Me.btnExportFeeStats.UseVisualStyleBackColor = True
         '
         'txtFeeStatsCount
@@ -2527,6 +2531,7 @@ Partial Class PASPFeeStatistics
         '
         Me.Panel4.AutoSize = True
         Me.Panel4.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.Panel4.Controls.Add(Me.btnExportFeeReport)
         Me.Panel4.Controls.Add(Me.btnRemovePaidFacilities)
         Me.Panel4.Controls.Add(Me.btnViewUnenrolled)
         Me.Panel4.Controls.Add(Me.rdbHasNotPaidFee)
@@ -2541,7 +2546,7 @@ Partial Class PASPFeeStatistics
         'btnRemovePaidFacilities
         '
         Me.btnRemovePaidFacilities.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnRemovePaidFacilities.Location = New System.Drawing.Point(3, 89)
+        Me.btnRemovePaidFacilities.Location = New System.Drawing.Point(3, 86)
         Me.btnRemovePaidFacilities.Name = "btnRemovePaidFacilities"
         Me.btnRemovePaidFacilities.Size = New System.Drawing.Size(137, 23)
         Me.btnRemovePaidFacilities.TabIndex = 8
@@ -2551,7 +2556,7 @@ Partial Class PASPFeeStatistics
         'btnViewUnenrolled
         '
         Me.btnViewUnenrolled.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnViewUnenrolled.Location = New System.Drawing.Point(3, 133)
+        Me.btnViewUnenrolled.Location = New System.Drawing.Point(3, 115)
         Me.btnViewUnenrolled.Name = "btnViewUnenrolled"
         Me.btnViewUnenrolled.Size = New System.Drawing.Size(137, 23)
         Me.btnViewUnenrolled.TabIndex = 9
@@ -2613,7 +2618,6 @@ Partial Class PASPFeeStatistics
         '
         'Panel2
         '
-        Me.Panel2.Controls.Add(Me.btnExportFeeReport)
         Me.Panel2.Controls.Add(Me.btnRunReport)
         Me.Panel2.Controls.Add(Me.txtFeeCount)
         Me.Panel2.Controls.Add(Me.lblCount)
@@ -2630,11 +2634,13 @@ Partial Class PASPFeeStatistics
         '
         Me.btnExportFeeReport.AutoSize = True
         Me.btnExportFeeReport.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnExportFeeReport.Location = New System.Drawing.Point(532, 6)
+        Me.btnExportFeeReport.Image = Global.Iaip.My.Resources.Resources.SpreadsheetIcon
+        Me.btnExportFeeReport.Location = New System.Drawing.Point(4, 151)
         Me.btnExportFeeReport.Name = "btnExportFeeReport"
-        Me.btnExportFeeReport.Size = New System.Drawing.Size(88, 23)
+        Me.btnExportFeeReport.Size = New System.Drawing.Size(104, 23)
         Me.btnExportFeeReport.TabIndex = 28
         Me.btnExportFeeReport.Text = "Export to Excel"
+        Me.btnExportFeeReport.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         Me.btnExportFeeReport.UseVisualStyleBackColor = True
         '
         'btnRunReport
@@ -2650,7 +2656,7 @@ Partial Class PASPFeeStatistics
         '
         'txtFeeCount
         '
-        Me.txtFeeCount.Location = New System.Drawing.Point(667, 8)
+        Me.txtFeeCount.Location = New System.Drawing.Point(671, 7)
         Me.txtFeeCount.Name = "txtFeeCount"
         Me.txtFeeCount.ReadOnly = True
         Me.txtFeeCount.Size = New System.Drawing.Size(63, 20)
@@ -2659,7 +2665,7 @@ Partial Class PASPFeeStatistics
         'lblCount
         '
         Me.lblCount.AutoSize = True
-        Me.lblCount.Location = New System.Drawing.Point(626, 11)
+        Me.lblCount.Location = New System.Drawing.Point(630, 10)
         Me.lblCount.Name = "lblCount"
         Me.lblCount.Size = New System.Drawing.Size(35, 13)
         Me.lblCount.TabIndex = 3
@@ -2688,7 +2694,7 @@ Partial Class PASPFeeStatistics
         'Label94
         '
         Me.Label94.AutoSize = True
-        Me.Label94.Location = New System.Drawing.Point(8, 11)
+        Me.Label94.Location = New System.Drawing.Point(8, 10)
         Me.Label94.Name = "Label94"
         Me.Label94.Size = New System.Drawing.Size(71, 13)
         Me.Label94.TabIndex = 0
@@ -2744,11 +2750,14 @@ Partial Class PASPFeeStatistics
         'btnReportedExport
         '
         Me.btnReportedExport.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnReportedExport.Location = New System.Drawing.Point(825, 13)
+        Me.btnReportedExport.AutoSize = True
+        Me.btnReportedExport.Image = Global.Iaip.My.Resources.Resources.SpreadsheetIcon
+        Me.btnReportedExport.Location = New System.Drawing.Point(821, 14)
         Me.btnReportedExport.Name = "btnReportedExport"
-        Me.btnReportedExport.Size = New System.Drawing.Size(100, 23)
+        Me.btnReportedExport.Size = New System.Drawing.Size(104, 23)
         Me.btnReportedExport.TabIndex = 0
         Me.btnReportedExport.Text = "Export to Excel"
+        Me.btnReportedExport.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         Me.btnReportedExport.UseVisualStyleBackColor = True
         '
         'btnExportedRun
@@ -3215,6 +3224,7 @@ Partial Class PASPFeeStatistics
         Me.TPReported.ResumeLayout(False)
         CType(Me.dgvReported, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel6.ResumeLayout(False)
+        Me.Panel6.PerformLayout()
         Me.TPReports.ResumeLayout(False)
         Me.tabReport.ResumeLayout(False)
         Me.TPFacilitySpecific.ResumeLayout(False)
@@ -3303,7 +3313,7 @@ Partial Class PASPFeeStatistics
     Friend WithEvents btnViewSelectedFeeData As System.Windows.Forms.Button
     Friend WithEvents Label56 As System.Windows.Forms.Label
     Friend WithEvents txtCount As System.Windows.Forms.TextBox
-    Friend WithEvents bntViewTotalPaid As System.Windows.Forms.Button
+    Friend WithEvents btnViewTotalPaid As System.Windows.Forms.Button
     Friend WithEvents btnViewPaymentDue As System.Windows.Forms.Button
     Friend WithEvents txtBalance As System.Windows.Forms.TextBox
     Friend WithEvents txtTotalPaid As System.Windows.Forms.TextBox
