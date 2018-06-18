@@ -969,11 +969,13 @@ Partial Class MASPRegistrationTool
         '
         Me.btnExportRegistrantsToExcel.AutoSize = True
         Me.btnExportRegistrantsToExcel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.btnExportRegistrantsToExcel.Image = Global.Iaip.My.Resources.Resources.SpreadsheetIcon
         Me.btnExportRegistrantsToExcel.Location = New System.Drawing.Point(423, 138)
         Me.btnExportRegistrantsToExcel.Name = "btnExportRegistrantsToExcel"
-        Me.btnExportRegistrantsToExcel.Size = New System.Drawing.Size(88, 23)
+        Me.btnExportRegistrantsToExcel.Size = New System.Drawing.Size(104, 23)
         Me.btnExportRegistrantsToExcel.TabIndex = 417
         Me.btnExportRegistrantsToExcel.Text = "Export to Excel"
+        Me.btnExportRegistrantsToExcel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         Me.btnExportRegistrantsToExcel.UseVisualStyleBackColor = True
         '
         'Label39

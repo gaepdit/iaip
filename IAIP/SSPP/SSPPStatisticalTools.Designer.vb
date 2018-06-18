@@ -169,7 +169,6 @@ Partial Class SSPPStatisticalTools
         Me.llbViewEPA6c = New System.Windows.Forms.LinkLabel()
         Me.txtEPA6C = New System.Windows.Forms.TextBox()
         Me.Label81 = New System.Windows.Forms.Label()
-        Me.btnUpdateEPAReport = New System.Windows.Forms.Button()
         Me.llbViewEPA8a = New System.Windows.Forms.LinkLabel()
         Me.llbViewEPA7c = New System.Windows.Forms.LinkLabel()
         Me.llbViewEPA7b = New System.Windows.Forms.LinkLabel()
@@ -233,6 +232,7 @@ Partial Class SSPPStatisticalTools
         Me.txtEPAReportText = New System.Windows.Forms.TextBox()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.Label73 = New System.Windows.Forms.Label()
+        Me.btnUpdateEPAReport = New System.Windows.Forms.Button()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.btnExportToExcel = New System.Windows.Forms.Button()
         Me.txtApplicationCount = New System.Windows.Forms.TextBox()
@@ -1833,16 +1833,6 @@ Partial Class SSPPStatisticalTools
         Me.Label81.Text = "c) Total number of active" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "     permits with terms " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "     NOT extended past " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "   " &
     "  5 years:"
         '
-        'btnUpdateEPAReport
-        '
-        Me.btnUpdateEPAReport.AutoSize = True
-        Me.btnUpdateEPAReport.Location = New System.Drawing.Point(98, 5)
-        Me.btnUpdateEPAReport.Name = "btnUpdateEPAReport"
-        Me.btnUpdateEPAReport.Size = New System.Drawing.Size(63, 23)
-        Me.btnUpdateEPAReport.TabIndex = 79
-        Me.btnUpdateEPAReport.Text = "Update"
-        Me.btnUpdateEPAReport.UseVisualStyleBackColor = True
-        '
         'llbViewEPA8a
         '
         Me.llbViewEPA8a.AutoSize = True
@@ -2409,6 +2399,16 @@ Partial Class SSPPStatisticalTools
         Me.Label73.TabIndex = 0
         Me.Label73.Text = "EPA Report Text"
         '
+        'btnUpdateEPAReport
+        '
+        Me.btnUpdateEPAReport.AutoSize = True
+        Me.btnUpdateEPAReport.Location = New System.Drawing.Point(98, 5)
+        Me.btnUpdateEPAReport.Name = "btnUpdateEPAReport"
+        Me.btnUpdateEPAReport.Size = New System.Drawing.Size(63, 23)
+        Me.btnUpdateEPAReport.TabIndex = 79
+        Me.btnUpdateEPAReport.Text = "Update"
+        Me.btnUpdateEPAReport.UseVisualStyleBackColor = True
+        '
         'GroupBox1
         '
         Me.GroupBox1.Controls.Add(Me.btnExportToExcel)
@@ -2427,13 +2427,16 @@ Partial Class SSPPStatisticalTools
         '
         'btnExportToExcel
         '
+        Me.btnExportToExcel.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnExportToExcel.AutoSize = True
         Me.btnExportToExcel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnExportToExcel.Location = New System.Drawing.Point(282, 22)
+        Me.btnExportToExcel.Image = Global.Iaip.My.Resources.Resources.SpreadsheetIcon
+        Me.btnExportToExcel.Location = New System.Drawing.Point(290, 22)
         Me.btnExportToExcel.Name = "btnExportToExcel"
-        Me.btnExportToExcel.Size = New System.Drawing.Size(88, 23)
+        Me.btnExportToExcel.Size = New System.Drawing.Size(104, 23)
         Me.btnExportToExcel.TabIndex = 7
         Me.btnExportToExcel.Text = "Export to Excel"
+        Me.btnExportToExcel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         Me.btnExportToExcel.UseVisualStyleBackColor = True
         '
         'txtApplicationCount

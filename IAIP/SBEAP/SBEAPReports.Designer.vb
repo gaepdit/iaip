@@ -523,11 +523,13 @@ Partial Class SBEAPReports
         '
         Me.btnExportToExcel.AutoSize = True
         Me.btnExportToExcel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.btnExportToExcel.Image = Global.Iaip.My.Resources.Resources.SpreadsheetIcon
         Me.btnExportToExcel.Location = New System.Drawing.Point(324, 6)
         Me.btnExportToExcel.Name = "btnExportToExcel"
-        Me.btnExportToExcel.Size = New System.Drawing.Size(88, 23)
+        Me.btnExportToExcel.Size = New System.Drawing.Size(104, 23)
         Me.btnExportToExcel.TabIndex = 46
         Me.btnExportToExcel.Text = "Export to Excel"
+        Me.btnExportToExcel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         Me.btnExportToExcel.UseVisualStyleBackColor = True
         '
         'txtCount

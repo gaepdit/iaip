@@ -546,7 +546,7 @@ Public Class PASPFeeStatistics
         End Try
     End Sub
 
-    Private Sub bntViewTotalPaid_Click(sender As Object, e As EventArgs) Handles bntViewTotalPaid.Click
+    Private Sub bntViewTotalPaid_Click(sender As Object, e As EventArgs) Handles btnViewTotalPaid.Click
         Try
             Dim SQL As String = ""
 
@@ -2237,7 +2237,7 @@ Public Class PASPFeeStatistics
                 cboStatPayType.Enabled = False
                 btnViewDepositsStats.Enabled = False
                 btnViewPaymentDue.Enabled = False
-                bntViewTotalPaid.Enabled = False
+                btnViewTotalPaid.Enabled = False
                 chbNonZeroBalance.Enabled = False
             Else
                 dtpStartDepositDate.Enabled = False
@@ -2247,7 +2247,7 @@ Public Class PASPFeeStatistics
                 cboStatPayType.Enabled = True
                 btnViewDepositsStats.Enabled = True
                 btnViewPaymentDue.Enabled = True
-                bntViewTotalPaid.Enabled = True
+                btnViewTotalPaid.Enabled = True
                 chbNonZeroBalance.Enabled = True
             End If
         Catch ex As Exception

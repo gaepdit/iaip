@@ -200,7 +200,6 @@ Partial Class SSCPEmissionSummaryTool
         '
         Me.tabSummary.AutoScroll = True
         Me.tabSummary.Controls.Add(Me.lblViewMailOut)
-        Me.tabSummary.Controls.Add(Me.btnoutofcomplianceExport)
         Me.tabSummary.Controls.Add(Me.Label76)
         Me.tabSummary.Controls.Add(Me.txtResponseCount)
         Me.tabSummary.Controls.Add(Me.lblViewTotalResponse)
@@ -261,11 +260,14 @@ Partial Class SSCPEmissionSummaryTool
         '
         'btnoutofcomplianceExport
         '
-        Me.btnoutofcomplianceExport.Location = New System.Drawing.Point(329, 432)
+        Me.btnoutofcomplianceExport.AutoSize = True
+        Me.btnoutofcomplianceExport.Image = Global.Iaip.My.Resources.Resources.SpreadsheetIcon
+        Me.btnoutofcomplianceExport.Location = New System.Drawing.Point(327, 18)
         Me.btnoutofcomplianceExport.Name = "btnoutofcomplianceExport"
-        Me.btnoutofcomplianceExport.Size = New System.Drawing.Size(95, 23)
+        Me.btnoutofcomplianceExport.Size = New System.Drawing.Size(108, 23)
         Me.btnoutofcomplianceExport.TabIndex = 41
         Me.btnoutofcomplianceExport.Text = "Export To Excel"
+        Me.btnoutofcomplianceExport.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         Me.btnoutofcomplianceExport.UseVisualStyleBackColor = True
         '
         'Label76
@@ -1292,6 +1294,7 @@ Partial Class SSCPEmissionSummaryTool
         'Btn
         '
         Me.Btn.Controls.Add(Me.txtRecordNumber)
+        Me.Btn.Controls.Add(Me.btnoutofcomplianceExport)
         Me.Btn.Dock = System.Windows.Forms.DockStyle.Top
         Me.Btn.Location = New System.Drawing.Point(0, 0)
         Me.Btn.Name = "Btn"
@@ -1416,11 +1419,13 @@ Partial Class SSCPEmissionSummaryTool
         'btnExportEItoExcel
         '
         Me.btnExportEItoExcel.AutoSize = True
+        Me.btnExportEItoExcel.Image = Global.Iaip.My.Resources.Resources.SpreadsheetIcon
         Me.btnExportEItoExcel.Location = New System.Drawing.Point(672, 66)
         Me.btnExportEItoExcel.Name = "btnExportEItoExcel"
-        Me.btnExportEItoExcel.Size = New System.Drawing.Size(88, 23)
+        Me.btnExportEItoExcel.Size = New System.Drawing.Size(104, 23)
         Me.btnExportEItoExcel.TabIndex = 3
         Me.btnExportEItoExcel.Text = "Export to Excel"
+        Me.btnExportEItoExcel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         Me.btnExportEItoExcel.UseVisualStyleBackColor = True
         '
         'btnEISummary

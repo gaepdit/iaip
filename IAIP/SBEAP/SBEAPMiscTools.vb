@@ -76,7 +76,7 @@
         txtCount.Text = dgvMiscTools.RowCount.ToString
     End Sub
 
-    Private Sub ExportToExcel_Click(sender As Object, e As EventArgs) Handles ExportToExcel.Click
+    Private Sub btnExportToExcel_Click(sender As Object, e As EventArgs) Handles btnExportToExcel.Click
         dgvMiscTools.ExportToExcel(Me)
     End Sub
 

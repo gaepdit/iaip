@@ -1111,22 +1111,6 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
-    Private Sub ExportToWord()
-        Dim wordDoc As Microsoft.Office.Interop.Word.Document
-        Dim WordApp As New Microsoft.Office.Interop.Word.Application
-        Try
-
-            wordDoc = WordApp.Documents.Add()
-            wordDoc.Activate()
-            WordApp.Selection.TypeText(txtReportText.Text & vbCrLf & vbCrLf & txtOutOfComplianceReport.Text)
-            WordApp.Visible = True
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
 
     Private Sub RunSummaryReport()
         Try
@@ -1184,58 +1168,7 @@ Public Class ISMPManagersTools
 
 
     End Sub
-    Private Sub PrintSummaryReport()
-        Dim i As Integer = 0
-        Dim j As Integer
 
-        Try
-
-            If dtSummaryReport Is Nothing Then
-            Else
-                i = dtSummaryReport.Rows.Count
-            End If
-
-            If i <> 0 Then
-                Dim WordText As String
-                Dim wordDoc As Microsoft.Office.Interop.Word.Document
-                Dim WordApp As New Microsoft.Office.Interop.Word.Application
-                Dim line As String = "________________________________________________________________________"
-
-                WordText = vbTab & vbTab & vbTab & vbTab & vbTab & "ISMP" &
-                 vbCrLf & line & vbCrLf & "Source Test Summary" & vbTab & vbTab & vbTab & vbTab & vbTab & vbTab & "Print Date: " & TodayFormatted &
-                  vbCrLf & line & vbCrLf & "Staff" & vbTab & vbTab & "# of Open" & vbTab & vbTab & "Reports Open" & vbTab & vbTab & "Reports Close" &
-                  vbCrLf & vbTab & vbTab & "Reports" & vbTab & vbTab & ">50 days" & vbTab & vbTab & "Last 60 days" &
-                  vbCrLf & line &
-                  vbTab & "|" & vbTab & "|" & vbTab & "|" & vbTab & "|" & vbTab & "|" & vbTab & "|" & vbTab & "|" & vbTab & "|" & vbTab & "|" & vbTab & "|" & vbTab & "|"
-
-                For j = 0 To i - 1
-                    If dgrTestSummary.Item(j, 0).ToString.Length > 6 Then
-                        WordText = WordText &
-                        vbCrLf & dgrTestSummary.Item(j, 0).ToString & vbTab & dgrTestSummary.Item(j, 1).ToString & vbTab & vbTab & vbTab &
-                        dgrTestSummary.Item(j, 2).ToString & vbTab & vbTab & vbTab & dgrTestSummary.Item(j, 3).ToString & vbCrLf & line
-                    Else
-                        WordText = WordText &
-                        vbCrLf & dgrTestSummary.Item(j, 0).ToString & vbTab & vbTab & dgrTestSummary.Item(j, 1).ToString & vbTab & vbTab & vbTab &
-                        dgrTestSummary.Item(j, 2).ToString & vbTab & vbTab & vbTab & dgrTestSummary.Item(j, 3).ToString &
-                        vbCrLf & line
-                    End If
-                Next
-
-                wordDoc = WordApp.Documents.Add()
-                wordDoc.Activate()
-                WordApp.Selection.TypeText(WordText)
-                WordApp.Visible = True
-            Else
-                MsgBox("You must run the Report First", MsgBoxStyle.Information, "ISMP Managers Tools")
-            End If
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
     Private Sub RunUnitStatistics2()
         Try
             query = "SELECT DISTINCT
@@ -2481,17 +2414,6 @@ Public Class ISMPManagersTools
         End Try
 
     End Sub
-    Private Sub llbPrintMonthlyReport_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbPrintMonthlyReport.LinkClicked
-        Try
-
-            ExportToWord()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
-    End Sub
     Private Sub llbEngineerTestReports_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbEngineerTestReports.LinkClicked
         Try
 
@@ -2555,17 +2477,6 @@ Public Class ISMPManagersTools
     End Sub
     Private Sub llbExportToExcel_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbExportToExcel.LinkClicked
         dtEngineerGrid.ExportToExcel(Me)
-    End Sub
-    Private Sub llbPrintSummaryReport_LinkClicked_1(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles llbPrintSummaryReport.LinkClicked
-        Try
-
-            PrintSummaryReport()
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
     End Sub
     Private Sub btnRunUnitStatsReport_Click(sender As Object, e As EventArgs) Handles btnRunUnitStatsReport.Click
         Try

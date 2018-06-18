@@ -367,11 +367,15 @@ Partial Class SSCPManagersTools
         '
         'btnExportCmsUniverseToExcel
         '
-        Me.btnExportCmsUniverseToExcel.Location = New System.Drawing.Point(11, 316)
+        Me.btnExportCmsUniverseToExcel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnExportCmsUniverseToExcel.AutoSize = True
+        Me.btnExportCmsUniverseToExcel.Image = Global.Iaip.My.Resources.Resources.SpreadsheetIcon
+        Me.btnExportCmsUniverseToExcel.Location = New System.Drawing.Point(11, 600)
         Me.btnExportCmsUniverseToExcel.Name = "btnExportCmsUniverseToExcel"
-        Me.btnExportCmsUniverseToExcel.Size = New System.Drawing.Size(122, 24)
+        Me.btnExportCmsUniverseToExcel.Size = New System.Drawing.Size(105, 23)
         Me.btnExportCmsUniverseToExcel.TabIndex = 26
         Me.btnExportCmsUniverseToExcel.Text = "Export to Excel"
+        Me.btnExportCmsUniverseToExcel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         Me.btnExportCmsUniverseToExcel.UseVisualStyleBackColor = True
         '
         'btnAddToCmsUniverse
@@ -583,11 +587,15 @@ Partial Class SSCPManagersTools
         '
         'btnExportCmsWarningToExcel
         '
-        Me.btnExportCmsWarningToExcel.Location = New System.Drawing.Point(11, 290)
+        Me.btnExportCmsWarningToExcel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnExportCmsWarningToExcel.AutoSize = True
+        Me.btnExportCmsWarningToExcel.Image = Global.Iaip.My.Resources.Resources.SpreadsheetIcon
+        Me.btnExportCmsWarningToExcel.Location = New System.Drawing.Point(11, 600)
         Me.btnExportCmsWarningToExcel.Name = "btnExportCmsWarningToExcel"
-        Me.btnExportCmsWarningToExcel.Size = New System.Drawing.Size(123, 28)
+        Me.btnExportCmsWarningToExcel.Size = New System.Drawing.Size(104, 23)
         Me.btnExportCmsWarningToExcel.TabIndex = 33
         Me.btnExportCmsWarningToExcel.Text = "Export to Excel"
+        Me.btnExportCmsWarningToExcel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         Me.btnExportCmsWarningToExcel.UseVisualStyleBackColor = True
         '
         'txtCMSWarningCount
@@ -1481,11 +1489,13 @@ Partial Class SSCPManagersTools
         Me.btnExportFiltered.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnExportFiltered.AutoSize = True
         Me.btnExportFiltered.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnExportFiltered.Location = New System.Drawing.Point(436, 4)
+        Me.btnExportFiltered.Image = Global.Iaip.My.Resources.Resources.SpreadsheetIcon
+        Me.btnExportFiltered.Location = New System.Drawing.Point(420, 4)
         Me.btnExportFiltered.Name = "btnExportFiltered"
-        Me.btnExportFiltered.Size = New System.Drawing.Size(88, 23)
+        Me.btnExportFiltered.Size = New System.Drawing.Size(104, 23)
         Me.btnExportFiltered.TabIndex = 420
         Me.btnExportFiltered.Text = "Export to Excel"
+        Me.btnExportFiltered.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         Me.btnExportFiltered.UseVisualStyleBackColor = True
         '
         'lblFilteredCount
@@ -1598,11 +1608,13 @@ Partial Class SSCPManagersTools
         Me.btnExportSelected.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnExportSelected.AutoSize = True
         Me.btnExportSelected.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnExportSelected.Location = New System.Drawing.Point(422, 4)
+        Me.btnExportSelected.Image = Global.Iaip.My.Resources.Resources.SpreadsheetIcon
+        Me.btnExportSelected.Location = New System.Drawing.Point(406, 4)
         Me.btnExportSelected.Name = "btnExportSelected"
-        Me.btnExportSelected.Size = New System.Drawing.Size(88, 23)
+        Me.btnExportSelected.Size = New System.Drawing.Size(104, 23)
         Me.btnExportSelected.TabIndex = 421
         Me.btnExportSelected.Text = "Export to Excel"
+        Me.btnExportSelected.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         Me.btnExportSelected.UseVisualStyleBackColor = True
         '
         'Panel18
@@ -2337,12 +2349,15 @@ Partial Class SSCPManagersTools
         '
         'btnExportToExcel
         '
+        Me.btnExportToExcel.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnExportToExcel.AutoSize = True
-        Me.btnExportToExcel.Location = New System.Drawing.Point(469, 17)
+        Me.btnExportToExcel.Image = Global.Iaip.My.Resources.Resources.SpreadsheetIcon
+        Me.btnExportToExcel.Location = New System.Drawing.Point(508, 17)
         Me.btnExportToExcel.Name = "btnExportToExcel"
-        Me.btnExportToExcel.Size = New System.Drawing.Size(88, 23)
+        Me.btnExportToExcel.Size = New System.Drawing.Size(104, 23)
         Me.btnExportToExcel.TabIndex = 15
         Me.btnExportToExcel.Text = "Export to Excel"
+        Me.btnExportToExcel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         Me.btnExportToExcel.UseVisualStyleBackColor = True
         '
         'dgvStatisticalReports

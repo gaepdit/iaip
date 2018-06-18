@@ -518,11 +518,13 @@ Partial Class SSPPApplicationLog
         'btnExport
         '
         Me.btnExport.Enabled = False
-        Me.btnExport.Location = New System.Drawing.Point(465, 107)
+        Me.btnExport.Image = Global.Iaip.My.Resources.Resources.SpreadsheetIcon
+        Me.btnExport.Location = New System.Drawing.Point(465, 108)
         Me.btnExport.Name = "btnExport"
         Me.btnExport.Size = New System.Drawing.Size(116, 23)
         Me.btnExport.TabIndex = 16
-        Me.btnExport.Text = "Export Grid to Excel"
+        Me.btnExport.Text = "Export to Excel"
+        Me.btnExport.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         Me.btnExport.UseVisualStyleBackColor = True
         '
         'cboMACT1
