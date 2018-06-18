@@ -1,4 +1,7 @@
-﻿Public Module Email
+﻿Imports System.IO
+Imports System.Text
+
+Public Module Email
 
     Public Const ApbContactEmail As String = "GeorgiaAirProtectionBranch@dnr.ga.gov"
 
@@ -29,21 +32,21 @@
                 If Not recipientsTo.AreValidEmailAddresses() Then
                     Return CreateEmailResult.InvalidEmail
                 End If
-                toParam = String.Join(",", recipientsTo)
+                toParam = ConcatNonEmptyStrings(",", TrimArray(recipientsTo))
             End If
 
             If recipientsCC IsNot Nothing Then
                 If Not recipientsCC.AreValidEmailAddresses() Then
                     Return CreateEmailResult.InvalidEmail
                 End If
-                ccParam = "cc=" & String.Join(",", recipientsCC)
+                ccParam = "cc=" & ConcatNonEmptyStrings(",", TrimArray(recipientsCC))
             End If
 
             If recipientsBCC IsNot Nothing Then
                 If Not recipientsBCC.AreValidEmailAddresses() Then
                     Return CreateEmailResult.InvalidEmail
                 End If
-                bccParam = "bcc=" & String.Join(",", recipientsBCC)
+                bccParam = "bcc=" & ConcatNonEmptyStrings(",", TrimArray(recipientsBCC))
             End If
 
             Dim uriQueryString As String = ConcatNonEmptyStrings("&", {subjectParam, bodyParam, ccParam, bccParam})
@@ -63,7 +66,8 @@
                 result = OpenUri(New Uri(emailUriString), isMailto:=True)
             Else
                 ' Failover is to create an Outlook Email
-                result = CreateOutlookEmail(subject, body, recipientsTo, recipientsCC, recipientsBCC)
+                OpenEmailAsTextFile(subject, body, toParam, ccParam, bccParam)
+                result = True
             End If
 
             If result Then
@@ -78,4 +82,37 @@
         End Try
     End Function
 
+    Private Sub OpenEmailAsTextFile(subject As String, body As String, toParam As String, ccParam As String, bccParam As String)
+        Dim sb As New StringBuilder()
+
+        sb.AppendLine("Could not create email. Please copy and paste the text below into a new email.")
+        sb.AppendLine()
+
+        sb.AppendFormat("To: {0}", toParam)
+        sb.AppendLine()
+
+        If Not String.IsNullOrEmpty(ccParam) Then
+            sb.AppendFormat("CC: {0}", ccParam)
+            sb.AppendLine()
+        End If
+
+        If Not String.IsNullOrEmpty(bccParam) Then
+            sb.AppendFormat("BCC: {0}", bccParam)
+            sb.AppendLine()
+        End If
+
+        If subject IsNot Nothing Then
+            sb.AppendFormat("Subject: {0}", subject)
+            sb.AppendLine()
+        End If
+
+        sb.AppendLine()
+
+        If body IsNot Nothing Then sb.Append(body)
+
+        Dim filePath As String = Path.GetTempPath() & "TempEmail.txt"
+
+        File.WriteAllText(filePath, sb.ToString())
+        Process.Start(filePath)
+    End Sub
 End Module
