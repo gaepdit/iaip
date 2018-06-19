@@ -1,5 +1,6 @@
 ﻿Imports System.Data.SqlClient
 Imports System.Collections.Generic
+Imports EpdIt
 
 Public Class PASPFeeManagement
 
@@ -1136,135 +1137,90 @@ Public Class PASPFeeManagement
         Dim confirm As DialogResult = MessageBox.Show("This will replace mailout contact data with the current " & vbNewLine &
             "fee contact for all sources in the mailout list. " &
             vbNewLine & vbNewLine &
-            "Are you sure you want to proceed?",
+            "Are you sure you want to proceed? " &
+            vbNewLine & vbNewLine &
+            "(WARNING: This may take several minutes to complete.)",
             "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button2)
+
         If confirm = DialogResult.No Then
             Exit Sub
         End If
 
         Try
-            Dim AIRSNumber As String = ""
-            Dim ContactFirstName As String = ""
-            Dim ContactLastName As String = ""
-            Dim ContactPrefix As String = ""
-            Dim ContactSuffix As String = ""
-            Dim ContactCompanyName As String = ""
-            Dim ContactAddress1 As String = ""
-            Dim ContactAddress2 As String = ""
-            Dim ContactCity As String = ""
-            Dim ContactState As String = ""
-            Dim ContactZipCode As String = ""
+            Dim SelectedYear As Integer
 
-            Dim SQL As String = "Select " &
+            If Not Integer.TryParse(cboAvailableFeeYears.Text, SelectedYear) Then
+                MessageBox.Show("Invalid year selected")
+                Exit Sub
+            End If
+
+            Cursor = Cursors.WaitCursor
+
+            Dim query As String = "Select " &
                 "strAIRSNumber " &
                 "from FS_Admin " &
                 "where numFeeYear = @year "
-            Dim p As New SqlParameter("@year", cboAvailableFeeYears.Text)
-            Dim dr As DataRow = DB.GetDataRow(SQL, p)
 
-            If dr IsNot Nothing Then
-                If IsDBNull(dr.Item("strAIRSNumber")) Then
-                    AIRSNumber = ""
-                Else
-                    AIRSNumber = dr.Item("strAIRSNumber")
-                End If
-                If AIRSNumber <> "" Then
-                    SQL = "Select * " &
-                        "from APBContactInformation " &
-                        "where strAIRSNumber = @airs " &
-                        "and strKey = '40' "
-                    Dim p2 As New SqlParameter("@airs", AIRSNumber)
-                    Dim dr2 As DataRow = DB.GetDataRow(SQL, p2)
+            Dim pYear As New SqlParameter("@year", SelectedYear)
 
-                    If dr2 IsNot Nothing Then
-                        If IsDBNull(dr2.Item("strContactFirstname")) Then
-                            ContactFirstName = ""
-                        Else
-                            ContactFirstName = dr2.Item("strContactFirstName")
-                        End If
-                        If IsDBNull(dr2.Item("strContactLastname")) Then
-                            ContactLastName = ""
-                        Else
-                            ContactLastName = dr2.Item("strContactLastName")
-                        End If
-                        If IsDBNull(dr2.Item("strContactprefix")) Then
-                            ContactPrefix = ""
-                        Else
-                            ContactPrefix = dr2.Item("strContactPrefix")
-                        End If
-                        If IsDBNull(dr2.Item("strContactSuffix")) Then
-                            ContactSuffix = ""
-                        Else
-                            ContactSuffix = dr2.Item("strContactSuffix")
-                        End If
-                        If IsDBNull(dr2.Item("strContactCompanyName")) Then
-                            ContactCompanyName = ""
-                        Else
-                            ContactCompanyName = dr2.Item("strContactCompanyName")
-                        End If
-                        If IsDBNull(dr2.Item("strContactAddress1")) Then
-                            ContactAddress1 = ""
-                        Else
-                            ContactAddress1 = dr2.Item("strContactAddress1")
-                        End If
-                        If IsDBNull(dr2.Item("strContactAddress2")) Then
-                            ContactAddress2 = ""
-                        Else
-                            ContactAddress2 = dr2.Item("strContactAddress2")
-                        End If
-                        If IsDBNull(dr2.Item("strContactcity")) Then
-                            ContactCity = ""
-                        Else
-                            ContactCity = dr2.Item("strcontactCity")
-                        End If
-                        If IsDBNull(dr2.Item("strContactState")) Then
-                            ContactState = ""
-                        Else
-                            ContactState = dr2.Item("strContactState")
-                        End If
-                        If IsDBNull(dr2.Item("strContactZipCode")) Then
-                            ContactZipCode = ""
-                        Else
-                            ContactZipCode = dr2.Item("strContactZipCode")
+            Dim dt As DataTable = DB.GetDataTable(query, pYear)
+
+            If dt IsNot Nothing AndAlso dt.Rows.Count > 0 Then
+                Dim UpdateSQL As String = "Update FS_MailOut set " &
+                    "strFirstName = @ContactFirstName, " &
+                    "strLastName = @ContactLastName, " &
+                    "strPrefix = @ContactPrefix,  " &
+                    "strTitle = @ContactSuffix, " &
+                    "strContactCoName = @ContactCompanyName, " &
+                    "strContactAddress1 = @ContactAddress1, " &
+                    "strContactAddress2 = @ContactAddress2, " &
+                    "strContactCity = @ContactCity, " &
+                    "strContactState = @ContactState, " &
+                    "strcontactZipCode = @ContactZipCode " &
+                    "where strAIRSNumber = @airs " &
+                    "and numFeeYear = @year "
+
+                Dim SelectContactSQL As String = "Select * " &
+                            "from APBContactInformation " &
+                            "where strAIRSNumber = @airs " &
+                            "and strKey = '40' "
+
+                Dim AIRSNumber As String
+
+                For Each dr As DataRow In dt.Rows
+                    AIRSNumber = DBUtilities.GetNullable(Of String)(dr.Item("strAIRSNumber"))
+
+                    If Not String.IsNullOrEmpty(AIRSNumber) Then
+                        Dim pAirs As New SqlParameter("@airs", AIRSNumber)
+
+                        Dim dr2 As DataRow = DB.GetDataRow(SelectContactSQL, pAirs)
+
+                        If dr2 IsNot Nothing Then
+                            Dim parameters As SqlParameter() = New SqlParameter() {
+                                New SqlParameter("@ContactFirstName", DBUtilities.GetNullable(Of String)(dr2.Item("strContactFirstName"))),
+                                New SqlParameter("@ContactLastName", DBUtilities.GetNullable(Of String)(dr2.Item("strContactLastName"))),
+                                New SqlParameter("@ContactPrefix", DBUtilities.GetNullable(Of String)(dr2.Item("strContactPrefix"))),
+                                New SqlParameter("@ContactSuffix", DBUtilities.GetNullable(Of String)(dr2.Item("strContactSuffix"))),
+                                New SqlParameter("@ContactCompanyName", DBUtilities.GetNullable(Of String)(dr2.Item("strContactCompanyName"))),
+                                New SqlParameter("@ContactAddress1", DBUtilities.GetNullable(Of String)(dr2.Item("strContactAddress1"))),
+                                New SqlParameter("@ContactAddress2", DBUtilities.GetNullable(Of String)(dr2.Item("strContactAddress2"))),
+                                New SqlParameter("@ContactCity", DBUtilities.GetNullable(Of String)(dr2.Item("strcontactCity"))),
+                                New SqlParameter("@ContactState", DBUtilities.GetNullable(Of String)(dr2.Item("strContactState"))),
+                                New SqlParameter("@ContactZipCode", DBUtilities.GetNullable(Of String)(dr2.Item("strContactZipCode"))),
+                                pAirs,
+                                pYear
+                            }
+
+                            DB.RunCommand(UpdateSQL, parameters, forceAddNullableParameters:=True)
                         End If
                     End If
-
-                    SQL = "Update FS_MailOut set " &
-                        "strFirstName = @ContactFirstName, " &
-                        "strLastName = @ContactLastName, " &
-                        "strPrefix = @ContactPrefix,  " &
-                        "strTitle = @ContactSuffix, " &
-                        "strContactCoName = @ContactCompanyName, " &
-                        "strContactAddress1 = @ContactAddress1, " &
-                        "strContactAddress2 = @ContactAddress2, " &
-                        "strContactCity = @ContactCity, " &
-                        "strContactState = @ContactState, " &
-                        "strcontactZipCode = @ContactZipCode " &
-                        "where strAIRSNumber = @AIRSNumber " &
-                        "and numFeeYear = @AvailableFeeYears "
-
-                    Dim parameters As SqlParameter()
-                    parameters = New SqlParameter() {
-                        New SqlParameter("@ContactFirstName", ContactFirstName),
-                        New SqlParameter("@ContactLastName", ContactLastName),
-                        New SqlParameter("@ContactPrefix", ContactPrefix),
-                        New SqlParameter("@ContactSuffix", ContactSuffix),
-                        New SqlParameter("@ContactCompanyName", ContactCompanyName),
-                        New SqlParameter("@ContactAddress1", ContactAddress1),
-                        New SqlParameter("@ContactAddress2", ContactAddress2),
-                        New SqlParameter("@ContactCity", ContactCity),
-                        New SqlParameter("@ContactState", ContactState),
-                        New SqlParameter("@ContactZipCode", ContactZipCode),
-                        New SqlParameter("@AIRSNumber", AIRSNumber),
-                        New SqlParameter("@AvailableFeeYears", cboAvailableFeeYears.Text)
-                    }
-                    DB.RunCommand(SQL, parameters)
-
-                End If
+                Next
             End If
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
+        Finally
+            Cursor = Nothing
         End Try
     End Sub
 
