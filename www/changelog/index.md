@@ -2,6 +2,14 @@
 
 *Previously:* [2017](changelog-2017.html) | [2016](changelog-2016.html) | [2015](changelog-2015.html) | [2014](changelog-2014.html) | [2013](changelog-2013.html)
 
+## Version 5.7.0 <span>(2018-6-19)</span>
+
+Replaced some tools -- especially the Excel export tools -- with versions that are compatible with Office 365. Plus a few other bug fixes.
+
+## Version 5.6.6 <span>(2018-6-12)</span>
+
+Bug fixes.
+
 ## Version 5.6.5 <span>(2018-6-8)</span>
 
 Bug fixes.
