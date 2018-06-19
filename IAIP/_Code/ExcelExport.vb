@@ -111,9 +111,10 @@ Module ExcelExport
 
         Try
             ' Create Excel Workbook 
-            Dim workbook As New XLWorkbook()
-            workbook.AddWorksheet(dataTable)
-            workbook.SaveAs(filePath)
+            Using workbook As New XLWorkbook()
+                workbook.AddWorksheet(dataTable)
+                workbook.SaveAs(filePath)
+            End Using
 
             Return True
         Catch ex As Exception
