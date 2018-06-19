@@ -6,8 +6,6 @@ Imports System.Runtime.CompilerServices
 
 Module Extensions
 
-#Region " DataGridView "
-
 #Region " DataGridView Columns "
 
     <Extension()>
@@ -57,98 +55,6 @@ Module Extensions
             dgv.Rows(row).Cells(col).Style.ForeColor = SystemColors.HotTrack
             dgv.Rows(row).Cells(col).Style.Font =
                 New Font(dgv.DefaultCellStyle.Font, FontStyle.Regular)
-        End If
-    End Sub
-
-#End Region
-
-#Region " DataGridView Excel export "
-
-    <Extension()>
-    Public Sub ExportToExcel(dataGridView As DataGridView, Optional sender As Object = Nothing)
-        If dataGridView Is Nothing OrElse dataGridView.RowCount = 0 Then Exit Sub
-
-        Dim dataTable As DataTable = GetDataTableFromDataGridView(dataGridView)
-        dataTable.ExportToExcel(sender)
-    End Sub
-
-    Private Function GetDataTableFromDataGridView(dataGridView As DataGridView) As DataTable
-        If dataGridView Is Nothing OrElse dataGridView.RowCount = 0 Then Return Nothing
-
-        Dim dataTable As New DataTable
-
-        If TypeOf dataGridView.DataSource Is DataSet Then
-            dataTable = CType(dataGridView.DataSource, DataSet).Tables(dataGridView.DataMember)
-        ElseIf TypeOf dataGridView.DataSource Is DataTable Then
-            dataTable = CType(dataGridView.DataSource, DataTable)
-        Else
-            Dim dtRow As DataRow
-            For Each dgvColumn As DataGridViewColumn In dataGridView.Columns
-                dataTable.Columns.Add(dgvColumn.Name)
-            Next
-            For Each dgvRow As DataGridViewRow In dataGridView.Rows
-                dtRow = dataTable.NewRow
-                For i As Integer = 0 To dataGridView.ColumnCount - 1
-                    dtRow.Item(i) = dgvRow.Cells(i).Value
-                Next
-                dataTable.Rows.Add(dtRow)
-            Next
-        End If
-
-        ' Replace column names with the defined column header text
-        For i As Integer = 0 To dataGridView.Columns.Count - 1
-            dataTable.Columns(i).Caption = dataGridView.Columns(i).HeaderText
-        Next
-
-        Return dataTable
-    End Function
-
-#End Region
-
-#End Region
-
-#Region " DataTable "
-
-    <Extension()>
-    Public Sub ExportToExcel(dataTable As DataTable, Optional sender As Object = Nothing)
-        If dataTable Is Nothing OrElse dataTable.Rows.Count = 0 Then Exit Sub
-
-        If sender IsNot Nothing AndAlso TypeOf sender Is Form Then
-            CType(sender, Form).Cursor = Cursors.AppStarting
-        End If
-
-        Dim dialog As New SaveFileDialog()
-        With dialog
-            .Filter = "Excel File (*.xlsx)|*.xlsx"
-            .DefaultExt = ".xlsx"
-            .FileName = "Export_" & Date.Now.ToString("yyyy-MM-dd_HH.mm.ss") & ".xlsx"
-            .InitialDirectory = GetUserSetting(UserSetting.ExcelExportLocation)
-        End With
-
-        If dialog.ShowDialog() = DialogResult.OK Then
-            Dim errorMessage As String = ""
-            Dim result As Boolean = False
-
-            Try
-                result = CreateExcelFileFromDataTable(dialog.FileName, dataTable, errorMessage)
-            Catch ex As Exception
-                ErrorReport(ex, errorMessage, MethodBase.GetCurrentMethod.Name)
-            End Try
-
-            If result Then
-                If Not Path.GetDirectoryName(dialog.FileName) = dialog.InitialDirectory Then
-                    SaveUserSetting(UserSetting.ExcelExportLocation, Path.GetDirectoryName(dialog.FileName))
-                End If
-                Process.Start(dialog.FileName)
-            Else
-                MessageBox.Show(errorMessage)
-            End If
-        End If
-
-        dialog.Dispose()
-
-        If sender IsNot Nothing AndAlso TypeOf sender Is Form Then
-            CType(sender, Form).Cursor = Nothing
         End If
     End Sub
 

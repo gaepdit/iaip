@@ -93,7 +93,6 @@ Partial Class ISMPManagersTools
     Friend WithEvents chbNonComplianceTestReport As System.Windows.Forms.CheckBox
     Friend WithEvents Label127 As System.Windows.Forms.Label
     Friend WithEvents dgrTestSummary As System.Windows.Forms.DataGrid
-    Friend WithEvents llbPrintSummaryReport As System.Windows.Forms.LinkLabel
     Friend WithEvents Splitter14 As System.Windows.Forms.Splitter
     Friend WithEvents GroupBox15 As System.Windows.Forms.GroupBox
     Friend WithEvents Splitter11 As System.Windows.Forms.Splitter
@@ -125,7 +124,6 @@ Partial Class ISMPManagersTools
     Friend WithEvents txtAIRSNumber As System.Windows.Forms.TextBox
     Friend WithEvents Splitter1 As System.Windows.Forms.Splitter
     Friend WithEvents llbRunMonthlyReport As System.Windows.Forms.LinkLabel
-    Friend WithEvents llbPrintMonthlyReport As System.Windows.Forms.LinkLabel
     Friend WithEvents Label31 As System.Windows.Forms.Label
     Friend WithEvents txt80Percent As System.Windows.Forms.TextBox
     Friend WithEvents Label71 As System.Windows.Forms.Label
@@ -445,7 +443,6 @@ Partial Class ISMPManagersTools
         Me.GroupBox6 = New System.Windows.Forms.GroupBox()
         Me.Splitter1 = New System.Windows.Forms.Splitter()
         Me.Panel4 = New System.Windows.Forms.Panel()
-        Me.llbPrintSummaryReport = New System.Windows.Forms.LinkLabel()
         Me.Label73 = New System.Windows.Forms.Label()
         Me.txtTestWitnessed = New System.Windows.Forms.TextBox()
         Me.Label70 = New System.Windows.Forms.Label()
@@ -464,7 +461,6 @@ Partial Class ISMPManagersTools
         Me.Label71 = New System.Windows.Forms.Label()
         Me.txt80Percent = New System.Windows.Forms.TextBox()
         Me.Label31 = New System.Windows.Forms.Label()
-        Me.llbPrintMonthlyReport = New System.Windows.Forms.LinkLabel()
         Me.llbRunMonthlyReport = New System.Windows.Forms.LinkLabel()
         Me.GroupBox5 = New System.Windows.Forms.GroupBox()
         Me.txtReportText = New System.Windows.Forms.RichTextBox()
@@ -1885,7 +1881,6 @@ Partial Class ISMPManagersTools
         '
         'Panel4
         '
-        Me.Panel4.Controls.Add(Me.llbPrintSummaryReport)
         Me.Panel4.Controls.Add(Me.Label73)
         Me.Panel4.Controls.Add(Me.txtTestWitnessed)
         Me.Panel4.Controls.Add(Me.Label70)
@@ -1904,24 +1899,12 @@ Partial Class ISMPManagersTools
         Me.Panel4.Controls.Add(Me.Label71)
         Me.Panel4.Controls.Add(Me.txt80Percent)
         Me.Panel4.Controls.Add(Me.Label31)
-        Me.Panel4.Controls.Add(Me.llbPrintMonthlyReport)
         Me.Panel4.Controls.Add(Me.llbRunMonthlyReport)
         Me.Panel4.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel4.Location = New System.Drawing.Point(3, 22)
         Me.Panel4.Name = "Panel4"
         Me.Panel4.Size = New System.Drawing.Size(1128, 255)
         Me.Panel4.TabIndex = 127
-        '
-        'llbPrintSummaryReport
-        '
-        Me.llbPrintSummaryReport.AutoSize = True
-        Me.llbPrintSummaryReport.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.llbPrintSummaryReport.Location = New System.Drawing.Point(8, 104)
-        Me.llbPrintSummaryReport.Name = "llbPrintSummaryReport"
-        Me.llbPrintSummaryReport.Size = New System.Drawing.Size(109, 13)
-        Me.llbPrintSummaryReport.TabIndex = 145
-        Me.llbPrintSummaryReport.TabStop = True
-        Me.llbPrintSummaryReport.Text = "Print Summary Report"
         '
         'Label73
         '
@@ -2086,17 +2069,6 @@ Partial Class ISMPManagersTools
         Me.Label31.Size = New System.Drawing.Size(24, 16)
         Me.Label31.TabIndex = 142
         Me.Label31.Text = " %"
-        '
-        'llbPrintMonthlyReport
-        '
-        Me.llbPrintMonthlyReport.AutoSize = True
-        Me.llbPrintMonthlyReport.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.llbPrintMonthlyReport.Location = New System.Drawing.Point(8, 80)
-        Me.llbPrintMonthlyReport.Name = "llbPrintMonthlyReport"
-        Me.llbPrintMonthlyReport.Size = New System.Drawing.Size(103, 13)
-        Me.llbPrintMonthlyReport.TabIndex = 144
-        Me.llbPrintMonthlyReport.TabStop = True
-        Me.llbPrintMonthlyReport.Text = "Print Monthly Report"
         '
         'llbRunMonthlyReport
         '

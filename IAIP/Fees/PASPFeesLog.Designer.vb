@@ -40,6 +40,7 @@ Partial Class PASPFeesLog
         Me.chbPlanned = New System.Windows.Forms.CheckBox()
         Me.chbOperating = New System.Windows.Forms.CheckBox()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
+        Me.mtbSearchAirsNumber = New System.Windows.Forms.TextBox()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.txtSearchFacilityName = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
@@ -54,7 +55,6 @@ Partial Class PASPFeesLog
         Me.dgvExistingYearAdmin = New System.Windows.Forms.DataGridView()
         Me.GroupBox5 = New System.Windows.Forms.GroupBox()
         Me.TopPanel = New System.Windows.Forms.Panel()
-        Me.mtbSearchAirsNumber = New System.Windows.Forms.TextBox()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
@@ -90,11 +90,13 @@ Partial Class PASPFeesLog
         '
         Me.btnExportToExcel.AutoSize = True
         Me.btnExportToExcel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.btnExportToExcel.Image = Global.Iaip.My.Resources.Resources.SpreadsheetIcon
         Me.btnExportToExcel.Location = New System.Drawing.Point(204, 19)
         Me.btnExportToExcel.Name = "btnExportToExcel"
-        Me.btnExportToExcel.Size = New System.Drawing.Size(88, 23)
+        Me.btnExportToExcel.Size = New System.Drawing.Size(104, 23)
         Me.btnExportToExcel.TabIndex = 7
         Me.btnExportToExcel.Text = "Export to Excel"
+        Me.btnExportToExcel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         Me.btnExportToExcel.UseVisualStyleBackColor = True
         '
         'txtResultsCount
@@ -181,7 +183,7 @@ Partial Class PASPFeesLog
         Me.GroupBox4.Controls.Add(Me.chbConstruction)
         Me.GroupBox4.Controls.Add(Me.chbPlanned)
         Me.GroupBox4.Controls.Add(Me.chbOperating)
-        Me.GroupBox4.Location = New System.Drawing.Point(313, 48)
+        Me.GroupBox4.Location = New System.Drawing.Point(314, 48)
         Me.GroupBox4.Name = "GroupBox4"
         Me.GroupBox4.Size = New System.Drawing.Size(146, 154)
         Me.GroupBox4.TabIndex = 6
@@ -256,10 +258,18 @@ Partial Class PASPFeesLog
         Me.GroupBox3.Controls.Add(Me.Label1)
         Me.GroupBox3.Location = New System.Drawing.Point(106, 48)
         Me.GroupBox3.Name = "GroupBox3"
-        Me.GroupBox3.Size = New System.Drawing.Size(201, 115)
+        Me.GroupBox3.Size = New System.Drawing.Size(202, 115)
         Me.GroupBox3.TabIndex = 3
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "Text Search"
+        '
+        'mtbSearchAirsNumber
+        '
+        Me.mtbSearchAirsNumber.Location = New System.Drawing.Point(80, 19)
+        Me.mtbSearchAirsNumber.MaxLength = 8
+        Me.mtbSearchAirsNumber.Name = "mtbSearchAirsNumber"
+        Me.mtbSearchAirsNumber.Size = New System.Drawing.Size(106, 20)
+        Me.mtbSearchAirsNumber.TabIndex = 4
         '
         'Label7
         '
@@ -398,14 +408,6 @@ Partial Class PASPFeesLog
         Me.TopPanel.Padding = New System.Windows.Forms.Padding(0, 10, 0, 0)
         Me.TopPanel.Size = New System.Drawing.Size(684, 259)
         Me.TopPanel.TabIndex = 0
-        '
-        'mtbSearchAirsNumber
-        '
-        Me.mtbSearchAirsNumber.Location = New System.Drawing.Point(80, 19)
-        Me.mtbSearchAirsNumber.MaxLength = 8
-        Me.mtbSearchAirsNumber.Name = "mtbSearchAirsNumber"
-        Me.mtbSearchAirsNumber.Size = New System.Drawing.Size(106, 20)
-        Me.mtbSearchAirsNumber.TabIndex = 4
         '
         'PASPFeesLog
         '

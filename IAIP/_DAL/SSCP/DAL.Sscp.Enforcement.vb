@@ -524,7 +524,7 @@ Namespace DAL.Sscp
 #Region " Enforcement audit history "
 
         Public Function GetEnforcementAuditHistory(enforcementId As Integer) As DataTable
-            Dim query As String = "SELECT CONCAT(upr.STRLASTNAME, ', ', upr.STRFIRSTNAME) AS " &
+            Dim query As String = "SELECT ID, enf.DATMODIFINGDATE, CONCAT(upr.STRLASTNAME, ', ', upr.STRFIRSTNAME) AS " &
                 "  StaffResponsible, enf.STRTRACKINGNUMBER, " &
                 "  enf.DATENFORCEMENTFINALIZED, enf.STRSTATUS, enf.STRACTIONTYPE, " &
                 "  enf.STRGENERALCOMMENTS, enf.DATDISCOVERYDATE, " &
@@ -540,13 +540,14 @@ Namespace DAL.Sscp
                 "  enf.STRCOPENALTYAMOUNT, enf.STRCOPENALTYAMOUNTCOMMENTS, " &
                 "  enf.DATAOEXECUTED, enf.DATAOAPPEALED, enf.DATAORESOLVED, " &
                 "  enf.STRAOCOMMENT, CONCAT(upm.STRLASTNAME, ', ', upm.STRFIRSTNAME) " &
-                "  AS ModifiedBy, enf.DATMODIFINGDATE " &
+                "  AS ModifiedBy " &
                 "FROM SSCP_ENFORCEMENT enf " &
                 "LEFT JOIN EPDUSERPROFILES upr ON " &
                 "  enf.NUMSTAFFRESPONSIBLE = upr.NUMUSERID " &
                 "LEFT JOIN EPDUSERPROFILES upm ON " &
                 "  enf.STRMODIFINGPERSON = upm.NUMUSERID " &
-                "WHERE enf.STRENFORCEMENTNUMBER = @enforcementId"
+                "WHERE enf.STRENFORCEMENTNUMBER = @enforcementId " &
+                " order by id desc "
             Dim parameter As New SqlParameter("@enforcementId", enforcementId)
             Return DB.GetDataTable(query, parameter)
         End Function

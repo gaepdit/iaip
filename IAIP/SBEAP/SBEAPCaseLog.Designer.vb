@@ -61,6 +61,7 @@ Partial Class SBEAPCaseLog
         Me.cboFieldType1 = New System.Windows.Forms.ComboBox()
         Me.Label19 = New System.Windows.Forms.Label()
         Me.bgw1 = New System.ComponentModel.BackgroundWorker()
+        Me.btnExportToExcel = New System.Windows.Forms.Button()
         Me.MenuStrip1.SuspendLayout()
         CType(Me.SCCaseLog, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SCCaseLog.Panel1.SuspendLayout()
@@ -75,7 +76,7 @@ Partial Class SBEAPCaseLog
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiTools})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(792, 24)
+        Me.MenuStrip1.Size = New System.Drawing.Size(788, 24)
         Me.MenuStrip1.TabIndex = 6
         Me.MenuStrip1.Text = "MenuStrip1"
         '
@@ -89,18 +90,20 @@ Partial Class SBEAPCaseLog
         'mmiOpenNewCase
         '
         Me.mmiOpenNewCase.Name = "mmiOpenNewCase"
-        Me.mmiOpenNewCase.Size = New System.Drawing.Size(158, 22)
+        Me.mmiOpenNewCase.Size = New System.Drawing.Size(180, 22)
         Me.mmiOpenNewCase.Text = "Open &New Case"
         '
         'mmiExportToExcel
         '
+        Me.mmiExportToExcel.Image = Global.Iaip.My.Resources.Resources.SpreadsheetIcon
         Me.mmiExportToExcel.Name = "mmiExportToExcel"
-        Me.mmiExportToExcel.Size = New System.Drawing.Size(158, 22)
+        Me.mmiExportToExcel.Size = New System.Drawing.Size(180, 22)
         Me.mmiExportToExcel.Text = "&Export to Excel"
         '
         'SCCaseLog
         '
         Me.SCCaseLog.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.SCCaseLog.FixedPanel = System.Windows.Forms.FixedPanel.Panel2
         Me.SCCaseLog.Location = New System.Drawing.Point(0, 24)
         Me.SCCaseLog.Name = "SCCaseLog"
         Me.SCCaseLog.Orientation = System.Windows.Forms.Orientation.Horizontal
@@ -112,8 +115,8 @@ Partial Class SBEAPCaseLog
         'SCCaseLog.Panel2
         '
         Me.SCCaseLog.Panel2.Controls.Add(Me.GroupBox1)
-        Me.SCCaseLog.Size = New System.Drawing.Size(792, 542)
-        Me.SCCaseLog.SplitterDistance = 339
+        Me.SCCaseLog.Size = New System.Drawing.Size(788, 480)
+        Me.SCCaseLog.SplitterDistance = 294
         Me.SCCaseLog.SplitterWidth = 10
         Me.SCCaseLog.TabIndex = 9
         '
@@ -123,11 +126,12 @@ Partial Class SBEAPCaseLog
         Me.dgvCaseLog.Dock = System.Windows.Forms.DockStyle.Fill
         Me.dgvCaseLog.Location = New System.Drawing.Point(0, 0)
         Me.dgvCaseLog.Name = "dgvCaseLog"
-        Me.dgvCaseLog.Size = New System.Drawing.Size(792, 339)
+        Me.dgvCaseLog.Size = New System.Drawing.Size(788, 294)
         Me.dgvCaseLog.TabIndex = 0
         '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.btnExportToExcel)
         Me.GroupBox1.Controls.Add(Me.rdbAllCases)
         Me.GroupBox1.Controls.Add(Me.Panel1)
         Me.GroupBox1.Controls.Add(Me.rdbClosedCase)
@@ -162,7 +166,7 @@ Partial Class SBEAPCaseLog
         Me.GroupBox1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GroupBox1.Location = New System.Drawing.Point(0, 0)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(792, 193)
+        Me.GroupBox1.Size = New System.Drawing.Size(788, 176)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Specify Multiple Search Criteria, Select Sort Order and Click Find to Search"
@@ -466,13 +470,26 @@ Partial Class SBEAPCaseLog
         'bgw1
         '
         '
+        'btnExportToExcel
+        '
+        Me.btnExportToExcel.AutoSize = True
+        Me.btnExportToExcel.Image = Global.Iaip.My.Resources.Resources.SpreadsheetIcon
+        Me.btnExportToExcel.Location = New System.Drawing.Point(676, 145)
+        Me.btnExportToExcel.Name = "btnExportToExcel"
+        Me.btnExportToExcel.Size = New System.Drawing.Size(104, 23)
+        Me.btnExportToExcel.TabIndex = 27
+        Me.btnExportToExcel.Text = "Export to Excel"
+        Me.btnExportToExcel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
+        Me.btnExportToExcel.UseVisualStyleBackColor = True
+        '
         'SBEAPCaseLog
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(792, 566)
+        Me.ClientSize = New System.Drawing.Size(788, 504)
         Me.Controls.Add(Me.SCCaseLog)
         Me.Controls.Add(Me.MenuStrip1)
+        Me.MinimumSize = New System.Drawing.Size(804, 357)
         Me.Name = "SBEAPCaseLog"
         Me.Text = "SBEAP Case Log"
         Me.MenuStrip1.ResumeLayout(False)
@@ -527,4 +544,5 @@ Partial Class SBEAPCaseLog
     Friend WithEvents rdbClosedCase As System.Windows.Forms.RadioButton
     Friend WithEvents rdbOpenCases As System.Windows.Forms.RadioButton
     Friend WithEvents mmiExportToExcel As ToolStripMenuItem
+    Friend WithEvents btnExportToExcel As Button
 End Class

@@ -357,7 +357,7 @@ Public Class ISMPMonitoringLog
                 dgvTestReportViewer.AllowUserToDeleteRows = False
                 dgvTestReportViewer.AllowUserToOrderColumns = True
                 dgvTestReportViewer.AllowUserToResizeRows = True
-                dgvTestReportViewer.ColumnHeadersHeight = "35"
+                dgvTestReportViewer.ColumnHeadersHeight = 35
                 dgvTestReportViewer.Columns("strReferenceNumber").HeaderText = "Reference #"
                 dgvTestReportViewer.Columns("strReferenceNumber").DisplayIndex = 0
                 dgvTestReportViewer.Columns("strAIRSNumber").HeaderText = "AIRS #"
@@ -374,7 +374,7 @@ Public Class ISMPMonitoringLog
                 dgvTestReportViewer.Columns("strPollutantDescription").DisplayIndex = 6
                 dgvTestReportViewer.Columns("strReportType").HeaderText = "Report Type"
                 dgvTestReportViewer.Columns("strReportType").DisplayIndex = 7
-                dgvTestReportViewer.Columns("strDocumentType").HeaderText = "Report Type"
+                dgvTestReportViewer.Columns("strDocumentType").HeaderText = "Document Type"
                 dgvTestReportViewer.Columns("strDocumentType").DisplayIndex = 8
                 dgvTestReportViewer.Columns("StaffResponsible").HeaderText = "Staff Responsible"
                 dgvTestReportViewer.Columns("StaffResponsible").DisplayIndex = 9
@@ -403,7 +403,7 @@ Public Class ISMPMonitoringLog
                 dgvTestReportViewer.Columns("strTestLogNumber").DisplayIndex = 19
                 dgvTestReportViewer.Columns("strPreComplianceStatus").HeaderText = "PreCompliance Status"
                 dgvTestReportViewer.Columns("strPreComplianceStatus").DisplayIndex = 20
-                txtReportCount.Text = dgvTestReportViewer.RowCount
+                txtReportCount.Text = dgvTestReportViewer.RowCount.ToString()
 
                 LoadCompliaceColor()
 
@@ -1039,8 +1039,13 @@ Public Class ISMPMonitoringLog
     End Sub
 
     Private Sub tsbExportToExcel_Click(sender As Object, e As EventArgs) Handles tsbExportToExcel.Click
+        ExportGridToExcel()
+    End Sub
+
+    Private Sub ExportGridToExcel()
         dgvTestReportViewer.ExportToExcel(Me)
     End Sub
+
     Private Sub LoadCompliaceColor()
         Try
             For Each row As DataGridViewRow In dgvTestReportViewer.Rows
@@ -1082,4 +1087,7 @@ Public Class ISMPMonitoringLog
         ResetOptions()
     End Sub
 
+    Private Sub ExportToExcelToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ExportToExcelToolStripMenuItem.Click
+        ExportGridToExcel()
+    End Sub
 End Class

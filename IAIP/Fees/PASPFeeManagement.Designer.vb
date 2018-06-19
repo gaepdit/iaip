@@ -1041,17 +1041,19 @@ Partial Class PASPFeeManagement
         '
         Me.btnExportToExcel.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnExportToExcel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnExportToExcel.Location = New System.Drawing.Point(701, 9)
+        Me.btnExportToExcel.Image = Global.Iaip.My.Resources.Resources.SpreadsheetIcon
+        Me.btnExportToExcel.Location = New System.Drawing.Point(679, 10)
         Me.btnExportToExcel.Name = "btnExportToExcel"
-        Me.btnExportToExcel.Size = New System.Drawing.Size(96, 23)
+        Me.btnExportToExcel.Size = New System.Drawing.Size(118, 23)
         Me.btnExportToExcel.TabIndex = 2
-        Me.btnExportToExcel.Text = "Export to Excel"
+        Me.btnExportToExcel.Text = " Export to Excel"
+        Me.btnExportToExcel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         Me.btnExportToExcel.UseVisualStyleBackColor = True
         '
         'FeeManagementListCountLabel
         '
         Me.FeeManagementListCountLabel.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.FeeManagementListCountLabel.Location = New System.Drawing.Point(511, 14)
+        Me.FeeManagementListCountLabel.Location = New System.Drawing.Point(489, 15)
         Me.FeeManagementListCountLabel.Name = "FeeManagementListCountLabel"
         Me.FeeManagementListCountLabel.Size = New System.Drawing.Size(184, 17)
         Me.FeeManagementListCountLabel.TabIndex = 464

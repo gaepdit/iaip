@@ -190,6 +190,7 @@ Partial Class ISMPMonitoringLog
         Me.dgvNotificationLog = New System.Windows.Forms.DataGridView()
         Me.TPTestFirmComments = New System.Windows.Forms.TabPage()
         Me.dgvTestFirmComments = New System.Windows.Forms.DataGridView()
+        Me.ExportToExcelToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.ToolStrip1.SuspendLayout()
         CType(Me.SCMonitoringLog, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -235,26 +236,26 @@ Partial Class ISMPMonitoringLog
         Me.EditToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiReset})
         Me.EditToolStripMenuItem.Name = "EditToolStripMenuItem"
         Me.EditToolStripMenuItem.Size = New System.Drawing.Size(39, 20)
-        Me.EditToolStripMenuItem.Text = "Edit"
+        Me.EditToolStripMenuItem.Text = "&Edit"
         '
         'mmiReset
         '
         Me.mmiReset.Name = "mmiReset"
-        Me.mmiReset.Size = New System.Drawing.Size(152, 22)
-        Me.mmiReset.Text = "Reset"
+        Me.mmiReset.Size = New System.Drawing.Size(180, 22)
+        Me.mmiReset.Text = "&Reset Form"
         '
         'ToolsToolStripMenuItem
         '
-        Me.ToolsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiReports})
+        Me.ToolsToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.mmiReports, Me.ExportToExcelToolStripMenuItem})
         Me.ToolsToolStripMenuItem.Name = "ToolsToolStripMenuItem"
         Me.ToolsToolStripMenuItem.Size = New System.Drawing.Size(48, 20)
-        Me.ToolsToolStripMenuItem.Text = "Tools"
+        Me.ToolsToolStripMenuItem.Text = "&Tools"
         '
         'mmiReports
         '
         Me.mmiReports.Name = "mmiReports"
-        Me.mmiReports.Size = New System.Drawing.Size(152, 22)
-        Me.mmiReports.Text = "Reports"
+        Me.mmiReports.Size = New System.Drawing.Size(180, 22)
+        Me.mmiReports.Text = "Open Staff &Reports"
         '
         'ToolStrip1
         '
@@ -268,7 +269,7 @@ Partial Class ISMPMonitoringLog
         'tsbClear
         '
         Me.tsbClear.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.tsbClear.Image = CType(resources.GetObject("tsbClear.Image"), System.Drawing.Image)
+        Me.tsbClear.Image = Global.Iaip.My.Resources.Resources.EraseIcon
         Me.tsbClear.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsbClear.Name = "tsbClear"
         Me.tsbClear.Size = New System.Drawing.Size(23, 22)
@@ -277,7 +278,7 @@ Partial Class ISMPMonitoringLog
         'tsbFacilitySearch
         '
         Me.tsbFacilitySearch.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.tsbFacilitySearch.Image = CType(resources.GetObject("tsbFacilitySearch.Image"), System.Drawing.Image)
+        Me.tsbFacilitySearch.Image = Global.Iaip.My.Resources.Resources.FindIcon
         Me.tsbFacilitySearch.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsbFacilitySearch.Name = "tsbFacilitySearch"
         Me.tsbFacilitySearch.Size = New System.Drawing.Size(23, 22)
@@ -295,11 +296,11 @@ Partial Class ISMPMonitoringLog
         'tsbExportToExcel
         '
         Me.tsbExportToExcel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.tsbExportToExcel.Image = CType(resources.GetObject("tsbExportToExcel.Image"), System.Drawing.Image)
+        Me.tsbExportToExcel.Image = Global.Iaip.My.Resources.Resources.SpreadsheetIcon
         Me.tsbExportToExcel.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsbExportToExcel.Name = "tsbExportToExcel"
         Me.tsbExportToExcel.Size = New System.Drawing.Size(23, 22)
-        Me.tsbExportToExcel.Text = "ToolStripButton1"
+        Me.tsbExportToExcel.Text = "Export to Excel"
         '
         'SCMonitoringLog
         '
@@ -1831,6 +1832,12 @@ Partial Class ISMPMonitoringLog
         Me.dgvTestFirmComments.Size = New System.Drawing.Size(1008, 74)
         Me.dgvTestFirmComments.TabIndex = 1
         '
+        'ExportToExcelToolStripMenuItem
+        '
+        Me.ExportToExcelToolStripMenuItem.Name = "ExportToExcelToolStripMenuItem"
+        Me.ExportToExcelToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.ExportToExcelToolStripMenuItem.Text = "&Export to Excel"
+        '
         'ISMPMonitoringLog
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -2046,4 +2053,5 @@ Partial Class ISMPMonitoringLog
     Friend WithEvents tsbExportToExcel As System.Windows.Forms.ToolStripButton
     Friend WithEvents ToolsToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents mmiReports As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ExportToExcelToolStripMenuItem As ToolStripMenuItem
 End Class
