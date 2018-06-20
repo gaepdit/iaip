@@ -1160,9 +1160,9 @@ Public Class PASPFeeManagement
             "     STRLASTNAME        = c.STRCONTACTLASTNAME, " &
             "     STRPREFIX          = c.STRCONTACTPREFIX, " &
             "     STRTITLE           = c.STRCONTACTSUFFIX, " &
-            "     STRCONTACTCONAME   = c.STRCONTACTCOMPANYNAME, " &
+            "     STRCONTACTCONAME   = left(c.STRCONTACTCOMPANYNAME, 80), " &
             "     STRCONTACTADDRESS1 = c.STRCONTACTADDRESS1, " &
-            "     STRCONTACTADDRESS2 = c.STRCONTACTADDRESS2, " &
+            "     STRCONTACTADDRESS2 = left(c.STRCONTACTADDRESS2, 50), " &
             "     STRCONTACTCITY     = c.STRCONTACTCITY, " &
             "     STRCONTACTSTATE    = c.STRCONTACTSTATE, " &
             "     STRCONTACTZIPCODE  = c.STRCONTACTZIPCODE " &
