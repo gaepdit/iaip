@@ -337,6 +337,7 @@
         Me.LogoBox.Image = My.Resources.UatLogo
         lblIAIP.Text = "IAIP User Acceptance Testing (UAT)"
 #End If
+
     End Sub
 
 #End Region
@@ -412,6 +413,10 @@
     Private Sub PasswordResetMenuItem_Click(sender As Object, e As EventArgs) Handles mmiPasswordReset.Click
         ShowPasswordResetForm()
     End Sub
+
+#End Region
+
+#Region " Exception testing "
 
     Private Sub mmiThrowUnhandledError_Click(sender As Object, e As EventArgs) Handles mmiThrowUnhandledError.Click
         Throw New Exception("Unhandled exception testing")

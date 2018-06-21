@@ -20,7 +20,7 @@ Partial Class IAIPNavigation
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.MainMenu1 = New System.Windows.Forms.MainMenu(Me.components)
         Me.mmiFile = New System.Windows.Forms.MenuItem()
         Me.mmiExit = New System.Windows.Forms.MenuItem()
@@ -40,6 +40,7 @@ Partial Class IAIPNavigation
         Me.mmiAbout = New System.Windows.Forms.MenuItem()
         Me.TestingMenu = New System.Windows.Forms.MenuItem()
         Me.RunTest = New System.Windows.Forms.MenuItem()
+        Me.RunTest2 = New System.Windows.Forms.MenuItem()
         Me.lblTitle = New System.Windows.Forms.Label()
         Me.flpNavButtons = New System.Windows.Forms.FlowLayoutPanel()
         Me.grpQuickAccess = New System.Windows.Forms.GroupBox()
@@ -82,11 +83,11 @@ Partial Class IAIPNavigation
         Me.lblMessageLabel = New System.Windows.Forms.Label()
         Me.bgrUserPermissions = New System.ComponentModel.BackgroundWorker()
         Me.pnlCurrentList = New System.Windows.Forms.Panel()
+        Me.btnExportToExcel = New System.Windows.Forms.Button()
         Me.NavWorkListChangerPanel = New System.Windows.Forms.Panel()
         Me.cboNavWorkListContext = New System.Windows.Forms.ComboBox()
         Me.NavWorkListScopePanel = New System.Windows.Forms.Panel()
         Me.dgvWorkViewer = New System.Windows.Forms.DataGridView()
-        Me.btnExportToExcel = New System.Windows.Forms.Button()
         Me.grpQuickAccess.SuspendLayout()
         Me.SbeapQuickAccessPanel.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
@@ -190,14 +191,19 @@ Partial Class IAIPNavigation
         'TestingMenu
         '
         Me.TestingMenu.Index = 4
-        Me.TestingMenu.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.RunTest})
+        Me.TestingMenu.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.RunTest, Me.RunTest2})
         Me.TestingMenu.Text = "T&esting"
         Me.TestingMenu.Visible = False
         '
         'RunTest
         '
         Me.RunTest.Index = 0
-        Me.RunTest.Text = "Run test"
+        Me.RunTest.Text = "Handled Exception"
+        '
+        'RunTest2
+        '
+        Me.RunTest2.Index = 1
+        Me.RunTest2.Text = "Unhandled Exception"
         '
         'lblTitle
         '
@@ -690,6 +696,22 @@ Partial Class IAIPNavigation
         Me.pnlCurrentList.Size = New System.Drawing.Size(686, 54)
         Me.pnlCurrentList.TabIndex = 1
         '
+        'btnExportToExcel
+        '
+        Me.btnExportToExcel.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnExportToExcel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.btnExportToExcel.FlatAppearance.BorderSize = 0
+        Me.btnExportToExcel.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.btnExportToExcel.Image = Global.Iaip.My.Resources.Resources.SpreadsheetIcon
+        Me.btnExportToExcel.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.btnExportToExcel.Location = New System.Drawing.Point(585, 3)
+        Me.btnExportToExcel.Name = "btnExportToExcel"
+        Me.btnExportToExcel.Size = New System.Drawing.Size(98, 25)
+        Me.btnExportToExcel.TabIndex = 297
+        Me.btnExportToExcel.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.btnExportToExcel.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage
+        Me.btnExportToExcel.UseVisualStyleBackColor = True
+        '
         'NavWorkListChangerPanel
         '
         Me.NavWorkListChangerPanel.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
@@ -732,8 +754,8 @@ Partial Class IAIPNavigation
         Me.dgvWorkViewer.AllowUserToDeleteRows = False
         Me.dgvWorkViewer.AllowUserToOrderColumns = True
         Me.dgvWorkViewer.AllowUserToResizeRows = False
-        DataGridViewCellStyle4.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgvWorkViewer.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvWorkViewer.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.dgvWorkViewer.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells
         Me.dgvWorkViewer.ColumnHeadersHeight = 35
         Me.dgvWorkViewer.Dock = System.Windows.Forms.DockStyle.Fill
@@ -745,22 +767,6 @@ Partial Class IAIPNavigation
         Me.dgvWorkViewer.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgvWorkViewer.Size = New System.Drawing.Size(686, 170)
         Me.dgvWorkViewer.TabIndex = 4
-        '
-        'btnExportToExcel
-        '
-        Me.btnExportToExcel.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnExportToExcel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnExportToExcel.FlatAppearance.BorderSize = 0
-        Me.btnExportToExcel.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.btnExportToExcel.Image = Global.Iaip.My.Resources.Resources.SpreadsheetIcon
-        Me.btnExportToExcel.ImageAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.btnExportToExcel.Location = New System.Drawing.Point(585, 3)
-        Me.btnExportToExcel.Name = "btnExportToExcel"
-        Me.btnExportToExcel.Size = New System.Drawing.Size(98, 25)
-        Me.btnExportToExcel.TabIndex = 297
-        Me.btnExportToExcel.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        Me.btnExportToExcel.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage
-        Me.btnExportToExcel.UseVisualStyleBackColor = True
         '
         'IAIPNavigation
         '
@@ -862,4 +868,5 @@ Partial Class IAIPNavigation
     Friend WithEvents mmiUsernameSeparator As MenuItem
     Friend WithEvents mmiSecurity As MenuItem
     Friend WithEvents btnExportToExcel As Button
+    Friend WithEvents RunTest2 As MenuItem
 End Class

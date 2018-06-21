@@ -1,5 +1,4 @@
-﻿Imports System.Collections.Generic
-Imports System.Reflection
+﻿Imports System.Reflection
 
 Public Class IaipExceptionManager
 
@@ -8,15 +7,21 @@ Public Class IaipExceptionManager
     End Sub
 
     Public Shared Sub Application_ThreadException(sender As Object, e As Threading.ThreadExceptionEventArgs)
-        ' Handles Application.ThreadException
-        ' Handler added in StartupShutdown.Init
+        ' Application.ThreadException Handler added in StartupShutdown.Init
 
-        ' Log exception
-#If Not DEBUG Then
-        ExceptionLogger.Tags.Add("context", NameOf(Application_ThreadException))
         e.Exception.Data.Add("Sender", sender.ToString)
         e.Exception.Data.Add("Unrecoverable", True)
-        ExceptionLogger.Capture(New SharpRaven.Data.SentryEvent(e.Exception))
+        HandleException(e.Exception, NameOf(Application_ThreadException))
+
+    End Sub
+
+    Public Shared Sub HandleException(ex As Exception, Optional context As String = Nothing)
+        ' Log exception
+#If Not DEBUG Then
+        If context IsNot Nothing Then
+            ExceptionLogger.Tags.Add("context", context)
+        End If
+        ExceptionLogger.Capture(New SharpRaven.Data.SentryEvent(ex))
         ExceptionLogger.Tags.Remove("context")
 #End If
 
@@ -26,7 +31,7 @@ Public Class IaipExceptionManager
         Dim WhatUserCanDo As String = "• Restart the IAIP and try repeating your last action." & Environment.NewLine & Environment.NewLine &
             "• If you continue to see this error, please email EPD IT. Describe what you were doing and paste the error details below into your email."
 
-        ShowErrorDialog(e.Exception, WhatHappened, WhatUserCanDo, True)
+        ShowErrorDialog(ex, WhatHappened, WhatUserCanDo, True)
 
         CloseIaip()
     End Sub
@@ -65,7 +70,7 @@ Public Class IaipExceptionManager
     '-- understand; still very technical
     '--
     Private Shared Function FormatExceptionForUser(exc As Exception) As String
-        Dim sb As New System.Text.StringBuilder
+        Dim sb As New Text.StringBuilder
         With sb
             .Append("Detailed error information follows:")
             .Append(Environment.NewLine)
@@ -79,7 +84,7 @@ Public Class IaipExceptionManager
     '-- translate exception object to string, with additional system info
     '--
     Private Shared Function ExceptionToString(exc As Exception) As String
-        Dim sb As New System.Text.StringBuilder
+        Dim sb As New Text.StringBuilder
 
         If Not (exc.InnerException Is Nothing) Then
             '-- sometimes the original exception is wrapped in a more relevant outer exception

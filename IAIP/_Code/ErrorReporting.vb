@@ -17,7 +17,7 @@
     ''' <param name="contextMessage">A string representing the calling function.</param>
     Public Sub ErrorReport(exc As Exception, SupplementalMessage As String, contextMessage As String, Optional displayErrorToUser As Boolean = True)
 
-        ' First, log the exception using our analytics program. This is more reliable.
+        ' First, log the exception.
 #If Not DEBUG Then
         ExceptionLogger.Tags.Add("context", contextMessage)
         If Not String.IsNullOrEmpty(SupplementalMessage) Then
@@ -27,14 +27,12 @@
         ExceptionLogger.Tags.Remove("context")
 #End If
 
-        ' Second, try logging the error message to the IAIP database. This requires a connection so will sometimes fail.
+        ' Second, display a dialog to the user describing the error and next steps.
         Dim errorMessage As String = exc.Message
         If Not String.IsNullOrEmpty(SupplementalMessage) Then
             errorMessage = errorMessage & Environment.NewLine & Environment.NewLine & SupplementalMessage
         End If
-        DAL.LogError(errorMessage, contextMessage)
 
-        ' Third, display a dialog to the user describing the error and next steps.
         If displayErrorToUser Then
             Dim WhatHappened As String = ""
             Dim WhatUserCanDo As String = ""
