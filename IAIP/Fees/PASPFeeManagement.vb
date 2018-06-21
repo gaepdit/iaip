@@ -1,6 +1,5 @@
 ﻿Imports System.Data.SqlClient
 Imports System.Collections.Generic
-Imports EpdIt
 
 Public Class PASPFeeManagement
 
@@ -1144,18 +1143,17 @@ Public Class PASPFeeManagement
             Exit Sub
         End If
 
-        Try
 
-            Dim SelectedYear As Integer
+        Dim SelectedYear As Integer
 
-            If Not Integer.TryParse(cboAvailableFeeYears.Text, SelectedYear) Then
-                MessageBox.Show("Invalid year selected")
-                Exit Sub
-            End If
+        If Not Integer.TryParse(cboAvailableFeeYears.Text, SelectedYear) Then
+            MessageBox.Show("Invalid year selected")
+            Exit Sub
+        End If
 
-            Cursor = Cursors.WaitCursor
+        Cursor = Cursors.WaitCursor
 
-            Dim query As String = " update FS_MAILOUT " &
+        Dim query As String = " update FS_MAILOUT " &
             " set STRFIRSTNAME       = c.STRCONTACTFIRSTNAME, " &
             "     STRLASTNAME        = c.STRCONTACTLASTNAME, " &
             "     STRPREFIX          = c.STRCONTACTPREFIX, " &
@@ -1172,20 +1170,21 @@ Public Class PASPFeeManagement
             "            and c.STRKEY = '40' " &
             " where m.NUMFEEYEAR = @year "
 
-            Dim param As New SqlParameter("@year", SelectedYear)
+        Dim param As New SqlParameter("@year", SelectedYear)
 
-            Dim rowsaffected As Integer
+        Dim rowsaffected As Integer = 0
 
+        Try
             DB.RunCommand(query, param, rowsaffected)
-
-            MessageBox.Show(rowsaffected.ToString & " facilities updated.")
-
-            ViewMailOut()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally
             Cursor = Nothing
         End Try
+
+        MessageBox.Show(rowsaffected.ToString & " facilities updated.")
+
+        ViewMailOut()
     End Sub
 
     Private Sub btnExportToExcel_Click(sender As Object, e As EventArgs) Handles btnExportToExcel.Click
