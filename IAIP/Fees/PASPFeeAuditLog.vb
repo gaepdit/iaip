@@ -73,7 +73,7 @@ Public Class PASPFeeAuditLog
                 Try
                     Me.AirsNumber = CType(Parameters(FormParameter.AirsNumber), Apb.ApbFacilityId)
                     mtbAirsNumber.Text = Me.AirsNumber.FormattedString
-                Catch ex As Apb.InvalidAirsNumberException
+                Catch ex As ArgumentException
                     Me.AirsNumber = Nothing
                     mtbAirsNumber.Clear()
                 End Try

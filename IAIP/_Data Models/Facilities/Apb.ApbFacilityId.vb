@@ -3,66 +3,50 @@
     Public Class ApbFacilityId
         Implements IEquatable(Of ApbFacilityId)
 
-#Region " Constructor "
+        ''' <summary>
+        ''' APB facility ID as an eight-character string in the form "00000000"
+        ''' </summary>
+        Public ReadOnly Property ShortString() As String
 
-        Private _value As String
-
-        Public Sub New(input As String)
-            ' Parse and save or throw exception
-            If IsValidAirsNumberFormat(input) Then
-                _value = GetNormalizedAirsNumber(input)
-            Else
-                _value = Nothing
-                Throw New InvalidAirsNumberException(String.Format("{0} is not a valid AIRS number.", input))
+        Public Sub New(airsNumber As String)
+            If Not IsValidAirsNumberFormat(airsNumber) Then
+                Throw New ArgumentException(String.Format("{0} is not a valid AIRS number.", airsNumber))
             End If
+
+            ShortString = GetNormalizedAirsNumber(airsNumber)
         End Sub
 
-#End Region
-
-#Region " Properties "
-
         ''' <summary>
-        ''' Displays APB facility ID as an eight-character string in the form "00000000"
+        ''' Returns APB facility ID as an eight-character string in the form "00000000"
         ''' </summary>
-        ''' <remarks>Equivalent to ShortString property</remarks>
         Public Overrides Function ToString() As String
-            Return _value
+            Return ShortString
         End Function
 
         ''' <summary>
-        ''' Displays APB facility ID as an eight-character string in the form "00000000"
-        ''' </summary>
-        ''' <remarks>Equivalent to ToString method</remarks>
-        Public ReadOnly Property ShortString() As String
-            Get
-                Return _value
-            End Get
-        End Property
-
-        ''' <summary>
-        ''' Displays APB facility ID as a nine-character string in the form "000-00000"
+        ''' Returns APB facility ID as a nine-character string in the form "000-00000"
         ''' </summary>
         Public ReadOnly Property FormattedString() As String
             Get
-                Return Mid(_value, 1, 3) & "-" & Mid(_value, 4, 5)
+                Return Mid(ShortString, 1, 3) & "-" & Mid(ShortString, 4, 5)
             End Get
         End Property
 
         ''' <summary>
-        ''' Displays APB facility ID as a 12-character string in the form "041300000000"
+        ''' Returns APB facility ID as a 12-character string in the form "041300000000"
         ''' </summary>
         Public ReadOnly Property DbFormattedString() As String
             Get
-                Return GA_EPA_REGION_CODE & GA_STATE_NUMERIC_CODE & Me.ShortString
+                Return GA_EPA_REGION_CODE & GA_STATE_NUMERIC_CODE & ShortString
             End Get
         End Property
 
         ''' <summary>
-        ''' Displays county substring as a 3-character string 
+        ''' Returns county substring as a 3-character string 
         ''' </summary>
         Public ReadOnly Property CountySubstring() As String
             Get
-                Return Mid(_value, 1, 3)
+                Return Mid(ShortString, 1, 3)
             End Get
         End Property
 
@@ -74,8 +58,6 @@
                 Return GA_STATE_CODE & "000000" & GA_STATE_NUMERIC_CODE & ShortString
             End Get
         End Property
-
-#End Region
 
 #Region " Operators "
 
@@ -94,7 +76,7 @@
         Public Overloads Function Equals(other As ApbFacilityId) As Boolean _
         Implements IEquatable(Of ApbFacilityId).Equals
             If other Is Nothing Then Return False
-            Return Me.ToString.Equals(other.ToString)
+            Return ToString().Equals(other.ToString())
         End Function
 
         Public Overrides Function Equals(obj As Object) As Boolean
@@ -104,7 +86,7 @@
         End Function
 
         Public Overrides Function GetHashCode() As Integer
-            Return Me.ToString.GetHashCode()
+            Return ToString().GetHashCode()
         End Function
 
 #End Region
@@ -117,9 +99,10 @@
         ''' <param name="airsNumber">The string to test</param>
         ''' <returns>True if airsNumber is valid; otherwise, False.</returns>
         ''' <remarks>Valid AIRS numbers are in the form 000-00000 or 04-13-000-0000 (with or without the dashes)</remarks>
-        <DebuggerStepThrough()> _
+        <DebuggerStepThrough()>
         Public Shared Function IsValidAirsNumberFormat(airsNumber As String) As Boolean
             If airsNumber Is Nothing Then Return False
+
             Return Text.RegularExpressions.Regex.IsMatch(airsNumber, AirsNumberPattern)
         End Function
 
@@ -128,13 +111,14 @@
         ''' </summary>
         ''' <param name="airsNumber">The AIRS number to convert.</param>
         ''' <returns>A string representation of an AIRS number in the form "00000000".</returns>
-        <DebuggerStepThrough()> _
-        Private Function GetNormalizedAirsNumber(airsNumber As String) As String
+        <DebuggerStepThrough()>
+        Private Shared Function GetNormalizedAirsNumber(airsNumber As String) As String
             ' Converts a string representation of an AIRS number to the "00000000" form 
             ' (eight numerals, no dashes).
-            '
+
             ' Remove spaces, dashes, and leading '0413'
             airsNumber = airsNumber.Replace("-", "").Replace(" ", "")
+
             If airsNumber.Length = 12 Then airsNumber = airsNumber.Remove(0, 4)
 
             Return airsNumber
@@ -143,28 +127,5 @@
 #End Region
 
     End Class
-
-#Region " Invalid AIRS number exception "
-
-    <Serializable>
-    Public Class InvalidAirsNumberException
-        Inherits Exception
-
-        Private Const invalidAirsNumberMessage As String = "The AIRS number is not valid."
-
-        Public Sub New()
-            MyBase.New(invalidAirsNumberMessage)
-        End Sub
-
-        Public Sub New(auxMessage As String)
-            MyBase.New(String.Format("{0} - {1}", invalidAirsNumberMessage, auxMessage))
-        End Sub
-
-        Public Sub New(auxMessage As String, inner As Exception)
-            MyBase.New(String.Format("{0} - {1}", invalidAirsNumberMessage, auxMessage), inner)
-        End Sub
-    End Class
-
-#End Region
 
 End Namespace
