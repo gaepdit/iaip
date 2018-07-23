@@ -17,10 +17,17 @@ Namespace DAL
             Dim result As String = DB.SPGetSingleValue(Of String)(spName, parameters)
 
             If result IsNot Nothing Then
-                Return [Enum].Parse(GetType(IaipAuthenticationResult), result)
-            Else
-                Return IaipAuthenticationResult.InvalidLogin
+                Select Case result
+                    Case "InvalidUsername"
+                        Return IaipAuthenticationResult.InvalidUsername
+                    Case "Success"
+                        Return IaipAuthenticationResult.Success
+                    Case "InactiveUser"
+                        Return IaipAuthenticationResult.InactiveUser
+                End Select
             End If
+
+            Return IaipAuthenticationResult.InvalidLogin
         End Function
 
         Public Enum IaipAuthenticationResult
