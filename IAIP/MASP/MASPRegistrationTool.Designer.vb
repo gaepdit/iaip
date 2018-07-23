@@ -23,7 +23,6 @@ Partial Class MASPRegistrationTool
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.Panel4 = New System.Windows.Forms.Panel()
-        Me.chbGECOlogInRequired = New System.Windows.Forms.CheckBox()
         Me.txtWebsiteURL = New System.Windows.Forms.TextBox()
         Me.Label48 = New System.Windows.Forms.Label()
         Me.Label11 = New System.Windows.Forms.Label()
@@ -173,7 +172,6 @@ Partial Class MASPRegistrationTool
         '
         'Panel4
         '
-        Me.Panel4.Controls.Add(Me.chbGECOlogInRequired)
         Me.Panel4.Controls.Add(Me.txtWebsiteURL)
         Me.Panel4.Controls.Add(Me.Label48)
         Me.Panel4.Controls.Add(Me.Label11)
@@ -224,16 +222,6 @@ Partial Class MASPRegistrationTool
         Me.Panel4.Name = "Panel4"
         Me.Panel4.Size = New System.Drawing.Size(778, 380)
         Me.Panel4.TabIndex = 257
-        '
-        'chbGECOlogInRequired
-        '
-        Me.chbGECOlogInRequired.AutoSize = True
-        Me.chbGECOlogInRequired.Location = New System.Drawing.Point(270, 153)
-        Me.chbGECOlogInRequired.Name = "chbGECOlogInRequired"
-        Me.chbGECOlogInRequired.Size = New System.Drawing.Size(134, 17)
-        Me.chbGECOlogInRequired.TabIndex = 8
-        Me.chbGECOlogInRequired.Text = "GECO Log in Required"
-        Me.chbGECOlogInRequired.UseVisualStyleBackColor = True
         '
         'txtWebsiteURL
         '
@@ -1703,7 +1691,6 @@ Partial Class MASPRegistrationTool
     Friend WithEvents txtWebsiteURL As System.Windows.Forms.TextBox
     Friend WithEvents Label48 As System.Windows.Forms.Label
     Friend WithEvents txtEventEndTime As System.Windows.Forms.TextBox
-    Friend WithEvents chbGECOlogInRequired As System.Windows.Forms.CheckBox
     Friend WithEvents Label10 As System.Windows.Forms.Label
     Friend WithEvents txtRegID As System.Windows.Forms.TextBox
     Friend WithEvents btnModifyRegistration As System.Windows.Forms.Button

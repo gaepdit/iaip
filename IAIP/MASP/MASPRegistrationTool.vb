@@ -596,7 +596,7 @@ Public Class MASPRegistrationTool
                                  txtEventAddress.Text, txtEventCity.Text, mtbEventState.Text,
                                  mtbEventZipCode.Text, mtbEventCapacity.Text, txtEventNotes.Text,
                                  cboEventContact.SelectedValue, cboEventWebContact.SelectedValue, mtbEventWebPhoneNumber.Text,
-                                 chbGECOlogInRequired.CheckState, chbEventPasscode.CheckState, chbEventPasscode.Text, "1", txtEventTime.Text,
+                                 chbEventPasscode.CheckState, chbEventPasscode.Text, "1", txtEventTime.Text,
                                  txtEventEndTime.Text, txtWebsiteURL.Text)
                 LoadEvent()
 
@@ -630,7 +630,7 @@ Public Class MASPRegistrationTool
                              txtEventAddress.Text, txtEventCity.Text, mtbEventState.Text,
                              mtbEventZipCode.Text, mtbEventCapacity.Text, txtEventNotes.Text,
                              cboEventContact.SelectedValue, cboEventWebContact.SelectedValue,
-                             chbGECOlogInRequired.CheckState, chbEventPasscode.CheckState, chbEventPasscode.Text, "1", txtEventTime.Text,
+                             chbEventPasscode.CheckState, chbEventPasscode.Text, "1", txtEventTime.Text,
                              txtEventEndTime.Text, txtWebsiteURL.Text) = True Then
                 LoadEvent()
 
@@ -652,7 +652,7 @@ Public Class MASPRegistrationTool
                              "", "", "",
                              "", "", "",
                              "", "", "",
-                             "", "", "0", "", "", "") = True Then
+                             "", "0", "", "", "") = True Then
                 MsgBox("Data Saved/Updated", MsgBoxStyle.Information, Me.Text)
             Else
                 MsgBox("Data NOT Saved/Updated", MsgBoxStyle.Exclamation, Me.Text)
@@ -986,17 +986,13 @@ Would you like to continue?", "Event is at Capacity", MessageBoxButtons.YesNo, M
                             Capacity As String, Notes As String,
                             APBContact As String,
                             WebContact As String, WebPhoneNumber As String,
-                            LogInRequired As String,
                             PassCodeRequired As String, PassCode As String,
                             Active As String, EventTime As String,
                             EventEndTime As String, WebURL As String)
 
         Try
-            If LogInRequired = True Then
-                LogInRequired = "1"
-            Else
-                LogInRequired = "0"
-            End If
+            Dim LogInRequired As String = "0"
+
             If PassCodeRequired = "" Then
                 PassCode = "1"
             Else
@@ -1005,11 +1001,6 @@ Would you like to continue?", "Event is at Capacity", MessageBoxButtons.YesNo, M
                 Else
                     PassCode = PassCode
                 End If
-            End If
-            If LogInRequired = True Then
-                LogInRequired = "1"
-            Else
-                LogInRequired = "0"
             End If
 
             query = "Insert into RES_Event " &
@@ -1084,7 +1075,6 @@ Would you like to continue?", "Event is at Capacity", MessageBoxButtons.YesNo, M
                            Capacity As String, Notes As String,
                            APBContact As String,
                            WebContact As String,
-                           LogInRequired As String,
                            PassCodeRequired As String, PassCode As String,
                            Active As String, EventTime As String,
                            EventEndTime As String, WebURL As String) As Boolean
@@ -1174,20 +1164,10 @@ Would you like to continue?", "Event is at Capacity", MessageBoxButtons.YesNo, M
                     SQL = SQL & "strUserGCode = @WebContact, "
                 End If
             End If
-            If IsDBNull(LogInRequired) Then
-                LogInRequired = "0"
-            Else
-                If LogInRequired <> "" Then
-                    If LogInRequired = True Then
-                        LogInRequired = "1"
-                    Else
-                        LogInRequired = "0"
-                    End If
-                    SQL = SQL & "strLogInRequired = @LogInRequired, "
-                Else
-                    LogInRequired = "0"
-                End If
-            End If
+
+            Dim LogInRequired As String = "1"
+            SQL = SQL & "strLogInRequired = @LogInRequired, "
+
             If IsDBNull(PassCodeRequired) Then
                 SQL = SQL & "strPasscode = '1', "
             Else
@@ -1221,10 +1201,10 @@ Would you like to continue?", "Event is at Capacity", MessageBoxButtons.YesNo, M
                 SQL = SQL & "active = @Active, "
             End If
             If SQL <> "" Then
-                SQL = "Update Res_Event set " &
-                SQL & "updateUser = @user , " &
-                "updateDateTime =  GETDATE()  " &
-                "where convert(int,NUMRES_EVENTID) = @Res_EventID "
+                SQL = "Update Res_Event set " & SQL &
+                    "updateUser = @user , " &
+                    "updateDateTime =  GETDATE()  " &
+                    "where convert(int,NUMRES_EVENTID) = @Res_EventID "
 
                 Dim p As SqlParameter() = {
                     New SqlParameter("@Res_EventID", Res_EventID),
