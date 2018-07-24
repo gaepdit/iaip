@@ -3908,7 +3908,7 @@ Public Class EisTool
                 New SqlParameter("@FacilitySiteID", mtbEILogAIRSNumber.Text)
             }
 
-            DB.RunCommand(SQL, params2, forceAddNullableParameters:=True)
+            DB.RunCommand(SQL, params2)
 
             If dtpDeadlineEIS.Checked = True Then
                 Dim DeadLineComments As String = ""

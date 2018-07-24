@@ -87,7 +87,7 @@ Public Class SSCPEnforcementChecklist
             New SqlParameter("@enddate", DTPEndDate.Value)
         }
 
-        Dim dt As DataTable = DB.GetDataTable(SQL, p, True)
+        Dim dt As DataTable = DB.GetDataTable(SQL, p)
         dt.DefaultView.Sort = "[Date Received] DESC"
 
         dgvComplianceEvents.DataSource = dt

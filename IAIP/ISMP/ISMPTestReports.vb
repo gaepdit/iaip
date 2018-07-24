@@ -10368,7 +10368,7 @@ Public Class ISMPTestReports
                         New SqlParameter("@strTrackingNumber", txtTrackingNumber.Text)
                     }
 
-                    DB.RunCommand(query, p9, forceAddNullableParameters:=True)
+                    DB.RunCommand(query, p9)
 
                     query = "Select strTrackingNumber " &
                     "from SSCPTestReports " &
@@ -10391,7 +10391,7 @@ Public Class ISMPTestReports
                             New SqlParameter("@strTrackingNumber", txtTrackingNumber.Text)
                         }
 
-                        DB.RunCommand(query, p10, forceAddNullableParameters:=True)
+                        DB.RunCommand(query, p10)
                     End If
 
                     If txtAirsNumber.Text.Length = 8 Then

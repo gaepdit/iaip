@@ -1143,7 +1143,7 @@ Public Class SBEAPCaseWork
                 New SqlParameter("@NUMCASEID", txtCaseID.Text)
             }
 
-            DB.RunCommand(SQL, p, forceAddNullableParameters:=True)
+            DB.RunCommand(SQL, p)
 
             If SQL2 <> "" Then
                 txtCaseID.Text = DB.GetString(SQL2)
@@ -1578,7 +1578,7 @@ Public Class SBEAPCaseWork
                 New SqlParameter("@STRMODIFINGSTAFF", CurrentUser.UserID)
             }
 
-            DB.RunCommand(SQL, p, forceAddNullableParameters:=True)
+            DB.RunCommand(SQL, p)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -1630,7 +1630,7 @@ Public Class SBEAPCaseWork
                 New SqlParameter("@STRMODIFINGSTAFF", CurrentUser.UserID)
             }
 
-            DB.RunCommand(SQL, p, forceAddNullableParameters:=True)
+            DB.RunCommand(SQL, p)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -1747,7 +1747,7 @@ Public Class SBEAPCaseWork
                 New SqlParameter("@STRMODIFINGSTAFF", CurrentUser.UserID)
             }
 
-            DB.RunCommand(SQL, p, forceAddNullableParameters:=True)
+            DB.RunCommand(SQL, p)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -1782,7 +1782,7 @@ Public Class SBEAPCaseWork
                 New SqlParameter("@STRMODIFINGSTAFF", CurrentUser.UserID)
             }
 
-            DB.RunCommand(SQL, p, forceAddNullableParameters:=True)
+            DB.RunCommand(SQL, p)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try

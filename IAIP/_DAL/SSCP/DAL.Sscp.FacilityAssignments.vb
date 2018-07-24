@@ -56,7 +56,7 @@ Namespace DAL.Sscp
                 New SqlParameter("@year", targetYear)
             }
 
-            Return DB.RunCommand(SQL, parameters, forceAddNullableParameters:=True)
+            Return DB.RunCommand(SQL, parameters)
         End Function
 
         Public Function SetFacilityUnitAssignment(airsNumber As Apb.ApbFacilityId, targetYear As Integer, unitAssignee As Integer, mgrAssignor As Integer) As Boolean
@@ -88,7 +88,7 @@ Namespace DAL.Sscp
                 New SqlParameter("@year", targetYear)
             }
 
-            Return DB.RunCommand(SQL, parameters, forceAddNullableParameters:=True)
+            Return DB.RunCommand(SQL, parameters)
         End Function
 
         Public Function AssignmentYearExists(targetYear As Integer) As Boolean

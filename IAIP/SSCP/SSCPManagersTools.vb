@@ -417,7 +417,7 @@ Public Class SSCPManagersTools
                     New SqlParameter("@r", CMSState)
                 }
 
-                If DB.RunCommand(SQL, params, forceAddNullableParameters:=True) Then
+                If DB.RunCommand(SQL, params) Then
                     MessageBox.Show("CMS status saved", "Success")
                 Else
                     MessageBox.Show("There was an error saving the CMS status", "Error")
@@ -2627,7 +2627,7 @@ Public Class SSCPManagersTools
                     New SqlParameter("@airs", "0413" & row.Cells(0).Value)
                 }
 
-                DB.RunCommand(SQL, parameters, forceAddNullableParameters:=True)
+                DB.RunCommand(SQL, parameters)
 
                 row.Cells(9).Value = CMSStatus
             Next

@@ -97,7 +97,7 @@ Namespace DAL.Sscp
             End If
 
             Dim parameters As SqlParameter() = params.ToArray
-            Return DB.GetDataTable(query, parameters, True)
+            Return DB.GetDataTable(query, parameters)
         End Function
 
     End Module

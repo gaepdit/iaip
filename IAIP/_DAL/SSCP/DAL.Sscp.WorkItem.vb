@@ -136,7 +136,7 @@ Namespace DAL.Sscp
                 New SqlParameter("@staffId", staffId)
             }
 
-            Return DB.GetDataTable(query, parameters, True)
+            Return DB.GetDataTable(query, parameters)
         End Function
 
 #End Region
@@ -194,7 +194,7 @@ Namespace DAL.Sscp
                 New SqlParameter("@staffId", staffId)
             }
 
-            Return DB.GetDataTable(query, parameters, True)
+            Return DB.GetDataTable(query, parameters)
         End Function
 
 #End Region
@@ -235,7 +235,7 @@ Namespace DAL.Sscp
                 New SqlParameter("@staffId", staffId)
             }
 
-            Return DB.GetDataTable(query, parameters, True)
+            Return DB.GetDataTable(query, parameters)
         End Function
 
 #End Region
@@ -276,7 +276,7 @@ Namespace DAL.Sscp
                 New SqlParameter("@staffId", staffId)
             }
 
-            Return DB.GetDataTable(query, parameters, True)
+            Return DB.GetDataTable(query, parameters)
         End Function
 
         ''' <summary>
@@ -331,7 +331,7 @@ Namespace DAL.Sscp
                 New SqlParameter("@staffId", staffId)
             }
 
-            Return DB.GetDataTable(query, parameters, True)
+            Return DB.GetDataTable(query, parameters)
         End Function
 
 #End Region
@@ -371,7 +371,7 @@ Namespace DAL.Sscp
                 New SqlParameter("@airs", airs.DbFormattedString),
                 New SqlParameter("@staffId", staffId)
             }
-            Return DB.GetDataTable(query, parameters, True)
+            Return DB.GetDataTable(query, parameters)
         End Function
 
 #End Region

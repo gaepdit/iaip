@@ -1105,7 +1105,7 @@ Public Class SSPPApplicationLog
                 New SqlParameter("@strPermitNumber2", "%" & Replace(SearchText2, "-", "") & "%")
             }
 
-            dtApplicationLog = DB.GetDataTable(SQL, p, True)
+            dtApplicationLog = DB.GetDataTable(SQL, p)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         Finally

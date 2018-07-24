@@ -175,7 +175,7 @@ Namespace DAL
                 New SqlParameter("@NUMFEEYEAR", feeYearDecimal)
             }
 
-            Return DB.RunCommand(query, parameters, forceAddNullableParameters:=True)
+            Return DB.RunCommand(query, parameters)
         End Function
 
         Public Function GetAllFeeFacilities() As DataTable

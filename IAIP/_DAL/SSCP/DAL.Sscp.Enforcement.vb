@@ -55,7 +55,7 @@ Namespace DAL.Sscp
                 New SqlParameter("@staffId", staffId)
             }
 
-            Return DB.GetDataTable(query, parameters, True)
+            Return DB.GetDataTable(query, parameters)
         End Function
 
         ''' <summary>
@@ -344,7 +344,7 @@ Namespace DAL.Sscp
                     New SqlParameter("@STRMODIFINGPERSON", CurrentUser.UserID)
                 }
 
-                Return DB.SPGetSingleValue(Of Integer)(spName, params, forceAddNullableParameters:=True)
+                Return DB.SPGetSingleValue(Of Integer)(spName, params)
             End With
         End Function
 

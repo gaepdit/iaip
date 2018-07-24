@@ -60,7 +60,7 @@ Namespace DAL
                     New SqlParameter("@pToDate", toDate)
                 }
 
-            Return DB.GetDataTable(query, parameters, forceAddNullableParameters:=True)
+            Return DB.GetDataTable(query, parameters)
         End Function
 
 #End Region

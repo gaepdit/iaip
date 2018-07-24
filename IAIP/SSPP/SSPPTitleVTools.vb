@@ -405,7 +405,7 @@ Public Class SSPPTitleVTools
                     New SqlParameter("@strApplicationNumber", txtWebPublisherApplicationNumber.Text)
                 }
 
-                DB.RunCommand(query, p, forceAddNullableParameters:=True)
+                DB.RunCommand(query, p)
 
                 query2 = "Update SSPPApplicationData set " &
                 "strTargeted = @strTargeted " &
@@ -416,7 +416,7 @@ Public Class SSPPTitleVTools
                     New SqlParameter("@strApplicationNumber", txtWebPublisherApplicationNumber.Text)
                 }
 
-                DB.RunCommand(query2, p2, forceAddNullableParameters:=True)
+                DB.RunCommand(query2, p2)
 
                 If lblLinkWarning.Visible = True Then
                     Dim LinkedApplication As String
@@ -442,14 +442,14 @@ Public Class SSPPTitleVTools
                                 New SqlParameter("@strApplicationNumber", LinkedApplication)
                             }
 
-                            DB.RunCommand(query, p3, forceAddNullableParameters:=True)
+                            DB.RunCommand(query, p3)
 
                             Dim p4 As SqlParameter() = {
                                 New SqlParameter("@strTargeted", TargetedComments),
                                 New SqlParameter("@strApplicationNumber", LinkedApplication)
                             }
 
-                            DB.RunCommand(query2, p4, forceAddNullableParameters:=True)
+                            DB.RunCommand(query2, p4)
                         End If
                     Next
                 End If

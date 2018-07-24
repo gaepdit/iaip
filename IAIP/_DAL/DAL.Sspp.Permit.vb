@@ -124,13 +124,14 @@ Namespace DAL.Sspp
                 parametersList.Add(parameters)
             Next
 
-            Return DB.RunCommand(queryList, parametersList, forceAddNullableParameters:=True)
+            Return DB.RunCommand(queryList, parametersList)
         End Function
 
         Public Function UpdatePermit(permit As Permit) As Boolean
             If permit Is Nothing Then Return False
-            Dim permitList As New List(Of Permit)
-            permitList.Add(permit)
+            Dim permitList As New List(Of Permit) From {
+                permit
+            }
             Return UpdatePermits(permitList)
         End Function
 
@@ -179,7 +180,7 @@ Namespace DAL.Sspp
                 New SqlParameter("@PermitTypeCode", permit.PermitTypeCode)
             }
 
-            Return DB.RunCommand(query, parameters, forceAddNullableParameters:=True)
+            Return DB.RunCommand(query, parameters)
         End Function
 
         Public Function RevokePermits(permits As List(Of Permit), revocationDate As Date) As Boolean
