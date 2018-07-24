@@ -793,7 +793,7 @@ Public Class IAIPNavigation
         AddNavButtonIfAccountHasFormAccess(18, "Deposits", NameOf(PASPDepositsAmendments), NavButtonCategories.Fees)
 
         ' MASP
-        AddNavButtonIfAccountHasFormAccess(137, "Registration Tool", NameOf(MASPRegistrationTool), NavButtonCategories.MASP)
+        AddNavButtonIfAccountHasFormAccess(137, "EPD Events", NameOf(MASPRegistrationTool), NavButtonCategories.MASP)
 
         ' DMU
         AddNavButtonIfAccountHasFormAccess(129, "Error Logs", NameOf(DMUIaipErrorLog), NavButtonCategories.DMU)
