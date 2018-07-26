@@ -16,7 +16,7 @@ Module IaipValidation
         If requireDnrAddress AndAlso Not Regex.IsMatch(emailAddress, DnrEmailPattern) Then Return False
 
         Try
-            Dim testEmail As Net.Mail.MailAddress = New Net.Mail.MailAddress(emailAddress)
+            Dim testEmail As New Net.Mail.MailAddress(emailAddress)
         Catch ex As Exception
             Return False
         End Try

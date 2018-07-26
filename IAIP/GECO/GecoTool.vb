@@ -1,6 +1,7 @@
 ﻿Imports System.Data.SqlClient
 Imports Iaip.Apb.Facilities
 Imports Iaip.DAL.FacilityData
+Imports Iaip.DAL.Geco
 
 Public Class GecoTool
 
@@ -100,11 +101,11 @@ Public Class GecoTool
             "straddress, strcity, " &
             "strstate, strzip, " &
             "strphonenumber, strfaxnumber, " &
-            "datLastLogIn, strConfirm, " &
-            "strUserEmail " &
-            "from OlapUserProfile, OLAPUserLogIn " &
-            "where OLAPUserProfile.numUserID = OLAPUserLogIn.numuserid " &
-            "and strUserEmail = @strUserEmail "
+            "DateEmailConfirmed, datLastLogIn, " &
+            "NewEmail " &
+            "from OlapUserProfile inner join OLAPUserLogIn " &
+            "on OLAPUserProfile.numUserID = OLAPUserLogIn.numuserid " &
+            "where strUserEmail = @strUserEmail "
             Dim param As New SqlParameter("@strUserEmail", UserData)
             Dim dr As DataRow = DB.GetDataRow(SQL, param)
 
@@ -166,20 +167,20 @@ Public Class GecoTool
                     lblFaxNo.Text = "Fax Number: " & dr.Item("strfaxnumber")
                     mtbEditFaxNumber.Text = dr.Item("strFaxNumber")
                 End If
-                If IsDBNull(dr.Item("strConfirm")) Then
-                    lblConfirmDate.Text = ""
+                If IsDBNull(dr.Item("DateEmailConfirmed")) Then
+                    lblConfirmDate.Text = "Account not yet confirmed by user."
                 Else
-                    lblConfirmDate.Text = "Date User Email Confirmed: " & dr.Item("strConfirm")
+                    lblConfirmDate.Text = "Date account confirmed: " & CDate(dr.Item("DateEmailConfirmed")).ToShortDateString
                 End If
                 If IsDBNull(dr.Item("datLastLogIn")) Then
                     lblLastLogIn.Text = ""
                 Else
-                    lblLastLogIn.Text = "Date User Last Logged In: " & dr.Item("datLastLogIn")
+                    lblLastLogIn.Text = "Date user last logged in: " & dr.Item("datLastLogIn")
                 End If
-                If IsDBNull(dr.Item("strUserEmail")) Then
+                If IsDBNull(dr.Item("NewEmail")) Then
                     txtEditEmail.Text = ""
                 Else
-                    txtEditEmail.Text = dr.Item("strUserEmail")
+                    txtEditEmail.Text = dr.Item("NewEmail")
                 End If
             Else
                 txtWebUserID.Clear()
@@ -196,9 +197,16 @@ Public Class GecoTool
                 lblLastLogIn.Text = ""
                 lblConfirmDate.Text = ""
                 txtEditEmail.Clear()
+                lblFName.Text = ""
+                lblLName.Text = ""
+                lblTitle.Text = ""
+                lblCoName.Text = ""
+                lblAddress.Text = ""
+                lblCityStateZip.Text = ""
+                lblPhoneNo.Text = ""
+                lblFaxNo.Text = ""
             End If
 
-            txtEditUserPassword.Clear()
             txtEditFirstName.Visible = False
             txtEditLastName.Visible = False
             txtEditTitle.Visible = False
@@ -210,10 +218,9 @@ Public Class GecoTool
             mtbEditPhoneNumber.Visible = False
             mtbEditFaxNumber.Visible = False
             btnSaveEditedData.Visible = False
-            txtEditUserPassword.Visible = False
             btnChangeEmailAddress.Visible = False
+            lblChangeEmailAddress.Visible = False
             txtEditEmail.Visible = False
-            btnUpdatePassword.Visible = False
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -229,9 +236,9 @@ Public Class GecoTool
              "Case When intFeeAccess = 0 Then 'False' When intFeeAccess = 1 Then 'True' End as intFeeAccess, " &
              "Case When intEIAccess = 0 Then 'False' When intEIAccess = 1 Then 'True' End as intEIAccess, " &
              "Case When intESAccess = 0 Then 'False' When intESAccess = 1 Then 'True' End as intESAccess " &
-             "FROM OlapUserAccess, OLAPUserLogIn  " &
-             "WHERE OlapUserAccess.numUserId = OLAPUserLogIn.numUserId " &
-             "and  strUserEmail = @strUserEmail " &
+             "FROM OlapUserAccess inner join OLAPUserLogIn  " &
+             "on OlapUserAccess.numUserId = OLAPUserLogIn.numUserId " &
+             "where strUserEmail = @strUserEmail " &
              "order by strfacilityname"
             Dim param As New SqlParameter("@strUserEmail", EmailLoc)
 
@@ -337,9 +344,9 @@ Public Class GecoTool
                 "When intESAccess = 0 Then 'False' " &
                 "When intESAccess = 1 Then 'True' " &
                 "End as intESAccess " &
-                "FROM OlapUserAccess, OlapUserLogin " &
-                "WHERE OLAPUserAccess.NumUserId = OlapUserLogin.NumUserID " &
-                "AND OlapUserAccess.strAirsNumber = @strAirsNumber order by email"
+                "FROM OlapUserAccess inner join OlapUserLogin " &
+                "on OLAPUserAccess.NumUserId = OlapUserLogin.NumUserID " &
+                "where OlapUserAccess.strAirsNumber = @strAirsNumber order by email"
 
                 Dim dt As DataTable = DB.GetDataTable(SQL, param)
 
@@ -442,7 +449,7 @@ Public Class GecoTool
 
             ViewFacilitySpecificUsers()
 
-            MessageBox.Show("The User has been added to this facility", "Success")
+            MessageBox.Show("The user has been added to this facility", "Success")
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -461,7 +468,7 @@ Public Class GecoTool
             DB.RunCommand(SQL, params)
 
             ViewFacilitySpecificUsers()
-            MsgBox("The User has been removed for this facility", MsgBoxStyle.Information, "User Removed!")
+            MsgBox("The user has been removed from this facility", MsgBoxStyle.Information, "User removed")
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -517,7 +524,7 @@ Public Class GecoTool
             Next
 
             ViewFacilitySpecificUsers()
-            MsgBox("The records have been updated", MsgBoxStyle.Information, "Update Success!")
+            MsgBox("The records have been updated", MsgBoxStyle.Information, "Success")
 
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -537,10 +544,9 @@ Public Class GecoTool
             mtbEditPhoneNumber.Visible = True
             mtbEditFaxNumber.Visible = True
             btnSaveEditedData.Visible = True
-            txtEditUserPassword.Visible = True
             btnChangeEmailAddress.Visible = True
+            lblChangeEmailAddress.Visible = True
             txtEditEmail.Visible = True
-            btnUpdatePassword.Visible = True
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -631,45 +637,9 @@ Public Class GecoTool
                 mtbEditPhoneNumber.Visible = False
                 mtbEditFaxNumber.Visible = False
                 btnSaveEditedData.Visible = False
-                txtEditUserPassword.Visible = False
                 btnChangeEmailAddress.Visible = False
+                lblChangeEmailAddress.Visible = False
                 txtEditEmail.Visible = False
-                btnUpdatePassword.Visible = False
-            End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-
-    Private Sub btnUpdatePassword_Click(sender As Object, e As EventArgs) Handles btnUpdatePassword.Click
-        Try
-            If txtWebUserID.Text <> "" And txtEditUserPassword.Text <> "" Then
-                'New password change code 6/30/2010
-                Dim SQL As String = "Update OLAPUserLogIN set " &
-                "strUserPassword = @strUserPassword " &
-                "where numUserID = @numUserID "
-                Dim params As SqlParameter() = {
-                    New SqlParameter("@strUserPassword", getMd5Hash(txtEditUserPassword.Text)),
-                    New SqlParameter("@numUserID", txtWebUserID.Text)
-                }
-                DB.RunCommand(SQL, params)
-
-                txtEditUserPassword.Clear()
-                txtEditFirstName.Visible = False
-                txtEditLastName.Visible = False
-                txtEditTitle.Visible = False
-                txtEditCompany.Visible = False
-                txtEditAddress.Visible = False
-                txtEditCity.Visible = False
-                mtbEditState.Visible = False
-                mtbEditZipCode.Visible = False
-                mtbEditPhoneNumber.Visible = False
-                mtbEditFaxNumber.Visible = False
-                btnSaveEditedData.Visible = False
-                txtEditUserPassword.Visible = False
-                btnChangeEmailAddress.Visible = False
-                txtEditEmail.Visible = False
-                btnUpdatePassword.Visible = False
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -677,51 +647,31 @@ Public Class GecoTool
     End Sub
 
     Private Sub btnChangeEmailAddress_Click(sender As Object, e As EventArgs) Handles btnChangeEmailAddress.Click
-        Try
-            If txtWebUserID.Text <> "" Then
-                If IsValidEmailAddress(txtEditEmail.Text) Then
-                    Dim SQL As String = "Select " &
-                    "1 " &
-                    "from OLAPUserLogIN " &
-                    "where strUserEmail = @strUserEmail " &
-                    " and numUserID <> @numUserID "
+        If txtWebUserID.Text <> "" Then
+            If IsValidEmailAddress(txtEditEmail.Text) Then
 
-                    Dim params As SqlParameter() = {
-                        New SqlParameter("@strUserEmail", txtEditEmail.Text.ToUpper),
-                        New SqlParameter("@numUserID", txtWebUserID.Text)
-                    }
+                Dim token As String = Nothing
+                Dim result As UpdateGecoUserEmailResult = UpdateGecoUserEmail(txtWebUserEmail.Text, txtEditEmail.Text, token)
 
-                    If DB.GetBoolean(SQL, params) Then
-                        MsgBox("Another user already has this email address and it would violate a unique constraint if you were " &
-                               "to add this email to this user.", MsgBoxStyle.Exclamation, "Mailout and Stats")
-                        Exit Sub
-                    End If
+                Select Case result
+                    Case UpdateGecoUserEmailResult.Success
+                        MessageBox.Show("The new email has been saved. A webpage will now open to confirm a link has been sent to the user.",
+                                        "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                        Dim uri As New Uri(GecoUrl, $"Account.aspx?action=change-email&acct={txtEditEmail.Text}&token={token}")
+                        OpenUri(uri, Me)
 
-                    SQL = "Update OLAPUserLogIn set " &
-                    " strUserEmail = @strUserEmail " &
-                    " where numUserID = @numUserID "
+                    Case UpdateGecoUserEmailResult.NewEmailExists
+                        MessageBox.Show("An account already exists for that email address.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
 
-                    DB.RunCommand(SQL, params)
+                    Case Else
+                        MessageBox.Show("An error occurred. The email address has not been changed.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
 
-                    txtWebUserEmail.Text = txtEditEmail.Text
+                End Select
 
-                    LoadUserInfo(txtWebUserEmail.Text)
-
-                    If txtWebUserID.Text = "" Then
-                        pnlUserInfo.Visible = False
-                        pnlUserFacility.Visible = False
-                    Else
-                        pnlUserInfo.Visible = True
-                        pnlUserFacility.Visible = True
-                    End If
-
-                Else
-                    MsgBox("Invalid Email Address", MsgBoxStyle.Exclamation, "DMU Tools")
-                End If
+            Else
+                MessageBox.Show("The email address entered is not valid.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             End If
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
+        End If
     End Sub
 
     Private Sub btnAddFacilitytoUser_Click(sender As Object, e As EventArgs) Handles btnAddFacilitytoUser.Click
@@ -756,7 +706,7 @@ Public Class GecoTool
                         DB.RunCommand(SQL, params2)
 
                         LoadUserFacilityInfo(txtWebUserEmail.Text)
-                        MessageBox.Show(Me, "The facility has been added to this user", "Insert Success!", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                        MessageBox.Show(Me, "The facility has been added to this user", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
                     Else
                         MessageBox.Show(Me, "The facility already exists for this user." & vbCrLf & "NO DATA SAVED", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                     End If
@@ -764,7 +714,7 @@ Public Class GecoTool
                     MessageBox.Show(Me, GetAirsValidationMsg(Result), Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
                 End If
             Else
-                MessageBox.Show(Me, "You must enter a User's e-mail address.", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                MessageBox.Show(Me, "You must enter a user's e-mail address.", Me.Text, MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -784,7 +734,7 @@ Public Class GecoTool
                 DB.RunCommand(SQL, params)
 
                 LoadUserFacilityInfo(txtWebUserEmail.Text)
-                MsgBox("The facility has been removed for this user", MsgBoxStyle.Information, "Facility Removed!")
+                MsgBox("The facility has been removed for this user", MsgBoxStyle.Information, "Facility removed")
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -840,7 +790,7 @@ Public Class GecoTool
             Next
 
             LoadUserFacilityInfo(txtWebUserEmail.Text)
-            MsgBox("The records have been updated", MsgBoxStyle.Information, "Update Success!")
+            MsgBox("The records have been updated", MsgBoxStyle.Information, "Success")
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -849,7 +799,7 @@ Public Class GecoTool
 #Region " Accept button "
 
     Private Sub NoAcceptButton(sender As Object, e As EventArgs) _
-        Handles txtWebUserEmail.Leave, mtbAIRSNumber.Leave, txtEditUserPassword.Leave,
+        Handles txtWebUserEmail.Leave, mtbAIRSNumber.Leave,
         txtEditEmail.Leave, mtbFacilityToAdd.Leave, txtEmail.Leave
 
         AcceptButton = Nothing
@@ -862,10 +812,6 @@ Public Class GecoTool
 
     Private Sub txtWebUserEmail_Enter(sender As Object, e As EventArgs) Handles txtWebUserEmail.Enter
         AcceptButton = btnViewEmailData
-    End Sub
-
-    Private Sub txtEditUserPassword_Enter(sender As Object, e As EventArgs) Handles txtEditUserPassword.Enter
-        AcceptButton = btnUpdatePassword
     End Sub
 
     Private Sub txtEditEmail_Enter(sender As Object, e As EventArgs) Handles txtEditEmail.Enter
