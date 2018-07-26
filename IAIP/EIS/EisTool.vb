@@ -1442,7 +1442,7 @@ Public Class EisTool
                 }
                 DB.RunCommand(SQL, params)
 
-                MsgBox("your info is updated!")
+                MsgBox("Info updated")
             Else
                 SQL = "Insert into ESMailOut " &
                     "(STRAIRSYEAR, " &
@@ -1492,7 +1492,7 @@ Public Class EisTool
                 }
                 DB.RunCommand(SQL, params)
 
-                MsgBox("your info is added!")
+                MsgBox("Info added")
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -1585,7 +1585,7 @@ Public Class EisTool
         Try
             DeleteESMailOut()
             ClearMailOut()
-            MsgBox("The info has been deleted!")
+            MsgBox("The info has been deleted")
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -1830,7 +1830,7 @@ Public Class EisTool
                 "where strESyear = @strESyear "
                 Dim param As New SqlParameter("@strESyear", ESyear)
                 DB.RunCommand(SQL, param)
-                MsgBox("ES mail out is deleted!")
+                MsgBox("ES mail out is deleted")
             End If
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
@@ -1943,7 +1943,7 @@ Public Class EisTool
     Private Sub btnESenrollment_Click(sender As Object, e As EventArgs) Handles btnESenrollment.Click
         Try
             If cboESYear.Text = "" Then
-                MsgBox("Please choose a Year!", MsgBoxStyle.Information, "ES Enrollment")
+                MsgBox("Please choose a year", MsgBoxStyle.Information, "ES Enrollment")
             Else
                 ESMailoutenrollment()
                 cboESYear.Items.Clear()
@@ -2017,7 +2017,7 @@ Public Class EisTool
         Dim SQL As String
         Try
             If cboESYear.Text = "" Then
-                MsgBox("Please choose a year!", MsgBoxStyle.Information, "ES Enrollment")
+                MsgBox("Please choose a year", MsgBoxStyle.Information, "ES Enrollment")
             Else
                 Dim intAnswer As DialogResult
                 intAnswer = MessageBox.Show("Remove the enrollment?", "ES Enrollment", MessageBoxButtons.OKCancel, MessageBoxIcon.Information)
@@ -2030,9 +2030,9 @@ Public Class EisTool
 
                         DB.RunCommand(SQL, param)
 
-                        MsgBox("Enrollment has been removed!", MsgBoxStyle.Information, "ES Enrollment")
+                        MsgBox("Enrollment has been removed", MsgBoxStyle.Information, "ES Enrollment")
                     Case Else
-                        MsgBox("Enrollment has not been removed!", MsgBoxStyle.Information, "ES Enrollment")
+                        MsgBox("Enrollment has not been removed", MsgBoxStyle.Information, "ES Enrollment")
                 End Select
 
                 cboESYear.Items.Clear()
@@ -2138,9 +2138,9 @@ Public Class EisTool
                     }
                     DB.RunCommand(SQL, param)
 
-                    MsgBox("This Facility (" & AirsNo & ") has been removed for " & ESYear & "!", MsgBoxStyle.Information, "ES Enrollment")
+                    MsgBox("This Facility (" & AirsNo & ") has been removed for " & ESYear & ".", MsgBoxStyle.Information, "ES Enrollment")
                 Case Else
-                    MsgBox("This Facility (" & AirsNo & ") has not been removed for " & ESYear & "!", MsgBoxStyle.Information, "ES Enrollment")
+                    MsgBox("This Facility (" & AirsNo & ") has not been removed for " & ESYear & ".", MsgBoxStyle.Information, "ES Enrollment")
             End Select
 
         Catch ex As Exception
@@ -2162,9 +2162,9 @@ Public Class EisTool
                         New SqlParameter("@AirsNo", AirsNo)
                     }
             If DB.ValueExists(SQL, param) Then
-                MsgBox("This facility (" & AirsNo & ") has been enrolled for " & ESYear & "!", MsgBoxStyle.Information, "ES Enrollment")
+                MsgBox("This facility (" & AirsNo & ") has been enrolled for " & ESYear & ".", MsgBoxStyle.Information, "ES Enrollment")
             Else
-                MsgBox("This facility (" & AirsNo & ") is not enrolled for " & ESYear & "!", MsgBoxStyle.Information, "ES Enrollment")
+                MsgBox("This facility (" & AirsNo & ") is not enrolled for " & ESYear & ".", MsgBoxStyle.Information, "ES Enrollment")
             End If
 
         Catch ex As Exception
@@ -2177,7 +2177,7 @@ Public Class EisTool
             Dim year As String = cboESYear.Text
 
             If cboESYear.Text = "" Then
-                MsgBox("Please choose a year to view!", MsgBoxStyle.Information, "ES Enrollment")
+                MsgBox("Please choose a year to view", MsgBoxStyle.Information, "ES Enrollment")
             Else
                 Dim SQL As String = "SELECT ESSCHEMA.STRAIRSNUMBER, " &
                     "ESSCHEMA.STRFACILITYNAME, " &
@@ -6036,7 +6036,7 @@ Public Class EisTool
 
     Private Sub DisplayEisStageResults(result As Boolean)
         If result Then
-            MessageBox.Show("Done!")
+            MessageBox.Show("Done")
         Else
             MessageBox.Show("There was an error staging the data.")
         End If
