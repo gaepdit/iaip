@@ -60,7 +60,7 @@ Namespace DAL
                     New SqlParameter("@pToDate", toDate)
                 }
 
-            Return DB.GetDataTable(query, parameters, forceAddNullableParameters:=True)
+            Return DB.GetDataTable(query, parameters)
         End Function
 
 #End Region
@@ -143,12 +143,12 @@ Namespace DAL
             With re
                 .Active = Convert.ToBoolean(Convert.ToInt32(DBUtilities.GetNullable(Of String)(row("ACTIVE"))))
                 .Address = address
-                .Capacity = DBUtilities.GetNullable(Of Decimal)(row("NUMCAPACITY"))
+                .Capacity = DBUtilities.GetNullable(Of Integer)(row("NUMCAPACITY"))
                 .Contact = contact
                 .Description = DBUtilities.GetNullable(Of String)(row("STRDESCRIPTION"))
                 .EndDate = DBUtilities.GetNullable(Of Date)(row("DATENDDATE"))
                 .EndTime = DBUtilities.GetNullable(Of String)(row("STREVENTENDTIME"))
-                .EventId = row("NUMRES_EVENTID")
+                .EventId = CInt(row("NUMRES_EVENTID"))
                 .EventStatus = DBUtilities.GetNullable(Of String)(row("STREVENTSTATUS"))
                 .Title = DBUtilities.GetNullable(Of String)(row("STRTITLE"))
                 .LoginRequired = Convert.ToBoolean(Convert.ToInt32(DBUtilities.GetNullable(Of String)(row("STRLOGINREQUIRED"))))

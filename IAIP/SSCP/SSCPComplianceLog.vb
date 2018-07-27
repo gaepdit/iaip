@@ -463,7 +463,7 @@ Public Class SSCPComplianceLog
 
             Case "Enforcement-LON"
                 ' Case Enforcement-LON MUST precede the next Case, which is a catch-all for remaining enforcement
-                response = MessageBox.Show("Are you sure you want to delete this enforcement item? This cannot be undone!",
+                response = MessageBox.Show("Are you sure you want to delete this enforcement item? This cannot be undone.",
                                            "Delete Work Entry", MessageBoxButtons.YesNo,
                                            MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2)
                 If response = DialogResult.Yes Then
@@ -490,7 +490,7 @@ Public Class SSCPComplianceLog
 
             Case "Enforcement-" To "Enforcement-z"
                 ' This is a catch-all for all non-LON enforcement
-                response = MessageBox.Show("Are you sure you want to delete this enforcement item? This cannot be undone!",
+                response = MessageBox.Show("Are you sure you want to delete this enforcement item? This cannot be undone.",
                                            "Delete Work Entry", MessageBoxButtons.YesNo,
                                            MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2)
                 If response = DialogResult.Yes Then

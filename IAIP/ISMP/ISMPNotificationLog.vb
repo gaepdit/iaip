@@ -376,7 +376,7 @@ Public Class ISMPNotificationLog
                         New SqlParameter("@strtestlognumber", txtTestNotificationNumber.Text)
                     }
 
-                    DB.RunCommand(query, p2, forceAddNullableParameters:=True)
+                    DB.RunCommand(query, p2)
                 Else
                     temp = ""
                     Dim testNum As String = ""

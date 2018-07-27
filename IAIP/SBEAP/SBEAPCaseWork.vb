@@ -70,21 +70,29 @@ Public Class SBEAPCaseWork
                 .ValueMember = "dn"
             End With
 
-            SQL = "select " &
-            "'' as NumUserID, '' as UserName " &
-            "union select " &
-            "convert(varchar(max),NumUserID), " &
-            "concat(strLastName,', ',strFirstName) as UserName " &
-            "from EPDUserProfiles " &
-            "where numBranch = '5' " &
-            "and numProgram = '35' " &
-            "union " &
-            "select " &
-            "distinct convert(varchar(max),NumUserID) as NumUserID, " &
-            "concat(strLastName,', ',strFirstName) as UserName " &
-            "from EPDUserProfiles inner join SBEAPCaseLog " &
-            "on EPDUserProfiles.numUserID = SBEAPCaseLog.numStaffResponsible " &
-            "Order by UserName "
+            SQL = "select
+                0  as NUMUSERID,
+                '' as UserName
+            union
+            select
+                convert(varchar(max), p.NUMUSERID),
+                concat(STRLASTNAME, ', ', STRFIRSTNAME)
+            from EPDUSERPROFILES p
+                inner join
+                IAIPPERMISSIONS i
+                    on p.NUMUSERID = i.NUMUSERID
+            where (p.NUMEMPLOYEESTATUS = '1'
+                   AND (i.STRIAIPPERMISSIONS LIKE '%(142)%'
+                        OR i.STRIAIPPERMISSIONS LIKE '%(143)%'))
+            union
+            select
+                distinct
+                convert(varchar(max), NUMUSERID),
+                concat(STRLASTNAME, ', ', STRFIRSTNAME)
+            from EPDUSERPROFILES p
+                inner join SBEAPCASELOG l
+                    on p.NUMUSERID = l.NUMSTAFFRESPONSIBLE
+            order by UserName "
 
             With cboStaffResponsible
                 .DataSource = DB.GetDataTable(SQL)
@@ -102,7 +110,9 @@ Public Class SBEAPCaseWork
         End Try
     End Sub
 
-    Private Sub FormStatus(status As EnableOrDisable)
+    Private Sub FormStatus(enable As EnableOrDisable)
+        Dim status As Boolean = CBool(enable)
+
         tsbSave.Enabled = status
         txtCaseID.Enabled = status
         txtClientID.Enabled = status
@@ -1104,13 +1114,13 @@ Public Class SBEAPCaseWork
                 "((Select " &
                 "case " &
                 "when (select max(numCaseID) from SBEAPCaseLog) is Null then 1 " &
-                "else (select max(numCaseID) + 1 from SBEAPCaseLog) " &
+                "else (select max(convert(int, NUMCASEID)) + 1 from SBEAPCaseLog) " &
                 "End CaseID), " &
                 " @NUMSTAFFRESPONSIBLE, @DATCASEOPENED, @STRCASESUMMARY, null, @DATCASECLOSED, " &
                 " @NUMMODIFINGSTAFF, GETDATE(), @STRINTERAGENCY, @STRREFERRALCOMMENTS, @DATREFERRALDATE, " &
                 " @STRCOMPLAINTBASED, @STRCASECLOSURELETTERSENT) "
 
-                SQL2 = "Select max(numCaseID) as CaseID from SBEAPCaseLog "
+                SQL2 = "select max(convert(int, NUMCASEID)) as CaseID from SBEAPCASELOG"
             Else
                 SQL = "Update SBEAPCaseLog set " &
                 "numStaffResponsible = @numStaffResponsible, " &
@@ -1143,10 +1153,10 @@ Public Class SBEAPCaseWork
                 New SqlParameter("@NUMCASEID", txtCaseID.Text)
             }
 
-            DB.RunCommand(SQL, p, forceAddNullableParameters:=True)
+            DB.RunCommand(SQL, p)
 
             If SQL2 <> "" Then
-                txtCaseID.Text = DB.GetString(SQL2)
+                txtCaseID.Text = DB.GetInteger(SQL2).ToString
             End If
 
             If rdbSingleClient.Checked = True Then
@@ -1578,7 +1588,7 @@ Public Class SBEAPCaseWork
                 New SqlParameter("@STRMODIFINGSTAFF", CurrentUser.UserID)
             }
 
-            DB.RunCommand(SQL, p, forceAddNullableParameters:=True)
+            DB.RunCommand(SQL, p)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -1630,7 +1640,7 @@ Public Class SBEAPCaseWork
                 New SqlParameter("@STRMODIFINGSTAFF", CurrentUser.UserID)
             }
 
-            DB.RunCommand(SQL, p, forceAddNullableParameters:=True)
+            DB.RunCommand(SQL, p)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -1747,7 +1757,7 @@ Public Class SBEAPCaseWork
                 New SqlParameter("@STRMODIFINGSTAFF", CurrentUser.UserID)
             }
 
-            DB.RunCommand(SQL, p, forceAddNullableParameters:=True)
+            DB.RunCommand(SQL, p)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -1782,7 +1792,7 @@ Public Class SBEAPCaseWork
                 New SqlParameter("@STRMODIFINGSTAFF", CurrentUser.UserID)
             }
 
-            DB.RunCommand(SQL, p, forceAddNullableParameters:=True)
+            DB.RunCommand(SQL, p)
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try

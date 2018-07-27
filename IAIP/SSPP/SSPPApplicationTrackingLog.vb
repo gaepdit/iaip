@@ -4718,7 +4718,7 @@ Public Class SSPPApplicationTrackingLog
                     New SqlParameter("@updateuser", CurrentUser.UserID),
                     New SqlParameter("@appnumber", txtApplicationNumber.Text)
                 }
-                DB.RunCommand(query, parameters, forceAddNullableParameters:=True)
+                DB.RunCommand(query, parameters)
 
                 query = "Select " &
                 "datModifingdate " &
@@ -4959,7 +4959,7 @@ Public Class SSPPApplicationTrackingLog
                     New SqlParameter("@UserGCode", CurrentUser.UserID),
                     New SqlParameter("@txtApplicationNumber", txtApplicationNumber.Text)
                 }
-                DB.RunCommand(query, parameters, forceAddNullableParameters:=True)
+                DB.RunCommand(query, parameters)
 
                 ReceivedDate = DTPDateReceived.Text
                 SentByDate = DTPDateSent.Text
@@ -5082,7 +5082,7 @@ Public Class SSPPApplicationTrackingLog
                     New SqlParameter("@PNExpires", PNExpires),
                     New SqlParameter("@txtApplicationNumber", txtApplicationNumber.Text)
                 }
-                DB.RunCommand(query, parameters, forceAddNullableParameters:=True)
+                DB.RunCommand(query, parameters)
 
                 If lblLinkWarning.Visible = True Then
                     Dim LinkedApplication As String
@@ -5168,7 +5168,7 @@ Public Class SSPPApplicationTrackingLog
                                                New SqlParameter("@LinkedApplication", LinkedApplication)
                                            })
 
-                            DB.RunCommand(queriesList, parametersList, forceAddNullableParameters:=True)
+                            DB.RunCommand(queriesList, parametersList)
 
                             query = "Select " &
                                 "datToPMI, datToPMII " &
@@ -5178,7 +5178,7 @@ Public Class SSPPApplicationTrackingLog
 
                             Dim query2 As String = ""
 
-                            Dim dr As DataRow = DB.GetDataRow(query, parameters, forceAddNullableParameters:=True)
+                            Dim dr As DataRow = DB.GetDataRow(query, parameters)
 
                             If dr IsNot Nothing Then
                                 If IsDBNull(dr.Item("datToPMI")) Then
@@ -5197,7 +5197,7 @@ Public Class SSPPApplicationTrackingLog
                                     New SqlParameter("@ToPMII", ToPMII),
                                     New SqlParameter("@LinkedApplication", LinkedApplication)
                                 }
-                                DB.RunCommand(query2, parameters2, forceAddNullableParameters:=True)
+                                DB.RunCommand(query2, parameters2)
                             End If
 
                         End If
@@ -5393,7 +5393,7 @@ Public Class SSPPApplicationTrackingLog
                             New SqlParameter("@UserGCode", CurrentUser.UserID)
                         }
                     End If
-                    DB.RunCommand(query, parameter, forceAddNullableParameters:=True)
+                    DB.RunCommand(query, parameter)
 
                     LoadInformationRequestedHistory()
 
@@ -6336,7 +6336,7 @@ Public Class SSPPApplicationTrackingLog
                      New SqlParameter("@txtApplicationNumber", txtApplicationNumber.Text)
                     })
 
-                DB.RunCommand(queryList, paramsList, forceAddNullableParameters:=True)
+                DB.RunCommand(queryList, paramsList)
 
                 If lblLinkWarning.Visible = True Then
                     Dim LinkedApplication As String
@@ -6382,7 +6382,7 @@ Public Class SSPPApplicationTrackingLog
                                  New SqlParameter("@LinkedApplication", LinkedApplication)
                                 })
 
-                            DB.RunCommand(queryList, paramsList, forceAddNullableParameters:=True)
+                            DB.RunCommand(queryList, paramsList)
                         End If
                     Next
                 End If

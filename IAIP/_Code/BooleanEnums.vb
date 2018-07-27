@@ -1,23 +1,23 @@
 ﻿Public Module BooleanEnums
 
     Public Enum EnableOrDisable
-        Disable = False
-        Enable = True
+        Disable = 0
+        Enable = 1
     End Enum
 
     Public Enum OpenOrClosed
-        Closed = False
-        Open = True
+        Closed = 0
+        Open = 1
     End Enum
 
     Public Enum ActiveOrInactive
-        Inactive = False
-        Active = True
+        Inactive = 0
+        Active = 1
     End Enum
 
     Public Enum VisibleOrNot
-        NotVisible = False
-        Visible = True
+        NotVisible = 0
+        Visible = 1
     End Enum
 
 End Module

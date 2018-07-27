@@ -192,7 +192,7 @@ Public Class DMUIaipErrorLog
                 New SqlParameter("@errNum", txtErrorNumber.Text)
             }
 
-            DB.RunCommand(query, Parameters, forceAddNullableParameters:=True)
+            DB.RunCommand(query, Parameters)
 
             MessageBox.Show("Solution Saved", "Date Management Tools", MessageBoxButtons.OK)
         Else

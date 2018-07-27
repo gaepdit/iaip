@@ -901,6 +901,10 @@ Public Class IAIPNavigation
         End Try
     End Sub
 
+    Private Sub RunTest2_Click(sender As Object, e As EventArgs) Handles RunTest2.Click
+        Throw New Exception("Unhandled exception testing")
+    End Sub
+
 #End Region
 
 End Class

@@ -94,12 +94,12 @@ Public Class IAIPLookUpTables
             Dim role As DAL.EpdManagementTypes
             If [Enum].TryParse(txtApbManagementType.Text, role) Then
                 If DAL.SaveEpdManagerName(role, txtApbManagementName.Text) Then
-                    MessageBox.Show("Success!")
+                    MessageBox.Show("Success")
                 Else
-                    MessageBox.Show("Failure!")
+                    MessageBox.Show("Failure")
                 End If
             Else
-                MessageBox.Show("Did not recognize management type.")
+                MessageBox.Show("Did not recognize management type")
             End If
             LoadAPBManagement()
         End If

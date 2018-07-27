@@ -73,7 +73,7 @@ Public Class PASPFeeAuditLog
                 Try
                     Me.AirsNumber = CType(Parameters(FormParameter.AirsNumber), Apb.ApbFacilityId)
                     mtbAirsNumber.Text = Me.AirsNumber.FormattedString
-                Catch ex As Apb.InvalidAirsNumberException
+                Catch ex As ArgumentException
                     Me.AirsNumber = Nothing
                     mtbAirsNumber.Clear()
                 End Try
@@ -2467,7 +2467,7 @@ Public Class PASPFeeAuditLog
                 New SqlParameter("@STRCREDITCARDNO", txtTransactionCreditCardNo.Text)
             }
 
-            DB.RunCommand(SQL, params, forceAddNullableParameters:=True)
+            DB.RunCommand(SQL, params)
 
             SQL = "Select max(TransactionID) " &
             "from FS_TRANSACTIONS "
@@ -2670,7 +2670,7 @@ Public Class PASPFeeAuditLog
                 New SqlParameter("@TransactionID", txtTransactionID.Text)
             }
 
-            DB.RunCommand(SQL, p, forceAddNullableParameters:=True)
+            DB.RunCommand(SQL, p)
 
             InvoiceStatusCheck(txtInvoiceID.Text)
 
@@ -3116,7 +3116,7 @@ Public Class PASPFeeAuditLog
                     New SqlParameter("@ACTIVE", "1"),
                     New SqlParameter("@UPDATEUSER", CurrentUser.UserID)
                 }
-                DB.RunCommand(SQL, p4, forceAddNullableParameters:=True)
+                DB.RunCommand(SQL, p4)
 
                 Dim p5 As SqlParameter() = {
                     New SqlParameter("@AIRSNumber", AirsNumber.DbFormattedString),
@@ -4090,7 +4090,7 @@ Public Class PASPFeeAuditLog
                         New SqlParameter("@UpdateUser", CurrentUser.UserID),
                         New SqlParameter("@AuditID", txtAuditID.Text)
                     }
-                    DB.RunCommand(SQL, p1, forceAddNullableParameters:=True)
+                    DB.RunCommand(SQL, p1)
                 Else
                     SQL = "INSERT INTO FS_FEEAMENDMENT " &
                         "( AUDITID, STRAIRSNUMBER, NUMFEEYEAR, STRSYNTHETICMINOR, " &
@@ -4137,7 +4137,7 @@ Public Class PASPFeeAuditLog
                         New SqlParameter("@ACTIVE", "1"),
                         New SqlParameter("@UPDATEUSER", CurrentUser.UserID)
                     }
-                    DB.RunCommand(SQL, p4, forceAddNullableParameters:=True)
+                    DB.RunCommand(SQL, p4)
                 End If
 
                 Dim p5 As SqlParameter() = {
@@ -4214,7 +4214,7 @@ Public Class PASPFeeAuditLog
                 New SqlParameter("@updateuser", CurrentUser.UserID),
                 New SqlParameter("@AuditID", txtAuditID.Text)
             }
-            DB.RunCommand(SQL, p3, forceAddNullableParameters:=True)
+            DB.RunCommand(SQL, p3)
 
             If EndCollections = "True" Then
                 SQL = "update FS_Admin set " &
@@ -4855,7 +4855,7 @@ Public Class PASPFeeAuditLog
                 New SqlParameter("@updateUser", "IAIP||" & CurrentUser.AlphaName)
             }
 
-            DB.RunCommand(SQL, params, forceAddNullableParameters:=True)
+            DB.RunCommand(SQL, params)
 
             SQL = "Update FS_Admin set " &
             "datInitialEnrollment = datEnrollment " &

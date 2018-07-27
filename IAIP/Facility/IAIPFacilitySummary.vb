@@ -1120,7 +1120,7 @@ Public Class IAIPFacilitySummary
         Else
             Try
                 Me.AirsNumber = AirsNumberEntry.Text
-            Catch ex As InvalidAirsNumberException
+            Catch ex As ArgumentException
                 ClearAllData()
                 FacilityNameDisplay.Text = "Invalid AIRS number"
                 AirsNumberEntry.BackColor = Color.Bisque

@@ -624,7 +624,7 @@ Public Class IAIPFacilityCreator
                 New SqlParameter("@STRRMPID", RMPNumber)
             }
 
-            DB.RunCommand(SQL, p5, forceAddNullableParameters:=True)
+            DB.RunCommand(SQL, p5)
 
             SQL = "insert into APBContactInformation " &
             "(strContactKey, strAIRSNumber, strKey, " &

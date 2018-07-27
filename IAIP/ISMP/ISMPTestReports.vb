@@ -133,32 +133,29 @@ Public Class ISMPTestReports
 
             dtISMPUnits = DB.GetDataTable(query)
 
-            query = "SELECT DISTINCT concat(EPDUserProfiles.STRLASTNAME
-                , ', '
-                , EPDUserProfiles.STRFIRSTNAME) AS ComplianceManager,
-                EPDUserProfiles.NUMUSERID
-              FROM EPDUserProfiles,
-                IAIPPermissions
-              WHERE EPDUserProfiles.NUMUSERID        = IAIPPermissions.NUMUSERID
-              AND (EPDUserProfiles.NUMEMPLOYEESTATUS = '1'
-              AND (IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(19)%'
-              OR IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(27)%'
-              OR IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(21)%'
-              OR IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(23)%'
-              OR IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(25)%'
-              OR IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(79)%'
-              OR IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(80)%'
-              OR IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(81)%'
-              OR IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(82)%'
-              OR IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(83)%'
-              OR IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(84)%'
-              OR IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(85)%'
-              OR IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(86)%'
-              OR IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(133)%'
-              OR IAIPPermissions.STRIAIPPERMISSIONS LIKE '%(114)%'))
-              UNION
-              SELECT 'None', 0 
-              ORDER BY ComplianceManager"
+            query = "SELECT DISTINCT
+                concat(p.STRLASTNAME, ', ', p.STRFIRSTNAME) AS ComplianceManager,
+                p.NUMUSERID
+            FROM EPDUserProfiles p
+                inner join
+                IAIPPermissions i
+                    on p.NUMUSERID = i.NUMUSERID
+            where (p.NUMEMPLOYEESTATUS = '1'
+                    AND (i.STRIAIPPERMISSIONS LIKE '%(19)%'
+                        OR i.STRIAIPPERMISSIONS LIKE '%(27)%'
+                        OR i.STRIAIPPERMISSIONS LIKE '%(114)%'
+                        OR i.STRIAIPPERMISSIONS LIKE '%(133)%'
+                        OR i.STRIAIPPERMISSIONS LIKE '%(134)%'
+                        OR i.STRIAIPPERMISSIONS LIKE '%(135)%'
+                        OR i.STRIAIPPERMISSIONS LIKE '%(136)%'
+                        OR i.STRIAIPPERMISSIONS LIKE '%(137)%'
+                        OR i.STRIAIPPERMISSIONS LIKE '%(138)%'
+                        OR i.STRIAIPPERMISSIONS LIKE '%(140)%'))
+            UNION
+            SELECT
+                'None',
+                0
+            ORDER BY ComplianceManager"
 
             dtComplianceManager = DB.GetDataTable(query)
 
@@ -10368,7 +10365,7 @@ Public Class ISMPTestReports
                         New SqlParameter("@strTrackingNumber", txtTrackingNumber.Text)
                     }
 
-                    DB.RunCommand(query, p9, forceAddNullableParameters:=True)
+                    DB.RunCommand(query, p9)
 
                     query = "Select strTrackingNumber " &
                     "from SSCPTestReports " &
@@ -10391,7 +10388,7 @@ Public Class ISMPTestReports
                             New SqlParameter("@strTrackingNumber", txtTrackingNumber.Text)
                         }
 
-                        DB.RunCommand(query, p10, forceAddNullableParameters:=True)
+                        DB.RunCommand(query, p10)
                     End If
 
                     If txtAirsNumber.Text.Length = 8 Then
