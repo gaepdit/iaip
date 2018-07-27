@@ -2,6 +2,14 @@
 
 *Previously:* [2017](changelog-2017.html) | [2016](changelog-2016.html) | [2015](changelog-2015.html) | [2014](changelog-2014.html) | [2013](changelog-2013.html)
 
+## Version 5.7.3 <span>(2018-7-27)</span>
+
+Fixed lists of available staff in ISMP test report form and SBEAP case work form.
+
+## Version 5.7.2 <span>(2018-6-20)</span>
+
+Bug fixes and performance improvement.
+
 ## Version 5.7.0 <span>(2018-6-19)</span>
 
 Replaced some tools -- especially the Excel export tools -- with versions that are compatible with Office 365. Plus a few other bug fixes.
