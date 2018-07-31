@@ -80,7 +80,6 @@ Namespace DAL
                 "   RES_EVENT.STRVENUE, " &
                 "   RES_EVENT.NUMCAPACITY, " &
                 "   RES_EVENT.STRNOTES, " &
-                "   RES_EVENT.STRLOGINREQUIRED, " &
                 "   RES_EVENT.STRPASSCODE, " &
                 "   RES_EVENT.STRADDRESS, " &
                 "   RES_EVENT.STRCITY, " &
@@ -151,7 +150,6 @@ Namespace DAL
                 .EventId = CInt(row("NUMRES_EVENTID"))
                 .EventStatus = DBUtilities.GetNullable(Of String)(row("STREVENTSTATUS"))
                 .Title = DBUtilities.GetNullable(Of String)(row("STRTITLE"))
-                .LoginRequired = Convert.ToBoolean(Convert.ToInt32(DBUtilities.GetNullable(Of String)(row("STRLOGINREQUIRED"))))
                 .Notes = DBUtilities.GetNullable(Of String)(row("STRNOTES"))
                 .PassCode = DBUtilities.GetNullable(Of String)(row("STRPASSCODE"))
                 .StartDate = DBUtilities.GetNullable(Of Date)(row("DATSTARTDATE"))

@@ -1267,7 +1267,7 @@ Public Class SSCPFCEWork
                 Dim FCEYear As String = cboFCEYear.Text
 
                 If txtFCENumber.Text = "" Then
-                    SQL = "Select Max(strFCENumber) as FCENumber from SSCPFCEMaster "
+                    SQL = "select MAX(STRFCENUMBER) from AFSSSCPFCERECORDS"
                     FCENumber = DB.GetInteger(SQL) + 1
 
                     sqlList.Add("Insert into SSCPFCEMaster " &

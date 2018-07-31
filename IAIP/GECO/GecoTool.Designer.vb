@@ -43,6 +43,7 @@ Partial Class GecoTool
         Me.pnlUserFacility = New System.Windows.Forms.Panel()
         Me.dgvUserFacilities = New System.Windows.Forms.DataGridView()
         Me.pnlUserInfo = New System.Windows.Forms.Panel()
+        Me.lblChangeEmailAddress = New System.Windows.Forms.Label()
         Me.btnChangeEmailAddress = New System.Windows.Forms.Button()
         Me.mtbFacilityToAdd = New System.Windows.Forms.MaskedTextBox()
         Me.txtEditEmail = New System.Windows.Forms.TextBox()
@@ -51,10 +52,8 @@ Partial Class GecoTool
         Me.Label75 = New System.Windows.Forms.Label()
         Me.lblLastLogIn = New System.Windows.Forms.Label()
         Me.btnDeleteFacilityUser = New System.Windows.Forms.Button()
-        Me.txtEditUserPassword = New System.Windows.Forms.TextBox()
         Me.btnUpdateUser = New System.Windows.Forms.Button()
         Me.Label53 = New System.Windows.Forms.Label()
-        Me.btnUpdatePassword = New System.Windows.Forms.Button()
         Me.btnAddFacilitytoUser = New System.Windows.Forms.Button()
         Me.txtWebUserID = New System.Windows.Forms.TextBox()
         Me.btnSaveEditedData = New System.Windows.Forms.Button()
@@ -290,6 +289,7 @@ Partial Class GecoTool
         '
         'pnlUserInfo
         '
+        Me.pnlUserInfo.Controls.Add(Me.lblChangeEmailAddress)
         Me.pnlUserInfo.Controls.Add(Me.btnChangeEmailAddress)
         Me.pnlUserInfo.Controls.Add(Me.mtbFacilityToAdd)
         Me.pnlUserInfo.Controls.Add(Me.txtEditEmail)
@@ -298,10 +298,8 @@ Partial Class GecoTool
         Me.pnlUserInfo.Controls.Add(Me.Label75)
         Me.pnlUserInfo.Controls.Add(Me.lblLastLogIn)
         Me.pnlUserInfo.Controls.Add(Me.btnDeleteFacilityUser)
-        Me.pnlUserInfo.Controls.Add(Me.txtEditUserPassword)
         Me.pnlUserInfo.Controls.Add(Me.btnUpdateUser)
         Me.pnlUserInfo.Controls.Add(Me.Label53)
-        Me.pnlUserInfo.Controls.Add(Me.btnUpdatePassword)
         Me.pnlUserInfo.Controls.Add(Me.btnAddFacilitytoUser)
         Me.pnlUserInfo.Controls.Add(Me.txtWebUserID)
         Me.pnlUserInfo.Controls.Add(Me.btnSaveEditedData)
@@ -332,11 +330,20 @@ Partial Class GecoTool
         Me.pnlUserInfo.Size = New System.Drawing.Size(857, 366)
         Me.pnlUserInfo.TabIndex = 151
         '
+        'lblChangeEmailAddress
+        '
+        Me.lblChangeEmailAddress.AutoSize = True
+        Me.lblChangeEmailAddress.Location = New System.Drawing.Point(510, 74)
+        Me.lblChangeEmailAddress.Name = "lblChangeEmailAddress"
+        Me.lblChangeEmailAddress.Size = New System.Drawing.Size(173, 26)
+        Me.lblChangeEmailAddress.TabIndex = 284
+        Me.lblChangeEmailAddress.Text = "User will be required to confirm this " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "email address before it is active."
+        '
         'btnChangeEmailAddress
         '
         Me.btnChangeEmailAddress.AutoSize = True
         Me.btnChangeEmailAddress.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnChangeEmailAddress.Location = New System.Drawing.Point(513, 121)
+        Me.btnChangeEmailAddress.Location = New System.Drawing.Point(513, 48)
         Me.btnChangeEmailAddress.Name = "btnChangeEmailAddress"
         Me.btnChangeEmailAddress.Size = New System.Drawing.Size(123, 23)
         Me.btnChangeEmailAddress.TabIndex = 16
@@ -355,7 +362,7 @@ Partial Class GecoTool
         '
         'txtEditEmail
         '
-        Me.txtEditEmail.Location = New System.Drawing.Point(513, 95)
+        Me.txtEditEmail.Location = New System.Drawing.Point(513, 22)
         Me.txtEditEmail.Name = "txtEditEmail"
         Me.txtEditEmail.Size = New System.Drawing.Size(208, 20)
         Me.txtEditEmail.TabIndex = 15
@@ -381,11 +388,11 @@ Partial Class GecoTool
         'Label75
         '
         Me.Label75.AutoSize = True
-        Me.Label75.Location = New System.Drawing.Point(9, 335)
+        Me.Label75.Location = New System.Drawing.Point(20, 333)
         Me.Label75.Name = "Label75"
-        Me.Label75.Size = New System.Drawing.Size(150, 13)
+        Me.Label75.Size = New System.Drawing.Size(153, 13)
         Me.Label75.TabIndex = 283
-        Me.Label75.Text = "Delete a Facility for this User:  "
+        Me.Label75.Text = "Delete a facility from this user:  "
         '
         'lblLastLogIn
         '
@@ -405,14 +412,6 @@ Partial Class GecoTool
         Me.btnDeleteFacilityUser.Text = "Remove Facility for this User"
         Me.btnDeleteFacilityUser.UseVisualStyleBackColor = True
         '
-        'txtEditUserPassword
-        '
-        Me.txtEditUserPassword.Location = New System.Drawing.Point(513, 18)
-        Me.txtEditUserPassword.Name = "txtEditUserPassword"
-        Me.txtEditUserPassword.Size = New System.Drawing.Size(198, 20)
-        Me.txtEditUserPassword.TabIndex = 13
-        Me.txtEditUserPassword.Visible = False
-        '
         'btnUpdateUser
         '
         Me.btnUpdateUser.Location = New System.Drawing.Point(615, 329)
@@ -425,23 +424,11 @@ Partial Class GecoTool
         'Label53
         '
         Me.Label53.AutoSize = True
-        Me.Label53.Location = New System.Drawing.Point(8, 306)
+        Me.Label53.Location = New System.Drawing.Point(49, 306)
         Me.Label53.Name = "Label53"
-        Me.Label53.Size = New System.Drawing.Size(164, 13)
+        Me.Label53.Size = New System.Drawing.Size(124, 13)
         Me.Label53.TabIndex = 276
-        Me.Label53.Text = "Add a Facility to the above User: "
-        '
-        'btnUpdatePassword
-        '
-        Me.btnUpdatePassword.AutoSize = True
-        Me.btnUpdatePassword.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnUpdatePassword.Location = New System.Drawing.Point(513, 44)
-        Me.btnUpdatePassword.Name = "btnUpdatePassword"
-        Me.btnUpdatePassword.Size = New System.Drawing.Size(103, 23)
-        Me.btnUpdatePassword.TabIndex = 14
-        Me.btnUpdatePassword.Text = "Change Password"
-        Me.btnUpdatePassword.UseVisualStyleBackColor = True
-        Me.btnUpdatePassword.Visible = False
+        Me.Label53.Text = "Add a facility to this user:"
         '
         'btnAddFacilitytoUser
         '
@@ -750,10 +737,8 @@ Partial Class GecoTool
     Friend WithEvents Label75 As Label
     Friend WithEvents lblLastLogIn As Label
     Friend WithEvents btnDeleteFacilityUser As Button
-    Friend WithEvents txtEditUserPassword As TextBox
     Friend WithEvents btnUpdateUser As Button
     Friend WithEvents Label53 As Label
-    Friend WithEvents btnUpdatePassword As Button
     Friend WithEvents btnAddFacilitytoUser As Button
     Friend WithEvents txtWebUserID As TextBox
     Friend WithEvents btnSaveEditedData As Button
@@ -783,4 +768,5 @@ Partial Class GecoTool
     Friend WithEvents txtWebUserEmail As TextBox
     Friend WithEvents btnViewUserData As Button
     Friend WithEvents btnViewEmailData As Button
+    Friend WithEvents lblChangeEmailAddress As Label
 End Class

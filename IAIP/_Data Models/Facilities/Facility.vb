@@ -1,7 +1,4 @@
-﻿Imports System.Collections.Generic
-Imports System.Linq
-
-Namespace Apb.Facilities
+﻿Namespace Apb.Facilities
 
     ''' <summary>
     ''' Basic information about a stationary source.

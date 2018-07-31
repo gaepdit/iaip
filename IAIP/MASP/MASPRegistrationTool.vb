@@ -20,8 +20,6 @@ Public Class MASPRegistrationTool
         LoadComboBoxes()
         LoadEvent()
 
-        lblEventTitle.Text = ""
-        lblEventDate.Text = ""
         btnViewDetails.Enabled = False
         btnDeleteEvent.Enabled = False
         btnUpdateEvent.Enabled = False
@@ -168,14 +166,10 @@ Public Class MASPRegistrationTool
             If dgvEvents.SelectedCells.Count > 0 Then
                 Dim selectedRow As DataGridViewRow = dgvEvents.Rows(dgvEvents.CurrentCell.RowIndex)
                 selectedEventId = selectedRow.Cells("NUMRES_EVENTID").Value
-                lblEventTitle.Text = selectedRow.Cells("STRTITLE").Value
-                lblEventDate.Text = CType(selectedRow.Cells("DATSTARTDATE").Value, Date).ToString(DateFormat)
                 btnViewDetails.Enabled = True
             Else
                 selectedEventId = Nothing
                 ClearEventSelection()
-                lblEventTitle.Text = ""
-                lblEventDate.Text = ""
                 btnViewDetails.Enabled = False
             End If
         Catch ex As Exception
@@ -210,7 +204,6 @@ Public Class MASPRegistrationTool
     End Sub
 
     Private Sub LoadEventOverviewDetails()
-
         If selectedEvent IsNot Nothing Then
             txtOvEvent.Text = selectedEvent.Title
             txtOvDescription.Text = selectedEvent.Description
@@ -218,14 +211,20 @@ Public Class MASPRegistrationTool
             If selectedEvent.StartTime IsNot Nothing Then
                 txtOvEventDateTime.Text &= ", " & selectedEvent.StartTime
             End If
-            chbOvLoginRequired.Checked = selectedEvent.LoginRequired
-            txtOvPassCode.Text = selectedEvent.PassCode
+            If selectedEvent.PassCode = "1" Then
+                txtOvPassCode.Text = "(none)"
+            Else
+                txtOvPassCode.Text = selectedEvent.PassCode
+            End If
             txtOvEventStatus.Text = selectedEvent.EventStatus
             txtOvEventCapacity.Text = selectedEvent.Capacity.ToString
             txtOvVenue.Text = selectedEvent.Venue & vbCrLf & selectedEvent.Address.ToString
             txtOvNotes.Text = selectedEvent.Notes
             txtOvWebContact.Text = selectedEvent.WebContact.ToString
             txtOvAPBContact.Text = selectedEvent.Contact.ToString
+
+            Dim link As New Uri(GecoUrl, $"/EventRegistration/Details.aspx?eventid={selectedEventId}")
+            lnkGecoLink.Text = link.ToString
         End If
     End Sub
 
@@ -337,7 +336,6 @@ Public Class MASPRegistrationTool
                            strVenue,
                            numCapacity,
                            strNotes,
-                           strLoginRequired,
                            strPassCode,
                            strAddress,
                            strCity,
@@ -402,21 +400,12 @@ Public Class MASPRegistrationTool
                 Else
                     txtEventNotes.Text = dr.Item("strNotes")
                 End If
-                If IsDBNull(dr.Item("strPassCode")) Then
+                If IsDBNull(dr.Item("strPassCode")) OrElse dr.Item("strPassCode") = "1" Then
                     chbEventPasscode.Text = ""
                     chbEventPasscode.Checked = False
                 Else
                     chbEventPasscode.Text = dr.Item("strPassCode")
                     chbEventPasscode.Checked = True
-                End If
-                If IsDBNull(dr.Item("strLoginRequired")) Then
-                    chbEventPasscode.Checked = False
-                Else
-                    If dr.Item("strLogInRequired") = "1" Then
-                        chbEventPasscode.Checked = True
-                    Else
-                        chbEventPasscode.Checked = False
-                    End If
                 End If
                 If IsDBNull(dr.Item("strAddress")) Then
                     txtEventAddress.Clear()
@@ -991,8 +980,6 @@ Would you like to continue?", "Event is at Capacity", MessageBoxButtons.YesNo, M
                             EventEndTime As String, WebURL As String)
 
         Try
-            Dim LogInRequired As String = "0"
-
             If PassCodeRequired = "" Then
                 PassCode = "1"
             Else
@@ -1011,7 +998,7 @@ Would you like to continue?", "Event is at Capacity", MessageBoxButtons.YesNo, M
                      "numCapacity, strNotes, " &
                      "strMultipleregistrations, Active, " &
                      "createDateTime, UpdateUser, " &
-                     "UpdateDateTime, strLogInRequired, " &
+                     "UpdateDateTime, " &
                      "strPassCode, strAddress, " &
                      "strCity, strState, " &
                      "numZipCode, numAPBContact, " &
@@ -1028,7 +1015,7 @@ Would you like to continue?", "Event is at Capacity", MessageBoxButtons.YesNo, M
                      "@numCapacity, @strNotes, " &
                      "null, @Active, " &
                      "getdate(), @UpdateUser, " &
-                     "getdate(), @strLogInRequired, " &
+                     "getdate(), " &
                      "@strPassCode, @strAddress, " &
                      "@strCity, @strState, " &
                      "@numZipCode, @numAPBContact, " &
@@ -1047,7 +1034,6 @@ Would you like to continue?", "Event is at Capacity", MessageBoxButtons.YesNo, M
                 New SqlParameter("@strNotes", Notes),
                 New SqlParameter("@Active", Active),
                 New SqlParameter("@UpdateUser", CurrentUser.UserID),
-                New SqlParameter("@strLogInRequired", LogInRequired),
                 New SqlParameter("@strPassCode", PassCode),
                 New SqlParameter("@strAddress", Address),
                 New SqlParameter("@strCity", City),
@@ -1165,9 +1151,6 @@ Would you like to continue?", "Event is at Capacity", MessageBoxButtons.YesNo, M
                 End If
             End If
 
-            Dim LogInRequired As String = "1"
-            SQL = SQL & "strLogInRequired = @LogInRequired, "
-
             If IsDBNull(PassCodeRequired) Then
                 SQL = SQL & "strPasscode = '1', "
             Else
@@ -1222,7 +1205,6 @@ Would you like to continue?", "Event is at Capacity", MessageBoxButtons.YesNo, M
                     New SqlParameter("@Notes", Notes),
                     New SqlParameter("@APBContact", APBContact),
                     New SqlParameter("@WebContact", WebContact),
-                    New SqlParameter("@LogInRequired", LogInRequired),
                     New SqlParameter("@PassCodeRequired", PassCodeRequired),
                     New SqlParameter("@PassCode", PassCode),
                     New SqlParameter("@Active", Active),
@@ -1277,6 +1259,10 @@ Would you like to continue?", "Event is at Capacity", MessageBoxButtons.YesNo, M
         Dim parameter As New SqlParameter("@id", id)
         Return DB.GetBoolean(query, parameter)
     End Function
+
+    Private Sub lnkGecoLink_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lnkGecoLink.LinkClicked
+        OpenUri(New Uri(lnkGecoLink.Text))
+    End Sub
 
 #End Region
 

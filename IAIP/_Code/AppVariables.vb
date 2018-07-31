@@ -22,6 +22,7 @@ Module AppVariables
     Friend MapUrlFragment As String = "http://maps.google.com/maps?q="
     Friend PermitSearchUrlFragment As String = "http://permitsearch.gaepd.org/?AirsNumber="
     Friend VesaUrl As New Uri("https://vnap.cloudapp.net/vnap")
+    Friend ReadOnly GecoUrl As New Uri(ConfigurationManager.AppSettings("GecoUrl"))
 
 #End Region
 
