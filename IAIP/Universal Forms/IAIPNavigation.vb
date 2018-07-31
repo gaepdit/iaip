@@ -432,7 +432,7 @@ Public Class IAIPNavigation
         pnlCurrentList.Enabled = False
         btnLoadNavWorkList.Text = "Loading…"
         btnLoadNavWorkList.Enabled = False
-        btnExportToExcel.Enabled = False
+        btnExportToExcel.Visible = False
         btnExportToExcel.Text = ""
 
         ClearQuickAccessTool()
@@ -459,7 +459,7 @@ Public Class IAIPNavigation
             dgvWorkViewer.Visible = True
             lblMessageLabel.Visible = False
             lblMessageLabel.Text = ""
-            btnExportToExcel.Enabled = True
+            btnExportToExcel.Visible = True
             btnExportToExcel.Text = WorkViewerTable.Rows.Count & " results"
             FormatWorkViewer()
         Else
@@ -467,7 +467,7 @@ Public Class IAIPNavigation
             dgvWorkViewer.Visible = False
             lblMessageLabel.Visible = True
             lblMessageLabel.Text = "No data to display"
-            btnExportToExcel.Enabled = False
+            btnExportToExcel.Visible = False
             btnExportToExcel.Text = ""
         End If
     End Sub
