@@ -526,6 +526,8 @@ Public Class SSCPComplianceLog
                     Dim sqlList As New List(Of String)
                     Dim paramList As New List(Of SqlParameter())
 
+                    ' Don't delete from AFS table. This table is used to generate the 'delete'
+                    ' command for ICIS-Air
                     'sqlList.Add("Delete AFSSSCPFCERecords where strFCENumber = @num")
                     'paramList.Add({p})
 
