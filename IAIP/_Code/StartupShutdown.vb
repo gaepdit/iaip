@@ -69,7 +69,7 @@ Friend Module StartupShutdown
 
     Private Sub CheckLanguageRegistrySetting()
         Dim currentSetting As String
-        currentSetting = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Environment", "NLS_LANG", Nothing).ToString
+        currentSetting = My.Computer.Registry.GetValue("HKEY_CURRENT_USER\Environment", "NLS_LANG", Nothing)?.ToString
         If currentSetting Is Nothing Or currentSetting <> "AMERICAN" Then
             My.Computer.Registry.SetValue("HKEY_CURRENT_USER\Environment", "NLS_LANG", "AMERICAN")
             Application.Restart()
