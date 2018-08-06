@@ -1,6 +1,7 @@
+Imports System.Collections.Generic
+Imports System.ComponentModel
 Imports Iaip.Apb
 Imports Iaip.Apb.Facilities
-Imports System.Collections.Generic
 
 Public Class IAIPEditHeaderData
 
@@ -60,13 +61,15 @@ Public Class IAIPEditHeaderData
     Private Sub BindFacilityHistoryDisplay(dt As DataTable)
         FacilityHistoryDataGridView.DataSource = dt
 
+        FacilityHistoryDataGridView.Columns("STRKEY").HeaderText = "Key"
+        FacilityHistoryDataGridView.Columns("STRKEY").DisplayIndex = 0
         FacilityHistoryDataGridView.Columns("WhoModified").HeaderText = "Modified By"
-        FacilityHistoryDataGridView.Columns("WhoModified").DisplayIndex = 0
+        FacilityHistoryDataGridView.Columns("WhoModified").DisplayIndex = 1
         FacilityHistoryDataGridView.Columns("DATMODIFINGDATE").HeaderText = "Date Modified"
-        FacilityHistoryDataGridView.Columns("DATMODIFINGDATE").DisplayIndex = 1
+        FacilityHistoryDataGridView.Columns("DATMODIFINGDATE").DisplayIndex = 2
         FacilityHistoryDataGridView.Columns("DATMODIFINGDATE").DefaultCellStyle.Format = DateFormat
         FacilityHistoryDataGridView.Columns("STRMODIFINGLOCATION").HeaderText = "Modified From"
-        FacilityHistoryDataGridView.Columns("STRMODIFINGLOCATION").DisplayIndex = 2
+        FacilityHistoryDataGridView.Columns("STRMODIFINGLOCATION").DisplayIndex = 3
         FacilityHistoryDataGridView.Columns("STROPERATIONALSTATUS").HeaderText = "Operating Status"
         FacilityHistoryDataGridView.Columns("STRCLASS").HeaderText = "Classification"
         FacilityHistoryDataGridView.Columns("STRCOMMENTS").HeaderText = "Comments"
@@ -80,7 +83,6 @@ Public Class IAIPEditHeaderData
         FacilityHistoryDataGridView.Columns("STRRMPID").HeaderText = "RMP ID"
         FacilityHistoryDataGridView.Columns("STRCMSMEMBER").HeaderText = "CMS"
 
-        FacilityHistoryDataGridView.Columns("STRKEY").Visible = False
         FacilityHistoryDataGridView.Columns("STRAIRSNUMBER").Visible = False
         FacilityHistoryDataGridView.Columns("STRAIRPROGRAMCODES").Visible = False
         FacilityHistoryDataGridView.Columns("STRSTATEPROGRAMCODES").Visible = False
@@ -90,7 +92,7 @@ Public Class IAIPEditHeaderData
         FacilityHistoryDataGridView.Columns("STRFIRSTNAME").Visible = False
         FacilityHistoryDataGridView.Columns("STRMODIFINGPERSON").Visible = False
 
-        FacilityHistoryDataGridView.Sort(FacilityHistoryDataGridView.Columns("DATMODIFINGDATE"), ComponentModel.ListSortDirection.Descending)
+        FacilityHistoryDataGridView.Sort(FacilityHistoryDataGridView.Columns("STRKEY"), ListSortDirection.Descending)
         FacilityHistoryDataGridView.SanelyResizeColumns()
 
         AddHandler FacilityHistoryDataGridView.CurrentCellChanged, AddressOf FacilityHistoryDataGridView_CurrentCellChanged
