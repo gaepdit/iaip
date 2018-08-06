@@ -1,8 +1,9 @@
 ﻿Imports System.Data.SqlClient
-Imports Iaip.Apb
-Imports Iaip.Apb.Facilities
-Imports EpdIt
 Imports System.Text.RegularExpressions
+Imports EpdIt
+Imports Iaip.Apb
+Imports Iaip.Apb.ApbFacilityId
+Imports Iaip.Apb.Facilities
 
 Namespace DAL
     Module FacilityData
@@ -28,7 +29,7 @@ Namespace DAL
         ''' <returns>True if the AIRS number exists; otherwise false.</returns>
         ''' <remarks>Looks for value in APBMASTERAIRS table. Does not make any judgments about state of facility otherwise.</remarks>
         Public Function AirsNumberExists(airsNumber As String) As Boolean
-            If String.IsNullOrEmpty(airsNumber) Then Return False
+            If Not IsValidAirsNumberFormat(airsNumber) Then Return False
             Return AirsNumberExists(New ApbFacilityId(airsNumber))
         End Function
 

@@ -249,7 +249,7 @@ Public Class PASPDepositsAmendments
                     MsgBox("Select a year to check for invoices.", MsgBoxStyle.Information, "PASP Deposit Amendments")
                 End If
             Else
-                MsgBox("Please enter an AIRS # to check for invoices.", MsgBoxStyle.Information, "PASP Deposit Amendments")
+                MsgBox("Please enter a valid AIRS # to check for invoices.", MsgBoxStyle.Information, "PASP Deposit Amendments")
             End If
 
         Catch ex As Exception
