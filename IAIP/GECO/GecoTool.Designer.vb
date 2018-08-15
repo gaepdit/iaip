@@ -163,7 +163,7 @@ Partial Class GecoTool
         'lblFacility
         '
         Me.lblFacility.AutoSize = True
-        Me.lblFacility.Location = New System.Drawing.Point(15, 141)
+        Me.lblFacility.Location = New System.Drawing.Point(15, 139)
         Me.lblFacility.Name = "lblFacility"
         Me.lblFacility.Size = New System.Drawing.Size(89, 13)
         Me.lblFacility.TabIndex = 289

@@ -223,24 +223,15 @@ Public Class IAIPEditFacilityLocation
             New SqlParameter("@strAIRSNumber", AirsNumber.DbFormattedString)
         }
 
-        Dim queryList As New Generic.List(Of String)
-        queryList.Add(query1)
+        Dim queryList As New Generic.List(Of String) From {
+            query1
+        }
 
-        Dim paramsList As New Generic.List(Of SqlParameter())
-        paramsList.Add(params1)
+        Dim paramsList As New Generic.List(Of SqlParameter()) From {
+            params1
+        }
 
         If FacilityName <> "" Then
-            Dim query2 As String = "Update OLAPUserAccess set " &
-                "strFacilityName = @strFacilityName " &
-                "where strAIRSNumber = @strAIRSNumber "
-            Dim params2 As SqlParameter() = {
-                New SqlParameter("@strFacilityName", FacilityName),
-                New SqlParameter("@strAIRSNumber", AirsNumber.DbFormattedString)
-            }
-
-            queryList.Add(query2)
-            paramsList.Add(params2)
-
             Dim query3 As String = "Update EIS_FacilitySite set " &
                 "strFacilitySiteName = @strFacilitySiteName, " &
                 "strFacilitySiteComment = 'Facility Name updated.', " &

@@ -6588,14 +6588,6 @@ Public Class SSPPApplicationTrackingLog
                  New SqlParameter("@airs", "0413" & txtAIRSNumber.Text)
                 })
 
-            queryList.Add("Update OLAPUserAccess set " &
-            "strFacilityName = @FacilityName " &
-            "where strAIRSNumber = @airs ")
-            paramsList.Add(
-                {New SqlParameter("@FacilityName", FacilityName),
-                 New SqlParameter("@airs", "0413" & txtAIRSNumber.Text)
-                })
-
             queryList.Add("Update APBHeaderData set " &
             "strOperationalStatus = @OpStatus , " &
             "strClass = @Classification , " &
