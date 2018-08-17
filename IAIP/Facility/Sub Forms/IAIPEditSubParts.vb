@@ -42,37 +42,8 @@ Public Class IAIPEditSubParts
         AirsNumberDisplay.Text = ""
         txtFacilityName.Text = ""
         SetPermissions()
-        SetUpDataGridViews()
         SetUpComboBoxes()
         SetUpCheckListBoxes()
-        TCSubparts.TabPages.Remove(TPEditSubParts)
-    End Sub
-
-    Private Sub SetUpDataGridViews()
-        With dgvNSPS
-            .DataSource = GetSharedData(SharedDataSet.RuleSubparts)
-            .DataMember = RulePart.NSPS.ToString
-            .Columns("Long Description").Visible = False
-            .SanelyResizeColumns()
-        End With
-        With dgvNESHAP
-            .DataSource = GetSharedData(SharedDataSet.RuleSubparts)
-            .DataMember = RulePart.NESHAP.ToString
-            .Columns("Long Description").Visible = False
-            .SanelyResizeColumns()
-        End With
-        With dgvMACT
-            .DataSource = GetSharedData(SharedDataSet.RuleSubparts)
-            .DataMember = RulePart.MACT.ToString
-            .Columns("Long Description").Visible = False
-            .SanelyResizeColumns()
-        End With
-        With dgvSIP
-            .DataSource = GetSharedData(SharedDataSet.RuleSubparts)
-            .DataMember = RulePart.SIP.ToString
-            .Columns("Long Description").Visible = False
-            .SanelyResizeColumns()
-        End With
     End Sub
 
     Private Sub SetUpComboBoxes()
@@ -133,8 +104,7 @@ Public Class IAIPEditSubParts
 
     Private Sub DisableSaving()
         DisableControls({btnSaveSIPSubpart, btnRemoveSIPSubpart, btnSaveNSPSSubpart, btnRemoveNSPSSubpart,
-                        btnSaveNESHAPSubpart, btnRemoveNESHAPSubpart, btnAddMACTSubpart, btnRemoveMACTSubPart,
-                        btnEditSIP, btnEditNSPS, btnEditNESHAP, btnEditMACT})
+                        btnSaveNESHAPSubpart, btnRemoveNESHAPSubpart, btnAddMACTSubpart, btnRemoveMACTSubPart})
     End Sub
 
 #End Region
@@ -166,12 +136,12 @@ Public Class IAIPEditSubParts
                 If IsDBNull(dr.Item("strFacilityName")) Then
                     txtFacilityName.Text = "ERROR"
                 Else
-                    txtFacilityName.Text = dr.Item("strFacilityName")
+                    txtFacilityName.Text = dr.Item("strFacilityName").ToString
                 End If
                 If IsDBNull(dr.Item("strAirProgramCodes")) Then
                     AirProgramCodes = "000000000000000"
                 Else
-                    AirProgramCodes = dr.Item("strAirProgramCodes")
+                    AirProgramCodes = dr.Item("strAirProgramCodes").ToString
                 End If
             Else
                 txtFacilityName.Text = "ERROR"
@@ -191,9 +161,9 @@ Public Class IAIPEditSubParts
 
             For Each dr2 As DataRow In dt.Rows
                 If Not IsDBNull(dr2.Item("strSubPartKey")) AndAlso Not IsDBNull(dr2.Item("strSubPart")) Then
-                    subpart = dr2.Item("strSubPart")
+                    subpart = dr2.Item("strSubPart").ToString
 
-                    Select Case Mid(dr2.Item("strSubPartKey"), 13)
+                    Select Case Mid(dr2.Item("strSubPartKey").ToString, 13).ToString
                         Case "0"
                             LoadDescription(subpart, RulePart.SIP)
                         Case "9"
@@ -230,7 +200,7 @@ Public Class IAIPEditSubParts
     Private Sub LoadDescription(subpart As String, rulePart As RulePart)
         Dim dr As DataRow = GetSharedData(SharedDataSet.RuleSubparts).Tables(rulePart.ToString).Rows.Find(subpart)
         If dr IsNot Nothing Then
-            Dim spi As New SubpartItem(dr(0), dr(1))
+            Dim spi As New SubpartItem(dr(0).ToString, dr(1).ToString)
             Select Case rulePart
                 Case RulePart.SIP
                     If Not clbSIP.Items.Contains(spi) Then
@@ -263,16 +233,16 @@ Public Class IAIPEditSubParts
         Select Case rulePart
             Case RulePart.MACT
                 key = AirsNumber.DbFormattedString & "M"
-                subpart = cboMACTSubPart.SelectedValue
+                subpart = cboMACTSubPart.SelectedValue.ToString
             Case RulePart.NESHAP
                 key = AirsNumber.DbFormattedString & "8"
-                subpart = cboNESHAPSubpart.SelectedValue
+                subpart = cboNESHAPSubpart.SelectedValue.ToString
             Case RulePart.NSPS
                 key = AirsNumber.DbFormattedString & "9"
-                subpart = cboNSPSSubpart.SelectedValue
+                subpart = cboNSPSSubpart.SelectedValue.ToString
             Case RulePart.SIP
                 key = AirsNumber.DbFormattedString & "0"
-                subpart = cboSIPSubpart.SelectedValue
+                subpart = cboSIPSubpart.SelectedValue.ToString
         End Select
 
         Dim SqlList As New List(Of String)
@@ -415,140 +385,6 @@ Public Class IAIPEditSubParts
         If clbMACT.CheckedItems.Count > 0 Then
             RemoveSubpartFromFacility(RulePart.MACT)
         End If
-    End Sub
-
-#End Region
-
-#Region " Subpart editing "
-
-    Private Sub btnEditSIP_Click(sender As Object, e As EventArgs) Handles btnEditSIP.Click
-        UpdateSubpart(RulePart.SIP)
-    End Sub
-
-    Private Sub btnEditNSPS_Click(sender As Object, e As EventArgs) Handles btnEditNSPS.Click
-        UpdateSubpart(RulePart.NSPS)
-    End Sub
-
-    Private Sub btnEditNESHAP_Click(sender As Object, e As EventArgs) Handles btnEditNESHAP.Click
-        UpdateSubpart(RulePart.NESHAP)
-    End Sub
-
-    Private Sub btnEditMACT_Click(sender As Object, e As EventArgs) Handles btnEditMACT.Click
-        UpdateSubpart(RulePart.MACT)
-    End Sub
-
-    Private Sub UpdateSubpart(rulePart As RulePart)
-        Dim tableName As String = ""
-        Dim spi As New SubpartItem
-
-        Select Case rulePart
-            Case RulePart.MACT
-                spi = New SubpartItem(txtMACTCode.Text, txtMACTDescription.Text)
-                tableName = "LOOKUPSUBPART63"
-            Case RulePart.NESHAP
-                spi = New SubpartItem(txtNESHAPCode.Text, txtNESHAPDescription.Text)
-                tableName = "LOOKUPSUBPART61"
-            Case RulePart.NSPS
-                spi = New SubpartItem(txtNSPSCode.Text, txtNSPSDescription.Text)
-                tableName = "LOOKUPSUBPART60"
-            Case RulePart.SIP
-                spi = New SubpartItem(txtSIPCode.Text, txtSIPDescription.Text)
-                tableName = "LOOKUPSUBPARTSIP"
-        End Select
-
-        If Not (String.IsNullOrWhiteSpace(spi.Subpart) Or String.IsNullOrWhiteSpace(spi.Description)) Then
-
-            Dim SQL As String = "Select 1 From " & tableName & " where strSubpart = @subpart COLLATE Latin1_General_100_CS_AS "
-
-            Dim p As SqlParameter() = {
-                New SqlParameter("@subpart", spi.Subpart),
-                New SqlParameter("@desc", spi.Description)
-            }
-
-            If DB.ValueExists(SQL, p) Then
-                SQL = "Update " & tableName & " set " &
-                    "strDescription = @desc " &
-                    "where strSubpart = @subpart COLLATE Latin1_General_100_CS_AS "
-            Else
-                SQL = "Insert into " & tableName &
-                    "(strSubpart, strDescription) " &
-                    "values " &
-                    "(@subpart, @desc) "
-            End If
-
-            If DB.RunCommand(SQL, p) Then
-                Dim dr As DataRow = GetSharedData(SharedDataSet.RuleSubparts).Tables(rulePart.ToString).Rows.Find(spi.Subpart)
-
-                If dr Is Nothing Then
-                    GetSharedData(SharedDataSet.RuleSubparts).Tables(rulePart.ToString).Rows.Add({spi.Subpart, spi.Description, spi.LongDescription})
-                Else
-                    dr.Item("Description") = spi.Description
-                    dr.Item("Long Description") = spi.LongDescription
-                End If
-
-                SetUpDataGridViews()
-            Else
-                MessageBox.Show("There was an error updating the Subpart.")
-            End If
-        Else
-            MessageBox.Show("Enter values for the subpart code and description first.")
-        End If
-    End Sub
-
-    Private Sub btnClearSIP_Click(sender As Object, e As EventArgs) Handles btnClearSIP.Click
-        txtSIPCode.Clear()
-        txtSIPDescription.Clear()
-    End Sub
-
-    Private Sub btnClearNSPS_Click(sender As Object, e As EventArgs) Handles btnClearNSPS.Click
-        txtNSPSCode.Clear()
-        txtNSPSDescription.Clear()
-    End Sub
-
-    Private Sub btnClearNESHAP_Click(sender As Object, e As EventArgs) Handles btnClearNESHAP.Click
-        txtNESHAPCode.Clear()
-        txtNESHAPDescription.Clear()
-    End Sub
-
-    Private Sub btnClearMACT_Click(sender As Object, e As EventArgs) Handles btnClearMACT.Click
-        txtMACTCode.Clear()
-        txtMACTDescription.Clear()
-    End Sub
-
-#End Region
-
-#Region " DGV selection events "
-
-    Private Sub dgvMACT_SelectionChanged(sender As Object, e As EventArgs) Handles dgvMACT.SelectionChanged
-        If dgvMACT.SelectedRows.Count = 1 Then
-            txtMACTCode.Text = dgvMACT.CurrentRow.Cells("Subpart").Value
-            txtMACTDescription.Text = dgvMACT.CurrentRow.Cells("Description").Value
-        End If
-    End Sub
-
-    Private Sub dgvNESHAP_SelectionChanged(sender As Object, e As EventArgs) Handles dgvNESHAP.SelectionChanged
-        If dgvNESHAP.SelectedRows.Count = 1 Then
-            txtNESHAPCode.Text = dgvNESHAP.CurrentRow.Cells("Subpart").Value
-            txtNESHAPDescription.Text = dgvNESHAP.CurrentRow.Cells("Description").Value
-        End If
-    End Sub
-
-    Private Sub dgvNSPS_SelectionChanged(sender As Object, e As EventArgs) Handles dgvNSPS.SelectionChanged
-        If dgvNSPS.SelectedRows.Count = 1 Then
-            txtNSPSCode.Text = dgvNSPS.CurrentRow.Cells("Subpart").Value
-            txtNSPSDescription.Text = dgvNSPS.CurrentRow.Cells("Description").Value
-        End If
-    End Sub
-
-    Private Sub dgvSIP_SelectionChanged(sender As Object, e As EventArgs) Handles dgvSIP.SelectionChanged
-        If dgvSIP.SelectedRows.Count = 1 Then
-            txtSIPCode.Text = dgvSIP.CurrentRow.Cells("Subpart").Value
-            txtSIPDescription.Text = dgvSIP.CurrentRow.Cells("Description").Value
-        End If
-    End Sub
-
-    Private Sub TCSubparts_SelectedIndexChanged(sender As Object, e As EventArgs) Handles TCSubparts.SelectedIndexChanged
-
     End Sub
 
 #End Region

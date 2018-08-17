@@ -1,6 +1,8 @@
-Imports System.Data.SqlClient
 Imports System.Collections.Generic
+Imports System.Data.SqlClient
 Imports EpdIt
+Imports Iaip.Apb.Facilities.FacilityEnums
+Imports Iaip.SharedData
 
 Public Class SSPPApplicationTrackingLog
     Dim MasterApp As String
@@ -2492,36 +2494,36 @@ Public Class SSPPApplicationTrackingLog
     End Sub
     Private Sub LoadSubPartData()
         Try
-            Dim dtPart60 As DataTable = DB.GetDataTable("Select strSubPart, concat(strSubPart , ' - ' , strDescription) as strDescription from LookupSubPart60 order by strSubpart ")
-            Dim dtPart61 As DataTable = DB.GetDataTable("Select strSubPart, concat(strSubPart , ' - ' , strDescription) as strDescription from LookupSubPart61 order by strSubpart ")
-            Dim dtPart63 As DataTable = DB.GetDataTable("Select strSubPart, concat(strSubPart , ' - ' , strDescription) as strDescription from LookupSubPart63 order by strSubpart ")
-            Dim dtSIP As DataTable = DB.GetDataTable("Select strSubPart, concat(strSubPart , ' - ' , strDescription) as strDescription from LookUpSubPartSIP order by strSubPart ")
+            Dim dtPart60 As DataTable = GetSharedData(SharedDataSet.RuleSubparts).Tables(RulePart.NSPS.ToString)
+            Dim dtPart61 As DataTable = GetSharedData(SharedDataSet.RuleSubparts).Tables(RulePart.NESHAP.ToString)
+            Dim dtPart63 As DataTable = GetSharedData(SharedDataSet.RuleSubparts).Tables(RulePart.MACT.ToString)
+            Dim dtSIP As DataTable = GetSharedData(SharedDataSet.RuleSubparts).Tables(RulePart.SIP.ToString)
 
             With cboSIPSubpart
                 .DataSource = dtSIP
-                .DisplayMember = "strDescription"
-                .ValueMember = "strSubPart"
+                .DisplayMember = "Long Description"
+                .ValueMember = "SubPart"
                 .SelectedIndex = 0
             End With
 
             With cboNSPSSubpart
                 .DataSource = dtPart60
-                .DisplayMember = "strDescription"
-                .ValueMember = "strSubPart"
+                .DisplayMember = "Description"
+                .ValueMember = "SubPart"
                 .SelectedIndex = 0
             End With
 
             With cboNESHAPSubpart
                 .DataSource = dtPart61
-                .DisplayMember = "strDescription"
-                .ValueMember = "strSubPart"
+                .DisplayMember = "Description"
+                .ValueMember = "SubPart"
                 .SelectedIndex = 0
             End With
 
             With cboMACTSubpart
                 .DataSource = dtPart63
-                .DisplayMember = "strDescription"
-                .ValueMember = "strSubPart"
+                .DisplayMember = "Description"
+                .ValueMember = "SubPart"
                 .SelectedIndex = 0
             End With
 
@@ -11030,9 +11032,9 @@ Public Class SSPPApplicationTrackingLog
                 Exit Sub
             End If
 
-            Subpart = cboSIPSubpart.SelectedValue
+            Subpart = cboSIPSubpart.SelectedValue.ToString
             If Subpart <> "" Then
-                Desc = Replace(cboSIPSubpart.Text, Subpart & " - ", "")
+                Desc = cboSIPSubpart.Text
             End If
 
             temp2 = ""
@@ -11409,16 +11411,24 @@ Public Class SSPPApplicationTrackingLog
             dgvNSPSSubParts.Columns("Origins").Width = 50
             dgvNSPSSubParts.Columns("Origins").ReadOnly = True
 
-            query = "select distinct   " &
-                "strAIRSnumber, " &
-                "'' as AppNum, " &
-                "apbsubpartdata.strSubpart, " &
-                "strDescription, CreateDateTime " &
-                "from APBsubpartdata, LookUpSubPart60  " &
-                "where APBSubpartData.strSubPart = LookUpSubpart60.strSubpart " &
-                "and APBSubPartData.strSubpartKey = @pKey " &
-                "and Active = '1' "
-            parameter = {New SqlParameter("@pKey", "0413" & txtAIRSNumber.Text & "9")}
+            query = "select
+                    STRAIRSNUMBER,
+                    '' as AppNum,
+                    s.STRSUBPART,
+                    ICIS_PROGRAM_SUBPART_DESC as strDescription,
+                    CREATEDATETIME
+                from APBSUBPARTDATA s
+                    inner join LK_ICIS_PROGRAM_SUBPART l
+                        on s.STRSUBPART = l.LK_SUBPART_CODE
+                           and right(STRSUBPARTKEY, 1) = l.LGCY_PROGRAM_CODE
+                where s.STRAIRSNUMBER = @airs
+                      and l.LGCY_PROGRAM_CODE = @key
+                      and ACTIVE = '1' "
+
+            parameter = {
+                New SqlParameter("@airs", "0413" & txtAIRSNumber.Text),
+                New SqlParameter("@key", "9")
+            }
 
             Dim dt As DataTable = DB.GetDataTable(query, parameter)
 
@@ -11453,21 +11463,24 @@ Public Class SSPPApplicationTrackingLog
                 For i = 0 To dgvNSPSSubParts.RowCount - 1
                     SubPart = dgvNSPSSubParts.Item(1, i).Value
 
-                    query = "select " &
-                    "SSPPSubpartData.STRAPPLICATIONNUMBER,  " &
-                    "strSubpart, strApplicationActivity,   " &
-                    "CreateDateTime " &
-                    "from SSPPApplicationMaster, SSPPSubpartData   " &
-                    "where SSPPSubpartData.strApplicationNumber = SSPPApplicationMaster.strApplicationNumber  " &
-                    "and strAIRSnumber = @airsnum " &
-                    "and SUBSTRING(strSubpartkey, 6,1) = '9'  " &
-                    "and strSubpart = @SubPart " &
-                    "and SSPPSubpartData.strApplicationNumber  = @appnum " &
-                    "order by createdatetime "
+                    query = "select
+                        s.STRAPPLICATIONNUMBER,
+                        strSubpart,
+                        strApplicationActivity,
+                        CREATEDATETIME
+                    from SSPPApplicationMaster m
+                        inner join SSPPSubpartData s
+                            on s.strApplicationNumber = m.strApplicationNumber
+                    where strAIRSnumber = @airsnum
+                          and right(strSubpartkey, 1) = @key
+                          and strSubpart = @subpart
+                          and s.strApplicationNumber = @appnum
+                    order by createdatetime "
 
                     parameter = {
                         New SqlParameter("@airsnum", "0413" & txtAIRSNumber.Text),
-                        New SqlParameter("@Subpart", SubPart),
+                        New SqlParameter("@key", "9"),
+                        New SqlParameter("@subpart", SubPart),
                         New SqlParameter("@appnum", txtApplicationNumber.Text)
                     }
 
@@ -11508,7 +11521,7 @@ Public Class SSPPApplicationTrackingLog
             dgvNSPSSubPartDelete.AllowUserToDeleteRows = False
             dgvNSPSSubPartDelete.AllowUserToOrderColumns = True
             dgvNSPSSubPartDelete.AllowUserToResizeRows = True
-            dgvNSPSSubPartDelete.ColumnHeadersHeight = "35"
+            dgvNSPSSubPartDelete.ColumnHeadersHeight = 35
 
             dgvNSPSSubPartDelete.Columns.Add("strSubpart", "Subpart")
             dgvNSPSSubPartDelete.Columns("strSubpart").DisplayIndex = 0
@@ -11528,7 +11541,7 @@ Public Class SSPPApplicationTrackingLog
             dgvNSPSSubpartAddEdit.AllowUserToOrderColumns = True
             dgvNSPSSubpartAddEdit.AllowUserToResizeRows = True
             dgvNSPSSubpartAddEdit.ReadOnly = True
-            dgvNSPSSubpartAddEdit.ColumnHeadersHeight = "35"
+            dgvNSPSSubpartAddEdit.ColumnHeadersHeight = 35
 
             dgvNSPSSubpartAddEdit.Columns.Add("strSubpart", "Subpart")
             dgvNSPSSubpartAddEdit.Columns("strSubpart").DisplayIndex = 0
@@ -11550,23 +11563,33 @@ Public Class SSPPApplicationTrackingLog
             dgvNSPSSubpartAddEdit.Columns("Origins").Width = 100
             dgvNSPSSubpartAddEdit.Columns("Origins").ReadOnly = True
 
-            query = "select  " &
-            "strAIRSNumber, " &
-            "SSPPSubpartData.strApplicationNumber,  " &
-            "SSPPSubPartData.strSubpart, strDescription,  " &
-            "case when strApplicationActivity = '0' then 'Removed'  " &
-            "when strApplicationActivity ='1' then 'Added'  " &
-            "when strApplicationActivity = '2' then 'Modified'  " &
-            "else strApplicationActivity  " &
-            "end Action,  " &
-            "CreatedateTime  " &
-            "from SSPPSubpartData, SSPPApplicationMaster,   " &
-            "LookUpSubPart60   " &
-            "where SSPPApplicationMaster.strApplicationNumber = " &
-            "SSPPSubpartData.strApplicationNumber   " &
-            "and SSPPSubPartData.strSubPart = LookUpSubPart60.strSubPart  " &
-            "and SSPPSubpartData.strSubPartKey  = @pKey "
-            parameter = {New SqlParameter("@pKey", txtApplicationNumber.Text & "9")}
+            query = "select
+                strAIRSNumber,
+                s.strApplicationNumber,
+                s.strSubpart,
+                l.ICIS_PROGRAM_SUBPART_DESC as strDescription,
+                case when strApplicationActivity = '0'
+                    then 'Removed'
+                when strApplicationActivity = '1'
+                    then 'Added'
+                when strApplicationActivity = '2'
+                    then 'Modified'
+                else strApplicationActivity
+                end                            Action,
+                CreatedateTime
+            from SSPPSubpartData s
+                inner join SSPPApplicationMaster m
+                    on s.STRAPPLICATIONNUMBER = m.STRAPPLICATIONNUMBER
+                inner join LK_ICIS_PROGRAM_SUBPART l
+                    on l.LK_SUBPART_CODE = s.STRSUBPART
+                       and right(s.STRSUBPARTKEY, 1) = l.LGCY_PROGRAM_CODE
+            where m.STRAPPLICATIONNUMBER = @appnum
+                  and l.LGCY_PROGRAM_CODE = @key "
+
+            parameter = {
+                New SqlParameter("@appnum", txtApplicationNumber.Text),
+                New SqlParameter("@key", "9")
+            }
 
             Dim dt2 As DataTable = DB.GetDataTable(query, parameter)
 
@@ -11905,9 +11928,9 @@ Public Class SSPPApplicationTrackingLog
                 Exit Sub
             End If
 
-            Subpart = cboNSPSSubpart.SelectedValue
+            Subpart = cboNSPSSubpart.SelectedValue.ToString
             If Subpart <> "" Then
-                Desc = Replace(cboNSPSSubpart.Text, Subpart & " - ", "")
+                Desc = cboNSPSSubpart.Text
             End If
 
             temp2 = ""
@@ -12575,16 +12598,24 @@ Public Class SSPPApplicationTrackingLog
             dgvNESHAPSubParts.Columns("Origins").Width = 50
             dgvNESHAPSubParts.Columns("Origins").ReadOnly = True
 
-            query = "select distinct   " &
-            "strAIRSnumber, " &
-            "'' as AppNum, " &
-            "apbsubpartdata.strSubpart, " &
-            "strDescription, CreateDateTime " &
-            "from APBsubpartdata, LookUpSubPart61   " &
-            "where APBSubpartData.strSubPart = LookUpSubPart61.strSubpart   " &
-            "and APBSubPartData.strSubpartKey = @pKey " &
-            "and Active = '1' "
-            parameter = {New SqlParameter("@pKey", "0413" & txtAIRSNumber.Text & "8")}
+            query = "select 
+                    STRAIRSNUMBER, 
+                    '' as AppNum, 
+                    s.STRSUBPART, 
+                    ICIS_PROGRAM_SUBPART_DESC as strDescription, 
+                    CREATEDATETIME 
+                from APBSUBPARTDATA s 
+                    inner join LK_ICIS_PROGRAM_SUBPART l 
+                        on s.STRSUBPART = l.LK_SUBPART_CODE 
+                           and right(STRSUBPARTKEY, 1) = l.LGCY_PROGRAM_CODE 
+                where s.STRAIRSNUMBER = @airs 
+                      and l.LGCY_PROGRAM_CODE = @key 
+                      and ACTIVE = '1' "
+
+            parameter = {
+                New SqlParameter("@airs", "0413" & txtAIRSNumber.Text),
+                New SqlParameter("@key", "8")
+            }
 
             Dim dt As DataTable = DB.GetDataTable(query, parameter)
 
@@ -12619,21 +12650,24 @@ Public Class SSPPApplicationTrackingLog
                 For i = 0 To dgvNESHAPSubParts.RowCount - 1
                     SubPart = dgvNESHAPSubParts.Item(1, i).Value
 
-                    query = "select " &
-                    "SSPPSubpartData.strApplicationNumber,  " &
-                    "strSubpart, strApplicationActivity,   " &
-                    "CreateDateTime " &
-                    "from SSPPApplicationMaster, SSPPSubpartData   " &
-                    "where SSPPSubpartData.strApplicationNumber = SSPPApplicationMaster.strApplicationNumber  " &
-                    "and strAIRSnumber = @airsnum " &
-                    "and SUBSTRING(strSubpartkey, 6,1) = '8'  " &
-                    "and strSubpart = @SubPart " &
-                    "and SSPPSubpartData.strApplicationNumber  = @appnum " &
-                    "order by createdatetime "
+                    query = "select 
+                        s.STRAPPLICATIONNUMBER, 
+                        strSubpart, 
+                        strApplicationActivity, 
+                        CREATEDATETIME 
+                    from SSPPApplicationMaster m 
+                        inner join SSPPSubpartData s 
+                            on s.strApplicationNumber = m.strApplicationNumber 
+                    where strAIRSnumber = @airsnum 
+                          and right(strSubpartkey, 1) = @key 
+                          and strSubpart = @subpart 
+                          and s.strApplicationNumber = @appnum 
+                    order by createdatetime "
 
                     parameter = {
                         New SqlParameter("@airsnum", "0413" & txtAIRSNumber.Text),
-                        New SqlParameter("@SubPart", SubPart),
+                        New SqlParameter("@key", "8"),
+                        New SqlParameter("@subpart", SubPart),
                         New SqlParameter("@appnum", txtApplicationNumber.Text)
                     }
 
@@ -12673,7 +12707,7 @@ Public Class SSPPApplicationTrackingLog
             dgvNESHAPSubPartDelete.AllowUserToDeleteRows = False
             dgvNESHAPSubPartDelete.AllowUserToOrderColumns = True
             dgvNESHAPSubPartDelete.AllowUserToResizeRows = True
-            dgvNESHAPSubPartDelete.ColumnHeadersHeight = "35"
+            dgvNESHAPSubPartDelete.ColumnHeadersHeight = 35
 
             dgvNESHAPSubPartDelete.Columns.Add("strSubpart", "Subpart")
             dgvNESHAPSubPartDelete.Columns("strSubpart").DisplayIndex = 0
@@ -12693,7 +12727,7 @@ Public Class SSPPApplicationTrackingLog
             dgvNESHAPSubpartAddEdit.AllowUserToOrderColumns = True
             dgvNESHAPSubpartAddEdit.AllowUserToResizeRows = True
             dgvNESHAPSubpartAddEdit.ReadOnly = True
-            dgvNESHAPSubpartAddEdit.ColumnHeadersHeight = "35"
+            dgvNESHAPSubpartAddEdit.ColumnHeadersHeight = 35
 
             dgvNESHAPSubpartAddEdit.Columns.Add("strSubpart", "Subpart")
             dgvNESHAPSubpartAddEdit.Columns("strSubpart").DisplayIndex = 0
@@ -12715,23 +12749,33 @@ Public Class SSPPApplicationTrackingLog
             dgvNESHAPSubpartAddEdit.Columns("Origins").Width = 100
             dgvNESHAPSubpartAddEdit.Columns("Origins").ReadOnly = True
 
-            query = "select  " &
-            "strAIRSNumber, " &
-            "SSPPSubpartData.strApplicationNumber,  " &
-            "SSPPSubPartData.strSubpart, strDescription,  " &
-            "case when strApplicationActivity = '0' then 'Removed'  " &
-            "when strApplicationActivity ='1' then 'Added'  " &
-            "when strApplicationActivity = '2' then 'Modified'  " &
-            "else strApplicationActivity  " &
-            "end Action,  " &
-            "CreatedateTime  " &
-            "from SSPPSubpartData, SSPPApplicationMaster,   " &
-            "LookUpSubPart61   " &
-            "where SSPPApplicationMaster.strApplicationNumber = " &
-            "SSPPSubpartData.strApplicationNumber   " &
-            "and SSPPSubPartData.strSubPart = LookUpSubPart61.strSubPart  " &
-            "and SSPPSubpartData.strSubPartKey  = @pKey "
-            parameter = {New SqlParameter("@pKey", txtApplicationNumber.Text & "8")}
+            query = "select 
+                strAIRSNumber, 
+                s.strApplicationNumber, 
+                s.strSubpart, 
+                l.ICIS_PROGRAM_SUBPART_DESC as strDescription, 
+                case when strApplicationActivity = '0' 
+                    then 'Removed' 
+                when strApplicationActivity = '1' 
+                    then 'Added' 
+                when strApplicationActivity = '2' 
+                    then 'Modified' 
+                else strApplicationActivity 
+                end                            Action, 
+                CreatedateTime 
+            from SSPPSubpartData s 
+                inner join SSPPApplicationMaster m 
+                    on s.STRAPPLICATIONNUMBER = m.STRAPPLICATIONNUMBER 
+                inner join LK_ICIS_PROGRAM_SUBPART l 
+                    on l.LK_SUBPART_CODE = s.STRSUBPART 
+                       and right(s.STRSUBPARTKEY, 1) = l.LGCY_PROGRAM_CODE 
+            where m.STRAPPLICATIONNUMBER = @appnum 
+                  and l.LGCY_PROGRAM_CODE = @key "
+
+            parameter = {
+                New SqlParameter("@appnum", txtApplicationNumber.Text),
+                New SqlParameter("@key", "8")
+            }
 
             Dim dt2 As DataTable = DB.GetDataTable(query, parameter)
 
@@ -13072,9 +13116,9 @@ Public Class SSPPApplicationTrackingLog
                 Exit Sub
             End If
 
-            Subpart = cboNESHAPSubpart.SelectedValue
+            Subpart = cboNESHAPSubpart.SelectedValue.ToString
             If Subpart <> "" Then
-                Desc = Replace(cboNESHAPSubpart.Text, Subpart & " - ", "")
+                Desc = cboNESHAPSubpart.Text
             End If
 
             temp2 = ""
@@ -13451,16 +13495,24 @@ Public Class SSPPApplicationTrackingLog
             dgvMACTSubParts.Columns("Origins").Width = 50
             dgvMACTSubParts.Columns("Origins").ReadOnly = True
 
-            query = "select distinct   " &
-            "strAIRSnumber, " &
-            "'' as AppNum, " &
-            "apbsubpartdata.strSubpart, " &
-            "strDescription, CreateDateTime " &
-            "from APBsubpartdata, LookUpSubPart63   " &
-            "where APBSubpartData.strSubPart = LookUpSubPart63.strSubpart   " &
-            "and APBSubPartData.strSubpartKey = @pKey " &
-            "and Active = '1' "
-            parameter = {New SqlParameter("@pKey", "0413" & txtAIRSNumber.Text & "M")}
+            query = "select 
+                    STRAIRSNUMBER, 
+                    '' as AppNum, 
+                    s.STRSUBPART, 
+                    ICIS_PROGRAM_SUBPART_DESC as strDescription, 
+                    CREATEDATETIME 
+                from APBSUBPARTDATA s 
+                    inner join LK_ICIS_PROGRAM_SUBPART l 
+                        on s.STRSUBPART = l.LK_SUBPART_CODE 
+                           and right(STRSUBPARTKEY, 1) = l.LGCY_PROGRAM_CODE 
+                where s.STRAIRSNUMBER = @airs 
+                      and l.LGCY_PROGRAM_CODE = @key 
+                      and ACTIVE = '1' "
+
+            parameter = {
+                New SqlParameter("@airs", "0413" & txtAIRSNumber.Text),
+                New SqlParameter("@key", "M")
+            }
 
             Dim dt As DataTable = DB.GetDataTable(query, parameter)
 
@@ -13495,21 +13547,24 @@ Public Class SSPPApplicationTrackingLog
                 For i = 0 To dgvMACTSubParts.RowCount - 1
                     SubPart = dgvMACTSubParts.Item(1, i).Value
 
-                    query = "select " &
-                    "SSPPSubpartData.strApplicationNumber,  " &
-                    "strSubpart, strApplicationActivity,   " &
-                    "CreateDateTime " &
-                    "from SSPPApplicationMaster, SSPPSubpartData   " &
-                    "where SSPPSubpartData.strApplicationNumber = SSPPApplicationMaster.strApplicationNumber  " &
-                    "and strAIRSnumber = @airs " &
-                    "and SUBSTRING(strSubpartkey, 6,1) = 'M'  " &
-                    "and strSubpart = @SubPart " &
-                    "and SSPPSubpartData.strApplicationNumber  = @appnum " &
-                    "order by createdatetime "
+                    query = "select 
+                        s.STRAPPLICATIONNUMBER, 
+                        strSubpart, 
+                        strApplicationActivity, 
+                        CREATEDATETIME 
+                    from SSPPApplicationMaster m 
+                        inner join SSPPSubpartData s 
+                            on s.strApplicationNumber = m.strApplicationNumber 
+                    where strAIRSnumber = @airsnum 
+                          and right(strSubpartkey, 1) = @key 
+                          and strSubpart = @subpart 
+                          and s.strApplicationNumber = @appnum 
+                    order by createdatetime "
 
                     parameter = {
-                        New SqlParameter("@airs", "0413" & txtAIRSNumber.Text),
-                        New SqlParameter("@SubPart", SubPart),
+                        New SqlParameter("@airsnum", "0413" & txtAIRSNumber.Text),
+                        New SqlParameter("@key", "M"),
+                        New SqlParameter("@subpart", SubPart),
                         New SqlParameter("@appnum", txtApplicationNumber.Text)
                     }
 
@@ -13549,7 +13604,7 @@ Public Class SSPPApplicationTrackingLog
             dgvMACTSubPartDelete.AllowUserToDeleteRows = False
             dgvMACTSubPartDelete.AllowUserToOrderColumns = True
             dgvMACTSubPartDelete.AllowUserToResizeRows = True
-            dgvMACTSubPartDelete.ColumnHeadersHeight = "35"
+            dgvMACTSubPartDelete.ColumnHeadersHeight = 35
 
             dgvMACTSubPartDelete.Columns.Add("strSubpart", "Subpart")
             dgvMACTSubPartDelete.Columns("strSubpart").DisplayIndex = 0
@@ -13569,7 +13624,7 @@ Public Class SSPPApplicationTrackingLog
             dgvMACTSubpartAddEdit.AllowUserToOrderColumns = True
             dgvMACTSubpartAddEdit.AllowUserToResizeRows = True
             dgvMACTSubpartAddEdit.ReadOnly = True
-            dgvMACTSubpartAddEdit.ColumnHeadersHeight = "35"
+            dgvMACTSubpartAddEdit.ColumnHeadersHeight = 35
 
             dgvMACTSubpartAddEdit.Columns.Add("strSubpart", "Subpart")
             dgvMACTSubpartAddEdit.Columns("strSubpart").DisplayIndex = 0
@@ -13591,23 +13646,33 @@ Public Class SSPPApplicationTrackingLog
             dgvMACTSubpartAddEdit.Columns("Origins").Width = 100
             dgvMACTSubpartAddEdit.Columns("Origins").ReadOnly = True
 
-            query = "select  " &
-            "strAIRSNumber, " &
-            "SSPPSubpartData.strApplicationNumber,  " &
-            "SSPPSubPartData.strSubpart, strDescription,  " &
-            "case when strApplicationActivity = '0' then 'Removed'  " &
-            "when strApplicationActivity ='1' then 'Added'  " &
-            "when strApplicationActivity = '2' then 'Modified'  " &
-            "else strApplicationActivity  " &
-            "end Action,  " &
-            "CreatedateTime  " &
-            "from SSPPSubpartData, SSPPApplicationMaster,   " &
-            "LookUpSubPart63   " &
-            "where SSPPApplicationMaster.strApplicationNumber = " &
-            "SSPPSubpartData.strApplicationNumber   " &
-            "and SSPPSubPartData.strSubPart = LookUpSubPart63.strSubPart  " &
-            "and SSPPSubpartData.strSubpartKey  = @pKey "
-            parameter = {New SqlParameter("@pKey", txtApplicationNumber.Text & "M")}
+            query = "select 
+                strAIRSNumber, 
+                s.strApplicationNumber, 
+                s.strSubpart, 
+                l.ICIS_PROGRAM_SUBPART_DESC as strDescription, 
+                case when strApplicationActivity = '0' 
+                    then 'Removed' 
+                when strApplicationActivity = '1' 
+                    then 'Added' 
+                when strApplicationActivity = '2' 
+                    then 'Modified' 
+                else strApplicationActivity 
+                end                            Action, 
+                CreatedateTime 
+            from SSPPSubpartData s 
+                inner join SSPPApplicationMaster m 
+                    on s.STRAPPLICATIONNUMBER = m.STRAPPLICATIONNUMBER 
+                inner join LK_ICIS_PROGRAM_SUBPART l 
+                    on l.LK_SUBPART_CODE = s.STRSUBPART 
+                       and right(s.STRSUBPARTKEY, 1) = l.LGCY_PROGRAM_CODE 
+            where m.STRAPPLICATIONNUMBER = @appnum 
+                  and l.LGCY_PROGRAM_CODE = @key "
+
+            parameter = {
+                New SqlParameter("@appnum", txtApplicationNumber.Text),
+                New SqlParameter("@key", "M")
+            }
 
             Dim dt2 As DataTable = DB.GetDataTable(query, parameter)
 
@@ -13948,9 +14013,9 @@ Public Class SSPPApplicationTrackingLog
                 Exit Sub
             End If
 
-            Subpart = cboMACTSubpart.SelectedValue
+            Subpart = cboMACTSubpart.SelectedValue.ToString
             If Subpart <> "" Then
-                Desc = Replace(cboMACTSubpart.Text, Subpart & " - ", "")
+                Desc = cboMACTSubpart.Text
             End If
 
             temp2 = ""

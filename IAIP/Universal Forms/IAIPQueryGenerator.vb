@@ -97,33 +97,36 @@ Public Class IAIPQueryGenerator
             dtcboDistrictSearch2 = dtcboDistrictSearch1.Copy
 
             query = "select " &
-            "strSubPart, strSubPart as SubPartCode " &
+            "strSubPart " &
             "from LookUpSubPartSIP " &
             "order by strSubPart "
 
             dtcboSIPSearch1 = DB.GetDataTable(query)
             dtcboSIPSearch2 = dtcboSIPSearch1.Copy
 
-            query = "select " &
-            "strSubPart, strSubPart as SubPartCode " &
-            "from LookUpSubPart61 " &
-            "order by strSubPart "
+            query = "select LK_SUBPART_CODE as strSubPart
+                from LK_ICIS_PROGRAM_SUBPART
+                where LGCY_PROGRAM_CODE = '8'
+                      and ICIS_STATUS_FLAG = 'A'
+                order by LK_SUBPART_CODE "
 
             dtcboPart61Search1 = DB.GetDataTable(query)
             dtcboPart61Search2 = dtcboPart61Search1.Copy
 
-            query = "select " &
-            "strSubPart, strSubPart as SubPartCode " &
-            "from LookUpSubPart60 " &
-            "order by strSubPart "
+            query = "select LK_SUBPART_CODE as strSubPart
+                from LK_ICIS_PROGRAM_SUBPART
+                where LGCY_PROGRAM_CODE = '9'
+                      and ICIS_STATUS_FLAG = 'A'
+                order by LK_SUBPART_CODE "
 
             dtcboPart60Search1 = DB.GetDataTable(query)
             dtcboPart60Search2 = dtcboPart60Search1.Copy
 
-            query = "select " &
-            "strSubPart, strSubPart as SubPartCode " &
-            "from LookUpSubPart63 " &
-            "order by strSubPart "
+            query = "select LK_SUBPART_CODE as strSubPart
+                from LK_ICIS_PROGRAM_SUBPART
+                where LGCY_PROGRAM_CODE = 'M'
+                      and ICIS_STATUS_FLAG = 'A'
+                order by LK_SUBPART_CODE "
 
             dtcboPart63Search1 = DB.GetDataTable(query)
             dtcboPart63Search2 = dtcboPart63Search1.Copy
@@ -187,56 +190,48 @@ Public Class IAIPQueryGenerator
         With cboSIPSearch1
             .DataSource = dtcboSIPSearch1
             .DisplayMember = "strSubPart"
-            .ValueMember = "SubPartCode"
             .SelectedIndex = -1
         End With
 
         With cboSIPSearch2
             .DataSource = dtcboSIPSearch2
             .DisplayMember = "strSubPart"
-            .ValueMember = "SubPartCode"
             .SelectedIndex = -1
         End With
 
         With cboPart61Search1
             .DataSource = dtcboPart61Search1
             .DisplayMember = "strSubPart"
-            .ValueMember = "SubPartCode"
             .SelectedIndex = -1
         End With
 
         With cboPart61Search2
             .DataSource = dtcboPart61Search2
             .DisplayMember = "strSubPart"
-            .ValueMember = "SubPartCode"
             .SelectedIndex = -1
         End With
 
         With cboPart60Search1
             .DataSource = dtcboPart60Search1
             .DisplayMember = "strSubPart"
-            .ValueMember = "SubPartCode"
             .SelectedIndex = -1
         End With
 
         With cboPart60Search2
             .DataSource = dtcboPart60Search2
             .DisplayMember = "strSubPart"
-            .ValueMember = "SubPartCode"
             .SelectedIndex = -1
         End With
 
         With cboPart63Search1
             .DataSource = dtcboPart63Search1
             .DisplayMember = "strSubPart"
-            .ValueMember = "SubPartCode"
             .SelectedIndex = -1
         End With
 
         With cboPart63Search2
             .DataSource = dtcboPart63Search2
             .DisplayMember = "strSubPart"
-            .ValueMember = "SubPartCode"
             .SelectedIndex = -1
         End With
 

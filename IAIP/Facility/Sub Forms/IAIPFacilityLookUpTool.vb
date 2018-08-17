@@ -51,168 +51,177 @@ Public Class IAIPFacilityLookUpTool
         Select Case SearchType
             Case SearchByType.AirsNumber
                 query = "Select " &
-                "strFacilityName, right(strairsnumber, 8) as ShortAIRS, " &
-                "strFacilityCity, " &
-                "strFacilityStreet1 " &
-                "from APBFacilityInformation " &
+                "strFacilityName, " &
+                "concat(substring(f.STRAIRSNUMBER, 5, 3), '-', right(f.STRAIRSNUMBER, 5)) as shortAIRS, " &
+                "strFacilityCity " &
+                "from APBFacilityInformation f " &
                 "where strAirsNumber Like @SearchString"
 
                 parameter = New SqlParameter("@SearchString", "%" & txtAIRSNumberSearch.Text & "%")
 
             Case SearchByType.City
                 query = "Select " &
-                "strFacilityName, right(strairsnumber, 8) as shortAIRS, " &
-                "strFacilityCity, " &
-                "strFacilityStreet1 " &
-                "from APBFacilityInformation " &
+                "strFacilityName, " &
+                "concat(substring(f.STRAIRSNUMBER, 5, 3), '-', right(f.STRAIRSNUMBER, 5)) as shortAIRS, " &
+                "strFacilityCity " &
+                "from APBFacilityInformation f " &
                 "where strFacilityCity Like @SearchString"
 
                 parameter = New SqlParameter("@SearchString", "%" & txtCityNameSearch.Text & "%")
 
             Case SearchByType.County
                 query = "Select " &
-                 "strFacilityName, right(strairsnumber, 8) as ShortAIRS, " &
-                 "strFacilityCity, " &
-                 "strFacilityStreet1, strCountyName " &
-                 "from APBFacilityInformation, LookUpCountyInformation " &
-                 "where substring(APBFacilityInformation.strAIRSNumber, 5, 3) = LookUpCountyInformation.strCountyCode " &
+                 "strFacilityName, " &
+                 "concat(substring(f.STRAIRSNUMBER, 5, 3), '-', right(f.STRAIRSNUMBER, 5)) as shortAIRS, " &
+                 "strFacilityCity, strCountyName " &
+                 "from APBFacilityInformation f, LookUpCountyInformation " &
+                 "where substring(f.strAIRSNumber, 5, 3) = LookUpCountyInformation.strCountyCode " &
                  "and strCountyName like @SearchString "
 
                 parameter = New SqlParameter("@SearchString", "%" & txtCountyNameSearch.Text & "%")
 
             Case SearchByType.FacilityName
                 query = "Select " &
-                "strFacilityName, right(strairsnumber, 8) as shortAIRS, " &
-                "strFacilityCity, " &
-                "strFacilityStreet1 " &
-                "from APBFacilityInformation " &
+                "strFacilityName, " &
+                "concat(substring(f.STRAIRSNUMBER, 5, 3), '-', right(f.STRAIRSNUMBER, 5)) as shortAIRS, " &
+                "strFacilityCity " &
+                "from APBFacilityInformation f " &
                 "where strFacilityName Like @SearchString"
 
                 parameter = New SqlParameter("@SearchString", "%" & txtFacilityNameSearch.Text & "%")
 
             Case SearchByType.HistoricalName
-                query = "Select " &
-                "strFacilityName, " &
-                "right(strairsnumber, 8) as shortAIRS, " &
-                "strFacilityCity, " &
-                "strFacilityStreet1 " &
-                "from APBFacilityInformation " &
-                "where strFacilityName Like @SearchString " &
-                "Union " &
-                "Select " &
-                "distinct(strFacilityName) as strFacilityName, " &
-                "right(strairsnumber, 8) as shortAIRS, " &
-                "strFacilityCity, strFacilityStreet1 " &
-                "from HB_APBFacilityInformation " &
-                "where strFacilityName Like @SearchString " &
-                "Union " &
-                "select " &
-                "Distinct(strFacilityname) as strFacilityname, " &
-                "right(strairsnumber, 8) as shortAIRS, " &
-                "strFacilityCity, strFacilityStreet1 " &
-                "from SSPPApplicationData, SSPPApplicationMaster " &
-                "where SSPPApplicationData.strApplicationNumber = SSPPApplicationMaster.strApplicationNumber " &
-                "and strFacilityname like @SearchString "
+                query = "Select
+                    STRFACILITYNAME,
+                    concat(substring(STRAIRSNUMBER, 5, 3), '-', right(STRAIRSNUMBER, 5)) as shortAIRS,
+                    STRFACILITYCITY
+                from APBFACILITYINFORMATION
+                where STRFACILITYNAME Like @SearchString
+                Union
+                Select
+                    distinct
+                    STRFACILITYNAME,
+                    concat(substring(STRAIRSNUMBER, 5, 3), '-', right(STRAIRSNUMBER, 5)),
+                    STRFACILITYCITY
+                from HB_APBFACILITYINFORMATION
+                where STRFACILITYNAME Like @SearchString
+                Union
+                select
+                    distinct
+                    STRFACILITYNAME,
+                    concat(substring(STRAIRSNUMBER, 5, 3), '-', right(STRAIRSNUMBER, 5)),
+                    STRFACILITYCITY
+                from SSPPAPPLICATIONDATA a
+                    inner join SSPPAPPLICATIONMASTER m
+                        on a.STRAPPLICATIONNUMBER = m.STRAPPLICATIONNUMBER
+                where STRFACILITYNAME like @SearchString "
 
                 parameter = New SqlParameter("@SearchString", "%" & txtFacilityNameSearch.Text & "%")
 
             Case SearchByType.SicCode
                 query = "Select " &
-                "strFacilityName, right(APBFacilityInformation.strAIRSNumber, 8) as shortAIRS, " &
+                "strFacilityName, " &
+                "concat(substring(f.STRAIRSNUMBER, 5, 3), '-', right(f.STRAIRSNUMBER, 5)) as shortAIRS, " &
                 "strSICCode, " &
-                "strFacilityCity, strFacilityStreet1 " &
-                "from APBFacilityInformation, APBHeaderData " &
+                "strFacilityCity " &
+                "from APBFacilityInformation f, APBHeaderData " &
                 "where APBHeaderData.strSICCode Like @SearchString " &
-                "and APBFacilityInformation.strairsnumber = APBHeaderData.strAIRSNumber"
+                "and f.strairsnumber = APBHeaderData.strAIRSNumber"
 
                 parameter = New SqlParameter("@SearchString", txtSICCodeSearch.Text & "%")
 
             Case SearchByType.Subpart
                 If rdbPart60.Checked Then
-                    query = "select " &
-                    "strFacilityName, right(APBFacilityInformation.strAIRSNumber, 8) as shortAIRS, " &
-                    "strFacilityCity, " &
-                    "strFacilityStreet1, " &
-                    "(LookUpsubPart60.strSubPart+ ' - '+LookUpSubpart60.strDescription) as SubPartData " &
-                    "from " &
-                    "APBFacilityInformation, APBSubpartData, " &
-                    "LookUPSubPart60 " &
-                    "where " &
-                    "APBFacilityInformation.strAIRSNumber = APBSubPartData.strAIRSNumber " &
-                    "and APBSubpartData.strSubPart = LookUpSubPart60.strSubpart " &
-                    "and right(strSubpartKey, 1) = '9' " &
-                    "and (APBSubpartData.strSubpart) like @SearchString   "
+                    query = "select
+                        STRFACILITYNAME,
+                        concat(substring(f.STRAIRSNUMBER, 5, 3), '-', right(f.STRAIRSNUMBER, 5)) as shortAIRS,
+                        STRFACILITYCITY,
+                        i.ICIS_PROGRAM_SUBPART_DESC as SubPartData
+                    from APBFACILITYINFORMATION f
+                        inner join APBSUBPARTDATA s
+                            on s.STRAIRSNUMBER = f.STRAIRSNUMBER
+                        inner join LK_ICIS_PROGRAM_SUBPART i
+                            on i.LK_SUBPART_CODE = s.STRSUBPART
+                               and i.LGCY_PROGRAM_CODE = right(s.STRSUBPARTKEY, 1)
+                               and s.ACTIVE = 1
+                               and i.ICIS_STATUS_FLAG = 'A'
+                    where i.LGCY_PROGRAM_CODE = '9'
+                          and (s.STRSUBPART) like @SearchString"
 
                 ElseIf rdbPart61.Checked Then
-                    query = "select " &
-                    "strFacilityName, right(APBFacilityInformation.strAIRSNumber, 8) as shortAIRS, " &
-                    "strFacilityCity, " &
-                    "strFacilityStreet1, " &
-                    "(LookUpsubPart61.strSubPart+ ' - '+LookUpSubpart61.strDescription) as SubPartData " &
-                    "from " &
-                    "APBFacilityInformation, APBSubpartData, " &
-                    "LookUPSubPart61 " &
-                    "where " &
-                    "APBFacilityInformation.strAIRSNumber = APBSubPartData.strAIRSNumber " &
-                    "and APBSubpartData.strSubPart = LookUpSubPart61.strSubpart " &
-                    "and right(strSubpartKey, 1) = '8' " &
-                    "and (APBSubpartData.strSubpart) like @SearchString   "
+                    query = "select
+                        STRFACILITYNAME,
+                        concat(substring(f.STRAIRSNUMBER, 5, 3), '-', right(f.STRAIRSNUMBER, 5)) as shortAIRS,
+                        STRFACILITYCITY,
+                        i.ICIS_PROGRAM_SUBPART_DESC as SubPartData
+                    from APBFACILITYINFORMATION f
+                        inner join APBSUBPARTDATA s
+                            on s.STRAIRSNUMBER = f.STRAIRSNUMBER
+                        inner join LK_ICIS_PROGRAM_SUBPART i
+                            on i.LK_SUBPART_CODE = s.STRSUBPART
+                               and i.LGCY_PROGRAM_CODE = right(s.STRSUBPARTKEY, 1)
+                               and s.ACTIVE = 1
+                               and i.ICIS_STATUS_FLAG = 'A'
+                    where i.LGCY_PROGRAM_CODE = '8'
+                          and (s.STRSUBPART) like @SearchString"
 
                 ElseIf rdbPart63.Checked Then
-                    query = "select " &
-                    "strFacilityName, right(APBFacilityInformation.strAIRSNumber, 8) as shortAIRS, " &
-                    "strFacilityCity, " &
-                    "strFacilityStreet1, " &
-                    "(LookUpsubPart63.strSubPart+ ' - '+LookUpSubpart63.strDescription) as SubPartData " &
-                    "from " &
-                    "APBFacilityInformation, APBSubpartData, " &
-                    "LookUPSubPart63 " &
-                    "where " &
-                    "APBFacilityInformation.strAIRSNumber = APBSubPartData.strAIRSNumber " &
-                    "and APBSubpartData.strSubPart = LookUpSubPart63.strSubpart " &
-                    "and right(strSubpartKey, 1) = 'M' " &
-                    "and (APBSubpartData.strSubpart) like @SearchString   "
+                    query = "select
+                        STRFACILITYNAME,
+                        concat(substring(f.STRAIRSNUMBER, 5, 3), '-', right(f.STRAIRSNUMBER, 5)) as shortAIRS,
+                        STRFACILITYCITY,
+                        i.ICIS_PROGRAM_SUBPART_DESC as SubPartData
+                    from APBFACILITYINFORMATION f
+                        inner join APBSUBPARTDATA s
+                            on s.STRAIRSNUMBER = f.STRAIRSNUMBER
+                        inner join LK_ICIS_PROGRAM_SUBPART i
+                            on i.LK_SUBPART_CODE = s.STRSUBPART
+                               and i.LGCY_PROGRAM_CODE = right(s.STRSUBPARTKEY, 1)
+                               and s.ACTIVE = 1
+                               and i.ICIS_STATUS_FLAG = 'A'
+                    where i.LGCY_PROGRAM_CODE = 'M'
+                          and (s.STRSUBPART) like @SearchString"
 
                 ElseIf rdbGASIP.Checked Then
                     query = "select " &
-                    "strFacilityName, right(APBFacilityInformation.strAIRSNumber, 8) as shortAIRS, " &
+                    "strFacilityName, " &
+                    "concat(substring(f.STRAIRSNUMBER, 5, 3), '-', right(f.STRAIRSNUMBER, 5)) as shortAIRS, " &
                     "strFacilityCity, " &
-                    "strFacilityStreet1, " &
                     "(LookUpSubPartSIP.strSubPart+ ' - '+LookUpSubpartSIP.strDescription) as SubPartData " &
                     "from " &
-                    "APBFacilityInformation, APBSubpartData, " &
+                    "APBFacilityInformation f, APBSubpartData, " &
                     "LookUPSubPartSIP " &
                     "where " &
-                    "APBFacilityInformation.strAIRSNumber = APBSubPartData.strAIRSNumber " &
+                    "f.strAIRSNumber = APBSubPartData.strAIRSNumber " &
                     "and APBSubpartData.strSubPart = LookUpSubPartSIP.strSubpart " &
                     "and right(strSubpartKey, 1) = '0' " &
-                    "and (APBSubpartData.strSubpart) like @SearchString   "
+                    "and (APBSubpartData.strSubpart) like @SearchString"
                 End If
 
                 parameter = New SqlParameter("@SearchString", "%" & txtSubpartSearch.Text & "%")
 
             Case SearchByType.ZipCode
                 query = "Select " &
-                "strFacilityName, right(strairsnumber, 8) as shortAIRS, " &
+                "strFacilityName, " &
+                "concat(substring(f.STRAIRSNUMBER, 5, 3), '-', right(f.STRAIRSNUMBER, 5)) as shortAIRS, " &
                 "strFacilityCity, " &
-                "strFacilityStreet1, strFacilityZipCode " &
-                "from APBFacilityInformation " &
+                "strFacilityZipCode " &
+                "from APBFacilityInformation f " &
                 "where strFacilityZipCode Like @SearchString"
 
                 parameter = New SqlParameter("@SearchString", "%" & txtZipCodeSearch.Text & "%")
 
             Case SearchByType.Inspector
                 query = "Select " &
-                " APBFacilityInformation.strFacilityName, " &
-                "right(APBFacilityInformation.strAIRSNumber, 8) as shortAIRS, " &
-                " APBFacilityInformation.strFacilityCity, " &
-                " APBFacilityInformation.strFacilityStreet1, " &
-                "(strLastName+', '+strFirstname) as Inspector " &
-                "from APBFacilityInformation, VW_SSCPInspection_List, " &
+                " f.strFacilityName, " &
+                "concat(substring(f.STRAIRSNUMBER, 5, 3), '-', right(f.STRAIRSNUMBER, 5)) as shortAIRS, " &
+                " f.strFacilityCity, " &
+                "(strLastName + ', ' + strFirstname) as Inspector " &
+                "from APBFacilityInformation f , VW_SSCPInspection_List, " &
                 "EPDUserProfiles " &
-                "where APBFacilityInformation.strAIRSNumber = '0413'+VW_SSCPInspection_List.AIRSNumber " &
+                "where f.strAIRSNumber = '0413' + VW_SSCPInspection_List.AIRSNumber " &
                 "and VW_SSCPInspection_List.numSSCPEngineer = EPDUserProfiles.numUserID " &
-                "and strLastName+', '+strFirstName like @SearchString  "
+                "and strLastName + ', ' + strFirstName like @SearchString  "
 
                 parameter = New SqlParameter("@SearchString", "%" & txtComplianceEngineer.Text & "%")
 
@@ -230,33 +239,33 @@ Public Class IAIPFacilityLookUpTool
             dgvResults.Columns("strFacilityName").DisplayIndex = 1
             dgvResults.Columns("strFacilityCity").HeaderText = "City"
             dgvResults.Columns("strFacilityCity").DisplayIndex = 2
-            dgvResults.Columns("strFacilityStreet1").HeaderText = "Facility Address"
-            dgvResults.Columns("strFacilityStreet1").DisplayIndex = 3
 
             Select Case SearchType
                 Case SearchByType.County
-                    dgvResults.Columns("strCountyName").HeaderText = "SIC Code"
-                    dgvResults.Columns("strCountyName").DisplayIndex = 4
+                    dgvResults.Columns("strCountyName").HeaderText = "County"
+                    dgvResults.Columns("strCountyName").DisplayIndex = 3
 
                 Case SearchByType.SicCode
                     dgvResults.Columns("strSICCode").HeaderText = "SIC Code"
-                    dgvResults.Columns("strSICCode").DisplayIndex = 4
+                    dgvResults.Columns("strSICCode").DisplayIndex = 3
 
                 Case SearchByType.Subpart
-                    dgvResults.Columns("SubPartData").HeaderText = "Subpart 'Code - Description' "
-                    dgvResults.Columns("SubPartData").DisplayIndex = 4
+                    dgvResults.Columns("SubPartData").HeaderText = "Rule Subpart"
+                    dgvResults.Columns("SubPartData").DisplayIndex = 3
 
                 Case SearchByType.ZipCode
                     dgvResults.Columns("strFacilityZipCode").HeaderText = "Zip Code"
-                    dgvResults.Columns("strFacilityZipCode").DisplayIndex = 4
+                    dgvResults.Columns("strFacilityZipCode").DisplayIndex = 3
 
                 Case SearchByType.Inspector
                     dgvResults.Columns("Inspector").HeaderText = "Compliance Inspector"
-                    dgvResults.Columns("Inspector").DisplayIndex = 4
+                    dgvResults.Columns("Inspector").DisplayIndex = 3
 
             End Select
 
             dgvResults.SanelyResizeColumns
+
+            lblSearchResults.Text = "Search results: " & dgvResults.Rows.Count
         End If
     End Sub
 

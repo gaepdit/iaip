@@ -8,16 +8,43 @@ Namespace DAL
 
             Select Case part
                 Case RulePart.SIP
-                    query = "SELECT STRSUBPART AS Subpart, STRDESCRIPTION AS Description, CONCAT(STRSUBPART, ' – ', STRDESCRIPTION) AS [Long Description] FROM LOOKUPSUBPARTSIP ORDER BY STRSUBPART"
+                    query = "SELECT
+                        STRSUBPART AS Subpart,
+                        STRDESCRIPTION AS Description,
+                        CONCAT(STRSUBPART, ' – ', STRDESCRIPTION) AS [Long Description]
+                    FROM LOOKUPSUBPARTSIP
+                    where STRDESCRIPTION <> '[Reserved]'
+                    ORDER BY STRSUBPART"
 
                 Case RulePart.NSPS
-                    query = "SELECT STRSUBPART AS Subpart, STRDESCRIPTION AS Description, CONCAT(STRSUBPART, ' – ', STRDESCRIPTION) AS [Long Description] FROM LOOKUPSUBPART60 ORDER BY STRSUBPART"
+                    query = "select
+                        LK_SUBPART_CODE AS Subpart,
+                        ICIS_PROGRAM_SUBPART_DESC AS Description,
+                        CONCAT(LK_SUBPART_CODE, ' – ', ICIS_PROGRAM_SUBPART_DESC) AS [Long Description]
+                    from LK_ICIS_PROGRAM_SUBPART
+                    where ICIS_PROGRAM_CODE in ('CAANSPS', 'CAANSPSM')
+                          and ICIS_STATUS_FLAG = 'A'
+                    order by LK_SUBPART_CODE"
 
                 Case RulePart.NESHAP
-                    query = "SELECT STRSUBPART AS Subpart, STRDESCRIPTION AS Description, CONCAT(STRSUBPART, ' – ', STRDESCRIPTION) AS [Long Description] FROM LOOKUPSUBPART61 ORDER BY STRSUBPART"
+                    query = "select
+                        LK_SUBPART_CODE AS Subpart,
+                        ICIS_PROGRAM_SUBPART_DESC AS Description,
+                        CONCAT(LK_SUBPART_CODE, ' – ', ICIS_PROGRAM_SUBPART_DESC) AS [Long Description]
+                    from LK_ICIS_PROGRAM_SUBPART
+                    where ICIS_PROGRAM_CODE in ('CAANESH')
+                          and ICIS_STATUS_FLAG = 'A'
+                    order by LK_SUBPART_CODE"
 
                 Case RulePart.MACT
-                    query = "SELECT STRSUBPART AS Subpart, STRDESCRIPTION AS Description, CONCAT(STRSUBPART, ' – ', STRDESCRIPTION) AS [Long Description] FROM LOOKUPSUBPART63 ORDER BY STRSUBPART"
+                    query = "select
+                        LK_SUBPART_CODE AS Subpart,
+                        ICIS_PROGRAM_SUBPART_DESC AS Description,
+                        CONCAT(LK_SUBPART_CODE, ' – ', ICIS_PROGRAM_SUBPART_DESC) AS [Long Description]
+                    from LK_ICIS_PROGRAM_SUBPART
+                    where ICIS_PROGRAM_CODE in ('CAAMACT', 'CAAGACTM')
+                          and ICIS_STATUS_FLAG = 'A'
+                    order by LK_SUBPART_CODE"
 
             End Select
 
