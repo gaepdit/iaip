@@ -313,7 +313,7 @@ Public Class SSPPApplicationTrackingLog
                 .DataSource = dtCity
                 .DisplayMember = "City"
                 .ValueMember = "City"
-                .SelectedIndex = 0
+                .SelectedIndex = -1
             End With
 
             query = "SELECT STRUNITDESC, NUMUNITCODE " &
@@ -2858,7 +2858,13 @@ Public Class SSPPApplicationTrackingLog
             If txtFacilityName.Text = "" Then
                 txtFacilityName.Text = Facilityname
                 txtFacilityStreetAddress.Text = FacilityStreet
-                cboFacilityCity.SelectedIndex = cboFacilityCity.FindString(FacilityCity)
+
+                If String.IsNullOrWhiteSpace(FacilityCity) Or FacilityCity = "N/A" Then
+                    cboFacilityCity.Text = ""
+                Else
+                    cboFacilityCity.Text = FacilityCity
+                End If
+
                 txtFacilityZipCode.Text = FacilityZipCode
                 txtSICCode.Text = SIC
                 txtNAICSCode.Text = NAICS
@@ -3500,11 +3506,15 @@ Public Class SSPPApplicationTrackingLog
                         Else
                             txtFacilityStreetAddress.Text = dr.Item("strFacilityStreet1")
                         End If
-                        If IsDBNull(dr.Item("strFacilityCity")) Then
-                            cboFacilityCity.SelectedIndex = 0
+
+                        If IsDBNull(dr.Item("strFacilityCity")) OrElse
+                            String.IsNullOrWhiteSpace(dr.Item("strFacilityCity").ToString) OrElse
+                            dr.Item("strFacilityCity").ToString = "N/A" Then
+                            cboFacilityCity.Text = ""
                         Else
-                            cboFacilityCity.SelectedIndex = cboFacilityCity.FindString(dr.Item("strFacilityCity"))
+                            cboFacilityCity.Text = dr.Item("strFacilityCity").ToString
                         End If
+
                         If IsDBNull(dr.Item("strFacilityZipCode")) Then
                             txtFacilityZipCode.Clear()
                         Else
@@ -4356,7 +4366,13 @@ Public Class SSPPApplicationTrackingLog
 
             txtFacilityName.Text = Facilityname
             txtFacilityStreetAddress.Text = FacilityStreet
-            cboFacilityCity.SelectedIndex = cboFacilityCity.FindString(FacilityCity)
+
+            If String.IsNullOrWhiteSpace(FacilityCity) Or FacilityCity = "N/A" Then
+                cboFacilityCity.Text = ""
+            Else
+                cboFacilityCity.Text = FacilityCity
+            End If
+
             txtFacilityZipCode.Text = FacilityZipCode
             txtSICCode.Text = SIC
             txtNAICSCode.Text = NAICS
@@ -4732,9 +4748,13 @@ Public Class SSPPApplicationTrackingLog
                 txtFacilityName.Text = Apb.Facilities.Facility.SanitizeFacilityNameForDb(txtFacilityName.Text)
                 FacilityName = txtFacilityName.Text
                 FacilityAddress = Me.txtFacilityStreetAddress.Text
-                If cboFacilityCity.Text <> "" Then
-                    FacilityCity = cboFacilityCity.SelectedValue
+
+                If String.IsNullOrWhiteSpace(cboFacilityCity.Text) Then
+                    FacilityCity = "N/A"
+                Else
+                    FacilityCity = cboFacilityCity.Text
                 End If
+
                 FacilityZipCode = Replace(txtFacilityZipCode.Text, "-", "")
                 If cboOperationalStatus.Text <> "" Then
                     Select Case cboOperationalStatus.Text
@@ -7045,7 +7065,7 @@ Public Class SSPPApplicationTrackingLog
 
             txtFacilityName.Clear()
             txtFacilityStreetAddress.Clear()
-            cboFacilityCity.SelectedIndex = 0
+            cboFacilityCity.Text = ""
             txtFacilityZipCode.Clear()
             cboCounty.SelectedIndex = 0
             txtSICCode.Clear()
