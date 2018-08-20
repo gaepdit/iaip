@@ -231,15 +231,21 @@ Public Class GecoTool
         Try
             Dim dgvRow As New DataGridViewRow
 
-            Dim SQL As String = "SELECT right(strairsnumber, 8) as strAIRSNumber, strfacilityname, " &
-             "Case When intAdminAccess = 0 Then 'False' When intAdminAccess = 1 Then 'True' End as intAdminAccess, " &
-             "Case When intFeeAccess = 0 Then 'False' When intFeeAccess = 1 Then 'True' End as intFeeAccess, " &
-             "Case When intEIAccess = 0 Then 'False' When intEIAccess = 1 Then 'True' End as intEIAccess, " &
-             "Case When intESAccess = 0 Then 'False' When intESAccess = 1 Then 'True' End as intESAccess " &
-             "FROM OlapUserAccess inner join OLAPUserLogIn  " &
-             "on OlapUserAccess.numUserId = OLAPUserLogIn.numUserId " &
-             "where strUserEmail = @strUserEmail " &
-             "order by strfacilityname"
+            Dim SQL As String = "SELECT
+                    right(a.STRAIRSNUMBER, 8) as strAIRSNumber,
+                    f.STRFACILITYNAME,
+                    INTADMINACCESS,
+                    INTFEEACCESS,
+                    INTEIACCESS,
+                    INTESACCESS
+                FROM OLAPUSERACCESS a
+                    inner join OLAPUSERLOGIN l
+                        on a.NUMUSERID = l.NUMUSERID
+                    inner join APBFACILITYINFORMATION f
+                        on f.STRAIRSNUMBER = a.STRAIRSNUMBER
+                where STRUSEREMAIL = @strUserEmail
+                order by f.STRFACILITYNAME"
+
             Dim param As New SqlParameter("@strUserEmail", EmailLoc)
 
             dgvUserFacilities.Rows.Clear()
@@ -252,34 +258,34 @@ Public Class GecoTool
                 If IsDBNull(dr.Item("strAIRSNumber")) Then
                     dgvRow.Cells(0).Value = ""
                 Else
-                    dgvRow.Cells(0).Value = dr.Item("strAIRSNumber")
+                    dgvRow.Cells(0).Value = dr.Item("strAIRSNumber").ToString
                 End If
                 If IsDBNull(dr.Item("strFacilityName")) Then
                     dgvRow.Cells(1).Value = ""
                 Else
-                    dgvRow.Cells(1).Value = dr.Item("strFacilityName")
+                    dgvRow.Cells(1).Value = dr.Item("strFacilityName").ToString
                 End If
 
                 If IsDBNull(dr.Item("intAdminAccess")) Then
                     dgvRow.Cells(2).Value = False
                 Else
-                    dgvRow.Cells(2).Value = dr.Item("intAdminAccess")
+                    dgvRow.Cells(2).Value = CBool(dr.Item("intAdminAccess"))
                 End If
                 If IsDBNull(dr.Item("intFeeAccess")) Then
                     dgvRow.Cells(3).Value = False
                 Else
-                    dgvRow.Cells(3).Value = dr.Item("intFeeAccess")
+                    dgvRow.Cells(3).Value = CBool(dr.Item("intFeeAccess"))
                 End If
 
                 If IsDBNull(dr.Item("intEIAccess")) Then
                     dgvRow.Cells(4).Value = False
                 Else
-                    dgvRow.Cells(4).Value = dr.Item("intEIAccess")
+                    dgvRow.Cells(4).Value = CBool(dr.Item("intEIAccess"))
                 End If
                 If IsDBNull(dr.Item("intESAccess")) Then
                     dgvRow.Cells(5).Value = False
                 Else
-                    dgvRow.Cells(5).Value = dr.Item("intESAccess")
+                    dgvRow.Cells(5).Value = CBool(dr.Item("intESAccess"))
                 End If
                 dgvUserFacilities.Rows.Add(dgvRow)
             Next
@@ -307,8 +313,8 @@ Public Class GecoTool
     Private Sub ViewFacilitySpecificUsers()
         Try
 
-            If mtbAIRSNumber.Text.Length <> 8 Then
-                MsgBox("Please enter a complete 8 digit AIRS #.", MsgBoxStyle.Information, "DMU Tools")
+            If Not Apb.ApbFacilityId.IsValidAirsNumberFormat(mtbAIRSNumber.Text) Then
+                MsgBox("Please enter a valid AIRS #.")
             Else
                 Dim dgvRow As DataGridViewRow
                 txtEmail.Clear()
@@ -316,7 +322,9 @@ Public Class GecoTool
                 Dim SQL As String = "Select strFacilityName " &
                 "from APBFacilityInformation " &
                 "where strAIRSNumber = @strAIRSNumber "
+
                 Dim param As New SqlParameter("@strAIRSNumber", "0413" & mtbAIRSNumber.Text)
+
                 Dim fn As String = DB.GetString(SQL, param)
 
                 If fn = "" Then
@@ -325,28 +333,19 @@ Public Class GecoTool
                     lblFaciltyName.Text = Facility.SanitizeFacilityNameForDb(fn)
                 End If
 
-                SQL = "SELECT " &
-                "OlapUserAccess.NumUserID as ID, OlapUserLogin.numuserid, " &
-                "OlapUserLogin.strUserEmail as Email, " &
-                "Case " &
-                "When intAdminAccess = 0 Then 'False' " &
-                "When intAdminAccess = 1 Then 'True' " &
-                "End as intAdminAccess, " &
-                "Case " &
-                "When intFeeAccess = 0 Then 'False' " &
-                "When intFeeAccess = 1 Then 'True' " &
-                "End as intFeeAccess, " &
-                "Case " &
-                "When intEIAccess = 0 Then 'False' " &
-                "When intEIAccess = 1 Then 'True' " &
-                "End as intEIAccess, " &
-                "Case " &
-                "When intESAccess = 0 Then 'False' " &
-                "When intESAccess = 1 Then 'True' " &
-                "End as intESAccess " &
-                "FROM OlapUserAccess inner join OlapUserLogin " &
-                "on OLAPUserAccess.NumUserId = OlapUserLogin.NumUserID " &
-                "where OlapUserAccess.strAirsNumber = @strAirsNumber order by email"
+                SQL = "SELECT
+                        a.NUMUSERID   as ID,
+                        l.NUMUSERID,
+                        l.STRUSEREMAIL as Email,
+                        INTADMINACCESS,
+                        INTFEEACCESS,
+                        INTEIACCESS,
+                        INTESACCESS
+                    FROM OLAPUSERACCESS a
+                        inner join OLAPUSERLOGIN l
+                            on a.NUMUSERID = l.NUMUSERID
+                    where STRAIRSNUMBER = @strAirsNumber
+                    order by Email"
 
                 Dim dt As DataTable = DB.GetDataTable(SQL, param)
 
@@ -358,38 +357,38 @@ Public Class GecoTool
                     If IsDBNull(dr.Item("ID")) Then
                         dgvRow.Cells(0).Value = ""
                     Else
-                        dgvRow.Cells(0).Value = dr.Item("ID")
+                        dgvRow.Cells(0).Value = CInt(dr.Item("ID"))
                     End If
                     If IsDBNull(dr.Item("numuserid")) Then
                         dgvRow.Cells(1).Value = ""
                     Else
-                        dgvRow.Cells(1).Value = dr.Item("numuserid")
+                        dgvRow.Cells(1).Value = CInt(dr.Item("numuserid"))
                     End If
                     If IsDBNull(dr.Item("Email")) Then
                         dgvRow.Cells(2).Value = ""
                     Else
-                        dgvRow.Cells(2).Value = dr.Item("Email")
+                        dgvRow.Cells(2).Value = dr.Item("Email").ToString
                     End If
                     If IsDBNull(dr.Item("intAdminAccess")) Then
                         dgvRow.Cells(3).Value = False
                     Else
-                        dgvRow.Cells(3).Value = dr.Item("intAdminAccess")
+                        dgvRow.Cells(3).Value = CBool(dr.Item("intAdminAccess"))
                     End If
                     If IsDBNull(dr.Item("intFeeAccess")) Then
                         dgvRow.Cells(4).Value = False
                     Else
-                        dgvRow.Cells(4).Value = dr.Item("intFeeAccess")
+                        dgvRow.Cells(4).Value = CBool(dr.Item("intFeeAccess"))
                     End If
 
                     If IsDBNull(dr.Item("intEIAccess")) Then
                         dgvRow.Cells(5).Value = False
                     Else
-                        dgvRow.Cells(5).Value = dr.Item("intEIAccess")
+                        dgvRow.Cells(5).Value = CBool(dr.Item("intEIAccess"))
                     End If
                     If IsDBNull(dr.Item("intESAccess")) Then
                         dgvRow.Cells(6).Value = False
                     Else
-                        dgvRow.Cells(6).Value = dr.Item("intESAccess")
+                        dgvRow.Cells(6).Value = CBool(dr.Item("intESAccess"))
                     End If
                     dgvUsers.Rows.Add(dgvRow)
                 Next
@@ -432,8 +431,7 @@ Public Class GecoTool
 
             Dim params As SqlParameter() = {
                     New SqlParameter("@NUMUSERID", userID),
-                    New SqlParameter("@STRAIRSNUMBER", "0413" & mtbAIRSNumber.Text),
-                    New SqlParameter("@STRFACILITYNAME", lblFaciltyName.Text)
+                    New SqlParameter("@STRAIRSNUMBER", "0413" & mtbAIRSNumber.Text)
                 }
 
             If DB.GetBoolean(query, params) Then ' already assigned
@@ -442,8 +440,8 @@ Public Class GecoTool
             End If
 
             query = "Insert into OlapUserAccess " &
-                    " (numUserId, strAirsNumber, strFacilityName) values " &
-                    " (@NUMUSERID, @STRAIRSNUMBER, @STRFACILITYNAME) "
+                    " (numUserId, strAirsNumber) values " &
+                    " (@NUMUSERID, @STRAIRSNUMBER) "
 
             DB.RunCommand(query, params)
 
@@ -691,12 +689,9 @@ Public Class GecoTool
 
                     If Not DB.GetBoolean(SQL, params) Then
                         SQL = "Insert into OlapUserAccess " &
-                            "(numUserId, strAirsNumber, strFacilityName) " &
+                            "(numUserId, strAirsNumber) " &
                             "values " &
-                            "(@numUserId, @strAirsNumber, " &
-                            "(select strFacilityName " &
-                            "from APBFacilityInformation " &
-                            "where strAIRSnumber = @strAirsNumber)) "
+                            "(@numUserId, @strAirsNumber) "
 
                         Dim params2 As SqlParameter() = {
                             New SqlParameter("@numUserId", txtWebUserID.Text),

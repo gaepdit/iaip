@@ -1086,8 +1086,8 @@ Public Class SSCPEmissionSummaryTool
 
     Private Sub btnEISummary_Click(sender As Object, e As EventArgs) Handles btnEISummary.Click
         Try
-            If cboEIYear.Text <> "" Then
-                If cboEIYear.Text < 2010 Then
+            If cboEIYear.Text <> "" And cboEIYear.Text <> "-Select a Year-" Then
+                If CInt(cboEIYear.Text) < 2010 Then
                     SQL = "SELECT ROW_NUMBER() OVER(ORDER BY AIRSNumber) AS EIRows, AIRSNumber, FacilityName, SO2, NOX, VOC, CO, NH3, Lead, PMFIL, '' AS PM10FIL, PMPRI, PM10PRI, PM25PRI, '' AS PMCON
                         FROM (SELECT SUBSTRING(strairsnumber, 5, 8) AS AIRSNumber, strfacilityname AS FacilityName, SO2, NOX, PMPRI, PMFIL, PM10PRI, PM25PRI, VOC, CO, NH3, Lead
                         FROM (SELECT dt.strairsnumber, dt.strfacilityname, SUM(CASE WHEN dt.strpollutantcode = 'SO2' THEN pollutanttotal ELSE NULL END) AS SO2, SUM(CASE WHEN dt.strpollutantcode = 'NOX' THEN pollutanttotal ELSE NULL END) AS NOx, SUM(CASE WHEN dt.strpollutantcode = 'PM-PRI' THEN pollutanttotal ELSE NULL END) AS PMPRI, SUM(CASE WHEN dt.strpollutantcode = 'PM-FIL' THEN pollutanttotal ELSE NULL END) AS PMFIL, SUM(CASE WHEN dt.strpollutantcode = 'PM10-PRI' THEN pollutanttotal ELSE NULL END) AS PM10PRI, SUM(CASE WHEN dt.strpollutantcode = 'PM25-PRI' THEN pollutanttotal ELSE NULL END) AS PM25PRI, SUM(CASE WHEN dt.strpollutantcode = 'VOC' THEN pollutanttotal ELSE NULL END) AS VOC, SUM(CASE WHEN dt.strpollutantcode = 'CO' THEN pollutanttotal ELSE NULL END) AS CO, SUM(CASE WHEN dt.strpollutantcode = 'NH3' THEN pollutanttotal ELSE NULL END) AS NH3, SUM(CASE WHEN dt.strpollutantcode = '7439921' THEN pollutanttotal ELSE NULL END) AS Lead
@@ -1248,8 +1248,8 @@ Public Class SSCPEmissionSummaryTool
     Private Sub btnViewEISummaryByPollutant_Click(sender As Object, e As EventArgs) Handles btnViewEISummaryByPollutant.Click
         Try
 
-            If cboEIYear.Text <> "" AndAlso cboEIPollutants.Text <> "" Then
-                If cboEIYear.Text < 2010 Then
+            If cboEIYear.Text <> "" And cboEIYear.Text <> "-Select a Year-" AndAlso cboEIPollutants.Text <> "" Then
+                If CInt(cboEIYear.Text) < 2010 Then
                     SQL = "SELECT ROW_NUMBER() OVER(ORDER BY t1.AIRSNumber) AS EIRow, t1.AIRSNumber, t1.FacilityName, t1.Pollutant
                         FROM (SELECT RIGHT(dt.STRAIRSNUMBER, 8) AS AIRSNumber, eisi.STRFACILITYNAME AS FacilityName, dt.PollutantTotal AS Pollutant
                         FROM eisi, (SELECT eiem.STRAIRSNUMBER, eiem.STRPOLLUTANTCODE, SUM(eiem.DBLEMISSIONNUMERICVALUE) AS PollutantTotal, eiem.STRINVENTORYYEAR

@@ -19,9 +19,6 @@ Partial Class IAIPFacilityCreator
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(IAIPFacilityCreator))
-        Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
-        Me.tspClear = New System.Windows.Forms.ToolStripButton()
         Me.GBFacilityInformation = New System.Windows.Forms.GroupBox()
         Me.llbOpenWebpage = New System.Windows.Forms.LinkLabel()
         Me.mtbFacilityLongitude = New System.Windows.Forms.MaskedTextBox()
@@ -41,11 +38,12 @@ Partial Class IAIPFacilityCreator
         Me.Label27 = New System.Windows.Forms.Label()
         Me.Label28 = New System.Windows.Forms.Label()
         Me.Panel4 = New System.Windows.Forms.Panel()
-        Me.GBContactInformation = New System.Windows.Forms.GroupBox()
+        Me.btnSaveNewFacility = New System.Windows.Forms.Button()
+        Me.btnClear = New System.Windows.Forms.Button()
         Me.btnEditFacilityData = New System.Windows.Forms.Button()
+        Me.GBContactInformation = New System.Windows.Forms.GroupBox()
         Me.Label14 = New System.Windows.Forms.Label()
         Me.txtFacilityComments = New System.Windows.Forms.TextBox()
-        Me.btnSaveNewFacility = New System.Windows.Forms.Button()
         Me.mtbContactNumberExtension = New System.Windows.Forms.MaskedTextBox()
         Me.txtContactPedigree = New System.Windows.Forms.TextBox()
         Me.txtContactSocialTitle = New System.Windows.Forms.TextBox()
@@ -101,9 +99,8 @@ Partial Class IAIPFacilityCreator
         Me.Label24 = New System.Windows.Forms.Label()
         Me.txtMailingAddress = New System.Windows.Forms.TextBox()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
-        Me.btnClearAIRSNumber = New System.Windows.Forms.Button()
+        Me.txtApplicationNumber = New Iaip.CueTextBox()
         Me.btnPreLoadNewFacility = New System.Windows.Forms.Button()
-        Me.txtApplicationNumber = New System.Windows.Forms.TextBox()
         Me.cboCounty = New System.Windows.Forms.ComboBox()
         Me.Label11 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
@@ -122,8 +119,7 @@ Partial Class IAIPFacilityCreator
         Me.chbFilterNewFacilities = New System.Windows.Forms.CheckBox()
         Me.dtpEndFilter = New System.Windows.Forms.DateTimePicker()
         Me.dtpStartFilter = New System.Windows.Forms.DateTimePicker()
-        Me.Label25 = New System.Windows.Forms.Label()
-        Me.txtValidationCount = New System.Windows.Forms.TextBox()
+        Me.lblValidationCount = New System.Windows.Forms.Label()
         Me.Label17 = New System.Windows.Forms.Label()
         Me.txtApprovialComments = New System.Windows.Forms.TextBox()
         Me.txtStreetAddress = New System.Windows.Forms.TextBox()
@@ -153,7 +149,6 @@ Partial Class IAIPFacilityCreator
         Me.AirsNumberToDelete = New System.Windows.Forms.TextBox()
         Me.DeleteAirsNumber = New System.Windows.Forms.Button()
         Me.AirsNumberToDeleteLabel = New System.Windows.Forms.Label()
-        Me.ToolStrip1.SuspendLayout()
         Me.GBFacilityInformation.SuspendLayout()
         Me.Panel4.SuspendLayout()
         Me.GBContactInformation.SuspendLayout()
@@ -169,23 +164,6 @@ Partial Class IAIPFacilityCreator
         CType(Me.dgvValidatingAIRS, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TPDeleteFacility.SuspendLayout()
         Me.SuspendLayout()
-        '
-        'ToolStrip1
-        '
-        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tspClear})
-        Me.ToolStrip1.Location = New System.Drawing.Point(0, 0)
-        Me.ToolStrip1.Name = "ToolStrip1"
-        Me.ToolStrip1.Size = New System.Drawing.Size(792, 25)
-        Me.ToolStrip1.TabIndex = 2
-        Me.ToolStrip1.Text = "ToolStrip1"
-        '
-        'tspClear
-        '
-        Me.tspClear.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.tspClear.Image = CType(resources.GetObject("tspClear.Image"), System.Drawing.Image)
-        Me.tspClear.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.tspClear.Name = "tspClear"
-        Me.tspClear.Size = New System.Drawing.Size(23, 22)
         '
         'GBFacilityInformation
         '
@@ -209,7 +187,7 @@ Partial Class IAIPFacilityCreator
         Me.GBFacilityInformation.Dock = System.Windows.Forms.DockStyle.Top
         Me.GBFacilityInformation.Location = New System.Drawing.Point(0, 38)
         Me.GBFacilityInformation.Name = "GBFacilityInformation"
-        Me.GBFacilityInformation.Size = New System.Drawing.Size(778, 92)
+        Me.GBFacilityInformation.Size = New System.Drawing.Size(732, 92)
         Me.GBFacilityInformation.TabIndex = 1
         Me.GBFacilityInformation.TabStop = False
         Me.GBFacilityInformation.Text = "Facility Information"
@@ -217,41 +195,41 @@ Partial Class IAIPFacilityCreator
         'llbOpenWebpage
         '
         Me.llbOpenWebpage.AutoSize = True
-        Me.llbOpenWebpage.Location = New System.Drawing.Point(465, 47)
+        Me.llbOpenWebpage.Location = New System.Drawing.Point(557, 64)
         Me.llbOpenWebpage.Name = "llbOpenWebpage"
         Me.llbOpenWebpage.Size = New System.Drawing.Size(98, 13)
-        Me.llbOpenWebpage.TabIndex = 178
+        Me.llbOpenWebpage.TabIndex = 6
         Me.llbOpenWebpage.TabStop = True
         Me.llbOpenWebpage.Text = "Mapping Webpage"
         '
         'mtbFacilityLongitude
         '
-        Me.mtbFacilityLongitude.Location = New System.Drawing.Point(646, 13)
+        Me.mtbFacilityLongitude.Location = New System.Drawing.Point(482, 38)
         Me.mtbFacilityLongitude.Mask = "-00.000000"
         Me.mtbFacilityLongitude.Name = "mtbFacilityLongitude"
         Me.mtbFacilityLongitude.Size = New System.Drawing.Size(69, 20)
-        Me.mtbFacilityLongitude.TabIndex = 6
+        Me.mtbFacilityLongitude.TabIndex = 5
         '
         'mtbFacilityLatitude
         '
-        Me.mtbFacilityLatitude.Location = New System.Drawing.Point(467, 13)
+        Me.mtbFacilityLatitude.Location = New System.Drawing.Point(482, 14)
         Me.mtbFacilityLatitude.Mask = "00.000000"
         Me.mtbFacilityLatitude.Name = "mtbFacilityLatitude"
-        Me.mtbFacilityLatitude.Size = New System.Drawing.Size(72, 20)
-        Me.mtbFacilityLatitude.TabIndex = 5
+        Me.mtbFacilityLatitude.Size = New System.Drawing.Size(69, 20)
+        Me.mtbFacilityLatitude.TabIndex = 4
         '
         'mtbCDSZipCode
         '
-        Me.mtbCDSZipCode.Location = New System.Drawing.Point(344, 60)
+        Me.mtbCDSZipCode.Location = New System.Drawing.Point(344, 61)
         Me.mtbCDSZipCode.Mask = "00000-9999"
         Me.mtbCDSZipCode.Name = "mtbCDSZipCode"
         Me.mtbCDSZipCode.Size = New System.Drawing.Size(72, 20)
-        Me.mtbCDSZipCode.TabIndex = 4
+        Me.mtbCDSZipCode.TabIndex = 3
         '
         'Label103
         '
         Me.Label103.AutoSize = True
-        Me.Label103.Location = New System.Drawing.Point(593, 34)
+        Me.Label103.Location = New System.Drawing.Point(557, 41)
         Me.Label103.Name = "Label103"
         Me.Label103.Size = New System.Drawing.Size(159, 13)
         Me.Label103.TabIndex = 173
@@ -260,7 +238,7 @@ Partial Class IAIPFacilityCreator
         'Label102
         '
         Me.Label102.AutoSize = True
-        Me.Label102.Location = New System.Drawing.Point(431, 34)
+        Me.Label102.Location = New System.Drawing.Point(557, 17)
         Me.Label102.Name = "Label102"
         Me.Label102.Size = New System.Drawing.Size(147, 13)
         Me.Label102.TabIndex = 171
@@ -272,12 +250,12 @@ Partial Class IAIPFacilityCreator
         Me.txtCDSStreetAddress.MaxLength = 100
         Me.txtCDSStreetAddress.Name = "txtCDSStreetAddress"
         Me.txtCDSStreetAddress.Size = New System.Drawing.Size(312, 20)
-        Me.txtCDSStreetAddress.TabIndex = 2
+        Me.txtCDSStreetAddress.TabIndex = 1
         '
         'Label5
         '
         Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(216, 64)
+        Me.Label5.Location = New System.Drawing.Point(218, 64)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(32, 13)
         Me.Label5.TabIndex = 48
@@ -286,7 +264,7 @@ Partial Class IAIPFacilityCreator
         'Label9
         '
         Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(24, 17)
+        Me.Label9.Location = New System.Drawing.Point(28, 17)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(70, 13)
         Me.Label9.TabIndex = 39
@@ -294,16 +272,16 @@ Partial Class IAIPFacilityCreator
         '
         'txtCDSFacilityName
         '
-        Me.txtCDSFacilityName.Location = New System.Drawing.Point(104, 15)
+        Me.txtCDSFacilityName.Location = New System.Drawing.Point(104, 14)
         Me.txtCDSFacilityName.MaxLength = 100
         Me.txtCDSFacilityName.Name = "txtCDSFacilityName"
         Me.txtCDSFacilityName.Size = New System.Drawing.Size(312, 20)
-        Me.txtCDSFacilityName.TabIndex = 1
+        Me.txtCDSFacilityName.TabIndex = 0
         '
         'Label7
         '
         Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(73, 64)
+        Me.Label7.Location = New System.Drawing.Point(74, 64)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(24, 13)
         Me.Label7.TabIndex = 43
@@ -311,16 +289,16 @@ Partial Class IAIPFacilityCreator
         '
         'txtCDSCity
         '
-        Me.txtCDSCity.Location = New System.Drawing.Point(104, 60)
+        Me.txtCDSCity.Location = New System.Drawing.Point(104, 61)
         Me.txtCDSCity.MaxLength = 50
         Me.txtCDSCity.Name = "txtCDSCity"
         Me.txtCDSCity.Size = New System.Drawing.Size(108, 20)
-        Me.txtCDSCity.TabIndex = 3
+        Me.txtCDSCity.TabIndex = 2
         '
         'Label8
         '
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(18, 40)
+        Me.Label8.Location = New System.Drawing.Point(22, 41)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(76, 13)
         Me.Label8.TabIndex = 41
@@ -329,7 +307,7 @@ Partial Class IAIPFacilityCreator
         'Label10
         '
         Me.Label10.AutoSize = True
-        Me.Label10.Location = New System.Drawing.Point(287, 64)
+        Me.Label10.Location = New System.Drawing.Point(288, 64)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(50, 13)
         Me.Label10.TabIndex = 45
@@ -337,7 +315,7 @@ Partial Class IAIPFacilityCreator
         '
         'txtCDSState
         '
-        Me.txtCDSState.Location = New System.Drawing.Point(256, 60)
+        Me.txtCDSState.Location = New System.Drawing.Point(256, 61)
         Me.txtCDSState.MaxLength = 4
         Me.txtCDSState.Name = "txtCDSState"
         Me.txtCDSState.ReadOnly = True
@@ -349,7 +327,7 @@ Partial Class IAIPFacilityCreator
         'Label27
         '
         Me.Label27.AutoSize = True
-        Me.Label27.Location = New System.Drawing.Point(591, 16)
+        Me.Label27.Location = New System.Drawing.Point(422, 41)
         Me.Label27.Name = "Label27"
         Me.Label27.Size = New System.Drawing.Size(54, 13)
         Me.Label27.TabIndex = 156
@@ -358,7 +336,7 @@ Partial Class IAIPFacilityCreator
         'Label28
         '
         Me.Label28.AutoSize = True
-        Me.Label28.Location = New System.Drawing.Point(422, 16)
+        Me.Label28.Location = New System.Drawing.Point(422, 17)
         Me.Label28.Name = "Label28"
         Me.Label28.Size = New System.Drawing.Size(45, 13)
         Me.Label28.TabIndex = 155
@@ -367,6 +345,9 @@ Partial Class IAIPFacilityCreator
         'Panel4
         '
         Me.Panel4.AutoScroll = True
+        Me.Panel4.Controls.Add(Me.btnSaveNewFacility)
+        Me.Panel4.Controls.Add(Me.btnClear)
+        Me.Panel4.Controls.Add(Me.btnEditFacilityData)
         Me.Panel4.Controls.Add(Me.GBContactInformation)
         Me.Panel4.Controls.Add(Me.GBAirProgramCodes)
         Me.Panel4.Controls.Add(Me.GBHeaderData)
@@ -376,15 +357,47 @@ Partial Class IAIPFacilityCreator
         Me.Panel4.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel4.Location = New System.Drawing.Point(3, 3)
         Me.Panel4.Name = "Panel4"
-        Me.Panel4.Size = New System.Drawing.Size(778, 509)
-        Me.Panel4.TabIndex = 62
+        Me.Panel4.Size = New System.Drawing.Size(732, 513)
+        Me.Panel4.TabIndex = 0
+        '
+        'btnSaveNewFacility
+        '
+        Me.btnSaveNewFacility.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.btnSaveNewFacility.Image = Global.Iaip.My.Resources.Resources.SaveIcon
+        Me.btnSaveNewFacility.Location = New System.Drawing.Point(5, 485)
+        Me.btnSaveNewFacility.Name = "btnSaveNewFacility"
+        Me.btnSaveNewFacility.Size = New System.Drawing.Size(143, 24)
+        Me.btnSaveNewFacility.TabIndex = 11
+        Me.btnSaveNewFacility.Text = "Save New Facility"
+        Me.btnSaveNewFacility.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
+        Me.btnSaveNewFacility.UseVisualStyleBackColor = True
+        '
+        'btnClear
+        '
+        Me.btnClear.Location = New System.Drawing.Point(635, 484)
+        Me.btnClear.Name = "btnClear"
+        Me.btnClear.Size = New System.Drawing.Size(89, 24)
+        Me.btnClear.TabIndex = 12
+        Me.btnClear.Text = "Clear Form"
+        Me.btnClear.UseVisualStyleBackColor = True
+        '
+        'btnEditFacilityData
+        '
+        Me.btnEditFacilityData.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.btnEditFacilityData.Image = Global.Iaip.My.Resources.Resources.SaveIcon
+        Me.btnEditFacilityData.Location = New System.Drawing.Point(5, 485)
+        Me.btnEditFacilityData.Name = "btnEditFacilityData"
+        Me.btnEditFacilityData.Size = New System.Drawing.Size(143, 24)
+        Me.btnEditFacilityData.TabIndex = 376
+        Me.btnEditFacilityData.Text = "Update Facility"
+        Me.btnEditFacilityData.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
+        Me.btnEditFacilityData.UseVisualStyleBackColor = True
+        Me.btnEditFacilityData.Visible = False
         '
         'GBContactInformation
         '
-        Me.GBContactInformation.Controls.Add(Me.btnEditFacilityData)
         Me.GBContactInformation.Controls.Add(Me.Label14)
         Me.GBContactInformation.Controls.Add(Me.txtFacilityComments)
-        Me.GBContactInformation.Controls.Add(Me.btnSaveNewFacility)
         Me.GBContactInformation.Controls.Add(Me.mtbContactNumberExtension)
         Me.GBContactInformation.Controls.Add(Me.txtContactPedigree)
         Me.GBContactInformation.Controls.Add(Me.txtContactSocialTitle)
@@ -402,26 +415,15 @@ Partial Class IAIPFacilityCreator
         Me.GBContactInformation.Dock = System.Windows.Forms.DockStyle.Top
         Me.GBContactInformation.Location = New System.Drawing.Point(0, 357)
         Me.GBContactInformation.Name = "GBContactInformation"
-        Me.GBContactInformation.Size = New System.Drawing.Size(778, 122)
+        Me.GBContactInformation.Size = New System.Drawing.Size(732, 122)
         Me.GBContactInformation.TabIndex = 5
         Me.GBContactInformation.TabStop = False
         Me.GBContactInformation.Text = "Contact Information"
         '
-        'btnEditFacilityData
-        '
-        Me.btnEditFacilityData.AutoSize = True
-        Me.btnEditFacilityData.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnEditFacilityData.Location = New System.Drawing.Point(611, 90)
-        Me.btnEditFacilityData.Name = "btnEditFacilityData"
-        Me.btnEditFacilityData.Size = New System.Drawing.Size(109, 23)
-        Me.btnEditFacilityData.TabIndex = 376
-        Me.btnEditFacilityData.Text = "Edit Existing Facility"
-        Me.btnEditFacilityData.UseVisualStyleBackColor = True
-        '
         'Label14
         '
         Me.Label14.AutoSize = True
-        Me.Label14.Location = New System.Drawing.Point(14, 69)
+        Me.Label14.Location = New System.Drawing.Point(14, 68)
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(56, 13)
         Me.Label14.TabIndex = 375
@@ -429,22 +431,11 @@ Partial Class IAIPFacilityCreator
         '
         'txtFacilityComments
         '
-        Me.txtFacilityComments.Location = New System.Drawing.Point(76, 66)
+        Me.txtFacilityComments.Location = New System.Drawing.Point(76, 65)
         Me.txtFacilityComments.Multiline = True
         Me.txtFacilityComments.Name = "txtFacilityComments"
         Me.txtFacilityComments.Size = New System.Drawing.Size(496, 47)
-        Me.txtFacilityComments.TabIndex = 35
-        '
-        'btnSaveNewFacility
-        '
-        Me.btnSaveNewFacility.AutoSize = True
-        Me.btnSaveNewFacility.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnSaveNewFacility.Location = New System.Drawing.Point(613, 44)
-        Me.btnSaveNewFacility.Name = "btnSaveNewFacility"
-        Me.btnSaveNewFacility.Size = New System.Drawing.Size(102, 23)
-        Me.btnSaveNewFacility.TabIndex = 36
-        Me.btnSaveNewFacility.Text = "Save New Facility"
-        Me.btnSaveNewFacility.UseVisualStyleBackColor = True
+        Me.txtFacilityComments.TabIndex = 7
         '
         'mtbContactNumberExtension
         '
@@ -452,21 +443,21 @@ Partial Class IAIPFacilityCreator
         Me.mtbContactNumberExtension.Mask = "0000"
         Me.mtbContactNumberExtension.Name = "mtbContactNumberExtension"
         Me.mtbContactNumberExtension.Size = New System.Drawing.Size(46, 20)
-        Me.mtbContactNumberExtension.TabIndex = 34
+        Me.mtbContactNumberExtension.TabIndex = 6
         '
         'txtContactPedigree
         '
         Me.txtContactPedigree.Location = New System.Drawing.Point(632, 17)
         Me.txtContactPedigree.Name = "txtContactPedigree"
         Me.txtContactPedigree.Size = New System.Drawing.Size(72, 20)
-        Me.txtContactPedigree.TabIndex = 31
+        Me.txtContactPedigree.TabIndex = 3
         '
         'txtContactSocialTitle
         '
         Me.txtContactSocialTitle.Location = New System.Drawing.Point(76, 17)
         Me.txtContactSocialTitle.Name = "txtContactSocialTitle"
         Me.txtContactSocialTitle.Size = New System.Drawing.Size(72, 20)
-        Me.txtContactSocialTitle.TabIndex = 28
+        Me.txtContactSocialTitle.TabIndex = 0
         '
         'Label33
         '
@@ -491,7 +482,7 @@ Partial Class IAIPFacilityCreator
         Me.txtContactLastName.Location = New System.Drawing.Point(423, 17)
         Me.txtContactLastName.Name = "txtContactLastName"
         Me.txtContactLastName.Size = New System.Drawing.Size(151, 20)
-        Me.txtContactLastName.TabIndex = 30
+        Me.txtContactLastName.TabIndex = 2
         '
         'Label35
         '
@@ -507,7 +498,7 @@ Partial Class IAIPFacilityCreator
         Me.txtContactFirstName.Location = New System.Drawing.Point(212, 17)
         Me.txtContactFirstName.Name = "txtContactFirstName"
         Me.txtContactFirstName.Size = New System.Drawing.Size(151, 20)
-        Me.txtContactFirstName.TabIndex = 29
+        Me.txtContactFirstName.TabIndex = 1
         '
         'Label36
         '
@@ -524,7 +515,7 @@ Partial Class IAIPFacilityCreator
         Me.mtbContactPhoneNumber.Mask = "(999) 000-0000"
         Me.mtbContactPhoneNumber.Name = "mtbContactPhoneNumber"
         Me.mtbContactPhoneNumber.Size = New System.Drawing.Size(100, 20)
-        Me.mtbContactPhoneNumber.TabIndex = 33
+        Me.mtbContactPhoneNumber.TabIndex = 5
         '
         'Label23
         '
@@ -558,7 +549,7 @@ Partial Class IAIPFacilityCreator
         Me.txtContactTitle.Location = New System.Drawing.Point(76, 40)
         Me.txtContactTitle.Name = "txtContactTitle"
         Me.txtContactTitle.Size = New System.Drawing.Size(180, 20)
-        Me.txtContactTitle.TabIndex = 32
+        Me.txtContactTitle.TabIndex = 4
         '
         'GBAirProgramCodes
         '
@@ -582,7 +573,7 @@ Partial Class IAIPFacilityCreator
         Me.GBAirProgramCodes.Dock = System.Windows.Forms.DockStyle.Top
         Me.GBAirProgramCodes.Location = New System.Drawing.Point(0, 286)
         Me.GBAirProgramCodes.Name = "GBAirProgramCodes"
-        Me.GBAirProgramCodes.Size = New System.Drawing.Size(778, 71)
+        Me.GBAirProgramCodes.Size = New System.Drawing.Size(732, 71)
         Me.GBAirProgramCodes.TabIndex = 4
         Me.GBAirProgramCodes.TabStop = False
         Me.GBAirProgramCodes.Text = "Air Program Codes && Pollutants (Select All that Apply)"
@@ -602,7 +593,7 @@ Partial Class IAIPFacilityCreator
         Me.mtbRiskManagementNumber.Mask = "0000-0000-0000"
         Me.mtbRiskManagementNumber.Name = "mtbRiskManagementNumber"
         Me.mtbRiskManagementNumber.Size = New System.Drawing.Size(100, 20)
-        Me.mtbRiskManagementNumber.TabIndex = 160
+        Me.mtbRiskManagementNumber.TabIndex = 16
         '
         'chbCDS_14
         '
@@ -610,7 +601,7 @@ Partial Class IAIPFacilityCreator
         Me.chbCDS_14.Location = New System.Drawing.Point(434, 35)
         Me.chbCDS_14.Name = "chbCDS_14"
         Me.chbCDS_14.Size = New System.Drawing.Size(153, 17)
-        Me.chbCDS_14.TabIndex = 159
+        Me.chbCDS_14.TabIndex = 14
         Me.chbCDS_14.Text = "R - Risk Management Plan"
         '
         'chbCDS_15
@@ -619,7 +610,7 @@ Partial Class IAIPFacilityCreator
         Me.chbCDS_15.Location = New System.Drawing.Point(434, 51)
         Me.chbCDS_15.Name = "chbCDS_15"
         Me.chbCDS_15.Size = New System.Drawing.Size(128, 17)
-        Me.chbCDS_15.TabIndex = 158
+        Me.chbCDS_15.TabIndex = 15
         Me.chbCDS_15.Text = "G - Green House Gas"
         Me.chbCDS_15.Visible = False
         '
@@ -629,7 +620,7 @@ Partial Class IAIPFacilityCreator
         Me.chbCDS_7.Location = New System.Drawing.Point(219, 19)
         Me.chbCDS_7.Name = "chbCDS_7"
         Me.chbCDS_7.Size = New System.Drawing.Size(85, 17)
-        Me.chbCDS_7.TabIndex = 21
+        Me.chbCDS_7.TabIndex = 7
         Me.chbCDS_7.Text = "8 - NESHAP"
         '
         'chbCDS_4
@@ -638,7 +629,7 @@ Partial Class IAIPFacilityCreator
         Me.chbCDS_4.Location = New System.Drawing.Point(107, 19)
         Me.chbCDS_4.Name = "chbCDS_4"
         Me.chbCDS_4.Size = New System.Drawing.Size(106, 17)
-        Me.chbCDS_4.TabIndex = 18
+        Me.chbCDS_4.TabIndex = 4
         Me.chbCDS_4.Text = "4 - CFC Tracking"
         '
         'chbCDS_13
@@ -647,7 +638,7 @@ Partial Class IAIPFacilityCreator
         Me.chbCDS_13.Location = New System.Drawing.Point(434, 19)
         Me.chbCDS_13.Name = "chbCDS_13"
         Me.chbCDS_13.Size = New System.Drawing.Size(72, 17)
-        Me.chbCDS_13.TabIndex = 27
+        Me.chbCDS_13.TabIndex = 13
         Me.chbCDS_13.Text = "V - Title V"
         '
         'chbCDS_3
@@ -656,7 +647,7 @@ Partial Class IAIPFacilityCreator
         Me.chbCDS_3.Location = New System.Drawing.Point(20, 51)
         Me.chbCDS_3.Name = "chbCDS_3"
         Me.chbCDS_3.Size = New System.Drawing.Size(85, 17)
-        Me.chbCDS_3.TabIndex = 17
+        Me.chbCDS_3.TabIndex = 3
         Me.chbCDS_3.Text = "3 - Non Fed."
         '
         'chbCDS_12
@@ -665,7 +656,7 @@ Partial Class IAIPFacilityCreator
         Me.chbCDS_12.Location = New System.Drawing.Point(310, 51)
         Me.chbCDS_12.Name = "chbCDS_12"
         Me.chbCDS_12.Size = New System.Drawing.Size(74, 17)
-        Me.chbCDS_12.TabIndex = 26
+        Me.chbCDS_12.TabIndex = 12
         Me.chbCDS_12.Text = "M - MACT"
         '
         'chbCDS_9
@@ -674,7 +665,7 @@ Partial Class IAIPFacilityCreator
         Me.chbCDS_9.Location = New System.Drawing.Point(219, 51)
         Me.chbCDS_9.Name = "chbCDS_9"
         Me.chbCDS_9.Size = New System.Drawing.Size(79, 17)
-        Me.chbCDS_9.TabIndex = 23
+        Me.chbCDS_9.TabIndex = 9
         Me.chbCDS_9.Text = "F - FESOP "
         '
         'chbCDS_10
@@ -683,7 +674,7 @@ Partial Class IAIPFacilityCreator
         Me.chbCDS_10.Location = New System.Drawing.Point(310, 19)
         Me.chbCDS_10.Name = "chbCDS_10"
         Me.chbCDS_10.Size = New System.Drawing.Size(99, 17)
-        Me.chbCDS_10.TabIndex = 24
+        Me.chbCDS_10.TabIndex = 10
         Me.chbCDS_10.Text = "A - Acid Precip."
         '
         'chbCDS_2
@@ -692,7 +683,7 @@ Partial Class IAIPFacilityCreator
         Me.chbCDS_2.Location = New System.Drawing.Point(20, 35)
         Me.chbCDS_2.Name = "chbCDS_2"
         Me.chbCDS_2.Size = New System.Drawing.Size(82, 17)
-        Me.chbCDS_2.TabIndex = 16
+        Me.chbCDS_2.TabIndex = 2
         Me.chbCDS_2.Text = "1 - Fed. SIP"
         '
         'chbCDS_6
@@ -701,7 +692,7 @@ Partial Class IAIPFacilityCreator
         Me.chbCDS_6.Location = New System.Drawing.Point(107, 51)
         Me.chbCDS_6.Name = "chbCDS_6"
         Me.chbCDS_6.Size = New System.Drawing.Size(64, 17)
-        Me.chbCDS_6.TabIndex = 20
+        Me.chbCDS_6.TabIndex = 6
         Me.chbCDS_6.Text = "7 - NSR"
         '
         'chbCDS_1
@@ -712,7 +703,7 @@ Partial Class IAIPFacilityCreator
         Me.chbCDS_1.Location = New System.Drawing.Point(20, 19)
         Me.chbCDS_1.Name = "chbCDS_1"
         Me.chbCDS_1.Size = New System.Drawing.Size(58, 17)
-        Me.chbCDS_1.TabIndex = 15
+        Me.chbCDS_1.TabIndex = 1
         Me.chbCDS_1.Text = "0 - SIP"
         '
         'chbCDS_5
@@ -721,7 +712,7 @@ Partial Class IAIPFacilityCreator
         Me.chbCDS_5.Location = New System.Drawing.Point(107, 35)
         Me.chbCDS_5.Name = "chbCDS_5"
         Me.chbCDS_5.Size = New System.Drawing.Size(63, 17)
-        Me.chbCDS_5.TabIndex = 19
+        Me.chbCDS_5.TabIndex = 5
         Me.chbCDS_5.Text = "6 - PSD"
         '
         'chbCDS_11
@@ -730,7 +721,7 @@ Partial Class IAIPFacilityCreator
         Me.chbCDS_11.Location = New System.Drawing.Point(310, 35)
         Me.chbCDS_11.Name = "chbCDS_11"
         Me.chbCDS_11.Size = New System.Drawing.Size(116, 17)
-        Me.chbCDS_11.TabIndex = 25
+        Me.chbCDS_11.TabIndex = 11
         Me.chbCDS_11.Text = "I - Native American"
         '
         'chbCDS_8
@@ -739,7 +730,7 @@ Partial Class IAIPFacilityCreator
         Me.chbCDS_8.Location = New System.Drawing.Point(219, 35)
         Me.chbCDS_8.Name = "chbCDS_8"
         Me.chbCDS_8.Size = New System.Drawing.Size(70, 17)
-        Me.chbCDS_8.TabIndex = 22
+        Me.chbCDS_8.TabIndex = 8
         Me.chbCDS_8.Text = "9 - NSPS"
         '
         'GBHeaderData
@@ -759,7 +750,7 @@ Partial Class IAIPFacilityCreator
         Me.GBHeaderData.Dock = System.Windows.Forms.DockStyle.Top
         Me.GBHeaderData.Location = New System.Drawing.Point(0, 194)
         Me.GBHeaderData.Name = "GBHeaderData"
-        Me.GBHeaderData.Size = New System.Drawing.Size(778, 92)
+        Me.GBHeaderData.Size = New System.Drawing.Size(732, 92)
         Me.GBHeaderData.TabIndex = 3
         Me.GBHeaderData.TabStop = False
         Me.GBHeaderData.Text = "Header Data"
@@ -770,7 +761,7 @@ Partial Class IAIPFacilityCreator
         Me.mtbCDSNAICSCode.Mask = "000000"
         Me.mtbCDSNAICSCode.Name = "mtbCDSNAICSCode"
         Me.mtbCDSNAICSCode.Size = New System.Drawing.Size(44, 20)
-        Me.mtbCDSNAICSCode.TabIndex = 173
+        Me.mtbCDSNAICSCode.TabIndex = 1
         '
         'Label37
         '
@@ -789,6 +780,7 @@ Partial Class IAIPFacilityCreator
         Me.txtCDSRegionCode.ReadOnly = True
         Me.txtCDSRegionCode.Size = New System.Drawing.Size(153, 20)
         Me.txtCDSRegionCode.TabIndex = 171
+        Me.txtCDSRegionCode.TabStop = False
         '
         'Label21
         '
@@ -814,7 +806,7 @@ Partial Class IAIPFacilityCreator
         Me.mtbCDSSICCode.Mask = "0000"
         Me.mtbCDSSICCode.Name = "mtbCDSSICCode"
         Me.mtbCDSSICCode.Size = New System.Drawing.Size(44, 20)
-        Me.mtbCDSSICCode.TabIndex = 11
+        Me.mtbCDSSICCode.TabIndex = 0
         '
         'cboCDSOperationalStatus
         '
@@ -822,7 +814,7 @@ Partial Class IAIPFacilityCreator
         Me.cboCDSOperationalStatus.Location = New System.Drawing.Point(270, 13)
         Me.cboCDSOperationalStatus.Name = "cboCDSOperationalStatus"
         Me.cboCDSOperationalStatus.Size = New System.Drawing.Size(153, 21)
-        Me.cboCDSOperationalStatus.TabIndex = 12
+        Me.cboCDSOperationalStatus.TabIndex = 2
         '
         'Label51
         '
@@ -839,7 +831,7 @@ Partial Class IAIPFacilityCreator
         Me.cboCDSClassCode.Location = New System.Drawing.Point(571, 13)
         Me.cboCDSClassCode.Name = "cboCDSClassCode"
         Me.cboCDSClassCode.Size = New System.Drawing.Size(153, 21)
-        Me.cboCDSClassCode.TabIndex = 13
+        Me.cboCDSClassCode.TabIndex = 3
         '
         'Label49
         '
@@ -866,7 +858,7 @@ Partial Class IAIPFacilityCreator
         Me.txtFacilityDescription.Name = "txtFacilityDescription"
         Me.txtFacilityDescription.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.txtFacilityDescription.Size = New System.Drawing.Size(385, 20)
-        Me.txtFacilityDescription.TabIndex = 14
+        Me.txtFacilityDescription.TabIndex = 4
         '
         'GBMailingLocation
         '
@@ -881,7 +873,7 @@ Partial Class IAIPFacilityCreator
         Me.GBMailingLocation.Dock = System.Windows.Forms.DockStyle.Top
         Me.GBMailingLocation.Location = New System.Drawing.Point(0, 130)
         Me.GBMailingLocation.Name = "GBMailingLocation"
-        Me.GBMailingLocation.Size = New System.Drawing.Size(778, 64)
+        Me.GBMailingLocation.Size = New System.Drawing.Size(732, 64)
         Me.GBMailingLocation.TabIndex = 2
         Me.GBMailingLocation.TabStop = False
         Me.GBMailingLocation.Text = "Mailing Location"
@@ -892,7 +884,7 @@ Partial Class IAIPFacilityCreator
         Me.mtbMailingZipCode.Mask = "00000-9999"
         Me.mtbMailingZipCode.Name = "mtbMailingZipCode"
         Me.mtbMailingZipCode.Size = New System.Drawing.Size(72, 20)
-        Me.mtbMailingZipCode.TabIndex = 10
+        Me.mtbMailingZipCode.TabIndex = 3
         '
         'txtMailingState
         '
@@ -900,7 +892,7 @@ Partial Class IAIPFacilityCreator
         Me.txtMailingState.MaxLength = 2
         Me.txtMailingState.Name = "txtMailingState"
         Me.txtMailingState.Size = New System.Drawing.Size(24, 20)
-        Me.txtMailingState.TabIndex = 9
+        Me.txtMailingState.TabIndex = 2
         Me.txtMailingState.Text = "GA"
         '
         'Label18
@@ -924,7 +916,7 @@ Partial Class IAIPFacilityCreator
         'Label20
         '
         Me.Label20.AutoSize = True
-        Me.Label20.Location = New System.Drawing.Point(34, 40)
+        Me.Label20.Location = New System.Drawing.Point(38, 39)
         Me.Label20.Name = "Label20"
         Me.Label20.Size = New System.Drawing.Size(60, 13)
         Me.Label20.TabIndex = 160
@@ -932,15 +924,15 @@ Partial Class IAIPFacilityCreator
         '
         'txtMailingCity
         '
-        Me.txtMailingCity.Location = New System.Drawing.Point(104, 36)
+        Me.txtMailingCity.Location = New System.Drawing.Point(104, 37)
         Me.txtMailingCity.Name = "txtMailingCity"
         Me.txtMailingCity.Size = New System.Drawing.Size(160, 20)
-        Me.txtMailingCity.TabIndex = 8
+        Me.txtMailingCity.TabIndex = 1
         '
         'Label24
         '
         Me.Label24.AutoSize = True
-        Me.Label24.Location = New System.Drawing.Point(12, 18)
+        Me.Label24.Location = New System.Drawing.Point(17, 17)
         Me.Label24.Name = "Label24"
         Me.Label24.Size = New System.Drawing.Size(81, 13)
         Me.Label24.TabIndex = 159
@@ -951,13 +943,12 @@ Partial Class IAIPFacilityCreator
         Me.txtMailingAddress.Location = New System.Drawing.Point(104, 14)
         Me.txtMailingAddress.Name = "txtMailingAddress"
         Me.txtMailingAddress.Size = New System.Drawing.Size(370, 20)
-        Me.txtMailingAddress.TabIndex = 7
+        Me.txtMailingAddress.TabIndex = 0
         '
         'GroupBox1
         '
-        Me.GroupBox1.Controls.Add(Me.btnClearAIRSNumber)
-        Me.GroupBox1.Controls.Add(Me.btnPreLoadNewFacility)
         Me.GroupBox1.Controls.Add(Me.txtApplicationNumber)
+        Me.GroupBox1.Controls.Add(Me.btnPreLoadNewFacility)
         Me.GroupBox1.Controls.Add(Me.cboCounty)
         Me.GroupBox1.Controls.Add(Me.Label11)
         Me.GroupBox1.Controls.Add(Me.Label4)
@@ -965,44 +956,33 @@ Partial Class IAIPFacilityCreator
         Me.GroupBox1.Dock = System.Windows.Forms.DockStyle.Top
         Me.GroupBox1.Location = New System.Drawing.Point(0, 0)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(778, 38)
+        Me.GroupBox1.Size = New System.Drawing.Size(732, 38)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         '
-        'btnClearAIRSNumber
+        'txtApplicationNumber
         '
-        Me.btnClearAIRSNumber.AutoSize = True
-        Me.btnClearAIRSNumber.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnClearAIRSNumber.Image = CType(resources.GetObject("btnClearAIRSNumber.Image"), System.Drawing.Image)
-        Me.btnClearAIRSNumber.Location = New System.Drawing.Point(422, 10)
-        Me.btnClearAIRSNumber.Name = "btnClearAIRSNumber"
-        Me.btnClearAIRSNumber.Size = New System.Drawing.Size(22, 22)
-        Me.btnClearAIRSNumber.TabIndex = 487
-        Me.btnClearAIRSNumber.UseVisualStyleBackColor = True
+        Me.txtApplicationNumber.Cue = "App No."
+        Me.txtApplicationNumber.Location = New System.Drawing.Point(543, 10)
+        Me.txtApplicationNumber.Name = "txtApplicationNumber"
+        Me.txtApplicationNumber.Size = New System.Drawing.Size(100, 20)
+        Me.txtApplicationNumber.TabIndex = 2
         '
         'btnPreLoadNewFacility
         '
-        Me.btnPreLoadNewFacility.Location = New System.Drawing.Point(539, 12)
+        Me.btnPreLoadNewFacility.Location = New System.Drawing.Point(649, 8)
         Me.btnPreLoadNewFacility.Name = "btnPreLoadNewFacility"
         Me.btnPreLoadNewFacility.Size = New System.Drawing.Size(75, 23)
-        Me.btnPreLoadNewFacility.TabIndex = 37
-        Me.btnPreLoadNewFacility.Text = "PreLoad"
+        Me.btnPreLoadNewFacility.TabIndex = 3
+        Me.btnPreLoadNewFacility.Text = "Preload"
         Me.btnPreLoadNewFacility.UseVisualStyleBackColor = True
-        '
-        'txtApplicationNumber
-        '
-        Me.txtApplicationNumber.Location = New System.Drawing.Point(620, 14)
-        Me.txtApplicationNumber.Name = "txtApplicationNumber"
-        Me.txtApplicationNumber.Size = New System.Drawing.Size(100, 20)
-        Me.txtApplicationNumber.TabIndex = 38
-        Me.txtApplicationNumber.Text = "App No."
         '
         'cboCounty
         '
         Me.cboCounty.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
         Me.cboCounty.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.cboCounty.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cboCounty.Location = New System.Drawing.Point(104, 13)
+        Me.cboCounty.Location = New System.Drawing.Point(104, 10)
         Me.cboCounty.Name = "cboCounty"
         Me.cboCounty.Size = New System.Drawing.Size(123, 21)
         Me.cboCounty.TabIndex = 0
@@ -1032,7 +1012,7 @@ Partial Class IAIPFacilityCreator
         Me.txtCDSAIRSNumber.Name = "txtCDSAIRSNumber"
         Me.txtCDSAIRSNumber.ReadOnly = True
         Me.txtCDSAIRSNumber.Size = New System.Drawing.Size(88, 20)
-        Me.txtCDSAIRSNumber.TabIndex = 60
+        Me.txtCDSAIRSNumber.TabIndex = 1
         '
         'TCFacilityTools
         '
@@ -1040,11 +1020,12 @@ Partial Class IAIPFacilityCreator
         Me.TCFacilityTools.Controls.Add(Me.TPApproveNewFacility)
         Me.TCFacilityTools.Controls.Add(Me.TPDeleteFacility)
         Me.TCFacilityTools.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TCFacilityTools.Location = New System.Drawing.Point(0, 25)
+        Me.TCFacilityTools.Location = New System.Drawing.Point(0, 0)
+        Me.TCFacilityTools.MinimumSize = New System.Drawing.Size(746, 545)
         Me.TCFacilityTools.Name = "TCFacilityTools"
         Me.TCFacilityTools.SelectedIndex = 0
-        Me.TCFacilityTools.Size = New System.Drawing.Size(792, 541)
-        Me.TCFacilityTools.TabIndex = 374
+        Me.TCFacilityTools.Size = New System.Drawing.Size(746, 545)
+        Me.TCFacilityTools.TabIndex = 0
         '
         'TPCreateNewFacility
         '
@@ -1052,30 +1033,37 @@ Partial Class IAIPFacilityCreator
         Me.TPCreateNewFacility.Location = New System.Drawing.Point(4, 22)
         Me.TPCreateNewFacility.Name = "TPCreateNewFacility"
         Me.TPCreateNewFacility.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPCreateNewFacility.Size = New System.Drawing.Size(784, 515)
+        Me.TPCreateNewFacility.Size = New System.Drawing.Size(738, 519)
         Me.TPCreateNewFacility.TabIndex = 0
         Me.TPCreateNewFacility.Text = "Create New Facility"
         Me.TPCreateNewFacility.UseVisualStyleBackColor = True
         '
         'TPApproveNewFacility
         '
-        Me.TPApproveNewFacility.Controls.Add(Me.dgvVerifyNewFacilities)
         Me.TPApproveNewFacility.Controls.Add(Me.Panel5)
+        Me.TPApproveNewFacility.Controls.Add(Me.dgvVerifyNewFacilities)
         Me.TPApproveNewFacility.Location = New System.Drawing.Point(4, 22)
         Me.TPApproveNewFacility.Name = "TPApproveNewFacility"
         Me.TPApproveNewFacility.Padding = New System.Windows.Forms.Padding(3)
-        Me.TPApproveNewFacility.Size = New System.Drawing.Size(784, 515)
+        Me.TPApproveNewFacility.Size = New System.Drawing.Size(738, 519)
         Me.TPApproveNewFacility.TabIndex = 1
         Me.TPApproveNewFacility.Text = "Approve New Facilities"
         Me.TPApproveNewFacility.UseVisualStyleBackColor = True
         '
         'dgvVerifyNewFacilities
         '
+        Me.dgvVerifyNewFacilities.AllowUserToAddRows = False
+        Me.dgvVerifyNewFacilities.AllowUserToDeleteRows = False
+        Me.dgvVerifyNewFacilities.AllowUserToResizeRows = False
         Me.dgvVerifyNewFacilities.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvVerifyNewFacilities.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.dgvVerifyNewFacilities.Dock = System.Windows.Forms.DockStyle.Top
+        Me.dgvVerifyNewFacilities.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
         Me.dgvVerifyNewFacilities.Location = New System.Drawing.Point(3, 3)
+        Me.dgvVerifyNewFacilities.MultiSelect = False
         Me.dgvVerifyNewFacilities.Name = "dgvVerifyNewFacilities"
-        Me.dgvVerifyNewFacilities.Size = New System.Drawing.Size(778, 222)
+        Me.dgvVerifyNewFacilities.RowHeadersVisible = False
+        Me.dgvVerifyNewFacilities.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.dgvVerifyNewFacilities.Size = New System.Drawing.Size(732, 226)
         Me.dgvVerifyNewFacilities.TabIndex = 0
         '
         'Panel5
@@ -1089,8 +1077,7 @@ Partial Class IAIPFacilityCreator
         Me.Panel5.Controls.Add(Me.chbFilterNewFacilities)
         Me.Panel5.Controls.Add(Me.dtpEndFilter)
         Me.Panel5.Controls.Add(Me.dtpStartFilter)
-        Me.Panel5.Controls.Add(Me.Label25)
-        Me.Panel5.Controls.Add(Me.txtValidationCount)
+        Me.Panel5.Controls.Add(Me.lblValidationCount)
         Me.Panel5.Controls.Add(Me.Label17)
         Me.Panel5.Controls.Add(Me.txtApprovialComments)
         Me.Panel5.Controls.Add(Me.txtStreetAddress)
@@ -1115,11 +1102,11 @@ Partial Class IAIPFacilityCreator
         Me.Panel5.Controls.Add(Me.txtNewFacilityName)
         Me.Panel5.Controls.Add(Me.Label12)
         Me.Panel5.Controls.Add(Me.txtNewAIRSNumber)
-        Me.Panel5.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.Panel5.Location = New System.Drawing.Point(3, 225)
+        Me.Panel5.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Panel5.Location = New System.Drawing.Point(3, 229)
         Me.Panel5.Name = "Panel5"
-        Me.Panel5.Size = New System.Drawing.Size(778, 287)
-        Me.Panel5.TabIndex = 1
+        Me.Panel5.Size = New System.Drawing.Size(732, 287)
+        Me.Panel5.TabIndex = 0
         '
         'Label31
         '
@@ -1132,29 +1119,29 @@ Partial Class IAIPFacilityCreator
         'Label29
         '
         Me.Label29.AutoSize = True
-        Me.Label29.Location = New System.Drawing.Point(674, 8)
+        Me.Label29.Location = New System.Drawing.Point(635, 8)
         Me.Label29.Name = "Label29"
         Me.Label29.Size = New System.Drawing.Size(35, 13)
-        Me.Label29.TabIndex = 403
+        Me.Label29.TabIndex = 5
         Me.Label29.Text = "Count"
         '
         'txtCountFacilities
         '
-        Me.txtCountFacilities.Location = New System.Drawing.Point(713, 5)
+        Me.txtCountFacilities.Location = New System.Drawing.Point(676, 5)
         Me.txtCountFacilities.MaxLength = 12
         Me.txtCountFacilities.Name = "txtCountFacilities"
         Me.txtCountFacilities.ReadOnly = True
         Me.txtCountFacilities.Size = New System.Drawing.Size(51, 20)
-        Me.txtCountFacilities.TabIndex = 402
+        Me.txtCountFacilities.TabIndex = 5
         '
         'chbIncludeApproved
         '
         Me.chbIncludeApproved.AutoSize = True
         Me.chbIncludeApproved.Enabled = False
-        Me.chbIncludeApproved.Location = New System.Drawing.Point(467, 5)
+        Me.chbIncludeApproved.Location = New System.Drawing.Point(387, 7)
         Me.chbIncludeApproved.Name = "chbIncludeApproved"
         Me.chbIncludeApproved.Size = New System.Drawing.Size(153, 17)
-        Me.chbIncludeApproved.TabIndex = 401
+        Me.chbIncludeApproved.TabIndex = 2
         Me.chbIncludeApproved.Text = "Include Approved Facilities"
         Me.chbIncludeApproved.UseVisualStyleBackColor = True
         '
@@ -1162,17 +1149,17 @@ Partial Class IAIPFacilityCreator
         '
         Me.btnFilterNewFacilities.AutoSize = True
         Me.btnFilterNewFacilities.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnFilterNewFacilities.Location = New System.Drawing.Point(3, 2)
+        Me.btnFilterNewFacilities.Location = New System.Drawing.Point(546, 3)
         Me.btnFilterNewFacilities.Name = "btnFilterNewFacilities"
         Me.btnFilterNewFacilities.Size = New System.Drawing.Size(74, 23)
-        Me.btnFilterNewFacilities.TabIndex = 400
+        Me.btnFilterNewFacilities.TabIndex = 3
         Me.btnFilterNewFacilities.Text = "Run Search"
         Me.btnFilterNewFacilities.UseVisualStyleBackColor = True
         '
         'Label26
         '
         Me.Label26.AutoSize = True
-        Me.Label26.Location = New System.Drawing.Point(329, 7)
+        Me.Label26.Location = New System.Drawing.Point(250, 8)
         Me.Label26.Name = "Label26"
         Me.Label26.Size = New System.Drawing.Size(25, 13)
         Me.Label26.TabIndex = 399
@@ -1181,10 +1168,10 @@ Partial Class IAIPFacilityCreator
         'chbFilterNewFacilities
         '
         Me.chbFilterNewFacilities.AutoSize = True
-        Me.chbFilterNewFacilities.Location = New System.Drawing.Point(83, 5)
+        Me.chbFilterNewFacilities.Location = New System.Drawing.Point(5, 7)
         Me.chbFilterNewFacilities.Name = "chbFilterNewFacilities"
         Me.chbFilterNewFacilities.Size = New System.Drawing.Size(133, 17)
-        Me.chbFilterNewFacilities.TabIndex = 398
+        Me.chbFilterNewFacilities.TabIndex = 0
         Me.chbFilterNewFacilities.Text = "Filter Results between "
         Me.chbFilterNewFacilities.UseVisualStyleBackColor = True
         '
@@ -1193,10 +1180,10 @@ Partial Class IAIPFacilityCreator
         Me.dtpEndFilter.CustomFormat = "dd-MMM-yyyy"
         Me.dtpEndFilter.Enabled = False
         Me.dtpEndFilter.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpEndFilter.Location = New System.Drawing.Point(360, 3)
+        Me.dtpEndFilter.Location = New System.Drawing.Point(281, 6)
         Me.dtpEndFilter.Name = "dtpEndFilter"
         Me.dtpEndFilter.Size = New System.Drawing.Size(100, 20)
-        Me.dtpEndFilter.TabIndex = 397
+        Me.dtpEndFilter.TabIndex = 1
         Me.dtpEndFilter.Value = New Date(2005, 8, 23, 0, 0, 0, 0)
         '
         'dtpStartFilter
@@ -1204,34 +1191,24 @@ Partial Class IAIPFacilityCreator
         Me.dtpStartFilter.CustomFormat = "dd-MMM-yyyy"
         Me.dtpStartFilter.Enabled = False
         Me.dtpStartFilter.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpStartFilter.Location = New System.Drawing.Point(222, 3)
+        Me.dtpStartFilter.Location = New System.Drawing.Point(144, 6)
         Me.dtpStartFilter.Name = "dtpStartFilter"
         Me.dtpStartFilter.Size = New System.Drawing.Size(100, 20)
-        Me.dtpStartFilter.TabIndex = 396
+        Me.dtpStartFilter.TabIndex = 1
         Me.dtpStartFilter.Value = New Date(2005, 8, 23, 0, 0, 0, 0)
         '
-        'Label25
+        'lblValidationCount
         '
-        Me.Label25.AutoSize = True
-        Me.Label25.Location = New System.Drawing.Point(3, 268)
-        Me.Label25.Name = "Label25"
-        Me.Label25.Size = New System.Drawing.Size(35, 13)
-        Me.Label25.TabIndex = 395
-        Me.Label25.Text = "Count"
-        '
-        'txtValidationCount
-        '
-        Me.txtValidationCount.Location = New System.Drawing.Point(42, 265)
-        Me.txtValidationCount.MaxLength = 12
-        Me.txtValidationCount.Name = "txtValidationCount"
-        Me.txtValidationCount.ReadOnly = True
-        Me.txtValidationCount.Size = New System.Drawing.Size(51, 20)
-        Me.txtValidationCount.TabIndex = 394
+        Me.lblValidationCount.AutoSize = True
+        Me.lblValidationCount.Location = New System.Drawing.Point(5, 226)
+        Me.lblValidationCount.Name = "lblValidationCount"
+        Me.lblValidationCount.Size = New System.Drawing.Size(0, 13)
+        Me.lblValidationCount.TabIndex = 395
         '
         'Label17
         '
         Me.Label17.AutoSize = True
-        Me.Label17.Location = New System.Drawing.Point(22, 62)
+        Me.Label17.Location = New System.Drawing.Point(27, 64)
         Me.Label17.Name = "Label17"
         Me.Label17.Size = New System.Drawing.Size(56, 13)
         Me.Label17.TabIndex = 393
@@ -1239,62 +1216,68 @@ Partial Class IAIPFacilityCreator
         '
         'txtApprovialComments
         '
-        Me.txtApprovialComments.Location = New System.Drawing.Point(84, 58)
+        Me.txtApprovialComments.Location = New System.Drawing.Point(89, 61)
         Me.txtApprovialComments.MaxLength = 100
         Me.txtApprovialComments.Name = "txtApprovialComments"
-        Me.txtApprovialComments.Size = New System.Drawing.Size(444, 20)
-        Me.txtApprovialComments.TabIndex = 3
+        Me.txtApprovialComments.Size = New System.Drawing.Size(439, 20)
+        Me.txtApprovialComments.TabIndex = 7
         '
         'txtStreetAddress
         '
-        Me.txtStreetAddress.Location = New System.Drawing.Point(568, 35)
+        Me.txtStreetAddress.Location = New System.Drawing.Point(534, 35)
         Me.txtStreetAddress.Name = "txtStreetAddress"
         Me.txtStreetAddress.Size = New System.Drawing.Size(31, 20)
-        Me.txtStreetAddress.TabIndex = 391
+        Me.txtStreetAddress.TabIndex = 6
         Me.txtStreetAddress.Visible = False
         '
         'dgvValidatingAIRS
         '
+        Me.dgvValidatingAIRS.AllowUserToAddRows = False
+        Me.dgvValidatingAIRS.AllowUserToDeleteRows = False
+        Me.dgvValidatingAIRS.AllowUserToResizeRows = False
+        Me.dgvValidatingAIRS.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dgvValidatingAIRS.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvValidatingAIRS.Location = New System.Drawing.Point(97, 187)
+        Me.dgvValidatingAIRS.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
+        Me.dgvValidatingAIRS.Location = New System.Drawing.Point(89, 187)
         Me.dgvValidatingAIRS.Name = "dgvValidatingAIRS"
-        Me.dgvValidatingAIRS.Size = New System.Drawing.Size(667, 98)
-        Me.dgvValidatingAIRS.TabIndex = 390
+        Me.dgvValidatingAIRS.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.dgvValidatingAIRS.Size = New System.Drawing.Size(638, 95)
+        Me.dgvValidatingAIRS.TabIndex = 22
         '
         'btnValidateFacility
         '
-        Me.btnValidateFacility.AutoSize = True
         Me.btnValidateFacility.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnValidateFacility.Location = New System.Drawing.Point(3, 187)
+        Me.btnValidateFacility.Location = New System.Drawing.Point(5, 187)
         Me.btnValidateFacility.Name = "btnValidateFacility"
-        Me.btnValidateFacility.Size = New System.Drawing.Size(90, 23)
-        Me.btnValidateFacility.TabIndex = 14
-        Me.btnValidateFacility.Text = "Validate Facility"
+        Me.btnValidateFacility.Size = New System.Drawing.Size(78, 36)
+        Me.btnValidateFacility.TabIndex = 21
+        Me.btnValidateFacility.Text = "Find similar facilities"
         Me.btnValidateFacility.UseVisualStyleBackColor = True
         '
         'txtSSPPComments
         '
-        Me.txtSSPPComments.Location = New System.Drawing.Point(515, 137)
+        Me.txtSSPPComments.Location = New System.Drawing.Point(426, 144)
         Me.txtSSPPComments.Multiline = True
         Me.txtSSPPComments.Name = "txtSSPPComments"
-        Me.txtSSPPComments.Size = New System.Drawing.Size(249, 37)
-        Me.txtSSPPComments.TabIndex = 12
+        Me.txtSSPPComments.Size = New System.Drawing.Size(224, 37)
+        Me.txtSSPPComments.TabIndex = 16
         '
         'btnSaveSSPPApproval
         '
-        Me.btnSaveSSPPApproval.AutoSize = True
         Me.btnSaveSSPPApproval.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnSaveSSPPApproval.Location = New System.Drawing.Point(436, 137)
+        Me.btnSaveSSPPApproval.Location = New System.Drawing.Point(342, 144)
         Me.btnSaveSSPPApproval.Name = "btnSaveSSPPApproval"
-        Me.btnSaveSSPPApproval.Size = New System.Drawing.Size(73, 23)
-        Me.btnSaveSSPPApproval.TabIndex = 13
+        Me.btnSaveSSPPApproval.Size = New System.Drawing.Size(78, 23)
+        Me.btnSaveSSPPApproval.TabIndex = 17
         Me.btnSaveSSPPApproval.Text = "Save SSPP"
         Me.btnSaveSSPPApproval.UseVisualStyleBackColor = True
         '
         'Label16
         '
         Me.Label16.AutoSize = True
-        Me.Label16.Location = New System.Drawing.Point(431, 114)
+        Me.Label16.Location = New System.Drawing.Point(342, 121)
         Me.Label16.Name = "Label16"
         Me.Label16.Size = New System.Drawing.Size(78, 13)
         Me.Label16.TabIndex = 386
@@ -1303,10 +1286,10 @@ Partial Class IAIPFacilityCreator
         'chbSSPPSignOff
         '
         Me.chbSSPPSignOff.AutoSize = True
-        Me.chbSSPPSignOff.Location = New System.Drawing.Point(447, 88)
+        Me.chbSSPPSignOff.Location = New System.Drawing.Point(426, 95)
         Me.chbSSPPSignOff.Name = "chbSSPPSignOff"
         Me.chbSSPPSignOff.Size = New System.Drawing.Size(95, 17)
-        Me.chbSSPPSignOff.TabIndex = 9
+        Me.chbSSPPSignOff.TabIndex = 13
         Me.chbSSPPSignOff.Text = "SSPP Sign Off"
         Me.chbSSPPSignOff.UseVisualStyleBackColor = True
         '
@@ -1314,44 +1297,43 @@ Partial Class IAIPFacilityCreator
         '
         Me.DTPSSPPApproveDate.CustomFormat = "dd-MMM-yyyy"
         Me.DTPSSPPApproveDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPSSPPApproveDate.Location = New System.Drawing.Point(663, 111)
+        Me.DTPSSPPApproveDate.Location = New System.Drawing.Point(550, 118)
         Me.DTPSSPPApproveDate.Name = "DTPSSPPApproveDate"
         Me.DTPSSPPApproveDate.Size = New System.Drawing.Size(100, 20)
-        Me.DTPSSPPApproveDate.TabIndex = 11
+        Me.DTPSSPPApproveDate.TabIndex = 15
         Me.DTPSSPPApproveDate.Value = New Date(2005, 8, 23, 0, 0, 0, 0)
         '
         'txtSSPPApprover
         '
-        Me.txtSSPPApprover.Location = New System.Drawing.Point(515, 111)
+        Me.txtSSPPApprover.Location = New System.Drawing.Point(426, 118)
         Me.txtSSPPApprover.MaxLength = 12
         Me.txtSSPPApprover.Name = "txtSSPPApprover"
         Me.txtSSPPApprover.ReadOnly = True
-        Me.txtSSPPApprover.Size = New System.Drawing.Size(129, 20)
-        Me.txtSSPPApprover.TabIndex = 10
+        Me.txtSSPPApprover.Size = New System.Drawing.Size(118, 20)
+        Me.txtSSPPApprover.TabIndex = 14
         '
         'txtSSCPComments
         '
-        Me.txtSSCPComments.Location = New System.Drawing.Point(168, 137)
+        Me.txtSSCPComments.Location = New System.Drawing.Point(89, 144)
         Me.txtSSCPComments.Multiline = True
         Me.txtSSCPComments.Name = "txtSSCPComments"
-        Me.txtSSCPComments.Size = New System.Drawing.Size(249, 37)
-        Me.txtSSCPComments.TabIndex = 7
+        Me.txtSSCPComments.Size = New System.Drawing.Size(224, 37)
+        Me.txtSSCPComments.TabIndex = 11
         '
         'btnSaveSSCPApproval
         '
-        Me.btnSaveSSCPApproval.AutoSize = True
         Me.btnSaveSSCPApproval.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnSaveSSCPApproval.Location = New System.Drawing.Point(89, 137)
+        Me.btnSaveSSCPApproval.Location = New System.Drawing.Point(5, 144)
         Me.btnSaveSSCPApproval.Name = "btnSaveSSCPApproval"
-        Me.btnSaveSSCPApproval.Size = New System.Drawing.Size(73, 23)
-        Me.btnSaveSSCPApproval.TabIndex = 8
+        Me.btnSaveSSCPApproval.Size = New System.Drawing.Size(78, 23)
+        Me.btnSaveSSCPApproval.TabIndex = 12
         Me.btnSaveSSCPApproval.Text = "Save SSCP"
         Me.btnSaveSSCPApproval.UseVisualStyleBackColor = True
         '
         'Label15
         '
         Me.Label15.AutoSize = True
-        Me.Label15.Location = New System.Drawing.Point(84, 114)
+        Me.Label15.Location = New System.Drawing.Point(5, 121)
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(78, 13)
         Me.Label15.TabIndex = 380
@@ -1360,20 +1342,20 @@ Partial Class IAIPFacilityCreator
         'chbSSCPSignOff
         '
         Me.chbSSCPSignOff.AutoSize = True
-        Me.chbSSCPSignOff.Location = New System.Drawing.Point(100, 88)
+        Me.chbSSCPSignOff.Location = New System.Drawing.Point(89, 95)
         Me.chbSSCPSignOff.Name = "chbSSCPSignOff"
         Me.chbSSCPSignOff.Size = New System.Drawing.Size(95, 17)
-        Me.chbSSCPSignOff.TabIndex = 4
+        Me.chbSSCPSignOff.TabIndex = 8
         Me.chbSSCPSignOff.Text = "SSCP Sign Off"
         Me.chbSSCPSignOff.UseVisualStyleBackColor = True
         '
         'btnRemoveFromPlatform
         '
         Me.btnRemoveFromPlatform.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnRemoveFromPlatform.Location = New System.Drawing.Point(605, 63)
+        Me.btnRemoveFromPlatform.Location = New System.Drawing.Point(580, 62)
         Me.btnRemoveFromPlatform.Name = "btnRemoveFromPlatform"
-        Me.btnRemoveFromPlatform.Size = New System.Drawing.Size(159, 23)
-        Me.btnRemoveFromPlatform.TabIndex = 17
+        Me.btnRemoveFromPlatform.Size = New System.Drawing.Size(147, 23)
+        Me.btnRemoveFromPlatform.TabIndex = 19
         Me.btnRemoveFromPlatform.Text = "Remove Facility"
         Me.btnRemoveFromPlatform.UseVisualStyleBackColor = True
         '
@@ -1381,46 +1363,45 @@ Partial Class IAIPFacilityCreator
         '
         Me.DTPSSCPApproveDate.CustomFormat = "dd-MMM-yyyy"
         Me.DTPSSCPApproveDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.DTPSSCPApproveDate.Location = New System.Drawing.Point(316, 111)
+        Me.DTPSSCPApproveDate.Location = New System.Drawing.Point(213, 118)
         Me.DTPSSCPApproveDate.Name = "DTPSSCPApproveDate"
         Me.DTPSSCPApproveDate.Size = New System.Drawing.Size(100, 20)
-        Me.DTPSSCPApproveDate.TabIndex = 6
+        Me.DTPSSCPApproveDate.TabIndex = 10
         Me.DTPSSCPApproveDate.Value = New Date(2005, 8, 23, 0, 0, 0, 0)
         '
         'btnSubmitFacilityToAFS
         '
         Me.btnSubmitFacilityToAFS.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnSubmitFacilityToAFS.Location = New System.Drawing.Point(605, 34)
+        Me.btnSubmitFacilityToAFS.Location = New System.Drawing.Point(580, 34)
         Me.btnSubmitFacilityToAFS.Name = "btnSubmitFacilityToAFS"
-        Me.btnSubmitFacilityToAFS.Size = New System.Drawing.Size(159, 23)
-        Me.btnSubmitFacilityToAFS.TabIndex = 16
+        Me.btnSubmitFacilityToAFS.Size = New System.Drawing.Size(147, 23)
+        Me.btnSubmitFacilityToAFS.TabIndex = 18
         Me.btnSubmitFacilityToAFS.Text = "Approve Facility"
         Me.btnSubmitFacilityToAFS.UseVisualStyleBackColor = True
         '
         'txtSSCPApprover
         '
-        Me.txtSSCPApprover.Location = New System.Drawing.Point(168, 111)
+        Me.txtSSCPApprover.Location = New System.Drawing.Point(89, 118)
         Me.txtSSCPApprover.MaxLength = 12
         Me.txtSSCPApprover.Name = "txtSSCPApprover"
         Me.txtSSCPApprover.ReadOnly = True
-        Me.txtSSCPApprover.Size = New System.Drawing.Size(129, 20)
-        Me.txtSSCPApprover.TabIndex = 5
+        Me.txtSSCPApprover.Size = New System.Drawing.Size(118, 20)
+        Me.txtSSCPApprover.TabIndex = 9
         '
         'btnViewFacility
         '
-        Me.btnViewFacility.AutoSize = True
         Me.btnViewFacility.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnViewFacility.Location = New System.Drawing.Point(3, 88)
+        Me.btnViewFacility.Location = New System.Drawing.Point(580, 90)
         Me.btnViewFacility.Name = "btnViewFacility"
-        Me.btnViewFacility.Size = New System.Drawing.Size(78, 36)
-        Me.btnViewFacility.TabIndex = 15
-        Me.btnViewFacility.Text = "View Facility " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Information"
+        Me.btnViewFacility.Size = New System.Drawing.Size(147, 23)
+        Me.btnViewFacility.TabIndex = 20
+        Me.btnViewFacility.Text = "Edit Facility Information"
         Me.btnViewFacility.UseVisualStyleBackColor = True
         '
         'Label13
         '
         Me.Label13.AutoSize = True
-        Me.Label13.Location = New System.Drawing.Point(183, 39)
+        Me.Label13.Location = New System.Drawing.Point(187, 38)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(70, 13)
         Me.Label13.TabIndex = 65
@@ -1432,12 +1413,12 @@ Partial Class IAIPFacilityCreator
         Me.txtNewFacilityName.MaxLength = 100
         Me.txtNewFacilityName.Name = "txtNewFacilityName"
         Me.txtNewFacilityName.Size = New System.Drawing.Size(265, 20)
-        Me.txtNewFacilityName.TabIndex = 2
+        Me.txtNewFacilityName.TabIndex = 5
         '
         'Label12
         '
         Me.Label12.AutoSize = True
-        Me.Label12.Location = New System.Drawing.Point(4, 39)
+        Me.Label12.Location = New System.Drawing.Point(11, 38)
         Me.Label12.Name = "Label12"
         Me.Label12.Size = New System.Drawing.Size(72, 13)
         Me.Label12.TabIndex = 63
@@ -1445,12 +1426,12 @@ Partial Class IAIPFacilityCreator
         '
         'txtNewAIRSNumber
         '
-        Me.txtNewAIRSNumber.Location = New System.Drawing.Point(84, 35)
+        Me.txtNewAIRSNumber.Location = New System.Drawing.Point(89, 35)
         Me.txtNewAIRSNumber.MaxLength = 12
         Me.txtNewAIRSNumber.Name = "txtNewAIRSNumber"
         Me.txtNewAIRSNumber.ReadOnly = True
         Me.txtNewAIRSNumber.Size = New System.Drawing.Size(88, 20)
-        Me.txtNewAIRSNumber.TabIndex = 1
+        Me.txtNewAIRSNumber.TabIndex = 4
         '
         'TPDeleteFacility
         '
@@ -1460,7 +1441,7 @@ Partial Class IAIPFacilityCreator
         Me.TPDeleteFacility.Controls.Add(Me.AirsNumberToDeleteLabel)
         Me.TPDeleteFacility.Location = New System.Drawing.Point(4, 22)
         Me.TPDeleteFacility.Name = "TPDeleteFacility"
-        Me.TPDeleteFacility.Size = New System.Drawing.Size(784, 515)
+        Me.TPDeleteFacility.Size = New System.Drawing.Size(738, 519)
         Me.TPDeleteFacility.TabIndex = 2
         Me.TPDeleteFacility.Text = "Destroy Facility"
         Me.TPDeleteFacility.UseVisualStyleBackColor = True
@@ -1503,13 +1484,12 @@ Partial Class IAIPFacilityCreator
         'IAIPFacilityCreator
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
-        Me.ClientSize = New System.Drawing.Size(792, 566)
+        Me.ClientSize = New System.Drawing.Size(746, 545)
         Me.Controls.Add(Me.TCFacilityTools)
-        Me.Controls.Add(Me.ToolStrip1)
+        Me.MinimumSize = New System.Drawing.Size(762, 583)
         Me.Name = "IAIPFacilityCreator"
-        Me.Text = "Facility Creator Tools"
-        Me.ToolStrip1.ResumeLayout(False)
-        Me.ToolStrip1.PerformLayout()
+        Me.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide
+        Me.Text = "Facility Creator Tool"
         Me.GBFacilityInformation.ResumeLayout(False)
         Me.GBFacilityInformation.PerformLayout()
         Me.Panel4.ResumeLayout(False)
@@ -1533,7 +1513,6 @@ Partial Class IAIPFacilityCreator
         Me.TPDeleteFacility.ResumeLayout(False)
         Me.TPDeleteFacility.PerformLayout()
         Me.ResumeLayout(False)
-        Me.PerformLayout()
 
     End Sub
     Friend WithEvents StatusStrip1 As System.Windows.Forms.StatusStrip
@@ -1605,8 +1584,6 @@ Partial Class IAIPFacilityCreator
     Friend WithEvents tbbPaste As System.Windows.Forms.ToolBarButton
     Friend WithEvents MenuItem3 As System.Windows.Forms.MenuItem
     Friend WithEvents mmiClear As System.Windows.Forms.MenuItem
-    Friend WithEvents ToolStrip1 As System.Windows.Forms.ToolStrip
-    Friend WithEvents tspClear As System.Windows.Forms.ToolStripButton
     Friend WithEvents GBFacilityInformation As System.Windows.Forms.GroupBox
     Friend WithEvents mtbCDSZipCode As System.Windows.Forms.MaskedTextBox
     Friend WithEvents Label103 As System.Windows.Forms.Label
@@ -1678,7 +1655,6 @@ Partial Class IAIPFacilityCreator
     Friend WithEvents Label11 As System.Windows.Forms.Label
     Friend WithEvents btnSaveNewFacility As System.Windows.Forms.Button
     Friend WithEvents btnPreLoadNewFacility As System.Windows.Forms.Button
-    Friend WithEvents txtApplicationNumber As System.Windows.Forms.TextBox
     Friend WithEvents mtbFacilityLongitude As System.Windows.Forms.MaskedTextBox
     Friend WithEvents mtbFacilityLatitude As System.Windows.Forms.MaskedTextBox
     Friend WithEvents llbOpenWebpage As System.Windows.Forms.LinkLabel
@@ -1715,10 +1691,8 @@ Partial Class IAIPFacilityCreator
     Friend WithEvents Label21 As System.Windows.Forms.Label
     Friend WithEvents Label17 As System.Windows.Forms.Label
     Friend WithEvents txtApprovialComments As System.Windows.Forms.TextBox
-    Friend WithEvents btnClearAIRSNumber As System.Windows.Forms.Button
     Friend WithEvents btnEditFacilityData As System.Windows.Forms.Button
-    Friend WithEvents Label25 As System.Windows.Forms.Label
-    Friend WithEvents txtValidationCount As System.Windows.Forms.TextBox
+    Friend WithEvents lblValidationCount As System.Windows.Forms.Label
     Friend WithEvents btnFilterNewFacilities As System.Windows.Forms.Button
     Friend WithEvents Label26 As System.Windows.Forms.Label
     Friend WithEvents chbFilterNewFacilities As System.Windows.Forms.CheckBox
@@ -1738,4 +1712,6 @@ Partial Class IAIPFacilityCreator
     Friend WithEvents AirsNumberToDeleteLabel As System.Windows.Forms.Label
     Friend WithEvents AirsNumberToDelete As System.Windows.Forms.TextBox
     Friend WithEvents FacilityLongDisplay As System.Windows.Forms.Label
+    Friend WithEvents txtApplicationNumber As CueTextBox
+    Friend WithEvents btnClear As Button
 End Class

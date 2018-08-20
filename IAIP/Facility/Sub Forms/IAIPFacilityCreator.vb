@@ -1,6 +1,7 @@
 Imports System.Data.SqlClient
 Imports Iaip.Apb.Facilities
 Imports Iaip.SharedData
+Imports Iaip.Apb
 
 Public Class IAIPFacilityCreator
 
@@ -175,52 +176,37 @@ Public Class IAIPFacilityCreator
 
             dgvVerifyNewFacilities.DataSource = DB.GetDataTable(SQL, p)
 
-            dgvVerifyNewFacilities.RowHeadersVisible = False
             dgvVerifyNewFacilities.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvVerifyNewFacilities.AllowUserToResizeColumns = True
-            dgvVerifyNewFacilities.AllowUserToAddRows = False
-            dgvVerifyNewFacilities.AllowUserToDeleteRows = False
-            dgvVerifyNewFacilities.AllowUserToOrderColumns = True
-            dgvVerifyNewFacilities.AllowUserToResizeRows = True
 
             dgvVerifyNewFacilities.Columns("AIRSNumber").HeaderText = "AIRS Number"
             dgvVerifyNewFacilities.Columns("AIRSNumber").DisplayIndex = 0
-            dgvVerifyNewFacilities.Columns("AIRSNumber").Width = dgvVerifyNewFacilities.Width * 0.1
             dgvVerifyNewFacilities.Columns("strFacilityName").HeaderText = "Facility Name"
             dgvVerifyNewFacilities.Columns("strFacilityName").DisplayIndex = 1
-            dgvVerifyNewFacilities.Columns("strFacilityName").Width = dgvVerifyNewFacilities.Width * 0.3
             dgvVerifyNewFacilities.Columns("dateCreated").HeaderText = "Date Created"
             dgvVerifyNewFacilities.Columns("dateCreated").DisplayIndex = 2
-            dgvVerifyNewFacilities.Columns("dateCreated").Width = dgvVerifyNewFacilities.Width * 0.15
             dgvVerifyNewFacilities.Columns("dateCreated").DefaultCellStyle.Format = "dd-MMM-yyyy"
             dgvVerifyNewFacilities.Columns("strComments").HeaderText = "Comments"
             dgvVerifyNewFacilities.Columns("strComments").DisplayIndex = 3
-            dgvVerifyNewFacilities.Columns("strComments").Width = dgvVerifyNewFacilities.Width * 0.4
 
             dgvVerifyNewFacilities.Columns("SSCPApprover").HeaderText = "SSCP Approver"
             dgvVerifyNewFacilities.Columns("SSCPApprover").DisplayIndex = 4
-            dgvVerifyNewFacilities.Columns("SSCPApprover").Width = dgvVerifyNewFacilities.Width * 0.2
             dgvVerifyNewFacilities.Columns("datApproveDateSSCP").HeaderText = "Date SSCP Approved"
             dgvVerifyNewFacilities.Columns("datApproveDateSSCP").DisplayIndex = 5
             dgvVerifyNewFacilities.Columns("datApproveDateSSCP").DefaultCellStyle.Format = "dd-MMM-yyyy"
-            dgvVerifyNewFacilities.Columns("datApproveDateSSCP").Width = dgvVerifyNewFacilities.Width * 0.2
             dgvVerifyNewFacilities.Columns("strCommentSSCP").HeaderText = "SSCP Comments"
             dgvVerifyNewFacilities.Columns("strCommentSSCP").DisplayIndex = 6
-            dgvVerifyNewFacilities.Columns("strCommentSSCP").Width = dgvVerifyNewFacilities.Width * 0.2
             dgvVerifyNewFacilities.Columns("SSPPApprover").HeaderText = "SSPP Approver"
             dgvVerifyNewFacilities.Columns("SSPPApprover").DisplayIndex = 7
-            dgvVerifyNewFacilities.Columns("SSPPApprover").Width = dgvVerifyNewFacilities.Width * 0.2
             dgvVerifyNewFacilities.Columns("datApproveDateSSPP").HeaderText = "Date SSPP Approved"
             dgvVerifyNewFacilities.Columns("datApproveDateSSPP").DisplayIndex = 8
-            dgvVerifyNewFacilities.Columns("datApproveDateSSPP").Width = dgvVerifyNewFacilities.Width * 0.2
             dgvVerifyNewFacilities.Columns("datApproveDateSSPP").DefaultCellStyle.Format = "dd-MMM-yyyy"
             dgvVerifyNewFacilities.Columns("strCommentSSPP").HeaderText = "SSPP Comments"
             dgvVerifyNewFacilities.Columns("strCommentSSPP").DisplayIndex = 9
-            dgvVerifyNewFacilities.Columns("strCommentSSPP").Width = dgvVerifyNewFacilities.Width * 0.2
             dgvVerifyNewFacilities.Columns("strFacilityStreet1").HeaderText = "Street Address"
             dgvVerifyNewFacilities.Columns("strFacilityStreet1").DisplayIndex = 10
-            dgvVerifyNewFacilities.Columns("strFacilityStreet1").Width = dgvVerifyNewFacilities.Width * 0.2
             dgvVerifyNewFacilities.Columns("strFacilityStreet1").Visible = False
+
+            dgvVerifyNewFacilities.SanelyResizeColumns()
 
             txtCountFacilities.Text = dgvVerifyNewFacilities.RowCount.ToString
 
@@ -231,7 +217,7 @@ Public Class IAIPFacilityCreator
 
     Private Sub FindRegion(Region As String, AIRSNumber As String)
         Try
-            If Len(AIRSNumber) = 8 And IsNumeric(AIRSNumber) Then
+            If ApbFacilityId.IsValidAirsNumberFormat(AIRSNumber) Then
                 Dim SQL As String = "Select concat(LookUPDistricts.strDistrictcode, '-', strDistrictName) as District " &
                 "from LookUPDistricts inner join LookUPDistrictInformation " &
                 "on LookUPDistricts.strDistrictCode = LookUPDistrictInformation.strDistrictCode " &
@@ -242,7 +228,7 @@ Public Class IAIPFacilityCreator
                 Dim dr As DataRow = DB.GetDataRow(SQL, p)
 
                 If dr IsNot Nothing Then
-                    Region = dr.Item("District")
+                    Region = dr.Item("District").ToString
                 Else
                     Region = "WARNING"
                 End If
@@ -258,8 +244,11 @@ Public Class IAIPFacilityCreator
     End Sub
 
     Private Sub btnSaveNewFacility_Click(sender As Object, e As EventArgs) Handles btnSaveNewFacility.Click
+        SaveNewFacility()
+    End Sub
+
+    Private Sub SaveNewFacility()
         Try
-            Dim SQL As String
             Dim AIRSNumber As String = ""
             Dim FacilityName As String = ""
             Dim FacilityStreet As String = ""
@@ -287,7 +276,7 @@ Public Class IAIPFacilityCreator
             Dim Comments As String = ""
             Dim RMPNumber As String = ""
 
-            If IsDBNull(cboCounty.SelectedValue) Or cboCounty.SelectedValue Is Nothing Then
+            If IsDBNull(cboCounty.SelectedValue) OrElse cboCounty.SelectedValue Is Nothing OrElse cboCounty.SelectedIndex = -1 Then
                 MsgBox("Invalid County Selected." & vbCrLf & "No Data Saved", MsgBoxStyle.Information, Me.Name)
                 Exit Sub
             End If
@@ -317,16 +306,21 @@ Public Class IAIPFacilityCreator
                 Exit Sub
             End If
 
-            SQL = "INSERT INTO APBMASTERAIRS " &
-                "( STRAIRSNUMBER " &
-                ", STRMODIFINGPERSON " &
-                ", DATMODIFINGDATE " &
-                ") " &
-                "SELECT CONCAT('0', MAX(CONVERT( decimal(12, 0), strAIRSNumber)) + 1) " &
-                "     , @user " &
-                "     , GETDATE() " &
-                "FROM   APBMasterAIRS " &
-                "WHERE  SUBSTRING(strAIRSNumber, 5, 3) = @cty "
+            Dim SQL As String = "INSERT INTO APBMASTERAIRS (
+                STRAIRSNUMBER,
+                STRMODIFINGPERSON,
+                DATMODIFINGDATE
+            )
+                SELECT
+                    CONCAT(
+                        '0413',
+                        @cty,
+                        Replace(Str(isnull(MAX(CONVERT(int, right(STRAIRSNUMBER, 5))), 0) + 1, 5), ' ', '0')
+                    ),
+                    @user,
+                    GETDATE()
+                FROM APBMASTERAIRS
+                WHERE SUBSTRING(STRAIRSNUMBER, 5, 3) = @cty "
 
             Dim p As SqlParameter() = {
                 New SqlParameter("@cty", cboCounty.SelectedValue),
@@ -341,14 +335,15 @@ Public Class IAIPFacilityCreator
 
             txtCDSAIRSNumber.Text = DB.GetString(SQL, p)
 
-            FindRegion(txtCDSRegionCode.Text, txtCDSAIRSNumber.Text)
-
             If txtCDSAIRSNumber.Text = "" Then
                 MsgBox("There was an error in creating Facility." & "Contact EPD IT before proceding", MsgBoxStyle.Information, Me.Text)
                 Exit Sub
             Else
                 AIRSNumber = "0413" & txtCDSAIRSNumber.Text
             End If
+
+            FindRegion(txtCDSRegionCode.Text, txtCDSAIRSNumber.Text)
+
             If txtCDSFacilityName.Text = "" Then
                 FacilityName = "N/A"
             Else
@@ -515,8 +510,8 @@ Public Class IAIPFacilityCreator
                 Comments = "Created with Facility Creator tool by " & CurrentUser.AlphaName & " on " & TodayFormatted &
                                vbCrLf & txtFacilityComments.Text & vbCrLf
             End If
-            If txtApplicationNumber.Text <> "App No." And
-                        txtFacilityComments.Text.Contains(txtApplicationNumber.Text) = False Then
+            If String.IsNullOrWhiteSpace(txtApplicationNumber.Text) And
+                txtFacilityComments.Text.Contains(txtApplicationNumber.Text) = False Then
                 Comments = Comments & "Pre-loaded with Application " & txtApplicationNumber.Text
             End If
             If mtbRiskManagementNumber.Text <> "" Then
@@ -577,7 +572,7 @@ Public Class IAIPFacilityCreator
                 If IsDBNull(dr.Item("strNonAttainment")) Then
                     AttainmentStatus = "00000"
                 Else
-                    AttainmentStatus = dr.Item("strNonAttainment")
+                    AttainmentStatus = dr.Item("strNonAttainment").ToString
                 End If
             End If
 
@@ -673,46 +668,46 @@ Public Class IAIPFacilityCreator
 
             DB.RunCommand(SQL, p6)
 
-            Dim os As FacilityOperationalStatus = [Enum].Parse(GetType(FacilityOperationalStatus), OperatingStatus)
+            Dim os As FacilityOperationalStatus = CType([Enum].Parse(GetType(FacilityOperationalStatus), OperatingStatus), FacilityOperationalStatus)
 
             If chbCDS_1.Checked = True Then
-                DAL.InsertFacilityAirProgramPollutant(AIRSNumber, AirProgram.SIP, "OT", os)
+                DAL.InsertFacilityAirProgramPollutant(New ApbFacilityId(AIRSNumber), AirProgram.SIP, "OT", os)
             End If
             If chbCDS_2.Checked = True Then
-                DAL.InsertFacilityAirProgramPollutant(AIRSNumber, AirProgram.FederalSIP, "OT", os)
+                DAL.InsertFacilityAirProgramPollutant(New ApbFacilityId(AIRSNumber), AirProgram.FederalSIP, "OT", os)
             End If
             If chbCDS_3.Checked = True Then
-                DAL.InsertFacilityAirProgramPollutant(AIRSNumber, AirProgram.NonFederalSIP, "OT", os)
+                DAL.InsertFacilityAirProgramPollutant(New ApbFacilityId(AIRSNumber), AirProgram.NonFederalSIP, "OT", os)
             End If
             If chbCDS_4.Checked = True Then
-                DAL.InsertFacilityAirProgramPollutant(AIRSNumber, AirProgram.CfcTracking, "OT", os)
+                DAL.InsertFacilityAirProgramPollutant(New ApbFacilityId(AIRSNumber), AirProgram.CfcTracking, "OT", os)
             End If
             If chbCDS_5.Checked = True Then
-                DAL.InsertFacilityAirProgramPollutant(AIRSNumber, AirProgram.PSD, "OT", os)
+                DAL.InsertFacilityAirProgramPollutant(New ApbFacilityId(AIRSNumber), AirProgram.PSD, "OT", os)
             End If
             If chbCDS_6.Checked = True Then
-                DAL.InsertFacilityAirProgramPollutant(AIRSNumber, AirProgram.NSR, "OT", os)
+                DAL.InsertFacilityAirProgramPollutant(New ApbFacilityId(AIRSNumber), AirProgram.NSR, "OT", os)
             End If
             If chbCDS_7.Checked = True Then
-                DAL.InsertFacilityAirProgramPollutant(AIRSNumber, AirProgram.NESHAP, "OT", os)
+                DAL.InsertFacilityAirProgramPollutant(New ApbFacilityId(AIRSNumber), AirProgram.NESHAP, "OT", os)
             End If
             If chbCDS_8.Checked = True Then
-                DAL.InsertFacilityAirProgramPollutant(AIRSNumber, AirProgram.NSPS, "OT", os)
+                DAL.InsertFacilityAirProgramPollutant(New ApbFacilityId(AIRSNumber), AirProgram.NSPS, "OT", os)
             End If
             If chbCDS_9.Checked = True Then
-                DAL.InsertFacilityAirProgramPollutant(AIRSNumber, AirProgram.FESOP, "OT", os)
+                DAL.InsertFacilityAirProgramPollutant(New ApbFacilityId(AIRSNumber), AirProgram.FESOP, "OT", os)
             End If
             If chbCDS_10.Checked = True Then
-                DAL.InsertFacilityAirProgramPollutant(AIRSNumber, AirProgram.AcidPrecipitation, "OT", os)
+                DAL.InsertFacilityAirProgramPollutant(New ApbFacilityId(AIRSNumber), AirProgram.AcidPrecipitation, "OT", os)
             End If
             If chbCDS_11.Checked = True Then
-                DAL.InsertFacilityAirProgramPollutant(AIRSNumber, AirProgram.NativeAmerican, "OT", os)
+                DAL.InsertFacilityAirProgramPollutant(New ApbFacilityId(AIRSNumber), AirProgram.NativeAmerican, "OT", os)
             End If
             If chbCDS_12.Checked = True Then
-                DAL.InsertFacilityAirProgramPollutant(AIRSNumber, AirProgram.MACT, "OT", os)
+                DAL.InsertFacilityAirProgramPollutant(New ApbFacilityId(AIRSNumber), AirProgram.MACT, "OT", os)
             End If
             If chbCDS_13.Checked = True Then
-                DAL.InsertFacilityAirProgramPollutant(AIRSNumber, AirProgram.TitleV, "OT", os)
+                DAL.InsertFacilityAirProgramPollutant(New ApbFacilityId(AIRSNumber), AirProgram.TitleV, "OT", os)
             End If
 
             SQL = "Insert into SSCPDistrictResponsible " &
@@ -730,6 +725,10 @@ Public Class IAIPFacilityCreator
                 LoadPendingFacilities()
             End If
 
+            btnEditFacilityData.Visible = True
+            btnSaveNewFacility.Visible = False
+            cboCounty.Enabled = False
+
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -737,60 +736,87 @@ Public Class IAIPFacilityCreator
 
     Private Sub btnPreLoadNewFacility_Click(sender As Object, e As EventArgs) Handles btnPreLoadNewFacility.Click
         Try
-            Dim SQL As String
-            Dim temp As String
-            If txtApplicationNumber.Text <> "App No." Then
-                SQL = "select " &
-                "strFacilityName, strFacilityStreet1, " &
-                "strFacilityCity, strFacilityZipCode, " &
-                "strOperationalStatus, strClass, " &
-                "strAirProgramCodes, strSICCode, " &
-                "strNAICSCode, " &
-                "strPlantDescription, strContactFirstName, " &
-                "strContactLastName, strContactpreFix, " &
-                "strContactSuffix, strContactTitle, " &
-                "strContactPhoneNumber1 " &
-                "from SSPPApplicationdata inner join " &
-                "SSPPApplicationContact " &
-                "on SSPPApplicationData.strApplicationNumber = SSPPApplicationContact.strApplicationNumber " &
-                "where SSPPApplicationData.strApplicationNumber = @app "
+            Dim appnum As String = txtApplicationNumber.Text
+            ClearNewFacility()
+            txtApplicationNumber.Text = appnum
+
+            If Not String.IsNullOrWhiteSpace(txtApplicationNumber.Text) Then
+
+                Dim SQL As String = "select
+                    right(strairsnumber, 8) as airs,
+                    strFacilityName,
+                    strFacilityStreet1,
+                    strFacilityCity,
+                    strFacilityZipCode,
+                    strOperationalStatus,
+                    strClass,
+                    strAirProgramCodes,
+                    strSICCode,
+                    strNAICSCode,
+                    strPlantDescription,
+                    strContactFirstName,
+                    strContactLastName,
+                    strContactpreFix,
+                    strContactSuffix,
+                    strContactTitle,
+                    strContactPhoneNumber1
+                from SSPPApplicationdata d
+                    inner join SSPPApplicationContact c
+                        on d.strApplicationNumber = c.strApplicationNumber
+                    inner join SSPPAPPLICATIONMASTER m
+                        on m.STRAPPLICATIONNUMBER = d.STRAPPLICATIONNUMBER
+                where d.strApplicationNumber = @app"
 
                 Dim p As New SqlParameter("@app", txtApplicationNumber.Text)
 
                 Dim dr As DataRow = DB.GetDataRow(SQL, p)
 
                 If dr IsNot Nothing Then
+                    If Not IsDBNull(dr.Item("airs")) AndAlso ApbFacilityId.IsValidAirsNumberFormat(dr.Item("airs").ToString) Then
+                        txtCDSAIRSNumber.Text = dr.Item("airs").ToString
+                        btnSaveNewFacility.Visible = False
+                        btnEditFacilityData.Visible = True
+                        cboCounty.Enabled = False
+                        cboCounty.SelectedValue = Mid(txtCDSAIRSNumber.Text, 1, 3)
+                    Else
+                        txtCDSAIRSNumber.Text = ""
+                        btnSaveNewFacility.Visible = True
+                        btnEditFacilityData.Visible = False
+                        cboCounty.Enabled = True
+                        cboCounty.SelectedIndex = -1
+                    End If
+
                     If IsDBNull(dr.Item("strFacilityName")) Then
                         txtCDSFacilityName.Clear()
                     Else
-                        txtCDSFacilityName.Text = dr.Item("strFacilityname")
+                        txtCDSFacilityName.Text = dr.Item("strFacilityname").ToString
                     End If
                     If IsDBNull(dr.Item("strFacilityStreet1")) Then
                         txtCDSStreetAddress.Clear()
                         txtMailingAddress.Clear()
                     Else
-                        txtCDSStreetAddress.Text = dr.Item("strFacilityStreet1")
-                        txtMailingAddress.Text = dr.Item("strFacilityStreet1")
+                        txtCDSStreetAddress.Text = dr.Item("strFacilityStreet1").ToString
+                        txtMailingAddress.Text = dr.Item("strFacilityStreet1").ToString
                     End If
                     If IsDBNull(dr.Item("strFacilityCity")) Then
                         txtCDSCity.Clear()
                         txtMailingCity.Clear()
                     Else
-                        txtCDSCity.Text = dr.Item("strFacilityCity")
-                        txtMailingCity.Text = dr.Item("strFacilityCity")
+                        txtCDSCity.Text = dr.Item("strFacilityCity").ToString
+                        txtMailingCity.Text = dr.Item("strFacilityCity").ToString
                     End If
                     If IsDBNull(dr.Item("strFacilityZipCode")) Then
                         mtbCDSZipCode.Clear()
                         mtbMailingZipCode.Clear()
                     Else
-                        mtbCDSZipCode.Text = dr.Item("strFacilityZipCode")
-                        mtbMailingZipCode.Text = dr.Item("strFacilityZipCode")
+                        mtbCDSZipCode.Text = dr.Item("strFacilityZipCode").ToString
+                        mtbMailingZipCode.Text = dr.Item("strFacilityZipCode").ToString
                     End If
+
                     If IsDBNull(dr.Item("strOperationalStatus")) Then
                         cboCDSOperationalStatus.Text = ""
                     Else
-                        temp = dr.Item("strOperationalStatus")
-                        Select Case temp.ToString
+                        Select Case dr.Item("strOperationalStatus").ToString
                             Case "O"
                                 cboCDSOperationalStatus.Text = "O - Operating"
                             Case "P"
@@ -807,11 +833,11 @@ Public Class IAIPFacilityCreator
                                 cboCDSOperationalStatus.Text = " "
                         End Select
                     End If
+
                     If IsDBNull(dr.Item("strClass")) Then
                         cboCDSClassCode.Text = ""
                     Else
-                        temp = dr.Item("strClass")
-                        Select Case temp.ToString
+                        Select Case dr.Item("strClass").ToString
                             Case "A"
                                 cboCDSClassCode.Text = "A - MAJOR"
                             Case "B"
@@ -826,6 +852,7 @@ Public Class IAIPFacilityCreator
                                 cboCDSClassCode.Text = "C - UNKNOWN"
                         End Select
                     End If
+
                     If IsDBNull(dr.Item("strAirProgramCodes")) Then
                         chbCDS_1.Checked = False
                         chbCDS_2.Checked = False
@@ -843,7 +870,8 @@ Public Class IAIPFacilityCreator
                         chbCDS_14.Checked = False
 
                     Else
-                        temp = dr.Item("strAirProgramCodes")
+                        Dim temp As String = dr.Item("strAirProgramCodes").ToString
+
                         If Mid(temp, 1, 1) = "0" Then
                             chbCDS_1.Checked = False
                         Else
@@ -915,52 +943,53 @@ Public Class IAIPFacilityCreator
                             chbCDS_14.Checked = True
                         End If
                     End If
+
                     If IsDBNull(dr.Item("strSICCode")) Then
                         mtbCDSSICCode.Clear()
                     Else
-                        mtbCDSSICCode.Text = dr.Item("strSICCode")
+                        mtbCDSSICCode.Text = dr.Item("strSICCode").ToString
                     End If
                     If IsDBNull(dr.Item("strNAICSCode")) Then
                         mtbCDSNAICSCode.Clear()
                     Else
-                        mtbCDSNAICSCode.Text = dr.Item("strNAICScode")
+                        mtbCDSNAICSCode.Text = dr.Item("strNAICScode").ToString
                     End If
                     If IsDBNull(dr.Item("strPlantDescription")) Then
                         txtFacilityDescription.Clear()
                     Else
-                        txtFacilityDescription.Text = dr.Item("strPlantDescription")
+                        txtFacilityDescription.Text = dr.Item("strPlantDescription").ToString
                     End If
                     If IsDBNull(dr.Item("strContactFirstName")) Then
                         txtContactFirstName.Clear()
                     Else
-                        txtContactFirstName.Text = dr.Item("strContactFirstName")
+                        txtContactFirstName.Text = dr.Item("strContactFirstName").ToString
                     End If
                     If IsDBNull(dr.Item("strContactLastName")) Then
                         txtContactLastName.Clear()
                     Else
-                        txtContactLastName.Text = dr.Item("strContactLastName")
+                        txtContactLastName.Text = dr.Item("strContactLastName").ToString
                     End If
                     If IsDBNull(dr.Item("strContactPreFix")) Then
                         txtContactSocialTitle.Clear()
                     Else
-                        txtContactSocialTitle.Text = dr.Item("strContactPrefix")
+                        txtContactSocialTitle.Text = dr.Item("strContactPrefix").ToString
                     End If
                     If IsDBNull(dr.Item("strContactSuffix")) Then
                         txtContactPedigree.Clear()
                     Else
-                        txtContactPedigree.Text = dr.Item("strContactSuffix")
+                        txtContactPedigree.Text = dr.Item("strContactSuffix").ToString
                     End If
                     If IsDBNull(dr.Item("strContactTitle")) Then
                         txtContactTitle.Clear()
                     Else
-                        txtContactTitle.Text = dr.Item("strContactTitle")
+                        txtContactTitle.Text = dr.Item("strContactTitle").ToString
                     End If
                     If IsDBNull(dr.Item("strCOntactphoneNumber1")) Then
                         mtbContactPhoneNumber.Clear()
                         mtbContactNumberExtension.Clear()
                     Else
-                        mtbContactPhoneNumber.Text = Mid(dr.Item("strContactPhoneNumber1"), 1, 10)
-                        mtbContactNumberExtension.Text = Mid(dr.Item("strcontactPhoneNumber1"), 11)
+                        mtbContactPhoneNumber.Text = Mid(dr.Item("strContactPhoneNumber1").ToString, 1, 10)
+                        mtbContactNumberExtension.Text = Mid(dr.Item("strcontactPhoneNumber1").ToString, 11)
                     End If
                 End If
             End If
@@ -982,8 +1011,7 @@ Public Class IAIPFacilityCreator
         End Try
     End Sub
 
-    Private Sub dgvVerifyNewFacilities_MouseUp(sender As Object, e As MouseEventArgs) Handles dgvVerifyNewFacilities.MouseUp
-        Dim hti As DataGridView.HitTestInfo = dgvVerifyNewFacilities.HitTest(e.X, e.Y)
+    Private Sub dgvVerifyNewFacilities_CellEnter(sender As Object, e As DataGridViewCellEventArgs) Handles dgvVerifyNewFacilities.CellEnter
         Try
             txtNewFacilityName.Clear()
             txtNewAIRSNumber.Clear()
@@ -996,61 +1024,49 @@ Public Class IAIPFacilityCreator
             chbSSCPSignOff.Checked = False
             chbSSPPSignOff.Checked = False
 
-            If dgvVerifyNewFacilities.RowCount > 0 And hti.RowIndex <> -1 Then
-                If dgvVerifyNewFacilities.Columns(0).HeaderText = "AIRS Number" Then
-                    If IsDBNull(dgvVerifyNewFacilities(0, hti.RowIndex).Value) Then
-                        txtNewAIRSNumber.Clear()
-                    Else
-                        txtNewAIRSNumber.Text = dgvVerifyNewFacilities(0, hti.RowIndex).Value
-                    End If
-                    If IsDBNull(dgvVerifyNewFacilities(1, hti.RowIndex).Value) Then
-                        txtNewFacilityName.Clear()
-                    Else
-                        txtNewFacilityName.Text = dgvVerifyNewFacilities(1, hti.RowIndex).Value
-                    End If
-                    If IsDBNull(dgvVerifyNewFacilities(3, hti.RowIndex).Value) Then
-                        txtApprovialComments.Clear()
-                    Else
-                        txtApprovialComments.Text = dgvVerifyNewFacilities(3, hti.RowIndex).Value
-                    End If
+            If e.RowIndex <> -1 AndAlso e.RowIndex < dgvVerifyNewFacilities.RowCount Then
+                dgvVerifyNewFacilities(0, e.RowIndex).Value.ToString()
 
-                    If IsDBNull(dgvVerifyNewFacilities(4, hti.RowIndex).Value) Then
-                        txtSSCPApprover.Clear()
-                    Else
-                        chbSSCPSignOff.Checked = True
-                        txtSSCPApprover.Text = dgvVerifyNewFacilities(4, hti.RowIndex).Value
-                    End If
-                    If IsDBNull(dgvVerifyNewFacilities(5, hti.RowIndex).Value) Then
-                        DTPSSCPApproveDate.Value = Today
-                    Else
-                        DTPSSCPApproveDate.Text = dgvVerifyNewFacilities(5, hti.RowIndex).Value
-                    End If
-                    If IsDBNull(dgvVerifyNewFacilities(6, hti.RowIndex).Value) Then
-                        txtSSCPComments.Clear()
-                    Else
-                        txtSSCPComments.Text = dgvVerifyNewFacilities(6, hti.RowIndex).Value
-                    End If
-                    If IsDBNull(dgvVerifyNewFacilities(7, hti.RowIndex).Value) Then
-                        txtSSPPApprover.Clear()
-                    Else
-                        chbSSPPSignOff.Checked = True
-                        txtSSPPApprover.Text = dgvVerifyNewFacilities(7, hti.RowIndex).Value
-                    End If
-                    If IsDBNull(dgvVerifyNewFacilities(8, hti.RowIndex).Value) Then
-                        DTPSSPPApproveDate.Value = Today
-                    Else
-                        DTPSSPPApproveDate.Text = dgvVerifyNewFacilities(8, hti.RowIndex).Value
-                    End If
-                    If IsDBNull(dgvVerifyNewFacilities(9, hti.RowIndex).Value) Then
-                        txtSSPPComments.Clear()
-                    Else
-                        txtSSPPComments.Text = dgvVerifyNewFacilities(9, hti.RowIndex).Value
-                    End If
-                    If IsDBNull(dgvVerifyNewFacilities(10, hti.RowIndex).Value) Then
-                        txtStreetAddress.Clear()
-                    Else
-                        txtStreetAddress.Text = dgvVerifyNewFacilities(10, hti.RowIndex).Value
-                    End If
+                If Not IsDBNull(dgvVerifyNewFacilities(0, e.RowIndex)) Then
+                    txtNewAIRSNumber.Text = dgvVerifyNewFacilities(0, e.RowIndex).Value.ToString
+                End If
+
+                If Not IsDBNull(dgvVerifyNewFacilities(1, e.RowIndex)) Then
+                    txtNewFacilityName.Text = dgvVerifyNewFacilities(1, e.RowIndex).Value.ToString()
+                End If
+
+                If Not IsDBNull(dgvVerifyNewFacilities(3, e.RowIndex).Value) Then
+                    txtApprovialComments.Text = dgvVerifyNewFacilities(3, e.RowIndex).Value.ToString()
+                End If
+
+                If Not IsDBNull(dgvVerifyNewFacilities(4, e.RowIndex).Value) Then
+                    chbSSCPSignOff.Checked = True
+                    txtSSCPApprover.Text = dgvVerifyNewFacilities(4, e.RowIndex).Value.ToString()
+                End If
+
+                If Not IsDBNull(dgvVerifyNewFacilities(5, e.RowIndex).Value) Then
+                    DTPSSCPApproveDate.Text = dgvVerifyNewFacilities(5, e.RowIndex).Value.ToString()
+                End If
+
+                If Not IsDBNull(dgvVerifyNewFacilities(6, e.RowIndex).Value) Then
+                    txtSSCPComments.Text = dgvVerifyNewFacilities(6, e.RowIndex).Value.ToString()
+                End If
+
+                If Not IsDBNull(dgvVerifyNewFacilities(7, e.RowIndex).Value) Then
+                    chbSSPPSignOff.Checked = True
+                    txtSSPPApprover.Text = dgvVerifyNewFacilities(7, e.RowIndex).Value.ToString()
+                End If
+
+                If Not IsDBNull(dgvVerifyNewFacilities(8, e.RowIndex).Value) Then
+                    DTPSSPPApproveDate.Text = dgvVerifyNewFacilities(8, e.RowIndex).Value.ToString()
+                End If
+
+                If Not IsDBNull(dgvVerifyNewFacilities(9, e.RowIndex).Value) Then
+                    txtSSPPComments.Text = dgvVerifyNewFacilities(9, e.RowIndex).Value.ToString()
+                End If
+
+                If Not IsDBNull(dgvVerifyNewFacilities(10, e.RowIndex).Value) Then
+                    txtStreetAddress.Text = dgvVerifyNewFacilities(10, e.RowIndex).Value.ToString()
                 End If
             End If
 
@@ -1103,38 +1119,38 @@ Public Class IAIPFacilityCreator
                 If IsDBNull(dr.Item("strComments")) Then
                     txtFacilityComments.Clear()
                 Else
-                    txtFacilityComments.Text = dr.Item("strComments")
+                    txtFacilityComments.Text = dr.Item("strComments").ToString
                 End If
                 If IsDBNull(dr.Item("strFacilityName")) Then
                     txtCDSFacilityName.Clear()
                 Else
-                    txtCDSFacilityName.Text = dr.Item("strFacilityname")
+                    txtCDSFacilityName.Text = dr.Item("strFacilityname").ToString
                 End If
                 If IsDBNull(dr.Item("strFacilityStreet1")) Then
                     txtCDSStreetAddress.Clear()
                     txtMailingAddress.Clear()
                 Else
-                    txtCDSStreetAddress.Text = dr.Item("strFacilityStreet1")
-                    txtMailingAddress.Text = dr.Item("strFacilityStreet1")
+                    txtCDSStreetAddress.Text = dr.Item("strFacilityStreet1").ToString
+                    txtMailingAddress.Text = dr.Item("strFacilityStreet1").ToString
                 End If
                 If IsDBNull(dr.Item("strFacilityCity")) Then
                     txtCDSCity.Clear()
                     txtMailingCity.Clear()
                 Else
-                    txtCDSCity.Text = dr.Item("strFacilityCity")
-                    txtMailingCity.Text = dr.Item("strFacilityCity")
+                    txtCDSCity.Text = dr.Item("strFacilityCity").ToString
+                    txtMailingCity.Text = dr.Item("strFacilityCity").ToString
                 End If
                 If IsDBNull(dr.Item("strFacilityZipCode")) Then
                     mtbCDSZipCode.Clear()
                     mtbMailingZipCode.Clear()
                 Else
-                    mtbCDSZipCode.Text = dr.Item("strFacilityZipCode")
-                    mtbMailingZipCode.Text = dr.Item("strFacilityZipCode")
+                    mtbCDSZipCode.Text = dr.Item("strFacilityZipCode").ToString
+                    mtbMailingZipCode.Text = dr.Item("strFacilityZipCode").ToString
                 End If
                 If IsDBNull(dr.Item("strOperationalStatus")) Then
                     cboCDSOperationalStatus.Text = ""
                 Else
-                    temp = dr.Item("strOperationalStatus")
+                    temp = dr.Item("strOperationalStatus").ToString
                     Select Case temp.ToString
                         Case "O"
                             cboCDSOperationalStatus.Text = "O - Operating"
@@ -1155,7 +1171,7 @@ Public Class IAIPFacilityCreator
                 If IsDBNull(dr.Item("strClass")) Then
                     cboCDSClassCode.Text = ""
                 Else
-                    temp = dr.Item("strClass")
+                    temp = dr.Item("strClass").ToString
                     Select Case temp.ToString
                         Case "A"
                             cboCDSClassCode.Text = "A - MAJOR"
@@ -1188,7 +1204,7 @@ Public Class IAIPFacilityCreator
                     chbCDS_14.Checked = False
 
                 Else
-                    temp = dr.Item("strAirProgramCodes")
+                    temp = dr.Item("strAirProgramCodes").ToString
                     If Mid(temp, 1, 1) = "0" Then
                         chbCDS_1.Checked = False
                     Else
@@ -1263,71 +1279,74 @@ Public Class IAIPFacilityCreator
                 If IsDBNull(dr.Item("strSICCode")) Then
                     mtbCDSSICCode.Clear()
                 Else
-                    mtbCDSSICCode.Text = dr.Item("strSICCode")
+                    mtbCDSSICCode.Text = dr.Item("strSICCode").ToString
                 End If
                 If IsDBNull(dr.Item("strPlantDescription")) Then
                     txtFacilityDescription.Clear()
                 Else
-                    txtFacilityDescription.Text = dr.Item("strPlantDescription")
+                    txtFacilityDescription.Text = dr.Item("strPlantDescription").ToString
                 End If
                 If IsDBNull(dr.Item("strContactFirstName")) Then
                     txtContactFirstName.Clear()
                 Else
-                    txtContactFirstName.Text = dr.Item("strContactFirstName")
+                    txtContactFirstName.Text = dr.Item("strContactFirstName").ToString
                 End If
                 If IsDBNull(dr.Item("strContactLastName")) Then
                     txtContactLastName.Clear()
                 Else
-                    txtContactLastName.Text = dr.Item("strContactLastName")
+                    txtContactLastName.Text = dr.Item("strContactLastName").ToString
                 End If
                 If IsDBNull(dr.Item("strContactPreFix")) Then
                     txtContactSocialTitle.Clear()
                 Else
-                    txtContactSocialTitle.Text = dr.Item("strContactPrefix")
+                    txtContactSocialTitle.Text = dr.Item("strContactPrefix").ToString
                 End If
                 If IsDBNull(dr.Item("strContactSuffix")) Then
                     txtContactPedigree.Clear()
                 Else
-                    txtContactPedigree.Text = dr.Item("strContactSuffix")
+                    txtContactPedigree.Text = dr.Item("strContactSuffix").ToString
                 End If
                 If IsDBNull(dr.Item("strContactTitle")) Then
                     txtContactTitle.Clear()
                 Else
-                    txtContactTitle.Text = dr.Item("strContactTitle")
+                    txtContactTitle.Text = dr.Item("strContactTitle").ToString
                 End If
                 If IsDBNull(dr.Item("strCOntactphoneNumber1")) Then
                     mtbContactPhoneNumber.Clear()
                     mtbContactNumberExtension.Clear()
                 Else
-                    mtbContactPhoneNumber.Text = Mid(dr.Item("strContactPhoneNumber1"), 1, 10)
-                    mtbContactNumberExtension.Text = Mid(dr.Item("strcontactPhoneNumber1"), 11)
+                    mtbContactPhoneNumber.Text = Mid(dr.Item("strContactPhoneNumber1").ToString, 1, 10)
+                    mtbContactNumberExtension.Text = Mid(dr.Item("strcontactPhoneNumber1").ToString, 11)
                 End If
                 If IsDBNull(dr.Item("numFacilityLongitude")) Then
                     mtbFacilityLongitude.Clear()
                 Else
-                    mtbFacilityLongitude.Text = dr.Item("numFacilityLongitude")
+                    mtbFacilityLongitude.Text = dr.Item("numFacilityLongitude").ToString
                 End If
                 If IsDBNull(dr.Item("numFacilityLatitude")) Then
                     mtbFacilityLatitude.Clear()
                 Else
-                    mtbFacilityLatitude.Text = dr.Item("numFacilityLatitude")
+                    mtbFacilityLatitude.Text = dr.Item("numFacilityLatitude").ToString
                 End If
                 If IsDBNull(dr.Item("strNAICSCode")) Then
                     mtbCDSNAICSCode.Clear()
                 Else
-                    mtbCDSNAICSCode.Text = dr.Item("strNAICSCode")
+                    mtbCDSNAICSCode.Text = dr.Item("strNAICSCode").ToString
                 End If
                 If IsDBNull(dr.Item("strRMPID")) Then
                     mtbRiskManagementNumber.Clear()
                 Else
-                    mtbRiskManagementNumber.Text = dr.Item("strRMPID")
+                    mtbRiskManagementNumber.Text = dr.Item("strRMPID").ToString
                 End If
             End If
 
             cboCounty.SelectedValue = Mid(txtCDSAIRSNumber.Text, 1, 3)
 
             If TCFacilityTools.TabPages.Contains(TPCreateNewFacility) Then
-                TCFacilityTools.SelectedIndex = 1
+                TCFacilityTools.SelectedIndex = 0
+                btnEditFacilityData.Visible = True
+                btnSaveNewFacility.Visible = False
+                cboCounty.Enabled = False
             End If
 
         Catch ex As Exception
@@ -1355,12 +1374,12 @@ Public Class IAIPFacilityCreator
                     If IsDBNull(dr.Item("numApprovingSSCP")) Then
                         SSCPSignOff = ""
                     Else
-                        SSCPSignOff = dr.Item("numApprovingSSCP")
+                        SSCPSignOff = dr.Item("numApprovingSSCP").ToString
                     End If
                     If IsDBNull(dr.Item("numApprovingSSPP")) Then
                         SSPPSignOff = ""
                     Else
-                        SSPPSignOff = dr.Item("numApprovingSSPP")
+                        SSPPSignOff = dr.Item("numApprovingSSPP").ToString
                     End If
                 End If
 
@@ -1432,7 +1451,7 @@ Public Class IAIPFacilityCreator
                 MsgBox(txtNewFacilityName.Text & " (" & txtNewAIRSNumber.Text & ") has been approved", MsgBoxStyle.Information, Me.Text)
 
                 LoadPendingFacilities()
-                ClearValidator()
+
                 ClearNewFacility()
             Else
                 MsgBox("Both SSCP and SSPP have to sign off on the new facility before it can be sent to EPA.", MsgBoxStyle.Information, Me.Text)
@@ -1444,12 +1463,12 @@ Public Class IAIPFacilityCreator
 
     Private Sub btnRemoveFromPlatform_Click(sender As Object, e As EventArgs) Handles btnRemoveFromPlatform.Click
         Try
-            If Not Apb.ApbFacilityId.IsValidAirsNumberFormat(txtNewAIRSNumber.Text) Then
+            If Not ApbFacilityId.IsValidAirsNumberFormat(txtNewAIRSNumber.Text) Then
                 MessageBox.Show("AIRS number is not valid", "Invalid AIRS number", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Exit Sub
             End If
 
-            If DAL.FacilityHasBeenApproved(txtNewAIRSNumber.Text) Then
+            If DAL.FacilityHasBeenApproved(New ApbFacilityId(txtNewAIRSNumber.Text)) Then
                 MessageBox.Show("Facility has already been approved.", "Can't delete", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Exit Sub
             End If
@@ -1461,14 +1480,14 @@ Public Class IAIPFacilityCreator
                 Exit Sub
             End If
 
-            If DAL.DeleteFacility(txtNewAIRSNumber.Text) Then
+            If DAL.DeleteFacility(New ApbFacilityId(txtNewAIRSNumber.Text)) Then
                 MessageBox.Show("Facility removed from the database", "Gone", MessageBoxButtons.OK)
             Else
                 MessageBox.Show("There was an error when attempting to remove the facility from the database." & vbNewLine & vbNewLine & "Facility has not been removed.", "Error", MessageBoxButtons.OK)
             End If
 
             LoadPendingFacilities()
-            ClearValidator()
+
             ClearNewFacility()
 
         Catch ex As Exception
@@ -1538,45 +1557,43 @@ Public Class IAIPFacilityCreator
 
     Private Sub btnValidateFacility_Click(sender As Object, e As EventArgs) Handles btnValidateFacility.Click
         Try
-            Dim FacilityName As String
-            Dim FacilityAddress As String
-
-            If txtNewAIRSNumber.Text <> "" Then
-                FacilityName = txtNewFacilityName.Text
-            Else
+            If Not ApbFacilityId.IsValidAirsNumberFormat(txtNewAIRSNumber.Text) Then
+                dgvValidatingAIRS.DataSource = Nothing
+                lblValidationCount.Text = ""
                 Exit Sub
             End If
-            If txtStreetAddress.Text <> "" Then
-                FacilityAddress = txtStreetAddress.Text
-            Else
-                FacilityAddress = ""
-            End If
 
-            Dim SQL As String = "Select " &
-                "strFacilityName, " &
-                "substring(strAIRSNumber, 5, 8) as AIRSNumber, " &
-                "strFacilityStreet1, strFacilityCity, " &
-                "strFacilityZipCode " &
-                "from APBFacilityInformation " &
-                "where strFacilityName Like @name " &
-                "or strFacilityStreet1 like @address " &
-                "Union " &
-                "Select " &
-                "distinct(strFacilityName) as strFacilityName, " &
-                "substring(strAIRSNumber, 5, 8) as shortAIRS, " &
-                "strFacilityStreet1, strFacilityCity,  strFacilityZipCode " &
-                "from HB_APBFacilityInformation " &
-                "where strFacilityName Like @name " &
-                "or strFacilityStreet1 like @address " &
-                "Union " &
-                "select " &
-                "Distinct(strFacilityname) as strFacilityname,  " &
-                "substring(strAIRSNumber, 5, 8) as shortAIRS,  " &
-                "strFacilityStreet1, strFacilityCity, strFacilityZipCode  " &
-                "from SSPPApplicationData inner join SSPPApplicationMaster   " &
-                "on SSPPApplicationData.strApplicationNumber = SSPPApplicationMaster.strApplicationNumber " &
-                "where strFacilityname like @name " &
-                "or strFacilityStreet1 like @address "
+            Dim FacilityName As String = txtNewFacilityName.Text
+            Dim FacilityAddress As String = txtStreetAddress.Text
+
+            Dim SQL As String = "select
+                strFacilityName,
+                right(strAIRSNumber, 8) as AIRSNumber,
+                strFacilityStreet1,
+                strFacilityCity,
+                strFacilityZipCode
+            from APBFACILITYINFORMATION
+            where strFacilityName Like @name or strFacilityStreet1 like @address
+            union
+            select
+                strFacilityName,
+                right(strAIRSNumber, 8),
+                strFacilityStreet1,
+                strFacilityCity,
+                strFacilityZipCode
+            from HB_APBFACILITYINFORMATION
+            where strFacilityName Like @name or strFacilityStreet1 like @address
+            union
+            select
+                strFacilityname,
+                right(strAIRSNumber, 8),
+                strFacilityStreet1,
+                strFacilityCity,
+                strFacilityZipCode
+            from SSPPAPPLICATIONDATA d
+                inner join SSPPAPPLICATIONMASTER m
+                    on d.strApplicationNumber = m.strApplicationNumber
+            where strFacilityname like @name or strFacilityStreet1 like @address "
 
             Dim p As SqlParameter() = {
                 New SqlParameter("@name", "%" & FacilityName & "%"),
@@ -1585,125 +1602,97 @@ Public Class IAIPFacilityCreator
 
             dgvValidatingAIRS.DataSource = DB.GetDataTable(SQL, p)
 
-            dgvValidatingAIRS.RowHeadersVisible = False
             dgvValidatingAIRS.AlternatingRowsDefaultCellStyle.BackColor = Color.WhiteSmoke
-            dgvValidatingAIRS.AllowUserToResizeColumns = True
-            dgvValidatingAIRS.AllowUserToAddRows = False
-            dgvValidatingAIRS.AllowUserToDeleteRows = False
-            dgvValidatingAIRS.AllowUserToOrderColumns = True
-            dgvValidatingAIRS.AllowUserToResizeRows = True
 
-            dgvValidatingAIRS.Columns("AIRSNumber").HeaderText = "AIRS Number"
+            dgvValidatingAIRS.Columns("AIRSNumber").HeaderText = "AIRS"
             dgvValidatingAIRS.Columns("AIRSNumber").DisplayIndex = 0
-            dgvValidatingAIRS.Columns("AIRSNumber").Width = dgvValidatingAIRS.Width * 0.1
             dgvValidatingAIRS.Columns("strFacilityName").HeaderText = "Facility Name"
             dgvValidatingAIRS.Columns("strFacilityName").DisplayIndex = 1
-            dgvValidatingAIRS.Columns("strFacilityName").Width = dgvValidatingAIRS.Width * 0.3
             dgvValidatingAIRS.Columns("strFacilityStreet1").HeaderText = "Street Address"
             dgvValidatingAIRS.Columns("strFacilityStreet1").DisplayIndex = 2
-            dgvValidatingAIRS.Columns("strFacilityStreet1").Width = dgvValidatingAIRS.Width * 0.3
             dgvValidatingAIRS.Columns("strFacilityCity").HeaderText = "City"
             dgvValidatingAIRS.Columns("strFacilityCity").DisplayIndex = 3
-            dgvValidatingAIRS.Columns("strFacilityCity").Width = dgvValidatingAIRS.Width * 0.2
             dgvValidatingAIRS.Columns("strFacilityZipCode").HeaderText = "Zip Code"
             dgvValidatingAIRS.Columns("strFacilityZipCode").DisplayIndex = 4
-            dgvValidatingAIRS.Columns("strFacilityZipCode").Width = dgvValidatingAIRS.Width * 0.15
 
-            txtValidationCount.Text = dgvValidatingAIRS.RowCount.ToString
+            dgvValidatingAIRS.SanelyResizeColumns()
 
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
+            lblValidationCount.Text = dgvValidatingAIRS.RowCount.ToString & " found"
 
-    Private Sub tspClear_Click(sender As Object, e As EventArgs) Handles tspClear.Click
-        Try
-            ClearValidator()
-            ClearNewFacility()
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
     End Sub
 
     Private Sub ClearNewFacility()
-        Try
-            cboCounty.SelectedValue = 0
-            txtApplicationNumber.Text = "App No."
-            txtCDSFacilityName.Clear()
-            txtCDSStreetAddress.Clear()
-            txtCDSCity.Clear()
-            mtbCDSZipCode.Clear()
-            mtbFacilityLatitude.Clear()
-            mtbFacilityLongitude.Clear()
-            txtMailingAddress.Clear()
-            txtMailingCity.Clear()
-            txtMailingState.Text = "GA"
-            mtbMailingZipCode.Clear()
-            mtbCDSSICCode.Clear()
-            mtbCDSNAICSCode.Clear()
-            cboCDSOperationalStatus.Text = ""
-            cboCDSClassCode.Text = ""
-            txtFacilityDescription.Clear()
-            txtCDSRegionCode.Clear()
-            chbCDS_1.Checked = False
-            chbCDS_2.Checked = False
-            chbCDS_3.Checked = False
-            chbCDS_4.Checked = False
-            chbCDS_5.Checked = False
-            chbCDS_6.Checked = False
-            chbCDS_7.Checked = False
-            chbCDS_8.Checked = False
-            chbCDS_9.Checked = False
-            chbCDS_10.Checked = False
-            chbCDS_11.Checked = False
-            chbCDS_12.Checked = False
-            chbCDS_13.Checked = False
-            chbCDS_14.Checked = False
-            chbCDS_15.Checked = False
-            txtContactSocialTitle.Clear()
-            txtContactFirstName.Clear()
-            txtContactLastName.Clear()
-            txtContactPedigree.Clear()
-            txtContactTitle.Clear()
-            mtbContactPhoneNumber.Clear()
-            mtbContactNumberExtension.Clear()
-            txtFacilityComments.Clear()
+        txtApplicationNumber.Text = ""
+        txtCDSFacilityName.Clear()
+        txtCDSStreetAddress.Clear()
+        txtCDSCity.Clear()
+        mtbCDSZipCode.Clear()
+        mtbFacilityLatitude.Clear()
+        mtbFacilityLongitude.Clear()
+        txtMailingAddress.Clear()
+        txtMailingCity.Clear()
+        txtMailingState.Text = "GA"
+        mtbMailingZipCode.Clear()
+        mtbCDSSICCode.Clear()
+        mtbCDSNAICSCode.Clear()
+        cboCDSOperationalStatus.Text = ""
+        cboCDSClassCode.Text = ""
+        txtFacilityDescription.Clear()
+        txtCDSRegionCode.Clear()
+        chbCDS_1.Checked = False
+        chbCDS_2.Checked = False
+        chbCDS_3.Checked = False
+        chbCDS_4.Checked = False
+        chbCDS_5.Checked = False
+        chbCDS_6.Checked = False
+        chbCDS_7.Checked = False
+        chbCDS_8.Checked = False
+        chbCDS_9.Checked = False
+        chbCDS_10.Checked = False
+        chbCDS_11.Checked = False
+        chbCDS_12.Checked = False
+        chbCDS_13.Checked = False
+        chbCDS_14.Checked = False
+        chbCDS_15.Checked = False
+        txtContactSocialTitle.Clear()
+        txtContactFirstName.Clear()
+        txtContactLastName.Clear()
+        txtContactPedigree.Clear()
+        txtContactTitle.Clear()
+        mtbContactPhoneNumber.Clear()
+        mtbContactNumberExtension.Clear()
+        txtFacilityComments.Clear()
 
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
+        txtNewAIRSNumber.Clear()
+        txtNewFacilityName.Clear()
+        txtStreetAddress.Clear()
+        txtApprovialComments.Clear()
+        chbSSCPSignOff.Checked = False
+        txtSSCPApprover.Clear()
+        DTPSSCPApproveDate.Value = Today
+        txtSSCPComments.Clear()
+        chbSSPPSignOff.Checked = False
+        txtSSPPApprover.Clear()
+        DTPSSPPApproveDate.Value = Today
+        txtSSPPComments.Clear()
+        dgvValidatingAIRS.DataSource = Nothing
+        lblValidationCount.Text = ""
 
-    Private Sub ClearValidator()
-        Try
-
-            txtNewAIRSNumber.Clear()
-            txtNewFacilityName.Clear()
-            txtStreetAddress.Clear()
-            txtApprovialComments.Clear()
-            chbSSCPSignOff.Checked = False
-            txtSSCPApprover.Clear()
-            DTPSSCPApproveDate.Value = Today
-            txtSSCPComments.Clear()
-            chbSSPPSignOff.Checked = False
-            txtSSPPApprover.Clear()
-            DTPSSPPApproveDate.Value = Today
-            txtSSPPComments.Clear()
-            dgvValidatingAIRS.DataSource = Nothing
-            txtValidationCount.Clear()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        End Try
-    End Sub
-
-    Private Sub btnClearAIRSNumber_Click(sender As Object, e As EventArgs) Handles btnClearAIRSNumber.Click
-        txtCDSAIRSNumber.Clear()
+        btnEditFacilityData.Visible = False
+        btnSaveNewFacility.Visible = True
+        cboCounty.Enabled = True
+        cboCounty.SelectedIndex = -1
     End Sub
 
     Private Sub btnEditFacilityData_Click(sender As Object, e As EventArgs) Handles btnEditFacilityData.Click
+        EditFacility()
+    End Sub
+
+    Private Sub EditFacility()
         Try
-            Dim SQL As String
             Dim AIRSNumber As String = ""
             Dim FacilityName As String = ""
             Dim FacilityStreet As String = ""
@@ -1730,11 +1719,12 @@ Public Class IAIPFacilityCreator
             Dim ContactPhoneNumber As String = ""
             Dim Comments As String = ""
 
-            If txtCDSAIRSNumber.Text = "" Then
-                MsgBox("There is no AIRS # selected. You will need to select a facility from the Approvial Tab first.",
+            If Not ApbFacilityId.IsValidAirsNumberFormat(txtCDSAIRSNumber.Text) Then
+                MsgBox("There is no AIRS # selected. You will need to select a facility from the Approval Tab first.",
                        MsgBoxStyle.Information, Me.Text)
                 Exit Sub
             End If
+
             If Not DAL.NaicsCodeIsValid(mtbCDSNAICSCode.Text, False) Then
                 MsgBox("The NAICS Code is not valid." &
                   "No Data saved.", MsgBoxStyle.Information, Me.Name)
@@ -1918,11 +1908,12 @@ Public Class IAIPFacilityCreator
                 Comments = "Created with Facility Creator tool by " & CurrentUser.AlphaName & " on " & Format(Today, DateFormat) &
                                vbCrLf & txtFacilityComments.Text & vbCrLf
             End If
-            If txtApplicationNumber.Text <> "App No." And txtFacilityComments.Text.Contains(txtApplicationNumber.Text) = False Then
+            If Not String.IsNullOrWhiteSpace(txtApplicationNumber.Text) And
+                txtFacilityComments.Text.Contains(txtApplicationNumber.Text) = False Then
                 Comments = Comments & "Pre-loaded with Application " & txtApplicationNumber.Text
             End If
 
-            SQL = "update APBFacilityInformation set " &
+            Dim SQL As String = "update APBFacilityInformation set " &
                 "strFacilityName = @strFacilityName, " &
                 "strFacilityStreet1 = @strFacilityStreet1, " &
                 "strFacilityCity = @strFacilityCity, " &
@@ -2000,7 +1991,6 @@ Public Class IAIPFacilityCreator
                 "strModifingPerson = @strModifingPerson, " &
                 "datModifingDate = getdate() " &
                 "where strAIRSNumber = @strAIRSNumber " &
-                "and strContactKey = @strContactKey " &
                 "and strKey = '30' "
 
             Dim p4 As SqlParameter() = {
@@ -2055,12 +2045,12 @@ Public Class IAIPFacilityCreator
 
     Private Sub DeleteAirsNumber_Click(sender As Object, e As EventArgs) Handles DeleteAirsNumber.Click
         Try
-            If Not Apb.ApbFacilityId.IsValidAirsNumberFormat(AirsNumberToDelete.Text) Then
+            If Not ApbFacilityId.IsValidAirsNumberFormat(AirsNumberToDelete.Text) Then
                 MessageBox.Show("AIRS number is not valid", "Invalid AIRS number", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Exit Sub
             End If
 
-            Dim airsNumberDeleting As New Apb.ApbFacilityId(AirsNumberToDelete.Text)
+            Dim airsNumberDeleting As New ApbFacilityId(AirsNumberToDelete.Text)
 
             If Not DAL.FacilityHasBeenApproved(airsNumberDeleting) Then
                 MessageBox.Show("Facility has not been approved yet. Remove facility using the ""Approve New Facilities"" tab.", "Can't delete", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -2086,13 +2076,25 @@ Public Class IAIPFacilityCreator
 
     Private Sub AirsNumberToDelete_TextChanged(sender As Object, e As EventArgs) Handles AirsNumberToDelete.TextChanged
         FacilityLongDisplay.Text = ""
-        If Apb.ApbFacilityId.IsValidAirsNumberFormat(AirsNumberToDelete.Text) Then
-            Dim fac As Facility = DAL.GetFacility(AirsNumberToDelete.Text)
+        If ApbFacilityId.IsValidAirsNumberFormat(AirsNumberToDelete.Text) Then
+            Dim fac As Facility = DAL.GetFacility(New ApbFacilityId(AirsNumberToDelete.Text))
             If fac IsNot Nothing Then
-                fac.HeaderData = DAL.GetFacilityHeaderData(AirsNumberToDelete.Text)
+                fac.HeaderData = DAL.GetFacilityHeaderData(New ApbFacilityId(AirsNumberToDelete.Text))
                 If fac.HeaderData IsNot Nothing Then FacilityLongDisplay.Text = fac.LongDisplay
             End If
         End If
+    End Sub
+
+    Private Sub btnClear_Click(sender As Object, e As EventArgs) Handles btnClear.Click
+        ClearNewFacility()
+    End Sub
+
+    Private Sub txtApplicationNumber_Enter(sender As Object, e As EventArgs) Handles txtApplicationNumber.Enter
+        AcceptButton = btnPreLoadNewFacility
+    End Sub
+
+    Private Sub txtApplicationNumber_Leave(sender As Object, e As EventArgs) Handles txtApplicationNumber.Leave
+        AcceptButton = Nothing
     End Sub
 
 End Class

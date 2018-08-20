@@ -72,26 +72,38 @@ Namespace DAL
                     End Select
 
                 Case NavWorkListContext.FacilitiesMissingSubparts
-                    query = "SELECT hd.STRAIRSNUMBER AS [AIRS #], fac.STRFACILITYNAME AS Facility, fac.STRFACILITYCITY AS City,
-                            CASE WHEN hd.APC = '8' THEN 'NESHAP' WHEN hd.APC = '9' THEN 'NSPS' WHEN hd.APC = 'M' THEN 'MACT' ELSE 'Error' END AS [Subparts missing]
-                            FROM (
-                            SELECT hd.STRAIRSNUMBER, hd.STROPERATIONALSTATUS, '8' AS APC
-                            FROM APBHEADERDATA AS hd
-                            WHERE SUBSTRING(hd.STRAIRPROGRAMCODES, 7, 1) = '1'
-                            UNION
-                            SELECT hd.STRAIRSNUMBER, hd.STROPERATIONALSTATUS, '9' AS APC
-                            FROM APBHEADERDATA AS hd
-                            WHERE SUBSTRING(hd.STRAIRPROGRAMCODES, 8, 1) = '1'
-                            UNION
-                            SELECT hd.STRAIRSNUMBER, hd.STROPERATIONALSTATUS, 'M' AS APC
-                            FROM APBHEADERDATA AS hd
-                            WHERE SUBSTRING(hd.STRAIRPROGRAMCODES, 12, 1) = '1') AS hd
-                            LEFT JOIN (SELECT DISTINCT
-                            sp.STRAIRSNUMBER, SUBSTRING(sp.STRSUBPARTKEY, 13, 1) AS APC
-                            FROM APBSUBPARTDATA AS sp
-                            WHERE SUBSTRING(sp.STRSUBPARTKEY, 13, 1) <> '0') AS sp ON sp.APC = hd.APC AND sp.STRAIRSNUMBER = hd.STRAIRSNUMBER
-                            INNER JOIN APBFACILITYINFORMATION AS fac ON fac.STRAIRSNUMBER = hd.STRAIRSNUMBER
-                            WHERE hd.STROPERATIONALSTATUS <> 'X' AND sp.apc IS NULL "
+                    query = "SELECT
+                        convert(varchar(max), h.STRAIRSNUMBER) as [AIRS #],
+                        f.STRFACILITYNAME as Facility,
+                        f.STRFACILITYCITY as City,
+                        CASE WHEN p.ICIS_PROGRAM_CODE = 'CAANESH'
+                            THEN 'NESHAP'
+                        WHEN p.ICIS_PROGRAM_CODE = 'CAANSPS'
+                            THEN 'NSPS'
+                        WHEN p.ICIS_PROGRAM_CODE = 'CAAMACT'
+                            THEN 'MACT'
+                        ELSE 'Error' END  AS [Subparts missing]
+                    FROM APBHEADERDATA h
+                        inner join APBFACILITYINFORMATION f
+                            on f.STRAIRSNUMBER = h.STRAIRSNUMBER
+                        inner join ICIS_PROGRAM_CODES p
+                            on p.STRAIRSNUMBER = h.STRAIRSNUMBER
+                        inner join LK_ICIS_PROGRAM i
+                            on i.ICIS_PROGRAM_CODE = p.ICIS_PROGRAM_CODE
+                        left join APBSUBPARTDATA s
+                            on s.STRAIRSNUMBER = p.STRAIRSNUMBER
+                               and right(s.STRSUBPARTKEY, 1) = i.LGCY_PROGRAM_CODE
+                               and s.ACTIVE = '1'
+                        left join LK_ICIS_PROGRAM_SUBPART l
+                            on l.LGCY_PROGRAM_CODE = i.LGCY_PROGRAM_CODE
+                               and l.LK_SUBPART_CODE = s.STRSUBPART
+                               and l.ICIS_STATUS_FLAG = 'A'
+                    where h.STROPERATIONALSTATUS <> 'X'
+                          and p.OperatingStatusCode <> 'CLS'
+                          and p.ICIS_PROGRAM_CODE in ('CAANSPS', 'CAAMACT', 'CAANESH')
+                          and i.ICIS_STATUS_FLAG = 'A'
+                          and s.STRAIRSNUMBER is null
+                    order by [AIRS #] "
 
                 Case NavWorkListContext.MonitoringTestNotifications
                     query = "SELECT notif.STRTESTLOGNUMBER AS [Test Log #], lnk.STRREFERENCENUMBER AS [Reference #],
@@ -125,7 +137,7 @@ Namespace DAL
 
                 Case NavWorkListContext.PermitApplications
                     query = "SELECT convert(int, app.STRAPPLICATIONNUMBER) AS [App #],
-                            CASE WHEN app.STRAIRSNUMBER = '0413' THEN NULL ELSE app.STRAIRSNUMBER END AS [AIRS #], dat.STRFACILITYNAME AS Facility, dat.STRFACILITYCITY AS City, lka.STRAPPLICATIONTYPEDESC AS [App Type], trk.DATRECEIVEDDATE AS [Date Received], lkp.STRPERMITTYPEDESCRIPTION AS [Action Type], ISNULL(SUBSTRING(dat.STRPERMITNUMBER, 1, 4), '')+'-'+ISNULL(SUBSTRING(dat.STRPERMITNUMBER, 5, 3), '')+'-'+ISNULL(SUBSTRING(dat.STRPERMITNUMBER, 8, 4), '')+'-'+ISNULL(SUBSTRING(dat.STRPERMITNUMBER, 12, 1), '')+'-'+ISNULL(SUBSTRING(dat.STRPERMITNUMBER, 13, 2), '')+'-'+ISNULL(SUBSTRING(dat.STRPERMITNUMBER, 15, 1), '') AS [Permit Number],
+                            CASE WHEN app.STRAIRSNUMBER = '0413' THEN NULL when app.STRAIRSNUMBER like '%APL%' then replace(app.STRAIRSNUMBER, '0413APL', 'APL') ELSE app.STRAIRSNUMBER END AS [AIRS #], dat.STRFACILITYNAME AS Facility, dat.STRFACILITYCITY AS City, lka.STRAPPLICATIONTYPEDESC AS [App Type], trk.DATRECEIVEDDATE AS [Date Received], lkp.STRPERMITTYPEDESCRIPTION AS [Action Type], ISNULL(SUBSTRING(dat.STRPERMITNUMBER, 1, 4), '')+'-'+ISNULL(SUBSTRING(dat.STRPERMITNUMBER, 5, 3), '')+'-'+ISNULL(SUBSTRING(dat.STRPERMITNUMBER, 8, 4), '')+'-'+ISNULL(SUBSTRING(dat.STRPERMITNUMBER, 12, 1), '')+'-'+ISNULL(SUBSTRING(dat.STRPERMITNUMBER, 13, 2), '')+'-'+ISNULL(SUBSTRING(dat.STRPERMITNUMBER, 15, 1), '') AS [Permit Number],
                             CASE WHEN app.STRSTAFFRESPONSIBLE = '0' THEN NULL WHEN app.STRSTAFFRESPONSIBLE IS NULL THEN NULL ELSE prof.STRLASTNAME+', '+prof.STRFIRSTNAME END AS [Staff Responsible],
                             CASE WHEN trk.DATPERMITISSUED IS NOT NULL THEN '11 - Permit Issued' WHEN trk.DATTODIRECTOR IS NOT NULL AND (trk.DATDRAFTISSUED IS NULL OR trk.DATDRAFTISSUED < trk.DATTODIRECTOR) THEN '10 - To Director''s Office' WHEN trk.DATTOBRANCHCHEIF IS NOT NULL AND trk.DATTODIRECTOR IS NULL AND (trk.DATDRAFTISSUED IS NULL OR trk.DATDRAFTISSUED < trk.DATTOBRANCHCHEIF) THEN '09 - To Branch Chief' WHEN trk.DATEPAENDS IS NOT NULL THEN '08 - EPA 45-day Review' WHEN trk.DATPNEXPIRES IS NOT NULL AND trk.DATPNEXPIRES < GETDATE() THEN '07 - Public Notice Expired' WHEN trk.DATPNEXPIRES IS NOT NULL AND trk.DATPNEXPIRES >= GETDATE() THEN '06 - Public Notice' WHEN trk.DATDRAFTISSUED IS NOT NULL AND trk.DATPNEXPIRES IS NULL THEN '05 - Draft Issued' WHEN trk.DATTOPMII IS NOT NULL THEN '04 - To Program Manager' WHEN trk.DATTOPMI IS NOT NULL THEN '03 - To Unit Manager' WHEN trk.DATREVIEWSUBMITTED IS NOT NULL AND (dat.STRSSCPUNIT <> '0' OR dat.STRISMPUNIT <> '0') THEN '02 - Internal Review' WHEN app.STRSTAFFRESPONSIBLE IS NULL OR app.STRSTAFFRESPONSIBLE = '0' THEN '00 - Received' ELSE '01 - At Staff' END AS [Application Status],
                             CASE WHEN trk.DATPERMITISSUED IS NOT NULL THEN trk.DATPERMITISSUED WHEN trk.DATTODIRECTOR IS NOT NULL AND (trk.DATDRAFTISSUED IS NULL OR trk.DATDRAFTISSUED < trk.DATTODIRECTOR) THEN trk.DATTODIRECTOR WHEN trk.DATTOBRANCHCHEIF IS NOT NULL AND trk.DATTODIRECTOR IS NULL AND (trk.DATDRAFTISSUED IS NULL OR trk.DATDRAFTISSUED < trk.DATTOBRANCHCHEIF) THEN trk.DATTOBRANCHCHEIF WHEN trk.DATEPAENDS IS NOT NULL THEN trk.DATEPAENDS WHEN trk.DATPNEXPIRES IS NOT NULL AND trk.DATPNEXPIRES < GETDATE() THEN trk.DATPNEXPIRES WHEN trk.DATPNEXPIRES IS NOT NULL AND trk.DATPNEXPIRES >= GETDATE() THEN trk.DATPNEXPIRES WHEN trk.DATDRAFTISSUED IS NOT NULL AND trk.DATPNEXPIRES IS NULL THEN trk.DATDRAFTISSUED WHEN trk.DATTOPMII IS NOT NULL THEN trk.DATTOPMII WHEN trk.DATTOPMI IS NOT NULL THEN trk.DATTOPMI WHEN trk.DATREVIEWSUBMITTED IS NOT NULL AND (dat.STRSSCPUNIT <> '0' OR dat.STRISMPUNIT <> '0') THEN trk.DATREVIEWSUBMITTED WHEN app.STRSTAFFRESPONSIBLE IS NULL OR app.STRSTAFFRESPONSIBLE = '0' THEN trk.DATRECEIVEDDATE ELSE trk.DATASSIGNEDTOENGINEER END AS [Status Date]

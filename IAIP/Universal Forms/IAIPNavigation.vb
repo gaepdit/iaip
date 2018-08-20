@@ -544,25 +544,25 @@ Public Class IAIPNavigation
     Private Sub SelectItemNumbers(row As Integer)
         Select Case dgvWorkViewer.Columns(0).HeaderText
             Case "Case ID" ' SBEAP cases
-                txtOpenSbeapCaseLog.Text = dgvWorkViewer(0, row).FormattedValue
-                txtOpenSbeapClient.Text = dgvWorkViewer(1, row).FormattedValue
+                txtOpenSbeapCaseLog.Text = dgvWorkViewer(0, row).FormattedValue.ToString
+                txtOpenSbeapClient.Text = dgvWorkViewer(1, row).FormattedValue.ToString
             Case "AIRS #" ' Compliance facilities assigned; delinquent FCEs; facility subparts
-                txtOpenFacilitySummary.Text = dgvWorkViewer(0, row).FormattedValue
+                txtOpenFacilitySummary.Text = If(Apb.ApbFacilityId.IsValidAirsNumberFormat(dgvWorkViewer(0, row).Value.ToString), dgvWorkViewer(0, row).FormattedValue.ToString, Nothing)
             Case "Tracking #" ' Compliance work
-                txtOpenSscpItem.Text = dgvWorkViewer(0, row).FormattedValue
-                txtOpenFacilitySummary.Text = dgvWorkViewer(1, row).FormattedValue
+                txtOpenSscpItem.Text = dgvWorkViewer(0, row).FormattedValue.ToString
+                txtOpenFacilitySummary.Text = If(Apb.ApbFacilityId.IsValidAirsNumberFormat(dgvWorkViewer(1, row).Value.ToString), dgvWorkViewer(1, row).FormattedValue.ToString, Nothing)
             Case "Enforcement #" ' Enforcement
-                txtOpenEnforcement.Text = dgvWorkViewer(0, row).FormattedValue
-                txtOpenFacilitySummary.Text = dgvWorkViewer(1, row).FormattedValue
+                txtOpenEnforcement.Text = dgvWorkViewer(0, row).FormattedValue.ToString
+                txtOpenFacilitySummary.Text = If(Apb.ApbFacilityId.IsValidAirsNumberFormat(dgvWorkViewer(1, row).Value.ToString), dgvWorkViewer(1, row).FormattedValue.ToString, Nothing)
             Case "Reference #" ' ISMP Test Reports
-                txtOpenTestReport.Text = dgvWorkViewer(0, row).FormattedValue
-                txtOpenFacilitySummary.Text = dgvWorkViewer(1, row).FormattedValue
+                txtOpenTestReport.Text = dgvWorkViewer(0, row).FormattedValue.ToString
+                txtOpenFacilitySummary.Text = If(Apb.ApbFacilityId.IsValidAirsNumberFormat(dgvWorkViewer(1, row).Value.ToString), dgvWorkViewer(1, row).FormattedValue.ToString, Nothing)
             Case "Test Log #" ' ISMP Test Notifications
-                txtOpenTestLog.Text = dgvWorkViewer(0, row).FormattedValue
-                txtOpenTestReport.Text = dgvWorkViewer(1, row).FormattedValue
+                txtOpenTestLog.Text = dgvWorkViewer(0, row).FormattedValue.ToString
+                txtOpenTestReport.Text = dgvWorkViewer(1, row).FormattedValue.ToString
             Case "App #" ' Permit applications
-                txtOpenApplication.Text = dgvWorkViewer(0, row).FormattedValue
-                txtOpenFacilitySummary.Text = dgvWorkViewer(1, row).FormattedValue
+                txtOpenApplication.Text = dgvWorkViewer(0, row).FormattedValue.ToString
+                txtOpenFacilitySummary.Text = If(Apb.ApbFacilityId.IsValidAirsNumberFormat(dgvWorkViewer(1, row).Value.ToString), dgvWorkViewer(1, row).FormattedValue.ToString, Nothing)
         End Select
     End Sub
 #End Region
