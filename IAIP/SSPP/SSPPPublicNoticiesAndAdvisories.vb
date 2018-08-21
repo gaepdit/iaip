@@ -140,6 +140,7 @@ Public Class SSPPPublicNoticiesAndAdvisories
 
         End Try
     End Sub
+
     Private Sub CreatePublicNoticeList()
         Try
             Dim AppNum As String = ""
@@ -157,6 +158,11 @@ Public Class SSPPPublicNoticiesAndAdvisories
             For i = 0 To dgvPublicNotice.RowCount - 1
                 AppNumbers.Add(CInt(dgvPublicNotice(0, i).Value))
             Next
+
+            If AppNumbers.Count = 0 Then
+                MessageBox.Show("No applications.")
+                Exit Sub
+            End If
 
             Dim p As SqlParameter = AppNumbers.AsTvpSqlParameter("@appnumbers")
 
@@ -1702,18 +1708,11 @@ Public Class SSPPPublicNoticiesAndAdvisories
 
         End Try
     End Sub
+
     Private Sub btnPreview_Click(sender As Object, e As EventArgs) Handles btnPreview.Click
-        Try
-
-            CreatePublicNoticeList()
-
-        Catch ex As Exception
-            ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
-        Finally
-
-        End Try
-
+        CreatePublicNoticeList()
     End Sub
+
     Private Sub btnEditApplicationList_Click(sender As Object, e As EventArgs) Handles btnAddToApplicationList.Click
         Try
 

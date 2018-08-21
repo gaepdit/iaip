@@ -174,10 +174,16 @@ Namespace DAL
                 New SqlParameter("@airProgramClassificationsCode", headerData.AirProgramClassificationsCode),
                 New SqlParameter("@fromLocation", Convert.ToInt32(fromLocation)),
                 New SqlParameter("@rmpId", headerData.RmpId),
-                New SqlParameter("@modifiedBy", CurrentUser.UserID),
-                activeApcList.AsTvpSqlParameter("@activeApcList"),
-                inactiveApcList.AsTvpSqlParameter("@inactiveApcList")
+                New SqlParameter("@modifiedBy", CurrentUser.UserID)
             }
+
+            If activeApcList IsNot Nothing AndAlso activeApcList.Count > 0 Then
+                params.Add(activeApcList.AsTvpSqlParameter("@activeApcList"))
+            End If
+
+            If inactiveApcList IsNot Nothing AndAlso inactiveApcList.Count > 0 Then
+                params.Add(inactiveApcList.AsTvpSqlParameter("@inactiveApcList"))
+            End If
 
             Return DB.SPRunCommand(spName, params)
         End Function

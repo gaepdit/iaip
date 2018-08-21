@@ -3,6 +3,11 @@ Imports System.Data.SqlClient
 Imports System.Runtime.CompilerServices
 
 Namespace DAL
+
+    ''' <summary>
+    ''' Make sure you don't add table-valued parameters if the table is empty or null
+    ''' See https://stackoverflow.com/a/6107942/212978
+    ''' </summary>
     Module TableValuedParameter
 
         ''' <summary>
