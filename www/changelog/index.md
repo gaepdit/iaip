@@ -2,6 +2,10 @@
 
 *Previously:* [2017](changelog-2017.html) | [2016](changelog-2016.html) | [2015](changelog-2015.html) | [2014](changelog-2014.html) | [2013](changelog-2013.html)
 
+## Version 5.8.3 <span>(2018-8-21)</span>
+
+Bug fixes.
+
 ## Version 5.8.2 <span>(2018-8-20)</span>
 
 Bug fixes.
