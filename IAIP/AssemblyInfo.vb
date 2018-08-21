@@ -1,6 +1,13 @@
 Imports System.Reflection
 Imports System.Runtime.InteropServices
 
+<Assembly: AssemblyVersion("5.8.3.0")>
+<Assembly: AssemblyCompany("State of Georgia")>
+<Assembly: AssemblyCopyright("")>
+<Assembly: AssemblyTrademark("")>
+<Assembly: CLSCompliant(True)>
+<Assembly: ComVisible(False)>
+
 #If UAT Then
 
 <Assembly: AssemblyTitle("IAIP Horizon")>
@@ -16,10 +23,3 @@ Imports System.Runtime.InteropServices
 <Assembly: Guid("9F83B6AF-EE06-4324-83E9-7AB1D5E8BE5F")>
 
 #End If
-
-<Assembly: AssemblyVersion("5.8.2.0")>
-<Assembly: AssemblyCompany("State of Georgia")>
-<Assembly: AssemblyCopyright("")>
-<Assembly: AssemblyTrademark("")>
-<Assembly: CLSCompliant(True)>
-<Assembly: ComVisible(False)>
