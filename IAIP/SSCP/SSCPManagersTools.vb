@@ -279,7 +279,7 @@ Public Class SSCPManagersTools
         dgvSelectedFacilityList.AllowUserToDeleteRows = False
         dgvSelectedFacilityList.AllowUserToOrderColumns = True
         dgvSelectedFacilityList.AllowUserToResizeRows = True
-        dgvSelectedFacilityList.ColumnHeadersHeight = "35"
+        dgvSelectedFacilityList.ColumnHeadersHeight = 35
 
         dgvSelectedFacilityList.Columns.Add("AIRSNumber", "AIRS #")
         dgvSelectedFacilityList.Columns("AIRSNumber").DisplayIndex = 0
@@ -367,7 +367,7 @@ Public Class SSCPManagersTools
             dgvCMSUniverse.AllowUserToDeleteRows = False
             dgvCMSUniverse.AllowUserToOrderColumns = True
             dgvCMSUniverse.AllowUserToResizeRows = True
-            dgvCMSUniverse.ColumnHeadersHeight = "35"
+            dgvCMSUniverse.ColumnHeadersHeight = 35
             dgvCMSUniverse.Columns("strCMSMember").HeaderText = "CMS Class"
             dgvCMSUniverse.Columns("strCMSMember").DisplayIndex = 0
             dgvCMSUniverse.Columns("AIRSNumber").HeaderText = "AIRS Number"
@@ -389,7 +389,7 @@ Public Class SSCPManagersTools
             dgvCMSUniverse.Columns("strCountyName").DisplayIndex = 8
             dgvCMSUniverse.Columns("STRClass").HeaderText = "Class"
 
-            txtCMSCount.Text = dgvCMSUniverse.RowCount
+            txtCMSCount.Text = dgvCMSUniverse.RowCount.ToString
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -509,7 +509,7 @@ Public Class SSCPManagersTools
             dgvCMSWarning.Columns("strClass").HeaderText = "Class"
             dgvCMSWarning.Columns("strClass").DisplayIndex = 8
 
-            txtCMSWarningCount.Text = dgvCMSWarning.RowCount
+            txtCMSWarningCount.Text = dgvCMSWarning.RowCount.ToString
         Catch ex As Exception
             ErrorReport(ex, Me.Name & "." & Reflection.MethodBase.GetCurrentMethod.Name)
         End Try
@@ -521,16 +521,16 @@ Public Class SSCPManagersTools
             Dim selectedStaff As New HashSet(Of Integer)
 
             For Each checkedItem As DataRowView In clbAirToxicUnit.CheckedItems
-                selectedStaff.Add(checkedItem.Item("UserID"))
+                selectedStaff.Add(CInt(checkedItem.Item("UserID")))
             Next
             For Each checkedItem As DataRowView In clbChemicalsMinerals.CheckedItems
-                selectedStaff.Add(checkedItem.Item("UserID"))
+                selectedStaff.Add(CInt(checkedItem.Item("UserID")))
             Next
             For Each checkedItem As DataRowView In clbVOCCombustion.CheckedItems
-                selectedStaff.Add(checkedItem.Item("UserID"))
+                selectedStaff.Add(CInt(checkedItem.Item("UserID")))
             Next
             For Each checkedItem As DataRowView In clbDistricts.CheckedItems
-                selectedStaff.Add(checkedItem.Item("UserID"))
+                selectedStaff.Add(CInt(checkedItem.Item("UserID")))
             Next
 
             If selectedStaff Is Nothing OrElse selectedStaff.Count = 0 Then
@@ -733,16 +733,16 @@ Public Class SSCPManagersTools
             Dim selectedStaff As New HashSet(Of Integer)
 
             For Each checkedItem As DataRowView In clbAirToxicUnit.CheckedItems
-                selectedStaff.Add(checkedItem.Item("UserID"))
+                selectedStaff.Add(CInt(checkedItem.Item("UserID")))
             Next
             For Each checkedItem As DataRowView In clbChemicalsMinerals.CheckedItems
-                selectedStaff.Add(checkedItem.Item("UserID"))
+                selectedStaff.Add(CInt(checkedItem.Item("UserID")))
             Next
             For Each checkedItem As DataRowView In clbVOCCombustion.CheckedItems
-                selectedStaff.Add(checkedItem.Item("UserID"))
+                selectedStaff.Add(CInt(checkedItem.Item("UserID")))
             Next
             For Each checkedItem As DataRowView In clbDistricts.CheckedItems
-                selectedStaff.Add(checkedItem.Item("UserID"))
+                selectedStaff.Add(CInt(checkedItem.Item("UserID")))
             Next
 
             If selectedStaff Is Nothing OrElse selectedStaff.Count = 0 Then
@@ -800,16 +800,16 @@ Public Class SSCPManagersTools
             Dim selectedStaff As New HashSet(Of Integer)
 
             For Each checkedItem As DataRowView In clbAirToxicUnit.CheckedItems
-                selectedStaff.Add(checkedItem.Item("UserID"))
+                selectedStaff.Add(CInt(checkedItem.Item("UserID")))
             Next
             For Each checkedItem As DataRowView In clbChemicalsMinerals.CheckedItems
-                selectedStaff.Add(checkedItem.Item("UserID"))
+                selectedStaff.Add(CInt(checkedItem.Item("UserID")))
             Next
             For Each checkedItem As DataRowView In clbVOCCombustion.CheckedItems
-                selectedStaff.Add(checkedItem.Item("UserID"))
+                selectedStaff.Add(CInt(checkedItem.Item("UserID")))
             Next
             For Each checkedItem As DataRowView In clbDistricts.CheckedItems
-                selectedStaff.Add(checkedItem.Item("UserID"))
+                selectedStaff.Add(CInt(checkedItem.Item("UserID")))
             Next
 
             If selectedStaff Is Nothing OrElse selectedStaff.Count = 0 Then
@@ -876,16 +876,16 @@ Public Class SSCPManagersTools
             Dim selectedStaff As New HashSet(Of Integer)
 
             For Each checkedItem As DataRowView In clbAirToxicUnit.CheckedItems
-                selectedStaff.Add(checkedItem.Item("UserID"))
+                selectedStaff.Add(CInt(checkedItem.Item("UserID")))
             Next
             For Each checkedItem As DataRowView In clbChemicalsMinerals.CheckedItems
-                selectedStaff.Add(checkedItem.Item("UserID"))
+                selectedStaff.Add(CInt(checkedItem.Item("UserID")))
             Next
             For Each checkedItem As DataRowView In clbVOCCombustion.CheckedItems
-                selectedStaff.Add(checkedItem.Item("UserID"))
+                selectedStaff.Add(CInt(checkedItem.Item("UserID")))
             Next
             For Each checkedItem As DataRowView In clbDistricts.CheckedItems
-                selectedStaff.Add(checkedItem.Item("UserID"))
+                selectedStaff.Add(CInt(checkedItem.Item("UserID")))
             Next
 
             If selectedStaff Is Nothing OrElse selectedStaff.Count = 0 Then
@@ -955,16 +955,16 @@ Public Class SSCPManagersTools
             Dim selectedStaff As New HashSet(Of Integer)
 
             For Each checkedItem As DataRowView In clbAirToxicUnit.CheckedItems
-                selectedStaff.Add(checkedItem.Item("UserID"))
+                selectedStaff.Add(CInt(checkedItem.Item("UserID")))
             Next
             For Each checkedItem As DataRowView In clbChemicalsMinerals.CheckedItems
-                selectedStaff.Add(checkedItem.Item("UserID"))
+                selectedStaff.Add(CInt(checkedItem.Item("UserID")))
             Next
             For Each checkedItem As DataRowView In clbVOCCombustion.CheckedItems
-                selectedStaff.Add(checkedItem.Item("UserID"))
+                selectedStaff.Add(CInt(checkedItem.Item("UserID")))
             Next
             For Each checkedItem As DataRowView In clbDistricts.CheckedItems
-                selectedStaff.Add(checkedItem.Item("UserID"))
+                selectedStaff.Add(CInt(checkedItem.Item("UserID")))
             Next
 
             If selectedStaff Is Nothing OrElse selectedStaff.Count = 0 Then
@@ -1034,16 +1034,16 @@ Public Class SSCPManagersTools
             Dim selectedStaff As New HashSet(Of Integer)
 
             For Each checkedItem As DataRowView In clbAirToxicUnit.CheckedItems
-                selectedStaff.Add(checkedItem.Item("UserID"))
+                selectedStaff.Add(CInt(checkedItem.Item("UserID")))
             Next
             For Each checkedItem As DataRowView In clbChemicalsMinerals.CheckedItems
-                selectedStaff.Add(checkedItem.Item("UserID"))
+                selectedStaff.Add(CInt(checkedItem.Item("UserID")))
             Next
             For Each checkedItem As DataRowView In clbVOCCombustion.CheckedItems
-                selectedStaff.Add(checkedItem.Item("UserID"))
+                selectedStaff.Add(CInt(checkedItem.Item("UserID")))
             Next
             For Each checkedItem As DataRowView In clbDistricts.CheckedItems
-                selectedStaff.Add(checkedItem.Item("UserID"))
+                selectedStaff.Add(CInt(checkedItem.Item("UserID")))
             Next
 
             If selectedStaff Is Nothing OrElse selectedStaff.Count = 0 Then
@@ -1114,16 +1114,16 @@ Public Class SSCPManagersTools
             Dim selectedStaff As New HashSet(Of Integer)
 
             For Each checkedItem As DataRowView In clbAirToxicUnit.CheckedItems
-                selectedStaff.Add(checkedItem.Item("UserID"))
+                selectedStaff.Add(CInt(checkedItem.Item("UserID")))
             Next
             For Each checkedItem As DataRowView In clbChemicalsMinerals.CheckedItems
-                selectedStaff.Add(checkedItem.Item("UserID"))
+                selectedStaff.Add(CInt(checkedItem.Item("UserID")))
             Next
             For Each checkedItem As DataRowView In clbVOCCombustion.CheckedItems
-                selectedStaff.Add(checkedItem.Item("UserID"))
+                selectedStaff.Add(CInt(checkedItem.Item("UserID")))
             Next
             For Each checkedItem As DataRowView In clbDistricts.CheckedItems
-                selectedStaff.Add(checkedItem.Item("UserID"))
+                selectedStaff.Add(CInt(checkedItem.Item("UserID")))
             Next
 
             If selectedStaff Is Nothing OrElse selectedStaff.Count = 0 Then
@@ -1196,16 +1196,16 @@ Public Class SSCPManagersTools
             Dim selectedStaff As New HashSet(Of Integer)
 
             For Each checkedItem As DataRowView In clbAirToxicUnit.CheckedItems
-                selectedStaff.Add(checkedItem.Item("UserID"))
+                selectedStaff.Add(CInt(checkedItem.Item("UserID")))
             Next
             For Each checkedItem As DataRowView In clbChemicalsMinerals.CheckedItems
-                selectedStaff.Add(checkedItem.Item("UserID"))
+                selectedStaff.Add(CInt(checkedItem.Item("UserID")))
             Next
             For Each checkedItem As DataRowView In clbVOCCombustion.CheckedItems
-                selectedStaff.Add(checkedItem.Item("UserID"))
+                selectedStaff.Add(CInt(checkedItem.Item("UserID")))
             Next
             For Each checkedItem As DataRowView In clbDistricts.CheckedItems
-                selectedStaff.Add(checkedItem.Item("UserID"))
+                selectedStaff.Add(CInt(checkedItem.Item("UserID")))
             Next
 
             If selectedStaff Is Nothing OrElse selectedStaff.Count = 0 Then
@@ -1278,16 +1278,16 @@ Public Class SSCPManagersTools
             Dim selectedStaff As New HashSet(Of Integer)
 
             For Each checkedItem As DataRowView In clbAirToxicUnit.CheckedItems
-                selectedStaff.Add(checkedItem.Item("UserID"))
+                selectedStaff.Add(CInt(checkedItem.Item("UserID")))
             Next
             For Each checkedItem As DataRowView In clbChemicalsMinerals.CheckedItems
-                selectedStaff.Add(checkedItem.Item("UserID"))
+                selectedStaff.Add(CInt(checkedItem.Item("UserID")))
             Next
             For Each checkedItem As DataRowView In clbVOCCombustion.CheckedItems
-                selectedStaff.Add(checkedItem.Item("UserID"))
+                selectedStaff.Add(CInt(checkedItem.Item("UserID")))
             Next
             For Each checkedItem As DataRowView In clbDistricts.CheckedItems
-                selectedStaff.Add(checkedItem.Item("UserID"))
+                selectedStaff.Add(CInt(checkedItem.Item("UserID")))
             Next
 
             If selectedStaff Is Nothing OrElse selectedStaff.Count = 0 Then
@@ -1357,16 +1357,16 @@ Public Class SSCPManagersTools
             Dim selectedStaff As New HashSet(Of Integer)
 
             For Each checkedItem As DataRowView In clbAirToxicUnit.CheckedItems
-                selectedStaff.Add(checkedItem.Item("UserID"))
+                selectedStaff.Add(CInt(checkedItem.Item("UserID")))
             Next
             For Each checkedItem As DataRowView In clbChemicalsMinerals.CheckedItems
-                selectedStaff.Add(checkedItem.Item("UserID"))
+                selectedStaff.Add(CInt(checkedItem.Item("UserID")))
             Next
             For Each checkedItem As DataRowView In clbVOCCombustion.CheckedItems
-                selectedStaff.Add(checkedItem.Item("UserID"))
+                selectedStaff.Add(CInt(checkedItem.Item("UserID")))
             Next
             For Each checkedItem As DataRowView In clbDistricts.CheckedItems
-                selectedStaff.Add(checkedItem.Item("UserID"))
+                selectedStaff.Add(CInt(checkedItem.Item("UserID")))
             Next
 
             If selectedStaff Is Nothing OrElse selectedStaff.Count = 0 Then
@@ -1436,16 +1436,16 @@ Public Class SSCPManagersTools
             Dim selectedStaff As New HashSet(Of Integer)
 
             For Each checkedItem As DataRowView In clbAirToxicUnit.CheckedItems
-                selectedStaff.Add(checkedItem.Item("UserID"))
+                selectedStaff.Add(CInt(checkedItem.Item("UserID")))
             Next
             For Each checkedItem As DataRowView In clbChemicalsMinerals.CheckedItems
-                selectedStaff.Add(checkedItem.Item("UserID"))
+                selectedStaff.Add(CInt(checkedItem.Item("UserID")))
             Next
             For Each checkedItem As DataRowView In clbVOCCombustion.CheckedItems
-                selectedStaff.Add(checkedItem.Item("UserID"))
+                selectedStaff.Add(CInt(checkedItem.Item("UserID")))
             Next
             For Each checkedItem As DataRowView In clbDistricts.CheckedItems
-                selectedStaff.Add(checkedItem.Item("UserID"))
+                selectedStaff.Add(CInt(checkedItem.Item("UserID")))
             Next
 
             If selectedStaff Is Nothing OrElse selectedStaff.Count = 0 Then
@@ -1519,16 +1519,16 @@ Public Class SSCPManagersTools
             Dim selectedStaff As New HashSet(Of Integer)
 
             For Each checkedItem As DataRowView In clbAirToxicUnit.CheckedItems
-                selectedStaff.Add(checkedItem.Item("UserID"))
+                selectedStaff.Add(CInt(checkedItem.Item("UserID")))
             Next
             For Each checkedItem As DataRowView In clbChemicalsMinerals.CheckedItems
-                selectedStaff.Add(checkedItem.Item("UserID"))
+                selectedStaff.Add(CInt(checkedItem.Item("UserID")))
             Next
             For Each checkedItem As DataRowView In clbVOCCombustion.CheckedItems
-                selectedStaff.Add(checkedItem.Item("UserID"))
+                selectedStaff.Add(CInt(checkedItem.Item("UserID")))
             Next
             For Each checkedItem As DataRowView In clbDistricts.CheckedItems
-                selectedStaff.Add(checkedItem.Item("UserID"))
+                selectedStaff.Add(CInt(checkedItem.Item("UserID")))
             Next
 
             If selectedStaff Is Nothing OrElse selectedStaff.Count = 0 Then
@@ -1600,16 +1600,16 @@ Public Class SSCPManagersTools
             Dim selectedStaff As New HashSet(Of Integer)
 
             For Each checkedItem As DataRowView In clbAirToxicUnit.CheckedItems
-                selectedStaff.Add(checkedItem.Item("UserID"))
+                selectedStaff.Add(CInt(checkedItem.Item("UserID")))
             Next
             For Each checkedItem As DataRowView In clbChemicalsMinerals.CheckedItems
-                selectedStaff.Add(checkedItem.Item("UserID"))
+                selectedStaff.Add(CInt(checkedItem.Item("UserID")))
             Next
             For Each checkedItem As DataRowView In clbVOCCombustion.CheckedItems
-                selectedStaff.Add(checkedItem.Item("UserID"))
+                selectedStaff.Add(CInt(checkedItem.Item("UserID")))
             Next
             For Each checkedItem As DataRowView In clbDistricts.CheckedItems
-                selectedStaff.Add(checkedItem.Item("UserID"))
+                selectedStaff.Add(CInt(checkedItem.Item("UserID")))
             Next
 
             If selectedStaff Is Nothing OrElse selectedStaff.Count = 0 Then
@@ -1681,16 +1681,16 @@ Public Class SSCPManagersTools
             Dim selectedStaff As New HashSet(Of Integer)
 
             For Each checkedItem As DataRowView In clbAirToxicUnit.CheckedItems
-                selectedStaff.Add(checkedItem.Item("UserID"))
+                selectedStaff.Add(cint(checkedItem.Item("UserID")))
             Next
             For Each checkedItem As DataRowView In clbChemicalsMinerals.CheckedItems
-                selectedStaff.Add(checkedItem.Item("UserID"))
+                selectedStaff.Add(CInt(checkedItem.Item("UserID")))
             Next
             For Each checkedItem As DataRowView In clbVOCCombustion.CheckedItems
-                selectedStaff.Add(checkedItem.Item("UserID"))
+                selectedStaff.Add(CInt(checkedItem.Item("UserID")))
             Next
             For Each checkedItem As DataRowView In clbDistricts.CheckedItems
-                selectedStaff.Add(checkedItem.Item("UserID"))
+                selectedStaff.Add(CInt(checkedItem.Item("UserID")))
             Next
 
             If selectedStaff Is Nothing OrElse selectedStaff.Count = 0 Then
@@ -1821,32 +1821,32 @@ Public Class SSCPManagersTools
 
             If dgvStatisticalReports.RowCount > 0 And hti.RowIndex <> -1 Then
                 If dgvStatisticalReports.Columns(1).HeaderText = "AIRS #" And dgvStatisticalReports.Columns(2).HeaderText = "Enforcement #" Then
-                    txtRecordNumber.Text = dgvStatisticalReports(2, hti.RowIndex).Value
+                    txtRecordNumber.Text = dgvStatisticalReports(2, hti.RowIndex).Value.ToString
                     lblStatisticalRecords.Text = "Enforcement #"
                 Else
                     If dgvStatisticalReports.ColumnCount = 3 Then
-                        txtRecordNumber.Text = dgvStatisticalReports(0, hti.RowIndex).Value
+                        txtRecordNumber.Text = dgvStatisticalReports(0, hti.RowIndex).Value.ToString
                         lblStatisticalRecords.Text = "AIRS #"
                     Else
                         If dgvStatisticalReports.ColumnCount = 4 Then
                             If dgvStatisticalReports.Columns(3).HeaderText = "ACC Tracking #" Then
-                                txtRecordNumber.Text = dgvStatisticalReports(3, hti.RowIndex).Value
+                                txtRecordNumber.Text = dgvStatisticalReports(3, hti.RowIndex).Value.ToString
                                 lblStatisticalRecords.Text = "ACC Tracking #"
                             Else
-                                txtRecordNumber.Text = dgvStatisticalReports(0, hti.RowIndex).Value
+                                txtRecordNumber.Text = dgvStatisticalReports(0, hti.RowIndex).Value.ToString
                                 lblStatisticalRecords.Text = "AIRS #"
                             End If
                         Else
                             If dgvStatisticalReports.ColumnCount = 5 Then
                                 If hti.ColumnIndex = 3 Then
-                                    txtRecordNumber.Text = dgvStatisticalReports(3, hti.RowIndex).Value
+                                    txtRecordNumber.Text = dgvStatisticalReports(3, hti.RowIndex).Value.ToString
                                     lblStatisticalRecords.Text = "ACC Tracking #"
                                 Else
-                                    txtRecordNumber.Text = dgvStatisticalReports(4, hti.RowIndex).Value
+                                    txtRecordNumber.Text = dgvStatisticalReports(4, hti.RowIndex).Value.ToString
                                     lblStatisticalRecords.Text = "Enforcement #"
                                 End If
                             Else
-                                txtRecordNumber.Text = dgvStatisticalReports(0, hti.RowIndex).Value
+                                txtRecordNumber.Text = dgvStatisticalReports(0, hti.RowIndex).Value.ToString
                                 lblStatisticalRecords.Text = "AIRS #"
                             End If
                         End If
@@ -1898,7 +1898,7 @@ Public Class SSCPManagersTools
                 If dgvCMSUniverse.Columns(0).HeaderText = "AIRS Number" Then
                     If IsDBNull(dgvCMSUniverse(0, hti.RowIndex).Value) Then
                     Else
-                        txtCMSAIRSNumber.Text = dgvCMSUniverse(0, hti.RowIndex).Value
+                        txtCMSAIRSNumber.Text = dgvCMSUniverse(0, hti.RowIndex).Value.ToString
                     End If
                 Else
 
@@ -2218,9 +2218,9 @@ Public Class SSCPManagersTools
             i = dgvFilteredFacilityList.Rows.Count
 
             If i > 0 Then
-                temp = dgvFilteredFacilityList(0, dgvFilteredFacilityList.CurrentRow.Index).Value
+                temp = dgvFilteredFacilityList(0, dgvFilteredFacilityList.CurrentRow.Index).Value.ToString
                 For i = 0 To dgvSelectedFacilityList.Rows.Count - 1
-                    If dgvSelectedFacilityList(0, i).Value = temp Then
+                    If dgvSelectedFacilityList(0, i).Value.ToString = temp Then
                         temp2 = "Ignore"
                     End If
                 Next
@@ -2440,7 +2440,7 @@ Public Class SSCPManagersTools
             End If
 
             For Each row As DataGridViewRow In dgvSelectedFacilityList.Rows
-                DAL.Sscp.SetFacilityStaffAssignment(row.Cells(0).Value.ToString, cboFiscalYear.Text, cboSSCPEngineer.SelectedValue, CurrentUser.UserID)
+                DAL.Sscp.SetFacilityStaffAssignment(New Apb.ApbFacilityId(row.Cells(0).Value.ToString), CInt(cboFiscalYear.Text), CInt(cboSSCPEngineer.SelectedValue), CurrentUser.UserID)
                 row.Cells(2).Value = cboSSCPEngineer.Text
             Next
 
@@ -2458,7 +2458,7 @@ Public Class SSCPManagersTools
             End If
 
             For Each row As DataGridViewRow In dgvSelectedFacilityList.Rows
-                DAL.Sscp.SetFacilityUnitAssignment(row.Cells(0).Value.ToString, cboFiscalYear.Text, cboSSCPUnit2.SelectedValue, CurrentUser.UserID)
+                DAL.Sscp.SetFacilityUnitAssignment(New Apb.ApbFacilityId(row.Cells(0).Value.ToString), CInt(cboFiscalYear.Text), CInt(cboSSCPUnit2.SelectedValue), CurrentUser.UserID)
                 row.Cells(3).Value = cboSSCPUnit2.Text
             Next
 
@@ -2484,7 +2484,7 @@ Public Class SSCPManagersTools
                     "from SSCPDistrictResponsible " &
                     "where strAIRSNumber = @airs "
 
-                Dim p As New SqlParameter("@airs", "0413" & row.Cells(0).Value)
+                Dim p As New SqlParameter("@airs", "0413" & row.Cells(0).Value.ToString)
 
                 If DB.ValueExists(SQL, p) Then
                     SQL = "Update SSCPDistrictResponsible set " &
@@ -2544,7 +2544,7 @@ Public Class SSCPManagersTools
                 Dim parameters As SqlParameter() = {
                     New SqlParameter("@i", rdbInspectionRequired.Checked.ToString),
                     New SqlParameter("@mgr", CurrentUser.UserID),
-                    New SqlParameter("@airs", "0413" & row.Cells(0).Value),
+                    New SqlParameter("@airs", "0413" & row.Cells(0).Value.ToString),
                     New SqlParameter("@year", cboFiscalYear.Text)
                 }
 
@@ -2591,7 +2591,7 @@ Public Class SSCPManagersTools
                 Dim parameters As SqlParameter() = {
                     New SqlParameter("@i", rdbFCERequired.Checked.ToString),
                     New SqlParameter("@mgr", CurrentUser.UserID),
-                    New SqlParameter("@airs", "0413" & row.Cells(0).Value),
+                    New SqlParameter("@airs", "0413" & row.Cells(0).Value.ToString),
                     New SqlParameter("@year", cboFiscalYear.Text)
                 }
 
@@ -2655,7 +2655,7 @@ Public Class SSCPManagersTools
             End If
 
             For Each row As DataGridViewRow In dgvSelectedFacilityList.Rows
-                DAL.Sscp.SetFacilityStaffAssignment(row.Cells(0).Value.ToString, cboFiscalYear.Text, Nothing, CurrentUser.UserID)
+                DAL.Sscp.SetFacilityStaffAssignment(New Apb.ApbFacilityId(row.Cells(0).Value.ToString), CInt(cboFiscalYear.Text), Nothing, CurrentUser.UserID)
                 row.Cells(2).Value = Nothing
             Next
 
@@ -2673,7 +2673,7 @@ Public Class SSCPManagersTools
             End If
 
             For Each row As DataGridViewRow In dgvSelectedFacilityList.Rows
-                DAL.Sscp.SetFacilityUnitAssignment(row.Cells(0).Value.ToString, cboFiscalYear.Text, Nothing, CurrentUser.UserID)
+                DAL.Sscp.SetFacilityUnitAssignment(New Apb.ApbFacilityId(row.Cells(0).Value.ToString), CInt(cboFiscalYear.Text), Nothing, CurrentUser.UserID)
                 row.Cells(3).Value = Nothing
             Next
 
@@ -2708,7 +2708,7 @@ Public Class SSCPManagersTools
 
                 Dim parameters As SqlParameter() = {
                     New SqlParameter("@c", CMSStatus),
-                    New SqlParameter("@airs", "0413" & row.Cells(0).Value)
+                    New SqlParameter("@airs", "0413" & row.Cells(0).Value.ToString)
                 }
 
                 DB.RunCommand(SQL, parameters)
@@ -2735,7 +2735,7 @@ Public Class SSCPManagersTools
                 oldYear = CType(cboExistingYears.Text, Integer)
             End If
 
-            If mtbNewYear.Text = "" OrElse mtbNewYear.Text.Length <> "4" OrElse Not IsNumeric(mtbNewYear.Text) Then
+            If mtbNewYear.Text = "" OrElse mtbNewYear.Text.Length <> 4 OrElse Not IsNumeric(mtbNewYear.Text) Then
                 MsgBox("Please enter a complete 4-digit year" & vbCrLf & "No data altered", MsgBoxStyle.Information, Me.Text)
                 Exit Sub
             Else
@@ -2932,13 +2932,13 @@ Public Class SSCPManagersTools
 
     Private Sub EnableDisableEnfDocTypeUpdate(enable As EnableOrDisable)
         With pnlUpdateDocumentType
-            .Enabled = enable
-            .Visible = enable
+            .Enabled = CBool(enable)
+            .Visible = CBool(enable)
         End With
-        If enable Then
-            txtUpdateName.Text = dgvEnfDocumentTypes.CurrentRow.Cells("DocumentType").Value
-            mtxtUpdatePosition.Text = dgvEnfDocumentTypes.CurrentRow.Cells("Ordinal").Value
-            chkUpdateActive.Checked = dgvEnfDocumentTypes.CurrentRow.Cells("Active").Value
+        If CBool(enable) Then
+            txtUpdateName.Text = dgvEnfDocumentTypes.CurrentRow.Cells("DocumentType").Value.ToString
+            mtxtUpdatePosition.Text = dgvEnfDocumentTypes.CurrentRow.Cells("Ordinal").Value.ToString
+            chkUpdateActive.Checked = CBool(dgvEnfDocumentTypes.CurrentRow.Cells("Active").Value)
         End If
     End Sub
 
@@ -2948,8 +2948,10 @@ Public Class SSCPManagersTools
         With newEnfDocType
             .Active = True
             .DocumentType = txtNewName.Text
-            If Integer.TryParse(mtxtNewPosition.Text, Nothing) Then
-                .Ordinal = mtxtNewPosition.Text
+
+            Dim i As Integer = Nothing
+            If Integer.TryParse(mtxtNewPosition.Text, i) Then
+                .Ordinal = i
             Else
                 Dim max As Integer = 0
                 For Each row As DataGridViewRow In dgvEnfDocumentTypes.Rows
@@ -2995,10 +2997,10 @@ Public Class SSCPManagersTools
     Private Function EnforcementDocumentTypeFromFileListRow(row As DataGridViewRow) As DocumentType
         Dim d As New DocumentType
         With d
-            .Active = row.Cells("Active").Value
-            .DocumentType = row.Cells("DocumentType").Value
-            .DocumentTypeId = row.Cells("DocumentTypeId").Value
-            .Ordinal = row.Cells("Ordinal").Value
+            .Active = CBool(row.Cells("Active").Value)
+            .DocumentType = row.Cells("DocumentType").Value.ToString
+            .DocumentTypeId = CInt(row.Cells("DocumentTypeId").Value)
+            .Ordinal = CInt(row.Cells("Ordinal").Value)
         End With
         Return d
     End Function
