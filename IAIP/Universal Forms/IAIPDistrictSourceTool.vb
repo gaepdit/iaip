@@ -62,22 +62,24 @@ Public Class IAIPDistrictSourceTool
         Dim counties As New HashSet(Of String)
 
         For Each drv As DataRowView In clbCounties.CheckedItems
-            counties.Add(drv.Item("CountyCode"))
+            counties.Add(drv.Item("CountyCode").ToString)
         Next
 
-        Dim p As SqlParameter() = {
-            New SqlParameter("@districtcode", cboDistricts.SelectedValue),
-            counties.AsEnumerable.AsTvpSqlParameter("@counties")
-        }
+        If counties.Count > 0 Then
+            Dim p As SqlParameter() = {
+                New SqlParameter("@districtcode", cboDistricts.SelectedValue),
+                counties.AsEnumerable.AsTvpSqlParameter("@counties")
+            }
 
-        DB.RunCommand(SQL, p)
+            DB.RunCommand(SQL, p)
 
-        Dim dr As DataRow
+            Dim dr As DataRow
 
-        For Each cc As String In counties
-            dr = DistrictCountyAssignments.Select("CountyCode=" & cc)(0)
-            dr.Item("DistrictCode") = cboDistricts.SelectedValue
-        Next
+            For Each cc As String In counties
+                dr = DistrictCountyAssignments.Select("CountyCode=" & cc)(0)
+                dr.Item("DistrictCode") = cboDistricts.SelectedValue
+            Next
+        End If
     End Sub
 
     Private Sub SaveNewDistricts()

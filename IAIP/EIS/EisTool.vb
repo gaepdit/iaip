@@ -6024,10 +6024,14 @@ Public Class EisTool
             End Select
 
             Dim params As SqlParameter() = {
-                New SqlParameter("@Inventory_Year", cboEISStatisticsYear.Text),
-                facList.AsTvpSqlParameter("@Facility_List"),
-                New SqlParameter("@User", CurrentUser.EmailAddress)
-            }
+                    New SqlParameter("@Inventory_Year", cboEISStatisticsYear.Text),
+                    New SqlParameter("@User", CurrentUser.EmailAddress)
+                }
+
+            If facList IsNot Nothing AndAlso facList.Any() Then
+                ' Don't add empty/null TVP: https://stackoverflow.com/a/6107942/212978
+                params.Add(facList.AsTvpSqlParameter("@Facility_List"))
+            End If
 
             Dim result As Boolean = DB.SPRunCommand(SPName, params)
             DisplayEisStageResults(result)

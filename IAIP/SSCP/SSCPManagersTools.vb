@@ -532,6 +532,12 @@ Public Class SSCPManagersTools
             For Each checkedItem As DataRowView In clbDistricts.CheckedItems
                 selectedStaff.Add(checkedItem.Item("UserID"))
             Next
+
+            If selectedStaff Is Nothing OrElse selectedStaff.Count = 0 Then
+                MessageBox.Show("Select staff first.")
+                Exit Sub
+            End If
+
             Dim staffParam As SqlParameter = selectedStaff.AsTvpSqlParameter("@staff")
 
             Dim dateStartParam As New SqlParameter("@startdate", DTPSearchDateStart.Value)
@@ -738,6 +744,12 @@ Public Class SSCPManagersTools
             For Each checkedItem As DataRowView In clbDistricts.CheckedItems
                 selectedStaff.Add(checkedItem.Item("UserID"))
             Next
+
+            If selectedStaff Is Nothing OrElse selectedStaff.Count = 0 Then
+                MessageBox.Show("Select staff first.")
+                Exit Sub
+            End If
+
             Dim staffParam As SqlParameter = selectedStaff.AsTvpSqlParameter("@staff")
 
             '---Total Facilities assigned to Unit
@@ -799,6 +811,12 @@ Public Class SSCPManagersTools
             For Each checkedItem As DataRowView In clbDistricts.CheckedItems
                 selectedStaff.Add(checkedItem.Item("UserID"))
             Next
+
+            If selectedStaff Is Nothing OrElse selectedStaff.Count = 0 Then
+                MessageBox.Show("Select staff first.")
+                Exit Sub
+            End If
+
             Dim staffParam As SqlParameter = selectedStaff.AsTvpSqlParameter("@staff")
 
             Dim dateStartParam As New SqlParameter("@startdate", DTPSearchDateStart.Value)
@@ -869,6 +887,12 @@ Public Class SSCPManagersTools
             For Each checkedItem As DataRowView In clbDistricts.CheckedItems
                 selectedStaff.Add(checkedItem.Item("UserID"))
             Next
+
+            If selectedStaff Is Nothing OrElse selectedStaff.Count = 0 Then
+                MessageBox.Show("Select staff first.")
+                Exit Sub
+            End If
+
             Dim staffParam As SqlParameter = selectedStaff.AsTvpSqlParameter("@staff")
 
             Dim dateStartParam As New SqlParameter("@startdate", DTPSearchDateStart.Value)
@@ -942,6 +966,12 @@ Public Class SSCPManagersTools
             For Each checkedItem As DataRowView In clbDistricts.CheckedItems
                 selectedStaff.Add(checkedItem.Item("UserID"))
             Next
+
+            If selectedStaff Is Nothing OrElse selectedStaff.Count = 0 Then
+                MessageBox.Show("Select staff first.")
+                Exit Sub
+            End If
+
             Dim staffParam As SqlParameter = selectedStaff.AsTvpSqlParameter("@staff")
 
             Dim dateStartParam As New SqlParameter("@startdate", DTPSearchDateStart.Value)
@@ -1015,6 +1045,12 @@ Public Class SSCPManagersTools
             For Each checkedItem As DataRowView In clbDistricts.CheckedItems
                 selectedStaff.Add(checkedItem.Item("UserID"))
             Next
+
+            If selectedStaff Is Nothing OrElse selectedStaff.Count = 0 Then
+                MessageBox.Show("Select staff first.")
+                Exit Sub
+            End If
+
             Dim staffParam As SqlParameter = selectedStaff.AsTvpSqlParameter("@staff")
 
             Dim dateStartParam As New SqlParameter("@startdate", DTPSearchDateStart.Value)
@@ -1089,6 +1125,12 @@ Public Class SSCPManagersTools
             For Each checkedItem As DataRowView In clbDistricts.CheckedItems
                 selectedStaff.Add(checkedItem.Item("UserID"))
             Next
+
+            If selectedStaff Is Nothing OrElse selectedStaff.Count = 0 Then
+                MessageBox.Show("Select staff first.")
+                Exit Sub
+            End If
+
             Dim staffParam As SqlParameter = selectedStaff.AsTvpSqlParameter("@staff")
 
             Dim dateStartParam As New SqlParameter("@startdate", DTPSearchDateStart.Value)
@@ -1165,6 +1207,12 @@ Public Class SSCPManagersTools
             For Each checkedItem As DataRowView In clbDistricts.CheckedItems
                 selectedStaff.Add(checkedItem.Item("UserID"))
             Next
+
+            If selectedStaff Is Nothing OrElse selectedStaff.Count = 0 Then
+                MessageBox.Show("Select staff first.")
+                Exit Sub
+            End If
+
             Dim staffParam As SqlParameter = selectedStaff.AsTvpSqlParameter("@staff")
 
             Dim dateStartParam As New SqlParameter("@startdate", DTPSearchDateStart.Value)
@@ -1241,6 +1289,12 @@ Public Class SSCPManagersTools
             For Each checkedItem As DataRowView In clbDistricts.CheckedItems
                 selectedStaff.Add(checkedItem.Item("UserID"))
             Next
+
+            If selectedStaff Is Nothing OrElse selectedStaff.Count = 0 Then
+                MessageBox.Show("Select staff first.")
+                Exit Sub
+            End If
+
             Dim staffParam As SqlParameter = selectedStaff.AsTvpSqlParameter("@staff")
 
             Dim dateStartParam As New SqlParameter("@startdate", DTPSearchDateStart.Value)
@@ -1314,6 +1368,12 @@ Public Class SSCPManagersTools
             For Each checkedItem As DataRowView In clbDistricts.CheckedItems
                 selectedStaff.Add(checkedItem.Item("UserID"))
             Next
+
+            If selectedStaff Is Nothing OrElse selectedStaff.Count = 0 Then
+                MessageBox.Show("Select staff first.")
+                Exit Sub
+            End If
+
             Dim staffParam As SqlParameter = selectedStaff.AsTvpSqlParameter("@staff")
 
             Dim dateStartParam As New SqlParameter("@startdate", DTPSearchDateStart.Value)
@@ -1387,6 +1447,12 @@ Public Class SSCPManagersTools
             For Each checkedItem As DataRowView In clbDistricts.CheckedItems
                 selectedStaff.Add(checkedItem.Item("UserID"))
             Next
+
+            If selectedStaff Is Nothing OrElse selectedStaff.Count = 0 Then
+                MessageBox.Show("Select staff first.")
+                Exit Sub
+            End If
+
             Dim staffParam As SqlParameter = selectedStaff.AsTvpSqlParameter("@staff")
 
             Dim dateStartParam As New SqlParameter("@startdate", DTPSearchDateStart.Value)
@@ -1464,6 +1530,12 @@ Public Class SSCPManagersTools
             For Each checkedItem As DataRowView In clbDistricts.CheckedItems
                 selectedStaff.Add(checkedItem.Item("UserID"))
             Next
+
+            If selectedStaff Is Nothing OrElse selectedStaff.Count = 0 Then
+                MessageBox.Show("Select staff first.")
+                Exit Sub
+            End If
+
             Dim staffParam As SqlParameter = selectedStaff.AsTvpSqlParameter("@staff")
 
             Dim dateStartParam As New SqlParameter("@startdate", DTPSearchDateStart.Value)
@@ -1539,6 +1611,12 @@ Public Class SSCPManagersTools
             For Each checkedItem As DataRowView In clbDistricts.CheckedItems
                 selectedStaff.Add(checkedItem.Item("UserID"))
             Next
+
+            If selectedStaff Is Nothing OrElse selectedStaff.Count = 0 Then
+                MessageBox.Show("Select staff first.")
+                Exit Sub
+            End If
+
             Dim staffParam As SqlParameter = selectedStaff.AsTvpSqlParameter("@staff")
 
             Dim dateStartParam As New SqlParameter("@startdate", DTPSearchDateStart.Value)
@@ -1614,6 +1692,12 @@ Public Class SSCPManagersTools
             For Each checkedItem As DataRowView In clbDistricts.CheckedItems
                 selectedStaff.Add(checkedItem.Item("UserID"))
             Next
+
+            If selectedStaff Is Nothing OrElse selectedStaff.Count = 0 Then
+                MessageBox.Show("Select staff first.")
+                Exit Sub
+            End If
+
             Dim staffParam As SqlParameter = selectedStaff.AsTvpSqlParameter("@staff")
 
             Dim dateStartParam As New SqlParameter("@startdate", DTPSearchDateStart.Value)
