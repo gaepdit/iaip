@@ -22,6 +22,7 @@ Public Class SharedData
         SscpNotificationTypes
         Counties
         DistrictOffices
+        FacilityOwnershipTypes
     End Enum
 
     ''' <summary>
@@ -79,6 +80,9 @@ Public Class SharedData
 
                 Case SharedTable.DistrictOffices
                     dt = DAL.GetDistrictOffices()
+
+                Case SharedTable.FacilityOwnershipTypes
+                    dt = DAL.GetFacilityOwnershipTypes()
 
             End Select
 

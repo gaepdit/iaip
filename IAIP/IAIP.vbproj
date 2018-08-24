@@ -242,6 +242,7 @@
     <Compile Include="_DAL\DAL.GECO.vb" />
     <Compile Include="_DAL\DAL.State.vb" />
     <Compile Include="_DAL\DAL.Rules.vb" />
+    <Compile Include="_DAL\Facilities\DAL.FacilityLookups.vb" />
     <Compile Include="_DAL\TableValuedParameter.vb" />
     <Compile Include="_Data Models\Users\IaipRoles.vb" />
     <Compile Include="_Code\RegexPatterns.vb" />
