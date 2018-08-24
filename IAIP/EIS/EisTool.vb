@@ -6024,9 +6024,9 @@ Public Class EisTool
             End Select
 
             Dim params As SqlParameter() = {
-                    New SqlParameter("@Inventory_Year", cboEISStatisticsYear.Text),
-                    New SqlParameter("@User", CurrentUser.EmailAddress)
-                }
+                New SqlParameter("@Inventory_Year", CInt(cboEISStatisticsYear.Text)),
+                New SqlParameter("@User", CurrentUser.EmailAddress.Substring(0, 50))
+            }
 
             If facList IsNot Nothing AndAlso facList.Any() Then
                 ' Don't add empty/null TVP: https://stackoverflow.com/a/6107942/212978
