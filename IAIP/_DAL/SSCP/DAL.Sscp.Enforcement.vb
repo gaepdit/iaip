@@ -1,8 +1,7 @@
 ﻿Imports System.Collections.Generic
-Imports Iaip.Apb.Sscp
 Imports System.Data.SqlClient
 Imports EpdIt
-Imports System.Runtime.InteropServices
+Imports Iaip.Apb.Sscp
 
 Namespace DAL.Sscp
 
@@ -19,7 +18,8 @@ Namespace DAL.Sscp
             Dim query As String = "SELECT COUNT(*) " &
                 " FROM SSCP_AUDITEDENFORCEMENT " &
                 " WHERE STRENFORCEMENTFINALIZED = 'False' " &
-                " AND STRAIRSNUMBER = @airs"
+                " AND STRAIRSNUMBER = @airs " &
+                " and (IsDeleted = 0 or IsDeleted is null) "
 
             Dim parameter As SqlParameter = New SqlParameter("@airs", airs.DbFormattedString)
 
@@ -117,7 +117,7 @@ Namespace DAL.Sscp
 
             Dim facility As New Apb.Facilities.Facility
             With facility
-                .AirsNumber = DBUtilities.GetNullable(Of String)(row("STRAIRSNUMBER"))
+                .AirsNumber = New Apb.ApbFacilityId(DBUtilities.GetNullable(Of String)(row("STRAIRSNUMBER")))
                 .FacilityName = DBUtilities.GetNullable(Of String)(row("STRFACILITYNAME"))
                 .FacilityLocation = location
             End With
@@ -133,10 +133,11 @@ Namespace DAL.Sscp
                 .DiscoveryDate = DBUtilities.GetNullable(Of Date?)(row("DATDISCOVERYDATE"))
                 .DateFinalized = DBUtilities.GetNullable(Of Date?)(row("DATENFORCEMENTFINALIZED"))
                 .Open = Not Convert.ToBoolean(row("STRENFORCEMENTFINALIZED"))
-                .EnforcementNumber = row("STRENFORCEMENTNUMBER")
+                .EnforcementNumber = CInt(row("STRENFORCEMENTNUMBER"))
                 .EnforcementTypeCode = DBUtilities.GetNullable(Of String)(row("STRACTIONTYPE"))
                 .Facility = facility
                 .StaffResponsible = staff
+                .IsDeleted = Convert.ToBoolean(row("IsDeleted"))
             End With
 
             Return enforcementInfo
@@ -154,7 +155,8 @@ Namespace DAL.Sscp
                 "   SSCP_AUDITEDENFORCEMENT.DATDISCOVERYDATE, " &
                 "   SSCP_AUDITEDENFORCEMENT.STRENFORCEMENTFINALIZED, " &
                 "   SSCP_AUDITEDENFORCEMENT.DATENFORCEMENTFINALIZED, " &
-                "   SSCP_AUDITEDENFORCEMENT.STRACTIONTYPE " &
+                "   SSCP_AUDITEDENFORCEMENT.STRACTIONTYPE, " &
+                "   SSCP_AUDITEDENFORCEMENT.IsDeleted " &
                 " FROM SSCP_AUDITEDENFORCEMENT " &
                 " LEFT JOIN APBFACILITYINFORMATION " &
                 " ON APBFACILITYINFORMATION.STRAIRSNUMBER = SSCP_AUDITEDENFORCEMENT.STRAIRSNUMBER " &
@@ -174,7 +176,7 @@ Namespace DAL.Sscp
             Dim enfCase As New EnforcementCase
             With enfCase
                 .StaffResponsibleId = DBUtilities.GetNullable(Of Integer)(row("NUMSTAFFRESPONSIBLE"))
-                .AirsNumber = DBUtilities.GetNullable(Of String)(row("STRAIRSNUMBER"))
+                .AirsNumber = New Apb.ApbFacilityId(DBUtilities.GetNullable(Of String)(row("STRAIRSNUMBER")))
                 .AoAppealed = DBUtilities.GetNullableDateTime(row("DATAOAPPEALED"))
                 .AoComment = DBUtilities.GetNullable(Of String)(row("STRAOCOMMENT"))
                 .AoExecuted = DBUtilities.GetNullableDateTime(row("DATAOEXECUTED"))
@@ -217,10 +219,11 @@ Namespace DAL.Sscp
                 .NovSent = DBUtilities.GetNullableDateTime(row("DATNOVSENT"))
                 .NovToPm = DBUtilities.GetNullableDateTime(row("DATNOVTOPM"))
                 .NovToUc = DBUtilities.GetNullableDateTime(row("DATNOVTOUC"))
-                .Open = Not DBUtilities.GetNullable(Of Boolean)(row("STRENFORCEMENTFINALIZED"))
+                .Open = CType(Not DBUtilities.GetNullable(Of Boolean)(row("STRENFORCEMENTFINALIZED")), OpenOrClosed)
                 .ProgramPollutants = DBUtilities.GetNullable(Of String)(row("STRPOLLUTANTS"))
                 .SubmittedToUcCode = DBUtilities.GetNullable(Of String)(row("STRSTATUS"))
                 .DateModified = DBUtilities.GetNullableDateTime(row("DATMODIFINGDATE"))
+                .IsDeleted = DBUtilities.GetNullable(Of Boolean)(row("IsDeleted"))
 
                 .EnforcementActions = New List(Of EnforcementActionType)
                 If .LonComment <> "" Or AnyOfTheseDatesHasValue({ .LonResolved, .LonSent, .LonToUc}) Then
@@ -267,7 +270,7 @@ Namespace DAL.Sscp
 #Region " Save enforcement "
 
         Public Function SaveEnforcement(enforcementCase As EnforcementCase) As Integer
-            Dim spName As String = "dbo.PD_SSCPENFORCEMENT"
+            Dim spName As String = "dbo.PD_EnforcementUpdate"
 
             With enforcementCase
                 Dim params As SqlParameter() = {
@@ -353,23 +356,14 @@ Namespace DAL.Sscp
 #Region " Delete enforcement "
 
         Public Function DeleteEnforcement(enforcementId As Integer) As Boolean
-            Dim queries As New List(Of String)
-            Dim parameters As New List(Of SqlParameter())
-            Dim parameter As SqlParameter() = {New SqlParameter("@enforcementId", enforcementId)}
+            Dim spName As String = "dbo.PD_EnforcementDelete"
 
-            queries.Add("DELETE FROM SSCPENFORCEMENTSTIPULATED " &
-                        "WHERE STRENFORCEMENTNUMBER = @enforcementId ")
-            parameters.Add(parameter)
+            Dim parameters As SqlParameter() = {
+                New SqlParameter("@EnforcementId", enforcementId),
+                New SqlParameter("@ModifiedBy", CurrentUser.UserID)
+            }
 
-            queries.Add("DELETE FROM AFSSSCPENFORCEMENTRECORDS " &
-                        "WHERE STRENFORCEMENTNUMBER = @enforcementId ")
-            parameters.Add(parameter)
-
-            queries.Add("DELETE FROM SSCP_AUDITEDENFORCEMENT " &
-                        "WHERE STRENFORCEMENTNUMBER = @enforcementId ")
-            parameters.Add(parameter)
-
-            Return DB.RunCommand(queries, parameters)
+            Return DB.SPRunCommand(spName, parameters)
         End Function
 
 #End Region
@@ -413,7 +407,7 @@ Namespace DAL.Sscp
             Return DB.RunCommand(query, parameters)
         End Function
 
-        Public Function DeleteLinkedComplianceEvent(enforcementId As String, trackingNumber As Integer) As Boolean
+        Public Function DeleteLinkedComplianceEvent(enforcementId As Integer, trackingNumber As Integer) As Boolean
             Dim query As String = "DELETE FROM SSCP_EnforcementEvents
                 WHERE EnforcementNumber = @enforcementId
                       AND TrackingNumber = @trackingNumber"
@@ -524,7 +518,9 @@ Namespace DAL.Sscp
 #Region " Enforcement audit history "
 
         Public Function GetEnforcementAuditHistory(enforcementId As Integer) As DataTable
-            Dim query As String = "SELECT ID, enf.DATMODIFINGDATE, CONCAT(upr.STRLASTNAME, ', ', upr.STRFIRSTNAME) AS " &
+            Dim query As String = "SELECT ID, enf.DATMODIFINGDATE, " &
+                "  CONCAT(upm.STRLASTNAME, ', ', upm.STRFIRSTNAME) AS ModifiedBy, " &
+                "  CONCAT(upr.STRLASTNAME, ', ', upr.STRFIRSTNAME) AS " &
                 "  StaffResponsible, enf.STRTRACKINGNUMBER, " &
                 "  enf.DATENFORCEMENTFINALIZED, enf.STRSTATUS, enf.STRACTIONTYPE, " &
                 "  enf.STRGENERALCOMMENTS, enf.DATDISCOVERYDATE, " &
@@ -539,8 +535,7 @@ Namespace DAL.Sscp
                 "  enf.STRCONUMBER, enf.DATCORESOLVED, enf.STRCOCOMMENT, " &
                 "  enf.STRCOPENALTYAMOUNT, enf.STRCOPENALTYAMOUNTCOMMENTS, " &
                 "  enf.DATAOEXECUTED, enf.DATAOAPPEALED, enf.DATAORESOLVED, " &
-                "  enf.STRAOCOMMENT, CONCAT(upm.STRLASTNAME, ', ', upm.STRFIRSTNAME) " &
-                "  AS ModifiedBy " &
+                "  enf.STRAOCOMMENT, IsDeleted " &
                 "FROM SSCP_ENFORCEMENT enf " &
                 "LEFT JOIN EPDUSERPROFILES upr ON " &
                 "  enf.NUMSTAFFRESPONSIBLE = upr.NUMUSERID " &

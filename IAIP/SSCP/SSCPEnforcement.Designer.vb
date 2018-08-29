@@ -216,6 +216,7 @@ Partial Class SscpEnforcement
         Me.GeneralMessagePanel = New System.Windows.Forms.Panel()
         Me.GeneralMessageDisplay = New System.Windows.Forms.Label()
         Me.HeaderPanel = New System.Windows.Forms.Panel()
+        Me.EnforcementTypePanel = New System.Windows.Forms.Panel()
         Me.AirsNumberDisplay = New System.Windows.Forms.LinkLabel()
         Me.FacilityNameDisplay = New System.Windows.Forms.Label()
         Me.EnforcementStatusDisplay = New System.Windows.Forms.Label()
@@ -269,6 +270,7 @@ Partial Class SscpEnforcement
         Me.EpaValuesTabPage.SuspendLayout()
         Me.GeneralMessagePanel.SuspendLayout()
         Me.HeaderPanel.SuspendLayout()
+        Me.EnforcementTypePanel.SuspendLayout()
         Me.ToolStrip1.SuspendLayout()
         Me.MenuStrip1.SuspendLayout()
         CType(Me.DocumentsErrorProvider, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -1909,6 +1911,7 @@ Partial Class SscpEnforcement
         Me.AuditHistory.AllowUserToAddRows = False
         Me.AuditHistory.AllowUserToDeleteRows = False
         Me.AuditHistory.AllowUserToOrderColumns = True
+        Me.AuditHistory.AllowUserToResizeRows = False
         DataGridViewCellStyle11.BackColor = System.Drawing.Color.WhiteSmoke
         Me.AuditHistory.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle11
         Me.AuditHistory.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal
@@ -2399,7 +2402,7 @@ Partial Class SscpEnforcement
         'COCheckBox
         '
         Me.COCheckBox.AutoSize = True
-        Me.COCheckBox.Location = New System.Drawing.Point(132, 76)
+        Me.COCheckBox.Location = New System.Drawing.Point(126, 6)
         Me.COCheckBox.Name = "COCheckBox"
         Me.COCheckBox.Size = New System.Drawing.Size(41, 17)
         Me.COCheckBox.TabIndex = 3
@@ -2410,7 +2413,7 @@ Partial Class SscpEnforcement
         'NovCheckBox
         '
         Me.NovCheckBox.AutoSize = True
-        Me.NovCheckBox.Location = New System.Drawing.Point(77, 76)
+        Me.NovCheckBox.Location = New System.Drawing.Point(71, 6)
         Me.NovCheckBox.Name = "NovCheckBox"
         Me.NovCheckBox.Size = New System.Drawing.Size(49, 17)
         Me.NovCheckBox.TabIndex = 2
@@ -2421,7 +2424,7 @@ Partial Class SscpEnforcement
         'LonCheckBox
         '
         Me.LonCheckBox.AutoSize = True
-        Me.LonCheckBox.Location = New System.Drawing.Point(23, 76)
+        Me.LonCheckBox.Location = New System.Drawing.Point(17, 6)
         Me.LonCheckBox.Name = "LonCheckBox"
         Me.LonCheckBox.Size = New System.Drawing.Size(48, 17)
         Me.LonCheckBox.TabIndex = 1
@@ -2432,7 +2435,7 @@ Partial Class SscpEnforcement
         'AOCheckBox
         '
         Me.AOCheckBox.AutoSize = True
-        Me.AOCheckBox.Location = New System.Drawing.Point(179, 76)
+        Me.AOCheckBox.Location = New System.Drawing.Point(173, 6)
         Me.AOCheckBox.Name = "AOCheckBox"
         Me.AOCheckBox.Size = New System.Drawing.Size(41, 17)
         Me.AOCheckBox.TabIndex = 4
@@ -2467,11 +2470,8 @@ Partial Class SscpEnforcement
         '
         'HeaderPanel
         '
-        Me.HeaderPanel.Controls.Add(Me.COCheckBox)
-        Me.HeaderPanel.Controls.Add(Me.NovCheckBox)
+        Me.HeaderPanel.Controls.Add(Me.EnforcementTypePanel)
         Me.HeaderPanel.Controls.Add(Me.AirsNumberDisplay)
-        Me.HeaderPanel.Controls.Add(Me.LonCheckBox)
-        Me.HeaderPanel.Controls.Add(Me.AOCheckBox)
         Me.HeaderPanel.Controls.Add(Me.FacilityNameDisplay)
         Me.HeaderPanel.Controls.Add(Me.EnforcementStatusDisplay)
         Me.HeaderPanel.Controls.Add(Me.LastEditedDateDisplay)
@@ -2483,6 +2483,17 @@ Partial Class SscpEnforcement
         Me.HeaderPanel.Name = "HeaderPanel"
         Me.HeaderPanel.Size = New System.Drawing.Size(731, 103)
         Me.HeaderPanel.TabIndex = 0
+        '
+        'EnforcementTypePanel
+        '
+        Me.EnforcementTypePanel.Controls.Add(Me.COCheckBox)
+        Me.EnforcementTypePanel.Controls.Add(Me.NovCheckBox)
+        Me.EnforcementTypePanel.Controls.Add(Me.LonCheckBox)
+        Me.EnforcementTypePanel.Controls.Add(Me.AOCheckBox)
+        Me.EnforcementTypePanel.Location = New System.Drawing.Point(6, 70)
+        Me.EnforcementTypePanel.Name = "EnforcementTypePanel"
+        Me.EnforcementTypePanel.Size = New System.Drawing.Size(237, 30)
+        Me.EnforcementTypePanel.TabIndex = 8
         '
         'AirsNumberDisplay
         '
@@ -2736,6 +2747,8 @@ Partial Class SscpEnforcement
         Me.GeneralMessagePanel.PerformLayout()
         Me.HeaderPanel.ResumeLayout(False)
         Me.HeaderPanel.PerformLayout()
+        Me.EnforcementTypePanel.ResumeLayout(False)
+        Me.EnforcementTypePanel.PerformLayout()
         Me.ToolStrip1.ResumeLayout(False)
         Me.ToolStrip1.PerformLayout()
         Me.MenuStrip1.ResumeLayout(False)
@@ -2947,4 +2960,5 @@ Partial Class SscpEnforcement
     Friend WithEvents SubmitToUC As Button
     Friend WithEvents LinkedEventsLabel As Label
     Friend WithEvents LinkedEvents As DataGridView
+    Friend WithEvents EnforcementTypePanel As Panel
 End Class

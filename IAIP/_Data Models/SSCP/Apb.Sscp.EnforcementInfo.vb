@@ -10,6 +10,7 @@ Namespace Apb.Sscp
         Public Property StaffResponsible() As IaipUser
         Public Property Open() As Boolean
         Public Property DateFinalized() As Date?
+        Public Property IsDeleted() As Boolean = False
 
     End Class
 

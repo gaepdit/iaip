@@ -96,13 +96,24 @@ Public Class SscpDocuments
         If enforcementInfo IsNot Nothing Then
             Dim infoDisplay As New StringBuilder
 
+            If enforcementInfo.IsDeleted Then
+                infoDisplay.Append("DELETED ")
+            End If
+
             infoDisplay.AppendFormat("Enforcement #{0}", enforcementInfo.EnforcementNumber.ToString()).AppendLine()
             infoDisplay.AppendFormat("AIRS # {0}: {1}", enforcementInfo.Facility.AirsNumber.FormattedString, enforcementInfo.Facility.FacilityName).AppendLine()
+
             lblEnforcementInfo.Text = infoDisplay.ToString
+
+            If enforcementInfo.IsDeleted Then
+                lblEnforcementInfo.BackColor = IaipColors.WarningBackColor
+                lblEnforcementInfo.ForeColor = IaipColors.WarningForeColor
+            End If
 
             infoDisplay.Length = 0
             infoDisplay.AppendLine(enforcementInfo.Facility.FacilityLocation.Address.ToString)
             infoDisplay.AppendFormat("Responsible staff: {0}", enforcementInfo.StaffResponsible).AppendLine()
+
             If Not enforcementInfo.DiscoveryDate Is Nothing Then
                 infoDisplay.AppendFormat("{0}; Discovery Date: {1:dd-MMM-yyyy}", enforcementInfo.EnforcementTypeCode, enforcementInfo.DiscoveryDate).AppendLine()
             Else

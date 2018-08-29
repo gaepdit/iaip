@@ -52,13 +52,26 @@ Namespace DAL
                             OR (fci.STRCMSMEMBER = 'M' AND fci.LASTFCE < DATEADD(yy, -" & MIN_FCE_SPAN_CLASS_M & ", GETDATE()))"
 
                 Case NavWorkListContext.Enforcement
-                    query = "SELECT enf.STRENFORCEMENTNUMBER AS [Enforcement #], enf.STRAIRSNUMBER AS [AIRS #], fac.STRFACILITYNAME AS Facility, fac.STRFACILITYCITY AS City, enf.DATDISCOVERYDATE AS [Discovery Date],
-                            CASE WHEN enf.STRAFSKEYACTIONNUMBER IS NOT NULL THEN 'Submitted to EPA' WHEN enf.STRSTATUS = 'UC' THEN 'Submitted to UC' ELSE 'At staff' END AS Status,
-                            CASE WHEN enf.STRACTIONTYPE = 'CASEFILE' THEN 'Case File' ELSE enf.STRACTIONTYPE END AS Type, prof.STRLASTNAME+', '+prof.STRFIRSTNAME AS [Staff Responsible]
-                            FROM SSCP_AUDITEDENFORCEMENT AS enf
-                            INNER JOIN APBFACILITYINFORMATION AS fac ON enf.STRAIRSNUMBER = fac.STRAIRSNUMBER
-                            INNER JOIN EPDUSERPROFILES AS prof ON enf.NUMSTAFFRESPONSIBLE = prof.NUMUSERID
-                            WHERE enf.STRENFORCEMENTFINALIZED = 'False' "
+                    query = "SELECT
+                        enf.STRENFORCEMENTNUMBER   AS [Enforcement #],
+                        enf.STRAIRSNUMBER          AS [AIRS #],
+                        fac.STRFACILITYNAME        AS Facility,
+                        fac.STRFACILITYCITY        AS City,
+                        enf.DATDISCOVERYDATE       AS [Discovery Date],
+                        CASE WHEN enf.STRAFSKEYACTIONNUMBER IS NOT NULL
+                            THEN 'Submitted to EPA'
+                        WHEN enf.STRSTATUS = 'UC'
+                            THEN 'Submitted to UC'
+                        ELSE 'At staff' END        AS Status,
+                        CASE WHEN enf.STRACTIONTYPE = 'CASEFILE'
+                            THEN 'Case File'
+                        ELSE enf.STRACTIONTYPE END AS Type,
+                        prof.STRLASTNAME + ', ' + prof.STRFIRSTNAME AS [Staff Responsible]
+                    FROM SSCP_AUDITEDENFORCEMENT AS enf
+                        INNER JOIN APBFACILITYINFORMATION AS fac ON enf.STRAIRSNUMBER = fac.STRAIRSNUMBER
+                        INNER JOIN EPDUSERPROFILES AS prof ON enf.NUMSTAFFRESPONSIBLE = prof.NUMUSERID
+                    WHERE enf.STRENFORCEMENTFINALIZED = 'False'
+                          and (enf.IsDeleted = 0 or enf.IsDeleted is null) "
 
                     Select Case scope
                         Case NavWorkListScope.StaffView

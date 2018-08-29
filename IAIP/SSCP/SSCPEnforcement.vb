@@ -1,6 +1,7 @@
 ﻿Imports System.Collections.Generic
 Imports System.Linq
 Imports System.Text
+Imports Iaip.Apb
 Imports Iaip.Apb.Sscp
 Imports Iaip.DAL.DocumentData
 Imports Iaip.SharedData
@@ -11,8 +12,8 @@ Public Class SscpEnforcement
 
     Public Property EnforcementId As Integer = 0
     Public Property EnforcementCase As New EnforcementCase
-    Public Property AirsNumber As Apb.ApbFacilityId
-    Public Property Facility As Apb.Facilities.Facility
+    Public Property AirsNumber As ApbFacilityId
+    Public Property Facility As Facilities.Facility
 
     ''' <summary>
     ''' Only used when creating enforcement for a work item not 
@@ -93,6 +94,8 @@ Public Class SscpEnforcement
         LoadFacilityAirPrograms()
         DisplayEnforcementPollutants()
         DisplayEnforcementAirPrograms()
+
+        DisableAllIfDeleted()
     End Sub
 
     Private Sub SscpEnforcement_FormClosing(sender As Object, e As FormClosingEventArgs) Handles MyBase.FormClosing
@@ -168,16 +171,38 @@ Public Class SscpEnforcement
 
         ElseIf Not CurrentUser.HasPermission(UserCan.SaveEnforcement) Then
             ' Disable any save/write access
-            SaveButton.Enabled = False
-            SaveMenuItem.Enabled = False
-            SubmitToUC.Enabled = False
-            AddPollutantsButton.Enabled = False
-            StipulatedPenaltyControls.Enabled = False
-            DocumentUpdateButton.Enabled = False
-            LinkToEvent.Enabled = False
-            RemoveLinkedEvent.Enabled = False
-
+            DisableWriteAccess()
         End If
+    End Sub
+
+    Private Sub DisableAllIfDeleted()
+        If EnforcementCase.IsDeleted Then
+            With EnforcementStatusDisplay
+                .Text = "DELETED"
+                .BackColor = IaipColors.WarningBackColor
+                .ForeColor = IaipColors.WarningForeColor
+            End With
+
+            EnableDisableChanges(EnableOrDisable.Disable)
+
+            DisableWriteAccess()
+        End If
+    End Sub
+
+    Private Sub DisableWriteAccess()
+        ' Disable any save/write access
+        SaveButton.Enabled = False
+        SaveMenuItem.Enabled = False
+        SubmitToUC.Enabled = False
+        AddPollutantsButton.Enabled = False
+        StipulatedPenaltyControls.Enabled = False
+        DocumentUpdateButton.Enabled = False
+        LinkToEvent.Enabled = False
+        RemoveLinkedEvent.Enabled = False
+        ResolvedCheckBox.Enabled = False
+        DeleteEnforcementMenuItem.Enabled = False
+        SubmitToEpa.Enabled = False
+        SubmitToEpa2.Enabled = False
     End Sub
 
 #End Region
@@ -187,7 +212,7 @@ Public Class SscpEnforcement
     Private Sub ParseParameters()
         If Parameters IsNot Nothing Then
             If Parameters.ContainsKey(FormParameter.EnforcementId) Then EnforcementId = CInt(Parameters(FormParameter.EnforcementId))
-            If Parameters.ContainsKey(FormParameter.AirsNumber) Then AirsNumber = Parameters(FormParameter.AirsNumber)
+            If Parameters.ContainsKey(FormParameter.AirsNumber) Then AirsNumber = New ApbFacilityId(Parameters(FormParameter.AirsNumber))
             If Parameters.ContainsKey(FormParameter.TrackingNumber) Then InitialLinkedEventId = CInt(Parameters(FormParameter.TrackingNumber))
         End If
     End Sub
@@ -236,7 +261,7 @@ Public Class SscpEnforcement
         If Facility.FacilityLocation.Address.City IsNot Nothing Then
             FacilityNameDisplay.Text &= ", " & Facility.FacilityLocation.Address.City
         End If
-        FacilityNotApprovedDisplay.Visible = Not Facility.ApprovedByApb
+        FacilityNotApprovedDisplay.Visible = CBool(Not Facility.ApprovedByApb)
     End Sub
 
     Private Sub DisplayEnforcementCase()
@@ -260,8 +285,8 @@ Public Class SscpEnforcement
                 ColorCodeEnforcementStatusDisplay()
                 ResolvedCheckBox.Visible = True
                 ResolvedDate.Visible = True
-                ResolvedCheckBox.Checked = Not .Open
-                ResolvedDate.Checked = Not .Open
+                ResolvedCheckBox.Checked = CBool(Not .Open)
+                ResolvedDate.Checked = CBool(Not .Open)
                 StaffResponsible.SelectedValue = .StaffResponsibleId
 
                 ' General tab
@@ -373,28 +398,37 @@ Public Class SscpEnforcement
         If ResolvedCheckBox.Checked Then
             ResolvedDate.Enabled = True
             ResolvedDate.Checked = True
-            EnforcementCase.Open = False
+            EnforcementCase.Open = OpenOrClosed.Closed
             EnableDisableChanges(EnableOrDisable.Disable)
         Else
             ResolvedDate.Enabled = False
             ResolvedDate.Checked = False
-            EnforcementCase.Open = True
+            EnforcementCase.Open = OpenOrClosed.Open
             EnableDisableChanges(EnableOrDisable.Enable)
         End If
     End Sub
 
     Private Sub EnableDisableChanges(enabler As EnableOrDisable)
         Dim enabled As Boolean = (enabler = EnableOrDisable.Enable)
-        InfoTabPage.Enabled = enabled
+
+        'InfoTabPage.Enabled = enabled
+        DiscoveryDate.Enabled = enabled
+        StaffResponsible.Enabled = enabled
+        GeneralComments.Enabled = enabled
+        LinkToEvent.Enabled = enabled
+        RemoveLinkedEvent.Enabled = enabled
+        ViolationTypeGroupbox.Enabled = enabled
+        SubmitToEpa.Enabled = enabled
+        SubmitToUC.Enabled = enabled
+
         PollutantsTabPage.Enabled = enabled
         LonTabPage.Enabled = enabled
         NovTabPage.Enabled = enabled
         COTabPage.Enabled = enabled
         AOTabPage.Enabled = enabled
         DocumentsTabPage.Enabled = enabled
-        AuditHistoryTabPage.Enabled = enabled
         EpaValuesTabPage.Enabled = enabled
-        StaffResponsible.Enabled = enabled
+        EnforcementTypePanel.Enabled = enabled
     End Sub
 
     Private Sub AirsNumberDisplay_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles AirsNumberDisplay.LinkClicked
@@ -418,7 +452,7 @@ Public Class SscpEnforcement
             oldMessageHeight = GeneralMessagePanel.Height
         End If
 
-        Dim numLines As Integer = GeneralMessage.MessageText.Split(vbNewLine).Length
+        Dim numLines As Integer = GeneralMessage.MessageText.LineCount()
         GeneralMessagePanel.Height = (numLines * 15) + 28
 
         Me.MinimumSize = New Size(747, 580 + GeneralMessagePanel.Height)
@@ -483,9 +517,10 @@ Public Class SscpEnforcement
     End Sub
 
     Private Sub ApplyViolationSelectFilter(rowFilter As String)
-        Dim dv As New DataView(violationTypes)
-        dv.RowFilter = rowFilter
-        dv.Sort = "VIOLATIONTYPEDESC ASC"
+        Dim dv As New DataView(violationTypes) With {
+            .RowFilter = rowFilter,
+            .Sort = "VIOLATIONTYPEDESC ASC"
+        }
 
         With ViolationTypeSelect
             .DataSource = dv
@@ -573,7 +608,7 @@ Public Class SscpEnforcement
                     AddLinkedEventToList(workItem)
                     GeneralMessage = New IaipMessage("The compliance discovery event was linked. All linked events will be saved when the current enforcement is saved.", IaipMessage.WarningLevels.Success)
                 Else
-                    If SaveLinkedEvent(workItem("Tracking #")) Then
+                    If SaveLinkedEvent(CInt(workItem("Tracking #"))) Then
                         AddLinkedEventToList(workItem)
                         GeneralMessage = New IaipMessage("The compliance discovery event was linked.", IaipMessage.WarningLevels.Success)
                     Else
@@ -587,7 +622,7 @@ Public Class SscpEnforcement
     End Sub
 
     Private Sub AddLinkedEventToList(workItem As DataRow)
-        Dim dt As DataTable = LinkedEvents.DataSource
+        Dim dt As DataTable = CType(LinkedEvents.DataSource, DataTable)
         Dim dr As DataRow = dt.NewRow()
         dr("Tracking #") = workItem("Tracking #")
         dr("Type") = workItem("Type")
@@ -599,7 +634,7 @@ Public Class SscpEnforcement
 
     Private Sub OpenLinkedEvent_Click(sender As Object, e As EventArgs) Handles OpenLinkedEvent.Click
         If LinkedEvents.SelectedRows.Count = 1 Then
-            OpenFormSscpWorkItem(LinkedEvents.SelectedRows.Item(0).Cells("Tracking #").Value)
+            OpenFormSscpWorkItem(LinkedEvents.SelectedRows.Item(0).Cells("Tracking #").Value.ToString)
         End If
     End Sub
 
@@ -609,7 +644,7 @@ Public Class SscpEnforcement
                 LinkedEvents.Rows.RemoveAt(LinkedEvents.CurrentRow.Index)
                 GeneralMessage = New IaipMessage("The linked compliance event was removed.", IaipMessage.WarningLevels.Success)
             Else
-                If DAL.Sscp.DeleteLinkedComplianceEvent(EnforcementId, LinkedEvents.SelectedRows.Item(0).Cells("Tracking #").Value) Then
+                If DAL.Sscp.DeleteLinkedComplianceEvent(EnforcementId, CInt(LinkedEvents.SelectedRows.Item(0).Cells("Tracking #").Value)) Then
                     LinkedEvents.Rows.RemoveAt(LinkedEvents.CurrentRow.Index)
                     GeneralMessage = New IaipMessage("The linked compliance event was removed.", IaipMessage.WarningLevels.Success)
                 Else
@@ -626,7 +661,7 @@ Public Class SscpEnforcement
     Private Function SaveAllLinkedEvents() As Boolean
         Dim success As Boolean = True
         For Each row As DataGridViewRow In LinkedEvents.Rows
-            success = success And SaveLinkedEvent(row.Cells("Tracking #").Value)
+            success = success And SaveLinkedEvent(CInt(row.Cells("Tracking #").Value))
         Next
         Return success
     End Function
@@ -637,8 +672,8 @@ Public Class SscpEnforcement
 
     Private Sub LinkedEvents_CellFormatting(sender As Object, e As DataGridViewCellFormattingEventArgs) Handles LinkedEvents.CellFormatting
         If e IsNot Nothing AndAlso e.Value IsNot Nothing AndAlso Not IsDBNull(e.Value) Then
-            If LinkedEvents.Columns(e.ColumnIndex).HeaderText.ToUpper = "AIRS #" AndAlso Apb.ApbFacilityId.IsValidAirsNumberFormat(e.Value) Then
-                e.Value = New Apb.ApbFacilityId(e.Value).FormattedString
+            If LinkedEvents.Columns(e.ColumnIndex).HeaderText.ToUpper = "AIRS #" AndAlso ApbFacilityId.IsValidAirsNumberFormat(e.Value.ToString) Then
+                e.Value = New ApbFacilityId(e.Value.ToString).FormattedString
             ElseIf TypeOf e.Value Is Date Then
                 e.CellStyle.Format = DateFormat
             End If
@@ -788,7 +823,7 @@ Public Class SscpEnforcement
         Dim dt As DataTable = DAL.GetFacilityPollutants(AirsNumber)
         PollutantsListView.Items.Clear()
         For Each row As DataRow In dt.Rows
-            PollutantsListView.Items.Add(New ListViewItem({row(1), row(0)}))
+            PollutantsListView.Items.Add(New ListViewItem({row(1).ToString, row(0).ToString}))
         Next
     End Sub
 
@@ -809,7 +844,7 @@ Public Class SscpEnforcement
         Dim dt As DataTable = DAL.GetFacilityAirProgramsAsDataTable(AirsNumber, True)
         ProgramsListView.Items.Clear()
         For Each row As DataRow In dt.Rows
-            ProgramsListView.Items.Add(New ListViewItem({row(1), row(0)}))
+            ProgramsListView.Items.Add(New ListViewItem({row(1).ToString, row(0).ToString}))
         Next
     End Sub
 
@@ -972,8 +1007,8 @@ Public Class SscpEnforcement
     Private Sub StipulatedPenalties_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles StipulatedPenalties.CellClick
 
         If e.RowIndex <> -1 And e.RowIndex < StipulatedPenalties.RowCount Then
-            selectedStipulatedPenaltyItem = StipulatedPenalties.Rows(e.RowIndex).Cells("STRENFORCEMENTKEY").Value.ToString
-            Dim sp As String = StipulatedPenalties.Rows(e.RowIndex).Cells("STRSTIPULATEDPENALTY").Value
+            selectedStipulatedPenaltyItem = CInt(StipulatedPenalties.Rows(e.RowIndex).Cells("STRENFORCEMENTKEY").Value)
+            Dim sp As String = StipulatedPenalties.Rows(e.RowIndex).Cells("STRSTIPULATEDPENALTY").Value.ToString
             If StringValidatesAsCurrency(sp) Then
                 StipulatedPenaltyAmount.Text = ConvertCurrencyStringToDecimal(sp).ToString("C")
             End If
@@ -1023,8 +1058,8 @@ Public Class SscpEnforcement
             .Visible = enabled
         End With
         If enabled Then
-            txtDocumentDescription.Text = DocumentList.CurrentRow.Cells("Comment").Value
-            lblDocumentName.Text = DocumentList.CurrentRow.Cells("FileName").Value
+            txtDocumentDescription.Text = DocumentList.CurrentRow.Cells("Comment").Value.ToString
+            lblDocumentName.Text = DocumentList.CurrentRow.Cells("FileName").Value.ToString
         End If
     End Sub
 
@@ -1116,15 +1151,15 @@ Public Class SscpEnforcement
     Private Function EnforcementDocumentFromFileListRow(row As DataGridViewRow) As EnforcementDocument
         Dim doc As New EnforcementDocument
         With doc
-            .EnforcementNumber = row.Cells("EnforcementNumber").Value
-            .BinaryFileId = row.Cells("BinaryFileId").Value
-            .Comment = row.Cells("Comment").Value
-            .DocumentId = row.Cells("DocumentId").Value
-            .DocumentType = row.Cells("DocumentType").Value
-            .DocumentTypeId = row.Cells("DocumentTypeId").Value
-            .FileName = row.Cells("FileName").Value
-            .FileSize = row.Cells("FileSize").Value
-            .UploadDate = DateTime.Parse(row.Cells("UploadDate").Value)
+            .EnforcementNumber = CInt(row.Cells("EnforcementNumber").Value)
+            .BinaryFileId = CInt(row.Cells("BinaryFileId").Value)
+            .Comment = row.Cells("Comment").Value.ToString
+            .DocumentId = CInt(row.Cells("DocumentId").Value)
+            .DocumentType = row.Cells("DocumentType").Value.ToString
+            .DocumentTypeId = CInt(row.Cells("DocumentTypeId").Value)
+            .FileName = row.Cells("FileName").Value.ToString
+            .FileSize = CInt(row.Cells("FileSize").Value)
+            .UploadDate = DateTime.Parse(row.Cells("UploadDate").Value.ToString)
         End With
         Return doc
     End Function
@@ -1229,6 +1264,7 @@ Public Class SscpEnforcement
         AuditHistory.Columns("ModifiedBy").HeaderText = "Modified By"
         AuditHistory.Columns("DATMODIFINGDATE").HeaderText = "Date Modified"
         AuditHistory.Columns("DATMODIFINGDATE").DefaultCellStyle.Format = "dd-MMM-yyyy HH:mm:ss"
+        AuditHistory.Columns("IsDeleted").HeaderText = "Deleted"
 
         AuditHistory.SanelyResizeColumns()
     End Sub
@@ -1432,7 +1468,7 @@ Public Class SscpEnforcement
     Private Sub DisplayValidationErrors()
         ClearErrorsMenuItem.Enabled = True
         Dim messageText As New StringBuilder("Please correct the following issues before saving:")
-        Dim lines As Int16 = 1
+        Dim lines As Integer = 1
 
         For Each kvp As KeyValuePair(Of Control, String) In validationErrors
             If lines < 4 Then
@@ -1489,7 +1525,7 @@ Public Class SscpEnforcement
 
     Private Function ValidateViolationType() As Boolean
         If FormIsCaseFile() AndAlso
-            (ViolationTypeNone.Checked Or ViolationTypeSelect.SelectedValue = "BLANK") Then
+            (ViolationTypeNone.Checked Or ViolationTypeSelect.SelectedValue.ToString = "BLANK") Then
 
             validationErrors.Add(ViolationTypeGroupbox, "Choose a Violation Type")
             Return False
@@ -1827,6 +1863,7 @@ Public Class SscpEnforcement
             EnforcementId.ToString & "? " &
             "This cannot be undone.",
             "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
+
         If dr = DialogResult.Yes Then
             If DAL.Sscp.DeleteEnforcement(EnforcementId) Then
                 MessageBox.Show(
@@ -1835,7 +1872,9 @@ Public Class SscpEnforcement
                     "If it has already been sent to EPA, it will deleted from EPA's " &
                     "database during the next batch update.",
                     "Success", MessageBoxButtons.OK)
-                Me.Close()
+
+                EnforcementCase.IsDeleted = True
+                DisableAllIfDeleted()
             Else
                 GeneralMessage = New IaipMessage("There was an error deleting the enforcement case.", IaipMessage.WarningLevels.ErrorReport)
             End If
@@ -1854,11 +1893,11 @@ Public Class SscpEnforcement
             .Comment = GeneralComments.Text
             .DayZeroDate = DetermineDayZeroFromForm()
             .EnforcementId = EnforcementId
-            .Open = Not ResolvedCheckBox.Checked
+            .Open = CType(Not ResolvedCheckBox.Checked, OpenOrClosed)
             .Pollutants = ReadPollutantsFromForm()
             .LegacyAirPrograms = ReadProgramsFromForm()
-            .StaffResponsibleId = StaffResponsible.SelectedValue
-            .ViolationType = ViolationTypeSelect.SelectedValue
+            .StaffResponsibleId = CInt(StaffResponsible.SelectedValue)
+            .ViolationType = ViolationTypeSelect.SelectedValue.ToString
             .DateFinalized = GetNullableDateFromDateTimePicker(ResolvedDate)
             .DiscoveryDate = GetNullableDateFromDateTimePicker(DiscoveryDate)
         End With
@@ -1993,7 +2032,7 @@ Public Class SscpEnforcement
     Private Function ReadProgramsFromForm() As List(Of String)
         Dim pList As New List(Of String)
         For Each item As ListViewItem In ProgramsListView.CheckedItems
-            pList.Add(Apb.Facilities.FacilityHeaderData.ConvertAirProgramToLegacyCode(item.SubItems(1).Text))
+            pList.Add(Facilities.FacilityHeaderData.ConvertAirProgramToLegacyCode(item.SubItems(1).Text))
         Next
         Return pList
     End Function

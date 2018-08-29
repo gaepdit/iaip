@@ -339,7 +339,8 @@ Public Class SSCPFCEWork
                 ON b.numUserID = a.numStaffResponsible
         WHERE datDiscoveryDate BETWEEN @startDate AND @endDate
               AND (strStatus IS NULL OR strStatus <> 'True')
-              AND strAIrsnumber = @airs"
+              AND strAIrsnumber = @airs
+              and (IsDeleted = 0 or IsDeleted is null)"
 
         dgrFCEEnforcement.DataSource = DB.GetDataTable(SQL, paramWithDates)
     End Sub
