@@ -73,11 +73,15 @@ Public Class SSCPFCEWork
     End Sub
 
     Private Sub LoadFCEDataset()
-        Dim SQL As String = "SELECT f.STRFCENUMBER, f.STRFCEYEAR " &
-            "FROM SSCPFCE AS f " &
-            "INNER JOIN SSCPFCEMASTER AS m ON m.STRFCENUMBER = f.STRFCENUMBER " &
-            "WHERE m.STRAIRSNUMBER = @airs " &
-            "ORDER BY f.DATFCECOMPLETED DESC "
+        Dim SQL As String = "SELECT
+                f.STRFCENUMBER,
+                f.STRFCEYEAR
+            FROM SSCPFCE AS f
+                INNER JOIN SSCPFCEMASTER AS m
+                    ON m.STRFCENUMBER = f.STRFCENUMBER
+            WHERE m.STRAIRSNUMBER = @airs
+                    and (IsDeleted is null or IsDeleted = 0)
+            ORDER BY f.DATFCECOMPLETED DESC "
         Dim p As New SqlParameter("@airs", AirsNumber.DbFormattedString)
         fceTable = DB.GetDataTable(SQL, p)
         fceTable.PrimaryKey = Nothing
@@ -1337,7 +1341,7 @@ Public Class SSCPFCEWork
                         })
                     End If
                 Else
-                    FCENumber = txtFCENumber.Text
+                    FCENumber = CInt(txtFCENumber.Text)
 
                     sqlList.Add("Update SSCPFCEMaster set " &
                         "strModifingPerson = @strModifingPerson, " &

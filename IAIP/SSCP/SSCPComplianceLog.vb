@@ -161,7 +161,7 @@ Public Class SSCPComplianceLog
                 "LEFT JOIN LOOKUPSSCPNOTIFICATIONS AS l ON n.STRNOTIFICATIONTYPE = l.STRNOTIFICATIONKEY " &
                 "UNION " &
                 "SELECT SUBSTRING(i.STRAIRSNUMBER, 5, 8), i.STRFACILITYNAME, h.STRCLASS, 'Full Compliance Evaluation', CONCAT(u.STRLASTNAME, ', ', u.STRFIRSTNAME), fm.STRFCENUMBER, " &
-                "CASE WHEN f.DATFCECOMPLETED IS NOT NULL THEN 'Closed' ELSE 'Open' END, NULL, NULL, f.DATFCECOMPLETED, NULL, f.DATFCECOMPLETED, NULL, f.DATMODIFINGDATE, 'FC', " &
+                "CASE when fm.IsDeleted = 1 then 'Deleted' WHEN f.DATFCECOMPLETED IS NOT NULL THEN 'Closed' ELSE 'Open' END, NULL, NULL, f.DATFCECOMPLETED, NULL, f.DATFCECOMPLETED, NULL, f.DATMODIFINGDATE, 'FC', " &
                 "u.NUMUSERID as [User ID] " &
                 "FROM APBFACILITYINFORMATION AS i " &
                 "INNER JOIN APBHeaderData AS h ON h.STRAIRSNUMBER = i.STRAIRSNUMBER " &
@@ -450,8 +450,8 @@ Public Class SSCPComplianceLog
 
         Select Case txtTestType.Text
             Case "Annual Compliance Certification"
-                response = MessageBox.Show("Are you sure you want to delete this item?",
-                                           "Delete Work Entry", MessageBoxButtons.YesNo,
+                response = MessageBox.Show("Are you sure you want to delete this ACC?",
+                                           "Delete ACC", MessageBoxButtons.YesNo,
                                            MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2)
                 If response = DialogResult.Yes Then
                     SQL = "Update SSCPItemMaster set strDelete = 'True' where strTrackingNumber = @num"
@@ -465,28 +465,15 @@ Public Class SSCPComplianceLog
                 MessageBox.Show("Enforcement cases must be deleted from within the enforcement screen.", "Can't Delete", MessageBoxButtons.OK, MessageBoxIcon.Stop)
 
             Case "Full Compliance Evaluation"
-                response = MessageBox.Show("Are you sure you want to delete this item?",
-                                           "Delete Work Entry", MessageBoxButtons.YesNo,
+                response = MessageBox.Show("Are you sure you want to delete this FCE?",
+                                           "Delete FCE", MessageBoxButtons.YesNo,
                                            MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2)
                 If response = DialogResult.Yes Then
-                    Dim sqlList As New List(Of String)
-                    Dim paramList As New List(Of SqlParameter())
-
-                    ' Don't delete from AFS table. This table is used to generate the 'delete'
-                    ' command for ICIS-Air
-                    'sqlList.Add("Delete AFSSSCPFCERecords where strFCENumber = @num")
-                    'paramList.Add({p})
-
-                    sqlList.Add("Delete SSCPFCE where strFCENumber = @num")
-                    paramList.Add({p})
-
-                    sqlList.Add("Delete SSCPFCEMaster where strFCENumber = @num")
-                    paramList.Add({p})
-
-                    DB.RunCommand(sqlList, paramList)
+                    SQL = "update SSCPFCEMASTER set IsDeleted = 1 where STRFCENUMBER = @num"
+                    DB.RunCommand(SQL, p)
 
                     LoadDgvWork()
-                    MsgBox("FCE Deleted.", MsgBoxStyle.Information, "Compliance Log")
+                    MessageBox.Show("Done")
                 End If
 
             Case "Inspection"
@@ -533,12 +520,12 @@ Public Class SSCPComplianceLog
     End Sub
 
     Private Sub UnDeleteWork()
+        Dim p As New SqlParameter("@num", txtWorkNumber.Text)
 
         Select Case txtTestType.Text
             Case "Annual Compliance Certification", "Report", "Inspection", "Notification" To "Notification-z"
 
                 Dim SQL As String = "Update SSCPItemMaster set strDelete = NULL where strTrackingNumber = @num"
-                Dim p As New SqlParameter("@num", txtWorkNumber.Text)
                 DB.RunCommand(SQL, p)
                 LoadDgvWork()
                 MessageBox.Show("Done")
@@ -547,7 +534,10 @@ Public Class SSCPComplianceLog
                 MessageBox.Show("Deleted enforcement cases cannot be restored.", "Can't Undelete", MessageBoxButtons.OK, MessageBoxIcon.Stop)
 
             Case "Full Compliance Evaluation"
-                MessageBox.Show("Deleted FCEs cannot be restored.", "Can't Undelete", MessageBoxButtons.OK, MessageBoxIcon.Stop)
+                Dim SQL As String = "update SSCPFCEMASTER set IsDeleted = 0 where STRFCENUMBER = @num"
+                DB.RunCommand(SQL, p)
+                LoadDgvWork()
+                MessageBox.Show("Done")
 
             Case "Performance Tests"
                 MessageBox.Show("Deleted performance tests cannot be restored.", "Can't Undelete", MessageBoxButtons.OK, MessageBoxIcon.Stop)
@@ -587,11 +577,11 @@ Public Class SSCPComplianceLog
 
     Private Sub dgvWork_SelectionChanged(sender As Object, e As EventArgs) Handles dgvWork.SelectionChanged
         If dgvWork.SelectedRows.Count = 1 Then
-            txtAIRSNumber.Text = dgvWork.CurrentRow.Cells(0).Value
-            txtNewAIRSNumber.Text = dgvWork.CurrentRow.Cells(0).Value
-            txtFacilityName.Text = dgvWork.CurrentRow.Cells(1).Value
-            txtWorkNumber.Text = dgvWork.CurrentRow.Cells(5).Value
-            txtTestType.Text = dgvWork.CurrentRow.Cells(3).Value
+            txtAIRSNumber.Text = dgvWork.CurrentRow.Cells(0).Value.ToString
+            txtNewAIRSNumber.Text = dgvWork.CurrentRow.Cells(0).Value.ToString
+            txtFacilityName.Text = dgvWork.CurrentRow.Cells(1).Value.ToString
+            txtWorkNumber.Text = dgvWork.CurrentRow.Cells(5).Value.ToString
+            txtTestType.Text = dgvWork.CurrentRow.Cells(3).Value.ToString
         End If
     End Sub
 
@@ -605,13 +595,14 @@ Public Class SSCPComplianceLog
     End Sub
 
     Private Sub btnSelectWork_Click(sender As Object, e As EventArgs) Handles btnSelectWork.Click
-        If txtTestType.Text <> "" Then
+        Dim workNumber As Integer
+        If txtTestType.Text <> "" AndAlso Integer.TryParse(txtWorkNumber.Text, workNumber) Then
             If InStr(txtTestType.Text, "Enforcement") > 0 Then
-                OpenFormEnforcement(txtWorkNumber.Text)
+                OpenFormEnforcement(workNumber)
             ElseIf InStr(txtTestType.Text, "Full Compliance Evaluation") > 0 Then
-                OpenFormFce(txtWorkNumber.Text)
+                OpenFormFce(workNumber)
             Else
-                OpenFormSscpWorkItem(txtWorkNumber.Text)
+                OpenFormSscpWorkItem(workNumber)
             End If
         End If
     End Sub

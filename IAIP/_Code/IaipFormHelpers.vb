@@ -54,6 +54,10 @@ Module IaipFormHelpers
 
 #Region " Work Item "
 
+    Public Function OpenFormSscpWorkItem(id As Integer) As Form
+        Return OpenFormSscpWorkItem(id.ToString)
+    End Function
+
     Public Function OpenFormSscpWorkItem(id As String) As Form
         Dim idInt As Integer
 
@@ -102,24 +106,36 @@ Module IaipFormHelpers
         End If
     End Function
 
+    Public Function OpenFormFce(fceNumber As Integer) As SSCPFCEWork
+        Return OpenFormFce(fceNumber.ToString)
+    End Function
+
     Public Function OpenFormFce(fceNumber As String) As SSCPFCEWork
-        If String.IsNullOrEmpty(fceNumber) Then
-            Return Nothing
-        Else
-            Dim airsNumber As ApbFacilityId = DAL.Sscp.GetFacilityIdByFceId(fceNumber)
-            If airsNumber Is Nothing Then
-                Return Nothing
-            Else
+        Dim intFce As Integer
+
+        If Not String.IsNullOrEmpty(fceNumber) AndAlso
+            Integer.TryParse(fceNumber, intFce) AndAlso
+            DAL.Sscp.FceExists(intFce) Then
+
+            Dim airsNumber As ApbFacilityId = DAL.Sscp.GetFacilityIdByFceId(intFce)
+
+            If airsNumber IsNot Nothing Then
                 Dim SSCPFCE As SSCPFCEWork = OpenFormFce(airsNumber)
                 SSCPFCE.txtFCENumber.Text = fceNumber
                 Return SSCPFCE
             End If
         End If
+
+        Return Nothing
     End Function
 
 #End Region
 
 #Region " Enforcement "
+
+    Public Function OpenFormEnforcement(enforcementId As Integer) As SscpEnforcement
+        Return OpenFormEnforcement(enforcementId.ToString)
+    End Function
 
     Public Function OpenFormEnforcement(enforcementId As String) As SscpEnforcement
         If DAL.Sscp.EnforcementExists(enforcementId) Then

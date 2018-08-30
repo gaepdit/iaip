@@ -49,7 +49,8 @@ Namespace DAL
                             GROUP BY fm.STRAIRSNUMBER, fac.STRFACILITYNAME, fac.STRFACILITYCITY, sup.STRCMSMEMBER, hd.STRCLASS, hd.STROPERATIONALSTATUS) AS fci
                             WHERE (fci.STRCMSMEMBER = 'A' AND fci.LASTFCE < DATEADD(yy, -" & MIN_FCE_SPAN_CLASS_A & ", GETDATE()))
                             OR (fci.STRCMSMEMBER = 'S' AND fci.LASTFCE < DATEADD(yy, -" & MIN_FCE_SPAN_CLASS_SM & ", GETDATE()))
-                            OR (fci.STRCMSMEMBER = 'M' AND fci.LASTFCE < DATEADD(yy, -" & MIN_FCE_SPAN_CLASS_M & ", GETDATE()))"
+                            OR (fci.STRCMSMEMBER = 'M' AND fci.LASTFCE < DATEADD(yy, -" & MIN_FCE_SPAN_CLASS_M & ", GETDATE()))
+                            and (fm.IsDeleted is null or fm.IsDeleted = 0)"
 
                 Case NavWorkListContext.Enforcement
                     query = "SELECT
