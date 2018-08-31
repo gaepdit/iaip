@@ -1,5 +1,6 @@
 ﻿Imports System.Collections.Generic
 Imports System.Data.SqlClient
+Imports Iaip.SharedData
 
 Namespace DAL
     Module FeesData
@@ -43,19 +44,19 @@ Namespace DAL
             End Try
         End Function
 
-        Public Function GetAllFeeYears() As List(Of String)
-            Dim list As New List(Of String)
-            Dim dataTable As DataTable = GetAllFeeYearsAsDataTable()
+        Public Function GetAllFeeYears() As List(Of Integer)
+            Dim list As New List(Of Integer)
+            Dim dataTable As DataTable = GetSharedData(SharedTable.FeeYears)
+
             For Each row As DataRow In dataTable.Rows
-                list.Add(row("FEEYEAR"))
+                list.Add(CInt(row("FeeYear")))
             Next
+
             Return list
         End Function
 
-        Private Function GetAllFeeYearsAsDataTable() As DataTable
-            Dim query As String = "select distinct (convert(int, NUMFEEYEAR)) as FeeYear
-                from FSLK_NSPSREASONYEAR
-                ORDER BY FeeYear DESC "
+        Public Function GetAllFeeYearsAsDataTable() As DataTable
+            Dim query As String = "select distinct (convert(int, NUMFEEYEAR)) as FeeYear from FSLK_NSPSREASONYEAR ORDER BY FeeYear DESC "
             Return DB.GetDataTable(query)
         End Function
 

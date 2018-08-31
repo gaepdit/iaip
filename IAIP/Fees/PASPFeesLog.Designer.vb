@@ -55,6 +55,7 @@ Partial Class PASPFeesLog
         Me.dgvExistingYearAdmin = New System.Windows.Forms.DataGridView()
         Me.GroupBox5 = New System.Windows.Forms.GroupBox()
         Me.TopPanel = New System.Windows.Forms.Panel()
+        Me.cbYear = New System.Windows.Forms.ComboBox()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox4.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
@@ -329,7 +330,7 @@ Partial Class PASPFeesLog
         '
         'mtbSelectedFeeYear
         '
-        Me.mtbSelectedFeeYear.Location = New System.Drawing.Point(65, 62)
+        Me.mtbSelectedFeeYear.Location = New System.Drawing.Point(35, 126)
         Me.mtbSelectedFeeYear.Mask = "0000"
         Me.mtbSelectedFeeYear.Name = "mtbSelectedFeeYear"
         Me.mtbSelectedFeeYear.Size = New System.Drawing.Size(39, 20)
@@ -386,6 +387,7 @@ Partial Class PASPFeesLog
         '
         Me.GroupBox5.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.GroupBox5.Controls.Add(Me.cbYear)
         Me.GroupBox5.Controls.Add(Me.mtbSelectedFeeYear)
         Me.GroupBox5.Controls.Add(Me.btnOpenFeeWorkTool)
         Me.GroupBox5.Controls.Add(Me.Label4)
@@ -408,6 +410,15 @@ Partial Class PASPFeesLog
         Me.TopPanel.Padding = New System.Windows.Forms.Padding(0, 10, 0, 0)
         Me.TopPanel.Size = New System.Drawing.Size(684, 259)
         Me.TopPanel.TabIndex = 0
+        '
+        'cbYear
+        '
+        Me.cbYear.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cbYear.FormattingEnabled = True
+        Me.cbYear.Location = New System.Drawing.Point(63, 62)
+        Me.cbYear.Name = "cbYear"
+        Me.cbYear.Size = New System.Drawing.Size(64, 21)
+        Me.cbYear.TabIndex = 7
         '
         'PASPFeesLog
         '
@@ -466,4 +477,5 @@ Partial Class PASPFeesLog
     Friend WithEvents GroupBox5 As GroupBox
     Friend WithEvents TopPanel As Panel
     Friend WithEvents mtbSearchAirsNumber As TextBox
+    Friend WithEvents cbYear As ComboBox
 End Class

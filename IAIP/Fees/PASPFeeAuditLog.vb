@@ -84,8 +84,8 @@ Public Class PASPFeeAuditLog
             End If
         End If
 
-        If FeeYearsComboBox.Items.Contains(Me.FeeYear) Then
-            FeeYearsComboBox.SelectedItem = Me.FeeYear
+        If FeeYearsComboBox.Items.Contains(CInt(Me.FeeYear)) Then
+            FeeYearsComboBox.Text = Me.FeeYear
         Else
             FeeYearsComboBox.SelectedIndex = 0
             Me.FeeYear = FeeYearsComboBox.SelectedItem.ToString()

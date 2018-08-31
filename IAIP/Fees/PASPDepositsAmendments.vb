@@ -10,6 +10,8 @@ Public Class PASPDepositsAmendments
     Private Sub PASPDepositsAmendments_Load(sender As Object, e As EventArgs) Handles Me.Load
         dtpDepositReportStartDate.Value = Today.AddMonths(-1)
         dtpDepositReportEndDate.Value = Today
+        cbYear.DataSource = DAL.GetAllFeeYears()
+        cbYear2.DataSource = DAL.GetAllFeeYears()
     End Sub
 
 #End Region
@@ -48,11 +50,9 @@ Public Class PASPDepositsAmendments
             Return False
         End If
 
-        If mtbFeeYear2.Text = "" Then
-            If Not IsNumeric(mtbFeeYear.Text) Then
-                MsgBox("Please enter a valid Reporting Year", MsgBoxStyle.OkOnly, "Incorrect Year")
-                Return False
-            End If
+        If cbYear2.Text = "" Then
+            MsgBox("Please select a valid Reporting Year", MsgBoxStyle.OkOnly, "Incorrect Year")
+            Return False
         End If
 
         If txtDepositAmount.Text = "" Then
@@ -197,7 +197,7 @@ Public Class PASPDepositsAmendments
                     "order by strBatchNo "
                 param = {
                     New SqlParameter("@airsnum", New Apb.ApbFacilityId(mtbAIRSNumber.Text).DbFormattedString),
-                    New SqlParameter("@feeyear", mtbFeeYear.Text)
+                    New SqlParameter("@feeyear", cbYear.Text)
                 }
 
             End If
@@ -226,7 +226,7 @@ Public Class PASPDepositsAmendments
         Try
             lblAIRSNumber.Text = "AIRS #"
             lblFacilityName.Text = "Facility Name"
-            mtbFeeYear2.Clear()
+            cbYear2.SelectedIndex = 0
             txtDepositAmount.Clear()
             txtTransactionID.Clear()
             txtDepositComments.Clear()
@@ -237,7 +237,7 @@ Public Class PASPDepositsAmendments
             txtCheckNumber.Clear()
 
             If DAL.AirsNumberExists(mtbAIRSNumber.Text) Then
-                If mtbFeeYear.Text <> "" Then
+                If cbYear.Text <> "" Then
                     If ViewInvoices() = False Then
                         MsgBox("There was an error loading invoices.", MsgBoxStyle.Exclamation, "Invoice Search Error")
                     Else
@@ -306,11 +306,11 @@ Public Class PASPDepositsAmendments
                     End If
 
                     If IsDBNull(row.Cells(6).Value) Then
-                        mtbFeeYear.Clear()
-                        mtbFeeYear2.Clear()
+                        cbYear.SelectedIndex = 0
+                        cbYear2.SelectedIndex = 0
                     Else
-                        mtbFeeYear.Text = row.Cells(6).Value
-                        mtbFeeYear2.Text = row.Cells(6).Value
+                        cbYear.Text = row.Cells(6).Value.ToString
+                        cbYear2.Text = row.Cells(6).Value.ToString
                     End If
 
                     If IsDBNull(row.Cells(11).Value) Then
@@ -412,11 +412,11 @@ Public Class PASPDepositsAmendments
                     End If
 
                     If IsDBNull(row.Cells(4).Value) Then
-                        mtbFeeYear.Clear()
-                        mtbFeeYear2.Clear()
+                        cbYear.SelectedIndex = 0
+                        cbYear2.SelectedIndex = 0
                     Else
-                        mtbFeeYear.Text = row.Cells(4).Value
-                        mtbFeeYear2.Text = row.Cells(4).Value
+                        cbYear.Text = row.Cells(4).Value.ToString
+                        cbYear2.Text = row.Cells(4).Value.ToString
                     End If
 
                     If IsDBNull(row.Cells(5).Value) Then
@@ -493,7 +493,7 @@ Public Class PASPDepositsAmendments
                         New SqlParameter("@ACTIVE", "1"),
                         New SqlParameter("@UPDATEUSER", CurrentUser.UserID),
                         New SqlParameter("@STRAIRSNUMBER", New Apb.ApbFacilityId(mtbAIRSNumber.Text).DbFormattedString),
-                        New SqlParameter("@NUMFEEYEAR", mtbFeeYear2.Text),
+                        New SqlParameter("@NUMFEEYEAR", cbYear2.Text),
                         New SqlParameter("@STRCREDITCARDNO", txtCreditCardNo.Text)
                     }
                     DB.RunCommand(query, param)
@@ -510,7 +510,7 @@ Public Class PASPDepositsAmendments
                     Exit Sub
                 End If
 
-                If Not DAL.Update_FS_Admin_Status(mtbFeeYear2.Text, mtbAIRSNumber.Text) Then
+                If Not DAL.Update_FS_Admin_Status(CInt(cbYear2.Text), New Apb.ApbFacilityId(mtbAIRSNumber.Text)) Then
                     MessageBox.Show("There was an error updating the database.", "Database error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 End If
 
@@ -598,7 +598,7 @@ Public Class PASPDepositsAmendments
                         Exit Sub
                     End If
 
-                    If Not DAL.Update_FS_Admin_Status(mtbFeeYear2.Text, mtbAIRSNumber.Text) Then
+                    If Not DAL.Update_FS_Admin_Status(CInt(cbYear2.Text), New Apb.ApbFacilityId(mtbAIRSNumber.Text)) Then
                         MessageBox.Show("There was an error updating the database", "Database error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                     End If
 
@@ -660,7 +660,7 @@ Public Class PASPDepositsAmendments
                     txtCheckNumber.Clear()
                     lblAIRSNumber.Text = "AIRS #"
                     lblFacilityName.Text = "Facility Name"
-                    mtbFeeYear2.Clear()
+                    cbYear2.SelectedIndex = 0
                     txtDepositAmount.Clear()
                     txtTransactionID.Clear()
                     txtDepositComments.Clear()
@@ -813,17 +813,17 @@ Public Class PASPDepositsAmendments
     Private Sub ClearForm()
         txtCheckNumber.Clear()
         mtbAIRSNumber.Clear()
-        mtbFeeYear.Clear()
+        cbYear.SelectedIndex = 0
         lblAIRSNumber.Text = "AIRS #"
         lblFacilityName.Text = "Facility Name"
-        mtbFeeYear2.Clear()
+        cbYear2.SelectedIndex = 0
         txtDepositAmount.Clear()
         txtTransactionID.Clear()
         txtDepositComments.Clear()
         txtDepositNumberField.Clear()
         txtBatchNoField.Clear()
         txtCheckNumberField.Clear()
-        dtpBatchDepositDateField.Text = Date.Today
+        dtpBatchDepositDateField.Value = Date.Today
         txtCreditCardNo.Clear()
     End Sub
 
@@ -844,14 +844,14 @@ Public Class PASPDepositsAmendments
         Try
             lblAIRSNumber.Text = "AIRS #"
             lblFacilityName.Text = "Facility Name"
-            mtbFeeYear2.Clear()
+            cbYear2.SelectedIndex = 0
             txtDepositAmount.Clear()
             txtTransactionID.Clear()
             txtDepositComments.Clear()
             txtDepositNumberField.Clear()
             txtBatchNoField.Clear()
             txtCheckNumberField.Clear()
-            dtpBatchDepositDateField.Text = Date.Today
+            dtpBatchDepositDateField.Value = Date.Today
 
             If txtCheckNumber.Text <> "" Then
                 If ViewInvoices() = False Then
@@ -877,14 +877,14 @@ Public Class PASPDepositsAmendments
 
             lblAIRSNumber.Text = "AIRS #"
             lblFacilityName.Text = "Facility Name"
-            mtbFeeYear2.Clear()
+            cbYear2.SelectedIndex = 0
             txtDepositAmount.Clear()
             txtTransactionID.Clear()
             txtDepositComments.Clear()
             txtDepositNumberField.Clear()
             txtBatchNoField.Clear()
             txtCheckNumberField.Clear()
-            dtpBatchDepositDateField.Text = Date.Today
+            dtpBatchDepositDateField.Value = Date.Today
 
             If txtSearchInvoice.Text <> "" Then
                 query = "select " &
@@ -1002,7 +1002,7 @@ Public Class PASPDepositsAmendments
     Private Sub AcceptButton_Leave(sender As Object, e As EventArgs) _
         Handles dtpDepositReportStartDate.Leave, dtpDepositReportEndDate.Leave,
         txtCheckNumber.Leave, txtSearchInvoice.Leave,
-        mtbAIRSNumber.Leave, mtbFeeYear.Leave
+        mtbAIRSNumber.Leave, cbYear.Leave, cbYear2.Leave
 
         AcceptButton = Nothing
     End Sub
@@ -1019,7 +1019,7 @@ Public Class PASPDepositsAmendments
         AcceptButton = btnSearchForInvoice
     End Sub
 
-    Private Sub mtbAIRSNumber_Enter(sender As Object, e As EventArgs) Handles mtbAIRSNumber.Enter, mtbFeeYear.Enter
+    Private Sub mtbAIRSNumber_Enter(sender As Object, e As EventArgs) Handles mtbAIRSNumber.Enter, cbYear.Enter, cbYear2.Enter
         AcceptButton = btnViewInvoices
     End Sub
 

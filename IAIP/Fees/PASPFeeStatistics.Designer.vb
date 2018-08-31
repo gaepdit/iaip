@@ -224,7 +224,7 @@ Partial Class PASPFeeStatistics
         Me.btnFeeByYear = New System.Windows.Forms.Button()
         Me.btnPayment = New System.Windows.Forms.Button()
         Me.TPAnnualBalance = New System.Windows.Forms.TabPage()
-        Me.mtbFacilityBalanceYear = New System.Windows.Forms.MaskedTextBox()
+        Me.cbBalanceYear = New System.Windows.Forms.ComboBox()
         Me.chbFacilityBalance = New System.Windows.Forms.CheckBox()
         Me.lblFacilityBalanceReportTag = New System.Windows.Forms.Label()
         Me.btnRunBalanceReport = New System.Windows.Forms.Button()
@@ -2357,7 +2357,7 @@ Partial Class PASPFeeStatistics
         '
         'TPAnnualBalance
         '
-        Me.TPAnnualBalance.Controls.Add(Me.mtbFacilityBalanceYear)
+        Me.TPAnnualBalance.Controls.Add(Me.cbBalanceYear)
         Me.TPAnnualBalance.Controls.Add(Me.chbFacilityBalance)
         Me.TPAnnualBalance.Controls.Add(Me.lblFacilityBalanceReportTag)
         Me.TPAnnualBalance.Controls.Add(Me.btnRunBalanceReport)
@@ -2368,18 +2368,19 @@ Partial Class PASPFeeStatistics
         Me.TPAnnualBalance.Text = "Annual Balances"
         Me.TPAnnualBalance.UseVisualStyleBackColor = True
         '
-        'mtbFacilityBalanceYear
+        'cbBalanceYear
         '
-        Me.mtbFacilityBalanceYear.Location = New System.Drawing.Point(42, 10)
-        Me.mtbFacilityBalanceYear.Mask = "0000"
-        Me.mtbFacilityBalanceYear.Name = "mtbFacilityBalanceYear"
-        Me.mtbFacilityBalanceYear.Size = New System.Drawing.Size(37, 20)
-        Me.mtbFacilityBalanceYear.TabIndex = 12
+        Me.cbBalanceYear.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cbBalanceYear.FormattingEnabled = True
+        Me.cbBalanceYear.Location = New System.Drawing.Point(42, 10)
+        Me.cbBalanceYear.Name = "cbBalanceYear"
+        Me.cbBalanceYear.Size = New System.Drawing.Size(72, 21)
+        Me.cbBalanceYear.TabIndex = 13
         '
         'chbFacilityBalance
         '
         Me.chbFacilityBalance.AutoSize = True
-        Me.chbFacilityBalance.Location = New System.Drawing.Point(205, 12)
+        Me.chbFacilityBalance.Location = New System.Drawing.Point(240, 12)
         Me.chbFacilityBalance.Name = "chbFacilityBalance"
         Me.chbFacilityBalance.Size = New System.Drawing.Size(133, 17)
         Me.chbFacilityBalance.TabIndex = 11
@@ -2398,7 +2399,7 @@ Partial Class PASPFeeStatistics
         'btnRunBalanceReport
         '
         Me.btnRunBalanceReport.AutoSize = True
-        Me.btnRunBalanceReport.Location = New System.Drawing.Point(85, 8)
+        Me.btnRunBalanceReport.Location = New System.Drawing.Point(120, 8)
         Me.btnRunBalanceReport.Name = "btnRunBalanceReport"
         Me.btnRunBalanceReport.Size = New System.Drawing.Size(114, 23)
         Me.btnRunBalanceReport.TabIndex = 9
@@ -2877,7 +2878,6 @@ Partial Class PASPFeeStatistics
     Friend WithEvents btnRunBalanceReport As Button
     Friend WithEvents lblFacilityBalanceReportTag As Label
     Friend WithEvents chbFacilityBalance As CheckBox
-    Friend WithEvents mtbFacilityBalanceYear As MaskedTextBox
     Friend WithEvents btnViewFacilityDepositsReport As Button
     Friend WithEvents TPNsps As TabPage
     Friend WithEvents lblNSPS1 As LinkLabel
@@ -2897,4 +2897,5 @@ Partial Class PASPFeeStatistics
     Friend WithEvents btnReportedExport As Button
     Friend WithEvents btnExportedRun As Button
     Friend WithEvents btnClassification As Button
+    Friend WithEvents cbBalanceYear As ComboBox
 End Class

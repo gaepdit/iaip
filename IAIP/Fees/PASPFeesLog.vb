@@ -1,18 +1,12 @@
-﻿Imports System.Data.SqlClient
-
-Public Class PASPFeesLog
+﻿Public Class PASPFeesLog
 
     Private Sub PASPFeesLog_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         LoadFeeYears()
     End Sub
 
     Private Sub LoadFeeYears()
-        Dim SQL As String = "SELECT DISTINCT NUMFEEYEAR FROM FS_ADMIN ORDER BY NUMFEEYEAR DESC"
-        Dim dt As DataTable = DB.GetDataTable(SQL)
-
-        For Each dr As DataRow In dt.Rows
-            clbFeeYear.Items.Add(dr("NUMFEEYEAR"))
-        Next
+        clbFeeYear.DataSource = DAL.GetAllFeeYears()
+        cbYear.DataSource = DAL.GetAllFeeYears()
     End Sub
 
     Private Sub RunSearch()
@@ -174,8 +168,8 @@ Public Class PASPFeesLog
         Try
 
             If dgvExistingYearAdmin.RowCount > 0 And hti.RowIndex <> -1 Then
-                mtbSelectedAIRSNumber.Text = dgvExistingYearAdmin(0, hti.RowIndex).Value
-                mtbSelectedFeeYear.Text = dgvExistingYearAdmin(2, hti.RowIndex).Value
+                mtbSelectedAIRSNumber.Text = dgvExistingYearAdmin(0, hti.RowIndex).Value.ToString
+                cbYear.Text = dgvExistingYearAdmin(2, hti.RowIndex).Value.ToString
             End If
 
         Catch ex As Exception
@@ -188,7 +182,7 @@ Public Class PASPFeesLog
         If Apb.ApbFacilityId.IsValidAirsNumberFormat(mtbSelectedAIRSNumber.Text) Then
             parameters(FormParameter.AirsNumber) = mtbSelectedAIRSNumber.Text
         End If
-        parameters(FormParameter.FeeYear) = mtbSelectedFeeYear.Text
+        parameters(FormParameter.FeeYear) = cbYear.Text
 
         OpenSingleForm(PASPFeeAuditLog, parameters:=parameters, closeFirst:=True)
     End Sub

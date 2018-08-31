@@ -24,8 +24,6 @@ Public Class PASPFeeStatistics
 
             LoadComboBoxesF()
 
-            mtbFacilityBalanceYear.Text = Today.Year.ToString
-
             If AccountFormAccess(135, 1) = "1" Or AccountFormAccess(135, 2) = "1" Or AccountFormAccess(135, 3) = "1" Or AccountFormAccess(135, 4) = "1" Then
                 btnOpenFeesLog.Visible = True
                 txtFeeStatAirsNumber.Visible = True
@@ -40,7 +38,7 @@ Public Class PASPFeeStatistics
 
     Private Sub loadDepositAndPayment()
         Try
-            Dim allFeeYears As List(Of String) = DAL.GetAllFeeYears()
+            Dim allFeeYears As List(Of Integer) = DAL.GetAllFeeYears()
 
             With cboStatYear
                 .DataSource = allFeeYears
@@ -53,6 +51,11 @@ Public Class PASPFeeStatistics
             End With
 
             With cbReportedYear
+                .DataSource = allFeeYears
+                .SelectedIndex = 0
+            End With
+
+            With cbBalanceYear
                 .DataSource = allFeeYears
                 .SelectedIndex = 0
             End With
@@ -1384,15 +1387,7 @@ Public Class PASPFeeStatistics
 
         Try
             Me.Cursor = Cursors.WaitCursor
-            Dim selectedYear As Integer = 0
-
-            If Not Integer.TryParse(mtbFacilityBalanceYear.Text, selectedYear) Then
-                mtbFacilityBalanceYear.Text = Date.Today.Year
-            End If
-
-            If selectedYear < 1990 Or selectedYear > Date.Today.Year Then
-                mtbFacilityBalanceYear.Text = Date.Today.Year
-            End If
+            Dim selectedYear As Integer = CInt(cbBalanceYear.Text)
 
             Dim ParameterFields As ParameterFields
             Dim ParameterField As ParameterField
