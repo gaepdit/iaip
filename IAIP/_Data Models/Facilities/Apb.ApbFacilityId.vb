@@ -33,6 +33,13 @@
         End Property
 
         ''' <summary>
+        ''' Returns APB facility ID as an integer
+        ''' </summary>
+        Public Function ToInt() As Integer
+            Return Convert.ToInt32(ShortString)
+        End Function
+
+        ''' <summary>
         ''' Returns APB facility ID as a 12-character string in the form "041300000000"
         ''' </summary>
         Public ReadOnly Property DbFormattedString() As String

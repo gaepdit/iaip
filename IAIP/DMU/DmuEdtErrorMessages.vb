@@ -121,7 +121,7 @@ Public Class DmuEdtErrorMessages
 #Region " DataGridView Selection and Events "
 
     Private Sub OpenErrorMessageDetail(errorCode As String)
-        Dim edtErrorMessageDetail As DmuEdtErrorMessageDetail = OpenMultiForm(DmuEdtErrorMessageDetail, errorCode.GetHashCode)
+        Dim edtErrorMessageDetail As DmuEdtErrorMessageDetail = CType(OpenMultiForm(DmuEdtErrorMessageDetail, errorCode.GetHashCode), DmuEdtErrorMessageDetail)
         edtErrorMessageDetail.EdtErrorCode = errorCode
     End Sub
 

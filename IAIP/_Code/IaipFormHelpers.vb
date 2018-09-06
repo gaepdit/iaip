@@ -1,4 +1,4 @@
-﻿Imports System.Collections.Generic
+Imports System.Collections.Generic
 Imports Iaip.Apb
 Imports Iaip.BaseForm
 
@@ -188,7 +188,7 @@ Module IaipFormHelpers
 
         Dim parameters As New Dictionary(Of FormParameter, String)
         parameters(FormParameter.ReferenceNumber) = referenceNumber
-        Return CType(OpenMultiForm(ISMPTestReports, NormalizeReferenceId(referenceNumber), Parameters), ISMPTestReports)
+        Return CType(OpenMultiForm(ISMPTestReports, NormalizeReferenceId(referenceNumber), parameters), ISMPTestReports)
     End Function
 
     Public Function OpenFormTestNotification(id As String) As ISMPNotificationLog

@@ -245,7 +245,7 @@ Public Class DmuEdtErrorMessageDetail
 #Region " Grid Linkiness "
 
     Private Sub OpenEdtErrorDetail(errorID As Integer)
-        Dim edtErrorDetail As DmuEdtErrorDetail = OpenMultiForm(DmuEdtErrorDetail, errorID)
+        Dim edtErrorDetail As DmuEdtErrorDetail = CType(OpenMultiForm(DmuEdtErrorDetail, errorID), DmuEdtErrorDetail)
         edtErrorDetail.ActiveUsersList = activeUsersList
         edtErrorDetail.EdtErrorID = errorID
     End Sub

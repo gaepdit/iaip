@@ -1997,7 +1997,7 @@ Public Class PASPFeeAuditLog
         parameters(FormParameter.AirsNumber) = AirsNumber.ToString
         parameters(FormParameter.FacilityName) = txtFeeAdminFacilityName.Text
         parameters(FormParameter.Key) = DAL.ContactKey.Fees.ToString
-        OpenMultiForm(IAIPEditContacts, AirsNumber.ToString, parameters)
+        OpenMultiForm(IAIPEditContacts, AirsNumber.ToInt, parameters)
     End Sub
 
     Private Sub ReloadButton_Click(sender As Object, e As EventArgs) Handles ReloadButton.Click

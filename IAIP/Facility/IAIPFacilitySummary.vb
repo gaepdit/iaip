@@ -176,7 +176,7 @@ Public Class IAIPFacilitySummary
 
     Private Sub EditFacilityLocationButton_Click(sender As Object, e As EventArgs) Handles EditFacilityLocationButton.Click
         Dim parameters As New Dictionary(Of FormParameter, String) From {{FormParameter.AirsNumber, Me.AirsNumber.ToString}}
-        OpenMultiForm(IAIPEditFacilityLocation, Me.AirsNumber.GetHashCode, parameters)
+        OpenMultiForm(IAIPEditFacilityLocation, Me.AirsNumber.ToInt, parameters)
     End Sub
 
     Private Sub ClearBasicFacilityData()
@@ -432,7 +432,7 @@ Public Class IAIPFacilitySummary
     End Sub
 
     Private Sub EditSubpartsButton_Click(sender As Object, e As EventArgs) Handles EditSubpartsButton.Click
-        Dim editSubParts As IAIPEditSubParts = OpenMultiForm(IAIPEditSubParts, Me.AirsNumber.GetHashCode)
+        Dim editSubParts As IAIPEditSubParts = CType(OpenMultiForm(IAIPEditSubParts, Me.AirsNumber.ToInt), IAIPEditSubParts)
         editSubParts.AirsNumber = AirsNumber
     End Sub
 
@@ -867,7 +867,7 @@ Public Class IAIPFacilitySummary
         Dim parameters As New Dictionary(Of FormParameter, String)
         parameters(FormParameter.AirsNumber) = Me.AirsNumber.ShortString
         parameters(FormParameter.FacilityName) = Me.ThisFacility.FacilityName
-        OpenMultiForm(IAIPEditContacts, Me.AirsNumber.ShortString, parameters)
+        OpenMultiForm(IAIPEditContacts, AirsNumber.ToInt, parameters)
     End Sub
 
     Private Sub LoadContactsData()

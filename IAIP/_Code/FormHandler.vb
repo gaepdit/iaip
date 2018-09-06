@@ -5,14 +5,6 @@ Module FormHandler
     Public MultiForm As Dictionary(Of String, Dictionary(Of Integer, BaseForm))
     Public SingleForm As Dictionary(Of String, BaseForm)
 
-    ' Deprecated
-    'Public Function OpenMultiForm(formName As String,
-    '                              id As Integer,
-    '                              Optional parameters As Dictionary(Of FormParameter, String) = Nothing) As Form
-    '    Dim formType As Type = GetFormTypeByName(formName)
-    '    Return OpenMultiForm(formType, formName, id, parameters)
-    'End Function
-
     Public Function OpenMultiForm(formClass As BaseForm,
                                   id As Integer,
                                   Optional parameters As Dictionary(Of FormParameter, String) = Nothing) As Form
@@ -88,7 +80,7 @@ Module FormHandler
         End If
 
         If Not SingleFormIsOpen(formName) Then
-            SingleForm(formName) = Activator.CreateInstance(formType)
+            SingleForm(formName) = CType(Activator.CreateInstance(formType), BaseForm)
         End If
 
         If id <> -1 Then SingleForm(formName).ID = id
