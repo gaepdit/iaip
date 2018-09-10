@@ -28,7 +28,16 @@
         ''' </summary>
         Public ReadOnly Property FormattedString() As String
             Get
-                Return Mid(ShortString, 1, 3) & "-" & Mid(ShortString, 4, 5)
+                Return CountySubstring & "-" & Mid(ShortString, 4, 5)
+            End Get
+        End Property
+
+        ''' <summary>
+        ''' Returns APB facility ID as an eight-character string in the form "000-0000"
+        ''' </summary>
+        Public ReadOnly Property PermitFormattedString() As String
+            Get
+                Return CountySubstring & "-" & Mid(ShortString, 5, 4)
             End Get
         End Property
 

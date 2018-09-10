@@ -243,6 +243,7 @@
     <Compile Include="_DAL\DAL.State.vb" />
     <Compile Include="_DAL\DAL.Rules.vb" />
     <Compile Include="_DAL\Facilities\DAL.FacilityLookups.vb" />
+    <Compile Include="_DAL\SSPP\DAL.Sspp.ApplicationTypes.vb" />
     <Compile Include="_DAL\TableValuedParameter.vb" />
     <Compile Include="_Data Models\Users\IaipRoles.vb" />
     <Compile Include="_Code\RegexPatterns.vb" />
@@ -1512,10 +1513,10 @@
     <Compile Include="_DAL\DAL.Fees.vb" />
     <Compile Include="_DAL\DAL.QueryGenerator.vb" />
     <Compile Include="_DAL\DAL.Sbeap.vb" />
-    <Compile Include="_DAL\DAL.Sspp.Applications.vb">
+    <Compile Include="_DAL\SSPP\DAL.Sspp.Applications.vb">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="_DAL\DAL.Sspp.Permit.vb" />
+    <Compile Include="_DAL\SSPP\DAL.Sspp.Permit.vb" />
     <Compile Include="_Code\DbConnections.vb" />
     <Compile Include="Crystal Reports\CRViewerForm.Designer.vb">
       <DependentUpon>CRViewerForm.vb</DependentUpon>
