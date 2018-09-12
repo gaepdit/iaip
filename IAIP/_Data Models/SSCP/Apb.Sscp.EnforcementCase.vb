@@ -49,7 +49,7 @@ Namespace Apb.Sscp
         Public Property Open As OpenOrClosed ' STRENFORCEMENTFINALIZED	VARCHAR2(5 BYTE)
         Public ReadOnly Property EnforcementStatus As EnforcementStatus
             Get
-                If Not Open Then
+                If Open = OpenOrClosed.Closed Then
                     Return EnforcementStatus.CaseClosed
                 ElseIf LonResolved.HasValue Or NfaSent.HasValue Or CoResolved.HasValue Or AoResolved.HasValue Then
                     Return EnforcementStatus.CaseResolved
@@ -80,6 +80,7 @@ Namespace Apb.Sscp
                 End If
             End Set
         End Property
+        Public Property IsDeleted As Boolean = False
 
         ' Discovery
         Public Property DiscoveryDate As Date? ' STRDISCOVERYDATE	VARCHAR2(5 BYTE); DATDISCOVERYDATE	DATE

@@ -661,6 +661,7 @@ Public Class SSCPManagersTools
             "on SSCP_AuditedEnforcement.strTrackingNumber = SSCPItemMaster.strTrackingNumber  " &
             "where strEventType = '04'  " &
             "and datReceivedDate between @startdate and @enddate " &
+            " and (SSCP_AuditedEnforcement.IsDeleted = 0 or SSCP_AuditedEnforcement.IsDeleted is null) " &
             "and strResponsibleStaff in (select * from @staff) "
 
             txtEnforcementActionTaken.Text = DB.GetInteger(SQL, params).ToString
@@ -672,6 +673,7 @@ Public Class SSCPManagersTools
             "where strEventType = '04'  " &
             "and datLONSent is Not Null  " &
             "and datReceivedDate between @startdate and @enddate " &
+            " and (SSCP_AuditedEnforcement.IsDeleted = 0 or SSCP_AuditedEnforcement.IsDeleted is null) " &
             "and strResponsibleStaff in (select * from @staff) "
 
             txtLONTaken.Text = DB.GetInteger(SQL, params).ToString
@@ -683,6 +685,7 @@ Public Class SSCPManagersTools
             "where strEventType = '04'  " &
             "and datNFALetterSent is Not Null  " &
             "and datReceivedDate between @startdate and @enddate " &
+            " and (SSCP_AuditedEnforcement.IsDeleted = 0 or SSCP_AuditedEnforcement.IsDeleted is null) " &
             "and strResponsibleStaff in (select * from @staff) "
 
             txtNOVTaken.Text = DB.GetInteger(SQL, params).ToString
@@ -694,6 +697,7 @@ Public Class SSCPManagersTools
             "where strEventType = '04'  " &
             "and datCOResolved is Not Null  " &
             "and datReceivedDate between @startdate and @enddate " &
+            " and (SSCP_AuditedEnforcement.IsDeleted = 0 or SSCP_AuditedEnforcement.IsDeleted is null) " &
             "and strResponsibleStaff in (select * from @staff) "
 
             txtCOTaken.Text = DB.GetInteger(SQL, params).ToString
@@ -1480,6 +1484,7 @@ Public Class SSCPManagersTools
                 "and SSCPItemMaster.strTrackingNumber = SSCP_AuditedEnforcement.strTrackingNumber  " &
                 "and strEventType = '04'   " &
                 "and datReceivedDate between @startdate and @enddate " &
+                " and (SSCP_AuditedEnforcement.IsDeleted = 0 or SSCP_AuditedEnforcement.IsDeleted is null) " &
                 "and strResponsibleStaff in (select * from @staff) " &
                 "order by strFacilityName"
 
@@ -1551,7 +1556,7 @@ Public Class SSCPManagersTools
             SQL = "select " &
             "SUBSTRING(APBFacilityInformation.strAIRSnumber, 5,8) as AIRSNumber,   " &
             "strFacilityName,   " &
-                "concat(strLastname, ', ', strFirstName) as UserName,  " &
+            "concat(strLastname, ', ', strFirstName) as UserName,  " &
             "SSCPItemMaster.strTrackingNumber,  " &
             "SSCP_AuditedEnforcement.strEnforcementNumber  " &
             "from APBFacilityInformation, EPDUserProfiles,   " &
@@ -1562,8 +1567,9 @@ Public Class SSCPManagersTools
             "and SSCPItemMaster.strTrackingNumber = SSCP_AuditedEnforcement.strTrackingNumber  " &
             "and strEventType = '04'   " &
             "and datCOResolved is Not Null  " &
-                "and datReceivedDate between @startdate and @enddate " &
-                "and strResponsibleStaff in (select * from @staff) " &
+            "and datReceivedDate between @startdate and @enddate " &
+            " and (SSCP_AuditedEnforcement.IsDeleted = 0 or SSCP_AuditedEnforcement.IsDeleted is null) " &
+            "and strResponsibleStaff in (select * from @staff) " &
             "order by strFacilityName"
 
             dgvStatisticalReports.DataSource = DB.GetDataTable(SQL, params)
@@ -1632,7 +1638,7 @@ Public Class SSCPManagersTools
             SQL = "select " &
             "SUBSTRING(APBFacilityInformation.strAIRSnumber, 5,8) as AIRSNumber,   " &
             "strFacilityName,   " &
-                "concat(strLastname, ', ', strFirstName) as UserName,  " &
+            "concat(strLastname, ', ', strFirstName) as UserName,  " &
             "SSCPItemMaster.strTrackingNumber,  " &
             "SSCP_AuditedEnforcement.strEnforcementNumber  " &
             "from APBFacilityInformation, EPDUserProfiles,   " &
@@ -1640,11 +1646,12 @@ Public Class SSCPManagersTools
             "SSCP_AuditedEnforcement   " &
             "where SSCPItemMaster.strAirsnumber = APBFacilityInformation.strAIRSnumber   " &
             "and SSCPItemMaster.strResponsibleStaff = EPDUserProfiles.numUserID    " &
-             "and SSCPItemMaster.strTrackingNumber = SSCP_AuditedEnforcement.strTrackingNumber  " &
-             "and strEventType = '04'   " &
-             "and datNFALetterSent is Not Null  " &
-                "and datReceivedDate between @startdate and @enddate " &
-                "and strResponsibleStaff in (select * from @staff) " &
+            "and SSCPItemMaster.strTrackingNumber = SSCP_AuditedEnforcement.strTrackingNumber  " &
+            "and strEventType = '04'   " &
+            "and datNFALetterSent is Not Null  " &
+            "and datReceivedDate between @startdate and @enddate " &
+            " and (SSCP_AuditedEnforcement.IsDeleted = 0 or SSCP_AuditedEnforcement.IsDeleted is null) " &
+            "and strResponsibleStaff in (select * from @staff) " &
             "order by strFacilityName"
 
             dgvStatisticalReports.DataSource = DB.GetDataTable(SQL, params)
@@ -1713,7 +1720,7 @@ Public Class SSCPManagersTools
             SQL = "select " &
             "SUBSTRING(APBFacilityInformation.strAIRSnumber, 5,8) as AIRSNumber,   " &
             "strFacilityName,   " &
-                "concat(strLastname, ', ', strFirstName) as UserName,  " &
+            "concat(strLastname, ', ', strFirstName) as UserName,  " &
             "SSCPItemMaster.strTrackingNumber,  " &
             "SSCP_AuditedEnforcement.strEnforcementNumber  " &
             "from APBFacilityInformation, EPDUserProfiles,   " &
@@ -1722,10 +1729,11 @@ Public Class SSCPManagersTools
             "where SSCPItemMaster.strAirsnumber = APBFacilityInformation.strAIRSnumber   " &
             "and SSCPItemMaster.strResponsibleStaff = EPDUserProfiles.numUserID    " &
             "and SSCPItemMaster.strTrackingNumber = SSCP_AuditedEnforcement.strTrackingNumber  " &
-             "and strEventType = '04'   " &
+            "and strEventType = '04'   " &
             "and datLONSent is Not Null  " &
-                "and datReceivedDate between @startdate and @enddate " &
-                "and strResponsibleStaff in (select * from @staff) " &
+            "and datReceivedDate between @startdate and @enddate " &
+            " and (SSCP_AuditedEnforcement.IsDeleted = 0 or SSCP_AuditedEnforcement.IsDeleted is null) " &
+            "and strResponsibleStaff in (select * from @staff) " &
             "order by strFacilityName"
 
             dgvStatisticalReports.DataSource = DB.GetDataTable(SQL, params)
