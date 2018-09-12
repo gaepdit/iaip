@@ -841,7 +841,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.TPSubPartEditor.Controls.Add(Me.TCSupParts)
         Me.TPSubPartEditor.Location = New System.Drawing.Point(4, 22)
         Me.TPSubPartEditor.Name = "TPSubPartEditor"
-        Me.TPSubPartEditor.Size = New System.Drawing.Size(784, 477)
+        Me.TPSubPartEditor.Size = New System.Drawing.Size(784, 498)
         Me.TPSubPartEditor.TabIndex = 8
         Me.TPSubPartEditor.Text = "Rule Applicability"
         Me.TPSubPartEditor.UseVisualStyleBackColor = True
@@ -856,7 +856,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.TCSupParts.Location = New System.Drawing.Point(0, 0)
         Me.TCSupParts.Name = "TCSupParts"
         Me.TCSupParts.SelectedIndex = 0
-        Me.TCSupParts.Size = New System.Drawing.Size(784, 477)
+        Me.TCSupParts.Size = New System.Drawing.Size(784, 498)
         Me.TCSupParts.TabIndex = 211
         '
         'TPSIP
@@ -864,7 +864,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.TPSIP.Controls.Add(Me.Panel13)
         Me.TPSIP.Location = New System.Drawing.Point(4, 22)
         Me.TPSIP.Name = "TPSIP"
-        Me.TPSIP.Size = New System.Drawing.Size(776, 451)
+        Me.TPSIP.Size = New System.Drawing.Size(776, 472)
         Me.TPSIP.TabIndex = 4
         Me.TPSIP.Text = "SIP"
         Me.TPSIP.UseVisualStyleBackColor = True
@@ -879,7 +879,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.Panel13.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel13.Location = New System.Drawing.Point(0, 0)
         Me.Panel13.Name = "Panel13"
-        Me.Panel13.Size = New System.Drawing.Size(776, 451)
+        Me.Panel13.Size = New System.Drawing.Size(776, 472)
         Me.Panel13.TabIndex = 5
         '
         'dgvSIPSubParts
@@ -890,7 +890,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.dgvSIPSubParts.Location = New System.Drawing.Point(231, 34)
         Me.dgvSIPSubParts.Name = "dgvSIPSubParts"
         Me.dgvSIPSubParts.ReadOnly = True
-        Me.dgvSIPSubParts.Size = New System.Drawing.Size(301, 293)
+        Me.dgvSIPSubParts.Size = New System.Drawing.Size(301, 314)
         Me.dgvSIPSubParts.TabIndex = 0
         '
         'Panel17
@@ -935,7 +935,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.Panel15.Dock = System.Windows.Forms.DockStyle.Right
         Me.Panel15.Location = New System.Drawing.Point(532, 0)
         Me.Panel15.Name = "Panel15"
-        Me.Panel15.Size = New System.Drawing.Size(244, 327)
+        Me.Panel15.Size = New System.Drawing.Size(244, 348)
         Me.Panel15.TabIndex = 433
         '
         'Label59
@@ -1023,7 +1023,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.Panel14.Dock = System.Windows.Forms.DockStyle.Left
         Me.Panel14.Location = New System.Drawing.Point(0, 0)
         Me.Panel14.Name = "Panel14"
-        Me.Panel14.Size = New System.Drawing.Size(231, 327)
+        Me.Panel14.Size = New System.Drawing.Size(231, 348)
         Me.Panel14.TabIndex = 432
         '
         'Label58
@@ -1104,7 +1104,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.Panel16.Controls.Add(Me.btnAddNewSIPSubpart)
         Me.Panel16.Controls.Add(Me.cboSIPSubpart)
         Me.Panel16.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.Panel16.Location = New System.Drawing.Point(0, 327)
+        Me.Panel16.Location = New System.Drawing.Point(0, 348)
         Me.Panel16.Name = "Panel16"
         Me.Panel16.Size = New System.Drawing.Size(776, 124)
         Me.Panel16.TabIndex = 434
@@ -1138,7 +1138,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.TPPart60.Controls.Add(Me.Panel18)
         Me.TPPart60.Location = New System.Drawing.Point(4, 22)
         Me.TPPart60.Name = "TPPart60"
-        Me.TPPart60.Size = New System.Drawing.Size(776, 513)
+        Me.TPPart60.Size = New System.Drawing.Size(776, 451)
         Me.TPPart60.TabIndex = 0
         Me.TPPart60.Text = "NSPS (Part 60)"
         Me.TPPart60.UseVisualStyleBackColor = True
@@ -1153,7 +1153,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.Panel18.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel18.Location = New System.Drawing.Point(0, 0)
         Me.Panel18.Name = "Panel18"
-        Me.Panel18.Size = New System.Drawing.Size(776, 513)
+        Me.Panel18.Size = New System.Drawing.Size(776, 451)
         Me.Panel18.TabIndex = 5
         '
         'dgvNSPSSubParts
@@ -1164,7 +1164,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.dgvNSPSSubParts.Location = New System.Drawing.Point(231, 34)
         Me.dgvNSPSSubParts.Name = "dgvNSPSSubParts"
         Me.dgvNSPSSubParts.ReadOnly = True
-        Me.dgvNSPSSubParts.Size = New System.Drawing.Size(301, 355)
+        Me.dgvNSPSSubParts.Size = New System.Drawing.Size(301, 293)
         Me.dgvNSPSSubParts.TabIndex = 0
         '
         'Panel19
@@ -1209,7 +1209,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.Panel20.Dock = System.Windows.Forms.DockStyle.Right
         Me.Panel20.Location = New System.Drawing.Point(532, 0)
         Me.Panel20.Name = "Panel20"
-        Me.Panel20.Size = New System.Drawing.Size(244, 389)
+        Me.Panel20.Size = New System.Drawing.Size(244, 327)
         Me.Panel20.TabIndex = 433
         '
         'Label62
@@ -1297,7 +1297,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.Panel21.Dock = System.Windows.Forms.DockStyle.Left
         Me.Panel21.Location = New System.Drawing.Point(0, 0)
         Me.Panel21.Name = "Panel21"
-        Me.Panel21.Size = New System.Drawing.Size(231, 389)
+        Me.Panel21.Size = New System.Drawing.Size(231, 327)
         Me.Panel21.TabIndex = 432
         '
         'Label64
@@ -1378,7 +1378,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.Panel22.Controls.Add(Me.btnAddNewNSPSSubpart)
         Me.Panel22.Controls.Add(Me.cboNSPSSubpart)
         Me.Panel22.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.Panel22.Location = New System.Drawing.Point(0, 389)
+        Me.Panel22.Location = New System.Drawing.Point(0, 327)
         Me.Panel22.Name = "Panel22"
         Me.Panel22.Size = New System.Drawing.Size(776, 124)
         Me.Panel22.TabIndex = 434
@@ -1412,7 +1412,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.TPPart61.Controls.Add(Me.Panel23)
         Me.TPPart61.Location = New System.Drawing.Point(4, 22)
         Me.TPPart61.Name = "TPPart61"
-        Me.TPPart61.Size = New System.Drawing.Size(776, 513)
+        Me.TPPart61.Size = New System.Drawing.Size(776, 451)
         Me.TPPart61.TabIndex = 1
         Me.TPPart61.Text = "NESHAP (Part 61) "
         Me.TPPart61.UseVisualStyleBackColor = True
@@ -1427,7 +1427,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.Panel23.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel23.Location = New System.Drawing.Point(0, 0)
         Me.Panel23.Name = "Panel23"
-        Me.Panel23.Size = New System.Drawing.Size(776, 513)
+        Me.Panel23.Size = New System.Drawing.Size(776, 451)
         Me.Panel23.TabIndex = 5
         '
         'dgvNESHAPSubParts
@@ -1438,7 +1438,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.dgvNESHAPSubParts.Location = New System.Drawing.Point(231, 34)
         Me.dgvNESHAPSubParts.Name = "dgvNESHAPSubParts"
         Me.dgvNESHAPSubParts.ReadOnly = True
-        Me.dgvNESHAPSubParts.Size = New System.Drawing.Size(301, 355)
+        Me.dgvNESHAPSubParts.Size = New System.Drawing.Size(301, 293)
         Me.dgvNESHAPSubParts.TabIndex = 0
         '
         'Panel24
@@ -1484,7 +1484,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.Panel25.Dock = System.Windows.Forms.DockStyle.Right
         Me.Panel25.Location = New System.Drawing.Point(532, 0)
         Me.Panel25.Name = "Panel25"
-        Me.Panel25.Size = New System.Drawing.Size(244, 389)
+        Me.Panel25.Size = New System.Drawing.Size(244, 327)
         Me.Panel25.TabIndex = 433
         '
         'Label66
@@ -1572,7 +1572,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.Panel26.Dock = System.Windows.Forms.DockStyle.Left
         Me.Panel26.Location = New System.Drawing.Point(0, 0)
         Me.Panel26.Name = "Panel26"
-        Me.Panel26.Size = New System.Drawing.Size(231, 389)
+        Me.Panel26.Size = New System.Drawing.Size(231, 327)
         Me.Panel26.TabIndex = 432
         '
         'Label67
@@ -1653,7 +1653,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.Panel27.Controls.Add(Me.btnAddNewNESHAPSubpart)
         Me.Panel27.Controls.Add(Me.cboNESHAPSubpart)
         Me.Panel27.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.Panel27.Location = New System.Drawing.Point(0, 389)
+        Me.Panel27.Location = New System.Drawing.Point(0, 327)
         Me.Panel27.Name = "Panel27"
         Me.Panel27.Size = New System.Drawing.Size(776, 124)
         Me.Panel27.TabIndex = 434
@@ -1687,7 +1687,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.TPPart63.Controls.Add(Me.Panel28)
         Me.TPPart63.Location = New System.Drawing.Point(4, 22)
         Me.TPPart63.Name = "TPPart63"
-        Me.TPPart63.Size = New System.Drawing.Size(776, 513)
+        Me.TPPart63.Size = New System.Drawing.Size(776, 451)
         Me.TPPart63.TabIndex = 2
         Me.TPPart63.Text = "MACT (Part 63)"
         Me.TPPart63.UseVisualStyleBackColor = True
@@ -1702,7 +1702,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.Panel28.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel28.Location = New System.Drawing.Point(0, 0)
         Me.Panel28.Name = "Panel28"
-        Me.Panel28.Size = New System.Drawing.Size(776, 513)
+        Me.Panel28.Size = New System.Drawing.Size(776, 451)
         Me.Panel28.TabIndex = 5
         '
         'dgvMACTSubParts
@@ -1713,7 +1713,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.dgvMACTSubParts.Location = New System.Drawing.Point(231, 34)
         Me.dgvMACTSubParts.Name = "dgvMACTSubParts"
         Me.dgvMACTSubParts.ReadOnly = True
-        Me.dgvMACTSubParts.Size = New System.Drawing.Size(301, 355)
+        Me.dgvMACTSubParts.Size = New System.Drawing.Size(301, 293)
         Me.dgvMACTSubParts.TabIndex = 0
         '
         'Panel29
@@ -1758,7 +1758,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.Panel30.Dock = System.Windows.Forms.DockStyle.Right
         Me.Panel30.Location = New System.Drawing.Point(532, 0)
         Me.Panel30.Name = "Panel30"
-        Me.Panel30.Size = New System.Drawing.Size(244, 389)
+        Me.Panel30.Size = New System.Drawing.Size(244, 327)
         Me.Panel30.TabIndex = 433
         '
         'Label70
@@ -1846,7 +1846,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.Panel31.Dock = System.Windows.Forms.DockStyle.Left
         Me.Panel31.Location = New System.Drawing.Point(0, 0)
         Me.Panel31.Name = "Panel31"
-        Me.Panel31.Size = New System.Drawing.Size(231, 389)
+        Me.Panel31.Size = New System.Drawing.Size(231, 327)
         Me.Panel31.TabIndex = 432
         '
         'Label71
@@ -1927,7 +1927,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.Panel32.Controls.Add(Me.btnAddNewMACTSubpart)
         Me.Panel32.Controls.Add(Me.cboMACTSubpart)
         Me.Panel32.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.Panel32.Location = New System.Drawing.Point(0, 389)
+        Me.Panel32.Location = New System.Drawing.Point(0, 327)
         Me.Panel32.Name = "Panel32"
         Me.Panel32.Size = New System.Drawing.Size(776, 124)
         Me.Panel32.TabIndex = 434
@@ -1967,7 +1967,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.TPPermitUploader.Controls.Add(Me.PanelOther)
         Me.TPPermitUploader.Location = New System.Drawing.Point(4, 22)
         Me.TPPermitUploader.Name = "TPPermitUploader"
-        Me.TPPermitUploader.Size = New System.Drawing.Size(784, 477)
+        Me.TPPermitUploader.Size = New System.Drawing.Size(784, 498)
         Me.TPPermitUploader.TabIndex = 7
         Me.TPPermitUploader.Text = "Documents"
         Me.TPPermitUploader.UseVisualStyleBackColor = True
@@ -3318,7 +3318,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.TPContactInformation.Controls.Add(Me.Label11)
         Me.TPContactInformation.Location = New System.Drawing.Point(4, 22)
         Me.TPContactInformation.Name = "TPContactInformation"
-        Me.TPContactInformation.Size = New System.Drawing.Size(784, 477)
+        Me.TPContactInformation.Size = New System.Drawing.Size(784, 498)
         Me.TPContactInformation.TabIndex = 6
         Me.TPContactInformation.Text = "Contact"
         Me.TPContactInformation.UseVisualStyleBackColor = True
@@ -3623,7 +3623,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.TPWebPublisher.Controls.Add(Me.DTPDraftOnWeb)
         Me.TPWebPublisher.Location = New System.Drawing.Point(4, 22)
         Me.TPWebPublisher.Name = "TPWebPublisher"
-        Me.TPWebPublisher.Size = New System.Drawing.Size(784, 477)
+        Me.TPWebPublisher.Size = New System.Drawing.Size(784, 498)
         Me.TPWebPublisher.TabIndex = 4
         Me.TPWebPublisher.Text = "Web Publisher"
         Me.TPWebPublisher.UseVisualStyleBackColor = True
@@ -3857,7 +3857,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.TPInformationRequests.Controls.Add(Me.GroupBox3)
         Me.TPInformationRequests.Location = New System.Drawing.Point(4, 22)
         Me.TPInformationRequests.Name = "TPInformationRequests"
-        Me.TPInformationRequests.Size = New System.Drawing.Size(784, 477)
+        Me.TPInformationRequests.Size = New System.Drawing.Size(784, 498)
         Me.TPInformationRequests.TabIndex = 2
         Me.TPInformationRequests.Text = "Information Requests"
         Me.TPInformationRequests.UseVisualStyleBackColor = True
@@ -3896,7 +3896,7 @@ Partial Class SSPPApplicationTrackingLog
         DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
         DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.dgvInformationRequested.RowHeadersDefaultCellStyle = DataGridViewCellStyle3
-        Me.dgvInformationRequested.Size = New System.Drawing.Size(784, 219)
+        Me.dgvInformationRequested.Size = New System.Drawing.Size(784, 240)
         Me.dgvInformationRequested.TabIndex = 2
         '
         'GroupBox3
@@ -3915,7 +3915,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.GroupBox3.Controls.Add(Me.DTPInformationReceived)
         Me.GroupBox3.Controls.Add(Me.DTPInformationRequested)
         Me.GroupBox3.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.GroupBox3.Location = New System.Drawing.Point(0, 219)
+        Me.GroupBox3.Location = New System.Drawing.Point(0, 240)
         Me.GroupBox3.Name = "GroupBox3"
         Me.GroupBox3.Size = New System.Drawing.Size(784, 258)
         Me.GroupBox3.TabIndex = 1
@@ -4057,7 +4057,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.TPApplicationHistroy.Controls.Add(Me.GroupBox6)
         Me.TPApplicationHistroy.Location = New System.Drawing.Point(4, 22)
         Me.TPApplicationHistroy.Name = "TPApplicationHistroy"
-        Me.TPApplicationHistroy.Size = New System.Drawing.Size(784, 477)
+        Me.TPApplicationHistroy.Size = New System.Drawing.Size(784, 498)
         Me.TPApplicationHistroy.TabIndex = 1
         Me.TPApplicationHistroy.Text = "History"
         Me.TPApplicationHistroy.UseVisualStyleBackColor = True
@@ -4096,7 +4096,7 @@ Partial Class SSPPApplicationTrackingLog
         DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText
         DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
         Me.dgvFacilityAppHistory.RowHeadersDefaultCellStyle = DataGridViewCellStyle6
-        Me.dgvFacilityAppHistory.Size = New System.Drawing.Size(784, 233)
+        Me.dgvFacilityAppHistory.Size = New System.Drawing.Size(784, 254)
         Me.dgvFacilityAppHistory.TabIndex = 2
         '
         'GroupBox6
@@ -4126,7 +4126,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.GroupBox6.Controls.Add(Me.Label29)
         Me.GroupBox6.Controls.Add(Me.Label33)
         Me.GroupBox6.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.GroupBox6.Location = New System.Drawing.Point(0, 233)
+        Me.GroupBox6.Location = New System.Drawing.Point(0, 254)
         Me.GroupBox6.Name = "GroupBox6"
         Me.GroupBox6.Size = New System.Drawing.Size(784, 244)
         Me.GroupBox6.TabIndex = 1
@@ -4351,7 +4351,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.TPReviews.Controls.Add(Me.Panel4)
         Me.TPReviews.Location = New System.Drawing.Point(4, 22)
         Me.TPReviews.Name = "TPReviews"
-        Me.TPReviews.Size = New System.Drawing.Size(784, 477)
+        Me.TPReviews.Size = New System.Drawing.Size(784, 498)
         Me.TPReviews.TabIndex = 3
         Me.TPReviews.Text = "ISMP and Compliance Reviews"
         Me.TPReviews.UseVisualStyleBackColor = True
@@ -4369,7 +4369,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.GroupBox5.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GroupBox5.Location = New System.Drawing.Point(0, 192)
         Me.GroupBox5.Name = "GroupBox5"
-        Me.GroupBox5.Size = New System.Drawing.Size(784, 285)
+        Me.GroupBox5.Size = New System.Drawing.Size(784, 306)
         Me.GroupBox5.TabIndex = 2
         Me.GroupBox5.TabStop = False
         Me.GroupBox5.Text = "ISMP Review"
@@ -4674,7 +4674,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.TPOtherInfo.Controls.Add(Me.ApplicableRulesGroup)
         Me.TPOtherInfo.Location = New System.Drawing.Point(4, 22)
         Me.TPOtherInfo.Name = "TPOtherInfo"
-        Me.TPOtherInfo.Size = New System.Drawing.Size(784, 477)
+        Me.TPOtherInfo.Size = New System.Drawing.Size(784, 498)
         Me.TPOtherInfo.TabIndex = 5
         Me.TPOtherInfo.Text = "Other Information"
         Me.TPOtherInfo.UseVisualStyleBackColor = True
@@ -4808,7 +4808,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.TPTrackingLog.Controls.Add(Me.GroupBox1)
         Me.TPTrackingLog.Location = New System.Drawing.Point(4, 22)
         Me.TPTrackingLog.Name = "TPTrackingLog"
-        Me.TPTrackingLog.Size = New System.Drawing.Size(784, 477)
+        Me.TPTrackingLog.Size = New System.Drawing.Size(784, 498)
         Me.TPTrackingLog.TabIndex = 0
         Me.TPTrackingLog.Text = "Tracking Log"
         Me.TPTrackingLog.UseVisualStyleBackColor = True
@@ -4886,7 +4886,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.GroupBox1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.GroupBox1.Location = New System.Drawing.Point(0, 0)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(784, 477)
+        Me.GroupBox1.Size = New System.Drawing.Size(784, 498)
         Me.GroupBox1.TabIndex = 0
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Facility Application Information"
@@ -5802,7 +5802,7 @@ Partial Class SSPPApplicationTrackingLog
         Me.TCApplicationTrackingLog.Location = New System.Drawing.Point(0, 109)
         Me.TCApplicationTrackingLog.Name = "TCApplicationTrackingLog"
         Me.TCApplicationTrackingLog.SelectedIndex = 0
-        Me.TCApplicationTrackingLog.Size = New System.Drawing.Size(792, 503)
+        Me.TCApplicationTrackingLog.Size = New System.Drawing.Size(792, 524)
         Me.TCApplicationTrackingLog.TabIndex = 1
         '
         'ToolStrip1
@@ -5826,7 +5826,7 @@ Partial Class SSPPApplicationTrackingLog
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(792, 612)
+        Me.ClientSize = New System.Drawing.Size(792, 633)
         Me.Controls.Add(Me.TCApplicationTrackingLog)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.ToolStrip1)
