@@ -1,4 +1,4 @@
-﻿Imports System.Data.SqlClient
+Imports System.Data.SqlClient
 Imports Iaip.Apb
 Imports Iaip.Apb.Facilities
 Imports System.Collections.Generic
@@ -23,7 +23,7 @@ Namespace DAL
             Dim spName As String = "iaip_facility.IsSicValid"
             Dim parameter As New SqlParameter("@sic_code", sicCode)
 
-            Return DB.SPGetSingleValue(Of String)(spName, parameter)
+            Return DB.SPGetBoolean(spName, parameter)
         End Function
 
         ''' <summary>
@@ -40,7 +40,7 @@ Namespace DAL
             Dim spName As String = "iaip_facility.IsNaicsValid"
             Dim parameter As New SqlParameter("@naics_code", naicsCode)
 
-            Return DB.SPGetSingleValue(Of String)(spName, parameter)
+            Return DB.SPGetBoolean(spName, parameter)
         End Function
 
 #End Region
@@ -88,6 +88,7 @@ Namespace DAL
                 .StartupDate = DBUtilities.GetNullableDateTime(row("DATSTARTUPDATE"))
                 .Naics = DBUtilities.GetNullable(Of String)(row("STRNAICSCODE"))
                 .RmpId = DBUtilities.GetNullable(Of String)(row("STRRMPID"))
+                .OwnershipTypeCode = DBUtilities.GetNullableString(row("FacilityOwnershipTypeCode"))
                 .FacilityDescription = DBUtilities.GetNullable(Of String)(row("STRPLANTDESCRIPTION"))
                 .AirProgramsCode = DBUtilities.GetNullable(Of String)(row("STRAIRPROGRAMCODES"))
                 .AirProgramClassificationsCode = DBUtilities.GetNullable(Of String)(row("STRSTATEPROGRAMCODES"))
@@ -95,7 +96,7 @@ Namespace DAL
                 .HeaderUpdateComment = DBUtilities.GetNullable(Of String)(row("STRCOMMENTS"))
                 .DateDataModified = DBUtilities.GetNullableDateTime(row("DATMODIFINGDATE"))
                 .WhoModified = DBUtilities.GetNullable(Of String)(row("WhoModified"))
-                .WhereModifiedCode = DBUtilities.GetNullable(Of Integer)(row("STRMODIFINGLOCATION"))
+                .WhereModified = CType(DBUtilities.GetNullable(Of Integer)(row("STRMODIFINGLOCATION")), HeaderDataModificationLocation)
                 .CmsMemberCode = DBUtilities.GetNullable(Of String)(row("STRCMSMEMBER"))
             End With
         End Sub
@@ -174,6 +175,7 @@ Namespace DAL
                 New SqlParameter("@airProgramClassificationsCode", headerData.AirProgramClassificationsCode),
                 New SqlParameter("@fromLocation", Convert.ToInt32(fromLocation)),
                 New SqlParameter("@rmpId", headerData.RmpId),
+                New SqlParameter("@facilityOwnershipTypeCode", headerData.OwnershipTypeCode),
                 New SqlParameter("@modifiedBy", CurrentUser.UserID)
             }
 

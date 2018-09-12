@@ -1,9 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
   <PropertyGroup>
-    <ApplicationVersion>5.8.3.0</ApplicationVersion>
-    <MinimumRequiredVersion>5.8.2.0</MinimumRequiredVersion>
-    <ApplicationRevision>0</ApplicationRevision>
     <ProjectType>Local</ProjectType>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
@@ -58,8 +55,11 @@
     <InstallUrl>https://iaip.gaepd.org/install/</InstallUrl>
     <ProductName>Integrated Air Information Platform</ProductName>
     <PublisherName>State of Georgia</PublisherName>
+    <MinimumRequiredVersion>5.9.0.0</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>installer.html</WebPage>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>5.9.0.0</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -242,6 +242,7 @@
     <Compile Include="_DAL\DAL.GECO.vb" />
     <Compile Include="_DAL\DAL.State.vb" />
     <Compile Include="_DAL\DAL.Rules.vb" />
+    <Compile Include="_DAL\Facilities\DAL.FacilityLookups.vb" />
     <Compile Include="_DAL\TableValuedParameter.vb" />
     <Compile Include="_Data Models\Users\IaipRoles.vb" />
     <Compile Include="_Code\RegexPatterns.vb" />
@@ -1444,6 +1445,7 @@
     <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\RefreshIcon.png" />
     <None Include="Resources\SpreadsheetIcon.png" />
     <None Include="Resources\EpdLogo.png" />
     <None Include="Resources\EpdIcon.ico" />

@@ -64,7 +64,7 @@ Public Class IAIPFacilitySummary
     End Sub
 
     Private Sub IAIPFacilitySummary_Shown(sender As Object, e As EventArgs) Handles Me.Shown
-        If Me.AirsNumber Is Nothing Then
+        If AirsNumber Is Nothing Then
             ClearAllData()
             AirsNumberEntry.Focus()
         End If
@@ -176,7 +176,7 @@ Public Class IAIPFacilitySummary
 
     Private Sub EditFacilityLocationButton_Click(sender As Object, e As EventArgs) Handles EditFacilityLocationButton.Click
         Dim parameters As New Dictionary(Of FormParameter, String) From {{FormParameter.AirsNumber, Me.AirsNumber.ToString}}
-        OpenMultiForm(IAIPEditFacilityLocation, Me.AirsNumber.GetHashCode, parameters)
+        OpenMultiForm(IAIPEditFacilityLocation, Me.AirsNumber.ToInt, parameters)
     End Sub
 
     Private Sub ClearBasicFacilityData()
@@ -432,7 +432,7 @@ Public Class IAIPFacilitySummary
     End Sub
 
     Private Sub EditSubpartsButton_Click(sender As Object, e As EventArgs) Handles EditSubpartsButton.Click
-        Dim editSubParts As IAIPEditSubParts = OpenMultiForm(IAIPEditSubParts, Me.AirsNumber.GetHashCode)
+        Dim editSubParts As IAIPEditSubParts = CType(OpenMultiForm(IAIPEditSubParts, Me.AirsNumber.ToInt), IAIPEditSubParts)
         editSubParts.AirsNumber = AirsNumber
     End Sub
 
@@ -463,6 +463,7 @@ Public Class IAIPFacilitySummary
             'Status
             HeaderClassDisplay.Text = .ClassificationDescription
             HeaderOperStatusDisplay.Text = .OperationalStatusDescription
+            OwnershipDisplay.Text = .OwnershipType
             'Codes
             SicDisplay.Text = .SicCode
             NaicsDisplay.Text = .Naics
@@ -480,28 +481,26 @@ Public Class IAIPFacilitySummary
                 If tempAP = AirProgram.None Then
                     .Add(AirProgram.None.GetDescription)
                 Else
-                    If (tempAP And AirProgram.SIP) Then .Add(AirProgram.SIP.GetDescription)
-                    If (tempAP And AirProgram.FederalSIP) Then AirProgramsListBox.Items.Add(AirProgram.FederalSIP.GetDescription)
-                    If (tempAP And AirProgram.NonFederalSIP) Then AirProgramsListBox.Items.Add(AirProgram.NonFederalSIP.GetDescription)
-                    If (tempAP And AirProgram.CfcTracking) Then AirProgramsListBox.Items.Add(AirProgram.CfcTracking.GetDescription)
-                    If (tempAP And AirProgram.PSD) Then AirProgramsListBox.Items.Add(AirProgram.PSD.GetDescription)
-                    If (tempAP And AirProgram.NSR) Then AirProgramsListBox.Items.Add(AirProgram.NSR.GetDescription)
-                    If (tempAP And AirProgram.TitleV) Then AirProgramsListBox.Items.Add(AirProgram.TitleV.GetDescription)
-                    If (tempAP And AirProgram.MACT) Then AirProgramsListBox.Items.Add(AirProgram.MACT.GetDescription)
-                    If (tempAP And AirProgram.NESHAP) Then AirProgramsListBox.Items.Add(AirProgram.NESHAP.GetDescription)
-                    If (tempAP And AirProgram.NSPS) Then AirProgramsListBox.Items.Add(AirProgram.NSPS.GetDescription)
-                    If (tempAP And AirProgram.AcidPrecipitation) Then AirProgramsListBox.Items.Add(AirProgram.AcidPrecipitation.GetDescription)
-                    If (tempAP And AirProgram.FESOP) Then AirProgramsListBox.Items.Add(AirProgram.FESOP.GetDescription)
-                    If (tempAP And AirProgram.NativeAmerican) Then AirProgramsListBox.Items.Add(AirProgram.NativeAmerican.GetDescription)
-                    If (tempAP And AirProgram.RMP) Then AirProgramsListBox.Items.Add(AirProgram.RMP.GetDescription)
+                    If CBool(tempAP And AirProgram.SIP) Then .Add(AirProgram.SIP.GetDescription)
+                    If CBool(tempAP And AirProgram.FederalSIP) Then AirProgramsListBox.Items.Add(AirProgram.FederalSIP.GetDescription)
+                    If CBool(tempAP And AirProgram.NonFederalSIP) Then AirProgramsListBox.Items.Add(AirProgram.NonFederalSIP.GetDescription)
+                    If CBool(tempAP And AirProgram.CfcTracking) Then AirProgramsListBox.Items.Add(AirProgram.CfcTracking.GetDescription)
+                    If CBool(tempAP And AirProgram.PSD) Then AirProgramsListBox.Items.Add(AirProgram.PSD.GetDescription)
+                    If CBool(tempAP And AirProgram.NSR) Then AirProgramsListBox.Items.Add(AirProgram.NSR.GetDescription)
+                    If CBool(tempAP And AirProgram.TitleV) Then AirProgramsListBox.Items.Add(AirProgram.TitleV.GetDescription)
+                    If CBool(tempAP And AirProgram.MACT) Then AirProgramsListBox.Items.Add(AirProgram.MACT.GetDescription)
+                    If CBool(tempAP And AirProgram.NESHAP) Then AirProgramsListBox.Items.Add(AirProgram.NESHAP.GetDescription)
+                    If CBool(tempAP And AirProgram.NSPS) Then AirProgramsListBox.Items.Add(AirProgram.NSPS.GetDescription)
+                    If CBool(tempAP And AirProgram.AcidPrecipitation) Then AirProgramsListBox.Items.Add(AirProgram.AcidPrecipitation.GetDescription)
+                    If CBool(tempAP And AirProgram.FESOP) Then AirProgramsListBox.Items.Add(AirProgram.FESOP.GetDescription)
+                    If CBool(tempAP And AirProgram.NativeAmerican) Then AirProgramsListBox.Items.Add(AirProgram.NativeAmerican.GetDescription)
+                    If CBool(tempAP And AirProgram.RMP) Then AirProgramsListBox.Items.Add(AirProgram.RMP.GetDescription)
                 End If
             End With
 
             'Buttons for Air Program Subparts
-            EditSubpartsButton.Visible = .AirPrograms And (AirProgram.MACT _
-                                                           Or AirProgram.NESHAP _
-                                                           Or AirProgram.NSPS _
-                                                           Or AirProgram.SIP)
+            EditSubpartsButton.Visible = CBool(.AirPrograms And
+                (AirProgram.MACT Or AirProgram.NESHAP Or AirProgram.NSPS Or AirProgram.SIP))
             EditPollutantsButton.Enabled = True
 
             'Classifications
@@ -867,7 +866,7 @@ Public Class IAIPFacilitySummary
         Dim parameters As New Dictionary(Of FormParameter, String)
         parameters(FormParameter.AirsNumber) = Me.AirsNumber.ShortString
         parameters(FormParameter.FacilityName) = Me.ThisFacility.FacilityName
-        OpenMultiForm(IAIPEditContacts, Me.AirsNumber.ShortString, parameters)
+        OpenMultiForm(IAIPEditContacts, AirsNumber.ToInt, parameters)
     End Sub
 
     Private Sub LoadContactsData()
@@ -1221,7 +1220,8 @@ Public Class IAIPFacilitySummary
         EpaDateDisplay.TextChanged, DataUpdateDateDisplay.TextChanged,
         HeaderClassDisplay.TextChanged, HeaderOperStatusDisplay.TextChanged, SicDisplay.TextChanged,
         NaicsDisplay.TextChanged, RmpIdDisplay.TextChanged, HeaderStartupDisplay.TextChanged,
-        HeaderRevocationDateDisplay.TextChanged, HeaderDescDisplay.TextChanged, EpaFacilityIdDisplay.TextChanged
+        HeaderRevocationDateDisplay.TextChanged, HeaderDescDisplay.TextChanged, EpaFacilityIdDisplay.TextChanged,
+        OwnershipDisplay.TextChanged
 
         Dim t As TextBox = CType(sender, TextBox)
         If t.Text = "" Then

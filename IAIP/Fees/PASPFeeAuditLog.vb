@@ -84,8 +84,8 @@ Public Class PASPFeeAuditLog
             End If
         End If
 
-        If FeeYearsComboBox.Items.Contains(Me.FeeYear) Then
-            FeeYearsComboBox.SelectedItem = Me.FeeYear
+        If FeeYearsComboBox.Items.Contains(CInt(Me.FeeYear)) Then
+            FeeYearsComboBox.Text = Me.FeeYear
         Else
             FeeYearsComboBox.SelectedIndex = 0
             Me.FeeYear = FeeYearsComboBox.SelectedItem.ToString()
@@ -1997,7 +1997,7 @@ Public Class PASPFeeAuditLog
         parameters(FormParameter.AirsNumber) = AirsNumber.ToString
         parameters(FormParameter.FacilityName) = txtFeeAdminFacilityName.Text
         parameters(FormParameter.Key) = DAL.ContactKey.Fees.ToString
-        OpenMultiForm(IAIPEditContacts, AirsNumber.ToString, parameters)
+        OpenMultiForm(IAIPEditContacts, AirsNumber.ToInt, parameters)
     End Sub
 
     Private Sub ReloadButton_Click(sender As Object, e As EventArgs) Handles ReloadButton.Click

@@ -20,9 +20,7 @@ Partial Class SSCPComplianceLog
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SSCPComplianceLog))
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Me.Image_List_All = New System.Windows.Forms.ImageList(Me.components)
+        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.MainMenu1 = New System.Windows.Forms.MainMenu(Me.components)
         Me.mmiFile = New System.Windows.Forms.MenuItem()
         Me.mmiClose = New System.Windows.Forms.MenuItem()
@@ -30,14 +28,10 @@ Partial Class SSCPComplianceLog
         Me.mmiSearch = New System.Windows.Forms.MenuItem()
         Me.mmiRunFilter = New System.Windows.Forms.MenuItem()
         Me.mmiClear = New System.Windows.Forms.MenuItem()
-        Me.MenuItem2 = New System.Windows.Forms.MenuItem()
         Me.mmiExport = New System.Windows.Forms.MenuItem()
-        Me.TBWork_EnTry = New System.Windows.Forms.ToolBar()
-        Me.tbbSearch = New System.Windows.Forms.ToolBarButton()
-        Me.tbbExportToExcel = New System.Windows.Forms.ToolBarButton()
-        Me.tbbClear = New System.Windows.Forms.ToolBarButton()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.pnlFilterPanel = New System.Windows.Forms.Panel()
+        Me.Label7 = New System.Windows.Forms.Label()
         Me.GBWorkTypes = New System.Windows.Forms.GroupBox()
         Me.chbRMPInspections = New System.Windows.Forms.CheckBox()
         Me.GBNotifications = New System.Windows.Forms.GroupBox()
@@ -57,7 +51,6 @@ Partial Class SSCPComplianceLog
         Me.DTPFilterEnd = New System.Windows.Forms.DateTimePicker()
         Me.Label14 = New System.Windows.Forms.Label()
         Me.DTPFilterStart = New System.Windows.Forms.DateTimePicker()
-        Me.Label20 = New System.Windows.Forms.Label()
         Me.txtWorkCount = New System.Windows.Forms.TextBox()
         Me.btnRunFilter = New System.Windows.Forms.Button()
         Me.GroupBox5 = New System.Windows.Forms.GroupBox()
@@ -123,6 +116,10 @@ Partial Class SSCPComplianceLog
         Me.txtNewAIRSNumber = New System.Windows.Forms.TextBox()
         Me.dgvWork = New System.Windows.Forms.DataGridView()
         Me.Splitter1 = New System.Windows.Forms.Splitter()
+        Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
+        Me.btnSearch = New System.Windows.Forms.ToolStripButton()
+        Me.btnClear = New System.Windows.Forms.ToolStripButton()
+        Me.btnExport = New System.Windows.Forms.ToolStripButton()
         Me.GroupBox1.SuspendLayout()
         Me.pnlFilterPanel.SuspendLayout()
         Me.GBWorkTypes.SuspendLayout()
@@ -138,97 +135,8 @@ Partial Class SSCPComplianceLog
         Me.pnlOtherEvents.SuspendLayout()
         Me.Panel4.SuspendLayout()
         CType(Me.dgvWork, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.ToolStrip1.SuspendLayout()
         Me.SuspendLayout()
-        '
-        'Image_List_All
-        '
-        Me.Image_List_All.ImageStream = CType(resources.GetObject("Image_List_All.ImageStream"), System.Windows.Forms.ImageListStreamer)
-        Me.Image_List_All.TransparentColor = System.Drawing.Color.Transparent
-        Me.Image_List_All.Images.SetKeyName(0, "")
-        Me.Image_List_All.Images.SetKeyName(1, "")
-        Me.Image_List_All.Images.SetKeyName(2, "")
-        Me.Image_List_All.Images.SetKeyName(3, "")
-        Me.Image_List_All.Images.SetKeyName(4, "")
-        Me.Image_List_All.Images.SetKeyName(5, "")
-        Me.Image_List_All.Images.SetKeyName(6, "")
-        Me.Image_List_All.Images.SetKeyName(7, "")
-        Me.Image_List_All.Images.SetKeyName(8, "")
-        Me.Image_List_All.Images.SetKeyName(9, "")
-        Me.Image_List_All.Images.SetKeyName(10, "")
-        Me.Image_List_All.Images.SetKeyName(11, "")
-        Me.Image_List_All.Images.SetKeyName(12, "")
-        Me.Image_List_All.Images.SetKeyName(13, "")
-        Me.Image_List_All.Images.SetKeyName(14, "")
-        Me.Image_List_All.Images.SetKeyName(15, "")
-        Me.Image_List_All.Images.SetKeyName(16, "")
-        Me.Image_List_All.Images.SetKeyName(17, "")
-        Me.Image_List_All.Images.SetKeyName(18, "")
-        Me.Image_List_All.Images.SetKeyName(19, "")
-        Me.Image_List_All.Images.SetKeyName(20, "")
-        Me.Image_List_All.Images.SetKeyName(21, "")
-        Me.Image_List_All.Images.SetKeyName(22, "")
-        Me.Image_List_All.Images.SetKeyName(23, "")
-        Me.Image_List_All.Images.SetKeyName(24, "")
-        Me.Image_List_All.Images.SetKeyName(25, "")
-        Me.Image_List_All.Images.SetKeyName(26, "")
-        Me.Image_List_All.Images.SetKeyName(27, "")
-        Me.Image_List_All.Images.SetKeyName(28, "")
-        Me.Image_List_All.Images.SetKeyName(29, "")
-        Me.Image_List_All.Images.SetKeyName(30, "")
-        Me.Image_List_All.Images.SetKeyName(31, "")
-        Me.Image_List_All.Images.SetKeyName(32, "")
-        Me.Image_List_All.Images.SetKeyName(33, "")
-        Me.Image_List_All.Images.SetKeyName(34, "")
-        Me.Image_List_All.Images.SetKeyName(35, "")
-        Me.Image_List_All.Images.SetKeyName(36, "")
-        Me.Image_List_All.Images.SetKeyName(37, "")
-        Me.Image_List_All.Images.SetKeyName(38, "")
-        Me.Image_List_All.Images.SetKeyName(39, "")
-        Me.Image_List_All.Images.SetKeyName(40, "")
-        Me.Image_List_All.Images.SetKeyName(41, "")
-        Me.Image_List_All.Images.SetKeyName(42, "")
-        Me.Image_List_All.Images.SetKeyName(43, "")
-        Me.Image_List_All.Images.SetKeyName(44, "")
-        Me.Image_List_All.Images.SetKeyName(45, "")
-        Me.Image_List_All.Images.SetKeyName(46, "")
-        Me.Image_List_All.Images.SetKeyName(47, "")
-        Me.Image_List_All.Images.SetKeyName(48, "")
-        Me.Image_List_All.Images.SetKeyName(49, "")
-        Me.Image_List_All.Images.SetKeyName(50, "")
-        Me.Image_List_All.Images.SetKeyName(51, "")
-        Me.Image_List_All.Images.SetKeyName(52, "")
-        Me.Image_List_All.Images.SetKeyName(53, "")
-        Me.Image_List_All.Images.SetKeyName(54, "")
-        Me.Image_List_All.Images.SetKeyName(55, "")
-        Me.Image_List_All.Images.SetKeyName(56, "")
-        Me.Image_List_All.Images.SetKeyName(57, "")
-        Me.Image_List_All.Images.SetKeyName(58, "")
-        Me.Image_List_All.Images.SetKeyName(59, "")
-        Me.Image_List_All.Images.SetKeyName(60, "")
-        Me.Image_List_All.Images.SetKeyName(61, "")
-        Me.Image_List_All.Images.SetKeyName(62, "")
-        Me.Image_List_All.Images.SetKeyName(63, "")
-        Me.Image_List_All.Images.SetKeyName(64, "")
-        Me.Image_List_All.Images.SetKeyName(65, "")
-        Me.Image_List_All.Images.SetKeyName(66, "")
-        Me.Image_List_All.Images.SetKeyName(67, "")
-        Me.Image_List_All.Images.SetKeyName(68, "")
-        Me.Image_List_All.Images.SetKeyName(69, "")
-        Me.Image_List_All.Images.SetKeyName(70, "")
-        Me.Image_List_All.Images.SetKeyName(71, "")
-        Me.Image_List_All.Images.SetKeyName(72, "")
-        Me.Image_List_All.Images.SetKeyName(73, "")
-        Me.Image_List_All.Images.SetKeyName(74, "")
-        Me.Image_List_All.Images.SetKeyName(75, "")
-        Me.Image_List_All.Images.SetKeyName(76, "")
-        Me.Image_List_All.Images.SetKeyName(77, "")
-        Me.Image_List_All.Images.SetKeyName(78, "")
-        Me.Image_List_All.Images.SetKeyName(79, "")
-        Me.Image_List_All.Images.SetKeyName(80, "")
-        Me.Image_List_All.Images.SetKeyName(81, "")
-        Me.Image_List_All.Images.SetKeyName(82, "")
-        Me.Image_List_All.Images.SetKeyName(83, "")
-        Me.Image_List_All.Images.SetKeyName(84, "")
         '
         'MainMenu1
         '
@@ -249,17 +157,17 @@ Partial Class SSCPComplianceLog
         'mmiTools
         '
         Me.mmiTools.Index = 1
-        Me.mmiTools.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiSearch, Me.mmiRunFilter, Me.mmiClear, Me.MenuItem2, Me.mmiExport})
+        Me.mmiTools.MenuItems.AddRange(New System.Windows.Forms.MenuItem() {Me.mmiRunFilter, Me.mmiSearch, Me.mmiClear, Me.mmiExport})
         Me.mmiTools.Text = "&Tools"
         '
         'mmiSearch
         '
-        Me.mmiSearch.Index = 0
+        Me.mmiSearch.Index = 1
         Me.mmiSearch.Text = "&Facility Search"
         '
         'mmiRunFilter
         '
-        Me.mmiRunFilter.Index = 1
+        Me.mmiRunFilter.Index = 0
         Me.mmiRunFilter.Text = "&Run Filter"
         '
         'mmiClear
@@ -267,51 +175,17 @@ Partial Class SSCPComplianceLog
         Me.mmiClear.Index = 2
         Me.mmiClear.Text = "&Clear Form"
         '
-        'MenuItem2
-        '
-        Me.MenuItem2.Index = 3
-        Me.MenuItem2.Text = "-"
-        '
         'mmiExport
         '
-        Me.mmiExport.Index = 4
+        Me.mmiExport.Index = 3
         Me.mmiExport.Text = "&Export List to Excel"
-        '
-        'TBWork_EnTry
-        '
-        Me.TBWork_EnTry.Buttons.AddRange(New System.Windows.Forms.ToolBarButton() {Me.tbbSearch, Me.tbbExportToExcel, Me.tbbClear})
-        Me.TBWork_EnTry.DropDownArrows = True
-        Me.TBWork_EnTry.ImageList = Me.Image_List_All
-        Me.TBWork_EnTry.Location = New System.Drawing.Point(0, 0)
-        Me.TBWork_EnTry.Name = "TBWork_EnTry"
-        Me.TBWork_EnTry.ShowToolTips = True
-        Me.TBWork_EnTry.Size = New System.Drawing.Size(831, 28)
-        Me.TBWork_EnTry.TabIndex = 2
-        '
-        'tbbSearch
-        '
-        Me.tbbSearch.ImageIndex = 3
-        Me.tbbSearch.Name = "tbbSearch"
-        Me.tbbSearch.ToolTipText = "Facility Search"
-        '
-        'tbbExportToExcel
-        '
-        Me.tbbExportToExcel.ImageIndex = 14
-        Me.tbbExportToExcel.Name = "tbbExportToExcel"
-        Me.tbbExportToExcel.ToolTipText = "Export to Excel"
-        '
-        'tbbClear
-        '
-        Me.tbbClear.ImageIndex = 84
-        Me.tbbClear.Name = "tbbClear"
-        Me.tbbClear.ToolTipText = "Clear Form"
         '
         'GroupBox1
         '
         Me.GroupBox1.Controls.Add(Me.pnlFilterPanel)
         Me.GroupBox1.Controls.Add(Me.TCComplianceLog)
         Me.GroupBox1.Dock = System.Windows.Forms.DockStyle.Top
-        Me.GroupBox1.Location = New System.Drawing.Point(0, 28)
+        Me.GroupBox1.Location = New System.Drawing.Point(0, 25)
         Me.GroupBox1.Name = "GroupBox1"
         Me.GroupBox1.Size = New System.Drawing.Size(831, 430)
         Me.GroupBox1.TabIndex = 4
@@ -320,9 +194,9 @@ Partial Class SSCPComplianceLog
         '
         'pnlFilterPanel
         '
+        Me.pnlFilterPanel.Controls.Add(Me.Label7)
         Me.pnlFilterPanel.Controls.Add(Me.GBWorkTypes)
         Me.pnlFilterPanel.Controls.Add(Me.GBEnforcementDates)
-        Me.pnlFilterPanel.Controls.Add(Me.Label20)
         Me.pnlFilterPanel.Controls.Add(Me.txtWorkCount)
         Me.pnlFilterPanel.Controls.Add(Me.btnRunFilter)
         Me.pnlFilterPanel.Controls.Add(Me.GroupBox5)
@@ -332,6 +206,15 @@ Partial Class SSCPComplianceLog
         Me.pnlFilterPanel.Name = "pnlFilterPanel"
         Me.pnlFilterPanel.Size = New System.Drawing.Size(593, 417)
         Me.pnlFilterPanel.TabIndex = 303
+        '
+        'Label7
+        '
+        Me.Label7.AutoSize = True
+        Me.Label7.Location = New System.Drawing.Point(104, 4)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(42, 13)
+        Me.Label7.TabIndex = 302
+        Me.Label7.Text = "Results"
         '
         'GBWorkTypes
         '
@@ -533,16 +416,6 @@ Partial Class SSCPComplianceLog
         Me.DTPFilterStart.Name = "DTPFilterStart"
         Me.DTPFilterStart.Size = New System.Drawing.Size(100, 20)
         Me.DTPFilterStart.TabIndex = 1
-        '
-        'Label20
-        '
-        Me.Label20.AutoSize = True
-        Me.Label20.Font = New System.Drawing.Font("Microsoft Sans Serif", 6.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label20.Location = New System.Drawing.Point(92, 8)
-        Me.Label20.Name = "Label20"
-        Me.Label20.Size = New System.Drawing.Size(54, 9)
-        Me.Label20.TabIndex = 302
-        Me.Label20.Text = "Record Count:"
         '
         'txtWorkCount
         '
@@ -1180,28 +1053,64 @@ Partial Class SSCPComplianceLog
         Me.dgvWork.AllowUserToAddRows = False
         Me.dgvWork.AllowUserToDeleteRows = False
         Me.dgvWork.AllowUserToResizeRows = False
-        DataGridViewCellStyle2.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.dgvWork.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.dgvWork.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle1
         Me.dgvWork.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvWork.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.dgvWork.Location = New System.Drawing.Point(0, 458)
+        Me.dgvWork.Location = New System.Drawing.Point(0, 455)
         Me.dgvWork.MultiSelect = False
         Me.dgvWork.Name = "dgvWork"
         Me.dgvWork.ReadOnly = True
         Me.dgvWork.RowHeadersVisible = False
         Me.dgvWork.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvWork.Size = New System.Drawing.Size(831, 230)
+        Me.dgvWork.Size = New System.Drawing.Size(831, 233)
         Me.dgvWork.TabIndex = 5
         '
         'Splitter1
         '
         Me.Splitter1.BackColor = System.Drawing.Color.Blue
         Me.Splitter1.Dock = System.Windows.Forms.DockStyle.Top
-        Me.Splitter1.Location = New System.Drawing.Point(0, 458)
+        Me.Splitter1.Location = New System.Drawing.Point(0, 455)
         Me.Splitter1.Name = "Splitter1"
         Me.Splitter1.Size = New System.Drawing.Size(831, 5)
         Me.Splitter1.TabIndex = 6
         Me.Splitter1.TabStop = False
+        '
+        'ToolStrip1
+        '
+        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.btnSearch, Me.btnClear, Me.btnExport})
+        Me.ToolStrip1.Location = New System.Drawing.Point(0, 0)
+        Me.ToolStrip1.Name = "ToolStrip1"
+        Me.ToolStrip1.Size = New System.Drawing.Size(831, 25)
+        Me.ToolStrip1.TabIndex = 7
+        Me.ToolStrip1.Text = "ToolStrip1"
+        '
+        'btnSearch
+        '
+        Me.btnSearch.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.btnSearch.Image = Global.Iaip.My.Resources.Resources.FindIcon
+        Me.btnSearch.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.btnSearch.Name = "btnSearch"
+        Me.btnSearch.Size = New System.Drawing.Size(23, 22)
+        Me.btnSearch.Text = "Search"
+        '
+        'btnClear
+        '
+        Me.btnClear.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.btnClear.Image = Global.Iaip.My.Resources.Resources.EraseIcon
+        Me.btnClear.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.btnClear.Name = "btnClear"
+        Me.btnClear.Size = New System.Drawing.Size(23, 22)
+        Me.btnClear.Text = "Clear"
+        '
+        'btnExport
+        '
+        Me.btnExport.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.btnExport.Image = Global.Iaip.My.Resources.Resources.SpreadsheetIcon
+        Me.btnExport.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.btnExport.Name = "btnExport"
+        Me.btnExport.Size = New System.Drawing.Size(23, 22)
+        Me.btnExport.Text = "Export to Excel"
         '
         'SSCPComplianceLog
         '
@@ -1212,7 +1121,7 @@ Partial Class SSCPComplianceLog
         Me.Controls.Add(Me.Splitter1)
         Me.Controls.Add(Me.dgvWork)
         Me.Controls.Add(Me.GroupBox1)
-        Me.Controls.Add(Me.TBWork_EnTry)
+        Me.Controls.Add(Me.ToolStrip1)
         Me.Menu = Me.MainMenu1
         Me.Name = "SSCPComplianceLog"
         Me.Text = "Compliance Log"
@@ -1241,15 +1150,15 @@ Partial Class SSCPComplianceLog
         Me.Panel4.ResumeLayout(False)
         Me.Panel4.PerformLayout()
         CType(Me.dgvWork, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.ToolStrip1.ResumeLayout(False)
+        Me.ToolStrip1.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents Image_List_All As System.Windows.Forms.ImageList
     Friend WithEvents MainMenu1 As System.Windows.Forms.MainMenu
     Friend WithEvents mmiFile As System.Windows.Forms.MenuItem
     Friend WithEvents mmiClose As System.Windows.Forms.MenuItem
-    Friend WithEvents TBWork_EnTry As System.Windows.Forms.ToolBar
     Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
     Friend WithEvents dgvWork As System.Windows.Forms.DataGridView
     Friend WithEvents txtFacilityCity As System.Windows.Forms.TextBox
@@ -1287,16 +1196,12 @@ Partial Class SSCPComplianceLog
     Friend WithEvents btnDeleteWork As System.Windows.Forms.Button
     Friend WithEvents btnUndeleteWork As System.Windows.Forms.Button
     Friend WithEvents btnOpenSummary As System.Windows.Forms.Button
-    Friend WithEvents tbbSearch As System.Windows.Forms.ToolBarButton
-    Friend WithEvents tbbExportToExcel As System.Windows.Forms.ToolBarButton
-    Friend WithEvents tbbClear As System.Windows.Forms.ToolBarButton
     Friend WithEvents rdbPerformanceTest As System.Windows.Forms.RadioButton
     Friend WithEvents mmiTools As System.Windows.Forms.MenuItem
     Friend WithEvents mmiRunFilter As System.Windows.Forms.MenuItem
     Friend WithEvents mmiExport As System.Windows.Forms.MenuItem
     Friend WithEvents mmiClear As System.Windows.Forms.MenuItem
     Friend WithEvents mmiSearch As System.Windows.Forms.MenuItem
-    Friend WithEvents MenuItem2 As System.Windows.Forms.MenuItem
     Friend WithEvents pnlFilterPanel As System.Windows.Forms.Panel
     Friend WithEvents GBWorkTypes As System.Windows.Forms.GroupBox
     Friend WithEvents chbRMPInspections As System.Windows.Forms.CheckBox
@@ -1317,7 +1222,6 @@ Partial Class SSCPComplianceLog
     Friend WithEvents DTPFilterEnd As System.Windows.Forms.DateTimePicker
     Friend WithEvents Label14 As System.Windows.Forms.Label
     Friend WithEvents DTPFilterStart As System.Windows.Forms.DateTimePicker
-    Friend WithEvents Label20 As System.Windows.Forms.Label
     Friend WithEvents txtWorkCount As System.Windows.Forms.TextBox
     Friend WithEvents btnRunFilter As System.Windows.Forms.Button
     Friend WithEvents GroupBox5 As System.Windows.Forms.GroupBox
@@ -1346,4 +1250,9 @@ Partial Class SSCPComplianceLog
     Friend WithEvents rdbIgnoreEngineer As System.Windows.Forms.RadioButton
     Friend WithEvents clbEngineer As System.Windows.Forms.CheckedListBox
     Friend WithEvents chbEngineer As System.Windows.Forms.CheckBox
+    Friend WithEvents Label7 As Label
+    Friend WithEvents ToolStrip1 As ToolStrip
+    Friend WithEvents btnSearch As ToolStripButton
+    Friend WithEvents btnClear As ToolStripButton
+    Friend WithEvents btnExport As ToolStripButton
 End Class

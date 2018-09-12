@@ -1,5 +1,6 @@
 Imports System.Collections.Generic
 Imports System.ComponentModel
+Imports System.Linq
 Imports Iaip.Apb
 Imports Iaip.Apb.Facilities
 
@@ -46,6 +47,8 @@ Public Class IAIPEditHeaderData
         FacilityHeaderDataHistory.Columns("STRKEY").AllowDBNull = True
 
         Dim currentData As DataRow = DAL.GetFacilityHeaderDataAsDataRow(AirsNumber)
+        currentData.Table.Columns("STRKEY").ReadOnly = False
+        currentData.Item("STRKEY") = Convert.ToInt32(FacilityHeaderDataHistory.AsEnumerable().Max(Function(row) Convert.ToInt32(row("STRKEY")))) + 1
 
         FacilityHeaderDataHistory.ImportRow(currentData)
 
@@ -61,8 +64,9 @@ Public Class IAIPEditHeaderData
     Private Sub BindFacilityHistoryDisplay(dt As DataTable)
         FacilityHistoryDataGridView.DataSource = dt
 
-        FacilityHistoryDataGridView.Columns("STRKEY").HeaderText = "Key"
+        FacilityHistoryDataGridView.Columns("STRKEY").Visible = False
         FacilityHistoryDataGridView.Columns("STRKEY").DisplayIndex = 0
+
         FacilityHistoryDataGridView.Columns("WhoModified").HeaderText = "Modified By"
         FacilityHistoryDataGridView.Columns("WhoModified").DisplayIndex = 1
         FacilityHistoryDataGridView.Columns("DATMODIFINGDATE").HeaderText = "Date Modified"
@@ -80,9 +84,10 @@ Public Class IAIPEditHeaderData
         FacilityHistoryDataGridView.Columns("STRPLANTDESCRIPTION").HeaderText = "Plant Description"
         FacilityHistoryDataGridView.Columns("STRSICCODE").HeaderText = "SIC Code"
         FacilityHistoryDataGridView.Columns("STRNAICSCODE").HeaderText = "NAICS Code"
-        FacilityHistoryDataGridView.Columns("STRRMPID").HeaderText = "RMP ID"
-        FacilityHistoryDataGridView.Columns("STRCMSMEMBER").HeaderText = "CMS"
 
+        FacilityHistoryDataGridView.Columns("STRRMPID").Visible = False
+        FacilityHistoryDataGridView.Columns("FacilityOwnershipTypeCode").Visible = False
+        FacilityHistoryDataGridView.Columns("STRCMSMEMBER").Visible = False
         FacilityHistoryDataGridView.Columns("STRAIRSNUMBER").Visible = False
         FacilityHistoryDataGridView.Columns("STRAIRPROGRAMCODES").Visible = False
         FacilityHistoryDataGridView.Columns("STRSTATEPROGRAMCODES").Visible = False
@@ -133,6 +138,7 @@ Public Class IAIPEditHeaderData
             NonattainmentStatuses,
             FacilityDescription,
             RmpId,
+            OwnershipGroupBox,
             Comments,
             SaveChangesButton,
             CancelEditButton
@@ -161,6 +167,7 @@ Public Class IAIPEditHeaderData
             NonattainmentStatuses,
             FacilityDescription,
             RmpId,
+            OwnershipGroupBox,
             Comments,
             SaveChangesButton,
             CancelEditButton
@@ -210,7 +217,8 @@ Public Class IAIPEditHeaderData
                 AirProgramClassificationsGroupbox,
                 NonattainmentStatuses,
                 FacilityDescription,
-                RmpId
+                RmpId,
+                OwnershipGroupBox
             }
             If UserIsTryingToCloseFacility() Then
                 PreventControls(NonShutdownControls)
@@ -232,12 +240,8 @@ Public Class IAIPEditHeaderData
     End Sub
 
     Private Function UserIsTryingToCloseFacility() As Boolean
-        If OperationalDropDown.SelectedValue = FacilityOperationalStatus.X _
-        AndAlso CurrentFacilityHeaderData.OperationalStatus <> FacilityOperationalStatus.X Then
-            Return True
-        Else
-            Return False
-        End If
+        Return CType(OperationalDropDown.SelectedValue, FacilityOperationalStatus) = FacilityOperationalStatus.X AndAlso
+            CurrentFacilityHeaderData.OperationalStatus <> FacilityOperationalStatus.X
     End Function
 
 #End Region
@@ -274,33 +278,37 @@ Public Class IAIPEditHeaderData
                 StartUpDate.Checked = False
             Else
                 StartUpDate.Checked = True
-                StartUpDate.Value = .StartupDate
+                StartUpDate.Value = .StartupDate.Value
             End If
             If .ShutdownDate Is Nothing Then
                 ShutdownDate.Checked = False
             Else
                 ShutdownDate.Checked = True
-                ShutdownDate.Value = .ShutdownDate
+                ShutdownDate.Value = .ShutdownDate.Value
             End If
             NaicsCode.Text = .Naics
 
             ApcAcid.Checked = Convert.ToBoolean(.AirPrograms And AirProgram.AcidPrecipitation)
-            ApcCfc.Checked = (.AirPrograms And AirProgram.CfcTracking)
-            ApcFederalSip.Checked = (.AirPrograms And AirProgram.FederalSIP)
-            ApcFesop.Checked = (.AirPrograms And AirProgram.FESOP)
-            ApcMact.Checked = (.AirPrograms And AirProgram.MACT)
-            ApcNativeAmerican.Checked = (.AirPrograms And AirProgram.NativeAmerican)
-            ApcNeshap.Checked = (.AirPrograms And AirProgram.NESHAP)
-            ApcNonfederalSip.Checked = (.AirPrograms And AirProgram.NonFederalSIP)
-            ApcNsps.Checked = (.AirPrograms And AirProgram.NSPS)
-            ApcNsr.Checked = (.AirPrograms And AirProgram.NSR)
-            ApcPsd.Checked = (.AirPrograms And AirProgram.PSD)
-            ApcRmp.Checked = (.AirPrograms And AirProgram.RMP)
-            ApcSip.Checked = (.AirPrograms And AirProgram.SIP)
-            ApcTitleV.Checked = (.AirPrograms And AirProgram.TitleV)
+            ApcCfc.Checked = CBool(.AirPrograms And AirProgram.CfcTracking)
+            ApcFederalSip.Checked = CBool(.AirPrograms And AirProgram.FederalSIP)
+            ApcFesop.Checked = CBool(.AirPrograms And AirProgram.FESOP)
+            ApcMact.Checked = CBool(.AirPrograms And AirProgram.MACT)
+            ApcNativeAmerican.Checked = CBool(.AirPrograms And AirProgram.NativeAmerican)
+            ApcNeshap.Checked = CBool(.AirPrograms And AirProgram.NESHAP)
+            ApcNonfederalSip.Checked = CBool(.AirPrograms And AirProgram.NonFederalSIP)
+            ApcNsps.Checked = CBool(.AirPrograms And AirProgram.NSPS)
+            ApcNsr.Checked = CBool(.AirPrograms And AirProgram.NSR)
+            ApcPsd.Checked = CBool(.AirPrograms And AirProgram.PSD)
+            ApcRmp.Checked = CBool(.AirPrograms And AirProgram.RMP)
+            ApcSip.Checked = CBool(.AirPrograms And AirProgram.SIP)
+            ApcTitleV.Checked = CBool(.AirPrograms And AirProgram.TitleV)
 
-            NsrMajor.Checked = .AirProgramClassifications And AirProgramClassification.NsrMajor
-            HapMajor.Checked = .AirProgramClassifications And AirProgramClassification.HapMajor
+            NsrMajor.Checked = CBool(.AirProgramClassifications And AirProgramClassification.NsrMajor)
+            HapMajor.Checked = CBool(.AirProgramClassifications And AirProgramClassification.HapMajor)
+
+            ' Currently we are only tracking federally-owned facilities. Eventually 
+            ' this could be expanded to use a drop-down with all ownership types.
+            FederallyOwned.Checked = CBool(.OwnershipTypeCode = FacilityHeaderData.FederallyOwnedTypeCode)
 
             OneHourOzoneDropDown.SelectedValue = .OneHourOzoneNonAttainment
             EightHourOzoneDropDown.SelectedValue = .EightHourOzoneNonAttainment
@@ -314,7 +322,7 @@ Public Class IAIPEditHeaderData
                 ModifiedDescDisplay.Text = "Editing current facility data"
             Else
                 ModifiedDescDisplay.Text = "Modification by " & .WhoModified & " on " & String.Format(DateStringFormat, .DateDataModified)
-                If Not (String.IsNullOrEmpty(.WhereModified)) AndAlso .WhereModified <> HeaderDataModificationLocation.Unspecified Then
+                If .WhereModified <> HeaderDataModificationLocation.Unspecified Then
                     ModifiedDescDisplay.Text = ModifiedDescDisplay.Text & " from " & .WhereModified.GetDescription
                 End If
                 ModifiedDescDisplay.Text = ModifiedDescDisplay.Text & "."
@@ -331,8 +339,8 @@ Public Class IAIPEditHeaderData
         Dim facilityHeaderData As New FacilityHeaderData(AirsNumber)
 
         With facilityHeaderData
-            .Classification = ClassificationDropDown.SelectedValue
-            .OperationalStatus = OperationalDropDown.SelectedValue
+            .Classification = CType(ClassificationDropDown.SelectedValue, FacilityClassification)
+            .OperationalStatus = CType(OperationalDropDown.SelectedValue, FacilityOperationalStatus)
             .SicCode = SicCode.Text
             If StartUpDate.Checked Then
                 .StartupDate = StartUpDate.Value
@@ -362,13 +370,16 @@ Public Class IAIPEditHeaderData
             If ApcSip.Checked Then .AirPrograms = .AirPrograms Or AirProgram.SIP
             If ApcTitleV.Checked Then .AirPrograms = .AirPrograms Or AirProgram.TitleV
 
-            .AirProgramClassifications = Facilities.AirProgramClassification.None
+            .AirProgramClassifications = AirProgramClassification.None
             If NsrMajor.Checked Then .AirProgramClassifications = .AirProgramClassifications Or AirProgramClassification.NsrMajor
             If HapMajor.Checked Then .AirProgramClassifications = .AirProgramClassifications Or AirProgramClassification.HapMajor
 
-            .OneHourOzoneNonAttainment = OneHourOzoneDropDown.SelectedValue
-            .EightHourOzoneNonAttainment = EightHourOzoneDropDown.SelectedValue
-            .PMFineNonAttainmentState = PmFineDropDown.SelectedValue
+            ' Currently we are only tracking federally-owned facilities, represented by this OwnershipTypeCode
+            .OwnershipTypeCode = If(FederallyOwned.Checked, FacilityHeaderData.FederallyOwnedTypeCode, Nothing)
+
+            .OneHourOzoneNonAttainment = CType(OneHourOzoneDropDown.SelectedValue, OneHourOzoneNonattainmentStatus)
+            .EightHourOzoneNonAttainment = CType(EightHourOzoneDropDown.SelectedValue, EightHourOzoneNonattainmentStatus)
+            .PMFineNonAttainmentState = CType(PmFineDropDown.SelectedValue, PMFineNonattainmentStatus)
 
             .FacilityDescription = FacilityDescription.Text
             .RmpId = RmpId.Text
@@ -386,10 +397,10 @@ Public Class IAIPEditHeaderData
                 MessageBox.Show("You do not have permissions to shut down a facility. Please contact your manager.",
                     "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Return False
-            Else
-                If Not ConfirmFacilityShutdown() Then
-                    Return False
-                End If
+            End If
+
+            If Not ConfirmFacilityShutdown() Then
+                Return False
             End If
         End If
 
@@ -421,6 +432,7 @@ Public Class IAIPEditHeaderData
         If facility1.NonattainmentStatusesCode <> facility2.NonattainmentStatusesCode Then Return True
         If facility1.OperationalStatusCode <> facility2.OperationalStatusCode Then Return True
         If facility1.RmpId <> facility2.RmpId Then Return True
+        If facility1.OwnershipTypeCode <> facility2.OwnershipTypeCode Then Return True
         If Not Nullable.Equals(facility1.ShutdownDate, facility2.ShutdownDate) Then Return True
         If facility1.SicCode <> facility2.SicCode Then Return True
         If Not Nullable.Equals(facility1.StartupDate, facility2.StartupDate) Then Return True
@@ -432,7 +444,7 @@ Public Class IAIPEditHeaderData
         Return MessageBox.Show("Are you sure you want to mark this facility as closed/dismantled? " &
                                "This will revoke all existing permits.",
                                "Warning", MessageBoxButtons.YesNo,
-                               MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2)
+                               MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) = DialogResult.Yes
     End Function
 
     Private Function ValidateAllFields(editedFacility As FacilityHeaderData, <Runtime.InteropServices.Out()> ByRef invalidControls As List(Of Control)) As Boolean
@@ -465,12 +477,12 @@ Public Class IAIPEditHeaderData
             invalidControls.Add(PermitRevocationDateLabel)
         End If
 
-        If ClassificationDropDown.SelectedValue = FacilityClassification.Unspecified Then
+        If CType(ClassificationDropDown.SelectedValue, FacilityClassification) = FacilityClassification.Unspecified Then
             valid = False
             invalidControls.Add(ClassificationLabel)
         End If
 
-        If OperationalDropDown.SelectedValue = FacilityOperationalStatus.U Then
+        If CType(OperationalDropDown.SelectedValue, FacilityClassification) = FacilityOperationalStatus.U Then
             valid = False
             invalidControls.Add(OperationalStatusLabel)
         End If
@@ -538,7 +550,7 @@ Public Class IAIPEditHeaderData
             ' Save edited data
             If UserIsTryingToCloseFacility() Then
                 result = DAL.ShutDownFacility(editedFacility.AirsNumber,
-                                              editedFacility.ShutdownDate,
+                                              editedFacility.ShutdownDate.Value,
                                               editedFacility.HeaderUpdateComment,
                                               HeaderDataModificationLocation.HeaderDataEditor)
             Else
@@ -555,8 +567,11 @@ Public Class IAIPEditHeaderData
 
                 ' Add to datagridview
                 Dim currentData As DataRow = DAL.GetFacilityHeaderDataAsDataRow(AirsNumber)
+                currentData.Table.Columns("STRKEY").ReadOnly = False
+                currentData.Item("STRKEY") = Convert.ToInt32(FacilityHeaderDataHistory.AsEnumerable().Max(Function(row) Convert.ToInt32(row("STRKEY")))) + 1
 
                 FacilityHeaderDataHistory.ImportRow(currentData)
+                FacilityHistoryDataGridView.Sort(FacilityHistoryDataGridView.Columns("STRKEY"), ListSortDirection.Descending)
                 FacilityHistoryDataGridView.CurrentCell = FacilityHistoryDataGridView.Rows(0).Cells(2)
 
                 EditData.Checked = False

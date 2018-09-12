@@ -70,10 +70,13 @@ Partial Class IAIPEditHeaderData
         Me.CancelEditButton = New System.Windows.Forms.Button()
         Me.EditData = New System.Windows.Forms.CheckBox()
         Me.AirProgramClassificationsGroupbox = New System.Windows.Forms.GroupBox()
+        Me.OwnershipGroupBox = New System.Windows.Forms.GroupBox()
+        Me.FederallyOwned = New System.Windows.Forms.CheckBox()
         CType(Me.FacilityHistoryDataGridView, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.AirProgramCodes.SuspendLayout()
         Me.NonattainmentStatuses.SuspendLayout()
         Me.AirProgramClassificationsGroupbox.SuspendLayout()
+        Me.OwnershipGroupBox.SuspendLayout()
         Me.SuspendLayout()
         '
         'FacilityDescription
@@ -84,7 +87,7 @@ Partial Class IAIPEditHeaderData
         Me.FacilityDescription.Multiline = True
         Me.FacilityDescription.Name = "FacilityDescription"
         Me.FacilityDescription.Size = New System.Drawing.Size(333, 20)
-        Me.FacilityDescription.TabIndex = 11
+        Me.FacilityDescription.TabIndex = 12
         '
         'FacilityDescriptionLabel
         '
@@ -117,7 +120,7 @@ Partial Class IAIPEditHeaderData
         Me.FacilityHistoryDataGridView.RowHeadersVisible = False
         Me.FacilityHistoryDataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.FacilityHistoryDataGridView.Size = New System.Drawing.Size(612, 165)
-        Me.FacilityHistoryDataGridView.TabIndex = 18
+        Me.FacilityHistoryDataGridView.TabIndex = 17
         '
         'Comments
         '
@@ -127,7 +130,7 @@ Partial Class IAIPEditHeaderData
         Me.Comments.Multiline = True
         Me.Comments.Name = "Comments"
         Me.Comments.Size = New System.Drawing.Size(478, 40)
-        Me.Comments.TabIndex = 13
+        Me.Comments.TabIndex = 14
         '
         'CommentsLabel
         '
@@ -434,7 +437,7 @@ Partial Class IAIPEditHeaderData
         Me.RmpId.Mask = "0000-0000-0000"
         Me.RmpId.Name = "RmpId"
         Me.RmpId.Size = New System.Drawing.Size(85, 20)
-        Me.RmpId.TabIndex = 12
+        Me.RmpId.TabIndex = 13
         Me.RmpId.TextMaskFormat = System.Windows.Forms.MaskFormat.IncludePromptAndLiterals
         '
         'ModifiedDescDisplay
@@ -477,7 +480,7 @@ Partial Class IAIPEditHeaderData
         Me.NonattainmentStatuses.Location = New System.Drawing.Point(414, 120)
         Me.NonattainmentStatuses.Name = "NonattainmentStatuses"
         Me.NonattainmentStatuses.Size = New System.Drawing.Size(186, 145)
-        Me.NonattainmentStatuses.TabIndex = 10
+        Me.NonattainmentStatuses.TabIndex = 11
         Me.NonattainmentStatuses.TabStop = False
         Me.NonattainmentStatuses.Text = "Nonattainment Statuses"
         '
@@ -579,7 +582,7 @@ Partial Class IAIPEditHeaderData
         Me.SaveChangesButton.Name = "SaveChangesButton"
         Me.SaveChangesButton.Padding = New System.Windows.Forms.Padding(3, 0, 0, 0)
         Me.SaveChangesButton.Size = New System.Drawing.Size(108, 23)
-        Me.SaveChangesButton.TabIndex = 14
+        Me.SaveChangesButton.TabIndex = 15
         Me.SaveChangesButton.Text = "     &Save Changes"
         Me.SaveChangesButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         Me.SaveChangesButton.UseVisualStyleBackColor = True
@@ -590,7 +593,7 @@ Partial Class IAIPEditHeaderData
         Me.CancelEditButton.Location = New System.Drawing.Point(404, 353)
         Me.CancelEditButton.Name = "CancelEditButton"
         Me.CancelEditButton.Size = New System.Drawing.Size(76, 23)
-        Me.CancelEditButton.TabIndex = 15
+        Me.CancelEditButton.TabIndex = 16
         Me.CancelEditButton.Text = "&Cancel"
         Me.CancelEditButton.UseVisualStyleBackColor = True
         '
@@ -611,16 +614,38 @@ Partial Class IAIPEditHeaderData
         Me.AirProgramClassificationsGroupbox.Controls.Add(Me.HapMajor)
         Me.AirProgramClassificationsGroupbox.Location = New System.Drawing.Point(264, 120)
         Me.AirProgramClassificationsGroupbox.Name = "AirProgramClassificationsGroupbox"
-        Me.AirProgramClassificationsGroupbox.Size = New System.Drawing.Size(144, 145)
+        Me.AirProgramClassificationsGroupbox.Size = New System.Drawing.Size(144, 70)
         Me.AirProgramClassificationsGroupbox.TabIndex = 9
         Me.AirProgramClassificationsGroupbox.TabStop = False
         Me.AirProgramClassificationsGroupbox.Text = "Air Program Classifications"
+        '
+        'OwnershipGroupBox
+        '
+        Me.OwnershipGroupBox.Controls.Add(Me.FederallyOwned)
+        Me.OwnershipGroupBox.Location = New System.Drawing.Point(264, 196)
+        Me.OwnershipGroupBox.Name = "OwnershipGroupBox"
+        Me.OwnershipGroupBox.Size = New System.Drawing.Size(144, 69)
+        Me.OwnershipGroupBox.TabIndex = 10
+        Me.OwnershipGroupBox.TabStop = False
+        Me.OwnershipGroupBox.Text = "Ownership Type"
+        '
+        'FederallyOwned
+        '
+        Me.FederallyOwned.AutoSize = True
+        Me.FederallyOwned.CheckAlign = System.Drawing.ContentAlignment.TopLeft
+        Me.FederallyOwned.Location = New System.Drawing.Point(5, 19)
+        Me.FederallyOwned.Name = "FederallyOwned"
+        Me.FederallyOwned.Size = New System.Drawing.Size(114, 30)
+        Me.FederallyOwned.TabIndex = 16
+        Me.FederallyOwned.Text = "Federal Facility " & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "(U.S. Government)"
+        Me.FederallyOwned.UseVisualStyleBackColor = True
         '
         'IAIPEditHeaderData
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(612, 560)
+        Me.Controls.Add(Me.OwnershipGroupBox)
         Me.Controls.Add(Me.AirProgramClassificationsGroupbox)
         Me.Controls.Add(Me.EditData)
         Me.Controls.Add(Me.CancelEditButton)
@@ -649,7 +674,6 @@ Partial Class IAIPEditHeaderData
         Me.Controls.Add(Me.FacilityNameDisplay)
         Me.Controls.Add(Me.AirsNumberDisplay)
         Me.Controls.Add(Me.SaveChangesButton)
-        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow
         Me.KeyPreview = True
         Me.MaximizeBox = False
         Me.MinimizeBox = False
@@ -663,6 +687,8 @@ Partial Class IAIPEditHeaderData
         Me.NonattainmentStatuses.PerformLayout()
         Me.AirProgramClassificationsGroupbox.ResumeLayout(False)
         Me.AirProgramClassificationsGroupbox.PerformLayout()
+        Me.OwnershipGroupBox.ResumeLayout(False)
+        Me.OwnershipGroupBox.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -717,4 +743,6 @@ Partial Class IAIPEditHeaderData
     Friend WithEvents CancelEditButton As System.Windows.Forms.Button
     Friend WithEvents EditData As System.Windows.Forms.CheckBox
     Friend WithEvents AirProgramClassificationsGroupbox As System.Windows.Forms.GroupBox
+    Friend WithEvents OwnershipGroupBox As GroupBox
+    Friend WithEvents FederallyOwned As CheckBox
 End Class

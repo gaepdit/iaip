@@ -23,7 +23,7 @@ Partial Class PASPDepositsAmendments
         Me.txtCreditCardNo = New System.Windows.Forms.TextBox()
         Me.Label56 = New System.Windows.Forms.Label()
         Me.txtInvoiceForDeposit = New System.Windows.Forms.TextBox()
-        Me.mtbFeeYear2 = New System.Windows.Forms.MaskedTextBox()
+        Me.btnClearForm = New System.Windows.Forms.Button()
         Me.dtpBatchDepositDateField = New System.Windows.Forms.DateTimePicker()
         Me.Label37 = New System.Windows.Forms.Label()
         Me.txtCheckNumberField = New System.Windows.Forms.TextBox()
@@ -50,16 +50,15 @@ Partial Class PASPDepositsAmendments
         Me.Label47 = New System.Windows.Forms.Label()
         Me.dgvInvoices = New System.Windows.Forms.DataGridView()
         Me.pnlInvoiceSearch = New System.Windows.Forms.Panel()
+        Me.cbYear = New System.Windows.Forms.ComboBox()
         Me.btnViewInvoices = New System.Windows.Forms.Button()
         Me.btnSearchForInvoice = New System.Windows.Forms.Button()
         Me.btnSearchForCheck = New System.Windows.Forms.Button()
         Me.txtCountInvoices = New System.Windows.Forms.Label()
-        Me.btnClearForm = New System.Windows.Forms.Button()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.txtSearchInvoice = New System.Windows.Forms.TextBox()
         Me.Label55 = New System.Windows.Forms.Label()
         Me.Label48 = New System.Windows.Forms.Label()
-        Me.mtbFeeYear = New System.Windows.Forms.MaskedTextBox()
         Me.Label41 = New System.Windows.Forms.Label()
         Me.Label42 = New System.Windows.Forms.Label()
         Me.Label43 = New System.Windows.Forms.Label()
@@ -73,6 +72,7 @@ Partial Class PASPDepositsAmendments
         Me.btnSearchDeposits = New System.Windows.Forms.Button()
         Me.dgvDeposits = New System.Windows.Forms.DataGridView()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
+        Me.cbYear2 = New System.Windows.Forms.ComboBox()
         Me.pnlDepositsEntry.SuspendLayout()
         CType(Me.dgvInvoices, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.pnlInvoiceSearch.SuspendLayout()
@@ -87,10 +87,10 @@ Partial Class PASPDepositsAmendments
         'pnlDepositsEntry
         '
         Me.pnlDepositsEntry.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.pnlDepositsEntry.Controls.Add(Me.cbYear2)
         Me.pnlDepositsEntry.Controls.Add(Me.txtCreditCardNo)
         Me.pnlDepositsEntry.Controls.Add(Me.Label56)
         Me.pnlDepositsEntry.Controls.Add(Me.txtInvoiceForDeposit)
-        Me.pnlDepositsEntry.Controls.Add(Me.mtbFeeYear2)
         Me.pnlDepositsEntry.Controls.Add(Me.btnClearForm)
         Me.pnlDepositsEntry.Controls.Add(Me.dtpBatchDepositDateField)
         Me.pnlDepositsEntry.Controls.Add(Me.Label37)
@@ -148,21 +148,22 @@ Partial Class PASPDepositsAmendments
         Me.txtInvoiceForDeposit.TabIndex = 7
         Me.txtInvoiceForDeposit.TabStop = False
         '
-        'mtbFeeYear2
+        'btnClearForm
         '
-        Me.mtbFeeYear2.Location = New System.Drawing.Point(74, 62)
-        Me.mtbFeeYear2.Mask = "0000"
-        Me.mtbFeeYear2.Name = "mtbFeeYear2"
-        Me.mtbFeeYear2.Size = New System.Drawing.Size(37, 20)
-        Me.mtbFeeYear2.TabIndex = 0
-        Me.mtbFeeYear2.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals
+        Me.btnClearForm.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.btnClearForm.Location = New System.Drawing.Point(709, 11)
+        Me.btnClearForm.Name = "btnClearForm"
+        Me.btnClearForm.Size = New System.Drawing.Size(90, 31)
+        Me.btnClearForm.TabIndex = 3
+        Me.btnClearForm.Text = "Clear All"
+        Me.btnClearForm.UseVisualStyleBackColor = True
         '
         'dtpBatchDepositDateField
         '
         Me.dtpBatchDepositDateField.CustomFormat = "dd-MMM-yyyy"
         Me.dtpBatchDepositDateField.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.dtpBatchDepositDateField.Format = System.Windows.Forms.DateTimePickerFormat.Custom
-        Me.dtpBatchDepositDateField.Location = New System.Drawing.Point(562, 60)
+        Me.dtpBatchDepositDateField.Location = New System.Drawing.Point(586, 60)
         Me.dtpBatchDepositDateField.Name = "dtpBatchDepositDateField"
         Me.dtpBatchDepositDateField.Size = New System.Drawing.Size(114, 22)
         Me.dtpBatchDepositDateField.TabIndex = 3
@@ -171,7 +172,7 @@ Partial Class PASPDepositsAmendments
         'Label37
         '
         Me.Label37.AutoSize = True
-        Me.Label37.Location = New System.Drawing.Point(456, 65)
+        Me.Label37.Location = New System.Drawing.Point(480, 65)
         Me.Label37.Name = "Label37"
         Me.Label37.Size = New System.Drawing.Size(100, 13)
         Me.Label37.TabIndex = 58
@@ -186,14 +187,14 @@ Partial Class PASPDepositsAmendments
         '
         'txtBatchNoField
         '
-        Me.txtBatchNoField.Location = New System.Drawing.Point(344, 62)
+        Me.txtBatchNoField.Location = New System.Drawing.Point(368, 62)
         Me.txtBatchNoField.Name = "txtBatchNoField"
         Me.txtBatchNoField.Size = New System.Drawing.Size(100, 20)
         Me.txtBatchNoField.TabIndex = 2
         '
         'txtDepositNumberField
         '
-        Me.txtDepositNumberField.Location = New System.Drawing.Point(181, 62)
+        Me.txtDepositNumberField.Location = New System.Drawing.Point(205, 62)
         Me.txtDepositNumberField.MaxLength = 20
         Me.txtDepositNumberField.Name = "txtDepositNumberField"
         Me.txtDepositNumberField.Size = New System.Drawing.Size(100, 20)
@@ -203,7 +204,7 @@ Partial Class PASPDepositsAmendments
         '
         Me.lblBatchNo.AutoSize = True
         Me.lblBatchNo.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblBatchNo.Location = New System.Drawing.Point(293, 65)
+        Me.lblBatchNo.Location = New System.Drawing.Point(317, 65)
         Me.lblBatchNo.Name = "lblBatchNo"
         Me.lblBatchNo.Size = New System.Drawing.Size(45, 13)
         Me.lblBatchNo.TabIndex = 50
@@ -223,7 +224,7 @@ Partial Class PASPDepositsAmendments
         '
         Me.lblDepositNo.AutoSize = True
         Me.lblDepositNo.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblDepositNo.Location = New System.Drawing.Point(122, 65)
+        Me.lblDepositNo.Location = New System.Drawing.Point(146, 65)
         Me.lblDepositNo.Name = "lblDepositNo"
         Me.lblDepositNo.Size = New System.Drawing.Size(53, 13)
         Me.lblDepositNo.TabIndex = 48
@@ -399,6 +400,7 @@ Partial Class PASPDepositsAmendments
         '
         'pnlInvoiceSearch
         '
+        Me.pnlInvoiceSearch.Controls.Add(Me.cbYear)
         Me.pnlInvoiceSearch.Controls.Add(Me.btnViewInvoices)
         Me.pnlInvoiceSearch.Controls.Add(Me.btnSearchForInvoice)
         Me.pnlInvoiceSearch.Controls.Add(Me.btnSearchForCheck)
@@ -407,7 +409,6 @@ Partial Class PASPDepositsAmendments
         Me.pnlInvoiceSearch.Controls.Add(Me.txtSearchInvoice)
         Me.pnlInvoiceSearch.Controls.Add(Me.Label55)
         Me.pnlInvoiceSearch.Controls.Add(Me.Label48)
-        Me.pnlInvoiceSearch.Controls.Add(Me.mtbFeeYear)
         Me.pnlInvoiceSearch.Controls.Add(Me.Label41)
         Me.pnlInvoiceSearch.Controls.Add(Me.Label42)
         Me.pnlInvoiceSearch.Controls.Add(Me.Label43)
@@ -419,10 +420,19 @@ Partial Class PASPDepositsAmendments
         Me.pnlInvoiceSearch.Size = New System.Drawing.Size(811, 71)
         Me.pnlInvoiceSearch.TabIndex = 0
         '
+        'cbYear
+        '
+        Me.cbYear.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cbYear.FormattingEnabled = True
+        Me.cbYear.Location = New System.Drawing.Point(278, 12)
+        Me.cbYear.Name = "cbYear"
+        Me.cbYear.Size = New System.Drawing.Size(65, 21)
+        Me.cbYear.TabIndex = 1
+        '
         'btnViewInvoices
         '
         Me.btnViewInvoices.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.btnViewInvoices.Location = New System.Drawing.Point(320, 10)
+        Me.btnViewInvoices.Location = New System.Drawing.Point(354, 10)
         Me.btnViewInvoices.Name = "btnViewInvoices"
         Me.btnViewInvoices.Size = New System.Drawing.Size(142, 23)
         Me.btnViewInvoices.TabIndex = 2
@@ -458,16 +468,6 @@ Partial Class PASPDepositsAmendments
         Me.txtCountInvoices.Size = New System.Drawing.Size(13, 13)
         Me.txtCountInvoices.TabIndex = 61
         Me.txtCountInvoices.Text = "0"
-        '
-        'btnClearForm
-        '
-        Me.btnClearForm.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.btnClearForm.Location = New System.Drawing.Point(709, 11)
-        Me.btnClearForm.Name = "btnClearForm"
-        Me.btnClearForm.Size = New System.Drawing.Size(90, 31)
-        Me.btnClearForm.TabIndex = 3
-        Me.btnClearForm.Text = "Clear All"
-        Me.btnClearForm.UseVisualStyleBackColor = True
         '
         'Label1
         '
@@ -507,16 +507,6 @@ Partial Class PASPDepositsAmendments
         Me.Label48.Size = New System.Drawing.Size(38, 13)
         Me.Label48.TabIndex = 54
         Me.Label48.Text = "Count:"
-        '
-        'mtbFeeYear
-        '
-        Me.mtbFeeYear.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.mtbFeeYear.Location = New System.Drawing.Point(278, 12)
-        Me.mtbFeeYear.Mask = "0000"
-        Me.mtbFeeYear.Name = "mtbFeeYear"
-        Me.mtbFeeYear.Size = New System.Drawing.Size(36, 20)
-        Me.mtbFeeYear.TabIndex = 1
-        Me.mtbFeeYear.TextMaskFormat = System.Windows.Forms.MaskFormat.ExcludePromptAndLiterals
         '
         'Label41
         '
@@ -671,6 +661,15 @@ Partial Class PASPDepositsAmendments
         Me.SplitContainer1.SplitterDistance = 484
         Me.SplitContainer1.TabIndex = 35
         '
+        'cbYear2
+        '
+        Me.cbYear2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cbYear2.FormattingEnabled = True
+        Me.cbYear2.Location = New System.Drawing.Point(74, 62)
+        Me.cbYear2.Name = "cbYear2"
+        Me.cbYear2.Size = New System.Drawing.Size(65, 21)
+        Me.cbYear2.TabIndex = 0
+        '
         'PASPDepositsAmendments
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -698,7 +697,6 @@ Partial Class PASPDepositsAmendments
     Friend WithEvents dgvInvoices As System.Windows.Forms.DataGridView
     Friend WithEvents pnlInvoiceSearch As System.Windows.Forms.Panel
     Friend WithEvents Label48 As System.Windows.Forms.Label
-    Friend WithEvents mtbFeeYear As System.Windows.Forms.MaskedTextBox
     Friend WithEvents Label41 As System.Windows.Forms.Label
     Friend WithEvents Label42 As System.Windows.Forms.Label
     Friend WithEvents Label43 As System.Windows.Forms.Label
@@ -730,7 +728,6 @@ Partial Class PASPDepositsAmendments
     Friend WithEvents txtCheckNumberField As System.Windows.Forms.TextBox
     Friend WithEvents dtpBatchDepositDateField As System.Windows.Forms.DateTimePicker
     Friend WithEvents Label37 As System.Windows.Forms.Label
-    Friend WithEvents mtbFeeYear2 As System.Windows.Forms.MaskedTextBox
     Friend WithEvents Label55 As System.Windows.Forms.Label
     Friend WithEvents txtInvoiceForDeposit As System.Windows.Forms.TextBox
     Friend WithEvents txtCreditCardNo As System.Windows.Forms.TextBox
@@ -749,4 +746,6 @@ Partial Class PASPDepositsAmendments
     Friend WithEvents btnSearchForInvoice As Button
     Friend WithEvents btnViewInvoices As Button
     Friend WithEvents btnSearchDeposits As Button
+    Friend WithEvents cbYear As ComboBox
+    Friend WithEvents cbYear2 As ComboBox
 End Class

@@ -1,4 +1,5 @@
-﻿Imports System.ComponentModel
+﻿Imports System.Collections.Generic
+Imports System.ComponentModel
 
 Namespace Apb.Facilities
     Public Module FacilityEnums
@@ -19,7 +20,7 @@ Namespace Apb.Facilities
             <Description("Seasonal Operation")> I
         End Enum
 
-        Public FacilityOperationalStatusDescriptions As New Generic.Dictionary(Of FacilityOperationalStatus, String) From {
+        Public FacilityOperationalStatusDescriptions As New Dictionary(Of FacilityOperationalStatus, String) From {
             {FacilityOperationalStatus.U, "Unspecified"},
             {FacilityOperationalStatus.O, "Operational"},
             {FacilityOperationalStatus.P, "Planned"},
@@ -35,7 +36,7 @@ Namespace Apb.Facilities
             PS
             TS
         End Enum
-        Public EisSiteStatusCodeDescriptions As New Generic.Dictionary(Of EisSiteStatus, String) From {
+        Public EisSiteStatusCodeDescriptions As New Dictionary(Of EisSiteStatus, String) From {
             {EisSiteStatus.UNK, "Unknown"},
             {EisSiteStatus.OP, "Operational"},
             {EisSiteStatus.PS, "Permanently shut down"},
@@ -54,7 +55,7 @@ Namespace Apb.Facilities
             <Description("Permit by rule")> PR
             <Description("Unclassified")> C
         End Enum
-        Public FacilityClassificationDescriptions As New Generic.Dictionary(Of FacilityClassification, String) From {
+        Public FacilityClassificationDescriptions As New Dictionary(Of FacilityClassification, String) From {
             {FacilityClassification.A, "Major source"},
             {FacilityClassification.B, "Minor source"},
             {FacilityClassification.SM, "Synthetic minor"},

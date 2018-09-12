@@ -2,6 +2,7 @@
 Imports System.ComponentModel
 Imports System.Reflection
 Imports System.Runtime.CompilerServices
+Imports System.Text.RegularExpressions
 
 Module Extensions
 
@@ -334,6 +335,15 @@ Module Extensions
             arr(0) = item
         End If
     End Sub
+
+#End Region
+
+#Region " Strings "
+
+    <Extension>
+    Public Function LineCount(str As String) As Integer
+        Return Regex.Matches(str, Environment.NewLine).Count() + 1
+    End Function
 
 #End Region
 

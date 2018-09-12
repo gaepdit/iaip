@@ -239,7 +239,7 @@ Public Class PASPFeeManagement
     End Sub
 
     Private Sub LoadFeeYears()
-        Dim allFeeYears As List(Of String) = DAL.GetAllFeeYears()
+        Dim allFeeYears As List(Of Integer) = DAL.GetAllFeeYears()
         cboNSPSExemptionYear.DataSource = allFeeYears
         cboAvailableFeeYears.DataSource = allFeeYears
     End Sub
